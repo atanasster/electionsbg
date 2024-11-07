@@ -7,8 +7,11 @@ export const RegionMap: React.FC<
     path: d3.GeoPath;
     name: string;
     feature: RegionFeature;
+    onMouseEnter?: (e: React.MouseEvent<SVGPathElement, MouseEvent>) => void;
+    onMouseMove?: (e: React.MouseEvent<SVGPathElement, MouseEvent>) => void;
+    onMouseLeave: () => void;
   }>
-> = ({ path, name, feature }) => {
+> = ({ path, name, feature, onMouseEnter, onMouseMove, onMouseLeave }) => {
   const [active, setActive] = useState<boolean>(false);
   const { setCode } = useContext(RegionContext);
   return (
@@ -19,9 +22,16 @@ export const RegionMap: React.FC<
         strokeWidth={active ? 2.5 : 1}
         id={name}
         className="path"
-        onMouseEnter={() => setActive(true)}
+        onMouseEnter={(e) => {
+          setActive(true);
+          onMouseEnter && onMouseEnter(e);
+        }}
+        onMouseMove={(e) => {
+          onMouseMove && onMouseMove(e);
+        }}
         onMouseLeave={() => {
           setActive(false);
+          onMouseLeave && onMouseLeave();
           setCode();
         }}
         // eslint-disable-next-line @typescript-eslint/no-explicit-any
