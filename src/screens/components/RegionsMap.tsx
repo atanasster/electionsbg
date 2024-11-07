@@ -1,23 +1,16 @@
 import * as d3 from "d3";
+import { useNavigate, createSearchParams } from "react-router-dom";
+import { useTooltip } from "@/ux/useTooltip";
 import { Regions } from "../data/json_types";
 import { RegionMap } from "./RegionMap";
 import { getDataProjection } from "../utils/d3_utils";
-import { useState } from "react";
 
 export const RegionsMap: React.FC<
   React.PropsWithChildren<{ regions: Regions; size: [number, number] }>
 > = ({ regions, size }) => {
-  const [tooltip, setTooltip] = useState<{
-    visible: boolean;
-    x: number;
-    y: number;
-    content: string;
-  }>({
-    visible: false,
-    x: 0,
-    y: 0,
-    content: "",
-  });
+  const navigate = useNavigate();
+  const { onMouseEnter, onMouseMove, onMouseLeave, tooltip } = useTooltip();
+
   const path = getDataProjection(regions as d3.GeoPermissibleObjects, size);
   const provincesList = regions.features.map((feature) => {
     const name = feature.properties.nuts3;
@@ -28,22 +21,21 @@ export const RegionsMap: React.FC<
         name={name}
         feature={feature}
         onMouseEnter={(e) => {
-          setTooltip({
-            visible: true,
-            x: e.clientX,
-            y: e.clientY,
-            content: name,
-          });
+          onMouseEnter(e, name);
         }}
         onMouseMove={(e) => {
-          setTooltip((prev) => ({
-            ...prev,
-            x: e.clientX,
-            y: e.clientY,
-          }));
+          onMouseMove(e);
         }}
         onMouseLeave={() => {
-          setTooltip({ visible: false, x: 0, y: 0, content: "" });
+          onMouseLeave();
+        }}
+        onClick={() => {
+          navigate({
+            pathname: "/municipality",
+            search: createSearchParams({
+              region: name,
+            }).toString(),
+          });
         }}
       />
     );
@@ -54,14 +46,7 @@ export const RegionsMap: React.FC<
       <svg width={size[0]} height={size[1]}>
         <g>{provincesList}</g>
       </svg>
-      {tooltip.visible && (
-        <div
-          className="tooltip absolute bg-white border border-black p-2"
-          style={{ left: `${tooltip.x + 5}px`, top: `${tooltip.y + 50}px` }}
-        >
-          {tooltip.content}
-        </div>
-      )}
+      {tooltip}
     </div>
   );
 };
