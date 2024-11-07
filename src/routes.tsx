@@ -1,5 +1,6 @@
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { Dashboard } from "@/screens/Dashboard";
+import { RegionsScreen } from "@/screens/Regions";
+import { MunicipalitiesScreen } from "@/screens/Municipalities";
 import { NotFound } from "@/screens/NotFound";
 import { Layout } from "./layout/Layout";
 import { FC, PropsWithChildren } from "react";
@@ -16,7 +17,15 @@ export const AuthRoutes = () => {
           index
           element={
             <AuthorizedRoute>
-              <Dashboard />
+              <RegionsScreen />
+            </AuthorizedRoute>
+          }
+        />
+        <Route
+          path="municipality"
+          element={
+            <AuthorizedRoute>
+              <MunicipalitiesScreen />
             </AuthorizedRoute>
           }
         />

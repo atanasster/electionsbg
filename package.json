@@ -10,16 +10,18 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "leaflet": "^1.9.4",
     "react": "^18.3.1",
     "react-d3-library": "^1.1.8",
     "react-dom": "^18.3.1",
+    "react-leaflet": "^4.2.1",
     "react-router-dom": "^6.27.0",
-    "react-toastify": "^10.0.6",
     "react-uuid": "^2.0.0"
   },
   "devDependencies": {
     "@eslint/js": "^9.13.0",
     "@types/d3": "^7.4.3",
+    "@types/leaflet": "^1.9.14",
     "@types/react": "^18.3.12",
     "@types/react-dom": "^18.3.1",
     "@vitejs/plugin-react-swc": "^3.5.0",
