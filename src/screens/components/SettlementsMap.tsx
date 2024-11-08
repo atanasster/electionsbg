@@ -8,28 +8,35 @@ import { RegionMap } from "./RegionMap";
 import { Link } from "@/ux/Link";
 import { getDataProjection } from "../utils/d3_utils";
 import { useTooltip } from "@/ux/useTooltip";
+import {
+  useSettlementsInfo,
+  RegionInfo,
+  MunicipalityInfo,
+} from "@/data/SettlementsContext";
 
 export const SettlementsMap: React.FC<
   React.PropsWithChildren<{
     settlements: Settlements;
-    settlement: string;
-    region: string;
+    municipality: MunicipalityInfo;
+    region: RegionInfo;
     size: [number, number];
   }>
-> = ({ settlements: data, region, settlement, size }) => {
+> = ({ settlements: data, region, municipality, size }) => {
   const { onMouseEnter, onMouseMove, onMouseLeave, tooltip } = useTooltip();
   const navigate = useNavigate();
+  const { findSettlement } = useSettlementsInfo();
+
   const settlements = useMemo(() => {
     return {
       ...data,
       features: data.features.filter((feature) => {
         return (
-          feature.properties.nuts3 === region &&
-          feature.properties.nuts4 === settlement
+          feature.properties.nuts3 === region.oblast &&
+          feature.properties.nuts4 === municipality.obshtina
         );
       }),
     };
-  }, [data, region, settlement]);
+  }, [data, region, municipality]);
 
   const path = getDataProjection(settlements as d3.GeoPermissibleObjects, size);
   const municipalitiesList = settlements.features.map((feature) => {
@@ -45,13 +52,38 @@ export const SettlementsMap: React.FC<
         name={name}
         feature={feature}
         onMouseEnter={(e) => {
-          onMouseEnter(e, `${region}-${settlement}-${name}`);
+          const info = findSettlement(name);
+          onMouseEnter(
+            e,
+            info ? (
+              <div className="text-left">
+                <div>{`${info.t_v_m} ${info.name}/${info.name_en}`}</div>
+                <div>{`region:${info.oblast} - ${info.oblast_name}`}</div>
+                <div>{`municipality:${info.obshtina} - ${info.obshtina_name}`}</div>
+                <div>{`ekatte:${info.ekatte}`}</div>
+                <div>{`altitude:${info.text}`}</div>
+                <div>{`NUM:${info.num}`}</div>
+              </div>
+            ) : (
+              `${region}-${name}`
+            ),
+          );
         }}
         onMouseMove={(e) => {
           onMouseMove(e);
         }}
         onMouseLeave={() => {
           onMouseLeave();
+        }}
+        onClick={() => {
+          navigate({
+            pathname: "/sections",
+            search: createSearchParams({
+              region: region.num,
+              municipality: municipality.num,
+              settlement: name,
+            }).toString(),
+          });
         }}
       />
     );
@@ -65,12 +97,12 @@ export const SettlementsMap: React.FC<
           navigate({
             pathname: "/municipality",
             search: createSearchParams({
-              region,
+              region: region.oblast,
             }).toString(),
           });
         }}
       >
-        {`Back to region ${region}`}
+        {`Back to region ${region.name}`}
       </Link>
       <svg
         className="municipalities border-slate-200"

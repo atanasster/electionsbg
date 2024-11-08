@@ -6,6 +6,7 @@ import { SettlementsScreen } from "@/screens/Settlements";
 
 import { NotFound } from "@/screens/NotFound";
 import { Layout } from "./layout/Layout";
+import { SectionsScreen } from "./screens/Sections";
 
 const AuthorizedRoute: FC<PropsWithChildren> = ({ children }) => {
   return <Layout>{children}</Layout>;
@@ -36,6 +37,14 @@ export const AuthRoutes = () => {
           element={
             <AuthorizedRoute>
               <SettlementsScreen />
+            </AuthorizedRoute>
+          }
+        />
+        <Route
+          path="sections"
+          element={
+            <AuthorizedRoute>
+              <SectionsScreen />
             </AuthorizedRoute>
           }
         />

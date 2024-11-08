@@ -4,11 +4,13 @@ import { useTooltip } from "@/ux/useTooltip";
 import { Regions } from "../data/json_types";
 import { RegionMap } from "./RegionMap";
 import { getDataProjection } from "../utils/d3_utils";
+import { useSettlementsInfo } from "@/data/SettlementsContext";
 
 export const RegionsMap: React.FC<
   React.PropsWithChildren<{ regions: Regions; size: [number, number] }>
 > = ({ regions, size }) => {
   const navigate = useNavigate();
+  const { findRegion } = useSettlementsInfo();
   const { onMouseEnter, onMouseMove, onMouseLeave, tooltip } = useTooltip();
 
   const path = getDataProjection(regions as d3.GeoPermissibleObjects, size);
@@ -21,7 +23,21 @@ export const RegionsMap: React.FC<
         name={name}
         feature={feature}
         onMouseEnter={(e) => {
-          onMouseEnter(e, name);
+          const info = findRegion(name);
+          onMouseEnter(
+            e,
+            info ? (
+              <div className="text-left">
+                <div>{`${info.name}/${info.name_en}`}</div>
+                <div>{`name:${info.full_name_bul}`}</div>
+                <div>{`ekatte:${info.ekatte}`}</div>
+                <div>{`code:${info.nuts3}`}</div>
+                <div>{`num:${info.num}`}</div>
+              </div>
+            ) : (
+              name
+            ),
+          );
         }}
         onMouseMove={(e) => {
           onMouseMove(e);

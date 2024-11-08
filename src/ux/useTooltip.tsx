@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useState, ReactNode } from "react";
 export const useTooltip = () => {
   const [tooltip, setTooltip] = useState<{
     visible: boolean;
     x: number;
     y: number;
-    content: string;
+    content: ReactNode;
   }>({
     visible: false,
     x: 0,
@@ -13,7 +13,7 @@ export const useTooltip = () => {
   });
   const onMouseEnter = (
     e: React.MouseEvent<SVGPathElement, MouseEvent>,
-    content: string,
+    content: ReactNode,
   ) => {
     setTooltip({
       visible: true,

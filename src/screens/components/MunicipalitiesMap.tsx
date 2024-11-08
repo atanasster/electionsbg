@@ -7,6 +7,7 @@ import { RegionMap } from "./RegionMap";
 import { Link } from "@/ux/Link";
 import { getDataProjection } from "../utils/d3_utils";
 import { useTooltip } from "@/ux/useTooltip";
+import { useSettlementsInfo } from "@/data/SettlementsContext";
 
 export const MunicipalitiesMap: React.FC<
   React.PropsWithChildren<{
@@ -17,6 +18,7 @@ export const MunicipalitiesMap: React.FC<
 > = ({ municipalities: data, region, size }) => {
   const { onMouseEnter, onMouseMove, onMouseLeave, tooltip } = useTooltip();
   const navigate = useNavigate();
+  const { findMunicipality } = useSettlementsInfo();
   const municipalities = useMemo(() => {
     return {
       ...data,
@@ -43,12 +45,25 @@ export const MunicipalitiesMap: React.FC<
             pathname: "/settlement",
             search: createSearchParams({
               region,
-              settlement: name,
+              municipality: name,
             }).toString(),
           });
         }}
         onMouseEnter={(e) => {
-          onMouseEnter(e, `${region}-${name}`);
+          const info = findMunicipality(name);
+          onMouseEnter(
+            e,
+            info ? (
+              <div className="text-left">
+                <div>{`${info.name}/${info.name_en}`}</div>
+                <div>{`name:${info.full_name_bul}`}</div>
+                <div>{`ekatte:${info.ekatte}`}</div>
+                <div>{`num:${info.num}`}</div>
+              </div>
+            ) : (
+              `${region}-${name}`
+            ),
+          );
         }}
         onMouseMove={(e) => {
           onMouseMove(e);
