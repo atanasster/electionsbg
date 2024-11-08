@@ -13,30 +13,43 @@ type SectionInfo = {
   m_3: number;
 };
 
+type PartyInfo = {
+  number: number;
+  party: string;
+};
 type ElectionsContextType = {
   sections: SectionInfo[];
+  parties: PartyInfo[];
 };
 
 export const ElectionsContext = createContext<ElectionsContextType>({
   sections: [],
+  parties: [],
 });
 
 export const ElectionsContextProvider: React.FC<React.PropsWithChildren> = ({
   children,
 }) => {
   const [sections, setSections] = useState<SectionInfo[]>([]);
+  const [parties, setParties] = useState<PartyInfo[]>([]);
 
   useEffect(() => {
-    fetch("/election_sections.json")
+    fetch("/2024_10/election_sections.json")
       .then((response) => response.json())
       .then((data) => {
         setSections(data);
+      });
+    fetch("/2024_10/parties.json")
+      .then((response) => response.json())
+      .then((data) => {
+        setParties(data);
       });
   }, []);
   return (
     <ElectionsContext.Provider
       value={{
         sections,
+        parties,
       }}
     >
       {children}
@@ -45,7 +58,7 @@ export const ElectionsContextProvider: React.FC<React.PropsWithChildren> = ({
 };
 
 export const useElectionInfo = () => {
-  const { sections } = useContext(ElectionsContext);
+  const { sections, parties } = useContext(ElectionsContext);
   const findSections = (
     region: string,
     municipality: string,
@@ -71,5 +84,5 @@ export const useElectionInfo = () => {
     });
   };
 
-  return { findSections };
+  return { findSections, parties };
 };
