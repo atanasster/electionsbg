@@ -6,16 +6,13 @@ import { themeLight } from "@/theme/utils.ts";
 import { ThemeContextProvider } from "@/theme/ThemeContext.tsx";
 import { LoadingContextProvider } from "@/ux/LoadingContext.tsx";
 import { SettlementsContextProvider } from "@/data/SettlementsContext";
-import { ElectionsContextProvider } from "@/data/ElectionsContext";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <ThemeContextProvider value={themeLight}>
       <LoadingContextProvider>
         <SettlementsContextProvider>
-          <ElectionsContextProvider>
-            <App />
-          </ElectionsContextProvider>
+          <App />
         </SettlementsContextProvider>
       </LoadingContextProvider>
     </ThemeContextProvider>
