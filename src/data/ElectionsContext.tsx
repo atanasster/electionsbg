@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { SettlementInfo } from "./SettlementsContext";
 
 type SectionInfo = {
@@ -17,48 +17,23 @@ type PartyInfo = {
   number: number;
   party: string;
 };
-type ElectionsContextType = {
-  sections: SectionInfo[];
-  parties: PartyInfo[];
-};
 
-export const ElectionsContext = createContext<ElectionsContextType>({
-  sections: [],
-  parties: [],
-});
-
-export const ElectionsContextProvider: React.FC<React.PropsWithChildren> = ({
-  children,
-}) => {
+export const useElectionInfo = () => {
   const [sections, setSections] = useState<SectionInfo[]>([]);
   const [parties, setParties] = useState<PartyInfo[]>([]);
 
   useEffect(() => {
-    fetch("/2024_10/election_sections.json")
+    fetch("/2024_10/sections.json")
       .then((response) => response.json())
       .then((data) => {
         setSections(data);
       });
-    fetch("/2024_10/parties.json")
+    fetch("/2024_10/cik_parties.json")
       .then((response) => response.json())
       .then((data) => {
         setParties(data);
       });
   }, []);
-  return (
-    <ElectionsContext.Provider
-      value={{
-        sections,
-        parties,
-      }}
-    >
-      {children}
-    </ElectionsContext.Provider>
-  );
-};
-
-export const useElectionInfo = () => {
-  const { sections, parties } = useContext(ElectionsContext);
   const findSections = (
     region: string,
     municipality: string,
