@@ -10,6 +10,7 @@ import { useTooltip } from "@/ux/useTooltip";
 import { useSettlementsInfo } from "@/data/SettlementsContext";
 import { PartyVotesXS } from "./PartyVotesXS";
 import { useAggregatedVotes } from "@/data/AggregatedVotesHook";
+import { useElectionInfo } from "@/data/ElectionsContext";
 
 export const MunicipalitiesMap: React.FC<
   React.PropsWithChildren<{
@@ -22,6 +23,7 @@ export const MunicipalitiesMap: React.FC<
   const navigate = useNavigate();
   const { findMunicipality } = useSettlementsInfo();
   const { votesByMunicipality } = useAggregatedVotes();
+  const { topVotesParty } = useElectionInfo();
   const municipalities = useMemo(() => {
     return {
       ...data,
@@ -37,12 +39,15 @@ export const MunicipalitiesMap: React.FC<
   );
   const municipalitiesList = municipalities.features.map((feature) => {
     const name = feature.properties.nuts4;
+    const votes = votesByMunicipality(feature.properties.nuts3, name);
+    const party = topVotesParty(votes?.votes);
 
     return (
       <RegionMap
         key={feature.properties.nuts3 + feature.properties.nuts4}
         path={path}
         name={name}
+        fillColor={party?.color}
         feature={feature}
         onClick={() => {
           navigate({
@@ -56,7 +61,8 @@ export const MunicipalitiesMap: React.FC<
         onMouseEnter={(e) => {
           const info = findMunicipality(name);
           const muniVotes =
-            info && votesByMunicipality(info.nuts3, info.obshtina);
+            info &&
+            votesByMunicipality(info.obshtina.slice(0, 3), info.obshtina);
           onMouseEnter(
             e,
             info ? (

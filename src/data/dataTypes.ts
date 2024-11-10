@@ -48,5 +48,7 @@ export type SectionInfo = {
 
 export type PartyInfo = {
   number: number;
-  party: string;
+  name: string;
+  nickName: string;
+  color: string;
 };

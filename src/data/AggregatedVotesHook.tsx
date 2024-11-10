@@ -16,7 +16,7 @@ export const useAggregatedVotes = () => {
       });
   }, []);
   const votesByRegion = (regionCode: string): ElectionRegion | undefined => {
-    return votes.find((vote) => vote.nuts3 === regionCode);
+    return votes.find((vote) => vote.key === regionCode);
   };
   const votesBySettlement = (
     regionCode: string,
@@ -24,7 +24,7 @@ export const useAggregatedVotes = () => {
     ekatte: string,
   ) => {
     return votes
-      .find((vote) => vote.nuts3 === regionCode)
+      .find((vote) => vote.key === regionCode)
       ?.municipalities.find((m) => m.obshtina === obshtina)
       ?.settlements.find((s) => s.ekatte === ekatte);
   };
@@ -33,7 +33,7 @@ export const useAggregatedVotes = () => {
     obshtina: string,
   ): ElectionMunicipality | undefined => {
     return votes
-      .find((vote) => vote.nuts3 === regionCode)
+      .find((vote) => vote.key === regionCode)
       ?.municipalities.find((m) => m.obshtina === obshtina);
   };
 
