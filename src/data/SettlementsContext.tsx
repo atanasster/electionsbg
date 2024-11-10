@@ -11,7 +11,6 @@ export type RegionInfo = {
   nuts1: string;
   document: string;
   full_name_bul: string;
-  num: string;
 };
 export type MunicipalityInfo = {
   obshtina: string;
@@ -24,7 +23,6 @@ export type MunicipalityInfo = {
   category: number;
   document: number;
   full_name_bul: string;
-  num: string;
 };
 export type SettlementInfo = {
   ekatte: string;
@@ -45,7 +43,6 @@ export type SettlementInfo = {
   text: string;
   oblast_name: string;
   obshtina_name: string;
-  num: string;
 };
 
 type SettlementsContextType = {
@@ -101,27 +98,13 @@ export const useSettlementsInfo = () => {
   const { settlements, municipalities, regions } =
     useContext(SettlementsContext);
   const findMunicipality = (m: string) => {
-    const mun = municipalities.find((s) => s.obshtina == m);
-    if (mun) {
-      mun.num = mun.obshtina.substring(3);
-    }
-    return mun;
+    return municipalities.find((s) => s.obshtina == m);
   };
   const findSettlement = (e: string) => {
-    const set = settlements.find((s) => s.ekatte == e);
-    if (set) {
-      set.num = set.kmetstvo.slice(-2);
-    }
-    return set;
+    return settlements.find((s) => s.ekatte == e);
   };
   const findRegion = (e: string) => {
-    const idx = regions.findIndex((s) => s.oblast == e);
-    if (idx >= 0) {
-      const region = regions[idx];
-      region.num = (idx + 1).toString().padStart(2, "0");
-      return region;
-    }
-    return undefined;
+    return regions.find((s) => s.oblast == e);
   };
 
   return { findMunicipality, findSettlement, findRegion };

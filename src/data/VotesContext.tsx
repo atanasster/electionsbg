@@ -1,14 +1,5 @@
 import { useEffect, useState } from "react";
-
-type ElectionVotes = {
-  document: number;
-  section: string;
-  [key: number]: {
-    totalVotes: number;
-    paperVotes: number;
-    machineVotes: number;
-  };
-};
+import { ElectionVotes } from "./dataTypes";
 
 export const useElectionVotes = () => {
   const [votes, setVotes] = useState<ElectionVotes[]>([]);

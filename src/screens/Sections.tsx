@@ -19,8 +19,7 @@ export const SectionsScreen = () => {
   if (!info) {
     return null;
   }
-  const sections = findSections(regionCode, muniCode, info);
-  console.log(sections);
+  const sections = findSections(regionCode, muniCode, info.ekatte);
 
   return (
     <div className={`w-full py-10 px-4 md:px-8`}>

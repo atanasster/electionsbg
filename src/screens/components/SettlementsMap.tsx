@@ -13,6 +13,8 @@ import {
   RegionInfo,
   MunicipalityInfo,
 } from "@/data/SettlementsContext";
+import { PartyVotesXS } from "./PartyVotesXS";
+import { useAggregatedVotes } from "@/data/AggregatedVotesHook";
 
 export const SettlementsMap: React.FC<
   React.PropsWithChildren<{
@@ -25,7 +27,7 @@ export const SettlementsMap: React.FC<
   const { onMouseEnter, onMouseMove, onMouseLeave, tooltip } = useTooltip();
   const navigate = useNavigate();
   const { findSettlement } = useSettlementsInfo();
-
+  const { votesBySettlement } = useAggregatedVotes();
   const settlements = useMemo(() => {
     return {
       ...data,
@@ -53,6 +55,8 @@ export const SettlementsMap: React.FC<
         feature={feature}
         onMouseEnter={(e) => {
           const info = findSettlement(name);
+          const settlementVotes =
+            info && votesBySettlement(info.nuts3, info.obshtina, info.ekatte);
           onMouseEnter(
             e,
             info ? (
@@ -62,7 +66,7 @@ export const SettlementsMap: React.FC<
                 <div>{`municipality:${info.obshtina} - ${info.obshtina_name}`}</div>
                 <div>{`ekatte:${info.ekatte}`}</div>
                 <div>{`altitude:${info.text}`}</div>
-                <div>{`NUM:${info.num}`}</div>
+                <PartyVotesXS votes={settlementVotes?.votes} />
               </div>
             ) : (
               `${region}-${name}`
@@ -79,8 +83,8 @@ export const SettlementsMap: React.FC<
           navigate({
             pathname: "/sections",
             search: createSearchParams({
-              region: region.num,
-              municipality: municipality.num,
+              region: region.nuts3,
+              municipality: municipality.obshtina,
               settlement: name,
             }).toString(),
           });
