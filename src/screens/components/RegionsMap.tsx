@@ -5,12 +5,15 @@ import { Regions } from "../data/json_types";
 import { RegionMap } from "./RegionMap";
 import { getDataProjection } from "../utils/d3_utils";
 import { useSettlementsInfo } from "@/data/SettlementsContext";
+import { useAggregatedVotes } from "@/data/AggregatedVotesHook";
+import { PartyVotesXS } from "./PartyVotesXS";
 
 export const RegionsMap: React.FC<
   React.PropsWithChildren<{ regions: Regions; size: [number, number] }>
 > = ({ regions, size }) => {
   const navigate = useNavigate();
   const { findRegion } = useSettlementsInfo();
+  const { votesByRegion } = useAggregatedVotes();
   const { onMouseEnter, onMouseMove, onMouseLeave, tooltip } = useTooltip();
 
   const path = getDataProjection(regions as d3.GeoPermissibleObjects, size);
@@ -24,6 +27,7 @@ export const RegionsMap: React.FC<
         feature={feature}
         onMouseEnter={(e) => {
           const info = findRegion(name);
+          const regionVotes = (info && votesByRegion(info.nuts3)) || null;
           onMouseEnter(
             e,
             info ? (
@@ -32,7 +36,7 @@ export const RegionsMap: React.FC<
                 <div>{`name:${info.full_name_bul}`}</div>
                 <div>{`ekatte:${info.ekatte}`}</div>
                 <div>{`code:${info.nuts3}`}</div>
-                <div>{`num:${info.num}`}</div>
+                <PartyVotesXS votes={regionVotes?.votes} />
               </div>
             ) : (
               name
