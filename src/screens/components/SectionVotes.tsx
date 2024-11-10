@@ -5,7 +5,6 @@ import { PartyVotes } from "./PartyVotes";
 
 export const SectionVotes: FC<{ section: string }> = ({ section }) => {
   const { findSectionVotes } = useElectionVotes();
-
   const votes = findSectionVotes(section);
   if (!votes) {
     return null;

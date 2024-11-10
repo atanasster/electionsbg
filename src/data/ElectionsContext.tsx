@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { PartyInfo, SectionInfo } from "./dataTypes";
+import { PartyInfo, SectionInfo, Votes } from "./dataTypes";
 import { useAggregatedVotes } from "./AggregatedVotesHook";
 
 export const useElectionInfo = () => {
@@ -33,5 +33,16 @@ export const useElectionInfo = () => {
   };
   const findParty = (partyNum: number) =>
     parties.find((p) => p.number === partyNum);
-  return { findSections, findParty };
+  const topVotesParty = (votes?: Votes[]) => {
+    const tp = votes?.reduce((acc, curr) => {
+      if (acc.totalVotes > curr.totalVotes) {
+        return acc;
+      }
+      return curr;
+    }, votes[0]);
+
+    return tp ? findParty(tp.key) : null;
+  };
+
+  return { findSections, findParty, topVotesParty };
 };

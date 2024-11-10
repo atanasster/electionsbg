@@ -15,6 +15,7 @@ import {
 } from "@/data/SettlementsContext";
 import { PartyVotesXS } from "./PartyVotesXS";
 import { useAggregatedVotes } from "@/data/AggregatedVotesHook";
+import { useElectionInfo } from "@/data/ElectionsContext";
 
 export const SettlementsMap: React.FC<
   React.PropsWithChildren<{
@@ -28,6 +29,7 @@ export const SettlementsMap: React.FC<
   const navigate = useNavigate();
   const { findSettlement } = useSettlementsInfo();
   const { votesBySettlement } = useAggregatedVotes();
+  const { topVotesParty } = useElectionInfo();
   const settlements = useMemo(() => {
     return {
       ...data,
@@ -43,6 +45,10 @@ export const SettlementsMap: React.FC<
   const path = getDataProjection(settlements as d3.GeoPermissibleObjects, size);
   const municipalitiesList = settlements.features.map((feature) => {
     const name = feature.properties.ekatte;
+    const s = findSettlement(name);
+    const votes = s && votesBySettlement(s.oblast, s.obshtina, name);
+    const party = topVotesParty(votes?.votes);
+
     return (
       <RegionMap
         key={
@@ -52,11 +58,12 @@ export const SettlementsMap: React.FC<
         }
         path={path}
         name={name}
+        fillColor={party?.color}
         feature={feature}
         onMouseEnter={(e) => {
           const info = findSettlement(name);
           const settlementVotes =
-            info && votesBySettlement(info.nuts3, info.obshtina, info.ekatte);
+            info && votesBySettlement(info.oblast, info.obshtina, info.ekatte);
           onMouseEnter(
             e,
             info ? (
@@ -83,7 +90,7 @@ export const SettlementsMap: React.FC<
           navigate({
             pathname: "/sections",
             search: createSearchParams({
-              region: region.nuts3,
+              region: region.oblast,
               municipality: municipality.obshtina,
               settlement: name,
             }).toString(),

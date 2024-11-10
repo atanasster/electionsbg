@@ -5,6 +5,7 @@ export const RegionMap: React.FC<
   React.PropsWithChildren<{
     path: d3.GeoPath;
     name: string;
+    fillColor?: string;
     feature: RegionFeature;
     onMouseEnter?: (e: React.MouseEvent<SVGPathElement, MouseEvent>) => void;
     onMouseMove?: (e: React.MouseEvent<SVGPathElement, MouseEvent>) => void;
@@ -15,6 +16,7 @@ export const RegionMap: React.FC<
   path,
   name,
   feature,
+  fillColor = "linen",
   onMouseEnter,
   onMouseMove,
   onMouseLeave,
@@ -24,8 +26,8 @@ export const RegionMap: React.FC<
   return (
     <>
       <path
-        fill="linen"
-        stroke="black"
+        fill={fillColor}
+        stroke="rgb(182, 182, 182)"
         strokeWidth={active ? 2.5 : 1}
         id={name}
         className="path"

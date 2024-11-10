@@ -7,6 +7,7 @@ import { getDataProjection } from "../utils/d3_utils";
 import { useSettlementsInfo } from "@/data/SettlementsContext";
 import { useAggregatedVotes } from "@/data/AggregatedVotesHook";
 import { PartyVotesXS } from "./PartyVotesXS";
+import { useElectionInfo } from "@/data/ElectionsContext";
 
 export const RegionsMap: React.FC<
   React.PropsWithChildren<{ regions: Regions; size: [number, number] }>
@@ -14,20 +15,25 @@ export const RegionsMap: React.FC<
   const navigate = useNavigate();
   const { findRegion } = useSettlementsInfo();
   const { votesByRegion } = useAggregatedVotes();
+  const { topVotesParty } = useElectionInfo();
+
   const { onMouseEnter, onMouseMove, onMouseLeave, tooltip } = useTooltip();
 
   const path = getDataProjection(regions as d3.GeoPermissibleObjects, size);
   const provincesList = regions.features.map((feature) => {
     const name = feature.properties.nuts3;
+    const votes = votesByRegion(name);
+    const party = topVotesParty(votes?.votes);
     return (
       <RegionMap
         key={feature.properties.nuts3}
         path={path}
         name={name}
+        fillColor={party?.color}
         feature={feature}
         onMouseEnter={(e) => {
           const info = findRegion(name);
-          const regionVotes = (info && votesByRegion(info.nuts3)) || null;
+          const regionVotes = (info && votesByRegion(info.oblast)) || null;
           onMouseEnter(
             e,
             info ? (
