@@ -1,12 +1,12 @@
 import { useSearchParams } from "react-router-dom";
 import { useSettlementsInfo } from "@/data/SettlementsContext";
-import { useElectionInfo } from "@/data/ElectionsContext";
 import { Title } from "@/ux/Title";
 import { SectionVotes } from "./components/SectionVotes";
+import { useSectionsInfo } from "@/data/SectionsContext";
 
 export const SectionsScreen = () => {
   const [searchParams] = useSearchParams();
-  const { findSections } = useElectionInfo();
+  const { findSections } = useSectionsInfo();
   const { findSettlement } = useSettlementsInfo();
 
   const regionCode = searchParams.get("region");
