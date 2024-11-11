@@ -1,50 +1,22 @@
-# React + TypeScript + Vite
+# Bulgaria Elecgtion Results Analysis
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
-Currently, two official plugins are available:
+## Data
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### GeoJSON
+(Regions, Municipalities and Settlements)[https://github.com/yurukov/Bulgaria-geocoding/tree/master]
 
-## Expanding the ESLint configuration
+### Settlements names
+(EKATTE catalog)[https://www.nsi.bg/nrnm/ekatte/regions]
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
-
-- Configure the top-level `parserOptions` property like this:
-
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
-
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
-
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
-
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+### Election Results
+(27.10.2024)[https://results.cik.bg/pe202410/opendata/index.html]
+(09.06.2024)[https://results.cik.bg/europe2024/opendata/index.html]
+(02.04.2023)[https://results.cik.bg/ns2023/csv.html]
+(02.10.2022)[https://results.cik.bg/ns2022/csv.html]
+(02.10.2022)[https://results.cik.bg/ns2022/csv.html]
+(14.11.2021)[https://results.cik.bg/pvrns2021/tur1/csv.html]
+(11.07.2021)[https://results.cik.bg/pi2021_07/csv.html]
+(04.04.2021)[https://results.cik.bg/pi2021/csv.html]
+(26.03.2017)[https://results.cik.bg/pi2017/csv.html]
+(05.10.2014)[https://results.cik.bg/pi2014/csv.html]
