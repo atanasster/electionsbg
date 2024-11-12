@@ -4,9 +4,10 @@ import { useElectionInfo } from "@/data/ElectionsContext";
 
 export const PartyVotesXS: FC<{ votes?: Votes[] }> = ({ votes }) => {
   const { findParty } = useElectionInfo();
-  if (!votes) {
+  if (!votes || votes.length === 0) {
     return null;
   }
+
   const totalVotes = votes.reduce(
     (acc: number, v: Votes) => acc + v.totalVotes,
     0,
