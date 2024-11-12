@@ -28,6 +28,7 @@ export const PartyVotesXS: FC<{ votes?: Votes[] }> = ({ votes }) => {
         {votes
           .sort((a, b) => b.totalVotes - a.totalVotes)
           .slice(0, 5)
+          .filter((v) => v.totalVotes > 0)
           .map((v) => {
             const party = findParty(v.key);
             return (
