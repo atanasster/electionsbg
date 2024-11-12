@@ -25,7 +25,7 @@ export const useTooltip = () => {
   const onMouseMove = (e: React.MouseEvent<SVGPathElement, MouseEvent>) => {
     setTooltip((prev) => ({
       ...prev,
-      visible: true,
+      //visible: true,
       x: e.clientX,
       y: e.clientY,
     }));
