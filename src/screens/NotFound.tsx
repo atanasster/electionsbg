@@ -1,4 +1,4 @@
-import { useNavigate } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 export const NotFound = () => {
   const navigate = useNavigate();
@@ -13,7 +13,7 @@ export const NotFound = () => {
             The page you are looking for does not exist. It might have been
             moved or deleted.
           </p>
-          <button onClick={() => navigate('/')} className="btn btn-primary">
+          <button onClick={() => navigate("/")} className="btn btn-primary">
             HOME
           </button>
         </div>
