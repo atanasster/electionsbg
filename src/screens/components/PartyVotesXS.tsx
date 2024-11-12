@@ -31,12 +31,12 @@ export const PartyVotesXS: FC<{ votes?: Votes[] }> = ({ votes }) => {
             const party = findParty(v.key);
             return (
               <tr
-                className="border-b border-gray-200 hover:bg-gray-100"
+                className="border-b border-gray-200 hover:bg-gray-100 font-medium"
                 key={v.key}
               >
                 <td className="px-2 py-1  text-white">
                   <div
-                    className={`px-2`}
+                    className={`px-2 `}
                     style={{ backgroundColor: party?.color }}
                   >
                     {party?.nickName || "unknown party"}
