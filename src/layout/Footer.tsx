@@ -1,4 +1,4 @@
-import { Link } from '@/ux/Link';
+import { Link } from "@/ux/Link";
 
 export const Footer = () => (
   <footer className="footer p-4 bg-base-200 text-base-content justify-between invisible lg:visible">

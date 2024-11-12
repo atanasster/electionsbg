@@ -1,4 +1,4 @@
-import { useEffect, useLayoutEffect } from 'react';
+import { useEffect, useLayoutEffect } from "react";
 
 export const useCustomEffect =
-  typeof window !== 'undefined' ? useLayoutEffect : useEffect;
+  typeof window !== "undefined" ? useLayoutEffect : useEffect;
