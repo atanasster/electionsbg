@@ -7,6 +7,7 @@ export const RegionMap: React.FC<
     name: string;
     fillColor?: string;
     feature: RegionFeature;
+    onCursor?: () => string;
     onMouseEnter?: (e: React.MouseEvent<SVGPathElement, MouseEvent>) => void;
     onMouseMove?: (e: React.MouseEvent<SVGPathElement, MouseEvent>) => void;
     onMouseLeave?: (e: React.MouseEvent<SVGPathElement, MouseEvent>) => void;
@@ -17,6 +18,7 @@ export const RegionMap: React.FC<
   name,
   feature,
   fillColor = "linen",
+  onCursor,
   onMouseEnter,
   onMouseMove,
   onMouseLeave,
@@ -29,6 +31,7 @@ export const RegionMap: React.FC<
         fill={fillColor}
         stroke="rgb(182, 182, 182)"
         strokeWidth={active ? 2.5 : 1}
+        cursor={onCursor ? onCursor() : "pointer"}
         id={name}
         className="path"
         onMouseEnter={(e) => {

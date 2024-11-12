@@ -72,7 +72,6 @@ export const SettlementsMap: React.FC<
                 <div>{`region:${info.oblast} - ${info.oblast_name}`}</div>
                 <div>{`municipality:${info.obshtina} - ${info.obshtina_name}`}</div>
                 <div>{`ekatte:${info.ekatte}`}</div>
-                <div>{`altitude:${info.text}`}</div>
                 <PartyVotesXS votes={settlementVotes?.votes} />
               </div>
             ) : (
@@ -87,15 +86,18 @@ export const SettlementsMap: React.FC<
           onMouseLeave();
         }}
         onClick={() => {
-          navigate({
-            pathname: "/sections",
-            search: createSearchParams({
-              region: region.oblast,
-              municipality: municipality.obshtina,
-              settlement: name,
-            }).toString(),
-          });
+          if (votes?.sections.length) {
+            navigate({
+              pathname: "/sections",
+              search: createSearchParams({
+                region: region.oblast,
+                municipality: municipality.obshtina,
+                settlement: name,
+              }).toString(),
+            });
+          }
         }}
+        onCursor={() => (votes?.sections.length ? "pointer" : "default")}
       />
     );
   });
