@@ -39,6 +39,11 @@ export const ThemeContextProvider = ({
   const applyTheme = (theme: string) => {
     localStorage.setItem("theme", theme);
     document.getElementsByTagName("html")[0].setAttribute("data-theme", theme);
+    if (theme === "sunset") {
+      document.documentElement.classList.add("dark");
+    } else {
+      document.documentElement.classList.remove("dark");
+    }
     setTheme(theme);
   };
 
