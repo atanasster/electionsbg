@@ -8,7 +8,8 @@
     "build": "tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
-    "prepare": "tsx ./scripts/main.ts"
+    "prepare": "tsx ./scripts/main.ts",
+    "deploy": "firebase deploy"
   },
   "dependencies": {
     "@heroicons/react": "^2.1.5",
