@@ -1,8 +1,8 @@
-import { Votes } from "@/data/dataTypes";
+import { ElectionVotes } from "@/data/dataTypes";
 import { useElectionInfo } from "@/data/ElectionsContext";
 import { FC } from "react";
 
-export const PartyVotes: FC<{ votes: Votes[] }> = ({ votes }) => {
+export const PartyVotes: FC<{ votes: ElectionVotes }> = ({ votes }) => {
   const { findParty } = useElectionInfo();
   return (
     <table className="w-full border border-collapse table-auto">
@@ -16,7 +16,7 @@ export const PartyVotes: FC<{ votes: Votes[] }> = ({ votes }) => {
         </tr>
       </thead>
       <tbody className="text-sm text-left font-normal text-gray-700">
-        {votes.map((vote) => {
+        {votes.votes.map((vote) => {
           const party = findParty(vote.key);
           return (
             <tr

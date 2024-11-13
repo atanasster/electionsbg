@@ -27,6 +27,7 @@ export const SectionsScreen = () => {
         return (
           <div key={section.section}>
             <Title>{`${section.settlement}-${section.address}`}</Title>
+            <Title>{`${section.section}`}</Title>
             <SectionVotes section={section.section} />
           </div>
         );

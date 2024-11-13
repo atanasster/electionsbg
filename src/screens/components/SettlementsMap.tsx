@@ -47,7 +47,7 @@ export const SettlementsMap: React.FC<
     const name = feature.properties.ekatte;
     const s = findSettlement(name);
     const votes = s && votesBySettlement(s.oblast, s.obshtina, name);
-    const party = topVotesParty(votes?.votes);
+    const party = topVotesParty(votes?.results.votes);
 
     return (
       <RegionMap
@@ -68,11 +68,8 @@ export const SettlementsMap: React.FC<
             e,
             info ? (
               <div className="text-left">
-                <div>{`${info.t_v_m} ${info.name}/${info.name_en}`}</div>
-                <div>{`region:${info.oblast} - ${info.oblast_name}`}</div>
-                <div>{`municipality:${info.obshtina} - ${info.obshtina_name}`}</div>
-                <div>{`ekatte:${info.ekatte}`}</div>
-                <PartyVotesXS votes={settlementVotes?.votes} />
+                <div className="text-lg text-center pb-2">{`${info.t_v_m} ${info.name}/${info.name_en}`}</div>
+                <PartyVotesXS results={settlementVotes?.results} />
               </div>
             ) : (
               `${region}-${name}`
