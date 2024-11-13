@@ -1,8 +1,10 @@
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
-import { parse } from "csv-parse";
-
+import { parseParties } from "./parsers/parties";
+import { parseSections } from "./parsers/sections";
+import { parseVotes } from "./parsers/votes";
+import { FullSectionProtocol, parseProtocols } from "./parsers/protocols";
 import settlementsData from "../public/settlements.json";
 const settlements = settlementsData;
 import regionsData from "../public/regions.json";
@@ -13,21 +15,14 @@ import {
   ElectionRegions,
   ElectionSettlement,
   ElectionVotes,
-  PartyInfo,
   SectionInfo,
-  Votes,
+  VoteResults,
 } from "@/data/dataTypes";
 
 const municipalities = municipalitiesData;
 
 const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
 const __dirname = path.dirname(__filename); // get the name of the directory
-
-const allVotes: ElectionVotes[] = [];
-
-const allSections: SectionInfo[] = [];
-
-const allParties: PartyInfo[] = [];
 
 const regionCodes: { key: string; nuts3: string }[] = [
   // Blagoevgrad
@@ -93,147 +88,92 @@ const regionCodes: { key: string; nuts3: string }[] = [
   // Yambol
   { key: "31", nuts3: "BG343" },
 ];
-const parseVotes = (inFolder: string, outFolder: string) => {
-  const result: string[][] = [];
 
-  return new Promise((resolve) =>
-    fs
-      .createReadStream(`${inFolder}/votes.txt`)
-      .pipe(parse({ delimiter: ";", relax_column_count: true }))
-      .on("data", (data) => {
-        result.push(data);
-      })
-      .on("end", () => {
-        for (let i = 0; i < result.length; i++) {
-          const row = result[i];
-          let j = 3;
-          const votes: ElectionVotes = {
-            document: parseInt(row[0]),
-            section: row[1],
-            votes: [],
-          };
-          while (j < row.length) {
-            const partyNum = parseInt(row[j]);
-            const totalVotes = parseInt(row[j + 1]);
-            const paperVotes = parseInt(row[j + 2]);
-            const machineVotes = parseInt(row[j + 3]);
-            votes.votes.push({
-              key: partyNum,
-              totalVotes,
-              paperVotes,
-              machineVotes,
-            });
-            j += 4;
-          }
-          allVotes.push(votes);
-        }
-        const json = JSON.stringify(allVotes, null, 2);
-        const outFile = `${outFolder}/votes.json`;
-        fs.writeFileSync(outFile, json, "utf8");
-        console.log("Successfully added file ", outFile);
-        resolve(json);
-      }),
-  );
-};
-
-const parseSections = (inFolder: string, outFolder: string) => {
-  const result: string[][] = [];
-
-  return new Promise((resolve) =>
-    fs
-      .createReadStream(`${inFolder}/sections.txt`)
-      .pipe(parse({ delimiter: ";", relax_column_count: true }))
-      .on("data", (data) => {
-        result.push(data);
-      })
-      .on("end", () => {
-        for (let i = 0; i < result.length; i++) {
-          const row = result[i];
-
-          const section: SectionInfo = {
-            section: row[0],
-            region: parseInt(row[1]),
-            region_name: row[2],
-            zip_code: parseInt(row[3]),
-            settlement: row[4],
-            address: row[5],
-            m_1: parseInt(row[6]),
-            m_2: parseInt(row[7]),
-            m_3: parseInt(row[8]),
-          };
-
-          allSections.push(section);
-        }
-        const json = JSON.stringify(allSections, null, 2);
-        const outFile = `${outFolder}/sections.json`;
-        fs.writeFileSync(outFile, json, "utf8");
-        console.log("Successfully added file ", outFile);
-        resolve(json);
-      }),
-  );
-};
-
-const parseParties = async (inFolder: string, outFolder: string) => {
-  const result: string[][] = [];
-  const fileName = "cik_parties";
-  const outFile = `${outFolder}/${fileName}.json`;
-  if (fs.existsSync(outFile)) {
-    const json = fs.readFileSync(outFile, "utf-8");
-    if (json) {
-      const parties: PartyInfo[] = JSON.parse(json);
-      parties.forEach((p) => allParties.push(p));
-    }
-  }
-  return new Promise((resolve) =>
-    fs
-      .createReadStream(`${inFolder}/${fileName}.txt`)
-      .pipe(parse({ delimiter: ";", relax_column_count: true }))
-      .on("data", (data) => {
-        result.push(data);
-      })
-      .on("end", () => {
-        for (let i = 0; i < result.length; i++) {
-          const row = result[i];
-          const partyNumber = parseInt(row[0]);
-          let party = allParties.find((p) => p.number === partyNumber);
-          if (!party) {
-            party = {
-              number: parseInt(row[0]),
-              name: row[1],
-              color: "linen",
-              nickName: row[1],
-            };
-            allParties.push(party);
-          } else {
-            party.name = row[1];
-          }
-        }
-        const json = JSON.stringify(allParties, null, 2);
-
-        fs.writeFileSync(outFile, json, "utf8");
-        console.log("Successfully added file ", outFile);
-        resolve(json);
-      }),
-  );
-};
-
-const aggregateSettlements = (outFolder: string) => {
-  const addVotes = (acc: Votes[], curr: ElectionVotes) => {
+const aggregateSettlements = (
+  outFolder: string,
+  sections: SectionInfo[],
+  votes: ElectionVotes[],
+  protocols: FullSectionProtocol[],
+) => {
+  const addVotes = (
+    results: VoteResults,
+    curr: ElectionVotes,
+    protocol?: FullSectionProtocol,
+  ) => {
     curr.votes.forEach((v) => {
-      const votes = acc.find((a) => a.key === v.key);
+      const votes = results.votes.find((a) => a.key === v.key);
       if (votes) {
         votes.totalVotes += v.totalVotes;
         votes.machineVotes += v.machineVotes;
         votes.paperVotes += v.paperVotes;
       } else {
-        acc.push({
+        results.votes.push({
           key: v.key,
           totalVotes: v.totalVotes,
           machineVotes: v.machineVotes,
           paperVotes: v.paperVotes,
         });
       }
+      results.actualTotal += v.totalVotes;
+      results.actualMachineVotes += v.machineVotes;
+      results.actualPaperVotes += v.paperVotes;
     });
+    if (protocol) {
+      if (results.protocol) {
+        results.protocol.ballotsReceived += protocol.ballotsReceived;
+        results.protocol.numAdditionalVoters += protocol.numAdditionalVoters;
+        results.protocol.numInvalidAndDestroyedPaperBallots +=
+          protocol.numInvalidAndDestroyedPaperBallots;
+        results.protocol.numInvalidBallotsFound +=
+          protocol.numInvalidBallotsFound;
+        if (protocol.numMachineBallots) {
+          results.protocol.numMachineBallots =
+            protocol.numMachineBallots +
+            (results.protocol.numMachineBallots
+              ? results.protocol.numMachineBallots
+              : 0);
+        }
+        results.protocol.numPaperBallotsFound += protocol.numPaperBallotsFound;
+        results.protocol.numRegisteredVoters += protocol.numRegisteredVoters;
+        results.protocol.numUnusedPaperBallots +=
+          protocol.numUnusedPaperBallots;
+        if (protocol.numValidMachineVotes) {
+          results.protocol.numValidMachineVotes =
+            protocol.numValidMachineVotes +
+            (results.protocol.numValidMachineVotes
+              ? results.protocol.numValidMachineVotes
+              : 0);
+        }
+        if (protocol.numValidNoOneMachineVotes) {
+          results.protocol.numValidNoOneMachineVotes =
+            protocol.numValidNoOneMachineVotes +
+            (results.protocol.numValidNoOneMachineVotes
+              ? results.protocol.numValidNoOneMachineVotes
+              : 0);
+        }
+        results.protocol.numValidNoOnePaperVotes +=
+          protocol.numValidNoOnePaperVotes;
+        results.protocol.numValidVotes += protocol.numValidVotes;
+        results.protocol.totalActualVoters += protocol.totalActualVoters;
+      } else {
+        results.protocol = {
+          ballotsReceived: protocol.ballotsReceived,
+          numAdditionalVoters: protocol.numAdditionalVoters,
+          numInvalidAndDestroyedPaperBallots:
+            protocol.numInvalidAndDestroyedPaperBallots,
+          numInvalidBallotsFound: protocol.numInvalidBallotsFound,
+          numMachineBallots: protocol.numMachineBallots,
+          numPaperBallotsFound: protocol.numPaperBallotsFound,
+          numRegisteredVoters: protocol.numRegisteredVoters,
+          numUnusedPaperBallots: protocol.numUnusedPaperBallots,
+          numValidMachineVotes: protocol.numValidMachineVotes,
+          numValidNoOneMachineVotes: protocol.numValidNoOneMachineVotes,
+          numValidNoOnePaperVotes: protocol.numValidNoOnePaperVotes,
+          numValidVotes: protocol.numValidVotes,
+          totalActualVoters: protocol.totalActualVoters,
+        };
+      }
+    }
   };
 
   const elections: ElectionRegions = [];
@@ -242,7 +182,12 @@ const aggregateSettlements = (outFolder: string) => {
       key: region.oblast as string,
       nuts3: region.nuts3 as string,
       municipalities: [],
-      votes: [],
+      results: {
+        actualTotal: 0,
+        actualMachineVotes: 0,
+        actualPaperVotes: 0,
+        votes: [],
+      },
     });
   });
   municipalities.forEach((muni) => {
@@ -257,7 +202,12 @@ const aggregateSettlements = (outFolder: string) => {
       key: muni.obshtina?.substring(3) as string,
       obshtina: muni.obshtina as string,
       settlements: [],
-      votes: [],
+      results: {
+        actualTotal: 0,
+        actualMachineVotes: 0,
+        actualPaperVotes: 0,
+        votes: [],
+      },
     };
     region.municipalities.push(m);
   });
@@ -277,11 +227,16 @@ const aggregateSettlements = (outFolder: string) => {
       name: set.name,
       t_v_m: set.t_v_m,
       sections: [],
-      votes: [],
+      results: {
+        actualTotal: 0,
+        actualMachineVotes: 0,
+        actualPaperVotes: 0,
+        votes: [],
+      },
     };
     muni.settlements.push(s);
   });
-  allVotes.forEach((vote) => {
+  votes.forEach((vote) => {
     const regionCode = vote.section.substring(0, 2);
     let region = elections.find((r) => {
       const rc = regionCodes.find((c) => c.key === regionCode);
@@ -291,7 +246,12 @@ const aggregateSettlements = (outFolder: string) => {
       region = {
         key: regionCode,
         nuts3: vote.section,
-        votes: [],
+        results: {
+          actualTotal: 0,
+          actualMachineVotes: 0,
+          actualPaperVotes: 0,
+          votes: [],
+        },
         municipalities: [],
       };
       elections.push(region);
@@ -302,12 +262,17 @@ const aggregateSettlements = (outFolder: string) => {
       municipality = {
         key: muniCode,
         settlements: [],
-        votes: [],
+        results: {
+          actualTotal: 0,
+          actualMachineVotes: 0,
+          actualPaperVotes: 0,
+          votes: [],
+        },
       };
     }
     const settlementCode = vote.section.substring(4, 6);
     let settlement = municipality.settlements.find((s) => {
-      const section = allSections.find((s) => s.section === vote.section);
+      const section = sections.find((s) => s.section === vote.section);
       if (!section) {
         throw new Error(`Could not find voting section ${vote.section}`);
       }
@@ -322,28 +287,40 @@ const aggregateSettlements = (outFolder: string) => {
         (s) => s.key === settlementCode,
       );
     }
+    const protocol = protocols.find((s) => s.section === vote.section);
+    const section = sections.find((s) => s.section === vote.section);
     if (!settlement) {
-      const section = allSections.find((s) => s.section === vote.section);
       settlement = {
         key: settlementCode,
         name: section?.settlement,
         sections: [],
-        votes: [],
+        results: {
+          actualTotal: 0,
+          actualMachineVotes: 0,
+          actualPaperVotes: 0,
+          votes: [],
+        },
       };
       //municipality.obshtina = section?.settlement;
       //region.nuts3 = section?.settlement;
       municipality.settlements.push(settlement);
     }
-    settlement.sections.push(vote.section);
 
-    addVotes(settlement.votes, vote);
-    addVotes(municipality.votes, vote);
-    addVotes(region.votes, vote);
+    settlement.sections.push(vote.section);
+    if (section && protocol) {
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      const { document, section: ss, rik, pages, ...nprotocol } = protocol;
+      section.protocol = { ...nprotocol };
+    }
+    addVotes(settlement.results, vote, protocol);
+    addVotes(municipality.results, vote, protocol);
+    addVotes(region.results, vote, protocol);
   });
   const json = JSON.stringify(elections, null, 2);
   const outFile = `${outFolder}/aggregated_votes.json`;
   fs.writeFileSync(outFile, json, "utf8");
   console.log("Successfully added file ", outFile);
+  return elections;
 };
 
 const parseElections = (monthYear: string) => {
@@ -353,9 +330,15 @@ const parseElections = (monthYear: string) => {
     fs.mkdirSync(outFolder);
   }
   parseParties(inFolder, outFolder).then(() =>
-    parseSections(inFolder, outFolder).then(() =>
-      parseVotes(inFolder, outFolder).then(() =>
-        aggregateSettlements(outFolder),
+    parseSections(inFolder).then((sections) =>
+      parseVotes(inFolder, outFolder).then((votes) =>
+        parseProtocols(inFolder, outFolder).then((protocols) => {
+          aggregateSettlements(outFolder, sections, votes, protocols);
+          const json = JSON.stringify(sections, null, 2);
+          const outFile = `${outFolder}/sections.json`;
+          fs.writeFileSync(outFile, json, "utf8");
+          console.log("Successfully added file ", outFile);
+        }),
       ),
     ),
   );

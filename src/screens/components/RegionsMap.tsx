@@ -23,7 +23,7 @@ export const RegionsMap: React.FC<
   const provincesList = regions.features.map((feature) => {
     const name = feature.properties.nuts3;
     const votes = votesByRegion(name);
-    const party = topVotesParty(votes?.votes);
+    const party = topVotesParty(votes?.results.votes);
     return (
       <RegionMap
         key={feature.properties.nuts3}
@@ -38,11 +38,8 @@ export const RegionsMap: React.FC<
             e,
             info ? (
               <div className="text-left">
-                <div>{`${info.name}/${info.name_en}`}</div>
-                <div>{`name:${info.full_name_bul}`}</div>
-                <div>{`ekatte:${info.ekatte}`}</div>
-                <div>{`code:${info.nuts3}`}</div>
-                <PartyVotesXS votes={regionVotes?.votes} />
+                <div className="text-lg text-center pb-2">{`${info.name}/${info.name_en}`}</div>
+                <PartyVotesXS results={regionVotes?.results} />
               </div>
             ) : (
               name

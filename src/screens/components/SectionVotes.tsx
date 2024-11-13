@@ -9,5 +9,6 @@ export const SectionVotes: FC<{ section: string }> = ({ section }) => {
   if (!votes) {
     return null;
   }
-  return <PartyVotes votes={votes.votes} />;
+
+  return <PartyVotes votes={votes} />;
 };
