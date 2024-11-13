@@ -9,9 +9,11 @@ export const Layout = (props: React.PropsWithChildren) => {
   return (
     <>
       <Header />
-      <main className="flex flex-col justify-between items-center min-h-[100vh]">
+      <main className="min-h-[100vh]">
         {isLoading && <Loader />}
-        {props.children}
+        <div className="container mx-auto flex flex-col justify-center items-center p-5">
+          {props.children}
+        </div>
       </main>
       <Footer />
     </>
