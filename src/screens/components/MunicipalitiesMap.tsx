@@ -11,6 +11,7 @@ import { useSettlementsInfo } from "@/data/SettlementsContext";
 import { PartyVotesXS } from "./PartyVotesXS";
 import { useAggregatedVotes } from "@/data/AggregatedVotesHook";
 import { useElectionInfo } from "@/data/ElectionsContext";
+import { useTranslation } from "react-i18next";
 
 export const MunicipalitiesMap: React.FC<
   React.PropsWithChildren<{
@@ -24,6 +25,7 @@ export const MunicipalitiesMap: React.FC<
   const { findMunicipality } = useSettlementsInfo();
   const { votesByMunicipality } = useAggregatedVotes();
   const { topVotesParty } = useElectionInfo();
+  const { i18n } = useTranslation();
   const municipalities = useMemo(() => {
     return {
       ...data,
@@ -67,7 +69,7 @@ export const MunicipalitiesMap: React.FC<
             e,
             info ? (
               <div className="text-left">
-                <div className="text-lg text-center pb-2">{`${info.name}/${info.name_en}`}</div>
+                <div className="text-lg text-center pb-2">{`${i18n.language === "bg" ? info.name : info.name_en}`}</div>
                 <PartyVotesXS results={muniVotes?.results} />
               </div>
             ) : (
