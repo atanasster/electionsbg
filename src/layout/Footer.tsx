@@ -1,7 +1,7 @@
 import { Link } from "@/ux/Link";
 
 export const Footer = () => (
-  <footer className="footer p-4 bg-base-200 text-base-content justify-between invisible lg:visible">
+  <footer className="footer flex p-4 bg-muted text-primary justify-between invisible lg:visible">
     <div className="text-sm sm:text-center whitespace-nowrap flex">
       © {new Date().getFullYear()} . All Rights Reserved.
     </div>

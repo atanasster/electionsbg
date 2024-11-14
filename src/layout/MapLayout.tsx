@@ -9,15 +9,22 @@ export const MapLayout: React.FC<{
   const [dimensions, setDimensions] = useState<[number, number] | undefined>();
   useEffect(() => {
     if (refContainer.current) {
+      let resizing: boolean = false;
       const resizeObserver = new ResizeObserver(() => {
-        if (refContainer.current) {
-          setDimensions([
-            refContainer.current.offsetWidth,
-            refContainer.current.offsetHeight,
-          ]);
+        if (!resizing) {
+          resizing = true;
+          if (refContainer.current) {
+            setDimensions([
+              refContainer.current.offsetWidth,
+              refContainer.current.offsetHeight,
+            ]);
+          }
         }
       });
-
+      setDimensions([
+        refContainer.current.offsetWidth,
+        refContainer.current.offsetHeight,
+      ]);
       resizeObserver.observe(refContainer.current);
       return () => resizeObserver.disconnect(); // clean up
     }
