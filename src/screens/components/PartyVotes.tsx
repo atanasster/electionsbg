@@ -1,18 +1,20 @@
 import { ElectionVotes } from "@/data/dataTypes";
 import { useElectionInfo } from "@/data/ElectionsContext";
 import { FC } from "react";
+import { useTranslation } from "react-i18next";
 
 export const PartyVotes: FC<{ votes: ElectionVotes }> = ({ votes }) => {
   const { findParty } = useElectionInfo();
+  const { t } = useTranslation();
   return (
     <table className="w-full border border-collapse table-auto text-muted-foreground">
       <thead>
         <tr className="font-bold text-left bg-gray-5">
           <th className="px-4 py-2 border-b-2">#</th>
-          <th className="px-4 py-2 border-b-2">Party</th>
-          <th className="px-4 py-2 border-b-2">Machine</th>
-          <th className="px-4 py-2 border-b-2">Paper</th>
-          <th className="px-4 py-2 border-b-2">Total Votes</th>
+          <th className="px-4 py-2 border-b-2">{t("party")}</th>
+          <th className="px-4 py-2 border-b-2">{t("machine_votes")}</th>
+          <th className="px-4 py-2 border-b-2">{t("paper_votes")}</th>
+          <th className="px-4 py-2 border-b-2">{t("total_votes")}</th>
         </tr>
       </thead>
       <tbody className="text-sm text-left font-normal">

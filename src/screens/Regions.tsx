@@ -8,7 +8,7 @@ export const RegionsScreen = () => {
   const { t } = useTranslation();
 
   return (
-    <MapLayout title={t("country")}>
+    <MapLayout title={t("bulgaria")}>
       {(size) => <RegionsMap regions={regions} size={size} />}
     </MapLayout>
   );

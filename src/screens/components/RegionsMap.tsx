@@ -8,6 +8,7 @@ import { useSettlementsInfo } from "@/data/SettlementsContext";
 import { useAggregatedVotes } from "@/data/AggregatedVotesHook";
 import { PartyVotesXS } from "./PartyVotesXS";
 import { useElectionInfo } from "@/data/ElectionsContext";
+import { useTranslation } from "react-i18next";
 
 export const RegionsMap: React.FC<
   React.PropsWithChildren<{ regions: Regions; size: [number, number] }>
@@ -16,6 +17,7 @@ export const RegionsMap: React.FC<
   const { findRegion } = useSettlementsInfo();
   const { votesByRegion } = useAggregatedVotes();
   const { topVotesParty } = useElectionInfo();
+  const { i18n } = useTranslation();
 
   const { onMouseEnter, onMouseMove, onMouseLeave, tooltip } = useTooltip();
 
@@ -38,7 +40,7 @@ export const RegionsMap: React.FC<
             e,
             info ? (
               <div className="text-left">
-                <div className="text-lg text-center pb-2">{`${info.name}/${info.name_en}`}</div>
+                <div className="text-lg text-center pb-2">{`${i18n.language === "bg" ? info.name : info.name_en}`}</div>
                 <PartyVotesXS results={regionVotes?.results} />
               </div>
             ) : (

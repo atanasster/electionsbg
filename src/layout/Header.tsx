@@ -16,8 +16,10 @@ export const Header = () => {
           <span className="sr-only">Elections in Bulgaria data statistics</span>
           <Vote />
           <div className="flex font-title ext-2xl transition-all duration-200 pl-2">
-            <div className="lowercase text-popover-foreground">elections</div>
-            <div className="font-semibold uppercase">BG</div>
+            <div className="lowercase text-popover-foreground">
+              {t("elections")}
+            </div>
+            <div className="font-semibold uppercase">{t("bg")}</div>
           </div>
         </a>
       </div>
@@ -25,9 +27,8 @@ export const Header = () => {
         <a
           href="/"
           className="font-medium text-muted-foreground hidden md:block"
-          aria-label="Go to home page"
         >
-          Home
+          {t("reports")}
         </a>
         <button
           className="font-medium text-muted-foreground hidden md:block"

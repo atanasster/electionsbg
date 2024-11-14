@@ -4,11 +4,13 @@ import { settlements } from "./data/json_types";
 import { SettlementsMap } from "./components/SettlementsMap";
 import { useSearchParams } from "react-router-dom";
 import { useSettlementsInfo } from "@/data/SettlementsContext";
+import { useTranslation } from "react-i18next";
 
 export const SettlementsScreen = () => {
   const [searchParams] = useSearchParams();
   const regionCode = searchParams.get("region");
   const { findRegion, findMunicipality } = useSettlementsInfo();
+  const { i18n } = useTranslation();
   if (!regionCode) {
     return null;
   }
@@ -22,7 +24,13 @@ export const SettlementsScreen = () => {
     return null;
   }
   return (
-    <MapLayout title={`${region.name} / ${municipality.name}`}>
+    <MapLayout
+      title={
+        i18n.language === "bg"
+          ? `${region.name} / ${municipality.name}`
+          : `${region.name_en} / ${municipality.name_en}`
+      }
+    >
       {(size) => (
         <SettlementsMap
           settlements={settlements}

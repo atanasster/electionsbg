@@ -3,12 +3,13 @@ import { useSettlementsInfo } from "@/data/SettlementsContext";
 import { Caption } from "@/ux/Caption";
 import { SectionVotes } from "./components/SectionVotes";
 import { useSectionsInfo } from "@/data/SectionsContext";
+import { useTranslation } from "react-i18next";
 
 export const SectionsScreen = () => {
   const [searchParams] = useSearchParams();
   const { findSections } = useSectionsInfo();
   const { findSettlement } = useSettlementsInfo();
-
+  const { t } = useTranslation();
   const regionCode = searchParams.get("region");
   const muniCode = searchParams.get("municipality");
   const settlementCode = searchParams.get("settlement");
@@ -26,7 +27,7 @@ export const SectionsScreen = () => {
       {sections.map((section) => {
         return (
           <div key={section.section}>
-            <Caption>{`Section ${section.section}`}</Caption>
+            <Caption>{`${t("section")} ${section.section}`}</Caption>
             <Caption className="mb-4">{`${section.settlement}-${section.address}`}</Caption>
 
             <SectionVotes section={section.section} />
