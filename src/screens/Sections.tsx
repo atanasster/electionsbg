@@ -1,6 +1,6 @@
 import { useSearchParams } from "react-router-dom";
 import { useSettlementsInfo } from "@/data/SettlementsContext";
-import { Title } from "@/ux/Title";
+import { Caption } from "@/ux/Caption";
 import { SectionVotes } from "./components/SectionVotes";
 import { useSectionsInfo } from "@/data/SectionsContext";
 
@@ -26,8 +26,9 @@ export const SectionsScreen = () => {
       {sections.map((section) => {
         return (
           <div key={section.section}>
-            <Title>{`${section.settlement}-${section.address}`}</Title>
-            <Title>{`${section.section}`}</Title>
+            <Caption>{`Section ${section.section}`}</Caption>
+            <Caption className="mb-4">{`${section.settlement}-${section.address}`}</Caption>
+
             <SectionVotes section={section.section} />
           </div>
         );
