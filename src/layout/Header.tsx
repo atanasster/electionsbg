@@ -3,9 +3,12 @@ import { Moon, SunMedium, Menu, Vote } from "lucide-react";
 
 import { themeDark, themeLight } from "@/theme/utils";
 import { ThemeContext } from "@/theme/ThemeContext";
+import { useTranslation } from "react-i18next";
 
 export const Header = () => {
   const { setTheme, theme } = useContext(ThemeContext);
+  const { t, i18n } = useTranslation();
+
   return (
     <div className="flex gap-6 md:gap-10 bg-muted border-b-2">
       <div className="w-full text-xl text-primary flex flex-wrap items-center justify-between mx-auto p-4">
@@ -26,6 +29,19 @@ export const Header = () => {
         >
           Home
         </a>
+        <button
+          className="font-medium text-muted-foreground hidden md:block"
+          aria-label="Change language"
+          onClick={() => {
+            if (i18n.language === "bg") {
+              i18n.changeLanguage("en");
+            } else {
+              i18n.changeLanguage("bg");
+            }
+          }}
+        >
+          {t("changeLanguageTo")}
+        </button>
         <button
           onClick={() => setTheme(theme === themeDark ? themeLight : themeDark)}
           id="theme-toggle"

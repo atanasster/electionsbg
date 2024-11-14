@@ -1,3 +1,5 @@
+import "./i18n.ts"; // imports + initializes i18n
+
 import "./App.css";
 // import { AuthProvider } from "@/auth/AuthContext";
 import { AuthRoutes } from "@/routes";
