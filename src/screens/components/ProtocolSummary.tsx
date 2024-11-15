@@ -59,11 +59,6 @@ export const ProtocolSummary: FC<{
                   {numberWithCommas(protocol.totalActualVoters)}
                 </div>
               </Tooltip>
-              <Tooltip text={t("total_voters_explainer")}>
-                <div className="text-4xl my-4 font-bold">
-                  {numberWithCommas(protocol.totalActualVoters)}
-                </div>
-              </Tooltip>
             </div>
             <div className="flex justify-between text-xs text-muted-foreground">
               <div>{`${t("registered_voters")}: `}</div>

@@ -5,6 +5,7 @@ import { SettlementsMap } from "./components/SettlementsMap";
 import { useSearchParams } from "react-router-dom";
 import { useSettlementsInfo } from "@/data/SettlementsContext";
 import { useTranslation } from "react-i18next";
+import { Title } from "@/ux/Title";
 
 export const SettlementsScreen = () => {
   const [searchParams] = useSearchParams();
@@ -24,21 +25,23 @@ export const SettlementsScreen = () => {
     return null;
   }
   return (
-    <MapLayout
-      title={
-        i18n.language === "bg"
+    <>
+      <Title>
+        {i18n.language === "bg"
           ? `${region.name} / ${municipality.name}`
-          : `${region.name_en} / ${municipality.name_en}`
-      }
-    >
-      {(size) => (
-        <SettlementsMap
-          settlements={settlements}
-          municipality={municipality}
-          region={region}
-          size={size}
-        />
-      )}
-    </MapLayout>
+          : `${region.name_en} / ${municipality.name_en}`}
+      </Title>
+
+      <MapLayout>
+        {(size) => (
+          <SettlementsMap
+            settlements={settlements}
+            municipality={municipality}
+            region={region}
+            size={size}
+          />
+        )}
+      </MapLayout>
+    </>
   );
 };
