@@ -3,7 +3,7 @@ export const Title: React.FC<React.ComponentProps<"h2">> = ({
   ...props
 }) => (
   <h2
-    className={`text-3xl text-popover-foreground font-extrabold leading-tight tracking-tighter md:text-4xl text-center py-4 md:py-12 sm:py-4 ${
+    className={`text-3xl font-extrabold leading-tight tracking-tighter md:text-4xl text-center py-4 md:py-12 sm:py-4 text-muted-foreground ${
       className || ""
     }`}
     {...props}
