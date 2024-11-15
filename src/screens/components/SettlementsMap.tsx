@@ -5,7 +5,6 @@ import { useNavigate, createSearchParams } from "react-router-dom";
 
 import { Settlements } from "../data/json_types";
 import { RegionMap } from "./RegionMap";
-import { Link } from "@/ux/Link";
 import { getDataProjection } from "../utils/d3_utils";
 import { useTooltip } from "@/ux/useTooltip";
 import {
@@ -107,19 +106,6 @@ export const SettlementsMap: React.FC<
 
   return (
     <div>
-      <Link
-        aria-label="Go to back to region"
-        onClick={() => {
-          navigate({
-            pathname: "/municipality",
-            search: createSearchParams({
-              region: region.oblast,
-            }).toString(),
-          });
-        }}
-      >
-        {`Back to region ${region.name}`}
-      </Link>
       <svg
         className="municipalities border-slate-200"
         width={size[0]}

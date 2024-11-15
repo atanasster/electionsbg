@@ -4,7 +4,6 @@ import { useNavigate, createSearchParams } from "react-router-dom";
 
 import { Municipalities } from "../data/json_types";
 import { RegionMap } from "./RegionMap";
-import { Link } from "@/ux/Link";
 import { getDataProjection } from "../utils/d3_utils";
 import { useTooltip } from "@/ux/useTooltip";
 import { useSettlementsInfo } from "@/data/SettlementsContext";
@@ -89,14 +88,6 @@ export const MunicipalitiesMap: React.FC<
 
   return (
     <div>
-      <Link
-        aria-label="Go to full country map"
-        onClick={() => {
-          navigate("/");
-        }}
-      >
-        Back to Country
-      </Link>
       <svg
         className="municipalities border-slate-200"
         width={size[0]}

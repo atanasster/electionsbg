@@ -2,6 +2,7 @@
   "bulgaria": "Bulgaria",
   "elections": "elections",
   "bg": "bg",
+  "voters": "Voters",
   "registered_voters": "Registered voters",
   "additional_voters": "Additional voters",
   "valid_votes": "Valid votes",
@@ -9,6 +10,7 @@
   "support_no_one": "Supports no one",
   "total_voters": "Total voters (signed)",
   "party": "Party",
+  "parties": "Parties",
   "votes": "Votes",
   "unknown_party": "Unknown party",
   "about": "About",
@@ -19,5 +21,10 @@
   "machine_votes": "Machine votes",
   "paper_votes": "Paper votes",
   "reports": "Reports",
+  "paper_ballots_found": "Paper ballots found",
+  "machine_ballots_found": "Machine ballots found",
+  "valid_votes_explainer": "Total number of the actual votes submitted for the lists of candidates of parties, coalitions and initiative committees",
+  "total_voters_explainer": "The total number of voters according to the signatures in the voting list, including the additional voters (under the line)",
+  "total_machine_votes_explainer": "The total number of actual votes, supporting the lists of candidates of parties, coalitions and initiative committees",
   "changeLanguageTo": "bg"
 }
