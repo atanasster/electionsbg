@@ -6,11 +6,14 @@ import { useSearchParams } from "react-router-dom";
 import { useSettlementsInfo } from "@/data/SettlementsContext";
 import { useTranslation } from "react-i18next";
 import { Title } from "@/ux/Title";
+import { useAggregatedVotes } from "@/data/AggregatedVotesHook";
+import { ProtocolSummary } from "./components/ProtocolSummary";
 
 export const SettlementsScreen = () => {
   const [searchParams] = useSearchParams();
   const regionCode = searchParams.get("region");
   const { findRegion, findMunicipality } = useSettlementsInfo();
+  const { votesByMunicipality } = useAggregatedVotes();
   const { i18n } = useTranslation();
   if (!regionCode) {
     return null;
@@ -24,6 +27,10 @@ export const SettlementsScreen = () => {
   if (!region || !municipality) {
     return null;
   }
+  const municipalityVotes = votesByMunicipality(
+    region.oblast,
+    municipality.obshtina,
+  );
   return (
     <>
       <Title>
@@ -31,7 +38,12 @@ export const SettlementsScreen = () => {
           ? `${region.name} / ${municipality.name}`
           : `${region.name_en} / ${municipality.name_en}`}
       </Title>
-
+      {municipalityVotes && municipalityVotes.results.protocol && (
+        <ProtocolSummary
+          protocol={municipalityVotes.results.protocol}
+          votes={municipalityVotes.results.votes}
+        />
+      )}
       <MapLayout>
         {(size) => (
           <SettlementsMap
