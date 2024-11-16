@@ -1,6 +1,19 @@
 import { useContext } from "react";
 import { Moon, SunMedium, Menu, Vote } from "lucide-react";
 
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuGroup,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuPortal,
+  DropdownMenuSeparator,
+  DropdownMenuSub,
+  DropdownMenuSubContent,
+  DropdownMenuSubTrigger,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { themeDark, themeLight } from "@/theme/utils";
 import { ThemeContext } from "@/theme/ThemeContext";
 import { useTranslation } from "react-i18next";
@@ -24,12 +37,98 @@ export const Header = () => {
         </a>
       </div>
       <nav className="flex gap-6 items-center px-4">
-        <a
-          href="/"
-          className="font-medium text-muted-foreground hidden md:block"
-        >
-          {t("reports")}
-        </a>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <button
+              className="font-medium text-muted-foreground hidden md:block lowercase"
+              aria-label="Open reports menu"
+            >
+              {t("reports")}
+            </button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="w-56">
+            <DropdownMenuLabel>{t("anomaly_reports")}</DropdownMenuLabel>
+            <DropdownMenuSeparator />
+            <DropdownMenuGroup>
+              <DropdownMenuSub>
+                <DropdownMenuSubTrigger>{t("regions")}</DropdownMenuSubTrigger>
+                <DropdownMenuPortal>
+                  <DropdownMenuSubContent>
+                    <DropdownMenuItem>
+                      <a href="/">{t("concentrated_party_votes")}</a>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>{t("voter_turnout")}</DropdownMenuItem>
+                    <DropdownMenuItem>{t("invalid_ballots")}</DropdownMenuItem>
+                    <DropdownMenuItem>
+                      {t("additional_voters")}
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>{t("paper_votes")}</DropdownMenuItem>
+                    <DropdownMenuItem>{t("paper_votes")}</DropdownMenuItem>
+                    <DropdownMenuItem>{t("support_no_one")}</DropdownMenuItem>
+                  </DropdownMenuSubContent>
+                </DropdownMenuPortal>
+              </DropdownMenuSub>
+              <DropdownMenuSub>
+                <DropdownMenuSubTrigger>
+                  {t("municipalities")}
+                </DropdownMenuSubTrigger>
+                <DropdownMenuPortal>
+                  <DropdownMenuSubContent>
+                    <DropdownMenuItem>
+                      <a href="/">{t("concentrated_party_votes")}</a>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>{t("voter_turnout")}</DropdownMenuItem>
+                    <DropdownMenuItem>{t("invalid_ballots")}</DropdownMenuItem>
+                    <DropdownMenuItem>
+                      {t("additional_voters")}
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>{t("paper_votes")}</DropdownMenuItem>
+                    <DropdownMenuItem>{t("paper_votes")}</DropdownMenuItem>
+                    <DropdownMenuItem>{t("support_no_one")}</DropdownMenuItem>
+                  </DropdownMenuSubContent>
+                </DropdownMenuPortal>
+              </DropdownMenuSub>
+              <DropdownMenuSub>
+                <DropdownMenuSubTrigger>
+                  {t("settlements")}
+                </DropdownMenuSubTrigger>
+                <DropdownMenuPortal>
+                  <DropdownMenuSubContent>
+                    <DropdownMenuItem>
+                      <a href="/">{t("concentrated_party_votes")}</a>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>{t("voter_turnout")}</DropdownMenuItem>
+                    <DropdownMenuItem>{t("invalid_ballots")}</DropdownMenuItem>
+                    <DropdownMenuItem>
+                      {t("additional_voters")}
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>{t("paper_votes")}</DropdownMenuItem>
+                    <DropdownMenuItem>{t("paper_votes")}</DropdownMenuItem>
+                    <DropdownMenuItem>{t("support_no_one")}</DropdownMenuItem>
+                  </DropdownMenuSubContent>
+                </DropdownMenuPortal>
+              </DropdownMenuSub>
+              <DropdownMenuSub>
+                <DropdownMenuSubTrigger>{t("sections")}</DropdownMenuSubTrigger>
+                <DropdownMenuPortal>
+                  <DropdownMenuSubContent>
+                    <DropdownMenuItem>
+                      <a href="/">{t("concentrated_party_votes")}</a>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>{t("voter_turnout")}</DropdownMenuItem>
+                    <DropdownMenuItem>{t("invalid_ballots")}</DropdownMenuItem>
+                    <DropdownMenuItem>
+                      {t("additional_voters")}
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>{t("paper_votes")}</DropdownMenuItem>
+                    <DropdownMenuItem>{t("paper_votes")}</DropdownMenuItem>
+                    <DropdownMenuItem>{t("support_no_one")}</DropdownMenuItem>
+                  </DropdownMenuSubContent>
+                </DropdownMenuPortal>
+              </DropdownMenuSub>
+            </DropdownMenuGroup>
+          </DropdownMenuContent>
+        </DropdownMenu>
         <button
           className="font-medium text-muted-foreground hidden md:block"
           aria-label="Change language"
