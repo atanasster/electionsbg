@@ -2,6 +2,7 @@ import { FC } from "react";
 import { VoteResults } from "@/data/dataTypes";
 import { useElectionInfo } from "@/data/ElectionsContext";
 import { useTranslation } from "react-i18next";
+import { formatPct } from "@/data/utils";
 
 export const PartyVotesXS: FC<{ results?: VoteResults }> = ({ results }) => {
   const { findParty } = useElectionInfo();
@@ -10,9 +11,6 @@ export const PartyVotesXS: FC<{ results?: VoteResults }> = ({ results }) => {
     return null;
   }
 
-  const formatPct = (n: number) => {
-    return `${(Math.round(n * 1000) / 1000).toFixed(3)}%`;
-  };
   return (
     <div>
       <table className="w-full border border-collapse table-auto">

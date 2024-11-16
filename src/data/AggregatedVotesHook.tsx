@@ -3,7 +3,9 @@ import {
   ElectionRegions,
   ElectionRegion,
   ElectionMunicipality,
+  VoteResults,
 } from "./dataTypes";
+import { addVotes } from "./utils";
 
 export const useAggregatedVotes = () => {
   const [votes, setVotes] = useState<ElectionRegions>([]);
@@ -37,10 +39,24 @@ export const useAggregatedVotes = () => {
       ?.municipalities.find((m) => m.obshtina === obshtina);
   };
 
+  const countryVotes = (): VoteResults => {
+    const acc: VoteResults = {
+      actualTotal: 0,
+      actualPaperVotes: 0,
+      actualMachineVotes: 0,
+      votes: [],
+    };
+    votes.map((r) => {
+      addVotes(acc, r.results.votes, r.results.protocol);
+    });
+
+    return acc;
+  };
   return {
     votesByRegion,
     regions: votes,
     votesBySettlement,
     votesByMunicipality,
+    countryVotes,
   };
 };

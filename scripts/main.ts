@@ -16,8 +16,8 @@ import {
   ElectionSettlement,
   ElectionVotes,
   SectionInfo,
-  VoteResults,
 } from "@/data/dataTypes";
+import { addVotes } from "@/data/utils";
 
 const municipalities = municipalitiesData;
 
@@ -95,87 +95,6 @@ const aggregateSettlements = (
   votes: ElectionVotes[],
   protocols: FullSectionProtocol[],
 ) => {
-  const addVotes = (
-    results: VoteResults,
-    curr: ElectionVotes,
-    protocol?: FullSectionProtocol,
-  ) => {
-    curr.votes.forEach((v) => {
-      const votes = results.votes.find((a) => a.key === v.key);
-      if (votes) {
-        votes.totalVotes += v.totalVotes;
-        votes.machineVotes += v.machineVotes;
-        votes.paperVotes += v.paperVotes;
-      } else {
-        results.votes.push({
-          key: v.key,
-          totalVotes: v.totalVotes,
-          machineVotes: v.machineVotes,
-          paperVotes: v.paperVotes,
-        });
-      }
-      results.actualTotal += v.totalVotes;
-      results.actualMachineVotes += v.machineVotes;
-      results.actualPaperVotes += v.paperVotes;
-    });
-    if (protocol) {
-      if (results.protocol) {
-        results.protocol.ballotsReceived += protocol.ballotsReceived;
-        results.protocol.numAdditionalVoters += protocol.numAdditionalVoters;
-        results.protocol.numInvalidAndDestroyedPaperBallots +=
-          protocol.numInvalidAndDestroyedPaperBallots;
-        results.protocol.numInvalidBallotsFound +=
-          protocol.numInvalidBallotsFound;
-        if (protocol.numMachineBallots) {
-          results.protocol.numMachineBallots =
-            protocol.numMachineBallots +
-            (results.protocol.numMachineBallots
-              ? results.protocol.numMachineBallots
-              : 0);
-        }
-        results.protocol.numPaperBallotsFound += protocol.numPaperBallotsFound;
-        results.protocol.numRegisteredVoters += protocol.numRegisteredVoters;
-        results.protocol.numUnusedPaperBallots +=
-          protocol.numUnusedPaperBallots;
-        if (protocol.numValidMachineVotes) {
-          results.protocol.numValidMachineVotes =
-            protocol.numValidMachineVotes +
-            (results.protocol.numValidMachineVotes
-              ? results.protocol.numValidMachineVotes
-              : 0);
-        }
-        if (protocol.numValidNoOneMachineVotes) {
-          results.protocol.numValidNoOneMachineVotes =
-            protocol.numValidNoOneMachineVotes +
-            (results.protocol.numValidNoOneMachineVotes
-              ? results.protocol.numValidNoOneMachineVotes
-              : 0);
-        }
-        results.protocol.numValidNoOnePaperVotes +=
-          protocol.numValidNoOnePaperVotes;
-        results.protocol.numValidVotes += protocol.numValidVotes;
-        results.protocol.totalActualVoters += protocol.totalActualVoters;
-      } else {
-        results.protocol = {
-          ballotsReceived: protocol.ballotsReceived,
-          numAdditionalVoters: protocol.numAdditionalVoters,
-          numInvalidAndDestroyedPaperBallots:
-            protocol.numInvalidAndDestroyedPaperBallots,
-          numInvalidBallotsFound: protocol.numInvalidBallotsFound,
-          numMachineBallots: protocol.numMachineBallots,
-          numPaperBallotsFound: protocol.numPaperBallotsFound,
-          numRegisteredVoters: protocol.numRegisteredVoters,
-          numUnusedPaperBallots: protocol.numUnusedPaperBallots,
-          numValidMachineVotes: protocol.numValidMachineVotes,
-          numValidNoOneMachineVotes: protocol.numValidNoOneMachineVotes,
-          numValidNoOnePaperVotes: protocol.numValidNoOnePaperVotes,
-          numValidVotes: protocol.numValidVotes,
-          totalActualVoters: protocol.totalActualVoters,
-        };
-      }
-    }
-  };
-
   const elections: ElectionRegions = [];
   regions.forEach((region) => {
     elections.push({
@@ -312,9 +231,9 @@ const aggregateSettlements = (
       const { document, section: ss, rik, pages, ...nprotocol } = protocol;
       section.protocol = { ...nprotocol };
     }
-    addVotes(settlement.results, vote, protocol);
-    addVotes(municipality.results, vote, protocol);
-    addVotes(region.results, vote, protocol);
+    addVotes(settlement.results, vote.votes, protocol);
+    addVotes(municipality.results, vote.votes, protocol);
+    addVotes(region.results, vote.votes, protocol);
   });
   const json = JSON.stringify(elections, null, 2);
   const outFile = `${outFolder}/aggregated_votes.json`;
