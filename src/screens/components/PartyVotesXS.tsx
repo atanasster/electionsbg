@@ -14,52 +14,6 @@ export const PartyVotesXS: FC<{ results?: VoteResults }> = ({ results }) => {
   return (
     <div>
       <table className="w-full border border-collapse table-auto">
-        <tbody className="text-sm text-left font-light text-gray-700">
-          <tr className="border-b border-gray-200 hover:bg-gray-100 font-medium">
-            <td className="px-2 py-1">{t("registered_voters")}</td>
-            <td className="text-right">
-              {formatThousands(results.protocol?.numRegisteredVoters)}
-            </td>
-          </tr>
-          <tr className="border-b border-gray-200 hover:bg-gray-100 font-medium">
-            <td className="px-2 py-1">{t("additional_voters")}</td>
-            <td className="text-right">
-              {formatThousands(results.protocol?.numAdditionalVoters)}
-            </td>
-          </tr>
-          <tr className="border-b border-gray-200 hover:bg-gray-100 font-medium">
-            <td className="px-2 py-1">{t("valid_votes")}</td>
-            <td className="text-right">
-              {formatThousands(
-                (results.protocol?.numValidVotes || 0) +
-                  (results.protocol?.numValidMachineVotes || 0),
-              )}
-            </td>
-          </tr>
-          <tr className="border-b border-gray-200 hover:bg-gray-100 font-medium">
-            <td className="px-2 py-1">{t("invalid_ballots")}</td>
-            <td className="text-right">
-              {formatThousands(results.protocol?.numInvalidBallotsFound)}
-            </td>
-          </tr>
-          <tr className="border-b border-gray-200 hover:bg-gray-100 font-medium">
-            <td className="px-2 py-1">{t("support_no_one")}</td>
-            <td className="text-right">
-              {formatThousands(
-                (results.protocol?.numValidNoOneMachineVotes || 0) +
-                  (results.protocol?.numValidNoOnePaperVotes || 0),
-              )}
-            </td>
-          </tr>
-          <tr className="border-b border-gray-200 hover:bg-gray-100 font-medium">
-            <td className="px-2 py-1">{t("total_voters")}</td>
-            <td className="text-right">
-              {formatThousands(results.protocol?.totalActualVoters)}
-            </td>
-          </tr>
-        </tbody>
-      </table>
-      <table className="w-full border border-collapse table-auto">
         <thead>
           <tr className="text-base bg-gray-5 py-3 font-medium">
             <th className="border-b-2 text-left border-blue-500">
