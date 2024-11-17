@@ -45,7 +45,9 @@ export const SectionsScreen = () => {
                 votes={votes.votes}
               />
             )}
-            <SectionVotes section={section.section} />
+            {section.protocol && (
+              <SectionVotes protocol={section.protocol} votes={votes.votes} />
+            )}
           </div>
         );
       })}

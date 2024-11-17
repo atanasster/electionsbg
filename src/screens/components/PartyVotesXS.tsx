@@ -2,7 +2,7 @@ import { FC } from "react";
 import { VoteResults } from "@/data/dataTypes";
 import { useElectionInfo } from "@/data/ElectionsContext";
 import { useTranslation } from "react-i18next";
-import { formatPct, numberWithCommas } from "@/data/utils";
+import { formatPct, formatThousands } from "@/data/utils";
 
 export const PartyVotesXS: FC<{ results?: VoteResults }> = ({ results }) => {
   const { findParty } = useElectionInfo();
@@ -18,19 +18,19 @@ export const PartyVotesXS: FC<{ results?: VoteResults }> = ({ results }) => {
           <tr className="border-b border-gray-200 hover:bg-gray-100 font-medium">
             <td className="px-2 py-1">{t("registered_voters")}</td>
             <td className="text-right">
-              {numberWithCommas(results.protocol?.numRegisteredVoters)}
+              {formatThousands(results.protocol?.numRegisteredVoters)}
             </td>
           </tr>
           <tr className="border-b border-gray-200 hover:bg-gray-100 font-medium">
             <td className="px-2 py-1">{t("additional_voters")}</td>
             <td className="text-right">
-              {numberWithCommas(results.protocol?.numAdditionalVoters)}
+              {formatThousands(results.protocol?.numAdditionalVoters)}
             </td>
           </tr>
           <tr className="border-b border-gray-200 hover:bg-gray-100 font-medium">
             <td className="px-2 py-1">{t("valid_votes")}</td>
             <td className="text-right">
-              {numberWithCommas(
+              {formatThousands(
                 (results.protocol?.numValidVotes || 0) +
                   (results.protocol?.numValidMachineVotes || 0),
               )}
@@ -39,13 +39,13 @@ export const PartyVotesXS: FC<{ results?: VoteResults }> = ({ results }) => {
           <tr className="border-b border-gray-200 hover:bg-gray-100 font-medium">
             <td className="px-2 py-1">{t("invalid_ballots")}</td>
             <td className="text-right">
-              {numberWithCommas(results.protocol?.numInvalidBallotsFound)}
+              {formatThousands(results.protocol?.numInvalidBallotsFound)}
             </td>
           </tr>
           <tr className="border-b border-gray-200 hover:bg-gray-100 font-medium">
             <td className="px-2 py-1">{t("support_no_one")}</td>
             <td className="text-right">
-              {numberWithCommas(
+              {formatThousands(
                 (results.protocol?.numValidNoOneMachineVotes || 0) +
                   (results.protocol?.numValidNoOnePaperVotes || 0),
               )}
@@ -54,7 +54,7 @@ export const PartyVotesXS: FC<{ results?: VoteResults }> = ({ results }) => {
           <tr className="border-b border-gray-200 hover:bg-gray-100 font-medium">
             <td className="px-2 py-1">{t("total_voters")}</td>
             <td className="text-right">
-              {numberWithCommas(results.protocol?.totalActualVoters)}
+              {formatThousands(results.protocol?.totalActualVoters)}
             </td>
           </tr>
         </tbody>
@@ -92,7 +92,7 @@ export const PartyVotesXS: FC<{ results?: VoteResults }> = ({ results }) => {
                     </div>
                   </td>
                   <td className="px-2 text-right">
-                    {numberWithCommas(v.totalVotes)}
+                    {formatThousands(v.totalVotes)}
                   </td>
                   <td className="px-2 text-right">
                     {formatPct(100 * (v.totalVotes / results.actualTotal))}
