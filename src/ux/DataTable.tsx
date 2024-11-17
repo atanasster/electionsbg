@@ -120,6 +120,27 @@ export const DataTable = <TData, TValue>({
           )}
         </TableBody>
       </Table>
+      {table.getPageCount() > 1 ? (
+        <div className="flex items-center justify-end space-x-2 py-4">
+          <Button
+            variant="outline"
+            className="w-24"
+            onClick={() => table.previousPage()}
+            disabled={!table.getCanPreviousPage()}
+          >
+            {t("previous")}
+          </Button>
+          <div className="text-center">{`${table.getState().pagination.pageIndex + 1} / ${table.getPageCount()}`}</div>
+          <Button
+            variant="outline"
+            className="w-24"
+            onClick={() => table.nextPage()}
+            disabled={!table.getCanNextPage()}
+          >
+            {t("next")}
+          </Button>
+        </div>
+      ) : null}
     </div>
   );
 };
