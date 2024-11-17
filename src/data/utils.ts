@@ -5,7 +5,7 @@ export const formatPct = (n: number, decimals: number = 3) => {
   return `${(Math.round(n * nominator) / nominator).toFixed(decimals)}%`;
 };
 
-export const numberWithCommas = (x?: number) =>
+export const formatThousands = (x?: number) =>
   x !== undefined ? x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "";
 
 export const addVotes = (

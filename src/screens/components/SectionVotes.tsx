@@ -1,14 +1,14 @@
 import { FC } from "react";
-
-import { useElectionVotes } from "@/data/VotesContext";
 import { PartyVotes } from "./PartyVotes";
+import { SectionProtocol, Votes } from "@/data/dataTypes";
 
-export const SectionVotes: FC<{ section: string }> = ({ section }) => {
-  const { findSectionVotes } = useElectionVotes();
-  const votes = findSectionVotes(section);
+export const SectionVotes: FC<{
+  protocol: SectionProtocol;
+  votes?: Votes[];
+}> = ({ votes, protocol }) => {
   if (!votes) {
     return null;
   }
 
-  return <PartyVotes votes={votes} />;
+  return <PartyVotes votes={votes} protocol={protocol} />;
 };

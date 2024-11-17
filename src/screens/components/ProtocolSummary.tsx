@@ -5,7 +5,7 @@ import { SectionProtocol, Votes } from "@/data/dataTypes";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { useTranslation } from "react-i18next";
 import { Tooltip } from "@/ux/Tooltip";
-import { formatPct, numberWithCommas } from "@/data/utils";
+import { formatPct, formatThousands } from "@/data/utils";
 import {
   ChartConfig,
   ChartContainer,
@@ -24,7 +24,7 @@ const CustomTooltip: FC<{
       <div className="flex">
         <div className="text-muted">{`${label}:`}</div>
         <div className="ml-2 font-semibold">
-          {numberWithCommas(payload[0].value)}
+          {formatThousands(payload[0].value)}
         </div>
         <div className="text-muted ml-1 lowercase ">{t("votes")}</div>
       </div>
@@ -71,7 +71,7 @@ export const ProtocolSummary: FC<{
             <div className="flex">
               <Tooltip text={t("total_voters_explainer")}>
                 <div className="text-4xl my-4 mr-2 font-bold">
-                  {numberWithCommas(protocol.totalActualVoters)}
+                  {formatThousands(protocol.totalActualVoters)}
                 </div>
               </Tooltip>
               <Tooltip text={t("pct_total_voters_explainer")}>
@@ -91,7 +91,7 @@ export const ProtocolSummary: FC<{
               </Tooltip>
               <Tooltip text={t("num_registered_voters_explainer")}>
                 <div className="font-bold text-primary">
-                  {numberWithCommas(protocol.numRegisteredVoters)}
+                  {formatThousands(protocol.numRegisteredVoters)}
                 </div>
               </Tooltip>
             </div>
@@ -102,7 +102,7 @@ export const ProtocolSummary: FC<{
               <div className="flex">
                 <Tooltip text={t("num_additional_voters_explainer")}>
                   <span className="font-bold text-primary">
-                    {numberWithCommas(protocol.numAdditionalVoters)}
+                    {formatThousands(protocol.numAdditionalVoters)}
                   </span>
                 </Tooltip>
                 <Tooltip text={t("pct_additional_voters_explainer")}>
@@ -124,7 +124,7 @@ export const ProtocolSummary: FC<{
               <div className="flex">
                 <Tooltip text={t("num_invalid_ballots_explainer")}>
                   <div className="font-bold text-primary">
-                    {numberWithCommas(protocol.numInvalidBallotsFound)}
+                    {formatThousands(protocol.numInvalidBallotsFound)}
                   </div>
                 </Tooltip>
                 <Tooltip text={t("pct_invalid_ballots_to_all_votes_explainer")}>
@@ -146,7 +146,7 @@ export const ProtocolSummary: FC<{
               <div className="flex">
                 <Tooltip text={t("num_supports_no_one_explainer")}>
                   <div className="font-bold text-primary">
-                    {numberWithCommas(
+                    {formatThousands(
                       protocol.numValidNoOnePaperVotes +
                         (protocol.numValidNoOneMachineVotes || 0),
                     )}
@@ -178,7 +178,7 @@ export const ProtocolSummary: FC<{
             <div className="flex">
               <Tooltip text={t("valid_paper_votes_explainer")}>
                 <div className="text-4xl my-4 font-bold justify-self-start">
-                  {numberWithCommas(protocol.numValidVotes)}
+                  {formatThousands(protocol.numValidVotes)}
                 </div>
               </Tooltip>
               <Tooltip text={t("pct_paper_votes_explainer")}>
@@ -200,7 +200,7 @@ export const ProtocolSummary: FC<{
               <div className="flex">
                 <Tooltip text={t("num_paper_ballots_found_explainer")}>
                   <div className="font-bold text-primary">
-                    {numberWithCommas(protocol.numPaperBallotsFound)}
+                    {formatThousands(protocol.numPaperBallotsFound)}
                   </div>
                 </Tooltip>
                 <Tooltip text={t("pct_valid_paper_ballots")}>
@@ -222,7 +222,7 @@ export const ProtocolSummary: FC<{
               <div className="flex">
                 <Tooltip text={t("num_invalid_paper_ballots")}>
                   <div className="font-bold text-primary">
-                    {numberWithCommas(protocol.numInvalidBallotsFound)}
+                    {formatThousands(protocol.numInvalidBallotsFound)}
                   </div>
                 </Tooltip>
                 <Tooltip text={t("pct_invalid_paper_ballots")}>
@@ -244,7 +244,7 @@ export const ProtocolSummary: FC<{
               <div className="flex">
                 <Tooltip text={t("num_supports_no_one_explainer")}>
                   <div className="font-bold text-primary">
-                    {numberWithCommas(protocol.numValidNoOnePaperVotes)}
+                    {formatThousands(protocol.numValidNoOnePaperVotes)}
                   </div>
                 </Tooltip>
                 <Tooltip text={t("pct_supports_noone_paper_ballots")}>
@@ -273,7 +273,7 @@ export const ProtocolSummary: FC<{
               <div className="flex">
                 <Tooltip text={t("total_machine_votes_explainer")}>
                   <div className="text-4xl my-4 font-bold justify-self-start">
-                    {numberWithCommas(protocol.numValidMachineVotes)}
+                    {formatThousands(protocol.numValidMachineVotes)}
                   </div>
                 </Tooltip>
                 <Tooltip text={t("pct_machine_votes_explainer")}>
@@ -294,7 +294,7 @@ export const ProtocolSummary: FC<{
                 </Tooltip>
                 <Tooltip text={t("num_machine_ballots_found_explainer")}>
                   <div className="font-bold text-primary">
-                    {numberWithCommas(protocol?.numMachineBallots)}
+                    {formatThousands(protocol?.numMachineBallots)}
                   </div>
                 </Tooltip>
               </div>
@@ -305,7 +305,7 @@ export const ProtocolSummary: FC<{
                 <div className="flex">
                   <Tooltip text={t("num_machine_supports_no_one_explainer")}>
                     <div className="font-bold text-primary">
-                      {numberWithCommas(protocol?.numValidNoOneMachineVotes)}
+                      {formatThousands(protocol?.numValidNoOneMachineVotes)}
                     </div>
                   </Tooltip>
                   <Tooltip text={t("pct_supports_noone_machine_ballots")}>
