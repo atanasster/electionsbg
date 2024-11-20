@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { ElectionVotes } from "./dataTypes";
 
-export const useElectionVotes = () => {
+export const useElectionVotesXX = () => {
   const [votes, setVotes] = useState<ElectionVotes[]>([]);
 
   useEffect(() => {

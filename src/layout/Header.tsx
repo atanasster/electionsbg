@@ -17,6 +17,8 @@ import {
 import { themeDark, themeLight } from "@/theme/utils";
 import { ThemeContext } from "@/theme/ThemeContext";
 import { useTranslation } from "react-i18next";
+import { Link } from "@/ux/Link";
+import { Button } from "@/components/ui/button";
 
 export const Header = () => {
   const { setTheme, theme } = useContext(ThemeContext);
@@ -25,7 +27,7 @@ export const Header = () => {
   return (
     <div className="flex gap-6 md:gap-10 bg-muted border-b-2">
       <div className="w-full text-xl text-primary flex flex-wrap items-center justify-between mx-auto p-4">
-        <a href="/" className="flex flex-row items-center">
+        <Link to="/" className="flex flex-row items-center">
           <span className="sr-only">Elections in Bulgaria data statistics</span>
           <Vote />
           <div className="flex font-title ext-2xl transition-all duration-200 pl-2">
@@ -34,40 +36,23 @@ export const Header = () => {
             </div>
             <div className="font-semibold uppercase">{t("bg")}</div>
           </div>
-        </a>
+        </Link>
       </div>
       <nav className="flex gap-6 items-center px-4">
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
-            <button
+            <Button
+              variant="ghost"
               className="font-medium text-muted-foreground hidden md:block lowercase"
               aria-label="Open reports menu"
             >
               {t("reports")}
-            </button>
+            </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-56">
             <DropdownMenuLabel>{t("anomaly_reports")}</DropdownMenuLabel>
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
-              <DropdownMenuSub>
-                <DropdownMenuSubTrigger>{t("regions")}</DropdownMenuSubTrigger>
-                <DropdownMenuPortal>
-                  <DropdownMenuSubContent>
-                    <DropdownMenuItem>
-                      <a href="/">{t("concentrated_party_votes")}</a>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem>{t("voter_turnout")}</DropdownMenuItem>
-                    <DropdownMenuItem>{t("invalid_ballots")}</DropdownMenuItem>
-                    <DropdownMenuItem>
-                      {t("additional_voters")}
-                    </DropdownMenuItem>
-                    <DropdownMenuItem>{t("paper_votes")}</DropdownMenuItem>
-                    <DropdownMenuItem>{t("paper_votes")}</DropdownMenuItem>
-                    <DropdownMenuItem>{t("support_no_one")}</DropdownMenuItem>
-                  </DropdownMenuSubContent>
-                </DropdownMenuPortal>
-              </DropdownMenuSub>
               <DropdownMenuSub>
                 <DropdownMenuSubTrigger>
                   {t("municipalities")}
@@ -75,16 +60,50 @@ export const Header = () => {
                 <DropdownMenuPortal>
                   <DropdownMenuSubContent>
                     <DropdownMenuItem>
-                      <a href="/">{t("concentrated_party_votes")}</a>
+                      <Link
+                        to={{
+                          pathname: "/reports/municipality/concentrated",
+                        }}
+                      >
+                        {t("concentrated_party_votes")}
+                      </Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem>{t("voter_turnout")}</DropdownMenuItem>
-                    <DropdownMenuItem>{t("invalid_ballots")}</DropdownMenuItem>
                     <DropdownMenuItem>
-                      {t("additional_voters")}
+                      <Link
+                        to={{
+                          pathname: "/reports/municipality/turnout",
+                        }}
+                      >
+                        {t("voter_turnout")}
+                      </Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem>{t("paper_votes")}</DropdownMenuItem>
-                    <DropdownMenuItem>{t("paper_votes")}</DropdownMenuItem>
-                    <DropdownMenuItem>{t("support_no_one")}</DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Link
+                        to={{
+                          pathname: "/reports/municipality/invalid_ballots",
+                        }}
+                      >
+                        {t("invalid_ballots")}
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Link
+                        to={{
+                          pathname: "/reports/municipality/additional_voters",
+                        }}
+                      >
+                        {t("additional_voters")}
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Link
+                        to={{
+                          pathname: "/reports/municipality/supports_no_one",
+                        }}
+                      >
+                        {t("support_no_one")}
+                      </Link>
+                    </DropdownMenuItem>
                   </DropdownMenuSubContent>
                 </DropdownMenuPortal>
               </DropdownMenuSub>
@@ -95,16 +114,50 @@ export const Header = () => {
                 <DropdownMenuPortal>
                   <DropdownMenuSubContent>
                     <DropdownMenuItem>
-                      <a href="/">{t("concentrated_party_votes")}</a>
+                      <Link
+                        to={{
+                          pathname: "/reports/settlement/concentrated",
+                        }}
+                      >
+                        {t("concentrated_party_votes")}
+                      </Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem>{t("voter_turnout")}</DropdownMenuItem>
-                    <DropdownMenuItem>{t("invalid_ballots")}</DropdownMenuItem>
                     <DropdownMenuItem>
-                      {t("additional_voters")}
+                      <Link
+                        to={{
+                          pathname: "/reports/settlement/turnout",
+                        }}
+                      >
+                        {t("voter_turnout")}
+                      </Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem>{t("paper_votes")}</DropdownMenuItem>
-                    <DropdownMenuItem>{t("paper_votes")}</DropdownMenuItem>
-                    <DropdownMenuItem>{t("support_no_one")}</DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Link
+                        to={{
+                          pathname: "/reports/settlement/invalid_ballots",
+                        }}
+                      >
+                        {t("invalid_ballots")}
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Link
+                        to={{
+                          pathname: "/reports/settlement/additional_voters",
+                        }}
+                      >
+                        {t("additional_voters")}
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Link
+                        to={{
+                          pathname: "/reports/settlement/supports_no_one",
+                        }}
+                      >
+                        {t("support_no_one")}
+                      </Link>
+                    </DropdownMenuItem>
                   </DropdownMenuSubContent>
                 </DropdownMenuPortal>
               </DropdownMenuSub>
@@ -113,16 +166,50 @@ export const Header = () => {
                 <DropdownMenuPortal>
                   <DropdownMenuSubContent>
                     <DropdownMenuItem>
-                      <a href="/">{t("concentrated_party_votes")}</a>
+                      <Link
+                        to={{
+                          pathname: "/reports/section/concentrated",
+                        }}
+                      >
+                        {t("concentrated_party_votes")}
+                      </Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem>{t("voter_turnout")}</DropdownMenuItem>
-                    <DropdownMenuItem>{t("invalid_ballots")}</DropdownMenuItem>
                     <DropdownMenuItem>
-                      {t("additional_voters")}
+                      <Link
+                        to={{
+                          pathname: "/reports/section/turnout",
+                        }}
+                      >
+                        {t("voter_turnout")}
+                      </Link>
                     </DropdownMenuItem>
-                    <DropdownMenuItem>{t("paper_votes")}</DropdownMenuItem>
-                    <DropdownMenuItem>{t("paper_votes")}</DropdownMenuItem>
-                    <DropdownMenuItem>{t("support_no_one")}</DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Link
+                        to={{
+                          pathname: "/reports/section/invalid_ballots",
+                        }}
+                      >
+                        {t("invalid_ballots")}
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Link
+                        to={{
+                          pathname: "/reports/section/additional_voters",
+                        }}
+                      >
+                        {t("additional_voters")}
+                      </Link>
+                    </DropdownMenuItem>
+                    <DropdownMenuItem>
+                      <Link
+                        to={{
+                          pathname: "/reports/section/supports_no_one",
+                        }}
+                      >
+                        {t("support_no_one")}
+                      </Link>
+                    </DropdownMenuItem>
                   </DropdownMenuSubContent>
                 </DropdownMenuPortal>
               </DropdownMenuSub>

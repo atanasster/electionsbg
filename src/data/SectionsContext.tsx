@@ -26,5 +26,7 @@ export const useSectionsInfo = () => {
     });
   };
 
-  return { findSections };
+  const findSection = (section: string) =>
+    sections.find((s) => s.section === section);
+  return { findSections, findSection, sections };
 };

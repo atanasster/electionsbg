@@ -41,7 +41,9 @@ export const RegionsMap: React.FC<
             info ? (
               <div className="text-left">
                 <div className="text-lg text-center pb-2">{`${i18n.language === "bg" ? info.name : info.name_en}`}</div>
-                <PartyVotesXS results={regionVotes?.results} />
+                {!!regionVotes?.results.votes && (
+                  <PartyVotesXS votes={regionVotes?.results.votes} />
+                )}
               </div>
             ) : (
               name

@@ -42,17 +42,20 @@ export const DataTable = <TData, TValue>({
           header: (props) => {
             const { column } = props;
             return (
-              <Button
-                variant="ghost"
-                onClick={() =>
-                  column.toggleSorting(column.getIsSorted() === "asc")
-                }
-              >
-                {typeof c.header === "function"
-                  ? c.header(props)
-                  : c.header || c.id}
-                <ArrowUpDown className="ml-2 h-4 w-4 " />
-              </Button>
+              <div className="flex justify-center">
+                <Button
+                  variant="ghost"
+                  className="px-0"
+                  onClick={() =>
+                    column.toggleSorting(column.getIsSorted() === "asc")
+                  }
+                >
+                  {typeof c.header === "function"
+                    ? c.header(props)
+                    : c.header || c.id}
+                  <ArrowUpDown className="ml-2 h-4 w-4 " />
+                </Button>
+              </div>
             );
           },
         } as ColumnDef<TData, TValue>;
@@ -74,7 +77,7 @@ export const DataTable = <TData, TValue>({
   });
 
   return (
-    <div className="rounded-md border">
+    <div className="rounded-xl border bg-card text-card-foreground shadow">
       <Table>
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
@@ -94,7 +97,7 @@ export const DataTable = <TData, TValue>({
             </TableRow>
           ))}
         </TableHeader>
-        <TableBody>
+        <TableBody className="text-secondary-foreground">
           {table.getRowModel().rows?.length ? (
             table.getRowModel().rows.map((row) => (
               <TableRow
@@ -102,7 +105,7 @@ export const DataTable = <TData, TValue>({
                 data-state={row.getIsSelected() && "selected"}
               >
                 {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id}>
+                  <TableCell key={cell.id} className="px-2 py-0">
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
                 ))}
@@ -114,17 +117,17 @@ export const DataTable = <TData, TValue>({
                 colSpan={dataColumns.length}
                 className="h-24 text-center"
               >
-                ${t("no_results")}
+                {t("no_results")}
               </TableCell>
             </TableRow>
           )}
         </TableBody>
       </Table>
       {table.getPageCount() > 1 ? (
-        <div className="flex items-center justify-end space-x-2 py-4">
+        <div className="flex items-center justify-end space-x-2 py-4 mr-4">
           <Button
             variant="outline"
-            className="w-24"
+            className="w-24 text-secondary-foreground"
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
           >
@@ -133,7 +136,7 @@ export const DataTable = <TData, TValue>({
           <div className="text-center">{`${table.getState().pagination.pageIndex + 1} / ${table.getPageCount()}`}</div>
           <Button
             variant="outline"
-            className="w-24"
+            className="w-24 text-secondary-foreground"
             onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}
           >

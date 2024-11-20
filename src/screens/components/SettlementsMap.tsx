@@ -74,7 +74,9 @@ export const SettlementsMap: React.FC<
                     ? `${info.t_v_m} ${info.name}`
                     : info.name_en}
                 </div>
-                <PartyVotesXS results={settlementVotes?.results} />
+                {!!settlementVotes?.results.votes && (
+                  <PartyVotesXS votes={settlementVotes?.results.votes} />
+                )}
               </div>
             ) : (
               `${region}-${name}`

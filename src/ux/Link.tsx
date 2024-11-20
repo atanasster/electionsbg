@@ -1,11 +1,12 @@
 import { FC, HTMLProps } from "react";
-
-export const Link: FC<HTMLProps<HTMLAnchorElement>> = ({
+import { Link as RouterLink, LinkProps } from "react-router-dom";
+import { cn } from "@/lib/utils";
+export const Link: FC<LinkProps & HTMLProps<HTMLAnchorElement>> = ({
   className,
   ...props
 }) => (
-  <a
-    className={`link text-accent-foreground hover:underline hover:cursor-pointer ${className || ""}`}
+  <RouterLink
+    className={cn("link hover:underline hover:cursor-pointer", className)}
     {...props}
   />
 );

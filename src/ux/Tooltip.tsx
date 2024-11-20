@@ -1,18 +1,16 @@
-import { FC, PropsWithChildren } from "react";
+import { FC, PropsWithChildren, ReactNode } from "react";
 import {
-  Tooltip as TooltipShadcn,
+  Tooltip as ShadcnTooltip,
   TooltipContent,
   TooltipTrigger,
 } from "@/components/ui/tooltip";
 
-export const Tooltip: FC<PropsWithChildren<{ text: string }>> = ({
-  text,
+export const Tooltip: FC<PropsWithChildren<{ content: ReactNode }>> = ({
+  content,
   children,
 }) => (
-  <TooltipShadcn delayDuration={0}>
+  <ShadcnTooltip delayDuration={0}>
     <TooltipTrigger asChild>{children}</TooltipTrigger>
-    <TooltipContent className="max-w-64 text-sm">
-      <p>{text}</p>
-    </TooltipContent>
-  </TooltipShadcn>
+    <TooltipContent className="max-w-72 text-sm">{content}</TooltipContent>
+  </ShadcnTooltip>
 );
