@@ -69,7 +69,9 @@ export const MunicipalitiesMap: React.FC<
             info ? (
               <div className="text-left">
                 <div className="text-lg text-center pb-2">{`${i18n.language === "bg" ? info.name : info.name_en}`}</div>
-                <PartyVotesXS results={muniVotes?.results} />
+                {!!muniVotes?.results.votes && (
+                  <PartyVotesXS votes={muniVotes?.results.votes} />
+                )}
               </div>
             ) : (
               `${region}-${name}`

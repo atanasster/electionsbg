@@ -1,4 +1,6 @@
 {
+  "page_not_found": "Страницата, която търсите не съществува. Може да е била преместена, или изтрита.",
+  "home": "Уводна страница",
   "bulgaria": "България",
   "elections": "избори",
   "bg": "бг",
@@ -17,8 +19,11 @@
   "about": "За нас",
   "open_source": "Отворен код",
   "all_rights_reserved": "Всички права запазени",
+  "region": "Област",
   "regions": "Области",
+  "municipality": "Община",
   "municipalities": "Общини",
+  "settlement": "Населено място",
   "settlements": "Населени места",
   "section": "Секция",
   "sections": "Секции",
@@ -57,5 +62,12 @@
   "no_results": "Липсват данни",
   "previous": "Назад",
   "next": "Напред",
+  "one_party_votes_over":"с гласовете за една партия над",
+  "voter_turnout_over":"с избрна активност над",
+  "total_party_votes_explainer":"Брой гласове за конкретната партия",
+  "pct_party_votes_explainer": "Процент на гласовете за конкретната партия, спрямо гласовете за всички партии",
+  "additional_voters_over": "с допълнителни избиратели (под чертата) над",
+  "support_no_one_over": "с избиратели не подкрепящи никоя партия над",
+  "invalid_ballots_over": "с невалидни бюлетини над",
   "changeLanguageTo": "en"
 }

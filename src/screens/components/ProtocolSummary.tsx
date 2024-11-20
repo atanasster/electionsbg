@@ -4,7 +4,7 @@ import { Bar, BarChart, Cell, CartesianGrid, XAxis } from "recharts";
 import { SectionProtocol, Votes } from "@/data/dataTypes";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { useTranslation } from "react-i18next";
-import { Tooltip } from "@/ux/Tooltip";
+import { Hint } from "@/ux/Hint";
 import { formatPct, formatThousands } from "@/data/utils";
 import {
   ChartConfig,
@@ -69,12 +69,12 @@ export const ProtocolSummary: FC<{
           </CardHeader>
           <CardContent>
             <div className="flex">
-              <Tooltip text={t("total_voters_explainer")}>
+              <Hint text={t("total_voters_explainer")}>
                 <div className="text-4xl my-4 mr-2 font-bold">
                   {formatThousands(protocol.totalActualVoters)}
                 </div>
-              </Tooltip>
-              <Tooltip text={t("pct_total_voters_explainer")}>
+              </Hint>
+              <Hint text={t("pct_total_voters_explainer")}>
                 <div className="text-2xl my-4 font-semibold">
                   {`(${formatPct(
                     100 *
@@ -83,29 +83,29 @@ export const ProtocolSummary: FC<{
                     1,
                   )})`}
                 </div>
-              </Tooltip>
+              </Hint>
             </div>
             <div className="flex justify-between text-xs text-muted-foreground leading-6">
-              <Tooltip text={t("num_registered_voters_explainer")}>
+              <Hint text={t("num_registered_voters_explainer")}>
                 <div>{`${t("registered_voters")}: `}</div>
-              </Tooltip>
-              <Tooltip text={t("num_registered_voters_explainer")}>
+              </Hint>
+              <Hint text={t("num_registered_voters_explainer")}>
                 <div className="font-bold text-primary">
                   {formatThousands(protocol.numRegisteredVoters)}
                 </div>
-              </Tooltip>
+              </Hint>
             </div>
             <div className="flex justify-between text-xs text-muted-foreground">
-              <Tooltip text={t("num_additional_voters_explainer")}>
+              <Hint text={t("num_additional_voters_explainer")}>
                 <div>{`${t("additional_voters")}: `}</div>
-              </Tooltip>
+              </Hint>
               <div className="flex">
-                <Tooltip text={t("num_additional_voters_explainer")}>
+                <Hint text={t("num_additional_voters_explainer")}>
                   <span className="font-bold text-primary">
                     {formatThousands(protocol.numAdditionalVoters)}
                   </span>
-                </Tooltip>
-                <Tooltip text={t("pct_additional_voters_explainer")}>
+                </Hint>
+                <Hint text={t("pct_additional_voters_explainer")}>
                   <div className="font-bold text-primary ml-2">
                     {`(${formatPct(
                       100 *
@@ -114,20 +114,20 @@ export const ProtocolSummary: FC<{
                       2,
                     )})`}
                   </div>
-                </Tooltip>
+                </Hint>
               </div>
             </div>
             <div className="flex justify-between text-xs text-muted-foreground leading-6">
-              <Tooltip text={t("num_invalid_ballots_explainer")}>
+              <Hint text={t("num_invalid_ballots_explainer")}>
                 <div>{`${t("invalid_ballots")}: `}</div>
-              </Tooltip>
+              </Hint>
               <div className="flex">
-                <Tooltip text={t("num_invalid_ballots_explainer")}>
+                <Hint text={t("num_invalid_ballots_explainer")}>
                   <div className="font-bold text-primary">
                     {formatThousands(protocol.numInvalidBallotsFound)}
                   </div>
-                </Tooltip>
-                <Tooltip text={t("pct_invalid_ballots_to_all_votes_explainer")}>
+                </Hint>
+                <Hint text={t("pct_invalid_ballots_to_all_votes_explainer")}>
                   <div className="font-bold text-primary ml-2">
                     {`(${formatPct(
                       100 *
@@ -136,23 +136,23 @@ export const ProtocolSummary: FC<{
                       2,
                     )})`}
                   </div>
-                </Tooltip>
+                </Hint>
               </div>
             </div>
             <div className="flex justify-between text-xs text-muted-foreground">
-              <Tooltip text={t("num_supports_no_one_explainer")}>
+              <Hint text={t("num_supports_no_one_explainer")}>
                 <div>{`${t("support_no_one")}: `}</div>
-              </Tooltip>
+              </Hint>
               <div className="flex">
-                <Tooltip text={t("num_supports_no_one_explainer")}>
+                <Hint text={t("num_supports_no_one_explainer")}>
                   <div className="font-bold text-primary">
                     {formatThousands(
                       protocol.numValidNoOnePaperVotes +
                         (protocol.numValidNoOneMachineVotes || 0),
                     )}
                   </div>
-                </Tooltip>
-                <Tooltip text={t("pct_supports_no_one_explainer")}>
+                </Hint>
+                <Hint text={t("pct_supports_no_one_explainer")}>
                   <div className="font-bold text-primary ml-2">
                     {`(${formatPct(
                       100 *
@@ -162,7 +162,7 @@ export const ProtocolSummary: FC<{
                       2,
                     )})`}
                   </div>
-                </Tooltip>
+                </Hint>
               </div>
             </div>
           </CardContent>
@@ -176,12 +176,12 @@ export const ProtocolSummary: FC<{
           </CardHeader>
           <CardContent>
             <div className="flex">
-              <Tooltip text={t("valid_paper_votes_explainer")}>
+              <Hint text={t("valid_paper_votes_explainer")}>
                 <div className="text-4xl my-4 font-bold justify-self-start">
                   {formatThousands(protocol.numValidVotes)}
                 </div>
-              </Tooltip>
-              <Tooltip text={t("pct_paper_votes_explainer")}>
+              </Hint>
+              <Hint text={t("pct_paper_votes_explainer")}>
                 <div className="text-2xl my-4 font-semibold ml-2">
                   {`(${formatPct(
                     100 *
@@ -191,19 +191,19 @@ export const ProtocolSummary: FC<{
                     1,
                   )})`}
                 </div>
-              </Tooltip>
+              </Hint>
             </div>
             <div className="flex justify-between text-xs text-muted-foreground leading-6">
-              <Tooltip text={t("num_paper_ballots_found_explainer")}>
+              <Hint text={t("num_paper_ballots_found_explainer")}>
                 <div>{`${t("paper_ballots_found")}: `}</div>
-              </Tooltip>
+              </Hint>
               <div className="flex">
-                <Tooltip text={t("num_paper_ballots_found_explainer")}>
+                <Hint text={t("num_paper_ballots_found_explainer")}>
                   <div className="font-bold text-primary">
                     {formatThousands(protocol.numPaperBallotsFound)}
                   </div>
-                </Tooltip>
-                <Tooltip text={t("pct_valid_paper_ballots")}>
+                </Hint>
+                <Hint text={t("pct_valid_paper_ballots")}>
                   <div className="font-bold text-primary ml-2">
                     {`(${formatPct(
                       100 *
@@ -212,20 +212,20 @@ export const ProtocolSummary: FC<{
                       2,
                     )})`}
                   </div>
-                </Tooltip>
+                </Hint>
               </div>
             </div>
             <div className="flex justify-between text-xs text-muted-foreground">
-              <Tooltip text={t("num_invalid_paper_ballots")}>
+              <Hint text={t("num_invalid_paper_ballots")}>
                 <div>{`${t("invalid_ballots")}: `}</div>
-              </Tooltip>
+              </Hint>
               <div className="flex">
-                <Tooltip text={t("num_invalid_paper_ballots")}>
+                <Hint text={t("num_invalid_paper_ballots")}>
                   <div className="font-bold text-primary">
                     {formatThousands(protocol.numInvalidBallotsFound)}
                   </div>
-                </Tooltip>
-                <Tooltip text={t("pct_invalid_paper_ballots")}>
+                </Hint>
+                <Hint text={t("pct_invalid_paper_ballots")}>
                   <div className="font-bold text-primary ml-2">
                     {`(${formatPct(
                       100 *
@@ -234,20 +234,20 @@ export const ProtocolSummary: FC<{
                       2,
                     )})`}
                   </div>
-                </Tooltip>
+                </Hint>
               </div>
             </div>
             <div className="flex justify-between text-xs text-muted-foreground leading-6">
-              <Tooltip text={t("num_supports_no_one_explainer")}>
+              <Hint text={t("num_supports_no_one_explainer")}>
                 <div>{`${t("support_no_one")}: `}</div>
-              </Tooltip>
+              </Hint>
               <div className="flex">
-                <Tooltip text={t("num_supports_no_one_explainer")}>
+                <Hint text={t("num_supports_no_one_explainer")}>
                   <div className="font-bold text-primary">
                     {formatThousands(protocol.numValidNoOnePaperVotes)}
                   </div>
-                </Tooltip>
-                <Tooltip text={t("pct_supports_noone_paper_ballots")}>
+                </Hint>
+                <Hint text={t("pct_supports_noone_paper_ballots")}>
                   <div className="font-bold text-primary ml-2">
                     {`(${formatPct(
                       100 *
@@ -256,7 +256,7 @@ export const ProtocolSummary: FC<{
                       2,
                     )})`}
                   </div>
-                </Tooltip>
+                </Hint>
               </div>
             </div>
           </CardContent>
@@ -271,12 +271,12 @@ export const ProtocolSummary: FC<{
             </CardHeader>
             <CardContent>
               <div className="flex">
-                <Tooltip text={t("total_machine_votes_explainer")}>
+                <Hint text={t("total_machine_votes_explainer")}>
                   <div className="text-4xl my-4 font-bold justify-self-start">
                     {formatThousands(protocol.numValidMachineVotes)}
                   </div>
-                </Tooltip>
-                <Tooltip text={t("pct_machine_votes_explainer")}>
+                </Hint>
+                <Hint text={t("pct_machine_votes_explainer")}>
                   <div className="text-2xl my-4 font-semibold ml-2">
                     {`(${formatPct(
                       100 *
@@ -286,29 +286,29 @@ export const ProtocolSummary: FC<{
                       1,
                     )})`}
                   </div>
-                </Tooltip>
+                </Hint>
               </div>
               <div className="flex justify-between text-xs text-muted-foreground leading-6">
-                <Tooltip text={t("num_machine_ballots_found_explainer")}>
+                <Hint text={t("num_machine_ballots_found_explainer")}>
                   <div>{`${t("machine_ballots_found")}: `}</div>
-                </Tooltip>
-                <Tooltip text={t("num_machine_ballots_found_explainer")}>
+                </Hint>
+                <Hint text={t("num_machine_ballots_found_explainer")}>
                   <div className="font-bold text-primary">
                     {formatThousands(protocol?.numMachineBallots)}
                   </div>
-                </Tooltip>
+                </Hint>
               </div>
               <div className="flex justify-between text-xs text-muted-foreground">
-                <Tooltip text={t("num_machine_supports_no_one_explainer")}>
+                <Hint text={t("num_machine_supports_no_one_explainer")}>
                   <div>{`${t("support_no_one")}: `}</div>
-                </Tooltip>
+                </Hint>
                 <div className="flex">
-                  <Tooltip text={t("num_machine_supports_no_one_explainer")}>
+                  <Hint text={t("num_machine_supports_no_one_explainer")}>
                     <div className="font-bold text-primary">
                       {formatThousands(protocol?.numValidNoOneMachineVotes)}
                     </div>
-                  </Tooltip>
-                  <Tooltip text={t("pct_supports_noone_machine_ballots")}>
+                  </Hint>
+                  <Hint text={t("pct_supports_noone_machine_ballots")}>
                     <div className="font-bold text-primary ml-2">
                       {`(${
                         protocol.numValidNoOneMachineVotes
@@ -321,7 +321,7 @@ export const ProtocolSummary: FC<{
                           : ""
                       })`}
                     </div>
-                  </Tooltip>
+                  </Hint>
                 </div>
               </div>
             </CardContent>

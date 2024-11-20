@@ -6,9 +6,16 @@ import {
   VoteResults,
 } from "./dataTypes";
 import { addVotes } from "./utils";
+import {
+  useSettlementsInfo,
+  RegionInfo,
+  MunicipalityInfo,
+  SettlementInfo,
+} from "./SettlementsContext";
 
 export const useAggregatedVotes = () => {
   const [votes, setVotes] = useState<ElectionRegions>([]);
+  const { findRegion, findMunicipality, findSettlement } = useSettlementsInfo();
 
   useEffect(() => {
     fetch("/2024_10/aggregated_votes.json")
@@ -52,9 +59,42 @@ export const useAggregatedVotes = () => {
 
     return acc;
   };
+  const findSectionLocation: (section: string) =>
+    | {
+        region?: RegionInfo;
+        municipality?: MunicipalityInfo;
+        settlement?: SettlementInfo;
+      }
+    | undefined = (section: string) => {
+    let result:
+      | {
+          region?: RegionInfo;
+          municipality?: MunicipalityInfo;
+          settlement?: SettlementInfo;
+        }
+      | undefined = undefined;
+    votes.find((v) =>
+      v.municipalities.find((m) => {
+        m.settlements.find((s) => {
+          if (s.sections.includes(section)) {
+            if (m.obshtina && s.ekatte) {
+              result = {
+                region: findRegion(v.key),
+                municipality: findMunicipality(m.obshtina),
+                settlement: findSettlement(s.ekatte),
+              };
+            }
+            return true;
+          }
+        });
+      }),
+    );
+    return result;
+  };
   return {
     votesByRegion,
     regions: votes,
+    findSectionLocation,
     votesBySettlement,
     votesByMunicipality,
     countryVotes,

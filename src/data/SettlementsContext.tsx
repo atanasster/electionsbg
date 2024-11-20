@@ -1,46 +1,39 @@
 import { createContext, useContext, useEffect, useState } from "react";
 
-export type RegionInfo = {
+export type LocationInfo = {
   oblast: string;
+  ekatte: string;
+  name: string;
+  name_en: string;
+  nuts1: string;
+  nuts2: string;
+  nuts3: string;
+};
+export type RegionInfo = LocationInfo & {
   ekatte: string;
   name: string;
   name_en: string;
   region: string;
-  nuts3: string;
-  nuts2: string;
-  nuts1: string;
   document: string;
   full_name_bul: string;
 };
-export type MunicipalityInfo = {
+
+export type MunicipalityInfo = LocationInfo & {
   obshtina: string;
-  ekatte: string;
-  name: string;
-  name_en: string;
-  nuts1: string;
-  nuts2: string;
-  nuts3: string;
   category: number;
   document: number;
   full_name_bul: string;
 };
-export type SettlementInfo = {
-  ekatte: string;
+export type SettlementInfo = LocationInfo & {
   t_v_m: string;
-  name: string;
-  oblast: string;
-  obshtina: string;
   kmetstvo: string;
   kind: number;
   category: number;
   altitude: number;
   document: 2007;
   abc: number;
-  name_en: string;
-  nuts1: string;
-  nuts2: string;
-  nuts3: string;
   text: string;
+  obshtina: string;
   oblast_name: string;
   obshtina_name: string;
 };

@@ -229,7 +229,12 @@ const aggregateSettlements = (
     if (section && protocol) {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { document, section: ss, rik, pages, ...nprotocol } = protocol;
+      const { votes } = vote;
       section.protocol = { ...nprotocol };
+      section.votes = votes;
+      section.oblast = region.key;
+      section.obshtina = municipality.obshtina;
+      section.ekatte = settlement.ekatte;
     }
     addVotes(settlement.results, vote.votes, protocol);
     addVotes(municipality.results, vote.votes, protocol);
@@ -250,7 +255,7 @@ const parseElections = (monthYear: string) => {
   }
   parseParties(inFolder, outFolder).then(() =>
     parseSections(inFolder).then((sections) =>
-      parseVotes(inFolder, outFolder).then((votes) =>
+      parseVotes(inFolder).then((votes) =>
         parseProtocols(inFolder, outFolder).then((protocols) => {
           aggregateSettlements(outFolder, sections, votes, protocols);
           const json = JSON.stringify(sections, null, 2);

@@ -5,13 +5,11 @@ import { SectionVotes } from "./components/SectionVotes";
 import { useSectionsInfo } from "@/data/SectionsContext";
 import { useTranslation } from "react-i18next";
 import { ProtocolSummary } from "./components/ProtocolSummary";
-import { useElectionVotes } from "@/data/VotesContext";
 
 export const SectionsScreen = () => {
   const [searchParams] = useSearchParams();
-  const { findSections } = useSectionsInfo();
+  const { findSections, findSection } = useSectionsInfo();
   const { findSettlement } = useSettlementsInfo();
-  const { findSectionVotes } = useElectionVotes();
   const { t } = useTranslation();
   const regionCode = searchParams.get("region");
   const muniCode = searchParams.get("municipality");
@@ -30,7 +28,7 @@ export const SectionsScreen = () => {
   return (
     <div className={`w-full py-10 px-4 md:px-8`}>
       {sections.map((section) => {
-        const votes = findSectionVotes(section.section);
+        const votes = findSection(section.section);
         if (!votes) {
           return null;
         }

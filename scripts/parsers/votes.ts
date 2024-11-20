@@ -3,10 +3,7 @@ import { parse } from "csv-parse";
 
 import { ElectionVotes } from "@/data/dataTypes";
 
-export const parseVotes = (
-  inFolder: string,
-  outFolder: string,
-): Promise<ElectionVotes[]> => {
+export const parseVotes = (inFolder: string): Promise<ElectionVotes[]> => {
   const result: string[][] = [];
   const allVotes: ElectionVotes[] = [];
 
@@ -41,10 +38,10 @@ export const parseVotes = (
           }
           allVotes.push(votes);
         }
-        const json = JSON.stringify(allVotes, null, 2);
-        const outFile = `${outFolder}/votes.json`;
-        fs.writeFileSync(outFile, json, "utf8");
-        console.log("Successfully added file ", outFile);
+        //const json = JSON.stringify(allVotes, null, 2);
+        //const outFile = `${outFolder}/votes.json`;
+        //fs.writeFileSync(outFile, json, "utf8");
+        //console.log("Successfully added file ", outFile);
         resolve(allVotes);
       }),
   );

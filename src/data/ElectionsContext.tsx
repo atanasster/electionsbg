@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { PartyInfo, Votes } from "./dataTypes";
+import { PartyInfo, PartyVotes, Votes } from "./dataTypes";
 
 export const useElectionInfo = () => {
   const [parties, setParties] = useState<PartyInfo[]>([]);
@@ -13,7 +13,7 @@ export const useElectionInfo = () => {
 
   const findParty = (partyNum: number) =>
     parties.find((p) => p.number === partyNum);
-  const topVotesParty = (votes?: Votes[]) => {
+  const topVotesParty = (votes?: Votes[]): PartyVotes | undefined => {
     const tp = votes?.reduce((acc, curr) => {
       if (acc.totalVotes > curr.totalVotes) {
         return acc;
@@ -21,7 +21,7 @@ export const useElectionInfo = () => {
       return curr;
     }, votes[0]);
 
-    return tp ? findParty(tp.key) : null;
+    return tp ? ({ ...tp, ...findParty(tp.key) } as PartyVotes) : undefined;
   };
 
   return { findParty, topVotesParty };

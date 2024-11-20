@@ -82,6 +82,10 @@ export type SectionInfo = {
   is_ship: number;
   num_machines: number;
   protocol?: SectionProtocol;
+  votes?: Votes[];
+  oblast?: string;
+  obshtina?: string;
+  ekatte?: string;
 };
 
 export type PartyInfo = {
@@ -90,3 +94,5 @@ export type PartyInfo = {
   nickName: string;
   color: string;
 };
+
+export type PartyVotes = PartyInfo & Votes;
