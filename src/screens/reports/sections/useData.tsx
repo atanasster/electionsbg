@@ -25,7 +25,6 @@ export const useSectionData: UseSectionData = (
             votes: [],
           };
           addVotes(results, section.votes || [], section.protocol);
-
           const row: SectionReportRow | undefined = calcReportRow(
             reportRule,
             results,
@@ -38,6 +37,7 @@ export const useSectionData: UseSectionData = (
             row.section = section.section;
             return row;
           }
+          return undefined;
         })
         .filter((a) => !!a)
         .sort((a, b) => b.value - a.value),
