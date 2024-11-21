@@ -222,8 +222,10 @@ export const Header = () => {
           onClick={() => {
             if (i18n.language === "bg") {
               i18n.changeLanguage("en");
+              localStorage.setItem("language", "en");
             } else {
               i18n.changeLanguage("bg");
+              localStorage.setItem("language", "bg");
             }
           }}
         >
