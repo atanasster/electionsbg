@@ -1,13 +1,13 @@
 import { FC, useMemo } from "react";
 import { Votes } from "@/data/dataTypes";
-import { useElectionInfo } from "@/data/ElectionsContext";
+import { usePartyInfo } from "@/data/ElectionsContext";
 import { useTranslation } from "react-i18next";
 import { formatPct, formatThousands } from "@/data/utils";
 
 export const PartyVotesXS: FC<{
   votes: Votes[];
 }> = ({ votes }) => {
-  const { findParty } = useElectionInfo();
+  const { findParty } = usePartyInfo();
   const { t } = useTranslation();
   const total = useMemo(() => {
     return votes.reduce((acc, curr) => acc + curr.totalVotes, 0);

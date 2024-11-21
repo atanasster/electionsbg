@@ -7,7 +7,7 @@ import { getDataProjection } from "../utils/d3_utils";
 import { useSettlementsInfo } from "@/data/SettlementsContext";
 import { useAggregatedVotes } from "@/data/AggregatedVotesHook";
 import { PartyVotesXS } from "./PartyVotesXS";
-import { useElectionInfo } from "@/data/ElectionsContext";
+import { usePartyInfo } from "@/data/ElectionsContext";
 import { useTranslation } from "react-i18next";
 
 export const RegionsMap: React.FC<
@@ -16,7 +16,7 @@ export const RegionsMap: React.FC<
   const navigate = useNavigate();
   const { findRegion } = useSettlementsInfo();
   const { votesByRegion } = useAggregatedVotes();
-  const { topVotesParty } = useElectionInfo();
+  const { topVotesParty } = usePartyInfo();
   const { i18n } = useTranslation();
 
   const { onMouseEnter, onMouseMove, onMouseLeave, tooltip } = useTooltip();

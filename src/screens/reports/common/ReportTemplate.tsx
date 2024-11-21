@@ -213,9 +213,18 @@ export const ReportTemplate: FC<{
             accessorKey: "section",
             hidden: !visibleColumns.includes("section"),
             header: t("section"),
-            cell: ({ row }) => {
-              return row.getValue("section");
-            },
+            cell: ({ row }) => (
+              <Link
+                to={{
+                  pathname: "/section",
+                  search: createSearchParams({
+                    section: row.getValue("section"),
+                  }).toString(),
+                }}
+              >
+                {row.getValue("section")}
+              </Link>
+            ),
           },
           {
             accessorKey: "voterTurnout",

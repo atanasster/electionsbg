@@ -1,15 +1,19 @@
-import { useElectionInfo } from "@/data/ElectionsContext";
+import { usePartyInfo } from "@/data/ElectionsContext";
 import { ReportRule } from "./utils";
 import { useMemo } from "react";
 import { SectionProtocol, Votes } from "@/data/dataTypes";
 
 export const useTurnoutRule = (defaultThreshold: number) => {
-  const { topVotesParty } = useElectionInfo();
+  const { topVotesParty } = usePartyInfo();
   const reportRule: ReportRule = useMemo(
     () => ({
       value: (votes: Votes[], protocol?: SectionProtocol) => {
         const partyVotes = topVotesParty(votes);
-        if (protocol && partyVotes?.totalVotes) {
+        if (
+          protocol &&
+          partyVotes?.totalVotes &&
+          protocol.numRegisteredVoters
+        ) {
           return {
             partyVotes,
             value:
