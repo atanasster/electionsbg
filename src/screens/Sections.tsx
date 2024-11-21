@@ -1,8 +1,8 @@
 import { useSearchParams } from "react-router-dom";
-import { useSettlementsInfo } from "@/data/SettlementsContext";
+import { useSettlementsInfo } from "@/data/useSettlements";
 import { Caption } from "@/ux/Caption";
 import { SectionVotes } from "./components/SectionVotes";
-import { useSectionsInfo } from "@/data/SectionsContext";
+import { useSectionsInfo } from "@/data/useSectionsInfo";
 import { useTranslation } from "react-i18next";
 import { ProtocolSummary } from "./components/ProtocolSummary";
 
@@ -23,11 +23,11 @@ export const SectionsScreen = () => {
   if (!info) {
     return null;
   }
-  const sections = findSections(regionCode, muniCode, info.ekatte);
 
+  const sections = findSections(regionCode, muniCode, info.ekatte);
   return (
     <div className={`w-full py-10 px-4 md:px-8`}>
-      {sections.map((section) => {
+      {sections?.map((section) => {
         const votes = findSection(section.section);
         if (!votes) {
           return null;

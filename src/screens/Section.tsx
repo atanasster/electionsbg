@@ -1,7 +1,7 @@
 import { useSearchParams } from "react-router-dom";
 import { Caption } from "@/ux/Caption";
 import { SectionVotes } from "./components/SectionVotes";
-import { useSectionsInfo } from "@/data/SectionsContext";
+import { useSectionsInfo } from "@/data/useSectionsInfo";
 import { useTranslation } from "react-i18next";
 import { ProtocolSummary } from "./components/ProtocolSummary";
 

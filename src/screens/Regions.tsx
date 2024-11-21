@@ -4,7 +4,7 @@ import { MapLayout } from "@/layout/MapLayout";
 import { regions } from "./data/json_types";
 import { RegionsMap } from "./components/RegionsMap";
 import { Title } from "@/ux/Title";
-import { useAggregatedVotes } from "@/data/AggregatedVotesHook";
+import { useAggregatedVotes } from "@/data/useAggregatedVotes";
 import { ProtocolSummary } from "./components/ProtocolSummary";
 import { useMemo } from "react";
 

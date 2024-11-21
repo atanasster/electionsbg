@@ -3,16 +3,18 @@ import { MapLayout } from "@/layout/MapLayout";
 import { settlements } from "./data/json_types";
 import { SettlementsMap } from "./components/SettlementsMap";
 import { useSearchParams } from "react-router-dom";
-import { useSettlementsInfo } from "@/data/SettlementsContext";
 import { useTranslation } from "react-i18next";
 import { Title } from "@/ux/Title";
-import { useAggregatedVotes } from "@/data/AggregatedVotesHook";
+import { useAggregatedVotes } from "@/data/useAggregatedVotes";
 import { ProtocolSummary } from "./components/ProtocolSummary";
+import { useRegions } from "@/data/useRegions";
+import { useMunicipalities } from "@/data/useMunicipalities";
 
 export const SettlementsScreen = () => {
   const [searchParams] = useSearchParams();
   const regionCode = searchParams.get("region");
-  const { findRegion, findMunicipality } = useSettlementsInfo();
+  const { findRegion } = useRegions();
+  const { findMunicipality } = useMunicipalities();
   const { votesByMunicipality } = useAggregatedVotes();
   const { i18n } = useTranslation();
   if (!regionCode) {

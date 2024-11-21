@@ -6,11 +6,11 @@ import { Municipalities } from "../data/json_types";
 import { RegionMap } from "./RegionMap";
 import { getDataProjection } from "../utils/d3_utils";
 import { useTooltip } from "@/ux/useTooltip";
-import { useSettlementsInfo } from "@/data/SettlementsContext";
 import { PartyVotesXS } from "./PartyVotesXS";
-import { useAggregatedVotes } from "@/data/AggregatedVotesHook";
-import { usePartyInfo } from "@/data/ElectionsContext";
+import { useAggregatedVotes } from "@/data/useAggregatedVotes";
+import { usePartyInfo } from "@/data/usePartyInfo";
 import { useTranslation } from "react-i18next";
+import { useMunicipalities } from "@/data/useMunicipalities";
 
 export const MunicipalitiesMap: React.FC<
   React.PropsWithChildren<{
@@ -21,7 +21,7 @@ export const MunicipalitiesMap: React.FC<
 > = ({ municipalities: data, region, size }) => {
   const { onMouseEnter, onMouseMove, onMouseLeave, tooltip } = useTooltip();
   const navigate = useNavigate();
-  const { findMunicipality } = useSettlementsInfo();
+  const { findMunicipality } = useMunicipalities();
   const { votesByMunicipality } = useAggregatedVotes();
   const { topVotesParty } = usePartyInfo();
   const { i18n } = useTranslation();

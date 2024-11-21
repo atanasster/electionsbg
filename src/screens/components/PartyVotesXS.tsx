@@ -1,6 +1,6 @@
 import { FC, useMemo } from "react";
 import { Votes } from "@/data/dataTypes";
-import { usePartyInfo } from "@/data/ElectionsContext";
+import { usePartyInfo } from "@/data/usePartyInfo";
 import { useTranslation } from "react-i18next";
 import { formatPct, formatThousands } from "@/data/utils";
 

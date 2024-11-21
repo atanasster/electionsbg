@@ -4,17 +4,17 @@ import { useTooltip } from "@/ux/useTooltip";
 import { Regions } from "../data/json_types";
 import { RegionMap } from "./RegionMap";
 import { getDataProjection } from "../utils/d3_utils";
-import { useSettlementsInfo } from "@/data/SettlementsContext";
-import { useAggregatedVotes } from "@/data/AggregatedVotesHook";
+import { useAggregatedVotes } from "@/data/useAggregatedVotes";
 import { PartyVotesXS } from "./PartyVotesXS";
-import { usePartyInfo } from "@/data/ElectionsContext";
+import { usePartyInfo } from "@/data/usePartyInfo";
 import { useTranslation } from "react-i18next";
+import { useRegions } from "@/data/useRegions";
 
 export const RegionsMap: React.FC<
   React.PropsWithChildren<{ regions: Regions; size: [number, number] }>
 > = ({ regions, size }) => {
   const navigate = useNavigate();
-  const { findRegion } = useSettlementsInfo();
+  const { findRegion } = useRegions();
   const { votesByRegion } = useAggregatedVotes();
   const { topVotesParty } = usePartyInfo();
   const { i18n } = useTranslation();

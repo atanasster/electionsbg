@@ -1,5 +1,5 @@
 import { SectionProtocol, Votes } from "@/data/dataTypes";
-import { usePartyInfo } from "@/data/ElectionsContext";
+import { usePartyInfo } from "@/data/usePartyInfo";
 import { formatPct, formatThousands } from "@/data/utils";
 import { DataTable } from "@/ux/DataTable";
 import { FC } from "react";

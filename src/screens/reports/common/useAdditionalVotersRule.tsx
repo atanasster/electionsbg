@@ -1,4 +1,4 @@
-import { usePartyInfo } from "@/data/ElectionsContext";
+import { usePartyInfo } from "@/data/usePartyInfo";
 import { ReportRule } from "./utils";
 import { useMemo } from "react";
 import { SectionProtocol, Votes } from "@/data/dataTypes";

@@ -3,7 +3,7 @@ import { ColumnNames, ReportTemplate } from "../common/ReportTemplate";
 import { ReportRule } from "../common/utils";
 import { useSettlementData } from "./useData";
 import { useSearchParams } from "react-router-dom";
-import { useSettlementsInfo } from "@/data/SettlementsContext";
+import { useSettlementsInfo } from "@/data/useSettlements";
 
 export const SettlementTemplate: FC<{
   reportRule: ReportRule;
