@@ -6,7 +6,7 @@ import { VoteResults } from "@/data/dataTypes";
 import { DataTable } from "@/ux/DataTable";
 import { useTranslation } from "react-i18next";
 import { addVotes, formatPct, formatThousands } from "@/data/utils";
-import { LocationInfo, useSettlementsInfo } from "@/data/SettlementsContext";
+import { LocationInfo, useSettlementsInfo } from "@/data/useSettlements";
 import { createSearchParams, useSearchParams } from "react-router-dom";
 import { PartyVotesXS } from "../../components/PartyVotesXS";
 import { ProtocolSummary } from "../../components/ProtocolSummary";
@@ -22,6 +22,8 @@ import {
 } from "@/components/ui/select";
 import { ReportRow, ReportRule, SettlementReportRow } from "./utils";
 import { Row } from "@tanstack/react-table";
+import { useRegions } from "@/data/useRegions";
+import { useMunicipalities } from "@/data/useMunicipalities";
 
 export type ColumnNames =
   | "ekatte"
@@ -48,7 +50,9 @@ export const ReportTemplate: FC<{
   visibleColumns = [],
 }) => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const { findRegion, findMunicipality, findSettlement } = useSettlementsInfo();
+  const { findRegion } = useRegions();
+  const { findMunicipality } = useMunicipalities();
+  const { findSettlement } = useSettlementsInfo();
   const { t, i18n } = useTranslation();
   const threshold = useMemo(
     () =>

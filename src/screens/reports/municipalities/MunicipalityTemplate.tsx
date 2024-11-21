@@ -3,7 +3,7 @@ import { ColumnNames, ReportTemplate } from "../common/ReportTemplate";
 import { ReportRule } from "../common/utils";
 import { useMunicipalityData } from "./useData";
 import { useSearchParams } from "react-router-dom";
-import { useSettlementsInfo } from "@/data/SettlementsContext";
+import { useMunicipalities } from "@/data/useMunicipalities";
 
 export const MunicipalityTemplate: FC<{
   reportRule: ReportRule;
@@ -12,7 +12,7 @@ export const MunicipalityTemplate: FC<{
   visibleColumns?: ColumnNames[];
 }> = ({ reportRule, titleKey, ruleKey, visibleColumns = [] }) => {
   const [searchParams] = useSearchParams();
-  const { findMunicipality } = useSettlementsInfo();
+  const { findMunicipality } = useMunicipalities();
   const threshold = useMemo(
     () =>
       parseInt(

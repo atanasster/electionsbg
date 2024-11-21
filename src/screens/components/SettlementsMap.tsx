@@ -11,10 +11,10 @@ import {
   useSettlementsInfo,
   RegionInfo,
   MunicipalityInfo,
-} from "@/data/SettlementsContext";
+} from "@/data/useSettlements";
 import { PartyVotesXS } from "./PartyVotesXS";
-import { useAggregatedVotes } from "@/data/AggregatedVotesHook";
-import { usePartyInfo } from "@/data/ElectionsContext";
+import { useAggregatedVotes } from "@/data/useAggregatedVotes";
+import { usePartyInfo } from "@/data/usePartyInfo";
 import { useTranslation } from "react-i18next";
 
 export const SettlementsMap: React.FC<

@@ -11,7 +11,7 @@ import {
   ChartContainer,
   ChartTooltip,
 } from "@/components/ui/chart";
-import { usePartyInfo } from "@/data/ElectionsContext";
+import { usePartyInfo } from "@/data/usePartyInfo";
 
 const CustomTooltip: FC<{
   active?: boolean;
