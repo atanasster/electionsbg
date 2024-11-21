@@ -9,7 +9,7 @@ import { useTooltip } from "@/ux/useTooltip";
 import { useSettlementsInfo } from "@/data/SettlementsContext";
 import { PartyVotesXS } from "./PartyVotesXS";
 import { useAggregatedVotes } from "@/data/AggregatedVotesHook";
-import { useElectionInfo } from "@/data/ElectionsContext";
+import { usePartyInfo } from "@/data/ElectionsContext";
 import { useTranslation } from "react-i18next";
 
 export const MunicipalitiesMap: React.FC<
@@ -23,7 +23,7 @@ export const MunicipalitiesMap: React.FC<
   const navigate = useNavigate();
   const { findMunicipality } = useSettlementsInfo();
   const { votesByMunicipality } = useAggregatedVotes();
-  const { topVotesParty } = useElectionInfo();
+  const { topVotesParty } = usePartyInfo();
   const { i18n } = useTranslation();
   const municipalities = useMemo(() => {
     return {

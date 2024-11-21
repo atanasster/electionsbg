@@ -1,8 +1,25 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, createContext, useContext } from "react";
 import { SectionInfo } from "./dataTypes";
 import { useAggregatedVotes } from "./AggregatedVotesHook";
 
-export const useSectionsInfo = () => {
+type SectionContextType = {
+  findSections: (
+    region: string,
+    municipality: string,
+    ekatte: string,
+  ) => SectionInfo[];
+  findSection: (section: string) => SectionInfo | undefined;
+  sections: SectionInfo[];
+};
+const SectionContext = createContext<SectionContextType>({
+  findSections: () => [],
+  findSection: () => undefined,
+  sections: [],
+});
+
+export const SectionContextProvider: React.FC<React.PropsWithChildren> = ({
+  children,
+}) => {
   const [sections, setSections] = useState<SectionInfo[]>([]);
   const { votesBySettlement } = useAggregatedVotes();
   useEffect(() => {
@@ -28,5 +45,14 @@ export const useSectionsInfo = () => {
 
   const findSection = (section: string) =>
     sections.find((s) => s.section === section);
-  return { findSections, findSection, sections };
+  return (
+    <SectionContext.Provider value={{ findSections, findSection, sections }}>
+      {children}
+    </SectionContext.Provider>
+  );
+};
+
+export const useSectionsInfo = () => {
+  const context = useContext(SectionContext);
+  return context;
 };

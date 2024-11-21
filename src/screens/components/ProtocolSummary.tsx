@@ -11,7 +11,7 @@ import {
   ChartContainer,
   ChartTooltip,
 } from "@/components/ui/chart";
-import { useElectionInfo } from "@/data/ElectionsContext";
+import { usePartyInfo } from "@/data/ElectionsContext";
 
 const CustomTooltip: FC<{
   active?: boolean;
@@ -37,7 +37,7 @@ export const ProtocolSummary: FC<{
   votes?: Votes[];
 }> = ({ protocol, votes }) => {
   const { t } = useTranslation();
-  const { findParty } = useElectionInfo();
+  const { findParty } = usePartyInfo();
   const chartConfig = {
     totalVotes: {
       label: `${t("total_votes")}: `,

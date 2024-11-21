@@ -1,5 +1,5 @@
 import { SectionProtocol, Votes } from "@/data/dataTypes";
-import { useElectionInfo } from "@/data/ElectionsContext";
+import { usePartyInfo } from "@/data/ElectionsContext";
 import { formatPct, formatThousands } from "@/data/utils";
 import { DataTable } from "@/ux/DataTable";
 import { FC } from "react";
@@ -9,7 +9,7 @@ export const PartyVotes: FC<{ protocol: SectionProtocol; votes: Votes[] }> = ({
   protocol,
   votes,
 }) => {
-  const { findParty } = useElectionInfo();
+  const { findParty } = usePartyInfo();
   const { t } = useTranslation();
   return (
     <DataTable

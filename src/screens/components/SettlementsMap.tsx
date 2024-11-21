@@ -14,7 +14,7 @@ import {
 } from "@/data/SettlementsContext";
 import { PartyVotesXS } from "./PartyVotesXS";
 import { useAggregatedVotes } from "@/data/AggregatedVotesHook";
-import { useElectionInfo } from "@/data/ElectionsContext";
+import { usePartyInfo } from "@/data/ElectionsContext";
 import { useTranslation } from "react-i18next";
 
 export const SettlementsMap: React.FC<
@@ -29,7 +29,7 @@ export const SettlementsMap: React.FC<
   const navigate = useNavigate();
   const { findSettlement } = useSettlementsInfo();
   const { votesBySettlement } = useAggregatedVotes();
-  const { topVotesParty } = useElectionInfo();
+  const { topVotesParty } = usePartyInfo();
   const { i18n } = useTranslation();
   const settlements = useMemo(() => {
     return {

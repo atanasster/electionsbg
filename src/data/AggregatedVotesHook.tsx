@@ -1,21 +1,39 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState, createContext } from "react";
 import {
   ElectionRegions,
   ElectionRegion,
   ElectionMunicipality,
   VoteResults,
+  ElectionSettlement,
 } from "./dataTypes";
 import { addVotes } from "./utils";
-import {
-  useSettlementsInfo,
-  RegionInfo,
-  MunicipalityInfo,
-  SettlementInfo,
-} from "./SettlementsContext";
 
-export const useAggregatedVotes = () => {
+type AggregatedContextType = {
+  votesByRegion: (regionCode: string) => ElectionRegion | undefined;
+  votesBySettlement: (
+    regionCode: string,
+    obshtina: string,
+    ekatte: string,
+  ) => ElectionSettlement | undefined;
+  votesByMunicipality: (
+    regionCode: string,
+    obshtina: string,
+  ) => ElectionMunicipality | undefined;
+  countryVotes: () => VoteResults;
+  regions: ElectionRegions;
+};
+const AggregatedContext = createContext<AggregatedContextType>({
+  votesByRegion: () => undefined,
+  votesBySettlement: () => undefined,
+  votesByMunicipality: () => undefined,
+  countryVotes: () => ({}) as VoteResults,
+  regions: [],
+});
+
+export const AggregatedContextProvider: React.FC<React.PropsWithChildren> = ({
+  children,
+}) => {
   const [votes, setVotes] = useState<ElectionRegions>([]);
-  const { findRegion, findMunicipality, findSettlement } = useSettlementsInfo();
 
   useEffect(() => {
     fetch("/2024_10/aggregated_votes.json")
@@ -59,44 +77,23 @@ export const useAggregatedVotes = () => {
 
     return acc;
   };
-  const findSectionLocation: (section: string) =>
-    | {
-        region?: RegionInfo;
-        municipality?: MunicipalityInfo;
-        settlement?: SettlementInfo;
-      }
-    | undefined = (section: string) => {
-    let result:
-      | {
-          region?: RegionInfo;
-          municipality?: MunicipalityInfo;
-          settlement?: SettlementInfo;
-        }
-      | undefined = undefined;
-    votes.find((v) =>
-      v.municipalities.find((m) => {
-        m.settlements.find((s) => {
-          if (s.sections.includes(section)) {
-            if (m.obshtina && s.ekatte) {
-              result = {
-                region: findRegion(v.key),
-                municipality: findMunicipality(m.obshtina),
-                settlement: findSettlement(s.ekatte),
-              };
-            }
-            return true;
-          }
-        });
-      }),
-    );
-    return result;
-  };
-  return {
-    votesByRegion,
-    regions: votes,
-    findSectionLocation,
-    votesBySettlement,
-    votesByMunicipality,
-    countryVotes,
-  };
+
+  return (
+    <AggregatedContext.Provider
+      value={{
+        votesByRegion,
+        regions: votes,
+        votesBySettlement,
+        votesByMunicipality,
+        countryVotes,
+      }}
+    >
+      {children}
+    </AggregatedContext.Provider>
+  );
+};
+
+export const useAggregatedVotes = () => {
+  const context = useContext(AggregatedContext);
+  return context;
 };
