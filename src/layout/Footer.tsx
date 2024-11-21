@@ -10,7 +10,7 @@ export const Footer = () => {
       </div>
       <ul className="flex flex-wrap items-center mt-3 text-md sm:mt-0">
         <li>
-          <Link to={{ pathname: "#" }} aria-label="about" className="mx-2">
+          <Link to={{ pathname: "/" }} aria-label="about" className="mx-2">
             {t("about")}
           </Link>
         </li>
