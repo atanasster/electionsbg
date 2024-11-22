@@ -1,4 +1,4 @@
-import { useAggregatedVotes } from "@/data/useAggregatedVotes";
+import { useSettlementVotes } from "@/data/useSettlementVotes";
 import { useMemo } from "react";
 import {
   calcReportRow,
@@ -15,46 +15,26 @@ export const useSettlementData: UseSettlementData = (
   reportRule: ReportRule,
   threshold: number,
 ): SettlementReportRow[] => {
-  const { regions } = useAggregatedVotes();
+  const { settlements } = useSettlementVotes();
   const votes = useMemo(
     () =>
-      regions
-        ? regions
-            .reduce((acc: SettlementReportRow[], region) => {
-              return [
-                ...acc,
-                ...region.municipalities.reduce(
-                  (acc: SettlementReportRow[], municipality) => {
-                    return [
-                      ...acc,
-                      ...municipality.settlements.reduce(
-                        (acc: SettlementReportRow[], settlement) => {
-                          const row: SettlementReportRow | undefined =
-                            calcReportRow(
-                              reportRule,
-                              settlement.results,
-                              threshold,
-                              region.key,
-                              municipality.obshtina,
-                            );
-                          if (row) {
-                            row.ekatte = settlement.ekatte;
-                            return [...acc, row];
-                          }
-                          return acc;
-                        },
-                        [],
-                      ),
-                    ];
-                  },
-
-                  [],
-                ),
-              ];
-            }, [])
-            .sort((a, b) => b.value - a.value)
-        : [],
-    [regions, reportRule, threshold],
+      settlements
+        ?.map((settlement) => {
+          const row: SettlementReportRow | undefined = calcReportRow(
+            reportRule,
+            settlement.results,
+            threshold,
+            settlement.oblast,
+            settlement.obshtina,
+          );
+          if (row) {
+            row.ekatte = settlement.ekatte;
+          }
+          return row;
+        })
+        .filter((a) => !!a)
+        .sort((a, b) => b.value - a.value),
+    [reportRule, settlements, threshold],
   );
-  return votes;
+  return votes || [];
 };

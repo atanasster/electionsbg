@@ -4,7 +4,7 @@ import { useTooltip } from "@/ux/useTooltip";
 import { Regions } from "../data/json_types";
 import { RegionMap } from "./RegionMap";
 import { getDataProjection } from "../utils/d3_utils";
-import { useAggregatedVotes } from "@/data/useAggregatedVotes";
+import { useRegionVotes } from "@/data/useRegionVotes";
 import { PartyVotesXS } from "./PartyVotesXS";
 import { usePartyInfo } from "@/data/usePartyInfo";
 import { useTranslation } from "react-i18next";
@@ -15,7 +15,7 @@ export const RegionsMap: React.FC<
 > = ({ regions, size }) => {
   const navigate = useNavigate();
   const { findRegion } = useRegions();
-  const { votesByRegion } = useAggregatedVotes();
+  const { votesByRegion } = useRegionVotes();
   const { topVotesParty } = usePartyInfo();
   const { i18n } = useTranslation();
 

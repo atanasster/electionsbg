@@ -24,7 +24,7 @@ export const SectionsScreen = () => {
     return null;
   }
 
-  const sections = findSections(regionCode, muniCode, info.ekatte);
+  const sections = findSections(info.ekatte);
   return (
     <div className={`w-full py-10 px-4 md:px-8`}>
       {sections?.map((section) => {

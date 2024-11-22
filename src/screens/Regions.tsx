@@ -4,13 +4,13 @@ import { MapLayout } from "@/layout/MapLayout";
 import { regions } from "./data/json_types";
 import { RegionsMap } from "./components/RegionsMap";
 import { Title } from "@/ux/Title";
-import { useAggregatedVotes } from "@/data/useAggregatedVotes";
+import { useRegionVotes } from "@/data/useRegionVotes";
 import { ProtocolSummary } from "./components/ProtocolSummary";
 import { useMemo } from "react";
 
 export const RegionsScreen = () => {
   const { t } = useTranslation();
-  const { countryVotes } = useAggregatedVotes();
+  const { countryVotes } = useRegionVotes();
   const results = useMemo(() => countryVotes(), [countryVotes]);
   return (
     <>

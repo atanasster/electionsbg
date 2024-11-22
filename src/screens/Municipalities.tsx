@@ -5,14 +5,14 @@ import { MunicipalitiesMap } from "./components/MunicipalitiesMap";
 import { useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ProtocolSummary } from "./components/ProtocolSummary";
-import { useAggregatedVotes } from "@/data/useAggregatedVotes";
+import { useRegionVotes } from "@/data/useRegionVotes";
 import { Title } from "@/ux/Title";
 import { useRegions } from "@/data/useRegions";
 
 export const MunicipalitiesScreen = () => {
   const [searchParams] = useSearchParams();
   const { findRegion } = useRegions();
-  const { votesByRegion } = useAggregatedVotes();
+  const { votesByRegion } = useRegionVotes();
   const { i18n } = useTranslation();
   const region = searchParams.get("region");
   if (!region) {

@@ -7,7 +7,7 @@ import { RegionMap } from "./RegionMap";
 import { getDataProjection } from "../utils/d3_utils";
 import { useTooltip } from "@/ux/useTooltip";
 import { PartyVotesXS } from "./PartyVotesXS";
-import { useAggregatedVotes } from "@/data/useAggregatedVotes";
+import { useMunicipalitydVotes } from "@/data/useMunicipalityVotes";
 import { usePartyInfo } from "@/data/usePartyInfo";
 import { useTranslation } from "react-i18next";
 import { useMunicipalities } from "@/data/useMunicipalities";
@@ -22,7 +22,7 @@ export const MunicipalitiesMap: React.FC<
   const { onMouseEnter, onMouseMove, onMouseLeave, tooltip } = useTooltip();
   const navigate = useNavigate();
   const { findMunicipality } = useMunicipalities();
-  const { votesByMunicipality } = useAggregatedVotes();
+  const { votesByMunicipality } = useMunicipalitydVotes();
   const { topVotesParty } = usePartyInfo();
   const { i18n } = useTranslation();
   const municipalities = useMemo(() => {
@@ -40,7 +40,7 @@ export const MunicipalitiesMap: React.FC<
   );
   const municipalitiesList = municipalities.features.map((feature) => {
     const name = feature.properties.nuts4;
-    const votes = votesByMunicipality(feature.properties.nuts3, name);
+    const votes = votesByMunicipality(name);
     const party = topVotesParty(votes?.results.votes);
 
     return (
@@ -61,9 +61,7 @@ export const MunicipalitiesMap: React.FC<
         }}
         onMouseEnter={(e) => {
           const info = findMunicipality(name);
-          const muniVotes =
-            info &&
-            votesByMunicipality(info.obshtina.slice(0, 3), info.obshtina);
+          const muniVotes = info && votesByMunicipality(info.obshtina);
           onMouseEnter(
             e,
             info ? (
