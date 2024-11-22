@@ -13,7 +13,7 @@ import {
   MunicipalityInfo,
 } from "@/data/useSettlements";
 import { PartyVotesXS } from "./PartyVotesXS";
-import { useAggregatedVotes } from "@/data/useAggregatedVotes";
+import { useSettlementVotes } from "@/data/useSettlementVotes";
 import { usePartyInfo } from "@/data/usePartyInfo";
 import { useTranslation } from "react-i18next";
 
@@ -28,7 +28,7 @@ export const SettlementsMap: React.FC<
   const { onMouseEnter, onMouseMove, onMouseLeave, tooltip } = useTooltip();
   const navigate = useNavigate();
   const { findSettlement } = useSettlementsInfo();
-  const { votesBySettlement } = useAggregatedVotes();
+  const { votesBySettlement } = useSettlementVotes();
   const { topVotesParty } = usePartyInfo();
   const { i18n } = useTranslation();
   const settlements = useMemo(() => {
@@ -47,7 +47,7 @@ export const SettlementsMap: React.FC<
   const municipalitiesList = settlements.features.map((feature) => {
     const name = feature.properties.ekatte;
     const s = findSettlement(name);
-    const votes = s && votesBySettlement(s.oblast, s.obshtina, name);
+    const votes = s && votesBySettlement(name);
     const party = topVotesParty(votes?.results.votes);
 
     return (
@@ -63,8 +63,7 @@ export const SettlementsMap: React.FC<
         feature={feature}
         onMouseEnter={(e) => {
           const info = findSettlement(name);
-          const settlementVotes =
-            info && votesBySettlement(info.oblast, info.obshtina, info.ekatte);
+          const settlementVotes = info && votesBySettlement(info.ekatte);
           onMouseEnter(
             e,
             info ? (

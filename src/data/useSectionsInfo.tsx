@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { SectionInfo } from "./dataTypes";
-import { useAggregatedVotes } from "./useAggregatedVotes";
+import { useSettlementVotes } from "./useSettlementVotes";
 import { useQuery } from "@tanstack/react-query";
 
 const queryFn = async (): Promise<SectionInfo[]> => {
@@ -14,10 +14,10 @@ export const useSectionsInfo = () => {
     queryKey: ["sections"],
     queryFn: queryFn,
   });
-  const { votesBySettlement } = useAggregatedVotes();
+  const { votesBySettlement } = useSettlementVotes();
   const findSections = useCallback(
-    (region: string, municipality: string, ekatte: string) => {
-      const sectionCodes = votesBySettlement(region, municipality, ekatte);
+    (ekatte: string) => {
+      const sectionCodes = votesBySettlement(ekatte);
       if (!sectionCodes) {
         return [];
       }

@@ -51,6 +51,8 @@ export type ElectionVotes = {
 export type ElectionSettlement = {
   key: string;
   ekatte?: string;
+  obshtina?: string;
+  oblast: string;
   t_v_m?: string;
   name?: string;
   results: VoteResults;
@@ -59,15 +61,16 @@ export type ElectionSettlement = {
 
 export type ElectionMunicipality = {
   key: string;
+  oblast: string;
   obshtina?: string;
   results: VoteResults;
-  settlements: ElectionSettlement[];
+  // settlements: ElectionSettlement[];
 };
 export type ElectionRegion = {
   key: string;
   nuts3?: string;
   results: VoteResults;
-  municipalities: ElectionMunicipality[];
+  // municipalities: ElectionMunicipality[];
 };
 export type ElectionRegions = ElectionRegion[];
 

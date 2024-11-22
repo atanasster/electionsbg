@@ -95,69 +95,81 @@ const aggregateSettlements = (
   votes: ElectionVotes[],
   protocols: FullSectionProtocol[],
 ) => {
-  const elections: ElectionRegions = [];
+  const electionRegions: ElectionRegions = [];
+  const electionMunicipalities: ElectionMunicipality[] = [];
+  const electionSettlements: ElectionSettlement[] = [];
   regions.forEach((region) => {
-    elections.push({
-      key: region.oblast as string,
-      nuts3: region.nuts3 as string,
-      municipalities: [],
-      results: {
-        actualTotal: 0,
-        actualMachineVotes: 0,
-        actualPaperVotes: 0,
-        votes: [],
-      },
-    });
-  });
-  municipalities.forEach((muni) => {
-    const region = elections.find((region) => region.nuts3 === muni.nuts3);
-    if (!region) {
-      throw new Error(
-        `Can not find region in elections: 
-        ${JSON.stringify(muni, null, 2)}`,
-      );
+    if (region.oblast && region.nuts3) {
+      electionRegions.push({
+        key: region.oblast,
+        nuts3: region.nuts3,
+        results: {
+          actualTotal: 0,
+          actualMachineVotes: 0,
+          actualPaperVotes: 0,
+          votes: [],
+        },
+      });
     }
-    const m: ElectionMunicipality = {
-      key: muni.obshtina?.substring(3) as string,
-      obshtina: muni.obshtina as string,
-      settlements: [],
-      results: {
-        actualTotal: 0,
-        actualMachineVotes: 0,
-        actualPaperVotes: 0,
-        votes: [],
-      },
-    };
-    region.municipalities.push(m);
+  });
+
+  municipalities.forEach((muni) => {
+    if (muni.nuts3) {
+      const region = electionRegions.find(
+        (region) => region.nuts3 === muni.nuts3,
+      );
+      if (!region) {
+        throw new Error(
+          `Can not find region in elections: 
+        ${JSON.stringify(muni, null, 2)}`,
+        );
+      }
+      const m: ElectionMunicipality = {
+        key: muni.obshtina?.substring(3) as string,
+        obshtina: muni.obshtina as string,
+        oblast: region.key,
+        results: {
+          actualTotal: 0,
+          actualMachineVotes: 0,
+          actualPaperVotes: 0,
+          votes: [],
+        },
+      };
+      electionMunicipalities.push(m);
+    }
   });
   settlements.forEach((set) => {
-    const muni = elections
-      .find((r) => r.nuts3 === set.nuts3)
-      ?.municipalities.find((m) => m.obshtina === set.obshtina);
-    if (!muni) {
-      throw new Error(
-        `Can not find municipality in elections: 
-        ${JSON.stringify(set, null, 2)}`,
+    if (set.obshtina) {
+      const muni = electionMunicipalities.find(
+        (m) => m.obshtina === set.obshtina,
       );
+      if (!muni) {
+        throw new Error(
+          `Can not find municipality in elections: 
+        ${JSON.stringify(set, null, 2)}`,
+        );
+      }
+      const s: ElectionSettlement = {
+        key: set.nuts3 as string,
+        ekatte: set.ekatte as string,
+        name: set.name,
+        oblast: muni.oblast,
+        obshtina: muni.obshtina,
+        t_v_m: set.t_v_m,
+        sections: [],
+        results: {
+          actualTotal: 0,
+          actualMachineVotes: 0,
+          actualPaperVotes: 0,
+          votes: [],
+        },
+      };
+      electionSettlements.push(s);
     }
-    const s: ElectionSettlement = {
-      key: set.nuts3 as string,
-      ekatte: set.ekatte as string,
-      name: set.name,
-      t_v_m: set.t_v_m,
-      sections: [],
-      results: {
-        actualTotal: 0,
-        actualMachineVotes: 0,
-        actualPaperVotes: 0,
-        votes: [],
-      },
-    };
-    muni.settlements.push(s);
   });
   votes.forEach((vote) => {
     const regionCode = vote.section.substring(0, 2);
-    let region = elections.find((r) => {
+    let region = electionRegions.find((r) => {
       const rc = regionCodes.find((c) => c.key === regionCode);
       return rc?.nuts3 === r.nuts3;
     });
@@ -171,16 +183,17 @@ const aggregateSettlements = (
           actualPaperVotes: 0,
           votes: [],
         },
-        municipalities: [],
       };
-      elections.push(region);
+      electionRegions.push(region);
     }
     const muniCode = vote.section.substring(2, 4);
-    let municipality = region.municipalities.find((m) => m.key === muniCode);
+    let municipality = electionMunicipalities.find(
+      (m) => m.key === muniCode && m.oblast === region.key,
+    );
     if (!municipality) {
       municipality = {
         key: muniCode,
-        settlements: [],
+        oblast: region.key,
         results: {
           actualTotal: 0,
           actualMachineVotes: 0,
@@ -190,19 +203,28 @@ const aggregateSettlements = (
       };
     }
     const settlementCode = vote.section.substring(4, 6);
-    let settlement = municipality.settlements.find((s) => {
+    const municipalitySettlements = electionSettlements.filter(
+      (s) => s.obshtina === municipality.obshtina,
+    );
+    let settlement = municipalitySettlements.find((s) => {
       const section = sections.find((s) => s.section === vote.section);
       if (!section) {
         throw new Error(`Could not find voting section ${vote.section}`);
       }
       if (settlementCode === "00") {
-        return s.t_v_m && s.name && section.settlement === s.t_v_m + s.name;
+        const settlementName = section.settlement
+          .replace(/\s+/g, "")
+          .toLowerCase();
+        const sectionSettlementName = `${s.t_v_m || ""}${s.name || ""}`
+          .replace(/\s+/g, "")
+          .toLowerCase();
+        return settlementName === sectionSettlementName;
       } else {
         return s.key === settlementCode;
       }
     });
     if (!settlement) {
-      settlement = municipality.settlements.find(
+      settlement = municipalitySettlements.find(
         (s) => s.key === settlementCode,
       );
     }
@@ -210,6 +232,8 @@ const aggregateSettlements = (
     const section = sections.find((s) => s.section === vote.section);
     if (!settlement) {
       settlement = {
+        oblast: region.key,
+        obshtina: municipality.obshtina,
         key: settlementCode,
         name: section?.settlement,
         sections: [],
@@ -222,7 +246,7 @@ const aggregateSettlements = (
       };
       //municipality.obshtina = section?.settlement;
       //region.nuts3 = section?.settlement;
-      municipality.settlements.push(settlement);
+      electionSettlements.push(settlement);
     }
 
     settlement.sections.push(vote.section);
@@ -240,11 +264,21 @@ const aggregateSettlements = (
     addVotes(municipality.results, vote.votes, protocol);
     addVotes(region.results, vote.votes, protocol);
   });
-  const json = JSON.stringify(elections, null, 2);
-  const outFile = `${outFolder}/aggregated_votes.json`;
+  let json = JSON.stringify(electionRegions, null, 2);
+  let outFile = `${outFolder}/region_votes.json`;
   fs.writeFileSync(outFile, json, "utf8");
   console.log("Successfully added file ", outFile);
-  return elections;
+  json = JSON.stringify(electionMunicipalities, null, 2);
+  outFile = `${outFolder}/municipality_votes.json`;
+  fs.writeFileSync(outFile, json, "utf8");
+  console.log("Successfully added file ", outFile);
+
+  json = JSON.stringify(electionSettlements, null, 2);
+  outFile = `${outFolder}/settlement_votes.json`;
+  fs.writeFileSync(outFile, json, "utf8");
+  console.log("Successfully added file ", outFile);
+
+  return { electionRegions, electionMunicipalities, electionSettlements };
 };
 
 const parseElections = (monthYear: string) => {

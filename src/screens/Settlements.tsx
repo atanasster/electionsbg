@@ -5,7 +5,7 @@ import { SettlementsMap } from "./components/SettlementsMap";
 import { useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Title } from "@/ux/Title";
-import { useAggregatedVotes } from "@/data/useAggregatedVotes";
+import { useMunicipalitydVotes } from "@/data/useMunicipalityVotes";
 import { ProtocolSummary } from "./components/ProtocolSummary";
 import { useRegions } from "@/data/useRegions";
 import { useMunicipalities } from "@/data/useMunicipalities";
@@ -15,7 +15,7 @@ export const SettlementsScreen = () => {
   const regionCode = searchParams.get("region");
   const { findRegion } = useRegions();
   const { findMunicipality } = useMunicipalities();
-  const { votesByMunicipality } = useAggregatedVotes();
+  const { votesByMunicipality } = useMunicipalitydVotes();
   const { i18n } = useTranslation();
   if (!regionCode) {
     return null;
@@ -29,10 +29,7 @@ export const SettlementsScreen = () => {
   if (!region || !municipality) {
     return null;
   }
-  const municipalityVotes = votesByMunicipality(
-    region.oblast,
-    municipality.obshtina,
-  );
+  const municipalityVotes = votesByMunicipality(municipality.obshtina);
   return (
     <>
       <Title>
