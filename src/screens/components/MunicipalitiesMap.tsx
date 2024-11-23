@@ -116,7 +116,6 @@ export const MunicipalitiesMap: React.FC<
             className="fill-primary-foreground"
             textAnchor="middle"
             fontSize="small"
-            dy={20}
             x={ptLB[0] + (ptRT[0] - ptLB[0]) / 2}
             y={ptLB[1] + (ptRT[1] - ptLB[1]) / 2}
           >

@@ -9,7 +9,6 @@ export const getDataProjection = (
   const draftPath = d3.geoPath().projection(draftProjection);
   // const path = d3.geoPath().projection(setMapProjection(municipalities));
   const bounds = draftPath.bounds(data);
-  console.log(bounds);
   const scale =
     0.95 /
     Math.max(
