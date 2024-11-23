@@ -5,7 +5,7 @@ import { useNavigate, createSearchParams } from "react-router-dom";
 
 import { Settlements } from "../data/json_types";
 import { RegionMap } from "./RegionMap";
-import { getDataProjection } from "../utils/d3_utils";
+import { geoDataCenter, getDataProjection } from "../utils/d3_utils";
 import { useTooltip } from "@/ux/useTooltip";
 import {
   useSettlementsInfo,
@@ -43,7 +43,10 @@ export const SettlementsMap: React.FC<
     };
   }, [data, region, municipality]);
 
-  const path = getDataProjection(settlements as d3.GeoPermissibleObjects, size);
+  const { path, projection } = getDataProjection(
+    settlements as d3.GeoPermissibleObjects,
+    size,
+  );
   const municipalitiesList = settlements.features.map((feature) => {
     const name = feature.properties.ekatte;
     const s = findSettlement(name);
@@ -105,6 +108,33 @@ export const SettlementsMap: React.FC<
     );
   });
 
+  const settlementsNames = useMemo(
+    () =>
+      settlements.features.map((feature) => {
+        const name = feature.properties.ekatte;
+        const { ptLB, ptRT } = geoDataCenter(
+          projection,
+          feature as d3.GeoPermissibleObjects,
+        );
+        const info = findSettlement(name);
+
+        return ptLB && ptRT && info ? (
+          <text
+            className="fill-primary-foreground"
+            textAnchor="middle"
+            fontSize="small"
+            dy={20}
+            x={ptLB[0] + (ptRT[0] - ptLB[0]) / 2}
+            y={ptLB[1] + (ptRT[1] - ptLB[1]) / 2}
+          >
+            {i18n.language === "bg"
+              ? `${info.t_v_m} ${info.name}`
+              : info.name_en}
+          </text>
+        ) : null;
+      }),
+    [findSettlement, i18n.language, projection, settlements.features],
+  );
   return (
     <div>
       <svg
@@ -114,6 +144,7 @@ export const SettlementsMap: React.FC<
         overflow="visible"
       >
         <g>{municipalitiesList}</g>
+        {settlementsNames}
       </svg>
       {tooltip}
     </div>

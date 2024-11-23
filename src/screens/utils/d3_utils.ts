@@ -9,6 +9,7 @@ export const getDataProjection = (
   const draftPath = d3.geoPath().projection(draftProjection);
   // const path = d3.geoPath().projection(setMapProjection(municipalities));
   const bounds = draftPath.bounds(data);
+  console.log(bounds);
   const scale =
     0.95 /
     Math.max(
@@ -26,5 +27,17 @@ export const getDataProjection = (
     .center(center)
     .scale(scale)
     .translate([size[0] / 2, size[1] / 2]);
-  return draftPath.projection(projection);
+  const path = draftPath.projection(projection);
+
+  return { path, projection };
+};
+
+export const geoDataCenter = (
+  projection: d3.GeoProjection,
+  data: d3.GeoPermissibleObjects,
+) => {
+  const bounds = d3.geoBounds(data);
+  const ptLB = projection(bounds[0]);
+  const ptRT = projection(bounds[1]);
+  return { ptLB, ptRT };
 };
