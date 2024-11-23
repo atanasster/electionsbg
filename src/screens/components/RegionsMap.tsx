@@ -91,6 +91,7 @@ export const RegionsMap: React.FC<
     () =>
       regions.features.map((feature) => {
         const name = feature.properties.nuts3;
+        console.log(name);
         const { ptLB, ptRT } = geoDataCenter(
           projection,
           feature as d3.GeoPermissibleObjects,
@@ -103,13 +104,13 @@ export const RegionsMap: React.FC<
             textAnchor="middle"
             fontSize="small"
             x={ptLB[0] + (ptRT[0] - ptLB[0]) / 2}
-            y={ptLB[1] + (ptRT[1] - ptLB[1]) / 2}
-          >
-            {
-              `${i18n.language === "bg" ? info.name : info.name_en}`.split(
-                "(",
-              )[0]
+            y={
+              info.nuts3 === "BG412"
+                ? ptLB[1] + (ptRT[1] - ptLB[1]) * 0.75
+                : ptLB[1] + (ptRT[1] - ptLB[1]) / 2
             }
+          >
+            {`${i18n.language === "bg" ? info.name : info.name_en}`}
           </text>
         ) : null;
       }),
