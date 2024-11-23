@@ -111,15 +111,16 @@ export const MunicipalitiesMap: React.FC<
         );
         const info = findMunicipality(name);
 
-        return ptLB && ptRT ? (
+        return ptLB && ptRT && info ? (
           <text
+            key={feature.properties.nuts3 + feature.properties.nuts4}
             className="fill-primary-foreground"
             textAnchor="middle"
             fontSize="small"
             x={ptLB[0] + (ptRT[0] - ptLB[0]) / 2}
             y={ptLB[1] + (ptRT[1] - ptLB[1]) / 2}
           >
-            {`${i18n.language === "bg" ? info?.name : info?.name_en}`}
+            {`${i18n.language === "bg" ? info.name : info.name_en}`}
           </text>
         ) : null;
       }),

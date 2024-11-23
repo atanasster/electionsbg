@@ -98,6 +98,7 @@ export const RegionsMap: React.FC<
         const info = findRegion(name);
         return ptLB && ptRT && info ? (
           <text
+            key={feature.properties.nuts3}
             className="fill-primary-foreground"
             textAnchor="middle"
             fontSize="small"
