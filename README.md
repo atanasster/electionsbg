@@ -1,7 +1,7 @@
 # Bulgaria Elecgtion Results Analysis
 
 ## Live Website
-[Live Web App](https://elections-bg.web.app)
+[Live Web App](https://electionsbg.com)
 
 ## Data
 
