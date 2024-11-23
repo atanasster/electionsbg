@@ -17,7 +17,7 @@ export const RegionMap: React.FC<
   path,
   name,
   feature,
-  fillColor = "linen",
+  fillColor = "grey",
   onCursor,
   onMouseEnter,
   onMouseMove,
