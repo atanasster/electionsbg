@@ -120,6 +120,11 @@ export const SettlementsMap: React.FC<
 
         return ptLB && ptRT && info ? (
           <text
+            key={
+              feature.properties.nuts3 +
+              feature.properties.nuts4 +
+              feature.properties.ekatte
+            }
             className="fill-primary-foreground"
             textAnchor="middle"
             fontSize="small"
