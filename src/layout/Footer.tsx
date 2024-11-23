@@ -16,7 +16,7 @@ export const Footer = () => {
         </li>
         <li>
           <Link
-            to={{ pathname: "https://github.com/atanasster/data-bg" }}
+            to={{ pathname: "https://github.com/atanasster/electionsbg" }}
             aria-label="github repository"
             className="mx-2"
           >
