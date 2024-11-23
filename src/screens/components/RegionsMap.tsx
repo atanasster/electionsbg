@@ -91,7 +91,6 @@ export const RegionsMap: React.FC<
     () =>
       regions.features.map((feature) => {
         const name = feature.properties.nuts3;
-        console.log(name);
         const { ptLB, ptRT } = geoDataCenter(
           projection,
           feature as d3.GeoPermissibleObjects,
