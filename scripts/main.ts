@@ -70,11 +70,11 @@ const regionCodes: { key: string; nuts3: string }[] = [
   // Smolyan
   { key: "22", nuts3: "BG424" },
   // Sofia 23 MIR
-  { key: "23", nuts3: "BG411" },
+  { key: "23", nuts3: "BG416" },
   // Sofia 24 MIR
-  { key: "24", nuts3: "BG411" },
+  { key: "24", nuts3: "BG417" },
   // Sofia 25 MIR
-  { key: "25", nuts3: "BG411" },
+  { key: "25", nuts3: "BG418" },
   // Sofia oblast
   { key: "26", nuts3: "BG412" },
   // Stara Zagora
