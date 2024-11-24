@@ -126,10 +126,19 @@ export const SettlementsMap: React.FC<
               feature.properties.ekatte
             }
             className="fill-primary-foreground"
+            style={{ pointerEvents: "none" }}
             textAnchor="middle"
             fontSize="small"
-            x={ptLB[0] + (ptRT[0] - ptLB[0]) / 2}
-            y={ptLB[1] + (ptRT[1] - ptLB[1]) / 2}
+            x={
+              info.dx
+                ? ptLB[0] + (ptRT[0] - ptLB[0]) * parseFloat(info.dx)
+                : ptLB[0] + (ptRT[0] - ptLB[0]) / 2
+            }
+            y={
+              info.dy
+                ? ptLB[1] + (ptRT[1] - ptLB[1]) * parseFloat(info.dy)
+                : ptLB[1] + (ptRT[1] - ptLB[1]) / 2
+            }
           >
             {i18n.language === "bg"
               ? `${info.t_v_m} ${info.name}`

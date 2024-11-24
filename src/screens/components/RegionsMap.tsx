@@ -100,12 +100,17 @@ export const RegionsMap: React.FC<
           <text
             key={feature.properties.nuts3}
             className="fill-primary-foreground"
+            style={{ pointerEvents: "none" }}
             textAnchor="middle"
             fontSize="small"
-            x={ptLB[0] + (ptRT[0] - ptLB[0]) / 2}
+            x={
+              info.dx
+                ? ptLB[0] + (ptRT[0] - ptLB[0]) * parseFloat(info.dx)
+                : ptLB[0] + (ptRT[0] - ptLB[0]) / 2
+            }
             y={
-              info.nuts3 === "BG412"
-                ? ptLB[1] + (ptRT[1] - ptLB[1]) * 0.75
+              info.dy
+                ? ptLB[1] + (ptRT[1] - ptLB[1]) * parseFloat(info.dy)
                 : ptLB[1] + (ptRT[1] - ptLB[1]) / 2
             }
           >

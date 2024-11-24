@@ -117,8 +117,17 @@ export const MunicipalitiesMap: React.FC<
             className="fill-primary-foreground"
             textAnchor="middle"
             fontSize="small"
-            x={ptLB[0] + (ptRT[0] - ptLB[0]) / 2}
-            y={ptLB[1] + (ptRT[1] - ptLB[1]) / 2}
+            style={{ pointerEvents: "none" }}
+            x={
+              info.dx
+                ? ptLB[0] + (ptRT[0] - ptLB[0]) * parseFloat(info.dx)
+                : ptLB[0] + (ptRT[0] - ptLB[0]) / 2
+            }
+            y={
+              info.dy
+                ? ptLB[1] + (ptRT[1] - ptLB[1]) * parseFloat(info.dy)
+                : ptLB[1] + (ptRT[1] - ptLB[1]) / 2
+            }
           >
             {`${i18n.language === "bg" ? info.name : info.name_en}`}
           </text>
