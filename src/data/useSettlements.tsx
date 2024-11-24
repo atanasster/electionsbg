@@ -2,28 +2,21 @@ import { useCallback } from "react";
 import { useQuery } from "@tanstack/react-query";
 
 export type LocationInfo = {
-  oblast: string;
   ekatte: string;
   name: string;
   name_en: string;
-  nuts1: string;
-  nuts2: string;
-  nuts3: string;
+  dx?: string;
+  dy?: string;
 };
 export type RegionInfo = LocationInfo & {
-  ekatte: string;
-  name: string;
-  name_en: string;
+  oblast: string;
   region: string;
-  document: string;
-  full_name_bul: string;
+  nuts3: string;
 };
 
 export type MunicipalityInfo = LocationInfo & {
   obshtina: string;
-  category: number;
-  document: number;
-  full_name_bul: string;
+  nuts3: string;
 };
 export type SettlementInfo = LocationInfo & {
   t_v_m: string;
