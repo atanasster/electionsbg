@@ -186,10 +186,16 @@ const aggregateSettlements = (
       };
       electionRegions.push(region);
     }
-    const muniCode = vote.section.substring(2, 4);
-    let municipality = electionMunicipalities.find(
-      (m) => m.key === muniCode && m.oblast === region.key,
-    );
+    let muniCode = vote.section.substring(2, 4);
+    if (muniCode === "46") {
+      muniCode = vote.section.substring(4, 6);
+    }
+    let municipality = electionMunicipalities.find((m) => {
+      if (m.oblast === region.key) {
+        return m.key === muniCode;
+      }
+      return false;
+    });
     if (!municipality) {
       municipality = {
         key: muniCode,

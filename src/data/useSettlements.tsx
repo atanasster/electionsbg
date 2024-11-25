@@ -5,31 +5,23 @@ export type LocationInfo = {
   ekatte: string;
   name: string;
   name_en: string;
+  nuts3: string;
   dx?: string;
   dy?: string;
 };
 export type RegionInfo = LocationInfo & {
   oblast: string;
   region: string;
-  nuts3: string;
 };
 
 export type MunicipalityInfo = LocationInfo & {
   obshtina: string;
-  nuts3: string;
 };
 export type SettlementInfo = LocationInfo & {
   t_v_m: string;
-  kmetstvo: string;
-  kind: number;
-  category: number;
-  altitude: number;
-  document: 2007;
-  abc: number;
-  text: string;
+  oblast: string;
   obshtina: string;
-  oblast_name: string;
-  obshtina_name: string;
+  kmetstvo: string;
 };
 
 const queryFn = async (): Promise<SettlementInfo[]> => {
