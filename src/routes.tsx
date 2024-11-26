@@ -1,12 +1,12 @@
 import { FC, PropsWithChildren } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { RegionsScreen } from "@/screens/Regions";
-import { MunicipalitiesScreen } from "@/screens/Municipalities";
-import { SettlementsScreen } from "@/screens/Settlements";
+import { RegionsScreen } from "@/screens/RegionsScreen";
+import { MunicipalitiesScreen } from "@/screens/MunicipalitiesScreen";
+import { SettlementsScreen } from "@/screens/SettlementsScreen";
 
 import { NotFound } from "@/screens/NotFound";
 import { Layout } from "./layout/Layout";
-import { SectionsScreen } from "./screens/Sections";
+import { SectionsScreen } from "./screens/SectionsScreen";
 import { SettlementsConcentrationReport } from "./screens/reports/settlements/SettlementsConcentrationReport";
 import { SettlementsTurnoutReport } from "./screens/reports/settlements/SettlementsTurnoutReport";
 import { SettlementsInvalidBallotsReport } from "./screens/reports/settlements/SettlementsInvalidBallotsReport";
@@ -22,7 +22,7 @@ import { SectionsTurnoutReport } from "./screens/reports/sections/SectionsTurnou
 import { SectionsInvalidBallotsReport } from "./screens/reports/sections/SectionsInvalidBallotsReport";
 import { SectionsAdditionalVotersReport } from "./screens/reports/sections/SectionsAdditionalVotersReport";
 import { SectionsSupportsNoOneReport } from "./screens/reports/sections/SectionsSupportsNoOneReport";
-import { SectionScreen } from "./screens/Section";
+import { SectionScreen } from "./screens/SectionScreen";
 
 const LayoutScreen: FC<PropsWithChildren> = ({ children }) => {
   return <Layout>{children}</Layout>;
