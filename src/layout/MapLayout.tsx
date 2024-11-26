@@ -1,22 +1,18 @@
-import { useRef, useState, useEffect } from "react";
+import { useRef, useState, useLayoutEffect } from "react";
 
 export const MapLayout: React.FC<{
   children: (dimension: [number, number]) => JSX.Element;
 }> = ({ children }) => {
   const refContainer = useRef<HTMLDivElement>(null);
   const [dimensions, setDimensions] = useState<[number, number] | undefined>();
-  useEffect(() => {
+  useLayoutEffect(() => {
     if (refContainer.current) {
-      let resizing: boolean = false;
       const resizeObserver = new ResizeObserver(() => {
-        if (!resizing) {
-          resizing = true;
-          if (refContainer.current) {
-            setDimensions([
-              refContainer.current.offsetWidth,
-              refContainer.current.offsetHeight,
-            ]);
-          }
+        if (refContainer.current) {
+          setDimensions([
+            refContainer.current.offsetWidth,
+            refContainer.current.offsetHeight,
+          ]);
         }
       });
       setDimensions([
