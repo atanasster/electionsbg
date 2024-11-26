@@ -15,13 +15,13 @@ export const Footer = () => {
           </Link>
         </li>
         <li>
-          <Link
-            to={{ pathname: "https://github.com/atanasster/electionsbg" }}
+          <a
+            href="https://github.com/atanasster/electionsbg"
             aria-label="github repository"
-            className="mx-2"
+            className="mx-2 link hover:underline hover:cursor-pointer"
           >
             {t("open_source")}
-          </Link>
+          </a>
         </li>
       </ul>
     </footer>
