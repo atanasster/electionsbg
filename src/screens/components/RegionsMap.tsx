@@ -1,7 +1,7 @@
 import * as d3 from "d3";
 import { useNavigate, createSearchParams } from "react-router-dom";
 import { useTooltip } from "@/ux/useTooltip";
-import { Regions } from "../data/json_types";
+import { RegionGeoJSON } from "@/data/mapTypes";
 import { RegionMap } from "./RegionMap";
 import { geoDataCenter, getDataProjection } from "../utils/d3_utils";
 import { useRegionVotes } from "@/data/useRegionVotes";
@@ -9,10 +9,11 @@ import { PartyVotesXS } from "./PartyVotesXS";
 import { usePartyInfo } from "@/data/usePartyInfo";
 import { useTranslation } from "react-i18next";
 import { useRegions } from "@/data/useRegions";
+
 import { useMemo } from "react";
 
 export const RegionsMap: React.FC<
-  React.PropsWithChildren<{ regions: Regions; size: [number, number] }>
+  React.PropsWithChildren<{ regions: RegionGeoJSON; size: [number, number] }>
 > = ({ regions, size }) => {
   const navigate = useNavigate();
   const { findRegion } = useRegions();

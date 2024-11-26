@@ -2,7 +2,6 @@ import * as d3 from "d3";
 import { useMemo } from "react";
 import { useNavigate, createSearchParams } from "react-router-dom";
 
-import { Municipalities } from "../data/json_types";
 import { RegionMap } from "./RegionMap";
 import { geoDataCenter, getDataProjection } from "../utils/d3_utils";
 import { useTooltip } from "@/ux/useTooltip";
@@ -11,10 +10,11 @@ import { useMunicipalitydVotes } from "@/data/useMunicipalityVotes";
 import { usePartyInfo } from "@/data/usePartyInfo";
 import { useTranslation } from "react-i18next";
 import { useMunicipalities } from "@/data/useMunicipalities";
+import { MunicipalityGeoJSON } from "@/data/mapTypes";
 
 export const MunicipalitiesMap: React.FC<
   React.PropsWithChildren<{
-    municipalities: Municipalities;
+    municipalities: MunicipalityGeoJSON;
     region: string;
     size: [number, number];
   }>

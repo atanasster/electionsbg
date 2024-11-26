@@ -3,7 +3,6 @@ import * as d3 from "d3";
 import { useMemo } from "react";
 import { useNavigate, createSearchParams } from "react-router-dom";
 
-import { Settlements } from "../data/json_types";
 import { RegionMap } from "./RegionMap";
 import { geoDataCenter, getDataProjection } from "../utils/d3_utils";
 import { useTooltip } from "@/ux/useTooltip";
@@ -16,10 +15,11 @@ import { PartyVotesXS } from "./PartyVotesXS";
 import { useSettlementVotes } from "@/data/useSettlementVotes";
 import { usePartyInfo } from "@/data/usePartyInfo";
 import { useTranslation } from "react-i18next";
+import { SettlementGeoJSON } from "@/data/mapTypes";
 
 export const SettlementsMap: React.FC<
   React.PropsWithChildren<{
-    settlements: Settlements;
+    settlements: SettlementGeoJSON;
     municipality: MunicipalityInfo;
     region: RegionInfo;
     size: [number, number];

@@ -9,6 +9,7 @@ export type LocationInfo = {
   dx?: string;
   dy?: string;
 };
+
 export type RegionInfo = LocationInfo & {
   oblast: string;
   region: string;

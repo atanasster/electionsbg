@@ -1,7 +1,7 @@
 import { useTranslation } from "react-i18next";
 
 import { MapLayout } from "@/layout/MapLayout";
-import { regions } from "./data/json_types";
+import { useRegionsMap } from "@/data/useRegionsMap";
 import { RegionsMap } from "./components/RegionsMap";
 import { Title } from "@/ux/Title";
 import { useRegionVotes } from "@/data/useRegionVotes";
@@ -11,6 +11,7 @@ import { useMemo } from "react";
 export const RegionsScreen = () => {
   const { t } = useTranslation();
   const { countryVotes } = useRegionVotes();
+  const { regions } = useRegionsMap();
   const results = useMemo(() => countryVotes(), [countryVotes]);
   return (
     <>
@@ -18,9 +19,11 @@ export const RegionsScreen = () => {
       {results && results.protocol && (
         <ProtocolSummary protocol={results.protocol} votes={results.votes} />
       )}
-      <MapLayout>
-        {(size) => <RegionsMap regions={regions} size={size} />}
-      </MapLayout>
+      {regions && (
+        <MapLayout>
+          {(size) => <RegionsMap regions={regions} size={size} />}
+        </MapLayout>
+      )}
     </>
   );
 };
