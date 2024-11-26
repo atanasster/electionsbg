@@ -1,5 +1,5 @@
+import { RegionFeature } from "@/data/mapTypes";
 import { useState } from "react";
-import { RegionFeature } from "../data/json_types";
 
 export const RegionMap: React.FC<
   React.PropsWithChildren<{
