@@ -94,6 +94,7 @@ const aggregateSettlements = (
   sections: SectionInfo[],
   votes: ElectionVotes[],
   protocols: FullSectionProtocol[],
+  stringify: (o: object) => string,
 ) => {
   const electionRegions: ElectionRegions = [];
   const electionMunicipalities: ElectionMunicipality[] = [];
@@ -284,16 +285,16 @@ const aggregateSettlements = (
     addVotes(municipality.results, vote.votes, protocol);
     addVotes(region.results, vote.votes, protocol);
   });
-  let json = JSON.stringify(electionRegions, null, 2);
+  let json = stringify(electionRegions);
   let outFile = `${outFolder}/region_votes.json`;
   fs.writeFileSync(outFile, json, "utf8");
   console.log("Successfully added file ", outFile);
-  json = JSON.stringify(electionMunicipalities, null, 2);
+  json = stringify(electionMunicipalities);
   outFile = `${outFolder}/municipality_votes.json`;
   fs.writeFileSync(outFile, json, "utf8");
   console.log("Successfully added file ", outFile);
 
-  json = JSON.stringify(electionSettlements, null, 2);
+  json = stringify(electionSettlements);
   outFile = `${outFolder}/settlement_votes.json`;
   fs.writeFileSync(outFile, json, "utf8");
   console.log("Successfully added file ", outFile);
@@ -302,6 +303,9 @@ const aggregateSettlements = (
 };
 
 const parseElections = (monthYear: string) => {
+  const production = false;
+  const stringify = (o: object) =>
+    production ? JSON.stringify(o) : JSON.stringify(o, null, 2);
   const inFolder = path.resolve(__dirname, `../raw_data/${monthYear}`);
   const outFolder = path.resolve(__dirname, `../public/${monthYear}`);
   if (!fs.existsSync(outFolder)) {
@@ -310,9 +314,15 @@ const parseElections = (monthYear: string) => {
   parseParties(inFolder, outFolder).then(() =>
     parseSections(inFolder).then((sections) =>
       parseVotes(inFolder).then((votes) =>
-        parseProtocols(inFolder, outFolder).then((protocols) => {
-          aggregateSettlements(outFolder, sections, votes, protocols);
-          const json = JSON.stringify(sections, null, 2);
+        parseProtocols(inFolder, outFolder, stringify).then((protocols) => {
+          aggregateSettlements(
+            outFolder,
+            sections,
+            votes,
+            protocols,
+            stringify,
+          );
+          const json = stringify(sections);
           const outFile = `${outFolder}/sections.json`;
           fs.writeFileSync(outFile, json, "utf8");
           console.log("Successfully added file ", outFile);
