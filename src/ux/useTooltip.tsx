@@ -17,8 +17,8 @@ export const useTooltip = () => {
   ) => {
     setTooltip({
       visible: true,
-      x: e.clientX,
-      y: e.clientY,
+      x: e.pageX,
+      y: e.pageY,
       content,
     });
   };
@@ -26,8 +26,8 @@ export const useTooltip = () => {
     setTooltip((prev) => ({
       ...prev,
       //visible: true,
-      x: e.clientX,
-      y: e.clientY,
+      x: e.pageX,
+      y: e.pageY,
     }));
   };
   const onMouseLeave = () => {
@@ -40,7 +40,7 @@ export const useTooltip = () => {
     tooltip: tooltip.visible ? (
       <div
         className="absolute overflow-hidden rounded-md bg-primary px-3 py-1.5 text-xs text-primary-foreground animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2"
-        style={{ left: `${tooltip.x + 5}px`, top: `${tooltip.y + 50}px` }}
+        style={{ left: `${tooltip.x + 5}px`, top: `${tooltip.y + 45}px` }}
       >
         {tooltip.content}
       </div>
