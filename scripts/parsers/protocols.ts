@@ -16,6 +16,7 @@ export type FullSectionProtocol = {
 export const parseProtocols = async (
   inFolder: string,
   outFolder: string,
+  stringify: (o: object) => string,
 ): Promise<FullSectionProtocol[]> => {
   const result: string[][] = [];
   const fileName = "protocols";
@@ -53,7 +54,7 @@ export const parseProtocols = async (
           }
           allProtocols.push(protocol);
         }
-        const json = JSON.stringify(allProtocols, null, 2);
+        const json = stringify(allProtocols);
         const outFile = `${outFolder}/${fileName}.json`;
         fs.writeFileSync(outFile, json, "utf8");
         console.log("Successfully added file ", outFile);
