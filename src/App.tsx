@@ -1,13 +1,10 @@
 import "./i18n.ts"; // imports + initializes i18n
+import ReactGA from "react-ga4";
 
 import "./App.css";
-// import { AuthProvider } from "@/auth/AuthContext";
 import { AuthRoutes } from "@/routes";
 
 export const App = () => {
-  return (
-    // <AuthProvider>
-    <AuthRoutes />
-    // </AuthProvider>
-  );
+  ReactGA.initialize("G-NWEG367BN9");
+  return <AuthRoutes />;
 };
