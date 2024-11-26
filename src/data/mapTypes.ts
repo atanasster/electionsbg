@@ -1,3 +1,11 @@
+export type RegionFeature = {
+  type: "Feature";
+  geometry: {
+    type: string;
+    coordinates: [][][];
+  };
+};
+
 export type RegionGeoJSON = {
   type: "FeatureCollection";
   features: {
