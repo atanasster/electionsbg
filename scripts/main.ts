@@ -149,13 +149,14 @@ const aggregateSettlements = (
         ${JSON.stringify(set, null, 2)}`,
         );
       }
-      const kmetstvoNum = set.kmetstvo.split("-");
+
       const s: ElectionSettlement = {
-        key: kmetstvoNum.length <= 1 ? (set.nuts3 as string) : kmetstvoNum[1],
+        key: set.nuts3 as string,
         ekatte: set.ekatte as string,
         name: set.name,
         oblast: muni.oblast,
         obshtina: muni.obshtina,
+        kmetstvo: set.kmetstvo,
         t_v_m: set.t_v_m,
         sections: [],
         results: {
@@ -234,6 +235,12 @@ const aggregateSettlements = (
       settlement = municipalitySettlements.find(
         (s) => s.key === settlementCode,
       );
+      if (!settlement) {
+        settlement = municipalitySettlements.find((s) => {
+          const kmetstvoNum = s.kmetstvo.split("-");
+          return kmetstvoNum.length > 1 && kmetstvoNum[1] === settlementCode;
+        });
+      }
     }
     const protocol = protocols.find((s) => s.section === vote.section);
 
@@ -248,6 +255,7 @@ const aggregateSettlements = (
         obshtina: municipality.obshtina,
         key: settlementCode,
         name: section?.settlement,
+        kmetstvo: settlementCode,
         sections: [],
         results: {
           actualTotal: 0,

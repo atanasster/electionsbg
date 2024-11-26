@@ -52,6 +52,7 @@ export type ElectionSettlement = {
   key: string;
   ekatte?: string;
   obshtina?: string;
+  kmetstvo: string;
   oblast: string;
   t_v_m?: string;
   name?: string;
