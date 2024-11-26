@@ -149,8 +149,9 @@ const aggregateSettlements = (
         ${JSON.stringify(set, null, 2)}`,
         );
       }
+      const kmetstvoNum = set.kmetstvo.split("-");
       const s: ElectionSettlement = {
-        key: set.nuts3 as string,
+        key: kmetstvoNum.length <= 1 ? (set.nuts3 as string) : kmetstvoNum[1],
         ekatte: set.ekatte as string,
         name: set.name,
         oblast: muni.oblast,
@@ -212,22 +213,22 @@ const aggregateSettlements = (
     const municipalitySettlements = electionSettlements.filter(
       (s) => s.obshtina === municipality.obshtina,
     );
+    const section = sections.find((s) => s.section === vote.section);
     let settlement = municipalitySettlements.find((s) => {
       const section = sections.find((s) => s.section === vote.section);
       if (!section) {
         throw new Error(`Could not find voting section ${vote.section}`);
       }
-      if (settlementCode === "00") {
-        const settlementName = section.settlement
-          .replace(/\s+/g, "")
-          .toLowerCase();
-        const sectionSettlementName = `${s.t_v_m || ""}${s.name || ""}`
-          .replace(/\s+/g, "")
-          .toLowerCase();
-        return settlementName === sectionSettlementName;
-      } else {
-        return s.key === settlementCode;
-      }
+      const settlementName = section.settlement
+        .replace(/\s+/g, "")
+        .toLowerCase()
+        .split(",")[0];
+      const sectionSettlementName = `${s.t_v_m || ""}${s.name || ""}`
+        .replace(/\s+/g, "")
+        .toLowerCase();
+      return (
+        settlementName === sectionSettlementName || s.key === settlementCode
+      );
     });
     if (!settlement) {
       settlement = municipalitySettlements.find(
@@ -235,8 +236,13 @@ const aggregateSettlements = (
       );
     }
     const protocol = protocols.find((s) => s.section === vote.section);
-    const section = sections.find((s) => s.section === vote.section);
+
     if (!settlement) {
+      if (section?.region !== 32) {
+        throw new Error(
+          `Could not find a settlement ${vote.section} ${section?.address}`,
+        );
+      }
       settlement = {
         oblast: region.key,
         obshtina: municipality.obshtina,
