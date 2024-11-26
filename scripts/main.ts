@@ -58,7 +58,7 @@ const regionCodes: { key: string; nuts3: string }[] = [
   // Plovdiv grad
   { key: "16", nuts3: "BG421" },
   // Plovdiv oblast
-  { key: "17", nuts3: "BG421" },
+  { key: "17", nuts3: "BG421-1" },
   // Razgrad
   { key: "18", nuts3: "BG324" },
   // Ruse
@@ -125,7 +125,7 @@ const aggregateSettlements = (
         );
       }
       const m: ElectionMunicipality = {
-        key: muni.obshtina?.substring(3) as string,
+        key: muni.obshtina?.split("-")[0].substring(3) as string,
         obshtina: muni.obshtina as string,
         oblast: region.key,
         results: {
