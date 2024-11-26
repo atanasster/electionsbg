@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useMemo } from "react";
 import { Newspaper, LaptopMinimal, Users, Flag } from "lucide-react";
 import { Bar, BarChart, Cell, CartesianGrid, XAxis } from "recharts";
 import { SectionProtocol, Votes } from "@/data/dataTypes";
@@ -15,7 +15,7 @@ import { usePartyInfo } from "@/data/usePartyInfo";
 
 const CustomTooltip: FC<{
   active?: boolean;
-  payload?: { value: number }[];
+  payload?: { value: number; payload: { pctVotes: number } }[];
   label?: string;
 }> = ({ active, payload, label }) => {
   const { t } = useTranslation();
@@ -24,7 +24,7 @@ const CustomTooltip: FC<{
       <div className="flex">
         <div className="text-muted">{`${label}:`}</div>
         <div className="ml-2 font-semibold">
-          {formatThousands(payload[0].value)}
+          {`${formatThousands(payload[0].value)} ${payload[0].payload.pctVotes ? `(${formatPct(payload[0].payload.pctVotes, 3)}` : ""})`}
         </div>
         <div className="text-muted ml-1 lowercase ">{t("votes")}</div>
       </div>
@@ -43,20 +43,23 @@ export const ProtocolSummary: FC<{
       label: `${t("total_votes")}: `,
     },
   } satisfies ChartConfig;
-  const topParties = votes
-    ?.sort((a, b) => b.totalVotes - a.totalVotes)
-    .slice(0, 5)
-    .filter((v) => v.totalVotes > 0)
-    .map((v, idx) => {
-      const party = findParty(v.key);
-      return {
-        num: idx,
-        ...v,
-        nickName: party?.nickName,
-        color: party?.color,
-      };
-    });
-
+  const topParties = useMemo(() => {
+    const totalVotes = votes?.reduce((acc, v) => acc + v.totalVotes, 0);
+    return votes
+      ?.sort((a, b) => b.totalVotes - a.totalVotes)
+      .slice(0, 5)
+      .filter((v) => v.totalVotes > 0)
+      .map((v, idx) => {
+        const party = findParty(v.key);
+        return {
+          num: idx,
+          ...v,
+          nickName: party?.nickName,
+          color: party?.color,
+          pctVotes: totalVotes ? (100 * v?.totalVotes) / totalVotes : 0,
+        };
+      });
+  }, [findParty, votes]);
   return (
     <div className="w-full items-center">
       <div
@@ -356,15 +359,17 @@ export const ProtocolSummary: FC<{
                 />
                 <ChartTooltip
                   cursor={false}
-                  formatter={(value, name) => (
-                    <div className="flex min-w-[130px] items-center text-md">
-                      {chartConfig[name as keyof typeof chartConfig]?.label ||
-                        name}
-                      <div className="ml-auto flex items-baseline gap-0.5 font-mono font-medium tabular-nums">
-                        {value}
+                  formatter={(value, name) => {
+                    return (
+                      <div className="flex min-w-[130px] items-center text-md">
+                        {chartConfig[name as keyof typeof chartConfig]?.label ||
+                          name}
+                        <div className="ml-auto flex items-baseline gap-0.5 font-mono font-medium tabular-nums">
+                          {value}
+                        </div>
                       </div>
-                    </div>
-                  )}
+                    );
+                  }}
                   content={<CustomTooltip />}
                 />
                 <Bar dataKey="totalVotes" radius={8}>
