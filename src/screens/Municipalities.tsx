@@ -1,6 +1,5 @@
 import { MapLayout } from "@/layout/MapLayout";
 
-import { municipalities } from "./data/json_types";
 import { MunicipalitiesMap } from "./components/MunicipalitiesMap";
 import { useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -8,10 +7,12 @@ import { ProtocolSummary } from "./components/ProtocolSummary";
 import { useRegionVotes } from "@/data/useRegionVotes";
 import { Title } from "@/ux/Title";
 import { useRegions } from "@/data/useRegions";
+import { useMunicipalitiesMap } from "@/data/useMunicipalitiesMap";
 
 export const MunicipalitiesScreen = () => {
   const [searchParams] = useSearchParams();
   const { findRegion } = useRegions();
+  const { municipalities } = useMunicipalitiesMap();
   const { votesByRegion } = useRegionVotes();
   const { i18n } = useTranslation();
   const region = searchParams.get("region");
@@ -32,15 +33,17 @@ export const MunicipalitiesScreen = () => {
           votes={regionVotes.results.votes}
         />
       )}
-      <MapLayout>
-        {(size) => (
-          <MunicipalitiesMap
-            municipalities={municipalities}
-            region={region}
-            size={size}
-          />
-        )}
-      </MapLayout>
+      {municipalities && (
+        <MapLayout>
+          {(size) => (
+            <MunicipalitiesMap
+              municipalities={municipalities}
+              region={region}
+              size={size}
+            />
+          )}
+        </MapLayout>
+      )}
     </>
   );
 };

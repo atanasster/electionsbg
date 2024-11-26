@@ -1,6 +1,5 @@
 import { MapLayout } from "@/layout/MapLayout";
 
-import { settlements } from "./data/json_types";
 import { SettlementsMap } from "./components/SettlementsMap";
 import { useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
@@ -9,11 +8,13 @@ import { useMunicipalitydVotes } from "@/data/useMunicipalityVotes";
 import { ProtocolSummary } from "./components/ProtocolSummary";
 import { useRegions } from "@/data/useRegions";
 import { useMunicipalities } from "@/data/useMunicipalities";
+import { useSettlementsMap } from "@/data/useSettlementsMap";
 
 export const SettlementsScreen = () => {
   const [searchParams] = useSearchParams();
   const regionCode = searchParams.get("region");
   const { findRegion } = useRegions();
+  const { settlements } = useSettlementsMap();
   const { findMunicipality } = useMunicipalities();
   const { votesByMunicipality } = useMunicipalitydVotes();
   const { i18n } = useTranslation();
@@ -43,16 +44,18 @@ export const SettlementsScreen = () => {
           votes={municipalityVotes.results.votes}
         />
       )}
-      <MapLayout>
-        {(size) => (
-          <SettlementsMap
-            settlements={settlements}
-            municipality={municipality}
-            region={region}
-            size={size}
-          />
-        )}
-      </MapLayout>
+      {settlements && (
+        <MapLayout>
+          {(size) => (
+            <SettlementsMap
+              settlements={settlements}
+              municipality={municipality}
+              region={region}
+              size={size}
+            />
+          )}
+        </MapLayout>
+      )}
     </>
   );
 };
