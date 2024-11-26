@@ -1,26 +1,15 @@
-import { useSearchParams } from "react-router-dom";
+import { FC } from "react";
 import { Caption } from "@/ux/Caption";
-import { SectionVotes } from "./components/SectionVotes";
-import { useSectionsInfo } from "@/data/useSectionsInfo";
+import { SectionInfo } from "@/data/dataTypes";
+import { SectionVotes } from "./SectionVotes";
+import { ProtocolSummary } from "./ProtocolSummary";
 import { useTranslation } from "react-i18next";
-import { ProtocolSummary } from "./components/ProtocolSummary";
 
-export const SectionScreen = () => {
-  const [searchParams] = useSearchParams();
+export const Section: FC<{ section: SectionInfo }> = ({ section }) => {
   const { t } = useTranslation();
-  const { findSection } = useSectionsInfo();
-  const sectionCode = searchParams.get("section");
-  if (!sectionCode) {
-    return null;
-  }
-
-  const section = findSection(sectionCode);
-  if (!section) {
-    return null;
-  }
   return (
     <div className={`w-full py-10 px-4 md:px-8`}>
-      <div key={section.section}>
+      <div>
         <Caption>{`${t("section")} ${section.section}`}</Caption>
         <Caption className="mb-4">{`${section.settlement}-${section.address}`}</Caption>
         {section.protocol && (
