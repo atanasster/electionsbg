@@ -1,15 +1,24 @@
 import { useCallback } from "react";
 import { ElectionSettlement } from "./dataTypes";
-import { useQuery } from "@tanstack/react-query";
+import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
+import { useElectionContext } from "./ElectionContext";
 
-const queryFn = async (): Promise<ElectionSettlement[]> => {
-  const response = await fetch("/2024_10/settlement_votes.json");
+const queryFn = async ({
+  queryKey,
+}: QueryFunctionContext<[string, string | null | undefined]>): Promise<
+  ElectionSettlement[]
+> => {
+  if (!queryKey[1]) {
+    return [];
+  }
+  const response = await fetch(`/${queryKey[1]}/settlement_votes.json`);
   const data = await response.json();
   return data;
 };
 export const useSettlementVotes = () => {
+  const { selected } = useElectionContext();
   const { data: settlements } = useQuery({
-    queryKey: ["settlement_votes"],
+    queryKey: ["settlement_votes", selected],
     queryFn,
   });
   const votesBySettlement = useCallback(

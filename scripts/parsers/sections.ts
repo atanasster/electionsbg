@@ -9,7 +9,13 @@ export const parseSections = (inFolder: string): Promise<SectionInfo[]> => {
   return new Promise((resolve) =>
     fs
       .createReadStream(`${inFolder}/sections.txt`)
-      .pipe(parse({ delimiter: ";", relax_column_count: true }))
+      .pipe(
+        parse({
+          delimiter: ";",
+          relax_column_count: true,
+          relax_quotes: true,
+        }),
+      )
       .on("data", (data) => {
         result.push(data);
       })

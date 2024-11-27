@@ -1,16 +1,25 @@
 import { useCallback } from "react";
 import { ElectionRegions, ElectionRegion, VoteResults } from "./dataTypes";
 import { addVotes } from "./utils";
-import { useQuery } from "@tanstack/react-query";
+import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
+import { useElectionContext } from "./ElectionContext";
 
-const queryFn = async (): Promise<ElectionRegions> => {
-  const response = await fetch("/2024_10/region_votes.json");
+const queryFn = async ({
+  queryKey,
+}: QueryFunctionContext<
+  [string, string | null | undefined]
+>): Promise<ElectionRegions> => {
+  if (!queryKey[1]) {
+    return [];
+  }
+  const response = await fetch(`/${queryKey[1]}/region_votes.json`);
   const data = await response.json();
   return data;
 };
 export const useRegionVotes = () => {
+  const { selected } = useElectionContext();
   const { data: votes } = useQuery({
-    queryKey: ["region_votes"],
+    queryKey: ["region_votes", selected],
     queryFn,
   });
   const votesByRegion = useCallback(

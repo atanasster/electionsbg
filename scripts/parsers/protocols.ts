@@ -31,6 +31,9 @@ export const parseProtocols = async (
         const allProtocols: FullSectionProtocol[] = [];
         for (let i = 0; i < result.length; i++) {
           const row = result[i];
+          if (parseInt(row[10]) === null) {
+            throw new Error("Invalid protocol format");
+          }
           const protocol: FullSectionProtocol = {
             document: row[0],
             section: row[1],

@@ -1,5 +1,13 @@
-import { FC, useContext } from "react";
-import { Moon, SunMedium, Menu, Vote, Check } from "lucide-react";
+import { FC, useContext, useMemo } from "react";
+import {
+  Moon,
+  SunMedium,
+  Menu,
+  Vote,
+  Check,
+  ArrowBigLeft,
+  ArrowBigRight,
+} from "lucide-react";
 
 import {
   DropdownMenu,
@@ -13,18 +21,43 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-
+import {
+  Select,
+  SelectContent,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { themeDark, themeLight } from "@/theme/utils";
 import { ThemeContext } from "@/theme/ThemeContext";
 import { useTranslation } from "react-i18next";
 import { Link } from "@/ux/Link";
 import { Button } from "@/components/ui/button";
 import { MenuItem, reportsMenu } from "./reportMenus";
+import { useElectionContext } from "@/data/ElectionContext";
 
 export const Header = () => {
   const { setTheme, theme } = useContext(ThemeContext);
   const { t, i18n } = useTranslation();
-
+  const { elections, selected, setSelected } = useElectionContext();
+  const localDates = useMemo(() => {
+    return elections.map((e) => {
+      const dateS = e.split("_");
+      const date = new Date(
+        parseInt(dateS[0]),
+        parseInt(dateS[1]) - 1,
+        parseInt(dateS[2]),
+      );
+      return {
+        local: date.toLocaleDateString(undefined, {
+          year: "numeric",
+          month: "2-digit",
+          day: "2-digit",
+        }),
+        original: e,
+      };
+    });
+  }, [elections]);
   const RenderMenuItem: FC<{ item: MenuItem }> = ({ item }) => {
     if (item.title === "-") {
       return <DropdownMenuSeparator />;
@@ -63,8 +96,8 @@ export const Header = () => {
     localStorage.setItem("language", language);
   };
   return (
-    <div className="flex gap-6 md:gap-10 bg-muted border-b-2">
-      <div className="w-full text-xl text-primary flex flex-wrap items-center justify-between mx-auto p-4">
+    <div className="flex w-full gap-6 md:gap-10 bg-muted border-b-2 justify-between items-center">
+      <div className="text-xl text-primary flex flex-wrap items-center justify-between p-4">
         <Link to="/" className="flex flex-row items-center">
           <span className="sr-only">Elections in Bulgaria data statistics</span>
           <Vote />
@@ -75,6 +108,59 @@ export const Header = () => {
             <div className="font-semibold uppercase">{t("bg")}</div>
           </div>
         </Link>
+      </div>
+      <div className="flex gap-2 items-center px-4">
+        <Button
+          variant="outline"
+          onClick={() => {
+            const idx = elections.findIndex((v) => v === selected);
+            if (idx < elections.length - 1) {
+              setSelected(elections[idx + 1]);
+            }
+          }}
+          disabled={
+            elections.findIndex((v) => v === selected) >= elections.length - 1
+          }
+        >
+          <ArrowBigLeft className="text-secondary-foreground" />
+        </Button>
+
+        <Select
+          value={localDates.find((l) => l.original === selected)?.local}
+          onValueChange={(e) => {
+            setSelected(e);
+          }}
+        >
+          <SelectTrigger
+            id="select_election"
+            className="w-[150px] text-lg text-secondary-foreground"
+          >
+            <SelectValue placeholder={selected} />
+          </SelectTrigger>
+          <SelectContent>
+            {localDates.map((l) => (
+              <SelectItem
+                className="text-lg text-secondary-foreground"
+                key={l.original}
+                value={l.local}
+              >
+                {l.local}
+              </SelectItem>
+            ))}
+          </SelectContent>
+        </Select>
+        <Button
+          variant="outline"
+          onClick={() => {
+            const idx = elections.findIndex((v) => v === selected);
+            if (idx > 0) {
+              setSelected(elections[idx - 1]);
+            }
+          }}
+          disabled={elections.findIndex((v) => v === selected) <= 0}
+        >
+          <ArrowBigRight className="text-secondary-foreground" />
+        </Button>
       </div>
       <nav className="flex gap-6 items-center px-4">
         {reportsMenu.map((topMenu, idx) => (

@@ -18,6 +18,7 @@
      */
     "runtimeExecutable": "tsx",
 
+    "args": ["--date=2024_06_09"],
     /*
      * Open terminal when debugging starts (Optional)
      * Useful to see console.logs
