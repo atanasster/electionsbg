@@ -1,10 +1,9 @@
-import { useContext } from "react";
-import { Moon, SunMedium, Menu, Vote } from "lucide-react";
+import { FC, useContext } from "react";
+import { Moon, SunMedium, Menu, Vote, Check } from "lucide-react";
 
 import {
   DropdownMenu,
   DropdownMenuContent,
-  DropdownMenuGroup,
   DropdownMenuItem,
   DropdownMenuLabel,
   DropdownMenuPortal,
@@ -14,16 +13,55 @@ import {
   DropdownMenuSubTrigger,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
+
 import { themeDark, themeLight } from "@/theme/utils";
 import { ThemeContext } from "@/theme/ThemeContext";
 import { useTranslation } from "react-i18next";
 import { Link } from "@/ux/Link";
 import { Button } from "@/components/ui/button";
+import { MenuItem, reportsMenu } from "./reportMenus";
 
 export const Header = () => {
   const { setTheme, theme } = useContext(ThemeContext);
   const { t, i18n } = useTranslation();
 
+  const RenderMenuItem: FC<{ item: MenuItem }> = ({ item }) => {
+    if (item.title === "-") {
+      return <DropdownMenuSeparator />;
+    }
+    if (item.subMenu) {
+      return (
+        <DropdownMenuSub>
+          <DropdownMenuSubTrigger>{t(item.title)}</DropdownMenuSubTrigger>
+          <DropdownMenuPortal>
+            <DropdownMenuSubContent>
+              {item.subMenu.map((sub, idx) => (
+                <RenderMenuItem key={`${sub.title}-${idx}`} item={sub} />
+              ))}
+            </DropdownMenuSubContent>
+          </DropdownMenuPortal>
+        </DropdownMenuSub>
+      );
+    }
+    if (item.link) {
+      return (
+        <DropdownMenuItem>
+          <Link
+            to={{
+              pathname: item.link,
+            }}
+          >
+            {t(item.title)}
+          </Link>
+        </DropdownMenuItem>
+      );
+    }
+    return <DropdownMenuLabel>{t(item.title)}</DropdownMenuLabel>;
+  };
+  const changeLanguage = (language: "en" | "bg") => {
+    i18n.changeLanguage(language);
+    localStorage.setItem("language", language);
+  };
   return (
     <div className="flex gap-6 md:gap-10 bg-muted border-b-2">
       <div className="w-full text-xl text-primary flex flex-wrap items-center justify-between mx-auto p-4">
@@ -39,193 +77,34 @@ export const Header = () => {
         </Link>
       </div>
       <nav className="flex gap-6 items-center px-4">
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button
-              variant="ghost"
-              className="font-medium text-muted-foreground hidden md:block lowercase"
-              aria-label="Open reports menu"
-            >
-              {t("reports")}
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent className="w-56">
-            <DropdownMenuLabel>{t("anomaly_reports")}</DropdownMenuLabel>
-            <DropdownMenuSeparator />
-            <DropdownMenuGroup>
-              <DropdownMenuSub>
-                <DropdownMenuSubTrigger>
-                  {t("municipalities")}
-                </DropdownMenuSubTrigger>
-                <DropdownMenuPortal>
-                  <DropdownMenuSubContent>
-                    <DropdownMenuItem>
-                      <Link
-                        to={{
-                          pathname: "/reports/municipality/concentrated",
-                        }}
-                      >
-                        {t("concentrated_party_votes")}
-                      </Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem>
-                      <Link
-                        to={{
-                          pathname: "/reports/municipality/turnout",
-                        }}
-                      >
-                        {t("voter_turnout")}
-                      </Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem>
-                      <Link
-                        to={{
-                          pathname: "/reports/municipality/invalid_ballots",
-                        }}
-                      >
-                        {t("invalid_ballots")}
-                      </Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem>
-                      <Link
-                        to={{
-                          pathname: "/reports/municipality/additional_voters",
-                        }}
-                      >
-                        {t("additional_voters")}
-                      </Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem>
-                      <Link
-                        to={{
-                          pathname: "/reports/municipality/supports_no_one",
-                        }}
-                      >
-                        {t("support_no_one")}
-                      </Link>
-                    </DropdownMenuItem>
-                  </DropdownMenuSubContent>
-                </DropdownMenuPortal>
-              </DropdownMenuSub>
-              <DropdownMenuSub>
-                <DropdownMenuSubTrigger>
-                  {t("settlements")}
-                </DropdownMenuSubTrigger>
-                <DropdownMenuPortal>
-                  <DropdownMenuSubContent>
-                    <DropdownMenuItem>
-                      <Link
-                        to={{
-                          pathname: "/reports/settlement/concentrated",
-                        }}
-                      >
-                        {t("concentrated_party_votes")}
-                      </Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem>
-                      <Link
-                        to={{
-                          pathname: "/reports/settlement/turnout",
-                        }}
-                      >
-                        {t("voter_turnout")}
-                      </Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem>
-                      <Link
-                        to={{
-                          pathname: "/reports/settlement/invalid_ballots",
-                        }}
-                      >
-                        {t("invalid_ballots")}
-                      </Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem>
-                      <Link
-                        to={{
-                          pathname: "/reports/settlement/additional_voters",
-                        }}
-                      >
-                        {t("additional_voters")}
-                      </Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem>
-                      <Link
-                        to={{
-                          pathname: "/reports/settlement/supports_no_one",
-                        }}
-                      >
-                        {t("support_no_one")}
-                      </Link>
-                    </DropdownMenuItem>
-                  </DropdownMenuSubContent>
-                </DropdownMenuPortal>
-              </DropdownMenuSub>
-              <DropdownMenuSub>
-                <DropdownMenuSubTrigger>{t("sections")}</DropdownMenuSubTrigger>
-                <DropdownMenuPortal>
-                  <DropdownMenuSubContent>
-                    <DropdownMenuItem>
-                      <Link
-                        to={{
-                          pathname: "/reports/section/concentrated",
-                        }}
-                      >
-                        {t("concentrated_party_votes")}
-                      </Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem>
-                      <Link
-                        to={{
-                          pathname: "/reports/section/turnout",
-                        }}
-                      >
-                        {t("voter_turnout")}
-                      </Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem>
-                      <Link
-                        to={{
-                          pathname: "/reports/section/invalid_ballots",
-                        }}
-                      >
-                        {t("invalid_ballots")}
-                      </Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem>
-                      <Link
-                        to={{
-                          pathname: "/reports/section/additional_voters",
-                        }}
-                      >
-                        {t("additional_voters")}
-                      </Link>
-                    </DropdownMenuItem>
-                    <DropdownMenuItem>
-                      <Link
-                        to={{
-                          pathname: "/reports/section/supports_no_one",
-                        }}
-                      >
-                        {t("support_no_one")}
-                      </Link>
-                    </DropdownMenuItem>
-                  </DropdownMenuSubContent>
-                </DropdownMenuPortal>
-              </DropdownMenuSub>
-            </DropdownMenuGroup>
-          </DropdownMenuContent>
-        </DropdownMenu>
+        {reportsMenu.map((topMenu, idx) => (
+          <DropdownMenu key={`${topMenu.title}=${idx}`}>
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant="ghost"
+                className="font-medium text-muted-foreground hidden md:block lowercase"
+                aria-label="Open reports menu"
+              >
+                {t(topMenu.title)}
+              </Button>
+            </DropdownMenuTrigger>
+
+            <DropdownMenuContent className="w-56">
+              {topMenu.subMenu?.map((menu, idx) => (
+                <RenderMenuItem key={`${menu.title}-${idx}`} item={menu} />
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+        ))}
+
         <button
           className="font-medium text-muted-foreground hidden md:block"
           aria-label="Change language"
           onClick={() => {
             if (i18n.language === "bg") {
-              i18n.changeLanguage("en");
-              localStorage.setItem("language", "en");
+              changeLanguage("en");
             } else {
-              i18n.changeLanguage("bg");
-              localStorage.setItem("language", "bg");
+              changeLanguage("bg");
             }
           }}
         >
@@ -236,20 +115,57 @@ export const Header = () => {
           id="theme-toggle"
           type="button"
           aria-label="switch theme dark mode"
-          className="inline-flex items-center p-2 w-10 h-10 justify-center rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+          className="inline-flex items-center p-2 w-10 h-10 hidden md:block justify-center rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
         >
           {theme === themeDark ? <SunMedium /> : <Moon />}
         </button>
-        <button
-          data-collapse-toggle="navbar-default"
-          type="button"
-          className="inline-flex items-center p-2 w-10 h-10 justify-center rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-          aria-controls="navbar-default"
-          aria-expanded="false"
-        >
-          <span className="sr-only">Open main menu</span>
-          <Menu />
-        </button>
+        <DropdownMenu>
+          <DropdownMenuTrigger asChild>
+            <button
+              data-collapse-toggle="navbar-default"
+              type="button"
+              className="inline-flex items-center p-2 w-10 h-10 justify-center rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+              aria-controls="navbar-default"
+              aria-expanded="false"
+            >
+              <span className="sr-only">Open main menu</span>
+              <Menu />
+            </button>
+          </DropdownMenuTrigger>
+          <DropdownMenuContent className="w-56">
+            {reportsMenu.map((main) =>
+              main.subMenu?.map((menu, idx) => (
+                <RenderMenuItem key={`${menu.title}-${idx}`} item={menu} />
+              )),
+            )}
+            <DropdownMenuSeparator />
+            <DropdownMenuSub>
+              <DropdownMenuSubTrigger>{t("language")}</DropdownMenuSubTrigger>
+              <DropdownMenuPortal>
+                <DropdownMenuSubContent>
+                  <DropdownMenuItem>
+                    <button
+                      className="flex justify-between w-full"
+                      onClick={() => changeLanguage("en")}
+                    >
+                      <div className="mr-4">{t("english")}</div>
+                      {i18n.language === "en" && <Check />}
+                    </button>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <button
+                      className="flex justify-between w-full"
+                      onClick={() => changeLanguage("bg")}
+                    >
+                      <div className="mr-4">{t("bulgarian")}</div>
+                      {i18n.language === "bg" && <Check />}
+                    </button>
+                  </DropdownMenuItem>
+                </DropdownMenuSubContent>
+              </DropdownMenuPortal>
+            </DropdownMenuSub>
+          </DropdownMenuContent>
+        </DropdownMenu>
       </nav>
     </div>
   );
