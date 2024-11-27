@@ -125,7 +125,7 @@ export const SettlementsMap: React.FC<
               feature.properties.nuts4 +
               feature.properties.ekatte
             }
-            className="fill-primary-foreground"
+            className="fill-white"
             style={{ pointerEvents: "none" }}
             textAnchor="middle"
             fontSize="small"

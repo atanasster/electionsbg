@@ -16,9 +16,9 @@ export const RegionsMap: React.FC<
   React.PropsWithChildren<{ regions: RegionGeoJSON; size: [number, number] }>
 > = ({ regions, size }) => {
   const navigate = useNavigate();
+  const { topVotesParty } = usePartyInfo();
   const { findRegion } = useRegions();
   const { votesByRegion } = useRegionVotes();
-  const { topVotesParty } = usePartyInfo();
   const { i18n } = useTranslation();
 
   const { onMouseEnter, onMouseMove, onMouseLeave, tooltip } = useTooltip();
@@ -100,7 +100,7 @@ export const RegionsMap: React.FC<
         return ptLB && ptRT && info ? (
           <text
             key={feature.properties.nuts3}
-            className="fill-primary-foreground"
+            className="fill-white"
             style={{ pointerEvents: "none" }}
             textAnchor="middle"
             fontSize="small"

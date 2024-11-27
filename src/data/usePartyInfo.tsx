@@ -1,17 +1,25 @@
 import { useCallback } from "react";
 import { PartyInfo, PartyVotes, Votes } from "./dataTypes";
 
-import { useQuery } from "@tanstack/react-query";
+import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
+import { useElectionContext } from "./ElectionContext";
 
-const queryFn = async (): Promise<PartyInfo[]> => {
-  const response = await fetch("/2024_10/cik_parties.json");
+const queryFn = async ({
+  queryKey,
+}: QueryFunctionContext<[string, string | null | undefined]>): Promise<
+  PartyInfo[]
+> => {
+  if (!queryKey[1]) {
+    return [];
+  }
+  const response = await fetch(`/${queryKey[1]}/cik_parties.json`);
   const data = await response.json();
   return data;
 };
-
 export const usePartyInfo = () => {
+  const { selected } = useElectionContext();
   const { data: parties } = useQuery({
-    queryKey: ["parties"],
+    queryKey: ["parties", selected],
     queryFn,
   });
 

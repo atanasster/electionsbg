@@ -114,7 +114,7 @@ export const MunicipalitiesMap: React.FC<
         return ptLB && ptRT && info ? (
           <text
             key={feature.properties.nuts3 + feature.properties.nuts4}
-            className="fill-primary-foreground"
+            className="fill-white"
             textAnchor="middle"
             fontSize="small"
             style={{ pointerEvents: "none" }}

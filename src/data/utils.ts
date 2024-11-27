@@ -32,7 +32,16 @@ export const addVotes = (
     results.actualPaperVotes += v.paperVotes;
   });
   if (protocol) {
+    const totalActualVoters =
+      (protocol.numValidMachineVotes || 0) +
+      (protocol.numValidNoOneMachineVotes || 0) +
+      protocol.numValidVotes +
+      protocol.numValidNoOnePaperVotes +
+      protocol.numInvalidBallotsFound;
     if (results.protocol) {
+      if (protocol.totalActualVoters === null) {
+        throw new Error("Invalid protocol format");
+      }
       results.protocol.ballotsReceived += protocol.ballotsReceived;
       results.protocol.numAdditionalVoters += protocol.numAdditionalVoters;
       results.protocol.numInvalidAndDestroyedPaperBallots +=
@@ -66,7 +75,7 @@ export const addVotes = (
       results.protocol.numValidNoOnePaperVotes +=
         protocol.numValidNoOnePaperVotes;
       results.protocol.numValidVotes += protocol.numValidVotes;
-      results.protocol.totalActualVoters += protocol.totalActualVoters;
+      results.protocol.totalActualVoters += totalActualVoters;
     } else {
       results.protocol = {
         ballotsReceived: protocol.ballotsReceived,
@@ -82,7 +91,7 @@ export const addVotes = (
         numValidNoOneMachineVotes: protocol.numValidNoOneMachineVotes,
         numValidNoOnePaperVotes: protocol.numValidNoOnePaperVotes,
         numValidVotes: protocol.numValidVotes,
-        totalActualVoters: protocol.totalActualVoters,
+        totalActualVoters,
       };
     }
   }
