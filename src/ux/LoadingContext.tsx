@@ -1,3 +1,4 @@
+/* eslint-disable react-refresh/only-export-components */
 import { FC, PropsWithChildren, createContext, useState } from "react";
 
 export const LoadingContext = createContext<{
