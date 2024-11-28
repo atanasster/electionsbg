@@ -1,7 +1,5 @@
 import * as d3 from "d3";
 import { useMemo } from "react";
-import { useNavigate, createSearchParams } from "react-router-dom";
-
 import { RegionMap } from "./RegionMap";
 import { geoDataCenter, getDataProjection } from "../utils/d3_utils";
 import { useTooltip } from "@/ux/useTooltip";
@@ -11,6 +9,7 @@ import { usePartyInfo } from "@/data/usePartyInfo";
 import { useTranslation } from "react-i18next";
 import { useMunicipalities } from "@/data/useMunicipalities";
 import { MunicipalityGeoJSON } from "@/data/mapTypes";
+import { useNavigateParams } from "@/ux/useNavigateParams";
 
 export const MunicipalitiesMap: React.FC<
   React.PropsWithChildren<{
@@ -20,7 +19,7 @@ export const MunicipalitiesMap: React.FC<
   }>
 > = ({ municipalities: data, region, size }) => {
   const { onMouseEnter, onMouseMove, onMouseLeave, tooltip } = useTooltip();
-  const navigate = useNavigate();
+  const navigate = useNavigateParams();
   const { findMunicipality } = useMunicipalities();
   const { votesByMunicipality } = useMunicipalitydVotes();
   const { topVotesParty } = usePartyInfo();
@@ -55,10 +54,10 @@ export const MunicipalitiesMap: React.FC<
             onClick={() => {
               navigate({
                 pathname: "/settlement",
-                search: createSearchParams({
+                search: {
                   region,
                   municipality: name,
-                }).toString(),
+                },
               });
             }}
             onMouseEnter={(e) => {

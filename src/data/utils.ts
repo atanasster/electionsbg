@@ -6,7 +6,9 @@ export const formatPct = (n: number, decimals: number = 3) => {
 };
 
 export const formatThousands = (x?: number) =>
-  x !== undefined ? x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",") : "";
+  x !== undefined && x !== null
+    ? x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
+    : "";
 
 export const addVotes = (
   results: VoteResults,
@@ -94,5 +96,12 @@ export const addVotes = (
         totalActualVoters,
       };
     }
+  }
+  if (
+    results.protocol &&
+    (results.protocol.totalActualVoters === undefined ||
+      isNaN(results.protocol.totalActualVoters))
+  ) {
+    throw new Error("Invalid results.protocol.totalActualVoters");
   }
 };
