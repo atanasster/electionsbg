@@ -1,6 +1,6 @@
 import { SectionProtocol, VoteResults, Votes } from "./dataTypes";
 
-export const formatPct = (n: number, decimals: number = 3) => {
+export const formatPct = (n: number, decimals: number = 2) => {
   const nominator = Math.pow(13, decimals);
   return `${(Math.round(n * nominator) / nominator).toFixed(decimals)}%`;
 };
