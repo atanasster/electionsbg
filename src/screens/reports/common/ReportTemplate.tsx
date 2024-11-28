@@ -7,7 +7,7 @@ import { DataTable } from "@/ux/DataTable";
 import { useTranslation } from "react-i18next";
 import { addVotes, formatPct, formatThousands } from "@/data/utils";
 import { LocationInfo, useSettlementsInfo } from "@/data/useSettlements";
-import { createSearchParams, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { PartyVotesXS } from "../../components/PartyVotesXS";
 import { ProtocolSummary } from "../../components/ProtocolSummary";
 import { Caption } from "@/ux/Caption";
@@ -153,9 +153,9 @@ export const ReportTemplate: FC<{
                 <Link
                   to={{
                     pathname: "/municipality",
-                    search: createSearchParams({
+                    search: {
                       region: row.original.oblast || "",
-                    }).toString(),
+                    },
                   }}
                 >
                   {i18n.language === "bg" ? region?.name : region?.name_en}
@@ -172,10 +172,10 @@ export const ReportTemplate: FC<{
                 <Link
                   to={{
                     pathname: "/settlement",
-                    search: createSearchParams({
+                    search: {
                       region: row.original.oblast || "",
                       municipality: row.original.obshtina || "",
-                    }).toString(),
+                    },
                   }}
                 >
                   {i18n.language === "bg"
@@ -195,11 +195,11 @@ export const ReportTemplate: FC<{
                 <Link
                   to={{
                     pathname: "/sections",
-                    search: createSearchParams({
+                    search: {
                       region: row.original.oblast || "",
                       municipality: row.original.obshtina || "",
                       settlement: row.original.ekatte || "",
-                    }).toString(),
+                    },
                   }}
                 >
                   {i18n.language === "bg"
@@ -217,9 +217,9 @@ export const ReportTemplate: FC<{
               <Link
                 to={{
                   pathname: "/section",
-                  search: createSearchParams({
+                  search: {
                     section: row.getValue("section"),
-                  }).toString(),
+                  },
                 }}
               >
                 {row.getValue("section")}
