@@ -1,5 +1,4 @@
 import * as d3 from "d3";
-import { useNavigate, createSearchParams } from "react-router-dom";
 import { useTooltip } from "@/ux/useTooltip";
 import { RegionGeoJSON } from "@/data/mapTypes";
 import { RegionMap } from "./RegionMap";
@@ -11,11 +10,12 @@ import { useTranslation } from "react-i18next";
 import { useRegions } from "@/data/useRegions";
 
 import { useMemo } from "react";
+import { useNavigateParams } from "@/ux/useNavigateParams";
 
 export const RegionsMap: React.FC<
   React.PropsWithChildren<{ regions: RegionGeoJSON; size: [number, number] }>
 > = ({ regions, size }) => {
-  const navigate = useNavigate();
+  const navigate = useNavigateParams();
   const { topVotesParty } = usePartyInfo();
   const { findRegion } = useRegions();
   const { votesByRegion } = useRegionVotes();
@@ -67,9 +67,9 @@ export const RegionsMap: React.FC<
             onClick={() => {
               navigate({
                 pathname: "/municipality",
-                search: createSearchParams({
+                search: {
                   region: name,
-                }).toString(),
+                },
               });
             }}
           />

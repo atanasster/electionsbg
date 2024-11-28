@@ -84,12 +84,8 @@ export const ReportTemplate: FC<{
         <Select
           value={threshold.toString()}
           onValueChange={(e) => {
-            setSearchParams(
-              {
-                threshold: e,
-              },
-              { replace: true },
-            );
+            searchParams.set("threshold", e);
+            setSearchParams(searchParams, { replace: true });
             // setThreshold(parseInt(e));
           }}
         >

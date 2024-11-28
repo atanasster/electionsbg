@@ -1,9 +1,9 @@
 import { Button } from "@/components/ui/button";
+import { useNavigateParams } from "@/ux/useNavigateParams";
 import { useTranslation } from "react-i18next";
-import { useNavigate } from "react-router-dom";
 
 export const NotFound = () => {
-  const navigate = useNavigate();
+  const navigate = useNavigateParams();
   const { t } = useTranslation();
   return (
     <div className="w-9/12 m-auto py-16 min-h-screen flex items-center justify-center">
@@ -14,7 +14,9 @@ export const NotFound = () => {
           <p className="text-2xl pb-8 px-12 font-medium">
             {t("page_not_found")}
           </p>
-          <Button onClick={() => navigate("/")}>{t("home")}</Button>
+          <Button onClick={() => navigate({ pathname: "/" })}>
+            {t("home")}
+          </Button>
         </div>
       </div>
     </div>

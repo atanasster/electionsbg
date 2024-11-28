@@ -1,43 +1,28 @@
-/* eslint-disable react-refresh/only-export-components */
-import {
-  createContext,
-  FC,
-  PropsWithChildren,
-  useContext,
-  useState,
-} from "react";
+import { useCallback, useMemo } from "react";
 import elections from "../elections.json";
-
-export interface ElectionContextProps {
-  selected: string;
-  elections: string[];
-  setSelected: (newSelected: string) => void;
-}
-
-export const ElectionContext = createContext<ElectionContextProps>({
-  selected: "",
-  elections: [],
-  setSelected: () => {},
-});
-
-export const ElectionContextProvider: FC<PropsWithChildren> = ({
-  children,
-}) => {
-  const [selected, setSelected] = useState(elections[0]);
-  return (
-    <ElectionContext.Provider
-      value={{
-        elections,
-        selected,
-        setSelected,
-      }}
-    >
-      {children}
-    </ElectionContext.Provider>
-  );
-};
+import { useSearchParams } from "react-router-dom";
 
 export const useElectionContext = () => {
-  const context = useContext(ElectionContext);
-  return context;
+  const [searchParams, setSearchParams] = useSearchParams();
+  const selected = useMemo(() => {
+    const urlElections = searchParams.get("elections");
+    if (urlElections && elections.find((e) => e === urlElections)) {
+      return urlElections;
+    }
+    return elections[0];
+  }, [searchParams]);
+  const setSelected = useCallback(
+    (newSelected: string) => {
+      if (elections.find((e) => e === newSelected)) {
+        searchParams.set("elections", newSelected);
+        setSearchParams(searchParams, { replace: true });
+      }
+    },
+    [searchParams, setSearchParams],
+  );
+  return {
+    elections,
+    selected,
+    setSelected,
+  };
 };

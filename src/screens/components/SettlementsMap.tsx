@@ -1,7 +1,5 @@
 import * as d3 from "d3";
-
 import { useMemo } from "react";
-import { useNavigate, createSearchParams } from "react-router-dom";
 
 import { RegionMap } from "./RegionMap";
 import { geoDataCenter, getDataProjection } from "../utils/d3_utils";
@@ -16,6 +14,7 @@ import { useSettlementVotes } from "@/data/useSettlementVotes";
 import { usePartyInfo } from "@/data/usePartyInfo";
 import { useTranslation } from "react-i18next";
 import { SettlementGeoJSON } from "@/data/mapTypes";
+import { useNavigateParams } from "@/ux/useNavigateParams";
 
 export const SettlementsMap: React.FC<
   React.PropsWithChildren<{
@@ -26,7 +25,7 @@ export const SettlementsMap: React.FC<
   }>
 > = ({ settlements: data, region, municipality, size }) => {
   const { onMouseEnter, onMouseMove, onMouseLeave, tooltip } = useTooltip();
-  const navigate = useNavigate();
+  const navigate = useNavigateParams();
   const { findSettlement } = useSettlementsInfo();
   const { votesBySettlement } = useSettlementVotes();
   const { topVotesParty } = usePartyInfo();
@@ -95,11 +94,11 @@ export const SettlementsMap: React.FC<
           if (votes?.sections.length) {
             navigate({
               pathname: "/sections",
-              search: createSearchParams({
+              search: {
                 region: region.oblast,
                 municipality: municipality.obshtina,
                 settlement: name,
-              }).toString(),
+              },
             });
           }
         }}

@@ -79,13 +79,7 @@ export const Header = () => {
     if (item.link) {
       return (
         <DropdownMenuItem>
-          <Link
-            to={{
-              pathname: item.link,
-            }}
-          >
-            {t(item.title)}
-          </Link>
+          <Link to={item.link}>{t(item.title)}</Link>
         </DropdownMenuItem>
       );
     }
