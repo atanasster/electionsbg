@@ -24,7 +24,7 @@ const CustomTooltip: FC<{
       <div className="flex">
         <div className="text-muted">{`${label}:`}</div>
         <div className="ml-2 font-semibold">
-          {`${formatThousands(payload[0].value)} ${payload[0].payload.pctVotes ? `(${formatPct(payload[0].payload.pctVotes, 3)}` : ""})`}
+          {`${formatThousands(payload[0].value)} ${payload[0].payload.pctVotes ? `(${formatPct(payload[0].payload.pctVotes, 2)}` : ""})`}
         </div>
         <div className="text-muted ml-1 lowercase ">{t("votes")}</div>
       </div>
