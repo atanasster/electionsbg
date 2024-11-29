@@ -205,10 +205,10 @@
         "numRegisteredVoters": 6669,
         "numUnusedPaperBallots": 3798,
         "numValidMachineVotes": 433,
-        "numValidNoOneMachineVotes": 11,
         "numValidNoOnePaperVotes": 64,
         "numValidVotes": 2470,
-        "totalActualVoters": 3124
+        "totalActualVoters": 3124,
+        "numValidNoOneMachineVotes": 11
       }
     }
   },
@@ -410,7 +410,6 @@
       ],
       "protocol": {
         "ballotsReceived": 15200,
-        "numAdditionalVoters": 178,
         "numInvalidAndDestroyedPaperBallots": 71,
         "numInvalidBallotsFound": 298,
         "numMachineBallots": 1920,
@@ -418,10 +417,11 @@
         "numRegisteredVoters": 27518,
         "numUnusedPaperBallots": 9625,
         "numValidMachineVotes": 1856,
-        "numValidNoOneMachineVotes": 64,
         "numValidNoOnePaperVotes": 87,
         "numValidVotes": 5119,
-        "totalActualVoters": 7424
+        "totalActualVoters": 7424,
+        "numAdditionalVoters": 178,
+        "numValidNoOneMachineVotes": 64
       }
     }
   },
@@ -1909,10 +1909,10 @@
         "numRegisteredVoters": 57795,
         "numUnusedPaperBallots": 28814,
         "numValidMachineVotes": 4958,
-        "numValidNoOneMachineVotes": 221,
         "numValidNoOnePaperVotes": 261,
         "numValidVotes": 11122,
-        "totalActualVoters": 17032
+        "totalActualVoters": 17032,
+        "numValidNoOneMachineVotes": 221
       }
     }
   },
@@ -2761,10 +2761,10 @@
         "numRegisteredVoters": 5106,
         "numUnusedPaperBallots": 3324,
         "numValidMachineVotes": 461,
-        "numValidNoOneMachineVotes": 19,
         "numValidNoOnePaperVotes": 40,
         "numValidVotes": 1571,
-        "totalActualVoters": 2144
+        "totalActualVoters": 2144,
+        "numValidNoOneMachineVotes": 19
       }
     }
   },
@@ -3179,7 +3179,6 @@
       ],
       "protocol": {
         "ballotsReceived": 7500,
-        "numAdditionalVoters": 63,
         "numInvalidAndDestroyedPaperBallots": 20,
         "numInvalidBallotsFound": 105,
         "numMachineBallots": 954,
@@ -3188,9 +3187,10 @@
         "numUnusedPaperBallots": 3738,
         "numValidMachineVotes": 942,
         "numValidNoOneMachineVotes": 12,
-        "numValidNoOnePaperVotes": 46,
         "numValidVotes": 3592,
-        "totalActualVoters": 4697
+        "totalActualVoters": 4697,
+        "numAdditionalVoters": 63,
+        "numValidNoOnePaperVotes": 46
       }
     }
   },
@@ -3605,7 +3605,6 @@
       ],
       "protocol": {
         "ballotsReceived": 5600,
-        "numAdditionalVoters": 69,
         "numInvalidAndDestroyedPaperBallots": 20,
         "numInvalidBallotsFound": 87,
         "numMachineBallots": 312,
@@ -3616,7 +3615,8 @@
         "numValidNoOneMachineVotes": 12,
         "numValidNoOnePaperVotes": 42,
         "numValidVotes": 1640,
-        "totalActualVoters": 2081
+        "totalActualVoters": 2081,
+        "numAdditionalVoters": 69
       }
     }
   },
@@ -3827,9 +3827,9 @@
         "numUnusedPaperBallots": 7422,
         "numValidMachineVotes": 942,
         "numValidNoOneMachineVotes": 45,
-        "numValidNoOnePaperVotes": 33,
         "numValidVotes": 1375,
-        "totalActualVoters": 2549
+        "totalActualVoters": 2549,
+        "numValidNoOnePaperVotes": 33
       }
     }
   },
@@ -4034,15 +4034,15 @@
         "numAdditionalVoters": 644,
         "numInvalidAndDestroyedPaperBallots": 47,
         "numInvalidBallotsFound": 238,
-        "numMachineBallots": 1215,
         "numPaperBallotsFound": 4562,
         "numRegisteredVoters": 15190,
         "numUnusedPaperBallots": 4391,
-        "numValidMachineVotes": 1152,
-        "numValidNoOneMachineVotes": 63,
         "numValidNoOnePaperVotes": 73,
         "numValidVotes": 4251,
-        "totalActualVoters": 5777
+        "totalActualVoters": 5777,
+        "numMachineBallots": 1215,
+        "numValidMachineVotes": 1152,
+        "numValidNoOneMachineVotes": 63
       }
     }
   },
@@ -4670,7 +4670,6 @@
       ],
       "protocol": {
         "ballotsReceived": 2000,
-        "numAdditionalVoters": 49,
         "numInvalidAndDestroyedPaperBallots": 11,
         "numInvalidBallotsFound": 30,
         "numMachineBallots": 52,
@@ -4681,7 +4680,8 @@
         "numValidNoOneMachineVotes": 7,
         "numValidNoOnePaperVotes": 14,
         "numValidVotes": 620,
-        "totalActualVoters": 716
+        "totalActualVoters": 716,
+        "numAdditionalVoters": 49
       }
     }
   },
@@ -5522,15 +5522,15 @@
         "numAdditionalVoters": 110,
         "numInvalidAndDestroyedPaperBallots": 23,
         "numInvalidBallotsFound": 92,
-        "numMachineBallots": 58,
         "numPaperBallotsFound": 1357,
         "numRegisteredVoters": 2545,
         "numUnusedPaperBallots": 2620,
-        "numValidMachineVotes": 56,
-        "numValidNoOneMachineVotes": 2,
         "numValidNoOnePaperVotes": 32,
         "numValidVotes": 1233,
-        "totalActualVoters": 1415
+        "totalActualVoters": 1415,
+        "numMachineBallots": 58,
+        "numValidMachineVotes": 56,
+        "numValidNoOneMachineVotes": 2
       }
     }
   },
@@ -6805,10 +6805,10 @@
         "numRegisteredVoters": 7270,
         "numUnusedPaperBallots": 5404,
         "numValidMachineVotes": 438,
-        "numValidNoOneMachineVotes": 6,
         "numValidNoOnePaperVotes": 32,
         "numValidVotes": 1471,
-        "totalActualVoters": 2021
+        "totalActualVoters": 2021,
+        "numValidNoOneMachineVotes": 6
       }
     }
   },
@@ -7657,10 +7657,10 @@
         "numRegisteredVoters": 3642,
         "numUnusedPaperBallots": 1743,
         "numValidMachineVotes": 102,
-        "numValidNoOneMachineVotes": 2,
         "numValidNoOnePaperVotes": 30,
         "numValidVotes": 1590,
-        "totalActualVoters": 1839
+        "totalActualVoters": 1839,
+        "numValidNoOneMachineVotes": 2
       }
     }
   },
@@ -8297,9 +8297,9 @@
         "numUnusedPaperBallots": 9174,
         "numValidMachineVotes": 879,
         "numValidNoOneMachineVotes": 22,
-        "numValidNoOnePaperVotes": 36,
         "numValidVotes": 2134,
-        "totalActualVoters": 3194
+        "totalActualVoters": 3194,
+        "numValidNoOnePaperVotes": 36
       }
     }
   },
@@ -9788,9 +9788,9 @@
         "numUnusedPaperBallots": 9200,
         "numValidMachineVotes": 684,
         "numValidNoOneMachineVotes": 13,
-        "numValidNoOnePaperVotes": 34,
         "numValidVotes": 3102,
-        "totalActualVoters": 3974
+        "totalActualVoters": 3974,
+        "numValidNoOnePaperVotes": 34
       }
     }
   },
@@ -10213,10 +10213,10 @@
         "numRegisteredVoters": 55553,
         "numUnusedPaperBallots": 38087,
         "numValidMachineVotes": 4626,
-        "numValidNoOneMachineVotes": 211,
         "numValidNoOnePaperVotes": 317,
         "numValidVotes": 9788,
-        "totalActualVoters": 15391
+        "totalActualVoters": 15391,
+        "numValidNoOneMachineVotes": 211
       }
     }
   },
@@ -10853,9 +10853,9 @@
         "numUnusedPaperBallots": 4645,
         "numValidMachineVotes": 348,
         "numValidNoOneMachineVotes": 18,
-        "numValidNoOnePaperVotes": 42,
         "numValidVotes": 2562,
-        "totalActualVoters": 3252
+        "totalActualVoters": 3252,
+        "numValidNoOnePaperVotes": 42
       }
     }
   },
@@ -11066,9 +11066,9 @@
         "numUnusedPaperBallots": 7833,
         "numValidMachineVotes": 249,
         "numValidNoOneMachineVotes": 2,
-        "numValidNoOnePaperVotes": 16,
         "numValidVotes": 3607,
-        "totalActualVoters": 3953
+        "totalActualVoters": 3953,
+        "numValidNoOnePaperVotes": 16
       }
     }
   },
@@ -11912,15 +11912,15 @@
         "numAdditionalVoters": 51,
         "numInvalidAndDestroyedPaperBallots": 14,
         "numInvalidBallotsFound": 44,
-        "numMachineBallots": 38,
         "numPaperBallotsFound": 1003,
         "numRegisteredVoters": 1797,
         "numUnusedPaperBallots": 983,
-        "numValidMachineVotes": 37,
-        "numValidNoOneMachineVotes": 1,
         "numValidNoOnePaperVotes": 34,
         "numValidVotes": 925,
-        "totalActualVoters": 1041
+        "totalActualVoters": 1041,
+        "numMachineBallots": 38,
+        "numValidMachineVotes": 37,
+        "numValidNoOneMachineVotes": 1
       }
     }
   },
@@ -12130,10 +12130,10 @@
         "numRegisteredVoters": 11034,
         "numUnusedPaperBallots": 6663,
         "numValidMachineVotes": 372,
-        "numValidNoOneMachineVotes": 9,
         "numValidNoOnePaperVotes": 63,
         "numValidVotes": 4089,
-        "totalActualVoters": 4689
+        "totalActualVoters": 4689,
+        "numValidNoOneMachineVotes": 9
       }
     }
   },
@@ -13190,15 +13190,15 @@
         "numAdditionalVoters": 36,
         "numInvalidAndDestroyedPaperBallots": 10,
         "numInvalidBallotsFound": 27,
-        "numMachineBallots": 65,
         "numPaperBallotsFound": 632,
         "numRegisteredVoters": 1314,
         "numUnusedPaperBallots": 958,
-        "numValidMachineVotes": 63,
-        "numValidNoOneMachineVotes": 2,
         "numValidNoOnePaperVotes": 15,
         "numValidVotes": 590,
-        "totalActualVoters": 697
+        "totalActualVoters": 697,
+        "numMachineBallots": 65,
+        "numValidMachineVotes": 63,
+        "numValidNoOneMachineVotes": 2
       }
     }
   },
@@ -14047,10 +14047,10 @@
         "numRegisteredVoters": 13387,
         "numUnusedPaperBallots": 6755,
         "numValidMachineVotes": 558,
-        "numValidNoOneMachineVotes": 17,
-        "numValidNoOnePaperVotes": 69,
         "numValidVotes": 6926,
-        "totalActualVoters": 7715
+        "totalActualVoters": 7715,
+        "numValidNoOneMachineVotes": 17,
+        "numValidNoOnePaperVotes": 69
       }
     }
   },
@@ -14260,10 +14260,10 @@
         "numRegisteredVoters": 7486,
         "numUnusedPaperBallots": 5871,
         "numValidMachineVotes": 340,
-        "numValidNoOneMachineVotes": 11,
         "numValidNoOnePaperVotes": 25,
         "numValidVotes": 1496,
-        "totalActualVoters": 1962
+        "totalActualVoters": 1962,
+        "numValidNoOneMachineVotes": 11
       }
     }
   },
@@ -14686,10 +14686,10 @@
         "numRegisteredVoters": 7613,
         "numUnusedPaperBallots": 5312,
         "numValidMachineVotes": 484,
-        "numValidNoOneMachineVotes": 18,
         "numValidNoOnePaperVotes": 35,
         "numValidVotes": 1965,
-        "totalActualVoters": 2679
+        "totalActualVoters": 2679,
+        "numValidNoOneMachineVotes": 18
       }
     }
   },
@@ -14899,10 +14899,10 @@
         "numRegisteredVoters": 23261,
         "numUnusedPaperBallots": 20588,
         "numValidMachineVotes": 1757,
-        "numValidNoOneMachineVotes": 6,
         "numValidNoOnePaperVotes": 23,
         "numValidVotes": 4238,
-        "totalActualVoters": 6129
+        "totalActualVoters": 6129,
+        "numValidNoOneMachineVotes": 6
       }
     }
   },
@@ -15113,9 +15113,9 @@
         "numUnusedPaperBallots": 30370,
         "numValidMachineVotes": 4439,
         "numValidNoOneMachineVotes": 164,
-        "numValidNoOnePaperVotes": 204,
         "numValidVotes": 8221,
-        "totalActualVoters": 13415
+        "totalActualVoters": 13415,
+        "numValidNoOnePaperVotes": 204
       }
     }
   },
@@ -15746,15 +15746,15 @@
         "numAdditionalVoters": 371,
         "numInvalidAndDestroyedPaperBallots": 82,
         "numInvalidBallotsFound": 336,
-        "numMachineBallots": 496,
         "numPaperBallotsFound": 5976,
         "numRegisteredVoters": 20615,
         "numUnusedPaperBallots": 14942,
-        "numValidMachineVotes": 627,
-        "numValidNoOneMachineVotes": 9,
-        "numValidNoOnePaperVotes": 76,
         "numValidVotes": 5564,
-        "totalActualVoters": 6612
+        "totalActualVoters": 6612,
+        "numMachineBallots": 496,
+        "numValidMachineVotes": 627,
+        "numValidNoOnePaperVotes": 76,
+        "numValidNoOneMachineVotes": 9
       }
     }
   },
@@ -16172,15 +16172,15 @@
         "numAdditionalVoters": 99,
         "numInvalidAndDestroyedPaperBallots": 39,
         "numInvalidBallotsFound": 126,
-        "numMachineBallots": 1033,
         "numPaperBallotsFound": 2800,
         "numRegisteredVoters": 15424,
         "numUnusedPaperBallots": 9861,
-        "numValidMachineVotes": 996,
-        "numValidNoOneMachineVotes": 37,
         "numValidNoOnePaperVotes": 80,
         "numValidVotes": 2594,
-        "totalActualVoters": 3833
+        "totalActualVoters": 3833,
+        "numMachineBallots": 1033,
+        "numValidMachineVotes": 996,
+        "numValidNoOneMachineVotes": 37
       }
     }
   },
@@ -16382,7 +16382,6 @@
       ],
       "protocol": {
         "ballotsReceived": 5000,
-        "numAdditionalVoters": 68,
         "numInvalidAndDestroyedPaperBallots": 24,
         "numInvalidBallotsFound": 79,
         "numMachineBallots": 660,
@@ -16393,7 +16392,8 @@
         "numValidNoOneMachineVotes": 31,
         "numValidNoOnePaperVotes": 35,
         "numValidVotes": 1590,
-        "totalActualVoters": 2364
+        "totalActualVoters": 2364,
+        "numAdditionalVoters": 68
       }
     }
   },
@@ -17029,10 +17029,10 @@
         "numRegisteredVoters": 3973,
         "numUnusedPaperBallots": 2484,
         "numValidMachineVotes": 295,
-        "numValidNoOneMachineVotes": 19,
         "numValidNoOnePaperVotes": 34,
         "numValidVotes": 1216,
-        "totalActualVoters": 1609
+        "totalActualVoters": 1609,
+        "numValidNoOneMachineVotes": 19
       }
     }
   },
@@ -17236,7 +17236,6 @@
         "ballotsReceived": 7300,
         "numAdditionalVoters": 118,
         "numInvalidAndDestroyedPaperBallots": 34,
-        "numInvalidBallotsFound": 49,
         "numMachineBallots": 728,
         "numPaperBallotsFound": 1429,
         "numRegisteredVoters": 7482,
@@ -17245,7 +17244,8 @@
         "numValidNoOneMachineVotes": 29,
         "numValidNoOnePaperVotes": 42,
         "numValidVotes": 1338,
-        "totalActualVoters": 2157
+        "totalActualVoters": 2157,
+        "numInvalidBallotsFound": 49
       }
     }
   },
@@ -17881,10 +17881,10 @@
         "numRegisteredVoters": 12148,
         "numUnusedPaperBallots": 8253,
         "numValidMachineVotes": 270,
-        "numValidNoOneMachineVotes": 11,
-        "numValidNoOnePaperVotes": 39,
         "numValidVotes": 3970,
-        "totalActualVoters": 4496
+        "totalActualVoters": 4496,
+        "numValidNoOneMachineVotes": 11,
+        "numValidNoOnePaperVotes": 39
       }
     }
   },
@@ -18512,7 +18512,6 @@
       ],
       "protocol": {
         "ballotsReceived": 13000,
-        "numAdditionalVoters": 100,
         "numInvalidAndDestroyedPaperBallots": 30,
         "numInvalidBallotsFound": 142,
         "numMachineBallots": 873,
@@ -18523,7 +18522,8 @@
         "numValidNoOneMachineVotes": 26,
         "numValidNoOnePaperVotes": 43,
         "numValidVotes": 2280,
-        "totalActualVoters": 3338
+        "totalActualVoters": 3338,
+        "numAdditionalVoters": 100
       }
     }
   },
@@ -18946,10 +18946,10 @@
         "numRegisteredVoters": 10718,
         "numUnusedPaperBallots": 8009,
         "numValidMachineVotes": 377,
-        "numValidNoOneMachineVotes": 10,
         "numValidNoOnePaperVotes": 60,
         "numValidVotes": 2891,
-        "totalActualVoters": 3460
+        "totalActualVoters": 3460,
+        "numValidNoOneMachineVotes": 10
       }
     }
   },
@@ -19154,15 +19154,15 @@
         "numAdditionalVoters": 78,
         "numInvalidAndDestroyedPaperBallots": 16,
         "numInvalidBallotsFound": 31,
-        "numMachineBallots": 116,
         "numPaperBallotsFound": 799,
         "numRegisteredVoters": 1840,
         "numUnusedPaperBallots": 1885,
-        "numValidMachineVotes": 105,
-        "numValidNoOneMachineVotes": 11,
         "numValidNoOnePaperVotes": 17,
         "numValidVotes": 751,
-        "totalActualVoters": 915
+        "totalActualVoters": 915,
+        "numMachineBallots": 116,
+        "numValidMachineVotes": 105,
+        "numValidNoOneMachineVotes": 11
       }
     }
   },
@@ -19364,7 +19364,6 @@
       ],
       "protocol": {
         "ballotsReceived": 3200,
-        "numAdditionalVoters": 53,
         "numInvalidAndDestroyedPaperBallots": 16,
         "numInvalidBallotsFound": 83,
         "numMachineBallots": 134,
@@ -19375,7 +19374,8 @@
         "numValidNoOneMachineVotes": 2,
         "numValidNoOnePaperVotes": 20,
         "numValidVotes": 1042,
-        "totalActualVoters": 1279
+        "totalActualVoters": 1279,
+        "numAdditionalVoters": 53
       }
     }
   },
@@ -19577,7 +19577,6 @@
       ],
       "protocol": {
         "ballotsReceived": 4600,
-        "numAdditionalVoters": 11,
         "numInvalidAndDestroyedPaperBallots": 12,
         "numInvalidBallotsFound": 50,
         "numMachineBallots": 501,
@@ -19588,7 +19587,8 @@
         "numValidNoOneMachineVotes": 20,
         "numValidNoOnePaperVotes": 31,
         "numValidVotes": 878,
-        "totalActualVoters": 1460
+        "totalActualVoters": 1460,
+        "numAdditionalVoters": 11
       }
     }
   },
@@ -20219,15 +20219,15 @@
         "numAdditionalVoters": 68,
         "numInvalidAndDestroyedPaperBallots": 20,
         "numInvalidBallotsFound": 90,
-        "numMachineBallots": 552,
         "numPaperBallotsFound": 1937,
         "numRegisteredVoters": 7140,
         "numUnusedPaperBallots": 5043,
-        "numValidMachineVotes": 528,
-        "numValidNoOneMachineVotes": 24,
         "numValidNoOnePaperVotes": 53,
         "numValidVotes": 1794,
-        "totalActualVoters": 2489
+        "totalActualVoters": 2489,
+        "numMachineBallots": 552,
+        "numValidMachineVotes": 528,
+        "numValidNoOneMachineVotes": 24
       }
     }
   },
@@ -20437,10 +20437,10 @@
         "numRegisteredVoters": 5699,
         "numUnusedPaperBallots": 4942,
         "numValidMachineVotes": 335,
-        "numValidNoOneMachineVotes": 10,
         "numValidNoOnePaperVotes": 23,
         "numValidVotes": 946,
-        "totalActualVoters": 1389
+        "totalActualVoters": 1389,
+        "numValidNoOneMachineVotes": 10
       }
     }
   },
@@ -21496,16 +21496,16 @@
         "ballotsReceived": 4500,
         "numAdditionalVoters": 67,
         "numInvalidAndDestroyedPaperBallots": 13,
-        "numInvalidBallotsFound": 102,
-        "numMachineBallots": 118,
         "numPaperBallotsFound": 1250,
         "numRegisteredVoters": 4231,
         "numUnusedPaperBallots": 3237,
-        "numValidMachineVotes": 112,
-        "numValidNoOneMachineVotes": 6,
         "numValidNoOnePaperVotes": 26,
         "numValidVotes": 1122,
-        "totalActualVoters": 1368
+        "totalActualVoters": 1368,
+        "numInvalidBallotsFound": 102,
+        "numMachineBallots": 118,
+        "numValidMachineVotes": 112,
+        "numValidNoOneMachineVotes": 6
       }
     }
   },
@@ -22141,10 +22141,10 @@
         "numRegisteredVoters": 16930,
         "numUnusedPaperBallots": 13224,
         "numValidMachineVotes": 223,
-        "numValidNoOneMachineVotes": 7,
-        "numValidNoOnePaperVotes": 27,
         "numValidVotes": 4983,
-        "totalActualVoters": 5374
+        "totalActualVoters": 5374,
+        "numValidNoOnePaperVotes": 27,
+        "numValidNoOneMachineVotes": 7
       }
     }
   },
@@ -22568,9 +22568,9 @@
         "numUnusedPaperBallots": 16440,
         "numValidMachineVotes": 1264,
         "numValidNoOneMachineVotes": 60,
-        "numValidNoOnePaperVotes": 109,
         "numValidVotes": 3183,
-        "totalActualVoters": 4795
+        "totalActualVoters": 4795,
+        "numValidNoOnePaperVotes": 109
       }
     }
   },
@@ -23413,13 +23413,13 @@
         "ballotsReceived": 1700,
         "numAdditionalVoters": 48,
         "numInvalidAndDestroyedPaperBallots": 12,
-        "numInvalidBallotsFound": 32,
         "numPaperBallotsFound": 651,
         "numRegisteredVoters": 1059,
         "numUnusedPaperBallots": 1037,
-        "numValidNoOnePaperVotes": 17,
         "numValidVotes": 602,
-        "totalActualVoters": 651
+        "totalActualVoters": 651,
+        "numInvalidBallotsFound": 32,
+        "numValidNoOnePaperVotes": 17
       }
     }
   },
@@ -23621,7 +23621,6 @@
       ],
       "protocol": {
         "ballotsReceived": 16000,
-        "numAdditionalVoters": 96,
         "numInvalidAndDestroyedPaperBallots": 31,
         "numInvalidBallotsFound": 187,
         "numMachineBallots": 2177,
@@ -23632,7 +23631,8 @@
         "numValidNoOneMachineVotes": 108,
         "numValidNoOnePaperVotes": 81,
         "numValidVotes": 3256,
-        "totalActualVoters": 5701
+        "totalActualVoters": 5701,
+        "numAdditionalVoters": 96
       }
     }
   },
@@ -23834,7 +23834,6 @@
       ],
       "protocol": {
         "ballotsReceived": 1800,
-        "numAdditionalVoters": 1,
         "numInvalidAndDestroyedPaperBallots": 4,
         "numInvalidBallotsFound": 22,
         "numMachineBallots": 245,
@@ -23845,7 +23844,8 @@
         "numValidNoOneMachineVotes": 9,
         "numValidNoOnePaperVotes": 19,
         "numValidVotes": 393,
-        "totalActualVoters": 679
+        "totalActualVoters": 679,
+        "numAdditionalVoters": 1
       }
     }
   },
@@ -24476,15 +24476,15 @@
         "numAdditionalVoters": 178,
         "numInvalidAndDestroyedPaperBallots": 31,
         "numInvalidBallotsFound": 288,
-        "numMachineBallots": 496,
         "numPaperBallotsFound": 3619,
         "numRegisteredVoters": 18649,
         "numUnusedPaperBallots": 15350,
-        "numValidMachineVotes": 485,
-        "numValidNoOneMachineVotes": 11,
         "numValidNoOnePaperVotes": 60,
         "numValidVotes": 3271,
-        "totalActualVoters": 4115
+        "totalActualVoters": 4115,
+        "numMachineBallots": 496,
+        "numValidMachineVotes": 485,
+        "numValidNoOneMachineVotes": 11
       }
     }
   },
@@ -24686,18 +24686,18 @@
       ],
       "protocol": {
         "ballotsReceived": 3000,
-        "numAdditionalVoters": 53,
         "numInvalidAndDestroyedPaperBallots": 19,
         "numInvalidBallotsFound": 44,
-        "numMachineBallots": 78,
         "numPaperBallotsFound": 1156,
         "numRegisteredVoters": 2897,
         "numUnusedPaperBallots": 1825,
-        "numValidMachineVotes": 77,
-        "numValidNoOneMachineVotes": 1,
         "numValidNoOnePaperVotes": 13,
         "numValidVotes": 1099,
-        "totalActualVoters": 1234
+        "totalActualVoters": 1234,
+        "numAdditionalVoters": 53,
+        "numMachineBallots": 78,
+        "numValidMachineVotes": 77,
+        "numValidNoOneMachineVotes": 1
       }
     }
   },
@@ -25327,7 +25327,6 @@
         "ballotsReceived": 7100,
         "numAdditionalVoters": 16,
         "numInvalidAndDestroyedPaperBallots": 10,
-        "numInvalidBallotsFound": 26,
         "numMachineBallots": 509,
         "numPaperBallotsFound": 840,
         "numRegisteredVoters": 7151,
@@ -25336,7 +25335,8 @@
         "numValidNoOneMachineVotes": 31,
         "numValidNoOnePaperVotes": 25,
         "numValidVotes": 789,
-        "totalActualVoters": 1345
+        "totalActualVoters": 1345,
+        "numInvalidBallotsFound": 26
       }
     }
   },
@@ -25972,10 +25972,10 @@
         "numRegisteredVoters": 18558,
         "numUnusedPaperBallots": 13098,
         "numValidMachineVotes": 618,
-        "numValidNoOneMachineVotes": 29,
         "numValidNoOnePaperVotes": 117,
         "numValidVotes": 5004,
-        "totalActualVoters": 6031
+        "totalActualVoters": 6031,
+        "numValidNoOneMachineVotes": 29
       }
     }
   },
@@ -27029,7 +27029,6 @@
       ],
       "protocol": {
         "ballotsReceived": 9000,
-        "numAdditionalVoters": 48,
         "numInvalidAndDestroyedPaperBallots": 33,
         "numInvalidBallotsFound": 198,
         "numMachineBallots": 1059,
@@ -27040,7 +27039,8 @@
         "numValidNoOneMachineVotes": 32,
         "numValidNoOnePaperVotes": 60,
         "numValidVotes": 3252,
-        "totalActualVoters": 4569
+        "totalActualVoters": 4569,
+        "numAdditionalVoters": 48
       }
     }
   },
@@ -27889,10 +27889,10 @@
         "numRegisteredVoters": 10175,
         "numUnusedPaperBallots": 6854,
         "numValidMachineVotes": 309,
-        "numValidNoOneMachineVotes": 6,
         "numValidNoOnePaperVotes": 52,
         "numValidVotes": 3372,
-        "totalActualVoters": 3888
+        "totalActualVoters": 3888,
+        "numValidNoOneMachineVotes": 6
       }
     }
   },
@@ -28520,7 +28520,6 @@
       ],
       "protocol": {
         "ballotsReceived": 2100,
-        "numAdditionalVoters": 61,
         "numInvalidAndDestroyedPaperBallots": 14,
         "numInvalidBallotsFound": 28,
         "numMachineBallots": 179,
@@ -28529,9 +28528,10 @@
         "numUnusedPaperBallots": 1546,
         "numValidMachineVotes": 171,
         "numValidNoOneMachineVotes": 8,
-        "numValidNoOnePaperVotes": 5,
         "numValidVotes": 507,
-        "totalActualVoters": 719
+        "totalActualVoters": 719,
+        "numAdditionalVoters": 61,
+        "numValidNoOnePaperVotes": 5
       }
     }
   },
@@ -29797,7 +29797,6 @@
         "ballotsReceived": 2500,
         "numAdditionalVoters": 57,
         "numInvalidAndDestroyedPaperBallots": 14,
-        "numInvalidBallotsFound": 36,
         "numMachineBallots": 111,
         "numPaperBallotsFound": 712,
         "numRegisteredVoters": 2412,
@@ -29806,7 +29805,8 @@
         "numValidNoOneMachineVotes": 6,
         "numValidNoOnePaperVotes": 17,
         "numValidVotes": 659,
-        "totalActualVoters": 823
+        "totalActualVoters": 823,
+        "numInvalidBallotsFound": 36
       }
     }
   },
@@ -30008,7 +30008,6 @@
       ],
       "protocol": {
         "ballotsReceived": 25700,
-        "numAdditionalVoters": 70,
         "numInvalidAndDestroyedPaperBallots": 52,
         "numInvalidBallotsFound": 152,
         "numMachineBallots": 2457,
@@ -30019,7 +30018,8 @@
         "numValidNoOneMachineVotes": 132,
         "numValidNoOnePaperVotes": 107,
         "numValidVotes": 3531,
-        "totalActualVoters": 6247
+        "totalActualVoters": 6247,
+        "numAdditionalVoters": 70
       }
     }
   },
@@ -30224,14 +30224,14 @@
         "numAdditionalVoters": 20,
         "numInvalidAndDestroyedPaperBallots": 11,
         "numInvalidBallotsFound": 67,
-        "numMachineBallots": 96,
         "numPaperBallotsFound": 1168,
         "numRegisteredVoters": 2850,
         "numUnusedPaperBallots": 1821,
-        "numValidMachineVotes": 96,
-        "numValidNoOnePaperVotes": 15,
         "numValidVotes": 1086,
-        "totalActualVoters": 1264
+        "totalActualVoters": 1264,
+        "numValidNoOnePaperVotes": 15,
+        "numMachineBallots": 96,
+        "numValidMachineVotes": 96
       }
     }
   },
@@ -31074,7 +31074,6 @@
         "ballotsReceived": 1500,
         "numAdditionalVoters": 24,
         "numInvalidAndDestroyedPaperBallots": 6,
-        "numInvalidBallotsFound": 12,
         "numMachineBallots": 129,
         "numPaperBallotsFound": 391,
         "numRegisteredVoters": 1684,
@@ -31083,7 +31082,8 @@
         "numValidNoOneMachineVotes": 8,
         "numValidNoOnePaperVotes": 20,
         "numValidVotes": 359,
-        "totalActualVoters": 520
+        "totalActualVoters": 520,
+        "numInvalidBallotsFound": 12
       }
     }
   },
@@ -31293,10 +31293,10 @@
         "numRegisteredVoters": 30230,
         "numUnusedPaperBallots": 8834,
         "numValidMachineVotes": 611,
-        "numValidNoOneMachineVotes": 21,
         "numValidNoOnePaperVotes": 78,
         "numValidVotes": 7878,
-        "totalActualVoters": 8839
+        "totalActualVoters": 8839,
+        "numValidNoOneMachineVotes": 21
       }
     }
   },
@@ -31719,10 +31719,10 @@
         "numRegisteredVoters": 9596,
         "numUnusedPaperBallots": 5722,
         "numValidMachineVotes": 500,
-        "numValidNoOneMachineVotes": 13,
         "numValidNoOnePaperVotes": 31,
         "numValidVotes": 2371,
-        "totalActualVoters": 3105
+        "totalActualVoters": 3105,
+        "numValidNoOneMachineVotes": 13
       }
     }
   },
@@ -31927,15 +31927,15 @@
         "numAdditionalVoters": 117,
         "numInvalidAndDestroyedPaperBallots": 19,
         "numInvalidBallotsFound": 25,
-        "numMachineBallots": 27,
         "numPaperBallotsFound": 641,
         "numRegisteredVoters": 1540,
         "numUnusedPaperBallots": 838,
-        "numValidMachineVotes": 26,
-        "numValidNoOneMachineVotes": 1,
         "numValidNoOnePaperVotes": 11,
         "numValidVotes": 605,
-        "totalActualVoters": 668
+        "totalActualVoters": 668,
+        "numMachineBallots": 27,
+        "numValidMachineVotes": 26,
+        "numValidNoOneMachineVotes": 1
       }
     }
   },
@@ -32352,7 +32352,6 @@
         "ballotsReceived": 20000,
         "numAdditionalVoters": 272,
         "numInvalidAndDestroyedPaperBallots": 53,
-        "numInvalidBallotsFound": 140,
         "numMachineBallots": 2932,
         "numPaperBallotsFound": 3590,
         "numRegisteredVoters": 20846,
@@ -32361,7 +32360,8 @@
         "numValidNoOneMachineVotes": 107,
         "numValidNoOnePaperVotes": 82,
         "numValidVotes": 3368,
-        "totalActualVoters": 6522
+        "totalActualVoters": 6522,
+        "numInvalidBallotsFound": 140
       }
     }
   },
@@ -32778,16 +32778,16 @@
         "ballotsReceived": 7000,
         "numAdditionalVoters": 28,
         "numInvalidAndDestroyedPaperBallots": 17,
-        "numInvalidBallotsFound": 157,
-        "numMachineBallots": 82,
         "numPaperBallotsFound": 2640,
         "numRegisteredVoters": 6622,
         "numUnusedPaperBallots": 4343,
-        "numValidMachineVotes": 80,
-        "numValidNoOneMachineVotes": 2,
-        "numValidNoOnePaperVotes": 15,
         "numValidVotes": 2468,
-        "totalActualVoters": 2722
+        "totalActualVoters": 2722,
+        "numInvalidBallotsFound": 157,
+        "numValidNoOnePaperVotes": 15,
+        "numMachineBallots": 82,
+        "numValidMachineVotes": 80,
+        "numValidNoOneMachineVotes": 2
       }
     }
   },
@@ -32997,10 +32997,10 @@
         "numRegisteredVoters": 7725,
         "numUnusedPaperBallots": 2512,
         "numValidMachineVotes": 240,
-        "numValidNoOneMachineVotes": 4,
         "numValidNoOnePaperVotes": 65,
         "numValidVotes": 2613,
-        "totalActualVoters": 3013
+        "totalActualVoters": 3013,
+        "numValidNoOneMachineVotes": 4
       }
     }
   },
@@ -33204,7 +33204,6 @@
         "ballotsReceived": 30100,
         "numAdditionalVoters": 318,
         "numInvalidAndDestroyedPaperBallots": 78,
-        "numInvalidBallotsFound": 247,
         "numMachineBallots": 2488,
         "numPaperBallotsFound": 5058,
         "numRegisteredVoters": 31600,
@@ -33213,7 +33212,8 @@
         "numValidNoOneMachineVotes": 73,
         "numValidNoOnePaperVotes": 100,
         "numValidVotes": 4711,
-        "totalActualVoters": 7546
+        "totalActualVoters": 7546,
+        "numInvalidBallotsFound": 247
       }
     }
   },
@@ -33631,15 +33631,15 @@
         "numAdditionalVoters": 24,
         "numInvalidAndDestroyedPaperBallots": 15,
         "numInvalidBallotsFound": 38,
-        "numMachineBallots": 77,
         "numPaperBallotsFound": 890,
         "numRegisteredVoters": 2005,
         "numUnusedPaperBallots": 1195,
-        "numValidMachineVotes": 74,
-        "numValidNoOneMachineVotes": 3,
         "numValidNoOnePaperVotes": 23,
         "numValidVotes": 829,
-        "totalActualVoters": 967
+        "totalActualVoters": 967,
+        "numMachineBallots": 77,
+        "numValidMachineVotes": 74,
+        "numValidNoOneMachineVotes": 3
       }
     }
   },
@@ -35329,7 +35329,6 @@
       ],
       "protocol": {
         "ballotsReceived": 20000,
-        "numAdditionalVoters": 76,
         "numInvalidAndDestroyedPaperBallots": 35,
         "numInvalidBallotsFound": 198,
         "numMachineBallots": 2374,
@@ -35340,7 +35339,8 @@
         "numValidNoOneMachineVotes": 82,
         "numValidNoOnePaperVotes": 60,
         "numValidVotes": 3335,
-        "totalActualVoters": 5967
+        "totalActualVoters": 5967,
+        "numAdditionalVoters": 76
       }
     }
   },
@@ -36181,7 +36181,6 @@
       ],
       "protocol": {
         "ballotsReceived": 18100,
-        "numAdditionalVoters": 82,
         "numInvalidAndDestroyedPaperBallots": 36,
         "numInvalidBallotsFound": 341,
         "numMachineBallots": 1747,
@@ -36189,10 +36188,11 @@
         "numRegisteredVoters": 18388,
         "numUnusedPaperBallots": 14031,
         "numValidMachineVotes": 1702,
-        "numValidNoOneMachineVotes": 48,
-        "numValidNoOnePaperVotes": 86,
         "numValidVotes": 3606,
-        "totalActualVoters": 5783
+        "totalActualVoters": 5783,
+        "numAdditionalVoters": 82,
+        "numValidNoOneMachineVotes": 48,
+        "numValidNoOnePaperVotes": 86
       }
     }
   },
@@ -36829,9 +36829,9 @@
         "numUnusedPaperBallots": 255556,
         "numValidMachineVotes": 45869,
         "numValidNoOneMachineVotes": 2010,
-        "numValidNoOnePaperVotes": 1272,
         "numValidVotes": 47375,
-        "totalActualVoters": 98730
+        "totalActualVoters": 98730,
+        "numValidNoOnePaperVotes": 1272
       }
     }
   },
@@ -37041,10 +37041,10 @@
         "numRegisteredVoters": 11016,
         "numUnusedPaperBallots": 6405,
         "numValidMachineVotes": 443,
-        "numValidNoOneMachineVotes": 15,
         "numValidNoOnePaperVotes": 44,
         "numValidVotes": 2767,
-        "totalActualVoters": 3423
+        "totalActualVoters": 3423,
+        "numValidNoOneMachineVotes": 15
       }
     }
   },
@@ -37249,15 +37249,15 @@
         "numAdditionalVoters": 322,
         "numInvalidAndDestroyedPaperBallots": 64,
         "numInvalidBallotsFound": 204,
-        "numMachineBallots": 2114,
         "numPaperBallotsFound": 4828,
         "numRegisteredVoters": 23215,
         "numUnusedPaperBallots": 17308,
+        "numValidVotes": 4507,
+        "totalActualVoters": 6942,
+        "numMachineBallots": 2114,
         "numValidMachineVotes": 2041,
         "numValidNoOneMachineVotes": 73,
-        "numValidNoOnePaperVotes": 117,
-        "numValidVotes": 4507,
-        "totalActualVoters": 6942
+        "numValidNoOnePaperVotes": 117
       }
     }
   },
@@ -38533,9 +38533,9 @@
         "numUnusedPaperBallots": 17051,
         "numValidMachineVotes": 1382,
         "numValidNoOneMachineVotes": 57,
-        "numValidNoOnePaperVotes": 80,
         "numValidVotes": 3669,
-        "totalActualVoters": 5337
+        "totalActualVoters": 5337,
+        "numValidNoOnePaperVotes": 80
       }
     }
   },
@@ -38959,9 +38959,9 @@
         "numUnusedPaperBallots": 15263,
         "numValidMachineVotes": 1228,
         "numValidNoOneMachineVotes": 51,
-        "numValidNoOnePaperVotes": 86,
         "numValidVotes": 3079,
-        "totalActualVoters": 4560
+        "totalActualVoters": 4560,
+        "numValidNoOnePaperVotes": 86
       }
     }
   },
@@ -39166,15 +39166,15 @@
         "numAdditionalVoters": 478,
         "numInvalidAndDestroyedPaperBallots": 87,
         "numInvalidBallotsFound": 390,
-        "numMachineBallots": 4300,
         "numPaperBallotsFound": 9395,
         "numRegisteredVoters": 50162,
         "numUnusedPaperBallots": 39818,
-        "numValidMachineVotes": 4112,
-        "numValidNoOneMachineVotes": 188,
         "numValidNoOnePaperVotes": 219,
         "numValidVotes": 8786,
-        "totalActualVoters": 13695
+        "totalActualVoters": 13695,
+        "numMachineBallots": 4300,
+        "numValidMachineVotes": 4112,
+        "numValidNoOneMachineVotes": 188
       }
     }
   },
@@ -39376,7 +39376,6 @@
       ],
       "protocol": {
         "ballotsReceived": 17500,
-        "numAdditionalVoters": 35,
         "numInvalidAndDestroyedPaperBallots": 51,
         "numInvalidBallotsFound": 315,
         "numMachineBallots": 2237,
@@ -39387,7 +39386,8 @@
         "numValidNoOneMachineVotes": 99,
         "numValidNoOnePaperVotes": 131,
         "numValidVotes": 5524,
-        "totalActualVoters": 8207
+        "totalActualVoters": 8207,
+        "numAdditionalVoters": 35
       }
     }
   },
@@ -39802,7 +39802,6 @@
       ],
       "protocol": {
         "ballotsReceived": 21800,
-        "numAdditionalVoters": 32,
         "numInvalidAndDestroyedPaperBallots": 41,
         "numInvalidBallotsFound": 188,
         "numMachineBallots": 1728,
@@ -39813,7 +39812,8 @@
         "numValidNoOneMachineVotes": 71,
         "numValidNoOnePaperVotes": 69,
         "numValidVotes": 2404,
-        "totalActualVoters": 4389
+        "totalActualVoters": 4389,
+        "numAdditionalVoters": 32
       }
     }
   },
@@ -40230,7 +40230,6 @@
         "ballotsReceived": 28100,
         "numAdditionalVoters": 158,
         "numInvalidAndDestroyedPaperBallots": 64,
-        "numInvalidBallotsFound": 157,
         "numMachineBallots": 3094,
         "numPaperBallotsFound": 4733,
         "numRegisteredVoters": 27821,
@@ -40239,7 +40238,8 @@
         "numValidNoOneMachineVotes": 126,
         "numValidNoOnePaperVotes": 151,
         "numValidVotes": 4425,
-        "totalActualVoters": 7827
+        "totalActualVoters": 7827,
+        "numInvalidBallotsFound": 157
       }
     }
   },
@@ -40870,15 +40870,15 @@
         "numAdditionalVoters": 212,
         "numInvalidAndDestroyedPaperBallots": 102,
         "numInvalidBallotsFound": 301,
-        "numMachineBallots": 1281,
         "numPaperBallotsFound": 11670,
         "numRegisteredVoters": 28541,
         "numUnusedPaperBallots": 17478,
-        "numValidMachineVotes": 1258,
-        "numValidNoOneMachineVotes": 23,
         "numValidNoOnePaperVotes": 152,
         "numValidVotes": 11217,
-        "totalActualVoters": 12951
+        "totalActualVoters": 12951,
+        "numMachineBallots": 1281,
+        "numValidMachineVotes": 1258,
+        "numValidNoOneMachineVotes": 23
       }
     }
   },
@@ -41719,7 +41719,6 @@
       ],
       "protocol": {
         "ballotsReceived": 30100,
-        "numAdditionalVoters": 165,
         "numInvalidAndDestroyedPaperBallots": 84,
         "numInvalidBallotsFound": 338,
         "numMachineBallots": 2650,
@@ -41728,9 +41727,10 @@
         "numUnusedPaperBallots": 22523,
         "numValidMachineVotes": 2538,
         "numValidNoOneMachineVotes": 112,
-        "numValidNoOnePaperVotes": 153,
         "numValidVotes": 7002,
-        "totalActualVoters": 10143
+        "totalActualVoters": 10143,
+        "numAdditionalVoters": 165,
+        "numValidNoOnePaperVotes": 153
       }
     }
   },
@@ -41940,10 +41940,10 @@
         "numRegisteredVoters": 8894,
         "numUnusedPaperBallots": 6121,
         "numValidMachineVotes": 91,
-        "numValidNoOneMachineVotes": 2,
         "numValidNoOnePaperVotes": 21,
         "numValidVotes": 3221,
-        "totalActualVoters": 3439
+        "totalActualVoters": 3439,
+        "numValidNoOneMachineVotes": 2
       }
     }
   },
@@ -42573,16 +42573,16 @@
         "ballotsReceived": 13100,
         "numAdditionalVoters": 43,
         "numInvalidAndDestroyedPaperBallots": 23,
-        "numInvalidBallotsFound": 77,
         "numMachineBallots": 804,
         "numPaperBallotsFound": 6393,
         "numRegisteredVoters": 15134,
         "numUnusedPaperBallots": 6684,
         "numValidMachineVotes": 789,
-        "numValidNoOneMachineVotes": 15,
-        "numValidNoOnePaperVotes": 62,
         "numValidVotes": 6254,
-        "totalActualVoters": 7197
+        "totalActualVoters": 7197,
+        "numInvalidBallotsFound": 77,
+        "numValidNoOneMachineVotes": 15,
+        "numValidNoOnePaperVotes": 62
       }
     }
   },
@@ -43212,7 +43212,6 @@
         "ballotsReceived": 15700,
         "numAdditionalVoters": 200,
         "numInvalidAndDestroyedPaperBallots": 50,
-        "numInvalidBallotsFound": 154,
         "numMachineBallots": 1417,
         "numPaperBallotsFound": 3716,
         "numRegisteredVoters": 15344,
@@ -43221,7 +43220,8 @@
         "numValidNoOneMachineVotes": 64,
         "numValidNoOnePaperVotes": 99,
         "numValidVotes": 3463,
-        "totalActualVoters": 5127
+        "totalActualVoters": 5127,
+        "numInvalidBallotsFound": 154
       }
     }
   },
@@ -43636,18 +43636,18 @@
       ],
       "protocol": {
         "ballotsReceived": 21500,
-        "numAdditionalVoters": 61,
         "numInvalidAndDestroyedPaperBallots": 35,
         "numInvalidBallotsFound": 361,
-        "numMachineBallots": 1318,
         "numPaperBallotsFound": 6383,
         "numRegisteredVoters": 20344,
         "numUnusedPaperBallots": 15082,
-        "numValidMachineVotes": 1278,
-        "numValidNoOneMachineVotes": 40,
         "numValidNoOnePaperVotes": 107,
         "numValidVotes": 5915,
-        "totalActualVoters": 7701
+        "totalActualVoters": 7701,
+        "numAdditionalVoters": 61,
+        "numMachineBallots": 1318,
+        "numValidMachineVotes": 1278,
+        "numValidNoOneMachineVotes": 40
       }
     }
   },
@@ -43851,7 +43851,6 @@
         "ballotsReceived": 46800,
         "numAdditionalVoters": 511,
         "numInvalidAndDestroyedPaperBallots": 109,
-        "numInvalidBallotsFound": 413,
         "numMachineBallots": 5533,
         "numPaperBallotsFound": 9328,
         "numRegisteredVoters": 46179,
@@ -43860,7 +43859,8 @@
         "numValidNoOneMachineVotes": 219,
         "numValidNoOnePaperVotes": 227,
         "numValidVotes": 8688,
-        "totalActualVoters": 14861
+        "totalActualVoters": 14861,
+        "numInvalidBallotsFound": 413
       }
     }
   },
@@ -44283,10 +44283,10 @@
         "numRegisteredVoters": 12243,
         "numUnusedPaperBallots": 6416,
         "numValidMachineVotes": 987,
-        "numValidNoOneMachineVotes": 31,
         "numValidNoOnePaperVotes": 74,
         "numValidVotes": 5968,
-        "totalActualVoters": 7348
+        "totalActualVoters": 7348,
+        "numValidNoOneMachineVotes": 31
       }
     }
   },
@@ -44916,16 +44916,16 @@
         "ballotsReceived": 7000,
         "numAdditionalVoters": 54,
         "numInvalidAndDestroyedPaperBallots": 20,
-        "numInvalidBallotsFound": 44,
-        "numMachineBallots": 824,
         "numPaperBallotsFound": 1387,
         "numRegisteredVoters": 6589,
         "numUnusedPaperBallots": 5593,
-        "numValidMachineVotes": 783,
-        "numValidNoOneMachineVotes": 41,
         "numValidNoOnePaperVotes": 43,
         "numValidVotes": 1300,
-        "totalActualVoters": 2211
+        "totalActualVoters": 2211,
+        "numInvalidBallotsFound": 44,
+        "numMachineBallots": 824,
+        "numValidMachineVotes": 783,
+        "numValidNoOneMachineVotes": 41
       }
     }
   },
@@ -46194,16 +46194,16 @@
         "ballotsReceived": 9100,
         "numAdditionalVoters": 221,
         "numInvalidAndDestroyedPaperBallots": 54,
-        "numInvalidBallotsFound": 161,
         "numMachineBallots": 685,
         "numPaperBallotsFound": 2469,
         "numRegisteredVoters": 10839,
         "numUnusedPaperBallots": 6577,
         "numValidMachineVotes": 661,
-        "numValidNoOneMachineVotes": 24,
         "numValidNoOnePaperVotes": 65,
         "numValidVotes": 2243,
-        "totalActualVoters": 3154
+        "totalActualVoters": 3154,
+        "numInvalidBallotsFound": 161,
+        "numValidNoOneMachineVotes": 24
       }
     }
   },
@@ -46405,7 +46405,6 @@
       ],
       "protocol": {
         "ballotsReceived": 17600,
-        "numAdditionalVoters": 35,
         "numInvalidAndDestroyedPaperBallots": 27,
         "numInvalidBallotsFound": 181,
         "numMachineBallots": 1618,
@@ -46416,7 +46415,8 @@
         "numValidNoOneMachineVotes": 65,
         "numValidNoOnePaperVotes": 49,
         "numValidVotes": 2731,
-        "totalActualVoters": 4579
+        "totalActualVoters": 4579,
+        "numAdditionalVoters": 35
       }
     }
   },
@@ -47471,7 +47471,6 @@
       "protocol": {
         "ballotsReceived": 39100,
         "numAdditionalVoters": 532,
-        "numInvalidAndDestroyedPaperBallots": 114,
         "numInvalidBallotsFound": 303,
         "numMachineBallots": 14587,
         "numPaperBallotsFound": 9589,
@@ -47481,7 +47480,8 @@
         "numValidNoOneMachineVotes": 561,
         "numValidNoOnePaperVotes": 307,
         "numValidVotes": 9121,
-        "totalActualVoters": 24310
+        "totalActualVoters": 24310,
+        "numInvalidAndDestroyedPaperBallots": 114
       }
     }
   },
@@ -47905,9 +47905,9 @@
         "numUnusedPaperBallots": 48143,
         "numValidMachineVotes": 19563,
         "numValidNoOneMachineVotes": 897,
-        "numValidNoOnePaperVotes": 471,
         "numValidVotes": 14007,
-        "totalActualVoters": 35236
+        "totalActualVoters": 35236,
+        "numValidNoOnePaperVotes": 471
       }
     }
   },
@@ -48111,7 +48111,6 @@
         "ballotsReceived": 24000,
         "numAdditionalVoters": 485,
         "numInvalidAndDestroyedPaperBallots": 84,
-        "numInvalidBallotsFound": 101,
         "numMachineBallots": 7735,
         "numPaperBallotsFound": 5082,
         "numRegisteredVoters": 29548,
@@ -48120,7 +48119,8 @@
         "numValidNoOneMachineVotes": 291,
         "numValidNoOnePaperVotes": 176,
         "numValidVotes": 4805,
-        "totalActualVoters": 12817
+        "totalActualVoters": 12817,
+        "numInvalidBallotsFound": 101
       }
     }
   },
@@ -49174,7 +49174,6 @@
       ],
       "protocol": {
         "ballotsReceived": 12100,
-        "numAdditionalVoters": 108,
         "numInvalidAndDestroyedPaperBallots": 39,
         "numInvalidBallotsFound": 79,
         "numMachineBallots": 1877,
@@ -49185,7 +49184,8 @@
         "numValidNoOneMachineVotes": 103,
         "numValidNoOnePaperVotes": 85,
         "numValidVotes": 2165,
-        "totalActualVoters": 4205
+        "totalActualVoters": 4205,
+        "numAdditionalVoters": 108
       }
     }
   },
@@ -49389,7 +49389,6 @@
         "ballotsReceived": 41600,
         "numAdditionalVoters": 499,
         "numInvalidAndDestroyedPaperBallots": 136,
-        "numInvalidBallotsFound": 214,
         "numMachineBallots": 11844,
         "numPaperBallotsFound": 9272,
         "numRegisteredVoters": 65661,
@@ -49398,7 +49397,8 @@
         "numValidNoOneMachineVotes": 581,
         "numValidNoOnePaperVotes": 309,
         "numValidVotes": 8749,
-        "totalActualVoters": 21136
+        "totalActualVoters": 21136,
+        "numInvalidBallotsFound": 214
       }
     }
   },
@@ -49602,7 +49602,6 @@
         "ballotsReceived": 21700,
         "numAdditionalVoters": 474,
         "numInvalidAndDestroyedPaperBallots": 71,
-        "numInvalidBallotsFound": 62,
         "numMachineBallots": 8229,
         "numPaperBallotsFound": 4521,
         "numRegisteredVoters": 114069,
@@ -49611,7 +49610,8 @@
         "numValidNoOneMachineVotes": 264,
         "numValidNoOnePaperVotes": 109,
         "numValidVotes": 4350,
-        "totalActualVoters": 12750
+        "totalActualVoters": 12750,
+        "numInvalidBallotsFound": 62
       }
     }
   },
@@ -49815,16 +49815,16 @@
         "ballotsReceived": 40402,
         "numAdditionalVoters": 523,
         "numInvalidAndDestroyedPaperBallots": 98,
-        "numInvalidBallotsFound": 111,
         "numMachineBallots": 8274,
         "numPaperBallotsFound": 5474,
         "numRegisteredVoters": 40253,
         "numUnusedPaperBallots": 34830,
         "numValidMachineVotes": 7974,
         "numValidNoOneMachineVotes": 298,
-        "numValidNoOnePaperVotes": 147,
         "numValidVotes": 5216,
-        "totalActualVoters": 13746
+        "totalActualVoters": 13746,
+        "numValidNoOnePaperVotes": 147,
+        "numInvalidBallotsFound": 111
       }
     }
   },
@@ -50035,9 +50035,9 @@
         "numUnusedPaperBallots": 10891,
         "numValidMachineVotes": 7796,
         "numValidNoOneMachineVotes": 312,
-        "numValidNoOnePaperVotes": 143,
         "numValidVotes": 4762,
-        "totalActualVoters": 13099
+        "totalActualVoters": 13099,
+        "numValidNoOnePaperVotes": 143
       }
     }
   },
@@ -50454,7 +50454,6 @@
         "ballotsReceived": 47700,
         "numAdditionalVoters": 503,
         "numInvalidAndDestroyedPaperBallots": 135,
-        "numInvalidBallotsFound": 159,
         "numMachineBallots": 10417,
         "numPaperBallotsFound": 7428,
         "numRegisteredVoters": 46918,
@@ -50463,7 +50462,8 @@
         "numValidNoOneMachineVotes": 445,
         "numValidNoOnePaperVotes": 231,
         "numValidVotes": 7038,
-        "totalActualVoters": 17840
+        "totalActualVoters": 17840,
+        "numInvalidBallotsFound": 159
       }
     }
   },
@@ -51945,16 +51945,16 @@
         "ballotsReceived": 20000,
         "numAdditionalVoters": 352,
         "numInvalidAndDestroyedPaperBallots": 68,
-        "numInvalidBallotsFound": 102,
         "numMachineBallots": 5759,
         "numPaperBallotsFound": 4798,
         "numRegisteredVoters": 27447,
         "numUnusedPaperBallots": 15134,
         "numValidMachineVotes": 5511,
         "numValidNoOneMachineVotes": 248,
-        "numValidNoOnePaperVotes": 130,
         "numValidVotes": 4566,
-        "totalActualVoters": 10557
+        "totalActualVoters": 10557,
+        "numValidNoOnePaperVotes": 130,
+        "numInvalidBallotsFound": 102
       }
     }
   },
@@ -53229,10 +53229,10 @@
         "numRegisteredVoters": 10146,
         "numUnusedPaperBallots": 7082,
         "numValidMachineVotes": 352,
-        "numValidNoOneMachineVotes": 8,
-        "numValidNoOnePaperVotes": 51,
         "numValidVotes": 3125,
-        "totalActualVoters": 3730
+        "totalActualVoters": 3730,
+        "numValidNoOneMachineVotes": 8,
+        "numValidNoOnePaperVotes": 51
       }
     }
   },
@@ -53434,7 +53434,6 @@
       ],
       "protocol": {
         "ballotsReceived": 1700,
-        "numAdditionalVoters": 61,
         "numInvalidAndDestroyedPaperBallots": 11,
         "numInvalidBallotsFound": 24,
         "numMachineBallots": 105,
@@ -53442,10 +53441,11 @@
         "numRegisteredVoters": 1927,
         "numUnusedPaperBallots": 1142,
         "numValidMachineVotes": 99,
-        "numValidNoOneMachineVotes": 6,
-        "numValidNoOnePaperVotes": 9,
         "numValidVotes": 514,
-        "totalActualVoters": 652
+        "totalActualVoters": 652,
+        "numAdditionalVoters": 61,
+        "numValidNoOneMachineVotes": 6,
+        "numValidNoOnePaperVotes": 9
       }
     }
   },
@@ -54502,15 +54502,15 @@
         "numAdditionalVoters": 145,
         "numInvalidAndDestroyedPaperBallots": 46,
         "numInvalidBallotsFound": 234,
-        "numMachineBallots": 902,
         "numPaperBallotsFound": 5676,
         "numRegisteredVoters": 16867,
         "numUnusedPaperBallots": 11178,
-        "numValidMachineVotes": 861,
-        "numValidNoOneMachineVotes": 41,
         "numValidNoOnePaperVotes": 69,
         "numValidVotes": 5373,
-        "totalActualVoters": 6578
+        "totalActualVoters": 6578,
+        "numMachineBallots": 902,
+        "numValidMachineVotes": 861,
+        "numValidNoOneMachineVotes": 41
       }
     }
   },
@@ -54720,10 +54720,10 @@
         "numRegisteredVoters": 8261,
         "numUnusedPaperBallots": 4299,
         "numValidMachineVotes": 340,
-        "numValidNoOneMachineVotes": 8,
         "numValidNoOnePaperVotes": 46,
         "numValidVotes": 2637,
-        "totalActualVoters": 3203
+        "totalActualVoters": 3203,
+        "numValidNoOneMachineVotes": 8
       }
     }
   },
@@ -55144,9 +55144,9 @@
         "numUnusedPaperBallots": 21082,
         "numValidMachineVotes": 2614,
         "numValidNoOneMachineVotes": 127,
-        "numValidNoOnePaperVotes": 135,
         "numValidVotes": 4932,
-        "totalActualVoters": 7984
+        "totalActualVoters": 7984,
+        "numValidNoOnePaperVotes": 135
       }
     }
   },
@@ -55348,7 +55348,6 @@
       ],
       "protocol": {
         "ballotsReceived": 4600,
-        "numAdditionalVoters": 108,
         "numInvalidAndDestroyedPaperBallots": 28,
         "numInvalidBallotsFound": 63,
         "numMachineBallots": 132,
@@ -55359,7 +55358,8 @@
         "numValidNoOneMachineVotes": 6,
         "numValidNoOnePaperVotes": 33,
         "numValidVotes": 1050,
-        "totalActualVoters": 1278
+        "totalActualVoters": 1278,
+        "numAdditionalVoters": 108
       }
     }
   },
@@ -55563,16 +55563,16 @@
         "ballotsReceived": 9600,
         "numAdditionalVoters": 137,
         "numInvalidAndDestroyedPaperBallots": 31,
-        "numInvalidBallotsFound": 41,
         "numMachineBallots": 1057,
         "numPaperBallotsFound": 1474,
         "numRegisteredVoters": 9486,
         "numUnusedPaperBallots": 8095,
         "numValidMachineVotes": 1025,
-        "numValidNoOneMachineVotes": 32,
         "numValidNoOnePaperVotes": 26,
         "numValidVotes": 1407,
-        "totalActualVoters": 2531
+        "totalActualVoters": 2531,
+        "numInvalidBallotsFound": 41,
+        "numValidNoOneMachineVotes": 32
       }
     }
   },
@@ -55777,15 +55777,15 @@
         "numAdditionalVoters": 171,
         "numInvalidAndDestroyedPaperBallots": 66,
         "numInvalidBallotsFound": 233,
-        "numMachineBallots": 790,
         "numPaperBallotsFound": 4715,
         "numRegisteredVoters": 17233,
         "numUnusedPaperBallots": 12319,
-        "numValidMachineVotes": 760,
-        "numValidNoOneMachineVotes": 30,
         "numValidNoOnePaperVotes": 111,
         "numValidVotes": 4371,
-        "totalActualVoters": 5505
+        "totalActualVoters": 5505,
+        "numMachineBallots": 790,
+        "numValidMachineVotes": 760,
+        "numValidNoOneMachineVotes": 30
       }
     }
   },
@@ -56421,10 +56421,10 @@
         "numRegisteredVoters": 4657,
         "numUnusedPaperBallots": 2821,
         "numValidMachineVotes": 240,
-        "numValidNoOneMachineVotes": 7,
         "numValidNoOnePaperVotes": 34,
         "numValidVotes": 1491,
-        "totalActualVoters": 1910
+        "totalActualVoters": 1910,
+        "numValidNoOneMachineVotes": 7
       }
     }
   },
@@ -57699,10 +57699,10 @@
         "numRegisteredVoters": 10937,
         "numUnusedPaperBallots": 9062,
         "numValidMachineVotes": 192,
-        "numValidNoOneMachineVotes": 1,
-        "numValidNoOnePaperVotes": 29,
         "numValidVotes": 1978,
-        "totalActualVoters": 2304
+        "totalActualVoters": 2304,
+        "numValidNoOnePaperVotes": 29,
+        "numValidNoOneMachineVotes": 1
       }
     }
   },
@@ -58125,10 +58125,10 @@
         "numRegisteredVoters": 5789,
         "numUnusedPaperBallots": 4198,
         "numValidMachineVotes": 141,
-        "numValidNoOneMachineVotes": 3,
         "numValidNoOnePaperVotes": 38,
         "numValidVotes": 1702,
-        "totalActualVoters": 1936
+        "totalActualVoters": 1936,
+        "numValidNoOneMachineVotes": 3
       }
     }
   },
@@ -58543,7 +58543,6 @@
       ],
       "protocol": {
         "ballotsReceived": 1000,
-        "numAdditionalVoters": 0,
         "numInvalidAndDestroyedPaperBallots": 1,
         "numInvalidBallotsFound": 14,
         "numMachineBallots": 105,
@@ -58756,7 +58755,6 @@
       ],
       "protocol": {
         "ballotsReceived": 1200,
-        "numAdditionalVoters": 6,
         "numInvalidAndDestroyedPaperBallots": 4,
         "numInvalidBallotsFound": 13,
         "numMachineBallots": 171,
@@ -58767,7 +58765,8 @@
         "numValidNoOneMachineVotes": 12,
         "numValidNoOnePaperVotes": 17,
         "numValidVotes": 272,
-        "totalActualVoters": 473
+        "totalActualVoters": 473,
+        "numAdditionalVoters": 6
       }
     }
   },
@@ -59185,15 +59184,15 @@
         "numAdditionalVoters": 67,
         "numInvalidAndDestroyedPaperBallots": 61,
         "numInvalidBallotsFound": 247,
-        "numMachineBallots": 1391,
         "numPaperBallotsFound": 5049,
         "numRegisteredVoters": 23991,
         "numUnusedPaperBallots": 10790,
-        "numValidMachineVotes": 1342,
-        "numValidNoOneMachineVotes": 49,
         "numValidNoOnePaperVotes": 111,
         "numValidVotes": 4691,
-        "totalActualVoters": 6440
+        "totalActualVoters": 6440,
+        "numMachineBallots": 1391,
+        "numValidMachineVotes": 1342,
+        "numValidNoOneMachineVotes": 49
       }
     }
   },
@@ -59397,7 +59396,6 @@
         "ballotsReceived": 13000,
         "numAdditionalVoters": 220,
         "numInvalidAndDestroyedPaperBallots": 48,
-        "numInvalidBallotsFound": 132,
         "numMachineBallots": 176,
         "numPaperBallotsFound": 4776,
         "numRegisteredVoters": 12938,
@@ -59406,7 +59404,8 @@
         "numValidNoOneMachineVotes": 4,
         "numValidNoOnePaperVotes": 41,
         "numValidVotes": 4603,
-        "totalActualVoters": 4952
+        "totalActualVoters": 4952,
+        "numInvalidBallotsFound": 132
       }
     }
   },
@@ -60886,15 +60885,15 @@
         "numAdditionalVoters": 23,
         "numInvalidAndDestroyedPaperBallots": 12,
         "numInvalidBallotsFound": 53,
-        "numMachineBallots": 104,
         "numPaperBallotsFound": 1222,
         "numRegisteredVoters": 3045,
         "numUnusedPaperBallots": 1766,
+        "numValidVotes": 1155,
+        "totalActualVoters": 1326,
+        "numMachineBallots": 104,
         "numValidMachineVotes": 102,
         "numValidNoOneMachineVotes": 2,
-        "numValidNoOnePaperVotes": 14,
-        "numValidVotes": 1155,
-        "totalActualVoters": 1326
+        "numValidNoOnePaperVotes": 14
       }
     }
   },
