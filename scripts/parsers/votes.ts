@@ -1,11 +1,10 @@
 import fs from "fs";
 import { parse } from "csv-parse";
-import { ElectionVotes, Votes, PartyInfo } from "@/data/dataTypes";
+import { ElectionVotes, Votes } from "@/data/dataTypes";
 import { isMachineOnlyVote } from "scripts/utils";
 
 export const parseVotes = (
   inFolder: string,
-  parties: PartyInfo[],
   year: string,
 ): Promise<ElectionVotes[]> => {
   const result: string[][] = [];
