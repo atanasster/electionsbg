@@ -207,6 +207,7 @@ export const aggregateSettlements = (
       (s) => s.obshtina === municipality.obshtina,
     );
     const section = sections.find((s) => s.section === vote.section);
+
     let settlement = municipalitySettlements.find((s) => {
       const section = sections.find((s) => s.section === vote.section);
       if (!section) {
@@ -238,9 +239,15 @@ export const aggregateSettlements = (
 
     if (!settlement) {
       if (section?.region !== 32) {
-        throw new Error(
-          `Could not find a settlement ${vote.section} ${section?.address}`,
-        );
+        settlement = municipalitySettlements.find((s) => {
+          const km = s.kmetstvo.split("-");
+          return km.length > 1 && km[1] === "00";
+        });
+        if (!settlement) {
+          throw new Error(
+            `Could not find a settlement ${vote.section} ${section?.address || ""}`,
+          );
+        }
       }
       settlement = {
         oblast: region.key,
@@ -264,7 +271,7 @@ export const aggregateSettlements = (
     settlement.sections.push(vote.section);
     if (section && protocol) {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { document, section: ss, rik, pages, ...nprotocol } = protocol;
+      const { section: ss, rik, pages, ...nprotocol } = protocol;
       const { votes } = vote;
       section.protocol = { ...nprotocol };
       section.votes = votes;

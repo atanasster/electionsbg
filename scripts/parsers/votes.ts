@@ -1,9 +1,13 @@
 import fs from "fs";
 import { parse } from "csv-parse";
+import { ElectionVotes, Votes, PartyInfo } from "@/data/dataTypes";
+import { isMachineOnlyVote } from "scripts/utils";
 
-import { ElectionVotes } from "@/data/dataTypes";
-
-export const parseVotes = (inFolder: string): Promise<ElectionVotes[]> => {
+export const parseVotes = (
+  inFolder: string,
+  parties: PartyInfo[],
+  year: string,
+): Promise<ElectionVotes[]> => {
   const result: string[][] = [];
   const allVotes: ElectionVotes[] = [];
 
@@ -23,18 +27,23 @@ export const parseVotes = (inFolder: string): Promise<ElectionVotes[]> => {
             section: row[1],
             votes: [],
           };
+          const isMachineOnly = isMachineOnlyVote(year);
           while (j < row.length) {
-            const partyNum = parseInt(row[j]);
+            let partyNum = parseInt(row[j]);
+            if (year === "2021_11_14") {
+              partyNum = parties[partyNum - 1].number;
+            }
             const totalVotes = parseInt(row[j + 1]);
-            const paperVotes = parseInt(row[j + 2]);
-            const machineVotes = parseInt(row[j + 3]);
-            votes.votes.push({
-              key: partyNum,
+            const vote: Votes = {
+              partyNum,
               totalVotes,
-              paperVotes,
-              machineVotes,
-            });
-            j += 4;
+            };
+            if (!isMachineOnly) {
+              vote.paperVotes = parseInt(row[j + 2]);
+              vote.machineVotes = parseInt(row[j + 3]);
+            }
+            votes.votes.push(vote);
+            j += isMachineOnly ? 2 : 4;
           }
           allVotes.push(votes);
         }

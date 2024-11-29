@@ -49,10 +49,9 @@ export const ProtocolSummary: FC<{
       ?.sort((a, b) => b.totalVotes - a.totalVotes)
       .slice(0, 5)
       .filter((v) => v.totalVotes > 0)
-      .map((v, idx) => {
-        const party = findParty(v.key);
+      .map((v) => {
+        const party = findParty(v.partyNum);
         return {
-          num: idx,
           ...v,
           nickName: party?.nickName,
           color: party?.color,
@@ -63,7 +62,7 @@ export const ProtocolSummary: FC<{
   return (
     <div className="w-full items-center">
       <div
-        className={`grid gap-4 sm:grid-cols-2 ${protocol.numValidMachineVotes ? "lg:grid-cols-4" : "lg:grid-cols-3"} my-4`}
+        className={`grid gap-4 sm:grid-cols-2 ${protocol.numValidMachineVotes && protocol.numValidVotes ? "lg:grid-cols-4" : "lg:grid-cols-3"} my-4`}
       >
         <Card>
           <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -77,16 +76,18 @@ export const ProtocolSummary: FC<{
                   {formatThousands(protocol.totalActualVoters)}
                 </div>
               </Hint>
-              <Hint text={t("pct_total_voters_explainer")}>
-                <div className="text-xl xl:text-lg my-4 font-semibold">
-                  {`(${formatPct(
-                    100 *
-                      (protocol.totalActualVoters /
-                        protocol.numRegisteredVoters),
-                    1,
-                  )})`}
-                </div>
-              </Hint>
+              {!!protocol.numRegisteredVoters && (
+                <Hint text={t("pct_total_voters_explainer")}>
+                  <div className="text-xl xl:text-lg my-4 font-semibold">
+                    {`(${formatPct(
+                      100 *
+                        (protocol.totalActualVoters /
+                          protocol.numRegisteredVoters),
+                      1,
+                    )})`}
+                  </div>
+                </Hint>
+              )}
             </div>
             <div className="flex justify-between text-xs text-muted-foreground leading-6">
               <Hint text={t("num_registered_voters_explainer")}>
@@ -112,7 +113,7 @@ export const ProtocolSummary: FC<{
                   <div className="font-bold text-primary ml-2">
                     {`(${formatPct(
                       100 *
-                        (protocol.numAdditionalVoters /
+                        ((protocol.numAdditionalVoters || 0) /
                           protocol.totalActualVoters),
                       2,
                     )})`}
@@ -134,9 +135,8 @@ export const ProtocolSummary: FC<{
                   <div className="font-bold text-primary ml-2">
                     {`(${formatPct(
                       100 *
-                        (protocol.numInvalidBallotsFound /
+                        ((protocol.numInvalidBallotsFound || 0) /
                           protocol.totalActualVoters),
-                      2,
                     )})`}
                   </div>
                 </Hint>
@@ -150,7 +150,7 @@ export const ProtocolSummary: FC<{
                 <Hint text={t("num_supports_no_one_explainer")}>
                   <div className="font-bold text-primary">
                     {formatThousands(
-                      protocol.numValidNoOnePaperVotes +
+                      (protocol.numValidNoOnePaperVotes || 0) +
                         (protocol.numValidNoOneMachineVotes || 0),
                     )}
                   </div>
@@ -159,7 +159,7 @@ export const ProtocolSummary: FC<{
                   <div className="font-bold text-primary ml-2">
                     {`(${formatPct(
                       100 *
-                        ((protocol.numValidNoOnePaperVotes +
+                        (((protocol.numValidNoOnePaperVotes || 0) +
                           (protocol.numValidNoOneMachineVotes || 0)) /
                           protocol.totalActualVoters),
                       2,
@@ -170,100 +170,111 @@ export const ProtocolSummary: FC<{
             </div>
           </CardContent>
         </Card>
-        <Card>
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-            <CardTitle className="text-md font-medium">
-              {t("paper_votes")}
-            </CardTitle>
-            <Newspaper />
-          </CardHeader>
-          <CardContent>
-            <div className="flex">
-              <Hint text={t("valid_paper_votes_explainer")}>
-                <div className="text-2xl xl:text-4xl my-4 font-bold justify-self-start">
-                  {formatThousands(protocol.numValidVotes)}
-                </div>
-              </Hint>
-              <Hint text={t("pct_paper_votes_explainer")}>
-                <div className="text-xl xl:text-2xl my-4 font-semibold ml-2">
-                  {`(${formatPct(
-                    100 *
-                      (protocol.numValidVotes /
-                        (protocol.numValidVotes +
-                          (protocol.numValidMachineVotes || 0))),
-                    1,
-                  )})`}
-                </div>
-              </Hint>
-            </div>
-            <div className="flex justify-between text-xs text-muted-foreground leading-6">
-              <Hint text={t("num_paper_ballots_found_explainer")}>
-                <div>{`${t("paper_ballots_found")}: `}</div>
-              </Hint>
+        {!!protocol.numValidVotes && (
+          <Card>
+            <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+              <CardTitle className="text-md font-medium">
+                {t("paper_votes")}
+              </CardTitle>
+              <Newspaper />
+            </CardHeader>
+
+            <CardContent>
               <div className="flex">
-                <Hint text={t("num_paper_ballots_found_explainer")}>
-                  <div className="font-bold text-primary">
-                    {formatThousands(protocol.numPaperBallotsFound)}
+                <Hint text={t("valid_paper_votes_explainer")}>
+                  <div className="text-2xl xl:text-4xl my-4 font-bold justify-self-start">
+                    {formatThousands(protocol.numValidVotes)}
                   </div>
                 </Hint>
-                <Hint text={t("pct_valid_paper_ballots")}>
-                  <div className="font-bold text-primary ml-2">
+                <Hint text={t("pct_paper_votes_explainer")}>
+                  <div className="text-xl xl:text-2xl my-4 font-semibold ml-2">
                     {`(${formatPct(
                       100 *
                         (protocol.numValidVotes /
-                          protocol.numPaperBallotsFound),
-                      2,
+                          (protocol.numValidVotes +
+                            (protocol.numValidMachineVotes || 0))),
+                      1,
                     )})`}
                   </div>
                 </Hint>
               </div>
-            </div>
-            <div className="flex justify-between text-xs text-muted-foreground">
-              <Hint text={t("num_invalid_paper_ballots")}>
-                <div>{`${t("invalid_ballots")}: `}</div>
-              </Hint>
-              <div className="flex">
-                <Hint text={t("num_invalid_paper_ballots")}>
-                  <div className="font-bold text-primary">
-                    {formatThousands(protocol.numInvalidBallotsFound)}
+              {!!protocol.numPaperBallotsFound && (
+                <div className="flex justify-between text-xs text-muted-foreground leading-6">
+                  <Hint text={t("num_paper_ballots_found_explainer")}>
+                    <div>{`${t("paper_ballots_found")}: `}</div>
+                  </Hint>
+                  <div className="flex">
+                    <Hint text={t("num_paper_ballots_found_explainer")}>
+                      <div className="font-bold text-primary">
+                        {formatThousands(protocol.numPaperBallotsFound)}
+                      </div>
+                    </Hint>
+                    <Hint text={t("pct_valid_paper_ballots")}>
+                      <div className="font-bold text-primary ml-2">
+                        {`(${formatPct(
+                          100 *
+                            (protocol.numValidVotes /
+                              protocol.numPaperBallotsFound),
+                          2,
+                        )})`}
+                      </div>
+                    </Hint>
                   </div>
-                </Hint>
-                <Hint text={t("pct_invalid_paper_ballots")}>
-                  <div className="font-bold text-primary ml-2">
-                    {`(${formatPct(
-                      100 *
-                        (protocol.numInvalidBallotsFound /
-                          protocol.numPaperBallotsFound),
-                      2,
-                    )})`}
+                </div>
+              )}
+              {!!protocol.numPaperBallotsFound &&
+                !!protocol.numInvalidBallotsFound && (
+                  <div className="flex justify-between text-xs text-muted-foreground">
+                    <Hint text={t("num_invalid_paper_ballots")}>
+                      <div>{`${t("invalid_ballots")}: `}</div>
+                    </Hint>
+                    <div className="flex">
+                      <Hint text={t("num_invalid_paper_ballots")}>
+                        <div className="font-bold text-primary">
+                          {formatThousands(protocol.numInvalidBallotsFound)}
+                        </div>
+                      </Hint>
+                      <Hint text={t("pct_invalid_paper_ballots")}>
+                        <div className="font-bold text-primary ml-2">
+                          {`(${formatPct(
+                            100 *
+                              (protocol.numInvalidBallotsFound /
+                                protocol.numPaperBallotsFound),
+                            2,
+                          )})`}
+                        </div>
+                      </Hint>
+                    </div>
                   </div>
-                </Hint>
-              </div>
-            </div>
-            <div className="flex justify-between text-xs text-muted-foreground leading-6">
-              <Hint text={t("num_supports_no_one_explainer")}>
-                <div>{`${t("support_no_one")}: `}</div>
-              </Hint>
-              <div className="flex">
-                <Hint text={t("num_supports_no_one_explainer")}>
-                  <div className="font-bold text-primary">
-                    {formatThousands(protocol.numValidNoOnePaperVotes)}
+                )}
+              {!!protocol.numValidNoOnePaperVotes &&
+                !!protocol.numPaperBallotsFound && (
+                  <div className="flex justify-between text-xs text-muted-foreground leading-6">
+                    <Hint text={t("num_supports_no_one_explainer")}>
+                      <div>{`${t("support_no_one")}: `}</div>
+                    </Hint>
+                    <div className="flex">
+                      <Hint text={t("num_supports_no_one_explainer")}>
+                        <div className="font-bold text-primary">
+                          {formatThousands(protocol.numValidNoOnePaperVotes)}
+                        </div>
+                      </Hint>
+                      <Hint text={t("pct_supports_noone_paper_ballots")}>
+                        <div className="font-bold text-primary ml-2">
+                          {`(${formatPct(
+                            100 *
+                              (protocol.numValidNoOnePaperVotes /
+                                protocol.numPaperBallotsFound),
+                            2,
+                          )})`}
+                        </div>
+                      </Hint>
+                    </div>
                   </div>
-                </Hint>
-                <Hint text={t("pct_supports_noone_paper_ballots")}>
-                  <div className="font-bold text-primary ml-2">
-                    {`(${formatPct(
-                      100 *
-                        (protocol.numValidNoOnePaperVotes /
-                          protocol.numPaperBallotsFound),
-                      2,
-                    )})`}
-                  </div>
-                </Hint>
-              </div>
-            </div>
-          </CardContent>
-        </Card>
+                )}
+            </CardContent>
+          </Card>
+        )}
         {!!protocol.numValidMachineVotes && (
           <Card>
             <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
@@ -279,18 +290,20 @@ export const ProtocolSummary: FC<{
                     {formatThousands(protocol.numValidMachineVotes)}
                   </div>
                 </Hint>
-                <Hint text={t("pct_machine_votes_explainer")}>
-                  <div className="text-xl xl:text-2xl my-4 font-semibold ml-2">
-                    {`(${formatPct(
-                      100 *
-                        (protocol.numValidMachineVotes /
-                          (protocol.numValidVotes +
-                            (protocol.numValidMachineVotes || 0))),
-                      1,
-                    )})`}
-                  </div>
-                </Hint>
-              </div>
+                {(protocol.numValidVotes || protocol.numValidMachineVotes) && (
+                  <Hint text={t("pct_machine_votes_explainer")}>
+                    <div className="text-xl xl:text-2xl my-4 font-semibold ml-2">
+                      {`(${formatPct(
+                        100 *
+                          (protocol.numValidMachineVotes /
+                            ((protocol.numValidVotes || 0) +
+                              (protocol.numValidMachineVotes || 0))),
+                        1,
+                      )})`}
+                    </div>
+                  </Hint>
+                )}
+              </div>{" "}
               <div className="flex justify-between text-xs text-muted-foreground leading-6">
                 <Hint text={t("num_machine_ballots_found_explainer")}>
                   <div>{`${t("machine_ballots_found")}: `}</div>
@@ -374,7 +387,7 @@ export const ProtocolSummary: FC<{
                 />
                 <Bar dataKey="totalVotes" radius={8}>
                   {topParties?.map((p) => (
-                    <Cell key={`cell-${p.key}`} fill={p.color} />
+                    <Cell key={`cell-${p.partyNum}`} fill={p.color} />
                   ))}
                 </Bar>
               </BarChart>

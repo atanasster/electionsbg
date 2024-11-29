@@ -21,10 +21,15 @@ const parseElections = async (monthYear: string, production?: boolean) => {
   if (!fs.existsSync(outFolder)) {
     fs.mkdirSync(outFolder);
   }
-  await parseParties(inFolder, outFolder);
-  const sections = await parseSections(inFolder);
-  const votes = await parseVotes(inFolder);
-  const protocols = await parseProtocols(inFolder, outFolder, stringify);
+  const parties = await parseParties(inFolder, outFolder);
+  const sections = await parseSections(inFolder, monthYear);
+  const votes = await parseVotes(inFolder, parties, monthYear);
+  const protocols = await parseProtocols(
+    inFolder,
+    outFolder,
+    monthYear,
+    stringify,
+  );
   const aggregated = aggregateSettlements(
     outFolder,
     sections,

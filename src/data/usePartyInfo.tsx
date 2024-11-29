@@ -1,4 +1,4 @@
-import { useCallback } from "react";
+import { useCallback, useMemo } from "react";
 import { PartyInfo, PartyVotes, Votes } from "./dataTypes";
 
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
@@ -18,14 +18,16 @@ const queryFn = async ({
 };
 export const usePartyInfo = () => {
   const { selected } = useElectionContext();
-  const { data: parties } = useQuery({
+  const { data } = useQuery({
     queryKey: ["parties", selected],
     queryFn,
   });
-
+  const parties: { [key: string]: PartyInfo } = useMemo(() => {
+    return data ? data.reduce((acc, p) => ({ ...acc, [p.number]: p }), {}) : {};
+  }, [data]);
   const findParty = useCallback(
     (partyNum: number) => {
-      return parties?.find((p) => p.number === partyNum);
+      return parties[partyNum];
     },
     [parties],
   );
@@ -38,7 +40,9 @@ export const usePartyInfo = () => {
         return curr;
       }, votes[0]);
 
-      return tp ? ({ ...tp, ...findParty(tp.key) } as PartyVotes) : undefined;
+      return tp
+        ? ({ ...tp, ...findParty(tp.partyNum) } as PartyVotes)
+        : undefined;
     },
     [findParty],
   );
