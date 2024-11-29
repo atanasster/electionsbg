@@ -9,12 +9,17 @@ export const useInvalidBallotsRule = (defaultThreshold: number) => {
     () => ({
       value: (votes: Votes[], protocol?: SectionProtocol) => {
         const partyVotes = topVotesParty(votes);
-        if (protocol && partyVotes?.totalVotes) {
+        if (
+          protocol &&
+          partyVotes?.totalVotes &&
+          protocol.numPaperBallotsFound
+        ) {
           return {
             partyVotes,
             value:
               100 *
-              (protocol.numInvalidBallotsFound / protocol.numPaperBallotsFound),
+              ((protocol.numInvalidBallotsFound || 0) /
+                protocol.numPaperBallotsFound),
           };
         }
         return undefined;
