@@ -1,31 +1,31 @@
 export type Votes = {
-  key: number;
+  partyNum: number;
   totalVotes: number;
-  paperVotes: number;
-  machineVotes: number;
+  paperVotes?: number;
+  machineVotes?: number;
 };
 
 export type SectionProtocol = {
   // А. Брой на получените бюлетини по реда на чл. 215 ИК
-  ballotsReceived: number;
+  ballotsReceived?: number;
   //1. Брой на избирателите в избирателния списък при предаването му на СИК
-  numRegisteredVoters: number;
+  numRegisteredVoters?: number;
   //2. Брой на избирателите, вписани в допълнителната страница (под чертата) на избирателния списък в изборния ден
-  numAdditionalVoters: number;
+  numAdditionalVoters?: number;
   //3. Брой на гласувалите избиратели според положените подписи в избирателния списък, включително и подписите в допълнителната страница (под чертата)
   totalActualVoters: number;
   //4.а) брой на неизползваните хартиени бюлетини
-  numUnusedPaperBallots: number;
+  numUnusedPaperBallots?: number;
   //4.б) общ брой на недействителните хартиени бюлетини по чл. 227, 228 и чл. 265, ал. 5, сгрешените бюлетини и унищожените от СИК бюлетини по други поводи (за създаване на образци за таблата пред изборното помещение и увредени механично при откъсване от кочана)
-  numInvalidAndDestroyedPaperBallots: number;
+  numInvalidAndDestroyedPaperBallots?: number;
   //5. Брой на намерените в избирателната кутия хартиени бюлетини
-  numPaperBallotsFound: number;
+  numPaperBallotsFound?: number;
   //6. Брой на намерените в избирателната кутия недействителни гласове (бюлетини)
-  numInvalidBallotsFound: number;
+  numInvalidBallotsFound?: number;
   //7. Брой на действителните гласове от хартиени бюлетини с отбелязан вот „Не подкрепям никого“
-  numValidNoOnePaperVotes: number;
+  numValidNoOnePaperVotes?: number;
   //9. Общ брой на действителните гласове, подадени за кандидатските листи на партии, коалиции и инициативни комитети
-  numValidVotes: number;
+  numValidVotes?: number;
   //11. Брой на намерените в избирателната кутия бюлетини от машинно гласуване
   numMachineBallots?: number;
   //12. Брой на действителните гласове от бюлетини от машинно гласуване с отбелязан вот „Не подкрепям никого“
@@ -81,7 +81,7 @@ export type SectionInfo = {
   region_name: string;
   zip_code: number;
   settlement: string;
-  address: string;
+  address?: string;
   is_mobile: number;
   is_ship: number;
   num_machines: number;

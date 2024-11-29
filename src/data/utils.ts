@@ -16,86 +16,101 @@ export const addVotes = (
   protocol?: SectionProtocol,
 ) => {
   votes.forEach((v) => {
-    const votes = results.votes.find((a) => a.key === v.key);
+    const votes = results.votes.find((a) => a.partyNum === v.partyNum);
     if (votes) {
       votes.totalVotes += v.totalVotes;
-      votes.machineVotes += v.machineVotes;
-      votes.paperVotes += v.paperVotes;
+      if (v.machineVotes) {
+        votes.machineVotes = (votes.machineVotes || 0) + v.machineVotes;
+      }
+      if (v.paperVotes) {
+        votes.paperVotes = (votes.paperVotes || 0) + v.paperVotes;
+      }
     } else {
       results.votes.push({
-        key: v.key,
+        partyNum: v.partyNum,
         totalVotes: v.totalVotes,
         machineVotes: v.machineVotes,
         paperVotes: v.paperVotes,
       });
     }
     results.actualTotal += v.totalVotes;
-    results.actualMachineVotes += v.machineVotes;
-    results.actualPaperVotes += v.paperVotes;
+    if (v.machineVotes) {
+      results.actualMachineVotes =
+        (results.actualMachineVotes || 0) + v.machineVotes;
+    }
+    if (v.paperVotes) {
+      results.actualPaperVotes = (results.actualPaperVotes || 0) + v.paperVotes;
+    }
   });
   if (protocol) {
     const totalActualVoters =
       (protocol.numValidMachineVotes || 0) +
       (protocol.numValidNoOneMachineVotes || 0) +
-      protocol.numValidVotes +
-      protocol.numValidNoOnePaperVotes +
-      protocol.numInvalidBallotsFound;
-    if (results.protocol) {
-      if (protocol.totalActualVoters === null) {
-        throw new Error("Invalid protocol format");
-      }
-      results.protocol.ballotsReceived += protocol.ballotsReceived;
-      results.protocol.numAdditionalVoters += protocol.numAdditionalVoters;
-      results.protocol.numInvalidAndDestroyedPaperBallots +=
-        protocol.numInvalidAndDestroyedPaperBallots;
-      results.protocol.numInvalidBallotsFound +=
-        protocol.numInvalidBallotsFound;
-      if (protocol.numMachineBallots) {
-        results.protocol.numMachineBallots =
-          protocol.numMachineBallots +
-          (results.protocol.numMachineBallots
-            ? results.protocol.numMachineBallots
-            : 0);
-      }
-      results.protocol.numPaperBallotsFound += protocol.numPaperBallotsFound;
-      results.protocol.numRegisteredVoters += protocol.numRegisteredVoters;
-      results.protocol.numUnusedPaperBallots += protocol.numUnusedPaperBallots;
-      if (protocol.numValidMachineVotes) {
-        results.protocol.numValidMachineVotes =
-          protocol.numValidMachineVotes +
-          (results.protocol.numValidMachineVotes
-            ? results.protocol.numValidMachineVotes
-            : 0);
-      }
-      if (protocol.numValidNoOneMachineVotes) {
-        results.protocol.numValidNoOneMachineVotes =
-          protocol.numValidNoOneMachineVotes +
-          (results.protocol.numValidNoOneMachineVotes
-            ? results.protocol.numValidNoOneMachineVotes
-            : 0);
-      }
-      results.protocol.numValidNoOnePaperVotes +=
-        protocol.numValidNoOnePaperVotes;
-      results.protocol.numValidVotes += protocol.numValidVotes;
-      results.protocol.totalActualVoters += totalActualVoters;
-    } else {
-      results.protocol = {
-        ballotsReceived: protocol.ballotsReceived,
-        numAdditionalVoters: protocol.numAdditionalVoters,
-        numInvalidAndDestroyedPaperBallots:
-          protocol.numInvalidAndDestroyedPaperBallots,
-        numInvalidBallotsFound: protocol.numInvalidBallotsFound,
-        numMachineBallots: protocol.numMachineBallots,
-        numPaperBallotsFound: protocol.numPaperBallotsFound,
-        numRegisteredVoters: protocol.numRegisteredVoters,
-        numUnusedPaperBallots: protocol.numUnusedPaperBallots,
-        numValidMachineVotes: protocol.numValidMachineVotes,
-        numValidNoOneMachineVotes: protocol.numValidNoOneMachineVotes,
-        numValidNoOnePaperVotes: protocol.numValidNoOnePaperVotes,
-        numValidVotes: protocol.numValidVotes,
-        totalActualVoters,
-      };
+      (protocol.numValidVotes || 0) +
+      (protocol.numValidNoOnePaperVotes || 0) +
+      (protocol.numInvalidBallotsFound || 0);
+    if (!results.protocol) {
+      results.protocol = {} as SectionProtocol;
     }
+    if (protocol.ballotsReceived) {
+      results.protocol.ballotsReceived =
+        (results.protocol.ballotsReceived || 0) + protocol.ballotsReceived;
+    }
+    if (protocol.numAdditionalVoters) {
+      results.protocol.numAdditionalVoters =
+        (results.protocol.numAdditionalVoters || 0) +
+        protocol.numAdditionalVoters;
+    }
+    if (protocol.numInvalidAndDestroyedPaperBallots) {
+      results.protocol.numInvalidAndDestroyedPaperBallots =
+        (results.protocol.numInvalidAndDestroyedPaperBallots || 0) +
+        protocol.numInvalidAndDestroyedPaperBallots;
+    }
+    if (protocol.numInvalidBallotsFound) {
+      results.protocol.numInvalidBallotsFound =
+        (results.protocol.numInvalidBallotsFound || 0) +
+        protocol.numInvalidBallotsFound;
+    }
+    if (protocol.numMachineBallots) {
+      results.protocol.numMachineBallots =
+        (results.protocol.numMachineBallots || 0) + protocol.numMachineBallots;
+    }
+    if (protocol.numPaperBallotsFound) {
+      results.protocol.numPaperBallotsFound =
+        (results.protocol.numPaperBallotsFound || 0) +
+        protocol.numPaperBallotsFound;
+    }
+    if (protocol.numRegisteredVoters) {
+      results.protocol.numRegisteredVoters =
+        (results.protocol.numRegisteredVoters || 0) +
+        protocol.numRegisteredVoters;
+    }
+    if (protocol.numUnusedPaperBallots) {
+      results.protocol.numUnusedPaperBallots =
+        (results.protocol.numUnusedPaperBallots || 0) +
+        protocol.numUnusedPaperBallots;
+    }
+    if (protocol.numValidMachineVotes) {
+      results.protocol.numValidMachineVotes =
+        (results.protocol.numValidMachineVotes || 0) +
+        protocol.numValidMachineVotes;
+    }
+    if (protocol.numValidNoOneMachineVotes) {
+      results.protocol.numValidNoOneMachineVotes =
+        (results.protocol.numValidNoOneMachineVotes || 0) +
+        protocol.numValidNoOneMachineVotes;
+    }
+    if (protocol.numValidNoOnePaperVotes) {
+      results.protocol.numValidNoOnePaperVotes =
+        (results.protocol.numValidNoOnePaperVotes || 0) +
+        protocol.numValidNoOnePaperVotes;
+    }
+    if (protocol.numValidVotes) {
+      results.protocol.numValidVotes =
+        (results.protocol.numValidVotes || 0) + protocol.numValidVotes;
+    }
+    results.protocol.totalActualVoters =
+      (results.protocol.totalActualVoters || 0) + totalActualVoters;
   }
   if (
     results.protocol &&

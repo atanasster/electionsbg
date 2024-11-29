@@ -32,9 +32,12 @@ export const PartyVotesXS: FC<{
             .slice(0, 5)
             .filter((v) => v.totalVotes > 0)
             .map((v) => {
-              const party = findParty(v.key);
+              const party = findParty(v.partyNum);
               return (
-                <tr className="border-b border-muted font-medium" key={v.key}>
+                <tr
+                  className="border-b border-muted font-medium"
+                  key={v.partyNum}
+                >
                   <td className="px-2 py-1  text-white">
                     <div
                       className={`px-2 `}

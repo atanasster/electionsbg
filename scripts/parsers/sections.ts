@@ -2,7 +2,10 @@ import fs from "fs";
 import { parse } from "csv-parse";
 import { SectionInfo } from "@/data/dataTypes";
 
-export const parseSections = (inFolder: string): Promise<SectionInfo[]> => {
+export const parseSections = (
+  inFolder: string,
+  year: string,
+): Promise<SectionInfo[]> => {
   const result: string[][] = [];
   const allSections: SectionInfo[] = [];
 
@@ -29,12 +32,17 @@ export const parseSections = (inFolder: string): Promise<SectionInfo[]> => {
             region_name: row[2],
             zip_code: parseInt(row[3]),
             settlement: row[4],
-            address: row[5],
-            is_mobile: parseInt(row[6]),
-            is_ship: parseInt(row[7]),
-            num_machines: parseInt(row[8]),
-          };
-
+          } as SectionInfo;
+          if (year <= "2021_11_14") {
+            section.is_mobile = parseInt(row[5]);
+            section.is_ship = parseInt(row[6]);
+            section.num_machines = parseInt(row[7]);
+          } else {
+            section.address = row[5];
+            section.is_mobile = row[6].trim() !== "" ? parseInt(row[6]) : 0;
+            section.is_ship = row[7].trim() !== "" ? parseInt(row[7]) : 0;
+            section.num_machines = row[8].trim() !== "" ? parseInt(row[8]) : 0;
+          }
           allSections.push(section);
         }
         resolve(allSections);

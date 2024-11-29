@@ -73,16 +73,20 @@ export const PartyVotes: FC<{ protocol: SectionProtocol; votes: Votes[] }> = ({
         },
       ]}
       data={votes
-        .sort((a, b) => a.key - b.key)
+        .sort((a, b) => a.partyNum - b.partyNum)
         .map((v) => {
-          const party = findParty(v.key);
+          const party = findParty(v.partyNum);
           return {
             ...v,
+            key: party?.number,
             party: party?.name,
             color: party?.color,
             pct_votes:
-              (100 * v.totalVotes) /
-              (protocol.numValidVotes + (protocol.numValidMachineVotes || 0)),
+              protocol.numValidVotes || protocol.numValidMachineVotes
+                ? (100 * v.totalVotes) /
+                  ((protocol.numValidVotes || 0) +
+                    (protocol.numValidMachineVotes || 0))
+                : 0,
           };
         })}
     />

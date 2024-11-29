@@ -2,7 +2,10 @@ import fs from "fs";
 import { parse } from "csv-parse";
 import { PartyInfo } from "@/data/dataTypes";
 
-export const parseParties = async (inFolder: string, outFolder: string) => {
+export const parseParties = async (
+  inFolder: string,
+  outFolder: string,
+): Promise<PartyInfo[]> => {
   const result: string[][] = [];
   const fileName = "cik_parties";
   const outFile = `${outFolder}/${fileName}.json`;
@@ -28,13 +31,14 @@ export const parseParties = async (inFolder: string, outFolder: string) => {
           let party = allParties.find((p) => p.number === partyNumber);
           if (!party) {
             party = {
-              number: parseInt(row[0]),
+              number: partyNumber,
               name: row[1],
               color: "lightslategrey",
               nickName: row[1],
             };
             allParties.push(party);
           } else {
+            party.number = partyNumber;
             party.name = row[1];
           }
         }
