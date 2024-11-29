@@ -13,7 +13,9 @@ export const useAdditionalVotersRule = (defaultThreshold: number) => {
           return {
             partyVotes,
             value:
-              100 * (protocol.numAdditionalVoters / protocol.totalActualVoters),
+              100 *
+              ((protocol.numAdditionalVoters || 0) /
+                protocol.totalActualVoters),
           };
         }
         return undefined;

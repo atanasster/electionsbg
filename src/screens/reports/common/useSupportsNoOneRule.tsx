@@ -14,7 +14,7 @@ export const useSupportsNoOneRule = (defaultThreshold: number) => {
             partyVotes,
             value:
               100 *
-              ((protocol.numValidNoOnePaperVotes +
+              (((protocol.numValidNoOnePaperVotes || 0) +
                 (protocol.numValidNoOneMachineVotes || 0)) /
                 protocol.totalActualVoters),
           };

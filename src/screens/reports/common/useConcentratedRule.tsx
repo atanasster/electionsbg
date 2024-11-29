@@ -14,7 +14,8 @@ export const useConcentratedReportRule = (defaultThreshold: number) => {
             partyVotes,
             value:
               (100 * partyVotes.totalVotes) /
-              (protocol.numValidVotes + (protocol.numValidMachineVotes || 0)),
+              ((protocol.numValidVotes || 0) +
+                (protocol.numValidMachineVotes || 0)),
           };
         }
         return undefined;
