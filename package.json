@@ -9,6 +9,7 @@
     "lint": "eslint .",
     "preview": "vite preview",
     "data": "tsx ./scripts/main.ts",
+    "prod": "tsx ./scripts/main.ts --all --prod",
     "deploy": "firebase deploy"
   },
   "dependencies": {
