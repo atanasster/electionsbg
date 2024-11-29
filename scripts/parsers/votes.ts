@@ -22,30 +22,41 @@ export const parseVotes = (
         for (let i = 0; i < result.length; i++) {
           const row = result[i];
           let j = 3;
-          const votes: ElectionVotes = {
-            document: parseInt(row[0]),
-            section: row[1],
-            votes: [],
-          };
+          const section = row[1];
+          const existingVotes = allVotes.find((v) => v.section === section);
+          const votes: ElectionVotes = existingVotes
+            ? existingVotes
+            : {
+                document: parseInt(row[0]),
+                section,
+                votes: [],
+              };
           const isMachineOnly = isMachineOnlyVote(year);
           while (j < row.length) {
-            let partyNum = parseInt(row[j]);
-            if (year === "2021_11_14") {
-              partyNum = parties[partyNum - 1].number;
-            }
+            const partyNum = parseInt(row[j]);
             const totalVotes = parseInt(row[j + 1]);
-            const vote: Votes = {
-              partyNum,
-              totalVotes,
-            };
+            const existingVote = votes.votes.find(
+              (v) => v.partyNum === partyNum,
+            );
+            const vote = existingVote
+              ? existingVote
+              : ({
+                  partyNum,
+                } as Votes);
+            vote.totalVotes = (vote.totalVotes || 0) + totalVotes;
             if (!isMachineOnly) {
-              vote.paperVotes = parseInt(row[j + 2]);
-              vote.machineVotes = parseInt(row[j + 3]);
+              vote.paperVotes = (vote.paperVotes || 0) + parseInt(row[j + 2]);
+              vote.machineVotes =
+                (vote.machineVotes || 0) + parseInt(row[j + 3]);
             }
-            votes.votes.push(vote);
+            if (!existingVote) {
+              votes.votes.push(vote);
+            }
             j += isMachineOnly ? 2 : 4;
           }
-          allVotes.push(votes);
+          if (!existingVotes) {
+            allVotes.push(votes);
+          }
         }
         //const json = JSON.stringify(allVotes, null, 2);
         //const outFile = `${outFolder}/votes.json`;
