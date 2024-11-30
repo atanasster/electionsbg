@@ -12,6 +12,7 @@ import {
   ChartTooltip,
 } from "@/components/ui/chart";
 import { usePartyInfo } from "@/data/usePartyInfo";
+import { useElectionContext } from "@/data/ElectionContext";
 
 const CustomTooltip: FC<{
   active?: boolean;
@@ -41,6 +42,7 @@ export const ProtocolSummary: FC<{
 }> = ({ protocol, votes }) => {
   const { t } = useTranslation();
   const { findParty } = usePartyInfo();
+  const { isMachineOnly } = useElectionContext();
   const chartConfig = {
     totalVotes: {
       label: `${t("total_votes")}: `,
@@ -360,7 +362,9 @@ export const ProtocolSummary: FC<{
                 <XAxis
                   dataKey="nickName"
                   tickMargin={10}
-                  tick={topParties && topParties.length <= 5}
+                  tick={
+                    topParties && (topParties.length <= 5 || isMachineOnly())
+                  }
                   tickFormatter={(value: string) => {
                     if (value.length > 6) {
                       const parts = value.split("-");
