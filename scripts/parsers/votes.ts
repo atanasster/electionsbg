@@ -1,7 +1,6 @@
 import fs from "fs";
 import { parse } from "csv-parse";
-import { ElectionVotes, Votes } from "@/data/dataTypes";
-import { isMachineOnlyVote } from "scripts/utils";
+import { ElectionVotes, Votes, isMachineOnlyVote } from "@/data/dataTypes";
 
 export const parseVotes = (
   inFolder: string,
@@ -47,6 +46,9 @@ export const parseVotes = (
               vote.paperVotes = (vote.paperVotes || 0) + parseInt(row[j + 2]);
               vote.machineVotes =
                 (vote.machineVotes || 0) + parseInt(row[j + 3]);
+            } else {
+              vote.machineVotes = totalVotes;
+              vote.paperVotes = 0;
             }
             if (!existingVote) {
               votes.votes.push(vote);

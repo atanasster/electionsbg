@@ -1,6 +1,7 @@
 import { useCallback, useMemo } from "react";
 import elections from "../elections.json";
 import { useSearchParams } from "react-router-dom";
+import { isMachineOnlyVote } from "./dataTypes";
 
 export const useElectionContext = () => {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -20,9 +21,11 @@ export const useElectionContext = () => {
     },
     [searchParams, setSearchParams],
   );
+  const isMachineOnly = () => isMachineOnlyVote(selected);
   return {
     elections,
     selected,
     setSelected,
+    isMachineOnly,
   };
 };

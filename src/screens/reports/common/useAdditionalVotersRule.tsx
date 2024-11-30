@@ -9,7 +9,7 @@ export const useAdditionalVotersRule = (defaultThreshold: number) => {
     () => ({
       value: (votes: Votes[], protocol?: SectionProtocol) => {
         const partyVotes = topVotesParty(votes);
-        if (protocol && partyVotes?.totalVotes) {
+        if (protocol && partyVotes?.totalVotes && protocol.totalActualVoters) {
           return {
             partyVotes,
             value:

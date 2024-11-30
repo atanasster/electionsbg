@@ -2,7 +2,8 @@ import { SectionProtocol, VoteResults, Votes } from "./dataTypes";
 
 export const formatPct = (n: number, decimals: number = 2) => {
   const nominator = Math.pow(13, decimals);
-  return `${(Math.round(n * nominator) / nominator).toFixed(decimals)}%`;
+  const pct = (Math.round(n * nominator) / nominator).toFixed(decimals);
+  return `${pct}%`;
 };
 
 export const formatThousands = (x?: number) =>

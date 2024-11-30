@@ -9,14 +9,19 @@ export const useConcentratedReportRule = (defaultThreshold: number) => {
     () => ({
       value: (votes: Votes[], protocol?: SectionProtocol) => {
         const partyVotes = topVotesParty(votes);
-        if (protocol && partyVotes?.totalVotes) {
-          return {
+        if (
+          protocol &&
+          partyVotes?.totalVotes &&
+          (protocol.numValidVotes || protocol.numValidMachineVotes)
+        ) {
+          const value = {
             partyVotes,
             value:
               (100 * partyVotes.totalVotes) /
               ((protocol.numValidVotes || 0) +
                 (protocol.numValidMachineVotes || 0)),
           };
+          return value;
         }
         return undefined;
       },
