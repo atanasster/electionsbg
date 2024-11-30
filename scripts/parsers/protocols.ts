@@ -39,9 +39,23 @@ export const parseProtocols = async (
             existingProtocol || ({} as FullSectionProtocol);
           protocol.section = section;
           protocol.rik = row[2];
-          if (year === "2021_07_11") {
+          protocol.pages = row[3];
+          if (year <= "2021_04_04") {
+            protocol.ballotsReceived = parseInt(row[4]);
+            protocol.numRegisteredVoters = parseInt(row[5]);
+            protocol.totalActualVoters = parseInt(row[6]);
+            protocol.numAdditionalVoters = 0;
+            protocol.numUnusedPaperBallots = 0;
+            protocol.numInvalidAndDestroyedPaperBallots = parseInt(row[7]);
+            protocol.numPaperBallotsFound = parseInt(row[8]);
+            protocol.numInvalidBallotsFound = parseInt(row[11]);
+            protocol.numMachineBallots = parseInt(row[9]);
+            protocol.numValidVotes = parseInt(row[12]);
+            protocol.numValidMachineVotes = parseInt(row[20]);
+            protocol.numValidNoOnePaperVotes = parseInt(row[18]);
+            protocol.numValidNoOneMachineVotes = parseInt(row[19]);
+          } else if (year === "2021_07_11") {
             if (document === "26" || document === "25" || document === "24") {
-              protocol.pages = row[3];
               protocol.ballotsReceived = parseInt(row[4]);
               protocol.numRegisteredVoters = parseInt(row[5]);
               protocol.numAdditionalVoters = parseInt(row[6]);
@@ -63,7 +77,6 @@ export const parseProtocols = async (
             }
           } else if (isMachineOnlyVote(year)) {
             if (document === "26" || document === "25" || document === "24") {
-              protocol.pages = row[3];
               protocol.ballotsReceived = parseInt(row[6]);
               protocol.numRegisteredVoters = parseInt(row[7]);
               protocol.numAdditionalVoters = parseInt(row[8]);
@@ -87,7 +100,6 @@ export const parseProtocols = async (
                     protocol.numValidNoOneMachineVotes);
             }
           } else {
-            protocol.pages = row[3];
             protocol.ballotsReceived = parseInt(row[6]);
             protocol.numRegisteredVoters = parseInt(row[7]);
             if (year === "2023_04_02") {
