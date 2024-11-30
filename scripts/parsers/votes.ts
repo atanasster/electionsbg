@@ -31,35 +31,53 @@ export const parseVotes = (
                 votes: [],
               };
           const isMachineOnly = isMachineOnlyVote(year);
-          let j = year <= "2021_04_04" ? 2 : 3;
-          const isOld = year <= "2017_03_26";
-          while (j < row.length) {
-            const partyNum = parseInt(row[j]);
-            const totalVotes = parseInt(row[j + 1]);
-            const existingVote = votes.votes.find(
-              (v) => v.partyNum === partyNum,
-            );
-            const vote = existingVote
-              ? existingVote
-              : ({
+          if (year <= "2014_10_05") {
+            let j = 1;
+            while (j < row.length) {
+              if (row[j] !== "") {
+                const partyNum = Math.floor(1 + j / 2);
+                const totalVotes = parseInt(row[j]);
+                const vote: Votes = {
                   partyNum,
-                } as Votes);
-            vote.totalVotes = (vote.totalVotes || 0) + totalVotes;
-            if (isOld) {
-              vote.machineVotes = 0;
-              vote.paperVotes = vote.totalVotes;
-            } else if (!isMachineOnly) {
-              vote.paperVotes = (vote.paperVotes || 0) + parseInt(row[j + 2]);
-              vote.machineVotes =
-                (vote.machineVotes || 0) + parseInt(row[j + 3]);
-            } else {
-              vote.machineVotes = totalVotes;
-              vote.paperVotes = 0;
+                  totalVotes,
+                  machineVotes: 0,
+                  paperVotes: totalVotes,
+                };
+                votes.votes.push(vote);
+              }
+              j += 2;
             }
-            if (!existingVote) {
-              votes.votes.push(vote);
+          } else {
+            let j = year <= "2021_04_04" ? 2 : 3;
+            const isOld = year <= "2017_03_26";
+            while (j < row.length) {
+              const partyNum = parseInt(row[j]);
+              const totalVotes = parseInt(row[j + 1]);
+              const existingVote = votes.votes.find(
+                (v) => v.partyNum === partyNum,
+              );
+              const vote = existingVote
+                ? existingVote
+                : ({
+                    partyNum,
+                  } as Votes);
+              vote.totalVotes = (vote.totalVotes || 0) + totalVotes;
+              if (isOld) {
+                vote.machineVotes = 0;
+                vote.paperVotes = vote.totalVotes;
+              } else if (!isMachineOnly) {
+                vote.paperVotes = (vote.paperVotes || 0) + parseInt(row[j + 2]);
+                vote.machineVotes =
+                  (vote.machineVotes || 0) + parseInt(row[j + 3]);
+              } else {
+                vote.machineVotes = totalVotes;
+                vote.paperVotes = 0;
+              }
+              if (!existingVote) {
+                votes.votes.push(vote);
+              }
+              j += isOld ? 3 : isMachineOnly ? 2 : 4;
             }
-            j += isOld ? 3 : isMachineOnly ? 2 : 4;
           }
           if (!existingVotes) {
             allVotes.push(votes);
