@@ -32,6 +32,7 @@ export const parseVotes = (
               };
           const isMachineOnly = isMachineOnlyVote(year);
           let j = year <= "2021_04_04" ? 2 : 3;
+          const isOld = year <= "2017_03_26";
           while (j < row.length) {
             const partyNum = parseInt(row[j]);
             const totalVotes = parseInt(row[j + 1]);
@@ -44,7 +45,10 @@ export const parseVotes = (
                   partyNum,
                 } as Votes);
             vote.totalVotes = (vote.totalVotes || 0) + totalVotes;
-            if (!isMachineOnly) {
+            if (isOld) {
+              vote.machineVotes = 0;
+              vote.paperVotes = vote.totalVotes;
+            } else if (!isMachineOnly) {
               vote.paperVotes = (vote.paperVotes || 0) + parseInt(row[j + 2]);
               vote.machineVotes =
                 (vote.machineVotes || 0) + parseInt(row[j + 3]);
@@ -55,7 +59,7 @@ export const parseVotes = (
             if (!existingVote) {
               votes.votes.push(vote);
             }
-            j += isMachineOnly ? 2 : 4;
+            j += isOld ? 3 : isMachineOnly ? 2 : 4;
           }
           if (!existingVotes) {
             allVotes.push(votes);

@@ -36,7 +36,7 @@ export const parseSections = (
           if (year <= "2021_11_14") {
             section.is_mobile = parseInt(row[5]);
             section.is_ship = parseInt(row[6]);
-            section.num_machines = parseInt(row[7]);
+            section.num_machines = row[7] ? parseInt(row[7]) : 0;
           } else {
             section.address = row[5];
             section.is_mobile = row[6].trim() !== "" ? parseInt(row[6]) : 0;
