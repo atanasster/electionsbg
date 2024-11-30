@@ -326,16 +326,12 @@ export const ProtocolSummary: FC<{
                   </Hint>
                   <Hint text={t("pct_supports_noone_machine_ballots")}>
                     <div className="font-bold text-primary ml-2">
-                      {`(${
-                        protocol.numValidNoOneMachineVotes
-                          ? formatPct(
-                              100 *
-                                (protocol.numValidNoOneMachineVotes /
-                                  protocol.numValidMachineVotes),
-                              2,
-                            )
-                          : ""
-                      })`}
+                      {`(${formatPct(
+                        100 *
+                          ((protocol.numValidNoOneMachineVotes || 0) /
+                            protocol.numValidMachineVotes),
+                        2,
+                      )})`}
                     </div>
                   </Hint>
                 </div>

@@ -24,6 +24,7 @@ import { ReportRow, ReportRule, SettlementReportRow } from "./utils";
 import { Row } from "@tanstack/react-table";
 import { useRegions } from "@/data/useRegions";
 import { useMunicipalities } from "@/data/useMunicipalities";
+import { useElectionContext } from "@/data/ElectionContext";
 
 export type ColumnNames =
   | "ekatte"
@@ -54,6 +55,7 @@ export const ReportTemplate: FC<{
   const { findMunicipality } = useMunicipalities();
   const { findSettlement } = useSettlementsInfo();
   const { t, i18n } = useTranslation();
+  const { isMachineOnly } = useElectionContext();
   const threshold = useMemo(
     () =>
       parseInt(
@@ -294,6 +296,7 @@ export const ReportTemplate: FC<{
 
           {
             accessorKey: "partyVotes.paperVotes",
+            hidden: isMachineOnly(),
             header: () => (
               <Hint text={t("num_paper_ballots_found_explainer")}>
                 <div>{t("paper_votes")}</div>
@@ -309,6 +312,7 @@ export const ReportTemplate: FC<{
           },
           {
             accessorKey: "partyVotes.machineVotes",
+            hidden: isMachineOnly(),
             header: () => (
               <Hint text={t("total_machine_votes_explainer")}>
                 <div>{t("machine_votes")}</div>

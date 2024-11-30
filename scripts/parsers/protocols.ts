@@ -1,7 +1,6 @@
 import fs from "fs";
 import { parse } from "csv-parse";
-import { SectionProtocol } from "@/data/dataTypes";
-import { isMachineOnlyVote } from "scripts/utils";
+import { SectionProtocol, isMachineOnlyVote } from "@/data/dataTypes";
 
 export type FullSectionProtocol = {
   //Пълен код на секция(код на район(2), община(2), адм. район(2), секция(3))
@@ -41,19 +40,29 @@ export const parseProtocols = async (
           protocol.section = section;
           protocol.rik = row[2];
           if (isMachineOnlyVote(year)) {
-            if (document === "25" || document === "24") {
+            if (document === "26" || document === "25" || document === "24") {
               protocol.pages = row[3];
               protocol.ballotsReceived = parseInt(row[6]);
               protocol.numRegisteredVoters = parseInt(row[7]);
               protocol.numAdditionalVoters = parseInt(row[8]);
-              protocol.totalActualVoters = parseInt(row[9]);
               protocol.numUnusedPaperBallots = parseInt(row[10]);
               protocol.numInvalidAndDestroyedPaperBallots = parseInt(row[11]);
+              protocol.totalActualVoters =
+                document === "26"
+                  ? parseInt(row[12]) - parseInt(row[15])
+                  : parseInt(row[14]) || parseInt(row[13]);
             }
-            if (document === "32" || document === "24") {
-              protocol.numMachineBallots = parseInt(row[16]);
-              protocol.numValidMachineVotes = parseInt(row[17]);
-              protocol.numValidNoOneMachineVotes = parseInt(row[18]);
+            if (row[16] !== "" && row[18] !== "") {
+              protocol.numMachineBallots =
+                (protocol.numMachineBallots || 0) + parseInt(row[16]);
+              protocol.numValidNoOneMachineVotes =
+                (protocol.numValidNoOneMachineVotes || 0) + parseInt(row[18]);
+              protocol.numValidMachineVotes =
+                (protocol.numValidMachineVotes || 0) +
+                (row[17] !== ""
+                  ? parseInt(row[17])
+                  : protocol.totalActualVoters -
+                    protocol.numValidNoOneMachineVotes);
             }
           } else {
             protocol.pages = row[3];
