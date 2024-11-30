@@ -15,14 +15,17 @@ import { usePartyInfo } from "@/data/usePartyInfo";
 
 const CustomTooltip: FC<{
   active?: boolean;
-  payload?: { value: number; payload: { pctVotes: number } }[];
+  payload?: {
+    value: number;
+    payload: { pctVotes: number; nickName: string };
+  }[];
   label?: string;
-}> = ({ active, payload, label }) => {
+}> = ({ active, payload }) => {
   const { t } = useTranslation();
   return active && payload ? (
     <div className="z-50 overflow-hidden rounded-md bg-primary px-3 py-1.5 text-xs text-primary-foreground animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2">
       <div className="flex">
-        <div className="text-muted">{`${label}:`}</div>
+        <div className="text-muted">{`${payload[0].payload.nickName}:`}</div>
         <div className="ml-2 font-semibold">
           {`${formatThousands(payload[0].value)} ${payload[0].payload.pctVotes ? `(${formatPct(payload[0].payload.pctVotes, 2)}` : ""})`}
         </div>
@@ -47,15 +50,18 @@ export const ProtocolSummary: FC<{
     const totalVotes = votes?.reduce((acc, v) => acc + v.totalVotes, 0);
     return votes
       ?.sort((a, b) => b.totalVotes - a.totalVotes)
-      .slice(0, 5)
-      .filter((v) => v.totalVotes > 0)
+      .filter((v, idx) => {
+        const pctVotes = totalVotes ? (100 * v?.totalVotes) / totalVotes : 0;
+        return pctVotes >= 4 || (idx < 5 && v.totalVotes > 0);
+      })
       .map((v) => {
         const party = findParty(v.partyNum);
+        const pctVotes = totalVotes ? (100 * v?.totalVotes) / totalVotes : 0;
         return {
           ...v,
           nickName: party?.nickName,
           color: party?.color,
-          pctVotes: totalVotes ? (100 * v?.totalVotes) / totalVotes : 0,
+          pctVotes,
         };
       });
   }, [findParty, votes]);
@@ -354,6 +360,7 @@ export const ProtocolSummary: FC<{
                 <XAxis
                   dataKey="nickName"
                   tickMargin={10}
+                  tick={topParties && topParties.length <= 5}
                   tickFormatter={(value: string) => {
                     if (value.length > 6) {
                       const parts = value.split("-");
