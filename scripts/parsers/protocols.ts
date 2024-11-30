@@ -40,7 +40,19 @@ export const parseProtocols = async (
           protocol.section = section;
           protocol.rik = row[2];
           protocol.pages = row[3];
-          if (year <= "2021_04_04") {
+          if (year === "2017_03_26") {
+            protocol.ballotsReceived = parseInt(row[4]);
+            protocol.numRegisteredVoters = parseInt(row[5]);
+            protocol.numAdditionalVoters = parseInt(row[6]);
+            protocol.totalActualVoters = parseInt(row[7]);
+            protocol.numUnusedPaperBallots = parseInt(row[8]);
+            protocol.numInvalidAndDestroyedPaperBallots = parseInt(row[9]);
+            protocol.numValidVotes = parseInt(row[14]);
+            protocol.numPaperBallotsFound = parseInt(row[14]);
+            protocol.numInvalidBallotsFound = parseInt(row[15]);
+            protocol.totalActualVoters = parseInt(row[16]);
+            protocol.numValidNoOnePaperVotes = parseInt(row[18]);
+          } else if (year === "2021_04_04") {
             protocol.ballotsReceived = parseInt(row[4]);
             protocol.numRegisteredVoters = parseInt(row[5]);
             protocol.totalActualVoters = parseInt(row[6]);
