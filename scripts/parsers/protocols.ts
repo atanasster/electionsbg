@@ -39,7 +39,29 @@ export const parseProtocols = async (
             existingProtocol || ({} as FullSectionProtocol);
           protocol.section = section;
           protocol.rik = row[2];
-          if (isMachineOnlyVote(year)) {
+          if (year === "2021_07_11") {
+            if (document === "26" || document === "25" || document === "24") {
+              protocol.pages = row[3];
+              protocol.ballotsReceived = parseInt(row[4]);
+              protocol.numRegisteredVoters = parseInt(row[5]);
+              protocol.numAdditionalVoters = parseInt(row[6]);
+              protocol.numUnusedPaperBallots = 0;
+              protocol.numInvalidAndDestroyedPaperBallots = parseInt(row[9]);
+              protocol.totalActualVoters = parseInt(row[12]);
+            }
+            if (row[14] !== "" && row[16] !== "") {
+              protocol.numMachineBallots =
+                (protocol.numMachineBallots || 0) + parseInt(row[14]);
+              protocol.numValidNoOneMachineVotes =
+                (protocol.numValidNoOneMachineVotes || 0) + parseInt(row[16]);
+              protocol.numValidMachineVotes =
+                (protocol.numValidMachineVotes || 0) +
+                (row[15] !== ""
+                  ? parseInt(row[15])
+                  : protocol.totalActualVoters -
+                    protocol.numValidNoOneMachineVotes);
+            }
+          } else if (isMachineOnlyVote(year)) {
             if (document === "26" || document === "25" || document === "24") {
               protocol.pages = row[3];
               protocol.ballotsReceived = parseInt(row[6]);
