@@ -35,6 +35,7 @@ import { Link } from "@/ux/Link";
 import { Button } from "@/components/ui/button";
 import { MenuItem, reportsMenu } from "./reportMenus";
 import { useElectionContext } from "@/data/ElectionContext";
+import { Hint } from "@/ux/Hint";
 
 export const Header = () => {
   const { setTheme, theme } = useContext(ThemeContext);
@@ -104,21 +105,22 @@ export const Header = () => {
         </Link>
       </div>
       <div className="flex gap-2 items-center px-4">
-        <Button
-          variant="outline"
-          onClick={() => {
-            const idx = elections.findIndex((v) => v === selected);
-            if (idx < elections.length - 1) {
-              setSelected(elections[idx + 1]);
+        <Hint text={t("prior_elections")}>
+          <Button
+            variant="outline"
+            onClick={() => {
+              const idx = elections.findIndex((v) => v === selected);
+              if (idx < elections.length - 1) {
+                setSelected(elections[idx + 1]);
+              }
+            }}
+            disabled={
+              elections.findIndex((v) => v === selected) >= elections.length - 1
             }
-          }}
-          disabled={
-            elections.findIndex((v) => v === selected) >= elections.length - 1
-          }
-        >
-          <ArrowBigLeft className="text-secondary-foreground" />
-        </Button>
-
+          >
+            <ArrowBigLeft className="text-secondary-foreground" />
+          </Button>
+        </Hint>
         <Select
           value={localDates.find((l) => l.original === selected)?.local}
           onValueChange={(e) => {
@@ -143,18 +145,20 @@ export const Header = () => {
             ))}
           </SelectContent>
         </Select>
-        <Button
-          variant="outline"
-          onClick={() => {
-            const idx = elections.findIndex((v) => v === selected);
-            if (idx > 0) {
-              setSelected(elections[idx - 1]);
-            }
-          }}
-          disabled={elections.findIndex((v) => v === selected) <= 0}
-        >
-          <ArrowBigRight className="text-secondary-foreground" />
-        </Button>
+        <Hint text={t("next_elections")}>
+          <Button
+            variant="outline"
+            onClick={() => {
+              const idx = elections.findIndex((v) => v === selected);
+              if (idx > 0) {
+                setSelected(elections[idx - 1]);
+              }
+            }}
+            disabled={elections.findIndex((v) => v === selected) <= 0}
+          >
+            <ArrowBigRight className="text-secondary-foreground" />
+          </Button>
+        </Hint>
       </div>
       <nav className="flex gap-6 items-center px-4">
         {reportsMenu.map((topMenu, idx) => (
