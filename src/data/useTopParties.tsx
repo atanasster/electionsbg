@@ -31,6 +31,6 @@ export const useTopParties = (
           pctVotes,
         };
       });
-  }, [findParty, votes]);
+  }, [findParty, pctThreshold, votes]);
   return topParties;
 };
