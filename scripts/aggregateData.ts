@@ -2,7 +2,7 @@ import fs from "fs";
 import { FullSectionProtocol } from "./parsers/protocols";
 import settlementsData from "../public/settlements.json";
 const settlements = settlementsData;
-import regionsData from "../public/regions.json";
+import regionsData from "../src/data/json/regions.json";
 const regions = regionsData;
 import municipalitiesData from "../public/municipalities.json";
 import {
