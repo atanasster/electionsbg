@@ -133,6 +133,7 @@ export const Header = () => {
             className="w-[150px] text-lg text-secondary-foreground"
           >
             <SelectValue placeholder={selected} />
+            <span className="sr-only">Select election year</span>
           </SelectTrigger>
           <SelectContent>
             {localDates.map((l) => (
@@ -145,7 +146,6 @@ export const Header = () => {
               </SelectItem>
             ))}
           </SelectContent>
-          <span className="sr-only">Select election year</span>
         </Select>
         <Hint text={t("next_elections")}>
           <Button
