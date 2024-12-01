@@ -1,18 +1,8 @@
-import { useQuery } from "@tanstack/react-query";
+import regionsMap from "../data/json/regions_map.json";
 import { RegionGeoJSON } from "./mapTypes";
 
-const queryFn = async (): Promise<RegionGeoJSON> => {
-  const response = await fetch("/regions_map.json");
-  const data = await response.json();
-  return data;
-};
-
-export const useRegionsMap = () => {
-  const { data: regions } = useQuery({
-    queryKey: ["regions_map"],
-    queryFn: queryFn,
-  });
-
+const regions = regionsMap as RegionGeoJSON;
+export const useRegionsMap = (): { regions: RegionGeoJSON } => {
   return {
     regions,
   };
