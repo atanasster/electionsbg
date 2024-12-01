@@ -27,12 +27,10 @@ export const MunicipalitiesScreen = () => {
       <Title>
         {(i18n.language === "bg" ? info?.name : info?.name_en) || ""}
       </Title>
-      {regionVotes && regionVotes.results.protocol && (
-        <ProtocolSummary
-          protocol={regionVotes.results.protocol}
-          votes={regionVotes.results.votes}
-        />
-      )}
+      <ProtocolSummary
+        protocol={regionVotes?.results.protocol}
+        votes={regionVotes?.results.votes}
+      />
       {municipalities && (
         <MapLayout>
           {(size) => (

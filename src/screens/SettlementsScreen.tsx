@@ -38,12 +38,10 @@ export const SettlementsScreen = () => {
           ? `${region.name} / ${municipality.name}`
           : `${region.name_en} / ${municipality.name_en}`}
       </Title>
-      {municipalityVotes && municipalityVotes.results.protocol && (
-        <ProtocolSummary
-          protocol={municipalityVotes.results.protocol}
-          votes={municipalityVotes.results.votes}
-        />
-      )}
+      <ProtocolSummary
+        protocol={municipalityVotes?.results.protocol}
+        votes={municipalityVotes?.results.votes}
+      />
       {settlements && (
         <MapLayout>
           {(size) => (
