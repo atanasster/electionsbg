@@ -48,6 +48,22 @@ export const parseVotes = (
               }
               j += 2;
             }
+          } else if (year === "2014_10_05") {
+            let j = 1;
+            while (j < row.length) {
+              if (row[j] !== "") {
+                const partyNum = Math.floor(1 + j / 2);
+                const totalVotes = parseInt(row[j]);
+                const vote: Votes = {
+                  partyNum,
+                  totalVotes,
+                  machineVotes: 0,
+                  paperVotes: totalVotes,
+                };
+                votes.votes.push(vote);
+              }
+              j += 2;
+            }
           } else {
             let j = year <= "2021_04_04" ? 2 : 3;
             const isOld = year <= "2017_03_26";
