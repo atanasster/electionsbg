@@ -1,4 +1,4 @@
-import { FC, useMemo } from "react";
+import { FC } from "react";
 import { Newspaper, LaptopMinimal, Users, Flag } from "lucide-react";
 import { Bar, BarChart, Cell, CartesianGrid, XAxis } from "recharts";
 import { SectionProtocol, Votes } from "@/data/dataTypes";
@@ -11,8 +11,8 @@ import {
   ChartContainer,
   ChartTooltip,
 } from "@/components/ui/chart";
-import { usePartyInfo } from "@/data/usePartyInfo";
 import { useElectionContext } from "@/data/ElectionContext";
+import { useTopParties } from "@/data/useTopParties";
 
 const CustomTooltip: FC<{
   active?: boolean;
@@ -41,32 +41,13 @@ export const ProtocolSummary: FC<{
   votes?: Votes[];
 }> = ({ protocol, votes }) => {
   const { t } = useTranslation();
-  const { findParty } = usePartyInfo();
   const { isMachineOnly } = useElectionContext();
   const chartConfig = {
     totalVotes: {
       label: `${t("total_votes")}: `,
     },
   } satisfies ChartConfig;
-  const topParties = useMemo(() => {
-    const totalVotes = votes?.reduce((acc, v) => acc + v.totalVotes, 0);
-    return votes
-      ?.sort((a, b) => b.totalVotes - a.totalVotes)
-      .filter((v, idx) => {
-        const pctVotes = totalVotes ? (100 * v?.totalVotes) / totalVotes : 0;
-        return pctVotes >= 4 || (idx < 5 && v.totalVotes > 0);
-      })
-      .map((v) => {
-        const party = findParty(v.partyNum);
-        const pctVotes = totalVotes ? (100 * v?.totalVotes) / totalVotes : 0;
-        return {
-          ...v,
-          nickName: party?.nickName,
-          color: party?.color,
-          pctVotes,
-        };
-      });
-  }, [findParty, votes]);
+  const topParties = useTopParties(votes);
   return (
     <div className="w-full items-center">
       <div
