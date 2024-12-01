@@ -36,8 +36,8 @@ export const SettlementsScreen = () => {
     <>
       <Title>
         {i18n.language === "bg"
-          ? `${region.name} / ${municipality.name}`
-          : `${region.name_en} / ${municipality.name_en}`}
+          ? `${region.long_name || region.name} / ${municipality.name}`
+          : `${region.long_name_en || region.name_en} / ${municipality.name_en}`}
       </Title>
       <ProtocolSummary
         protocol={municipalityVotes?.results.protocol}
