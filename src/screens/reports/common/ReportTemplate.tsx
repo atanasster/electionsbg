@@ -78,7 +78,7 @@ export const ReportTemplate: FC<{
   }, [votes]);
   return (
     <div className={`w-full`}>
-      <Title>{t(titleKey)}</Title>
+      <Title description="election anomalies report">{t(titleKey)}</Title>
       <div className="flex items-center justify-center pb-4 text-secondary-foreground ">
         <Label htmlFor="select_threshold" className="text-lg mr-2">
           {`${t(levelKey)} ${t(ruleKey)}:`}
