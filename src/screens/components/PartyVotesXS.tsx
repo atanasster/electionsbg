@@ -3,6 +3,7 @@ import { Votes } from "@/data/dataTypes";
 import { usePartyInfo } from "@/data/usePartyInfo";
 import { useTranslation } from "react-i18next";
 import { formatPct, formatThousands } from "@/data/utils";
+import { useTopParties } from "@/data/useTopParties";
 
 export const PartyVotesXS: FC<{
   votes: Votes[];
@@ -13,9 +14,7 @@ export const PartyVotesXS: FC<{
     return votes.reduce((acc, curr) => acc + curr.totalVotes, 0);
   }, [votes]);
 
-  if (votes.length === 0) {
-    return null;
-  }
+  const parties = useTopParties(votes);
   return (
     <div>
       <table className="w-full border border-collapse table-auto">
@@ -27,34 +26,30 @@ export const PartyVotesXS: FC<{
           </tr>
         </thead>
         <tbody className="text-sm text-left font-light text-primary-foreground">
-          {votes
-            .sort((a, b) => b.totalVotes - a.totalVotes)
-            .slice(0, 5)
-            .filter((v) => v.totalVotes > 0)
-            .map((v) => {
-              const party = findParty(v.partyNum);
-              return (
-                <tr
-                  className="border-b border-muted font-medium"
-                  key={v.partyNum}
-                >
-                  <td className="px-2 py-1  text-white">
-                    <div
-                      className={`px-2 `}
-                      style={{ backgroundColor: party?.color }}
-                    >
-                      {party?.nickName || t("unknown_party")}
-                    </div>
-                  </td>
-                  <td className="px-2 text-right">
-                    {formatThousands(v.totalVotes)}
-                  </td>
-                  <td className="px-2 text-right">
-                    {total ? formatPct(100 * (v.totalVotes / total)) : null}
-                  </td>
-                </tr>
-              );
-            })}
+          {parties?.map((v) => {
+            const party = findParty(v.partyNum);
+            return (
+              <tr
+                className="border-b border-muted font-medium"
+                key={v.partyNum}
+              >
+                <td className="px-2 py-1  text-white">
+                  <div
+                    className={`px-2 `}
+                    style={{ backgroundColor: party?.color }}
+                  >
+                    {party?.nickName || t("unknown_party")}
+                  </div>
+                </td>
+                <td className="px-2 text-right">
+                  {formatThousands(v.totalVotes)}
+                </td>
+                <td className="px-2 text-right">
+                  {total ? formatPct(100 * (v.totalVotes / total)) : null}
+                </td>
+              </tr>
+            );
+          })}
         </tbody>
       </table>
     </div>
