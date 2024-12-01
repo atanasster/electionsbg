@@ -77,9 +77,9 @@ export type ElectionRegions = ElectionRegion[];
 
 export type SectionInfo = {
   section: string;
-  region: number;
+  region: string;
   region_name: string;
-  zip_code: number;
+  zip_code: string;
   settlement: string;
   address?: string;
   is_mobile: number;

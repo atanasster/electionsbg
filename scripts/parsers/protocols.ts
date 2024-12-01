@@ -28,7 +28,7 @@ export const parseProtocols = async (
         const allProtocols: FullSectionProtocol[] = [];
         for (let i = 0; i < result.length; i++) {
           const row = result[i];
-          const sectionRow = year <= "2014_10_05" ? 0 : 1;
+          const sectionRow = year === "2014_10_05" ? 0 : 1;
           const section = row[sectionRow];
           const existingProtocol = allProtocols.find(
             (p) => p.section == section,
@@ -36,18 +36,31 @@ export const parseProtocols = async (
           const protocol: FullSectionProtocol =
             existingProtocol || ({} as FullSectionProtocol);
           protocol.section = section;
-          if (year <= "2014_10_05") {
-            protocol.ballotsReceived = parseInt(row[2]);
-            protocol.numRegisteredVoters = parseInt(row[3]);
-            protocol.numAdditionalVoters = parseInt(row[4]);
-            protocol.totalActualVoters = parseInt(row[5]);
-            protocol.numUnusedPaperBallots = parseInt(row[9]);
-            protocol.numInvalidAndDestroyedPaperBallots = parseInt(row[10]);
-            protocol.numValidVotes = parseInt(row[15]);
+          if (year <= "2013_05_12") {
+            protocol.ballotsReceived = parseInt(row[3]);
+            protocol.numRegisteredVoters = parseInt(row[4]);
+            protocol.numAdditionalVoters = parseInt(row[5]) + parseInt(row[6]);
+            protocol.totalActualVoters = parseInt(row[7]);
+            protocol.numUnusedPaperBallots = parseInt(row[19]);
+            protocol.numInvalidAndDestroyedPaperBallots = parseInt(row[20]);
+            protocol.numPaperBallotsFound = parseInt(row[24]);
+            protocol.numInvalidBallotsFound = parseInt(row[32]);
+            protocol.numValidVotes = parseInt(row[33]);
+          } else if (year <= "2014_10_05") {
+            const fieldsIdx = year === "2014_10_05" ? 2 : 3;
+            protocol.ballotsReceived = parseInt(row[fieldsIdx]);
+            protocol.numRegisteredVoters = parseInt(row[fieldsIdx + 1]);
+            protocol.numAdditionalVoters = parseInt(row[fieldsIdx + 2]);
+            //protocol.totalActualVoters = parseInt(row[fieldsIdx + 3]);
+            protocol.numUnusedPaperBallots = parseInt(row[fieldsIdx + 7]);
+            protocol.numInvalidAndDestroyedPaperBallots = parseInt(
+              row[fieldsIdx + 8],
+            );
+            protocol.numValidVotes = parseInt(row[fieldsIdx + 13]);
             protocol.numPaperBallotsFound = protocol.numValidVotes;
-            protocol.numInvalidBallotsFound = parseInt(row[16]);
-            protocol.totalActualVoters = parseInt(row[17]);
-            protocol.numValidNoOnePaperVotes = parseInt(row[18]);
+            protocol.numInvalidBallotsFound = parseInt(row[fieldsIdx + 14]);
+            protocol.totalActualVoters = parseInt(row[fieldsIdx + 15]);
+            protocol.numValidNoOnePaperVotes = parseInt(row[fieldsIdx + 16]);
           } else {
             const document = row[0];
             protocol.rik = row[2];

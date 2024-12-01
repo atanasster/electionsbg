@@ -26,3 +26,4 @@ The goal of this project is to provide an easy to use visualization and analysis
 - [04.04.2021](https://results.cik.bg/pi2021/csv.html)<br />
 - [26.03.2017](https://results.cik.bg/pi2017/csv.html)<br />
 - [05.10.2014](https://results.cik.bg/pi2014/csv.html)<br />
+- [12.05.2013](https://results.cik.bg/pi2013/csv.html)<br />

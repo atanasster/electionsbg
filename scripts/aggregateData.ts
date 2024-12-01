@@ -238,7 +238,7 @@ export const aggregateSettlements = (
     const protocol = protocols.find((s) => s.section === vote.section);
 
     if (!settlement) {
-      if (section?.region !== 32) {
+      if (section?.region !== "32") {
         settlement = municipalitySettlements.find((s) => {
           const km = s.kmetstvo.split("-");
           return km.length > 1 && km[1] === "00";
@@ -271,7 +271,7 @@ export const aggregateSettlements = (
     settlement.sections.push(vote.section);
     if (section && protocol) {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
-      const { section: ss, rik, pages, ...nprotocol } = protocol;
+      const { section: ss, rik, ...nprotocol } = protocol;
       const { votes } = vote;
       section.protocol = { ...nprotocol };
       section.votes = votes;
