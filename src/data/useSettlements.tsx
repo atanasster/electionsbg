@@ -5,6 +5,8 @@ export type LocationInfo = {
   ekatte: string;
   name: string;
   name_en: string;
+  long_name?: string;
+  long_name_en?: string;
   nuts3: string;
   dx?: string;
   dy?: string;

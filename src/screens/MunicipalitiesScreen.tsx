@@ -26,7 +26,9 @@ export const MunicipalitiesScreen = () => {
   return (
     <>
       <Title>
-        {(i18n.language === "bg" ? info?.name : info?.name_en) || ""}
+        {(i18n.language === "bg"
+          ? info?.long_name || info?.name
+          : info?.long_name_en || info?.name_en) || ""}
       </Title>
       <ProtocolSummary
         protocol={regionVotes?.results.protocol}
