@@ -39,7 +39,7 @@ export const useSettlementsInfo = () => {
   });
 
   const findSettlement = useCallback(
-    (e: string) => settlements?.find((s) => s.ekatte == e),
+    (e?: string) => (e ? settlements?.find((s) => s.ekatte == e) : undefined),
     [settlements],
   );
 

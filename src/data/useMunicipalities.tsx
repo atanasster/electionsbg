@@ -14,8 +14,8 @@ export const useMunicipalities = () => {
     queryFn: queryFn,
   });
   const findMunicipality = useCallback(
-    (m: string) => {
-      return municipalities?.find((s) => s.obshtina == m);
+    (m?: string) => {
+      return m ? municipalities?.find((s) => s.obshtina == m) : undefined;
     },
     [municipalities],
   );

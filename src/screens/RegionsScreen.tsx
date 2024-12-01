@@ -16,7 +16,9 @@ export const RegionsScreen = () => {
   const results = useMemo(() => countryVotes(), [countryVotes]);
   return (
     <>
-      <Title>{t("bulgaria")}</Title>
+      <Title description="Interactive country map  of the elections in Bulgaria">
+        {t("bulgaria")}
+      </Title>
       <ProtocolSummary protocol={results.protocol} votes={results.votes} />
       {regions && (
         <MapLayout>
