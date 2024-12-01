@@ -5,6 +5,7 @@ import { PartyInfo } from "@/data/dataTypes";
 export const parseParties = async (
   inFolder: string,
   outFolder: string,
+  year: string,
 ): Promise<PartyInfo[]> => {
   const result: string[][] = [];
   const fileName = "cik_parties";
@@ -20,26 +21,30 @@ export const parseParties = async (
   return new Promise((resolve) =>
     fs
       .createReadStream(`${inFolder}/${fileName}.txt`)
-      .pipe(parse({ delimiter: ";", relax_column_count: true }))
+      .pipe(
+        parse({ delimiter: ";", relax_column_count: true, relax_quotes: true }),
+      )
       .on("data", (data) => {
         result.push(data);
       })
       .on("end", () => {
         for (let i = 0; i < result.length; i++) {
           const row = result[i];
-          const partyNumber = parseInt(row[0]);
+
+          const numRow = year <= "2013_05_12" ? 1 : 0;
+          const partyNumber = parseInt(row[numRow]);
           let party = allParties.find((p) => p.number === partyNumber);
           if (!party) {
             party = {
               number: partyNumber,
               name: row[1],
               color: "lightslategrey",
-              nickName: row[1],
+              nickName: row[numRow + 1],
             };
             allParties.push(party);
           } else {
             party.number = partyNumber;
-            party.name = row[1];
+            party.name = row[numRow + 1];
           }
         }
         const json = JSON.stringify(allParties, null, 2);

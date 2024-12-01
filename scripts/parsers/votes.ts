@@ -20,7 +20,8 @@ export const parseVotes = (
         for (let i = 0; i < result.length; i++) {
           const row = result[i];
 
-          const sectionRow = year <= "2021_04_04" ? 0 : 1;
+          const sectionRow =
+            year <= "2013_05_12" ? 1 : year <= "2021_04_04" ? 0 : 1;
           const section = row[sectionRow];
           const existingVotes = allVotes.find((v) => v.section === section);
           const votes: ElectionVotes = existingVotes
@@ -31,12 +32,12 @@ export const parseVotes = (
                 votes: [],
               };
           const isMachineOnly = isMachineOnlyVote(year);
-          if (year <= "2014_10_05") {
-            let j = 1;
+          if (year === "2013_05_12") {
+            let j = 2;
             while (j < row.length) {
               if (row[j] !== "") {
-                const partyNum = Math.floor(1 + j / 2);
-                const totalVotes = parseInt(row[j]);
+                const partyNum = parseInt(row[j]);
+                const totalVotes = parseInt(row[j + 1]);
                 const vote: Votes = {
                   partyNum,
                   totalVotes,
