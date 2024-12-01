@@ -6,6 +6,7 @@ export const parseParties = async (
   inFolder: string,
   outFolder: string,
   year: string,
+  stringify: (o: object) => string,
 ): Promise<PartyInfo[]> => {
   const result: string[][] = [];
   const fileName = "cik_parties";
@@ -47,7 +48,7 @@ export const parseParties = async (
             party.name = row[numRow + 1];
           }
         }
-        const json = JSON.stringify(allParties, null, 2);
+        const json = stringify(allParties);
 
         fs.writeFileSync(outFile, json, "utf8");
         console.log("Successfully added file ", outFile);

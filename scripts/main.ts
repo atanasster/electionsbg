@@ -22,7 +22,7 @@ const parseElections = async (monthYear: string, production?: boolean) => {
     fs.mkdirSync(outFolder);
   }
   //const parties =
-  await parseParties(inFolder, outFolder, monthYear);
+  await parseParties(inFolder, outFolder, monthYear, stringify);
   const sections = await parseSections(inFolder, monthYear);
   const votes = await parseVotes(inFolder, monthYear);
   const protocols = await parseProtocols(
@@ -95,6 +95,6 @@ const electionFolders = fs
   .sort((a, b) => b.localeCompare(a));
 
 const json = stringifyJSON(electionFolders, production);
-const outFile = path.resolve(__dirname, "../src/elections.json");
+const outFile = path.resolve(__dirname, "../src/data/json/elections.json");
 fs.writeFileSync(outFile, json, "utf8");
 console.log("Successfully added file ", outFile);

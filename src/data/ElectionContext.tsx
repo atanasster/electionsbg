@@ -1,5 +1,5 @@
 import { useCallback, useMemo } from "react";
-import elections from "../elections.json";
+import elections from "../data/json/elections.json";
 import { useSearchParams } from "react-router-dom";
 import { isMachineOnlyVote } from "./dataTypes";
 

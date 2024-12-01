@@ -413,7 +413,7 @@ export const ProtocolSummary: FC<{
             </Card>
           </>
         ) : (
-          <div />
+          <div className="h-48" />
         )}
       </div>
     </div>
