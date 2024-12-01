@@ -119,6 +119,7 @@ export const Header = () => {
             }
           >
             <ArrowBigLeft className="text-secondary-foreground" />
+            <span className="sr-only">{t("prior_elections")}</span>
           </Button>
         </Hint>
         <Select
@@ -144,6 +145,7 @@ export const Header = () => {
               </SelectItem>
             ))}
           </SelectContent>
+          <span className="sr-only">Select election year</span>
         </Select>
         <Hint text={t("next_elections")}>
           <Button
@@ -157,6 +159,7 @@ export const Header = () => {
             disabled={elections.findIndex((v) => v === selected) <= 0}
           >
             <ArrowBigRight className="text-secondary-foreground" />
+            <span className="sr-only">{t("next_elections")}</span>
           </Button>
         </Hint>
       </div>
