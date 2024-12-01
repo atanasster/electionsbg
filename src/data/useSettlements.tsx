@@ -12,7 +12,6 @@ export type LocationInfo = {
 
 export type RegionInfo = LocationInfo & {
   oblast: string;
-  region: string;
 };
 
 export type MunicipalityInfo = LocationInfo & {
