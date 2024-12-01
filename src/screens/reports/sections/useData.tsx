@@ -41,6 +41,7 @@ export const useSectionData: UseSectionData = (
               return undefined;
             })
             .filter((a) => !!a)
+            .filter((a) => a.section?.slice(0, 2) !== "32")
             .sort((a, b) => b.value - a.value)
         : [],
     [reportRule, sections, threshold],
