@@ -9,6 +9,7 @@ import { ProtocolSummary } from "./components/ProtocolSummary";
 import { useRegions } from "@/data/useRegions";
 import { useMunicipalities } from "@/data/useMunicipalities";
 import { useSettlementsMap } from "@/data/useSettlementsMap";
+import { TopParties } from "./components/TopParties";
 
 export const SettlementsScreen = () => {
   const [searchParams] = useSearchParams();
@@ -54,6 +55,7 @@ export const SettlementsScreen = () => {
           )}
         </MapLayout>
       )}
+      <TopParties votes={municipalityVotes?.results.votes} />
     </>
   );
 };

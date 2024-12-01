@@ -7,6 +7,7 @@ import { Title } from "@/ux/Title";
 import { useRegionVotes } from "@/data/useRegionVotes";
 import { ProtocolSummary } from "./components/ProtocolSummary";
 import { useMemo } from "react";
+import { TopParties } from "./components/TopParties";
 
 export const RegionsScreen = () => {
   const { t } = useTranslation();
@@ -22,6 +23,7 @@ export const RegionsScreen = () => {
           {(size) => <RegionsMap regions={regions} size={size} />}
         </MapLayout>
       )}
+      <TopParties votes={results.votes} />
     </>
   );
 };

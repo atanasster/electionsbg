@@ -10,6 +10,7 @@ export const useTopParties = (
       nickName?: string;
       color?: string;
       pctVotes?: number;
+      partyName?: string;
     })[]
   | undefined => {
   const { findParty } = usePartyInfo();
@@ -28,6 +29,7 @@ export const useTopParties = (
           ...v,
           nickName: party?.nickName,
           color: party?.color,
+          partyName: party?.name,
           pctVotes,
         };
       });
