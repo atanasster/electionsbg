@@ -8,6 +8,7 @@ import { useRegionVotes } from "@/data/useRegionVotes";
 import { Title } from "@/ux/Title";
 import { useRegions } from "@/data/useRegions";
 import { useMunicipalitiesMap } from "@/data/useMunicipalitiesMap";
+import { TopParties } from "./components/TopParties";
 
 export const MunicipalitiesScreen = () => {
   const [searchParams] = useSearchParams();
@@ -42,6 +43,7 @@ export const MunicipalitiesScreen = () => {
           )}
         </MapLayout>
       )}
+      <TopParties votes={regionVotes?.results.votes} />
     </>
   );
 };
