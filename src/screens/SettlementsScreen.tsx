@@ -34,7 +34,7 @@ export const SettlementsScreen = () => {
   const municipalityVotes = votesByMunicipality(municipality.obshtina);
   return (
     <>
-      <Title>
+      <Title description="Interactive map  of a settlement in the elections in Bulgaria">
         {i18n.language === "bg"
           ? `${region.long_name || region.name} / ${municipality.name}`
           : `${region.long_name_en || region.name_en} / ${municipality.name_en}`}

@@ -17,7 +17,7 @@ export const Sections: FC<{ sections: SectionInfo[] }> = ({ sections }) => {
   return (
     <>
       {!!sections.length && (
-        <Title>{`${t("total_sections")}: ${sections.length}`}</Title>
+        <Title description="Bulgaria election results in a set of polling stations">{`${t("total_sections")}: ${sections.length}`}</Title>
       )}
       <InfiniteScroll
         dataLength={itemsCount}
