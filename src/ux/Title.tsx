@@ -12,7 +12,7 @@ export const Title: React.FC<
         title={children}
         description={description}
         keywords={["bulgaria", "elections"]}
-      ></SEO>
+      />
 
       <h2
         className={cn(
