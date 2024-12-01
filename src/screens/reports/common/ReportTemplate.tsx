@@ -108,12 +108,10 @@ export const ReportTemplate: FC<{
           </SelectContent>
         </Select>
       </div>
-      {!!summaryResults.protocol && (
-        <ProtocolSummary
-          protocol={summaryResults.protocol}
-          votes={summaryResults.votes}
-        />
-      )}
+      <ProtocolSummary
+        protocol={summaryResults.protocol}
+        votes={summaryResults.votes}
+      />
       <DataTable
         pageSize={25}
         columns={[

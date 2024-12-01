@@ -16,9 +16,7 @@ export const RegionsScreen = () => {
   return (
     <>
       <Title>{t("bulgaria")}</Title>
-      {results && results.protocol && (
-        <ProtocolSummary protocol={results.protocol} votes={results.votes} />
-      )}
+      <ProtocolSummary protocol={results.protocol} votes={results.votes} />
       {regions && (
         <MapLayout>
           {(size) => <RegionsMap regions={regions} size={size} />}
