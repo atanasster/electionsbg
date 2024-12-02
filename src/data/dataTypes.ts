@@ -99,7 +99,7 @@ export type PartyInfo = {
   color: string;
 };
 
-export type PartyVotes = PartyInfo & Votes;
+export type PartyVotes = Partial<PartyInfo> & Votes;
 
 export const isMachineOnlyVote = (year: string) => {
   return ["2021_07_11", "2021_11_14", "2022_10_02"].includes(year);

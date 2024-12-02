@@ -1,18 +1,11 @@
 import { useMemo } from "react";
-import { Votes } from "./dataTypes";
+import { PartyVotes, Votes } from "./dataTypes";
 import { usePartyInfo } from "./usePartyInfo";
 
 export const useTopParties = (
   votes?: Votes[],
   pctThreshold: number = 4,
-):
-  | (Votes & {
-      nickName?: string;
-      color?: string;
-      pctVotes?: number;
-      partyName?: string;
-    })[]
-  | undefined => {
+): PartyVotes[] | undefined => {
   const { findParty } = usePartyInfo();
   const topParties = useMemo(() => {
     const totalVotes = votes?.reduce((acc, v) => acc + v.totalVotes, 0);
@@ -29,7 +22,7 @@ export const useTopParties = (
           ...v,
           nickName: party?.nickName,
           color: party?.color,
-          partyName: party?.name,
+          name: party?.name,
           pctVotes,
         };
       });

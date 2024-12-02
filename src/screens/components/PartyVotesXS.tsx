@@ -4,6 +4,7 @@ import { usePartyInfo } from "@/data/usePartyInfo";
 import { useTranslation } from "react-i18next";
 import { formatPct, formatThousands } from "@/data/utils";
 import { useTopParties } from "@/data/useTopParties";
+import { PartyLabel } from "./PartyLabel";
 
 export const PartyVotesXS: FC<{
   votes: Votes[];
@@ -34,12 +35,7 @@ export const PartyVotesXS: FC<{
                 key={v.partyNum}
               >
                 <td className="px-2 py-1  text-white">
-                  <div
-                    className={`px-2 `}
-                    style={{ backgroundColor: party?.color }}
-                  >
-                    {party?.nickName || t("unknown_party")}
-                  </div>
+                  <PartyLabel party={party} />
                 </td>
                 <td className="px-2 text-right">
                   {formatThousands(v.totalVotes)}

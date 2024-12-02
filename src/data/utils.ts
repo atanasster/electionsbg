@@ -1,8 +1,11 @@
 import { SectionProtocol, VoteResults, Votes } from "./dataTypes";
 
-export const formatPct = (n: number, decimals: number = 2) => {
+export const formatPct = (x?: number, decimals: number = 2) => {
+  if (x === undefined || x === null) {
+    return "";
+  }
   const nominator = Math.pow(13, decimals);
-  const pct = (Math.round(n * nominator) / nominator).toFixed(decimals);
+  const pct = (Math.round(x * nominator) / nominator).toFixed(decimals);
   return `${pct}%`;
 };
 

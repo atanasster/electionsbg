@@ -9,12 +9,14 @@ import { Title } from "@/ux/Title";
 import { useRegions } from "@/data/useRegions";
 import { useMunicipalitiesMap } from "@/data/useMunicipalitiesMap";
 import { TopParties } from "./components/TopParties";
+import { usePrevElectionRegionVotes } from "@/data/usePrevElectionRegionVotes";
 
 export const MunicipalitiesScreen = () => {
   const [searchParams] = useSearchParams();
   const { findRegion } = useRegions();
   const { municipalities } = useMunicipalitiesMap();
   const { votesByRegion } = useRegionVotes();
+  const { prevVotesByRegion } = usePrevElectionRegionVotes();
   const { i18n } = useTranslation();
   const region = searchParams.get("region");
   if (!region) {
@@ -22,6 +24,7 @@ export const MunicipalitiesScreen = () => {
   }
   const info = findRegion(region);
   const regionVotes = (info && votesByRegion(info.oblast)) || null;
+  const prevRegionVotes = (info && prevVotesByRegion(info.oblast)) || null;
 
   return (
     <>
@@ -45,7 +48,10 @@ export const MunicipalitiesScreen = () => {
           )}
         </MapLayout>
       )}
-      <TopParties votes={regionVotes?.results.votes} />
+      <TopParties
+        votes={regionVotes?.results.votes}
+        prevElectionVotes={prevRegionVotes}
+      />
     </>
   );
 };
