@@ -77,9 +77,6 @@ export const parseProtocols = async (
               protocol.totalActualVoters = parseInt(row[16]);
               protocol.numValidNoOnePaperVotes = parseInt(row[18]);
             } else if (year === "2021_04_04") {
-              if (section === "091500022") {
-                debugger;
-              }
               protocol.ballotsReceived = parseInt(row[4]);
               protocol.numRegisteredVoters = parseInt(row[5]);
               protocol.totalActualVoters = parseInt(row[6]);
