@@ -77,19 +77,28 @@ export const parseProtocols = async (
               protocol.totalActualVoters = parseInt(row[16]);
               protocol.numValidNoOnePaperVotes = parseInt(row[18]);
             } else if (year === "2021_04_04") {
+              if (section === "091500022") {
+                debugger;
+              }
               protocol.ballotsReceived = parseInt(row[4]);
               protocol.numRegisteredVoters = parseInt(row[5]);
               protocol.totalActualVoters = parseInt(row[6]);
               protocol.numAdditionalVoters = 0;
               protocol.numUnusedPaperBallots = 0;
               protocol.numInvalidAndDestroyedPaperBallots = parseInt(row[7]);
-              protocol.numPaperBallotsFound = parseInt(row[8]);
               protocol.numInvalidBallotsFound = parseInt(row[11]);
-              protocol.numMachineBallots = parseInt(row[9]);
-              protocol.numValidVotes = parseInt(row[12]);
-              protocol.numValidMachineVotes = parseInt(row[20]);
-              protocol.numValidNoOnePaperVotes = parseInt(row[18]);
-              protocol.numValidNoOneMachineVotes = parseInt(row[19]);
+              if (document === "8") {
+                protocol.numPaperBallotsFound = parseInt(row[8]);
+                protocol.numValidVotes = parseInt(row[12]);
+                protocol.numValidNoOnePaperVotes = parseInt(row[18]);
+                protocol.numMachineBallots = parseInt(row[13]);
+                protocol.numValidMachineVotes = parseInt(row[16]);
+                protocol.numValidNoOneMachineVotes = parseInt(row[19]);
+              } else {
+                protocol.numPaperBallotsFound = parseInt(row[10]);
+                protocol.numValidVotes = parseInt(row[14]);
+                protocol.numValidNoOnePaperVotes = parseInt(row[20]);
+              }
             } else if (year === "2021_07_11") {
               if (document === "26" || document === "25" || document === "24") {
                 protocol.ballotsReceived = parseInt(row[4]);
