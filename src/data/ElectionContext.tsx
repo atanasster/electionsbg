@@ -21,11 +21,19 @@ export const useElectionContext = () => {
     },
     [searchParams, setSearchParams],
   );
+  const priorElections: string | undefined = useMemo(() => {
+    const idx = elections.findIndex((e) => e === selected);
+    return idx >= 0 && idx < elections.length - 1
+      ? elections[idx + 1]
+      : undefined;
+  }, [selected]);
+
   const isMachineOnly = () => isMachineOnlyVote(selected);
   return {
     elections,
     selected,
     setSelected,
     isMachineOnly,
+    priorElections,
   };
 };
