@@ -13,41 +13,30 @@ import { PartyVotesXS } from "./PartyVotesXS";
 import { useSettlementVotes } from "@/data/useSettlementVotes";
 import { usePartyInfo } from "@/data/usePartyInfo";
 import { useTranslation } from "react-i18next";
-import { SettlementGeoJSON } from "@/data/mapTypes";
 import { useNavigateParams } from "@/ux/useNavigateParams";
 import { MapCoordinates } from "@/layout/MapLayout";
+import { useSettlementsMap } from "@/data/useSettlementsMap";
 
 export const SettlementsMap: React.FC<
   React.PropsWithChildren<{
-    settlements: SettlementGeoJSON;
     municipality: MunicipalityInfo;
     region: RegionInfo;
     size: MapCoordinates;
   }>
-> = ({ settlements: data, region, municipality, size }) => {
+> = ({ region, municipality, size }) => {
   const { onMouseEnter, onMouseMove, onMouseLeave, tooltip } = useTooltip();
   const navigate = useNavigateParams();
+
   const { findSettlement } = useSettlementsInfo();
   const { votesBySettlement } = useSettlementVotes();
   const { topVotesParty } = usePartyInfo();
   const { i18n } = useTranslation();
-  const settlements = useMemo(() => {
-    return {
-      ...data,
-      features: data.features.filter((feature) => {
-        return (
-          feature.properties.nuts3 === region.oblast &&
-          feature.properties.nuts4 === municipality.obshtina
-        );
-      }),
-    };
-  }, [data, region, municipality]);
-
+  const settlements = useSettlementsMap(municipality.obshtina);
   const { path, projection } = getDataProjection(
     settlements as d3.GeoPermissibleObjects,
     size,
   );
-  const municipalitiesList = settlements.features.map((feature) => {
+  const municipalitiesList = settlements?.features.map((feature) => {
     const name = feature.properties.ekatte;
     const s = findSettlement(name);
     const votes = s && votesBySettlement(name);
@@ -110,7 +99,7 @@ export const SettlementsMap: React.FC<
 
   const settlementsNames = useMemo(
     () =>
-      settlements.features.map((feature) => {
+      settlements?.features.map((feature) => {
         const name = feature.properties.ekatte;
         const { ptLB, ptRT } = geoDataCenter(
           projection,
@@ -146,20 +135,22 @@ export const SettlementsMap: React.FC<
           </text>
         ) : null;
       }),
-    [findSettlement, i18n.language, projection, settlements.features],
+    [findSettlement, i18n.language, projection, settlements?.features],
   );
   return (
-    <div>
-      <svg
-        className="municipalities border-slate-200"
-        width={size[0]}
-        height={size[1]}
-        overflow="visible"
-      >
-        <g>{municipalitiesList}</g>
-        {settlementsNames}
-      </svg>
-      {tooltip}
-    </div>
+    municipalitiesList && (
+      <div>
+        <svg
+          className="municipalities border-slate-200"
+          width={size[0]}
+          height={size[1]}
+          overflow="visible"
+        >
+          <g>{municipalitiesList}</g>
+          {settlementsNames}
+        </svg>
+        {tooltip}
+      </div>
+    )
   );
 };
