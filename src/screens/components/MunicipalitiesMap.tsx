@@ -10,12 +10,13 @@ import { useTranslation } from "react-i18next";
 import { useMunicipalities } from "@/data/useMunicipalities";
 import { MunicipalityGeoJSON } from "@/data/mapTypes";
 import { useNavigateParams } from "@/ux/useNavigateParams";
+import { MapCoordinates } from "@/layout/MapLayout";
 
 export const MunicipalitiesMap: React.FC<
   React.PropsWithChildren<{
     municipalities: MunicipalityGeoJSON;
     region: string;
-    size: [number, number];
+    size: MapCoordinates;
   }>
 > = ({ municipalities: data, region, size }) => {
   const { onMouseEnter, onMouseMove, onMouseLeave, tooltip } = useTooltip();
