@@ -15,13 +15,14 @@ import { usePartyInfo } from "@/data/usePartyInfo";
 import { useTranslation } from "react-i18next";
 import { SettlementGeoJSON } from "@/data/mapTypes";
 import { useNavigateParams } from "@/ux/useNavigateParams";
+import { MapCoordinates } from "@/layout/MapLayout";
 
 export const SettlementsMap: React.FC<
   React.PropsWithChildren<{
     settlements: SettlementGeoJSON;
     municipality: MunicipalityInfo;
     region: RegionInfo;
-    size: [number, number];
+    size: MapCoordinates;
   }>
 > = ({ settlements: data, region, municipality, size }) => {
   const { onMouseEnter, onMouseMove, onMouseLeave, tooltip } = useTooltip();
