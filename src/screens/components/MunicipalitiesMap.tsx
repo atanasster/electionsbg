@@ -8,31 +8,23 @@ import { useMunicipalitydVotes } from "@/data/useMunicipalityVotes";
 import { usePartyInfo } from "@/data/usePartyInfo";
 import { useTranslation } from "react-i18next";
 import { useMunicipalities } from "@/data/useMunicipalities";
-import { MunicipalityGeoJSON } from "@/data/mapTypes";
 import { useNavigateParams } from "@/ux/useNavigateParams";
 import { MapCoordinates } from "@/layout/MapLayout";
+import { useMunicipalitiesMap } from "@/data/useMunicipalitiesMap";
 
 export const MunicipalitiesMap: React.FC<
   React.PropsWithChildren<{
-    municipalities: MunicipalityGeoJSON;
     region: string;
     size: MapCoordinates;
   }>
-> = ({ municipalities: data, region, size }) => {
+> = ({ region, size }) => {
   const { onMouseEnter, onMouseMove, onMouseLeave, tooltip } = useTooltip();
   const navigate = useNavigateParams();
   const { findMunicipality } = useMunicipalities();
   const { votesByMunicipality } = useMunicipalitydVotes();
   const { topVotesParty } = usePartyInfo();
   const { i18n } = useTranslation();
-  const municipalities = useMemo(() => {
-    return {
-      ...data,
-      features: data.features.filter((feature) => {
-        return feature.properties.nuts3 === region;
-      }),
-    };
-  }, [data, region]);
+  const municipalities = useMunicipalitiesMap(region);
 
   const { path, projection } = getDataProjection(
     municipalities as d3.GeoPermissibleObjects,
@@ -40,7 +32,7 @@ export const MunicipalitiesMap: React.FC<
   );
   const municipalitiesList = useMemo(
     () =>
-      municipalities.features.map((feature) => {
+      municipalities?.features.map((feature) => {
         const name = feature.properties.nuts4;
         const votes = votesByMunicipality(name);
         const party = topVotesParty(votes?.results.votes);
@@ -90,7 +82,7 @@ export const MunicipalitiesMap: React.FC<
     [
       findMunicipality,
       i18n.language,
-      municipalities.features,
+      municipalities?.features,
       navigate,
       onMouseEnter,
       onMouseLeave,
@@ -103,7 +95,7 @@ export const MunicipalitiesMap: React.FC<
   );
   const municipalitiesNames = useMemo(
     () =>
-      municipalities.features.map((feature) => {
+      municipalities?.features.map((feature) => {
         const name = feature.properties.nuts4;
         const { ptLB, ptRT } = geoDataCenter(
           projection,
@@ -133,7 +125,7 @@ export const MunicipalitiesMap: React.FC<
           </text>
         ) : null;
       }),
-    [findMunicipality, i18n.language, municipalities.features, projection],
+    [findMunicipality, i18n.language, municipalities?.features, projection],
   );
   return (
     <div>

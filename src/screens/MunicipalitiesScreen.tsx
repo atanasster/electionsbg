@@ -7,14 +7,12 @@ import { ProtocolSummary } from "./components/ProtocolSummary";
 import { useRegionVotes } from "@/data/useRegionVotes";
 import { Title } from "@/ux/Title";
 import { useRegions } from "@/data/useRegions";
-import { useMunicipalitiesMap } from "@/data/useMunicipalitiesMap";
 import { TopParties } from "./components/TopParties";
 import { usePrevElectionRegionVotes } from "@/data/usePrevElectionRegionVotes";
 
 export const MunicipalitiesScreen = () => {
   const [searchParams] = useSearchParams();
   const { findRegion } = useRegions();
-  const { municipalities } = useMunicipalitiesMap();
   const { votesByRegion } = useRegionVotes();
   const { prevVotesByRegion } = usePrevElectionRegionVotes();
   const { i18n } = useTranslation();
@@ -37,17 +35,9 @@ export const MunicipalitiesScreen = () => {
         protocol={regionVotes?.results.protocol}
         votes={regionVotes?.results.votes}
       />
-      {municipalities && (
-        <MapLayout>
-          {(size) => (
-            <MunicipalitiesMap
-              municipalities={municipalities}
-              region={region}
-              size={size}
-            />
-          )}
-        </MapLayout>
-      )}
+      <MapLayout>
+        {(size) => <MunicipalitiesMap region={region} size={size} />}
+      </MapLayout>
       <TopParties
         votes={regionVotes?.results.votes}
         prevElectionVotes={prevRegionVotes}
