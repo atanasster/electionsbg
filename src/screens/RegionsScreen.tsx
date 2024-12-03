@@ -56,6 +56,7 @@ export const RegionsScreen = () => {
                     <svg
                       xmlns="http://www.w3.org/2000/svg"
                       overflow="visible"
+                      className="border-2 rounded-xl hover:border-muted-foreground p-1"
                       viewBox="0 0 783.086 400.649"
                       version="1.0"
                       width="180px"
