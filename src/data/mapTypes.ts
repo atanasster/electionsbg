@@ -18,6 +18,18 @@ export type RegionGeoJSON = {
   }[];
 };
 
+export type WorldGeoJSON = {
+  type: "FeatureCollection";
+  features: {
+    type: "Feature";
+    geometry: {
+      type: string;
+      coordinates: [][][];
+    };
+    properties: { continent_code: string };
+  }[];
+};
+
 export type MunicipalityGeoJSON = {
   type: "FeatureCollection";
   features: {

@@ -1,10 +1,11 @@
 import { useRef, useState, useLayoutEffect } from "react";
 
+export type MapCoordinates = [number, number, number, number];
 export const MapLayout: React.FC<{
-  children: (dimension: [number, number]) => JSX.Element;
+  children: (dimension: MapCoordinates) => JSX.Element;
 }> = ({ children }) => {
   const refContainer = useRef<HTMLDivElement>(null);
-  const [dimensions, setDimensions] = useState<[number, number] | undefined>();
+  const [dimensions, setDimensions] = useState<MapCoordinates | undefined>();
   useLayoutEffect(() => {
     if (refContainer.current) {
       const resizeObserver = new ResizeObserver(() => {
@@ -12,12 +13,16 @@ export const MapLayout: React.FC<{
           setDimensions([
             refContainer.current.offsetWidth,
             refContainer.current.offsetHeight,
+            refContainer.current.offsetLeft,
+            refContainer.current.offsetTop,
           ]);
         }
       });
       setDimensions([
         refContainer.current.offsetWidth,
         refContainer.current.offsetHeight,
+        refContainer.current.offsetLeft,
+        refContainer.current.offsetTop,
       ]);
       resizeObserver.observe(refContainer.current);
       return () => resizeObserver.disconnect(); // clean up

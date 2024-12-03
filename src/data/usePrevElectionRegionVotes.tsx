@@ -30,7 +30,6 @@ const queryFnParties = async ({
 };
 export const usePrevElectionRegionVotes = () => {
   const { priorElections } = useElectionContext();
-  console.log(priorElections);
   const { data: votes } = useQuery({
     queryKey: ["prev_region_votes", priorElections],
     queryFn,

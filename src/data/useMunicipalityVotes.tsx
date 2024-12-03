@@ -29,9 +29,15 @@ export const useMunicipalitydVotes = () => {
     },
     [municipalities],
   );
-
+  const votesByRegion = useCallback(
+    (oblast: string): ElectionMunicipality[] | undefined => {
+      return municipalities?.filter((m) => m.oblast === oblast);
+    },
+    [municipalities],
+  );
   return {
     votesByMunicipality,
     municipalities,
+    votesByRegion,
   };
 };
