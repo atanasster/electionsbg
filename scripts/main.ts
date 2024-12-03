@@ -37,6 +37,7 @@ const parseElections = async (monthYear: string, production?: boolean) => {
     votes,
     protocols,
     stringify,
+    monthYear,
   );
   const json = stringify(sections);
   const outFile = `${outFolder}/sections.json`;

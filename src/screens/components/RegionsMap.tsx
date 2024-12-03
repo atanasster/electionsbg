@@ -11,10 +11,11 @@ import { useRegions } from "@/data/useRegions";
 
 import { useMemo } from "react";
 import { useNavigateParams } from "@/ux/useNavigateParams";
+import { MapCoordinates } from "@/layout/MapLayout";
 
 export const RegionsMap: React.FC<
-  React.PropsWithChildren<{ regions: RegionGeoJSON; size: [number, number] }>
-> = ({ regions, size }) => {
+  React.PropsWithChildren<{ regions: RegionGeoJSON; size: MapCoordinates }>
+> = ({ regions, size, children }) => {
   const navigate = useNavigateParams();
   const { topVotesParty } = usePartyInfo();
   const { findRegion } = useRegions();
@@ -126,16 +127,8 @@ export const RegionsMap: React.FC<
       <svg width={size[0]} height={size[1]}>
         <g>{regionsList}</g>
         {regionsNames}
-        {/*         <circle
-          className="stroke-muted-foreground"
-          cx={ptBurgas?.[0]}
-          cy={ptBurgas?.[1]}
-          r={5}
-          strokeWidth="2"
-          fill="none"
-        />
- */}{" "}
       </svg>
+      {children}
       {tooltip}
     </div>
   );

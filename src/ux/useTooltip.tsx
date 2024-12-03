@@ -12,7 +12,7 @@ export const useTooltip = () => {
     content: "",
   });
   const onMouseEnter = (
-    e: React.MouseEvent<SVGPathElement, MouseEvent>,
+    e: React.MouseEvent<SVGElement, MouseEvent>,
     content: ReactNode,
   ) => {
     setTooltip({
@@ -22,7 +22,7 @@ export const useTooltip = () => {
       content,
     });
   };
-  const onMouseMove = (e: React.MouseEvent<SVGPathElement, MouseEvent>) => {
+  const onMouseMove = (e: React.MouseEvent<SVGElement, MouseEvent>) => {
     setTooltip((prev) => ({
       ...prev,
       //visible: true,

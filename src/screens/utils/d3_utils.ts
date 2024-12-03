@@ -1,8 +1,9 @@
+import { MapCoordinates } from "@/layout/MapLayout";
 import * as d3 from "d3";
 
 export const getDataProjection = (
   data: d3.GeoPermissibleObjects,
-  size: [number, number],
+  size: MapCoordinates,
 ) => {
   const draftProjection = d3.geoMercator().scale(1);
   // create the path

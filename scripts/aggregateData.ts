@@ -13,6 +13,7 @@ import {
   SectionInfo,
 } from "@/data/dataTypes";
 import { addVotes } from "@/data/utils";
+import { lookupCountryNumbers } from "./country_codes";
 const municipalities = municipalitiesData;
 
 const regionCodes: { key: string; nuts3: string }[] = [
@@ -78,6 +79,8 @@ const regionCodes: { key: string; nuts3: string }[] = [
   { key: "30", nuts3: "BG333" },
   // Yambol
   { key: "31", nuts3: "BG343" },
+  // World
+  { key: "32", nuts3: "32" },
 ];
 
 export const aggregateSettlements = (
@@ -86,6 +89,7 @@ export const aggregateSettlements = (
   votes: ElectionVotes[],
   protocols: FullSectionProtocol[],
   stringify: (o: object) => string,
+  year: string,
 ) => {
   const electionRegions: ElectionRegions = [];
   const electionMunicipalities: ElectionMunicipality[] = [];
@@ -130,6 +134,7 @@ export const aggregateSettlements = (
       electionMunicipalities.push(m);
     }
   });
+
   settlements.forEach((set) => {
     if (set.obshtina) {
       const muni = electionMunicipalities.find(
@@ -169,8 +174,8 @@ export const aggregateSettlements = (
     });
     if (!region) {
       region = {
-        key: regionCode,
-        nuts3: vote.section,
+        key: vote.section,
+        nuts3: regionCode,
         results: {
           actualTotal: 0,
           actualMachineVotes: 0,
@@ -180,94 +185,86 @@ export const aggregateSettlements = (
       };
       electionRegions.push(region);
     }
-    let muniCode = vote.section.substring(2, 4);
+    const section = sections.find((s) => s.section === vote.section);
+    let muniCode =
+      regionCode === "32"
+        ? lookupCountryNumbers(vote.section, year)
+        : vote.section.substring(2, 4);
     if (muniCode === "46") {
       muniCode = vote.section.substring(4, 6);
     }
-    let municipality = electionMunicipalities.find((m) => {
-      if (m.oblast === region.key) {
-        return m.key === muniCode;
-      }
-      return false;
-    });
+    const municipality: ElectionMunicipality | undefined =
+      regionCode === "32"
+        ? electionMunicipalities.find(
+            (m) =>
+              electionSettlements.find((s) => {
+                return s.oblast === regionCode && s.kmetstvo === muniCode;
+              })?.obshtina === m.obshtina,
+          )
+        : electionMunicipalities.find((m) => {
+            if (m.oblast === region.key) {
+              return m.key === muniCode;
+            }
+            return false;
+          });
     if (!municipality) {
-      municipality = {
-        key: muniCode,
-        oblast: region.key,
-        results: {
-          actualTotal: 0,
-          actualMachineVotes: 0,
-          actualPaperVotes: 0,
-          votes: [],
-        },
-      };
+      throw new Error(
+        `Can not find municipality for section: 
+      ${JSON.stringify(section, null, 2)}`,
+      );
     }
-    const settlementCode = vote.section.substring(4, 6);
-    const municipalitySettlements = electionSettlements.filter(
-      (s) => s.obshtina === municipality.obshtina,
-    );
-    const section = sections.find((s) => s.section === vote.section);
+    let settlement: ElectionSettlement | undefined = undefined;
+    if (regionCode === "32") {
+      settlement = electionSettlements.find(
+        (s) => s.oblast === regionCode && s.kmetstvo === muniCode,
+      );
+    } else {
+      const settlementCode = vote.section.substring(4, 6);
+      const municipalitySettlements = electionSettlements.filter(
+        (s) => s.obshtina === municipality.obshtina,
+      );
 
-    let settlement = municipalitySettlements.find((s) => {
-      const section = sections.find((s) => s.section === vote.section);
-      if (!section) {
-        throw new Error(`Could not find voting section ${vote.section}`);
-      }
-      const settlementName = section.settlement
-        .replace(/\s+/g, "")
-        .toLowerCase()
-        .split(",")[0];
-      const sectionSettlementName = `${s.t_v_m || ""}${s.name || ""}`
-        .replace(/\s+/g, "")
-        .toLowerCase();
-      return (
-        settlementName === sectionSettlementName || s.key === settlementCode
-      );
-    });
-    if (!settlement) {
-      settlement = municipalitySettlements.find(
-        (s) => s.key === settlementCode,
-      );
+      settlement = municipalitySettlements.find((s) => {
+        const section = sections.find((s) => s.section === vote.section);
+        if (!section) {
+          throw new Error(`Could not find voting section ${vote.section}`);
+        }
+        const settlementName = section.settlement
+          .replace(/\s+/g, "")
+          .toLowerCase()
+          .split(",")[0];
+        const sectionSettlementName = `${s.t_v_m || ""}${s.name || ""}`
+          .replace(/\s+/g, "")
+          .toLowerCase();
+        return (
+          settlementName === sectionSettlementName || s.key === settlementCode
+        );
+      });
+
       if (!settlement) {
-        settlement = municipalitySettlements.find((s) => {
-          const kmetstvoNum = s.kmetstvo.split("-");
-          return kmetstvoNum.length > 1 && kmetstvoNum[1] === settlementCode;
-        });
+        settlement = municipalitySettlements.find(
+          (s) => s.key === settlementCode,
+        );
+        if (!settlement) {
+          settlement = municipalitySettlements.find((s) => {
+            const kmetstvoNum = s.kmetstvo.split("-");
+            return kmetstvoNum.length > 1 && kmetstvoNum[1] === settlementCode;
+          });
+        }
       }
-    }
-    const protocol = protocols.find((s) => s.section === vote.section);
-
-    if (!settlement) {
-      if (section?.region !== "32") {
+      if (!settlement) {
         settlement = municipalitySettlements.find((s) => {
           const km = s.kmetstvo.split("-");
           return km.length > 1 && km[1] === "00";
         });
-        if (!settlement) {
-          throw new Error(
-            `Could not find a settlement ${vote.section} ${section?.address || ""}`,
-          );
-        }
       }
-      settlement = {
-        oblast: region.key,
-        obshtina: municipality.obshtina,
-        key: settlementCode,
-        name: section?.settlement,
-        kmetstvo: settlementCode,
-        sections: [],
-        results: {
-          actualTotal: 0,
-          actualMachineVotes: 0,
-          actualPaperVotes: 0,
-          votes: [],
-        },
-      };
-      //municipality.obshtina = section?.settlement;
-      //region.nuts3 = section?.settlement;
-      electionSettlements.push(settlement);
     }
-
+    if (!settlement) {
+      throw new Error(
+        `Could not find a settlement ${vote.section} ${section?.address || ""}`,
+      );
+    }
+    const protocol = protocols.find((s) => s.section === vote.section);
     settlement.sections.push(vote.section);
     if (section && protocol) {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
