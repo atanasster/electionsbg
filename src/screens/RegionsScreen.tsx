@@ -28,7 +28,7 @@ export const RegionsScreen = () => {
   return (
     <>
       <Title description="Interactive country map  of the elections in Bulgaria">
-        {t("bulgaria")}
+        {t("general_results")}
       </Title>
       <ProtocolSummary protocol={results.protocol} votes={results.votes} />
 
