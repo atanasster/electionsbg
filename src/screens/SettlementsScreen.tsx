@@ -8,7 +8,6 @@ import { useMunicipalitydVotes } from "@/data/useMunicipalityVotes";
 import { ProtocolSummary } from "./components/ProtocolSummary";
 import { useRegions } from "@/data/useRegions";
 import { useMunicipalities } from "@/data/useMunicipalities";
-import { useSettlementsMap } from "@/data/useSettlementsMap";
 import { TopParties } from "./components/TopParties";
 import { RegionInfo } from "@/data/useSettlements";
 
@@ -16,7 +15,6 @@ export const SettlementsScreen = () => {
   const [searchParams] = useSearchParams();
   const regionCode = searchParams.get("region");
   const { findRegion } = useRegions();
-  const { settlements } = useSettlementsMap();
   const { findMunicipality } = useMunicipalities();
   const { votesByMunicipality } = useMunicipalitydVotes();
   const { i18n } = useTranslation();
@@ -44,18 +42,15 @@ export const SettlementsScreen = () => {
         protocol={municipalityVotes?.results.protocol}
         votes={municipalityVotes?.results.votes}
       />
-      {settlements && (
-        <MapLayout>
-          {(size) => (
-            <SettlementsMap
-              settlements={settlements}
-              municipality={municipality}
-              region={region}
-              size={size}
-            />
-          )}
-        </MapLayout>
-      )}
+      <MapLayout>
+        {(size) => (
+          <SettlementsMap
+            municipality={municipality}
+            region={region}
+            size={size}
+          />
+        )}
+      </MapLayout>
       <TopParties votes={municipalityVotes?.results.votes} />
     </>
   );
