@@ -10,6 +10,7 @@ import { useRegions } from "@/data/useRegions";
 import { useMunicipalities } from "@/data/useMunicipalities";
 import { useSettlementsMap } from "@/data/useSettlementsMap";
 import { TopParties } from "./components/TopParties";
+import { RegionInfo } from "@/data/useSettlements";
 
 export const SettlementsScreen = () => {
   const [searchParams] = useSearchParams();
@@ -22,7 +23,7 @@ export const SettlementsScreen = () => {
   if (!regionCode) {
     return null;
   }
-  const region = findRegion(regionCode);
+  const region = findRegion(regionCode) as RegionInfo;
   const muniCode = searchParams.get("municipality");
   if (!muniCode) {
     return null;
