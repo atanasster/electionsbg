@@ -92,7 +92,7 @@ export const Header = () => {
   };
   return (
     <nav className="flex fixed w-full z-10 top-0 gap-6 md:gap-10 bg-muted border-b-2 justify-between items-center">
-      <div className="text-xl text-primary flex flex-wrap items-center justify-between p-4">
+      <div className=" hidden sm:flex text-xl text-primary flex-wrap items-center justify-between p-4">
         <Link to="/" className="flex flex-row items-center">
           <span className="sr-only">Elections in Bulgaria data statistics</span>
           <Vote />
