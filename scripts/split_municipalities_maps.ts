@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
-import municipalitiesMap from "../src/data/json/municipalities_map.json";
+import municipalitiesMap from "../src/data/backup/municipalities_map.json";
 type Map = typeof municipalitiesMap;
 type Features = Map["features"];
 type Feature = Features[0];
