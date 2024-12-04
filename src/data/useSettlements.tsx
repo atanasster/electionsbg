@@ -10,6 +10,8 @@ export type LocationInfo = {
   nuts3: string;
   dx?: string;
   dy?: string;
+  color?: string;
+  hidden?: boolean;
 };
 
 export type RegionInfo = LocationInfo & {

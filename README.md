@@ -13,6 +13,9 @@ The goal of this project is to provide an easy to use visualization and analysis
 
 - [Sofia city districts](https://sofiaplan.bg/api/). The original files have been optimized and incorporated into the administrative regions maps.
 
+- [World countries](https://github.com/johan/world.geo.json). The original maps have been grouped into continents.
+
+
 ### Settlements names
 - [EKATTE catalog](https://www.nsi.bg/nrnm/ekatte/regions). The settlement names in English and Bulgarian.
 

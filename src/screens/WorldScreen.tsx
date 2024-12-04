@@ -13,9 +13,11 @@ import { usePartyInfo } from "@/data/usePartyInfo";
 import { useMunicipalities } from "@/data/useMunicipalities";
 import { PartyVotesXS } from "./components/PartyVotesXS";
 import { useTooltip } from "@/ux/useTooltip";
+import { useNavigateParams } from "@/ux/useNavigateParams";
 
 export const WorldScreen = () => {
   const { t } = useTranslation();
+  const navigate = useNavigateParams();
   const { continents } = useContinentsMap();
   const { votesWorld } = useRegionVotes();
   const { findMunicipality } = useMunicipalities();
@@ -30,7 +32,6 @@ export const WorldScreen = () => {
     () => prevVotesByRegion("32"),
     [prevVotesByRegion],
   );
-  console.log(votesByContinent);
   return (
     <>
       <Title description="Interactive country map  of the elections in Bulgaria">
@@ -51,47 +52,60 @@ export const WorldScreen = () => {
                 width={size[0]}
                 height={size[1]}
               >
-                {continents.paths.map((c) => (
-                  <g
-                    onMouseEnter={(e) => {
-                      const info = findMunicipality(c.key);
-                      const votes =
-                        (info && votesByMunicipality(info.obshtina)) || null;
-                      onMouseEnter(
-                        e,
-                        info ? (
-                          <div className="text-left">
-                            <div className="text-lg text-center pb-2">{`${i18n.language === "bg" ? info.long_name || info.name : info.long_name_en || info.name_en}`}</div>
-                            {!!votes?.results.votes && (
-                              <PartyVotesXS votes={votes?.results.votes} />
-                            )}
-                          </div>
-                        ) : (
-                          c.key
-                        ),
-                      );
-                    }}
-                    onMouseMove={(e) => {
-                      onMouseMove(e);
-                    }}
-                    onMouseLeave={() => {
-                      onMouseLeave();
-                    }}
-                    key={c.key}
-                    fill={
-                      topVotesParty(
-                        votesByContinent?.find((p) => p.obshtina === c.key)
-                          ?.results.votes,
-                      )?.color || "lightgrey"
-                    }
-                    className="stroke-black stroke-[4]"
-                    transform={c.transform}
-                  >
-                    {c.paths.map((p, idx) => (
-                      <path key={`${c.key}-${idx}`} d={p} />
-                    ))}
-                  </g>
-                ))}
+                {continents.paths.map((c) => {
+                  const info = findMunicipality(c.key);
+                  const votes =
+                    (info && votesByMunicipality(info.obshtina)) || null;
+                  return (
+                    <g
+                      className={`stroke-black stroke-[2] ${info ? "cursor-pointer" : "cursor-default"}`}
+                      onMouseEnter={(e) => {
+                        onMouseEnter(
+                          e,
+                          info ? (
+                            <div className="text-left">
+                              <div className="text-lg text-center pb-2">{`${i18n.language === "bg" ? info.long_name || info.name : info.long_name_en || info.name_en}`}</div>
+                              {!!votes?.results.votes && (
+                                <PartyVotesXS votes={votes?.results.votes} />
+                              )}
+                            </div>
+                          ) : (
+                            c.key
+                          ),
+                        );
+                      }}
+                      onMouseMove={(e) => {
+                        onMouseMove(e);
+                      }}
+                      onMouseLeave={() => {
+                        onMouseLeave();
+                      }}
+                      onClick={() => {
+                        if (info) {
+                          navigate({
+                            pathname: "/settlement",
+                            search: {
+                              region: "32",
+                              municipality: info.obshtina,
+                            },
+                          });
+                        }
+                      }}
+                      key={c.key}
+                      fill={
+                        topVotesParty(
+                          votesByContinent?.find((p) => p.obshtina === c.key)
+                            ?.results.votes,
+                        )?.color || "lightgrey"
+                      }
+                      transform={c.transform}
+                    >
+                      {c.paths.map((p, idx) => (
+                        <path key={`${c.key}-${idx}`} d={p} />
+                      ))}
+                    </g>
+                  );
+                })}
               </svg>
             )}
           </MapLayout>

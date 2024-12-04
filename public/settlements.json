@@ -52780,7 +52780,8 @@
     "obshtina": "OC",
     "oblast": "32",
     "ekatte": "AU",
-    "kmetstvo": "001"
+    "kmetstvo": "001",
+    "dy": "0.6"
   },
   {
     "name": "Австрия",
@@ -52796,7 +52797,9 @@
     "obshtina": "AS",
     "oblast": "32",
     "ekatte": "AZ",
-    "kmetstvo": "003"
+    "kmetstvo": "003",
+    "color": "primary",
+    "dx": "-1.6"
   },
   {
     "name": "Албания",
@@ -52804,7 +52807,9 @@
     "obshtina": "EU",
     "oblast": "32",
     "ekatte": "AL",
-    "kmetstvo": "004"
+    "kmetstvo": "004",
+    "color":"primary",
+    "dx":"0.1"
   },
   {
     "name": "Алжир",
@@ -52812,7 +52817,8 @@
     "obshtina": "AF",
     "oblast": "32",
     "ekatte": "DZ",
-    "kmetstvo": "005"
+    "kmetstvo": "005",
+    "dy": "0.3"
   },
   {
     "name": "Аржентина",
@@ -52820,7 +52826,8 @@
     "obshtina": "SA",
     "oblast": "32",
     "ekatte": "AR",
-    "kmetstvo": "007"
+    "kmetstvo": "007",
+    "dy":"0.6"
   },
   {
     "name": "Армения",
@@ -52828,7 +52835,9 @@
     "obshtina": "EU",
     "oblast": "32",
     "ekatte": "AM",
-    "kmetstvo": "009"
+    "kmetstvo": "009",
+    "color":"primary",
+    "dx":"1.7"
   },
   {
     "name": "Афганистан",
@@ -52861,14 +52870,23 @@
     "obshtina": "EU",
     "oblast": "32",
     "ekatte": "BA",
-    "kmetstvo": "018"
+    "kmetstvo": "018",
+    "hidden": true
   },{
     "name": "Бразилия",
     "name_en": "Brazil",
     "obshtina": "SA",
     "oblast": "32",
-    "ekatte": "BA",
-    "kmetstvo": "020"
+    "ekatte": "BR",
+    "kmetstvo": "020",
+    "dx":"0.6"
+  },{
+    "name": "България",
+    "name_en": "Bulgaria",
+    "obshtina": "EU",
+    "oblast": "32",
+    "ekatte": "BG",
+    "kmetstvo": "XXX"
   },{
     "name": "Виетнам",
     "name_en": "Vietnam",
@@ -52891,7 +52909,9 @@
     "obshtina": "EU",
     "oblast": "32",
     "ekatte": "GE",
-    "kmetstvo": "028"
+    "kmetstvo": "028",
+    "color":"primary",
+    "dx": "-0.4"
   },
   {
     "name": "Гърция",
@@ -52899,7 +52919,9 @@
     "obshtina": "EU",
     "oblast": "32",
     "ekatte": "GR",
-    "kmetstvo": "029"
+    "kmetstvo": "029",
+    "color":"primary",
+    "dy": "0.1"
   },
   {
     "name": "Дания",
@@ -52907,7 +52929,9 @@
     "obshtina": "EU",
     "oblast": "32",
     "ekatte": "DK",
-    "kmetstvo": "030"
+    "kmetstvo": "030",
+    "color":"primary",
+    "dx":"-0.8"
   },{
     "name": "Доминиканска Република",
     "name_en": "Dominican Republic",
@@ -52922,7 +52946,8 @@
     "obshtina": "AF",
     "oblast": "32",
     "ekatte": "EG",
-    "kmetstvo": "032"
+    "kmetstvo": "032",
+    "dx": "0.3"
   },
   {
     "name": "Израел",
@@ -52930,7 +52955,9 @@
     "obshtina": "AS",
     "oblast": "32",
     "ekatte": "IL",
-    "kmetstvo": "040"
+    "kmetstvo": "040",
+    "color":"primary",
+    "dx": "-4.0"
   },
   {
     "name": "Индия",
@@ -52938,7 +52965,8 @@
     "obshtina": "AS",
     "oblast": "32",
     "ekatte": "IN",
-    "kmetstvo": "042"
+    "kmetstvo": "042",
+    "dx": "0.35"
   },
   {
     "name": "Иран",
@@ -52954,7 +52982,9 @@
     "obshtina": "EU",
     "oblast": "32",
     "ekatte": "IE",
-    "kmetstvo": "046"
+    "kmetstvo": "046",
+    "color":"primary",
+    "dx":"-0.8"
   },
   {
     "name": "Исландия",
@@ -52986,7 +53016,8 @@
     "obshtina": "AS",
     "oblast": "32",
     "ekatte": "JO",
-    "kmetstvo": "050"
+    "kmetstvo": "050",
+    "dx": "2.0"
   },
   {
     "name": "Казахстан",
@@ -53002,14 +53033,17 @@
     "obshtina": "NA",
     "oblast": "32",
     "ekatte": "CA",
-    "kmetstvo": "054"
+    "kmetstvo": "054",
+    "dx": "0.3",
+    "dy": "0.2"
   },{
     "name": "Катар",
     "name_en": "Qatar",
     "obshtina": "AS",
     "oblast": "32",
     "ekatte": "QA",
-    "kmetstvo": "055"
+    "kmetstvo": "055",
+    "dy":"-1.6"
   },{
     "name": "Кипър",
     "name_en": "Cyprus",
@@ -53023,14 +53057,16 @@
     "obshtina": "AS",
     "oblast": "32",
     "ekatte": "CN",
-    "kmetstvo": "057"
+    "kmetstvo": "057",
+    "dy":"0.4"
   },{
     "name": "Косово",
     "name_en": "Kosovo",
     "obshtina": "EU",
     "oblast": "32",
     "ekatte": "КО",
-    "kmetstvo": "061"
+    "kmetstvo": "061",
+    "hidden":true
   },{
     "name": "Куба",
     "name_en": "Cuba",
@@ -53051,21 +53087,26 @@
     "obshtina": "AS",
     "oblast": "32",
     "ekatte": "LB",
-    "kmetstvo": "068"
+    "kmetstvo": "068",
+    "color": "primary",
+    "dx": "-4.0"
   },{
     "name": "Люксембург",
     "name_en": "Luxembourg",
     "obshtina": "EU",
     "oblast": "32",
     "ekatte": "LU",
-    "kmetstvo": "071"
+    "kmetstvo": "071",
+    "hidden":true
   },{
     "name": "Малайзия",
     "name_en": "Malaysia",
     "obshtina": "AS",
     "oblast": "32",
     "ekatte": "MY",
-    "kmetstvo": "075"
+    "kmetstvo": "075",
+    "color": "primary",
+    "dy":"0.7"
   },{
     "name": "Малта",
     "name_en": "Malta",
@@ -53079,7 +53120,8 @@
     "obshtina": "AF",
     "oblast": "32",
     "ekatte": "MA",
-    "kmetstvo": "077"
+    "kmetstvo": "077",
+    "dx":"0.8"
   },{
     "name": "Мексико",
     "name_en": "Mexico",
@@ -53114,14 +53156,18 @@
     "obshtina": "OC",
     "oblast": "32",
     "ekatte": "NZ",
-    "kmetstvo": "089"
+    "kmetstvo": "089",
+    "color": "primary",
+    "dx": "0.3"
   },{
     "name": "Норвегия",
     "name_en": "Norway",
     "obshtina": "EU",
     "oblast": "32",
     "ekatte": "NO",
-    "kmetstvo": "090"
+    "kmetstvo": "090",
+    "dx":"0.15",
+    "color":"primary"
   },{
     "name": "ОАЕ",
     "name_en": "UAE",
@@ -53130,12 +53176,14 @@
     "ekatte": "AE",
     "kmetstvo": "091"
   },{
-    "name": "Обединено кралство Великобритания и Северна Ирландия",
-    "name_en": "United Kingdom of Great Britain & Northern Ireland",
+    "name": "Обединено кралство",
+    "name_en": "United Kingdom",
     "obshtina": "EU",
     "oblast": "32",
     "ekatte": "GB",
-    "kmetstvo": "092"
+    "kmetstvo": "092",
+    "color": "primary",
+    "dy": "1.1"
   },{
     "name": "Палестинска власт",
     "name_en": "Palestinian Territory",
@@ -53156,14 +53204,19 @@
     "obshtina": "EU",
     "oblast": "32",
     "ekatte": "PT",
-    "kmetstvo": "100"
+    "kmetstvo": "100",
+    "color":"primary",
+    "dx":"-0.8"
   },{
     "name": "Република Корея",
     "name_en": "Korea",
     "obshtina": "AS",
     "oblast": "32",
     "ekatte": "KR",
-    "kmetstvo": "101"
+    "kmetstvo": "101",
+    "color":"primary",
+    "dy":"0.7",
+    "dx":"2.0"
   },{
     "name": "Румъния",
     "name_en": "Romania",
@@ -53184,35 +53237,43 @@
     "obshtina": "AF",
     "oblast": "32",
     "ekatte": "ZA",
-    "kmetstvo": "104"
+    "kmetstvo": "104",
+    "dx": "0.4",
+    "dy": "0.9"
   },{
     "name": "Саудитска Арабия",
     "name_en": "Saudi Arabia",
     "obshtina": "AS",
     "oblast": "32",
     "ekatte": "SA",
-    "kmetstvo": "106"
+    "kmetstvo": "106",
+    "color":"primary",
+    "dx": "-0.6"
   },{
     "name": "САЩ",
     "name_en": "USA",
     "obshtina": "NA",
     "oblast": "32",
     "ekatte": "US",
-    "kmetstvo": "107"
+    "kmetstvo": "107",
+    "dx": "0.7",
+    "dy": "0.25"
   },{
     "name": "Северна Македония",
     "name_en": "North Macedonia",
     "obshtina": "EU",
     "oblast": "32",
     "ekatte": "MK",
-    "kmetstvo": "108"
+    "kmetstvo": "108",
+    "hidden":true
   },{
     "name": "Сингапур",
     "name_en": "Singapore",
     "obshtina": "AS",
     "oblast": "32",
     "ekatte": "SG",
-    "kmetstvo": "109"
+    "kmetstvo": "109",
+    "color":"primary"
   },{
     "name": "Словакия",
     "name_en": "Slovakia",
@@ -53240,7 +53301,8 @@
     "obshtina": "AF",
     "oblast": "32",
     "ekatte": "TN",
-    "kmetstvo": "116"
+    "kmetstvo": "116",
+    "dy": "0.1"
   },{
     "name": "Турция",
     "name_en": "Turkey",
@@ -53275,7 +53337,8 @@
     "obshtina": "EU",
     "oblast": "32",
     "ekatte": "FI",
-    "kmetstvo": "124"
+    "kmetstvo": "124",
+    "dy":"0.7"
   },{
     "name": "Франция",
     "name_en": "France",
@@ -53289,14 +53352,16 @@
     "obshtina": "EU",
     "oblast": "32",
     "ekatte": "HR",
-    "kmetstvo": "127"
+    "kmetstvo": "127",
+    "dy":"0.6"
   },{
     "name": "Черна гора",
     "name_en": "Montenegro",
     "obshtina": "EU",
     "oblast": "32",
     "ekatte": "ME",
-    "kmetstvo": "129"
+    "kmetstvo": "129",
+    "hidden":true
   },{
     "name": "Чехия",
     "name_en": "Czech Republic",
@@ -53317,13 +53382,16 @@
     "obshtina": "EU",
     "oblast": "32",
     "ekatte": "SE",
-    "kmetstvo": "133"
+    "kmetstvo": "133",
+    "dx":"0.4"
   },{
     "name": "Япония",
     "name_en": "Japan",
     "obshtina": "AS",
     "oblast": "32",
     "ekatte": "JP",
-    "kmetstvo": "136"
+    "kmetstvo": "136",
+    "color":"primary",
+    "dx": "1.2"
   }
 ]

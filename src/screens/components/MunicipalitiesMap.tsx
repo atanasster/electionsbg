@@ -129,12 +129,7 @@ export const MunicipalitiesMap: React.FC<
   );
   return (
     <div>
-      <svg
-        className="municipalities border-slate-200"
-        width={size[0]}
-        height={size[1]}
-        overflow="visible"
-      >
+      <svg className="overflow-hidden" width={size[0]} height={size[1]}>
         <g>{municipalitiesList}</g>
         {municipalitiesNames}
       </svg>

@@ -36,7 +36,7 @@ export const SettlementsMap: React.FC<
     settlements as d3.GeoPermissibleObjects,
     size,
   );
-  const municipalitiesList = settlements?.features.map((feature) => {
+  const municipalitiesList = settlements?.features.map((feature, idx) => {
     const name = feature.properties.ekatte;
     const s = findSettlement(name);
     const votes = s && votesBySettlement(name);
@@ -44,11 +44,7 @@ export const SettlementsMap: React.FC<
 
     return (
       <RegionMap
-        key={
-          feature.properties.nuts3 +
-          feature.properties.nuts4 +
-          feature.properties.ekatte
-        }
+        key={`map-${idx}`}
         path={path}
         name={name}
         fillColor={party?.color}
@@ -62,7 +58,7 @@ export const SettlementsMap: React.FC<
               <div className="text-left">
                 <div className="text-lg text-center pb-2">
                   {i18n.language === "bg"
-                    ? `${info.t_v_m} ${info.name}`
+                    ? `${info.t_v_m ? `${info.t_v_m} ` : ""}${info.name}`
                     : info.name_en}
                 </div>
                 {!!settlementVotes?.results.votes && (
@@ -70,7 +66,7 @@ export const SettlementsMap: React.FC<
                 )}
               </div>
             ) : (
-              `${region}-${name}`
+              `${i18n.language === "bg" ? municipality.name : municipality.name_en}${name ? `-${name}` : ""}`
             ),
           );
         }}
@@ -99,53 +95,46 @@ export const SettlementsMap: React.FC<
 
   const settlementsNames = useMemo(
     () =>
-      settlements?.features.map((feature) => {
-        const name = feature.properties.ekatte;
-        const { ptLB, ptRT } = geoDataCenter(
-          projection,
-          feature as d3.GeoPermissibleObjects,
-        );
-        const info = findSettlement(name);
+      settlements?.features
+        .map((feature, idx) => {
+          const name = feature.properties.ekatte;
+          const { ptLB, ptRT } = geoDataCenter(
+            projection,
+            feature as d3.GeoPermissibleObjects,
+          );
+          const info = findSettlement(name);
 
-        return ptLB && ptRT && info ? (
-          <text
-            key={
-              feature.properties.nuts3 +
-              feature.properties.nuts4 +
-              feature.properties.ekatte
-            }
-            className="fill-white"
-            style={{ pointerEvents: "none" }}
-            textAnchor="middle"
-            fontSize="small"
-            x={
-              info.dx
-                ? ptLB[0] + (ptRT[0] - ptLB[0]) * parseFloat(info.dx)
-                : ptLB[0] + (ptRT[0] - ptLB[0]) / 2
-            }
-            y={
-              info.dy
-                ? ptLB[1] + (ptRT[1] - ptLB[1]) * parseFloat(info.dy)
-                : ptLB[1] + (ptRT[1] - ptLB[1]) / 2
-            }
-          >
-            {i18n.language === "bg"
-              ? `${info.t_v_m} ${info.name}`
-              : info.name_en}
-          </text>
-        ) : null;
-      }),
+          return ptLB && ptRT && info && !info.hidden ? (
+            <text
+              key={`labels-${idx}`}
+              className={`fill-${info.color || "white"}`}
+              style={{ pointerEvents: "none" }}
+              textAnchor="middle"
+              fontSize="small"
+              x={
+                info.dx
+                  ? ptLB[0] + (ptRT[0] - ptLB[0]) * parseFloat(info.dx)
+                  : ptLB[0] + (ptRT[0] - ptLB[0]) / 2
+              }
+              y={
+                info.dy
+                  ? ptLB[1] + (ptRT[1] - ptLB[1]) * parseFloat(info.dy)
+                  : ptLB[1] + (ptRT[1] - ptLB[1]) / 2
+              }
+            >
+              {i18n.language === "bg"
+                ? `${info.t_v_m ? `${info.t_v_m} ` : ""}${info.name}`
+                : info.name_en}
+            </text>
+          ) : null;
+        })
+        .filter((a) => a),
     [findSettlement, i18n.language, projection, settlements?.features],
   );
   return (
     municipalitiesList && (
       <div>
-        <svg
-          className="municipalities border-slate-200"
-          width={size[0]}
-          height={size[1]}
-          overflow="visible"
-        >
+        <svg className="overflow-hidden" width={size[0]} height={size[1]}>
           <g>{municipalitiesList}</g>
           {settlementsNames}
         </svg>
