@@ -91,7 +91,7 @@ export const Header = () => {
     localStorage.setItem("language", language);
   };
   return (
-    <div className="flex w-full gap-6 md:gap-10 bg-muted border-b-2 justify-between items-center">
+    <nav className="flex fixed w-full z-10 top-0 gap-6 md:gap-10 bg-muted border-b-2 justify-between items-center">
       <div className="text-xl text-primary flex flex-wrap items-center justify-between p-4">
         <Link to="/" className="flex flex-row items-center">
           <span className="sr-only">Elections in Bulgaria data statistics</span>
@@ -163,7 +163,7 @@ export const Header = () => {
           </Button>
         </Hint>
       </div>
-      <nav className="flex gap-6 items-center px-4">
+      <div className="flex gap-6 items-center px-4">
         {reportsMenu.map((topMenu, idx) => (
           <DropdownMenu key={`${topMenu.title}=${idx}`}>
             <DropdownMenuTrigger asChild>
@@ -253,7 +253,7 @@ export const Header = () => {
             </DropdownMenuSub>
           </DropdownMenuContent>
         </DropdownMenu>
-      </nav>
-    </div>
+      </div>
+    </nav>
   );
 };
