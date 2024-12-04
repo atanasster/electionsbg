@@ -124,7 +124,7 @@ export const RegionsMap: React.FC<
   );
   return (
     <div>
-      <svg width={size[0]} height={size[1]}>
+      <svg className="overflow-hidden" width={size[0]} height={size[1]}>
         <g>{regionsList}</g>
         {regionsNames}
       </svg>

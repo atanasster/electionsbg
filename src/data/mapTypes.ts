@@ -50,6 +50,10 @@ export type SettlementGeoJSON = {
       type: string;
       coordinates: [][][];
     };
-    properties: { ekatte: string; nuts4: string; nuts3: string };
+    properties: {
+      ekatte: string;
+      nuts4: string;
+      nuts3: string;
+    };
   }[];
 };
