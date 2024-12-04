@@ -14,6 +14,7 @@ The goal of this project is to provide an easy to use visualization and analysis
 - [Sofia city districts](https://sofiaplan.bg/api/). The original files have been optimized and incorporated into the administrative regions maps.
 
 - [World countries](https://github.com/johan/world.geo.json). The original maps have been grouped into continents.
+- [Continents](https://github.com/rapomon/geojson-places/tree/master). The original maps have been grouped into a world map and simplified/optimized with [Mapshaper](https://mapshaper.org) and [geojson.io](https://geojson.io).
 
 
 ### Settlements names
