@@ -2026,25 +2026,30 @@
     "name": "Океания",
     "name_en": "Oceania",
     "obshtina": "OC",
-    "nuts3": "32"
+    "nuts3": "32",
+    "dx":"0.3"
   },
   {
     "name": "Европа",
     "name_en": "Europe",
     "obshtina": "EU",
-    "nuts3": "32"
+    "nuts3": "32",
+    "dx": "0.75",
+    "dy":"0.40"
   },
   {
     "name": "Северна Америка",
     "name_en": "North America",
     "obshtina": "NA",
-    "nuts3": "32"
+    "nuts3": "32",
+    "dx":"0.60"
   },
   {
     "name": "Южна Америка",
     "name_en": "South America",
     "obshtina": "SA",
-    "nuts3": "32"
+    "nuts3": "32",
+    "dy":"0.7"
   },
   {
     "name": "Азия",
@@ -2056,6 +2061,7 @@
     "name": "Африка",
     "name_en": "Africa",
     "obshtina": "AF",
-    "nuts3": "32"
+    "nuts3": "32",
+    "dy":"0.7"
   }
 ]
