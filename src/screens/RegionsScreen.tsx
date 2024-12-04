@@ -38,7 +38,12 @@ export const RegionsScreen = () => {
             {(size) => (
               <RegionsMap regions={regions} size={size}>
                 <Link
-                  to="/world"
+                  to={{
+                    pathname: "/municipality",
+                    search: {
+                      region: "32",
+                    },
+                  }}
                   style={{
                     position: "absolute",
                     right: size[2],
