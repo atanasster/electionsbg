@@ -11,7 +11,7 @@ export const Layout = (props: React.PropsWithChildren) => {
       <Header />
       <main className="min-h-[100vh] bg-card overflow-y-auto">
         {isLoading && <Loader />}
-        <div className="container mx-auto flex flex-col justify-center items-center p-5">
+        <div className="container mx-auto flex flex-col justify-center items-center p-5 pt-10 sm:pt-5">
           {props.children}
         </div>
       </main>
