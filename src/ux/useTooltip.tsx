@@ -1,5 +1,10 @@
 import { useState, ReactNode } from "react";
-export const useTooltip = () => {
+export const useTooltip = (
+  props: { maxHeight: number; maxWidth: number } = {
+    maxHeight: 300,
+    maxWidth: 300,
+  },
+) => {
   const [tooltip, setTooltip] = useState<{
     visible: boolean;
     x: number;
@@ -11,23 +16,24 @@ export const useTooltip = () => {
     y: 0,
     content: "",
   });
+  const calcCoordinates = (x: number, y: number) => ({
+    x: Math.min(window.scrollX + window.innerWidth - props.maxWidth, x),
+    y: Math.min(window.scrollY + window.innerHeight - props.maxHeight, y),
+  });
   const onMouseEnter = (
     e: React.MouseEvent<SVGElement, MouseEvent>,
     content: ReactNode,
   ) => {
     setTooltip({
       visible: true,
-      x: e.pageX,
-      y: e.pageY,
       content,
+      ...calcCoordinates(e.pageX, e.pageY),
     });
   };
   const onMouseMove = (e: React.MouseEvent<SVGElement, MouseEvent>) => {
     setTooltip((prev) => ({
       ...prev,
-      //visible: true,
-      x: e.pageX,
-      y: e.pageY,
+      ...calcCoordinates(e.pageX, e.pageY),
     }));
   };
   const onMouseLeave = () => {
