@@ -65,14 +65,17 @@ export const ProtocolSummary: FC<{
                 </CardHeader>
                 <CardContent>
                   <div className="flex">
-                    <Hint text={t("total_voters_explainer")}>
+                    <Hint text={t("total_voters_explainer")} underline={false}>
                       <div className="text-2xl xl:text-4xl my-4 mr-2 font-bold">
                         {formatThousands(protocol.totalActualVoters)}
                       </div>
                     </Hint>
                     {!!protocol.numRegisteredVoters && (
-                      <Hint text={t("pct_total_voters_explainer")}>
-                        <div className="text-xl xl:text-lg my-4 font-semibold">
+                      <Hint
+                        text={t("pct_total_voters_explainer")}
+                        underline={false}
+                      >
+                        <div className="text-xl xl:text-lg my-4 font-semibold ">
                           {`(${formatPct(
                             100 *
                               (protocol.totalActualVoters /
@@ -177,12 +180,18 @@ export const ProtocolSummary: FC<{
 
                   <CardContent>
                     <div className="flex">
-                      <Hint text={t("valid_paper_votes_explainer")}>
+                      <Hint
+                        text={t("valid_paper_votes_explainer")}
+                        underline={false}
+                      >
                         <div className="text-2xl xl:text-4xl my-4 font-bold justify-self-start">
                           {formatThousands(protocol.numValidVotes)}
                         </div>
                       </Hint>
-                      <Hint text={t("pct_paper_votes_explainer")}>
+                      <Hint
+                        text={t("pct_paper_votes_explainer")}
+                        underline={false}
+                      >
                         <div className="text-xl xl:text-2xl my-4 font-semibold ml-2">
                           {`(${formatPct(
                             100 *
@@ -285,15 +294,21 @@ export const ProtocolSummary: FC<{
                   </CardHeader>
                   <CardContent>
                     <div className="flex">
-                      <Hint text={t("total_machine_votes_explainer")}>
+                      <Hint
+                        text={t("total_machine_votes_explainer")}
+                        underline={false}
+                      >
                         <div className="text-2xl xl:text-4xl my-4 font-bold justify-self-start">
                           {formatThousands(protocol.numValidMachineVotes)}
                         </div>
                       </Hint>
                       {(protocol.numValidVotes ||
                         protocol.numValidMachineVotes) && (
-                        <Hint text={t("pct_machine_votes_explainer")}>
-                          <div className="text-xl xl:text-2xl my-4 font-semibold ml-2">
+                        <Hint
+                          text={t("pct_machine_votes_explainer")}
+                          underline={false}
+                        >
+                          <div className="text-xl xl:text-2xl my-4 font-semibold ml-2 ">
                             {`(${formatPct(
                               100 *
                                 (protocol.numValidMachineVotes /
