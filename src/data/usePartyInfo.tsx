@@ -46,5 +46,5 @@ export const usePartyInfo = () => {
     },
     [findParty],
   );
-  return { findParty, topVotesParty };
+  return { findParty, topVotesParty, parties: data };
 };

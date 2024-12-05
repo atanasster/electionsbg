@@ -39,8 +39,13 @@ const parseElections = async (monthYear: string, production?: boolean) => {
     stringify,
     monthYear,
   );
-  const json = stringify(sections);
-  const outFile = `${outFolder}/sections.json`;
+  const json = stringify(
+    sections.map((s) => ({
+      ...s,
+      votes: s.votes?.filter((v) => v.totalVotes !== 0),
+    })),
+  );
+  const outFile = `${outFolder}/section_votes.json`;
   fs.writeFileSync(outFile, json, "utf8");
   console.log("Successfully added file ", outFile);
   return aggregated;

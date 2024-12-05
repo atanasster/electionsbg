@@ -12,7 +12,7 @@ const queryFn = async ({
   if (!queryKey[1]) {
     return [];
   }
-  const response = await fetch(`/${queryKey[1]}/sections.json`);
+  const response = await fetch(`/${queryKey[1]}/section_votes.json`);
   const data = await response.json();
   return data;
 };
