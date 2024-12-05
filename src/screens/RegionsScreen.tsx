@@ -47,7 +47,7 @@ export const RegionsScreen = () => {
                   style={{
                     position: "absolute",
                     right: size[2],
-                    bottom: -size[3],
+                    top: size[3] + size[1] - 100,
                   }}
                 >
                   <Tooltip
