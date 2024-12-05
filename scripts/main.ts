@@ -27,9 +27,9 @@ const parseElections = async (monthYear: string, production?: boolean) => {
   const votes = await parseVotes(inFolder, monthYear);
   const protocols = await parseProtocols(
     inFolder,
-    outFolder,
+    //outFolder,
     monthYear,
-    stringify,
+    //stringify,
   );
   const aggregated = aggregateSettlements(
     outFolder,
