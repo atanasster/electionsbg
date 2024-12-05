@@ -5,7 +5,6 @@ import { DataTable } from "@/ux/DataTable";
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { PartyLabel } from "./PartyLabel";
-import { useBreakpoint } from "@/ux/useBreakpoint";
 
 export const TopParties: FC<{
   votes?: Votes[];
@@ -13,8 +12,6 @@ export const TopParties: FC<{
 }> = ({ votes, prevElectionVotes }) => {
   const { t } = useTranslation();
   const parties = useTopParties(votes, 1);
-  const { isAboveSm, isBelowSm, sm } = useBreakpoint("sm");
-  console.log(isAboveSm, isBelowSm, sm);
   const data = useMemo(() => {
     return prevElectionVotes
       ? parties?.map((p) => {
