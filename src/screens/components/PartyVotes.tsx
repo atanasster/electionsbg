@@ -9,7 +9,7 @@ export const PartyVotes: FC<{ protocol: SectionProtocol; votes: Votes[] }> = ({
   protocol,
   votes,
 }) => {
-  const { findParty, parties } = usePartyInfo();
+  const { parties } = usePartyInfo();
   const { t } = useTranslation();
   const data = useMemo(() => {
     return parties
