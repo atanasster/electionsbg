@@ -63,12 +63,12 @@ export const PartyVotes: FC<{ protocol: SectionProtocol; votes: Votes[] }> = ({
             ),
           },
           {
-            accessorKey: "numValidMachineVotes",
+            accessorKey: "machineVotes",
             header: t("machine_votes"),
             hidden: !protocol.numValidMachineVotes,
             cell: ({ row }) => (
               <div className="px-4 text-right">
-                {formatThousands(row.getValue("numValidMachineVotes"))}
+                {formatThousands(row.getValue("machineVotes"))}
               </div>
             ),
           },
