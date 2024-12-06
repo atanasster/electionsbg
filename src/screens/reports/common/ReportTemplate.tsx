@@ -25,6 +25,7 @@ import { Row } from "@tanstack/react-table";
 import { useRegions } from "@/data/useRegions";
 import { useMunicipalities } from "@/data/useMunicipalities";
 import { useElectionContext } from "@/data/ElectionContext";
+import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
 
 export type ColumnNames =
   | "ekatte"
@@ -56,6 +57,7 @@ export const ReportTemplate: FC<{
   const { findSettlement } = useSettlementsInfo();
   const { t, i18n } = useTranslation();
   const { isMachineOnly } = useElectionContext();
+  const isSmall = useMediaQueryMatch("sm");
   const threshold = useMemo(
     () =>
       parseInt(
@@ -80,7 +82,7 @@ export const ReportTemplate: FC<{
     <div className={`w-full`}>
       <Title description="election anomalies report">{t(titleKey)}</Title>
       <div className="flex items-center justify-center pb-4 text-secondary-foreground ">
-        <Label htmlFor="select_threshold" className="text-lg mr-2">
+        <Label htmlFor="select_threshold" className="text-md md:text-lg mr-2">
           {`${t(levelKey)} ${t(ruleKey)}:`}
         </Label>
         <Select
@@ -294,7 +296,7 @@ export const ReportTemplate: FC<{
 
           {
             accessorKey: "partyVotes.paperVotes",
-            hidden: isMachineOnly(),
+            hidden: isSmall || isMachineOnly(),
             header: () => (
               <Hint text={t("num_paper_ballots_found_explainer")}>
                 <div>{t("paper_votes")}</div>
@@ -310,7 +312,7 @@ export const ReportTemplate: FC<{
           },
           {
             accessorKey: "partyVotes.machineVotes",
-            hidden: isMachineOnly(),
+            hidden: isSmall || isMachineOnly(),
             header: () => (
               <Hint text={t("total_machine_votes_explainer")}>
                 <div>{t("machine_votes")}</div>
@@ -328,7 +330,7 @@ export const ReportTemplate: FC<{
             accessorKey: "partyVotes.totalVotes",
             header: () => (
               <Hint text={t("total_party_votes_explainer")}>
-                <div>{t("total_votes")}</div>
+                <div>{isSmall ? t("votes") : t("total_votes")}</div>
               </Hint>
             ),
             cell: ({ row }) => {

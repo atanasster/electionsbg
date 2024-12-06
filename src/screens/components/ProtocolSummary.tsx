@@ -47,7 +47,7 @@ export const ProtocolSummary: FC<{
       label: `${t("total_votes")}: `,
     },
   } satisfies ChartConfig;
-  const topParties = useTopParties(votes);
+  const topParties = useTopParties(votes, 4);
   return (
     protocol && (
       <div className="w-full items-center">

@@ -71,6 +71,7 @@
   "no_results": "Липсват данни",
   "previous": "Назад",
   "next": "Напред",
+  "prior": "Предни",
   "one_party_votes_over":"с гласовете за една партия над",
   "voter_turnout_over":"с избрна активност над",
   "total_party_votes_explainer":"Брой гласове за конкретната партия",
@@ -78,5 +79,11 @@
   "additional_voters_over": "с допълнителни избиратели (под чертата) над",
   "support_no_one_over": "с избиратели не подкрепящи никоя партия над",
   "invalid_ballots_over": "с невалидни бюлетини над",
-  "changeLanguageTo": "en"
+  "changeLanguageTo": "en",
+  "party_num_explainer": "Номерът на бюлетината на партията в текущите избори",
+  "prev_election_votes_explainer": "Брой гласове получени от партията при предишните избори",
+  "pct_prev_election_votes_explainer": "Процент на промяната в броя гласували за партията в текущите избори, сравнени с предишните избори",
+  "top_1pct_parties": "Над 1%",
+  "all_parties": "Всички партии",
+  "full_party_name": "Пълно име на партията"
 }

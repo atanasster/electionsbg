@@ -71,6 +71,7 @@
   "no_results": "No results",
   "previous": "Previous",
   "next": "Next",
+  "prior": "Prior",
   "one_party_votes_over":"with the votes for one party over",
   "voter_turnout_over":"with voter turnout over",
   "total_party_votes_explainer": "The number of votes for the specific party",
@@ -78,5 +79,11 @@
   "additional_voters_over": "with additional voters over",
   "support_no_one_over": "with voters supporting no one over",
   "invalid_ballots_over": "with invalid ballots over",
-  "changeLanguageTo": "bg"
+  "changeLanguageTo": "bg",
+  "party_num_explainer": "The ballot number of the party in the selected elections",
+  "prev_election_votes_explainer": "The number of votes for the party in the previous elections",
+  "pct_prev_election_votes_explainer": "The percentage change of the votes for the party in the selected elections, compared to the votes in the previous elections",
+  "top_1pct_parties": "Over 1%",
+  "all_parties": "All parties",
+  "full_party_name": "Full party name"
 }

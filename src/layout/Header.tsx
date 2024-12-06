@@ -91,12 +91,12 @@ export const Header = () => {
     localStorage.setItem("language", language);
   };
   return (
-    <nav className="flex fixed w-full z-10 top-0 gap-6 md:gap-10 bg-muted border-b-2 justify-between items-center">
-      <div className=" hidden sm:flex text-xl text-primary flex-wrap items-center justify-between p-4">
+    <nav className="flex fixed w-full z-10 top-0 gap-2 md:gap-10 bg-muted border-b-2 justify-between items-center">
+      <div className=" flex text-xl text-primary flex-wrap items-center justify-between p-4">
         <Link to="/" className="flex flex-row items-center">
           <span className="sr-only">Elections in Bulgaria data statistics</span>
           <Vote />
-          <div className="flex font-title ext-2xl transition-all duration-200 pl-2">
+          <div className="hidden sm:flex font-title ext-2xl transition-all duration-200 pl-2">
             <div className="lowercase text-popover-foreground">
               {t("elections")}
             </div>
@@ -105,7 +105,7 @@ export const Header = () => {
         </Link>
       </div>
       <div className="flex gap-2 items-center px-4">
-        <Hint text={t("prior_elections")}>
+        <Hint text={t("prior_elections")} className="hidden md:block">
           <Button
             variant="outline"
             onClick={() => {
@@ -130,7 +130,7 @@ export const Header = () => {
         >
           <SelectTrigger
             id="select_election"
-            className="w-[150px] text-lg text-secondary-foreground"
+            className="w-[150px] md:text-lg text-secondary-foreground"
           >
             <SelectValue placeholder={selected} />
             <span className="sr-only">Select election year</span>
@@ -147,7 +147,7 @@ export const Header = () => {
             ))}
           </SelectContent>
         </Select>
-        <Hint text={t("next_elections")}>
+        <Hint text={t("next_elections")} className="hidden md:block">
           <Button
             variant="outline"
             onClick={() => {
@@ -202,7 +202,7 @@ export const Header = () => {
           id="theme-toggle"
           type="button"
           aria-label="switch theme dark mode"
-          className="inline-flex items-center p-2 w-10 h-10 hidden md:block justify-center rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+          className="hidden md:block items-center p-2 w-10 h-10 justify-center rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
         >
           {theme === themeDark ? <SunMedium /> : <Moon />}
         </button>
@@ -211,7 +211,7 @@ export const Header = () => {
             <button
               data-collapse-toggle="navbar-default"
               type="button"
-              className="inline-flex items-center p-2 w-10 h-10 justify-center rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+              className="inline-flex items-center justify-center rounded-lg md:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
               aria-controls="navbar-default"
               aria-expanded="false"
             >

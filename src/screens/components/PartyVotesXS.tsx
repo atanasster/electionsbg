@@ -15,7 +15,7 @@ export const PartyVotesXS: FC<{
     return votes?.reduce((acc, curr) => acc + curr.totalVotes, 0);
   }, [votes]);
 
-  const parties = useTopParties(votes);
+  const parties = useTopParties(votes, 4);
   return (
     <div>
       {!!parties?.length && (
