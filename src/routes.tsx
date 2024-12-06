@@ -23,6 +23,7 @@ import { SectionsInvalidBallotsReport } from "./screens/reports/sections/Section
 import { SectionsAdditionalVotersReport } from "./screens/reports/sections/SectionsAdditionalVotersReport";
 import { SectionsSupportsNoOneReport } from "./screens/reports/sections/SectionsSupportsNoOneReport";
 import { SectionScreen } from "./screens/SectionScreen";
+import { AboutScreen } from "./screens/AboutScreen";
 
 const LayoutScreen: FC<PropsWithChildren> = ({ children }) => {
   return <Layout>{children}</Layout>;
@@ -37,6 +38,14 @@ export const AuthRoutes = () => {
           element={
             <LayoutScreen>
               <RegionsScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="about"
+          element={
+            <LayoutScreen>
+              <AboutScreen />
             </LayoutScreen>
           }
         />
