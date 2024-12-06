@@ -169,7 +169,7 @@ export const Header = () => {
             <DropdownMenuTrigger asChild>
               <Button
                 variant="ghost"
-                className="font-medium text-muted-foreground hidden md:block lowercase"
+                className="font-medium hidden md:block lowercase text-secondary-foreground"
                 aria-label="Open reports menu"
               >
                 {t(topMenu.title)}
@@ -185,7 +185,7 @@ export const Header = () => {
         ))}
 
         <button
-          className="font-medium text-muted-foreground hidden md:block"
+          className="font-medium hidden md:block text-secondary-foreground"
           aria-label="Change language"
           onClick={() => {
             if (i18n.language === "bg") {

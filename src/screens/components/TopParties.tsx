@@ -127,8 +127,15 @@ export const TopParties: FC<{
     <div className="w-full md:w-auto">
       <Tabs value={tab} onValueChange={onTabChange} className="w-[400px]">
         <TabsList className="grid w-full grid-cols-2">
-          <TabsTrigger value="tab1pct">{t("top_1pct_parties")}</TabsTrigger>
-          <TabsTrigger value="tabAll">{t("all_parties")}</TabsTrigger>
+          <TabsTrigger
+            aria-label="view only the parties over 1%"
+            value="tab1pct"
+          >
+            {t("top_1pct_parties")}
+          </TabsTrigger>
+          <TabsTrigger aria-label="view all the parties" value="tabAll">
+            {t("all_parties")}
+          </TabsTrigger>
         </TabsList>
       </Tabs>
       <DataTable pageSize={data.length} columns={columns} data={data} />
