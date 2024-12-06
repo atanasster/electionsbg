@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/chart";
 import { useElectionContext } from "@/data/ElectionContext";
 import { useTopParties } from "@/data/useTopParties";
+import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
 
 const CustomTooltip: FC<{
   active?: boolean;
@@ -41,6 +42,7 @@ export const ProtocolSummary: FC<{
   votes?: Votes[];
 }> = ({ protocol, votes }) => {
   const { t } = useTranslation();
+  const isXSmall = useMediaQueryMatch("xs");
   const { isMachineOnly } = useElectionContext();
   const chartConfig = {
     totalVotes: {
@@ -169,7 +171,7 @@ export const ProtocolSummary: FC<{
                   </div>
                 </CardContent>
               </Card>
-              {!!protocol.numValidVotes && (
+              {!isXSmall && !!protocol.numValidVotes && (
                 <Card>
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-md font-medium">
@@ -284,7 +286,7 @@ export const ProtocolSummary: FC<{
                   </CardContent>
                 </Card>
               )}
-              {!!protocol.numValidMachineVotes && (
+              {!isXSmall && !!protocol.numValidMachineVotes && (
                 <Card>
                   <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
                     <CardTitle className="text-md font-medium">
