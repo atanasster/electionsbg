@@ -20,8 +20,12 @@ import { useMemo, useState } from "react";
 import { ArrowUpDown } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
+export type DataTableColumns<TData, TValue> = (ColumnDef<TData, TValue> & {
+  hidden?: boolean;
+})[];
+
 interface DataTableProps<TData, TValue> {
-  columns: (ColumnDef<TData, TValue> & { hidden?: boolean })[];
+  columns: DataTableColumns<TData, TValue>;
   data: TData[];
   pageSize?: number;
 }

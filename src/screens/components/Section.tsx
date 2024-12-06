@@ -8,7 +8,7 @@ import { PartyVotes } from "./PartyVotes";
 export const Section: FC<{ section: SectionInfo }> = ({ section }) => {
   const { t } = useTranslation();
   return (
-    <div className={`w-full py-10 px-4 md:px-8`}>
+    <div className={`w-full`}>
       <div>
         <Caption>{`${t("section")} ${section.section}`}</Caption>
         <Caption className="mb-4">{`${section.settlement}${section.address ? `-${section.address}` : ""}`}</Caption>

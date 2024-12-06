@@ -4,11 +4,11 @@ import { useTranslation } from "react-i18next";
 export const Footer = () => {
   const { t } = useTranslation();
   return (
-    <footer className="footer flex p-4 bg-muted text-primary justify-between invisible lg:visible">
-      <div className="text-sm sm:text-center whitespace-nowrap flex">
+    <footer className="footer flex p-4 bg-muted text-primary justify-end sm:justify-between">
+      <div className="text-sm hidden sm:flex whitespace-nowrap ">
         {`© ${new Date().getFullYear()}. ${t("all_rights_reserved")}.`}
       </div>
-      <ul className="flex flex-wrap items-center mt-3 text-md sm:mt-0">
+      <ul className="flex items-center text-md sm:mt-0">
         <li>
           <Link to={{ pathname: "/" }} aria-label="about" className="mx-2">
             {t("about")}

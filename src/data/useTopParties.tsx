@@ -4,7 +4,7 @@ import { usePartyInfo } from "./usePartyInfo";
 
 export const useTopParties = (
   votes?: Votes[],
-  pctThreshold: number = 4,
+  pctThreshold?: number,
 ): PartyVotes[] | undefined => {
   const { findParty } = usePartyInfo();
   const topParties = useMemo(() => {
@@ -12,8 +12,15 @@ export const useTopParties = (
     return votes
       ?.sort((a, b) => b.totalVotes - a.totalVotes)
       .filter((v, idx) => {
-        const pctVotes = totalVotes ? (100 * v?.totalVotes) / totalVotes : 0;
-        return pctVotes >= pctThreshold || (idx < 5 && v.totalVotes > 0);
+        if (!findParty(v.partyNum)) {
+          return false;
+        }
+        if (pctThreshold) {
+          const pctVotes = totalVotes ? (100 * v?.totalVotes) / totalVotes : 0;
+          return pctVotes >= pctThreshold || (idx < 5 && v.totalVotes > 0);
+        } else {
+          return true;
+        }
       })
       .map((v) => {
         const party = findParty(v.partyNum);
