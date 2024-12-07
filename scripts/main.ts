@@ -97,8 +97,10 @@ const electionFolders = fs
   .readdirSync(outFolder, { withFileTypes: true })
   .filter((file) => file.isDirectory())
   .filter((file) => file.name.startsWith("20"))
-  .map((f) => f.name)
-  .sort((a, b) => b.localeCompare(a));
+  .map((f) => ({
+    name: f.name,
+  }))
+  .sort((a, b) => b.name.localeCompare(a.name));
 
 const json = stringifyJSON(electionFolders, production);
 const outFile = path.resolve(__dirname, "../src/data/json/elections.json");
