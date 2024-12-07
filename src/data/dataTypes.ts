@@ -92,6 +92,33 @@ export type SectionInfo = {
   ekatte?: string;
 };
 
+export type LocationInfo = {
+  ekatte: string;
+  name: string;
+  name_en: string;
+  long_name?: string;
+  long_name_en?: string;
+  nuts3: string;
+  dx?: string;
+  dy?: string;
+  color?: string;
+  hidden?: boolean;
+};
+
+export type RegionInfo = LocationInfo & {
+  oblast: string;
+};
+
+export type MunicipalityInfo = LocationInfo & {
+  obshtina: string;
+};
+export type SettlementInfo = LocationInfo & {
+  t_v_m: string;
+  oblast: string;
+  obshtina: string;
+  kmetstvo: string;
+};
+
 export type PartyInfo = {
   number: number;
   name: string;
