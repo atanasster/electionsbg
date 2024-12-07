@@ -1,4 +1,4 @@
-export type RegionFeature = {
+export type GeoFeature = {
   type: "Feature";
   geometry: {
     type: string;
@@ -6,54 +6,27 @@ export type RegionFeature = {
   };
 };
 
-export type RegionGeoJSON = {
-  type: "FeatureCollection";
-  features: {
-    type: "Feature";
-    geometry: {
-      type: string;
-      coordinates: [][][];
-    };
-    properties: { nuts3: string };
-  }[];
+export type RegionJSONProps = { nuts3: string };
+export type MunicipalityJSONProps = { nuts4: string; nuts3: string };
+export type SettlementJSONProps = {
+  ekatte: string;
+  nuts4: string;
+  nuts3: string;
 };
 
-export type WorldGeoJSON = {
+export type GeoJSONProps =
+  | RegionJSONProps
+  | MunicipalityJSONProps
+  | SettlementJSONProps;
+export type GeoJSONMap<PropType extends GeoJSONProps> = {
   type: "FeatureCollection";
-  features: {
-    type: "Feature";
-    geometry: {
-      type: string;
-      coordinates: [][][];
-    };
-    properties: { continent_code: string };
-  }[];
+  features: (GeoFeature & {
+    properties: PropType;
+  })[];
 };
 
-export type MunicipalityGeoJSON = {
-  type: "FeatureCollection";
-  features: {
-    type: "Feature";
-    geometry: {
-      type: string;
-      coordinates: [][][];
-    };
-    properties: { nuts4: string; nuts3: string };
-  }[];
-};
+export type RegionGeoJSON = GeoJSONMap<RegionJSONProps>;
 
-export type SettlementGeoJSON = {
-  type: "FeatureCollection";
-  features: {
-    type: "Feature";
-    geometry: {
-      type: string;
-      coordinates: [][][];
-    };
-    properties: {
-      ekatte: string;
-      nuts4: string;
-      nuts3: string;
-    };
-  }[];
-};
+export type MunicipalityGeoJSON = GeoJSONMap<MunicipalityJSONProps>;
+
+export type SettlementGeoJSON = GeoJSONMap<SettlementJSONProps>;

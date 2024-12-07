@@ -9,7 +9,7 @@ import { ProtocolSummary } from "./components/ProtocolSummary";
 import { useRegions } from "@/data/useRegions";
 import { useMunicipalities } from "@/data/useMunicipalities";
 import { TopParties } from "./components/TopParties";
-import { RegionInfo } from "@/data/useSettlements";
+import { RegionInfo } from "@/data/dataTypes";
 
 export const SettlementsScreen = () => {
   const [searchParams] = useSearchParams();

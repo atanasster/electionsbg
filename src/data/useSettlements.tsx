@@ -1,32 +1,6 @@
 import { useCallback } from "react";
 import { useQuery } from "@tanstack/react-query";
-
-export type LocationInfo = {
-  ekatte: string;
-  name: string;
-  name_en: string;
-  long_name?: string;
-  long_name_en?: string;
-  nuts3: string;
-  dx?: string;
-  dy?: string;
-  color?: string;
-  hidden?: boolean;
-};
-
-export type RegionInfo = LocationInfo & {
-  oblast: string;
-};
-
-export type MunicipalityInfo = LocationInfo & {
-  obshtina: string;
-};
-export type SettlementInfo = LocationInfo & {
-  t_v_m: string;
-  oblast: string;
-  obshtina: string;
-  kmetstvo: string;
-};
+import { SettlementInfo } from "./dataTypes";
 
 const queryFn = async (): Promise<SettlementInfo[]> => {
   const response = await fetch("/settlements.json");
