@@ -10,6 +10,7 @@ import { geoDataCenter, getDataProjection } from "@/screens/utils/d3_utils";
 import { PartyVotesXS } from "../PartyVotesXS";
 import { LocationInfo, Votes } from "@/data/dataTypes";
 import { useTooltip } from "@/ux/useTooltip";
+import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
 
 export const GeoJSONMap = <Props extends GeoJSONProps>({
   mapJSON,
@@ -36,6 +37,7 @@ export const GeoJSONMap = <Props extends GeoJSONProps>({
     mapJSON as d3.GeoPermissibleObjects,
     size,
   );
+  const isXSmall = useMediaQueryMatch("xs");
   const components = useMemo(
     () =>
       mapJSON.features.reduce(
@@ -84,7 +86,7 @@ export const GeoJSONMap = <Props extends GeoJSONProps>({
                   className="fill-white"
                   style={{ pointerEvents: "none" }}
                   textAnchor="middle"
-                  fontSize="small"
+                  fontSize={isXSmall ? "x-small" : "small"}
                   x={
                     info.dx
                       ? ptLB[0] + (ptRT[0] - ptLB[0]) * parseFloat(info.dx)
@@ -121,6 +123,7 @@ export const GeoJSONMap = <Props extends GeoJSONProps>({
       path,
       projection,
       topVotesParty,
+      isXSmall,
     ],
   );
   return (

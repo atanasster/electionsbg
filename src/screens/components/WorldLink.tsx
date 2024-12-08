@@ -16,8 +16,9 @@ export const WorldLink: FC<{ size: MapCoordinates }> = ({ size }) => {
   const { t } = useTranslation();
 
   const topWorldParty = topVotesParty(worldVotes?.results.votes);
-  const isXSmal = useMediaQueryMatch("xs");
-  const width: number = isXSmal ? 100 : 180;
+  const isLarge = useMediaQueryMatch("lg");
+
+  const width: number = isLarge ? 180 : 100;
   return (
     <Link
       to={{

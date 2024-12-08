@@ -11,7 +11,7 @@ export const Footer = () => {
       </div>
       <ul className="flex items-center text-md sm:mt-0">
         <li>
-          <Link to="about" aria-label="about" className="mx-2">
+          <Link to="/about" aria-label="about" className="mx-2">
             {t("about")}
           </Link>
         </li>

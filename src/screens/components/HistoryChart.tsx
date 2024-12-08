@@ -64,7 +64,6 @@ export const HistoryChart: FC<{
       }))
       .sort((a, b) => a.name.localeCompare(b.name));
   }, [party.nickName, stats]);
-  console.log(selected);
   return (
     <ChartContainer config={{}} className={className}>
       <AreaChart

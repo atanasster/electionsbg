@@ -29,6 +29,7 @@ export const PartyVotesTable: FC<{
   const { t } = useTranslation();
   const isXSmall = useMediaQueryMatch("xs");
   const isSmall = useMediaQueryMatch("sm");
+  const isLarge = useMediaQueryMatch("lg");
   const hasPaperVotes = votes?.find((v) => v.paperVotes);
   const hasMachineVotes = votes?.find((v) => v.machineVotes);
   const parties = useTopParties(votes, 0);
@@ -153,7 +154,7 @@ export const PartyVotesTable: FC<{
         hidden: !prevElectionVotes,
         header: (
           <Hint text={t("all_elections_explainer")}>
-            <div>{isXSmall ? t("chart") : t("all_elections")}</div>
+            <div>{isLarge ? t("all_elections") : t("chart")}</div>
           </Hint>
         ) as never,
         cell: ({ row }) =>
@@ -161,14 +162,17 @@ export const PartyVotesTable: FC<{
             <Dialog>
               <DialogTrigger asChild>
                 <Button variant="ghost" className="my-2">
-                  <ChartArea className="md:hidden" />
-                  <HistoryChart
-                    className="min-w-60 max-h-12 hidden md:block"
-                    party={row.original as PartyInfo}
-                    stats={stats}
-                    cursorPointer={true}
-                    animationDuration={0}
-                  />
+                  {isLarge ? (
+                    <HistoryChart
+                      className="min-w-60 max-h-12"
+                      party={row.original as PartyInfo}
+                      stats={stats}
+                      cursorPointer={true}
+                      animationDuration={0}
+                    />
+                  ) : (
+                    <ChartArea />
+                  )}
                 </Button>
               </DialogTrigger>
               <DialogContent className="md:max-w-lg text-primary">
@@ -206,6 +210,7 @@ export const PartyVotesTable: FC<{
       hasPaperVotes,
       isSmall,
       isXSmall,
+      isLarge,
       prevElectionVotes,
       stats,
       t,
