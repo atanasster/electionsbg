@@ -2,1606 +2,1588 @@
   {
     "name": "2024_10_27",
     "results": {
-      "protocol": {
-        "ballotsReceived": 6094769,
-        "numAdditionalVoters": 214008,
-        "numInvalidAndDestroyedPaperBallots": 17580,
-        "numInvalidBallotsFound": 51523,
-        "numMachineBallots": 971411,
-        "numPaperBallotsFound": 1599279,
-        "numRegisteredVoters": 6619877,
-        "numUnusedPaperBallots": 4478356,
-        "numValidMachineVotes": 926256,
-        "numValidNoOneMachineVotes": 45070,
-        "numValidNoOnePaperVotes": 37549,
-        "numValidVotes": 1510222,
-        "totalActualVoters": 2570620
-      },
+      "actualTotal": 123791,
+      "actualPaperVotes": 88939,
+      "actualMachineVotes": 34852,
       "votes": [
         {
           "partyNum": 1,
-          "totalVotes": 2260,
-          "machineVotes": 908,
-          "paperVotes": 1352,
+          "totalVotes": 0,
+          "machineVotes": 0,
+          "paperVotes": 0,
           "nickName": "ДОСТ"
         },
         {
           "partyNum": 2,
-          "totalVotes": 7298,
-          "machineVotes": 4346,
-          "paperVotes": 2952,
+          "totalVotes": 237,
+          "machineVotes": 117,
+          "paperVotes": 120,
           "nickName": "ГН"
         },
         {
           "partyNum": 3,
-          "totalVotes": 1570,
-          "machineVotes": 688,
-          "paperVotes": 882,
+          "totalVotes": 0,
+          "machineVotes": 0,
+          "paperVotes": 0,
           "nickName": "СПБП"
         },
         {
           "partyNum": 4,
-          "totalVotes": 97438,
-          "machineVotes": 32823,
-          "paperVotes": 64615,
+          "totalVotes": 3710,
+          "machineVotes": 1265,
+          "paperVotes": 2445,
           "nickName": "Величие"
         },
         {
           "partyNum": 5,
-          "totalVotes": 1737,
-          "machineVotes": 786,
-          "paperVotes": 951,
+          "totalVotes": 78,
+          "machineVotes": 34,
+          "paperVotes": 44,
           "nickName": "Булгари"
         },
         {
           "partyNum": 6,
-          "totalVotes": 2781,
-          "machineVotes": 1017,
-          "paperVotes": 1764,
+          "totalVotes": 101,
+          "machineVotes": 26,
+          "paperVotes": 75,
           "nickName": "МСБ"
         },
         {
           "partyNum": 7,
-          "totalVotes": 165160,
-          "machineVotes": 95538,
-          "paperVotes": 69622,
+          "totalVotes": 5535,
+          "machineVotes": 3077,
+          "paperVotes": 2458,
           "nickName": "ИТН"
         },
         {
           "partyNum": 8,
-          "totalVotes": 281356,
-          "machineVotes": 38860,
-          "paperVotes": 242496,
+          "totalVotes": 26620,
+          "machineVotes": 3173,
+          "paperVotes": 23447,
           "nickName": "ДПС-НН"
         },
         {
           "partyNum": 9,
-          "totalVotes": 1181,
-          "machineVotes": 530,
-          "paperVotes": 651,
+          "totalVotes": 47,
+          "machineVotes": 19,
+          "paperVotes": 28,
           "nickName": "Бригада"
         },
         {
           "partyNum": 10,
-          "totalVotes": 4897,
-          "machineVotes": 2978,
-          "paperVotes": 1919,
+          "totalVotes": 113,
+          "machineVotes": 48,
+          "paperVotes": 65,
           "nickName": "ПЗ"
         },
         {
           "partyNum": 11,
-          "totalVotes": 2360,
-          "machineVotes": 871,
-          "paperVotes": 1489,
+          "totalVotes": 93,
+          "machineVotes": 30,
+          "paperVotes": 63,
           "nickName": "Правото"
         },
         {
           "partyNum": 12,
-          "totalVotes": 325466,
-          "machineVotes": 137146,
-          "paperVotes": 188320,
+          "totalVotes": 10208,
+          "machineVotes": 4029,
+          "paperVotes": 6179,
           "nickName": "Възраждане"
         },
         {
           "partyNum": 13,
-          "totalVotes": 182253,
-          "machineVotes": 29595,
-          "paperVotes": 152658,
+          "totalVotes": 8798,
+          "machineVotes": 688,
+          "paperVotes": 8110,
           "nickName": "АПС"
         },
         {
           "partyNum": 14,
-          "totalVotes": 2230,
-          "machineVotes": 911,
-          "paperVotes": 1319,
+          "totalVotes": 82,
+          "machineVotes": 28,
+          "paperVotes": 54,
           "nickName": "БНС–НД"
         },
         {
           "partyNum": 15,
-          "totalVotes": 1694,
-          "machineVotes": 735,
-          "paperVotes": 959,
+          "totalVotes": 76,
+          "machineVotes": 25,
+          "paperVotes": 51,
           "nickName": "БСДД–ДД"
         },
         {
           "partyNum": 16,
-          "totalVotes": 26054,
-          "machineVotes": 15188,
-          "paperVotes": 10866,
+          "totalVotes": 845,
+          "machineVotes": 404,
+          "paperVotes": 441,
           "nickName": "СБ"
         },
         {
           "partyNum": 17,
-          "totalVotes": 111965,
-          "machineVotes": 52124,
-          "paperVotes": 59841,
+          "totalVotes": 4319,
+          "machineVotes": 1938,
+          "paperVotes": 2381,
           "nickName": "МЕЧ"
         },
         {
           "partyNum": 18,
-          "totalVotes": 642973,
-          "machineVotes": 191977,
-          "paperVotes": 450996,
+          "totalVotes": 40638,
+          "machineVotes": 10097,
+          "paperVotes": 30541,
           "nickName": "ГЕРБ-СДС"
         },
         {
           "partyNum": 19,
-          "totalVotes": 3965,
-          "machineVotes": 1080,
-          "paperVotes": 2885,
+          "totalVotes": 100,
+          "machineVotes": 20,
+          "paperVotes": 80,
           "nickName": "Атака"
         },
         {
           "partyNum": 20,
-          "totalVotes": 2463,
-          "machineVotes": 747,
-          "paperVotes": 1716,
+          "totalVotes": 94,
+          "machineVotes": 19,
+          "paperVotes": 75,
           "nickName": "НПИ-СИ"
         },
         {
           "partyNum": 21,
-          "totalVotes": 7952,
-          "machineVotes": 3430,
-          "paperVotes": 4522,
+          "totalVotes": 197,
+          "machineVotes": 72,
+          "paperVotes": 125,
           "nickName": "ПД"
         },
         {
           "partyNum": 22,
-          "totalVotes": 6293,
-          "machineVotes": 2293,
-          "paperVotes": 4000,
+          "totalVotes": 192,
+          "machineVotes": 38,
+          "paperVotes": 154,
           "nickName": "КП-СИ"
         },
         {
           "partyNum": 23,
-          "totalVotes": 1444,
-          "machineVotes": 447,
-          "paperVotes": 997,
+          "totalVotes": 47,
+          "machineVotes": 11,
+          "paperVotes": 36,
           "nickName": "БТР"
         },
         {
           "partyNum": 24,
-          "totalVotes": 2022,
-          "machineVotes": 666,
-          "paperVotes": 1356,
+          "totalVotes": 54,
+          "machineVotes": 15,
+          "paperVotes": 39,
           "nickName": "КОЙ"
         },
         {
           "partyNum": 25,
-          "totalVotes": 8860,
-          "machineVotes": 3423,
-          "paperVotes": 5437,
+          "totalVotes": 232,
+          "machineVotes": 88,
+          "paperVotes": 144,
           "nickName": "КП-РзБ"
         },
         {
           "partyNum": 26,
-          "totalVotes": 346063,
-          "machineVotes": 239571,
-          "paperVotes": 106492,
+          "totalVotes": 11132,
+          "machineVotes": 6699,
+          "paperVotes": 4433,
           "nickName": "ПП-ДБ"
         },
         {
           "partyNum": 27,
-          "totalVotes": 10318,
-          "machineVotes": 5081,
-          "paperVotes": 5237,
+          "totalVotes": 219,
+          "machineVotes": 89,
+          "paperVotes": 130,
           "nickName": "БВ"
         },
         {
           "partyNum": 28,
-          "totalVotes": 184403,
-          "machineVotes": 61380,
-          "paperVotes": 123023,
+          "totalVotes": 10024,
+          "machineVotes": 2803,
+          "paperVotes": 7221,
           "nickName": "БСП"
-        },
-        {
-          "partyNum": 29,
-          "totalVotes": 2000,
-          "machineVotes": 1107,
-          "paperVotes": 893
         }
-      ]
+      ],
+      "protocol": {
+        "ballotsReceived": 287797,
+        "numAdditionalVoters": 3570,
+        "numInvalidAndDestroyedPaperBallots": 758,
+        "numInvalidBallotsFound": 2468,
+        "numMachineBallots": 36408,
+        "numPaperBallotsFound": 93067,
+        "numRegisteredVoters": 316486,
+        "numUnusedPaperBallots": 193980,
+        "numValidMachineVotes": 34852,
+        "numValidNoOneMachineVotes": 1546,
+        "numValidNoOnePaperVotes": 1653,
+        "numValidVotes": 88946,
+        "totalActualVoters": 129465
+      }
     }
   },
   {
     "name": "2024_06_09",
     "results": {
-      "protocol": {
-        "ballotsReceived": 6216689,
-        "numAdditionalVoters": 203622,
-        "numInvalidAndDestroyedPaperBallots": 18829,
-        "numInvalidBallotsFound": 58496,
-        "numMachineBallots": 815294,
-        "numPaperBallotsFound": 1454537,
-        "numRegisteredVoters": 6594076,
-        "numUnusedPaperBallots": 4746590,
-        "numValidMachineVotes": 783950,
-        "numValidNoOneMachineVotes": 31474,
-        "numValidNoOnePaperVotes": 32439,
-        "numValidVotes": 1363906,
-        "totalActualVoters": 2270265
-      },
+      "actualTotal": 109310,
+      "actualPaperVotes": 80160,
+      "actualMachineVotes": 29150,
       "votes": [
         {
           "partyNum": 1,
-          "totalVotes": 128007,
-          "machineVotes": 68862,
-          "paperVotes": 59145,
+          "totalVotes": 4793,
+          "machineVotes": 2391,
+          "paperVotes": 2402,
           "nickName": "ИТН"
         },
         {
           "partyNum": 2,
-          "totalVotes": 6560,
-          "machineVotes": 3200,
-          "paperVotes": 3360,
+          "totalVotes": 252,
+          "machineVotes": 97,
+          "paperVotes": 155,
           "nickName": "ГН"
         },
         {
           "partyNum": 3,
-          "totalVotes": 33613,
-          "machineVotes": 18207,
-          "paperVotes": 15406,
+          "totalVotes": 827,
+          "machineVotes": 414,
+          "paperVotes": 413,
           "nickName": "СБ"
         },
         {
           "partyNum": 4,
-          "totalVotes": 4662,
-          "machineVotes": 1519,
-          "paperVotes": 3143,
+          "totalVotes": 116,
+          "machineVotes": 35,
+          "paperVotes": 81,
           "nickName": "КОЙ"
         },
         {
           "partyNum": 6,
-          "totalVotes": 3378,
-          "machineVotes": 1346,
-          "paperVotes": 2032,
+          "totalVotes": 143,
+          "machineVotes": 51,
+          "paperVotes": 92,
           "nickName": "ГЛАСЪ"
         },
         {
           "partyNum": 7,
-          "totalVotes": 2206,
-          "machineVotes": 1011,
-          "paperVotes": 1195,
+          "totalVotes": 56,
+          "machineVotes": 21,
+          "paperVotes": 35,
           "nickName": "КР"
         },
         {
           "partyNum": 8,
-          "totalVotes": 25664,
-          "machineVotes": 12754,
-          "paperVotes": 12910,
+          "totalVotes": 2013,
+          "machineVotes": 845,
+          "paperVotes": 1168,
           "nickName": "Център"
         },
         {
           "partyNum": 9,
-          "totalVotes": 31476,
-          "machineVotes": 14630,
-          "paperVotes": 16846,
+          "totalVotes": 1010,
+          "machineVotes": 415,
+          "paperVotes": 595,
           "nickName": "СБГ"
         },
         {
           "partyNum": 10,
-          "totalVotes": 5206,
-          "machineVotes": 2971,
-          "paperVotes": 2235,
+          "totalVotes": 154,
+          "machineVotes": 71,
+          "paperVotes": 83,
           "nickName": "Единение"
         },
         {
           "partyNum": 11,
-          "totalVotes": 920,
-          "machineVotes": 356,
-          "paperVotes": 564,
+          "totalVotes": 59,
+          "machineVotes": 21,
+          "paperVotes": 38,
           "nickName": "БНО"
         },
         {
           "partyNum": 12,
-          "totalVotes": 295915,
-          "machineVotes": 113654,
-          "paperVotes": 182261,
+          "totalVotes": 8703,
+          "machineVotes": 3112,
+          "paperVotes": 5591,
           "nickName": "Възраждане"
         },
         {
           "partyNum": 13,
-          "totalVotes": 63992,
-          "machineVotes": 28310,
-          "paperVotes": 35682,
+          "totalVotes": 2355,
+          "machineVotes": 998,
+          "paperVotes": 1357,
           "nickName": "МЕЧ"
         },
         {
           "partyNum": 14,
-          "totalVotes": 307849,
-          "machineVotes": 208613,
-          "paperVotes": 99236,
+          "totalVotes": 9148,
+          "machineVotes": 5624,
+          "paperVotes": 3524,
           "nickName": "ПП-ДБ"
         },
         {
           "partyNum": 15,
-          "totalVotes": 2483,
-          "machineVotes": 1001,
-          "paperVotes": 1482,
+          "totalVotes": 89,
+          "machineVotes": 27,
+          "paperVotes": 62,
           "nickName": "НПИ-СИ"
         },
         {
           "partyNum": 16,
-          "totalVotes": 12322,
-          "machineVotes": 5581,
-          "paperVotes": 6741,
+          "totalVotes": 213,
+          "machineVotes": 62,
+          "paperVotes": 151,
           "nickName": "БВ"
         },
         {
           "partyNum": 17,
-          "totalVotes": 3003,
-          "machineVotes": 893,
-          "paperVotes": 2110,
+          "totalVotes": 230,
+          "machineVotes": 62,
+          "paperVotes": 168,
           "nickName": "ГБ"
         },
         {
           "partyNum": 18,
-          "totalVotes": 2249,
-          "machineVotes": 487,
-          "paperVotes": 1762,
+          "totalVotes": 68,
+          "machineVotes": 6,
+          "paperVotes": 62,
           "nickName": "ОНБ"
         },
         {
           "partyNum": 19,
-          "totalVotes": 15175,
-          "machineVotes": 5473,
-          "paperVotes": 9702,
+          "totalVotes": 397,
+          "machineVotes": 112,
+          "paperVotes": 285,
           "nickName": "Левицата"
         },
         {
           "partyNum": 20,
-          "totalVotes": 5494,
-          "machineVotes": 2049,
-          "paperVotes": 3445,
+          "totalVotes": 143,
+          "machineVotes": 38,
+          "paperVotes": 105,
           "nickName": "Зелените"
         },
         {
           "partyNum": 21,
-          "totalVotes": 5939,
-          "machineVotes": 3024,
-          "paperVotes": 2915,
+          "totalVotes": 189,
+          "machineVotes": 64,
+          "paperVotes": 125,
           "nickName": "Идваме"
         },
         {
           "partyNum": 22,
-          "totalVotes": 530658,
-          "machineVotes": 142770,
-          "paperVotes": 387888,
+          "totalVotes": 34113,
+          "machineVotes": 7901,
+          "paperVotes": 26212,
           "nickName": "ГЕРБ-СДС"
         },
         {
           "partyNum": 23,
-          "totalVotes": 2128,
-          "machineVotes": 491,
-          "paperVotes": 1637,
+          "totalVotes": 75,
+          "machineVotes": 10,
+          "paperVotes": 65,
           "nickName": "НД"
         },
         {
           "partyNum": 24,
-          "totalVotes": 151560,
-          "machineVotes": 41985,
-          "paperVotes": 109575,
+          "totalVotes": 7846,
+          "machineVotes": 1852,
+          "paperVotes": 5994,
           "nickName": "БСП"
         },
         {
           "partyNum": 25,
-          "totalVotes": 99862,
-          "machineVotes": 31755,
-          "paperVotes": 68107,
+          "totalVotes": 2451,
+          "machineVotes": 802,
+          "paperVotes": 1649,
           "nickName": "Величие"
         },
         {
           "partyNum": 26,
-          "totalVotes": 21272,
-          "machineVotes": 7842,
-          "paperVotes": 13430,
+          "totalVotes": 3273,
+          "machineVotes": 858,
+          "paperVotes": 2415,
           "nickName": "ВМРО"
         },
         {
           "partyNum": 27,
-          "totalVotes": 5207,
-          "machineVotes": 1923,
-          "paperVotes": 3284,
+          "totalVotes": 141,
+          "machineVotes": 46,
+          "paperVotes": 95,
           "nickName": "ПД"
         },
         {
           "partyNum": 28,
-          "totalVotes": 366310,
-          "machineVotes": 55569,
-          "paperVotes": 310741,
+          "totalVotes": 30117,
+          "machineVotes": 3101,
+          "paperVotes": 27016,
           "nickName": "ДПС"
         },
         {
           "partyNum": 29,
-          "totalVotes": 9324,
-          "machineVotes": 5952,
-          "paperVotes": 3372,
+          "totalVotes": 167,
+          "machineVotes": 79,
+          "paperVotes": 88,
           "nickName": "ЗД"
         },
         {
           "partyNum": 30,
-          "totalVotes": 1893,
-          "machineVotes": 648,
-          "paperVotes": 1245,
+          "totalVotes": 62,
+          "machineVotes": 15,
+          "paperVotes": 47,
           "nickName": "ВБ"
         },
         {
           "partyNum": 31,
-          "totalVotes": 946,
-          "machineVotes": 368,
-          "paperVotes": 578,
+          "totalVotes": 33,
+          "machineVotes": 6,
+          "paperVotes": 27,
           "nickName": "БСДД"
         },
         {
           "partyNum": 32,
-          "totalVotes": 2462,
-          "machineVotes": 599,
-          "paperVotes": 1863,
+          "totalVotes": 74,
+          "machineVotes": 14,
+          "paperVotes": 60,
           "nickName": "КНБ"
         }
-      ]
+      ],
+      "protocol": {
+        "ballotsReceived": 288046,
+        "numAdditionalVoters": 2433,
+        "numInvalidAndDestroyedPaperBallots": 849,
+        "numInvalidBallotsFound": 3456,
+        "numMachineBallots": 30252,
+        "numPaperBallotsFound": 84953,
+        "numRegisteredVoters": 310941,
+        "numUnusedPaperBallots": 201739,
+        "numValidMachineVotes": 29150,
+        "numValidNoOneMachineVotes": 1102,
+        "numValidNoOnePaperVotes": 1336,
+        "numValidVotes": 80159,
+        "totalActualVoters": 115203
+      }
     }
   },
   {
     "name": "2023_04_02",
     "results": {
-      "protocol": {
-        "ballotsReceived": 6240470,
-        "numAdditionalVoters": 240396,
-        "numInvalidAndDestroyedPaperBallots": 17803,
-        "numInvalidBallotsFound": 44617,
-        "numMachineBallots": 1556906,
-        "numPaperBallotsFound": 1126785,
-        "numRegisteredVoters": 6622013,
-        "numUnusedPaperBallots": 5094988,
-        "numValidMachineVotes": 1477206,
-        "numValidNoOneMachineVotes": 79537,
-        "numValidNoOnePaperVotes": 29663,
-        "numValidVotes": 1052495,
-        "totalActualVoters": 2683518
-      },
+      "actualTotal": 117398,
+      "actualPaperVotes": 53237,
+      "actualMachineVotes": 64160,
       "votes": [
         {
           "partyNum": 1,
-          "totalVotes": 225914,
-          "machineVotes": 111191,
-          "paperVotes": 114758,
+          "totalVotes": 10538,
+          "machineVotes": 5210,
+          "paperVotes": 5329,
           "nickName": "БСП"
         },
         {
           "partyNum": 2,
-          "totalVotes": 669924,
-          "machineVotes": 289643,
-          "paperVotes": 380390,
+          "totalVotes": 37629,
+          "machineVotes": 16676,
+          "paperVotes": 20953,
           "nickName": "ГЕРБ-СДС"
         },
         {
           "partyNum": 3,
-          "totalVotes": 358174,
-          "machineVotes": 239378,
-          "paperVotes": 118858,
+          "totalVotes": 10812,
+          "machineVotes": 7470,
+          "paperVotes": 3342,
           "nickName": "Възраждане"
         },
         {
           "partyNum": 4,
-          "totalVotes": 103971,
-          "machineVotes": 79741,
-          "paperVotes": 24249,
+          "totalVotes": 4104,
+          "machineVotes": 3260,
+          "paperVotes": 844,
           "nickName": "ИТН"
         },
         {
           "partyNum": 5,
-          "totalVotes": 7776,
-          "machineVotes": 5048,
-          "paperVotes": 2729,
+          "totalVotes": 361,
+          "machineVotes": 221,
+          "paperVotes": 140,
           "nickName": "ПП НПИСИ"
         },
         {
           "partyNum": 6,
-          "totalVotes": 10505,
-          "machineVotes": 5200,
-          "paperVotes": 5308,
+          "totalVotes": 266,
+          "machineVotes": 139,
+          "paperVotes": 127,
           "nickName": "КНБ"
         },
         {
           "partyNum": 7,
-          "totalVotes": 2328,
-          "machineVotes": 1431,
-          "paperVotes": 898,
+          "totalVotes": 90,
+          "machineVotes": 59,
+          "paperVotes": 31,
           "nickName": "БНО"
         },
         {
           "partyNum": 8,
-          "totalVotes": 8755,
-          "machineVotes": 6369,
-          "paperVotes": 2383,
+          "totalVotes": 216,
+          "machineVotes": 159,
+          "paperVotes": 57,
           "nickName": "Заедно"
         },
         {
           "partyNum": 9,
-          "totalVotes": 1753,
-          "machineVotes": 1062,
-          "paperVotes": 692,
+          "totalVotes": 81,
+          "machineVotes": 51,
+          "paperVotes": 30,
           "nickName": "БНС–НД"
         },
         {
           "partyNum": 10,
-          "totalVotes": 6764,
-          "machineVotes": 4553,
-          "paperVotes": 2211,
+          "totalVotes": 225,
+          "machineVotes": 146,
+          "paperVotes": 79,
           "nickName": "НДСВ"
         },
         {
           "partyNum": 11,
-          "totalVotes": 7739,
-          "machineVotes": 5426,
-          "paperVotes": 2314,
+          "totalVotes": 228,
+          "machineVotes": 155,
+          "paperVotes": 73,
           "nickName": "КОД"
         },
         {
           "partyNum": 12,
-          "totalVotes": 621069,
-          "machineVotes": 476506,
-          "paperVotes": 144736,
+          "totalVotes": 20622,
+          "machineVotes": 15705,
+          "paperVotes": 4915,
           "nickName": "ПП-ДБ"
         },
         {
           "partyNum": 13,
-          "totalVotes": 347700,
-          "machineVotes": 147493,
-          "paperVotes": 200209,
+          "totalVotes": 23333,
+          "machineVotes": 10165,
+          "paperVotes": 13168,
           "nickName": "ДПС"
         },
         {
           "partyNum": 14,
-          "totalVotes": 56481,
-          "machineVotes": 38627,
-          "paperVotes": 17872,
+          "totalVotes": 2608,
+          "machineVotes": 1655,
+          "paperVotes": 953,
           "nickName": "Левицата"
         },
         {
           "partyNum": 15,
-          "totalVotes": 77420,
-          "machineVotes": 51066,
-          "paperVotes": 26372,
+          "totalVotes": 5764,
+          "machineVotes": 2792,
+          "paperVotes": 2972,
           "nickName": "БВ"
         },
         {
           "partyNum": 16,
-          "totalVotes": 3894,
-          "machineVotes": 2709,
-          "paperVotes": 1185,
+          "totalVotes": 119,
+          "machineVotes": 70,
+          "paperVotes": 49,
           "nickName": "МИР"
         },
         {
           "partyNum": 17,
-          "totalVotes": 2633,
-          "machineVotes": 1297,
-          "paperVotes": 1337,
+          "totalVotes": 93,
+          "machineVotes": 46,
+          "paperVotes": 47,
           "nickName": "БСД–Евролевица"
         },
         {
           "partyNum": 18,
-          "totalVotes": 2517,
-          "machineVotes": 1575,
-          "paperVotes": 942,
+          "totalVotes": 55,
+          "machineVotes": 26,
+          "paperVotes": 29,
           "nickName": "БСДД"
         },
         {
           "partyNum": 19,
-          "totalVotes": 5560,
-          "machineVotes": 4126,
-          "paperVotes": 1438,
+          "totalVotes": 92,
+          "machineVotes": 67,
+          "paperVotes": 25,
           "nickName": "Глас Народен"
         },
         {
           "partyNum": 20,
-          "totalVotes": 730,
-          "machineVotes": 347,
-          "paperVotes": 383,
+          "totalVotes": 36,
+          "machineVotes": 24,
+          "paperVotes": 12,
           "nickName": "СПБП"
         },
         {
           "partyNum": 21,
-          "totalVotes": 6598,
-          "machineVotes": 3763,
-          "paperVotes": 2837,
+          "totalVotes": 126,
+          "machineVotes": 64,
+          "paperVotes": 62,
           "nickName": "ВЪН ЕС/НАТО"
-        },
-        {
-          "partyNum": 22,
-          "totalVotes": 924,
-          "machineVotes": 535,
-          "paperVotes": 389
         }
-      ]
+      ],
+      "protocol": {
+        "ballotsReceived": 285967,
+        "numAdditionalVoters": 3634,
+        "numInvalidAndDestroyedPaperBallots": 919,
+        "numInvalidBallotsFound": 2033,
+        "numMachineBallots": 67164,
+        "numPaperBallotsFound": 56301,
+        "numRegisteredVoters": 313948,
+        "numUnusedPaperBallots": 228759,
+        "numValidMachineVotes": 64160,
+        "numValidNoOneMachineVotes": 2992,
+        "numValidNoOnePaperVotes": 1034,
+        "numValidVotes": 53237,
+        "totalActualVoters": 123456
+      }
     }
   },
   {
     "name": "2022_10_02",
     "results": {
-      "protocol": {
-        "ballotsReceived": 4945201,
-        "numAdditionalVoters": 83033,
-        "numInvalidAndDestroyedPaperBallots": 11221,
-        "numMachineBallots": 2592907,
-        "numRegisteredVoters": 6570344,
-        "numUnusedPaperBallots": 4739833,
-        "numValidMachineVotes": 2505272,
-        "numValidNoOneMachineVotes": 87635,
-        "totalActualVoters": 2592907
-      },
+      "actualTotal": 113421,
+      "actualPaperVotes": 0,
+      "actualMachineVotes": 103218,
       "votes": [
         {
           "partyNum": 1,
-          "totalVotes": 344512,
-          "machineVotes": 309163,
+          "totalVotes": 21221,
+          "machineVotes": 18015,
           "paperVotes": 0,
           "nickName": "ДПС"
         },
         {
           "partyNum": 2,
-          "totalVotes": 5874,
-          "machineVotes": 5444,
+          "totalVotes": 241,
+          "machineVotes": 219,
           "paperVotes": 0,
           "nickName": "БСДД"
         },
         {
           "partyNum": 3,
-          "totalVotes": 1671,
-          "machineVotes": 1541,
+          "totalVotes": 73,
+          "machineVotes": 70,
           "paperVotes": 0,
           "nickName": "БНО"
         },
         {
           "partyNum": 4,
-          "totalVotes": 4039,
-          "machineVotes": 3719,
+          "totalVotes": 194,
+          "machineVotes": 175,
           "paperVotes": 0,
           "nickName": "Единство"
         },
         {
           "partyNum": 5,
-          "totalVotes": 20177,
-          "machineVotes": 18426,
+          "totalVotes": 3335,
+          "machineVotes": 3186,
           "paperVotes": 0,
           "nickName": "ВМРО"
         },
         {
           "partyNum": 6,
-          "totalVotes": 9124,
-          "machineVotes": 8189,
+          "totalVotes": 248,
+          "machineVotes": 231,
           "paperVotes": 0,
           "nickName": "КСБ"
         },
         {
           "partyNum": 7,
-          "totalVotes": 4061,
-          "machineVotes": 3678,
+          "totalVotes": 141,
+          "machineVotes": 135,
           "paperVotes": 0,
           "nickName": "ПД"
         },
         {
           "partyNum": 8,
-          "totalVotes": 3520,
-          "machineVotes": 3295,
+          "totalVotes": 81,
+          "machineVotes": 72,
           "paperVotes": 0,
           "nickName": "НФСБ"
         },
         {
           "partyNum": 9,
-          "totalVotes": 506099,
-          "machineVotes": 442050,
+          "totalVotes": 17777,
+          "machineVotes": 16628,
           "paperVotes": 0,
           "nickName": "ПП"
         },
         {
           "partyNum": 10,
-          "totalVotes": 4536,
-          "machineVotes": 4035,
+          "totalVotes": 183,
+          "machineVotes": 168,
           "paperVotes": 0,
           "nickName": "МИР"
         },
         {
           "partyNum": 11,
-          "totalVotes": 5028,
-          "machineVotes": 4393,
+          "totalVotes": 209,
+          "machineVotes": 200,
           "paperVotes": 0,
           "nickName": "КОД"
         },
         {
           "partyNum": 12,
-          "totalVotes": 2636,
-          "machineVotes": 2447,
+          "totalVotes": 84,
+          "machineVotes": 81,
           "paperVotes": 0,
           "nickName": "БТР"
         },
         {
           "partyNum": 13,
-          "totalVotes": 5097,
-          "machineVotes": 4669,
+          "totalVotes": 197,
+          "machineVotes": 181,
           "paperVotes": 0,
           "nickName": "КЗТБ"
         },
         {
           "partyNum": 14,
-          "totalVotes": 254952,
-          "machineVotes": 227142,
+          "totalVotes": 7293,
+          "machineVotes": 6806,
           "paperVotes": 0,
           "nickName": "Възраждане"
         },
         {
           "partyNum": 15,
-          "totalVotes": 115872,
-          "machineVotes": 103943,
+          "totalVotes": 5367,
+          "machineVotes": 5006,
           "paperVotes": 0,
           "nickName": "БВ"
         },
         {
           "partyNum": 16,
-          "totalVotes": 1849,
-          "machineVotes": 1683,
+          "totalVotes": 68,
+          "machineVotes": 63,
           "paperVotes": 0,
           "nickName": "БНС-НД"
         },
         {
           "partyNum": 17,
-          "totalVotes": 25207,
-          "machineVotes": 22564,
+          "totalVotes": 550,
+          "machineVotes": 513,
           "paperVotes": 0,
           "nickName": "ПП ИСБ"
         },
         {
           "partyNum": 18,
-          "totalVotes": 10324,
-          "machineVotes": 9162,
+          "totalVotes": 350,
+          "machineVotes": 324,
           "paperVotes": 0,
           "nickName": "ДНК"
         },
         {
           "partyNum": 19,
-          "totalVotes": 96071,
-          "machineVotes": 86106,
+          "totalVotes": 3710,
+          "machineVotes": 3495,
           "paperVotes": 0,
           "nickName": "ИТН"
         },
         {
           "partyNum": 20,
-          "totalVotes": 6197,
-          "machineVotes": 5380,
+          "totalVotes": 140,
+          "machineVotes": 132,
           "paperVotes": 0,
           "nickName": "ГН"
         },
         {
           "partyNum": 22,
-          "totalVotes": 1757,
-          "machineVotes": 1609,
+          "totalVotes": 117,
+          "machineVotes": 105,
           "paperVotes": 0,
           "nickName": "Правото"
         },
         {
           "partyNum": 23,
-          "totalVotes": 2522,
-          "machineVotes": 2320,
+          "totalVotes": 0,
+          "machineVotes": 0,
           "paperVotes": 0,
           "nickName": "НПИ-СИ"
         },
         {
           "partyNum": 24,
-          "totalVotes": 634627,
-          "machineVotes": 576270,
+          "totalVotes": 34851,
+          "machineVotes": 31489,
           "paperVotes": 0,
           "nickName": "ГЕРБ-СДС"
         },
         {
           "partyNum": 25,
-          "totalVotes": 186528,
-          "machineVotes": 153630,
+          "totalVotes": 4261,
+          "machineVotes": 3945,
           "paperVotes": 0,
           "nickName": "ДБ"
         },
         {
           "partyNum": 26,
-          "totalVotes": 5343,
-          "machineVotes": 4944,
+          "totalVotes": 277,
+          "machineVotes": 267,
           "paperVotes": 0,
           "nickName": "БСД–Евролевица"
         },
         {
           "partyNum": 27,
-          "totalVotes": 7593,
-          "machineVotes": 6997,
+          "totalVotes": 206,
+          "machineVotes": 193,
           "paperVotes": 0,
           "nickName": "Атака"
         },
         {
           "partyNum": 28,
-          "totalVotes": 232958,
-          "machineVotes": 214874,
+          "totalVotes": 12080,
+          "machineVotes": 11365,
           "paperVotes": 0,
           "nickName": "БСП"
         },
         {
           "partyNum": 29,
-          "totalVotes": 6533,
-          "machineVotes": 5887,
+          "totalVotes": 167,
+          "machineVotes": 154,
           "paperVotes": 0,
           "nickName": "КП-РзВО"
-        },
-        {
-          "partyNum": 30,
-          "totalVotes": 564,
-          "machineVotes": 476,
-          "paperVotes": 0
         }
-      ]
+      ],
+      "protocol": {
+        "ballotsReceived": 266601,
+        "numAdditionalVoters": 3287,
+        "numInvalidAndDestroyedPaperBallots": 513,
+        "numMachineBallots": 116523,
+        "numRegisteredVoters": 308835,
+        "numUnusedPaperBallots": 258657,
+        "numValidMachineVotes": 113421,
+        "numValidNoOneMachineVotes": 3102,
+        "totalActualVoters": 116523
+      }
     }
   },
   {
     "name": "2021_11_14",
     "results": {
-      "protocol": {
-        "ballotsReceived": 5443762,
-        "numAdditionalVoters": 86827,
-        "numInvalidAndDestroyedPaperBallots": 13550,
-        "numMachineBallots": 2658503,
-        "numRegisteredVoters": 6608966,
-        "numUnusedPaperBallots": 5222064,
-        "numValidMachineVotes": 2622796,
-        "numValidNoOneMachineVotes": 35745,
-        "totalActualVoters": 2658541
-      },
+      "actualTotal": 114522,
+      "actualPaperVotes": 0,
+      "actualMachineVotes": 94252,
       "votes": [
         {
           "partyNum": 2,
-          "totalVotes": 6803,
-          "machineVotes": 5735,
+          "totalVotes": 195,
+          "machineVotes": 175,
           "paperVotes": 0,
           "nickName": "КП-РзВО"
         },
         {
           "partyNum": 4,
-          "totalVotes": 8584,
-          "machineVotes": 7576,
+          "totalVotes": 339,
+          "machineVotes": 280,
           "paperVotes": 0,
           "nickName": "ПФ"
         },
         {
           "partyNum": 5,
-          "totalVotes": 127568,
-          "machineVotes": 105309,
+          "totalVotes": 3304,
+          "machineVotes": 2764,
           "paperVotes": 0,
           "nickName": "Възраждане"
         },
         {
           "partyNum": 7,
-          "totalVotes": 11239,
-          "machineVotes": 9692,
+          "totalVotes": 461,
+          "machineVotes": 373,
           "paperVotes": 0,
           "nickName": "НОД"
         },
         {
           "partyNum": 8,
-          "totalVotes": 5894,
-          "machineVotes": 5227,
+          "totalVotes": 274,
+          "machineVotes": 234,
           "paperVotes": 0,
           "nickName": "БСДД"
         },
         {
           "partyNum": 10,
-          "totalVotes": 13710,
-          "machineVotes": 11928,
+          "totalVotes": 571,
+          "machineVotes": 473,
           "paperVotes": 0,
           "nickName": "БСД–Евролевица"
         },
         {
           "partyNum": 11,
-          "totalVotes": 12153,
-          "machineVotes": 10524,
+          "totalVotes": 380,
+          "machineVotes": 335,
           "paperVotes": 0,
           "nickName": "Атака"
         },
         {
           "partyNum": 13,
-          "totalVotes": 11627,
-          "machineVotes": 9717,
+          "totalVotes": 562,
+          "machineVotes": 472,
           "paperVotes": 0,
           "nickName": "ОНБ"
         },
         {
           "partyNum": 14,
-          "totalVotes": 11546,
-          "machineVotes": 9728,
+          "totalVotes": 478,
+          "machineVotes": 396,
           "paperVotes": 0,
           "nickName": "ГН"
         },
         {
           "partyNum": 17,
-          "totalVotes": 341000,
-          "machineVotes": 290632,
+          "totalVotes": 19068,
+          "machineVotes": 15059,
           "paperVotes": 0,
           "nickName": "ДПС"
         },
         {
           "partyNum": 20,
-          "totalVotes": 6712,
-          "machineVotes": 5717,
+          "totalVotes": 335,
+          "machineVotes": 284,
           "paperVotes": 0,
           "nickName": "Правото"
         },
         {
           "partyNum": 21,
-          "totalVotes": 28322,
-          "machineVotes": 24113,
+          "totalVotes": 3311,
+          "machineVotes": 2965,
           "paperVotes": 0,
           "nickName": "ВМРО"
         },
         {
           "partyNum": 22,
-          "totalVotes": 2468,
-          "machineVotes": 2138,
+          "totalVotes": 117,
+          "machineVotes": 101,
           "paperVotes": 0,
           "nickName": "БНО"
         },
         {
           "partyNum": 23,
-          "totalVotes": 7067,
-          "machineVotes": 6110,
+          "totalVotes": 338,
+          "machineVotes": 273,
           "paperVotes": 0,
           "nickName": "Воля"
         },
         {
           "partyNum": 24,
-          "totalVotes": 249743,
-          "machineVotes": 209380,
+          "totalVotes": 12014,
+          "machineVotes": 9952,
           "paperVotes": 0,
           "nickName": "ИТН"
         },
         {
           "partyNum": 25,
-          "totalVotes": 673170,
-          "machineVotes": 546851,
+          "totalVotes": 22791,
+          "machineVotes": 19168,
           "paperVotes": 0,
           "nickName": "ПП"
         },
         {
           "partyNum": 26,
-          "totalVotes": 3939,
-          "machineVotes": 3374,
+          "totalVotes": 188,
+          "machineVotes": 153,
           "paperVotes": 0,
           "nickName": "МИР"
         },
         {
           "partyNum": 27,
-          "totalVotes": 1723,
-          "machineVotes": 1512,
+          "totalVotes": 63,
+          "machineVotes": 49,
           "paperVotes": 0,
           "nickName": "ПП БОГ"
         },
         {
           "partyNum": 28,
-          "totalVotes": 1099,
-          "machineVotes": 939,
+          "totalVotes": 31,
+          "machineVotes": 25,
           "paperVotes": 0,
           "nickName": "БНЦ–НД"
         },
         {
           "partyNum": 29,
-          "totalVotes": 1341,
-          "machineVotes": 1152,
+          "totalVotes": 50,
+          "machineVotes": 38,
           "paperVotes": 0,
           "nickName": "ПД"
         },
         {
           "partyNum": 30,
-          "totalVotes": 166968,
-          "machineVotes": 130390,
+          "totalVotes": 5026,
+          "machineVotes": 4096,
           "paperVotes": 0,
           "nickName": "ДБ"
         },
         {
           "partyNum": 31,
-          "totalVotes": 60055,
-          "machineVotes": 50476,
+          "totalVotes": 2390,
+          "machineVotes": 2052,
           "paperVotes": 0,
           "nickName": "ПП ИСБ"
         },
         {
           "partyNum": 32,
-          "totalVotes": 596456,
-          "machineVotes": 501482,
+          "totalVotes": 30791,
+          "machineVotes": 24983,
           "paperVotes": 0,
           "nickName": "ГЕРБ-СДС"
         },
         {
           "partyNum": 33,
-          "totalVotes": 267817,
-          "machineVotes": 230965,
+          "totalVotes": 11208,
+          "machineVotes": 9360,
           "paperVotes": 0,
           "nickName": "БСП"
         },
         {
           "partyNum": 34,
-          "totalVotes": 1498,
-          "machineVotes": 1313,
+          "totalVotes": 64,
+          "machineVotes": 51,
           "paperVotes": 0,
           "nickName": "БПЛ"
         },
         {
           "partyNum": 35,
-          "totalVotes": 2968,
-          "machineVotes": 2476,
+          "totalVotes": 99,
+          "machineVotes": 81,
           "paperVotes": 0,
           "nickName": "Зелените"
         },
         {
           "partyNum": 36,
-          "totalVotes": 1151,
-          "machineVotes": 1022,
+          "totalVotes": 74,
+          "machineVotes": 60,
           "paperVotes": 0,
           "nickName": "Бригада"
-        },
-        {
-          "partyNum": 37,
-          "totalVotes": 182,
-          "machineVotes": 174,
-          "paperVotes": 0
         }
-      ]
+      ],
+      "protocol": {
+        "ballotsReceived": 299772,
+        "numAdditionalVoters": 2762,
+        "numInvalidAndDestroyedPaperBallots": 535,
+        "numMachineBallots": 115794,
+        "numRegisteredVoters": 308027,
+        "numUnusedPaperBallots": 291468,
+        "numValidMachineVotes": 114522,
+        "numValidNoOneMachineVotes": 1272,
+        "totalActualVoters": 115794
+      }
     }
   },
   {
     "name": "2021_07_11",
     "results": {
-      "protocol": {
-        "ballotsReceived": 5946904,
-        "numAdditionalVoters": 75964,
-        "numInvalidAndDestroyedPaperBallots": 11988,
-        "numMachineBallots": 2766426,
-        "numRegisteredVoters": 6600100,
-        "numValidMachineVotes": 2731225,
-        "numValidNoOneMachineVotes": 35201,
-        "totalActualVoters": 2766426
-      },
+      "actualTotal": 123688,
+      "actualPaperVotes": 0,
+      "actualMachineVotes": 107429,
       "votes": [
         {
           "partyNum": 1,
-          "totalVotes": 3445,
-          "machineVotes": 3160,
+          "totalVotes": 158,
+          "machineVotes": 138,
           "paperVotes": 0,
           "nickName": "Заедно"
         },
         {
           "partyNum": 2,
-          "totalVotes": 4304,
-          "machineVotes": 3929,
+          "totalVotes": 167,
+          "machineVotes": 147,
           "paperVotes": 0,
           "nickName": "Свобода"
         },
         {
           "partyNum": 3,
-          "totalVotes": 4690,
-          "machineVotes": 4300,
+          "totalVotes": 252,
+          "machineVotes": 211,
           "paperVotes": 0,
           "nickName": "БНС-НД"
         },
         {
           "partyNum": 4,
-          "totalVotes": 365695,
-          "machineVotes": 339057,
+          "totalVotes": 15958,
+          "machineVotes": 14002,
           "paperVotes": 0,
           "nickName": "БСП"
         },
         {
           "partyNum": 5,
-          "totalVotes": 642165,
-          "machineVotes": 586829,
+          "totalVotes": 32305,
+          "machineVotes": 28245,
           "paperVotes": 0,
           "nickName": "ГЕРБ-СДС"
         },
         {
           "partyNum": 6,
-          "totalVotes": 12585,
-          "machineVotes": 11650,
+          "totalVotes": 436,
+          "machineVotes": 382,
           "paperVotes": 0,
           "nickName": "Атака"
         },
         {
           "partyNum": 7,
-          "totalVotes": 292514,
-          "machineVotes": 270186,
+          "totalVotes": 19516,
+          "machineVotes": 15698,
           "paperVotes": 0,
           "nickName": "ДПС"
         },
         {
           "partyNum": 8,
-          "totalVotes": 136885,
-          "machineVotes": 124837,
+          "totalVotes": 6154,
+          "machineVotes": 5502,
           "paperVotes": 0,
           "nickName": "ПП ИСМВ"
         },
         {
           "partyNum": 9,
-          "totalVotes": 3427,
-          "machineVotes": 3111,
+          "totalVotes": 129,
+          "machineVotes": 115,
           "paperVotes": 0,
           "nickName": "МИР"
         },
         {
           "partyNum": 10,
-          "totalVotes": 3948,
-          "machineVotes": 3652,
+          "totalVotes": 141,
+          "machineVotes": 127,
           "paperVotes": 0,
           "nickName": "БТР"
         },
         {
           "partyNum": 11,
-          "totalVotes": 82147,
-          "machineVotes": 73880,
+          "totalVotes": 2018,
+          "machineVotes": 1793,
           "paperVotes": 0,
           "nickName": "Възраждане"
         },
         {
           "partyNum": 12,
-          "totalVotes": 862,
-          "machineVotes": 783,
+          "totalVotes": 68,
+          "machineVotes": 61,
           "paperVotes": 0,
           "nickName": "Подем"
         },
         {
           "partyNum": 13,
-          "totalVotes": 2187,
-          "machineVotes": 2016,
+          "totalVotes": 112,
+          "machineVotes": 97,
           "paperVotes": 0,
           "nickName": "Бригада"
         },
         {
           "partyNum": 14,
-          "totalVotes": 3143,
-          "machineVotes": 2899,
+          "totalVotes": 81,
+          "machineVotes": 66,
           "paperVotes": 0,
           "nickName": "ПД"
         },
         {
           "partyNum": 15,
-          "totalVotes": 49833,
-          "machineVotes": 44516,
+          "totalVotes": 1710,
+          "machineVotes": 1495,
           "paperVotes": 0,
           "nickName": "БГ Лято"
         },
         {
           "partyNum": 16,
-          "totalVotes": 85795,
-          "machineVotes": 78632,
+          "totalVotes": 6723,
+          "machineVotes": 6063,
           "paperVotes": 0,
           "nickName": "БГ Патриоти"
         },
         {
           "partyNum": 17,
-          "totalVotes": 10309,
-          "machineVotes": 9381,
+          "totalVotes": 230,
+          "machineVotes": 186,
           "paperVotes": 0,
           "nickName": "ЛСЧСР"
         },
         {
           "partyNum": 18,
-          "totalVotes": 3257,
-          "machineVotes": 2964,
+          "totalVotes": 69,
+          "machineVotes": 68,
           "paperVotes": 0,
           "nickName": "Зелените"
         },
         {
           "partyNum": 19,
-          "totalVotes": 7872,
-          "machineVotes": 7117,
+          "totalVotes": 142,
+          "machineVotes": 125,
           "paperVotes": 0,
           "nickName": "НО Десницата"
         },
         {
           "partyNum": 20,
-          "totalVotes": 4741,
-          "machineVotes": 4319,
+          "totalVotes": 85,
+          "machineVotes": 71,
           "paperVotes": 0,
           "nickName": "ГН"
         },
         {
           "partyNum": 21,
-          "totalVotes": 8546,
-          "machineVotes": 7877,
+          "totalVotes": 342,
+          "machineVotes": 293,
           "paperVotes": 0,
           "nickName": "Републиканци БГ"
         },
         {
           "partyNum": 22,
-          "totalVotes": 657829,
-          "machineVotes": 597022,
+          "totalVotes": 26669,
+          "machineVotes": 23604,
           "paperVotes": 0,
           "nickName": "ИТН"
         },
         {
           "partyNum": 23,
-          "totalVotes": 345331,
-          "machineVotes": 304718,
+          "totalVotes": 10223,
+          "machineVotes": 8940,
           "paperVotes": 0,
           "nickName": "ДБ"
-        },
-        {
-          "partyNum": 24,
-          "totalVotes": 142,
-          "machineVotes": 132,
-          "paperVotes": 0
         }
-      ]
+      ],
+      "protocol": {
+        "ballotsReceived": 310475,
+        "numAdditionalVoters": 2233,
+        "numInvalidAndDestroyedPaperBallots": 528,
+        "numMachineBallots": 124908,
+        "numRegisteredVoters": 308151,
+        "numValidMachineVotes": 123688,
+        "numValidNoOneMachineVotes": 1220,
+        "totalActualVoters": 124908
+      }
     }
   },
   {
     "name": "2021_04_04",
     "results": {
-      "protocol": {
-        "ballotsReceived": 6713365,
-        "numInvalidAndDestroyedPaperBallots": 44604,
-        "numInvalidBallotsFound": 86527,
-        "numMachineBallots": 789957,
-        "numPaperBallotsFound": 2544270,
-        "numRegisteredVoters": 6789605,
-        "numValidMachineVotes": 775959,
-        "numValidNoOneMachineVotes": 14082,
-        "numValidNoOnePaperVotes": 33678,
-        "numValidVotes": 2457831,
-        "totalActualVoters": 3368077
-      },
+      "actualTotal": 153389,
+      "actualPaperVotes": 122928,
+      "actualMachineVotes": 30458,
       "votes": [
         {
           "partyNum": 1,
-          "totalVotes": 116434,
-          "machineVotes": 29271,
-          "paperVotes": 87166,
+          "totalVotes": 10107,
+          "machineVotes": 1726,
+          "paperVotes": 8382,
           "nickName": "ВМРО"
         },
         {
           "partyNum": 2,
-          "totalVotes": 4788,
-          "machineVotes": 1533,
-          "paperVotes": 3260,
+          "totalVotes": 151,
+          "machineVotes": 32,
+          "paperVotes": 120,
           "nickName": "Ние"
         },
         {
           "partyNum": 3,
-          "totalVotes": 2901,
-          "machineVotes": 711,
-          "paperVotes": 2191,
+          "totalVotes": 117,
+          "machineVotes": 30,
+          "paperVotes": 87,
           "nickName": "БНС-НД"
         },
         {
           "partyNum": 4,
-          "totalVotes": 480146,
-          "machineVotes": 122724,
-          "paperVotes": 357430,
+          "totalVotes": 19286,
+          "machineVotes": 4698,
+          "paperVotes": 14587,
           "nickName": "БСП"
         },
         {
           "partyNum": 5,
-          "totalVotes": 78414,
-          "machineVotes": 22084,
-          "paperVotes": 56334,
+          "totalVotes": 1759,
+          "machineVotes": 567,
+          "paperVotes": 1192,
           "nickName": "Възраждане"
         },
         {
           "partyNum": 6,
-          "totalVotes": 14798,
-          "machineVotes": 4514,
-          "paperVotes": 10284,
+          "totalVotes": 406,
+          "machineVotes": 95,
+          "paperVotes": 311,
           "nickName": "АБВ"
         },
         {
           "partyNum": 7,
-          "totalVotes": 15659,
-          "machineVotes": 3175,
-          "paperVotes": 12488,
+          "totalVotes": 424,
+          "machineVotes": 70,
+          "paperVotes": 355,
           "nickName": "Атака"
         },
         {
           "partyNum": 8,
-          "totalVotes": 9415,
-          "machineVotes": 3262,
-          "paperVotes": 6155,
+          "totalVotes": 192,
+          "machineVotes": 47,
+          "paperVotes": 145,
           "nickName": "КОД"
         },
         {
           "partyNum": 9,
-          "totalVotes": 336306,
-          "machineVotes": 22420,
-          "paperVotes": 313885,
+          "totalVotes": 20811,
+          "machineVotes": 1114,
+          "paperVotes": 19697,
           "nickName": "ДПС"
         },
         {
           "partyNum": 10,
-          "totalVotes": 3751,
-          "machineVotes": 1132,
-          "paperVotes": 2619,
+          "totalVotes": 178,
+          "machineVotes": 45,
+          "paperVotes": 133,
           "nickName": "БПЛ"
         },
         {
           "partyNum": 11,
-          "totalVotes": 302280,
-          "machineVotes": 128521,
-          "paperVotes": 173761,
+          "totalVotes": 7825,
+          "machineVotes": 3248,
+          "paperVotes": 4569,
           "nickName": "ДБ"
         },
         {
           "partyNum": 12,
-          "totalVotes": 13182,
-          "machineVotes": 3726,
-          "paperVotes": 9455,
+          "totalVotes": 361,
+          "machineVotes": 76,
+          "paperVotes": 285,
           "nickName": "ВО"
         },
         {
           "partyNum": 13,
-          "totalVotes": 3485,
-          "machineVotes": 1108,
-          "paperVotes": 2377,
+          "totalVotes": 121,
+          "machineVotes": 44,
+          "paperVotes": 77,
           "nickName": "Заедно"
         },
         {
           "partyNum": 14,
-          "totalVotes": 94515,
-          "machineVotes": 30640,
-          "paperVotes": 63877,
+          "totalVotes": 3209,
+          "machineVotes": 974,
+          "paperVotes": 2237,
           "nickName": "БНО"
         },
         {
           "partyNum": 15,
-          "totalVotes": 897,
-          "machineVotes": 175,
-          "paperVotes": 722,
+          "totalVotes": 19,
+          "machineVotes": 3,
+          "paperVotes": 16,
           "nickName": "Нация"
         },
         {
           "partyNum": 16,
-          "totalVotes": 3653,
-          "machineVotes": 1308,
-          "paperVotes": 2348,
+          "totalVotes": 143,
+          "machineVotes": 54,
+          "paperVotes": 89,
           "nickName": "МИР"
         },
         {
           "partyNum": 17,
-          "totalVotes": 2356,
-          "machineVotes": 578,
-          "paperVotes": 1778,
+          "totalVotes": 65,
+          "machineVotes": 8,
+          "paperVotes": 57,
           "nickName": "Протеста"
         },
         {
           "partyNum": 18,
-          "totalVotes": 150940,
-          "machineVotes": 51905,
-          "paperVotes": 99038,
+          "totalVotes": 4597,
+          "machineVotes": 1395,
+          "paperVotes": 3202,
           "nickName": "ПП ИСМВ"
         },
         {
           "partyNum": 19,
-          "totalVotes": 8308,
-          "machineVotes": 2980,
-          "paperVotes": 5330,
+          "totalVotes": 164,
+          "machineVotes": 48,
+          "paperVotes": 117,
           "nickName": "ГН"
         },
         {
           "partyNum": 20,
-          "totalVotes": 16868,
-          "machineVotes": 4384,
-          "paperVotes": 12484,
+          "totalVotes": 544,
+          "machineVotes": 109,
+          "paperVotes": 435,
           "nickName": "ДНК"
         },
         {
           "partyNum": 21,
-          "totalVotes": 42057,
-          "machineVotes": 7498,
-          "paperVotes": 34564,
+          "totalVotes": 2556,
+          "machineVotes": 550,
+          "paperVotes": 2006,
           "nickName": "Републиканци БГ"
         },
         {
           "partyNum": 22,
-          "totalVotes": 2165,
-          "machineVotes": 396,
-          "paperVotes": 1767,
+          "totalVotes": 163,
+          "machineVotes": 9,
+          "paperVotes": 154,
           "nickName": "Правото"
         },
         {
           "partyNum": 23,
-          "totalVotes": 1586,
-          "machineVotes": 341,
-          "paperVotes": 1246,
+          "totalVotes": 67,
+          "machineVotes": 13,
+          "paperVotes": 54,
           "nickName": "ПП БОГ"
         },
         {
           "partyNum": 24,
-          "totalVotes": 75926,
-          "machineVotes": 14666,
-          "paperVotes": 61260,
+          "totalVotes": 2776,
+          "machineVotes": 516,
+          "paperVotes": 2260,
           "nickName": "Воля/НФСБ"
         },
         {
           "partyNum": 25,
-          "totalVotes": 5554,
-          "machineVotes": 1700,
-          "paperVotes": 3859,
+          "totalVotes": 211,
+          "machineVotes": 47,
+          "paperVotes": 164,
           "nickName": "Зелените"
         },
         {
           "partyNum": 26,
-          "totalVotes": 3438,
-          "machineVotes": 946,
-          "paperVotes": 2494,
+          "totalVotes": 141,
+          "machineVotes": 34,
+          "paperVotes": 107,
           "nickName": "ОНБ"
         },
         {
           "partyNum": 27,
-          "totalVotes": 3342,
-          "machineVotes": 774,
-          "paperVotes": 2568,
+          "totalVotes": 148,
+          "machineVotes": 26,
+          "paperVotes": 122,
           "nickName": "(БСДД)"
         },
         {
           "partyNum": 28,
-          "totalVotes": 837707,
-          "machineVotes": 124048,
-          "paperVotes": 713730,
+          "totalVotes": 53615,
+          "machineVotes": 7265,
+          "paperVotes": 46350,
           "nickName": "ГЕРБ-СДС"
         },
         {
           "partyNum": 29,
-          "totalVotes": 565014,
-          "machineVotes": 188478,
-          "paperVotes": 376529,
+          "totalVotes": 22958,
+          "machineVotes": 7564,
+          "paperVotes": 15394,
           "nickName": "ИТН"
         },
         {
           "partyNum": 30,
-          "totalVotes": 3408,
-          "machineVotes": 917,
-          "paperVotes": 2492,
+          "totalVotes": 106,
+          "machineVotes": 30,
+          "paperVotes": 76,
           "nickName": "ПД"
         },
         {
           "partyNum": 31,
-          "totalVotes": 428,
-          "machineVotes": 130,
-          "paperVotes": 298
+          "totalVotes": 169,
+          "machineVotes": 21,
+          "paperVotes": 148
         }
-      ]
+      ],
+      "protocol": {
+        "ballotsReceived": 311017,
+        "numInvalidAndDestroyedPaperBallots": 2601,
+        "numInvalidBallotsFound": 3944,
+        "numMachineBallots": 30870,
+        "numPaperBallotsFound": 128099,
+        "numRegisteredVoters": 306445,
+        "numValidMachineVotes": 30493,
+        "numValidNoOneMachineVotes": 379,
+        "numValidNoOnePaperVotes": 1092,
+        "numValidVotes": 124147,
+        "totalActualVoters": 160055
+      }
     }
   },
   {
     "name": "2017_03_26",
     "results": {
-      "protocol": {
-        "ballotsReceived": 7581341,
-        "numAdditionalVoters": 166123,
-        "numInvalidAndDestroyedPaperBallots": 14796,
-        "numInvalidBallotsFound": 169009,
-        "numPaperBallotsFound": 3682493,
-        "numRegisteredVoters": 6838235,
-        "numUnusedPaperBallots": 3858688,
-        "numValidNoOnePaperVotes": 87850,
-        "numValidVotes": 3682493,
-        "totalActualVoters": 3939352
-      },
+      "actualTotal": 152093,
+      "actualPaperVotes": 152093,
+      "actualMachineVotes": 0,
       "votes": [
         {
           "partyNum": 1,
-          "totalVotes": 4989,
+          "totalVotes": 189,
           "machineVotes": 0,
-          "paperVotes": 4989,
+          "paperVotes": 189,
           "nickName": "ДРОМ"
         },
         {
           "partyNum": 2,
-          "totalVotes": 9232,
+          "totalVotes": 336,
           "machineVotes": 0,
-          "paperVotes": 9232,
+          "paperVotes": 336,
           "nickName": "БГ Пролет"
         },
         {
           "partyNum": 3,
-          "totalVotes": 6644,
+          "totalVotes": 333,
           "machineVotes": 0,
-          "paperVotes": 6644,
+          "paperVotes": 333,
           "nickName": "ПП ДНБ"
         },
         {
           "partyNum": 4,
-          "totalVotes": 86984,
+          "totalVotes": 3429,
           "machineVotes": 0,
-          "paperVotes": 86984,
+          "paperVotes": 3429,
           "nickName": "Нова Република"
         },
         {
           "partyNum": 5,
-          "totalVotes": 5945,
+          "totalVotes": 300,
           "machineVotes": 0,
-          "paperVotes": 5945,
+          "paperVotes": 300,
           "nickName": "БСД"
         },
         {
           "partyNum": 6,
-          "totalVotes": 145637,
+          "totalVotes": 3922,
           "machineVotes": 0,
-          "paperVotes": 145637,
+          "paperVotes": 3922,
           "nickName": "Воля"
         },
         {
           "partyNum": 7,
-          "totalVotes": 3130,
+          "totalVotes": 188,
           "machineVotes": 0,
-          "paperVotes": 3130,
+          "paperVotes": 188,
           "nickName": "БДЦ"
         },
         {
           "partyNum": 8,
-          "totalVotes": 54412,
+          "totalVotes": 2410,
           "machineVotes": 0,
-          "paperVotes": 54412,
+          "paperVotes": 2410,
           "nickName": "АБВ/21"
         },
         {
           "partyNum": 9,
-          "totalVotes": 315976,
+          "totalVotes": 20880,
           "machineVotes": 0,
-          "paperVotes": 315976,
+          "paperVotes": 20880,
           "nickName": "ДПС"
         },
         {
           "partyNum": 10,
-          "totalVotes": 955490,
+          "totalVotes": 36029,
           "machineVotes": 0,
-          "paperVotes": 955490,
+          "paperVotes": 36029,
           "nickName": "БСП"
         },
         {
           "partyNum": 11,
-          "totalVotes": 1147292,
+          "totalVotes": 58094,
           "machineVotes": 0,
-          "paperVotes": 1147292,
+          "paperVotes": 58094,
           "nickName": "ГЕРБ"
         },
         {
           "partyNum": 12,
-          "totalVotes": 10159,
+          "totalVotes": 430,
           "machineVotes": 0,
-          "paperVotes": 10159,
+          "paperVotes": 430,
           "nickName": "Зелените"
         },
         {
           "partyNum": 13,
-          "totalVotes": 100479,
+          "totalVotes": 3661,
           "machineVotes": 0,
-          "paperVotes": 100479,
+          "paperVotes": 3661,
           "nickName": "ДОСТ"
         },
         {
           "partyNum": 14,
-          "totalVotes": 37896,
+          "totalVotes": 1012,
           "machineVotes": 0,
-          "paperVotes": 37896,
+          "paperVotes": 1012,
           "nickName": "Възраждане"
         },
         {
@@ -1613,536 +1595,534 @@
         },
         {
           "partyNum": 16,
-          "totalVotes": 101177,
+          "totalVotes": 1701,
           "machineVotes": 0,
-          "paperVotes": 101177,
+          "paperVotes": 1701,
           "nickName": "ДвБ"
         },
         {
           "partyNum": 17,
-          "totalVotes": 318513,
+          "totalVotes": 14330,
           "machineVotes": 0,
-          "paperVotes": 318513,
+          "paperVotes": 14330,
           "nickName": "ОП"
         },
         {
           "partyNum": 18,
-          "totalVotes": 2916,
+          "totalVotes": 71,
           "machineVotes": 0,
-          "paperVotes": 2916,
+          "paperVotes": 71,
           "nickName": "КОЙ"
         },
         {
           "partyNum": 19,
-          "totalVotes": 2325,
+          "totalVotes": 91,
           "machineVotes": 0,
-          "paperVotes": 2325,
+          "paperVotes": 91,
           "nickName": "НРП"
         },
         {
           "partyNum": 20,
-          "totalVotes": 3921,
+          "totalVotes": 173,
           "machineVotes": 0,
-          "paperVotes": 3921,
+          "paperVotes": 173,
           "nickName": "БНО"
         },
         {
           "partyNum": 21,
-          "totalVotes": 107407,
+          "totalVotes": 4222,
           "machineVotes": 0,
-          "paperVotes": 107407,
+          "paperVotes": 4222,
           "nickName": "РБ-ГН"
         },
         {
           "partyNum": 22,
-          "totalVotes": 4821,
+          "totalVotes": 292,
           "machineVotes": 0,
-          "paperVotes": 4821
-        },
-        {
-          "partyNum": 23,
-          "totalVotes": 295,
-          "machineVotes": 0,
-          "paperVotes": 295
+          "paperVotes": 292
         }
-      ]
+      ],
+      "protocol": {
+        "ballotsReceived": 334432,
+        "numAdditionalVoters": 2498,
+        "numInvalidAndDestroyedPaperBallots": 581,
+        "numInvalidBallotsFound": 10132,
+        "numPaperBallotsFound": 165143,
+        "numRegisteredVoters": 317748,
+        "numUnusedPaperBallots": 166932,
+        "numValidNoOnePaperVotes": 2919,
+        "numValidVotes": 165143,
+        "totalActualVoters": 178194
+      }
     }
   },
   {
     "name": "2014_10_05",
     "results": {
-      "protocol": {
-        "ballotsReceived": 7458615,
-        "numAdditionalVoters": 213091,
-        "numInvalidAndDestroyedPaperBallots": 14945,
-        "numInvalidBallotsFound": 218125,
-        "numPaperBallotsFound": 3501269,
-        "numRegisteredVoters": 6858304,
-        "numUnusedPaperBallots": 3908097,
-        "numValidNoOnePaperVotes": 163727,
-        "numValidVotes": 3501269,
-        "totalActualVoters": 3883121
-      },
+      "actualTotal": 138961,
+      "actualPaperVotes": 138961,
+      "actualMachineVotes": 0,
       "votes": [
         {
           "partyNum": 1,
-          "totalVotes": 39221,
+          "totalVotes": 1009,
           "machineVotes": 0,
-          "paperVotes": 39221,
+          "paperVotes": 1009,
           "nickName": "Движение 21"
         },
         {
           "partyNum": 2,
-          "totalVotes": 9431,
+          "totalVotes": 404,
           "machineVotes": 0,
-          "paperVotes": 9431,
+          "paperVotes": 404,
           "nickName": "БСД"
         },
         {
           "partyNum": 3,
-          "totalVotes": 5559,
+          "totalVotes": 318,
           "machineVotes": 0,
-          "paperVotes": 5559,
+          "paperVotes": 318,
           "nickName": "БНС-НД"
         },
         {
           "partyNum": 4,
-          "totalVotes": 3836,
+          "totalVotes": 188,
           "machineVotes": 0,
-          "paperVotes": 3836,
+          "paperVotes": 188,
           "nickName": "НВ"
         },
         {
           "partyNum": 5,
-          "totalVotes": 10831,
+          "totalVotes": 406,
           "machineVotes": 0,
-          "paperVotes": 10831,
+          "paperVotes": 406,
           "nickName": "ОБ"
         },
         {
           "partyNum": 6,
-          "totalVotes": 5398,
+          "totalVotes": 193,
           "machineVotes": 0,
-          "paperVotes": 5398,
+          "paperVotes": 193,
           "nickName": "СДП"
         },
         {
           "partyNum": 7,
-          "totalVotes": 291806,
+          "totalVotes": 10033,
           "machineVotes": 0,
-          "paperVotes": 291806,
+          "paperVotes": 10033,
           "nickName": "РБ"
         },
         {
           "partyNum": 8,
-          "totalVotes": 12628,
+          "totalVotes": 404,
           "machineVotes": 0,
-          "paperVotes": 12628,
+          "paperVotes": 404,
           "nickName": "ПП НБ"
         },
         {
           "partyNum": 9,
-          "totalVotes": 1072491,
+          "totalVotes": 50752,
           "machineVotes": 0,
-          "paperVotes": 1072491,
+          "paperVotes": 50752,
           "nickName": "ГЕРБ"
         },
         {
           "partyNum": 10,
-          "totalVotes": 14339,
+          "totalVotes": 204,
           "machineVotes": 0,
-          "paperVotes": 14339,
+          "paperVotes": 204,
           "nickName": "ОНБ"
         },
         {
           "partyNum": 11,
-          "totalVotes": 139047,
+          "totalVotes": 5609,
           "machineVotes": 0,
-          "paperVotes": 139047,
+          "paperVotes": 5609,
           "nickName": "Атака"
         },
         {
           "partyNum": 12,
-          "totalVotes": 24761,
+          "totalVotes": 278,
           "machineVotes": 0,
-          "paperVotes": 24761,
+          "paperVotes": 278,
           "nickName": "НДСВ"
         },
         {
           "partyNum": 13,
-          "totalVotes": 177551,
+          "totalVotes": 8075,
           "machineVotes": 0,
-          "paperVotes": 177551,
+          "paperVotes": 8075,
           "nickName": "КП ББЦ"
         },
         {
           "partyNum": 14,
-          "totalVotes": 128626,
+          "totalVotes": 5456,
           "machineVotes": 0,
-          "paperVotes": 128626,
+          "paperVotes": 5456,
           "nickName": "АБВ"
         },
         {
           "partyNum": 15,
-          "totalVotes": 7591,
+          "totalVotes": 287,
           "machineVotes": 0,
-          "paperVotes": 7591,
+          "paperVotes": 287,
           "nickName": "Левица-ЗП"
         },
         {
           "partyNum": 16,
-          "totalVotes": 10873,
+          "totalVotes": 278,
           "machineVotes": 0,
-          "paperVotes": 10873,
+          "paperVotes": 278,
           "nickName": "НА"
         },
         {
           "partyNum": 17,
-          "totalVotes": 22553,
+          "totalVotes": 251,
           "machineVotes": 0,
-          "paperVotes": 22553,
+          "paperVotes": 251,
           "nickName": "Десните"
         },
         {
           "partyNum": 18,
-          "totalVotes": 473263,
+          "totalVotes": 23025,
           "machineVotes": 0,
-          "paperVotes": 473263,
+          "paperVotes": 23025,
           "nickName": "ДПС"
         },
         {
           "partyNum": 19,
-          "totalVotes": 36124,
+          "totalVotes": 824,
           "machineVotes": 0,
-          "paperVotes": 36124,
+          "paperVotes": 824,
           "nickName": "ГН"
         },
         {
           "partyNum": 20,
-          "totalVotes": 7344,
+          "totalVotes": 385,
           "machineVotes": 0,
-          "paperVotes": 7344,
+          "paperVotes": 385,
           "nickName": "ПП Зелените"
         },
         {
           "partyNum": 21,
-          "totalVotes": 57335,
+          "totalVotes": 177,
           "machineVotes": 0,
-          "paperVotes": 57335,
+          "paperVotes": 177,
           "nickName": "НС"
         },
         {
           "partyNum": 22,
-          "totalVotes": 454352,
+          "totalVotes": 19170,
           "machineVotes": 0,
-          "paperVotes": 454352,
+          "paperVotes": 19170,
           "nickName": "БСП"
         },
         {
           "partyNum": 23,
-          "totalVotes": 36193,
+          "totalVotes": 354,
           "machineVotes": 0,
-          "paperVotes": 36193,
+          "paperVotes": 354,
           "nickName": "Зелените"
         },
         {
           "partyNum": 24,
-          "totalVotes": 223760,
+          "totalVotes": 9424,
           "machineVotes": 0,
-          "paperVotes": 223760,
+          "paperVotes": 9424,
           "nickName": "ПФ"
         },
         {
           "partyNum": 25,
-          "totalVotes": 17067,
+          "totalVotes": 1032,
           "machineVotes": 0,
-          "paperVotes": 17067,
+          "paperVotes": 1032,
           "nickName": "Република БГ"
         },
         {
           "partyNum": 26,
-          "totalVotes": 1185,
+          "totalVotes": 425,
           "machineVotes": 0,
-          "paperVotes": 1185
+          "paperVotes": 425
         }
-      ]
+      ],
+      "protocol": {
+        "ballotsReceived": 328432,
+        "numAdditionalVoters": 2249,
+        "numInvalidAndDestroyedPaperBallots": 596,
+        "numInvalidBallotsFound": 11622,
+        "numPaperBallotsFound": 150578,
+        "numRegisteredVoters": 314152,
+        "numUnusedPaperBallots": 174451,
+        "numValidNoOnePaperVotes": 9788,
+        "numValidVotes": 150578,
+        "totalActualVoters": 171988
+      }
     }
   },
   {
     "name": "2013_05_12",
     "results": {
-      "protocol": {
-        "ballotsReceived": 6970641,
-        "numAdditionalVoters": 263230,
-        "numInvalidAndDestroyedPaperBallots": 16509,
-        "numInvalidBallotsFound": 85688,
-        "numPaperBallotsFound": 3517182,
-        "numRegisteredVoters": 6953336,
-        "numUnusedPaperBallots": 3260704,
-        "numValidVotes": 3431113,
-        "totalActualVoters": 3516801
-      },
+      "actualTotal": 148412,
+      "actualPaperVotes": 148412,
+      "actualMachineVotes": 0,
       "votes": [
         {
           "partyNum": 1,
-          "totalVotes": 18267,
+          "totalVotes": 464,
           "machineVotes": 0,
-          "paperVotes": 18267,
+          "paperVotes": 464,
           "nickName": "НА"
         },
         {
           "partyNum": 2,
-          "totalVotes": 3160,
+          "totalVotes": 127,
           "machineVotes": 0,
-          "paperVotes": 3160,
+          "paperVotes": 127,
           "nickName": "ДП"
         },
         {
           "partyNum": 4,
-          "totalVotes": 131169,
+          "totalVotes": 3268,
           "machineVotes": 0,
-          "paperVotes": 131169,
+          "paperVotes": 3268,
           "nickName": "НФСБ"
         },
         {
           "partyNum": 5,
-          "totalVotes": 942541,
+          "totalVotes": 32060,
           "machineVotes": 0,
-          "paperVotes": 942541,
+          "paperVotes": 32060,
           "nickName": "БСП"
         },
         {
           "partyNum": 6,
-          "totalVotes": 57611,
+          "totalVotes": 1839,
           "machineVotes": 0,
-          "paperVotes": 57611,
+          "paperVotes": 1839,
           "nickName": "ЦСД"
         },
         {
           "partyNum": 8,
-          "totalVotes": 3445,
+          "totalVotes": 139,
           "machineVotes": 0,
-          "paperVotes": 3445,
+          "paperVotes": 139,
           "nickName": "НДП"
         },
         {
           "partyNum": 9,
-          "totalVotes": 14352,
+          "totalVotes": 477,
           "machineVotes": 0,
-          "paperVotes": 14352,
+          "paperVotes": 477,
           "nickName": "ГЛ-МБ"
         },
         {
           "partyNum": 10,
-          "totalVotes": 48681,
+          "totalVotes": 2271,
           "machineVotes": 0,
-          "paperVotes": 48681,
+          "paperVotes": 2271,
           "nickName": "СДС"
         },
         {
           "partyNum": 11,
-          "totalVotes": 8873,
+          "totalVotes": 249,
           "machineVotes": 0,
-          "paperVotes": 8873,
+          "paperVotes": 249,
           "nickName": "ЛА"
         },
         {
           "partyNum": 12,
-          "totalVotes": 1687,
+          "totalVotes": 56,
           "machineVotes": 0,
-          "paperVotes": 1687,
+          "paperVotes": 56,
           "nickName": "ХДС"
         },
         {
           "partyNum": 14,
-          "totalVotes": 258481,
+          "totalVotes": 11301,
           "machineVotes": 0,
-          "paperVotes": 258481,
+          "paperVotes": 11301,
           "nickName": "Атака"
         },
         {
           "partyNum": 15,
-          "totalVotes": 1081605,
+          "totalVotes": 47664,
           "machineVotes": 0,
-          "paperVotes": 1081605,
+          "paperVotes": 47664,
           "nickName": "ГЕРБ"
         },
         {
           "partyNum": 17,
-          "totalVotes": 59145,
+          "totalVotes": 6520,
           "machineVotes": 0,
-          "paperVotes": 59145,
+          "paperVotes": 6520,
           "nickName": "РЗС"
         },
         {
           "partyNum": 18,
-          "totalVotes": 66803,
+          "totalVotes": 4239,
           "machineVotes": 0,
-          "paperVotes": 66803,
+          "paperVotes": 4239,
           "nickName": "ВМРО"
         },
         {
           "partyNum": 19,
-          "totalVotes": 15482,
+          "totalVotes": 497,
           "machineVotes": 0,
-          "paperVotes": 15482,
+          "paperVotes": 497,
           "nickName": "ДГИ"
         },
         {
           "partyNum": 20,
-          "totalVotes": 3722,
+          "totalVotes": 136,
           "machineVotes": 0,
-          "paperVotes": 3722,
+          "paperVotes": 136,
           "nickName": "ХДПБ"
         },
         {
           "partyNum": 22,
-          "totalVotes": 3539,
+          "totalVotes": 256,
           "machineVotes": 0,
-          "paperVotes": 3539,
+          "paperVotes": 256,
           "nickName": "СЕК"
         },
         {
           "partyNum": 23,
-          "totalVotes": 3239,
+          "totalVotes": 69,
           "machineVotes": 0,
-          "paperVotes": 3239,
+          "paperVotes": 69,
           "nickName": "НПО"
         },
         {
           "partyNum": 25,
-          "totalVotes": 61482,
+          "totalVotes": 4772,
           "machineVotes": 0,
-          "paperVotes": 61482,
+          "paperVotes": 4772,
           "nickName": "Лидер"
         },
         {
           "partyNum": 26,
-          "totalVotes": 26520,
+          "totalVotes": 497,
           "machineVotes": 0,
-          "paperVotes": 26520,
+          "paperVotes": 497,
           "nickName": "Зелените"
         },
         {
           "partyNum": 27,
-          "totalVotes": 103638,
+          "totalVotes": 3760,
           "machineVotes": 0,
-          "paperVotes": 103638,
+          "paperVotes": 3760,
           "nickName": "ДСБ"
         },
         {
           "partyNum": 28,
-          "totalVotes": 1300,
+          "totalVotes": 106,
           "machineVotes": 0,
-          "paperVotes": 1300,
+          "paperVotes": 106,
           "nickName": "СДП"
         },
         {
           "partyNum": 29,
-          "totalVotes": 2497,
+          "totalVotes": 98,
           "machineVotes": 0,
-          "paperVotes": 2497,
+          "paperVotes": 98,
           "nickName": "Другата БГ"
         },
         {
           "partyNum": 30,
-          "totalVotes": 5924,
+          "totalVotes": 161,
           "machineVotes": 0,
-          "paperVotes": 5924,
+          "paperVotes": 161,
           "nickName": "БЛ"
         },
         {
           "partyNum": 32,
-          "totalVotes": 2234,
+          "totalVotes": 73,
           "machineVotes": 0,
-          "paperVotes": 2234,
+          "paperVotes": 73,
           "nickName": "Кауза БГ"
         },
         {
           "partyNum": 33,
-          "totalVotes": 115190,
+          "totalVotes": 3391,
           "machineVotes": 0,
-          "paperVotes": 115190,
+          "paperVotes": 3391,
           "nickName": "ДБГ"
         },
         {
           "partyNum": 34,
-          "totalVotes": 3414,
+          "totalVotes": 96,
           "machineVotes": 0,
-          "paperVotes": 3414,
+          "paperVotes": 96,
           "nickName": "ДАНО"
         },
         {
           "partyNum": 35,
-          "totalVotes": 4097,
+          "totalVotes": 289,
           "machineVotes": 0,
-          "paperVotes": 4097,
+          "paperVotes": 289,
           "nickName": "БГ Пролет"
         },
         {
           "partyNum": 36,
-          "totalVotes": 16126,
+          "totalVotes": 1637,
           "machineVotes": 0,
-          "paperVotes": 16126,
+          "paperVotes": 1637,
           "nickName": "Горда БГ"
         },
         {
           "partyNum": 37,
-          "totalVotes": 47419,
+          "totalVotes": 1997,
           "machineVotes": 0,
-          "paperVotes": 47419,
+          "paperVotes": 1997,
           "nickName": "ГН"
         },
         {
           "partyNum": 38,
-          "totalVotes": 7715,
+          "totalVotes": 254,
           "machineVotes": 0,
-          "paperVotes": 7715,
+          "paperVotes": 254,
           "nickName": "БЗНС"
         },
         {
           "partyNum": 40,
-          "totalVotes": 400466,
+          "totalVotes": 19005,
           "machineVotes": 0,
-          "paperVotes": 400466,
+          "paperVotes": 19005,
           "nickName": "ДПС"
         },
         {
           "partyNum": 41,
-          "totalVotes": 1786,
+          "totalVotes": 100,
           "machineVotes": 0,
-          "paperVotes": 1786,
+          "paperVotes": 100,
           "nickName": "НДЕ"
         },
         {
           "partyNum": 42,
-          "totalVotes": 6545,
+          "totalVotes": 223,
           "machineVotes": 0,
-          "paperVotes": 6545,
+          "paperVotes": 223,
           "nickName": "БПЖ"
         },
         {
           "partyNum": 44,
-          "totalVotes": 6143,
+          "totalVotes": 321,
           "machineVotes": 0,
-          "paperVotes": 6143,
+          "paperVotes": 321,
           "nickName": "ЕНП"
-        },
-        {
-          "partyNum": 45,
-          "totalVotes": 6168,
-          "machineVotes": 0,
-          "paperVotes": 6168,
-          "nickName": "СКБ"
-        },
-        {
-          "partyNum": 46,
-          "totalVotes": 1729,
-          "machineVotes": 0,
-          "paperVotes": 1729,
-          "nickName": "ИК ЖПН"
         }
-      ]
+      ],
+      "protocol": {
+        "ballotsReceived": 282072,
+        "numAdditionalVoters": 1980,
+        "numInvalidAndDestroyedPaperBallots": 676,
+        "numInvalidBallotsFound": 4041,
+        "numPaperBallotsFound": 152454,
+        "numRegisteredVoters": 310397,
+        "numUnusedPaperBallots": 125236,
+        "numValidVotes": 148413,
+        "totalActualVoters": 152454
+      }
     }
   }
 ]

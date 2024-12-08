@@ -1,6 +1,7 @@
 import fs from "fs";
 import { parse } from "csv-parse";
 import { PartyInfo } from "@/data/dataTypes";
+import { cikPartiesFileName } from "scripts/consts";
 
 export const parseParties = async (
   inFolder: string,
@@ -9,19 +10,17 @@ export const parseParties = async (
   stringify: (o: object) => string,
 ): Promise<PartyInfo[]> => {
   const result: string[][] = [];
-  const fileName = "cik_parties";
-  const outFile = `${outFolder}/${fileName}.json`;
+
+  const outFile = `${outFolder}/${cikPartiesFileName}`;
   const allParties: PartyInfo[] = [];
   if (fs.existsSync(outFile)) {
     const json = fs.readFileSync(outFile, "utf-8");
-    if (json) {
-      const parties: PartyInfo[] = JSON.parse(json);
-      parties.forEach((p) => allParties.push(p));
-    }
+    const parties: PartyInfo[] = JSON.parse(json);
+    parties.forEach((p) => allParties.push(p));
   }
   return new Promise((resolve) =>
     fs
-      .createReadStream(`${inFolder}/${fileName}.txt`)
+      .createReadStream(`${inFolder}/cik_parties.txt`)
       .pipe(
         parse({ delimiter: ";", relax_column_count: true, relax_quotes: true }),
       )
