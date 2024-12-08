@@ -8,7 +8,7 @@ import { useRegionVotes } from "@/data/useRegionVotes";
 import { Title } from "@/ux/Title";
 import { useRegions } from "@/data/useRegions";
 import { TopParties } from "./components/TopParties";
-import { useRegionStats } from "@/data/useRegionVotesStats";
+import { useRegionStats } from "@/data/useRegionStats";
 
 export const MunicipalitiesScreen = () => {
   const [searchParams] = useSearchParams();

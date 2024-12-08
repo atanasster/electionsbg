@@ -63,7 +63,7 @@ export type ElectionSettlement = {
 export type ElectionMunicipality = {
   key: string;
   oblast: string;
-  obshtina?: string;
+  obshtina: string;
   results: VoteResults;
   // settlements: ElectionSettlement[];
 };
