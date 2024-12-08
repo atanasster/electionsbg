@@ -7,6 +7,7 @@ import { FC } from "react";
 import { PartyVotesXS } from "./PartyVotesXS";
 import { useTranslation } from "react-i18next";
 import { MapCoordinates } from "@/layout/MapLayout";
+import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
 
 export const WorldLink: FC<{ size: MapCoordinates }> = ({ size }) => {
   const { topVotesParty } = usePartyInfo();
@@ -15,6 +16,8 @@ export const WorldLink: FC<{ size: MapCoordinates }> = ({ size }) => {
   const { t } = useTranslation();
 
   const topWorldParty = topVotesParty(worldVotes?.results.votes);
+  const isXSmal = useMediaQueryMatch("xs");
+  const width: number = isXSmal ? 100 : 180;
   return (
     <Link
       to={{
@@ -43,8 +46,8 @@ export const WorldLink: FC<{ size: MapCoordinates }> = ({ size }) => {
           className="border-2 rounded-xl hover:border-muted-foreground p-1"
           viewBox="0 0 783.086 400.649"
           version="1.0"
-          width="180px"
-          height="100px"
+          width={`${width}px`}
+          height={`${0.7 * width}px`}
         >
           <g
             className="stroke-black"
