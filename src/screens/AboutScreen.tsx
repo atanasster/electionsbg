@@ -8,48 +8,29 @@ export const AboutScreen = () => {
   return (
     <div className="w-full px-2 sm:px-20 md:px-32 lg:px-40 ">
       <Title description="About page">{t("about")}</Title>
-      <p className="py-2 text-lg">
-        In the last 4 years, Bulgaria has been the scene of a world-record
-        setting 7 elections, with no visible outcome to create a working
-        government.
-      </p>
-      <p className="py-2 text-lg">
-        Voter fatigue and disillusionment with politicians have created an
-        environment where radical political voices, aided by Moscow's widespread
-        disinformation, are successfully undermining public support for the
-        democratic process and boosting the popularity of pro-Russian and
-        far-right groups.
-      </p>
-      <p className="py-2 text-lg">
-        The never-ending election spiral has a serious impact on Bulgaria's
-        economy and its foreign policy. The country risks losing billions of
-        euros in EU recovery funds because of the lack of reforms. Full
-        integration into the open-border Schengen area and joining the eurozone
-        are likely to be delayed further.
-      </p>
-      <p className="py-2 text-lg">
-        In this process, Bulgaria has become a fertile soil for all sorts of
-        conspiracy theories and widespread distrust in the electoral system.
-        This platform aims to give visibility to the actual data behind the
-        elections and easy an way to analyze their results.
-      </p>
-      <Title>The team</Title>
-      <p className="py-2 text-lg">
-        The project was started by a father/son team and is released as
-        open-source to encourage new members to join and contribute. The focus
-        is on versatility and ease-of-use, so everyone can see the results of
-        all elections in the last 10 years.
-      </p>
+      <p className="py-2 text-lg">{t("about_p_1")}</p>
+      <blockquote className="py-2 border-l-2 pl-6 text-lg italic font-semibold">
+        {t("about_p_2")}
+      </blockquote>
+      <blockquote className="py-2 border-l-2 pl-6 text-lg italic font-semibold">
+        {t("about_p_3")}
+      </blockquote>
+      <p className="py-2 text-lg">{t("about_p_4")}</p>
+      <Title>{t("whos_behind_the_project")}</Title>
+      <p className="py-2 text-lg">{t("project_about")}</p>
       <div className="flex flex-col lg:flex-row justify-between">
         <Card className="my-8 mr-2">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+          <CardHeader className="flex flex-col items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-md md:text-2xl font-bold md:font-extrabold text-muted-foreground">
-              Martin Stoyanov
+              {t("martin_stoyanov")}
+            </CardTitle>
+            <CardTitle className="text-md md:text-xl font-bold md:font-extrabold text-muted-foreground">
+              {t("martin_location")}
             </CardTitle>
           </CardHeader>
           <CardContent className="mt-4">
             <div className="flex flex-col sm:flex-row">
-              <figure className="max-w-lg pr-8">
+              <figure className="flex flex-col max-w-lg md:pr-8 items-center">
                 <img
                   className="h-auto max-w-48 rounded-lg"
                   src="/images/IMG_2272.png"
@@ -57,41 +38,40 @@ export const AboutScreen = () => {
                 />
               </figure>
               <div className="my-4 md:my-0 md:pl-4">
-                <p className="max-w-64">
-                  Graduated from Cornell and worked at Bandwidth and SentinelOne
-                </p>
+                <p className="max-w-64">{t("martin_about")}</p>
                 <h4 className="scroll-m-20 text-xl font-semibold tracking-tight mt-4">
-                  Experience
+                  {t("experience")}
                 </h4>
-                <p className="max-w-64">
-                  Frontend, design, testing and user experience
-                </p>
+                <p className="max-w-64">{t("martin_experience")}</p>
                 <h4 className="scroll-m-20 text-xl font-semibold tracking-tight mt-4">
-                  Hobbies
+                  {t("hobbies")}
                 </h4>
-                <p className="max-w-64">Travel, sports, games.</p>
+                <p className="max-w-64">{t("martin_hobbies")}</p>
               </div>
             </div>
           </CardContent>
         </Card>
         <Card className="my-8 ml-2">
-          <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
+          <CardHeader className="flex flex-col items-center justify-between space-y-0 pb-2">
             <CardTitle className="text-md md:text-2xl font-bold md:font-extrabold text-muted-foreground">
-              Atanas Stoyanov
+              {t("atanas_stoyanov")}
+            </CardTitle>
+            <CardTitle className="text-md md:text-xl font-bold md:font-extrabold text-muted-foreground">
+              {t("atanas_location")}
             </CardTitle>
           </CardHeader>
           <CardContent className="mt-4">
             <div className="flex flex-col sm:flex-row">
-              <figure className="max-w-lg pr-8">
+              <figure className="flex flex-col max-w-lg md:pr-8 items-center">
                 <img
                   className="h-auto max-w-48 rounded-lg"
-                  src="/images/IMG_7486.png"
+                  src="/images/IMG_4016.png"
                   alt="image description"
                 />
               </figure>
               <div className="my-4 md:my-0 md:pl-4">
                 <p className="max-w-72">
-                  30+ years of experience, founder of{" "}
+                  {t("atanas_about")}{" "}
                   <Anchor
                     className="mx-1"
                     target="_blank"
@@ -101,33 +81,27 @@ export const AboutScreen = () => {
                   </Anchor>
                 </p>
                 <h4 className="scroll-m-20 text-xl font-semibold tracking-tight mt-4">
-                  Experience
+                  {t("experience")}
                 </h4>
-                <p className="max-w-64">
-                  Designed and implemented software platforms in the accounting
-                  and financial, software quality assurance industries.
-                </p>
+                <p className="max-w-64">{t("atanas_experience")}</p>
                 <h4 className="scroll-m-20 text-xl font-semibold tracking-tight mt-4">
-                  Hobbies
+                  {t("hobbies")}
                 </h4>
-                <p className="max-w-64">Travel, food and good time.</p>
+                <p className="max-w-64">{t("atanas_hobbies")}</p>
               </div>
             </div>
           </CardContent>
         </Card>
       </div>
-      <Title>The data</Title>
-      <p className="py-2 text-lg">
-        Under the hood, this platform uses a variety of data and geoJSON maps
-        from multiple open or government sources.
-      </p>
+      <Title>{t("the_data")}</Title>
+      <p className="py-2 text-lg">{t("about_data")}</p>
       <div className="my-8">
         <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
-          GeoJSON maps
+          {t("geojson_maps")}
         </h4>
         <ul className="my-6 ml-6 list-disc [&>li]:mt-2">
           <li>
-            Regions, Municipalities and Settlements
+            {t("regions_muni_settlements")}
             <Anchor
               className="mx-1"
               target="_blank"
@@ -135,12 +109,9 @@ export const AboutScreen = () => {
             >
               https://github.com/yurukov/Bulgaria-geocoding/tree/master.
             </Anchor>
-            The original files provide the administrative regions of Bulgaria,
-            and have been modified to account for the 3 electoral regions in
-            Sofia city, and the Plovdiv city region.
           </li>
           <li>
-            Sofia city districts
+            {t("sofia_districts")}
             <Anchor
               className="mx-1"
               target="_blank"
@@ -148,11 +119,9 @@ export const AboutScreen = () => {
             >
               https://sofiaplan.bg/api/.
             </Anchor>
-            The original files have been optimized and incorporated into the
-            administrative regions maps.
           </li>
           <li>
-            World countries{" "}
+            {t("world_countries")}
             <Anchor
               className="mx-1"
               target="_blank"
@@ -160,10 +129,9 @@ export const AboutScreen = () => {
             >
               https://github.com/johan/world.geo.json.
             </Anchor>
-            The original maps have been grouped into continents.
           </li>
           <li>
-            Continents{" "}
+            {t("continents")}
             <Anchor
               className="mx-1"
               target="_blank"
@@ -171,27 +139,14 @@ export const AboutScreen = () => {
             >
               https://github.com/rapomon/geojson-places/tree/master.
             </Anchor>
-            The original maps have been grouped into a world map and
-            simplified/optimized with{" "}
-            <Anchor
-              className="mx-1"
-              target="_blank"
-              href="https://mapshaper.org"
-            >
-              Mapshaper
-            </Anchor>
-            and
-            <Anchor className="mx-1" target="_blank" href="https://geojson.io)">
-              geojson.io .
-            </Anchor>
           </li>
         </ul>
         <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
-          Settlements
+          {t("settlements")}
         </h4>
         <ul className="my-6 ml-6 list-disc [&>li]:mt-2">
           <li>
-            Settlements names from EKATTE catalog{" "}
+            {t("settlements_from_EKATTE")}
             <Anchor
               className="mx-1"
               target="_blank"
@@ -199,11 +154,10 @@ export const AboutScreen = () => {
             >
               https://www.nsi.bg/nrnm/ekatte/regions.
             </Anchor>
-            The settlement names in English and Bulgarian.
           </li>
         </ul>
         <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
-          Election Results
+          {t("election_results")}
         </h4>
         <ul className="my-6 ml-6 list-disc [&>li]:mt-2">
           <li>
