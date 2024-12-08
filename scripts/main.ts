@@ -7,6 +7,8 @@ import { parseSections } from "./parsers/sections";
 import { parseVotes } from "./parsers/votes";
 import { parseProtocols } from "./parsers/protocols";
 import { aggregateSettlements } from "./aggregateData";
+import { ElectionInfo } from "@/data/dataTypes";
+import { collectStats } from "./collect_stats";
 
 const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
 const __dirname = path.dirname(__filename); // get the name of the directory
@@ -56,53 +58,75 @@ interface CommandLineArguments {
   production?: boolean;
   prod?: boolean;
   all?: boolean;
+  stats?: boolean;
 }
 const args = parse<CommandLineArguments>({
   prod: { type: Boolean, optional: true },
   production: { type: Boolean, optional: true },
   all: { type: Boolean, optional: true },
   date: { type: String, optional: true },
+  stats: { type: Boolean, optional: true },
 });
 
-const inFolder = path.resolve(__dirname, `../raw_data/`);
-const dataFolders = fs.readdirSync(inFolder, { withFileTypes: true });
-const folders = dataFolders
-  .filter((file) => file.isDirectory())
-  .map((f) => f.name)
-  .sort((a, b) => b.localeCompare(a));
+const production = args.production || args.prod;
+if (args.stats !== true) {
+  const inFolder = path.resolve(__dirname, `../raw_data/`);
+  const dataFolders = fs.readdirSync(inFolder, { withFileTypes: true });
+  const folders = dataFolders
+    .filter((file) => file.isDirectory())
+    .map((f) => f.name)
+    .sort((a, b) => b.localeCompare(a));
 
-const selectedFolders = args.date
-  ? folders.filter((f) => f === args.date)
-  : args.all
-    ? folders
-    : folders.length
-      ? [folders[0]]
-      : [];
-if (selectedFolders.length === 0) {
-  throw new Error(
-    `Can not find specified folder: 
+  const selectedFolders = args.date
+    ? folders.filter((f) => f === args.date)
+    : args.all
+      ? folders
+      : folders.length
+        ? [folders[0]]
+        : [];
+  if (selectedFolders.length === 0) {
+    throw new Error(
+      `Can not find specified folder: 
     ${args.date}`,
+    );
+  }
+  await Promise.all(
+    selectedFolders.map(async (f) => {
+      return await parseElections(f, production);
+    }),
   );
 }
-const production = args.production || args.prod;
-await Promise.all(
-  selectedFolders.map(async (f) => {
-    return await parseElections(f, production);
-  }),
-);
 
 const outFolder = path.resolve(__dirname, `../public/`);
 
-const electionFolders = fs
+const electionsFile = path.resolve(
+  __dirname,
+  "../src/data/json/elections.json",
+);
+const elections: ElectionInfo[] = JSON.parse(
+  fs.readFileSync(electionsFile, "utf-8"),
+);
+
+const updatedElections: ElectionInfo[] = fs
   .readdirSync(outFolder, { withFileTypes: true })
   .filter((file) => file.isDirectory())
   .filter((file) => file.name.startsWith("20"))
   .map((f) => ({
     name: f.name,
+    ...elections.find((p) => p.name === f.name),
   }))
   .sort((a, b) => b.name.localeCompare(a.name));
+const publicFolder = path.resolve(__dirname, `../public`);
+const { country, byRegion } = collectStats(updatedElections, publicFolder);
+const json = stringifyJSON(country, production);
 
-const json = stringifyJSON(electionFolders, production);
-const outFile = path.resolve(__dirname, "../src/data/json/elections.json");
-fs.writeFileSync(outFile, json, "utf8");
-console.log("Successfully added file ", outFile);
+fs.writeFileSync(electionsFile, json, "utf8");
+console.log("Successfully added file ", electionsFile);
+Object.keys(byRegion).forEach((regionName) => {
+  const data = stringifyJSON(byRegion[regionName], production);
+  fs.writeFileSync(
+    `${publicFolder}/regions/${regionName}_stats.json`,
+    data,
+    "utf8",
+  );
+});

@@ -8,17 +8,16 @@ import { useRegionVotes } from "@/data/useRegionVotes";
 import { ProtocolSummary } from "./components/ProtocolSummary";
 import { useMemo } from "react";
 import { TopParties } from "./components/TopParties";
-import { usePrevElectionRegionVotes } from "@/data/usePrevElectionRegionVotes";
+import { useCountryStats } from "@/data/useCountryVotesStats";
 import { WorldLink } from "./components/WorldLink";
 
 export const RegionsScreen = () => {
   const { t } = useTranslation();
   const { regions } = useRegionsMap();
   const { countryVotes } = useRegionVotes();
-  const { prevCountryVotes } = usePrevElectionRegionVotes();
+  const { prevVotes } = useCountryStats();
 
   const results = useMemo(() => countryVotes(), [countryVotes]);
-  const prevResults = useMemo(() => prevCountryVotes(), [prevCountryVotes]);
 
   return (
     <>
@@ -38,7 +37,7 @@ export const RegionsScreen = () => {
           </MapLayout>
         </div>
       )}
-      <TopParties votes={results.votes} prevElectionVotes={prevResults} />
+      <TopParties votes={results.votes} prevElectionVotes={prevVotes} />
     </>
   );
 };

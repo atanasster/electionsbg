@@ -69,7 +69,7 @@ export type ElectionMunicipality = {
 };
 export type ElectionRegion = {
   key: string;
-  nuts3?: string;
+  nuts3: string;
   results: VoteResults;
   // municipalities: ElectionMunicipality[];
 };
@@ -124,6 +124,13 @@ export type PartyInfo = {
   name: string;
   nickName: string;
   color: string;
+};
+
+export type ElectionInfo = {
+  name: string;
+  results?: Exclude<VoteResults, "votes"> & {
+    votes: (Votes & { nickName?: string })[];
+  };
 };
 
 export type PartyVotes = Partial<PartyInfo> & Votes;

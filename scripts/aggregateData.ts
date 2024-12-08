@@ -14,6 +14,11 @@ import {
 } from "@/data/dataTypes";
 import { addVotes } from "@/data/utils";
 import { lookupCountryNumbers } from "./country_codes";
+import {
+  municipalityVotesFileName,
+  regionsVotesFileName,
+  settlementsVotesFileName,
+} from "./consts";
 const municipalities = municipalitiesData;
 
 const regionCodes: { key: string; nuts3: string }[] = [
@@ -281,16 +286,16 @@ export const aggregateSettlements = (
     addVotes(region.results, vote.votes, protocol);
   });
   let json = stringify(electionRegions);
-  let outFile = `${outFolder}/region_votes.json`;
+  let outFile = `${outFolder}/${regionsVotesFileName}`;
   fs.writeFileSync(outFile, json, "utf8");
   console.log("Successfully added file ", outFile);
   json = stringify(electionMunicipalities);
-  outFile = `${outFolder}/municipality_votes.json`;
+  outFile = `${outFolder}/${municipalityVotesFileName}`;
   fs.writeFileSync(outFile, json, "utf8");
   console.log("Successfully added file ", outFile);
 
   json = stringify(electionSettlements);
-  outFile = `${outFolder}/settlement_votes.json`;
+  outFile = `${outFolder}/${settlementsVotesFileName}`;
   fs.writeFileSync(outFile, json, "utf8");
   console.log("Successfully added file ", outFile);
 
