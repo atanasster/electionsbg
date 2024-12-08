@@ -69,7 +69,7 @@ export const AboutScreen = () => {
                 <h4 className="scroll-m-20 text-xl font-semibold tracking-tight mt-4">
                   Hobbies
                 </h4>
-                <p className="max-w-64">Travel, sports, girlfriends.</p>
+                <p className="max-w-64">Travel, sports, games.</p>
               </div>
             </div>
           </CardContent>
@@ -81,15 +81,15 @@ export const AboutScreen = () => {
             </CardTitle>
           </CardHeader>
           <CardContent className="mt-4">
-            <div className="flex">
-              <figure className="max-w-lg">
+            <div className="flex flex-col sm:flex-row">
+              <figure className="max-w-lg pr-8">
                 <img
                   className="h-auto max-w-48 rounded-lg"
                   src="/images/IMG_7486.png"
                   alt="image description"
                 />
               </figure>
-              <div className="pl-4">
+              <div className="my-4 md:my-0 md:pl-4">
                 <p className="max-w-72">
                   30+ years of experience, founder of{" "}
                   <Anchor
