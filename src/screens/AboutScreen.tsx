@@ -30,7 +30,7 @@ export const AboutScreen = () => {
           </CardHeader>
           <CardContent className="mt-4">
             <div className="flex flex-col sm:flex-row">
-              <figure className="flex flex-col max-w-lg md:pr-8 items-center">
+              <figure className="flex flex-col max-w-lg sm:pr-4 md:pr-8 items-center">
                 <img
                   className="h-auto max-w-48 rounded-lg"
                   src="/images/IMG_2272.png"
@@ -62,7 +62,7 @@ export const AboutScreen = () => {
           </CardHeader>
           <CardContent className="mt-4">
             <div className="flex flex-col sm:flex-row">
-              <figure className="flex flex-col max-w-lg md:pr-8 items-center">
+              <figure className="flex flex-col max-w-lg sm:pr-4 md:pr-8 items-center">
                 <img
                   className="h-auto max-w-48 rounded-lg"
                   src="/images/IMG_4016.png"
