@@ -10,6 +10,7 @@ import { useRegions } from "@/data/useRegions";
 import { useMunicipalities } from "@/data/useMunicipalities";
 import { TopParties } from "./components/TopParties";
 import { RegionInfo } from "@/data/dataTypes";
+import { useMunicipalityStats } from "@/data/useMunicipalityStats";
 
 export const SettlementsScreen = () => {
   const [searchParams] = useSearchParams();
@@ -18,11 +19,13 @@ export const SettlementsScreen = () => {
   const { findMunicipality } = useMunicipalities();
   const { votesByMunicipality } = useMunicipalitydVotes();
   const { i18n } = useTranslation();
+  const muniCode = searchParams.get("municipality");
+  const { prevVotes } = useMunicipalityStats(muniCode);
   if (!regionCode) {
     return null;
   }
   const region = findRegion(regionCode) as RegionInfo;
-  const muniCode = searchParams.get("municipality");
+
   if (!muniCode) {
     return null;
   }
@@ -51,7 +54,10 @@ export const SettlementsScreen = () => {
           />
         )}
       </MapLayout>
-      <TopParties votes={municipalityVotes?.results.votes} />
+      <TopParties
+        votes={municipalityVotes?.results.votes}
+        prevElectionVotes={prevVotes?.results?.votes}
+      />
     </>
   );
 };
