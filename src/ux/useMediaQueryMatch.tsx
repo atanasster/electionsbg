@@ -18,7 +18,7 @@ const getMediaQuery = (breakpoint: Breakpoints): string => {
       case "xs":
         return "(max-width: 576px)";
       case "sm":
-        return "(max-width: 767px)";
+        return "(max-width: 640px)";
       case "md":
         return "(min-width: 768px)";
       case "lg":
