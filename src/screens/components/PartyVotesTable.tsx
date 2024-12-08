@@ -164,7 +164,7 @@ export const PartyVotesTable: FC<{
                 <Button variant="ghost" className="my-2">
                   {isLarge ? (
                     <HistoryChart
-                      className="min-w-60 max-h-12"
+                      className="min-w-60 h-12"
                       party={row.original as PartyInfo}
                       stats={stats}
                       cursorPointer={true}
