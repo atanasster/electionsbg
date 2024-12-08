@@ -7,10 +7,10 @@ import { Title } from "@/ux/Title";
 import { useRegionVotes } from "@/data/useRegionVotes";
 import { ProtocolSummary } from "./components/ProtocolSummary";
 import { useMemo } from "react";
-import { TopParties } from "./components/TopParties";
 import { useCountryStats } from "@/data/useCountryVotesStats";
 import { WorldLink } from "./components/WorldLink";
 import { useElectionContext } from "@/data/ElectionContext";
+import { PartyVotesTable } from "./components/PartyVotesTable";
 
 export const RegionsScreen = () => {
   const { t } = useTranslation();
@@ -38,7 +38,7 @@ export const RegionsScreen = () => {
           </MapLayout>
         </div>
       )}
-      <TopParties
+      <PartyVotesTable
         votes={results.votes}
         prevElectionVotes={prevVotes}
         stats={stats}

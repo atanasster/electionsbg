@@ -21,7 +21,7 @@ import { DialogClose } from "@radix-ui/react-dialog";
 import { Button } from "@/components/ui/button";
 import { ChartArea } from "lucide-react";
 
-export const TopParties: FC<{
+export const PartyVotesTable: FC<{
   votes?: Votes[];
   stats?: ElectionInfo[];
   prevElectionVotes?: (Votes & { nickName?: string })[] | null;
@@ -51,7 +51,7 @@ export const TopParties: FC<{
     () => [
       {
         accessorKey: "partyNum",
-        hidden: isXSmall,
+        hidden: isXSmall && !!stats,
         header: (
           <Hint text={t("party_num_explainer")}>
             <div>#</div>
@@ -212,7 +212,7 @@ export const TopParties: FC<{
     ],
   );
   return data?.length ? (
-    <div className="w-full md:w-auto">
+    <div className="w-full">
       <DataTable pageSize={data.length} columns={columns} data={data} />
     </div>
   ) : null;
