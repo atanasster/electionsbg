@@ -36,6 +36,7 @@ import { Button } from "@/components/ui/button";
 import { MenuItem, reportsMenu } from "./reportMenus";
 import { useElectionContext } from "@/data/ElectionContext";
 import { Hint } from "@/ux/Hint";
+import { localDate } from "@/data/utils";
 
 export const Header = () => {
   const { setTheme, theme } = useContext(ThemeContext);
@@ -43,18 +44,8 @@ export const Header = () => {
   const { elections, selected, setSelected } = useElectionContext();
   const localDates = useMemo(() => {
     return elections.map((e) => {
-      const dateS = e.split("_");
-      const date = new Date(
-        parseInt(dateS[0]),
-        parseInt(dateS[1]) - 1,
-        parseInt(dateS[2]),
-      );
       return {
-        local: date.toLocaleDateString(undefined, {
-          year: "numeric",
-          month: "2-digit",
-          day: "2-digit",
-        }),
+        local: localDate(e),
         original: e,
       };
     });
@@ -123,7 +114,7 @@ export const Header = () => {
           </Button>
         </Hint>
         <Select
-          value={localDates.find((l) => l.original === selected)?.local}
+          value={localDates.find((l) => l.original === selected)?.original}
           onValueChange={(e) => {
             setSelected(e);
           }}
@@ -140,7 +131,7 @@ export const Header = () => {
               <SelectItem
                 className="text-lg text-secondary-foreground"
                 key={l.original}
-                value={l.local}
+                value={l.original}
               >
                 {l.local}
               </SelectItem>

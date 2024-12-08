@@ -1,4 +1,13 @@
-import { PartyInfo, PartyVotes, Votes } from "@/data/dataTypes";
+import { ElectionInfo, PartyInfo, PartyVotes, Votes } from "@/data/dataTypes";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogFooter,
+  DialogHeader,
+  DialogTitle,
+  DialogTrigger,
+} from "@/components/ui/dialog";
 import { useTopParties } from "@/data/useTopParties";
 import { formatPct, formatThousands } from "@/data/utils";
 import { DataTable, DataTableColumns } from "@/ux/DataTable";
@@ -8,11 +17,15 @@ import { PartyLabel } from "./PartyLabel";
 import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
 import { Hint } from "@/ux/Hint";
 import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { HistoryChart } from "./HistoryChart";
+import { DialogClose } from "@radix-ui/react-dialog";
+import { Button } from "@/components/ui/button";
 
 export const TopParties: FC<{
   votes?: Votes[];
+  stats?: ElectionInfo[];
   prevElectionVotes?: (Votes & { nickName?: string })[] | null;
-}> = ({ votes, prevElectionVotes }) => {
+}> = ({ votes, prevElectionVotes, stats }) => {
   const { t } = useTranslation();
   const [tab, tabChange] = useState(
     localStorage.getItem("top_parties_view") || "tab1pct",
@@ -22,6 +35,7 @@ export const TopParties: FC<{
     tabChange(value);
   };
   const isXSmall = useMediaQueryMatch("xs");
+  const isSmall = useMediaQueryMatch("sm");
   const parties = useTopParties(votes, tab === "tab1pct" ? 1 : 0);
   const data = useMemo(() => {
     return prevElectionVotes
@@ -102,7 +116,6 @@ export const TopParties: FC<{
       },
       {
         accessorKey: "pctPrevChange",
-
         hidden: !prevElectionVotes,
         header: (
           <Hint text={t("pct_prev_election_votes_explainer")}>
@@ -120,8 +133,59 @@ export const TopParties: FC<{
           );
         },
       },
+      {
+        accessorKey: "chart",
+        hidden: !prevElectionVotes || isSmall,
+        header: (
+          <Hint text={t("all_elections_explainer")}>
+            <div>{t("all_elections")}</div>
+          </Hint>
+        ) as never,
+        cell: ({ row }) =>
+          stats && (
+            <Dialog>
+              <DialogTrigger asChild>
+                <Button variant="ghost" className="my-2">
+                  <HistoryChart
+                    className="min-w-60 max-h-12"
+                    party={row.original as PartyInfo}
+                    stats={stats}
+                    cursorPointer={true}
+                    animationDuration={0}
+                  />
+                </Button>
+              </DialogTrigger>
+              <DialogContent className="md:max-w-lg text-primary">
+                <DialogHeader>
+                  <DialogTitle>
+                    {(row.original as PartyInfo).nickName}
+                  </DialogTitle>
+                  <DialogDescription>
+                    {t("all_elections_explainer")}
+                  </DialogDescription>
+                </DialogHeader>
+                <div className="flex items-center space-x-2">
+                  <div className="grid flex-1 gap-2">
+                    <HistoryChart
+                      party={row.original as PartyInfo}
+                      xAxis={true}
+                      stats={stats}
+                    />
+                  </div>
+                </div>
+                <DialogFooter className="sm:justify-start">
+                  <DialogClose asChild>
+                    <Button type="button" variant="secondary">
+                      {t("close")}
+                    </Button>
+                  </DialogClose>
+                </DialogFooter>
+              </DialogContent>
+            </Dialog>
+          ),
+      },
     ],
-    [isXSmall, prevElectionVotes, t],
+    [isSmall, isXSmall, prevElectionVotes, stats, t],
   );
   return data?.length ? (
     <div className="w-full md:w-auto">

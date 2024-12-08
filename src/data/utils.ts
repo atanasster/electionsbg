@@ -124,3 +124,17 @@ export const addVotes = (
     throw new Error("Invalid results.protocol.totalActualVoters");
   }
 };
+
+export const localDate = (date: string) => {
+  const dateS = date.split("_");
+  const dateObj = new Date(
+    parseInt(dateS[0]),
+    parseInt(dateS[1]) - 1,
+    parseInt(dateS[2]),
+  );
+  return dateObj.toLocaleDateString(undefined, {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  });
+};

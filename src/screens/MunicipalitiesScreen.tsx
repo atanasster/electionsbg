@@ -16,7 +16,7 @@ export const MunicipalitiesScreen = () => {
   const { votesByRegion } = useRegionVotes();
   const { i18n } = useTranslation();
   const region = searchParams.get("region");
-  const { prevVotes } = useRegionStats(region);
+  const { prevVotes, stats } = useRegionStats(region);
   if (!region) {
     return null;
   }
@@ -40,6 +40,7 @@ export const MunicipalitiesScreen = () => {
       <TopParties
         votes={regionVotes?.results.votes}
         prevElectionVotes={prevVotes?.results?.votes}
+        stats={stats}
       />
     </>
   );
