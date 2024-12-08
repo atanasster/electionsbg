@@ -8,9 +8,9 @@ import { useMunicipalitydVotes } from "@/data/useMunicipalityVotes";
 import { ProtocolSummary } from "./components/ProtocolSummary";
 import { useRegions } from "@/data/useRegions";
 import { useMunicipalities } from "@/data/useMunicipalities";
-import { TopParties } from "./components/TopParties";
 import { RegionInfo } from "@/data/dataTypes";
 import { useMunicipalityStats } from "@/data/useMunicipalityStats";
+import { PartyVotesTable } from "./components/PartyVotesTable";
 
 export const SettlementsScreen = () => {
   const [searchParams] = useSearchParams();
@@ -54,7 +54,7 @@ export const SettlementsScreen = () => {
           />
         )}
       </MapLayout>
-      <TopParties
+      <PartyVotesTable
         votes={municipalityVotes?.results.votes}
         stats={stats}
         prevElectionVotes={prevVotes?.results?.votes}

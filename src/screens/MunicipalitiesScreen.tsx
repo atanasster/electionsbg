@@ -7,8 +7,8 @@ import { ProtocolSummary } from "./components/ProtocolSummary";
 import { useRegionVotes } from "@/data/useRegionVotes";
 import { Title } from "@/ux/Title";
 import { useRegions } from "@/data/useRegions";
-import { TopParties } from "./components/TopParties";
 import { useRegionStats } from "@/data/useRegionStats";
+import { PartyVotesTable } from "./components/PartyVotesTable";
 
 export const MunicipalitiesScreen = () => {
   const [searchParams] = useSearchParams();
@@ -37,7 +37,7 @@ export const MunicipalitiesScreen = () => {
       <MapLayout>
         {(size) => <MunicipalitiesMap region={region} size={size} />}
       </MapLayout>
-      <TopParties
+      <PartyVotesTable
         votes={regionVotes?.results.votes}
         prevElectionVotes={prevVotes?.results?.votes}
         stats={stats}

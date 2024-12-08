@@ -3,7 +3,7 @@ import { Caption } from "@/ux/Caption";
 import { SectionInfo } from "@/data/dataTypes";
 import { ProtocolSummary } from "./ProtocolSummary";
 import { useTranslation } from "react-i18next";
-import { PartyVotes } from "./PartyVotes";
+import { PartyVotesTable } from "./PartyVotesTable";
 
 export const Section: FC<{ section: SectionInfo }> = ({ section }) => {
   const { t } = useTranslation();
@@ -14,7 +14,7 @@ export const Section: FC<{ section: SectionInfo }> = ({ section }) => {
         <Caption className="mb-4">{`${section.settlement}${section.address ? `-${section.address}` : ""}`}</Caption>
         <ProtocolSummary protocol={section.protocol} votes={section.votes} />
         {section.protocol && section.votes && (
-          <PartyVotes votes={section.votes} protocol={section.protocol} />
+          <PartyVotesTable votes={section.votes} />
         )}
       </div>
     </div>
