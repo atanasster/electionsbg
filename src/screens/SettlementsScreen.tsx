@@ -20,7 +20,7 @@ export const SettlementsScreen = () => {
   const { votesByMunicipality } = useMunicipalitydVotes();
   const { i18n } = useTranslation();
   const muniCode = searchParams.get("municipality");
-  const { prevVotes } = useMunicipalityStats(muniCode);
+  const { prevVotes, stats } = useMunicipalityStats(muniCode);
   if (!regionCode) {
     return null;
   }
@@ -56,6 +56,7 @@ export const SettlementsScreen = () => {
       </MapLayout>
       <TopParties
         votes={municipalityVotes?.results.votes}
+        stats={stats}
         prevElectionVotes={prevVotes?.results?.votes}
       />
     </>

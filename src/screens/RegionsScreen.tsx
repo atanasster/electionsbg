@@ -10,13 +10,14 @@ import { useMemo } from "react";
 import { TopParties } from "./components/TopParties";
 import { useCountryStats } from "@/data/useCountryVotesStats";
 import { WorldLink } from "./components/WorldLink";
+import { useElectionContext } from "@/data/ElectionContext";
 
 export const RegionsScreen = () => {
   const { t } = useTranslation();
   const { regions } = useRegionsMap();
   const { countryVotes } = useRegionVotes();
   const { prevVotes } = useCountryStats();
-
+  const { stats } = useElectionContext();
   const results = useMemo(() => countryVotes(), [countryVotes]);
 
   return (
@@ -37,7 +38,11 @@ export const RegionsScreen = () => {
           </MapLayout>
         </div>
       )}
-      <TopParties votes={results.votes} prevElectionVotes={prevVotes} />
+      <TopParties
+        votes={results.votes}
+        prevElectionVotes={prevVotes}
+        stats={stats}
+      />
     </>
   );
 };

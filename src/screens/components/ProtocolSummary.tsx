@@ -6,11 +6,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { useTranslation } from "react-i18next";
 import { Hint } from "@/ux/Hint";
 import { formatPct, formatThousands } from "@/data/utils";
-import {
-  ChartConfig,
-  ChartContainer,
-  ChartTooltip,
-} from "@/components/ui/chart";
+import { ChartContainer, ChartTooltip } from "@/components/ui/chart";
 import { useElectionContext } from "@/data/ElectionContext";
 import { useTopParties } from "@/data/useTopParties";
 import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
@@ -44,11 +40,7 @@ export const ProtocolSummary: FC<{
   const { t } = useTranslation();
   const isXSmall = useMediaQueryMatch("xs");
   const { isMachineOnly } = useElectionContext();
-  const chartConfig = {
-    totalVotes: {
-      label: `${t("total_votes")}: `,
-    },
-  } satisfies ChartConfig;
+
   const topParties = useTopParties(votes, 4);
   return (
     protocol && (
@@ -368,7 +360,7 @@ export const ProtocolSummary: FC<{
                   <Flag />
                 </CardHeader>
                 <CardContent>
-                  <ChartContainer config={chartConfig}>
+                  <ChartContainer config={{}}>
                     <BarChart accessibilityLayer data={topParties}>
                       <CartesianGrid vertical={false} />
                       <XAxis
@@ -392,17 +384,6 @@ export const ProtocolSummary: FC<{
                       />
                       <ChartTooltip
                         cursor={false}
-                        formatter={(value, name) => {
-                          return (
-                            <div className="flex min-w-[130px] items-center text-md">
-                              {chartConfig[name as keyof typeof chartConfig]
-                                ?.label || name}
-                              <div className="ml-auto flex items-baseline gap-0.5 font-mono font-medium tabular-nums">
-                                {value}
-                              </div>
-                            </div>
-                          );
-                        }}
                         content={<CustomTooltip />}
                       />
                       <Bar dataKey="totalVotes" radius={8}>

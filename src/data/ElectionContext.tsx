@@ -1,11 +1,11 @@
 import { useCallback, useMemo } from "react";
-import electionsData from "../data/json/elections.json";
+import allElections from "../data/json/elections.json";
 import { useSearchParams } from "react-router-dom";
 import { ElectionInfo, isMachineOnlyVote } from "./dataTypes";
 
 export const useElectionContext = () => {
   const [searchParams, setSearchParams] = useSearchParams();
-  const elections = useMemo(() => electionsData.map((e) => e.name), []);
+  const elections = useMemo(() => allElections.map((e) => e.name), []);
   const selected = useMemo(() => {
     const urlElections = searchParams.get("elections");
     if (urlElections && elections.find((e) => e === urlElections)) {
@@ -24,9 +24,9 @@ export const useElectionContext = () => {
   );
 
   const priorElections: ElectionInfo | undefined = useMemo(() => {
-    const idx = electionsData.findIndex((e) => e.name === selected);
+    const idx = allElections.findIndex((e) => e.name === selected);
     return idx >= 0 && idx < elections.length - 1
-      ? (electionsData[idx + 1] as ElectionInfo)
+      ? (allElections[idx + 1] as ElectionInfo)
       : undefined;
   }, [elections, selected]);
 
@@ -37,5 +37,6 @@ export const useElectionContext = () => {
     setSelected,
     isMachineOnly,
     priorElections,
+    stats: allElections as ElectionInfo[],
   };
 };

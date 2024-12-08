@@ -46,7 +46,10 @@ export const DataTable = <TData, TValue>({
           header: (props) => {
             const { column } = props;
             return (
-              <div className="flex justify-center">
+              <div className="flex justify-center items-center">
+                {typeof c.header === "function"
+                  ? c.header(props)
+                  : c.header || c.id}
                 <Button
                   variant="ghost"
                   className="px-0"
@@ -54,9 +57,6 @@ export const DataTable = <TData, TValue>({
                     column.toggleSorting(column.getIsSorted() === "asc")
                   }
                 >
-                  {typeof c.header === "function"
-                    ? c.header(props)
-                    : c.header || c.id}
                   <ArrowUpDown className="ml-2 h-4 w-4 " />
                 </Button>
               </div>

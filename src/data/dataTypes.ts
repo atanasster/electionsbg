@@ -128,7 +128,7 @@ export type PartyInfo = {
 
 export type ElectionInfo = {
   name: string;
-  results?: Exclude<VoteResults, "votes"> & {
+  results?: Omit<VoteResults, "votes"> & {
     votes: (Votes & { nickName?: string })[];
   };
 };
