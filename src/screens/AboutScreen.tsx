@@ -48,7 +48,7 @@ export const AboutScreen = () => {
             </CardTitle>
           </CardHeader>
           <CardContent className="mt-4">
-            <div className="flex">
+            <div className="flex flex-col sm:flex-row">
               <figure className="max-w-lg pr-8">
                 <img
                   className="h-auto max-w-48 rounded-lg"
@@ -56,7 +56,7 @@ export const AboutScreen = () => {
                   alt="image description"
                 />
               </figure>
-              <div className="pl-4">
+              <div className="my-4 md:my-0 md:pl-4">
                 <p className="max-w-64">
                   Graduated from Cornell and worked at Bandwidth and SentinelOne
                 </p>
