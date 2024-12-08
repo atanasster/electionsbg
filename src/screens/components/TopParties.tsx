@@ -11,15 +11,15 @@ import {
 import { useTopParties } from "@/data/useTopParties";
 import { formatPct, formatThousands } from "@/data/utils";
 import { DataTable, DataTableColumns } from "@/ux/DataTable";
-import { FC, useMemo, useState } from "react";
+import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { PartyLabel } from "./PartyLabel";
 import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
 import { Hint } from "@/ux/Hint";
-import { Tabs, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { HistoryChart } from "./HistoryChart";
 import { DialogClose } from "@radix-ui/react-dialog";
 import { Button } from "@/components/ui/button";
+import { ChartArea } from "lucide-react";
 
 export const TopParties: FC<{
   votes?: Votes[];
@@ -27,16 +27,11 @@ export const TopParties: FC<{
   prevElectionVotes?: (Votes & { nickName?: string })[] | null;
 }> = ({ votes, prevElectionVotes, stats }) => {
   const { t } = useTranslation();
-  const [tab, tabChange] = useState(
-    localStorage.getItem("top_parties_view") || "tab1pct",
-  );
-  const onTabChange = (value: string) => {
-    localStorage.setItem("top_parties_view", value);
-    tabChange(value);
-  };
   const isXSmall = useMediaQueryMatch("xs");
   const isSmall = useMediaQueryMatch("sm");
-  const parties = useTopParties(votes, tab === "tab1pct" ? 1 : 0);
+  const hasPaperVotes = votes?.find((v) => v.paperVotes);
+  const hasMachineVotes = votes?.find((v) => v.machineVotes);
+  const parties = useTopParties(votes, 0);
   const data = useMemo(() => {
     return prevElectionVotes
       ? parties?.map((p) => {
@@ -71,6 +66,26 @@ export const TopParties: FC<{
         cell: ({ row }) => {
           return <PartyLabel party={row.original as PartyInfo} />;
         },
+      },
+      {
+        accessorKey: "paperVotes",
+        header: t("paper_votes"),
+        hidden: isSmall || !hasPaperVotes,
+        cell: ({ row }) => (
+          <div className="px-4 py-2 text-right">
+            {formatThousands(row.getValue("paperVotes"))}
+          </div>
+        ),
+      },
+      {
+        accessorKey: "machineVotes",
+        header: t("machine_votes"),
+        hidden: isSmall || !hasMachineVotes,
+        cell: ({ row }) => (
+          <div className="px-4 text-right">
+            {formatThousands(row.getValue("machineVotes"))}
+          </div>
+        ),
       },
       {
         accessorKey: "totalVotes",
@@ -135,10 +150,10 @@ export const TopParties: FC<{
       },
       {
         accessorKey: "chart",
-        hidden: !prevElectionVotes || isSmall,
+        hidden: !prevElectionVotes,
         header: (
           <Hint text={t("all_elections_explainer")}>
-            <div>{t("all_elections")}</div>
+            <div>{isXSmall ? t("chart") : t("all_elections")}</div>
           </Hint>
         ) as never,
         cell: ({ row }) =>
@@ -146,8 +161,9 @@ export const TopParties: FC<{
             <Dialog>
               <DialogTrigger asChild>
                 <Button variant="ghost" className="my-2">
+                  <ChartArea className="md:hidden" />
                   <HistoryChart
-                    className="min-w-60 max-h-12"
+                    className="min-w-60 max-h-12 hidden md:block"
                     party={row.original as PartyInfo}
                     stats={stats}
                     cursorPointer={true}
@@ -185,23 +201,18 @@ export const TopParties: FC<{
           ),
       },
     ],
-    [isSmall, isXSmall, prevElectionVotes, stats, t],
+    [
+      hasMachineVotes,
+      hasPaperVotes,
+      isSmall,
+      isXSmall,
+      prevElectionVotes,
+      stats,
+      t,
+    ],
   );
   return data?.length ? (
     <div className="w-full md:w-auto">
-      <Tabs value={tab} onValueChange={onTabChange} className="w-[400px]">
-        <TabsList className="grid w-full grid-cols-2">
-          <TabsTrigger
-            aria-label="view only the parties over 1%"
-            value="tab1pct"
-          >
-            {t("top_1pct_parties")}
-          </TabsTrigger>
-          <TabsTrigger aria-label="view all the parties" value="tabAll">
-            {t("all_parties")}
-          </TabsTrigger>
-        </TabsList>
-      </Tabs>
       <DataTable pageSize={data.length} columns={columns} data={data} />
     </div>
   ) : null;
