@@ -2,7 +2,12 @@ import { FC, useMemo } from "react";
 import { Title } from "@/ux/Title";
 import { Tooltip } from "@/ux/Tooltip";
 import { Hint } from "@/ux/Hint";
-import { LocationInfo, VoteResults } from "@/data/dataTypes";
+import {
+  LocationInfo,
+  ReportRow,
+  SettlementReportRow,
+  VoteResults,
+} from "@/data/dataTypes";
 import { DataTable } from "@/ux/DataTable";
 import { useTranslation } from "react-i18next";
 import { addVotes, formatPct, formatThousands } from "@/data/utils";
@@ -20,7 +25,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { ReportRow, ReportRule, SettlementReportRow } from "./utils";
+import { ReportRule } from "./utils";
 import { Row } from "@tanstack/react-table";
 import { useRegions } from "@/data/useRegions";
 import { useMunicipalities } from "@/data/useMunicipalities";

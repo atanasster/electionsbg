@@ -1,6 +1,7 @@
 import { useMunicipalitydVotes } from "@/data/useMunicipalityVotes";
 import { useMemo } from "react";
-import { calcReportRow, ReportRule, ReportRow } from "../common/utils";
+import { calcReportRow, ReportRule } from "../common/utils";
+import { ReportRow } from "@/data/dataTypes";
 
 export const useMunicipalityData = (
   reportRule: ReportRule,

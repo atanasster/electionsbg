@@ -1,31 +1,10 @@
 import {
   PartyVotes,
+  ReportRow,
   SectionProtocol,
   VoteResults,
   Votes,
 } from "@/data/dataTypes";
-
-export type ReportRow = {
-  oblast?: string;
-  obshtina?: string;
-  partyVotes: PartyVotes;
-  value: number;
-  votes: Votes[];
-  protocol: SectionProtocol;
-  voterTurnout: number;
-  pctSupportsNoOne: number;
-  pctPartyVote: number;
-  pctInvalidBallots: number;
-  pctAdditionalVoters: number;
-};
-
-export type SettlementReportRow = ReportRow & {
-  ekatte?: string;
-};
-
-export type SectionReportRow = SettlementReportRow & {
-  section?: string;
-};
 
 export type ReportRule = {
   value: (

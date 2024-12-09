@@ -139,3 +139,25 @@ export type PartyVotes = Partial<PartyInfo> & Votes;
 export const isMachineOnlyVote = (year: string) => {
   return ["2021_07_11", "2021_11_14", "2022_10_02"].includes(year);
 };
+
+export type ReportRow = {
+  oblast?: string;
+  obshtina?: string;
+  partyVotes: PartyVotes;
+  value: number;
+  votes: Votes[];
+  protocol: SectionProtocol;
+  voterTurnout: number;
+  pctSupportsNoOne: number;
+  pctPartyVote: number;
+  pctInvalidBallots: number;
+  pctAdditionalVoters: number;
+};
+
+export type SettlementReportRow = ReportRow & {
+  ekatte?: string;
+};
+
+export type SectionReportRow = SettlementReportRow & {
+  section?: string;
+};
