@@ -1,8 +1,8 @@
 import { useMemo } from "react";
-import { calcReportRow, ReportRule, SectionReportRow } from "../common/utils";
+import { calcReportRow, ReportRule } from "../common/utils";
 import { useSectionsInfo } from "@/data/useSectionsInfo";
 import { addVotes } from "@/data/utils";
-import { VoteResults } from "@/data/dataTypes";
+import { SectionReportRow, VoteResults } from "@/data/dataTypes";
 
 export type UseSectionData = (
   reportRule: ReportRule,

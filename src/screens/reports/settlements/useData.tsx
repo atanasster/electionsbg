@@ -1,10 +1,7 @@
 import { useSettlementVotes } from "@/data/useSettlementVotes";
 import { useMemo } from "react";
-import {
-  calcReportRow,
-  ReportRule,
-  SettlementReportRow,
-} from "../common/utils";
+import { calcReportRow, ReportRule } from "../common/utils";
+import { SettlementReportRow } from "@/data/dataTypes";
 
 export type UseSettlementData = (
   reportRule: ReportRule,
