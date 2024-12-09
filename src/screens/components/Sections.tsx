@@ -55,7 +55,9 @@ export const Sections: FC<{ ekatte?: string | null }> = ({ ekatte }) => {
                 },
               }}
             >
-              {i18n.language === "bg" ? region?.name : region?.name_en}
+              {i18n.language === "bg"
+                ? region?.long_name || region?.name
+                : region?.long_name_en || region?.name_en}
             </Link>
             {" / "}
           </>
@@ -79,7 +81,10 @@ export const Sections: FC<{ ekatte?: string | null }> = ({ ekatte }) => {
         )}
         {info && (i18n.language === "bg" ? info?.name : info?.name_en)}
       </H1>
-      <Caption>{`${t("total_sections")}: ${sections?.length || 0}`}</Caption>
+      <Caption className="py-8">
+        {" "}
+        {`${t("total_sections")}: ${sections?.length || 0}`}
+      </Caption>
       {sections && <SectionsList sections={sections} />}
       <PartyVotesTable
         votes={settlementVotes?.results.votes}
