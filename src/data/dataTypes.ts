@@ -86,7 +86,7 @@ export type SectionInfo = {
   is_ship: number;
   num_machines: number;
   protocol?: SectionProtocol;
-  votes?: Votes[];
+  votes: Votes[];
   oblast?: string;
   obshtina?: string;
   ekatte?: string;

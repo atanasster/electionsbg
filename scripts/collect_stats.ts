@@ -5,6 +5,7 @@ import {
   ElectionRegions,
   ElectionSettlement,
   PartyInfo,
+  SectionInfo,
   VoteResults,
 } from "@/data/dataTypes";
 import { addVotes } from "@/data/utils";
@@ -12,6 +13,7 @@ import {
   cikPartiesFileName,
   municipalityVotesFileName,
   regionsVotesFileName,
+  sectionVotesFileName,
   settlementsVotesFileName,
 } from "./consts";
 
@@ -151,6 +153,51 @@ const statsBySettlement = (elections: ElectionInfo[], publicFolder: string) => {
   });
   return collectedVotes;
 };
+
+const statsBySection = (elections: ElectionInfo[], publicFolder: string) => {
+  const collectedVotes: { [key: string]: ElectionInfo[] } = {};
+  elections.forEach((e) => {
+    const parties: PartyInfo[] = JSON.parse(
+      fs.readFileSync(
+        `${publicFolder}/${e.name}/${cikPartiesFileName}`,
+        "utf-8",
+      ),
+    );
+    const sectionVotes: SectionInfo[] = JSON.parse(
+      fs.readFileSync(
+        `${publicFolder}/${e.name}/${sectionVotesFileName}`,
+        "utf-8",
+      ),
+    );
+    sectionVotes.forEach((r) => {
+      if (collectedVotes[r.section] === undefined) {
+        collectedVotes[r.section] = [];
+      }
+      const res: VoteResults = {
+        actualTotal: 0,
+        actualPaperVotes: 0,
+        actualMachineVotes: 0,
+        votes: [],
+      };
+      addVotes(res, r.votes, r.protocol);
+      collectedVotes[r.section].push({
+        ...e,
+        results: {
+          ...res,
+          protocol: res.protocol,
+          votes: res.votes.map((v) => {
+            const party = parties.find((p) => p.number === v.partyNum);
+            return {
+              ...v,
+              nickName: party?.nickName,
+            };
+          }),
+        },
+      });
+    });
+  });
+  return collectedVotes;
+};
 export const collectStats = (
   elections: ElectionInfo[],
   publicFolder: string,
@@ -206,5 +253,6 @@ export const collectStats = (
     byRegion: statsByRegion(elections, publicFolder),
     byMunicipality: statsByMunicipality(elections, publicFolder),
     bySettlement: statsBySettlement(elections, publicFolder),
+    bySection: statsBySection(elections, publicFolder),
   };
 };
