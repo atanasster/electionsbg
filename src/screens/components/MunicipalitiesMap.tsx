@@ -29,7 +29,6 @@ export const MunicipalitiesMap: React.FC<
     navigate({
       pathname: "/settlement",
       search: {
-        region,
         municipality: getName(props),
       },
     });

@@ -20,6 +20,7 @@ import { HistoryChart } from "./HistoryChart";
 import { DialogClose } from "@radix-ui/react-dialog";
 import { Button } from "@/components/ui/button";
 import { ChartArea } from "lucide-react";
+import { Caption } from "@/ux/Caption";
 
 export const PartyVotesTable: FC<{
   votes?: Votes[];
@@ -218,6 +219,7 @@ export const PartyVotesTable: FC<{
   );
   return data?.length ? (
     <div className="w-full">
+      <Caption className="py-8">{t("votes_by_party")}</Caption>
       <DataTable pageSize={data.length} columns={columns} data={data} />
     </div>
   ) : null;

@@ -175,7 +175,6 @@ export const ReportTemplate: FC<{
                   to={{
                     pathname: "/settlement",
                     search: {
-                      region: row.original.oblast || "",
                       municipality: row.original.obshtina || "",
                     },
                   }}
@@ -198,8 +197,6 @@ export const ReportTemplate: FC<{
                   to={{
                     pathname: "/sections",
                     search: {
-                      region: row.original.oblast || "",
-                      municipality: row.original.obshtina || "",
                       settlement: row.original.ekatte || "",
                     },
                   }}

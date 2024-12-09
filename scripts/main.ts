@@ -117,7 +117,7 @@ const updatedElections: ElectionInfo[] = fs
   }))
   .sort((a, b) => b.name.localeCompare(a.name));
 const publicFolder = path.resolve(__dirname, `../public`);
-const { country, byRegion, byMunicipality } = collectStats(
+const { country, byRegion, byMunicipality, bySettlement } = collectStats(
   updatedElections,
   publicFolder,
 );
@@ -137,6 +137,14 @@ Object.keys(byMunicipality).forEach((muniName) => {
   const data = stringifyJSON(byMunicipality[muniName], production);
   fs.writeFileSync(
     `${publicFolder}/municipalities/${muniName}_stats.json`,
+    data,
+    "utf8",
+  );
+});
+Object.keys(bySettlement).forEach((ekatte) => {
+  const data = stringifyJSON(bySettlement[ekatte], production);
+  fs.writeFileSync(
+    `${publicFolder}/settlements/${ekatte}_stats.json`,
     data,
     "utf8",
   );

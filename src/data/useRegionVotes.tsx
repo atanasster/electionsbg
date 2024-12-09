@@ -30,7 +30,7 @@ export const useRegionVotes = () => {
   );
 
   const votesWorld = useCallback((): ElectionRegion | undefined => {
-    return votes?.find((vote) => vote.nuts3 === "32");
+    return votes?.find((vote) => vote.key === "32");
   }, [votes]);
   const countryVotes = useCallback(() => {
     const acc: VoteResults = {

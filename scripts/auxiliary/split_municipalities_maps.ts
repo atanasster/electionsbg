@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
-import municipalitiesMap from "../src/data/backup/municipalities_map.json";
+import municipalitiesMap from "../../src/data/backup/municipalities_map.json";
 type Map = typeof municipalitiesMap;
 type Features = Map["features"];
 type Feature = Features[0];
@@ -24,7 +24,7 @@ Object.keys(splitted).forEach((key) => {
     type: "FeatureCollection",
     features: splitted[key],
   });
-  const outFolder = path.resolve(__dirname, `../public/maps/regions`);
+  const outFolder = path.resolve(__dirname, `../../public/maps/regions`);
   const outFile = `${outFolder}/${key}.json`;
   fs.writeFileSync(outFile, json, "utf8");
 });
