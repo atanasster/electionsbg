@@ -15,12 +15,13 @@ export const SectionsList: FC<{ sections: SectionInfo[] }> = ({ sections }) => {
   const { t } = useTranslation();
   const { topVotesParty } = usePartyInfo();
   const isSmall = useMediaQueryMatch("sm");
+  const isMedium = useMediaQueryMatch("md");
+  const isLarge = useMediaQueryMatch("lg");
   const data = useMemo(() => {
     return sections.map((section) => {
       const settlementName = section.settlement
         .replace(/\s+/g, "")
-        .toLowerCase()
-        .split(",")[0];
+        .toLowerCase();
       const addressName = (section.address || "")
         .replace(/\s+/g, "")
         .toLowerCase();
@@ -28,7 +29,8 @@ export const SectionsList: FC<{ sections: SectionInfo[] }> = ({ sections }) => {
       let address = section.address;
       if (cityIdx >= 0) {
         const numSpaces =
-          (section.address?.slice(0, cityIdx).split(" ").length || 1) - 1;
+          (section.address?.slice(0, settlementName.length).split(" ").length ||
+            1) - 1;
         address =
           section.address?.slice(
             cityIdx + settlementName.length + numSpaces + 1,
@@ -48,6 +50,9 @@ export const SectionsList: FC<{ sections: SectionInfo[] }> = ({ sections }) => {
       };
     });
   }, [sections, topVotesParty]);
+  const hasPaperVotes = !!data.find((v) => v.protocol?.numPaperBallotsFound);
+  const hasMachineVotes = !!data.find((v) => v.protocol?.numMachineBallots);
+
   return (
     <DataTable<
       SectionInfo & { partyVotes?: PartyVotes } & { voterTurnout: number },
@@ -73,6 +78,7 @@ export const SectionsList: FC<{ sections: SectionInfo[] }> = ({ sections }) => {
         },
         {
           accessorKey: "settlement",
+          hidden: !isLarge,
           header: t("settlement"),
         },
         {
@@ -82,6 +88,7 @@ export const SectionsList: FC<{ sections: SectionInfo[] }> = ({ sections }) => {
 
         {
           accessorKey: "voterTurnout",
+          hidden: isSmall,
           header: () => (
             <Hint text={t("pct_total_voters_explainer")}>
               <div>{t("voter_turnout")}</div>
@@ -97,6 +104,7 @@ export const SectionsList: FC<{ sections: SectionInfo[] }> = ({ sections }) => {
         },
         {
           accessorKey: "partyVotes.paperVotes",
+          hidden: !isMedium || !(hasMachineVotes && hasPaperVotes),
           header: () => (
             <Hint text={t("num_paper_ballots_found_explainer")}>
               <div>{t("paper_votes")}</div>
@@ -112,6 +120,7 @@ export const SectionsList: FC<{ sections: SectionInfo[] }> = ({ sections }) => {
         },
         {
           accessorKey: "partyVotes.machineVotes",
+          hidden: !isMedium || !(hasMachineVotes && hasPaperVotes),
           header: () => (
             <Hint text={t("total_machine_votes_explainer")}>
               <div>{t("machine_votes")}</div>
