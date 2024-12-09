@@ -8,28 +8,22 @@ import { useMunicipalitydVotes } from "@/data/useMunicipalityVotes";
 import { ProtocolSummary } from "./components/ProtocolSummary";
 import { useRegions } from "@/data/useRegions";
 import { useMunicipalities } from "@/data/useMunicipalities";
-import { RegionInfo } from "@/data/dataTypes";
 import { useMunicipalityStats } from "@/data/useMunicipalityStats";
 import { PartyVotesTable } from "./components/PartyVotesTable";
 
 export const SettlementsScreen = () => {
   const [searchParams] = useSearchParams();
-  const regionCode = searchParams.get("region");
   const { findRegion } = useRegions();
   const { findMunicipality } = useMunicipalities();
   const { votesByMunicipality } = useMunicipalitydVotes();
   const { i18n } = useTranslation();
   const muniCode = searchParams.get("municipality");
   const { prevVotes, stats } = useMunicipalityStats(muniCode);
-  if (!regionCode) {
-    return null;
-  }
-  const region = findRegion(regionCode) as RegionInfo;
-
   if (!muniCode) {
     return null;
   }
   const municipality = findMunicipality(muniCode);
+  const region = findRegion(municipality?.oblast);
   if (!region || !municipality) {
     return null;
   }
@@ -46,13 +40,7 @@ export const SettlementsScreen = () => {
         votes={municipalityVotes?.results.votes}
       />
       <MapLayout>
-        {(size) => (
-          <SettlementsMap
-            municipality={municipality}
-            region={region}
-            size={size}
-          />
-        )}
+        {(size) => <SettlementsMap municipality={municipality} size={size} />}
       </MapLayout>
       <PartyVotesTable
         votes={municipalityVotes?.results.votes}

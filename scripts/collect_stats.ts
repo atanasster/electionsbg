@@ -3,6 +3,7 @@ import {
   ElectionInfo,
   ElectionMunicipality,
   ElectionRegions,
+  ElectionSettlement,
   PartyInfo,
   VoteResults,
 } from "@/data/dataTypes";
@@ -11,10 +12,11 @@ import {
   cikPartiesFileName,
   municipalityVotesFileName,
   regionsVotesFileName,
+  settlementsVotesFileName,
 } from "./consts";
 
 const statsByRegion = (elections: ElectionInfo[], publicFolder: string) => {
-  const municipalityVotes: { [key: string]: ElectionInfo[] } = {};
+  const collectedVotes: { [key: string]: ElectionInfo[] } = {};
   elections.forEach((e) => {
     const parties: PartyInfo[] = JSON.parse(
       fs.readFileSync(
@@ -29,8 +31,8 @@ const statsByRegion = (elections: ElectionInfo[], publicFolder: string) => {
       ),
     );
     regionVotes.forEach((r) => {
-      if (municipalityVotes[r.key] === undefined) {
-        municipalityVotes[r.key] = [];
+      if (collectedVotes[r.key] === undefined) {
+        collectedVotes[r.key] = [];
       }
       const res: VoteResults = {
         actualTotal: 0,
@@ -39,7 +41,7 @@ const statsByRegion = (elections: ElectionInfo[], publicFolder: string) => {
         votes: [],
       };
       addVotes(res, r.results.votes, r.results.protocol);
-      municipalityVotes[r.key].push({
+      collectedVotes[r.key].push({
         ...e,
         results: {
           ...res,
@@ -55,14 +57,14 @@ const statsByRegion = (elections: ElectionInfo[], publicFolder: string) => {
       });
     });
   });
-  return municipalityVotes;
+  return collectedVotes;
 };
 
 const statsByMunicipality = (
   elections: ElectionInfo[],
   publicFolder: string,
 ) => {
-  const settlementVotes: { [key: string]: ElectionInfo[] } = {};
+  const collectedVotes: { [key: string]: ElectionInfo[] } = {};
   elections.forEach((e) => {
     const parties: PartyInfo[] = JSON.parse(
       fs.readFileSync(
@@ -77,8 +79,8 @@ const statsByMunicipality = (
       ),
     );
     municipalityVotes.forEach((r) => {
-      if (settlementVotes[r.obshtina] === undefined) {
-        settlementVotes[r.obshtina] = [];
+      if (collectedVotes[r.obshtina] === undefined) {
+        collectedVotes[r.obshtina] = [];
       }
       const res: VoteResults = {
         actualTotal: 0,
@@ -87,7 +89,7 @@ const statsByMunicipality = (
         votes: [],
       };
       addVotes(res, r.results.votes, r.results.protocol);
-      settlementVotes[r.obshtina].push({
+      collectedVotes[r.obshtina].push({
         ...e,
         results: {
           ...res,
@@ -103,7 +105,51 @@ const statsByMunicipality = (
       });
     });
   });
-  return settlementVotes;
+  return collectedVotes;
+};
+const statsBySettlement = (elections: ElectionInfo[], publicFolder: string) => {
+  const collectedVotes: { [key: string]: ElectionInfo[] } = {};
+  elections.forEach((e) => {
+    const parties: PartyInfo[] = JSON.parse(
+      fs.readFileSync(
+        `${publicFolder}/${e.name}/${cikPartiesFileName}`,
+        "utf-8",
+      ),
+    );
+    const settlementVotes: ElectionSettlement[] = JSON.parse(
+      fs.readFileSync(
+        `${publicFolder}/${e.name}/${settlementsVotesFileName}`,
+        "utf-8",
+      ),
+    );
+    settlementVotes.forEach((r) => {
+      if (collectedVotes[r.ekatte] === undefined) {
+        collectedVotes[r.ekatte] = [];
+      }
+      const res: VoteResults = {
+        actualTotal: 0,
+        actualPaperVotes: 0,
+        actualMachineVotes: 0,
+        votes: [],
+      };
+      addVotes(res, r.results.votes, r.results.protocol);
+      collectedVotes[r.ekatte].push({
+        ...e,
+        results: {
+          ...res,
+          protocol: res.protocol,
+          votes: res.votes.map((v) => {
+            const party = parties.find((p) => p.number === v.partyNum);
+            return {
+              ...v,
+              nickName: party?.nickName,
+            };
+          }),
+        },
+      });
+    });
+  });
+  return collectedVotes;
 };
 export const collectStats = (
   elections: ElectionInfo[],
@@ -159,5 +205,6 @@ export const collectStats = (
     country: data,
     byRegion: statsByRegion(elections, publicFolder),
     byMunicipality: statsByMunicipality(elections, publicFolder),
+    bySettlement: statsBySettlement(elections, publicFolder),
   };
 };

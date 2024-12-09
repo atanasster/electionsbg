@@ -3,17 +3,16 @@ import { useSettlementVotes } from "@/data/useSettlementVotes";
 import { useNavigateParams } from "@/ux/useNavigateParams";
 import { MapCoordinates } from "@/layout/MapLayout";
 import { useSettlementsMap } from "@/data/useSettlementsMap";
-import { MunicipalityInfo, RegionInfo } from "@/data/dataTypes";
+import { MunicipalityInfo } from "@/data/dataTypes";
 import { SettlementJSONProps } from "@/data/mapTypes";
 import { GeoJSONMap } from "./maps/GeoJSONMap";
 
 export const SettlementsMap: React.FC<
   React.PropsWithChildren<{
     municipality: MunicipalityInfo;
-    region: RegionInfo;
     size: MapCoordinates;
   }>
-> = ({ region, municipality, size, children }) => {
+> = ({ municipality, size, children }) => {
   const navigate = useNavigateParams();
 
   const { findSettlement } = useSettlementsInfo();
@@ -32,8 +31,6 @@ export const SettlementsMap: React.FC<
     navigate({
       pathname: "/sections",
       search: {
-        region: region.oblast,
-        municipality: municipality.obshtina,
         settlement: getName(props),
       },
     });

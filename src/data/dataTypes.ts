@@ -50,7 +50,7 @@ export type ElectionVotes = {
 
 export type ElectionSettlement = {
   key: string;
-  ekatte?: string;
+  ekatte: string;
   obshtina?: string;
   kmetstvo: string;
   oblast: string;
@@ -111,6 +111,7 @@ export type RegionInfo = LocationInfo & {
 
 export type MunicipalityInfo = LocationInfo & {
   obshtina: string;
+  oblast: string;
 };
 export type SettlementInfo = LocationInfo & {
   t_v_m: string;
