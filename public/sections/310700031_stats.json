@@ -1,0 +1,79 @@
+[
+  {
+    "name": "2013_05_12",
+    "results": {
+      "actualTotal": 147,
+      "actualPaperVotes": 147,
+      "actualMachineVotes": 0,
+      "votes": [
+        {
+          "partyNum": 4,
+          "totalVotes": 10,
+          "machineVotes": 0,
+          "paperVotes": 10,
+          "nickName": "НФСБ"
+        },
+        {
+          "partyNum": 5,
+          "totalVotes": 78,
+          "machineVotes": 0,
+          "paperVotes": 78,
+          "nickName": "БСП"
+        },
+        {
+          "partyNum": 6,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "ЦСД"
+        },
+        {
+          "partyNum": 14,
+          "totalVotes": 3,
+          "machineVotes": 0,
+          "paperVotes": 3,
+          "nickName": "Атака"
+        },
+        {
+          "partyNum": 15,
+          "totalVotes": 44,
+          "machineVotes": 0,
+          "paperVotes": 44,
+          "nickName": "ГЕРБ"
+        },
+        {
+          "partyNum": 17,
+          "totalVotes": 9,
+          "machineVotes": 0,
+          "paperVotes": 9,
+          "nickName": "РЗС"
+        },
+        {
+          "partyNum": 27,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "ДСБ"
+        },
+        {
+          "partyNum": 33,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "ДБГ"
+        }
+      ],
+      "protocol": {
+        "ballotsReceived": 250,
+        "numAdditionalVoters": 2,
+        "numInvalidAndDestroyedPaperBallots": 1,
+        "numInvalidBallotsFound": 5,
+        "numPaperBallotsFound": 152,
+        "numRegisteredVoters": 228,
+        "numUnusedPaperBallots": 93,
+        "numValidVotes": 147,
+        "totalActualVoters": 152
+      }
+    }
+  }
+]

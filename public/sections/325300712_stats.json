@@ -1,0 +1,53 @@
+[
+  {
+    "name": "2022_10_02",
+    "results": {
+      "actualTotal": 97,
+      "actualPaperVotes": 0,
+      "actualMachineVotes": 97,
+      "votes": [
+        {
+          "partyNum": 1,
+          "totalVotes": 89,
+          "machineVotes": 89,
+          "paperVotes": 0,
+          "nickName": "ДПС"
+        },
+        {
+          "partyNum": 9,
+          "totalVotes": 3,
+          "machineVotes": 3,
+          "paperVotes": 0,
+          "nickName": "ПП"
+        },
+        {
+          "partyNum": 14,
+          "totalVotes": 1,
+          "machineVotes": 1,
+          "paperVotes": 0,
+          "nickName": "Възраждане"
+        },
+        {
+          "partyNum": 24,
+          "totalVotes": 3,
+          "machineVotes": 3,
+          "paperVotes": 0,
+          "nickName": "ГЕРБ-СДС"
+        },
+        {
+          "partyNum": 25,
+          "totalVotes": 1,
+          "machineVotes": 1,
+          "paperVotes": 0,
+          "nickName": "ДБ"
+        }
+      ],
+      "protocol": {
+        "numMachineBallots": 98,
+        "numValidMachineVotes": 97,
+        "numValidNoOneMachineVotes": 1,
+        "totalActualVoters": 98
+      }
+    }
+  }
+]

@@ -1,0 +1,152 @@
+[
+  {
+    "name": "2024_10_27",
+    "results": {
+      "actualTotal": 349,
+      "actualPaperVotes": 263,
+      "actualMachineVotes": 86,
+      "votes": [
+        {
+          "partyNum": 3,
+          "totalVotes": 2,
+          "machineVotes": 1,
+          "paperVotes": 1,
+          "nickName": "СПБП"
+        },
+        {
+          "partyNum": 4,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "Величие"
+        },
+        {
+          "partyNum": 7,
+          "totalVotes": 3,
+          "machineVotes": 2,
+          "paperVotes": 1,
+          "nickName": "ИТН"
+        },
+        {
+          "partyNum": 8,
+          "totalVotes": 63,
+          "machineVotes": 15,
+          "paperVotes": 48,
+          "nickName": "ДПС-НН"
+        },
+        {
+          "partyNum": 13,
+          "totalVotes": 263,
+          "machineVotes": 63,
+          "paperVotes": 200,
+          "nickName": "АПС"
+        },
+        {
+          "partyNum": 14,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "БНС–НД"
+        },
+        {
+          "partyNum": 15,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "БСДД–ДД"
+        },
+        {
+          "partyNum": 18,
+          "totalVotes": 5,
+          "machineVotes": 1,
+          "paperVotes": 4,
+          "nickName": "ГЕРБ-СДС"
+        },
+        {
+          "partyNum": 20,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "НПИ-СИ"
+        },
+        {
+          "partyNum": 26,
+          "totalVotes": 8,
+          "machineVotes": 4,
+          "paperVotes": 4,
+          "nickName": "ПП-ДБ"
+        },
+        {
+          "partyNum": 28,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "БСП"
+        }
+      ],
+      "protocol": {
+        "ballotsReceived": 1000,
+        "numAdditionalVoters": 391,
+        "numInvalidAndDestroyedPaperBallots": 1,
+        "numInvalidBallotsFound": 54,
+        "numMachineBallots": 86,
+        "numPaperBallotsFound": 317,
+        "numRegisteredVoters": 66,
+        "numUnusedPaperBallots": 682,
+        "numValidMachineVotes": 86,
+        "numValidVotes": 263,
+        "totalActualVoters": 403
+      }
+    }
+  },
+  {
+    "name": "2023_04_02",
+    "results": {
+      "actualTotal": 247,
+      "actualPaperVotes": 247,
+      "actualMachineVotes": 0,
+      "votes": [
+        {
+          "partyNum": 1,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "БСП"
+        },
+        {
+          "partyNum": 2,
+          "totalVotes": 2,
+          "machineVotes": 0,
+          "paperVotes": 2,
+          "nickName": "ГЕРБ-СДС"
+        },
+        {
+          "partyNum": 12,
+          "totalVotes": 11,
+          "machineVotes": 0,
+          "paperVotes": 11,
+          "nickName": "ПП-ДБ"
+        },
+        {
+          "partyNum": 13,
+          "totalVotes": 233,
+          "machineVotes": 0,
+          "paperVotes": 233,
+          "nickName": "ДПС"
+        }
+      ],
+      "protocol": {
+        "ballotsReceived": 1000,
+        "numAdditionalVoters": 248,
+        "numInvalidAndDestroyedPaperBallots": 3,
+        "numInvalidBallotsFound": 24,
+        "numPaperBallotsFound": 272,
+        "numRegisteredVoters": 66,
+        "numUnusedPaperBallots": 725,
+        "numValidNoOnePaperVotes": 1,
+        "numValidVotes": 247,
+        "totalActualVoters": 272
+      }
+    }
+  }
+]

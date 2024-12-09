@@ -1,0 +1,102 @@
+[
+  {
+    "name": "2024_06_09",
+    "results": {
+      "actualTotal": 247,
+      "actualPaperVotes": 19,
+      "actualMachineVotes": 228,
+      "votes": [
+        {
+          "partyNum": 8,
+          "totalVotes": 2,
+          "machineVotes": 1,
+          "paperVotes": 1,
+          "nickName": "Център"
+        },
+        {
+          "partyNum": 12,
+          "totalVotes": 3,
+          "machineVotes": 3,
+          "paperVotes": 0,
+          "nickName": "Възраждане"
+        },
+        {
+          "partyNum": 13,
+          "totalVotes": 1,
+          "machineVotes": 1,
+          "paperVotes": 0,
+          "nickName": "МЕЧ"
+        },
+        {
+          "partyNum": 14,
+          "totalVotes": 1,
+          "machineVotes": 1,
+          "paperVotes": 0,
+          "nickName": "ПП-ДБ"
+        },
+        {
+          "partyNum": 15,
+          "totalVotes": 1,
+          "machineVotes": 1,
+          "paperVotes": 0,
+          "nickName": "НПИ-СИ"
+        },
+        {
+          "partyNum": 17,
+          "totalVotes": 1,
+          "machineVotes": 1,
+          "paperVotes": 0,
+          "nickName": "ГБ"
+        },
+        {
+          "partyNum": 18,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "ОНБ"
+        },
+        {
+          "partyNum": 20,
+          "totalVotes": 1,
+          "machineVotes": 1,
+          "paperVotes": 0,
+          "nickName": "Зелените"
+        },
+        {
+          "partyNum": 22,
+          "totalVotes": 11,
+          "machineVotes": 11,
+          "paperVotes": 0,
+          "nickName": "ГЕРБ-СДС"
+        },
+        {
+          "partyNum": 28,
+          "totalVotes": 224,
+          "machineVotes": 207,
+          "paperVotes": 17,
+          "nickName": "ДПС"
+        },
+        {
+          "partyNum": 29,
+          "totalVotes": 1,
+          "machineVotes": 1,
+          "paperVotes": 0,
+          "nickName": "ЗД"
+        }
+      ],
+      "protocol": {
+        "ballotsReceived": 1500,
+        "numAdditionalVoters": 145,
+        "numInvalidAndDestroyedPaperBallots": 5,
+        "numInvalidBallotsFound": 4,
+        "numMachineBallots": 228,
+        "numPaperBallotsFound": 23,
+        "numRegisteredVoters": 360,
+        "numUnusedPaperBallots": 1476,
+        "numValidMachineVotes": 228,
+        "numValidVotes": 19,
+        "totalActualVoters": 251
+      }
+    }
+  }
+]

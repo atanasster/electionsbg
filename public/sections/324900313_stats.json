@@ -1,0 +1,43 @@
+[
+  {
+    "name": "2014_10_05",
+    "results": {
+      "actualTotal": 351,
+      "actualPaperVotes": 351,
+      "actualMachineVotes": 0,
+      "votes": [
+        {
+          "partyNum": 7,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "РБ"
+        },
+        {
+          "partyNum": 15,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "Левица-ЗП"
+        },
+        {
+          "partyNum": 18,
+          "totalVotes": 349,
+          "machineVotes": 0,
+          "paperVotes": 349,
+          "nickName": "ДПС"
+        }
+      ],
+      "protocol": {
+        "ballotsReceived": 1500,
+        "numAdditionalVoters": 389,
+        "numInvalidAndDestroyedPaperBallots": 2,
+        "numInvalidBallotsFound": 38,
+        "numPaperBallotsFound": 389,
+        "numUnusedPaperBallots": 1103,
+        "numValidVotes": 389,
+        "totalActualVoters": 427
+      }
+    }
+  }
+]

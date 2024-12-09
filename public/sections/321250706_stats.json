@@ -1,0 +1,79 @@
+[
+  {
+    "name": "2023_04_02",
+    "results": {
+      "actualTotal": 92,
+      "actualPaperVotes": 92,
+      "actualMachineVotes": 0,
+      "votes": [
+        {
+          "partyNum": 1,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "БСП"
+        },
+        {
+          "partyNum": 2,
+          "totalVotes": 13,
+          "machineVotes": 0,
+          "paperVotes": 13,
+          "nickName": "ГЕРБ-СДС"
+        },
+        {
+          "partyNum": 3,
+          "totalVotes": 15,
+          "machineVotes": 0,
+          "paperVotes": 15,
+          "nickName": "Възраждане"
+        },
+        {
+          "partyNum": 4,
+          "totalVotes": 7,
+          "machineVotes": 0,
+          "paperVotes": 7,
+          "nickName": "ИТН"
+        },
+        {
+          "partyNum": 6,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "КНБ"
+        },
+        {
+          "partyNum": 12,
+          "totalVotes": 49,
+          "machineVotes": 0,
+          "paperVotes": 49,
+          "nickName": "ПП-ДБ"
+        },
+        {
+          "partyNum": 15,
+          "totalVotes": 5,
+          "machineVotes": 0,
+          "paperVotes": 5,
+          "nickName": "БВ"
+        },
+        {
+          "partyNum": 21,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "ВЪН ЕС/НАТО"
+        }
+      ],
+      "protocol": {
+        "ballotsReceived": 400,
+        "numAdditionalVoters": 60,
+        "numInvalidAndDestroyedPaperBallots": 2,
+        "numPaperBallotsFound": 93,
+        "numRegisteredVoters": 36,
+        "numUnusedPaperBallots": 305,
+        "numValidNoOnePaperVotes": 1,
+        "numValidVotes": 92,
+        "totalActualVoters": 93
+      }
+    }
+  }
+]

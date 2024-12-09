@@ -1,0 +1,91 @@
+[
+  {
+    "name": "2021_04_04",
+    "results": {
+      "actualTotal": 46,
+      "actualPaperVotes": 46,
+      "actualMachineVotes": 0,
+      "votes": [
+        {
+          "partyNum": 4,
+          "totalVotes": 8,
+          "machineVotes": null,
+          "paperVotes": 8,
+          "nickName": "БСП"
+        },
+        {
+          "partyNum": 5,
+          "totalVotes": 2,
+          "machineVotes": null,
+          "paperVotes": 2,
+          "nickName": "Възраждане"
+        },
+        {
+          "partyNum": 9,
+          "totalVotes": 2,
+          "machineVotes": null,
+          "paperVotes": 2,
+          "nickName": "ДПС"
+        },
+        {
+          "partyNum": 11,
+          "totalVotes": 11,
+          "machineVotes": null,
+          "paperVotes": 11,
+          "nickName": "ДБ"
+        },
+        {
+          "partyNum": 13,
+          "totalVotes": 1,
+          "machineVotes": null,
+          "paperVotes": 1,
+          "nickName": "Заедно"
+        },
+        {
+          "partyNum": 14,
+          "totalVotes": 1,
+          "machineVotes": null,
+          "paperVotes": 1,
+          "nickName": "БНО"
+        },
+        {
+          "partyNum": 18,
+          "totalVotes": 1,
+          "machineVotes": null,
+          "paperVotes": 1,
+          "nickName": "ПП ИСМВ"
+        },
+        {
+          "partyNum": 21,
+          "totalVotes": 1,
+          "machineVotes": null,
+          "paperVotes": 1,
+          "nickName": "Републиканци БГ"
+        },
+        {
+          "partyNum": 28,
+          "totalVotes": 2,
+          "machineVotes": null,
+          "paperVotes": 2,
+          "nickName": "ГЕРБ-СДС"
+        },
+        {
+          "partyNum": 29,
+          "totalVotes": 17,
+          "machineVotes": null,
+          "paperVotes": 17,
+          "nickName": "ИТН"
+        }
+      ],
+      "protocol": {
+        "ballotsReceived": 300,
+        "numInvalidAndDestroyedPaperBallots": 5,
+        "numPaperBallotsFound": 47,
+        "numRegisteredVoters": 70,
+        "numValidNoOnePaperVotes": 1,
+        "numValidVotes": 47,
+        "totalActualVoters": 48
+      }
+    }
+  }
+]

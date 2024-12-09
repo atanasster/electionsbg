@@ -1,0 +1,85 @@
+[
+  {
+    "name": "2024_10_27",
+    "results": {
+      "actualTotal": 60,
+      "actualPaperVotes": 60,
+      "actualMachineVotes": 0,
+      "votes": [
+        {
+          "partyNum": 4,
+          "totalVotes": 18,
+          "machineVotes": 0,
+          "paperVotes": 18,
+          "nickName": "Величие"
+        },
+        {
+          "partyNum": 7,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "ИТН"
+        },
+        {
+          "partyNum": 12,
+          "totalVotes": 16,
+          "machineVotes": 0,
+          "paperVotes": 16,
+          "nickName": "Възраждане"
+        },
+        {
+          "partyNum": 13,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "АПС"
+        },
+        {
+          "partyNum": 17,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "МЕЧ"
+        },
+        {
+          "partyNum": 18,
+          "totalVotes": 5,
+          "machineVotes": 0,
+          "paperVotes": 5,
+          "nickName": "ГЕРБ-СДС"
+        },
+        {
+          "partyNum": 24,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "КОЙ"
+        },
+        {
+          "partyNum": 26,
+          "totalVotes": 16,
+          "machineVotes": 0,
+          "paperVotes": 16,
+          "nickName": "ПП-ДБ"
+        },
+        {
+          "partyNum": 28,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "БСП"
+        }
+      ],
+      "protocol": {
+        "ballotsReceived": 400,
+        "numAdditionalVoters": 35,
+        "numInvalidAndDestroyedPaperBallots": 2,
+        "numPaperBallotsFound": 60,
+        "numRegisteredVoters": 28,
+        "numUnusedPaperBallots": 338,
+        "numValidVotes": 60,
+        "totalActualVoters": 60
+      }
+    }
+  }
+]

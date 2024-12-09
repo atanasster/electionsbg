@@ -1,0 +1,105 @@
+[
+  {
+    "name": "2024_06_09",
+    "results": {
+      "actualTotal": 50,
+      "actualPaperVotes": 50,
+      "actualMachineVotes": 0,
+      "votes": [
+        {
+          "partyNum": 1,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "ИТН"
+        },
+        {
+          "partyNum": 22,
+          "totalVotes": 48,
+          "machineVotes": 0,
+          "paperVotes": 48,
+          "nickName": "ГЕРБ-СДС"
+        },
+        {
+          "partyNum": 28,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "ДПС"
+        }
+      ],
+      "protocol": {
+        "ballotsReceived": 100,
+        "numAdditionalVoters": 2,
+        "numInvalidAndDestroyedPaperBallots": 1,
+        "numPaperBallotsFound": 51,
+        "numRegisteredVoters": 49,
+        "numUnusedPaperBallots": 48,
+        "numValidNoOnePaperVotes": 1,
+        "numValidVotes": 50,
+        "totalActualVoters": 51
+      }
+    }
+  },
+  {
+    "name": "2021_11_14",
+    "results": {
+      "actualTotal": 20,
+      "actualPaperVotes": 0,
+      "actualMachineVotes": 20,
+      "votes": [
+        {
+          "partyNum": 17,
+          "totalVotes": 2,
+          "machineVotes": 2,
+          "paperVotes": 0,
+          "nickName": "ДПС"
+        },
+        {
+          "partyNum": 24,
+          "totalVotes": 2,
+          "machineVotes": 2,
+          "paperVotes": 0,
+          "nickName": "ИТН"
+        },
+        {
+          "partyNum": 25,
+          "totalVotes": 4,
+          "machineVotes": 4,
+          "paperVotes": 0,
+          "nickName": "ПП"
+        },
+        {
+          "partyNum": 31,
+          "totalVotes": 1,
+          "machineVotes": 1,
+          "paperVotes": 0,
+          "nickName": "ПП ИСБ"
+        },
+        {
+          "partyNum": 32,
+          "totalVotes": 10,
+          "machineVotes": 10,
+          "paperVotes": 0,
+          "nickName": "ГЕРБ-СДС"
+        },
+        {
+          "partyNum": 35,
+          "totalVotes": 1,
+          "machineVotes": 1,
+          "paperVotes": 0,
+          "nickName": "Зелените"
+        }
+      ],
+      "protocol": {
+        "ballotsReceived": 100,
+        "numAdditionalVoters": 5,
+        "numMachineBallots": 20,
+        "numRegisteredVoters": 16,
+        "numUnusedPaperBallots": 79,
+        "numValidMachineVotes": 20,
+        "totalActualVoters": 20
+      }
+    }
+  }
+]

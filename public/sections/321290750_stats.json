@@ -1,0 +1,65 @@
+[
+  {
+    "name": "2024_06_09",
+    "results": {
+      "actualTotal": 17,
+      "actualPaperVotes": 17,
+      "actualMachineVotes": 0,
+      "votes": [
+        {
+          "partyNum": 12,
+          "totalVotes": 7,
+          "machineVotes": 0,
+          "paperVotes": 7,
+          "nickName": "Възраждане"
+        },
+        {
+          "partyNum": 14,
+          "totalVotes": 6,
+          "machineVotes": 0,
+          "paperVotes": 6,
+          "nickName": "ПП-ДБ"
+        },
+        {
+          "partyNum": 18,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "ОНБ"
+        },
+        {
+          "partyNum": 19,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "Левицата"
+        },
+        {
+          "partyNum": 22,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "ГЕРБ-СДС"
+        },
+        {
+          "partyNum": 25,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "Величие"
+        }
+      ],
+      "protocol": {
+        "ballotsReceived": 100,
+        "numAdditionalVoters": 10,
+        "numInvalidAndDestroyedPaperBallots": 1,
+        "numPaperBallotsFound": 19,
+        "numRegisteredVoters": 10,
+        "numUnusedPaperBallots": 80,
+        "numValidNoOnePaperVotes": 2,
+        "numValidVotes": 17,
+        "totalActualVoters": 19
+      }
+    }
+  }
+]

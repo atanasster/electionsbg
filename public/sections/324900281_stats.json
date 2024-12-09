@@ -1,0 +1,57 @@
+[
+  {
+    "name": "2014_10_05",
+    "results": {
+      "actualTotal": 631,
+      "actualPaperVotes": 631,
+      "actualMachineVotes": 0,
+      "votes": [
+        {
+          "partyNum": 8,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "ПП НБ"
+        },
+        {
+          "partyNum": 9,
+          "totalVotes": 2,
+          "machineVotes": 0,
+          "paperVotes": 2,
+          "nickName": "ГЕРБ"
+        },
+        {
+          "partyNum": 10,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "ОНБ"
+        },
+        {
+          "partyNum": 18,
+          "totalVotes": 626,
+          "machineVotes": 0,
+          "paperVotes": 626,
+          "nickName": "ДПС"
+        },
+        {
+          "partyNum": 24,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "ПФ"
+        }
+      ],
+      "protocol": {
+        "ballotsReceived": 1500,
+        "numAdditionalVoters": 643,
+        "numInvalidAndDestroyedPaperBallots": 1,
+        "numInvalidBallotsFound": 12,
+        "numPaperBallotsFound": 643,
+        "numUnusedPaperBallots": 853,
+        "numValidVotes": 643,
+        "totalActualVoters": 655
+      }
+    }
+  }
+]

@@ -1,0 +1,85 @@
+[
+  {
+    "name": "2021_04_04",
+    "results": {
+      "actualTotal": 63,
+      "actualPaperVotes": 63,
+      "actualMachineVotes": 0,
+      "votes": [
+        {
+          "partyNum": 1,
+          "totalVotes": 4,
+          "machineVotes": null,
+          "paperVotes": 4,
+          "nickName": "ВМРО"
+        },
+        {
+          "partyNum": 4,
+          "totalVotes": 16,
+          "machineVotes": null,
+          "paperVotes": 16,
+          "nickName": "БСП"
+        },
+        {
+          "partyNum": 5,
+          "totalVotes": 3,
+          "machineVotes": null,
+          "paperVotes": 3,
+          "nickName": "Възраждане"
+        },
+        {
+          "partyNum": 7,
+          "totalVotes": 1,
+          "machineVotes": null,
+          "paperVotes": 1,
+          "nickName": "Атака"
+        },
+        {
+          "partyNum": 11,
+          "totalVotes": 10,
+          "machineVotes": null,
+          "paperVotes": 10,
+          "nickName": "ДБ"
+        },
+        {
+          "partyNum": 12,
+          "totalVotes": 2,
+          "machineVotes": null,
+          "paperVotes": 2,
+          "nickName": "ВО"
+        },
+        {
+          "partyNum": 18,
+          "totalVotes": 7,
+          "machineVotes": null,
+          "paperVotes": 7,
+          "nickName": "ПП ИСМВ"
+        },
+        {
+          "partyNum": 28,
+          "totalVotes": 9,
+          "machineVotes": null,
+          "paperVotes": 9,
+          "nickName": "ГЕРБ-СДС"
+        },
+        {
+          "partyNum": 29,
+          "totalVotes": 11,
+          "machineVotes": null,
+          "paperVotes": 11,
+          "nickName": "ИТН"
+        }
+      ],
+      "protocol": {
+        "ballotsReceived": 400,
+        "numInvalidAndDestroyedPaperBallots": 8,
+        "numInvalidBallotsFound": 7,
+        "numPaperBallotsFound": 71,
+        "numRegisteredVoters": 71,
+        "numValidNoOnePaperVotes": 1,
+        "numValidVotes": 64,
+        "totalActualVoters": 72
+      }
+    }
+  }
+]

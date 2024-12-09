@@ -1,0 +1,185 @@
+[
+  {
+    "name": "2024_06_09",
+    "results": {
+      "actualTotal": 209,
+      "actualPaperVotes": 209,
+      "actualMachineVotes": 0,
+      "votes": [
+        {
+          "partyNum": 1,
+          "totalVotes": 3,
+          "machineVotes": 0,
+          "paperVotes": 3,
+          "nickName": "ИТН"
+        },
+        {
+          "partyNum": 14,
+          "totalVotes": 3,
+          "machineVotes": 0,
+          "paperVotes": 3,
+          "nickName": "ПП-ДБ"
+        },
+        {
+          "partyNum": 18,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "ОНБ"
+        },
+        {
+          "partyNum": 22,
+          "totalVotes": 18,
+          "machineVotes": 0,
+          "paperVotes": 18,
+          "nickName": "ГЕРБ-СДС"
+        },
+        {
+          "partyNum": 26,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "ВМРО"
+        },
+        {
+          "partyNum": 27,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "ПД"
+        },
+        {
+          "partyNum": 28,
+          "totalVotes": 181,
+          "machineVotes": 0,
+          "paperVotes": 181,
+          "nickName": "ДПС"
+        },
+        {
+          "partyNum": 29,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "ЗД"
+        }
+      ],
+      "protocol": {
+        "ballotsReceived": 1500,
+        "numAdditionalVoters": 236,
+        "numInvalidAndDestroyedPaperBallots": 1,
+        "numInvalidBallotsFound": 27,
+        "numPaperBallotsFound": 236,
+        "numUnusedPaperBallots": 1263,
+        "numValidVotes": 209,
+        "totalActualVoters": 236
+      }
+    }
+  },
+  {
+    "name": "2023_04_02",
+    "results": {
+      "actualTotal": 667,
+      "actualPaperVotes": 112,
+      "actualMachineVotes": 555,
+      "votes": [
+        {
+          "partyNum": 1,
+          "totalVotes": 2,
+          "machineVotes": 2,
+          "paperVotes": 0,
+          "nickName": "БСП"
+        },
+        {
+          "partyNum": 2,
+          "totalVotes": 10,
+          "machineVotes": 8,
+          "paperVotes": 2,
+          "nickName": "ГЕРБ-СДС"
+        },
+        {
+          "partyNum": 4,
+          "totalVotes": 1,
+          "machineVotes": 1,
+          "paperVotes": 0,
+          "nickName": "ИТН"
+        },
+        {
+          "partyNum": 5,
+          "totalVotes": 1,
+          "machineVotes": 1,
+          "paperVotes": 0,
+          "nickName": "ПП НПИСИ"
+        },
+        {
+          "partyNum": 6,
+          "totalVotes": 1,
+          "machineVotes": 1,
+          "paperVotes": 0,
+          "nickName": "КНБ"
+        },
+        {
+          "partyNum": 7,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "БНО"
+        },
+        {
+          "partyNum": 8,
+          "totalVotes": 1,
+          "machineVotes": 1,
+          "paperVotes": 0,
+          "nickName": "Заедно"
+        },
+        {
+          "partyNum": 10,
+          "totalVotes": 1,
+          "machineVotes": 1,
+          "paperVotes": 0,
+          "nickName": "НДСВ"
+        },
+        {
+          "partyNum": 11,
+          "totalVotes": 1,
+          "machineVotes": 1,
+          "paperVotes": 0,
+          "nickName": "КОД"
+        },
+        {
+          "partyNum": 12,
+          "totalVotes": 10,
+          "machineVotes": 6,
+          "paperVotes": 4,
+          "nickName": "ПП-ДБ"
+        },
+        {
+          "partyNum": 13,
+          "totalVotes": 637,
+          "machineVotes": 533,
+          "paperVotes": 104,
+          "nickName": "ДПС"
+        },
+        {
+          "partyNum": 15,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "БВ"
+        }
+      ],
+      "protocol": {
+        "ballotsReceived": 1500,
+        "numAdditionalVoters": 437,
+        "numInvalidAndDestroyedPaperBallots": 1,
+        "numInvalidBallotsFound": 2,
+        "numMachineBallots": 555,
+        "numPaperBallotsFound": 114,
+        "numRegisteredVoters": 405,
+        "numUnusedPaperBallots": 1385,
+        "numValidMachineVotes": 555,
+        "numValidVotes": 112,
+        "totalActualVoters": 669
+      }
+    }
+  }
+]

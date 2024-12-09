@@ -1,0 +1,33 @@
+[
+  {
+    "name": "2021_04_04",
+    "results": {
+      "actualTotal": 13,
+      "actualPaperVotes": 13,
+      "actualMachineVotes": 0,
+      "votes": [
+        {
+          "partyNum": 28,
+          "totalVotes": 12,
+          "machineVotes": null,
+          "paperVotes": 12,
+          "nickName": "ГЕРБ-СДС"
+        },
+        {
+          "partyNum": 29,
+          "totalVotes": 1,
+          "machineVotes": null,
+          "paperVotes": 1,
+          "nickName": "ИТН"
+        }
+      ],
+      "protocol": {
+        "ballotsReceived": 20,
+        "numPaperBallotsFound": 13,
+        "numRegisteredVoters": 13,
+        "numValidVotes": 13,
+        "totalActualVoters": 13
+      }
+    }
+  }
+]

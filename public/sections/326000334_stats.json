@@ -1,0 +1,57 @@
+[
+  {
+    "name": "2017_03_26",
+    "results": {
+      "actualTotal": 10,
+      "actualPaperVotes": 10,
+      "actualMachineVotes": 0,
+      "votes": [
+        {
+          "partyNum": 8,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "АБВ/21"
+        },
+        {
+          "partyNum": 10,
+          "totalVotes": 3,
+          "machineVotes": 0,
+          "paperVotes": 3,
+          "nickName": "БСП"
+        },
+        {
+          "partyNum": 11,
+          "totalVotes": 4,
+          "machineVotes": 0,
+          "paperVotes": 4,
+          "nickName": "ГЕРБ"
+        },
+        {
+          "partyNum": 12,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "Зелените"
+        },
+        {
+          "partyNum": 14,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "Възраждане"
+        }
+      ],
+      "protocol": {
+        "ballotsReceived": 100,
+        "numAdditionalVoters": 5,
+        "numInvalidAndDestroyedPaperBallots": 1,
+        "numPaperBallotsFound": 10,
+        "numRegisteredVoters": 5,
+        "numUnusedPaperBallots": 89,
+        "numValidVotes": 10,
+        "totalActualVoters": 10
+      }
+    }
+  }
+]

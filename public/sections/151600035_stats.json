@@ -1,0 +1,89 @@
+[
+  {
+    "name": "2021_11_14",
+    "results": {
+      "actualTotal": 11,
+      "actualPaperVotes": 0,
+      "actualMachineVotes": 11,
+      "votes": [
+        {
+          "partyNum": 21,
+          "totalVotes": 1,
+          "machineVotes": 1,
+          "paperVotes": 0,
+          "nickName": "ВМРО"
+        },
+        {
+          "partyNum": 24,
+          "totalVotes": 1,
+          "machineVotes": 1,
+          "paperVotes": 0,
+          "nickName": "ИТН"
+        },
+        {
+          "partyNum": 25,
+          "totalVotes": 6,
+          "machineVotes": 6,
+          "paperVotes": 0,
+          "nickName": "ПП"
+        },
+        {
+          "partyNum": 31,
+          "totalVotes": 1,
+          "machineVotes": 1,
+          "paperVotes": 0,
+          "nickName": "ПП ИСБ"
+        },
+        {
+          "partyNum": 32,
+          "totalVotes": 2,
+          "machineVotes": 2,
+          "paperVotes": 0,
+          "nickName": "ГЕРБ-СДС"
+        }
+      ],
+      "protocol": {
+        "ballotsReceived": 100,
+        "numAdditionalVoters": 4,
+        "numMachineBallots": 12,
+        "numRegisteredVoters": 10,
+        "numUnusedPaperBallots": 88,
+        "numValidMachineVotes": 11,
+        "numValidNoOneMachineVotes": 1,
+        "totalActualVoters": 12
+      }
+    }
+  },
+  {
+    "name": "2021_04_04",
+    "results": {
+      "actualTotal": 7,
+      "actualPaperVotes": 7,
+      "actualMachineVotes": 0,
+      "votes": [
+        {
+          "partyNum": 4,
+          "totalVotes": 5,
+          "machineVotes": null,
+          "paperVotes": 5,
+          "nickName": "БСП"
+        },
+        {
+          "partyNum": 28,
+          "totalVotes": 2,
+          "machineVotes": null,
+          "paperVotes": 2,
+          "nickName": "ГЕРБ-СДС"
+        }
+      ],
+      "protocol": {
+        "ballotsReceived": 30,
+        "numInvalidAndDestroyedPaperBallots": 1,
+        "numPaperBallotsFound": 7,
+        "numRegisteredVoters": 18,
+        "numValidVotes": 7,
+        "totalActualVoters": 7
+      }
+    }
+  }
+]

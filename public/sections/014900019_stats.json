@@ -1,0 +1,184 @@
+[
+  {
+    "name": "2017_03_26",
+    "results": {
+      "actualTotal": 39,
+      "actualPaperVotes": 39,
+      "actualMachineVotes": 0,
+      "votes": [
+        {
+          "partyNum": 10,
+          "totalVotes": 23,
+          "machineVotes": 0,
+          "paperVotes": 23,
+          "nickName": "БСП"
+        },
+        {
+          "partyNum": 11,
+          "totalVotes": 8,
+          "machineVotes": 0,
+          "paperVotes": 8,
+          "nickName": "ГЕРБ"
+        },
+        {
+          "partyNum": 14,
+          "totalVotes": 2,
+          "machineVotes": 0,
+          "paperVotes": 2,
+          "nickName": "Възраждане"
+        },
+        {
+          "partyNum": 17,
+          "totalVotes": 4,
+          "machineVotes": 0,
+          "paperVotes": 4,
+          "nickName": "ОП"
+        },
+        {
+          "partyNum": 20,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "БНО"
+        },
+        {
+          "partyNum": 21,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "РБ-ГН"
+        }
+      ],
+      "protocol": {
+        "ballotsReceived": 100,
+        "numAdditionalVoters": 4,
+        "numInvalidAndDestroyedPaperBallots": 1,
+        "numInvalidBallotsFound": 1,
+        "numPaperBallotsFound": 40,
+        "numRegisteredVoters": 49,
+        "numUnusedPaperBallots": 59,
+        "numValidVotes": 40,
+        "totalActualVoters": 41
+      }
+    }
+  },
+  {
+    "name": "2014_10_05",
+    "results": {
+      "actualTotal": 39,
+      "actualPaperVotes": 39,
+      "actualMachineVotes": 0,
+      "votes": [
+        {
+          "partyNum": 7,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "РБ"
+        },
+        {
+          "partyNum": 9,
+          "totalVotes": 8,
+          "machineVotes": 0,
+          "paperVotes": 8,
+          "nickName": "ГЕРБ"
+        },
+        {
+          "partyNum": 11,
+          "totalVotes": 2,
+          "machineVotes": 0,
+          "paperVotes": 2,
+          "nickName": "Атака"
+        },
+        {
+          "partyNum": 13,
+          "totalVotes": 4,
+          "machineVotes": 0,
+          "paperVotes": 4,
+          "nickName": "КП ББЦ"
+        },
+        {
+          "partyNum": 22,
+          "totalVotes": 20,
+          "machineVotes": 0,
+          "paperVotes": 20,
+          "nickName": "БСП"
+        },
+        {
+          "partyNum": 24,
+          "totalVotes": 3,
+          "machineVotes": 0,
+          "paperVotes": 3,
+          "nickName": "ПФ"
+        },
+        {
+          "partyNum": 25,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "Република БГ"
+        }
+      ],
+      "protocol": {
+        "ballotsReceived": 100,
+        "numAdditionalVoters": 5,
+        "numInvalidAndDestroyedPaperBallots": 1,
+        "numInvalidBallotsFound": 7,
+        "numPaperBallotsFound": 46,
+        "numRegisteredVoters": 61,
+        "numUnusedPaperBallots": 53,
+        "numValidNoOnePaperVotes": 7,
+        "numValidVotes": 46,
+        "totalActualVoters": 60
+      }
+    }
+  },
+  {
+    "name": "2013_05_12",
+    "results": {
+      "actualTotal": 18,
+      "actualPaperVotes": 18,
+      "actualMachineVotes": 0,
+      "votes": [
+        {
+          "partyNum": 4,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "НФСБ"
+        },
+        {
+          "partyNum": 5,
+          "totalVotes": 7,
+          "machineVotes": 0,
+          "paperVotes": 7,
+          "nickName": "БСП"
+        },
+        {
+          "partyNum": 14,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "Атака"
+        },
+        {
+          "partyNum": 15,
+          "totalVotes": 9,
+          "machineVotes": 0,
+          "paperVotes": 9,
+          "nickName": "ГЕРБ"
+        }
+      ],
+      "protocol": {
+        "ballotsReceived": 43,
+        "numAdditionalVoters": 3,
+        "numInvalidAndDestroyedPaperBallots": 1,
+        "numPaperBallotsFound": 18,
+        "numRegisteredVoters": 33,
+        "numUnusedPaperBallots": 23,
+        "numValidVotes": 18,
+        "totalActualVoters": 18
+      }
+    }
+  }
+]

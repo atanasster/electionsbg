@@ -1,0 +1,37 @@
+[
+  {
+    "name": "2024_06_09",
+    "results": {
+      "actualTotal": 339,
+      "actualPaperVotes": 0,
+      "actualMachineVotes": 339,
+      "votes": [
+        {
+          "partyNum": 27,
+          "totalVotes": 1,
+          "machineVotes": 1,
+          "paperVotes": 0,
+          "nickName": "ПД"
+        },
+        {
+          "partyNum": 28,
+          "totalVotes": 338,
+          "machineVotes": 338,
+          "paperVotes": 0,
+          "nickName": "ДПС"
+        }
+      ],
+      "protocol": {
+        "ballotsReceived": 1000,
+        "numAdditionalVoters": 157,
+        "numInvalidAndDestroyedPaperBallots": 1,
+        "numMachineBallots": 340,
+        "numRegisteredVoters": 248,
+        "numUnusedPaperBallots": 999,
+        "numValidMachineVotes": 339,
+        "numValidNoOneMachineVotes": 1,
+        "totalActualVoters": 340
+      }
+    }
+  }
+]

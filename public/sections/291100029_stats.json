@@ -1,0 +1,42 @@
+[
+  {
+    "name": "2013_05_12",
+    "results": {
+      "actualTotal": 23,
+      "actualPaperVotes": 23,
+      "actualMachineVotes": 0,
+      "votes": [
+        {
+          "partyNum": 4,
+          "totalVotes": 2,
+          "machineVotes": 0,
+          "paperVotes": 2,
+          "nickName": "НФСБ"
+        },
+        {
+          "partyNum": 5,
+          "totalVotes": 15,
+          "machineVotes": 0,
+          "paperVotes": 15,
+          "nickName": "БСП"
+        },
+        {
+          "partyNum": 15,
+          "totalVotes": 6,
+          "machineVotes": 0,
+          "paperVotes": 6,
+          "nickName": "ГЕРБ"
+        }
+      ],
+      "protocol": {
+        "ballotsReceived": 30,
+        "numInvalidBallotsFound": 2,
+        "numPaperBallotsFound": 25,
+        "numRegisteredVoters": 25,
+        "numUnusedPaperBallots": 4,
+        "numValidVotes": 23,
+        "totalActualVoters": 25
+      }
+    }
+  }
+]

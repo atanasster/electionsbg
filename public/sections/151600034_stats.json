@@ -1,0 +1,89 @@
+[
+  {
+    "name": "2021_11_14",
+    "results": {
+      "actualTotal": 6,
+      "actualPaperVotes": 0,
+      "actualMachineVotes": 6,
+      "votes": [
+        {
+          "partyNum": 32,
+          "totalVotes": 4,
+          "machineVotes": 4,
+          "paperVotes": 0,
+          "nickName": "ГЕРБ-СДС"
+        },
+        {
+          "partyNum": 33,
+          "totalVotes": 2,
+          "machineVotes": 2,
+          "paperVotes": 0,
+          "nickName": "БСП"
+        }
+      ],
+      "protocol": {
+        "ballotsReceived": 100,
+        "numAdditionalVoters": 5,
+        "numInvalidAndDestroyedPaperBallots": 1,
+        "numMachineBallots": 7,
+        "numRegisteredVoters": 15,
+        "numUnusedPaperBallots": 92,
+        "numValidMachineVotes": 6,
+        "numValidNoOneMachineVotes": 1,
+        "totalActualVoters": 7
+      }
+    }
+  },
+  {
+    "name": "2021_04_04",
+    "results": {
+      "actualTotal": 15,
+      "actualPaperVotes": 15,
+      "actualMachineVotes": 0,
+      "votes": [
+        {
+          "partyNum": 1,
+          "totalVotes": 2,
+          "machineVotes": null,
+          "paperVotes": 2,
+          "nickName": "ВМРО"
+        },
+        {
+          "partyNum": 4,
+          "totalVotes": 7,
+          "machineVotes": null,
+          "paperVotes": 7,
+          "nickName": "БСП"
+        },
+        {
+          "partyNum": 7,
+          "totalVotes": 1,
+          "machineVotes": null,
+          "paperVotes": 1,
+          "nickName": "Атака"
+        },
+        {
+          "partyNum": 11,
+          "totalVotes": 2,
+          "machineVotes": null,
+          "paperVotes": 2,
+          "nickName": "ДБ"
+        },
+        {
+          "partyNum": 29,
+          "totalVotes": 3,
+          "machineVotes": null,
+          "paperVotes": 3,
+          "nickName": "ИТН"
+        }
+      ],
+      "protocol": {
+        "ballotsReceived": 30,
+        "numPaperBallotsFound": 15,
+        "numRegisteredVoters": 15,
+        "numValidVotes": 15,
+        "totalActualVoters": 15
+      }
+    }
+  }
+]

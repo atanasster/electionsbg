@@ -1,0 +1,117 @@
+[
+  {
+    "name": "2021_11_14",
+    "results": {
+      "actualTotal": 628,
+      "actualPaperVotes": 0,
+      "actualMachineVotes": 628,
+      "votes": [
+        {
+          "partyNum": 7,
+          "totalVotes": 1,
+          "machineVotes": 1,
+          "paperVotes": 0,
+          "nickName": "НОД"
+        },
+        {
+          "partyNum": 10,
+          "totalVotes": 1,
+          "machineVotes": 1,
+          "paperVotes": 0,
+          "nickName": "БСД–Евролевица"
+        },
+        {
+          "partyNum": 11,
+          "totalVotes": 3,
+          "machineVotes": 3,
+          "paperVotes": 0,
+          "nickName": "Атака"
+        },
+        {
+          "partyNum": 17,
+          "totalVotes": 595,
+          "machineVotes": 595,
+          "paperVotes": 0,
+          "nickName": "ДПС"
+        },
+        {
+          "partyNum": 25,
+          "totalVotes": 3,
+          "machineVotes": 3,
+          "paperVotes": 0,
+          "nickName": "ПП"
+        },
+        {
+          "partyNum": 30,
+          "totalVotes": 4,
+          "machineVotes": 4,
+          "paperVotes": 0,
+          "nickName": "ДБ"
+        },
+        {
+          "partyNum": 32,
+          "totalVotes": 18,
+          "machineVotes": 18,
+          "paperVotes": 0,
+          "nickName": "ГЕРБ-СДС"
+        },
+        {
+          "partyNum": 33,
+          "totalVotes": 3,
+          "machineVotes": 3,
+          "paperVotes": 0,
+          "nickName": "БСП"
+        }
+      ],
+      "protocol": {
+        "numMachineBallots": 629,
+        "numValidMachineVotes": 628,
+        "numValidNoOneMachineVotes": 1,
+        "totalActualVoters": 629
+      }
+    }
+  },
+  {
+    "name": "2021_07_11",
+    "results": {
+      "actualTotal": 70,
+      "actualPaperVotes": 0,
+      "actualMachineVotes": 70,
+      "votes": [
+        {
+          "partyNum": 4,
+          "totalVotes": 1,
+          "machineVotes": 1,
+          "paperVotes": 0,
+          "nickName": "БСП"
+        },
+        {
+          "partyNum": 5,
+          "totalVotes": 2,
+          "machineVotes": 2,
+          "paperVotes": 0,
+          "nickName": "ГЕРБ-СДС"
+        },
+        {
+          "partyNum": 7,
+          "totalVotes": 65,
+          "machineVotes": 65,
+          "paperVotes": 0,
+          "nickName": "ДПС"
+        },
+        {
+          "partyNum": 23,
+          "totalVotes": 2,
+          "machineVotes": 2,
+          "paperVotes": 0,
+          "nickName": "ДБ"
+        }
+      ],
+      "protocol": {
+        "numMachineBallots": 70,
+        "numValidMachineVotes": 70,
+        "totalActualVoters": 70
+      }
+    }
+  }
+]

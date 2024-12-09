@@ -1,0 +1,101 @@
+[
+  {
+    "name": "2017_03_26",
+    "results": {
+      "actualTotal": 260,
+      "actualPaperVotes": 260,
+      "actualMachineVotes": 0,
+      "votes": [
+        {
+          "partyNum": 2,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "БГ Пролет"
+        },
+        {
+          "partyNum": 4,
+          "totalVotes": 5,
+          "machineVotes": 0,
+          "paperVotes": 5,
+          "nickName": "Нова Република"
+        },
+        {
+          "partyNum": 6,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "Воля"
+        },
+        {
+          "partyNum": 9,
+          "totalVotes": 63,
+          "machineVotes": 0,
+          "paperVotes": 63,
+          "nickName": "ДПС"
+        },
+        {
+          "partyNum": 10,
+          "totalVotes": 18,
+          "machineVotes": 0,
+          "paperVotes": 18,
+          "nickName": "БСП"
+        },
+        {
+          "partyNum": 11,
+          "totalVotes": 12,
+          "machineVotes": 0,
+          "paperVotes": 12,
+          "nickName": "ГЕРБ"
+        },
+        {
+          "partyNum": 13,
+          "totalVotes": 146,
+          "machineVotes": 0,
+          "paperVotes": 146,
+          "nickName": "ДОСТ"
+        },
+        {
+          "partyNum": 14,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "Възраждане"
+        },
+        {
+          "partyNum": 16,
+          "totalVotes": 4,
+          "machineVotes": 0,
+          "paperVotes": 4,
+          "nickName": "ДвБ"
+        },
+        {
+          "partyNum": 17,
+          "totalVotes": 7,
+          "machineVotes": 0,
+          "paperVotes": 7,
+          "nickName": "ОП"
+        },
+        {
+          "partyNum": 21,
+          "totalVotes": 2,
+          "machineVotes": 0,
+          "paperVotes": 2,
+          "nickName": "РБ-ГН"
+        }
+      ],
+      "protocol": {
+        "ballotsReceived": 6000,
+        "numAdditionalVoters": 206,
+        "numInvalidAndDestroyedPaperBallots": 1,
+        "numInvalidBallotsFound": 40,
+        "numPaperBallotsFound": 304,
+        "numRegisteredVoters": 191,
+        "numUnusedPaperBallots": 5690,
+        "numValidNoOnePaperVotes": 4,
+        "numValidVotes": 304,
+        "totalActualVoters": 348
+      }
+    }
+  }
+]

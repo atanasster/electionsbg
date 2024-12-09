@@ -1,0 +1,98 @@
+[
+  {
+    "name": "2021_04_04",
+    "results": {
+      "actualTotal": 170,
+      "actualPaperVotes": 170,
+      "actualMachineVotes": 0,
+      "votes": [
+        {
+          "partyNum": 4,
+          "totalVotes": 5,
+          "machineVotes": null,
+          "paperVotes": 5,
+          "nickName": "БСП"
+        },
+        {
+          "partyNum": 5,
+          "totalVotes": 6,
+          "machineVotes": null,
+          "paperVotes": 6,
+          "nickName": "Възраждане"
+        },
+        {
+          "partyNum": 9,
+          "totalVotes": 63,
+          "machineVotes": null,
+          "paperVotes": 63,
+          "nickName": "ДПС"
+        },
+        {
+          "partyNum": 11,
+          "totalVotes": 5,
+          "machineVotes": null,
+          "paperVotes": 5,
+          "nickName": "ДБ"
+        },
+        {
+          "partyNum": 14,
+          "totalVotes": 11,
+          "machineVotes": null,
+          "paperVotes": 11,
+          "nickName": "БНО"
+        },
+        {
+          "partyNum": 18,
+          "totalVotes": 4,
+          "machineVotes": null,
+          "paperVotes": 4,
+          "nickName": "ПП ИСМВ"
+        },
+        {
+          "partyNum": 20,
+          "totalVotes": 4,
+          "machineVotes": null,
+          "paperVotes": 4,
+          "nickName": "ДНК"
+        },
+        {
+          "partyNum": 21,
+          "totalVotes": 4,
+          "machineVotes": null,
+          "paperVotes": 4,
+          "nickName": "Републиканци БГ"
+        },
+        {
+          "partyNum": 25,
+          "totalVotes": 1,
+          "machineVotes": null,
+          "paperVotes": 1,
+          "nickName": "Зелените"
+        },
+        {
+          "partyNum": 28,
+          "totalVotes": 9,
+          "machineVotes": null,
+          "paperVotes": 9,
+          "nickName": "ГЕРБ-СДС"
+        },
+        {
+          "partyNum": 29,
+          "totalVotes": 58,
+          "machineVotes": null,
+          "paperVotes": 58,
+          "nickName": "ИТН"
+        }
+      ],
+      "protocol": {
+        "ballotsReceived": 500,
+        "numInvalidAndDestroyedPaperBallots": 3,
+        "numInvalidBallotsFound": 7,
+        "numPaperBallotsFound": 177,
+        "numRegisteredVoters": 195,
+        "numValidVotes": 170,
+        "totalActualVoters": 177
+      }
+    }
+  }
+]

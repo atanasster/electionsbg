@@ -1,0 +1,79 @@
+[
+  {
+    "name": "2024_06_09",
+    "results": {
+      "actualTotal": 43,
+      "actualPaperVotes": 43,
+      "actualMachineVotes": 0,
+      "votes": [
+        {
+          "partyNum": 1,
+          "totalVotes": 3,
+          "machineVotes": 0,
+          "paperVotes": 3,
+          "nickName": "ИТН"
+        },
+        {
+          "partyNum": 9,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "СБГ"
+        },
+        {
+          "partyNum": 10,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "Единение"
+        },
+        {
+          "partyNum": 12,
+          "totalVotes": 25,
+          "machineVotes": 0,
+          "paperVotes": 25,
+          "nickName": "Възраждане"
+        },
+        {
+          "partyNum": 14,
+          "totalVotes": 8,
+          "machineVotes": 0,
+          "paperVotes": 8,
+          "nickName": "ПП-ДБ"
+        },
+        {
+          "partyNum": 22,
+          "totalVotes": 3,
+          "machineVotes": 0,
+          "paperVotes": 3,
+          "nickName": "ГЕРБ-СДС"
+        },
+        {
+          "partyNum": 24,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "БСП"
+        },
+        {
+          "partyNum": 32,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "КНБ"
+        }
+      ],
+      "protocol": {
+        "ballotsReceived": 200,
+        "numAdditionalVoters": 33,
+        "numInvalidAndDestroyedPaperBallots": 1,
+        "numInvalidBallotsFound": 2,
+        "numPaperBallotsFound": 45,
+        "numRegisteredVoters": 15,
+        "numUnusedPaperBallots": 154,
+        "numValidVotes": 43,
+        "totalActualVoters": 45
+      }
+    }
+  }
+]

@@ -1,0 +1,92 @@
+[
+  {
+    "name": "2014_10_05",
+    "results": {
+      "actualTotal": 64,
+      "actualPaperVotes": 64,
+      "actualMachineVotes": 0,
+      "votes": [
+        {
+          "partyNum": 1,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "Движение 21"
+        },
+        {
+          "partyNum": 2,
+          "totalVotes": 2,
+          "machineVotes": 0,
+          "paperVotes": 2,
+          "nickName": "БСД"
+        },
+        {
+          "partyNum": 7,
+          "totalVotes": 20,
+          "machineVotes": 0,
+          "paperVotes": 20,
+          "nickName": "РБ"
+        },
+        {
+          "partyNum": 9,
+          "totalVotes": 26,
+          "machineVotes": 0,
+          "paperVotes": 26,
+          "nickName": "ГЕРБ"
+        },
+        {
+          "partyNum": 13,
+          "totalVotes": 3,
+          "machineVotes": 0,
+          "paperVotes": 3,
+          "nickName": "КП ББЦ"
+        },
+        {
+          "partyNum": 14,
+          "totalVotes": 3,
+          "machineVotes": 0,
+          "paperVotes": 3,
+          "nickName": "АБВ"
+        },
+        {
+          "partyNum": 15,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "Левица-ЗП"
+        },
+        {
+          "partyNum": 19,
+          "totalVotes": 2,
+          "machineVotes": 0,
+          "paperVotes": 2,
+          "nickName": "ГН"
+        },
+        {
+          "partyNum": 22,
+          "totalVotes": 3,
+          "machineVotes": 0,
+          "paperVotes": 3,
+          "nickName": "БСП"
+        },
+        {
+          "partyNum": 24,
+          "totalVotes": 3,
+          "machineVotes": 0,
+          "paperVotes": 3,
+          "nickName": "ПФ"
+        }
+      ],
+      "protocol": {
+        "ballotsReceived": 600,
+        "numAdditionalVoters": 65,
+        "numInvalidAndDestroyedPaperBallots": 1,
+        "numInvalidBallotsFound": 1,
+        "numPaperBallotsFound": 65,
+        "numUnusedPaperBallots": 533,
+        "numValidVotes": 65,
+        "totalActualVoters": 66
+      }
+    }
+  }
+]

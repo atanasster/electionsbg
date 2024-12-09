@@ -1,0 +1,87 @@
+[
+  {
+    "name": "2024_06_09",
+    "results": {
+      "actualTotal": 69,
+      "actualPaperVotes": 69,
+      "actualMachineVotes": 0,
+      "votes": [
+        {
+          "partyNum": 1,
+          "totalVotes": 19,
+          "machineVotes": 0,
+          "paperVotes": 19,
+          "nickName": "ИТН"
+        },
+        {
+          "partyNum": 3,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "СБ"
+        },
+        {
+          "partyNum": 8,
+          "totalVotes": 2,
+          "machineVotes": 0,
+          "paperVotes": 2,
+          "nickName": "Център"
+        },
+        {
+          "partyNum": 12,
+          "totalVotes": 17,
+          "machineVotes": 0,
+          "paperVotes": 17,
+          "nickName": "Възраждане"
+        },
+        {
+          "partyNum": 13,
+          "totalVotes": 3,
+          "machineVotes": 0,
+          "paperVotes": 3,
+          "nickName": "МЕЧ"
+        },
+        {
+          "partyNum": 14,
+          "totalVotes": 10,
+          "machineVotes": 0,
+          "paperVotes": 10,
+          "nickName": "ПП-ДБ"
+        },
+        {
+          "partyNum": 22,
+          "totalVotes": 9,
+          "machineVotes": 0,
+          "paperVotes": 9,
+          "nickName": "ГЕРБ-СДС"
+        },
+        {
+          "partyNum": 25,
+          "totalVotes": 7,
+          "machineVotes": 0,
+          "paperVotes": 7,
+          "nickName": "Величие"
+        },
+        {
+          "partyNum": 28,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "ДПС"
+        }
+      ],
+      "protocol": {
+        "ballotsReceived": 400,
+        "numAdditionalVoters": 70,
+        "numInvalidAndDestroyedPaperBallots": 1,
+        "numInvalidBallotsFound": 3,
+        "numPaperBallotsFound": 73,
+        "numRegisteredVoters": 3,
+        "numUnusedPaperBallots": 326,
+        "numValidNoOnePaperVotes": 1,
+        "numValidVotes": 69,
+        "totalActualVoters": 73
+      }
+    }
+  }
+]

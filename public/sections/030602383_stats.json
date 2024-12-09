@@ -1,0 +1,92 @@
+[
+  {
+    "name": "2013_05_12",
+    "results": {
+      "actualTotal": 43,
+      "actualPaperVotes": 43,
+      "actualMachineVotes": 0,
+      "votes": [
+        {
+          "partyNum": 4,
+          "totalVotes": 2,
+          "machineVotes": 0,
+          "paperVotes": 2,
+          "nickName": "НФСБ"
+        },
+        {
+          "partyNum": 5,
+          "totalVotes": 12,
+          "machineVotes": 0,
+          "paperVotes": 12,
+          "nickName": "БСП"
+        },
+        {
+          "partyNum": 14,
+          "totalVotes": 2,
+          "machineVotes": 0,
+          "paperVotes": 2,
+          "nickName": "Атака"
+        },
+        {
+          "partyNum": 15,
+          "totalVotes": 21,
+          "machineVotes": 0,
+          "paperVotes": 21,
+          "nickName": "ГЕРБ"
+        },
+        {
+          "partyNum": 20,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "ХДПБ"
+        },
+        {
+          "partyNum": 27,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "ДСБ"
+        },
+        {
+          "partyNum": 33,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "ДБГ"
+        },
+        {
+          "partyNum": 36,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "Горда БГ"
+        },
+        {
+          "partyNum": 38,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "БЗНС"
+        },
+        {
+          "partyNum": 40,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "ДПС"
+        }
+      ],
+      "protocol": {
+        "ballotsReceived": 100,
+        "numAdditionalVoters": 10,
+        "numInvalidBallotsFound": 3,
+        "numPaperBallotsFound": 46,
+        "numRegisteredVoters": 48,
+        "numUnusedPaperBallots": 54,
+        "numValidVotes": 43,
+        "totalActualVoters": 46
+      }
+    }
+  }
+]

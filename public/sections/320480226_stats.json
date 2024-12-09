@@ -1,0 +1,94 @@
+[
+  {
+    "name": "2024_06_09",
+    "results": {
+      "actualTotal": 135,
+      "actualPaperVotes": 135,
+      "actualMachineVotes": 0,
+      "votes": [
+        {
+          "partyNum": 1,
+          "totalVotes": 12,
+          "machineVotes": 0,
+          "paperVotes": 12,
+          "nickName": "ИТН"
+        },
+        {
+          "partyNum": 12,
+          "totalVotes": 29,
+          "machineVotes": 0,
+          "paperVotes": 29,
+          "nickName": "Възраждане"
+        },
+        {
+          "partyNum": 13,
+          "totalVotes": 9,
+          "machineVotes": 0,
+          "paperVotes": 9,
+          "nickName": "МЕЧ"
+        },
+        {
+          "partyNum": 14,
+          "totalVotes": 3,
+          "machineVotes": 0,
+          "paperVotes": 3,
+          "nickName": "ПП-ДБ"
+        },
+        {
+          "partyNum": 21,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "Идваме"
+        },
+        {
+          "partyNum": 22,
+          "totalVotes": 10,
+          "machineVotes": 0,
+          "paperVotes": 10,
+          "nickName": "ГЕРБ-СДС"
+        },
+        {
+          "partyNum": 24,
+          "totalVotes": 7,
+          "machineVotes": 0,
+          "paperVotes": 7,
+          "nickName": "БСП"
+        },
+        {
+          "partyNum": 25,
+          "totalVotes": 11,
+          "machineVotes": 0,
+          "paperVotes": 11,
+          "nickName": "Величие"
+        },
+        {
+          "partyNum": 28,
+          "totalVotes": 52,
+          "machineVotes": 0,
+          "paperVotes": 52,
+          "nickName": "ДПС"
+        },
+        {
+          "partyNum": 32,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "КНБ"
+        }
+      ],
+      "protocol": {
+        "ballotsReceived": 300,
+        "numAdditionalVoters": 9,
+        "numInvalidAndDestroyedPaperBallots": 1,
+        "numInvalidBallotsFound": 2,
+        "numPaperBallotsFound": 140,
+        "numRegisteredVoters": 140,
+        "numUnusedPaperBallots": 159,
+        "numValidNoOnePaperVotes": 3,
+        "numValidVotes": 135,
+        "totalActualVoters": 140
+      }
+    }
+  }
+]

@@ -1,0 +1,87 @@
+[
+  {
+    "name": "2017_03_26",
+    "results": {
+      "actualTotal": 148,
+      "actualPaperVotes": 148,
+      "actualMachineVotes": 0,
+      "votes": [
+        {
+          "partyNum": 4,
+          "totalVotes": 9,
+          "machineVotes": 0,
+          "paperVotes": 9,
+          "nickName": "Нова Република"
+        },
+        {
+          "partyNum": 6,
+          "totalVotes": 7,
+          "machineVotes": 0,
+          "paperVotes": 7,
+          "nickName": "Воля"
+        },
+        {
+          "partyNum": 8,
+          "totalVotes": 3,
+          "machineVotes": 0,
+          "paperVotes": 3,
+          "nickName": "АБВ/21"
+        },
+        {
+          "partyNum": 10,
+          "totalVotes": 16,
+          "machineVotes": 0,
+          "paperVotes": 16,
+          "nickName": "БСП"
+        },
+        {
+          "partyNum": 11,
+          "totalVotes": 71,
+          "machineVotes": 0,
+          "paperVotes": 71,
+          "nickName": "ГЕРБ"
+        },
+        {
+          "partyNum": 14,
+          "totalVotes": 3,
+          "machineVotes": 0,
+          "paperVotes": 3,
+          "nickName": "Възраждане"
+        },
+        {
+          "partyNum": 16,
+          "totalVotes": 22,
+          "machineVotes": 0,
+          "paperVotes": 22,
+          "nickName": "ДвБ"
+        },
+        {
+          "partyNum": 17,
+          "totalVotes": 7,
+          "machineVotes": 0,
+          "paperVotes": 7,
+          "nickName": "ОП"
+        },
+        {
+          "partyNum": 21,
+          "totalVotes": 10,
+          "machineVotes": 0,
+          "paperVotes": 10,
+          "nickName": "РБ-ГН"
+        }
+      ],
+      "protocol": {
+        "ballotsReceived": 155,
+        "numAdditionalVoters": 110,
+        "numInvalidAndDestroyedPaperBallots": 1,
+        "numInvalidBallotsFound": 3,
+        "numPaperBallotsFound": 155,
+        "numRegisteredVoters": 72,
+        "numUnusedPaperBallots": 244,
+        "numValidNoOnePaperVotes": 4,
+        "numValidVotes": 155,
+        "totalActualVoters": 162
+      }
+    }
+  }
+]

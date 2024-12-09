@@ -1,0 +1,101 @@
+[
+  {
+    "name": "2023_04_02",
+    "results": {
+      "actualTotal": 206,
+      "actualPaperVotes": 206,
+      "actualMachineVotes": 0,
+      "votes": [
+        {
+          "partyNum": 1,
+          "totalVotes": 4,
+          "machineVotes": 0,
+          "paperVotes": 4,
+          "nickName": "БСП"
+        },
+        {
+          "partyNum": 2,
+          "totalVotes": 19,
+          "machineVotes": 0,
+          "paperVotes": 19,
+          "nickName": "ГЕРБ-СДС"
+        },
+        {
+          "partyNum": 3,
+          "totalVotes": 42,
+          "machineVotes": 0,
+          "paperVotes": 42,
+          "nickName": "Възраждане"
+        },
+        {
+          "partyNum": 4,
+          "totalVotes": 14,
+          "machineVotes": 0,
+          "paperVotes": 14,
+          "nickName": "ИТН"
+        },
+        {
+          "partyNum": 5,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "ПП НПИСИ"
+        },
+        {
+          "partyNum": 8,
+          "totalVotes": 2,
+          "machineVotes": 0,
+          "paperVotes": 2,
+          "nickName": "Заедно"
+        },
+        {
+          "partyNum": 10,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "НДСВ"
+        },
+        {
+          "partyNum": 12,
+          "totalVotes": 109,
+          "machineVotes": 0,
+          "paperVotes": 109,
+          "nickName": "ПП-ДБ"
+        },
+        {
+          "partyNum": 14,
+          "totalVotes": 7,
+          "machineVotes": 0,
+          "paperVotes": 7,
+          "nickName": "Левицата"
+        },
+        {
+          "partyNum": 15,
+          "totalVotes": 6,
+          "machineVotes": 0,
+          "paperVotes": 6,
+          "nickName": "БВ"
+        },
+        {
+          "partyNum": 21,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "ВЪН ЕС/НАТО"
+        }
+      ],
+      "protocol": {
+        "ballotsReceived": 300,
+        "numAdditionalVoters": 189,
+        "numInvalidAndDestroyedPaperBallots": 3,
+        "numInvalidBallotsFound": 1,
+        "numPaperBallotsFound": 210,
+        "numRegisteredVoters": 30,
+        "numUnusedPaperBallots": 87,
+        "numValidNoOnePaperVotes": 3,
+        "numValidVotes": 206,
+        "totalActualVoters": 210
+      }
+    }
+  }
+]

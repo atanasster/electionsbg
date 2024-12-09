@@ -1,0 +1,42 @@
+[
+  {
+    "name": "2021_11_14",
+    "results": {
+      "actualTotal": 23,
+      "actualPaperVotes": 0,
+      "actualMachineVotes": 23,
+      "votes": [
+        {
+          "partyNum": 17,
+          "totalVotes": 21,
+          "machineVotes": 21,
+          "paperVotes": 0,
+          "nickName": "ДПС"
+        },
+        {
+          "partyNum": 30,
+          "totalVotes": 1,
+          "machineVotes": 1,
+          "paperVotes": 0,
+          "nickName": "ДБ"
+        },
+        {
+          "partyNum": 33,
+          "totalVotes": 1,
+          "machineVotes": 1,
+          "paperVotes": 0,
+          "nickName": "БСП"
+        }
+      ],
+      "protocol": {
+        "ballotsReceived": 100,
+        "numInvalidAndDestroyedPaperBallots": 1,
+        "numMachineBallots": 23,
+        "numRegisteredVoters": 23,
+        "numUnusedPaperBallots": 76,
+        "numValidMachineVotes": 23,
+        "totalActualVoters": 23
+      }
+    }
+  }
+]

@@ -1,0 +1,109 @@
+[
+  {
+    "name": "2024_06_09",
+    "results": {
+      "actualTotal": 205,
+      "actualPaperVotes": 205,
+      "actualMachineVotes": 0,
+      "votes": [
+        {
+          "partyNum": 13,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "МЕЧ"
+        },
+        {
+          "partyNum": 14,
+          "totalVotes": 4,
+          "machineVotes": 0,
+          "paperVotes": 4,
+          "nickName": "ПП-ДБ"
+        },
+        {
+          "partyNum": 22,
+          "totalVotes": 3,
+          "machineVotes": 0,
+          "paperVotes": 3,
+          "nickName": "ГЕРБ-СДС"
+        },
+        {
+          "partyNum": 24,
+          "totalVotes": 2,
+          "machineVotes": 0,
+          "paperVotes": 2,
+          "nickName": "БСП"
+        },
+        {
+          "partyNum": 28,
+          "totalVotes": 195,
+          "machineVotes": 0,
+          "paperVotes": 195,
+          "nickName": "ДПС"
+        }
+      ],
+      "protocol": {
+        "ballotsReceived": 1000,
+        "numAdditionalVoters": 136,
+        "numInvalidAndDestroyedPaperBallots": 2,
+        "numInvalidBallotsFound": 5,
+        "numPaperBallotsFound": 211,
+        "numRegisteredVoters": 108,
+        "numUnusedPaperBallots": 787,
+        "numValidNoOnePaperVotes": 1,
+        "numValidVotes": 205,
+        "totalActualVoters": 211
+      }
+    }
+  },
+  {
+    "name": "2023_04_02",
+    "results": {
+      "actualTotal": 406,
+      "actualPaperVotes": 43,
+      "actualMachineVotes": 363,
+      "votes": [
+        {
+          "partyNum": 2,
+          "totalVotes": 3,
+          "machineVotes": 3,
+          "paperVotes": 0,
+          "nickName": "ГЕРБ-СДС"
+        },
+        {
+          "partyNum": 12,
+          "totalVotes": 6,
+          "machineVotes": 6,
+          "paperVotes": 0,
+          "nickName": "ПП-ДБ"
+        },
+        {
+          "partyNum": 13,
+          "totalVotes": 395,
+          "machineVotes": 352,
+          "paperVotes": 43,
+          "nickName": "ДПС"
+        },
+        {
+          "partyNum": 14,
+          "totalVotes": 2,
+          "machineVotes": 2,
+          "paperVotes": 0,
+          "nickName": "Левицата"
+        }
+      ],
+      "protocol": {
+        "ballotsReceived": 1000,
+        "numAdditionalVoters": 195,
+        "numInvalidAndDestroyedPaperBallots": 1,
+        "numMachineBallots": 363,
+        "numPaperBallotsFound": 43,
+        "numRegisteredVoters": 260,
+        "numUnusedPaperBallots": 956,
+        "numValidMachineVotes": 363,
+        "numValidVotes": 43,
+        "totalActualVoters": 406
+      }
+    }
+  }
+]

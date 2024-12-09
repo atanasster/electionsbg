@@ -1,0 +1,87 @@
+[
+  {
+    "name": "2017_03_26",
+    "results": {
+      "actualTotal": 88,
+      "actualPaperVotes": 88,
+      "actualMachineVotes": 0,
+      "votes": [
+        {
+          "partyNum": 4,
+          "totalVotes": 6,
+          "machineVotes": 0,
+          "paperVotes": 6,
+          "nickName": "Нова Република"
+        },
+        {
+          "partyNum": 6,
+          "totalVotes": 4,
+          "machineVotes": 0,
+          "paperVotes": 4,
+          "nickName": "Воля"
+        },
+        {
+          "partyNum": 8,
+          "totalVotes": 5,
+          "machineVotes": 0,
+          "paperVotes": 5,
+          "nickName": "АБВ/21"
+        },
+        {
+          "partyNum": 10,
+          "totalVotes": 12,
+          "machineVotes": 0,
+          "paperVotes": 12,
+          "nickName": "БСП"
+        },
+        {
+          "partyNum": 11,
+          "totalVotes": 33,
+          "machineVotes": 0,
+          "paperVotes": 33,
+          "nickName": "ГЕРБ"
+        },
+        {
+          "partyNum": 14,
+          "totalVotes": 5,
+          "machineVotes": 0,
+          "paperVotes": 5,
+          "nickName": "Възраждане"
+        },
+        {
+          "partyNum": 16,
+          "totalVotes": 9,
+          "machineVotes": 0,
+          "paperVotes": 9,
+          "nickName": "ДвБ"
+        },
+        {
+          "partyNum": 17,
+          "totalVotes": 10,
+          "machineVotes": 0,
+          "paperVotes": 10,
+          "nickName": "ОП"
+        },
+        {
+          "partyNum": 21,
+          "totalVotes": 4,
+          "machineVotes": 0,
+          "paperVotes": 4,
+          "nickName": "РБ-ГН"
+        }
+      ],
+      "protocol": {
+        "ballotsReceived": 400,
+        "numAdditionalVoters": 44,
+        "numInvalidAndDestroyedPaperBallots": 2,
+        "numInvalidBallotsFound": 3,
+        "numPaperBallotsFound": 92,
+        "numRegisteredVoters": 78,
+        "numUnusedPaperBallots": 306,
+        "numValidNoOnePaperVotes": 1,
+        "numValidVotes": 92,
+        "totalActualVoters": 96
+      }
+    }
+  }
+]

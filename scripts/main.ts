@@ -9,6 +9,7 @@ import { parseProtocols } from "./parsers/protocols";
 import { aggregateSettlements } from "./aggregateData";
 import { ElectionInfo } from "@/data/dataTypes";
 import { collectStats } from "./collect_stats";
+import { sectionVotesFileName } from "./consts";
 
 const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
 const __dirname = path.dirname(__filename); // get the name of the directory
@@ -47,7 +48,7 @@ const parseElections = async (monthYear: string, production?: boolean) => {
       votes: s.votes?.filter((v) => v.totalVotes !== 0),
     })),
   );
-  const outFile = `${outFolder}/section_votes.json`;
+  const outFile = `${outFolder}/${sectionVotesFileName}`;
   fs.writeFileSync(outFile, json, "utf8");
   console.log("Successfully added file ", outFile);
   return aggregated;
@@ -117,10 +118,8 @@ const updatedElections: ElectionInfo[] = fs
   }))
   .sort((a, b) => b.name.localeCompare(a.name));
 const publicFolder = path.resolve(__dirname, `../public`);
-const { country, byRegion, byMunicipality, bySettlement } = collectStats(
-  updatedElections,
-  publicFolder,
-);
+const { country, byRegion, byMunicipality, bySettlement, bySection } =
+  collectStats(updatedElections, publicFolder);
 const json = stringifyJSON(country, production);
 
 fs.writeFileSync(electionsFile, json, "utf8");
@@ -145,6 +144,15 @@ Object.keys(bySettlement).forEach((ekatte) => {
   const data = stringifyJSON(bySettlement[ekatte], production);
   fs.writeFileSync(
     `${publicFolder}/settlements/${ekatte}_stats.json`,
+    data,
+    "utf8",
+  );
+});
+
+Object.keys(bySection).forEach((section) => {
+  const data = stringifyJSON(bySection[section], production);
+  fs.writeFileSync(
+    `${publicFolder}/sections/${section}_stats.json`,
     data,
     "utf8",
   );

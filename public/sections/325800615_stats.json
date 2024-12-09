@@ -1,0 +1,52 @@
+[
+  {
+    "name": "2021_11_14",
+    "results": {
+      "actualTotal": 1058,
+      "actualPaperVotes": 0,
+      "actualMachineVotes": 1058,
+      "votes": [
+        {
+          "partyNum": 17,
+          "totalVotes": 1049,
+          "machineVotes": 1049,
+          "paperVotes": 0,
+          "nickName": "ДПС"
+        },
+        {
+          "partyNum": 21,
+          "totalVotes": 2,
+          "machineVotes": 2,
+          "paperVotes": 0,
+          "nickName": "ВМРО"
+        },
+        {
+          "partyNum": 24,
+          "totalVotes": 5,
+          "machineVotes": 5,
+          "paperVotes": 0,
+          "nickName": "ИТН"
+        },
+        {
+          "partyNum": 31,
+          "totalVotes": 1,
+          "machineVotes": 1,
+          "paperVotes": 0,
+          "nickName": "ПП ИСБ"
+        },
+        {
+          "partyNum": 33,
+          "totalVotes": 1,
+          "machineVotes": 1,
+          "paperVotes": 0,
+          "nickName": "БСП"
+        }
+      ],
+      "protocol": {
+        "numMachineBallots": 1058,
+        "numValidMachineVotes": 1058,
+        "totalActualVoters": 1058
+      }
+    }
+  }
+]

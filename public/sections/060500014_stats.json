@@ -1,0 +1,34 @@
+[
+  {
+    "name": "2021_04_04",
+    "results": {
+      "actualTotal": 14,
+      "actualPaperVotes": 14,
+      "actualMachineVotes": 0,
+      "votes": [
+        {
+          "partyNum": 9,
+          "totalVotes": 13,
+          "machineVotes": null,
+          "paperVotes": 13,
+          "nickName": "ДПС"
+        },
+        {
+          "partyNum": 28,
+          "totalVotes": 1,
+          "machineVotes": null,
+          "paperVotes": 1,
+          "nickName": "ГЕРБ-СДС"
+        }
+      ],
+      "protocol": {
+        "ballotsReceived": 100,
+        "numInvalidBallotsFound": 1,
+        "numPaperBallotsFound": 15,
+        "numRegisteredVoters": 15,
+        "numValidVotes": 14,
+        "totalActualVoters": 15
+      }
+    }
+  }
+]

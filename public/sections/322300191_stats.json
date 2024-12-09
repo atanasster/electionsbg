@@ -1,0 +1,92 @@
+[
+  {
+    "name": "2021_04_04",
+    "results": {
+      "actualTotal": 171,
+      "actualPaperVotes": 171,
+      "actualMachineVotes": 0,
+      "votes": [
+        {
+          "partyNum": 4,
+          "totalVotes": 26,
+          "machineVotes": null,
+          "paperVotes": 26,
+          "nickName": "БСП"
+        },
+        {
+          "partyNum": 9,
+          "totalVotes": 1,
+          "machineVotes": null,
+          "paperVotes": 1,
+          "nickName": "ДПС"
+        },
+        {
+          "partyNum": 11,
+          "totalVotes": 6,
+          "machineVotes": null,
+          "paperVotes": 6,
+          "nickName": "ДБ"
+        },
+        {
+          "partyNum": 14,
+          "totalVotes": 2,
+          "machineVotes": null,
+          "paperVotes": 2,
+          "nickName": "БНО"
+        },
+        {
+          "partyNum": 17,
+          "totalVotes": 1,
+          "machineVotes": null,
+          "paperVotes": 1,
+          "nickName": "Протеста"
+        },
+        {
+          "partyNum": 18,
+          "totalVotes": 4,
+          "machineVotes": null,
+          "paperVotes": 4,
+          "nickName": "ПП ИСМВ"
+        },
+        {
+          "partyNum": 26,
+          "totalVotes": 1,
+          "machineVotes": null,
+          "paperVotes": 1,
+          "nickName": "ОНБ"
+        },
+        {
+          "partyNum": 27,
+          "totalVotes": 1,
+          "machineVotes": null,
+          "paperVotes": 1,
+          "nickName": "(БСДД)"
+        },
+        {
+          "partyNum": 28,
+          "totalVotes": 9,
+          "machineVotes": null,
+          "paperVotes": 9,
+          "nickName": "ГЕРБ-СДС"
+        },
+        {
+          "partyNum": 29,
+          "totalVotes": 120,
+          "machineVotes": null,
+          "paperVotes": 120,
+          "nickName": "ИТН"
+        }
+      ],
+      "protocol": {
+        "ballotsReceived": 500,
+        "numInvalidAndDestroyedPaperBallots": 3,
+        "numInvalidBallotsFound": 14,
+        "numPaperBallotsFound": 192,
+        "numRegisteredVoters": 192,
+        "numValidNoOnePaperVotes": 7,
+        "numValidVotes": 178,
+        "totalActualVoters": 199
+      }
+    }
+  }
+]

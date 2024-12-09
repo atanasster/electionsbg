@@ -1,0 +1,59 @@
+[
+  {
+    "name": "2022_10_02",
+    "results": {
+      "actualTotal": 520,
+      "actualPaperVotes": 0,
+      "actualMachineVotes": 207,
+      "votes": [
+        {
+          "partyNum": 1,
+          "totalVotes": 511,
+          "machineVotes": 203,
+          "paperVotes": 0,
+          "nickName": "ДПС"
+        },
+        {
+          "partyNum": 2,
+          "totalVotes": 1,
+          "machineVotes": 1,
+          "paperVotes": 0,
+          "nickName": "БСДД"
+        },
+        {
+          "partyNum": 8,
+          "totalVotes": 1,
+          "machineVotes": 1,
+          "paperVotes": 0,
+          "nickName": "НФСБ"
+        },
+        {
+          "partyNum": 9,
+          "totalVotes": 3,
+          "machineVotes": 1,
+          "paperVotes": 0,
+          "nickName": "ПП"
+        },
+        {
+          "partyNum": 15,
+          "totalVotes": 1,
+          "machineVotes": 1,
+          "paperVotes": 0,
+          "nickName": "БВ"
+        },
+        {
+          "partyNum": 24,
+          "totalVotes": 3,
+          "machineVotes": 0,
+          "paperVotes": 0,
+          "nickName": "ГЕРБ-СДС"
+        }
+      ],
+      "protocol": {
+        "numMachineBallots": 520,
+        "numValidMachineVotes": 520,
+        "totalActualVoters": 520
+      }
+    }
+  }
+]

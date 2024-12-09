@@ -1,0 +1,91 @@
+[
+  {
+    "name": "2021_04_04",
+    "results": {
+      "actualTotal": 442,
+      "actualPaperVotes": 442,
+      "actualMachineVotes": 0,
+      "votes": [
+        {
+          "partyNum": 1,
+          "totalVotes": 2,
+          "machineVotes": null,
+          "paperVotes": 2,
+          "nickName": "ВМРО"
+        },
+        {
+          "partyNum": 4,
+          "totalVotes": 7,
+          "machineVotes": null,
+          "paperVotes": 7,
+          "nickName": "БСП"
+        },
+        {
+          "partyNum": 7,
+          "totalVotes": 2,
+          "machineVotes": null,
+          "paperVotes": 2,
+          "nickName": "Атака"
+        },
+        {
+          "partyNum": 8,
+          "totalVotes": 1,
+          "machineVotes": null,
+          "paperVotes": 1,
+          "nickName": "КОД"
+        },
+        {
+          "partyNum": 9,
+          "totalVotes": 353,
+          "machineVotes": null,
+          "paperVotes": 353,
+          "nickName": "ДПС"
+        },
+        {
+          "partyNum": 11,
+          "totalVotes": 28,
+          "machineVotes": null,
+          "paperVotes": 28,
+          "nickName": "ДБ"
+        },
+        {
+          "partyNum": 14,
+          "totalVotes": 1,
+          "machineVotes": null,
+          "paperVotes": 1,
+          "nickName": "БНО"
+        },
+        {
+          "partyNum": 27,
+          "totalVotes": 1,
+          "machineVotes": null,
+          "paperVotes": 1,
+          "nickName": "(БСДД)"
+        },
+        {
+          "partyNum": 28,
+          "totalVotes": 42,
+          "machineVotes": null,
+          "paperVotes": 42,
+          "nickName": "ГЕРБ-СДС"
+        },
+        {
+          "partyNum": 29,
+          "totalVotes": 5,
+          "machineVotes": null,
+          "paperVotes": 5,
+          "nickName": "ИТН"
+        }
+      ],
+      "protocol": {
+        "ballotsReceived": 2000,
+        "numInvalidAndDestroyedPaperBallots": 5,
+        "numInvalidBallotsFound": 35,
+        "numPaperBallotsFound": 477,
+        "numRegisteredVoters": 582,
+        "numValidVotes": 442,
+        "totalActualVoters": 477
+      }
+    }
+  }
+]

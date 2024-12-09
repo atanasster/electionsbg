@@ -1,0 +1,72 @@
+[
+  {
+    "name": "2024_10_27",
+    "results": {
+      "actualTotal": 43,
+      "actualPaperVotes": 43,
+      "actualMachineVotes": 0,
+      "votes": [
+        {
+          "partyNum": 8,
+          "totalVotes": 10,
+          "machineVotes": 0,
+          "paperVotes": 10,
+          "nickName": "ДПС-НН"
+        },
+        {
+          "partyNum": 12,
+          "totalVotes": 6,
+          "machineVotes": 0,
+          "paperVotes": 6,
+          "nickName": "Възраждане"
+        },
+        {
+          "partyNum": 14,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "БНС–НД"
+        },
+        {
+          "partyNum": 18,
+          "totalVotes": 15,
+          "machineVotes": 0,
+          "paperVotes": 15,
+          "nickName": "ГЕРБ-СДС"
+        },
+        {
+          "partyNum": 21,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "ПД"
+        },
+        {
+          "partyNum": 26,
+          "totalVotes": 9,
+          "machineVotes": 0,
+          "paperVotes": 9,
+          "nickName": "ПП-ДБ"
+        },
+        {
+          "partyNum": 28,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "БСП"
+        }
+      ],
+      "protocol": {
+        "ballotsReceived": 300,
+        "numAdditionalVoters": 51,
+        "numInvalidAndDestroyedPaperBallots": 1,
+        "numInvalidBallotsFound": 6,
+        "numPaperBallotsFound": 51,
+        "numUnusedPaperBallots": 248,
+        "numValidNoOnePaperVotes": 2,
+        "numValidVotes": 43,
+        "totalActualVoters": 51
+      }
+    }
+  }
+]

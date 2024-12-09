@@ -1,0 +1,71 @@
+[
+  {
+    "name": "2014_10_05",
+    "results": {
+      "actualTotal": 368,
+      "actualPaperVotes": 368,
+      "actualMachineVotes": 0,
+      "votes": [
+        {
+          "partyNum": 1,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "Движение 21"
+        },
+        {
+          "partyNum": 7,
+          "totalVotes": 3,
+          "machineVotes": 0,
+          "paperVotes": 3,
+          "nickName": "РБ"
+        },
+        {
+          "partyNum": 9,
+          "totalVotes": 2,
+          "machineVotes": 0,
+          "paperVotes": 2,
+          "nickName": "ГЕРБ"
+        },
+        {
+          "partyNum": 16,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "НА"
+        },
+        {
+          "partyNum": 18,
+          "totalVotes": 359,
+          "machineVotes": 0,
+          "paperVotes": 359,
+          "nickName": "ДПС"
+        },
+        {
+          "partyNum": 19,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "ГН"
+        },
+        {
+          "partyNum": 24,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "ПФ"
+        }
+      ],
+      "protocol": {
+        "ballotsReceived": 1500,
+        "numAdditionalVoters": 376,
+        "numInvalidAndDestroyedPaperBallots": 1,
+        "numInvalidBallotsFound": 8,
+        "numPaperBallotsFound": 376,
+        "numUnusedPaperBallots": 1119,
+        "numValidVotes": 376,
+        "totalActualVoters": 384
+      }
+    }
+  }
+]

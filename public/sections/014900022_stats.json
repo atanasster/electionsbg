@@ -1,0 +1,86 @@
+[
+  {
+    "name": "2013_05_12",
+    "results": {
+      "actualTotal": 53,
+      "actualPaperVotes": 53,
+      "actualMachineVotes": 0,
+      "votes": [
+        {
+          "partyNum": 4,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "НФСБ"
+        },
+        {
+          "partyNum": 5,
+          "totalVotes": 23,
+          "machineVotes": 0,
+          "paperVotes": 23,
+          "nickName": "БСП"
+        },
+        {
+          "partyNum": 8,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "НДП"
+        },
+        {
+          "partyNum": 14,
+          "totalVotes": 2,
+          "machineVotes": 0,
+          "paperVotes": 2,
+          "nickName": "Атака"
+        },
+        {
+          "partyNum": 15,
+          "totalVotes": 16,
+          "machineVotes": 0,
+          "paperVotes": 16,
+          "nickName": "ГЕРБ"
+        },
+        {
+          "partyNum": 17,
+          "totalVotes": 4,
+          "machineVotes": 0,
+          "paperVotes": 4,
+          "nickName": "РЗС"
+        },
+        {
+          "partyNum": 25,
+          "totalVotes": 4,
+          "machineVotes": 0,
+          "paperVotes": 4,
+          "nickName": "Лидер"
+        },
+        {
+          "partyNum": 33,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "ДБГ"
+        },
+        {
+          "partyNum": 40,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "ДПС"
+        }
+      ],
+      "protocol": {
+        "ballotsReceived": 123,
+        "numAdditionalVoters": 1,
+        "numInvalidAndDestroyedPaperBallots": 1,
+        "numInvalidBallotsFound": 1,
+        "numPaperBallotsFound": 54,
+        "numRegisteredVoters": 113,
+        "numUnusedPaperBallots": 68,
+        "numValidVotes": 53,
+        "totalActualVoters": 54
+      }
+    }
+  }
+]

@@ -1,0 +1,72 @@
+[
+  {
+    "name": "2017_03_26",
+    "results": {
+      "actualTotal": 28,
+      "actualPaperVotes": 28,
+      "actualMachineVotes": 0,
+      "votes": [
+        {
+          "partyNum": 4,
+          "totalVotes": 5,
+          "machineVotes": 0,
+          "paperVotes": 5,
+          "nickName": "Нова Република"
+        },
+        {
+          "partyNum": 6,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "Воля"
+        },
+        {
+          "partyNum": 10,
+          "totalVotes": 4,
+          "machineVotes": 0,
+          "paperVotes": 4,
+          "nickName": "БСП"
+        },
+        {
+          "partyNum": 11,
+          "totalVotes": 8,
+          "machineVotes": 0,
+          "paperVotes": 8,
+          "nickName": "ГЕРБ"
+        },
+        {
+          "partyNum": 14,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "Възраждане"
+        },
+        {
+          "partyNum": 16,
+          "totalVotes": 8,
+          "machineVotes": 0,
+          "paperVotes": 8,
+          "nickName": "ДвБ"
+        },
+        {
+          "partyNum": 21,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "РБ-ГН"
+        }
+      ],
+      "protocol": {
+        "ballotsReceived": 200,
+        "numAdditionalVoters": 13,
+        "numInvalidAndDestroyedPaperBallots": 2,
+        "numPaperBallotsFound": 32,
+        "numRegisteredVoters": 22,
+        "numUnusedPaperBallots": 166,
+        "numValidNoOnePaperVotes": 4,
+        "numValidVotes": 32,
+        "totalActualVoters": 36
+      }
+    }
+  }
+]

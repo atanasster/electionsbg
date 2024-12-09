@@ -1,0 +1,50 @@
+[
+  {
+    "name": "2021_04_04",
+    "results": {
+      "actualTotal": 40,
+      "actualPaperVotes": 40,
+      "actualMachineVotes": 0,
+      "votes": [
+        {
+          "partyNum": 8,
+          "totalVotes": 1,
+          "machineVotes": null,
+          "paperVotes": 1,
+          "nickName": "КОД"
+        },
+        {
+          "partyNum": 9,
+          "totalVotes": 35,
+          "machineVotes": null,
+          "paperVotes": 35,
+          "nickName": "ДПС"
+        },
+        {
+          "partyNum": 18,
+          "totalVotes": 1,
+          "machineVotes": null,
+          "paperVotes": 1,
+          "nickName": "ПП ИСМВ"
+        },
+        {
+          "partyNum": 28,
+          "totalVotes": 3,
+          "machineVotes": null,
+          "paperVotes": 3,
+          "nickName": "ГЕРБ-СДС"
+        }
+      ],
+      "protocol": {
+        "ballotsReceived": 100,
+        "numInvalidAndDestroyedPaperBallots": 2,
+        "numInvalidBallotsFound": 2,
+        "numPaperBallotsFound": 43,
+        "numRegisteredVoters": 44,
+        "numValidNoOnePaperVotes": 1,
+        "numValidVotes": 41,
+        "totalActualVoters": 44
+      }
+    }
+  }
+]

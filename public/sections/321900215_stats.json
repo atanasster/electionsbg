@@ -1,0 +1,53 @@
+[
+  {
+    "name": "2021_07_11",
+    "results": {
+      "actualTotal": 12,
+      "actualPaperVotes": 0,
+      "actualMachineVotes": 12,
+      "votes": [
+        {
+          "partyNum": 4,
+          "totalVotes": 2,
+          "machineVotes": 2,
+          "paperVotes": 0,
+          "nickName": "БСП"
+        },
+        {
+          "partyNum": 5,
+          "totalVotes": 2,
+          "machineVotes": 2,
+          "paperVotes": 0,
+          "nickName": "ГЕРБ-СДС"
+        },
+        {
+          "partyNum": 8,
+          "totalVotes": 3,
+          "machineVotes": 3,
+          "paperVotes": 0,
+          "nickName": "ПП ИСМВ"
+        },
+        {
+          "partyNum": 16,
+          "totalVotes": 2,
+          "machineVotes": 2,
+          "paperVotes": 0,
+          "nickName": "БГ Патриоти"
+        },
+        {
+          "partyNum": 23,
+          "totalVotes": 3,
+          "machineVotes": 3,
+          "paperVotes": 0,
+          "nickName": "ДБ"
+        }
+      ],
+      "protocol": {
+        "numMachineBallots": 13,
+        "numValidMachineVotes": 12,
+        "numValidNoOneMachineVotes": 1,
+        "totalActualVoters": 13
+      }
+    }
+  }
+]

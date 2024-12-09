@@ -1,0 +1,38 @@
+[
+  {
+    "name": "2021_07_11",
+    "results": {
+      "actualTotal": 19,
+      "actualPaperVotes": 0,
+      "actualMachineVotes": 19,
+      "votes": [
+        {
+          "partyNum": 11,
+          "totalVotes": 5,
+          "machineVotes": 5,
+          "paperVotes": 0,
+          "nickName": "Възраждане"
+        },
+        {
+          "partyNum": 22,
+          "totalVotes": 7,
+          "machineVotes": 7,
+          "paperVotes": 0,
+          "nickName": "ИТН"
+        },
+        {
+          "partyNum": 23,
+          "totalVotes": 7,
+          "machineVotes": 7,
+          "paperVotes": 0,
+          "nickName": "ДБ"
+        }
+      ],
+      "protocol": {
+        "numMachineBallots": 19,
+        "numValidMachineVotes": 19,
+        "totalActualVoters": 19
+      }
+    }
+  }
+]

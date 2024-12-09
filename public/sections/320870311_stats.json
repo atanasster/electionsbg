@@ -1,0 +1,66 @@
+[
+  {
+    "name": "2023_04_02",
+    "results": {
+      "actualTotal": 86,
+      "actualPaperVotes": 86,
+      "actualMachineVotes": 0,
+      "votes": [
+        {
+          "partyNum": 2,
+          "totalVotes": 3,
+          "machineVotes": 0,
+          "paperVotes": 3,
+          "nickName": "ГЕРБ-СДС"
+        },
+        {
+          "partyNum": 3,
+          "totalVotes": 10,
+          "machineVotes": 0,
+          "paperVotes": 10,
+          "nickName": "Възраждане"
+        },
+        {
+          "partyNum": 4,
+          "totalVotes": 10,
+          "machineVotes": 0,
+          "paperVotes": 10,
+          "nickName": "ИТН"
+        },
+        {
+          "partyNum": 5,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "ПП НПИСИ"
+        },
+        {
+          "partyNum": 12,
+          "totalVotes": 61,
+          "machineVotes": 0,
+          "paperVotes": 61,
+          "nickName": "ПП-ДБ"
+        },
+        {
+          "partyNum": 14,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "Левицата"
+        }
+      ],
+      "protocol": {
+        "ballotsReceived": 400,
+        "numAdditionalVoters": 74,
+        "numInvalidAndDestroyedPaperBallots": 1,
+        "numInvalidBallotsFound": 3,
+        "numPaperBallotsFound": 103,
+        "numRegisteredVoters": 36,
+        "numUnusedPaperBallots": 296,
+        "numValidNoOnePaperVotes": 14,
+        "numValidVotes": 86,
+        "totalActualVoters": 103
+      }
+    }
+  }
+]

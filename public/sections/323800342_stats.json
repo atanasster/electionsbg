@@ -1,0 +1,81 @@
+[
+  {
+    "name": "2022_10_02",
+    "results": {
+      "actualTotal": 119,
+      "actualPaperVotes": 0,
+      "actualMachineVotes": 119,
+      "votes": [
+        {
+          "partyNum": 9,
+          "totalVotes": 33,
+          "machineVotes": 33,
+          "paperVotes": 0,
+          "nickName": "ПП"
+        },
+        {
+          "partyNum": 14,
+          "totalVotes": 27,
+          "machineVotes": 27,
+          "paperVotes": 0,
+          "nickName": "Възраждане"
+        },
+        {
+          "partyNum": 15,
+          "totalVotes": 5,
+          "machineVotes": 5,
+          "paperVotes": 0,
+          "nickName": "БВ"
+        },
+        {
+          "partyNum": 18,
+          "totalVotes": 2,
+          "machineVotes": 2,
+          "paperVotes": 0,
+          "nickName": "ДНК"
+        },
+        {
+          "partyNum": 19,
+          "totalVotes": 17,
+          "machineVotes": 17,
+          "paperVotes": 0,
+          "nickName": "ИТН"
+        },
+        {
+          "partyNum": 20,
+          "totalVotes": 2,
+          "machineVotes": 2,
+          "paperVotes": 0,
+          "nickName": "ГН"
+        },
+        {
+          "partyNum": 24,
+          "totalVotes": 13,
+          "machineVotes": 13,
+          "paperVotes": 0,
+          "nickName": "ГЕРБ-СДС"
+        },
+        {
+          "partyNum": 25,
+          "totalVotes": 17,
+          "machineVotes": 17,
+          "paperVotes": 0,
+          "nickName": "ДБ"
+        },
+        {
+          "partyNum": 28,
+          "totalVotes": 3,
+          "machineVotes": 3,
+          "paperVotes": 0,
+          "nickName": "БСП"
+        }
+      ],
+      "protocol": {
+        "numMachineBallots": 127,
+        "numValidMachineVotes": 119,
+        "numValidNoOneMachineVotes": 8,
+        "totalActualVoters": 127
+      }
+    }
+  }
+]

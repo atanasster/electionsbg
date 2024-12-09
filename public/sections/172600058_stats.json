@@ -1,0 +1,56 @@
+[
+  {
+    "name": "2021_11_14",
+    "results": {
+      "actualTotal": 21,
+      "actualPaperVotes": 0,
+      "actualMachineVotes": 21,
+      "votes": [
+        {
+          "partyNum": 5,
+          "totalVotes": 1,
+          "machineVotes": 1,
+          "paperVotes": 0,
+          "nickName": "Възраждане"
+        },
+        {
+          "partyNum": 13,
+          "totalVotes": 2,
+          "machineVotes": 2,
+          "paperVotes": 0,
+          "nickName": "ОНБ"
+        },
+        {
+          "partyNum": 25,
+          "totalVotes": 6,
+          "machineVotes": 6,
+          "paperVotes": 0,
+          "nickName": "ПП"
+        },
+        {
+          "partyNum": 30,
+          "totalVotes": 2,
+          "machineVotes": 2,
+          "paperVotes": 0,
+          "nickName": "ДБ"
+        },
+        {
+          "partyNum": 32,
+          "totalVotes": 10,
+          "machineVotes": 10,
+          "paperVotes": 0,
+          "nickName": "ГЕРБ-СДС"
+        }
+      ],
+      "protocol": {
+        "ballotsReceived": 100,
+        "numAdditionalVoters": 10,
+        "numMachineBallots": 21,
+        "numRegisteredVoters": 11,
+        "numUnusedPaperBallots": 79,
+        "numValidMachineVotes": 21,
+        "totalActualVoters": 21
+      }
+    }
+  }
+]

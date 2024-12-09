@@ -1,0 +1,41 @@
+[
+  {
+    "name": "2021_04_04",
+    "results": {
+      "actualTotal": 13,
+      "actualPaperVotes": 13,
+      "actualMachineVotes": 0,
+      "votes": [
+        {
+          "partyNum": 4,
+          "totalVotes": 3,
+          "machineVotes": null,
+          "paperVotes": 3,
+          "nickName": "БСП"
+        },
+        {
+          "partyNum": 11,
+          "totalVotes": 3,
+          "machineVotes": null,
+          "paperVotes": 3,
+          "nickName": "ДБ"
+        },
+        {
+          "partyNum": 29,
+          "totalVotes": 7,
+          "machineVotes": null,
+          "paperVotes": 7,
+          "nickName": "ИТН"
+        }
+      ],
+      "protocol": {
+        "ballotsReceived": 100,
+        "numInvalidAndDestroyedPaperBallots": 1,
+        "numPaperBallotsFound": 13,
+        "numRegisteredVoters": 13,
+        "numValidVotes": 13,
+        "totalActualVoters": 13
+      }
+    }
+  }
+]

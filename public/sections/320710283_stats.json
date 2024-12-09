@@ -1,0 +1,131 @@
+[
+  {
+    "name": "2023_04_02",
+    "results": {
+      "actualTotal": 410,
+      "actualPaperVotes": 403,
+      "actualMachineVotes": 7,
+      "votes": [
+        {
+          "partyNum": 1,
+          "totalVotes": 12,
+          "machineVotes": 0,
+          "paperVotes": 12,
+          "nickName": "БСП"
+        },
+        {
+          "partyNum": 2,
+          "totalVotes": 55,
+          "machineVotes": 3,
+          "paperVotes": 52,
+          "nickName": "ГЕРБ-СДС"
+        },
+        {
+          "partyNum": 3,
+          "totalVotes": 42,
+          "machineVotes": 0,
+          "paperVotes": 42,
+          "nickName": "Възраждане"
+        },
+        {
+          "partyNum": 4,
+          "totalVotes": 5,
+          "machineVotes": 0,
+          "paperVotes": 5,
+          "nickName": "ИТН"
+        },
+        {
+          "partyNum": 8,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "Заедно"
+        },
+        {
+          "partyNum": 10,
+          "totalVotes": 3,
+          "machineVotes": 0,
+          "paperVotes": 3,
+          "nickName": "НДСВ"
+        },
+        {
+          "partyNum": 11,
+          "totalVotes": 3,
+          "machineVotes": 0,
+          "paperVotes": 3,
+          "nickName": "КОД"
+        },
+        {
+          "partyNum": 12,
+          "totalVotes": 268,
+          "machineVotes": 4,
+          "paperVotes": 264,
+          "nickName": "ПП-ДБ"
+        },
+        {
+          "partyNum": 13,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "ДПС"
+        },
+        {
+          "partyNum": 14,
+          "totalVotes": 10,
+          "machineVotes": 0,
+          "paperVotes": 10,
+          "nickName": "Левицата"
+        },
+        {
+          "partyNum": 15,
+          "totalVotes": 3,
+          "machineVotes": 0,
+          "paperVotes": 3,
+          "nickName": "БВ"
+        },
+        {
+          "partyNum": 16,
+          "totalVotes": 2,
+          "machineVotes": 0,
+          "paperVotes": 2,
+          "nickName": "МИР"
+        },
+        {
+          "partyNum": 17,
+          "totalVotes": 3,
+          "machineVotes": 0,
+          "paperVotes": 3,
+          "nickName": "БСД–Евролевица"
+        },
+        {
+          "partyNum": 19,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "Глас Народен"
+        },
+        {
+          "partyNum": 21,
+          "totalVotes": 1,
+          "machineVotes": 0,
+          "paperVotes": 1,
+          "nickName": "ВЪН ЕС/НАТО"
+        }
+      ],
+      "protocol": {
+        "ballotsReceived": 600,
+        "numAdditionalVoters": 350,
+        "numInvalidAndDestroyedPaperBallots": 4,
+        "numInvalidBallotsFound": 9,
+        "numMachineBallots": 7,
+        "numPaperBallotsFound": 422,
+        "numRegisteredVoters": 97,
+        "numUnusedPaperBallots": 174,
+        "numValidMachineVotes": 7,
+        "numValidNoOnePaperVotes": 10,
+        "numValidVotes": 403,
+        "totalActualVoters": 429
+      }
+    }
+  }
+]
