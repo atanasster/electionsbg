@@ -2,6 +2,7 @@ import fs from "fs";
 import { parse } from "csv-parse";
 import { PartyInfo } from "@/data/dataTypes";
 import { cikPartiesFileName } from "scripts/consts";
+import partyDefaults from "../party_defaults.json";
 
 export const parseParties = async (
   inFolder: string,
@@ -43,6 +44,18 @@ export const parseParties = async (
             };
             allParties.push(party);
           } else {
+            const defaultParty = partyDefaults.find(
+              (p) => p.nickName === party?.nickName,
+            );
+            if (party.color !== "lightslategrey" && !defaultParty) {
+              throw new Error(`Invalid party nickName: ${party?.nickName}`);
+            }
+            if (defaultParty?.color) {
+              party.color = defaultParty?.color;
+            }
+            if (defaultParty?.commonName) {
+              party.commonName = defaultParty?.commonName;
+            }
             party.number = partyNumber;
             party.name = row[numRow + 1];
           }

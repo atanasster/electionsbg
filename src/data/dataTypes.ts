@@ -125,12 +125,14 @@ export type PartyInfo = {
   name: string;
   nickName: string;
   color: string;
+  commonName?: string[];
 };
 
+export type StatsVote = Votes & { nickName: string; commonName?: string[] };
 export type ElectionInfo = {
   name: string;
   results?: Omit<VoteResults, "votes"> & {
-    votes: (Votes & { nickName?: string })[];
+    votes: StatsVote[];
   };
 };
 
