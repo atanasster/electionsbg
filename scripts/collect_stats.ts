@@ -6,6 +6,7 @@ import {
   ElectionSettlement,
   PartyInfo,
   SectionInfo,
+  StatsVote,
   VoteResults,
 } from "@/data/dataTypes";
 import { addVotes } from "@/data/utils";
@@ -50,10 +51,14 @@ const statsByRegion = (elections: ElectionInfo[], publicFolder: string) => {
           protocol: res.protocol,
           votes: res.votes.map((v) => {
             const party = parties.find((p) => p.number === v.partyNum);
-            return {
+            const stat: StatsVote = {
               ...v,
-              nickName: party?.nickName,
+              nickName: party?.nickName as string,
             };
+            if (party?.commonName) {
+              stat.commonName = party?.commonName;
+            }
+            return stat;
           }),
         },
       });
@@ -98,10 +103,14 @@ const statsByMunicipality = (
           protocol: res.protocol,
           votes: res.votes.map((v) => {
             const party = parties.find((p) => p.number === v.partyNum);
-            return {
+            const stat: StatsVote = {
               ...v,
-              nickName: party?.nickName,
+              nickName: party?.nickName as string,
             };
+            if (party?.commonName) {
+              stat.commonName = party?.commonName;
+            }
+            return stat;
           }),
         },
       });
@@ -142,10 +151,14 @@ const statsBySettlement = (elections: ElectionInfo[], publicFolder: string) => {
           protocol: res.protocol,
           votes: res.votes.map((v) => {
             const party = parties.find((p) => p.number === v.partyNum);
-            return {
+            const stat: StatsVote = {
               ...v,
-              nickName: party?.nickName,
+              nickName: party?.nickName as string,
             };
+            if (party?.commonName) {
+              stat.commonName = party?.commonName;
+            }
+            return stat;
           }),
         },
       });
@@ -187,10 +200,14 @@ const statsBySection = (elections: ElectionInfo[], publicFolder: string) => {
           protocol: res.protocol,
           votes: res.votes.map((v) => {
             const party = parties.find((p) => p.number === v.partyNum);
-            return {
+            const stat: StatsVote = {
               ...v,
-              nickName: party?.nickName,
+              nickName: party?.nickName as string,
             };
+            if (party?.commonName) {
+              stat.commonName = party?.commonName;
+            }
+            return stat;
           }),
         },
       });
@@ -240,10 +257,14 @@ export const collectStats = (
         protocol: results.protocol,
         votes: results.votes.map((v) => {
           const party = parties.find((p) => p.number === v.partyNum);
-          return {
+          const stat: StatsVote = {
             ...v,
-            nickName: party?.nickName,
+            nickName: party?.nickName as string,
           };
+          if (party?.commonName) {
+            stat.commonName = party?.commonName;
+          }
+          return stat;
         }),
       },
     };

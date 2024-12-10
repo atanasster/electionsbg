@@ -28,6 +28,7 @@ export const useTopParties = (
         return {
           ...v,
           nickName: party?.nickName,
+          commonName: party?.commonName,
           color: party?.color,
           name: party?.name,
           pctVotes,

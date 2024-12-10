@@ -54,7 +54,11 @@
           "totalVotes": 0,
           "machineVotes": 0,
           "paperVotes": 0,
-          "nickName": "ПФ"
+          "nickName": "ПФ",
+          "commonName": [
+            "НФСБ",
+            "ВМРО"
+          ]
         },
         {
           "partyNum": 5,
@@ -187,21 +191,33 @@
           "totalVotes": 294,
           "machineVotes": 206,
           "paperVotes": 0,
-          "nickName": "ДБ"
+          "nickName": "ДБ",
+          "commonName": [
+            "ДвБ",
+            "ДСБ",
+            "Зелените",
+            "РБ-ГН"
+          ]
         },
         {
           "partyNum": 31,
           "totalVotes": 20,
           "machineVotes": 15,
           "paperVotes": 0,
-          "nickName": "ПП ИСБ"
+          "nickName": "ПП ИСБ",
+          "commonName": [
+            "ПП ИСМВ"
+          ]
         },
         {
           "partyNum": 32,
           "totalVotes": 178,
           "machineVotes": 142,
           "paperVotes": 0,
-          "nickName": "ГЕРБ-СДС"
+          "nickName": "ГЕРБ-СДС",
+          "commonName": [
+            "ГЕРБ"
+          ]
         },
         {
           "partyNum": 33,
@@ -280,7 +296,10 @@
           "totalVotes": 1,
           "machineVotes": 1,
           "paperVotes": 0,
-          "nickName": "ГЕРБ-СДС"
+          "nickName": "ГЕРБ-СДС",
+          "commonName": [
+            "ГЕРБ"
+          ]
         },
         {
           "partyNum": 6,
@@ -357,7 +376,12 @@
           "totalVotes": 0,
           "machineVotes": 0,
           "paperVotes": 0,
-          "nickName": "БГ Патриоти"
+          "nickName": "БГ Патриоти",
+          "commonName": [
+            "ВМРО",
+            "ВОЛЯ",
+            "НФСБ"
+          ]
         },
         {
           "partyNum": 17,
@@ -392,7 +416,7 @@
           "totalVotes": 0,
           "machineVotes": 0,
           "paperVotes": 0,
-          "nickName": "Републиканци БГ"
+          "nickName": "РБГ"
         },
         {
           "partyNum": 22,
@@ -406,7 +430,13 @@
           "totalVotes": 10,
           "machineVotes": 10,
           "paperVotes": 0,
-          "nickName": "ДБ"
+          "nickName": "ДБ",
+          "commonName": [
+            "ДвБ",
+            "ДСБ",
+            "Зелените",
+            "РБ-ГН"
+          ]
         }
       ],
       "protocol": {

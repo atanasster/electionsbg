@@ -1,4 +1,11 @@
-import { SectionProtocol, VoteResults, Votes } from "./dataTypes";
+import {
+  PartyInfo,
+  PartyVotes,
+  SectionProtocol,
+  StatsVote,
+  VoteResults,
+  Votes,
+} from "./dataTypes";
 
 export const formatPct = (x?: number, decimals: number = 2) => {
   if (x === undefined || x === null) {
@@ -137,4 +144,26 @@ export const localDate = (date: string) => {
     month: "2-digit",
     day: "2-digit",
   });
+};
+
+export const findPrevVotes = (
+  party: PartyVotes | PartyInfo,
+  prevElectionVotes?: StatsVote[],
+  consolidateVotes?: boolean,
+) => {
+  return prevElectionVotes?.reduce((acc: number | undefined, pr) => {
+    if (
+      pr.nickName === party.nickName ||
+      (consolidateVotes
+        ? (pr.commonName &&
+            party.nickName &&
+            pr.commonName.includes(party.nickName)) ||
+          (party.commonName && party.commonName.includes(pr.nickName))
+        : (pr.commonName?.length && pr.commonName[0] === party.nickName) ||
+          (party.commonName?.length && party.commonName[0] === pr.nickName))
+    ) {
+      return (acc || 0) + pr.totalVotes;
+    }
+    return acc;
+  }, undefined);
 };

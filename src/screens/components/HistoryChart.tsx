@@ -10,7 +10,7 @@ import { ChartContainer, ChartTooltip } from "@/components/ui/chart";
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { ElectionInfo, PartyInfo } from "@/data/dataTypes";
-import { formatThousands, localDate } from "@/data/utils";
+import { findPrevVotes, formatThousands, localDate } from "@/data/utils";
 import { useElectionContext } from "@/data/ElectionContext";
 
 const CustomTooltip: FC<{
@@ -39,6 +39,7 @@ const CustomTooltip: FC<{
 };
 export const HistoryChart: FC<{
   party: PartyInfo;
+  isConsolidated?: boolean;
   stats: ElectionInfo[];
   xAxis?: boolean;
   cursorPointer?: boolean;
@@ -50,6 +51,7 @@ export const HistoryChart: FC<{
   xAxis,
   className,
   cursorPointer,
+  isConsolidated,
   animationDuration = 1000,
 }) => {
   const { selected } = useElectionContext();
@@ -59,11 +61,10 @@ export const HistoryChart: FC<{
       .map((e) => ({
         date: localDate(e.name),
         name: e.name,
-        votes: e.results?.votes.find((v) => v.nickName === party.nickName)
-          ?.totalVotes,
+        votes: findPrevVotes(party, e.results?.votes, isConsolidated),
       }))
       .sort((a, b) => a.name.localeCompare(b.name));
-  }, [party.nickName, stats]);
+  }, [isConsolidated, party, stats]);
   return (
     <ChartContainer config={{}} className={className}>
       <AreaChart

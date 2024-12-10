@@ -1,4 +1,13 @@
-import { ElectionInfo, PartyInfo, PartyVotes, Votes } from "@/data/dataTypes";
+import {
+  ElectionInfo,
+  PartyInfo,
+  PartyVotes,
+  StatsVote,
+  Votes,
+} from "@/data/dataTypes";
+import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
+
 import {
   Dialog,
   DialogContent,
@@ -9,9 +18,9 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { useTopParties } from "@/data/useTopParties";
-import { formatPct, formatThousands } from "@/data/utils";
+import { findPrevVotes, formatPct, formatThousands } from "@/data/utils";
 import { DataTable, DataTableColumns } from "@/ux/DataTable";
-import { FC, useMemo } from "react";
+import { FC, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { PartyLabel } from "./PartyLabel";
 import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
@@ -25,9 +34,12 @@ import { Caption } from "@/ux/Caption";
 export const PartyVotesTable: FC<{
   votes?: Votes[];
   stats?: ElectionInfo[];
-  prevElectionVotes?: (Votes & { nickName?: string })[] | null;
+  prevElectionVotes?: StatsVote[] | null;
 }> = ({ votes, prevElectionVotes, stats }) => {
   const { t } = useTranslation();
+  const [isConsolidated, setIsConsolidated] = useState(
+    localStorage.getItem("consolidated_history") === "true",
+  );
   const isXSmall = useMediaQueryMatch("xs");
   const isSmall = useMediaQueryMatch("sm");
   const isLarge = useMediaQueryMatch("lg");
@@ -37,18 +49,21 @@ export const PartyVotesTable: FC<{
   const data = useMemo(() => {
     return prevElectionVotes
       ? parties?.map((p) => {
-          const d = prevElectionVotes.find((pr) => pr.nickName === p.nickName);
+          const prevTotalVotes = findPrevVotes(
+            p,
+            prevElectionVotes,
+            isConsolidated,
+          );
           return {
             ...p,
-            prevTotalVotes: d?.totalVotes,
-            pctPrevChange:
-              d && d.totalVotes
-                ? (100 * (p.totalVotes - d.totalVotes)) / d.totalVotes
-                : undefined,
+            prevTotalVotes,
+            pctPrevChange: prevTotalVotes
+              ? (100 * (p.totalVotes - prevTotalVotes)) / prevTotalVotes
+              : undefined,
           };
         })
       : parties;
-  }, [parties, prevElectionVotes]);
+  }, [isConsolidated, parties, prevElectionVotes]);
   const columns: DataTableColumns<PartyVotes, unknown> = useMemo(
     () => [
       {
@@ -168,6 +183,7 @@ export const PartyVotesTable: FC<{
                       className="min-w-60 h-12"
                       party={row.original as PartyInfo}
                       stats={stats}
+                      isConsolidated={isConsolidated}
                       cursorPointer={true}
                       animationDuration={0}
                     />
@@ -189,6 +205,7 @@ export const PartyVotesTable: FC<{
                   <div className="grid flex-1 gap-2">
                     <HistoryChart
                       party={row.original as PartyInfo}
+                      isConsolidated={isConsolidated}
                       xAxis={true}
                       stats={stats}
                     />
@@ -207,19 +224,36 @@ export const PartyVotesTable: FC<{
       },
     ],
     [
-      hasMachineVotes,
-      hasPaperVotes,
-      isSmall,
       isXSmall,
-      isLarge,
-      prevElectionVotes,
       stats,
       t,
+      isSmall,
+      hasPaperVotes,
+      hasMachineVotes,
+      prevElectionVotes,
+      isLarge,
+      isConsolidated,
     ],
   );
   return data?.length ? (
     <div className="w-full">
       <Caption className="py-8">{t("votes_by_party")}</Caption>
+      <Hint text={t("consolidated_data_explainer")}>
+        <div className="flex items-center space-x-2 pb-4 justify-end">
+          <Switch
+            id="consolidated-mode"
+            checked={isConsolidated}
+            onCheckedChange={(value) => {
+              localStorage.setItem(
+                "consolidated_history",
+                value ? "true" : "false",
+              );
+              setIsConsolidated(value);
+            }}
+          />
+          <Label htmlFor="consolidated-mode">{t("consolidated_data")}</Label>
+        </div>
+      </Hint>
       <DataTable pageSize={data.length} columns={columns} data={data} />
     </div>
   ) : null;
