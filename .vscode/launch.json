@@ -17,8 +17,8 @@
      * Assuming locally installed
      */
     "runtimeExecutable": "tsx",
-
-    "args": ["--stats --date=2024_10_27"],
+    "args": ["--all"],
+    //"args": ["--date=2014_10_05"],
     /*
      * Open terminal when debugging starts (Optional)
      * Useful to see console.logs
