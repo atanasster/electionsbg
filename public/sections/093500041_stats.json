@@ -25,7 +25,10 @@
           "totalVotes": 32,
           "machineVotes": 0,
           "paperVotes": 32,
-          "nickName": "ДПС-НН"
+          "nickName": "ДПС-НН",
+          "commonName": [
+            "ДПС"
+          ]
         },
         {
           "partyNum": 12,
@@ -39,7 +42,10 @@
           "totalVotes": 6,
           "machineVotes": 0,
           "paperVotes": 6,
-          "nickName": "АПС"
+          "nickName": "АПС",
+          "commonName": [
+            "ДПС"
+          ]
         },
         {
           "partyNum": 17,
@@ -53,7 +59,13 @@
           "totalVotes": 1,
           "machineVotes": 0,
           "paperVotes": 1,
-          "nickName": "ПП-ДБ"
+          "nickName": "ПП-ДБ",
+          "commonName": [
+            "ПП",
+            "ДБ",
+            "ДаБГ",
+            "ДСБ"
+          ]
         }
       ],
       "protocol": {
@@ -94,7 +106,10 @@
           "totalVotes": 1,
           "machineVotes": 0,
           "paperVotes": 1,
-          "nickName": "ГЕРБ-СДС"
+          "nickName": "ГЕРБ-СДС",
+          "commonName": [
+            "ГЕРБ"
+          ]
         },
         {
           "partyNum": 28,
@@ -127,14 +142,23 @@
           "totalVotes": 1,
           "machineVotes": 0,
           "paperVotes": 1,
-          "nickName": "ГЕРБ-СДС"
+          "nickName": "ГЕРБ-СДС",
+          "commonName": [
+            "ГЕРБ"
+          ]
         },
         {
           "partyNum": 12,
           "totalVotes": 3,
           "machineVotes": 0,
           "paperVotes": 3,
-          "nickName": "ПП-ДБ"
+          "nickName": "ПП-ДБ",
+          "commonName": [
+            "ПП",
+            "ДБ",
+            "ДаБГ",
+            "ДСБ"
+          ]
         },
         {
           "partyNum": 13,
@@ -188,7 +212,10 @@
           "totalVotes": 1,
           "machineVotes": 1,
           "paperVotes": 0,
-          "nickName": "ГЕРБ-СДС"
+          "nickName": "ГЕРБ-СДС",
+          "commonName": [
+            "ГЕРБ"
+          ]
         }
       ],
       "protocol": {
@@ -222,7 +249,10 @@
           "totalVotes": 2,
           "machineVotes": 2,
           "paperVotes": 0,
-          "nickName": "ГЕРБ-СДС"
+          "nickName": "ГЕРБ-СДС",
+          "commonName": [
+            "ГЕРБ"
+          ]
         }
       ],
       "protocol": {

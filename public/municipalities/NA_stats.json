@@ -60,7 +60,10 @@
           "totalVotes": 24,
           "machineVotes": 2,
           "paperVotes": 22,
-          "nickName": "ДПС-НН"
+          "nickName": "ДПС-НН",
+          "commonName": [
+            "ДПС"
+          ]
         },
         {
           "partyNum": 9,
@@ -95,7 +98,10 @@
           "totalVotes": 39,
           "machineVotes": 10,
           "paperVotes": 29,
-          "nickName": "АПС"
+          "nickName": "АПС",
+          "commonName": [
+            "ДПС"
+          ]
         },
         {
           "partyNum": 14,
@@ -130,7 +136,10 @@
           "totalVotes": 1244,
           "machineVotes": 167,
           "paperVotes": 1077,
-          "nickName": "ГЕРБ-СДС"
+          "nickName": "ГЕРБ-СДС",
+          "commonName": [
+            "ГЕРБ"
+          ]
         },
         {
           "partyNum": 19,
@@ -186,7 +195,13 @@
           "totalVotes": 4201,
           "machineVotes": 842,
           "paperVotes": 3359,
-          "nickName": "ПП-ДБ"
+          "nickName": "ПП-ДБ",
+          "commonName": [
+            "ПП",
+            "ДБ",
+            "ДаБГ",
+            "ДСБ"
+          ]
         },
         {
           "partyNum": 27,
@@ -316,7 +331,13 @@
           "totalVotes": 3490,
           "machineVotes": 774,
           "paperVotes": 2716,
-          "nickName": "ПП-ДБ"
+          "nickName": "ПП-ДБ",
+          "commonName": [
+            "ПП",
+            "ДБ",
+            "ДаБГ",
+            "ДСБ"
+          ]
         },
         {
           "partyNum": 15,
@@ -372,7 +393,10 @@
           "totalVotes": 877,
           "machineVotes": 162,
           "paperVotes": 715,
-          "nickName": "ГЕРБ-СДС"
+          "nickName": "ГЕРБ-СДС",
+          "commonName": [
+            "ГЕРБ"
+          ]
         },
         {
           "partyNum": 23,
@@ -481,7 +505,10 @@
           "totalVotes": 1422,
           "machineVotes": 317,
           "paperVotes": 1105,
-          "nickName": "ГЕРБ-СДС"
+          "nickName": "ГЕРБ-СДС",
+          "commonName": [
+            "ГЕРБ"
+          ]
         },
         {
           "partyNum": 3,
@@ -551,7 +578,13 @@
           "totalVotes": 6623,
           "machineVotes": 2105,
           "paperVotes": 4518,
-          "nickName": "ПП-ДБ"
+          "nickName": "ПП-ДБ",
+          "commonName": [
+            "ПП",
+            "ДБ",
+            "ДаБГ",
+            "ДСБ"
+          ]
         },
         {
           "partyNum": 13,
@@ -758,7 +791,10 @@
           "totalVotes": 43,
           "machineVotes": 33,
           "paperVotes": 0,
-          "nickName": "ПП ИСБ"
+          "nickName": "ПП ИСБ",
+          "commonName": [
+            "ПП ИСМВ"
+          ]
         },
         {
           "partyNum": 18,
@@ -800,14 +836,23 @@
           "totalVotes": 1304,
           "machineVotes": 1062,
           "paperVotes": 0,
-          "nickName": "ГЕРБ-СДС"
+          "nickName": "ГЕРБ-СДС",
+          "commonName": [
+            "ГЕРБ"
+          ]
         },
         {
           "partyNum": 25,
           "totalVotes": 1902,
           "machineVotes": 1551,
           "paperVotes": 0,
-          "nickName": "ДБ"
+          "nickName": "ДБ",
+          "commonName": [
+            "ДвБ",
+            "ДСБ",
+            "Зелените",
+            "РБ-ГН"
+          ]
         },
         {
           "partyNum": 26,
@@ -865,7 +910,11 @@
           "totalVotes": 9,
           "machineVotes": 7,
           "paperVotes": 0,
-          "nickName": "ПФ"
+          "nickName": "ПФ",
+          "commonName": [
+            "НФСБ",
+            "ВМРО"
+          ]
         },
         {
           "partyNum": 5,
@@ -998,21 +1047,33 @@
           "totalVotes": 2184,
           "machineVotes": 1827,
           "paperVotes": 0,
-          "nickName": "ДБ"
+          "nickName": "ДБ",
+          "commonName": [
+            "ДвБ",
+            "ДСБ",
+            "Зелените",
+            "РБ-ГН"
+          ]
         },
         {
           "partyNum": 31,
           "totalVotes": 187,
           "machineVotes": 153,
           "paperVotes": 0,
-          "nickName": "ПП ИСБ"
+          "nickName": "ПП ИСБ",
+          "commonName": [
+            "ПП ИСМВ"
+          ]
         },
         {
           "partyNum": 32,
           "totalVotes": 1970,
           "machineVotes": 1600,
           "paperVotes": 0,
-          "nickName": "ГЕРБ-СДС"
+          "nickName": "ГЕРБ-СДС",
+          "commonName": [
+            "ГЕРБ"
+          ]
         },
         {
           "partyNum": 33,
@@ -1091,7 +1152,10 @@
           "totalVotes": 1382,
           "machineVotes": 1101,
           "paperVotes": 0,
-          "nickName": "ГЕРБ-СДС"
+          "nickName": "ГЕРБ-СДС",
+          "commonName": [
+            "ГЕРБ"
+          ]
         },
         {
           "partyNum": 6,
@@ -1168,7 +1232,12 @@
           "totalVotes": 155,
           "machineVotes": 137,
           "paperVotes": 0,
-          "nickName": "БГ Патриоти"
+          "nickName": "БГ Патриоти",
+          "commonName": [
+            "ВМРО",
+            "ВОЛЯ",
+            "НФСБ"
+          ]
         },
         {
           "partyNum": 17,
@@ -1203,7 +1272,7 @@
           "totalVotes": 25,
           "machineVotes": 16,
           "paperVotes": 0,
-          "nickName": "Републиканци БГ"
+          "nickName": "РБГ"
         },
         {
           "partyNum": 22,
@@ -1217,7 +1286,13 @@
           "totalVotes": 3551,
           "machineVotes": 2955,
           "paperVotes": 0,
-          "nickName": "ДБ"
+          "nickName": "ДБ",
+          "commonName": [
+            "ДвБ",
+            "ДСБ",
+            "Зелените",
+            "РБ-ГН"
+          ]
         }
       ],
       "protocol": {
@@ -1310,7 +1385,13 @@
           "totalVotes": 3988,
           "machineVotes": null,
           "paperVotes": 3988,
-          "nickName": "ДБ"
+          "nickName": "ДБ",
+          "commonName": [
+            "ДвБ",
+            "ДСБ",
+            "Зелените",
+            "РБ-ГН"
+          ]
         },
         {
           "partyNum": 12,
@@ -1380,7 +1461,7 @@
           "totalVotes": 172,
           "machineVotes": null,
           "paperVotes": 172,
-          "nickName": "Републиканци БГ"
+          "nickName": "РБГ"
         },
         {
           "partyNum": 22,
@@ -1429,7 +1510,10 @@
           "totalVotes": 1499,
           "machineVotes": null,
           "paperVotes": 1499,
-          "nickName": "ГЕРБ-СДС"
+          "nickName": "ГЕРБ-СДС",
+          "commonName": [
+            "ГЕРБ"
+          ]
         },
         {
           "partyNum": 29,
@@ -1519,7 +1603,7 @@
           "totalVotes": 76,
           "machineVotes": 0,
           "paperVotes": 76,
-          "nickName": "АБВ/21"
+          "nickName": "АБВ/Д21"
         },
         {
           "partyNum": 9,
@@ -1575,14 +1659,23 @@
           "totalVotes": 1516,
           "machineVotes": 0,
           "paperVotes": 1516,
-          "nickName": "ДвБ"
+          "nickName": "ДвБ",
+          "commonName": [
+            "Зелените",
+            "ДЕОС"
+          ]
         },
         {
           "partyNum": 17,
           "totalVotes": 820,
           "machineVotes": 0,
           "paperVotes": 820,
-          "nickName": "ОП"
+          "nickName": "ОП",
+          "commonName": [
+            "ВМРО",
+            "Атака",
+            "НФСБ"
+          ]
         },
         {
           "partyNum": 18,
@@ -1610,7 +1703,11 @@
           "totalVotes": 442,
           "machineVotes": 0,
           "paperVotes": 442,
-          "nickName": "РБ-ГН"
+          "nickName": "РБ-ГН",
+          "commonName": [
+            "РБ",
+            "ГН"
+          ]
         }
       ],
       "protocol": {
@@ -1639,7 +1736,7 @@
           "totalVotes": 75,
           "machineVotes": 0,
           "paperVotes": 75,
-          "nickName": "Движение 21"
+          "nickName": "Д21"
         },
         {
           "partyNum": 2,
@@ -1681,7 +1778,14 @@
           "totalVotes": 2772,
           "machineVotes": 0,
           "paperVotes": 2772,
-          "nickName": "РБ"
+          "nickName": "РБ",
+          "commonName": [
+            "БЗНС",
+            "ДБГ",
+            "ДСБ",
+            "НПСД",
+            "СДС"
+          ]
         },
         {
           "partyNum": 8,
@@ -1737,7 +1841,11 @@
           "totalVotes": 20,
           "machineVotes": 0,
           "paperVotes": 20,
-          "nickName": "Левица-ЗП"
+          "nickName": "Левица-ЗП",
+          "commonName": [
+            "Левицата",
+            "ЗП"
+          ]
         },
         {
           "partyNum": 16,
@@ -1772,7 +1880,7 @@
           "totalVotes": 35,
           "machineVotes": 0,
           "paperVotes": 35,
-          "nickName": "ПП Зелените"
+          "nickName": "Зелените"
         },
         {
           "partyNum": 21,
@@ -1800,7 +1908,11 @@
           "totalVotes": 676,
           "machineVotes": 0,
           "paperVotes": 676,
-          "nickName": "ПФ"
+          "nickName": "ПФ",
+          "commonName": [
+            "НФСБ",
+            "ВМРО"
+          ]
         },
         {
           "partyNum": 25,

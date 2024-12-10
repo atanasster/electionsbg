@@ -1,1 +1,188 @@
-[{"number":1,"name":"Движение за права и свободи – ДПС","color":"rgb(33, 125, 223)","nickName":"ДПС"},{"number":2,"name":"БСДД – Български Съюз за ДИРЕКТНА ДЕМОКРАЦИЯ","color":"lightslategrey","nickName":"БСДД"},{"number":3,"name":"БНО","color":"lightslategrey","nickName":"БНО"},{"number":4,"name":"ПП Национално движение Единство","color":"lightslategrey","nickName":"Единство"},{"number":5,"name":"ПП ВМРО – БЪЛГАРСКО НАЦИОНАЛНО ДВИЖЕНИЕ","color":"rgb(202, 40, 36)","nickName":"ВМРО"},{"number":6,"name":"Коалиция Справедлива България","color":"lightslategrey","nickName":"КСБ"},{"number":7,"name":"ПРЯКА ДЕМОКРАЦИЯ","color":"lightslategrey","nickName":"ПД"},{"number":8,"name":"НФСБ","color":"lightslategrey","nickName":"НФСБ"},{"number":9,"name":"Продължаваме Промяната","color":"rgb(66, 0, 255)","nickName":"ПП"},{"number":10,"name":"МИР","color":"lightslategrey","nickName":"МИР"},{"number":11,"name":"КОД /Консервативно Обединение на Десницата/","color":"lightslategrey","nickName":"КОД"},{"number":12,"name":"БТР – БЪЛГАРИЯ НА ТРУДА И РАЗУМА","color":"lightslategrey","nickName":"БТР"},{"number":13,"name":"ПП КОАЛИЦИЯ ЗА ТЕБ БЪЛГАРИЯ","color":"lightslategrey","nickName":"КЗТБ"},{"number":14,"name":"ВЪЗРАЖДАНЕ","color":"rgb(51, 51, 51)","nickName":"Възраждане"},{"number":15,"name":"БЪЛГАРСКИ ВЪЗХОД","color":"#007bff","nickName":"БВ"},{"number":16,"name":"БЪЛГАРСКИ НАЦИОНАЛЕН СЪЮЗ – НД","color":"lightslategrey","nickName":"БНС-НД"},{"number":17,"name":"ПП ИЗПРАВИ СЕ БЪЛГАРИЯ","color":"rgb(0, 147, 68)","nickName":"ПП ИСБ"},{"number":18,"name":"ДВИЖЕНИЕ НА НЕПАРТИЙНИТЕ КАНДИДАТИ","color":"lightslategrey","nickName":"ДНК"},{"number":19,"name":"ПП ИМА ТАКЪВ НАРОД","color":"rgb(75, 185, 222)","nickName":"ИТН"},{"number":20,"name":"ПП ГЛАС НАРОДЕН","color":"lightslategrey","nickName":"ГН"},{"number":21,"name":"ПП ЕДИННА НАРОДНА ПАРТИЯ","color":"rgb(32, 115, 190)","nickName":"ПП ЕНП"},{"number":22,"name":"ПРАВОТО","color":"lightslategrey","nickName":"Правото"},{"number":23,"name":"НАРОДНА ПАРТИЯ ИСТИНАТА И САМО ИСТИНАТА","color":"lightslategrey","nickName":"НПИ-СИ"},{"number":24,"name":"ГЕРБ-СДС","color":"rgb(12, 69, 135)","nickName":"ГЕРБ-СДС"},{"number":25,"name":"ДЕМОКРАТИЧНА БЪЛГАРИЯ – ОБЕДИНЕНИЕ (ДА България, ДСБ, Зелено движение)","color":"rgb(66, 0, 255)","nickName":"ДБ"},{"number":26,"name":"БЪЛГАРСКА СОЦИАЛДЕМОКРАЦИЯ – ЕВРОЛЕВИЦА","color":"lightslategrey","nickName":"БСД–Евролевица"},{"number":27,"name":"АТАКА","color":"#006400","nickName":"Атака"},{"number":28,"name":"БСП ЗА БЪЛГАРИЯ","color":"rgb(237, 28, 36)","nickName":"БСП"},{"number":29,"name":"РУСОФИЛИ ЗА ВЪЗРАЖДАНЕ НА ОТЕЧЕСТВОТО","color":"lightslategrey","nickName":"КП-РзВО"}]
+[
+  {
+    "number": 1,
+    "name": "Движение за права и свободи – ДПС",
+    "color": "rgb(33, 125, 223)",
+    "nickName": "ДПС"
+  },
+  {
+    "number": 2,
+    "name": "БСДД – Български Съюз за ДИРЕКТНА ДЕМОКРАЦИЯ",
+    "color": "lightslategrey",
+    "nickName": "БСДД"
+  },
+  {
+    "number": 3,
+    "name": "БНО",
+    "color": "lightslategrey",
+    "nickName": "БНО"
+  },
+  {
+    "number": 4,
+    "name": "ПП Национално движение Единство",
+    "color": "lightslategrey",
+    "nickName": "Единство"
+  },
+  {
+    "number": 5,
+    "name": "ПП ВМРО – БЪЛГАРСКО НАЦИОНАЛНО ДВИЖЕНИЕ",
+    "color": "rgb(202, 40, 36)",
+    "nickName": "ВМРО"
+  },
+  {
+    "number": 6,
+    "name": "Коалиция Справедлива България",
+    "color": "lightslategrey",
+    "nickName": "КСБ"
+  },
+  {
+    "number": 7,
+    "name": "ПРЯКА ДЕМОКРАЦИЯ",
+    "color": "lightslategrey",
+    "nickName": "ПД"
+  },
+  {
+    "number": 8,
+    "name": "НФСБ",
+    "color": "rgb(202, 40, 36)",
+    "nickName": "НФСБ"
+  },
+  {
+    "number": 9,
+    "name": "Продължаваме Промяната",
+    "color": "rgb(66, 0, 255)",
+    "nickName": "ПП"
+  },
+  {
+    "number": 10,
+    "name": "МИР",
+    "color": "lightslategrey",
+    "nickName": "МИР"
+  },
+  {
+    "number": 11,
+    "name": "КОД /Консервативно Обединение на Десницата/",
+    "color": "rgb(0, 74, 121)",
+    "nickName": "КОД"
+  },
+  {
+    "number": 12,
+    "name": "БТР – БЪЛГАРИЯ НА ТРУДА И РАЗУМА",
+    "color": "lightslategrey",
+    "nickName": "БТР"
+  },
+  {
+    "number": 13,
+    "name": "ПП КОАЛИЦИЯ ЗА ТЕБ БЪЛГАРИЯ",
+    "color": "lightslategrey",
+    "nickName": "КЗТБ"
+  },
+  {
+    "number": 14,
+    "name": "ВЪЗРАЖДАНЕ",
+    "color": "rgb(51, 51, 51)",
+    "nickName": "Възраждане"
+  },
+  {
+    "number": 15,
+    "name": "БЪЛГАРСКИ ВЪЗХОД",
+    "color": "#007bff",
+    "nickName": "БВ"
+  },
+  {
+    "number": 16,
+    "name": "БЪЛГАРСКИ НАЦИОНАЛЕН СЪЮЗ – НД",
+    "color": "lightslategrey",
+    "nickName": "БНС-НД"
+  },
+  {
+    "number": 17,
+    "name": "ПП ИЗПРАВИ СЕ БЪЛГАРИЯ",
+    "color": "rgb(0, 147, 68)",
+    "nickName": "ПП ИСБ",
+    "commonName": [
+      "ПП ИСМВ"
+    ]
+  },
+  {
+    "number": 18,
+    "name": "ДВИЖЕНИЕ НА НЕПАРТИЙНИТЕ КАНДИДАТИ",
+    "color": "lightslategrey",
+    "nickName": "ДНК"
+  },
+  {
+    "number": 19,
+    "name": "ПП ИМА ТАКЪВ НАРОД",
+    "color": "rgb(75, 185, 222)",
+    "nickName": "ИТН"
+  },
+  {
+    "number": 20,
+    "name": "ПП ГЛАС НАРОДЕН",
+    "color": "lightslategrey",
+    "nickName": "ГН"
+  },
+  {
+    "number": 21,
+    "name": "ПП ЕДИННА НАРОДНА ПАРТИЯ",
+    "color": "rgb(32, 115, 190)",
+    "nickName": "ПП ЕНП"
+  },
+  {
+    "number": 22,
+    "name": "ПРАВОТО",
+    "color": "lightslategrey",
+    "nickName": "Правото"
+  },
+  {
+    "number": 23,
+    "name": "НАРОДНА ПАРТИЯ ИСТИНАТА И САМО ИСТИНАТА",
+    "color": "lightslategrey",
+    "nickName": "НПИ-СИ"
+  },
+  {
+    "number": 24,
+    "name": "ГЕРБ-СДС",
+    "color": "rgb(12, 69, 135)",
+    "nickName": "ГЕРБ-СДС",
+    "commonName": [
+      "ГЕРБ"
+    ]
+  },
+  {
+    "number": 25,
+    "name": "ДЕМОКРАТИЧНА БЪЛГАРИЯ – ОБЕДИНЕНИЕ (ДА България, ДСБ, Зелено движение)",
+    "color": "rgb(66, 0, 255)",
+    "nickName": "ДБ",
+    "commonName": [
+      "ДвБ",
+      "ДСБ",
+      "Зелените",
+      "РБ-ГН"
+    ]
+  },
+  {
+    "number": 26,
+    "name": "БЪЛГАРСКА СОЦИАЛДЕМОКРАЦИЯ – ЕВРОЛЕВИЦА",
+    "color": "lightslategrey",
+    "nickName": "БСД–Евролевица"
+  },
+  {
+    "number": 27,
+    "name": "АТАКА",
+    "color": "#006400",
+    "nickName": "Атака"
+  },
+  {
+    "number": 28,
+    "name": "БСП ЗА БЪЛГАРИЯ",
+    "color": "rgb(237, 28, 36)",
+    "nickName": "БСП"
+  },
+  {
+    "number": 29,
+    "name": "РУСОФИЛИ ЗА ВЪЗРАЖДАНЕ НА ОТЕЧЕСТВОТО",
+    "color": "lightslategrey",
+    "nickName": "КП-РзВО"
+  }
+]
