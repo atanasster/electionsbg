@@ -30,6 +30,7 @@ import { DialogClose } from "@radix-ui/react-dialog";
 import { Button } from "@/components/ui/button";
 import { ChartArea } from "lucide-react";
 import { Caption } from "@/ux/Caption";
+import { useTouch } from "@/ux/TouchProvider";
 
 export const PartyVotesTable: FC<{
   votes?: Votes[];
@@ -46,6 +47,7 @@ export const PartyVotesTable: FC<{
   const hasPaperVotes = votes?.find((v) => v.paperVotes);
   const hasMachineVotes = votes?.find((v) => v.machineVotes);
   const parties = useTopParties(votes, 0);
+  const isTouch = useTouch();
   const data = useMemo(() => {
     return prevElectionVotes
       ? parties?.map((p) => {
@@ -251,7 +253,12 @@ export const PartyVotesTable: FC<{
               setIsConsolidated(value);
             }}
           />
-          <Label htmlFor="consolidated-mode">{t("consolidated_data")}</Label>
+          <Label
+            className="text-secondary-foreground"
+            htmlFor={isTouch ? undefined : "consolidated-mode"}
+          >
+            {t("consolidated_data")}
+          </Label>
         </div>
       </Hint>
       <DataTable pageSize={data.length} columns={columns} data={data} />

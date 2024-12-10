@@ -242,6 +242,31 @@ export const Header = () => {
                 </DropdownMenuSubContent>
               </DropdownMenuPortal>
             </DropdownMenuSub>
+            <DropdownMenuSub>
+              <DropdownMenuSubTrigger>{t("skin")}</DropdownMenuSubTrigger>
+              <DropdownMenuPortal>
+                <DropdownMenuSubContent>
+                  <DropdownMenuItem>
+                    <button
+                      className="flex justify-between w-full"
+                      onClick={() => setTheme(themeLight)}
+                    >
+                      <div className="mr-4">{t("light")}</div>
+                      {theme === themeLight && <Check />}
+                    </button>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>
+                    <button
+                      className="flex justify-between w-full"
+                      onClick={() => setTheme(themeDark)}
+                    >
+                      <div className="mr-4">{t("dark")}</div>
+                      {theme === themeDark && <Check />}
+                    </button>
+                  </DropdownMenuItem>
+                </DropdownMenuSubContent>
+              </DropdownMenuPortal>
+            </DropdownMenuSub>
           </DropdownMenuContent>
         </DropdownMenu>
       </div>
