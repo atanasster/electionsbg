@@ -28,12 +28,14 @@ interface DataTableProps<TData, TValue> {
   columns: DataTableColumns<TData, TValue>;
   data: TData[];
   pageSize?: number;
+  stickyColumn?: boolean;
 }
 
 export const DataTable = <TData, TValue>({
   columns,
   data,
   pageSize = 10,
+  stickyColumn,
 }: DataTableProps<TData, TValue>) => {
   const [sorting, setSorting] = useState<SortingState>([]);
   const { t } = useTranslation();
@@ -82,13 +84,20 @@ export const DataTable = <TData, TValue>({
 
   return (
     <div className="rounded-xl border bg-card text-card-foreground shadow">
-      <Table>
+      <Table className="table-auto">
         <TableHeader>
           {table.getHeaderGroups().map((headerGroup) => (
             <TableRow key={headerGroup.id}>
-              {headerGroup.headers.map((header) => {
+              {headerGroup.headers.map((header, idx) => {
                 return (
-                  <TableHead key={header.id}>
+                  <TableHead
+                    key={header.id}
+                    className={
+                      stickyColumn && idx === 0
+                        ? "sticky left-0 z-5 bg-card"
+                        : ""
+                    }
+                  >
                     {header.isPlaceholder
                       ? null
                       : flexRender(
@@ -108,8 +117,11 @@ export const DataTable = <TData, TValue>({
                 key={row.id}
                 data-state={row.getIsSelected() && "selected"}
               >
-                {row.getVisibleCells().map((cell) => (
-                  <TableCell key={cell.id} className="px-2 py-0">
+                {row.getVisibleCells().map((cell, idx) => (
+                  <TableCell
+                    key={cell.id}
+                    className={`py-0 ${stickyColumn && idx === 0 ? " sticky left-0 z-5 bg-card" : ""}`}
+                  >
                     {flexRender(cell.column.columnDef.cell, cell.getContext())}
                   </TableCell>
                 ))}

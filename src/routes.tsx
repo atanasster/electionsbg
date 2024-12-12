@@ -3,27 +3,32 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { RegionsScreen } from "@/screens/RegionsScreen";
 import { MunicipalitiesScreen } from "@/screens/MunicipalitiesScreen";
 import { SettlementsScreen } from "@/screens/SettlementsScreen";
-
 import { NotFound } from "@/screens/NotFound";
 import { Layout } from "./layout/Layout";
 import { SectionsScreen } from "./screens/SectionsScreen";
-import { SettlementsConcentrationReport } from "./screens/reports/settlements/SettlementsConcentrationReport";
-import { SettlementsTurnoutReport } from "./screens/reports/settlements/SettlementsTurnoutReport";
-import { SettlementsInvalidBallotsReport } from "./screens/reports/settlements/SettlementsInvalidBallotsReport";
-import { SettlementsAdditionalVotersReport } from "./screens/reports/settlements/SettlementsAdditionalVotersReport";
-import { SettlementsSupportsNoOneReport } from "./screens/reports/settlements/SettlementsSupportsNoOneReport";
-import { MunicipalitiesConcentrationReport } from "./screens/reports/municipalities/MunicipalitiesConcentrationReport";
-import { MunicipalitiesTurnoutReport } from "./screens/reports/municipalities/MunicipalitiesTurnoutReport";
-import { MunicipalitiesInvalidBallotsReport } from "./screens/reports/municipalities/MunicipalitiesInvalidBallotsReport";
-import { MunicipalitiesAdditionalVotersReport } from "./screens/reports/municipalities/MunicipalitiesAdditionalVotersReport";
-import { MunicipalitiesSupportsNoOneReport } from "./screens/reports/municipalities/MunicipalitiesSupportsNoOneReport";
-import { SectionsConcentrationReport } from "./screens/reports/sections/SectionsConcentrationReport";
-import { SectionsTurnoutReport } from "./screens/reports/sections/SectionsTurnoutReport";
-import { SectionsInvalidBallotsReport } from "./screens/reports/sections/SectionsInvalidBallotsReport";
-import { SectionsAdditionalVotersReport } from "./screens/reports/sections/SectionsAdditionalVotersReport";
-import { SectionsSupportsNoOneReport } from "./screens/reports/sections/SectionsSupportsNoOneReport";
 import { SectionScreen } from "./screens/SectionScreen";
 import { AboutScreen } from "./screens/AboutScreen";
+import { MunicipalitiesTurnout } from "./screens/reports/municipalities/MunicipalitiesTurnout";
+import { MunicipalitiesConcentration } from "./screens/reports/municipalities/MunicipalitiesConcentration";
+import { MunicipalitiesAdditionalVoters } from "./screens/reports/municipalities/MunicipalitiesAdditionalVoters";
+import { MunicipalitiesInvalidBallots } from "./screens/reports/municipalities/MunicipalitiesInvalidBallots";
+import { MunicipalitiesSupportsNoOne } from "./screens/reports/municipalities/MunicipalitiesSupportsNoOne";
+import { SettlementsConcentration } from "./screens/reports/settlements/SettlementsConcentration";
+import { SettlementsTurnout } from "./screens/reports/settlements/SettlementsTurnout";
+import { SettlementsAdditionalVoters } from "./screens/reports/settlements/SettlementsAdditionalVoters";
+import { SettlementsInvalidBallots } from "./screens/reports/settlements/SettlementsInvalidBallots";
+import { SettlementsSupportsNoOne } from "./screens/reports/settlements/SettlementsSupportsNoOne";
+import { SectionsAdditionalVoters } from "./screens/reports/sections/SectionsAdditionalVoters";
+import { SectionsConcentration } from "./screens/reports/sections/SectionsConcentration";
+import { SectionsInvalidBallots } from "./screens/reports/sections/SectionsInvalidBallots";
+import { SectionsSupportsNoOne } from "./screens/reports/sections/SectionsSupportsNoOne";
+import { SectionsTurnout } from "./screens/reports/sections/SectionsTurnout";
+import { MunicipalitiesTopGainers } from "./screens/reports/municipalities/MunicipalitiesTopGainers";
+import { SettlementsTopGainers } from "./screens/reports/settlements/SettlementsTopGainers";
+import { SectionsTopGainers } from "./screens/reports/sections/SectionsTopGainers";
+import { MunicipalitiesTopLosers } from "./screens/reports/municipalities/MunicipalitiesTopLosers";
+import { SectionsTopLosers } from "./screens/reports/sections/SectionsTopLosers";
+import { SettlementsTopLosers } from "./screens/reports/settlements/SettlementsTopLosers";
 
 const LayoutScreen: FC<PropsWithChildren> = ({ children }) => {
   return <Layout>{children}</Layout>;
@@ -87,7 +92,23 @@ export const AuthRoutes = () => {
               path="concentrated"
               element={
                 <LayoutScreen>
-                  <SettlementsConcentrationReport />
+                  <SettlementsConcentration />
+                </LayoutScreen>
+              }
+            />
+            <Route
+              path="top_gainers"
+              element={
+                <LayoutScreen>
+                  <SettlementsTopGainers />
+                </LayoutScreen>
+              }
+            />
+            <Route
+              path="top_losers"
+              element={
+                <LayoutScreen>
+                  <SettlementsTopLosers />
                 </LayoutScreen>
               }
             />
@@ -95,7 +116,7 @@ export const AuthRoutes = () => {
               path="turnout"
               element={
                 <LayoutScreen>
-                  <SettlementsTurnoutReport />
+                  <SettlementsTurnout />
                 </LayoutScreen>
               }
             />
@@ -103,7 +124,7 @@ export const AuthRoutes = () => {
               path="invalid_ballots"
               element={
                 <LayoutScreen>
-                  <SettlementsInvalidBallotsReport />
+                  <SettlementsInvalidBallots />
                 </LayoutScreen>
               }
             />
@@ -111,7 +132,7 @@ export const AuthRoutes = () => {
               path="additional_voters"
               element={
                 <LayoutScreen>
-                  <SettlementsAdditionalVotersReport />
+                  <SettlementsAdditionalVoters />
                 </LayoutScreen>
               }
             />
@@ -119,7 +140,7 @@ export const AuthRoutes = () => {
               path="supports_no_one"
               element={
                 <LayoutScreen>
-                  <SettlementsSupportsNoOneReport />
+                  <SettlementsSupportsNoOne />
                 </LayoutScreen>
               }
             />
@@ -129,7 +150,23 @@ export const AuthRoutes = () => {
               path="concentrated"
               element={
                 <LayoutScreen>
-                  <MunicipalitiesConcentrationReport />
+                  <MunicipalitiesConcentration />
+                </LayoutScreen>
+              }
+            />
+            <Route
+              path="top_gainers"
+              element={
+                <LayoutScreen>
+                  <MunicipalitiesTopGainers />
+                </LayoutScreen>
+              }
+            />
+            <Route
+              path="top_losers"
+              element={
+                <LayoutScreen>
+                  <MunicipalitiesTopLosers />
                 </LayoutScreen>
               }
             />
@@ -137,7 +174,7 @@ export const AuthRoutes = () => {
               path="turnout"
               element={
                 <LayoutScreen>
-                  <MunicipalitiesTurnoutReport />
+                  <MunicipalitiesTurnout />
                 </LayoutScreen>
               }
             />
@@ -145,7 +182,7 @@ export const AuthRoutes = () => {
               path="invalid_ballots"
               element={
                 <LayoutScreen>
-                  <MunicipalitiesInvalidBallotsReport />
+                  <MunicipalitiesInvalidBallots />
                 </LayoutScreen>
               }
             />
@@ -153,7 +190,7 @@ export const AuthRoutes = () => {
               path="additional_voters"
               element={
                 <LayoutScreen>
-                  <MunicipalitiesAdditionalVotersReport />
+                  <MunicipalitiesAdditionalVoters />
                 </LayoutScreen>
               }
             />
@@ -161,7 +198,7 @@ export const AuthRoutes = () => {
               path="supports_no_one"
               element={
                 <LayoutScreen>
-                  <MunicipalitiesSupportsNoOneReport />
+                  <MunicipalitiesSupportsNoOne />
                 </LayoutScreen>
               }
             />
@@ -171,7 +208,23 @@ export const AuthRoutes = () => {
               path="concentrated"
               element={
                 <LayoutScreen>
-                  <SectionsConcentrationReport />
+                  <SectionsConcentration />
+                </LayoutScreen>
+              }
+            />
+            <Route
+              path="top_gainers"
+              element={
+                <LayoutScreen>
+                  <SectionsTopGainers />
+                </LayoutScreen>
+              }
+            />
+            <Route
+              path="top_losers"
+              element={
+                <LayoutScreen>
+                  <SectionsTopLosers />
                 </LayoutScreen>
               }
             />
@@ -179,7 +232,7 @@ export const AuthRoutes = () => {
               path="turnout"
               element={
                 <LayoutScreen>
-                  <SectionsTurnoutReport />
+                  <SectionsTurnout />
                 </LayoutScreen>
               }
             />
@@ -187,7 +240,7 @@ export const AuthRoutes = () => {
               path="invalid_ballots"
               element={
                 <LayoutScreen>
-                  <SectionsInvalidBallotsReport />
+                  <SectionsInvalidBallots />
                 </LayoutScreen>
               }
             />
@@ -195,7 +248,7 @@ export const AuthRoutes = () => {
               path="additional_voters"
               element={
                 <LayoutScreen>
-                  <SectionsAdditionalVotersReport />
+                  <SectionsAdditionalVoters />
                 </LayoutScreen>
               }
             />
@@ -203,7 +256,7 @@ export const AuthRoutes = () => {
               path="supports_no_one"
               element={
                 <LayoutScreen>
-                  <SectionsSupportsNoOneReport />
+                  <SectionsSupportsNoOne />
                 </LayoutScreen>
               }
             />

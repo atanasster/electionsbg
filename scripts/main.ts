@@ -1,26 +1,27 @@
 import fs from "fs";
 import path from "path";
-import { parse } from "ts-command-line-args";
+import { command, run, string, option, boolean, optional, flag } from "cmd-ts";
 import { fileURLToPath } from "url";
 import { parseParties } from "./parsers/parties";
 import { parseSections } from "./parsers/sections";
 import { parseVotes } from "./parsers/votes";
 import { parseProtocols } from "./parsers/protocols";
 import { aggregateSettlements } from "./aggregateData";
-import { ElectionInfo } from "@/data/dataTypes";
-import { collectStats } from "./collect_stats";
 import { sectionVotesFileName } from "./consts";
+import { runStats } from "./collect_stats";
+import { generateReports } from "./reports";
 
 const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
 const __dirname = path.dirname(__filename); // get the name of the directory
 
-const stringifyJSON = (o: object, production?: boolean) =>
-  production ? JSON.stringify(o) : JSON.stringify(o, null, 2);
-
-const parseElections = async (monthYear: string, production?: boolean) => {
+let production: boolean | undefined = undefined;
+const dataFolder = path.resolve(__dirname, "../public");
+const parseElections = async (
+  monthYear: string,
+  stringify: (o: object) => string,
+) => {
   const inFolder = path.resolve(__dirname, `../raw_data/${monthYear}`);
-  const outFolder = path.resolve(__dirname, `../public/${monthYear}`);
-  const stringify = (o: object) => stringifyJSON(o, production);
+  const outFolder = `${dataFolder}/${monthYear}`;
   if (!fs.existsSync(outFolder)) {
     fs.mkdirSync(outFolder);
   }
@@ -45,7 +46,7 @@ const parseElections = async (monthYear: string, production?: boolean) => {
   const json = stringify(
     sections.map((s) => ({
       ...s,
-      votes: s.votes?.filter((v) => v.totalVotes !== 0),
+      votes: s.results.votes?.filter((v) => v.totalVotes !== 0),
     })),
   );
   const outFile = `${outFolder}/${sectionVotesFileName}`;
@@ -53,24 +54,10 @@ const parseElections = async (monthYear: string, production?: boolean) => {
   console.log("Successfully added file ", outFile);
   return aggregated;
 };
-
-interface CommandLineArguments {
-  date?: string;
-  production?: boolean;
-  prod?: boolean;
-  all?: boolean;
-  stats?: boolean;
-}
-const args = parse<CommandLineArguments>({
-  prod: { type: Boolean, optional: true },
-  production: { type: Boolean, optional: true },
-  all: { type: Boolean, optional: true },
-  date: { type: String, optional: true },
-  stats: { type: Boolean, optional: true },
-});
-
-const production = args.production || args.prod;
-if (args.stats !== true) {
+const runAggregate = async (date?: string, all?: boolean) => {
+  if (!date && !all) {
+    return;
+  }
   const inFolder = path.resolve(__dirname, `../raw_data/`);
   const dataFolders = fs.readdirSync(inFolder, { withFileTypes: true });
   const folders = dataFolders
@@ -78,82 +65,73 @@ if (args.stats !== true) {
     .map((f) => f.name)
     .sort((a, b) => b.localeCompare(a));
 
-  const selectedFolders = args.date
-    ? folders.filter((f) => f === args.date)
-    : args.all
+  const selectedFolders = date
+    ? folders.filter((f) => f === date)
+    : all
       ? folders
       : folders.length
         ? [folders[0]]
         : [];
-  if (selectedFolders.length === 0) {
+  if (date && selectedFolders.length === 0) {
     throw new Error(
       `Can not find specified folder: 
-    ${args.date}`,
+    ${date}`,
     );
   }
   await Promise.all(
     selectedFolders.map(async (f) => {
-      return await parseElections(f, production);
+      return await parseElections(f, stringify);
     }),
   );
-}
+};
 
-const outFolder = path.resolve(__dirname, `../public/`);
+const stringify = (o: object) => stringifyJSON(o, production);
 
-const electionsFile = path.resolve(
-  __dirname,
-  "../src/data/json/elections.json",
-);
-const elections: ElectionInfo[] = JSON.parse(
-  fs.readFileSync(electionsFile, "utf-8"),
-);
-
-const updatedElections: ElectionInfo[] = fs
-  .readdirSync(outFolder, { withFileTypes: true })
-  .filter((file) => file.isDirectory())
-  .filter((file) => file.name.startsWith("20"))
-  .map((f) => ({
-    name: f.name,
-    ...elections.find((p) => p.name === f.name),
-  }))
-  .sort((a, b) => b.name.localeCompare(a.name));
-const publicFolder = path.resolve(__dirname, `../public`);
-const { country, byRegion, byMunicipality, bySettlement, bySection } =
-  collectStats(updatedElections, publicFolder);
-const json = stringifyJSON(country, production);
-
-fs.writeFileSync(electionsFile, json, "utf8");
-console.log("Successfully added file ", electionsFile);
-Object.keys(byRegion).forEach((regionName) => {
-  const data = stringifyJSON(byRegion[regionName], production);
-  fs.writeFileSync(
-    `${publicFolder}/regions/${regionName}_stats.json`,
-    data,
-    "utf8",
-  );
-});
-Object.keys(byMunicipality).forEach((muniName) => {
-  const data = stringifyJSON(byMunicipality[muniName], production);
-  fs.writeFileSync(
-    `${publicFolder}/municipalities/${muniName}_stats.json`,
-    data,
-    "utf8",
-  );
-});
-Object.keys(bySettlement).forEach((ekatte) => {
-  const data = stringifyJSON(bySettlement[ekatte], production);
-  fs.writeFileSync(
-    `${publicFolder}/settlements/${ekatte}_stats.json`,
-    data,
-    "utf8",
-  );
+const stringifyJSON = (o: object, production?: boolean) =>
+  production ? JSON.stringify(o) : JSON.stringify(o, null, 2);
+const app = command({
+  name: "commands",
+  args: {
+    all: flag({
+      type: optional(boolean),
+      long: "all",
+      short: "a",
+      defaultValue: () => false,
+    }),
+    prod: flag({
+      type: optional(boolean),
+      long: "prod",
+      short: "p",
+      defaultValue: () => false,
+    }),
+    date: option({
+      type: optional(string),
+      long: "date",
+      short: "d",
+    }),
+    reports: flag({
+      type: optional(boolean),
+      long: "reports",
+      short: "r",
+      defaultValue: () => false,
+    }),
+    stats: flag({
+      type: optional(boolean),
+      long: "stats",
+      short: "s",
+      defaultValue: () => false,
+    }),
+  },
+  handler: async ({ all, prod, stats, date, reports }) => {
+    production = prod;
+    await runAggregate(date, all);
+    if (stats) {
+      runStats(stringify);
+    }
+    if (reports) {
+      generateReports(dataFolder, stringify);
+    }
+  },
 });
 
-Object.keys(bySection).forEach((section) => {
-  const data = stringifyJSON(bySection[section], production);
-  fs.writeFileSync(
-    `${publicFolder}/sections/${section}_stats.json`,
-    data,
-    "utf8",
-  );
-});
+run(app, process.argv.slice(2));

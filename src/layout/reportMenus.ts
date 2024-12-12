@@ -18,6 +18,14 @@ export const reportsMenu: MenuItem[] = [
             link: "/reports/municipality/concentrated",
           },
           {
+            title: "top_gainers",
+            link: "/reports/municipality/top_gainers",
+          },
+          {
+            title: "top_losers",
+            link: "/reports/municipality/top_losers",
+          },
+          {
             title: "voter_turnout",
             link: "/reports/municipality/turnout",
           },
@@ -43,6 +51,14 @@ export const reportsMenu: MenuItem[] = [
             link: "/reports/settlement/concentrated",
           },
           {
+            title: "top_gainers",
+            link: "/reports/settlement/top_gainers",
+          },
+          {
+            title: "top_losers",
+            link: "/reports/settlement/top_losers",
+          },
+          {
             title: "voter_turnout",
             link: "/reports/settlement/turnout",
           },
@@ -66,6 +82,14 @@ export const reportsMenu: MenuItem[] = [
           {
             title: "concentrated_party_votes",
             link: "/reports/section/concentrated",
+          },
+          {
+            title: "top_gainers",
+            link: "/reports/section/top_gainers",
+          },
+          {
+            title: "top_losers",
+            link: "/reports/section/top_losers",
           },
           {
             title: "voter_turnout",

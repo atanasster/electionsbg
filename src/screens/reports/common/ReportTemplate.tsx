@@ -1,23 +1,16 @@
-import { FC, useMemo } from "react";
+import { FC, useMemo, useState } from "react";
 import { Title } from "@/ux/Title";
-import { Tooltip } from "@/ux/Tooltip";
 import { Hint } from "@/ux/Hint";
-import {
-  LocationInfo,
-  ReportRow,
-  SettlementReportRow,
-  VoteResults,
-} from "@/data/dataTypes";
+import { ReportRow, Votes } from "@/data/dataTypes";
 import { DataTable } from "@/ux/DataTable";
 import { useTranslation } from "react-i18next";
 import { addVotes, formatPct, formatThousands } from "@/data/utils";
 import { useSettlementsInfo } from "@/data/useSettlements";
 import { useSearchParams } from "react-router-dom";
-import { PartyVotesXS } from "../../components/PartyVotesXS";
-import { ProtocolSummary } from "../../components/ProtocolSummary";
-import { Caption } from "@/ux/Caption";
 import { Link } from "@/ux/Link";
 import { Label } from "@/components/ui/label";
+import { Switch } from "@/components/ui/switch";
+
 import {
   Select,
   SelectContent,
@@ -25,12 +18,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { ReportRule } from "./utils";
-import { Row } from "@tanstack/react-table";
 import { useRegions } from "@/data/useRegions";
 import { useMunicipalities } from "@/data/useMunicipalities";
-import { useElectionContext } from "@/data/ElectionContext";
 import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
+import { useTouch } from "@/ux/TouchProvider";
+import { PartyLabel } from "@/screens/components/PartyLabel";
+import { usePartyInfo } from "@/data/usePartyInfo";
 
 export type ColumnNames =
   | "ekatte"
@@ -38,51 +31,67 @@ export type ColumnNames =
   | "pctSupportsNoOne"
   | "pctInvalidBallots"
   | "section"
-  | "pctAdditionalVoters";
+  | "pctAdditionalVoters"
+  | "prevYearVotes"
+  | "prevYearChange";
 export const ReportTemplate: FC<{
-  reportRule: ReportRule;
-  locationFn: (row: Row<ReportRow>) => LocationInfo | undefined;
-  votes: SettlementReportRow[];
+  defaultThreshold: number;
+  bigger?: boolean;
+  votes?: ReportRow[];
   titleKey: string;
   levelKey: string;
   ruleKey: string;
   visibleColumns?: ColumnNames[];
 }> = ({
-  reportRule,
+  defaultThreshold,
+  bigger = true,
   votes,
   levelKey,
   titleKey,
   ruleKey,
-  locationFn,
   visibleColumns = [],
 }) => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const [includeAbroad, setIncludeAbroad] = useState(
+    localStorage.getItem("reports_include_abroad") === "true",
+  );
   const { findRegion } = useRegions();
   const { findMunicipality } = useMunicipalities();
   const { findSettlement } = useSettlementsInfo();
+  const { findParty } = usePartyInfo();
   const { t, i18n } = useTranslation();
-  const { isMachineOnly } = useElectionContext();
   const isSmall = useMediaQueryMatch("sm");
+  const isTouch = useTouch();
   const threshold = useMemo(
     () =>
-      parseInt(
-        searchParams.get("threshold") || reportRule.defaultThreshold.toString(),
-      ),
-    [reportRule.defaultThreshold, searchParams],
+      parseInt(searchParams.get("threshold") || defaultThreshold.toString()),
+    [defaultThreshold, searchParams],
   );
-
+  const data = useMemo(
+    () =>
+      votes?.filter((vote) => {
+        return (
+          (includeAbroad || vote.oblast !== "32") &&
+          (bigger ? vote.value > threshold : vote.value < threshold)
+        );
+      }),
+    [bigger, threshold, votes, includeAbroad],
+  );
   const summaryResults = useMemo(() => {
-    const results: VoteResults = {
-      actualTotal: 0,
-      actualPaperVotes: 0,
-      actualMachineVotes: 0,
-      votes: [],
-    };
-    votes.forEach((v) => {
-      addVotes(results, v.votes, v.protocol);
-    });
-    return results;
-  }, [votes]);
+    const allVotes = data?.reduce((acc: Votes[], v) => {
+      return addVotes(
+        [
+          {
+            partyNum: v.partyNum,
+            totalVotes: v.totalVotes,
+          },
+        ],
+        acc,
+      );
+    }, []);
+    return allVotes;
+  }, [data]);
+  console.log(summaryResults);
   return (
     <div className={`w-full`}>
       <Title description="election anomalies report">{t(titleKey)}</Title>
@@ -115,39 +124,42 @@ export const ReportTemplate: FC<{
           </SelectContent>
         </Select>
       </div>
-      <ProtocolSummary
-        protocol={summaryResults.protocol}
-        votes={summaryResults.votes}
-      />
+
+      <Hint text={t("include_abroad_explainer")}>
+        <div className="flex items-center space-x-2 pb-4 justify-end">
+          <Switch
+            id="include_abroad"
+            checked={includeAbroad}
+            onCheckedChange={(value) => {
+              localStorage.setItem(
+                "reports_include_abroad",
+                value ? "true" : "false",
+              );
+              setIncludeAbroad(value);
+            }}
+          />
+          <Label
+            className="text-secondary-foreground"
+            htmlFor={isTouch ? undefined : "include_abroad"}
+          >
+            {t("include_abroad")}
+          </Label>
+        </div>
+      </Hint>
       <DataTable
         pageSize={25}
+        stickyColumn={true}
         columns={[
           {
-            accessorKey: "partyVotes.key",
+            accessorKey: "partyNum",
             header: t("party"),
             size: 70,
             cell: ({ row }) => {
-              const info = locationFn(row);
+              const party = findParty(row.original.partyNum);
               return (
-                <Tooltip
-                  content={
-                    <div>
-                      <Caption>
-                        {i18n.language === "bg" ? info?.name : info?.name_en}
-                      </Caption>
-                      <PartyVotesXS votes={row.original.votes} />
-                    </div>
-                  }
-                >
-                  <div
-                    className="text-white text-right px-2 font-bold w-24"
-                    style={{
-                      backgroundColor: row.original["partyVotes"]["color"],
-                    }}
-                  >
-                    {row.original["partyVotes"]["nickName"]}
-                  </div>
-                </Tooltip>
+                <Hint text={`${party ? party?.name : t("unknown_party")}`}>
+                  <PartyLabel party={party} />
+                </Hint>
               );
             },
           },
@@ -231,105 +243,7 @@ export const ReportTemplate: FC<{
             ),
           },
           {
-            accessorKey: "voterTurnout",
-            hidden: !visibleColumns.includes("voterTurnout"),
-            header: () => (
-              <Hint text={t("pct_total_voters_explainer")}>
-                <div>{t("voter_turnout")}</div>
-              </Hint>
-            ),
-            cell: ({ row }) => {
-              return (
-                <div className="px-4 py-2 text-right">
-                  {formatPct(row.getValue("voterTurnout"), 2)}
-                </div>
-              );
-            },
-          },
-          {
-            accessorKey: "pctAdditionalVoters",
-            hidden: !visibleColumns.includes("pctAdditionalVoters"),
-            header: () => (
-              <Hint text={t("pct_additional_voters_explainer")}>
-                <div>{t("additional_voters")}</div>
-              </Hint>
-            ),
-            cell: ({ row }) => {
-              return (
-                <div className="px-4 py-2 text-right">
-                  {formatPct(row.getValue("pctAdditionalVoters"), 2)}
-                </div>
-              );
-            },
-          },
-
-          {
-            accessorKey: "pctSupportsNoOne",
-            hidden: !visibleColumns.includes("pctSupportsNoOne"),
-            header: () => (
-              <Hint text={t("num_supports_no_one_explainer")}>
-                <div>{t("support_no_one")}</div>
-              </Hint>
-            ),
-            cell: ({ row }) => {
-              return (
-                <div className="px-4 py-2 text-right">
-                  {formatPct(row.getValue("pctSupportsNoOne"), 2)}
-                </div>
-              );
-            },
-          },
-          {
-            accessorKey: "pctInvalidBallots",
-            hidden: !visibleColumns.includes("pctInvalidBallots"),
-            header: () => (
-              <Hint text={t("pct_invalid_paper_ballots")}>
-                <div>{t("invalid_ballots")}</div>
-              </Hint>
-            ),
-            cell: ({ row }) => {
-              return (
-                <div className="px-4 py-2 text-right">
-                  {formatPct(row.getValue("pctInvalidBallots"), 2)}
-                </div>
-              );
-            },
-          },
-
-          {
-            accessorKey: "partyVotes.paperVotes",
-            hidden: isSmall || isMachineOnly(),
-            header: () => (
-              <Hint text={t("num_paper_ballots_found_explainer")}>
-                <div>{t("paper_votes")}</div>
-              </Hint>
-            ),
-            cell: ({ row }) => {
-              return (
-                <div className="px-4 py-2 text-right">
-                  {formatThousands(row.original["partyVotes"]["paperVotes"])}
-                </div>
-              );
-            },
-          },
-          {
-            accessorKey: "partyVotes.machineVotes",
-            hidden: isSmall || isMachineOnly(),
-            header: () => (
-              <Hint text={t("total_machine_votes_explainer")}>
-                <div>{t("machine_votes")}</div>
-              </Hint>
-            ),
-            cell: ({ row }) => {
-              return (
-                <div className="px-4 py-2 text-right">
-                  {formatThousands(row.original["partyVotes"]["machineVotes"])}
-                </div>
-              );
-            },
-          },
-          {
-            accessorKey: "partyVotes.totalVotes",
+            accessorKey: "totalVotes",
             header: () => (
               <Hint text={t("total_party_votes_explainer")}>
                 <div>{isSmall ? t("votes") : t("total_votes")}</div>
@@ -338,7 +252,7 @@ export const ReportTemplate: FC<{
             cell: ({ row }) => {
               return (
                 <div className="px-4 py-2 text-right">
-                  {formatThousands(row.original["partyVotes"]["totalVotes"])}
+                  {formatThousands(row.original.totalVotes)}
                 </div>
               );
             },
@@ -358,8 +272,105 @@ export const ReportTemplate: FC<{
               );
             },
           },
+          {
+            accessorKey: "voterTurnout",
+            hidden: !visibleColumns.includes("voterTurnout"),
+            header: () => (
+              <Hint text={t("pct_total_voters_explainer")}>
+                <div>{t("voter_turnout")}</div>
+              </Hint>
+            ),
+            cell: ({ row }) => {
+              return (
+                <div className="px-4 py-2 text-right">
+                  {formatPct(row.original.value, 2)}
+                </div>
+              );
+            },
+          },
+          {
+            accessorKey: "pctAdditionalVoters",
+            hidden: !visibleColumns.includes("pctAdditionalVoters"),
+            header: () => (
+              <Hint text={t("pct_additional_voters_explainer")}>
+                <div>{t("additional_voters")}</div>
+              </Hint>
+            ),
+            cell: ({ row }) => {
+              return (
+                <div className="px-4 py-2 text-right">
+                  {formatPct(row.original.value, 2)}
+                </div>
+              );
+            },
+          },
+          {
+            accessorKey: "pctSupportsNoOne",
+            hidden: !visibleColumns.includes("pctSupportsNoOne"),
+            header: () => (
+              <Hint text={t("num_supports_no_one_explainer")}>
+                <div>{t("support_no_one")}</div>
+              </Hint>
+            ),
+            cell: ({ row }) => {
+              return (
+                <div className="px-4 py-2 text-right">
+                  {formatPct(row.original.value, 2)}
+                </div>
+              );
+            },
+          },
+          {
+            accessorKey: "pctInvalidBallots",
+            hidden: !visibleColumns.includes("pctInvalidBallots"),
+            header: () => (
+              <Hint text={t("pct_invalid_paper_ballots")}>
+                <div>{t("invalid_ballots")}</div>
+              </Hint>
+            ),
+            cell: ({ row }) => {
+              return (
+                <div className="px-4 py-2 text-right">
+                  {formatPct(row.original.value, 2)}
+                </div>
+              );
+            },
+          },
+          {
+            accessorKey: "prevYearVotes",
+            hidden: !visibleColumns.includes("prevYearVotes"),
+            header: (
+              <Hint text={t("prev_election_votes_explainer")}>
+                <div>{t("prior_elections")}</div>
+              </Hint>
+            ) as never,
+            cell: ({ row }) => (
+              <div className="px-4 py-2 text-right">
+                {formatThousands(row.getValue("prevYearVotes"))}
+              </div>
+            ),
+          },
+          {
+            accessorKey: "value",
+            hidden: !visibleColumns.includes("prevYearChange"),
+            header: (
+              <Hint text={t("pct_prev_election_votes_explainer")}>
+                <div>{`% ${t("change")}`}</div>
+              </Hint>
+            ) as never,
+            cell: ({ row }) => {
+              const pctChange: number = row.original.value;
+              return (
+                <div
+                  className={`px-4 py-2 font-bold text-right ${pctChange && pctChange < 0 ? "text-destructive" : "text-secondary-foreground"}`}
+                >
+                  {formatPct(pctChange, 2)}
+                </div>
+              );
+            },
+          },
         ]}
-        data={votes}
+        data={data || []}
       />
     </div>
   );

@@ -1,6 +1,6 @@
 import { useCallback } from "react";
 import { ElectionRegions, ElectionRegion, VoteResults } from "./dataTypes";
-import { addVotes } from "./utils";
+import { addResults } from "./utils";
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { useElectionContext } from "./ElectionContext";
 
@@ -34,14 +34,11 @@ export const useRegionVotes = () => {
   }, [votes]);
   const countryVotes = useCallback(() => {
     const acc: VoteResults = {
-      actualTotal: 0,
-      actualPaperVotes: 0,
-      actualMachineVotes: 0,
       votes: [],
     };
     if (votes) {
       votes.map((r) => {
-        addVotes(acc, r.results.votes, r.results.protocol);
+        addResults(acc, r.results.votes, r.results.protocol);
       });
     }
 
