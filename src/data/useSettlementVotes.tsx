@@ -22,8 +22,8 @@ export const useSettlementVotes = () => {
     queryFn,
   });
   const votesBySettlement = useCallback(
-    (ekatte: string) => {
-      return settlements?.find((s) => s.ekatte === ekatte);
+    (ekatte?: string) => {
+      return ekatte ? settlements?.find((s) => s.ekatte === ekatte) : undefined;
     },
     [settlements],
   );

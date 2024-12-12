@@ -3,6 +3,7 @@ import { PartyInfo, PartyVotes, Votes } from "./dataTypes";
 
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { useElectionContext } from "./ElectionContext";
+import { topParty } from "./utils";
 
 const queryFn = async ({
   queryKey,
@@ -33,13 +34,7 @@ export const usePartyInfo = () => {
   );
   const topVotesParty = useCallback(
     (votes?: Votes[]): PartyVotes | undefined => {
-      const tp = votes?.reduce((acc, curr) => {
-        if (acc.totalVotes > curr.totalVotes) {
-          return acc;
-        }
-        return curr;
-      }, votes[0]);
-
+      const tp = topParty(votes);
       return tp
         ? ({ ...tp, ...findParty(tp.partyNum) } as PartyVotes)
         : undefined;

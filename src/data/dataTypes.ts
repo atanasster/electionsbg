@@ -35,9 +35,6 @@ export type SectionProtocol = {
 };
 
 export type VoteResults = {
-  actualTotal: number;
-  actualPaperVotes: number;
-  actualMachineVotes: number;
   votes: Votes[];
   protocol?: SectionProtocol;
 };
@@ -85,8 +82,10 @@ export type SectionInfo = {
   is_mobile: number;
   is_ship: number;
   num_machines: number;
-  protocol?: SectionProtocol;
-  votes: Votes[];
+  results: {
+    protocol?: SectionProtocol;
+    votes: Votes[];
+  };
   oblast?: string;
   obshtina?: string;
   ekatte?: string;
@@ -145,21 +144,11 @@ export const isMachineOnlyVote = (year: string) => {
 export type ReportRow = {
   oblast?: string;
   obshtina?: string;
-  partyVotes: PartyVotes;
-  value: number;
-  votes: Votes[];
-  protocol: SectionProtocol;
-  voterTurnout: number;
-  pctSupportsNoOne: number;
-  pctPartyVote: number;
-  pctInvalidBallots: number;
-  pctAdditionalVoters: number;
-};
-
-export type SettlementReportRow = ReportRow & {
   ekatte?: string;
-};
-
-export type SectionReportRow = SettlementReportRow & {
   section?: string;
+  partyNum: number;
+  totalVotes: number;
+  pctPartyVote: number;
+  value: number;
+  prevYearVotes?: number;
 };

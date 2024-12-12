@@ -83,7 +83,12 @@ export const PartyVotesTable: FC<{
         accessorKey: "nickName",
         header: t("party"),
         cell: ({ row }) => {
-          return <PartyLabel party={row.original as PartyInfo} />;
+          const party = row.original as PartyInfo;
+          return (
+            <Hint text={`${party ? party?.name : t("unknown_party")}`}>
+              <PartyLabel party={party} />
+            </Hint>
+          );
         },
       },
       {

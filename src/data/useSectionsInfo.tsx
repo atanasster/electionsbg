@@ -25,8 +25,8 @@ export const useSectionsInfo = () => {
   });
   const { votesBySettlement } = useSettlementVotes();
   const findSections = useCallback(
-    (ekatte: string) => {
-      const sectionCodes = votesBySettlement(ekatte);
+    (ekatte?: string) => {
+      const sectionCodes = ekatte ? votesBySettlement(ekatte) : undefined;
       if (!sectionCodes) {
         return [];
       }
@@ -38,8 +38,8 @@ export const useSectionsInfo = () => {
   );
 
   const findSection = useCallback(
-    (section: string) => {
-      return sections?.find((s) => s.section === section);
+    (section?: string) => {
+      return section ? sections?.find((s) => s.section === section) : undefined;
     },
     [sections],
   );

@@ -9,7 +9,7 @@ import {
   StatsVote,
   VoteResults,
 } from "@/data/dataTypes";
-import { addVotes } from "@/data/utils";
+import { addResults } from "@/data/utils";
 import {
   cikPartiesFileName,
   municipalityVotesFileName,
@@ -17,8 +17,24 @@ import {
   sectionVotesFileName,
   settlementsVotesFileName,
 } from "./consts";
+import path from "path";
+import { fileURLToPath } from "url";
 
-const statsByRegion = (elections: ElectionInfo[], publicFolder: string) => {
+const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
+const __dirname = path.dirname(__filename); // get the name of the directory
+
+const generateStats = <
+  DType extends
+    | ElectionMunicipality[]
+    | ElectionRegions
+    | ElectionSettlement[]
+    | SectionInfo[],
+>(
+  elections: ElectionInfo[],
+  publicFolder: string,
+  fileName: string,
+  key: "key" | "obshtina" | "ekatte" | "section",
+) => {
   const collectedVotes: { [key: string]: ElectionInfo[] } = {};
   elections.forEach((e) => {
     const parties: PartyInfo[] = JSON.parse(
@@ -27,24 +43,21 @@ const statsByRegion = (elections: ElectionInfo[], publicFolder: string) => {
         "utf-8",
       ),
     );
-    const regionVotes: ElectionRegions = JSON.parse(
-      fs.readFileSync(
-        `${publicFolder}/${e.name}/${regionsVotesFileName}`,
-        "utf-8",
-      ),
+    const regionVotes: DType = JSON.parse(
+      fs.readFileSync(`${publicFolder}/${e.name}/${fileName}`, "utf-8"),
     );
     regionVotes.forEach((r) => {
-      if (collectedVotes[r.key] === undefined) {
-        collectedVotes[r.key] = [];
+      //@ts-expect-error multiple fields
+      const k: string = r[key];
+      if (collectedVotes[k] === undefined) {
+        collectedVotes[k] = [];
       }
       const res: VoteResults = {
-        actualTotal: 0,
-        actualPaperVotes: 0,
-        actualMachineVotes: 0,
         votes: [],
       };
-      addVotes(res, r.results.votes, r.results.protocol);
-      collectedVotes[r.key].push({
+      const results = r.results || r;
+      addResults(res, results.votes, results.protocol);
+      collectedVotes[k].push({
         ...e,
         results: {
           ...res,
@@ -67,168 +80,14 @@ const statsByRegion = (elections: ElectionInfo[], publicFolder: string) => {
   return collectedVotes;
 };
 
-const statsByMunicipality = (
-  elections: ElectionInfo[],
-  publicFolder: string,
-) => {
-  const collectedVotes: { [key: string]: ElectionInfo[] } = {};
-  elections.forEach((e) => {
-    const parties: PartyInfo[] = JSON.parse(
-      fs.readFileSync(
-        `${publicFolder}/${e.name}/${cikPartiesFileName}`,
-        "utf-8",
-      ),
-    );
-    const municipalityVotes: ElectionMunicipality[] = JSON.parse(
-      fs.readFileSync(
-        `${publicFolder}/${e.name}/${municipalityVotesFileName}`,
-        "utf-8",
-      ),
-    );
-    municipalityVotes.forEach((r) => {
-      if (collectedVotes[r.obshtina] === undefined) {
-        collectedVotes[r.obshtina] = [];
-      }
-      const res: VoteResults = {
-        actualTotal: 0,
-        actualPaperVotes: 0,
-        actualMachineVotes: 0,
-        votes: [],
-      };
-      addVotes(res, r.results.votes, r.results.protocol);
-      collectedVotes[r.obshtina].push({
-        ...e,
-        results: {
-          ...res,
-          protocol: res.protocol,
-          votes: res.votes.map((v) => {
-            const party = parties.find((p) => p.number === v.partyNum);
-            const stat: StatsVote = {
-              ...v,
-              nickName: party?.nickName as string,
-            };
-            if (party?.commonName) {
-              stat.commonName = party?.commonName;
-            }
-            return stat;
-          }),
-        },
-      });
-    });
-  });
-  return collectedVotes;
-};
-const statsBySettlement = (elections: ElectionInfo[], publicFolder: string) => {
-  const collectedVotes: { [key: string]: ElectionInfo[] } = {};
-  elections.forEach((e) => {
-    const parties: PartyInfo[] = JSON.parse(
-      fs.readFileSync(
-        `${publicFolder}/${e.name}/${cikPartiesFileName}`,
-        "utf-8",
-      ),
-    );
-    const settlementVotes: ElectionSettlement[] = JSON.parse(
-      fs.readFileSync(
-        `${publicFolder}/${e.name}/${settlementsVotesFileName}`,
-        "utf-8",
-      ),
-    );
-    settlementVotes.forEach((r) => {
-      if (collectedVotes[r.ekatte] === undefined) {
-        collectedVotes[r.ekatte] = [];
-      }
-      const res: VoteResults = {
-        actualTotal: 0,
-        actualPaperVotes: 0,
-        actualMachineVotes: 0,
-        votes: [],
-      };
-      addVotes(res, r.results.votes, r.results.protocol);
-      collectedVotes[r.ekatte].push({
-        ...e,
-        results: {
-          ...res,
-          protocol: res.protocol,
-          votes: res.votes.map((v) => {
-            const party = parties.find((p) => p.number === v.partyNum);
-            const stat: StatsVote = {
-              ...v,
-              nickName: party?.nickName as string,
-            };
-            if (party?.commonName) {
-              stat.commonName = party?.commonName;
-            }
-            return stat;
-          }),
-        },
-      });
-    });
-  });
-  return collectedVotes;
-};
-
-const statsBySection = (elections: ElectionInfo[], publicFolder: string) => {
-  const collectedVotes: { [key: string]: ElectionInfo[] } = {};
-  elections.forEach((e) => {
-    const parties: PartyInfo[] = JSON.parse(
-      fs.readFileSync(
-        `${publicFolder}/${e.name}/${cikPartiesFileName}`,
-        "utf-8",
-      ),
-    );
-    const sectionVotes: SectionInfo[] = JSON.parse(
-      fs.readFileSync(
-        `${publicFolder}/${e.name}/${sectionVotesFileName}`,
-        "utf-8",
-      ),
-    );
-    sectionVotes.forEach((r) => {
-      if (collectedVotes[r.section] === undefined) {
-        collectedVotes[r.section] = [];
-      }
-      const res: VoteResults = {
-        actualTotal: 0,
-        actualPaperVotes: 0,
-        actualMachineVotes: 0,
-        votes: [],
-      };
-      addVotes(res, r.votes, r.protocol);
-      collectedVotes[r.section].push({
-        ...e,
-        results: {
-          ...res,
-          protocol: res.protocol,
-          votes: res.votes.map((v) => {
-            const party = parties.find((p) => p.number === v.partyNum);
-            const stat: StatsVote = {
-              ...v,
-              nickName: party?.nickName as string,
-            };
-            if (party?.commonName) {
-              stat.commonName = party?.commonName;
-            }
-            return stat;
-          }),
-        },
-      });
-    });
-  });
-  return collectedVotes;
-};
-export const collectStats = (
-  elections: ElectionInfo[],
-  publicFolder: string,
-) => {
+const collectStats = (elections: ElectionInfo[], publicFolder: string) => {
   const cumulateVotes = (votes: VoteResults[]) => {
     const acc: VoteResults = {
-      actualTotal: 0,
-      actualPaperVotes: 0,
-      actualMachineVotes: 0,
       votes: [],
     };
     if (votes) {
       votes.map((r) => {
-        addVotes(acc, r.votes, r.protocol);
+        addResults(acc, r.votes, r.protocol);
       });
     }
 
@@ -271,9 +130,91 @@ export const collectStats = (
   });
   return {
     country: data,
-    byRegion: statsByRegion(elections, publicFolder),
-    byMunicipality: statsByMunicipality(elections, publicFolder),
-    bySettlement: statsBySettlement(elections, publicFolder),
-    bySection: statsBySection(elections, publicFolder),
+    byRegion: generateStats<ElectionRegions>(
+      elections,
+      publicFolder,
+      regionsVotesFileName,
+      "key",
+    ),
+    byMunicipality: generateStats<ElectionMunicipality[]>(
+      elections,
+      publicFolder,
+      municipalityVotesFileName,
+      "obshtina",
+    ),
+    bySettlement: generateStats<ElectionSettlement[]>(
+      elections,
+      publicFolder,
+      settlementsVotesFileName,
+      "ekatte",
+    ),
+    bySection: generateStats<SectionInfo[]>(
+      elections,
+      publicFolder,
+      sectionVotesFileName,
+      "section",
+    ),
   };
+};
+
+export const runStats = (stringify: (o: object) => string) => {
+  const outFolder = path.resolve(__dirname, `../public/`);
+
+  const electionsFile = path.resolve(
+    __dirname,
+    "../src/data/json/elections.json",
+  );
+  const elections: ElectionInfo[] = JSON.parse(
+    fs.readFileSync(electionsFile, "utf-8"),
+  );
+
+  const updatedElections: ElectionInfo[] = fs
+    .readdirSync(outFolder, { withFileTypes: true })
+    .filter((file) => file.isDirectory())
+    .filter((file) => file.name.startsWith("20"))
+    .map((f) => ({
+      name: f.name,
+      ...elections.find((p) => p.name === f.name),
+    }))
+    .sort((a, b) => b.name.localeCompare(a.name));
+  const publicFolder = path.resolve(__dirname, `../public`);
+  const { country, byRegion, byMunicipality, bySettlement, bySection } =
+    collectStats(updatedElections, publicFolder);
+  const json = stringify(country);
+
+  fs.writeFileSync(electionsFile, json, "utf8");
+  console.log("Successfully added file ", electionsFile);
+  Object.keys(byRegion).forEach((regionName) => {
+    const data = stringify(byRegion[regionName]);
+    fs.writeFileSync(
+      `${publicFolder}/regions/${regionName}_stats.json`,
+      data,
+      "utf8",
+    );
+  });
+  Object.keys(byMunicipality).forEach((muniName) => {
+    const data = stringify(byMunicipality[muniName]);
+    fs.writeFileSync(
+      `${publicFolder}/municipalities/${muniName}_stats.json`,
+      data,
+      "utf8",
+    );
+  });
+  Object.keys(bySettlement).forEach((ekatte) => {
+    const data = stringify(bySettlement[ekatte]);
+    fs.writeFileSync(
+      `${publicFolder}/settlements/${ekatte}_stats.json`,
+      data,
+      "utf8",
+    );
+  });
+
+  Object.keys(bySection).forEach((section) => {
+    const data = stringify(bySection[section]);
+    fs.writeFileSync(
+      `${publicFolder}/sections/${section}_stats.json`,
+      data,
+      "utf8",
+    );
+  });
 };

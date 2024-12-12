@@ -1,7 +1,5 @@
-import InfiniteScroll from "react-infinite-scroll-component";
 import { useSectionsInfo } from "@/data/useSectionsInfo";
-import { FC, useState } from "react";
-import { Section } from "./Section";
+import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { useSettlementVotes } from "@/data/useSettlementVotes";
 import { PartyVotesTable } from "./PartyVotesTable";
@@ -14,29 +12,33 @@ import { Caption } from "@/ux/Caption";
 import { Link } from "@/ux/Link";
 import { H1 } from "@/ux/H1";
 import { SEO } from "@/ux/SEO";
+import { VoteResults } from "@/data/dataTypes";
+import { addResults } from "@/data/utils";
+import { ProtocolSummary } from "./ProtocolSummary";
 
-const pageSize = 3;
-export const Sections: FC<{ ekatte?: string | null }> = ({ ekatte }) => {
-  const { findSection, findSections } = useSectionsInfo();
+export const Sections: FC<{ ekatte?: string }> = ({ ekatte }) => {
+  const { findSections } = useSectionsInfo();
   const { votesBySettlement } = useSettlementVotes();
   const { t, i18n } = useTranslation();
   const { prevVotes, stats } = useSettlementStats(ekatte);
   const { findSettlement } = useSettlementsInfo();
   const { findMunicipality } = useMunicipalities();
   const { findRegion } = useRegions();
-  const [itemsCount, setItemsCount] = useState(pageSize);
-  if (!ekatte) {
-    return null;
-  }
   const info = findSettlement(ekatte);
   const municipality = findMunicipality(info?.obshtina);
   const region = findRegion(info?.oblast);
   const sections = findSections(ekatte);
+  const summaryResults = useMemo(() => {
+    const results: VoteResults = {
+      votes: [],
+    };
+    sections?.forEach((s) => {
+      addResults(results, s.results.votes, s.results.protocol);
+    });
+    return results;
+  }, [sections]);
   const settlementVotes = votesBySettlement(ekatte);
 
-  const getNextPage = () => {
-    setItemsCount(Math.min(sections?.length || 0, itemsCount + pageSize));
-  };
   return (
     <>
       <SEO
@@ -85,31 +87,16 @@ export const Sections: FC<{ ekatte?: string | null }> = ({ ekatte }) => {
         {" "}
         {`${t("total_sections")}: ${sections?.length || 0}`}
       </Caption>
+      <ProtocolSummary
+        protocol={summaryResults.protocol}
+        votes={summaryResults.votes}
+      />
       {sections && <SectionsList sections={sections} />}
       <PartyVotesTable
         votes={settlementVotes?.results.votes}
         stats={stats}
         prevElectionVotes={prevVotes?.results?.votes}
       />
-      <InfiniteScroll
-        dataLength={itemsCount}
-        next={getNextPage}
-        hasMore={itemsCount < (sections?.length || 0)}
-        loader={<div>Loading...</div>}
-      >
-        {sections
-          ? sections
-              .filter((_, index) => index < itemsCount)
-              .map((section) => {
-                const votes = findSection(section.section);
-                if (!votes) {
-                  return null;
-                }
-
-                return <Section key={section.section} section={section} />;
-              })
-          : null}
-      </InfiniteScroll>
     </>
   );
 };

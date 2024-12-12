@@ -12,7 +12,7 @@ import {
   ElectionVotes,
   SectionInfo,
 } from "@/data/dataTypes";
-import { addVotes } from "@/data/utils";
+import { addResults } from "@/data/utils";
 import { lookupCountryNumbers } from "./country_codes";
 import {
   municipalityVotesFileName,
@@ -105,9 +105,6 @@ export const aggregateSettlements = (
         key: region.oblast,
         nuts3: region.nuts3,
         results: {
-          actualTotal: 0,
-          actualMachineVotes: 0,
-          actualPaperVotes: 0,
           votes: [],
         },
       });
@@ -130,9 +127,6 @@ export const aggregateSettlements = (
         obshtina: muni.obshtina as string,
         oblast: region.key,
         results: {
-          actualTotal: 0,
-          actualMachineVotes: 0,
-          actualPaperVotes: 0,
           votes: [],
         },
       };
@@ -162,9 +156,6 @@ export const aggregateSettlements = (
         t_v_m: set.t_v_m,
         sections: [],
         results: {
-          actualTotal: 0,
-          actualMachineVotes: 0,
-          actualPaperVotes: 0,
           votes: [],
         },
       };
@@ -182,9 +173,6 @@ export const aggregateSettlements = (
         key: vote.section,
         nuts3: regionCode,
         results: {
-          actualTotal: 0,
-          actualMachineVotes: 0,
-          actualPaperVotes: 0,
           votes: [],
         },
       };
@@ -275,15 +263,17 @@ export const aggregateSettlements = (
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { section: ss, rik, ...nprotocol } = protocol;
       const { votes } = vote;
-      section.protocol = { ...nprotocol };
-      section.votes = votes;
+      section.results = {
+        protocol: { ...nprotocol },
+        votes: votes,
+      };
       section.oblast = region.key;
       section.obshtina = municipality.obshtina;
       section.ekatte = settlement.ekatte;
     }
-    addVotes(settlement.results, vote.votes, protocol);
-    addVotes(municipality.results, vote.votes, protocol);
-    addVotes(region.results, vote.votes, protocol);
+    addResults(settlement.results, vote.votes, protocol);
+    addResults(municipality.results, vote.votes, protocol);
+    addResults(region.results, vote.votes, protocol);
   });
   let json = stringify(electionRegions);
   let outFile = `${outFolder}/${regionsVotesFileName}`;

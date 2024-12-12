@@ -21,13 +21,10 @@ export const formatThousands = (x?: number) =>
     ? x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
     : "";
 
-export const addVotes = (
-  results: VoteResults,
-  votes: Votes[],
-  protocol?: SectionProtocol,
-) => {
+export const addVotes = (votes: Votes[], initial?: Votes[]) => {
+  const buff: Votes[] = initial || [];
   votes.forEach((v) => {
-    const votes = results.votes.find((a) => a.partyNum === v.partyNum);
+    const votes = buff.find((a) => a.partyNum === v.partyNum);
     if (votes) {
       votes.totalVotes += v.totalVotes;
       if (v.machineVotes) {
@@ -37,22 +34,22 @@ export const addVotes = (
         votes.paperVotes = (votes.paperVotes || 0) + v.paperVotes;
       }
     } else {
-      results.votes.push({
+      buff.push({
         partyNum: v.partyNum,
         totalVotes: v.totalVotes,
         machineVotes: v.machineVotes,
         paperVotes: v.paperVotes,
       });
     }
-    results.actualTotal += v.totalVotes;
-    if (v.machineVotes) {
-      results.actualMachineVotes =
-        (results.actualMachineVotes || 0) + v.machineVotes;
-    }
-    if (v.paperVotes) {
-      results.actualPaperVotes = (results.actualPaperVotes || 0) + v.paperVotes;
-    }
   });
+  return buff;
+};
+export const addResults = (
+  results: VoteResults,
+  votes: Votes[],
+  protocol?: SectionProtocol,
+) => {
+  results.votes = addVotes(votes, results.votes);
   if (protocol) {
     const totalActualVoters =
       (protocol.numValidMachineVotes || 0) +
@@ -166,4 +163,15 @@ export const findPrevVotes = (
     }
     return acc;
   }, undefined);
+};
+
+export const topParty = (votes?: Votes[]): PartyVotes | undefined => {
+  const tp = votes?.reduce((acc, curr) => {
+    if (acc.totalVotes > curr.totalVotes) {
+      return acc;
+    }
+    return curr;
+  }, votes[0]);
+
+  return tp;
 };

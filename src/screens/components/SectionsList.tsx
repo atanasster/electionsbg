@@ -36,22 +36,26 @@ export const SectionsList: FC<{ sections: SectionInfo[] }> = ({ sections }) => {
             cityIdx + settlementName.length + numSpaces + 1,
           ) || "";
       }
-      const topParty = topVotesParty(section.votes);
+      const topParty = topVotesParty(section.results.votes);
       return {
         ...section,
         address,
         partyVotes: topParty,
         voterTurnout:
-          section.protocol?.totalActualVoters &&
-          section.protocol?.numRegisteredVoters
-            ? (100 * section.protocol?.totalActualVoters) /
-              section.protocol?.numRegisteredVoters
+          section.results.protocol?.totalActualVoters &&
+          section.results.protocol?.numRegisteredVoters
+            ? (100 * section.results.protocol?.totalActualVoters) /
+              section.results.protocol?.numRegisteredVoters
             : 100,
       };
     });
   }, [sections, topVotesParty]);
-  const hasPaperVotes = !!data.find((v) => v.protocol?.numPaperBallotsFound);
-  const hasMachineVotes = !!data.find((v) => v.protocol?.numMachineBallots);
+  const hasPaperVotes = !!data.find(
+    (v) => v.results.protocol?.numPaperBallotsFound,
+  );
+  const hasMachineVotes = !!data.find(
+    (v) => v.results.protocol?.numMachineBallots,
+  );
 
   return (
     <DataTable<
@@ -113,7 +117,7 @@ export const SectionsList: FC<{ sections: SectionInfo[] }> = ({ sections }) => {
           cell: ({ row }) => {
             return (
               <div className="px-4 py-2 text-right">
-                {formatThousands(row.original.protocol?.numValidVotes)}
+                {formatThousands(row.original.results.protocol?.numValidVotes)}
               </div>
             );
           },
@@ -129,7 +133,9 @@ export const SectionsList: FC<{ sections: SectionInfo[] }> = ({ sections }) => {
           cell: ({ row }) => {
             return (
               <div className="px-4 py-2 text-right">
-                {formatThousands(row.original.protocol?.numValidMachineVotes)}
+                {formatThousands(
+                  row.original.results.protocol?.numValidMachineVotes,
+                )}
               </div>
             );
           },
@@ -144,7 +150,9 @@ export const SectionsList: FC<{ sections: SectionInfo[] }> = ({ sections }) => {
           cell: ({ row }) => {
             return (
               <div className="px-4 py-2 text-right">
-                {formatThousands(row.original.protocol?.totalActualVoters)}
+                {formatThousands(
+                  row.original.results.protocol?.totalActualVoters,
+                )}
               </div>
             );
           },
@@ -159,7 +167,7 @@ export const SectionsList: FC<{ sections: SectionInfo[] }> = ({ sections }) => {
                 content={
                   <div>
                     <Caption>{row.original.section}</Caption>
-                    <PartyVotesXS votes={row.original.votes} />
+                    <PartyVotesXS votes={row.original.results.votes} />
                   </div>
                 }
               >

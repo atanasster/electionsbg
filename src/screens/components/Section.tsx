@@ -14,10 +14,13 @@ export const Section: FC<{ section: SectionInfo }> = ({ section }) => {
       <div>
         <Caption>{`${t("section")} ${section.section}`}</Caption>
         <Caption className="mb-4">{`${section.settlement}${section.address ? `-${section.address}` : ""}`}</Caption>
-        <ProtocolSummary protocol={section.protocol} votes={section.votes} />
-        {section.protocol && section.votes && (
+        <ProtocolSummary
+          protocol={section.results.protocol}
+          votes={section.results.votes}
+        />
+        {section.results.protocol && section.results.votes && (
           <PartyVotesTable
-            votes={section.votes}
+            votes={section.results.votes}
             stats={stats}
             prevElectionVotes={prevVotes?.results?.votes}
           />
