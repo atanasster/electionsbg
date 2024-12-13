@@ -30,6 +30,5 @@ export const useSettlementVotes = () => {
 
   return {
     votesBySettlement,
-    settlements,
   };
 };

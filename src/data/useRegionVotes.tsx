@@ -47,7 +47,6 @@ export const useRegionVotes = () => {
 
   return {
     votesByRegion,
-    regions: votes,
     votesWorld,
     countryVotes,
   };

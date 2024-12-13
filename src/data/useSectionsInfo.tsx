@@ -43,5 +43,5 @@ export const useSectionsInfo = () => {
     },
     [sections],
   );
-  return { findSections, findSection, sections };
+  return { findSections, findSection };
 };
