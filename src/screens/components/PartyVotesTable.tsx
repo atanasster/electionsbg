@@ -25,7 +25,7 @@ import { useTranslation } from "react-i18next";
 import { PartyLabel } from "./PartyLabel";
 import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
 import { Hint } from "@/ux/Hint";
-import { HistoryChart } from "./HistoryChart";
+import { HistoryChart } from "./charts/HistoryChart";
 import { DialogClose } from "@radix-ui/react-dialog";
 import { Button } from "@/components/ui/button";
 import { ChartArea } from "lucide-react";
@@ -85,7 +85,10 @@ export const PartyVotesTable: FC<{
         cell: ({ row }) => {
           const party = row.original as PartyInfo;
           return (
-            <Hint text={`${party ? party?.name : t("unknown_party")}`}>
+            <Hint
+              text={`${party ? party?.name : t("unknown_party")}`}
+              underline={false}
+            >
               <PartyLabel party={party} />
             </Hint>
           );

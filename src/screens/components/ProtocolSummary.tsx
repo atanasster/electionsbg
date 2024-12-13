@@ -1,37 +1,13 @@
 import { FC } from "react";
 import { Newspaper, LaptopMinimal, Users, Flag } from "lucide-react";
-import { Bar, BarChart, Cell, CartesianGrid, XAxis } from "recharts";
 import { SectionProtocol, Votes } from "@/data/dataTypes";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { useTranslation } from "react-i18next";
 import { Hint } from "@/ux/Hint";
 import { formatPct, formatThousands } from "@/data/utils";
-import { ChartContainer, ChartTooltip } from "@/components/ui/chart";
-import { useElectionContext } from "@/data/ElectionContext";
 import { useTopParties } from "@/data/useTopParties";
 import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
-
-const CustomTooltip: FC<{
-  active?: boolean;
-  payload?: {
-    value: number;
-    payload: { pctVotes: number; nickName: string };
-  }[];
-  label?: string;
-}> = ({ active, payload }) => {
-  const { t } = useTranslation();
-  return active && payload ? (
-    <div className="z-50 overflow-hidden rounded-md bg-primary px-3 py-1.5 text-xs text-primary-foreground animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2">
-      <div className="flex">
-        <div className="text-muted">{`${payload[0].payload.nickName}:`}</div>
-        <div className="ml-2 font-semibold">
-          {`${formatThousands(payload[0].value)} ${payload[0].payload.pctVotes ? `(${formatPct(payload[0].payload.pctVotes, 2)}` : ""})`}
-        </div>
-        <div className="text-muted ml-1 lowercase ">{t("votes")}</div>
-      </div>
-    </div>
-  ) : null;
-};
+import { VotesChart } from "./charts/VotesChart";
 
 export const ProtocolSummary: FC<{
   protocol?: SectionProtocol;
@@ -39,7 +15,6 @@ export const ProtocolSummary: FC<{
 }> = ({ protocol, votes }) => {
   const { t } = useTranslation();
   const isXSmall = useMediaQueryMatch("xs");
-  const { isMachineOnly } = useElectionContext();
 
   const topParties = useTopParties(votes, 4);
   return (
@@ -360,39 +335,7 @@ export const ProtocolSummary: FC<{
                   <Flag />
                 </CardHeader>
                 <CardContent>
-                  <ChartContainer config={{}}>
-                    <BarChart accessibilityLayer data={topParties}>
-                      <CartesianGrid vertical={false} />
-                      <XAxis
-                        dataKey="nickName"
-                        tickMargin={10}
-                        tick={
-                          topParties &&
-                          (topParties.length <= 5 || isMachineOnly())
-                        }
-                        tickFormatter={(value: string) => {
-                          if (value.length > 6) {
-                            const parts = value.split("-");
-                            if (parts.length > 1) {
-                              return parts[0];
-                            }
-                          }
-
-                          return value.slice(0, 6);
-                        }}
-                        interval={0}
-                      />
-                      <ChartTooltip
-                        cursor={false}
-                        content={<CustomTooltip />}
-                      />
-                      <Bar dataKey="totalVotes" radius={8}>
-                        {topParties?.map((p) => (
-                          <Cell key={`cell-${p.partyNum}`} fill={p.color} />
-                        ))}
-                      </Bar>
-                    </BarChart>
-                  </ChartContainer>
+                  <VotesChart votes={topParties} maxRows={6} />
                 </CardContent>
               </Card>
             </>

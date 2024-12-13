@@ -32,6 +32,7 @@ export const SettlementsTopLosers = () => {
       titleKey="top_losers"
       ruleKey="top_losers_under"
       visibleColumns={["prevYearChange", "prevYearVotes"]}
+      hiddenColumns={["pctPartyVote"]}
     />
   );
 };

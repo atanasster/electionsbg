@@ -31,6 +31,7 @@ export const SectionsTopGainers = () => {
       titleKey="top_gainers"
       ruleKey="top_gainers_over"
       visibleColumns={["prevYearChange", "prevYearVotes"]}
+      hiddenColumns={["pctPartyVote"]}
     />
   );
 };
