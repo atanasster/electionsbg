@@ -11,7 +11,6 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
@@ -46,11 +45,13 @@ export const SelectParties: FC<{
   const isXSmall = useMediaQueryMatch("xs");
   return (
     <Dialog open={open} onOpenChange={setOpen}>
-      <DialogTrigger asChild>
-        <Button variant="ghost" className="my-2">
-          {`${t("select_parties")}...`}
-        </Button>
-      </DialogTrigger>
+      <Button
+        variant="secondary"
+        className="my-2"
+        onClick={() => setOpen(true)}
+      >
+        {`${t("select_parties")}...`}
+      </Button>
       <DialogContent className="md:max-w-lg text-primary min-w-fit">
         <DialogHeader>
           <DialogTitle>{t("select_parties")}</DialogTitle>
