@@ -82,6 +82,7 @@ export const GeoJSONMap = <Props extends GeoJSONProps>({
               ...acc.labels,
               ptLB && ptRT && info ? (
                 <text
+                  filter={"url(#colored-bg)"}
                   key={`label-${name}`}
                   className="fill-white"
                   style={{ pointerEvents: "none" }}
@@ -129,6 +130,12 @@ export const GeoJSONMap = <Props extends GeoJSONProps>({
   return (
     <div>
       <svg className="overflow-hidden" width={size[0]} height={size[1]}>
+        <defs>
+          <filter id="colored-bg" x="-5%" width="110%" y="0%" height="100%">
+            <feFlood floodColor="rgba(0,0,0,0.5)" />
+            <feComposite operator="over" in="SourceGraphic"></feComposite>
+          </filter>
+        </defs>
         <g>{components.maps}</g>
         {components.labels}
       </svg>
