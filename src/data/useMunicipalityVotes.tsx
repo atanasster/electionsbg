@@ -31,6 +31,5 @@ export const useMunicipalitydVotes = () => {
   );
   return {
     votesByMunicipality,
-    municipalities,
   };
 };
