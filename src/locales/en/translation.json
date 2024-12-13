@@ -85,6 +85,7 @@
   "changeLanguageTo": "bg",
   "party_num_explainer": "The ballot number of the party in the selected elections",
   "prev_election_votes_explainer": "The number of votes for the party in the previous elections",
+  "prev_election_change_votes_explainer": "How many votes are lost by the party since the previous election",
   "pct_prev_election_votes_explainer": "The percentage change of the votes for the party in the selected elections, compared to the votes in the previous elections",
   "top_1pct_parties": "Over 1%",
   "all_parties": "All parties",
@@ -129,7 +130,12 @@
   "top_gainers": "Top gainers",
   "top_gainers_over": "with a party gaining from the previous election over",
   "top_losers": "Top losers",
-  "top_losers_under":"with a party losing from the previous election over",
+  "top_losers_under":"where a party lost over",
   "include_abroad": "Include abroad",
-  "include_abroad_explainer": "When this option is checked, the reports will include voters from abroad"
+  "include_abroad_short": "Abroad",
+  "include_abroad_explainer": "When this option is checked, the reports will include voters from abroad",
+  "select_parties": "Select parties",
+  "select_all": "Select all",
+  "unselect_all": "Unselect all",
+  "save": "Save"
 }

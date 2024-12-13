@@ -9,11 +9,13 @@ export const Template: FC<{
   bigger?: boolean;
   defaultThreshold: number;
   visibleColumns?: ColumnNames[];
+  hiddenColumns?: ColumnNames[];
 }> = ({
   titleKey,
   ruleKey,
   votes,
   visibleColumns = [],
+  hiddenColumns,
   defaultThreshold,
   bigger,
 }) => {
@@ -26,6 +28,7 @@ export const Template: FC<{
       votes={votes}
       ruleKey={ruleKey}
       visibleColumns={visibleColumns}
+      hiddenColumns={hiddenColumns}
     />
   );
 };

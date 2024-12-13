@@ -1,17 +1,22 @@
 import { PartyInfo } from "@/data/dataTypes";
-import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
-import { FC } from "react";
+import { cn } from "@/lib/utils";
+import { FC, PropsWithChildren } from "react";
 import { useTranslation } from "react-i18next";
 
-export const PartyLabel: FC<{ party?: PartyInfo }> = ({ party }) => {
+export const PartyLabel: FC<
+  PropsWithChildren<{ party?: PartyInfo; className?: string }>
+> = ({ children, className, party }) => {
   const { t } = useTranslation();
-  const isXSmall = useMediaQueryMatch("xs");
   return (
     <div
-      className={`p-1 bg-primary text-center text-white font-bold ${isXSmall ? "max-w-16" : "max-w-32"} overflow-hidden whitespace-nowrap`}
+      className={cn(
+        `flex justify-between p-1 bg-primary text-center text-white font-bold overflow-hidden whitespace-nowrap`,
+        className,
+      )}
       style={{ backgroundColor: party?.color }}
     >
-      {party?.nickName || t("unknown_party")}
+      <div>{party?.nickName || t("unknown_party")}</div>
+      {children}
     </div>
   );
 };

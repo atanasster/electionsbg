@@ -82,7 +82,7 @@ export const Header = () => {
     localStorage.setItem("language", language);
   };
   return (
-    <nav className="flex fixed w-full z-10 top-0 gap-2 md:gap-10 bg-muted border-b-2 justify-between items-center">
+    <nav className="flex shadow-sm fixed w-full z-10 top-0 gap-2 md:gap-10 bg-muted border-b-2 justify-between items-center">
       <div className=" flex text-xl text-primary flex-wrap items-center justify-between p-4">
         <Link to="/" className="flex flex-row items-center">
           <span className="sr-only">Elections in Bulgaria data statistics</span>

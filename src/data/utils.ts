@@ -35,6 +35,7 @@ export const addVotes = (votes: Votes[], initial?: Votes[]) => {
       }
     } else {
       buff.push({
+        ...v,
         partyNum: v.partyNum,
         totalVotes: v.totalVotes,
         machineVotes: v.machineVotes,

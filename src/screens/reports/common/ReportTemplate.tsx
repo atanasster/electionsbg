@@ -4,7 +4,7 @@ import { Hint } from "@/ux/Hint";
 import { ReportRow, Votes } from "@/data/dataTypes";
 import { DataTable } from "@/ux/DataTable";
 import { useTranslation } from "react-i18next";
-import { addVotes, formatPct, formatThousands } from "@/data/utils";
+import { addVotes, formatPct, formatThousands, localDate } from "@/data/utils";
 import { useSettlementsInfo } from "@/data/useSettlements";
 import { useSearchParams } from "react-router-dom";
 import { Link } from "@/ux/Link";
@@ -24,6 +24,8 @@ import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
 import { useTouch } from "@/ux/TouchProvider";
 import { PartyLabel } from "@/screens/components/PartyLabel";
 import { usePartyInfo } from "@/data/usePartyInfo";
+import { useElectionContext } from "@/data/ElectionContext";
+import { SelectParties } from "@/screens/components/charts/SelectParties";
 
 export type ColumnNames =
   | "ekatte"
@@ -33,7 +35,8 @@ export type ColumnNames =
   | "section"
   | "pctAdditionalVoters"
   | "prevYearVotes"
-  | "prevYearChange";
+  | "prevYearChange"
+  | "pctPartyVote";
 export const ReportTemplate: FC<{
   defaultThreshold: number;
   bigger?: boolean;
@@ -42,6 +45,7 @@ export const ReportTemplate: FC<{
   levelKey: string;
   ruleKey: string;
   visibleColumns?: ColumnNames[];
+  hiddenColumns?: ColumnNames[];
 }> = ({
   defaultThreshold,
   bigger = true,
@@ -49,9 +53,12 @@ export const ReportTemplate: FC<{
   levelKey,
   titleKey,
   ruleKey,
+  hiddenColumns = [],
   visibleColumns = [],
 }) => {
   const [searchParams, setSearchParams] = useSearchParams();
+  const { priorElections } = useElectionContext();
+  const [unselected, setUnselected] = useState<string[]>([]);
   const [includeAbroad, setIncludeAbroad] = useState(
     localStorage.getItem("reports_include_abroad") === "true",
   );
@@ -67,31 +74,53 @@ export const ReportTemplate: FC<{
       parseInt(searchParams.get("threshold") || defaultThreshold.toString()),
     [defaultThreshold, searchParams],
   );
+
+  const selectedData = useMemo(
+    () =>
+      votes
+        ?.map((v) => {
+          const party = findParty(v.partyNum);
+          return {
+            ...v,
+            party,
+            prevYearChangeVotes: v.totalVotes - (v.prevYearVotes || 0),
+          };
+        })
+        ?.filter((vote) => {
+          return (
+            (includeAbroad || vote.oblast !== "32") &&
+            (bigger ? vote.value > threshold : vote.value < -threshold)
+          );
+        }),
+    [votes, findParty, includeAbroad, bigger, threshold],
+  );
   const data = useMemo(
     () =>
-      votes?.filter((vote) => {
-        return (
-          (includeAbroad || vote.oblast !== "32") &&
-          (bigger ? vote.value > threshold : vote.value < threshold)
-        );
+      selectedData?.filter((vote) => {
+        return !unselected.includes(vote.party?.nickName);
       }),
-    [bigger, threshold, votes, includeAbroad],
+    [selectedData, unselected],
   );
-  const summaryResults = useMemo(() => {
-    const allVotes = data?.reduce((acc: Votes[], v) => {
-      return addVotes(
+  const summaryVotes = useMemo(() => {
+    const allVotes = selectedData?.reduce((acc: Votes[], v) => {
+      const added = addVotes(
         [
           {
+            ...v.party,
             partyNum: v.partyNum,
-            totalVotes: v.totalVotes,
+            totalVotes: bigger
+              ? v.totalVotes
+              : (v.prevYearVotes || 0) - v.totalVotes,
           },
         ],
         acc,
-      );
+      ).sort((a, b) => b.totalVotes - a.totalVotes);
+      return added;
     }, []);
+
     return allVotes;
-  }, [data]);
-  console.log(summaryResults);
+  }, [bigger, selectedData]);
+
   return (
     <div className={`w-full`}>
       <Title description="election anomalies report">{t(titleKey)}</Title>
@@ -124,41 +153,50 @@ export const ReportTemplate: FC<{
           </SelectContent>
         </Select>
       </div>
-
-      <Hint text={t("include_abroad_explainer")}>
-        <div className="flex items-center space-x-2 pb-4 justify-end">
-          <Switch
-            id="include_abroad"
-            checked={includeAbroad}
-            onCheckedChange={(value) => {
-              localStorage.setItem(
-                "reports_include_abroad",
-                value ? "true" : "false",
-              );
-              setIncludeAbroad(value);
-            }}
-          />
-          <Label
-            className="text-secondary-foreground"
-            htmlFor={isTouch ? undefined : "include_abroad"}
-          >
-            {t("include_abroad")}
-          </Label>
+      <div className="flex justify-between py-2 w-full">
+        <SelectParties
+          votes={summaryVotes}
+          onChangeSelected={setUnselected}
+          subTitle={`${t(levelKey)} ${t(ruleKey)} ${threshold}%`}
+        />
+        <div className="flex items-center ">
+          <Hint text={t("include_abroad_explainer")}>
+            <div className="flex items-center space-x-2">
+              <Switch
+                id="include_abroad"
+                checked={includeAbroad}
+                onCheckedChange={(value) => {
+                  localStorage.setItem(
+                    "reports_include_abroad",
+                    value ? "true" : "false",
+                  );
+                  setIncludeAbroad(value);
+                }}
+              />
+              <Label
+                className="text-secondary-foreground"
+                htmlFor={isTouch ? undefined : "include_abroad"}
+              >
+                {isSmall ? t("include_abroad_short") : t("include_abroad")}
+              </Label>
+            </div>
+          </Hint>
         </div>
-      </Hint>
+      </div>
       <DataTable
         pageSize={25}
         stickyColumn={true}
         columns={[
           {
-            accessorKey: "partyNum",
+            accessorKey: "party.nickName",
             header: t("party"),
             size: 70,
             cell: ({ row }) => {
-              const party = findParty(row.original.partyNum);
               return (
-                <Hint text={`${party ? party?.name : t("unknown_party")}`}>
-                  <PartyLabel party={party} />
+                <Hint
+                  text={`${row.original.party ? row.original.party.name : t("unknown_party")}`}
+                >
+                  <PartyLabel party={row.original.party} />
                 </Hint>
               );
             },
@@ -259,6 +297,7 @@ export const ReportTemplate: FC<{
           },
           {
             accessorKey: "pctPartyVote",
+            hidden: hiddenColumns.includes("pctPartyVote"),
             header: () => (
               <Hint text={t("pct_party_votes_explainer")}>
                 <div>%</div>
@@ -338,10 +377,14 @@ export const ReportTemplate: FC<{
           },
           {
             accessorKey: "prevYearVotes",
-            hidden: !visibleColumns.includes("prevYearVotes"),
+            hidden: priorElections && !visibleColumns.includes("prevYearVotes"),
             header: (
               <Hint text={t("prev_election_votes_explainer")}>
-                <div>{t("prior_elections")}</div>
+                <div>
+                  {priorElections
+                    ? localDate(priorElections.name)
+                    : t("prior_elections")}
+                </div>
               </Hint>
             ) as never,
             cell: ({ row }) => (
@@ -351,11 +394,27 @@ export const ReportTemplate: FC<{
             ),
           },
           {
+            accessorKey: "prevYearChangeVotes",
+            hidden: priorElections && !visibleColumns.includes("prevYearVotes"),
+            header: (
+              <Hint text={t("prev_election_change_votes_explainer")}>
+                <div>{t("change")}</div>
+              </Hint>
+            ) as never,
+            cell: ({ row }) => (
+              <div
+                className={`px-4 py-2 text-right ${row.original.prevYearChangeVotes && row.original.prevYearChangeVotes < 0 ? "text-destructive" : "text-secondary-foreground"}`}
+              >
+                {formatThousands(row.original.prevYearChangeVotes)}
+              </div>
+            ),
+          },
+          {
             accessorKey: "value",
             hidden: !visibleColumns.includes("prevYearChange"),
             header: (
               <Hint text={t("pct_prev_election_votes_explainer")}>
-                <div>{`% ${t("change")}`}</div>
+                <div>{isSmall ? "+/-%" : `% ${t("change")}`}</div>
               </Hint>
             ) as never,
             cell: ({ row }) => {
