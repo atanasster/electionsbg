@@ -120,7 +120,7 @@ export const SelectParties: FC<{
         <DialogFooter className="sm:justify-between">
           <DialogClose asChild>
             <Button type="button" variant="secondary">
-              {t("close")}
+              {t("cancel")}
             </Button>
           </DialogClose>
           <Button
