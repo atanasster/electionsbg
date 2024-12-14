@@ -153,27 +153,27 @@ export const AboutScreen = () => {
         </ul>
         <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
           {t("settlement_locations")}
-          <ul className="my-6 ml-6 list-disc [&>li]:mt-2">
-            <li>
-              <Anchor
-                className="mx-1"
-                target="_blank"
-                href="https://github.com/yurukov/Bulgaria-geocoding/blob/master/settlements_loc.csv"
-              >
-                {t("settlement_locations")}
-              </Anchor>
-            </li>
-            <li>
-              <Anchor
-                className="mx-1"
-                target="_blank"
-                href="https://gist.github.com/ofou/df09a6834a8421b4f376c875194915c9"
-              >
-                {t("country_capitals_locations")}
-              </Anchor>
-            </li>
-          </ul>
         </h4>
+        <ul className="my-6 ml-6 list-disc [&>li]:mt-2">
+          <li>
+            <Anchor
+              className="mx-1"
+              target="_blank"
+              href="https://github.com/yurukov/Bulgaria-geocoding/blob/master/settlements_loc.csv"
+            >
+              {t("settlement_locations_bulgaria")}
+            </Anchor>
+          </li>
+          <li>
+            <Anchor
+              className="mx-1"
+              target="_blank"
+              href="https://gist.github.com/ofou/df09a6834a8421b4f376c875194915c9"
+            >
+              {t("country_capitals_locations")}
+            </Anchor>
+          </li>
+        </ul>
         <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
           {t("election_results")}
         </h4>
