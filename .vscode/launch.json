@@ -9,8 +9,8 @@
     "type": "node",
     "request": "launch",
 
-    // Debug current file in VSCode
-    "program": "./scripts/main.ts",
+    //"program": "./scripts/main.ts",
+    "program": "./scripts/helpers/settlements_locations.ts",
 
     /*
      * Path to tsx binary

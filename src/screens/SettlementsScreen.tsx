@@ -40,7 +40,13 @@ export const SettlementsScreen = () => {
         votes={municipalityVotes?.results.votes}
       />
       <MapLayout>
-        {(size) => <SettlementsMap municipality={municipality} size={size} />}
+        {(size, withNames) => (
+          <SettlementsMap
+            municipality={municipality}
+            size={size}
+            withNames={withNames}
+          />
+        )}
       </MapLayout>
       <PartyVotesTable
         votes={municipalityVotes?.results.votes}

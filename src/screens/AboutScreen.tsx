@@ -101,43 +101,39 @@ export const AboutScreen = () => {
         </h4>
         <ul className="my-6 ml-6 list-disc [&>li]:mt-2">
           <li>
-            {t("regions_muni_settlements")}
             <Anchor
               className="mx-1"
               target="_blank"
               href="https://github.com/yurukov/Bulgaria-geocoding/tree/master"
             >
-              https://github.com/yurukov/Bulgaria-geocoding/tree/master.
+              {t("regions_muni_settlements")}
             </Anchor>
           </li>
           <li>
-            {t("sofia_districts")}
             <Anchor
               className="mx-1"
               target="_blank"
               href="https://sofiaplan.bg/api/"
             >
-              https://sofiaplan.bg/api/.
+              {t("sofia_districts")}
             </Anchor>
           </li>
           <li>
-            {t("world_countries")}
             <Anchor
               className="mx-1"
               target="_blank"
               href="https://github.com/johan/world.geo.json"
             >
-              https://github.com/johan/world.geo.json.
+              {t("world_countries")}
             </Anchor>
           </li>
           <li>
-            {t("continents")}
             <Anchor
               className="mx-1"
               target="_blank"
               href="https://github.com/rapomon/geojson-places/tree/master"
             >
-              https://github.com/rapomon/geojson-places/tree/master.
+              {t("continents")}
             </Anchor>
           </li>
         </ul>
@@ -146,118 +142,121 @@ export const AboutScreen = () => {
         </h4>
         <ul className="my-6 ml-6 list-disc [&>li]:mt-2">
           <li>
-            {t("settlements_from_EKATTE")}
             <Anchor
               className="mx-1"
               target="_blank"
               href="https://www.nsi.bg/nrnm/ekatte/regions"
             >
-              https://www.nsi.bg/nrnm/ekatte/regions.
+              {t("settlements_from_EKATTE")}
             </Anchor>
           </li>
         </ul>
+        <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
+          {t("settlement_locations")}
+          <ul className="my-6 ml-6 list-disc [&>li]:mt-2">
+            <li>
+              <Anchor
+                className="mx-1"
+                target="_blank"
+                href="https://github.com/yurukov/Bulgaria-geocoding/blob/master/settlements_loc.csv"
+              >
+                {t("settlement_locations")}
+              </Anchor>
+            </li>
+          </ul>
+        </h4>
         <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
           {t("election_results")}
         </h4>
         <ul className="my-6 ml-6 list-disc [&>li]:mt-2">
           <li>
-            27.10.2024
             <Anchor
               className="mx-1"
               target="_blank"
               href="https://results.cik.bg/pe202410/opendata/index.html"
             >
-              https://results.cik.bg/pe202410/opendata/index.html.
+              27.10.2024
             </Anchor>
           </li>
           <li>
-            09.06.2024
             <Anchor
               className="mx-1"
               target="_blank"
               href="https://results.cik.bg/europe2024/opendata/index.html"
             >
-              https://results.cik.bg/europe2024/opendata/index.html
+              09.06.2024
             </Anchor>
           </li>
           <li>
-            02.04.2023
             <Anchor
               className="mx-1"
               target="_blank"
               href="https://results.cik.bg/ns2023/csv.html"
             >
-              https://results.cik.bg/ns2023/csv.html
+              02.04.2023
             </Anchor>
           </li>
           <li>
-            02.10.2022
             <Anchor
               className="mx-1"
               target="_blank"
               href="https://results.cik.bg/ns2022/csv.html"
             >
-              https://results.cik.bg/ns2022/csv.html
+              02.10.2022
             </Anchor>
           </li>
           <li>
-            14.11.2021
             <Anchor
               className="mx-1"
               target="_blank"
               href="https://results.cik.bg/pvrns2021/tur1/csv.html"
             >
-              https://results.cik.bg/pvrns2021/tur1/csv.html
+              14.11.2021
             </Anchor>
           </li>
           <li>
-            11.07.2021
             <Anchor
               className="mx-1"
               target="_blank"
               href="https://results.cik.bg/pi2021_07/csv.html"
             >
-              https://results.cik.bg/pi2021_07/csv.html
+              11.07.2021
             </Anchor>
           </li>
           <li>
-            04.04.2021
             <Anchor
               className="mx-1"
               target="_blank"
               href="https://results.cik.bg/pi2021/csv.html"
             >
-              https://results.cik.bg/pi2021/csv.html
+              04.04.2021
             </Anchor>
           </li>
           <li>
-            26.03.2017
             <Anchor
               className="mx-1"
               target="_blank"
               href="https://results.cik.bg/pi2017/csv.html"
             >
-              https://results.cik.bg/pi2017/csv.html
+              26.03.2017
             </Anchor>
           </li>
           <li>
-            05.10.2014
             <Anchor
               className="mx-1"
               target="_blank"
               href="https://results.cik.bg/pi2014/csv.html"
             >
-              https://results.cik.bg/pi2014/csv.html
+              05.10.2014
             </Anchor>
           </li>
           <li>
-            12.05.2013
             <Anchor
               className="mx-1"
               target="_blank"
               href="https://results.cik.bg/pi2013/csv.html"
             >
-              https://results.cik.bg/pi2013/csv.html
+              12.05.2013
             </Anchor>
           </li>
         </ul>

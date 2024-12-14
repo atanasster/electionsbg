@@ -7,8 +7,12 @@ import { GeoJSONMap } from "./maps/GeoJSONMap";
 import { useNavigateParams } from "@/ux/useNavigateParams";
 
 export const RegionsMap: React.FC<
-  React.PropsWithChildren<{ regions: RegionGeoJSON; size: MapCoordinates }>
-> = ({ regions, size, children }) => {
+  React.PropsWithChildren<{
+    regions: RegionGeoJSON;
+    size: MapCoordinates;
+    withNames: boolean;
+  }>
+> = ({ regions, size, children, withNames }) => {
   const navigate = useNavigateParams();
   const { findRegion } = useRegions();
   const { votesByRegion } = useRegionVotes();
@@ -38,6 +42,7 @@ export const RegionsMap: React.FC<
       findVotes={findVotes}
       findInfo={findInfo}
       getName={getName}
+      withNames={withNames}
     >
       {children}
     </GeoJSONMap>
