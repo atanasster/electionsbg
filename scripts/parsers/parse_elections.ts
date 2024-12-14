@@ -44,12 +44,7 @@ const parseElection = async ({
     monthYear,
     inFolder,
   });
-  const json = stringify(
-    sections.map((s) => ({
-      ...s,
-      votes: s.results.votes?.filter((v) => v.totalVotes !== 0),
-    })),
-  );
+  const json = stringify(sections);
   const outFile = `${outFolder}/${sectionVotesFileName}`;
   fs.writeFileSync(outFile, json, "utf8");
   console.log("Successfully added file ", outFile);
