@@ -1,0 +1,97 @@
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+import { generateVotes } from "./generate_votes";
+import { parseProtocols } from "./protocols";
+import { parseVotes } from "./votes";
+import { parseSections } from "./sections";
+import { parseParties } from "./parties";
+import { sectionVotesFileName } from "scripts/consts";
+
+const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
+const __dirname = path.dirname(__filename); // get the name of the directory
+
+const parseElection = async ({
+  dataFolder,
+  monthYear,
+  stringify,
+}: {
+  monthYear: string;
+  dataFolder: string;
+  stringify: (o: object) => string;
+}) => {
+  const inFolder = path.resolve(__dirname, `../../raw_data/${monthYear}`);
+  const outFolder = `${dataFolder}/${monthYear}`;
+  if (!fs.existsSync(outFolder)) {
+    fs.mkdirSync(outFolder);
+  }
+  //const parties =
+  await parseParties(inFolder, outFolder, monthYear, stringify);
+  const sections = await parseSections(inFolder, monthYear);
+  const votes = await parseVotes(inFolder, monthYear);
+  const protocols = await parseProtocols(
+    inFolder,
+    //outFolder,
+    monthYear,
+    //stringify,
+  );
+  const aggregated = generateVotes({
+    outFolder,
+    sections,
+    votes,
+    protocols,
+    stringify,
+    monthYear,
+    inFolder,
+  });
+  const json = stringify(
+    sections.map((s) => ({
+      ...s,
+      votes: s.results.votes?.filter((v) => v.totalVotes !== 0),
+    })),
+  );
+  const outFile = `${outFolder}/${sectionVotesFileName}`;
+  fs.writeFileSync(outFile, json, "utf8");
+  console.log("Successfully added file ", outFile);
+  return aggregated;
+};
+export const parseElections = async ({
+  date,
+  all,
+  stringify,
+  dataFolder,
+}: {
+  date?: string;
+  all?: boolean;
+  dataFolder: string;
+  stringify: (o: object) => string;
+}) => {
+  if (!date && !all) {
+    return;
+  }
+  const inFolder = path.resolve(__dirname, `../../raw_data/`);
+  const dataFolders = fs.readdirSync(inFolder, { withFileTypes: true });
+  const folders = dataFolders
+    .filter((file) => file.isDirectory())
+    .map((f) => f.name)
+    .sort((a, b) => b.localeCompare(a));
+
+  const selectedFolders = date
+    ? folders.filter((f) => f === date)
+    : all
+      ? folders
+      : folders.length
+        ? [folders[0]]
+        : [];
+  if (date && selectedFolders.length === 0) {
+    throw new Error(
+      `Can not find specified folder: 
+    ${date}`,
+    );
+  }
+  await Promise.all(
+    selectedFolders.map(async (monthYear) => {
+      return await parseElection({ monthYear, dataFolder, stringify });
+    }),
+  );
+};

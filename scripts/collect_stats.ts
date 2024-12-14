@@ -19,6 +19,7 @@ import {
 } from "./consts";
 import path from "path";
 import { fileURLToPath } from "url";
+import { saveSplitObject } from "./dataReaders";
 
 const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
 const __dirname = path.dirname(__filename); // get the name of the directory
@@ -192,29 +193,18 @@ export const runStats = (stringify: (o: object) => string) => {
       "utf8",
     );
   });
-  Object.keys(byMunicipality).forEach((muniName) => {
-    const data = stringify(byMunicipality[muniName]);
-    fs.writeFileSync(
-      `${publicFolder}/municipalities/${muniName}_stats.json`,
-      data,
-      "utf8",
-    );
-  });
-  Object.keys(bySettlement).forEach((ekatte) => {
-    const data = stringify(bySettlement[ekatte]);
-    fs.writeFileSync(
-      `${publicFolder}/settlements/${ekatte}_stats.json`,
-      data,
-      "utf8",
-    );
-  });
+  saveSplitObject(
+    byMunicipality,
+    stringify,
+    `${publicFolder}/municipalities`,
+    "stats",
+  );
 
-  Object.keys(bySection).forEach((section) => {
-    const data = stringify(bySection[section]);
-    fs.writeFileSync(
-      `${publicFolder}/sections/${section}_stats.json`,
-      data,
-      "utf8",
-    );
-  });
+  saveSplitObject(
+    bySettlement,
+    stringify,
+    `${publicFolder}/settlements`,
+    "stats",
+  );
+  saveSplitObject(bySection, stringify, `${publicFolder}/sections`, "stats");
 };

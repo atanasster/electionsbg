@@ -9,8 +9,8 @@
     "type": "node",
     "request": "launch",
 
-    //"program": "./scripts/main.ts",
-    "program": "./scripts/helpers/settlements_locations.ts",
+    "program": "./scripts/main.ts",
+    //"program": "./scripts/helpers/settlements_locations.ts",
 
     /*
      * Path to tsx binary
@@ -19,8 +19,9 @@
     "runtimeExecutable": "tsx",
     //"args": ["--all", "--prod", "--stats", "--reports"],
     //"args": ["--prod", "--stats", "--reports"],
-    //"args": ["--date=2014_10_05"],
-    "args": ["--reports", "--prod"],
+    //"args": ["--prod", "--stats"],
+    "args": ["--date=2024_10_27","--prod"],
+    //"args": ["--reports", "--prod"],
     /*
      * Open terminal when debugging starts (Optional)
      * Useful to see console.logs
