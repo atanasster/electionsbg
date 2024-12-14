@@ -1,10 +1,10 @@
 import fs from "fs";
-import { FullSectionProtocol } from "./parsers/protocols";
-import settlementsData from "../public/settlements.json";
+import { FullSectionProtocol } from "./protocols";
+import settlementsData from "../../public/settlements.json";
 const settlements = settlementsData;
-import regionsData from "../src/data/json/regions.json";
+import regionsData from "../../src/data/json/regions.json";
 const regions = regionsData;
-import municipalitiesData from "../public/municipalities.json";
+import municipalitiesData from "../../public/municipalities.json";
 import {
   ElectionMunicipality,
   ElectionRegions,
@@ -18,7 +18,7 @@ import {
   municipalityVotesFileName,
   regionsVotesFileName,
   settlementsVotesFileName,
-} from "./consts";
+} from "../consts";
 const municipalities = municipalitiesData;
 
 const regionCodes: { key: string; nuts3: string }[] = [
@@ -88,14 +88,22 @@ const regionCodes: { key: string; nuts3: string }[] = [
   { key: "32", nuts3: "32" },
 ];
 
-export const aggregateSettlements = (
-  outFolder: string,
-  sections: SectionInfo[],
-  votes: ElectionVotes[],
-  protocols: FullSectionProtocol[],
-  stringify: (o: object) => string,
-  year: string,
-) => {
+export const generateVotes = ({
+  outFolder,
+  protocols,
+  sections,
+  stringify,
+  votes,
+  monthYear,
+}: {
+  outFolder: string;
+  sections: SectionInfo[];
+  votes: ElectionVotes[];
+  protocols: FullSectionProtocol[];
+  stringify: (o: object) => string;
+  monthYear: string;
+  inFolder: string;
+}) => {
   const electionRegions: ElectionRegions = [];
   const electionMunicipalities: ElectionMunicipality[] = [];
   const electionSettlements: ElectionSettlement[] = [];
@@ -181,7 +189,7 @@ export const aggregateSettlements = (
     const section = sections.find((s) => s.section === vote.section);
     let muniCode =
       regionCode === "32"
-        ? lookupCountryNumbers(vote.section, year)
+        ? lookupCountryNumbers(vote.section, monthYear)
         : vote.section.substring(2, 4);
     if (muniCode === "46") {
       muniCode = vote.section.substring(4, 6);
@@ -275,19 +283,28 @@ export const aggregateSettlements = (
     addResults(municipality.results, vote.votes, protocol);
     addResults(region.results, vote.votes, protocol);
   });
-  let json = stringify(electionRegions);
-  let outFile = `${outFolder}/${regionsVotesFileName}`;
-  fs.writeFileSync(outFile, json, "utf8");
-  console.log("Successfully added file ", outFile);
-  json = stringify(electionMunicipalities);
-  outFile = `${outFolder}/${municipalityVotesFileName}`;
-  fs.writeFileSync(outFile, json, "utf8");
-  console.log("Successfully added file ", outFile);
+  const regFileName = `${outFolder}/${regionsVotesFileName}`;
+  fs.writeFileSync(regFileName, stringify(electionRegions), "utf8");
+  console.log("Successfully added file ", regFileName);
 
-  json = stringify(electionSettlements);
-  outFile = `${outFolder}/${settlementsVotesFileName}`;
-  fs.writeFileSync(outFile, json, "utf8");
-  console.log("Successfully added file ", outFile);
+  const muniFileName = `${outFolder}/${municipalityVotesFileName}`;
+  fs.writeFileSync(muniFileName, stringify(electionMunicipalities), "utf8");
+  console.log("Successfully added file ", muniFileName);
 
+  const setlFileName = `${outFolder}/${settlementsVotesFileName}`;
+  fs.writeFileSync(setlFileName, stringify(electionSettlements), "utf8");
+  console.log("Successfully added file ", setlFileName);
+  /* const outMuniFolder = `${outFolder}/municipalities`;
+  if (!fs.existsSync(outMuniFolder)) {
+    fs.mkdirSync(outMuniFolder);
+  }
+  const byMuni = electionMunicipalities.reduce(
+    (acc, m) => ({
+      ...acc,
+      [m.obshtina]: m,
+    }),
+    {},
+  );
+  saveSplitObject(byMuni, stringify, outMuniFolder); */
   return { electionRegions, electionMunicipalities, electionSettlements };
 };

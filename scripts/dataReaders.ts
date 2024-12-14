@@ -45,3 +45,19 @@ export const sectionDataReader = (dataFolder: string, year?: string) => {
   );
   return votes;
 };
+
+export const saveSplitObject = (
+  o: { [key: string]: object },
+  stringify: (o: object) => string,
+  folder: string,
+  ext?: string,
+) => {
+  Object.keys(o).forEach((key) => {
+    const data = stringify(o[key]);
+    fs.writeFileSync(
+      `${folder}/${key}${ext ? `_${ext}` : ""}.json`,
+      data,
+      "utf8",
+    );
+  });
+};

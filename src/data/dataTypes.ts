@@ -97,7 +97,6 @@ export type LocationInfo = {
   name_en: string;
   long_name?: string;
   long_name_en?: string;
-  nuts3: string;
   oblast: string;
   dx?: string;
   dy?: string;
