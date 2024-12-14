@@ -102,6 +102,7 @@ export type LocationInfo = {
   dy?: string;
   color?: string;
   hidden?: boolean;
+  loc?: string;
 };
 
 export type RegionInfo = LocationInfo & {

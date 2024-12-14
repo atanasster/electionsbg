@@ -11,8 +11,9 @@ export const SettlementsMap: React.FC<
   React.PropsWithChildren<{
     municipality: MunicipalityInfo;
     size: MapCoordinates;
+    withNames: boolean;
   }>
-> = ({ municipality, size, children }) => {
+> = ({ municipality, size, children, withNames }) => {
   const navigate = useNavigateParams();
 
   const { findSettlement } = useSettlementsInfo();
@@ -44,6 +45,7 @@ export const SettlementsMap: React.FC<
         findVotes={findVotes}
         findInfo={findInfo}
         getName={getName}
+        withNames={withNames}
       >
         {children}
       </GeoJSONMap>

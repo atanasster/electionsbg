@@ -20,6 +20,9 @@ The goal of this project is to provide an easy to use visualization and analysis
 ### Settlements names
 - [EKATTE catalog](https://www.nsi.bg/nrnm/ekatte/regions). The settlement names in English and Bulgarian.
 
+### Settlements locations
+- [Settlement locations](https://github.com/yurukov/Bulgaria-geocoding/blob/master/settlements_loc.csv). The settlements geo locations in Bulgaria.
+
 ### Election Results
 - [27.10.2024](https://results.cik.bg/pe202410/opendata/index.html)<br />
 - [09.06.2024](https://results.cik.bg/europe2024/opendata/index.html)<br />

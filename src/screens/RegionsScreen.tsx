@@ -30,8 +30,8 @@ export const RegionsScreen = () => {
       {regions && (
         <div className="flex flex-row w-full">
           <MapLayout>
-            {(size) => (
-              <RegionsMap regions={regions} size={size}>
+            {(size, withNames) => (
+              <RegionsMap regions={regions} size={size} withNames={withNames}>
                 <WorldLink size={size} />
               </RegionsMap>
             )}

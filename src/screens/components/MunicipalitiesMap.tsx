@@ -10,8 +10,9 @@ export const MunicipalitiesMap: React.FC<
   React.PropsWithChildren<{
     region: string;
     size: MapCoordinates;
+    withNames: boolean;
   }>
-> = ({ region, size, children }) => {
+> = ({ region, size, children, withNames }) => {
   const navigate = useNavigateParams();
   const { findMunicipality } = useMunicipalities();
   const { votesByMunicipality } = useMunicipalitydVotes();
@@ -42,6 +43,7 @@ export const MunicipalitiesMap: React.FC<
         findVotes={findVotes}
         findInfo={findInfo}
         getName={getName}
+        withNames={withNames}
       >
         {children}
       </GeoJSONMap>

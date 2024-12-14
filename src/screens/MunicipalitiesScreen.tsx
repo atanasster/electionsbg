@@ -34,8 +34,15 @@ export const MunicipalitiesScreen = () => {
         protocol={regionVotes?.results.protocol}
         votes={regionVotes?.results.votes}
       />
+
       <MapLayout>
-        {(size) => <MunicipalitiesMap region={region} size={size} />}
+        {(size, withNames) => (
+          <MunicipalitiesMap
+            region={region}
+            size={size}
+            withNames={withNames}
+          />
+        )}
       </MapLayout>
       <PartyVotesTable
         votes={regionVotes?.results.votes}
