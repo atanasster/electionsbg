@@ -83,3 +83,31 @@ fs.createReadStream(`${raw_folder}/settlements_loc.csv`)
     fs.writeFileSync(regionsFileName, JSON.stringify(regions), "utf8");
     console.log("Successfully added file ", regionsFileName);
   });
+
+const countries: string[][] = [];
+fs.createReadStream(`${raw_folder}/country-capital-lat-long-population.csv`)
+  .pipe(
+    parse({
+      delimiter: ",",
+      relax_column_count: true,
+      relax_quotes: true,
+    }),
+  )
+  .on("data", (data) => {
+    countries.push(data);
+  })
+  .on("end", () => {
+    for (let i = 0; i < countries.length; i++) {
+      const row = countries[i];
+      //Country,Capital City,Latitude,Longitude,Population,Capital Type
+      const country = row[0];
+      const lat = row[2];
+      const long = row[3];
+      const set = settlements.find((s) => s.name_en === country);
+      if (set) {
+        set.loc = `${long},${lat}`;
+      }
+    }
+    fs.writeFileSync(settlementsFileName, JSON.stringify(settlements), "utf8");
+    console.log("Successfully added file ", settlementsFileName);
+  });

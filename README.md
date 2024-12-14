@@ -22,6 +22,7 @@ The goal of this project is to provide an easy to use visualization and analysis
 
 ### Settlements locations
 - [Settlement locations](https://github.com/yurukov/Bulgaria-geocoding/blob/master/settlements_loc.csv). The settlements geo locations in Bulgaria.
+- [Country capitals locations](https://gist.github.com/ofou/df09a6834a8421b4f376c875194915c9). The capitals of the world geo locations.
 
 ### Election Results
 - [27.10.2024](https://results.cik.bg/pe202410/opendata/index.html)<br />

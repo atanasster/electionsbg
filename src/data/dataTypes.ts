@@ -98,6 +98,7 @@ export type LocationInfo = {
   long_name?: string;
   long_name_en?: string;
   nuts3: string;
+  oblast: string;
   dx?: string;
   dy?: string;
   color?: string;
@@ -105,18 +106,13 @@ export type LocationInfo = {
   loc?: string;
 };
 
-export type RegionInfo = LocationInfo & {
-  oblast: string;
-};
+export type RegionInfo = LocationInfo;
 
-export type MunicipalityInfo = LocationInfo & {
+export type MunicipalityInfo = RegionInfo & {
   obshtina: string;
-  oblast: string;
 };
-export type SettlementInfo = LocationInfo & {
+export type SettlementInfo = MunicipalityInfo & {
   t_v_m: string;
-  oblast: string;
-  obshtina: string;
   kmetstvo: string;
 };
 
