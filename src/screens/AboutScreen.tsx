@@ -163,6 +163,15 @@ export const AboutScreen = () => {
                 {t("settlement_locations")}
               </Anchor>
             </li>
+            <li>
+              <Anchor
+                className="mx-1"
+                target="_blank"
+                href="https://gist.github.com/ofou/df09a6834a8421b4f376c875194915c9"
+              >
+                {t("country_capitals_locations")}
+              </Anchor>
+            </li>
           </ul>
         </h4>
         <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
