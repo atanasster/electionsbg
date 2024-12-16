@@ -36,14 +36,7 @@ export const SectionScreen = () => {
         {t("section")}{" "}
         {region?.oblast && (
           <>
-            <Link
-              to={{
-                pathname: "/municipality",
-                search: {
-                  region: region?.oblast,
-                },
-              }}
-            >
+            <Link to={`/municipality/${region.oblast}`}>
               {i18n.language === "bg"
                 ? region?.long_name || region?.name
                 : region?.long_name_en || region?.name_en}
@@ -53,14 +46,7 @@ export const SectionScreen = () => {
         )}
         {municipality?.obshtina && (
           <>
-            <Link
-              to={{
-                pathname: "/settlement",
-                search: {
-                  municipality: municipality?.obshtina,
-                },
-              }}
-            >
+            <Link to={`/settlement/${municipality.obshtina}`}>
               {i18n.language === "bg"
                 ? municipality?.name
                 : municipality?.name_en}
@@ -69,14 +55,7 @@ export const SectionScreen = () => {
           </>
         )}
         {settlement && (
-          <Link
-            to={{
-              pathname: "/sections",
-              search: {
-                settlement: settlement?.ekatte,
-              },
-            }}
-          >
+          <Link to={`/sections/${settlement.ekatte}`}>
             {i18n.language === "bg" ? settlement?.name : settlement?.name_en}
           </Link>
         )}

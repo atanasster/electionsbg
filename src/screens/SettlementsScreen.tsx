@@ -1,6 +1,6 @@
 import { MapLayout } from "@/layout/MapLayout";
 import { SettlementsMap } from "./components/SettlementsMap";
-import { useSearchParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Title } from "@/ux/Title";
 import { useMunicipalityVotes } from "@/data/useMunicipalityVotes";
@@ -11,9 +11,8 @@ import { useMunicipalityStats } from "@/data/useMunicipalityStats";
 import { PartyVotesTable } from "./components/PartyVotesTable";
 
 export const SettlementsScreen = () => {
-  const [searchParams] = useSearchParams();
+  const { id: muniCode } = useParams();
   const { findRegion } = useRegions();
-  const muniCode = searchParams.get("municipality");
   const { municipality } = useMunicipalityVotes(muniCode);
   const { i18n } = useTranslation();
   const { findMunicipality } = useMunicipalities();

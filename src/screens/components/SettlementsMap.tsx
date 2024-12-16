@@ -51,10 +51,7 @@ export const SettlementsMap: React.FC<{
     votes,
     withNames,
     onClick: (props) => ({
-      pathname: "/sections",
-      search: {
-        settlement: props.ekatte,
-      },
+      pathname: `/sections/${props.ekatte}`,
     }),
     ...tooltipEvents,
   });
