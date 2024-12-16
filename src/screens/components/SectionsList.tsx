@@ -63,6 +63,7 @@ export const SectionsList: FC<{ sections: SectionInfo[] }> = ({ sections }) => {
       unknown
     >
       pageSize={25}
+      stickyColumn={true}
       columns={[
         {
           accessorKey: "section",
