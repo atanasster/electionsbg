@@ -70,26 +70,21 @@ export const PartyVotesTable: FC<{
     () => [
       {
         accessorKey: "partyNum",
-        hidden: isXSmall && !!stats,
-        header: (
-          <Hint text={t("party_num_explainer")}>
-            <div>#</div>
-          </Hint>
-        ) as never,
-        size: 70,
-      },
-
-      {
-        accessorKey: "nickName",
         header: t("party"),
         cell: ({ row }) => {
           const party = row.original as PartyInfo;
           return (
             <Hint
+              className="w-full"
               text={`${party ? party?.name : t("unknown_party")}`}
               underline={false}
             >
-              <PartyLabel party={party} />
+              <div className="flex items-center border-2 border-primary">
+                <div className="w-8 font-semibold text-center">
+                  {row.original.partyNum}
+                </div>
+                <PartyLabel className="w-full pl-2" party={party} />
+              </div>
             </Hint>
           );
         },
@@ -269,7 +264,12 @@ export const PartyVotesTable: FC<{
           </Label>
         </div>
       </Hint>
-      <DataTable pageSize={data.length} columns={columns} data={data} />
+      <DataTable
+        pageSize={data.length}
+        columns={columns}
+        stickyColumn={true}
+        data={data}
+      />
     </div>
   ) : null;
 };
