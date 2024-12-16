@@ -1,7 +1,7 @@
 import { MapLayout } from "@/layout/MapLayout";
 
 import { MunicipalitiesMap } from "./components/MunicipalitiesMap";
-import { useSearchParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ProtocolSummary } from "./components/ProtocolSummary";
 import { useRegionVotes } from "@/data/useRegionVotes";
@@ -11,11 +11,10 @@ import { useRegionStats } from "@/data/useRegionStats";
 import { PartyVotesTable } from "./components/PartyVotesTable";
 
 export const MunicipalitiesScreen = () => {
-  const [searchParams] = useSearchParams();
+  const { id: region } = useParams();
   const { findRegion } = useRegions();
   const { votesByRegion } = useRegionVotes();
   const { i18n } = useTranslation();
-  const region = searchParams.get("region");
   const { prevVotes, stats } = useRegionStats(region);
   if (!region) {
     return null;

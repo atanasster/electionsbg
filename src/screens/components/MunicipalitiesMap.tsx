@@ -52,10 +52,7 @@ export const MunicipalitiesMap: React.FC<{
     votes,
     withNames,
     onClick: (props) => ({
-      pathname: "/settlement",
-      search: {
-        municipality: props.nuts4,
-      },
+      pathname: `/settlement/${props.nuts4}`,
     }),
     ...tooltipEvents,
   });

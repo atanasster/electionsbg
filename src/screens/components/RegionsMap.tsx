@@ -29,10 +29,7 @@ export const RegionsMap: React.FC<{
     votes,
     withNames,
     onClick: (props) => ({
-      pathname: "/municipality",
-      search: {
-        region: props.nuts3,
-      },
+      pathname: `/municipality/${props.nuts3}`,
     }),
     ...tooltipEvents,
   });

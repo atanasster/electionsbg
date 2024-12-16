@@ -55,7 +55,7 @@ export const AuthRoutes = () => {
           }
         />
         <Route
-          path="municipality"
+          path="municipality/:id"
           element={
             <LayoutScreen>
               <MunicipalitiesScreen />
@@ -63,7 +63,7 @@ export const AuthRoutes = () => {
           }
         />
         <Route
-          path="settlement"
+          path="settlement/:id"
           element={
             <LayoutScreen>
               <SettlementsScreen />
@@ -71,7 +71,7 @@ export const AuthRoutes = () => {
           }
         />
         <Route
-          path="sections"
+          path="sections/:id"
           element={
             <LayoutScreen>
               <SectionsScreen />

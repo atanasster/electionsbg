@@ -22,12 +22,7 @@ export const WorldLink: FC<{ size: MapCoordinates }> = ({ size }) => {
   const height = 0.7 * width;
   return (
     <Link
-      to={{
-        pathname: "/municipality",
-        search: {
-          region: "32",
-        },
-      }}
+      to={`/municipality/32`}
       style={{
         position: "absolute",
         right: size[2],

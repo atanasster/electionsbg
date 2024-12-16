@@ -207,14 +207,7 @@ export const ReportTemplate: FC<{
             cell: ({ row }) => {
               const region = findRegion(row.getValue("oblast"));
               return (
-                <Link
-                  to={{
-                    pathname: "/municipality",
-                    search: {
-                      region: row.original.oblast || "",
-                    },
-                  }}
-                >
+                <Link to={`/municipality/${row.original.oblast}`}>
                   {i18n.language === "bg" ? region?.name : region?.name_en}
                 </Link>
               );
@@ -226,14 +219,7 @@ export const ReportTemplate: FC<{
             cell: ({ row }) => {
               const municipality = findMunicipality(row.getValue("obshtina"));
               return (
-                <Link
-                  to={{
-                    pathname: "/settlement",
-                    search: {
-                      municipality: row.original.obshtina || "",
-                    },
-                  }}
-                >
+                <Link to={`/settlement/${row.original.obshtina}`}>
                   {i18n.language === "bg"
                     ? municipality?.name
                     : municipality?.name_en}
@@ -248,14 +234,7 @@ export const ReportTemplate: FC<{
             cell: ({ row }) => {
               const settlement = findSettlement(row.getValue("ekatte"));
               return (
-                <Link
-                  to={{
-                    pathname: "/sections",
-                    search: {
-                      settlement: row.original.ekatte || "",
-                    },
-                  }}
-                >
+                <Link to={`/sections/${row.original.ekatte}`}>
                   {i18n.language === "bg"
                     ? settlement?.name
                     : settlement?.name_en}
