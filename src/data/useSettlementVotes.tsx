@@ -27,8 +27,17 @@ export const useSettlementVotes = () => {
     },
     [settlements],
   );
+  const settlementsByMunicipality = useCallback(
+    (obshtina?: string) => {
+      return obshtina
+        ? settlements?.filter((s) => s.obshtina === obshtina)
+        : undefined;
+    },
+    [settlements],
+  );
 
   return {
+    settlementsByMunicipality,
     votesBySettlement,
   };
 };

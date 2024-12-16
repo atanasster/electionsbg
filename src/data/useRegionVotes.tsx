@@ -32,6 +32,9 @@ export const useRegionVotes = () => {
   const votesWorld = useCallback((): ElectionRegion | undefined => {
     return votes?.find((vote) => vote.key === "32");
   }, [votes]);
+  const countryRegions = useCallback((): ElectionRegion[] | undefined => {
+    return votes?.filter((vote) => vote.key !== "32");
+  }, [votes]);
   const countryVotes = useCallback(() => {
     const acc: VoteResults = {
       votes: [],
@@ -46,6 +49,7 @@ export const useRegionVotes = () => {
   }, [votes]);
 
   return {
+    countryRegions,
     votesByRegion,
     votesWorld,
     countryVotes,

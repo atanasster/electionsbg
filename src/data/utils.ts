@@ -1,4 +1,5 @@
 import {
+  ElectionResults,
   PartyInfo,
   PartyVotes,
   SectionProtocol,
@@ -175,4 +176,23 @@ export const topParty = (votes?: Votes[]): PartyVotes | undefined => {
   }, votes[0]);
 
   return tp;
+};
+
+export const totalActualVoters = (votes?: Votes[]): number | undefined => {
+  return votes?.reduce((acc, curr) => acc + curr.totalVotes, 0);
+};
+
+export const minMaxVotes = (votes?: ElectionResults[]) => {
+  return votes
+    ? votes.reduce(
+        (acc, v) => {
+          const totalVotes = totalActualVoters(v.results.votes);
+          return {
+            maxVotes: Math.max(acc.maxVotes, totalVotes || 0),
+            minVotes: Math.min(acc.maxVotes, totalVotes || Infinity),
+          };
+        },
+        { maxVotes: 0, minVotes: Infinity },
+      )
+    : { maxVotes: 0, minVotes: 0 };
 };

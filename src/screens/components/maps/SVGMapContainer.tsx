@@ -1,0 +1,27 @@
+import { ReactNode } from "react";
+import { MapCoordinates } from "@/layout/MapLayout";
+
+export const SVGMapContainer = ({
+  size,
+  children,
+}: {
+  size: MapCoordinates;
+  children: ReactNode;
+}) => {
+  return (
+    <svg
+      className="overflow-hidden"
+      width={size[0]}
+      height={size[1]}
+      xmlns="http://www.w3.org/2000/svg"
+    >
+      <defs>
+        <filter id="colored-bg" x="-5%" width="110%" y="0%" height="100%">
+          <feFlood floodColor="rgba(0,0,0,0.5)" />
+          <feComposite operator="over" in="SourceGraphic"></feComposite>
+        </filter>
+      </defs>
+      {children}
+    </svg>
+  );
+};
