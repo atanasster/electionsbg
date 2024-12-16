@@ -29,9 +29,7 @@ export const MapMarker = ({
     return undefined;
   }
   const totalVoters = totalActualVoters(votes);
-  const scale = totalVoters
-    ? scaleVotes(totalVoters, minVotes, maxVotes)
-    : maxMarkerScale;
+  const scale = totalVoters ? scaleVotes(totalVoters, minVotes, maxVotes) : 0;
   const x = parseFloat(loc[0]);
   const y = parseFloat(loc[1]);
   const p = projection([x, y]);

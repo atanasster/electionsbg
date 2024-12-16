@@ -14,11 +14,9 @@ import {
 } from "@/data/dataTypes";
 import { addResults } from "@/data/utils";
 import { lookupCountryNumbers } from "./country_codes";
-import {
-  municipalityVotesFileName,
-  regionsVotesFileName,
-  settlementsVotesFileName,
-} from "../consts";
+import { regionsVotesFileName } from "../consts";
+import { splitSettlements } from "./split_settlements";
+import { splitMunicipalities } from "./split_municipalities";
 const municipalities = municipalitiesData;
 
 const regionCodes: { key: string; nuts3: string }[] = [
@@ -95,6 +93,7 @@ export const generateVotes = ({
   stringify,
   votes,
   monthYear,
+  inFolder,
 }: {
   outFolder: string;
   sections: SectionInfo[];
@@ -187,6 +186,9 @@ export const generateVotes = ({
       electionRegions.push(region);
     }
     const section = sections.find((s) => s.section === vote.section);
+    if (!section) {
+      throw new Error(`Could not find section for votes ${vote.section}`);
+    }
     let muniCode =
       regionCode === "32"
         ? lookupCountryNumbers(vote.section, monthYear)
@@ -266,7 +268,7 @@ export const generateVotes = ({
       );
     }
     const protocol = protocols.find((s) => s.section === vote.section);
-    settlement.sections.push(vote.section);
+    settlement.sections.push(section);
     if (section && protocol) {
       // eslint-disable-next-line @typescript-eslint/no-unused-vars
       const { section: ss, rik, ...nprotocol } = protocol;
@@ -287,24 +289,18 @@ export const generateVotes = ({
   fs.writeFileSync(regFileName, stringify(electionRegions), "utf8");
   console.log("Successfully added file ", regFileName);
 
-  const muniFileName = `${outFolder}/${municipalityVotesFileName}`;
-  fs.writeFileSync(muniFileName, stringify(electionMunicipalities), "utf8");
-  console.log("Successfully added file ", muniFileName);
+  splitMunicipalities({
+    electionMunicipalities,
+    inFolder,
+    outFolder,
+    stringify,
+  });
+  splitSettlements({
+    electionSettlements,
+    inFolder,
+    outFolder,
+    stringify,
+  });
 
-  const setlFileName = `${outFolder}/${settlementsVotesFileName}`;
-  fs.writeFileSync(setlFileName, stringify(electionSettlements), "utf8");
-  console.log("Successfully added file ", setlFileName);
-  /* const outMuniFolder = `${outFolder}/municipalities`;
-  if (!fs.existsSync(outMuniFolder)) {
-    fs.mkdirSync(outMuniFolder);
-  }
-  const byMuni = electionMunicipalities.reduce(
-    (acc, m) => ({
-      ...acc,
-      [m.obshtina]: m,
-    }),
-    {},
-  );
-  saveSplitObject(byMuni, stringify, outMuniFolder); */
   return { electionRegions, electionMunicipalities, electionSettlements };
 };

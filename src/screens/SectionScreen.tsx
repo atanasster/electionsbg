@@ -1,5 +1,5 @@
 import { useSearchParams } from "react-router-dom";
-import { useSectionsInfo } from "@/data/useSectionsInfo";
+import { useSectionsVotes } from "@/data/useSectionsVotes";
 import { Section } from "./components/Section";
 import { useSettlementsInfo } from "@/data/useSettlements";
 import { useTranslation } from "react-i18next";
@@ -12,20 +12,16 @@ import { Link } from "@/ux/Link";
 export const SectionScreen = () => {
   const [searchParams] = useSearchParams();
   const { t, i18n } = useTranslation();
-  const { findSection } = useSectionsInfo();
+  const sectionCode = searchParams.get("section");
+  const section = useSectionsVotes(sectionCode);
   const { findSettlement } = useSettlementsInfo();
   const { findMunicipality } = useMunicipalities();
   const { findRegion } = useRegions();
-  const sectionCode = searchParams.get("section");
-  if (!sectionCode) {
-    return null;
-  }
-
-  const section = findSection(sectionCode);
 
   if (!section) {
     return null;
   }
+
   const settlement = findSettlement(section.ekatte);
   const region = findRegion(section.oblast);
   const municipality = findMunicipality(section.obshtina);

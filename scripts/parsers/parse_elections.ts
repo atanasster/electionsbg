@@ -6,7 +6,7 @@ import { parseProtocols } from "./protocols";
 import { parseVotes } from "./votes";
 import { parseSections } from "./sections";
 import { parseParties } from "./parties";
-import { sectionVotesFileName } from "scripts/consts";
+import { splitSections } from "./split_sections";
 
 const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
 const __dirname = path.dirname(__filename); // get the name of the directory
@@ -44,10 +44,12 @@ const parseElection = async ({
     monthYear,
     inFolder,
   });
-  const json = stringify(sections);
-  const outFile = `${outFolder}/${sectionVotesFileName}`;
-  fs.writeFileSync(outFile, json, "utf8");
-  console.log("Successfully added file ", outFile);
+  splitSections({
+    electionSections: sections,
+    inFolder,
+    outFolder,
+    stringify,
+  });
   return aggregated;
 };
 export const parseElections = async ({

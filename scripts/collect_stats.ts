@@ -30,12 +30,17 @@ const generateStats = <
     | ElectionRegions
     | ElectionSettlement[]
     | SectionInfo[],
->(
-  elections: ElectionInfo[],
-  publicFolder: string,
-  fileName: string,
-  key: "key" | "obshtina" | "ekatte" | "section",
-) => {
+>({
+  elections,
+  publicFolder,
+  getDataFileName,
+  key,
+}: {
+  elections: ElectionInfo[];
+  publicFolder: string;
+  getDataFileName: (year: string) => string;
+  key: "key" | "obshtina" | "ekatte" | "section";
+}) => {
   const collectedVotes: { [key: string]: ElectionInfo[] } = {};
   elections.forEach((e) => {
     const parties: PartyInfo[] = JSON.parse(
@@ -45,7 +50,7 @@ const generateStats = <
       ),
     );
     const regionVotes: DType = JSON.parse(
-      fs.readFileSync(`${publicFolder}/${e.name}/${fileName}`, "utf-8"),
+      fs.readFileSync(getDataFileName(e.name), "utf-8"),
     );
     regionVotes.forEach((r) => {
       //@ts-expect-error multiple fields
@@ -81,7 +86,17 @@ const generateStats = <
   return collectedVotes;
 };
 
-const collectStats = (elections: ElectionInfo[], publicFolder: string) => {
+const collectStats = ({
+  elections,
+  publicFolder,
+  rawDataFolder,
+  getDataFileName,
+}: {
+  elections: ElectionInfo[];
+  publicFolder: string;
+  rawDataFolder: string;
+  getDataFileName: (year: string) => string;
+}) => {
   const cumulateVotes = (votes: VoteResults[]) => {
     const acc: VoteResults = {
       votes: [],
@@ -97,10 +112,7 @@ const collectStats = (elections: ElectionInfo[], publicFolder: string) => {
 
   const data = elections.map((e) => {
     const regionVotes: ElectionRegions = JSON.parse(
-      fs.readFileSync(
-        `${publicFolder}/${e.name}/${regionsVotesFileName}`,
-        "utf-8",
-      ),
+      fs.readFileSync(getDataFileName(e.name), "utf-8"),
     );
 
     const results = cumulateVotes(regionVotes.map((v) => v.results));
@@ -131,30 +143,34 @@ const collectStats = (elections: ElectionInfo[], publicFolder: string) => {
   });
   return {
     country: data,
-    byRegion: generateStats<ElectionRegions>(
+    byRegion: generateStats<ElectionRegions>({
       elections,
       publicFolder,
-      regionsVotesFileName,
-      "key",
-    ),
-    byMunicipality: generateStats<ElectionMunicipality[]>(
+      key: "key",
+      getDataFileName: (year) =>
+        `${publicFolder}/${year}/${regionsVotesFileName}`,
+    }),
+    byMunicipality: generateStats<ElectionMunicipality[]>({
       elections,
       publicFolder,
-      municipalityVotesFileName,
-      "obshtina",
-    ),
-    bySettlement: generateStats<ElectionSettlement[]>(
+      key: "obshtina",
+      getDataFileName: (year) =>
+        `${rawDataFolder}/${year}/${municipalityVotesFileName}`,
+    }),
+    bySettlement: generateStats<ElectionSettlement[]>({
       elections,
       publicFolder,
-      settlementsVotesFileName,
-      "ekatte",
-    ),
-    bySection: generateStats<SectionInfo[]>(
+      key: "ekatte",
+      getDataFileName: (year) =>
+        `${rawDataFolder}/${year}/${settlementsVotesFileName}`,
+    }),
+    bySection: generateStats<SectionInfo[]>({
       elections,
       publicFolder,
-      sectionVotesFileName,
-      "section",
-    ),
+      key: "section",
+      getDataFileName: (year) =>
+        `${rawDataFolder}/${year}/${sectionVotesFileName}`,
+    }),
   };
 };
 
@@ -179,8 +195,15 @@ export const runStats = (stringify: (o: object) => string) => {
     }))
     .sort((a, b) => b.name.localeCompare(a.name));
   const publicFolder = path.resolve(__dirname, `../public`);
+  const rawDataFolder = path.resolve(__dirname, `../raw_data`);
   const { country, byRegion, byMunicipality, bySettlement, bySection } =
-    collectStats(updatedElections, publicFolder);
+    collectStats({
+      elections: updatedElections,
+      publicFolder,
+      rawDataFolder,
+      getDataFileName: (year) =>
+        `${publicFolder}/${year}/${regionsVotesFileName}`,
+    });
   const json = stringify(country);
 
   fs.writeFileSync(electionsFile, json, "utf8");

@@ -10,6 +10,7 @@ const __dirname = path.dirname(__filename); // get the name of the directory
 
 let production: boolean | undefined = undefined;
 const dataFolder = path.resolve(__dirname, "../public");
+const inFolder = path.resolve(__dirname, "../raw_data");
 
 const stringify = (o: object) => stringifyJSON(o, production);
 
@@ -55,7 +56,7 @@ const app = command({
       runStats(stringify);
     }
     if (reports) {
-      generateReports(dataFolder, stringify);
+      generateReports(inFolder, stringify);
     }
   },
 });
