@@ -1,50 +1,53 @@
-import { RegionGeoJSON, RegionJSONProps } from "@/data/mapTypes";
-import { useRegionVotes } from "@/data/useRegionVotes";
-import { useRegions } from "@/data/useRegions";
-
 import { MapCoordinates } from "@/layout/MapLayout";
-import { GeoJSONMap } from "./maps/GeoJSONMap";
-import { useNavigateParams } from "@/ux/useNavigateParams";
+import { SVGMapContainer } from "./maps/SVGMapContainer";
+import { useRegionsMap } from "@/data/useRegionsMap";
+import { useRegionVotes } from "@/data/useRegionVotes";
+import { useTooltip } from "@/ux/useTooltip";
+import { useRegions } from "@/data/useRegions";
+import { WorldLink } from "./WorldLink";
+import { useMapElements } from "./maps/useMapElements";
+import { RegionJSONProps } from "./maps/mapTypes";
 
-export const RegionsMap: React.FC<
-  React.PropsWithChildren<{
-    regions: RegionGeoJSON;
-    size: MapCoordinates;
-    withNames: boolean;
-  }>
-> = ({ regions, size, children, withNames }) => {
-  const navigate = useNavigateParams();
+export const RegionsMap: React.FC<{
+  size: MapCoordinates;
+  withNames: boolean;
+}> = ({ size, withNames }) => {
+  const { tooltip, ...tooltipEvents } = useTooltip();
+  const { regions: mapGeo } = useRegionsMap();
+  const { countryRegions } = useRegionVotes();
+  const votes = countryRegions();
   const { findRegion } = useRegions();
-  const { votesByRegion } = useRegionVotes();
+  const findInfo = (props: RegionJSONProps) => findRegion(props.nuts3);
+  const findVotes = (props: RegionJSONProps) =>
+    votes?.find((v) => props.nuts3 === v.key);
 
-  const findInfo = (props: RegionJSONProps) => {
-    return findRegion(getName(props));
-  };
-  const findVotes = (props: RegionJSONProps) => {
-    return votesByRegion(getName(props))?.results.votes;
-  };
-  const getName = (props: RegionJSONProps) => {
-    return props.nuts3;
-  };
-  const onClick = (props: RegionJSONProps) => {
-    navigate({
+  const { maps, labels, markers } = useMapElements<RegionJSONProps>({
+    findInfo,
+    findVotes,
+    mapGeo,
+    size,
+    votes,
+    withNames,
+    onClick: (props) => ({
       pathname: "/municipality",
       search: {
-        region: getName(props),
+        region: props.nuts3,
       },
-    });
-  };
+    }),
+    ...tooltipEvents,
+  });
+
   return (
-    <GeoJSONMap<RegionJSONProps>
-      mapJSON={regions}
-      size={size}
-      onClick={onClick}
-      findVotes={findVotes}
-      findInfo={findInfo}
-      getName={getName}
-      withNames={withNames}
-    >
-      {children}
-    </GeoJSONMap>
+    <div>
+      <div className="relative">
+        <SVGMapContainer size={size}>
+          {maps}
+          {markers}
+          {labels}
+        </SVGMapContainer>
+        <WorldLink size={size} />
+      </div>
+      {tooltip}
+    </div>
   );
 };

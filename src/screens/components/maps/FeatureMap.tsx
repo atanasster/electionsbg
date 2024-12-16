@@ -1,11 +1,10 @@
-import { GeoFeature } from "@/data/mapTypes";
+import { GeoFeature } from "@/screens/components/maps/mapTypes";
 import { useRef, useState } from "react";
 
 export const FeatureMap: React.FC<
   React.PropsWithChildren<
     React.ComponentProps<"path"> & {
       geoPath: d3.GeoPath;
-      name: string;
       fillColor?: string;
       feature: GeoFeature;
       onClick?: () => void;
@@ -14,7 +13,6 @@ export const FeatureMap: React.FC<
   >
 > = ({
   geoPath,
-  name,
   feature,
   fillColor = "grey",
   onCursor,
@@ -45,13 +43,12 @@ export const FeatureMap: React.FC<
     setIsLongPress(false);
   };
   return (
-    <>
+    <g>
       <path
         fill={fillColor}
         stroke="rgb(182, 182, 182)"
         strokeWidth={active ? 2.5 : 1}
         cursor={onCursor ? onCursor() : "pointer"}
-        id={name}
         className="path"
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
@@ -72,6 +69,6 @@ export const FeatureMap: React.FC<
           if (onClick) onClick(e);
         }}
       />
-    </>
+    </g>
   );
 };

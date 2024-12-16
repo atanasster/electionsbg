@@ -1,54 +1,53 @@
-import { useSettlementsInfo } from "@/data/useSettlements";
-import { useSettlementVotes } from "@/data/useSettlementVotes";
-import { useNavigateParams } from "@/ux/useNavigateParams";
 import { MapCoordinates } from "@/layout/MapLayout";
+import { SVGMapContainer } from "./maps/SVGMapContainer";
+import { useTooltip } from "@/ux/useTooltip";
+import { useMapElements } from "./maps/useMapElements";
+import { SettlementJSONProps } from "./maps/mapTypes";
 import { useSettlementsMap } from "@/data/useSettlementsMap";
 import { MunicipalityInfo } from "@/data/dataTypes";
-import { SettlementJSONProps } from "@/data/mapTypes";
-import { GeoJSONMap } from "./maps/GeoJSONMap";
+import { useSettlementVotes } from "@/data/useSettlementVotes";
+import { useSettlementsInfo } from "@/data/useSettlements";
 
-export const SettlementsMap: React.FC<
-  React.PropsWithChildren<{
-    municipality: MunicipalityInfo;
-    size: MapCoordinates;
-    withNames: boolean;
-  }>
-> = ({ municipality, size, children, withNames }) => {
-  const navigate = useNavigateParams();
-
+export const SettlementsMap: React.FC<{
+  municipality: MunicipalityInfo;
+  size: MapCoordinates;
+  withNames: boolean;
+}> = ({ size, withNames, municipality }) => {
+  const { tooltip, ...tooltipEvents } = useTooltip();
+  const mapGeo = useSettlementsMap(municipality.obshtina);
+  const { settlementsByMunicipality } = useSettlementVotes();
+  const votes = settlementsByMunicipality(municipality.obshtina);
   const { findSettlement } = useSettlementsInfo();
-  const { votesBySettlement } = useSettlementVotes();
-  const settlements = useSettlementsMap(municipality.obshtina);
-  const findInfo = (props: SettlementJSONProps) => {
-    return findSettlement(getName(props));
-  };
-  const findVotes = (props: SettlementJSONProps) => {
-    return votesBySettlement(getName(props))?.results.votes;
-  };
-  const getName = (props: SettlementJSONProps) => {
-    return props.ekatte;
-  };
-  const onClick = (props: SettlementJSONProps) => {
-    navigate({
+  const findInfo = (props: SettlementJSONProps) => findSettlement(props.ekatte);
+  const findVotes = (props: SettlementJSONProps) =>
+    votes?.find((v) => props.ekatte === v.ekatte);
+
+  const { maps, labels, markers } = useMapElements<SettlementJSONProps>({
+    findInfo,
+    findVotes,
+    mapGeo,
+    size,
+    votes,
+    withNames,
+    onClick: (props) => ({
       pathname: "/sections",
       search: {
-        settlement: getName(props),
+        settlement: props.ekatte,
       },
-    });
-  };
+    }),
+    ...tooltipEvents,
+  });
+
   return (
-    settlements && (
-      <GeoJSONMap<SettlementJSONProps>
-        mapJSON={settlements}
-        size={size}
-        onClick={onClick}
-        findVotes={findVotes}
-        findInfo={findInfo}
-        getName={getName}
-        withNames={withNames}
-      >
-        {children}
-      </GeoJSONMap>
-    )
+    <div>
+      <div className="relative">
+        <SVGMapContainer size={size}>
+          {maps}
+          {markers}
+          {labels}
+        </SVGMapContainer>
+      </div>
+      {tooltip}
+    </div>
   );
 };

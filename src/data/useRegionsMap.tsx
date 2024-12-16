@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { RegionGeoJSON } from "./mapTypes";
+import { RegionGeoJSON } from "../screens/components/maps/mapTypes";
 
 const queryFn = async (): Promise<RegionGeoJSON> => {
   const response = await fetch("/regions_map.json");

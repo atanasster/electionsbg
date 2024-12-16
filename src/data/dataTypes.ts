@@ -5,6 +5,11 @@ export type Votes = {
   machineVotes?: number;
 };
 
+export type ElectionVotes = {
+  document: number;
+  section: string;
+  votes: Votes[];
+};
 export type SectionProtocol = {
   // А. Брой на получените бюлетини по реда на чл. 215 ИК
   ballotsReceived?: number;
@@ -39,12 +44,9 @@ export type VoteResults = {
   protocol?: SectionProtocol;
 };
 
-export type ElectionVotes = {
-  document: number;
-  section: string;
-  votes: Votes[];
+export type ElectionResults = {
+  results: VoteResults;
 };
-
 export type ElectionSettlement = {
   key: string;
   ekatte: string;
@@ -53,23 +55,19 @@ export type ElectionSettlement = {
   oblast: string;
   t_v_m?: string;
   name?: string;
-  results: VoteResults;
   sections: string[];
-};
+} & ElectionResults;
 
 export type ElectionMunicipality = {
   key: string;
   oblast: string;
   obshtina: string;
-  results: VoteResults;
-  // settlements: ElectionSettlement[];
-};
+} & ElectionResults;
+
 export type ElectionRegion = {
   key: string;
   nuts3: string;
-  results: VoteResults;
-  // municipalities: ElectionMunicipality[];
-};
+} & ElectionResults;
 export type ElectionRegions = ElectionRegion[];
 
 export type SectionInfo = {
@@ -82,14 +80,10 @@ export type SectionInfo = {
   is_mobile: number;
   is_ship: number;
   num_machines: number;
-  results: {
-    protocol?: SectionProtocol;
-    votes: Votes[];
-  };
   oblast?: string;
   obshtina?: string;
   ekatte?: string;
-};
+} & ElectionResults;
 
 export type LocationInfo = {
   ekatte: string;

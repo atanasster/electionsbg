@@ -19,6 +19,7 @@ export const WorldLink: FC<{ size: MapCoordinates }> = ({ size }) => {
   const isLarge = useMediaQueryMatch("lg");
 
   const width: number = isLarge ? 180 : 100;
+  const height = 0.7 * width;
   return (
     <Link
       to={{
@@ -30,7 +31,7 @@ export const WorldLink: FC<{ size: MapCoordinates }> = ({ size }) => {
       style={{
         position: "absolute",
         right: size[2],
-        top: size[3] + size[1] - 100,
+        top: size[1] - height,
       }}
     >
       <Tooltip
@@ -48,7 +49,7 @@ export const WorldLink: FC<{ size: MapCoordinates }> = ({ size }) => {
           viewBox="0 0 783.086 400.649"
           version="1.0"
           width={`${width}px`}
-          height={`${0.7 * width}px`}
+          height={`${height}px`}
         >
           <g
             className="stroke-black"

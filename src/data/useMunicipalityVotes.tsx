@@ -16,7 +16,7 @@ const queryFn = async ({
   return data;
 };
 
-export const useMunicipalitydVotes = () => {
+export const useMunicipalityVotes = () => {
   const { selected } = useElectionContext();
   const { data: municipalities } = useQuery({
     queryKey: ["municipality_votes", selected],
@@ -29,7 +29,14 @@ export const useMunicipalitydVotes = () => {
     },
     [municipalities],
   );
+  const municipalitiesByRegion = useCallback(
+    (oblast: string): ElectionMunicipality[] | undefined => {
+      return municipalities?.filter((m) => m.oblast === oblast);
+    },
+    [municipalities],
+  );
   return {
+    municipalitiesByRegion,
     votesByMunicipality,
   };
 };

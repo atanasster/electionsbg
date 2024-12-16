@@ -18,11 +18,13 @@ export type GeoJSONProps =
   | RegionJSONProps
   | MunicipalityJSONProps
   | SettlementJSONProps;
+
+export type GeoJSONFeature<PropType extends GeoJSONProps> = GeoFeature & {
+  properties: PropType;
+};
 export type GeoJSONMap<PropType extends GeoJSONProps> = {
   type: "FeatureCollection";
-  features: (GeoFeature & {
-    properties: PropType;
-  })[];
+  features: GeoJSONFeature<PropType>[];
 };
 
 export type RegionGeoJSON = GeoJSONMap<RegionJSONProps>;
