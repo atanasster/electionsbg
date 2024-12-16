@@ -3,19 +3,41 @@ import { SVGMapContainer } from "./maps/SVGMapContainer";
 import { useTooltip } from "@/ux/useTooltip";
 import { useMapElements } from "./maps/useMapElements";
 import { useMunicipalitiesMap } from "@/data/useMunicipalitiesMap";
-import { useMunicipalityVotes } from "@/data/useMunicipalityVotes";
 import { useMunicipalities } from "@/data/useMunicipalities";
 import { MunicipalityJSONProps } from "./maps/mapTypes";
+import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
+import { ElectionMunicipality } from "@/data/dataTypes";
+import { useElectionContext } from "@/data/ElectionContext";
+
+const queryFn = async ({
+  queryKey,
+}: QueryFunctionContext<[string, string | null | undefined, string]>): Promise<
+  ElectionMunicipality[]
+> => {
+  if (!queryKey[1]) {
+    return [];
+  }
+  const response = await fetch(
+    `/${queryKey[1]}/municipalities/by/${queryKey[2]}.json`,
+  );
+  const data = await response.json();
+  return data;
+};
 
 export const MunicipalitiesMap: React.FC<{
   region: string;
   size: MapCoordinates;
   withNames: boolean;
 }> = ({ size, withNames, region }) => {
+  const { selected } = useElectionContext();
+  const { data: votes } = useQuery({
+    queryKey: ["settlements_by_municipality", selected, region],
+    queryFn,
+    enabled: !!selected,
+  });
   const { tooltip, ...tooltipEvents } = useTooltip();
   const mapGeo = useMunicipalitiesMap(region);
-  const { municipalitiesByRegion } = useMunicipalityVotes();
-  const votes = municipalitiesByRegion(region);
+
   const { findMunicipality } = useMunicipalities();
   const findInfo = (props: MunicipalityJSONProps) =>
     findMunicipality(props.nuts4);

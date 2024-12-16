@@ -47,15 +47,16 @@ export type VoteResults = {
 export type ElectionResults = {
   results: VoteResults;
 };
+
 export type ElectionSettlement = {
   key: string;
   ekatte: string;
-  obshtina?: string;
+  obshtina: string;
   kmetstvo: string;
   oblast: string;
   t_v_m?: string;
   name?: string;
-  sections: string[];
+  sections: SectionInfo[];
 } & ElectionResults;
 
 export type ElectionMunicipality = {

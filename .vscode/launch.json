@@ -4,6 +4,7 @@
   // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
   "version": "0.2.0",
   "configurations": [
+
     {
       "name": "tsx",
     "type": "node",
@@ -17,10 +18,10 @@
      * Assuming locally installed
      */
     "runtimeExecutable": "tsx",
-    "args": ["--all", "--prod", "--stats", "--reports"],
+    //"args": ["--all", "--prod", "--stats", "--reports"],
     //"args": ["--prod", "--stats", "--reports"],
     //"args": ["--prod", "--stats"],
-    //"args": ["--date=2024_10_27","--prod"],
+    "args": ["--date=2024_06_09","--prod"],
     //"args": ["--reports", "--prod"],
     /*
      * Open terminal when debugging starts (Optional)

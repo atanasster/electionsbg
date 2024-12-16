@@ -1,43 +1,29 @@
-import { useCallback } from "react";
 import { ElectionSettlement } from "./dataTypes";
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { useElectionContext } from "./ElectionContext";
 
 const queryFn = async ({
   queryKey,
-}: QueryFunctionContext<[string, string | null | undefined]>): Promise<
-  ElectionSettlement[]
+}: QueryFunctionContext<[string, string | null | undefined, string]>): Promise<
+  ElectionSettlement | undefined
 > => {
   if (!queryKey[1]) {
-    return [];
+    return undefined;
   }
-  const response = await fetch(`/${queryKey[1]}/settlement_votes.json`);
+  const response = await fetch(
+    `/${queryKey[1]}/settlements/${queryKey[2]}.json`,
+  );
   const data = await response.json();
   return data;
 };
-export const useSettlementVotes = () => {
+export const useSettlementVotes = (ekatte: string) => {
   const { selected } = useElectionContext();
-  const { data: settlements } = useQuery({
-    queryKey: ["settlement_votes", selected],
+  const { data: settlement } = useQuery({
+    queryKey: ["settlement_votes", selected, ekatte],
     queryFn,
   });
-  const votesBySettlement = useCallback(
-    (ekatte?: string) => {
-      return ekatte ? settlements?.find((s) => s.ekatte === ekatte) : undefined;
-    },
-    [settlements],
-  );
-  const settlementsByMunicipality = useCallback(
-    (obshtina?: string) => {
-      return obshtina
-        ? settlements?.filter((s) => s.obshtina === obshtina)
-        : undefined;
-    },
-    [settlements],
-  );
 
   return {
-    settlementsByMunicipality,
-    votesBySettlement,
+    settlement,
   };
 };

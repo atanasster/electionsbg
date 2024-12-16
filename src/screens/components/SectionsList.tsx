@@ -1,4 +1,4 @@
-import { PartyVotes, SectionInfo } from "@/data/dataTypes";
+import { ElectionSettlement, PartyVotes, SectionInfo } from "@/data/dataTypes";
 import { Caption } from "@/ux/Caption";
 import { DataTable } from "@/ux/DataTable";
 import { Tooltip } from "@/ux/Tooltip";
@@ -11,7 +11,9 @@ import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
 import { Link } from "@/ux/Link";
 import { usePartyInfo } from "@/data/usePartyInfo";
 
-export const SectionsList: FC<{ sections: SectionInfo[] }> = ({ sections }) => {
+export const SectionsList: FC<{ sections: ElectionSettlement["sections"] }> = ({
+  sections,
+}) => {
   const { t } = useTranslation();
   const { topVotesParty } = usePartyInfo();
   const isSmall = useMediaQueryMatch("sm");
@@ -19,9 +21,8 @@ export const SectionsList: FC<{ sections: SectionInfo[] }> = ({ sections }) => {
   const isLarge = useMediaQueryMatch("lg");
   const data = useMemo(() => {
     return sections.map((section) => {
-      const settlementName = section.settlement
-        .replace(/\s+/g, "")
-        .toLowerCase();
+      const settlementName =
+        section.settlement?.replace(/\s+/g, "").toLowerCase() || "";
       const addressName = (section.address || "")
         .replace(/\s+/g, "")
         .toLowerCase();
@@ -90,7 +91,6 @@ export const SectionsList: FC<{ sections: SectionInfo[] }> = ({ sections }) => {
           accessorKey: "address",
           header: t("address"),
         },
-
         {
           accessorKey: "voterTurnout",
           hidden: isSmall,
