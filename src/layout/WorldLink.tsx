@@ -4,7 +4,7 @@ import { Caption } from "@/ux/Caption";
 import { Link } from "@/ux/Link";
 import { Tooltip } from "@/ux/Tooltip";
 import { FC } from "react";
-import { PartyVotesXS } from "./PartyVotesXS";
+import { PartyVotesXS } from "../screens/components/PartyVotesXS";
 import { useTranslation } from "react-i18next";
 import { MapCoordinates } from "@/layout/MapLayout";
 import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";

@@ -20,8 +20,8 @@
     "runtimeExecutable": "tsx",
     //"args": ["--all", "--prod", "--stats", "--reports"],
     //"args": ["--prod", "--stats", "--reports"],
-    //"args": ["--prod", "--stats"],
-    "args": ["--date=2024_06_09","--prod"],
+    "args": ["--prod", "--stats"],
+    //"args": ["--date=2024_06_09","--prod"],
     //"args": ["--reports", "--prod"],
     /*
      * Open terminal when debugging starts (Optional)

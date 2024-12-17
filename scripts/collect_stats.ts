@@ -86,6 +86,44 @@ const generateStats = <
   return collectedVotes;
 };
 
+const cumulateVotes = (votes: VoteResults[]) => {
+  const acc: VoteResults = {
+    votes: [],
+  };
+  if (votes) {
+    votes.map((r) => {
+      addResults(acc, r.votes, r.protocol);
+    });
+  }
+
+  return acc;
+};
+const cumulatePartyVotes = (
+  votes: VoteResults[],
+  year: string,
+  publicFolder: string,
+) => {
+  const parties: PartyInfo[] = JSON.parse(
+    fs.readFileSync(`${publicFolder}/${year}/${cikPartiesFileName}`, "utf-8"),
+  );
+  const results = cumulateVotes(votes);
+  return {
+    results: {
+      protocol: results.protocol,
+      votes: results.votes.map((v) => {
+        const party = parties.find((p) => p.number === v.partyNum);
+        const stat: StatsVote = {
+          ...v,
+          nickName: party?.nickName as string,
+        };
+        if (party?.commonName) {
+          stat.commonName = party?.commonName;
+        }
+        return stat;
+      }),
+    },
+  };
+};
 const collectStats = ({
   elections,
   publicFolder,
@@ -97,52 +135,41 @@ const collectStats = ({
   rawDataFolder: string;
   getDataFileName: (year: string) => string;
 }) => {
-  const cumulateVotes = (votes: VoteResults[]) => {
-    const acc: VoteResults = {
-      votes: [],
-    };
-    if (votes) {
-      votes.map((r) => {
-        addResults(acc, r.votes, r.protocol);
-      });
-    }
-
-    return acc;
-  };
-
-  const data = elections.map((e) => {
+  const country = elections.map((e) => {
     const regionVotes: ElectionRegions = JSON.parse(
       fs.readFileSync(getDataFileName(e.name), "utf-8"),
     );
 
-    const results = cumulateVotes(regionVotes.map((v) => v.results));
-    const parties: PartyInfo[] = JSON.parse(
-      fs.readFileSync(
-        `${publicFolder}/${e.name}/${cikPartiesFileName}`,
-        "utf-8",
-      ),
+    const results = cumulatePartyVotes(
+      regionVotes.map((v) => v.results),
+      e.name,
+      publicFolder,
     );
-
     return {
       ...e,
-      results: {
-        protocol: results.protocol,
-        votes: results.votes.map((v) => {
-          const party = parties.find((p) => p.number === v.partyNum);
-          const stat: StatsVote = {
-            ...v,
-            nickName: party?.nickName as string,
-          };
-          if (party?.commonName) {
-            stat.commonName = party?.commonName;
-          }
-          return stat;
-        }),
-      },
+      ...results,
+    };
+  });
+  const sofia = elections.map((e) => {
+    const regionVotes: ElectionRegions = JSON.parse(
+      fs.readFileSync(getDataFileName(e.name), "utf-8"),
+    );
+
+    const results = cumulatePartyVotes(
+      regionVotes
+        .filter((v) => ["S23", "S24", "S25"].includes(v.key))
+        .map((v) => v.results),
+      e.name,
+      publicFolder,
+    );
+    return {
+      ...e,
+      ...results,
     };
   });
   return {
-    country: data,
+    country,
+    sofia,
     byRegion: generateStats<ElectionRegions>({
       elections,
       publicFolder,
@@ -196,7 +223,7 @@ export const runStats = (stringify: (o: object) => string) => {
     .sort((a, b) => b.name.localeCompare(a.name));
   const publicFolder = path.resolve(__dirname, `../public`);
   const rawDataFolder = path.resolve(__dirname, `../raw_data`);
-  const { country, byRegion, byMunicipality, bySettlement, bySection } =
+  const { country, byRegion, byMunicipality, bySettlement, bySection, sofia } =
     collectStats({
       elections: updatedElections,
       publicFolder,
@@ -204,10 +231,11 @@ export const runStats = (stringify: (o: object) => string) => {
       getDataFileName: (year) =>
         `${publicFolder}/${year}/${regionsVotesFileName}`,
     });
-  const json = stringify(country);
-
-  fs.writeFileSync(electionsFile, json, "utf8");
+  fs.writeFileSync(electionsFile, stringify(country), "utf8");
   console.log("Successfully added file ", electionsFile);
+  const sofiaStatsFileName = `${publicFolder}/sofia_stats.json`;
+  fs.writeFileSync(sofiaStatsFileName, stringify(sofia), "utf8");
+  console.log("Successfully added file ", sofiaStatsFileName);
   Object.keys(byRegion).forEach((regionName) => {
     const data = stringify(byRegion[regionName]);
     fs.writeFileSync(
