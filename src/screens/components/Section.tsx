@@ -4,8 +4,8 @@ import { SectionInfo, Votes } from "@/data/dataTypes";
 import { ProtocolSummary } from "./ProtocolSummary";
 import { useTranslation } from "react-i18next";
 import { PartyVotesTable } from "./PartyVotesTable";
-import { useSectionStats } from "@/data/useSectionStats";
-import { usePartyInfo } from "@/data/usePartyInfo";
+import { useSectionStats } from "@/data/sections/useSectionStats";
+import { usePartyInfo } from "@/data/parties/usePartyInfo";
 
 export const Section: FC<{ section: SectionInfo }> = ({ section }) => {
   const { t } = useTranslation();

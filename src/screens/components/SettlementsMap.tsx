@@ -3,9 +3,9 @@ import { SVGMapContainer } from "./maps/SVGMapContainer";
 import { useTooltip } from "@/ux/useTooltip";
 import { useMapElements } from "./maps/useMapElements";
 import { SettlementJSONProps } from "./maps/mapTypes";
-import { useSettlementsMap } from "@/data/useSettlementsMap";
+import { useSettlementsMap } from "@/data/settlements/useSettlementsMap";
 import { ElectionSettlement, MunicipalityInfo } from "@/data/dataTypes";
-import { useSettlementsInfo } from "@/data/useSettlements";
+import { useSettlementsInfo } from "@/data/settlements/useSettlements";
 import { useElectionContext } from "@/data/ElectionContext";
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 

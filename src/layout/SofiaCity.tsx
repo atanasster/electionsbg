@@ -1,5 +1,5 @@
-import { usePartyInfo } from "@/data/usePartyInfo";
-import { useRegionVotes } from "@/data/useRegionVotes";
+import { usePartyInfo } from "@/data/parties/usePartyInfo";
+import { useRegionVotes } from "@/data/regions/useRegionVotes";
 import { Caption } from "@/ux/Caption";
 import { Link } from "@/ux/Link";
 import { Tooltip } from "@/ux/Tooltip";

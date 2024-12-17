@@ -5,7 +5,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { useTranslation } from "react-i18next";
 import { Hint } from "@/ux/Hint";
 import { formatPct, formatThousands } from "@/data/utils";
-import { useTopParties } from "@/data/useTopParties";
+import { useTopParties } from "@/data/parties/useTopParties";
 import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
 import { VotesChart } from "./charts/VotesChart";
 

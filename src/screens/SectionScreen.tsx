@@ -1,10 +1,10 @@
 import { useSearchParams } from "react-router-dom";
-import { useSectionsVotes } from "@/data/useSectionsVotes";
+import { useSectionsVotes } from "@/data/sections/useSectionsVotes";
 import { Section } from "./components/Section";
-import { useSettlementsInfo } from "@/data/useSettlements";
+import { useSettlementsInfo } from "@/data/settlements/useSettlements";
 import { useTranslation } from "react-i18next";
-import { useMunicipalities } from "@/data/useMunicipalities";
-import { useRegions } from "@/data/useRegions";
+import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
+import { useRegions } from "@/data/regions/useRegions";
 import { SEO } from "@/ux/SEO";
 import { H1 } from "@/ux/H1";
 import { Link } from "@/ux/Link";

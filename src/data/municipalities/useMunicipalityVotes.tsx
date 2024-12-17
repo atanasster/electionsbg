@@ -1,6 +1,6 @@
-import { ElectionMunicipality } from "./dataTypes";
+import { ElectionMunicipality } from "../dataTypes";
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
-import { useElectionContext } from "./ElectionContext";
+import { useElectionContext } from "../ElectionContext";
 
 const queryFn = async ({
   queryKey,

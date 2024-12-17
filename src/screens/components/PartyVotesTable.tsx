@@ -17,7 +17,7 @@ import {
   DialogTitle,
   DialogTrigger,
 } from "@/components/ui/dialog";
-import { useTopParties } from "@/data/useTopParties";
+import { useTopParties } from "@/data/parties/useTopParties";
 import { findPrevVotes, formatPct, formatThousands } from "@/data/utils";
 import { DataTable, DataTableColumns } from "@/ux/DataTable";
 import { FC, useMemo, useState } from "react";

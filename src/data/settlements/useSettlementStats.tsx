@@ -1,6 +1,6 @@
-import { ElectionInfo } from "./dataTypes";
+import { ElectionInfo } from "../dataTypes";
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
-import { useElectionContext } from "./ElectionContext";
+import { useElectionContext } from "../ElectionContext";
 import { useMemo } from "react";
 
 const queryFn = async ({
@@ -11,16 +11,16 @@ const queryFn = async ({
   if (!queryKey[1]) {
     return [];
   }
-  const response = await fetch(`/sections/${queryKey[1]}_stats.json`);
+  const response = await fetch(`/settlements/${queryKey[1]}_stats.json`);
   const data = await response.json();
   return data;
 };
-export const useSectionStats = (section?: string | null) => {
+export const useSettlementStats = (ekatte?: string | null) => {
   const { priorElections } = useElectionContext();
   const { data: stats } = useQuery({
-    queryKey: ["section_stats", section],
+    queryKey: ["settlement_stats", ekatte],
     queryFn,
-    enabled: !!section,
+    enabled: !!ekatte,
   });
   const prevVotes = useMemo(() => {
     if (priorElections) {

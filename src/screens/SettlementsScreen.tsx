@@ -3,11 +3,11 @@ import { SettlementsMap } from "./components/SettlementsMap";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Title } from "@/ux/Title";
-import { useMunicipalityVotes } from "@/data/useMunicipalityVotes";
+import { useMunicipalityVotes } from "@/data/municipalities/useMunicipalityVotes";
 import { ProtocolSummary } from "./components/ProtocolSummary";
-import { useRegions } from "@/data/useRegions";
-import { useMunicipalities } from "@/data/useMunicipalities";
-import { useMunicipalityStats } from "@/data/useMunicipalityStats";
+import { useRegions } from "@/data/regions/useRegions";
+import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
+import { useMunicipalityStats } from "@/data/municipalities/useMunicipalityStats";
 import { PartyVotesTable } from "./components/PartyVotesTable";
 
 export const SettlementsScreen = () => {

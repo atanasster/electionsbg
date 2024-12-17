@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import { PartyVotes, Votes } from "./dataTypes";
+import { PartyVotes, Votes } from "../dataTypes";
 import { usePartyInfo } from "./usePartyInfo";
 
 export const useTopParties = (

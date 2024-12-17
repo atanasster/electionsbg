@@ -1,6 +1,6 @@
 import { NavigateParams, useNavigateParams } from "@/ux/useNavigateParams";
 import { FeatureMap } from "./FeatureMap";
-import { usePartyInfo } from "@/data/usePartyInfo";
+import { usePartyInfo } from "@/data/parties/usePartyInfo";
 import { PartyVotesXS } from "../PartyVotesXS";
 import { useTranslation } from "react-i18next";
 import {

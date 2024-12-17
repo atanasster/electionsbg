@@ -1,5 +1,5 @@
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
-import { MunicipalityGeoJSON } from "../screens/components/maps/mapTypes";
+import { MunicipalityGeoJSON } from "../../screens/components/maps/mapTypes";
 
 const queryFn = async ({
   queryKey,

@@ -9,7 +9,7 @@ import { Hint } from "@/ux/Hint";
 import { formatPct, formatThousands } from "@/data/utils";
 import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
 import { Link } from "@/ux/Link";
-import { usePartyInfo } from "@/data/usePartyInfo";
+import { usePartyInfo } from "@/data/parties/usePartyInfo";
 
 export const SectionsList: FC<{ sections: ElectionSettlement["sections"] }> = ({
   sections,

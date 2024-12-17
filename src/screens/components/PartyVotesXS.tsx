@@ -1,9 +1,9 @@
 import { FC, useMemo } from "react";
 import { Votes } from "@/data/dataTypes";
-import { usePartyInfo } from "@/data/usePartyInfo";
+import { usePartyInfo } from "@/data/parties/usePartyInfo";
 import { useTranslation } from "react-i18next";
 import { formatPct, formatThousands } from "@/data/utils";
-import { useTopParties } from "@/data/useTopParties";
+import { useTopParties } from "@/data/parties/useTopParties";
 import { PartyLabel } from "./PartyLabel";
 
 export const PartyVotesXS: FC<{
