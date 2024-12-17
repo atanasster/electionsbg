@@ -32,6 +32,15 @@ export const useRegionVotes = () => {
   const votesWorld = useCallback((): ElectionRegion | undefined => {
     return votes?.find((vote) => vote.key === "32");
   }, [votes]);
+
+  const votesSofia = useCallback((): VoteResults | undefined => {
+    return votes?.reduce((acc: VoteResults, v) => {
+      if (["S23", "S24", "S25"].includes(v.key)) {
+        addResults(acc, v.results.votes, v.results.protocol);
+      }
+      return acc;
+    }, {} as VoteResults);
+  }, [votes]);
   const countryRegions = useCallback((): ElectionRegion[] | undefined => {
     return votes?.filter((vote) => vote.key !== "32");
   }, [votes]);
@@ -52,6 +61,7 @@ export const useRegionVotes = () => {
     countryRegions,
     votesByRegion,
     votesWorld,
+    votesSofia,
     countryVotes,
   };
 };

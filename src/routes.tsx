@@ -29,6 +29,7 @@ import { SectionsTopGainers } from "./screens/reports/sections/SectionsTopGainer
 import { MunicipalitiesTopLosers } from "./screens/reports/municipalities/MunicipalitiesTopLosers";
 import { SectionsTopLosers } from "./screens/reports/sections/SectionsTopLosers";
 import { SettlementsTopLosers } from "./screens/reports/settlements/SettlementsTopLosers";
+import { SofiaScreen } from "./screens/SofiaScreen";
 
 const LayoutScreen: FC<PropsWithChildren> = ({ children }) => {
   return <Layout>{children}</Layout>;
@@ -43,6 +44,14 @@ export const AuthRoutes = () => {
           element={
             <LayoutScreen>
               <RegionsScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="sofia"
+          element={
+            <LayoutScreen>
+              <SofiaScreen />
             </LayoutScreen>
           }
         />

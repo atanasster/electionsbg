@@ -8,12 +8,10 @@ const queryFn = async (): Promise<RegionGeoJSON> => {
 };
 
 export const useRegionsMap = () => {
-  const { data: regions } = useQuery({
+  const { data } = useQuery({
     queryKey: ["regions_map"],
     queryFn: queryFn,
   });
 
-  return {
-    regions,
-  };
+  return data;
 };

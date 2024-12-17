@@ -4,16 +4,17 @@ import { useRegionsMap } from "@/data/useRegionsMap";
 import { useRegionVotes } from "@/data/useRegionVotes";
 import { useTooltip } from "@/ux/useTooltip";
 import { useRegions } from "@/data/useRegions";
-import { WorldLink } from "./WorldLink";
+import { WorldLink } from "../../layout/WorldLink";
 import { useMapElements } from "./maps/useMapElements";
 import { RegionJSONProps } from "./maps/mapTypes";
+import { SofiaCity } from "../../layout/SofiaCity";
 
 export const RegionsMap: React.FC<{
   size: MapCoordinates;
   withNames: boolean;
 }> = ({ size, withNames }) => {
   const { tooltip, ...tooltipEvents } = useTooltip();
-  const { regions: mapGeo } = useRegionsMap();
+  const mapGeo = useRegionsMap();
   const { countryRegions } = useRegionVotes();
   const votes = countryRegions();
   const { findRegion } = useRegions();
@@ -43,6 +44,7 @@ export const RegionsMap: React.FC<{
           {labels}
         </SVGMapContainer>
         <WorldLink size={size} />
+        <SofiaCity size={size} />
       </div>
       {tooltip}
     </div>
