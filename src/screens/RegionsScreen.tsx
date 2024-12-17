@@ -3,9 +3,9 @@ import { useTranslation } from "react-i18next";
 import { MapLayout } from "@/layout/MapLayout";
 import { RegionsMap } from "./components/RegionsMap";
 import { Title } from "@/ux/Title";
-import { useRegionVotes } from "@/data/useRegionVotes";
+import { useRegionVotes } from "@/data/regions/useRegionVotes";
 import { ProtocolSummary } from "./components/ProtocolSummary";
-import { useCountryStats } from "@/data/useCountryVotesStats";
+import { useCountryStats } from "@/data/country/useCountryVotesStats";
 import { useElectionContext } from "@/data/ElectionContext";
 import { PartyVotesTable } from "./components/PartyVotesTable";
 

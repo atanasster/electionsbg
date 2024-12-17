@@ -1,4 +1,4 @@
-import { useElectionContext } from "./ElectionContext";
+import { useElectionContext } from "../ElectionContext";
 
 export const useCountryStats = () => {
   const { priorElections } = useElectionContext();

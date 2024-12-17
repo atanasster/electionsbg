@@ -1,12 +1,12 @@
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { useSettlementVotes } from "@/data/useSettlementVotes";
+import { useSettlementVotes } from "@/data/settlements/useSettlementVotes";
 import { PartyVotesTable } from "./PartyVotesTable";
-import { useSettlementStats } from "@/data/useSettlementStats";
+import { useSettlementStats } from "@/data/settlements/useSettlementStats";
 import { SectionsList } from "./SectionsList";
-import { useSettlementsInfo } from "@/data/useSettlements";
-import { useMunicipalities } from "@/data/useMunicipalities";
-import { useRegions } from "@/data/useRegions";
+import { useSettlementsInfo } from "@/data/settlements/useSettlements";
+import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
+import { useRegions } from "@/data/regions/useRegions";
 import { Link } from "@/ux/Link";
 import { H1 } from "@/ux/H1";
 import { SEO } from "@/ux/SEO";

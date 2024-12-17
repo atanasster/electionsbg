@@ -5,7 +5,7 @@ import { ReportRow, Votes } from "@/data/dataTypes";
 import { DataTable } from "@/ux/DataTable";
 import { useTranslation } from "react-i18next";
 import { addVotes, formatPct, formatThousands, localDate } from "@/data/utils";
-import { useSettlementsInfo } from "@/data/useSettlements";
+import { useSettlementsInfo } from "@/data/settlements/useSettlements";
 import { useSearchParams } from "react-router-dom";
 import { Link } from "@/ux/Link";
 import { Label } from "@/components/ui/label";
@@ -18,12 +18,12 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { useRegions } from "@/data/useRegions";
-import { useMunicipalities } from "@/data/useMunicipalities";
+import { useRegions } from "@/data/regions/useRegions";
+import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
 import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
 import { useTouch } from "@/ux/TouchProvider";
 import { PartyLabel } from "@/screens/components/PartyLabel";
-import { usePartyInfo } from "@/data/usePartyInfo";
+import { usePartyInfo } from "@/data/parties/usePartyInfo";
 import { useElectionContext } from "@/data/ElectionContext";
 import { SelectParties } from "@/screens/components/charts/SelectParties";
 

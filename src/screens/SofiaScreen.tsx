@@ -2,11 +2,11 @@ import { useTranslation } from "react-i18next";
 
 import { MapLayout } from "@/layout/MapLayout";
 import { Title } from "@/ux/Title";
-import { useRegionVotes } from "@/data/useRegionVotes";
+import { useRegionVotes } from "@/data/regions/useRegionVotes";
 import { ProtocolSummary } from "./components/ProtocolSummary";
 import { PartyVotesTable } from "./components/PartyVotesTable";
 import { SofiaMap } from "./components/SofiaMap";
-import { useSofiaStats } from "@/data/useSofiaStats";
+import { useSofiaStats } from "@/data/country/useSofiaStats";
 
 export const SofiaScreen = () => {
   const { t } = useTranslation();

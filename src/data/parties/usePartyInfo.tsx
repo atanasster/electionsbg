@@ -1,9 +1,9 @@
 import { useCallback, useMemo } from "react";
-import { PartyInfo, PartyVotes, Votes } from "./dataTypes";
+import { PartyInfo, PartyVotes, Votes } from "../dataTypes";
 
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
-import { useElectionContext } from "./ElectionContext";
-import { topParty } from "./utils";
+import { useElectionContext } from "../ElectionContext";
+import { topParty } from "../utils";
 
 const queryFn = async ({
   queryKey,

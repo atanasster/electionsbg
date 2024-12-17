@@ -1,11 +1,11 @@
 import { MapCoordinates } from "@/layout/MapLayout";
 import { SVGMapContainer } from "./maps/SVGMapContainer";
-import { useRegionVotes } from "@/data/useRegionVotes";
+import { useRegionVotes } from "@/data/regions/useRegionVotes";
 import { useTooltip } from "@/ux/useTooltip";
-import { useRegions } from "@/data/useRegions";
+import { useRegions } from "@/data/regions/useRegions";
 import { useMapElements } from "./maps/useMapElements";
 import { RegionJSONProps } from "./maps/mapTypes";
-import { useSofiaMap } from "@/data/useSofiaMap";
+import { useSofiaMap } from "@/data/country/useSofiaMap";
 
 export const SofiaMap: React.FC<{
   size: MapCoordinates;

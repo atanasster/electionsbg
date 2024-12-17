@@ -1,6 +1,6 @@
-import regions from "../data/json/regions.json";
+import regions from "../json/regions.json";
 import { useCallback } from "react";
-import { RegionInfo } from "./dataTypes";
+import { RegionInfo } from "../dataTypes";
 
 export const useRegions = () => {
   const findRegion = useCallback(

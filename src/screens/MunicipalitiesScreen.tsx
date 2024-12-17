@@ -4,10 +4,10 @@ import { MunicipalitiesMap } from "./components/MunicipalitiesMap";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ProtocolSummary } from "./components/ProtocolSummary";
-import { useRegionVotes } from "@/data/useRegionVotes";
+import { useRegionVotes } from "@/data/regions/useRegionVotes";
 import { Title } from "@/ux/Title";
-import { useRegions } from "@/data/useRegions";
-import { useRegionStats } from "@/data/useRegionStats";
+import { useRegions } from "@/data/regions/useRegions";
+import { useRegionStats } from "@/data/regions/useRegionStats";
 import { PartyVotesTable } from "./components/PartyVotesTable";
 
 export const MunicipalitiesScreen = () => {

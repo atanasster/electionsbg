@@ -1,8 +1,8 @@
 import { useCallback } from "react";
-import { ElectionRegions, ElectionRegion, VoteResults } from "./dataTypes";
-import { addResults } from "./utils";
+import { ElectionRegions, ElectionRegion, VoteResults } from "../dataTypes";
+import { addResults } from "../utils";
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
-import { useElectionContext } from "./ElectionContext";
+import { useElectionContext } from "../ElectionContext";
 
 const queryFn = async ({
   queryKey,
