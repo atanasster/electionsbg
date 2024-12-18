@@ -46,8 +46,8 @@ export const useTooltip = (
     const left = Math.min(window.scrollX + window.innerWidth - width - gap, x);
     const top = Math.min(window.scrollY + window.innerHeight - height - gap, y);
     return {
-      x: left < x ? x - width - gap : left,
-      y: top,
+      x: Math.max(0, left < x ? x - width - gap : left),
+      y: Math.max(0, top),
     };
   };
   const onMouseEnter: TooltipEvents["onMouseEnter"] = (
