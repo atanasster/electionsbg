@@ -36,12 +36,18 @@ export const FeatureMap: React.FC<
     clearTimeout(timerRef.current);
     if (isLongPress) {
       // Handle long press
-      if (onTouchEnd) onTouchEnd(e);
-    } else if (onClick) {
-      onClick();
+      if (onTouchEnd)
+        handleMouseEnter(e as unknown as React.MouseEvent<SVGPathElement>);
+      e.preventDefault();
+      e.stopPropagation();
     }
     setIsLongPress(false);
   };
+  const handleMouseEnter = (e: React.MouseEvent<SVGPathElement>) => {
+    setActive(true);
+    if (onMouseEnter) onMouseEnter(e);
+  };
+
   return (
     <g>
       <path
@@ -52,10 +58,7 @@ export const FeatureMap: React.FC<
         className="path"
         onTouchStart={handleTouchStart}
         onTouchEnd={handleTouchEnd}
-        onMouseEnter={(e) => {
-          setActive(true);
-          if (onMouseEnter) onMouseEnter(e);
-        }}
+        onMouseEnter={handleMouseEnter}
         onMouseMove={(e) => {
           if (onMouseMove) onMouseMove(e);
         }}

@@ -37,7 +37,6 @@ export function useMapElements<DType extends GeoJSONProps>({
   ) => void;
   onMouseMove: (e: React.MouseEvent<SVGElement, MouseEvent>) => void;
   onMouseLeave: () => void;
-  onTouchEnd: (e: React.TouchEvent<SVGPathElement>) => void;
 }): MapElementsList {
   const { path, projection } = useMemo(
     () => getDataProjection(mapGeo as d3.GeoPermissibleObjects, size),
