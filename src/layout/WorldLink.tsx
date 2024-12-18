@@ -44,7 +44,7 @@ export const WorldLink: FC<{ size: MapCoordinates }> = ({ size }) => {
         <svg
           xmlns="http://www.w3.org/2000/svg"
           overflow="visible"
-          className="border-2 rounded-xl hover:border-muted-foreground p-1"
+          className="border-2 hover:border-muted-foreground rounded-xl p-1 bg-slate-50 dark:bg-slate-300"
           viewBox="0 0 783.086 400.649"
           version="1.0"
           width={`${width}px`}
