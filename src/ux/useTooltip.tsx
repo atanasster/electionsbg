@@ -1,10 +1,19 @@
 import { useState, ReactNode, useRef, useLayoutEffect } from "react";
+
+export type TooltipEvents = {
+  onMouseEnter: (
+    props: { pageX: number; pageY: number },
+    content: ReactNode,
+  ) => void;
+  onMouseMove: (props: { pageX: number; pageY: number }) => void;
+  onMouseLeave: () => void;
+};
 export const useTooltip = (
   props: { maxHeight: number; maxWidth: number } = {
     maxHeight: 350,
     maxWidth: 300,
   },
-) => {
+): { tooltip: ReactNode } & TooltipEvents => {
   const [tooltip, setTooltip] = useState<{
     visible: boolean;
     x: number;
@@ -41,23 +50,23 @@ export const useTooltip = (
       y: top,
     };
   };
-  const onMouseEnter = (
-    e: React.MouseEvent<SVGElement, MouseEvent>,
+  const onMouseEnter: TooltipEvents["onMouseEnter"] = (
+    { pageX, pageY },
     content: ReactNode,
   ) => {
     setTooltip({
       visible: true,
       content,
-      ...calcCoordinates(e.pageX, e.pageY),
+      ...calcCoordinates(pageX, pageY),
     });
   };
-  const onMouseMove = (e: React.MouseEvent<SVGElement, MouseEvent>) => {
+  const onMouseMove: TooltipEvents["onMouseMove"] = ({ pageX, pageY }) => {
     setTooltip((prev) => ({
       ...prev,
-      ...calcCoordinates(e.pageX, e.pageY),
+      ...calcCoordinates(pageX, pageY),
     }));
   };
-  const onMouseLeave = () => {
+  const onMouseLeave: TooltipEvents["onMouseLeave"] = () => {
     setTooltip({ visible: false, x: 0, y: 0, content: "" });
   };
 

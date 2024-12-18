@@ -8,6 +8,7 @@ import { minMaxVotes } from "@/data/utils";
 import { getDataProjection } from "@/screens/utils/d3_utils";
 import { MapCoordinates } from "@/layout/MapLayout";
 import { NavigateParams } from "@/ux/useNavigateParams";
+import { TooltipEvents } from "@/ux/useTooltip";
 
 type MapElementsList = {
   maps: (ReactNode | undefined)[];
@@ -31,13 +32,7 @@ export function useMapElements<DType extends GeoJSONProps>({
   findVotes: (props: DType) => ElectionResults | undefined;
   findInfo: (props: DType) => LocationInfo | undefined;
   onClick: (props: DType) => NavigateParams;
-  onMouseEnter: (
-    e: React.MouseEvent<SVGElement, MouseEvent>,
-    content: ReactNode,
-  ) => void;
-  onMouseMove: (e: React.MouseEvent<SVGElement, MouseEvent>) => void;
-  onMouseLeave: () => void;
-}): MapElementsList {
+} & TooltipEvents): MapElementsList {
   const { path, projection } = useMemo(
     () => getDataProjection(mapGeo as d3.GeoPermissibleObjects, size),
     [mapGeo, size],
