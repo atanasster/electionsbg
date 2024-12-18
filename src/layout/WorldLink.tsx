@@ -36,7 +36,7 @@ export const WorldLink: FC<{ size: MapCoordinates }> = ({ size }) => {
       <Tooltip
         content={
           <div>
-            <Caption>{t("abroad")}</Caption>
+            <Caption className="text-primary-foreground">{t("abroad")}</Caption>
             <PartyVotesXS votes={worldVotes?.results.votes} />
           </div>
         }

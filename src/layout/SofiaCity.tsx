@@ -35,7 +35,9 @@ export const SofiaCity: FC<{ size: MapCoordinates }> = ({ size }) => {
       <Tooltip
         content={
           <div>
-            <Caption>{t("sofia_city")}</Caption>
+            <Caption className="text-primary-foreground">
+              {t("sofia_city")}
+            </Caption>
             <PartyVotesXS votes={sofiaVotes?.votes} />
           </div>
         }
