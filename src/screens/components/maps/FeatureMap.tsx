@@ -33,7 +33,7 @@ export const FeatureMap: React.FC<
         pageX: e.touches[0].pageX,
         pageY: e.touches[0].pageY,
       } as unknown as React.MouseEvent<SVGPathElement>);
-    }, 500);
+    }, 1500);
   };
 
   const handleTouchEnd = () => {
