@@ -7,8 +7,8 @@ import {
   GeoJSONFeature,
   GeoJSONProps,
 } from "@/screens/components/maps/mapTypes";
-import { ReactNode } from "react";
 import { LocationInfo, Votes } from "@/data/dataTypes";
+import { TooltipEvents } from "@/ux/useTooltip";
 
 export function MapElement<DType extends GeoJSONProps>({
   feature,
@@ -24,14 +24,8 @@ export function MapElement<DType extends GeoJSONProps>({
   geoPath: d3.GeoPath;
   votes?: Votes[];
   info?: LocationInfo;
-  onMouseEnter: (
-    e: React.MouseEvent<SVGElement, MouseEvent>,
-    content: ReactNode,
-  ) => void;
-  onMouseMove: (e: React.MouseEvent<SVGElement, MouseEvent>) => void;
-  onMouseLeave: () => void;
   onClick: (props: DType) => NavigateParams;
-}) {
+} & TooltipEvents) {
   const { properties: props } = feature;
   const navigate = useNavigateParams();
   const { i18n } = useTranslation();
@@ -46,7 +40,7 @@ export function MapElement<DType extends GeoJSONProps>({
         feature={feature}
         onMouseEnter={(e) => {
           onMouseEnter(
-            e,
+            { pageX: e.pageX, pageY: e.pageY },
             info ? (
               <div className="text-left">
                 <div className="text-lg text-center pb-1">{`${i18n.language === "bg" ? info.long_name || info.name : info.long_name_en || info.name_en}`}</div>
@@ -55,7 +49,7 @@ export function MapElement<DType extends GeoJSONProps>({
             ) : null,
           );
         }}
-        onMouseMove={onMouseMove}
+        onMouseMove={(e) => onMouseMove({ pageX: e.pageX, pageY: e.pageY })}
         onMouseLeave={onMouseLeave}
         onClick={() => navigate(onClick(props))}
       />
