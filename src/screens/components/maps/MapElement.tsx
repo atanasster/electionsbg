@@ -16,7 +16,6 @@ export function MapElement<DType extends GeoJSONProps>({
   onMouseEnter,
   onMouseMove,
   onMouseLeave,
-  onTouchEnd,
   info,
   votes,
   onClick,
@@ -31,7 +30,6 @@ export function MapElement<DType extends GeoJSONProps>({
   ) => void;
   onMouseMove: (e: React.MouseEvent<SVGElement, MouseEvent>) => void;
   onMouseLeave: () => void;
-  onTouchEnd: (e: React.TouchEvent<SVGPathElement>) => void;
   onClick: (props: DType) => NavigateParams;
 }) {
   const { properties: props } = feature;
@@ -59,7 +57,6 @@ export function MapElement<DType extends GeoJSONProps>({
         }}
         onMouseMove={onMouseMove}
         onMouseLeave={onMouseLeave}
-        onTouchEnd={onTouchEnd}
         onClick={() => navigate(onClick(props))}
       />
     </>

@@ -189,7 +189,7 @@ export const minMaxVotes = (votes?: ElectionResults[]) => {
           const totalVotes = totalActualVoters(v.results.votes);
           return {
             maxVotes: Math.max(acc.maxVotes, totalVotes || 0),
-            minVotes: Math.min(acc.maxVotes, totalVotes || Infinity),
+            minVotes: Math.min(acc.minVotes, totalVotes || Infinity),
           };
         },
         { maxVotes: 0, minVotes: Infinity },
