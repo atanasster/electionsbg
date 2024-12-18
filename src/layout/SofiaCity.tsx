@@ -16,9 +16,10 @@ export const SofiaCity: FC<{ size: MapCoordinates }> = ({ size }) => {
   const { t } = useTranslation();
 
   const topWorldParty = topVotesParty(sofiaVotes?.votes);
+  const isXLarge = useMediaQueryMatch("xl");
   const isLarge = useMediaQueryMatch("lg");
-
-  const width: number = isLarge ? 120 : 80;
+  const isMedium = useMediaQueryMatch("md");
+  const width: number = (isMedium || isLarge) && !isXLarge ? 120 : 160;
   const height = 0.7 * width;
   return (
     <Link
