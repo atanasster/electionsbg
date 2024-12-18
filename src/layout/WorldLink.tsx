@@ -1,6 +1,5 @@
 import { usePartyInfo } from "@/data/parties/usePartyInfo";
 import { useRegionVotes } from "@/data/regions/useRegionVotes";
-import { Caption } from "@/ux/Caption";
 import { Link } from "@/ux/Link";
 import { Tooltip } from "@/ux/Tooltip";
 import { FC } from "react";
@@ -36,7 +35,7 @@ export const WorldLink: FC<{ size: MapCoordinates }> = ({ size }) => {
       <Tooltip
         content={
           <div>
-            <Caption className="text-primary-foreground">{t("abroad")}</Caption>
+            <div className="text-lg text-center pb-1">{t("abroad")}</div>
             <PartyVotesXS votes={worldVotes?.results.votes} />
           </div>
         }
