@@ -1,10 +1,10 @@
 import { Bar, BarChart, Cell, CartesianGrid, XAxis, LabelList } from "recharts";
 import { ChartContainer, ChartTooltip } from "@/components/ui/chart";
-import { useElectionContext } from "@/data/ElectionContext";
 import { PartyVotes } from "@/data/dataTypes";
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { formatPct, formatThousands } from "@/data/utils";
+import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
 
 const CustomTooltip: FC<{
   active?: boolean;
@@ -32,7 +32,7 @@ export const VotesChart: FC<{ votes?: PartyVotes[]; maxRows?: number }> = ({
   votes,
   maxRows,
 }) => {
-  const { isMachineOnly } = useElectionContext();
+  const isLarge = useMediaQueryMatch("lg");
   const topValue = votes?.length ? votes[0].totalVotes : undefined;
   return (
     <ChartContainer config={{}}>
@@ -50,7 +50,9 @@ export const VotesChart: FC<{ votes?: PartyVotes[]; maxRows?: number }> = ({
         <CartesianGrid vertical={false} />
         <XAxis
           dataKey="nickName"
-          tick={votes && (votes.length <= 5 || isMachineOnly())}
+          angle={270}
+          tickMargin={25}
+          tick={true}
           tickFormatter={(value: string) => {
             if (value.length > 6) {
               const parts = value.split("-");
@@ -76,7 +78,9 @@ export const VotesChart: FC<{ votes?: PartyVotes[]; maxRows?: number }> = ({
             fontWeight={900}
             angle={270}
             formatter={(p: number) =>
-              topValue && p > topValue / 2 ? formatThousands(p) : undefined
+              topValue && (!isLarge || p > topValue / 2)
+                ? formatThousands(p)
+                : undefined
             }
           />
         </Bar>
