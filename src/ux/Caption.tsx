@@ -5,7 +5,7 @@ export const Caption: React.FC<React.ComponentProps<"h2">> = ({
 }) => (
   <h2
     className={cn(
-      "text-md md:text-2xl font-bold md:font-extrabold leading-tight tracking-tighter text-center py-2",
+      "text-secondary-foreground text-md md:text-2xl font-bold md:font-extrabold leading-tight tracking-tighter text-center py-2",
       className,
     )}
     {...props}

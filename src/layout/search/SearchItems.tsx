@@ -54,12 +54,14 @@ export const SearchItems: FC<{
           }}
           onMouseUp={() => onSelect(r)}
           className={cn(
-            "truncate flex w-full items-center gap-2 cursor-pointer hover:bg-muted",
+            "truncate flex w-full text-popover-foreground items-center gap-2 cursor-pointer hover:bg-muted py-0.5",
             selected?.refIndex === r.refIndex ? "bg-muted" : "",
           )}
         >
           <Hint text={itemType(r.item)}>
-            <Badge className="w-8">{itemLang(r.item).toUpperCase()}</Badge>
+            <Badge className="w-10 ml-2 flex-col">
+              {itemLang(r.item).toUpperCase()}
+            </Badge>
           </Hint>
           {r.item.type !== "c" ? (
             <div>

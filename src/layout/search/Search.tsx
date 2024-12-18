@@ -8,12 +8,7 @@ import {
   useContext,
 } from "react";
 
-import {
-  Command,
-  CommandEmpty,
-  CommandInput,
-  CommandList,
-} from "@/components/ui/command";
+import { CommandInput, CommandList } from "@/components/ui/command";
 import {
   Popover,
   PopoverContent,
@@ -21,7 +16,7 @@ import {
 } from "@/components/ui/popover";
 import { SearchItems } from "./SearchItems";
 import { Button } from "@/components/ui/button";
-import { SearchCheckIcon } from "lucide-react";
+import { SearchIcon } from "lucide-react";
 import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
 import { cn } from "@/lib/utils";
 import { FuseResult } from "fuse.js";
@@ -33,12 +28,21 @@ import { useNavigateParams } from "@/ux/useNavigateParams";
 const SearchInternal: FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigateParams();
-  const [open, setOpen] = useState<boolean>(false);
+  const [open, setIsOpen] = useState<boolean>(false);
   const [value, setValue] = useState("");
-  const { arrowDown, arrowUp, selected, setSearchTerm } =
+  const { arrowDown, arrowUp, selected, setSelected, setSearchTerm } =
     useContext(SearchContext);
   const inputRef = useRef<HTMLInputElement>(null);
-
+  const buttonRef = useRef<HTMLButtonElement>(null);
+  const setOpen = useCallback(
+    (value: boolean) => {
+      if (!value) {
+        setSelected(-1);
+      }
+      setIsOpen(value);
+    },
+    [setSelected],
+  );
   const handleValueChange = useCallback(
     (value: string) => {
       setSearchTerm(value);
@@ -47,7 +51,7 @@ const SearchInternal: FC = () => {
     },
     [setSearchTerm],
   );
-  const isSmall = useMediaQueryMatch("sm");
+  const isMedium = useMediaQueryMatch("lg");
   const handleSelectOption = useCallback(
     (selectedOption: FuseResult<SearchIndexType>) => {
       switch (selectedOption.item.type) {
@@ -64,11 +68,10 @@ const SearchInternal: FC = () => {
           navigate({ pathname: `/municipality/${selectedOption.item.key}` });
           break;
       }
-      setTimeout(() => {
-        inputRef?.current?.blur();
-      }, 0);
+      setOpen(false);
+      inputRef?.current?.blur();
     },
-    [navigate],
+    [navigate, setOpen],
   );
   const handleKeyDown = useCallback(
     (event: KeyboardEvent<HTMLDivElement>) => {
@@ -99,87 +102,90 @@ const SearchInternal: FC = () => {
       if (event.key === "ArrowDown") {
         arrowDown();
       }
+      if (event.key === "Tab") {
+        input.blur();
+        if (buttonRef.current) {
+          buttonRef.current.focus();
+        }
+      }
     },
 
-    [arrowDown, arrowUp, handleSelectOption, handleValueChange, open, selected],
+    [
+      arrowDown,
+      arrowUp,
+      handleSelectOption,
+      handleValueChange,
+      open,
+      selected,
+      setOpen,
+    ],
   );
 
   const handleBlur = useCallback(() => {
     setOpen(false);
-  }, []);
-
-  return !isSmall ? (
+  }, [setOpen]);
+  const command = (
     <CommandPrimitive onKeyDown={handleKeyDown}>
-      <div>
+      <div className="text-secondary-foreground bg-secondary">
         <CommandInput
           ref={inputRef}
           value={value}
           onValueChange={handleValueChange}
-          onBlur={handleBlur}
+          onBlur={isMedium ? handleBlur : undefined}
           onFocus={() => setOpen(true)}
-          placeholder="search..."
-          className="text-base"
+          placeholder={`${t("search")}...`}
         />
       </div>
-      <div className="relative mt-1">
+      <div className="relative mt-1 ">
         <div
           className={cn(
-            "animate-in fade-in-0 zoom-in-95 absolute top-0 z-10 w-full rounded-xl bg-white outline-none",
+            "animate-in fade-in-0 zoom-in-95 absolute top-0 z-10 text-popover-foreground bg-popover outline-none",
             open ? "block" : "hidden",
           )}
         >
-          <CommandList className="rounded-lg ring-1 ring-slate-200">
-            {value.length > 0 && <SearchItems onSelect={handleSelectOption} />}
-
-            <CommandPrimitive.Empty className="select-none rounded-sm px-2 py-3 text-center text-sm">
+          <CommandList className="shadow-md ring-1 ring-slate-200 rounded-md w-[300px] ">
+            {value.length > 0 && (
+              <>
+                <SearchItems onSelect={handleSelectOption} />
+              </>
+            )}
+            <CommandPrimitive.Empty className="select-none px-2 py-3 text-center text-sm">
               {t("no_results")}
             </CommandPrimitive.Empty>
           </CommandList>
         </div>
       </div>
     </CommandPrimitive>
+  );
+  return isMedium ? (
+    command
   ) : (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
         <Button
-          variant="outline"
-          //role="combobox"
-          aria-expanded={open}
-          className="w-[28px]"
+          ref={buttonRef}
+          variant="ghost"
+          role="button"
+          className="text-secondary-foreground w-[28px] "
           onBlur={handleBlur}
         >
-          <SearchCheckIcon />
+          <SearchIcon />
         </Button>
       </PopoverTrigger>
       <PopoverContent
-        autoFocus={true}
-        className="w-[200px] p-0"
-        onOpenAutoFocus={(e) => e.preventDefault()}
+        className="w-[300px] p-0"
         onInteractOutside={(e) => {
           if (
             e.target instanceof Element &&
-            e.target.hasAttribute("cmdk-input")
+            (e.target.hasAttribute("cmdk-input") ||
+              e.target === buttonRef.current)
           ) {
             e.preventDefault();
+            e.stopPropagation();
           }
         }}
       >
-        <CommandPrimitive onKeyDown={handleKeyDown}>
-          <Command>
-            <CommandInput
-              value={value}
-              placeholder="Search framework..."
-              onValueChange={handleValueChange}
-            />
-
-            <CommandEmpty>No framework found.</CommandEmpty>
-            <CommandList>
-              {value.length > 0 && (
-                <SearchItems onSelect={handleSelectOption} />
-              )}
-            </CommandList>
-          </Command>
-        </CommandPrimitive>
+        {command}
       </PopoverContent>
     </Popover>
   );

@@ -15,6 +15,7 @@ type SearchContextType = {
   arrowUp: () => void;
   items: SearchItemType[];
   selected?: SearchItemType;
+  setSelected: (index: number) => void;
   searchTerm?: string;
   setSearchTerm: (searchTerm: string) => void;
 };
@@ -24,6 +25,7 @@ export const SearchContext = createContext<SearchContextType>({
   arrowUp: () => {},
   items: [],
   setSearchTerm: () => {},
+  setSelected: () => {},
 });
 export const SearchContextProvider: FC<PropsWithChildren> = ({ children }) => {
   const { search } = useSearchItems();
@@ -79,6 +81,7 @@ export const SearchContextProvider: FC<PropsWithChildren> = ({ children }) => {
         setSearchTerm,
         items: searchItems,
         selected: getSelectedItem(),
+        setSelected,
         searchTerm: term,
       }}
     >
