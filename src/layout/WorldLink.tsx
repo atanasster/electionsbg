@@ -16,9 +16,12 @@ export const WorldLink: FC<{ size: MapCoordinates }> = ({ size }) => {
   const { t } = useTranslation();
 
   const topWorldParty = topVotesParty(worldVotes?.results.votes);
+  const isXLarge = useMediaQueryMatch("xl");
   const isLarge = useMediaQueryMatch("lg");
+  const isMedium = useMediaQueryMatch("md");
 
-  const width: number = isLarge ? 180 : 100;
+  const width: number = (isMedium || isLarge) && !isXLarge ? 120 : 160;
+
   const height = 0.7 * width;
   return (
     <Link
