@@ -12,5 +12,6 @@ export const useRegions = () => {
   );
   return {
     findRegion,
+    regions,
   };
 };

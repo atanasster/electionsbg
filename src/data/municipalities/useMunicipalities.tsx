@@ -20,6 +20,7 @@ export const useMunicipalities = () => {
     [municipalities],
   );
   return {
+    municipalities,
     findMunicipality,
   };
 };

@@ -23,7 +23,7 @@ export const PartyVotesXS: FC<{
           <div className="text-center text-sm mb-1">
             {`${t("total")} ${formatThousands(total)} ${t("votes")}`}
           </div>
-          <table className="w-full border border-collapse table-auto">
+          <table className="w-full border rounded-md border-collapse table-auto">
             <thead>
               <tr className="text-base bg-gray-5 py-3 font-medium">
                 <th className="border-b-2 text-left px-2">{t("party")}</th>

@@ -37,6 +37,7 @@ import { MenuItem, reportsMenu } from "./reportMenus";
 import { useElectionContext } from "@/data/ElectionContext";
 import { Hint } from "@/ux/Hint";
 import { localDate } from "@/data/utils";
+import { Search } from "./search/Search";
 
 export const Header = () => {
   const { setTheme, theme } = useContext(ThemeContext);
@@ -154,7 +155,9 @@ export const Header = () => {
           </Button>
         </Hint>
       </div>
+
       <div className="flex gap-6 items-center px-4">
+        <Search />
         {reportsMenu.map((topMenu, idx) => (
           <DropdownMenu key={`${topMenu.title}=${idx}`}>
             <DropdownMenuTrigger asChild>

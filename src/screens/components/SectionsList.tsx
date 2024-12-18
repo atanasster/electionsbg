@@ -70,14 +70,7 @@ export const SectionsList: FC<{ sections: ElectionSettlement["sections"] }> = ({
           accessorKey: "section",
           header: t("section"),
           cell: ({ row }) => (
-            <Link
-              to={{
-                pathname: "/section",
-                search: {
-                  section: row.original.section,
-                },
-              }}
-            >
+            <Link to={`/section/${row.original.section}`}>
               {row.getValue("section")}
             </Link>
           ),

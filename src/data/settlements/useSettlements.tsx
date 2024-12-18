@@ -21,5 +21,6 @@ export const useSettlementsInfo = () => {
 
   return {
     findSettlement,
+    settlements,
   };
 };

@@ -7,21 +7,22 @@ import { parseVotes } from "./votes";
 import { parseSections } from "./sections";
 import { parseParties } from "./parties";
 import { splitSections } from "./split_sections";
+import { generateSearch } from "scripts/search";
 
 const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
 const __dirname = path.dirname(__filename); // get the name of the directory
 
 const parseElection = async ({
-  dataFolder,
+  publicFolder,
   monthYear,
   stringify,
 }: {
   monthYear: string;
-  dataFolder: string;
+  publicFolder: string;
   stringify: (o: object) => string;
 }) => {
   const inFolder = path.resolve(__dirname, `../../raw_data/${monthYear}`);
-  const outFolder = `${dataFolder}/${monthYear}`;
+  const outFolder = `${publicFolder}/${monthYear}`;
   if (!fs.existsSync(outFolder)) {
     fs.mkdirSync(outFolder);
   }
@@ -50,17 +51,18 @@ const parseElection = async ({
     outFolder,
     stringify,
   });
+  generateSearch({ publicFolder: outFolder, sections, stringify });
   return aggregated;
 };
 export const parseElections = async ({
   date,
   all,
   stringify,
-  dataFolder,
+  publicFolder,
 }: {
   date?: string;
   all?: boolean;
-  dataFolder: string;
+  publicFolder: string;
   stringify: (o: object) => string;
 }) => {
   if (!date && !all) {
@@ -88,7 +90,7 @@ export const parseElections = async ({
   }
   await Promise.all(
     selectedFolders.map(async (monthYear) => {
-      return await parseElection({ monthYear, dataFolder, stringify });
+      return await parseElection({ monthYear, publicFolder, stringify });
     }),
   );
 };

@@ -16,7 +16,7 @@
   },
   "dependencies": {
     "@radix-ui/react-checkbox": "^1.1.2",
-    "@radix-ui/react-dialog": "^1.1.2",
+    "@radix-ui/react-dialog": "^1.1.4",
     "@radix-ui/react-dropdown-menu": "^2.1.2",
     "@radix-ui/react-label": "^2.1.0",
     "@radix-ui/react-popover": "^1.1.2",
@@ -30,6 +30,8 @@
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.1",
     "cmd-ts": "^0.13.0",
+    "cmdk": "^1.0.0",
+    "fuse.js": "^7.0.0",
     "lucide-react": "^0.456.0",
     "react": "^18.3.1",
     "react-d3-library": "^1.1.8",
@@ -41,7 +43,8 @@
     "react-router-dom": "^6.27.0",
     "recharts": "^2.13.3",
     "tailwind-merge": "^2.5.4",
-    "tailwindcss-animate": "^1.0.7"
+    "tailwindcss-animate": "^1.0.7",
+    "vaul": "^1.1.2"
   },
   "devDependencies": {
     "@eslint/js": "^9.13.0",

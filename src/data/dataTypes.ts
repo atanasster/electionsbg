@@ -143,3 +143,8 @@ export type ReportRow = {
   value: number;
   prevYearVotes?: number;
 };
+
+export type SectionIndex = {
+  section: string;
+  settlement: string;
+};
