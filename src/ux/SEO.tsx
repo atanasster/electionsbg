@@ -26,9 +26,6 @@ export const SEO: FC<{
       <meta name="twitter:card" content={type} />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
-
-      <meta property="og:image" content="/images/og_image.png" />
-      <meta property="twitter:image" content="/images/og_image.png" />
     </Helmet>
   );
 };
