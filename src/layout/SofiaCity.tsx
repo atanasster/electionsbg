@@ -19,7 +19,9 @@ export const SofiaCity: FC<{ size: MapCoordinates }> = ({ size }) => {
   const isXLarge = useMediaQueryMatch("xl");
   const isLarge = useMediaQueryMatch("lg");
   const isMedium = useMediaQueryMatch("md");
-  const width: number = (isMedium || isLarge) && !isXLarge ? 120 : 160;
+  const isXSmall = useMediaQueryMatch("xs");
+  const width: number =
+    (isMedium || isLarge || isXSmall) && !isXLarge ? 120 : 160;
   const height = 0.7 * width;
   return (
     <Link
