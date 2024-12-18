@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "chmod -R +w dist && rm -r dist && tsc -b && vite build",
     "lint": "eslint .",
     "preview": "vite preview",
     "data": "tsx ./scripts/main.ts",
