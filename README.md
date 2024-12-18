@@ -1,6 +1,6 @@
 # Bulgaria Election Results Analysis
 
-The goal of this project is to provide an easy to use visualization and analysis platform for the election results in Bulgaria.
+A platform aimed to navigate and analyze the elections in Bulgaria.
 
 ## Live Website
 [Live Web App](https://electionsbg.com)
