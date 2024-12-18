@@ -4,12 +4,13 @@ import { fileURLToPath } from "url";
 import { runStats } from "./collect_stats";
 import { generateReports } from "./reports";
 import { parseElections } from "./parsers/parse_elections";
+import { generateAllSearchFIles } from "./search";
 
 const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
 const __dirname = path.dirname(__filename); // get the name of the directory
 
 let production: boolean | undefined = undefined;
-const dataFolder = path.resolve(__dirname, "../public");
+const publicFolder = path.resolve(__dirname, "../public");
 const inFolder = path.resolve(__dirname, "../raw_data");
 
 const stringify = (o: object) => stringifyJSON(o, production);
@@ -48,15 +49,28 @@ const app = command({
       short: "s",
       defaultValue: () => false,
     }),
+    search: flag({
+      type: optional(boolean),
+      long: "search",
+      short: "c",
+      defaultValue: () => false,
+    }),
   },
-  handler: async ({ all, prod, stats, date, reports }) => {
+  handler: async ({ all, prod, stats, date, reports, search }) => {
     production = prod;
-    await parseElections({ date, all, stringify, dataFolder });
+    await parseElections({ date, all, stringify, publicFolder });
     if (stats) {
       runStats(stringify);
     }
     if (reports) {
       generateReports(inFolder, stringify);
+    }
+    if (search) {
+      generateAllSearchFIles({
+        dataFolder: inFolder,
+        publicFolder,
+        stringify,
+      });
     }
   },
 });

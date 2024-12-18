@@ -247,14 +247,7 @@ export const ReportTemplate: FC<{
             hidden: !visibleColumns.includes("section"),
             header: t("section"),
             cell: ({ row }) => (
-              <Link
-                to={{
-                  pathname: "/section",
-                  search: {
-                    section: row.getValue("section"),
-                  },
-                }}
-              >
+              <Link to={`/section/${row.getValue("section")}`}>
                 {row.getValue("section")}
               </Link>
             ),

@@ -88,7 +88,7 @@ export const AuthRoutes = () => {
           }
         />
         <Route
-          path="section"
+          path="section/:id"
           element={
             <LayoutScreen>
               <SectionScreen />

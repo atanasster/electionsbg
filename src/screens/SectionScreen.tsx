@@ -1,4 +1,4 @@
-import { useSearchParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useSectionsVotes } from "@/data/sections/useSectionsVotes";
 import { Section } from "./components/Section";
 import { useSettlementsInfo } from "@/data/settlements/useSettlements";
@@ -10,9 +10,8 @@ import { H1 } from "@/ux/H1";
 import { Link } from "@/ux/Link";
 
 export const SectionScreen = () => {
-  const [searchParams] = useSearchParams();
+  const { id: sectionCode } = useParams();
   const { t, i18n } = useTranslation();
-  const sectionCode = searchParams.get("section");
   const section = useSectionsVotes(sectionCode);
   const { findSettlement } = useSettlementsInfo();
   const { findMunicipality } = useMunicipalities();
