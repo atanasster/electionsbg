@@ -1,6 +1,5 @@
 import { usePartyInfo } from "@/data/parties/usePartyInfo";
 import { useRegionVotes } from "@/data/regions/useRegionVotes";
-import { Caption } from "@/ux/Caption";
 import { Link } from "@/ux/Link";
 import { Tooltip } from "@/ux/Tooltip";
 import { FC } from "react";
@@ -35,9 +34,7 @@ export const SofiaCity: FC<{ size: MapCoordinates }> = ({ size }) => {
       <Tooltip
         content={
           <div>
-            <Caption className="text-primary-foreground">
-              {t("sofia_city")}
-            </Caption>
+            <div className="text-lg text-center pb-1">{t("sofia_city")}</div>
             <PartyVotesXS votes={sofiaVotes?.votes} />
           </div>
         }

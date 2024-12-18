@@ -8,7 +8,8 @@ import { PartyLabel } from "./PartyLabel";
 
 export const PartyVotesXS: FC<{
   votes?: Votes[];
-}> = ({ votes }) => {
+  className?: string;
+}> = ({ votes, className }) => {
   const { findParty } = usePartyInfo();
   const { t } = useTranslation();
   const total = useMemo(() => {
@@ -17,35 +18,30 @@ export const PartyVotesXS: FC<{
 
   const parties = useTopParties(votes, 4);
   return (
-    <div>
+    <div className={className}>
       {!!parties?.length && (
         <>
-          <div className="text-center text-sm mb-1">
+          <div className="text-center text-xs mb-1">
             {`${t("total")} ${formatThousands(total)} ${t("votes")}`}
           </div>
           <table className="w-full border rounded-md border-collapse table-auto">
             <thead>
-              <tr className="text-base bg-gray-5 py-3 font-medium">
-                <th className="border-b-2 text-left px-2">{t("party")}</th>
-                <th className="border-b-2 text-center ">{t("votes")}</th>
-                <th className="border-b-2 text-center ">%</th>
+              <tr className="border-b text-xs bg-gray-5 py-3">
+                <th className="text-left p-2">{t("party")}</th>
+                <th className="text-center ">{t("votes")}</th>
+                <th className="text-center ">%</th>
               </tr>
             </thead>
-            <tbody className="text-sm text-left font-light text-primary-foreground">
+            <tbody className="divide-y  text-xs text-right font-light">
               {parties.map((v) => {
                 const party = findParty(v.partyNum);
                 return (
-                  <tr
-                    className="border-b border-muted font-medium"
-                    key={v.partyNum}
-                  >
-                    <td className="px-2 py-1  text-white">
-                      <PartyLabel party={party} />
+                  <tr className="font-medium" key={v.partyNum}>
+                    <td className="px-1 py-0.5 ">
+                      <PartyLabel className="py-0.5" party={party} />
                     </td>
-                    <td className="px-2 text-right">
-                      {formatThousands(v.totalVotes)}
-                    </td>
-                    <td className="px-2 text-right">
+                    <td className="px-1">{formatThousands(v.totalVotes)}</td>
+                    <td className="px-1">
                       {total ? formatPct(100 * (v.totalVotes / total)) : null}
                     </td>
                   </tr>
