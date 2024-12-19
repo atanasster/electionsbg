@@ -11,10 +11,12 @@ const DataTypeIcons: Record<DataViewType, ReactNode> = {
   table: <TableProperties />,
   chart: <ChartLine />,
 };
-export const DataViewContainer: FC<PropsWithChildren<{ title: ReactNode }>> = ({
-  children,
-  title,
-}) => {
+export const DataViewContainer: FC<
+  PropsWithChildren<{
+    title: ReactNode;
+    excluded?: { exclude: DataViewType; replace: DataViewType };
+  }>
+> = ({ children, title, excluded }) => {
   const { t } = useTranslation();
   const { view, setView } = useDataViewContext();
   return (
@@ -25,23 +27,34 @@ export const DataViewContainer: FC<PropsWithChildren<{ title: ReactNode }>> = ({
           {title}
         </div>
         <div className="flex gap-2 ">
-          {dataViews.map((key: DataViewType) => {
-            return (
-              <Button
-                key={key}
-                variant="outline"
-                role="radio"
-                data-state={view === key ? "checked" : "unchecked"}
-                className="flex w-20 data-[state=checked]:bg-muted text-muted-foreground"
-                onClick={() => {
-                  setView(key);
-                }}
-              >
-                {DataTypeIcons[key]}
-                <span className="text-xs text-muted-foreground">{t(key)}</span>
-              </Button>
-            );
-          })}
+          {dataViews
+            .filter((key) => !excluded || excluded.exclude !== key)
+            .map((key: DataViewType) => {
+              return (
+                <Button
+                  key={key}
+                  variant="outline"
+                  role="radio"
+                  data-state={
+                    view === key ||
+                    (excluded &&
+                      view === excluded.exclude &&
+                      key === excluded.replace)
+                      ? "checked"
+                      : "unchecked"
+                  }
+                  className="flex w-20 data-[state=checked]:bg-muted text-muted-foreground"
+                  onClick={() => {
+                    setView(key);
+                  }}
+                >
+                  {DataTypeIcons[key]}
+                  <span className="text-xs text-muted-foreground">
+                    {t(key)}
+                  </span>
+                </Button>
+              );
+            })}
         </div>
       </div>
       <Separator className="my-2" />
