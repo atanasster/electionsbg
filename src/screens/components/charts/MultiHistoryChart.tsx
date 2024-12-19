@@ -124,7 +124,7 @@ export const MultiHistoryChart: FC<{
       <div className="flex justify-end w-full">{consolidated}</div>
       <ChartContainer
         config={{}}
-        className={cn("w-full md:w-4/5 lg:w-2/3", className)}
+        className={cn("w-full md:w-4/5 lg:w-3/4", className)}
       >
         <LineChart accessibilityLayer data={chartData}>
           <ChartTooltip cursor={true} content={<CustomTooltip />} />
