@@ -14,10 +14,11 @@ const queryFn = async ({
   return data;
 };
 
-export const useSettlementsMap = (municipality: string) => {
+export const useSettlementsMap = (municipality?: string) => {
   const { data } = useQuery({
     queryKey: ["settlements_map", municipality],
     queryFn: queryFn,
+    enabled: !!municipality,
   });
 
   return data;

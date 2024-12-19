@@ -1,4 +1,4 @@
-import { MapCoordinates } from "@/layout/MapLayout";
+import { MapCoordinates } from "@/layout/dataview/MapLayout";
 import { SVGMapContainer } from "./maps/SVGMapContainer";
 import { useRegionVotes } from "@/data/regions/useRegionVotes";
 import { useTooltip } from "@/ux/useTooltip";

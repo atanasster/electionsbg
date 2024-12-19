@@ -3,9 +3,9 @@ import { useRegionVotes } from "@/data/regions/useRegionVotes";
 import { Link } from "@/ux/Link";
 import { Tooltip } from "@/ux/Tooltip";
 import { FC } from "react";
-import { PartyVotesXS } from "../screens/components/PartyVotesXS";
+import { PartyVotesXS } from "../PartyVotesXS";
 import { useTranslation } from "react-i18next";
-import { MapCoordinates } from "@/layout/MapLayout";
+import { MapCoordinates } from "@/layout/dataview/MapLayout";
 import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
 
 export const SofiaCity: FC<{ size: MapCoordinates }> = ({ size }) => {
