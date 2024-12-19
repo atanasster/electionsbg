@@ -21,7 +21,9 @@ export const DataViewContainer: FC<PropsWithChildren<{ title: ReactNode }>> = ({
     <>
       <Separator className="my-2" />
       <div className="flex justify-between w-full items-center">
-        <div className="truncate font-semibold">{title}</div>
+        <div className="truncate font-semibold text-secondary-foreground">
+          {title}
+        </div>
         <div className="flex gap-2 ">
           {dataViews.map((key: DataViewType) => {
             return (
