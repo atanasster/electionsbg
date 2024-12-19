@@ -126,8 +126,10 @@
   "votes_by_party": "Votes by party",
   "address": "Address",
   "winner": "Winner",
-  "consolidated_data": "Consolidated historical data",
+  "consolidated_data": "Consolidated data",
   "consolidated_data_explainer": "The data from previous elections will be adjusted to account for significant splits, mergers, or reconfigurations of political parties and coalitions.",
+  "show_total_votes":"Total votes",
+  "show_total_votes_explainer":"Show the total votes for all parties",
   "top_gainers": "Top gainers",
   "top_gainers_over": "with a party gaining from the previous election over",
   "top_losers": "Top losers",
@@ -148,5 +150,7 @@
   "search": "search",
   "map": "map",
   "table": "table",
-  "historical_chart": "Historical chart"
+  "historical_chart": "Historical chart",
+  "adjusted_change": "Adjusted",
+  "pct_adjusted_change_explainer": "Change for the party votes, adjusted for the increase/decrease in voters participation in the previous elections"
 }

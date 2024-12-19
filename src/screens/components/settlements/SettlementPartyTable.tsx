@@ -12,9 +12,9 @@ export const SettlementPartyTable: FC<{ municipality: string }> = ({
 
   return (
     <PartyVotesTable
-      votes={municipalityVotes?.results.votes}
+      results={municipalityVotes?.results}
       stats={stats}
-      prevElectionVotes={prevVotes?.results?.votes}
+      prevElection={prevVotes}
     />
   );
 };

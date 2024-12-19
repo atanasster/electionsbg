@@ -17,21 +17,42 @@ const CustomTooltip: FC<{
   active?: boolean;
   payload?: {
     value: number;
-    payload: { date: string; votes: number };
+    payload: {
+      date: string;
+      votes: number;
+      name: string;
+      total?: number;
+      party: string;
+    };
   }[];
   label?: string;
 }> = ({ active, payload }) => {
   const { t } = useTranslation();
-
   return active && payload?.[0] ? (
     <div className="z-50 overflow-hidden rounded-md bg-primary px-3 py-1.5 text-xs text-primary-foreground">
-      <div className="flex flex-col items-start">
+      <div className="flex flex-col items-start gap-2">
         <div className="text-muted">{`${payload[0].payload.date}`}</div>
-        <div className="flex">
-          <div className="ml-2 font-semibold">
-            {`${formatThousands(payload[0].value)}`}
+        {payload[0].payload.total && (
+          <div className="flex gap-2">
+            <div>
+              {t("total")}
+              {": "}
+            </div>
+            <div className="font-semibold">
+              {formatThousands(payload[0].payload.total)}
+            </div>
+            <div className="text-muted lowercase ">{t("votes")}</div>
           </div>
-          <div className="text-muted ml-1 lowercase ">{t("votes")}</div>
+        )}
+        <div className="flex gap-2">
+          <div>
+            {payload[0].payload.party}
+            {": "}
+          </div>
+          <div className="font-semibold">
+            {formatThousands(payload[0].payload.votes)}
+          </div>
+          <div className="text-muted lowercase ">{t("votes")}</div>
         </div>
       </div>
     </div>
@@ -61,6 +82,8 @@ export const HistoryChart: FC<{
       .map((e) => ({
         date: localDate(e.name),
         name: e.name,
+        party: party.nickName,
+        total: e.results?.protocol?.totalActualVoters,
         votes: findPrevVotes(party, e.results?.votes, isConsolidated),
       }))
       .sort((a, b) => a.name.localeCompare(b.name));
@@ -89,8 +112,20 @@ export const HistoryChart: FC<{
               stroke="red"
               label={t("selected_elections")}
             />
+            <Area
+              animationDuration={animationDuration}
+              dataKey="total"
+              type="linear"
+              style={{ cursor: "pointer" }}
+              stroke="red"
+              fill="transparent"
+              strokeWidth={4}
+              fillOpacity={0.3}
+              dot={false}
+            />
           </>
         )}
+
         <Area
           animationDuration={animationDuration}
           dataKey="votes"

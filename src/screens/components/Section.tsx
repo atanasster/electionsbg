@@ -32,11 +32,11 @@ export const Section: FC<{ section: SectionInfo }> = ({ section }) => {
           protocol={section.results.protocol}
           votes={section.results.votes}
         />
-        {section.results.protocol && section.results.votes && (
+        {votes && (
           <PartyVotesTable
-            votes={votes}
+            results={{ protocol: section.results.protocol, votes }}
             stats={stats}
-            prevElectionVotes={prevVotes?.results?.votes}
+            prevElection={prevVotes}
           />
         )}
       </div>

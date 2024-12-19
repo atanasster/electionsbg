@@ -13,8 +13,8 @@ export const MunicipalityPartyTable: FC<{ region: string }> = ({ region }) => {
 
   return (
     <PartyVotesTable
-      votes={regionVotes?.results.votes}
-      prevElectionVotes={prevVotes?.results?.votes}
+      results={regionVotes?.results}
+      prevElection={prevVotes}
       stats={stats}
     />
   );
