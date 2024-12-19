@@ -65,7 +65,7 @@ const CustomLegend: FC<{ payload?: { dataKey: string; color: string }[] }> = ({
   const { findByNickName } = usePartyInfo();
   return (
     payload && (
-      <div className="flex flex-wrap border gap-1 pt-4">
+      <div className="flex flex-wrap gap-1 p-2 mt-2">
         {payload.map((p) => (
           <Hint key={p.dataKey} text={findByNickName(p.dataKey)?.name || ""}>
             <div
@@ -124,7 +124,7 @@ export const MultiHistoryChart: FC<{
       <div className="flex justify-end w-full">{consolidated}</div>
       <ChartContainer
         config={{}}
-        className={cn("w-full md:w-4/5 lg:w-3/4 min-h-96", className)}
+        className={cn("w-full md:w-4/5 lg:w-3/4 min-h-[350px]", className)}
       >
         <LineChart accessibilityLayer data={chartData}>
           <ChartTooltip cursor={true} content={<CustomTooltip />} />
