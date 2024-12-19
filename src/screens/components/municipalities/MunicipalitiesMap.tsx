@@ -1,13 +1,13 @@
-import { MapCoordinates } from "@/layout/MapLayout";
-import { SVGMapContainer } from "./maps/SVGMapContainer";
+import { MapCoordinates } from "@/layout/dataview/MapLayout";
 import { useTooltip } from "@/ux/useTooltip";
-import { useMapElements } from "./maps/useMapElements";
 import { useMunicipalitiesMap } from "@/data/municipalities/useMunicipalitiesMap";
 import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
-import { MunicipalityJSONProps } from "./maps/mapTypes";
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { ElectionMunicipality } from "@/data/dataTypes";
 import { useElectionContext } from "@/data/ElectionContext";
+import { MunicipalityJSONProps } from "../maps/mapTypes";
+import { useMapElements } from "../maps/useMapElements";
+import { SVGMapContainer } from "../maps/SVGMapContainer";
 
 const queryFn = async ({
   queryKey,

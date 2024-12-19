@@ -1,4 +1,4 @@
-import { MapCoordinates } from "@/layout/MapLayout";
+import { MapCoordinates } from "@/layout/dataview/MapLayout";
 import * as d3 from "d3";
 
 export const getDataProjection = (

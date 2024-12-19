@@ -1,5 +1,5 @@
 import { ReactNode } from "react";
-import { MapCoordinates } from "@/layout/MapLayout";
+import { MapCoordinates } from "@/layout/dataview/MapLayout";
 
 export const SVGMapContainer = ({
   size,

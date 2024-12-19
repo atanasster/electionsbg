@@ -1,13 +1,13 @@
-import { MapCoordinates } from "@/layout/MapLayout";
-import { SVGMapContainer } from "./maps/SVGMapContainer";
+import { MapCoordinates } from "@/layout/dataview/MapLayout";
 import { useTooltip } from "@/ux/useTooltip";
-import { useMapElements } from "./maps/useMapElements";
-import { SettlementJSONProps } from "./maps/mapTypes";
 import { useSettlementsMap } from "@/data/settlements/useSettlementsMap";
 import { ElectionSettlement, MunicipalityInfo } from "@/data/dataTypes";
 import { useSettlementsInfo } from "@/data/settlements/useSettlements";
 import { useElectionContext } from "@/data/ElectionContext";
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
+import { SettlementJSONProps } from "../maps/mapTypes";
+import { useMapElements } from "../maps/useMapElements";
+import { SVGMapContainer } from "../maps/SVGMapContainer";
 
 const queryFn = async ({
   queryKey,
@@ -36,6 +36,7 @@ export const SettlementsMap: React.FC<{
     enabled: !!selected,
   });
   const { tooltip, ...tooltipEvents } = useTooltip();
+
   const mapGeo = useSettlementsMap(municipality.obshtina);
   const votes = data;
   const { findSettlement } = useSettlementsInfo();

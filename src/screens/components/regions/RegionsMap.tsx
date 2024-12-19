@@ -1,13 +1,13 @@
-import { MapCoordinates } from "@/layout/MapLayout";
-import { SVGMapContainer } from "./maps/SVGMapContainer";
 import { useRegionsMap } from "@/data/regions/useRegionsMap";
 import { useRegionVotes } from "@/data/regions/useRegionVotes";
 import { useTooltip } from "@/ux/useTooltip";
 import { useRegions } from "@/data/regions/useRegions";
-import { WorldLink } from "../../layout/WorldLink";
-import { useMapElements } from "./maps/useMapElements";
-import { RegionJSONProps } from "./maps/mapTypes";
-import { SofiaCity } from "../../layout/SofiaCity";
+import { RegionJSONProps } from "../maps/mapTypes";
+import { useMapElements } from "../maps/useMapElements";
+import { SVGMapContainer } from "../maps/SVGMapContainer";
+import { MapCoordinates } from "@/layout/dataview/MapLayout";
+import { WorldLink } from "./WorldLink";
+import { SofiaCity } from "./SofiaCity";
 
 export const RegionsMap: React.FC<{
   size: MapCoordinates;
@@ -36,7 +36,7 @@ export const RegionsMap: React.FC<{
   });
 
   return (
-    <div>
+    <div className="flex flex-row w-full">
       <div className="relative">
         <SVGMapContainer size={size}>
           {maps}

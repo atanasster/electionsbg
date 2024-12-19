@@ -1,0 +1,48 @@
+import { FC, PropsWithChildren, ReactNode } from "react";
+
+import { dataViews, DataViewType, useDataViewContext } from "./DataViewContext";
+import { Button } from "@/components/ui/button";
+import { Separator } from "@/components/ui/separator";
+import { MapPinned, TableProperties } from "lucide-react";
+import { useTranslation } from "react-i18next";
+
+const DataTypeIcons: Record<DataViewType, ReactNode> = {
+  map: <MapPinned />,
+  table: <TableProperties />,
+};
+export const DataViewContainer: FC<PropsWithChildren<{ title: ReactNode }>> = ({
+  children,
+  title,
+}) => {
+  const { t } = useTranslation();
+  const { view, setView } = useDataViewContext();
+  return (
+    <>
+      <Separator className="my-2" />
+      <div className="flex justify-between w-full items-center">
+        <div className="truncate font-semibold">{title}</div>
+        <div className="flex gap-2 ">
+          {dataViews.map((key: DataViewType) => {
+            return (
+              <Button
+                key={key}
+                variant="outline"
+                role="radio"
+                data-state={view === key ? "checked" : "unchecked"}
+                className="flex w-20 data-[state=checked]:bg-muted"
+                onClick={() => {
+                  setView(key);
+                }}
+              >
+                {DataTypeIcons[key]}
+                <span className="text-xs text-muted-foreground">{t(key)}</span>
+              </Button>
+            );
+          })}
+        </div>
+      </div>
+      <Separator className="my-2" />
+      {children}
+    </>
+  );
+};

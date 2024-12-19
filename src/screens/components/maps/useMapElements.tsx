@@ -6,7 +6,7 @@ import { MapText } from "./MapText";
 import { MapMarker } from "./MapMarker";
 import { minMaxVotes } from "@/data/utils";
 import { getDataProjection } from "@/screens/utils/d3_utils";
-import { MapCoordinates } from "@/layout/MapLayout";
+import { MapCoordinates } from "@/layout/dataview/MapLayout";
 import { NavigateParams } from "@/ux/useNavigateParams";
 import { TooltipEvents } from "@/ux/useTooltip";
 
