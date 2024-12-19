@@ -5,6 +5,7 @@ import { useDataViewContext } from "@/layout/dataview/DataViewContext";
 import { SettlementPartyTable } from "./SettlementPartyTable";
 import { SettlementsMap } from "./SettlementsMap";
 import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
+import { SettlementHistoryChart } from "./SettlementHistoryChart";
 
 export const SettlementData: FC<{ municipality: string; title: ReactNode }> = ({
   municipality,
@@ -28,6 +29,9 @@ export const SettlementData: FC<{ municipality: string; title: ReactNode }> = ({
         </MapLayout>
       )}
       {view === "table" && <SettlementPartyTable municipality={municipality} />}
+      {view === "chart" && (
+        <SettlementHistoryChart municipality={municipality} />
+      )}
     </DataViewContainer>
   );
 };

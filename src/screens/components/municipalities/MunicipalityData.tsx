@@ -4,6 +4,7 @@ import { MunicipalitiesMap } from "./MunicipalitiesMap";
 import { DataViewContainer } from "@/layout/dataview/DataViewContainer";
 import { useDataViewContext } from "@/layout/dataview/DataViewContext";
 import { MunicipalityPartyTable } from "./MunicipalityPartyTable";
+import { MunicipalityHistoryChart } from "./MunicipalityHistoryChart";
 
 export const MunicipalityData: FC<{ region: string; title: ReactNode }> = ({
   region,
@@ -24,6 +25,7 @@ export const MunicipalityData: FC<{ region: string; title: ReactNode }> = ({
         </MapLayout>
       )}
       {view === "table" && <MunicipalityPartyTable region={region} />}
+      {view === "chart" && <MunicipalityHistoryChart region={region} />}
     </DataViewContainer>
   );
 };

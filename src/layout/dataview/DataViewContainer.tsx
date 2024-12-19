@@ -3,12 +3,13 @@ import { FC, PropsWithChildren, ReactNode } from "react";
 import { dataViews, DataViewType, useDataViewContext } from "./DataViewContext";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
-import { MapPinned, TableProperties } from "lucide-react";
+import { ChartLine, MapPinned, TableProperties } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 const DataTypeIcons: Record<DataViewType, ReactNode> = {
   map: <MapPinned />,
   table: <TableProperties />,
+  chart: <ChartLine />,
 };
 export const DataViewContainer: FC<PropsWithChildren<{ title: ReactNode }>> = ({
   children,

@@ -32,6 +32,12 @@ export const usePartyInfo = () => {
     },
     [parties],
   );
+  const findByNickName = useCallback(
+    (nickName: string) => {
+      return data?.find((p) => p.nickName === nickName);
+    },
+    [data],
+  );
   const topVotesParty = useCallback(
     (votes?: Votes[]): PartyVotes | undefined => {
       const tp = topParty(votes);
@@ -41,5 +47,5 @@ export const usePartyInfo = () => {
     },
     [findParty],
   );
-  return { findParty, topVotesParty, parties: data };
+  return { findParty, topVotesParty, findByNickName, parties: data };
 };

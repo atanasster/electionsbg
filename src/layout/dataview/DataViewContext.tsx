@@ -7,7 +7,7 @@ import {
 } from "react";
 
 // eslint-disable-next-line react-refresh/only-export-components
-export const dataViews = ["map", "table"] as const;
+export const dataViews = ["map", "table", "chart"] as const;
 export type DataViewType = (typeof dataViews)[number];
 type DataViewContextType = {
   view: DataViewType;

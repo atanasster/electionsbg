@@ -4,6 +4,7 @@ import { RegionsMap } from "./RegionsMap";
 import { DataViewContainer } from "@/layout/dataview/DataViewContainer";
 import { useDataViewContext } from "@/layout/dataview/DataViewContext";
 import { RegionsPartyTable } from "./RegionsPartyTable";
+import { RegionsHistoryChart } from "./RegionsHistoryChart";
 
 export const RegionData: FC<{ title: ReactNode }> = ({ title }) => {
   const { view } = useDataViewContext();
@@ -17,6 +18,7 @@ export const RegionData: FC<{ title: ReactNode }> = ({ title }) => {
         </MapLayout>
       )}
       {view === "table" && <RegionsPartyTable />}
+      {view === "chart" && <RegionsHistoryChart />}
     </DataViewContainer>
   );
 };
