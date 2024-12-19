@@ -120,9 +120,9 @@ export const Sections: FC<{ ekatte: string }> = ({ ekatte }) => {
       )}
       {view == "table" && (
         <PartyVotesTable
-          votes={settlement?.results.votes}
+          results={settlement?.results}
           stats={stats}
-          prevElectionVotes={prevVotes?.results?.votes}
+          prevElection={prevVotes}
         />
       )}
       {view == "chart" && stats && <MultiHistoryChart stats={stats} />}

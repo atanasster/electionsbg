@@ -34,8 +34,8 @@ export const SofiaScreen = () => {
         )}
         {view === "table" && (
           <PartyVotesTable
-            votes={results?.votes}
-            prevElectionVotes={prevVotes?.results?.votes}
+            results={results}
+            prevElection={prevVotes}
             stats={sofiaStats}
           />
         )}

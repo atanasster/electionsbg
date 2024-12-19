@@ -2,8 +2,7 @@ import {
   ElectionInfo,
   PartyInfo,
   PartyVotes,
-  StatsVote,
-  Votes,
+  VoteResults,
 } from "@/data/dataTypes";
 
 import {
@@ -31,19 +30,31 @@ import { Caption } from "@/ux/Caption";
 import { useConsolidatedLabel } from "./useConsolidatedLabel";
 
 export const PartyVotesTable: FC<{
-  votes?: Votes[];
+  results?: VoteResults;
   stats?: ElectionInfo[];
-  prevElectionVotes?: StatsVote[] | null;
-}> = ({ votes, prevElectionVotes, stats }) => {
+  prevElection?: ElectionInfo;
+}> = ({ results, prevElection, stats }) => {
   const { t } = useTranslation();
   const { isConsolidated, consolidated } = useConsolidatedLabel();
   const isXSmall = useMediaQueryMatch("xs");
   const isSmall = useMediaQueryMatch("sm");
   const isLarge = useMediaQueryMatch("lg");
-  const hasPaperVotes = votes?.find((v) => v.paperVotes);
-  const hasMachineVotes = votes?.find((v) => v.machineVotes);
-  const parties = useTopParties(votes, 0);
+  const hasPaperVotes = results?.votes.find((v) => v.paperVotes);
+  const hasMachineVotes = results?.votes.find((v) => v.machineVotes);
+  const parties = useTopParties(results?.votes, 0);
   const data = useMemo(() => {
+    const prevElectionVotes = prevElection?.results?.votes;
+    const currentActivity = results?.protocol?.numRegisteredVoters
+      ? 100 *
+        (results.protocol.totalActualVoters /
+          results.protocol.numRegisteredVoters)
+      : 0;
+    const prevActivity = prevElection?.results?.protocol?.numRegisteredVoters
+      ? 100 *
+        (prevElection.results.protocol.totalActualVoters /
+          prevElection.results.protocol.numRegisteredVoters)
+      : currentActivity;
+    const activityChange = prevActivity - currentActivity;
     return prevElectionVotes
       ? parties?.map((p) => {
           const prevTotalVotes = findPrevVotes(
@@ -51,16 +62,20 @@ export const PartyVotesTable: FC<{
             prevElectionVotes,
             isConsolidated,
           );
+          const pctPrevChange = prevTotalVotes
+            ? (100 * (p.totalVotes - prevTotalVotes)) / prevTotalVotes
+            : undefined;
           return {
             ...p,
             prevTotalVotes,
-            pctPrevChange: prevTotalVotes
-              ? (100 * (p.totalVotes - prevTotalVotes)) / prevTotalVotes
+            pctPrevChange,
+            adjustedPctPrevChange: pctPrevChange
+              ? pctPrevChange + activityChange
               : undefined,
           };
         })
       : parties;
-  }, [isConsolidated, parties, prevElectionVotes]);
+  }, [isConsolidated, parties, prevElection, results]);
   const columns: DataTableColumns<PartyVotes, unknown> = useMemo(
     () => [
       {
@@ -134,7 +149,7 @@ export const PartyVotesTable: FC<{
       },
       {
         accessorKey: "prevTotalVotes",
-        hidden: !prevElectionVotes,
+        hidden: !prevElection,
         header: (
           <Hint text={t("prev_election_votes_explainer")}>
             <div>{isXSmall ? t("prior") : t("prior_elections")}</div>
@@ -148,7 +163,7 @@ export const PartyVotesTable: FC<{
       },
       {
         accessorKey: "pctPrevChange",
-        hidden: !prevElectionVotes,
+        hidden: !prevElection,
         header: (
           <Hint text={t("pct_prev_election_votes_explainer")}>
             <div>{isXSmall ? `+/-` : `% ${t("change")}`}</div>
@@ -166,8 +181,28 @@ export const PartyVotesTable: FC<{
         },
       },
       {
+        accessorKey: "adjustedPctPrevChange",
+        hidden: !prevElection || !isLarge,
+        header: (
+          <Hint text={t("pct_adjusted_change_explainer")}>
+            <div>{t("adjusted_change")}</div>
+          </Hint>
+        ) as never,
+        cell: ({ row }) => {
+          const pctChange: number = row.getValue("adjustedPctPrevChange");
+          return (
+            <div
+              className={`px-4 py-2 font-bold text-right ${pctChange && pctChange < 0 ? "text-destructive" : "text-secondary-foreground"}`}
+            >
+              {formatPct(row.getValue("adjustedPctPrevChange"), 2)}
+            </div>
+          );
+        },
+      },
+
+      {
         accessorKey: "chart",
-        hidden: !prevElectionVotes,
+        hidden: !prevElection,
         header: (
           <Hint text={t("all_elections_explainer")}>
             <div>{isLarge ? t("all_elections") : t("chart")}</div>
@@ -230,7 +265,7 @@ export const PartyVotesTable: FC<{
       isSmall,
       hasPaperVotes,
       hasMachineVotes,
-      prevElectionVotes,
+      prevElection,
       isLarge,
       isConsolidated,
     ],
