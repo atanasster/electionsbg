@@ -9,7 +9,7 @@ export const Footer = () => {
       <div className="text-sm hidden sm:flex whitespace-nowrap ">
         {`© ${new Date().getFullYear()}. ${t("all_rights_reserved")}.`}
       </div>
-      <ul className="flex items-center text-md sm:mt-0">
+      <ul className="flex items-center text-sm sm:mt-0">
         <li>
           <Link to="/about" aria-label="about" className="mx-2">
             {t("about")}
