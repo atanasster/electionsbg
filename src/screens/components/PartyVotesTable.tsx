@@ -5,8 +5,6 @@ import {
   StatsVote,
   Votes,
 } from "@/data/dataTypes";
-import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
 
 import {
   Dialog,
@@ -20,7 +18,7 @@ import {
 import { useTopParties } from "@/data/parties/useTopParties";
 import { findPrevVotes, formatPct, formatThousands } from "@/data/utils";
 import { DataTable, DataTableColumns } from "@/ux/DataTable";
-import { FC, useMemo, useState } from "react";
+import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { PartyLabel } from "./PartyLabel";
 import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
@@ -30,7 +28,7 @@ import { DialogClose } from "@radix-ui/react-dialog";
 import { Button } from "@/components/ui/button";
 import { ChartArea } from "lucide-react";
 import { Caption } from "@/ux/Caption";
-import { useTouch } from "@/ux/TouchProvider";
+import { useConsolidatedLabel } from "./useConsolidatedLabel";
 
 export const PartyVotesTable: FC<{
   votes?: Votes[];
@@ -38,16 +36,13 @@ export const PartyVotesTable: FC<{
   prevElectionVotes?: StatsVote[] | null;
 }> = ({ votes, prevElectionVotes, stats }) => {
   const { t } = useTranslation();
-  const [isConsolidated, setIsConsolidated] = useState(
-    localStorage.getItem("consolidated_history") === "true",
-  );
+  const { isConsolidated, consolidated } = useConsolidatedLabel();
   const isXSmall = useMediaQueryMatch("xs");
   const isSmall = useMediaQueryMatch("sm");
   const isLarge = useMediaQueryMatch("lg");
   const hasPaperVotes = votes?.find((v) => v.paperVotes);
   const hasMachineVotes = votes?.find((v) => v.machineVotes);
   const parties = useTopParties(votes, 0);
-  const isTouch = useTouch();
   const data = useMemo(() => {
     return prevElectionVotes
       ? parties?.map((p) => {
@@ -243,27 +238,7 @@ export const PartyVotesTable: FC<{
   return data?.length ? (
     <div className="w-full">
       <Caption className="py-8">{t("votes_by_party")}</Caption>
-      <Hint text={t("consolidated_data_explainer")}>
-        <div className="flex items-center space-x-2 pb-4 justify-end">
-          <Switch
-            id="consolidated-mode"
-            checked={isConsolidated}
-            onCheckedChange={(value) => {
-              localStorage.setItem(
-                "consolidated_history",
-                value ? "true" : "false",
-              );
-              setIsConsolidated(value);
-            }}
-          />
-          <Label
-            className="text-secondary-foreground"
-            htmlFor={isTouch ? undefined : "consolidated-mode"}
-          >
-            {t("consolidated_data")}
-          </Label>
-        </div>
-      </Hint>
+      {consolidated}
       <DataTable
         pageSize={data.length}
         columns={columns}

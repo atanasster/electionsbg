@@ -11,18 +11,20 @@ import { Link } from "@/ux/Link";
 import { H1 } from "@/ux/H1";
 import { SEO } from "@/ux/SEO";
 import { ProtocolSummary } from "./ProtocolSummary";
-import { TableProperties, Vote } from "lucide-react";
+import { ChartLine, TableProperties, Vote } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Separator } from "@/components/ui/separator";
 import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
 import { Caption } from "@/ux/Caption";
+import { MultiHistoryChart } from "./charts/MultiHistoryChart";
 
-const dataViews = ["sections", "table"] as const;
+const dataViews = ["sections", "table", "chart"] as const;
 type DataViewType = (typeof dataViews)[number];
 
 const DataTypeIcons: Record<DataViewType, ReactNode> = {
   sections: <Vote />,
   table: <TableProperties />,
+  chart: <ChartLine />,
 };
 export const Sections: FC<{ ekatte: string }> = ({ ekatte }) => {
   const [view, setViewInternal] = useState<DataViewType>(
@@ -122,6 +124,7 @@ export const Sections: FC<{ ekatte: string }> = ({ ekatte }) => {
           prevElectionVotes={prevVotes?.results?.votes}
         />
       )}
+      {view == "chart" && stats && <MultiHistoryChart stats={stats} />}
     </>
   );
 };

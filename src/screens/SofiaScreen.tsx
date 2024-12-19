@@ -9,6 +9,7 @@ import { SofiaMap } from "./components/SofiaMap";
 import { useSofiaStats } from "@/data/country/useSofiaStats";
 import { DataViewContainer } from "@/layout/dataview/DataViewContainer";
 import { useDataViewContext } from "@/layout/dataview/DataViewContext";
+import { MultiHistoryChart } from "./components/charts/MultiHistoryChart";
 
 export const SofiaScreen = () => {
   const { t } = useTranslation();
@@ -37,6 +38,9 @@ export const SofiaScreen = () => {
             prevElectionVotes={prevVotes?.results?.votes}
             stats={sofiaStats}
           />
+        )}
+        {view === "chart" && sofiaStats && (
+          <MultiHistoryChart stats={sofiaStats} />
         )}
       </DataViewContainer>
     </>
