@@ -86,7 +86,7 @@ export const Sections: FC<{ ekatte: string }> = ({ ekatte }) => {
       />
       <Separator className="my-2" />
       <div className="flex justify-between w-full items-center">
-        <div className="truncate font-semibold">
+        <div className="truncate font-semibold text-muted-foreground">
           {isMedium ? title : shortTitle}
         </div>
         <div className="flex gap-2 ">
@@ -97,7 +97,7 @@ export const Sections: FC<{ ekatte: string }> = ({ ekatte }) => {
                 variant="outline"
                 role="radio"
                 data-state={view === key ? "checked" : "unchecked"}
-                className="flex w-20 data-[state=checked]:bg-muted"
+                className="flex w-20 data-[state=checked]:bg-muted text-muted-foreground"
                 onClick={() => {
                   setView(key);
                 }}
@@ -109,6 +109,7 @@ export const Sections: FC<{ ekatte: string }> = ({ ekatte }) => {
           })}
         </div>
       </div>
+      <Separator className="my-2" />
       {view === "sections" && settlement && (
         <>
           <Caption className="py-8">

@@ -21,7 +21,7 @@ export const DataViewContainer: FC<PropsWithChildren<{ title: ReactNode }>> = ({
     <>
       <Separator className="my-2" />
       <div className="flex justify-between w-full items-center">
-        <div className="truncate font-semibold text-secondary-foreground">
+        <div className="truncate font-semibold text-muted-foreground">
           {title}
         </div>
         <div className="flex gap-2 ">
@@ -32,7 +32,7 @@ export const DataViewContainer: FC<PropsWithChildren<{ title: ReactNode }>> = ({
                 variant="outline"
                 role="radio"
                 data-state={view === key ? "checked" : "unchecked"}
-                className="flex w-20 data-[state=checked]:bg-muted"
+                className="flex w-20 data-[state=checked]:bg-muted text-muted-foreground"
                 onClick={() => {
                   setView(key);
                 }}
