@@ -17,7 +17,7 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useMemo, useState } from "react";
-import { ArrowUpDown } from "lucide-react";
+import { ArrowUpDown, ChevronLeft, ChevronRight } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 export type DataTableColumns<TData, TValue> = (ColumnDef<TData, TValue> & {
@@ -143,20 +143,22 @@ export const DataTable = <TData, TValue>({
         <div className="flex items-center justify-end space-x-2 py-4 mr-4">
           <Button
             variant="outline"
-            className="w-24 text-secondary-foreground"
+            className="flex justify-between w-24 text-secondary-foreground"
             onClick={() => table.previousPage()}
             disabled={!table.getCanPreviousPage()}
           >
-            {t("previous")}
+            <ChevronLeft />
+            <div>{t("previous")}</div>
           </Button>
           <div className="text-center">{`${table.getState().pagination.pageIndex + 1} / ${table.getPageCount()}`}</div>
           <Button
             variant="outline"
-            className="w-24 text-secondary-foreground"
+            className="flex justify-between w-24 text-secondary-foreground"
             onClick={() => table.nextPage()}
             disabled={!table.getCanNextPage()}
           >
-            {t("next")}
+            <div>{t("next")}</div>
+            <ChevronRight />
           </Button>
         </div>
       ) : null}
