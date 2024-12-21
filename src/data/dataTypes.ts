@@ -157,3 +157,8 @@ export type PartyIncome = {
   candidatesMonetary: number;
   candidatesNonMonetary: number;
 };
+
+export type PartyIncone = {
+  party: number;
+  income: PartyIncome;
+};
