@@ -148,3 +148,12 @@ export type SectionIndex = {
   section: string;
   settlement: string;
 };
+
+export type PartyIncome = {
+  partyMonetary: number;
+  partyNonMonetary: number;
+  donorsMonetary: number;
+  donorsNonMonetary: number;
+  candidatesMonetary: number;
+  candidatesNonMonetary: number;
+};
