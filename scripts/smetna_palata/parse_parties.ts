@@ -1,0 +1,55 @@
+import fs from "fs";
+import { parse } from "csv-parse";
+
+type PartyFromParties = {
+  name: string;
+  monetary: number;
+  nonMonetary: number;
+};
+export const parseFromParties = async ({
+  dataFolder,
+}: {
+  dataFolder: string;
+}): Promise<PartyFromParties[]> => {
+  const result: string[][] = [];
+  const fromFileName = `${dataFolder}/from_parties.csv`;
+  if (!fs.existsSync(fromFileName)) {
+    return [];
+  }
+  return new Promise((resolve) =>
+    fs
+      .createReadStream(fromFileName)
+      .pipe(
+        parse({ delimiter: ",", relax_column_count: true, relax_quotes: true }),
+      )
+      .on("data", (data) => {
+        result.push(data);
+      })
+      .on("end", () => {
+        const allDonors: PartyFromParties[] = [];
+        for (let i = 0; i < result.length; i++) {
+          const row = result[i];
+
+          const name = row[0];
+          const monetary = parseFloat(row[1]);
+          const nonMonetary = parseFloat(row[2]);
+          if (
+            name &&
+            name !== "Сума:" &&
+            (!isNaN(monetary) || !isNaN(nonMonetary))
+          ) {
+            allDonors.push({
+              name,
+              monetary,
+              nonMonetary,
+            });
+          }
+        }
+        // const json = stringify(allParties);
+
+        //fs.writeFileSync(outFile, json, "utf8");
+        // console.log("Successfully added file ", outFile);
+        resolve(allDonors);
+      }),
+  );
+};
