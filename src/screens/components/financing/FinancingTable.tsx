@@ -305,7 +305,9 @@ export const FinancingTable = () => {
         hidden: !raw_last_year,
         header: (
           <Hint text={t("prior_campaign_financing_explainer")}>
-            {t("prior_campaign")}
+            {priorElections
+              ? localDate(priorElections.name)
+              : t("prior_campaign")}
           </Hint>
         ) as never,
         colSpan: 2,
@@ -314,12 +316,8 @@ export const FinancingTable = () => {
             accessorKey: "lyIncome",
             hidden: !priorElections,
             header: (
-              <Hint text={t("total_financing_explainer")}>
-                <div>
-                  {priorElections
-                    ? localDate(priorElections.name)
-                    : t("income")}
-                </div>
+              <Hint text={t("total_financing_prev_campaign_explainer")}>
+                <div>{t("income")}</div>
               </Hint>
             ) as never,
             cell: ({ row }) => (
