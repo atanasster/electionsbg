@@ -38,6 +38,7 @@
   "total_sections": "Total polling stations",
   "change": "Change",
   "prior_elections": "Previous elections",
+  "prior_campaign": "Previous campaign",
   "next_elections": "Next elections",
   "anomaly_reports": "Anomaly reports",
   "voter_turnout": "Voter turnout",
@@ -152,5 +153,15 @@
   "table": "table",
   "historical_chart": "Historical chart",
   "adjusted_change": "Adjusted",
-  "pct_adjusted_change_explainer": "Change for the party votes, adjusted for the increase/decrease in voters participation in the previous elections"
+  "pct_adjusted_change_explainer": "Change for the party votes, adjusted for the increase/decrease in voters participation in the previous elections",
+  "campaign_financing": "Campaign financing",
+  "total_financing_explainer": "The total campaign financing from parties, donors, candidates and media packages",
+  "total_financing_ptc_change_explainer": "Percentage change in the campaign financing from the previous campaign",
+  "source": "Source",
+  "donors": "Donors",
+  "candidates": "Candidates",
+  "income": "Income",
+  "media": "Media",
+  "prior_campaign_financing_explainer": "Income in the previous election campaign",
+  "source_of_income_explainer": "Breakdown of the sources for financing the election campaign"
 }

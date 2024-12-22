@@ -1,5 +1,6 @@
 import fs from "fs";
 import { parse } from "csv-parse";
+import { PartyIncome } from "@/data/dataTypes";
 
 type PartyFromCandidates = {
   name: string;
@@ -10,8 +11,10 @@ type PartyFromCandidates = {
 };
 export const parseFromCandidates = async ({
   dataFolder,
+  income,
 }: {
   dataFolder: string;
+  income: PartyIncome;
 }): Promise<PartyFromCandidates[]> => {
   const result: string[][] = [];
   const fromFileName = `${dataFolder}/from_candidates.csv`;
@@ -28,7 +31,7 @@ export const parseFromCandidates = async ({
         result.push(data);
       })
       .on("end", () => {
-        const allDonors: PartyFromCandidates[] = [];
+        const allCandidates: PartyFromCandidates[] = [];
         for (let i = 0; i < result.length; i++) {
           const row = result[i];
 
@@ -42,7 +45,7 @@ export const parseFromCandidates = async ({
           ) {
             const date = row[1];
             const goal = row[4];
-            allDonors.push({
+            allCandidates.push({
               name,
               date,
               monetary,
@@ -51,11 +54,23 @@ export const parseFromCandidates = async ({
             });
           }
         }
-        // const json = stringify(allParties);
-
-        //fs.writeFileSync(outFile, json, "utf8");
-        // console.log("Successfully added file ", outFile);
-        resolve(allDonors);
+        if (
+          income.candidatesMonetary === 0 &&
+          income.candidatesNonMonetary === 0
+        ) {
+          const { candidatesMonetary, candidatesNonMonetary } =
+            allCandidates.reduce((acc, curr) => {
+              return {
+                ...acc,
+                candidatesMonetary: acc.candidatesMonetary + curr.monetary,
+                candidatesNonMonetary:
+                  acc.candidatesNonMonetary + curr.nonMonetary,
+              };
+            }, income);
+          income.candidatesMonetary = candidatesMonetary;
+          income.candidatesNonMonetary = candidatesNonMonetary;
+        }
+        resolve(allCandidates);
       }),
   );
 };
