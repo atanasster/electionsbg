@@ -245,7 +245,7 @@ export const FinancingTable = () => {
             <div>{t("source")}</div>
           </Hint>
         ) as never,
-        colSpan: 3,
+        colSpan: 4,
         hidden: !isMedium,
         id: "source",
         columns: [
