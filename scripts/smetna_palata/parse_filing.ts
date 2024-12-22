@@ -1,4 +1,4 @@
-import { PartyIncome } from "@/data/dataTypes";
+import { PartyFiling } from "@/data/dataTypes";
 import { isNumeric } from "@/data/utils";
 import fs from "fs";
 import { pdf2array } from "pdf2array";
@@ -7,7 +7,7 @@ export const parseFiling = async ({
   dataFolder,
 }: {
   dataFolder: string;
-}): Promise<PartyIncome> => {
+}): Promise<PartyFiling> => {
   const fromFileName = `${dataFolder}/filing.pdf`;
   let partyMonetary = 0;
   let partyNonMonetary = 0;

@@ -7,12 +7,10 @@ import { PartyVotesTable } from "./PartyVotesTable";
 import { useSectionStats } from "@/data/sections/useSectionStats";
 import { usePartyInfo } from "@/data/parties/usePartyInfo";
 import { DataViewContainer } from "@/layout/dataview/DataViewContainer";
-import { useDataViewContext } from "@/layout/dataview/DataViewContext";
 import { MultiHistoryChart } from "./charts/MultiHistoryChart";
 
 export const Section: FC<{ section: SectionInfo }> = ({ section }) => {
   const { t } = useTranslation();
-  const { view } = useDataViewContext();
   const { prevVotes, stats } = useSectionStats(section.section);
   const { parties } = usePartyInfo();
   const votes = parties?.map((p) => {
@@ -44,14 +42,18 @@ export const Section: FC<{ section: SectionInfo }> = ({ section }) => {
             replace: "table",
           }}
         >
-          {(view === "map" || view === "table") && votes && (
-            <PartyVotesTable
-              results={{ protocol: section.results.protocol, votes }}
-              stats={stats}
-              prevElection={prevVotes}
-            />
-          )}
-          {view === "chart" && stats && <MultiHistoryChart stats={stats} />}
+          {(view) => {
+            if ((view === "map" || view === "table") && votes)
+              return (
+                <PartyVotesTable
+                  results={{ protocol: section.results.protocol, votes }}
+                  stats={stats}
+                  prevElection={prevVotes}
+                />
+              );
+            if (view === "chart" && stats)
+              return <MultiHistoryChart stats={stats} />;
+          }}
         </DataViewContainer>
       </div>
     </div>

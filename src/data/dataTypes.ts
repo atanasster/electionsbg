@@ -154,7 +154,7 @@ export type SectionIndex = {
   settlement: string;
 };
 
-export type PartyIncome = {
+export type PartyFiling = {
   partyMonetary: number;
   partyNonMonetary: number;
   donorsMonetary: number;
@@ -166,5 +166,38 @@ export type PartyIncome = {
 
 export type PartyIncomeRecord = {
   party: number;
-  income: PartyIncome;
+  income: PartyFiling;
+};
+
+export type FinancingFromDonors = {
+  name: string;
+  date: string;
+  monetary: number;
+  nonMonetary: number;
+  goal?: string;
+  coalition?: string;
+  party?: string;
+};
+
+export type FinancingFromCandidates = {
+  name: string;
+  date: string;
+  monetary: number;
+  nonMonetary: number;
+  goal?: string;
+};
+
+export type FinancingFromParties = {
+  name: string;
+  monetary: number;
+  nonMonetary: number;
+};
+
+export type PartyFinancing = {
+  party: number;
+  data: {
+    fromDonors: FinancingFromDonors[];
+    fromParties: FinancingFromCandidates[];
+    fromCandidates: FinancingFromParties[];
+  };
 };

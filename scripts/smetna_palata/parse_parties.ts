@@ -1,19 +1,14 @@
 import fs from "fs";
 import { parse } from "csv-parse";
-import { PartyIncome } from "@/data/dataTypes";
+import { FinancingFromParties, PartyFiling } from "@/data/dataTypes";
 
-type PartyFromParties = {
-  name: string;
-  monetary: number;
-  nonMonetary: number;
-};
 export const parseFromParties = async ({
   dataFolder,
   income,
 }: {
   dataFolder: string;
-  income: PartyIncome;
-}): Promise<PartyFromParties[]> => {
+  income: PartyFiling;
+}): Promise<FinancingFromParties[]> => {
   const result: string[][] = [];
   const fromFileName = `${dataFolder}/from_parties.csv`;
   if (!fs.existsSync(fromFileName)) {
@@ -29,7 +24,7 @@ export const parseFromParties = async ({
         result.push(data);
       })
       .on("end", () => {
-        const allCandidates: PartyFromParties[] = [];
+        const allCandidates: FinancingFromParties[] = [];
         for (let i = 0; i < result.length; i++) {
           const row = result[i];
 
