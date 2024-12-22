@@ -54,8 +54,8 @@ const calcGainsProc = (
       if (!p) {
         return undefined;
       }
-      const { nickName, commonName } = p;
-      return { ...v, nickName, commonName };
+      const { nickName, number, commonName } = p;
+      return { ...v, number, nickName, commonName };
     })
     .filter((p) => p !== undefined);
   const partyVotes: PartyVotes[] = votes.map((v) => {

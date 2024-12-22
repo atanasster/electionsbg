@@ -80,7 +80,7 @@ export const FinancingTable = () => {
                 (lyp) => lyp.number === ly.party,
               );
               if (lyParty) {
-                return isPrevYearParty(party, lyParty);
+                return isPrevYearParty(party, lyParty, true);
               }
               return false;
             });
