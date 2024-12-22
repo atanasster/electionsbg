@@ -197,7 +197,7 @@ export type PartyFinancing = {
   party: number;
   data: {
     fromDonors: FinancingFromDonors[];
-    fromParties: FinancingFromCandidates[];
-    fromCandidates: FinancingFromParties[];
+    fromParties: FinancingFromParties[];
+    fromCandidates: FinancingFromCandidates[];
   };
 };

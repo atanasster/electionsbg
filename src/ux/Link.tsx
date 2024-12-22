@@ -10,8 +10,9 @@ export const Link: FC<
           pathname: string;
           search?: { [key: string]: string };
         };
+    underline?: boolean;
   } & HTMLProps<HTMLAnchorElement>
-> = ({ className, to, ...props }) => {
+> = ({ className, to, underline = true, ...props }) => {
   const searchParams = usePreserveParams();
   const params = typeof to === "object" ? to.search : undefined;
   return (
@@ -21,7 +22,10 @@ export const Link: FC<
         "?" +
         searchParams(params).toString()
       }
-      className={cn("link hover:underline hover:cursor-pointer", className)}
+      className={cn(
+        `link ${underline ? "hover:underline" : ""} hover:cursor-pointer`,
+        className,
+      )}
       {...props}
     />
   );

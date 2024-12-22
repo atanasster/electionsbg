@@ -1,4 +1,5 @@
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
 import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
 import { Separator } from "@radix-ui/react-separator";
 import { ReactNode, useState } from "react";
@@ -10,13 +11,22 @@ export const IconTabs = <DType extends string>(props: {
   storageKey: string;
   shortTitle: ReactNode;
   children: (key: DType) => ReactNode;
+  className?: string;
   excluded?: { exclude: DType; replace: DType };
   icons: {
     [key: string]: ReactNode;
   };
 }) => {
-  const { title, tabs, storageKey, shortTitle, icons, children, excluded } =
-    props;
+  const {
+    title,
+    tabs,
+    storageKey,
+    shortTitle,
+    icons,
+    children,
+    excluded,
+    className,
+  } = props;
   const { t } = useTranslation();
   const isMedium = useMediaQueryMatch("md");
   const [view, setViewInternal] = useState<DType>(
@@ -51,7 +61,10 @@ export const IconTabs = <DType extends string>(props: {
                       ? "checked"
                       : "unchecked"
                   }
-                  className="flex w-20 data-[state=checked]:bg-muted text-muted-foreground"
+                  className={cn(
+                    "flex w-20 data-[state=checked]:bg-muted text-muted-foreground",
+                    className,
+                  )}
                   onClick={() => {
                     setView(key);
                   }}
