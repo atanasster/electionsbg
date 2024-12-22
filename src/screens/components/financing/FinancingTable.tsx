@@ -74,7 +74,7 @@ export const FinancingTable = () => {
           const party = findParty(r.party);
           const vote = results.votes.find((v) => v.partyNum === r.party);
           let lyIncome: number | undefined = undefined;
-          if (raw_last_year && parties_last_year) {
+          if (party && raw_last_year && parties_last_year) {
             const ly = raw_last_year.find((ly) => {
               const lyParty = parties_last_year.find(
                 (lyp) => lyp.number === ly.party,
