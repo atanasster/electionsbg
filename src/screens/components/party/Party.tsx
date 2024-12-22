@@ -9,6 +9,9 @@ import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { Banknote, UsersRound, Vote } from "lucide-react";
 import { FC, ReactNode } from "react";
 import { useTranslation } from "react-i18next";
+import { PartyDonorsTable } from "./PartyDonorsTable";
+import { PartyCandidatesTable } from "./PartyCandidatesTable";
+import { PartyPartiesTable } from "./PartyPartiesTable";
 
 const dataViews = ["donors", "candidates", "parties"] as const;
 type DataViewType = (typeof dataViews)[number];
@@ -47,20 +50,22 @@ export const Party: FC<{ nickName: string }> = ({ nickName }) => {
   return (
     <div className="w-full">
       <Title>{party?.nickName || nickName}</Title>
-      <IconTabs
+      <IconTabs<DataViewType>
         title={title}
         shortTitle={shortTitle}
         tabs={dataViews}
         icons={DataTypeIcons}
         storageKey="party_tabs"
+        className="w-28"
       >
         {(view) => {
           if (view === "donors" && data) {
             return (
               <>
                 <Caption className="py-8">
-                  {t("donors")} {title}
+                  {t("donors")} {shortTitle}
                 </Caption>
+                <PartyDonorsTable data={data.data.fromDonors} />
               </>
             );
           }
@@ -70,6 +75,7 @@ export const Party: FC<{ nickName: string }> = ({ nickName }) => {
                 <Caption className="py-8">
                   {t("candidates")} {title}
                 </Caption>
+                <PartyCandidatesTable data={data.data.fromCandidates} />
               </>
             );
           }
@@ -79,6 +85,7 @@ export const Party: FC<{ nickName: string }> = ({ nickName }) => {
                 <Caption className="py-8">
                   {t("parties")} {title}
                 </Caption>
+                <PartyPartiesTable data={data.data.fromParties} />
               </>
             );
           }

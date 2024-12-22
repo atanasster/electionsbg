@@ -168,7 +168,7 @@ export const FinancingTable = () => {
               text={`${row.original.name || t("unknown_party")}`}
               underline={false}
             >
-              <Link to={`/party/${row.original.nickName}`}>
+              <Link to={`/party/${row.original.nickName}`} underline={false}>
                 <div className="flex items-center border-2 border-primary">
                   <div className="w-8 font-semibold text-center">
                     {row.original.number}
