@@ -1,5 +1,6 @@
 import fs from "fs";
 import { parse } from "csv-parse";
+import { PartyIncome } from "@/data/dataTypes";
 
 type PartyDonors = {
   name: string;
@@ -12,8 +13,10 @@ type PartyDonors = {
 };
 export const parseDonors = async ({
   dataFolder,
+  income,
 }: {
   dataFolder: string;
+  income: PartyIncome;
 }): Promise<PartyDonors[]> => {
   const result: string[][] = [];
   const fromFileName = `${dataFolder}/from_donors.csv`;
@@ -56,6 +59,20 @@ export const parseDonors = async ({
               party,
             });
           }
+        }
+        if (income.donorsMonetary === 0 && income.donorsNonMonetary === 0) {
+          const { donorsMonetary, donorsNonMonetary } = allDonors.reduce(
+            (acc, curr) => {
+              return {
+                ...acc,
+                donorsMonetary: acc.donorsMonetary + curr.monetary,
+                donorsNonMonetary: acc.donorsMonetary + curr.nonMonetary,
+              };
+            },
+            income,
+          );
+          income.donorsMonetary = donorsMonetary;
+          income.donorsNonMonetary = donorsNonMonetary;
         }
         // const json = stringify(allParties);
 

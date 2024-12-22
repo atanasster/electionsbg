@@ -118,7 +118,12 @@ export type PartyInfo = {
   commonName?: string[];
 };
 
-export type StatsVote = Votes & { nickName: string; commonName?: string[] };
+export type BasicPartyInfo = {
+  number: number;
+  nickName: string;
+  commonName?: string[];
+};
+export type StatsVote = Votes & BasicPartyInfo;
 export type ElectionInfo = {
   name: string;
   results?: Omit<VoteResults, "votes"> & {
@@ -156,9 +161,10 @@ export type PartyIncome = {
   donorsNonMonetary: number;
   candidatesMonetary: number;
   candidatesNonMonetary: number;
+  mediaPackage: number;
 };
 
-export type PartyIncone = {
+export type PartyIncomeRecord = {
   party: number;
   income: PartyIncome;
 };

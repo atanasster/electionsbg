@@ -109,6 +109,8 @@ export const reportsMenu: MenuItem[] = [
           },
         ],
       },
+      { title: "-" },
+      { title: "campaign_financing", link: "/financing" },
     ],
   },
 ];

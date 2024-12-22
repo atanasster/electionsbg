@@ -30,6 +30,7 @@ import { MunicipalitiesTopLosers } from "./screens/reports/municipalities/Munici
 import { SectionsTopLosers } from "./screens/reports/sections/SectionsTopLosers";
 import { SettlementsTopLosers } from "./screens/reports/settlements/SettlementsTopLosers";
 import { SofiaScreen } from "./screens/SofiaScreen";
+import { PartiesFinancing } from "./screens/PartiesFinancing";
 
 const LayoutScreen: FC<PropsWithChildren> = ({ children }) => {
   return <Layout>{children}</Layout>;
@@ -95,6 +96,15 @@ export const AuthRoutes = () => {
             </LayoutScreen>
           }
         />
+        <Route
+          path="financing"
+          element={
+            <LayoutScreen>
+              <PartiesFinancing />
+            </LayoutScreen>
+          }
+        />
+
         <Route path="reports">
           <Route path="settlement">
             <Route

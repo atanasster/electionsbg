@@ -4,6 +4,7 @@ import {
   getCoreRowModel,
   getPaginationRowModel,
   getSortedRowModel,
+  HeaderContext,
   SortingState,
   useReactTable,
 } from "@tanstack/react-table";
@@ -20,9 +21,14 @@ import { useMemo, useState } from "react";
 import { ArrowUpDown, ChevronLeft, ChevronRight } from "lucide-react";
 import { useTranslation } from "react-i18next";
 
-export type DataTableColumns<TData, TValue> = (ColumnDef<TData, TValue> & {
+export type DataTableColumnDef<TData, TValue> = ColumnDef<TData, TValue> & {
   hidden?: boolean;
-})[];
+  columns?: DataTableColumns<TData, TValue>;
+};
+export type DataTableColumns<TData, TValue> = DataTableColumnDef<
+  TData,
+  TValue
+>[];
 
 interface DataTableProps<TData, TValue> {
   columns: DataTableColumns<TData, TValue>;
@@ -31,6 +37,30 @@ interface DataTableProps<TData, TValue> {
   stickyColumn?: boolean;
 }
 
+const HeaderCell = <TData, TValue>({
+  props,
+  c,
+}: {
+  props: HeaderContext<TData, TValue>;
+  c: DataTableColumnDef<TData, TValue>;
+}) => {
+  const { column } = props;
+
+  return (
+    <div className="flex justify-center items-center">
+      {typeof c.header === "function" ? c.header(props) : c.header || c.id}
+      {column.getCanSort() && (
+        <Button
+          variant="ghost"
+          className="px-0"
+          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+        >
+          <ArrowUpDown className="ml-2 h-4 w-4 " />
+        </Button>
+      )}
+    </div>
+  );
+};
 export const DataTable = <TData, TValue>({
   columns,
   data,
@@ -46,25 +76,20 @@ export const DataTable = <TData, TValue>({
         return {
           ...c,
           header: (props) => {
-            const { column } = props;
-            return (
-              <div className="flex justify-center items-center">
-                {typeof c.header === "function"
-                  ? c.header(props)
-                  : c.header || c.id}
-                <Button
-                  variant="ghost"
-                  className="px-0"
-                  onClick={() =>
-                    column.toggleSorting(column.getIsSorted() === "asc")
-                  }
-                >
-                  <ArrowUpDown className="ml-2 h-4 w-4 " />
-                </Button>
-              </div>
-            );
+            return <HeaderCell<TData, TValue> props={props} c={c} />;
           },
-        } as ColumnDef<TData, TValue>;
+          columns: c.columns
+            ?.map(
+              (subC) =>
+                ({
+                  ...subC,
+                  header: (props) => (
+                    <HeaderCell<TData, TValue> props={props} c={subC} />
+                  ),
+                }) as DataTableColumnDef<TData, TValue>,
+            )
+            .filter((c) => !c.hidden),
+        } as DataTableColumnDef<TData, TValue>;
       });
   }, [columns]);
   const table = useReactTable({
@@ -92,6 +117,7 @@ export const DataTable = <TData, TValue>({
                 return (
                   <TableHead
                     key={header.id}
+                    colSpan={header.colSpan}
                     className={
                       stickyColumn && idx === 0
                         ? "sticky left-0 z-5 bg-card"
@@ -129,10 +155,7 @@ export const DataTable = <TData, TValue>({
             ))
           ) : (
             <TableRow>
-              <TableCell
-                colSpan={dataColumns.length}
-                className="h-24 text-center"
-              >
+              <TableCell colSpan={100} className="h-24 text-center w-full">
                 {t("no_results")}
               </TableCell>
             </TableRow>

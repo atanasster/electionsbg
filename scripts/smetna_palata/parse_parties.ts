@@ -1,5 +1,6 @@
 import fs from "fs";
 import { parse } from "csv-parse";
+import { PartyIncome } from "@/data/dataTypes";
 
 type PartyFromParties = {
   name: string;
@@ -8,8 +9,10 @@ type PartyFromParties = {
 };
 export const parseFromParties = async ({
   dataFolder,
+  income,
 }: {
   dataFolder: string;
+  income: PartyIncome;
 }): Promise<PartyFromParties[]> => {
   const result: string[][] = [];
   const fromFileName = `${dataFolder}/from_parties.csv`;
@@ -26,7 +29,7 @@ export const parseFromParties = async ({
         result.push(data);
       })
       .on("end", () => {
-        const allDonors: PartyFromParties[] = [];
+        const allCandidates: PartyFromParties[] = [];
         for (let i = 0; i < result.length; i++) {
           const row = result[i];
 
@@ -38,18 +41,28 @@ export const parseFromParties = async ({
             name !== "Сума:" &&
             (!isNaN(monetary) || !isNaN(nonMonetary))
           ) {
-            allDonors.push({
+            allCandidates.push({
               name,
               monetary,
               nonMonetary,
             });
           }
         }
-        // const json = stringify(allParties);
-
-        //fs.writeFileSync(outFile, json, "utf8");
-        // console.log("Successfully added file ", outFile);
-        resolve(allDonors);
+        if (income.partyMonetary === 0 && income.partyNonMonetary === 0) {
+          const { partyMonetary, partyNonMonetary } = allCandidates.reduce(
+            (acc, curr) => {
+              return {
+                ...acc,
+                partyMonetary: acc.partyMonetary + curr.monetary,
+                partyNonMonetary: acc.partyNonMonetary + curr.nonMonetary,
+              };
+            },
+            income,
+          );
+          income.partyMonetary = partyMonetary;
+          income.partyNonMonetary = partyNonMonetary;
+        }
+        resolve(allCandidates);
       }),
   );
 };

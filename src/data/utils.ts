@@ -1,4 +1,5 @@
 import {
+  BasicPartyInfo,
   ElectionResults,
   PartyInfo,
   PartyVotes,
@@ -17,10 +18,14 @@ export const formatPct = (x?: number, decimals: number = 2) => {
   return `${pct}%`;
 };
 
-export const formatThousands = (x?: number) =>
-  x !== undefined && x !== null
-    ? x.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",")
-    : "";
+export const formatThousands = (x?: number, decimals?: number) => {
+  if (x) {
+    const n = decimals !== undefined ? x.toFixed(decimals) : x;
+    return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
+  } else return "";
+};
+
+export const isNumeric = (s: string) => /^[+-]?\d+(\.\d+)?$/.test(s);
 
 export const addVotes = (votes: Votes[], initial?: Votes[]) => {
   const buff: Votes[] = initial || [];
@@ -145,22 +150,30 @@ export const localDate = (date: string) => {
   });
 };
 
+export const isPrevYearParty = (
+  party: PartyInfo,
+  pr: BasicPartyInfo,
+  consolidateVotes?: boolean,
+) => {
+  return (
+    pr.nickName === party.nickName ||
+    (consolidateVotes
+      ? (pr.commonName &&
+          party.nickName &&
+          pr.commonName.includes(party.nickName)) ||
+        (party.commonName && party.commonName.includes(pr.nickName))
+      : (pr.commonName?.length && pr.commonName[0] === party.nickName) ||
+        (party.commonName?.length && party.commonName[0] === pr.nickName))
+  );
+};
+
 export const findPrevVotes = (
-  party: PartyVotes | PartyInfo,
+  party: PartyInfo,
   prevElectionVotes?: StatsVote[],
   consolidateVotes?: boolean,
 ) => {
   return prevElectionVotes?.reduce((acc: number | undefined, pr) => {
-    if (
-      pr.nickName === party.nickName ||
-      (consolidateVotes
-        ? (pr.commonName &&
-            party.nickName &&
-            pr.commonName.includes(party.nickName)) ||
-          (party.commonName && party.commonName.includes(pr.nickName))
-        : (pr.commonName?.length && pr.commonName[0] === party.nickName) ||
-          (party.commonName?.length && party.commonName[0] === pr.nickName))
-    ) {
+    if (isPrevYearParty(party, pr, consolidateVotes)) {
       return (acc || 0) + pr.totalVotes;
     }
     return acc;
