@@ -151,7 +151,7 @@ export const localDate = (date: string) => {
 };
 
 export const isPrevYearParty = (
-  party: PartyInfo,
+  party: Partial<PartyInfo>,
   pr: BasicPartyInfo,
   consolidateVotes?: boolean,
 ) => {
@@ -168,7 +168,7 @@ export const isPrevYearParty = (
 };
 
 export const findPrevVotes = (
-  party: PartyInfo,
+  party: Partial<PartyInfo>,
   prevElectionVotes?: StatsVote[],
   consolidateVotes?: boolean,
 ) => {

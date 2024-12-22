@@ -72,6 +72,7 @@ const generateStats = <
             const party = parties.find((p) => p.number === v.partyNum);
             const stat: StatsVote = {
               ...v,
+              number: party?.number as number,
               nickName: party?.nickName as string,
             };
             if (party?.commonName) {
@@ -115,6 +116,7 @@ const cumulatePartyVotes = (
         const stat: StatsVote = {
           ...v,
           nickName: party?.nickName as string,
+          number: party?.number as number,
         };
         if (party?.commonName) {
           stat.commonName = party?.commonName;
