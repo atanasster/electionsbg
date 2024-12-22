@@ -150,7 +150,7 @@ export const localDate = (date: string) => {
   });
 };
 
-export const isPrevYearParty = (
+export const matchPartyNickName = (
   party: Partial<PartyInfo>,
   pr: BasicPartyInfo,
   consolidateVotes?: boolean,
@@ -173,7 +173,7 @@ export const findPrevVotes = (
   consolidateVotes?: boolean,
 ) => {
   return prevElectionVotes?.reduce((acc: number | undefined, pr) => {
-    if (isPrevYearParty(party, pr, consolidateVotes)) {
+    if (matchPartyNickName(party, pr, consolidateVotes)) {
       return (acc || 0) + pr.totalVotes;
     }
     return acc;

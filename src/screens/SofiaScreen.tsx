@@ -8,12 +8,10 @@ import { PartyVotesTable } from "./components/PartyVotesTable";
 import { SofiaMap } from "./components/SofiaMap";
 import { useSofiaStats } from "@/data/country/useSofiaStats";
 import { DataViewContainer } from "@/layout/dataview/DataViewContainer";
-import { useDataViewContext } from "@/layout/dataview/DataViewContext";
 import { MultiHistoryChart } from "./components/charts/MultiHistoryChart";
 
 export const SofiaScreen = () => {
   const { t } = useTranslation();
-  const { view } = useDataViewContext();
   const { votesSofia } = useRegionVotes();
   const { prevVotes, sofiaStats } = useSofiaStats();
   const results = votesSofia();
@@ -25,23 +23,26 @@ export const SofiaScreen = () => {
       </Title>
       <ProtocolSummary protocol={results?.protocol} votes={results?.votes} />
       <DataViewContainer title={title}>
-        {view === "map" && (
-          <MapLayout>
-            {(size, withNames) => (
-              <SofiaMap size={size} withNames={withNames} />
-            )}
-          </MapLayout>
-        )}
-        {view === "table" && (
-          <PartyVotesTable
-            results={results}
-            prevElection={prevVotes}
-            stats={sofiaStats}
-          />
-        )}
-        {view === "chart" && sofiaStats && (
-          <MultiHistoryChart stats={sofiaStats} />
-        )}
+        {(view) => {
+          if (view === "map")
+            return (
+              <MapLayout>
+                {(size, withNames) => (
+                  <SofiaMap size={size} withNames={withNames} />
+                )}
+              </MapLayout>
+            );
+          if (view === "table")
+            return (
+              <PartyVotesTable
+                results={results}
+                prevElection={prevVotes}
+                stats={sofiaStats}
+              />
+            );
+          if (view === "chart" && sofiaStats)
+            return <MultiHistoryChart stats={sofiaStats} />;
+        }}
       </DataViewContainer>
     </>
   );

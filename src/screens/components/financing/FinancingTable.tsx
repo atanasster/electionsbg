@@ -8,7 +8,7 @@ import {
   findPrevVotes,
   formatPct,
   formatThousands,
-  isPrevYearParty,
+  matchPartyNickName,
   localDate,
   totalActualVoters,
 } from "@/data/utils";
@@ -18,6 +18,7 @@ import { PartyLabel } from "../PartyLabel";
 import { useRegionVotes } from "@/data/regions/useRegionVotes";
 import { Title } from "@/ux/Title";
 import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
+import { Link } from "@/ux/Link";
 
 const queryFn = async ({
   queryKey,
@@ -80,7 +81,7 @@ export const FinancingTable = () => {
                 (lyp) => lyp.number === ly.party,
               );
               if (lyParty) {
-                return isPrevYearParty(party, lyParty, true);
+                return matchPartyNickName(party, lyParty, true);
               }
               return false;
             });
@@ -167,12 +168,14 @@ export const FinancingTable = () => {
               text={`${row.original.name || t("unknown_party")}`}
               underline={false}
             >
-              <div className="flex items-center border-2 border-primary">
-                <div className="w-8 font-semibold text-center">
-                  {row.original.number}
+              <Link to={`/party/${row.original.nickName}`}>
+                <div className="flex items-center border-2 border-primary">
+                  <div className="w-8 font-semibold text-center">
+                    {row.original.number}
+                  </div>
+                  <PartyLabel className="w-full pl-2" party={row.original} />
                 </div>
-                <PartyLabel className="w-full pl-2" party={row.original} />
-              </div>
+              </Link>
             </Hint>
           );
         },

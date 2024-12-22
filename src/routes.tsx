@@ -31,6 +31,7 @@ import { SectionsTopLosers } from "./screens/reports/sections/SectionsTopLosers"
 import { SettlementsTopLosers } from "./screens/reports/settlements/SettlementsTopLosers";
 import { SofiaScreen } from "./screens/SofiaScreen";
 import { PartiesFinancing } from "./screens/PartiesFinancing";
+import { PartyScreen } from "./screens/PartyScreen";
 
 const LayoutScreen: FC<PropsWithChildren> = ({ children }) => {
   return <Layout>{children}</Layout>;
@@ -101,6 +102,14 @@ export const AuthRoutes = () => {
           element={
             <LayoutScreen>
               <PartiesFinancing />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="party/:id"
+          element={
+            <LayoutScreen>
+              <PartyScreen />
             </LayoutScreen>
           }
         />

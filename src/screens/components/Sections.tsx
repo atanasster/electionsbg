@@ -1,4 +1,4 @@
-import { FC, ReactNode, useState } from "react";
+import { FC, ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { useSettlementVotes } from "@/data/settlements/useSettlementVotes";
 import { PartyVotesTable } from "./PartyVotesTable";
@@ -12,11 +12,9 @@ import { H1 } from "@/ux/H1";
 import { SEO } from "@/ux/SEO";
 import { ProtocolSummary } from "./ProtocolSummary";
 import { ChartLine, TableProperties, Vote } from "lucide-react";
-import { Button } from "@/components/ui/button";
-import { Separator } from "@/components/ui/separator";
-import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
 import { Caption } from "@/ux/Caption";
 import { MultiHistoryChart } from "./charts/MultiHistoryChart";
+import { IconTabs } from "../IconTabs";
 
 const dataViews = ["sections", "table", "chart"] as const;
 type DataViewType = (typeof dataViews)[number];
@@ -27,20 +25,12 @@ const DataTypeIcons: Record<DataViewType, ReactNode> = {
   chart: <ChartLine />,
 };
 export const Sections: FC<{ ekatte: string }> = ({ ekatte }) => {
-  const [view, setViewInternal] = useState<DataViewType>(
-    (localStorage.getItem("sections_view") as DataViewType) || "sections",
-  );
-  const setView = (newView: DataViewType) => {
-    setViewInternal(newView);
-    localStorage.setItem("sections_view", newView);
-  };
   const { settlement } = useSettlementVotes(ekatte);
   const { t, i18n } = useTranslation();
   const { prevVotes, stats } = useSettlementStats(ekatte);
   const { findSettlement } = useSettlementsInfo();
   const { findMunicipality } = useMunicipalities();
   const { findRegion } = useRegions();
-  const isMedium = useMediaQueryMatch("md");
   const info = findSettlement(ekatte);
   const municipality = findMunicipality(info?.obshtina);
   const region = findRegion(info?.oblast);
@@ -84,48 +74,38 @@ export const Sections: FC<{ ekatte: string }> = ({ ekatte }) => {
         protocol={settlement?.results.protocol}
         votes={settlement?.results.votes}
       />
-      <Separator className="my-2" />
-      <div className="flex justify-between w-full items-center">
-        <div className="truncate font-semibold text-muted-foreground">
-          {isMedium ? title : shortTitle}
-        </div>
-        <div className="flex gap-2 ">
-          {dataViews.map((key: DataViewType) => {
+      <IconTabs<DataViewType>
+        title={title}
+        shortTitle={shortTitle}
+        tabs={dataViews}
+        icons={DataTypeIcons}
+        storageKey="sections_view"
+      >
+        {(view) => {
+          if (view === "sections" && settlement) {
             return (
-              <Button
-                key={key}
-                variant="outline"
-                role="radio"
-                data-state={view === key ? "checked" : "unchecked"}
-                className="flex w-20 data-[state=checked]:bg-muted text-muted-foreground"
-                onClick={() => {
-                  setView(key);
-                }}
-              >
-                {DataTypeIcons[key]}
-                <span className="text-xs text-muted-foreground">{t(key)}</span>
-              </Button>
+              <>
+                <Caption className="py-8">
+                  {t("sections")} {title}
+                </Caption>
+                <SectionsList sections={settlement.sections} />
+              </>
             );
-          })}
-        </div>
-      </div>
-      <Separator className="my-2" />
-      {view === "sections" && settlement && (
-        <>
-          <Caption className="py-8">
-            {t("sections")} {title}
-          </Caption>
-          <SectionsList sections={settlement.sections} />
-        </>
-      )}
-      {view == "table" && (
-        <PartyVotesTable
-          results={settlement?.results}
-          stats={stats}
-          prevElection={prevVotes}
-        />
-      )}
-      {view == "chart" && stats && <MultiHistoryChart stats={stats} />}
+          }
+          if (view == "table") {
+            return (
+              <PartyVotesTable
+                results={settlement?.results}
+                stats={stats}
+                prevElection={prevVotes}
+              />
+            );
+          }
+          if (view == "chart" && stats) {
+            return <MultiHistoryChart stats={stats} />;
+          }
+        }}
+      </IconTabs>
     </>
   );
 };
