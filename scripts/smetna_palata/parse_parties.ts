@@ -1,13 +1,13 @@
 import fs from "fs";
 import { parse } from "csv-parse";
-import { FinancingFromParties, PartyFiling } from "@/data/dataTypes";
+import { FinancingFromParties, PartyFilingIncome } from "@/data/dataTypes";
 
 export const parseFromParties = async ({
   dataFolder,
   income,
 }: {
   dataFolder: string;
-  income: PartyFiling;
+  income: PartyFilingIncome;
 }): Promise<FinancingFromParties[]> => {
   const result: string[][] = [];
   const fromFileName = `${dataFolder}/from_parties.csv`;
@@ -24,7 +24,7 @@ export const parseFromParties = async ({
         result.push(data);
       })
       .on("end", () => {
-        const allCandidates: FinancingFromParties[] = [];
+        const allParties: FinancingFromParties[] = [];
         for (let i = 0; i < result.length; i++) {
           const row = result[i];
 
@@ -36,28 +36,30 @@ export const parseFromParties = async ({
             name !== "Сума:" &&
             (!isNaN(monetary) || !isNaN(nonMonetary))
           ) {
-            allCandidates.push({
+            allParties.push({
               name,
               monetary,
               nonMonetary,
             });
           }
         }
-        if (income.partyMonetary === 0 && income.partyNonMonetary === 0) {
-          const { partyMonetary, partyNonMonetary } = allCandidates.reduce(
+        if (income.party.monetary === 0 && income.party.nonMonetary === 0) {
+          const { monetary, nonMonetary } = allParties.reduce(
             (acc, curr) => {
               return {
-                ...acc,
-                partyMonetary: acc.partyMonetary + curr.monetary,
-                partyNonMonetary: acc.partyNonMonetary + curr.nonMonetary,
+                monetary: acc.monetary + curr.monetary,
+                nonMonetary: acc.nonMonetary + curr.nonMonetary,
               };
             },
-            income,
+            {
+              monetary: 0,
+              nonMonetary: 0,
+            },
           );
-          income.partyMonetary = partyMonetary;
-          income.partyNonMonetary = partyNonMonetary;
+          income.party.monetary = monetary;
+          income.party.nonMonetary = nonMonetary;
         }
-        resolve(allCandidates);
+        resolve(allParties);
       }),
   );
 };

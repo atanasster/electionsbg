@@ -57,7 +57,7 @@ export const PartyVotesTable: FC<{
     const activityChange = prevActivity - currentActivity;
     return prevElectionVotes
       ? parties?.map((p) => {
-          const prevTotalVotes = findPrevVotes(
+          const { prevTotalVotes } = findPrevVotes(
             p,
             prevElectionVotes,
             isConsolidated,

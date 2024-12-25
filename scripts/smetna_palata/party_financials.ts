@@ -11,10 +11,13 @@ export const parsePartyFinancing = async ({
   party: PartyInfo;
 }) => {
   const filing = await parseFiling({ dataFolder });
-  const fromDonors = await parseDonors({ income: filing, dataFolder });
-  const fromParties = await parseFromParties({ income: filing, dataFolder });
+  const fromDonors = await parseDonors({ income: filing.income, dataFolder });
+  const fromParties = await parseFromParties({
+    income: filing.income,
+    dataFolder,
+  });
   const fromCandidates = await parseFromCandidates({
-    income: filing,
+    income: filing.income,
     dataFolder,
   });
   return { fromDonors, fromParties, fromCandidates, filing };

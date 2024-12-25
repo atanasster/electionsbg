@@ -9,7 +9,7 @@ export const IconTabs = <DType extends string>(props: {
   title: ReactNode;
   tabs: readonly DType[];
   storageKey: string;
-  shortTitle: ReactNode;
+  shortTitle?: ReactNode;
   children: (key: DType) => ReactNode;
   className?: string;
   excluded?: { exclude: DType; replace: DType };
