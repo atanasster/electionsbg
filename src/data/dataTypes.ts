@@ -154,44 +154,88 @@ export type SectionIndex = {
   settlement: string;
 };
 
-export type PartyFiling = {
-  partyMonetary: number;
-  partyNonMonetary: number;
-  donorsMonetary: number;
-  donorsNonMonetary: number;
-  candidatesMonetary: number;
-  candidatesNonMonetary: number;
+export type PartyFilingIncome = {
+  party: FinancingType;
+  donors: FinancingType;
+  candidates: FinancingType;
   mediaPackage: number;
 };
 
-export type PartyIncomeRecord = {
-  party: number;
-  income: PartyFiling;
+export type MediaServices = {
+  printedMedia: number;
+  digitalMultiMedia: {
+    nationalTV: number;
+    otherVisualMedia: number;
+    nationalRadio: number;
+    otherRadio: number;
+  };
+  digitalMedia: number;
+};
+export type FilingExternalServices = {
+  mediaServices: MediaServices;
+  pollingAgencies: number;
+  consulting: number;
+  partyMaterials: number;
+  publicEvents: number;
+  postalExpenses: number;
+  rentalExpenses: number;
+  otherExpenses: number;
 };
 
+export type FilingMaterials = {
+  officeSupplies: number;
+  fuel: number;
+  other: number;
+};
+
+export type FilingTaxes = {
+  taxOnDonations: number;
+  otherTaxes: number;
+  taxes: number;
+};
+
+export type PartyFilingExpenses = {
+  material: FilingMaterials;
+  external: FilingExternalServices;
+  compensations: number;
+  compensationTaxes: number;
+  taxes: FilingTaxes;
+  businessTrips: number;
+  donations: number;
+  mediaPackage: MediaServices;
+};
+
+export type PartyFiling = {
+  income: PartyFilingIncome;
+  expenses: PartyFilingExpenses;
+};
+
+export type PartyFilingRecord = {
+  party: number;
+  filing: PartyFiling;
+};
+
+export type FinancingType = {
+  monetary: number;
+  nonMonetary: number;
+};
 export type FinancingFromDonors = {
   name: string;
   date: string;
-  monetary: number;
-  nonMonetary: number;
   goal?: string;
   coalition?: string;
   party?: string;
-};
+} & FinancingType;
 
 export type FinancingFromCandidates = {
   name: string;
   date: string;
-  monetary: number;
-  nonMonetary: number;
   goal?: string;
-};
+} & FinancingType;
 
 export type FinancingFromParties = {
   name: string;
-  monetary: number;
-  nonMonetary: number;
-};
+} & FinancingType;
 
 export type PartyFinancing = {
   party: number;
@@ -199,5 +243,6 @@ export type PartyFinancing = {
     fromDonors: FinancingFromDonors[];
     fromParties: FinancingFromParties[];
     fromCandidates: FinancingFromCandidates[];
+    filing: PartyFiling;
   };
 };

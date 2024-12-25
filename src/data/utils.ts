@@ -1,6 +1,12 @@
 import {
   BasicPartyInfo,
   ElectionResults,
+  FilingTaxes,
+  FinancingType,
+  MediaServices,
+  PartyFiling,
+  PartyFilingExpenses,
+  PartyFilingIncome,
   PartyInfo,
   PartyVotes,
   SectionProtocol,
@@ -18,7 +24,7 @@ export const formatPct = (x?: number, decimals: number = 2) => {
   return `${pct}%`;
 };
 
-export const formatThousands = (x?: number, decimals?: number) => {
+export const formatThousands = (x?: number, decimals: number = 2) => {
   if (x) {
     const n = decimals !== undefined ? x.toFixed(decimals) : x;
     return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
@@ -168,16 +174,40 @@ export const matchPartyNickName = (
 };
 
 export const findPrevVotes = (
-  party: Partial<PartyInfo>,
+  party?: Partial<PartyInfo>,
   prevElectionVotes?: StatsVote[],
   consolidateVotes?: boolean,
 ) => {
-  return prevElectionVotes?.reduce((acc: number | undefined, pr) => {
-    if (matchPartyNickName(party, pr, consolidateVotes)) {
-      return (acc || 0) + pr.totalVotes;
-    }
-    return acc;
-  }, undefined);
+  const def = { prevTotalVotes: undefined, nickName: undefined };
+  return (
+    (party &&
+      prevElectionVotes?.reduce(
+        (
+          acc: {
+            prevTotalVotes: number | undefined;
+            nickName: string | undefined;
+          },
+          pr,
+        ) => {
+          if (matchPartyNickName(party, pr, consolidateVotes)) {
+            if (acc.prevTotalVotes === undefined) {
+              return {
+                prevTotalVotes: pr.totalVotes,
+                nickName: pr.nickName,
+              };
+            } else {
+              return {
+                prevTotalVotes: acc.prevTotalVotes + pr.totalVotes,
+                nickName: undefined,
+              };
+            }
+          }
+          return acc;
+        },
+        def,
+      )) ||
+    def
+  );
 };
 
 export const topParty = (votes?: Votes[]): PartyVotes | undefined => {
@@ -209,3 +239,69 @@ export const minMaxVotes = (votes?: ElectionResults[]) => {
       )
     : { maxVotes: 0, minVotes: 0 };
 };
+
+export const totalFinancing = (financing?: FinancingType) =>
+  financing ? financing.monetary + financing.nonMonetary : 0;
+
+export const totalIncomeFiling = (filing?: PartyFilingIncome) =>
+  filing
+    ? totalFinancing(filing.donors) +
+      totalFinancing(filing.candidates) +
+      totalFinancing(filing.party) +
+      filing.mediaPackage
+    : 0;
+
+export const materialExpenseFiling = (filing?: PartyFilingExpenses) =>
+  filing
+    ? filing.material.fuel +
+      filing.material.officeSupplies +
+      filing.material.other
+    : 0;
+export const mediaExpenseFiling = (services?: MediaServices) =>
+  services
+    ? services.digitalMedia +
+      services.digitalMultiMedia.nationalRadio +
+      services.digitalMultiMedia.nationalTV +
+      services.digitalMultiMedia.otherRadio +
+      services.digitalMultiMedia.otherVisualMedia +
+      services.printedMedia
+    : 0;
+export const outsideServicesFiling = (filing?: PartyFilingExpenses) =>
+  filing
+    ? mediaExpenseFiling(filing.external.mediaServices) +
+      filing.external.consulting +
+      filing.external.partyMaterials +
+      filing.external.pollingAgencies +
+      filing.external.publicEvents +
+      filing.external.postalExpenses +
+      filing.external.rentalExpenses +
+      filing.external.otherExpenses
+    : 0;
+
+export const taxesFiling = (taxes?: FilingTaxes) =>
+  taxes ? taxes.otherTaxes + taxes.taxOnDonations + taxes.taxes : 0;
+
+export const totalExpenseFiling = (filing?: PartyFilingExpenses) =>
+  filing
+    ? materialExpenseFiling(filing) +
+      outsideServicesFiling(filing) +
+      filing.compensations +
+      filing.compensationTaxes +
+      taxesFiling(filing.taxes) +
+      filing.businessTrips +
+      filing.donations +
+      mediaExpenseFiling(filing.mediaPackage)
+    : 0;
+
+export const campaignNonMonetaryCost = (filing?: PartyFiling) =>
+  filing
+    ? filing.income.candidates.nonMonetary +
+      filing.income.donors.nonMonetary +
+      filing.income.party.nonMonetary
+    : 0;
+export const campaignCostFiling = (filing?: PartyFiling) =>
+  filing
+    ? totalExpenseFiling(filing.expenses) + campaignNonMonetaryCost(filing)
+    : 0;
+export const pctChange = (last?: number, prior?: number) =>
+  prior ? (100 * ((last || 0) - prior)) / prior : undefined;

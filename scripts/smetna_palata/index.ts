@@ -91,10 +91,10 @@ export const parseFinancing = async ({
           if (!fs.existsSync(partyFolder)) {
             fs.mkdirSync(partyFolder);
           }
-          fs.writeFileSync(`${partyFolder}/income.json`, stringify(p), "utf-8");
+          fs.writeFileSync(`${partyFolder}/filing.json`, stringify(p), "utf-8");
           return {
             party: p.party,
-            income: p.data.filing,
+            filing: p.data?.filing,
           };
         });
         fs.writeFileSync(

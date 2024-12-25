@@ -102,15 +102,15 @@ export const MultiHistoryChart: FC<{
       .map((e) => {
         return parties?.reduce(
           (acc, party) => {
-            const votes = findPrevVotes(
+            const { prevTotalVotes } = findPrevVotes(
               party,
               e.results?.votes,
               isConsolidated,
             );
-            if (votes) {
+            if (prevTotalVotes) {
               return {
                 ...acc,
-                [party.nickName]: votes,
+                [party.nickName]: prevTotalVotes,
               };
             }
             return acc;

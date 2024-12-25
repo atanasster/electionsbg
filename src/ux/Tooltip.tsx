@@ -10,17 +10,22 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { useTouch } from "./TouchProvider";
+import { cn } from "@/lib/utils";
 
-export const Tooltip: FC<PropsWithChildren<{ content: ReactNode }>> = ({
-  content,
-  children,
-}) => {
+export const Tooltip: FC<
+  PropsWithChildren<{ content: ReactNode; className?: string }>
+> = ({ content, children, className }) => {
   const isTouch = useTouch();
   if (isTouch) {
     return (
       <Popover>
         <PopoverTrigger asChild>{children}</PopoverTrigger>
-        <PopoverContent className="max-w-72 text-sm bg-primary text-primary-foreground">
+        <PopoverContent
+          className={cn(
+            "max-w-72 text-sm bg-primary text-primary-foreground",
+            className,
+          )}
+        >
           {content}
         </PopoverContent>
       </Popover>
@@ -29,7 +34,9 @@ export const Tooltip: FC<PropsWithChildren<{ content: ReactNode }>> = ({
     return (
       <ShadcnTooltip delayDuration={0}>
         <TooltipTrigger asChild>{children}</TooltipTrigger>
-        <TooltipContent className="max-w-72 text-sm">{content}</TooltipContent>
+        <TooltipContent className={cn("max-w-72 text-sm", className)}>
+          {content}
+        </TooltipContent>
       </ShadcnTooltip>
     );
   }

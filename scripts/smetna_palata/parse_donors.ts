@@ -1,13 +1,13 @@
 import fs from "fs";
 import { parse } from "csv-parse";
-import { FinancingFromDonors, PartyFiling } from "@/data/dataTypes";
+import { FinancingFromDonors, PartyFilingIncome } from "@/data/dataTypes";
 
 export const parseDonors = async ({
   dataFolder,
   income,
 }: {
   dataFolder: string;
-  income: PartyFiling;
+  income: PartyFilingIncome;
 }): Promise<FinancingFromDonors[]> => {
   const result: string[][] = [];
   const fromFileName = `${dataFolder}/from_donors.csv`;
@@ -51,19 +51,21 @@ export const parseDonors = async ({
             });
           }
         }
-        if (income.donorsMonetary === 0 && income.donorsNonMonetary === 0) {
-          const { donorsMonetary, donorsNonMonetary } = allDonors.reduce(
+        if (income.donors.monetary === 0 && income.donors.nonMonetary === 0) {
+          const { monetary, nonMonetary } = allDonors.reduce(
             (acc, curr) => {
               return {
-                ...acc,
-                donorsMonetary: acc.donorsMonetary + curr.monetary,
-                donorsNonMonetary: acc.donorsMonetary + curr.nonMonetary,
+                monetary: acc.monetary + curr.monetary,
+                nonMonetary: acc.nonMonetary + curr.nonMonetary,
               };
             },
-            income,
+            {
+              monetary: 0,
+              nonMonetary: 0,
+            },
           );
-          income.donorsMonetary = donorsMonetary;
-          income.donorsNonMonetary = donorsNonMonetary;
+          income.donors.monetary = monetary;
+          income.donors.nonMonetary = nonMonetary;
         }
         // const json = stringify(allParties);
 

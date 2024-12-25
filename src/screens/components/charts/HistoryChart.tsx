@@ -79,13 +79,20 @@ export const HistoryChart: FC<{
   const { t } = useTranslation();
   const chartData = useMemo(() => {
     return stats
-      .map((e) => ({
-        date: localDate(e.name),
-        name: e.name,
-        party: party.nickName,
-        total: e.results?.protocol?.totalActualVoters,
-        votes: findPrevVotes(party, e.results?.votes, isConsolidated),
-      }))
+      .map((e) => {
+        const { nickName, prevTotalVotes } = findPrevVotes(
+          party,
+          e.results?.votes,
+          isConsolidated,
+        );
+        return {
+          date: localDate(e.name),
+          name: e.name,
+          party: nickName || party.nickName,
+          total: e.results?.protocol?.totalActualVoters,
+          votes: prevTotalVotes,
+        };
+      })
       .sort((a, b) => a.name.localeCompare(b.name));
   }, [isConsolidated, party, stats]);
   return (

@@ -64,12 +64,12 @@ const calcGainsProc = (
   });
   const changes = partyVotes
     .map((pv) => {
-      const prevValue = findPrevVotes(pv, prevElectionVotes, true);
-      return prevValue
+      const { prevTotalVotes } = findPrevVotes(pv, prevElectionVotes, true);
+      return prevTotalVotes
         ? {
             ...pv,
-            change: 100 * ((pv.totalVotes - prevValue) / prevValue),
-            prevVotes: prevValue,
+            change: 100 * ((pv.totalVotes - prevTotalVotes) / prevTotalVotes),
+            prevVotes: prevTotalVotes,
           }
         : undefined;
     })

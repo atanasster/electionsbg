@@ -1,13 +1,13 @@
 import fs from "fs";
 import { parse } from "csv-parse";
-import { FinancingFromCandidates, PartyFiling } from "@/data/dataTypes";
+import { FinancingFromCandidates, PartyFilingIncome } from "@/data/dataTypes";
 
 export const parseFromCandidates = async ({
   dataFolder,
   income,
 }: {
   dataFolder: string;
-  income: PartyFiling;
+  income: PartyFilingIncome;
 }): Promise<FinancingFromCandidates[]> => {
   const result: string[][] = [];
   const fromFileName = `${dataFolder}/from_candidates.csv`;
@@ -48,20 +48,23 @@ export const parseFromCandidates = async ({
           }
         }
         if (
-          income.candidatesMonetary === 0 &&
-          income.candidatesNonMonetary === 0
+          income.candidates.monetary === 0 &&
+          income.candidates.nonMonetary === 0
         ) {
-          const { candidatesMonetary, candidatesNonMonetary } =
-            allCandidates.reduce((acc, curr) => {
+          const { monetary, nonMonetary } = allCandidates.reduce(
+            (acc, curr) => {
               return {
-                ...acc,
-                candidatesMonetary: acc.candidatesMonetary + curr.monetary,
-                candidatesNonMonetary:
-                  acc.candidatesNonMonetary + curr.nonMonetary,
+                monetary: acc.monetary + curr.monetary,
+                nonMonetary: acc.nonMonetary + curr.nonMonetary,
               };
-            }, income);
-          income.candidatesMonetary = candidatesMonetary;
-          income.candidatesNonMonetary = candidatesNonMonetary;
+            },
+            {
+              monetary: 0,
+              nonMonetary: 0,
+            },
+          );
+          income.candidates.monetary = monetary;
+          income.candidates.nonMonetary = nonMonetary;
         }
         resolve(allCandidates);
       }),

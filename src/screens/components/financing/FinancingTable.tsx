@@ -1,4 +1,4 @@
-import { PartyIncomeRecord, PartyInfo } from "@/data/dataTypes";
+import { PartyFiling, PartyFilingRecord, PartyInfo } from "@/data/dataTypes";
 import { useElectionContext } from "@/data/ElectionContext";
 import { DataTable, DataTableColumns } from "@/ux/DataTable";
 import { Hint } from "@/ux/Hint";
@@ -8,9 +8,9 @@ import {
   findPrevVotes,
   formatPct,
   formatThousands,
-  matchPartyNickName,
   localDate,
   totalActualVoters,
+  totalIncomeFiling,
 } from "@/data/utils";
 import { useTranslation } from "react-i18next";
 import { usePartyInfo } from "@/data/parties/usePartyInfo";
@@ -19,29 +19,17 @@ import { useRegionVotes } from "@/data/regions/useRegionVotes";
 import { Title } from "@/ux/Title";
 import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
 import { Link } from "@/ux/Link";
+import { useLastYearParties } from "@/data/parties/useLastYearParties";
 
 const queryFn = async ({
   queryKey,
 }: QueryFunctionContext<[string, string | null | undefined]>): Promise<
-  PartyIncomeRecord[]
+  PartyFilingRecord[]
 > => {
   if (!queryKey[1]) {
     return [];
   }
   const response = await fetch(`/${queryKey[1]}/parties/financing.json`);
-  const data = await response.json();
-  return data;
-};
-
-const lastYearPartiesQueryFn = async ({
-  queryKey,
-}: QueryFunctionContext<[string, string | null | undefined]>): Promise<
-  PartyInfo[]
-> => {
-  if (!queryKey[1]) {
-    return [];
-  }
-  const response = await fetch(`/${queryKey[1]}/cik_parties.json`);
   const data = await response.json();
   return data;
 };
@@ -57,11 +45,7 @@ export const FinancingTable = () => {
     queryFn,
     enabled: !!priorElections,
   });
-  const { data: parties_last_year } = useQuery({
-    queryKey: ["parties_prev_year", priorElections?.name],
-    queryFn: lastYearPartiesQueryFn,
-    enabled: !!priorElections,
-  });
+  const { partyByNickName } = useLastYearParties();
   const { countryVotes } = useRegionVotes();
   const results = countryVotes();
   const { t } = useTranslation();
@@ -75,38 +59,22 @@ export const FinancingTable = () => {
           const party = findParty(r.party);
           const vote = results.votes.find((v) => v.partyNum === r.party);
           let lyIncome: number | undefined = undefined;
-          if (party && raw_last_year && parties_last_year) {
-            const ly = raw_last_year.find((ly) => {
-              const lyParty = parties_last_year.find(
-                (lyp) => lyp.number === ly.party,
-              );
-              if (lyParty) {
-                return matchPartyNickName(party, lyParty, true);
-              }
-              return false;
-            });
+          if (party && raw_last_year) {
+            const lyParty = partyByNickName(party.nickName);
+            const ly = lyParty
+              ? raw_last_year.find((l) => l.party === lyParty.number)
+              : undefined;
             if (ly) {
-              lyIncome =
-                ly.income.candidatesMonetary +
-                ly.income.candidatesNonMonetary +
-                ly.income.donorsMonetary +
-                ly.income.donorsNonMonetary +
-                ly.income.partyMonetary +
-                ly.income.partyNonMonetary +
-                ly.income.mediaPackage;
+              lyIncome = totalIncomeFiling(ly.filing.income);
             }
           }
-          const prevTotalVotes = party
-            ? findPrevVotes(party, priorElections?.results?.votes, true)
-            : undefined;
-          const totalIncome =
-            r.income.candidatesMonetary +
-            r.income.candidatesNonMonetary +
-            r.income.donorsMonetary +
-            r.income.donorsNonMonetary +
-            r.income.partyMonetary +
-            r.income.partyNonMonetary +
-            r.income.mediaPackage;
+          const { prevTotalVotes } = findPrevVotes(
+            party,
+            priorElections?.results?.votes,
+            true,
+          );
+          const totalIncome = totalIncomeFiling(r.filing.income);
+
           const pctPrevChange =
             vote && prevTotalVotes
               ? (100 * (vote.totalVotes - prevTotalVotes)) / prevTotalVotes
@@ -117,19 +85,22 @@ export const FinancingTable = () => {
           return {
             prevTotalVotes,
             pctPrevChange,
-            ...r,
+            ...r.filing,
             ...party,
             pctVotes: totalVotes
               ? (100 * (vote?.totalVotes || 0)) / totalVotes
               : undefined,
             totalVotes: vote?.totalVotes,
             totalFromParties:
-              r.income.partyMonetary + r.income.partyNonMonetary,
+              r.filing.income.party.monetary +
+              r.filing.income.party.nonMonetary,
             totalFromDonors:
-              r.income.donorsMonetary + r.income.donorsNonMonetary,
+              r.filing.income.donors.monetary +
+              r.filing.income.donors.nonMonetary,
             totalFromCandidates:
-              r.income.candidatesMonetary + r.income.candidatesNonMonetary,
-            totalMediaPackage: r.income.mediaPackage,
+              r.filing.income.candidates.monetary +
+              r.filing.income.candidates.nonMonetary,
+            totalMediaPackage: r.filing.income.mediaPackage,
             totalIncome,
             lyIncome,
             pctIncomeChange,
@@ -140,14 +111,14 @@ export const FinancingTable = () => {
     return undefined;
   }, [
     findParty,
-    parties_last_year,
+    partyByNickName,
     priorElections?.results?.votes,
     raw,
     raw_last_year,
     results.votes,
   ]);
   const columns: DataTableColumns<
-    PartyIncomeRecord &
+    PartyFiling &
       PartyInfo & {
         totalFromParties: number;
         totalFromDonors: number;
