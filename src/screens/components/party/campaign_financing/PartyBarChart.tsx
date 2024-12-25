@@ -89,7 +89,7 @@ export const PartyBarChart: FC<{
   }, [filing, party, priorElections, priorFiling, selected, stats]);
   return (
     <ChartContainer config={{}} className={className}>
-      <BarChart accessibilityLayer data={chartData}>
+      <BarChart accessibilityLayer data={chartData} barGap={0}>
         <ChartTooltip cursor={true} content={<CustomTooltip />} />
         <CartesianGrid vertical={false} />
         <XAxis
@@ -97,11 +97,13 @@ export const PartyBarChart: FC<{
           tickLine={false}
           tickMargin={10}
           axisLine={true}
-          //tickFormatter={(value) => value.slice(0, 3)}
         />
+        {(filing || priorFiling) && (
+          <YAxis dataKey="totalFinancing" visibility="hidden" />
+        )}
         <YAxis dataKey="votes" visibility="hidden" />
-        <YAxis dataKey="totalFinancing" visibility="hidden" />
-        <Bar dataKey="totalFinancing" fill="orange" />
+
+        <Bar dataKey="totalFinancing" fill="fuchsia" />
         <Bar dataKey="votes" stroke={party.color} fill={party.color} />
       </BarChart>
     </ChartContainer>
