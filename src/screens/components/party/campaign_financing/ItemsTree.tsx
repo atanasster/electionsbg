@@ -20,7 +20,7 @@ const TreeItem: FC<{ item: TreeItemType; className?: string }> = ({
         {item.amount && (
           <div className="flex gap-2">
             <div className={cn("flex justify-end", className)}>
-              {formatThousands(item.amount)}
+              {formatThousands(item.amount, 2)}
             </div>
             <div className="w-20 flex justify-end">
               {!!item.priorAmount && (

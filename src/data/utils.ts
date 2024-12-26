@@ -24,7 +24,7 @@ export const formatPct = (x?: number, decimals: number = 2) => {
   return `${pct}%`;
 };
 
-export const formatThousands = (x?: number, decimals: number = 2) => {
+export const formatThousands = (x?: number, decimals: number = 0) => {
   if (x) {
     const n = decimals !== undefined ? x.toFixed(decimals) : x;
     return n.toString().replace(/\B(?=(\d{3})+(?!\d))/g, ",");
