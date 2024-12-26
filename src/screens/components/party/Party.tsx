@@ -10,9 +10,9 @@ import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { Banknote, UsersRound, Vote } from "lucide-react";
 import { FC, ReactNode } from "react";
 import { useTranslation } from "react-i18next";
-import { PartyDonorsTable } from "./PartyDonorsTable";
-import { PartyCandidatesTable } from "./PartyCandidatesTable";
-import { PartyPartiesTable } from "./PartyPartiesTable";
+import { PartyDonorsTable } from "./campaign_financing/PartyDonorsTable";
+import { PartyCandidatesTable } from "./campaign_financing/PartyCandidatesTable";
+import { PartyPartiesTable } from "./campaign_financing/PartyPartiesTable";
 import { useLastYearParties } from "@/data/parties/useLastYearParties";
 import { FilingSummary } from "./campaign_financing/FilingSummary";
 
