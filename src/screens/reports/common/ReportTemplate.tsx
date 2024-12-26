@@ -22,7 +22,7 @@ import { useRegions } from "@/data/regions/useRegions";
 import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
 import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
 import { useTouch } from "@/ux/TouchProvider";
-import { PartyLabel } from "@/screens/components/PartyLabel";
+import { PartyLabel } from "@/screens/components/party/PartyLabel";
 import { usePartyInfo } from "@/data/parties/usePartyInfo";
 import { useElectionContext } from "@/data/ElectionContext";
 import { SelectParties } from "@/screens/components/charts/SelectParties";

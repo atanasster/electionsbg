@@ -14,12 +14,11 @@ import {
 } from "@/data/utils";
 import { useTranslation } from "react-i18next";
 import { usePartyInfo } from "@/data/parties/usePartyInfo";
-import { PartyLabel } from "../PartyLabel";
 import { useRegionVotes } from "@/data/regions/useRegionVotes";
 import { Title } from "@/ux/Title";
 import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
-import { Link } from "@/ux/Link";
 import { useLastYearParties } from "@/data/parties/useLastYearParties";
+import { PartyLink } from "../party/PartyLink";
 
 const queryFn = async ({
   queryKey,
@@ -132,24 +131,7 @@ export const FinancingTable = () => {
       {
         accessorKey: "party",
         header: t("party"),
-        cell: ({ row }) => {
-          return (
-            <Hint
-              className="w-full"
-              text={`${row.original.name || t("unknown_party")}`}
-              underline={false}
-            >
-              <Link to={`/party/${row.original.nickName}`} underline={false}>
-                <div className="flex items-center border-2 border-primary">
-                  <div className="w-8 font-semibold text-center">
-                    {row.original.number}
-                  </div>
-                  <PartyLabel className="w-full pl-2" party={row.original} />
-                </div>
-              </Link>
-            </Hint>
-          );
-        },
+        cell: ({ row }) => <PartyLink party={row.original} />,
       },
       {
         accessorKey: "totalVotes",
@@ -291,7 +273,11 @@ export const FinancingTable = () => {
             hidden: !priorElections,
             header: (
               <Hint text={t("total_financing_prev_campaign_explainer")}>
-                <div>{t("income")}</div>
+                <div>
+                  {priorElections
+                    ? localDate(priorElections.name)
+                    : t("income")}
+                </div>
               </Hint>
             ) as never,
             cell: ({ row }) => (
