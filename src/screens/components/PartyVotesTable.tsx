@@ -19,7 +19,6 @@ import { findPrevVotes, formatPct, formatThousands } from "@/data/utils";
 import { DataTable, DataTableColumns } from "@/ux/DataTable";
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { PartyLabel } from "./PartyLabel";
 import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
 import { Hint } from "@/ux/Hint";
 import { HistoryChart } from "./charts/HistoryChart";
@@ -28,6 +27,7 @@ import { Button } from "@/components/ui/button";
 import { ChartArea } from "lucide-react";
 import { Caption } from "@/ux/Caption";
 import { useConsolidatedLabel } from "./useConsolidatedLabel";
+import { PartyLink } from "./party/PartyLink";
 
 export const PartyVotesTable: FC<{
   results?: VoteResults;
@@ -81,23 +81,16 @@ export const PartyVotesTable: FC<{
       {
         accessorKey: "partyNum",
         header: t("party"),
-        cell: ({ row }) => {
-          const party = row.original as PartyInfo;
-          return (
-            <Hint
-              className="w-full"
-              text={`${party ? party?.name : t("unknown_party")}`}
-              underline={false}
-            >
-              <div className="flex items-center border-2 border-primary">
-                <div className="w-8 font-semibold text-center">
-                  {row.original.partyNum}
-                </div>
-                <PartyLabel className="w-full pl-2" party={party} />
-              </div>
-            </Hint>
-          );
-        },
+        cell: ({ row }) => (
+          <PartyLink
+            party={
+              {
+                number: row.original.partyNum,
+                ...row.original,
+              } as PartyInfo
+            }
+          />
+        ),
       },
       {
         accessorKey: "paperVotes",

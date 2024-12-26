@@ -1,6 +1,6 @@
 import { PartyInfo, PartyVotes } from "@/data/dataTypes";
 import { FC, useState } from "react";
-import { PartyLabel } from "../PartyLabel";
+import { PartyLabel } from "../party/PartyLabel";
 import { Checkbox } from "@/components/ui/checkbox";
 import { formatThousands } from "@/data/utils";
 import {

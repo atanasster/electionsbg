@@ -2,7 +2,7 @@ import { PartyInfo, Votes } from "@/data/dataTypes";
 import { Caption } from "@/ux/Caption";
 import { Tooltip } from "@/ux/Tooltip";
 import { FC } from "react";
-import { PartyVotesXS } from "./PartyVotesXS";
+import { PartyVotesXS } from "../PartyVotesXS";
 import { PartyLabel } from "./PartyLabel";
 
 export const PartyPopup: FC<{
