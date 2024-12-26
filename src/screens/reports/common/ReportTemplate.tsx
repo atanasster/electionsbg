@@ -22,10 +22,10 @@ import { useRegions } from "@/data/regions/useRegions";
 import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
 import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
 import { useTouch } from "@/ux/TouchProvider";
-import { PartyLabel } from "@/screens/components/party/PartyLabel";
 import { usePartyInfo } from "@/data/parties/usePartyInfo";
 import { useElectionContext } from "@/data/ElectionContext";
 import { SelectParties } from "@/screens/components/charts/SelectParties";
+import { PartyLink } from "@/screens/components/party/PartyLink";
 
 export type ColumnNames =
   | "ekatte"
@@ -191,15 +191,12 @@ export const ReportTemplate: FC<{
             accessorKey: "party.nickName",
             header: t("party"),
             size: 70,
-            cell: ({ row }) => {
-              return (
-                <Hint
-                  text={`${row.original.party ? row.original.party.name : t("unknown_party")}`}
-                >
-                  <PartyLabel party={row.original.party} />
-                </Hint>
-              );
-            },
+            cell: ({ row }) =>
+              row.original.party ? (
+                <PartyLink party={row.original.party} />
+              ) : (
+                t("unknown_party")
+              ),
           },
           {
             accessorKey: "oblast",
@@ -259,13 +256,8 @@ export const ReportTemplate: FC<{
                 <div>{isSmall ? t("votes") : t("total_votes")}</div>
               </Hint>
             ),
-            cell: ({ row }) => {
-              return (
-                <div className="px-4 py-2 text-right">
-                  {formatThousands(row.original.totalVotes)}
-                </div>
-              );
-            },
+            className: "text-right",
+            cell: ({ row }) => formatThousands(row.original.totalVotes),
           },
           {
             accessorKey: "pctPartyVote",
@@ -275,13 +267,8 @@ export const ReportTemplate: FC<{
                 <div>%</div>
               </Hint>
             ),
-            cell: ({ row }) => {
-              return (
-                <div className="px-4 py-2 text-right">
-                  {formatPct(row.getValue("pctPartyVote"), 2)}
-                </div>
-              );
-            },
+            className: "text-right",
+            cell: ({ row }) => formatPct(row.getValue("pctPartyVote"), 2),
           },
           {
             accessorKey: "voterTurnout",
@@ -291,13 +278,8 @@ export const ReportTemplate: FC<{
                 <div>{t("voter_turnout")}</div>
               </Hint>
             ),
-            cell: ({ row }) => {
-              return (
-                <div className="px-4 py-2 text-right">
-                  {formatPct(row.original.value, 2)}
-                </div>
-              );
-            },
+            className: "text-right",
+            cell: ({ row }) => formatPct(row.original.value, 2),
           },
           {
             accessorKey: "pctAdditionalVoters",
@@ -307,13 +289,8 @@ export const ReportTemplate: FC<{
                 <div>{t("additional_voters")}</div>
               </Hint>
             ),
-            cell: ({ row }) => {
-              return (
-                <div className="px-4 py-2 text-right">
-                  {formatPct(row.original.value, 2)}
-                </div>
-              );
-            },
+            className: "text-right",
+            cell: ({ row }) => formatPct(row.original.value, 2),
           },
           {
             accessorKey: "pctSupportsNoOne",
@@ -323,13 +300,8 @@ export const ReportTemplate: FC<{
                 <div>{t("support_no_one")}</div>
               </Hint>
             ),
-            cell: ({ row }) => {
-              return (
-                <div className="px-4 py-2 text-right">
-                  {formatPct(row.original.value, 2)}
-                </div>
-              );
-            },
+            className: "text-right",
+            cell: ({ row }) => formatPct(row.original.value, 2),
           },
           {
             accessorKey: "pctInvalidBallots",
@@ -339,13 +311,8 @@ export const ReportTemplate: FC<{
                 <div>{t("invalid_ballots")}</div>
               </Hint>
             ),
-            cell: ({ row }) => {
-              return (
-                <div className="px-4 py-2 text-right">
-                  {formatPct(row.original.value, 2)}
-                </div>
-              );
-            },
+            className: "text-right",
+            cell: ({ row }) => formatPct(row.original.value, 2),
           },
           {
             accessorKey: "prevYearVotes",
@@ -359,11 +326,8 @@ export const ReportTemplate: FC<{
                 </div>
               </Hint>
             ) as never,
-            cell: ({ row }) => (
-              <div className="px-4 py-2 text-right">
-                {formatThousands(row.getValue("prevYearVotes"))}
-              </div>
-            ),
+            className: "text-right",
+            cell: ({ row }) => formatThousands(row.getValue("prevYearVotes")),
           },
           {
             accessorKey: "prevYearChangeVotes",
@@ -373,9 +337,10 @@ export const ReportTemplate: FC<{
                 <div>{t("change")}</div>
               </Hint>
             ) as never,
+            className: "text-right",
             cell: ({ row }) => (
               <div
-                className={`px-4 py-2 text-right ${row.original.prevYearChangeVotes && row.original.prevYearChangeVotes < 0 ? "text-destructive" : "text-secondary-foreground"}`}
+                className={`${row.original.prevYearChangeVotes && row.original.prevYearChangeVotes < 0 ? "text-destructive" : "text-secondary-foreground"}`}
               >
                 {formatThousands(row.original.prevYearChangeVotes)}
               </div>
@@ -389,11 +354,12 @@ export const ReportTemplate: FC<{
                 <div>{isSmall ? "+/-%" : `% ${t("change")}`}</div>
               </Hint>
             ) as never,
+            className: "font-bold text-right",
             cell: ({ row }) => {
               const pctChange: number = row.original.value;
               return (
                 <div
-                  className={`px-4 py-2 font-bold text-right ${pctChange && pctChange < 0 ? "text-destructive" : "text-secondary-foreground"}`}
+                  className={`${pctChange && pctChange < 0 ? "text-destructive" : "text-secondary-foreground"}`}
                 >
                   {formatPct(pctChange, 2)}
                 </div>
