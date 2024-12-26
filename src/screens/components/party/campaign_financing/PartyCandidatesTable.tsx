@@ -2,6 +2,7 @@ import { FinancingFromCandidates } from "@/data/dataTypes";
 import { formatThousands } from "@/data/utils";
 import { DataTable, DataTableColumns } from "@/ux/DataTable";
 import { Hint } from "@/ux/Hint";
+import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -13,6 +14,7 @@ export const PartyCandidatesTable: FC<{ data: FinancingFromCandidates[] }> = ({
   data,
 }) => {
   const { t } = useTranslation();
+  const isMedium = useMediaQueryMatch("md");
   const columns: DataTableColumns<TableData, unknown> = useMemo(
     () => [
       {
@@ -26,6 +28,7 @@ export const PartyCandidatesTable: FC<{ data: FinancingFromCandidates[] }> = ({
       {
         accessorKey: "goal",
         header: t("goal"),
+        hidden: !isMedium,
       },
       {
         accessorKey: "nonMonetary",
