@@ -1,4 +1,9 @@
-import { ElectionSettlement, PartyVotes, SectionInfo } from "@/data/dataTypes";
+import {
+  ElectionSettlement,
+  PartyInfo,
+  PartyVotes,
+  SectionInfo,
+} from "@/data/dataTypes";
 import { Caption } from "@/ux/Caption";
 import { DataTable } from "@/ux/DataTable";
 import { Tooltip } from "@/ux/Tooltip";
@@ -10,6 +15,7 @@ import { formatPct, formatThousands } from "@/data/utils";
 import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
 import { Link } from "@/ux/Link";
 import { usePartyInfo } from "@/data/parties/usePartyInfo";
+import { PartyLink } from "./party/PartyLink";
 
 export const SectionsList: FC<{ sections: ElectionSettlement["sections"] }> = ({
   sections,
@@ -92,13 +98,8 @@ export const SectionsList: FC<{ sections: ElectionSettlement["sections"] }> = ({
               <div>{t("voter_turnout")}</div>
             </Hint>
           ),
-          cell: ({ row }) => {
-            return (
-              <div className="px-4 py-2 text-right">
-                {formatPct(row.original.voterTurnout, 2)}
-              </div>
-            );
-          },
+          className: "text-right",
+          cell: ({ row }) => formatPct(row.original.voterTurnout, 2),
         },
         {
           accessorKey: "partyVotes.paperVotes",
@@ -108,13 +109,9 @@ export const SectionsList: FC<{ sections: ElectionSettlement["sections"] }> = ({
               <div>{t("paper_votes")}</div>
             </Hint>
           ),
-          cell: ({ row }) => {
-            return (
-              <div className="px-4 py-2 text-right">
-                {formatThousands(row.original.results.protocol?.numValidVotes)}
-              </div>
-            );
-          },
+          className: "text-right",
+          cell: ({ row }) =>
+            formatThousands(row.original.results.protocol?.numValidVotes),
         },
         {
           accessorKey: "partyVotes.machineVotes",
@@ -124,15 +121,11 @@ export const SectionsList: FC<{ sections: ElectionSettlement["sections"] }> = ({
               <div>{t("machine_votes")}</div>
             </Hint>
           ),
-          cell: ({ row }) => {
-            return (
-              <div className="px-4 py-2 text-right">
-                {formatThousands(
-                  row.original.results.protocol?.numValidMachineVotes,
-                )}
-              </div>
-            );
-          },
+          className: "text-right",
+          cell: ({ row }) =>
+            formatThousands(
+              row.original.results.protocol?.numValidMachineVotes,
+            ),
         },
         {
           accessorKey: "protocol.totalActualVoters",
@@ -141,15 +134,9 @@ export const SectionsList: FC<{ sections: ElectionSettlement["sections"] }> = ({
               <div>{isSmall ? t("votes") : t("total_votes")}</div>
             </Hint>
           ),
-          cell: ({ row }) => {
-            return (
-              <div className="px-4 py-2 text-right">
-                {formatThousands(
-                  row.original.results.protocol?.totalActualVoters,
-                )}
-              </div>
-            );
-          },
+          className: "text-right",
+          cell: ({ row }) =>
+            formatThousands(row.original.results.protocol?.totalActualVoters),
         },
         {
           accessorKey: "partyVotes.key",
@@ -165,14 +152,9 @@ export const SectionsList: FC<{ sections: ElectionSettlement["sections"] }> = ({
                   </div>
                 }
               >
-                <div
-                  className="text-white text-right px-2 font-bold w-24"
-                  style={{
-                    backgroundColor: row.original.partyVotes?.color,
-                  }}
-                >
-                  {row.original.partyVotes?.nickName}
-                </div>
+                {row.original.partyVotes && (
+                  <PartyLink party={row.original.partyVotes as PartyInfo} />
+                )}
               </Tooltip>
             );
           },

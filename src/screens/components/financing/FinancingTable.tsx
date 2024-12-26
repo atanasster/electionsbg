@@ -141,11 +141,8 @@ export const FinancingTable = () => {
             <div>{t("total_votes")}</div>
           </Hint>
         ) as never,
-        cell: ({ row }) => (
-          <div className="px-4 py-2 text-right">
-            {formatThousands(row.getValue("totalVotes"))}
-          </div>
-        ),
+        className: "text-right",
+        cell: ({ row }) => formatThousands(row.getValue("totalVotes")),
       },
       {
         accessorKey: "pctVotes",
@@ -154,13 +151,8 @@ export const FinancingTable = () => {
             <div>%</div>
           </Hint>
         ) as never,
-        cell: ({ row }) => {
-          return (
-            <div className="px-4 py-2 text-right">
-              {formatPct(row.getValue("pctVotes"), 2)}
-            </div>
-          );
-        },
+        className: "text-right",
+        cell: ({ row }) => formatPct(row.getValue("pctVotes"), 2),
       },
       {
         accessorKey: "prevTotalVotes",
@@ -170,11 +162,8 @@ export const FinancingTable = () => {
             <div>{t("prior_elections")}</div>
           </Hint>
         ) as never,
-        cell: ({ row }) => (
-          <div className="px-4 py-2 text-right">
-            {formatThousands(row.getValue("prevTotalVotes"))}
-          </div>
-        ),
+        className: "text-right",
+        cell: ({ row }) => formatThousands(row.getValue("prevTotalVotes")),
       },
       {
         accessorKey: "pctPrevChange",
@@ -184,11 +173,12 @@ export const FinancingTable = () => {
             <div>{`+/-`}</div>
           </Hint>
         ) as never,
+        className: "font-bold text-right",
         cell: ({ row }) => {
           const pctChange: number = row.getValue("pctPrevChange");
           return (
             <div
-              className={`px-4 py-2 font-bold text-right ${pctChange && pctChange < 0 ? "text-destructive" : "text-secondary-foreground"}`}
+              className={`${pctChange && pctChange < 0 ? "text-destructive" : "text-secondary-foreground"}`}
             >
               {formatPct(row.getValue("pctPrevChange"), 2)}
             </div>
@@ -208,38 +198,30 @@ export const FinancingTable = () => {
           {
             header: t("parties"),
             accessorKey: "totalFromParties",
-            cell: ({ row }) => (
-              <div className="px-4 py-2 text-right">
-                {formatThousands(row.getValue("totalFromParties"), 0)}
-              </div>
-            ),
+            className: "text-right",
+            cell: ({ row }) =>
+              formatThousands(row.getValue("totalFromParties"), 0),
           },
           {
             header: t("donors"),
             accessorKey: "totalFromDonors",
-            cell: ({ row }) => (
-              <div className="px-4 py-2 text-right">
-                {formatThousands(row.getValue("totalFromDonors"), 0)}
-              </div>
-            ),
+            className: "text-right",
+            cell: ({ row }) =>
+              formatThousands(row.getValue("totalFromDonors"), 0),
           },
           {
             header: t("candidates"),
             accessorKey: "totalFromCandidates",
-            cell: ({ row }) => (
-              <div className="px-4 py-2 text-right">
-                {formatThousands(row.getValue("totalFromCandidates"), 0)}
-              </div>
-            ),
+            className: "text-right",
+            cell: ({ row }) =>
+              formatThousands(row.getValue("totalFromCandidates"), 0),
           },
           {
             header: t("media"),
             accessorKey: "totalMediaPackage",
-            cell: ({ row }) => (
-              <div className="px-4 py-2 text-right">
-                {formatThousands(row.getValue("totalMediaPackage"), 0)}
-              </div>
-            ),
+            className: "text-right",
+            cell: ({ row }) =>
+              formatThousands(row.getValue("totalMediaPackage"), 0),
           },
         ],
       },
@@ -250,11 +232,8 @@ export const FinancingTable = () => {
             <div>{t("income")}</div>
           </Hint>
         ) as never,
-        cell: ({ row }) => (
-          <div className="px-4 py-2 text-right font-bold">
-            {formatThousands(row.getValue("totalIncome"), 0)}
-          </div>
-        ),
+        className: "font-bold text-right",
+        cell: ({ row }) => formatThousands(row.getValue("totalIncome"), 0),
       },
       {
         id: "last_year",
@@ -280,11 +259,8 @@ export const FinancingTable = () => {
                 </div>
               </Hint>
             ) as never,
-            cell: ({ row }) => (
-              <div className="px-4 py-2 text-right">
-                {formatThousands(row.getValue("lyIncome"), 0)}
-              </div>
-            ),
+            className: "text-right",
+            cell: ({ row }) => formatThousands(row.getValue("lyIncome"), 0),
           },
           {
             accessorKey: "pctIncomeChange",
@@ -294,12 +270,13 @@ export const FinancingTable = () => {
                 <div>+/-</div>
               </Hint>
             ) as never,
+            className: "font-bold text-right",
             cell: ({ row }) => {
               const pctIncomeChange: number | undefined =
                 row.getValue("pctIncomeChange");
               return (
                 <div
-                  className={`px-4 py-2 font-bold text-right ${pctIncomeChange && pctIncomeChange < 0 ? "text-destructive" : "text-secondary-foreground"}`}
+                  className={`${pctIncomeChange && pctIncomeChange < 0 ? "text-destructive" : "text-secondary-foreground"}`}
                 >
                   {formatPct(pctIncomeChange)}
                 </div>

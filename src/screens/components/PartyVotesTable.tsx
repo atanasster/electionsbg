@@ -96,21 +96,15 @@ export const PartyVotesTable: FC<{
         accessorKey: "paperVotes",
         header: t("paper_votes"),
         hidden: isSmall || !hasPaperVotes,
-        cell: ({ row }) => (
-          <div className="px-4 py-2 text-right">
-            {formatThousands(row.getValue("paperVotes"))}
-          </div>
-        ),
+        className: "text-right",
+        cell: ({ row }) => formatThousands(row.getValue("paperVotes")),
       },
       {
         accessorKey: "machineVotes",
         header: t("machine_votes"),
         hidden: isSmall || !hasMachineVotes,
-        cell: ({ row }) => (
-          <div className="px-4 text-right">
-            {formatThousands(row.getValue("machineVotes"))}
-          </div>
-        ),
+        className: "text-right",
+        cell: ({ row }) => formatThousands(row.getValue("machineVotes")),
       },
       {
         accessorKey: "totalVotes",
@@ -119,11 +113,8 @@ export const PartyVotesTable: FC<{
             <div>{isXSmall ? t("votes") : t("total_votes")}</div>
           </Hint>
         ) as never,
-        cell: ({ row }) => (
-          <div className="px-4 py-2 text-right">
-            {formatThousands(row.getValue("totalVotes"))}
-          </div>
-        ),
+        className: "text-right",
+        cell: ({ row }) => formatThousands(row.getValue("totalVotes")),
       },
       {
         accessorKey: "pctVotes",
@@ -132,31 +123,24 @@ export const PartyVotesTable: FC<{
             <div>%</div>
           </Hint>
         ) as never,
-        cell: ({ row }) => {
-          return (
-            <div className="px-4 py-2 text-right">
-              {formatPct(row.getValue("pctVotes"), 2)}
-            </div>
-          );
-        },
+        className: "text-right",
+        cell: ({ row }) => formatPct(row.getValue("pctVotes"), 2),
       },
       {
         accessorKey: "prevTotalVotes",
         hidden: !prevElection,
+        className: "text-right",
         header: (
           <Hint text={t("prev_election_votes_explainer")}>
             <div>{isXSmall ? t("prior") : t("prior_elections")}</div>
           </Hint>
         ) as never,
-        cell: ({ row }) => (
-          <div className="px-4 py-2 text-right">
-            {formatThousands(row.getValue("prevTotalVotes"))}
-          </div>
-        ),
+        cell: ({ row }) => formatThousands(row.getValue("prevTotalVotes")),
       },
       {
         accessorKey: "pctPrevChange",
         hidden: !prevElection,
+        className: "font-bold text-right",
         header: (
           <Hint text={t("pct_prev_election_votes_explainer")}>
             <div>{isXSmall ? `+/-` : `% ${t("change")}`}</div>
@@ -166,7 +150,7 @@ export const PartyVotesTable: FC<{
           const pctChange: number = row.getValue("pctPrevChange");
           return (
             <div
-              className={`px-4 py-2 font-bold text-right ${pctChange && pctChange < 0 ? "text-destructive" : "text-secondary-foreground"}`}
+              className={`${pctChange && pctChange < 0 ? "text-destructive" : "text-secondary-foreground"}`}
             >
               {formatPct(row.getValue("pctPrevChange"), 2)}
             </div>
@@ -176,6 +160,7 @@ export const PartyVotesTable: FC<{
       {
         accessorKey: "adjustedPctPrevChange",
         hidden: !prevElection || !isLarge,
+        className: "font-bold text-right",
         header: (
           <Hint text={t("pct_adjusted_change_explainer")}>
             <div>{t("adjusted_change")}</div>
@@ -185,7 +170,7 @@ export const PartyVotesTable: FC<{
           const pctChange: number = row.getValue("adjustedPctPrevChange");
           return (
             <div
-              className={`px-4 py-2 font-bold text-right ${pctChange && pctChange < 0 ? "text-destructive" : "text-secondary-foreground"}`}
+              className={`${pctChange && pctChange < 0 ? "text-destructive" : "text-secondary-foreground"}`}
             >
               {formatPct(row.getValue("adjustedPctPrevChange"), 2)}
             </div>
@@ -196,6 +181,7 @@ export const PartyVotesTable: FC<{
       {
         accessorKey: "chart",
         hidden: !prevElection,
+        className: "py-0 md:py-0",
         header: (
           <Hint text={t("all_elections_explainer")}>
             <div>{isLarge ? t("all_elections") : t("chart")}</div>

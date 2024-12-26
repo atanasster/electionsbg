@@ -27,9 +27,11 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { useTranslation } from "react-i18next";
+import { cn } from "@/lib/utils";
 
 export type DataTableColumnDef<TData, TValue> = ColumnDef<TData, TValue> & {
   hidden?: boolean;
+  className?: string;
   columns?: DataTableColumns<TData, TValue>;
 };
 export type DataTableColumns<TData, TValue> = DataTableColumnDef<
@@ -42,6 +44,7 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
   pageSize?: number;
   stickyColumn?: boolean;
+
   getSubRows?: (originalRow: TData, index: number) => undefined | TData[];
 }
 
@@ -160,7 +163,15 @@ export const DataTable = <TData, TValue>({
                 {row.getVisibleCells().map((cell, idx) => (
                   <TableCell
                     key={cell.id}
-                    className={`py-0 ${stickyColumn && idx === 0 ? " sticky left-0 z-5 bg-card" : ""}`}
+                    className={cn(
+                      `px-2 py-1 md:px-4 md:py-2 ${stickyColumn && idx === 0 ? " sticky left-0 z-5 bg-card" : ""}`,
+                      (
+                        cell.column.columnDef as DataTableColumnDef<
+                          TData,
+                          TValue
+                        >
+                      ).className,
+                    )}
                   >
                     {idx === 0 && getSubRows ? (
                       <div

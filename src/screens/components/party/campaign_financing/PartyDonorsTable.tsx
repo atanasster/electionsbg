@@ -43,13 +43,8 @@ export const PartyDonorsTable: FC<{ data: FinancingFromDonors[] }> = ({
             <div>{t("non_monetary")}</div>
           </Hint>
         ) as never,
-        cell: ({ row }) => {
-          return (
-            <div className="px-4 py-2 text-right">
-              {formatThousands(row.original.nonMonetary, 0)}
-            </div>
-          );
-        },
+        className: "text-right",
+        cell: ({ row }) => formatThousands(row.original.nonMonetary, 0),
       },
       {
         accessorKey: "monetary",
@@ -58,13 +53,8 @@ export const PartyDonorsTable: FC<{ data: FinancingFromDonors[] }> = ({
             <div>{t("monetary")}</div>
           </Hint>
         ) as never,
-        cell: ({ row }) => {
-          return (
-            <div className="px-4 py-2 text-right">
-              {formatThousands(row.original.monetary, 0)}
-            </div>
-          );
-        },
+        className: "text-right",
+        cell: ({ row }) => formatThousands(row.original.monetary, 0),
       },
       {
         accessorKey: "totalAmount",
@@ -73,13 +63,8 @@ export const PartyDonorsTable: FC<{ data: FinancingFromDonors[] }> = ({
             <div>{t("total")}</div>
           </Hint>
         ) as never,
-        cell: ({ row }) => {
-          return (
-            <div className="px-4 py-2 text-right">
-              {formatThousands(row.original.totalAmount, 0)}
-            </div>
-          );
-        },
+        className: "text-right",
+        cell: ({ row }) => formatThousands(row.original.totalAmount, 0),
       },
     ],
     [isMedium, t],
