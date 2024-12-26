@@ -221,7 +221,7 @@ export type FinancingType = {
 };
 export type FinancingFromDonors = {
   name: string;
-  date: string;
+  date?: string;
   goal?: string;
   coalition?: string;
   party?: string;
@@ -229,7 +229,7 @@ export type FinancingFromDonors = {
 
 export type FinancingFromCandidates = {
   name: string;
-  date: string;
+  date?: string;
   goal?: string;
 } & FinancingType;
 

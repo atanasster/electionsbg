@@ -2,16 +2,19 @@ import { FinancingFromDonors } from "@/data/dataTypes";
 import { formatThousands } from "@/data/utils";
 import { DataTable, DataTableColumns } from "@/ux/DataTable";
 import { Hint } from "@/ux/Hint";
+import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 type TableData = FinancingFromDonors & {
-  totalIncome: number;
+  totalAmount: number;
+  items?: TableData[];
 };
 export const PartyDonorsTable: FC<{ data: FinancingFromDonors[] }> = ({
   data,
 }) => {
   const { t } = useTranslation();
+  const isMedium = useMediaQueryMatch("md");
   const columns: DataTableColumns<TableData, unknown> = useMemo(
     () => [
       {
@@ -25,10 +28,12 @@ export const PartyDonorsTable: FC<{ data: FinancingFromDonors[] }> = ({
       {
         accessorKey: "goal",
         header: t("goal"),
+        hidden: !isMedium,
       },
       {
         accessorKey: "party",
         header: t("party"),
+        hidden: !isMedium,
       },
 
       {
@@ -62,7 +67,7 @@ export const PartyDonorsTable: FC<{ data: FinancingFromDonors[] }> = ({
         },
       },
       {
-        accessorKey: "totalIncome",
+        accessorKey: "totalAmount",
         header: (
           <Hint text={t("pct_party_votes_explainer")}>
             <div>{t("total")}</div>
@@ -71,22 +76,39 @@ export const PartyDonorsTable: FC<{ data: FinancingFromDonors[] }> = ({
         cell: ({ row }) => {
           return (
             <div className="px-4 py-2 text-right">
-              {formatThousands(row.original.totalIncome, 0)}
+              {formatThousands(row.original.totalAmount, 0)}
             </div>
           );
         },
       },
     ],
-    [t],
+    [isMedium, t],
   );
   const tableData = useMemo(
     () =>
       data
         ?.map((d) => ({
           ...d,
-          totalIncome: d.monetary | d.nonMonetary,
+          totalAmount: d.monetary | d.nonMonetary,
         }))
-        .sort((a, b) => b.totalIncome - a.totalIncome) || [],
+        .reduce((acc: TableData[], curr) => {
+          const item = acc.find((a) => a.name === curr.name);
+          if (item) {
+            if (!item.items) {
+              const items = [{ ...item }];
+              item.items = items;
+            }
+            item.date = undefined;
+            item.totalAmount = item.totalAmount + curr.totalAmount;
+            item.monetary = item.monetary + curr.monetary;
+            item.nonMonetary = item.nonMonetary + curr.nonMonetary;
+            item.items.push(curr);
+          } else {
+            acc.push(curr);
+          }
+          return acc;
+        }, [])
+        .sort((a, b) => b.totalAmount - a.totalAmount) || [],
     [data],
   );
   return (
@@ -95,6 +117,7 @@ export const PartyDonorsTable: FC<{ data: FinancingFromDonors[] }> = ({
       columns={columns}
       stickyColumn={true}
       data={tableData}
+      getSubRows={(row) => row.items}
     />
   );
 };

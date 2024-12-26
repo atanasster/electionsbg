@@ -1,7 +1,9 @@
 import {
   ColumnDef,
+  ExpandedState,
   flexRender,
   getCoreRowModel,
+  getExpandedRowModel,
   getPaginationRowModel,
   getSortedRowModel,
   HeaderContext,
@@ -18,7 +20,12 @@ import {
   TableRow,
 } from "@/components/ui/table";
 import { useMemo, useState } from "react";
-import { ArrowUpDown, ChevronLeft, ChevronRight } from "lucide-react";
+import {
+  ArrowUpDown,
+  ChevronDown,
+  ChevronLeft,
+  ChevronRight,
+} from "lucide-react";
 import { useTranslation } from "react-i18next";
 
 export type DataTableColumnDef<TData, TValue> = ColumnDef<TData, TValue> & {
@@ -35,6 +42,7 @@ interface DataTableProps<TData, TValue> {
   data: TData[];
   pageSize?: number;
   stickyColumn?: boolean;
+  getSubRows?: (originalRow: TData, index: number) => undefined | TData[];
 }
 
 const HeaderCell = <TData, TValue>({
@@ -66,8 +74,10 @@ export const DataTable = <TData, TValue>({
   data,
   pageSize = 10,
   stickyColumn,
+  getSubRows,
 }: DataTableProps<TData, TValue>) => {
   const [sorting, setSorting] = useState<SortingState>([]);
+  const [expanded, setExpanded] = useState<ExpandedState>({});
   const { t } = useTranslation();
   const dataColumns = useMemo(() => {
     return columns
@@ -95,15 +105,19 @@ export const DataTable = <TData, TValue>({
   const table = useReactTable({
     data,
     columns: dataColumns,
+    onExpandedChange: setExpanded,
     getCoreRowModel: getCoreRowModel(),
     onSortingChange: setSorting,
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
+    getExpandedRowModel: getExpandedRowModel(),
+    getSubRows,
     initialState: {
       pagination: { pageSize },
     },
     state: {
       sorting,
+      expanded,
     },
   });
 
@@ -148,7 +162,36 @@ export const DataTable = <TData, TValue>({
                     key={cell.id}
                     className={`py-0 ${stickyColumn && idx === 0 ? " sticky left-0 z-5 bg-card" : ""}`}
                   >
-                    {flexRender(cell.column.columnDef.cell, cell.getContext())}
+                    {idx === 0 && getSubRows ? (
+                      <div
+                        style={{
+                          paddingLeft: `${row.depth * 2}rem`,
+                        }}
+                      >
+                        <div className="flex items-center">
+                          {row.getCanExpand() ? (
+                            <button
+                              className="cursor-pointer"
+                              onClick={row.getToggleExpandedHandler()}
+                            >
+                              {row.getIsExpanded() ? (
+                                <ChevronDown />
+                              ) : (
+                                <ChevronRight />
+                              )}
+                            </button>
+                          ) : (
+                            ""
+                          )}{" "}
+                          {flexRender(
+                            cell.column.columnDef.cell,
+                            cell.getContext(),
+                          )}
+                        </div>
+                      </div>
+                    ) : (
+                      flexRender(cell.column.columnDef.cell, cell.getContext())
+                    )}
                   </TableCell>
                 ))}
               </TableRow>
