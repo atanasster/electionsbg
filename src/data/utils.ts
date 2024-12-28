@@ -308,4 +308,6 @@ export const pctChange = (
   prior?: number,
   decimals: number = 2,
 ) =>
-  prior ? ((100 * ((last || 0) - prior)) / prior).toFixed(decimals) : undefined;
+  prior
+    ? parseFloat(((100 * ((last || 0) - prior)) / prior).toFixed(decimals))
+    : undefined;
