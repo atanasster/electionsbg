@@ -3,7 +3,7 @@ import { useRegionVotes } from "@/data/regions/useRegionVotes";
 import { FC } from "react";
 import { PartyVotesTable } from "../PartyVotesTable";
 
-export const RegionsPartyTable: FC = () => {
+export const RegionsPartyTable: FC<{ title: string }> = ({ title }) => {
   const { countryVotes } = useRegionVotes();
 
   const { stats, priorElections } = useElectionContext();
@@ -11,6 +11,7 @@ export const RegionsPartyTable: FC = () => {
 
   return (
     <PartyVotesTable
+      title={title}
       results={results}
       prevElection={priorElections}
       stats={stats}

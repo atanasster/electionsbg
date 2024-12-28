@@ -1,4 +1,4 @@
-import { formatThousands, pctChange } from "@/data/utils";
+import { formatPct, formatThousands, pctChange } from "@/data/utils";
 import { cn } from "@/lib/utils";
 import { PercentChange } from "@/ux/PercentChange";
 import { FC } from "react";
@@ -25,7 +25,9 @@ const TreeItem: FC<{ item: TreeItemType; className?: string }> = ({
             <div className="w-20 flex justify-end">
               {!!item.priorAmount && (
                 <PercentChange
-                  pctChange={pctChange(item.amount, item.priorAmount)}
+                  pctChange={formatPct(
+                    pctChange(item.amount, item.priorAmount),
+                  )}
                 />
               )}
             </div>

@@ -1,15 +1,13 @@
 import { FC, useMemo, useState } from "react";
 import { Title } from "@/ux/Title";
-import { Hint } from "@/ux/Hint";
 import { ReportRow, Votes } from "@/data/dataTypes";
-import { DataTable } from "@/ux/DataTable";
+import { DataTable } from "@/ux/data_table/DataTable";
 import { useTranslation } from "react-i18next";
-import { addVotes, formatPct, formatThousands, localDate } from "@/data/utils";
+import { addVotes, localDate } from "@/data/utils";
 import { useSettlementsInfo } from "@/data/settlements/useSettlements";
 import { useSearchParams } from "react-router-dom";
 import { Link } from "@/ux/Link";
 import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
 
 import {
   Select,
@@ -21,11 +19,11 @@ import {
 import { useRegions } from "@/data/regions/useRegions";
 import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
 import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
-import { useTouch } from "@/ux/TouchProvider";
 import { usePartyInfo } from "@/data/parties/usePartyInfo";
 import { useElectionContext } from "@/data/ElectionContext";
 import { SelectParties } from "@/screens/components/charts/SelectParties";
 import { PartyLink } from "@/screens/components/party/PartyLink";
+import { HintedSwitch } from "@/ux/HintedSwitch";
 
 export type ColumnNames =
   | "ekatte"
@@ -68,7 +66,6 @@ export const ReportTemplate: FC<{
   const { findParty } = usePartyInfo();
   const { t, i18n } = useTranslation();
   const isSmall = useMediaQueryMatch("sm");
-  const isTouch = useTouch();
   const threshold = useMemo(
     () =>
       parseInt(searchParams.get("threshold") || defaultThreshold.toString()),
@@ -159,37 +156,28 @@ export const ReportTemplate: FC<{
           onChangeSelected={setUnselected}
           subTitle={`${t(levelKey)} ${t(ruleKey)} ${threshold}%`}
         />
-        <div className="flex items-center ">
-          <Hint text={t("include_abroad_explainer")}>
-            <div className="flex items-center space-x-2">
-              <Switch
-                id="include_abroad"
-                checked={includeAbroad}
-                onCheckedChange={(value) => {
-                  localStorage.setItem(
-                    "reports_include_abroad",
-                    value ? "true" : "false",
-                  );
-                  setIncludeAbroad(value);
-                }}
-              />
-              <Label
-                className="text-secondary-foreground"
-                htmlFor={isTouch ? undefined : "include_abroad"}
-              >
-                {isSmall ? t("include_abroad_short") : t("include_abroad")}
-              </Label>
-            </div>
-          </Hint>
-        </div>
+        <HintedSwitch
+          hint={t("include_abroad_explainer")}
+          label={isSmall ? t("include_abroad_short") : t("include_abroad")}
+          value={includeAbroad}
+          setValue={(value) => {
+            localStorage.setItem(
+              "reports_include_abroad",
+              value ? "true" : "false",
+            );
+            setIncludeAbroad(value);
+          }}
+        />
       </div>
       <DataTable
+        title={t(titleKey)}
         pageSize={25}
         stickyColumn={true}
         columns={[
           {
             accessorKey: "party.nickName",
             header: t("party"),
+            cellValue: ({ row }) => row.original.party.nickName,
             size: 70,
             cell: ({ row }) =>
               row.original.party ? (
@@ -201,6 +189,10 @@ export const ReportTemplate: FC<{
           {
             accessorKey: "oblast",
             header: t("region"),
+            cellValue: ({ row }) => {
+              const region = findRegion(row.getValue("oblast"));
+              return i18n.language === "bg" ? region?.name : region?.name_en;
+            },
             cell: ({ row }) => {
               const region = findRegion(row.getValue("oblast"));
               return (
@@ -213,6 +205,12 @@ export const ReportTemplate: FC<{
           {
             accessorKey: "obshtina",
             header: t("municipality"),
+            cellValue: ({ row }) => {
+              const municipality = findMunicipality(row.getValue("obshtina"));
+              return i18n.language === "bg"
+                ? municipality?.name
+                : municipality?.name_en;
+            },
             cell: ({ row }) => {
               const municipality = findMunicipality(row.getValue("obshtina"));
               return (
@@ -228,6 +226,12 @@ export const ReportTemplate: FC<{
             accessorKey: "ekatte",
             hidden: !visibleColumns.includes("ekatte"),
             header: t("settlement"),
+            cellValue: ({ row }) => {
+              const settlement = findSettlement(row.getValue("ekatte"));
+              return i18n.language === "bg"
+                ? settlement?.name
+                : settlement?.name_en;
+            },
             cell: ({ row }) => {
               const settlement = findSettlement(row.getValue("ekatte"));
               return (
@@ -251,120 +255,68 @@ export const ReportTemplate: FC<{
           },
           {
             accessorKey: "totalVotes",
-            header: () => (
-              <Hint text={t("total_party_votes_explainer")}>
-                <div>{isSmall ? t("votes") : t("total_votes")}</div>
-              </Hint>
-            ),
-            className: "text-right",
-            cell: ({ row }) => formatThousands(row.original.totalVotes),
+            headerHint: t("total_party_votes_explainer"),
+            header: isSmall ? t("votes") : t("total_votes"),
+            dataType: "thousands",
           },
           {
             accessorKey: "pctPartyVote",
             hidden: hiddenColumns.includes("pctPartyVote"),
-            header: () => (
-              <Hint text={t("pct_party_votes_explainer")}>
-                <div>%</div>
-              </Hint>
-            ),
-            className: "text-right",
-            cell: ({ row }) => formatPct(row.getValue("pctPartyVote"), 2),
+            headerHint: t("pct_party_votes_explainer"),
+            header: "%",
+            dataType: "percent",
           },
           {
             accessorKey: "voterTurnout",
             hidden: !visibleColumns.includes("voterTurnout"),
-            header: () => (
-              <Hint text={t("pct_total_voters_explainer")}>
-                <div>{t("voter_turnout")}</div>
-              </Hint>
-            ),
-            className: "text-right",
-            cell: ({ row }) => formatPct(row.original.value, 2),
+            headerHint: t("pct_total_voters_explainer"),
+            header: t("voter_turnout"),
+            dataType: "percent",
           },
           {
             accessorKey: "pctAdditionalVoters",
             hidden: !visibleColumns.includes("pctAdditionalVoters"),
-            header: () => (
-              <Hint text={t("pct_additional_voters_explainer")}>
-                <div>{t("additional_voters")}</div>
-              </Hint>
-            ),
-            className: "text-right",
-            cell: ({ row }) => formatPct(row.original.value, 2),
+            headerHint: t("pct_additional_voters_explainer"),
+            header: t("additional_voters"),
+            dataType: "percent",
           },
           {
             accessorKey: "pctSupportsNoOne",
             hidden: !visibleColumns.includes("pctSupportsNoOne"),
-            header: () => (
-              <Hint text={t("num_supports_no_one_explainer")}>
-                <div>{t("support_no_one")}</div>
-              </Hint>
-            ),
-            className: "text-right",
-            cell: ({ row }) => formatPct(row.original.value, 2),
+            headerHint: t("num_supports_no_one_explainer"),
+            header: t("support_no_one"),
+            dataType: "percent",
           },
           {
             accessorKey: "pctInvalidBallots",
             hidden: !visibleColumns.includes("pctInvalidBallots"),
-            header: () => (
-              <Hint text={t("pct_invalid_paper_ballots")}>
-                <div>{t("invalid_ballots")}</div>
-              </Hint>
-            ),
-            className: "text-right",
-            cell: ({ row }) => formatPct(row.original.value, 2),
+            headerHint: t("pct_invalid_paper_ballots"),
+            header: t("invalid_ballots"),
+            dataType: "percent",
           },
           {
             accessorKey: "prevYearVotes",
             hidden: priorElections && !visibleColumns.includes("prevYearVotes"),
-            header: (
-              <Hint text={t("prev_election_votes_explainer")}>
-                <div>
-                  {priorElections
-                    ? localDate(priorElections.name)
-                    : t("prior_elections")}
-                </div>
-              </Hint>
-            ) as never,
-            className: "text-right",
-            cell: ({ row }) => formatThousands(row.getValue("prevYearVotes")),
+            headerHint: t("prev_election_votes_explainer"),
+            header: priorElections
+              ? localDate(priorElections.name)
+              : t("prior_elections"),
+            dataType: "thousands",
           },
           {
             accessorKey: "prevYearChangeVotes",
             hidden: priorElections && !visibleColumns.includes("prevYearVotes"),
-            header: (
-              <Hint text={t("prev_election_change_votes_explainer")}>
-                <div>{t("change")}</div>
-              </Hint>
-            ) as never,
-            className: "text-right",
-            cell: ({ row }) => (
-              <div
-                className={`${row.original.prevYearChangeVotes && row.original.prevYearChangeVotes < 0 ? "text-destructive" : "text-secondary-foreground"}`}
-              >
-                {formatThousands(row.original.prevYearChangeVotes)}
-              </div>
-            ),
+            headerHint: t("prev_election_change_votes_explainer"),
+            header: t("change"),
+            dataType: "thousands",
           },
           {
             accessorKey: "value",
             hidden: !visibleColumns.includes("prevYearChange"),
-            header: (
-              <Hint text={t("pct_prev_election_votes_explainer")}>
-                <div>{isSmall ? "+/-%" : `% ${t("change")}`}</div>
-              </Hint>
-            ) as never,
-            className: "font-bold text-right",
-            cell: ({ row }) => {
-              const pctChange: number = row.original.value;
-              return (
-                <div
-                  className={`${pctChange && pctChange < 0 ? "text-destructive" : "text-secondary-foreground"}`}
-                >
-                  {formatPct(pctChange, 2)}
-                </div>
-              );
-            },
+            headerHint: t("pct_prev_election_votes_explainer"),
+            header: isSmall ? "+/-%" : `% ${t("change")}`,
+            className: "font-bold",
+            dataType: "pctChange",
           },
         ]}
         data={data || []}

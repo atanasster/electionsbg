@@ -34,6 +34,11 @@ export const SettlementsScreen = () => {
       {i18n.language === "bg" ? info?.name : info?.name_en}
     </>
   );
+  const titleStr = `${
+    i18n.language === "bg"
+      ? region.long_name || region.name
+      : region.long_name_en || region.name_en
+  } / ${i18n.language === "bg" ? info?.name : info?.name_en}`;
   return (
     <>
       <SEO
@@ -46,7 +51,11 @@ export const SettlementsScreen = () => {
         protocol={municipality?.results.protocol}
         votes={municipality?.results.votes}
       />
-      <SettlementData title={title} municipality={muniCode} />
+      <SettlementData
+        title={title}
+        municipality={muniCode}
+        titleStr={titleStr}
+      />
     </>
   );
 };

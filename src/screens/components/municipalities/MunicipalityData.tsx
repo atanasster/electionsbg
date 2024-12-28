@@ -1,11 +1,11 @@
 import { MapLayout } from "@/layout/dataview/MapLayout";
-import { FC, ReactNode } from "react";
+import { FC } from "react";
 import { MunicipalitiesMap } from "./MunicipalitiesMap";
 import { DataViewContainer } from "@/layout/dataview/DataViewContainer";
 import { MunicipalityPartyTable } from "./MunicipalityPartyTable";
 import { MunicipalityHistoryChart } from "./MunicipalityHistoryChart";
 
-export const MunicipalityData: FC<{ region: string; title: ReactNode }> = ({
+export const MunicipalityData: FC<{ region: string; title: string }> = ({
   region,
   title,
 }) => {
@@ -25,7 +25,8 @@ export const MunicipalityData: FC<{ region: string; title: ReactNode }> = ({
             </MapLayout>
           );
         }
-        if (view === "table") return <MunicipalityPartyTable region={region} />;
+        if (view === "table")
+          return <MunicipalityPartyTable region={region} title={title} />;
         if (view === "chart")
           return <MunicipalityHistoryChart region={region} />;
       }}

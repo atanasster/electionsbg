@@ -1,13 +1,10 @@
 import { PartyFiling, PartyFilingRecord, PartyInfo } from "@/data/dataTypes";
 import { useElectionContext } from "@/data/ElectionContext";
-import { DataTable, DataTableColumns } from "@/ux/DataTable";
-import { Hint } from "@/ux/Hint";
+import { DataTable, DataTableColumns } from "@/ux/data_table/DataTable";
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
 import {
   findPrevVotes,
-  formatPct,
-  formatThousands,
   localDate,
   totalActualVoters,
   totalIncomeFiling,
@@ -131,66 +128,41 @@ export const FinancingTable = () => {
       {
         accessorKey: "party",
         header: t("party"),
+        cellValue: ({ row }) =>
+          `${row.original.number},${row.original.nickName}`,
         cell: ({ row }) => <PartyLink party={row.original} />,
       },
       {
         accessorKey: "totalVotes",
         hidden: true,
-        header: (
-          <Hint text={t("total_party_votes_explainer")}>
-            <div>{t("total_votes")}</div>
-          </Hint>
-        ) as never,
-        className: "text-right",
-        cell: ({ row }) => formatThousands(row.getValue("totalVotes")),
+        headerHint: t("total_party_votes_explainer"),
+        header: t("total_votes"),
+        dataType: "thousands",
       },
       {
         accessorKey: "pctVotes",
-        header: (
-          <Hint text={t("pct_party_votes_explainer")}>
-            <div>%</div>
-          </Hint>
-        ) as never,
-        className: "text-right",
-        cell: ({ row }) => formatPct(row.getValue("pctVotes"), 2),
+        headerHint: t("pct_party_votes_explainer"),
+        header: "%",
+        dataType: "percent",
       },
       {
         accessorKey: "prevTotalVotes",
         hidden: true, //!priorElections,
-        header: (
-          <Hint text={t("prev_election_votes_explainer")}>
-            <div>{t("prior_elections")}</div>
-          </Hint>
-        ) as never,
-        className: "text-right",
-        cell: ({ row }) => formatThousands(row.getValue("prevTotalVotes")),
+        headerHint: t("prev_election_votes_explainer"),
+        header: t("prior_elections"),
+        dataType: "thousands",
       },
       {
         accessorKey: "pctPrevChange",
         hidden: !priorElections,
-        header: (
-          <Hint text={t("pct_prev_election_votes_explainer")}>
-            <div>{`+/-`}</div>
-          </Hint>
-        ) as never,
-        className: "font-bold text-right",
-        cell: ({ row }) => {
-          const pctChange: number = row.getValue("pctPrevChange");
-          return (
-            <div
-              className={`${pctChange && pctChange < 0 ? "text-destructive" : "text-secondary-foreground"}`}
-            >
-              {formatPct(row.getValue("pctPrevChange"), 2)}
-            </div>
-          );
-        },
+        headerHint: t("pct_prev_election_votes_explainer"),
+        header: `+/-`,
+        className: "font-bold",
+        dataType: "pctChange",
       },
       {
-        header: (
-          <Hint text={t("source_of_income_explainer")}>
-            <div>{t("source")}</div>
-          </Hint>
-        ) as never,
+        headerHint: t("source_of_income_explainer"),
+        header: t("source"),
         colSpan: 4,
         hidden: !isMedium,
         id: "source",
@@ -198,90 +170,57 @@ export const FinancingTable = () => {
           {
             header: t("parties"),
             accessorKey: "totalFromParties",
-            className: "text-right",
-            cell: ({ row }) =>
-              formatThousands(row.getValue("totalFromParties"), 0),
+            dataType: "money",
           },
           {
             header: t("donors"),
             accessorKey: "totalFromDonors",
-            className: "text-right",
-            cell: ({ row }) =>
-              formatThousands(row.getValue("totalFromDonors"), 0),
+            dataType: "money",
           },
           {
             header: t("candidates"),
             accessorKey: "totalFromCandidates",
-            className: "text-right",
-            cell: ({ row }) =>
-              formatThousands(row.getValue("totalFromCandidates"), 0),
+            dataType: "money",
           },
           {
             header: t("media"),
             accessorKey: "totalMediaPackage",
-            className: "text-right",
-            cell: ({ row }) =>
-              formatThousands(row.getValue("totalMediaPackage"), 0),
+            dataType: "money",
           },
         ],
       },
       {
         accessorKey: "totalIncome",
-        header: (
-          <Hint text={t("total_financing_explainer")}>
-            <div>{t("income")}</div>
-          </Hint>
-        ) as never,
-        className: "font-bold text-right",
-        cell: ({ row }) => formatThousands(row.getValue("totalIncome"), 0),
+        headerHint: t("total_financing_explainer"),
+        header: t("income"),
+        className: "font-bold",
+        dataType: "money",
       },
       {
         id: "last_year",
         hidden: !raw_last_year,
-        header: (
-          <Hint text={t("prior_campaign_financing_explainer")}>
-            {priorElections
-              ? localDate(priorElections.name)
-              : t("prior_campaign")}
-          </Hint>
-        ) as never,
+        headerHint: t("prior_campaign_financing_explainer"),
+        header: priorElections
+          ? localDate(priorElections.name)
+          : t("prior_campaign"),
         colSpan: 2,
         columns: [
           {
             accessorKey: "lyIncome",
             hidden: !priorElections,
-            header: (
-              <Hint text={t("total_financing_prev_campaign_explainer")}>
-                <div>
-                  {priorElections
-                    ? localDate(priorElections.name)
-                    : t("income")}
-                </div>
-              </Hint>
-            ) as never,
-            className: "text-right",
-            cell: ({ row }) => formatThousands(row.getValue("lyIncome"), 0),
+            headerHint: t("total_financing_prev_campaign_explainer"),
+            header: priorElections
+              ? localDate(priorElections.name)
+              : t("income"),
+            dataType: "money",
           },
           {
             accessorKey: "pctIncomeChange",
             hidden: !priorElections,
-            header: (
-              <Hint text={t("total_financing_ptc_change_explainer")}>
-                <div>+/-</div>
-              </Hint>
-            ) as never,
+            headerHint: t("total_financing_ptc_change_explainer"),
+            header: "+/-",
             className: "font-bold text-right",
-            cell: ({ row }) => {
-              const pctIncomeChange: number | undefined =
-                row.getValue("pctIncomeChange");
-              return (
-                <div
-                  className={`${pctIncomeChange && pctIncomeChange < 0 ? "text-destructive" : "text-secondary-foreground"}`}
-                >
-                  {formatPct(pctIncomeChange)}
-                </div>
-              );
-            },
+            dataType: "pctChange",
           },
         ],
       },
@@ -292,6 +231,7 @@ export const FinancingTable = () => {
     <div className="w-full">
       <Title className="py-8">{t("campaign_financing")}</Title>
       <DataTable
+        title={t("campaign_financing")}
         pageSize={50}
         columns={columns}
         stickyColumn={true}
