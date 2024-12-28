@@ -31,20 +31,20 @@ export function headerRender<TData, TValue>(
     getValue()
   );
 
-  return header.column.getCanSort() ? (
+  return (
     <div className="flex justify-center items-center gap-2">
       {rendered}
-      <Button
-        variant="ghost"
-        className="px-0"
-        onClick={() =>
-          header.column.toggleSorting(header.column.getIsSorted() === "asc")
-        }
-      >
-        <ArrowUpDown className="h-4 w-4 " />
-      </Button>
+      {header.column.getCanSort() && (
+        <Button
+          variant="ghost"
+          className="px-0"
+          onClick={() =>
+            header.column.toggleSorting(header.column.getIsSorted() === "asc")
+          }
+        >
+          <ArrowUpDown className="h-4 w-4 " />
+        </Button>
+      )}
     </div>
-  ) : (
-    rendered
   );
 }
