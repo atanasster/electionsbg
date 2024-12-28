@@ -303,5 +303,9 @@ export const campaignCostFiling = (filing?: PartyFiling) =>
   filing
     ? totalExpenseFiling(filing.expenses) + campaignNonMonetaryCost(filing)
     : 0;
-export const pctChange = (last?: number, prior?: number) =>
-  prior ? (100 * ((last || 0) - prior)) / prior : undefined;
+export const pctChange = (
+  last?: number,
+  prior?: number,
+  decimals: number = 2,
+) =>
+  prior ? ((100 * ((last || 0) - prior)) / prior).toFixed(decimals) : undefined;

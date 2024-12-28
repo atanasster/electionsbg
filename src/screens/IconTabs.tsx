@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
-import { Separator } from "@radix-ui/react-separator";
+import { Separator } from "@/components/ui/separator";
 import { ReactNode, useState } from "react";
 import { useTranslation } from "react-i18next";
 
