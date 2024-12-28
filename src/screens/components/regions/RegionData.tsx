@@ -1,11 +1,11 @@
 import { MapLayout } from "@/layout/dataview/MapLayout";
-import { FC, ReactNode } from "react";
+import { FC } from "react";
 import { RegionsMap } from "./RegionsMap";
 import { DataViewContainer } from "@/layout/dataview/DataViewContainer";
 import { RegionsPartyTable } from "./RegionsPartyTable";
 import { RegionsHistoryChart } from "./RegionsHistoryChart";
 
-export const RegionData: FC<{ title: ReactNode }> = ({ title }) => {
+export const RegionData: FC<{ title: string }> = ({ title }) => {
   return (
     <DataViewContainer title={title}>
       {(view) => {
@@ -18,7 +18,7 @@ export const RegionData: FC<{ title: ReactNode }> = ({ title }) => {
             </MapLayout>
           );
 
-        if (view === "table") return <RegionsPartyTable />;
+        if (view === "table") return <RegionsPartyTable title={title} />;
         if (view === "chart") return <RegionsHistoryChart />;
       }}
     </DataViewContainer>

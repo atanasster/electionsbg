@@ -36,6 +36,7 @@ export const Sections: FC<{ ekatte: string }> = ({ ekatte }) => {
   const region = findRegion(info?.oblast);
   const shortTitle =
     info && (i18n.language === "bg" ? info?.name : info?.name_en);
+
   const title = (
     <>
       {region?.oblast && (
@@ -88,13 +89,33 @@ export const Sections: FC<{ ekatte: string }> = ({ ekatte }) => {
                 <Caption className="py-8">
                   {t("sections")} {title}
                 </Caption>
-                <SectionsList sections={settlement.sections} />
+                <SectionsList
+                  sections={settlement.sections}
+                  title={shortTitle || t("sections")}
+                />
               </>
             );
           }
           if (view == "table") {
             return (
               <PartyVotesTable
+                title={`${
+                  region?.oblast
+                    ? `${
+                        i18n.language === "bg"
+                          ? region?.long_name || region?.name
+                          : region?.long_name_en || region?.name_en
+                      } / `
+                    : ""
+                }${
+                  municipality?.obshtina
+                    ? `${
+                        i18n.language === "bg"
+                          ? municipality?.name
+                          : municipality?.name_en
+                      } / `
+                    : ""
+                }${shortTitle}`}
                 results={settlement?.results}
                 stats={stats}
                 prevElection={prevVotes}

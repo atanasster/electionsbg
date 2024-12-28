@@ -15,12 +15,11 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { useTopParties } from "@/data/parties/useTopParties";
-import { findPrevVotes, formatPct, formatThousands } from "@/data/utils";
-import { DataTable, DataTableColumns } from "@/ux/DataTable";
+import { findPrevVotes } from "@/data/utils";
+import { DataTable, DataTableColumns } from "@/ux/data_table/DataTable";
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
-import { Hint } from "@/ux/Hint";
 import { HistoryChart } from "./charts/HistoryChart";
 import { DialogClose } from "@radix-ui/react-dialog";
 import { Button } from "@/components/ui/button";
@@ -33,7 +32,8 @@ export const PartyVotesTable: FC<{
   results?: VoteResults;
   stats?: ElectionInfo[];
   prevElection?: ElectionInfo;
-}> = ({ results, prevElection, stats }) => {
+  title: string;
+}> = ({ results, prevElection, stats, title }) => {
   const { t } = useTranslation();
   const { isConsolidated, consolidated } = useConsolidatedLabel();
   const isXSmall = useMediaQueryMatch("xs");
@@ -81,6 +81,8 @@ export const PartyVotesTable: FC<{
       {
         accessorKey: "partyNum",
         header: t("party"),
+        cellValue: ({ row }) =>
+          `${row.original.partyNum},${row.original.nickName}`,
         cell: ({ row }) => (
           <PartyLink
             party={
@@ -96,97 +98,57 @@ export const PartyVotesTable: FC<{
         accessorKey: "paperVotes",
         header: t("paper_votes"),
         hidden: isSmall || !hasPaperVotes,
-        className: "text-right",
-        cell: ({ row }) => formatThousands(row.getValue("paperVotes")),
+        dataType: "thousands",
       },
       {
         accessorKey: "machineVotes",
         header: t("machine_votes"),
         hidden: isSmall || !hasMachineVotes,
-        className: "text-right",
-        cell: ({ row }) => formatThousands(row.getValue("machineVotes")),
+        dataType: "thousands",
       },
       {
         accessorKey: "totalVotes",
-        header: (
-          <Hint text={t("total_party_votes_explainer")}>
-            <div>{isXSmall ? t("votes") : t("total_votes")}</div>
-          </Hint>
-        ) as never,
-        className: "text-right",
-        cell: ({ row }) => formatThousands(row.getValue("totalVotes")),
+        headerHint: t("total_party_votes_explainer"),
+        header: isXSmall ? t("votes") : t("total_votes"),
+        dataType: "thousands",
       },
       {
         accessorKey: "pctVotes",
-        header: (
-          <Hint text={t("pct_party_votes_explainer")}>
-            <div>%</div>
-          </Hint>
-        ) as never,
-        className: "text-right",
-        cell: ({ row }) => formatPct(row.getValue("pctVotes"), 2),
+        headerHint: t("pct_party_votes_explainer"),
+        header: "%",
+        dataType: "percent",
       },
       {
         accessorKey: "prevTotalVotes",
         hidden: !prevElection,
-        className: "text-right",
-        header: (
-          <Hint text={t("prev_election_votes_explainer")}>
-            <div>{isXSmall ? t("prior") : t("prior_elections")}</div>
-          </Hint>
-        ) as never,
-        cell: ({ row }) => formatThousands(row.getValue("prevTotalVotes")),
+        headerHint: t("prev_election_votes_explainer"),
+        header: isXSmall ? t("prior") : t("prior_elections"),
+        dataType: "thousands",
       },
       {
         accessorKey: "pctPrevChange",
         hidden: !prevElection,
-        className: "font-bold text-right",
-        header: (
-          <Hint text={t("pct_prev_election_votes_explainer")}>
-            <div>{isXSmall ? `+/-` : `% ${t("change")}`}</div>
-          </Hint>
-        ) as never,
-        cell: ({ row }) => {
-          const pctChange: number = row.getValue("pctPrevChange");
-          return (
-            <div
-              className={`${pctChange && pctChange < 0 ? "text-destructive" : "text-secondary-foreground"}`}
-            >
-              {formatPct(row.getValue("pctPrevChange"), 2)}
-            </div>
-          );
-        },
+        className: "font-bold",
+        headerHint: t("pct_prev_election_votes_explainer"),
+        header: isXSmall ? `+/-` : `% ${t("change")}`,
+        dataType: "pctChange",
       },
       {
         accessorKey: "adjustedPctPrevChange",
         hidden: !prevElection || !isLarge,
-        className: "font-bold text-right",
-        header: (
-          <Hint text={t("pct_adjusted_change_explainer")}>
-            <div>{t("adjusted_change")}</div>
-          </Hint>
-        ) as never,
-        cell: ({ row }) => {
-          const pctChange: number = row.getValue("adjustedPctPrevChange");
-          return (
-            <div
-              className={`${pctChange && pctChange < 0 ? "text-destructive" : "text-secondary-foreground"}`}
-            >
-              {formatPct(row.getValue("adjustedPctPrevChange"), 2)}
-            </div>
-          );
-        },
+        className: "font-bold",
+        dataType: "pctChange",
+        headerHint: t("pct_adjusted_change_explainer"),
+        header: t("adjusted_change"),
       },
 
       {
         accessorKey: "chart",
         hidden: !prevElection,
         className: "py-0 md:py-0",
-        header: (
-          <Hint text={t("all_elections_explainer")}>
-            <div>{isLarge ? t("all_elections") : t("chart")}</div>
-          </Hint>
-        ) as never,
+        headerHint: t("all_elections_explainer"),
+        header: isLarge ? t("all_elections") : t("chart"),
+        exportHidden: true,
         cell: ({ row }) =>
           stats && (
             <Dialog>
@@ -254,6 +216,7 @@ export const PartyVotesTable: FC<{
       <Caption className="py-8">{t("votes_by_party")}</Caption>
       {consolidated}
       <DataTable
+        title={title}
         pageSize={data.length}
         columns={columns}
         stickyColumn={true}

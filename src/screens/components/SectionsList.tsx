@@ -5,21 +5,20 @@ import {
   SectionInfo,
 } from "@/data/dataTypes";
 import { Caption } from "@/ux/Caption";
-import { DataTable } from "@/ux/DataTable";
+import { DataTable } from "@/ux/data_table/DataTable";
 import { Tooltip } from "@/ux/Tooltip";
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { PartyVotesXS } from "./PartyVotesXS";
-import { Hint } from "@/ux/Hint";
-import { formatPct, formatThousands } from "@/data/utils";
 import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
 import { Link } from "@/ux/Link";
 import { usePartyInfo } from "@/data/parties/usePartyInfo";
 import { PartyLink } from "./party/PartyLink";
 
-export const SectionsList: FC<{ sections: ElectionSettlement["sections"] }> = ({
-  sections,
-}) => {
+export const SectionsList: FC<{
+  sections: ElectionSettlement["sections"];
+  title: string;
+}> = ({ sections, title }) => {
   const { t } = useTranslation();
   const { topVotesParty } = usePartyInfo();
   const isSmall = useMediaQueryMatch("sm");
@@ -70,6 +69,7 @@ export const SectionsList: FC<{ sections: ElectionSettlement["sections"] }> = ({
       unknown
     >
       pageSize={25}
+      title={title}
       stickyColumn={true}
       columns={[
         {
@@ -93,55 +93,35 @@ export const SectionsList: FC<{ sections: ElectionSettlement["sections"] }> = ({
         {
           accessorKey: "voterTurnout",
           hidden: isSmall,
-          header: () => (
-            <Hint text={t("pct_total_voters_explainer")}>
-              <div>{t("voter_turnout")}</div>
-            </Hint>
-          ),
-          className: "text-right",
-          cell: ({ row }) => formatPct(row.original.voterTurnout, 2),
+          headerHint: t("pct_total_voters_explainer"),
+          header: t("voter_turnout"),
+          dataType: "percent",
         },
         {
           accessorKey: "partyVotes.paperVotes",
           hidden: !isMedium || !(hasMachineVotes && hasPaperVotes),
-          header: () => (
-            <Hint text={t("num_paper_ballots_found_explainer")}>
-              <div>{t("paper_votes")}</div>
-            </Hint>
-          ),
-          className: "text-right",
-          cell: ({ row }) =>
-            formatThousands(row.original.results.protocol?.numValidVotes),
+          headerHint: t("num_paper_ballots_found_explainer"),
+          header: t("paper_votes"),
+          dataType: "thousands",
         },
         {
           accessorKey: "partyVotes.machineVotes",
           hidden: !isMedium || !(hasMachineVotes && hasPaperVotes),
-          header: () => (
-            <Hint text={t("total_machine_votes_explainer")}>
-              <div>{t("machine_votes")}</div>
-            </Hint>
-          ),
-          className: "text-right",
-          cell: ({ row }) =>
-            formatThousands(
-              row.original.results.protocol?.numValidMachineVotes,
-            ),
+          headerHint: t("total_machine_votes_explainer"),
+          header: t("machine_votes"),
+          dataType: "thousands",
         },
         {
           accessorKey: "protocol.totalActualVoters",
-          header: () => (
-            <Hint text={t("total_voters_explainer")}>
-              <div>{isSmall ? t("votes") : t("total_votes")}</div>
-            </Hint>
-          ),
-          className: "text-right",
-          cell: ({ row }) =>
-            formatThousands(row.original.results.protocol?.totalActualVoters),
+          headerHint: t("total_voters_explainer"),
+          header: isSmall ? t("votes") : t("total_votes"),
+          dataType: "thousands",
         },
         {
-          accessorKey: "partyVotes.key",
+          accessorKey: "partyVotes.nickName",
           header: t("winner"),
           size: 70,
+          cellValue: ({ row }) => row.original.partyVotes?.nickName,
           cell: ({ row }) => {
             return (
               <Tooltip

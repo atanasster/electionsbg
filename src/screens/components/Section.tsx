@@ -46,6 +46,7 @@ export const Section: FC<{ section: SectionInfo }> = ({ section }) => {
             if ((view === "map" || view === "table") && votes)
               return (
                 <PartyVotesTable
+                  title={title}
                   results={{ protocol: section.results.protocol, votes }}
                   stats={stats}
                   prevElection={prevVotes}

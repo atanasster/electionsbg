@@ -6,10 +6,11 @@ import { SettlementsMap } from "./SettlementsMap";
 import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
 import { SettlementHistoryChart } from "./SettlementHistoryChart";
 
-export const SettlementData: FC<{ municipality: string; title: ReactNode }> = ({
-  municipality,
-  title,
-}) => {
+export const SettlementData: FC<{
+  municipality: string;
+  title: ReactNode;
+  titleStr: string;
+}> = ({ municipality, title, titleStr }) => {
   const { findMunicipality } = useMunicipalities();
   const municipalityInfo = findMunicipality(municipality);
 
@@ -29,7 +30,12 @@ export const SettlementData: FC<{ municipality: string; title: ReactNode }> = ({
             </MapLayout>
           );
         if (view === "table")
-          return <SettlementPartyTable municipality={municipality} />;
+          return (
+            <SettlementPartyTable
+              municipality={municipality}
+              title={titleStr}
+            />
+          );
         if (view === "chart")
           return <SettlementHistoryChart municipality={municipality} />;
       }}

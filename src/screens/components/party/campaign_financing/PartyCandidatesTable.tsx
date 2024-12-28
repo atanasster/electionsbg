@@ -1,7 +1,5 @@
 import { FinancingFromCandidates } from "@/data/dataTypes";
-import { formatThousands } from "@/data/utils";
-import { DataTable, DataTableColumns } from "@/ux/DataTable";
-import { Hint } from "@/ux/Hint";
+import { DataTable, DataTableColumns } from "@/ux/data_table/DataTable";
 import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
@@ -32,33 +30,18 @@ export const PartyCandidatesTable: FC<{ data: FinancingFromCandidates[] }> = ({
       },
       {
         accessorKey: "nonMonetary",
-        header: (
-          <Hint text={t("pct_party_votes_explainer")}>
-            <div>{t("non_monetary")}</div>
-          </Hint>
-        ) as never,
-        className: "text-right",
-        cell: ({ row }) => formatThousands(row.original.nonMonetary, 0),
+        dataType: "money",
+        header: t("non_monetary"),
       },
       {
         accessorKey: "monetary",
-        header: (
-          <Hint text={t("pct_party_votes_explainer")}>
-            <div>{t("monetary")}</div>
-          </Hint>
-        ) as never,
-        className: "text-right",
-        cell: ({ row }) => formatThousands(row.original.monetary, 0),
+        dataType: "money",
+        header: t("monetary"),
       },
       {
         accessorKey: "totalAmount",
-        header: (
-          <Hint text={t("pct_party_votes_explainer")}>
-            <div>{t("total")}</div>
-          </Hint>
-        ) as never,
-        className: "text-right",
-        cell: ({ row }) => formatThousands(row.original.totalAmount, 0),
+        dataType: "money",
+        header: t("total"),
       },
     ],
     [isMedium, t],
@@ -92,6 +75,7 @@ export const PartyCandidatesTable: FC<{ data: FinancingFromCandidates[] }> = ({
   );
   return (
     <DataTable<TableData, unknown>
+      title={t("candidates")}
       pageSize={25}
       columns={columns}
       stickyColumn={true}

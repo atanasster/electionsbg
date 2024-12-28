@@ -35,6 +35,7 @@ export const SofiaScreen = () => {
           if (view === "table")
             return (
               <PartyVotesTable
+                title={title}
                 results={results}
                 prevElection={prevVotes}
                 stats={sofiaStats}

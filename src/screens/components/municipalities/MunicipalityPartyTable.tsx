@@ -4,7 +4,10 @@ import { PartyVotesTable } from "../PartyVotesTable";
 import { useRegionStats } from "@/data/regions/useRegionStats";
 import { useRegions } from "@/data/regions/useRegions";
 
-export const MunicipalityPartyTable: FC<{ region: string }> = ({ region }) => {
+export const MunicipalityPartyTable: FC<{ region: string; title: string }> = ({
+  region,
+  title,
+}) => {
   const { findRegion } = useRegions();
   const { votesByRegion } = useRegionVotes();
   const { prevVotes, stats } = useRegionStats(region);
@@ -13,6 +16,7 @@ export const MunicipalityPartyTable: FC<{ region: string }> = ({ region }) => {
 
   return (
     <PartyVotesTable
+      title={title}
       results={regionVotes?.results}
       prevElection={prevVotes}
       stats={stats}
