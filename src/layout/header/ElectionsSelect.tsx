@@ -25,7 +25,7 @@ export const ElectionsSelect: FC = () => {
     });
   }, [elections]);
   return (
-    <div className="flex gap-2 items-center md:pl-24 lg:pl-32  xl:pl-52">
+    <div className="flex gap-2 items-center pl-2 sm:pl-0 md:pl-10 lg:pl-32  xl:pl-52">
       <Hint text={t("prior_elections")}>
         <Button
           variant="outline"
