@@ -1,5 +1,4 @@
 import { FC } from "react";
-import { Helmet } from "react-helmet-async";
 import { useTranslation } from "react-i18next";
 
 export const SEO: FC<{
@@ -11,7 +10,7 @@ export const SEO: FC<{
   const allKeywords = ["bulgaria", "elections"].concat(keywords);
   const { t } = useTranslation();
   return (
-    <Helmet>
+    <>
       <title>{`${
         t("elections").charAt(0).toUpperCase() + t("elections").slice(1)
       } | ${title}`}</title>
@@ -26,6 +25,6 @@ export const SEO: FC<{
       <meta name="twitter:card" content={type} />
       <meta name="twitter:title" content={title} />
       <meta name="twitter:description" content={description} />
-    </Helmet>
+    </>
   );
 };

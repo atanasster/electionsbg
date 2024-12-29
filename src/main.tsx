@@ -1,6 +1,5 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
-import { HelmetProvider } from "react-helmet-async";
 import "@/index.css";
 import { App } from "@/App.tsx";
 import { themeLight } from "@/theme/utils.ts";
@@ -12,16 +11,14 @@ import { TouchProvider } from "./ux/TouchProvider";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <HelmetProvider>
-      <ThemeContextProvider value={themeLight}>
-        <QueryProvider>
-          <TouchProvider>
-            <TooltipProvider>
-              <App />
-            </TooltipProvider>
-          </TouchProvider>
-        </QueryProvider>
-      </ThemeContextProvider>
-    </HelmetProvider>
+    <ThemeContextProvider value={themeLight}>
+      <QueryProvider>
+        <TouchProvider>
+          <TooltipProvider>
+            <App />
+          </TooltipProvider>
+        </TouchProvider>
+      </QueryProvider>
+    </ThemeContextProvider>
   </React.StrictMode>,
 );
