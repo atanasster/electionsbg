@@ -65,57 +65,66 @@ export const Party: FC<{ nickName: string }> = ({ nickName }) => {
   const shortTitle = party?.nickName || nickName;
   return (
     <div className="w-full">
-      <Title>{party?.nickName || nickName}</Title>
-      <Caption>{title}</Caption>
-      {data ? (
-        <>
-          <FilingSummary
-            filing={data?.data.filing}
-            priorFiling={priorFinancing?.data.filing}
-            party={party}
-          />
-          <IconTabs<DataViewType>
-            title={shortTitle}
-            tabs={dataViews}
-            icons={DataTypeIcons}
-            storageKey="party_tabs"
-            className="w-28"
-          >
-            {(view) => {
-              if (view === "donors" && data) {
-                return (
-                  <>
-                    <Caption className="py-8">{t("donors")}</Caption>
-                    <PartyDonorsTable data={data.data.fromDonors} />
-                  </>
-                );
-              }
-              if (view == "candidates" && data) {
-                return (
-                  <>
-                    <Caption className="py-8">{t("candidates")}</Caption>
-                    <PartyCandidatesTable data={data.data.fromCandidates} />
-                  </>
-                );
-              }
-              if (view == "parties" && data) {
-                return (
-                  <>
-                    <Caption className="py-8">{t("parties")}</Caption>
-                    <PartyPartiesTable data={data.data.fromParties} />
-                  </>
-                );
-              }
-            }}
-          </IconTabs>
-        </>
+      {parties && !party ? (
+        <ErrorSection
+          title={nickName}
+          description={`${t("no_party_information")} ${localDate(selected)}`}
+        />
       ) : (
-        isError && (
-          <ErrorSection
-            title={t("no_results")}
-            description={`${t("no_financing_data")} ${localDate(selected)}`}
-          />
-        )
+        <>
+          <Title>{party?.nickName || nickName}</Title>
+          <Caption>{title}</Caption>
+          {data ? (
+            <>
+              <FilingSummary
+                filing={data?.data.filing}
+                priorFiling={priorFinancing?.data.filing}
+                party={party}
+              />
+              <IconTabs<DataViewType>
+                title={shortTitle}
+                tabs={dataViews}
+                icons={DataTypeIcons}
+                storageKey="party_tabs"
+                className="w-28"
+              >
+                {(view) => {
+                  if (view === "donors" && data) {
+                    return (
+                      <>
+                        <Caption className="py-8">{t("donors")}</Caption>
+                        <PartyDonorsTable data={data.data.fromDonors} />
+                      </>
+                    );
+                  }
+                  if (view == "candidates" && data) {
+                    return (
+                      <>
+                        <Caption className="py-8">{t("candidates")}</Caption>
+                        <PartyCandidatesTable data={data.data.fromCandidates} />
+                      </>
+                    );
+                  }
+                  if (view == "parties" && data) {
+                    return (
+                      <>
+                        <Caption className="py-8">{t("parties")}</Caption>
+                        <PartyPartiesTable data={data.data.fromParties} />
+                      </>
+                    );
+                  }
+                }}
+              </IconTabs>
+            </>
+          ) : (
+            isError && (
+              <ErrorSection
+                title={t("no_results")}
+                description={`${t("no_financing_data")} ${localDate(selected)}`}
+              />
+            )
+          )}
+        </>
       )}
     </div>
   );
