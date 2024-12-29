@@ -27,7 +27,7 @@ export const PartyVotesXS: FC<{
           <table className="w-full border rounded-md border-collapse table-auto">
             <thead>
               <tr className="border-b text-xs bg-gray-5 py-3">
-                <th className="text-left p-2">{t("party")}</th>
+                <th className="text-left py-1 px-2">{t("party")}</th>
                 <th className="text-center ">{t("votes")}</th>
                 <th className="text-center ">%</th>
               </tr>
