@@ -82,6 +82,8 @@
     --chart-5: 340 75% 55%;
   }
 }
- 
 
-
+.leaflet-control { z-index: 0 !important}
+.leaflet-container { z-index: 0 !important}
+.leaflet-pane { z-index: 0 !important}
+.leaflet-top, .leaflet-bottom {z-index: 0 !important}

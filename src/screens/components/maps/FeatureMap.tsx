@@ -10,6 +10,7 @@ export const FeatureMap: React.FC<
       feature: GeoFeature;
       onClick?: () => void;
       onCursor?: () => string;
+      opacity?: number;
     }
   >
 > = ({
@@ -21,6 +22,7 @@ export const FeatureMap: React.FC<
   onMouseEnter,
   onMouseMove,
   onMouseLeave,
+  opacity,
 }) => {
   const [active, setActive] = useState<boolean>(false);
   const [isLongPress, setIsLongPress] = useState(false);
@@ -53,8 +55,9 @@ export const FeatureMap: React.FC<
     <g>
       <path
         fill={fillColor}
+        fillOpacity={opacity}
         onContextMenu={(e) => e.preventDefault()}
-        stroke="rgb(182, 182, 182)"
+        stroke="rgb(232, 232, 232)"
         strokeWidth={active ? 2.5 : 1}
         cursor={onCursor ? onCursor() : "pointer"}
         className="path"

@@ -8,6 +8,7 @@ import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { SettlementJSONProps } from "../maps/mapTypes";
 import { useMapElements } from "../maps/useMapElements";
 import { SVGMapContainer } from "../maps/SVGMapContainer";
+import { LeafletMap } from "../maps/LeafletMap";
 
 const queryFn = async ({
   queryKey,
@@ -44,22 +45,24 @@ export const SettlementsMap: React.FC<{
   const findVotes = (props: SettlementJSONProps) =>
     votes?.find((v) => props.ekatte === v.ekatte);
 
-  const { maps, labels, markers } = useMapElements<SettlementJSONProps>({
-    findInfo,
-    findVotes,
-    mapGeo,
-    size,
-    votes,
-    withNames,
-    onClick: (props) => ({
-      pathname: `/sections/${props.ekatte}`,
-    }),
-    ...tooltipEvents,
-  });
+  const { maps, labels, markers, bounds, scale } =
+    useMapElements<SettlementJSONProps>({
+      findInfo,
+      findVotes,
+      mapGeo,
+      size,
+      votes,
+      withNames,
+      onClick: (props) => ({
+        pathname: `/sections/${props.ekatte}`,
+      }),
+      ...tooltipEvents,
+    });
 
   return (
     <div>
       <div className="relative">
+        <LeafletMap size={size} bounds={bounds} scale={scale} />
         <SVGMapContainer size={size}>
           {maps}
           {markers}

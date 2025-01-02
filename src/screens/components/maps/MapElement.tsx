@@ -19,12 +19,14 @@ export function MapElement<DType extends GeoJSONProps>({
   info,
   votes,
   onClick,
+  opacity,
 }: {
   feature: GeoJSONFeature<DType>;
   geoPath: d3.GeoPath;
   votes?: Votes[];
   info?: LocationInfo;
   onClick: (props: DType) => NavigateParams;
+  opacity?: number;
 } & TooltipEvents) {
   const { properties: props } = feature;
   const navigate = useNavigateParams();
@@ -37,6 +39,7 @@ export function MapElement<DType extends GeoJSONProps>({
       <FeatureMap
         geoPath={geoPath}
         fillColor={party?.color}
+        opacity={opacity}
         feature={feature}
         onMouseEnter={(e) => {
           onMouseEnter(

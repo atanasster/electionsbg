@@ -8,6 +8,7 @@ import { useElectionContext } from "@/data/ElectionContext";
 import { MunicipalityJSONProps } from "../maps/mapTypes";
 import { useMapElements } from "../maps/useMapElements";
 import { SVGMapContainer } from "../maps/SVGMapContainer";
+import { LeafletMap } from "../maps/LeafletMap";
 
 const queryFn = async ({
   queryKey,
@@ -44,22 +45,24 @@ export const MunicipalitiesMap: React.FC<{
   const findVotes = (props: MunicipalityJSONProps) =>
     votes?.find((v) => props.nuts4 === v.obshtina);
 
-  const { maps, labels, markers } = useMapElements<MunicipalityJSONProps>({
-    findInfo,
-    findVotes,
-    mapGeo,
-    size,
-    votes,
-    withNames,
-    onClick: (props) => ({
-      pathname: `/settlement/${props.nuts4}`,
-    }),
-    ...tooltipEvents,
-  });
+  const { maps, labels, markers, bounds, scale } =
+    useMapElements<MunicipalityJSONProps>({
+      findInfo,
+      findVotes,
+      mapGeo,
+      size,
+      votes,
+      withNames,
+      onClick: (props) => ({
+        pathname: `/settlement/${props.nuts4}`,
+      }),
+      ...tooltipEvents,
+    });
 
   return (
     <div>
       <div className="relative">
+        <LeafletMap size={size} bounds={bounds} scale={scale} />
         <SVGMapContainer size={size}>
           {maps}
           {markers}
