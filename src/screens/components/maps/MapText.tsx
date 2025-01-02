@@ -1,6 +1,6 @@
 import { LocationInfo } from "@/data/dataTypes";
 import { GeoFeature } from "@/screens/components/maps/mapTypes";
-import { geoDataCenter } from "@/screens/utils/d3_utils";
+import { geoDataCenter } from "@/screens/components/maps/d3_utils";
 import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
 import { GeoProjection } from "d3";
 import { FC } from "react";

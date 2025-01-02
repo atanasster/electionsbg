@@ -8,18 +8,17 @@ export const getDataProjection = (
   const draftProjection = d3.geoMercator().scale(1);
   // create the path
   const draftPath = d3.geoPath().projection(draftProjection);
-  // const path = d3.geoPath().projection(setMapProjection(municipalities));
-  const bounds = draftPath.bounds(data);
+  const draftBounds = draftPath.bounds(data);
   const scale =
     0.95 /
     Math.max(
-      (bounds[1][0] - bounds[0][0]) / size[0],
-      (bounds[1][1] - bounds[0][1]) / size[1],
+      (draftBounds[1][0] - draftBounds[0][0]) / size[0],
+      (draftBounds[1][1] - draftBounds[0][1]) / size[1],
     );
-  const geoBounds = d3.geoBounds(data);
+  const bounds = d3.geoBounds(data);
   const center: [number, number] = [
-    (geoBounds[1][0] + geoBounds[0][0]) / 2,
-    (geoBounds[1][1] + geoBounds[0][1]) / 2,
+    (bounds[1][0] + bounds[0][0]) / 2,
+    (bounds[1][1] + bounds[0][1]) / 2,
   ];
 
   const projection = d3
@@ -29,7 +28,7 @@ export const getDataProjection = (
     .translate([size[0] / 2, size[1] / 2]);
   const path = draftPath.projection(projection);
 
-  return { path, projection };
+  return { path, projection, bounds, scale };
 };
 
 export const geoDataCenter = (
@@ -41,3 +40,9 @@ export const geoDataCenter = (
   const ptRT = projection(bounds[1]);
   return { ptLB, ptRT };
 };
+
+export const zoomFromScale = (scale: number) =>
+  Math.log(scale * 2 * Math.PI) / Math.LN2 - 8;
+
+export const scaleFromZoom = (zoomLevel: number) =>
+  Math.pow(2, 8 + zoomLevel) / 2 / Math.PI;

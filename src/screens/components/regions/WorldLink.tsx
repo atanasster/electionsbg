@@ -28,7 +28,7 @@ export const WorldLink: FC<{ size: MapCoordinates }> = ({ size }) => {
       to={`/municipality/32`}
       style={{
         position: "absolute",
-        right: size[2],
+        left: size[0] - width,
         top: size[1] - height,
       }}
     >

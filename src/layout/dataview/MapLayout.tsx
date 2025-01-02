@@ -1,13 +1,11 @@
 import { useRef, useState, useLayoutEffect, JSX } from "react";
-import { Label } from "@/components/ui/label";
-import { Switch } from "@/components/ui/switch";
-import { useTranslation } from "react-i18next";
+import { Button } from "@/components/ui/button";
+import { Layers2 } from "lucide-react";
 
 export type MapCoordinates = [number, number, number, number];
 export const MapLayout: React.FC<{
   children: (dimension: MapCoordinates, withNames: boolean) => JSX.Element;
 }> = ({ children }) => {
-  const { t } = useTranslation();
   const [withNames, setWithNames] = useState(
     localStorage.getItem("map_with_names") === "true",
   );
@@ -39,20 +37,19 @@ export const MapLayout: React.FC<{
   return (
     <div className={`w-full lg:pb-8 pb-2 px-4 md:px-8`}>
       <div className="flex items-center space-x-2 pb-4 justify-end">
-        <Switch
-          id="with-names-mode"
-          checked={withNames}
-          onCheckedChange={(value) => {
+        <Button
+          variant="outline"
+          role="radio"
+          data-state={withNames ? "checked" : "unchecked"}
+          className="data-[state=checked]:bg-muted text-muted-foreground"
+          onClick={() => {
+            const value = !withNames;
             localStorage.setItem("map_with_names", value ? "true" : "false");
             setWithNames(value);
           }}
-        />
-        <Label
-          className="text-secondary-foreground"
-          htmlFor={"with-names-mode"}
         >
-          {t("with_names")}
-        </Label>
+          <Layers2 />
+        </Button>
       </div>
       <div
         ref={refContainer}

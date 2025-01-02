@@ -8,6 +8,7 @@ import { SVGMapContainer } from "../maps/SVGMapContainer";
 import { MapCoordinates } from "@/layout/dataview/MapLayout";
 import { WorldLink } from "./WorldLink";
 import { SofiaCity } from "./SofiaCity";
+import { LeafletMap } from "../maps/LeafletMap";
 
 export const RegionsMap: React.FC<{
   size: MapCoordinates;
@@ -22,31 +23,35 @@ export const RegionsMap: React.FC<{
   const findVotes = (props: RegionJSONProps) =>
     votes?.find((v) => props.nuts3 === v.key);
 
-  const { maps, labels, markers } = useMapElements<RegionJSONProps>({
-    findInfo,
-    findVotes,
-    mapGeo,
-    size,
-    votes,
-    withNames,
-    onClick: (props) => ({
-      pathname: `/municipality/${props.nuts3}`,
-    }),
-    ...tooltipEvents,
-  });
+  const { maps, labels, markers, bounds, scale } =
+    useMapElements<RegionJSONProps>({
+      findInfo,
+      findVotes,
+      mapGeo,
+      size,
+      votes,
+      withNames,
+      onClick: (props) => ({
+        pathname: `/municipality/${props.nuts3}`,
+      }),
+      ...tooltipEvents,
+    });
 
   return (
-    <div className="flex flex-row w-full">
-      <div className="relative">
-        <SVGMapContainer size={size}>
-          {maps}
-          {markers}
-          {labels}
-        </SVGMapContainer>
-        <WorldLink size={size} />
-        <SofiaCity size={size} />
+    <>
+      <div className="flex w-full">
+        <div className="relative">
+          <LeafletMap size={size} bounds={bounds} scale={scale} />
+          <SVGMapContainer size={size}>
+            {maps}
+            {markers}
+            {labels}
+          </SVGMapContainer>
+          <SofiaCity size={size} />
+          <WorldLink size={size} />
+        </div>
+        {tooltip}
       </div>
-      {tooltip}
-    </div>
+    </>
   );
 };

@@ -10,10 +10,11 @@ export const SVGMapContainer = ({
 }) => {
   return (
     <svg
-      className="overflow-hidden"
+      className="absolute top-0 left-0 overflow-hidden bg-transparent"
       width={size[0]}
       height={size[1]}
       xmlns="http://www.w3.org/2000/svg"
+      viewBox={`0 0 ${size[0]} ${size[1]}`}
     >
       <defs>
         <filter id="colored-bg" x="-5%" width="110%" y="0%" height="100%">
