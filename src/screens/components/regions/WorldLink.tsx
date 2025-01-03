@@ -20,7 +20,11 @@ export const WorldLink: FC<{ size: MapCoordinates }> = ({ size }) => {
   const isMedium = useMediaQueryMatch("md");
   const isXSmall = useMediaQueryMatch("xs");
   const width: number =
-    (isMedium || isLarge || isXSmall) && !isXLarge ? 120 : 160;
+    (isMedium || isLarge || isXSmall) && !isXLarge
+      ? isXSmall
+        ? 100
+        : 120
+      : 160;
 
   const height = 0.7 * width;
   return (
