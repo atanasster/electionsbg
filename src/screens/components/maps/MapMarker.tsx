@@ -15,11 +15,11 @@ const scaleVotes = ({
   minMarkerScale: number;
   maxMarkerScale: number;
 }) => {
-  return (
-    ((value - minVotes) * (maxMarkerScale - minMarkerScale)) /
-      (maxVotes - minVotes) +
-    minMarkerScale
-  );
+  return maxVotes === minVotes
+    ? maxMarkerScale
+    : ((value - minVotes) * (maxMarkerScale - minMarkerScale)) /
+        (maxVotes - minVotes) +
+        minMarkerScale;
 };
 
 export const MapMarker = ({
