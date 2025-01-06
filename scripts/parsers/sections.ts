@@ -8,10 +8,13 @@ export const parseSections = (
 ): Promise<SectionInfo[]> => {
   const result: string[][] = [];
   const allSections: SectionInfo[] = [];
-
+  const sectionsFileName = `${inFolder}/sections.txt`;
+  if (!fs.existsSync(sectionsFileName)) {
+    return Promise.resolve([]);
+  }
   return new Promise((resolve) =>
     fs
-      .createReadStream(`${inFolder}/sections.txt`)
+      .createReadStream(sectionsFileName)
       .pipe(
         parse({
           delimiter: ";",

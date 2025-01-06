@@ -27,9 +27,9 @@ const parseElection = async ({
     fs.mkdirSync(outFolder);
   }
   //const parties =
-  await parseParties(inFolder, outFolder, monthYear, stringify);
+  const parties = await parseParties(inFolder, outFolder, monthYear, stringify);
   const sections = await parseSections(inFolder, monthYear);
-  const votes = await parseVotes(inFolder, monthYear);
+  const votes = await parseVotes(inFolder, monthYear, parties);
   const protocols = await parseProtocols(
     inFolder,
     //outFolder,

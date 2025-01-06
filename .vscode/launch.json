@@ -19,12 +19,12 @@
      */
     "runtimeExecutable": "tsx",
     //"args": ["--all", "--prod", "--stats", "--reports"],
-    "args": ["--prod", "--financing"],
-    //"args": ["--prod", "--stats", "--reports"],
+    //"args": ["--prod", "--financing"],
+    "args": ["--prod", "--stats", "--reports"],
     //"args": ["--prod", "--stats"],
     //"args": ["--prod", "--search"],
    
-    //"args": ["--date=2024_06_09","--prod"],
+    //"args": ["--date=2009_07_05", "--prod"],
     //"args": ["--reports", "--prod"],
     /*
      * Open terminal when debugging starts (Optional)

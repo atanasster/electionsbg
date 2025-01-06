@@ -32,7 +32,7 @@ export const parseParties = async (
         for (let i = 0; i < result.length; i++) {
           const row = result[i];
 
-          const numRow = year <= "2013_05_12" ? 1 : 0;
+          const numRow = year === "2013_05_12" ? 1 : 0;
           const partyNumber = parseInt(row[numRow]);
           let party = allParties.find((p) => p.number === partyNumber);
           if (!party) {
