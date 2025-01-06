@@ -28,15 +28,36 @@ export const parseProtocols = async (
         const allProtocols: FullSectionProtocol[] = [];
         for (let i = 0; i < result.length; i++) {
           const row = result[i];
-          const sectionRow = year === "2014_10_05" ? 0 : 1;
-          const section = row[sectionRow];
+          const sectionRow =
+            year === "2014_10_05" || year === "2009_07_05" ? 0 : 1;
+          let section = row[sectionRow];
+          if (section.startsWith("*")) {
+            section = section.substring(1);
+          }
           const existingProtocol = allProtocols.find(
             (p) => p.section == section,
           );
           const protocol: FullSectionProtocol =
             existingProtocol || ({} as FullSectionProtocol);
           protocol.section = section;
-          if (year <= "2013_05_12") {
+          if (year === "2009_07_05") {
+            if (!existingProtocol) {
+              protocol.ballotsReceived = parseInt(row[1]);
+              protocol.numRegisteredVoters = parseInt(row[2]);
+              protocol.totalActualVoters = parseInt(row[9]);
+              protocol.numAdditionalVoters =
+                parseInt(row[3]) + parseInt(row[4]);
+
+              protocol.numPaperBallotsFound = parseInt(row[19]);
+              protocol.numValidVotes = parseInt(row[26]);
+              protocol.numInvalidBallotsFound =
+                protocol.totalActualVoters - protocol.numValidVotes;
+            } else {
+              protocol.numMachineBallots = parseInt(row[19]);
+              protocol.numValidNoOneMachineVotes = parseInt(row[25]);
+              protocol.numValidMachineVotes = parseInt(row[26]);
+            }
+          } else if (year === "2013_05_12") {
             protocol.ballotsReceived = parseInt(row[3]);
             protocol.numRegisteredVoters = parseInt(row[4]);
             protocol.numAdditionalVoters = parseInt(row[5]) + parseInt(row[6]);

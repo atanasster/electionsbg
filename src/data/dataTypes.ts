@@ -6,7 +6,6 @@ export type Votes = {
 };
 
 export type ElectionVotes = {
-  document: number;
   section: string;
   votes: Votes[];
 };

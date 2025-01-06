@@ -110,32 +110,35 @@ export const ProtocolSummary: FC<{
                       </Hint>
                     </div>
                   </div>
-                  <div className="flex justify-between text-xs text-muted-foreground">
-                    <Hint text={t("num_supports_no_one_explainer")}>
-                      <div>{`${t("support_no_one")}: `}</div>
-                    </Hint>
-                    <div className="flex">
+                  {(protocol.numValidNoOnePaperVotes !== undefined ||
+                    protocol.numValidNoOneMachineVotes !== undefined) && (
+                    <div className="flex justify-between text-xs text-muted-foreground">
                       <Hint text={t("num_supports_no_one_explainer")}>
-                        <div className="font-bold text-primary">
-                          {formatThousands(
-                            (protocol.numValidNoOnePaperVotes || 0) +
-                              (protocol.numValidNoOneMachineVotes || 0),
-                          )}
-                        </div>
+                        <div>{`${t("support_no_one")}: `}</div>
                       </Hint>
-                      <Hint text={t("pct_supports_no_one_explainer")}>
-                        <div className="font-bold text-primary ml-2">
-                          {`(${formatPct(
-                            100 *
-                              (((protocol.numValidNoOnePaperVotes || 0) +
-                                (protocol.numValidNoOneMachineVotes || 0)) /
-                                protocol.totalActualVoters),
-                            2,
-                          )})`}
-                        </div>
-                      </Hint>
+                      <div className="flex">
+                        <Hint text={t("num_supports_no_one_explainer")}>
+                          <div className="font-bold text-primary">
+                            {formatThousands(
+                              (protocol.numValidNoOnePaperVotes || 0) +
+                                (protocol.numValidNoOneMachineVotes || 0),
+                            )}
+                          </div>
+                        </Hint>
+                        <Hint text={t("pct_supports_no_one_explainer")}>
+                          <div className="font-bold text-primary ml-2">
+                            {`(${formatPct(
+                              100 *
+                                (((protocol.numValidNoOnePaperVotes || 0) +
+                                  (protocol.numValidNoOneMachineVotes || 0)) /
+                                  protocol.totalActualVoters),
+                              2,
+                            )})`}
+                          </div>
+                        </Hint>
+                      </div>
                     </div>
-                  </div>
+                  )}
                 </CardContent>
               </Card>
               {!isXSmall && !!protocol.numValidVotes && (

@@ -17,6 +17,7 @@ import { lookupCountryNumbers } from "./country_codes";
 import { regionsVotesFileName } from "../consts";
 import { splitSettlements } from "./split_settlements";
 import { splitMunicipalities } from "./split_municipalities";
+import { findSectionInOtherElections } from "./findSection";
 const municipalities = municipalitiesData;
 
 const regionCodes: { key: string; nuts3: string }[] = [
@@ -185,9 +186,14 @@ export const generateVotes = ({
       };
       electionRegions.push(region);
     }
-    const section = sections.find((s) => s.section === vote.section);
+    let section = sections.find((s) => s.section === vote.section);
     if (!section) {
-      throw new Error(`Could not find section for votes ${vote.section}`);
+      section = findSectionInOtherElections(vote.section, monthYear);
+      if (section) {
+        sections.push(section);
+      } else {
+        throw new Error(`Could not find section for votes ${vote.section}`);
+      }
     }
     let muniCode =
       regionCode === "32"
