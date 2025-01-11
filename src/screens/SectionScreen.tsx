@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useSectionsVotes } from "@/data/sections/useSectionsVotes";
-import { Section } from "./components/Section";
+import { Section } from "./components/sections/Section";
 import { useSettlementsInfo } from "@/data/settlements/useSettlements";
 import { useTranslation } from "react-i18next";
 import { useMunicipalities } from "@/data/municipalities/useMunicipalities";

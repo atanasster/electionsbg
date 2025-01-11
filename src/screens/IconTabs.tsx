@@ -71,7 +71,7 @@ export const IconTabs = <DType extends string>(props: {
                 >
                   {icons[key]}
                   <span className="text-xs text-muted-foreground">
-                    {t(key)}
+                    {t(key).toLowerCase()}
                   </span>
                 </Button>
               );

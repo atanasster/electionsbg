@@ -4,6 +4,7 @@ import { RegionsMap } from "./RegionsMap";
 import { DataViewContainer } from "@/layout/dataview/DataViewContainer";
 import { RegionsPartyTable } from "./RegionsPartyTable";
 import { RegionsHistoryChart } from "./RegionsHistoryChart";
+import { RegionsAreasTable } from "./RegionsAreasTable";
 
 export const RegionData: FC<{ title: string }> = ({ title }) => {
   return (
@@ -17,8 +18,8 @@ export const RegionData: FC<{ title: string }> = ({ title }) => {
               )}
             </MapLayout>
           );
-
-        if (view === "table") return <RegionsPartyTable title={title} />;
+        if (view === "table") return <RegionsAreasTable />;
+        if (view === "parties") return <RegionsPartyTable title={title} />;
         if (view === "chart") return <RegionsHistoryChart />;
       }}
     </DataViewContainer>

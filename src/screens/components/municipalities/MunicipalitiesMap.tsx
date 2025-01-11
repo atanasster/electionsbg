@@ -2,41 +2,19 @@ import { MapCoordinates } from "@/layout/dataview/MapLayout";
 import { useTooltip } from "@/ux/useTooltip";
 import { useMunicipalitiesMap } from "@/data/municipalities/useMunicipalitiesMap";
 import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
-import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
-import { ElectionMunicipality } from "@/data/dataTypes";
-import { useElectionContext } from "@/data/ElectionContext";
 import { MunicipalityJSONProps } from "../maps/mapTypes";
 import { useMapElements } from "../maps/useMapElements";
 import { SVGMapContainer } from "../maps/SVGMapContainer";
 import { LeafletMap } from "../maps/LeafletMap";
-
-const queryFn = async ({
-  queryKey,
-}: QueryFunctionContext<[string, string | null | undefined, string]>): Promise<
-  ElectionMunicipality[]
-> => {
-  if (!queryKey[1]) {
-    return [];
-  }
-  const response = await fetch(
-    `/${queryKey[1]}/municipalities/by/${queryKey[2]}.json`,
-  );
-  const data = await response.json();
-  return data;
-};
+import { useMunicipalitiesByRegion } from "@/data/municipalities/useMunicipalitiesByRegion";
 
 export const MunicipalitiesMap: React.FC<{
   region: string;
   size: MapCoordinates;
   withNames: boolean;
 }> = ({ size, withNames, region }) => {
-  const { selected } = useElectionContext();
-  const { data: votes } = useQuery({
-    queryKey: ["settlements_by_municipality", selected, region],
-    queryFn,
-    enabled: !!selected,
-  });
   const { tooltip, ...tooltipEvents } = useTooltip();
+  const votes = useMunicipalitiesByRegion(region);
   const mapGeo = useMunicipalitiesMap(region);
 
   const { findMunicipality } = useMunicipalities();

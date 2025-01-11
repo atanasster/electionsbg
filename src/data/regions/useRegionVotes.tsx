@@ -4,6 +4,7 @@ import { addResults } from "../utils";
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { useElectionContext } from "../ElectionContext";
 
+const SOFIA_REGIONS = ["S23", "S24", "S25"];
 const queryFn = async ({
   queryKey,
 }: QueryFunctionContext<
@@ -35,7 +36,7 @@ export const useRegionVotes = () => {
 
   const votesSofia = useCallback((): VoteResults | undefined => {
     return votes?.reduce((acc: VoteResults, v) => {
-      if (["S23", "S24", "S25"].includes(v.key)) {
+      if (SOFIA_REGIONS.includes(v.key)) {
         addResults(acc, v.results.votes, v.results.protocol);
       }
       return acc;
@@ -43,6 +44,9 @@ export const useRegionVotes = () => {
   }, [votes]);
   const countryRegions = useCallback((): ElectionRegion[] | undefined => {
     return votes?.filter((vote) => vote.key !== "32");
+  }, [votes]);
+  const sofiaRegions = useCallback((): ElectionRegion[] | undefined => {
+    return votes?.filter((v) => SOFIA_REGIONS.includes(v.key));
   }, [votes]);
   const countryVotes = useCallback(() => {
     const acc: VoteResults = {
@@ -63,5 +67,7 @@ export const useRegionVotes = () => {
     votesWorld,
     votesSofia,
     countryVotes,
+    sofiaRegions,
+    votes,
   };
 };

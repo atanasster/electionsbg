@@ -5,10 +5,11 @@ import { Title } from "@/ux/Title";
 import { useRegionVotes } from "@/data/regions/useRegionVotes";
 import { ProtocolSummary } from "./components/ProtocolSummary";
 import { PartyVotesTable } from "./components/PartyVotesTable";
-import { SofiaMap } from "./components/SofiaMap";
+import { SofiaMap } from "./components/sofia/SofiaMap";
 import { useSofiaStats } from "@/data/country/useSofiaStats";
 import { DataViewContainer } from "@/layout/dataview/DataViewContainer";
 import { MultiHistoryChart } from "./components/charts/MultiHistoryChart";
+import { SofiaAreasTable } from "./components/sofia/SofiaAreasTable";
 
 export const SofiaScreen = () => {
   const { t } = useTranslation();
@@ -32,7 +33,8 @@ export const SofiaScreen = () => {
                 )}
               </MapLayout>
             );
-          if (view === "table")
+          if (view === "table") return <SofiaAreasTable />;
+          if (view === "parties")
             return (
               <PartyVotesTable
                 title={title}

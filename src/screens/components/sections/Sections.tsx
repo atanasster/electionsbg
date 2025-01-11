@@ -1,7 +1,7 @@
 import { FC, ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { useSettlementVotes } from "@/data/settlements/useSettlementVotes";
-import { PartyVotesTable } from "./PartyVotesTable";
+import { PartyVotesTable } from "../PartyVotesTable";
 import { useSettlementStats } from "@/data/settlements/useSettlementStats";
 import { SectionsList } from "./SectionsList";
 import { useSettlementsInfo } from "@/data/settlements/useSettlements";
@@ -10,18 +10,18 @@ import { useRegions } from "@/data/regions/useRegions";
 import { Link } from "@/ux/Link";
 import { H1 } from "@/ux/H1";
 import { SEO } from "@/ux/SEO";
-import { ProtocolSummary } from "./ProtocolSummary";
-import { ChartLine, TableProperties, Vote } from "lucide-react";
+import { ProtocolSummary } from "../ProtocolSummary";
+import { ChartLine, UsersRound, Vote } from "lucide-react";
 import { Caption } from "@/ux/Caption";
-import { MultiHistoryChart } from "./charts/MultiHistoryChart";
-import { IconTabs } from "../IconTabs";
+import { MultiHistoryChart } from "../charts/MultiHistoryChart";
+import { IconTabs } from "../../IconTabs";
 
-const dataViews = ["sections", "table", "chart"] as const;
+const dataViews = ["sections", "parties", "chart"] as const;
 type DataViewType = (typeof dataViews)[number];
 
 const DataTypeIcons: Record<DataViewType, ReactNode> = {
   sections: <Vote />,
-  table: <TableProperties />,
+  parties: <UsersRound />,
   chart: <ChartLine />,
 };
 export const Sections: FC<{ ekatte: string }> = ({ ekatte }) => {
@@ -96,7 +96,7 @@ export const Sections: FC<{ ekatte: string }> = ({ ekatte }) => {
               </>
             );
           }
-          if (view == "table") {
+          if (view == "parties") {
             return (
               <PartyVotesTable
                 title={`${

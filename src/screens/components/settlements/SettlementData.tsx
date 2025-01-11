@@ -5,6 +5,7 @@ import { SettlementPartyTable } from "./SettlementPartyTable";
 import { SettlementsMap } from "./SettlementsMap";
 import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
 import { SettlementHistoryChart } from "./SettlementHistoryChart";
+import { SettlementsAreasTable } from "./SettlementsAreasTable";
 
 export const SettlementData: FC<{
   municipality: string;
@@ -30,6 +31,8 @@ export const SettlementData: FC<{
             </MapLayout>
           );
         if (view === "table")
+          return <SettlementsAreasTable municipality={municipality} />;
+        if (view === "parties")
           return (
             <SettlementPartyTable
               municipality={municipality}
