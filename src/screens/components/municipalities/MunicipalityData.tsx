@@ -4,6 +4,7 @@ import { MunicipalitiesMap } from "./MunicipalitiesMap";
 import { DataViewContainer } from "@/layout/dataview/DataViewContainer";
 import { MunicipalityPartyTable } from "./MunicipalityPartyTable";
 import { MunicipalityHistoryChart } from "./MunicipalityHistoryChart";
+import { MunicipalitiesAreasTable } from "./MunicipalitiesAreasTable";
 
 export const MunicipalityData: FC<{ region: string; title: string }> = ({
   region,
@@ -26,6 +27,8 @@ export const MunicipalityData: FC<{ region: string; title: string }> = ({
           );
         }
         if (view === "table")
+          return <MunicipalitiesAreasTable region={region} />;
+        if (view === "parties")
           return <MunicipalityPartyTable region={region} title={title} />;
         if (view === "chart")
           return <MunicipalityHistoryChart region={region} />;

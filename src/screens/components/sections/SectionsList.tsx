@@ -10,7 +10,7 @@ import { useTranslation } from "react-i18next";
 import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
 import { Link } from "@/ux/Link";
 import { usePartyInfo } from "@/data/parties/usePartyInfo";
-import { PartyLink } from "./party/PartyLink";
+import { PartyLink } from "../party/PartyLink";
 
 export const SectionsList: FC<{
   sections: ElectionSettlement["sections"];

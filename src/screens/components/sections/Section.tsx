@@ -1,13 +1,13 @@
 import { FC } from "react";
 import { Caption } from "@/ux/Caption";
 import { SectionInfo, Votes } from "@/data/dataTypes";
-import { ProtocolSummary } from "./ProtocolSummary";
+import { ProtocolSummary } from "../ProtocolSummary";
 import { useTranslation } from "react-i18next";
-import { PartyVotesTable } from "./PartyVotesTable";
+import { PartyVotesTable } from "../PartyVotesTable";
 import { useSectionStats } from "@/data/sections/useSectionStats";
 import { usePartyInfo } from "@/data/parties/usePartyInfo";
 import { DataViewContainer } from "@/layout/dataview/DataViewContainer";
-import { MultiHistoryChart } from "./charts/MultiHistoryChart";
+import { MultiHistoryChart } from "../charts/MultiHistoryChart";
 
 export const Section: FC<{ section: SectionInfo }> = ({ section }) => {
   const { t } = useTranslation();
@@ -39,11 +39,11 @@ export const Section: FC<{ section: SectionInfo }> = ({ section }) => {
           title={title}
           excluded={{
             exclude: "map",
-            replace: "table",
+            replace: "parties",
           }}
         >
           {(view) => {
-            if ((view === "map" || view === "table") && votes)
+            if ((view === "map" || view === "parties") && votes)
               return (
                 <PartyVotesTable
                   title={title}
