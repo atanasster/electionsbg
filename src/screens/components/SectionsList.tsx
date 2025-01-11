@@ -4,12 +4,9 @@ import {
   PartyVotes,
   SectionInfo,
 } from "@/data/dataTypes";
-import { Caption } from "@/ux/Caption";
 import { DataTable } from "@/ux/data_table/DataTable";
-import { Tooltip } from "@/ux/Tooltip";
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { PartyVotesXS } from "./PartyVotesXS";
 import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
 import { Link } from "@/ux/Link";
 import { usePartyInfo } from "@/data/parties/usePartyInfo";
@@ -47,6 +44,7 @@ export const SectionsList: FC<{
         ...section,
         address,
         partyVotes: topParty,
+        totalActualVoters: section.results.protocol?.totalActualVoters,
         voterTurnout:
           section.results.protocol?.totalActualVoters &&
           section.results.protocol?.numRegisteredVoters
@@ -112,7 +110,7 @@ export const SectionsList: FC<{
           dataType: "thousands",
         },
         {
-          accessorKey: "protocol.totalActualVoters",
+          accessorKey: "totalActualVoters",
           headerHint: t("total_voters_explainer"),
           header: isSmall ? t("votes") : t("total_votes"),
           dataType: "thousands",
@@ -122,22 +120,9 @@ export const SectionsList: FC<{
           header: t("winner"),
           size: 70,
           cellValue: ({ row }) => row.original.partyVotes?.nickName,
-          cell: ({ row }) => {
-            return (
-              <Tooltip
-                content={
-                  <div>
-                    <Caption>{row.original.section}</Caption>
-                    <PartyVotesXS votes={row.original.results.votes} />
-                  </div>
-                }
-              >
-                {row.original.partyVotes && (
-                  <PartyLink party={row.original.partyVotes as PartyInfo} />
-                )}
-              </Tooltip>
-            );
-          },
+          cell: ({ row }) => (
+            <PartyLink party={row.original.partyVotes as PartyInfo} />
+          ),
         },
       ]}
       data={data}
