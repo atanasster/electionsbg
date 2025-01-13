@@ -221,6 +221,27 @@ export const topParty = (votes?: Votes[]): PartyVotes | undefined => {
   return tp;
 };
 
+export const partyVotesPosition = (
+  partyNum: number,
+  votes?: Votes[],
+): { position: number; votes: PartyVotes } | undefined => {
+  if (!votes) {
+    return undefined;
+  }
+  const idx = votes
+    ? votes
+        .sort((a, b) => b.totalVotes - a.totalVotes)
+        .findIndex((v) => v.partyNum === partyNum)
+    : -1;
+
+  return idx >= 0
+    ? {
+        position: idx + 1,
+        votes: votes[idx],
+      }
+    : undefined;
+};
+
 export const totalActualVoters = (votes?: Votes[]): number | undefined => {
   return votes?.reduce((acc, curr) => acc + curr.totalVotes, 0);
 };

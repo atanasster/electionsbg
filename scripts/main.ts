@@ -6,6 +6,7 @@ import { generateReports } from "./reports";
 import { parseElections } from "./parsers/parse_elections";
 import { generateAllSearchFIles } from "./search";
 import { parseFinancing } from "./smetna_palata";
+import { runPartyStats } from "./party_stats";
 
 const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
 const __dirname = path.dirname(__filename); // get the name of the directory
@@ -62,12 +63,30 @@ const app = command({
       short: "f",
       defaultValue: () => false,
     }),
+    parties: flag({
+      type: optional(boolean),
+      long: "parties",
+      short: "r",
+      defaultValue: () => false,
+    }),
   },
-  handler: async ({ all, prod, stats, date, reports, search, financing }) => {
+  handler: async ({
+    all,
+    prod,
+    stats,
+    date,
+    reports,
+    search,
+    financing,
+    parties,
+  }) => {
     production = prod;
     await parseElections({ date, all, stringify, publicFolder });
     if (stats) {
       runStats(stringify);
+    }
+    if (parties) {
+      runPartyStats(stringify);
     }
     if (reports) {
       generateReports(inFolder, stringify);

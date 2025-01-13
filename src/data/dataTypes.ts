@@ -80,7 +80,7 @@ export type SectionInfo = {
   is_mobile: number;
   is_ship: number;
   num_machines: number;
-  oblast?: string;
+  oblast: string;
   obshtina?: string;
   ekatte?: string;
 } & ElectionResults;
@@ -146,6 +146,20 @@ export type ReportRow = {
   pctPartyVote: number;
   value: number;
   prevYearVotes?: number;
+};
+
+export type PartyResultsRow = {
+  oblast: string;
+  obshtina?: string;
+  ekatte?: string;
+  section?: string;
+  position: number;
+  totalVotes: number;
+  machineVotes?: number;
+  paperVotes?: number;
+  allVotes: number;
+  prevYearVotes?: number;
+  prevYearVotesConsolidated?: number;
 };
 
 export type SectionIndex = {

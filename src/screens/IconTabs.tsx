@@ -13,7 +13,7 @@ export const IconTabs = <DType extends string>(props: {
   children: (key: DType) => ReactNode;
   className?: string;
   excluded?: { exclude: DType; replace: DType };
-  icons: {
+  icons?: {
     [key: string]: ReactNode;
   };
 }) => {
@@ -69,7 +69,7 @@ export const IconTabs = <DType extends string>(props: {
                     setView(key);
                   }}
                 >
-                  {icons[key]}
+                  {icons?.[key]}
                   <span className="text-xs text-muted-foreground">
                     {t(key).toLowerCase()}
                   </span>
