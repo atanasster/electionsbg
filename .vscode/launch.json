@@ -18,12 +18,12 @@
      * Assuming locally installed
      */
     "runtimeExecutable": "tsx",
-    //"args": ["--all", "--prod", "--stats", "--reports"],
+    //"args": ["--all", "--prod", "--stats", "--reports", "--parties"],
     //"args": ["--prod", "--financing"],
-    "args": ["--prod", "--stats", "--reports"],
+    //"args": ["--prod", "--stats", "--reports", "--parties"],
     //"args": ["--prod", "--stats"],
     //"args": ["--prod", "--search"],
-   
+   "args": ["--prod", "--parties"],
     //"args": ["--date=2009_07_05", "--prod"],
     //"args": ["--reports", "--prod"],
     /*
