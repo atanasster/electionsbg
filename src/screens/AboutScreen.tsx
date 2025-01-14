@@ -268,6 +268,15 @@ export const AboutScreen = () => {
               12.05.2013
             </Anchor>
           </li>
+          <li>
+            <Anchor
+              className="mx-1"
+              target="_blank"
+              href="https://pi2009.cik.bg/results/proportional/index.html"
+            >
+              05.07.2009
+            </Anchor>
+          </li>
         </ul>
       </div>
     </div>
