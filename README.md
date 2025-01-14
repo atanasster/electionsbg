@@ -1,6 +1,6 @@
 # Bulgaria Election Results Analysis
 
-A platform to visualize and analyze the elections in Bulgaria since 2013.
+A platform to visualize and analyze the elections in Bulgaria since 2009.
 
 ## Live Website
 [Live Web App](https://electionsbg.com)
@@ -35,3 +35,4 @@ A platform to visualize and analyze the elections in Bulgaria since 2013.
 - [26.03.2017](https://results.cik.bg/pi2017/csv.html)<br />
 - [05.10.2014](https://results.cik.bg/pi2014/csv.html)<br />
 - [12.05.2013](https://results.cik.bg/pi2013/csv.html)<br />
+- [05.07.2009](https://pi2009.cik.bg/results/proportional/index.html)<br />
