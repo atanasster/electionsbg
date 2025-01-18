@@ -45,6 +45,7 @@ export const FilingSummary: FC<{
               totalIncomeFiling(priorFiling?.income),
             )}
             size="xl"
+            pctSuffix=""
             valueExplainer={t("raised_funds_explainer")}
             pctExplainer={t("raised_funds_pct_change_explainer")}
           />
@@ -117,6 +118,7 @@ export const FilingSummary: FC<{
             )}
             valueExplainer={t("campaign_cost_explainer")}
             pctExplainer={t("campaign_cost_pct_change_explainer")}
+            pctSuffix=""
             size="xl"
           />
           <HintedDataItem

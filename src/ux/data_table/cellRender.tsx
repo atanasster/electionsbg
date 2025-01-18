@@ -14,7 +14,9 @@ export function cellRender<TData, TValue>(
     case "money":
       return <div className="text-right">{value}</div>;
     case "pctChange":
-      return <PercentChange className="text-right" pctChange={value} />;
+      return (
+        <PercentChange className="text-right" pctChange={value} suffix="" />
+      );
     default:
       return typeof columnDef.cell === "function"
         ? columnDef.cell(cell.getContext())

@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { PartyVotes, Votes } from "../dataTypes";
 import { usePartyInfo } from "./usePartyInfo";
+import { totalAllVotes } from "../utils";
 
 export const useTopParties = (
   votes?: Votes[],
@@ -8,7 +9,7 @@ export const useTopParties = (
 ): PartyVotes[] | undefined => {
   const { findParty } = usePartyInfo();
   const topParties = useMemo(() => {
-    const totalVotes = votes?.reduce((acc, v) => acc + v.totalVotes, 0);
+    const totalVotes = totalAllVotes(votes);
     return votes
       ?.sort((a, b) => b.totalVotes - a.totalVotes)
       .filter((v, idx) => {

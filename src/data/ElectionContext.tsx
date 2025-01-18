@@ -23,13 +23,25 @@ export const useElectionContext = () => {
     [elections, searchParams, setSearchParams],
   );
 
+  const prevElections: (name?: string) => ElectionInfo | undefined =
+    useCallback(
+      (name?: string) => {
+        const idx = allElections.findIndex((e) => e.name === name);
+        return idx >= 0 && idx < elections.length - 1
+          ? (allElections[idx + 1] as ElectionInfo)
+          : undefined;
+      },
+      [elections],
+    );
   const priorElections: ElectionInfo | undefined = useMemo(() => {
-    const idx = allElections.findIndex((e) => e.name === selected);
-    return idx >= 0 && idx < elections.length - 1
-      ? (allElections[idx + 1] as ElectionInfo)
-      : undefined;
-  }, [elections, selected]);
+    return prevElections(selected);
+  }, [prevElections, selected]);
 
+  const electionStats: ElectionInfo | undefined = useMemo(() => {
+    return allElections.find((e) => e.name === selected) as
+      | ElectionInfo
+      | undefined;
+  }, [selected]);
   const isMachineOnly = () => isMachineOnlyVote(selected);
   return {
     elections,
@@ -37,6 +49,8 @@ export const useElectionContext = () => {
     setSelected,
     isMachineOnly,
     priorElections,
+    prevElections,
+    electionStats,
     stats: allElections as ElectionInfo[],
   };
 };
