@@ -24,6 +24,13 @@ export const formatPct = (x?: number, decimals: number = 2) => {
   return `${pct}%`;
 };
 
+export const formatFloat = (x?: number, decimals: number = 2) => {
+  if (x === undefined || x === null) {
+    return x;
+  }
+  return parseFloat(x.toFixed(decimals));
+};
+
 export const formatThousands = (x?: number, decimals: number = 0) => {
   if (x) {
     const n = decimals !== undefined ? x.toFixed(decimals) : x;
@@ -173,39 +180,56 @@ export const matchPartyNickName = (
   );
 };
 
+type PrevVotesType = {
+  prevTotalVotes?: number;
+  prevMachineVotes?: number;
+  prevPaperVotes?: number;
+  partyNum?: number;
+  nickName?: string;
+};
 export const findPrevVotes = (
   party?: Partial<PartyInfo>,
   prevElectionVotes?: StatsVote[],
   consolidateVotes?: boolean,
-) => {
-  const def = { prevTotalVotes: undefined, nickName: undefined };
+): PrevVotesType => {
+  const def = {
+    prevTotalVotes: undefined,
+    prevMachineVotes: undefined,
+    prevPaperVotes: undefined,
+    nickName: undefined,
+    partyNum: undefined,
+  };
   return (
     (party &&
-      prevElectionVotes?.reduce(
-        (
-          acc: {
-            prevTotalVotes: number | undefined;
-            nickName: string | undefined;
-          },
-          pr,
-        ) => {
-          if (matchPartyNickName(party, pr, consolidateVotes)) {
-            if (acc.prevTotalVotes === undefined) {
-              return {
-                prevTotalVotes: pr.totalVotes,
-                nickName: pr.nickName,
-              };
-            } else {
-              return {
-                prevTotalVotes: acc.prevTotalVotes + pr.totalVotes,
-                nickName: undefined,
-              };
+      prevElectionVotes?.reduce((acc: PrevVotesType, pr) => {
+        if (matchPartyNickName(party, pr, consolidateVotes)) {
+          const res: PrevVotesType = { ...acc };
+          if (acc.prevTotalVotes === undefined) {
+            res.prevTotalVotes = pr.totalVotes;
+            res.nickName = pr.nickName;
+            res.partyNum = pr.number;
+            if (pr.machineVotes) {
+              res.prevMachineVotes = pr.machineVotes;
+            }
+            if (pr.paperVotes) {
+              res.prevPaperVotes = pr.paperVotes;
+            }
+          } else {
+            res.prevTotalVotes = acc.prevTotalVotes + pr.totalVotes;
+            res.nickName = undefined;
+            res.partyNum = undefined;
+            if (pr.machineVotes) {
+              res.prevMachineVotes =
+                (acc.prevMachineVotes || 0) + pr.machineVotes;
+            }
+            if (pr.paperVotes) {
+              res.prevPaperVotes = (acc.prevPaperVotes || 0) + pr.paperVotes;
             }
           }
-          return acc;
-        },
-        def,
-      )) ||
+          return res;
+        }
+        return acc;
+      }, def)) ||
     def
   );
 };
@@ -220,6 +244,9 @@ export const topParty = (votes?: Votes[]): PartyVotes | undefined => {
 
   return tp;
 };
+
+export const totalAllVotes = (votes?: Votes[]) =>
+  votes?.reduce((acc, v) => acc + v.totalVotes, 0);
 
 export const partyVotesPosition = (
   partyNum: number,

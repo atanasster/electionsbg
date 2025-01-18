@@ -25,6 +25,7 @@ const TreeItem: FC<{ item: TreeItemType; className?: string }> = ({
             <div className="w-20 flex justify-end">
               {!!item.priorAmount && (
                 <PercentChange
+                  suffix=""
                   pctChange={formatPct(
                     pctChange(item.amount, item.priorAmount),
                   )}
