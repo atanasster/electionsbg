@@ -28,17 +28,22 @@ export const parsePreferences = (
       .on("end", () => {
         for (let i = 0; i < result.length; i++) {
           const row = result[i];
-          const section = row[1];
-          const totalVotes = parseInt(row[4]);
+          const dataIndex = year <= "2021_04_04" ? 0 : 1;
+          const section = row[dataIndex];
+          const totalVotes = parseInt(row[dataIndex + 3]);
           const pref = row[3];
-          if (totalVotes && !isNaN(parseInt(pref))) {
+          let prefNum = parseInt(pref);
+          if (totalVotes && !isNaN(prefNum)) {
+            if (prefNum < 100) {
+              prefNum = prefNum + 100;
+            }
             const preference: PreferencesInfo = {
               section,
-              partyNum: parseInt(row[2]),
-              pref,
+              partyNum: parseInt(row[dataIndex + 1]),
+              pref: prefNum.toString(),
               totalVotes,
-              paperVotes: parseInt(row[5]),
-              machineVotes: parseInt(row[6]),
+              paperVotes: parseInt(row[dataIndex + 4]),
+              machineVotes: parseInt(row[dataIndex + 5]),
             };
             allPreferences.push(preference);
           }
@@ -47,5 +52,4 @@ export const parsePreferences = (
         resolve(allPreferences);
       }),
   );
-  console.log(year);
 };
