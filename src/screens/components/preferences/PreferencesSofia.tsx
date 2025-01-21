@@ -3,6 +3,7 @@ import { useElectionContext } from "@/data/ElectionContext";
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { PreferencesTable } from "./PreferencesTable";
 import { FC } from "react";
+import { useSofiaStats } from "@/data/country/useSofiaStats";
 
 const queryFn = async ({
   queryKey,
@@ -22,7 +23,12 @@ export const PreferencesSofia: FC = () => {
     queryKey: ["preferences_sofia", selected],
     queryFn,
   });
+  const { sofiaStats } = useSofiaStats();
   return preferences ? (
-    <PreferencesTable preferences={preferences} region="" />
+    <PreferencesTable
+      preferences={preferences}
+      region=""
+      stats={sofiaStats?.find((s) => s.name === selected)}
+    />
   ) : null;
 };

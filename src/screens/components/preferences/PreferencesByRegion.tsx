@@ -3,6 +3,7 @@ import { useElectionContext } from "@/data/ElectionContext";
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { PreferencesTable } from "./PreferencesTable";
 import { FC } from "react";
+import { useRegionStats } from "@/data/regions/useRegionStats";
 
 const queryFn = async ({
   queryKey,
@@ -26,7 +27,12 @@ export const PreferencesByRegion: FC<{
     queryKey: ["preferences_by_municipality", selected, region],
     queryFn,
   });
+  const { stats } = useRegionStats(region);
   return preferences && region ? (
-    <PreferencesTable preferences={preferences} region={region} />
+    <PreferencesTable
+      preferences={preferences}
+      region={region}
+      stats={stats?.find((s) => s.name === selected)}
+    />
   ) : null;
 };
