@@ -9,6 +9,7 @@ import {
   PartyFilingIncome,
   PartyInfo,
   PartyVotes,
+  PreferencesInfo,
   SectionProtocol,
   StatsVote,
   VoteResults,
@@ -63,6 +64,43 @@ export const addVotes = (votes: Votes[], initial?: Votes[]) => {
     }
   });
   return buff;
+};
+export const addPreferences = (
+  acc: PreferencesInfo[],
+  preferences: PreferencesInfo[],
+  oblast?: string,
+) => {
+  preferences.forEach((p) => {
+    const a = acc.find(
+      (a) =>
+        a.partyNum === p.partyNum && a.pref === p.pref && a.oblast === oblast,
+    );
+    if (a) {
+      a.totalVotes = a.totalVotes + p.totalVotes;
+      if (p.machineVotes) {
+        a.machineVotes = (a.machineVotes || 0) + p.machineVotes;
+      }
+      if (p.paperVotes) {
+        a.paperVotes = (a.paperVotes || 0) + p.paperVotes;
+      }
+    } else {
+      const n: PreferencesInfo = {
+        partyNum: p.partyNum,
+        totalVotes: p.totalVotes,
+        pref: p.pref,
+      };
+      if (oblast) {
+        n.oblast = oblast;
+      }
+      if (p.machineVotes) {
+        n.machineVotes = p.machineVotes;
+      }
+      if (p.paperVotes) {
+        n.paperVotes = p.paperVotes;
+      }
+      acc.push(n);
+    }
+  });
 };
 export const addResults = (
   results: VoteResults,

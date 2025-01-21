@@ -10,87 +10,25 @@ import {
   ElectionRegions,
   ElectionSettlement,
   ElectionVotes,
+  PreferencesInfo,
   SectionInfo,
+  SOFIA_REGIONS,
 } from "@/data/dataTypes";
-import { addResults } from "@/data/utils";
+import { addPreferences, addResults } from "@/data/utils";
 import { lookupCountryNumbers } from "./country_codes";
 import { regionsVotesFileName } from "../consts";
 import { splitSettlements } from "./split_settlements";
 import { splitMunicipalities } from "./split_municipalities";
 import { findSectionInOtherElections } from "./findSection";
+import { regionCodes } from "./region_codes";
+import { saveSplitObject } from "scripts/dataReaders";
 const municipalities = municipalitiesData;
-
-const regionCodes: { key: string; nuts3: string }[] = [
-  // Blagoevgrad
-  { key: "01", nuts3: "BG413" },
-  // Burgas
-  { key: "02", nuts3: "BG341" },
-  // Varna
-  { key: "03", nuts3: "BG331" },
-  // Veliko Tarnovo
-  { key: "04", nuts3: "BG321" },
-  // Vidin
-  { key: "05", nuts3: "BG311" },
-  // Vratsa
-  { key: "06", nuts3: "BG313" },
-  // Gabrovo
-  { key: "07", nuts3: "BG322" },
-  // Dobrich
-  { key: "08", nuts3: "BG332" },
-  // Kardjhali
-  { key: "09", nuts3: "BG425" },
-  // Kyustendil
-  { key: "10", nuts3: "BG415" },
-  // Lovech
-  { key: "11", nuts3: "BG315" },
-  // Montana
-  { key: "12", nuts3: "BG312" },
-  // Pazardzhik
-  { key: "13", nuts3: "BG423" },
-  // Pernik
-  { key: "14", nuts3: "BG414" },
-  // Pleven
-  { key: "15", nuts3: "BG314" },
-  // Plovdiv grad
-  { key: "16", nuts3: "BG421" },
-  // Plovdiv oblast
-  { key: "17", nuts3: "BG421-1" },
-  // Razgrad
-  { key: "18", nuts3: "BG324" },
-  // Ruse
-  { key: "19", nuts3: "BG323" },
-  // Silistra
-  { key: "20", nuts3: "BG325" },
-  // Sliven
-  { key: "21", nuts3: "BG342" },
-  // Smolyan
-  { key: "22", nuts3: "BG424" },
-  // Sofia 23 MIR
-  { key: "23", nuts3: "BG416" },
-  // Sofia 24 MIR
-  { key: "24", nuts3: "BG417" },
-  // Sofia 25 MIR
-  { key: "25", nuts3: "BG418" },
-  // Sofia oblast
-  { key: "26", nuts3: "BG412" },
-  // Stara Zagora
-  { key: "27", nuts3: "BG344" },
-  // Targovishte
-  { key: "28", nuts3: "BG334" },
-  // Haskovo
-  { key: "29", nuts3: "BG422" },
-  // Shumen
-  { key: "30", nuts3: "BG333" },
-  // Yambol
-  { key: "31", nuts3: "BG343" },
-  // World
-  { key: "32", nuts3: "32" },
-];
 
 export const generateVotes = ({
   outFolder,
   protocols,
   sections,
+  preferences,
   stringify,
   votes,
   monthYear,
@@ -98,6 +36,7 @@ export const generateVotes = ({
 }: {
   outFolder: string;
   sections: SectionInfo[];
+  preferences: PreferencesInfo[];
   votes: ElectionVotes[];
   protocols: FullSectionProtocol[];
   stringify: (o: object) => string;
@@ -107,6 +46,12 @@ export const generateVotes = ({
   const electionRegions: ElectionRegions = [];
   const electionMunicipalities: ElectionMunicipality[] = [];
   const electionSettlements: ElectionSettlement[] = [];
+  const preferencesCountry: PreferencesInfo[] = [];
+  const preferencesSofia: PreferencesInfo[] = [];
+  const preferencesRegions: Record<string, PreferencesInfo[]> = {};
+  const preferencesMunicipalities: Record<string, PreferencesInfo[]> = {};
+  const preferencesSettlements: Record<string, PreferencesInfo[]> = {};
+
   regions.forEach((region) => {
     if (region.oblast && region.nuts3) {
       electionRegions.push({
@@ -286,14 +231,74 @@ export const generateVotes = ({
       section.oblast = region.key;
       section.obshtina = municipality.obshtina;
       section.ekatte = settlement.ekatte;
+      const pref = preferences.filter((p) => p.section === section.section);
+      if (pref.length) {
+        section.preferences = pref.map((p) => {
+          // eslint-disable-next-line @typescript-eslint/no-unused-vars
+          const { section, ...rest } = p;
+          return rest;
+        });
+        if (preferencesRegions[section.oblast] === undefined) {
+          preferencesRegions[section.oblast] = [];
+        }
+        addPreferences(preferencesRegions[section.oblast], pref);
+        if (preferencesMunicipalities[section.obshtina] === undefined) {
+          preferencesMunicipalities[section.obshtina] = [];
+        }
+        addPreferences(preferencesMunicipalities[section.obshtina], pref);
+        if (preferencesSettlements[section.ekatte] === undefined) {
+          preferencesSettlements[section.ekatte] = [];
+        }
+        addPreferences(preferencesSettlements[section.ekatte], pref);
+        addPreferences(preferencesCountry, pref, section.oblast);
+        if (SOFIA_REGIONS.includes(section.oblast)) {
+          addPreferences(preferencesSofia, pref, section.oblast);
+        }
+      }
     }
     addResults(settlement.results, vote.votes, protocol);
     addResults(municipality.results, vote.votes, protocol);
+
     addResults(region.results, vote.votes, protocol);
   });
   const regFileName = `${outFolder}/${regionsVotesFileName}`;
   fs.writeFileSync(regFileName, stringify(electionRegions), "utf8");
   console.log("Successfully added file ", regFileName);
+
+  const prefFolder = `${outFolder}/preferences`;
+  if (!fs.existsSync(prefFolder)) {
+    fs.mkdirSync(prefFolder);
+  }
+  const countryPreferencesFileName = `${prefFolder}/country.json`;
+  fs.writeFileSync(
+    countryPreferencesFileName,
+    stringify(preferencesCountry),
+    "utf8",
+  );
+  console.log("Successfully added file ", countryPreferencesFileName);
+  const sofiaPreferencesFileName = `${prefFolder}/sofia.json`;
+  fs.writeFileSync(
+    sofiaPreferencesFileName,
+    stringify(preferencesSofia),
+    "utf8",
+  );
+  console.log("Successfully added file ", sofiaPreferencesFileName);
+
+  const prefByRegionFolder = `${prefFolder}/by_region`;
+  if (!fs.existsSync(prefByRegionFolder)) {
+    fs.mkdirSync(prefByRegionFolder);
+  }
+  saveSplitObject(preferencesRegions, stringify, prefByRegionFolder);
+  const prefByMuniFolder = `${prefFolder}/by_municipality`;
+  if (!fs.existsSync(prefByMuniFolder)) {
+    fs.mkdirSync(prefByMuniFolder);
+  }
+  saveSplitObject(preferencesMunicipalities, stringify, prefByMuniFolder);
+  const prefBySettlementFolder = `${prefFolder}/by_settlement`;
+  if (!fs.existsSync(prefBySettlementFolder)) {
+    fs.mkdirSync(prefBySettlementFolder);
+  }
+  saveSplitObject(preferencesSettlements, stringify, prefBySettlementFolder);
 
   splitMunicipalities({
     electionMunicipalities,

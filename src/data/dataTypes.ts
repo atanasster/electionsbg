@@ -83,7 +83,21 @@ export type SectionInfo = {
   oblast: string;
   obshtina?: string;
   ekatte?: string;
+  preferences?: PreferencesInfo[];
 } & ElectionResults;
+
+export type CandidatesInfo = {
+  oblast: string;
+  name: string;
+  partyNum: number;
+  pref: string;
+};
+
+export type PreferencesInfo = Votes & {
+  section?: string;
+  oblast?: string;
+  pref: string;
+};
 
 export type LocationInfo = {
   ekatte: string;
@@ -161,6 +175,8 @@ export type PartyResultsRow = {
   prevYearVotes?: number;
   prevYearVotesConsolidated?: number;
 };
+
+export const SOFIA_REGIONS = ["S23", "S24", "S25"];
 
 export type SectionIndex = {
   section: string;

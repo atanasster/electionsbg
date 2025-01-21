@@ -6,6 +6,7 @@ import { SettlementsMap } from "./SettlementsMap";
 import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
 import { SettlementHistoryChart } from "./SettlementHistoryChart";
 import { SettlementsAreasTable } from "./SettlementsAreasTable";
+import { PreferencesByMunicipality } from "../preferences/PreferencesByMunicipality";
 
 export const SettlementData: FC<{
   municipality: string;
@@ -41,6 +42,14 @@ export const SettlementData: FC<{
           );
         if (view === "chart")
           return <SettlementHistoryChart municipality={municipality} />;
+        if (view === "pref.") {
+          return (
+            <PreferencesByMunicipality
+              municipality={municipalityInfo?.obshtina}
+              region={municipalityInfo?.oblast}
+            />
+          );
+        }
       }}
     </DataViewContainer>
   );

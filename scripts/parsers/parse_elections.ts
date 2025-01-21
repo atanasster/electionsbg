@@ -8,6 +8,9 @@ import { parseSections } from "./sections";
 import { parseParties } from "./parties";
 import { splitSections } from "./split_sections";
 import { generateSearch } from "scripts/search";
+import { parseCandidates } from "./parse_candidates";
+import { candidatesFileName } from "scripts/consts";
+import { parsePreferences } from "./parse_preferences";
 
 const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
 const __dirname = path.dirname(__filename); // get the name of the directory
@@ -29,6 +32,13 @@ const parseElection = async ({
   //const parties =
   const parties = await parseParties(inFolder, outFolder, monthYear, stringify);
   const sections = await parseSections(inFolder, monthYear);
+  const candidates = await parseCandidates(inFolder, monthYear);
+  fs.writeFileSync(
+    `${outFolder}/${candidatesFileName}`,
+    stringify(candidates),
+    "utf-8",
+  );
+  const preferences = await parsePreferences(inFolder, monthYear);
   const votes = await parseVotes(inFolder, monthYear, parties);
   const protocols = await parseProtocols(
     inFolder,
@@ -36,7 +46,9 @@ const parseElection = async ({
     monthYear,
     //stringify,
   );
+
   const aggregated = generateVotes({
+    preferences,
     outFolder,
     sections,
     votes,

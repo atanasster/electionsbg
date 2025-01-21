@@ -12,7 +12,7 @@ export const IconTabs = <DType extends string>(props: {
   shortTitle?: ReactNode;
   children: (key: DType) => ReactNode;
   className?: string;
-  excluded?: { exclude: DType; replace: DType };
+  excluded?: { exclude: DType[]; replace: DType };
   icons?: {
     [key: string]: ReactNode;
   };
@@ -46,7 +46,7 @@ export const IconTabs = <DType extends string>(props: {
         </div>
         <div className="flex gap-2 ">
           {tabs
-            .filter((key) => !excluded || excluded.exclude !== key)
+            .filter((key) => !excluded || !excluded.exclude.includes(key))
             .map((key: DType) => {
               return (
                 <Button
@@ -56,7 +56,7 @@ export const IconTabs = <DType extends string>(props: {
                   data-state={
                     view === key ||
                     (excluded &&
-                      view === excluded.exclude &&
+                      excluded.exclude.includes(view) &&
                       key === excluded.replace)
                       ? "checked"
                       : "unchecked"
