@@ -8,6 +8,7 @@ import { useSectionStats } from "@/data/sections/useSectionStats";
 import { usePartyInfo } from "@/data/parties/usePartyInfo";
 import { DataViewContainer } from "@/layout/dataview/DataViewContainer";
 import { MultiHistoryChart } from "../charts/MultiHistoryChart";
+import { PreferencesTable } from "../preferences/PreferencesTable";
 
 export const Section: FC<{ section: SectionInfo }> = ({ section }) => {
   const { t } = useTranslation();
@@ -38,7 +39,7 @@ export const Section: FC<{ section: SectionInfo }> = ({ section }) => {
         <DataViewContainer
           title={title}
           excluded={{
-            exclude: "map",
+            exclude: ["map", "table"],
             replace: "parties",
           }}
         >
@@ -54,6 +55,13 @@ export const Section: FC<{ section: SectionInfo }> = ({ section }) => {
               );
             if (view === "chart" && stats)
               return <MultiHistoryChart stats={stats} />;
+            if (view === "pref." && section.preferences)
+              return (
+                <PreferencesTable
+                  preferences={section.preferences}
+                  region={section.oblast}
+                />
+              );
           }}
         </DataViewContainer>
       </div>

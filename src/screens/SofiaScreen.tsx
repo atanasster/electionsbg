@@ -10,6 +10,7 @@ import { useSofiaStats } from "@/data/country/useSofiaStats";
 import { DataViewContainer } from "@/layout/dataview/DataViewContainer";
 import { MultiHistoryChart } from "./components/charts/MultiHistoryChart";
 import { SofiaAreasTable } from "./components/sofia/SofiaAreasTable";
+import { PreferencesSofia } from "./components/preferences/PreferencesSofia";
 
 export const SofiaScreen = () => {
   const { t } = useTranslation();
@@ -43,6 +44,7 @@ export const SofiaScreen = () => {
                 stats={sofiaStats}
               />
             );
+          if (view === "pref.") return <PreferencesSofia />;
           if (view === "chart" && sofiaStats)
             return <MultiHistoryChart stats={sofiaStats} />;
         }}

@@ -1,10 +1,14 @@
 import { useCallback } from "react";
-import { ElectionRegions, ElectionRegion, VoteResults } from "../dataTypes";
+import {
+  ElectionRegions,
+  ElectionRegion,
+  VoteResults,
+  SOFIA_REGIONS,
+} from "../dataTypes";
 import { addResults } from "../utils";
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { useElectionContext } from "../ElectionContext";
 
-const SOFIA_REGIONS = ["S23", "S24", "S25"];
 const queryFn = async ({
   queryKey,
 }: QueryFunctionContext<

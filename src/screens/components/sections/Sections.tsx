@@ -11,17 +11,19 @@ import { Link } from "@/ux/Link";
 import { H1 } from "@/ux/H1";
 import { SEO } from "@/ux/SEO";
 import { ProtocolSummary } from "../ProtocolSummary";
-import { ChartLine, UsersRound, Vote } from "lucide-react";
+import { ChartLine, Heart, UsersRound, Vote } from "lucide-react";
 import { Caption } from "@/ux/Caption";
 import { MultiHistoryChart } from "../charts/MultiHistoryChart";
 import { IconTabs } from "../../IconTabs";
+import { PreferencesBySettlement } from "../preferences/PreferencesBySettlement";
 
-const dataViews = ["sections", "parties", "chart"] as const;
+const dataViews = ["sections", "parties", "pref.", "chart"] as const;
 type DataViewType = (typeof dataViews)[number];
 
 const DataTypeIcons: Record<DataViewType, ReactNode> = {
   sections: <Vote />,
   parties: <UsersRound />,
+  "pref.": <Heart />,
   chart: <ChartLine />,
 };
 export const Sections: FC<{ ekatte: string }> = ({ ekatte }) => {
@@ -119,6 +121,14 @@ export const Sections: FC<{ ekatte: string }> = ({ ekatte }) => {
                 results={settlement?.results}
                 stats={stats}
                 prevElection={prevVotes}
+              />
+            );
+          }
+          if (view === "pref.") {
+            return (
+              <PreferencesBySettlement
+                ekatte={settlement?.ekatte}
+                region={settlement?.oblast}
               />
             );
           }
