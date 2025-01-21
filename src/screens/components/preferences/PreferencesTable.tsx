@@ -70,6 +70,7 @@ export const PreferencesTable: FC<{
           {
             accessorKey: "pref",
             header: t("preference"),
+            dataType: "thousands",
           },
           {
             accessorKey: "candidateName",
