@@ -46,11 +46,15 @@ export const parseCandidates = (
           if (!region) {
             throw new Error(`Could not find region nuts3: ${nuts3}`);
           }
+          let prefNum = parseInt(row[4]);
+          if (prefNum < 100) {
+            prefNum = prefNum + 100;
+          }
           const candidate: CandidatesInfo = {
             name: row[5],
             oblast: region?.oblast,
             partyNum: parseInt(row[2]),
-            pref: row[4],
+            pref: prefNum.toString(),
           };
           allCandidates.push(candidate);
         }
