@@ -343,6 +343,18 @@ export const materialExpenseFiling = (filing?: PartyFilingExpenses) =>
       filing.material.officeSupplies +
       filing.material.other
     : 0;
+export const capitalizeSentence = (sentence: string) => {
+  const words = sentence.split(" ");
+
+  return words
+    .map((word) => {
+      return word[0].toUpperCase() + word.substring(1).toLowerCase();
+    })
+    .join(" ");
+};
+export const capitalizeFirstLetter = (sentence: string) => {
+  return sentence[0].toUpperCase() + sentence.substring(1).toLowerCase();
+};
 export const mediaExpenseFiling = (services?: MediaServices) =>
   services
     ? services.digitalMedia +

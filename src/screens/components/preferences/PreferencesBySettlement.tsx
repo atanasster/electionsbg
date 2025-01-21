@@ -3,6 +3,7 @@ import { useElectionContext } from "@/data/ElectionContext";
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { PreferencesTable } from "./PreferencesTable";
 import { FC } from "react";
+import { useSettlementStats } from "@/data/settlements/useSettlementStats";
 
 const queryFn = async ({
   queryKey,
@@ -27,7 +28,12 @@ export const PreferencesBySettlement: FC<{
     queryKey: ["preferences_by_settlement", selected, ekatte],
     queryFn,
   });
+  const { stats } = useSettlementStats(ekatte);
   return preferences && region ? (
-    <PreferencesTable preferences={preferences} region={region} />
+    <PreferencesTable
+      preferences={preferences}
+      region={region}
+      stats={stats?.find((s) => s.name === selected)}
+    />
   ) : null;
 };

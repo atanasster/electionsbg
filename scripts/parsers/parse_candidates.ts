@@ -8,6 +8,7 @@ import { fileURLToPath } from "url";
 import { CandidatesInfo, ElectionInfo } from "@/data/dataTypes";
 import { candidatesFileName } from "scripts/consts";
 import { regionCodes } from "./region_codes";
+import { capitalizeSentence } from "@/data/utils";
 const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
 const __dirname = path.dirname(__filename); // get the name of the directory
 
@@ -51,8 +52,9 @@ export const parseCandidates = (
           if (prefNum < 100) {
             prefNum = prefNum + 100;
           }
+          const name = capitalizeSentence(row[dataIndex + 3]);
           const candidate: CandidatesInfo = {
-            name: row[dataIndex + 3],
+            name,
             oblast: region?.oblast,
             partyNum: parseInt(row[dataIndex]),
             pref: prefNum.toString(),

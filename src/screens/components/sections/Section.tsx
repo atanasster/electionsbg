@@ -9,9 +9,11 @@ import { usePartyInfo } from "@/data/parties/usePartyInfo";
 import { DataViewContainer } from "@/layout/dataview/DataViewContainer";
 import { MultiHistoryChart } from "../charts/MultiHistoryChart";
 import { PreferencesTable } from "../preferences/PreferencesTable";
+import { useElectionContext } from "@/data/ElectionContext";
 
 export const Section: FC<{ section: SectionInfo }> = ({ section }) => {
   const { t } = useTranslation();
+  const { selected } = useElectionContext();
   const { prevVotes, stats } = useSectionStats(section.section);
   const { parties } = usePartyInfo();
   const votes = parties?.map((p) => {
@@ -60,6 +62,7 @@ export const Section: FC<{ section: SectionInfo }> = ({ section }) => {
                 <PreferencesTable
                   preferences={section.preferences}
                   region={section.oblast}
+                  stats={stats?.find((s) => s.name === selected)}
                 />
               );
           }}

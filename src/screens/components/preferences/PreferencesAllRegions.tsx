@@ -17,12 +17,16 @@ const queryFn = async ({
   return data;
 };
 export const PreferencesAllRegions: FC = () => {
-  const { selected } = useElectionContext();
+  const { selected, stats } = useElectionContext();
   const { data: preferences } = useQuery({
     queryKey: ["preferences_all_country", selected],
     queryFn,
   });
   return preferences ? (
-    <PreferencesTable preferences={preferences} region="" />
+    <PreferencesTable
+      preferences={preferences}
+      region=""
+      stats={stats?.find((s) => s.name === selected)}
+    />
   ) : null;
 };
