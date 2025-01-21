@@ -46,14 +46,15 @@ export const parseCandidates = (
           if (!region) {
             throw new Error(`Could not find region nuts3: ${nuts3}`);
           }
-          let prefNum = parseInt(row[4]);
+          const dataIndex = year <= "2014_10_05" ? 1 : 2;
+          let prefNum = parseInt(row[dataIndex + 2]);
           if (prefNum < 100) {
             prefNum = prefNum + 100;
           }
           const candidate: CandidatesInfo = {
-            name: row[5],
+            name: row[dataIndex + 3],
             oblast: region?.oblast,
-            partyNum: parseInt(row[2]),
+            partyNum: parseInt(row[dataIndex]),
             pref: prefNum.toString(),
           };
           allCandidates.push(candidate);
@@ -61,7 +62,6 @@ export const parseCandidates = (
         resolve(allCandidates);
       }),
   );
-  console.log(year);
 };
 
 export const runAllCandidates = async (stringify: (o: object) => string) => {
