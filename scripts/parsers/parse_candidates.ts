@@ -6,9 +6,10 @@ const regions = regionsData;
 import path from "path";
 import { fileURLToPath } from "url";
 import { CandidatesInfo, ElectionInfo } from "@/data/dataTypes";
-import { candidatesFileName } from "scripts/consts";
+import { candidatesFileName, preferencesFileName } from "scripts/consts";
 import { regionCodes } from "./region_codes";
 import { capitalizeSentence } from "@/data/utils";
+import { parsePreferences } from "./parse_preferences";
 const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
 const __dirname = path.dirname(__filename); // get the name of the directory
 
@@ -90,13 +91,17 @@ export const runAllCandidates = async (stringify: (o: object) => string) => {
   const rawDataFolder = path.resolve(__dirname, `../../raw_data`);
   await Promise.all(
     updatedElections.map(async (e) => {
-      const candidates = await parseCandidates(
-        `${rawDataFolder}/${e.name}`,
-        e.name,
-      );
+      const dataFolder = `${rawDataFolder}/${e.name}`;
+      const candidates = await parseCandidates(dataFolder, e.name);
       fs.writeFileSync(
         `${publicFolder}/${e.name}/${candidatesFileName}`,
         stringify(candidates),
+        "utf-8",
+      );
+      const preferences = await parsePreferences(dataFolder, e.name);
+      fs.writeFileSync(
+        `${dataFolder}/${preferencesFileName}`,
+        stringify(preferences),
         "utf-8",
       );
     }),

@@ -9,7 +9,7 @@ import { parseParties } from "./parties";
 import { splitSections } from "./split_sections";
 import { generateSearch } from "scripts/search";
 import { parseCandidates } from "./parse_candidates";
-import { candidatesFileName } from "scripts/consts";
+import { candidatesFileName, preferencesFileName } from "scripts/consts";
 import { parsePreferences } from "./parse_preferences";
 
 const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
@@ -39,6 +39,12 @@ const parseElection = async ({
     "utf-8",
   );
   const preferences = await parsePreferences(inFolder, monthYear);
+  fs.writeFileSync(
+    `${inFolder}/${preferencesFileName}`,
+    stringify(preferences),
+    "utf-8",
+  );
+
   const votes = await parseVotes(inFolder, monthYear, parties);
   const protocols = await parseProtocols(
     inFolder,

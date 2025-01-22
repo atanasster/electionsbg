@@ -42,10 +42,15 @@ export const parsePreferences = (
               partyNum: parseInt(row[dataIndex + 1]),
               pref: prefNum.toString(),
               totalVotes,
-              paperVotes: parseInt(row[dataIndex + 4]),
-              machineVotes: parseInt(row[dataIndex + 5]),
             };
-            allPreferences.push(preference);
+            const paperVotes = parseInt(row[dataIndex + 4]);
+            if (!isNaN(prefNum)) {
+              preference.paperVotes = paperVotes;
+            }
+            const machineVotes = parseInt(row[dataIndex + 5]);
+            if (!isNaN(prefNum)) {
+              preference.machineVotes = machineVotes;
+            }
           }
         }
 

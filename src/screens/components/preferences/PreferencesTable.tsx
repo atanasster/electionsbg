@@ -1,4 +1,9 @@
-import { ElectionInfo, PartyInfo, PreferencesInfo } from "@/data/dataTypes";
+import {
+  ElectionInfo,
+  ElectionRegion,
+  PartyInfo,
+  PreferencesInfo,
+} from "@/data/dataTypes";
 import { DataTable } from "@/ux/data_table/DataTable";
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
@@ -15,7 +20,8 @@ export const PreferencesTable: FC<{
   preferences: PreferencesInfo[];
   region: string;
   stats?: ElectionInfo;
-}> = ({ preferences, region, stats }) => {
+  votes?: ElectionRegion[];
+}> = ({ preferences, region, stats, votes }) => {
   const { t, i18n } = useTranslation();
   const { findParty } = usePartyInfo();
   const { findCandidate } = useCandidates();
@@ -37,9 +43,14 @@ export const PreferencesTable: FC<{
     return preferences
       .map((preference) => {
         const party = findParty(preference.partyNum);
-        const partyVotes = stats?.results?.votes.find(
-          (v) => v.number === preference.partyNum,
-        );
+        const partyVotes =
+          votes && preference.oblast
+            ? votes
+                .find((v) => v.key === preference.oblast)
+                ?.results.votes.find((v) => v.partyNum === preference.partyNum)
+            : stats?.results?.votes.find(
+                (v) => v.number === preference.partyNum,
+              );
         const candidate = findCandidate(
           preference.oblast || region,
           preference.partyNum,
