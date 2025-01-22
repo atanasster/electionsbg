@@ -51,6 +51,7 @@ export const parsePreferences = (
             if (!isNaN(prefNum)) {
               preference.machineVotes = machineVotes;
             }
+            allPreferences.push(preference);
           }
         }
 
