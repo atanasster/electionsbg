@@ -21,7 +21,7 @@ import { splitSettlements } from "./split_settlements";
 import { splitMunicipalities } from "./split_municipalities";
 import { findSectionInOtherElections } from "./findSection";
 import { regionCodes } from "./region_codes";
-import { saveSplitObject } from "scripts/dataReaders";
+import { savePreferences } from "./save_preferences";
 const municipalities = municipalitiesData;
 
 export const generateVotes = ({
@@ -265,41 +265,15 @@ export const generateVotes = ({
   fs.writeFileSync(regFileName, stringify(electionRegions), "utf8");
   console.log("Successfully added file ", regFileName);
 
-  const prefFolder = `${outFolder}/preferences`;
-  if (!fs.existsSync(prefFolder)) {
-    fs.mkdirSync(prefFolder);
-  }
-  const countryPreferencesFileName = `${prefFolder}/country.json`;
-  fs.writeFileSync(
-    countryPreferencesFileName,
-    stringify(preferencesCountry),
-    "utf8",
-  );
-  console.log("Successfully added file ", countryPreferencesFileName);
-  const sofiaPreferencesFileName = `${prefFolder}/sofia.json`;
-  fs.writeFileSync(
-    sofiaPreferencesFileName,
-    stringify(preferencesSofia),
-    "utf8",
-  );
-  console.log("Successfully added file ", sofiaPreferencesFileName);
-
-  const prefByRegionFolder = `${prefFolder}/by_region`;
-  if (!fs.existsSync(prefByRegionFolder)) {
-    fs.mkdirSync(prefByRegionFolder);
-  }
-  saveSplitObject(preferencesRegions, stringify, prefByRegionFolder);
-  const prefByMuniFolder = `${prefFolder}/by_municipality`;
-  if (!fs.existsSync(prefByMuniFolder)) {
-    fs.mkdirSync(prefByMuniFolder);
-  }
-  saveSplitObject(preferencesMunicipalities, stringify, prefByMuniFolder);
-  const prefBySettlementFolder = `${prefFolder}/by_settlement`;
-  if (!fs.existsSync(prefBySettlementFolder)) {
-    fs.mkdirSync(prefBySettlementFolder);
-  }
-  saveSplitObject(preferencesSettlements, stringify, prefBySettlementFolder);
-
+  savePreferences({
+    outFolder,
+    preferencesCountry,
+    preferencesMunicipalities,
+    preferencesRegions,
+    preferencesSettlements,
+    preferencesSofia,
+    stringify,
+  });
   splitMunicipalities({
     electionMunicipalities,
     inFolder,

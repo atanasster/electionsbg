@@ -60,4 +60,5 @@ export const saveSplitObject = (
       "utf8",
     );
   });
+  console.log("Successfully added split files ", folder);
 };
