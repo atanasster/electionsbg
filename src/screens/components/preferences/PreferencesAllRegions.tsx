@@ -17,6 +17,19 @@ const queryFn = async ({
   const data = await response.json();
   return data;
 };
+
+const queryRegions = async ({
+  queryKey,
+}: QueryFunctionContext<[string, string | null | undefined]>): Promise<
+  Record<string, PreferencesInfo[]> | undefined
+> => {
+  if (!queryKey[1]) {
+    return undefined;
+  }
+  const response = await fetch(`/${queryKey[1]}/preferences/regions.json`);
+  const data = await response.json();
+  return data;
+};
 export const PreferencesAllRegions: FC = () => {
   const { selected, stats } = useElectionContext();
   const { countryRegions } = useRegionVotes();
@@ -24,12 +37,17 @@ export const PreferencesAllRegions: FC = () => {
     queryKey: ["preferences_all_country", selected],
     queryFn,
   });
+  const { data: regions } = useQuery({
+    queryKey: ["preferences_all_regions", selected],
+    queryFn: queryRegions,
+  });
   return preferences ? (
     <PreferencesTable
       preferences={preferences}
       region=""
       stats={stats?.find((s) => s.name === selected)}
       votes={countryRegions()}
+      regionPrefs={regions}
     />
   ) : null;
 };

@@ -21,7 +21,8 @@ export const PreferencesTable: FC<{
   region: string;
   stats?: ElectionInfo;
   votes?: ElectionRegion[];
-}> = ({ preferences, region, stats, votes }) => {
+  regionPrefs?: Record<string, PreferencesInfo[]>;
+}> = ({ preferences, region, stats, votes, regionPrefs }) => {
   const { t, i18n } = useTranslation();
   const { findParty } = usePartyInfo();
   const { findCandidate } = useCandidates();
@@ -29,16 +30,15 @@ export const PreferencesTable: FC<{
   const isMedium = useMediaQueryMatch("md");
 
   const data = useMemo(() => {
-    const allPreferences = preferences.reduce(
-      (acc: Record<number, number>, curr) => {
-        if (acc[curr.partyNum] === undefined) {
-          acc[curr.partyNum] = 0;
-        }
-        acc[curr.partyNum] = acc[curr.partyNum] + curr.totalVotes;
-        return acc;
-      },
-      {},
-    );
+    const allPreferences = !regionPrefs
+      ? preferences.reduce((acc: Record<number, number>, curr) => {
+          if (acc[curr.partyNum] === undefined) {
+            acc[curr.partyNum] = 0;
+          }
+          acc[curr.partyNum] = acc[curr.partyNum] + curr.totalVotes;
+          return acc;
+        }, {})
+      : undefined;
 
     return preferences
       .map((preference) => {
@@ -56,8 +56,12 @@ export const PreferencesTable: FC<{
           preference.partyNum,
           preference.pref,
         );
-
-        const partyPreferences = allPreferences[preference.partyNum];
+        const partyPreferences =
+          regionPrefs && preference.oblast
+            ? regionPrefs[preference.oblast]
+                .filter((p) => p.partyNum === preference.partyNum)
+                .reduce((acc, curr) => acc + curr.totalVotes, 0)
+            : allPreferences?.[preference.partyNum];
         const pctPref = partyPreferences
           ? (100 * preference.totalVotes) / partyPreferences
           : undefined;
@@ -73,7 +77,15 @@ export const PreferencesTable: FC<{
         };
       })
       .sort((a, b) => b.totalVotes - a.totalVotes);
-  }, [findCandidate, findParty, preferences, region, stats?.results?.votes]);
+  }, [
+    findCandidate,
+    findParty,
+    preferences,
+    region,
+    regionPrefs,
+    stats?.results?.votes,
+    votes,
+  ]);
   const hasMachinePaperVotes = useMemo(
     () => !!data.find((v) => v.paperVotes || v.machineVotes),
     [data],
