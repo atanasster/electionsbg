@@ -62,6 +62,7 @@ const parseElection = async ({
     stringify,
     monthYear,
     inFolder,
+    candidates,
   });
   splitSections({
     electionSections: sections,

@@ -25,18 +25,8 @@ export const splitSettlements = ({
   if (!fs.existsSync(outByFolder)) {
     fs.mkdirSync(outByFolder);
   }
-  const noPreferences = electionSettlements.map((settlement) => {
-    const { sections } = settlement;
-    return {
-      ...settlement,
-      sections: sections.map((s) => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
-        const { preferences, ...rest } = s;
-        return rest;
-      }),
-    };
-  });
-  const byData = noPreferences.reduce(
+
+  const byData = electionSettlements.reduce(
     (acc: { [key: string]: ElectionSettlement[] }, m) => {
       if (acc[m.obshtina] === undefined) {
         acc[m.obshtina] = [];
@@ -52,7 +42,7 @@ export const splitSettlements = ({
   );
   saveSplitObject(byData, stringify, outByFolder);
 
-  const byKey = noPreferences.reduce((acc, m) => {
+  const byKey = electionSettlements.reduce((acc, m) => {
     return { ...acc, [m.ekatte]: m };
   }, {});
   saveSplitObject(byKey, stringify, outDataFolder);

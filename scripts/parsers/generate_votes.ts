@@ -6,6 +6,7 @@ import regionsData from "../../src/data/json/regions.json";
 const regions = regionsData;
 import municipalitiesData from "../../public/municipalities.json";
 import {
+  CandidatesInfo,
   ElectionMunicipality,
   ElectionRegions,
   ElectionSettlement,
@@ -14,7 +15,7 @@ import {
   SectionInfo,
   SOFIA_REGIONS,
 } from "@/data/dataTypes";
-import { addPreferences, addResults } from "@/data/utils";
+import { addPreferences, addResults, totalAllVotes } from "@/data/utils";
 import { lookupCountryNumbers } from "./country_codes";
 import { regionsVotesFileName } from "../consts";
 import { splitSettlements } from "./split_settlements";
@@ -33,6 +34,7 @@ export const generateVotes = ({
   votes,
   monthYear,
   inFolder,
+  candidates,
 }: {
   outFolder: string;
   sections: SectionInfo[];
@@ -42,12 +44,14 @@ export const generateVotes = ({
   stringify: (o: object) => string;
   monthYear: string;
   inFolder: string;
+  candidates: CandidatesInfo[];
 }) => {
   const electionRegions: ElectionRegions = [];
   const electionMunicipalities: ElectionMunicipality[] = [];
   const electionSettlements: ElectionSettlement[] = [];
   const preferencesCountry: PreferencesInfo[] = [];
   const preferencesSofia: PreferencesInfo[] = [];
+  const preferencesSections: Record<string, PreferencesInfo[]> = {};
   const preferencesRegions: Record<string, PreferencesInfo[]> = {};
   const preferencesMunicipalities: Record<string, PreferencesInfo[]> = {};
   const preferencesSettlements: Record<string, PreferencesInfo[]> = {};
@@ -233,26 +237,47 @@ export const generateVotes = ({
       section.ekatte = settlement.ekatte;
       const pref = preferences.filter((p) => p.section === section.section);
       if (pref.length) {
-        section.preferences = pref.map((p) => {
+        const allVotes = totalAllVotes(section.results.votes);
+        pref.forEach((p) => {
+          p.oblast = section.oblast;
+          p.obshtina = section.obshtina;
+          p.ekatte = section.ekatte;
+          p.partyVotes = section.results.votes.find(
+            (v) => v.partyNum === p.partyNum,
+          )?.totalVotes;
+          p.allVotes = allVotes;
+        });
+        preferencesSections[section.section] = pref.map((p) => {
           // eslint-disable-next-line @typescript-eslint/no-unused-vars
           const { section, ...rest } = p;
           return rest;
         });
+
         if (preferencesRegions[section.oblast] === undefined) {
           preferencesRegions[section.oblast] = [];
         }
-        addPreferences(preferencesRegions[section.oblast], pref);
+        const defaultPrefs: Partial<PreferencesInfo> = {
+          oblast: section.oblast,
+        };
+        addPreferences(preferencesRegions[section.oblast], pref, defaultPrefs);
         if (preferencesMunicipalities[section.obshtina] === undefined) {
           preferencesMunicipalities[section.obshtina] = [];
         }
-        addPreferences(preferencesMunicipalities[section.obshtina], pref);
+        addPreferences(preferencesMunicipalities[section.obshtina], pref, {
+          ...defaultPrefs,
+          obshtina: section.obshtina,
+        });
         if (preferencesSettlements[section.ekatte] === undefined) {
           preferencesSettlements[section.ekatte] = [];
         }
-        addPreferences(preferencesSettlements[section.ekatte], pref);
-        addPreferences(preferencesCountry, pref, section.oblast);
+        addPreferences(preferencesSettlements[section.ekatte], pref, {
+          ...defaultPrefs,
+          obshtina: section.obshtina,
+          ekatte: section.ekatte,
+        });
+        addPreferences(preferencesCountry, pref, defaultPrefs);
         if (SOFIA_REGIONS.includes(section.oblast)) {
-          addPreferences(preferencesSofia, pref, section.oblast);
+          addPreferences(preferencesSofia, pref, defaultPrefs);
         }
       }
     }
@@ -267,12 +292,15 @@ export const generateVotes = ({
 
   savePreferences({
     outFolder,
+    preferences,
     preferencesCountry,
     preferencesMunicipalities,
     preferencesRegions,
     preferencesSettlements,
     preferencesSofia,
+    preferencesSections,
     stringify,
+    candidates,
   });
   splitMunicipalities({
     electionMunicipalities,

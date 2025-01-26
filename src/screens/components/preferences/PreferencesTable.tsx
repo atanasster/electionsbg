@@ -1,9 +1,4 @@
-import {
-  ElectionInfo,
-  ElectionRegion,
-  PartyInfo,
-  PreferencesInfo,
-} from "@/data/dataTypes";
+import { PartyInfo, PreferencesInfo } from "@/data/dataTypes";
 import { DataTable } from "@/ux/data_table/DataTable";
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
@@ -15,21 +10,35 @@ import { useRegions } from "@/data/regions/useRegions";
 import { Link } from "@/ux/Link";
 import { Caption } from "@/ux/Caption";
 import { capitalizeFirstLetter } from "@/data/utils";
+import { CandidateLink } from "../candidates/CandidateLink";
+import { SettlementLink } from "../settlements/SettlementLink";
+import { MunicipalityLink } from "../municipalities/MunicipalityLink";
+import { SectionLink } from "../sections/SectionLink";
+import { useSettlementsInfo } from "@/data/settlements/useSettlements";
+import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
 
+type DataType = PreferencesInfo & PartyInfo & { candidateName?: string };
+
+export type ColumnNames =
+  | "ekatte"
+  | "section"
+  | "obshtina"
+  | "oblast"
+  | "candidate";
 export const PreferencesTable: FC<{
   preferences: PreferencesInfo[];
   region: string;
-  stats?: ElectionInfo;
-  votes?: ElectionRegion[];
-  regionPrefs?: Record<string, PreferencesInfo[]>;
-}> = ({ preferences, region, stats, votes, regionPrefs }) => {
+  regionPrefs?: Record<string, PreferencesInfo[]> | null;
+  visibleColumns?: ColumnNames[];
+}> = ({ preferences, region, regionPrefs, visibleColumns = [] }) => {
   const { t, i18n } = useTranslation();
   const { findParty } = usePartyInfo();
   const { findCandidate } = useCandidates();
   const { findRegion } = useRegions();
   const isMedium = useMediaQueryMatch("md");
-
-  const data = useMemo(() => {
+  const { findSettlement } = useSettlementsInfo();
+  const { findMunicipality } = useMunicipalities();
+  const data: DataType[] = useMemo(() => {
     const allPreferences = !regionPrefs
       ? preferences.reduce((acc: Record<number, number>, curr) => {
           if (acc[curr.partyNum] === undefined) {
@@ -43,21 +52,14 @@ export const PreferencesTable: FC<{
     return preferences
       .map((preference) => {
         const party = findParty(preference.partyNum);
-        const partyVotes =
-          votes && preference.oblast
-            ? votes
-                .find((v) => v.key === preference.oblast)
-                ?.results.votes.find((v) => v.partyNum === preference.partyNum)
-            : stats?.results?.votes.find(
-                (v) => v.number === preference.partyNum,
-              );
         const candidate = findCandidate(
           preference.oblast || region,
           preference.partyNum,
           preference.pref,
         );
-        const partyPreferences =
-          regionPrefs && preference.oblast
+        const partyPreferences = preference.partyPrefs
+          ? preference.partyPrefs
+          : regionPrefs && preference.oblast
             ? regionPrefs[preference.oblast]
                 .filter((p) => p.partyNum === preference.partyNum)
                 .reduce((acc, curr) => acc + curr.totalVotes, 0)
@@ -65,27 +67,24 @@ export const PreferencesTable: FC<{
         const pctPref = partyPreferences
           ? (100 * preference.totalVotes) / partyPreferences
           : undefined;
-        const pctPrefVotes = partyVotes
-          ? (100 * preference.totalVotes) / partyVotes.totalVotes
+        const pctPrefVotes = preference.partyVotes
+          ? (100 * preference.totalVotes) / preference.partyVotes
           : undefined;
+        const pctPrefAllVotes = preference.allVotes
+          ? (100 * preference.totalVotes) / preference.allVotes
+          : undefined;
+
         return {
           ...preference,
           pctPref,
           pctPrefVotes,
+          pctPrefAllVotes,
           ...party,
           candidateName: candidate?.name,
         };
       })
       .sort((a, b) => b.totalVotes - a.totalVotes);
-  }, [
-    findCandidate,
-    findParty,
-    preferences,
-    region,
-    regionPrefs,
-    stats?.results?.votes,
-    votes,
-  ]);
+  }, [findCandidate, findParty, preferences, region, regionPrefs]);
   const hasMachinePaperVotes = useMemo(
     () => !!data.find((v) => v.paperVotes || v.machineVotes),
     [data],
@@ -94,7 +93,7 @@ export const PreferencesTable: FC<{
   return (
     <div className="w-full">
       <Caption className="py-8">{t("preferences")}</Caption>
-      <DataTable<PreferencesInfo & PartyInfo, unknown>
+      <DataTable<DataType, unknown>
         pageSize={25}
         title={t("preferences")}
         stickyColumn={true}
@@ -109,7 +108,7 @@ export const PreferencesTable: FC<{
           {
             accessorKey: "oblast",
             header: t("region"),
-            hidden: region !== "",
+            hidden: !visibleColumns.includes("oblast"),
             cellValue: ({ row }) => {
               const region = findRegion(row.getValue("oblast"));
               return i18n.language === "bg"
@@ -128,13 +127,51 @@ export const PreferencesTable: FC<{
             },
           },
           {
+            accessorKey: "obshtina",
+            hidden: !visibleColumns.includes("obshtina"),
+            header: t("municipality"),
+            cellValue: ({ row }) => {
+              const municipality = findMunicipality(row.getValue("obshtina"));
+              return i18n.language === "bg"
+                ? municipality?.name
+                : municipality?.name_en;
+            },
+            cell: ({ row }) => (
+              <MunicipalityLink obshtina={row.original.obshtina} />
+            ),
+          },
+          {
+            accessorKey: "ekatte",
+            hidden: !visibleColumns.includes("ekatte"),
+            header: t("settlement"),
+            cellValue: ({ row }) => {
+              const settlement = findSettlement(row.getValue("ekatte"));
+              return i18n.language === "bg"
+                ? settlement?.name
+                : settlement?.name_en;
+            },
+            cell: ({ row }) => <SettlementLink ekatte={row.original.ekatte} />,
+          },
+          {
+            accessorKey: "section",
+            hidden: !visibleColumns.includes("section"),
+            header: t("section"),
+            cell: ({ row }) => <SectionLink section={row.original.section} />,
+          },
+          {
             accessorKey: "pref",
             header: "#",
+            hidden: !visibleColumns.includes("candidate"),
             dataType: "thousands",
           },
           {
             accessorKey: "candidateName",
             header: t("candidate"),
+            hidden: !visibleColumns.includes("candidate"),
+            cell: ({ row }) =>
+              row.original.candidateName && (
+                <CandidateLink name={row.original.candidateName} />
+              ),
           },
           {
             accessorKey: "paperVotes",
@@ -163,7 +200,13 @@ export const PreferencesTable: FC<{
           {
             accessorKey: "pctPrefVotes",
             headerHint: t("pct_pref_votes_explainer"),
-            header: `% ${t("votes")}`,
+            header: `% ${t("party")}`,
+            dataType: "percent",
+          },
+          {
+            accessorKey: "pctPrefAllVotes",
+            headerHint: t("pct_pref_all_votes_explainer"),
+            header: `% ${t("total")}`,
             dataType: "percent",
           },
         ]}
