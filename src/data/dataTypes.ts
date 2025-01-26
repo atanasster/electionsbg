@@ -83,7 +83,6 @@ export type SectionInfo = {
   oblast: string;
   obshtina?: string;
   ekatte?: string;
-  preferences?: PreferencesInfo[];
 } & ElectionResults;
 
 export type CandidatesInfo = {
@@ -96,7 +95,12 @@ export type CandidatesInfo = {
 export type PreferencesInfo = Votes & {
   section?: string;
   oblast?: string;
+  obshtina?: string;
+  ekatte?: string;
   pref: string;
+  partyVotes?: number;
+  allVotes?: number;
+  partyPrefs?: number;
 };
 
 export type LocationInfo = {

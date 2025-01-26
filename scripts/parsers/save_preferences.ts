@@ -1,23 +1,29 @@
 import fs from "fs";
-import { PreferencesInfo } from "@/data/dataTypes";
+import { CandidatesInfo, PreferencesInfo } from "@/data/dataTypes";
 import { saveSplitObject } from "scripts/dataReaders";
 
 export const savePreferences = ({
   outFolder,
   stringify,
+  preferences,
   preferencesCountry,
   preferencesMunicipalities,
   preferencesRegions,
   preferencesSettlements,
   preferencesSofia,
+  preferencesSections,
+  candidates,
 }: {
   outFolder: string;
   stringify: (o: object) => string;
+  preferences: PreferencesInfo[];
   preferencesCountry: PreferencesInfo[];
   preferencesSofia: PreferencesInfo[];
   preferencesRegions: Record<string, PreferencesInfo[]>;
   preferencesMunicipalities: Record<string, PreferencesInfo[]>;
   preferencesSettlements: Record<string, PreferencesInfo[]>;
+  preferencesSections: Record<string, PreferencesInfo[]>;
+  candidates: CandidatesInfo[];
 }) => {
   const prefFolder = `${outFolder}/preferences`;
   if (!fs.existsSync(prefFolder)) {
@@ -60,4 +66,189 @@ export const savePreferences = ({
     fs.mkdirSync(prefBySettlementFolder);
   }
   saveSplitObject(preferencesSettlements, stringify, prefBySettlementFolder);
+
+  const prefBySectionFolder = `${prefFolder}/by_section`;
+  if (!fs.existsSync(prefBySectionFolder)) {
+    fs.mkdirSync(prefBySectionFolder);
+  }
+  saveSplitObject(preferencesSections, stringify, prefBySectionFolder);
+  const candidatesFolder = `${outFolder}/candidates`;
+  if (!fs.existsSync(candidatesFolder)) {
+    fs.mkdirSync(candidatesFolder);
+  }
+  const consolidatedCandidates = candidates.reduce(
+    (acc: Record<string, CandidatesInfo[]>, curr) => {
+      if (acc[curr.name] === undefined) {
+        acc[curr.name] = [];
+      }
+      acc[curr.name].push(curr);
+      return acc;
+    },
+    {},
+  );
+  Object.keys(consolidatedCandidates).forEach((name) => {
+    const candidateFolder = `${candidatesFolder}/${name}`;
+    if (!fs.existsSync(candidateFolder)) {
+      fs.mkdirSync(candidateFolder);
+    }
+    const byRegion: PreferencesInfo[] = [];
+    const bySection: PreferencesInfo[] = [];
+    const byMunicipality: PreferencesInfo[] = [];
+    const bySettlement: PreferencesInfo[] = [];
+    const regionPrefsByParty = preferencesCountry.reduce(
+      (acc: Record<string, Record<number, number>>, curr) => {
+        if (curr.oblast) {
+          if (acc[curr.oblast] === undefined) {
+            acc[curr.oblast] = {};
+          }
+          if (acc[curr.oblast][curr.partyNum] === undefined) {
+            acc[curr.oblast][curr.partyNum] = curr.totalVotes;
+          } else {
+            acc[curr.oblast][curr.partyNum] += curr.totalVotes;
+          }
+        }
+        return acc;
+      },
+      {},
+    );
+    const muniPrefsByParty = Object.keys(preferencesMunicipalities).reduce(
+      (acc: Record<string, Record<number, number>>, key) => {
+        acc[key] = preferencesMunicipalities[key].reduce(
+          (prefs: Record<number, number>, curr) => {
+            if (prefs[curr.partyNum] === undefined) {
+              prefs[curr.partyNum] = curr.totalVotes;
+            } else {
+              prefs[curr.partyNum] += curr.totalVotes;
+            }
+            return prefs;
+          },
+          {},
+        );
+        return acc;
+      },
+      {},
+    );
+    const settlementPrefsByParty = Object.keys(preferencesSettlements).reduce(
+      (acc: Record<string, Record<number, number>>, key) => {
+        acc[key] = preferencesSettlements[key].reduce(
+          (prefs: Record<number, number>, curr) => {
+            if (prefs[curr.partyNum] === undefined) {
+              prefs[curr.partyNum] = curr.totalVotes;
+            } else {
+              prefs[curr.partyNum] += curr.totalVotes;
+            }
+            return prefs;
+          },
+          {},
+        );
+        return acc;
+      },
+      {},
+    );
+
+    const sectionPrefsByParty = preferences.reduce(
+      (acc: Record<string, Record<number, number>>, curr) => {
+        if (curr.section) {
+          if (acc[curr.section] === undefined) {
+            acc[curr.section] = {};
+          }
+          if (acc[curr.section][curr.partyNum] === undefined) {
+            acc[curr.section][curr.partyNum] = curr.totalVotes;
+          } else {
+            acc[curr.section][curr.partyNum] += curr.totalVotes;
+          }
+        }
+        return acc;
+      },
+      {},
+    );
+    consolidatedCandidates[name].forEach((c) => {
+      preferencesCountry
+        .filter(
+          (v) =>
+            v.partyNum === c.partyNum &&
+            v.pref === c.pref &&
+            c.oblast === v.oblast,
+        )
+        .forEach((v) => {
+          const partyPrefs = v.oblast
+            ? regionPrefsByParty[v.oblast]?.[v.partyNum]
+            : v.totalVotes;
+          byRegion.push({
+            partyPrefs,
+            ...v,
+          });
+        });
+
+      //by municipalities
+      Object.keys(preferencesMunicipalities).forEach((muni) => {
+        preferencesMunicipalities[muni]
+          .filter(
+            (v) =>
+              v.partyNum === c.partyNum &&
+              v.pref === c.pref &&
+              c.oblast === v.oblast,
+          )
+          .forEach((v) => {
+            const partyPrefs = v.obshtina
+              ? muniPrefsByParty[v.obshtina]?.[v.partyNum]
+              : v.totalVotes;
+            byMunicipality.push({
+              partyPrefs,
+              obshtina: muni,
+              ...v,
+            });
+          });
+      });
+
+      //by settlements
+      Object.keys(preferencesSettlements).forEach((ekatte) => {
+        preferencesSettlements[ekatte]
+          .filter(
+            (v) =>
+              v.partyNum === c.partyNum &&
+              v.pref === c.pref &&
+              c.oblast === v.oblast,
+          )
+          .forEach((v) => {
+            const partyPrefs = v.ekatte
+              ? settlementPrefsByParty[v.ekatte]?.[v.partyNum]
+              : v.totalVotes;
+            bySettlement.push({
+              ekatte,
+              partyPrefs,
+              ...v,
+            });
+          });
+      });
+
+      //by sections
+
+      const votes = preferences.filter(
+        (v) =>
+          v.partyNum === c.partyNum &&
+          v.pref === c.pref &&
+          c.oblast === v.oblast,
+      );
+      bySection.push(
+        ...votes.map((v) => {
+          const partyPrefs = v.section
+            ? sectionPrefsByParty[v.section]?.[v.partyNum]
+            : v.totalVotes;
+          return { ...v, partyPrefs };
+        }),
+      );
+    });
+    const byRegionFileName = `${candidateFolder}/regions.json`;
+    fs.writeFileSync(byRegionFileName, stringify(byRegion), "utf8");
+
+    const byMuniFileName = `${candidateFolder}/municipalities.json`;
+    fs.writeFileSync(byMuniFileName, stringify(byMunicipality), "utf8");
+
+    const bySettlementFileName = `${candidateFolder}/settlements.json`;
+    fs.writeFileSync(bySettlementFileName, stringify(bySettlement), "utf8");
+
+    const bySectionFileName = `${candidateFolder}/sections.json`;
+    fs.writeFileSync(bySectionFileName, stringify(bySection), "utf8");
+  });
 };

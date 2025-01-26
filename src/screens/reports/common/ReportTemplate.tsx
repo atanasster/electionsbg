@@ -24,6 +24,9 @@ import { useElectionContext } from "@/data/ElectionContext";
 import { SelectParties } from "@/screens/components/charts/SelectParties";
 import { PartyLink } from "@/screens/components/party/PartyLink";
 import { HintedSwitch } from "@/ux/HintedSwitch";
+import { SettlementLink } from "@/screens/components/settlements/SettlementLink";
+import { MunicipalityLink } from "@/screens/components/municipalities/MunicipalityLink";
+import { SectionLink } from "@/screens/components/sections/SectionLink";
 
 export type ColumnNames =
   | "ekatte"
@@ -211,16 +214,9 @@ export const ReportTemplate: FC<{
                 ? municipality?.name
                 : municipality?.name_en;
             },
-            cell: ({ row }) => {
-              const municipality = findMunicipality(row.getValue("obshtina"));
-              return (
-                <Link to={`/settlement/${row.original.obshtina}`}>
-                  {i18n.language === "bg"
-                    ? municipality?.name
-                    : municipality?.name_en}
-                </Link>
-              );
-            },
+            cell: ({ row }) => (
+              <MunicipalityLink obshtina={row.original.obshtina} />
+            ),
           },
           {
             accessorKey: "ekatte",
@@ -232,26 +228,13 @@ export const ReportTemplate: FC<{
                 ? settlement?.name
                 : settlement?.name_en;
             },
-            cell: ({ row }) => {
-              const settlement = findSettlement(row.getValue("ekatte"));
-              return (
-                <Link to={`/sections/${row.original.ekatte}`}>
-                  {i18n.language === "bg"
-                    ? settlement?.name
-                    : settlement?.name_en}
-                </Link>
-              );
-            },
+            cell: ({ row }) => <SettlementLink ekatte={row.original.ekatte} />,
           },
           {
             accessorKey: "section",
             hidden: !visibleColumns.includes("section"),
             header: t("section"),
-            cell: ({ row }) => (
-              <Link to={`/section/${row.getValue("section")}`}>
-                {row.getValue("section")}
-              </Link>
-            ),
+            cell: ({ row }) => <SectionLink section={row.original.section} />,
           },
           {
             accessorKey: "totalVotes",

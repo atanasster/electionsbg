@@ -8,12 +8,10 @@ import { useSectionStats } from "@/data/sections/useSectionStats";
 import { usePartyInfo } from "@/data/parties/usePartyInfo";
 import { DataViewContainer } from "@/layout/dataview/DataViewContainer";
 import { MultiHistoryChart } from "../charts/MultiHistoryChart";
-import { PreferencesTable } from "../preferences/PreferencesTable";
-import { useElectionContext } from "@/data/ElectionContext";
+import { PreferencesBySection } from "../preferences/PreferencesBySection";
 
 export const Section: FC<{ section: SectionInfo }> = ({ section }) => {
   const { t } = useTranslation();
-  const { selected } = useElectionContext();
   const { prevVotes, stats } = useSectionStats(section.section);
   const { parties } = usePartyInfo();
   const votes = parties?.map((p) => {
@@ -57,12 +55,11 @@ export const Section: FC<{ section: SectionInfo }> = ({ section }) => {
               );
             if (view === "chart" && stats)
               return <MultiHistoryChart stats={stats} />;
-            if (view === "pref." && section.preferences)
+            if (view === "pref.")
               return (
-                <PreferencesTable
-                  preferences={section.preferences}
+                <PreferencesBySection
+                  section={section.section}
                   region={section.oblast}
-                  stats={stats?.find((s) => s.name === selected)}
                 />
               );
           }}

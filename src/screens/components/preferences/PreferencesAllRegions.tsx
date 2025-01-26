@@ -3,7 +3,6 @@ import { useElectionContext } from "@/data/ElectionContext";
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { PreferencesTable } from "./PreferencesTable";
 import { FC } from "react";
-import { useRegionVotes } from "@/data/regions/useRegionVotes";
 
 const queryFn = async ({
   queryKey,
@@ -20,19 +19,19 @@ const queryFn = async ({
 
 const queryRegions = async ({
   queryKey,
-}: QueryFunctionContext<[string, string | null | undefined]>): Promise<
-  Record<string, PreferencesInfo[]> | undefined
-> => {
+}: QueryFunctionContext<[string, string | null | undefined]>): Promise<Record<
+  string,
+  PreferencesInfo[]
+> | null> => {
   if (!queryKey[1]) {
-    return undefined;
+    return null;
   }
   const response = await fetch(`/${queryKey[1]}/preferences/regions.json`);
   const data = await response.json();
   return data;
 };
 export const PreferencesAllRegions: FC = () => {
-  const { selected, stats } = useElectionContext();
-  const { countryRegions } = useRegionVotes();
+  const { selected } = useElectionContext();
   const { data: preferences } = useQuery({
     queryKey: ["preferences_all_country", selected],
     queryFn,
@@ -45,9 +44,8 @@ export const PreferencesAllRegions: FC = () => {
     <PreferencesTable
       preferences={preferences}
       region=""
-      stats={stats?.find((s) => s.name === selected)}
-      votes={countryRegions()}
       regionPrefs={regions}
+      visibleColumns={["oblast", "candidate"]}
     />
   ) : null;
 };

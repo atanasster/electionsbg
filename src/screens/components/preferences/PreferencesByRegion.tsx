@@ -3,15 +3,14 @@ import { useElectionContext } from "@/data/ElectionContext";
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { PreferencesTable } from "./PreferencesTable";
 import { FC } from "react";
-import { useRegionStats } from "@/data/regions/useRegionStats";
 
 const queryFn = async ({
   queryKey,
 }: QueryFunctionContext<
   [string, string | null | undefined, string | undefined]
->): Promise<PreferencesInfo[] | undefined> => {
+>): Promise<PreferencesInfo[] | null> => {
   if (!queryKey[1] || !queryKey[2]) {
-    return undefined;
+    return null;
   }
   const response = await fetch(
     `/${queryKey[1]}/preferences/by_region/${queryKey[2]}.json`,
@@ -27,12 +26,11 @@ export const PreferencesByRegion: FC<{
     queryKey: ["preferences_by_municipality", selected, region],
     queryFn,
   });
-  const { stats } = useRegionStats(region);
   return preferences && region ? (
     <PreferencesTable
       preferences={preferences}
       region={region}
-      stats={stats?.find((s) => s.name === selected)}
+      visibleColumns={["candidate"]}
     />
   ) : null;
 };

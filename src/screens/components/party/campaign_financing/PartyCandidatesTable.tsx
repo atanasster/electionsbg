@@ -3,6 +3,7 @@ import { DataTable, DataTableColumns } from "@/ux/data_table/DataTable";
 import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
+import { CandidateLink } from "../../candidates/CandidateLink";
 
 type TableData = FinancingFromCandidates & {
   totalAmount: number;
@@ -18,6 +19,8 @@ export const PartyCandidatesTable: FC<{ data: FinancingFromCandidates[] }> = ({
       {
         accessorKey: "name",
         header: t("name"),
+        cell: ({ row }) =>
+          row.original.name && <CandidateLink name={row.original.name} />,
       },
       {
         accessorKey: "date",

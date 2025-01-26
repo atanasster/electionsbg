@@ -3,15 +3,14 @@ import { useElectionContext } from "@/data/ElectionContext";
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { PreferencesTable } from "./PreferencesTable";
 import { FC } from "react";
-import { useSofiaStats } from "@/data/country/useSofiaStats";
 
 const queryFn = async ({
   queryKey,
 }: QueryFunctionContext<[string, string | null | undefined]>): Promise<
-  PreferencesInfo[] | undefined
+  PreferencesInfo[] | null
 > => {
   if (!queryKey[1]) {
-    return undefined;
+    return null;
   }
   const response = await fetch(`/${queryKey[1]}/preferences/sofia.json`);
   const data = await response.json();
@@ -23,12 +22,11 @@ export const PreferencesSofia: FC = () => {
     queryKey: ["preferences_sofia", selected],
     queryFn,
   });
-  const { sofiaStats } = useSofiaStats();
   return preferences ? (
     <PreferencesTable
       preferences={preferences}
       region=""
-      stats={sofiaStats?.find((s) => s.name === selected)}
+      visibleColumns={["oblast", "candidate"]}
     />
   ) : null;
 };
