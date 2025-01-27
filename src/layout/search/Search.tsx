@@ -67,6 +67,9 @@ const SearchInternal: FC = () => {
         case "r":
           navigate({ pathname: `/municipality/${selectedOption.item.key}` });
           break;
+        case "a":
+          navigate({ pathname: `/candidate/${selectedOption.item.key}` });
+          break;
       }
       setOpen(false);
       inputRef?.current?.blur();

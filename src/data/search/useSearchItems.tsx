@@ -6,6 +6,7 @@ import { useRegions } from "../regions/useRegions";
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { SectionIndex } from "../dataTypes";
 import { useElectionContext } from "../ElectionContext";
+import { useCandidates } from "../preferences/useCandidates";
 
 const queryFn = async ({
   queryKey,
@@ -21,10 +22,10 @@ const queryFn = async ({
 };
 
 export type SearchIndexType = {
-  type: "s" | "m" | "r" | "c";
+  type: "s" | "m" | "r" | "c" | "a";
   key: string;
   name: string;
-  name_en: string;
+  name_en?: string;
 };
 export const useSearchItems = () => {
   const { selected } = useElectionContext();
@@ -34,9 +35,10 @@ export const useSearchItems = () => {
   });
   const { settlements } = useSettlementsInfo();
   const { municipalities } = useMunicipalities();
+  const { candidates } = useCandidates();
   const { regions } = useRegions();
   const fuse = useMemo(() => {
-    if (settlements && municipalities && sections) {
+    if (settlements && municipalities && sections && candidates) {
       const searchItems: SearchIndexType[] = settlements.map((s) => ({
         type: "s",
         key: s.ekatte,
@@ -67,13 +69,25 @@ export const useSearchItems = () => {
           name_en: r.name_en,
         });
       });
+      const names: string[] = [];
+      candidates?.forEach((r) => {
+        if (!names.includes(r.name)) {
+          searchItems.push({
+            type: "a",
+            key: r.name,
+            name: r.name,
+          });
+          names.push(r.name);
+        }
+      });
+
       return new Fuse<SearchIndexType>(searchItems, {
         includeScore: true,
         keys: ["name", "name_en"],
       });
     }
     return undefined;
-  }, [municipalities, regions, sections, settlements]);
+  }, [candidates, municipalities, regions, sections, settlements]);
   const search = (searchTern: string) => {
     return fuse?.search(searchTern);
   };
