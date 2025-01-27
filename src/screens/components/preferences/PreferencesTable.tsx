@@ -7,7 +7,6 @@ import { usePartyInfo } from "@/data/parties/usePartyInfo";
 import { PartyLink } from "../party/PartyLink";
 import { useCandidates } from "@/data/preferences/useCandidates";
 import { useRegions } from "@/data/regions/useRegions";
-import { Link } from "@/ux/Link";
 import { Caption } from "@/ux/Caption";
 import { capitalizeFirstLetter } from "@/data/utils";
 import { CandidateLink } from "../candidates/CandidateLink";
@@ -16,6 +15,7 @@ import { MunicipalityLink } from "../municipalities/MunicipalityLink";
 import { SectionLink } from "../sections/SectionLink";
 import { useSettlementsInfo } from "@/data/settlements/useSettlements";
 import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
+import { RegionLink } from "../regions/RegionLink";
 
 type DataType = PreferencesInfo & PartyInfo & { candidateName?: string };
 
@@ -115,16 +115,7 @@ export const PreferencesTable: FC<{
                 ? region?.long_name || region?.name
                 : region?.long_name_en || region?.name_en;
             },
-            cell: ({ row }) => {
-              const region = findRegion(row.getValue("oblast"));
-              return (
-                <Link to={`/municipality/${row.original.oblast}`}>
-                  {i18n.language === "bg"
-                    ? region?.long_name || region?.name
-                    : region?.long_name_en || region?.name_en}
-                </Link>
-              );
-            },
+            cell: ({ row }) => <RegionLink oblast={row.original.oblast} />,
           },
           {
             accessorKey: "obshtina",

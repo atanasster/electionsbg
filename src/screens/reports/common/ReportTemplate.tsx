@@ -6,7 +6,6 @@ import { useTranslation } from "react-i18next";
 import { addVotes, localDate } from "@/data/utils";
 import { useSettlementsInfo } from "@/data/settlements/useSettlements";
 import { useSearchParams } from "react-router-dom";
-import { Link } from "@/ux/Link";
 import { Label } from "@/components/ui/label";
 
 import {
@@ -27,6 +26,7 @@ import { HintedSwitch } from "@/ux/HintedSwitch";
 import { SettlementLink } from "@/screens/components/settlements/SettlementLink";
 import { MunicipalityLink } from "@/screens/components/municipalities/MunicipalityLink";
 import { SectionLink } from "@/screens/components/sections/SectionLink";
+import { RegionLink } from "@/screens/components/regions/RegionLink";
 
 export type ColumnNames =
   | "ekatte"
@@ -196,14 +196,7 @@ export const ReportTemplate: FC<{
               const region = findRegion(row.getValue("oblast"));
               return i18n.language === "bg" ? region?.name : region?.name_en;
             },
-            cell: ({ row }) => {
-              const region = findRegion(row.getValue("oblast"));
-              return (
-                <Link to={`/municipality/${row.original.oblast}`}>
-                  {i18n.language === "bg" ? region?.name : region?.name_en}
-                </Link>
-              );
-            },
+            cell: ({ row }) => <RegionLink oblast={row.original.oblast} />,
           },
           {
             accessorKey: "obshtina",
