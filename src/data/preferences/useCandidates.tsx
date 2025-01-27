@@ -34,5 +34,6 @@ export const useCandidates = () => {
 
   return {
     findCandidate,
+    candidates: data,
   };
 };

@@ -22,6 +22,8 @@ export const SearchItems: FC<{
         return t("municipality");
       case "s":
         return t("settlement");
+      case "a":
+        return t("candidate");
     }
   };
   const itemLang = (item: SearchIndexType) => {
@@ -35,6 +37,8 @@ export const SearchItems: FC<{
           return "ОБ";
         case "s":
           return "НМ";
+        case "a":
+          return "КД";
       }
     } else {
       return item.type;
@@ -65,7 +69,7 @@ export const SearchItems: FC<{
           </Hint>
           {r.item.type !== "c" ? (
             <div>
-              {`${i18n.language === "bg" ? r.item.name : r.item.name_en}`}
+              {`${i18n.language === "bg" ? r.item.name : r.item.name_en || r.item.name}`}
             </div>
           ) : (
             <div>{`${r.item.name} ${r.item.name_en}`}</div>
