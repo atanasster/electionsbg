@@ -134,7 +134,7 @@ export const candidatesStats = (stringify: (o: object) => string) => {
       lyCandidates: ly?.candidates,
     });
     const sofiaFileName = `${outFolder}/preferences/sofia.json`;
-    fs.writeFileSync(sofiaFileName, stringify(ty.prefCountry), "utf-8");
+    fs.writeFileSync(sofiaFileName, stringify(ty.prefSofia), "utf-8");
     console.log("Successfully added file ", sofiaFileName);
 
     folderPrevYearPreferences({

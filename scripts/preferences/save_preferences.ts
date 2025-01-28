@@ -48,13 +48,7 @@ export const savePreferences = ({
   if (!fs.existsSync(prefByRegionFolder)) {
     fs.mkdirSync(prefByRegionFolder);
   }
-  const regionsPreferencesFileName = `${prefFolder}/regions.json`;
-  fs.writeFileSync(
-    regionsPreferencesFileName,
-    stringify(preferencesRegions),
-    "utf8",
-  );
-  console.log("Successfully added file ", regionsPreferencesFileName);
+
   saveSplitObject(preferencesRegions, stringify, prefByRegionFolder);
   const prefByMuniFolder = `${prefFolder}/by_municipality`;
   if (!fs.existsSync(prefByMuniFolder)) {
