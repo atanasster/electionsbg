@@ -8,7 +8,7 @@ import { PartyLink } from "../party/PartyLink";
 import { useCandidates } from "@/data/preferences/useCandidates";
 import { useRegions } from "@/data/regions/useRegions";
 import { Caption } from "@/ux/Caption";
-import { capitalizeFirstLetter, pctChange } from "@/data/utils";
+import { capitalizeFirstLetter, localDate, pctChange } from "@/data/utils";
 import { CandidateLink } from "../candidates/CandidateLink";
 import { SettlementLink } from "../settlements/SettlementLink";
 import { MunicipalityLink } from "../municipalities/MunicipalityLink";
@@ -16,6 +16,7 @@ import { SectionLink } from "../sections/SectionLink";
 import { useSettlementsInfo } from "@/data/settlements/useSettlements";
 import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
 import { RegionLink } from "../regions/RegionLink";
+import { useElectionContext } from "@/data/ElectionContext";
 
 type DataType = PreferencesInfo & PartyInfo & { candidateName?: string };
 
@@ -35,6 +36,7 @@ export const PreferencesTable: FC<{
   const { findParty } = usePartyInfo();
   const { findCandidate } = useCandidates();
   const { findRegion } = useRegions();
+  const { priorElections } = useElectionContext();
   const isMedium = useMediaQueryMatch("md");
   const { findSettlement } = useSettlementsInfo();
   const { findMunicipality } = useMunicipalities();
@@ -209,9 +211,9 @@ export const PreferencesTable: FC<{
           },
           {
             accessorKey: "pctLyPreferences",
-            hidden: !hasPrevYear,
+            hidden: !hasPrevYear || !priorElections,
             headerHint: t("pct_pref_all_votes_explainer"),
-            header: `% ${t("total")}`,
+            header: priorElections ? localDate(priorElections?.name) : "+/-",
             dataType: "pctChange",
           },
         ]}

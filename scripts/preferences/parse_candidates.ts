@@ -3,7 +3,7 @@ import { parse } from "csv-parse";
 import regionsData from "../../src/data/json/regions.json";
 const regions = regionsData;
 import { CandidatesInfo } from "@/data/dataTypes";
-import { regionCodes } from "./region_codes";
+import { regionCodes } from "../parsers/region_codes";
 import { capitalizeSentence } from "@/data/utils";
 
 export const parseCandidates = (

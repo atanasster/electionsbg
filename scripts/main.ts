@@ -7,7 +7,7 @@ import { parseElections } from "./parsers/parse_elections";
 import { generateAllSearchFIles } from "./search";
 import { parseFinancing } from "./smetna_palata";
 import { runPartyStats } from "./party_stats";
-import { candidatesStats } from "./stats/preferences_stats";
+import { createPreferencesFiles } from "./preferences";
 
 const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
 const __dirname = path.dirname(__filename); // get the name of the directory
@@ -114,7 +114,7 @@ const app = command({
       });
     }
     if (candidates) {
-      candidatesStats(stringify);
+      await createPreferencesFiles(stringify);
     }
   },
 });
