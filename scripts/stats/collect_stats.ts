@@ -16,10 +16,10 @@ import {
   regionsVotesFileName,
   sectionVotesFileName,
   settlementsVotesFileName,
-} from "./consts";
+} from "../consts";
 import path from "path";
 import { fileURLToPath } from "url";
-import { saveSplitObject } from "./dataReaders";
+import { saveSplitObject } from "../dataReaders";
 
 const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
 const __dirname = path.dirname(__filename); // get the name of the directory
@@ -204,11 +204,11 @@ const collectStats = ({
 };
 
 export const runStats = (stringify: (o: object) => string) => {
-  const outFolder = path.resolve(__dirname, `../public/`);
+  const outFolder = path.resolve(__dirname, `../../public/`);
 
   const electionsFile = path.resolve(
     __dirname,
-    "../src/data/json/elections.json",
+    "../../src/data/json/elections.json",
   );
   const elections: ElectionInfo[] = JSON.parse(
     fs.readFileSync(electionsFile, "utf-8"),
@@ -223,8 +223,8 @@ export const runStats = (stringify: (o: object) => string) => {
       ...elections.find((p) => p.name === f.name),
     }))
     .sort((a, b) => b.name.localeCompare(a.name));
-  const publicFolder = path.resolve(__dirname, `../public`);
-  const rawDataFolder = path.resolve(__dirname, `../raw_data`);
+  const publicFolder = path.resolve(__dirname, `../../public`);
+  const rawDataFolder = path.resolve(__dirname, `../../raw_data`);
   const { country, byRegion, byMunicipality, bySettlement, bySection, sofia } =
     collectStats({
       elections: updatedElections,

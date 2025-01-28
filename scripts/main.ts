@@ -1,13 +1,13 @@
 import path from "path";
 import { command, run, string, option, boolean, optional, flag } from "cmd-ts";
 import { fileURLToPath } from "url";
-import { runStats } from "./collect_stats";
+import { runStats } from "./stats/collect_stats";
 import { generateReports } from "./reports";
 import { parseElections } from "./parsers/parse_elections";
 import { generateAllSearchFIles } from "./search";
 import { parseFinancing } from "./smetna_palata";
 import { runPartyStats } from "./party_stats";
-import { runAllCandidates } from "./parsers/parse_candidates";
+import { candidatesStats } from "./stats/preferences_stats";
 
 const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
 const __dirname = path.dirname(__filename); // get the name of the directory
@@ -114,7 +114,7 @@ const app = command({
       });
     }
     if (candidates) {
-      await runAllCandidates(stringify);
+      candidatesStats(stringify);
     }
   },
 });
