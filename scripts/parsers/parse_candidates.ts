@@ -2,16 +2,9 @@ import fs from "fs";
 import { parse } from "csv-parse";
 import regionsData from "../../src/data/json/regions.json";
 const regions = regionsData;
-
-import path from "path";
-import { fileURLToPath } from "url";
-import { CandidatesInfo, ElectionInfo } from "@/data/dataTypes";
-import { candidatesFileName, preferencesFileName } from "scripts/consts";
+import { CandidatesInfo } from "@/data/dataTypes";
 import { regionCodes } from "./region_codes";
 import { capitalizeSentence } from "@/data/utils";
-import { parsePreferences } from "./parse_preferences";
-const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
-const __dirname = path.dirname(__filename); // get the name of the directory
 
 export const parseCandidates = (
   inFolder: string,
@@ -64,46 +57,5 @@ export const parseCandidates = (
         }
         resolve(allCandidates);
       }),
-  );
-};
-
-export const runAllCandidates = async (stringify: (o: object) => string) => {
-  const outFolder = path.resolve(__dirname, `../../public/`);
-
-  const electionsFile = path.resolve(
-    __dirname,
-    "../../src/data/json/elections.json",
-  );
-  const elections: ElectionInfo[] = JSON.parse(
-    fs.readFileSync(electionsFile, "utf-8"),
-  );
-
-  const updatedElections: ElectionInfo[] = fs
-    .readdirSync(outFolder, { withFileTypes: true })
-    .filter((file) => file.isDirectory())
-    .filter((file) => file.name.startsWith("20"))
-    .map((f) => ({
-      name: f.name,
-      ...elections.find((p) => p.name === f.name),
-    }))
-    .sort((a, b) => b.name.localeCompare(a.name));
-  const publicFolder = path.resolve(__dirname, `../../public`);
-  const rawDataFolder = path.resolve(__dirname, `../../raw_data`);
-  await Promise.all(
-    updatedElections.map(async (e) => {
-      const dataFolder = `${rawDataFolder}/${e.name}`;
-      const candidates = await parseCandidates(dataFolder, e.name);
-      fs.writeFileSync(
-        `${publicFolder}/${e.name}/${candidatesFileName}`,
-        stringify(candidates),
-        "utf-8",
-      );
-      const preferences = await parsePreferences(dataFolder, e.name);
-      fs.writeFileSync(
-        `${dataFolder}/${preferencesFileName}`,
-        stringify(preferences),
-        "utf-8",
-      );
-    }),
   );
 };

@@ -8,7 +8,7 @@ import { PartyLink } from "../party/PartyLink";
 import { useCandidates } from "@/data/preferences/useCandidates";
 import { useRegions } from "@/data/regions/useRegions";
 import { Caption } from "@/ux/Caption";
-import { capitalizeFirstLetter } from "@/data/utils";
+import { capitalizeFirstLetter, pctChange } from "@/data/utils";
 import { CandidateLink } from "../candidates/CandidateLink";
 import { SettlementLink } from "../settlements/SettlementLink";
 import { MunicipalityLink } from "../municipalities/MunicipalityLink";
@@ -38,7 +38,7 @@ export const PreferencesTable: FC<{
   const isMedium = useMediaQueryMatch("md");
   const { findSettlement } = useSettlementsInfo();
   const { findMunicipality } = useMunicipalities();
-  const data: DataType[] = useMemo(() => {
+  const { data, hasPrevYear } = useMemo(() => {
     const allPreferences = !regionPrefs
       ? preferences.reduce((acc: Record<number, number>, curr) => {
           if (acc[curr.partyNum] === undefined) {
@@ -48,8 +48,8 @@ export const PreferencesTable: FC<{
           return acc;
         }, {})
       : undefined;
-
-    return preferences
+    let hasPrevYear: boolean = false;
+    const data: DataType[] = preferences
       .map((preference) => {
         const party = findParty(preference.partyNum);
         const candidate = findCandidate(
@@ -73,17 +73,24 @@ export const PreferencesTable: FC<{
         const pctPrefAllVotes = preference.allVotes
           ? (100 * preference.totalVotes) / preference.allVotes
           : undefined;
-
+        if (preference.lyTotalVotes) {
+          hasPrevYear = true;
+        }
+        const pctLyPreferences = preference.lyTotalVotes
+          ? pctChange(preference.totalVotes, preference.lyTotalVotes)
+          : undefined;
         return {
           ...preference,
           pctPref,
           pctPrefVotes,
           pctPrefAllVotes,
+          pctLyPreferences,
           ...party,
           candidateName: candidate?.name,
         };
       })
       .sort((a, b) => b.totalVotes - a.totalVotes);
+    return { data, hasPrevYear };
   }, [findCandidate, findParty, preferences, region, regionPrefs]);
   const hasMachinePaperVotes = useMemo(
     () => !!data.find((v) => v.paperVotes || v.machineVotes),
@@ -199,6 +206,13 @@ export const PreferencesTable: FC<{
             headerHint: t("pct_pref_all_votes_explainer"),
             header: `% ${t("total")}`,
             dataType: "percent",
+          },
+          {
+            accessorKey: "pctLyPreferences",
+            hidden: !hasPrevYear,
+            headerHint: t("pct_pref_all_votes_explainer"),
+            header: `% ${t("total")}`,
+            dataType: "pctChange",
           },
         ]}
         data={data}

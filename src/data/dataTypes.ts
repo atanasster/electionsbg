@@ -101,6 +101,7 @@ export type PreferencesInfo = Votes & {
   partyVotes?: number;
   allVotes?: number;
   partyPrefs?: number;
+  lyTotalVotes?: number;
 };
 
 export type LocationInfo = {
