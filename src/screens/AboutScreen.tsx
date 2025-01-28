@@ -278,6 +278,29 @@ export const AboutScreen = () => {
             </Anchor>
           </li>
         </ul>
+        <h4 className="scroll-m-20 text-xl font-semibold tracking-tight">
+          {t("campaign_financing")}
+        </h4>
+        <ul className="my-6 ml-6 list-disc [&>li]:mt-2">
+          <li>
+            <Anchor
+              className="mx-1"
+              target="_blank"
+              href="https://erik.bulnao.government.bg/Reports/Index/83"
+            >
+              27.10.2024
+            </Anchor>
+          </li>
+          <li>
+            <Anchor
+              className="mx-1"
+              target="_blank"
+              href="https://erik.bulnao.government.bg/Reports/Index/80"
+            >
+              09.06.2024
+            </Anchor>
+          </li>
+        </ul>
       </div>
     </div>
   );
