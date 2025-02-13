@@ -82,8 +82,8 @@ export function AreaVotesTable<DataType extends ElectionResults>({
         header: t("region"),
         hidden: !visibleColumns.includes("oblast"),
         className: "font-bold",
-        cellValue: ({ row }) => {
-          const region = findRegion(row.original.oblast);
+        accessorFn: (row) => {
+          const region = findRegion(row.oblast);
           return i18n.language === "bg"
             ? region?.long_name || region?.name
             : region?.long_name_en || region?.name_en;
@@ -104,14 +104,14 @@ export function AreaVotesTable<DataType extends ElectionResults>({
         hidden: !visibleColumns.includes("obshtina"),
         header: t("municipality"),
         className: "font-bold",
-        cellValue: ({ row }) => {
-          const municipality = findMunicipality(row.getValue("obshtina"));
+        accessorFn: (row) => {
+          const municipality = findMunicipality(row.obshtina);
           return i18n.language === "bg"
             ? municipality?.name
             : municipality?.name_en;
         },
         cell: ({ row }) => {
-          const municipality = findMunicipality(row.getValue("obshtina"));
+          const municipality = findMunicipality(row.original.obshtina);
           return (
             <Link to={`/settlement/${row.original.obshtina}`}>
               {i18n.language === "bg"
@@ -126,14 +126,14 @@ export function AreaVotesTable<DataType extends ElectionResults>({
         hidden: !visibleColumns.includes("ekatte"),
         className: "font-bold",
         header: t("settlement"),
-        cellValue: ({ row }) => {
-          const settlement = findSettlement(row.getValue("ekatte"));
+        accessorFn: (row) => {
+          const settlement = findSettlement(row.ekatte);
           return i18n.language === "bg"
             ? settlement?.name
             : settlement?.name_en;
         },
         cell: ({ row }) => {
-          const settlement = findSettlement(row.getValue("ekatte"));
+          const settlement = findSettlement(row.original.ekatte);
           return (
             <Link to={`/sections/${row.original.ekatte}`}>
               {i18n.language === "bg" ? settlement?.name : settlement?.name_en}
@@ -147,16 +147,15 @@ export function AreaVotesTable<DataType extends ElectionResults>({
         hidden: !visibleColumns.includes("section"),
         header: t("section"),
         cell: ({ row }) => (
-          <Link to={`/section/${row.getValue("section")}`}>
-            {row.getValue("section")}
+          <Link to={`/section/${row.original.section}`}>
+            {row.original.section}
           </Link>
         ),
       },
       {
         accessorKey: "partyNum",
         header: t("winner"),
-        cellValue: ({ row }) =>
-          `${row.original.number},${row.original.nickName}`,
+        accessorFn: (row) => `${row.number},${row.nickName}`,
         cell: ({ row }) => <PartyLink party={row.original as PartyInfo} />,
       },
       {

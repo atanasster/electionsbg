@@ -81,8 +81,7 @@ export const PartyVotesTable: FC<{
       {
         accessorKey: "partyNum",
         header: t("party"),
-        cellValue: ({ row }) =>
-          `${row.original.partyNum},${row.original.nickName}`,
+        accessorFn: (row) => `${row.partyNum},${row.nickName}`,
         cell: ({ row }) => (
           <PartyLink
             party={

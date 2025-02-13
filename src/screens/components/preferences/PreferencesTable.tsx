@@ -111,15 +111,14 @@ export const PreferencesTable: FC<{
             accessorKey: "nickName",
             header: t("party"),
             size: 70,
-            cellValue: ({ row }) => row.original.nickName,
             cell: ({ row }) => <PartyLink party={row.original as PartyInfo} />,
           },
           {
             accessorKey: "oblast",
             header: t("region"),
             hidden: !visibleColumns.includes("oblast"),
-            cellValue: ({ row }) => {
-              const region = findRegion(row.getValue("oblast"));
+            accessorFn: (row) => {
+              const region = findRegion(row.oblast);
               return i18n.language === "bg"
                 ? region?.long_name || region?.name
                 : region?.long_name_en || region?.name_en;
@@ -130,8 +129,8 @@ export const PreferencesTable: FC<{
             accessorKey: "obshtina",
             hidden: !visibleColumns.includes("obshtina"),
             header: t("municipality"),
-            cellValue: ({ row }) => {
-              const municipality = findMunicipality(row.getValue("obshtina"));
+            accessorFn: (row) => {
+              const municipality = findMunicipality(row.obshtina);
               return i18n.language === "bg"
                 ? municipality?.name
                 : municipality?.name_en;
@@ -144,8 +143,8 @@ export const PreferencesTable: FC<{
             accessorKey: "ekatte",
             hidden: !visibleColumns.includes("ekatte"),
             header: t("settlement"),
-            cellValue: ({ row }) => {
-              const settlement = findSettlement(row.getValue("ekatte"));
+            accessorFn: (row) => {
+              const settlement = findSettlement(row.ekatte);
               return i18n.language === "bg"
                 ? settlement?.name
                 : settlement?.name_en;
