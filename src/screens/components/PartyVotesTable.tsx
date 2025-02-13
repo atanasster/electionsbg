@@ -213,13 +213,13 @@ export const PartyVotesTable: FC<{
   return data?.length ? (
     <div className="w-full">
       <Caption className="py-8">{t("votes_by_party")}</Caption>
-      {consolidated}
       <DataTable
         title={title}
         pageSize={data.length}
         columns={columns}
         stickyColumn={true}
         data={data}
+        toolbarItems={consolidated}
       />
     </div>
   ) : null;
