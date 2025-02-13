@@ -217,13 +217,13 @@ export function PartyResultsTable({
   return data?.length ? (
     <div className="w-full">
       <Caption className="py-8">{title}</Caption>
-      {consolidated}
       <DataTable
         title={title}
         pageSize={Math.min(data.length, 32)}
         columns={columns}
         stickyColumn={true}
         data={data}
+        toolbarItems={consolidated}
       />
     </div>
   ) : null;
