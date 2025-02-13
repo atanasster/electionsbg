@@ -1,7 +1,6 @@
 import {
   AccessorKeyColumnDefBase,
   Cell,
-  CellContext,
   ColumnDef,
   Header,
 } from "@tanstack/react-table";
@@ -15,18 +14,12 @@ export type DataTableColumnDef<TData, TValue> = ColumnDef<TData, TValue> & {
   columns?: DataTableColumns<TData, TValue>;
   dataType?: "thousands" | "percent" | "pctChange" | "money";
   headerHint?: string;
-  cellValue?: (
-    context: CellContext<TData, TValue>,
-  ) => string | null | undefined;
 };
 
 function cellValue<TData, TValue>(
   cell: Cell<TData, TValue>,
 ): string | number | undefined | null {
-  const columnDef = cell.column.columnDef as DataTableColumnDef<TData, TValue>;
-  return typeof columnDef.cellValue === "function"
-    ? columnDef.cellValue(cell.getContext())
-    : (cell.getValue<TData>() as string | number | undefined | null);
+  return cell.getValue<TData>() as string | number | undefined | null;
 }
 export function getCellValue<TData, TValue>(
   cell: Cell<TData, TValue>,

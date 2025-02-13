@@ -1,9 +1,9 @@
 import { FC, useMemo, useState } from "react";
 import { Title } from "@/ux/Title";
-import { ReportRow, Votes } from "@/data/dataTypes";
+import { ReportRow } from "@/data/dataTypes";
 import { DataTable } from "@/ux/data_table/DataTable";
 import { useTranslation } from "react-i18next";
-import { addVotes, localDate } from "@/data/utils";
+import { localDate } from "@/data/utils";
 import { useSettlementsInfo } from "@/data/settlements/useSettlements";
 import { useSearchParams } from "react-router-dom";
 import { Label } from "@/components/ui/label";
@@ -20,7 +20,6 @@ import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
 import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
 import { usePartyInfo } from "@/data/parties/usePartyInfo";
 import { useElectionContext } from "@/data/ElectionContext";
-import { SelectParties } from "@/screens/components/charts/SelectParties";
 import { PartyLink } from "@/screens/components/party/PartyLink";
 import { HintedSwitch } from "@/ux/HintedSwitch";
 import { SettlementLink } from "@/screens/components/settlements/SettlementLink";
@@ -59,7 +58,7 @@ export const ReportTemplate: FC<{
 }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const { priorElections } = useElectionContext();
-  const [unselected, setUnselected] = useState<string[]>([]);
+  const [unselected] = useState<string[]>([]);
   const [includeAbroad, setIncludeAbroad] = useState(
     localStorage.getItem("reports_include_abroad") === "true",
   );
@@ -101,25 +100,6 @@ export const ReportTemplate: FC<{
       }),
     [selectedData, unselected],
   );
-  const summaryVotes = useMemo(() => {
-    const allVotes = selectedData?.reduce((acc: Votes[], v) => {
-      const added = addVotes(
-        [
-          {
-            ...v.party,
-            partyNum: v.partyNum,
-            totalVotes: bigger
-              ? v.totalVotes
-              : (v.prevYearVotes || 0) - v.totalVotes,
-          },
-        ],
-        acc,
-      ).sort((a, b) => b.totalVotes - a.totalVotes);
-      return added;
-    }, []);
-
-    return allVotes;
-  }, [bigger, selectedData]);
 
   return (
     <div className={`w-full`}>
@@ -153,13 +133,11 @@ export const ReportTemplate: FC<{
           </SelectContent>
         </Select>
       </div>
-      <div className="flex justify-between py-2 w-full">
-        <SelectParties
-          votes={summaryVotes}
-          onChangeSelected={setUnselected}
-          subTitle={`${t(levelKey)} ${t(ruleKey)} ${threshold}%`}
-        />
-        <HintedSwitch
+      <DataTable
+        title={t(titleKey)}
+        pageSize={25}
+        stickyColumn={true}
+        toolbarItems=<HintedSwitch
           hint={t("include_abroad_explainer")}
           label={isSmall ? t("include_abroad_short") : t("include_abroad")}
           value={includeAbroad}
@@ -171,16 +149,10 @@ export const ReportTemplate: FC<{
             setIncludeAbroad(value);
           }}
         />
-      </div>
-      <DataTable
-        title={t(titleKey)}
-        pageSize={25}
-        stickyColumn={true}
         columns={[
           {
             accessorKey: "party.nickName",
             header: t("party"),
-            cellValue: ({ row }) => row.original.party.nickName,
             size: 70,
             cell: ({ row }) =>
               row.original.party ? (
@@ -192,8 +164,8 @@ export const ReportTemplate: FC<{
           {
             accessorKey: "oblast",
             header: t("region"),
-            cellValue: ({ row }) => {
-              const region = findRegion(row.getValue("oblast"));
+            accessorFn: (row) => {
+              const region = findRegion(row.oblast);
               return i18n.language === "bg" ? region?.name : region?.name_en;
             },
             cell: ({ row }) => <RegionLink oblast={row.original.oblast} />,
@@ -201,8 +173,8 @@ export const ReportTemplate: FC<{
           {
             accessorKey: "obshtina",
             header: t("municipality"),
-            cellValue: ({ row }) => {
-              const municipality = findMunicipality(row.getValue("obshtina"));
+            accessorFn: (row) => {
+              const municipality = findMunicipality(row.obshtina);
               return i18n.language === "bg"
                 ? municipality?.name
                 : municipality?.name_en;
@@ -215,8 +187,8 @@ export const ReportTemplate: FC<{
             accessorKey: "ekatte",
             hidden: !visibleColumns.includes("ekatte"),
             header: t("settlement"),
-            cellValue: ({ row }) => {
-              const settlement = findSettlement(row.getValue("ekatte"));
+            accessorFn: (row) => {
+              const settlement = findSettlement(row.ekatte);
               return i18n.language === "bg"
                 ? settlement?.name
                 : settlement?.name_en;

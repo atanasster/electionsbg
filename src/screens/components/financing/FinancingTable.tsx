@@ -128,8 +128,7 @@ export const FinancingTable = () => {
       {
         accessorKey: "party",
         header: t("party"),
-        cellValue: ({ row }) =>
-          `${row.original.number},${row.original.nickName}`,
+        accessorFn: (row) => `${row.number},${row.nickName}`,
         cell: ({ row }) => <PartyLink party={row.original} />,
       },
       {

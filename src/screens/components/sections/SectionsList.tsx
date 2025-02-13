@@ -75,7 +75,7 @@ export const SectionsList: FC<{
           header: t("section"),
           cell: ({ row }) => (
             <Link to={`/section/${row.original.section}`}>
-              {row.getValue("section")}
+              {row.original.section}
             </Link>
           ),
         },
@@ -119,7 +119,6 @@ export const SectionsList: FC<{
           accessorKey: "partyVotes.nickName",
           header: t("winner"),
           size: 70,
-          cellValue: ({ row }) => row.original.partyVotes?.nickName,
           cell: ({ row }) => (
             <PartyLink party={row.original.partyVotes as PartyInfo} />
           ),
