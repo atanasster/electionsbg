@@ -42,16 +42,15 @@ export const parseProtocols = async (
           protocol.section = section;
           if (year === "2009_07_05") {
             if (!existingProtocol) {
-              protocol.ballotsReceived = parseInt(row[1]);
-              protocol.numRegisteredVoters = parseInt(row[2]);
               protocol.totalActualVoters = parseInt(row[9]);
               protocol.numAdditionalVoters =
                 parseInt(row[3]) + parseInt(row[4]);
-
+              protocol.numRegisteredVoters =
+                parseInt(row[1]) - protocol.numAdditionalVoters;
               protocol.numPaperBallotsFound = parseInt(row[19]);
-              protocol.numValidVotes = parseInt(row[26]);
-              protocol.numInvalidBallotsFound =
-                protocol.totalActualVoters - protocol.numValidVotes;
+              protocol.numInvalidBallotsFound = parseInt(row[25]);
+              protocol.numValidVotes =
+                protocol.numPaperBallotsFound - protocol.numInvalidBallotsFound;
             } else {
               protocol.numMachineBallots = parseInt(row[19]);
               protocol.numValidNoOneMachineVotes = parseInt(row[25]);
