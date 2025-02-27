@@ -1,6 +1,6 @@
 # Bulgaria Election Results Analysis
 
-A platform to visualize and analyze the elections in Bulgaria since 2009.
+A platform to visualize and analyze the elections in Bulgaria since 2005.
 
 ## Live Website
 [Live Web App](https://electionsbg.com)
