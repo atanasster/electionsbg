@@ -51,28 +51,30 @@ export function AreaVotesTable<DataType extends ElectionResults>({
   const { data, hasPaperVotes, hasMachineVotes } = useMemo(() => {
     let hasPaperVotes = false;
     let hasMachineVotes = false;
-    const data: ColumnDataType[] | undefined = votes?.map((vote) => {
-      const party = topParty(vote.results.votes);
-      const totalVotes = totalActualVoters(vote.results.votes);
-      const fullParty = party ? findParty(party?.partyNum) : undefined;
-      if (party?.paperVotes) {
-        hasPaperVotes = true;
-      }
-      if (party?.machineVotes) {
-        hasMachineVotes = true;
-      }
-      return {
-        ...votesAreas(vote),
-        votes: vote.results.votes,
-        totalVotes,
-        pctVotes:
-          party?.totalVotes && totalVotes
-            ? 100 * (party?.totalVotes / totalVotes)
-            : 0,
-        ...party,
-        ...fullParty,
-      };
-    });
+    const data: ColumnDataType[] | undefined = votes
+      ?.filter((vote) => vote.results.protocol)
+      .map((vote) => {
+        const party = topParty(vote.results.votes);
+        const totalVotes = totalActualVoters(vote.results.votes);
+        const fullParty = party ? findParty(party?.partyNum) : undefined;
+        if (party?.paperVotes) {
+          hasPaperVotes = true;
+        }
+        if (party?.machineVotes) {
+          hasMachineVotes = true;
+        }
+        return {
+          ...votesAreas(vote),
+          votes: vote.results.votes,
+          totalVotes,
+          pctVotes:
+            party?.totalVotes && totalVotes
+              ? 100 * (party?.totalVotes / totalVotes)
+              : 0,
+          ...party,
+          ...fullParty,
+        };
+      });
     return { data, hasMachineVotes, hasPaperVotes };
   }, [findParty, votes, votesAreas]);
   const columns: DataTableColumns<ColumnDataType, unknown> = useMemo(

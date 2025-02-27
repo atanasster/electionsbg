@@ -41,9 +41,12 @@ export const parseVotes = (
               };
           const isMachineOnly = isMachineOnlyVote(year);
 
-          if (year === "2009_07_05") {
+          if (year <= "2009_07_05") {
             let j = 1;
             while (j < row.length) {
+              if (parties.length < j) {
+                break;
+              }
               if (row[j] !== "") {
                 const partyNum = parties[j - 1].number;
 

@@ -29,7 +29,7 @@ export const parseProtocols = async (
         for (let i = 0; i < result.length; i++) {
           const row = result[i];
           const sectionRow =
-            year === "2014_10_05" || year === "2009_07_05" ? 0 : 1;
+            year === "2014_10_05" || year <= "2009_07_05" ? 0 : 1;
           let section = row[sectionRow];
           if (section.startsWith("*")) {
             section = section.substring(1);
@@ -40,7 +40,14 @@ export const parseProtocols = async (
           const protocol: FullSectionProtocol =
             existingProtocol || ({} as FullSectionProtocol);
           protocol.section = section;
-          if (year === "2009_07_05") {
+          if (year <= "2005_06_25") {
+            protocol.numRegisteredVoters = parseInt(row[4]);
+            protocol.numAdditionalVoters = parseInt(row[5]);
+            protocol.totalActualVoters = parseInt(row[8]);
+            protocol.numPaperBallotsFound = parseInt(row[8]);
+            protocol.numInvalidBallotsFound = parseInt(row[12]);
+            protocol.numValidVotes = parseInt(row[13]);
+          } else if (year === "2009_07_05") {
             if (!existingProtocol) {
               protocol.totalActualVoters = parseInt(row[9]);
               protocol.numAdditionalVoters =
@@ -214,10 +221,6 @@ export const parseProtocols = async (
             allProtocols.push(protocol);
           }
         }
-        /* const json = stringify(allProtocols);
-        const outFile = `${outFolder}/${fileName}.json`;
-        fs.writeFileSync(outFile, json, "utf8");
-        console.log("Successfully added file ", outFile); */
         resolve(allProtocols);
       }),
   );
