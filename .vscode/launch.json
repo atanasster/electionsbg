@@ -11,7 +11,7 @@
     "request": "launch",
 
     "program": "./scripts/main.ts",
-    //"program": "./scripts/helpers/compare_files.ts",
+    //"program": "./scripts/helpers/2005/cik_files.ts",
 
     /*
      * Path to tsx binary
@@ -25,7 +25,7 @@
     //"args": ["--prod", "--search"],
     //"args": ["--prod", "--parties"],
     //"args": ["--prod", "--candidates"],
-    "args": ["--date=2009_07_05", "--prod"],
+    "args": ["--date=2005_06_25", "--prod"],
     //"args": ["--reports", "--prod"],
     /*
      * Open terminal when debugging starts (Optional)
