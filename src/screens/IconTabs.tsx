@@ -2,8 +2,9 @@ import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
 import { Separator } from "@/components/ui/separator";
-import { ReactNode, useState } from "react";
+import { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
+import { useSearchParam } from "./utils/useSearchParam";
 
 export const IconTabs = <DType extends string>(props: {
   title: ReactNode;
@@ -29,14 +30,8 @@ export const IconTabs = <DType extends string>(props: {
   } = props;
   const { t } = useTranslation();
   const isMedium = useMediaQueryMatch("md");
-  const [view, setViewInternal] = useState<DType>(
-    (localStorage.getItem(storageKey) as DType) || (tabs[0] as DType),
-  );
-  const setView = (newView: DType) => {
-    setViewInternal(newView);
-    localStorage.setItem(storageKey, newView);
-  };
-
+  const [currentView, setView] = useSearchParam(storageKey, { replace: false });
+  const view = currentView || tabs[0];
   return (
     <>
       <Separator className="my-2" />
@@ -56,7 +51,7 @@ export const IconTabs = <DType extends string>(props: {
                   data-state={
                     view === key ||
                     (excluded &&
-                      excluded.exclude.includes(view) &&
+                      excluded.exclude.includes(view as DType) &&
                       key === excluded.replace)
                       ? "checked"
                       : "unchecked"
