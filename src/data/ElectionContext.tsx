@@ -1,26 +1,26 @@
 import { useCallback, useMemo } from "react";
 import allElections from "../data/json/elections.json";
-import { useSearchParams } from "react-router-dom";
 import { ElectionInfo, isMachineOnlyVote } from "./dataTypes";
+import { useSearchParam } from "@/screens/utils/useSearchParam";
 
 export const useElectionContext = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [election, setElection] = useSearchParam("elections", {
+    replace: true,
+  });
   const elections = useMemo(() => allElections.map((e) => e.name), []);
   const selected = useMemo(() => {
-    const urlElections = searchParams.get("elections");
-    if (urlElections && elections.find((e) => e === urlElections)) {
-      return urlElections;
+    if (election && elections.find((e) => e === election)) {
+      return election;
     }
     return elections[0];
-  }, [elections, searchParams]);
+  }, [election, elections]);
   const setSelected = useCallback(
     (newSelected: string) => {
       if (elections.find((e) => e === newSelected)) {
-        searchParams.set("elections", newSelected);
-        setSearchParams(searchParams, { replace: true });
+        setElection(newSelected);
       }
     },
-    [elections, searchParams, setSearchParams],
+    [elections, setElection],
   );
 
   const prevElections: (name?: string) => ElectionInfo | undefined =
