@@ -10,7 +10,8 @@
     "type": "node",
     "request": "launch",
 
-    "program": "./scripts/main.ts",
+    //"program": "./scripts/main.ts",
+    "program": "./scripts/sitemap/index.ts",
     //"program": "./scripts/helpers/2005/cik_files.ts",
 
     /*
