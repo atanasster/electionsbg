@@ -272,6 +272,16 @@ export const AboutScreen = () => {
             <Anchor
               className="mx-1"
               target="_blank"
+              href="https://pi2005.cik.bg/results/"
+            >
+              25.06.2005
+            </Anchor>
+          </li>
+
+          <li>
+            <Anchor
+              className="mx-1"
+              target="_blank"
               href="https://pi2009.cik.bg/results/proportional/index.html"
             >
               05.07.2009
@@ -300,6 +310,7 @@ export const AboutScreen = () => {
               09.06.2024
             </Anchor>
           </li>
+          https://pi2005.cik.bg/results/
         </ul>
       </div>
     </div>
