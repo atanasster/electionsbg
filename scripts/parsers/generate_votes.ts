@@ -279,6 +279,10 @@ export const generateVotes = ({
   fs.writeFileSync(regFileName, stringify(electionRegions), "utf8");
   console.log("Successfully added file ", regFileName);
 
+  const backupFileName = `${inFolder}/${regionsVotesFileName}`;
+  fs.writeFileSync(backupFileName, stringify(electionRegions), "utf8");
+  console.log("Successfully added file ", backupFileName);
+
   splitMunicipalities({
     electionMunicipalities,
     inFolder,
