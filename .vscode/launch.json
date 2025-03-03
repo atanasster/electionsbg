@@ -10,8 +10,8 @@
     "type": "node",
     "request": "launch",
 
-    //"program": "./scripts/main.ts",
-    "program": "./scripts/sitemap/index.ts",
+    "program": "./scripts/main.ts",
+    //"program": "./scripts/sitemap/index.ts",
     //"program": "./scripts/helpers/2005/cik_files.ts",
 
     /*
@@ -26,7 +26,7 @@
     //"args": ["--prod", "--search"],
     //"args": ["--prod", "--parties"],
     //"args": ["--prod", "--candidates"],
-    "args": ["--date=2005_06_25", "--prod"],
+    "args": ["--date=2024_10_27", "--prod"],
     //"args": ["--reports", "--prod"],
     /*
      * Open terminal when debugging starts (Optional)
