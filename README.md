@@ -36,6 +36,7 @@ A platform to visualize and analyze the elections in Bulgaria since 2005.
 - [05.10.2014](https://results.cik.bg/pi2014/csv.html)<br />
 - [12.05.2013](https://results.cik.bg/pi2013/csv.html)<br />
 - [05.07.2009](https://pi2009.cik.bg/results/proportional/index.html)<br />
+- [25.06.2005](https://pi2005.cik.bg/results/)<br />
 
 ### Campaign Financing
 - [27.10.2024](https://erik.bulnao.government.bg/Reports/Index/83)<br />
