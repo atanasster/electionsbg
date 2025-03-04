@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { MapLayout } from "@/layout/dataview/MapLayout";
 import { Title } from "@/ux/Title";
 import { useRegionVotes } from "@/data/regions/useRegionVotes";
-import { ProtocolSummary } from "./components/ProtocolSummary";
+import { ProtocolSummary } from "./components/protocols/ProtocolSummary";
 import { PartyVotesTable } from "./components/PartyVotesTable";
 import { SofiaMap } from "./components/sofia/SofiaMap";
 import { useSofiaStats } from "@/data/country/useSofiaStats";
@@ -16,14 +16,14 @@ export const SofiaScreen = () => {
   const { t } = useTranslation();
   const { votesSofia } = useRegionVotes();
   const { prevVotes, sofiaStats } = useSofiaStats();
-  const results = votesSofia();
+  const { results, original } = votesSofia() || {};
   const title = t("sofia_city");
   return (
     <>
       <Title description="Interactive country map  of the elections in Bulgaria">
         {title}
       </Title>
-      <ProtocolSummary protocol={results?.protocol} votes={results?.votes} />
+      <ProtocolSummary results={results} original={original} />
       <DataViewContainer title={title}>
         {(view) => {
           if (view === "map")

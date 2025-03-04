@@ -11,7 +11,7 @@ import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
 export const SofiaCity: FC<{ size: MapCoordinates }> = ({ size }) => {
   const { topVotesParty } = usePartyInfo();
   const { votesSofia } = useRegionVotes();
-  const sofiaVotes = votesSofia();
+  const { results: sofiaVotes } = votesSofia() || {};
   const { t } = useTranslation();
 
   const topWorldParty = topVotesParty(sofiaVotes?.votes);

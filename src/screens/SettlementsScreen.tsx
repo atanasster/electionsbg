@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { useMunicipalityVotes } from "@/data/municipalities/useMunicipalityVotes";
-import { ProtocolSummary } from "./components/ProtocolSummary";
+import { ProtocolSummary } from "./components/protocols/ProtocolSummary";
 import { useRegions } from "@/data/regions/useRegions";
 import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
 import { SEO } from "@/ux/SEO";
@@ -48,8 +48,8 @@ export const SettlementsScreen = () => {
       <H1>{title}</H1>
 
       <ProtocolSummary
-        protocol={municipality?.results.protocol}
-        votes={municipality?.results.votes}
+        results={municipality?.results}
+        original={municipality?.original}
       />
       <SettlementData
         title={title}

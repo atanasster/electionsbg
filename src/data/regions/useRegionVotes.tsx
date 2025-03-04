@@ -38,13 +38,27 @@ export const useRegionVotes = () => {
     return votes?.find((vote) => vote.key === "32");
   }, [votes]);
 
-  const votesSofia = useCallback((): VoteResults | undefined => {
-    return votes?.reduce((acc: VoteResults, v) => {
-      if (SOFIA_REGIONS.includes(v.key)) {
-        addResults(acc, v.results.votes, v.results.protocol);
-      }
-      return acc;
-    }, {} as VoteResults);
+  const votesSofia = useCallback(():
+    | { results: VoteResults; original?: VoteResults }
+    | undefined => {
+    return votes?.reduce(
+      (
+        { results, original }: { results: VoteResults; original?: VoteResults },
+        v,
+      ) => {
+        if (SOFIA_REGIONS.includes(v.key)) {
+          addResults(results, v.results.votes, v.results.protocol);
+          if (v.original) {
+            if (!original) {
+              original = { votes: [] };
+            }
+            addResults(original, v.original?.votes, v.original?.protocol);
+          }
+        }
+        return { results, original };
+      },
+      { results: { votes: [] } },
+    );
   }, [votes]);
   const countryRegions = useCallback((): ElectionRegion[] | undefined => {
     return votes?.filter((vote) => vote.key !== "32");

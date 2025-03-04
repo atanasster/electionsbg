@@ -10,7 +10,7 @@ import { useRegions } from "@/data/regions/useRegions";
 import { Link } from "@/ux/Link";
 import { H1 } from "@/ux/H1";
 import { SEO } from "@/ux/SEO";
-import { ProtocolSummary } from "../ProtocolSummary";
+import { ProtocolSummary } from "../protocols/ProtocolSummary";
 import {
   ChartLine,
   Heart,
@@ -95,8 +95,8 @@ export const Sections: FC<{ ekatte: string }> = ({ ekatte }) => {
         {t("sections")} {title}
       </H1>
       <ProtocolSummary
-        protocol={settlement?.results.protocol}
-        votes={settlement?.results.votes}
+        results={settlement?.results}
+        original={settlement?.original}
       />
       <IconTabs<DataViewType>
         title={title}
