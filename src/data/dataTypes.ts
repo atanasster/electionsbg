@@ -45,6 +45,7 @@ export type VoteResults = {
 
 export type ElectionResults = {
   results: VoteResults;
+  original?: VoteResults;
 };
 
 export type ElectionSettlement = {

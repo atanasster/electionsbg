@@ -24,6 +24,7 @@ import { regionCodes } from "./region_codes";
 import { findSofiaSettlements_2005 } from "./2005_sofia_settlements";
 import { parseSettlement2005 } from "scripts/helpers/2005/settlement_name_2005";
 import { lookupCountryNumbers_2005 } from "scripts/helpers/2005/2005_international_sections";
+import { createRecountFiles } from "scripts/recount";
 const municipalities = municipalitiesData;
 
 export const generateVotes = ({
@@ -274,6 +275,13 @@ export const generateVotes = ({
     addResults(municipality.results, vote.votes, protocol);
 
     addResults(region.results, vote.votes, protocol);
+  });
+  createRecountFiles({
+    inFolder,
+    electionRegions,
+    electionMunicipalities,
+    electionSettlements,
+    electionSections: sections,
   });
   const regFileName = `${outFolder}/${regionsVotesFileName}`;
   fs.writeFileSync(regFileName, stringify(electionRegions), "utf8");
