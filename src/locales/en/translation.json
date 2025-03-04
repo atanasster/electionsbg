@@ -230,5 +230,11 @@
   "recount": "recount",
   "voting_recount": "Voting recount",
   "recounted_votes" : "Recounted",
-  "pct_recount_changes_explainer" : "% change in the votes for the party during the recount"
+  "pct_recount_changes_explainer" : "Percent change in the votes for the party during the recount",
+  "votes_recount": "Votes recount",
+  "num_machine_recount_explainer": "Change of machine votes after the recount",
+  "pct_machine_recount_explainer": "Percent change of machine vote in the recount from the original count",
+  "num_paper_recount_explainer": "Change in paper ballot votes after the recount",
+  "num_votes_recount_explainer": "Change of all votes after the recount",
+  "pct_votes_recount_explainer": "Percent change of all votes in the recount from the original count"
 }

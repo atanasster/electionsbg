@@ -35,7 +35,7 @@ export const VotesChart: FC<{ votes?: PartyVotes[]; maxRows?: number }> = ({
   const isLarge = useMediaQueryMatch("lg");
   const topValue = votes?.length ? votes[0].totalVotes : undefined;
   return (
-    <ChartContainer config={{}}>
+    <ChartContainer config={{}} style={{ maxHeight: "200px" }}>
       <BarChart
         accessibilityLayer
         data={votes}

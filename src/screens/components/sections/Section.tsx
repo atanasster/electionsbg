@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { Caption } from "@/ux/Caption";
 import { SectionInfo, Votes } from "@/data/dataTypes";
-import { ProtocolSummary } from "../ProtocolSummary";
+import { ProtocolSummary } from "../protocols/ProtocolSummary";
 import { useTranslation } from "react-i18next";
 import { PartyVotesTable } from "../PartyVotesTable";
 import { useSectionStats } from "@/data/sections/useSectionStats";
@@ -44,8 +44,8 @@ export const Section: FC<{ section: SectionInfo }> = ({ section }) => {
         <Caption>{title}</Caption>
         <Caption className="mb-4">{`${section.settlement}${section.address ? `-${section.address}` : ""}`}</Caption>
         <ProtocolSummary
-          protocol={section.results.protocol}
-          votes={section.results.votes}
+          results={section.results}
+          original={section.original}
         />
 
         <DataViewContainer

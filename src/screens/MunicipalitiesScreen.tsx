@@ -1,6 +1,6 @@
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { ProtocolSummary } from "./components/ProtocolSummary";
+import { ProtocolSummary } from "./components/protocols/ProtocolSummary";
 import { useRegionVotes } from "@/data/regions/useRegionVotes";
 import { Title } from "@/ux/Title";
 import { useRegions } from "@/data/regions/useRegions";
@@ -26,8 +26,8 @@ export const MunicipalitiesScreen = () => {
         {title}
       </Title>
       <ProtocolSummary
-        protocol={regionVotes?.results.protocol}
-        votes={regionVotes?.results.votes}
+        results={regionVotes?.results}
+        original={regionVotes?.original}
       />
       <MunicipalityData title={title} region={region} />
     </>
