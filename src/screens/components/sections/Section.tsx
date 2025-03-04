@@ -6,7 +6,10 @@ import { useTranslation } from "react-i18next";
 import { PartyVotesTable } from "../PartyVotesTable";
 import { useSectionStats } from "@/data/sections/useSectionStats";
 import { usePartyInfo } from "@/data/parties/usePartyInfo";
-import { DataViewContainer } from "@/layout/dataview/DataViewContainer";
+import {
+  DataViewContainer,
+  DataViewType,
+} from "@/layout/dataview/DataViewContainer";
 import { MultiHistoryChart } from "../charts/MultiHistoryChart";
 import { PreferencesBySection } from "../preferences/PreferencesBySection";
 import { PartyRecountTable } from "../PartyRecountTable";
@@ -33,6 +36,8 @@ export const Section: FC<{ section: SectionInfo }> = ({ section }) => {
     },
   );
   const title = `${t("section")} ${section.section}`;
+  const exclude: DataViewType[] = ["map", "table"];
+
   return (
     <div className={`w-full`}>
       <div>
@@ -42,10 +47,11 @@ export const Section: FC<{ section: SectionInfo }> = ({ section }) => {
           protocol={section.results.protocol}
           votes={section.results.votes}
         />
+
         <DataViewContainer
           title={title}
           excluded={{
-            exclude: ["map", "table"],
+            exclude,
             replace: "parties",
           }}
         >

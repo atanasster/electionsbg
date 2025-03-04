@@ -31,7 +31,11 @@ export const IconTabs = <DType extends string>(props: {
   const { t } = useTranslation();
   const isMedium = useMediaQueryMatch("md");
   const [currentView, setView] = useSearchParam(storageKey, { replace: false });
-  const view = currentView || tabs[0];
+  const view =
+    tabs.find((t) => t === currentView) &&
+    (!excluded || !excluded.exclude.find((t) => t === currentView))
+      ? currentView
+      : excluded?.replace || tabs[0];
   return (
     <>
       <Separator className="my-2" />
