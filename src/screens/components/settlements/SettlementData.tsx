@@ -7,6 +7,7 @@ import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
 import { SettlementHistoryChart } from "./SettlementHistoryChart";
 import { SettlementsAreasTable } from "./SettlementsAreasTable";
 import { PreferencesByMunicipality } from "../preferences/PreferencesByMunicipality";
+import { SettlementRecountTable } from "./SettlementRecountTable";
 
 export const SettlementData: FC<{
   municipality: string;
@@ -36,6 +37,13 @@ export const SettlementData: FC<{
         if (view === "parties")
           return (
             <SettlementPartyTable
+              municipality={municipality}
+              title={titleStr}
+            />
+          );
+        if (view === "recount")
+          return (
+            <SettlementRecountTable
               municipality={municipality}
               title={titleStr}
             />

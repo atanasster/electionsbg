@@ -43,7 +43,7 @@ export const FinancingTable = () => {
   });
   const { partyByNickName } = useLastYearParties();
   const { countryVotes } = useRegionVotes();
-  const results = countryVotes();
+  const { results } = countryVotes();
   const { t } = useTranslation();
   const { findParty } = usePartyInfo();
   const isMedium = useMediaQueryMatch("md");

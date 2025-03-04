@@ -53,16 +53,22 @@ export const useRegionVotes = () => {
     return votes?.filter((v) => SOFIA_REGIONS.includes(v.key));
   }, [votes]);
   const countryVotes = useCallback(() => {
-    const acc: VoteResults = {
+    const results: VoteResults = {
+      votes: [],
+    };
+    const original: VoteResults = {
       votes: [],
     };
     if (votes) {
       votes.map((r) => {
-        addResults(acc, r.results.votes, r.results.protocol);
+        addResults(results, r.results.votes, r.results.protocol);
+        if (r.original) {
+          addResults(original, r.original.votes, r.original.protocol);
+        }
       });
     }
 
-    return acc;
+    return { results, original: original.votes.length ? original : undefined };
   }, [votes]);
 
   return {

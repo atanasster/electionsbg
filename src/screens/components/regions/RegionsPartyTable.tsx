@@ -7,7 +7,7 @@ export const RegionsPartyTable: FC<{ title: string }> = ({ title }) => {
   const { countryVotes } = useRegionVotes();
 
   const { stats, priorElections } = useElectionContext();
-  const results = countryVotes();
+  const { results } = countryVotes();
 
   return (
     <PartyVotesTable
