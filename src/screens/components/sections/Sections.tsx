@@ -11,24 +11,35 @@ import { Link } from "@/ux/Link";
 import { H1 } from "@/ux/H1";
 import { SEO } from "@/ux/SEO";
 import { ProtocolSummary } from "../ProtocolSummary";
-import { ChartLine, Heart, UsersRound, Vote } from "lucide-react";
+import {
+  ChartLine,
+  Heart,
+  RotateCcwSquare,
+  UsersRound,
+  Vote,
+} from "lucide-react";
 import { Caption } from "@/ux/Caption";
 import { MultiHistoryChart } from "../charts/MultiHistoryChart";
 import { IconTabs } from "../../IconTabs";
 import { PreferencesBySettlement } from "../preferences/PreferencesBySettlement";
+import { useElectionContext } from "@/data/ElectionContext";
+import { PartyRecountTable } from "../PartyRecountTable";
 
-const dataViews = ["sections", "parties", "pref.", "chart"] as const;
+const dataViews = ["sections", "parties", "recount", "pref.", "chart"] as const;
 type DataViewType = (typeof dataViews)[number];
 
 const DataTypeIcons: Record<DataViewType, ReactNode> = {
   sections: <Vote />,
   parties: <UsersRound />,
+  recount: <RotateCcwSquare />,
   "pref.": <Heart />,
   chart: <ChartLine />,
 };
 export const Sections: FC<{ ekatte: string }> = ({ ekatte }) => {
   const { settlement } = useSettlementVotes(ekatte);
   const { t, i18n } = useTranslation();
+  const { electionStats } = useElectionContext();
+
   const { prevVotes, stats } = useSettlementStats(ekatte);
   const { findSettlement } = useSettlementsInfo();
   const { findMunicipality } = useMunicipalities();
@@ -36,6 +47,16 @@ export const Sections: FC<{ ekatte: string }> = ({ ekatte }) => {
   const info = findSettlement(ekatte);
   const municipality = findMunicipality(info?.obshtina);
   const region = findRegion(info?.oblast);
+  const excluded: { exclude: DataViewType[]; replace: DataViewType } = {
+    exclude: [],
+    replace: "sections",
+  };
+  if (!electionStats?.hasPreferences) {
+    excluded.exclude.push("pref.");
+  }
+  if (!electionStats?.hasRecount) {
+    excluded.exclude.push("recount");
+  }
   const shortTitle =
     info && (i18n.language === "bg" ? info?.name : info?.name_en);
 
@@ -82,6 +103,7 @@ export const Sections: FC<{ ekatte: string }> = ({ ekatte }) => {
         shortTitle={shortTitle}
         tabs={dataViews}
         icons={DataTypeIcons}
+        excluded={excluded}
         storageKey="sections_view"
       >
         {(view) => {
@@ -121,6 +143,30 @@ export const Sections: FC<{ ekatte: string }> = ({ ekatte }) => {
                 results={settlement?.results}
                 stats={stats}
                 prevElection={prevVotes}
+              />
+            );
+          }
+          if (view == "recount") {
+            return (
+              <PartyRecountTable
+                title={`${
+                  region?.oblast
+                    ? `${
+                        i18n.language === "bg"
+                          ? region?.long_name || region?.name
+                          : region?.long_name_en || region?.name_en
+                      } / `
+                    : ""
+                }${
+                  municipality?.obshtina
+                    ? `${
+                        i18n.language === "bg"
+                          ? municipality?.name
+                          : municipality?.name_en
+                      } / `
+                    : ""
+                }${shortTitle}`}
+                votes={settlement}
               />
             );
           }

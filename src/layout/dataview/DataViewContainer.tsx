@@ -8,6 +8,7 @@ import {
   UsersRound,
 } from "lucide-react";
 import { IconTabs } from "@/screens/IconTabs";
+import { useElectionContext } from "@/data/ElectionContext";
 
 // eslint-disable-next-line react-refresh/only-export-components
 export const dataViews = [
@@ -30,9 +31,18 @@ const DataTypeIcons: Record<DataViewType, ReactNode> = {
 };
 export const DataViewContainer: FC<{
   children: (view: DataViewType) => ReactNode;
+
   title: ReactNode;
   excluded?: { exclude: DataViewType[]; replace: DataViewType };
 }> = ({ children, title, excluded }) => {
+  const { electionStats } = useElectionContext();
+  const excludedTabs = excluded || { exclude: [], replace: "parties" };
+  if (!electionStats?.hasPreferences) {
+    excludedTabs.exclude.push("pref.");
+  }
+  if (!electionStats?.hasRecount) {
+    excludedTabs.exclude.push("recount");
+  }
   return (
     <IconTabs<DataViewType>
       title={title}
@@ -40,7 +50,7 @@ export const DataViewContainer: FC<{
       tabs={dataViews}
       icons={DataTypeIcons}
       storageKey="view"
-      excluded={excluded}
+      excluded={excludedTabs}
     >
       {children}
     </IconTabs>

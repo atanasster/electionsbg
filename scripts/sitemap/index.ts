@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import { RouteDef, routeDefs } from "@/route_defs";
+import { RouteDef, routeDefs } from "./route_defs";
 import { fileURLToPath } from "url";
 import { PartyInfo } from "@/data/dataTypes";
 

@@ -21,9 +21,15 @@ const DataTypeIcons: Record<DataViewType, ReactNode> = {
 export const Party: FC<{ nickName: string }> = ({ nickName }) => {
   const { parties } = usePartyInfo();
   const { t } = useTranslation();
-  const { selected } = useElectionContext();
+  const { selected, electionStats } = useElectionContext();
   const party = parties?.find((p) => matchPartyNickName({ nickName }, p, true));
-
+  const excluded: { exclude: DataViewType[]; replace: DataViewType } = {
+    exclude: [],
+    replace: "results",
+  };
+  if (!electionStats?.hasFinancials) {
+    excluded.exclude.push("financing");
+  }
   const title = party?.name || nickName;
   return (
     <div className="w-full">
@@ -43,6 +49,7 @@ export const Party: FC<{ nickName: string }> = ({ nickName }) => {
             tabs={dataViews}
             icons={DataTypeIcons}
             storageKey="party_tabs"
+            excluded={excluded}
             className="w-28"
           >
             {(view) => {
