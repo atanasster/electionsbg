@@ -13,7 +13,7 @@ export const IconTabs = <DType extends string>(props: {
   shortTitle?: ReactNode;
   children: (key: DType) => ReactNode;
   className?: string;
-  excluded?: { exclude: DType[]; replace: DType };
+  excluded?: { exclude: DType[]; replace?: DType };
   icons?: {
     [key: string]: ReactNode;
   };
@@ -52,14 +52,7 @@ export const IconTabs = <DType extends string>(props: {
                   key={key}
                   variant="outline"
                   role="radio"
-                  data-state={
-                    view === key ||
-                    (excluded &&
-                      excluded.exclude.includes(view as DType) &&
-                      key === excluded.replace)
-                      ? "checked"
-                      : "unchecked"
-                  }
+                  data-state={view === key ? "checked" : "unchecked"}
                   className={cn(
                     "flex w-20 data-[state=checked]:bg-muted text-muted-foreground",
                     className,
