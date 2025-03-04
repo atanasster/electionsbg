@@ -33,10 +33,10 @@ export const DataViewContainer: FC<{
   children: (view: DataViewType) => ReactNode;
 
   title: ReactNode;
-  excluded?: { exclude: DataViewType[]; replace: DataViewType };
+  excluded?: { exclude: DataViewType[]; replace?: DataViewType };
 }> = ({ children, title, excluded }) => {
   const { electionStats } = useElectionContext();
-  const excludedTabs = excluded || { exclude: [], replace: "parties" };
+  const excludedTabs = excluded || { exclude: [] };
   if (!electionStats?.hasPreferences) {
     excludedTabs.exclude.push("pref.");
   }
