@@ -10,7 +10,7 @@ export const RegionsScreen = () => {
   const { t } = useTranslation();
   const { selected } = useElectionContext();
   const { countryVotes } = useRegionVotes();
-  const results = countryVotes();
+  const { results } = countryVotes();
   const title = `${t("general_elections")} ${localDate(selected)}`;
   return (
     <>

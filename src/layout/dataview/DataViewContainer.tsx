@@ -3,19 +3,28 @@ import {
   ChartLine,
   Heart,
   MapPinned,
+  RotateCcwSquare,
   TableProperties,
   UsersRound,
 } from "lucide-react";
 import { IconTabs } from "@/screens/IconTabs";
 
 // eslint-disable-next-line react-refresh/only-export-components
-export const dataViews = ["map", "table", "parties", "pref.", "chart"] as const;
+export const dataViews = [
+  "map",
+  "table",
+  "parties",
+  "recount",
+  "pref.",
+  "chart",
+] as const;
 export type DataViewType = (typeof dataViews)[number];
 
 const DataTypeIcons: Record<DataViewType, ReactNode> = {
   map: <MapPinned />,
   table: <TableProperties />,
   parties: <UsersRound />,
+  recount: <RotateCcwSquare />,
   "pref.": <Heart />,
   chart: <ChartLine />,
 };

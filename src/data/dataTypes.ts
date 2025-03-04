@@ -145,6 +145,9 @@ export type BasicPartyInfo = {
 export type StatsVote = Votes & BasicPartyInfo;
 export type ElectionInfo = {
   name: string;
+  hasRecount?: boolean;
+  hasPreferences?: boolean;
+  hasFinancials?: boolean;
   results?: Omit<VoteResults, "votes"> & {
     votes: StatsVote[];
   };

@@ -9,23 +9,29 @@ import { usePartyInfo } from "@/data/parties/usePartyInfo";
 import { DataViewContainer } from "@/layout/dataview/DataViewContainer";
 import { MultiHistoryChart } from "../charts/MultiHistoryChart";
 import { PreferencesBySection } from "../preferences/PreferencesBySection";
+import { PartyRecountTable } from "../PartyRecountTable";
 
 export const Section: FC<{ section: SectionInfo }> = ({ section }) => {
   const { t } = useTranslation();
   const { prevVotes, stats } = useSectionStats(section.section);
   const { parties } = usePartyInfo();
-  const votes = parties?.map((p) => {
-    const v = section.results.votes.find((v) => v.partyNum === p.number);
-    if (v) {
-      return v;
-    } else
-      return {
-        partyNum: p.number,
-        totalVotes: 0,
-        machineVotes: 0,
-        paperVotes: 0,
-      } as Votes;
-  });
+  const votes: (Votes & { original?: Votes })[] | undefined = parties?.map(
+    (p) => {
+      const v = section.results.votes.find((v) => v.partyNum === p.number);
+      if (v) {
+        const original = section.original?.votes.find(
+          (o) => o.partyNum === v.partyNum,
+        );
+        return { ...v, original };
+      } else
+        return {
+          partyNum: p.number,
+          totalVotes: 0,
+          machineVotes: 0,
+          paperVotes: 0,
+        };
+    },
+  );
   const title = `${t("section")} ${section.section}`;
   return (
     <div className={`w-full`}>
@@ -48,9 +54,19 @@ export const Section: FC<{ section: SectionInfo }> = ({ section }) => {
               return (
                 <PartyVotesTable
                   title={title}
-                  results={{ protocol: section.results.protocol, votes }}
+                  results={{
+                    protocol: section.results.protocol,
+                    votes: votes,
+                  }}
                   stats={stats}
                   prevElection={prevVotes}
+                />
+              );
+            if (view === "recount" && votes)
+              return (
+                <PartyRecountTable
+                  title={title}
+                  votes={{ results: { votes } }}
                 />
               );
             if (view === "chart" && stats)

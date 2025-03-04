@@ -64,7 +64,7 @@ const generateStats = <
       const results = r.results || r;
       addResults(res, results.votes, results.protocol);
       collectedVotes[k].push({
-        ...e,
+        name: e.name,
         results: {
           ...res,
           protocol: res.protocol,
@@ -147,9 +147,28 @@ const collectStats = ({
       e.name,
       publicFolder,
     );
+    const regions: ElectionRegions = JSON.parse(
+      fs.readFileSync(
+        `${publicFolder}/${e.name}/${regionsVotesFileName}`,
+        "utf-8",
+      ),
+    );
+    const hasRecount = regions.length && !!regions[0].original;
+    const preferenceFile = `${publicFolder}/${e.name}/preferences/country.json`;
+    let hasPreferences = false;
+    if (fs.existsSync(preferenceFile)) {
+      hasPreferences =
+        JSON.parse(fs.readFileSync(preferenceFile, "utf-8")).length > 0;
+    }
+
+    const financialsFile = `${publicFolder}/${e.name}/parties/financing.json`;
+    const hasFinancials = fs.existsSync(financialsFile);
     return {
-      ...e,
+      name: e.name,
       ...results,
+      hasRecount,
+      hasPreferences,
+      hasFinancials,
     };
   });
   const sofia = elections.map((e) => {
@@ -165,7 +184,7 @@ const collectStats = ({
       publicFolder,
     );
     return {
-      ...e,
+      name: e.name,
       ...results,
     };
   });
@@ -217,7 +236,7 @@ export const runStats = (stringify: (o: object) => string) => {
   const updatedElections: ElectionInfo[] = fs
     .readdirSync(outFolder, { withFileTypes: true })
     .filter((file) => file.isDirectory())
-    .filter((file) => file.name.startsWith("20"))
+    .filter((file) => file.name.startsWith("20") || file.name.startsWith("19"))
     .map((f) => ({
       name: f.name,
       ...elections.find((p) => p.name === f.name),
