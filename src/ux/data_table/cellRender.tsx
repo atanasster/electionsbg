@@ -2,6 +2,7 @@ import { Cell } from "@tanstack/react-table";
 import { DataTableColumnDef, getCellFormatted } from "./utils";
 import { ReactNode } from "react";
 import { PercentChange } from "../PercentChange";
+import { ThousandsChange } from "../ThousandsChange";
 
 export function cellRender<TData, TValue>(
   cell: Cell<TData, TValue>,
@@ -13,6 +14,8 @@ export function cellRender<TData, TValue>(
     case "percent":
     case "money":
       return <div className="text-right">{value}</div>;
+    case "thousandsChange":
+      return <ThousandsChange className="text-right" number={value} />;
     case "pctChange":
       return (
         <PercentChange className="text-right" pctChange={value} suffix="" />

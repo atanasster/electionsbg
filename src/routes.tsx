@@ -33,6 +33,9 @@ import { SofiaScreen } from "./screens/SofiaScreen";
 import { PartiesFinancing } from "./screens/PartiesFinancing";
 import { PartyScreen } from "./screens/PartyScreen";
 import { CandidateScreen } from "./screens/CandidateScreen";
+import { SettlementsRecount } from "./screens/reports/settlements/SettlementsRecount";
+import { MunicipalitiesRecount } from "./screens/reports/municipalities/MunicipalitiesRecount";
+import { SectionsRecount } from "./screens/reports/sections/SectionsRecount";
 
 const LayoutScreen: FC<PropsWithChildren> = ({ children }) => {
   return <Layout>{children}</Layout>;
@@ -181,6 +184,14 @@ export const AuthRoutes = () => {
                 </LayoutScreen>
               }
             />
+            <Route
+              path="recount"
+              element={
+                <LayoutScreen>
+                  <SettlementsRecount />
+                </LayoutScreen>
+              }
+            />
           </Route>
           <Route path="municipality">
             <Route
@@ -239,6 +250,14 @@ export const AuthRoutes = () => {
                 </LayoutScreen>
               }
             />
+            <Route
+              path="recount"
+              element={
+                <LayoutScreen>
+                  <MunicipalitiesRecount />
+                </LayoutScreen>
+              }
+            />
           </Route>
           <Route path="section">
             <Route
@@ -294,6 +313,14 @@ export const AuthRoutes = () => {
               element={
                 <LayoutScreen>
                   <SectionsSupportsNoOne />
+                </LayoutScreen>
+              }
+            />
+            <Route
+              path="recount"
+              element={
+                <LayoutScreen>
+                  <SectionsRecount />
                 </LayoutScreen>
               }
             />

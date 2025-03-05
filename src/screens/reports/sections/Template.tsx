@@ -4,7 +4,7 @@ import { ReportRow } from "@/data/dataTypes";
 
 export const Template: FC<{
   titleKey: string;
-  ruleKey: string;
+  ruleKey?: string;
   votes?: ReportRow[];
   bigger?: boolean;
   defaultThreshold: number;

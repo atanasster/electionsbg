@@ -50,6 +50,7 @@ export const saveReport = <
             prevYearVotes: prevVotes,
             parties,
             prevYearParties,
+            original: row.original,
           }),
           ...(additionalFields ? additionalFields(row) : {}),
         };

@@ -17,11 +17,11 @@ export const PercentChange = ({
     return (
       <div
         className={cn(
-          `font-bold text-center ${style === "colored" ? (pctFloat < 0 ? "text-destructive" : "text-green-600") : ""}`,
+          `font-bold text-center ${style === "colored" ? (pctFloat < 0 ? "text-destructive" : pctFloat > 0 ? "text-green-600" : "") : ""}`,
           className,
         )}
       >
-        {`${pctFloat === 0 ? "==" : style === "colored" && pctFloat > 0 ? "+" : ""}${pctFloat !== 0 ? pctChange : ""}`}
+        {`${pctFloat === 0 ? "-" : style === "colored" && pctFloat > 0 ? "+" : ""}${pctFloat !== 0 ? pctChange : ""}`}
         {pctFloat !== 0 ? suffix : ""}
       </div>
     );
