@@ -164,11 +164,20 @@ export type ReportRow = {
   obshtina?: string;
   ekatte?: string;
   section?: string;
-  partyNum: number;
-  totalVotes: number;
-  pctPartyVote: number;
+  partyNum?: number;
+  totalVotes?: number;
+  pctPartyVote?: number;
   value: number;
   prevYearVotes?: number;
+  pctRecountChange?: number;
+  topPartyChange?: {
+    partyNum: number;
+    change: number;
+  };
+  bottomPartyChange?: {
+    partyNum: number;
+    change: number;
+  };
 };
 
 export type PartyResultsRow = {

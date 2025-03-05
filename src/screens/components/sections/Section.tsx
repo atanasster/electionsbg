@@ -69,12 +69,7 @@ export const Section: FC<{ section: SectionInfo }> = ({ section }) => {
                 />
               );
             if (view === "recount" && votes)
-              return (
-                <PartyRecountTable
-                  title={title}
-                  votes={{ results: { votes } }}
-                />
-              );
+              return <PartyRecountTable title={title} votes={section} />;
             if (view === "chart" && stats)
               return <MultiHistoryChart stats={stats} />;
             if (view === "pref.")

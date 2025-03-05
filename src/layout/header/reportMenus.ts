@@ -2,6 +2,7 @@ export type MenuItem = {
   title: string;
   link?: string;
   subMenu?: MenuItem[];
+  category?: "financials" | "recount" | "preferences";
 };
 
 export const reportsMenu: MenuItem[] = [
@@ -41,6 +42,11 @@ export const reportsMenu: MenuItem[] = [
             title: "support_no_one",
             link: "/reports/municipality/supports_no_one",
           },
+          {
+            title: "votes_recount",
+            link: "/reports/municipality/recount",
+            category: "recount",
+          },
         ],
       },
       {
@@ -73,6 +79,11 @@ export const reportsMenu: MenuItem[] = [
           {
             title: "support_no_one",
             link: "/reports/settlement/supports_no_one",
+          },
+          {
+            title: "votes_recount",
+            link: "/reports/settlement/recount",
+            category: "recount",
           },
         ],
       },
@@ -107,10 +118,19 @@ export const reportsMenu: MenuItem[] = [
             title: "support_no_one",
             link: "/reports/section/supports_no_one",
           },
+          {
+            title: "votes_recount",
+            link: "/reports/section/recount",
+            category: "recount",
+          },
         ],
       },
       { title: "-" },
-      { title: "campaign_financing", link: "/financing" },
+      {
+        title: "campaign_financing",
+        link: "/financing",
+        category: "financials",
+      },
     ],
   },
 ];

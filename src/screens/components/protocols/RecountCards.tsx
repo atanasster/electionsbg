@@ -3,10 +3,11 @@ import { FC } from "react";
 import { ProtocolCard } from "./ProtocolCard";
 import { Hint } from "@/ux/Hint";
 import { LabelXL } from "./LabelXL";
-import { formatPct, formatThousands, pctChange } from "@/data/utils";
+import { formatPct, pctChange } from "@/data/utils";
 import { RotateCcwSquare } from "lucide-react";
 import { LabelL } from "./LabelL";
 import { useTranslation } from "react-i18next";
+import { ThousandsChange } from "@/ux/ThousandsChange";
 
 export const RecountCards: FC<{
   results?: VoteResults;
@@ -28,40 +29,22 @@ export const RecountCards: FC<{
 
     const paperVotesRecount = results.protocol.numValidVotes || 0;
     const paperVotesOriginal = protocol.numValidVotes || 0;
-
     return (
       <>
         <ProtocolCard title={t("votes_recount")} icon={<RotateCcwSquare />}>
           <div className="flex">
             <Hint text={t("num_votes_recount_explainer")} underline={false}>
               <LabelXL>
-                {formatThousands(totalVotesRecount - totalVotesOriginal) || 0}
+                <ThousandsChange
+                  number={totalVotesRecount - totalVotesOriginal}
+                />
               </LabelXL>
             </Hint>
-            {!!protocol && !!results.protocol && (
-              <Hint text={t("pct_votes_recount_explainer")} underline={false}>
-                <LabelL>
-                  {`(${formatPct(pctChange(totalVotesRecount, totalVotesOriginal), 2)})`}
-                </LabelL>
-              </Hint>
-            )}
-          </div>
-          <div className="flex justify-between text-xs text-muted-foreground">
-            <Hint text={t("num_machine_recount_explainer")}>
-              <div>{`${t("machine_votes")}: `}</div>
+            <Hint text={t("pct_votes_recount_explainer")} underline={false}>
+              <LabelL>
+                {`(${formatPct(pctChange(totalVotesRecount, totalVotesOriginal), 2)})`}
+              </LabelL>
             </Hint>
-            <div className="flex">
-              <Hint text={t("num_machine_recount_explainer")}>
-                <span className="font-bold text-primary">
-                  {formatThousands(machineVotesRecount - machineVotesOriginal)}
-                </span>
-              </Hint>
-              <Hint text={t("pct_machine_recount_explainer")}>
-                <div className="font-bold text-primary ml-2">
-                  {`(${formatPct(pctChange(machineVotesRecount, machineVotesOriginal))})`}
-                </div>
-              </Hint>
-            </div>
           </div>
           <div className="flex justify-between text-xs text-muted-foreground">
             <Hint text={t("num_paper_recount_explainer")}>
@@ -69,13 +52,32 @@ export const RecountCards: FC<{
             </Hint>
             <div className="flex">
               <Hint text={t("num_paper_recount_explainer")}>
-                <span className="font-bold text-primary">
-                  {formatThousands(paperVotesRecount - paperVotesOriginal)}
-                </span>
+                <ThousandsChange
+                  className="font-bold"
+                  number={paperVotesRecount - paperVotesOriginal}
+                />
               </Hint>
               <Hint text={t("pct_paper_recount_explainer")}>
                 <div className="font-bold text-primary ml-2">
                   {`(${formatPct(pctChange(paperVotesRecount, paperVotesOriginal))})`}
+                </div>
+              </Hint>
+            </div>
+          </div>
+          <div className="flex justify-between text-xs text-muted-foreground">
+            <Hint text={t("num_machine_recount_explainer")}>
+              <div>{`${t("machine_votes")}: `}</div>
+            </Hint>
+            <div className="flex">
+              <Hint text={t("num_machine_recount_explainer")}>
+                <ThousandsChange
+                  className="font-bold"
+                  number={machineVotesRecount - machineVotesOriginal}
+                />
+              </Hint>
+              <Hint text={t("pct_machine_recount_explainer")}>
+                <div className="font-bold text-primary ml-2">
+                  {`(${formatPct(pctChange(machineVotesRecount, machineVotesOriginal))})`}
                 </div>
               </Hint>
             </div>

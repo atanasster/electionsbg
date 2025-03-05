@@ -12,7 +12,12 @@ export type DataTableColumnDef<TData, TValue> = ColumnDef<TData, TValue> & {
   exportHidden?: boolean;
   className?: string;
   columns?: DataTableColumns<TData, TValue>;
-  dataType?: "thousands" | "percent" | "pctChange" | "money";
+  dataType?:
+    | "thousands"
+    | "percent"
+    | "pctChange"
+    | "thousandsChange"
+    | "money";
   headerHint?: string;
 };
 

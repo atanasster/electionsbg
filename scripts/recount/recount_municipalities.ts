@@ -19,7 +19,7 @@ export const recountMunicipalities = ({
   electionMunicipalities.forEach((r) => {
     const or = backup.find((b) => b.obshtina === r.obshtina);
     if (!or) {
-      throw new Error("Could  not find original region: " + r.obshtina);
+      throw new Error("Could not find original municipality: " + r.obshtina);
     }
     r.original = { protocol: or.results.protocol, votes: or.results.votes };
   });

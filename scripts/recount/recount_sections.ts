@@ -17,9 +17,9 @@ export const recountSections = ({
   const data = fs.readFileSync(backUpFile, "utf-8");
   const backup: SectionInfo[] = JSON.parse(data);
   electionSections.forEach((r) => {
-    const or = backup.find((b) => b.ekatte === r.ekatte);
+    const or = backup.find((b) => b.section === r.section);
     if (!or) {
-      throw new Error("Could  not find original region: " + r.ekatte);
+      throw new Error("Could not find original section: " + r.section);
     }
     r.original = { protocol: or.results.protocol, votes: or.results.votes };
   });

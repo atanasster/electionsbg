@@ -18,15 +18,25 @@ import { ThemeContext } from "@/theme/ThemeContext";
 import { useTranslation } from "react-i18next";
 import { Link } from "@/ux/Link";
 import { Button } from "@/components/ui/button";
-import { MenuItem, reportsMenu } from "../reportMenus";
+import { MenuItem, reportsMenu } from "./reportMenus";
 import { Search } from "../search/Search";
 import { ElectionsSelect } from "./ElectionsSelect";
+import { useElectionContext } from "@/data/ElectionContext";
 
 export const Header = () => {
   const { setTheme, theme } = useContext(ThemeContext);
   const { t, i18n } = useTranslation();
-
+  const { electionStats } = useElectionContext();
   const RenderMenuItem: FC<{ item: MenuItem }> = ({ item }) => {
+    if (item.category === "financials" && !electionStats?.hasFinancials) {
+      return null;
+    }
+    if (item.category === "recount" && !electionStats?.hasRecount) {
+      return null;
+    }
+    if (item.category === "preferences" && !electionStats?.hasPreferences) {
+      return null;
+    }
     if (item.title === "-") {
       return <DropdownMenuSeparator />;
     }
