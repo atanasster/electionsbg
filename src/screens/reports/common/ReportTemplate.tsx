@@ -306,11 +306,15 @@ export const ReportTemplate: FC<{
   return (
     <div className={`w-full`}>
       <Title description="election anomalies report">{t(titleKey)}</Title>
-      {!!ruleKey && (
-        <div className="flex items-center justify-center pb-4 text-secondary-foreground ">
-          <Label htmlFor="select_threshold" className="text-md md:text-lg mr-2">
-            {`${t(levelKey)} ${t(ruleKey)}:`}
-          </Label>
+
+      <div className="flex items-center justify-center pb-4 text-secondary-foreground ">
+        <Label
+          htmlFor="select_threshold"
+          className={ruleKey ? "text-md md:text-lg mr-2" : "text-lg md:text-xl"}
+        >
+          {`${t(levelKey)}${ruleKey ? ` ${t(ruleKey)}` : ""}`}
+        </Label>
+        {!!ruleKey && (
           <Select
             value={threshold?.toString()}
             onValueChange={(e) => {
@@ -335,8 +339,9 @@ export const ReportTemplate: FC<{
               <SelectItem value="90">90%</SelectItem>
             </SelectContent>
           </Select>
-        </div>
-      )}
+        )}
+      </div>
+
       <DataTable
         title={t(titleKey)}
         pageSize={25}
