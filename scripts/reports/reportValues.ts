@@ -5,9 +5,9 @@ import {
   SectionProtocol,
   Votes,
   StatsVote,
-  VoteResults,
+  RecountOriginal,
 } from "@/data/dataTypes";
-import { findPrevVotes, pctChange, topParty } from "@/data/utils";
+import { findPrevVotes, topParty } from "@/data/utils";
 
 const round = (num: number) => Math.ceil(num * 100) / 100;
 type FindPartyFunc = (votes: Votes[]) => PartyVotes | undefined;
@@ -40,7 +40,7 @@ type CalcProcProps = {
   prevYearVotes?: Votes[];
   parties: PartyInfo[];
   prevYearParties?: PartyInfo[];
-  original?: VoteResults;
+  original?: RecountOriginal;
 };
 
 const calcGainsProc = (
@@ -184,67 +184,56 @@ export const reportValues: ReportValue[] = [
     name: "recount",
     direction: "desc",
     calc: ({ votes, protocol, original }) => {
-      let value = undefined;
-      let topPartyChange = undefined;
-      let bottomPartyChange = undefined;
-      let pctRecountChange = undefined;
+      const isChanged =
+        original && (original.addedVotes !== 0 || original.removedVotes !== 0);
 
-      if (original) {
-        value =
-          protocol && original?.protocol
-            ? (protocol.numValidVotes || 0) +
-              (protocol.numValidMachineVotes || 0) -
-              ((original.protocol.numValidVotes || 0) +
-                (original.protocol.numValidMachineVotes || 0))
-            : undefined;
-        if (value) {
-          pctRecountChange = pctChange(
-            protocol?.totalActualVoters,
-            original?.protocol?.totalActualVoters,
-          );
-          topPartyChange = votes.reduce(
-            (acc: { change: number; partyNum: number } | undefined, vote) => {
-              const originalVotes = original?.votes.find(
-                (v) => v.partyNum === vote.partyNum,
-              );
-              if (
-                originalVotes &&
-                vote.totalVotes - originalVotes.totalVotes > (acc?.change || 0)
-              ) {
-                return {
-                  partyNum: vote.partyNum,
-                  change: vote.totalVotes - originalVotes.totalVotes,
-                };
-              }
-              return acc;
-            },
-            undefined,
-          );
-          bottomPartyChange = votes.reduce(
-            (acc: { change: number; partyNum: number } | undefined, vote) => {
-              const originalVotes = original?.votes.find(
-                (v) => v.partyNum === vote.partyNum,
-              );
-              if (
-                originalVotes &&
-                vote.totalVotes - originalVotes.totalVotes < (acc?.change || 0)
-              ) {
-                return {
-                  partyNum: vote.partyNum,
-                  change: vote.totalVotes - originalVotes.totalVotes,
-                };
-              }
-              return acc;
-            },
-            undefined,
-          );
-        }
+      if (!protocol || !isChanged) {
+        return undefined;
       }
+      const addedVotes = original.addedVotes;
+      const removedVotes = original.removedVotes;
+      const topPartyChange = votes.reduce(
+        (acc: { change: number; partyNum: number } | undefined, vote) => {
+          const originalVotes = original?.votes.find(
+            (v) => v.partyNum === vote.partyNum,
+          );
+          if (
+            originalVotes &&
+            vote.totalVotes - originalVotes.totalVotes > (acc?.change || 0)
+          ) {
+            return {
+              partyNum: vote.partyNum,
+              change: vote.totalVotes - originalVotes.totalVotes,
+            };
+          }
+          return acc;
+        },
+        undefined,
+      );
+      const bottomPartyChange = votes.reduce(
+        (acc: { change: number; partyNum: number } | undefined, vote) => {
+          const originalVotes = original?.votes.find(
+            (v) => v.partyNum === vote.partyNum,
+          );
+          if (
+            originalVotes &&
+            vote.totalVotes - originalVotes.totalVotes < (acc?.change || 0)
+          ) {
+            return {
+              partyNum: vote.partyNum,
+              change: vote.totalVotes - originalVotes.totalVotes,
+            };
+          }
+          return acc;
+        },
+        undefined,
+      );
       return {
-        pctRecountChange,
+        value: 0,
+        addedVotes,
+        removedVotes,
         topPartyChange,
         bottomPartyChange,
-        value: value || undefined,
       } as CalcRowType;
     },
   },
