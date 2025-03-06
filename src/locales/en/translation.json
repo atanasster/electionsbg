@@ -236,11 +236,16 @@
   "pct_machine_recount_explainer": "Percent change of machine vote in the recount from the original count",
   "num_paper_recount_explainer": "Change in paper ballot votes after the recount",
   "num_votes_recount_explainer": "Change of all votes after the recount",
-  "pct_votes_recount_explainer": "Percent change of all votes in the recount from the original count",
+  "added_votes_recount_explainer": "Added votes after the recount",
+  "removed_votes_recount_explainer": "Removed votes after the recount",
+  "pct_added_recount_explainer": "Percent of the added votes in the recount to all votes ",
+  "pct_removed_recount_explainer": "Percent of the removed votes in the recount to all votes ",
   "top_party_recount_gainer": "Most added votes",
   "top_party_recount_loser": "Most removed votes",
   "added": "Added",
   "removed": "Removed",
+  "added_votes":"Added votes",
+  "removed_votes":"Removed votes",
   "num_added_recount_votes": "The number of added votes during the recount",
   "num_removed_recount_votes": "The number of removed votes during the recount"
 }

@@ -10,6 +10,7 @@ import {
   PartyInfo,
   PartyVotes,
   PreferencesInfo,
+  RecountOriginal,
   SectionProtocol,
   StatsVote,
   VoteResults,
@@ -117,6 +118,31 @@ export const addPreferences = (
       acc.push(n);
     }
   });
+};
+
+export const initializeRecount = (): RecountOriginal => ({
+  votes: [],
+  addedMachineVotes: 0,
+  addedPaperVotes: 0,
+  addedVotes: 0,
+
+  removedMachineVotes: 0,
+  removedPaperVotes: 0,
+  removedVotes: 0,
+});
+
+export const addRecount = (
+  newRecount: RecountOriginal,
+  original: RecountOriginal,
+) => {
+  newRecount.votes = addVotes(original.votes, newRecount.votes);
+  newRecount.addedMachineVotes += original.addedMachineVotes;
+  newRecount.addedPaperVotes += original.addedPaperVotes;
+  newRecount.addedVotes += original.addedVotes;
+
+  newRecount.removedMachineVotes += original.removedMachineVotes;
+  newRecount.removedPaperVotes += original.removedPaperVotes;
+  newRecount.removedVotes += original.removedVotes;
 };
 export const addResults = (
   results: VoteResults,

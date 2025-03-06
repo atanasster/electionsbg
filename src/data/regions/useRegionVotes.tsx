@@ -4,8 +4,9 @@ import {
   ElectionRegion,
   VoteResults,
   SOFIA_REGIONS,
+  RecountOriginal,
 } from "../dataTypes";
-import { addResults } from "../utils";
+import { addRecount, addResults, initializeRecount } from "../utils";
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { useElectionContext } from "../ElectionContext";
 
@@ -39,20 +40,23 @@ export const useRegionVotes = () => {
   }, [votes]);
 
   const votesSofia = useCallback(():
-    | { results: VoteResults; original?: VoteResults }
+    | { results: VoteResults; original?: RecountOriginal }
     | undefined => {
     return votes?.reduce(
       (
-        { results, original }: { results: VoteResults; original?: VoteResults },
+        {
+          results,
+          original,
+        }: { results: VoteResults; original?: RecountOriginal },
         v,
       ) => {
         if (SOFIA_REGIONS.includes(v.key)) {
           addResults(results, v.results.votes, v.results.protocol);
           if (v.original) {
             if (!original) {
-              original = { votes: [] };
+              original = initializeRecount();
             }
-            addResults(original, v.original?.votes, v.original?.protocol);
+            addRecount(original, v.original);
           }
         }
         return { results, original };
@@ -70,19 +74,18 @@ export const useRegionVotes = () => {
     const results: VoteResults = {
       votes: [],
     };
-    const original: VoteResults = {
-      votes: [],
-    };
+    const original = initializeRecount();
+
     if (votes) {
       votes.map((r) => {
         addResults(results, r.results.votes, r.results.protocol);
         if (r.original) {
-          addResults(original, r.original.votes, r.original.protocol);
+          addRecount(original, r.original);
         }
       });
     }
 
-    return { results, original: original.votes.length ? original : undefined };
+    return { results, original };
   }, [votes]);
 
   return {
