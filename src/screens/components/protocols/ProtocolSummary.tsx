@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { Newspaper, LaptopMinimal, Users, Flag } from "lucide-react";
-import { VoteResults } from "@/data/dataTypes";
+import { RecountOriginal, VoteResults } from "@/data/dataTypes";
 import { useTranslation } from "react-i18next";
 import { Hint } from "@/ux/Hint";
 import { formatPct, formatThousands } from "@/data/utils";
@@ -14,7 +14,7 @@ import { RecountCards } from "./RecountCards";
 
 export const ProtocolSummary: FC<{
   results?: VoteResults;
-  original?: VoteResults;
+  original?: RecountOriginal;
 }> = ({ results, original }) => {
   const { t } = useTranslation();
   const { protocol, votes } = results || {};
@@ -311,12 +311,12 @@ export const ProtocolSummary: FC<{
               <ProtocolCard icon={<Flag />} title={t("top_parties")}>
                 <VotesChart votes={topParties} maxRows={6} />
               </ProtocolCard>
-              <RecountCards results={results} original={original} />
             </>
           ) : (
             <div className="h-48" />
           )}
         </div>
+        <RecountCards results={results} original={original} />
       </div>
     )
   );

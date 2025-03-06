@@ -2,6 +2,7 @@ import fs from "fs";
 import { backupFileName } from "./backup_file";
 import { municipalityVotesFileName } from "scripts/consts";
 import { ElectionMunicipality } from "@/data/dataTypes";
+import { calcRecountOriginal } from "./calc_original";
 
 export const recountMunicipalities = ({
   inFolder,
@@ -17,11 +18,14 @@ export const recountMunicipalities = ({
   const data = fs.readFileSync(backUpFile, "utf-8");
   const backup: ElectionMunicipality[] = JSON.parse(data);
   electionMunicipalities.forEach((r) => {
-    const or = backup.find((b) => b.obshtina === r.obshtina);
-    if (!or) {
+    const original = backup.find((b) => b.obshtina === r.obshtina);
+    if (!original) {
       throw new Error("Could not find original municipality: " + r.obshtina);
     }
-    r.original = { protocol: or.results.protocol, votes: or.results.votes };
+    r.original = calcRecountOriginal({
+      originalVotes: original.results.votes,
+      recountVotes: r.results.votes,
+    });
   });
   return true;
 };

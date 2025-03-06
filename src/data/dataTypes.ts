@@ -43,9 +43,19 @@ export type VoteResults = {
   protocol?: SectionProtocol;
 };
 
+export type RecountOriginal = {
+  addedVotes: number;
+  addedPaperVotes: number;
+  addedMachineVotes: number;
+  removedVotes: number;
+  removedPaperVotes: number;
+  removedMachineVotes: number;
+  votes: Votes[];
+};
+
 export type ElectionResults = {
   results: VoteResults;
-  original?: VoteResults;
+  original?: RecountOriginal;
 };
 
 export type ElectionSettlement = {
@@ -169,7 +179,9 @@ export type ReportRow = {
   pctPartyVote?: number;
   value: number;
   prevYearVotes?: number;
-  pctRecountChange?: number;
+  //recount
+  addedVotes?: number;
+  removedVotes?: number;
   topPartyChange?: {
     partyNum: number;
     change: number;

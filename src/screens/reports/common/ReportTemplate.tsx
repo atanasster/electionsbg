@@ -257,22 +257,22 @@ export const ReportTemplate: FC<{
       },
       {
         hidden: !visibleColumns.includes("recount"),
-        header: t("total_change"),
+        header: t("total"),
         colSpan: 2,
         columns: [
           {
-            accessorKey: "value",
+            accessorKey: "addedVotes",
             className: "font-bold",
-            header: t("change"),
-            headerHint: t("num_votes_recount_explainer"),
+            header: t("added"),
+            headerHint: t("num_added_recount_votes"),
             dataType: "thousandsChange",
           },
           {
-            accessorKey: "pctRecountChange",
+            accessorKey: "removedVotes",
             className: "font-bold",
-            header: "+/-%",
-            headerHint: t("pct_votes_recount_explainer"),
-            dataType: "pctChange",
+            header: t("removed"),
+            headerHint: t("num_removed_recount_votes"),
+            dataType: "thousandsChange",
           },
         ],
       },
@@ -301,7 +301,17 @@ export const ReportTemplate: FC<{
         dataType: "pctChange",
       },
     ],
-    [],
+    [
+      findMunicipality,
+      findRegion,
+      findSettlement,
+      hiddenColumns,
+      i18n.language,
+      isSmall,
+      priorElections,
+      t,
+      visibleColumns,
+    ],
   );
   return (
     <div className={`w-full`}>
