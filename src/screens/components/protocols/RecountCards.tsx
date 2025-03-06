@@ -17,6 +17,7 @@ import { useTranslation } from "react-i18next";
 import { ThousandsChange } from "@/ux/ThousandsChange";
 import { VotesChart } from "../charts/VotesChart";
 import { usePartyInfo } from "@/data/parties/usePartyInfo";
+import { useSearchParam } from "@/screens/utils/useSearchParam";
 
 const RecountInternal: FC<{
   results: VoteResults;
@@ -24,7 +25,9 @@ const RecountInternal: FC<{
 }> = ({ results, original }) => {
   const { t } = useTranslation();
   const { findParty } = usePartyInfo();
-
+  const [recountOpen, setRecountOpen] = useSearchParam("recount", {
+    replace: true,
+  });
   const totalVotesRecount =
     (results.protocol?.numValidMachineVotes || 0) +
     (results.protocol?.numValidVotes || 0);
@@ -57,8 +60,20 @@ const RecountInternal: FC<{
     return { topParties, bottomParties };
   }, [findParty, original.votes, results.votes]);
   return original.addedVotes || original.removedVotes ? (
-    <Accordion type="single" collapsible className="w-full">
-      <AccordionItem value="item-1">
+    <Accordion
+      type="single"
+      value={recountOpen === "open" ? "cards" : "none"}
+      collapsible
+      className="w-full"
+      onValueChange={(value) => {
+        if (value === "cards") {
+          setRecountOpen("open");
+        } else {
+          setRecountOpen(undefined);
+        }
+      }}
+    >
+      <AccordionItem value="cards">
         <AccordionTrigger>
           <div className="text-center w-full font-extrabold text-2xl text-muted-foreground">
             {t("voting_recount")}

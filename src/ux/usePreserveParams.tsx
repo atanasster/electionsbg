@@ -1,10 +1,12 @@
 import { useSearchParams } from "react-router-dom";
 
+const globalParams = ["elections", "recount", "view"];
+
 export const usePreserveParams = () => {
   const [searchParams] = useSearchParams();
   const useParams = (params?: { [key: string]: string }) => {
     Array.from(searchParams.entries()).forEach((entry) => {
-      if (entry[0] !== "elections") {
+      if (!globalParams.includes(entry[0])) {
         searchParams.delete(entry[0]);
       }
     });
