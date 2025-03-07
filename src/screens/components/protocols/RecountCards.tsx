@@ -7,17 +7,19 @@ import {
 } from "@/components/ui/accordion";
 
 import { FC, useMemo } from "react";
-import { ProtocolCard } from "./ProtocolCard";
+import { ProtocolCard } from "../../../ux/ProtocolCard";
 import { Hint } from "@/ux/Hint";
 import { LabelXL } from "./LabelXL";
 import { formatPct } from "@/data/utils";
-import { BadgeMinus, BadgePlus, FileMinus, FilePlus } from "lucide-react";
+import { BadgeMinus, BadgePlus, FileMinus } from "lucide-react";
 import { LabelL } from "./LabelL";
 import { useTranslation } from "react-i18next";
 import { ThousandsChange } from "@/ux/ThousandsChange";
 import { VotesChart } from "../charts/VotesChart";
 import { usePartyInfo } from "@/data/parties/usePartyInfo";
 import { useSearchParam } from "@/screens/utils/useSearchParam";
+import { RecountAddedVotesCard } from "../cards/RecountAddedVotesCard";
+import { RecountRemovedVotesCard } from "../cards/RecountRemovedVotesCard";
 
 const RecountInternal: FC<{
   results: VoteResults;
@@ -81,56 +83,11 @@ const RecountInternal: FC<{
         </AccordionTrigger>
         <AccordionContent>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 my-4">
-            <ProtocolCard title={t("added_votes")} icon={<FilePlus />}>
-              <div className="flex">
-                <Hint
-                  text={t("added_votes_recount_explainer")}
-                  underline={false}
-                >
-                  <LabelXL>
-                    <ThousandsChange number={original.addedVotes} />
-                  </LabelXL>
-                </Hint>
-                {!!totalVotesRecount && (
-                  <Hint
-                    text={t("pct_added_recount_explainer")}
-                    underline={false}
-                  >
-                    <LabelL>
-                      {`(${formatPct((100 * original.addedVotes) / totalVotesRecount, 2)})`}
-                    </LabelL>
-                  </Hint>
-                )}
-              </div>
-              <div className="flex justify-between text-xs text-muted-foreground">
-                <div>{`${t("paper_votes")}: `}</div>
-                <div className="flex">
-                  <ThousandsChange
-                    className="font-bold"
-                    number={original.addedPaperVotes}
-                  />
-                  {!!paperVotesRecount && (
-                    <div className="font-bold text-primary ml-2">
-                      {`(${formatPct((100 * original.addedPaperVotes) / paperVotesRecount, 2)})`}
-                    </div>
-                  )}
-                </div>
-              </div>
-              <div className="flex justify-between text-xs text-muted-foreground">
-                <div>{`${t("machine_votes")}: `}</div>
-                <div className="flex">
-                  <ThousandsChange
-                    className="font-bold"
-                    number={original.addedMachineVotes}
-                  />
-                  {!!machineVotesRecount && (
-                    <div className="font-bold text-primary ml-2">
-                      {`(${formatPct((100 * original.addedMachineVotes) / machineVotesRecount, 2)})`}
-                    </div>
-                  )}
-                </div>
-              </div>
-            </ProtocolCard>
+            <RecountAddedVotesCard
+              original={original}
+              protocol={results.protocol}
+            />
+
             {!!topParties.length && (
               <ProtocolCard
                 icon={<BadgePlus />}
@@ -139,6 +96,10 @@ const RecountInternal: FC<{
                 <VotesChart votes={topParties} maxRows={6} />
               </ProtocolCard>
             )}
+            <RecountRemovedVotesCard
+              original={original}
+              protocol={results.protocol}
+            />
             <ProtocolCard title={t("removed_votes")} icon={<FileMinus />}>
               <div className="flex">
                 <Hint

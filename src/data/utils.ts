@@ -11,6 +11,7 @@ import {
   PartyVotes,
   PreferencesInfo,
   RecountOriginal,
+  RecountStats,
   SectionProtocol,
   StatsVote,
   VoteResults,
@@ -143,6 +144,33 @@ export const addRecount = (
   newRecount.removedMachineVotes += original.removedMachineVotes;
   newRecount.removedPaperVotes += original.removedPaperVotes;
   newRecount.removedVotes += original.removedVotes;
+};
+
+export const recountStats = (votes: Votes, original: Votes): RecountStats => {
+  const machineVotes = votes.machineVotes || 0;
+  const paperVotes = votes.paperVotes || 0;
+
+  const origMachineVotes = original.machineVotes || 0;
+  const origPaperVotes = original.paperVotes || 0;
+
+  return {
+    addedMachineVotes:
+      machineVotes > origMachineVotes ? machineVotes - origMachineVotes : 0,
+    addedPaperVotes:
+      paperVotes > origPaperVotes ? paperVotes - origPaperVotes : 0,
+    addedVotes:
+      votes.totalVotes > original.totalVotes
+        ? votes.totalVotes - original.totalVotes
+        : 0,
+    removedMachineVotes:
+      machineVotes < origMachineVotes ? machineVotes - origMachineVotes : 0,
+    removedPaperVotes:
+      paperVotes < origPaperVotes ? paperVotes - origPaperVotes : 0,
+    removedVotes:
+      votes.totalVotes < original.totalVotes
+        ? votes.totalVotes - original.totalVotes
+        : 0,
+  };
 };
 export const addResults = (
   results: VoteResults,
