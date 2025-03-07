@@ -43,13 +43,15 @@ export type VoteResults = {
   protocol?: SectionProtocol;
 };
 
-export type RecountOriginal = {
+export type RecountStats = {
   addedVotes: number;
   addedPaperVotes: number;
   addedMachineVotes: number;
   removedVotes: number;
   removedPaperVotes: number;
   removedMachineVotes: number;
+};
+export type RecountOriginal = RecountStats & {
   votes: Votes[];
 };
 
@@ -204,6 +206,7 @@ export type PartyResultsRow = {
   allVotes: number;
   prevYearVotes?: number;
   prevYearVotesConsolidated?: number;
+  recount?: RecountStats;
 };
 
 export const SOFIA_REGIONS = ["S23", "S24", "S25"];

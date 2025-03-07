@@ -8,14 +8,16 @@ import { FC, ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { ErrorSection } from "../ErrorSection";
 import { PartyFinancingScreen } from "./campaign_financing/PartyFinancingScreen";
-import { Banknote, Vote } from "lucide-react";
+import { Banknote, RotateCcwSquare, Vote } from "lucide-react";
 import { PartyResultsScreen } from "./election_results/PartyResultsScreen";
+import { PartyRecountScreen } from "./recount/PartyRecountScreen";
 
-const dataViews = ["results", "financing"] as const;
+const dataViews = ["results", "recount", "financing"] as const;
 type DataViewType = (typeof dataViews)[number];
 
 const DataTypeIcons: Record<DataViewType, ReactNode> = {
   results: <Vote />,
+  recount: <RotateCcwSquare />,
   financing: <Banknote />,
 };
 export const Party: FC<{ nickName: string }> = ({ nickName }) => {
@@ -29,6 +31,9 @@ export const Party: FC<{ nickName: string }> = ({ nickName }) => {
   };
   if (!electionStats?.hasFinancials) {
     excluded.exclude.push("financing");
+  }
+  if (!electionStats?.hasRecount) {
+    excluded.exclude.push("recount");
   }
   const title = party?.name || nickName;
   return (
@@ -55,6 +60,8 @@ export const Party: FC<{ nickName: string }> = ({ nickName }) => {
             {(view) => {
               if (view === "results")
                 return party && <PartyResultsScreen party={party} />;
+              if (view === "recount")
+                return party && <PartyRecountScreen party={party} />;
               if (view === "financing")
                 return <PartyFinancingScreen party={party} />;
             }}

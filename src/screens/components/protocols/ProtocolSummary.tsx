@@ -9,7 +9,7 @@ import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
 import { VotesChart } from "../charts/VotesChart";
 import { LabelXL } from "./LabelXL";
 import { LabelL } from "./LabelL";
-import { ProtocolCard } from "./ProtocolCard";
+import { ProtocolCard } from "../../../ux/ProtocolCard";
 import { RecountCards } from "./RecountCards";
 
 export const ProtocolSummary: FC<{
