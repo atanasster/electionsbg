@@ -75,7 +75,6 @@ export const DataTable = <TData, TValue>({
           ({
             ...c,
             sortUndefined: "last",
-            invertSorting: !!c.dataType,
           }) as DataTableColumnDef<TData, TValue>,
       );
   }, [columns]);
