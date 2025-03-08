@@ -85,6 +85,9 @@ export function getHeaderValue<TData, TValue>(
     ? columnDef.header(header.getContext())
     : typeof columnDef.header !== "undefined"
       ? columnDef.header
-      : (columnDef as AccessorKeyColumnDefBase<TData>).accessorKey ||
-        columnDef.id;
+      : ((columnDef as AccessorKeyColumnDefBase<TData>).accessorKey as
+          | string
+          | number
+          | undefined
+          | null) || columnDef.id;
 }

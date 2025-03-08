@@ -3,6 +3,7 @@ import {
   getCoreRowModel,
   getExpandedRowModel,
   getFilteredRowModel,
+  getGroupedRowModel,
   getPaginationRowModel,
   getSortedRowModel,
   SortingState,
@@ -13,6 +14,7 @@ import {
   Table,
   TableBody,
   TableCell,
+  TableFooter,
   TableHead,
   TableHeader,
   TableRow,
@@ -35,6 +37,7 @@ import { headerRender } from "./headerRender";
 import { exportToJSON } from "./exportToJSON";
 import { exportToPDF } from "./exportToPDF";
 import { Input } from "@/components/ui/input";
+import { footerRender } from "./footerRender";
 
 export type DataTableColumns<TData, TValue> = DataTableColumnDef<
   TData,
@@ -90,6 +93,8 @@ export const DataTable = <TData, TValue>({
     getFilteredRowModel: getFilteredRowModel(),
     globalFilterFn: "includesString",
     getSubRows,
+    enableGrouping: true,
+    getGroupedRowModel: getGroupedRowModel(),
     initialState: {
       pagination: { pageSize },
     },
@@ -98,7 +103,6 @@ export const DataTable = <TData, TValue>({
       expanded,
     },
   });
-
   return (
     <>
       <div className="py-2 flex justify-between">
@@ -196,7 +200,35 @@ export const DataTable = <TData, TValue>({
               </TableRow>
             )}
           </TableBody>
+          <TableFooter>
+            {table.getFooterGroups().map((footerGroup) => (
+              <TableRow key={footerGroup.id}>
+                {footerGroup.headers.map((header, idx) => {
+                  return (
+                    <TableCell
+                      key={header.id}
+                      colSpan={header.colSpan}
+                      className={cn(
+                        `px-2 py-1 md:px-4 md:py-2 ${stickyColumn && idx === 0 ? " sticky left-0 z-5 bg-card" : ""}`,
+                        (
+                          header.column.columnDef as DataTableColumnDef<
+                            TData,
+                            TValue
+                          >
+                        ).className,
+                      )}
+                    >
+                      {header.isPlaceholder
+                        ? null
+                        : footerRender(table, header, !!stickyColumn, t)}
+                    </TableCell>
+                  );
+                })}
+              </TableRow>
+            ))}
+          </TableFooter>
         </Table>
+
         <div className="flex justify-between p-2 md:p-4">
           <div className="flex gap-2">
             <Button
