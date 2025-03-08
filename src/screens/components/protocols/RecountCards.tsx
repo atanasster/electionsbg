@@ -8,13 +8,8 @@ import {
 
 import { FC, useMemo } from "react";
 import { ProtocolCard } from "../../../ux/ProtocolCard";
-import { Hint } from "@/ux/Hint";
-import { LabelXL } from "./LabelXL";
-import { formatPct } from "@/data/utils";
-import { BadgeMinus, BadgePlus, FileMinus } from "lucide-react";
-import { LabelL } from "./LabelL";
+import { BadgeMinus, BadgePlus } from "lucide-react";
 import { useTranslation } from "react-i18next";
-import { ThousandsChange } from "@/ux/ThousandsChange";
 import { VotesChart } from "../charts/VotesChart";
 import { usePartyInfo } from "@/data/parties/usePartyInfo";
 import { useSearchParam } from "@/screens/utils/useSearchParam";
@@ -30,11 +25,7 @@ const RecountInternal: FC<{
   const [recountOpen, setRecountOpen] = useSearchParam("recount", {
     replace: true,
   });
-  const totalVotesRecount =
-    (results.protocol?.numValidMachineVotes || 0) +
-    (results.protocol?.numValidVotes || 0);
-  const machineVotesRecount = results.protocol?.numValidMachineVotes || 0;
-  const paperVotesRecount = results.protocol?.numValidVotes || 0;
+
   const { topParties, bottomParties } = useMemo(() => {
     const partiesChange = original.votes
       .map((vote) => {
@@ -100,56 +91,6 @@ const RecountInternal: FC<{
               original={original}
               protocol={results.protocol}
             />
-            <ProtocolCard title={t("removed_votes")} icon={<FileMinus />}>
-              <div className="flex">
-                <Hint
-                  text={t("removed_votes_recount_explainer")}
-                  underline={false}
-                >
-                  <LabelXL>
-                    <ThousandsChange number={original.removedVotes} />
-                  </LabelXL>
-                </Hint>
-                {!!totalVotesRecount && (
-                  <Hint
-                    text={t("pct_removed_recount_explainer")}
-                    underline={false}
-                  >
-                    <LabelL>
-                      {`(${formatPct((100 * original.removedVotes) / totalVotesRecount, 2)})`}
-                    </LabelL>
-                  </Hint>
-                )}
-              </div>
-              <div className="flex justify-between text-xs text-muted-foreground">
-                <div>{`${t("paper_votes")}: `}</div>
-                <div className="flex">
-                  <ThousandsChange
-                    className="font-bold"
-                    number={original.removedPaperVotes}
-                  />
-                  {!!paperVotesRecount && (
-                    <div className="font-bold text-primary ml-2">
-                      {`(${formatPct((100 * original.removedPaperVotes) / paperVotesRecount, 2)})`}
-                    </div>
-                  )}
-                </div>
-              </div>
-              <div className="flex justify-between text-xs text-muted-foreground">
-                <div>{`${t("machine_votes")}: `}</div>
-                <div className="flex">
-                  <ThousandsChange
-                    className="font-bold"
-                    number={original.removedMachineVotes}
-                  />
-                  {!!machineVotesRecount && (
-                    <div className="font-bold text-primary ml-2">
-                      {`(${formatPct((100 * original.removedMachineVotes) / machineVotesRecount, 2)})`}
-                    </div>
-                  )}
-                </div>
-              </div>
-            </ProtocolCard>
             {!!bottomParties.length && (
               <ProtocolCard
                 icon={<BadgeMinus />}
