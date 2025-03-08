@@ -38,9 +38,16 @@ export function headerRender<TData, TValue>(
         <Button
           variant="ghost"
           className="px-0"
-          onClick={() =>
-            header.column.toggleSorting(header.column.getIsSorted() === "asc")
-          }
+          onClick={() => {
+            const sortingDir = header.column.getIsSorted();
+            if (sortingDir) {
+              header.column.toggleSorting(sortingDir === "asc");
+            } else {
+              header.column.toggleSorting(
+                header.column.getFirstSortDir() === "desc",
+              );
+            }
+          }}
         >
           <ArrowUpDown className="h-4 w-4 " />
         </Button>
