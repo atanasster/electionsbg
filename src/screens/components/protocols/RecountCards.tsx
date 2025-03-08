@@ -15,6 +15,7 @@ import { usePartyInfo } from "@/data/parties/usePartyInfo";
 import { useSearchParam } from "@/screens/utils/useSearchParam";
 import { RecountAddedVotesCard } from "../cards/RecountAddedVotesCard";
 import { RecountRemovedVotesCard } from "../cards/RecountRemovedVotesCard";
+import { recountStats } from "@/data/utils";
 
 const RecountInternal: FC<{
   results: VoteResults;
@@ -33,10 +34,11 @@ const RecountInternal: FC<{
         if (!recount) {
           return undefined;
         }
+        const stats = recountStats(recount, vote);
         return {
           partyNum: vote.partyNum,
-          added: Math.max(0, recount.totalVotes - vote.totalVotes),
-          removed: Math.min(0, recount.totalVotes - vote.totalVotes),
+          added: stats.addedVotes,
+          removed: stats.removedVotes,
           ...findParty(vote.partyNum),
         };
       })

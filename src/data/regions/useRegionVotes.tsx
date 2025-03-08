@@ -23,7 +23,7 @@ const queryFn = async ({
   return data;
 };
 export const useRegionVotes = () => {
-  const { selected } = useElectionContext();
+  const { selected, electionStats } = useElectionContext();
   const { data: votes } = useQuery({
     queryKey: ["region_votes", selected],
     queryFn,
@@ -52,18 +52,23 @@ export const useRegionVotes = () => {
       ) => {
         if (SOFIA_REGIONS.includes(v.key)) {
           addResults(results, v.results.votes, v.results.protocol);
-          if (v.original) {
+          if (electionStats?.hasRecount) {
             if (!original) {
               original = initializeRecount();
             }
-            addRecount(original, v.original);
+            const recount = v.original || {
+              ...initializeRecount(),
+              votes: v.results.votes,
+            };
+            addRecount(original, recount);
           }
         }
         return { results, original };
       },
       { results: { votes: [] } },
     );
-  }, [votes]);
+  }, [electionStats?.hasRecount, votes]);
+
   const countryRegions = useCallback((): ElectionRegion[] | undefined => {
     return votes?.filter((vote) => vote.key !== "32");
   }, [votes]);
@@ -79,14 +84,17 @@ export const useRegionVotes = () => {
     if (votes) {
       votes.map((r) => {
         addResults(results, r.results.votes, r.results.protocol);
-        if (r.original) {
-          addRecount(original, r.original);
+        if (electionStats?.hasRecount) {
+          const recount = r.original || {
+            ...initializeRecount(),
+            votes: r.results.votes,
+          };
+          addRecount(original, recount);
         }
       });
     }
-
     return { results, original };
-  }, [votes]);
+  }, [electionStats?.hasRecount, votes]);
 
   return {
     countryRegions,

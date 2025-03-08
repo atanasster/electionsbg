@@ -146,11 +146,9 @@ const generateStats = <
                 (v) => v.partyNum === party.number,
               );
 
-              if (
-                originalVotes &&
-                votes.totalVotes !== originalVotes.totalVotes
-              ) {
-                res.recount = recountStats(votes, originalVotes);
+              if (originalVotes) {
+                const calc = recountStats(votes, originalVotes);
+                if (calc.addedVotes || calc.removedVotes) res.recount = calc;
               }
             }
           }

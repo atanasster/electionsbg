@@ -206,7 +206,7 @@ export const DataTable = <TData, TValue>({
                       key={header.id}
                       colSpan={header.colSpan}
                       className={cn(
-                        `px-2 py-1 md:px-4 md:py-2 ${stickyColumn && idx === 0 ? " sticky left-0 z-5 bg-card" : ""}`,
+                        `px-2 py-1 md:px-4 md:py-2 ${stickyColumn && idx === 0 ? " sticky left-0 z-5" : ""}`,
                         (
                           header.column.columnDef as DataTableColumnDef<
                             TData,

@@ -6,7 +6,7 @@ export const calcRecountOriginal = ({
 }: {
   originalVotes: Votes[];
   recountVotes: Votes[];
-}): RecountOriginal => {
+}): RecountOriginal | undefined => {
   const {
     addedVotes,
     removedVotes,
@@ -18,18 +18,24 @@ export const calcRecountOriginal = ({
     (acc: Omit<RecountOriginal, "votes">, vote) => {
       const or = originalVotes.find((v) => v.partyNum === vote.partyNum);
       if (or) {
-        if (vote.totalVotes > or.totalVotes) {
-          acc.addedVotes += vote.totalVotes - or.totalVotes;
-          acc.addedPaperVotes += (vote.paperVotes || 0) - (or.paperVotes || 0);
-          acc.addedMachineVotes +=
-            (vote.machineVotes || 0) - (or.machineVotes || 0);
-        } else if (vote.totalVotes < or.totalVotes) {
-          acc.removedVotes -= or.totalVotes - vote.totalVotes;
-          acc.removedPaperVotes -=
-            (or.paperVotes || 0) - (vote.paperVotes || 0);
-          acc.removedMachineVotes -=
-            (or.machineVotes || 0) - (vote.machineVotes || 0);
-        }
+        const r_paperVotes = vote.paperVotes || 0;
+        const r_machineVotes = vote.machineVotes || 0;
+        const o_paperVotes = or.paperVotes || 0;
+        const o_machineVotes = or.machineVotes || 0;
+        const addedPaperVotes =
+          r_paperVotes > o_paperVotes ? r_paperVotes - o_paperVotes : 0;
+        const addedMachineVotes =
+          r_machineVotes > o_machineVotes ? r_machineVotes - o_machineVotes : 0;
+        acc.addedPaperVotes += addedPaperVotes;
+        acc.addedMachineVotes += addedPaperVotes;
+        acc.addedVotes += addedPaperVotes + addedMachineVotes;
+        const removedPaperVotes =
+          r_paperVotes < o_paperVotes ? o_paperVotes + r_paperVotes : 0;
+        const removedMachineVotes =
+          r_machineVotes < o_machineVotes ? r_machineVotes - o_machineVotes : 0;
+        acc.removedPaperVotes += removedPaperVotes;
+        acc.removedMachineVotes += removedMachineVotes;
+        acc.removedVotes += removedMachineVotes + removedPaperVotes;
       }
       return acc;
     },
@@ -42,13 +48,16 @@ export const calcRecountOriginal = ({
       removedMachineVotes: 0,
     },
   );
-  return {
-    votes: originalVotes,
-    addedVotes,
-    removedVotes,
-    addedPaperVotes,
-    addedMachineVotes,
-    removedPaperVotes,
-    removedMachineVotes,
-  };
+  if (addedVotes || removedVotes) {
+    return {
+      votes: originalVotes,
+      addedVotes,
+      removedVotes,
+      addedPaperVotes,
+      addedMachineVotes,
+      removedPaperVotes,
+      removedMachineVotes,
+    };
+  }
+  return undefined;
 };
