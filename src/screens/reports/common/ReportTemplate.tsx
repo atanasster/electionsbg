@@ -315,7 +315,9 @@ export const ReportTemplate: FC<{
   );
   return (
     <div className={`w-full`}>
-      <Title description="election anomalies report">{t(titleKey)}</Title>
+      <Title description="election anomalies report" className="md:py-8">
+        {t(titleKey)}
+      </Title>
 
       <div className="flex items-center justify-center pb-4 text-secondary-foreground ">
         <Label

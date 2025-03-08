@@ -21,7 +21,7 @@ export const Template: FC<{
 }) => {
   return (
     <ReportTemplate
-      levelKey="settlements"
+      levelKey="by_settlements"
       defaultThreshold={defaultThreshold}
       bigger={bigger}
       titleKey={titleKey}
