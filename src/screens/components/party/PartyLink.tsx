@@ -2,12 +2,27 @@ import { PartyInfo } from "@/data/dataTypes";
 import { Link } from "@/ux/Link";
 import { FC } from "react";
 import { PartyLabel } from "./PartyLabel";
+import { cn } from "@/lib/utils";
 
-export const PartyLink: FC<{ party: PartyInfo }> = ({ party }) => (
-  <Link to={`/party/${party.nickName}`} underline={false}>
+export const PartyLink: FC<{
+  party?: PartyInfo;
+  className?: string;
+  width?: string;
+  link?: boolean;
+}> = ({ party, className, width = "w-8", link = true }) => {
+  const content = (
     <div className="flex items-center border-2 border-primary">
-      <div className="w-8 font-semibold text-center">{party.number}</div>
-      <PartyLabel className="w-full pl-2" party={party} />
+      <div className={`${width} font-semibold text-center`}>
+        {party?.number}
+      </div>
+      <PartyLabel className={cn("w-full pl-2", className)} party={party} />
     </div>
-  </Link>
-);
+  );
+  return party && link ? (
+    <Link to={`/party/${party.nickName}`} underline={false}>
+      {content}{" "}
+    </Link>
+  ) : (
+    content
+  );
+};
