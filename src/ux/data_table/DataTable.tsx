@@ -3,7 +3,6 @@ import {
   getCoreRowModel,
   getExpandedRowModel,
   getFilteredRowModel,
-  getGroupedRowModel,
   getPaginationRowModel,
   getSortedRowModel,
   SortingState,
@@ -93,8 +92,6 @@ export const DataTable = <TData, TValue>({
     getFilteredRowModel: getFilteredRowModel(),
     globalFilterFn: "includesString",
     getSubRows,
-    enableGrouping: true,
-    getGroupedRowModel: getGroupedRowModel(),
     initialState: {
       pagination: { pageSize },
     },
