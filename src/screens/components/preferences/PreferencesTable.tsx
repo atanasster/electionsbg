@@ -98,7 +98,6 @@ export const PreferencesTable: FC<{
     () => !!data.find((v) => v.paperVotes || v.machineVotes),
     [data],
   );
-
   return (
     <div className="w-full">
       <Caption className="py-8">{t("preferences")}</Caption>
@@ -161,7 +160,6 @@ export const PreferencesTable: FC<{
             accessorKey: "pref",
             header: "#",
             hidden: !visibleColumns.includes("candidate"),
-            dataType: "thousands",
           },
           {
             accessorKey: "candidateName",
