@@ -12,7 +12,8 @@
     "prod": "tsx ./scripts/main.ts --all --prod",
     "size": "npx tsc && vite-size",
     "stats": "npx vite-bundle-visualizer",
-    "deploy": "firebase deploy"
+    "deploy": "firebase deploy",
+    "staging": "firebase deploy -P staging"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.3",
