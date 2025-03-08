@@ -1,10 +1,11 @@
 import { cn } from "@/lib/utils";
 import { SEO } from "./SEO";
 import { H1 } from "./H1";
+import { ReactNode } from "react";
 export const Title: React.FC<
   React.ComponentProps<"h1"> & {
     description?: string;
-    children: string;
+    children: string | ReactNode;
   }
 > = ({ className, children, description, ...props }) => {
   const label = (
@@ -18,7 +19,7 @@ export const Title: React.FC<
       {children}
     </H1>
   );
-  return description ? (
+  return description && typeof children === "string" ? (
     <>
       <SEO
         title={children}

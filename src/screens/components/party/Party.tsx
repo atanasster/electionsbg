@@ -11,6 +11,7 @@ import { PartyFinancingScreen } from "./campaign_financing/PartyFinancingScreen"
 import { Banknote, RotateCcwSquare, Vote } from "lucide-react";
 import { PartyResultsScreen } from "./election_results/PartyResultsScreen";
 import { PartyRecountScreen } from "./recount/PartyRecountScreen";
+import { PartyLink } from "./PartyLink";
 
 const dataViews = ["results", "recount", "financing"] as const;
 type DataViewType = (typeof dataViews)[number];
@@ -45,8 +46,13 @@ export const Party: FC<{ nickName: string }> = ({ nickName }) => {
         />
       ) : (
         <>
-          <Title>
-            {`${party?.number ? `${party.number} - ` : ""}${party?.nickName || nickName}`}
+          <Title className="w-auto flex justify-center md:py-8">
+            <PartyLink
+              className="w-auto px-4"
+              party={party}
+              width="w-16"
+              link={false}
+            />
           </Title>
           <Caption>{title}</Caption>
           <IconTabs<DataViewType>
