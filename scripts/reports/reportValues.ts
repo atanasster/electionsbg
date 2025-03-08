@@ -7,7 +7,7 @@ import {
   StatsVote,
   RecountOriginal,
 } from "@/data/dataTypes";
-import { findPrevVotes, topParty } from "@/data/utils";
+import { findPrevVotes, recountStats, topParty } from "@/data/utils";
 
 const round = (num: number) => Math.ceil(num * 100) / 100;
 type FindPartyFunc = (votes: Votes[]) => PartyVotes | undefined;
@@ -197,14 +197,14 @@ export const reportValues: ReportValue[] = [
           const originalVotes = original?.votes.find(
             (v) => v.partyNum === vote.partyNum,
           );
-          if (
-            originalVotes &&
-            vote.totalVotes - originalVotes.totalVotes > (acc?.change || 0)
-          ) {
-            return {
-              partyNum: vote.partyNum,
-              change: vote.totalVotes - originalVotes.totalVotes,
-            };
+          if (originalVotes) {
+            const stats = recountStats(vote, originalVotes);
+            if (stats.addedVotes > (acc?.change || 0)) {
+              return {
+                partyNum: vote.partyNum,
+                change: stats.addedVotes,
+              };
+            }
           }
           return acc;
         },
@@ -215,14 +215,14 @@ export const reportValues: ReportValue[] = [
           const originalVotes = original?.votes.find(
             (v) => v.partyNum === vote.partyNum,
           );
-          if (
-            originalVotes &&
-            vote.totalVotes - originalVotes.totalVotes < (acc?.change || 0)
-          ) {
-            return {
-              partyNum: vote.partyNum,
-              change: vote.totalVotes - originalVotes.totalVotes,
-            };
+          if (originalVotes) {
+            const stats = recountStats(vote, originalVotes);
+            if (stats.removedVotes < (acc?.change || 0)) {
+              return {
+                partyNum: vote.partyNum,
+                change: stats.removedVotes,
+              };
+            }
           }
           return acc;
         },

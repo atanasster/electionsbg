@@ -22,10 +22,13 @@ export const recountMunicipalities = ({
     if (!original) {
       throw new Error("Could not find original municipality: " + r.obshtina);
     }
-    r.original = calcRecountOriginal({
+    const calc = calcRecountOriginal({
       originalVotes: original.results.votes,
       recountVotes: r.results.votes,
     });
+    if (calc) {
+      r.original = calc;
+    }
   });
   return true;
 };

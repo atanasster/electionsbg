@@ -22,10 +22,13 @@ export const recountSettlements = ({
     if (!original) {
       throw new Error("Could not find original settlement: " + r.ekatte);
     }
-    r.original = calcRecountOriginal({
+    const calc = calcRecountOriginal({
       originalVotes: original.results.votes,
       recountVotes: r.results.votes,
     });
+    if (calc) {
+      r.original = calc;
+    }
   });
   return true;
 };

@@ -44,7 +44,7 @@ export const formatThousands = (x?: number, decimals: number = 0) => {
 export const isNumeric = (s: string) => /^[+-]?\d+(\.\d+)?$/.test(s);
 
 export const addVotes = (votes: Votes[], initial?: Votes[]) => {
-  const buff: Votes[] = initial || [];
+  const buff: Votes[] = initial ? [...initial] : [];
   votes.forEach((v) => {
     const votes = buff.find((a) => a.partyNum === v.partyNum);
     if (votes) {
@@ -57,7 +57,6 @@ export const addVotes = (votes: Votes[], initial?: Votes[]) => {
       }
     } else {
       buff.push({
-        ...v,
         partyNum: v.partyNum,
         totalVotes: v.totalVotes,
         machineVotes: v.machineVotes,
@@ -136,7 +135,8 @@ export const addRecount = (
   newRecount: RecountOriginal,
   original: RecountOriginal,
 ) => {
-  newRecount.votes = addVotes(original.votes, newRecount.votes);
+  const recountVotes = addVotes(original.votes, newRecount.votes);
+  newRecount.votes = recountVotes;
   newRecount.addedMachineVotes += original.addedMachineVotes;
   newRecount.addedPaperVotes += original.addedPaperVotes;
   newRecount.addedVotes += original.addedVotes;
@@ -152,24 +152,21 @@ export const recountStats = (votes: Votes, original: Votes): RecountStats => {
 
   const origMachineVotes = original.machineVotes || 0;
   const origPaperVotes = original.paperVotes || 0;
-
+  const addedMachineVotes =
+    machineVotes > origMachineVotes ? machineVotes - origMachineVotes : 0;
+  const addedPaperVotes =
+    paperVotes > origPaperVotes ? paperVotes - origPaperVotes : 0;
+  const removedMachineVotes =
+    machineVotes < origMachineVotes ? machineVotes - origMachineVotes : 0;
+  const removedPaperVotes =
+    paperVotes < origPaperVotes ? paperVotes - origPaperVotes : 0;
   return {
-    addedMachineVotes:
-      machineVotes > origMachineVotes ? machineVotes - origMachineVotes : 0,
-    addedPaperVotes:
-      paperVotes > origPaperVotes ? paperVotes - origPaperVotes : 0,
-    addedVotes:
-      votes.totalVotes > original.totalVotes
-        ? votes.totalVotes - original.totalVotes
-        : 0,
-    removedMachineVotes:
-      machineVotes < origMachineVotes ? machineVotes - origMachineVotes : 0,
-    removedPaperVotes:
-      paperVotes < origPaperVotes ? paperVotes - origPaperVotes : 0,
-    removedVotes:
-      votes.totalVotes < original.totalVotes
-        ? votes.totalVotes - original.totalVotes
-        : 0,
+    addedMachineVotes,
+    addedPaperVotes,
+    addedVotes: addedMachineVotes + addedPaperVotes,
+    removedMachineVotes,
+    removedPaperVotes,
+    removedVotes: removedMachineVotes + removedPaperVotes,
   };
 };
 export const addResults = (
