@@ -11,6 +11,7 @@ import { DataViewContainer } from "@/layout/dataview/DataViewContainer";
 import { MultiHistoryChart } from "./components/charts/MultiHistoryChart";
 import { SofiaAreasTable } from "./components/sofia/SofiaAreasTable";
 import { PreferencesSofia } from "./components/preferences/PreferencesSofia";
+import { PartyRecountTable } from "./components/PartyRecountTable";
 
 export const SofiaScreen = () => {
   const { t } = useTranslation();
@@ -43,6 +44,10 @@ export const SofiaScreen = () => {
                 prevElection={prevVotes}
                 stats={sofiaStats}
               />
+            );
+          if (view === "recount")
+            return (
+              <PartyRecountTable title={title} votes={{ results, original }} />
             );
           if (view === "pref.") return <PreferencesSofia />;
           if (view === "chart" && sofiaStats)
