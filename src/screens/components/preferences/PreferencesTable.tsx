@@ -1,5 +1,5 @@
 import { PartyInfo, PreferencesInfo } from "@/data/dataTypes";
-import { DataTable } from "@/ux/data_table/DataTable";
+import { DataTable, DataTableColumns } from "@/ux/data_table/DataTable";
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
@@ -98,6 +98,130 @@ export const PreferencesTable: FC<{
     () => !!data.find((v) => v.paperVotes || v.machineVotes),
     [data],
   );
+  const columns: DataTableColumns<DataType, unknown> = useMemo(
+    () => [
+      {
+        accessorKey: "nickName",
+        header: t("party"),
+        size: 70,
+        cell: ({ row }) => <PartyLink party={row.original as PartyInfo} />,
+      },
+      {
+        accessorKey: "oblast",
+        header: t("region"),
+        hidden: !visibleColumns.includes("oblast"),
+        accessorFn: (row) => {
+          const region = findRegion(row.oblast);
+          return i18n.language === "bg"
+            ? region?.long_name || region?.name
+            : region?.long_name_en || region?.name_en;
+        },
+        cell: ({ row }) => <RegionLink oblast={row.original.oblast} />,
+      },
+      {
+        accessorKey: "obshtina",
+        hidden: !visibleColumns.includes("obshtina"),
+        header: t("municipality"),
+        accessorFn: (row) => {
+          const municipality = findMunicipality(row.obshtina);
+          return i18n.language === "bg"
+            ? municipality?.name
+            : municipality?.name_en;
+        },
+        cell: ({ row }) => (
+          <MunicipalityLink obshtina={row.original.obshtina} />
+        ),
+      },
+      {
+        accessorKey: "ekatte",
+        hidden: !visibleColumns.includes("ekatte"),
+        header: t("settlement"),
+        accessorFn: (row) => {
+          const settlement = findSettlement(row.ekatte);
+          return i18n.language === "bg"
+            ? settlement?.name
+            : settlement?.name_en;
+        },
+        cell: ({ row }) => <SettlementLink ekatte={row.original.ekatte} />,
+      },
+      {
+        accessorKey: "section",
+        hidden: !visibleColumns.includes("section"),
+        header: t("section"),
+        cell: ({ row }) => <SectionLink section={row.original.section} />,
+      },
+      {
+        accessorKey: "pref",
+        header: "#",
+        hidden: !visibleColumns.includes("candidate"),
+      },
+      {
+        accessorKey: "candidateName",
+        header: t("candidate"),
+        hidden: !visibleColumns.includes("candidate"),
+        cell: ({ row }) =>
+          row.original.candidateName && (
+            <CandidateLink name={row.original.candidateName} />
+          ),
+      },
+      {
+        accessorKey: "paperVotes",
+        hidden: !isMedium || !hasMachinePaperVotes,
+        header: t("paper_votes"),
+        dataType: "thousands",
+      },
+      {
+        accessorKey: "machineVotes",
+        hidden: !isMedium || !hasMachinePaperVotes,
+        header: t("machine_votes"),
+        dataType: "thousands",
+      },
+      {
+        accessorKey: "totalVotes",
+        header: capitalizeFirstLetter(t("pref.")),
+        headerHint: t("total_preferences_explainer"),
+        dataType: "thousands",
+      },
+      {
+        accessorKey: "pctPref",
+        headerHint: t("pct_pref_explainer"),
+        header: `% ${capitalizeFirstLetter(t("pref."))}`,
+        dataType: "percent",
+      },
+      {
+        accessorKey: "pctPrefVotes",
+        headerHint: t("pct_pref_votes_explainer"),
+        header: `% ${t("party")}`,
+        dataType: "percent",
+      },
+      {
+        accessorKey: "pctPrefAllVotes",
+        headerHint: t("pct_pref_all_votes_explainer"),
+        header: `% ${t("total")}`,
+        dataType: "percent",
+      },
+      {
+        accessorKey: "pctLyPreferences",
+        hidden: !hasPrevYear || !priorElections,
+        headerHint: t("pct_pref_all_votes_explainer"),
+        header: priorElections ? localDate(priorElections?.name) : "+/-",
+        dataType: "pctChange",
+      },
+    ],
+    [
+      findMunicipality,
+      findRegion,
+      findSettlement,
+      hasMachinePaperVotes,
+      hasPrevYear,
+      i18n.language,
+      isMedium,
+      priorElections,
+      t,
+      visibleColumns,
+    ],
+  );
+
   return (
     <div className="w-full">
       <Caption className="py-8">{t("preferences")}</Caption>
@@ -105,115 +229,7 @@ export const PreferencesTable: FC<{
         pageSize={25}
         title={t("preferences")}
         stickyColumn={true}
-        columns={[
-          {
-            accessorKey: "nickName",
-            header: t("party"),
-            size: 70,
-            cell: ({ row }) => <PartyLink party={row.original as PartyInfo} />,
-          },
-          {
-            accessorKey: "oblast",
-            header: t("region"),
-            hidden: !visibleColumns.includes("oblast"),
-            accessorFn: (row) => {
-              const region = findRegion(row.oblast);
-              return i18n.language === "bg"
-                ? region?.long_name || region?.name
-                : region?.long_name_en || region?.name_en;
-            },
-            cell: ({ row }) => <RegionLink oblast={row.original.oblast} />,
-          },
-          {
-            accessorKey: "obshtina",
-            hidden: !visibleColumns.includes("obshtina"),
-            header: t("municipality"),
-            accessorFn: (row) => {
-              const municipality = findMunicipality(row.obshtina);
-              return i18n.language === "bg"
-                ? municipality?.name
-                : municipality?.name_en;
-            },
-            cell: ({ row }) => (
-              <MunicipalityLink obshtina={row.original.obshtina} />
-            ),
-          },
-          {
-            accessorKey: "ekatte",
-            hidden: !visibleColumns.includes("ekatte"),
-            header: t("settlement"),
-            accessorFn: (row) => {
-              const settlement = findSettlement(row.ekatte);
-              return i18n.language === "bg"
-                ? settlement?.name
-                : settlement?.name_en;
-            },
-            cell: ({ row }) => <SettlementLink ekatte={row.original.ekatte} />,
-          },
-          {
-            accessorKey: "section",
-            hidden: !visibleColumns.includes("section"),
-            header: t("section"),
-            cell: ({ row }) => <SectionLink section={row.original.section} />,
-          },
-          {
-            accessorKey: "pref",
-            header: "#",
-            hidden: !visibleColumns.includes("candidate"),
-          },
-          {
-            accessorKey: "candidateName",
-            header: t("candidate"),
-            hidden: !visibleColumns.includes("candidate"),
-            cell: ({ row }) =>
-              row.original.candidateName && (
-                <CandidateLink name={row.original.candidateName} />
-              ),
-          },
-          {
-            accessorKey: "paperVotes",
-            hidden: !isMedium || !hasMachinePaperVotes,
-            header: t("paper_votes"),
-            dataType: "thousands",
-          },
-          {
-            accessorKey: "machineVotes",
-            hidden: !isMedium || !hasMachinePaperVotes,
-            header: t("machine_votes"),
-            dataType: "thousands",
-          },
-          {
-            accessorKey: "totalVotes",
-            header: capitalizeFirstLetter(t("pref.")),
-            headerHint: t("total_preferences_explainer"),
-            dataType: "thousands",
-          },
-          {
-            accessorKey: "pctPref",
-            headerHint: t("pct_pref_explainer"),
-            header: `% ${capitalizeFirstLetter(t("pref."))}`,
-            dataType: "percent",
-          },
-          {
-            accessorKey: "pctPrefVotes",
-            headerHint: t("pct_pref_votes_explainer"),
-            header: `% ${t("party")}`,
-            dataType: "percent",
-          },
-          {
-            accessorKey: "pctPrefAllVotes",
-            headerHint: t("pct_pref_all_votes_explainer"),
-            header: `% ${t("total")}`,
-            dataType: "percent",
-          },
-          {
-            accessorKey: "pctLyPreferences",
-            hidden: !hasPrevYear || !priorElections,
-            headerHint: t("pct_pref_all_votes_explainer"),
-            header: priorElections ? localDate(priorElections?.name) : "+/-",
-            dataType: "pctChange",
-          },
-        ]}
+        columns={columns}
         data={data}
       />
     </div>
