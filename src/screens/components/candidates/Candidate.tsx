@@ -56,7 +56,12 @@ export const Candidate: FC<{ name: string }> = ({ name }) => {
 
   return (
     <div className="w-full">
-      <Title className="md:py-8">{name}</Title>
+      <Title
+        description={`Results for party candidate ${name}`}
+        className="md:pb-8"
+      >
+        {name}
+      </Title>
       {candidateInfo?.map((c) => {
         const party = findParty(c.partyNum);
         return (
@@ -64,11 +69,13 @@ export const Candidate: FC<{ name: string }> = ({ name }) => {
             key={`${c.oblast}-${c.pref}`}
             className="flex justify-center py-2 "
           >
-            <div className="flex gap-2 items-center">
-              <PartyLink party={party}></PartyLink>
-              <RegionLink oblast={c.oblast} />
-              {"-"}
-              <div className="font-semibold">{c.pref}</div>
+            <div className="flex gap-4 items-center">
+              <PartyLink party={party} width="w-14"></PartyLink>
+              <div className="text-lg flex font-semibold gap-2">
+                <RegionLink oblast={c.oblast} />
+                {" - "}
+                <div>{c.pref}</div>
+              </div>
             </div>
           </div>
         );
