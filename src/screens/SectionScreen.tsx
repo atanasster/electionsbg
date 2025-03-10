@@ -26,7 +26,7 @@ export const SectionScreen = () => {
   const municipality = findMunicipality(section.obshtina);
 
   return (
-    <div className={`w-full py-10 px-4 md:px-8`}>
+    <div className={`w-full px-4 md:px-8`}>
       <SEO
         title={`${t("section")} ${settlement ? (i18n.language === "bg" ? settlement?.name : settlement?.name_en) : ""}`}
         description="Bulgaria election results in a set of polling stations"

@@ -5,9 +5,10 @@ import { ReactNode } from "react";
 export const Title: React.FC<
   React.ComponentProps<"h1"> & {
     description?: string;
+    title?: string;
     children: string | ReactNode;
   }
-> = ({ className, children, description, ...props }) => {
+> = ({ className, children, description, title, ...props }) => {
   const label = (
     <H1
       className={cn(
@@ -19,10 +20,10 @@ export const Title: React.FC<
       {children}
     </H1>
   );
-  return description && typeof children === "string" ? (
+  return description && (typeof children === "string" || title) ? (
     <>
       <SEO
-        title={children}
+        title={typeof children === "string" ? children : title || ""}
         description={description}
         keywords={["bulgaria", "elections"]}
       />
