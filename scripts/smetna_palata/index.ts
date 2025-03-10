@@ -1,7 +1,12 @@
-import { ElectionInfo, PartyInfo } from "@/data/dataTypes";
+import {
+  CandidatesInfo,
+  ElectionInfo,
+  FinancingFromDonors,
+  PartyInfo,
+} from "@/data/dataTypes";
 import fs from "fs";
 import path from "path";
-import { cikPartiesFileName } from "scripts/consts";
+import { candidatesFileName, cikPartiesFileName } from "scripts/consts";
 import { fileURLToPath } from "url";
 import { parsePartyFinancing } from "./party_financials";
 
@@ -34,6 +39,11 @@ export const parseCampaignFinancing = async ({
   const folders = dataFolders
     .filter((file) => file.isDirectory())
     .map((f) => f.name);
+  const candidates = (
+    JSON.parse(
+      fs.readFileSync(`${publicFolder}/${candidatesFileName}`, "utf-8"),
+    ) as CandidatesInfo[]
+  ).sort((a, b) => a.name.localeCompare(b.name));
 
   const data = await Promise.all(
     folders.map(async (f) => {
@@ -45,6 +55,7 @@ export const parseCampaignFinancing = async ({
         party: party.number,
         data: await parsePartyFinancing({
           dataFolder: `${partiesFinancialFolder}/${f}`,
+          candidates,
           party,
         }),
       };
@@ -69,6 +80,7 @@ export const parseFinancing = async ({
   const elections: ElectionInfo[] = JSON.parse(
     fs.readFileSync(electionsFile, "utf-8"),
   );
+
   return await Promise.all(
     elections.map(async (e) => {
       const partiesFinancing = await parseCampaignFinancing({
@@ -77,6 +89,10 @@ export const parseFinancing = async ({
         stringify,
       });
       if (partiesFinancing) {
+        const allCandidates: Record<
+          string,
+          Omit<FinancingFromDonors, "name">[]
+        > = {};
         const partiesFolder = `${publicFolder}/${e.name}/parties`;
         if (!fs.existsSync(partiesFolder)) {
           fs.mkdirSync(partiesFolder);
@@ -85,17 +101,34 @@ export const parseFinancing = async ({
         if (!fs.existsSync(partiesFinancingFolder)) {
           fs.mkdirSync(partiesFinancingFolder);
         }
-
         const allParties = partiesFinancing.map((p) => {
           const partyFolder = `${partiesFinancingFolder}/${p.party}`;
           if (!fs.existsSync(partyFolder)) {
             fs.mkdirSync(partyFolder);
           }
           fs.writeFileSync(`${partyFolder}/filing.json`, stringify(p), "utf-8");
+          p.data.fromCandidates.forEach(({ name, ...rest }) => {
+            if (allCandidates[name] === undefined) {
+              allCandidates[name] = [];
+            }
+            allCandidates[name].push(rest);
+          });
           return {
             party: p.party,
             filing: p.data?.filing,
           };
+        });
+        Object.keys(allCandidates).forEach((name) => {
+          const data = allCandidates[name];
+          const candidateFolder = `${publicFolder}/${e.name}/candidates/${name}`;
+          if (!fs.existsSync(candidateFolder)) {
+            fs.mkdirSync(candidateFolder);
+          }
+          fs.writeFileSync(
+            `${candidateFolder}/donations.json`,
+            stringify(data),
+            "utf-8",
+          );
         });
         fs.writeFileSync(
           `${partiesFolder}/financing.json`,
