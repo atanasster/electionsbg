@@ -9,6 +9,7 @@ import path from "path";
 import { candidatesFileName, cikPartiesFileName } from "scripts/consts";
 import { fileURLToPath } from "url";
 import { parsePartyFinancing } from "./party_financials";
+import { parseCandidateDonations } from "./parse_candidate_donations";
 
 const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
 const __dirname = path.dirname(__filename); // get the name of the directory
@@ -44,7 +45,11 @@ export const parseCampaignFinancing = async ({
       fs.readFileSync(`${publicFolder}/${candidatesFileName}`, "utf-8"),
     ) as CandidatesInfo[]
   ).sort((a, b) => a.name.localeCompare(b.name));
-
+  const candidateDonations = await parseCandidateDonations({
+    dataFolder: financialFolder,
+    cik_parties: parties,
+    candidates,
+  });
   const data = await Promise.all(
     folders.map(async (f) => {
       const party = parties.find((p) => p.name.localeCompare(f, ["bg"]) === 0);
@@ -55,6 +60,7 @@ export const parseCampaignFinancing = async ({
         party: party.number,
         data: await parsePartyFinancing({
           dataFolder: `${partiesFinancialFolder}/${f}`,
+          candidateDonations,
           candidates,
           party,
         }),
