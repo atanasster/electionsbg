@@ -27,7 +27,7 @@ export const SectionsRecount = () => {
       defaultThreshold={0}
       votes={data}
       titleKey="votes_recount"
-      hiddenColumns={["party", "pctPartyVote", "recount"]}
+      hiddenColumns={["party", "pctPartyVote"]}
       visibleColumns={["recount"]}
     />
   );
