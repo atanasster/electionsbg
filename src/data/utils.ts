@@ -140,7 +140,7 @@ export const addRecountStats = ({
 }) => {
   if (src) {
     dest.addedPaperVotes += src.addedPaperVotes;
-    dest.addedMachineVotes += src.addedPaperVotes;
+    dest.addedMachineVotes += src.addedMachineVotes;
     dest.addedVotes += src.addedVotes;
 
     dest.removedPaperVotes += src.removedPaperVotes;
