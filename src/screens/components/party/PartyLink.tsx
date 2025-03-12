@@ -10,6 +10,9 @@ export const PartyLink: FC<{
   width?: string;
   link?: boolean;
 }> = ({ party, className, width = "w-8", link = true }) => {
+  if (!party) {
+    return null;
+  }
   const content = (
     <div className="flex items-center border-2 border-primary">
       <div className={`${width} font-semibold text-center`}>

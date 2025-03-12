@@ -1,24 +1,31 @@
-import { RecountStats, SectionProtocol } from "@/data/dataTypes";
+import { RecountStats, Votes } from "@/data/dataTypes";
 import { Hint } from "@/ux/Hint";
 import { ProtocolCard } from "@/ux/ProtocolCard";
 import { FileMinus } from "lucide-react";
 import { FC } from "react";
-import { useTranslation } from "react-i18next";
 import { LabelXL } from "../protocols/LabelXL";
 import { ThousandsChange } from "@/ux/ThousandsChange";
 import { formatPct } from "@/data/utils";
 import { LabelL } from "../protocols/LabelL";
+import { useTranslation } from "react-i18next";
 
 export const RecountRemovedVotesCard: FC<{
   original: RecountStats;
-  protocol?: SectionProtocol;
-}> = ({ original, protocol }) => {
+  votes: Votes[];
+}> = ({ original, votes }) => {
   const { t } = useTranslation();
-  const totalVotesRecount =
-    (protocol?.numValidMachineVotes || 0) + (protocol?.numValidVotes || 0);
-  const machineVotesRecount = protocol?.numValidMachineVotes || 0;
-  const paperVotesRecount = protocol?.numValidVotes || 0;
-
+  const { machineVotes, paperVotes } = votes.reduce(
+    (acc: { machineVotes: number; paperVotes: number }, vote) => {
+      return {
+        machineVotes: acc.machineVotes + (vote.machineVotes || 0),
+        paperVotes: acc.paperVotes + (vote.paperVotes || 0),
+      };
+    },
+    { machineVotes: 0, paperVotes: 0 },
+  );
+  const totalVotesRecount = machineVotes + paperVotes;
+  const machineVotesRecount = machineVotes;
+  const paperVotesRecount = paperVotes;
   return (
     <ProtocolCard title={t("removed_votes")} icon={<FileMinus />}>
       <div className="flex">

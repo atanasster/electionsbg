@@ -51,8 +51,13 @@ export type RecountStats = {
   removedPaperVotes: number;
   removedMachineVotes: number;
 };
+
+export type PartyRecount = {
+  partyNum: number;
+} & RecountStats;
+
 export type RecountOriginal = RecountStats & {
-  votes: Votes[];
+  votes: PartyRecount[];
 };
 
 export type ElectionResults = {

@@ -139,21 +139,11 @@ export const parseVotes = (
             allVotes.push(votes);
           }
         }
-        const cleaned = allVotes.map((a) => ({
-          ...a,
-          votes: a.votes.reduce((acc: Votes[], curr) => {
-            if (curr.totalVotes) {
-              return [...acc, curr];
-            } else {
-              return acc;
-            }
-          }, []),
-        }));
         //const json = JSON.stringify(allVotes, null, 2);
         //const outFile = `${outFolder}/votes.json`;
         //fs.writeFileSync(outFile, json, "utf8");
         //console.log("Successfully added file ", outFile);
-        resolve(cleaned);
+        resolve(allVotes);
       }),
   );
 };

@@ -20,7 +20,6 @@ export const SectionsList: FC<{
   const { topVotesParty } = usePartyInfo();
   const isSmall = useMediaQueryMatch("sm");
   const isMedium = useMediaQueryMatch("md");
-  const isLarge = useMediaQueryMatch("lg");
   const data = useMemo(() => {
     return sections.map((section) => {
       const settlementName =
@@ -79,11 +78,7 @@ export const SectionsList: FC<{
             </Link>
           ),
         },
-        {
-          accessorKey: "settlement",
-          hidden: !isLarge,
-          header: t("settlement"),
-        },
+
         {
           accessorKey: "address",
           header: t("address"),

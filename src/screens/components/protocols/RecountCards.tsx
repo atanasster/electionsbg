@@ -15,7 +15,6 @@ import { usePartyInfo } from "@/data/parties/usePartyInfo";
 import { useSearchParam } from "@/screens/utils/useSearchParam";
 import { RecountAddedVotesCard } from "../cards/RecountAddedVotesCard";
 import { RecountRemovedVotesCard } from "../cards/RecountRemovedVotesCard";
-import { recountStats } from "@/data/utils";
 
 const RecountInternal: FC<{
   results: VoteResults;
@@ -28,29 +27,26 @@ const RecountInternal: FC<{
   });
 
   const { topParties, bottomParties } = useMemo(() => {
-    const partiesChange = original.votes
+    const parties = original.votes
       .map((vote) => {
         const recount = results.votes.find((v) => v.partyNum === vote.partyNum);
         if (!recount) {
           return undefined;
         }
-        const stats = recountStats(recount, vote);
         return {
-          partyNum: vote.partyNum,
-          added: stats.addedVotes,
-          removed: stats.removedVotes,
+          ...vote,
           ...findParty(vote.partyNum),
         };
       })
       .filter((v) => v !== undefined);
-    const topParties = partiesChange
-      .filter((p) => p.added > 0)
-      .map((p) => ({ ...p, totalVotes: p.added }))
+    const topParties = parties
+      .filter((p) => p.addedVotes > 0)
+      .map((p) => ({ ...p, totalVotes: p.addedVotes }))
       .sort((a, b) => b.totalVotes - a.totalVotes);
 
-    const bottomParties = partiesChange
-      .filter((p) => p.removed < 0)
-      .map((p) => ({ ...p, totalVotes: Math.abs(p.removed) }))
+    const bottomParties = parties
+      .filter((p) => p.removedVotes < 0)
+      .map((p) => ({ ...p, totalVotes: Math.abs(p.removedVotes) }))
       .sort((a, b) => b.totalVotes - a.totalVotes);
     return { topParties, bottomParties };
   }, [findParty, original.votes, results.votes]);
@@ -76,10 +72,7 @@ const RecountInternal: FC<{
         </AccordionTrigger>
         <AccordionContent>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 my-4">
-            <RecountAddedVotesCard
-              original={original}
-              protocol={results.protocol}
-            />
+            <RecountAddedVotesCard original={original} votes={results.votes} />
 
             {!!topParties.length && (
               <ProtocolCard
@@ -91,7 +84,7 @@ const RecountInternal: FC<{
             )}
             <RecountRemovedVotesCard
               original={original}
-              protocol={results.protocol}
+              votes={results.votes}
             />
             {!!bottomParties.length && (
               <ProtocolCard

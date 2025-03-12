@@ -12,16 +12,11 @@ import {
 import {
   findPrevVotes,
   partyVotesPosition,
-  recountStats,
   totalActualVoters,
 } from "@/data/utils";
 import {
   cikPartiesFileName,
   municipalityVotesFileName,
-  originalMunicipalityVotesFileName,
-  originalRegionsVotesFileName,
-  originalSectionVotesFileName,
-  originalSettlementsVotesFileName,
   regionsVotesFileName,
   sectionVotesFileName,
   settlementsVotesFileName,
@@ -43,7 +38,6 @@ const generateStats = <
   elections,
   publicFolder,
   getDataFileName,
-  getRecountFileName,
   by,
   regionFields,
   stringify,
@@ -51,7 +45,6 @@ const generateStats = <
   elections: ElectionInfo[];
   publicFolder: string;
   getDataFileName: (year: string) => string;
-  getRecountFileName: (year: string) => string;
   regionFields: (
     row: DType,
   ) => Pick<PartyResultsRow, "oblast" | "obshtina" | "ekatte" | "section">;
@@ -75,11 +68,6 @@ const generateStats = <
             fs.readFileSync(getDataFileName(elections[idx + 1].name), "utf-8"),
           )
         : undefined;
-    const originalFileName = getRecountFileName(e.name);
-    let originalData: DType[] | undefined = undefined;
-    if (e.hasRecount && fs.existsSync(originalFileName)) {
-      originalData = JSON.parse(fs.readFileSync(originalFileName, "utf-8"));
-    }
     const lastYearParties: PartyInfo[] | undefined =
       idx < elections.length - 1
         ? JSON.parse(
@@ -138,17 +126,16 @@ const generateStats = <
             prevYearVotes: prevVotes.prevTotalVotes,
             prevYearVotesConsolidated: prevVotesConsolidated.prevTotalVotes,
           };
-          if (originalData) {
-            //@ts-expect-error multiple fields
-            const recountRecord = originalData.find((o) => o[key] === r[key]);
-            if (recountRecord) {
-              const originalVotes = recountRecord.results.votes.find(
-                (v) => v.partyNum === party.number,
-              );
+          if (r.original) {
+            const stats = r.original.votes.find(
+              (v) => v.partyNum === party.number,
+            );
 
-              if (originalVotes) {
-                const calc = recountStats(votes, originalVotes);
-                if (calc.addedVotes || calc.removedVotes) res.recount = calc;
+            if (stats) {
+              if (stats.addedVotes || stats.removedVotes) {
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                const { partyNum, ...rest } = stats;
+                res.recount = rest;
               }
             }
           }
@@ -196,8 +183,6 @@ export const runPartyStats = (stringify: (o: object) => string) => {
     }),
     getDataFileName: (year) =>
       `${publicFolder}/${year}/${regionsVotesFileName}`,
-    getRecountFileName: (year) =>
-      `${rawDataFolder}/${year}/${originalRegionsVotesFileName}`,
   });
   generateStats<ElectionMunicipality>({
     elections: updatedElections,
@@ -210,8 +195,6 @@ export const runPartyStats = (stringify: (o: object) => string) => {
     }),
     getDataFileName: (year) =>
       `${rawDataFolder}/${year}/${municipalityVotesFileName}`,
-    getRecountFileName: (year) =>
-      `${rawDataFolder}/${year}/${originalMunicipalityVotesFileName}`,
   });
   generateStats<ElectionSettlement>({
     elections: updatedElections,
@@ -225,8 +208,6 @@ export const runPartyStats = (stringify: (o: object) => string) => {
     }),
     getDataFileName: (year) =>
       `${rawDataFolder}/${year}/${settlementsVotesFileName}`,
-    getRecountFileName: (year) =>
-      `${rawDataFolder}/${year}/${originalSettlementsVotesFileName}`,
   });
   generateStats<SectionInfo>({
     elections: updatedElections,
@@ -241,7 +222,5 @@ export const runPartyStats = (stringify: (o: object) => string) => {
     }),
     getDataFileName: (year) =>
       `${rawDataFolder}/${year}/${sectionVotesFileName}`,
-    getRecountFileName: (year) =>
-      `${rawDataFolder}/${year}/${originalSectionVotesFileName}`,
   });
 };

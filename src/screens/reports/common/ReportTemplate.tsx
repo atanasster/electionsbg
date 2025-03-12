@@ -119,11 +119,7 @@ export const ReportTemplate: FC<{
         hidden: hiddenColumns.includes("party"),
         size: 70,
         cell: ({ row }) =>
-          row.original.party ? (
-            <PartyLink party={row.original.party} />
-          ) : (
-            t("unknown_party")
-          ),
+          row.original.party && <PartyLink party={row.original.party} />,
       },
       {
         accessorKey: "oblast",

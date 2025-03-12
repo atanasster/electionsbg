@@ -37,7 +37,6 @@ export const Section: FC<{ section: SectionInfo }> = ({ section }) => {
   );
   const title = `${t("section")} ${section.section}`;
   const exclude: DataViewType[] = ["map", "table"];
-
   return (
     <div className={`w-full`}>
       <div>

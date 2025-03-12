@@ -1,34 +1,22 @@
-import fs from "fs";
-import { backupFileName } from "./backup_file";
-import { sectionVotesFileName } from "scripts/consts";
 import { SectionInfo } from "@/data/dataTypes";
 import { calcRecountOriginal } from "./calc_original";
 
-export const recountSections = ({
-  inFolder,
-  electionSections,
+export const recountSection = ({
+  sectionsOriginal,
+  section,
 }: {
-  inFolder: string;
-  electionSections: SectionInfo[];
+  sectionsOriginal: SectionInfo[];
+  section: SectionInfo;
 }) => {
-  const backUpFile = `${inFolder}/${backupFileName(sectionVotesFileName)}`;
-  if (!fs.existsSync(backUpFile)) {
-    throw new Error("Recount file not found: " + backUpFile);
+  const original = sectionsOriginal.find((b) => b.section === section.section);
+  if (!original) {
+    throw new Error("Could not find original section: " + section.section);
   }
-  const data = fs.readFileSync(backUpFile, "utf-8");
-  const backup: SectionInfo[] = JSON.parse(data);
-  electionSections.forEach((r) => {
-    const original = backup.find((b) => b.section === r.section);
-    if (!original) {
-      throw new Error("Could not find original section: " + r.section);
-    }
-    const calc = calcRecountOriginal({
-      originalVotes: original.results.votes,
-      recountVotes: r.results.votes,
-    });
-    if (calc) {
-      r.original = calc;
-    }
+  const calc = calcRecountOriginal({
+    originalVotes: original.results.votes,
+    recountVotes: section.results.votes,
   });
-  return true;
+  if (calc) {
+    section.original = calc;
+  }
 };
