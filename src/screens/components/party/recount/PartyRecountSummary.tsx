@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { PartyInfo } from "@/data/dataTypes";
-import { partyVotesPosition, recountStats, totalAllVotes } from "@/data/utils";
+import { partyVotesPosition, totalAllVotes } from "@/data/utils";
 import { Users } from "lucide-react";
 import { useTranslation } from "react-i18next";
 import { HintedDataItem } from "@/ux/HintedDataItem";
@@ -28,10 +28,7 @@ export const PartyRecountSummary: FC<{
   const originalVotes = allVotes.original.votes.find(
     (v) => v.partyNum === party.number,
   );
-  const stats =
-    partyVotes && originalVotes
-      ? recountStats(partyVotes, originalVotes)
-      : undefined;
+  const stats = partyVotes && originalVotes ? originalVotes : undefined;
   return (
     <div className={`grid gap-4 sm:grid-cols-2 lg:grid-cols-3 my-4`}>
       <ProtocolCard icon={<Users />} title={t("voters")}>
@@ -72,13 +69,13 @@ export const PartyRecountSummary: FC<{
       {stats && electionStats?.results?.protocol && (
         <RecountAddedVotesCard
           original={stats}
-          protocol={electionStats?.results?.protocol}
+          votes={electionStats?.results?.votes}
         />
       )}
       {stats && electionStats?.results?.protocol && (
         <RecountRemovedVotesCard
           original={stats}
-          protocol={electionStats?.results?.protocol}
+          votes={electionStats?.results?.votes}
         />
       )}
     </div>

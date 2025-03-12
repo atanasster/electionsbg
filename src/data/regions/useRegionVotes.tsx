@@ -6,7 +6,7 @@ import {
   SOFIA_REGIONS,
   RecountOriginal,
 } from "../dataTypes";
-import { addRecount, addResults, initializeRecount } from "../utils";
+import { addRecounts, addResults, initializeRecount } from "../utils";
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { useElectionContext } from "../ElectionContext";
 
@@ -40,32 +40,28 @@ export const useRegionVotes = () => {
   }, [votes]);
 
   const votesSofia = useCallback(():
-    | { results: VoteResults; original?: RecountOriginal }
+    | { results: VoteResults; original: RecountOriginal }
     | undefined => {
     return votes?.reduce(
       (
         {
           results,
           original,
-        }: { results: VoteResults; original?: RecountOriginal },
+        }: { results: VoteResults; original: RecountOriginal },
         v,
       ) => {
         if (SOFIA_REGIONS.includes(v.key)) {
           addResults(results, v.results.votes, v.results.protocol);
-          if (electionStats?.hasRecount) {
-            if (!original) {
-              original = initializeRecount();
-            }
-            const recount = v.original || {
-              ...initializeRecount(),
-              votes: v.results.votes,
-            };
-            addRecount(original, recount);
+          if (electionStats?.hasRecount && v.original) {
+            addRecounts({
+              dest: original,
+              src: v.original,
+            });
           }
         }
         return { results, original };
       },
-      { results: { votes: [] } },
+      { results: { votes: [] }, original: initializeRecount() },
     );
   }, [electionStats?.hasRecount, votes]);
 
@@ -84,12 +80,11 @@ export const useRegionVotes = () => {
     if (votes) {
       votes.map((r) => {
         addResults(results, r.results.votes, r.results.protocol);
-        if (electionStats?.hasRecount) {
-          const recount = r.original || {
-            ...initializeRecount(),
-            votes: r.results.votes,
-          };
-          addRecount(original, recount);
+        if (electionStats?.hasRecount && r.original) {
+          addRecounts({
+            src: r.original,
+            dest: original,
+          });
         }
       });
     }

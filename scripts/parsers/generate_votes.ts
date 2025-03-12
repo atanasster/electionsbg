@@ -14,9 +14,9 @@ import {
   SectionInfo,
   SOFIA_REGIONS,
 } from "@/data/dataTypes";
-import { addResults } from "@/data/utils";
+import { addResults, addRecountOriginal } from "@/data/utils";
 import { lookupCountryNumbers } from "./election_country_codes";
-import { regionsVotesFileName } from "../consts";
+import { regionsVotesFileName, sectionVotesFileName } from "../consts";
 import { splitSettlements } from "./split_settlements";
 import { splitMunicipalities } from "./split_municipalities";
 import { findSectionInOtherElections } from "./findSection";
@@ -24,7 +24,9 @@ import { regionCodes } from "./region_codes";
 import { findSofiaSettlements_2005 } from "./2005_sofia_settlements";
 import { parseSettlement2005 } from "scripts/helpers/2005/settlement_name_2005";
 import { lookupCountryNumbers_2005 } from "scripts/helpers/2005/2005_international_sections";
-import { createRecountFiles } from "scripts/recount";
+import { backupFileName } from "scripts/recount/backup_file";
+import { recountSection } from "scripts/recount/recount_sections";
+
 const municipalities = municipalitiesData;
 
 export const generateVotes = ({
@@ -47,7 +49,12 @@ export const generateVotes = ({
   const electionRegions: ElectionRegions = [];
   const electionMunicipalities: ElectionMunicipality[] = [];
   const electionSettlements: ElectionSettlement[] = [];
-
+  let sectionsOriginal: SectionInfo[] | undefined = undefined;
+  const sectionsBackUpFile = `${inFolder}/${backupFileName(sectionVotesFileName)}`;
+  if (fs.existsSync(sectionsBackUpFile)) {
+    const data = fs.readFileSync(sectionsBackUpFile, "utf-8");
+    sectionsOriginal = JSON.parse(data);
+  }
   regions.forEach((region) => {
     if (region.oblast && region.nuts3) {
       electionRegions.push({
@@ -270,26 +277,30 @@ export const generateVotes = ({
       section.oblast = region.key;
       section.obshtina = municipality.obshtina;
       section.ekatte = settlement.ekatte;
+      if (sectionsOriginal) {
+        recountSection({ section, sectionsOriginal });
+      }
     }
     addResults(settlement.results, vote.votes, protocol);
     addResults(municipality.results, vote.votes, protocol);
-
     addResults(region.results, vote.votes, protocol);
+    if (
+      section.original &&
+      (section.original.addedVotes || section.original.removedVotes)
+    ) {
+      addRecountOriginal({ dest: settlement, src: section.original });
+      addRecountOriginal({ dest: municipality, src: section.original });
+      addRecountOriginal({ dest: region, src: section.original });
+    }
   });
-  createRecountFiles({
-    inFolder,
-    electionRegions,
-    electionMunicipalities,
-    electionSettlements,
-    electionSections: sections,
-  });
+
   const regFileName = `${outFolder}/${regionsVotesFileName}`;
   fs.writeFileSync(regFileName, stringify(electionRegions), "utf8");
   console.log("Successfully added file ", regFileName);
 
-  const backupFileName = `${inFolder}/${regionsVotesFileName}`;
-  fs.writeFileSync(backupFileName, stringify(electionRegions), "utf8");
-  console.log("Successfully added file ", backupFileName);
+  const regionBackupFileName = `${inFolder}/${regionsVotesFileName}`;
+  fs.writeFileSync(regionBackupFileName, stringify(electionRegions), "utf8");
+  console.log("Successfully added file ", regionBackupFileName);
 
   splitMunicipalities({
     electionMunicipalities,

@@ -54,10 +54,13 @@ export function PartyRecountTable({
             totalVotesChange: d.recount
               ? d.recount.addedVotes + d.recount.removedVotes
               : 0,
-            pctTotalVotesChange: d.recount
-              ? (100 * (d.recount.addedVotes + d.recount.removedVotes)) /
-                d.totalVotes
-              : 0,
+            pctTotalVotesChange:
+              d.recount && d.totalVotes
+                ? (100 * (d.recount.addedVotes + d.recount.removedVotes)) /
+                  d.totalVotes
+                : d.recount?.removedVotes
+                  ? -100
+                  : 0,
           };
         })
         .sort((a, b) => {

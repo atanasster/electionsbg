@@ -131,19 +131,68 @@ export const initializeRecount = (): RecountOriginal => ({
   removedVotes: 0,
 });
 
-export const addRecount = (
-  newRecount: RecountOriginal,
-  original: RecountOriginal,
-) => {
-  const recountVotes = addVotes(original.votes, newRecount.votes);
-  newRecount.votes = recountVotes;
-  newRecount.addedMachineVotes += original.addedMachineVotes;
-  newRecount.addedPaperVotes += original.addedPaperVotes;
-  newRecount.addedVotes += original.addedVotes;
+export const addRecountStats = ({
+  dest,
+  src,
+}: {
+  dest: RecountStats;
+  src?: RecountStats;
+}) => {
+  if (src) {
+    dest.addedPaperVotes += src.addedPaperVotes;
+    dest.addedMachineVotes += src.addedPaperVotes;
+    dest.addedVotes += src.addedVotes;
 
-  newRecount.removedMachineVotes += original.removedMachineVotes;
-  newRecount.removedPaperVotes += original.removedPaperVotes;
-  newRecount.removedVotes += original.removedVotes;
+    dest.removedPaperVotes += src.removedPaperVotes;
+    dest.removedMachineVotes += src.removedMachineVotes;
+    dest.removedVotes += src.removedVotes;
+  }
+};
+export const addRecounts = ({
+  dest,
+  src,
+}: {
+  dest: RecountOriginal;
+  src: RecountOriginal;
+}) => {
+  if (src) {
+    addRecountStats({
+      dest: dest,
+      src: src,
+    });
+    src.votes.forEach((vote) => {
+      const p = dest.votes.find((p) => p.partyNum === vote.partyNum);
+      if (p) {
+        addRecountStats({
+          dest: p,
+          src: vote,
+        });
+      } else {
+        dest.votes.push({ ...vote });
+      }
+    });
+  }
+};
+export const addRecountOriginal = ({
+  dest,
+  src,
+}: {
+  dest: ElectionResults;
+  src?: RecountOriginal;
+}) => {
+  if (src) {
+    if (!dest.original) {
+      dest.original = {
+        ...src,
+        votes: src.votes.map((v) => ({ ...v })),
+      };
+    } else {
+      addRecounts({
+        dest: dest.original,
+        src: src,
+      });
+    }
+  }
 };
 
 export const recountStats = (votes: Votes, original: Votes): RecountStats => {
@@ -356,7 +405,7 @@ export const totalAllVotes = (votes?: Votes[]) =>
 export const partyVotesPosition = (
   partyNum: number,
   votes?: Votes[],
-): { position: number; votes: PartyVotes } | undefined => {
+): { position: number; votes: Votes } | undefined => {
   if (!votes) {
     return undefined;
   }

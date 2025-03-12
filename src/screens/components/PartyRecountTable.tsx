@@ -1,4 +1,9 @@
-import { PartyInfo, PartyVotes, VoteResults } from "@/data/dataTypes";
+import {
+  PartyInfo,
+  PartyVotes,
+  RecountOriginal,
+  VoteResults,
+} from "@/data/dataTypes";
 import { useTopParties } from "@/data/parties/useTopParties";
 import { DataTable, DataTableColumns } from "@/ux/data_table/DataTable";
 import { FC, useMemo } from "react";
@@ -6,10 +11,9 @@ import { useTranslation } from "react-i18next";
 import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
 import { Caption } from "@/ux/Caption";
 import { PartyLink } from "./party/PartyLink";
-import { pctChange } from "@/data/utils";
 
 export const PartyRecountTable: FC<{
-  votes?: { results?: VoteResults; original?: VoteResults };
+  votes?: { results?: VoteResults; original?: RecountOriginal };
   title: string;
 }> = ({ votes, title }) => {
   const { results, original } = votes || {};
@@ -22,17 +26,17 @@ export const PartyRecountTable: FC<{
   const data = useMemo(() => {
     return parties?.map((p) => {
       const o = original?.votes.find((o) => o.partyNum === p.partyNum);
-      const totalVotesChange = o
-        ? (p.totalVotes || 0) - (o.totalVotes || 0)
-        : 0;
+      const totalVotesChange = o ? o.addedVotes + o.removedVotes : 0;
 
-      const pctTotalVotesChange = pctChange(p.totalVotes, o?.totalVotes);
+      const pctTotalVotesChange = p.totalVotes
+        ? (100 * totalVotesChange) / p.totalVotes
+        : o && (o.addedVotes || o.removedVotes)
+          ? -100
+          : undefined;
       return {
         ...p,
-        paperVotesChange: o ? (p.paperVotes || 0) - (o.paperVotes || 0) : 0,
-        machineVotesChange: o
-          ? (p.machineVotes || 0) - (o.machineVotes || 0)
-          : 0,
+        paperVotesChange: o ? o.addedPaperVotes + o.removedPaperVotes : 0,
+        machineVotesChange: o ? o.addedMachineVotes + o.removedMachineVotes : 0,
         totalVotesChange,
         pctTotalVotesChange,
       };
