@@ -36,6 +36,7 @@ import { CandidateScreen } from "./screens/CandidateScreen";
 import { SettlementsRecount } from "./screens/reports/settlements/SettlementsRecount";
 import { MunicipalitiesRecount } from "./screens/reports/municipalities/MunicipalitiesRecount";
 import { SectionsRecount } from "./screens/reports/sections/SectionsRecount";
+import { SectionsRecountZeroVotes } from "./screens/reports/sections/SectionsRecountZeroVotes";
 
 const LayoutScreen: FC<PropsWithChildren> = ({ children }) => {
   return <Layout>{children}</Layout>;
@@ -321,6 +322,14 @@ export const AuthRoutes = () => {
               element={
                 <LayoutScreen>
                   <SectionsRecount />
+                </LayoutScreen>
+              }
+            />
+            <Route
+              path="recount_zero_votes"
+              element={
+                <LayoutScreen>
+                  <SectionsRecountZeroVotes />
                 </LayoutScreen>
               }
             />

@@ -30,7 +30,7 @@ export const MunicipalitiesRecount = () => {
       defaultThreshold={0}
       votes={data}
       titleKey="votes_recount"
-      hiddenColumns={["party", "pctPartyVote", "recount"]}
+      hiddenColumns={["party", "pctPartyVote"]}
       visibleColumns={["recount"]}
     />
   );

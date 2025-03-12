@@ -237,4 +237,55 @@ export const reportValues: ReportValue[] = [
       } as CalcRowType;
     },
   },
+  {
+    name: "recount_zero_votes",
+    direction: "desc",
+    calc: ({ votes, protocol, original }) => {
+      const isChanged =
+        original && (original.addedVotes !== 0 || original.removedVotes !== 0);
+
+      if (!protocol || !isChanged) {
+        return undefined;
+      }
+      const machineVotes = votes.reduce((acc: number, v) => {
+        return acc + (v.machineVotes || 0);
+      }, 0);
+      const paperVotes = votes.reduce((acc: number, v) => {
+        return acc + (v.paperVotes || 0);
+      }, 0);
+      if (
+        !(
+          (machineVotes === 0 && original.removedMachineVotes !== 0) ||
+          (paperVotes === 0 && original.removedPaperVotes !== 0)
+        )
+      ) {
+        return undefined;
+      }
+      const removedVotes = original.removedVotes;
+      const bottomPartyChange = votes.reduce(
+        (acc: { change: number; partyNum: number } | undefined, vote) => {
+          const originalVotes = original?.votes.find(
+            (v) => v.partyNum === vote.partyNum,
+          );
+          if (originalVotes) {
+            const stats = originalVotes;
+            if (stats.removedVotes < (acc?.change || 0)) {
+              return {
+                partyNum: vote.partyNum,
+                change: stats.removedVotes,
+              };
+            }
+          }
+          return acc;
+        },
+        undefined,
+      );
+      return {
+        value: 0,
+        addedVotes: 0,
+        removedVotes,
+        bottomPartyChange,
+      } as CalcRowType;
+    },
+  },
 ];

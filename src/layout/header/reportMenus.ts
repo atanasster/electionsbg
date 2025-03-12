@@ -123,6 +123,11 @@ export const reportsMenu: MenuItem[] = [
             link: "/reports/section/recount",
             category: "recount",
           },
+          {
+            title: "zero_votes",
+            link: "/reports/section/recount_zero_votes",
+            category: "recount",
+          },
         ],
       },
       { title: "-" },

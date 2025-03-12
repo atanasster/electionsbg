@@ -26,6 +26,7 @@ import { SettlementLink } from "@/screens/components/settlements/SettlementLink"
 import { MunicipalityLink } from "@/screens/components/municipalities/MunicipalityLink";
 import { SectionLink } from "@/screens/components/sections/SectionLink";
 import { RegionLink } from "@/screens/components/regions/RegionLink";
+import { Caption } from "@/ux/Caption";
 
 export type ColumnNames =
   | "party"
@@ -38,7 +39,8 @@ export type ColumnNames =
   | "prevYearVotes"
   | "prevYearChange"
   | "pctPartyVote"
-  | "recount";
+  | "recount"
+  | "recount_top_party";
 export const ReportTemplate: FC<{
   defaultThreshold?: number;
   bigger?: boolean;
@@ -204,7 +206,9 @@ export const ReportTemplate: FC<{
         dataType: "percent",
       },
       {
-        hidden: !visibleColumns.includes("recount"),
+        hidden:
+          !visibleColumns.includes("recount") ||
+          hiddenColumns.includes("recount_top_party"),
         headerHint: t("num_votes_recount_explainer"),
         header: t("top_party_recount_gainer"),
         id: "top_party_recount_gainer",
@@ -316,37 +320,44 @@ export const ReportTemplate: FC<{
       </Title>
 
       <div className="flex items-center justify-center pb-4 text-secondary-foreground ">
-        <Label
-          htmlFor="select_threshold"
-          className={ruleKey ? "text-md md:text-lg mr-2" : "text-lg md:text-xl"}
-        >
-          {`${t(levelKey)}${ruleKey ? ` ${t(ruleKey)}` : ""}`}
-        </Label>
+        {!ruleKey && <Caption>{`${t(levelKey)}`}</Caption>}
         {!!ruleKey && (
-          <Select
-            value={threshold?.toString()}
-            onValueChange={(e) => {
-              searchParams.set("threshold", e);
-              setSearchParams(searchParams, { replace: true });
-              // setThreshold(parseInt(e));
-            }}
-          >
-            <SelectTrigger id="select_threshold" className="w-[100px] text-lg">
-              <SelectValue placeholder={threshold?.toString()} />
-            </SelectTrigger>
-            <SelectContent>
-              <SelectItem value="5">5%</SelectItem>
-              <SelectItem value="10">10%</SelectItem>
-              <SelectItem value="20">20%</SelectItem>
-              <SelectItem value="30">30%</SelectItem>
-              <SelectItem value="40">40%</SelectItem>
-              <SelectItem value="50">50%</SelectItem>
-              <SelectItem value="60">60%</SelectItem>
-              <SelectItem value="70">70%</SelectItem>
-              <SelectItem value="80">80%</SelectItem>
-              <SelectItem value="90">90%</SelectItem>
-            </SelectContent>
-          </Select>
+          <>
+            <Label
+              htmlFor="select_threshold"
+              className="text-md md:text-lg mr-2"
+            >
+              {`${t(levelKey)}${ruleKey ? ` ${t(ruleKey)}` : ""}`}
+            </Label>
+
+            <Select
+              value={threshold?.toString()}
+              onValueChange={(e) => {
+                searchParams.set("threshold", e);
+                setSearchParams(searchParams, { replace: true });
+                // setThreshold(parseInt(e));
+              }}
+            >
+              <SelectTrigger
+                id="select_threshold"
+                className="w-[100px] text-lg"
+              >
+                <SelectValue placeholder={threshold?.toString()} />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="5">5%</SelectItem>
+                <SelectItem value="10">10%</SelectItem>
+                <SelectItem value="20">20%</SelectItem>
+                <SelectItem value="30">30%</SelectItem>
+                <SelectItem value="40">40%</SelectItem>
+                <SelectItem value="50">50%</SelectItem>
+                <SelectItem value="60">60%</SelectItem>
+                <SelectItem value="70">70%</SelectItem>
+                <SelectItem value="80">80%</SelectItem>
+                <SelectItem value="90">90%</SelectItem>
+              </SelectContent>
+            </Select>
+          </>
         )}
       </div>
 

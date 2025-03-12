@@ -12,25 +12,24 @@ const queryFn = async ({
     return [];
   }
   const response = await fetch(
-    `/${queryKey[1]}/reports/settlement/recount.json`,
+    `/${queryKey[1]}/reports/section/recount_zero_votes.json`,
   );
   const data = await response.json();
   return data;
 };
 
-export const SettlementsRecount = () => {
+export const SectionsRecountZeroVotes = () => {
   const { selected } = useElectionContext();
   const { data } = useQuery({
-    queryKey: ["settlement_recount", selected],
+    queryKey: ["recount_zero_votes", selected],
     queryFn,
   });
-
   return (
     <Template
       defaultThreshold={0}
       votes={data}
-      titleKey="votes_recount"
-      hiddenColumns={["party", "pctPartyVote"]}
+      titleKey="recount_zero_votes"
+      hiddenColumns={["party", "pctPartyVote", "recount_top_party"]}
       visibleColumns={["recount"]}
     />
   );
