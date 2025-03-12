@@ -30,7 +30,6 @@ export const RecountAddedVotesCard: FC<{
   const totalVotesRecount = machineVotes + paperVotes;
   const machineVotesRecount = machineVotes;
   const paperVotesRecount = paperVotes;
-
   return (
     <ProtocolCard title={t("added_votes")} icon={<FilePlus />}>
       <div className="flex">
