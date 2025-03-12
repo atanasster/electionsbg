@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { Caption } from "@/ux/Caption";
-import { SectionInfo, Votes } from "@/data/dataTypes";
+import { SectionInfo } from "@/data/dataTypes";
 import { ProtocolSummary } from "../protocols/ProtocolSummary";
 import { useTranslation } from "react-i18next";
 import { PartyVotesTable } from "../PartyVotesTable";
@@ -18,23 +18,21 @@ export const Section: FC<{ section: SectionInfo }> = ({ section }) => {
   const { t } = useTranslation();
   const { prevVotes, stats } = useSectionStats(section.section);
   const { parties } = usePartyInfo();
-  const votes: (Votes & { original?: Votes })[] | undefined = parties?.map(
-    (p) => {
-      const v = section.results.votes.find((v) => v.partyNum === p.number);
-      if (v) {
-        const original = section.original?.votes.find(
-          (o) => o.partyNum === v.partyNum,
-        );
-        return { ...v, original };
-      } else
-        return {
-          partyNum: p.number,
-          totalVotes: 0,
-          machineVotes: 0,
-          paperVotes: 0,
-        };
-    },
-  );
+  const votes = parties?.map((p) => {
+    const v = section.results.votes.find((v) => v.partyNum === p.number);
+    if (v) {
+      const original = section.original?.votes.find(
+        (o) => o.partyNum === v.partyNum,
+      );
+      return { ...v, original };
+    } else
+      return {
+        partyNum: p.number,
+        totalVotes: 0,
+        machineVotes: 0,
+        paperVotes: 0,
+      };
+  });
   const title = `${t("section")} ${section.section}`;
   const exclude: DataViewType[] = ["map", "table"];
   return (
