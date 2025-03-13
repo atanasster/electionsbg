@@ -36,10 +36,10 @@ export function PartyRecountTable({
       data: rows
         ?.filter((d) => d.recount)
         .map((d) => {
-          if (d.machineVotes) {
+          if (d.machineVotes || d.recount?.removedMachineVotes) {
             hasMachineVotes = true;
           }
-          if (d.paperVotes) {
+          if (d.paperVotes || d.recount?.removedPaperVotes) {
             hasPaperVotes = true;
           }
 
