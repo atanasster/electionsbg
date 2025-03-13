@@ -183,6 +183,8 @@ export type ReportRow = {
   section?: string;
   partyNum?: number;
   totalVotes?: number;
+  paperVotes?: number;
+  machineVotes?: number;
   pctPartyVote?: number;
   value: number;
   prevYearVotes?: number;

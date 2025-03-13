@@ -30,7 +30,7 @@ export const SectionsRecountZeroVotes = () => {
       votes={data}
       titleKey="recount_zero_votes"
       hiddenColumns={["party", "pctPartyVote", "recount_top_party"]}
-      visibleColumns={["recount"]}
+      visibleColumns={["recount", "votes"]}
     />
   );
 };

@@ -39,6 +39,7 @@ export type ColumnNames =
   | "prevYearVotes"
   | "prevYearChange"
   | "pctPartyVote"
+  | "votes"
   | "recount"
   | "recount_top_party";
 export const ReportTemplate: FC<{
@@ -164,8 +165,21 @@ export const ReportTemplate: FC<{
         cell: ({ row }) => <SectionLink section={row.original.section} />,
       },
       {
+        accessorKey: "paperVotes",
+        hidden: !visibleColumns.includes("votes"),
+        header: t("paper_votes"),
+        dataType: "thousands",
+      },
+      {
+        accessorKey: "machineVotes",
+        hidden: !visibleColumns.includes("votes"),
+        header: t("machine_votes"),
+        dataType: "thousands",
+      },
+      {
         accessorKey: "totalVotes",
-        hidden: hiddenColumns.includes("party"),
+        hidden:
+          hiddenColumns.includes("party") && !visibleColumns.includes("votes"),
         headerHint: t("total_party_votes_explainer"),
         header: isSmall ? t("votes") : t("total_votes"),
         dataType: "thousands",
