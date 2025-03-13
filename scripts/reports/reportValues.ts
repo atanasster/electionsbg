@@ -284,6 +284,9 @@ export const reportValues: ReportValue[] = [
         value: 0,
         addedVotes: 0,
         removedVotes,
+        paperVotes,
+        machineVotes,
+        totalVotes: paperVotes + machineVotes,
         bottomPartyChange,
       } as CalcRowType;
     },
