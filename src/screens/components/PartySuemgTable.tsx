@@ -16,6 +16,7 @@ export const PartySuemgTable: FC<{
   const isXSmall = useMediaQueryMatch("xs");
   const isSmall = useMediaQueryMatch("sm");
   const parties = useTopParties(results?.votes, 0);
+  const hasPaperVotes = results?.votes.find((v) => v.paperVotes);
   const data = useMemo(() => {
     return parties
       ?.map((p) => {
@@ -33,7 +34,7 @@ export const PartySuemgTable: FC<{
           pctVotesChange,
         };
       })
-      .sort((a, b) => a.machineVotesChange - b.machineVotesChange);
+      .sort((a, b) => b.machineVotesChange - a.machineVotesChange);
   }, [parties]);
   const columns: DataTableColumns<PartyVotes, unknown> = useMemo(
     () => [
@@ -82,6 +83,7 @@ export const PartySuemgTable: FC<{
       {
         header: isXSmall ? t("votes") : t("total_votes"),
         colSpan: 2,
+        hidden: !hasPaperVotes,
         columns: [
           {
             accessorKey: "totalVotes",
@@ -102,7 +104,7 @@ export const PartySuemgTable: FC<{
         ],
       },
     ],
-    [isXSmall, t, isSmall],
+    [t, isSmall, isXSmall, hasPaperVotes],
   );
   return data?.length ? (
     <div className="w-full">
