@@ -3,6 +3,7 @@ export type Votes = {
   totalVotes: number;
   paperVotes?: number;
   machineVotes?: number;
+  suemgVotes?: number;
 };
 
 export type ElectionVotes = {

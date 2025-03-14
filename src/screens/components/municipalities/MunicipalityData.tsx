@@ -7,6 +7,7 @@ import { MunicipalityHistoryChart } from "./MunicipalityHistoryChart";
 import { MunicipalitiesAreasTable } from "./MunicipalitiesAreasTable";
 import { PreferencesByRegion } from "../preferences/PreferencesByRegion";
 import { MunicipalityRecountTable } from "./MunicipalityRecountTable";
+import { MunicipalitySuemgTable } from "./MunicipalitySuemgTable";
 
 export const MunicipalityData: FC<{ region: string; title: string }> = ({
   region,
@@ -34,6 +35,8 @@ export const MunicipalityData: FC<{ region: string; title: string }> = ({
           return <MunicipalityPartyTable region={region} title={title} />;
         if (view === "recount")
           return <MunicipalityRecountTable region={region} title={title} />;
+        if (view === "suemg")
+          return <MunicipalitySuemgTable region={region} title={title} />;
         if (view === "pref.") return <PreferencesByRegion region={region} />;
         if (view === "chart")
           return <MunicipalityHistoryChart region={region} />;

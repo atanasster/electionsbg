@@ -163,7 +163,7 @@ const collectStats = ({
 
     const financialsFile = `${publicFolder}/${e.name}/parties/financing.json`;
     const hasFinancials = fs.existsSync(financialsFile);
-    const suemgFile = `${publicFolder}/${e.name}/suemg`;
+    const suemgFile = `${rawDataFolder}/${e.name}/suemg.json`;
     const hasSuemg = fs.existsSync(suemgFile);
     return {
       name: e.name,
