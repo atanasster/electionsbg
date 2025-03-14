@@ -8,6 +8,7 @@ import { SettlementHistoryChart } from "./SettlementHistoryChart";
 import { SettlementsAreasTable } from "./SettlementsAreasTable";
 import { PreferencesByMunicipality } from "../preferences/PreferencesByMunicipality";
 import { SettlementRecountTable } from "./SettlementRecountTable";
+import { SettlementSuemgTable } from "./SettlementSuemgTable";
 
 export const SettlementData: FC<{
   municipality: string;
@@ -46,6 +47,13 @@ export const SettlementData: FC<{
             <SettlementRecountTable
               municipality={municipality}
               title={titleStr}
+            />
+          );
+        if (view === "suemg")
+          return (
+            <SettlementSuemgTable
+              title={titleStr}
+              municipality={municipality}
             />
           );
         if (view === "chart")

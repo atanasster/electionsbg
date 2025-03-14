@@ -55,13 +55,24 @@ export const addVotes = (votes: Votes[], initial?: Votes[]) => {
       if (v.paperVotes) {
         votes.paperVotes = (votes.paperVotes || 0) + v.paperVotes;
       }
+      if (v.suemgVotes) {
+        votes.suemgVotes = (votes.suemgVotes || 0) + v.suemgVotes;
+      }
     } else {
-      buff.push({
+      const newRec: Votes = {
         partyNum: v.partyNum,
         totalVotes: v.totalVotes,
-        machineVotes: v.machineVotes,
-        paperVotes: v.paperVotes,
-      });
+      };
+      if (v.machineVotes !== undefined) {
+        newRec.machineVotes = v.machineVotes;
+      }
+      if (v.paperVotes !== undefined) {
+        newRec.paperVotes = v.paperVotes;
+      }
+      if (v.suemgVotes !== undefined) {
+        newRec.suemgVotes = v.suemgVotes;
+      }
+      buff.push(newRec);
     }
   });
   return buff;

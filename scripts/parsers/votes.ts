@@ -6,6 +6,7 @@ import {
   Votes,
   isMachineOnlyVote,
 } from "@/data/dataTypes";
+import { MachineVotes } from "scripts/machines_memory";
 
 export const parseVotes = (
   inFolder: string,
@@ -14,7 +15,10 @@ export const parseVotes = (
 ): Promise<ElectionVotes[]> => {
   const result: string[][] = [];
   const allVotes: ElectionVotes[] = [];
-
+  const suemgFile = `${inFolder}/suemg.json`;
+  const machineVotes: MachineVotes[] | undefined = fs.existsSync(suemgFile)
+    ? JSON.parse(fs.readFileSync(suemgFile, "utf-8"))
+    : undefined;
   return new Promise((resolve) =>
     fs
       .createReadStream(`${inFolder}/votes.txt`)
@@ -136,6 +140,17 @@ export const parseVotes = (
           }
           if (!existingVotes) {
             votes.section = section;
+            if (machineVotes) {
+              const machineVote = machineVotes.find(
+                (m) => m.section === section,
+              );
+              votes.votes.forEach((v) => {
+                v.suemgVotes = machineVote
+                  ? machineVote.votes.find((m) => m.partyNum === v.partyNum)
+                      ?.votes || 0
+                  : undefined;
+              });
+            }
             allVotes.push(votes);
           }
         }

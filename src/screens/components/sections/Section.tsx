@@ -13,6 +13,7 @@ import {
 import { MultiHistoryChart } from "../charts/MultiHistoryChart";
 import { PreferencesBySection } from "../preferences/PreferencesBySection";
 import { PartyRecountTable } from "../PartyRecountTable";
+import { PartySuemgTable } from "../PartySuemgTable";
 
 export const Section: FC<{ section: SectionInfo }> = ({ section }) => {
   const { t } = useTranslation();
@@ -67,6 +68,10 @@ export const Section: FC<{ section: SectionInfo }> = ({ section }) => {
               );
             if (view === "recount" && votes)
               return <PartyRecountTable title={title} votes={section} />;
+            if (view === "suemg")
+              return (
+                <PartySuemgTable title={title} results={section.results} />
+              );
             if (view === "chart" && stats)
               return <MultiHistoryChart stats={stats} />;
             if (view === "pref.")

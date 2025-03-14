@@ -12,6 +12,7 @@ import { MultiHistoryChart } from "./components/charts/MultiHistoryChart";
 import { SofiaAreasTable } from "./components/sofia/SofiaAreasTable";
 import { PreferencesSofia } from "./components/preferences/PreferencesSofia";
 import { PartyRecountTable } from "./components/PartyRecountTable";
+import { PartySuemgTable } from "./components/PartySuemgTable";
 
 export const SofiaScreen = () => {
   const { t } = useTranslation();
@@ -49,6 +50,8 @@ export const SofiaScreen = () => {
             return (
               <PartyRecountTable title={title} votes={{ results, original }} />
             );
+          if (view === "suemg")
+            return <PartySuemgTable title={title} results={results} />;
           if (view === "pref.") return <PreferencesSofia />;
           if (view === "chart" && sofiaStats)
             return <MultiHistoryChart stats={sofiaStats} />;

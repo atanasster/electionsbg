@@ -14,6 +14,7 @@ import { ProtocolSummary } from "../protocols/ProtocolSummary";
 import {
   ChartLine,
   Heart,
+  MemoryStick,
   RotateCcwSquare,
   UsersRound,
   Vote,
@@ -24,14 +25,23 @@ import { IconTabs } from "../../IconTabs";
 import { PreferencesBySettlement } from "../preferences/PreferencesBySettlement";
 import { useElectionContext } from "@/data/ElectionContext";
 import { PartyRecountTable } from "../PartyRecountTable";
+import { PartySuemgTable } from "../PartySuemgTable";
 
-const dataViews = ["sections", "parties", "recount", "pref.", "chart"] as const;
+const dataViews = [
+  "sections",
+  "parties",
+  "recount",
+  "suemg",
+  "pref.",
+  "chart",
+] as const;
 type DataViewType = (typeof dataViews)[number];
 
 const DataTypeIcons: Record<DataViewType, ReactNode> = {
   sections: <Vote />,
   parties: <UsersRound />,
   recount: <RotateCcwSquare />,
+  suemg: <MemoryStick />,
   "pref.": <Heart />,
   chart: <ChartLine />,
 };
@@ -56,6 +66,9 @@ export const Sections: FC<{ ekatte: string }> = ({ ekatte }) => {
   }
   if (!electionStats?.hasRecount) {
     excluded.exclude.push("recount");
+  }
+  if (!electionStats?.hasSuemg) {
+    excluded.exclude.push("suemg");
   }
   const shortTitle =
     info && (i18n.language === "bg" ? info?.name : info?.name_en);
@@ -85,6 +98,21 @@ export const Sections: FC<{ ekatte: string }> = ({ ekatte }) => {
       {shortTitle}
     </>
   );
+  const titleStr = `${
+    region?.oblast
+      ? `${
+          i18n.language === "bg"
+            ? region?.long_name || region?.name
+            : region?.long_name_en || region?.name_en
+        } / `
+      : ""
+  }${
+    municipality?.obshtina
+      ? `${
+          i18n.language === "bg" ? municipality?.name : municipality?.name_en
+        } / `
+      : ""
+  }${shortTitle}`;
   return (
     <>
       <SEO
@@ -123,23 +151,7 @@ export const Sections: FC<{ ekatte: string }> = ({ ekatte }) => {
           if (view == "parties") {
             return (
               <PartyVotesTable
-                title={`${
-                  region?.oblast
-                    ? `${
-                        i18n.language === "bg"
-                          ? region?.long_name || region?.name
-                          : region?.long_name_en || region?.name_en
-                      } / `
-                    : ""
-                }${
-                  municipality?.obshtina
-                    ? `${
-                        i18n.language === "bg"
-                          ? municipality?.name
-                          : municipality?.name_en
-                      } / `
-                    : ""
-                }${shortTitle}`}
+                title={titleStr}
                 results={settlement?.results}
                 stats={stats}
                 prevElection={prevVotes}
@@ -147,27 +159,11 @@ export const Sections: FC<{ ekatte: string }> = ({ ekatte }) => {
             );
           }
           if (view == "recount") {
+            return <PartyRecountTable title={titleStr} votes={settlement} />;
+          }
+          if (view == "suemg") {
             return (
-              <PartyRecountTable
-                title={`${
-                  region?.oblast
-                    ? `${
-                        i18n.language === "bg"
-                          ? region?.long_name || region?.name
-                          : region?.long_name_en || region?.name_en
-                      } / `
-                    : ""
-                }${
-                  municipality?.obshtina
-                    ? `${
-                        i18n.language === "bg"
-                          ? municipality?.name
-                          : municipality?.name_en
-                      } / `
-                    : ""
-                }${shortTitle}`}
-                votes={settlement}
-              />
+              <PartySuemgTable title={titleStr} results={settlement?.results} />
             );
           }
           if (view === "pref.") {

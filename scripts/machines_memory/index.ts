@@ -2,7 +2,7 @@ import fs from "fs";
 import { parse } from "csv-parse";
 import unzipper from "unzipper";
 
-type MachineVotes = {
+export type MachineVotes = {
   section: string;
   votes: { partyNum: number; votes: number }[];
 };

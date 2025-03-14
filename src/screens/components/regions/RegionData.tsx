@@ -7,6 +7,7 @@ import { RegionsHistoryChart } from "./RegionsHistoryChart";
 import { RegionsAreasTable } from "./RegionsAreasTable";
 import { PreferencesAllRegions } from "../preferences/PreferencesAllRegions";
 import { RegionsRecountTable } from "./RegionsRecountTable";
+import { RegionsSuemgTable } from "./RegionsSuemgTable";
 
 export const RegionData: FC<{ title: string }> = ({ title }) => {
   return (
@@ -23,6 +24,8 @@ export const RegionData: FC<{ title: string }> = ({ title }) => {
         if (view === "table") return <RegionsAreasTable />;
         if (view === "parties") return <RegionsPartyTable title={title} />;
         if (view === "recount") return <RegionsRecountTable title={title} />;
+        if (view === "suemg") return <RegionsSuemgTable title={title} />;
+
         if (view === "pref.") return <PreferencesAllRegions />;
         if (view === "chart") return <RegionsHistoryChart />;
       }}

@@ -3,6 +3,7 @@ import {
   ChartLine,
   Heart,
   MapPinned,
+  MemoryStick,
   RotateCcwSquare,
   TableProperties,
   UsersRound,
@@ -16,6 +17,7 @@ export const dataViews = [
   "table",
   "parties",
   "recount",
+  "suemg",
   "pref.",
   "chart",
 ] as const;
@@ -26,6 +28,7 @@ const DataTypeIcons: Record<DataViewType, ReactNode> = {
   table: <TableProperties />,
   parties: <UsersRound />,
   recount: <RotateCcwSquare />,
+  suemg: <MemoryStick />,
   "pref.": <Heart />,
   chart: <ChartLine />,
 };
@@ -42,6 +45,9 @@ export const DataViewContainer: FC<{
   }
   if (!electionStats?.hasRecount) {
     excludedTabs.exclude.push("recount");
+  }
+  if (!electionStats?.hasSuemg) {
+    excludedTabs.exclude.push("suemg");
   }
   return (
     <IconTabs<DataViewType>
