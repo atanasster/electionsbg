@@ -125,7 +125,10 @@ const app = command({
       await createPreferencesFiles(stringify);
     }
     if (machines) {
-      await parseMachinesFlashMemory(inFolder, stringify);
+      if (!date) {
+        throw new Error("Machines suemg file with date parameter");
+      }
+      await parseMachinesFlashMemory(inFolder, date, stringify);
     }
   },
 });

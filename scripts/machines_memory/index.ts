@@ -63,9 +63,10 @@ const parseSectionFile = async (
 
 export const parseMachinesFlashMemory = async (
   inFolder: string,
+  date: string,
   stringify: (o: object) => string,
 ) => {
-  const year = "2024_10_27";
+  const year = date;
   const sueFolder = `${inFolder}/${year}/suemg`;
   if (!fs.existsSync(sueFolder)) {
     return false;

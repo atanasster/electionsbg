@@ -163,12 +163,15 @@ const collectStats = ({
 
     const financialsFile = `${publicFolder}/${e.name}/parties/financing.json`;
     const hasFinancials = fs.existsSync(financialsFile);
+    const suemgFile = `${publicFolder}/${e.name}/suemg`;
+    const hasSuemg = fs.existsSync(suemgFile);
     return {
       name: e.name,
       ...results,
       hasRecount,
       hasPreferences,
       hasFinancials,
+      hasSuemg,
     };
   });
   const sofia = elections.map((e) => {
