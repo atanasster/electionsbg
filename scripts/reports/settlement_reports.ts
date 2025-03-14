@@ -1,5 +1,5 @@
 import fs from "fs";
-import { ElectionSettlement, PartyInfo } from "@/data/dataTypes";
+import { ElectionInfo, ElectionSettlement, PartyInfo } from "@/data/dataTypes";
 import { settlementDataReader } from "scripts/dataReaders";
 import { saveReport } from "./saveReport";
 
@@ -11,6 +11,7 @@ export const settlementReports = ({
   prevYear,
   parties,
   prevYearParties,
+  election,
 }: {
   reportsFolder: string;
   dataFolder: string;
@@ -19,6 +20,7 @@ export const settlementReports = ({
   prevYear?: string;
   parties: PartyInfo[];
   prevYearParties?: PartyInfo[];
+  election: ElectionInfo;
 }) => {
   const settlementFolder = `${reportsFolder}/settlement`;
   if (!fs.existsSync(settlementFolder)) {
@@ -35,5 +37,6 @@ export const settlementReports = ({
     prevYearParties,
     prevYearFindRow: (row) =>
       prevYearVotes?.find((r) => r.ekatte === row.ekatte)?.results.votes,
+    election,
   });
 };
