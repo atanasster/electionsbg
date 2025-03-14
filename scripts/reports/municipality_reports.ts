@@ -1,5 +1,9 @@
 import fs from "fs";
-import { ElectionMunicipality, PartyInfo } from "@/data/dataTypes";
+import {
+  ElectionInfo,
+  ElectionMunicipality,
+  PartyInfo,
+} from "@/data/dataTypes";
 import { municipalityDataReader } from "scripts/dataReaders";
 import { saveReport } from "./saveReport";
 
@@ -11,6 +15,7 @@ export const municipalityReports = ({
   prevYear,
   parties,
   prevYearParties,
+  election,
 }: {
   reportsFolder: string;
   dataFolder: string;
@@ -19,6 +24,7 @@ export const municipalityReports = ({
   prevYear?: string;
   parties: PartyInfo[];
   prevYearParties?: PartyInfo[];
+  election: ElectionInfo;
 }) => {
   const municipalityFolder = `${reportsFolder}/municipality`;
   if (!fs.existsSync(municipalityFolder)) {
@@ -36,5 +42,6 @@ export const municipalityReports = ({
       const pr = prevYearVotes?.find((r) => r.obshtina === row.obshtina);
       return pr?.results.votes;
     },
+    election,
   });
 };

@@ -97,6 +97,12 @@ const app = command({
     machines,
   }) => {
     production = prod;
+    if (machines) {
+      if (!date) {
+        throw new Error("Machines suemg file with date parameter");
+      }
+      await parseMachinesFlashMemory(inFolder, date, stringify);
+    }
     await parseElections({ date, all, stringify, publicFolder });
     if (stats) {
       runStats(stringify);
@@ -123,12 +129,6 @@ const app = command({
     }
     if (candidates) {
       await createPreferencesFiles(stringify);
-    }
-    if (machines) {
-      if (!date) {
-        throw new Error("Machines suemg file with date parameter");
-      }
-      await parseMachinesFlashMemory(inFolder, date, stringify);
     }
   },
 });

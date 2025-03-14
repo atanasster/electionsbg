@@ -1,5 +1,5 @@
 import fs from "fs";
-import { PartyInfo, SectionInfo } from "@/data/dataTypes";
+import { ElectionInfo, PartyInfo, SectionInfo } from "@/data/dataTypes";
 import { sectionDataReader } from "scripts/dataReaders";
 import { saveReport } from "./saveReport";
 
@@ -11,6 +11,7 @@ export const sectionReports = ({
   prevYear,
   parties,
   prevYearParties,
+  election,
 }: {
   reportsFolder: string;
   dataFolder: string;
@@ -19,6 +20,7 @@ export const sectionReports = ({
   prevYear?: string;
   parties: PartyInfo[];
   prevYearParties?: PartyInfo[];
+  election: ElectionInfo;
 }) => {
   const sectionFolder = `${reportsFolder}/section`;
   if (!fs.existsSync(sectionFolder)) {
@@ -35,5 +37,6 @@ export const sectionReports = ({
     prevYearParties,
     prevYearFindRow: (row) =>
       prevYearVotes?.find((r) => r.section === row.section)?.results.votes,
+    election,
   });
 };

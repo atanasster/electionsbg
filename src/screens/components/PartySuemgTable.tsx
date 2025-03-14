@@ -106,7 +106,7 @@ export const PartySuemgTable: FC<{
   );
   return data?.length ? (
     <div className="w-full">
-      <Caption className="py-8">{t("voting_recount")}</Caption>
+      <Caption className="py-8">{t("suemg_differences")}</Caption>
       <DataTable
         title={title}
         pageSize={data.length}

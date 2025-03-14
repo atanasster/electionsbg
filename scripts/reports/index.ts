@@ -47,6 +47,7 @@ export const generateReports = (
       prevYear,
       parties,
       prevYearParties,
+      election: e,
     };
     municipalityReports(params);
     settlementReports(params);

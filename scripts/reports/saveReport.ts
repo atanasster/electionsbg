@@ -1,5 +1,6 @@
 import fs from "fs";
 import {
+  ElectionInfo,
   ElectionMunicipality,
   ElectionSettlement,
   PartyInfo,
@@ -28,6 +29,7 @@ export const saveReport = <
   additionalFields,
   parties,
   prevYearParties,
+  election,
 }: {
   reportFolder: string;
   stringify: (o: object) => string;
@@ -36,6 +38,7 @@ export const saveReport = <
   prevYearFindRow: (row: DType) => Votes[] | undefined;
   parties: PartyInfo[];
   prevYearParties?: PartyInfo[];
+  election: ElectionInfo;
 }) => {
   reportValues.forEach((r) => {
     const rows = votes
@@ -51,6 +54,7 @@ export const saveReport = <
             parties,
             prevYearParties,
             original: row.original,
+            election,
           }),
           ...(additionalFields ? additionalFields(row) : {}),
         };

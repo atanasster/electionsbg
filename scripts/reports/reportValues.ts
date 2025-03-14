@@ -6,6 +6,7 @@ import {
   Votes,
   StatsVote,
   RecountOriginal,
+  ElectionInfo,
 } from "@/data/dataTypes";
 import { findPrevVotes, topParty } from "@/data/utils";
 
@@ -36,6 +37,7 @@ type CalcRowType = Pick<
 >;
 type CalcProcProps = {
   votes: Votes[];
+  election: ElectionInfo;
   protocol?: SectionProtocol;
   prevYearVotes?: Votes[];
   parties: PartyInfo[];
@@ -179,6 +181,27 @@ export const reportValues: ReportValue[] = [
     name: "top_losers",
     direction: "asc",
     calc: (p) => calcGainsProc(p, false),
+  },
+  {
+    name: "suemg",
+    direction: "asc",
+    calc: ({ votes, election }) => {
+      if (!election.hasSuemg) {
+        return undefined;
+      }
+      const isChanged = !!votes.find(
+        (v) => (v.machineVotes || 0) !== (v.suemgVotes || 0),
+      );
+      if (!isChanged) {
+        return undefined;
+      }
+      const value = votes.reduce((acc, v) => {
+        return acc + (v.machineVotes || 0) - (v.suemgVotes || 0);
+      }, 0);
+      return {
+        value,
+      };
+    },
   },
   {
     name: "recount",
