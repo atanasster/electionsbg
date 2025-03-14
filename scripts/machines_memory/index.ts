@@ -28,8 +28,9 @@ const parseSectionFile = async (
         result.push(data);
       })
       .on("end", () => {
+        const sectionParts = section.split("-");
         const sectionVotes: MachineVotes = {
-          section,
+          section: sectionParts[0],
           votes: [],
         };
         for (let i = 0; i < result.length; i++) {
@@ -38,13 +39,17 @@ const parseSectionFile = async (
           const partyNum = parseInt(row[2]);
           if (
             !isNaN(partyNum) &&
+            !isNaN(parseInt(row[5])) &&
             partyNum !== 99 &&
             sectionVotes.votes.find((v) => v.partyNum === partyNum) ===
               undefined
           ) {
-            const sNum = row[0];
-            if (sNum !== section) {
-              throw new Error(`Invalid section file: ${sNum} !== ${section}`);
+            const sectionNum = row[0];
+
+            if (sectionNum !== section) {
+              throw new Error(
+                `Invalid section file: ${sectionNum} !== ${section}`,
+              );
             }
             const votes = parseInt(row[3]);
             sectionVotes.votes.push({
@@ -83,10 +88,25 @@ export const parseMachinesFlashMemory = async (
         if (!zipFile.isDirectory()) {
           const fNameParts = zipFile.name.split(".");
           if (fNameParts.length === 2 && fNameParts[1] === "zip") {
-            const sectionVotes = await parseSectionFile(
-              `${regionFolderName}/${zipFile.name}`,
-              fNameParts[0],
+            const section = fNameParts[0];
+            const zipFileName = `${regionFolderName}/${zipFile.name}`;
+
+            const sectionVotes = await parseSectionFile(zipFileName, section);
+            const existing = allSections.find(
+              (s) => s.section === sectionVotes.section,
             );
+            if (existing) {
+              sectionVotes.votes.forEach((vote) => {
+                const v = existing.votes.find(
+                  (e) => e.partyNum === vote.partyNum,
+                );
+                if (v) {
+                  v.votes += vote.votes;
+                } else {
+                  existing.votes.push(vote);
+                }
+              });
+            }
             allSections.push(sectionVotes);
           }
         }

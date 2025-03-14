@@ -129,8 +129,14 @@ export const parseVotes = (
                 vote.machineVotes =
                   (vote.machineVotes || 0) + parseInt(row[j + 3]);
               } else {
-                vote.machineVotes = totalVotes;
-                vote.paperVotes = 0;
+                //paper votes in a machine-only election
+                if (row[0] === "24") {
+                  vote.paperVotes = vote.totalVotes;
+                  vote.machineVotes = 0;
+                } else {
+                  vote.machineVotes = vote.totalVotes;
+                  vote.paperVotes = 0;
+                }
               }
               if (!existingVote) {
                 votes.votes.push(vote);

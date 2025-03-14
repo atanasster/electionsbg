@@ -22,13 +22,13 @@
     //"args": ["--all", "--prod", "--stats", "--reports", "--parties", "--candidates"],
     //"args": ["--prod", "--financing"],
     //"args": ["--prod", "--stats", "--reports", "--parties", "--candidates"],
-    "args": ["--prod", "--stats"],
+    //"args": ["--prod", "--stats"],
     //"args": ["--prod", "--search"],
     //"args": ["--prod", "--parties"],
     //"args": ["--prod", "--candidates"],
-    //"args": ["--date=2024_06_09", "--prod"],
+    "args": ["--date=2021_11_14", "--prod"],
     //"args": ["--reports", "--prod"],
-    //"args": ["--machines", "--prod", "--date=2022_10_02"],
+    //"args": ["--machines", "--prod", "--date=2021_11_14"],
     /*
      * Open terminal when debugging starts (Optional)
      * Useful to see console.logs
