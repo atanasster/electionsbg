@@ -8,6 +8,7 @@ import { generateAllSearchFIles } from "./search";
 import { parseFinancing } from "./smetna_palata";
 import { runPartyStats } from "./party_stats";
 import { createPreferencesFiles } from "./preferences";
+import { parseMachinesFlashMemory } from "./machines_memory";
 
 const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
 const __dirname = path.dirname(__filename); // get the name of the directory
@@ -70,6 +71,12 @@ const app = command({
       short: "r",
       defaultValue: () => false,
     }),
+    machines: flag({
+      type: optional(boolean),
+      long: "machines",
+      short: "m",
+      defaultValue: () => false,
+    }),
     candidates: flag({
       type: optional(boolean),
       long: "candidates",
@@ -87,6 +94,7 @@ const app = command({
     financing,
     parties,
     candidates,
+    machines,
   }) => {
     production = prod;
     await parseElections({ date, all, stringify, publicFolder });
@@ -115,6 +123,9 @@ const app = command({
     }
     if (candidates) {
       await createPreferencesFiles(stringify);
+    }
+    if (machines) {
+      await parseMachinesFlashMemory(inFolder, stringify);
     }
   },
 });
