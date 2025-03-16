@@ -306,6 +306,9 @@ const lookupInternationalSections = (
     case "Хам":
     case "Швебиш Гмюнд":
     case "Щраубинг":
+    case "Ааахен":
+    case "Вупертал":
+    case "Хоф":
       return COUNTRIES.GERMANY;
     case "Марсилия":
     case "Париж":

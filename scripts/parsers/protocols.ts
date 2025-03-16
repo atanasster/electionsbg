@@ -205,9 +205,6 @@ export const parseProtocols = async (
                 }
               }
             } else {
-              if (!uniqueDocuments.includes(document)) {
-                debugger;
-              }
               protocol.ballotsReceived = parseInt(row[6]);
               protocol.numRegisteredVoters = parseInt(row[7]);
               if (year === "2023_04_02") {
@@ -228,8 +225,31 @@ export const parseProtocols = async (
                 if (row[23].trim() !== "") {
                   protocol.numValidNoOneMachineVotes = parseInt(row[23]);
                 }
+              } else if (year === "2024_06_09") {
+                if (!uniqueDocuments.includes(document)) {
+                  debugger;
+                }
+                protocol.numAdditionalVoters = parseInt(row[10]);
+                protocol.totalActualVoters = parseInt(row[11]);
+                protocol.numUnusedPaperBallots = parseInt(row[12]);
+                protocol.numInvalidAndDestroyedPaperBallots = parseInt(row[13]);
+                protocol.numPaperBallotsFound = parseInt(row[14]);
+                protocol.numInvalidBallotsFound = parseInt(row[15]);
+                protocol.numValidNoOnePaperVotes = parseInt(row[16]);
+                protocol.numValidVotes = parseInt(row[17]);
+                if (row.length > 18) {
+                  if (row[18].trim() !== "") {
+                    protocol.numMachineBallots = parseInt(row[18]);
+                  }
+                  if (row[19].trim() !== "") {
+                    protocol.numValidNoOneMachineVotes = parseInt(row[19]);
+                  }
+                  if (row[20].trim() !== "") {
+                    protocol.numValidMachineVotes = parseInt(row[20]);
+                  }
+                }
               } else {
-                const dataIdx = year === "2024_06_09" ? 10 : 8;
+                const dataIdx = 8;
                 protocol.numAdditionalVoters = parseInt(row[dataIdx]);
                 protocol.totalActualVoters = parseInt(row[dataIdx + 1]);
                 protocol.numUnusedPaperBallots = parseInt(row[dataIdx + 2]);
