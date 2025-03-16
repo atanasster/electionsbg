@@ -143,6 +143,7 @@ export const generateVotes = ({
           section.oblast === "32"
             ? lookup_international_sections(
                 section.settlement,
+                section.region_name,
                 electionSettlements,
               )
             : parseSettlement2005(
@@ -181,6 +182,7 @@ export const generateVotes = ({
         regionCode === "32"
           ? lookup_international_sections(
               section.settlement,
+              section.region_name,
               electionSettlements,
             )?.kmetstvo
           : vote.section.substring(2, 4);

@@ -69,15 +69,30 @@ export const parseProtocols = async (
             if (!uniqueDocuments.includes(document)) {
               debugger;
             }
-            protocol.ballotsReceived = parseInt(row[3]);
-            protocol.numRegisteredVoters = parseInt(row[4]);
-            protocol.numAdditionalVoters = parseInt(row[5]) + parseInt(row[6]);
-            protocol.totalActualVoters = parseInt(row[7]);
-            protocol.numUnusedPaperBallots = parseInt(row[19]);
-            protocol.numInvalidAndDestroyedPaperBallots = parseInt(row[20]);
-            protocol.numPaperBallotsFound = parseInt(row[24]);
-            protocol.numInvalidBallotsFound = parseInt(row[32]);
-            protocol.numValidVotes = parseInt(row[33]);
+            if (document === "Д") {
+              //protocol.ballotsReceived = parseInt(row[3]);
+              protocol.numRegisteredVoters = parseInt(row[2]);
+              protocol.numAdditionalVoters = parseInt(row[3]);
+              protocol.totalActualVoters = parseInt(row[4]);
+              protocol.numPaperBallotsFound = parseInt(row[6]);
+              protocol.numInvalidBallotsFound = parseInt(row[14]);
+              protocol.numValidVotes = parseInt(row[15]);
+            } else {
+              protocol.ballotsReceived = parseInt(row[3]);
+              protocol.numRegisteredVoters = parseInt(row[4]);
+              protocol.numAdditionalVoters =
+                parseInt(row[5]) + parseInt(row[6]);
+              protocol.totalActualVoters = parseInt(row[7]);
+              protocol.numUnusedPaperBallots = parseInt(row[19]);
+              protocol.numInvalidAndDestroyedPaperBallots =
+                parseInt(row[20]) +
+                parseInt(row[21]) +
+                parseInt(row[22]) +
+                parseInt(row[23]);
+              protocol.numPaperBallotsFound = parseInt(row[24]);
+              protocol.numInvalidBallotsFound = parseInt(row[32]);
+              protocol.numValidVotes = parseInt(row[33]);
+            }
           } else if (year === "2014_10_05") {
             protocol.ballotsReceived = parseInt(row[2]);
             protocol.numRegisteredVoters = parseInt(row[3]);
