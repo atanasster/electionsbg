@@ -115,6 +115,7 @@ const lookupInternationalSections = (
     case "Прилеп":
     case "Струмица":
     case "Щип":
+    case "Велес":
       return COUNTRIES.NORTH_MACEDONIA;
     case "Ла Валета":
       return COUNTRIES.MALTA;
@@ -140,6 +141,7 @@ const lookupInternationalSections = (
     case "Осло":
       return COUNTRIES.NORWAY;
     case "Дубай":
+    case "Абу Даби":
       return COUNTRIES.UAE;
     case "Варшава":
     case "Вроцлав":
@@ -260,6 +262,8 @@ const lookupInternationalSections = (
     case "Франкфурт на Майн":
     case "Хамбург":
     case "Щутгарт":
+    case "Дортмунд":
+    case "Мьонхенгладбах":
       return COUNTRIES.GERMANY;
     case "Марсилия":
     case "Париж":
@@ -488,6 +492,8 @@ const lookupInternationalSections = (
     case "Челмсфорд":
     case "Честър":
     case "Шефилд":
+    case "Бърнли/Флийтууд":
+    case "Телфорд":
       return COUNTRIES.UNITED_KINGDOM;
     case "Алмати":
       return COUNTRIES.KAZAKHSTAN;
