@@ -125,33 +125,42 @@ export const parseProtocols = async (
                 protocol.numValidNoOnePaperVotes = parseInt(row[20]);
               }
             } else if (year === "2021_07_11") {
-              if (document === "26" || document === "25" || document === "24") {
+              if (document === "25" || document === "29") {
                 protocol.ballotsReceived = parseInt(row[4]);
                 protocol.numRegisteredVoters = parseInt(row[5]);
                 protocol.numAdditionalVoters = parseInt(row[6]);
-                protocol.numUnusedPaperBallots = 0;
+                protocol.totalActualVoters = parseInt(row[7]);
+                protocol.numUnusedPaperBallots = parseInt(row[8]);
                 protocol.numInvalidAndDestroyedPaperBallots = parseInt(row[9]);
-                protocol.totalActualVoters = parseInt(row[12]);
-              }
-              if (row[14] !== "" && row[16] !== "") {
-                protocol.numMachineBallots =
-                  (protocol.numMachineBallots || 0) + parseInt(row[14]);
+              } else if (
+                document === "31" ||
+                document === "32" ||
+                document === "27" ||
+                document === "41"
+              ) {
                 protocol.numValidNoOneMachineVotes =
                   (protocol.numValidNoOneMachineVotes || 0) + parseInt(row[16]);
                 protocol.numValidMachineVotes =
-                  (protocol.numValidMachineVotes || 0) +
-                  (row[15] !== ""
-                    ? parseInt(row[15])
-                    : protocol.totalActualVoters -
-                      protocol.numValidNoOneMachineVotes);
+                  (protocol.numValidMachineVotes || 0) + parseInt(row[15]);
+                protocol.numMachineBallots =
+                  (protocol.numMachineBallots || 0) + parseInt(row[14]);
+              } else if (
+                document === "28" ||
+                document === "26" ||
+                document === "24"
+              ) {
+                protocol.ballotsReceived = parseInt(row[4]);
+                protocol.numRegisteredVoters = parseInt(row[5]);
+                protocol.numAdditionalVoters = parseInt(row[6]);
+                protocol.totalActualVoters = parseInt(row[7]);
+                protocol.numUnusedPaperBallots = parseInt(row[8]);
+                protocol.numInvalidAndDestroyedPaperBallots = parseInt(row[9]);
+                protocol.numPaperBallotsFound = parseInt(row[11]);
+                protocol.numInvalidBallotsFound = parseInt(row[13]);
+                protocol.numValidVotes = parseInt(row[15]);
+                protocol.numValidNoOnePaperVotes = parseInt(row[16]);
               }
             } else if (isMachineOnlyVote(year)) {
-              if (section === "325300640") {
-                debugger;
-              }
-              /* if (!uniqueDocuments.includes(document)) {
-                debugger;
-              } */
               if (document === "25" || document === "29" || document === "30") {
                 protocol.totalActualVoters = parseInt(row[9]);
                 protocol.ballotsReceived = parseInt(row[6]);
@@ -196,6 +205,9 @@ export const parseProtocols = async (
                 }
               }
             } else {
+              if (!uniqueDocuments.includes(document)) {
+                debugger;
+              }
               protocol.ballotsReceived = parseInt(row[6]);
               protocol.numRegisteredVoters = parseInt(row[7]);
               if (year === "2023_04_02") {

@@ -15,9 +15,11 @@ export const lookup_international_sections = (
     }
   }
   const code = lookupInternationalSections(
-    settlementParts[settlementParts.length - 1],
+    settlementParts[settlementParts.length - 1].trim(),
   );
   if (!code) {
+    //console.log(settlement);
+    //return settlements.find((s) => s.kmetstvo === COUNTRIES.ALBANIA);
     throw new Error("Could not find country for: " + settlement);
   }
   return settlements.find((s) => s.kmetstvo === code);
@@ -116,6 +118,7 @@ const lookupInternationalSections = (
     case "Струмица":
     case "Щип":
     case "Велес":
+    case "Битолия":
       return COUNTRIES.NORTH_MACEDONIA;
     case "Ла Валета":
       return COUNTRIES.MALTA;
@@ -264,6 +267,44 @@ const lookupInternationalSections = (
     case "Щутгарт":
     case "Дортмунд":
     case "Мьонхенгладбах":
+    case "Аахен":
+    case "Айленбург":
+    case "Алзей":
+    case "Аполда":
+    case "Бад Мускау":
+    case "Бад Наухайм":
+    case "Бамберг":
+    case "Билефелд":
+    case "Вайнхайм":
+    case "Вилдесхаузен":
+    case "Висбаден":
+    case "Вормс":
+    case "Вуперал":
+    case "Гелзенкирхен":
+    case "Гьотинген":
+    case "Делменхорст":
+    case "Йена":
+    case "Кемниц":
+    case "Констанц":
+    case "Любек":
+    case "Марбург":
+    case "Мюнхенгладбах":
+    case "Оберамергау":
+    case "Оснабрюк":
+    case "Офенбах на Майн":
+    case "Пасау":
+    case "Плауен":
+    case "Пфафенхофен":
+    case "Равенсбург":
+    case "Розенхайм":
+    case "Тегернзее":
+    case "Фирнхайм":
+    case "Фрайзен":
+    case "Фройденщад":
+    case "Фюрт":
+    case "Хам":
+    case "Швебиш Гмюнд":
+    case "Щраубинг":
       return COUNTRIES.GERMANY;
     case "Марсилия":
     case "Париж":
@@ -273,6 +314,7 @@ const lookupInternationalSections = (
       return COUNTRIES.CROATIA;
     case "Бърно":
     case "Прага":
+    case "Карлови Вари":
       return COUNTRIES.CZECH_REPUBLIC;
     case "Сантяго":
       return COUNTRIES.CHILE;
@@ -494,6 +536,33 @@ const lookupInternationalSections = (
     case "Шефилд":
     case "Бърнли/Флийтууд":
     case "Телфорд":
+    case "Кумбрия":
+    case "Баркинг":
+    case "Барнет и Енфийлд":
+    case "Бромли":
+    case "Гринуич":
+    case "Ийлинг":
+    case "Канада Уотър":
+    case "Принцес Парк":
+    case "Лейтънстоун":
+    case "Норбъри":
+    case "Палмърс Грийн":
+    case "Ричмънд ъпон Темз":
+    case "Ромфорд":
+    case "Сатън":
+    case "Стратфорд":
+    case "Сърбитън":
+    case "Тотнъм":
+    case "Уимбълдън":
+    case "Уолтъмстоу":
+    case "Уорчестър Парк":
+    case "Ууд Грийн":
+    case "Финсбъри Парк":
+    case "Хароу":
+    case "Хаунслоу":
+    case "Чанел Айлъндс":
+    case "Фелтъм":
+    case "Хелмсфорд":
       return COUNTRIES.UNITED_KINGDOM;
     case "Алмати":
       return COUNTRIES.KAZAKHSTAN;
