@@ -321,7 +321,7 @@ export const localDate = (date: string) => {
     parseInt(dateS[1]) - 1,
     parseInt(dateS[2]),
   );
-  return dateObj.toLocaleDateString(undefined, {
+  return dateObj.toLocaleDateString("en-GB", {
     year: "numeric",
     month: "2-digit",
     day: "2-digit",

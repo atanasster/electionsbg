@@ -26,10 +26,12 @@ export const parseProtocols = async (
       })
       .on("end", () => {
         const allProtocols: FullSectionProtocol[] = [];
+        const uniqueDocuments: string[] = [];
         for (let i = 0; i < result.length; i++) {
           const row = result[i];
           const sectionRow =
             year === "2014_10_05" || year <= "2009_07_05" ? 0 : 1;
+          const document = sectionRow === 1 ? row[0] : "24";
           let section = row[sectionRow];
           if (section.startsWith("*")) {
             section = section.substring(1);
@@ -89,7 +91,6 @@ export const parseProtocols = async (
             protocol.totalActualVoters = parseInt(row[fieldsIdx + 15]);
             protocol.numValidNoOnePaperVotes = parseInt(row[fieldsIdx + 16]);
           } else {
-            const document = row[0];
             protocol.rik = row[2];
             if (year === "2017_03_26") {
               protocol.ballotsReceived = parseInt(row[4]);
@@ -145,28 +146,54 @@ export const parseProtocols = async (
                       protocol.numValidNoOneMachineVotes);
               }
             } else if (isMachineOnlyVote(year)) {
-              if (document === "26" || document === "25" || document === "24") {
+              /* if (!uniqueDocuments.includes(document)) {
+                debugger;
+              } */
+              /* if (section === "321300126") {
+                debugger;
+              } */
+              if (document === "25" || document === "29") {
+                protocol.totalActualVoters = parseInt(row[9]);
                 protocol.ballotsReceived = parseInt(row[6]);
                 protocol.numRegisteredVoters = parseInt(row[7]);
                 protocol.numAdditionalVoters = parseInt(row[8]);
                 protocol.numUnusedPaperBallots = parseInt(row[10]);
                 protocol.numInvalidAndDestroyedPaperBallots = parseInt(row[11]);
-                protocol.totalActualVoters =
-                  document === "26"
-                    ? parseInt(row[12]) - parseInt(row[15])
-                    : parseInt(row[14]) || parseInt(row[13]);
-              }
-              if (row[16] !== "" && row[18] !== "") {
-                protocol.numMachineBallots =
-                  (protocol.numMachineBallots || 0) + parseInt(row[16]);
+                protocol.numValidNoOneMachineVotes = 0;
+                protocol.numValidMachineVotes = 0;
+                protocol.numMachineBallots = 0;
+              } else if (
+                document === "31" ||
+                document === "32" ||
+                document === "27" ||
+                document === "41"
+              ) {
                 protocol.numValidNoOneMachineVotes =
                   (protocol.numValidNoOneMachineVotes || 0) + parseInt(row[18]);
                 protocol.numValidMachineVotes =
-                  (protocol.numValidMachineVotes || 0) +
-                  (row[17] !== ""
-                    ? parseInt(row[17])
-                    : protocol.totalActualVoters -
-                      protocol.numValidNoOneMachineVotes);
+                  (protocol.numValidMachineVotes || 0) + parseInt(row[17]);
+                protocol.numMachineBallots =
+                  (protocol.numMachineBallots || 0) + parseInt(row[16]);
+              } else {
+                protocol.ballotsReceived = parseInt(row[6]);
+                protocol.numRegisteredVoters = parseInt(row[7]);
+                protocol.numAdditionalVoters = parseInt(row[8]);
+                protocol.numUnusedPaperBallots = parseInt(row[10]);
+                protocol.numInvalidAndDestroyedPaperBallots = parseInt(row[11]);
+                if (row[13]) {
+                  protocol.numPaperBallotsFound = parseInt(row[13]);
+                }
+                if (document === "24" || document === "28") {
+                  protocol.totalActualVoters = parseInt(row[16]);
+                  protocol.numValidVotes = parseInt(row[17]);
+                  protocol.numValidNoOnePaperVotes = parseInt(row[18]);
+                } else if (document === "26") {
+                  protocol.totalActualVoters = parseInt(row[9]);
+                  protocol.numValidVotes = parseInt(row[17]);
+                  protocol.numInvalidBallotsFound = parseInt(row[15]);
+                  protocol.numValidNoOnePaperVotes = parseInt(row[18]);
+                  protocol.numMachineBallots = parseInt(row[14]);
+                }
               }
             } else {
               protocol.ballotsReceived = parseInt(row[6]);
@@ -216,6 +243,9 @@ export const parseProtocols = async (
                 }
               }
             }
+          }
+          if (!uniqueDocuments.includes(document)) {
+            uniqueDocuments.push(document);
           }
           if (!existingProtocol) {
             allProtocols.push(protocol);

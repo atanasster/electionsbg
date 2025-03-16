@@ -5,7 +5,7 @@ import { useNavigateParams } from "@/ux/useNavigateParams";
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 
-export const ErrorSection: FC<{ title: string; description: string }> = ({
+export const ErrorSection: FC<{ title: string; description?: string }> = ({
   title,
   description,
 }) => {

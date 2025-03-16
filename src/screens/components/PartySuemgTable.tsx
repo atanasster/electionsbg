@@ -7,6 +7,7 @@ import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
 import { Caption } from "@/ux/Caption";
 import { PartyLink } from "./party/PartyLink";
 import { pctChange } from "@/data/utils";
+import { ErrorSection } from "./ErrorSection";
 
 export const PartySuemgTable: FC<{
   results?: VoteResults;
@@ -17,6 +18,7 @@ export const PartySuemgTable: FC<{
   const isSmall = useMediaQueryMatch("sm");
   const parties = useTopParties(results?.votes, 0);
   const hasPaperVotes = results?.votes.find((v) => v.paperVotes);
+  const hasMachineVotes = results?.votes.find((v) => v.machineVotes);
   const data = useMemo(() => {
     return parties
       ?.map((p) => {
@@ -106,7 +108,7 @@ export const PartySuemgTable: FC<{
     ],
     [t, isSmall, isXSmall, hasPaperVotes],
   );
-  return data?.length ? (
+  return data?.length && hasMachineVotes ? (
     <div className="w-full">
       <Caption className="py-8">{t("suemg_differences")}</Caption>
       <DataTable
@@ -117,5 +119,7 @@ export const PartySuemgTable: FC<{
         data={data}
       />
     </div>
-  ) : null;
+  ) : (
+    <ErrorSection title={t("no_machine_votes")} />
+  );
 };
