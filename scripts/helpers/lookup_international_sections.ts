@@ -590,6 +590,13 @@ const lookupInternationalSections = (
     case "Манчестер":
     case "Нюкасъл на Тайн":
     case "Чатам":
+    case "Лондон,Тотнъм":
+    case "Лондон Уимбълдън - Мъртън Роуд":
+    case "Абъристуит":
+    case "Богнър Риджис":
+    case "Нюкасъл на Tайн":
+    case "Питърбороу":
+    case "Лондон Иилинг":
       return COUNTRIES.UNITED_KINGDOM;
     case "Алмати":
       return COUNTRIES.KAZAKHSTAN;
