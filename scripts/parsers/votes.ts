@@ -145,6 +145,7 @@ export const parseVotes = (
                     (vote.paperVotes || 0) + parseInt(row[j + 2]);
                   vote.machineVotes =
                     (vote.machineVotes || 0) + parseInt(row[j + 3]);
+                  vote.totalVotes = vote.machineVotes + vote.paperVotes;
                 }
               }
               if (!existingVote) {

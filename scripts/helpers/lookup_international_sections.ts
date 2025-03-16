@@ -119,6 +119,7 @@ const lookupInternationalSections = (
     case "Щип":
     case "Велес":
     case "Битолия":
+    case "Тетово":
       return COUNTRIES.NORTH_MACEDONIA;
     case "Ла Валета":
       return COUNTRIES.MALTA;
@@ -563,6 +564,7 @@ const lookupInternationalSections = (
     case "Чанел Айлъндс":
     case "Фелтъм":
     case "Хелмсфорд":
+    case "Бъртън ъпон Трент":
       return COUNTRIES.UNITED_KINGDOM;
     case "Алмати":
       return COUNTRIES.KAZAKHSTAN;
