@@ -18,8 +18,8 @@ export const lookup_international_sections = (
     settlementParts[settlementParts.length - 1].trim(),
   );
   if (!code) {
-    //console.log(settlement);
-    //return settlements.find((s) => s.kmetstvo === COUNTRIES.ALBANIA);
+    console.log(settlement);
+    return settlements.find((s) => s.kmetstvo === COUNTRIES.ALBANIA);
     throw new Error("Could not find country for: " + settlement);
   }
   return settlements.find((s) => s.kmetstvo === code);
@@ -568,6 +568,11 @@ const lookupInternationalSections = (
     case "Фелтъм":
     case "Хелмсфорд":
     case "Бъртън ъпон Трент":
+    case "Бъртън ъпон Тренд":
+    case "Даунпатрик/Килкийл":
+    case "Остров Ман":
+    case "Престън/Ланкастър":
+    case "UK":
       return COUNTRIES.UNITED_KINGDOM;
     case "Алмати":
       return COUNTRIES.KAZAKHSTAN;

@@ -105,6 +105,9 @@ export const parseProtocols = async (
               protocol.totalActualVoters = parseInt(row[16]);
               protocol.numValidNoOnePaperVotes = parseInt(row[18]);
             } else if (year === "2021_04_04") {
+              if (!uniqueDocuments.includes(document)) {
+                debugger;
+              }
               protocol.ballotsReceived = parseInt(row[4]);
               protocol.numRegisteredVoters = parseInt(row[5]);
               protocol.totalActualVoters = parseInt(row[6]);
@@ -226,9 +229,6 @@ export const parseProtocols = async (
                   protocol.numValidNoOneMachineVotes = parseInt(row[23]);
                 }
               } else if (year === "2024_06_09") {
-                if (!uniqueDocuments.includes(document)) {
-                  debugger;
-                }
                 protocol.numAdditionalVoters = parseInt(row[10]);
                 protocol.totalActualVoters = parseInt(row[11]);
                 protocol.numUnusedPaperBallots = parseInt(row[12]);
@@ -249,28 +249,23 @@ export const parseProtocols = async (
                   }
                 }
               } else {
-                const dataIdx = 8;
-                protocol.numAdditionalVoters = parseInt(row[dataIdx]);
-                protocol.totalActualVoters = parseInt(row[dataIdx + 1]);
-                protocol.numUnusedPaperBallots = parseInt(row[dataIdx + 2]);
-                protocol.numInvalidAndDestroyedPaperBallots = parseInt(
-                  row[dataIdx + 3],
-                );
-                protocol.numPaperBallotsFound = parseInt(row[dataIdx + 4]);
-                protocol.numInvalidBallotsFound = parseInt(row[dataIdx + 5]);
-                protocol.numValidNoOnePaperVotes = parseInt(row[dataIdx + 6]);
-                protocol.numValidVotes = parseInt(row[dataIdx + 7]);
-                if (row.length > dataIdx + 8) {
-                  if (row[dataIdx + 8].trim() !== "") {
-                    protocol.numMachineBallots = parseInt(row[dataIdx + 8]);
+                protocol.numAdditionalVoters = parseInt(row[8]);
+                protocol.totalActualVoters = parseInt(row[9]);
+                protocol.numUnusedPaperBallots = parseInt(row[10]);
+                protocol.numInvalidAndDestroyedPaperBallots = parseInt(row[11]);
+                protocol.numPaperBallotsFound = parseInt(row[12]);
+                protocol.numInvalidBallotsFound = parseInt(row[13]);
+                protocol.numValidNoOnePaperVotes = parseInt(row[14]);
+                protocol.numValidVotes = parseInt(row[15]);
+                if (row.length > 16) {
+                  if (row[16].trim() !== "") {
+                    protocol.numMachineBallots = parseInt(row[16]);
                   }
-                  if (row[dataIdx + 9].trim() !== "") {
-                    protocol.numValidNoOneMachineVotes = parseInt(
-                      row[dataIdx + 9],
-                    );
+                  if (row[17].trim() !== "") {
+                    protocol.numValidNoOneMachineVotes = parseInt(row[17]);
                   }
-                  if (row[dataIdx + 10].trim() !== "") {
-                    protocol.numValidMachineVotes = parseInt(row[dataIdx + 10]);
+                  if (row[18].trim() !== "") {
+                    protocol.numValidMachineVotes = parseInt(row[18]);
                   }
                 }
               }
