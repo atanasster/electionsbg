@@ -138,8 +138,7 @@ export const parseVotes = (
                 }
               } else {
                 if (isOld) {
-                  vote.machineVotes = 0;
-                  vote.paperVotes = vote.totalVotes;
+                  vote.paperVotes = totalVotes;
                 } else {
                   if (row[j + 2] !== "") {
                     vote.paperVotes =
@@ -149,9 +148,9 @@ export const parseVotes = (
                     vote.machineVotes =
                       (vote.machineVotes || 0) + parseInt(row[j + 3]);
                   }
-                  vote.totalVotes =
-                    (vote.machineVotes || 0) + (vote.paperVotes || 0);
                 }
+                vote.totalVotes =
+                  (vote.machineVotes || 0) + (vote.paperVotes || 0);
               }
               if (!existingVote) {
                 votes.votes.push(vote);
