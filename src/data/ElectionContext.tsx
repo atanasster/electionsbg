@@ -1,6 +1,6 @@
 import { useCallback, useMemo } from "react";
 import allElections from "../data/json/elections.json";
-import { ElectionInfo, isMachineOnlyVote } from "./dataTypes";
+import { ElectionInfo } from "./dataTypes";
 import { useSearchParam } from "@/screens/utils/useSearchParam";
 
 export const useElectionContext = () => {
@@ -42,12 +42,10 @@ export const useElectionContext = () => {
       | ElectionInfo
       | undefined;
   }, [selected]);
-  const isMachineOnly = () => isMachineOnlyVote(selected);
   return {
     elections,
     selected,
     setSelected,
-    isMachineOnly,
     priorElections,
     prevElections,
     electionStats,

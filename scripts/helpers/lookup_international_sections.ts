@@ -1,14 +1,30 @@
 import { ElectionSettlement } from "@/data/dataTypes";
 import { COUNTRIES } from "scripts/parsers/country_codes";
 
-export const lookupCountryNumbers_2005 = (
+export const lookup_international_sections = (
   settlement: string,
   settlements: ElectionSettlement[],
 ) => {
-  const code = lookupInternationalSections(settlement);
+  const settlementParts = settlement.split(", ");
+  if (settlementParts.length > 0) {
+    const settlement = settlements.find(
+      (s) => s.name === settlementParts[0] && s.oblast === "32",
+    );
+    if (settlement) {
+      return settlement;
+    }
+  }
+  const code = lookupInternationalSections(
+    settlementParts[settlementParts.length - 1],
+  );
+  if (!code) {
+    throw new Error("Could not find country for: " + settlement);
+  }
   return settlements.find((s) => s.kmetstvo === code);
 };
-export const lookupInternationalSections = (settlement: string): string => {
+const lookupInternationalSections = (
+  settlement: string,
+): string | undefined => {
   switch (settlement) {
     case "Диуания":
       return COUNTRIES.IRAQ;
@@ -21,14 +37,59 @@ export const lookupInternationalSections = (settlement: string): string => {
     case "Краснодар":
       return COUNTRIES.RUSSIA;
     case "Шутгарт":
+    case "Аугсбург":
+    case "Бремен":
+    case "Бремерхафен":
+    case "Вюрцбург":
+    case "Гютерсло":
+    case "Дармщат":
+    case "Дитценбах":
+    case "Дрезден":
+    case "Дуисбург":
+    case "Дюселдорф":
+    case "Ерфурт":
+    case "Есен":
+    case "Карлсруе":
+    case "Касел":
+    case "Кьолн":
+    case "Лайпциг":
+    case "Ландсхут":
+    case "Лудвигсхафен":
+    case "Магдебург":
+    case "Майнц":
+    case "Манхайм":
+    case "Меминген":
+    case "Мюнстер":
+    case "Ноймаркт":
+    case "Ноймюнстер":
+    case "Нюрнберг":
+    case "Офенбург":
+    case "Папенбург":
+    case "Регенсбург":
+    case "Ройтлинген":
+    case "Саарбрюкен":
+    case "Трир":
+    case "Улм":
+    case "Фрайбург":
+    case "Хайлброн":
+    case "Хайделберг":
+    case "Хановер":
       return COUNTRIES.GERMANY;
     case "Острава":
+    case "Ихлава":
+    case "Либерец":
+    case "Млада Болеслав":
+    case "Пардубице":
+    case "Пилзен":
+    case "Хоржовице":
       return COUNTRIES.CZECH_REPUBLIC;
     case "Отава":
     case "Торонто":
       return COUNTRIES.CANADA;
     case "Доха":
       return COUNTRIES.QATAR;
+    case "Бразилия":
+      return COUNTRIES.BRAZIL;
     case "Лимасол":
     case "Никозия":
       return COUNTRIES.CYPRUS;
@@ -45,7 +106,15 @@ export const lookupInternationalSections = (settlement: string): string => {
       return COUNTRIES.LIBYA;
     case "Бейрут":
       return COUNTRIES.LEBANON;
+    case "Манама":
+      return COUNTRIES.BAHRAIN;
     case "Скопие":
+    case "Битоля":
+    case "Кавадарци":
+    case "Охрид":
+    case "Прилеп":
+    case "Струмица":
+    case "Щип":
       return COUNTRIES.NORTH_MACEDONIA;
     case "Ла Валета":
       return COUNTRIES.MALTA;
@@ -214,6 +283,7 @@ export const lookupInternationalSections = (settlement: string): string => {
     case "Йоханесбург":
     case "Кейптаун":
     case "Претория":
+    case "Мидранд":
       return COUNTRIES.SOUTH_AFRICA;
     case "Айчи":
     case "Токио":
@@ -292,6 +362,8 @@ export const lookupInternationalSections = (settlement: string): string => {
       return COUNTRIES.JORDAN;
     case "Кабул":
       return COUNTRIES.AFGHANISTAN;
+    case "Баку":
+      return COUNTRIES.AZERBAIJAN;
     case "Аделаида":
     case "Бризбън":
     case "Канбера":
@@ -303,9 +375,18 @@ export const lookupInternationalSections = (settlement: string): string => {
     case "Грац":
     case "Залцбург":
     case "Линц":
+    case "Брегенц":
+    case "Велс":
+    case "Инсбрук":
+    case "Клагенфурт":
       return COUNTRIES.AUSTRIA;
     case "Тирана":
+    case "Елбасан":
+    case "Корча":
+    case "Кукъс":
       return COUNTRIES.ALBANIA;
+    case "Ереван":
+      return COUNTRIES.ARMENIA;
     case "Алжир":
       return COUNTRIES.ALGERIA;
     case "Буенос Айрес":
@@ -314,6 +395,12 @@ export const lookupInternationalSections = (settlement: string): string => {
       return COUNTRIES.BELARUS;
     case "Брюксел":
     case "Лъовен":
+    case "Антверпен":
+    case "Варегем":
+    case "Гент":
+    case "Льовен":
+    case "Маасмехелен":
+    case "Хаселт":
       return COUNTRIES.BELGIUM;
     case "Сараево":
       return COUNTRIES.BOSNIA_HERZEGOVINA;
@@ -329,10 +416,83 @@ export const lookupInternationalSections = (settlement: string): string => {
     case "Ричмънд":
     case "Дъръм":
     case "Уайт Чапeл":
+    case "Абърдийн":
+    case "Арма":
+    case "Базилдън":
+    case "Бедфорд":
+    case "Бейзингстоук":
+    case "Белфаст":
+    case "Бишъпс Стортфорд":
+    case "Богнър Реджис":
+    case "Борнмът":
+    case "Брайтън":
+    case "Бристол":
+    case "Глазгоу":
+    case "Глостър":
+    case "Есекс":
+    case "Сейнт Хелиър":
+    case "Дънди":
+    case "Единбург":
+    case "Екзитър":
+    case "Енискилън":
+    case "Ийстбърн":
+    case "Имингъм":
+    case "Ипсуич":
+    case "Йорк":
+    case "Кардиф":
+    case "Кеймбридж":
+    case "Кентърбъри":
+    case "Килкийл":
+    case "Кингс Лин":
+    case "Ковънтри":
+    case "Колчестър":
+    case "Кроули":
+    case "Крю":
+    case "Ланкастър":
+    case "Лестър":
+    case "Ливърпул":
+    case "Лийдс":
+    case "Линкълн":
+    case "Лутън":
+    case "Мейдстоун":
+    case "Милтън Кийнс":
+    case "Норич":
+    case "Нотингам":
+    case "Нюкасъл":
+    case "Озуъстри":
+    case "Дъглас":
+    case "Питърбъро":
+    case "Плимут":
+    case "Портсмут":
+    case "Престън":
+    case "Рединг":
+    case "Рексъм":
+    case "Саутенд-он-сии":
+    case "Саутхемптън":
+    case "Стафорд":
+    case "Стоук он Трент":
+    case "Стърминстър Нютън":
+    case "Суиндън":
+    case "Тънбридж Уелс":
+    case "Уестън Супер Мер":
+    case "Уисбийч":
+    case "Уорингтън":
+    case "Уотфорд":
+    case "Устър/Уочестър":
+    case "Уулвърхамптън":
+    case "Флийтууд":
+    case "Хемел-Хемпстед":
+    case "Херефорд":
+    case "Хъл":
+    case "Чатъм":
+    case "Челмсфорд":
+    case "Честър":
+    case "Шефилд":
       return COUNTRIES.UNITED_KINGDOM;
     case "Алмати":
       return COUNTRIES.KAZAKHSTAN;
     default:
-      throw new Error("Could not find city " + settlement);
+      return undefined;
+    //throw new Error("Could not find city " + settlement);
   }
 };

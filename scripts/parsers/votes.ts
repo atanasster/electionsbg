@@ -120,22 +120,31 @@ export const parseVotes = (
                 : ({
                     partyNum,
                   } as Votes);
-              vote.totalVotes = (vote.totalVotes || 0) + totalVotes;
-              if (isOld) {
-                vote.machineVotes = 0;
-                vote.paperVotes = vote.totalVotes;
-              } else if (!isMachineOnly) {
-                vote.paperVotes = (vote.paperVotes || 0) + parseInt(row[j + 2]);
-                vote.machineVotes =
-                  (vote.machineVotes || 0) + parseInt(row[j + 3]);
-              } else {
-                //paper votes in a machine-only election
-                if (row[0] === "24") {
-                  vote.paperVotes = vote.totalVotes;
-                  vote.machineVotes = 0;
+
+              if (isMachineOnly) {
+                vote.totalVotes = (vote.totalVotes || 0) + totalVotes;
+                if (!existingVote) {
+                  vote.totalVotes = totalVotes;
+                  //paper votes in a machine-only election
+                  if (["24", "26", "27", "28"].includes(row[0])) {
+                    vote.paperVotes = vote.totalVotes;
+                    vote.machineVotes = 0;
+                  } else {
+                    vote.machineVotes = vote.totalVotes;
+                    vote.paperVotes = 0;
+                  }
                 } else {
-                  vote.machineVotes = vote.totalVotes;
-                  vote.paperVotes = 0;
+                  vote.machineVotes = (vote.machineVotes || 0) + totalVotes;
+                }
+              } else {
+                if (isOld) {
+                  vote.machineVotes = 0;
+                  vote.paperVotes = vote.totalVotes;
+                } else {
+                  vote.paperVotes =
+                    (vote.paperVotes || 0) + parseInt(row[j + 2]);
+                  vote.machineVotes =
+                    (vote.machineVotes || 0) + parseInt(row[j + 3]);
                 }
               }
               if (!existingVote) {
@@ -150,12 +159,15 @@ export const parseVotes = (
               const machineVote = machineVotes.find(
                 (m) => m.section === section,
               );
-              votes.votes.forEach((v) => {
-                v.suemgVotes = machineVote
-                  ? machineVote.votes.find((m) => m.partyNum === v.partyNum)
-                      ?.votes || 0
-                  : undefined;
-              });
+
+              if (machineVote) {
+                votes.votes.forEach((v) => {
+                  const vote = machineVote.votes.find(
+                    (m) => m.partyNum === v.partyNum,
+                  );
+                  v.suemgVotes = vote?.votes || 0;
+                });
+              }
             }
             allVotes.push(votes);
           }

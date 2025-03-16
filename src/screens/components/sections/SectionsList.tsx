@@ -28,7 +28,7 @@ export const SectionsList: FC<{
         .replace(/\s+/g, "")
         .toLowerCase();
       const cityIdx = addressName.indexOf(settlementName);
-      let address = section.address;
+      let address = section.address || section.settlement;
       if (cityIdx >= 0) {
         const numSpaces =
           (section.address?.slice(0, settlementName.length).split(" ").length ||

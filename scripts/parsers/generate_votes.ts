@@ -15,7 +15,6 @@ import {
   SOFIA_REGIONS,
 } from "@/data/dataTypes";
 import { addResults, addRecountOriginal } from "@/data/utils";
-import { lookupCountryNumbers } from "./election_country_codes";
 import { regionsVotesFileName, sectionVotesFileName } from "../consts";
 import { splitSettlements } from "./split_settlements";
 import { splitMunicipalities } from "./split_municipalities";
@@ -23,7 +22,7 @@ import { findSectionInOtherElections } from "./findSection";
 import { regionCodes } from "./region_codes";
 import { findSofiaSettlements_2005 } from "./2005_sofia_settlements";
 import { parseSettlement2005 } from "scripts/helpers/2005/settlement_name_2005";
-import { lookupCountryNumbers_2005 } from "scripts/helpers/2005/2005_international_sections";
+import { lookup_international_sections } from "scripts/helpers/lookup_international_sections";
 import { backupFileName } from "scripts/recount/backup_file";
 import { recountSection } from "scripts/recount/recount_sections";
 
@@ -142,7 +141,10 @@ export const generateVotes = ({
       } else {
         settlement =
           section.oblast === "32"
-            ? lookupCountryNumbers_2005(section.settlement, electionSettlements)
+            ? lookup_international_sections(
+                section.settlement,
+                electionSettlements,
+              )
             : parseSettlement2005(
                 section.settlement,
                 section.oblast,
@@ -177,8 +179,14 @@ export const generateVotes = ({
 
       let muniCode =
         regionCode === "32"
-          ? lookupCountryNumbers(vote.section, monthYear)
+          ? lookup_international_sections(
+              section.settlement,
+              electionSettlements,
+            )?.kmetstvo
           : vote.section.substring(2, 4);
+      if (!regionCode) {
+        throw new Error("Could not find settlement: " + section.settlement);
+      }
       if (muniCode === "46") {
         muniCode = vote.section.substring(4, 6);
       }

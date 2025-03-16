@@ -1,4 +1,6 @@
+import { ElectionSettlement, SectionInfo } from "@/data/dataTypes";
 import { COUNTRIES } from "./country_codes";
+import { lookup_international_sections } from "scripts/helpers/lookup_international_sections";
 
 const code_2009_07_05: {
   [key: string]: string;
@@ -536,25 +538,36 @@ const code_2022_10_02: {
   "62": COUNTRIES.JAPAN,
 };
 
-export const lookupCountryNumbers = (section: string, year: string) => {
+export const lookupCountryNumbers = (
+  section: SectionInfo,
+  year: string,
+  electionSettlements: ElectionSettlement[],
+) => {
+  if (section.settlement) {
+    const s = lookup_international_sections(
+      section.settlement,
+      electionSettlements,
+    );
+    return s?.kmetstvo;
+  }
   switch (year) {
     case "2009_07_05":
-      return code_2009_07_05[section.substring(2, 4)];
+      return code_2009_07_05[section.section.substring(2, 4)];
     case "2013_05_12":
-      return code_2013_05_12[section.substring(2, 4)];
+      return code_2013_05_12[section.section.substring(2, 4)];
     case "2014_10_05":
-      return code_2014_10_05[section.substring(2, 4)];
+      return code_2014_10_05[section.section.substring(2, 4)];
     case "2017_03_26":
-      return code_2017_03_26[section.substring(2, 4)];
+      return code_2017_03_26[section.section.substring(2, 4)];
     case "2021_04_04":
-      return code_2021_04_04[section.substring(2, 4)];
+      return code_2021_04_04[section.section.substring(2, 4)];
     case "2021_07_11":
     case "2021_11_14":
-      return code_2021_07_11[section.substring(2, 4)];
+      return code_2021_07_11[section.section.substring(2, 4)];
     case "2022_10_02":
-      return code_2022_10_02[section.substring(2, 4)];
+      return code_2022_10_02[section.section.substring(2, 4)];
     default: {
-      const code = section.substring(2, 5);
+      const code = section.section.substring(2, 5);
       //Egypt fix
       if (year === "2024_06_09" && code === "037") {
         return COUNTRIES.EGYPT;
