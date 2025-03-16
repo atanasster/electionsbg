@@ -146,13 +146,13 @@ export const parseProtocols = async (
                       protocol.numValidNoOneMachineVotes);
               }
             } else if (isMachineOnlyVote(year)) {
+              if (section === "325300640") {
+                debugger;
+              }
               /* if (!uniqueDocuments.includes(document)) {
                 debugger;
               } */
-              /* if (section === "321300126") {
-                debugger;
-              } */
-              if (document === "25" || document === "29") {
+              if (document === "25" || document === "29" || document === "30") {
                 protocol.totalActualVoters = parseInt(row[9]);
                 protocol.ballotsReceived = parseInt(row[6]);
                 protocol.numRegisteredVoters = parseInt(row[7]);
