@@ -82,6 +82,8 @@ const lookupInternationalSections = (
     case "Хайлделберг":
     case "Диценбах":
     case "Фрайсен":
+    case "Щутгард":
+    case "Дармщадт":
       return COUNTRIES.GERMANY;
     case "Острава":
     case "Ихлава":
@@ -581,6 +583,13 @@ const lookupInternationalSections = (
     case "Остров Ман":
     case "Престън/Ланкастър":
     case "UK":
+    case "Борнмут":
+    case "Ейлинг":
+    case "Екситър":
+    case "Имингам":
+    case "Манчестер":
+    case "Нюкасъл на Тайн":
+    case "Чатам":
       return COUNTRIES.UNITED_KINGDOM;
     case "Алмати":
       return COUNTRIES.KAZAKHSTAN;
