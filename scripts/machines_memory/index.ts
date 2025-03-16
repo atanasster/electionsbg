@@ -9,6 +9,7 @@ export type MachineVotes = {
 const parseSectionFile = async (
   zipFileName: string,
   section: string,
+  date: string,
 ): Promise<MachineVotes> => {
   const result: string[][] = [];
 
@@ -35,11 +36,11 @@ const parseSectionFile = async (
         };
         for (let i = 0; i < result.length; i++) {
           const row = result[i];
-
-          const partyNum = parseInt(row[2]);
+          const pCol = date <= "2021_07_11" ? 1 : 2;
+          const partyNum = parseInt(row[pCol]);
           if (
             !isNaN(partyNum) &&
-            !isNaN(parseInt(row[5])) &&
+            !isNaN(parseInt(row[pCol + 3])) &&
             partyNum !== 99 &&
             sectionVotes.votes.find((v) => v.partyNum === partyNum) ===
               undefined
@@ -51,7 +52,7 @@ const parseSectionFile = async (
                 `Invalid section file: ${sectionNum} !== ${section}`,
               );
             }
-            const votes = parseInt(row[3]);
+            const votes = parseInt(row[pCol + 1]);
             sectionVotes.votes.push({
               partyNum,
               votes,
@@ -91,7 +92,11 @@ export const parseMachinesFlashMemory = async (
             const section = fNameParts[0];
             const zipFileName = `${regionFolderName}/${zipFile.name}`;
 
-            const sectionVotes = await parseSectionFile(zipFileName, section);
+            const sectionVotes = await parseSectionFile(
+              zipFileName,
+              section,
+              date,
+            );
             const existing = allSections.find(
               (s) => s.section === sectionVotes.section,
             );
