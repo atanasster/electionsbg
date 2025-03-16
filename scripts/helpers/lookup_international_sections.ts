@@ -18,8 +18,8 @@ export const lookup_international_sections = (
     settlementParts[settlementParts.length - 1].trim(),
   );
   if (!code) {
-    console.log(settlement);
-    return settlements.find((s) => s.kmetstvo === COUNTRIES.ALBANIA);
+    //console.log(settlement);
+    //return settlements.find((s) => s.kmetstvo === COUNTRIES.ALBANIA);
     throw new Error("Could not find country for: " + settlement);
   }
   return settlements.find((s) => s.kmetstvo === code);
@@ -76,6 +76,12 @@ const lookupInternationalSections = (
     case "Хайлброн":
     case "Хайделберг":
     case "Хановер":
+    case "Бренерхафен":
+    case "Вюртсбург":
+    case "Ландскут":
+    case "Хайлделберг":
+    case "Диценбах":
+    case "Фрайсен":
       return COUNTRIES.GERMANY;
     case "Острава":
     case "Ихлава":
@@ -216,6 +222,8 @@ const lookupInternationalSections = (
       return COUNTRIES.USA;
     case "Сингапур":
       return COUNTRIES.SINGAPORE;
+    case "Рияд":
+      return COUNTRIES.SAUDI_ARABIA;
     case "Алеп":
     case "Дамаск":
     case "Хомс":

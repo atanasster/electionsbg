@@ -93,6 +93,9 @@ export const parseProtocols = async (
           } else {
             protocol.rik = row[2];
             if (year === "2017_03_26") {
+              if (!uniqueDocuments.includes(document)) {
+                debugger;
+              }
               protocol.ballotsReceived = parseInt(row[4]);
               protocol.numRegisteredVoters = parseInt(row[5]);
               protocol.numAdditionalVoters = parseInt(row[6]);
@@ -105,9 +108,6 @@ export const parseProtocols = async (
               protocol.totalActualVoters = parseInt(row[16]);
               protocol.numValidNoOnePaperVotes = parseInt(row[18]);
             } else if (year === "2021_04_04") {
-              if (!uniqueDocuments.includes(document)) {
-                debugger;
-              }
               protocol.ballotsReceived = parseInt(row[4]);
               protocol.numRegisteredVoters = parseInt(row[5]);
               protocol.totalActualVoters = parseInt(row[6]);

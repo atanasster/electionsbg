@@ -141,11 +141,16 @@ export const parseVotes = (
                   vote.machineVotes = 0;
                   vote.paperVotes = vote.totalVotes;
                 } else {
-                  vote.paperVotes =
-                    (vote.paperVotes || 0) + parseInt(row[j + 2]);
-                  vote.machineVotes =
-                    (vote.machineVotes || 0) + parseInt(row[j + 3]);
-                  vote.totalVotes = vote.machineVotes + vote.paperVotes;
+                  if (row[j + 2] !== "") {
+                    vote.paperVotes =
+                      (vote.paperVotes || 0) + parseInt(row[j + 2]);
+                  }
+                  if (row[j + 3] !== "") {
+                    vote.machineVotes =
+                      (vote.machineVotes || 0) + parseInt(row[j + 3]);
+                  }
+                  vote.totalVotes =
+                    (vote.machineVotes || 0) + (vote.paperVotes || 0);
                 }
               }
               if (!existingVote) {
