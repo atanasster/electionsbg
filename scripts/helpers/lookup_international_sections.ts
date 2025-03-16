@@ -3,12 +3,14 @@ import { COUNTRIES } from "scripts/parsers/country_codes";
 
 export const lookup_international_sections = (
   settlement: string,
+  region: string,
   settlements: ElectionSettlement[],
 ) => {
   const settlementParts = settlement.split(", ");
-  if (settlementParts.length > 0) {
+  if (settlementParts.length > 1 || region) {
+    const r = region || settlementParts[0].trim();
     const settlement = settlements.find(
-      (s) => s.name === settlementParts[0] && s.oblast === "32",
+      (s) => s.name === r && s.oblast === "32",
     );
     if (settlement) {
       return settlement;
@@ -18,9 +20,9 @@ export const lookup_international_sections = (
     settlementParts[settlementParts.length - 1].trim(),
   );
   if (!code) {
-    //console.log(settlement);
+    //console.log(`${region} ${settlement}`);
     //return settlements.find((s) => s.kmetstvo === COUNTRIES.ALBANIA);
-    throw new Error("Could not find country for: " + settlement);
+    throw new Error(`Could not find country for: %{r} ${settlement}`);
   }
   return settlements.find((s) => s.kmetstvo === code);
 };
@@ -597,6 +599,7 @@ const lookupInternationalSections = (
     case "Нюкасъл на Tайн":
     case "Питърбороу":
     case "Лондон Иилинг":
+    case "Колчестер":
       return COUNTRIES.UNITED_KINGDOM;
     case "Алмати":
       return COUNTRIES.KAZAKHSTAN;
