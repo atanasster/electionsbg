@@ -66,6 +66,9 @@ export const parseProtocols = async (
               protocol.numValidMachineVotes = parseInt(row[26]);
             }
           } else if (year === "2013_05_12") {
+            if (!uniqueDocuments.includes(document)) {
+              debugger;
+            }
             protocol.ballotsReceived = parseInt(row[3]);
             protocol.numRegisteredVoters = parseInt(row[4]);
             protocol.numAdditionalVoters = parseInt(row[5]) + parseInt(row[6]);
@@ -75,24 +78,23 @@ export const parseProtocols = async (
             protocol.numPaperBallotsFound = parseInt(row[24]);
             protocol.numInvalidBallotsFound = parseInt(row[32]);
             protocol.numValidVotes = parseInt(row[33]);
-          } else if (year <= "2014_10_05") {
-            if (!uniqueDocuments.includes(document)) {
-              debugger;
-            }
-            const fieldsIdx = year === "2014_10_05" ? 2 : 3;
-            protocol.ballotsReceived = parseInt(row[fieldsIdx]);
-            protocol.numRegisteredVoters = parseInt(row[fieldsIdx + 1]);
-            protocol.numAdditionalVoters = parseInt(row[fieldsIdx + 2]);
-            //protocol.totalActualVoters = parseInt(row[fieldsIdx + 3]);
-            protocol.numUnusedPaperBallots = parseInt(row[fieldsIdx + 7]);
-            protocol.numInvalidAndDestroyedPaperBallots = parseInt(
-              row[fieldsIdx + 8],
-            );
-            protocol.numValidVotes = parseInt(row[fieldsIdx + 13]);
-            protocol.numPaperBallotsFound = protocol.numValidVotes;
-            protocol.numInvalidBallotsFound = parseInt(row[fieldsIdx + 14]);
-            protocol.totalActualVoters = parseInt(row[fieldsIdx + 15]);
-            protocol.numValidNoOnePaperVotes = parseInt(row[fieldsIdx + 16]);
+          } else if (year === "2014_10_05") {
+            protocol.ballotsReceived = parseInt(row[2]);
+            protocol.numRegisteredVoters = parseInt(row[3]);
+            protocol.numAdditionalVoters = parseInt(row[4]);
+            protocol.totalActualVoters = parseInt(row[5]);
+            protocol.numUnusedPaperBallots = parseInt(row[9]);
+            protocol.numInvalidAndDestroyedPaperBallots =
+              parseInt(row[10]) +
+              parseInt(row[11]) +
+              parseInt(row[12]) +
+              parseInt(row[13]) +
+              parseInt(row[14]);
+
+            protocol.numPaperBallotsFound = parseInt(row[15]);
+            protocol.numInvalidBallotsFound = parseInt(row[16]);
+            protocol.numValidVotes = parseInt(row[17]);
+            protocol.numValidNoOnePaperVotes = parseInt(row[18]);
           } else {
             protocol.rik = row[2];
             if (year === "2017_03_26") {
