@@ -24,10 +24,10 @@
     //"args": ["--prod", "--stats", "--reports", "--parties", "--candidates"],
     //"args": ["--prod", "--stats"],
     //"args": ["--prod", "--search"],
-    //"args": ["--prod", "--parties"],
+    "args": ["--prod", "--parties"],
     //"args": ["--prod", "--candidates"],
     //"args": ["--date=2024_10_27", "--prod"],
-    "args": ["--reports", "--prod"],
+    //"args": ["--reports", "--prod"],
     //"args": ["--machines", "--prod", "--date=2021_07_11"],
     /*
      * Open terminal when debugging starts (Optional)
