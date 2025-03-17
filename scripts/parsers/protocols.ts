@@ -50,9 +50,6 @@ export const parseProtocols = async (
             protocol.numInvalidBallotsFound = parseInt(row[12]);
             protocol.numValidVotes = parseInt(row[13]);
           } else if (year === "2009_07_05") {
-            if (!uniqueDocuments.includes(document)) {
-              debugger;
-            }
             if (!existingProtocol) {
               protocol.totalActualVoters = parseInt(row[9]);
               protocol.numAdditionalVoters =
