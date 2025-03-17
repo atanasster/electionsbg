@@ -7,18 +7,48 @@ export const lookup_international_sections = (
   settlements: ElectionSettlement[],
 ) => {
   const settlementParts = settlement.split(", ");
-  if (settlementParts.length > 1 || region) {
-    const r = region || settlementParts[0].trim();
-    const settlement = settlements.find(
-      (s) => s.name === r && s.oblast === "32",
-    );
-    if (settlement) {
-      return settlement;
+  let code: string | undefined = undefined;
+  switch (region) {
+    case "Великобритания": {
+      code = COUNTRIES.UNITED_KINGDOM;
+      break;
+    }
+    case "Корея": {
+      code = COUNTRIES.KOREA;
+      break;
+    }
+
+    case "Република Македония": {
+      code = COUNTRIES.NORTH_MACEDONIA;
+      break;
+    }
+    case "ФР Германия": {
+      code = COUNTRIES.GERMANY;
+      break;
+    }
+    case "Чешка република": {
+      code = COUNTRIES.CZECH_REPUBLIC;
+      break;
+    }
+    case "Република Южна Африка": {
+      code = COUNTRIES.SOUTH_AFRICA;
+      break;
+    }
+    default: {
+      if (settlementParts.length > 1 || region) {
+        const r = region || settlementParts[0].trim();
+        const settlement = settlements.find(
+          (s) => s.name === r && s.oblast === "32",
+        );
+        if (settlement) {
+          return settlement;
+        }
+      }
+      code = lookupInternationalSections(
+        settlementParts[settlementParts.length - 1].trim(),
+      );
     }
   }
-  const code = lookupInternationalSections(
-    settlementParts[settlementParts.length - 1].trim(),
-  );
   if (!code) {
     //console.log(`${region} ${settlement}`);
     //return settlements.find((s) => s.kmetstvo === COUNTRIES.ALBANIA);

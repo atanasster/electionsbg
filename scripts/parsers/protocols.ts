@@ -50,6 +50,9 @@ export const parseProtocols = async (
             protocol.numInvalidBallotsFound = parseInt(row[12]);
             protocol.numValidVotes = parseInt(row[13]);
           } else if (year === "2009_07_05") {
+            if (!uniqueDocuments.includes(document)) {
+              debugger;
+            }
             if (!existingProtocol) {
               protocol.totalActualVoters = parseInt(row[9]);
               protocol.numAdditionalVoters =
@@ -58,17 +61,13 @@ export const parseProtocols = async (
                 parseInt(row[1]) - protocol.numAdditionalVoters;
               protocol.numPaperBallotsFound = parseInt(row[19]);
               protocol.numInvalidBallotsFound = parseInt(row[25]);
-              protocol.numValidVotes =
-                protocol.numPaperBallotsFound - protocol.numInvalidBallotsFound;
+              protocol.numValidVotes = parseInt(row[26]);
             } else {
               protocol.numMachineBallots = parseInt(row[19]);
               protocol.numValidNoOneMachineVotes = parseInt(row[25]);
               protocol.numValidMachineVotes = parseInt(row[26]);
             }
           } else if (year === "2013_05_12") {
-            if (!uniqueDocuments.includes(document)) {
-              debugger;
-            }
             if (document === "Д") {
               //protocol.ballotsReceived = parseInt(row[3]);
               protocol.numRegisteredVoters = parseInt(row[2]);

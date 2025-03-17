@@ -123,7 +123,7 @@ export const generateVotes = ({
     let municipality: ElectionMunicipality | undefined = undefined;
     let settlement: ElectionSettlement | undefined = undefined;
     const regionCode = vote.section.substring(0, 2);
-    if (monthYear <= "2005_06_25") {
+    if (monthYear <= "2009_07_05") {
       if (!section) {
         section = findSectionInOtherElections(vote.section, monthYear);
         if (section) {
@@ -132,7 +132,11 @@ export const generateVotes = ({
           throw new Error(`Could not find section for votes ${vote.section}`);
         }
       }
-
+    }
+    if (monthYear <= "2005_06_25") {
+      if (!section) {
+        throw new Error(`Could not find section for votes ${vote.section}`);
+      }
       if (SOFIA_REGIONS.includes("S" + regionCode)) {
         settlement = findSofiaSettlements_2005(
           vote.section,
