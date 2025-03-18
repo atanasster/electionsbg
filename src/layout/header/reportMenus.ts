@@ -2,7 +2,7 @@ export type MenuItem = {
   title: string;
   link?: string;
   subMenu?: MenuItem[];
-  category?: "financials" | "recount" | "preferences";
+  category?: "financials" | "recount" | "preferences" | "suemg";
 };
 
 export const reportsMenu: MenuItem[] = [
@@ -42,10 +42,24 @@ export const reportsMenu: MenuItem[] = [
             title: "support_no_one",
             link: "/reports/municipality/supports_no_one",
           },
+          { title: "-", category: "recount" },
+          { title: "voting_recount", category: "recount" },
           {
             title: "votes_recount",
             link: "/reports/municipality/recount",
             category: "recount",
+          },
+          { title: "-", category: "suemg" },
+          { title: "flash_memory", category: "suemg" },
+          {
+            title: "suemg_differences",
+            link: "/reports/municipality/flash_memory",
+            category: "suemg",
+          },
+          {
+            title: "missing_flash_memory",
+            link: "/reports/municipality/missing_flash_memory",
+            category: "suemg",
           },
         ],
       },
@@ -80,10 +94,24 @@ export const reportsMenu: MenuItem[] = [
             title: "support_no_one",
             link: "/reports/settlement/supports_no_one",
           },
+          { title: "-", category: "recount" },
+          { title: "voting_recount", category: "recount" },
           {
             title: "votes_recount",
             link: "/reports/settlement/recount",
             category: "recount",
+          },
+          { title: "-", category: "suemg" },
+          { title: "flash_memory", category: "suemg" },
+          {
+            title: "suemg_differences",
+            link: "/reports/settlement/flash_memory",
+            category: "suemg",
+          },
+          {
+            title: "missing_flash_memory",
+            link: "/reports/settlement/missing_flash_memory",
+            category: "suemg",
           },
         ],
       },
@@ -118,6 +146,8 @@ export const reportsMenu: MenuItem[] = [
             title: "support_no_one",
             link: "/reports/section/supports_no_one",
           },
+          { title: "-", category: "recount" },
+          { title: "voting_recount", category: "recount" },
           {
             title: "votes_recount",
             link: "/reports/section/recount",
@@ -127,6 +157,18 @@ export const reportsMenu: MenuItem[] = [
             title: "zero_votes",
             link: "/reports/section/recount_zero_votes",
             category: "recount",
+          },
+          { title: "-", category: "suemg" },
+          { title: "flash_memory", category: "suemg" },
+          {
+            title: "suemg_differences",
+            link: "/reports/section/flash_memory",
+            category: "suemg",
+          },
+          {
+            title: "missing_flash_memory",
+            link: "/reports/section/missing_flash_memory",
+            category: "suemg",
           },
         ],
       },

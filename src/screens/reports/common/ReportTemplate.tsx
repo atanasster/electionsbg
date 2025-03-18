@@ -28,6 +28,14 @@ import { SectionLink } from "@/screens/components/sections/SectionLink";
 import { RegionLink } from "@/screens/components/regions/RegionLink";
 import { Caption } from "@/ux/Caption";
 
+export type ReportColumns = DataTableColumns<
+  ReportRow & {
+    party?: PartyInfo;
+    bottomParty?: PartyInfo;
+    topParty?: PartyInfo;
+  },
+  unknown
+>;
 export type ColumnNames =
   | "party"
   | "ekatte"
@@ -51,6 +59,7 @@ export const ReportTemplate: FC<{
   ruleKey?: string;
   visibleColumns?: ColumnNames[];
   hiddenColumns?: ColumnNames[];
+  extraColumns?: ReportColumns;
 }> = ({
   defaultThreshold,
   bigger = true,
@@ -60,6 +69,7 @@ export const ReportTemplate: FC<{
   ruleKey,
   hiddenColumns = [],
   visibleColumns = [],
+  extraColumns = [],
 }) => {
   const [searchParams, setSearchParams] = useSearchParams();
   const { priorElections } = useElectionContext();
@@ -107,14 +117,7 @@ export const ReportTemplate: FC<{
         }),
     [votes, findParty, includeAbroad, bigger, threshold],
   );
-  const columns: DataTableColumns<
-    ReportRow & {
-      party?: PartyInfo;
-      bottomParty?: PartyInfo;
-      topParty?: PartyInfo;
-    },
-    unknown
-  > = useMemo(
+  const columns: ReportColumns = useMemo(
     () => [
       {
         accessorKey: "party.nickName",
@@ -314,6 +317,7 @@ export const ReportTemplate: FC<{
         className: "font-bold",
         dataType: "pctChange",
       },
+      ...extraColumns,
     ],
     [
       findMunicipality,
@@ -325,6 +329,7 @@ export const ReportTemplate: FC<{
       priorElections,
       t,
       visibleColumns,
+      extraColumns,
     ],
   );
   return (

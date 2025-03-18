@@ -12,6 +12,7 @@ export type DataTableColumnDef<TData, TValue> = ColumnDef<TData, TValue> & {
   exportHidden?: boolean;
   className?: string;
   columns?: DataTableColumns<TData, TValue>;
+  colSpan?: number;
   dataType?:
     | "thousands"
     | "percent"

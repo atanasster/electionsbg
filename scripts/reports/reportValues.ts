@@ -1,96 +1,9 @@
-import {
-  PartyInfo,
-  PartyVotes,
-  ReportRow,
-  SectionProtocol,
-  Votes,
-  StatsVote,
-  RecountOriginal,
-  ElectionInfo,
-} from "@/data/dataTypes";
-import { findPrevVotes, topParty } from "@/data/utils";
+import { CalcProcProps, CalcRowType, round } from "./report_types";
+import { topPartyValues } from "./values/top_party";
+import { calcGainsProc } from "./values/calc_gains";
+import { calcSuemgValues } from "./values/suemg_values";
+import { calcRecountValues } from "./values/recount";
 
-const round = (num: number) => Math.ceil(num * 100) / 100;
-type FindPartyFunc = (votes: Votes[]) => PartyVotes | undefined;
-const topPartyValues = (
-  votes: Votes[],
-  protocol?: SectionProtocol,
-  findParty: FindPartyFunc = topParty,
-): Pick<ReportRow, "partyNum" | "totalVotes" | "pctPartyVote"> | undefined => {
-  const partyVotes = findParty(votes);
-  if (protocol && partyVotes) {
-    return {
-      partyNum: partyVotes.partyNum,
-      totalVotes: partyVotes.totalVotes,
-      pctPartyVote: round(
-        (100 * partyVotes.totalVotes) /
-          ((protocol.numValidVotes || 0) +
-            (protocol.numValidMachineVotes || 0)),
-      ),
-    };
-  }
-  return undefined;
-};
-type CalcRowType = Pick<
-  ReportRow,
-  "partyNum" | "totalVotes" | "pctPartyVote" | "value"
->;
-type CalcProcProps = {
-  votes: Votes[];
-  election: ElectionInfo;
-  protocol?: SectionProtocol;
-  prevYearVotes?: Votes[];
-  parties: PartyInfo[];
-  prevYearParties?: PartyInfo[];
-  original?: RecountOriginal;
-};
-
-const calcGainsProc = (
-  { votes, parties, prevYearParties, prevYearVotes, protocol }: CalcProcProps,
-  top: boolean,
-) => {
-  if (!prevYearVotes) {
-    return undefined;
-  }
-  const prevElectionVotes: StatsVote[] | undefined = prevYearVotes
-    ?.map((v) => {
-      const p = prevYearParties?.find((p1) => p1.number === v.partyNum);
-      if (!p) {
-        return undefined;
-      }
-      const { nickName, number, commonName } = p;
-      return { ...v, number, nickName, commonName };
-    })
-    .filter((p) => p !== undefined);
-  const partyVotes: PartyVotes[] = votes.map((v) => {
-    const p = parties.find((p1) => p1.number === v.partyNum);
-    return { ...v, ...p };
-  });
-  const changes = partyVotes
-    .map((pv) => {
-      const { prevTotalVotes } = findPrevVotes(pv, prevElectionVotes, true);
-      return prevTotalVotes
-        ? {
-            ...pv,
-            change: 100 * ((pv.totalVotes - prevTotalVotes) / prevTotalVotes),
-            prevVotes: prevTotalVotes,
-          }
-        : undefined;
-    })
-    .filter((a) => a !== undefined)
-    .sort((a, b) => b.change - a.change);
-  if (changes.length > 0) {
-    const change = top ? changes[0] : changes[changes.length - 1];
-    return {
-      ...topPartyValues(votes, protocol, (vt) =>
-        vt.find((v) => v.partyNum === change.partyNum),
-      ),
-      value: round(change.change),
-      prevYearVotes: change.prevVotes,
-    } as CalcRowType;
-  }
-  return undefined;
-};
 type ReportValue = {
   name: string;
   direction: "asc" | "desc";
@@ -184,134 +97,48 @@ export const reportValues: ReportValue[] = [
   },
   {
     name: "suemg",
-    direction: "asc",
-    calc: ({ votes, election }) => {
-      if (!election.hasSuemg) {
+    direction: "desc",
+    calc: (props) => {
+      const result = calcSuemgValues(props);
+      if (result?.suemgVotes || result?.machineVotes === 0) {
+        return result;
+      }
+      return undefined;
+    },
+  },
+  {
+    name: "suemg_missing_flash",
+    direction: "desc",
+    calc: (props) => {
+      const result = calcSuemgValues(props);
+      if (result?.suemgVotes || result?.machineVotes === 0) {
         return undefined;
       }
-      const isChanged = !!votes.find(
-        (v) => (v.machineVotes || 0) !== (v.suemgVotes || 0),
-      );
-      if (!isChanged) {
-        return undefined;
-      }
-      const value = votes.reduce((acc, v) => {
-        return acc + (v.machineVotes || 0) - (v.suemgVotes || 0);
-      }, 0);
-      return {
-        value,
-      };
+      return result;
     },
   },
   {
     name: "recount",
     direction: "desc",
-    calc: ({ votes, protocol, original }) => {
-      const isChanged =
-        original && (original.addedVotes !== 0 || original.removedVotes !== 0);
-
-      if (!protocol || !isChanged) {
-        return undefined;
-      }
-      const addedVotes = original.addedVotes;
-      const removedVotes = original.removedVotes;
-      const topPartyChange = votes.reduce(
-        (acc: { change: number; partyNum: number } | undefined, vote) => {
-          const originalVotes = original?.votes.find(
-            (v) => v.partyNum === vote.partyNum,
-          );
-          if (originalVotes) {
-            const stats = originalVotes;
-            if (stats.addedVotes > (acc?.change || 0)) {
-              return {
-                partyNum: vote.partyNum,
-                change: stats.addedVotes,
-              };
-            }
-          }
-          return acc;
-        },
-        undefined,
-      );
-      const bottomPartyChange = votes.reduce(
-        (acc: { change: number; partyNum: number } | undefined, vote) => {
-          const originalVotes = original?.votes.find(
-            (v) => v.partyNum === vote.partyNum,
-          );
-          if (originalVotes) {
-            const stats = originalVotes;
-            if (stats.removedVotes < (acc?.change || 0)) {
-              return {
-                partyNum: vote.partyNum,
-                change: stats.removedVotes,
-              };
-            }
-          }
-          return acc;
-        },
-        undefined,
-      );
-      return {
-        value: 0,
-        addedVotes,
-        removedVotes,
-        topPartyChange,
-        bottomPartyChange,
-      } as CalcRowType;
+    calc: (props) => {
+      return calcRecountValues(props);
     },
   },
   {
     name: "recount_zero_votes",
     direction: "desc",
-    calc: ({ votes, protocol, original }) => {
-      const isChanged =
-        original && (original.addedVotes !== 0 || original.removedVotes !== 0);
-
-      if (!protocol || !isChanged) {
-        return undefined;
-      }
-      const machineVotes = votes.reduce((acc: number, v) => {
-        return acc + (v.machineVotes || 0);
-      }, 0);
-      const paperVotes = votes.reduce((acc: number, v) => {
-        return acc + (v.paperVotes || 0);
-      }, 0);
+    calc: (props) => {
+      const { protocol, original } = props;
       if (
         !(
-          (machineVotes === 0 && original.removedMachineVotes !== 0) ||
-          (paperVotes === 0 && original.removedPaperVotes !== 0)
+          (protocol?.numValidMachineVotes === 0 &&
+            original?.removedMachineVotes !== 0) ||
+          (protocol?.numValidVotes === 0 && original?.removedPaperVotes !== 0)
         )
       ) {
         return undefined;
       }
-      const removedVotes = original.removedVotes;
-      const bottomPartyChange = votes.reduce(
-        (acc: { change: number; partyNum: number } | undefined, vote) => {
-          const originalVotes = original?.votes.find(
-            (v) => v.partyNum === vote.partyNum,
-          );
-          if (originalVotes) {
-            const stats = originalVotes;
-            if (stats.removedVotes < (acc?.change || 0)) {
-              return {
-                partyNum: vote.partyNum,
-                change: stats.removedVotes,
-              };
-            }
-          }
-          return acc;
-        },
-        undefined,
-      );
-      return {
-        value: 0,
-        addedVotes: 0,
-        removedVotes,
-        paperVotes,
-        machineVotes,
-        totalVotes: paperVotes + machineVotes,
-        bottomPartyChange,
-      } as CalcRowType;
+      return calcRecountValues(props);
     },
   },
 ];

@@ -37,6 +37,9 @@ export const Header = () => {
     if (item.category === "preferences" && !electionStats?.hasPreferences) {
       return null;
     }
+    if (item.category === "suemg" && !electionStats?.hasSuemg) {
+      return null;
+    }
     if (item.title === "-") {
       return <DropdownMenuSeparator />;
     }

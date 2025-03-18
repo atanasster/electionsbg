@@ -1,5 +1,9 @@
 import { FC } from "react";
-import { ColumnNames, ReportTemplate } from "../common/ReportTemplate";
+import {
+  ColumnNames,
+  ReportColumns,
+  ReportTemplate,
+} from "../common/ReportTemplate";
 import { ReportRow } from "@/data/dataTypes";
 
 export const Template: FC<{
@@ -10,25 +14,7 @@ export const Template: FC<{
   defaultThreshold: number;
   visibleColumns?: ColumnNames[];
   hiddenColumns?: ColumnNames[];
-}> = ({
-  titleKey,
-  ruleKey,
-  votes,
-  visibleColumns = [],
-  hiddenColumns,
-  defaultThreshold,
-  bigger,
-}) => {
-  return (
-    <ReportTemplate
-      levelKey="by_municipalities"
-      defaultThreshold={defaultThreshold}
-      bigger={bigger}
-      titleKey={titleKey}
-      votes={votes}
-      ruleKey={ruleKey}
-      visibleColumns={visibleColumns}
-      hiddenColumns={hiddenColumns}
-    />
-  );
+  extraColumns?: ReportColumns;
+}> = ({ ...props }) => {
+  return <ReportTemplate levelKey="by_municipalities" {...props} />;
 };
