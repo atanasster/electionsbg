@@ -41,6 +41,11 @@ const app = command({
       long: "date",
       short: "d",
     }),
+    election: option({
+      type: optional(string),
+      long: "election",
+      short: "e",
+    }),
     reports: flag({
       type: optional(boolean),
       long: "reports",
@@ -95,6 +100,7 @@ const app = command({
     parties,
     candidates,
     machines,
+    election,
   }) => {
     production = prod;
     if (machines) {
@@ -111,7 +117,7 @@ const app = command({
       runPartyStats(stringify);
     }
     if (reports) {
-      generateReports(inFolder, stringify);
+      generateReports(inFolder, stringify, election);
     }
     if (search) {
       generateAllSearchFIles({
