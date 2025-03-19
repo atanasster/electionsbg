@@ -1,10 +1,10 @@
-import { CalcProcProps } from "../report_types";
+import { CalcProcProps, DataTypes } from "../report_types";
 
-export const calcRecountValues = ({
+export const calcRecountValues = <DType extends DataTypes>({
   votes,
   protocol,
   original,
-}: CalcProcProps) => {
+}: CalcProcProps<DType>) => {
   const isChanged =
     original && (original.addedVotes !== 0 || original.removedVotes !== 0);
 

@@ -48,6 +48,7 @@ export const saveReport = <
           oblast: row.oblast,
           obshtina: row.obshtina,
           ...r.calc({
+            data: row,
             votes: row.results.votes,
             protocol: row.results.protocol,
             prevYearVotes: prevVotes,

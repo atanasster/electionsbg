@@ -13,27 +13,27 @@ const queryFn = async ({
     return [];
   }
   const response = await fetch(
-    `/${queryKey[1]}/reports/municipality/suemg.json`,
+    `/${queryKey[1]}/reports/section/suemg_removed.json`,
   );
   const data = await response.json();
   return data;
 };
 
-export const MunicipalitiesSuemg = () => {
+export const SectionsSuemgRemoved = () => {
   const { selected } = useElectionContext();
 
   const { data } = useQuery({
-    queryKey: ["municipality_suemg", selected],
+    queryKey: ["section_suemg_removed", selected],
     queryFn,
   });
-  const columns = useSuemgColumns(false);
+  const columns = useSuemgColumns();
   return (
     <Template
       defaultThreshold={0}
       votes={data}
-      titleKey="flash_memory_moved"
+      titleKey="flash_memory_removed"
       hiddenColumns={["party", "pctPartyVote"]}
-      visibleColumns={["top_party", "bottom_party"]}
+      visibleColumns={["bottom_party"]}
       extraColumns={columns}
     />
   );

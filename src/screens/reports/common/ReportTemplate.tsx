@@ -49,7 +49,8 @@ export type ColumnNames =
   | "pctPartyVote"
   | "votes"
   | "recount"
-  | "recount_top_party";
+  | "top_party"
+  | "bottom_party";
 export const ReportTemplate: FC<{
   defaultThreshold?: number;
   bigger?: boolean;
@@ -224,8 +225,9 @@ export const ReportTemplate: FC<{
       },
       {
         hidden:
-          !visibleColumns.includes("recount") ||
-          hiddenColumns.includes("recount_top_party"),
+          !visibleColumns.includes("top_party") &&
+          (!visibleColumns.includes("recount") ||
+            hiddenColumns.includes("top_party")),
         headerHint: t("num_votes_recount_explainer"),
         header: t("top_party_recount_gainer"),
         id: "top_party_recount_gainer",
@@ -249,7 +251,9 @@ export const ReportTemplate: FC<{
         ],
       },
       {
-        hidden: !visibleColumns.includes("recount"),
+        hidden:
+          !visibleColumns.includes("bottom_party") &&
+          !visibleColumns.includes("recount"),
         headerHint: t("num_votes_recount_explainer"),
         header: t("top_party_recount_loser"),
         id: "top_party_recount_loser",

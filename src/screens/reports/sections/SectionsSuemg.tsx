@@ -24,14 +24,14 @@ export const SectionsSuemg = () => {
     queryKey: ["section_suemg", selected],
     queryFn,
   });
-  const columns = useSuemgColumns();
+  const columns = useSuemgColumns(false);
   return (
     <Template
       defaultThreshold={0}
       votes={data}
-      titleKey="suemg_differences"
+      titleKey="flash_memory_moved"
       hiddenColumns={["party", "pctPartyVote"]}
-      visibleColumns={[]}
+      visibleColumns={["top_party", "bottom_party"]}
       extraColumns={columns}
     />
   );

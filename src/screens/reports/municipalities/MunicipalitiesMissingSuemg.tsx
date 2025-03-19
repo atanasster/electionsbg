@@ -34,7 +34,7 @@ export const MunicipalitiesMissingSuemg = () => {
       votes={data}
       titleKey="missing_flash_memory"
       hiddenColumns={["party", "pctPartyVote"]}
-      visibleColumns={[]}
+      visibleColumns={["top_party"]}
       extraColumns={columns}
     />
   );
