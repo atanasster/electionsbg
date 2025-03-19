@@ -43,6 +43,12 @@ import { SettlementsMissingSuemg } from "./screens/reports/settlements/Settlemen
 import { SettlementsSuemg } from "./screens/reports/settlements/SettlementsSuemg";
 import { MunicipalitiesMissingSuemg } from "./screens/reports/municipalities/MunicipalitiesMissingSuemg";
 import { MunicipalitiesSuemg } from "./screens/reports/municipalities/MunicipalitiesSuemg";
+import { SectionsSuemgAdded } from "./screens/reports/sections/SectionsSuemgAdded";
+import { SectionsSuemgRemoved } from "./screens/reports/sections/SectionsSuemgRemoved";
+import { SettlementsSuemgAdded } from "./screens/reports/settlements/SettlementsSuemgAdded";
+import { SettlementsSuemgRemoved } from "./screens/reports/settlements/SettlementsSuemgRemoved";
+import { MunicipalitiesSuemgAdded } from "./screens/reports/municipalities/MunicipalitiesSuemgAdded";
+import { MunicipalitiesSuemgRemoved } from "./screens/reports/municipalities/MunicipalitiesSuemgRemoved";
 
 const LayoutScreen: FC<PropsWithChildren> = ({ children }) => {
   return <Layout>{children}</Layout>;
@@ -208,6 +214,30 @@ export const AuthRoutes = () => {
               }
             />
             <Route
+              path="flash_memory"
+              element={
+                <LayoutScreen>
+                  <SettlementsSuemg />
+                </LayoutScreen>
+              }
+            />
+            <Route
+              path="flash_memory_added"
+              element={
+                <LayoutScreen>
+                  <SettlementsSuemgAdded />
+                </LayoutScreen>
+              }
+            />
+            <Route
+              path="flash_memory_removed"
+              element={
+                <LayoutScreen>
+                  <SettlementsSuemgRemoved />
+                </LayoutScreen>
+              }
+            />
+            <Route
               path="missing_flash_memory"
               element={
                 <LayoutScreen>
@@ -286,6 +316,22 @@ export const AuthRoutes = () => {
               element={
                 <LayoutScreen>
                   <MunicipalitiesSuemg />
+                </LayoutScreen>
+              }
+            />
+            <Route
+              path="flash_memory_added"
+              element={
+                <LayoutScreen>
+                  <MunicipalitiesSuemgAdded />
+                </LayoutScreen>
+              }
+            />
+            <Route
+              path="flash_memory_removed"
+              element={
+                <LayoutScreen>
+                  <MunicipalitiesSuemgRemoved />
                 </LayoutScreen>
               }
             />
@@ -376,6 +422,22 @@ export const AuthRoutes = () => {
               element={
                 <LayoutScreen>
                   <SectionsSuemg />
+                </LayoutScreen>
+              }
+            />
+            <Route
+              path="flash_memory_added"
+              element={
+                <LayoutScreen>
+                  <SectionsSuemgAdded />
+                </LayoutScreen>
+              }
+            />
+            <Route
+              path="flash_memory_removed"
+              element={
+                <LayoutScreen>
+                  <SectionsSuemgRemoved />
                 </LayoutScreen>
               }
             />

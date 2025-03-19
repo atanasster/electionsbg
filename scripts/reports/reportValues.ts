@@ -3,11 +3,18 @@ import { topPartyValues } from "./values/top_party";
 import { calcGainsProc } from "./values/calc_gains";
 import { calcSuemgValues } from "./values/suemg_values";
 import { calcRecountValues } from "./values/recount";
+import {
+  ElectionMunicipality,
+  ElectionSettlement,
+  SectionInfo,
+} from "@/data/dataTypes";
 
 type ReportValue = {
   name: string;
   direction: "asc" | "desc";
-  calc: (p: CalcProcProps) => CalcRowType | undefined;
+  calc: <DType extends ElectionMunicipality | ElectionSettlement | SectionInfo>(
+    p: CalcProcProps<DType>,
+  ) => CalcRowType | undefined;
 };
 
 export const reportValues: ReportValue[] = [
@@ -100,7 +107,46 @@ export const reportValues: ReportValue[] = [
     direction: "desc",
     calc: (props) => {
       const result = calcSuemgValues(props);
-      if (result?.suemgVotes || result?.machineVotes === 0) {
+
+      if (
+        result?.pctSuemg === 0 &&
+        result?.suemgVotes &&
+        result?.machineVotes !== 0
+      ) {
+        return result;
+      }
+      return undefined;
+    },
+  },
+  {
+    name: "suemg_added",
+    direction: "desc",
+    calc: (props) => {
+      const result = calcSuemgValues(props);
+
+      if (
+        result?.pctSuemg &&
+        result?.pctSuemg > 0 &&
+        result?.suemgVotes &&
+        result?.machineVotes !== 0
+      ) {
+        return result;
+      }
+      return undefined;
+    },
+  },
+  {
+    name: "suemg_removed",
+    direction: "asc",
+    calc: (props) => {
+      const result = calcSuemgValues(props);
+
+      if (
+        result?.pctSuemg &&
+        result?.pctSuemg < 0 &&
+        result?.suemgVotes &&
+        result?.machineVotes !== 0
+      ) {
         return result;
       }
       return undefined;

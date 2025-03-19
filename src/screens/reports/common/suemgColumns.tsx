@@ -1,17 +1,22 @@
-import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { ReportColumns } from "./ReportTemplate";
 
-export const useSuemgColumns = () => {
+export const useSuemgColumns = (changeColumns: boolean = true) => {
   const { t } = useTranslation();
-  const isSmall = useMediaQueryMatch("sm");
 
   const columns: ReportColumns = useMemo(
     () => [
       {
-        header: t("machine_votes"),
+        accessorKey: "machineVotes",
+        hidden: changeColumns,
+        header: t("machine_ballots"),
+        dataType: "thousands",
+      },
+      {
+        header: t("machine_ballots"),
         colSpan: 2,
+        hidden: !changeColumns,
         columns: [
           {
             accessorKey: "machineVotes",
@@ -31,35 +36,12 @@ export const useSuemgColumns = () => {
           {
             accessorKey: "pctSuemg",
             header: "%",
-            hidden: isSmall,
-            dataType: "pctChange",
-          },
-        ],
-      },
-      {
-        header: t("total_votes"),
-        colSpan: 2,
-        columns: [
-          {
-            accessorKey: "totalVotes",
-            header: t("recounted_votes"),
-            dataType: "thousands",
-          },
-          {
-            accessorKey: "suemgTotal",
-            header: t("suemg"),
-            hidden: isSmall,
-            dataType: "thousands",
-          },
-          {
-            accessorKey: "pctVotesChange",
-            header: "%",
             dataType: "pctChange",
           },
         ],
       },
     ],
-    [isSmall, t],
+    [changeColumns, t],
   );
   return columns;
 };

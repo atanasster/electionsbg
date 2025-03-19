@@ -1,10 +1,16 @@
 import { PartyVotes, StatsVote } from "@/data/dataTypes";
-import { CalcProcProps, CalcRowType, round } from "../report_types";
+import { CalcProcProps, CalcRowType, DataTypes, round } from "../report_types";
 import { findPrevVotes } from "@/data/utils";
 import { topPartyValues } from "./top_party";
 
-export const calcGainsProc = (
-  { votes, parties, prevYearParties, prevYearVotes, protocol }: CalcProcProps,
+export const calcGainsProc = <DType extends DataTypes>(
+  {
+    votes,
+    parties,
+    prevYearParties,
+    prevYearVotes,
+    protocol,
+  }: CalcProcProps<DType>,
   top: boolean,
 ) => {
   if (!prevYearVotes) {

@@ -72,7 +72,7 @@ export function footerRender<TData, TValue>(
       default: {
         if (header.index === 0 && stickyColumn) {
           return (
-            <div className="w-full">{`${t("total")}: ${rows.length}`}</div>
+            <div className="w-full">{`${t("total")}: ${formatThousands(rows.length)}`}</div>
           );
         }
         return undefined;

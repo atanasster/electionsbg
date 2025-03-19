@@ -26,14 +26,14 @@ export const SectionsMissingSuemg = () => {
     queryKey: ["section_suemg_missing_flash", selected],
     queryFn,
   });
-  const columns = useSuemgColumns();
+  const columns = useSuemgColumns(false);
   return (
     <Template
       defaultThreshold={0}
       votes={data}
       titleKey="missing_flash_memory"
       hiddenColumns={["party", "pctPartyVote"]}
-      visibleColumns={[]}
+      visibleColumns={["top_party"]}
       extraColumns={columns}
     />
   );

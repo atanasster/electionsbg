@@ -21,7 +21,8 @@ export const PartySuemgTable: FC<{
   const hasMachineVotes = results?.votes.find((v) => v.machineVotes);
   const data = useMemo(() => {
     return parties
-      ?.map((p) => {
+      ?.filter((p) => p.suemgVotes !== undefined && p.machineVotes)
+      .map((p) => {
         const machineVotesChange = (p.machineVotes || 0) - (p.suemgVotes || 0);
         const pctSuemg = pctChange(p.machineVotes, p.suemgVotes);
         const pctMachineVotesChange = pctChange(p.machineVotes, p.suemgVotes);
@@ -36,6 +37,7 @@ export const PartySuemgTable: FC<{
           pctVotesChange,
         };
       })
+
       .sort((a, b) => b.machineVotesChange - a.machineVotesChange);
   }, [parties]);
   const columns: DataTableColumns<PartyVotes, unknown> = useMemo(
