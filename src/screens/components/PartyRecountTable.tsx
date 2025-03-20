@@ -11,6 +11,7 @@ import { useTranslation } from "react-i18next";
 import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
 import { Caption } from "@/ux/Caption";
 import { PartyLink } from "./party/PartyLink";
+import { pctChange } from "@/data/utils";
 
 export const PartyRecountTable: FC<{
   votes?: { results?: VoteResults; original?: RecountOriginal };
@@ -20,27 +21,42 @@ export const PartyRecountTable: FC<{
   const { t } = useTranslation();
   const isXSmall = useMediaQueryMatch("xs");
   const isSmall = useMediaQueryMatch("sm");
-  const hasPaperVotes = results?.votes.find((v) => v.paperVotes);
-  const hasMachineVotes = results?.votes.find((v) => v.machineVotes);
+  const hasPaperVotes =
+    results?.votes.find((v) => v.paperVotes) ||
+    original?.addedPaperVotes ||
+    original?.removedPaperVotes;
+  const hasMachineVotes =
+    results?.votes.find((v) => v.machineVotes) ||
+    original?.addedMachineVotes ||
+    original?.removedMachineVotes;
   const parties = useTopParties(results?.votes, 0);
   const data = useMemo(() => {
-    return parties?.map((p) => {
-      const o = original?.votes.find((o) => o.partyNum === p.partyNum);
-      const totalVotesChange = o ? o.addedVotes + o.removedVotes : 0;
+    return parties
+      ?.map((p) => {
+        const o = original?.votes.find((o) => o.partyNum === p.partyNum);
+        const totalVotesChange = o ? o.addedVotes + o.removedVotes : 0;
 
-      const pctTotalVotesChange = p.totalVotes
-        ? (100 * totalVotesChange) / p.totalVotes
-        : o && (o.addedVotes || o.removedVotes)
-          ? -100
-          : undefined;
-      return {
-        ...p,
-        paperVotesChange: o ? o.addedPaperVotes + o.removedPaperVotes : 0,
-        machineVotesChange: o ? o.addedMachineVotes + o.removedMachineVotes : 0,
-        totalVotesChange,
-        pctTotalVotesChange,
-      };
-    });
+        const pctTotalVotesChange = pctChange(
+          p.totalVotes,
+          p.totalVotes - totalVotesChange,
+        );
+        return {
+          ...p,
+          paperVotesChange: o ? o.addedPaperVotes + o.removedPaperVotes : 0,
+          machineVotesChange: o
+            ? o.addedMachineVotes + o.removedMachineVotes
+            : 0,
+          totalVotesChange,
+          pctTotalVotesChange,
+        };
+      })
+      .filter(
+        (p) =>
+          p.paperVotes ||
+          p.machineVotes ||
+          p.paperVotesChange ||
+          p.machineVotesChange,
+      );
   }, [original?.votes, parties]);
   const columns: DataTableColumns<PartyVotes, unknown> = useMemo(
     () => [

@@ -8,7 +8,9 @@ export const lookup_international_sections = (
 ) => {
   const settlementParts = settlement.split(", ");
   let code: string | undefined = undefined;
-  switch (region) {
+  const countryParts = region.split("Извън страната ");
+  const country = countryParts[countryParts.length - 1];
+  switch (country) {
     case "Великобритания": {
       code = COUNTRIES.UNITED_KINGDOM;
       break;
@@ -35,11 +37,18 @@ export const lookup_international_sections = (
       break;
     }
     default: {
-      if (settlementParts.length > 1 || region) {
-        const r = region || settlementParts[0].trim();
-        const settlement = settlements.find(
-          (s) => s.name === r && s.oblast === "32",
-        );
+      if (settlementParts.length > 1 || country) {
+        let settlement: ElectionSettlement | undefined = undefined;
+        if (country) {
+          settlement = settlements.find(
+            (s) => s.name === country && s.oblast === "32",
+          );
+        }
+        if (settlement) {
+          return settlement;
+        }
+        const c = settlementParts[0].trim();
+        settlement = settlements.find((s) => s.name === c && s.oblast === "32");
         if (settlement) {
           return settlement;
         }
@@ -127,6 +136,14 @@ const lookupInternationalSections = (
       return COUNTRIES.CZECH_REPUBLIC;
     case "Отава":
     case "Торонто":
+    case "Брамптън":
+    case "Ванкувър":
+    case "Вон":
+    case "Едмънтън":
+    case "Калгари":
+    case "Китченер":
+    case "Монреал":
+    case "Ниагара Фолс":
       return COUNTRIES.CANADA;
     case "Доха":
       return COUNTRIES.QATAR;
@@ -388,9 +405,30 @@ const lookupInternationalSections = (
       return COUNTRIES.GEORGIA;
     case "Атина":
     case "Солун":
+    case "Александропулис":
+    case "Кавала":
+    case "Каламата":
+    case "Комотини":
+    case "Нафплио":
+    case "Никити":
+    case "остров Корфу":
+    case "остров Кос":
+    case "остров Крит":
+    case "остров Лимнос":
+    case "остров Миконос":
+    case "остров Родос":
+    case "Патра":
+    case "Ставрос":
       return COUNTRIES.GREECE;
     case "Копенхаген":
     case "Орхус":
+    case "Норебро":
+    case "Одензе":
+    case "Олборг":
+    case "Роскилде":
+    case "Тааструп":
+    case "Хернинг":
+    case "Хорсенс":
       return COUNTRIES.DENMARK;
     case "Кайро":
       return COUNTRIES.EGYPT;
@@ -403,6 +441,8 @@ const lookupInternationalSections = (
       return COUNTRIES.IRAN;
     case "Дъблин":
     case "Корк":
+    case "Лимерик/Енис":
+    case "Тюламор":
       return COUNTRIES.IRELAND;
     case "Рейкявик":
       return COUNTRIES.ICELAND;
@@ -437,6 +477,43 @@ const lookupInternationalSections = (
     case "Тенерифе":
     case "Торревиеха":
     case "Хетафе":
+    case "Алзира":
+    case "Алфас дел Пи":
+    case "Аранда де Дуеро":
+    case "Аресифе (Лансароте)":
+    case "Бенидорм":
+    case " Вилярес де ла Рейна":
+    case "Витория-Гастейс":
+    case "Гуадалахара":
+    case "Ел Ехидо":
+    case "Ел Раал":
+    case "Енгера":
+    case "Ехеа де лос Кабайерос":
+    case "Ибиса":
+    case "Йорет де Мар":
+    case "Кастейон де ла Плана":
+    case "Колядо Вилялба":
+    case "Куенка":
+    case "Лас Палмас де Гран Канария":
+    case "Леон":
+    case "Лерида":
+    case "Марбеля":
+    case "Мостолес":
+    case "Олерия":
+    case "Паленсия":
+    case "Пуерто де Сагунто":
+    case "Сантани":
+    case "Сарагоса":
+    case "Сарон":
+    case "Севиля":
+    case "Сория":
+    case "Тафая":
+    case "Торевиеха":
+    case "Тудела":
+    case "Уеркал – Овера":
+    case "Фигерес":
+    case "Фрага":
+    case "Хатива":
       return COUNTRIES.SPAIN;
     case "Анцио":
     case "Бари":
@@ -447,6 +524,24 @@ const lookupInternationalSections = (
     case "Рим":
     case "Торино":
     case "Флоренция":
+    case "Абадия ди Монтепулчано":
+    case "Акония ди Куринга":
+    case "Анкона":
+    case "Болоня":
+    case "Верона":
+    case "Генуа":
+    case "Колеферо":
+    case "Матера":
+    case "Нетуно":
+    case "Перуджа":
+    case "Понтедера":
+    case "Римини":
+    case "Салерно":
+    case "Сиена":
+    case "Тренто":
+    case "Триест":
+    case "Фоджа":
+    case "Чезена":
       return COUNTRIES.ITALY;
     case "Сана":
       return COUNTRIES.YEMEN;
@@ -462,6 +557,7 @@ const lookupInternationalSections = (
     case "Мелбърн":
     case "Пърт":
     case "Сидни":
+    case "AU":
       return COUNTRIES.AUSTRALIA;
     case "Виена":
     case "Грац":
@@ -471,6 +567,7 @@ const lookupInternationalSections = (
     case "Велс":
     case "Инсбрук":
     case "Клагенфурт":
+    case "Брайтенбрун ам Нойзидлер Зее":
       return COUNTRIES.AUSTRIA;
     case "Тирана":
     case "Елбасан":
@@ -493,6 +590,7 @@ const lookupInternationalSections = (
     case "Льовен":
     case "Маасмехелен":
     case "Хаселт":
+    case "Генк":
       return COUNTRIES.BELGIUM;
     case "Сараево":
       return COUNTRIES.BOSNIA_HERZEGOVINA;

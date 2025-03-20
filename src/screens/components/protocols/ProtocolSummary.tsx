@@ -52,35 +52,44 @@ export const ProtocolSummary: FC<{
                   )}
                 </div>
                 <div className="flex justify-between text-xs text-muted-foreground leading-6">
-                  <Hint text={t("num_registered_voters_explainer")}>
-                    <div>{`${t("registered_voters")}: `}</div>
+                  <Hint text={t("num_all_voters_explainer")}>
+                    <div>{`${t("voters")}: `}</div>
                   </Hint>
-                  <Hint text={t("num_registered_voters_explainer")}>
+                  <Hint text={t("num_all_voters_explainer")}>
                     <div className="font-bold text-primary">
-                      {formatThousands(protocol.numRegisteredVoters)}
+                      {formatThousands(
+                        (protocol.numRegisteredVoters || 0) +
+                          (protocol.numAdditionalVoters || 0),
+                      )}
                     </div>
                   </Hint>
                 </div>
                 <div className="flex justify-between text-xs text-muted-foreground">
-                  <Hint text={t("num_additional_voters_explainer")}>
-                    <div>{`${t("additional_voters")}: `}</div>
+                  <Hint text={t("valid_votes_explainer")}>
+                    <div>{`${t("valid_votes")}: `}</div>
                   </Hint>
                   <div className="flex">
-                    <Hint text={t("num_additional_voters_explainer")}>
+                    <Hint text={t("valid_votes_explainer")}>
                       <span className="font-bold text-primary">
-                        {formatThousands(protocol.numAdditionalVoters)}
+                        {formatThousands(
+                          (protocol.numValidMachineVotes || 0) +
+                            (protocol.numValidVotes || 0),
+                        )}
                       </span>
                     </Hint>
-                    <Hint text={t("pct_additional_voters_explainer")}>
-                      <div className="font-bold text-primary ml-2">
-                        {`(${formatPct(
-                          100 *
-                            ((protocol.numAdditionalVoters || 0) /
-                              protocol.totalActualVoters),
-                          2,
-                        )})`}
-                      </div>
-                    </Hint>
+                    {protocol.numRegisteredVoters && (
+                      <Hint text={t("pct_valid_votes_explainer")}>
+                        <div className="font-bold text-primary ml-2">
+                          {`(${formatPct(
+                            100 *
+                              (((protocol.numValidMachineVotes || 0) +
+                                (protocol.numValidVotes || 0)) /
+                                protocol.numRegisteredVoters),
+                            2,
+                          )})`}
+                        </div>
+                      </Hint>
+                    )}
                   </div>
                 </div>
                 <div className="flex justify-between text-xs text-muted-foreground leading-6">
@@ -308,9 +317,11 @@ export const ProtocolSummary: FC<{
                 </ProtocolCard>
               )}
 
-              <ProtocolCard icon={<Flag />} title={t("top_parties")}>
-                <VotesChart votes={topParties} maxRows={6} />
-              </ProtocolCard>
+              {!!topParties?.length && (
+                <ProtocolCard icon={<Flag />} title={t("top_parties")}>
+                  <VotesChart votes={topParties} maxRows={6} />
+                </ProtocolCard>
+              )}
             </>
           ) : (
             <div className="h-48" />

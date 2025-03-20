@@ -53,9 +53,9 @@ export const RecountAddedVotesCard: FC<{
             className="font-bold"
             number={original.addedPaperVotes}
           />
-          {!!paperVotesRecount && (
+          {!!original.addedPaperVotes && (
             <div className="font-bold text-primary ml-2">
-              {`(${formatPct((100 * original.addedPaperVotes) / paperVotesRecount, 2)})`}
+              {`(${formatPct(paperVotesRecount ? (100 * original.addedPaperVotes) / paperVotesRecount : -100, 2)})`}
             </div>
           )}
         </div>
@@ -67,9 +67,9 @@ export const RecountAddedVotesCard: FC<{
             className="font-bold"
             number={original.addedMachineVotes}
           />
-          {!!machineVotesRecount && (
+          {!!original.addedMachineVotes && (
             <div className="font-bold text-primary ml-2">
-              {`(${formatPct((100 * original.addedMachineVotes) / machineVotesRecount, 2)})`}
+              {`(${formatPct(machineVotesRecount ? (100 * original.addedMachineVotes) / machineVotesRecount : -100, 2)})`}
             </div>
           )}
         </div>
