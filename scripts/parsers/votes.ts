@@ -12,6 +12,7 @@ export const parseVotes = (
   inFolder: string,
   year: string,
   parties: PartyInfo[],
+  recount: boolean,
 ): Promise<ElectionVotes[]> => {
   const result: string[][] = [];
   const allVotes: ElectionVotes[] = [];
@@ -44,7 +45,6 @@ export const parseVotes = (
                 votes: [],
               };
           const isMachineOnly = isMachineOnlyVote(year);
-
           if (year <= "2009_07_05") {
             let j = 1;
             while (j < row.length) {
@@ -109,6 +109,7 @@ export const parseVotes = (
           } else {
             let j = year <= "2021_04_04" ? 2 : 3;
             const isOld = year <= "2017_03_26";
+
             while (j < row.length) {
               const partyNum = parseInt(row[j]);
               const totalVotes = parseInt(row[j + 1]);
@@ -149,13 +150,17 @@ export const parseVotes = (
                       (vote.machineVotes || 0) + parseInt(row[j + 3]);
                   }
                 }
+                if (recount && row[j + 4] !== "") {
+                  vote.paperVotes =
+                    (vote.paperVotes || 0) + parseInt(row[j + 4]);
+                }
                 vote.totalVotes =
                   (vote.machineVotes || 0) + (vote.paperVotes || 0);
               }
               if (!existingVote) {
                 votes.votes.push(vote);
               }
-              j += isOld ? 3 : isMachineOnly ? 2 : 4;
+              j += isOld ? 3 : isMachineOnly ? 2 : recount ? 5 : 4;
             }
           }
           if (!existingVotes) {

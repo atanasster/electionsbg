@@ -18,7 +18,7 @@
   "valid_votes": "Valid votes",
   "invalid_ballots": "Invalid ballots",
   "support_no_one": "Supports no one",
-  "total_voters": "Total voters (signed)",
+  "total_voters": "Total voters",
   "party": "Party",
   "parties": "Parties",
   "top_parties": "Top parties",
@@ -55,6 +55,8 @@
   "total_machine_votes_explainer": "The total number of actual votes from the machines, supporting the lists of candidates of parties, coalitions and initiative committees",
   "num_registered_voters_explainer": "The number of voters in the election lists delivered to the election commission",
   "num_additional_voters_explainer": "The number of voters, listed in the additional page (under the line) of the election lists on the day of the elections",
+  "num_all_voters_explainer": "The total number of voters in the election lists and the voters in the additional page (under the line)",
+  "pct_valid_votes_explainer": "Percent of the valid votes submitted, compared to the total number of voters",
   "pct_additional_voters_explainer": "Percentage of the additional voters, compared to the total number of actual voters",
   "pct_total_voters_explainer": "Percentage of the actual voters, compared to the total number of registered voters in the election lists",
   "pct_invalid_ballots_to_all_votes_explainer": 

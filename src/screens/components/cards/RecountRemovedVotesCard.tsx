@@ -49,9 +49,9 @@ export const RecountRemovedVotesCard: FC<{
             className="font-bold"
             number={original.removedPaperVotes}
           />
-          {!!paperVotesRecount && (
+          {!!original.removedPaperVotes && (
             <div className="font-bold text-primary ml-2">
-              {`(${formatPct((100 * original.removedPaperVotes) / paperVotesRecount, 2)})`}
+              {`(${formatPct(paperVotesRecount ? (100 * original.removedPaperVotes) / paperVotesRecount : -100, 2)})`}
             </div>
           )}
         </div>
@@ -63,9 +63,9 @@ export const RecountRemovedVotesCard: FC<{
             className="font-bold"
             number={original.removedMachineVotes}
           />
-          {!!machineVotesRecount && (
+          {!!original.removedMachineVotes && (
             <div className="font-bold text-primary ml-2">
-              {`(${formatPct((100 * original.removedMachineVotes) / machineVotesRecount, 2)})`}
+              {`(${formatPct(machineVotesRecount ? (100 * original.removedMachineVotes) / machineVotesRecount : -100, 2)})`}
             </div>
           )}
         </div>

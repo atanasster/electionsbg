@@ -42,12 +42,14 @@ const RecountInternal: FC<{
     const topParties = parties
       .filter((p) => p.addedVotes > 0)
       .map((p) => ({ ...p, totalVotes: p.addedVotes }))
-      .sort((a, b) => b.totalVotes - a.totalVotes);
+      .sort((a, b) => b.totalVotes - a.totalVotes)
+      .slice(0, 5);
 
     const bottomParties = parties
       .filter((p) => p.removedVotes < 0)
       .map((p) => ({ ...p, totalVotes: Math.abs(p.removedVotes) }))
-      .sort((a, b) => b.totalVotes - a.totalVotes);
+      .sort((a, b) => b.totalVotes - a.totalVotes)
+      .slice(0, 5);
     return { topParties, bottomParties };
   }, [findParty, original.votes, results.votes]);
   return original.addedVotes || original.removedVotes ? (

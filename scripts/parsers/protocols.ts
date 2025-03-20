@@ -273,7 +273,10 @@ export const parseProtocols = async (
                 protocol.numPaperBallotsFound = parseInt(row[12]);
                 protocol.numInvalidBallotsFound = parseInt(row[13]);
                 protocol.numValidNoOnePaperVotes = parseInt(row[14]);
-                protocol.numValidVotes = parseInt(row[15]);
+                protocol.numValidVotes =
+                  protocol.numPaperBallotsFound -
+                  protocol.numInvalidBallotsFound -
+                  protocol.numValidNoOnePaperVotes;
                 if (row.length > 16) {
                   if (row[16].trim() !== "") {
                     protocol.numMachineBallots = parseInt(row[16]);
@@ -281,7 +284,11 @@ export const parseProtocols = async (
                   if (row[17].trim() !== "") {
                     protocol.numValidNoOneMachineVotes = parseInt(row[17]);
                   }
-                  if (row[18].trim() !== "") {
+                  if (protocol.numMachineBallots !== undefined) {
+                    protocol.numValidMachineVotes =
+                      protocol.numMachineBallots -
+                      (protocol.numValidNoOneMachineVotes || 0);
+                  } else if (row[18].trim() !== "") {
                     protocol.numValidMachineVotes = parseInt(row[18]);
                   }
                 }

@@ -134,7 +134,7 @@ const app = command({
       });
     }
     if (candidates) {
-      await createPreferencesFiles(stringify);
+      await createPreferencesFiles(stringify, election);
     }
   },
 });

@@ -8,6 +8,8 @@ import { parseSections } from "./sections";
 import { parseParties } from "./parties";
 import { splitSections } from "./split_sections";
 import { generateSearch } from "scripts/search";
+import { backupFileName } from "scripts/recount/backup_file";
+import { sectionVotesFileName } from "scripts/consts";
 
 const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
 const __dirname = path.dirname(__filename); // get the name of the directory
@@ -26,11 +28,13 @@ const parseElection = async ({
   if (!fs.existsSync(outFolder)) {
     fs.mkdirSync(outFolder);
   }
+  const sectionsBackUpFile = `${inFolder}/${backupFileName(sectionVotesFileName)}`;
+  const hasRecount = fs.existsSync(sectionsBackUpFile);
   //const parties =
   const parties = await parseParties(inFolder, outFolder, monthYear, stringify);
   const sections = await parseSections(inFolder, monthYear);
 
-  const votes = await parseVotes(inFolder, monthYear, parties);
+  const votes = await parseVotes(inFolder, monthYear, parties, hasRecount);
   const protocols = await parseProtocols(
     inFolder,
     //outFolder,
