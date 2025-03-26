@@ -24,6 +24,7 @@ export const IconTabs = <DType extends string>(props: {
   icons?: {
     [key: string]: ReactNode;
   };
+  mobileTabs?: number;
 }) => {
   const {
     title,
@@ -34,6 +35,7 @@ export const IconTabs = <DType extends string>(props: {
     children,
     excluded,
     className,
+    mobileTabs = 3,
   } = props;
   const { t } = useTranslation();
   const isMedium = useMediaQueryMatch("md");
@@ -56,59 +58,63 @@ export const IconTabs = <DType extends string>(props: {
           {isMedium ? title : shortTitle || title}
         </div>
         <div className="flex gap-2 ">
-          {visibleTabs.slice(0, isLarge ? undefined : 3).map((key: DType) => {
-            return (
-              <Button
-                key={key}
-                variant="outline"
-                role="radio"
-                data-state={view === key ? "checked" : "unchecked"}
-                className={cn(
-                  "flex w-20 data-[state=checked]:bg-muted text-muted-foreground",
-                  className,
-                )}
-                onClick={() => {
-                  setView(key);
-                }}
-              >
-                {icons?.[key]}
-                <span className="text-xs text-muted-foreground">
-                  {t(key).toLowerCase()}
-                </span>
-              </Button>
-            );
-          })}
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <button
-                data-collapse-toggle="navbar-default"
-                type="button"
-                className="inline-flex items-center justify-center rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
-                aria-controls="navbar-default"
-                aria-expanded="false"
-              >
-                <span className="sr-only">Open menu</span>
-                <Ellipsis />
-              </button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent className="w-56">
-              {visibleTabs.slice(3).map((key: DType) => (
-                <DropdownMenuCheckboxItem
-                  checked={view === key}
-                  onCheckedChange={(checked) => {
-                    if (checked) setView(key);
+          {visibleTabs
+            .slice(0, isLarge ? undefined : mobileTabs)
+            .map((key: DType) => {
+              return (
+                <Button
+                  key={key}
+                  variant="outline"
+                  role="radio"
+                  data-state={view === key ? "checked" : "unchecked"}
+                  className={cn(
+                    "flex w-20 data-[state=checked]:bg-muted text-muted-foreground",
+                    className,
+                  )}
+                  onClick={() => {
+                    setView(key);
                   }}
                 >
-                  <div className="flex gap-2 items-center">
-                    {icons?.[key]}
-                    <span className="text-xs text-muted-foreground">
-                      {t(key).toLowerCase()}
-                    </span>
-                  </div>
-                </DropdownMenuCheckboxItem>
-              ))}
-            </DropdownMenuContent>
-          </DropdownMenu>
+                  {icons?.[key]}
+                  <span className="text-xs text-muted-foreground">
+                    {t(key).toLowerCase()}
+                  </span>
+                </Button>
+              );
+            })}
+          {visibleTabs.length > mobileTabs && (
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <button
+                  data-collapse-toggle="navbar-default"
+                  type="button"
+                  className="inline-flex items-center justify-center rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                  aria-controls="navbar-default"
+                  aria-expanded="false"
+                >
+                  <span className="sr-only">Open menu</span>
+                  <Ellipsis />
+                </button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-56">
+                {visibleTabs.slice(3).map((key: DType) => (
+                  <DropdownMenuCheckboxItem
+                    checked={view === key}
+                    onCheckedChange={(checked) => {
+                      if (checked) setView(key);
+                    }}
+                  >
+                    <div className="flex gap-2 items-center">
+                      {icons?.[key]}
+                      <span className="text-xs text-muted-foreground">
+                        {t(key).toLowerCase()}
+                      </span>
+                    </div>
+                  </DropdownMenuCheckboxItem>
+                ))}
+              </DropdownMenuContent>
+            </DropdownMenu>
+          )}
         </div>
       </div>
       <Separator className="my-2" />
