@@ -12,8 +12,7 @@ import { useSettlementsByMunicipality } from "@/data/settlements/useSettlementsB
 export const SettlementsMap: React.FC<{
   municipality: MunicipalityInfo;
   size: MapCoordinates;
-  withNames: boolean;
-}> = ({ size, withNames, municipality }) => {
+}> = ({ size, municipality }) => {
   const votes = useSettlementsByMunicipality(municipality.obshtina);
   const { tooltip, ...tooltipEvents } = useTooltip();
   const mapGeo = useSettlementsMap(municipality.obshtina);
@@ -29,7 +28,6 @@ export const SettlementsMap: React.FC<{
       mapGeo,
       size,
       votes,
-      withNames,
       onClick: (props) => ({
         pathname: `/sections/${props.ekatte}`,
       }),

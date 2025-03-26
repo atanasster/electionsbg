@@ -82,7 +82,7 @@ export const IconTabs = <DType extends string>(props: {
                 </Button>
               );
             })}
-          {visibleTabs.length > mobileTabs && (
+          {visibleTabs.length > mobileTabs && !isLarge && (
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <button
@@ -99,6 +99,7 @@ export const IconTabs = <DType extends string>(props: {
               <DropdownMenuContent className="w-56">
                 {visibleTabs.slice(3).map((key: DType) => (
                   <DropdownMenuCheckboxItem
+                    key={key}
                     checked={view === key}
                     onCheckedChange={(checked) => {
                       if (checked) setView(key);

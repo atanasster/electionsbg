@@ -9,6 +9,7 @@ import { getDataProjection } from "@/screens/components/maps/d3_utils";
 import { MapCoordinates } from "@/layout/dataview/MapLayout";
 import { NavigateParams } from "@/ux/useNavigateParams";
 import { TooltipEvents } from "@/ux/useTooltip";
+import { useOptions } from "@/layout/dataview/OptionsContext";
 
 type MapElementsList = {
   maps: (ReactNode | undefined)[];
@@ -19,7 +20,6 @@ export function useMapElements<DType extends GeoJSONProps>({
   mapGeo,
   votes,
   size,
-  withNames,
   findInfo,
   findVotes,
   onClick,
@@ -28,7 +28,7 @@ export function useMapElements<DType extends GeoJSONProps>({
   mapGeo?: GeoJSONMap<DType>;
   votes?: ElectionResults[];
   size: MapCoordinates;
-  withNames: boolean;
+
   findVotes: (props: DType) => ElectionResults | undefined;
   findInfo: (props: DType) => LocationInfo | undefined;
   onClick: (props: DType) => NavigateParams;
@@ -40,6 +40,7 @@ export function useMapElements<DType extends GeoJSONProps>({
     () => getDataProjection(mapGeo as d3.GeoPermissibleObjects, size),
     [mapGeo, size],
   );
+  const { withNames } = useOptions();
   const { maxVotes, minVotes } = useMemo(() => minMaxVotes(votes), [votes]);
   return {
     bounds,

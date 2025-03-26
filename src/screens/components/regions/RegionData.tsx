@@ -14,13 +14,7 @@ export const RegionData: FC<{ title: string }> = ({ title }) => {
     <DataViewContainer title={title}>
       {(view) => {
         if (view === "map")
-          return (
-            <MapLayout>
-              {(size, withNames) => (
-                <RegionsMap size={size} withNames={withNames} />
-              )}
-            </MapLayout>
-          );
+          return <MapLayout>{(size) => <RegionsMap size={size} />}</MapLayout>;
         if (view === "table") return <RegionsAreasTable />;
         if (view === "parties") return <RegionsPartyTable title={title} />;
         if (view === "recount") return <RegionsRecountTable title={title} />;

@@ -19,13 +19,7 @@ export const MunicipalityData: FC<{ region: string; title: string }> = ({
         if (view === "map") {
           return (
             <MapLayout>
-              {(size, withNames) => (
-                <MunicipalitiesMap
-                  region={region}
-                  size={size}
-                  withNames={withNames}
-                />
-              )}
+              {(size) => <MunicipalitiesMap region={region} size={size} />}
             </MapLayout>
           );
         }
