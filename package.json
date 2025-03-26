@@ -10,6 +10,7 @@
     "preview": "vite preview",
     "data": "tsx ./scripts/main.ts",
     "prod": "tsx ./scripts/main.ts --all --prod",
+    "sitemap": "tsx ./scripts/sitemap/index.ts",
     "size": "npx tsc && vite-size",
     "stats": "npx vite-bundle-visualizer",
     "deploy": "firebase deploy -P default",
