@@ -1,6 +1,6 @@
 import { useSearchParams } from "react-router-dom";
 
-const globalParams = ["elections", "recount", "view", "party_tabs"];
+const globalParams = ["elections", "recount", "view", "party_tabs", "summary"];
 
 export const usePreserveParams = () => {
   const [searchParams] = useSearchParams();

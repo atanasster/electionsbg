@@ -13,6 +13,7 @@ import { SofiaAreasTable } from "./components/sofia/SofiaAreasTable";
 import { PreferencesSofia } from "./components/preferences/PreferencesSofia";
 import { PartyRecountTable } from "./components/PartyRecountTable";
 import { PartySuemgTable } from "./components/PartySuemgTable";
+import { RecountCards } from "./components/protocols/RecountCards";
 
 export const SofiaScreen = () => {
   const { t } = useTranslation();
@@ -26,6 +27,7 @@ export const SofiaScreen = () => {
         {title}
       </Title>
       <ProtocolSummary results={results} original={original} />
+      <RecountCards results={results} original={original} />
       <DataViewContainer title={title}>
         {(view) => {
           if (view === "map")

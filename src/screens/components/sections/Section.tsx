@@ -14,6 +14,7 @@ import { MultiHistoryChart } from "../charts/MultiHistoryChart";
 import { PreferencesBySection } from "../preferences/PreferencesBySection";
 import { PartyRecountTable } from "../PartyRecountTable";
 import { PartySuemgTable } from "../PartySuemgTable";
+import { RecountCards } from "../protocols/RecountCards";
 
 export const Section: FC<{ section: SectionInfo }> = ({ section }) => {
   const { t } = useTranslation();
@@ -39,13 +40,11 @@ export const Section: FC<{ section: SectionInfo }> = ({ section }) => {
   return (
     <div className={`w-full`}>
       <div>
-        <Caption>{title}</Caption>
-        <Caption className="mb-4">{`${section.settlement}${section.address ? `-${section.address}` : ""}`}</Caption>
-        <ProtocolSummary
-          results={section.results}
-          original={section.original}
-        />
-
+        <ProtocolSummary results={section.results} original={section.original}>
+          <Caption>{title}</Caption>
+          <Caption className="mb-4">{`${section.settlement}${section.address ? `-${section.address}` : ""}`}</Caption>
+        </ProtocolSummary>
+        <RecountCards results={section.results} original={section.original} />
         <DataViewContainer
           title={title}
           excluded={{

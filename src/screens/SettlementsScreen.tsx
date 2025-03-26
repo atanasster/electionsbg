@@ -8,6 +8,7 @@ import { SEO } from "@/ux/SEO";
 import { H1 } from "@/ux/H1";
 import { Link } from "@/ux/Link";
 import { SettlementData } from "./components/settlements/SettlementData";
+import { RecountCards } from "./components/protocols/RecountCards";
 
 export const SettlementsScreen = () => {
   const { id: muniCode } = useParams();
@@ -48,6 +49,10 @@ export const SettlementsScreen = () => {
       <H1>{title}</H1>
 
       <ProtocolSummary
+        results={municipality?.results}
+        original={municipality?.original}
+      />
+      <RecountCards
         results={municipality?.results}
         original={municipality?.original}
       />

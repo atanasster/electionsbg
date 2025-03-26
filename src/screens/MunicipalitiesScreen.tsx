@@ -5,6 +5,7 @@ import { useRegionVotes } from "@/data/regions/useRegionVotes";
 import { Title } from "@/ux/Title";
 import { useRegions } from "@/data/regions/useRegions";
 import { MunicipalityData } from "./components/municipalities/MunicipalityData";
+import { RecountCards } from "./components/protocols/RecountCards";
 
 export const MunicipalitiesScreen = () => {
   const { id: region } = useParams();
@@ -26,6 +27,10 @@ export const MunicipalitiesScreen = () => {
         {title}
       </Title>
       <ProtocolSummary
+        results={regionVotes?.results}
+        original={regionVotes?.original}
+      />
+      <RecountCards
         results={regionVotes?.results}
         original={regionVotes?.original}
       />
