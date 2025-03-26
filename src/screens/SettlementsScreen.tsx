@@ -43,7 +43,7 @@ export const SettlementsScreen = () => {
     <>
       <SEO
         title={`${t("municipalities")} ${info ? (i18n.language === "bg" ? info?.name : info?.name_en) : ""}`}
-        description="Interactive map  of a settlement in the elections in Bulgaria"
+        description="Interactive map of a settlement in the elections in Bulgaria"
       />
       <H1>{title}</H1>
 

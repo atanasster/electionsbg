@@ -22,7 +22,7 @@ export const MunicipalitiesScreen = () => {
       : info?.long_name_en || info?.name_en) || "";
   return (
     <>
-      <Title description="Interactive map  of a municipality in the elections in Bulgaria">
+      <Title description="Interactive map of a municipality in the elections in Bulgaria">
         {title}
       </Title>
       <ProtocolSummary
