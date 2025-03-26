@@ -12,8 +12,7 @@ import { LeafletMap } from "../maps/LeafletMap";
 
 export const RegionsMap: React.FC<{
   size: MapCoordinates;
-  withNames: boolean;
-}> = ({ size, withNames }) => {
+}> = ({ size }) => {
   const { tooltip, ...tooltipEvents } = useTooltip();
   const mapGeo = useRegionsMap();
   const { countryRegions } = useRegionVotes();
@@ -30,7 +29,6 @@ export const RegionsMap: React.FC<{
       mapGeo,
       size,
       votes,
-      withNames,
       onClick: (props) => ({
         pathname: `/municipality/${props.nuts3}`,
       }),

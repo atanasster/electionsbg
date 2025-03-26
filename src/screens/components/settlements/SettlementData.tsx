@@ -24,12 +24,8 @@ export const SettlementData: FC<{
         if (view === "map" && municipalityInfo)
           return (
             <MapLayout>
-              {(size, withNames) => (
-                <SettlementsMap
-                  municipality={municipalityInfo}
-                  size={size}
-                  withNames={withNames}
-                />
+              {(size) => (
+                <SettlementsMap municipality={municipalityInfo} size={size} />
               )}
             </MapLayout>
           );

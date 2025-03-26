@@ -11,8 +11,7 @@ import { useMunicipalitiesByRegion } from "@/data/municipalities/useMunicipaliti
 export const MunicipalitiesMap: React.FC<{
   region: string;
   size: MapCoordinates;
-  withNames: boolean;
-}> = ({ size, withNames, region }) => {
+}> = ({ size, region }) => {
   const { tooltip, ...tooltipEvents } = useTooltip();
   const votes = useMunicipalitiesByRegion(region);
   const mapGeo = useMunicipalitiesMap(region);
@@ -30,7 +29,6 @@ export const MunicipalitiesMap: React.FC<{
       mapGeo,
       size,
       votes,
-      withNames,
       onClick: (props) => ({
         pathname: `/settlement/${props.nuts4}`,
       }),

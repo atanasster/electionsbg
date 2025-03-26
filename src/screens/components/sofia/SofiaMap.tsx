@@ -10,8 +10,7 @@ import { LeafletMap } from "../maps/LeafletMap";
 
 export const SofiaMap: React.FC<{
   size: MapCoordinates;
-  withNames: boolean;
-}> = ({ size, withNames }) => {
+}> = ({ size }) => {
   const { tooltip, ...tooltipEvents } = useTooltip();
   const mapGeo = useSofiaMap();
   const { countryRegions } = useRegionVotes();
@@ -28,7 +27,6 @@ export const SofiaMap: React.FC<{
       mapGeo,
       size,
       votes,
-      withNames,
       onClick: (props) => ({
         pathname: `/municipality/${props.nuts3}`,
       }),

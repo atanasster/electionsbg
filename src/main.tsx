@@ -8,6 +8,7 @@ import { ThemeContextProvider } from "@/theme/ThemeContext.tsx";
 import { TooltipProvider } from "@/components/ui/tooltip";
 import { QueryProvider } from "./data/QueryProvider";
 import { TouchProvider } from "./ux/TouchProvider";
+import { OptionsContextProvider } from "./layout/dataview/OptionsContext";
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
@@ -15,7 +16,9 @@ ReactDOM.createRoot(document.getElementById("root")!).render(
       <QueryProvider>
         <TouchProvider>
           <TooltipProvider>
-            <App />
+            <OptionsContextProvider>
+              <App />
+            </OptionsContextProvider>
           </TooltipProvider>
         </TouchProvider>
       </QueryProvider>
