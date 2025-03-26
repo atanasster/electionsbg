@@ -22,20 +22,14 @@ export const SofiaScreen = () => {
   const title = t("sofia_city");
   return (
     <>
-      <Title description="Interactive country map  of the elections in Bulgaria">
+      <Title description="Interactive country map of the elections in Sofia">
         {title}
       </Title>
       <ProtocolSummary results={results} original={original} />
       <DataViewContainer title={title}>
         {(view) => {
           if (view === "map")
-            return (
-              <MapLayout>
-                {(size, withNames) => (
-                  <SofiaMap size={size} withNames={withNames} />
-                )}
-              </MapLayout>
-            );
+            return <MapLayout>{(size) => <SofiaMap size={size} />}</MapLayout>;
           if (view === "table") return <SofiaAreasTable />;
           if (view === "parties")
             return (

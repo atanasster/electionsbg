@@ -14,7 +14,7 @@ export const RegionsScreen = () => {
   const title = `${t("general_elections")} ${localDate(selected)}`;
   return (
     <>
-      <Title description="Interactive country map  of the elections in Bulgaria">
+      <Title description="Interactive country map of the elections in Bulgaria">
         {title}
       </Title>
       <ProtocolSummary results={results} original={original} />

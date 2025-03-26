@@ -67,10 +67,8 @@ const RecountInternal: FC<{
       }}
     >
       <AccordionItem value="cards">
-        <AccordionTrigger>
-          <div className="text-center w-full font-extrabold text-2xl text-muted-foreground">
-            {t("voting_recount")}
-          </div>
+        <AccordionTrigger className="font-extrabold text-2xl text-muted-foreground justify-center gap-2">
+          {t("voting_recount")}
         </AccordionTrigger>
         <AccordionContent>
           <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-4 my-4">
