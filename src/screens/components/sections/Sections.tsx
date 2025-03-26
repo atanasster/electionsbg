@@ -26,6 +26,7 @@ import { PreferencesBySettlement } from "../preferences/PreferencesBySettlement"
 import { useElectionContext } from "@/data/ElectionContext";
 import { PartyRecountTable } from "../PartyRecountTable";
 import { PartySuemgTable } from "../PartySuemgTable";
+import { RecountCards } from "../protocols/RecountCards";
 
 const dataViews = [
   "sections",
@@ -123,6 +124,10 @@ export const Sections: FC<{ ekatte: string }> = ({ ekatte }) => {
         {t("sections")} {title}
       </H1>
       <ProtocolSummary
+        results={settlement?.results}
+        original={settlement?.original}
+      />
+      <RecountCards
         results={settlement?.results}
         original={settlement?.original}
       />
