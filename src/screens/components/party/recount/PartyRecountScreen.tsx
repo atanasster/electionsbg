@@ -7,6 +7,7 @@ import { PartyRecountByMunicipality } from "./PartyRecountByMunicipality";
 import { PartyRecountBySettlement } from "./PartyRecountBySettlement";
 import { PartyRecountBySection } from "./PartyRecountBySection";
 import { PartyRecountSummary } from "./PartyRecountSummary";
+import { AccordionSummary } from "@/ux/AccordionSummary";
 
 const dataViews = [
   "regions",
@@ -21,7 +22,9 @@ export const PartyRecountScreen: FC<{ party: PartyInfo }> = ({ party }) => {
 
   return (
     <>
-      <PartyRecountSummary party={party} />
+      <AccordionSummary>
+        <PartyRecountSummary party={party} />
+      </AccordionSummary>
 
       <IconTabs<DataViewType>
         title={t("votes_recount")}
