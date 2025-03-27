@@ -9,7 +9,8 @@ import { Link } from "@/ux/Link";
 import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
 import { useSettlementsInfo } from "@/data/settlements/useSettlements";
 import { useConsolidatedLabel } from "../../useConsolidatedLabel";
-import { pctChange } from "@/data/utils";
+import { localDate, pctChange } from "@/data/utils";
+import { useElectionContext } from "@/data/ElectionContext";
 
 type ColumnDataType = PartyResultsRow;
 
@@ -26,6 +27,7 @@ export function PartyResultsTable({
 }) {
   const { t, i18n } = useTranslation();
   const { findRegion } = useRegions();
+  const { priorElections } = useElectionContext();
   const { findMunicipality } = useMunicipalities();
   const { findSettlement } = useSettlementsInfo();
   const { isConsolidated, consolidated } = useConsolidatedLabel();
@@ -191,14 +193,18 @@ export function PartyResultsTable({
         accessorKey: "prevYearVotes",
         hidden: !hasPrevVotes || isConsolidated,
         headerHint: t("prev_election_votes_explainer"),
-        header: isXSmall ? t("prior") : t("prior_elections"),
+        header: priorElections
+          ? localDate(priorElections.name)
+          : t("prior_elections"),
         dataType: "thousands",
       },
       {
         accessorKey: "prevYearVotesConsolidated",
         hidden: !hasPrevVotes || !isConsolidated,
         headerHint: t("prev_election_votes_explainer"),
-        header: isXSmall ? t("prior") : t("prior_elections"),
+        header: priorElections
+          ? localDate(priorElections.name)
+          : t("prior_elections"),
         dataType: "thousands",
       },
       {

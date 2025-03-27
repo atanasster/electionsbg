@@ -15,7 +15,7 @@ import {
   DialogTrigger,
 } from "@/components/ui/dialog";
 import { useTopParties } from "@/data/parties/useTopParties";
-import { findPrevVotes } from "@/data/utils";
+import { findPrevVotes, localDate } from "@/data/utils";
 import { DataTable, DataTableColumns } from "@/ux/data_table/DataTable";
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
@@ -27,6 +27,7 @@ import { ChartArea } from "lucide-react";
 import { Caption } from "@/ux/Caption";
 import { useConsolidatedLabel } from "./useConsolidatedLabel";
 import { PartyLink } from "./party/PartyLink";
+import { useElectionContext } from "@/data/ElectionContext";
 
 export const PartyVotesTable: FC<{
   results?: VoteResults;
@@ -36,6 +37,7 @@ export const PartyVotesTable: FC<{
 }> = ({ results, prevElection, stats, title }) => {
   const { t } = useTranslation();
   const { isConsolidated, consolidated } = useConsolidatedLabel();
+  const { priorElections } = useElectionContext();
   const isXSmall = useMediaQueryMatch("xs");
   const isSmall = useMediaQueryMatch("sm");
   const isLarge = useMediaQueryMatch("lg");
@@ -121,7 +123,9 @@ export const PartyVotesTable: FC<{
         accessorKey: "prevTotalVotes",
         hidden: !prevElection,
         headerHint: t("prev_election_votes_explainer"),
-        header: isXSmall ? t("prior") : t("prior_elections"),
+        header: priorElections
+          ? localDate(priorElections.name)
+          : t("prior_elections"),
         dataType: "thousands",
       },
       {
