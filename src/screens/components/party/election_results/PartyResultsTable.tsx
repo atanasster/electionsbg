@@ -32,10 +32,17 @@ export function PartyResultsTable({
   const isXSmall = useMediaQueryMatch("xs");
   const isSmall = useMediaQueryMatch("sm");
 
-  const { hasPaperVotes, hasMachineVotes, data, hasPrevVotes } = useMemo(() => {
+  const {
+    hasPaperVotes,
+    hasMachineVotes,
+    data,
+    hasPrevVotes,
+    hasConsolidated,
+  } = useMemo(() => {
     let hasPaperVotes = false;
     let hasMachineVotes = false;
     let hasPrevVotes = false;
+    let hasConsolidated = false;
     return {
       data: rows
         ?.map((d) => {
@@ -44,6 +51,9 @@ export function PartyResultsTable({
           }
           if (d.paperVotes) {
             hasPaperVotes = true;
+          }
+          if (d.prevYearVotesConsolidated !== d.prevYearVotes) {
+            hasConsolidated = true;
           }
           const prevYearVotes = isConsolidated
             ? d.prevYearVotesConsolidated
@@ -64,6 +74,7 @@ export function PartyResultsTable({
           }
           return a.position - b.position;
         }),
+      hasConsolidated,
       hasMachineVotes,
       hasPaperVotes,
       hasPrevVotes,
@@ -223,7 +234,7 @@ export function PartyResultsTable({
         columns={columns}
         stickyColumn={true}
         data={data}
-        toolbarItems={consolidated}
+        toolbarItems={hasConsolidated ? consolidated : undefined}
       />
     </div>
   ) : null;
