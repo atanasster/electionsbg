@@ -20,11 +20,11 @@
      */
     "runtimeExecutable": "tsx",
     //"args": ["--all", "--prod", "--stats", "--reports", "--parties", "--candidates"],
-    //"args": ["--prod", "--financing"],
+    "args": ["--prod", "--financing"],
     //"args": ["--prod", "--stats", "--reports", "--parties", "--candidates"],
     //"args": ["--prod", "--stats"],
     //"args": ["--prod", "--search"],
-    "args": ["--prod", "--parties"],
+    //"args": ["--prod", "--parties"],
     //"args": ["--prod", "--candidates", "--election=2024_10_27"],
     //"args": ["--date=2024_10_27", "--prod"],
     //"args": ["--reports", "--prod", "--election=2024_10_27"],
