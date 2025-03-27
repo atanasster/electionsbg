@@ -145,13 +145,6 @@ export const FinancingTable = () => {
         dataType: "percent",
       },
       {
-        accessorKey: "prevTotalVotes",
-        hidden: true, //!priorElections,
-        headerHint: t("prev_election_votes_explainer"),
-        header: t("prior_elections"),
-        dataType: "thousands",
-      },
-      {
         accessorKey: "pctPrevChange",
         hidden: !priorElections,
         headerHint: t("pct_prev_election_votes_explainer"),

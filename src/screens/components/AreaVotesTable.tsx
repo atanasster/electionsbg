@@ -184,29 +184,6 @@ export function AreaVotesTable<DataType extends ElectionResults>({
         header: "%",
         dataType: "percent",
       },
-      /* {
-        accessorKey: "prevTotalVotes",
-        hidden: !prevElection,
-        headerHint: t("prev_election_votes_explainer"),
-        header: isXSmall ? t("prior") : t("prior_elections"),
-        dataType: "thousands",
-      },
-      {
-        accessorKey: "pctPrevChange",
-        hidden: !prevElection,
-        className: "font-bold",
-        headerHint: t("pct_prev_election_votes_explainer"),
-        header: isXSmall ? `+/-` : `% ${t("change")}`,
-        dataType: "pctChange",
-      },
-      {
-        accessorKey: "adjustedPctPrevChange",
-        hidden: !prevElection || !isLarge,
-        className: "font-bold",
-        dataType: "pctChange",
-        headerHint: t("pct_adjusted_change_explainer"),
-        header: t("adjusted_change"),
-      }, */
     ],
     [
       t,
