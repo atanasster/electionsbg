@@ -203,14 +203,15 @@ export const PartyVotesTable: FC<{
       },
     ],
     [
-      isXSmall,
-      stats,
       t,
       isSmall,
       hasPaperVotes,
       hasMachineVotes,
+      isXSmall,
       prevElection,
+      priorElections,
       isLarge,
+      stats,
       isConsolidated,
     ],
   );

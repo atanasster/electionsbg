@@ -225,6 +225,7 @@ export function PartyResultsTable({
       isXSmall,
       hasPrevVotes,
       isConsolidated,
+      priorElections,
       findRegion,
       i18n.language,
       findMunicipality,
