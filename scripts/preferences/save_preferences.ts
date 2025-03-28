@@ -80,7 +80,7 @@ export const savePreferences = ({
     },
     {},
   );
-  Object.keys(consolidatedCandidates).forEach((name) => {
+  Object.keys(consolidatedCandidates).forEach((name, index) => {
     const candidateFolder = `${candidatesFolder}/${name}`;
     if (!fs.existsSync(candidateFolder)) {
       fs.mkdirSync(candidateFolder);
@@ -233,6 +233,16 @@ export const savePreferences = ({
         }),
       );
     });
+    process.stdout.write(
+      (
+        "\rSaving candidate " +
+        (index + 1) +
+        "/" +
+        Object.keys(consolidatedCandidates).length +
+        " - " +
+        name
+      ).padEnd(80, " "),
+    );
     const byRegionFileName = `${candidateFolder}/regions.json`;
     fs.writeFileSync(byRegionFileName, stringify(byRegion), "utf8");
 
@@ -245,4 +255,5 @@ export const savePreferences = ({
     const bySectionFileName = `${candidateFolder}/sections.json`;
     fs.writeFileSync(bySectionFileName, stringify(bySection), "utf8");
   });
+  console.log();
 };
