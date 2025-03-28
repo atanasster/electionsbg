@@ -74,6 +74,12 @@ export const createPreferencesFiles = async (
               });
 
               if (preferencesRegions[section.oblast] === undefined) {
+                process.stdout.write(
+                  ("\rSaving preferences for region " + section.oblast).padEnd(
+                    80,
+                    " ",
+                  ),
+                );
                 preferencesRegions[section.oblast] = [];
               }
               const defaultPrefs: Partial<PreferencesInfo> = {
@@ -130,5 +136,6 @@ export const createPreferencesFiles = async (
         });
       }),
   );
+  console.log();
   candidatesStats(stringify);
 };
