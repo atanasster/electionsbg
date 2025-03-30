@@ -137,5 +137,5 @@ export const createPreferencesFiles = async (
       }),
   );
   console.log();
-  candidatesStats(stringify);
+  candidatesStats(stringify, election);
 };

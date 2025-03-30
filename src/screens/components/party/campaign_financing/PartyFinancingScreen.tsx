@@ -27,7 +27,6 @@ export const PartyFinancingScreen: FC<{ party?: PartyInfo }> = ({ party }) => {
   const { t } = useTranslation();
   const { financing, isError, priorFinancing } = useFinancing(party);
   const { selected } = useElectionContext();
-  const shortTitle = party?.nickName;
   return financing ? (
     <>
       <FilingSummary
@@ -36,7 +35,7 @@ export const PartyFinancingScreen: FC<{ party?: PartyInfo }> = ({ party }) => {
         party={party}
       />
       <IconTabs<DataViewType>
-        title={shortTitle}
+        title={t("financing")}
         tabs={dataViews}
         icons={DataTypeIcons}
         storageKey="party_financing_tabs"
