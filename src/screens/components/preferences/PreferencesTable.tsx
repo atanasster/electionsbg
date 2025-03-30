@@ -18,9 +18,11 @@ import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
 import { RegionLink } from "../regions/RegionLink";
 import { useElectionContext } from "@/data/ElectionContext";
 
-type DataType = PreferencesInfo & PartyInfo & { candidateName?: string };
+type DataType = PreferencesInfo &
+  Partial<PartyInfo> & { candidateName?: string };
 
 export type ColumnNames =
+  | "party"
   | "ekatte"
   | "section"
   | "obshtina"
@@ -31,7 +33,14 @@ export const PreferencesTable: FC<{
   region: string;
   regionPrefs?: Record<string, PreferencesInfo[]> | null;
   visibleColumns?: ColumnNames[];
-}> = ({ preferences, region, regionPrefs, visibleColumns = [] }) => {
+  hiddenColumns?: ColumnNames[];
+}> = ({
+  preferences,
+  region,
+  regionPrefs,
+  visibleColumns = [],
+  hiddenColumns = [],
+}) => {
   const { t, i18n } = useTranslation();
   const { findParty } = usePartyInfo();
   const { findCandidate } = useCandidates();
@@ -53,7 +62,9 @@ export const PreferencesTable: FC<{
     let hasPrevYear: boolean = false;
     const data: DataType[] = preferences
       .map((preference) => {
-        const party = findParty(preference.partyNum);
+        const party = hiddenColumns.includes("party")
+          ? undefined
+          : findParty(preference.partyNum);
         const candidate = findCandidate(
           preference.oblast || region,
           preference.partyNum,
@@ -93,7 +104,14 @@ export const PreferencesTable: FC<{
       })
       .sort((a, b) => b.totalVotes - a.totalVotes);
     return { data, hasPrevYear };
-  }, [findCandidate, findParty, preferences, region, regionPrefs]);
+  }, [
+    findCandidate,
+    findParty,
+    hiddenColumns,
+    preferences,
+    region,
+    regionPrefs,
+  ]);
   const hasMachinePaperVotes = useMemo(
     () => !!data.find((v) => v.paperVotes || v.machineVotes),
     [data],
@@ -103,6 +121,7 @@ export const PreferencesTable: FC<{
       {
         accessorKey: "nickName",
         header: t("party"),
+        hidden: hiddenColumns.includes("party"),
         size: 70,
         cell: ({ row }) => <PartyLink party={row.original as PartyInfo} />,
       },
@@ -178,6 +197,7 @@ export const PreferencesTable: FC<{
       },
       {
         accessorKey: "totalVotes",
+        className: "font-bold",
         header: capitalizeFirstLetter(t("pref.")),
         headerHint: t("total_preferences_explainer"),
         dataType: "thousands",
@@ -214,6 +234,7 @@ export const PreferencesTable: FC<{
       findSettlement,
       hasMachinePaperVotes,
       hasPrevYear,
+      hiddenColumns,
       i18n.language,
       isMedium,
       priorElections,

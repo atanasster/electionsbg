@@ -87,7 +87,10 @@ const folderPrevYearPreferences = ({
   }
 };
 
-export const candidatesStats = (stringify: (o: object) => string) => {
+export const candidatesStats = (
+  stringify: (o: object) => string,
+  election?: string,
+) => {
   const updatedElections = fs
     .readdirSync(publicFolder, { withFileTypes: true })
     .filter((file) => file.isDirectory())
@@ -111,63 +114,65 @@ export const candidatesStats = (stringify: (o: object) => string) => {
         prefSofia,
       };
     });
-  updatedElections.map((e, index) => {
-    const outFolder = `${publicFolder}/${e.name}`;
-    const ty = e;
-    const ly =
-      index < updatedElections.length - 1
-        ? updatedElections[index + 1]
-        : undefined;
-    assignPrevYearPreferences({
-      tyPreferences: ty.prefCountry,
-      tyCandidates: ty.candidates,
-      lyPreferences: ly?.prefCountry,
-      lyCandidates: ly?.candidates,
-    });
-    const countryFileName = `${outFolder}/preferences/country.json`;
-    fs.writeFileSync(countryFileName, stringify(ty.prefCountry), "utf-8");
-    console.log("Successfully added file ", countryFileName);
-    assignPrevYearPreferences({
-      tyPreferences: ty.prefSofia,
-      tyCandidates: ty.candidates,
-      lyPreferences: ly?.prefSofia,
-      lyCandidates: ly?.candidates,
-    });
-    const sofiaFileName = `${outFolder}/preferences/sofia.json`;
-    fs.writeFileSync(sofiaFileName, stringify(ty.prefSofia), "utf-8");
-    console.log("Successfully added file ", sofiaFileName);
+  updatedElections
+    .filter((e) => election === e.name || election === undefined)
+    .forEach((e, index) => {
+      const outFolder = `${publicFolder}/${e.name}`;
+      const ty = e;
+      const ly =
+        index < updatedElections.length - 1
+          ? updatedElections[index + 1]
+          : undefined;
+      assignPrevYearPreferences({
+        tyPreferences: ty.prefCountry,
+        tyCandidates: ty.candidates,
+        lyPreferences: ly?.prefCountry,
+        lyCandidates: ly?.candidates,
+      });
+      const countryFileName = `${outFolder}/preferences/country.json`;
+      fs.writeFileSync(countryFileName, stringify(ty.prefCountry), "utf-8");
+      console.log("Successfully added file ", countryFileName);
+      assignPrevYearPreferences({
+        tyPreferences: ty.prefSofia,
+        tyCandidates: ty.candidates,
+        lyPreferences: ly?.prefSofia,
+        lyCandidates: ly?.candidates,
+      });
+      const sofiaFileName = `${outFolder}/preferences/sofia.json`;
+      fs.writeFileSync(sofiaFileName, stringify(ty.prefSofia), "utf-8");
+      console.log("Successfully added file ", sofiaFileName);
 
-    folderPrevYearPreferences({
-      stringify,
-      year: e.name,
-      lastYear: ly?.name,
-      folder: "preferences/by_region",
-      tyCandidates: ty.candidates,
-      lyCandidates: ly?.candidates,
+      folderPrevYearPreferences({
+        stringify,
+        year: e.name,
+        lastYear: ly?.name,
+        folder: "preferences/by_region",
+        tyCandidates: ty.candidates,
+        lyCandidates: ly?.candidates,
+      });
+      folderPrevYearPreferences({
+        stringify,
+        year: e.name,
+        lastYear: ly?.name,
+        folder: "preferences/by_municipality",
+        tyCandidates: ty.candidates,
+        lyCandidates: ly?.candidates,
+      });
+      folderPrevYearPreferences({
+        stringify,
+        year: e.name,
+        lastYear: ly?.name,
+        folder: "preferences/by_settlement",
+        tyCandidates: ty.candidates,
+        lyCandidates: ly?.candidates,
+      });
+      folderPrevYearPreferences({
+        stringify,
+        year: e.name,
+        lastYear: ly?.name,
+        folder: "preferences/by_section",
+        tyCandidates: ty.candidates,
+        lyCandidates: ly?.candidates,
+      });
     });
-    folderPrevYearPreferences({
-      stringify,
-      year: e.name,
-      lastYear: ly?.name,
-      folder: "preferences/by_municipality",
-      tyCandidates: ty.candidates,
-      lyCandidates: ly?.candidates,
-    });
-    folderPrevYearPreferences({
-      stringify,
-      year: e.name,
-      lastYear: ly?.name,
-      folder: "preferences/by_settlement",
-      tyCandidates: ty.candidates,
-      lyCandidates: ly?.candidates,
-    });
-    folderPrevYearPreferences({
-      stringify,
-      year: e.name,
-      lastYear: ly?.name,
-      folder: "preferences/by_section",
-      tyCandidates: ty.candidates,
-      lyCandidates: ly?.candidates,
-    });
-  });
 };
