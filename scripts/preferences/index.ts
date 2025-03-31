@@ -3,11 +3,11 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { candidatesFileName, preferencesFileName } from "scripts/consts";
 import { parsePreferences } from "scripts/preferences/parse_preferences";
-import { PreferencesInfo, SectionInfo, SOFIA_REGIONS } from "@/data/dataTypes";
-import { addPreferences, totalAllVotes } from "@/data/utils";
+import { CandidatesInfo, PreferencesInfo, SectionInfo } from "@/data/dataTypes";
+import { addPreferences } from "@/data/utils";
 import { savePreferences } from "./save_preferences";
 import { parseCandidates } from "./parse_candidates";
-import { candidatesStats } from "./preferences_stats";
+import { assignPrevYearPreference } from "./pref_utils";
 
 const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
 const __dirname = path.dirname(__filename); // get the name of the directory
@@ -22,13 +22,13 @@ export const createPreferencesFiles = async (
   const folders = fs
     .readdirSync(publicFolder, { withFileTypes: true })
     .filter((file) => file.isDirectory())
-    .filter((file) => file.name.startsWith("20"));
+    .filter((file) => file.name.startsWith("20"))
+    .sort((a, b) => a.name.localeCompare(b.name));
+
   await Promise.all(
-    folders
-      .filter((e) => election === e.name || election === undefined)
-      .map(async (e) => {
+    folders.map(async (e, index) => {
+      if (election === e.name || election === undefined) {
         const preferencesCountry: PreferencesInfo[] = [];
-        const preferencesSofia: PreferencesInfo[] = [];
         const preferencesSections: Record<string, PreferencesInfo[]> = {};
         const preferencesRegions: Record<string, PreferencesInfo[]> = {};
         const preferencesMunicipalities: Record<string, PreferencesInfo[]> = {};
@@ -48,24 +48,40 @@ export const createPreferencesFiles = async (
           stringify(preferences),
           "utf-8",
         );
+
         if (candidates.length) {
+          const ly = index > 0 ? folders[index - 1] : undefined;
+          let lyCandidates: CandidatesInfo[] | undefined = undefined;
+          let lyPreferences: PreferencesInfo[] | undefined = undefined;
+          if (ly) {
+            lyCandidates = JSON.parse(
+              fs.readFileSync(
+                `${publicFolder}/${ly.name}/candidates.json`,
+                "utf-8",
+              ),
+            );
+            lyPreferences = JSON.parse(
+              fs.readFileSync(
+                `${rawFolder}/${ly.name}/preferences.json`,
+                "utf-8",
+              ),
+            );
+          }
           const sections: SectionInfo[] = JSON.parse(
             fs.readFileSync(`${inFolder}/section_votes.json`, "utf-8"),
           );
+
           sections.forEach((section) => {
             const pref = preferences.filter(
               (p) => p.section === section.section,
             );
             if (pref.length) {
-              const allVotes = totalAllVotes(section.results.votes);
-              pref.forEach((p) => {
-                p.oblast = section.oblast;
-                p.obshtina = section.obshtina;
-                p.ekatte = section.ekatte;
-                p.partyVotes = section.results.votes.find(
-                  (v) => v.partyNum === p.partyNum,
-                )?.totalVotes;
-                p.allVotes = allVotes;
+              assignPrevYearPreference({
+                section,
+                tyPreferences: pref,
+                tyCandidates: candidates,
+                lyCandidates,
+                lyPreferences,
               });
               preferencesSections[section.section] = pref.map((p) => {
                 // eslint-disable-next-line @typescript-eslint/no-unused-vars
@@ -116,12 +132,10 @@ export const createPreferencesFiles = async (
                 });
               }
               addPreferences(preferencesCountry, pref, defaultPrefs);
-              if (SOFIA_REGIONS.includes(section.oblast)) {
-                addPreferences(preferencesSofia, pref, defaultPrefs);
-              }
             }
           });
         }
+        process.stdout.write("\n");
         savePreferences({
           outFolder,
           preferences,
@@ -129,13 +143,13 @@ export const createPreferencesFiles = async (
           preferencesMunicipalities,
           preferencesRegions,
           preferencesSettlements,
-          preferencesSofia,
           preferencesSections,
           stringify,
           candidates,
         });
-      }),
+      }
+    }),
   );
   console.log();
-  candidatesStats(stringify, election);
+  //candidatesStats(stringify, election);
 };

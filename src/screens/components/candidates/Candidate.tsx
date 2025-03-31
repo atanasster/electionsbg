@@ -62,24 +62,30 @@ export const Candidate: FC<{ name: string }> = ({ name }) => {
       >
         {name}
       </Title>
-      {candidateInfo?.map((c) => {
-        const party = findParty(c.partyNum);
-        return (
-          <div
-            key={`${c.oblast}-${c.pref}`}
-            className="flex justify-center py-2 "
-          >
-            <div className="flex gap-4 items-center">
-              <PartyLink party={party} width="w-14"></PartyLink>
-              <div className="text-lg flex font-semibold gap-2">
-                <RegionLink oblast={c.oblast} />
-                {" - "}
-                <div>{c.pref}</div>
-              </div>
-            </div>
-          </div>
-        );
-      })}
+      <table className="flex justify-center py-2 ">
+        <tbody>
+          {candidateInfo?.map((c) => {
+            const party = findParty(c.partyNum);
+            return (
+              <tr key={`${c.oblast}-${c.pref}`}>
+                <td>
+                  <div className="my-1">
+                    <PartyLink party={party} width="w-14"></PartyLink>
+                  </div>
+                </td>
+                <td>
+                  <div className="text-lg  px-2 font-semibold">
+                    <RegionLink oblast={c.oblast} />
+                  </div>
+                </td>
+                <td>
+                  <div className="text-lg  px-2 font-semibold">{`#${c.pref}`}</div>
+                </td>
+              </tr>
+            );
+          })}
+        </tbody>
+      </table>
       <IconTabs<TabViewType>
         title={name}
         tabs={tabViews}
