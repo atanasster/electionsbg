@@ -74,6 +74,7 @@ export const DataTable = <TData, TValue>({
         (c) =>
           ({
             ...c,
+            columns: c.columns?.filter((c1) => !c1.hidden),
             sortUndefined: "last",
           }) as DataTableColumnDef<TData, TValue>,
       );

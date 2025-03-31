@@ -49,7 +49,7 @@ export const PreferencesTable: FC<{
   const isMedium = useMediaQueryMatch("md");
   const { findSettlement } = useSettlementsInfo();
   const { findMunicipality } = useMunicipalities();
-  const { data, hasPrevYear } = useMemo(() => {
+  const { data, hasPrevYear, hasMachinePaperVotes } = useMemo(() => {
     const allPreferences = !regionPrefs
       ? preferences.reduce((acc: Record<number, number>, curr) => {
           if (acc[curr.partyNum] === undefined) {
@@ -60,6 +60,7 @@ export const PreferencesTable: FC<{
         }, {})
       : undefined;
     let hasPrevYear: boolean = false;
+    let hasMachinePaperVotes: boolean = false;
     const data: DataType[] = preferences
       .map((preference) => {
         const party = hiddenColumns.includes("party")
@@ -77,6 +78,7 @@ export const PreferencesTable: FC<{
                 .filter((p) => p.partyNum === preference.partyNum)
                 .reduce((acc, curr) => acc + curr.totalVotes, 0)
             : allPreferences?.[preference.partyNum];
+
         const pctPref = partyPreferences
           ? (100 * preference.totalVotes) / partyPreferences
           : undefined;
@@ -88,6 +90,9 @@ export const PreferencesTable: FC<{
           : undefined;
         if (preference.lyTotalVotes) {
           hasPrevYear = true;
+        }
+        if (preference.machineVotes || preference.paperVotes) {
+          hasMachinePaperVotes = true;
         }
         const pctLyPreferences = preference.lyTotalVotes
           ? pctChange(preference.totalVotes, preference.lyTotalVotes)
@@ -103,7 +108,7 @@ export const PreferencesTable: FC<{
         };
       })
       .sort((a, b) => b.totalVotes - a.totalVotes);
-    return { data, hasPrevYear };
+    return { data, hasPrevYear, hasMachinePaperVotes };
   }, [
     findCandidate,
     findParty,
@@ -112,10 +117,7 @@ export const PreferencesTable: FC<{
     region,
     regionPrefs,
   ]);
-  const hasMachinePaperVotes = useMemo(
-    () => !!data.find((v) => v.paperVotes || v.machineVotes),
-    [data],
-  );
+
   const columns: DataTableColumns<DataType, unknown> = useMemo(
     () => [
       {
