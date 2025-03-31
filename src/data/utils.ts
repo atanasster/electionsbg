@@ -91,6 +91,9 @@ export const addPreferences = (
     );
     if (a) {
       a.totalVotes = a.totalVotes + p.totalVotes;
+      if (p.lyTotalVotes) {
+        a.lyTotalVotes = (a.lyTotalVotes || 0) + p.lyTotalVotes;
+      }
       if (p.machineVotes) {
         a.machineVotes = (a.machineVotes || 0) + p.machineVotes;
       }
@@ -111,6 +114,9 @@ export const addPreferences = (
         partyVotes: p.partyVotes,
         pref: p.pref,
       };
+      if (p.lyTotalVotes) {
+        n.lyTotalVotes = p.lyTotalVotes;
+      }
       if (defaults.oblast) {
         n.oblast = defaults.oblast;
       }

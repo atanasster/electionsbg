@@ -1,5 +1,9 @@
 import fs from "fs";
-import { CandidatesInfo, PreferencesInfo } from "@/data/dataTypes";
+import {
+  CandidatesInfo,
+  PreferencesInfo,
+  SOFIA_REGIONS,
+} from "@/data/dataTypes";
 import { saveSplitObject } from "scripts/dataReaders";
 
 export const savePreferences = ({
@@ -10,7 +14,6 @@ export const savePreferences = ({
   preferencesMunicipalities,
   preferencesRegions,
   preferencesSettlements,
-  preferencesSofia,
   preferencesSections,
   candidates,
 }: {
@@ -18,7 +21,6 @@ export const savePreferences = ({
   stringify: (o: object) => string;
   preferences: PreferencesInfo[];
   preferencesCountry: PreferencesInfo[];
-  preferencesSofia: PreferencesInfo[];
   preferencesRegions: Record<string, PreferencesInfo[]>;
   preferencesMunicipalities: Record<string, PreferencesInfo[]>;
   preferencesSettlements: Record<string, PreferencesInfo[]>;
@@ -37,6 +39,15 @@ export const savePreferences = ({
   );
   console.log("Successfully added file ", countryPreferencesFileName);
   const sofiaPreferencesFileName = `${prefFolder}/sofia.json`;
+  const preferencesSofia: PreferencesInfo[] = Object.keys(
+    preferencesRegions,
+  ).reduce((acc: PreferencesInfo[], key) => {
+    if (SOFIA_REGIONS.includes(key)) {
+      return [...acc, ...preferencesRegions[key]];
+    }
+    return acc;
+  }, []);
+
   fs.writeFileSync(
     sofiaPreferencesFileName,
     stringify(preferencesSofia),
@@ -222,7 +233,7 @@ export const savePreferences = ({
         (v) =>
           v.partyNum === c.partyNum &&
           v.pref === c.pref &&
-          c.oblast === v.oblast,
+          v.oblast === c.oblast,
       );
       bySection.push(
         ...votes.map((v) => {
