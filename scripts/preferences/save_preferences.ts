@@ -78,9 +78,11 @@ export const savePreferences = ({
   }
   saveSplitObject(preferencesSections, stringify, prefBySectionFolder);
   const candidatesFolder = `${outFolder}/candidates`;
+  fs.rmSync(candidatesFolder, { recursive: true, force: true });
   if (!fs.existsSync(candidatesFolder)) {
     fs.mkdirSync(candidatesFolder);
   }
+
   const consolidatedCandidates = candidates.reduce(
     (acc: Record<string, CandidatesInfo[]>, curr) => {
       if (acc[curr.name] === undefined) {

@@ -37,11 +37,11 @@ export const assignPrevYearPreference = ({
   });
   if (lyPreferences && lyCandidates) {
     const ly = lyPreferences.filter((l) => l.section === section.section);
-    ly.forEach((preference) => {
+    ly.forEach((lyPref) => {
       const lyCandidate = lyCandidates.find(
         (c) =>
-          c.pref === preference.pref &&
-          c.partyNum === preference.partyNum &&
+          c.pref === lyPref.pref &&
+          c.partyNum === lyPref.partyNum &&
           c.oblast === section.oblast,
       );
       if (lyCandidate) {
@@ -54,13 +54,13 @@ export const assignPrevYearPreference = ({
               c.pref === candidate.pref && c.partyNum === candidate.partyNum,
           );
           if (pref) {
-            pref.lyTotalVotes = preference.totalVotes;
+            pref.lyTotalVotes = lyPref.totalVotes;
           } else {
             const p: PreferencesInfo = {
               partyNum: candidate.partyNum,
               totalVotes: 0,
               pref: candidate.pref,
-              lyTotalVotes: preference.totalVotes,
+              lyTotalVotes: lyPref.totalVotes,
             };
             assignSectionPreference({
               section,

@@ -43,17 +43,22 @@ export const parseCandidates = (
           }
           const dataIndex = year <= "2014_10_05" ? 1 : 2;
           let prefNum = parseInt(row[dataIndex + 2]);
+          if (isNaN(prefNum)) {
+            throw new Error("Invalid preference number " + row[dataIndex + 2]);
+          }
           if (prefNum < 100) {
             prefNum = prefNum + 100;
           }
-          const name = capitalizeSentence(row[dataIndex + 3]);
-          const candidate: CandidatesInfo = {
-            name,
-            oblast: region?.oblast,
-            partyNum: parseInt(row[dataIndex]),
-            pref: prefNum.toString(),
-          };
-          allCandidates.push(candidate);
+          if (prefNum > 100) {
+            const name = capitalizeSentence(row[dataIndex + 3]);
+            const candidate: CandidatesInfo = {
+              name,
+              oblast: region?.oblast,
+              partyNum: parseInt(row[dataIndex]),
+              pref: prefNum.toString(),
+            };
+            allCandidates.push(candidate);
+          }
         }
         resolve(allCandidates);
       }),
