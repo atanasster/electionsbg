@@ -31,27 +31,38 @@ export const parsePreferences = (
           const dataIndex = year <= "2021_04_04" ? 0 : 1;
           const section = row[dataIndex];
           const totalVotes = parseInt(row[dataIndex + 3]);
-          const pref = row[3];
-          let prefNum = parseInt(pref);
-          if (totalVotes && !isNaN(prefNum)) {
+          if (isNaN(totalVotes)) {
+            throw new Error(
+              `Invalid total preferences: ${section}-${row[dataIndex + 3]}`,
+            );
+          }
+          let prefNum = parseInt(row[dataIndex + 2]);
+          if (isNaN(prefNum)) {
+            throw new Error(
+              `Invalid preferences pref#: ${section}-${row[dataIndex + 2]}`,
+            );
+          }
+          if (totalVotes) {
             if (prefNum < 100) {
               prefNum = prefNum + 100;
             }
-            const preference: PreferencesInfo = {
-              section,
-              partyNum: parseInt(row[dataIndex + 1]),
-              pref: prefNum.toString(),
-              totalVotes,
-            };
-            const paperVotes = parseInt(row[dataIndex + 4]);
-            if (!isNaN(prefNum)) {
-              preference.paperVotes = paperVotes;
+            if (prefNum > 100) {
+              const preference: PreferencesInfo = {
+                section,
+                partyNum: parseInt(row[dataIndex + 1]),
+                pref: prefNum.toString(),
+                totalVotes,
+              };
+              const paperVotes = parseInt(row[dataIndex + 4]);
+              if (!isNaN(paperVotes)) {
+                preference.paperVotes = paperVotes;
+              }
+              const machineVotes = parseInt(row[dataIndex + 5]);
+              if (!isNaN(machineVotes)) {
+                preference.machineVotes = machineVotes;
+              }
+              allPreferences.push(preference);
             }
-            const machineVotes = parseInt(row[dataIndex + 5]);
-            if (!isNaN(prefNum)) {
-              preference.machineVotes = machineVotes;
-            }
-            allPreferences.push(preference);
           }
         }
 

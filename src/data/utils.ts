@@ -476,14 +476,21 @@ export const materialExpenseFiling = (filing?: PartyFilingExpenses) =>
       filing.material.officeSupplies +
       filing.material.other
     : 0;
+
 export const capitalizeSentence = (sentence: string) => {
   const words = sentence.split(" ");
 
-  return words
+  const capitalized = words
     .map((word) => {
       return word[0].toUpperCase() + word.substring(1).toLowerCase();
     })
     .join(" ");
+  const hyphenated = capitalized.split("-");
+  return hyphenated
+    .map((word) => {
+      return word[0].toUpperCase() + word.substring(1);
+    })
+    .join("-");
 };
 export const capitalizeFirstLetter = (sentence: string) => {
   return sentence[0].toUpperCase() + sentence.substring(1).toLowerCase();
