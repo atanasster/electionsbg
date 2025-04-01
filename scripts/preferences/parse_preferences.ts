@@ -54,17 +54,6 @@ export const parsePreferences = (
                 pref: prefNum.toString(),
                 totalVotes,
               };
-              if (
-                sectionPreferences.find(
-                  (p) =>
-                    p.partyNum === preference.partyNum &&
-                    p.pref === preference.pref,
-                )
-              ) {
-                throw new Error(
-                  `Duplicate preference ${section}-${preference.partyNum}-${preference.pref}`,
-                );
-              }
               const paperVotes = parseInt(row[dataIndex + 4]);
               if (!isNaN(paperVotes)) {
                 preference.paperVotes = paperVotes;
@@ -73,8 +62,26 @@ export const parsePreferences = (
               if (!isNaN(machineVotes)) {
                 preference.machineVotes = machineVotes;
               }
-              sectionPreferences.push(preference);
-              allPreferences.push(preference);
+              const existingPref = sectionPreferences.find(
+                (p) =>
+                  p.partyNum === preference.partyNum &&
+                  p.pref === preference.pref,
+              );
+              if (existingPref) {
+                existingPref.totalVotes =
+                  existingPref.totalVotes + preference.totalVotes;
+                if (preference.paperVotes) {
+                  existingPref.paperVotes =
+                    (existingPref.paperVotes || 0) + preference.paperVotes;
+                }
+                if (preference.machineVotes) {
+                  existingPref.machineVotes =
+                    (existingPref.machineVotes || 0) + preference.machineVotes;
+                }
+              } else {
+                sectionPreferences.push(preference);
+                allPreferences.push(preference);
+              }
             }
           }
         }
