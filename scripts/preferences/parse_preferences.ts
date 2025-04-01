@@ -26,10 +26,16 @@ export const parsePreferences = (
         result.push(data);
       })
       .on("end", () => {
+        let sectionPreferences: PreferencesInfo[] = [];
+        let prevSection: string = "";
         for (let i = 0; i < result.length; i++) {
           const row = result[i];
           const dataIndex = year <= "2021_04_04" ? 0 : 1;
           const section = row[dataIndex];
+          if (prevSection !== section) {
+            sectionPreferences = [];
+          }
+          prevSection = section;
           const totalVotes = parseInt(row[dataIndex + 3]);
           if (isNaN(totalVotes)) {
             throw new Error(
@@ -37,12 +43,7 @@ export const parsePreferences = (
             );
           }
           let prefNum = parseInt(row[dataIndex + 2]);
-          if (isNaN(prefNum)) {
-            throw new Error(
-              `Invalid preferences pref#: ${section}-${row[dataIndex + 2]}`,
-            );
-          }
-          if (totalVotes) {
+          if (totalVotes && !isNaN(prefNum)) {
             if (prefNum < 100) {
               prefNum = prefNum + 100;
             }
@@ -53,6 +54,17 @@ export const parsePreferences = (
                 pref: prefNum.toString(),
                 totalVotes,
               };
+              if (
+                sectionPreferences.find(
+                  (p) =>
+                    p.partyNum === preference.partyNum &&
+                    p.pref === preference.pref,
+                )
+              ) {
+                throw new Error(
+                  `Duplicate preference ${section}-${preference.partyNum}-${preference.pref}`,
+                );
+              }
               const paperVotes = parseInt(row[dataIndex + 4]);
               if (!isNaN(paperVotes)) {
                 preference.paperVotes = paperVotes;
@@ -61,6 +73,7 @@ export const parsePreferences = (
               if (!isNaN(machineVotes)) {
                 preference.machineVotes = machineVotes;
               }
+              sectionPreferences.push(preference);
               allPreferences.push(preference);
             }
           }
