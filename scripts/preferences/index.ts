@@ -4,10 +4,9 @@ import { fileURLToPath } from "url";
 import { candidatesFileName, preferencesFileName } from "scripts/consts";
 import { parsePreferences } from "scripts/preferences/parse_preferences";
 import { CandidatesInfo, PreferencesInfo, SectionInfo } from "@/data/dataTypes";
-import { addPreferences } from "@/data/utils";
 import { savePreferences } from "./save_preferences";
 import { parseCandidates } from "./parse_candidates";
-import { assignPrevYearPreference } from "./pref_utils";
+import { addPreferences, assignPrevYearPreference } from "./pref_utils";
 
 const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
 const __dirname = path.dirname(__filename); // get the name of the directory
@@ -48,10 +47,10 @@ export const createPreferencesFiles = async (
           stringify(preferences),
           "utf-8",
         );
+        const ly = index > 0 ? folders[index - 1] : undefined;
+        let lyCandidates: CandidatesInfo[] | undefined = undefined;
 
         if (candidates.length) {
-          const ly = index > 0 ? folders[index - 1] : undefined;
-          let lyCandidates: CandidatesInfo[] | undefined = undefined;
           let lyPreferences: PreferencesInfo[] | undefined = undefined;
           if (ly) {
             lyCandidates = JSON.parse(
@@ -138,6 +137,8 @@ export const createPreferencesFiles = async (
         process.stdout.write("\n");
         savePreferences({
           outFolder,
+          lyCandidates,
+          lastYearFolder: ly ? `${publicFolder}/${ly.name}` : undefined,
           preferences,
           preferencesCountry,
           preferencesMunicipalities,

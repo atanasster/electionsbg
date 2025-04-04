@@ -9,7 +9,6 @@ import {
   PartyFilingIncome,
   PartyInfo,
   PartyVotes,
-  PreferencesInfo,
   RecountOriginal,
   RecountStats,
   SectionProtocol,
@@ -76,65 +75,6 @@ export const addVotes = (votes: Votes[], initial?: Votes[]) => {
     }
   });
   return buff;
-};
-export const addPreferences = (
-  acc: PreferencesInfo[],
-  preferences: PreferencesInfo[],
-  defaults: Partial<PreferencesInfo>,
-) => {
-  preferences.forEach((p) => {
-    const a = acc.find(
-      (a) =>
-        a.partyNum === p.partyNum &&
-        a.pref === p.pref &&
-        a.oblast === defaults.oblast,
-    );
-    if (a) {
-      a.totalVotes = a.totalVotes + p.totalVotes;
-      if (p.lyTotalVotes) {
-        a.lyTotalVotes = (a.lyTotalVotes || 0) + p.lyTotalVotes;
-      }
-      if (p.machineVotes) {
-        a.machineVotes = (a.machineVotes || 0) + p.machineVotes;
-      }
-      if (p.paperVotes) {
-        a.paperVotes = (a.paperVotes || 0) + p.paperVotes;
-      }
-      if (p.partyVotes) {
-        a.partyVotes = (a.partyVotes || 0) + p.partyVotes;
-      }
-      if (p.allVotes) {
-        a.allVotes = (a.allVotes || 0) + p.allVotes;
-      }
-    } else {
-      const n: PreferencesInfo = {
-        partyNum: p.partyNum,
-        totalVotes: p.totalVotes,
-        allVotes: p.allVotes,
-        partyVotes: p.partyVotes,
-        pref: p.pref,
-      };
-      if (p.lyTotalVotes) {
-        n.lyTotalVotes = p.lyTotalVotes;
-      }
-      if (defaults.oblast) {
-        n.oblast = defaults.oblast;
-      }
-      if (defaults.ekatte) {
-        n.ekatte = defaults.ekatte;
-      }
-      if (defaults.obshtina) {
-        n.obshtina = defaults.obshtina;
-      }
-      if (p.machineVotes) {
-        n.machineVotes = p.machineVotes;
-      }
-      if (p.paperVotes) {
-        n.paperVotes = p.paperVotes;
-      }
-      acc.push(n);
-    }
-  });
 };
 
 export const initializeRecount = (): RecountOriginal => ({
