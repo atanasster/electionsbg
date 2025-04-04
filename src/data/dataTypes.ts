@@ -111,7 +111,16 @@ export type CandidatesInfo = {
   pref: string;
 };
 
-export type PreferencesInfo = Votes & {
+export type PreferencesVotes = {
+  totalVotes: number;
+  paperVotes?: number;
+  machineVotes?: number;
+  lyTotalVotes?: number;
+  lyPaperVotes?: number;
+  lyMachineVotes?: number;
+};
+export type PreferencesInfo = PreferencesVotes & {
+  partyNum: number;
   section?: string;
   oblast?: string;
   obshtina?: string;
@@ -120,9 +129,6 @@ export type PreferencesInfo = Votes & {
   partyVotes?: number;
   allVotes?: number;
   partyPrefs?: number;
-  lyTotalVotes?: number;
-  lyPaperVotes?: number;
-  lyMachineVotes?: number;
 };
 
 export type LocationInfo = {
