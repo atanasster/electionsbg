@@ -350,6 +350,7 @@ export const savePreferences = ({
   });
   savePartyPreferences({
     outFolder,
+    lastYearFolder,
     preferences,
     preferencesCountry,
     preferencesMunicipalities,
