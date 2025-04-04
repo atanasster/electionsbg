@@ -30,7 +30,7 @@ export type ColumnNames =
   | "candidate";
 export const PreferencesTable: FC<{
   preferences: PreferencesInfo[];
-  region: string;
+  region?: string;
   regionPrefs?: Record<string, PreferencesInfo[]> | null;
   visibleColumns?: ColumnNames[];
   hiddenColumns?: ColumnNames[];
@@ -66,11 +66,10 @@ export const PreferencesTable: FC<{
         const party = hiddenColumns.includes("party")
           ? undefined
           : findParty(preference.partyNum);
-        const candidate = findCandidate(
-          preference.oblast || region,
-          preference.partyNum,
-          preference.pref,
-        );
+        const oblast = preference.oblast || region;
+        const candidate = oblast
+          ? findCandidate(oblast, preference.partyNum, preference.pref)
+          : undefined;
         const partyPreferences = preference.partyPrefs
           ? preference.partyPrefs
           : regionPrefs && preference.oblast
@@ -180,6 +179,7 @@ export const PreferencesTable: FC<{
         accessorKey: "candidateName",
         header: t("candidate"),
         hidden: !visibleColumns.includes("candidate"),
+        className: "font-semibold",
         cell: ({ row }) =>
           row.original.candidateName && (
             <CandidateLink name={row.original.candidateName} />
