@@ -12,7 +12,7 @@ import { useConsolidatedLabel } from "../../useConsolidatedLabel";
 import { localDate, pctChange } from "@/data/utils";
 import { useElectionContext } from "@/data/ElectionContext";
 
-type ColumnDataType = PartyResultsRow;
+type ColumnDataType = Omit<PartyResultsRow, "position"> & { position: string };
 
 type ColumnType = "oblast" | "obshtina" | "ekatte" | "section";
 
@@ -47,7 +47,13 @@ export function PartyResultsTable({
     let hasConsolidated = false;
     return {
       data: rows
-        ?.map((d) => {
+        ?.sort((a, b) => {
+          if (a.position === b.position) {
+            return b.totalVotes - a.totalVotes;
+          }
+          return a.position - b.position;
+        })
+        .map((d) => {
           if (d.machineVotes) {
             hasMachineVotes = true;
           }
@@ -66,15 +72,10 @@ export function PartyResultsTable({
           const pctVotes = (100 * d.totalVotes) / d.allVotes;
           return {
             ...d,
+            position: `#${d.position}`,
             pctVotes,
             pctPrevChange: pctChange(d.totalVotes, prevYearVotes),
           };
-        })
-        .sort((a, b) => {
-          if (a.position === b.position) {
-            return b.totalVotes - a.totalVotes;
-          }
-          return a.position - b.position;
         }),
       hasConsolidated,
       hasMachineVotes,
@@ -163,7 +164,6 @@ export function PartyResultsTable({
         accessorKey: "position",
         className: "font-bold text-right",
         header: t("position"),
-        cell: ({ row }) => `#${row.original.position}`,
       },
       {
         accessorKey: "paperVotes",
