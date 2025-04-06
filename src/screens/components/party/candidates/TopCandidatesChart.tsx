@@ -1,26 +1,29 @@
 import { Bar, BarChart, Cell, CartesianGrid, XAxis, LabelList } from "recharts";
 import { ChartContainer, ChartTooltip } from "@/components/ui/chart";
-import { PartyInfo } from "@/data/dataTypes";
+import { PartyInfo, RegionInfo } from "@/data/dataTypes";
 import { FC } from "react";
-import { formatPct, formatThousands } from "@/data/utils";
+import { formatThousands } from "@/data/utils";
 import { useCandidates } from "@/data/preferences/useCandidates";
 import { usePreferencesStats } from "./data/usePreferencesStats";
 import { useNavigateParams } from "@/ux/useNavigateParams";
+import { useRegions } from "@/data/regions/useRegions";
+import { useTranslation } from "react-i18next";
 
 const CustomTooltip: FC<{
   active?: boolean;
   payload?: {
     value: number;
-    payload: { pctVotes: number; name: string; oblast: string };
+    payload: { pctVotes: number; name: string; region: RegionInfo };
   }[];
   label?: string;
 }> = ({ active, payload }) => {
+  const { t, i18n } = useTranslation();
   return active && payload ? (
     <div className="z-50 overflow-hidden rounded-md bg-primary px-3 py-1.5 text-xs text-primary-foreground animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2">
       <div className="flex">
-        <div className="text-muted">{`${payload[0].payload.name} (${payload[0].payload.oblast}):`}</div>
+        <div className="text-muted">{`${payload[0].payload.name} (${i18n.language === "en" ? payload[0].payload.region.name_en : payload[0].payload.region.name}):`}</div>
         <div className="ml-2 font-semibold">
-          {`${formatThousands(payload[0].value)} ${payload[0].payload.pctVotes ? `(${formatPct(payload[0].payload.pctVotes, 2)})` : ""}`}
+          {`${formatThousands(payload[0].value)} ${t("pref.")}`}
         </div>
       </div>
     </div>
@@ -34,15 +37,18 @@ export const TopCandidatesChart: FC<{
   const { findCandidate } = useCandidates();
   const navigate = useNavigateParams();
   const stats = usePreferencesStats(party);
+  const { findRegion } = useRegions();
   const preferences = stats?.top?.slice(0, maxRows).map((p) => {
     const candidate = p.oblast
       ? findCandidate(p.oblast, p.partyNum, p.pref)
       : undefined;
     const nameParts = candidate?.name.split(" ");
+    const region = findRegion(p.oblast);
     nameParts?.splice(1, 1);
     return {
       ...p,
       name: nameParts?.join(" "),
+      region,
       pctVotes: stats?.totalVotes
         ? 100 * (p.totalVotes / stats.totalVotes)
         : undefined,
