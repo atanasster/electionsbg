@@ -181,6 +181,7 @@ export function PartyResultsTable({
         accessorKey: "totalVotes",
         headerHint: t("total_party_votes_explainer"),
         header: isXSmall ? t("votes") : t("total_votes"),
+        className: "font-semibold",
         dataType: "thousands",
       },
       {
