@@ -29,12 +29,6 @@ export const PartyDonorsTable: FC<{ data: FinancingFromDonors[] }> = ({
         hidden: !isMedium,
       },
       {
-        accessorKey: "party",
-        header: t("party"),
-        hidden: !isMedium,
-      },
-
-      {
         accessorKey: "nonMonetary",
         dataType: "money",
         header: t("non_monetary"),
