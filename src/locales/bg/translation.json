@@ -22,6 +22,7 @@
   "party": "Партия",
   "parties": "Партии",
   "top_parties": "Топ партии",
+  "top_candidates": "Топ кандидати",
   "votes": "Гласа",
   "unknown_party": "Непозната партия",
   "about": "За нас",
@@ -268,5 +269,16 @@
   "flash_memory_removed": "Премахнати гласове в протоколи",
   "machine_ballots": "Машинни гласове",
   "summary": "Обобщени данни",
-  "analysis": "Анализ"
+  "analysis": "Анализ",
+  "preferences_by_regions": "Преференции по региони",
+  "preferences_by_municipalities": "Преференции по общини",
+  "preferences_by_settlements": "Преференции по населени места",
+  "preferences_by_sections": "Преференции по секции",
+  "preferences_history": "История на преференциите",
+  "party_preferences_explainer": "Общ брой преференции за партията",
+  "party_preferences_pct_change_explainer": "Промяна в преференциите за партията спрямо предишните избори",
+  "party_paper_preferences_explainer": "Преференции за партията с хартиени бюлетини",
+  "party_paper_preferences_pct_change_explainer": "Промяна в преференциите за партията с хартиени бюлетини спрямо предишните избори",
+  "party_machine_preferences_explainer": "Преференции за партията с машинни бюлетини",
+  "party_machine_preferences_pct_change_explainer": "Промяна в преференциите за партията с машинни бюлетини спрямо предишните избори"
 }

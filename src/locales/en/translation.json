@@ -22,6 +22,7 @@
   "party": "Party",
   "parties": "Parties",
   "top_parties": "Top parties",
+  "top_candidates": "Top candidates",
   "votes": "Votes",
   "unknown_party": "Unknown party",
   "about": "About",
@@ -270,5 +271,17 @@
   "flash_memory_removed": "Removed votes in protocols",
   "machine_ballots": "Machine ballots",
   "summary": "Summary",
-  "analysis": "Analysis"
+  "analysis": "Analysis",
+  "preferences_by_regions": "Preferences by regions",
+  "preferences_by_municipalities": "Preferences by municipalities",
+  "preferences_by_settlements": "Preferences by settlements",
+  "preferences_by_sections": "Preferences by polling stations",
+  "preferences_history": "Preferences history",
+  "party_preferences_explainer": "Total party preferences",
+  "party_preferences_pct_change_explainer": "Change in party preferences since the previous election",
+  "party_paper_preferences_explainer": "Party preferences with paper ballots",
+  "party_paper_preferences_pct_change_explainer": "Change in party preferences with paper ballots since the previous election",
+  "party_machine_preferences_explainer": "Party preferences with machine ballots",
+  "party_machine_preferences_pct_change_explainer": "Change in party preferences with machine ballots since the previous election"
+
 }

@@ -3,6 +3,7 @@ import { useElectionContext } from "@/data/ElectionContext";
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { PreferencesTable } from "../../preferences/PreferencesTable";
 import { FC } from "react";
+import { useTranslation } from "react-i18next";
 
 const queryFn = async ({
   queryKey,
@@ -26,9 +27,11 @@ export const PartyCandidatesByMunicipality: FC<{
     queryKey: ["party_preferences_by_municipality", selected, party.number],
     queryFn,
   });
+  const { t } = useTranslation();
   return preferences ? (
     <PreferencesTable
       preferences={preferences}
+      title={t("preferences_by_municipalities")}
       visibleColumns={["candidate", "obshtina"]}
       hiddenColumns={["party"]}
     />

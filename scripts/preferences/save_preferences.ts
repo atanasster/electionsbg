@@ -57,9 +57,9 @@ const readLastYearObjectPreferences = ({
   }
 };
 export const savePreferences = ({
-  outFolder,
-  lastYearFolder,
-  lyCandidates,
+  publicFolder,
+  year,
+  prevYears,
   stringify,
   preferences,
   preferencesCountry,
@@ -69,8 +69,10 @@ export const savePreferences = ({
   preferencesSections,
   candidates,
 }: {
-  outFolder: string;
-  lastYearFolder?: string;
+  publicFolder: string;
+  year: string;
+  prevYears: string[];
+
   stringify: (o: object) => string;
   preferences: PreferencesInfo[];
   preferencesCountry: PreferencesInfo[];
@@ -79,12 +81,19 @@ export const savePreferences = ({
   preferencesSettlements: Record<string, PreferencesInfo[]>;
   preferencesSections: Record<string, PreferencesInfo[]>;
   candidates: CandidatesInfo[];
-  lyCandidates?: CandidatesInfo[];
 }) => {
+  const outFolder = `${publicFolder}/${year}`;
   const prefFolder = `${outFolder}/preferences`;
+  const lastYear = prevYears.length
+    ? prevYears[prevYears.length - 1]
+    : undefined;
+  const lastYearFolder = lastYear ? `${publicFolder}/${lastYear}` : undefined;
   if (!fs.existsSync(prefFolder)) {
     fs.mkdirSync(prefFolder);
   }
+  const lyCandidates: CandidatesInfo[] | undefined = lastYearFolder
+    ? JSON.parse(fs.readFileSync(`${lastYearFolder}/candidates.json`, "utf-8"))
+    : undefined;
   const lyPrefFolder = `${lastYearFolder}/preferences`;
   readLastYearPreferences({
     candidates,
@@ -349,13 +358,13 @@ export const savePreferences = ({
     fs.writeFileSync(bySectionFileName, stringify(bySection), "utf8");
   });
   savePartyPreferences({
-    outFolder,
-    lastYearFolder,
+    publicFolder,
+    year,
+    prevYears,
     preferences,
     preferencesCountry,
     preferencesMunicipalities,
     preferencesSettlements,
     stringify,
   });
-  console.log();
 };

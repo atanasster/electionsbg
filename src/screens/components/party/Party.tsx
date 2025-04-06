@@ -8,19 +8,19 @@ import { FC, ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { ErrorSection } from "../ErrorSection";
 import { PartyFinancingScreen } from "./campaign_financing/PartyFinancingScreen";
-import { Banknote, RotateCcwSquare, Users, Vote } from "lucide-react";
+import { Banknote, Heart, RotateCcwSquare, Vote } from "lucide-react";
 import { PartyResultsScreen } from "./election_results/PartyResultsScreen";
 import { PartyRecountScreen } from "./recount/PartyRecountScreen";
 import { PartyLink } from "./PartyLink";
 import { PartyCandidatesScreen } from "./candidates/PartyCandidatesScreen";
 
-const dataViews = ["results", "financing", "candidates", "recount"] as const;
+const dataViews = ["results", "financing", "preferences", "recount"] as const;
 type DataViewType = (typeof dataViews)[number];
 
 const DataTypeIcons: Record<DataViewType, ReactNode> = {
   results: <Vote />,
   financing: <Banknote />,
-  candidates: <Users />,
+  preferences: <Heart />,
   recount: <RotateCcwSquare />,
 };
 export const Party: FC<{ nickName: string }> = ({ nickName }) => {
@@ -76,7 +76,7 @@ export const Party: FC<{ nickName: string }> = ({ nickName }) => {
                 return party && <PartyRecountScreen party={party} />;
               if (view === "financing")
                 return <PartyFinancingScreen party={party} />;
-              if (view === "candidates")
+              if (view === "preferences")
                 return <PartyCandidatesScreen party={party} />;
             }}
           </IconTabs>

@@ -1,37 +1,18 @@
-import { PartyInfo, PreferencesInfo } from "@/data/dataTypes";
-import { useElectionContext } from "@/data/ElectionContext";
-import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
+import { PartyInfo } from "@/data/dataTypes";
 import { FC } from "react";
 import { PreferencesTable } from "../../preferences/PreferencesTable";
-
-const queryFn = async ({
-  queryKey,
-}: QueryFunctionContext<[string, string | null | undefined, number]>): Promise<
-  PreferencesInfo[] | undefined
-> => {
-  if (!queryKey[1]) {
-    return undefined;
-  }
-  const response = await fetch(
-    `/${queryKey[1]}/parties/preferences/${queryKey[2]}/regions.json`,
-  );
-  const data = await response.json();
-  return data;
-};
+import { useCountryPreferences } from "./data/useCountryPreferences";
+import { useTranslation } from "react-i18next";
 
 export const PartyCandidatesAllRegions: FC<{ party: PartyInfo }> = ({
   party,
 }) => {
-  const { selected } = useElectionContext();
-  const { data: preferences } = useQuery({
-    queryKey: ["party_preferences_all_country", selected, party.number],
-    queryFn,
-  });
-
+  const preferences = useCountryPreferences(party);
+  const { t } = useTranslation();
   return preferences ? (
     <PreferencesTable
       preferences={preferences}
-      region=""
+      title={t("preferences_by_regions")}
       visibleColumns={["oblast", "candidate"]}
       hiddenColumns={["party"]}
     />
