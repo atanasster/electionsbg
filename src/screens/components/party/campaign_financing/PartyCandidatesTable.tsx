@@ -27,11 +27,6 @@ export const PartyCandidatesTable: FC<{ data: FinancingFromCandidates[] }> = ({
         header: t("date"),
       },
       {
-        accessorKey: "goal",
-        header: t("goal"),
-        hidden: !isMedium,
-      },
-      {
         accessorKey: "nonMonetary",
         dataType: "money",
         header: t("non_monetary"),
