@@ -1,17 +1,9 @@
-import {
-  Area,
-  AreaChart,
-  CartesianGrid,
-  ReferenceLine,
-  XAxis,
-  YAxis,
-} from "recharts";
+import { Area, AreaChart, XAxis } from "recharts";
 import { ChartContainer, ChartTooltip } from "@/components/ui/chart";
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { ElectionInfo, PartyInfo } from "@/data/dataTypes";
 import { findPrevVotes, formatThousands, localDate } from "@/data/utils";
-import { useElectionContext } from "@/data/ElectionContext";
 
 const CustomTooltip: FC<{
   active?: boolean;
@@ -75,8 +67,6 @@ export const HistoryChart: FC<{
   isConsolidated,
   animationDuration = 1000,
 }) => {
-  const { selected } = useElectionContext();
-  const { t } = useTranslation();
   const chartData = useMemo(() => {
     return stats
       .map((e) => {
@@ -104,35 +94,14 @@ export const HistoryChart: FC<{
       >
         <ChartTooltip cursor={true} content={<CustomTooltip />} />
         {xAxis && (
-          <>
-            <CartesianGrid vertical={false} />
-            <XAxis
-              dataKey="date"
-              tickLine={false}
-              tickMargin={10}
-              axisLine={true}
-              //tickFormatter={(value) => value.slice(0, 3)}
-            />
-            <YAxis />
-            <ReferenceLine
-              x={localDate(selected)}
-              stroke="red"
-              label={t("selected_elections")}
-            />
-            <Area
-              animationDuration={animationDuration}
-              dataKey="total"
-              type="linear"
-              style={{ cursor: "pointer" }}
-              stroke="red"
-              fill="transparent"
-              strokeWidth={4}
-              fillOpacity={0.3}
-              dot={false}
-            />
-          </>
+          <XAxis
+            dataKey="date"
+            tickLine={false}
+            tickMargin={10}
+            axisLine={true}
+            //tickFormatter={(value) => value.slice(0, 3)}
+          />
         )}
-
         <Area
           animationDuration={animationDuration}
           dataKey="votes"

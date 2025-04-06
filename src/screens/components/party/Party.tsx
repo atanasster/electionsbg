@@ -49,7 +49,7 @@ export const Party: FC<{ nickName: string }> = ({ nickName }) => {
       ) : (
         <>
           <Title
-            className="w-auto flex justify-center"
+            className="w-auto flex justify-center md:py-10"
             title={nickName}
             description={`Results for party ${name}`}
           >
