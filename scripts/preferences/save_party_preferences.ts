@@ -3,22 +3,25 @@ import { PartyInfo, PreferencesInfo, PreferencesVotes } from "@/data/dataTypes";
 import { matchPartyNickName } from "@/data/utils";
 
 export const savePartyPreferences = ({
-  outFolder,
-  lastYearFolder,
+  publicFolder,
+  year,
+  prevYears,
   stringify,
   preferences,
   preferencesCountry,
   preferencesMunicipalities,
   preferencesSettlements,
 }: {
-  outFolder: string;
-  lastYearFolder?: string;
+  publicFolder: string;
+  year: string;
+  prevYears: string[];
   stringify: (o: object) => string;
   preferences: PreferencesInfo[];
   preferencesCountry: PreferencesInfo[];
   preferencesMunicipalities: Record<string, PreferencesInfo[]>;
   preferencesSettlements: Record<string, PreferencesInfo[]>;
 }) => {
+  const outFolder = `${publicFolder}/${year}`;
   const regionPrefsByParty = preferencesCountry.reduce(
     (acc: Record<number, PreferencesInfo[]>, curr) => {
       if (curr.partyNum) {
@@ -69,43 +72,27 @@ export const savePartyPreferences = ({
   const parties: PartyInfo[] = JSON.parse(
     fs.readFileSync(`${outFolder}/cik_parties.json`, "utf-8"),
   );
-  const lyParties: PartyInfo[] | undefined = lastYearFolder
-    ? JSON.parse(fs.readFileSync(`${lastYearFolder}/cik_parties.json`, "utf-8"))
-    : undefined;
-  const preferencesFolder = `${outFolder}/parties/preferences`;
-  if (!fs.existsSync(preferencesFolder)) {
-    fs.mkdirSync(preferencesFolder);
-  }
-
   const partyStats = preferencesCountry.reduce(
-    (acc: Record<number, PreferencesVotes>, curr) => {
+    (
+      acc: Record<
+        number,
+        PreferencesVotes & {
+          history: Record<string, PreferencesVotes>;
+          top?: PreferencesInfo[];
+        }
+      >,
+      curr,
+    ) => {
       if (curr.partyNum) {
         if (acc[curr.partyNum] === undefined) {
-          const p: PreferencesVotes = {
+          const p: PreferencesVotes & {
+            history: Record<string, PreferencesVotes>;
+          } = {
             totalVotes: curr.totalVotes,
             paperVotes: curr.paperVotes || 0,
             machineVotes: curr.machineVotes || 0,
+            history: {},
           };
-          if (lyParties) {
-            const party = parties.find((p) => p.number === curr.partyNum);
-            if (party) {
-              lyParties.forEach((lyp) => {
-                if (matchPartyNickName(party, lyp, true)) {
-                  const lyStatsFileName = `${lastYearFolder}/parties/preferences/${lyp.number}/stats.json`;
-                  if (fs.existsSync(lyStatsFileName)) {
-                    const lyStats: PreferencesVotes = JSON.parse(
-                      fs.readFileSync(lyStatsFileName, "utf-8"),
-                    );
-                    p.lyTotalVotes = (p.lyTotalVotes || 0) + lyStats.totalVotes;
-                    p.lyPaperVotes =
-                      (p.lyPaperVotes || 0) + (lyStats.paperVotes || 0);
-                    p.lyMachineVotes =
-                      (p.lyMachineVotes || 0) + (lyStats.machineVotes || 0);
-                  }
-                }
-              });
-            }
-          }
           acc[curr.partyNum] = p;
         } else {
           acc[curr.partyNum].totalVotes += curr.totalVotes;
@@ -119,6 +106,51 @@ export const savePartyPreferences = ({
     },
     {},
   );
+  Object.keys(partyStats).forEach((key) => {
+    const partyNum = parseInt(key);
+    const p = partyStats[partyNum];
+    p.top = preferencesCountry
+      .filter((c) => c.partyNum === partyNum)
+      .sort((a, b) => b.totalVotes - a.totalVotes)
+      .slice(0, 10);
+  });
+
+  for (let i = prevYears.length - 1; i >= 0; i--) {
+    const prevYear = prevYears[i];
+    const lastYearFolder = `${publicFolder}/${prevYear}`;
+    const lyParties: PartyInfo[] | undefined = lastYearFolder
+      ? JSON.parse(
+          fs.readFileSync(`${lastYearFolder}/cik_parties.json`, "utf-8"),
+        )
+      : undefined;
+    if (lyParties) {
+      Object.keys(partyStats).forEach((key) => {
+        const p: PreferencesVotes = { totalVotes: 0 };
+        const party = parties.find((p) => p.number === parseInt(key));
+        if (party) {
+          lyParties.forEach((lyp) => {
+            if (matchPartyNickName(party, lyp, true)) {
+              const lyStatsFileName = `${lastYearFolder}/parties/preferences/${lyp.number}/stats.json`;
+              if (fs.existsSync(lyStatsFileName)) {
+                const lyStats: PreferencesVotes = JSON.parse(
+                  fs.readFileSync(lyStatsFileName, "utf-8"),
+                );
+                p.totalVotes = (p.totalVotes || 0) + lyStats.totalVotes;
+                p.paperVotes = (p.paperVotes || 0) + (lyStats.paperVotes || 0);
+                p.machineVotes =
+                  (p.machineVotes || 0) + (lyStats.machineVotes || 0);
+              }
+            }
+          });
+        }
+        partyStats[parseInt(key)].history[prevYear] = p;
+      });
+    }
+  }
+  const preferencesFolder = `${outFolder}/parties/preferences`;
+  if (!fs.existsSync(preferencesFolder)) {
+    fs.mkdirSync(preferencesFolder);
+  }
   Object.keys(regionPrefsByParty).forEach((key) => {
     const partyFolder = `${preferencesFolder}/${key}`;
     if (!fs.existsSync(partyFolder)) {

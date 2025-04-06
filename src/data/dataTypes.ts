@@ -115,9 +115,6 @@ export type PreferencesVotes = {
   totalVotes: number;
   paperVotes?: number;
   machineVotes?: number;
-  lyTotalVotes?: number;
-  lyPaperVotes?: number;
-  lyMachineVotes?: number;
 };
 export type PreferencesInfo = PreferencesVotes & {
   partyNum: number;
@@ -129,6 +126,9 @@ export type PreferencesInfo = PreferencesVotes & {
   partyVotes?: number;
   allVotes?: number;
   partyPrefs?: number;
+  lyTotalVotes?: number;
+  lyPaperVotes?: number;
+  lyMachineVotes?: number;
 };
 
 export type LocationInfo = {

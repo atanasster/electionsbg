@@ -45,7 +45,9 @@ export const assignPrevYearPreferences = ({
         if (candidate) {
           const pref = tyPreferences.find(
             (c) =>
-              c.pref === candidate.pref && c.partyNum === candidate.partyNum,
+              c.pref === candidate.pref &&
+              c.partyNum === candidate.partyNum &&
+              c.oblast === candidate.oblast,
           );
           if (pref) {
             pref.lyTotalVotes = lyPref.totalVotes;

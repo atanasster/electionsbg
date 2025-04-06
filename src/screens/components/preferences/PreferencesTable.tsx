@@ -34,12 +34,14 @@ export const PreferencesTable: FC<{
   regionPrefs?: Record<string, PreferencesInfo[]> | null;
   visibleColumns?: ColumnNames[];
   hiddenColumns?: ColumnNames[];
+  title?: string;
 }> = ({
   preferences,
   region,
   regionPrefs,
   visibleColumns = [],
   hiddenColumns = [],
+  title,
 }) => {
   const { t, i18n } = useTranslation();
   const { findParty } = usePartyInfo();
@@ -267,13 +269,13 @@ export const PreferencesTable: FC<{
       visibleColumns,
     ],
   );
-
+  const tableTitle = title || t("preferences");
   return (
     <div className="w-full">
-      <Caption className="py-8">{t("preferences")}</Caption>
+      <Caption className="py-8">{tableTitle}</Caption>
       <DataTable<DataType, unknown>
         pageSize={25}
-        title={t("preferences")}
+        title={tableTitle}
         stickyColumn={true}
         columns={columns}
         data={data}

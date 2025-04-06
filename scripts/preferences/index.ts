@@ -136,9 +136,9 @@ export const createPreferencesFiles = async (
         }
         process.stdout.write("\n");
         savePreferences({
-          outFolder,
-          lyCandidates,
-          lastYearFolder: ly ? `${publicFolder}/${ly.name}` : undefined,
+          publicFolder,
+          year: e.name,
+          prevYears: folders.slice(0, index).map((e) => e.name),
           preferences,
           preferencesCountry,
           preferencesMunicipalities,
