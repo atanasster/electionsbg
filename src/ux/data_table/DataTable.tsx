@@ -68,21 +68,28 @@ export const DataTable = <TData, TValue>({
   const [expanded, setExpanded] = useState<ExpandedState>({});
   const { t } = useTranslation();
   const dataColumns = useMemo(() => {
-    return columns
-      .filter((c) => !c.hidden)
-      .map(
-        (c) =>
-          ({
+    const mapColumns = (cols: DataTableColumns<TData, TValue>) =>
+      cols
+        .filter((c) => !c.hidden)
+        .map((c) => {
+          const v = {
             ...c,
-            columns: c.columns?.filter((c1) => !c1.hidden),
             sortUndefined: "last",
-          }) as DataTableColumnDef<TData, TValue>,
-      );
+          };
+          if (c.columns) {
+            v.columns = mapColumns(c.columns) as DataTableColumns<
+              TData,
+              TValue
+            >;
+          }
+          return v;
+        });
+    return mapColumns(columns);
   }, [columns]);
 
   const table = useReactTable({
     data,
-    columns: dataColumns,
+    columns: dataColumns as DataTableColumns<TData, TValue>,
     onExpandedChange: setExpanded,
     getCoreRowModel: getCoreRowModel(),
     onSortingChange: setSorting,

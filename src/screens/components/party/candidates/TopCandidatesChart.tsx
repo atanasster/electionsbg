@@ -13,7 +13,7 @@ const CustomTooltip: FC<{
   active?: boolean;
   payload?: {
     value: number;
-    payload: { pctVotes: number; name: string; region: RegionInfo };
+    payload: { pctVotes: number; name: string; region?: RegionInfo };
   }[];
   label?: string;
 }> = ({ active, payload }) => {
@@ -21,7 +21,7 @@ const CustomTooltip: FC<{
   return active && payload ? (
     <div className="z-50 overflow-hidden rounded-md bg-primary px-3 py-1.5 text-xs text-primary-foreground animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2">
       <div className="flex">
-        <div className="text-muted">{`${payload[0].payload.name} (${i18n.language === "en" ? payload[0].payload.region.name_en : payload[0].payload.region.name}):`}</div>
+        <div className="text-muted">{`${payload[0].payload.name} (${i18n.language === "en" ? payload[0].payload.region?.name_en : payload[0].payload.region?.name}):`}</div>
         <div className="ml-2 font-semibold">
           {`${formatThousands(payload[0].value)} ${t("pref.")}`}
         </div>
@@ -48,6 +48,7 @@ export const TopCandidatesChart: FC<{
     return {
       ...p,
       name: nameParts?.join(" "),
+      full_name: candidate?.name,
       region,
       pctVotes: stats?.totalVotes
         ? 100 * (p.totalVotes / stats.totalVotes)
@@ -63,7 +64,7 @@ export const TopCandidatesChart: FC<{
       >
         <defs>
           <filter id="colored-bg" x="-5%" width="110%" y="0%" height="100%">
-            <feFlood floodColor="rgba(0,0,0,0.5)" />
+            <feFlood floodColor="rgba(0,0,0,0.7)" />
             <feComposite operator="over" in="SourceGraphic"></feComposite>
           </filter>
         </defs>
@@ -92,7 +93,9 @@ export const TopCandidatesChart: FC<{
               key={`cell-${p.partyNum}`}
               fill={party.color}
               cursor="pointer"
-              onClick={() => navigate({ pathname: `/candidate/${p.name}` })}
+              onClick={() =>
+                navigate({ pathname: `/candidate/${p.full_name}` })
+              }
             />
           ))}
           <LabelList

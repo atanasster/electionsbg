@@ -16,9 +16,9 @@ export const dataViews = [
   "map",
   "table",
   "parties",
+  "pref.",
   "recount",
   "suemg",
-  "pref.",
   "chart",
 ] as const;
 export type DataViewType = (typeof dataViews)[number];
