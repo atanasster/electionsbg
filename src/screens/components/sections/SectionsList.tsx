@@ -43,6 +43,8 @@ export const SectionsList: FC<{
         ...section,
         address,
         partyVotes: topParty,
+        machineVotes: section.results.protocol?.numValidMachineVotes,
+        paperVotes: section.results.protocol?.numValidVotes,
         totalActualVoters:
           (section.results.protocol?.numValidMachineVotes || 0) +
           (section.results.protocol?.numValidVotes || 0),
@@ -93,14 +95,14 @@ export const SectionsList: FC<{
           dataType: "percent",
         },
         {
-          accessorKey: "results.protocol.numValidVotes",
+          accessorKey: "paperVotes",
           hidden: !isMedium || !(hasMachineVotes && hasPaperVotes),
           headerHint: t("num_paper_ballots_found_explainer"),
           header: t("paper_votes"),
           dataType: "thousands",
         },
         {
-          accessorKey: "results.protocol.numValidMachineVotes",
+          accessorKey: "machineVotes",
           hidden: !isMedium || !(hasMachineVotes && hasPaperVotes),
           headerHint: t("total_machine_votes_explainer"),
           header: t("machine_votes"),
