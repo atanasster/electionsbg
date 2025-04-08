@@ -31,14 +31,12 @@ export type ColumnNames =
 export const PreferencesTable: FC<{
   preferences: PreferencesInfo[];
   region?: string;
-  regionPrefs?: Record<string, PreferencesInfo[]> | null;
   visibleColumns?: ColumnNames[];
   hiddenColumns?: ColumnNames[];
   title?: string;
 }> = ({
   preferences,
   region,
-  regionPrefs,
   visibleColumns = [],
   hiddenColumns = [],
   title,
@@ -52,15 +50,6 @@ export const PreferencesTable: FC<{
   const { findSettlement } = useSettlementsInfo();
   const { findMunicipality } = useMunicipalities();
   const { data, hasPrevYear, hasMachinePaperVotes } = useMemo(() => {
-    const allPreferences = !regionPrefs
-      ? preferences.reduce((acc: Record<number, number>, curr) => {
-          if (acc[curr.partyNum] === undefined) {
-            acc[curr.partyNum] = 0;
-          }
-          acc[curr.partyNum] = acc[curr.partyNum] + curr.totalVotes;
-          return acc;
-        }, {})
-      : undefined;
     let hasPrevYear: boolean = false;
     let hasMachinePaperVotes: boolean = false;
     const data: DataType[] = preferences
@@ -72,14 +61,7 @@ export const PreferencesTable: FC<{
         const candidate = oblast
           ? findCandidate(oblast, preference.partyNum, preference.pref)
           : undefined;
-        const partyPreferences = preference.partyPrefs
-          ? preference.partyPrefs
-          : regionPrefs && preference.oblast
-            ? regionPrefs[preference.oblast]
-                .filter((p) => p.partyNum === preference.partyNum)
-                .reduce((acc, curr) => acc + curr.totalVotes, 0)
-            : allPreferences?.[preference.partyNum];
-
+        const partyPreferences = preference.partyPrefs;
         const pctPref = partyPreferences
           ? (100 * preference.totalVotes) / partyPreferences
           : undefined;
@@ -110,19 +92,11 @@ export const PreferencesTable: FC<{
       })
       .sort((a, b) => b.totalVotes - a.totalVotes);
     return { data, hasPrevYear, hasMachinePaperVotes };
-  }, [
-    findCandidate,
-    findParty,
-    hiddenColumns,
-    preferences,
-    region,
-    regionPrefs,
-  ]);
-
+  }, [findCandidate, findParty, hiddenColumns, preferences, region]);
   const columns: DataTableColumns<DataType, unknown> = useMemo(
     () => [
       {
-        accessorKey: "nickName",
+        accessorKey: "partyNum",
         header: t("party"),
         hidden: hiddenColumns.includes("party"),
         size: 70,

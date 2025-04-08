@@ -27,7 +27,6 @@ export const createPreferencesFiles = async (
   await Promise.all(
     folders.map(async (e, index) => {
       if (election === e.name || election === undefined) {
-        const preferencesCountry: PreferencesInfo[] = [];
         const preferencesSections: Record<string, PreferencesInfo[]> = {};
         const preferencesRegions: Record<string, PreferencesInfo[]> = {};
         const preferencesMunicipalities: Record<string, PreferencesInfo[]> = {};
@@ -123,24 +122,22 @@ export const createPreferencesFiles = async (
                 if (preferencesSettlements[section.ekatte] === undefined) {
                   preferencesSettlements[section.ekatte] = [];
                 }
-
                 addPreferences(preferencesSettlements[section.ekatte], pref, {
                   ...defaultPrefs,
                   obshtina: section.obshtina,
                   ekatte: section.ekatte,
                 });
               }
-              addPreferences(preferencesCountry, pref, defaultPrefs);
             }
           });
         }
         process.stdout.write("\n");
         savePreferences({
           publicFolder,
+          dataFolder: rawFolder,
           year: e.name,
           prevYears: folders.slice(0, index).map((e) => e.name),
           preferences,
-          preferencesCountry,
           preferencesMunicipalities,
           preferencesRegions,
           preferencesSettlements,

@@ -31,9 +31,9 @@ import { RecountCards } from "../protocols/RecountCards";
 const dataViews = [
   "sections",
   "parties",
+  "pref.",
   "recount",
   "suemg",
-  "pref.",
   "chart",
 ] as const;
 type DataViewType = (typeof dataViews)[number];

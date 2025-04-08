@@ -1,15 +1,26 @@
 import fs from "fs";
 import {
   ElectionMunicipality,
+  ElectionRegion,
   ElectionSettlement,
   SectionInfo,
 } from "@/data/dataTypes";
 import {
   municipalityVotesFileName,
+  regionsVotesFileName,
   sectionVotesFileName,
   settlementsVotesFileName,
 } from "./consts";
 
+export const regionDataReader = (dataFolder: string, year?: string) => {
+  if (!year) {
+    return undefined;
+  }
+  const votes: ElectionRegion[] = JSON.parse(
+    fs.readFileSync(`${dataFolder}/${year}/${regionsVotesFileName}`, "utf-8"),
+  );
+  return votes;
+};
 export const municipalityDataReader = (dataFolder: string, year?: string) => {
   if (!year) {
     return undefined;
