@@ -41,10 +41,16 @@ const CustomTooltip: FC<{
             {payload[0].payload.party}
             {": "}
           </div>
-          <div className="font-semibold">
-            {formatThousands(payload[0].payload.votes)}
-          </div>
-          <div className="text-muted lowercase ">{t("votes")}</div>
+          {payload[0].payload.votes ? (
+            <>
+              <div className="font-semibold">
+                {formatThousands(payload[0].payload.votes)}
+              </div>
+              <div className="text-muted lowercase ">{t("votes")}</div>
+            </>
+          ) : (
+            <div className="font-semibold">{t("not_participating")}</div>
+          )}
         </div>
       </div>
     </div>
@@ -80,7 +86,7 @@ export const HistoryChart: FC<{
           name: e.name,
           party: nickName || party.nickName,
           total: e.results?.protocol?.totalActualVoters,
-          votes: prevTotalVotes,
+          votes: prevTotalVotes || 0,
         };
       })
       .sort((a, b) => a.name.localeCompare(b.name));
