@@ -4,9 +4,15 @@ import {
   PreferencesInfo,
   SOFIA_REGIONS,
 } from "@/data/dataTypes";
-import { saveSplitObject } from "scripts/dataReaders";
+import {
+  municipalityDataReader,
+  regionDataReader,
+  saveSplitObject,
+  settlementDataReader,
+} from "scripts/dataReaders";
 import { savePartyPreferences } from "./save_party_preferences";
 import { assignPrevYearPreferences } from "./pref_utils";
+import { totalAllVotes } from "@/data/utils";
 
 const readLastYearPreferences = ({
   preferences,
@@ -43,6 +49,7 @@ const readLastYearObjectPreferences = ({
   lastYearFolder?: string;
   lyCandidates?: CandidatesInfo[];
 }) => {
+  assignPartyPreferences(tyPreferences);
   if (lastYearFolder) {
     Object.keys(tyPreferences).forEach((key) => {
       const preferences = tyPreferences[key];
@@ -56,13 +63,28 @@ const readLastYearObjectPreferences = ({
     });
   }
 };
+const assignPartyPreferences = (
+  preferences: Record<string, PreferencesInfo[]>,
+) => {
+  Object.keys(preferences).forEach((key) => {
+    const prefs = preferences[key];
+    prefs.forEach((p) => {
+      p.partyPrefs = prefs.reduce(
+        (acc, curr) =>
+          curr.partyNum === p.partyNum ? acc + curr.totalVotes : acc,
+        0,
+      );
+    });
+  });
+};
+
 export const savePreferences = ({
   publicFolder,
+  dataFolder,
   year,
   prevYears,
   stringify,
   preferences,
-  preferencesCountry,
   preferencesMunicipalities,
   preferencesRegions,
   preferencesSettlements,
@@ -70,12 +92,13 @@ export const savePreferences = ({
   candidates,
 }: {
   publicFolder: string;
+  dataFolder: string;
   year: string;
   prevYears: string[];
 
   stringify: (o: object) => string;
   preferences: PreferencesInfo[];
-  preferencesCountry: PreferencesInfo[];
+
   preferencesRegions: Record<string, PreferencesInfo[]>;
   preferencesMunicipalities: Record<string, PreferencesInfo[]>;
   preferencesSettlements: Record<string, PreferencesInfo[]>;
@@ -95,13 +118,38 @@ export const savePreferences = ({
     ? JSON.parse(fs.readFileSync(`${lastYearFolder}/candidates.json`, "utf-8"))
     : undefined;
   const lyPrefFolder = `${lastYearFolder}/preferences`;
-  readLastYearPreferences({
+
+  const prefByRegionFolder = `${prefFolder}/by_region`;
+  if (!fs.existsSync(prefByRegionFolder)) {
+    fs.mkdirSync(prefByRegionFolder);
+  }
+  const regionVotes = regionDataReader(dataFolder, year);
+  Object.keys(preferencesRegions).forEach((key) => {
+    const preferences = preferencesRegions[key];
+    const votes = regionVotes?.find((r) => r.key === key);
+    if (votes) {
+      preferences.forEach((p) => {
+        p.allVotes = totalAllVotes(votes.results.votes);
+        p.partyVotes = votes.results.votes.find(
+          (v) => v.partyNum === p.partyNum,
+        )?.totalVotes;
+      });
+    }
+  });
+  readLastYearObjectPreferences({
     candidates,
     lyCandidates,
-    lyFileName: `${lyPrefFolder}/country.json`,
-    preferences: preferencesCountry,
+    lastYearFolder: `${lyPrefFolder}/by_region`,
+    tyPreferences: preferencesRegions,
   });
+  saveSplitObject(preferencesRegions, stringify, prefByRegionFolder);
   const countryPreferencesFileName = `${prefFolder}/country.json`;
+  const preferencesCountry: PreferencesInfo[] = Object.keys(
+    preferencesRegions,
+  ).reduce(
+    (acc: PreferencesInfo[], key) => [...acc, ...preferencesRegions[key]],
+    [],
+  );
   fs.writeFileSync(
     countryPreferencesFileName,
     stringify(preferencesCountry),
@@ -126,21 +174,23 @@ export const savePreferences = ({
   );
   console.log("Successfully added file ", sofiaPreferencesFileName);
 
-  const prefByRegionFolder = `${prefFolder}/by_region`;
-  if (!fs.existsSync(prefByRegionFolder)) {
-    fs.mkdirSync(prefByRegionFolder);
-  }
-  readLastYearObjectPreferences({
-    candidates,
-    lyCandidates,
-    lastYearFolder: `${lyPrefFolder}/by_region`,
-    tyPreferences: preferencesRegions,
-  });
-  saveSplitObject(preferencesRegions, stringify, prefByRegionFolder);
   const prefByMuniFolder = `${prefFolder}/by_municipality`;
   if (!fs.existsSync(prefByMuniFolder)) {
     fs.mkdirSync(prefByMuniFolder);
   }
+  const muniVotes = municipalityDataReader(dataFolder, year);
+  Object.keys(preferencesMunicipalities).forEach((key) => {
+    const preferences = preferencesMunicipalities[key];
+    const votes = muniVotes?.find((r) => r.obshtina === key);
+    if (votes) {
+      preferences.forEach((p) => {
+        p.allVotes = totalAllVotes(votes.results.votes);
+        p.partyVotes = votes.results.votes.find(
+          (v) => v.partyNum === p.partyNum,
+        )?.totalVotes;
+      });
+    }
+  });
   readLastYearObjectPreferences({
     candidates,
     lyCandidates,
@@ -152,6 +202,20 @@ export const savePreferences = ({
   if (!fs.existsSync(prefBySettlementFolder)) {
     fs.mkdirSync(prefBySettlementFolder);
   }
+  const settlementVotes = settlementDataReader(dataFolder, year);
+  Object.keys(preferencesSettlements).forEach((key) => {
+    const preferences = preferencesSettlements[key];
+    const votes = settlementVotes?.find((r) => r.ekatte === key);
+    if (votes) {
+      totalAllVotes(votes.results.votes);
+      preferences.forEach((p) => {
+        p.allVotes = totalAllVotes(votes.results.votes);
+        p.partyVotes = votes.results.votes.find(
+          (v) => v.partyNum === p.partyNum,
+        )?.totalVotes;
+      });
+    }
+  });
   readLastYearObjectPreferences({
     candidates,
     lyCandidates,
@@ -166,73 +230,6 @@ export const savePreferences = ({
   }
   saveSplitObject(preferencesSections, stringify, prefBySectionFolder);
 
-  const regionPrefsByParty = preferencesCountry.reduce(
-    (acc: Record<string, Record<number, number>>, curr) => {
-      if (curr.oblast) {
-        if (acc[curr.oblast] === undefined) {
-          acc[curr.oblast] = {};
-        }
-        if (acc[curr.oblast][curr.partyNum] === undefined) {
-          acc[curr.oblast][curr.partyNum] = curr.totalVotes;
-        } else {
-          acc[curr.oblast][curr.partyNum] += curr.totalVotes;
-        }
-      }
-      return acc;
-    },
-    {},
-  );
-  const muniPrefsByParty = Object.keys(preferencesMunicipalities).reduce(
-    (acc: Record<string, Record<number, number>>, key) => {
-      acc[key] = preferencesMunicipalities[key].reduce(
-        (prefs: Record<number, number>, curr) => {
-          if (prefs[curr.partyNum] === undefined) {
-            prefs[curr.partyNum] = curr.totalVotes;
-          } else {
-            prefs[curr.partyNum] += curr.totalVotes;
-          }
-          return prefs;
-        },
-        {},
-      );
-      return acc;
-    },
-    {},
-  );
-  const settlementPrefsByParty = Object.keys(preferencesSettlements).reduce(
-    (acc: Record<string, Record<number, number>>, key) => {
-      acc[key] = preferencesSettlements[key].reduce(
-        (prefs: Record<number, number>, curr) => {
-          if (prefs[curr.partyNum] === undefined) {
-            prefs[curr.partyNum] = curr.totalVotes;
-          } else {
-            prefs[curr.partyNum] += curr.totalVotes;
-          }
-          return prefs;
-        },
-        {},
-      );
-      return acc;
-    },
-    {},
-  );
-
-  const sectionPrefsByParty = preferences.reduce(
-    (acc: Record<string, Record<number, number>>, curr) => {
-      if (curr.section) {
-        if (acc[curr.section] === undefined) {
-          acc[curr.section] = {};
-        }
-        if (acc[curr.section][curr.partyNum] === undefined) {
-          acc[curr.section][curr.partyNum] = curr.totalVotes;
-        } else {
-          acc[curr.section][curr.partyNum] += curr.totalVotes;
-        }
-      }
-      return acc;
-    },
-    {},
-  );
   const candidatesFolder = `${outFolder}/candidates`;
   if (!fs.existsSync(candidatesFolder)) {
     fs.mkdirSync(candidatesFolder);
@@ -267,11 +264,7 @@ export const savePreferences = ({
             c.oblast === v.oblast,
         )
         .forEach((v) => {
-          const partyPrefs = v.oblast
-            ? regionPrefsByParty[v.oblast]?.[v.partyNum]
-            : v.totalVotes;
           byRegion.push({
-            partyPrefs,
             ...v,
           });
         });
@@ -286,11 +279,7 @@ export const savePreferences = ({
               c.oblast === v.oblast,
           )
           .forEach((v) => {
-            const partyPrefs = v.obshtina
-              ? muniPrefsByParty[v.obshtina]?.[v.partyNum]
-              : v.totalVotes;
             byMunicipality.push({
-              partyPrefs,
               obshtina: muni,
               ...v,
             });
@@ -307,12 +296,8 @@ export const savePreferences = ({
               c.oblast === v.oblast,
           )
           .forEach((v) => {
-            const partyPrefs = v.ekatte
-              ? settlementPrefsByParty[v.ekatte]?.[v.partyNum]
-              : v.totalVotes;
             bySettlement.push({
               ekatte,
-              partyPrefs,
               ...v,
             });
           });
@@ -326,14 +311,7 @@ export const savePreferences = ({
           v.pref === c.pref &&
           v.oblast === c.oblast,
       );
-      bySection.push(
-        ...votes.map((v) => {
-          const partyPrefs = v.section
-            ? sectionPrefsByParty[v.section]?.[v.partyNum]
-            : v.totalVotes;
-          return { ...v, partyPrefs };
-        }),
-      );
+      bySection.push(...votes);
     });
     process.stdout.write(
       (

@@ -79,6 +79,11 @@ export const assignPrevYearPreference = ({
   const allVotes = totalAllVotes(section.results.votes);
   tyPreferences.forEach((p) => {
     assignSectionPreference({ section, preference: p, allVotes });
+    p.partyPrefs = tyPreferences.reduce(
+      (acc, curr) =>
+        curr.partyNum === p.partyNum ? acc + curr.totalVotes : acc,
+      0,
+    );
   });
   if (lyPreferences && lyCandidates) {
     const ly = lyPreferences.filter((l) => l.section === section.section);
@@ -144,18 +149,10 @@ export const addPreferences = (
       if (p.paperVotes) {
         a.paperVotes = (a.paperVotes || 0) + p.paperVotes;
       }
-      if (p.partyVotes) {
-        a.partyVotes = (a.partyVotes || 0) + p.partyVotes;
-      }
-      if (p.allVotes) {
-        a.allVotes = (a.allVotes || 0) + p.allVotes;
-      }
     } else {
       const n: PreferencesInfo = {
         partyNum: p.partyNum,
         totalVotes: p.totalVotes,
-        allVotes: p.allVotes,
-        partyVotes: p.partyVotes,
         pref: p.pref,
       };
       if (defaults.oblast) {
