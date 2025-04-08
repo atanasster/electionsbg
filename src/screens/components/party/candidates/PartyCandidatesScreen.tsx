@@ -25,7 +25,7 @@ export const PartyCandidatesScreen: FC<{ party?: PartyInfo }> = ({ party }) => {
         <IconTabs<DataViewType>
           title={t("preferences")}
           tabs={dataViews}
-          storageKey="party_financing_tabs"
+          storageKey="party_preferences_tabs"
           className="w-28"
         >
           {(view) => {
