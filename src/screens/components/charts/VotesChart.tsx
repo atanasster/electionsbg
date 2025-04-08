@@ -75,7 +75,7 @@ export const VotesChart: FC<{ votes?: PartyVotes[]; maxRows?: number }> = ({
               key={`cell-${p.partyNum}`}
               fill={p.color}
               cursor="pointer"
-              onClick={() => navigate({ pathname: `/party/${p.name}` })}
+              onClick={() => navigate({ pathname: `/party/${p.nickName}` })}
             />
           ))}
           <LabelList
