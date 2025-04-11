@@ -7,7 +7,14 @@ export const SEO: FC<{
   keywords?: string[];
   type?: string;
 }> = ({ title, description, keywords = [], type = "website" }) => {
-  const allKeywords = ["bulgaria", "elections"].concat(keywords);
+  const allKeywords = [
+    "bulgaria",
+    "elections",
+    "izbori",
+    "парламентарни избори",
+    "избори",
+    "избори 2024",
+  ].concat(keywords);
   const { t } = useTranslation();
   return (
     <>

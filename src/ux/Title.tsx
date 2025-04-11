@@ -25,7 +25,6 @@ export const Title: React.FC<
       <SEO
         title={typeof children === "string" ? children : title || ""}
         description={description}
-        keywords={["bulgaria", "elections"]}
       />
 
       {label}
