@@ -88,7 +88,7 @@ export const Candidate: FC<{ name: string }> = ({ name }) => {
           })}
         </tbody>
       </table>
-      <CandidateSummary name={name} />
+
       <IconTabs<TabViewType>
         title={name}
         tabs={tabViews}
@@ -103,24 +103,28 @@ export const Candidate: FC<{ name: string }> = ({ name }) => {
           }
           if (view === "results")
             return (
-              <IconTabs<DataViewType>
-                title={t("results")}
-                tabs={dataViews}
-                icons={DataTypeIcons}
-                storageKey="candidate_results_tabs"
-                className="w-32"
-              >
-                {(view) => {
-                  if (view === "regions")
-                    return <CandidateByRegions name={name} />;
-                  if (view === "municipalities")
-                    return <CandidateByMunicipalities name={name} />;
-                  if (view === "settlements")
-                    return <CandidateBySettlements name={name} />;
-                  if (view === "sections")
-                    return <CandidateBySections name={name} />;
-                }}
-              </IconTabs>
+              <>
+                <CandidateSummary name={name} />
+
+                <IconTabs<DataViewType>
+                  title={t("results")}
+                  tabs={dataViews}
+                  icons={DataTypeIcons}
+                  storageKey="candidate_results_tabs"
+                  className="w-32"
+                >
+                  {(view) => {
+                    if (view === "regions")
+                      return <CandidateByRegions name={name} />;
+                    if (view === "municipalities")
+                      return <CandidateByMunicipalities name={name} />;
+                    if (view === "settlements")
+                      return <CandidateBySettlements name={name} />;
+                    if (view === "sections")
+                      return <CandidateBySections name={name} />;
+                  }}
+                </IconTabs>
+              </>
             );
         }}
       </IconTabs>
