@@ -1,3 +1,4 @@
+import { capitalizeFirstLetter } from "@/data/utils";
 import { cn } from "@/lib/utils";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { FC, PropsWithChildren, ReactNode } from "react";
@@ -8,7 +9,7 @@ export const ProtocolCard: FC<
   <Card className="max-h-64">
     <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
       <CardTitle className={cn("text-md font-medium", className)}>
-        {title}
+        {capitalizeFirstLetter(title)}
       </CardTitle>
       {icon}
     </CardHeader>

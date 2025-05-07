@@ -13,6 +13,7 @@ import { RegionLink } from "../regions/RegionLink";
 import { useElectionContext } from "@/data/ElectionContext";
 import { useTranslation } from "react-i18next";
 import { CandidateDonationsTable } from "./CandidateDonationsTable";
+import { CandidateSummary } from "./CandidateSummary";
 
 const dataViews = [
   "regions",
@@ -62,6 +63,7 @@ export const Candidate: FC<{ name: string }> = ({ name }) => {
       >
         {name}
       </Title>
+
       <table className="flex justify-center py-2 ">
         <tbody>
           {candidateInfo?.map((c) => {
@@ -86,6 +88,7 @@ export const Candidate: FC<{ name: string }> = ({ name }) => {
           })}
         </tbody>
       </table>
+      <CandidateSummary name={name} />
       <IconTabs<TabViewType>
         title={name}
         tabs={tabViews}

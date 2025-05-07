@@ -7,6 +7,7 @@ import { CandidatesInfo, PreferencesInfo, SectionInfo } from "@/data/dataTypes";
 import { savePreferences } from "./save_preferences";
 import { parseCandidates } from "./parse_candidates";
 import { addPreferences, assignPrevYearPreference } from "./pref_utils";
+import { saveCandidateStats } from "./save_candidate_stats";
 
 const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
 const __dirname = path.dirname(__filename); // get the name of the directory
@@ -145,9 +146,16 @@ export const createPreferencesFiles = async (
           stringify,
           candidates,
         });
+        saveCandidateStats({
+          stringify,
+          prevYears: folders.slice(0, index).map((e) => e.name),
+          year: e.name,
+          publicFolder,
+        });
       }
     }),
   );
   console.log();
+
   //candidatesStats(stringify, election);
 };
