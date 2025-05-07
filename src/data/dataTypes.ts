@@ -111,6 +111,24 @@ export type CandidatesInfo = {
   pref: string;
 };
 
+export type CandidateStats = {
+  stats: CandidateStatsYearly[];
+  top_settlements: PreferencesInfo[];
+  top_sections: PreferencesInfo[];
+};
+export type CandidateStatsYearly = {
+  elections_date: string;
+  party?: {
+    nickName: string;
+    color: string;
+  };
+  preferences: {
+    oblast: string;
+    pref: string;
+    preferences?: number;
+  }[];
+};
+
 export type PreferencesVotes = {
   totalVotes: number;
   paperVotes?: number;

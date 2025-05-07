@@ -5,8 +5,8 @@ import { PercentChange } from "./PercentChange";
 
 export const HintedDataItem: FC<{
   value?: number;
-  pctChange?: number;
-  valueLabel?: string;
+  pctChange?: number | string;
+  valueLabel?: ReactNode;
   valueExplainer?: ReactNode;
   pctExplainer?: ReactNode;
   pctStyle?: "plain" | "colored";
@@ -43,7 +43,11 @@ export const HintedDataItem: FC<{
             <Hint text={pctExplainer} underline={false}>
               <PercentChange
                 className="text-xl xl:text-lg font-semibold"
-                pctChange={formatPct(pctChange)}
+                pctChange={
+                  typeof pctChange === "string"
+                    ? pctChange
+                    : formatPct(pctChange)
+                }
                 style={pctStyle}
                 suffix={pctSuffix}
               />
@@ -57,6 +61,7 @@ export const HintedDataItem: FC<{
                 className="text-xl xl:text-lg font-semibold"
                 pctChange={formatPct(pct2)}
                 suffix={pctSuffix}
+                style={pctStyle}
               />
             </Hint>
           </div>
@@ -68,7 +73,9 @@ export const HintedDataItem: FC<{
       >
         {valueLabel && (
           <Hint text={valueExplainer} className={className}>
-            <div>{`${valueLabel}: `}</div>
+            <div>
+              {typeof valueLabel === "string" ? `${valueLabel}: ` : valueLabel}
+            </div>
           </Hint>
         )}
         <div className="flex gap-2">
@@ -79,7 +86,11 @@ export const HintedDataItem: FC<{
           </Hint>
 
           <Hint text={pctExplainer}>
-            <PercentChange pctChange={pctChange} suffix={pctSuffix} />
+            <PercentChange
+              pctChange={pctChange}
+              suffix={pctSuffix}
+              style={pctStyle}
+            />
           </Hint>
         </div>
       </div>

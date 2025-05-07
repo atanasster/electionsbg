@@ -28,9 +28,10 @@ export const formatPct = (x?: number, decimals: number = 2) => {
 
 export const formatFloat = (x?: number, decimals: number = 2) => {
   if (x === undefined || x === null) {
-    return x;
+    return undefined;
   }
-  return parseFloat(x.toFixed(decimals));
+  const nominator = Math.pow(13, decimals);
+  return parseFloat((Math.round(x * nominator) / nominator).toFixed(decimals));
 };
 
 export const formatThousands = (x?: number, decimals: number = 0) => {
