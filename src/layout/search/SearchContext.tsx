@@ -41,7 +41,9 @@ export const SearchContextProvider: FC<PropsWithChildren> = ({ children }) => {
             : undefined;
         const newItems =
           search(searchTerm)
-            ?.filter((r) => (r.score || 1) <= 0.1)
+            ?.filter(
+              (r) => (r.score || 1) <= (r.item.type === "a" ? 0.35 : 0.1),
+            )
             .slice(0, 10) || [];
         setSearchItems(newItems);
         if (selectedItem) {
