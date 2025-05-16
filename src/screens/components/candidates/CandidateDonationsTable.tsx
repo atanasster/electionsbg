@@ -1,7 +1,6 @@
 import { FinancingFromCandidates } from "@/data/dataTypes";
 import { useElectionContext } from "@/data/ElectionContext";
 import { DataTable, DataTableColumns } from "@/ux/data_table/DataTable";
-import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
@@ -34,7 +33,6 @@ export const CandidateDonationsTable: FC<{ name: string }> = ({ name }) => {
   });
 
   const { t } = useTranslation();
-  const isMedium = useMediaQueryMatch("md");
   const columns: DataTableColumns<TableData, unknown> = useMemo(
     () => [
       {
@@ -58,7 +56,7 @@ export const CandidateDonationsTable: FC<{ name: string }> = ({ name }) => {
         header: t("total"),
       },
     ],
-    [isMedium, t],
+    [t],
   );
   const tableData = useMemo(
     () =>
