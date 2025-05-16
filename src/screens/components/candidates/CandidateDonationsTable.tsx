@@ -60,12 +60,10 @@ export const CandidateDonationsTable: FC<{ name: string }> = ({ name }) => {
   );
   const tableData = useMemo(
     () =>
-      data
-        ?.map((d) => ({
-          ...d,
-          totalAmount: d.monetary | d.nonMonetary,
-        }))
-        .sort((a, b) => b.totalAmount - a.totalAmount) || [],
+      data?.map((d) => ({
+        ...d,
+        totalAmount: d.monetary | d.nonMonetary,
+      })) || [],
     [data],
   );
   return (
