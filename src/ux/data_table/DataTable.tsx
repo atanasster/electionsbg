@@ -52,6 +52,7 @@ interface DataTableProps<TData, TValue> {
   subTitle?: string;
   getSubRows?: (originalRow: TData, index: number) => undefined | TData[];
   toolbarItems?: ReactNode;
+  initialSort?: SortingState;
 }
 
 export const DataTable = <TData, TValue>({
@@ -61,9 +62,10 @@ export const DataTable = <TData, TValue>({
   stickyColumn,
   getSubRows,
   title = "electionsbg",
+  initialSort = [],
   toolbarItems,
 }: DataTableProps<TData, TValue>) => {
-  const [sorting, setSorting] = useState<SortingState>([]);
+  const [sorting, setSorting] = useState<SortingState>(initialSort);
   const [filter, setFilter] = useState<string>("");
   const [expanded, setExpanded] = useState<ExpandedState>({});
   const { t } = useTranslation();

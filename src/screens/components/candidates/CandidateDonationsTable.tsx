@@ -42,11 +42,6 @@ export const CandidateDonationsTable: FC<{ name: string }> = ({ name }) => {
         header: t("date"),
       },
       {
-        accessorKey: "goal",
-        header: t("goal"),
-        hidden: !isMedium,
-      },
-      {
         accessorKey: "nonMonetary",
         dataType: "money",
         header: t("non_monetary"),
@@ -58,6 +53,7 @@ export const CandidateDonationsTable: FC<{ name: string }> = ({ name }) => {
       },
       {
         accessorKey: "totalAmount",
+        className: "font-bold",
         dataType: "money",
         header: t("total"),
       },
@@ -81,6 +77,7 @@ export const CandidateDonationsTable: FC<{ name: string }> = ({ name }) => {
       columns={columns}
       stickyColumn={true}
       data={tableData}
+      initialSort={[{ desc: false, id: "date" }]}
     />
   );
 };
