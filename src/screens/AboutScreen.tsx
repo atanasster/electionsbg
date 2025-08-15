@@ -6,7 +6,7 @@ import { useTranslation } from "react-i18next";
 export const AboutScreen = () => {
   const { t } = useTranslation();
   return (
-    <div className="text-secondary-foreground w-full px-2 sm:px-20 md:px-32 lg:px-40 ">
+    <div className="text-secondary-foreground w-full px-2 sm:px-20 md:px-32 lg:px-40">
       <Title description="About page">{t("about")}</Title>
       <p className="py-2 text-lg">{t("about_p_1")}</p>
       <blockquote className="py-2 border-l-2 pl-6 text-lg italic font-semibold">
