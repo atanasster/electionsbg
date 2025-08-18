@@ -15,6 +15,21 @@ export const functionDeclarations: FunctionDeclaration[] = [
     parameters: { type: Type.OBJECT, properties: {} },
   },
   {
+    name: "get_list_of_municipalities",
+    description:
+      "Returns a list of all municipalities in Bulgaria. Can be filtered by a region name to show only municipalities within that region. / Връща списък с всички общини в България. Може да се филтрира по име на област, за да се покажат само общините в тази област.",
+    parameters: {
+      type: Type.OBJECT,
+      properties: {
+        region_name: {
+          type: Type.STRING,
+          description:
+            "Optional. The name of the region (e.g., 'Burgas', 'София') to filter municipalities by. / Незадължително. Името на областта (напр. 'Бургас', 'София'), по която да се филтрират общините.",
+        },
+      },
+    },
+  },
+  {
     name: "get_national_vote_type_summary",
     description:
       "Fetches and calculates the national percentage of paper vs. machine votes for a list of elections. This is highly efficient for trend analysis of voting methods. / Извлича и изчислява националния процент на хартиени срещу машинни гласове за списък от избори. Това е високо ефективно за анализ на тенденциите в методите на гласуване.",
