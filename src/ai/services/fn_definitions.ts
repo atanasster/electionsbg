@@ -30,6 +30,26 @@ export const functionDeclarations: FunctionDeclaration[] = [
     },
   },
   {
+    name: "get_list_of_settlements",
+    description:
+      "Returns a list of all settlements (cities, towns, villages) in Bulgaria. Can be filtered by region and/or municipality name. / Връща списък с всички населени места (градове, села) в България. Може да се филтрира по име на област и/или община.",
+    parameters: {
+      type: Type.OBJECT,
+      properties: {
+        region_name: {
+          type: Type.STRING,
+          description:
+            "Optional. The name of the region (e.g., 'Burgas', 'София') to filter settlements by. / Незадължително. Името на областта (напр. 'Бургас', 'София'), по която да се филтрират населените места.",
+        },
+        municipality_name: {
+          type: Type.STRING,
+          description:
+            "Optional. The name of the municipality (e.g., 'Sozopol', 'Созопол') to filter settlements by. / Незадължително. Името на общината (напр. 'Созопол', 'Созопол'), по която да се филтрират населените места.",
+        },
+      },
+    },
+  },
+  {
     name: "get_national_vote_type_summary",
     description:
       "Fetches and calculates the national percentage of paper vs. machine votes for a list of elections. This is highly efficient for trend analysis of voting methods. / Извлича и изчислява националния процент на хартиени срещу машинни гласове за списък от избори. Това е високо ефективно за анализ на тенденциите в методите на гласуване.",
@@ -65,7 +85,7 @@ export const functionDeclarations: FunctionDeclaration[] = [
   {
     name: "get_election_results",
     description:
-      "Fetches election results. Currently, this function provides detailed data primarily at the national level. Support for region, municipality, and settlement levels is limited. / Извлича изборни резултати. Понастоящем тази функция предоставя подробни данни предимно на национално ниво. Поддръжката за нива област, община и населено място е ограничена.",
+      "Fetches election results. Can resolve location names for regions, municipalities, and settlements, but detailed data is primarily available at the national level. / Извлича изборни резултати. Може да разпознава имена на области, общини и населени места, но подробни данни са налични предимно на национално ниво.",
     parameters: {
       type: Type.OBJECT,
       properties: {
