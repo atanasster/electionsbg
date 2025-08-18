@@ -11,8 +11,10 @@ import { Language, translations } from "@/ai/constants";
 export const useChat = (language: Language) => {
   const [messages, setMessages] = useState<ChatMessage[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [isStopping, setIsStopping] = useState(false);
   const [error, setError] = useState<string | null>(null);
   const chatRef = useRef<Chat | null>(null);
+  const isCancelledRef = useRef(false);
 
   useEffect(() => {
     const initializeOrUpdateChat = async () => {
@@ -46,10 +48,17 @@ export const useChat = (language: Language) => {
     });
   }, [language]);
 
+  const stopGeneration = useCallback(() => {
+    isCancelledRef.current = true;
+    setIsStopping(true);
+  }, []);
+
   const sendUserMessage = useCallback(
     async (text: string) => {
       if (!text.trim() || isLoading) return;
 
+      isCancelledRef.current = false; // Reset cancellation flag
+      setIsStopping(false);
       const newUserMessage: ChatMessage = {
         role: "user",
         parts: [{ text }],
@@ -65,7 +74,16 @@ export const useChat = (language: Language) => {
           throw new Error("Chat not initialized");
         }
 
-        const response = await sendMessage(chatRef.current, text);
+        const response = await sendMessage(
+          chatRef.current,
+          text,
+          isCancelledRef,
+        );
+
+        if (isCancelledRef.current) {
+          throw new Error("GENERATION_CANCELLED");
+        }
+
         const modelResponseText = response.text || "Error empty response";
 
         const newModelMessage: ChatMessage = {
@@ -75,23 +93,42 @@ export const useChat = (language: Language) => {
         };
         setMessages((prev) => [...prev, newModelMessage]);
       } catch (e) {
-        console.error("Failed to send message:", e);
-        const errorMessage =
-          e instanceof Error ? e.message : "An unknown error occurred.";
-        setError(errorMessage);
-        const errorText = `${translations[language].errorMessagePrefix}: ${errorMessage}`;
-        const newErrorMessage: ChatMessage = {
-          role: "model",
-          parts: [{ text: errorText }],
-          id: `error-${Date.now()}`,
-        };
-        setMessages((prev) => [...prev, newErrorMessage]);
+        if (e instanceof Error && e.message === "GENERATION_CANCELLED") {
+          console.log("Chat generation was cancelled by the user.");
+          const stopMessage: ChatMessage = {
+            role: "model",
+            parts: [{ text: translations[language].generationStopped }],
+            id: `stop-${Date.now()}`,
+          };
+          setMessages((prev) => [...prev, stopMessage]);
+        } else {
+          console.error("Failed to send message:", e);
+          const errorMessage =
+            e instanceof Error ? e.message : "An unknown error occurred.";
+          setError(errorMessage);
+          const errorText = `${translations[language].errorMessagePrefix}: ${errorMessage}`;
+          const newErrorMessage: ChatMessage = {
+            role: "model",
+            parts: [{ text: errorText }],
+            id: `error-${Date.now()}`,
+          };
+          setMessages((prev) => [...prev, newErrorMessage]);
+        }
       } finally {
         setIsLoading(false);
+        setIsStopping(false);
+        isCancelledRef.current = false;
       }
     },
     [isLoading, language],
   );
 
-  return { messages, isLoading, error, sendUserMessage };
+  return {
+    messages,
+    isLoading,
+    isStopping,
+    error,
+    sendUserMessage,
+    stopGeneration,
+  };
 };

@@ -271,11 +271,14 @@ type TranslationContent = {
   sidebarHeader: string;
   errorMessagePrefix: string;
   thinkingMessage: string;
+  stoppingMessage: string;
+  generationStopped: string;
   sidebarPartySelectorLabel: string;
   linkQueries: {
     location: string;
     party: string;
     election: string;
+
     station: string;
     candidate: string;
     default: string;
@@ -293,6 +296,8 @@ export const translations: Record<Language, TranslationContent> = {
     errorMessagePrefix: "Sorry, I encountered an error",
     thinkingMessage:
       "I am gathering the necessary data. This may take a moment...",
+    stoppingMessage: "Stopping...",
+    generationStopped: "Generation stopped.",
     sidebarPartySelectorLabel: "Select a Party:",
     linkQueries: {
       location: 'Tell me more about the {locationType} "{locationName}".',
@@ -313,6 +318,8 @@ export const translations: Record<Language, TranslationContent> = {
     errorMessagePrefix: "Съжалявам, възникна грешка",
     thinkingMessage:
       "Събирам необходимите данни. Това може да отнеме малко време...",
+    stoppingMessage: "Спиране...",
+    generationStopped: "Генерирането е спряно.",
     sidebarPartySelectorLabel: "Изберете Партия:",
     linkQueries: {
       location: 'Разкажи ми повече за {locationType} "{locationName}".',

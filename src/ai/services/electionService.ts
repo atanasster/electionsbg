@@ -686,8 +686,8 @@ export const get_election_results = (args: {
 
         // Add 'I do not support anyone' as a separate entry
         const noOneVotes =
-          (protocol.numValidNoOneMachineVotes || 0) +
-          (protocol.numValidNoOnePaperVotes || 0);
+          Number(protocol.numValidNoOneMachineVotes || 0) +
+          Number(protocol.numValidNoOnePaperVotes || 0);
         if (noOneVotes > 0) {
           results.push({
             party_name: parties["none-of-the-above"].en,
@@ -1189,7 +1189,10 @@ export const calculate_campaign_efficiency = ({
   financialReports.forEach((report) => {
     const total_votes: number = resultsMap.get(report.party_name) || 0;
     const total_spending = report.expenses
-      ? Object.values(report.expenses).reduce((sum, val) => sum + val, 0)
+      ? (Object.values(report.expenses).reduce(
+          (sum: number, val: number) => sum + val,
+          0,
+        ) as number)
       : 0;
 
     // Avoid division by zero and only include parties with votes
@@ -1519,12 +1522,12 @@ export const get_ballot_summary = ({
   }
 
   const protocol = electionData.results.protocol;
-  const invalidBallots = protocol.numInvalidBallotsFound || 0;
+  const invalidBallots = Number(protocol.numInvalidBallotsFound || 0);
   const totalValidVotes =
-    (protocol.numValidVotes || 0) +
-    (protocol.numValidMachineVotes || 0) +
-    (protocol.numValidNoOneMachineVotes || 0) +
-    (protocol.numValidNoOnePaperVotes || 0);
+    Number(protocol.numValidVotes || 0) +
+    Number(protocol.numValidMachineVotes || 0) +
+    Number(protocol.numValidNoOneMachineVotes || 0) +
+    Number(protocol.numValidNoOnePaperVotes || 0);
 
   const totalBallots = invalidBallots + totalValidVotes;
   const invalidBallotPercentage =
