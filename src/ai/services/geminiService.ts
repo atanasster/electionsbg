@@ -52,6 +52,7 @@ const availableTools: { [key: string]: Function } = {
     electionService.find_machine_vote_discrepancies,
   get_list_of_regions: locationService.get_list_of_regions,
   get_list_of_municipalities: locationService.get_list_of_municipalities,
+  get_list_of_settlements: locationService.get_list_of_settlements,
 };
 
 const tools: Tool[] = [{ functionDeclarations }];
@@ -73,7 +74,7 @@ const getSystemInstruction = (language: Language): string => {
     *   Call \`get_ballot_summary\` to get the total valid votes.
     *   Present these key statistics clearly, for example in a bulleted list.
     *   When using \`get_list_of_elections\`, use the language-appropriate name ('en' or 'bg'). The boolean flags (\`hasRecount\`, \`hasSuemg\`, etc.) indicate what data is available; you can mention this availability as part of a detailed summary.
-5.  **Location Queries:** You have access to a complete list of Bulgarian administrative regions (\`get_list_of_regions\`) and municipalities (\`get_list_of_municipalities\`). When a user asks about a location, your tools will handle the necessary lookups. If a municipality name is used in a function that expects a region (e.g., \`get_candidate_performance\`), the tool will automatically find the parent region for the query. Note that Sofia city is a special case and corresponds to three electoral regions ('S23', 'S24', 'S25'). Currently, detailed results (like vote counts and turnout) are primarily available at the national level.
+5.  **Location Queries:** You have access to a complete list of Bulgarian administrative regions (\`get_list_of_regions\`), municipalities (\`get_list_of_municipalities\`), and settlements (\`get_list_of_settlements\`). When a user asks about a location, your tools will handle the necessary lookups. If a municipality or settlement name is used in a function that expects a region (e.g., \`get_candidate_performance\`), the tool will automatically find the parent region for the query. Note that Sofia city is a special case and corresponds to three electoral regions ('S23', 'S24', 'S25'). Currently, detailed results (like vote counts and turnout) are primarily available at the national level.
 6.  **Out-of-Scope Questions:** If a question is unrelated to Bulgarian elections and no tool applies, answer from your general knowledge but you MUST start your response with: "${disclaimer}".
 7.  **Response Formatting:**
     *   **Tables are Mandatory:** Present any lists, comparisons, or multi-item data in a Markdown table.

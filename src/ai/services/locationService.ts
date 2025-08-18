@@ -1,8 +1,13 @@
 import regionsData from "@/data/json/regions.json";
-import { LocationInfo, MunicipalityInfo } from "@/data/dataTypes";
+import {
+  LocationInfo,
+  MunicipalityInfo,
+  SettlementInfo,
+} from "@/data/dataTypes";
 
 export const allRegions = regionsData as LocationInfo[];
 let municipalitiesCache: MunicipalityInfo[] | null = null;
+let settlementsCache: SettlementInfo[] | null = null;
 
 /**
  * Fetches municipality data from the remote source and caches it in memory.
@@ -31,11 +36,55 @@ const fetchMunicipalities = async (): Promise<MunicipalityInfo[]> => {
   }
 };
 
+/**
+ * Fetches settlement data from the remote source and caches it in memory.
+ * @returns A promise that resolves to an array of SettlementInfo objects.
+ */
+const fetchSettlements = async (): Promise<SettlementInfo[]> => {
+  if (settlementsCache) {
+    return settlementsCache;
+  }
+  try {
+    console.log("Fetching settlements from remote source...");
+    const response = await fetch("/settlements.json");
+    if (!response.ok) {
+      throw new Error(`Failed to fetch settlements: ${response.statusText}`);
+    }
+    const data: SettlementInfo[] = await response.json();
+    settlementsCache = data;
+    console.log(`Successfully fetched and cached ${data.length} settlements.`);
+    return data;
+  } catch (error) {
+    console.error("Error fetching or parsing settlements.json:", error);
+    return [];
+  }
+};
+
 const sofiaMIRs = ["S23", "S24", "S25"];
 
 /**
+ * Finds municipality information based on a name query.
+ * @param name The name of the municipality to find.
+ * @returns A promise that resolves to an array of matching MunicipalityInfo objects.
+ */
+export const findMunicipalities = async (
+  name: string,
+): Promise<MunicipalityInfo[]> => {
+  if (!name) return [];
+  const municipalities = await fetchMunicipalities();
+  const lowerCaseName = name.toLowerCase().trim();
+
+  return municipalities.filter((mun) => {
+    const names = [mun.name.toLowerCase(), mun.name_en.toLowerCase()].filter(
+      Boolean,
+    );
+    return names.includes(lowerCaseName);
+  });
+};
+
+/**
  * Finds region information based on a name query.
- * Searches regions first, then municipalities. If a municipality is found, it returns its parent region.
+ * Searches regions, then municipalities, then settlements. If a sub-level location is found, it returns its parent region.
  * Handles English/Bulgarian names, and the special case for "Sofia" city.
  * @param name The name of the location to find.
  * @returns A promise that resolves to an array of matching LocationInfo objects (always regions).
@@ -82,6 +131,22 @@ export const findRegions = async (name: string): Promise<LocationInfo[]> => {
     // Find the parent region for this municipality
     const parentRegion = allRegions.find(
       (r) => r.oblast === foundMunicipality.oblast,
+    );
+    return parentRegion ? [parentRegion] : [];
+  }
+
+  // If still no match, search in settlements
+  const settlements = await fetchSettlements();
+  const foundSettlement = settlements.find((set) => {
+    const names = [set.name.toLowerCase(), set.name_en.toLowerCase()].filter(
+      Boolean,
+    );
+    return names.includes(lowerCaseName);
+  });
+
+  if (foundSettlement) {
+    const parentRegion = allRegions.find(
+      (r) => r.oblast === foundSettlement.oblast,
     );
     return parentRegion ? [parentRegion] : [];
   }
@@ -135,4 +200,55 @@ export const get_list_of_municipalities = async ({
     oblast,
     obshtina,
   }));
+};
+
+/**
+ * Tool function to get a list of settlements, optionally filtered by region and/or municipality.
+ */
+export const get_list_of_settlements = async ({
+  region_name,
+  municipality_name,
+}: {
+  region_name?: string;
+  municipality_name?: string;
+}): Promise<Partial<SettlementInfo>[]> => {
+  const settlements = await fetchSettlements();
+  let filteredSettlements = settlements;
+
+  if (region_name) {
+    const foundRegions = await findRegions(region_name);
+    if (foundRegions.length > 0) {
+      const regionOblastIds = foundRegions.map((r) => r.oblast);
+      filteredSettlements = filteredSettlements.filter((s) =>
+        regionOblastIds.includes(s.oblast),
+      );
+    } else {
+      return []; // No matching region found for filtering
+    }
+  }
+
+  if (municipality_name) {
+    const foundMunicipalities = await findMunicipalities(municipality_name);
+    if (foundMunicipalities.length > 0) {
+      const municipalityObshtinaIds = foundMunicipalities.map(
+        (m) => m.obshtina,
+      );
+      filteredSettlements = filteredSettlements.filter(
+        (s) => s.obshtina && municipalityObshtinaIds.includes(s.obshtina),
+      );
+    } else {
+      return []; // No matching municipality found for filtering
+    }
+  }
+
+  // Return a subset of fields to the model to keep it concise
+  return filteredSettlements.map(
+    ({ name, name_en, oblast, obshtina, t_v_m }) => ({
+      name,
+      name_en,
+      oblast,
+      obshtina,
+      t_v_m,
+    }),
+  );
 };
