@@ -111,6 +111,22 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
                 className="absolute right-2 top-1/2 -translate-y-1/2 h-8 w-8"
                 aria-label="Stop generation"
               >
+                <svg
+                  className="absolute h-full w-full animate-spin text-primary"
+                  style={{ animationDuration: "1.5s" }}
+                  fill="none"
+                  viewBox="0 0 32 32"
+                >
+                  <circle
+                    cx="16"
+                    cy="16"
+                    r="14"
+                    stroke="currentColor"
+                    strokeDasharray="25 63"
+                    strokeLinecap="round"
+                    strokeWidth="2"
+                  />
+                </svg>
                 <Square className="h-4 w-4" />
                 <span className="sr-only">Stop</span>
               </Button>
