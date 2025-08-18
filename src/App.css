@@ -81,3 +81,44 @@
 .leaflet-container { z-index: 0 !important}
 .leaflet-pane { z-index: 0 !important}
 .leaflet-top, .leaflet-bottom {z-index: 0 !important}
+
+@layer components {
+  /* Styling for Markdown-generated content in chat messages */
+  .markdown-content {
+    @apply text-sm text-foreground overflow-x-auto;
+  }
+  .markdown-content table {
+    @apply my-3 text-left border-collapse;
+  }
+  .markdown-content th,
+  .markdown-content td {
+    @apply border border-border px-3 py-2;
+  }
+  .markdown-content thead {
+    @apply bg-secondary;
+  }
+  .markdown-content th {
+    @apply font-semibold;
+  }
+  .markdown-content tbody tr:nth-child(even) {
+    @apply bg-muted/50;
+  }
+
+  .markdown-content h1, .markdown-content h2, .markdown-content h3 {
+      @apply font-bold mt-4 mb-2;
+  }
+  .markdown-content h1 { @apply text-xl; }
+  .markdown-content h2 { @apply text-lg; }
+  .markdown-content h3 { @apply text-base; }
+  .markdown-content p { @apply mb-2; }
+  .markdown-content p:last-child { @apply mb-0; }
+  .markdown-content strong { @apply font-bold; }
+  .markdown-content em { @apply italic; }
+  .markdown-content ul { @apply list-disc list-outside my-2 pl-5; }
+  .markdown-content ol { @apply list-decimal list-outside my-2 pl-5; }
+  .markdown-content li { @apply mb-1; }
+  .markdown-content code { @apply bg-secondary text-secondary-foreground rounded px-1 py-0.5 font-mono text-xs; }
+  .markdown-content pre { @apply bg-secondary p-2 rounded my-2 overflow-x-auto; }
+  .markdown-content blockquote { @apply border-l-4 border-border pl-4 italic my-2 text-muted-foreground; }
+  .markdown-content a { @apply text-primary underline underline-offset-4 hover:text-primary/80; }
+}

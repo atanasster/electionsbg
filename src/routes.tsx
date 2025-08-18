@@ -49,6 +49,7 @@ import { SettlementsSuemgAdded } from "./screens/reports/settlements/Settlements
 import { SettlementsSuemgRemoved } from "./screens/reports/settlements/SettlementsSuemgRemoved";
 import { MunicipalitiesSuemgAdded } from "./screens/reports/municipalities/MunicipalitiesSuemgAdded";
 import { MunicipalitiesSuemgRemoved } from "./screens/reports/municipalities/MunicipalitiesSuemgRemoved";
+import { AIChatWindow } from "./screens/ai/AIChatWindow";
 
 const LayoutScreen: FC<PropsWithChildren> = ({ children }) => {
   return <Layout>{children}</Layout>;
@@ -79,6 +80,14 @@ export const AuthRoutes = () => {
           element={
             <LayoutScreen>
               <AboutScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="ai"
+          element={
+            <LayoutScreen>
+              <AIChatWindow />
             </LayoutScreen>
           }
         />
