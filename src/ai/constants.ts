@@ -96,28 +96,12 @@ export const prompts: Record<string, PromptCategory> = {
         bg: "Покажи графика на приемането на машинно гласуване спрямо хартиено по региони за последните три избора.",
       },
       {
-        en: "What were the election results in the Ahtopol settlement for the last election?",
-        bg: "Какви бяха изборните резултати в населено място Ахтопол на последните избори?",
-      },
-      {
-        en: "Show me the party results for the Tsarevo municipality.",
-        bg: "Покажи ми резултатите на партиите за община Царево.",
-      },
-      {
-        en: "Who won the election in the Burgas region?",
-        bg: "Кой спечели изборите в област Бургас?",
-      },
-      {
         en: "Which 5 parties have consistently improved their national results over the past 4 elections?",
         bg: "Кои 5 партии постоянно подобряват националните си резултати през последните 4 избора?",
       },
       {
         en: "What is the total amount of state subsidy received by all parties in 2023?",
         bg: "Каква е общата сума на държавната субсидия, получена от всички партии през 2023 г.?",
-      },
-      {
-        en: "Compare the results of GERB-SDS and PP-DB in Sofia in the last two elections.",
-        bg: "Сравни резултатите на ГЕРБ-СДС и ПП-ДБ в София на последните два избора.",
       },
       {
         en: "Show me a breakdown of total campaign spending by category (marketing, ads, events) for the top 3 parties in the last election.",
@@ -134,6 +118,38 @@ export const prompts: Record<string, PromptCategory> = {
       {
         en: "List all elections for which flash memory data (SUEMG) from the voting machines is available.",
         bg: "Изброй всички избори, за които са налични данни от флаш паметта (СУЕМГ) на машините за гласуване.",
+      },
+    ],
+  },
+  regional: {
+    topic: {
+      en: "Regional & Local Analysis",
+      bg: "Регионален и Местен Анализ",
+    },
+    questions: [
+      {
+        en: "What were the election results in Sofia city for the last election?",
+        bg: "Какви бяха изборните резултати в град София на последните избори?",
+      },
+      {
+        en: "Show me the voter turnout for Sofia region in the October 2024 election.",
+        bg: "Покажи ми избирателната активност за София област на изборите през октомври 2024 г.",
+      },
+      {
+        en: "Compare the results for GERB-SDS in Sofia city and Plovdiv in the last election.",
+        bg: "Сравни резултатите на ГЕРБ-СДС в град София и Пловдив на последните избори.",
+      },
+      {
+        en: "Who won the election in the Burgas region?",
+        bg: "Кой спечели изборите в област Бургас?",
+      },
+      {
+        en: "Show me the party results for the Tsarevo municipality.",
+        bg: "Покажи ми резултатите на партиите за община Царево.",
+      },
+      {
+        en: "What were the election results in the Ahtopol settlement for the last election?",
+        bg: "Какви бяха изборните резултати в населено място Ахтопол на последните избори?",
       },
     ],
   },

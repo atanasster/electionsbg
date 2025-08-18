@@ -85,7 +85,7 @@ export const functionDeclarations: FunctionDeclaration[] = [
   {
     name: "get_election_results",
     description:
-      "Fetches election results. Can resolve location names for regions, municipalities, and settlements, but detailed data is primarily available at the national level. / Извлича изборни резултати. Може да разпознава имена на области, общини и населени места, но подробни данни са налични предимно на национално ниво.",
+      "Fetches election results for a given election. Data is available at the national and regional levels. It can resolve location names for regions, municipalities, and settlements, automatically using the parent region if needed. / Извлича изборни резултати за дадени избори. Данните са налични на национално и областно ниво. Може да разпознава имена на области, общини и населени места, като автоматично използва родителската област, ако е необходимо.",
     parameters: {
       type: Type.OBJECT,
       properties: {
@@ -142,7 +142,7 @@ export const functionDeclarations: FunctionDeclaration[] = [
           type: Type.STRING,
           enum: Object.values(AdminLevel),
           description:
-            "The administrative level. Currently, data is most reliable at the 'national' level. / Административното ниво. Понастоящем данните са най-надеждни на 'национално' ниво.",
+            "The administrative level. Data is available for 'national' and 'region' levels. / Административното ниво. Данните са налични за 'национално' и 'областно' ниво.",
         },
         location_name: {
           type: Type.STRING,
