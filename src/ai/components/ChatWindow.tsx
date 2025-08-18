@@ -1,6 +1,6 @@
 import React, { useState, useRef, useEffect } from "react";
 import Message from "@/ai/components/Message";
-import { Send, Bot, LoaderCircle } from "lucide-react";
+import { Send, Bot, LoaderCircle, Square } from "lucide-react";
 import type { Translations, Language } from "@/ai/constants";
 import { Card, CardContent, CardFooter } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -11,14 +11,18 @@ interface ChatWindowProps {
   translations: Translations;
   messages: ChatMessage[];
   isLoading: boolean;
+  isStopping: boolean;
   sendUserMessage: (message: string) => void;
+  stopGeneration: () => void;
   language: Language;
 }
 
 const ChatWindow: React.FC<ChatWindowProps> = ({
   messages,
   isLoading,
+  isStopping,
   sendUserMessage,
+  stopGeneration,
   translations,
   language,
 }) => {
@@ -63,7 +67,11 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
             </div>
             <div className="flex items-center space-x-2 bg-muted text-muted-foreground rounded-lg p-3 max-w-lg">
               <LoaderCircle className="h-5 w-5 animate-spin" />
-              <span>{translations.thinkingMessage}</span>
+              <span>
+                {isStopping
+                  ? translations.stoppingMessage
+                  : translations.thinkingMessage}
+              </span>
             </div>
           </div>
         )}
@@ -79,17 +87,47 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
             onChange={(e) => setInput(e.target.value)}
             onKeyDown={handleKeyDown}
             className="min-h-0 pr-16 resize-none"
+            disabled={isLoading}
           />
-          <Button
-            type="submit"
-            size="icon"
-            onClick={() => handleSend()}
-            disabled={isLoading || !input.trim()}
-            className="absolute right-2 top-1/2 -translate-y-1/2 h-8 w-8"
-          >
-            <Send className="h-4 w-4" />
-            <span className="sr-only">Send</span>
-          </Button>
+          {isLoading ? (
+            isStopping ? (
+              <Button
+                type="button"
+                variant="outline"
+                size="icon"
+                disabled
+                className="absolute right-2 top-1/2 -translate-y-1/2 h-8 w-8"
+                aria-label="Stopping generation"
+              >
+                <LoaderCircle className="h-4 w-4 animate-spin" />
+                <span className="sr-only">Stopping</span>
+              </Button>
+            ) : (
+              <Button
+                type="button"
+                variant="outline"
+                size="icon"
+                onClick={stopGeneration}
+                className="absolute right-2 top-1/2 -translate-y-1/2 h-8 w-8"
+                aria-label="Stop generation"
+              >
+                <Square className="h-4 w-4" />
+                <span className="sr-only">Stop</span>
+              </Button>
+            )
+          ) : (
+            <Button
+              type="submit"
+              size="icon"
+              onClick={() => handleSend()}
+              disabled={!input.trim()}
+              className="absolute right-2 top-1/2 -translate-y-1/2 h-8 w-8"
+              aria-label="Send message"
+            >
+              <Send className="h-4 w-4" />
+              <span className="sr-only">Send</span>
+            </Button>
+          )}
         </div>
       </CardFooter>
     </Card>

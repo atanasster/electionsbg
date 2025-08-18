@@ -99,10 +99,14 @@ export const createChatWithHistory = (
 export const sendMessage = async (
   chat: Chat,
   message: string,
+  isCancelledRef: { current: boolean },
 ): Promise<GenerateContentResponse> => {
+  if (isCancelledRef.current) throw new Error("GENERATION_CANCELLED");
   let response = await chat.sendMessage({ message });
 
   while (response.candidates?.[0]?.content?.parts?.[0]?.functionCall) {
+    if (isCancelledRef.current) throw new Error("GENERATION_CANCELLED");
+
     const functionCall = response.candidates[0].content.parts[0].functionCall;
     const { name, args } = functionCall;
 
@@ -116,6 +120,7 @@ export const sendMessage = async (
 
         const responsePayload = { content: result };
 
+        if (isCancelledRef.current) throw new Error("GENERATION_CANCELLED");
         response = await chat.sendMessage({
           message: [{ functionResponse: { name, response: responsePayload } }],
         });
