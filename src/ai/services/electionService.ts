@@ -1201,7 +1201,10 @@ export const calculate_campaign_efficiency = ({
         party_name: report.party_name,
         total_votes: total_votes,
         total_spending: total_spending,
-        cost_per_vote: total_spending > 0 ? total_spending / total_votes : 0,
+        cost_per_vote:
+          total_spending && total_spending > 0
+            ? total_spending / total_votes
+            : 0,
       });
     }
   });
@@ -1492,6 +1495,63 @@ export const get_none_of_the_above_stats = ({
   });
 
   return results.slice(0, limit);
+};
+
+export const get_national_vote_type_summary = ({
+  election_identifiers,
+}: {
+  election_identifiers: string[];
+}):
+  | Array<{
+      election_identifier: string;
+      paper_vote_percentage: number;
+      machine_vote_percentage: number;
+      total_valid_votes: number;
+    }>
+  | { error: string } => {
+  const results = [];
+
+  for (const electionId of election_identifiers) {
+    const electionJsonNamePrefix = electionId.replace("-", "_");
+    const electionData = (electionsData as RawElectionData[]).find((e) =>
+      e.name.startsWith(electionJsonNamePrefix),
+    );
+
+    if (electionData && electionData.results && electionData.results.protocol) {
+      const p = electionData.results.protocol;
+
+      const validPaperVotes =
+        (p.numValidVotes || 0) + (p.numValidNoOnePaperVotes || 0);
+      const validMachineVotes =
+        (p.numValidMachineVotes || 0) + (p.numValidNoOneMachineVotes || 0);
+      const totalValidVotes = validPaperVotes + validMachineVotes;
+
+      if (totalValidVotes > 0) {
+        results.push({
+          election_identifier: electionId,
+          paper_vote_percentage: parseFloat(
+            ((validPaperVotes / totalValidVotes) * 100).toFixed(2),
+          ),
+          machine_vote_percentage: parseFloat(
+            ((validMachineVotes / totalValidVotes) * 100).toFixed(2),
+          ),
+          total_valid_votes: totalValidVotes,
+        });
+      }
+    }
+  }
+
+  if (results.length < election_identifiers.length) {
+    console.warn("Could not find protocol data for all specified elections.");
+  }
+
+  if (results.length === 0) {
+    return {
+      error: `Could not find any protocol data for the specified elections.`,
+    };
+  }
+
+  return results;
 };
 
 export const get_ballot_summary = ({

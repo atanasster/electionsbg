@@ -18,6 +18,8 @@ const ai = new GoogleGenAI({ apiKey: process.env.API_KEY });
 // eslint-disable-next-line @typescript-eslint/no-unsafe-function-type
 const availableTools: { [key: string]: Function } = {
   get_list_of_elections: electionService.get_list_of_elections,
+  get_national_vote_type_summary:
+    electionService.get_national_vote_type_summary,
   get_available_elections_for_year:
     electionService.get_available_elections_for_year,
   get_election_results: electionService.get_election_results,

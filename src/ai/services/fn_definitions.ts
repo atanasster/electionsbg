@@ -9,6 +9,23 @@ export const functionDeclarations: FunctionDeclaration[] = [
     parameters: { type: Type.OBJECT, properties: {} },
   },
   {
+    name: "get_national_vote_type_summary",
+    description:
+      "Fetches and calculates the national percentage of paper vs. machine votes for a list of elections. This is highly efficient for trend analysis of voting methods. / Извлича и изчислява националния процент на хартиени срещу машинни гласове за списък от избори. Това е високо ефективно за анализ на тенденциите в методите на гласуване.",
+    parameters: {
+      type: Type.OBJECT,
+      properties: {
+        election_identifiers: {
+          type: Type.ARRAY,
+          items: { type: Type.STRING },
+          description:
+            "A list of one or more election identifiers (e.g., ['2023-04', '2022-10']) to get the summary for. / Списък с един или повече идентификатори на избори (напр. ['2023-04', '2022-10']), за които да се получи обобщение.",
+        },
+      },
+      required: ["election_identifiers"],
+    },
+  },
+  {
     name: "get_available_elections_for_year",
     description:
       "Checks a given year and returns all distinct elections that occurred in it. Use this to resolve ambiguity when a user only specifies a year. / Проверява дадена година и връща всички отделни избори, проведени в нея. Използвайте това за разрешаване на неясноти, когато потребителят посочи само година.",
@@ -456,7 +473,7 @@ export const functionDeclarations: FunctionDeclaration[] = [
         comparison_election_identifier: {
           type: Type.STRING,
           description:
-            "An earlier election to compare against for trend analysis. If the user asks to compare against the 'previous election', this parameter can be omitted, and the system will automatically use the election immediately prior to the primary one. / Предишни избори за сравнение при анализ на тенденции. Ако потребителят поиска сравнение с 'предишните избори', този параметър може да бъде пропуснат и системата автоматично ще използва изборите непосредствено преди основните.",
+            "An earlier election to compare against for trend analysis. If the user asks to compare against the 'previous election', this parameter can be omitted, and the system will automatically use the election immediately prior to the primary one. / Предишни избори за сравнение при анализ на тенденции. Ако потребителят поиска сравнение с 'предишните избори', този параметър може да бъде пропустнат и системата автоматично ще използва изборите непосредствено преди основните.",
         },
         limit: {
           type: Type.INTEGER,
