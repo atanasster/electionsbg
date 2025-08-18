@@ -9,6 +9,12 @@ export const functionDeclarations: FunctionDeclaration[] = [
     parameters: { type: Type.OBJECT, properties: {} },
   },
   {
+    name: "get_list_of_regions",
+    description:
+      "Returns a list of all available administrative regions in Bulgaria, with their Bulgarian and English names and unique identifiers. Use this to discover available locations for queries. / Връща списък с всички налични административни области в България, с техните български и английски имена и уникални идентификатори. Използвайте това, за да откриете налични местоположения за заявки.",
+    parameters: { type: Type.OBJECT, properties: {} },
+  },
+  {
     name: "get_national_vote_type_summary",
     description:
       "Fetches and calculates the national percentage of paper vs. machine votes for a list of elections. This is highly efficient for trend analysis of voting methods. / Извлича и изчислява националния процент на хартиени срещу машинни гласове за списък от избори. Това е високо ефективно за анализ на тенденциите в методите на гласуване.",
@@ -44,7 +50,7 @@ export const functionDeclarations: FunctionDeclaration[] = [
   {
     name: "get_election_results",
     description:
-      "Fetches election results for a specific administrative level: national, region, municipality, or settlement. Can be filtered by party and voting method. / Извлича изборни резултати за конкретно административно ниво: национално, област, община или населено място. Може да се филтрира по партия и метод на гласуване.",
+      "Fetches election results. Currently, this function provides detailed data primarily at the national level. Support for region, municipality, and settlement levels is limited. / Извлича изборни резултати. Понастоящем тази функция предоставя подробни данни предимно на национално ниво. Поддръжката за нива област, община и населено място е ограничена.",
     parameters: {
       type: Type.OBJECT,
       properties: {
@@ -101,7 +107,7 @@ export const functionDeclarations: FunctionDeclaration[] = [
           type: Type.STRING,
           enum: Object.values(AdminLevel),
           description:
-            "The administrative level. Use 'station' to get individual polling station data. / Административното ниво. Използвайте 'station' за данни за отделни избирателни секции.",
+            "The administrative level. Currently, data is most reliable at the 'national' level. / Административното ниво. Понастоящем данните са най-надеждни на 'национално' ниво.",
         },
         location_name: {
           type: Type.STRING,
@@ -181,7 +187,7 @@ export const functionDeclarations: FunctionDeclaration[] = [
         party_name: {
           type: Type.STRING,
           description:
-            "Optional party name to filter candidates. / Незадължително име на партия за филтриране на кандидатите.",
+            "Optional party name to filter candidates. / Незадължително име на партия за филтриране.",
         },
         sort_order: {
           type: Type.STRING,

@@ -7,7 +7,7 @@ import React, {
 } from "react";
 import ChatWindow from "@/ai/components/ChatWindow";
 import { translations, Language } from "@/ai/constants";
-import { Bot, PanelLeft, X } from "lucide-react";
+import { PanelLeft, X } from "lucide-react";
 import { useChat } from "@/ai/hooks/useChat";
 import Sidebar from "@/ai/components/Sidebar";
 import { Button } from "@/components/ui/button";
