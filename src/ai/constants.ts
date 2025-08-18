@@ -302,6 +302,7 @@ type TranslationContent = {
   stoppingMessage: string;
   generationStopped: string;
   sidebarPartySelectorLabel: string;
+  thinkingProcess: string;
   linkQueries: {
     location: string;
     party: string;
@@ -327,6 +328,7 @@ export const translations: Record<Language, TranslationContent> = {
     stoppingMessage: "Stopping...",
     generationStopped: "Generation stopped.",
     sidebarPartySelectorLabel: "Select a Party:",
+    thinkingProcess: "Thinking Process",
     linkQueries: {
       location: 'Tell me more about the {locationType} "{locationName}".',
       party: 'Give me a profile of the party "{entityName}".',
@@ -349,6 +351,7 @@ export const translations: Record<Language, TranslationContent> = {
     stoppingMessage: "Спиране...",
     generationStopped: "Генерирането е спряно.",
     sidebarPartySelectorLabel: "Изберете Партия:",
+    thinkingProcess: "Мисловен процес",
     linkQueries: {
       location: 'Разкажи ми повече за {locationType} "{locationName}".',
       party: 'Дай ми профил на партия "{entityName}".',

@@ -5,18 +5,26 @@ import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { cn } from "@/lib/utils";
 import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
-import { Language, translations } from "@/ai/constants";
+import { Language, Translations, translations } from "@/ai/constants";
+import {
+  Accordion,
+  AccordionContent,
+  AccordionItem,
+  AccordionTrigger,
+} from "@/components/ui/accordion";
 
 interface MessageProps {
   message: ChatMessage;
   sendUserMessage: (message: string) => void;
   language: Language;
+  translations: Translations;
 }
 
 const Message: React.FC<MessageProps> = ({
   message,
   sendUserMessage,
   language,
+  translations: currentTranslations,
 }) => {
   const isUser = message.role === "user";
   const part = message.parts[0];
@@ -26,6 +34,9 @@ const Message: React.FC<MessageProps> = ({
   const bubbleStyles = isUser
     ? "bg-primary text-primary-foreground rounded-br-none"
     : "bg-muted rounded-bl-none";
+
+  const hasToolCalls =
+    !isUser && message.toolCalls && message.toolCalls.length > 0;
 
   const handleLinkClick = (href: string | undefined) => {
     if (!href || !href.startsWith("/query/")) return;
@@ -154,10 +165,46 @@ const Message: React.FC<MessageProps> = ({
             <Icon className="w-5 h-5" />
           </AvatarFallback>
         </Avatar>
-        <div className={cn("px-4 py-3 rounded-lg max-w-lg", bubbleStyles)}>
+        <div
+          className={cn("px-4 py-3 rounded-lg max-w-lg w-fit", bubbleStyles)}
+        >
           {renderMessageContent()}
         </div>
       </div>
+      {hasToolCalls && (
+        <div className="pl-[52px] max-w-lg w-full self-start">
+          <Accordion type="single" collapsible className="w-full">
+            <AccordionItem value="item-1" className="border-b-0">
+              <AccordionTrigger className="text-xs text-muted-foreground py-1 hover:no-underline justify-start gap-2">
+                {currentTranslations.thinkingProcess}
+              </AccordionTrigger>
+              <AccordionContent>
+                <div className="space-y-2">
+                  {message.toolCalls!.map((call, index) => (
+                    <div
+                      key={index}
+                      className="text-xs border-l-2 border-border pl-2"
+                    >
+                      <div className="font-semibold text-foreground">
+                        <span className="font-mono bg-muted text-muted-foreground rounded px-1.5 py-0.5 mr-1">
+                          {index + 1}
+                        </span>
+                        Calling{" "}
+                        <span className="font-mono bg-muted text-muted-foreground rounded px-1.5 py-0.5">
+                          {call.name}
+                        </span>
+                      </div>
+                      <pre className="mt-1 bg-muted/50 p-2 rounded overflow-x-auto whitespace-pre-wrap break-all text-muted-foreground">
+                        <code>{JSON.stringify(call.args, null, 2)}</code>
+                      </pre>
+                    </div>
+                  ))}
+                </div>
+              </AccordionContent>
+            </AccordionItem>
+          </Accordion>
+        </div>
+      )}
     </div>
   );
 };

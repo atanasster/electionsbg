@@ -46,8 +46,14 @@ const getInitialIsSidebarOpen = () => {
 export const AIChatWindow: React.FC = () => {
   const { i18n } = useTranslation();
   const language = i18n.language as Language;
-  const { messages, isLoading, isStopping, sendUserMessage, stopGeneration } =
-    useChat(language);
+  const {
+    messages,
+    isLoading,
+    isStopping,
+    thinkingMessage,
+    sendUserMessage,
+    stopGeneration,
+  } = useChat(language);
   const [isSidebarOpen, setIsSidebarOpen] = useState(getInitialIsSidebarOpen);
   const [sidebarWidth, setSidebarWidth] = useState(getInitialSidebarWidth);
   const [isResizing, setIsResizing] = useState(false);
@@ -199,6 +205,7 @@ export const AIChatWindow: React.FC = () => {
               messages={messages}
               isLoading={isLoading}
               isStopping={isStopping}
+              thinkingMessage={thinkingMessage}
               sendUserMessage={sendUserMessage}
               stopGeneration={stopGeneration}
               translations={currentTranslations}

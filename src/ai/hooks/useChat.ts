@@ -13,6 +13,7 @@ export const useChat = (language: Language) => {
   const [isLoading, setIsLoading] = useState(false);
   const [isStopping, setIsStopping] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [thinkingMessage, setThinkingMessage] = useState<string | null>(null);
   const chatRef = useRef<Chat | null>(null);
   const isCancelledRef = useRef(false);
 
@@ -68,16 +69,18 @@ export const useChat = (language: Language) => {
       setMessages((prev) => [...prev, newUserMessage]);
       setIsLoading(true);
       setError(null);
+      setThinkingMessage(translations[language].thinkingMessage);
 
       try {
         if (!chatRef.current) {
           throw new Error("Chat not initialized");
         }
 
-        const response = await sendMessage(
+        const { response, toolCalls } = await sendMessage(
           chatRef.current,
           text,
           isCancelledRef,
+          (progressMessage) => setThinkingMessage(progressMessage),
         );
 
         if (isCancelledRef.current) {
@@ -90,6 +93,7 @@ export const useChat = (language: Language) => {
           role: "model",
           parts: [{ text: modelResponseText }],
           id: `model-${Date.now()}`,
+          toolCalls: toolCalls.length > 0 ? toolCalls : undefined,
         };
         setMessages((prev) => [...prev, newModelMessage]);
       } catch (e) {
@@ -118,6 +122,7 @@ export const useChat = (language: Language) => {
         setIsLoading(false);
         setIsStopping(false);
         isCancelledRef.current = false;
+        setThinkingMessage(null);
       }
     },
     [isLoading, language],
@@ -128,6 +133,7 @@ export const useChat = (language: Language) => {
     isLoading,
     isStopping,
     error,
+    thinkingMessage,
     sendUserMessage,
     stopGeneration,
   };
