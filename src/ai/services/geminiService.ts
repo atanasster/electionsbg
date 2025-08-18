@@ -9,6 +9,7 @@ import * as electionService from "@/ai/services/electionService";
 import * as locationService from "@/ai/services/locationService";
 import { functionDeclarations } from "@/ai/services/fn_definitions";
 import { Language } from "@/ai/constants";
+import { ToolCallLog } from "@/ai/types";
 
 if (!process.env.API_KEY) {
   throw new Error("API_KEY environment variable not set");
@@ -114,9 +115,11 @@ export const sendMessage = async (
   chat: Chat,
   message: string,
   isCancelledRef: { current: boolean },
-): Promise<GenerateContentResponse> => {
+  onProgress: (message: string) => void,
+): Promise<{ response: GenerateContentResponse; toolCalls: ToolCallLog[] }> => {
   if (isCancelledRef.current) throw new Error("GENERATION_CANCELLED");
   let response = await chat.sendMessage({ message });
+  const toolCalls: ToolCallLog[] = [];
 
   while (response.candidates?.[0]?.content?.parts?.[0]?.functionCall) {
     if (isCancelledRef.current) throw new Error("GENERATION_CANCELLED");
@@ -124,9 +127,34 @@ export const sendMessage = async (
     const functionCall = response.candidates[0].content.parts[0].functionCall;
     const { name, args } = functionCall;
 
+    if (!name) {
+      console.error(
+        "Model returned a function call without a name:",
+        functionCall,
+      );
+      // Inform the model about the error and continue.
+      // Using a placeholder name for the functionResponse as a name is required.
+      response = await chat.sendMessage({
+        message: [
+          {
+            functionResponse: {
+              name: "unknown_function_name",
+              response: {
+                content: { error: "Function call is missing a name." },
+              },
+            },
+          },
+        ],
+      });
+      continue;
+    }
+
+    toolCalls.push({ name, args });
+    onProgress(`Calling tool: ${name}...`);
+
     console.log(`Model wants to call ${name} with args:`, args);
 
-    if (name && availableTools[name]) {
+    if (availableTools[name]) {
       const tool = availableTools[name];
       try {
         // The tool itself can be async now
@@ -161,5 +189,5 @@ export const sendMessage = async (
     }
   }
 
-  return response;
+  return { response, toolCalls };
 };

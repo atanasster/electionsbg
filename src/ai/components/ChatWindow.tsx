@@ -12,6 +12,7 @@ interface ChatWindowProps {
   messages: ChatMessage[];
   isLoading: boolean;
   isStopping: boolean;
+  thinkingMessage: string | null;
   sendUserMessage: (message: string) => void;
   stopGeneration: () => void;
   language: Language;
@@ -21,6 +22,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
   messages,
   isLoading,
   isStopping,
+  thinkingMessage,
   sendUserMessage,
   stopGeneration,
   translations,
@@ -58,6 +60,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
             message={msg}
             sendUserMessage={sendUserMessage}
             language={language}
+            translations={translations}
           />
         ))}
         {isLoading && (
@@ -68,9 +71,7 @@ const ChatWindow: React.FC<ChatWindowProps> = ({
             <div className="flex items-center space-x-2 bg-muted text-muted-foreground rounded-lg p-3 max-w-lg">
               <LoaderCircle className="h-5 w-5 animate-spin" />
               <span>
-                {isStopping
-                  ? translations.stoppingMessage
-                  : translations.thinkingMessage}
+                {isStopping ? translations.stoppingMessage : thinkingMessage}
               </span>
             </div>
           </div>

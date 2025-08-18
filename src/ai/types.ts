@@ -193,6 +193,11 @@ export interface MachineVoteDiscrepancy {
 
 export type ChatRole = "user" | "model" | "function";
 
+export interface ToolCallLog {
+  name: string;
+  args: any;
+}
+
 export interface ChatMessage {
   role: ChatRole;
   parts:
@@ -200,4 +205,5 @@ export interface ChatMessage {
     | { functionCall: any }[]
     | { functionResponse: any }[];
   id: string;
+  toolCalls?: ToolCallLog[];
 }
