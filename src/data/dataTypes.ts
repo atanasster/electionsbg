@@ -183,7 +183,7 @@ export type PartyInfo = {
 
 export type BasicPartyInfo = {
   number: number;
-  nickName: string;
+  nickName?: string;
   commonName?: string[];
 };
 export type StatsVote = Votes & BasicPartyInfo;
