@@ -83,6 +83,10 @@ const allElectionsInfo: ElectionInfo[] = (
     identifier: `${year}-${month}`,
     name: generateElectionName(date),
     date: date,
+    hasRecount: election.hasRecount,
+    hasSuemg: election.hasSuemg,
+    hasPreferences: election.hasPreferences,
+    hasFinancials: election.hasFinancials,
   };
   // The data is already sorted from newest to oldest in the JSON file.
 });
