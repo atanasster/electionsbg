@@ -6,6 +6,7 @@ import {
   Content,
 } from "@google/genai";
 import * as electionService from "@/ai/services/electionService";
+import * as locationService from "@/ai/services/locationService";
 import { functionDeclarations } from "@/ai/services/fn_definitions";
 import { Language } from "@/ai/constants";
 
@@ -49,6 +50,7 @@ const availableTools: { [key: string]: Function } = {
   get_party_info: electionService.get_party_info,
   find_machine_vote_discrepancies:
     electionService.find_machine_vote_discrepancies,
+  get_list_of_regions: locationService.get_list_of_regions,
 };
 
 const tools: Tool[] = [{ functionDeclarations }];
@@ -63,15 +65,23 @@ const getSystemInstruction = (language: Language): string => {
 
 **Core Instructions:**
 1.  **Tool-First Approach:** Always prioritize using your tools. For complex queries, call functions sequentially to gather ALL necessary data *before* formulating your final text response. Do not explain your plan; execute the function calls first.
-2.  **Clean Final Output:** Your final response to the user must be clean and contain only the natural language answer and any requested Markdown formatting (like tables). You MUST NOT include raw JSON from function calls (e.g., \`{"get_election_results_response": ...}\`) in your final output. Use the data from the functions to formulate your answer, but never expose the raw data itself to the user.
+2.  **Clean Final Output:** Your final response to the user must be clean natural language. Function call results are wrapped (e.g., \`{"content": ...}\`). Use the data inside 'content', but you MUST NOT include any raw JSON, function response structures (e.g., \`{"..._response": ...}\`), or the 'content' wrapper in your final output.
 3.  **Handling Dates:** For relative dates like "last election," you MUST first call \`get_list_of_elections\` to get the correct election \`identifier\`(s), then use those identifiers in subsequent function calls.
-4.  **Tool Data Handling:** When functions like \`get_list_of_elections\` return election data, the \`name\` property for each election will be an object with 'en' and 'bg' keys. You MUST use the name corresponding to the current response language.
-5.  **Out-of-Scope Questions:** If a question is unrelated to Bulgarian elections and no tool applies, answer from your general knowledge but you MUST start your response with: "${disclaimer}".
-6.  **Response Formatting:**
+4.  **Tool Data Handling & Summaries:** When asked to "summarize" an election, provide a comprehensive overview.
+    *   First, call \`get_turnout_statistics\` to get voter turnout, total registered voters, and votes from additional lists.
+    *   Call \`get_ballot_summary\` to get the total valid votes.
+    *   Present these key statistics clearly, for example in a bulleted list.
+    *   When using \`get_list_of_elections\`, use the language-appropriate name ('en' or 'bg'). The boolean flags (\`hasRecount\`, \`hasSuemg\`, etc.) indicate what data is available; you can mention this availability as part of a detailed summary.
+5.  **Location Queries:** You have access to a complete list of Bulgarian administrative regions via the \`get_list_of_regions\` tool. When a user asks about a location, your tools will handle the necessary lookups. Note that Sofia city is a special case and corresponds to three electoral regions ('S23', 'S24', 'S25'). Currently, detailed results (like vote counts and turnout) are primarily available at the national level.
+6.  **Out-of-Scope Questions:** If a question is unrelated to Bulgarian elections and no tool applies, answer from your general knowledge but you MUST start your response with: "${disclaimer}".
+7.  **Response Formatting:**
     *   **Tables are Mandatory:** Present any lists, comparisons, or multi-item data in a Markdown table.
     *   **Comparison Tables:** When comparing results across elections, create a table with a column for each election, plus calculated 'Change' and '% Change' columns.
-    *   **Internal Links:** Make entities interactive by formatting them as links: \`[Entity Name](/query/type/Entity%20Name)\`. This applies to parties, elections, locations, candidates, and stations.
-    *   **Normalization:** Normalize Bulgarian location names (e.g., 'Sofiq' -> 'Sofia') in function calls.`;
+    *   **Internal Links:** Make entities interactive by formatting them as links. You MUST URL-encode entity names in the path.
+        - General format: \`[Entity Name](/query/type/Encoded%20Entity%20Name)\`.
+        - **Location format (MANDATORY)**: \`[Location Name](/query/location/type/Encoded%20Location%20Name)\` where 'type' is one of 'region', 'municipality', or 'settlement'.
+        - This applies to parties, elections, locations, candidates, and stations.
+    *   **Normalization:** Normalize Bulgarian location names (e.g., 'Sofiq' -> 'Sofia') in function calls and in generated link paths.`;
 };
 
 export const createChat = (language: Language): Chat => {
@@ -120,11 +130,11 @@ export const sendMessage = async (
         const result = await tool(args);
         console.log(`Function ${name} returned:`, result);
 
-        const responsePayload = { content: result };
-
         if (isCancelledRef.current) throw new Error("GENERATION_CANCELLED");
         response = await chat.sendMessage({
-          message: [{ functionResponse: { name, response: responsePayload } }],
+          message: [
+            { functionResponse: { name, response: { content: result } } },
+          ],
         });
       } catch (e) {
         console.error(`Error calling function ${name}:`, e);
@@ -132,14 +142,18 @@ export const sendMessage = async (
           error: `Function call failed: ${(e as Error).message}`,
         };
         response = await chat.sendMessage({
-          message: [{ functionResponse: { name, response: errorResult } }],
+          message: [
+            { functionResponse: { name, response: { content: errorResult } } },
+          ],
         });
       }
     } else {
       console.error(`Unknown function ${name} called by model.`);
       const errorResult = { error: `Function ${name} not found.` };
       response = await chat.sendMessage({
-        message: [{ functionResponse: { name, response: errorResult } }],
+        message: [
+          { functionResponse: { name, response: { content: errorResult } } },
+        ],
       });
     }
   }
