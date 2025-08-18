@@ -524,6 +524,9 @@ export const get_list_of_elections = (): ElectionInfo[] => {
 
 export const get_list_of_regions = locationService.get_list_of_regions;
 
+export const get_list_of_municipalities =
+  locationService.get_list_of_municipalities;
+
 export const get_total_state_subsidy = ({
   year,
 }: {
@@ -767,7 +770,7 @@ export const get_turnout_statistics = (
   return [];
 };
 
-export const get_candidate_performance = ({
+export const get_candidate_performance = async ({
   election_identifier = LATEST_ELECTION_IDENTIFIER,
   region_name,
   party_name,
@@ -779,13 +782,13 @@ export const get_candidate_performance = ({
   party_name?: string;
   sort_order?: SortOrder;
   limit?: number;
-}): CandidatePerformance[] => {
+}): Promise<CandidatePerformance[]> => {
   let candidates = allCandidates.filter(
     (c) => c.election_identifier === election_identifier,
   );
   if (region_name) {
     // Use the new location service to find canonical region names
-    const foundRegions = locationService.findRegions(region_name);
+    const foundRegions = await locationService.findRegions(region_name);
     if (foundRegions.length > 0) {
       // The mock data uses English names like 'Sofia', 'Varna'
       const canonicalRegionNames = foundRegions.map((r) =>
@@ -820,18 +823,18 @@ export const get_candidate_performance = ({
     .map(({ is_leader, election_identifier, ...rest }) => rest);
 };
 
-export const find_preference_anomalies = ({
+export const find_preference_anomalies = async ({
   election_identifier = LATEST_ELECTION_IDENTIFIER,
   region_name,
 }: {
   election_identifier?: string;
   region_name?: string;
-}): PreferenceAnomaly[] => {
+}): Promise<PreferenceAnomaly[]> => {
   let candidates = allCandidates.filter(
     (c) => c.election_identifier === election_identifier,
   );
   if (region_name) {
-    const foundRegions = locationService.findRegions(region_name);
+    const foundRegions = await locationService.findRegions(region_name);
     if (foundRegions.length > 0) {
       const regionNames = foundRegions.map((r) => r.name_en.toLowerCase());
       candidates = candidates.filter((c) =>
