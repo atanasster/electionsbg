@@ -31,20 +31,37 @@ const Message: React.FC<MessageProps> = ({
     if (!href || !href.startsWith("/query/")) return;
 
     const parts = href.split("/").filter((p) => p);
-    if (parts.length < 3) return;
+    if (parts.length < 2) return; // Must have at least /query/type
 
-    const [, entityType, ...rest] = parts;
+    // Decode all parts of the URL *before* using them to construct the user-facing query text.
+    // This prevents URL-encoded characters like '%20' from appearing in the chat input.
+    const decodedParts = parts.map(decodeURIComponent);
+
+    const [, entityType, ...rest] = decodedParts;
     const queryTemplates = translations[language].linkQueries;
     let query = "";
 
     if (entityType === "location") {
-      const locationType = rest[0];
-      const locationName = decodeURIComponent(rest.slice(1).join("/"));
-      query = queryTemplates.location
-        .replace("{locationType}", locationType)
-        .replace("{locationName}", locationName);
+      // Handles correctly formed location links: /query/location/region/Stara Zagora
+      if (rest.length >= 2) {
+        const locationType = rest[0];
+        const locationName = rest.slice(1).join("/");
+        query = queryTemplates.location
+          .replace("{locationType}", locationType)
+          .replace("{locationName}", locationName);
+      }
+      // Handles malformed location links gracefully: /query/location/Stara Zagora
+      else if (rest.length === 1) {
+        const locationName = rest[0];
+        // Fallback to the generic template to create a sensible query.
+        query = queryTemplates.default
+          .replace("{entityType}", "location")
+          .replace("{entityName}", locationName);
+      } else {
+        return; // Not enough parts for a valid location query.
+      }
     } else {
-      const entityName = decodeURIComponent(rest.join("/"));
+      const entityName = rest.join("/");
       switch (entityType) {
         case "party":
           query = queryTemplates.party.replace("{entityName}", entityName);
@@ -59,6 +76,7 @@ const Message: React.FC<MessageProps> = ({
           query = queryTemplates.candidate.replace("{entityName}", entityName);
           break;
         default:
+          // This handles cases like /query/region/Stara Zagora, treating 'region' as the type.
           query = queryTemplates.default
             .replace("{entityType}", entityType)
             .replace("{entityName}", entityName);
@@ -91,7 +109,8 @@ const Message: React.FC<MessageProps> = ({
             <ReactMarkdown
               remarkPlugins={[remarkGfm]}
               components={{
-                a: ({ href, ...props }) => {
+                // eslint-disable-next-line @typescript-eslint/no-unused-vars
+                a: ({ node, href, ...props }) => {
                   if (href && href.startsWith("/query/")) {
                     return (
                       <a

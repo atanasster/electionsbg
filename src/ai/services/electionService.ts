@@ -26,6 +26,7 @@ import {
 } from "@/ai/types";
 import electionsData from "@/data/json/elections.json";
 import { ElectionInfo as RawElectionData } from "@/data/dataTypes";
+import * as locationService from "./locationService";
 
 // =================================================================
 // DATA PROCESSING FROM elections.json
@@ -521,6 +522,8 @@ export const get_list_of_elections = (): ElectionInfo[] => {
   return allElectionsInfo;
 };
 
+export const get_list_of_regions = locationService.get_list_of_regions;
+
 export const get_total_state_subsidy = ({
   year,
 }: {
@@ -721,150 +724,47 @@ export const get_election_results = (args: {
     }
   }
 
-  // Fallback to old mock data for other levels (region, municipality, etc.)
-  const resultsDb: Record<
-    string,
-    Record<string, Record<string, Omit<ElectionResultItem, "party_name">>>
-  > = {
-    "2024-06": {
-      // Mocks for a recent election for demo purposes
-      // REGIONS
-      Sofia: {
-        "GERB-SDS": { votes: 80000, percentage: 24 },
-        "PP-DB": { votes: 75000, percentage: 22 },
-        Vazrazhdane: { votes: 50000, percentage: 15 },
-        "BSP for Bulgaria": { votes: 45000, percentage: 13 },
-        "There Is Such a People": { votes: 30000, percentage: 9 },
-        Velichie: { votes: 25000, percentage: 7 },
-        "Movement for Rights and Freedoms": { votes: 5000, percentage: 1.5 },
-        "I do not support anyone": { votes: 15000, percentage: 4.5 },
-      },
-      Kardzhali: {
-        "Movement for Rights and Freedoms": { votes: 80000, percentage: 80 },
-        "GERB-SDS": { votes: 4000, percentage: 4 },
-        "PP-DB": { votes: 3000, percentage: 3 },
-        "I do not support anyone": { votes: 1000, percentage: 1.0 },
-      },
-      Burgas: {
-        "GERB-SDS": { votes: 42000, percentage: 23 },
-        "PP-DB": { votes: 35000, percentage: 19 },
-        Vazrazhdane: { votes: 20000, percentage: 11 },
-        "BSP for Bulgaria": { votes: 18000, percentage: 10 },
-        "There Is Such a People": { votes: 10000, percentage: 5.5 },
-        "Movement for Rights and Freedoms": { votes: 25000, percentage: 14 },
-        "I do not support anyone": { votes: 5000, percentage: 2.7 },
-      },
-      // MUNICIPALITIES
-      Tsarevo: {
-        "GERB-SDS": { votes: 1500, percentage: 35 },
-        "PP-DB": { votes: 1000, percentage: 23 },
-        "BSP for Bulgaria": { votes: 900, percentage: 21 },
-        "I do not support anyone": { votes: 250, percentage: 5.8 },
-      },
-      // SETTLEMENTS
-      Ahtopol: {
-        "GERB-SDS": { votes: 400, percentage: 40 },
-        "PP-DB": { votes: 250, percentage: 25 },
-        "BSP for Bulgaria": { votes: 200, percentage: 20 },
-        "I do not support anyone": { votes: 50, percentage: 5.0 },
-      },
-    },
-  };
-
-  const electionResults = resultsDb[electionId];
-  if (!electionResults) return [];
-
-  const location = args.location_name || "National";
-  const locationResults = electionResults[location];
-
-  if (!locationResults) return [];
-
-  if (args.party_names && args.party_names.length > 0) {
-    return args.party_names
-      .map((name) => {
-        const partyId = findPartyId(name);
-        const partyEnName = partyId ? parties[partyId].en : undefined;
-        const partyData = partyEnName
-          ? locationResults[partyEnName]
-          : undefined;
-        return partyData && partyEnName
-          ? { party_name: partyEnName, ...partyData }
-          : null;
-      })
-      .filter(Boolean) as ElectionResultItem[];
-  }
-
-  return Object.entries(locationResults).map(([name, data]) => ({
-    party_name: name,
-    ...data,
-  }));
+  // For any other level, we currently don't have data.
+  console.warn(
+    `Data for level '${level}' and location '${args.location_name}' is not currently available.`,
+  );
+  return [];
 };
 
 export const get_turnout_statistics = (
   args: GetTurnoutStatisticsArgs,
 ): TurnoutData[] => {
-  // For simplicity, I'll just return one aggregated record for a region query
-  if (args.location_name && args.level === AdminLevel.Region) {
-    const regionName = args.location_name;
-    if (regionName.toLowerCase() === "sofia") {
-      return [
-        {
-          location_name: "Sofia",
-          level: AdminLevel.Region,
-          eligible_voters: 1100000,
-          ballots_cast: 550000,
-          turnout_percentage: 50.0,
-          voters_on_additional_list: 15000,
-        },
-      ];
-    }
-    if (regionName.toLowerCase() === "kardzhali") {
-      return [
-        {
-          location_name: "Kardzhali",
-          level: AdminLevel.Region,
-          eligible_voters: 150000,
-          ballots_cast: 105000,
-          turnout_percentage: 70.0,
-          voters_on_additional_list: 8000,
-        },
-      ];
-    }
-  }
-
   // Use real data for national turnout if available
   const electionId = args.election_identifier || LATEST_ELECTION_IDENTIFIER;
   const electionJsonNamePrefix = electionId.replace("-", "_");
   const electionData = (electionsData as RawElectionData[]).find((e) =>
     e.name.startsWith(electionJsonNamePrefix),
   );
-  if (electionData && electionData.results && electionData.results.protocol) {
-    const p = electionData.results.protocol;
-    const eligibleVoters = p.numRegisteredVoters || 0;
-    const ballotsCast = p.totalActualVoters;
-    return [
-      {
-        location_name: "National",
-        level: AdminLevel.National,
-        eligible_voters: eligibleVoters,
-        ballots_cast: ballotsCast,
-        turnout_percentage:
-          eligibleVoters > 0 ? (ballotsCast / eligibleVoters) * 100 : 0,
-        voters_on_additional_list: p.numAdditionalVoters || 0,
-      },
-    ];
+
+  if (
+    args.level === AdminLevel.National ||
+    (!args.level && !args.location_name)
+  ) {
+    if (electionData && electionData.results && electionData.results.protocol) {
+      const p = electionData.results.protocol;
+      const eligibleVoters = p.numRegisteredVoters || 0;
+      const ballotsCast = p.totalActualVoters;
+      return [
+        {
+          location_name: "National",
+          level: AdminLevel.National,
+          eligible_voters: eligibleVoters,
+          ballots_cast: ballotsCast,
+          turnout_percentage:
+            eligibleVoters > 0 ? (ballotsCast / eligibleVoters) * 100 : 0,
+          voters_on_additional_list: p.numAdditionalVoters || 0,
+        },
+      ];
+    }
   }
 
-  return [
-    {
-      location_name: "National",
-      level: AdminLevel.National,
-      eligible_voters: 6000000,
-      ballots_cast: 3000000,
-      turnout_percentage: 50.0,
-      voters_on_additional_list: 120000,
-    },
-  ];
+  // If no data is found for the given election or level, return empty.
+  return [];
 };
 
 export const get_candidate_performance = ({
@@ -884,9 +784,19 @@ export const get_candidate_performance = ({
     (c) => c.election_identifier === election_identifier,
   );
   if (region_name) {
-    candidates = candidates.filter(
-      (c) => c.region_name.toLowerCase() === region_name.toLowerCase(),
-    );
+    // Use the new location service to find canonical region names
+    const foundRegions = locationService.findRegions(region_name);
+    if (foundRegions.length > 0) {
+      // The mock data uses English names like 'Sofia', 'Varna'
+      const canonicalRegionNames = foundRegions.map((r) =>
+        r.name_en.toLowerCase(),
+      );
+      candidates = candidates.filter((c) =>
+        canonicalRegionNames.includes(c.region_name.toLowerCase()),
+      );
+    } else {
+      return []; // No matching region found
+    }
   }
   if (party_name) {
     const partyId = findPartyId(party_name);
@@ -921,9 +831,15 @@ export const find_preference_anomalies = ({
     (c) => c.election_identifier === election_identifier,
   );
   if (region_name) {
-    candidates = candidates.filter(
-      (c) => c.region_name.toLowerCase() === region_name.toLowerCase(),
-    );
+    const foundRegions = locationService.findRegions(region_name);
+    if (foundRegions.length > 0) {
+      const regionNames = foundRegions.map((r) => r.name_en.toLowerCase());
+      candidates = candidates.filter((c) =>
+        regionNames.includes(c.region_name.toLowerCase()),
+      );
+    } else {
+      return [];
+    }
   }
 
   const anomalies: PreferenceAnomaly[] = [];
