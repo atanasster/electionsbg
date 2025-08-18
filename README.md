@@ -5,6 +5,36 @@ A platform to visualize and analyze the elections in Bulgaria since 2005.
 ## Live Website
 [Live Web App](https://electionsbg.com)
 
+## Architecture
+
+This project is built upon a high-performance, modern web architecture that cleanly separates data processing from the frontend application. This ensures maximum scalability, performance, and maintainability.
+
+### 1. Frontend Application (`src/`)
+
+The user interface is a sophisticated Single-Page Application (SPA) built with **React** and **TypeScript**. It leverages **Vite** for an accelerated development experience and an optimized build process.
+
+-   **Component-Based UI**: The `src/components`, `src/screens`, and `src/layout` directories enforce a modular and reusable component strategy.
+-   **High-Performance Styling**: Styling is handled by **Tailwind CSS**, a utility-first framework that enables rapid development of custom designs without sacrificing performance.
+-   **Routing**: The application's navigation and view management are controlled by a centralized routing system in `src/routes.tsx`.
+
+### 2. Data Processing Pipeline (`scripts/`)
+
+All election data is processed through a robust, offline pipeline built with **TypeScript**. This pipeline is the engine that transforms raw data into a structured, web-ready format.
+
+-   **Automated Workflow**: The pipeline reads raw data from `raw_data/`, then parses, cleans, analyzes, and structures it into the JSON files consumed by the frontend.
+-   **Modular Scripts**: The `parsers/`, `stats/`, and `reports/` directories contain specialized scripts for each stage of the data transformation process, orchestrated by `scripts/main.ts`.
+
+### 3. Static Data API (`public/`)
+
+The application does not rely on a traditional, dynamic backend server. Instead, it consumes data from a set of static JSON files located in the `public/` directory.
+
+-   **Pre-built Data**: All data is pre-processed and organized by election date. The frontend fetches this data directly.
+-   **JAMstack Principles**: This approach follows JAMstack (JavaScript, APIs, Markup) principles, eliminating the need for a database and resulting in superior performance, higher security, and simplified deployment.
+
+### 4. Deployment (`firebase.json`)
+
+The entire application is deployed to **Firebase Hosting**. This platform provides a global Content Delivery Network (CDN), ensuring fast, reliable access for all users by serving the static assets from edge locations around the world.
+
 ## Data
 
 ### GeoJSON
