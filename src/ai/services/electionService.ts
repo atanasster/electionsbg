@@ -25,12 +25,28 @@ import {
   MachineVoteDiscrepancy,
 } from "@/ai/types";
 import electionsData from "@/data/json/elections.json";
-import { ElectionInfo as RawElectionData } from "@/data/dataTypes";
+import {
+  ElectionInfo as RawElectionData,
+  ElectionRegion,
+  SectionProtocol,
+  Votes,
+} from "@/data/dataTypes";
 import * as locationService from "./locationService";
 
 // =================================================================
-// DATA PROCESSING FROM elections.json
+// DATA PROCESSING, FETCHING AND CACHING
 // =================================================================
+
+// NEW: Helper to find election data from the main JSON file using an identifier
+const getElectionJsonInfo = (
+  electionIdentifier: string,
+): RawElectionData | undefined => {
+  // Robustly handle both 'YYYY-MM' and 'YYYY-MM-DD' identifiers by replacing all hyphens
+  const prefix = electionIdentifier.replace(/-/g, "_");
+  return (electionsData as RawElectionData[]).find((e) =>
+    e.name.startsWith(prefix),
+  );
+};
 
 // Helper to generate a user-friendly name from a date string (YYYY-MM-DD) in both languages
 const generateElectionName = (dateStr: string): { en: string; bg: string } => {
@@ -95,6 +111,47 @@ const allElectionsInfo: ElectionInfo[] = (
 // In a real application, these would query your database.
 const LATEST_ELECTION_IDENTIFIER =
   allElectionsInfo.length > 0 ? allElectionsInfo[0].identifier : "2023-10";
+
+// NEW: Cache for regional election data
+const regionalDataCache: Record<string, ElectionRegion[]> = {};
+
+// NEW: Helper function to fetch regional data
+const fetchElectionRegionData = async (
+  electionIdentifier: string,
+): Promise<ElectionRegion[] | null> => {
+  if (regionalDataCache[electionIdentifier]) {
+    return regionalDataCache[electionIdentifier];
+  }
+
+  const electionJsonInfo = getElectionJsonInfo(electionIdentifier);
+  if (!electionJsonInfo) {
+    console.error(
+      `Election with identifier ${electionIdentifier} not found in elections.json.`,
+    );
+    return null;
+  }
+
+  const url = `/${electionJsonInfo.name}/region_votes.json`;
+
+  try {
+    console.log(`Fetching regional data from ${url}`);
+    const response = await fetch(url);
+    if (!response.ok) {
+      throw new Error(`Failed to fetch ${url}: ${response.statusText}`);
+    }
+    const data: ElectionRegion[] = await response.json();
+    regionalDataCache[electionIdentifier] = data;
+    console.log(
+      `Successfully fetched and cached data for ${electionIdentifier}.`,
+    );
+    return data;
+  } catch (error) {
+    console.error(error);
+    // Cache the failure to avoid refetching a missing file repeatedly.
+    regionalDataCache[electionIdentifier] = [];
+    return [];
+  }
+};
 
 // =================================================================
 // BILINGUAL MOCK DATA & HELPERS
@@ -198,6 +255,30 @@ function findPartyId(name: string): PartyId | undefined {
   }
   return undefined;
 }
+
+const getPartyNameForElection = (
+  electionIdentifier: string,
+  partyNum: number,
+): string => {
+  const electionJsonInfo = getElectionJsonInfo(electionIdentifier);
+  if (!electionJsonInfo || !electionJsonInfo.results?.votes) {
+    return `Party #${partyNum}`;
+  }
+  const partyVoteInfo = electionJsonInfo.results.votes.find(
+    (v) => v.partyNum === partyNum,
+  );
+  if (!partyVoteInfo) {
+    // Party num 0 is a convention for 'none of the above' in some contexts, but protocol has dedicated fields
+    return `Party #${partyNum}`;
+  }
+
+  const partyId =
+    findPartyId(partyVoteInfo.nickName || "") ||
+    findPartyId(partyVoteInfo.commonName?.[0] || "");
+  return partyId
+    ? parties[partyId].en
+    : partyVoteInfo.nickName || `Party #${partyVoteInfo.partyNum}`;
+};
 
 type DonationRecord = {
   name: string;
@@ -650,22 +731,19 @@ export const get_available_elections_for_year = ({
   return allElectionsInfo.filter((e) => e.date.startsWith(String(year)));
 };
 
-export const get_election_results = (args: {
+export const get_election_results = async (args: {
   election_identifier?: string;
   party_names?: string[];
   level?: AdminLevel;
   location_name?: string;
   vote_type?: VoteType;
-}): ElectionResultItem[] => {
+}): Promise<ElectionResultItem[]> => {
   const electionId = args.election_identifier || LATEST_ELECTION_IDENTIFIER;
   const level = args.level || AdminLevel.National;
 
-  // Use real data from JSON for national level, if level is national or not specified
+  // Handle National Level from main elections.json
   if (level === AdminLevel.National && !args.location_name) {
-    const electionJsonNamePrefix = electionId.replace("-", "_");
-    const electionData = (electionsData as RawElectionData[]).find((e) =>
-      e.name.startsWith(electionJsonNamePrefix),
-    );
+    const electionData = getElectionJsonInfo(electionId);
 
     if (electionData && electionData.results && electionData.results.protocol) {
       const protocol = electionData.results.protocol;
@@ -678,14 +756,10 @@ export const get_election_results = (args: {
       if (totalValidVotes > 0) {
         const results: ElectionResultItem[] = electionData.results.votes.map(
           (vote) => {
-            // Try to find a canonical party name from our list, otherwise use the nickname
-            const partyId =
-              findPartyId(vote.nickName || "") ||
-              findPartyId(vote.commonName?.[0] || "");
-            const partyName = partyId
-              ? parties[partyId].en
-              : vote.nickName || `Party #${vote.partyNum}`;
-
+            const partyName = getPartyNameForElection(
+              electionId,
+              vote.partyNum,
+            );
             return {
               party_name: partyName,
               votes: vote.totalVotes,
@@ -693,8 +767,6 @@ export const get_election_results = (args: {
             };
           },
         );
-
-        // Add 'I do not support anyone' as a separate entry
         const noOneVotes =
           Number(protocol.numValidNoOneMachineVotes || 0) +
           Number(protocol.numValidNoOnePaperVotes || 0);
@@ -710,45 +782,120 @@ export const get_election_results = (args: {
           const lowerCasePartyNames = args.party_names.map((p) =>
             p.toLowerCase(),
           );
-          return results.filter((r) => {
-            const partyId = findPartyId(r.party_name);
-            const partyInfo = partyId ? parties[partyId] : null;
-            return lowerCasePartyNames.some(
-              (requestedName) =>
-                r.party_name.toLowerCase() === requestedName ||
-                (partyInfo && partyInfo.en.toLowerCase() === requestedName) ||
-                (partyInfo && partyInfo.bg.toLowerCase() === requestedName) ||
-                partyInfo?.aliases?.includes(requestedName),
-            );
-          });
+          return results.filter((r) =>
+            lowerCasePartyNames.includes(r.party_name.toLowerCase()),
+          );
         }
         return results.sort((a, b) => b.votes - a.votes);
       }
     }
   }
 
-  // For any other level, we currently don't have data.
-  console.warn(
-    `Data for level '${level}' and location '${args.location_name}' is not currently available.`,
-  );
+  // Handle Region/Municipality/Settlement Level from fetched regional data files
+  if (args.location_name) {
+    const allRegionalData = await fetchElectionRegionData(electionId);
+    if (!allRegionalData || allRegionalData.length === 0) return [];
+
+    const targetRegions = await locationService.findRegions(args.location_name);
+    if (targetRegions.length === 0) return [];
+
+    const targetOblastIds = targetRegions.map((r) => r.oblast);
+    // For Sofia, regions.json has name:"23", oblast:"S23". The data files might just use "23".
+    // This makes the matching more robust by checking against both.
+    const targetRegionNames = targetRegions.map((r) => r.name);
+    const validKeysForFilter = new Set([
+      ...targetOblastIds,
+      ...targetRegionNames,
+    ]);
+
+    const regionSpecificData = allRegionalData.filter((rd) =>
+      validKeysForFilter.has(rd.key),
+    );
+
+    if (regionSpecificData.length === 0) return [];
+
+    // Aggregate results if multiple regions match (e.g., Sofia city)
+    const aggregatedVotes = new Map<number, Votes>();
+    const aggregatedProtocol = regionSpecificData.reduce<
+      Partial<SectionProtocol>
+    >((acc, region) => {
+      if (region.results.protocol) {
+        for (const key in region.results.protocol) {
+          acc[key as keyof SectionProtocol] =
+            (acc[key as keyof SectionProtocol] || 0) +
+            (region.results.protocol[key as keyof SectionProtocol] || 0);
+        }
+      }
+      region.results.votes.forEach((vote) => {
+        const existing = aggregatedVotes.get(vote.partyNum) || {
+          partyNum: vote.partyNum,
+          totalVotes: 0,
+          paperVotes: 0,
+          machineVotes: 0,
+        };
+        existing.totalVotes += vote.totalVotes;
+        existing.paperVotes =
+          (existing.paperVotes || 0) + (vote.paperVotes || 0);
+        existing.machineVotes =
+          (existing.machineVotes || 0) + (vote.machineVotes || 0);
+        aggregatedVotes.set(vote.partyNum, existing);
+      });
+      return acc;
+    }, {});
+
+    const totalValidVotes =
+      (aggregatedProtocol.numValidVotes || 0) +
+      (aggregatedProtocol.numValidMachineVotes || 0) +
+      (aggregatedProtocol.numValidNoOneMachineVotes || 0) +
+      (aggregatedProtocol.numValidNoOnePaperVotes || 0);
+    if (totalValidVotes > 0) {
+      const results: ElectionResultItem[] = Array.from(
+        aggregatedVotes.values(),
+      ).map((vote) => {
+        const partyName = getPartyNameForElection(electionId, vote.partyNum);
+        return {
+          party_name: partyName,
+          votes: vote.totalVotes,
+          percentage: (vote.totalVotes / totalValidVotes) * 100,
+        };
+      });
+      const noOneVotes =
+        (aggregatedProtocol.numValidNoOneMachineVotes || 0) +
+        (aggregatedProtocol.numValidNoOnePaperVotes || 0);
+      if (noOneVotes > 0) {
+        results.push({
+          party_name: parties["none-of-the-above"].en,
+          votes: noOneVotes,
+          percentage: (noOneVotes / totalValidVotes) * 100,
+        });
+      }
+      if (args.party_names && args.party_names.length > 0) {
+        const lowerCasePartyNames = args.party_names.map((p) =>
+          p.toLowerCase(),
+        );
+        return results.filter((r) =>
+          lowerCasePartyNames.includes(r.party_name.toLowerCase()),
+        );
+      }
+      return results.sort((a, b) => b.votes - a.votes);
+    }
+  }
+
   return [];
 };
 
-export const get_turnout_statistics = (
+export const get_turnout_statistics = async (
   args: GetTurnoutStatisticsArgs,
-): TurnoutData[] => {
-  // Use real data for national turnout if available
+): Promise<TurnoutData[]> => {
   const electionId = args.election_identifier || LATEST_ELECTION_IDENTIFIER;
-  const electionJsonNamePrefix = electionId.replace("-", "_");
-  const electionData = (electionsData as RawElectionData[]).find((e) =>
-    e.name.startsWith(electionJsonNamePrefix),
-  );
 
+  // Handle National Level from main elections.json
   if (
     args.level === AdminLevel.National ||
     (!args.level && !args.location_name)
   ) {
-    if (electionData && electionData.results && electionData.results.protocol) {
+    const electionData = getElectionJsonInfo(electionId);
+    if (electionData?.results?.protocol) {
       const p = electionData.results.protocol;
       const eligibleVoters = p.numRegisteredVoters || 0;
       const ballotsCast = p.totalActualVoters;
@@ -764,6 +911,79 @@ export const get_turnout_statistics = (
         },
       ];
     }
+  }
+
+  // Handle Region/Municipality/Settlement Level from fetched regional data files
+  if (args.location_name) {
+    const allRegionalData = await fetchElectionRegionData(electionId);
+    if (!allRegionalData || allRegionalData.length === 0) return [];
+
+    const targetRegions = await locationService.findRegions(args.location_name);
+    if (targetRegions.length === 0) return [];
+
+    const targetOblastIds = targetRegions.map((r) => r.oblast);
+    // For Sofia, regions.json has name:"23", oblast:"S23". The data files might just use "23".
+    // This makes the matching more robust by checking against both.
+    const targetRegionNames = targetRegions.map((r) => r.name);
+    const validKeysForFilter = new Set([
+      ...targetOblastIds,
+      ...targetRegionNames,
+    ]);
+
+    const regionSpecificData = allRegionalData.filter((rd) =>
+      validKeysForFilter.has(rd.key),
+    );
+
+    if (regionSpecificData.length === 0) return [];
+
+    const results: TurnoutData[] = [];
+    let totalEligibleVoters = 0;
+    let totalBallotsCast = 0;
+    let totalAdditionalVoters = 0;
+
+    for (const regionData of regionSpecificData) {
+      const p = regionData.results.protocol;
+      if (!p) continue; // Skip if protocol data is missing for this region
+
+      const eligibleVoters = p.numRegisteredVoters || 0;
+      const ballotsCast = p.totalActualVoters || 0;
+      const additionalVoters = p.numAdditionalVoters || 0;
+
+      totalEligibleVoters += eligibleVoters;
+      totalBallotsCast += ballotsCast;
+      totalAdditionalVoters += additionalVoters;
+
+      const regionInfo = locationService.allRegions.find(
+        (r) => r.oblast === regionData.key || r.name === regionData.key,
+      );
+
+      results.push({
+        location_name:
+          regionInfo?.long_name_en || regionInfo?.name_en || regionData.key,
+        level: AdminLevel.Region,
+        eligible_voters: eligibleVoters,
+        ballots_cast: ballotsCast,
+        turnout_percentage:
+          eligibleVoters > 0 ? (ballotsCast / eligibleVoters) * 100 : 0,
+        voters_on_additional_list: additionalVoters,
+      });
+    }
+
+    if (regionSpecificData.length > 1) {
+      results.push({
+        location_name: "Total for Sofia City",
+        level: AdminLevel.Region,
+        eligible_voters: totalEligibleVoters,
+        ballots_cast: totalBallotsCast,
+        turnout_percentage:
+          totalEligibleVoters > 0
+            ? (totalBallotsCast / totalEligibleVoters) * 100
+            : 0,
+        voters_on_additional_list: totalAdditionalVoters,
+      });
+    }
+
+    return results;
   }
 
   // If no data is found for the given election or level, return empty.
@@ -960,7 +1180,7 @@ export const get_top_donors = ({
   });
 };
 
-export const compare_election_results = ({
+export const compare_election_results = async ({
   election_identifiers,
   party_names,
   level = AdminLevel.National,
@@ -970,19 +1190,18 @@ export const compare_election_results = ({
   party_names: string[];
   level?: AdminLevel;
   location_name?: string;
-}): ComparisonResult[] => {
+}): Promise<ComparisonResult[]> => {
   if (!party_names || party_names.length === 0) {
     return [];
   }
 
   const comparisonResults: ComparisonResult[] = [];
 
-  // If level is national, location_name can be omitted, otherwise it's needed.
   const effectiveLocation =
     level === AdminLevel.National ? "National" : location_name;
   if (!effectiveLocation) return [];
 
-  party_names.forEach((partyName) => {
+  for (const partyName of party_names) {
     const partyId = findPartyId(partyName);
     const canonicalPartyName = partyId ? parties[partyId].en : partyName;
 
@@ -992,8 +1211,8 @@ export const compare_election_results = ({
       results: [],
     };
 
-    election_identifiers.forEach((electionId) => {
-      const resultsForElection = get_election_results({
+    for (const electionId of election_identifiers) {
+      const resultsForElection = await get_election_results({
         election_identifier: electionId,
         party_names: [partyName],
         level: level,
@@ -1008,7 +1227,7 @@ export const compare_election_results = ({
           percentage: partyData.percentage,
         });
       }
-    });
+    }
 
     if (partyResult.results.length > 0) {
       partyResult.results.sort((a, b) => {
@@ -1022,7 +1241,7 @@ export const compare_election_results = ({
       });
       comparisonResults.push(partyResult);
     }
-  });
+  }
 
   return comparisonResults;
 };
@@ -1073,7 +1292,7 @@ export const find_discrepancies_between_vote_types = (
   ];
 };
 
-export const calculate_campaign_efficiency = ({
+export const calculate_campaign_efficiency = async ({
   election_identifier = LATEST_ELECTION_IDENTIFIER,
   party_names,
   limit = 5,
@@ -1081,7 +1300,7 @@ export const calculate_campaign_efficiency = ({
   election_identifier?: string;
   party_names?: string[];
   limit?: number;
-}): EfficiencyResult[] => {
+}): Promise<EfficiencyResult[]> => {
   // 1. Get finances (expenses) for all relevant parties
   const financialReports = get_campaign_finances({
     election_identifier,
@@ -1096,7 +1315,7 @@ export const calculate_campaign_efficiency = ({
   const partyEnNames = financialReports.map((fr) => fr.party_name);
 
   // 2. Get election results (votes) for the same parties
-  const electionResults = get_election_results({
+  const electionResults = await get_election_results({
     election_identifier,
     party_names: partyEnNames,
     level: AdminLevel.National,
@@ -1365,7 +1584,7 @@ export const compare_campaign_finances = ({
   return Array.from(resultsByParty.values());
 };
 
-export const get_none_of_the_above_stats = ({
+export const get_none_of_the_above_stats = async ({
   election_identifier = LATEST_ELECTION_IDENTIFIER,
   level,
   sort_by = "votes",
@@ -1375,40 +1594,44 @@ export const get_none_of_the_above_stats = ({
   level: AdminLevel.Region | AdminLevel.Municipality;
   sort_by?: "votes" | "percentage";
   limit?: number;
-}): NoneOfTheAboveResult[] => {
-  // This function uses the main results DB and filters it to find the requested data.
-  const noneOfTheAbovePartyName = parties["none-of-the-above"].en;
+}): Promise<NoneOfTheAboveResult[]> => {
+  if (level !== AdminLevel.Region) {
+    console.warn(
+      `get_none_of_the_above_stats currently only supports the 'region' level.`,
+    );
+    return [];
+  }
 
-  // In a real app, you'd have a way to query all locations for a given level.
-  // Here we use the mock locations we have defined in the resultsDb fallback.
-  const mockLocationsByLevel = {
-    [AdminLevel.Region]: ["Sofia", "Plovdiv", "Varna", "Kardzhali", "Burgas"],
-    [AdminLevel.Municipality]: ["Sozopol", "Tsarevo", "Sredets"],
-  };
+  const regionalData = await fetchElectionRegionData(election_identifier);
+  if (!regionalData) return [];
 
-  const locations = mockLocationsByLevel[level];
-  if (!locations) return [];
+  const results: NoneOfTheAboveResult[] = [];
 
-  const results: NoneOfTheAboveResult[] = locations
-    .map((locationName): NoneOfTheAboveResult | null => {
-      const locationResults = get_election_results({
-        election_identifier: election_identifier,
-        location_name: locationName,
-        level: level,
-        party_names: [noneOfTheAbovePartyName],
+  for (const region of regionalData) {
+    const protocol = region.results.protocol;
+    if (!protocol) continue;
+
+    const totalValidVotes =
+      (protocol.numValidVotes || 0) +
+      (protocol.numValidMachineVotes || 0) +
+      (protocol.numValidNoOneMachineVotes || 0) +
+      (protocol.numValidNoOnePaperVotes || 0);
+    const noneVotes =
+      (protocol.numValidNoOneMachineVotes || 0) +
+      (protocol.numValidNoOnePaperVotes || 0);
+
+    if (totalValidVotes > 0 && noneVotes > 0) {
+      const regionInfo = locationService.allRegions.find(
+        (r) => r.oblast === region.key,
+      );
+      results.push({
+        location_name: regionInfo?.name_en || region.key,
+        level: AdminLevel.Region,
+        votes: noneVotes,
+        percentage: (noneVotes / totalValidVotes) * 100,
       });
-
-      if (locationResults.length > 0) {
-        return {
-          location_name: locationName,
-          level: level,
-          votes: locationResults[0].votes,
-          percentage: locationResults[0].percentage,
-        };
-      }
-      return null;
-    })
-    .filter((r): r is NoneOfTheAboveResult => r !== null);
+    }
+  }
 
   results.sort((a, b) => {
     if (sort_by === "percentage") {
@@ -1435,10 +1658,7 @@ export const get_national_vote_type_summary = ({
   const results = [];
 
   for (const electionId of election_identifiers) {
-    const electionJsonNamePrefix = electionId.replace("-", "_");
-    const electionData = (electionsData as RawElectionData[]).find((e) =>
-      e.name.startsWith(electionJsonNamePrefix),
-    );
+    const electionData = getElectionJsonInfo(electionId);
 
     if (electionData && electionData.results && electionData.results.protocol) {
       const p = electionData.results.protocol;
@@ -1489,10 +1709,7 @@ export const get_ballot_summary = ({
       invalid_ballot_percentage: number;
     }
   | { error: string } => {
-  const electionJsonNamePrefix = election_identifier.replace("-", "_");
-  const electionData = (electionsData as RawElectionData[]).find((e) =>
-    e.name.startsWith(electionJsonNamePrefix),
-  );
+  const electionData = getElectionJsonInfo(election_identifier);
 
   if (
     !electionData ||
@@ -1531,10 +1748,7 @@ export const find_machine_vote_discrepancies = ({
   election_identifier?: string;
   min_difference_threshold?: number;
 }): MachineVoteDiscrepancy[] | { error: string } => {
-  const electionJsonNamePrefix = election_identifier.replace("-", "_");
-  const electionData = (electionsData as RawElectionData[]).find((e) =>
-    e.name.startsWith(electionJsonNamePrefix),
-  );
+  const electionData = getElectionJsonInfo(election_identifier);
 
   if (!electionData || !electionData.results || !electionData.results.votes) {
     return {
