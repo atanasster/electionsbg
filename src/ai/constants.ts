@@ -123,6 +123,18 @@ export const prompts: Record<string, PromptCategory> = {
         en: "Show me a breakdown of total campaign spending by category (marketing, ads, events) for the top 3 parties in the last election.",
         bg: "Покажи разбивка на общите разходи за кампания по категории (маркетинг, реклама, събития) за топ 3 партиите на последните избори.",
       },
+      {
+        en: "Show me all elections that had a vote recount.",
+        bg: "Покажи ми всички избори, на които е имало повторно преброяване на гласовете.",
+      },
+      {
+        en: "Which elections have financial data available for the campaigns?",
+        bg: "За кои избори има налични финансови данни за кампаниите?",
+      },
+      {
+        en: "List all elections for which flash memory data (SUEMG) from the voting machines is available.",
+        bg: "Изброй всички избори, за които са налични данни от флаш паметта (СУЕМГ) на машините за гласуване.",
+      },
     ],
   },
   strategy: {

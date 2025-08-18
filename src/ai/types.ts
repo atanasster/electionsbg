@@ -11,6 +11,10 @@ export interface ElectionInfo {
     bg: string; // e.g., "Парламентарни избори Юли 2021"
   };
   date: string; // e.g., "2021-07-11"
+  hasRecount?: boolean;
+  hasSuemg?: boolean;
+  hasPreferences?: boolean;
+  hasFinancials?: boolean;
 }
 
 export enum AdminLevel {
