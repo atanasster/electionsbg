@@ -178,6 +178,8 @@ export type PartyInfo = {
   name: string;
   nickName: string;
   color: string;
+  name_en: string;
+  nickName_en: string;
   commonName?: string[];
 };
 
