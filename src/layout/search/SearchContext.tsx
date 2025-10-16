@@ -7,6 +7,7 @@ import {
   useCallback,
   useState,
 } from "react";
+import { trackSearch } from "@/lib/analytics";
 
 export type SearchItemType = FuseResult<SearchIndexType>;
 
@@ -44,6 +45,8 @@ export const SearchContextProvider: FC<PropsWithChildren> = ({ children }) => {
             ?.filter((r) => (r.score || 1) <= (r.item.type === "a" ? 0.4 : 0.1))
             .slice(0, 10) || [];
         setSearchItems(newItems);
+        // Track search in Google Analytics
+        trackSearch(searchTerm, newItems.length);
         if (selectedItem) {
           const newIndex = newItems.findIndex(
             (n) =>
