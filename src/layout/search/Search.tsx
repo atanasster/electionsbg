@@ -24,14 +24,21 @@ import { SearchIndexType } from "@/data/search/useSearchItems";
 import { SearchContext, SearchContextProvider } from "./SearchContext";
 import { useTranslation } from "react-i18next";
 import { useNavigateParams } from "@/ux/useNavigateParams";
+import { trackSearchSelection } from "@/lib/analytics";
 
 const SearchInternal: FC = () => {
   const { t } = useTranslation();
   const navigate = useNavigateParams();
   const [open, setIsOpen] = useState<boolean>(false);
   const [value, setValue] = useState("");
-  const { arrowDown, arrowUp, selected, setSelected, setSearchTerm } =
-    useContext(SearchContext);
+  const {
+    arrowDown,
+    arrowUp,
+    selected,
+    setSelected,
+    setSearchTerm,
+    searchTerm,
+  } = useContext(SearchContext);
   const inputRef = useRef<HTMLInputElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
   const setOpen = useCallback(
@@ -54,6 +61,14 @@ const SearchInternal: FC = () => {
   const isMedium = useMediaQueryMatch("lg");
   const handleSelectOption = useCallback(
     (selectedOption: FuseResult<SearchIndexType>) => {
+      // Track search result selection in Google Analytics
+      trackSearchSelection(
+        searchTerm || "",
+        selectedOption.item.type,
+        selectedOption.item.key,
+        selectedOption.item.name,
+      );
+
       switch (selectedOption.item.type) {
         case "c":
           navigate({ pathname: `/section/${selectedOption.item.key}` });
@@ -74,7 +89,7 @@ const SearchInternal: FC = () => {
       setOpen(false);
       inputRef?.current?.blur();
     },
-    [navigate, setOpen],
+    [navigate, setOpen, searchTerm],
   );
   const handleKeyDown = useCallback(
     (event: KeyboardEvent<HTMLDivElement>) => {
