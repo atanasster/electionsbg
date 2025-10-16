@@ -178,14 +178,14 @@ export type PartyInfo = {
   name: string;
   nickName: string;
   color: string;
-  name_en: string;
-  nickName_en: string;
+  name_en?: string;
+  nickName_en?: string;
   commonName?: string[];
 };
 
 export type BasicPartyInfo = {
   number: number;
-  nickName?: string;
+  nickName: string;
   commonName?: string[];
 };
 export type StatsVote = Votes & BasicPartyInfo;
