@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "Bash(xargs ls *)",
-      "Bash(xargs cat *)"
+      "Bash(xargs cat *)",
+      "Bash(awk -F';' '{print NF}')"
     ]
   }
 }
