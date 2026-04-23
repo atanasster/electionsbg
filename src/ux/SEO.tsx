@@ -1,12 +1,14 @@
-import { FC } from "react";
+import { FC, useEffect } from "react";
 import { useTranslation } from "react-i18next";
+import { useLocation } from "react-router-dom";
 
 export const SEO: FC<{
   title: string;
   description: string;
   keywords?: string[];
   type?: string;
-}> = ({ title, description, keywords = [], type = "website" }) => {
+  canonical?: string;
+}> = ({ title, description, keywords = [], type = "website", canonical }) => {
   const allKeywords = [
     "bulgaria",
     "elections",
@@ -16,6 +18,33 @@ export const SEO: FC<{
     "избори 2024",
   ].concat(keywords);
   const { t } = useTranslation();
+  const location = useLocation();
+
+  // Dynamically inject canonical URL
+  useEffect(() => {
+    const baseUrl = "https://electionsbg.com";
+    const canonicalUrl = canonical || `${baseUrl}${location.pathname}`;
+
+    // Remove existing canonical link if present
+    const existingCanonical = document.querySelector('link[rel="canonical"]');
+    if (existingCanonical) {
+      existingCanonical.remove();
+    }
+
+    // Add new canonical link
+    const link = document.createElement("link");
+    link.rel = "canonical";
+    link.href = canonicalUrl;
+    document.head.appendChild(link);
+
+    // Cleanup on unmount
+    return () => {
+      const canonical = document.querySelector('link[rel="canonical"]');
+      if (canonical) {
+        canonical.remove();
+      }
+    };
+  }, [location.pathname, canonical]);
   return (
     <>
       <title>{`${
