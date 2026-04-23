@@ -3,7 +3,8 @@
     "allow": [
       "Bash(xargs ls *)",
       "Bash(xargs cat *)",
-      "Bash(awk -F';' '{print NF}')"
+      "Bash(awk -F';' '{print NF}')",
+      "Bash(awk -F';' '$7==\"\" || $8==\"\" {print NR\": \"$0; c++} END {print \"empty coords rows: \"c+0}' /Users/atanasster/data-bg/raw_data/2026_04_19/sections.txt)"
     ]
   }
 }

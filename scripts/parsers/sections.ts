@@ -63,12 +63,24 @@ export const parseSections = (
                 section.is_mobile = parseInt(row[5]);
                 section.is_ship = parseInt(row[6]);
                 section.num_machines = row[7] ? parseInt(row[7]) : 0;
-              } else {
+              } else if (year <= "2024_10_27") {
                 section.address = row[5];
                 section.is_mobile = row[6].trim() !== "" ? parseInt(row[6]) : 0;
                 section.is_ship = row[7].trim() !== "" ? parseInt(row[7]) : 0;
                 section.num_machines =
                   row[8].trim() !== "" ? parseInt(row[8]) : 0;
+              } else {
+                section.address = row[5];
+                if (row[6] && row[6].trim() !== "") {
+                  section.longitude = parseFloat(row[6]);
+                }
+                if (row[7] && row[7].trim() !== "") {
+                  section.latitude = parseFloat(row[7]);
+                }
+                section.is_mobile = row[8].trim() !== "" ? parseInt(row[8]) : 0;
+                section.is_ship = row[9].trim() !== "" ? parseInt(row[9]) : 0;
+                section.num_machines =
+                  row[10].trim() !== "" ? parseInt(row[10]) : 0;
               }
             }
           }

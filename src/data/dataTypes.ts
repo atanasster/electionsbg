@@ -102,6 +102,8 @@ export type SectionInfo = {
   oblast: string;
   obshtina?: string;
   ekatte?: string;
+  longitude?: number;
+  latitude?: number;
 } & ElectionResults;
 
 export type CandidatesInfo = {
