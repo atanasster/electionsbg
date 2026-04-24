@@ -149,7 +149,7 @@ export const savePartyPreferences = ({
   }
   const preferencesFolder = `${outFolder}/parties/preferences`;
   if (!fs.existsSync(preferencesFolder)) {
-    fs.mkdirSync(preferencesFolder);
+    fs.mkdirSync(preferencesFolder, { recursive: true });
   }
   Object.keys(regionPrefsByParty).forEach((key) => {
     const partyFolder = `${preferencesFolder}/${key}`;

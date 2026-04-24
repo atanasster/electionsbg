@@ -38,6 +38,9 @@ export const SectionsList: FC<{
             cityIdx + settlementName.length + numSpaces + 1,
           ) || "";
       }
+      if (!address.trim()) {
+        address = section.settlement || "";
+      }
       const topParty = topVotesParty(section.results.votes);
       return {
         ...section,
