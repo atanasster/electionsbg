@@ -14,11 +14,14 @@ import { ProtocolSummary } from "../protocols/ProtocolSummary";
 import {
   ChartLine,
   Heart,
+  MapPin,
   MemoryStick,
   RotateCcwSquare,
   UsersRound,
   Vote,
 } from "lucide-react";
+import { SectionsMap } from "./SectionsMap";
+import { MapLayout } from "@/layout/dataview/MapLayout";
 import { Caption } from "@/ux/Caption";
 import { MultiHistoryChart } from "../charts/MultiHistoryChart";
 import { IconTabs } from "../../IconTabs";
@@ -30,6 +33,7 @@ import { RecountCards } from "../protocols/RecountCards";
 
 const dataViews = [
   "sections",
+  "map",
   "parties",
   "pref.",
   "recount",
@@ -40,6 +44,7 @@ type DataViewType = (typeof dataViews)[number];
 
 const DataTypeIcons: Record<DataViewType, ReactNode> = {
   sections: <Vote />,
+  map: <MapPin />,
   parties: <UsersRound />,
   recount: <RotateCcwSquare />,
   suemg: <MemoryStick />,
@@ -70,6 +75,12 @@ export const Sections: FC<{ ekatte: string }> = ({ ekatte }) => {
   }
   if (!electionStats?.hasSuemg) {
     excluded.exclude.push("suemg");
+  }
+  const hasCoords = settlement?.sections?.some(
+    (s) => typeof s.longitude === "number" && typeof s.latitude === "number",
+  );
+  if (!hasCoords) {
+    excluded.exclude.push("map");
   }
   const shortTitle =
     info && (i18n.language === "bg" ? info?.name : info?.name_en);
@@ -151,6 +162,15 @@ export const Sections: FC<{ ekatte: string }> = ({ ekatte }) => {
                   title={shortTitle || t("sections")}
                 />
               </>
+            );
+          }
+          if (view === "map" && settlement) {
+            return (
+              <MapLayout>
+                {(size) => (
+                  <SectionsMap sections={settlement.sections} size={size} />
+                )}
+              </MapLayout>
             );
           }
           if (view == "parties") {

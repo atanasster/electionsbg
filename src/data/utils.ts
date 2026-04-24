@@ -184,11 +184,12 @@ export const addResults = (
   results.votes = addVotes(votes, results.votes);
   if (protocol) {
     const totalActualVoters =
+      protocol.totalActualVoters ||
       (protocol.numValidMachineVotes || 0) +
-      (protocol.numValidNoOneMachineVotes || 0) +
-      (protocol.numValidVotes || 0) +
-      (protocol.numValidNoOnePaperVotes || 0) +
-      (protocol.numInvalidBallotsFound || 0);
+        (protocol.numValidNoOneMachineVotes || 0) +
+        (protocol.numValidVotes || 0) +
+        (protocol.numValidNoOnePaperVotes || 0) +
+        (protocol.numInvalidBallotsFound || 0);
     if (!results.protocol) {
       results.protocol = {} as SectionProtocol;
     }
