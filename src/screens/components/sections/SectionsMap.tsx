@@ -12,7 +12,9 @@ import { PartyVotesXS } from "../PartyVotesXS";
 export const SectionsMap: FC<{
   sections: SectionInfo[];
   size: MapCoordinates;
-}> = ({ sections, size }) => {
+  markerVariant?: "default" | "problem";
+  tooltipBadge?: string;
+}> = ({ sections, size, markerVariant = "default", tooltipBadge }) => {
   const { t } = useTranslation();
   const { topVotesParty } = usePartyInfo();
   const navigate = useNavigateParams();
@@ -74,17 +76,19 @@ export const SectionsMap: FC<{
         />
         {points.map((s) => {
           const topParty = topVotesParty(s.results.votes);
-          const color = topParty?.color || "lightslategrey";
+          const fillColor = topParty?.color || "lightslategrey";
+          const isProblem = markerVariant === "problem";
+          const strokeColor = isProblem ? "#dc2626" : fillColor;
           return (
             <CircleMarker
               key={s.section}
               center={[s.latitude as number, s.longitude as number]}
-              radius={6}
+              radius={isProblem ? 8 : 6}
               pathOptions={{
-                color,
-                fillColor: color,
+                color: strokeColor,
+                fillColor,
                 fillOpacity: 0.7,
-                weight: 1,
+                weight: isProblem ? 3 : 1,
               }}
               eventHandlers={{
                 click: () => navigate({ pathname: `/section/${s.section}` }),
@@ -96,6 +100,11 @@ export const SectionsMap: FC<{
                 className="section-tooltip"
               >
                 <div className="text-left">
+                  {tooltipBadge && (
+                    <div className="text-xs text-center font-semibold text-red-600 pb-1">
+                      ⚠ {tooltipBadge}
+                    </div>
+                  )}
                   <div className="text-sm text-center font-semibold pb-1">
                     {s.section}
                   </div>

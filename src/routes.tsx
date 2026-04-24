@@ -45,6 +45,7 @@ import { MunicipalitiesMissingSuemg } from "./screens/reports/municipalities/Mun
 import { MunicipalitiesSuemg } from "./screens/reports/municipalities/MunicipalitiesSuemg";
 import { SectionsSuemgAdded } from "./screens/reports/sections/SectionsSuemgAdded";
 import { SectionsSuemgRemoved } from "./screens/reports/sections/SectionsSuemgRemoved";
+import { ProblemSections } from "./screens/reports/sections/ProblemSections";
 import { SettlementsSuemgAdded } from "./screens/reports/settlements/SettlementsSuemgAdded";
 import { SettlementsSuemgRemoved } from "./screens/reports/settlements/SettlementsSuemgRemoved";
 import { MunicipalitiesSuemgAdded } from "./screens/reports/municipalities/MunicipalitiesSuemgAdded";
@@ -446,6 +447,14 @@ export const AuthRoutes = () => {
               element={
                 <LayoutScreen>
                   <SectionsMissingSuemg />
+                </LayoutScreen>
+              }
+            />
+            <Route
+              path="problem_sections"
+              element={
+                <LayoutScreen>
+                  <ProblemSections />
                 </LayoutScreen>
               }
             />

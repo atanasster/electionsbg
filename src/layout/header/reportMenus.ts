@@ -166,6 +166,10 @@ export const reportsMenu: MenuItem[] = [
             title: "support_no_one",
             link: "/reports/section/supports_no_one",
           },
+          {
+            title: "problem_sections",
+            link: "/reports/section/problem_sections",
+          },
           { title: "-", category: "recount" },
           { title: "voting_recount", category: "recount" },
           {

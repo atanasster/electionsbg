@@ -5,6 +5,11 @@ import { ElectionInfo, PartyInfo } from "@/data/dataTypes";
 import { municipalityReports } from "./municipality_reports";
 import { settlementReports } from "./settlement_reports";
 import { sectionReports } from "./section_reports";
+import {
+  buildCoordsLookup,
+  generateProblemSections,
+  generateProblemSectionsStats,
+} from "./problem_sections";
 import { cikPartiesFileName } from "scripts/consts";
 
 const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
@@ -22,6 +27,7 @@ export const generateReports = (
   const elections: ElectionInfo[] = (
     JSON.parse(fs.readFileSync(electionsFile, "utf-8")) as ElectionInfo[]
   ).sort((a, b) => a.name.localeCompare(b.name));
+  const coordsLookup = buildCoordsLookup(publicFolder);
   elections
     .filter((e) => election === e.name || election === undefined)
     .forEach((e, index) => {
@@ -58,5 +64,13 @@ export const generateReports = (
       municipalityReports(params);
       settlementReports(params);
       sectionReports(params);
+      generateProblemSections({
+        publicFolder,
+        dataFolder,
+        year,
+        stringify,
+        coordsLookup,
+      });
     });
+  generateProblemSectionsStats({ publicFolder, stringify });
 };

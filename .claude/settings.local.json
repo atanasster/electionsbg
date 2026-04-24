@@ -59,7 +59,28 @@
       "Bash(awk '-F;' '{for\\(i=4;i<=NF;i+=4\\){if\\($i!=\"\"\\) print $i}}' /Users/atanasster/data-bg/raw_data/2026_04_19/votes.txt)",
       "Bash(awk -F';' '$3==25' /Users/atanasster/data-bg/raw_data/2026_04_19/local_parties.txt)",
       "Bash(awk '-F;' 'BEGIN{s=0} {for\\(i=4;i<=NF;i+=4\\){if\\($i==\"25\"\\) s+=$\\(i+1\\)}} END{print s}' /Users/atanasster/data-bg/raw_data/2026_04_19/votes.txt)",
-      "Bash(node -e ' *)"
+      "Bash(node -e ' *)",
+      "WebFetch(domain:china-cee.eu)",
+      "WebFetch(domain:acf.bg)",
+      "WebFetch(domain:www.segabg.com)",
+      "Bash(python3 -c ' *)",
+      "Bash(python3)",
+      "Bash(python3 /tmp/find_sofia.py)",
+      "Bash(python3 /tmp/find_sofia2.py)",
+      "Bash(python3 /tmp/find_sofia3.py)",
+      "Bash(python3 /tmp/find_sofia4.py)",
+      "Bash(python3 /tmp/find_addresses.py)",
+      "Bash(python3 /tmp/find_addresses2.py)",
+      "Bash(python3 /tmp/plovdiv_districts.py)",
+      "Bash(python3 /tmp/sofia_districts.py)",
+      "Bash(python3 /tmp/check_cities.py)",
+      "Bash(npm run *)",
+      "Bash(python3 -m json.tool)",
+      "Bash(find /Users/atanasster/data-bg/dist -name \".DS_Store\" -delete)",
+      "Bash(npx eslint *)",
+      "mcp__Claude_Preview__preview_start",
+      "Bash(kill %1)",
+      "Bash(pkill -f \"vite\")"
     ]
   }
 }
