@@ -58,7 +58,8 @@
       "Bash(awk '-F;' '{for\\(i=4;i<=NF;i+=4\\){if\\($i!=\"\" && $i+0>24\\) print $i}}' /Users/atanasster/data-bg/raw_data/2026_04_19/votes.txt)",
       "Bash(awk '-F;' '{for\\(i=4;i<=NF;i+=4\\){if\\($i!=\"\"\\) print $i}}' /Users/atanasster/data-bg/raw_data/2026_04_19/votes.txt)",
       "Bash(awk -F';' '$3==25' /Users/atanasster/data-bg/raw_data/2026_04_19/local_parties.txt)",
-      "Bash(awk '-F;' 'BEGIN{s=0} {for\\(i=4;i<=NF;i+=4\\){if\\($i==\"25\"\\) s+=$\\(i+1\\)}} END{print s}' /Users/atanasster/data-bg/raw_data/2026_04_19/votes.txt)"
+      "Bash(awk '-F;' 'BEGIN{s=0} {for\\(i=4;i<=NF;i+=4\\){if\\($i==\"25\"\\) s+=$\\(i+1\\)}} END{print s}' /Users/atanasster/data-bg/raw_data/2026_04_19/votes.txt)",
+      "Bash(node -e ' *)"
     ]
   }
 }
