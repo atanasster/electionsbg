@@ -6,6 +6,8 @@ import { MapCoordinates } from "@/layout/dataview/MapLayout";
 import { SectionInfo } from "@/data/dataTypes";
 import { usePartyInfo } from "@/data/parties/usePartyInfo";
 import { useTranslation } from "react-i18next";
+import { useNavigateParams } from "@/ux/useNavigateParams";
+import { PartyVotesXS } from "../PartyVotesXS";
 
 export const SectionsMap: FC<{
   sections: SectionInfo[];
@@ -13,11 +15,13 @@ export const SectionsMap: FC<{
 }> = ({ sections, size }) => {
   const { t } = useTranslation();
   const { topVotesParty } = usePartyInfo();
+  const navigate = useNavigateParams();
 
   const points = useMemo(
     () =>
       sections.filter(
-        (s) => typeof s.longitude === "number" && typeof s.latitude === "number",
+        (s) =>
+          typeof s.longitude === "number" && typeof s.latitude === "number",
       ),
     [sections],
   );
@@ -71,10 +75,6 @@ export const SectionsMap: FC<{
         {points.map((s) => {
           const topParty = topVotesParty(s.results.votes);
           const color = topParty?.color || "lightslategrey";
-          const totalVotes = s.results.votes.reduce(
-            (a, v) => a + (v.totalVotes || 0),
-            0,
-          );
           return (
             <CircleMarker
               key={s.section}
@@ -86,20 +86,25 @@ export const SectionsMap: FC<{
                 fillOpacity: 0.7,
                 weight: 1,
               }}
+              eventHandlers={{
+                click: () => navigate({ pathname: `/section/${s.section}` }),
+              }}
             >
-              <Tooltip direction="top" offset={[0, -4]}>
-                <div className="text-xs">
-                  <div className="font-semibold">{s.section}</div>
-                  {s.address && <div>{s.address}</div>}
-                  {topParty && (
-                    <div>
-                      <span
-                        className="inline-block w-2 h-2 mr-1 rounded-full align-middle"
-                        style={{ backgroundColor: color }}
-                      />
-                      {topParty.nickName} — {totalVotes} {t("votes") || "votes"}
+              <Tooltip
+                direction="top"
+                offset={[0, -4]}
+                className="section-tooltip"
+              >
+                <div className="text-left">
+                  <div className="text-sm text-center font-semibold pb-1">
+                    {s.section}
+                  </div>
+                  {s.address && (
+                    <div className="text-xs text-center pb-1 opacity-90">
+                      {s.address}
                     </div>
                   )}
+                  <PartyVotesXS votes={s.results.votes} />
                 </div>
               </Tooltip>
             </CircleMarker>
