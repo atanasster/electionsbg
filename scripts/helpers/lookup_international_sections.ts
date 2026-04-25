@@ -3,12 +3,14 @@ import { COUNTRIES } from "scripts/parsers/country_codes";
 
 export const lookup_international_sections = (
   settlement: string,
-  region: string,
+  region: string | undefined,
   settlements: ElectionSettlement[],
 ) => {
   const settlementParts = settlement.split(", ");
   let code: string | undefined = undefined;
-  const countryParts = region.split("Извън страната ");
+  // 2005 raw data does not include region_name for international sections;
+  // fall through to the city-name lookup below in that case.
+  const countryParts = (region ?? "").split("Извън страната ");
   const country = countryParts[countryParts.length - 1];
   switch (country) {
     case "Великобритания": {
