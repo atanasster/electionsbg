@@ -98,7 +98,24 @@
       "Bash(curl -sI http://localhost:4173/sections/010100001_stats.json)",
       "Bash(curl -s --compressed http://localhost:4173/sections/010100001_stats.json)",
       "Bash(lsof -ti:4173)",
-      "Bash(xargs kill *)"
+      "Bash(xargs kill *)",
+      "Bash(git remote *)",
+      "Bash(git push *)",
+      "Bash(nettop -P -L 1 -n -t external)",
+      "Bash(git stash *)",
+      "Bash(gh api *)",
+      "Bash(gh auth *)",
+      "Bash(npm audit *)",
+      "Bash(npx tsc *)",
+      "Bash(npm ls *)",
+      "Bash(npm uninstall *)",
+      "Bash(gzip -c /Users/atanasster/data-bg/dist/assets/vendor-*.js)",
+      "Bash(npm view *)",
+      "Bash(npm install *)",
+      "Bash(awk '/<Route path=\"reports\">/,/<Route path=\"party\">/' /Users/atanasster/data-bg/src/routes.tsx)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(grep -rn \"saveSplitObject\\\\|sections/\\\\${\" /Users/atanasster/data-bg/scripts/parsers --include=\"*.ts\")"
     ]
   }
 }
