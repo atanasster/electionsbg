@@ -23,7 +23,7 @@ export const Link: FC<
         searchParams(params).toString()
       }
       className={cn(
-        `link ${underline ? "hover:underline" : ""} hover:cursor-pointer`,
+        `link text-foreground ${underline ? "hover:underline" : ""} hover:cursor-pointer`,
         className,
       )}
       {...props}
