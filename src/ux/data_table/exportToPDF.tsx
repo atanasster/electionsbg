@@ -52,12 +52,15 @@ export function exportToPDF<TData>(table: Table<TData>, title: string) {
         fontStyle: "normal",
       },
     });
+    const filename = `${title.replace(" / ", "_").replace("/", "_")}.pdf`;
     if (data.length > 500) {
-      doc.save(`${title.replace(" / ", "_").replace("/", "_")}.pdf`);
+      doc.save(filename);
     } else {
-      doc.output("dataurlnewwindow", {
-        filename: `${title.replace(" / ", "_").replace("/", "_")}.pdf`,
-      });
+      // jspdf 4 changed `dataurlnewwindow` semantics: it relies on a base64
+      // data URI inside an iframe, which fails for large PDFs and is
+      // popup-blocked. Use a blob URL opened from this user-gesture click.
+      const blobUrl = doc.output("bloburl") as unknown as string;
+      window.open(blobUrl, "_blank");
     }
   }
 }
