@@ -1,58 +1,264 @@
-import { FC, PropsWithChildren } from "react";
+import { FC, lazy, PropsWithChildren, Suspense } from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import { RegionsScreen } from "@/screens/RegionsScreen";
-import { MunicipalitiesScreen } from "@/screens/MunicipalitiesScreen";
-import { SettlementsScreen } from "@/screens/SettlementsScreen";
-import { NotFound } from "@/screens/NotFound";
 import { Layout } from "./layout/Layout";
-import { SectionsScreen } from "./screens/SectionsScreen";
-import { SectionScreen } from "./screens/SectionScreen";
-import { AboutScreen } from "./screens/AboutScreen";
-import { MunicipalitiesTurnout } from "./screens/reports/municipalities/MunicipalitiesTurnout";
-import { MunicipalitiesConcentration } from "./screens/reports/municipalities/MunicipalitiesConcentration";
-import { MunicipalitiesAdditionalVoters } from "./screens/reports/municipalities/MunicipalitiesAdditionalVoters";
-import { MunicipalitiesInvalidBallots } from "./screens/reports/municipalities/MunicipalitiesInvalidBallots";
-import { MunicipalitiesSupportsNoOne } from "./screens/reports/municipalities/MunicipalitiesSupportsNoOne";
-import { SettlementsConcentration } from "./screens/reports/settlements/SettlementsConcentration";
-import { SettlementsTurnout } from "./screens/reports/settlements/SettlementsTurnout";
-import { SettlementsAdditionalVoters } from "./screens/reports/settlements/SettlementsAdditionalVoters";
-import { SettlementsInvalidBallots } from "./screens/reports/settlements/SettlementsInvalidBallots";
-import { SettlementsSupportsNoOne } from "./screens/reports/settlements/SettlementsSupportsNoOne";
-import { SectionsAdditionalVoters } from "./screens/reports/sections/SectionsAdditionalVoters";
-import { SectionsConcentration } from "./screens/reports/sections/SectionsConcentration";
-import { SectionsInvalidBallots } from "./screens/reports/sections/SectionsInvalidBallots";
-import { SectionsSupportsNoOne } from "./screens/reports/sections/SectionsSupportsNoOne";
-import { SectionsTurnout } from "./screens/reports/sections/SectionsTurnout";
-import { MunicipalitiesTopGainers } from "./screens/reports/municipalities/MunicipalitiesTopGainers";
-import { SettlementsTopGainers } from "./screens/reports/settlements/SettlementsTopGainers";
-import { SectionsTopGainers } from "./screens/reports/sections/SectionsTopGainers";
-import { MunicipalitiesTopLosers } from "./screens/reports/municipalities/MunicipalitiesTopLosers";
-import { SectionsTopLosers } from "./screens/reports/sections/SectionsTopLosers";
-import { SettlementsTopLosers } from "./screens/reports/settlements/SettlementsTopLosers";
-import { SofiaScreen } from "./screens/SofiaScreen";
-import { PartiesFinancing } from "./screens/PartiesFinancing";
-import { PartyScreen } from "./screens/PartyScreen";
-import { CandidateScreen } from "./screens/CandidateScreen";
-import { SettlementsRecount } from "./screens/reports/settlements/SettlementsRecount";
-import { MunicipalitiesRecount } from "./screens/reports/municipalities/MunicipalitiesRecount";
-import { SectionsRecount } from "./screens/reports/sections/SectionsRecount";
-import { SectionsRecountZeroVotes } from "./screens/reports/sections/SectionsRecountZeroVotes";
-import { SectionsSuemg } from "./screens/reports/sections/SectionsSuemg";
-import { SectionsMissingSuemg } from "./screens/reports/sections/SectionsMissingSuemg";
-import { SettlementsMissingSuemg } from "./screens/reports/settlements/SettlementsMissingSuemg";
-import { SettlementsSuemg } from "./screens/reports/settlements/SettlementsSuemg";
-import { MunicipalitiesMissingSuemg } from "./screens/reports/municipalities/MunicipalitiesMissingSuemg";
-import { MunicipalitiesSuemg } from "./screens/reports/municipalities/MunicipalitiesSuemg";
-import { SectionsSuemgAdded } from "./screens/reports/sections/SectionsSuemgAdded";
-import { SectionsSuemgRemoved } from "./screens/reports/sections/SectionsSuemgRemoved";
-import { ProblemSections } from "./screens/reports/sections/ProblemSections";
-import { SettlementsSuemgAdded } from "./screens/reports/settlements/SettlementsSuemgAdded";
-import { SettlementsSuemgRemoved } from "./screens/reports/settlements/SettlementsSuemgRemoved";
-import { MunicipalitiesSuemgAdded } from "./screens/reports/municipalities/MunicipalitiesSuemgAdded";
-import { MunicipalitiesSuemgRemoved } from "./screens/reports/municipalities/MunicipalitiesSuemgRemoved";
+
+// Eagerly load the home screen so the landing page has no Suspense flash.
+import { RegionsScreen } from "@/screens/RegionsScreen";
+
+const MunicipalitiesScreen = lazy(() =>
+  import("@/screens/MunicipalitiesScreen").then((m) => ({
+    default: m.MunicipalitiesScreen,
+  })),
+);
+const SettlementsScreen = lazy(() =>
+  import("@/screens/SettlementsScreen").then((m) => ({
+    default: m.SettlementsScreen,
+  })),
+);
+const NotFound = lazy(() =>
+  import("@/screens/NotFound").then((m) => ({ default: m.NotFound })),
+);
+const SectionsScreen = lazy(() =>
+  import("./screens/SectionsScreen").then((m) => ({
+    default: m.SectionsScreen,
+  })),
+);
+const SectionScreen = lazy(() =>
+  import("./screens/SectionScreen").then((m) => ({
+    default: m.SectionScreen,
+  })),
+);
+const AboutScreen = lazy(() =>
+  import("./screens/AboutScreen").then((m) => ({ default: m.AboutScreen })),
+);
+const SofiaScreen = lazy(() =>
+  import("./screens/SofiaScreen").then((m) => ({ default: m.SofiaScreen })),
+);
+const PartiesFinancing = lazy(() =>
+  import("./screens/PartiesFinancing").then((m) => ({
+    default: m.PartiesFinancing,
+  })),
+);
+const PartyScreen = lazy(() =>
+  import("./screens/PartyScreen").then((m) => ({ default: m.PartyScreen })),
+);
+const CandidateScreen = lazy(() =>
+  import("./screens/CandidateScreen").then((m) => ({
+    default: m.CandidateScreen,
+  })),
+);
+const SimulatorScreen = lazy(() =>
+  import("./screens/SimulatorScreen").then((m) => ({
+    default: m.SimulatorScreen,
+  })),
+);
+
+// Reports — Municipalities
+const MunicipalitiesTurnout = lazy(() =>
+  import("./screens/reports/municipalities/MunicipalitiesTurnout").then(
+    (m) => ({ default: m.MunicipalitiesTurnout }),
+  ),
+);
+const MunicipalitiesConcentration = lazy(() =>
+  import("./screens/reports/municipalities/MunicipalitiesConcentration").then(
+    (m) => ({ default: m.MunicipalitiesConcentration }),
+  ),
+);
+const MunicipalitiesAdditionalVoters = lazy(() =>
+  import("./screens/reports/municipalities/MunicipalitiesAdditionalVoters").then(
+    (m) => ({ default: m.MunicipalitiesAdditionalVoters }),
+  ),
+);
+const MunicipalitiesInvalidBallots = lazy(() =>
+  import("./screens/reports/municipalities/MunicipalitiesInvalidBallots").then(
+    (m) => ({ default: m.MunicipalitiesInvalidBallots }),
+  ),
+);
+const MunicipalitiesSupportsNoOne = lazy(() =>
+  import("./screens/reports/municipalities/MunicipalitiesSupportsNoOne").then(
+    (m) => ({ default: m.MunicipalitiesSupportsNoOne }),
+  ),
+);
+const MunicipalitiesTopGainers = lazy(() =>
+  import("./screens/reports/municipalities/MunicipalitiesTopGainers").then(
+    (m) => ({ default: m.MunicipalitiesTopGainers }),
+  ),
+);
+const MunicipalitiesTopLosers = lazy(() =>
+  import("./screens/reports/municipalities/MunicipalitiesTopLosers").then(
+    (m) => ({ default: m.MunicipalitiesTopLosers }),
+  ),
+);
+const MunicipalitiesRecount = lazy(() =>
+  import("./screens/reports/municipalities/MunicipalitiesRecount").then(
+    (m) => ({ default: m.MunicipalitiesRecount }),
+  ),
+);
+const MunicipalitiesSuemg = lazy(() =>
+  import("./screens/reports/municipalities/MunicipalitiesSuemg").then((m) => ({
+    default: m.MunicipalitiesSuemg,
+  })),
+);
+const MunicipalitiesSuemgAdded = lazy(() =>
+  import("./screens/reports/municipalities/MunicipalitiesSuemgAdded").then(
+    (m) => ({ default: m.MunicipalitiesSuemgAdded }),
+  ),
+);
+const MunicipalitiesSuemgRemoved = lazy(() =>
+  import("./screens/reports/municipalities/MunicipalitiesSuemgRemoved").then(
+    (m) => ({ default: m.MunicipalitiesSuemgRemoved }),
+  ),
+);
+const MunicipalitiesMissingSuemg = lazy(() =>
+  import("./screens/reports/municipalities/MunicipalitiesMissingSuemg").then(
+    (m) => ({ default: m.MunicipalitiesMissingSuemg }),
+  ),
+);
+
+// Reports — Settlements
+const SettlementsConcentration = lazy(() =>
+  import("./screens/reports/settlements/SettlementsConcentration").then(
+    (m) => ({ default: m.SettlementsConcentration }),
+  ),
+);
+const SettlementsTurnout = lazy(() =>
+  import("./screens/reports/settlements/SettlementsTurnout").then((m) => ({
+    default: m.SettlementsTurnout,
+  })),
+);
+const SettlementsAdditionalVoters = lazy(() =>
+  import("./screens/reports/settlements/SettlementsAdditionalVoters").then(
+    (m) => ({ default: m.SettlementsAdditionalVoters }),
+  ),
+);
+const SettlementsInvalidBallots = lazy(() =>
+  import("./screens/reports/settlements/SettlementsInvalidBallots").then(
+    (m) => ({ default: m.SettlementsInvalidBallots }),
+  ),
+);
+const SettlementsSupportsNoOne = lazy(() =>
+  import("./screens/reports/settlements/SettlementsSupportsNoOne").then(
+    (m) => ({ default: m.SettlementsSupportsNoOne }),
+  ),
+);
+const SettlementsTopGainers = lazy(() =>
+  import("./screens/reports/settlements/SettlementsTopGainers").then((m) => ({
+    default: m.SettlementsTopGainers,
+  })),
+);
+const SettlementsTopLosers = lazy(() =>
+  import("./screens/reports/settlements/SettlementsTopLosers").then((m) => ({
+    default: m.SettlementsTopLosers,
+  })),
+);
+const SettlementsRecount = lazy(() =>
+  import("./screens/reports/settlements/SettlementsRecount").then((m) => ({
+    default: m.SettlementsRecount,
+  })),
+);
+const SettlementsSuemg = lazy(() =>
+  import("./screens/reports/settlements/SettlementsSuemg").then((m) => ({
+    default: m.SettlementsSuemg,
+  })),
+);
+const SettlementsSuemgAdded = lazy(() =>
+  import("./screens/reports/settlements/SettlementsSuemgAdded").then((m) => ({
+    default: m.SettlementsSuemgAdded,
+  })),
+);
+const SettlementsSuemgRemoved = lazy(() =>
+  import("./screens/reports/settlements/SettlementsSuemgRemoved").then(
+    (m) => ({ default: m.SettlementsSuemgRemoved }),
+  ),
+);
+const SettlementsMissingSuemg = lazy(() =>
+  import("./screens/reports/settlements/SettlementsMissingSuemg").then(
+    (m) => ({ default: m.SettlementsMissingSuemg }),
+  ),
+);
+
+// Reports — Sections
+const SectionsAdditionalVoters = lazy(() =>
+  import("./screens/reports/sections/SectionsAdditionalVoters").then((m) => ({
+    default: m.SectionsAdditionalVoters,
+  })),
+);
+const SectionsConcentration = lazy(() =>
+  import("./screens/reports/sections/SectionsConcentration").then((m) => ({
+    default: m.SectionsConcentration,
+  })),
+);
+const SectionsInvalidBallots = lazy(() =>
+  import("./screens/reports/sections/SectionsInvalidBallots").then((m) => ({
+    default: m.SectionsInvalidBallots,
+  })),
+);
+const SectionsSupportsNoOne = lazy(() =>
+  import("./screens/reports/sections/SectionsSupportsNoOne").then((m) => ({
+    default: m.SectionsSupportsNoOne,
+  })),
+);
+const SectionsTurnout = lazy(() =>
+  import("./screens/reports/sections/SectionsTurnout").then((m) => ({
+    default: m.SectionsTurnout,
+  })),
+);
+const SectionsTopGainers = lazy(() =>
+  import("./screens/reports/sections/SectionsTopGainers").then((m) => ({
+    default: m.SectionsTopGainers,
+  })),
+);
+const SectionsTopLosers = lazy(() =>
+  import("./screens/reports/sections/SectionsTopLosers").then((m) => ({
+    default: m.SectionsTopLosers,
+  })),
+);
+const SectionsRecount = lazy(() =>
+  import("./screens/reports/sections/SectionsRecount").then((m) => ({
+    default: m.SectionsRecount,
+  })),
+);
+const SectionsRecountZeroVotes = lazy(() =>
+  import("./screens/reports/sections/SectionsRecountZeroVotes").then((m) => ({
+    default: m.SectionsRecountZeroVotes,
+  })),
+);
+const SectionsSuemg = lazy(() =>
+  import("./screens/reports/sections/SectionsSuemg").then((m) => ({
+    default: m.SectionsSuemg,
+  })),
+);
+const SectionsSuemgAdded = lazy(() =>
+  import("./screens/reports/sections/SectionsSuemgAdded").then((m) => ({
+    default: m.SectionsSuemgAdded,
+  })),
+);
+const SectionsSuemgRemoved = lazy(() =>
+  import("./screens/reports/sections/SectionsSuemgRemoved").then((m) => ({
+    default: m.SectionsSuemgRemoved,
+  })),
+);
+const SectionsMissingSuemg = lazy(() =>
+  import("./screens/reports/sections/SectionsMissingSuemg").then((m) => ({
+    default: m.SectionsMissingSuemg,
+  })),
+);
+const ProblemSections = lazy(() =>
+  import("./screens/reports/sections/ProblemSections").then((m) => ({
+    default: m.ProblemSections,
+  })),
+);
+
+const RouteFallback: FC = () => (
+  <div className="flex items-center justify-center min-h-[40vh] w-full" />
+);
 
 const LayoutScreen: FC<PropsWithChildren> = ({ children }) => {
-  return <Layout>{children}</Layout>;
+  return (
+    <Layout>
+      <Suspense fallback={<RouteFallback />}>{children}</Suspense>
+    </Layout>
+  );
 };
 
 export const AuthRoutes = () => {
@@ -139,6 +345,14 @@ export const AuthRoutes = () => {
             </LayoutScreen>
           }
         />
+        <Route
+          path="simulator"
+          element={
+            <LayoutScreen>
+              <SimulatorScreen />
+            </LayoutScreen>
+          }
+        />
 
         <Route path="reports">
           <Route path="settlement">
@@ -203,14 +417,6 @@ export const AuthRoutes = () => {
               element={
                 <LayoutScreen>
                   <SettlementsRecount />
-                </LayoutScreen>
-              }
-            />
-            <Route
-              path="flash_memory"
-              element={
-                <LayoutScreen>
-                  <SettlementsSuemg />
                 </LayoutScreen>
               }
             />

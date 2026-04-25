@@ -22,6 +22,11 @@ const queryFn = async ({
   const data = await response.json();
   return data;
 };
+
+export const regionVotesQueryKey = (
+  election: string,
+): [string, string | null | undefined] => ["region_votes", election];
+export const regionVotesQueryFn = queryFn;
 export const useRegionVotes = () => {
   const { selected, electionStats } = useElectionContext();
   const { data: votes } = useQuery({

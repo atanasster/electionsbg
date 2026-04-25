@@ -1,11 +1,16 @@
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { FC, PropsWithChildren } from "react";
 
-const queryClient = new QueryClient({
+// All election data is static JSON — once fetched, it never changes within a
+// session. Cache aggressively so navigating back to a screen is instant.
+export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       staleTime: Infinity,
-      refetchOnWindowFocus: false, // Disables automatic refetching when browser window is focused.
+      gcTime: Infinity,
+      refetchOnWindowFocus: false,
+      refetchOnReconnect: false,
+      retry: 1,
     },
   },
 });

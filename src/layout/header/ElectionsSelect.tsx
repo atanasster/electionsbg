@@ -7,6 +7,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useElectionContext } from "@/data/ElectionContext";
+import { prefetchElection } from "@/data/prefetch";
 import { localDate } from "@/data/utils";
 import { Hint } from "@/ux/Hint";
 import { ArrowBigLeft, ArrowBigRight } from "lucide-react";
@@ -24,21 +25,23 @@ export const ElectionsSelect: FC = () => {
       };
     });
   }, [elections]);
+  const currentIdx = elections.findIndex((v) => v === selected);
+  const priorElection = elections[currentIdx + 1];
+  const nextElection = currentIdx > 0 ? elections[currentIdx - 1] : undefined;
   return (
     <div className="flex gap-2 items-center pl-2 sm:pl-0 md:pl-10 lg:pl-32  xl:pl-52">
       <Hint text={t("prior_elections")}>
         <Button
           variant="outline"
           className="size-8 md:size-10"
+          onMouseEnter={() => prefetchElection(priorElection)}
+          onFocus={() => prefetchElection(priorElection)}
           onClick={() => {
-            const idx = elections.findIndex((v) => v === selected);
-            if (idx < elections.length - 1) {
-              setSelected(elections[idx + 1]);
+            if (priorElection) {
+              setSelected(priorElection);
             }
           }}
-          disabled={
-            elections.findIndex((v) => v === selected) >= elections.length - 1
-          }
+          disabled={!priorElection}
         >
           <ArrowBigLeft className="text-secondary-foreground" />
           <span className="sr-only">{t("prior_elections")}</span>
@@ -53,6 +56,11 @@ export const ElectionsSelect: FC = () => {
         <SelectTrigger
           id="select_election"
           className="w-[125px] md:w-[150px] md:text-lg text-secondary-foreground px-2"
+          onMouseEnter={() => {
+            // When the user reaches for the dropdown, warm both neighbors.
+            prefetchElection(priorElection);
+            prefetchElection(nextElection);
+          }}
         >
           <SelectValue placeholder={selected} />
           <span className="sr-only">Select election year</span>
@@ -63,6 +71,8 @@ export const ElectionsSelect: FC = () => {
               className="md:text-lg text-secondary-foreground"
               key={l.original}
               value={l.original}
+              onMouseEnter={() => prefetchElection(l.original)}
+              onFocus={() => prefetchElection(l.original)}
             >
               {l.local}
             </SelectItem>
@@ -73,13 +83,14 @@ export const ElectionsSelect: FC = () => {
         <Button
           className="size-8 md:size-10"
           variant="outline"
+          onMouseEnter={() => prefetchElection(nextElection)}
+          onFocus={() => prefetchElection(nextElection)}
           onClick={() => {
-            const idx = elections.findIndex((v) => v === selected);
-            if (idx > 0) {
-              setSelected(elections[idx - 1]);
+            if (nextElection) {
+              setSelected(nextElection);
             }
           }}
-          disabled={elections.findIndex((v) => v === selected) <= 0}
+          disabled={!nextElection}
         >
           <ArrowBigRight className="text-secondary-foreground" />
           <span className="sr-only">{t("next_elections")}</span>

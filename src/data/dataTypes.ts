@@ -191,6 +191,11 @@ export type BasicPartyInfo = {
   commonName?: string[];
 };
 export type StatsVote = Votes & BasicPartyInfo;
+export type PartySeats = {
+  partyNum: number;
+  nickName: string;
+  seats: number;
+};
 export type ElectionInfo = {
   name: string;
   hasRecount?: boolean;

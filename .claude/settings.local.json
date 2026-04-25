@@ -119,7 +119,12 @@
       "Bash(grep -rn \"sections/\\\\${\" /Users/atanasster/data-bg/src --include=\"*.ts\" --include=\"*.tsx\")",
       "Bash(grep -rn \"/sections/\\\\${\\\\|sections\\\\\\\\.json\\\\|sections\\\\\\\\\\\\\\\\\\\\\\\\.\" /Users/atanasster/data-bg/scripts --include=\"*.ts\")",
       "Bash(awk -F';' '$3==\"32\" {print}' /Users/atanasster/data-bg/raw_data/2005_06_25/sections.txt)",
-      "Bash(git commit *)"
+      "Bash(git commit *)",
+      "Bash(python3 -c \" import json with open\\('/Users/atanasster/data-bg/src/data/json/elections.json'\\) as f: data = json.load\\(f\\) for e in data: print\\(e.get\\('name'\\), e.get\\('date',''\\), e.get\\('type',''\\), list\\(e.keys\\(\\)\\)\\) \")",
+      "WebFetch(domain:en.wikipedia.org)",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\('version:', d['version']\\); print\\('peerDeps:', d.get\\('peerDependencies'\\)\\)\")",
+      "Bash(python3 -c \"import json,sys; print\\('react version:', json.load\\(sys.stdin\\)['version']\\)\")",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\('dropdown version:', d['version']\\); print\\('peerDeps:', d.get\\('peerDependencies'\\)\\)\")"
     ]
   }
 }

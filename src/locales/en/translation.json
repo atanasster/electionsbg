@@ -289,5 +289,19 @@
   "party_paper_preferences_pct_change_explainer": "Change in party preferences with paper ballots since the previous election",
   "party_machine_preferences_explainer": "Party preferences with machine ballots",
   "party_machine_preferences_pct_change_explainer": "Change in party preferences with machine ballots since the previous election",
-  "not_participating": "not participating"
+  "not_participating": "not participating",
+  "coalition_simulator": "Coalition simulator",
+  "coalition_simulator_short": "Simulator",
+  "coalition_simulator_description": "Explore parliamentary seat allocation and coalition arithmetic for Bulgarian elections.",
+  "actual_seats": "Actual seats",
+  "threshold_whatif": "Threshold what-if",
+  "actual_seats_explainer": "Official seat allocation as certified by the Central Election Commission. Dashed line marks the 121-seat majority.",
+  "whatif_explainer": "Counterfactual: see how seats would shift if the threshold changed. Allocation uses the largest-remainder (Hare quota) method on a single national constituency, so it approximates rather than reproduces the per-district CEC allocation.",
+  "threshold": "Threshold",
+  "legal_threshold": "current law",
+  "real_seats": "CEC seats",
+  "simulated_seats": "Simulated",
+  "seats": "Seats",
+  "possible_coalitions": "Minimal majority coalitions",
+  "no_majority_possible": "No coalition of up to four parties reaches a majority."
 }
