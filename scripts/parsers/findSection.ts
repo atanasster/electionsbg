@@ -18,15 +18,22 @@ export const findSectionInOtherElections = (
     .filter((file) => file.name.startsWith("20") && file.name !== yearMonth)
     .map((f) => f.name)
     .sort((a, b) => a.localeCompare(b));
+  // Per-election section data is now bundled by oblast (the leading 2
+  // digits of the 9-digit section ID), so look the section up inside the
+  // matching bundle rather than fetching a per-section file.
+  const oblast = section.slice(0, 2);
   for (let i = 0; i < elections.length; i++) {
-    const sectionFileName = path.resolve(
+    const bundleFile = path.resolve(
       outFolder,
       elections[i],
-      `./sections/${section}.json`,
+      `./sections/by-oblast/${oblast}.json`,
     );
-    if (fs.existsSync(sectionFileName)) {
-      const data = fs.readFileSync(sectionFileName, "utf-8");
-      const s: SectionInfo = JSON.parse(data);
+    if (!fs.existsSync(bundleFile)) continue;
+    const bundle: Record<string, SectionInfo> = JSON.parse(
+      fs.readFileSync(bundleFile, "utf-8"),
+    );
+    const s = bundle[section];
+    if (s) {
       return {
         section,
         zip_code: s.zip_code,

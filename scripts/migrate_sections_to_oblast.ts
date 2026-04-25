@@ -36,7 +36,9 @@ for (const date of electionDirs) {
   for (const f of files) {
     const sectionId = f.name.replace(/\.json$/, "");
     const oblast = sectionId.slice(0, 2);
-    const data = JSON.parse(fs.readFileSync(`${sectionsDir}/${f.name}`, "utf-8"));
+    const data = JSON.parse(
+      fs.readFileSync(`${sectionsDir}/${f.name}`, "utf-8"),
+    );
     if (!grouped[oblast]) grouped[oblast] = {};
     grouped[oblast][sectionId] = data;
   }

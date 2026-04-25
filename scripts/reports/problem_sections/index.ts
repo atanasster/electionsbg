@@ -54,24 +54,29 @@ const buildCoordsLookup = (
     .reverse();
   const lookup: Record<string, { longitude: number; latitude: number }> = {};
   for (const y of years) {
-    const dir = `${publicFolder}/${y}/sections`;
+    // Per-election section data is bundled per-oblast — each bundle file
+    // contains a `{ [sectionId]: SectionInfo }` map. Walk every bundle and
+    // record the first lat/lon we see for each section.
+    const dir = `${publicFolder}/${y}/sections/by-oblast`;
     if (!fs.existsSync(dir)) continue;
     const files = fs.readdirSync(dir);
     for (const f of files) {
       if (!f.endsWith(".json")) continue;
       try {
-        const s: SectionInfo = JSON.parse(
+        const bundle: Record<string, SectionInfo> = JSON.parse(
           fs.readFileSync(`${dir}/${f}`, "utf-8"),
         );
-        if (
-          !lookup[s.section] &&
-          typeof s.longitude === "number" &&
-          typeof s.latitude === "number"
-        ) {
-          lookup[s.section] = {
-            longitude: s.longitude,
-            latitude: s.latitude,
-          };
+        for (const s of Object.values(bundle)) {
+          if (
+            !lookup[s.section] &&
+            typeof s.longitude === "number" &&
+            typeof s.latitude === "number"
+          ) {
+            lookup[s.section] = {
+              longitude: s.longitude,
+              latitude: s.latitude,
+            };
+          }
         }
       } catch {
         // ignore malformed files
