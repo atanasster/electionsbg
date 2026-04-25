@@ -115,7 +115,11 @@
       "Bash(awk '/<Route path=\"reports\">/,/<Route path=\"party\">/' /Users/atanasster/data-bg/src/routes.tsx)",
       "Bash(git add *)",
       "Bash(git commit -m ' *)",
-      "Bash(grep -rn \"saveSplitObject\\\\|sections/\\\\${\" /Users/atanasster/data-bg/scripts/parsers --include=\"*.ts\")"
+      "Bash(grep -rn \"saveSplitObject\\\\|sections/\\\\${\" /Users/atanasster/data-bg/scripts/parsers --include=\"*.ts\")",
+      "Bash(grep -rn \"sections/\\\\${\" /Users/atanasster/data-bg/src --include=\"*.ts\" --include=\"*.tsx\")",
+      "Bash(grep -rn \"/sections/\\\\${\\\\|sections\\\\\\\\.json\\\\|sections\\\\\\\\\\\\\\\\\\\\\\\\.\" /Users/atanasster/data-bg/scripts --include=\"*.ts\")",
+      "Bash(awk -F';' '$3==\"32\" {print}' /Users/atanasster/data-bg/raw_data/2005_06_25/sections.txt)",
+      "Bash(git commit *)"
     ]
   }
 }
