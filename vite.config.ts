@@ -12,7 +12,22 @@ export default defineConfig(({ mode }) => {
     define: {
       "process.env.API_KEY": JSON.stringify(env.GEMINI_API_KEY),
     },
-    plugins: [react(), tsconfigPaths()],
+    plugins: [
+      react(),
+      tsconfigPaths(),
+      {
+        name: "gzip-json-preview-headers",
+        configurePreviewServer(server) {
+          server.middlewares.use((req, res, next) => {
+            if (req.url && /\.json(\?|$)/.test(req.url)) {
+              res.setHeader("Content-Encoding", "gzip");
+              res.setHeader("Content-Type", "application/json; charset=utf-8");
+            }
+            next();
+          });
+        },
+      },
+    ],
     build: {
       rollupOptions: {
         output: {

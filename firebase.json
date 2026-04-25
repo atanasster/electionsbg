@@ -10,6 +10,16 @@
         "destination": "/index.html"
       }
     ],
+    "headers": [
+      {
+        "source": "**/*.json",
+        "headers": [
+          { "key": "Content-Encoding", "value": "gzip" },
+          { "key": "Content-Type", "value": "application/json; charset=utf-8" },
+          { "key": "Vary", "value": "Accept-Encoding" }
+        ]
+      }
+    ],
     "predeploy": [
       "npm --prefix \"$RESOURCE_DIR\"\"/..\" run lint",
       "npm --prefix \"$RESOURCE_DIR\"\"/..\" run build"

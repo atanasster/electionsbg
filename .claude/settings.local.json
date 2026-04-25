@@ -80,7 +80,25 @@
       "Bash(npx eslint *)",
       "mcp__Claude_Preview__preview_start",
       "Bash(kill %1)",
-      "Bash(pkill -f \"vite\")"
+      "Bash(pkill -f \"vite\")",
+      "Bash(gzip -c public/sections/010100001_stats.json)",
+      "Bash(gzip -c public/2026_04_19/sections/010100001.json)",
+      "Bash(git -C /Users/atanasster/data-bg ls-files public/)",
+      "Bash(git count-objects *)",
+      "Bash(gzip -c /Users/atanasster/data-bg/public/2026_04_19/parties/preferences/21/sections.json)",
+      "Bash(mkdir -p /tmp/gzip-test/dist)",
+      "Bash(cp -r /Users/atanasster/data-bg/public/2005_06_25 /tmp/gzip-test/dist/)",
+      "Bash(time npx *)",
+      "Bash(gunzip -c /tmp/gzip-test/dist/2005_06_25/sections/010100001.json)",
+      "Bash(mkdir -p /tmp/gzip-test2/dist)",
+      "Bash(cp /Users/atanasster/data-bg/public/2026_04_19/parties/preferences/21/sections.json /tmp/gzip-test2/dist/)",
+      "Bash(cp /Users/atanasster/data-bg/public/sections/010100001_stats.json /tmp/gzip-test2/dist/)",
+      "Bash(npx tsx *)",
+      "Bash(gunzip -c /tmp/gzip-test2/dist/010100001_stats.json)",
+      "Bash(curl -sI http://localhost:4173/sections/010100001_stats.json)",
+      "Bash(curl -s --compressed http://localhost:4173/sections/010100001_stats.json)",
+      "Bash(lsof -ti:4173)",
+      "Bash(xargs kill *)"
     ]
   }
 }
