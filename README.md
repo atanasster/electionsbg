@@ -35,6 +35,18 @@ The application does not rely on a traditional, dynamic backend server. Instead,
 
 The entire application is deployed to **Firebase Hosting**. This platform provides a global Content Delivery Network (CDN), ensuring fast, reliable access for all users by serving the static assets from edge locations around the world.
 
+## Local Development
+
+The generated election data under `public/2*/`, `public/sections/`, `public/settlements/`, `public/municipalities/`, and `public/regions/` is **not committed to git** — it is reproduced from `raw_data/` by the data pipeline. After cloning, run:
+
+```bash
+npm install
+npm run prod      # regenerates public/ data from raw_data/ (takes a few minutes)
+npm run dev       # start the dev server
+```
+
+`npm run build` and `npm run deploy` automatically run the data pipeline as part of `predeploy`, so you only need `npm run prod` manually for local dev or after a `git pull` that changed pipeline code.
+
 ## Data
 
 ### GeoJSON

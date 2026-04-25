@@ -13,6 +13,13 @@ dist-ssr
 *.local
 *.cache
 
+# Generated election data — regenerate with `npm run prod`
+/public/2*/
+/public/sections/
+/public/settlements/
+/public/municipalities/
+/public/regions/
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
