@@ -6,7 +6,7 @@
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",
-    "postbuild": "tsx ./scripts/gzip-dist.ts",
+    "postbuild": "tsx ./scripts/og/generate.ts && tsx ./scripts/prerender/index.ts && tsx ./scripts/gzip-dist.ts",
     "lint": "eslint .",
     "preview": "vite preview",
     "data": "tsx ./scripts/main.ts",
@@ -56,6 +56,7 @@
   },
   "devDependencies": {
     "@eslint/js": "^9.13.0",
+    "@napi-rs/canvas": "^0.1.99",
     "@types/d3": "^7.4.3",
     "@types/jest": "^29.5.14",
     "@types/leaflet": "^1.9.15",

@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import { Layout } from "./layout/Layout";
 
 // Eagerly load the home screen so the landing page has no Suspense flash.
-import { RegionsScreen } from "@/screens/RegionsScreen";
+import { DashboardScreen } from "@/screens/DashboardScreen";
 
 const MunicipalitiesScreen = lazy(() =>
   import("@/screens/MunicipalitiesScreen").then((m) => ({
@@ -52,6 +52,16 @@ const SimulatorScreen = lazy(() =>
     default: m.SimulatorScreen,
   })),
 );
+const CompareScreen = lazy(() =>
+  import("./screens/CompareScreen").then((m) => ({
+    default: m.CompareScreen,
+  })),
+);
+const PartyTimelineScreen = lazy(() =>
+  import("./screens/PartyTimelineScreen").then((m) => ({
+    default: m.PartyTimelineScreen,
+  })),
+);
 
 // Reports — Municipalities
 const MunicipalitiesTurnout = lazy(() =>
@@ -65,9 +75,9 @@ const MunicipalitiesConcentration = lazy(() =>
   ),
 );
 const MunicipalitiesAdditionalVoters = lazy(() =>
-  import("./screens/reports/municipalities/MunicipalitiesAdditionalVoters").then(
-    (m) => ({ default: m.MunicipalitiesAdditionalVoters }),
-  ),
+  import(
+    "./screens/reports/municipalities/MunicipalitiesAdditionalVoters"
+  ).then((m) => ({ default: m.MunicipalitiesAdditionalVoters })),
 );
 const MunicipalitiesInvalidBallots = lazy(() =>
   import("./screens/reports/municipalities/MunicipalitiesInvalidBallots").then(
@@ -167,14 +177,14 @@ const SettlementsSuemgAdded = lazy(() =>
   })),
 );
 const SettlementsSuemgRemoved = lazy(() =>
-  import("./screens/reports/settlements/SettlementsSuemgRemoved").then(
-    (m) => ({ default: m.SettlementsSuemgRemoved }),
-  ),
+  import("./screens/reports/settlements/SettlementsSuemgRemoved").then((m) => ({
+    default: m.SettlementsSuemgRemoved,
+  })),
 );
 const SettlementsMissingSuemg = lazy(() =>
-  import("./screens/reports/settlements/SettlementsMissingSuemg").then(
-    (m) => ({ default: m.SettlementsMissingSuemg }),
-  ),
+  import("./screens/reports/settlements/SettlementsMissingSuemg").then((m) => ({
+    default: m.SettlementsMissingSuemg,
+  })),
 );
 
 // Reports — Sections
@@ -269,7 +279,7 @@ export const AuthRoutes = () => {
           index
           element={
             <LayoutScreen>
-              <RegionsScreen />
+              <DashboardScreen />
             </LayoutScreen>
           }
         />
@@ -350,6 +360,22 @@ export const AuthRoutes = () => {
           element={
             <LayoutScreen>
               <SimulatorScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="compare"
+          element={
+            <LayoutScreen>
+              <CompareScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="timeline"
+          element={
+            <LayoutScreen>
+              <PartyTimelineScreen />
             </LayoutScreen>
           }
         />

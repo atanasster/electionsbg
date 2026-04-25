@@ -6,8 +6,9 @@ import { RegionData } from "./components/regions/RegionData";
 import { useElectionContext } from "@/data/ElectionContext";
 import { localDate } from "@/data/utils";
 import { RecountCards } from "./components/protocols/RecountCards";
+import { DashboardCards } from "./dashboard/DashboardCards";
 
-export const RegionsScreen = () => {
+export const DashboardScreen = () => {
   const { t } = useTranslation();
   const { selected } = useElectionContext();
   const { countryVotes } = useRegionVotes();
@@ -18,6 +19,7 @@ export const RegionsScreen = () => {
       <Title description="Interactive country map of the elections in Bulgaria">
         {title}
       </Title>
+      <DashboardCards />
       <ProtocolSummary results={results} original={original} />
       <RecountCards results={results} original={original} />
       <RegionData title={title} />

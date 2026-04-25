@@ -2,7 +2,8 @@ import path from "path";
 import { command, run, string, option, boolean, optional, flag } from "cmd-ts";
 import { fileURLToPath } from "url";
 import { runStats } from "./stats/collect_stats";
-import { generateReports } from "./reports";
+import { generateReports, generateSummariesOnly } from "./reports";
+import { generateCanonicalParties } from "./parsers/canonicalParties";
 import { parseElections } from "./parsers/parse_elections";
 import { generateAllSearchFIles } from "./search";
 import { parseFinancing } from "./smetna_palata";
@@ -88,6 +89,12 @@ const app = command({
       short: "n",
       defaultValue: () => false,
     }),
+    summary: flag({
+      type: optional(boolean),
+      long: "summary",
+      short: "u",
+      defaultValue: () => false,
+    }),
   },
   handler: async ({
     all,
@@ -101,6 +108,7 @@ const app = command({
     candidates,
     machines,
     election,
+    summary,
   }) => {
     production = prod;
     if (machines) {
@@ -118,6 +126,10 @@ const app = command({
     }
     if (reports) {
       generateReports(inFolder, stringify, election);
+    }
+    if (summary) {
+      generateSummariesOnly(stringify, election);
+      generateCanonicalParties({ publicFolder, stringify });
     }
     if (search) {
       generateAllSearchFIles({

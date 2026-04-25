@@ -124,7 +124,17 @@
       "WebFetch(domain:en.wikipedia.org)",
       "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\('version:', d['version']\\); print\\('peerDeps:', d.get\\('peerDependencies'\\)\\)\")",
       "Bash(python3 -c \"import json,sys; print\\('react version:', json.load\\(sys.stdin\\)['version']\\)\")",
-      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\('dropdown version:', d['version']\\); print\\('peerDeps:', d.get\\('peerDependencies'\\)\\)\")"
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\('dropdown version:', d['version']\\); print\\('peerDeps:', d.get\\('peerDependencies'\\)\\)\")",
+      "Bash(awk '{print $5, $9}')",
+      "Bash(npx vite *)",
+      "Bash(grep -v \"^by$\")",
+      "Bash([ -f \"/Users/atanasster/data-bg/$path\" ])",
+      "Bash(echo \"EXIT: $?\")",
+      "Bash(node -e 'const r=require\\(\"/Users/atanasster/data-bg/src/data/json/regions.json\"\\); console.log\\(JSON.stringify\\(r.find\\(x=>x.oblast===\"BLG\"\\),null,2\\)\\); console.log\\(\"---\"\\); console.log\\(JSON.stringify\\(r.filter\\(x=>x.long_name\\).slice\\(0,3\\),null,2\\)\\);')",
+      "Bash(mkdir -p /tmp/seo-test)",
+      "Bash(cp /Users/atanasster/data-bg/index.html /tmp/seo-test/index.html)",
+      "Bash(mkdir -p /tmp/dist-test)",
+      "Bash(cp /Users/atanasster/data-bg/index.html /tmp/dist-test/index.html)"
     ]
   }
 }

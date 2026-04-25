@@ -11,11 +11,20 @@ const projectPath = path.resolve(__dirname, "../../");
 
 const homePage = "https://electionsbg.com";
 
+const today = new Date().toISOString().slice(0, 10);
+
 const routeXML = (url: string, file: string) => {
   const fName = path.resolve(projectPath, file);
-  const stat = fs.statSync(fName);
-  const mod = stat.mtime.toISOString().slice(0, 10);
-  return `<url><loc>${url === "index" ? homePage : `${homePage}${url}`}</loc><lastmod>${mod}</lastmod><changefreq>monthly</changefreq></url>`;
+  const fileMod = fs.statSync(fName).mtime.toISOString().slice(0, 10);
+  // Source files (.tsx/.json checked into the repo) often have an mtime that
+  // predates the actual build; clamp lastmod to today so crawlers don't see
+  // ancient timestamps after a fresh deploy.
+  const mod = fileMod > today ? fileMod : today;
+  // Normalize the home page: route_defs uses "index" as a sentinel, which
+  // produces "/index" in the URL — the real home is the bare domain.
+  const isHome = url === "index" || url === "/index";
+  const loc = isHome ? `${homePage}/` : `${homePage}${url}`;
+  return `<url><loc>${loc}</loc><lastmod>${mod}</lastmod><changefreq>monthly</changefreq></url>`;
 };
 
 const getRoute = (route: RouteDef, rootUrl: string): string[] => {

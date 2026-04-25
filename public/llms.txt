@@ -1,0 +1,44 @@
+# Elections Bulgaria — electionsbg.com
+
+> Open-source platform for visualizing and analyzing the results of every Bulgarian parliamentary election since 2005, broken down by region (oblast), municipality (obshtina), settlement, and individual polling section. Source data comes from the Central Election Commission (ЦИК) and is reprocessed offline into static JSON files served from a JAMstack SPA.
+
+Site language: primary Bulgarian, with English translations of the UI. All data is public-domain electoral data; the site itself is open source.
+
+## What this site contains
+
+- Per-election results for all 13 parliamentary votes from 2005 onward, including the early-election cycles of 2021–2024.
+- Geographic drill-down: 31 oblasts (regions) → 265 municipalities → ~5,300 settlements → ~12,000 polling sections.
+- Machine-vote vs. paper-vote breakdowns, recount metrics, invalid-ballot rates, and section-level anomaly detection.
+- Per-party results across time (rise-and-fall timeline), declared campaign financing, and donor lists.
+- Interactive simulator for coalition formation and seat allocation under different electoral thresholds.
+
+## Key URLs
+
+- [Home](https://electionsbg.com/): overview, latest election results, navigation.
+- [About](https://electionsbg.com/about): methodology, data sources, and team.
+- [Sofia](https://electionsbg.com/sofia): the three Sofia electoral districts (23, 24, 25 МИР) with section-level detail.
+- [Compare](https://electionsbg.com/compare): side-by-side comparison of any two parliamentary votes.
+- [Timeline](https://electionsbg.com/timeline): bubble-timeline of party performance across all 13 votes.
+- [Simulator](https://electionsbg.com/simulator): coalition / seat-allocation what-if tool.
+- [Financing](https://electionsbg.com/financing): declared campaign income and expenditures.
+- [Sitemap](https://electionsbg.com/sitemap.xml): full URL list (~23,500 entries).
+
+## URL patterns
+
+- `/party/{nickName}` — results for a specific party across years and territories.
+- `/municipality/{oblastCode}` — oblast-level results and per-section anomalies.
+- `/settlement/{ekatte}` — settlement-level results by section.
+- `/section/{sectionId}` — individual polling-section detail.
+- `/reports/{level}/{metric}` — analytical reports (turnout, concentration, gainers/losers, invalid ballots, additional voters, supports-no-one) at municipality, settlement, or section level.
+
+## Data
+
+Raw inputs are CSV/ZIP releases from the Central Election Commission, stored under `/raw_data/`. The pipeline in `/scripts/` transforms them into per-election static JSON under `/public/{YYYY_MM_DD}/`. Frontend hooks in `/src/data/` fetch this JSON via React Query.
+
+## Citation
+
+If you cite results or visualizations from this site, please link to the specific page (e.g. the settlement or party URL) and credit "electionsbg.com". The source code lives at https://github.com/atanasster/data-bg.
+
+## Contact
+
+Questions or corrections: see the About page.

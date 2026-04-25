@@ -94,6 +94,20 @@ export const Header = () => {
         >
           {t("coalition_simulator_short")}
         </Link>
+        <Link
+          to="/compare"
+          underline={false}
+          className="font-medium hidden lg:block lowercase whitespace-nowrap text-secondary-foreground hover:text-primary"
+        >
+          {t("compare_title")}
+        </Link>
+        <Link
+          to="/timeline"
+          underline={false}
+          className="font-medium hidden lg:block lowercase whitespace-nowrap text-secondary-foreground hover:text-primary"
+        >
+          {t("timeline_title")}
+        </Link>
         {reportsMenu.map((topMenu, idx) => (
           <DropdownMenu key={`${topMenu.title}=${idx}`}>
             <DropdownMenuTrigger asChild>
@@ -152,6 +166,12 @@ export const Header = () => {
           <DropdownMenuContent className="w-56">
             <DropdownMenuItem>
               <Link to="/simulator">{t("coalition_simulator")}</Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <Link to="/compare">{t("compare_title")}</Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <Link to="/timeline">{t("timeline_title")}</Link>
             </DropdownMenuItem>
             <DropdownMenuSeparator />
             {reportsMenu.map((main) =>

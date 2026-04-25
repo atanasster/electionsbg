@@ -24,6 +24,7 @@ import { HistoryChart } from "./charts/HistoryChart";
 import { DialogClose } from "@radix-ui/react-dialog";
 import { Button } from "@/components/ui/button";
 import { ChartArea } from "lucide-react";
+import { Sparkline } from "@/ux/Sparkline";
 import { Caption } from "@/ux/Caption";
 import { useConsolidatedLabel } from "./useConsolidatedLabel";
 import { PartyLink } from "./party/PartyLink";
@@ -153,19 +154,30 @@ export const PartyVotesTable: FC<{
         headerHint: t("all_elections_explainer"),
         header: isLarge ? t("all_elections") : t("chart"),
         exportHidden: true,
-        cell: ({ row }) =>
-          stats && (
+        cell: ({ row }) => {
+          if (!stats) return null;
+          const party = row.original as PartyInfo;
+          const sparkValues = stats
+            .slice()
+            .sort((a, b) => a.name.localeCompare(b.name))
+            .map(
+              (e) =>
+                findPrevVotes(party, e.results?.votes, isConsolidated)
+                  .prevTotalVotes ?? 0,
+            );
+          return (
             <Dialog>
               <DialogTrigger asChild>
-                <Button variant="ghost" className="my-2">
+                <Button
+                  variant="ghost"
+                  className="my-2"
+                  aria-label={`${party.nickName} ${t("all_elections")}`}
+                >
                   {isLarge ? (
-                    <HistoryChart
-                      className="min-w-60 h-12"
-                      party={row.original as PartyInfo}
-                      stats={stats}
-                      isConsolidated={isConsolidated}
-                      cursorPointer={true}
-                      animationDuration={0}
+                    <Sparkline
+                      values={sparkValues}
+                      color={party.color}
+                      className="min-w-60 h-10"
                     />
                   ) : (
                     <ChartArea />
@@ -200,7 +212,8 @@ export const PartyVotesTable: FC<{
                 </DialogFooter>
               </DialogContent>
             </Dialog>
-          ),
+          );
+        },
       },
     ],
     [

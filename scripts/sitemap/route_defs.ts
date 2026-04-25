@@ -5,6 +5,9 @@ export const routeDefs = (year: string): RouteDefs => [
   { path: "index", file: `public/${year}/region_votes.json` },
   { path: "sofia", file: `public/${year}/region_votes.json` },
   { path: "about", file: `src/screens/AboutScreen.tsx` },
+  { path: "simulator", file: `src/screens/SimulatorScreen.tsx` },
+  { path: "compare", file: `src/screens/CompareScreen.tsx` },
+  { path: "timeline", file: `src/screens/PartyTimelineScreen.tsx` },
 
   {
     path: "municipality/:id",

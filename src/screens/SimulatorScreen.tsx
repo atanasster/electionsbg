@@ -9,11 +9,11 @@ import { cn } from "@/lib/utils";
 import {
   allocateSeats,
   buildOfficialRows,
-  findMinimalCoalitions,
   MAJORITY_SEATS,
   SeatRow,
   TOTAL_SEATS,
 } from "./utils/seatAllocation";
+import { MinimalCoalitions } from "./components/coalitions/MinimalCoalitions";
 import seatsData from "@/data/json/election_seats.json";
 import { PartyInfo, PartySeats, StatsVote } from "@/data/dataTypes";
 
@@ -151,61 +151,6 @@ const SeatTable: FC<{
   );
 };
 
-const CoalitionList: FC<{
-  rows: SeatRow[];
-  findParty: (n: number) => PartyInfo | undefined;
-}> = ({ rows, findParty }) => {
-  const { t } = useTranslation();
-  const coalitions = useMemo(
-    () => findMinimalCoalitions(rows, MAJORITY_SEATS, 4),
-    [rows],
-  );
-  if (coalitions.length === 0) {
-    return (
-      <p className="text-sm text-muted-foreground">{t("no_majority_possible")}</p>
-    );
-  }
-  return (
-    <ul className="space-y-2">
-      {coalitions.map((c, idx) => {
-        const margin = c.seats - MAJORITY_SEATS;
-        return (
-          <li
-            key={idx}
-            className="flex flex-wrap items-center gap-2 p-2 border rounded"
-          >
-            {c.partyNums.map((pn, i) => {
-              const party = findParty(pn);
-              const row = rows.find((r) => r.partyNum === pn);
-              return (
-                <span key={pn} className="flex items-center gap-1">
-                  {i > 0 && <span className="text-muted-foreground">+</span>}
-                  <span
-                    className="inline-block w-3 h-3 rounded-sm"
-                    style={{ backgroundColor: party?.color || "#888" }}
-                  />
-                  <span className="font-medium">
-                    {party?.nickName || row?.nickName}
-                  </span>
-                  <span className="text-muted-foreground tabular-nums">
-                    ({row?.seats})
-                  </span>
-                </span>
-              );
-            })}
-            <span className="ml-auto tabular-nums font-semibold">
-              = {c.seats}
-            </span>
-            <span className="text-xs text-muted-foreground tabular-nums">
-              {margin >= 0 ? `+${margin}` : margin}
-            </span>
-          </li>
-        );
-      })}
-    </ul>
-  );
-};
-
 const ThresholdSlider: FC<{
   value: number;
   onChange: (v: number) => void;
@@ -286,9 +231,7 @@ export const SimulatorScreen: FC = () => {
 
   return (
     <>
-      <Title description={t("coalition_simulator_description")}>
-        {title}
-      </Title>
+      <Title description={t("coalition_simulator_description")}>{title}</Title>
 
       <div className="w-full max-w-5xl mx-auto px-4 pb-12">
         <div className="inline-flex items-center gap-1 rounded-lg bg-muted p-1">
@@ -309,7 +252,7 @@ export const SimulatorScreen: FC = () => {
               <h2 className="text-lg font-semibold mb-3">
                 {t("possible_coalitions")}
               </h2>
-              <CoalitionList rows={officialRows} findParty={findParty} />
+              <MinimalCoalitions rows={officialRows} findParty={findParty} />
             </div>
           </div>
         )}
@@ -333,7 +276,7 @@ export const SimulatorScreen: FC = () => {
               <h2 className="text-lg font-semibold mb-3">
                 {t("possible_coalitions")}
               </h2>
-              <CoalitionList rows={simulatedRows} findParty={findParty} />
+              <MinimalCoalitions rows={simulatedRows} findParty={findParty} />
             </div>
           </div>
         )}

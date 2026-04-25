@@ -117,9 +117,7 @@ export const findMinimalCoalitions = (
 
   return found
     .sort(
-      (a, b) =>
-        a.partyNums.length - b.partyNums.length ||
-        b.seats - a.seats,
+      (a, b) => a.partyNums.length - b.partyNums.length || b.seats - a.seats,
     )
     .slice(0, 12);
 };
