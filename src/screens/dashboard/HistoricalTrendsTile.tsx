@@ -33,7 +33,9 @@ export const HistoricalTrendsTile: FC<Props> = ({ regionCode }) => {
             </div>
           </Hint>
           <Link
-            to={regionCode ? `/municipality/${regionCode}/timeline` : "/timeline"}
+            to={
+              regionCode ? `/municipality/${regionCode}/timeline` : "/timeline"
+            }
             className="text-[10px] normal-case text-primary hover:underline"
             underline={false}
           >

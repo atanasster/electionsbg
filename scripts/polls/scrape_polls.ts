@@ -80,7 +80,12 @@ const CYCLES: Cycle[] = [
 const AGENCY_ALIASES: { id: string; aliases: string[]; agency: Agency }[] = [
   {
     id: "AR",
-    aliases: ["alpha research", "alpha reasearch", "алфа рисърч", "alpharesearch"],
+    aliases: [
+      "alpha research",
+      "alpha reasearch",
+      "алфа рисърч",
+      "alpharesearch",
+    ],
     agency: {
       id: "AR",
       website: "https://alpharesearch.bg/",
@@ -116,7 +121,14 @@ const AGENCY_ALIASES: { id: string; aliases: string[]; agency: Agency }[] = [
   },
   {
     id: "GIB",
-    aliases: ["gallup", "gallup international", "gallup international balkan", "галъп", "галъп интернешънъл", "галъп интернешънъл болкан"],
+    aliases: [
+      "gallup",
+      "gallup international",
+      "gallup international balkan",
+      "галъп",
+      "галъп интернешънъл",
+      "галъп интернешънъл болкан",
+    ],
     agency: {
       id: "GIB",
       website: "https://www.gallup-international.bg/",
@@ -140,7 +152,13 @@ const AGENCY_ALIASES: { id: string; aliases: string[]; agency: Agency }[] = [
   },
   {
     id: "ML",
-    aliases: ["market links", "marketlinks", "маркет линкс", "маркет линкс", "маркет линкс"],
+    aliases: [
+      "market links",
+      "marketlinks",
+      "маркет линкс",
+      "маркет линкс",
+      "маркет линкс",
+    ],
     agency: {
       id: "ML",
       website: "https://www.marketlinks.bg/",
@@ -176,7 +194,12 @@ const AGENCY_ALIASES: { id: string; aliases: string[]; agency: Agency }[] = [
   },
   {
     id: "CAM",
-    aliases: ["цам", "center for analysis and marketing", "цам - център за анализи и маркетинг", "център за анализи и маркетинг"],
+    aliases: [
+      "цам",
+      "center for analysis and marketing",
+      "цам - център за анализи и маркетинг",
+      "център за анализи и маркетинг",
+    ],
     agency: {
       id: "CAM",
       website: null,
@@ -232,14 +255,17 @@ const matchAgency = (text: string): { id: string; agency: Agency } | null => {
 // "7 – 14 април 2026"  →  { endIso: "2026-04-14", fieldwork: "Apr 7-14 2026" }
 // "30 март – 5 април 2026" → { endIso: "2026-04-05", fieldwork: "Mar 30 - Apr 5 2026" }
 // "19 април 2026" → { endIso: "2026-04-19", fieldwork: "Apr 19 2026" }
-const parseFieldwork = (raw: string): { endIso: string; fieldwork: string } | null => {
+const parseFieldwork = (
+  raw: string,
+): { endIso: string; fieldwork: string } | null => {
   const cleaned = collapseSpaces(raw.replace(/[–—]/g, "-").replace(/ /g, " "));
   // Possibilities:
   //   D-D MONTH YYYY
   //   D MONTH - D MONTH YYYY
   //   D MONTH YYYY
   const reRange = /^(\d{1,2})\s*-\s*(\d{1,2})\s+([а-я]+)\s+(\d{4})$/i;
-  const reCross = /^(\d{1,2})\s+([а-я]+)\s*-\s*(\d{1,2})\s+([а-я]+)\s+(\d{4})$/i;
+  const reCross =
+    /^(\d{1,2})\s+([а-я]+)\s*-\s*(\d{1,2})\s+([а-я]+)\s+(\d{4})$/i;
   const reSingle = /^(\d{1,2})\s+([а-я]+)\s+(\d{4})$/i;
 
   const monthIndex = (m: string) => MONTH_BG.indexOf(m.toLowerCase());
@@ -300,14 +326,14 @@ const parseSample = (cellText: string): number | null => {
 const PARTY_EN: Record<string, string> = {
   "ГЕРБ-СДС": "GERB-SDS",
   "ГЕРБ – СДС": "GERB-SDS",
-  "ГЕРБ": "GERB",
+  ГЕРБ: "GERB",
   "ПП-ДБ": "PP-DB",
   "ПП – ДБ": "PP-DB",
-  "ПП": "We Continue the Change (PP)",
-  "ДБ": "Democratic Bulgaria",
+  ПП: "We Continue the Change (PP)",
+  ДБ: "Democratic Bulgaria",
   "Демократична България": "Democratic Bulgaria",
-  "Възраждане": "Revival",
-  "ДПС": "DPS",
+  Възраждане: "Revival",
+  ДПС: "DPS",
   "ДПС – Ново начало": "DPS - New Beginning",
   "ДПС – НН": "DPS - New Beginning",
   "ДПС - Ново Начало": "DPS - New Beginning",
@@ -317,28 +343,32 @@ const PARTY_EN: Record<string, string> = {
   "БСП - Обединена левица": "BSP - United Left",
   "БСП – ОЛ": "BSP - United Left",
   "БСП-ОЛ": "BSP - United Left",
-  "БСП": "BSP",
-  "АПС": "Alliance for Rights and Freedoms",
+  БСП: "BSP",
+  АПС: "Alliance for Rights and Freedoms",
   "Алианс за права и свободи": "Alliance for Rights and Freedoms",
-  "ИТН": "ITN",
-  "МЕЧ": "MECh",
-  "Величие": "Velichie",
+  ИТН: "ITN",
+  МЕЧ: "MECh",
+  Величие: "Velichie",
   "Прогресивна България": "Progressive Bulgaria",
-  "ПрБ": "Progressive Bulgaria",
-  "ПБ": "Progressive Bulgaria",
-  "Сияние": "Siyanie",
+  ПрБ: "Progressive Bulgaria",
+  ПБ: "Progressive Bulgaria",
+  Сияние: "Siyanie",
   "Български възход": "Bulgarian Rise",
   "Левицата!": "The Left!",
   "Изправи се! Мутри вън!": "Stand Up! Mafia Out!",
   "Изправи се БГ! Ние идваме": "Stand Up BG! We are coming!",
   "Изправи се.БГ": "Stand Up.BG",
-  "Атака": "Attack",
+  Атака: "Attack",
   "Обединени патриоти": "United Patriots",
 };
 
 const enFor = (bg: string): string => {
   const trimmed = bg.trim();
-  return PARTY_EN[trimmed] ?? PARTY_EN[trimmed.replace(/\s*[–—]\s*/g, "-")] ?? trimmed;
+  return (
+    PARTY_EN[trimmed] ??
+    PARTY_EN[trimmed.replace(/\s*[–—]\s*/g, "-")] ??
+    trimmed
+  );
 };
 
 const HEADER_SKIP = new Set([
@@ -383,15 +413,20 @@ const parseTable = (
     const colspan = parseInt($(th).attr("colspan") ?? "1", 10) || 1;
     const text = collapseSpaces($(th).text()).toLowerCase();
     if (HEADER_SKIP.has(text)) {
-      if (text.startsWith("социолог") || text === "агенция") agencyHeader = colIdx;
+      if (text.startsWith("социолог") || text === "агенция")
+        agencyHeader = colIdx;
       if (text.startsWith("период")) periodHeader = colIdx;
       if (text === "извадка" || text === "проба") sampleHeader = colIdx;
     } else if (text) {
-      partyColumns.push({ index: colIdx, nickBg: collapseSpaces($(th).text()) });
+      partyColumns.push({
+        index: colIdx,
+        nickBg: collapseSpaces($(th).text()),
+      });
     }
     colIdx += colspan;
   }
-  if (agencyHeader < 0 || periodHeader < 0 || partyColumns.length === 0) return null;
+  if (agencyHeader < 0 || periodHeader < 0 || partyColumns.length === 0)
+    return null;
 
   // Skip header rows. A row is a header row if it has only <th> children or the second row in
   // the polling table (color stripe). We treat any row whose first cell is <th> as header.
@@ -402,10 +437,20 @@ const parseTable = (
     if (firstCell.is("th")) continue; // header / color stripe
     dataRows.push($(row));
   }
-  return { agencyHeader, periodHeader, sampleHeader, partyColumns, rows: dataRows };
+  return {
+    agencyHeader,
+    periodHeader,
+    sampleHeader,
+    partyColumns,
+    rows: dataRows,
+  };
 };
 
-const cellByColIdx = ($: cheerio.CheerioAPI, row: cheerio.Cheerio<Element>, target: number): cheerio.Cheerio<Element> | null => {
+const cellByColIdx = (
+  $: cheerio.CheerioAPI,
+  row: cheerio.Cheerio<Element>,
+  target: number,
+): cheerio.Cheerio<Element> | null => {
   let col = 0;
   for (const td of row.find("> td, > th").toArray()) {
     const colspan = parseInt($(td).attr("colspan") ?? "1", 10) || 1;
@@ -459,7 +504,9 @@ const scrapeCycle = async (cycle: Cycle): Promise<ScrapeResult> => {
     const periodCell = cellByColIdx($, row, parsed.periodHeader);
     if (!agencyCell || !periodCell) continue;
 
-    const agencyText = collapseSpaces(agencyCell.clone().find("sup, .reference").remove().end().text());
+    const agencyText = collapseSpaces(
+      agencyCell.clone().find("sup, .reference").remove().end().text(),
+    );
     const periodText = collapseSpaces(periodCell.text());
 
     // Skip CEC actual-result rows and election-marker rows.
@@ -474,11 +521,16 @@ const scrapeCycle = async (cycle: Cycle): Promise<ScrapeResult> => {
     }
     const fw = parseFieldwork(periodText);
     if (!fw) {
-      console.warn(`  ! could not parse period "${periodText}" for ${agencyText}`);
+      console.warn(
+        `  ! could not parse period "${periodText}" for ${agencyText}`,
+      );
       continue;
     }
 
-    const sampleCell = parsed.sampleHeader >= 0 ? cellByColIdx($, row, parsed.sampleHeader) : null;
+    const sampleCell =
+      parsed.sampleHeader >= 0
+        ? cellByColIdx($, row, parsed.sampleHeader)
+        : null;
     const sample = sampleCell ? parseSample(sampleCell.text()) : null;
 
     const pollId = `${matched.id.toLowerCase()}-${fw.endIso}`;
@@ -515,8 +567,13 @@ const scrapeCycle = async (cycle: Cycle): Promise<ScrapeResult> => {
     seenAgencies.set(matched.id, matched.agency);
   }
 
-  console.log(`  ✓ ${polls.length} polls, ${details.length} party rows, agencies: ${[...seenAgencies.keys()].join(", ")}`);
-  if (unknownAgencies.size) console.warn(`  ! unknown agencies skipped: ${[...unknownAgencies].join(" | ")}`);
+  console.log(
+    `  ✓ ${polls.length} polls, ${details.length} party rows, agencies: ${[...seenAgencies.keys()].join(", ")}`,
+  );
+  if (unknownAgencies.size)
+    console.warn(
+      `  ! unknown agencies skipped: ${[...unknownAgencies].join(" | ")}`,
+    );
 
   return {
     polls,
@@ -531,10 +588,20 @@ const readJson = <T>(file: string, fallback: T): T => {
   return JSON.parse(fs.readFileSync(file, "utf-8")) as T;
 };
 
-const seedFromIzboriai = (): { polls: Poll[]; details: PollDetail[]; agencies: Agency[] } => {
+const seedFromIzboriai = (): {
+  polls: Poll[];
+  details: PollDetail[];
+  agencies: Agency[];
+} => {
   const polls = readJson<Poll[]>(path.join(IZBORIAI_DIR, "polls.json"), []);
-  const details = readJson<PollDetail[]>(path.join(IZBORIAI_DIR, "polls_details.json"), []);
-  const agencies = readJson<Agency[]>(path.join(IZBORIAI_DIR, "agencies.json"), []);
+  const details = readJson<PollDetail[]>(
+    path.join(IZBORIAI_DIR, "polls_details.json"),
+    [],
+  );
+  const agencies = readJson<Agency[]>(
+    path.join(IZBORIAI_DIR, "agencies.json"),
+    [],
+  );
   return { polls, details, agencies };
 };
 
@@ -558,7 +625,10 @@ const mergePolls = (existing: Poll[], incoming: Poll[]): Poll[] => {
   return [...byId.values()].sort((a, b) => (a.id < b.id ? 1 : -1));
 };
 
-const mergeDetails = (existing: PollDetail[], incoming: PollDetail[]): PollDetail[] => {
+const mergeDetails = (
+  existing: PollDetail[],
+  incoming: PollDetail[],
+): PollDetail[] => {
   // Replace details for any pollId that has incoming entries (treat scrape as authoritative
   // for that poll's per-party numbers); keep details for polls untouched by the scrape.
   const incomingPollIds = new Set(incoming.map((d) => d.pollId));
@@ -577,8 +647,14 @@ const main = async (opts: { seedIzboriai: boolean; outDir: string }) => {
   fs.mkdirSync(opts.outDir, { recursive: true });
 
   let polls = readJson<Poll[]>(path.join(opts.outDir, "polls.json"), []);
-  let details = readJson<PollDetail[]>(path.join(opts.outDir, "polls_details.json"), []);
-  let agencies = readJson<Agency[]>(path.join(opts.outDir, "agencies.json"), []);
+  let details = readJson<PollDetail[]>(
+    path.join(opts.outDir, "polls_details.json"),
+    [],
+  );
+  let agencies = readJson<Agency[]>(
+    path.join(opts.outDir, "agencies.json"),
+    [],
+  );
 
   if (polls.length === 0 && opts.seedIzboriai) {
     console.log(`→ seeding from izboriai (${IZBORIAI_DIR})`);
@@ -586,7 +662,9 @@ const main = async (opts: { seedIzboriai: boolean; outDir: string }) => {
     polls = seed.polls;
     details = seed.details;
     agencies = seed.agencies;
-    console.log(`  seeded ${polls.length} polls, ${details.length} details, ${agencies.length} agencies`);
+    console.log(
+      `  seeded ${polls.length} polls, ${details.length} details, ${agencies.length} agencies`,
+    );
   }
 
   for (const cycle of CYCLES) {
@@ -596,10 +674,21 @@ const main = async (opts: { seedIzboriai: boolean; outDir: string }) => {
     agencies = mergeAgencies(agencies, r.agencies);
   }
 
-  fs.writeFileSync(path.join(opts.outDir, "polls.json"), JSON.stringify(polls, null, 2));
-  fs.writeFileSync(path.join(opts.outDir, "polls_details.json"), JSON.stringify(details, null, 2));
-  fs.writeFileSync(path.join(opts.outDir, "agencies.json"), JSON.stringify(agencies, null, 2));
-  console.log(`✓ wrote ${polls.length} polls / ${details.length} details / ${agencies.length} agencies → ${opts.outDir}`);
+  fs.writeFileSync(
+    path.join(opts.outDir, "polls.json"),
+    JSON.stringify(polls, null, 2),
+  );
+  fs.writeFileSync(
+    path.join(opts.outDir, "polls_details.json"),
+    JSON.stringify(details, null, 2),
+  );
+  fs.writeFileSync(
+    path.join(opts.outDir, "agencies.json"),
+    JSON.stringify(agencies, null, 2),
+  );
+  console.log(
+    `✓ wrote ${polls.length} polls / ${details.length} details / ${agencies.length} agencies → ${opts.outDir}`,
+  );
 };
 
 const cli = command({

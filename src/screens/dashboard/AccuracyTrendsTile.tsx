@@ -55,12 +55,20 @@ const ChartTooltip: FC<TooltipPayload> = ({ active, payload }) => {
     <div className="rounded-md bg-primary px-3 py-1.5 text-xs text-primary-foreground shadow">
       <div className="font-semibold">{r.label}</div>
       <div className="flex gap-2 mt-1">
-        <span className="text-primary-foreground/70">{t("polls_avg_mae")}:</span>
-        <span className="tabular-nums font-semibold">{r.avgMae.toFixed(2)}</span>
+        <span className="text-primary-foreground/70">
+          {t("polls_avg_mae")}:
+        </span>
+        <span className="tabular-nums font-semibold">
+          {r.avgMae.toFixed(2)}
+        </span>
       </div>
       <div className="flex gap-2">
-        <span className="text-primary-foreground/70">{t("polls_worst_mae")}:</span>
-        <span className="tabular-nums font-semibold">{r.maxMae.toFixed(2)}</span>
+        <span className="text-primary-foreground/70">
+          {t("polls_worst_mae")}:
+        </span>
+        <span className="tabular-nums font-semibold">
+          {r.maxMae.toFixed(2)}
+        </span>
       </div>
       <div className="text-primary-foreground/70 mt-0.5">
         {r.agencyCount} {t("polls_agencies").toLowerCase()}
@@ -138,7 +146,11 @@ export const AccuracyTrendsTile: FC = () => {
             data={rows}
             margin={{ top: 10, right: 8, left: -16, bottom: 0 }}
           >
-            <CartesianGrid strokeDasharray="3 3" vertical={false} opacity={0.15} />
+            <CartesianGrid
+              strokeDasharray="3 3"
+              vertical={false}
+              opacity={0.15}
+            />
             <XAxis
               dataKey="label"
               tick={{ fontSize: 10 }}

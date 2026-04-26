@@ -20,7 +20,11 @@ const fmtSigned = (n: number) => {
   return sign + formatThousands(Math.abs(n));
 };
 
-export const FlashMemoryTile: FC<Props> = ({ parties, topN = 6, regionCode }) => {
+export const FlashMemoryTile: FC<Props> = ({
+  parties,
+  topN = 6,
+  regionCode,
+}) => {
   const { t } = useTranslation();
   const { countryVotes, votesByRegion } = useRegionVotes();
   const results = regionCode
@@ -65,7 +69,11 @@ export const FlashMemoryTile: FC<Props> = ({ parties, topN = 6, regionCode }) =>
             </div>
           </Hint>
           <Link
-            to={regionCode ? `/municipality/${regionCode}/flash-memory` : "/flash-memory"}
+            to={
+              regionCode
+                ? `/municipality/${regionCode}/flash-memory`
+                : "/flash-memory"
+            }
             className="text-[10px] normal-case text-primary hover:underline"
             underline={false}
           >

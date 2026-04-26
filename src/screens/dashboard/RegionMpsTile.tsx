@@ -21,7 +21,9 @@ const normalize = (s: string) => s.toUpperCase().replace(/\s+/g, " ").trim();
 
 const initials = (name: string) => {
   const parts = name.trim().split(/\s+/);
-  return ((parts[0]?.[0] ?? "") + (parts[parts.length - 1]?.[0] ?? "")).toUpperCase();
+  return (
+    (parts[0]?.[0] ?? "") + (parts[parts.length - 1]?.[0] ?? "")
+  ).toUpperCase();
 };
 
 type MpRow = {
@@ -207,7 +209,10 @@ export const RegionMpsTile: FC<Props> = ({ regionCode, parties }) => {
                 <span className="font-semibold tabular-nums text-sm leading-none">
                   {g.mps.length}
                 </span>
-                <span className="text-muted-foreground truncate w-full" title={g.partyNickName}>
+                <span
+                  className="text-muted-foreground truncate w-full"
+                  title={g.partyNickName}
+                >
                   {g.partyNickName}
                 </span>
               </div>

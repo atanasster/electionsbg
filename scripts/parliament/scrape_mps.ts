@@ -80,7 +80,11 @@ type RawProfile = RawMp & {
   A_ns_CoalL_value?: string;
   A_ns_MRL_value?: string;
   A_ns_Va_id?: number;
-  oldnsList?: { A_nsL_value: string; A_nsL_value_short: string; A_ns_folder: string }[];
+  oldnsList?: {
+    A_nsL_value: string;
+    A_nsL_value_short: string;
+    A_ns_folder: string;
+  }[];
   munList?: { A_ns_Va_M_id: number; A_ns_Va_M_name: string }[];
   lngList?: { LngL_value?: string; A_LngL_value?: string }[];
 };
@@ -176,7 +180,9 @@ const toMp = (raw: RawMp): Mp => {
     partyGroup: raw.A_ns_CL_value ?? "",
     partyGroupShort: (raw.A_ns_CL_value_short ?? "").trim(),
     position: raw.A_ns_MP_PosL_value ? raw.A_ns_MP_PosL_value.trim() : null,
-    positionInGroup: raw.A_ns_MP_PosL_value1 ? raw.A_ns_MP_PosL_value1.trim() : null,
+    positionInGroup: raw.A_ns_MP_PosL_value1
+      ? raw.A_ns_MP_PosL_value1.trim()
+      : null,
     termFrom: raw.A_ns_MSP_date_F,
     termTo: raw.A_ns_MSP_date_T === "9999-12-31" ? "" : raw.A_ns_MSP_date_T,
     photoUrl: raw.A_ns_MP_img ? `${PHOTO_BASE}${raw.A_ns_MP_img}` : "",
@@ -206,7 +212,9 @@ const toProfile = (base: Mp, raw: RawProfile): MpProfile => ({
     nsShort: t.A_nsL_value_short ?? "",
     folder: t.A_ns_folder ?? "",
   })),
-  municipalities: (raw.munList ?? []).map((m) => m.A_ns_Va_M_name).filter(Boolean),
+  municipalities: (raw.munList ?? [])
+    .map((m) => m.A_ns_Va_M_name)
+    .filter(Boolean),
 });
 
 const aggregateByRegion = (mps: Mp[], nsName: string): SeatsByRegion => {
@@ -232,9 +240,17 @@ const aggregateByRegion = (mps: Mp[], nsName: string): SeatsByRegion => {
       name,
       seats: regMps.length,
       parties: [...partyMap.entries()]
-        .map(([partyShort, v]) => ({ partyShort, partyFull: v.full, count: v.count }))
+        .map(([partyShort, v]) => ({
+          partyShort,
+          partyFull: v.full,
+          count: v.count,
+        }))
         .sort((a, b) => b.count - a.count),
-      mps: regMps.map((m) => ({ id: m.id, name: m.name, partyShort: m.partyGroupShort })),
+      mps: regMps.map((m) => ({
+        id: m.id,
+        name: m.name,
+        partyShort: m.partyGroupShort,
+      })),
     });
   }
   return {
@@ -344,7 +360,9 @@ const trimProfile = (raw: Record<string, unknown>): Record<string, unknown> => {
     if (!PROFILE_KEEP.has(k)) continue;
     const v = raw[k];
     if (k === "oldnsList" && Array.isArray(v))
-      out[k] = v.map((o) => subsetObj(o as Record<string, unknown>, OLDNS_KEEP));
+      out[k] = v.map((o) =>
+        subsetObj(o as Record<string, unknown>, OLDNS_KEEP),
+      );
     else if (k === "munList" && Array.isArray(v))
       out[k] = v.map((o) => subsetObj(o as Record<string, unknown>, MUN_KEEP));
     else if (k === "lngList" && Array.isArray(v))
@@ -376,7 +394,9 @@ const runHistory = async (opts: {
   );
 
   // 2. Walk every MP id
-  console.log(`→ walking MP profile ids 1..${opts.maxId} (concurrency ${opts.concurrency})`);
+  console.log(
+    `→ walking MP profile ids 1..${opts.maxId} (concurrency ${opts.concurrency})`,
+  );
   const index: IndexEntry[] = [];
   let next = 1;
   let done = 0;
@@ -392,14 +412,18 @@ const runHistory = async (opts: {
         const isCurrent = currentMps.has(id);
         // Force re-fetch for currently-sitting MPs when --refresh-current is set:
         // their oldnsList grows when a new NS is seated, so cached files go stale.
-        const useCache = fs.existsSync(profileFile) && !(opts.refreshCurrent && isCurrent);
+        const useCache =
+          fs.existsSync(profileFile) && !(opts.refreshCurrent && isCurrent);
         let raw: RawProfile;
         if (useCache) {
           raw = JSON.parse(fs.readFileSync(profileFile, "utf8"));
         } else {
           raw = await fetchJson<RawProfile>(`${API}/mp-profile/bg/${id}`);
           // empty response = "[]" or {}
-          if (!raw || (Array.isArray(raw) && (raw as unknown as unknown[]).length === 0)) {
+          if (
+            !raw ||
+            (Array.isArray(raw) && (raw as unknown as unknown[]).length === 0)
+          ) {
             empty++;
             continue;
           }
@@ -419,13 +443,17 @@ const runHistory = async (opts: {
         if (!useCache) {
           fs.writeFileSync(
             profileFile,
-            JSON.stringify(trimProfile(raw as unknown as Record<string, unknown>)),
+            JSON.stringify(
+              trimProfile(raw as unknown as Record<string, unknown>),
+            ),
           );
         }
       } catch (e) {
         failed++;
         if (failed % 20 === 0)
-          console.warn(`  ! ${failed} failures so far (last: id=${id} ${(e as Error).message})`);
+          console.warn(
+            `  ! ${failed} failures so far (last: id=${id} ${(e as Error).message})`,
+          );
       } finally {
         done++;
         if (done % 200 === 0)
@@ -498,12 +526,18 @@ const runHistory = async (opts: {
   console.log(`✓ wrote ${index.length} files under ${profilesDir}/`);
 };
 
-const main = async (opts: { out: string; photos: boolean; profiles: boolean }) => {
+const main = async (opts: {
+  out: string;
+  photos: boolean;
+  profiles: boolean;
+}) => {
   fs.mkdirSync(opts.out, { recursive: true });
 
   console.log(`→ fetching parliament list from ${API}/coll-list-ns/bg`);
   const list = await fetchJson<CollListNs>(`${API}/coll-list-ns/bg`);
-  console.log(`  ${list.A_ns_CL_value}: ${list.A_ns_C_active_count} active members`);
+  console.log(
+    `  ${list.A_ns_CL_value}: ${list.A_ns_C_active_count} active members`,
+  );
 
   const mps = list.colListMP.map(toMp);
 
@@ -519,7 +553,9 @@ const main = async (opts: { out: string; photos: boolean; profiles: boolean }) =
         const i = idx++;
         const mp = mps[i];
         try {
-          const raw = await fetchJson<RawProfile>(`${API}/mp-profile/bg/${mp.id}`);
+          const raw = await fetchJson<RawProfile>(
+            `${API}/mp-profile/bg/${mp.id}`,
+          );
           profiles!.push(toProfile(mp, raw));
         } catch (e) {
           console.warn(`  ! mp ${mp.id} (${mp.name}): ${(e as Error).message}`);
@@ -540,17 +576,30 @@ const main = async (opts: { out: string; photos: boolean; profiles: boolean }) =
   );
   fs.writeFileSync(
     path.join(opts.out, "mps.json"),
-    JSON.stringify({ scrapedAt: new Date().toISOString(), ns: list.A_ns_CL_value, mps }, null, 2),
+    JSON.stringify(
+      { scrapedAt: new Date().toISOString(), ns: list.A_ns_CL_value, mps },
+      null,
+      2,
+    ),
   );
   if (profiles) {
     fs.writeFileSync(
       path.join(opts.out, "mp_profiles.json"),
-      JSON.stringify({ scrapedAt: new Date().toISOString(), ns: list.A_ns_CL_value, profiles }, null, 2),
+      JSON.stringify(
+        {
+          scrapedAt: new Date().toISOString(),
+          ns: list.A_ns_CL_value,
+          profiles,
+        },
+        null,
+        2,
+      ),
     );
   }
   console.log(`✓ wrote ${path.join(opts.out, "seats_by_region.json")}`);
   console.log(`✓ wrote ${path.join(opts.out, "mps.json")}`);
-  if (profiles) console.log(`✓ wrote ${path.join(opts.out, "mp_profiles.json")}`);
+  if (profiles)
+    console.log(`✓ wrote ${path.join(opts.out, "mp_profiles.json")}`);
 
   if (opts.photos) {
     const photoDir = path.join(opts.out, "photos");
@@ -589,7 +638,8 @@ const cli = command({
       type: string,
       long: "out",
       short: "o",
-      defaultValue: () => path.resolve(__dirname, "../../public/2024_10_27/parliament"),
+      defaultValue: () =>
+        path.resolve(__dirname, "../../public/2024_10_27/parliament"),
     }),
     photos: flag({
       type: optional(boolean),
@@ -635,7 +685,11 @@ const cli = command({
       });
       return;
     }
-    await main({ out: args.out, photos: !!args.photos, profiles: !!args.profiles });
+    await main({
+      out: args.out,
+      photos: !!args.photos,
+      profiles: !!args.profiles,
+    });
   },
 });
 

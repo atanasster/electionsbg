@@ -88,7 +88,10 @@ export const RegionDashboardCards: FC<Props> = ({ regionCode }) => {
         <FlashMemoryTile parties={data.parties} regionCode={regionCode} />
       </div>
       <div className="grid gap-3 grid-cols-1 mt-3">
-        <SuspiciousSectionsTile parties={data.parties} regionCode={regionCode} />
+        <SuspiciousSectionsTile
+          parties={data.parties}
+          regionCode={regionCode}
+        />
       </div>
       <div className="grid gap-3 grid-cols-1 mt-3">
         <ProblemSectionsTile parties={data.parties} regionCode={regionCode} />

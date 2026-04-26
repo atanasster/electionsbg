@@ -63,12 +63,16 @@ export const useMps = () => {
       if (!data?.mps || !regionCode || !nsFolder) return [];
       const code = regionCode.padStart(2, "0");
       return data.mps.filter(
-        (m) =>
-          m.currentRegion?.code === code && m.nsFolders.includes(nsFolder),
+        (m) => m.currentRegion?.code === code && m.nsFolders.includes(nsFolder),
       );
     },
     [data],
   );
 
-  return { mps: data?.mps, currentNs: data?.currentNs, findMpByName, findMpsByRegion };
+  return {
+    mps: data?.mps,
+    currentNs: data?.currentNs,
+    findMpByName,
+    findMpsByRegion,
+  };
 };

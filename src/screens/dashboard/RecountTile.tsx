@@ -24,9 +24,19 @@ export const RecountTile: FC<Props> = ({ parties, regionCode }) => {
   const { countryVotes, votesByRegion } = useRegionVotes();
   const country = countryVotes();
   const region = regionCode ? votesByRegion(regionCode) : undefined;
-  const results = regionCode ? (region?.results ?? { votes: [] }) : country.results;
+  const results = regionCode
+    ? (region?.results ?? { votes: [] })
+    : country.results;
   const original = regionCode
-    ? (region?.original ?? { votes: [], addedVotes: 0, addedPaperVotes: 0, addedMachineVotes: 0, removedVotes: 0, removedPaperVotes: 0, removedMachineVotes: 0 })
+    ? (region?.original ?? {
+        votes: [],
+        addedVotes: 0,
+        addedPaperVotes: 0,
+        addedMachineVotes: 0,
+        removedVotes: 0,
+        removedPaperVotes: 0,
+        removedMachineVotes: 0,
+      })
     : country.original;
 
   const { rows, hasRecount, maxAbsChange } = useMemo(() => {

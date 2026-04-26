@@ -68,7 +68,9 @@ export const TopCandidatesStrip: FC<Props> = ({ parties, regionCode }) => {
 
     return eligibleParties
       .map((p) => {
-        const partyPrefs = scopedPreferences.filter((r) => r.partyNum === p.partyNum);
+        const partyPrefs = scopedPreferences.filter(
+          (r) => r.partyNum === p.partyNum,
+        );
         if (!partyPrefs.length) return null;
         const top = partyPrefs.reduce((a, b) =>
           b.totalVotes > a.totalVotes ? b : a,
@@ -127,7 +129,15 @@ export const TopCandidatesStrip: FC<Props> = ({ parties, regionCode }) => {
       })
       .filter((r): r is NonNullable<typeof r> => !!r && !!r.candidateName)
       .sort((a, b) => b.totalVotes - a.totalVotes);
-  }, [preferences, parties, findCandidate, findMpByName, findRegion, i18n.language, regionCode]);
+  }, [
+    preferences,
+    parties,
+    findCandidate,
+    findMpByName,
+    findRegion,
+    i18n.language,
+    regionCode,
+  ]);
 
   if (rows.length === 0) return null;
 
@@ -142,7 +152,11 @@ export const TopCandidatesStrip: FC<Props> = ({ parties, regionCode }) => {
             </div>
           </Hint>
           <Link
-            to={regionCode ? `/municipality/${regionCode}/preferences` : "/preferences"}
+            to={
+              regionCode
+                ? `/municipality/${regionCode}/preferences`
+                : "/preferences"
+            }
             className="text-[10px] normal-case text-primary hover:underline"
             underline={false}
           >

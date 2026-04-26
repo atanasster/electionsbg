@@ -95,9 +95,7 @@ export const useRegionSummary = (
             ? round((100 * priorMachine) / priorPmTotal)
             : undefined,
           deltaPaperPct: priorPmTotal
-            ? round(
-                (100 * paper) / pmTotal - (100 * priorPaper) / priorPmTotal,
-              )
+            ? round((100 * paper) / pmTotal - (100 * priorPaper) / priorPmTotal)
             : undefined,
           deltaMachinePct: priorPmTotal
             ? round(
@@ -171,7 +169,9 @@ export const useRegionSummary = (
     const sortedByVotes = [...currentVotes].sort(
       (a, b) => b.totalVotes - a.totalVotes,
     );
-    const topByVotesNums = new Set(sortedByVotes.slice(0, 6).map((v) => v.partyNum));
+    const topByVotesNums = new Set(
+      sortedByVotes.slice(0, 6).map((v) => v.partyNum),
+    );
     const partyResults: NationalPartyResult[] = sortedByVotes
       .map((v) => {
         const partyInfo = partyInfos?.find((p) => p.number === v.partyNum);

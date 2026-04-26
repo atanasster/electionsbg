@@ -21,7 +21,11 @@ type RawProfile = {
   A_ns_CoalL_value?: string;
   A_ns_Va_name?: string;
   A_ns_MP_img?: string | null;
-  oldnsList?: { A_nsL_value: string; A_nsL_value_short: string; A_ns_folder: string }[];
+  oldnsList?: {
+    A_nsL_value: string;
+    A_nsL_value_short: string;
+    A_ns_folder: string;
+  }[];
   munList?: { A_ns_Va_M_id: number; A_ns_Va_M_name: string }[];
   lngList?: { LngL_value?: string; A_LngL_value?: string }[];
 };
@@ -68,7 +72,12 @@ const parseRegion = (
 
 const toProfile = (
   raw: RawProfile,
-  fallback: { partyGroup: string | null; partyGroupShort: string | null; position: string | null; region: { code: string; name: string } | null },
+  fallback: {
+    partyGroup: string | null;
+    partyGroupShort: string | null;
+    position: string | null;
+    region: { code: string; name: string } | null;
+  },
 ): MpProfile => ({
   id: raw.A_ns_MP_id,
   name: [raw.A_ns_MPL_Name1, raw.A_ns_MPL_Name2, raw.A_ns_MPL_Name3]
@@ -104,7 +113,9 @@ const toProfile = (
     nsShort: t.A_nsL_value_short ?? "",
     folder: t.A_ns_folder ?? "",
   })),
-  municipalities: (raw.munList ?? []).map((m) => m.A_ns_Va_M_name).filter(Boolean),
+  municipalities: (raw.munList ?? [])
+    .map((m) => m.A_ns_Va_M_name)
+    .filter(Boolean),
 });
 
 const queryFn = async ({

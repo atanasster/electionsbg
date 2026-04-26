@@ -111,7 +111,10 @@ const callGemini = async (apiKey: string, prompt: string): Promise<string> => {
   }
   const json = (await res.json()) as GeminiResponse;
   const text = json.candidates?.[0]?.content?.parts?.[0]?.text;
-  if (!text) throw new Error(`gemini returned no text: ${JSON.stringify(json).slice(0, 300)}`);
+  if (!text)
+    throw new Error(
+      `gemini returned no text: ${JSON.stringify(json).slice(0, 300)}`,
+    );
   return text;
 };
 
@@ -122,15 +125,24 @@ const buildAgencyTakesPrompt = (acc: Accuracy): string => {
     .map((p) => {
       const blocLines = Object.entries(p.blocLean)
         .filter(([, v]) => v.samples > 0)
-        .map(([k, v]) => `${k}=${v.meanError > 0 ? "+" : ""}${v.meanError} (n=${v.samples})`)
+        .map(
+          ([k, v]) =>
+            `${k}=${v.meanError > 0 ? "+" : ""}${v.meanError} (n=${v.samples})`,
+        )
         .join(", ");
       const partyLines = p.partyBias
         .slice(0, 5)
-        .map((b) => `${b.key}=${b.meanError > 0 ? "+" : ""}${b.meanError} (n=${b.samples})`)
+        .map(
+          (b) =>
+            `${b.key}=${b.meanError > 0 ? "+" : ""}${b.meanError} (n=${b.samples})`,
+        )
         .join(", ");
       const houseLines = p.houseEffect
         .slice(0, 4)
-        .map((h) => `${h.key}=${h.meanDiff > 0 ? "+" : ""}${h.meanDiff} (n=${h.samples})`)
+        .map(
+          (h) =>
+            `${h.key}=${h.meanDiff > 0 ? "+" : ""}${h.meanDiff} (n=${h.samples})`,
+        )
         .join(", ");
       return `- ${p.agencyId} (${p.name_en} / ${p.name_bg}): MAE=${p.overallMAE}, elections=${p.electionsCovered.length} (${p.electionsCovered.join(", ")})
     party bias (signed mean error, + = overpolls): ${partyLines || "(insufficient data)"}
@@ -213,12 +225,17 @@ Headlines should call out: who won and by how much, where the consensus poll was
 
 // ──────────── runner ────────────
 
-const parseJsonOrFail = (raw: string, contextFile: string): Record<string, unknown> => {
+const parseJsonOrFail = (
+  raw: string,
+  contextFile: string,
+): Record<string, unknown> => {
   try {
     return JSON.parse(raw) as Record<string, unknown>;
   } catch (e) {
     fs.writeFileSync(contextFile, raw);
-    throw new Error(`Gemini returned invalid JSON; raw saved to ${contextFile}: ${(e as Error).message}`);
+    throw new Error(
+      `Gemini returned invalid JSON; raw saved to ${contextFile}: ${(e as Error).message}`,
+    );
   }
 };
 
@@ -229,13 +246,16 @@ const runWithConcurrency = async <T, R>(
 ): Promise<R[]> => {
   const out: R[] = new Array(items.length);
   let cursor = 0;
-  const workers = Array.from({ length: Math.min(concurrency, items.length) }, async () => {
-    while (true) {
-      const i = cursor++;
-      if (i >= items.length) return;
-      out[i] = await fn(items[i], i);
-    }
-  });
+  const workers = Array.from(
+    { length: Math.min(concurrency, items.length) },
+    async () => {
+      while (true) {
+        const i = cursor++;
+        if (i >= items.length) return;
+        out[i] = await fn(items[i], i);
+      }
+    },
+  );
   await Promise.all(workers);
   return out;
 };
@@ -246,7 +266,8 @@ const main = async (opts: { pollsDir: string; only?: string }) => {
   if (!apiKey) throw new Error("GEMINI_API_KEY not set (check .env.local)");
 
   const accFile = path.join(opts.pollsDir, "accuracy.json");
-  if (!fs.existsSync(accFile)) throw new Error(`missing ${accFile} — run analyze_accuracy first`);
+  if (!fs.existsSync(accFile))
+    throw new Error(`missing ${accFile} — run analyze_accuracy first`);
   const acc = JSON.parse(fs.readFileSync(accFile, "utf-8")) as Accuracy;
 
   // Existing analysis is reused as a partial cache when --only is given so we don't
@@ -260,20 +281,34 @@ const main = async (opts: { pollsDir: string; only?: string }) => {
     : null;
 
   // ─── per-election narratives ───
-  const targets = opts.only ? [opts.only] : acc.elections.map((e) => e.electionDate);
-  const valid = targets.filter((d) => acc.elections.some((e) => e.electionDate === d && e.agencies.length > 0));
+  const targets = opts.only
+    ? [opts.only]
+    : acc.elections.map((e) => e.electionDate);
+  const valid = targets.filter((d) =>
+    acc.elections.some((e) => e.electionDate === d && e.agencies.length > 0),
+  );
   const skipped = targets.filter((d) => !valid.includes(d));
-  if (skipped.length) console.log(`  (skipping elections with no agency data: ${skipped.join(", ")})`);
+  if (skipped.length)
+    console.log(
+      `  (skipping elections with no agency data: ${skipped.join(", ")})`,
+    );
 
-  const byElection: Record<string, ElectionNarrative> = { ...(prior?.byElection ?? {}) };
-  console.log(`→ generating per-election narratives for ${valid.length} elections (concurrency ${ELECTION_CONCURRENCY})`);
+  const byElection: Record<string, ElectionNarrative> = {
+    ...(prior?.byElection ?? {}),
+  };
+  console.log(
+    `→ generating per-election narratives for ${valid.length} elections (concurrency ${ELECTION_CONCURRENCY})`,
+  );
 
   await runWithConcurrency(
     valid,
     async (date) => {
       const prompt = buildElectionPrompt(acc, date);
       const raw = await callGemini(apiKey, prompt);
-      const parsed = parseJsonOrFail(raw, path.join(opts.pollsDir, `analysis.${date}.raw.txt`));
+      const parsed = parseJsonOrFail(
+        raw,
+        path.join(opts.pollsDir, `analysis.${date}.raw.txt`),
+      );
       byElection[date] = parsed as unknown as ElectionNarrative;
       console.log(`  ✓ ${date}`);
     },
@@ -283,12 +318,17 @@ const main = async (opts: { pollsDir: string; only?: string }) => {
   // ─── agency takes (only when doing a full run; preserve when --only is set) ───
   let agencyTakes: AgencyTake[];
   if (opts.only && prior?.agencyTakes) {
-    console.log(`→ keeping existing agencyTakes (${prior.agencyTakes.length} entries) — use full run to refresh`);
+    console.log(
+      `→ keeping existing agencyTakes (${prior.agencyTakes.length} entries) — use full run to refresh`,
+    );
     agencyTakes = prior.agencyTakes;
   } else {
     console.log(`→ generating cross-election agencyTakes`);
     const raw = await callGemini(apiKey, buildAgencyTakesPrompt(acc));
-    const parsed = parseJsonOrFail(raw, path.join(opts.pollsDir, "analysis.agencyTakes.raw.txt"));
+    const parsed = parseJsonOrFail(
+      raw,
+      path.join(opts.pollsDir, "analysis.agencyTakes.raw.txt"),
+    );
     agencyTakes = (parsed.agencyTakes as AgencyTake[]) ?? [];
     console.log(`  ✓ ${agencyTakes.length} agency takes`);
   }
@@ -301,13 +341,19 @@ const main = async (opts: { pollsDir: string; only?: string }) => {
     byElection,
   };
   fs.writeFileSync(outFile, JSON.stringify(out, null, 2));
-  console.log(`✓ wrote ${outFile}  (${Object.keys(byElection).length} elections, ${agencyTakes.length} agency takes)`);
+  console.log(
+    `✓ wrote ${outFile}  (${Object.keys(byElection).length} elections, ${agencyTakes.length} agency takes)`,
+  );
 };
 
 const cli = command({
   name: "generate_analysis",
   args: {
-    pollsDir: option({ type: string, long: "polls", defaultValue: () => POLLS_DIR }),
+    pollsDir: option({
+      type: string,
+      long: "polls",
+      defaultValue: () => POLLS_DIR,
+    }),
     only: option({ type: optional(string), long: "only" }),
   },
   handler: async (args) => {

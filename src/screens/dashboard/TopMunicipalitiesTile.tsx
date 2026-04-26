@@ -58,8 +58,7 @@ export const TopMunicipalitiesTile: FC<Props> = ({ parties, regionCode }) => {
         const name =
           (i18n.language === "bg"
             ? info?.long_name || info?.name
-            : info?.long_name_en || info?.name_en) ||
-          m.obshtina;
+            : info?.long_name_en || info?.name_en) || m.obshtina;
         return {
           key: m.obshtina,
           name,
@@ -123,34 +122,44 @@ export const TopMunicipalitiesTile: FC<Props> = ({ parties, regionCode }) => {
         <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground text-right">
           {t("dashboard_now")}
         </span>
-        {rows.map(({ key, name, totalVotes, pct, barPct, machinePct, topPartyColor }) => (
-          <Link
-            key={key}
-            to={`/settlement/${key}`}
-            underline={false}
-            className="contents"
-          >
-            <span className="truncate font-medium">{name}</span>
-            <span className="tabular-nums text-xs text-muted-foreground text-right">
-              {formatThousands(totalVotes)}
-            </span>
-            <span className="tabular-nums text-xs text-muted-foreground text-right">
-              {formatPct(machinePct, 0)}
-            </span>
-            <div className="h-2 rounded-full bg-muted overflow-hidden">
-              <div
-                className="h-full rounded-full"
-                style={{
-                  width: `${Math.max(2, barPct)}%`,
-                  backgroundColor: topPartyColor,
-                }}
-              />
-            </div>
-            <span className="tabular-nums text-xs font-semibold text-right">
-              {formatPct(pct, 1)}
-            </span>
-          </Link>
-        ))}
+        {rows.map(
+          ({
+            key,
+            name,
+            totalVotes,
+            pct,
+            barPct,
+            machinePct,
+            topPartyColor,
+          }) => (
+            <Link
+              key={key}
+              to={`/settlement/${key}`}
+              underline={false}
+              className="contents"
+            >
+              <span className="truncate font-medium">{name}</span>
+              <span className="tabular-nums text-xs text-muted-foreground text-right">
+                {formatThousands(totalVotes)}
+              </span>
+              <span className="tabular-nums text-xs text-muted-foreground text-right">
+                {formatPct(machinePct, 0)}
+              </span>
+              <div className="h-2 rounded-full bg-muted overflow-hidden">
+                <div
+                  className="h-full rounded-full"
+                  style={{
+                    width: `${Math.max(2, barPct)}%`,
+                    backgroundColor: topPartyColor,
+                  }}
+                />
+              </div>
+              <span className="tabular-nums text-xs font-semibold text-right">
+                {formatPct(pct, 1)}
+              </span>
+            </Link>
+          ),
+        )}
       </div>
     </StatCard>
   );

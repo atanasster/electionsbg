@@ -90,7 +90,7 @@ const POLL_TO_ACTUAL: Record<string, string> = {
   "Реформаторски блок": "РБ",
   "Патриотичен фронт": "ПФ",
   "България без цензура": "ББЦ",
-  "Воля": "Воля",
+  Воля: "Воля",
   // Поляризация: polls call it "ДПС" pre-2024, "ДПС-НН" after the split. The actual
   // 2024-10-27 result has "ДПС-НН"; the actual 2024-06 has "ДПС". We let the year resolve it
   // — see resolveActualKey below.
@@ -108,34 +108,34 @@ type BlocId =
 
 const BLOC_OF: Record<string, BlocId> = {
   "ГЕРБ-СДС": "right_govt",
-  "ГЕРБ": "right_govt",
-  "СК": "right_govt",
-  "ОДС": "right_govt",
-  "ДСБ": "right_govt",
-  "ПП": "reformist",
+  ГЕРБ: "right_govt",
+  СК: "right_govt",
+  ОДС: "right_govt",
+  ДСБ: "right_govt",
+  ПП: "reformist",
   "ПП-ДБ": "reformist",
-  "ДБ": "reformist",
-  "ПрБ": "reformist",
-  "РБ": "reformist",
-  "Възраждане": "nationalist",
-  "Атака": "nationalist",
-  "ОП": "nationalist",
-  "ПФ": "nationalist",
-  "Сияние": "nationalist",
-  "Величие": "nationalist",
-  "МЕЧ": "nationalist",
-  "БСП": "left",
+  ДБ: "reformist",
+  ПрБ: "reformist",
+  РБ: "reformist",
+  Възраждане: "nationalist",
+  Атака: "nationalist",
+  ОП: "nationalist",
+  ПФ: "nationalist",
+  Сияние: "nationalist",
+  Величие: "nationalist",
+  МЕЧ: "nationalist",
+  БСП: "left",
   "БСП-ОЛ": "left",
-  "ДПС": "minority",
+  ДПС: "minority",
   "ДПС-НН": "minority",
-  "АПС": "minority",
-  "ИТН": "populist",
-  "ВОЛЯ": "populist",
-  "Воля": "populist",
-  "БВ": "populist",
-  "ББЦ": "populist",
-  "ИСМВ": "populist",
-  "НДСВ": "populist",
+  АПС: "minority",
+  ИТН: "populist",
+  ВОЛЯ: "populist",
+  Воля: "populist",
+  БВ: "populist",
+  ББЦ: "populist",
+  ИСМВ: "populist",
+  НДСВ: "populist",
 };
 
 const blocOf = (key: string): BlocId => BLOC_OF[key] ?? "other";
@@ -174,13 +174,25 @@ const daysBetween = (a: string, b: string) => {
 //   "Mar 19 2026"           → 2026-03-19
 //   "Mar 2024"              → 2024-03-15 (mid-month)
 const MONTH_EN: Record<string, number> = {
-  jan: 0, feb: 1, mar: 2, apr: 3, may: 4, jun: 5,
-  jul: 6, aug: 7, sep: 8, oct: 9, nov: 10, dec: 11,
+  jan: 0,
+  feb: 1,
+  mar: 2,
+  apr: 3,
+  may: 4,
+  jun: 5,
+  jul: 6,
+  aug: 7,
+  sep: 8,
+  oct: 9,
+  nov: 10,
+  dec: 11,
 };
 const parseFieldworkEnd = (fw: string): string | null => {
   const s = fw.trim();
   // Cross-month range: "Mon D - Mon D YYYY"
-  let m = s.match(/^([A-Za-z]{3})\s+\d{1,2}\s*-\s*([A-Za-z]{3})\s+(\d{1,2})\s+(\d{4})$/);
+  let m = s.match(
+    /^([A-Za-z]{3})\s+\d{1,2}\s*-\s*([A-Za-z]{3})\s+(\d{1,2})\s+(\d{4})$/,
+  );
   if (m) {
     const mo = MONTH_EN[m[2].toLowerCase()];
     if (mo === undefined) return null;
@@ -250,7 +262,8 @@ const readJson = <T>(file: string): T | null => {
   return JSON.parse(fs.readFileSync(file, "utf-8")) as T;
 };
 
-const mean = (xs: number[]) => (xs.length === 0 ? 0 : xs.reduce((a, b) => a + b, 0) / xs.length);
+const mean = (xs: number[]) =>
+  xs.length === 0 ? 0 : xs.reduce((a, b) => a + b, 0) / xs.length;
 const round = (n: number, dp = 2) => Math.round(n * 10 ** dp) / 10 ** dp;
 
 const computeElectionAccuracy = (
@@ -307,7 +320,9 @@ const computeElectionAccuracy = (
     const absErrors = errors.map((e) => Math.abs(e.error));
     const mae = round(mean(absErrors));
     const rmse = round(Math.sqrt(mean(absErrors.map((e) => e * e))));
-    const biggest = errors.reduce((a, b) => (Math.abs(b.error) > Math.abs(a.error) ? b : a));
+    const biggest = errors.reduce((a, b) =>
+      Math.abs(b.error) > Math.abs(a.error) ? b : a,
+    );
     agencyResults.push({
       agencyId,
       pollId: last.poll.id,
@@ -357,13 +372,23 @@ const computeHouseEffects = (
     detailsByPoll.set(d.pollId, arr);
   }
 
-  const records: { agencyId: string; party: string; support: number; cycleKey: string }[] = [];
+  const records: {
+    agencyId: string;
+    party: string;
+    support: number;
+    cycleKey: string;
+  }[] = [];
   for (const p of polls) {
     const ck = cycleKey(p);
     const polledRows = detailsByPoll.get(p.id) ?? [];
     for (const r of polledRows) {
       const party = normKey(r.nickName_bg);
-      records.push({ agencyId: p.agencyId, party, support: r.support, cycleKey: ck });
+      records.push({
+        agencyId: p.agencyId,
+        party,
+        support: r.support,
+        cycleKey: ck,
+      });
       const cm = cycleParty.get(ck) ?? new Map<string, number[]>();
       const arr = cm.get(party) ?? [];
       arr.push(r.support);
@@ -413,12 +438,18 @@ const buildAgencyProfiles = (
       electionsCovered.push(e.electionDate);
       preElectionPolls += 1;
       for (const err of agencyEntry.errors) {
-        allErrors.push({ key: err.key, error: err.error, abs: Math.abs(err.error) });
+        allErrors.push({
+          key: err.key,
+          error: err.error,
+          abs: Math.abs(err.error),
+        });
       }
     }
 
     const overallMAE = round(mean(allErrors.map((e) => e.abs)));
-    const overallRMSE = round(Math.sqrt(mean(allErrors.map((e) => e.abs * e.abs))));
+    const overallRMSE = round(
+      Math.sqrt(mean(allErrors.map((e) => e.abs * e.abs))),
+    );
 
     // Party bias = mean signed error per party (positive = agency overestimates that party)
     const byParty = new Map<string, number[]>();
@@ -428,7 +459,11 @@ const buildAgencyProfiles = (
       byParty.set(e.key, arr);
     }
     const partyBias = [...byParty.entries()]
-      .map(([key, errs]) => ({ key, meanError: round(mean(errs)), samples: errs.length }))
+      .map(([key, errs]) => ({
+        key,
+        meanError: round(mean(errs)),
+        samples: errs.length,
+      }))
       .sort((a, b) => Math.abs(b.meanError) - Math.abs(a.meanError));
 
     // Bloc lean = mean signed error per bloc (averaged across all party-elections in that bloc)
@@ -455,7 +490,11 @@ const buildAgencyProfiles = (
     // House effect (per-cycle relative to consensus)
     const heRaw = houseEffectsRaw.get(a.id) ?? [];
     const houseEffect = heRaw
-      .map((h) => ({ key: h.key, meanDiff: round(mean(h.diffs)), samples: h.diffs.length }))
+      .map((h) => ({
+        key: h.key,
+        meanDiff: round(mean(h.diffs)),
+        samples: h.diffs.length,
+      }))
       .filter((h) => h.samples >= 2)
       .sort((a, b) => Math.abs(b.meanDiff) - Math.abs(a.meanDiff))
       .slice(0, 12);
@@ -478,14 +517,26 @@ const buildAgencyProfiles = (
 
 const main = async (opts: { pollsDir: string }) => {
   const polls = readJson<Poll[]>(path.join(opts.pollsDir, "polls.json"));
-  const details = readJson<PollDetail[]>(path.join(opts.pollsDir, "polls_details.json"));
-  const agencies = readJson<Agency[]>(path.join(opts.pollsDir, "agencies.json"));
+  const details = readJson<PollDetail[]>(
+    path.join(opts.pollsDir, "polls_details.json"),
+  );
+  const agencies = readJson<Agency[]>(
+    path.join(opts.pollsDir, "agencies.json"),
+  );
   if (!polls || !details || !agencies) {
-    throw new Error(`missing polls files in ${opts.pollsDir} — run scrape_polls first`);
+    throw new Error(
+      `missing polls files in ${opts.pollsDir} — run scrape_polls first`,
+    );
   }
 
-  const electionDates = [...new Set(polls.map((p) => p.electionDate).filter((d): d is string => !!d))].sort();
-  console.log(`→ analyzing ${electionDates.length} elections, ${polls.length} polls, ${agencies.length} agencies`);
+  const electionDates = [
+    ...new Set(
+      polls.map((p) => p.electionDate).filter((d): d is string => !!d),
+    ),
+  ].sort();
+  console.log(
+    `→ analyzing ${electionDates.length} elections, ${polls.length} polls, ${agencies.length} agencies`,
+  );
 
   const elections: ElectionAccuracy[] = [];
   for (const d of electionDates) {
@@ -505,11 +556,16 @@ const main = async (opts: { pollsDir: string }) => {
     elections,
     agencyProfiles: profiles,
   };
-  fs.writeFileSync(path.join(opts.pollsDir, "accuracy.json"), JSON.stringify(out, null, 2));
+  fs.writeFileSync(
+    path.join(opts.pollsDir, "accuracy.json"),
+    JSON.stringify(out, null, 2),
+  );
   console.log(`✓ wrote ${path.join(opts.pollsDir, "accuracy.json")}`);
 
   // Console summary
-  console.log("\nAgency leaderboard (overall MAE across all pre-election last-polls):");
+  console.log(
+    "\nAgency leaderboard (overall MAE across all pre-election last-polls):",
+  );
   for (const p of profiles) {
     console.log(
       `  ${p.agencyId.padEnd(5)} MAE=${p.overallMAE.toFixed(2)}  RMSE=${p.overallRMSE.toFixed(2)}  elections=${p.electionsCovered.length}  polls=${p.preElectionPolls}`,
@@ -529,7 +585,11 @@ const main = async (opts: { pollsDir: string }) => {
 const cli = command({
   name: "analyze_accuracy",
   args: {
-    pollsDir: option({ type: string, long: "polls", defaultValue: () => POLLS_DIR }),
+    pollsDir: option({
+      type: string,
+      long: "polls",
+      defaultValue: () => POLLS_DIR,
+    }),
   },
   handler: async (args) => {
     await main({ pollsDir: args.pollsDir });
