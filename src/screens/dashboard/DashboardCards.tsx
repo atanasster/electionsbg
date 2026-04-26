@@ -20,6 +20,8 @@ import { TopFinancingTile } from "./TopFinancingTile";
 import { FlashMemoryTile } from "./FlashMemoryTile";
 import { RecountTile } from "./RecountTile";
 import { SuspiciousSectionsTile } from "./SuspiciousSectionsTile";
+import { PollsTile } from "./PollsTile";
+import { AccuracyTrendsTile } from "./AccuracyTrendsTile";
 
 const SkeletonCard: FC<{ className?: string }> = ({
   className = "h-[140px]",
@@ -128,6 +130,12 @@ export const DashboardCards: FC = () => {
       </div>
       <div className="grid gap-3 grid-cols-1 mt-3">
         <HistoricalTrendsTile />
+      </div>
+      <div className="grid gap-3 grid-cols-1 mt-3">
+        <PollsTile />
+      </div>
+      <div className="grid gap-3 grid-cols-1 mt-3">
+        <AccuracyTrendsTile />
       </div>
       <ShareCardDialog
         open={shareOpen}

@@ -1,0 +1,4116 @@
+{
+  "generatedAt": "2026-04-26T21:19:12.244Z",
+  "elections": [
+    {
+      "electionDate": "2026-04-19",
+      "actualResults": [
+        {
+          "key": "ПрБ",
+          "pct": 44.59,
+          "passedThreshold": true
+        },
+        {
+          "key": "ГЕРБ-СДС",
+          "pct": 13.39,
+          "passedThreshold": true
+        },
+        {
+          "key": "ПП-ДБ",
+          "pct": 12.62,
+          "passedThreshold": true
+        },
+        {
+          "key": "ДПС",
+          "pct": 7.12,
+          "passedThreshold": true
+        },
+        {
+          "key": "Възраждане",
+          "pct": 4.26,
+          "passedThreshold": true
+        },
+        {
+          "key": "МЕЧ",
+          "pct": 3.23,
+          "passedThreshold": false
+        },
+        {
+          "key": "Величие",
+          "pct": 3.1,
+          "passedThreshold": false
+        },
+        {
+          "key": "БСП-ОЛ",
+          "pct": 3.02,
+          "passedThreshold": false
+        },
+        {
+          "key": "Сияние",
+          "pct": 2.89,
+          "passedThreshold": false
+        },
+        {
+          "key": "АПС",
+          "pct": 1.57,
+          "passedThreshold": false
+        }
+      ],
+      "agencies": [
+        {
+          "agencyId": "ML",
+          "pollId": "ml-2026-04-14",
+          "fieldworkEnd": "2026-04-14",
+          "daysBefore": 5,
+          "respondents": 1003,
+          "errors": [
+            {
+              "key": "ПрБ",
+              "polled": 38,
+              "actual": 44.59,
+              "error": -6.59
+            },
+            {
+              "key": "ГЕРБ-СДС",
+              "polled": 19.8,
+              "actual": 13.39,
+              "error": 6.41
+            },
+            {
+              "key": "Възраждане",
+              "polled": 5.6,
+              "actual": 4.26,
+              "error": 1.34
+            },
+            {
+              "key": "ПП-ДБ",
+              "polled": 13.1,
+              "actual": 12.62,
+              "error": 0.48
+            },
+            {
+              "key": "ДПС",
+              "polled": 7.5,
+              "actual": 7.12,
+              "error": 0.38
+            },
+            {
+              "key": "Величие",
+              "polled": 3.4,
+              "actual": 3.1,
+              "error": 0.3
+            },
+            {
+              "key": "МЕЧ",
+              "polled": 3.1,
+              "actual": 3.23,
+              "error": -0.13
+            },
+            {
+              "key": "БСП-ОЛ",
+              "polled": 3,
+              "actual": 3.02,
+              "error": -0.02
+            }
+          ],
+          "mae": 1.96,
+          "rmse": 3.29,
+          "biggestMiss": {
+            "key": "ПрБ",
+            "error": -6.59
+          }
+        },
+        {
+          "agencyId": "MY",
+          "pollId": "my-2026-04-13",
+          "fieldworkEnd": "2026-04-13",
+          "daysBefore": 6,
+          "respondents": 1002,
+          "errors": [
+            {
+              "key": "ПрБ",
+              "polled": 34.6,
+              "actual": 44.59,
+              "error": -9.99
+            },
+            {
+              "key": "ГЕРБ-СДС",
+              "polled": 18.5,
+              "actual": 13.39,
+              "error": 5.11
+            },
+            {
+              "key": "Възраждане",
+              "polled": 7.4,
+              "actual": 4.26,
+              "error": 3.14
+            },
+            {
+              "key": "ДПС",
+              "polled": 9.1,
+              "actual": 7.12,
+              "error": 1.98
+            },
+            {
+              "key": "ПП-ДБ",
+              "polled": 11.4,
+              "actual": 12.62,
+              "error": -1.22
+            },
+            {
+              "key": "БСП-ОЛ",
+              "polled": 4,
+              "actual": 3.02,
+              "error": 0.98
+            },
+            {
+              "key": "Величие",
+              "polled": 2.2,
+              "actual": 3.1,
+              "error": -0.9
+            },
+            {
+              "key": "ИТН",
+              "polled": 1.4,
+              "actual": 0.74,
+              "error": 0.66
+            },
+            {
+              "key": "АПС",
+              "polled": 1.9,
+              "actual": 1.57,
+              "error": 0.33
+            },
+            {
+              "key": "МЕЧ",
+              "polled": 3.5,
+              "actual": 3.23,
+              "error": 0.27
+            }
+          ],
+          "mae": 2.46,
+          "rmse": 3.79,
+          "biggestMiss": {
+            "key": "ПрБ",
+            "error": -9.99
+          }
+        },
+        {
+          "agencyId": "CAM",
+          "pollId": "cam-2026-04-14",
+          "fieldworkEnd": "2026-04-14",
+          "daysBefore": 5,
+          "respondents": 1011,
+          "errors": [
+            {
+              "key": "ПрБ",
+              "polled": 33.5,
+              "actual": 44.59,
+              "error": -11.09
+            },
+            {
+              "key": "ГЕРБ-СДС",
+              "polled": 20.3,
+              "actual": 13.39,
+              "error": 6.91
+            },
+            {
+              "key": "ДПС",
+              "polled": 11.7,
+              "actual": 7.12,
+              "error": 4.58
+            },
+            {
+              "key": "Възраждане",
+              "polled": 7.3,
+              "actual": 4.26,
+              "error": 3.04
+            },
+            {
+              "key": "БСП-ОЛ",
+              "polled": 4.4,
+              "actual": 3.02,
+              "error": 1.38
+            },
+            {
+              "key": "Величие",
+              "polled": 2.1,
+              "actual": 3.1,
+              "error": -1
+            },
+            {
+              "key": "АПС",
+              "polled": 0.9,
+              "actual": 1.57,
+              "error": -0.67
+            },
+            {
+              "key": "МЕЧ",
+              "polled": 2.9,
+              "actual": 3.23,
+              "error": -0.33
+            },
+            {
+              "key": "ИТН",
+              "polled": 0.9,
+              "actual": 0.74,
+              "error": 0.16
+            },
+            {
+              "key": "ПП-ДБ",
+              "polled": 12.5,
+              "actual": 12.62,
+              "error": -0.12
+            }
+          ],
+          "mae": 2.93,
+          "rmse": 4.52,
+          "biggestMiss": {
+            "key": "ПрБ",
+            "error": -11.09
+          }
+        },
+        {
+          "agencyId": "SH",
+          "pollId": "sh-2026-04-06",
+          "fieldworkEnd": "2026-04-06",
+          "daysBefore": 13,
+          "respondents": 800,
+          "errors": [
+            {
+              "key": "ПрБ",
+              "polled": 34.7,
+              "actual": 44.59,
+              "error": -9.89
+            },
+            {
+              "key": "ГЕРБ-СДС",
+              "polled": 19.6,
+              "actual": 13.39,
+              "error": 6.21
+            },
+            {
+              "key": "Възраждане",
+              "polled": 8,
+              "actual": 4.26,
+              "error": 3.74
+            },
+            {
+              "key": "ДПС",
+              "polled": 10,
+              "actual": 7.12,
+              "error": 2.88
+            },
+            {
+              "key": "БСП-ОЛ",
+              "polled": 4.6,
+              "actual": 3.02,
+              "error": 1.58
+            },
+            {
+              "key": "ПП-ДБ",
+              "polled": 11.6,
+              "actual": 12.62,
+              "error": -1.02
+            },
+            {
+              "key": "Величие",
+              "polled": 2.1,
+              "actual": 3.1,
+              "error": -1
+            },
+            {
+              "key": "АПС",
+              "polled": 2.4,
+              "actual": 1.57,
+              "error": 0.83
+            },
+            {
+              "key": "МЕЧ",
+              "polled": 3.2,
+              "actual": 3.23,
+              "error": -0.03
+            }
+          ],
+          "mae": 3.02,
+          "rmse": 4.27,
+          "biggestMiss": {
+            "key": "ПрБ",
+            "error": -9.89
+          }
+        },
+        {
+          "agencyId": "AR",
+          "pollId": "ar-2026-03-26",
+          "fieldworkEnd": "2026-03-26",
+          "daysBefore": 24,
+          "respondents": 1000,
+          "errors": [
+            {
+              "key": "ПрБ",
+              "polled": 30.8,
+              "actual": 44.59,
+              "error": -13.79
+            },
+            {
+              "key": "ГЕРБ-СДС",
+              "polled": 21.2,
+              "actual": 13.39,
+              "error": 7.81
+            },
+            {
+              "key": "ДПС",
+              "polled": 9.8,
+              "actual": 7.12,
+              "error": 2.68
+            },
+            {
+              "key": "Възраждане",
+              "polled": 6.9,
+              "actual": 4.26,
+              "error": 2.64
+            },
+            {
+              "key": "ПП-ДБ",
+              "polled": 11.1,
+              "actual": 12.62,
+              "error": -1.52
+            },
+            {
+              "key": "БСП-ОЛ",
+              "polled": 3.9,
+              "actual": 3.02,
+              "error": 0.88
+            },
+            {
+              "key": "ИТН",
+              "polled": 1.4,
+              "actual": 0.74,
+              "error": 0.66
+            },
+            {
+              "key": "Величие",
+              "polled": 2.7,
+              "actual": 3.1,
+              "error": -0.4
+            },
+            {
+              "key": "АПС",
+              "polled": 1.2,
+              "actual": 1.57,
+              "error": -0.37
+            },
+            {
+              "key": "МЕЧ",
+              "polled": 3,
+              "actual": 3.23,
+              "error": -0.23
+            }
+          ],
+          "mae": 3.1,
+          "rmse": 5.19,
+          "biggestMiss": {
+            "key": "ПрБ",
+            "error": -13.79
+          }
+        },
+        {
+          "agencyId": "TR",
+          "pollId": "tr-2026-03-19",
+          "fieldworkEnd": "2026-03-19",
+          "daysBefore": 31,
+          "respondents": 1001,
+          "errors": [
+            {
+              "key": "ПрБ",
+              "polled": 31.1,
+              "actual": 44.59,
+              "error": -13.49
+            },
+            {
+              "key": "ГЕРБ-СДС",
+              "polled": 19.7,
+              "actual": 13.39,
+              "error": 6.31
+            },
+            {
+              "key": "Възраждане",
+              "polled": 7.9,
+              "actual": 4.26,
+              "error": 3.64
+            },
+            {
+              "key": "ДПС",
+              "polled": 10.5,
+              "actual": 7.12,
+              "error": 3.38
+            },
+            {
+              "key": "ИТН",
+              "polled": 2.6,
+              "actual": 0.74,
+              "error": 1.86
+            },
+            {
+              "key": "Величие",
+              "polled": 1.5,
+              "actual": 3.1,
+              "error": -1.6
+            },
+            {
+              "key": "БСП-ОЛ",
+              "polled": 4,
+              "actual": 3.02,
+              "error": 0.98
+            },
+            {
+              "key": "ПП-ДБ",
+              "polled": 11.8,
+              "actual": 12.62,
+              "error": -0.82
+            },
+            {
+              "key": "АПС",
+              "polled": 1.7,
+              "actual": 1.57,
+              "error": 0.13
+            },
+            {
+              "key": "МЕЧ",
+              "polled": 3.2,
+              "actual": 3.23,
+              "error": -0.03
+            }
+          ],
+          "mae": 3.22,
+          "rmse": 5.04,
+          "biggestMiss": {
+            "key": "ПрБ",
+            "error": -13.49
+          }
+        },
+        {
+          "agencyId": "GIB",
+          "pollId": "gib-2026-03-30",
+          "fieldworkEnd": "2026-03-30",
+          "daysBefore": 20,
+          "respondents": 820,
+          "errors": [
+            {
+              "key": "ПрБ",
+              "polled": 28.4,
+              "actual": 44.59,
+              "error": -16.19
+            },
+            {
+              "key": "ГЕРБ-СДС",
+              "polled": 23.4,
+              "actual": 13.39,
+              "error": 10.01
+            },
+            {
+              "key": "ДПС",
+              "polled": 10.7,
+              "actual": 7.12,
+              "error": 3.58
+            },
+            {
+              "key": "Възраждане",
+              "polled": 6.5,
+              "actual": 4.26,
+              "error": 2.24
+            },
+            {
+              "key": "ИТН",
+              "polled": 2.9,
+              "actual": 0.74,
+              "error": 2.16
+            },
+            {
+              "key": "ПП-ДБ",
+              "polled": 10.9,
+              "actual": 12.62,
+              "error": -1.72
+            },
+            {
+              "key": "Величие",
+              "polled": 1.8,
+              "actual": 3.1,
+              "error": -1.3
+            },
+            {
+              "key": "АПС",
+              "polled": 0.9,
+              "actual": 1.57,
+              "error": -0.67
+            },
+            {
+              "key": "МЕЧ",
+              "polled": 2.8,
+              "actual": 3.23,
+              "error": -0.43
+            },
+            {
+              "key": "БСП-ОЛ",
+              "polled": 3,
+              "actual": 3.02,
+              "error": -0.02
+            }
+          ],
+          "mae": 3.83,
+          "rmse": 6.25,
+          "biggestMiss": {
+            "key": "ПрБ",
+            "error": -16.19
+          }
+        }
+      ]
+    },
+    {
+      "electionDate": "2024-10-27",
+      "actualResults": [
+        {
+          "key": "ГЕРБ-СДС",
+          "pct": 26.39,
+          "passedThreshold": true
+        },
+        {
+          "key": "ПП-ДБ",
+          "pct": 14.21,
+          "passedThreshold": true
+        },
+        {
+          "key": "Възраждане",
+          "pct": 13.36,
+          "passedThreshold": true
+        },
+        {
+          "key": "ДПС-НН",
+          "pct": 11.51,
+          "passedThreshold": true
+        },
+        {
+          "key": "БСП",
+          "pct": 7.57,
+          "passedThreshold": true
+        },
+        {
+          "key": "АПС",
+          "pct": 7.49,
+          "passedThreshold": true
+        },
+        {
+          "key": "ИТН",
+          "pct": 6.78,
+          "passedThreshold": true
+        },
+        {
+          "key": "МЕЧ",
+          "pct": 4.6,
+          "passedThreshold": true
+        },
+        {
+          "key": "Величие",
+          "pct": 4,
+          "passedThreshold": true
+        },
+        {
+          "key": "СБ",
+          "pct": 1.07,
+          "passedThreshold": false
+        }
+      ],
+      "agencies": [
+        {
+          "agencyId": "GIB",
+          "pollId": "gib-2024-10-24",
+          "fieldworkEnd": "2024-10-24",
+          "daysBefore": 3,
+          "respondents": 1009,
+          "errors": [
+            {
+              "key": "ПП-ДБ",
+              "polled": 16.2,
+              "actual": 14.21,
+              "error": 1.99
+            },
+            {
+              "key": "ГЕРБ-СДС",
+              "polled": 25.1,
+              "actual": 26.39,
+              "error": -1.29
+            },
+            {
+              "key": "ИТН",
+              "polled": 5.9,
+              "actual": 6.78,
+              "error": -0.88
+            },
+            {
+              "key": "ДПС-НН",
+              "polled": 10.9,
+              "actual": 11.51,
+              "error": -0.61
+            },
+            {
+              "key": "МЕЧ",
+              "polled": 4,
+              "actual": 4.6,
+              "error": -0.6
+            },
+            {
+              "key": "Възраждане",
+              "polled": 13.9,
+              "actual": 13.36,
+              "error": 0.54
+            },
+            {
+              "key": "БСП",
+              "polled": 8.1,
+              "actual": 7.57,
+              "error": 0.53
+            }
+          ],
+          "mae": 0.92,
+          "rmse": 1.05,
+          "biggestMiss": {
+            "key": "ПП-ДБ",
+            "error": 1.99
+          }
+        },
+        {
+          "agencyId": "ML",
+          "pollId": "ml-2024-10-24",
+          "fieldworkEnd": "2024-10-24",
+          "daysBefore": 3,
+          "respondents": 1006,
+          "errors": [
+            {
+              "key": "ПП-ДБ",
+              "polled": 17.2,
+              "actual": 14.21,
+              "error": 2.99
+            },
+            {
+              "key": "ГЕРБ-СДС",
+              "polled": 24.8,
+              "actual": 26.39,
+              "error": -1.59
+            },
+            {
+              "key": "ИТН",
+              "polled": 6,
+              "actual": 6.78,
+              "error": -0.78
+            },
+            {
+              "key": "БСП",
+              "polled": 8,
+              "actual": 7.57,
+              "error": 0.43
+            },
+            {
+              "key": "МЕЧ",
+              "polled": 4.3,
+              "actual": 4.6,
+              "error": -0.3
+            },
+            {
+              "key": "ДПС-НН",
+              "polled": 11.8,
+              "actual": 11.51,
+              "error": 0.29
+            },
+            {
+              "key": "Възраждане",
+              "polled": 13.5,
+              "actual": 13.36,
+              "error": 0.14
+            }
+          ],
+          "mae": 0.93,
+          "rmse": 1.33,
+          "biggestMiss": {
+            "key": "ПП-ДБ",
+            "error": 2.99
+          }
+        },
+        {
+          "agencyId": "TR",
+          "pollId": "tr-2024-10-24",
+          "fieldworkEnd": "2024-10-24",
+          "daysBefore": 3,
+          "respondents": 1003,
+          "errors": [
+            {
+              "key": "ПП-ДБ",
+              "polled": 17.1,
+              "actual": 14.21,
+              "error": 2.89
+            },
+            {
+              "key": "ИТН",
+              "polled": 5.5,
+              "actual": 6.78,
+              "error": -1.28
+            },
+            {
+              "key": "ГЕРБ-СДС",
+              "polled": 25.4,
+              "actual": 26.39,
+              "error": -0.99
+            },
+            {
+              "key": "Възраждане",
+              "polled": 14.2,
+              "actual": 13.36,
+              "error": 0.84
+            },
+            {
+              "key": "БСП",
+              "polled": 8.2,
+              "actual": 7.57,
+              "error": 0.63
+            },
+            {
+              "key": "МЕЧ",
+              "polled": 4.1,
+              "actual": 4.6,
+              "error": -0.5
+            },
+            {
+              "key": "ДПС-НН",
+              "polled": 11.1,
+              "actual": 11.51,
+              "error": -0.41
+            }
+          ],
+          "mae": 1.08,
+          "rmse": 1.34,
+          "biggestMiss": {
+            "key": "ПП-ДБ",
+            "error": 2.89
+          }
+        },
+        {
+          "agencyId": "SH",
+          "pollId": "sh-2024-10-24",
+          "fieldworkEnd": "2024-10-24",
+          "daysBefore": 3,
+          "respondents": 1000,
+          "errors": [
+            {
+              "key": "ПП-ДБ",
+              "polled": 16.9,
+              "actual": 14.21,
+              "error": 2.69
+            },
+            {
+              "key": "ИТН",
+              "polled": 5.2,
+              "actual": 6.78,
+              "error": -1.58
+            },
+            {
+              "key": "ДПС-НН",
+              "polled": 10.1,
+              "actual": 11.51,
+              "error": -1.41
+            },
+            {
+              "key": "БСП",
+              "polled": 8.9,
+              "actual": 7.57,
+              "error": 1.33
+            },
+            {
+              "key": "Възраждане",
+              "polled": 14.5,
+              "actual": 13.36,
+              "error": 1.14
+            },
+            {
+              "key": "МЕЧ",
+              "polled": 4.1,
+              "actual": 4.6,
+              "error": -0.5
+            },
+            {
+              "key": "ГЕРБ-СДС",
+              "polled": 26.1,
+              "actual": 26.39,
+              "error": -0.29
+            }
+          ],
+          "mae": 1.28,
+          "rmse": 1.47,
+          "biggestMiss": {
+            "key": "ПП-ДБ",
+            "error": 2.69
+          }
+        },
+        {
+          "agencyId": "MD",
+          "pollId": "md-2024-10-24",
+          "fieldworkEnd": "2024-10-24",
+          "daysBefore": 3,
+          "respondents": 988,
+          "errors": [
+            {
+              "key": "ПП-ДБ",
+              "polled": 17.5,
+              "actual": 14.21,
+              "error": 3.29
+            },
+            {
+              "key": "ИТН",
+              "polled": 5.2,
+              "actual": 6.78,
+              "error": -1.58
+            },
+            {
+              "key": "ГЕРБ-СДС",
+              "polled": 24.9,
+              "actual": 26.39,
+              "error": -1.49
+            },
+            {
+              "key": "Възраждане",
+              "polled": 14.8,
+              "actual": 13.36,
+              "error": 1.44
+            },
+            {
+              "key": "БСП",
+              "polled": 8.9,
+              "actual": 7.57,
+              "error": 1.33
+            },
+            {
+              "key": "МЕЧ",
+              "polled": 4.2,
+              "actual": 4.6,
+              "error": -0.4
+            },
+            {
+              "key": "ДПС-НН",
+              "polled": 11.5,
+              "actual": 11.51,
+              "error": -0.01
+            }
+          ],
+          "mae": 1.36,
+          "rmse": 1.67,
+          "biggestMiss": {
+            "key": "ПП-ДБ",
+            "error": 3.29
+          }
+        }
+      ]
+    },
+    {
+      "electionDate": "2024-06-09",
+      "actualResults": [
+        {
+          "key": "ГЕРБ-СДС",
+          "pct": 24.71,
+          "passedThreshold": true
+        },
+        {
+          "key": "ДПС",
+          "pct": 17.06,
+          "passedThreshold": true
+        },
+        {
+          "key": "ПП-ДБ",
+          "pct": 14.33,
+          "passedThreshold": true
+        },
+        {
+          "key": "Възраждане",
+          "pct": 13.78,
+          "passedThreshold": true
+        },
+        {
+          "key": "БСП",
+          "pct": 7.06,
+          "passedThreshold": true
+        },
+        {
+          "key": "ИТН",
+          "pct": 5.96,
+          "passedThreshold": true
+        },
+        {
+          "key": "Величие",
+          "pct": 4.65,
+          "passedThreshold": true
+        },
+        {
+          "key": "МЕЧ",
+          "pct": 2.98,
+          "passedThreshold": false
+        },
+        {
+          "key": "СБ",
+          "pct": 1.57,
+          "passedThreshold": false
+        },
+        {
+          "key": "СБГ",
+          "pct": 1.47,
+          "passedThreshold": false
+        },
+        {
+          "key": "Център",
+          "pct": 1.19,
+          "passedThreshold": false
+        }
+      ],
+      "agencies": [
+        {
+          "agencyId": "GIB",
+          "pollId": "gib-2024-06-05",
+          "fieldworkEnd": "2024-06-05",
+          "daysBefore": 4,
+          "respondents": 1009,
+          "errors": [
+            {
+              "key": "ДПС",
+              "polled": 15.3,
+              "actual": 17.06,
+              "error": -1.76
+            },
+            {
+              "key": "Възраждане",
+              "polled": 15.5,
+              "actual": 13.78,
+              "error": 1.72
+            },
+            {
+              "key": "ПП-ДБ",
+              "polled": 15.7,
+              "actual": 14.33,
+              "error": 1.37
+            },
+            {
+              "key": "ГЕРБ-СДС",
+              "polled": 25.9,
+              "actual": 24.71,
+              "error": 1.19
+            },
+            {
+              "key": "Величие",
+              "polled": 3.5,
+              "actual": 4.65,
+              "error": -1.15
+            },
+            {
+              "key": "БСП",
+              "polled": 8,
+              "actual": 7.06,
+              "error": 0.94
+            },
+            {
+              "key": "ИТН",
+              "polled": 6.3,
+              "actual": 5.96,
+              "error": 0.34
+            }
+          ],
+          "mae": 1.21,
+          "rmse": 1.29,
+          "biggestMiss": {
+            "key": "ДПС",
+            "error": -1.76
+          }
+        },
+        {
+          "agencyId": "TR",
+          "pollId": "tr-2024-05-18",
+          "fieldworkEnd": "2024-05-18",
+          "daysBefore": 22,
+          "respondents": 1003,
+          "errors": [
+            {
+              "key": "ДПС",
+              "polled": 14.9,
+              "actual": 17.06,
+              "error": -2.16
+            },
+            {
+              "key": "ПП-ДБ",
+              "polled": 16.4,
+              "actual": 14.33,
+              "error": 2.07
+            },
+            {
+              "key": "ГЕРБ-СДС",
+              "polled": 26.4,
+              "actual": 24.71,
+              "error": 1.69
+            },
+            {
+              "key": "БСП",
+              "polled": 8.5,
+              "actual": 7.06,
+              "error": 1.44
+            },
+            {
+              "key": "Възраждане",
+              "polled": 14.8,
+              "actual": 13.78,
+              "error": 1.02
+            },
+            {
+              "key": "ИТН",
+              "polled": 5.5,
+              "actual": 5.96,
+              "error": -0.46
+            }
+          ],
+          "mae": 1.47,
+          "rmse": 1.59,
+          "biggestMiss": {
+            "key": "ДПС",
+            "error": -2.16
+          }
+        },
+        {
+          "agencyId": "ML",
+          "pollId": "ml-2024-06-02",
+          "fieldworkEnd": "2024-06-02",
+          "daysBefore": 7,
+          "respondents": 1004,
+          "errors": [
+            {
+              "key": "ДПС",
+              "polled": 11.1,
+              "actual": 17.06,
+              "error": -5.96
+            },
+            {
+              "key": "Величие",
+              "polled": 3.2,
+              "actual": 4.65,
+              "error": -1.45
+            },
+            {
+              "key": "БСП",
+              "polled": 6,
+              "actual": 7.06,
+              "error": -1.06
+            },
+            {
+              "key": "Възраждане",
+              "polled": 14.8,
+              "actual": 13.78,
+              "error": 1.02
+            },
+            {
+              "key": "ПП-ДБ",
+              "polled": 15.1,
+              "actual": 14.33,
+              "error": 0.77
+            },
+            {
+              "key": "ГЕРБ-СДС",
+              "polled": 25.1,
+              "actual": 24.71,
+              "error": 0.39
+            },
+            {
+              "key": "ИТН",
+              "polled": 6.2,
+              "actual": 5.96,
+              "error": 0.24
+            }
+          ],
+          "mae": 1.56,
+          "rmse": 2.41,
+          "biggestMiss": {
+            "key": "ДПС",
+            "error": -5.96
+          }
+        },
+        {
+          "agencyId": "SH",
+          "pollId": "sh-2024-06-01",
+          "fieldworkEnd": "2024-06-01",
+          "daysBefore": 8,
+          "respondents": 1000,
+          "errors": [
+            {
+              "key": "ДПС",
+              "polled": 14.1,
+              "actual": 17.06,
+              "error": -2.96
+            },
+            {
+              "key": "Възраждане",
+              "polled": 16.3,
+              "actual": 13.78,
+              "error": 2.52
+            },
+            {
+              "key": "ПП-ДБ",
+              "polled": 16.5,
+              "actual": 14.33,
+              "error": 2.17
+            },
+            {
+              "key": "Величие",
+              "polled": 3.1,
+              "actual": 4.65,
+              "error": -1.55
+            },
+            {
+              "key": "ГЕРБ-СДС",
+              "polled": 26.2,
+              "actual": 24.71,
+              "error": 1.49
+            },
+            {
+              "key": "БСП",
+              "polled": 8.2,
+              "actual": 7.06,
+              "error": 1.14
+            },
+            {
+              "key": "ИТН",
+              "polled": 5.5,
+              "actual": 5.96,
+              "error": -0.46
+            }
+          ],
+          "mae": 1.76,
+          "rmse": 1.93,
+          "biggestMiss": {
+            "key": "ДПС",
+            "error": -2.96
+          }
+        }
+      ]
+    },
+    {
+      "electionDate": "2023-04-02",
+      "actualResults": [
+        {
+          "key": "ГЕРБ-СДС",
+          "pct": 26.49,
+          "passedThreshold": true
+        },
+        {
+          "key": "ПП-ДБ",
+          "pct": 24.56,
+          "passedThreshold": true
+        },
+        {
+          "key": "Възраждане",
+          "pct": 14.16,
+          "passedThreshold": true
+        },
+        {
+          "key": "ДПС",
+          "pct": 13.75,
+          "passedThreshold": true
+        },
+        {
+          "key": "БСП",
+          "pct": 8.93,
+          "passedThreshold": true
+        },
+        {
+          "key": "ИТН",
+          "pct": 4.11,
+          "passedThreshold": true
+        },
+        {
+          "key": "БВ",
+          "pct": 3.06,
+          "passedThreshold": false
+        },
+        {
+          "key": "Левицата",
+          "pct": 2.23,
+          "passedThreshold": false
+        }
+      ],
+      "agencies": [
+        {
+          "agencyId": "AR",
+          "pollId": "ar-2023-03-25",
+          "fieldworkEnd": "2023-03-25",
+          "daysBefore": 8,
+          "respondents": 1013,
+          "errors": [
+            {
+              "key": "Възраждане",
+              "polled": 13,
+              "actual": 14.16,
+              "error": -1.16
+            },
+            {
+              "key": "БВ",
+              "polled": 4,
+              "actual": 3.06,
+              "error": 0.94
+            },
+            {
+              "key": "БСП",
+              "polled": 8.1,
+              "actual": 8.93,
+              "error": -0.83
+            },
+            {
+              "key": "ГЕРБ-СДС",
+              "polled": 25.9,
+              "actual": 26.49,
+              "error": -0.59
+            },
+            {
+              "key": "ДПС",
+              "polled": 13.2,
+              "actual": 13.75,
+              "error": -0.55
+            },
+            {
+              "key": "ПП-ДБ",
+              "polled": 24.8,
+              "actual": 24.56,
+              "error": 0.24
+            },
+            {
+              "key": "ИТН",
+              "polled": 4.2,
+              "actual": 4.11,
+              "error": 0.09
+            }
+          ],
+          "mae": 0.63,
+          "rmse": 0.72,
+          "biggestMiss": {
+            "key": "Възраждане",
+            "error": -1.16
+          }
+        },
+        {
+          "agencyId": "SH",
+          "pollId": "sh-2023-02-27",
+          "fieldworkEnd": "2023-02-27",
+          "daysBefore": 34,
+          "respondents": 1000,
+          "errors": [
+            {
+              "key": "Възраждане",
+              "polled": 11.9,
+              "actual": 14.16,
+              "error": -2.26
+            },
+            {
+              "key": "ИТН",
+              "polled": 2.9,
+              "actual": 4.11,
+              "error": -1.21
+            },
+            {
+              "key": "ПП-ДБ",
+              "polled": 25.7,
+              "actual": 24.56,
+              "error": 1.14
+            },
+            {
+              "key": "БСП",
+              "polled": 7.8,
+              "actual": 8.93,
+              "error": -1.13
+            },
+            {
+              "key": "ГЕРБ-СДС",
+              "polled": 27.4,
+              "actual": 26.49,
+              "error": 0.91
+            },
+            {
+              "key": "ДПС",
+              "polled": 13.2,
+              "actual": 13.75,
+              "error": -0.55
+            },
+            {
+              "key": "БВ",
+              "polled": 3.4,
+              "actual": 3.06,
+              "error": 0.34
+            }
+          ],
+          "mae": 1.08,
+          "rmse": 1.22,
+          "biggestMiss": {
+            "key": "Възраждане",
+            "error": -2.26
+          }
+        }
+      ]
+    },
+    {
+      "electionDate": "2022-10-02",
+      "actualResults": [
+        {
+          "key": "ГЕРБ-СДС",
+          "pct": 25.33,
+          "passedThreshold": true
+        },
+        {
+          "key": "ПП",
+          "pct": 20.2,
+          "passedThreshold": true
+        },
+        {
+          "key": "ДПС",
+          "pct": 13.75,
+          "passedThreshold": true
+        },
+        {
+          "key": "Възраждане",
+          "pct": 10.18,
+          "passedThreshold": true
+        },
+        {
+          "key": "БСП",
+          "pct": 9.3,
+          "passedThreshold": true
+        },
+        {
+          "key": "ДБ",
+          "pct": 7.45,
+          "passedThreshold": true
+        },
+        {
+          "key": "БВ",
+          "pct": 4.63,
+          "passedThreshold": true
+        },
+        {
+          "key": "ИТН",
+          "pct": 3.83,
+          "passedThreshold": false
+        },
+        {
+          "key": "ПП ИСБ",
+          "pct": 1.01,
+          "passedThreshold": false
+        }
+      ],
+      "agencies": [
+        {
+          "agencyId": "GIB",
+          "pollId": "gib-2022-09-30",
+          "fieldworkEnd": "2022-09-30",
+          "daysBefore": 2,
+          "respondents": 1009,
+          "errors": [
+            {
+              "key": "Възраждане",
+              "polled": 12.1,
+              "actual": 10.18,
+              "error": 1.92
+            },
+            {
+              "key": "БСП",
+              "polled": 9.8,
+              "actual": 9.3,
+              "error": 0.5
+            },
+            {
+              "key": "ГЕРБ-СДС",
+              "polled": 25.8,
+              "actual": 25.33,
+              "error": 0.47
+            },
+            {
+              "key": "БВ",
+              "polled": 4.5,
+              "actual": 4.63,
+              "error": -0.13
+            },
+            {
+              "key": "ДПС",
+              "polled": 13.7,
+              "actual": 13.75,
+              "error": -0.05
+            },
+            {
+              "key": "ДБ",
+              "polled": 7.5,
+              "actual": 7.45,
+              "error": 0.05
+            },
+            {
+              "key": "ПП",
+              "polled": 20.2,
+              "actual": 20.2,
+              "error": 0
+            }
+          ],
+          "mae": 0.45,
+          "rmse": 0.77,
+          "biggestMiss": {
+            "key": "Възраждане",
+            "error": 1.92
+          }
+        },
+        {
+          "agencyId": "AR",
+          "pollId": "ar-2022-09-28",
+          "fieldworkEnd": "2022-09-28",
+          "daysBefore": 4,
+          "respondents": 1017,
+          "errors": [
+            {
+              "key": "Възраждане",
+              "polled": 12.2,
+              "actual": 10.18,
+              "error": 2.02
+            },
+            {
+              "key": "ГЕРБ-СДС",
+              "polled": 26.4,
+              "actual": 25.33,
+              "error": 1.07
+            },
+            {
+              "key": "БСП",
+              "polled": 10.1,
+              "actual": 9.3,
+              "error": 0.8
+            },
+            {
+              "key": "БВ",
+              "polled": 4.1,
+              "actual": 4.63,
+              "error": -0.53
+            },
+            {
+              "key": "ДБ",
+              "polled": 7.9,
+              "actual": 7.45,
+              "error": 0.45
+            },
+            {
+              "key": "ПП",
+              "polled": 19.9,
+              "actual": 20.2,
+              "error": -0.3
+            },
+            {
+              "key": "ДПС",
+              "polled": 13.5,
+              "actual": 13.75,
+              "error": -0.25
+            }
+          ],
+          "mae": 0.77,
+          "rmse": 0.96,
+          "biggestMiss": {
+            "key": "Възраждане",
+            "error": 2.02
+          }
+        }
+      ]
+    },
+    {
+      "electionDate": "2021-11-14",
+      "actualResults": [
+        {
+          "key": "ПП",
+          "pct": 25.67,
+          "passedThreshold": true
+        },
+        {
+          "key": "ГЕРБ-СДС",
+          "pct": 22.74,
+          "passedThreshold": true
+        },
+        {
+          "key": "ДПС",
+          "pct": 13,
+          "passedThreshold": true
+        },
+        {
+          "key": "БСП",
+          "pct": 10.21,
+          "passedThreshold": true
+        },
+        {
+          "key": "ИТН",
+          "pct": 9.52,
+          "passedThreshold": true
+        },
+        {
+          "key": "ДБ",
+          "pct": 6.37,
+          "passedThreshold": true
+        },
+        {
+          "key": "Възраждане",
+          "pct": 4.86,
+          "passedThreshold": true
+        },
+        {
+          "key": "ПП ИСБ",
+          "pct": 2.29,
+          "passedThreshold": false
+        },
+        {
+          "key": "ВМРО",
+          "pct": 1.08,
+          "passedThreshold": false
+        }
+      ],
+      "agencies": [
+        {
+          "agencyId": "GIB",
+          "pollId": "gib-2021-11-11",
+          "fieldworkEnd": "2021-11-11",
+          "daysBefore": 3,
+          "respondents": 1006,
+          "errors": [
+            {
+              "key": "БСП",
+              "polled": 12.3,
+              "actual": 10.21,
+              "error": 2.09
+            },
+            {
+              "key": "ПП",
+              "polled": 24.2,
+              "actual": 25.67,
+              "error": -1.47
+            },
+            {
+              "key": "ИТН",
+              "polled": 8.1,
+              "actual": 9.52,
+              "error": -1.42
+            },
+            {
+              "key": "ДБ",
+              "polled": 7.5,
+              "actual": 6.37,
+              "error": 1.13
+            },
+            {
+              "key": "Възраждане",
+              "polled": 4.2,
+              "actual": 4.86,
+              "error": -0.66
+            },
+            {
+              "key": "ГЕРБ-СДС",
+              "polled": 23.1,
+              "actual": 22.74,
+              "error": 0.36
+            },
+            {
+              "key": "ДПС",
+              "polled": 12.9,
+              "actual": 13,
+              "error": -0.1
+            }
+          ],
+          "mae": 1.03,
+          "rmse": 1.22,
+          "biggestMiss": {
+            "key": "БСП",
+            "error": 2.09
+          }
+        },
+        {
+          "agencyId": "MD",
+          "pollId": "md-2021-11-12",
+          "fieldworkEnd": "2021-11-12",
+          "daysBefore": 2,
+          "respondents": 982,
+          "errors": [
+            {
+              "key": "БСП",
+              "polled": 13.1,
+              "actual": 10.21,
+              "error": 2.89
+            },
+            {
+              "key": "ПП",
+              "polled": 23.5,
+              "actual": 25.67,
+              "error": -2.17
+            },
+            {
+              "key": "ДБ",
+              "polled": 7.9,
+              "actual": 6.37,
+              "error": 1.53
+            },
+            {
+              "key": "ГЕРБ-СДС",
+              "polled": 24.1,
+              "actual": 22.74,
+              "error": 1.36
+            },
+            {
+              "key": "ДПС",
+              "polled": 11.9,
+              "actual": 13,
+              "error": -1.1
+            },
+            {
+              "key": "ИТН",
+              "polled": 8.5,
+              "actual": 9.52,
+              "error": -1.02
+            },
+            {
+              "key": "Възраждане",
+              "polled": 4.5,
+              "actual": 4.86,
+              "error": -0.36
+            }
+          ],
+          "mae": 1.49,
+          "rmse": 1.67,
+          "biggestMiss": {
+            "key": "БСП",
+            "error": 2.89
+          }
+        },
+        {
+          "agencyId": "ML",
+          "pollId": "ml-2021-09-20",
+          "fieldworkEnd": "2021-09-20",
+          "daysBefore": 55,
+          "respondents": 1076,
+          "errors": [
+            {
+              "key": "ПП",
+              "polled": 11,
+              "actual": 25.67,
+              "error": -14.67
+            },
+            {
+              "key": "ДБ",
+              "polled": 11.9,
+              "actual": 6.37,
+              "error": 5.53
+            },
+            {
+              "key": "БСП",
+              "polled": 14.5,
+              "actual": 10.21,
+              "error": 4.29
+            },
+            {
+              "key": "ИТН",
+              "polled": 13.5,
+              "actual": 9.52,
+              "error": 3.98
+            },
+            {
+              "key": "ДПС",
+              "polled": 9.8,
+              "actual": 13,
+              "error": -3.2
+            },
+            {
+              "key": "ГЕРБ-СДС",
+              "polled": 22.5,
+              "actual": 22.74,
+              "error": -0.24
+            }
+          ],
+          "mae": 5.32,
+          "rmse": 6.96,
+          "biggestMiss": {
+            "key": "ПП",
+            "error": -14.67
+          }
+        }
+      ]
+    },
+    {
+      "electionDate": "2021-07-11",
+      "actualResults": [
+        {
+          "key": "ИТН",
+          "pct": 24.08,
+          "passedThreshold": true
+        },
+        {
+          "key": "ГЕРБ-СДС",
+          "pct": 23.51,
+          "passedThreshold": true
+        },
+        {
+          "key": "БСП",
+          "pct": 13.39,
+          "passedThreshold": true
+        },
+        {
+          "key": "ДБ",
+          "pct": 12.64,
+          "passedThreshold": true
+        },
+        {
+          "key": "ДПС",
+          "pct": 10.71,
+          "passedThreshold": true
+        },
+        {
+          "key": "ПП ИСМВ",
+          "pct": 5.01,
+          "passedThreshold": true
+        },
+        {
+          "key": "БГ Патриоти",
+          "pct": 3.14,
+          "passedThreshold": false
+        },
+        {
+          "key": "Възраждане",
+          "pct": 3.01,
+          "passedThreshold": false
+        },
+        {
+          "key": "БГ Лято",
+          "pct": 1.82,
+          "passedThreshold": false
+        }
+      ],
+      "agencies": [
+        {
+          "agencyId": "GIB",
+          "pollId": "gib-2021-07-07",
+          "fieldworkEnd": "2021-07-07",
+          "daysBefore": 4,
+          "respondents": 1009,
+          "errors": [
+            {
+              "key": "БСП",
+              "polled": 16.4,
+              "actual": 13.39,
+              "error": 3.01
+            },
+            {
+              "key": "ИТН",
+              "polled": 21.8,
+              "actual": 24.08,
+              "error": -2.28
+            },
+            {
+              "key": "ГЕРБ-СДС",
+              "polled": 21.7,
+              "actual": 23.51,
+              "error": -1.81
+            },
+            {
+              "key": "ДПС",
+              "polled": 11.5,
+              "actual": 10.71,
+              "error": 0.79
+            },
+            {
+              "key": "ДБ",
+              "polled": 13.2,
+              "actual": 12.64,
+              "error": 0.56
+            }
+          ],
+          "mae": 1.69,
+          "rmse": 1.92,
+          "biggestMiss": {
+            "key": "БСП",
+            "error": 3.01
+          }
+        },
+        {
+          "agencyId": "ML",
+          "pollId": "ml-2021-07-04",
+          "fieldworkEnd": "2021-07-04",
+          "daysBefore": 7,
+          "respondents": 1007,
+          "errors": [
+            {
+              "key": "БСП",
+              "polled": 16.9,
+              "actual": 13.39,
+              "error": 3.51
+            },
+            {
+              "key": "ИТН",
+              "polled": 20.7,
+              "actual": 24.08,
+              "error": -3.38
+            },
+            {
+              "key": "ГЕРБ-СДС",
+              "polled": 21.5,
+              "actual": 23.51,
+              "error": -2.01
+            },
+            {
+              "key": "ДПС",
+              "polled": 11.8,
+              "actual": 10.71,
+              "error": 1.09
+            },
+            {
+              "key": "ДБ",
+              "polled": 12.1,
+              "actual": 12.64,
+              "error": -0.54
+            }
+          ],
+          "mae": 2.11,
+          "rmse": 2.42,
+          "biggestMiss": {
+            "key": "БСП",
+            "error": 3.51
+          }
+        },
+        {
+          "agencyId": "TR",
+          "pollId": "tr-2021-05-09",
+          "fieldworkEnd": "2021-05-09",
+          "daysBefore": 63,
+          "respondents": 1007,
+          "errors": [
+            {
+              "key": "ГЕРБ-СДС",
+              "polled": 19.3,
+              "actual": 23.51,
+              "error": -4.21
+            },
+            {
+              "key": "ИТН",
+              "polled": 20.2,
+              "actual": 24.08,
+              "error": -3.88
+            },
+            {
+              "key": "БСП",
+              "polled": 17.1,
+              "actual": 13.39,
+              "error": 3.71
+            },
+            {
+              "key": "ДБ",
+              "polled": 11.5,
+              "actual": 12.64,
+              "error": -1.14
+            },
+            {
+              "key": "ДПС",
+              "polled": 11.2,
+              "actual": 10.71,
+              "error": 0.49
+            }
+          ],
+          "mae": 2.69,
+          "rmse": 3.1,
+          "biggestMiss": {
+            "key": "ГЕРБ-СДС",
+            "error": -4.21
+          }
+        },
+        {
+          "agencyId": "MD",
+          "pollId": "md-2021-04-20",
+          "fieldworkEnd": "2021-04-20",
+          "daysBefore": 82,
+          "respondents": 992,
+          "errors": [
+            {
+              "key": "ГЕРБ-СДС",
+              "polled": 19.5,
+              "actual": 23.51,
+              "error": -4.01
+            },
+            {
+              "key": "ИТН",
+              "polled": 20.2,
+              "actual": 24.08,
+              "error": -3.88
+            },
+            {
+              "key": "БСП",
+              "polled": 17.1,
+              "actual": 13.39,
+              "error": 3.71
+            },
+            {
+              "key": "ДБ",
+              "polled": 10.2,
+              "actual": 12.64,
+              "error": -2.44
+            },
+            {
+              "key": "ДПС",
+              "polled": 9.5,
+              "actual": 10.71,
+              "error": -1.21
+            }
+          ],
+          "mae": 3.05,
+          "rmse": 3.23,
+          "biggestMiss": {
+            "key": "ГЕРБ-СДС",
+            "error": -4.01
+          }
+        },
+        {
+          "agencyId": "AF",
+          "pollId": "af-2021-05-20",
+          "fieldworkEnd": "2021-05-20",
+          "daysBefore": 52,
+          "respondents": 1000,
+          "errors": [
+            {
+              "key": "БСП",
+              "polled": 20.1,
+              "actual": 13.39,
+              "error": 6.71
+            },
+            {
+              "key": "ИТН",
+              "polled": 19.3,
+              "actual": 24.08,
+              "error": -4.78
+            },
+            {
+              "key": "ГЕРБ-СДС",
+              "polled": 19.9,
+              "actual": 23.51,
+              "error": -3.61
+            },
+            {
+              "key": "ДПС",
+              "polled": 11.3,
+              "actual": 10.71,
+              "error": 0.59
+            },
+            {
+              "key": "ДБ",
+              "polled": 12.2,
+              "actual": 12.64,
+              "error": -0.44
+            }
+          ],
+          "mae": 3.23,
+          "rmse": 4.04,
+          "biggestMiss": {
+            "key": "БСП",
+            "error": 6.71
+          }
+        }
+      ]
+    },
+    {
+      "electionDate": "2021-04-04",
+      "actualResults": [
+        {
+          "key": "ГЕРБ-СДС",
+          "pct": 26.18,
+          "passedThreshold": true
+        },
+        {
+          "key": "ИТН",
+          "pct": 17.66,
+          "passedThreshold": true
+        },
+        {
+          "key": "БСП",
+          "pct": 15.01,
+          "passedThreshold": true
+        },
+        {
+          "key": "ДПС",
+          "pct": 10.51,
+          "passedThreshold": true
+        },
+        {
+          "key": "ДБ",
+          "pct": 9.45,
+          "passedThreshold": true
+        },
+        {
+          "key": "ПП ИСМВ",
+          "pct": 4.72,
+          "passedThreshold": true
+        },
+        {
+          "key": "ВМРО",
+          "pct": 3.64,
+          "passedThreshold": false
+        },
+        {
+          "key": "БНО",
+          "pct": 2.95,
+          "passedThreshold": false
+        },
+        {
+          "key": "Възраждане",
+          "pct": 2.45,
+          "passedThreshold": false
+        },
+        {
+          "key": "ВОЛЯ/НФСБ",
+          "pct": 2.37,
+          "passedThreshold": false
+        },
+        {
+          "key": "РБГ",
+          "pct": 1.31,
+          "passedThreshold": false
+        }
+      ],
+      "agencies": [
+        {
+          "agencyId": "SH",
+          "pollId": "sh-2021-03-22",
+          "fieldworkEnd": "2021-03-22",
+          "daysBefore": 13,
+          "respondents": 1000,
+          "errors": [
+            {
+              "key": "БСП",
+              "polled": 20.1,
+              "actual": 15.01,
+              "error": 5.09
+            },
+            {
+              "key": "ИТН",
+              "polled": 13.2,
+              "actual": 17.66,
+              "error": -4.46
+            },
+            {
+              "key": "ДПС",
+              "polled": 12.5,
+              "actual": 10.51,
+              "error": 1.99
+            },
+            {
+              "key": "ГЕРБ-СДС",
+              "polled": 24.8,
+              "actual": 26.18,
+              "error": -1.38
+            },
+            {
+              "key": "ДБ",
+              "polled": 10.5,
+              "actual": 9.45,
+              "error": 1.05
+            }
+          ],
+          "mae": 2.79,
+          "rmse": 3.25,
+          "biggestMiss": {
+            "key": "БСП",
+            "error": 5.09
+          }
+        },
+        {
+          "agencyId": "AF",
+          "pollId": "af-2020-10-18",
+          "fieldworkEnd": "2020-10-18",
+          "daysBefore": 168,
+          "respondents": 812,
+          "errors": [
+            {
+              "key": "БСП",
+              "polled": 22.9,
+              "actual": 15.01,
+              "error": 7.89
+            },
+            {
+              "key": "ИТН",
+              "polled": 15.2,
+              "actual": 17.66,
+              "error": -2.46
+            },
+            {
+              "key": "ДБ",
+              "polled": 8.7,
+              "actual": 9.45,
+              "error": -0.75
+            },
+            {
+              "key": "ДПС",
+              "polled": 9.9,
+              "actual": 10.51,
+              "error": -0.61
+            }
+          ],
+          "mae": 2.93,
+          "rmse": 4.16,
+          "biggestMiss": {
+            "key": "БСП",
+            "error": 7.89
+          }
+        },
+        {
+          "agencyId": "ML",
+          "pollId": "ml-2021-03-23",
+          "fieldworkEnd": "2021-03-23",
+          "daysBefore": 12,
+          "respondents": 1012,
+          "errors": [
+            {
+              "key": "ИТН",
+              "polled": 12.2,
+              "actual": 17.66,
+              "error": -5.46
+            },
+            {
+              "key": "БСП",
+              "polled": 20.2,
+              "actual": 15.01,
+              "error": 5.19
+            },
+            {
+              "key": "ГЕРБ-СДС",
+              "polled": 28.1,
+              "actual": 26.18,
+              "error": 1.92
+            },
+            {
+              "key": "ДПС",
+              "polled": 11.9,
+              "actual": 10.51,
+              "error": 1.39
+            },
+            {
+              "key": "ДБ",
+              "polled": 10.5,
+              "actual": 9.45,
+              "error": 1.05
+            }
+          ],
+          "mae": 3,
+          "rmse": 3.56,
+          "biggestMiss": {
+            "key": "ИТН",
+            "error": -5.46
+          }
+        },
+        {
+          "agencyId": "AR",
+          "pollId": "ar-2021-04-01",
+          "fieldworkEnd": "2021-04-01",
+          "daysBefore": 3,
+          "respondents": 1013,
+          "errors": [
+            {
+              "key": "БСП",
+              "polled": 20.5,
+              "actual": 15.01,
+              "error": 5.49
+            },
+            {
+              "key": "ИТН",
+              "polled": 12.7,
+              "actual": 17.66,
+              "error": -4.96
+            },
+            {
+              "key": "ГЕРБ-СДС",
+              "polled": 28.6,
+              "actual": 26.18,
+              "error": 2.42
+            },
+            {
+              "key": "ДПС",
+              "polled": 12.5,
+              "actual": 10.51,
+              "error": 1.99
+            },
+            {
+              "key": "ДБ",
+              "polled": 9.9,
+              "actual": 9.45,
+              "error": 0.45
+            }
+          ],
+          "mae": 3.06,
+          "rmse": 3.6,
+          "biggestMiss": {
+            "key": "БСП",
+            "error": 5.49
+          }
+        }
+      ]
+    },
+    {
+      "electionDate": "2017-03-26",
+      "actualResults": [
+        {
+          "key": "ГЕРБ",
+          "pct": 33.49,
+          "passedThreshold": true
+        },
+        {
+          "key": "БСП",
+          "pct": 27.89,
+          "passedThreshold": true
+        },
+        {
+          "key": "ОП",
+          "pct": 9.3,
+          "passedThreshold": true
+        },
+        {
+          "key": "ДПС",
+          "pct": 9.22,
+          "passedThreshold": true
+        },
+        {
+          "key": "ВОЛЯ",
+          "pct": 4.25,
+          "passedThreshold": true
+        },
+        {
+          "key": "РБ-ГН",
+          "pct": 3.14,
+          "passedThreshold": false
+        },
+        {
+          "key": "ДаБГ",
+          "pct": 2.95,
+          "passedThreshold": false
+        },
+        {
+          "key": "ДОСТ",
+          "pct": 2.93,
+          "passedThreshold": false
+        },
+        {
+          "key": "Нова Република",
+          "pct": 2.54,
+          "passedThreshold": false
+        },
+        {
+          "key": "АБВ/Д21",
+          "pct": 1.59,
+          "passedThreshold": false
+        },
+        {
+          "key": "Възраждане",
+          "pct": 1.11,
+          "passedThreshold": false
+        }
+      ],
+      "agencies": [
+        {
+          "agencyId": "TR",
+          "pollId": "tr-2017-03-16",
+          "fieldworkEnd": "2017-03-16",
+          "daysBefore": 10,
+          "respondents": 1004,
+          "errors": [
+            {
+              "key": "ГЕРБ",
+              "polled": 29.8,
+              "actual": 33.49,
+              "error": -3.69
+            },
+            {
+              "key": "ДПС",
+              "polled": 8.1,
+              "actual": 9.22,
+              "error": -1.12
+            },
+            {
+              "key": "ОП",
+              "polled": 9.8,
+              "actual": 9.3,
+              "error": 0.5
+            },
+            {
+              "key": "БСП",
+              "polled": 27.9,
+              "actual": 27.89,
+              "error": 0.01
+            }
+          ],
+          "mae": 1.33,
+          "rmse": 1.94,
+          "biggestMiss": {
+            "key": "ГЕРБ",
+            "error": -3.69
+          }
+        },
+        {
+          "agencyId": "AF",
+          "pollId": "af-2017-03-15",
+          "fieldworkEnd": "2017-03-15",
+          "daysBefore": 11,
+          "respondents": 1010,
+          "errors": [
+            {
+              "key": "БСП",
+              "polled": 31.5,
+              "actual": 27.89,
+              "error": 3.61
+            },
+            {
+              "key": "ГЕРБ",
+              "polled": 31.2,
+              "actual": 33.49,
+              "error": -2.29
+            },
+            {
+              "key": "ОП",
+              "polled": 10.1,
+              "actual": 9.3,
+              "error": 0.8
+            },
+            {
+              "key": "ДПС",
+              "polled": 8.9,
+              "actual": 9.22,
+              "error": -0.32
+            }
+          ],
+          "mae": 1.76,
+          "rmse": 2.18,
+          "biggestMiss": {
+            "key": "БСП",
+            "error": 3.61
+          }
+        }
+      ]
+    },
+    {
+      "electionDate": "2014-10-05",
+      "actualResults": [
+        {
+          "key": "ГЕРБ",
+          "pct": 32.67,
+          "passedThreshold": true
+        },
+        {
+          "key": "ДПС",
+          "pct": 14.41,
+          "passedThreshold": true
+        },
+        {
+          "key": "БСП",
+          "pct": 13.84,
+          "passedThreshold": true
+        },
+        {
+          "key": "РБ",
+          "pct": 8.89,
+          "passedThreshold": true
+        },
+        {
+          "key": "ПФ",
+          "pct": 6.82,
+          "passedThreshold": true
+        },
+        {
+          "key": "КП ББЦ",
+          "pct": 5.41,
+          "passedThreshold": true
+        },
+        {
+          "key": "Атака",
+          "pct": 4.24,
+          "passedThreshold": true
+        },
+        {
+          "key": "АБВ",
+          "pct": 3.92,
+          "passedThreshold": false
+        },
+        {
+          "key": "НС",
+          "pct": 1.75,
+          "passedThreshold": false
+        },
+        {
+          "key": "Д21",
+          "pct": 1.19,
+          "passedThreshold": false
+        },
+        {
+          "key": "Зелените",
+          "pct": 1.1,
+          "passedThreshold": false
+        },
+        {
+          "key": "ГН",
+          "pct": 1.1,
+          "passedThreshold": false
+        }
+      ],
+      "agencies": [
+        {
+          "agencyId": "GIB",
+          "pollId": "gib-2014-10-01",
+          "fieldworkEnd": "2014-10-01",
+          "daysBefore": 4,
+          "respondents": 1009,
+          "errors": [
+            {
+              "key": "БСП",
+              "polled": 19.1,
+              "actual": 13.84,
+              "error": 5.26
+            },
+            {
+              "key": "РБ",
+              "polled": 6.9,
+              "actual": 8.89,
+              "error": -1.99
+            },
+            {
+              "key": "ГЕРБ",
+              "polled": 33.7,
+              "actual": 32.67,
+              "error": 1.03
+            },
+            {
+              "key": "ПФ",
+              "polled": 6,
+              "actual": 6.82,
+              "error": -0.82
+            },
+            {
+              "key": "ДПС",
+              "polled": 14.9,
+              "actual": 14.41,
+              "error": 0.49
+            },
+            {
+              "key": "Атака",
+              "polled": 4.5,
+              "actual": 4.24,
+              "error": 0.26
+            }
+          ],
+          "mae": 1.64,
+          "rmse": 2.37,
+          "biggestMiss": {
+            "key": "БСП",
+            "error": 5.26
+          }
+        }
+      ]
+    },
+    {
+      "electionDate": "2013-05-12",
+      "actualResults": [
+        {
+          "key": "ГЕРБ",
+          "pct": 30.53,
+          "passedThreshold": true
+        },
+        {
+          "key": "БСП",
+          "pct": 26.61,
+          "passedThreshold": true
+        },
+        {
+          "key": "ДПС",
+          "pct": 11.31,
+          "passedThreshold": true
+        },
+        {
+          "key": "Атака",
+          "pct": 7.3,
+          "passedThreshold": true
+        },
+        {
+          "key": "НФСБ",
+          "pct": 3.7,
+          "passedThreshold": false
+        },
+        {
+          "key": "ДБГ",
+          "pct": 3.25,
+          "passedThreshold": false
+        },
+        {
+          "key": "ДСБ",
+          "pct": 2.93,
+          "passedThreshold": false
+        },
+        {
+          "key": "ВМРО",
+          "pct": 1.89,
+          "passedThreshold": false
+        },
+        {
+          "key": "Лидер",
+          "pct": 1.74,
+          "passedThreshold": false
+        },
+        {
+          "key": "РЗС",
+          "pct": 1.67,
+          "passedThreshold": false
+        },
+        {
+          "key": "ЦСД",
+          "pct": 1.63,
+          "passedThreshold": false
+        },
+        {
+          "key": "СДС",
+          "pct": 1.37,
+          "passedThreshold": false
+        },
+        {
+          "key": "ГН",
+          "pct": 1.34,
+          "passedThreshold": false
+        }
+      ],
+      "agencies": [
+        {
+          "agencyId": "MD",
+          "pollId": "md-2013-05-10",
+          "fieldworkEnd": "2013-05-10",
+          "daysBefore": 2,
+          "respondents": null,
+          "errors": [
+            {
+              "key": "БСП",
+              "polled": 31.5,
+              "actual": 26.61,
+              "error": 4.89
+            },
+            {
+              "key": "Атака",
+              "polled": 9,
+              "actual": 7.3,
+              "error": 1.7
+            },
+            {
+              "key": "ГЕРБ",
+              "polled": 32,
+              "actual": 30.53,
+              "error": 1.47
+            },
+            {
+              "key": "ДПС",
+              "polled": 11,
+              "actual": 11.31,
+              "error": -0.31
+            }
+          ],
+          "mae": 2.09,
+          "rmse": 2.7,
+          "biggestMiss": {
+            "key": "БСП",
+            "error": 4.89
+          }
+        }
+      ]
+    },
+    {
+      "electionDate": "2009-07-05",
+      "actualResults": [
+        {
+          "key": "ГЕРБ",
+          "pct": 39.71,
+          "passedThreshold": true
+        },
+        {
+          "key": "БСП",
+          "pct": 17.7,
+          "passedThreshold": true
+        },
+        {
+          "key": "ДПС",
+          "pct": 14.43,
+          "passedThreshold": true
+        },
+        {
+          "key": "Атака",
+          "pct": 9.36,
+          "passedThreshold": true
+        },
+        {
+          "key": "СК",
+          "pct": 6.79,
+          "passedThreshold": true
+        },
+        {
+          "key": "РЗС",
+          "pct": 4.13,
+          "passedThreshold": true
+        },
+        {
+          "key": "Лидер",
+          "pct": 3.26,
+          "passedThreshold": false
+        },
+        {
+          "key": "НДСВ",
+          "pct": 3.02,
+          "passedThreshold": false
+        }
+      ],
+      "agencies": []
+    },
+    {
+      "electionDate": "2005-06-25",
+      "actualResults": [
+        {
+          "key": "БСП",
+          "pct": 31.06,
+          "passedThreshold": true
+        },
+        {
+          "key": "НДСВ",
+          "pct": 19.95,
+          "passedThreshold": true
+        },
+        {
+          "key": "ДПС",
+          "pct": 12.86,
+          "passedThreshold": true
+        },
+        {
+          "key": "Атака",
+          "pct": 8.17,
+          "passedThreshold": true
+        },
+        {
+          "key": "ОДС",
+          "pct": 7.71,
+          "passedThreshold": true
+        },
+        {
+          "key": "ДСБ",
+          "pct": 6.46,
+          "passedThreshold": true
+        },
+        {
+          "key": "БНС",
+          "pct": 5.21,
+          "passedThreshold": true
+        },
+        {
+          "key": "НВ",
+          "pct": 2.96,
+          "passedThreshold": false
+        },
+        {
+          "key": "КнР",
+          "pct": 1.3,
+          "passedThreshold": false
+        },
+        {
+          "key": "Евророма",
+          "pct": 1.26,
+          "passedThreshold": false
+        }
+      ],
+      "agencies": []
+    }
+  ],
+  "agencyProfiles": [
+    {
+      "agencyId": "GIB",
+      "name_bg": "Галъп Интернешънъл Болкан",
+      "name_en": "Gallup Intl. Balkan",
+      "totalPolls": 18,
+      "preElectionPolls": 7,
+      "electionsCovered": [
+        "2026-04-19",
+        "2024-10-27",
+        "2024-06-09",
+        "2022-10-02",
+        "2021-11-14",
+        "2021-07-11",
+        "2014-10-05"
+      ],
+      "overallMAE": 1.67,
+      "overallRMSE": 3.12,
+      "partyBias": [
+        {
+          "key": "ПрБ",
+          "meanError": -16.19,
+          "samples": 1
+        },
+        {
+          "key": "БСП",
+          "meanError": 2.05,
+          "samples": 6
+        },
+        {
+          "key": "РБ",
+          "meanError": -1.99,
+          "samples": 1
+        },
+        {
+          "key": "ГЕРБ-СДС",
+          "meanError": 1.49,
+          "samples": 6
+        },
+        {
+          "key": "Величие",
+          "meanError": -1.23,
+          "samples": 2
+        },
+        {
+          "key": "Възраждане",
+          "meanError": 1.15,
+          "samples": 5
+        },
+        {
+          "key": "ГЕРБ",
+          "meanError": 1.03,
+          "samples": 1
+        },
+        {
+          "key": "ПФ",
+          "meanError": -0.82,
+          "samples": 1
+        },
+        {
+          "key": "ПП",
+          "meanError": -0.73,
+          "samples": 2
+        },
+        {
+          "key": "АПС",
+          "meanError": -0.67,
+          "samples": 1
+        },
+        {
+          "key": "ДПС-НН",
+          "meanError": -0.61,
+          "samples": 1
+        },
+        {
+          "key": "ДБ",
+          "meanError": 0.58,
+          "samples": 3
+        }
+      ],
+      "blocLean": {
+        "right_govt": {
+          "meanError": 1.42,
+          "samples": 7
+        },
+        "reformist": {
+          "meanError": -1.63,
+          "samples": 10
+        },
+        "nationalist": {
+          "meanError": 0.16,
+          "samples": 11
+        },
+        "left": {
+          "meanError": 1.76,
+          "samples": 7
+        },
+        "minority": {
+          "meanError": 0.21,
+          "samples": 8
+        },
+        "populist": {
+          "meanError": -0.37,
+          "samples": 6
+        },
+        "other": {
+          "meanError": 0,
+          "samples": 0
+        }
+      },
+      "houseEffect": [
+        {
+          "key": "ДПС-НН",
+          "meanDiff": 2.88,
+          "samples": 8
+        },
+        {
+          "key": "ПП",
+          "meanDiff": 2.39,
+          "samples": 2
+        },
+        {
+          "key": "Прогресивна България",
+          "meanDiff": -1.92,
+          "samples": 2
+        },
+        {
+          "key": "ИТН",
+          "meanDiff": 0.89,
+          "samples": 16
+        },
+        {
+          "key": "БСП-ОЛ",
+          "meanDiff": 0.83,
+          "samples": 8
+        },
+        {
+          "key": "ГЕРБ-СДС",
+          "meanDiff": 0.74,
+          "samples": 16
+        },
+        {
+          "key": "ПП-ДБ",
+          "meanDiff": -0.69,
+          "samples": 11
+        },
+        {
+          "key": "Възраждане",
+          "meanDiff": 0.62,
+          "samples": 13
+        },
+        {
+          "key": "БСП за България",
+          "meanDiff": -0.47,
+          "samples": 9
+        },
+        {
+          "key": "ДПС",
+          "meanDiff": 0.41,
+          "samples": 9
+        },
+        {
+          "key": "Изправи се! Мутри вън!",
+          "meanDiff": 0.33,
+          "samples": 3
+        },
+        {
+          "key": "АПС",
+          "meanDiff": -0.29,
+          "samples": 8
+        }
+      ]
+    },
+    {
+      "agencyId": "MD",
+      "name_bg": "Медиана",
+      "name_en": "Mediana",
+      "totalPolls": 4,
+      "preElectionPolls": 4,
+      "electionsCovered": [
+        "2024-10-27",
+        "2021-11-14",
+        "2021-07-11",
+        "2013-05-12"
+      ],
+      "overallMAE": 1.9,
+      "overallRMSE": 2.29,
+      "partyBias": [
+        {
+          "key": "ПП-ДБ",
+          "meanError": 3.29,
+          "samples": 1
+        },
+        {
+          "key": "БСП",
+          "meanError": 3.21,
+          "samples": 4
+        },
+        {
+          "key": "ПП",
+          "meanError": -2.17,
+          "samples": 1
+        },
+        {
+          "key": "ИТН",
+          "meanError": -2.16,
+          "samples": 3
+        },
+        {
+          "key": "Атака",
+          "meanError": 1.7,
+          "samples": 1
+        },
+        {
+          "key": "ГЕРБ",
+          "meanError": 1.47,
+          "samples": 1
+        },
+        {
+          "key": "ГЕРБ-СДС",
+          "meanError": -1.38,
+          "samples": 3
+        },
+        {
+          "key": "ДПС",
+          "meanError": -0.87,
+          "samples": 3
+        },
+        {
+          "key": "Възраждане",
+          "meanError": 0.54,
+          "samples": 2
+        },
+        {
+          "key": "ДБ",
+          "meanError": -0.45,
+          "samples": 2
+        },
+        {
+          "key": "МЕЧ",
+          "meanError": -0.4,
+          "samples": 1
+        },
+        {
+          "key": "ДПС-НН",
+          "meanError": -0.01,
+          "samples": 1
+        }
+      ],
+      "blocLean": {
+        "right_govt": {
+          "meanError": -0.67,
+          "samples": 4
+        },
+        "reformist": {
+          "meanError": 0.05,
+          "samples": 4
+        },
+        "nationalist": {
+          "meanError": 0.6,
+          "samples": 4
+        },
+        "left": {
+          "meanError": 3.21,
+          "samples": 4
+        },
+        "minority": {
+          "meanError": -0.66,
+          "samples": 4
+        },
+        "populist": {
+          "meanError": -2.16,
+          "samples": 3
+        },
+        "other": {
+          "meanError": 0,
+          "samples": 0
+        }
+      },
+      "houseEffect": [
+        {
+          "key": "Демократична България",
+          "meanDiff": -1.54,
+          "samples": 2
+        },
+        {
+          "key": "ИТН",
+          "meanDiff": -0.9,
+          "samples": 3
+        },
+        {
+          "key": "Възраждане",
+          "meanDiff": 0.38,
+          "samples": 2
+        },
+        {
+          "key": "ДПС",
+          "meanDiff": -0.28,
+          "samples": 3
+        },
+        {
+          "key": "ГЕРБ-СДС",
+          "meanDiff": -0.27,
+          "samples": 3
+        },
+        {
+          "key": "БСП за България",
+          "meanDiff": 0.1,
+          "samples": 3
+        }
+      ]
+    },
+    {
+      "agencyId": "AR",
+      "name_bg": "Алфа Рисърч",
+      "name_en": "Alpha Research",
+      "totalPolls": 11,
+      "preElectionPolls": 4,
+      "electionsCovered": [
+        "2026-04-19",
+        "2023-04-02",
+        "2022-10-02",
+        "2021-04-04"
+      ],
+      "overallMAE": 1.93,
+      "overallRMSE": 3.44,
+      "partyBias": [
+        {
+          "key": "ПрБ",
+          "meanError": -13.79,
+          "samples": 1
+        },
+        {
+          "key": "ГЕРБ-СДС",
+          "meanError": 2.68,
+          "samples": 4
+        },
+        {
+          "key": "БСП",
+          "meanError": 1.82,
+          "samples": 3
+        },
+        {
+          "key": "ИТН",
+          "meanError": -1.4,
+          "samples": 3
+        },
+        {
+          "key": "Възраждане",
+          "meanError": 1.17,
+          "samples": 3
+        },
+        {
+          "key": "ДПС",
+          "meanError": 0.97,
+          "samples": 4
+        },
+        {
+          "key": "БСП-ОЛ",
+          "meanError": 0.88,
+          "samples": 1
+        },
+        {
+          "key": "ПП-ДБ",
+          "meanError": -0.64,
+          "samples": 2
+        },
+        {
+          "key": "ДБ",
+          "meanError": 0.45,
+          "samples": 2
+        },
+        {
+          "key": "Величие",
+          "meanError": -0.4,
+          "samples": 1
+        },
+        {
+          "key": "АПС",
+          "meanError": -0.37,
+          "samples": 1
+        },
+        {
+          "key": "ПП",
+          "meanError": -0.3,
+          "samples": 1
+        }
+      ],
+      "blocLean": {
+        "right_govt": {
+          "meanError": 2.68,
+          "samples": 4
+        },
+        "reformist": {
+          "meanError": -2.41,
+          "samples": 6
+        },
+        "nationalist": {
+          "meanError": 0.57,
+          "samples": 5
+        },
+        "left": {
+          "meanError": 1.59,
+          "samples": 4
+        },
+        "minority": {
+          "meanError": 0.7,
+          "samples": 5
+        },
+        "populist": {
+          "meanError": -0.76,
+          "samples": 5
+        },
+        "other": {
+          "meanError": 0,
+          "samples": 0
+        }
+      },
+      "houseEffect": [
+        {
+          "key": "Прогресивна България",
+          "meanDiff": -0.99,
+          "samples": 3
+        },
+        {
+          "key": "ДПС-НН",
+          "meanDiff": -0.72,
+          "samples": 6
+        },
+        {
+          "key": "АПС",
+          "meanDiff": -0.71,
+          "samples": 6
+        },
+        {
+          "key": "ИТН",
+          "meanDiff": -0.52,
+          "samples": 8
+        },
+        {
+          "key": "Величие",
+          "meanDiff": -0.49,
+          "samples": 5
+        },
+        {
+          "key": "Възраждане",
+          "meanDiff": -0.36,
+          "samples": 8
+        },
+        {
+          "key": "МЕЧ",
+          "meanDiff": -0.35,
+          "samples": 6
+        },
+        {
+          "key": "ДПС",
+          "meanDiff": 0.27,
+          "samples": 3
+        },
+        {
+          "key": "БСП за България",
+          "meanDiff": 0.21,
+          "samples": 3
+        },
+        {
+          "key": "Демократична България",
+          "meanDiff": -0.1,
+          "samples": 2
+        },
+        {
+          "key": "ПП-ДБ",
+          "meanDiff": 0.08,
+          "samples": 7
+        },
+        {
+          "key": "ГЕРБ-СДС",
+          "meanDiff": 0.07,
+          "samples": 9
+        }
+      ]
+    },
+    {
+      "agencyId": "SH",
+      "name_bg": "Сова Харис",
+      "name_en": "Sova Harris",
+      "totalPolls": 8,
+      "preElectionPolls": 5,
+      "electionsCovered": [
+        "2026-04-19",
+        "2024-10-27",
+        "2024-06-09",
+        "2023-04-02",
+        "2021-04-04"
+      ],
+      "overallMAE": 2,
+      "overallRMSE": 2.77,
+      "partyBias": [
+        {
+          "key": "ПрБ",
+          "meanError": -9.89,
+          "samples": 1
+        },
+        {
+          "key": "ИТН",
+          "meanError": -1.93,
+          "samples": 4
+        },
+        {
+          "key": "БСП",
+          "meanError": 1.61,
+          "samples": 4
+        },
+        {
+          "key": "БСП-ОЛ",
+          "meanError": 1.58,
+          "samples": 1
+        },
+        {
+          "key": "ДПС-НН",
+          "meanError": -1.41,
+          "samples": 1
+        },
+        {
+          "key": "ГЕРБ-СДС",
+          "meanError": 1.39,
+          "samples": 5
+        },
+        {
+          "key": "Възраждане",
+          "meanError": 1.29,
+          "samples": 4
+        },
+        {
+          "key": "Величие",
+          "meanError": -1.27,
+          "samples": 2
+        },
+        {
+          "key": "ПП-ДБ",
+          "meanError": 1.24,
+          "samples": 4
+        },
+        {
+          "key": "ДБ",
+          "meanError": 1.05,
+          "samples": 1
+        },
+        {
+          "key": "АПС",
+          "meanError": 0.83,
+          "samples": 1
+        },
+        {
+          "key": "ДПС",
+          "meanError": 0.34,
+          "samples": 4
+        }
+      ],
+      "blocLean": {
+        "right_govt": {
+          "meanError": 1.39,
+          "samples": 5
+        },
+        "reformist": {
+          "meanError": -0.64,
+          "samples": 6
+        },
+        "nationalist": {
+          "meanError": 0.26,
+          "samples": 8
+        },
+        "left": {
+          "meanError": 1.6,
+          "samples": 5
+        },
+        "minority": {
+          "meanError": 0.13,
+          "samples": 6
+        },
+        "populist": {
+          "meanError": -1.47,
+          "samples": 5
+        },
+        "other": {
+          "meanError": 0,
+          "samples": 0
+        }
+      },
+      "houseEffect": [
+        {
+          "key": "ДПС-НН",
+          "meanDiff": -3.07,
+          "samples": 3
+        },
+        {
+          "key": "Прогресивна България",
+          "meanDiff": 0.88,
+          "samples": 2
+        },
+        {
+          "key": "ГЕРБ-СДС",
+          "meanDiff": -0.68,
+          "samples": 8
+        },
+        {
+          "key": "ПП-ДБ",
+          "meanDiff": -0.55,
+          "samples": 6
+        },
+        {
+          "key": "Демократична България",
+          "meanDiff": 0.46,
+          "samples": 2
+        },
+        {
+          "key": "БСП-ОЛ",
+          "meanDiff": -0.39,
+          "samples": 3
+        },
+        {
+          "key": "ИТН",
+          "meanDiff": -0.36,
+          "samples": 7
+        },
+        {
+          "key": "БСП за България",
+          "meanDiff": -0.34,
+          "samples": 5
+        },
+        {
+          "key": "Възраждане",
+          "meanDiff": -0.3,
+          "samples": 6
+        },
+        {
+          "key": "МЕЧ",
+          "meanDiff": -0.29,
+          "samples": 4
+        },
+        {
+          "key": "АПС",
+          "meanDiff": -0.28,
+          "samples": 3
+        },
+        {
+          "key": "ДПС",
+          "meanDiff": 0.06,
+          "samples": 5
+        }
+      ]
+    },
+    {
+      "agencyId": "TR",
+      "name_bg": "Тренд",
+      "name_en": "Trend",
+      "totalPolls": 11,
+      "preElectionPolls": 5,
+      "electionsCovered": [
+        "2026-04-19",
+        "2024-10-27",
+        "2024-06-09",
+        "2021-07-11",
+        "2017-03-26"
+      ],
+      "overallMAE": 2.11,
+      "overallRMSE": 3.28,
+      "partyBias": [
+        {
+          "key": "ПрБ",
+          "meanError": -13.49,
+          "samples": 1
+        },
+        {
+          "key": "ГЕРБ",
+          "meanError": -3.69,
+          "samples": 1
+        },
+        {
+          "key": "Възраждане",
+          "meanError": 1.83,
+          "samples": 3
+        },
+        {
+          "key": "Величие",
+          "meanError": -1.6,
+          "samples": 1
+        },
+        {
+          "key": "БСП",
+          "meanError": 1.45,
+          "samples": 4
+        },
+        {
+          "key": "ПП-ДБ",
+          "meanError": 1.38,
+          "samples": 3
+        },
+        {
+          "key": "ДБ",
+          "meanError": -1.14,
+          "samples": 1
+        },
+        {
+          "key": "БСП-ОЛ",
+          "meanError": 0.98,
+          "samples": 1
+        },
+        {
+          "key": "ИТН",
+          "meanError": -0.94,
+          "samples": 4
+        },
+        {
+          "key": "ГЕРБ-СДС",
+          "meanError": 0.7,
+          "samples": 4
+        },
+        {
+          "key": "ОП",
+          "meanError": 0.5,
+          "samples": 1
+        },
+        {
+          "key": "ДПС-НН",
+          "meanError": -0.41,
+          "samples": 1
+        }
+      ],
+      "blocLean": {
+        "right_govt": {
+          "meanError": -0.18,
+          "samples": 5
+        },
+        "reformist": {
+          "meanError": -2.1,
+          "samples": 5
+        },
+        "nationalist": {
+          "meanError": 0.55,
+          "samples": 7
+        },
+        "left": {
+          "meanError": 1.35,
+          "samples": 5
+        },
+        "minority": {
+          "meanError": 0.05,
+          "samples": 6
+        },
+        "populist": {
+          "meanError": -0.94,
+          "samples": 4
+        },
+        "other": {
+          "meanError": 0,
+          "samples": 0
+        }
+      },
+      "houseEffect": [
+        {
+          "key": "ПП-ДБ",
+          "meanDiff": -0.76,
+          "samples": 9
+        },
+        {
+          "key": "АПС",
+          "meanDiff": 0.61,
+          "samples": 6
+        },
+        {
+          "key": "Възраждане",
+          "meanDiff": 0.55,
+          "samples": 9
+        },
+        {
+          "key": "ИТН",
+          "meanDiff": 0.45,
+          "samples": 10
+        },
+        {
+          "key": "ДПС-НН",
+          "meanDiff": -0.44,
+          "samples": 6
+        },
+        {
+          "key": "МЕЧ",
+          "meanDiff": 0.35,
+          "samples": 8
+        },
+        {
+          "key": "ГЕРБ-СДС",
+          "meanDiff": 0.27,
+          "samples": 10
+        },
+        {
+          "key": "БСП-ОЛ",
+          "meanDiff": 0.21,
+          "samples": 6
+        },
+        {
+          "key": "БСП за България",
+          "meanDiff": -0.2,
+          "samples": 5
+        },
+        {
+          "key": "ДПС",
+          "meanDiff": 0.08,
+          "samples": 5
+        },
+        {
+          "key": "Величие",
+          "meanDiff": -0.06,
+          "samples": 6
+        },
+        {
+          "key": "Прогресивна България",
+          "meanDiff": -0.02,
+          "samples": 2
+        }
+      ]
+    },
+    {
+      "agencyId": "ML",
+      "name_bg": "Маркет ЛИНКС",
+      "name_en": "Market Links",
+      "totalPolls": 16,
+      "preElectionPolls": 6,
+      "electionsCovered": [
+        "2026-04-19",
+        "2024-10-27",
+        "2024-06-09",
+        "2021-11-14",
+        "2021-07-11",
+        "2021-04-04"
+      ],
+      "overallMAE": 2.38,
+      "overallRMSE": 3.71,
+      "partyBias": [
+        {
+          "key": "ПП",
+          "meanError": -14.67,
+          "samples": 1
+        },
+        {
+          "key": "ПрБ",
+          "meanError": -6.59,
+          "samples": 1
+        },
+        {
+          "key": "БСП",
+          "meanError": 2.47,
+          "samples": 5
+        },
+        {
+          "key": "ДБ",
+          "meanError": 2.01,
+          "samples": 3
+        },
+        {
+          "key": "ПП-ДБ",
+          "meanError": 1.41,
+          "samples": 3
+        },
+        {
+          "key": "ДПС",
+          "meanError": -1.26,
+          "samples": 5
+        },
+        {
+          "key": "ИТН",
+          "meanError": -1.08,
+          "samples": 5
+        },
+        {
+          "key": "Възраждане",
+          "meanError": 0.83,
+          "samples": 3
+        },
+        {
+          "key": "ГЕРБ-СДС",
+          "meanError": 0.81,
+          "samples": 6
+        },
+        {
+          "key": "Величие",
+          "meanError": -0.57,
+          "samples": 2
+        },
+        {
+          "key": "ДПС-НН",
+          "meanError": 0.29,
+          "samples": 1
+        },
+        {
+          "key": "МЕЧ",
+          "meanError": -0.21,
+          "samples": 2
+        }
+      ],
+      "blocLean": {
+        "right_govt": {
+          "meanError": 0.81,
+          "samples": 6
+        },
+        "reformist": {
+          "meanError": -1.37,
+          "samples": 8
+        },
+        "nationalist": {
+          "meanError": 0.13,
+          "samples": 7
+        },
+        "left": {
+          "meanError": 2.06,
+          "samples": 6
+        },
+        "minority": {
+          "meanError": -1,
+          "samples": 6
+        },
+        "populist": {
+          "meanError": -1.08,
+          "samples": 5
+        },
+        "other": {
+          "meanError": 0,
+          "samples": 0
+        }
+      },
+      "houseEffect": [
+        {
+          "key": "ПП-ДБ",
+          "meanDiff": 1.84,
+          "samples": 13
+        },
+        {
+          "key": "Демократична България",
+          "meanDiff": 1.01,
+          "samples": 3
+        },
+        {
+          "key": "АПС",
+          "meanDiff": 0.98,
+          "samples": 10
+        },
+        {
+          "key": "ДПС",
+          "meanDiff": -0.55,
+          "samples": 5
+        },
+        {
+          "key": "Изправи се! Мутри вън!",
+          "meanDiff": -0.37,
+          "samples": 2
+        },
+        {
+          "key": "ГЕРБ-СДС",
+          "meanDiff": 0.35,
+          "samples": 16
+        },
+        {
+          "key": "Прогресивна България",
+          "meanDiff": -0.3,
+          "samples": 4
+        },
+        {
+          "key": "Величие",
+          "meanDiff": 0.3,
+          "samples": 9
+        },
+        {
+          "key": "ИТН",
+          "meanDiff": -0.26,
+          "samples": 15
+        },
+        {
+          "key": "Възраждане",
+          "meanDiff": -0.22,
+          "samples": 13
+        },
+        {
+          "key": "БСП за България",
+          "meanDiff": -0.21,
+          "samples": 5
+        },
+        {
+          "key": "БСП-ОЛ",
+          "meanDiff": -0.07,
+          "samples": 11
+        }
+      ]
+    },
+    {
+      "agencyId": "MY",
+      "name_bg": "Мяра",
+      "name_en": "Myara",
+      "totalPolls": 6,
+      "preElectionPolls": 1,
+      "electionsCovered": [
+        "2026-04-19"
+      ],
+      "overallMAE": 2.46,
+      "overallRMSE": 3.79,
+      "partyBias": [
+        {
+          "key": "ПрБ",
+          "meanError": -9.99,
+          "samples": 1
+        },
+        {
+          "key": "ГЕРБ-СДС",
+          "meanError": 5.11,
+          "samples": 1
+        },
+        {
+          "key": "Възраждане",
+          "meanError": 3.14,
+          "samples": 1
+        },
+        {
+          "key": "ДПС",
+          "meanError": 1.98,
+          "samples": 1
+        },
+        {
+          "key": "ПП-ДБ",
+          "meanError": -1.22,
+          "samples": 1
+        },
+        {
+          "key": "БСП-ОЛ",
+          "meanError": 0.98,
+          "samples": 1
+        },
+        {
+          "key": "Величие",
+          "meanError": -0.9,
+          "samples": 1
+        },
+        {
+          "key": "ИТН",
+          "meanError": 0.66,
+          "samples": 1
+        },
+        {
+          "key": "АПС",
+          "meanError": 0.33,
+          "samples": 1
+        },
+        {
+          "key": "МЕЧ",
+          "meanError": 0.27,
+          "samples": 1
+        }
+      ],
+      "blocLean": {
+        "right_govt": {
+          "meanError": 5.11,
+          "samples": 1
+        },
+        "reformist": {
+          "meanError": -5.6,
+          "samples": 2
+        },
+        "nationalist": {
+          "meanError": 0.84,
+          "samples": 3
+        },
+        "left": {
+          "meanError": 0.98,
+          "samples": 1
+        },
+        "minority": {
+          "meanError": 1.16,
+          "samples": 2
+        },
+        "populist": {
+          "meanError": 0.66,
+          "samples": 1
+        },
+        "other": {
+          "meanError": 0,
+          "samples": 0
+        }
+      },
+      "houseEffect": [
+        {
+          "key": "Прогресивна България",
+          "meanDiff": 0.98,
+          "samples": 3
+        },
+        {
+          "key": "ГЕРБ-СДС",
+          "meanDiff": -0.9,
+          "samples": 6
+        },
+        {
+          "key": "ДПС-НН",
+          "meanDiff": -0.89,
+          "samples": 6
+        },
+        {
+          "key": "ПП-ДБ",
+          "meanDiff": -0.83,
+          "samples": 6
+        },
+        {
+          "key": "БСП-ОЛ",
+          "meanDiff": -0.39,
+          "samples": 6
+        },
+        {
+          "key": "МЕЧ",
+          "meanDiff": 0.35,
+          "samples": 6
+        },
+        {
+          "key": "Възраждане",
+          "meanDiff": -0.1,
+          "samples": 6
+        },
+        {
+          "key": "Величие",
+          "meanDiff": 0.08,
+          "samples": 6
+        },
+        {
+          "key": "ИТН",
+          "meanDiff": 0.06,
+          "samples": 6
+        },
+        {
+          "key": "АПС",
+          "meanDiff": -0.01,
+          "samples": 6
+        }
+      ]
+    },
+    {
+      "agencyId": "AF",
+      "name_bg": "АФИС",
+      "name_en": "AFIS",
+      "totalPolls": 4,
+      "preElectionPolls": 3,
+      "electionsCovered": [
+        "2021-07-11",
+        "2021-04-04",
+        "2017-03-26"
+      ],
+      "overallMAE": 2.68,
+      "overallRMSE": 3.61,
+      "partyBias": [
+        {
+          "key": "БСП",
+          "meanError": 6.07,
+          "samples": 3
+        },
+        {
+          "key": "ИТН",
+          "meanError": -3.62,
+          "samples": 2
+        },
+        {
+          "key": "ГЕРБ-СДС",
+          "meanError": -3.61,
+          "samples": 1
+        },
+        {
+          "key": "ГЕРБ",
+          "meanError": -2.29,
+          "samples": 1
+        },
+        {
+          "key": "ОП",
+          "meanError": 0.8,
+          "samples": 1
+        },
+        {
+          "key": "ДБ",
+          "meanError": -0.59,
+          "samples": 2
+        },
+        {
+          "key": "ДПС",
+          "meanError": -0.11,
+          "samples": 3
+        }
+      ],
+      "blocLean": {
+        "right_govt": {
+          "meanError": -2.95,
+          "samples": 2
+        },
+        "reformist": {
+          "meanError": -0.59,
+          "samples": 2
+        },
+        "nationalist": {
+          "meanError": 0.8,
+          "samples": 1
+        },
+        "left": {
+          "meanError": 6.07,
+          "samples": 3
+        },
+        "minority": {
+          "meanError": -0.11,
+          "samples": 3
+        },
+        "populist": {
+          "meanError": -3.62,
+          "samples": 2
+        },
+        "other": {
+          "meanError": 0,
+          "samples": 0
+        }
+      },
+      "houseEffect": [
+        {
+          "key": "БСП за България",
+          "meanDiff": 1.75,
+          "samples": 4
+        },
+        {
+          "key": "ДПС",
+          "meanDiff": -0.4,
+          "samples": 4
+        },
+        {
+          "key": "Демократична България",
+          "meanDiff": -0.39,
+          "samples": 3
+        },
+        {
+          "key": "ГЕРБ",
+          "meanDiff": 0.18,
+          "samples": 2
+        },
+        {
+          "key": "ИТН",
+          "meanDiff": -0.08,
+          "samples": 3
+        }
+      ]
+    },
+    {
+      "agencyId": "CAM",
+      "name_bg": "ЦАМ",
+      "name_en": "Center for Analysis and Marketing",
+      "totalPolls": 2,
+      "preElectionPolls": 1,
+      "electionsCovered": [
+        "2026-04-19"
+      ],
+      "overallMAE": 2.93,
+      "overallRMSE": 4.52,
+      "partyBias": [
+        {
+          "key": "ПрБ",
+          "meanError": -11.09,
+          "samples": 1
+        },
+        {
+          "key": "ГЕРБ-СДС",
+          "meanError": 6.91,
+          "samples": 1
+        },
+        {
+          "key": "ДПС",
+          "meanError": 4.58,
+          "samples": 1
+        },
+        {
+          "key": "Възраждане",
+          "meanError": 3.04,
+          "samples": 1
+        },
+        {
+          "key": "БСП-ОЛ",
+          "meanError": 1.38,
+          "samples": 1
+        },
+        {
+          "key": "Величие",
+          "meanError": -1,
+          "samples": 1
+        },
+        {
+          "key": "АПС",
+          "meanError": -0.67,
+          "samples": 1
+        },
+        {
+          "key": "МЕЧ",
+          "meanError": -0.33,
+          "samples": 1
+        },
+        {
+          "key": "ИТН",
+          "meanError": 0.16,
+          "samples": 1
+        },
+        {
+          "key": "ПП-ДБ",
+          "meanError": -0.12,
+          "samples": 1
+        }
+      ],
+      "blocLean": {
+        "right_govt": {
+          "meanError": 6.91,
+          "samples": 1
+        },
+        "reformist": {
+          "meanError": -5.6,
+          "samples": 2
+        },
+        "nationalist": {
+          "meanError": 0.57,
+          "samples": 3
+        },
+        "left": {
+          "meanError": 1.38,
+          "samples": 1
+        },
+        "minority": {
+          "meanError": 1.96,
+          "samples": 2
+        },
+        "populist": {
+          "meanError": 0.16,
+          "samples": 1
+        },
+        "other": {
+          "meanError": 0,
+          "samples": 0
+        }
+      },
+      "houseEffect": [
+        {
+          "key": "ГЕРБ-СДС",
+          "meanDiff": -4.11,
+          "samples": 2
+        },
+        {
+          "key": "АПС",
+          "meanDiff": -2.94,
+          "samples": 2
+        },
+        {
+          "key": "Възраждане",
+          "meanDiff": -2.85,
+          "samples": 2
+        },
+        {
+          "key": "ИТН",
+          "meanDiff": -2.74,
+          "samples": 2
+        },
+        {
+          "key": "БСП-ОЛ",
+          "meanDiff": -1.72,
+          "samples": 2
+        },
+        {
+          "key": "Прогресивна България",
+          "meanDiff": 1.68,
+          "samples": 2
+        },
+        {
+          "key": "Величие",
+          "meanDiff": -1.54,
+          "samples": 2
+        },
+        {
+          "key": "МЕЧ",
+          "meanDiff": -1.41,
+          "samples": 2
+        },
+        {
+          "key": "ПП-ДБ",
+          "meanDiff": -1.13,
+          "samples": 2
+        },
+        {
+          "key": "ДПС-НН",
+          "meanDiff": -0.67,
+          "samples": 2
+        }
+      ]
+    }
+  ]
+}

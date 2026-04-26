@@ -87,6 +87,46 @@ const AllRegionsScreen = lazy(() =>
     default: m.AllRegionsScreen,
   })),
 );
+const PollsScreen = lazy(() =>
+  import("./screens/PollsScreen").then((m) => ({
+    default: m.PollsScreen,
+  })),
+);
+const PollsAgencyScreen = lazy(() =>
+  import("./screens/PollsAgencyScreen").then((m) => ({
+    default: m.PollsAgencyScreen,
+  })),
+);
+const RegionPartiesScreen = lazy(() =>
+  import("./screens/RegionPartiesScreen").then((m) => ({
+    default: m.RegionPartiesScreen,
+  })),
+);
+const RegionPreferencesScreen = lazy(() =>
+  import("./screens/RegionPreferencesScreen").then((m) => ({
+    default: m.RegionPreferencesScreen,
+  })),
+);
+const RegionFlashMemoryScreen = lazy(() =>
+  import("./screens/RegionFlashMemoryScreen").then((m) => ({
+    default: m.RegionFlashMemoryScreen,
+  })),
+);
+const RegionMunicipalitiesScreen = lazy(() =>
+  import("./screens/RegionMunicipalitiesScreen").then((m) => ({
+    default: m.RegionMunicipalitiesScreen,
+  })),
+);
+const RegionRecountScreen = lazy(() =>
+  import("./screens/RegionRecountScreen").then((m) => ({
+    default: m.RegionRecountScreen,
+  })),
+);
+const RegionTimelineScreen = lazy(() =>
+  import("./screens/RegionTimelineScreen").then((m) => ({
+    default: m.RegionTimelineScreen,
+  })),
+);
 
 // Reports — Municipalities
 const MunicipalitiesTurnout = lazy(() =>
@@ -347,6 +387,54 @@ export const AuthRoutes = () => {
           }
         />
         <Route
+          path="municipality/:id/parties"
+          element={
+            <LayoutScreen>
+              <RegionPartiesScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="municipality/:id/preferences"
+          element={
+            <LayoutScreen>
+              <RegionPreferencesScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="municipality/:id/flash-memory"
+          element={
+            <LayoutScreen>
+              <RegionFlashMemoryScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="municipality/:id/municipalities"
+          element={
+            <LayoutScreen>
+              <RegionMunicipalitiesScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="municipality/:id/recount"
+          element={
+            <LayoutScreen>
+              <RegionRecountScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="municipality/:id/timeline"
+          element={
+            <LayoutScreen>
+              <RegionTimelineScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
           path="settlement/:id"
           element={
             <LayoutScreen>
@@ -455,6 +543,22 @@ export const AuthRoutes = () => {
           element={
             <LayoutScreen>
               <AllRegionsScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="polls"
+          element={
+            <LayoutScreen>
+              <PollsScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="polls/:agencyId"
+          element={
+            <LayoutScreen>
+              <PollsAgencyScreen />
             </LayoutScreen>
           }
         />

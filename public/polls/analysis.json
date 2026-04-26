@@ -1,0 +1,366 @@
+{
+  "generatedAt": "2026-04-27T01:30:00.000Z",
+  "model": "Claude Opus 4.7 (1M context)",
+  "inputAccuracyGeneratedAt": "2026-04-26T21:19:12.244Z",
+  "agencyTakes": [
+    {
+      "agencyId": "GIB",
+      "summary": {
+        "en": "Gallup Intl. Balkan is the most accurate pollster in the dataset, with an overall MAE of 1.67 across seven elections — the only agency consistently inside 2pp. Final-week fieldwork (most polls close 2-4 days before vote) is a big part of why.",
+        "bg": "Галъп Интернешънъл Болкан е най-точната агенция в системата — обща средна грешка 1,67 за седем избора, единствената агенция трайно под 2pp. Голяма част от обяснението е, че Галъп прави повечето си проучвания 2-4 дни преди вота."
+      },
+      "lean": {
+        "en": "A mild establishment tilt: tends to overpoll БСП (+2.05pp avg) and ГЕРБ-СДС (+1.49pp). House effect on ДПС-НН is +2.88pp vs. consensus.",
+        "bg": "Леко проправителствено отклонение: обикновено надценява БСП (+2,05pp средно) и ГЕРБ-СДС (+1,49pp). House effect върху ДПС-НН +2,88pp над консенсуса."
+      },
+      "warning": {
+        "en": "The 2026 ПрБ miss (-16.19pp) drags GIB's headline numbers and is its worst single-party miss on record. With n=1 for that party, treat as provisional.",
+        "bg": "Голямата грешка за ПрБ през 2026 г. (-16,19pp) тежи върху общата картина и е най-голямата индивидуална грешка на агенцията. С n=1 за тази партия оценката е условна."
+      }
+    },
+    {
+      "agencyId": "MD",
+      "summary": {
+        "en": "Mediana has an overall MAE of 1.9 across four elections — credible accuracy, but with the most pronounced ideological lean in the dataset.",
+        "bg": "Медиана е със средна грешка 1,9 за четири избора — нелоша точност, но с най-изразеното идеологическо отклонение в системата."
+      },
+      "lean": {
+        "en": "Strong left lean: БСП is overestimated by +3.21pp on average across all four elections; ИТН underestimated by -2.16pp. The +3.21pp 'left bloc' bias is the largest among major agencies.",
+        "bg": "Силно ляво отклонение: БСП е надценявана средно с +3,21pp през всичките четири избора; ИТН е подценявана с -2,16pp. Отклонението към левия блок от +3,21pp е най-голямото сред основните агенции."
+      },
+      "warning": {
+        "en": "Sample of four elections is small for confident bias estimates; Mediana hasn't polled the most recent two cycles in our dataset.",
+        "bg": "Извадката от четири избора е малка за уверена оценка на пристрастията; Медиана не е правила последните два цикъла в системата."
+      }
+    },
+    {
+      "agencyId": "AR",
+      "summary": {
+        "en": "Alpha Research averages MAE 1.93 across four elections. Solid track record outside 2026, where their last poll was 24 days before vote and missed ПрБ by -13.79pp.",
+        "bg": "Алфа Рисърч е със средна грешка 1,93 за четири избора. Стабилна история извън 2026 г., когато последното им проучване беше 24 дни преди вота и подцени ПрБ с -13,79pp."
+      },
+      "lean": {
+        "en": "Pro-establishment signature: overpolls ГЕРБ-СДС (+2.68pp avg, the strongest GERB lean of any agency) and underpolls the reformist bloc (-2.41pp). БСП also +1.82pp.",
+        "bg": "Проистаблишмънт почерк: надценява ГЕРБ-СДС (+2,68pp средно — най-силното про-ГЕРБ отклонение от която и да е агенция) и подценява реформисткия блок (-2,41pp). БСП също +1,82pp."
+      },
+      "warning": {
+        "en": "AR tends to publish further from election day than GIB or ML, which compounds error during fast-moving cycles.",
+        "bg": "Алфа Рисърч обикновено публикува по-далеч от изборния ден отколкото Галъп или Маркет ЛИНКС, което умножава грешката при бързо променящи се цикли."
+      }
+    },
+    {
+      "agencyId": "SH",
+      "summary": {
+        "en": "Sova Harris has an overall MAE of 2.0 across five elections. The bias signature is small in absolute terms — just consistently in one direction.",
+        "bg": "Сова Харис има средна грешка 2,0 за пет избора. Пристрастията са малки в абсолютна стойност, но последователно в една посока."
+      },
+      "lean": {
+        "en": "Modest establishment-leaning profile: overpolls left bloc (+1.6pp), GERB-SDS (+1.39pp), and underpolls populist bloc (-1.47pp), driven mostly by underpolling ИТН (-1.93pp) across 4 cycles.",
+        "bg": "Умерен проистаблишмънт профил: надценява левия блок (+1,6pp), ГЕРБ-СДС (+1,39pp) и подценява популисткия блок (-1,47pp), основно заради подценяване на ИТН (-1,93pp) през четири цикъла."
+      },
+      "warning": {
+        "en": "Sample sizes (typically n=1000) are at the lower end of credible polling; final-poll fieldwork tends to be 8-13 days before vote.",
+        "bg": "Извадките (обикновено n=1000) са в долната граница на надеждното проучване; теренната работа е обикновено 8-13 дни преди вота."
+      }
+    },
+    {
+      "agencyId": "TR",
+      "summary": {
+        "en": "Trend averages MAE 2.11 across five elections. Solid in stable cycles, but tends to publish well before election day, which hurts in fast-shifting races.",
+        "bg": "Тренд има средна грешка 2,11 за пет избора. Силна в стабилни цикли, но обикновено публикува достатъчно преди вота, което вреди при бързи промени."
+      },
+      "lean": {
+        "en": "Mild reformist underpoll (-2.1pp avg). In 2017 underpolled ГЕРБ by -3.69pp; in 2026 underpolled ПрБ by -13.49pp. Pattern: tends to undercount whoever is rising.",
+        "bg": "Леко подценяване на реформисткия блок (-2,1pp средно). През 2017 г. подцени ГЕРБ с -3,69pp; през 2026 г. — ПрБ с -13,49pp. Закономерност: обикновено недооценява издигащите се."
+      },
+      "warning": {
+        "en": "Final-poll fieldwork has been 22-63 days before voting in three of five elections — long enough that real movement gets missed.",
+        "bg": "Последните теренни работи са били 22-63 дни преди вота в три от пет избора — достатъчно дълго, за да се пропуснат реални движения."
+      }
+    },
+    {
+      "agencyId": "ML",
+      "summary": {
+        "en": "Market Links has an overall MAE of 2.38 across six elections, but the average is dragged by two outlier polls. Excluding those, accuracy is in line with top agencies — and ML had the best 2026 result of any agency at MAE 1.96.",
+        "bg": "Маркет ЛИНКС има средна грешка 2,38 за шест избора, но средното се вдига от две извънредни проучвания. Без тях точността е сравнима с водещите агенции — и Маркет ЛИНКС постигна най-добрия 2026 резултат от всички агенции, MAE 1,96."
+      },
+      "lean": {
+        "en": "Mild left bias (БСП +2.47pp across 5 cycles); reformist parties slightly underpolled (-1.37pp bloc avg). House effect of +1.84pp on ПП-ДБ vs. consensus is the largest single-party house effect among majors.",
+        "bg": "Леко ляво отклонение (БСП +2,47pp през пет цикъла); реформистките партии са леко подценени (-1,37pp средно за блока). House effect от +1,84pp към ПП-ДБ спрямо консенсуса е най-голямото единично house effect сред основните агенции."
+      },
+      "warning": {
+        "en": "Two large outliers: 2021-11 missed ПП by -14.67pp (poll was 55 days old) and 2024-06 missed ДПС by -5.96pp. Both inflate the average; check fieldwork dates before quoting.",
+        "bg": "Две големи извънредни грешки: през 2021-11 пропусна ПП с -14,67pp (проучването беше на 55 дни), а през 2024-06 — ДПС с -5,96pp. Двете изкривяват средната — проверявайте датата на теренната работа преди цитиране."
+      }
+    },
+    {
+      "agencyId": "MY",
+      "summary": {
+        "en": "Myara is a new entrant — its only poll in our dataset is 2026 with MAE 2.46. Polled within a week of the vote and produced the second-best 2026 result.",
+        "bg": "Мяра е нов играч — единственото проучване в системата е за 2026 г. с MAE 2,46. Работила е през последната седмица и постигна вторият най-добър резултат за 2026 г."
+      },
+      "lean": {
+        "en": "Profile is provisional. The 2026 poll overpolled ГЕРБ-СДС by +5.11pp and underpolled ПрБ by -9.99pp — a typical 2026 signature, not necessarily a house effect.",
+        "bg": "Профилът е условен. През 2026 г. надцени ГЕРБ-СДС с +5,11pp и подцени ПрБ с -9,99pp — типичен 2026 модел, не задължително house effect."
+      },
+      "warning": {
+        "en": "n=1 election. Cannot distinguish house effect from cycle-specific error yet.",
+        "bg": "n=1 избор. Все още не може да се разграничи house effect от грешка на конкретния цикъл."
+      }
+    },
+    {
+      "agencyId": "AF",
+      "summary": {
+        "en": "AFIS averages MAE 2.68 across three elections — the noisiest of the agencies with multiple-cycle data. The consistent direction of the error is more concerning than the magnitude.",
+        "bg": "АФИС е със средна грешка 2,68 за три избора — най-шумната от агенциите с многоциклова история. Последователната посока на грешката е по-обезпокояваща от величината."
+      },
+      "lean": {
+        "en": "Strong left bias: БСП overpolled by +6.07pp on average across 3 elections — the largest party-level bias of any agency. ИТН underpolled by -3.62pp. Fieldwork tends to close 50+ days before vote.",
+        "bg": "Силно ляво отклонение: БСП надценена средно с +6,07pp за три избора — най-голямото партийно отклонение от която и да е агенция. ИТН — подценена с -3,62pp. Теренната работа обикновено приключва 50+ дни преди вота."
+      },
+      "warning": {
+        "en": "Fieldwork distance and consistent left tilt make AFIS' polls hard to compare directly with same-week polls from other agencies.",
+        "bg": "Дългото време преди вота и последователното ляво отклонение правят сравненията с проучвания от същата седмица на други агенции трудни."
+      }
+    },
+    {
+      "agencyId": "CAM",
+      "summary": {
+        "en": "ЦАМ (Center for Analysis and Marketing) is a new entrant with one poll in our dataset (2026, MAE 2.93). Polled 5 days out — comparable timing to the more accurate ML and MY.",
+        "bg": "ЦАМ (Център за анализи и маркетинг) е нов играч с едно проучване в системата (2026 г., MAE 2,93). Теренна работа 5 дни преди вота — съпоставимо с по-точните Маркет ЛИНКС и Мяра."
+      },
+      "lean": {
+        "en": "Profile is provisional. 2026 errors mirror the universal pattern (ПрБ -11pp, ГЕРБ-СДС +6.9pp) but with larger magnitudes than ML/MY at the same fieldwork distance.",
+        "bg": "Профилът е условен. Грешките за 2026 г. повтарят общия модел (ПрБ -11pp, ГЕРБ-СДС +6,9pp), но с по-голяма величина от Маркет ЛИНКС/Мяра при същото време преди вота."
+      },
+      "warning": {
+        "en": "n=1 election. Wait for at least 2-3 more cycles before drawing conclusions about house effect.",
+        "bg": "n=1 избор. Изчакайте поне още 2-3 цикъла преди заключения за house effect."
+      }
+    }
+  ],
+  "byElection": {
+    "2026-04-19": {
+      "headlines": {
+        "en": [
+          "Прогресивна България — a brand-new party founded in late 2025 — won an outright majority with 44.59% and 131 of 240 seats, ending five years of fragmented parliaments.",
+          "Every agency underestimated ПрБ. Closest: Market Links at -6.6pp (5 days before vote). Worst: Gallup Intl. Balkan at -16.2pp (20 days before). Seven independently-run polls all undershot in the same direction.",
+          "The mirror error: every agency overestimated ГЕРБ-СДС by 5-10pp. The party collapsed from 26.4% in Oct 2024 to 13.4% — half its prior support — and pollsters caught only part of the slide.",
+          "Days-before-the-vote mattered more than methodology. The four agencies polling within a week (ML, MY, CAM, SH) clustered at MAE 1.96-3.02; the three earlier polls (AR, TR, GIB) clustered above 3.0.",
+          "Възраждане also missed badly: 4.26% actual vs. 5.6-7.9% polled. The same anti-establishment voters who would have backed Възраждане appear to have moved to ПрБ instead."
+        ],
+        "bg": [
+          "Прогресивна България — нова партия, регистрирана в края на 2025 г. — спечели абсолютно мнозинство с 44,59% и 131 от 240 места, прекратявайки пет години фрагментирани парламенти.",
+          "Всички агенции подцениха ПрБ. Най-близо: Маркет ЛИНКС с -6,6pp (5 дни преди вота). Най-далеч: Галъп Интернешънъл Болкан с -16,2pp (20 дни преди). Седем независими проучвания грешат в една и съща посока.",
+          "Огледалният ефект: всяка агенция надцени ГЕРБ-СДС с 5-10pp. Партията се срина от 26,4% (октомври 2024 г.) до 13,4% — половината от предишната подкрепа — а социолозите уловиха само част от спада.",
+          "Колко дни преди вота е теренната работа е по-важно от методологията. Четирите агенции с проучвания в последната седмица (ML, MY, CAM, SH) са между MAE 1,96 и 3,02; трите по-ранни (AR, TR, GIB) — над 3,0.",
+          "И Възраждане беше сериозно сгрешено: 4,26% реално срещу 5,6-7,9% в проучванията. Същите антиистаблишмънт избиратели вероятно са се прехвърлили към ПрБ."
+        ]
+      },
+      "story": {
+        "en": "This wasn't really a polling failure — it was a late, fast wave that broke after fieldwork closed. Every methodology and house-effect signature is overwhelmed by the same ПрБ-shaped hole in the data: a party that went from registered to 44.6% in roughly four months. Even agencies polling in the final week caught it at only ~38%, ten points below the actual. The agencies that did least badly aren't necessarily the most rigorous — they're the ones who polled latest.",
+        "bg": "Това не е класическа социологическа грешка — това е късна, бърза вълна, която дойде след затваряне на теренната работа. Всеки методологически подпис и house effect са затрупани от една и съща дупка: партия, която премина от регистрация до 44,6% за около четири месеца. Дори агенциите в последната седмица я уловиха при ~38% — десет пункта под реалното. Агенциите с по-малки грешки не са непременно по-стриктни — те са просто тези, които проучваха най-късно."
+      }
+    },
+    "2024-10-27": {
+      "headlines": {
+        "en": [
+          "ГЕРБ-СДС won 26.39% — a comfortable plurality after the inconclusive June 2024 vote. The polling cycle was the cleanest in our dataset: every agency had MAE under 1.5pp.",
+          "GIB and Market Links tied for first place at MAE 0.92-0.93, with all five agencies bunched between 0.92 and 1.36. Methodology and timing converged — most polled 3 days before vote.",
+          "Universal overestimation of ПП-ДБ by +1.99 to +3.29pp. The reformist coalition underperformed expectations across every house's model.",
+          "ИТН was systematically underpolled by 0.78-1.58pp. Together with the ПП-ДБ miss, this is the consistent signature of the 2024 fragmented field."
+        ],
+        "bg": [
+          "ГЕРБ-СДС спечели 26,39% — комфортна първа позиция след неубедителния вот от юни 2024 г. Цикълът беше най-чистият в системата: всички агенции с MAE под 1,5pp.",
+          "Галъп и Маркет ЛИНКС се класираха първи с MAE 0,92-0,93; и петте агенции се групираха между 0,92 и 1,36. Методологията и времето се събраха — повечето проучвания са 3 дни преди вота.",
+          "Универсално надценяване на ПП-ДБ с +1,99 до +3,29pp. Реформистката коалиция се представи под очакванията на всички къщи.",
+          "ИТН беше систематично подценена с 0,78-1,58pp. Заедно с грешката за ПП-ДБ, това е последователният подпис на фрагментирания изборен пейзаж от 2024 г."
+        ]
+      },
+      "story": {
+        "en": "October 2024 was the polling industry at its best in the dataset: agencies competing on the final week converged on the same picture, and the picture was right. The two persistent errors — ПП-ДБ over, ИТН under — point to a systematic miss in identifying soft reformist support that ended up either staying home or splintering to smaller parties.",
+        "bg": "Октомври 2024 г. показа социологическия бранш в най-добрата му светлина: агенциите, проучващи в последната седмица, се събраха около една и съща картина — и картината се оказа вярна. Двете трайни грешки — ПП-ДБ нагоре, ИТН надолу — сочат към систематична трудност при идентифицирането на мек реформистки електорат, който в крайна сметка остана у дома или се разпиля към по-малки партии."
+      }
+    },
+    "2024-06-09": {
+      "headlines": {
+        "en": [
+          "ГЕРБ-СДС won 24.71% with ДПС a strong second at 17.06% — the strongest ДПС showing in over a decade.",
+          "Market Links missed ДПС by -5.96pp — the largest single-party miss of the cycle, and a notable house outlier compared to GIB (-1.76pp), TR (-2.16pp), SH (-2.96pp).",
+          "GIB led with MAE 1.21, polling 4 days before the vote. Trend's poll was 22 days old but still landed inside MAE 1.5.",
+          "Възраждане was overpolled by 1.7-2.5pp by most agencies — the start of a multi-year pattern that would persist into 2026."
+        ],
+        "bg": [
+          "ГЕРБ-СДС спечели 24,71%, а ДПС се класира втори с 17,06% — най-силното представяне на ДПС от над десетилетие.",
+          "Маркет ЛИНКС подцени ДПС с -5,96pp — най-голямата индивидуална грешка в цикъла и забележим house outlier спрямо Галъп (-1,76pp), Тренд (-2,16pp), Сова Харис (-2,96pp).",
+          "Галъп води с MAE 1,21 при теренна работа 4 дни преди вота. Тренд проучваше 22 дни преди вота, но успя да остане под MAE 1,5.",
+          "Възраждане беше надценена с 1,7-2,5pp от повечето агенции — начало на многогодишен модел, който щеше да продължи до 2026 г."
+        ]
+      },
+      "story": {
+        "en": "A solid polling cycle marked by one notable outlier: Market Links substantially underestimated the ДПС vote. Across the four agencies, the average error pattern (overpolling Възраждане, underpolling ДПС) suggests a sampling bias against the ethnic-Turkish electorate that several houses share.",
+        "bg": "Стабилен социологически цикъл с една забележима извънредна грешка: Маркет ЛИНКС силно подцени гласа на ДПС. През четирите агенции средният модел на грешката (надценяване на Възраждане, подценяване на ДПС) подсказва систематично занижено представяне на турския електорат, споделяно от няколко къщи."
+      }
+    },
+    "2023-04-02": {
+      "headlines": {
+        "en": [
+          "Tightest race in the dataset: ГЕРБ-СДС 26.49% vs. ПП-ДБ 24.56% — a 1.93pp gap that polls correctly identified.",
+          "Alpha Research nailed it with MAE 0.63 — the single best agency-election result on record. Sova Harris MAE 1.08, also strong.",
+          "Both agencies underpolled Възраждане by 1.16-2.26pp — Vazrazhdane was rising and pollsters caught only part of the move.",
+          "AR's poll closed 8 days before voting; SH's was 34 days out — yet SH still landed under MAE 1.1."
+        ],
+        "bg": [
+          "Най-тясното състезание в системата: ГЕРБ-СДС 26,49% срещу ПП-ДБ 24,56% — разлика от 1,93pp, която проучванията правилно идентифицираха.",
+          "Алфа Рисърч уцели идеално с MAE 0,63 — най-добрият единичен резултат на агенция-избори в системата. Сова Харис MAE 1,08, също силно.",
+          "И двете агенции подцениха Възраждане с 1,16-2,26pp — партията беше във възход и социолозите уловиха само част от движението.",
+          "Проучването на Алфа Рисърч беше 8 дни преди вота; на Сова Харис — 34 дни, но въпреки това остана под MAE 1,1."
+        ]
+      },
+      "story": {
+        "en": "A tight race called correctly. Alpha Research's MAE 0.63 is a high-water mark for the dataset and shows what's possible when fieldwork closes within a week of voting. The shared underestimation of Vazrazhdane is the only concerning pattern.",
+        "bg": "Близко състезание, прогнозирано правилно. MAE 0,63 на Алфа Рисърч е рекорд в системата и показва на какво са способни агенциите, когато теренната работа приключва в последната седмица. Общото подценяване на Възраждане е единственият тревожен модел."
+      }
+    },
+    "2022-10-02": {
+      "headlines": {
+        "en": [
+          "ГЕРБ-СДС won 25.33% over a still-rising ПП at 20.2%. Polls had it right — both agencies under MAE 1.0.",
+          "Gallup led at MAE 0.45 — the second-lowest agency-election result in the dataset, polling 2 days before vote.",
+          "Both agencies overpolled Възраждане by ~2pp — even early in its rise, the party was being read more anti-establishment than the actual ballot.",
+          "ИТН collapsed to 3.83% (below threshold), having been a coalition-defining force a year earlier. Pollsters slightly underpolled it (~-0.6pp), but mostly tracked the decline."
+        ],
+        "bg": [
+          "ГЕРБ-СДС спечели 25,33% пред все още възходящата ПП с 20,2%. Проучванията го уловиха — и двете агенции под MAE 1,0.",
+          "Галъп води с MAE 0,45 — вторият най-нисък резултат в системата, при теренна работа 2 дни преди вота.",
+          "И двете агенции надцениха Възраждане с ~2pp — още в началото на възхода ѝ, партията беше четена като по-антиистаблишмънт, отколкото реалният вот показа.",
+          "ИТН се срина до 3,83% (под бариерата), след като година по-рано беше определяща за коалиционните сметки. Социолозите леко я подцениха (~-0,6pp), но като цяло уловиха спада."
+        ]
+      },
+      "story": {
+        "en": "An accurately-polled cycle. Gallup's MAE 0.45 with two days of fieldwork left is benchmark-quality polling. The persistent overpoll of Vazrazhdane in 2022 foreshadows the much larger reverse error in 2026, when the same party finally collapsed in the actual vote.",
+        "bg": "Точно прогнозиран цикъл. MAE 0,45 на Галъп при теренна работа 2 дни преди вота е еталон за качество. Упоритото надценяване на Възраждане през 2022 г. предвещава много по-голямата обратна грешка през 2026 г., когато партията най-накрая се срина и в реалния вот."
+      }
+    },
+    "2021-11-14": {
+      "headlines": {
+        "en": [
+          "Продължаваме Промяната, founded just weeks earlier, won outright with 25.67% — beating ГЕРБ-СДС (22.74%) in its debut.",
+          "GIB and Mediana caught it accurately (MAE 1.03 and 1.49). Market Links' poll, 55 days old, missed ПП by -14.67pp — the second-largest single-party miss in the dataset, behind only the 2026 ПрБ misses.",
+          "ML's headline MAE for the cycle was 5.32 — almost entirely an artifact of fieldwork date, not methodology.",
+          "Mediana's persistent БСП overpoll showed up again (+2.89pp) — a 4-cycle pattern."
+        ],
+        "bg": [
+          "Продължаваме Промяната — създадена само седмици по-рано — спечели категорично с 25,67%, изпреварвайки ГЕРБ-СДС (22,74%) още с дебюта си.",
+          "Галъп и Медиана го уловиха точно (MAE 1,03 и 1,49). Проучването на Маркет ЛИНКС, на 55 дни, пропусна ПП с -14,67pp — втората най-голяма грешка за партия в системата, след тези за ПрБ през 2026 г.",
+          "Общата грешка на Маркет ЛИНКС за цикъла беше 5,32 — почти изцяло артефакт на датата на проучването, а не на методологията.",
+          "Упоритото надценяване на БСП от Медиана се появи отново (+2,89pp) — модел през четири цикъла."
+        ]
+      },
+      "story": {
+        "en": "A textbook case of fieldwork timing dominating accuracy. New parties launched between fieldwork close and election day routinely break older polls — a structural risk that recurred dramatically in 2026 with ПрБ. GIB and Mediana, polling 2-3 days out, caught the late surge.",
+        "bg": "Учебникова илюстрация защо моментът на теренната работа определя точността повече от методологията. Нови партии, които стартират между затварянето на проучването и вота, рутинно разрушават по-старите данни — структурен риск, повторен драматично през 2026 г. с ПрБ. Галъп и Медиана, с теренна работа 2-3 дни преди вота, уловиха късната вълна."
+      }
+    },
+    "2021-07-11": {
+      "headlines": {
+        "en": [
+          "ИТН won 24.08% in a near-tie with ГЕРБ-СДС (23.51%) — a 0.57pp gap that no agency called for ИТН.",
+          "Universal pattern: every agency overpolled БСП by 3.0-6.7pp and underpolled ИТН by 2.3-4.8pp. Agencies didn't disagree — they agreed and were collectively wrong.",
+          "GIB led at MAE 1.69 (4 days before vote); AFIS bottom at MAE 3.23 (52 days before).",
+          "Trend and Mediana published 63-82 days out. Both were close to MAE 3.0."
+        ],
+        "bg": [
+          "ИТН спечели 24,08% в почти равен резултат с ГЕРБ-СДС (23,51%) — разлика от 0,57pp, която нито една агенция не предсказа в полза на ИТН.",
+          "Универсален модел: всяка агенция надцени БСП с 3,0-6,7pp и подцени ИТН с 2,3-4,8pp. Агенциите не се разминаваха — те се съгласяваха и колективно грешаха.",
+          "Галъп води с MAE 1,69 (4 дни преди вота); АФИС последен с MAE 3,23 (52 дни преди).",
+          "Тренд и Медиана публикуваха 63-82 дни преди вота. И двете близо до MAE 3,0."
+        ]
+      },
+      "story": {
+        "en": "The collective miss on ИТН — fresh from its parliamentary debut three months earlier — shows the same structural blind spot that would later strike with ПрБ in 2026: house effects converge on the safe assumption that established parties hold their share, and a brand-new force that's actually rising gets systematically discounted.",
+        "bg": "Колективната грешка за ИТН — току-що дебютирала в парламента три месеца по-рано — показва същия структурен сляп петел, който щеше да удари по-късно с ПрБ през 2026 г.: house effects се събират около безопасното предположение, че установените партии запазват дела си, а нова сила, която всъщност расте, бива систематично подценявана."
+      }
+    },
+    "2021-04-04": {
+      "headlines": {
+        "en": [
+          "ГЕРБ-СДС won 26.18% with ИТН as a surprise second-place at 17.66%. Polls hadn't yet fully calibrated to ИТН's surge.",
+          "Universal БСП overpoll: every agency was +5pp or more on БСП. AFIS's +7.89pp is the largest single-party overestimate in the dataset.",
+          "ИТН was underpolled by 2.5-5.5pp by all four agencies — the cycle that established the systemic miss on the new party.",
+          "AR led at MAE 3.06 (3 days out); AFIS at MAE 2.93 but with 168-day-old fieldwork — its accuracy is largely accidental."
+        ],
+        "bg": [
+          "ГЕРБ-СДС спечели 26,18% при изненадващо второ място на ИТН (17,66%). Проучванията все още не бяха се калибрирали към възхода на ИТН.",
+          "Универсално надценяване на БСП: всяка агенция беше +5pp или повече. +7,89pp на АФИС е най-голямата надценка за партия в системата.",
+          "ИТН беше подценена с 2,5-5,5pp от четирите агенции — цикълът, който установи систематичната грешка спрямо новата партия.",
+          "Алфа Рисърч води с MAE 3,06 (3 дни преди вота); АФИС с MAE 2,93, но при теренна работа на 168 дни — точността им е до голяма степен случайна."
+        ]
+      },
+      "story": {
+        "en": "April 2021 was the first time the BG polling industry collectively under-modelled a populist newcomer. The pattern that pundits later read into 2021-07 (ИТН surge) and 2026 (ПрБ landslide) starts here: agencies anchored on the previous parliament's distribution, and the actual electorate had moved.",
+        "bg": "Април 2021 г. беше първият случай, в който българската социологическа индустрия колективно недооцени популистки новак. Моделът, който коментаторите по-късно ще четат в 2021-07 (вълната на ИТН) и 2026 г. (свлачището на ПрБ), започва тук: агенциите се закотвят за разпределението на предишния парламент, а реалният електорат вече се е преместил."
+      }
+    },
+    "2017-03-26": {
+      "headlines": {
+        "en": [
+          "ГЕРБ won 33.49% over БСП 27.89% — a 5.6pp gap. Both agencies in our dataset called the winner correctly, but with mirrored errors.",
+          "Trend underpolled ГЕРБ by -3.69pp; AFIS overpolled БСП by +3.61pp. The errors point in opposite directions but produce a similar overall MAE (1.33 vs. 1.76).",
+          "Only two agencies tracked here — sample is too thin to draw broader conclusions about the cycle.",
+          "Final fieldwork dates were tight (10-11 days before vote) — quality timing for both."
+        ],
+        "bg": [
+          "ГЕРБ спечели 33,49% пред БСП с 27,89% — разлика от 5,6pp. И двете агенции в системата ни предсказаха победителя, но с огледални грешки.",
+          "Тренд подцени ГЕРБ с -3,69pp; АФИС надцени БСП с +3,61pp. Грешките сочат в противоположни посоки, но дават сходна обща грешка (1,33 срещу 1,76).",
+          "Само две агенции в системата за този цикъл — извадката е твърде малка за по-широки изводи.",
+          "Последните теренни работи бяха близки до вота (10-11 дни преди) — качествена дата и за двете."
+        ]
+      },
+      "story": {
+        "en": "A two-agency cycle in our data, with AR/SH/ML/MD/GIB absent. The mirrored TR-vs-AFIS error patterns are interesting but provisional — we'd need more agencies to know whether the 2017 picture was as polarized as it looks.",
+        "bg": "Цикъл с само две агенции в системата — без AR/SH/ML/MD/GIB. Огледалните грешки между Тренд и АФИС са интересни, но условни — ще е нужна по-богата извадка, за да се види дали картината от 2017 г. наистина е била толкова поляризирана."
+      }
+    },
+    "2014-10-05": {
+      "headlines": {
+        "en": [
+          "ГЕРБ won 32.67% — a comfortable plurality in a fragmented field where 7 parties cleared the threshold.",
+          "Only one agency tracked here (Gallup), MAE 1.64 with the worst miss being БСП overpolled by +5.26pp.",
+          "Reformist Bloc was underpolled by -1.99pp — a recurring pattern of underestimating reformist coalitions.",
+          "Single-agency data limits any house-effect inference."
+        ],
+        "bg": [
+          "ГЕРБ спечели 32,67% — комфортна първа позиция във фрагментиран пейзаж, в който 7 партии минаха бариерата.",
+          "Само Галъп в системата за този цикъл, MAE 1,64. Най-голямата грешка — надценяване на БСП с +5,26pp.",
+          "Реформаторският блок беше подценен с -1,99pp — повтарящ се модел на подценяване на реформистките коалиции.",
+          "Данните само от една агенция ограничават изводите за house effect."
+        ]
+      },
+      "story": {
+        "en": "Limited data — one agency, one poll. The +5.26pp БСП overpoll fits Mediana and AFIS's longer-term left-bias pattern, but with only Gallup represented here we can't generalize.",
+        "bg": "Ограничени данни — една агенция, едно проучване. Надценяването на БСП с +5,26pp пасва на по-дългосрочния ляв уклон на Медиана и АФИС, но с представителство само на Галъп не можем да обобщаваме."
+      }
+    },
+    "2013-05-12": {
+      "headlines": {
+        "en": [
+          "ГЕРБ narrowly won 30.53% over БСП 26.61% — a tight cycle that only one agency in our dataset tracked.",
+          "Mediana, MAE 2.09, polled 2 days before vote. Their characteristic +БСП lean shows: overpolled БСП by +4.89pp.",
+          "Атака was overpolled by +1.7pp — the nationalist-bloc bias would not yet show clearly until later cycles.",
+          "Single-agency data limits conclusions."
+        ],
+        "bg": [
+          "ГЕРБ спечели тясно с 30,53% пред БСП 26,61% — близък цикъл, проследен в системата ни само от една агенция.",
+          "Медиана, MAE 2,09, теренна работа 2 дни преди вота. Характерният ляв уклон е налице: надценяване на БСП с +4,89pp.",
+          "Атака — надценена с +1,7pp; националистическият блок все още не показваше ясно отклонение в този цикъл.",
+          "Данните само от една агенция ограничават изводите."
+        ]
+      },
+      "story": {
+        "en": "Earliest cycle with poll-vs-actual data in our dataset. Mediana's +4.89pp БСП overpoll fits the agency's long-term pattern across four cycles — left-leaning house effect was already visible in 2013.",
+        "bg": "Най-ранният цикъл с данни проучване срещу резултат в системата. Надценяването на БСП с +4,89pp от Медиана пасва на дългосрочния модел на агенцията през четири цикъла — левият уклон е бил видим още през 2013 г."
+      }
+    }
+  }
+}
