@@ -1,5 +1,5 @@
 import { useCallback, useMemo } from "react";
-import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 
 export type MpIndexEntry = {
   id: number;
@@ -24,9 +24,7 @@ type IndexFile = {
 
 const normalize = (s: string) => s.toUpperCase().replace(/\s+/g, " ").trim();
 
-const queryFn = async ({
-  queryKey,
-}: QueryFunctionContext<[string]>): Promise<IndexFile | undefined> => {
+const queryFn = async (): Promise<IndexFile | undefined> => {
   const response = await fetch(`/parliament/index.json`);
   if (!response.ok) return undefined;
   return response.json();

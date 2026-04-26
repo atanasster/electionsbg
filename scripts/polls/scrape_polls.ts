@@ -258,7 +258,9 @@ const matchAgency = (text: string): { id: string; agency: Agency } | null => {
 const parseFieldwork = (
   raw: string,
 ): { endIso: string; fieldwork: string } | null => {
-  const cleaned = collapseSpaces(raw.replace(/[–—]/g, "-").replace(/ /g, " "));
+  const cleaned = collapseSpaces(
+    raw.replace(/[–—]/g, "-").replace(/\u00A0/g, " "),
+  );
   // Possibilities:
   //   D-D MONTH YYYY
   //   D MONTH - D MONTH YYYY
@@ -316,7 +318,7 @@ const parsePct = (cell: cheerio.Cheerio<Element>): number | null => {
 
 const parseSample = (cellText: string): number | null => {
   // "1 003" / "1003" / "3 228 962" / "3228962"
-  const cleaned = cellText.replace(/[\s ]/g, "").replace(/[^0-9]/g, "");
+  const cleaned = cellText.replace(/[\s\u00A0]/g, "").replace(/[^0-9]/g, "");
   if (!cleaned) return null;
   const n = parseInt(cleaned, 10);
   return Number.isFinite(n) ? n : null;

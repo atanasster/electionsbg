@@ -36,17 +36,7 @@ export const useRegionSummary = (
     const protocol = region.results.protocol;
     const currentVotes = region.results.votes;
 
-    // For prior election, build StatsVote-like list from region history
-    const priorVotesArr: StatsVote[] | undefined = prevVotes?.results?.votes
-      ? prevVotes.results.votes.map((v) => ({
-          partyNum: v.partyNum,
-          nickName: v.nickName,
-          totalVotes: v.totalVotes,
-          paperVotes: v.paperVotes,
-          machineVotes: v.machineVotes,
-          commonName: (v as { commonName?: string[] }).commonName,
-        }))
-      : undefined;
+    const priorVotesArr: StatsVote[] | undefined = prevVotes?.results?.votes;
 
     const totalCurrent = currentVotes.reduce((s, v) => s + v.totalVotes, 0);
     const totalPrior =
