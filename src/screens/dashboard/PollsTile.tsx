@@ -86,7 +86,13 @@ export const PollsTile: FC = () => {
             a.biggestMiss.error > 0 ? "text-emerald-600" : "text-rose-600";
           return (
             <div className="contents" key={a.agencyId}>
-              <span className="font-medium truncate">{name}</span>
+              <Link
+                to={`/polls/${a.agencyId}`}
+                className="font-medium truncate hover:underline"
+                underline={false}
+              >
+                {name}
+              </Link>
               <div className="relative h-2 rounded-full bg-muted overflow-hidden">
                 <div
                   className="absolute top-0 bottom-0 left-0 rounded-full"
