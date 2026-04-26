@@ -6,6 +6,8 @@ export type NationalPartyResult = {
   color?: string;
   totalVotes: number;
   pct: number;
+  priorPct?: number;
+  deltaPct?: number;
   seats?: number;
   passedThreshold: boolean;
 };
@@ -32,6 +34,18 @@ export type AnomalyCounts = {
   problemSections: number;
 };
 
+export type PaperMachineSummary = {
+  paperVotes: number;
+  machineVotes: number;
+  total: number;
+  paperPct: number;
+  machinePct: number;
+  priorPaperPct?: number;
+  priorMachinePct?: number;
+  deltaPaperPct?: number;
+  deltaMachinePct?: number;
+};
+
 export type NationalSummary = {
   election: string;
   priorElection?: string;
@@ -45,5 +59,6 @@ export type NationalSummary = {
   topGainer?: PartyChange;
   topLoser?: PartyChange;
   anomalies: AnomalyCounts;
+  paperMachine?: PaperMachineSummary;
   parties: NationalPartyResult[];
 };

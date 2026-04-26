@@ -133,9 +133,9 @@ const SeatTable: FC<{
                   <td
                     className={`text-right py-2 px-2 tabular-nums ${
                       delta > 0
-                        ? "text-green-600"
+                        ? "text-positive"
                         : delta < 0
-                          ? "text-red-600"
+                          ? "text-negative"
                           : "text-muted-foreground"
                     }`}
                   >
@@ -188,7 +188,10 @@ export const SimulatorScreen: FC = () => {
   const [threshold, setThreshold] = useState(4);
 
   const officialSeats = allSeats[selected];
-  const votes: StatsVote[] = electionStats?.results?.votes ?? [];
+  const votes: StatsVote[] = useMemo(
+    () => electionStats?.results?.votes ?? [],
+    [electionStats],
+  );
 
   const [tab, setTab] = useState<"actual" | "whatif">(
     officialSeats ? "actual" : "whatif",

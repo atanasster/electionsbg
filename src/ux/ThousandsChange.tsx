@@ -17,7 +17,7 @@ export const ThousandsChange = ({
     return (
       <div
         className={cn(
-          `text-center ${style === "colored" ? (numFloat < 0 ? "text-destructive" : numFloat > 0 ? "text-green-600" : "") : ""}`,
+          `text-center ${style === "colored" ? (numFloat < 0 ? "text-negative" : numFloat > 0 ? "text-positive" : "") : ""}`,
           className,
         )}
       >

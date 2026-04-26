@@ -88,25 +88,11 @@ export const Header = () => {
       <div className="flex gap-6 items-center px-4">
         <Search />
         <Link
-          to="/simulator"
-          underline={false}
-          className="font-medium hidden lg:block lowercase whitespace-nowrap text-secondary-foreground hover:text-primary"
-        >
-          {t("coalition_simulator_short")}
-        </Link>
-        <Link
           to="/compare"
           underline={false}
           className="font-medium hidden lg:block lowercase whitespace-nowrap text-secondary-foreground hover:text-primary"
         >
           {t("compare_title")}
-        </Link>
-        <Link
-          to="/timeline"
-          underline={false}
-          className="font-medium hidden lg:block lowercase whitespace-nowrap text-secondary-foreground hover:text-primary"
-        >
-          {t("timeline_title")}
         </Link>
         {reportsMenu.map((topMenu, idx) => (
           <DropdownMenu key={`${topMenu.title}=${idx}`}>
@@ -146,7 +132,7 @@ export const Header = () => {
           id="theme-toggle"
           type="button"
           aria-label="switch theme dark mode"
-          className="hidden md:block items-center p-2 w-10 h-10 justify-center rounded-lg hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+          className="hidden md:block items-center p-2 w-10 h-10 justify-center rounded-lg text-muted-foreground hover:bg-accent/10 hover:text-accent focus:outline-none focus:ring-2 focus:ring-ring"
         >
           {theme === themeDark ? <SunMedium /> : <Moon />}
         </button>
@@ -155,7 +141,7 @@ export const Header = () => {
             <button
               data-collapse-toggle="navbar-default"
               type="button"
-              className="inline-flex items-center justify-center rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+              className="inline-flex items-center justify-center rounded-lg lg:hidden text-muted-foreground hover:bg-accent/10 hover:text-accent focus:outline-none focus:ring-2 focus:ring-ring"
               aria-controls="navbar-default"
               aria-expanded="false"
             >

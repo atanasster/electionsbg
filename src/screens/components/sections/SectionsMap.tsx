@@ -101,7 +101,7 @@ export const SectionsMap: FC<{
               >
                 <div className="text-left">
                   {tooltipBadge && (
-                    <div className="text-xs text-center font-semibold text-red-600 pb-1">
+                    <div className="text-xs text-center font-semibold text-negative pb-1">
                       ⚠ {tooltipBadge}
                     </div>
                   )}

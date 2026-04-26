@@ -88,7 +88,7 @@ export const IconTabs = <DType extends string>(props: {
                 <button
                   data-collapse-toggle="navbar-default"
                   type="button"
-                  className="inline-flex items-center justify-center rounded-lg lg:hidden hover:bg-gray-100 focus:outline-none focus:ring-2 focus:ring-gray-200 dark:text-gray-400 dark:hover:bg-gray-700 dark:focus:ring-gray-600"
+                  className="inline-flex items-center justify-center rounded-lg lg:hidden text-muted-foreground hover:bg-accent/10 hover:text-accent focus:outline-none focus:ring-2 focus:ring-ring"
                   aria-controls="navbar-default"
                   aria-expanded="false"
                 >

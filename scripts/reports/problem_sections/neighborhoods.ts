@@ -86,4 +86,17 @@ export const PROBLEM_NEIGHBORHOODS: ProblemNeighborhood[] = [
     addressIncludes: ["ДОЛНО ЕЗЕРОВО"],
     source_url: "https://rroma.org/bulgaria-vote-buying/",
   },
+  {
+    id: "maksuda",
+    name_bg: "Максуда",
+    name_en: "Maksuda",
+    city_bg: "Варна",
+    city_en: "Varna",
+    ekatte: "10135",
+    // Maksuda is officially registered under "ж.к. Възраждане" — the housing
+    // complex name appears in CEC section addresses for the schools serving it.
+    addressIncludes: ["ВЪЗРАЖДАНЕ"],
+    source_url:
+      "https://www.segabg.com/hot/category-bulgaria/nevalidnite-byuletini-skochiha-nad-40-golemite-romski-mahali",
+  },
 ];

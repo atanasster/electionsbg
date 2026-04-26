@@ -65,7 +65,9 @@ There are no tests configured.
 
 ```typescript
 // All data hooks follow this pattern
-const queryFn = async ({ queryKey }: QueryFunctionContext<[string, string]>): Promise<T> => {
+const queryFn = async ({
+  queryKey,
+}: QueryFunctionContext<[string, string]>): Promise<T> => {
   const response = await fetch(`/${queryKey[1]}/resource.json`);
   return response.json();
 };

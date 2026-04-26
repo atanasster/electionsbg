@@ -3,16 +3,23 @@ import { useTranslation } from "react-i18next";
 import { Share2 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { useNationalSummary } from "@/data/dashboard/useNationalSummary";
+import { useElectionContext } from "@/data/ElectionContext";
 import { renderDashboardCard } from "@/ux/cardExport/dashboardCard";
 import { ShareCardDialog } from "@/ux/cardExport/ShareCardDialog";
 import { PartyChangeCard } from "./cards/PartyChangeCard";
 import { TurnoutCard } from "./cards/TurnoutCard";
-import { AnomaliesCard } from "./cards/AnomaliesCard";
-import { CoalitionGaugeTile } from "./CoalitionGaugeTile";
+import { PaperMachineCard } from "./cards/PaperMachineCard";
+import { ProblemSectionsTile } from "./ProblemSectionsTile";
+import { MandatesTile } from "./MandatesTile";
 import { HistoricalTrendsTile } from "./HistoricalTrendsTile";
+import { PartyResultsTile } from "./PartyResultsTile";
 import { RegionsMapTile } from "./RegionsMapTile";
 import { TopCandidatesStrip } from "./TopCandidatesStrip";
+import { TopRegionsTile } from "./TopRegionsTile";
+import { TopFinancingTile } from "./TopFinancingTile";
 import { FlashMemoryTile } from "./FlashMemoryTile";
+import { RecountTile } from "./RecountTile";
+import { SuspiciousSectionsTile } from "./SuspiciousSectionsTile";
 
 const SkeletonCard: FC<{ className?: string }> = ({
   className = "h-[140px]",
@@ -28,6 +35,7 @@ const SkeletonCard: FC<{ className?: string }> = ({
 export const DashboardCards: FC = () => {
   const { t } = useTranslation();
   const { data, isLoading } = useNationalSummary();
+  const { electionStats } = useElectionContext();
   const [shareOpen, setShareOpen] = useState(false);
 
   const renderCard = useCallback(() => {
@@ -53,6 +61,9 @@ export const DashboardCards: FC = () => {
           <SkeletonCard className="h-[260px]" />
         </div>
         <div className="grid gap-3 grid-cols-1 mt-3">
+          <SkeletonCard className="h-[420px]" />
+        </div>
+        <div className="grid gap-3 grid-cols-1 mt-3">
           <SkeletonCard className="h-[220px]" />
         </div>
       </section>
@@ -62,17 +73,19 @@ export const DashboardCards: FC = () => {
   if (!data) return null;
 
   return (
-    <section aria-label={t("dashboard")} className="relative my-4">
-      <Button
-        variant="outline"
-        size="icon"
-        onClick={() => setShareOpen(true)}
-        aria-label={t("share_card_title")}
-        title={t("share_card_button")}
-        className="absolute -top-12 right-0 h-8 w-8 rounded-full shadow-sm"
-      >
-        <Share2 className="h-4 w-4" />
-      </Button>
+    <section aria-label={t("dashboard")} className="my-4">
+      <div className="flex justify-end mb-2">
+        <Button
+          variant="ghost"
+          size="icon"
+          onClick={() => setShareOpen(true)}
+          aria-label={t("share_card_title")}
+          title={t("share_card_button")}
+          className="h-8 w-8 rounded-full text-muted-foreground hover:text-foreground"
+        >
+          <Share2 className="h-4 w-4" />
+        </Button>
+      </div>
       <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
         <PartyChangeCard variant="gainer" change={data.topGainer} />
         <PartyChangeCard variant="loser" change={data.topLoser} />
@@ -80,18 +93,41 @@ export const DashboardCards: FC = () => {
           turnout={data.turnout}
           priorElection={data.priorElection}
         />
-        <AnomaliesCard anomalies={data.anomalies} />
+        <PaperMachineCard
+          paperMachine={data.paperMachine}
+          priorElection={data.priorElection}
+        />
       </div>
       <div className="grid gap-3 grid-cols-1 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] mt-3">
         <RegionsMapTile />
-        <HistoricalTrendsTile parties={data.parties} />
+        <PartyResultsTile parties={data.parties} />
       </div>
       <div className="grid gap-3 grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] mt-3">
-        <CoalitionGaugeTile parties={data.parties} />
+        <MandatesTile parties={data.parties} />
         <TopCandidatesStrip parties={data.parties} />
       </div>
       <div className="grid gap-3 grid-cols-1 mt-3">
+        <TopRegionsTile parties={data.parties} />
+      </div>
+      <div className="grid gap-3 grid-cols-1 mt-3">
         <FlashMemoryTile parties={data.parties} />
+      </div>
+      <div className="grid gap-3 grid-cols-1 mt-3">
+        <SuspiciousSectionsTile parties={data.parties} />
+      </div>
+      <div className="grid gap-3 grid-cols-1 mt-3">
+        <ProblemSectionsTile parties={data.parties} />
+      </div>
+      {electionStats?.hasFinancials ? (
+        <div className="grid gap-3 grid-cols-1 mt-3">
+          <TopFinancingTile parties={data.parties} />
+        </div>
+      ) : null}
+      <div className="grid gap-3 grid-cols-1 mt-3">
+        <RecountTile parties={data.parties} />
+      </div>
+      <div className="grid gap-3 grid-cols-1 mt-3">
+        <HistoricalTrendsTile />
       </div>
       <ShareCardDialog
         open={shareOpen}

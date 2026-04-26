@@ -32,10 +32,28 @@ export const useCanonicalParties = () => {
   const canonicalIdFor = (nickName: string): string | undefined =>
     data?.byNickName[nickName];
 
+  const fullNameFor = (
+    nickName: string,
+    election: string,
+  ): string | undefined => {
+    const id = data?.byNickName[nickName];
+    if (!id) return undefined;
+    const party = byId.get(id);
+    return party?.history.find((h) => h.election === election)?.name;
+  };
+
+  const displayNameFor = (nickName: string): string | undefined => {
+    const id = data?.byNickName[nickName];
+    if (!id) return undefined;
+    return byId.get(id)?.displayName;
+  };
+
   return {
     data,
     byId,
     colorFor,
     canonicalIdFor,
+    fullNameFor,
+    displayNameFor,
   };
 };

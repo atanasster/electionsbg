@@ -1,5 +1,5 @@
-import { FC, lazy, PropsWithChildren, Suspense } from "react";
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { FC, lazy, PropsWithChildren, Suspense, useEffect } from "react";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import { Layout } from "./layout/Layout";
 
 // Eagerly load the home screen so the landing page has no Suspense flash.
@@ -60,6 +60,31 @@ const CompareScreen = lazy(() =>
 const PartyTimelineScreen = lazy(() =>
   import("./screens/PartyTimelineScreen").then((m) => ({
     default: m.PartyTimelineScreen,
+  })),
+);
+const AllPartiesScreen = lazy(() =>
+  import("./screens/AllPartiesScreen").then((m) => ({
+    default: m.AllPartiesScreen,
+  })),
+);
+const AllPreferencesScreen = lazy(() =>
+  import("./screens/AllPreferencesScreen").then((m) => ({
+    default: m.AllPreferencesScreen,
+  })),
+);
+const AllFlashMemoryScreen = lazy(() =>
+  import("./screens/AllFlashMemoryScreen").then((m) => ({
+    default: m.AllFlashMemoryScreen,
+  })),
+);
+const AllRecountScreen = lazy(() =>
+  import("./screens/AllRecountScreen").then((m) => ({
+    default: m.AllRecountScreen,
+  })),
+);
+const AllRegionsScreen = lazy(() =>
+  import("./screens/AllRegionsScreen").then((m) => ({
+    default: m.AllRegionsScreen,
   })),
 );
 
@@ -258,6 +283,11 @@ const ProblemSections = lazy(() =>
     default: m.ProblemSections,
   })),
 );
+const ProblemSectionDetail = lazy(() =>
+  import("./screens/reports/sections/ProblemSectionDetail").then((m) => ({
+    default: m.ProblemSectionDetail,
+  })),
+);
 
 const RouteFallback: FC = () => (
   <div className="flex items-center justify-center min-h-[40vh] w-full" />
@@ -271,9 +301,18 @@ const LayoutScreen: FC<PropsWithChildren> = ({ children }) => {
   );
 };
 
+const ScrollToTop: FC = () => {
+  const { pathname } = useLocation();
+  useEffect(() => {
+    window.scrollTo({ top: 0, left: 0, behavior: "auto" });
+  }, [pathname]);
+  return null;
+};
+
 export const AuthRoutes = () => {
   return (
     <BrowserRouter>
+      <ScrollToTop />
       <Routes>
         <Route
           index
@@ -376,6 +415,46 @@ export const AuthRoutes = () => {
           element={
             <LayoutScreen>
               <PartyTimelineScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="parties"
+          element={
+            <LayoutScreen>
+              <AllPartiesScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="preferences"
+          element={
+            <LayoutScreen>
+              <AllPreferencesScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="flash-memory"
+          element={
+            <LayoutScreen>
+              <AllFlashMemoryScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="recount"
+          element={
+            <LayoutScreen>
+              <AllRecountScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="regions"
+          element={
+            <LayoutScreen>
+              <AllRegionsScreen />
             </LayoutScreen>
           }
         />
@@ -687,6 +766,14 @@ export const AuthRoutes = () => {
               element={
                 <LayoutScreen>
                   <ProblemSections />
+                </LayoutScreen>
+              }
+            />
+            <Route
+              path="problem_sections/:id"
+              element={
+                <LayoutScreen>
+                  <ProblemSectionDetail />
                 </LayoutScreen>
               }
             />

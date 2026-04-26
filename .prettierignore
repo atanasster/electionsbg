@@ -1,0 +1,25 @@
+# Dependencies & build output
+node_modules
+dist
+dist-ssr
+*.local
+*.cache
+
+# Raw election data (large CSV/HTML/JSON dumps)
+raw_data
+
+# Generated election data — regenerate with `npm run prod`
+public/2*/
+public/sections/
+public/settlements/
+public/municipalities/
+public/regions/
+public/maps
+public/*.json
+
+# Lockfiles & logs
+package-lock.json
+*.log
+
+# OS / editor
+.DS_Store

@@ -130,7 +130,7 @@ export const ShareCardDialog: FC<Props> = ({
               style={{ aspectRatio: "1200 / 630" }}
             />
           ) : error ? (
-            <div className="aspect-[1200/630] flex items-center justify-center text-sm text-rose-600 px-4 text-center">
+            <div className="aspect-[1200/630] flex items-center justify-center text-sm text-negative px-4 text-center">
               {error}
             </div>
           ) : (
@@ -147,7 +147,7 @@ export const ShareCardDialog: FC<Props> = ({
             aria-label={t("share_copy")}
           >
             {copied ? (
-              <Check className="h-4 w-4 mr-2 text-emerald-600" />
+              <Check className="h-4 w-4 mr-2 text-positive" />
             ) : (
               <Copy className="h-4 w-4 mr-2" />
             )}

@@ -3,84 +3,113 @@
 @tailwind utilities;
 
 @layer base {
+  /* Light theme — Anthropic-inspired warm cream palette */
   :root {
-    --background: 0 0% 100%;
-    --foreground: 240 10% 3.9%;
+    --background: 39 33% 92%; /* #F1ECE0 cream */
+    --foreground: 30 10% 12%; /* warm near-black */
 
-    --card: 0 0% 100%;
-    --card-foreground: 240 10% 3.9%;
- 
-    --popover: 0 0% 100%;
-    --popover-foreground: 229 100% 43%;
- 
-    --primary: 240 5.9% 10%;
-    --primary-foreground: 0 0% 98%;
- 
-    --secondary: 240 4.8% 95.9%;
-    --secondary-foreground: 240 5.9% 10%;
- 
-    --muted: 240 4.8% 95.9%;
-    --muted-foreground: 208 53% 36%;
- 
-    --accent: 240 4.8% 95.9%;
-    --accent-foreground: 240 5.9% 10%;
- 
-    --destructive: 0 84.2% 60.2%;
-    --destructive-foreground: 0 0% 98%;
+    --card: 36 30% 86%; /* #E5DBC4 darker cream for cards */
+    --card-foreground: 30 10% 12%;
 
-    --border: 240 5.9% 90%;
-    --input: 240 5.9% 90%;
-    --ring: 240 10% 3.9%;
-     --radius: 0.5rem;
-    --chart-1: 12 76% 61%;
+    --popover: 39 40% 96%; /* lightest cream for popovers/menus */
+    --popover-foreground: 16 75% 42%; /* warm coral accent text */
+
+    --primary: 30 10% 12%; /* warm black */
+    --primary-foreground: 39 40% 96%;
+
+    --secondary: 36 22% 88%;
+    --secondary-foreground: 30 10% 12%;
+
+    --muted: 36 25% 88%;
+    --muted-foreground: 30 8% 38%; /* warm muted gray */
+
+    --accent: 16 75% 55%; /* coral peach #DF6B43 */
+    --accent-foreground: 39 40% 96%;
+
+    --destructive: 0 70% 48%;
+    --destructive-foreground: 39 40% 96%;
+
+    --border: 36 18% 78%;
+    --input: 36 18% 78%;
+    --ring: 16 75% 55%;
+    --radius: 0.5rem;
+
+    --positive: 152 55% 32%;
+    --positive-foreground: 39 40% 96%;
+    --negative: 0 70% 48%;
+    --negative-foreground: 39 40% 96%;
+
+    --chart-1: 16 75% 55%;
     --chart-2: 173 58% 39%;
-    --chart-3: 197 37% 24%;
-    --chart-4: 43 74% 66%;
-    --chart-5: 27 87% 67%;
+    --chart-3: 38 76% 50%;
+    --chart-4: 200 60% 38%;
+    --chart-5: 280 50% 55%;
   }
- 
-  .dark {
-    --background: 240 10% 3.9%;
-    --foreground: 0 0% 98%;
- 
-    --card: 240 10% 3.9%;
-    --card-foreground: 0 0% 98%;
- 
-    --popover: 240 10% 3.9%;
-    --popover-foreground: 16 100% 68%;
- 
-    --primary: 0 0% 98%;
-    --primary-foreground: 240 5.9% 10%;
- 
-    --secondary: 240 3.7% 15.9%;
-    --secondary-foreground: 0 0% 98%;
- 
-    --muted: 240 3.7% 15.9%;
-    --muted-foreground: 208 57% 81%;
- 
-    --accent: 240 3.7% 15.9%;
-    --accent-foreground: 0 0% 98%;
- 
-    --destructive: 0 100% 44%;
-    --destructive-foreground: 0 0% 98%;
- 
-    
 
-    --border: 240 3.7% 15.9%;
-    --input: 240 3.7% 15.9%;
-    --ring: 240 4.9% 83.9%;
-    --chart-1: 220 70% 50%;
-    --chart-2: 160 60% 45%;
-    --chart-3: 30 80% 55%;
-    --chart-4: 280 65% 60%;
-    --chart-5: 340 75% 55%;
+  /* Dark theme — Windsurf-inspired deep navy + mint accent */
+  .dark {
+    --background: 224 47% 8%; /* #0B1224 deep navy */
+    --foreground: 210 25% 96%;
+
+    --card: 223 38% 13%; /* slightly lighter navy card */
+    --card-foreground: 210 25% 96%;
+
+    --popover: 223 38% 13%;
+    --popover-foreground: 158 60% 68%; /* mint accent text */
+
+    --primary: 158 60% 68%; /* mint cyan #7AE2C0 */
+    --primary-foreground: 224 47% 8%;
+
+    --secondary: 222 30% 18%;
+    --secondary-foreground: 210 25% 96%;
+
+    --muted: 222 28% 17%;
+    --muted-foreground: 220 18% 70%;
+
+    --accent: 158 60% 68%;
+    --accent-foreground: 224 47% 8%;
+
+    --destructive: 0 70% 55%;
+    --destructive-foreground: 210 25% 96%;
+
+    --border: 222 20% 28%;
+    --input: 222 25% 22%;
+    --ring: 158 60% 68%;
+
+    --positive: 158 60% 60%;
+    --positive-foreground: 224 47% 8%;
+    --negative: 0 75% 62%;
+    --negative-foreground: 224 47% 8%;
+
+    --chart-1: 158 60% 68%;
+    --chart-2: 200 80% 60%;
+    --chart-3: 38 90% 65%;
+    --chart-4: 280 65% 70%;
+    --chart-5: 340 75% 65%;
+  }
+
+  * {
+    border-color: hsl(var(--border));
   }
 }
 
-.leaflet-control { z-index: 0 !important}
-.leaflet-container { z-index: 0 !important}
-.leaflet-pane { z-index: 0 !important}
-.leaflet-top, .leaflet-bottom {z-index: 0 !important}
+.leaflet-control {
+  z-index: 0 !important;
+}
+.leaflet-container {
+  z-index: 0 !important;
+}
+.leaflet-pane {
+  z-index: 0 !important;
+}
+.leaflet-top,
+.leaflet-bottom {
+  z-index: 0 !important;
+}
+
+.dark .leaflet-tile {
+  filter: brightness(0.55) saturate(0.7) hue-rotate(180deg) invert(0.92);
+}
 
 .leaflet-tooltip.section-tooltip {
   background: hsl(var(--primary));
@@ -119,21 +148,51 @@
     @apply bg-muted/50;
   }
 
-  .markdown-content h1, .markdown-content h2, .markdown-content h3 {
-      @apply font-bold mt-4 mb-2;
+  .markdown-content h1,
+  .markdown-content h2,
+  .markdown-content h3 {
+    @apply font-bold mt-4 mb-2;
   }
-  .markdown-content h1 { @apply text-xl; }
-  .markdown-content h2 { @apply text-lg; }
-  .markdown-content h3 { @apply text-base; }
-  .markdown-content p { @apply mb-2; }
-  .markdown-content p:last-child { @apply mb-0; }
-  .markdown-content strong { @apply font-bold; }
-  .markdown-content em { @apply italic; }
-  .markdown-content ul { @apply list-disc list-outside my-2 pl-5; }
-  .markdown-content ol { @apply list-decimal list-outside my-2 pl-5; }
-  .markdown-content li { @apply mb-1; }
-  .markdown-content code { @apply bg-secondary text-secondary-foreground rounded px-1 py-0.5 font-mono text-xs; }
-  .markdown-content pre { @apply bg-secondary p-2 rounded my-2 overflow-x-auto; }
-  .markdown-content blockquote { @apply border-l-4 border-border pl-4 italic my-2 text-muted-foreground; }
-  .markdown-content a { @apply text-primary underline underline-offset-4 hover:text-primary/80; }
+  .markdown-content h1 {
+    @apply text-xl;
+  }
+  .markdown-content h2 {
+    @apply text-lg;
+  }
+  .markdown-content h3 {
+    @apply text-base;
+  }
+  .markdown-content p {
+    @apply mb-2;
+  }
+  .markdown-content p:last-child {
+    @apply mb-0;
+  }
+  .markdown-content strong {
+    @apply font-bold;
+  }
+  .markdown-content em {
+    @apply italic;
+  }
+  .markdown-content ul {
+    @apply list-disc list-outside my-2 pl-5;
+  }
+  .markdown-content ol {
+    @apply list-decimal list-outside my-2 pl-5;
+  }
+  .markdown-content li {
+    @apply mb-1;
+  }
+  .markdown-content code {
+    @apply bg-secondary text-secondary-foreground rounded px-1 py-0.5 font-mono text-xs;
+  }
+  .markdown-content pre {
+    @apply bg-secondary p-2 rounded my-2 overflow-x-auto;
+  }
+  .markdown-content blockquote {
+    @apply border-l-4 border-border pl-4 italic my-2 text-muted-foreground;
+  }
+  .markdown-content a {
+    @apply text-primary underline underline-offset-4 hover:text-primary/80;
+  }
 }

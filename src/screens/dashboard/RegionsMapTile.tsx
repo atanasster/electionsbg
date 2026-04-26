@@ -41,10 +41,7 @@ export const RegionsMapTile: FC = () => {
       }
       hint={t("dashboard_regional_map_hint")}
     >
-      <div
-        ref={ref}
-        className="relative w-full h-[360px] md:h-[420px] overflow-hidden"
-      >
+      <div ref={ref} className="w-full h-[360px] md:h-[420px]">
         {size && <RegionsMap size={size} />}
       </div>
     </StatCard>

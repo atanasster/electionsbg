@@ -7,12 +7,14 @@ import { settlementReports } from "./settlement_reports";
 import { sectionReports } from "./section_reports";
 import {
   buildCoordsLookup,
+  buildNeighborhoodSectionCodes,
   generateProblemSections,
   generateProblemSectionsStats,
 } from "./problem_sections";
 import { cikPartiesFileName } from "scripts/consts";
 import { generateNationalSummary } from "./nationalSummary";
 import { generateRegionHistory } from "./regionHistory";
+import { generateSuspiciousSections } from "./suspiciousSections";
 
 const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
 const __dirname = path.dirname(__filename); // get the name of the directory
@@ -37,6 +39,7 @@ export const generateReports = (
     ? JSON.parse(fs.readFileSync(seatsFile, "utf-8"))
     : {};
   const coordsLookup = buildCoordsLookup(publicFolder);
+  const neighborhoodCodes = buildNeighborhoodSectionCodes(publicFolder);
   elections
     .filter((e) => election === e.name || election === undefined)
     .forEach((e) => {
@@ -81,6 +84,13 @@ export const generateReports = (
         year,
         stringify,
         coordsLookup,
+        neighborhoodCodes,
+      });
+      generateSuspiciousSections({
+        publicFolder,
+        dataFolder,
+        year,
+        stringify,
       });
       const priorElection: ElectionInfo | undefined =
         fullIndex > 0 ? elections[fullIndex - 1] : undefined;

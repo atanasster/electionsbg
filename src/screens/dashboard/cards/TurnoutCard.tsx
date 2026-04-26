@@ -17,8 +17,8 @@ export const TurnoutCard: FC<Props> = ({ turnout, priorElection }) => {
     turnout.deltaPct === undefined
       ? "text-muted-foreground"
       : turnout.deltaPct >= 0
-        ? "text-emerald-600"
-        : "text-rose-600";
+        ? "text-positive"
+        : "text-negative";
 
   return (
     <StatCard label={t("dashboard_turnout")} hint={t("dashboard_turnout_hint")}>

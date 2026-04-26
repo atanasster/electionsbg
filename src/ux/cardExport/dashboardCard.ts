@@ -32,10 +32,6 @@ const formatPctSigned = (pct: number, digits = 2): string => {
   return `${sign}${pct.toFixed(digits)}%`;
 };
 
-// bg-BG uses U+00A0 (NBSP) as the thousands separator; \s matches it.
-const formatThousands = (n: number): string =>
-  n.toLocaleString("bg-BG").replace(/\s/g, ",");
-
 type Tile = {
   label: string;
   value: string;
@@ -220,12 +216,31 @@ export const renderDashboardCard = async (
           : PALETTE.red,
       accent: summary.topLoser?.color,
     },
-    {
-      label: "отклонения",
-      value: formatThousands(summary.anomalies.total),
-      delta: "секции",
-      deltaColor: PALETTE.amber,
-    },
+    (() => {
+      const pm = summary.paperMachine;
+      if (!pm) {
+        return {
+          label: "хартия / машина",
+          value: "—",
+        };
+      }
+      const onlyPaper = pm.machinePct === 0;
+      const onlyMachine = pm.paperPct === 0;
+      const showDelta =
+        !onlyPaper && !onlyMachine && pm.deltaPaperPct !== undefined;
+      return {
+        label: "хартия / машина",
+        value: `${pm.paperPct.toFixed(1)}%`,
+        delta: showDelta
+          ? `${formatPctSigned(pm.deltaPaperPct as number)} пр.п. хартия`
+          : undefined,
+        deltaColor: showDelta
+          ? (pm.deltaPaperPct as number) >= 0
+            ? PALETTE.green
+            : PALETTE.red
+          : PALETTE.muted,
+      };
+    })(),
   ];
 
   tiles.forEach((tile, i) => {

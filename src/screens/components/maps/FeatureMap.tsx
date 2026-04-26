@@ -57,7 +57,7 @@ export const FeatureMap: React.FC<
         fill={fillColor}
         fillOpacity={opacity}
         onContextMenu={(e) => e.preventDefault()}
-        stroke="rgb(232, 232, 232)"
+        stroke="hsl(var(--border))"
         strokeWidth={active ? 2.5 : 1}
         cursor={onCursor ? onCursor() : "pointer"}
         className="path"

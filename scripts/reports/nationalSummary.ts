@@ -10,6 +10,7 @@ import {
   AnomalyCounts,
   NationalPartyResult,
   NationalSummary,
+  PaperMachineSummary,
   PartyChange,
 } from "@/data/dashboard/dashboardTypes";
 
@@ -87,14 +88,66 @@ const computeAnomalies = (
   };
 };
 
+const sumPaperMachine = (votes: StatsVote[] | undefined) => {
+  if (!votes) return undefined;
+  let paper = 0;
+  let machine = 0;
+  for (const v of votes) {
+    paper += v.paperVotes ?? 0;
+    machine += v.machineVotes ?? 0;
+  }
+  return { paper, machine };
+};
+
+const computePaperMachine = (
+  current: StatsVote[],
+  prior?: StatsVote[],
+): PaperMachineSummary | undefined => {
+  const cur = sumPaperMachine(current);
+  if (!cur) return undefined;
+  const total = cur.paper + cur.machine;
+  if (!total) return undefined;
+  const paperPct = round((100 * cur.paper) / total);
+  const machinePct = round((100 * cur.machine) / total);
+  const priorSum = sumPaperMachine(prior);
+  const priorTotal = priorSum ? priorSum.paper + priorSum.machine : 0;
+  const priorPaperPct =
+    priorSum && priorTotal
+      ? round((100 * priorSum.paper) / priorTotal)
+      : undefined;
+  const priorMachinePct =
+    priorSum && priorTotal
+      ? round((100 * priorSum.machine) / priorTotal)
+      : undefined;
+  return {
+    paperVotes: cur.paper,
+    machineVotes: cur.machine,
+    total,
+    paperPct,
+    machinePct,
+    priorPaperPct,
+    priorMachinePct,
+    deltaPaperPct:
+      priorPaperPct !== undefined ? round(paperPct - priorPaperPct) : undefined,
+    deltaMachinePct:
+      priorMachinePct !== undefined
+        ? round(machinePct - priorMachinePct)
+        : undefined,
+  };
+};
+
 const computePartyChange = (
   current: StatsVote[],
   prior: StatsVote[] | undefined,
   parties: PartyInfo[],
   totalCurrent: number,
   totalPrior: number,
-): { gainer?: PartyChange; loser?: PartyChange } => {
-  if (!prior || !totalPrior) return {};
+): {
+  gainer?: PartyChange;
+  loser?: PartyChange;
+  changes: Map<number, { priorPct: number; deltaPct: number }>;
+} => {
+  if (!prior || !totalPrior) return { changes: new Map() };
   const candidates = current
     .map((v) => {
       const partyInfo = parties.find((p) => p.number === v.partyNum);
@@ -127,11 +180,19 @@ const computePartyChange = (
     })
     .filter((c): c is PartyChange => c !== undefined);
 
-  if (candidates.length === 0) return {};
+  const changes = new Map(
+    candidates.map((c) => [
+      c.partyNum,
+      { priorPct: c.priorPct, deltaPct: c.deltaPct },
+    ]),
+  );
+
+  if (candidates.length === 0) return { changes };
   const sorted = [...candidates].sort((a, b) => b.deltaPct - a.deltaPct);
   return {
     gainer: sorted[0],
     loser: sorted[sorted.length - 1],
+    changes,
   };
 };
 
@@ -163,24 +224,6 @@ export const generateNationalSummary = ({
   const seats = seatsByElection[year] ?? [];
   const seatByPartyNum = new Map(seats.map((s) => [s.partyNum, s.seats]));
 
-  const partyResults: NationalPartyResult[] = currentVotes
-    .map((v) => {
-      const partyInfo = parties.find((p) => p.number === v.partyNum);
-      const pct = totalCurrent ? (100 * v.totalVotes) / totalCurrent : 0;
-      return {
-        partyNum: v.partyNum,
-        nickName: v.nickName,
-        name: partyInfo?.name,
-        name_en: partyInfo?.name_en,
-        color: partyInfo?.color,
-        totalVotes: v.totalVotes,
-        pct: round(pct),
-        seats: seatByPartyNum.get(v.partyNum),
-        passedThreshold: pct >= NATIONAL_THRESHOLD_PCT,
-      };
-    })
-    .sort((a, b) => b.totalVotes - a.totalVotes);
-
   const turnoutPct =
     protocol?.numRegisteredVoters && protocol.totalActualVoters
       ? (100 * protocol.totalActualVoters) / protocol.numRegisteredVoters
@@ -192,7 +235,7 @@ export const generateNationalSummary = ({
         priorProtocol.numRegisteredVoters
       : undefined;
 
-  const { gainer, loser } = computePartyChange(
+  const { gainer, loser, changes } = computePartyChange(
     currentVotes,
     priorVotes,
     parties,
@@ -200,10 +243,33 @@ export const generateNationalSummary = ({
     totalPrior,
   );
 
+  const partyResults: NationalPartyResult[] = currentVotes
+    .map((v) => {
+      const partyInfo = parties.find((p) => p.number === v.partyNum);
+      const pct = totalCurrent ? (100 * v.totalVotes) / totalCurrent : 0;
+      const change = changes.get(v.partyNum);
+      return {
+        partyNum: v.partyNum,
+        nickName: v.nickName,
+        name: partyInfo?.name,
+        name_en: partyInfo?.name_en,
+        color: partyInfo?.color,
+        totalVotes: v.totalVotes,
+        pct: round(pct),
+        priorPct: change?.priorPct,
+        deltaPct: change?.deltaPct,
+        seats: seatByPartyNum.get(v.partyNum),
+        passedThreshold: pct >= NATIONAL_THRESHOLD_PCT,
+      };
+    })
+    .sort((a, b) => b.totalVotes - a.totalVotes);
+
   const anomalies = computeAnomalies(
     reportsFolder,
     `${publicFolder}/${year}/problem_sections.json`,
   );
+
+  const paperMachine = computePaperMachine(currentVotes, priorVotes);
 
   const summary: NationalSummary = {
     election: year,
@@ -222,6 +288,7 @@ export const generateNationalSummary = ({
     topGainer: gainer,
     topLoser: loser,
     anomalies,
+    paperMachine,
     parties: partyResults,
   };
 

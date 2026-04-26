@@ -4,7 +4,6 @@ import { usePartyInfo } from "@/data/parties/usePartyInfo";
 import { useTranslation } from "react-i18next";
 import { formatPct, formatThousands } from "@/data/utils";
 import { useTopParties } from "@/data/parties/useTopParties";
-import { PartyLabel } from "./party/PartyLabel";
 
 export const PartyVotesXS: FC<{
   votes?: Votes[];
@@ -17,40 +16,43 @@ export const PartyVotesXS: FC<{
   }, [votes]);
 
   const parties = useTopParties(votes, 4);
+  if (!parties?.length) return null;
+
   return (
     <div className={className}>
-      {!!parties?.length && (
-        <>
-          <div className="text-center text-xs mb-1">
-            {`${t("total")} ${formatThousands(total)} ${t("votes")}`}
-          </div>
-          <table className="w-full border rounded-md border-collapse table-auto">
-            <thead>
-              <tr className="border-b text-xs bg-gray-5 py-3">
-                <th className="text-left py-1 px-2">{t("party")}</th>
-                <th className="text-center ">{t("votes")}</th>
-                <th className="text-center ">%</th>
+      <div className="text-[10px] uppercase tracking-wide opacity-70 text-center mb-1">
+        {`${formatThousands(total)} ${t("votes")}`}
+      </div>
+      <table className="w-full border-collapse text-[11px] leading-tight">
+        <tbody>
+          {parties.map((v) => {
+            const party = findParty(v.partyNum);
+            const pct = total ? (100 * v.totalVotes) / total : 0;
+            return (
+              <tr key={v.partyNum} className="font-medium">
+                <td className="py-0.5 pr-2">
+                  <div className="flex items-center gap-1.5 max-w-[140px]">
+                    <span
+                      aria-hidden
+                      className="inline-block h-2 w-2 rounded-sm shrink-0"
+                      style={{ backgroundColor: party?.color }}
+                    />
+                    <span className="truncate">
+                      {party?.nickName || t("unknown_party")}
+                    </span>
+                  </div>
+                </td>
+                <td className="py-0.5 pr-2 text-right tabular-nums opacity-90">
+                  {formatThousands(v.totalVotes)}
+                </td>
+                <td className="py-0.5 text-right tabular-nums font-semibold">
+                  {total ? formatPct(pct) : null}
+                </td>
               </tr>
-            </thead>
-            <tbody className="divide-y  text-xs text-right font-light">
-              {parties.map((v) => {
-                const party = findParty(v.partyNum);
-                return (
-                  <tr className="font-medium" key={v.partyNum}>
-                    <td className="px-1 py-0.5 ">
-                      <PartyLabel className="py-0.5" party={party} />
-                    </td>
-                    <td className="px-1">{formatThousands(v.totalVotes)}</td>
-                    <td className="px-1">
-                      {total ? formatPct(100 * (v.totalVotes / total)) : null}
-                    </td>
-                  </tr>
-                );
-              })}
-            </tbody>
-          </table>
-        </>
-      )}
+            );
+          })}
+        </tbody>
+      </table>
     </div>
   );
 };

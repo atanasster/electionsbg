@@ -25,12 +25,21 @@ export type ProblemSectionsReport = {
   neighborhoods: ProblemSectionsNeighborhood[];
 };
 
-const MIN_ELECTION_DATE = "2024_10_27";
+// Earliest election that yields useful matches. Section codes were largely
+// renumbered before 2009, so even with the section-code backfill (see
+// buildNeighborhoodSectionCodes) most neighborhoods don't resolve in 2005.
+const MIN_ELECTION_DATE = "2009_07_05";
+
+// Address field on sections is only populated from this election onward.
+// Older elections rely on the resolved section-code lookup instead.
+const ADDRESS_FIELD_AVAILABLE_FROM = "2022_10_02";
 
 const matchesNeighborhood = (
   section: SectionInfo,
   n: ProblemNeighborhood,
+  resolvedCodes?: Set<string>,
 ): boolean => {
+  if (resolvedCodes?.has(section.section)) return true;
   if (n.sectionCodes?.includes(section.section)) return true;
   if (n.sectionPrefix && section.section.startsWith(n.sectionPrefix))
     return true;
@@ -38,6 +47,50 @@ const matchesNeighborhood = (
   if (!n.addressIncludes?.length) return false;
   const addr = (section.address || "").toUpperCase();
   return n.addressIncludes.some((kw) => addr.includes(kw.toUpperCase()));
+};
+
+// Walk every election with a populated `address` field and union the section
+// codes that match each neighborhood's address rules. The resulting per-
+// neighborhood code set is then used to match sections in older elections,
+// where the address field is empty but section codes are stable.
+export const buildNeighborhoodSectionCodes = (
+  publicFolder: string,
+): Record<string, Set<string>> => {
+  const result: Record<string, Set<string>> = {};
+  for (const n of PROBLEM_NEIGHBORHOODS) result[n.id] = new Set();
+
+  const years = fs
+    .readdirSync(publicFolder, { withFileTypes: true })
+    .filter((d) => d.isDirectory() && /^\d{4}_\d{2}_\d{2}$/.test(d.name))
+    .map((d) => d.name)
+    .filter((y) => y >= ADDRESS_FIELD_AVAILABLE_FROM)
+    .sort();
+
+  for (const y of years) {
+    const dir = `${publicFolder}/${y}/sections/by-oblast`;
+    if (!fs.existsSync(dir)) continue;
+    for (const f of fs.readdirSync(dir)) {
+      if (!f.endsWith(".json")) continue;
+      let bundle: Record<string, SectionInfo>;
+      try {
+        bundle = JSON.parse(fs.readFileSync(`${dir}/${f}`, "utf-8"));
+      } catch {
+        continue;
+      }
+      for (const s of Object.values(bundle)) {
+        if (!s.address) continue;
+        const addr = s.address.toUpperCase();
+        for (const n of PROBLEM_NEIGHBORHOODS) {
+          if (s.ekatte !== n.ekatte) continue;
+          if (!n.addressIncludes?.length) continue;
+          if (n.addressIncludes.some((kw) => addr.includes(kw.toUpperCase()))) {
+            result[n.id].add(s.section);
+          }
+        }
+      }
+    }
+  }
+  return result;
 };
 
 // Build a section-code → {longitude, latitude} map from the latest election that
@@ -92,20 +145,23 @@ export const generateProblemSections = ({
   year,
   stringify,
   coordsLookup,
+  neighborhoodCodes,
 }: {
   publicFolder: string;
   dataFolder: string;
   year: string;
   stringify: (o: object) => string;
   coordsLookup?: Record<string, { longitude: number; latitude: number }>;
+  neighborhoodCodes?: Record<string, Set<string>>;
 }) => {
   if (year < MIN_ELECTION_DATE) return;
   const sections = sectionDataReader(dataFolder, year);
   if (!sections) return;
   const report: ProblemSectionsReport = {
     neighborhoods: PROBLEM_NEIGHBORHOODS.map((n) => {
+      const codes = neighborhoodCodes?.[n.id];
       const matched = sections
-        .filter((s) => matchesNeighborhood(s, n))
+        .filter((s) => matchesNeighborhood(s, n, codes))
         .map((s) => {
           if (
             coordsLookup &&

@@ -13,6 +13,7 @@ import { RecountCards } from "@/screens/components/protocols/RecountCards";
 import { Caption } from "@/ux/Caption";
 import { H1 } from "@/ux/H1";
 import { SEO } from "@/ux/SEO";
+import { Link } from "@/ux/Link";
 import { ErrorSection } from "@/screens/components/ErrorSection";
 import { SectionInfo } from "@/data/dataTypes";
 import { useProblemSections } from "@/data/reports/useProblemSections";
@@ -37,12 +38,11 @@ const NeighborhoodsLegend: FC<{
       <Caption className="pb-2">{t("included_neighborhoods")}</Caption>
       <div className="flex flex-wrap gap-2">
         {neighborhoods.map((n) => (
-          <a
+          <Link
             key={n.id}
-            href={n.source_url}
-            target="_blank"
-            rel="noreferrer"
-            className="text-xs px-2 py-1 rounded border border-red-500/40 bg-red-500/5 hover:bg-red-500/10 text-primary"
+            to={`/reports/section/problem_sections/${n.id}`}
+            underline={false}
+            className="text-xs px-2 py-1 rounded border border-destructive/40 bg-destructive/5 hover:bg-destructive/10 text-foreground"
           >
             <span className="font-semibold">
               {isBg ? n.name_bg : n.name_en}
@@ -51,7 +51,7 @@ const NeighborhoodsLegend: FC<{
               {" "}
               · {isBg ? n.city_bg : n.city_en} · {n.sections.length}
             </span>
-          </a>
+          </Link>
         ))}
       </div>
     </div>

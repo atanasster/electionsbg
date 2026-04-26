@@ -19,7 +19,7 @@ export const PartyChangeCard: FC<Props> = ({ variant, change }) => {
   const { t } = useTranslation();
   const isGainer = variant === "gainer";
   const Icon = isGainer ? TrendingUp : TrendingDown;
-  const accent = isGainer ? "text-emerald-600" : "text-rose-600";
+  const accent = isGainer ? "text-positive" : "text-negative";
   const label = isGainer ? t("dashboard_top_gainer") : t("dashboard_top_loser");
   const hint = isGainer
     ? t("dashboard_top_gainer_hint")

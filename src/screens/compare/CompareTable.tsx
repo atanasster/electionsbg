@@ -18,9 +18,9 @@ const Delta: FC<{ value: number; suffix?: string; digits?: number }> = ({
   const Icon = value > 0 ? ArrowUp : value < 0 ? ArrowDown : Minus;
   const tone =
     value > 0
-      ? "text-emerald-600"
+      ? "text-positive"
       : value < 0
-        ? "text-rose-600"
+        ? "text-negative"
         : "text-muted-foreground";
   const sign = value > 0 ? "+" : value < 0 ? "−" : "";
   const formatted =
@@ -30,7 +30,7 @@ const Delta: FC<{ value: number; suffix?: string; digits?: number }> = ({
   return (
     <span className={`inline-flex items-center gap-1 ${tone}`}>
       <Icon className="h-3.5 w-3.5 shrink-0" />
-      <span className="tabular-nums">
+      <span className="tabular-nums whitespace-nowrap">
         {sign}
         {formatted}
         {suffix}
@@ -142,7 +142,10 @@ export const CompareTable: FC<Props> = ({ left, right }) => {
               <NumCell value={left.turnout.pct} format="pct" />
             </td>
             <td className="text-right py-2 px-2">
-              <Delta value={turnoutDelta} suffix=" pp" />
+              <Delta
+                value={turnoutDelta}
+                suffix={` ${t("dashboard_pct_points")}`}
+              />
             </td>
             <td className="text-right py-2 px-2">
               <NumCell value={right.turnout.pct} format="pct" />
@@ -219,7 +222,10 @@ export const CompareTable: FC<Props> = ({ left, right }) => {
                 </td>
                 <td className="text-right py-2 px-2">
                   {deltaPct !== undefined ? (
-                    <Delta value={deltaPct} suffix=" pp" />
+                    <Delta
+                      value={deltaPct}
+                      suffix={` ${t("dashboard_pct_points")}`}
+                    />
                   ) : (
                     <span className="text-xs text-muted-foreground">
                       {r.leftPct === undefined

@@ -1,4 +1,4 @@
-import { queryClient } from "./QueryProvider";
+import { queryClient } from "./queryClient";
 import {
   regionVotesQueryFn,
   regionVotesQueryKey,

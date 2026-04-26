@@ -4,6 +4,8 @@ import { Cpu } from "lucide-react";
 import { NationalPartyResult } from "@/data/dashboard/dashboardTypes";
 import { useRegionVotes } from "@/data/regions/useRegionVotes";
 import { formatThousands } from "@/data/utils";
+import { Link } from "@/ux/Link";
+import { Hint } from "@/ux/Hint";
 import { StatCard } from "./StatCard";
 
 type Props = {
@@ -52,21 +54,39 @@ export const FlashMemoryTile: FC<Props> = ({ parties, topN = 6 }) => {
   return (
     <StatCard
       label={
-        <div className="flex items-center gap-2">
-          <Cpu className="h-4 w-4" />
-          <span>{t("dashboard_flash_memory_diff")}</span>
+        <div className="flex items-center justify-between w-full">
+          <Hint text={t("dashboard_flash_memory_diff_hint")} underline={false}>
+            <div className="flex items-center gap-2">
+              <Cpu className="h-4 w-4" />
+              <span>{t("dashboard_flash_memory_diff")}</span>
+            </div>
+          </Hint>
+          <Link
+            to="/flash-memory"
+            className="text-[10px] normal-case text-primary hover:underline"
+            underline={false}
+          >
+            {t("dashboard_see_details")} →
+          </Link>
         </div>
       }
-      hint={t("dashboard_flash_memory_diff_hint")}
     >
-      <div className="grid grid-cols-[minmax(0,1fr)_auto_auto_minmax(80px,1fr)_auto] gap-x-3 gap-y-1.5 text-[10px] font-medium uppercase tracking-wide text-muted-foreground items-center mt-1">
-        <span>{t("dashboard_party")}</span>
-        <span className="text-right">{t("machine_votes")}</span>
-        <span className="text-right">{t("dashboard_flash")}</span>
-        <span>{t("dashboard_drift")}</span>
-        <span className="text-right">{t("change")}</span>
-      </div>
-      <div className="grid grid-cols-[minmax(0,1fr)_auto_auto_minmax(80px,1fr)_auto] gap-x-3 gap-y-1.5 items-center text-sm">
+      <div className="grid grid-cols-[minmax(0,1fr)_auto_auto_minmax(80px,1fr)_auto] gap-x-3 gap-y-1.5 items-center mt-1 text-sm">
+        <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
+          {t("dashboard_party")}
+        </span>
+        <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground text-right">
+          {t("machine_votes")}
+        </span>
+        <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground text-right">
+          {t("dashboard_flash")}
+        </span>
+        <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
+          {t("dashboard_drift")}
+        </span>
+        <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground text-right">
+          {t("change")}
+        </span>
         {rows.map((r) => {
           const ratio = maxAbsDiff > 0 ? Math.abs(r.diff) / maxAbsDiff : 0;
           const positive = r.diff > 0;
@@ -89,9 +109,7 @@ export const FlashMemoryTile: FC<Props> = ({ parties, topN = 6 }) => {
                 <div
                   className={`absolute top-0 bottom-0 ${
                     positive ? "left-1/2" : "right-1/2"
-                  } rounded-full ${
-                    positive ? "bg-emerald-500" : "bg-rose-500"
-                  }`}
+                  } rounded-full ${positive ? "bg-positive" : "bg-negative"}`}
                   style={{ width: `${Math.max(2, ratio * 50)}%` }}
                 />
                 <div className="absolute top-0 bottom-0 left-1/2 w-px bg-border" />
@@ -101,8 +119,8 @@ export const FlashMemoryTile: FC<Props> = ({ parties, topN = 6 }) => {
                   r.diff === 0
                     ? "text-muted-foreground"
                     : positive
-                      ? "text-emerald-600"
-                      : "text-rose-600"
+                      ? "text-positive"
+                      : "text-negative"
                 }`}
               >
                 {fmtSigned(r.diff)}
