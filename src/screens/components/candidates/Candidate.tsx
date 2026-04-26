@@ -14,6 +14,7 @@ import { useElectionContext } from "@/data/ElectionContext";
 import { useTranslation } from "react-i18next";
 import { CandidateDonationsTable } from "./CandidateDonationsTable";
 import { CandidateSummary } from "./CandidateSummary";
+import { MpProfileHeader } from "./MpProfileHeader";
 
 const dataViews = [
   "regions",
@@ -63,6 +64,8 @@ export const Candidate: FC<{ name: string }> = ({ name }) => {
       >
         {name}
       </Title>
+
+      <MpProfileHeader name={name} />
 
       <table className="flex justify-center py-2 ">
         <tbody>

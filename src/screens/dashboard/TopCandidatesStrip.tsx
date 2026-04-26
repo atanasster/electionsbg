@@ -6,11 +6,13 @@ import { PreferencesInfo } from "@/data/dataTypes";
 import { NationalPartyResult } from "@/data/dashboard/dashboardTypes";
 import { useElectionContext } from "@/data/ElectionContext";
 import { useCandidates } from "@/data/preferences/useCandidates";
+import { useMps } from "@/data/parliament/useMps";
 import { useRegions } from "@/data/regions/useRegions";
 import { formatThousands } from "@/data/utils";
 import { Link } from "@/ux/Link";
 import { Tooltip } from "@/ux/Tooltip";
 import { Hint } from "@/ux/Hint";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { StatCard } from "./StatCard";
 
 type Props = {
@@ -40,6 +42,7 @@ export const TopCandidatesStrip: FC<Props> = ({ parties }) => {
   const { t, i18n } = useTranslation();
   const { selected } = useElectionContext();
   const { findCandidate } = useCandidates();
+  const { findMpByName } = useMps();
   const { findRegion } = useRegions();
   const { data: preferences } = useQuery({
     queryKey: ["preferences_all_country", selected] as [
@@ -94,6 +97,8 @@ export const TopCandidatesStrip: FC<Props> = ({ parties }) => {
             : region.long_name_en || region.name_en
           : undefined;
 
+        const mp = findMpByName(candidate.name);
+
         return {
           partyNum: p.partyNum,
           partyNickName: p.nickName,
@@ -107,11 +112,12 @@ export const TopCandidatesStrip: FC<Props> = ({ parties }) => {
           pref: top.pref,
           regionName,
           regionCount,
+          photoUrl: mp?.photoUrl,
         };
       })
       .filter((r): r is NonNullable<typeof r> => !!r && !!r.candidateName)
       .sort((a, b) => b.totalVotes - a.totalVotes);
-  }, [preferences, parties, findCandidate, findRegion, i18n.language]);
+  }, [preferences, parties, findCandidate, findMpByName, findRegion, i18n.language]);
 
   if (rows.length === 0) return null;
 
@@ -208,13 +214,24 @@ export const TopCandidatesStrip: FC<Props> = ({ parties }) => {
               underline={false}
               className="flex items-center gap-3 p-2 rounded-lg border border-border/60 hover:bg-muted/40 transition-colors min-w-0 flex-1 basis-[180px] max-w-[260px]"
             >
-              <div
-                className="flex items-center justify-center h-10 w-10 rounded-full text-white text-sm font-bold shrink-0"
-                style={{ backgroundColor: r.color }}
-                aria-hidden
+              <Avatar
+                className="h-10 w-10 shrink-0 ring-2"
+                style={{ ["--tw-ring-color" as string]: r.color }}
               >
-                {initials(r.candidateName)}
-              </div>
+                {r.photoUrl && (
+                  <AvatarImage
+                    src={r.photoUrl}
+                    alt={r.candidateName}
+                    className="object-cover"
+                  />
+                )}
+                <AvatarFallback
+                  className="text-white text-sm font-bold"
+                  style={{ backgroundColor: r.color }}
+                >
+                  {initials(r.candidateName)}
+                </AvatarFallback>
+              </Avatar>
               <div className="flex flex-col min-w-0">
                 <span className="text-sm font-semibold truncate">
                   {r.candidateName}
