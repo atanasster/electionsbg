@@ -10,6 +10,7 @@ import { parseFinancing } from "./smetna_palata";
 import { runPartyStats } from "./party_stats";
 import { createPreferencesFiles } from "./preferences";
 import { parseMachinesFlashMemory } from "./machines_memory";
+import { backfillSectionCoords } from "./parsers/backfill_section_coords";
 
 const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
 const __dirname = path.dirname(__filename); // get the name of the directory
@@ -95,6 +96,12 @@ const app = command({
       short: "u",
       defaultValue: () => false,
     }),
+    coords: flag({
+      type: optional(boolean),
+      long: "coords",
+      short: "g",
+      defaultValue: () => false,
+    }),
   },
   handler: async ({
     all,
@@ -109,6 +116,7 @@ const app = command({
     machines,
     election,
     summary,
+    coords,
   }) => {
     production = prod;
     if (machines) {
@@ -118,6 +126,13 @@ const app = command({
       await parseMachinesFlashMemory(inFolder, date, stringify);
     }
     await parseElections({ date, all, stringify, publicFolder });
+    if (coords || all) {
+      backfillSectionCoords({
+        publicFolder,
+        dataFolder: inFolder,
+        stringify,
+      });
+    }
     if (stats) {
       runStats(stringify);
     }
