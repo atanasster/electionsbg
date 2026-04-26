@@ -60,32 +60,49 @@ const resolveActualKey = (
   return null;
 };
 
-// Try to extract a fieldwork end date from the free-text "fieldwork" field
-// (e.g., "Mar 13-19 2026") so polls can be sorted reliably newest-first.
+// Try to extract the fieldwork END date from the free-text "fieldwork" field
+// so polls can be sorted reliably newest-first and used to derive the next
+// election. Handles three observed formats:
+//   "Mar 13-19 2026"         → end = Mar 19 2026
+//   "May 27 - Jun 2 2024"    → end = Jun 2 2024 (cross-month)
+//   "Mar 16 2017"            → end = Mar 16 2017 (single day)
+const MONTHS = [
+  "jan",
+  "feb",
+  "mar",
+  "apr",
+  "may",
+  "jun",
+  "jul",
+  "aug",
+  "sep",
+  "oct",
+  "nov",
+  "dec",
+];
+
 const fieldworkEndKey = (fieldwork: string): number => {
-  const m = fieldwork.match(
-    /\b(\d{1,2})(?:[-–]\s*\d{1,2})?\s+([A-Za-z]+)\s+(\d{4})\b/,
+  const cross = fieldwork.match(
+    /([A-Za-z]+)\s+\d{1,2}\s*[-–]\s*([A-Za-z]+)\s+(\d{1,2})\s+(\d{4})/,
   );
-  if (m) {
-    const day = parseInt(m[1], 10);
-    const monthName = m[2];
-    const year = parseInt(m[3], 10);
-    const months = [
-      "jan",
-      "feb",
-      "mar",
-      "apr",
-      "may",
-      "jun",
-      "jul",
-      "aug",
-      "sep",
-      "oct",
-      "nov",
-      "dec",
-    ];
-    const idx = months.indexOf(monthName.slice(0, 3).toLowerCase());
-    if (idx >= 0) return new Date(year, idx, day).getTime();
+  if (cross) {
+    const idx = MONTHS.indexOf(cross[2].slice(0, 3).toLowerCase());
+    if (idx >= 0)
+      return new Date(parseInt(cross[4], 10), idx, parseInt(cross[3], 10)).getTime();
+  }
+  const range = fieldwork.match(
+    /([A-Za-z]+)\s+\d{1,2}\s*[-–]\s*(\d{1,2})\s+(\d{4})/,
+  );
+  if (range) {
+    const idx = MONTHS.indexOf(range[1].slice(0, 3).toLowerCase());
+    if (idx >= 0)
+      return new Date(parseInt(range[3], 10), idx, parseInt(range[2], 10)).getTime();
+  }
+  const single = fieldwork.match(/([A-Za-z]+)\s+(\d{1,2})\s+(\d{4})/);
+  if (single) {
+    const idx = MONTHS.indexOf(single[1].slice(0, 3).toLowerCase());
+    if (idx >= 0)
+      return new Date(parseInt(single[3], 10), idx, parseInt(single[2], 10)).getTime();
   }
   return 0;
 };
@@ -123,6 +140,28 @@ export const AgencyPollsList: FC<Props> = ({ polls, details, elections }) => {
     }
     return m;
   }, [elections]);
+
+  // Election dates ascending — used to pick the first election whose date is
+  // strictly after a poll's fieldwork end, so party links land on the election
+  // the poll was predicting (works even when poll.electionDate is null).
+  const electionDatesAsc = useMemo(
+    () =>
+      elections
+        .map((e) => e.electionDate)
+        .sort((a, b) => a.localeCompare(b)),
+    [elections],
+  );
+
+  const nextElectionFor = (poll: Poll): string | null => {
+    if (poll.electionDate) return poll.electionDate;
+    const fwKey = fieldworkEndKey(poll.fieldwork);
+    if (!fwKey) return null;
+    for (const iso of electionDatesAsc) {
+      const [y, m, d] = iso.split("-").map(Number);
+      if (new Date(y, m - 1, d).getTime() > fwKey) return iso;
+    }
+    return null;
+  };
 
   const sortedPolls = useMemo(
     () =>
@@ -168,6 +207,7 @@ export const AgencyPollsList: FC<Props> = ({ polls, details, elections }) => {
           const actuals = p.electionDate
             ? actualByElection.get(p.electionDate)
             : undefined;
+          const linkElection = nextElectionFor(p);
           // Resolve each detail to its canonical actual key (so "ГЕРБ – СДС"
           // → "ГЕРБ-СДС" → 13.39%) up-front; we reuse this for both the bar,
           // the actual column, and the party link.
@@ -266,8 +306,8 @@ export const AgencyPollsList: FC<Props> = ({ polls, details, elections }) => {
                         >
                           <Link
                             to={
-                              p.electionDate
-                                ? `/party/${key ?? d.nickName_bg}?elections=${p.electionDate.replace(/-/g, "_")}`
+                              linkElection
+                                ? `/party/${key ?? d.nickName_bg}?elections=${linkElection.replace(/-/g, "_")}`
                                 : `/party/${key ?? d.nickName_bg}`
                             }
                             className="text-xs truncate text-primary hover:underline"
