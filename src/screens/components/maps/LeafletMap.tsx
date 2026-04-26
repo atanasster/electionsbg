@@ -1,8 +1,19 @@
 import { MapCoordinates } from "@/layout/dataview/MapLayout";
-import { FC, PropsWithChildren } from "react";
-import { MapContainer, TileLayer } from "react-leaflet";
+import { FC, PropsWithChildren, useEffect } from "react";
+import { MapContainer, TileLayer, useMap } from "react-leaflet";
 import "leaflet/dist/leaflet.css";
 import { zoomFromScale } from "./d3_utils";
+
+const InvalidateOnResize: FC<{ width: number; height: number }> = ({
+  width,
+  height,
+}) => {
+  const map = useMap();
+  useEffect(() => {
+    map.invalidateSize();
+  }, [map, width, height]);
+  return null;
+};
 
 export const LeafletMap: FC<
   PropsWithChildren<{
@@ -44,6 +55,7 @@ export const LeafletMap: FC<
           attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
+        <InvalidateOnResize width={size[0]} height={size[1]} />
         {children}
       </MapContainer>
     </div>
