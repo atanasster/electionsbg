@@ -17,6 +17,7 @@ import { StatCard } from "./StatCard";
 
 type Props = {
   parties: NationalPartyResult[];
+  regionCode?: string;
 };
 
 const queryFn = async ({
@@ -38,7 +39,7 @@ const initials = (name?: string) => {
   return (first + last).toUpperCase() || "?";
 };
 
-export const TopCandidatesStrip: FC<Props> = ({ parties }) => {
+export const TopCandidatesStrip: FC<Props> = ({ parties, regionCode }) => {
   const { t, i18n } = useTranslation();
   const { selected } = useElectionContext();
   const { findCandidate } = useCandidates();
@@ -54,11 +55,20 @@ export const TopCandidatesStrip: FC<Props> = ({ parties }) => {
 
   const rows = useMemo(() => {
     if (!preferences || !parties.length) return [];
-    const seatedParties = parties.filter((p) => (p.seats ?? 0) > 0);
+    // National view: only seated parties; region view: only top parties (those
+    // that crossed the 4% national threshold or are in the region's top 6 —
+    // both flagged as passedThreshold by useRegionSummary). Avoids one card
+    // per fringe party in regions where 25+ parties received votes.
+    const eligibleParties = regionCode
+      ? parties.filter((p) => p.passedThreshold)
+      : parties.filter((p) => (p.seats ?? 0) > 0);
+    const scopedPreferences = regionCode
+      ? preferences.filter((r) => r.oblast === regionCode)
+      : preferences;
 
-    return seatedParties
+    return eligibleParties
       .map((p) => {
-        const partyPrefs = preferences.filter((r) => r.partyNum === p.partyNum);
+        const partyPrefs = scopedPreferences.filter((r) => r.partyNum === p.partyNum);
         if (!partyPrefs.length) return null;
         const top = partyPrefs.reduce((a, b) =>
           b.totalVotes > a.totalVotes ? b : a,
@@ -117,7 +127,7 @@ export const TopCandidatesStrip: FC<Props> = ({ parties }) => {
       })
       .filter((r): r is NonNullable<typeof r> => !!r && !!r.candidateName)
       .sort((a, b) => b.totalVotes - a.totalVotes);
-  }, [preferences, parties, findCandidate, findMpByName, findRegion, i18n.language]);
+  }, [preferences, parties, findCandidate, findMpByName, findRegion, i18n.language, regionCode]);
 
   if (rows.length === 0) return null;
 
@@ -132,7 +142,7 @@ export const TopCandidatesStrip: FC<Props> = ({ parties }) => {
             </div>
           </Hint>
           <Link
-            to="/preferences"
+            to={regionCode ? `/municipality/${regionCode}/preferences` : "/preferences"}
             className="text-[10px] normal-case text-primary hover:underline"
             underline={false}
           >

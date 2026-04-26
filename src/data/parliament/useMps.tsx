@@ -54,5 +54,21 @@ export const useMps = () => {
     [byName],
   );
 
-  return { mps: data?.mps, currentNs: data?.currentNs, findMpByName };
+  // MPs whose nsFolders includes the given folder AND whose currentRegion
+  // matches the given region code. For the currently sitting NS this is
+  // exact; for older NSes it's a heuristic (the MP's region as parliament.bg
+  // last recorded it). See SKILL.md for details on the limitation.
+  const findMpsByRegion = useCallback(
+    (regionCode?: string | null, nsFolder?: string | null): MpIndexEntry[] => {
+      if (!data?.mps || !regionCode || !nsFolder) return [];
+      const code = regionCode.padStart(2, "0");
+      return data.mps.filter(
+        (m) =>
+          m.currentRegion?.code === code && m.nsFolders.includes(nsFolder),
+      );
+    },
+    [data],
+  );
+
+  return { mps: data?.mps, currentNs: data?.currentNs, findMpByName, findMpsByRegion };
 };

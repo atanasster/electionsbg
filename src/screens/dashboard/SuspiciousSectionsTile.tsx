@@ -14,6 +14,7 @@ import { StatCard } from "./StatCard";
 
 type Props = {
   parties: NationalPartyResult[];
+  regionCode?: string;
 };
 
 type ColumnDef = {
@@ -38,16 +39,25 @@ const settlementLabel = (s: SuspiciousTopSettlement, isBg: boolean) => {
   return parts.join(", ") || s.ekatte;
 };
 
-export const SuspiciousSectionsTile: FC<Props> = ({ parties }) => {
+export const SuspiciousSectionsTile: FC<Props> = ({ parties, regionCode }) => {
   const { t, i18n } = useTranslation();
   const isBg = i18n.language === "bg";
   const { data } = useSuspiciousSettlements();
 
   if (!data) return null;
+
+  const filterByRegion = (cat: SuspiciousCategory): SuspiciousCategory => {
+    if (!regionCode) return cat;
+    const top = cat.top.filter((s) => s.oblast === regionCode);
+    return { ...cat, top, count: top.length };
+  };
+
+  const concentrated = filterByRegion(data.concentrated);
+  const invalidBallots = filterByRegion(data.invalidBallots);
+  const additionalVoters = filterByRegion(data.additionalVoters);
+
   const totalFlagged =
-    data.concentrated.count +
-    data.invalidBallots.count +
-    data.additionalVoters.count;
+    concentrated.count + invalidBallots.count + additionalVoters.count;
   if (!totalFlagged) return null;
 
   const partyMap = new Map(parties.map((p) => [p.partyNum, p]));
@@ -61,7 +71,7 @@ export const SuspiciousSectionsTile: FC<Props> = ({ parties }) => {
         threshold: data.concentrated.threshold,
       }),
       link: "/reports/settlement/concentrated",
-      data: data.concentrated,
+      data: concentrated,
       showParty: true,
     },
     {
@@ -72,7 +82,7 @@ export const SuspiciousSectionsTile: FC<Props> = ({ parties }) => {
         threshold: data.invalidBallots.threshold,
       }),
       link: "/reports/settlement/invalid_ballots",
-      data: data.invalidBallots,
+      data: invalidBallots,
     },
     {
       key: "additionalVoters",
@@ -83,7 +93,7 @@ export const SuspiciousSectionsTile: FC<Props> = ({ parties }) => {
         floor: data.thresholds.additionalVotersMinActual,
       }),
       link: "/reports/settlement/additional_voters",
-      data: data.additionalVoters,
+      data: additionalVoters,
     },
   ];
 

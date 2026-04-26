@@ -3,14 +3,21 @@ import { useTranslation } from "react-i18next";
 import { LineChart } from "lucide-react";
 import { useElectionContext } from "@/data/ElectionContext";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
+import { useRegionStats } from "@/data/regions/useRegionStats";
 import { BubbleTimeline } from "@/screens/timeline/BubbleTimeline";
 import { Link } from "@/ux/Link";
 import { Hint } from "@/ux/Hint";
 import { StatCard } from "./StatCard";
 
-export const HistoricalTrendsTile: FC = () => {
+type Props = {
+  regionCode?: string;
+};
+
+export const HistoricalTrendsTile: FC<Props> = ({ regionCode }) => {
   const { t } = useTranslation();
-  const { stats } = useElectionContext();
+  const { stats: nationalStats } = useElectionContext();
+  const { stats: regionStats } = useRegionStats(regionCode);
+  const stats = regionCode ? regionStats : nationalStats;
   const { colorFor, canonicalIdFor, fullNameFor } = useCanonicalParties();
 
   if (!stats?.length) return null;
@@ -26,7 +33,7 @@ export const HistoricalTrendsTile: FC = () => {
             </div>
           </Hint>
           <Link
-            to="/timeline"
+            to={regionCode ? `/municipality/${regionCode}/timeline` : "/timeline"}
             className="text-[10px] normal-case text-primary hover:underline"
             underline={false}
           >

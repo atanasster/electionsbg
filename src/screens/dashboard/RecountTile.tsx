@@ -10,6 +10,7 @@ import { StatCard } from "./StatCard";
 
 type Props = {
   parties: NationalPartyResult[];
+  regionCode?: string;
 };
 
 const fmtSigned = (n: number) => {
@@ -18,10 +19,15 @@ const fmtSigned = (n: number) => {
   return sign + formatThousands(Math.abs(n));
 };
 
-export const RecountTile: FC<Props> = ({ parties }) => {
+export const RecountTile: FC<Props> = ({ parties, regionCode }) => {
   const { t } = useTranslation();
-  const { countryVotes } = useRegionVotes();
-  const { results, original } = countryVotes();
+  const { countryVotes, votesByRegion } = useRegionVotes();
+  const country = countryVotes();
+  const region = regionCode ? votesByRegion(regionCode) : undefined;
+  const results = regionCode ? (region?.results ?? { votes: [] }) : country.results;
+  const original = regionCode
+    ? (region?.original ?? { votes: [], addedVotes: 0, addedPaperVotes: 0, addedMachineVotes: 0, removedVotes: 0, removedPaperVotes: 0, removedMachineVotes: 0 })
+    : country.original;
 
   const { rows, hasRecount, maxAbsChange } = useMemo(() => {
     const top = parties.filter((p) => p.passedThreshold);
@@ -67,7 +73,7 @@ export const RecountTile: FC<Props> = ({ parties }) => {
             </div>
           </Hint>
           <Link
-            to="/recount"
+            to={regionCode ? `/municipality/${regionCode}/recount` : "/recount"}
             className="text-[10px] normal-case text-primary hover:underline"
             underline={false}
           >

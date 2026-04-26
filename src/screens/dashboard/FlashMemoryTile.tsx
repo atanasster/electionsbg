@@ -11,6 +11,7 @@ import { StatCard } from "./StatCard";
 type Props = {
   parties: NationalPartyResult[];
   topN?: number;
+  regionCode?: string;
 };
 
 const fmtSigned = (n: number) => {
@@ -19,10 +20,12 @@ const fmtSigned = (n: number) => {
   return sign + formatThousands(Math.abs(n));
 };
 
-export const FlashMemoryTile: FC<Props> = ({ parties, topN = 6 }) => {
+export const FlashMemoryTile: FC<Props> = ({ parties, topN = 6, regionCode }) => {
   const { t } = useTranslation();
-  const { countryVotes } = useRegionVotes();
-  const { results } = countryVotes();
+  const { countryVotes, votesByRegion } = useRegionVotes();
+  const results = regionCode
+    ? (votesByRegion(regionCode)?.results ?? { votes: [] })
+    : countryVotes().results;
 
   const { rows, hasFlash, maxAbsDiff } = useMemo(() => {
     const top = parties.slice(0, topN);
@@ -62,7 +65,7 @@ export const FlashMemoryTile: FC<Props> = ({ parties, topN = 6 }) => {
             </div>
           </Hint>
           <Link
-            to="/flash-memory"
+            to={regionCode ? `/municipality/${regionCode}/flash-memory` : "/flash-memory"}
             className="text-[10px] normal-case text-primary hover:underline"
             underline={false}
           >

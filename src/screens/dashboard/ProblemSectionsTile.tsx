@@ -10,9 +10,10 @@ import { StatCard } from "./StatCard";
 
 type Props = {
   parties: NationalPartyResult[];
+  regionCode?: string;
 };
 
-export const ProblemSectionsTile: FC<Props> = ({ parties }) => {
+export const ProblemSectionsTile: FC<Props> = ({ parties, regionCode }) => {
   const { t, i18n } = useTranslation();
   const isBg = i18n.language === "bg";
   const { data } = useProblemSections();
@@ -20,7 +21,12 @@ export const ProblemSectionsTile: FC<Props> = ({ parties }) => {
   const rows = useMemo(() => {
     if (!data?.neighborhoods?.length) return [];
     const partyMap = new Map(parties.map((p) => [p.partyNum, p]));
-    return data.neighborhoods
+    const filtered = regionCode
+      ? data.neighborhoods.filter((n) =>
+          n.sections.some((s) => s.oblast === regionCode),
+        )
+      : data.neighborhoods;
+    return filtered
       .map((n) => {
         let registered = 0;
         let voters = 0;
@@ -60,7 +66,7 @@ export const ProblemSectionsTile: FC<Props> = ({ parties }) => {
         };
       })
       .sort((a, b) => b.sectionCount - a.sectionCount);
-  }, [data, parties, isBg]);
+  }, [data, parties, isBg, regionCode]);
 
   if (!rows.length) return null;
 

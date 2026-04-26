@@ -26,9 +26,10 @@ const DeltaBadge: FC<{ delta: number }> = ({ delta }) => {
 
 type Props = {
   parties: NationalPartyResult[];
+  regionCode?: string;
 };
 
-export const PartyResultsTile: FC<Props> = ({ parties }) => {
+export const PartyResultsTile: FC<Props> = ({ parties, regionCode }) => {
   const { t } = useTranslation();
   const { colorFor } = useCanonicalParties();
 
@@ -55,7 +56,7 @@ export const PartyResultsTile: FC<Props> = ({ parties }) => {
             </div>
           </Hint>
           <Link
-            to="/parties"
+            to={regionCode ? `/municipality/${regionCode}/parties` : "/parties"}
             className="text-[10px] normal-case text-primary hover:underline"
             underline={false}
           >
