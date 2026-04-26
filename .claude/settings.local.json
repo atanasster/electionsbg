@@ -196,7 +196,9 @@
       "Bash(git checkout *)",
       "Bash(cp /tmp/bg-current.json src/locales/bg/translation.json)",
       "Bash(awk -F';' '{print \"Section: \" $1 \" Settlement: \" $5}')",
-      "Bash(node -e \"const a=require\\('./public/polls/accuracy.json'\\); const e=a.elections.find\\(x=>x.electionDate==='2026-04-19'\\); console.log\\(JSON.stringify\\(e?.actualResults?.slice\\(0,5\\), null, 2\\)\\);\")"
+      "Bash(node -e \"const a=require\\('./public/polls/accuracy.json'\\); const e=a.elections.find\\(x=>x.electionDate==='2026-04-19'\\); console.log\\(JSON.stringify\\(e?.actualResults?.slice\\(0,5\\), null, 2\\)\\);\")",
+      "Bash(python3 -c \"import json; d=json.load\\(open\\('/Users/atanasster/data-bg/public/regions/01_stats.json' if __import__\\('os'\\).path.exists\\('/Users/atanasster/data-bg/public/regions/01_stats.json'\\) else next\\(iter\\([f for f in __import__\\('glob'\\).glob\\('/Users/atanasster/data-bg/public/regions/*_stats.json'\\)]\\)\\)\\)\\); print\\(list\\(d[0]['results']['votes'][0].keys\\(\\)\\)\\)\")",
+      "Bash(xargs -I{} sh -c \"python3 -c \\\\\"import json; d=json.load\\(open\\('{}'\\)\\); print\\(list\\(d[0]['results']['votes'][0].keys\\(\\)\\)\\)\\\\\"\")"
     ]
   }
 }
