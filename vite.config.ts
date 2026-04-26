@@ -58,14 +58,30 @@ export default defineConfig(({ mode }) => {
             if (id.includes("/leaflet") || id.includes("/react-leaflet")) {
               return "vendor-leaflet";
             }
+            // Recharts pulls in a deep CJS subtree (lodash, react-smooth,
+            // recharts-scale, eventemitter3, tiny-invariant, fast-equals,
+            // decimal.js-light). If any of these leak into the catch-all
+            // chunk, Rollup's split creates a circular import between
+            // vendor-charts and vendor that surfaces in production as
+            // "Cannot access 'X' before initialization". Keep the whole
+            // recharts subgraph self-contained here. All listed packages
+            // are recharts-only deps in this repo.
             if (
               id.includes("/recharts") ||
+              id.includes("/recharts-scale") ||
               id.includes("/victory-vendor") ||
-              id.includes("/d3-")
+              id.includes("/react-smooth") ||
+              id.includes("/d3-") ||
+              id.includes("/lodash/") ||
+              id.match(/[\\/]node_modules[\\/]lodash[\\/]/) ||
+              id.includes("/eventemitter3") ||
+              id.includes("/tiny-invariant") ||
+              id.includes("/fast-equals") ||
+              id.includes("/decimal.js-light")
             ) {
               return "vendor-charts";
             }
-            if (id.includes("/jspdf")) {
+            if (id.includes("/jspdf") || id.includes("/canvg")) {
               return "vendor-pdf";
             }
             if (
