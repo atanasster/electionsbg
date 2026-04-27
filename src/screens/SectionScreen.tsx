@@ -1,9 +1,11 @@
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { ShieldAlert } from "lucide-react";
 import { useSectionsVotes } from "@/data/sections/useSectionsVotes";
 import { useSettlementsInfo } from "@/data/settlements/useSettlements";
 import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
 import { useRegions } from "@/data/regions/useRegions";
+import { useProblemSections } from "@/data/reports/useProblemSections";
 import { SEO } from "@/ux/SEO";
 import { H1 } from "@/ux/H1";
 import { Link } from "@/ux/Link";
@@ -16,8 +18,13 @@ export const SectionScreen = () => {
   const { findSettlement } = useSettlementsInfo();
   const { findMunicipality } = useMunicipalities();
   const { findRegion } = useRegions();
+  const { data: problemSections } = useProblemSections();
 
   if (!sectionCode) return null;
+
+  const problemNeighborhood = problemSections?.neighborhoods.find((n) =>
+    n.sections.some((s) => s.section === sectionCode),
+  );
 
   const settlement = section ? findSettlement(section.ekatte) : undefined;
   const region = section ? findRegion(section.oblast) : undefined;
@@ -76,6 +83,24 @@ export const SectionScreen = () => {
         <p className="text-center text-sm text-muted-foreground -mt-2 mb-2">
           {subtitle}
         </p>
+      ) : null}
+      {problemNeighborhood ? (
+        <div className="flex justify-center mb-2">
+          <Link
+            to={`/reports/section/problem_sections/${problemNeighborhood.id}`}
+            underline={false}
+            className="inline-flex items-center gap-1.5 rounded-full border border-negative/60 bg-negative/10 px-3 py-1 text-xs font-semibold text-negative hover:bg-negative/20"
+          >
+            <ShieldAlert className="h-3.5 w-3.5" />
+            <span>{t("problem_section_badge")}</span>
+            <span className="text-muted-foreground font-normal">
+              ·{" "}
+              {i18n.language === "bg"
+                ? problemNeighborhood.name_bg
+                : problemNeighborhood.name_en}
+            </span>
+          </Link>
+        </div>
       ) : null}
       <SectionDashboardCards sectionCode={sectionCode} />
     </>
