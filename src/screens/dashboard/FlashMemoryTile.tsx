@@ -91,27 +91,24 @@ export const FlashMemoryTile: FC<Props> = ({
         </div>
       }
     >
-      <div className="grid grid-cols-[minmax(0,1fr)_auto_auto_minmax(80px,1fr)_auto] gap-x-3 gap-y-1.5 items-center mt-1 text-sm">
-        <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
-          {t("dashboard_party")}
-        </span>
-        <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground text-right">
-          {t("machine_votes")}
-        </span>
-        <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground text-right">
-          {t("dashboard_flash")}
-        </span>
-        <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
-          {t("dashboard_drift")}
-        </span>
-        <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground text-right">
-          {t("change")}
-        </span>
+      <div className="flex flex-col gap-1.5 mt-1">
+        <div className="grid grid-cols-[minmax(0,1fr)_auto_auto_minmax(80px,1fr)_auto] gap-x-3 items-center text-[10px] font-medium uppercase tracking-wide text-muted-foreground px-1">
+          <span>{t("dashboard_party")}</span>
+          <span className="text-right">{t("machine_votes")}</span>
+          <span className="text-right">{t("dashboard_flash")}</span>
+          <span>{t("dashboard_drift")}</span>
+          <span className="text-right">{t("change")}</span>
+        </div>
         {rows.map((r) => {
           const ratio = maxAbsDiff > 0 ? Math.abs(r.diff) / maxAbsDiff : 0;
           const positive = r.diff > 0;
           return (
-            <div className="contents" key={r.partyNum}>
+            <Link
+              key={r.partyNum}
+              to={`/party/${r.nickName}`}
+              underline={false}
+              className="grid grid-cols-[minmax(0,1fr)_auto_auto_minmax(80px,1fr)_auto] gap-x-3 items-center text-sm hover:bg-muted/40 rounded-md px-1 py-1 -mx-1 transition-colors"
+            >
               <div className="flex items-center gap-2 min-w-0">
                 <span
                   className="inline-block w-2.5 h-2.5 rounded-full shrink-0"
@@ -145,7 +142,7 @@ export const FlashMemoryTile: FC<Props> = ({
               >
                 {fmtSigned(r.diff)}
               </span>
-            </div>
+            </Link>
           );
         })}
       </div>
