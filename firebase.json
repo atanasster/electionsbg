@@ -41,7 +41,6 @@
     ],
     "predeploy": [
       "npm --prefix \"$RESOURCE_DIR\"\"/..\" run lint",
-      "npm --prefix \"$RESOURCE_DIR\"\"/..\" run prod",
       "npm --prefix \"$RESOURCE_DIR\"\"/..\" run build"
     ]
   }
