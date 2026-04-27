@@ -5,6 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
+    "prebuild": "rm -rf dist",
     "build": "tsc -b && vite build",
     "postbuild": "tsx ./scripts/og/generate.ts && tsx ./scripts/prerender/index.ts && tsx ./scripts/gzip-dist.ts",
     "lint": "eslint .",
