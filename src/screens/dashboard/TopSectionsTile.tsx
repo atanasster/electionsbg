@@ -11,8 +11,9 @@ import { StatCard } from "./StatCard";
 const TOP_N = 15;
 
 type Props = {
-  ekatte: string;
+  ekatte?: string;
   sections?: SectionInfo[];
+  seeDetailsHref?: string;
 };
 
 const stripSettlementFromAddress = (
@@ -31,7 +32,11 @@ const stripSettlementFromAddress = (
   return trimmed.trim() || address;
 };
 
-export const TopSectionsTile: FC<Props> = ({ ekatte, sections }) => {
+export const TopSectionsTile: FC<Props> = ({
+  ekatte,
+  sections,
+  seeDetailsHref,
+}) => {
   const { t } = useTranslation();
   const { topVotesParty } = usePartyInfo();
 
@@ -84,9 +89,9 @@ export const TopSectionsTile: FC<Props> = ({ ekatte, sections }) => {
               <span>{t(titleKey)}</span>
             </div>
           </Hint>
-          {!showAllInTile ? (
+          {!showAllInTile && (seeDetailsHref || ekatte) ? (
             <Link
-              to={`/sections/${ekatte}/list`}
+              to={seeDetailsHref ?? `/sections/${ekatte}/list`}
               className="text-[10px] normal-case text-primary hover:underline"
               underline={false}
             >

@@ -27,12 +27,13 @@ const queryFn = async ({
   return response.json();
 };
 
-export const useProblemSections = () => {
+export const useProblemSections = (electionOverride?: string | null) => {
   const { selected } = useElectionContext();
+  const election = electionOverride ?? selected;
   return useQuery({
-    queryKey: ["problem_sections", selected],
+    queryKey: ["problem_sections", election],
     queryFn,
-    enabled: !!selected,
+    enabled: !!election,
     retry: false,
   });
 };

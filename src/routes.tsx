@@ -438,6 +438,31 @@ const ProblemSectionDetail = lazy(() =>
     default: m.ProblemSectionDetail,
   })),
 );
+const ProblemSectionPartiesScreen = lazy(() =>
+  import("./screens/reports/sections/ProblemSectionPartiesScreen").then(
+    (m) => ({ default: m.ProblemSectionPartiesScreen }),
+  ),
+);
+const ProblemSectionListScreen = lazy(() =>
+  import("./screens/reports/sections/ProblemSectionListScreen").then((m) => ({
+    default: m.ProblemSectionListScreen,
+  })),
+);
+const ProblemSectionFlashMemoryScreen = lazy(() =>
+  import("./screens/reports/sections/ProblemSectionFlashMemoryScreen").then(
+    (m) => ({ default: m.ProblemSectionFlashMemoryScreen }),
+  ),
+);
+const ProblemSectionRecountScreen = lazy(() =>
+  import("./screens/reports/sections/ProblemSectionRecountScreen").then(
+    (m) => ({ default: m.ProblemSectionRecountScreen }),
+  ),
+);
+const ProblemSectionTimelineScreen = lazy(() =>
+  import("./screens/reports/sections/ProblemSectionTimelineScreen").then(
+    (m) => ({ default: m.ProblemSectionTimelineScreen }),
+  ),
+);
 
 const RouteFallback: FC = () => (
   <div className="flex items-center justify-center min-h-[40vh] w-full" />
@@ -1164,6 +1189,46 @@ export const AuthRoutes = () => {
               element={
                 <LayoutScreen>
                   <ProblemSectionDetail />
+                </LayoutScreen>
+              }
+            />
+            <Route
+              path="problem_sections/:id/list"
+              element={
+                <LayoutScreen>
+                  <ProblemSectionListScreen />
+                </LayoutScreen>
+              }
+            />
+            <Route
+              path="problem_sections/:id/parties"
+              element={
+                <LayoutScreen>
+                  <ProblemSectionPartiesScreen />
+                </LayoutScreen>
+              }
+            />
+            <Route
+              path="problem_sections/:id/flash-memory"
+              element={
+                <LayoutScreen>
+                  <ProblemSectionFlashMemoryScreen />
+                </LayoutScreen>
+              }
+            />
+            <Route
+              path="problem_sections/:id/recount"
+              element={
+                <LayoutScreen>
+                  <ProblemSectionRecountScreen />
+                </LayoutScreen>
+              }
+            />
+            <Route
+              path="problem_sections/:id/timeline"
+              element={
+                <LayoutScreen>
+                  <ProblemSectionTimelineScreen />
                 </LayoutScreen>
               }
             />

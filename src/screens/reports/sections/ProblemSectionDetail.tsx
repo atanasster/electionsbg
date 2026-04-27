@@ -1,69 +1,20 @@
-import { FC, ReactNode, useMemo } from "react";
+import { FC } from "react";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import {
-  ExternalLink,
-  MapPin,
-  MemoryStick,
-  RotateCcwSquare,
-  UsersRound,
-  Vote,
-} from "lucide-react";
-import { MapLayout } from "@/layout/dataview/MapLayout";
-import { IconTabs } from "@/screens/IconTabs";
-import { SectionsMap } from "@/screens/components/sections/SectionsMap";
-import { SectionsList } from "@/screens/components/sections/SectionsList";
-import { PartyVotesTable } from "@/screens/components/PartyVotesTable";
-import { PartySuemgTable } from "@/screens/components/PartySuemgTable";
-import { PartyRecountTable } from "@/screens/components/PartyRecountTable";
-import { ProtocolSummary } from "@/screens/components/protocols/ProtocolSummary";
-import { RecountCards } from "@/screens/components/protocols/RecountCards";
-import { Caption } from "@/ux/Caption";
+import { ExternalLink } from "lucide-react";
 import { H1 } from "@/ux/H1";
 import { SEO } from "@/ux/SEO";
 import { ErrorSection } from "@/screens/components/ErrorSection";
 import { useProblemSections } from "@/data/reports/useProblemSections";
-import { useElectionContext } from "@/data/ElectionContext";
-import { aggregateSections } from "@/data/reports/aggregateSections";
-
-const dataViews = ["sections", "map", "parties", "recount", "suemg"] as const;
-type DataViewType = (typeof dataViews)[number];
-
-const DataTypeIcons: Record<DataViewType, ReactNode> = {
-  sections: <Vote />,
-  map: <MapPin />,
-  parties: <UsersRound />,
-  recount: <RotateCcwSquare />,
-  suemg: <MemoryStick />,
-};
+import { ProblemSectionDashboardCards } from "@/screens/dashboard/ProblemSectionDashboardCards";
 
 export const ProblemSectionDetail: FC = () => {
   const { id } = useParams();
   const { t, i18n } = useTranslation();
   const isBg = i18n.language === "bg";
   const { data, isLoading } = useProblemSections();
-  const { electionStats } = useElectionContext();
 
-  const neighborhood = useMemo(
-    () => data?.neighborhoods.find((n) => n.id === id),
-    [data, id],
-  );
-
-  const aggregate = useMemo(() => {
-    if (!neighborhood?.sections.length) return undefined;
-    return aggregateSections(neighborhood.sections);
-  }, [neighborhood]);
-
-  const excluded: { exclude: DataViewType[]; replace: DataViewType } = {
-    exclude: [],
-    replace: "sections",
-  };
-  if (!electionStats?.hasRecount) excluded.exclude.push("recount");
-  if (!electionStats?.hasSuemg) excluded.exclude.push("suemg");
-  const hasCoords = neighborhood?.sections.some(
-    (s) => typeof s.longitude === "number" && typeof s.latitude === "number",
-  );
-  if (!hasCoords) excluded.exclude.push("map");
+  const neighborhood = data?.neighborhoods.find((n) => n.id === id);
 
   if (isLoading) return null;
 
@@ -96,7 +47,7 @@ export const ProblemSectionDetail: FC = () => {
       />
       <div className="px-4 md:px-8">
         <H1>{title}</H1>
-        <div className="flex items-center justify-center gap-3 pb-4 text-sm text-muted-foreground">
+        <div className="flex items-center justify-center gap-3 pb-2 text-sm text-muted-foreground">
           <span>
             {neighborhood.sections.length} {t("dashboard_sections")}
           </span>
@@ -109,69 +60,8 @@ export const ProblemSectionDetail: FC = () => {
             {t("source")} <ExternalLink className="h-3 w-3" />
           </a>
         </div>
+        <ProblemSectionDashboardCards neighborhood={neighborhood} />
       </div>
-      {aggregate && (
-        <ProtocolSummary
-          results={aggregate.results}
-          original={aggregate.original}
-        >
-          <Caption>{title}</Caption>
-        </ProtocolSummary>
-      )}
-      {aggregate?.original && (
-        <RecountCards
-          results={aggregate.results}
-          original={aggregate.original}
-        />
-      )}
-      <IconTabs<DataViewType>
-        title={title}
-        tabs={dataViews}
-        icons={DataTypeIcons}
-        excluded={excluded}
-        storageKey="problem_section_view"
-      >
-        {(view) => {
-          if (view === "sections")
-            return (
-              <>
-                <Caption className="py-8">{title}</Caption>
-                <SectionsList sections={neighborhood.sections} title={name} />
-              </>
-            );
-          if (view === "map")
-            return (
-              <MapLayout>
-                {(size) => (
-                  <SectionsMap
-                    sections={neighborhood.sections}
-                    size={size}
-                    markerVariant="problem"
-                    tooltipBadge={t("problem_section_badge")}
-                  />
-                )}
-              </MapLayout>
-            );
-          if (view === "parties" && aggregate)
-            return (
-              <PartyVotesTable title={title} results={aggregate.results} />
-            );
-          if (view === "recount" && aggregate)
-            return (
-              <PartyRecountTable
-                title={title}
-                votes={{
-                  results: aggregate.results,
-                  original: aggregate.original,
-                }}
-              />
-            );
-          if (view === "suemg" && aggregate)
-            return (
-              <PartySuemgTable title={title} results={aggregate.results} />
-            );
-        }}
-      </IconTabs>
     </div>
   );
 };

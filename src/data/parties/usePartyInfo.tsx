@@ -17,10 +17,11 @@ const queryFn = async ({
   const data = await response.json();
   return data;
 };
-export const usePartyInfo = () => {
+export const usePartyInfo = (electionOverride?: string | null) => {
   const { selected } = useElectionContext();
+  const election = electionOverride ?? selected;
   const { data } = useQuery({
-    queryKey: ["parties", selected],
+    queryKey: ["parties", election],
     queryFn,
   });
   const parties: { [key: string]: PartyInfo } = useMemo(() => {

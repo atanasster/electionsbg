@@ -4,17 +4,29 @@ import { Map as MapIcon } from "lucide-react";
 import { MapCoordinates } from "@/layout/dataview/MapLayout";
 import { SectionsMap } from "@/screens/components/sections/SectionsMap";
 import { useSettlementVotes } from "@/data/settlements/useSettlementVotes";
+import { SectionInfo } from "@/data/dataTypes";
 import { StatCard } from "./StatCard";
 
 type Props = {
-  ekatte: string;
+  ekatte?: string;
+  sections?: SectionInfo[];
+  markerVariant?: "default" | "problem";
+  tooltipBadge?: string;
 };
 
-export const SectionsMapTile: FC<Props> = ({ ekatte }) => {
+export const SectionsMapTile: FC<Props> = ({
+  ekatte,
+  sections: providedSections,
+  markerVariant,
+  tooltipBadge,
+}) => {
   const { t } = useTranslation();
   const ref = useRef<HTMLDivElement>(null);
   const [size, setSize] = useState<MapCoordinates | undefined>();
-  const { settlement } = useSettlementVotes(ekatte);
+  const { settlement } = useSettlementVotes(
+    providedSections ? "" : ekatte || "",
+  );
+  const sections = providedSections ?? settlement?.sections;
 
   useLayoutEffect(() => {
     const el = ref.current;
@@ -27,10 +39,10 @@ export const SectionsMapTile: FC<Props> = ({ ekatte }) => {
     return () => ro.disconnect();
   }, []);
 
-  const hasCoords = settlement?.sections?.some(
+  const hasCoords = sections?.some(
     (s) => typeof s.longitude === "number" && typeof s.latitude === "number",
   );
-  if (!hasCoords) return null;
+  if (!hasCoords || !sections) return null;
 
   return (
     <StatCard
@@ -45,8 +57,13 @@ export const SectionsMapTile: FC<Props> = ({ ekatte }) => {
       hint={t("dashboard_settlement_map_sections_hint")}
     >
       <div ref={ref} className="w-full h-[360px] md:h-[420px]">
-        {size && settlement && (
-          <SectionsMap sections={settlement.sections} size={size} />
+        {size && (
+          <SectionsMap
+            sections={sections}
+            size={size}
+            markerVariant={markerVariant}
+            tooltipBadge={tooltipBadge}
+          />
         )}
       </div>
     </StatCard>
