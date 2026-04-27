@@ -137,6 +137,31 @@ const CandidateScreen = lazy(() =>
     default: m.CandidateScreen,
   })),
 );
+const CandidateRegionsScreen = lazy(() =>
+  import("./screens/CandidateRegionsScreen").then((m) => ({
+    default: m.CandidateRegionsScreen,
+  })),
+);
+const CandidateMunicipalitiesScreen = lazy(() =>
+  import("./screens/CandidateMunicipalitiesScreen").then((m) => ({
+    default: m.CandidateMunicipalitiesScreen,
+  })),
+);
+const CandidateSettlementsScreen = lazy(() =>
+  import("./screens/CandidateSettlementsScreen").then((m) => ({
+    default: m.CandidateSettlementsScreen,
+  })),
+);
+const CandidateSectionsScreen = lazy(() =>
+  import("./screens/CandidateSectionsScreen").then((m) => ({
+    default: m.CandidateSectionsScreen,
+  })),
+);
+const CandidateDonationsScreen = lazy(() =>
+  import("./screens/CandidateDonationsScreen").then((m) => ({
+    default: m.CandidateDonationsScreen,
+  })),
+);
 const SimulatorScreen = lazy(() =>
   import("./screens/SimulatorScreen").then((m) => ({
     default: m.SimulatorScreen,
@@ -894,6 +919,46 @@ export const AuthRoutes = () => {
           element={
             <LayoutScreen>
               <CandidateScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="candidate/:id/regions"
+          element={
+            <LayoutScreen>
+              <CandidateRegionsScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="candidate/:id/municipalities"
+          element={
+            <LayoutScreen>
+              <CandidateMunicipalitiesScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="candidate/:id/settlements"
+          element={
+            <LayoutScreen>
+              <CandidateSettlementsScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="candidate/:id/sections"
+          element={
+            <LayoutScreen>
+              <CandidateSectionsScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="candidate/:id/donations"
+          element={
+            <LayoutScreen>
+              <CandidateDonationsScreen />
             </LayoutScreen>
           }
         />
