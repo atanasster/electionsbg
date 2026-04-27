@@ -91,13 +91,13 @@ export const FlashMemoryTile: FC<Props> = ({
         </div>
       }
     >
-      <div className="flex flex-col gap-1.5 mt-1">
-        <div className="grid grid-cols-[minmax(0,1fr)_auto_auto_minmax(80px,1fr)_auto] gap-x-3 items-center text-[10px] font-medium uppercase tracking-wide text-muted-foreground px-1">
+      <div className="grid grid-cols-[minmax(0,1fr)_auto_auto_minmax(80px,1fr)_auto] gap-x-3 gap-y-1.5 mt-1 items-center">
+        <div className="grid grid-cols-subgrid col-span-5 gap-x-3 items-center text-[10px] font-medium uppercase tracking-wide text-muted-foreground px-1">
           <span>{t("dashboard_party")}</span>
-          <span className="text-right">{t("machine_votes")}</span>
-          <span className="text-right">{t("dashboard_flash")}</span>
+          <span className="justify-self-end">{t("machine_votes")}</span>
+          <span className="justify-self-end">{t("dashboard_flash")}</span>
           <span>{t("dashboard_drift")}</span>
-          <span className="text-right">{t("change")}</span>
+          <span className="justify-self-end">{t("change")}</span>
         </div>
         {rows.map((r) => {
           const ratio = maxAbsDiff > 0 ? Math.abs(r.diff) / maxAbsDiff : 0;
@@ -107,7 +107,7 @@ export const FlashMemoryTile: FC<Props> = ({
               key={r.partyNum}
               to={`/party/${r.nickName}`}
               underline={false}
-              className="grid grid-cols-[minmax(0,1fr)_auto_auto_minmax(80px,1fr)_auto] gap-x-3 items-center text-sm hover:bg-muted/40 rounded-md px-1 py-1 -mx-1 transition-colors"
+              className="grid grid-cols-subgrid col-span-5 gap-x-3 items-center text-sm hover:bg-muted/40 rounded-md px-1 py-1 -mx-1 transition-colors"
             >
               <div className="flex items-center gap-2 min-w-0">
                 <span
@@ -116,10 +116,10 @@ export const FlashMemoryTile: FC<Props> = ({
                 />
                 <span className="truncate font-medium">{r.nickName}</span>
               </div>
-              <span className="tabular-nums text-xs text-muted-foreground text-right">
+              <span className="tabular-nums text-xs text-muted-foreground justify-self-end">
                 {formatThousands(r.machine)}
               </span>
-              <span className="tabular-nums text-xs text-muted-foreground text-right">
+              <span className="tabular-nums text-xs text-muted-foreground justify-self-end">
                 {formatThousands(r.suemg)}
               </span>
               <div className="relative h-2 rounded-full bg-muted overflow-hidden">
@@ -132,7 +132,7 @@ export const FlashMemoryTile: FC<Props> = ({
                 <div className="absolute top-0 bottom-0 left-1/2 w-px bg-border" />
               </div>
               <span
-                className={`tabular-nums text-xs font-semibold text-right ${
+                className={`tabular-nums text-xs font-semibold justify-self-end ${
                   r.diff === 0
                     ? "text-muted-foreground"
                     : positive
