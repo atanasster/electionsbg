@@ -132,8 +132,7 @@ export const useProblemSectionSummary = (
             : undefined,
           deltaMachinePct: priorPmTotal
             ? round(
-                (100 * machine) / pmTotal -
-                  (100 * priorMachine) / priorPmTotal,
+                (100 * machine) / pmTotal - (100 * priorMachine) / priorPmTotal,
               )
             : undefined,
         }

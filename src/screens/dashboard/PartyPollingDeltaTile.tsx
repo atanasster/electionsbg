@@ -91,7 +91,9 @@ export const PartyPollingDeltaTile: FC<Props> = ({ data }) => {
     const canonical = byId.get(id);
     if (!canonical) return [];
     const nickByElection = new Map<string, string>();
-    canonical.history.forEach((h) => nickByElection.set(h.election, h.nickName));
+    canonical.history.forEach((h) =>
+      nickByElection.set(h.election, h.nickName),
+    );
     if (canonical.history.length < 2) {
       const consolId = consolidationIdFor(data.nickName);
       if (consolId && consolId !== id) {
@@ -114,8 +116,7 @@ export const PartyPollingDeltaTile: FC<Props> = ({ data }) => {
         .map((a) => a.errors.find((er) => er.key === nick))
         .filter((er): er is NonNullable<typeof er> => !!er);
       if (errs.length === 0) continue;
-      const avgPolled =
-        errs.reduce((s, er) => s + er.polled, 0) / errs.length;
+      const avgPolled = errs.reduce((s, er) => s + er.polled, 0) / errs.length;
       const actual = actualEntry.pct;
       const delta = actual - avgPolled;
       out.push({
@@ -129,7 +130,14 @@ export const PartyPollingDeltaTile: FC<Props> = ({ data }) => {
       });
     }
     return out.sort((a, b) => (a.election < b.election ? -1 : 1));
-  }, [accuracy, data.nickName, selected, canonicalIdFor, consolidationIdFor, byId]);
+  }, [
+    accuracy,
+    data.nickName,
+    selected,
+    canonicalIdFor,
+    consolidationIdFor,
+    byId,
+  ]);
 
   if (rows.length < 2) return null;
 

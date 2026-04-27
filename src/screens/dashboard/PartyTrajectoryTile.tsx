@@ -165,7 +165,14 @@ export const PartyTrajectoryTile: FC<Props> = ({ data }) => {
       prevNick = h.nickName;
     }
     return out;
-  }, [data.nickName, stats, selected, canonicalIdFor, consolidationIdFor, byId]);
+  }, [
+    data.nickName,
+    stats,
+    selected,
+    canonicalIdFor,
+    consolidationIdFor,
+    byId,
+  ]);
 
   if (rows.length < 2) return null;
 

@@ -92,11 +92,7 @@ export const CandidateHistoryChart: FC<{
         barGap={3}
         margin={{ top: 12, right: 12, left: 0, bottom: 0 }}
       >
-        <CartesianGrid
-          strokeDasharray="3 3"
-          vertical={false}
-          opacity={0.15}
-        />
+        <CartesianGrid strokeDasharray="3 3" vertical={false} opacity={0.15} />
         <XAxis
           dataKey="date"
           tick={{ fontSize: 10 }}

@@ -36,24 +36,45 @@ const SubHeading: React.FC<{ children: React.ReactNode }> = ({ children }) => (
 );
 
 const electionResults: { date: string; href: string }[] = [
-  { date: "19.04.2026", href: "https://results.cik.bg/pe202604/opendata/index.html" },
-  { date: "27.10.2024", href: "https://results.cik.bg/pe202410/opendata/index.html" },
-  { date: "09.06.2024", href: "https://results.cik.bg/europe2024/opendata/index.html" },
+  {
+    date: "19.04.2026",
+    href: "https://results.cik.bg/pe202604/opendata/index.html",
+  },
+  {
+    date: "27.10.2024",
+    href: "https://results.cik.bg/pe202410/opendata/index.html",
+  },
+  {
+    date: "09.06.2024",
+    href: "https://results.cik.bg/europe2024/opendata/index.html",
+  },
   { date: "02.04.2023", href: "https://results.cik.bg/ns2023/csv.html" },
   { date: "02.10.2022", href: "https://results.cik.bg/ns2022/csv.html" },
-  { date: "14.11.2021", href: "https://results.cik.bg/pvrns2021/tur1/csv.html" },
+  {
+    date: "14.11.2021",
+    href: "https://results.cik.bg/pvrns2021/tur1/csv.html",
+  },
   { date: "11.07.2021", href: "https://results.cik.bg/pi2021_07/csv.html" },
   { date: "04.04.2021", href: "https://results.cik.bg/pi2021/csv.html" },
   { date: "26.03.2017", href: "https://results.cik.bg/pi2017/csv.html" },
   { date: "05.10.2014", href: "https://results.cik.bg/pi2014/csv.html" },
   { date: "12.05.2013", href: "https://results.cik.bg/pi2013/csv.html" },
-  { date: "05.07.2009", href: "https://pi2009.cik.bg/results/proportional/index.html" },
+  {
+    date: "05.07.2009",
+    href: "https://pi2009.cik.bg/results/proportional/index.html",
+  },
   { date: "25.06.2005", href: "https://pi2005.cik.bg/results/" },
 ];
 
 const campaignFinancing: { date: string; href: string }[] = [
-  { date: "27.10.2024", href: "https://erik.bulnao.government.bg/Reports/Index/83" },
-  { date: "09.06.2024", href: "https://erik.bulnao.government.bg/Reports/Index/80" },
+  {
+    date: "27.10.2024",
+    href: "https://erik.bulnao.government.bg/Reports/Index/83",
+  },
+  {
+    date: "09.06.2024",
+    href: "https://erik.bulnao.government.bg/Reports/Index/80",
+  },
 ];
 
 export const AboutScreen = () => {
@@ -275,7 +296,10 @@ const SourceItem: React.FC<{ href: string; label: string }> = ({
   label,
 }) => (
   <li className="flex items-start">
-    <span aria-hidden className="mr-2 mt-2 h-1.5 w-1.5 rounded-full bg-accent shrink-0" />
+    <span
+      aria-hidden
+      className="mr-2 mt-2 h-1.5 w-1.5 rounded-full bg-accent shrink-0"
+    />
     <Anchor href={href} target="_blank" rel="noreferrer" className={linkClass}>
       {label}
     </Anchor>

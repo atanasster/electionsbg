@@ -175,7 +175,14 @@ export const BubbleTimeline: FC<Props> = ({
       maxPct: maxP,
       maxVotes: maxV,
     };
-  }, [stats, minPct, consolidated, lineageFor, displayNameFor]);
+  }, [
+    stats,
+    minPct,
+    consolidated,
+    lineageFor,
+    displayNameFor,
+    displayNameForId,
+  ]);
 
   const MARGIN = compact ? MARGIN_COMPACT : MARGIN_DEFAULT;
   const W = 1000;

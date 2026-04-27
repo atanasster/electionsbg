@@ -81,7 +81,9 @@ export const TopCandidatesStrip: FC<Props> = ({
       : municipalityCode
         ? preferences.filter((r) => r.obshtina === municipalityCode)
         : regionCodes?.length
-          ? preferences.filter((r) => r.oblast && regionCodes.includes(r.oblast))
+          ? preferences.filter(
+              (r) => r.oblast && regionCodes.includes(r.oblast),
+            )
           : regionCode
             ? preferences.filter((r) => r.oblast === regionCode)
             : preferences;
