@@ -152,6 +152,36 @@ const RegionTimelineScreen = lazy(() =>
     default: m.RegionTimelineScreen,
   })),
 );
+const MunicipalityPartiesScreen = lazy(() =>
+  import("./screens/MunicipalityPartiesScreen").then((m) => ({
+    default: m.MunicipalityPartiesScreen,
+  })),
+);
+const MunicipalityPreferencesScreen = lazy(() =>
+  import("./screens/MunicipalityPreferencesScreen").then((m) => ({
+    default: m.MunicipalityPreferencesScreen,
+  })),
+);
+const MunicipalityFlashMemoryScreen = lazy(() =>
+  import("./screens/MunicipalityFlashMemoryScreen").then((m) => ({
+    default: m.MunicipalityFlashMemoryScreen,
+  })),
+);
+const MunicipalityRecountScreen = lazy(() =>
+  import("./screens/MunicipalityRecountScreen").then((m) => ({
+    default: m.MunicipalityRecountScreen,
+  })),
+);
+const MunicipalitySettlementsScreen = lazy(() =>
+  import("./screens/MunicipalitySettlementsScreen").then((m) => ({
+    default: m.MunicipalitySettlementsScreen,
+  })),
+);
+const MunicipalityTimelineScreen = lazy(() =>
+  import("./screens/MunicipalityTimelineScreen").then((m) => ({
+    default: m.MunicipalityTimelineScreen,
+  })),
+);
 
 // Reports — Municipalities
 const MunicipalitiesTurnout = lazy(() =>
@@ -504,6 +534,54 @@ export const AuthRoutes = () => {
           element={
             <LayoutScreen>
               <SettlementsScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="settlement/:id/parties"
+          element={
+            <LayoutScreen>
+              <MunicipalityPartiesScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="settlement/:id/preferences"
+          element={
+            <LayoutScreen>
+              <MunicipalityPreferencesScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="settlement/:id/flash-memory"
+          element={
+            <LayoutScreen>
+              <MunicipalityFlashMemoryScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="settlement/:id/recount"
+          element={
+            <LayoutScreen>
+              <MunicipalityRecountScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="settlement/:id/settlements"
+          element={
+            <LayoutScreen>
+              <MunicipalitySettlementsScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="settlement/:id/timeline"
+          element={
+            <LayoutScreen>
+              <MunicipalityTimelineScreen />
             </LayoutScreen>
           }
         />

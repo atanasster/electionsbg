@@ -16,6 +16,7 @@ type Props = {
   parties: NationalPartyResult[];
   regionCode?: string;
   regionCodes?: string[];
+  municipalityCode?: string;
 };
 
 type ColumnDef = {
@@ -44,6 +45,7 @@ export const SuspiciousSectionsTile: FC<Props> = ({
   parties,
   regionCode,
   regionCodes,
+  municipalityCode,
 }) => {
   const { t, i18n } = useTranslation();
   const isBg = i18n.language === "bg";
@@ -52,6 +54,10 @@ export const SuspiciousSectionsTile: FC<Props> = ({
   if (!data) return null;
 
   const filterByRegion = (cat: SuspiciousCategory): SuspiciousCategory => {
+    if (municipalityCode) {
+      const top = cat.top.filter((s) => s.obshtina === municipalityCode);
+      return { ...cat, top, count: top.length };
+    }
     if (regionCodes?.length) {
       const top = cat.top.filter((s) => regionCodes.includes(s.oblast));
       return { ...cat, top, count: top.length };

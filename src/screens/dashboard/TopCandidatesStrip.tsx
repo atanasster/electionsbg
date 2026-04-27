@@ -19,6 +19,7 @@ type Props = {
   parties: NationalPartyResult[];
   regionCode?: string;
   regionCodes?: string[];
+  municipalityCode?: string;
   basePath?: string;
 };
 
@@ -45,6 +46,7 @@ export const TopCandidatesStrip: FC<Props> = ({
   parties,
   regionCode,
   regionCodes,
+  municipalityCode,
   basePath,
 }) => {
   const { t, i18n } = useTranslation();
@@ -67,15 +69,18 @@ export const TopCandidatesStrip: FC<Props> = ({
     // 6 — both flagged as passedThreshold by useRegionSummary/useSofiaSummary).
     // Avoids one card per fringe party in regions where 25+ parties received
     // votes.
-    const isScoped = !!regionCode || !!regionCodes?.length;
+    const isScoped =
+      !!regionCode || !!regionCodes?.length || !!municipalityCode;
     const eligibleParties = isScoped
       ? parties.filter((p) => p.passedThreshold)
       : parties.filter((p) => (p.seats ?? 0) > 0);
-    const scopedPreferences = regionCodes?.length
-      ? preferences.filter((r) => regionCodes.includes(r.oblast))
-      : regionCode
-        ? preferences.filter((r) => r.oblast === regionCode)
-        : preferences;
+    const scopedPreferences = municipalityCode
+      ? preferences.filter((r) => r.obshtina === municipalityCode)
+      : regionCodes?.length
+        ? preferences.filter((r) => regionCodes.includes(r.oblast))
+        : regionCode
+          ? preferences.filter((r) => r.oblast === regionCode)
+          : preferences;
 
     return eligibleParties
       .map((p) => {
@@ -149,6 +154,7 @@ export const TopCandidatesStrip: FC<Props> = ({
     i18n.language,
     regionCode,
     regionCodes,
+    municipalityCode,
   ]);
 
   if (rows.length === 0) return null;
