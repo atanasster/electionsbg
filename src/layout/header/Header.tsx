@@ -1,5 +1,5 @@
 import { FC, useContext } from "react";
-import { Moon, SunMedium, Menu, Vote, Check } from "lucide-react";
+import { Moon, SunMedium, Menu, Check } from "lucide-react";
 
 import {
   DropdownMenu,
@@ -21,6 +21,7 @@ import { Button } from "@/components/ui/button";
 import { MenuItem, reportsMenu } from "./reportMenus";
 import { Search } from "../search/Search";
 import { ElectionsSelect } from "./ElectionsSelect";
+import { Logo } from "./Logo";
 import { useElectionContext } from "@/data/ElectionContext";
 
 export const Header = () => {
@@ -75,7 +76,7 @@ export const Header = () => {
       <div className=" flex text-xl text-primary flex-wrap items-center gap-4 p-4">
         <Link to="/" className="flex flex-row items-center">
           <span className="sr-only">Elections in Bulgaria data statistics</span>
-          <Vote />
+          <Logo className="size-7" />
           <div className="hidden sm:flex font-title ext-2xl transition-all duration-200 pl-2">
             <div className="lowercase text-popover-foreground">
               {t("elections")}

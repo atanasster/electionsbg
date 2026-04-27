@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="electionsBG">
+  <defs>
+    <linearGradient id="cardBg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2A2218"/>
+      <stop offset="1" stop-color="#15110C"/>
+    </linearGradient>
+    <clipPath id="cardClip">
+      <rect x="4" y="4" width="56" height="56" rx="14"/>
+    </clipPath>
+  </defs>
+  <rect x="4" y="4" width="56" height="56" rx="14" fill="url(#cardBg)"/>
+  <g clip-path="url(#cardClip)">
+    <rect x="4" y="52" width="56" height="2.7" fill="#FFFFFF"/>
+    <rect x="4" y="54.7" width="56" height="2.7" fill="#00966E"/>
+    <rect x="4" y="57.4" width="56" height="2.7" fill="#D62612"/>
+  </g>
+  <path d="M16 30 L27 41 L48 17"
+        stroke="#DF6B43" stroke-width="7"
+        stroke-linecap="round" stroke-linejoin="round"
+        fill="none"/>
+</svg>

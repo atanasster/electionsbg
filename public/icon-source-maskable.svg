@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="electionsBG">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0" stop-color="#2A2218"/>
+      <stop offset="1" stop-color="#15110C"/>
+    </linearGradient>
+  </defs>
+  <rect x="0" y="0" width="64" height="64" fill="url(#bg)"/>
+  <rect x="11" y="49" width="42" height="2.2" fill="#FFFFFF"/>
+  <rect x="11" y="51.2" width="42" height="2.2" fill="#00966E"/>
+  <rect x="11" y="53.4" width="42" height="2.2" fill="#D62612"/>
+  <path d="M19 31 L28 40 L45 21"
+        stroke="#DF6B43" stroke-width="6"
+        stroke-linecap="round" stroke-linejoin="round"
+        fill="none"/>
+</svg>
