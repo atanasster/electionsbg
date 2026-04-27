@@ -20,15 +20,22 @@ import { cn } from "@/lib/utils";
 import { ElectionPicker } from "./compare/ElectionPicker";
 import { RegionPicker } from "./compare/RegionPicker";
 import { PartyPicker, PartyOption } from "./compare/PartyPicker";
+import {
+  CandidatePicker,
+  CandidateOption,
+} from "./compare/CandidatePicker";
 import { CompareTable } from "./compare/CompareTable";
 import { CompareRegionsTable } from "./compare/CompareRegionsTable";
 import { ComparePartiesTable } from "./compare/ComparePartiesTable";
+import { CompareCandidatesTable } from "./compare/CompareCandidatesTable";
 import { computeRegionSummary } from "./compare/regionSummary";
 import { computePartySummary } from "./compare/partySummary";
 import { usePartySummary } from "./compare/usePartySummary";
+import { computeCandidateSummary } from "./compare/candidateSummary";
+import { useCandidateSummary } from "./compare/useCandidateSummary";
 import { RegionInfo } from "@/data/dataTypes";
 
-type Mode = "elections" | "regions" | "parties";
+type Mode = "elections" | "regions" | "parties" | "candidates";
 
 const CompareElections = () => {
   const { t } = useTranslation();
@@ -355,6 +362,162 @@ const CompareParties = () => {
   );
 };
 
+const CompareCandidates = () => {
+  const { t, i18n } = useTranslation();
+  const isBg = i18n.language === "bg";
+  const { selected } = useElectionContext();
+  const { parties, findParty } = usePartyInfo();
+  const { regions } = useRegions();
+  const { findSettlement } = useSettlementsInfo();
+  const { candidates } = useCandidates();
+
+  const [leftRaw, setLeft] = useSearchParam("candidateLeft", { replace: true });
+  const [rightRaw, setRight] = useSearchParam("candidateRight", {
+    replace: true,
+  });
+
+  // Build deduped candidate options (one row per name) sorted by name. A
+  // person can appear in multiple oblasts/prefs — collect them all.
+  const candidateOptions: CandidateOption[] = useMemo(() => {
+    if (!candidates?.length) return [];
+    const byName = new Map<
+      string,
+      { partyNum: number; oblastCodes: Set<string>; prefs: Set<string> }
+    >();
+    for (const c of candidates) {
+      const prev = byName.get(c.name);
+      if (prev) {
+        prev.oblastCodes.add(c.oblast);
+        prev.prefs.add(c.pref);
+      } else {
+        byName.set(c.name, {
+          partyNum: c.partyNum,
+          oblastCodes: new Set([c.oblast]),
+          prefs: new Set([c.pref]),
+        });
+      }
+    }
+    const out: CandidateOption[] = [];
+    for (const [name, agg] of byName) {
+      const party = parties?.find((p) => p.number === agg.partyNum);
+      out.push({
+        name,
+        color: party?.color,
+        partyNick: party?.nickName,
+        oblastCodes: Array.from(agg.oblastCodes),
+        prefs: Array.from(agg.prefs),
+      });
+    }
+    out.sort((a, b) => a.name.localeCompare(b.name, isBg ? "bg" : "en"));
+    return out;
+  }, [candidates, parties, isBg]);
+
+  const validNames = useMemo(
+    () => new Set(candidateOptions.map((o) => o.name)),
+    [candidateOptions],
+  );
+
+  const left = leftRaw && validNames.has(leftRaw) ? leftRaw : undefined;
+  const right = rightRaw && validNames.has(rightRaw) ? rightRaw : undefined;
+
+  const leftFiles = useCandidateSummary(left);
+  const rightFiles = useCandidateSummary(right);
+
+  const leftSummary = useMemo(() => {
+    if (!left || !regions || !findSettlement) return undefined;
+    return computeCandidateSummary({
+      name: left,
+      regionsRows: leftFiles.regionsRows,
+      prefStats: leftFiles.prefStats,
+      candidates,
+      findParty,
+      regionsInfo: regions as RegionInfo[],
+      findSettlement,
+      currentElection: selected,
+      isBg,
+    });
+  }, [
+    left,
+    leftFiles.regionsRows,
+    leftFiles.prefStats,
+    candidates,
+    findParty,
+    regions,
+    findSettlement,
+    selected,
+    isBg,
+  ]);
+
+  const rightSummary = useMemo(() => {
+    if (!right || !regions || !findSettlement) return undefined;
+    return computeCandidateSummary({
+      name: right,
+      regionsRows: rightFiles.regionsRows,
+      prefStats: rightFiles.prefStats,
+      candidates,
+      findParty,
+      regionsInfo: regions as RegionInfo[],
+      findSettlement,
+      currentElection: selected,
+      isBg,
+    });
+  }, [
+    right,
+    rightFiles.regionsRows,
+    rightFiles.prefStats,
+    candidates,
+    findParty,
+    regions,
+    findSettlement,
+    selected,
+    isBg,
+  ]);
+
+  const sameCandidate = !!left && left === right;
+
+  return (
+    <>
+      <p className="text-xs text-muted-foreground mb-3">
+        {t("compare_election_label")}: {localDate(selected)}
+      </p>
+      <div className="flex flex-col sm:flex-row gap-4 mb-6">
+        <CandidatePicker
+          label={t("compare_candidate_left")}
+          value={left}
+          options={candidateOptions}
+          placeholder={t("compare_pick_candidate")}
+          onChange={setLeft}
+        />
+        <CandidatePicker
+          label={t("compare_candidate_right")}
+          value={right}
+          options={candidateOptions}
+          placeholder={t("compare_pick_candidate")}
+          onChange={setRight}
+        />
+      </div>
+
+      {sameCandidate && (
+        <p className="text-sm text-amber-600 mb-4">
+          {t("compare_same_candidate_warning")}
+        </p>
+      )}
+
+      {leftSummary && rightSummary ? (
+        <CompareCandidatesTable left={leftSummary} right={rightSummary} />
+      ) : (
+        <div className="text-sm text-muted-foreground py-12 text-center">
+          {!left || !right
+            ? t("compare_pick_two_candidates")
+            : leftFiles.isLoading || rightFiles.isLoading
+              ? t("loading")
+              : t("compare_no_data")}
+        </div>
+      )}
+    </>
+  );
+};
+
 export const CompareScreen = () => {
   const { t } = useTranslation();
   const [modeRaw, setMode] = useSearchParam("mode", { replace: true });
@@ -363,7 +526,9 @@ export const CompareScreen = () => {
       ? "regions"
       : modeRaw === "parties"
         ? "parties"
-        : "elections";
+        : modeRaw === "candidates"
+          ? "candidates"
+          : "elections";
 
   const TabButton = ({ value, label }: { value: Mode; label: string }) => (
     <Button
@@ -383,15 +548,17 @@ export const CompareScreen = () => {
     <div className="w-full max-w-5xl mx-auto px-4 pb-12">
       <Title description={t("compare_description")}>{t("compare_title")}</Title>
 
-      <div className="inline-flex items-center gap-1 rounded-lg bg-muted p-1 mb-4">
+      <div className="inline-flex flex-wrap items-center gap-1 rounded-lg bg-muted p-1 mb-4">
         <TabButton value="elections" label={t("compare_mode_elections")} />
         <TabButton value="regions" label={t("compare_mode_regions")} />
         <TabButton value="parties" label={t("compare_mode_parties")} />
+        <TabButton value="candidates" label={t("compare_mode_candidates")} />
       </div>
 
       {mode === "elections" && <CompareElections />}
       {mode === "regions" && <CompareRegions />}
       {mode === "parties" && <CompareParties />}
+      {mode === "candidates" && <CompareCandidates />}
     </div>
   );
 };
