@@ -34,12 +34,14 @@ export const PreferencesTable: FC<{
   visibleColumns?: ColumnNames[];
   hiddenColumns?: ColumnNames[];
   title?: string;
+  hideCaption?: boolean;
 }> = ({
   preferences,
   region,
   visibleColumns = [],
   hiddenColumns = [],
   title,
+  hideCaption = false,
 }) => {
   const { t, i18n } = useTranslation();
   const { findParty } = usePartyInfo();
@@ -246,7 +248,7 @@ export const PreferencesTable: FC<{
   const tableTitle = title || t("preferences");
   return (
     <div className="w-full">
-      <Caption className="py-8">{tableTitle}</Caption>
+      {!hideCaption && <Caption className="py-8">{tableTitle}</Caption>}
       <DataTable<DataType, unknown>
         pageSize={25}
         title={tableTitle}

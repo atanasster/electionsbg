@@ -272,7 +272,18 @@
       "Bash(node /tmp/write_2017.mjs)",
       "Bash(node -e 'const j = JSON.parse\\(require\\('\\\\''fs'\\\\''\\).readFileSync\\('\\\\''/Users/atanasster/data-bg/public/2017_03_26/parties/assessment/__TRACKED_VAR__.json'\\\\'','\\\\''utf-8'\\\\''\\)\\); console.log\\('\\\\''__TRACKED_VAR__:'\\\\'', j.nickName, '\\\\''bg='\\\\'' + j.bg.length + '\\\\'' en='\\\\'' + j.en.length\\)')",
       "Bash(node /tmp/write_2021a.mjs)",
-      "Bash(node -e 'const j = JSON.parse\\(require\\('\\\\''fs'\\\\''\\).readFileSync\\('\\\\''/Users/atanasster/data-bg/public/2021_04_04/parties/assessment/__TRACKED_VAR__.json'\\\\'','\\\\''utf-8'\\\\''\\)\\); console.log\\('\\\\''__TRACKED_VAR__:'\\\\'', j.nickName, '\\\\''bg='\\\\'' + j.bg.length + '\\\\'' en='\\\\'' + j.en.length\\)')"
+      "Bash(node -e 'const j = JSON.parse\\(require\\('\\\\''fs'\\\\''\\).readFileSync\\('\\\\''/Users/atanasster/data-bg/public/2021_04_04/parties/assessment/__TRACKED_VAR__.json'\\\\'','\\\\''utf-8'\\\\''\\)\\); console.log\\('\\\\''__TRACKED_VAR__:'\\\\'', j.nickName, '\\\\''bg='\\\\'' + j.bg.length + '\\\\'' en='\\\\'' + j.en.length\\)')",
+      "Bash(python3 -c \"import json,sys; d=json.load\\(sys.stdin\\); print\\('TOP_SETTLEMENTS sample:'\\); print\\(json.dumps\\(d.get\\('top_settlements',[]\\)[:2], indent=2, ensure_ascii=False\\)\\); print\\('\\\\\\\\nTOP_SECTIONS sample:'\\); print\\(json.dumps\\(d.get\\('top_sections',[]\\)[:2], indent=2, ensure_ascii=False\\)\\)\")",
+      "Bash(node /tmp/write_2021b.mjs)",
+      "Bash(node -e 'const j = JSON.parse\\(require\\('\\\\''fs'\\\\''\\).readFileSync\\('\\\\''/Users/atanasster/data-bg/public/2021_07_11/parties/assessment/__TRACKED_VAR__.json'\\\\'','\\\\''utf-8'\\\\''\\)\\); console.log\\('\\\\''__TRACKED_VAR__:'\\\\'', j.nickName, '\\\\''bg='\\\\'' + j.bg.length + '\\\\'' en='\\\\'' + j.en.length\\)')",
+      "Bash(node /tmp/write_2021c.mjs)",
+      "Bash(node -e 'const j = JSON.parse\\(require\\('\\\\''fs'\\\\''\\).readFileSync\\('\\\\''/Users/atanasster/data-bg/public/2021_11_14/parties/assessment/__TRACKED_VAR__.json'\\\\'','\\\\''utf-8'\\\\''\\)\\); console.log\\('\\\\''__TRACKED_VAR__:'\\\\'', j.nickName, '\\\\''bg='\\\\'' + j.bg.length + '\\\\'' en='\\\\'' + j.en.length\\)')",
+      "Bash(npx prettier *)",
+      "Bash(grep -E \"^/Users.*\\\\.\\(ts|tsx\\)$|error|warning\")",
+      "Bash(node /tmp/write_2022.mjs)",
+      "Bash(node -e 'const j = JSON.parse\\(require\\('\\\\''fs'\\\\''\\).readFileSync\\('\\\\''/Users/atanasster/data-bg/public/2022_10_02/parties/assessment/__TRACKED_VAR__.json'\\\\'','\\\\''utf-8'\\\\''\\)\\); console.log\\('\\\\''__TRACKED_VAR__:'\\\\'', j.nickName, '\\\\''bg='\\\\'' + j.bg.length + '\\\\'' en='\\\\'' + j.en.length\\)')",
+      "Bash(node /tmp/write_2023.mjs)",
+      "Bash(node -e 'const j = JSON.parse\\(require\\('\\\\''fs'\\\\''\\).readFileSync\\('\\\\''/Users/atanasster/data-bg/public/2023_04_02/parties/assessment/__TRACKED_VAR__.json'\\\\'','\\\\''utf-8'\\\\''\\)\\); console.log\\('\\\\''__TRACKED_VAR__:'\\\\'', j.nickName, '\\\\''bg='\\\\'' + j.bg.length + '\\\\'' en='\\\\'' + j.en.length\\)')"
     ]
   }
 }

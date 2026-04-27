@@ -23,10 +23,20 @@ export const PartyPreferencesScreen: FC = () => {
       />
     );
   }
-  const title = `${party?.name || nickName} — ${t("preferences")} — ${localDate(selected)}`;
+  const partyName = party?.name || nickName;
   return (
     <>
-      <Title description={t("preferences")}>{title}</Title>
+      <Title
+        description={t("preferences")}
+        title={`${partyName} — ${t("preferences")}`}
+        className="text-base md:text-xl lg:text-2xl py-4 md:py-6"
+      >
+        <>
+          {partyName}
+          <br />
+          {t("preferences")}
+        </>
+      </Title>
       <div className="w-full max-w-7xl mx-auto px-4 pb-12">
         {party && <PartyCandidatesScreen party={party} />}
       </div>
