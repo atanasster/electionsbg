@@ -55,7 +55,7 @@ export const ElectionsSelect: FC = () => {
       >
         <SelectTrigger
           id="select_election"
-          className="w-[125px] md:w-[150px] md:text-lg text-secondary-foreground px-2"
+          className="w-[125px] md:w-[150px] text-sm text-secondary-foreground px-2"
           onMouseEnter={() => {
             // When the user reaches for the dropdown, warm both neighbors.
             prefetchElection(priorElection);
@@ -68,7 +68,7 @@ export const ElectionsSelect: FC = () => {
         <SelectContent>
           {localDates.map((l) => (
             <SelectItem
-              className="md:text-lg text-secondary-foreground"
+              className="text-sm text-secondary-foreground"
               key={l.original}
               value={l.original}
               onMouseEnter={() => prefetchElection(l.original)}

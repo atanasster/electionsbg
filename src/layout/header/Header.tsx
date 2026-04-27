@@ -90,7 +90,7 @@ export const Header = () => {
         <Link
           to="/compare"
           underline={false}
-          className="font-medium hidden lg:block lowercase whitespace-nowrap text-secondary-foreground hover:text-primary"
+          className="text-sm font-medium hidden lg:block lowercase whitespace-nowrap text-secondary-foreground hover:text-primary"
         >
           {t("compare_title")}
         </Link>
@@ -115,7 +115,7 @@ export const Header = () => {
         ))}
 
         <button
-          className="font-medium hidden md:block text-secondary-foreground"
+          className="text-sm font-medium hidden md:block text-secondary-foreground"
           aria-label="Change language"
           onClick={() => {
             if (i18n.language === "bg") {
