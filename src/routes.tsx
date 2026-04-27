@@ -28,6 +28,31 @@ const SectionScreen = lazy(() =>
     default: m.SectionScreen,
   })),
 );
+const SectionPartiesScreen = lazy(() =>
+  import("./screens/SectionPartiesScreen").then((m) => ({
+    default: m.SectionPartiesScreen,
+  })),
+);
+const SectionPreferencesScreen = lazy(() =>
+  import("./screens/SectionPreferencesScreen").then((m) => ({
+    default: m.SectionPreferencesScreen,
+  })),
+);
+const SectionFlashMemoryScreen = lazy(() =>
+  import("./screens/SectionFlashMemoryScreen").then((m) => ({
+    default: m.SectionFlashMemoryScreen,
+  })),
+);
+const SectionRecountScreen = lazy(() =>
+  import("./screens/SectionRecountScreen").then((m) => ({
+    default: m.SectionRecountScreen,
+  })),
+);
+const SectionTimelineScreen = lazy(() =>
+  import("./screens/SectionTimelineScreen").then((m) => ({
+    default: m.SectionTimelineScreen,
+  })),
+);
 const AboutScreen = lazy(() =>
   import("./screens/AboutScreen").then((m) => ({ default: m.AboutScreen })),
 );
@@ -676,6 +701,46 @@ export const AuthRoutes = () => {
           element={
             <LayoutScreen>
               <SectionScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="section/:id/parties"
+          element={
+            <LayoutScreen>
+              <SectionPartiesScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="section/:id/preferences"
+          element={
+            <LayoutScreen>
+              <SectionPreferencesScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="section/:id/flash-memory"
+          element={
+            <LayoutScreen>
+              <SectionFlashMemoryScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="section/:id/recount"
+          element={
+            <LayoutScreen>
+              <SectionRecountScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="section/:id/timeline"
+          element={
+            <LayoutScreen>
+              <SectionTimelineScreen />
             </LayoutScreen>
           }
         />
