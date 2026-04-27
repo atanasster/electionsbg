@@ -1,6 +1,7 @@
-import { FC, useMemo } from "react";
+import { FC, ReactNode, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { Info } from "lucide-react";
+import { Info, Globe2, CalendarDays } from "lucide-react";
+import { Hint } from "@/ux/Hint";
 import { Title } from "@/ux/Title";
 import { useElectionContext } from "@/data/ElectionContext";
 import { localDate } from "@/data/utils";
@@ -24,6 +25,31 @@ const SkeletonCard: FC<{ className?: string }> = ({
     <div className="h-7 w-32 bg-muted rounded" />
   </div>
 );
+
+const SectionHeader: FC<{
+  icon: ReactNode;
+  label: ReactNode;
+  hint?: string;
+}> = ({ icon, label, hint }) => {
+  const content = (
+    <div className="flex items-center gap-2 text-[11px] font-semibold uppercase tracking-wider text-muted-foreground">
+      {icon}
+      <span>{label}</span>
+    </div>
+  );
+  return (
+    <div className="flex items-center gap-3 mt-6 mb-2 first:mt-0">
+      {hint ? (
+        <Hint text={hint} underline={false}>
+          {content}
+        </Hint>
+      ) : (
+        content
+      )}
+      <div className="flex-1 h-px bg-border" />
+    </div>
+  );
+};
 
 export const PollsScreen: FC = () => {
   const { t } = useTranslation();
@@ -71,7 +97,12 @@ export const PollsScreen: FC = () => {
     <>
       <Title description={t("polls_description")}>{title}</Title>
       <section className="w-full max-w-7xl mx-auto px-4 pb-12">
-        {/* Top stat strip */}
+        {/* All-time section: cross-election aggregate stats */}
+        <SectionHeader
+          icon={<Globe2 className="h-3.5 w-3.5" />}
+          label={t("polls_section_all_time")}
+          hint={t("polls_section_all_time_hint")}
+        />
         <div className="grid gap-3 grid-cols-2 lg:grid-cols-4">
           <div className="rounded-xl border bg-card p-4 shadow-sm">
             <div className="text-[10px] uppercase tracking-wide text-muted-foreground">
@@ -110,19 +141,26 @@ export const PollsScreen: FC = () => {
           </div>
         </div>
 
-        {/* AI headlines + story for the selected election */}
+        <div className="mt-3">
+          <PollsLeaderboardTile profiles={agencyProfiles} agencies={agencies} />
+        </div>
+
+        {/* Selected-election section: narrative + final-poll errors */}
+        <SectionHeader
+          icon={<CalendarDays className="h-3.5 w-3.5" />}
+          label={t("polls_section_selected_election", {
+            date: selected ? localDate(selected) : "",
+          })}
+        />
         {selectedNarrative ? (
-          <div className="mt-3">
-            <PollsHeadlinesTile
-              narrative={selectedNarrative}
-              electionLabel={selected ? localDate(selected) : ""}
-              model={analysis.model}
-            />
-          </div>
+          <PollsHeadlinesTile
+            narrative={selectedNarrative}
+            electionLabel={selected ? localDate(selected) : ""}
+            model={analysis.model}
+          />
         ) : null}
 
-        {/* Selected-election accuracy (or "no data" hint) */}
-        <div className="mt-3">
+        <div className={selectedNarrative ? "mt-3" : undefined}>
           {selectedElection ? (
             <PollsLatestElectionTile
               election={selectedElection}
@@ -138,11 +176,6 @@ export const PollsScreen: FC = () => {
               </div>
             </div>
           )}
-        </div>
-
-        {/* Overall leaderboard */}
-        <div className="mt-3">
-          <PollsLeaderboardTile profiles={agencyProfiles} agencies={agencies} />
         </div>
 
         <div className="text-[10px] text-muted-foreground text-center mt-6">
