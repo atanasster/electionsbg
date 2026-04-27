@@ -17,6 +17,7 @@ type Props = {
   regionCode?: string;
   regionCodes?: string[];
   municipalityCode?: string;
+  ekatte?: string;
 };
 
 type ColumnDef = {
@@ -46,6 +47,7 @@ export const SuspiciousSectionsTile: FC<Props> = ({
   regionCode,
   regionCodes,
   municipalityCode,
+  ekatte,
 }) => {
   const { t, i18n } = useTranslation();
   const isBg = i18n.language === "bg";
@@ -54,6 +56,10 @@ export const SuspiciousSectionsTile: FC<Props> = ({
   if (!data) return null;
 
   const filterByRegion = (cat: SuspiciousCategory): SuspiciousCategory => {
+    if (ekatte) {
+      const top = cat.top.filter((s) => s.ekatte === ekatte);
+      return { ...cat, top, count: top.length };
+    }
     if (municipalityCode) {
       const top = cat.top.filter((s) => s.obshtina === municipalityCode);
       return { ...cat, top, count: top.length };

@@ -20,6 +20,7 @@ type Props = {
   regionCode?: string;
   regionCodes?: string[];
   municipalityCode?: string;
+  ekatte?: string;
   basePath?: string;
 };
 
@@ -47,6 +48,7 @@ export const TopCandidatesStrip: FC<Props> = ({
   regionCode,
   regionCodes,
   municipalityCode,
+  ekatte,
   basePath,
 }) => {
   const { t, i18n } = useTranslation();
@@ -70,17 +72,22 @@ export const TopCandidatesStrip: FC<Props> = ({
     // Avoids one card per fringe party in regions where 25+ parties received
     // votes.
     const isScoped =
-      !!regionCode || !!regionCodes?.length || !!municipalityCode;
+      !!regionCode ||
+      !!regionCodes?.length ||
+      !!municipalityCode ||
+      !!ekatte;
     const eligibleParties = isScoped
       ? parties.filter((p) => p.passedThreshold)
       : parties.filter((p) => (p.seats ?? 0) > 0);
-    const scopedPreferences = municipalityCode
-      ? preferences.filter((r) => r.obshtina === municipalityCode)
-      : regionCodes?.length
-        ? preferences.filter((r) => regionCodes.includes(r.oblast))
-        : regionCode
-          ? preferences.filter((r) => r.oblast === regionCode)
-          : preferences;
+    const scopedPreferences = ekatte
+      ? preferences.filter((r) => r.ekatte === ekatte)
+      : municipalityCode
+        ? preferences.filter((r) => r.obshtina === municipalityCode)
+        : regionCodes?.length
+          ? preferences.filter((r) => regionCodes.includes(r.oblast))
+          : regionCode
+            ? preferences.filter((r) => r.oblast === regionCode)
+            : preferences;
 
     return eligibleParties
       .map((p) => {
@@ -155,6 +162,7 @@ export const TopCandidatesStrip: FC<Props> = ({
     regionCode,
     regionCodes,
     municipalityCode,
+    ekatte,
   ]);
 
   if (rows.length === 0) return null;

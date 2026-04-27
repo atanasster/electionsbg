@@ -95,7 +95,7 @@ export const SectionsMap: FC<{
               }}
             >
               <Tooltip
-                direction="top"
+                direction="auto"
                 offset={[0, -4]}
                 className="section-tooltip"
               >
