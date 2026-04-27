@@ -34,6 +34,31 @@ const AboutScreen = lazy(() =>
 const SofiaScreen = lazy(() =>
   import("./screens/SofiaScreen").then((m) => ({ default: m.SofiaScreen })),
 );
+const SofiaPartiesScreen = lazy(() =>
+  import("./screens/SofiaPartiesScreen").then((m) => ({
+    default: m.SofiaPartiesScreen,
+  })),
+);
+const SofiaPreferencesScreen = lazy(() =>
+  import("./screens/SofiaPreferencesScreen").then((m) => ({
+    default: m.SofiaPreferencesScreen,
+  })),
+);
+const SofiaFlashMemoryScreen = lazy(() =>
+  import("./screens/SofiaFlashMemoryScreen").then((m) => ({
+    default: m.SofiaFlashMemoryScreen,
+  })),
+);
+const SofiaRecountScreen = lazy(() =>
+  import("./screens/SofiaRecountScreen").then((m) => ({
+    default: m.SofiaRecountScreen,
+  })),
+);
+const SofiaTimelineScreen = lazy(() =>
+  import("./screens/SofiaTimelineScreen").then((m) => ({
+    default: m.SofiaTimelineScreen,
+  })),
+);
 const PartiesFinancing = lazy(() =>
   import("./screens/PartiesFinancing").then((m) => ({
     default: m.PartiesFinancing,
@@ -367,6 +392,46 @@ export const AuthRoutes = () => {
           element={
             <LayoutScreen>
               <SofiaScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="sofia/parties"
+          element={
+            <LayoutScreen>
+              <SofiaPartiesScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="sofia/preferences"
+          element={
+            <LayoutScreen>
+              <SofiaPreferencesScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="sofia/flash-memory"
+          element={
+            <LayoutScreen>
+              <SofiaFlashMemoryScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="sofia/recount"
+          element={
+            <LayoutScreen>
+              <SofiaRecountScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="sofia/timeline"
+          element={
+            <LayoutScreen>
+              <SofiaTimelineScreen />
             </LayoutScreen>
           }
         />

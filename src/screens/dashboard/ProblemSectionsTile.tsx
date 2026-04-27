@@ -11,9 +11,14 @@ import { StatCard } from "./StatCard";
 type Props = {
   parties: NationalPartyResult[];
   regionCode?: string;
+  regionCodes?: string[];
 };
 
-export const ProblemSectionsTile: FC<Props> = ({ parties, regionCode }) => {
+export const ProblemSectionsTile: FC<Props> = ({
+  parties,
+  regionCode,
+  regionCodes,
+}) => {
   const { t, i18n } = useTranslation();
   const isBg = i18n.language === "bg";
   const { data } = useProblemSections();
@@ -21,11 +26,15 @@ export const ProblemSectionsTile: FC<Props> = ({ parties, regionCode }) => {
   const rows = useMemo(() => {
     if (!data?.neighborhoods?.length) return [];
     const partyMap = new Map(parties.map((p) => [p.partyNum, p]));
-    const filtered = regionCode
+    const filtered = regionCodes?.length
       ? data.neighborhoods.filter((n) =>
-          n.sections.some((s) => s.oblast === regionCode),
+          n.sections.some((s) => regionCodes.includes(s.oblast)),
         )
-      : data.neighborhoods;
+      : regionCode
+        ? data.neighborhoods.filter((n) =>
+            n.sections.some((s) => s.oblast === regionCode),
+          )
+        : data.neighborhoods;
     return filtered
       .map((n) => {
         let registered = 0;
@@ -66,7 +75,7 @@ export const ProblemSectionsTile: FC<Props> = ({ parties, regionCode }) => {
         };
       })
       .sort((a, b) => b.sectionCount - a.sectionCount);
-  }, [data, parties, isBg, regionCode]);
+  }, [data, parties, isBg, regionCode, regionCodes]);
 
   if (!rows.length) return null;
 

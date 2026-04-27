@@ -18,6 +18,8 @@ import { StatCard } from "./StatCard";
 type Props = {
   parties: NationalPartyResult[];
   regionCode?: string;
+  regionCodes?: string[];
+  basePath?: string;
 };
 
 const queryFn = async ({
@@ -39,7 +41,12 @@ const initials = (name?: string) => {
   return (first + last).toUpperCase() || "?";
 };
 
-export const TopCandidatesStrip: FC<Props> = ({ parties, regionCode }) => {
+export const TopCandidatesStrip: FC<Props> = ({
+  parties,
+  regionCode,
+  regionCodes,
+  basePath,
+}) => {
   const { t, i18n } = useTranslation();
   const { selected } = useElectionContext();
   const { findCandidate } = useCandidates();
@@ -55,16 +62,20 @@ export const TopCandidatesStrip: FC<Props> = ({ parties, regionCode }) => {
 
   const rows = useMemo(() => {
     if (!preferences || !parties.length) return [];
-    // National view: only seated parties; region view: only top parties (those
-    // that crossed the 4% national threshold or are in the region's top 6 —
-    // both flagged as passedThreshold by useRegionSummary). Avoids one card
-    // per fringe party in regions where 25+ parties received votes.
-    const eligibleParties = regionCode
+    // National view: only seated parties; region/sofia view: only top parties
+    // (those that crossed the 4% national threshold or are in the scope's top
+    // 6 — both flagged as passedThreshold by useRegionSummary/useSofiaSummary).
+    // Avoids one card per fringe party in regions where 25+ parties received
+    // votes.
+    const isScoped = !!regionCode || !!regionCodes?.length;
+    const eligibleParties = isScoped
       ? parties.filter((p) => p.passedThreshold)
       : parties.filter((p) => (p.seats ?? 0) > 0);
-    const scopedPreferences = regionCode
-      ? preferences.filter((r) => r.oblast === regionCode)
-      : preferences;
+    const scopedPreferences = regionCodes?.length
+      ? preferences.filter((r) => regionCodes.includes(r.oblast))
+      : regionCode
+        ? preferences.filter((r) => r.oblast === regionCode)
+        : preferences;
 
     return eligibleParties
       .map((p) => {
@@ -137,6 +148,7 @@ export const TopCandidatesStrip: FC<Props> = ({ parties, regionCode }) => {
     findRegion,
     i18n.language,
     regionCode,
+    regionCodes,
   ]);
 
   if (rows.length === 0) return null;
@@ -153,9 +165,11 @@ export const TopCandidatesStrip: FC<Props> = ({ parties, regionCode }) => {
           </Hint>
           <Link
             to={
-              regionCode
-                ? `/municipality/${regionCode}/preferences`
-                : "/preferences"
+              basePath
+                ? `${basePath}/preferences`
+                : regionCode
+                  ? `/municipality/${regionCode}/preferences`
+                  : "/preferences"
             }
             className="text-[10px] normal-case text-primary hover:underline"
             underline={false}

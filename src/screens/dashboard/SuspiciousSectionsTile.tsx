@@ -15,6 +15,7 @@ import { StatCard } from "./StatCard";
 type Props = {
   parties: NationalPartyResult[];
   regionCode?: string;
+  regionCodes?: string[];
 };
 
 type ColumnDef = {
@@ -39,7 +40,11 @@ const settlementLabel = (s: SuspiciousTopSettlement, isBg: boolean) => {
   return parts.join(", ") || s.ekatte;
 };
 
-export const SuspiciousSectionsTile: FC<Props> = ({ parties, regionCode }) => {
+export const SuspiciousSectionsTile: FC<Props> = ({
+  parties,
+  regionCode,
+  regionCodes,
+}) => {
   const { t, i18n } = useTranslation();
   const isBg = i18n.language === "bg";
   const { data } = useSuspiciousSettlements();
@@ -47,6 +52,10 @@ export const SuspiciousSectionsTile: FC<Props> = ({ parties, regionCode }) => {
   if (!data) return null;
 
   const filterByRegion = (cat: SuspiciousCategory): SuspiciousCategory => {
+    if (regionCodes?.length) {
+      const top = cat.top.filter((s) => regionCodes.includes(s.oblast));
+      return { ...cat, top, count: top.length };
+    }
     if (!regionCode) return cat;
     const top = cat.top.filter((s) => s.oblast === regionCode);
     return { ...cat, top, count: top.length };

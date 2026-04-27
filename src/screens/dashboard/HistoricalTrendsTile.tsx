@@ -2,6 +2,7 @@ import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { LineChart } from "lucide-react";
 import { useElectionContext } from "@/data/ElectionContext";
+import { ElectionInfo } from "@/data/dataTypes";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { useRegionStats } from "@/data/regions/useRegionStats";
 import { BubbleTimeline } from "@/screens/timeline/BubbleTimeline";
@@ -11,13 +12,25 @@ import { StatCard } from "./StatCard";
 
 type Props = {
   regionCode?: string;
+  stats?: ElectionInfo[];
+  basePath?: string;
 };
 
-export const HistoricalTrendsTile: FC<Props> = ({ regionCode }) => {
+export const HistoricalTrendsTile: FC<Props> = ({
+  regionCode,
+  stats: providedStats,
+  basePath,
+}) => {
   const { t } = useTranslation();
   const { stats: nationalStats } = useElectionContext();
-  const { stats: regionStats } = useRegionStats(regionCode);
-  const stats = regionCode ? regionStats : nationalStats;
+  const { stats: regionStats } = useRegionStats(
+    providedStats ? null : regionCode,
+  );
+  const stats = providedStats
+    ? providedStats
+    : regionCode
+      ? regionStats
+      : nationalStats;
   const { colorFor, canonicalIdFor, fullNameFor } = useCanonicalParties();
 
   if (!stats?.length) return null;
@@ -34,7 +47,11 @@ export const HistoricalTrendsTile: FC<Props> = ({ regionCode }) => {
           </Hint>
           <Link
             to={
-              regionCode ? `/municipality/${regionCode}/timeline` : "/timeline"
+              basePath
+                ? `${basePath}/timeline`
+                : regionCode
+                  ? `/municipality/${regionCode}/timeline`
+                  : "/timeline"
             }
             className="text-[10px] normal-case text-primary hover:underline"
             underline={false}

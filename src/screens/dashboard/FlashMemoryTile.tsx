@@ -2,6 +2,7 @@ import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Cpu } from "lucide-react";
 import { NationalPartyResult } from "@/data/dashboard/dashboardTypes";
+import { VoteResults } from "@/data/dataTypes";
 import { useRegionVotes } from "@/data/regions/useRegionVotes";
 import { formatThousands } from "@/data/utils";
 import { Link } from "@/ux/Link";
@@ -12,6 +13,8 @@ type Props = {
   parties: NationalPartyResult[];
   topN?: number;
   regionCode?: string;
+  results?: VoteResults;
+  basePath?: string;
 };
 
 const fmtSigned = (n: number) => {
@@ -24,12 +27,16 @@ export const FlashMemoryTile: FC<Props> = ({
   parties,
   topN = 6,
   regionCode,
+  results: providedResults,
+  basePath,
 }) => {
   const { t } = useTranslation();
   const { countryVotes, votesByRegion } = useRegionVotes();
-  const results = regionCode
-    ? (votesByRegion(regionCode)?.results ?? { votes: [] })
-    : countryVotes().results;
+  const results: VoteResults = providedResults
+    ? providedResults
+    : regionCode
+      ? (votesByRegion(regionCode)?.results ?? { votes: [] })
+      : countryVotes().results;
 
   const { rows, hasFlash, maxAbsDiff } = useMemo(() => {
     const top = parties.slice(0, topN);
@@ -70,9 +77,11 @@ export const FlashMemoryTile: FC<Props> = ({
           </Hint>
           <Link
             to={
-              regionCode
-                ? `/municipality/${regionCode}/flash-memory`
-                : "/flash-memory"
+              basePath
+                ? `${basePath}/flash-memory`
+                : regionCode
+                  ? `/municipality/${regionCode}/flash-memory`
+                  : "/flash-memory"
             }
             className="text-[10px] normal-case text-primary hover:underline"
             underline={false}

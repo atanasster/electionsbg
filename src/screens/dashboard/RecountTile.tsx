@@ -2,6 +2,7 @@ import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { RefreshCw } from "lucide-react";
 import { NationalPartyResult } from "@/data/dashboard/dashboardTypes";
+import { RecountOriginal, VoteResults } from "@/data/dataTypes";
 import { useRegionVotes } from "@/data/regions/useRegionVotes";
 import { formatThousands, pctChange } from "@/data/utils";
 import { Link } from "@/ux/Link";
@@ -11,6 +12,9 @@ import { StatCard } from "./StatCard";
 type Props = {
   parties: NationalPartyResult[];
   regionCode?: string;
+  results?: VoteResults;
+  original?: RecountOriginal;
+  basePath?: string;
 };
 
 const fmtSigned = (n: number) => {
@@ -19,25 +23,48 @@ const fmtSigned = (n: number) => {
   return sign + formatThousands(Math.abs(n));
 };
 
-export const RecountTile: FC<Props> = ({ parties, regionCode }) => {
+export const RecountTile: FC<Props> = ({
+  parties,
+  regionCode,
+  results: providedResults,
+  original: providedOriginal,
+  basePath,
+}) => {
   const { t } = useTranslation();
   const { countryVotes, votesByRegion } = useRegionVotes();
-  const country = countryVotes();
-  const region = regionCode ? votesByRegion(regionCode) : undefined;
-  const results = regionCode
-    ? (region?.results ?? { votes: [] })
-    : country.results;
-  const original = regionCode
-    ? (region?.original ?? {
-        votes: [],
-        addedVotes: 0,
-        addedPaperVotes: 0,
-        addedMachineVotes: 0,
-        removedVotes: 0,
-        removedPaperVotes: 0,
-        removedMachineVotes: 0,
-      })
-    : country.original;
+  const useProvided = !!(providedResults || providedOriginal);
+  const country = useProvided ? null : countryVotes();
+  const region = useProvided
+    ? null
+    : regionCode
+      ? votesByRegion(regionCode)
+      : undefined;
+  const results: VoteResults = providedResults
+    ? providedResults
+    : regionCode
+      ? (region?.results ?? { votes: [] })
+      : (country?.results ?? { votes: [] });
+  const original: RecountOriginal = providedOriginal
+    ? providedOriginal
+    : regionCode
+      ? (region?.original ?? {
+          votes: [],
+          addedVotes: 0,
+          addedPaperVotes: 0,
+          addedMachineVotes: 0,
+          removedVotes: 0,
+          removedPaperVotes: 0,
+          removedMachineVotes: 0,
+        })
+      : (country?.original ?? {
+          votes: [],
+          addedVotes: 0,
+          addedPaperVotes: 0,
+          addedMachineVotes: 0,
+          removedVotes: 0,
+          removedPaperVotes: 0,
+          removedMachineVotes: 0,
+        });
 
   const { rows, hasRecount, maxAbsChange } = useMemo(() => {
     const top = parties.filter((p) => p.passedThreshold);
@@ -83,7 +110,13 @@ export const RecountTile: FC<Props> = ({ parties, regionCode }) => {
             </div>
           </Hint>
           <Link
-            to={regionCode ? `/municipality/${regionCode}/recount` : "/recount"}
+            to={
+              basePath
+                ? `${basePath}/recount`
+                : regionCode
+                  ? `/municipality/${regionCode}/recount`
+                  : "/recount"
+            }
             className="text-[10px] normal-case text-primary hover:underline"
             underline={false}
           >
