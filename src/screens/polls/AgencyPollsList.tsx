@@ -88,7 +88,11 @@ const fieldworkEndKey = (fieldwork: string): number => {
   if (cross) {
     const idx = MONTHS.indexOf(cross[2].slice(0, 3).toLowerCase());
     if (idx >= 0)
-      return new Date(parseInt(cross[4], 10), idx, parseInt(cross[3], 10)).getTime();
+      return new Date(
+        parseInt(cross[4], 10),
+        idx,
+        parseInt(cross[3], 10),
+      ).getTime();
   }
   const range = fieldwork.match(
     /([A-Za-z]+)\s+\d{1,2}\s*[-–]\s*(\d{1,2})\s+(\d{4})/,
@@ -96,13 +100,21 @@ const fieldworkEndKey = (fieldwork: string): number => {
   if (range) {
     const idx = MONTHS.indexOf(range[1].slice(0, 3).toLowerCase());
     if (idx >= 0)
-      return new Date(parseInt(range[3], 10), idx, parseInt(range[2], 10)).getTime();
+      return new Date(
+        parseInt(range[3], 10),
+        idx,
+        parseInt(range[2], 10),
+      ).getTime();
   }
   const single = fieldwork.match(/([A-Za-z]+)\s+(\d{1,2})\s+(\d{4})/);
   if (single) {
     const idx = MONTHS.indexOf(single[1].slice(0, 3).toLowerCase());
     if (idx >= 0)
-      return new Date(parseInt(single[3], 10), idx, parseInt(single[2], 10)).getTime();
+      return new Date(
+        parseInt(single[3], 10),
+        idx,
+        parseInt(single[2], 10),
+      ).getTime();
   }
   return 0;
 };
@@ -146,9 +158,7 @@ export const AgencyPollsList: FC<Props> = ({ polls, details, elections }) => {
   // the poll was predicting (works even when poll.electionDate is null).
   const electionDatesAsc = useMemo(
     () =>
-      elections
-        .map((e) => e.electionDate)
-        .sort((a, b) => a.localeCompare(b)),
+      elections.map((e) => e.electionDate).sort((a, b) => a.localeCompare(b)),
     [elections],
   );
 

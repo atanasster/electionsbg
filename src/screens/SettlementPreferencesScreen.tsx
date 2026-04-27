@@ -25,10 +25,7 @@ export const SettlementPreferencesScreen: FC = () => {
     <>
       <Title description={t("all_preferences_description")}>{title}</Title>
       <div className="w-full max-w-7xl mx-auto px-4 pb-12">
-        <PreferencesBySettlement
-          ekatte={ekatte}
-          region={settlement?.oblast}
-        />
+        <PreferencesBySettlement ekatte={ekatte} region={settlement?.oblast} />
       </div>
     </>
   );

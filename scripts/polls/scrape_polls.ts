@@ -394,6 +394,41 @@ type ScrapedTable = {
   rows: cheerio.Cheerio<Element>[];
 };
 
+// Build a map of cite_note id → external URL from the page's references list.
+// Used to resolve <sup>[N]</sup> footnotes attached to polling rows back to the
+// underlying article/agency-press-release URL — much more useful as `source`
+// than the wiki cycle URL itself.
+const buildCiteNoteMap = ($: cheerio.CheerioAPI): Map<string, string> => {
+  const map = new Map<string, string>();
+  $(".mw-references-wrap li, .references li").each((_, li) => {
+    const id = $(li).attr("id");
+    const href = $(li).find("a.external").first().attr("href");
+    if (id && href) map.set(id, href);
+  });
+  return map;
+};
+
+// Per-row source extraction: prefer a cite-note footnote (those are the curated
+// citations the wiki editors picked); fall back to any external link sitting
+// inside the row (agency name often hyperlinks to the publishing page); else
+// null and the caller will use the cycle URL.
+const extractRowSource = (
+  $: cheerio.CheerioAPI,
+  row: cheerio.Cheerio<Element>,
+  noteMap: Map<string, string>,
+): string | null => {
+  for (const a of row.find('a[href^="#cite_note"]').toArray()) {
+    const noteId = ($(a).attr("href") ?? "").replace(/^#/, "");
+    const url = noteMap.get(noteId);
+    if (url) return url;
+  }
+  for (const a of row.find('a.external, a[class*="external"]').toArray()) {
+    const href = $(a).attr("href");
+    if (href && !href.startsWith("#") && !href.startsWith("/")) return href;
+  }
+  return null;
+};
+
 const parseTable = (
   $: cheerio.CheerioAPI,
   table: Element,
@@ -490,6 +525,8 @@ const scrapeCycle = async (cycle: Cycle): Promise<ScrapeResult> => {
     return { polls: [], details: [], agencies: [], unknownAgencies: new Set() };
   }
 
+  const noteMap = buildCiteNoteMap($);
+
   const polls: Poll[] = [];
   const details: PollDetail[] = [];
   const seenAgencies = new Map<string, Agency>();
@@ -538,6 +575,7 @@ const scrapeCycle = async (cycle: Cycle): Promise<ScrapeResult> => {
     const pollId = `${matched.id.toLowerCase()}-${fw.endIso}`;
     if (polls.some((p) => p.id === pollId)) continue; // de-dupe within cycle
 
+    const rowSource = extractRowSource($, row, noteMap);
     const poll: Poll = {
       id: pollId,
       agencyId: matched.id,
@@ -545,7 +583,7 @@ const scrapeCycle = async (cycle: Cycle): Promise<ScrapeResult> => {
       electionDate: cycle.electionDate,
       respondents: sample,
       methodology: { en: "N/A", bg: "N/A" },
-      source: cycle.url,
+      source: rowSource ?? cycle.url,
     };
 
     const partyDetails: PollDetail[] = [];
@@ -607,22 +645,33 @@ const seedFromIzboriai = (): {
   return { polls, details, agencies };
 };
 
+const isWikiSource = (url: string | null | undefined): boolean =>
+  !!url && /(?:bg|en)\.wikipedia\.org/.test(url);
+
 const mergePolls = (existing: Poll[], incoming: Poll[]): Poll[] => {
   const byId = new Map<string, Poll>();
   for (const p of existing) byId.set(p.id, p);
   for (const p of incoming) {
-    // Incoming wins only if existing has placeholder methodology — preserves richer existing data.
     const cur = byId.get(p.id);
     if (!cur) {
       byId.set(p.id, p);
-    } else {
-      byId.set(p.id, {
-        ...cur,
-        respondents: cur.respondents ?? p.respondents,
-        electionDate: cur.electionDate ?? p.electionDate,
-        source: cur.source && cur.source !== "N/A" ? cur.source : p.source,
-      });
+      continue;
     }
+    // Source merge: prefer the richer of the two. A non-wiki article/agency URL
+    // beats a wiki URL beats null/N/A. This lets the scraper upgrade old polls
+    // that were saved with just the cycle URL once Wikipedia adds a citation.
+    const curIsPlaceholder = !cur.source || cur.source === "N/A";
+    const curIsWiki = isWikiSource(cur.source);
+    const incIsWiki = isWikiSource(p.source);
+    let nextSource = cur.source;
+    if (curIsPlaceholder) nextSource = p.source;
+    else if (curIsWiki && p.source && !incIsWiki) nextSource = p.source;
+    byId.set(p.id, {
+      ...cur,
+      respondents: cur.respondents ?? p.respondents,
+      electionDate: cur.electionDate ?? p.electionDate,
+      source: nextSource,
+    });
   }
   return [...byId.values()].sort((a, b) => (a.id < b.id ? 1 : -1));
 };

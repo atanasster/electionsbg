@@ -71,7 +71,11 @@ const ChartTooltip: FC<TooltipPayload> = ({ active, payload }) => {
         </span>
       </div>
       <div className="text-primary-foreground/70 mt-0.5">
-        {r.agencyCount} {t("polls_agencies").toLowerCase()}
+        {r.agencyCount}{" "}
+        {(r.agencyCount === 1
+          ? t("polls_agency")
+          : t("polls_agencies")
+        ).toLowerCase()}
       </div>
     </div>
   );

@@ -72,10 +72,7 @@ export const TopCandidatesStrip: FC<Props> = ({
     // Avoids one card per fringe party in regions where 25+ parties received
     // votes.
     const isScoped =
-      !!regionCode ||
-      !!regionCodes?.length ||
-      !!municipalityCode ||
-      !!ekatte;
+      !!regionCode || !!regionCodes?.length || !!municipalityCode || !!ekatte;
     const eligibleParties = isScoped
       ? parties.filter((p) => p.passedThreshold)
       : parties.filter((p) => (p.seats ?? 0) > 0);
@@ -84,7 +81,7 @@ export const TopCandidatesStrip: FC<Props> = ({
       : municipalityCode
         ? preferences.filter((r) => r.obshtina === municipalityCode)
         : regionCodes?.length
-          ? preferences.filter((r) => regionCodes.includes(r.oblast))
+          ? preferences.filter((r) => r.oblast && regionCodes.includes(r.oblast))
           : regionCode
             ? preferences.filter((r) => r.oblast === regionCode)
             : preferences;

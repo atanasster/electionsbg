@@ -46,7 +46,7 @@ export const SectionsScreen = () => {
           {municipalityName}
         </Link>
       ) : null}
-      {(region || municipality) ? " / " : null}
+      {region || municipality ? " / " : null}
       {settlementName}
     </>
   );

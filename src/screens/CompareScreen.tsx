@@ -20,10 +20,7 @@ import { cn } from "@/lib/utils";
 import { ElectionPicker } from "./compare/ElectionPicker";
 import { RegionPicker } from "./compare/RegionPicker";
 import { PartyPicker, PartyOption } from "./compare/PartyPicker";
-import {
-  CandidatePicker,
-  CandidateOption,
-} from "./compare/CandidatePicker";
+import { CandidatePicker, CandidateOption } from "./compare/CandidatePicker";
 import { CompareTable } from "./compare/CompareTable";
 import { CompareRegionsTable } from "./compare/CompareRegionsTable";
 import { ComparePartiesTable } from "./compare/ComparePartiesTable";

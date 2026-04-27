@@ -203,8 +203,7 @@ export const CompareCandidatesTable: FC<Props> = ({ left, right }) => {
                 <NumCell value={right.paperPct} format="pct" digits={1} />
               }
               delta={
-                left.paperPct !== undefined &&
-                right.paperPct !== undefined ? (
+                left.paperPct !== undefined && right.paperPct !== undefined ? (
                   <Delta
                     value={left.paperPct - right.paperPct}
                     suffix={pp}
