@@ -32,6 +32,13 @@ export const useCanonicalParties = () => {
   const canonicalIdFor = (nickName: string): string | undefined =>
     data?.byNickName[nickName];
 
+  // Like canonicalIdFor, but reassigns predecessor-party nicknames to the
+  // successor coalition's lineage when CEC `commonName` says they belong
+  // together (e.g. ПП and ДБ → ПП-ДБ). Used in consolidated views to sum
+  // votes across rebrands/mergers without polluting the strict lineage.
+  const consolidationIdFor = (nickName: string): string | undefined =>
+    data?.consolidationByNickName?.[nickName] ?? data?.byNickName[nickName];
+
   const fullNameFor = (
     nickName: string,
     election: string,
@@ -48,12 +55,17 @@ export const useCanonicalParties = () => {
     return byId.get(id)?.displayName;
   };
 
+  const displayNameForId = (id: string): string | undefined =>
+    byId.get(id)?.displayName;
+
   return {
     data,
     byId,
     colorFor,
     canonicalIdFor,
+    consolidationIdFor,
     fullNameFor,
     displayNameFor,
+    displayNameForId,
   };
 };

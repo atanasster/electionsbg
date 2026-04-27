@@ -87,6 +87,7 @@ export const generateCanonicalParties = ({
     nickName: string;
     name?: string;
     color?: string;
+    commonName?: string[];
   };
   const memberships: Membership[] = [];
 
@@ -103,6 +104,7 @@ export const generateCanonicalParties = ({
         nickName: p.nickName,
         name: p.name,
         color: p.color,
+        commonName: p.commonName,
       });
     });
   });
@@ -177,7 +179,50 @@ export const generateCanonicalParties = ({
     });
   });
 
-  const index: CanonicalPartiesIndex = { parties: canonicals, byNickName };
+  // Build consolidationByNickName: starts as a copy of byNickName, then for
+  // each canonical we look at its newest membership's `commonName` aliases
+  // (the parties the CEC says are members of this coalition) and reassign
+  // those nicknames to point at this canonical instead of their own. This
+  // lets consolidated views fold predecessor party votes (e.g. ПП, ДБ) into
+  // the successor coalition (ПП-ДБ) without unioning lineages — which would
+  // wrongly connect them in non-consolidated mode and ladder transitively
+  // into unrelated parties (the warning above).
+  const consolidationByNickName: Record<string, string> = { ...byNickName };
+  type Claim = { canonicalId: string; election: string };
+  const claims = new Map<string, Claim>();
+  const membershipKey = (election: string, nickName: string) =>
+    `${election}::${nickName}`;
+  const membershipIndex = new Map<string, Membership>();
+  memberships.forEach((m) =>
+    membershipIndex.set(membershipKey(m.election, m.nickName), m),
+  );
+  canonicals.forEach((c) => {
+    if (!c.history.length) return;
+    // history is sorted oldest→newest, so the last entry is the newest one.
+    const latest = c.history[c.history.length - 1];
+    const m = membershipIndex.get(
+      membershipKey(latest.election, latest.nickName),
+    );
+    const aliases = new Set<string>([
+      latest.nickName,
+      ...(m?.commonName ?? []),
+    ]);
+    aliases.forEach((alias) => {
+      const existing = claims.get(alias);
+      if (!existing || latest.election > existing.election) {
+        claims.set(alias, { canonicalId: c.id, election: latest.election });
+      }
+    });
+  });
+  claims.forEach((claim, alias) => {
+    consolidationByNickName[alias] = claim.canonicalId;
+  });
+
+  const index: CanonicalPartiesIndex = {
+    parties: canonicals,
+    byNickName,
+    consolidationByNickName,
+  };
   const outFile = path.join(publicFolder, "canonical_parties.json");
   fs.writeFileSync(outFile, stringify(index), "utf-8");
   console.log(

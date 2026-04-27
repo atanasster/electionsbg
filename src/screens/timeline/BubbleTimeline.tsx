@@ -9,6 +9,11 @@ type BubblePoint = {
   electionName: string;
   partyNum: number;
   nickName: string;
+  // The actual nickName to route to for the party detail page. In
+  // non-consolidated mode this is the same as nickName; in consolidated mode
+  // nickName is the canonical label (e.g. ПП-ДБ) which may not exist in past
+  // elections, so we route to the largest-vote member that actually ran.
+  routeNickName: string;
   color?: string;
   totalVotes: number;
   pct: number;
@@ -28,6 +33,10 @@ type Props = {
   // Returns the canonical display name for a nickName (used in consolidated
   // mode to label lineage groups under a single name).
   displayNameFor?: (nickName: string) => string | undefined;
+  // Returns the canonical display name for a lineage id. Used in consolidated
+  // mode where the merged group's label should follow the lineage (e.g. PP-DB)
+  // rather than whichever predecessor nickname happened to come first.
+  displayNameForId?: (id: string) => string | undefined;
   // Compact mode tightens margins, shrinks bubbles + labels and drops the
   // min-width constraint so the chart fits inside dashboard cards.
   compact?: boolean;
@@ -47,6 +56,7 @@ export const BubbleTimeline: FC<Props> = ({
   lineageFor,
   fullNameFor,
   displayNameFor,
+  displayNameForId,
   compact = false,
   consolidated = false,
 }) => {
@@ -68,12 +78,17 @@ export const BubbleTimeline: FC<Props> = ({
       if (consolidated && lineageFor) {
         // Group votes within this election by canonical lineage so rebrands /
         // splits / mergers collapse into one bubble per lineage per election.
+        // We also track the largest-vote member so a click on a consolidated
+        // bubble routes to a party page that actually exists in that election
+        // (the canonical name itself may not — e.g. ПП-ДБ in 2021_11_14).
         const groups = new Map<
           string,
           {
             nickName: string;
             partyNum: number;
             totalVotes: number;
+            biggestNickName: string;
+            biggestVotes: number;
           }
         >();
         const ungrouped: BubblePoint[] = [];
@@ -89,6 +104,7 @@ export const BubbleTimeline: FC<Props> = ({
               electionName: e.name,
               partyNum: v.partyNum,
               nickName: nick,
+              routeNickName: nick,
               totalVotes: v.totalVotes,
               pct,
             });
@@ -97,11 +113,19 @@ export const BubbleTimeline: FC<Props> = ({
           const prev = groups.get(id);
           if (prev) {
             prev.totalVotes += v.totalVotes;
+            if (v.totalVotes > prev.biggestVotes) {
+              prev.biggestNickName = nick;
+              prev.biggestVotes = v.totalVotes;
+              prev.partyNum = v.partyNum;
+            }
           } else {
             groups.set(id, {
-              nickName: displayNameFor?.(nick) ?? nick,
+              nickName:
+                displayNameForId?.(id) ?? displayNameFor?.(nick) ?? nick,
               partyNum: v.partyNum,
               totalVotes: v.totalVotes,
+              biggestNickName: nick,
+              biggestVotes: v.totalVotes,
             });
           }
         });
@@ -113,6 +137,7 @@ export const BubbleTimeline: FC<Props> = ({
             electionName: e.name,
             partyNum: g.partyNum,
             nickName: g.nickName,
+            routeNickName: g.biggestNickName,
             totalVotes: g.totalVotes,
             pct,
           });
@@ -130,11 +155,13 @@ export const BubbleTimeline: FC<Props> = ({
         if (!v.totalVotes) return;
         const pct = (100 * v.totalVotes) / total;
         if (pct < minPct) return;
+        const nick = v.nickName ?? `#${v.partyNum}`;
         ps.push({
           electionIdx: idx,
           electionName: e.name,
           partyNum: v.partyNum,
-          nickName: v.nickName ?? `#${v.partyNum}`,
+          nickName: nick,
+          routeNickName: nick,
           totalVotes: v.totalVotes,
           pct,
         });
@@ -306,7 +333,7 @@ export const BubbleTimeline: FC<Props> = ({
                 onMouseLeave={() => setHover((h) => (h === p ? null : h))}
                 onClick={() =>
                   navigate(
-                    `/party/${encodeURIComponent(p.nickName)}?elections=${p.electionName}`,
+                    `/party/${encodeURIComponent(p.routeNickName)}?elections=${p.electionName}`,
                   )
                 }
               />

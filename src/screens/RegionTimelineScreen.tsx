@@ -12,8 +12,14 @@ export const RegionTimelineScreen: FC = () => {
   const { id: region } = useParams();
   const { findRegion } = useRegions();
   const { stats } = useRegionStats(region);
-  const { colorFor, canonicalIdFor, fullNameFor, displayNameFor } =
-    useCanonicalParties();
+  const {
+    colorFor,
+    canonicalIdFor,
+    consolidationIdFor,
+    fullNameFor,
+    displayNameFor,
+    displayNameForId,
+  } = useCanonicalParties();
   const { isConsolidated, consolidated } = useConsolidatedLabel();
   const { t, i18n } = useTranslation();
   if (!region) return null;
@@ -34,9 +40,10 @@ export const RegionTimelineScreen: FC = () => {
         <BubbleTimeline
           stats={stats}
           colorFor={colorFor}
-          lineageFor={canonicalIdFor}
+          lineageFor={isConsolidated ? consolidationIdFor : canonicalIdFor}
           fullNameFor={fullNameFor}
           displayNameFor={displayNameFor}
+          displayNameForId={displayNameForId}
           consolidated={isConsolidated}
         />
       )}

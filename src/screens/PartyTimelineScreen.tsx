@@ -8,8 +8,14 @@ import { useConsolidatedLabel } from "./components/useConsolidatedLabel";
 export const PartyTimelineScreen = () => {
   const { t } = useTranslation();
   const { stats } = useElectionContext();
-  const { colorFor, canonicalIdFor, fullNameFor, displayNameFor } =
-    useCanonicalParties();
+  const {
+    colorFor,
+    canonicalIdFor,
+    consolidationIdFor,
+    fullNameFor,
+    displayNameFor,
+    displayNameForId,
+  } = useCanonicalParties();
   const { isConsolidated, consolidated } = useConsolidatedLabel();
 
   return (
@@ -24,9 +30,10 @@ export const PartyTimelineScreen = () => {
       <BubbleTimeline
         stats={stats}
         colorFor={colorFor}
-        lineageFor={canonicalIdFor}
+        lineageFor={isConsolidated ? consolidationIdFor : canonicalIdFor}
         fullNameFor={fullNameFor}
         displayNameFor={displayNameFor}
+        displayNameForId={displayNameForId}
         consolidated={isConsolidated}
       />
       <p className="text-xs text-muted-foreground mt-4">

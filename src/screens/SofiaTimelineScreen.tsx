@@ -14,6 +14,7 @@ export const SofiaTimelineScreen: FC = () => {
     consolidationIdFor,
     fullNameFor,
     displayNameFor,
+    displayNameForId,
   } = useCanonicalParties();
   const { isConsolidated, consolidated } = useConsolidatedLabel();
   const { t } = useTranslation();
@@ -32,6 +33,7 @@ export const SofiaTimelineScreen: FC = () => {
           lineageFor={isConsolidated ? consolidationIdFor : canonicalIdFor}
           fullNameFor={fullNameFor}
           displayNameFor={displayNameFor}
+          displayNameForId={displayNameForId}
           consolidated={isConsolidated}
         />
       )}
