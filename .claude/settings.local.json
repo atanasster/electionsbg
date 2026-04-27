@@ -283,7 +283,8 @@
       "Bash(node /tmp/write_2022.mjs)",
       "Bash(node -e 'const j = JSON.parse\\(require\\('\\\\''fs'\\\\''\\).readFileSync\\('\\\\''/Users/atanasster/data-bg/public/2022_10_02/parties/assessment/__TRACKED_VAR__.json'\\\\'','\\\\''utf-8'\\\\''\\)\\); console.log\\('\\\\''__TRACKED_VAR__:'\\\\'', j.nickName, '\\\\''bg='\\\\'' + j.bg.length + '\\\\'' en='\\\\'' + j.en.length\\)')",
       "Bash(node /tmp/write_2023.mjs)",
-      "Bash(node -e 'const j = JSON.parse\\(require\\('\\\\''fs'\\\\''\\).readFileSync\\('\\\\''/Users/atanasster/data-bg/public/2023_04_02/parties/assessment/__TRACKED_VAR__.json'\\\\'','\\\\''utf-8'\\\\''\\)\\); console.log\\('\\\\''__TRACKED_VAR__:'\\\\'', j.nickName, '\\\\''bg='\\\\'' + j.bg.length + '\\\\'' en='\\\\'' + j.en.length\\)')"
+      "Bash(node -e 'const j = JSON.parse\\(require\\('\\\\''fs'\\\\''\\).readFileSync\\('\\\\''/Users/atanasster/data-bg/public/2023_04_02/parties/assessment/__TRACKED_VAR__.json'\\\\'','\\\\''utf-8'\\\\''\\)\\); console.log\\('\\\\''__TRACKED_VAR__:'\\\\'', j.nickName, '\\\\''bg='\\\\'' + j.bg.length + '\\\\'' en='\\\\'' + j.en.length\\)')",
+      "Bash(grep -E --line-buffered \"ERROR|Error|error|FAILED|failed|Traceback|hosting:|Deploy complete|Hosting URL|files for upload|✔|✖|finalizing|releasing|npm error|npm ERR|^\\\\\\\\$\")"
     ]
   }
 }
