@@ -134,7 +134,11 @@ export const Header = () => {
           aria-label="switch theme dark mode"
           className="hidden md:block items-center p-2 w-10 h-10 justify-center rounded-lg text-muted-foreground hover:bg-accent/10 hover:text-accent focus:outline-none focus:ring-2 focus:ring-ring"
         >
-          {theme === themeDark ? <SunMedium /> : <Moon />}
+          {theme === themeDark ? (
+            <SunMedium className="size-4" />
+          ) : (
+            <Moon className="size-4" />
+          )}
         </button>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
