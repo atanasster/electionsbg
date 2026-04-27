@@ -17,6 +17,8 @@
     "polls:analyze": "tsx ./scripts/polls/analyze_accuracy.ts",
     "polls:gen-analysis": "tsx ./scripts/polls/generate_analysis.ts",
     "polls": "npm run polls:scrape && npm run polls:analyze && npm run polls:gen-analysis",
+    "party:bundle": "tsx ./scripts/parties/bundle_party_data.ts",
+    "party:gen-retrospect": "tsx ./scripts/parties/generate_retrospect.ts",
     "stats": "npx vite-bundle-visualizer",
     "deploy": "firebase deploy -P default",
     "staging": "firebase deploy -P staging"

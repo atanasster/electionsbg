@@ -92,6 +92,46 @@ const PartiesFinancing = lazy(() =>
 const PartyScreen = lazy(() =>
   import("./screens/PartyScreen").then((m) => ({ default: m.PartyScreen })),
 );
+const PartyRegionsScreen = lazy(() =>
+  import("./screens/PartyRegionsScreen").then((m) => ({
+    default: m.PartyRegionsScreen,
+  })),
+);
+const PartyMunicipalitiesScreen = lazy(() =>
+  import("./screens/PartyMunicipalitiesScreen").then((m) => ({
+    default: m.PartyMunicipalitiesScreen,
+  })),
+);
+const PartySettlementsScreen = lazy(() =>
+  import("./screens/PartySettlementsScreen").then((m) => ({
+    default: m.PartySettlementsScreen,
+  })),
+);
+const PartyPreferencesScreen = lazy(() =>
+  import("./screens/PartyPreferencesScreen").then((m) => ({
+    default: m.PartyPreferencesScreen,
+  })),
+);
+const PartyDonorsScreen = lazy(() =>
+  import("./screens/PartyDonorsScreen").then((m) => ({
+    default: m.PartyDonorsScreen,
+  })),
+);
+const PartyDonorsListScreen = lazy(() =>
+  import("./screens/PartyDonorsListScreen").then((m) => ({
+    default: m.PartyDonorsListScreen,
+  })),
+);
+const PartyIncomeScreen = lazy(() =>
+  import("./screens/PartyIncomeScreen").then((m) => ({
+    default: m.PartyIncomeScreen,
+  })),
+);
+const PartyExpensesScreen = lazy(() =>
+  import("./screens/PartyExpensesScreen").then((m) => ({
+    default: m.PartyExpensesScreen,
+  })),
+);
 const CandidateScreen = lazy(() =>
   import("./screens/CandidateScreen").then((m) => ({
     default: m.CandidateScreen,
@@ -782,6 +822,70 @@ export const AuthRoutes = () => {
           element={
             <LayoutScreen>
               <PartyScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="party/:id/regions"
+          element={
+            <LayoutScreen>
+              <PartyRegionsScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="party/:id/municipalities"
+          element={
+            <LayoutScreen>
+              <PartyMunicipalitiesScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="party/:id/settlements"
+          element={
+            <LayoutScreen>
+              <PartySettlementsScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="party/:id/preferences"
+          element={
+            <LayoutScreen>
+              <PartyPreferencesScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="party/:id/donors"
+          element={
+            <LayoutScreen>
+              <PartyDonorsScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="party/:id/donors/list"
+          element={
+            <LayoutScreen>
+              <PartyDonorsListScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="party/:id/income"
+          element={
+            <LayoutScreen>
+              <PartyIncomeScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="party/:id/expenses"
+          element={
+            <LayoutScreen>
+              <PartyExpensesScreen />
             </LayoutScreen>
           }
         />
