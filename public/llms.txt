@@ -21,7 +21,8 @@ Site language: primary Bulgarian, with English translations of the UI. All data 
 - [Timeline](https://electionsbg.com/timeline): bubble-timeline of party performance across all 13 votes.
 - [Simulator](https://electionsbg.com/simulator): coalition / seat-allocation what-if tool.
 - [Financing](https://electionsbg.com/financing): declared campaign income and expenditures.
-- [Sitemap](https://electionsbg.com/sitemap.xml): full URL list (~23,500 entries).
+- [Sitemap index](https://electionsbg.com/sitemap_index.xml): index of per-bucket sitemaps (~100,000 URLs total).
+- [Full long-form corpus](https://electionsbg.com/llms-full.txt): national summary, per-party retrospect, and polling analysis in plain Markdown — refreshed each build.
 
 ## URL patterns
 

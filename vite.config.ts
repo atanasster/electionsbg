@@ -12,22 +12,7 @@ export default defineConfig(({ mode }) => {
     define: {
       "process.env.API_KEY": JSON.stringify(env.GEMINI_API_KEY),
     },
-    plugins: [
-      react(),
-      tsconfigPaths(),
-      {
-        name: "gzip-json-preview-headers",
-        configurePreviewServer(server) {
-          server.middlewares.use((req, res, next) => {
-            if (req.url && /\.json(\?|$)/.test(req.url)) {
-              res.setHeader("Content-Encoding", "gzip");
-              res.setHeader("Content-Type", "application/json; charset=utf-8");
-            }
-            next();
-          });
-        },
-      },
-    ],
+    plugins: [react(), tsconfigPaths()],
     build: {
       // Lift the warning threshold a bit since we still have some larger
       // domain-specific chunks (maps + jspdf) that are loaded on demand.

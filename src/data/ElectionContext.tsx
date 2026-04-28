@@ -1,4 +1,5 @@
 import { useCallback, useMemo } from "react";
+import { useParams } from "react-router-dom";
 import allElections from "../data/json/elections.json";
 import { ElectionInfo } from "./dataTypes";
 import { useSearchParam } from "@/screens/utils/useSearchParam";
@@ -7,13 +8,20 @@ export const useElectionContext = () => {
   const [election, setElection] = useSearchParam("elections", {
     replace: true,
   });
+  // /elections/:date routes (per-election landing pages) embed the election
+  // date directly in the URL path. When that param is present and valid it
+  // wins over the `?elections=` query param so the URL stays canonical.
+  const { date: pathDate } = useParams<{ date?: string }>();
   const elections = useMemo(() => allElections.map((e) => e.name), []);
   const selected = useMemo(() => {
+    if (pathDate && elections.find((e) => e === pathDate)) {
+      return pathDate;
+    }
     if (election && elections.find((e) => e === election)) {
       return election;
     }
     return elections[0];
-  }, [election, elections]);
+  }, [pathDate, election, elections]);
   const setSelected = useCallback(
     (newSelected: string) => {
       if (elections.find((e) => e === newSelected)) {

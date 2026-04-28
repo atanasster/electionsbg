@@ -1,5 +1,26 @@
-export type RouteDef = { path: string; file?: string; children?: RouteDefs };
+export type RouteDef = {
+  path: string;
+  file?: string;
+  // For dynamic ":id" paths, these tab paths are appended to each enumerated
+  // id (one URL per id × tab). Skip for tabs that show duplicate content.
+  subTabs?: string[];
+  children?: RouteDefs;
+};
 export type RouteDefs = RouteDef[];
+
+// Static page slugs for which we emit prerendered English mirrors at /en/{slug}.
+// Keep in sync with the `english:` blocks in scripts/prerender/routes.ts —
+// adding a slug here without an English variant in the prerender step would
+// produce a sitemap entry that resolves only via the SPA's runtime i18n.
+export const ENGLISH_STATIC_PAGES = [
+  "", // home → /en/
+  "sofia",
+  "about",
+  "simulator",
+  "compare",
+  "timeline",
+  "financing",
+];
 
 export const routeDefs = (year: string): RouteDefs => [
   { path: "index", file: `public/${year}/region_votes.json` },
@@ -8,25 +29,61 @@ export const routeDefs = (year: string): RouteDefs => [
   { path: "simulator", file: `src/screens/SimulatorScreen.tsx` },
   { path: "compare", file: `src/screens/CompareScreen.tsx` },
   { path: "timeline", file: `src/screens/PartyTimelineScreen.tsx` },
+  // English mirrors of the top static pages (one URL each).
+  { path: "en-mirrors", file: `english-static-pages` },
+
+  // National-level tab pages.
+  { path: "parties", file: `src/screens/AllPartiesScreen.tsx` },
+  { path: "preferences", file: `src/screens/AllPreferencesScreen.tsx` },
+  { path: "flash-memory", file: `src/screens/AllFlashMemoryScreen.tsx` },
+  { path: "recount", file: `src/screens/AllRecountScreen.tsx` },
+  { path: "regions", file: `src/screens/AllRegionsScreen.tsx` },
+
+  // Polls.
+  { path: "polls", file: `polls-index` },
+
+  // Per-election landing pages — one URL per cycle in elections.json.
+  { path: "elections/:id", file: `elections-list` },
 
   {
     path: "municipality/:id",
     file: `public/${year}/municipalities/by/:id`,
+    subTabs: [
+      "parties",
+      "preferences",
+      "flash-memory",
+      "municipalities",
+      "recount",
+      "timeline",
+    ],
   },
   {
     path: "settlement/:id",
-    file: `public/${year}/settlements/by/:id`,
+    file: `settlements`,
   },
-  { path: "sections/:id", file: `public/${year}/settlements/:id` },
-  { path: "section/:id", file: `public/${year}/sections/:id` },
+  { path: "sections/:id", file: `sections-by-ekatte` },
+  { path: "section/:id", file: `sections-index` },
   { path: "financing", file: `public/${year}/parties/financing.json` },
   {
     path: "party/:id",
     file: `parties`,
+    subTabs: [
+      "regions",
+      "municipalities",
+      "settlements",
+      "preferences",
+      "donors",
+      "donors/list",
+      "income",
+      "expenses",
+    ],
   },
   {
     path: "candidate/:id",
     file: `candidates`,
+    // Only the sub-tabs that surface genuinely different data — avoids
+    // ballooning the sitemap with thin variants of the same preference table.
+    subTabs: ["sections", "donations"],
   },
   {
     path: "reports",
@@ -62,6 +119,30 @@ export const routeDefs = (year: string): RouteDefs => [
             path: "supports_no_one",
             file: `public/${year}/reports/municipality/supports_noone.json`,
           },
+          {
+            path: "recount",
+            file: `public/${year}/reports/municipality/recount.json`,
+          },
+          {
+            path: "recount_zero_votes",
+            file: `public/${year}/reports/municipality/recount_zero_votes.json`,
+          },
+          {
+            path: "flash_memory",
+            file: `public/${year}/reports/municipality/suemg.json`,
+          },
+          {
+            path: "flash_memory_added",
+            file: `public/${year}/reports/municipality/suemg_added.json`,
+          },
+          {
+            path: "flash_memory_removed",
+            file: `public/${year}/reports/municipality/suemg_removed.json`,
+          },
+          {
+            path: "missing_flash_memory",
+            file: `public/${year}/reports/municipality/suemg_missing_flash.json`,
+          },
         ],
       },
       {
@@ -95,6 +176,30 @@ export const routeDefs = (year: string): RouteDefs => [
             path: "supports_no_one",
             file: `public/${year}/reports/settlement/supports_noone.json`,
           },
+          {
+            path: "recount",
+            file: `public/${year}/reports/settlement/recount.json`,
+          },
+          {
+            path: "recount_zero_votes",
+            file: `public/${year}/reports/settlement/recount_zero_votes.json`,
+          },
+          {
+            path: "flash_memory",
+            file: `public/${year}/reports/settlement/suemg.json`,
+          },
+          {
+            path: "flash_memory_added",
+            file: `public/${year}/reports/settlement/suemg_added.json`,
+          },
+          {
+            path: "flash_memory_removed",
+            file: `public/${year}/reports/settlement/suemg_removed.json`,
+          },
+          {
+            path: "missing_flash_memory",
+            file: `public/${year}/reports/settlement/suemg_missing_flash.json`,
+          },
         ],
       },
       {
@@ -127,6 +232,34 @@ export const routeDefs = (year: string): RouteDefs => [
           {
             path: "supports_no_one",
             file: `public/${year}/reports/section/supports_noone.json`,
+          },
+          {
+            path: "recount",
+            file: `public/${year}/reports/section/recount.json`,
+          },
+          {
+            path: "recount_zero_votes",
+            file: `public/${year}/reports/section/recount_zero_votes.json`,
+          },
+          {
+            path: "flash_memory",
+            file: `public/${year}/reports/section/suemg.json`,
+          },
+          {
+            path: "flash_memory_added",
+            file: `public/${year}/reports/section/suemg_added.json`,
+          },
+          {
+            path: "flash_memory_removed",
+            file: `public/${year}/reports/section/suemg_removed.json`,
+          },
+          {
+            path: "missing_flash_memory",
+            file: `public/${year}/reports/section/suemg_missing_flash.json`,
+          },
+          {
+            path: "problem_sections",
+            file: `public/problem_sections_stats.json`,
           },
         ],
       },

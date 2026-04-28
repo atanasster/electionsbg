@@ -212,6 +212,11 @@ const PollsAgencyScreen = lazy(() =>
     default: m.PollsAgencyScreen,
   })),
 );
+const ElectionScreen = lazy(() =>
+  import("./screens/ElectionScreen").then((m) => ({
+    default: m.ElectionScreen,
+  })),
+);
 const RegionPartiesScreen = lazy(() =>
   import("./screens/RegionPartiesScreen").then((m) => ({
     default: m.RegionPartiesScreen,
@@ -549,9 +554,16 @@ const ScrollToTop: FC = () => {
   return null;
 };
 
+// When the URL starts with `/en` we mount the router under that prefix so all
+// existing routes work unchanged at /en/* — see i18n.ts which mirrors this
+// detection to switch the UI language to English at boot.
+const isEnglishUrl =
+  typeof window !== "undefined" && /^\/en(\/|$)/.test(window.location.pathname);
+const ROUTER_BASENAME = isEnglishUrl ? "/en" : "/";
+
 export const AuthRoutes = () => {
   return (
-    <BrowserRouter>
+    <BrowserRouter basename={ROUTER_BASENAME}>
       <ScrollToTop />
       <Routes>
         <Route
@@ -1039,6 +1051,14 @@ export const AuthRoutes = () => {
           element={
             <LayoutScreen>
               <PollsAgencyScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="elections/:date"
+          element={
+            <LayoutScreen>
+              <ElectionScreen />
             </LayoutScreen>
           }
         />
