@@ -55,6 +55,7 @@ export const ElectionsSelect: FC = () => {
       >
         <SelectTrigger
           id="select_election"
+          aria-label={t("select_election_year")}
           className="w-[125px] md:w-[150px] text-sm text-secondary-foreground px-2"
           onMouseEnter={() => {
             // When the user reaches for the dropdown, warm both neighbors.
@@ -63,7 +64,6 @@ export const ElectionsSelect: FC = () => {
           }}
         >
           <SelectValue placeholder={selected} />
-          <span className="sr-only">Select election year</span>
         </SelectTrigger>
         <SelectContent>
           {localDates.map((l) => (

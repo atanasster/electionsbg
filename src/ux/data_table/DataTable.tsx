@@ -34,7 +34,6 @@ import { DataTableColumnDef } from "./utils";
 import { cellRender } from "./cellRender";
 import { headerRender } from "./headerRender";
 import { exportToJSON } from "./exportToJSON";
-import { exportToPDF } from "./exportToPDF";
 import { Input } from "@/components/ui/input";
 import { footerRender } from "./footerRender";
 
@@ -258,7 +257,10 @@ export const DataTable = <TData, TValue>({
             <Button
               variant="outline"
               className="flex justify-between w-12 md:w-24 text-secondary-foreground text-xs md:text-sm"
-              onClick={() => exportToPDF<TData>(table, title)}
+              onClick={async () => {
+                const { exportToPDF } = await import("./exportToPDF");
+                exportToPDF<TData>(table, title);
+              }}
               disabled={!table.getRowModel().rows?.length}
             >
               <FileText className="hidden md:block" />

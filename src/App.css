@@ -12,7 +12,7 @@
     --card-foreground: 30 10% 12%;
 
     --popover: 39 40% 96%; /* lightest cream for popovers/menus */
-    --popover-foreground: 16 75% 42%; /* warm coral accent text */
+    --popover-foreground: 16 75% 33%; /* warm coral accent text — darkened for AA contrast */
 
     --primary: 30 10% 12%; /* warm black */
     --primary-foreground: 39 40% 96%;
@@ -34,9 +34,9 @@
     --ring: 16 75% 55%;
     --radius: 0.5rem;
 
-    --positive: 152 55% 32%;
+    --positive: 152 55% 26%; /* darkened for AA contrast on --card/--muted */
     --positive-foreground: 39 40% 96%;
-    --negative: 0 70% 48%;
+    --negative: 0 70% 38%; /* darkened for AA contrast on --card/--muted */
     --negative-foreground: 39 40% 96%;
 
     --chart-1: 16 75% 55%;

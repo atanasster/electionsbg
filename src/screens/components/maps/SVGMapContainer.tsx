@@ -1,4 +1,5 @@
 import { ReactNode } from "react";
+import { useTranslation } from "react-i18next";
 import { MapCoordinates } from "@/layout/dataview/MapLayout";
 import { Button } from "@/components/ui/button";
 import { Layers2 } from "lucide-react";
@@ -12,6 +13,7 @@ export const SVGMapContainer = ({
   children: ReactNode;
 }) => {
   const { withNames, setWithNames } = useOptions();
+  const { t } = useTranslation();
   return (
     <>
       <svg
@@ -37,7 +39,9 @@ export const SVGMapContainer = ({
       >
         <Button
           variant="outline"
-          role="radio"
+          role="switch"
+          aria-checked={withNames}
+          aria-label={t("with_names")}
           data-state={withNames ? "checked" : "unchecked"}
           className="data-[state=checked]:bg-muted text-muted-foreground"
           onClick={() => {

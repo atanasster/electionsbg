@@ -22,6 +22,7 @@ export const SofiaCity: FC<{ size: MapCoordinates }> = ({ size }) => {
   return (
     <Link
       to={`/sofia`}
+      aria-label={t("sofia_city")}
       style={{
         position: "absolute",
         left: 0,

@@ -23,6 +23,7 @@ export const WorldLink: FC<{ size: MapCoordinates }> = ({ size }) => {
   return (
     <Link
       to={`/municipality/32`}
+      aria-label={t("abroad")}
       style={{
         position: "absolute",
         left: size[0] - width,

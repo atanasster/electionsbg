@@ -101,7 +101,6 @@ export const Header = () => {
               <Button
                 variant="ghost"
                 className="font-medium hidden md:block lowercase text-secondary-foreground"
-                aria-label="Open reports menu"
               >
                 {t(topMenu.title)}
               </Button>
@@ -117,7 +116,7 @@ export const Header = () => {
 
         <button
           className="text-sm font-medium hidden md:block text-secondary-foreground"
-          aria-label="Change language"
+          aria-label={`${t("change_language_to")} ${t("changeLanguageTo")}`}
           onClick={() => {
             if (i18n.language === "bg") {
               changeLanguage("en");
