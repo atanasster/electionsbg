@@ -13,6 +13,14 @@ const homePage = "https://electionsbg.com";
 
 const today = new Date().toISOString().slice(0, 10);
 
+// Per-segment percent-encode so Cyrillic and spaces (e.g. candidate names)
+// produce RFC 3986 compliant URLs. Leading slash is preserved.
+const encodeUrlPath = (p: string): string => {
+  const lead = p.startsWith("/") ? "/" : "";
+  const body = p.replace(/^\//, "");
+  return lead + body.split("/").map(encodeURIComponent).join("/");
+};
+
 const routeXML = (url: string, file: string) => {
   const fName = path.resolve(projectPath, file);
   const fileMod = fs.statSync(fName).mtime.toISOString().slice(0, 10);
@@ -23,7 +31,7 @@ const routeXML = (url: string, file: string) => {
   // Normalize the home page: route_defs uses "index" as a sentinel, which
   // produces "/index" in the URL — the real home is the bare domain.
   const isHome = url === "index" || url === "/index";
-  const loc = isHome ? `${homePage}/` : `${homePage}${url}`;
+  const loc = isHome ? `${homePage}/` : `${homePage}${encodeUrlPath(url)}`;
   return `<url><loc>${loc}</loc><lastmod>${mod}</lastmod><changefreq>monthly</changefreq></url>`;
 };
 
@@ -47,13 +55,35 @@ const getRoute = (route: RouteDef, rootUrl: string): string[] => {
           );
           result.push(r);
         });
+      } else if (route.file === "candidates") {
+        // Candidate URLs are election-agnostic (`/candidate/{name}`), so union
+        // names across all election folders to cover everyone we prerender.
+        const publicDir = path.resolve(projectPath, "public");
+        const electionDirs = fs
+          .readdirSync(publicDir)
+          .filter((d) => /^\d{4}_\d{2}_\d{2}$/.test(d));
+        const names = new Set<string>();
+        for (const ed of electionDirs) {
+          const candDir = path.join(publicDir, ed, "candidates");
+          if (!fs.existsSync(candDir)) continue;
+          for (const n of fs.readdirSync(candDir)) {
+            if (n.startsWith(".")) continue;
+            names.add(n);
+          }
+        }
+        for (const name of names) {
+          const loc = `${homePage}${encodeUrlPath(`${rootUrl}/${routes[0]}${name}`)}`;
+          result.push(
+            `<url><loc>${loc}</loc><lastmod>${today}</lastmod><changefreq>monthly</changefreq></url>`,
+          );
+        }
       } else {
         const folders = route.file?.split(":id");
         if (!folders) {
           throw new Error("Must assign file property: " + route.path);
         }
         const folder = path.resolve(projectPath, folders[0]);
-        const files = fs.readdirSync(folder);
+        const files = fs.readdirSync(folder).filter((f) => !f.startsWith("."));
         if (routes[1] === "") {
           files.forEach((f) => {
             const fileName = path.resolve(folder, f);

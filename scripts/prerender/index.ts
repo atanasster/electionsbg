@@ -28,8 +28,18 @@ const escapeHtml = (s: string) =>
 const safeJsonLd = (obj: object): string =>
   JSON.stringify(obj).replace(/<\/(script)/gi, "<\\/$1");
 
+// Per-segment percent-encode so Cyrillic/spaces in the URL emitted to crawlers
+// are RFC 3986 compliant. The on-disk path stays raw — Firebase Hosting decodes
+// the request before matching against the filesystem, so `dist/candidate/Иван
+// Иванов/index.html` is reachable at `/candidate/%D0%98%D0%B2%D0%B0%D0%BD%20...`.
+const encodeUrlPath = (p: string): string =>
+  p.split("/").map(encodeURIComponent).join("/");
+
 const renderSeoBlock = (route: PrerenderRoute): string => {
-  const url = route.path === "" ? `${SITE_URL}/` : `${SITE_URL}/${route.path}`;
+  const url =
+    route.path === ""
+      ? `${SITE_URL}/`
+      : `${SITE_URL}/${encodeUrlPath(route.path)}`;
   const ogImage = route.ogImage
     ? route.ogImage.startsWith("http")
       ? route.ogImage

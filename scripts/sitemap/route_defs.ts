@@ -26,7 +26,7 @@ export const routeDefs = (year: string): RouteDefs => [
   },
   {
     path: "candidate/:id",
-    file: `public/${year}/candidates/:id/regions.json`,
+    file: `candidates`,
   },
   {
     path: "reports",

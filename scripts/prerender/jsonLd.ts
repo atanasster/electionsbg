@@ -72,6 +72,25 @@ export const buildDatasetLd = (params: {
     : {}),
 });
 
+export const buildPersonLd = (params: {
+  name: string;
+  url: string;
+  affiliations?: string[];
+}) => ({
+  "@context": "https://schema.org",
+  "@type": "Person",
+  name: params.name,
+  url: params.url,
+  ...(params.affiliations && params.affiliations.length
+    ? {
+        affiliation: params.affiliations.map((name) => ({
+          "@type": "Organization",
+          name,
+        })),
+      }
+    : {}),
+});
+
 export const buildBreadcrumbLd = (
   items: Array<{ name: string; url: string }>,
 ) => ({

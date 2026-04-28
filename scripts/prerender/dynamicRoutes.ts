@@ -1,8 +1,13 @@
 import fs from "fs";
 import path from "path";
-import { ElectionInfo, PartyInfo, RegionInfo } from "@/data/dataTypes";
+import {
+  CandidatesInfo,
+  ElectionInfo,
+  PartyInfo,
+  RegionInfo,
+} from "@/data/dataTypes";
 import { PrerenderRoute, SITE_URL } from "./routes";
-import { buildBreadcrumbLd, buildDatasetLd } from "./jsonLd";
+import { buildBreadcrumbLd, buildDatasetLd, buildPersonLd } from "./jsonLd";
 
 // Latest election as of build time (sorted descending in elections.json).
 export const getLatestElection = (electionsFile: string): string => {
@@ -180,6 +185,96 @@ export const buildSettlementRoutes = (
   return result;
 };
 
+type CandidateAggregate = {
+  parties: Set<string>;
+  elections: Set<string>;
+};
+
+export const buildCandidateRoutes = (
+  publicFolder: string,
+): PrerenderRoute[] => {
+  if (!fs.existsSync(publicFolder)) return [];
+  const electionFolders = fs
+    .readdirSync(publicFolder)
+    .filter((f) => /^\d{4}_\d{2}_\d{2}$/.test(f))
+    .sort()
+    .reverse(); // most-recent first so we keep the latest party label per name
+
+  // Build per-election partyNum → label map once and reuse.
+  const partyLabelByElection = new Map<string, Map<number, string>>();
+  for (const folder of electionFolders) {
+    const partiesFile = path.join(publicFolder, folder, "cik_parties.json");
+    if (!fs.existsSync(partiesFile)) continue;
+    const parties: PartyInfo[] = JSON.parse(
+      fs.readFileSync(partiesFile, "utf-8"),
+    );
+    const m = new Map<number, string>();
+    for (const p of parties) m.set(p.number, p.nickName || p.name);
+    partyLabelByElection.set(folder, m);
+  }
+
+  const byName = new Map<string, CandidateAggregate>();
+  for (const folder of electionFolders) {
+    const candFile = path.join(publicFolder, folder, "candidates.json");
+    if (!fs.existsSync(candFile)) continue;
+    let cands: CandidatesInfo[];
+    try {
+      cands = JSON.parse(fs.readFileSync(candFile, "utf-8"));
+    } catch {
+      continue;
+    }
+    const partyMap = partyLabelByElection.get(folder);
+    for (const c of cands) {
+      if (!c.name) continue;
+      let agg = byName.get(c.name);
+      if (!agg) {
+        agg = { parties: new Set(), elections: new Set() };
+        byName.set(c.name, agg);
+      }
+      agg.elections.add(folder);
+      const partyLabel = partyMap?.get(c.partyNum);
+      if (partyLabel) agg.parties.add(partyLabel);
+    }
+  }
+
+  const result: PrerenderRoute[] = [];
+  for (const [name, agg] of byName) {
+    const url = `${SITE_URL}/candidate/${encodeURIComponent(name)}`;
+    const elections = Array.from(agg.elections).sort();
+    const earliest = elections[0];
+    const latest = elections[elections.length - 1];
+    const earliestYear = earliest?.slice(0, 4);
+    const latestYear = latest?.slice(0, 4);
+    const yearSpan =
+      earliestYear && latestYear && earliestYear !== latestYear
+        ? `${earliestYear}–${latestYear}`
+        : (latestYear ?? "");
+    const partyLabels = Array.from(agg.parties);
+    const partyClause = partyLabels.length
+      ? ` от ${partyLabels.join(", ")}`
+      : "";
+    const title = `${name} — кандидат за народен представител${yearSpan ? ` (${yearSpan})` : ""} | electionsbg.com`;
+    const description = `Резултати на ${name} като кандидат за народен представител${partyClause} в парламентарните избори в България — преференции по области, общини, населени места и секции.`;
+    result.push({
+      path: `candidate/${name}`,
+      title,
+      description,
+      jsonLd: [
+        buildPersonLd({
+          name,
+          url,
+          affiliations: partyLabels,
+        }),
+        buildBreadcrumbLd([
+          { name: "Начало", url: `${SITE_URL}/` },
+          { name, url },
+        ]),
+      ],
+    });
+  }
+  return result;
+};
+
 export const buildDynamicRoutes = (projectRoot: string): PrerenderRoute[] => {
   const publicFolder = path.join(projectRoot, "public");
   const electionsFile = path.join(projectRoot, "src/data/json/elections.json");
@@ -193,5 +288,6 @@ export const buildDynamicRoutes = (projectRoot: string): PrerenderRoute[] => {
     ...buildPartyRoutes(publicFolder, latest),
     ...buildOblastRoutes(regionsFile),
     ...buildSettlementRoutes(publicFolder, latest, oblastNames),
+    ...buildCandidateRoutes(publicFolder),
   ];
 };
