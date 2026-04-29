@@ -10,8 +10,20 @@ lerna-debug.log*
 node_modules
 dist
 dist-ssr
+# Staged-for-deletion build outputs from scripts/prebuild.mjs. The script
+# atomically renames dist/ to dist.old-<timestamp> so the new build can start
+# while a detached process deletes the old tree in the background. If that
+# detached process is interrupted the orphan stays on disk until the next
+# build's sweep — keep it out of git either way.
+dist.old-*
 *.local
 *.cache
+
+# Playwright
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
 
 # Generated election data — regenerate with `npm run prod`
 # Pattern note: ignore directory *contents* (not the directory itself) so we can

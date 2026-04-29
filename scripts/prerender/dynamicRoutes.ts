@@ -113,14 +113,18 @@ export const buildPartyRoutes = (
         ? `${p.name} (${p.nickName})`
         : p.nickName;
     const url = `${SITE_URL}/party/${p.nickName}`;
+    const enUrl = `${SITE_URL}/en/party/${p.nickName}`;
     const title = `${label} — Парламентарни избори в България | electionsbg.com`;
     const description = `Резултати на ${label} по години, области, общини и секции на парламентарните избори в България от 2005 г. насам, плюс декларирано финансиране.`;
+    const titleEn = `${label} — Bulgarian Parliamentary Elections | electionsbg.com`;
+    const descriptionEn = `Results of ${label} by year, region, municipality and section in Bulgaria's parliamentary elections since 2005, plus declared campaign financing.`;
+    const bodyHtml = buildPartyBody(publicFolder, latestElection, p, summary);
     return {
       path: `party/${p.nickName}`,
       title,
       description,
       ogImage: `/og/party/${encodeURIComponent(p.nickName)}.png`,
-      bodyHtml: buildPartyBody(publicFolder, latestElection, p, summary),
+      bodyHtml,
       jsonLd: [
         buildDatasetLd({
           name: `${label} — резултати по години и територии`,
@@ -150,6 +154,29 @@ export const buildPartyRoutes = (
           { name: label, url },
         ]),
       ],
+      english: {
+        title: titleEn,
+        description: descriptionEn,
+        bodyHtml,
+        jsonLd: [
+          buildDatasetLd({
+            name: `${label} — results by year and territory`,
+            description: descriptionEn,
+            url: enUrl,
+            spatialCoverage: "Bulgaria",
+            keywords: [
+              label,
+              "Bulgarian elections",
+              "parliamentary elections",
+              "results",
+            ],
+          }),
+          buildBreadcrumbLd([
+            { name: "Home", url: `${SITE_URL}/en/` },
+            { name: label, url: enUrl },
+          ]),
+        ],
+      },
     };
   });
 };
@@ -755,6 +782,7 @@ const buildPartySubTabRoutes = (
         : p.nickName;
     for (const tab of PARTY_SUB_TABS) {
       const url = `${SITE_URL}/party/${p.nickName}/${tab.slug}`;
+      const enUrl = `${SITE_URL}/en/party/${p.nickName}/${tab.slug}`;
       result.push({
         path: `party/${p.nickName}/${tab.slug}`,
         title: `${label} — ${tab.bg} | electionsbg.com`,
@@ -768,6 +796,18 @@ const buildPartySubTabRoutes = (
             { name: tab.bg, url },
           ]),
         ],
+        english: {
+          title: `${label} — ${tab.en} | electionsbg.com`,
+          description: `Results of ${label} ${tab.en} in Bulgaria's parliamentary elections.`,
+          bodyHtml: parent.bodyHtml,
+          jsonLd: [
+            buildBreadcrumbLd([
+              { name: "Home", url: `${SITE_URL}/en/` },
+              { name: label, url: `${SITE_URL}/en/party/${p.nickName}` },
+              { name: tab.en, url: enUrl },
+            ]),
+          ],
+        },
       });
     }
   }
@@ -947,6 +987,178 @@ export const buildPollsRoutes = (publicFolder: string): PrerenderRoute[] => {
   return result;
 };
 
+// Static report pages live at /reports/{scope}/{report}. Each one is a
+// distinct keyword target ("избирателна активност по области", "повторно
+// преброяване по секции") so we emit unique title/description/body per page.
+type ReportEntry = {
+  slug: string;
+  bgTitle: string;
+  bgDesc: string;
+  bgBody: string;
+};
+
+const SETTLEMENT_REPORTS: ReportEntry[] = [
+  {
+    slug: "concentrated",
+    bgTitle: "Концентриран вот по населени места",
+    bgDesc:
+      "Населени места с прекомерно концентриран вот за една партия — индикатор за организирано гласуване.",
+    bgBody:
+      "Населени места, в които една партия е получила непропорционално висок дял от гласовете спрямо средното за страната. Често срещан индикатор за организирано или контролирано гласуване, особено при ниско общо население на секцията.",
+  },
+  {
+    slug: "top_gainers",
+    bgTitle: "Най-голям ръст по населени места",
+    bgDesc:
+      "Населени места с най-голямо увеличение на гласовете за дадена партия спрямо предходния вот.",
+    bgBody:
+      "Населени места, в които конкретна партия отбелязва най-голям ръст спрямо предишния парламентарен вот. Полезно за идентифициране на нови мобилизационни усилия или разширяване на електоралната база.",
+  },
+  {
+    slug: "top_losers",
+    bgTitle: "Най-голям спад по населени места",
+    bgDesc:
+      "Населени места с най-голяма загуба на гласове за дадена партия спрямо предходния вот.",
+    bgBody:
+      "Населени места, в които партия губи най-много гласове спрямо предходния вот. Често обяснимо с разпад на коалиции, смяна на лидер или загуба на местен организатор.",
+  },
+  {
+    slug: "turnout",
+    bgTitle: "Избирателна активност по населени места",
+    bgDesc:
+      "Класация на населените места по избирателна активност в последния парламентарен вот.",
+    bgBody:
+      "Избирателната активност на ниво населено място — съотношението между гласувалите и регистрираните избиратели. Показва откроени високи и ниски стойности, които често маркират организирано гласуване или обезлюдяване.",
+  },
+  {
+    slug: "invalid_ballots",
+    bgTitle: "Недействителни бюлетини по населени места",
+    bgDesc:
+      "Населени места с най-висок дял недействителни бюлетини на парламентарния вот.",
+    bgBody:
+      "Делът на недействителните бюлетини спрямо общия брой гласове в населеното място. Високите стойности често са знак за нискa избирателна култура или нарочно объркани бюлетини.",
+  },
+  {
+    slug: "additional_voters",
+    bgTitle: "Дописани избиратели по населени места",
+    bgDesc:
+      "Населени места с най-много избиратели, дописани в избирателния списък в изборния ден.",
+    bgBody:
+      "Брой избиратели, дописани в допълнителния списък на изборния ден. Прекомерните стойности будят подозрения за организиран „избирателен туризъм“.",
+  },
+  {
+    slug: "supports_no_one",
+    bgTitle: "Глас „не подкрепям никого“ по населени места",
+    bgDesc:
+      "Населени места с най-висок дял на гласове „не подкрепям никого“ — протестен вот.",
+    bgBody:
+      "Делът на гласовете „не подкрепям никого“ спрямо общия брой гласове. Класически протестен вот — отделянето му от партиите помага да се измери истинският му обхват.",
+  },
+  {
+    slug: "recount",
+    bgTitle: "Повторно преброяване по населени места",
+    bgDesc:
+      "Населени места с най-голяма разлика между първо и второ преброяване на бюлетините.",
+    bgBody:
+      "Сборът на абсолютните разлики между първото броене в СИК и повторното броене в РИК. Високите стойности маркират проблеми в първоначалното отчитане.",
+  },
+  {
+    slug: "flash_memory",
+    bgTitle: "Машинно гласуване по населени места",
+    bgDesc:
+      "Обхват на машинното гласуване в българските населени места — секции с/без флашка.",
+    bgBody:
+      "Делът на секциите в населено място, в които е работело СУЕМГ устройство. Индикатор за достъпност на електронното гласуване извън градските центрове.",
+  },
+  {
+    slug: "flash_memory_added",
+    bgTitle: "Добавени машини за гласуване по населени места",
+    bgDesc:
+      "Населени места, в които СУЕМГ устройства са били добавени в последния момент преди изборния ден.",
+    bgBody:
+      "Брой машини за гласуване, добавени към секциите след първоначалния списък. Често маркира логистични проблеми с разпределението на устройствата.",
+  },
+  {
+    slug: "flash_memory_removed",
+    bgTitle: "Премахнати машини за гласуване по населени места",
+    bgDesc:
+      "Населени места, в които СУЕМГ устройства са били премахнати преди или по време на изборния ден.",
+    bgBody:
+      "Брой машини за гласуване, премахнати от секциите преди или по време на изборния ден. Често свързано с разпоредено хартиено гласуване след технически проблем.",
+  },
+  {
+    slug: "missing_flash_memory",
+    bgTitle: "Липсваща флашка за машинно гласуване по населени места",
+    bgDesc:
+      "Населени места с регистрирани липсващи флаш-памети в СУЕМГ устройствата.",
+    bgBody:
+      "Секции, в които флаш-паметта на СУЕМГ устройството липсва или не е приета от РИК. Серьозен инцидент — гласовете трябва да се възстановят от хартиена разпечатка.",
+  },
+];
+
+const MUNICIPALITY_REPORTS: ReportEntry[] = SETTLEMENT_REPORTS.map((r) => ({
+  ...r,
+  bgTitle: r.bgTitle.replace("по населени места", "по общини"),
+  bgDesc: r.bgDesc.replace(/населен[иa] места?/g, "общини"),
+  bgBody: r.bgBody.replace(/населен[иa] места?/g, "общини").replace(/населено място/g, "община"),
+}));
+
+const SECTION_REPORTS: ReportEntry[] = [
+  ...SETTLEMENT_REPORTS.map((r) => ({
+    ...r,
+    bgTitle: r.bgTitle.replace("по населени места", "по секции"),
+    bgDesc: r.bgDesc.replace(/населен[иa] места?/g, "секции"),
+    bgBody: r.bgBody.replace(/населен[иa] места?/g, "секции").replace(/населено място/g, "секция"),
+  })),
+  {
+    slug: "recount_zero_votes",
+    bgTitle: "Повторно преброяване с нулиране на гласове по секции",
+    bgDesc:
+      "Секции, в които повторното преброяване свежда гласовете на партия до нула.",
+    bgBody:
+      "Особено крайни случаи на повторно преброяване — секции, в които второто броене изважда всички гласове на дадена партия. Маркира сериозен проблем в първоначалния протокол.",
+  },
+  {
+    slug: "problem_sections",
+    bgTitle: "Проблемни секции — обобщен преглед",
+    bgDesc:
+      "Списък на секциите с натрупани отклонения по различни доклади — повторно преброяване, машинно гласуване, отклонения по партии.",
+    bgBody:
+      "Обобщеният списък на секциите, които се появяват в няколко независими доклада за отклонения. Това са секциите, които изискват ръчна проверка — машинна срещу хартиена разлика, нулирано броене, организирано гласуване, дописани избиратели.",
+  },
+];
+
+const buildReportRoutes = (
+  scope: "settlement" | "municipality" | "section",
+  reports: ReportEntry[],
+): PrerenderRoute[] => {
+  const scopeLabelBg =
+    scope === "settlement"
+      ? "населени места"
+      : scope === "municipality"
+        ? "общини"
+        : "секции";
+  return reports.map((r) => {
+    const url = `${SITE_URL}/reports/${scope}/${r.slug}`;
+    const title = `${r.bgTitle} — Парламентарни избори | electionsbg.com`;
+    return {
+      path: `reports/${scope}/${r.slug}`,
+      title,
+      description: r.bgDesc,
+      bodyHtml: `
+<h1>${r.bgTitle}</h1>
+<p>${r.bgBody}</p>
+<p>Всички доклади за отклонения по ${scopeLabelBg}: <a href="${SITE_URL}/reports/${scope}/concentrated">концентриран вот</a>, <a href="${SITE_URL}/reports/${scope}/turnout">избирателна активност</a>, <a href="${SITE_URL}/reports/${scope}/recount">повторно преброяване</a>, <a href="${SITE_URL}/reports/${scope}/flash_memory">машинно гласуване</a>.</p>`.trim(),
+      jsonLd: [
+        buildBreadcrumbLd([
+          { name: "Начало", url: `${SITE_URL}/` },
+          { name: r.bgTitle, url },
+        ]),
+      ],
+    };
+  });
+};
+
 export const buildDynamicRoutes = (projectRoot: string): PrerenderRoute[] => {
   const publicFolder = path.join(projectRoot, "public");
   const electionsFile = path.join(projectRoot, "src/data/json/elections.json");
@@ -982,5 +1194,8 @@ export const buildDynamicRoutes = (projectRoot: string): PrerenderRoute[] => {
     ...buildCandidateRoutes(publicFolder),
     ...buildPollsRoutes(publicFolder),
     ...buildElectionLandingRoutes(publicFolder, electionsFile),
+    ...buildReportRoutes("settlement", SETTLEMENT_REPORTS),
+    ...buildReportRoutes("municipality", MUNICIPALITY_REPORTS),
+    ...buildReportRoutes("section", SECTION_REPORTS),
   ];
 };

@@ -198,8 +198,18 @@ export const DataTable = <TData, TValue>({
                 </TableRow>
               ))
             ) : (
+              // Reserve roughly a full pageSize worth of vertical space here
+              // so the empty-state row doesn't render at h-24 (the React-Query
+              // loading window) and then snap to a full ~25-row table when
+              // data arrives. Without this, the bottom toolbar shifts ~600px
+              // downward on hydration, and that move dominates CLS for
+              // every /reports/* page.
               <TableRow>
-                <TableCell colSpan={100} className="h-24 text-center w-full">
+                <TableCell
+                  colSpan={100}
+                  className="text-center w-full"
+                  style={{ height: `${Math.max(pageSize * 28, 600)}px` }}
+                >
                   {t("no_results")}
                 </TableCell>
               </TableRow>

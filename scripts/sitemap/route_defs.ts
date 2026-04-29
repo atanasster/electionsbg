@@ -15,11 +15,18 @@ export type RouteDefs = RouteDef[];
 export const ENGLISH_STATIC_PAGES = [
   "", // home → /en/
   "sofia",
+  "sofia/parties",
+  "sofia/preferences",
+  "sofia/flash-memory",
+  "sofia/recount",
+  "sofia/timeline",
   "about",
   "simulator",
   "compare",
   "timeline",
   "financing",
+  "parties",
+  "regions",
 ];
 
 export const routeDefs = (year: string): RouteDefs => [

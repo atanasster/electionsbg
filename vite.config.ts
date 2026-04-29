@@ -17,6 +17,20 @@ export default defineConfig(({ mode }) => {
       // Lift the warning threshold a bit since we still have some larger
       // domain-specific chunks (maps + jspdf) that are loaded on demand.
       chunkSizeWarningLimit: 800,
+      modulePreload: {
+        // Vite's default preloads every chunk reachable from the entry's
+        // import graph, including async deps. That pulls jspdf, leaflet,
+        // recharts, and react-markdown into the initial download — none of
+        // which are needed for the LCP element on most landing pages.
+        // Filter them out so the browser fetches them only when the route
+        // that actually needs them is loaded.
+        resolveDependencies: (_filename, deps) =>
+          deps.filter(
+            (d) =>
+              !/vendor-(pdf|leaflet|markdown|charts)/.test(d) &&
+              !/exportToPDF-/.test(d),
+          ),
+      },
       rollupOptions: {
         output: {
           manualChunks(id) {
