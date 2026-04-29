@@ -256,8 +256,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "financing",
-    title:
-      "Финансиране на партии и предизборни кампании | electionsbg.com",
+    title: "Финансиране на партии и предизборни кампании | electionsbg.com",
     description:
       "Декларирани приходи и разходи на политическите партии за всеки парламентарен вот — дарители, кандидати, медийни и други разходи.",
     breadcrumbName: "Финансиране",
@@ -294,8 +293,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "simulator",
-    title:
-      "Симулатор на коалиции и разпределение на мандати | electionsbg.com",
+    title: "Симулатор на коалиции и разпределение на мандати | electionsbg.com",
     description:
       "Изследвайте как промяната на избирателния праг променя разпределението на 240-те мандата и кои коалиции могат да формират мнозинство от 121.",
     breadcrumbName: "Симулатор",
@@ -327,8 +325,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "compare",
-    title:
-      "Сравнение на парламентарни избори в България | electionsbg.com",
+    title: "Сравнение на парламентарни избори в България | electionsbg.com",
     description:
       "Сравнете рамо до рамо два парламентарни вота — избирателна активност, дял на партиите, мандати и брой секции с отклонения.",
     breadcrumbName: "Сравнение",
@@ -397,7 +394,8 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "parties",
-    title: "Всички партии — резултати на парламентарните избори | electionsbg.com",
+    title:
+      "Всички партии — резултати на парламентарните избори | electionsbg.com",
     description:
       "Пълен списък на партиите и коалициите, участвали в последния парламентарен вот — гласове, проценти и мандати, плюс линкове към подробни профили.",
     breadcrumbName: "Партии",
@@ -454,8 +452,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "flash-memory",
-    title:
-      "Машинно гласуване — обхват и отклонения | electionsbg.com",
+    title: "Машинно гласуване — обхват и отклонения | electionsbg.com",
     description:
       "Доклад за машинното гласуване в България — секции с/без флашка, добавени и липсващи СУЕМГ устройства, хартиен заместител.",
     breadcrumbName: "Машинно гласуване",
@@ -466,8 +463,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "recount",
-    title:
-      "Повторно преброяване — отклонения по партии | electionsbg.com",
+    title: "Повторно преброяване — отклонения по партии | electionsbg.com",
     description:
       "Доклад за повторното преброяване на бюлетините в българските парламентарни избори — секции с разлика между първо и второ броене.",
     breadcrumbName: "Повторно преброяване",
@@ -524,7 +520,8 @@ const sofiaSubTabs: Array<{
     slug: "timeline",
     bgLabel: "времева линия",
     enLabel: "timeline",
-    bgDesc: "Резултати в София от 2005 г. насам — партии и активност по години.",
+    bgDesc:
+      "Резултати в София от 2005 г. насам — партии и активност по години.",
     enDesc: "Sofia results since 2005 — parties and turnout by year.",
   },
 ];

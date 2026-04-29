@@ -372,9 +372,18 @@ const extract = (html: string) => {
     .replace(/\s+/g, " ")
     .trim();
   const canonical = readAttr(findTag(html, "link", "rel", "canonical"), "href");
-  const ogTitle = readAttr(findTag(html, "meta", "property", "og:title"), "content");
-  const ogImage = readAttr(findTag(html, "meta", "property", "og:image"), "content");
-  const ogUrl = readAttr(findTag(html, "meta", "property", "og:url"), "content");
+  const ogTitle = readAttr(
+    findTag(html, "meta", "property", "og:title"),
+    "content",
+  );
+  const ogImage = readAttr(
+    findTag(html, "meta", "property", "og:image"),
+    "content",
+  );
+  const ogUrl = readAttr(
+    findTag(html, "meta", "property", "og:url"),
+    "content",
+  );
   const description = readAttr(
     findTag(html, "meta", "name", "description"),
     "content",
@@ -414,10 +423,13 @@ const runRouteCheck = (route: RouteCheck) => {
 
     // Title: present, includes the route-specific phrase, ends with site
     // suffix. Catches routes that fall back to the home title.
-    expect(meta.title, `<title> on ${route.path}`).toContain(route.titleIncludes);
-    expect(meta.title, `<title> missing site suffix on ${route.path}`).toContain(
-      "electionsbg.com",
+    expect(meta.title, `<title> on ${route.path}`).toContain(
+      route.titleIncludes,
     );
+    expect(
+      meta.title,
+      `<title> missing site suffix on ${route.path}`,
+    ).toContain("electionsbg.com");
 
     // Canonical is the most reliable signal that the prerender file (not the
     // SPA fallback) was served.
@@ -431,9 +443,10 @@ const runRouteCheck = (route: RouteCheck) => {
     expect(meta.ogTitle, `og:title on ${route.path}`).toBeTruthy();
     expect(meta.ogImage, `og:image on ${route.path}`).toMatch(/^https?:\/\//);
     expect(meta.ogUrl, `og:url on ${route.path}`).toBeTruthy();
-    expect(meta.description.length, `description on ${route.path}`).toBeGreaterThan(
-      30,
-    );
+    expect(
+      meta.description.length,
+      `description on ${route.path}`,
+    ).toBeGreaterThan(30);
 
     // hreflang block is always emitted — at minimum bg + x-default.
     expect(meta.hreflangs, `hreflang on ${route.path}`).toContain("bg");
@@ -448,7 +461,10 @@ const runRouteCheck = (route: RouteCheck) => {
       `JSON-LD count on ${route.path}`,
     ).toBeGreaterThanOrEqual(1);
     for (const block of meta.jsonLdBlocks) {
-      expect(() => JSON.parse(block), `JSON-LD parse on ${route.path}`).not.toThrow();
+      expect(
+        () => JSON.parse(block),
+        `JSON-LD parse on ${route.path}`,
+      ).not.toThrow();
     }
 
     // H1 — when set, must be present in the prerendered body. (Some sub-tab
@@ -497,7 +513,9 @@ test.describe("prerender: cross-cutting", () => {
   }) => {
     const { body } = await fetchOk(request, "/");
     const preloads = Array.from(
-      body.matchAll(/<link[^>]+rel=["']modulepreload["'][^>]+href=["']([^"']+)["']/gi),
+      body.matchAll(
+        /<link[^>]+rel=["']modulepreload["'][^>]+href=["']([^"']+)["']/gi,
+      ),
     ).map((m) => m[1]);
     for (const banned of [
       "vendor-pdf",
@@ -538,10 +556,7 @@ test.describe("prerender: cross-cutting", () => {
   test("English mirror declares both bg and en hreflang alternates", async ({
     request,
   }) => {
-    const { body } = await fetchOk(
-      request,
-      `/en/party/${enc(SAMPLE_PARTY)}`,
-    );
+    const { body } = await fetchOk(request, `/en/party/${enc(SAMPLE_PARTY)}`);
     const { hreflangs } = extract(body);
     expect(new Set(hreflangs)).toEqual(new Set(["bg", "en", "x-default"]));
   });

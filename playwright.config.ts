@@ -25,8 +25,7 @@ export default defineConfig({
   webServer: {
     // Requires a built dist/. Run `npm run build` before `npm test` (or use
     // npm run test:build which chains them).
-    command:
-      "firebase emulators:start --only hosting --project elections-bg",
+    command: "firebase emulators:start --only hosting --project elections-bg",
     url: `${BASE_URL}/`,
     reuseExistingServer: !process.env.CI,
     // First-run cold start can take a while if firebase pulls config.

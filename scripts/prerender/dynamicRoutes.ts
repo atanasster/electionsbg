@@ -1100,7 +1100,9 @@ const MUNICIPALITY_REPORTS: ReportEntry[] = SETTLEMENT_REPORTS.map((r) => ({
   ...r,
   bgTitle: r.bgTitle.replace("по населени места", "по общини"),
   bgDesc: r.bgDesc.replace(/населен[иa] места?/g, "общини"),
-  bgBody: r.bgBody.replace(/населен[иa] места?/g, "общини").replace(/населено място/g, "община"),
+  bgBody: r.bgBody
+    .replace(/населен[иa] места?/g, "общини")
+    .replace(/населено място/g, "община"),
 }));
 
 const SECTION_REPORTS: ReportEntry[] = [
@@ -1108,7 +1110,9 @@ const SECTION_REPORTS: ReportEntry[] = [
     ...r,
     bgTitle: r.bgTitle.replace("по населени места", "по секции"),
     bgDesc: r.bgDesc.replace(/населен[иa] места?/g, "секции"),
-    bgBody: r.bgBody.replace(/населен[иa] места?/g, "секции").replace(/населено място/g, "секция"),
+    bgBody: r.bgBody
+      .replace(/населен[иa] места?/g, "секции")
+      .replace(/населено място/g, "секция"),
   })),
   {
     slug: "recount_zero_votes",

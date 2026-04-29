@@ -182,7 +182,9 @@ export const PartyDashboardCards: FC<Props> = ({ party }) => {
         <PartyAssessmentTile data={data} />
       </div>
 
-      <div className={`grid gap-3 grid-cols-1 mt-3 ${TILE_HEIGHTS.regionSwings}`}>
+      <div
+        className={`grid gap-3 grid-cols-1 mt-3 ${TILE_HEIGHTS.regionSwings}`}
+      >
         <PartyRegionSwingsTile data={data} />
       </div>
 
@@ -202,7 +204,9 @@ export const PartyDashboardCards: FC<Props> = ({ party }) => {
         <PartyTrajectoryTile data={data} />
       </div>
 
-      <div className={`grid gap-3 grid-cols-1 mt-3 ${TILE_HEIGHTS.pollingDelta}`}>
+      <div
+        className={`grid gap-3 grid-cols-1 mt-3 ${TILE_HEIGHTS.pollingDelta}`}
+      >
         <PartyPollingDeltaTile data={data} />
       </div>
 

@@ -168,9 +168,10 @@ test.describe("UI rendering", () => {
       await page.waitForLoadState("networkidle");
 
       const errs = filterErrors(c.errors);
-      expect(errs, `console errors at ${route.path}: ${errs.join("\n")}`).toEqual(
-        [],
-      );
+      expect(
+        errs,
+        `console errors at ${route.path}: ${errs.join("\n")}`,
+      ).toEqual([]);
       expect(
         c.failedRequests,
         `failed local requests at ${route.path}: ${c.failedRequests.join("\n")}`,

@@ -195,7 +195,9 @@ export const DashboardCards: FC = () => {
       <div className={`grid gap-3 grid-cols-1 mt-3 ${TILE_HEIGHTS.topRegions}`}>
         <TopRegionsTile parties={data.parties} />
       </div>
-      <div className={`grid gap-3 grid-cols-1 mt-3 ${TILE_HEIGHTS.flashMemory}`}>
+      <div
+        className={`grid gap-3 grid-cols-1 mt-3 ${TILE_HEIGHTS.flashMemory}`}
+      >
         <FlashMemoryTile parties={data.parties} />
       </div>
       <div className={`grid gap-3 grid-cols-1 mt-3 ${TILE_HEIGHTS.suspicious}`}>

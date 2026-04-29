@@ -133,10 +133,11 @@ test.describe("performance", () => {
           new Promise<number>((resolve) => {
             let total = 0;
             new PerformanceObserver((list) => {
-              for (const e of list.getEntries() as PerformanceEntry[] & {
-                hadRecentInput?: boolean;
-                value?: number;
-              }[]) {
+              for (const e of list.getEntries() as PerformanceEntry[] &
+                {
+                  hadRecentInput?: boolean;
+                  value?: number;
+                }[]) {
                 const ls = e as PerformanceEntry & {
                   hadRecentInput?: boolean;
                   value?: number;
