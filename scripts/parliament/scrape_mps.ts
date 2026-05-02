@@ -41,6 +41,13 @@ const API = "https://www.parliament.bg/api/v1";
 const PHOTO_BASE = "https://www.parliament.bg/images/Assembly/";
 const PROFILE_BASE = "https://www.parliament.bg/bg/MP/";
 
+// parliament.bg returns "mp_blank.png" (a generic silhouette) for MPs without
+// a real photo. The URL loads fine, so the frontend's <AvatarImage> never
+// fails — meaning <AvatarFallback> with initials never shows. Strip it here so
+// photoUrl is empty when there's no real photo.
+const hasRealPhoto = (img: string | null | undefined): img is string =>
+  !!img && !/blank/i.test(img);
+
 const HEADERS = {
   "User-Agent":
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/130.0.0.0 Safari/537.36",
@@ -185,7 +192,9 @@ const toMp = (raw: RawMp): Mp => {
       : null,
     termFrom: raw.A_ns_MSP_date_F,
     termTo: raw.A_ns_MSP_date_T === "9999-12-31" ? "" : raw.A_ns_MSP_date_T,
-    photoUrl: raw.A_ns_MP_img ? `${PHOTO_BASE}${raw.A_ns_MP_img}` : "",
+    photoUrl: hasRealPhoto(raw.A_ns_MP_img)
+      ? `${PHOTO_BASE}${raw.A_ns_MP_img}`
+      : "",
     profileUrl: `${PROFILE_BASE}${id}`,
   };
 };
@@ -310,9 +319,9 @@ const buildIndexEntry = (
     id,
     name,
     normalizedName: name.toUpperCase().replace(/\s+/g, " ").trim(),
-    photoUrl: raw.A_ns_MP_img
+    photoUrl: hasRealPhoto(raw.A_ns_MP_img)
       ? `${PHOTO_BASE}${raw.A_ns_MP_img}`
-      : `${PHOTO_BASE}${id}.png`,
+      : "",
     currentRegion: mp?.region ?? null,
     currentPartyGroup: mp?.partyGroup ?? null,
     currentPartyGroupShort: mp?.partyGroupShort ?? null,
