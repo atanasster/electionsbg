@@ -35,30 +35,6 @@ const SkeletonCard: FC<{ className?: string }> = ({
   </div>
 );
 
-// Per-section minimum heights chosen to match the typical rendered height of
-// each tile once its data arrives. The skeleton state and the live state both
-// reserve the same vertical space, so the page doesn't jump when async data
-// resolves. Numbers are conservative estimates — the tile may grow taller
-// (no shift, since a shorter skeleton expanding would still re-flow) but
-// should never end up shorter than the reserved height. If a tile renders
-// shorter than this, bump the value down — `min-h-` only sets a floor.
-const TILE_HEIGHTS = {
-  card: "min-h-[160px]",
-  regionsMap: "min-h-[480px]",
-  partyResults: "min-h-[480px]",
-  mandates: "min-h-[280px]",
-  topCandidates: "min-h-[200px]",
-  topRegions: "min-h-[440px]",
-  flashMemory: "min-h-[360px]",
-  suspicious: "min-h-[240px]",
-  problemSections: "min-h-[320px]",
-  topFinancing: "min-h-[360px]",
-  recount: "min-h-[240px]",
-  historical: "min-h-[460px]",
-  polls: "min-h-[280px]",
-  accuracy: "min-h-[280px]",
-} as const;
-
 export const DashboardCards: FC = () => {
   const { t } = useTranslation();
   const { data, isLoading } = useNationalSummary();
@@ -70,74 +46,67 @@ export const DashboardCards: FC = () => {
     return renderDashboardCard(data);
   }, [data]);
 
-  // electionStats is derived synchronously from in-memory data so it's safe
-  // to read in both the skeleton and live branches — we use it to gate the
-  // TopFinancing slot identically in both, so the row is either present in
-  // both or absent in both. That keeps the dashboard's total height stable
-  // across the skeleton → live transition.
+  // electionStats is derived synchronously from in-memory data, so we use it
+  // to gate the same set of optional rows in both the skeleton and live
+  // branches. Otherwise the skeleton would show rows for data that won't
+  // appear, or vice versa.
   const hasFinancials = !!electionStats?.hasFinancials;
   const hasRecount = !!electionStats?.hasRecount;
   const hasFlash = !!electionStats?.hasSuemg;
 
-  // Skeleton mirrors the live layout below 1:1 — same sections in the same
-  // order with the same reserved min-heights. When `data` arrives we replace
-  // the skeleton with real tiles inside identically-shaped containers, so
-  // the page below the dashboard stays put (zero CLS) instead of jumping
-  // when ~7 extra rows drop in.
   if (isLoading || !data) {
     if (!isLoading && !data) return null;
     return (
       <section aria-label={t("dashboard")} className="my-4">
-        {/* share-button row reserved (matches live layout) */}
         <div className="flex justify-end mb-2">
           <div className="h-8 w-8" />
         </div>
         <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-          <SkeletonCard className={TILE_HEIGHTS.card} />
-          <SkeletonCard className={TILE_HEIGHTS.card} />
-          <SkeletonCard className={TILE_HEIGHTS.card} />
-          <SkeletonCard className={TILE_HEIGHTS.card} />
+          <SkeletonCard />
+          <SkeletonCard />
+          <SkeletonCard />
+          <SkeletonCard />
         </div>
         <div className="grid gap-3 grid-cols-1 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] mt-3">
-          <SkeletonCard className={TILE_HEIGHTS.regionsMap} />
-          <SkeletonCard className={TILE_HEIGHTS.partyResults} />
+          <SkeletonCard />
+          <SkeletonCard />
         </div>
         <div className="grid gap-3 grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] mt-3">
-          <SkeletonCard className={TILE_HEIGHTS.mandates} />
-          <SkeletonCard className={TILE_HEIGHTS.topCandidates} />
+          <SkeletonCard />
+          <SkeletonCard />
         </div>
         <div className="grid gap-3 grid-cols-1 mt-3">
-          <SkeletonCard className={TILE_HEIGHTS.topRegions} />
+          <SkeletonCard />
         </div>
         {hasFlash ? (
           <div className="grid gap-3 grid-cols-1 mt-3">
-            <SkeletonCard className={TILE_HEIGHTS.flashMemory} />
+            <SkeletonCard />
           </div>
         ) : null}
         <div className="grid gap-3 grid-cols-1 mt-3">
-          <SkeletonCard className={TILE_HEIGHTS.suspicious} />
+          <SkeletonCard />
         </div>
         <div className="grid gap-3 grid-cols-1 mt-3">
-          <SkeletonCard className={TILE_HEIGHTS.problemSections} />
+          <SkeletonCard />
         </div>
         {hasFinancials ? (
           <div className="grid gap-3 grid-cols-1 mt-3">
-            <SkeletonCard className={TILE_HEIGHTS.topFinancing} />
+            <SkeletonCard />
           </div>
         ) : null}
         {hasRecount ? (
           <div className="grid gap-3 grid-cols-1 mt-3">
-            <SkeletonCard className={TILE_HEIGHTS.recount} />
+            <SkeletonCard />
           </div>
         ) : null}
         <div className="grid gap-3 grid-cols-1 mt-3">
-          <SkeletonCard className={TILE_HEIGHTS.historical} />
+          <SkeletonCard />
         </div>
         <div className="grid gap-3 grid-cols-1 mt-3">
-          <SkeletonCard className={TILE_HEIGHTS.polls} />
+          <SkeletonCard />
         </div>
         <div className="grid gap-3 grid-cols-1 mt-3">
-          <SkeletonCard className={TILE_HEIGHTS.accuracy} />
+          <SkeletonCard />
         </div>
       </section>
     );
@@ -157,88 +126,60 @@ export const DashboardCards: FC = () => {
           <Share2 className="h-4 w-4" />
         </Button>
       </div>
-      {/*
-        Wrap each tile slot in a div that locks the same min-height as the
-        skeleton above. The wrapper takes the layout-shift hit instead of the
-        tile contents, so any small over/undershoot in tile-rendered height
-        doesn't ripple to the rest of the page.
-      */}
       <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-        <div className={TILE_HEIGHTS.card}>
-          <PartyChangeCard variant="gainer" change={data.topGainer} />
-        </div>
-        <div className={TILE_HEIGHTS.card}>
-          <PartyChangeCard variant="loser" change={data.topLoser} />
-        </div>
-        <div className={TILE_HEIGHTS.card}>
-          <TurnoutCard
-            turnout={data.turnout}
-            priorElection={data.priorElection}
-          />
-        </div>
-        <div className={TILE_HEIGHTS.card}>
-          <PaperMachineCard
-            paperMachine={data.paperMachine}
-            priorElection={data.priorElection}
-          />
-        </div>
+        <PartyChangeCard variant="gainer" change={data.topGainer} />
+        <PartyChangeCard variant="loser" change={data.topLoser} />
+        <TurnoutCard
+          turnout={data.turnout}
+          priorElection={data.priorElection}
+        />
+        <PaperMachineCard
+          paperMachine={data.paperMachine}
+          priorElection={data.priorElection}
+        />
       </div>
       <div className="grid gap-3 grid-cols-1 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] mt-3">
-        <div className={TILE_HEIGHTS.regionsMap}>
-          <RegionsMapTile />
-        </div>
-        <div className={TILE_HEIGHTS.partyResults}>
-          <PartyResultsTile parties={data.parties} />
-        </div>
+        <RegionsMapTile />
+        <PartyResultsTile parties={data.parties} />
       </div>
       <div className="grid gap-3 grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] mt-3">
-        <div className={TILE_HEIGHTS.mandates}>
-          <MandatesTile parties={data.parties} />
-        </div>
-        <div className={TILE_HEIGHTS.topCandidates}>
-          <TopCandidatesStrip parties={data.parties} />
-        </div>
+        <MandatesTile parties={data.parties} />
+        <TopCandidatesStrip parties={data.parties} />
       </div>
-      <div className={`grid gap-3 grid-cols-1 mt-3 ${TILE_HEIGHTS.topRegions}`}>
+      <div className="grid gap-3 grid-cols-1 mt-3">
         <TopRegionsTile parties={data.parties} />
       </div>
       {hasFlash ? (
-        <div
-          className={`grid gap-3 grid-cols-1 mt-3 ${TILE_HEIGHTS.flashMemory}`}
-        >
+        <div className="grid gap-3 grid-cols-1 mt-3">
           <FlashMemoryTile parties={data.parties} />
         </div>
       ) : null}
-      <div className={`grid gap-3 grid-cols-1 mt-3 ${TILE_HEIGHTS.suspicious}`}>
+      <div className="grid gap-3 grid-cols-1 mt-3">
         <SuspiciousSectionsTile parties={data.parties} />
       </div>
-      <div
-        className={`grid gap-3 grid-cols-1 mt-3 ${TILE_HEIGHTS.problemSections}`}
-      >
+      <div className="grid gap-3 grid-cols-1 mt-3">
         <ProblemSectionsTile parties={data.parties} />
       </div>
       <div className="grid gap-3 grid-cols-1 mt-3">
         <ProblemVotesByPartyTile />
       </div>
       {hasFinancials ? (
-        <div
-          className={`grid gap-3 grid-cols-1 mt-3 ${TILE_HEIGHTS.topFinancing}`}
-        >
+        <div className="grid gap-3 grid-cols-1 mt-3">
           <TopFinancingTile parties={data.parties} />
         </div>
       ) : null}
       {hasRecount ? (
-        <div className={`grid gap-3 grid-cols-1 mt-3 ${TILE_HEIGHTS.recount}`}>
+        <div className="grid gap-3 grid-cols-1 mt-3">
           <RecountTile parties={data.parties} />
         </div>
       ) : null}
-      <div className={`grid gap-3 grid-cols-1 mt-3 ${TILE_HEIGHTS.historical}`}>
+      <div className="grid gap-3 grid-cols-1 mt-3">
         <HistoricalTrendsTile />
       </div>
-      <div className={`grid gap-3 grid-cols-1 mt-3 ${TILE_HEIGHTS.polls}`}>
+      <div className="grid gap-3 grid-cols-1 mt-3">
         <PollsTile />
       </div>
-      <div className={`grid gap-3 grid-cols-1 mt-3 ${TILE_HEIGHTS.accuracy}`}>
+      <div className="grid gap-3 grid-cols-1 mt-3">
         <AccuracyTrendsTile />
       </div>
       <ShareCardDialog
