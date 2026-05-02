@@ -170,14 +170,14 @@ export const PartyVotesTable: FC<{
               <DialogTrigger asChild>
                 <Button
                   variant="ghost"
-                  className="my-2"
+                  className="h-auto py-0"
                   aria-label={`${party.nickName} ${t("all_elections")}`}
                 >
                   {isLarge ? (
                     <Sparkline
                       values={sparkValues}
                       color={party.color}
-                      className="min-w-60 h-10"
+                      className="min-w-60 h-7"
                     />
                   ) : (
                     <ChartArea />

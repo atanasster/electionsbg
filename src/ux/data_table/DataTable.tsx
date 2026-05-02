@@ -36,6 +36,12 @@ import { headerRender } from "./headerRender";
 import { exportToJSON } from "./exportToJSON";
 import { Input } from "@/components/ui/input";
 import { footerRender } from "./footerRender";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 
 export type DataTableColumns<TData, TValue> = DataTableColumnDef<
   TData,
@@ -52,6 +58,7 @@ interface DataTableProps<TData, TValue> {
   getSubRows?: (originalRow: TData, index: number) => undefined | TData[];
   toolbarItems?: ReactNode;
   initialSort?: SortingState;
+  striped?: boolean;
 }
 
 export const DataTable = <TData, TValue>({
@@ -63,6 +70,7 @@ export const DataTable = <TData, TValue>({
   title = "electionsbg",
   initialSort = [],
   toolbarItems,
+  striped = true,
 }: DataTableProps<TData, TValue>) => {
   const [sorting, setSorting] = useState<SortingState>(initialSort);
   const [filter, setFilter] = useState<string>("");
@@ -123,7 +131,7 @@ export const DataTable = <TData, TValue>({
         />
         {toolbarItems}
       </div>
-      <div className="rounded-xl border bg-card text-card-foreground shadow">
+      <div className="rounded-xl border bg-card text-card-foreground shadow-sm">
         <Table className="table-auto">
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (
@@ -148,55 +156,66 @@ export const DataTable = <TData, TValue>({
           </TableHeader>
           <TableBody className="text-secondary-foreground">
             {table.getRowModel().rows?.length ? (
-              table.getRowModel().rows.map((row) => (
-                <TableRow
-                  key={row.id}
-                  data-state={row.getIsSelected() && "selected"}
-                >
-                  {row.getVisibleCells().map((cell, idx) => (
-                    <TableCell
-                      key={cell.id}
-                      className={cn(
-                        `px-2 py-1 md:px-4 md:py-2 ${stickyColumn && idx === 0 ? " sticky left-0 z-5 bg-card" : ""}`,
-                        (
-                          cell.column.columnDef as DataTableColumnDef<
-                            TData,
-                            TValue
-                          >
-                        ).className,
-                      )}
-                    >
-                      {idx === 0 && getSubRows ? (
-                        <div
-                          style={{
-                            paddingLeft: `${row.depth * 2}rem`,
-                          }}
-                        >
-                          <div className="flex items-center">
-                            {row.getCanExpand() ? (
-                              <button
-                                className="cursor-pointer"
-                                onClick={row.getToggleExpandedHandler()}
+              table.getRowModel().rows.map((row) => {
+                const isOdd = striped && row.index % 2 === 1;
+                return (
+                  <TableRow
+                    key={row.id}
+                    data-state={row.getIsSelected() && "selected"}
+                    className="group hover:bg-transparent"
+                  >
+                    {row.getVisibleCells().map((cell, idx) => {
+                      const isSticky = !!(stickyColumn && idx === 0);
+                      return (
+                        <TableCell
+                          key={cell.id}
+                          className={cn(
+                            "px-2 py-1 md:px-3",
+                            isOdd && "bg-muted/30",
+                            isSticky && "sticky left-0 z-5",
+                            isSticky && !isOdd && "bg-card",
+                            "group-hover:bg-muted/50",
+                            (
+                              cell.column.columnDef as DataTableColumnDef<
+                                TData,
+                                TValue
                               >
-                                {row.getIsExpanded() ? (
-                                  <ChevronDown />
+                            ).className,
+                          )}
+                        >
+                          {idx === 0 && getSubRows ? (
+                            <div
+                              style={{
+                                paddingLeft: `${row.depth * 2}rem`,
+                              }}
+                            >
+                              <div className="flex items-center">
+                                {row.getCanExpand() ? (
+                                  <button
+                                    className="cursor-pointer"
+                                    onClick={row.getToggleExpandedHandler()}
+                                  >
+                                    {row.getIsExpanded() ? (
+                                      <ChevronDown />
+                                    ) : (
+                                      <ChevronRight />
+                                    )}
+                                  </button>
                                 ) : (
-                                  <ChevronRight />
-                                )}
-                              </button>
-                            ) : (
-                              ""
-                            )}{" "}
-                            {cellRender(cell)}
-                          </div>
-                        </div>
-                      ) : (
-                        cellRender(cell)
-                      )}
-                    </TableCell>
-                  ))}
-                </TableRow>
-              ))
+                                  ""
+                                )}{" "}
+                                {cellRender(cell)}
+                              </div>
+                            </div>
+                          ) : (
+                            cellRender(cell)
+                          )}
+                        </TableCell>
+                      );
+                    })}
+                  </TableRow>
+                );
+              })
             ) : (
               // Reserve roughly a full pageSize worth of vertical space here
               // so the empty-state row doesn't render at h-24 (the React-Query
@@ -224,7 +243,7 @@ export const DataTable = <TData, TValue>({
                       key={header.id}
                       colSpan={header.colSpan}
                       className={cn(
-                        `px-2 py-1 md:px-4 md:py-2 ${stickyColumn && idx === 0 ? " sticky left-0 z-5" : ""}`,
+                        `px-2 py-1 md:px-3 ${stickyColumn && idx === 0 ? " sticky left-0 z-5" : ""}`,
                         (
                           header.column.columnDef as DataTableColumnDef<
                             TData,
@@ -245,38 +264,42 @@ export const DataTable = <TData, TValue>({
         </Table>
 
         <div className="flex justify-between p-2 md:p-4">
-          <div className="flex gap-2">
-            <Button
-              variant="outline"
-              className="flex justify-between w-12 md:w-24 text-secondary-foreground text-xs md:text-sm"
-              onClick={() => exportToCsv<TData>(table, title)}
-              disabled={!table.getRowModel().rows?.length}
-            >
-              <Download className="hidden md:block" />
-              <div>{t("csv")}</div>
-            </Button>
-            <Button
-              variant="outline"
-              className="flex justify-between w-12 md:w-24 text-secondary-foreground text-xs md:text-sm"
-              onClick={() => exportToJSON<TData>(table, title)}
-              disabled={!table.getRowModel().rows?.length}
-            >
-              <FileJson className="hidden md:block" />
-              <div>{t("json")}</div>
-            </Button>
-            <Button
-              variant="outline"
-              className="flex justify-between w-12 md:w-24 text-secondary-foreground text-xs md:text-sm"
-              onClick={async () => {
-                const { exportToPDF } = await import("./exportToPDF");
-                exportToPDF<TData>(table, title);
-              }}
-              disabled={!table.getRowModel().rows?.length}
-            >
-              <FileText className="hidden md:block" />
-              <div>{t("pdf")}</div>
-            </Button>
-          </div>
+          <DropdownMenu>
+            <DropdownMenuTrigger asChild>
+              <Button
+                variant="outline"
+                className="flex items-center gap-2 text-secondary-foreground text-xs md:text-sm"
+                disabled={!table.getRowModel().rows?.length}
+              >
+                <Download className="size-4" />
+                <span>{t("export")}</span>
+                <ChevronDown className="size-4 opacity-60" />
+              </Button>
+            </DropdownMenuTrigger>
+            <DropdownMenuContent align="start">
+              <DropdownMenuItem
+                onSelect={() => exportToCsv<TData>(table, title)}
+              >
+                <Download className="size-4" />
+                <span>{t("csv")}</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onSelect={() => exportToJSON<TData>(table, title)}
+              >
+                <FileJson className="size-4" />
+                <span>{t("json")}</span>
+              </DropdownMenuItem>
+              <DropdownMenuItem
+                onSelect={async () => {
+                  const { exportToPDF } = await import("./exportToPDF");
+                  exportToPDF<TData>(table, title);
+                }}
+              >
+                <FileText className="size-4" />
+                <span>{t("pdf")}</span>
+              </DropdownMenuItem>
+            </DropdownMenuContent>
+          </DropdownMenu>
           {table.getPageCount() > 1 ? (
             <div className="flex items-center justify-end space-x-2">
               <Button

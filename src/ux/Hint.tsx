@@ -9,7 +9,7 @@ export const Hint: FC<
   text ? (
     <Tooltip content={text} className={className}>
       <div
-        className={`${underline ? "underline decoration-dashed" : ""}`}
+        className={`${underline ? "underline decoration-dotted decoration-muted-foreground/40 underline-offset-2" : ""}`}
         {...props}
       >
         {children}
