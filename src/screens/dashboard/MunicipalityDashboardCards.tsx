@@ -8,6 +8,7 @@ import { PartyChangeCard } from "./cards/PartyChangeCard";
 import { TurnoutCard } from "./cards/TurnoutCard";
 import { PaperMachineCard } from "./cards/PaperMachineCard";
 import { ProblemSectionsTile } from "./ProblemSectionsTile";
+import { ProblemVotesByPartyTile } from "./ProblemVotesByPartyTile";
 import { HistoricalTrendsTile } from "./HistoricalTrendsTile";
 import { PartyResultsTile } from "./PartyResultsTile";
 import { MunicipalitySettlementsMapTile } from "./MunicipalitySettlementsMapTile";
@@ -111,6 +112,9 @@ export const MunicipalityDashboardCards: FC<Props> = ({ municipalityCode }) => {
           parties={data.parties}
           municipalityCode={municipalityCode}
         />
+      </div>
+      <div className="grid gap-3 grid-cols-1 mt-3">
+        <ProblemVotesByPartyTile municipalityCode={municipalityCode} />
       </div>
       <div className="grid gap-3 grid-cols-1 mt-3">
         <RecountTile

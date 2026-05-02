@@ -8,6 +8,7 @@ import { PartyChangeCard } from "./cards/PartyChangeCard";
 import { TurnoutCard } from "./cards/TurnoutCard";
 import { PaperMachineCard } from "./cards/PaperMachineCard";
 import { ProblemSectionsTile } from "./ProblemSectionsTile";
+import { ProblemVotesByPartyTile } from "./ProblemVotesByPartyTile";
 import { HistoricalTrendsTile } from "./HistoricalTrendsTile";
 import { PartyResultsTile } from "./PartyResultsTile";
 import { SectionsMapTile } from "./SectionsMapTile";
@@ -102,6 +103,9 @@ export const SettlementDashboardCards: FC<Props> = ({ ekatte }) => {
       </div>
       <div className="grid gap-3 grid-cols-1 mt-3">
         <ProblemSectionsTile parties={data.parties} ekatte={ekatte} />
+      </div>
+      <div className="grid gap-3 grid-cols-1 mt-3">
+        <ProblemVotesByPartyTile ekatte={ekatte} />
       </div>
       <div className="grid gap-3 grid-cols-1 mt-3">
         <RecountTile

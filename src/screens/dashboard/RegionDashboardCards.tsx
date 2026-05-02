@@ -6,6 +6,7 @@ import { PartyChangeCard } from "./cards/PartyChangeCard";
 import { TurnoutCard } from "./cards/TurnoutCard";
 import { PaperMachineCard } from "./cards/PaperMachineCard";
 import { ProblemSectionsTile } from "./ProblemSectionsTile";
+import { ProblemVotesByPartyTile } from "./ProblemVotesByPartyTile";
 import { HistoricalTrendsTile } from "./HistoricalTrendsTile";
 import { PartyResultsTile } from "./PartyResultsTile";
 import { RegionMpsTile } from "./RegionMpsTile";
@@ -95,6 +96,9 @@ export const RegionDashboardCards: FC<Props> = ({ regionCode }) => {
       </div>
       <div className="grid gap-3 grid-cols-1 mt-3">
         <ProblemSectionsTile parties={data.parties} regionCode={regionCode} />
+      </div>
+      <div className="grid gap-3 grid-cols-1 mt-3">
+        <ProblemVotesByPartyTile regionCode={regionCode} />
       </div>
       <div className="grid gap-3 grid-cols-1 mt-3">
         <RecountTile parties={data.parties} regionCode={regionCode} />

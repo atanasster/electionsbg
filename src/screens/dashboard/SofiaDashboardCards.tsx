@@ -9,6 +9,7 @@ import { PartyChangeCard } from "./cards/PartyChangeCard";
 import { TurnoutCard } from "./cards/TurnoutCard";
 import { PaperMachineCard } from "./cards/PaperMachineCard";
 import { ProblemSectionsTile } from "./ProblemSectionsTile";
+import { ProblemVotesByPartyTile } from "./ProblemVotesByPartyTile";
 import { HistoricalTrendsTile } from "./HistoricalTrendsTile";
 import { PartyResultsTile } from "./PartyResultsTile";
 import { SofiaMapTile } from "./SofiaMapTile";
@@ -110,6 +111,9 @@ export const SofiaDashboardCards: FC = () => {
           parties={data.parties}
           regionCodes={SOFIA_REGIONS}
         />
+      </div>
+      <div className="grid gap-3 grid-cols-1 mt-3">
+        <ProblemVotesByPartyTile regionCodes={SOFIA_REGIONS} />
       </div>
       <div className="grid gap-3 grid-cols-1 mt-3">
         <RecountTile

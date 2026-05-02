@@ -10,6 +10,7 @@ import { PartyChangeCard } from "./cards/PartyChangeCard";
 import { TurnoutCard } from "./cards/TurnoutCard";
 import { PaperMachineCard } from "./cards/PaperMachineCard";
 import { ProblemSectionsTile } from "./ProblemSectionsTile";
+import { ProblemVotesByPartyTile } from "./ProblemVotesByPartyTile";
 import { MandatesTile } from "./MandatesTile";
 import { HistoricalTrendsTile } from "./HistoricalTrendsTile";
 import { PartyResultsTile } from "./PartyResultsTile";
@@ -75,6 +76,8 @@ export const DashboardCards: FC = () => {
   // both or absent in both. That keeps the dashboard's total height stable
   // across the skeleton → live transition.
   const hasFinancials = !!electionStats?.hasFinancials;
+  const hasRecount = !!electionStats?.hasRecount;
+  const hasFlash = !!electionStats?.hasSuemg;
 
   // Skeleton mirrors the live layout below 1:1 — same sections in the same
   // order with the same reserved min-heights. When `data` arrives we replace
@@ -106,9 +109,11 @@ export const DashboardCards: FC = () => {
         <div className="grid gap-3 grid-cols-1 mt-3">
           <SkeletonCard className={TILE_HEIGHTS.topRegions} />
         </div>
-        <div className="grid gap-3 grid-cols-1 mt-3">
-          <SkeletonCard className={TILE_HEIGHTS.flashMemory} />
-        </div>
+        {hasFlash ? (
+          <div className="grid gap-3 grid-cols-1 mt-3">
+            <SkeletonCard className={TILE_HEIGHTS.flashMemory} />
+          </div>
+        ) : null}
         <div className="grid gap-3 grid-cols-1 mt-3">
           <SkeletonCard className={TILE_HEIGHTS.suspicious} />
         </div>
@@ -120,9 +125,11 @@ export const DashboardCards: FC = () => {
             <SkeletonCard className={TILE_HEIGHTS.topFinancing} />
           </div>
         ) : null}
-        <div className="grid gap-3 grid-cols-1 mt-3">
-          <SkeletonCard className={TILE_HEIGHTS.recount} />
-        </div>
+        {hasRecount ? (
+          <div className="grid gap-3 grid-cols-1 mt-3">
+            <SkeletonCard className={TILE_HEIGHTS.recount} />
+          </div>
+        ) : null}
         <div className="grid gap-3 grid-cols-1 mt-3">
           <SkeletonCard className={TILE_HEIGHTS.historical} />
         </div>
@@ -195,11 +202,13 @@ export const DashboardCards: FC = () => {
       <div className={`grid gap-3 grid-cols-1 mt-3 ${TILE_HEIGHTS.topRegions}`}>
         <TopRegionsTile parties={data.parties} />
       </div>
-      <div
-        className={`grid gap-3 grid-cols-1 mt-3 ${TILE_HEIGHTS.flashMemory}`}
-      >
-        <FlashMemoryTile parties={data.parties} />
-      </div>
+      {hasFlash ? (
+        <div
+          className={`grid gap-3 grid-cols-1 mt-3 ${TILE_HEIGHTS.flashMemory}`}
+        >
+          <FlashMemoryTile parties={data.parties} />
+        </div>
+      ) : null}
       <div className={`grid gap-3 grid-cols-1 mt-3 ${TILE_HEIGHTS.suspicious}`}>
         <SuspiciousSectionsTile parties={data.parties} />
       </div>
@@ -208,6 +217,9 @@ export const DashboardCards: FC = () => {
       >
         <ProblemSectionsTile parties={data.parties} />
       </div>
+      <div className="grid gap-3 grid-cols-1 mt-3">
+        <ProblemVotesByPartyTile />
+      </div>
       {hasFinancials ? (
         <div
           className={`grid gap-3 grid-cols-1 mt-3 ${TILE_HEIGHTS.topFinancing}`}
@@ -215,9 +227,11 @@ export const DashboardCards: FC = () => {
           <TopFinancingTile parties={data.parties} />
         </div>
       ) : null}
-      <div className={`grid gap-3 grid-cols-1 mt-3 ${TILE_HEIGHTS.recount}`}>
-        <RecountTile parties={data.parties} />
-      </div>
+      {hasRecount ? (
+        <div className={`grid gap-3 grid-cols-1 mt-3 ${TILE_HEIGHTS.recount}`}>
+          <RecountTile parties={data.parties} />
+        </div>
+      ) : null}
       <div className={`grid gap-3 grid-cols-1 mt-3 ${TILE_HEIGHTS.historical}`}>
         <HistoricalTrendsTile />
       </div>
