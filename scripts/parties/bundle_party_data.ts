@@ -8,7 +8,7 @@
  * Data sources (per party):
  *   - public/elections.json                              → election metadata
  *   - public/{election}/cik_parties.json                 → party info, color
- *   - public/{election}/national_summary.json            → national context
+ *   - public/{election}/national_summary.json            → national context, turnout, anomalies
  *   - public/{election}/region_votes.json                → regional split (current)
  *   - public/{prior}/region_votes.json                   → prior regional split
  *   - public/{election}/parties/by_region/{N}.json       → per-region for THIS party
@@ -16,7 +16,11 @@
  *   - public/{election}/parties/by_settlement/{N}.json   → per-settlement
  *   - public/{election}/parties/financing/{N}/filing.json (optional)
  *   - public/polls/polls.json + polls_details.json + accuracy.json (optional)
- *   - public/{election}/preferences/by_region/{N}.json (optional)
+ *   - public/{election}/parties/preferences/{N}/{regions,stats}.json (optional)
+ *   - public/{election}/candidates.json                  → candidate names for prefs
+ *   - public/{election}/problem_sections.json            → risk-neighborhood sections
+ *   - public/{prior}/problem_sections.json               → prior risk-section party votes
+ *   - public/{election}/reports/section/{suemg,recount,concentrated}.json → anomaly attribution
  *
  * Usage:
  *   tsx scripts/parties/bundle_party_data.ts --election 2024_10_27 --party 18
@@ -35,6 +39,27 @@ const ELECTIONS_INDEX = path.resolve(
   __dirname,
   "../../src/data/json/elections.json",
 );
+
+// Region groupings used for geographic narrative slices.
+// Sofia City = the three urban Sofia constituencies (the rural province is SFO).
+// Big cities = Plovdiv-city / Varna / Burgas (the three other major urban centers).
+// Abroad = oblast 32 (out-of-country sections).
+// Ethnic-mixed = oblasts with significant Turkish/Pomak populations, where DPS-family
+// parties have historically over-indexed. Used as a single aggregate, not as
+// causal claims about individual voters.
+const SOFIA_CITY_OBLASTS = ["S23", "S24", "S25"];
+const OTHER_BIG_CITY_OBLASTS = ["PDV-00", "VAR", "BGS"];
+const ABROAD_OBLAST = "32";
+const ETHNIC_MIXED_OBLASTS = [
+  "KRZ",
+  "RAZ",
+  "TGV",
+  "SLS",
+  "SHU",
+  "BLG",
+  "HKV",
+  "SML",
+];
 
 type ElectionInfo = {
   name: string;
@@ -80,6 +105,89 @@ type PartyResultsRow = {
   allVotes: number;
   prevYearVotes?: number;
   prevYearVotesConsolidated?: number;
+};
+
+type SectionVote = {
+  partyNum: number;
+  totalVotes: number;
+  paperVotes?: number;
+  machineVotes?: number;
+};
+
+type ProblemSection = {
+  section: string;
+  oblast?: string;
+  obshtina?: string;
+  ekatte?: string;
+  results?: {
+    votes?: SectionVote[];
+  };
+};
+
+type ProblemNeighborhood = {
+  id: string;
+  name_bg: string;
+  name_en: string;
+  city_bg?: string;
+  city_en?: string;
+  sections: ProblemSection[];
+};
+
+type ProblemSectionsFile = { neighborhoods: ProblemNeighborhood[] };
+
+type PreferenceRow = {
+  partyNum: number;
+  pref: string;
+  oblast: string;
+  totalVotes: number;
+  paperVotes?: number;
+  machineVotes?: number;
+  partyVotes?: number; // votes for the party in that oblast
+  partyPrefs?: number; // total preferential votes cast for the party in that oblast
+  allVotes?: number; // all valid votes in that oblast
+  lyTotalVotes?: number;
+};
+
+type PreferencesStats = {
+  totalVotes: number;
+  paperVotes?: number;
+  machineVotes?: number;
+  history?: Record<string, { totalVotes: number }>;
+  top?: PreferenceRow[];
+};
+
+type Candidate = {
+  name: string;
+  oblast: string;
+  partyNum: number;
+  pref: string;
+};
+
+type SuemgRow = {
+  oblast?: string;
+  obshtina?: string;
+  ekatte?: string;
+  section?: string;
+  topPartyChange?: { partyNum: number; change: number };
+  bottomPartyChange?: { partyNum: number; change: number };
+};
+
+type RecountRow = {
+  oblast?: string;
+  obshtina?: string;
+  topPartyChange?: { partyNum: number; change: number };
+  bottomPartyChange?: { partyNum: number; change: number };
+};
+
+type ConcentratedRow = {
+  partyNum: number;
+  pctPartyVote?: number;
+};
+
+type NationalSummary = {
+  turnout?: { pct?: number; priorPct?: number; deltaPct?: number };
+  anomalies?: Record<string, number>;
+  parties?: { partyNum: number; nickName: string; totalVotes: number }[];
 };
 
 const readJson = <T>(p: string): T | undefined => {
@@ -129,6 +237,33 @@ const matchPrior = (
   return matched.reduce((s, v) => s + v.totalVotes, 0);
 };
 
+// Given a current party, find the set of partyNums in a prior election's
+// cik_parties.json that should be treated as the same political force.
+const matchPriorPartyNums = (
+  current: { nickName: string; commonName?: string[] },
+  priorParties: PartyInfo[],
+): number[] => {
+  const out: number[] = [];
+  for (const p of priorParties) {
+    if (p.nickName === current.nickName) {
+      out.push(p.number);
+      continue;
+    }
+    if (p.commonName?.length && p.commonName.includes(current.nickName)) {
+      out.push(p.number);
+      continue;
+    }
+    if (
+      current.commonName?.length &&
+      p.commonName?.length &&
+      current.commonName.some((c) => p.commonName!.includes(c))
+    ) {
+      out.push(p.number);
+    }
+  }
+  return out;
+};
+
 const positionOf = (
   partyNum: number,
   votes: { partyNum: number; totalVotes: number }[],
@@ -136,6 +271,341 @@ const positionOf = (
   const sorted = [...votes].sort((a, b) => b.totalVotes - a.totalVotes);
   const idx = sorted.findIndex((v) => v.partyNum === partyNum);
   return idx >= 0 ? idx + 1 : undefined;
+};
+
+// ---------- Geographic slice helpers ----------
+
+type RegionRow = {
+  oblast: string;
+  name_bg?: string;
+  name_en?: string;
+  votes: number;
+  pctOfRegion: number;
+  priorVotes?: number;
+  priorPctOfRegion?: number;
+  deltaPctPoints?: number;
+  pctOfPartyTotal: number;
+};
+
+const aggregateRegionGroup = (
+  regions: RegionRow[],
+  oblastSet: string[],
+  partyNationalPct: number,
+) => {
+  const subset = regions.filter((r) => oblastSet.includes(r.oblast));
+  if (!subset.length) return null;
+  const votes = subset.reduce((s, r) => s + r.votes, 0);
+  const allVotesInGroup = subset.reduce(
+    (s, r) => s + (r.pctOfRegion ? (100 * r.votes) / r.pctOfRegion : 0),
+    0,
+  );
+  const share = allVotesInGroup ? round((100 * votes) / allVotesInGroup) : 0;
+  const priorVotes = subset.every((r) => r.priorVotes !== undefined)
+    ? subset.reduce((s, r) => s + (r.priorVotes ?? 0), 0)
+    : undefined;
+  const priorAllVotes = subset.every(
+    (r) => r.priorPctOfRegion !== undefined && r.priorVotes !== undefined,
+  )
+    ? subset.reduce(
+        (s, r) =>
+          s +
+          (r.priorPctOfRegion! ? (100 * r.priorVotes!) / r.priorPctOfRegion! : 0),
+        0,
+      )
+    : undefined;
+  const priorShare =
+    priorVotes !== undefined && priorAllVotes
+      ? round((100 * priorVotes) / priorAllVotes)
+      : undefined;
+  const pctOfPartyTotal = round(
+    subset.reduce((s, r) => s + r.pctOfPartyTotal, 0),
+  );
+  return {
+    oblasts: subset.map((r) => r.oblast),
+    votes,
+    sharePct: share,
+    priorVotes,
+    priorSharePct: priorShare,
+    deltaSharePP:
+      priorShare !== undefined ? round(share - priorShare) : undefined,
+    pctOfPartyTotal,
+    overIndex: partyNationalPct ? round(share / partyNationalPct) : undefined,
+  };
+};
+
+// ---------- Risk-neighborhood (problem-section) attribution ----------
+
+const sumPartyVotesInProblemSections = (
+  file: ProblemSectionsFile | undefined,
+  partyNums: number[],
+) => {
+  if (!file?.neighborhoods?.length || !partyNums.length) return undefined;
+  const partySet = new Set(partyNums);
+  let totalAll = 0;
+  let totalParty = 0;
+  let sectionCount = 0;
+  for (const n of file.neighborhoods) {
+    for (const s of n.sections) {
+      sectionCount += 1;
+      for (const v of s.results?.votes ?? []) {
+        totalAll += v.totalVotes ?? 0;
+        if (partySet.has(v.partyNum)) totalParty += v.totalVotes ?? 0;
+      }
+    }
+  }
+  return { totalAll, totalParty, sectionCount };
+};
+
+const perNeighborhoodPartyVotes = (
+  file: ProblemSectionsFile | undefined,
+  partyNums: number[],
+) => {
+  if (!file?.neighborhoods?.length || !partyNums.length) return [];
+  const partySet = new Set(partyNums);
+  return file.neighborhoods.map((n) => {
+    let partyVotes = 0;
+    let total = 0;
+    for (const s of n.sections) {
+      for (const v of s.results?.votes ?? []) {
+        total += v.totalVotes ?? 0;
+        if (partySet.has(v.partyNum)) partyVotes += v.totalVotes ?? 0;
+      }
+    }
+    return {
+      id: n.id,
+      name_bg: n.name_bg,
+      name_en: n.name_en,
+      city_bg: n.city_bg,
+      city_en: n.city_en,
+      sectionCount: n.sections.length,
+      partyVotes,
+      totalVotes: total,
+      partyShareInNeighborhood: total ? round((100 * partyVotes) / total) : 0,
+    };
+  });
+};
+
+// ---------- Section-level anomaly attribution ----------
+
+const countAnomalyAttribution = (
+  rows: { topPartyChange?: { partyNum: number }; bottomPartyChange?: { partyNum: number } }[] | undefined,
+  partyNum: number,
+) => {
+  if (!rows?.length) return { topChange: 0, bottomChange: 0 };
+  let top = 0;
+  let bottom = 0;
+  for (const r of rows) {
+    if (r.topPartyChange?.partyNum === partyNum) top += 1;
+    if (r.bottomPartyChange?.partyNum === partyNum) bottom += 1;
+  }
+  return { topChange: top, bottomChange: bottom };
+};
+
+// ---------- Preferences (candidate-level) ----------
+
+type PrefBlock = {
+  totalPrefVotes: number;
+  prefRate: number;
+  topCandidatesNational: {
+    pref: string;
+    name?: string;
+    oblast: string;
+    oblastName_bg?: string;
+    totalVotes: number;
+    pctOfPartyPrefsNational: number;
+  }[];
+  topCandidatesByRegion: {
+    oblast: string;
+    name_bg?: string;
+    name_en?: string;
+    pref: string;
+    candidateName?: string;
+    votes: number;
+    leaderVotes: number; // votes for the pref=101 candidate in that region
+    leaderName?: string;
+    pctOfRegionPartyPrefs: number;
+    beatBallotOrder: boolean;
+  }[];
+  ballotOrderUpsets: number;
+  ballotOrderUpsetRegions: { oblast: string; name_bg?: string }[];
+  top1ShareOfPartyPrefs: number; // concentration: top candidate's share of all party prefs nationally
+};
+
+const buildPreferences = (
+  election: string,
+  partyNum: number,
+  partyVotesNational: number,
+  regions: Region[] | undefined,
+  candidates: Candidate[] | undefined,
+): PrefBlock | null => {
+  const stats = readJson<PreferencesStats>(
+    path.join(
+      PUBLIC_DIR,
+      election,
+      "parties",
+      "preferences",
+      String(partyNum),
+      "stats.json",
+    ),
+  );
+  const regionsRows = readJson<PreferenceRow[]>(
+    path.join(
+      PUBLIC_DIR,
+      election,
+      "parties",
+      "preferences",
+      String(partyNum),
+      "regions.json",
+    ),
+  );
+  if (!stats || !regionsRows?.length) return null;
+
+  const candidateLookup = new Map<string, string>();
+  for (const c of candidates ?? []) {
+    if (c.partyNum === partyNum) {
+      candidateLookup.set(`${c.oblast}|${c.pref}`, c.name);
+    }
+  }
+
+  const regionName = (oblast: string) =>
+    regions?.find((r) => r.oblast === oblast);
+
+  const totalPrefVotes = stats.totalVotes ?? 0;
+
+  const topCandidatesNational = (stats.top ?? []).slice(0, 10).map((t) => ({
+    pref: t.pref,
+    name: candidateLookup.get(`${t.oblast}|${t.pref}`),
+    oblast: t.oblast,
+    oblastName_bg: regionName(t.oblast)?.name,
+    totalVotes: t.totalVotes,
+    pctOfPartyPrefsNational: totalPrefVotes
+      ? round((100 * t.totalVotes) / totalPrefVotes)
+      : 0,
+  }));
+
+  // Group by oblast for per-region winner detection
+  const byOblast = new Map<string, PreferenceRow[]>();
+  for (const r of regionsRows) {
+    if (!byOblast.has(r.oblast)) byOblast.set(r.oblast, []);
+    byOblast.get(r.oblast)!.push(r);
+  }
+
+  const topCandidatesByRegion: PrefBlock["topCandidatesByRegion"] = [];
+  const upsetRegions: { oblast: string; name_bg?: string }[] = [];
+
+  for (const [oblast, rows] of byOblast.entries()) {
+    if (!rows.length) continue;
+    const partyPrefsInRegion = rows[0].partyPrefs ?? 0;
+    const leader = rows.find((r) => r.pref === "101");
+    const winner = rows.reduce((m, r) =>
+      r.totalVotes > m.totalVotes ? r : m,
+    );
+    const beatBallotOrder = !!leader && winner.pref !== leader.pref;
+    if (beatBallotOrder) {
+      upsetRegions.push({ oblast, name_bg: regionName(oblast)?.name });
+    }
+    const info = regionName(oblast);
+    topCandidatesByRegion.push({
+      oblast,
+      name_bg: info?.name,
+      name_en: info?.name_en,
+      pref: winner.pref,
+      candidateName: candidateLookup.get(`${oblast}|${winner.pref}`),
+      votes: winner.totalVotes,
+      leaderVotes: leader?.totalVotes ?? 0,
+      leaderName: leader
+        ? candidateLookup.get(`${oblast}|${leader.pref}`)
+        : undefined,
+      pctOfRegionPartyPrefs: partyPrefsInRegion
+        ? round((100 * winner.totalVotes) / partyPrefsInRegion)
+        : 0,
+      beatBallotOrder,
+    });
+  }
+  topCandidatesByRegion.sort((a, b) => b.votes - a.votes);
+
+  const top1Votes = stats.top?.[0]?.totalVotes ?? 0;
+  return {
+    totalPrefVotes,
+    prefRate: partyVotesNational
+      ? round((100 * totalPrefVotes) / partyVotesNational)
+      : 0,
+    topCandidatesNational,
+    topCandidatesByRegion,
+    ballotOrderUpsets: upsetRegions.length,
+    ballotOrderUpsetRegions: upsetRegions,
+    top1ShareOfPartyPrefs: totalPrefVotes
+      ? round((100 * top1Votes) / totalPrefVotes)
+      : 0,
+  };
+};
+
+// ---------- Head-to-head with closest national rival ----------
+
+const buildCompetitive = (
+  election: string,
+  partyNum: number,
+  enrichedRegions: RegionRow[],
+  national: NationalSummary | undefined,
+) => {
+  if (!national?.parties?.length) return null;
+  const self = national.parties.find((p) => p.partyNum === partyNum);
+  if (!self) return null;
+  const others = national.parties.filter(
+    (p) => p.partyNum !== partyNum && (p.totalVotes ?? 0) > 0,
+  );
+  if (!others.length) return null;
+  const rival = others.reduce((best, p) =>
+    Math.abs(p.totalVotes - self.totalVotes) <
+    Math.abs(best.totalVotes - self.totalVotes)
+      ? p
+      : best,
+  );
+  // Load rival's by_region file
+  const rivalByRegion = readJson<PartyResultsRow[]>(
+    path.join(
+      PUBLIC_DIR,
+      election,
+      "parties",
+      "by_region",
+      `${rival.partyNum}.json`,
+    ),
+  );
+  if (!rivalByRegion?.length) return null;
+  const rivalMap = new Map<string, number>();
+  for (const r of rivalByRegion) {
+    if (r.oblast) rivalMap.set(r.oblast, r.totalVotes);
+  }
+  const rows = enrichedRegions
+    .filter((r) => rivalMap.has(r.oblast))
+    .map((r) => {
+      const rivalVotes = rivalMap.get(r.oblast) ?? 0;
+      const allVotes = r.pctOfRegion ? (100 * r.votes) / r.pctOfRegion : 0;
+      const leadVotes = r.votes - rivalVotes;
+      const leadPP = allVotes
+        ? round((100 * leadVotes) / allVotes)
+        : 0;
+      return {
+        oblast: r.oblast,
+        name_bg: r.name_bg,
+        name_en: r.name_en,
+        partyVotes: r.votes,
+        rivalVotes,
+        leadVotes,
+        leadPP,
+      };
+    })
+    .sort((a, b) => b.leadPP - a.leadPP);
+  const regionsWon = rows.filter((r) => r.leadVotes > 0).length;
+  const regionsLost = rows.filter((r) => r.leadVotes < 0).length;
+  return {
+    rivalPartyNum: rival.partyNum,
+    rivalNickName: rival.nickName,
+    regionsWon,
+    regionsLost,
+    topMargins: rows.slice(0, 5),
+    bottomMargins: rows.slice(-5).reverse(),
+  };
 };
 
 const buildBundle = (election: string, partyNum: number) => {
@@ -162,6 +632,7 @@ const buildBundle = (election: string, partyNum: number) => {
     (v) => v.number === partyNum,
   );
   const partyTotal = partyVotesEntry?.totalVotes ?? 0;
+  const partyPct = totalVotes ? (100 * partyTotal) / totalVotes : 0;
   const pos = positionOf(
     partyNum,
     electionInfo.results?.votes.map((v) => ({
@@ -199,7 +670,7 @@ const buildBundle = (election: string, partyNum: number) => {
   const byRegion = readJson<PartyResultsRow[]>(
     path.join(PUBLIC_DIR, election, "parties", "by_region", `${partyNum}.json`),
   );
-  const enrichedRegions = (byRegion ?? [])
+  const enrichedRegions: RegionRow[] = (byRegion ?? [])
     .map((r) => {
       const info = regions?.find((x) => x.oblast === r.oblast);
       const prior = r.prevYearVotesConsolidated ?? r.prevYearVotes;
@@ -211,7 +682,7 @@ const buildBundle = (election: string, partyNum: number) => {
         ? round((100 * r.totalVotes) / r.allVotes)
         : 0;
       return {
-        oblast: r.oblast,
+        oblast: r.oblast ?? "",
         name_en: info?.name_en,
         name_bg: info?.name,
         position: r.position,
@@ -392,8 +863,157 @@ const buildBundle = (election: string, partyNum: number) => {
       .sort((a, b) => Math.abs(a.meanError) - Math.abs(b.meanError));
   }
 
+  // ---------- Geographic structure ----------
+
+  const top5RegionsShare = enrichedRegions
+    .slice(0, 5)
+    .reduce((s, r) => s + r.pctOfPartyTotal, 0);
+  const top10MuniShare = topMunicipalities
+    .slice(0, 10)
+    .reduce(
+      (s, r) => s + (partyTotal ? (100 * r.votes) / partyTotal : 0),
+      0,
+    );
+  const top25MuniShare = topMunicipalities.reduce(
+    (s, r) => s + (partyTotal ? (100 * r.votes) / partyTotal : 0),
+    0,
+  );
+
+  const geography = {
+    strongholds: {
+      top5RegionsShareOfPartyTotal: round(top5RegionsShare),
+      top10MunicipalitiesShareOfPartyTotal: round(top10MuniShare),
+      top25MunicipalitiesShareOfPartyTotal: round(top25MuniShare),
+    },
+    urbanRural: {
+      sofiaCity: aggregateRegionGroup(
+        enrichedRegions,
+        SOFIA_CITY_OBLASTS,
+        partyPct,
+      ),
+      otherBigCities: aggregateRegionGroup(
+        enrichedRegions,
+        OTHER_BIG_CITY_OBLASTS,
+        partyPct,
+      ),
+      abroad: aggregateRegionGroup(enrichedRegions, [ABROAD_OBLAST], partyPct),
+    },
+    ethnicMixedCluster: {
+      oblasts: ETHNIC_MIXED_OBLASTS,
+      ...aggregateRegionGroup(enrichedRegions, ETHNIC_MIXED_OBLASTS, partyPct),
+    },
+  };
+
+  // ---------- Risk-neighborhood (problem-section) attribution ----------
+
+  const problemFile = readJson<ProblemSectionsFile>(
+    path.join(PUBLIC_DIR, election, "problem_sections.json"),
+  );
+  let problemBlock: object | null = null;
+  if (problemFile?.neighborhoods?.length) {
+    const current = sumPartyVotesInProblemSections(problemFile, [partyNum]);
+    let priorShare: number | undefined;
+    let priorPartyVotes: number | undefined;
+    if (prior?.name) {
+      const priorProblemFile = readJson<ProblemSectionsFile>(
+        path.join(PUBLIC_DIR, prior.name, "problem_sections.json"),
+      );
+      const priorPartyInfos = readJson<PartyInfo[]>(
+        path.join(PUBLIC_DIR, prior.name, "cik_parties.json"),
+      );
+      if (priorProblemFile && priorPartyInfos) {
+        const priorNums = matchPriorPartyNums(
+          { nickName: party.nickName, commonName: party.commonName },
+          priorPartyInfos,
+        );
+        const priorAgg = sumPartyVotesInProblemSections(
+          priorProblemFile,
+          priorNums,
+        );
+        if (priorAgg && priorAgg.totalAll) {
+          priorPartyVotes = priorAgg.totalParty;
+          priorShare = round((100 * priorAgg.totalParty) / priorAgg.totalAll);
+        }
+      }
+    }
+    const currentShare =
+      current && current.totalAll
+        ? round((100 * current.totalParty) / current.totalAll)
+        : 0;
+    problemBlock = {
+      totalRiskSections: current?.sectionCount ?? 0,
+      totalRiskVotes: current?.totalAll ?? 0,
+      partyVotesInRiskSections: current?.totalParty ?? 0,
+      partyShareOfRiskVotes: currentShare,
+      overIndex: partyPct ? round(currentShare / partyPct) : undefined,
+      priorPartyVotesInRiskSections: priorPartyVotes,
+      priorPartyShareOfRiskVotes: priorShare,
+      deltaShareOfRiskPP:
+        priorShare !== undefined ? round(currentShare - priorShare) : undefined,
+      topNeighborhoods: perNeighborhoodPartyVotes(problemFile, [partyNum])
+        .sort((a, b) => b.partyVotes - a.partyVotes)
+        .slice(0, 5),
+    };
+  }
+
+  // ---------- Section-level anomaly attribution ----------
+
+  const suemg = readJson<SuemgRow[]>(
+    path.join(PUBLIC_DIR, election, "reports", "section", "suemg.json"),
+  );
+  const recount = readJson<RecountRow[]>(
+    path.join(PUBLIC_DIR, election, "reports", "section", "recount.json"),
+  );
+  const concentrated = readJson<ConcentratedRow[]>(
+    path.join(PUBLIC_DIR, election, "reports", "section", "concentrated.json"),
+  );
+  const suemgAttr = countAnomalyAttribution(suemg, partyNum);
+  const recountAttr = countAnomalyAttribution(recount, partyNum);
+  const concentratedCount = (concentrated ?? []).filter(
+    (c) => c.partyNum === partyNum,
+  ).length;
+  const sectionAnomalies = {
+    suemgFlaggedSectionsTotal: suemg?.length ?? 0,
+    suemgTopChangeForParty: suemgAttr.topChange,
+    suemgBottomChangeForParty: suemgAttr.bottomChange,
+    recountFlaggedSectionsTotal: recount?.length ?? 0,
+    recountTopChangeForParty: recountAttr.topChange,
+    recountBottomChangeForParty: recountAttr.bottomChange,
+    concentratedSectionsForParty: concentratedCount,
+  };
+
+  // ---------- Preferences (candidate-level) ----------
+
+  const candidates = electionInfo.hasPreferences
+    ? readJson<Candidate[]>(path.join(PUBLIC_DIR, election, "candidates.json"))
+    : undefined;
+  const preferences = electionInfo.hasPreferences
+    ? buildPreferences(election, partyNum, partyTotal, regions, candidates)
+    : null;
+
+  // ---------- Head-to-head with closest national rival ----------
+
+  const national = readJson<NationalSummary>(
+    path.join(PUBLIC_DIR, election, "national_summary.json"),
+  );
+  const competitive = buildCompetitive(
+    election,
+    partyNum,
+    enrichedRegions,
+    national,
+  );
+
+  // ---------- National context snapshot ----------
+
+  const contextSnapshot = {
+    nationalTurnoutPct: national?.turnout?.pct,
+    priorTurnoutPct: national?.turnout?.priorPct,
+    deltaTurnoutPP: national?.turnout?.deltaPct,
+    anomalies: national?.anomalies,
+  };
+
   return {
-    schemaVersion: 1,
+    schemaVersion: 2,
     election,
     priorElection: prior?.name,
     party: {
@@ -406,11 +1026,9 @@ const buildBundle = (election: string, partyNum: number) => {
     nationalContext: {
       totalNationalVotes: totalVotes,
       partyVotes: partyTotal,
-      partyPct: totalVotes ? round((100 * partyTotal) / totalVotes) : 0,
+      partyPct: round(partyPct),
       position: pos,
-      passedThreshold: totalVotes
-        ? (100 * partyTotal) / totalVotes >= 4
-        : false,
+      passedThreshold: partyPct >= 4,
       priorTotalNationalVotes: priorTotal,
       priorPartyVotes: priorPartyTotal,
       priorPartyPct:
@@ -446,11 +1064,17 @@ const buildBundle = (election: string, partyNum: number) => {
               : 0,
         }
       : undefined,
+    contextSnapshot,
     regions: enrichedRegions,
     topGainerRegions: topGainers,
     topLoserRegions: topLosers,
     topMunicipalities,
     topSettlements,
+    geography,
+    problemSections: problemBlock,
+    sectionAnomalies,
+    competitive,
+    preferences,
     financing: financing ?? null,
     polling: pollingForParty
       ? {
