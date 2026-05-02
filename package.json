@@ -30,6 +30,7 @@
     "party:gen-retrospect": "tsx ./scripts/parties/generate_retrospect.ts",
     "stats": "npx vite-bundle-visualizer",
     "deploy": "firebase deploy -P default",
+    "deploy:fast": "SKIP_PREDEPLOY=1 firebase deploy -P default",
     "staging": "firebase deploy -P staging"
   },
   "dependencies": {
