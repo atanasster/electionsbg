@@ -6,6 +6,7 @@ import { NationalPartyResult } from "@/data/dashboard/dashboardTypes";
 import { useElectionContext } from "@/data/ElectionContext";
 import { useCandidates } from "@/data/preferences/useCandidates";
 import { useMps, MpIndexEntry } from "@/data/parliament/useMps";
+import { useParliamentGroups } from "@/data/parliament/useParliamentGroups";
 import { electionToNsFolder, oblastToMir } from "@/data/parliament/nsFolders";
 import { Link } from "@/ux/Link";
 import { useTooltip } from "@/ux/useTooltip";
@@ -43,6 +44,7 @@ export const RegionMpsTile: FC<Props> = ({ regionCode, parties }) => {
   const { t } = useTranslation();
   const { selected } = useElectionContext();
   const { findMpsByRegion } = useMps();
+  const { lookup: lookupParliamentGroup } = useParliamentGroups();
   const { candidates } = useCandidates();
   const { tooltip, onMouseEnter, onMouseLeave } = useTooltip({
     maxHeight: 240,
@@ -74,11 +76,17 @@ export const RegionMpsTile: FC<Props> = ({ regionCode, parties }) => {
       const cik = cikByName.get(mp.normalizedName);
       const party = cik ? partyByNum.get(cik.partyNum) : undefined;
       const partyNum = cik?.partyNum ?? null;
+      // Parliamentary-group override: when a coalition (e.g. PP-DB) splits
+      // into separate groups in parliament, prefer the component's color
+      // and display name here. Election results / partyNum still resolve
+      // through CIK so the click-through goes to the coalition page.
+      const groupOverride = lookupParliamentGroup(mp.currentPartyGroupShort);
       const partyNickName =
+        groupOverride?.displayName ??
         party?.nickName ??
-        mp.currentPartyGroupShort?.replace(/^ПГ /, "").trim() ??
+        mp.currentPartyGroupShort?.replace(/^ПГ(\s+на)?\s+/, "").trim() ??
         "—";
-      const color = party?.color || "#888";
+      const color = groupOverride?.color || party?.color || "#888";
       return { mp, partyNum, partyNickName, color };
     });
 
@@ -103,7 +111,7 @@ export const RegionMpsTile: FC<Props> = ({ regionCode, parties }) => {
         b.mps.length - a.mps.length ||
         a.partyNickName.localeCompare(b.partyNickName, "bg"),
     );
-  }, [findMpsByRegion, mir, nsFolder, cikByName, partyByNum]);
+  }, [findMpsByRegion, mir, nsFolder, cikByName, partyByNum, lookupParliamentGroup]);
 
   if (!nsFolder || !mir) return null;
   const total = groups.reduce((s, g) => s + g.mps.length, 0);

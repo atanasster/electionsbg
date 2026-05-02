@@ -286,12 +286,17 @@ type IndexEntry = {
   birthDate: string | null;
   nsFolders: string[]; // e.g. ["38","39","40","41"]
   isCurrent: boolean;
+  // Stamped only on the run that fetched this MP from parliament.bg (cache miss
+  // or --refresh-current for sitting MPs). Preserved verbatim across re-runs
+  // when we serve from cache, so the index is byte-stable for unchanged MPs.
+  scrapedAt: string;
 };
 
 const buildIndexEntry = (
   mp: Mp | null,
   raw: RawProfile,
   isCurrent: boolean,
+  scrapedAt: string,
 ): IndexEntry => {
   const id = raw.A_ns_MP_id ?? mp?.id;
   const givenName = raw.A_ns_MPL_Name1 ?? mp?.givenName ?? "";
@@ -315,6 +320,7 @@ const buildIndexEntry = (
     birthDate: raw.A_ns_MP_BDate || null,
     nsFolders: folders,
     isCurrent,
+    scrapedAt,
   };
 };
 
@@ -381,6 +387,38 @@ const runHistory = async (opts: {
   const profilesDir = path.join(opts.out, "profiles");
   fs.mkdirSync(profilesDir, { recursive: true });
 
+  const nowIso = new Date().toISOString();
+
+  // Load existing index (if any) so we can preserve scrapedAt for MPs whose
+  // profile JSON we end up serving from cache. Without this, every re-run
+  // would stamp every MP with today's timestamp, churning the file even when
+  // no underlying data changed.
+  //
+  // Bootstrap: older index files only have a single top-level scrapedAt. For
+  // MPs that were already in that index (i.e. they appear by id or normalized
+  // name) but lack their own scrapedAt, we fall back to the old top-level
+  // value as their "first known scrape" — better than stamping everyone with
+  // today on the first run that introduces per-MP scrapedAt.
+  const indexFile = path.join(opts.out, "index.json");
+  const oldScrapedByName = new Map<string, string>();
+  const oldScrapedById = new Map<number, string>();
+  let oldTopScrapedAt: string | null = null;
+  if (fs.existsSync(indexFile)) {
+    try {
+      const old = JSON.parse(fs.readFileSync(indexFile, "utf8"));
+      if (typeof old.scrapedAt === "string") oldTopScrapedAt = old.scrapedAt;
+      for (const m of old.mps ?? []) {
+        const stamp =
+          typeof m.scrapedAt === "string" ? m.scrapedAt : oldTopScrapedAt;
+        if (!stamp) continue;
+        if (m.normalizedName) oldScrapedByName.set(m.normalizedName, stamp);
+        if (typeof m.id === "number") oldScrapedById.set(m.id, stamp);
+      }
+    } catch {
+      // unparseable index → just treat as missing; everyone gets nowIso
+    }
+  }
+
   // 1. Pull current NS to know who's active and capture their region/party
   console.log(`→ fetching current parliament metadata`);
   const list = await fetchJson<CollListNs>(`${API}/coll-list-ns/bg`);
@@ -392,6 +430,18 @@ const runHistory = async (opts: {
   console.log(
     `  ${list.A_ns_CL_value}: ${list.A_ns_C_active_count} active members captured`,
   );
+
+  // Walk at least up to the highest currently-sitting id so newly-elected MPs
+  // with ids past the last scrape's max are not silently dropped.
+  if (currentMps.size > 0) {
+    const highestCurrent = Math.max(...currentMps.keys());
+    if (highestCurrent > opts.maxId) {
+      console.log(
+        `  bumping max-id ${opts.maxId} → ${highestCurrent} to cover all sitting MPs`,
+      );
+      opts.maxId = highestCurrent;
+    }
+  }
 
   // 2. Walk every MP id
   console.log(
@@ -433,10 +483,24 @@ const runHistory = async (opts: {
           }
         }
         const mp = currentMps.get(id) ?? null;
-        const entry = buildIndexEntry(mp, raw, isCurrent);
+        // If we re-fetched from the API, this MP's data is "now". If we served
+        // from cache, preserve whatever scrapedAt we had on file (by id, then
+        // by normalized name). Brand-new ids with no prior record → nowIso.
+        const stamp = !useCache
+          ? nowIso
+          : (oldScrapedById.get(id) ??
+            // normalizedName lookup is computed below after entry is built
+            nowIso);
+        const entry = buildIndexEntry(mp, raw, isCurrent, stamp);
         if (!entry.name) {
           empty++;
           continue;
+        }
+        // For cache-served entries, prefer the by-name lookup if id missed
+        // (parliament.bg occasionally re-keys an MP across NSes).
+        if (useCache && !oldScrapedById.has(id)) {
+          const byName = oldScrapedByName.get(entry.normalizedName);
+          if (byName) entry.scrapedAt = byName;
         }
         index.push(entry);
         // Persist trimmed profile (one file per MP — small, lazily fetched by frontend)
@@ -487,6 +551,11 @@ const runHistory = async (opts: {
     winner.nsFolders = [...folders].sort(
       (a, b) => parseInt(a, 10) - parseInt(b, 10),
     );
+    // Most-recent scrapedAt across the merged records — if either side was
+    // re-fetched today, the merged record reflects that.
+    if (loser.scrapedAt > winner.scrapedAt) {
+      winner.scrapedAt = loser.scrapedAt;
+    }
     byName.set(e.normalizedName, winner);
   }
   const deduped = [...byName.values()].sort((a, b) => a.id - b.id);
@@ -505,11 +574,17 @@ const runHistory = async (opts: {
     }
   }
 
+  // Top-level scrapedAt = max of per-MP timestamps so the file is byte-stable
+  // when no MPs were re-fetched (rather than always becoming "now").
+  const topScrapedAt = deduped.reduce(
+    (mx, m) => (m.scrapedAt > mx ? m.scrapedAt : mx),
+    "",
+  );
   fs.writeFileSync(
     path.join(opts.out, "index.json"),
     JSON.stringify(
       {
-        scrapedAt: new Date().toISOString(),
+        scrapedAt: topScrapedAt || nowIso,
         currentNs: list.A_ns_CL_value,
         total: deduped.length,
         rawTotal: index.length,

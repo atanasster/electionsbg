@@ -7,6 +7,7 @@ import { PreferencesInfo, PreferencesVotes } from "@/data/dataTypes";
 import { useElectionContext } from "@/data/ElectionContext";
 import { useCandidates } from "@/data/preferences/useCandidates";
 import { useMps } from "@/data/parliament/useMps";
+import { useParliamentGroups } from "@/data/parliament/useParliamentGroups";
 import { useRegions } from "@/data/regions/useRegions";
 import { formatThousands } from "@/data/utils";
 import { Link } from "@/ux/Link";
@@ -53,6 +54,7 @@ export const PartyTopCandidatesTile: FC<Props> = ({ data }) => {
   const { selected } = useElectionContext();
   const { findCandidate } = useCandidates();
   const { findMpByName } = useMps();
+  const { lookup: lookupParliamentGroup } = useParliamentGroups();
   const { findRegion } = useRegions();
   const color = data.color ?? "#888";
 
@@ -81,6 +83,14 @@ export const PartyTopCandidatesTile: FC<Props> = ({ data }) => {
             : region.long_name_en || region.name_en
           : undefined;
         const mp = findMpByName(candidate.name);
+        // For coalitions that splinter into parliamentary groups (e.g. ПП-ДБ),
+        // mark each candidate with their current group so the party page can
+        // visually distinguish ПП MPs from ДБ MPs even though the row lives
+        // under the coalition's data.
+        const group =
+          mp?.isCurrent && mp.currentPartyGroupShort
+            ? lookupParliamentGroup(mp.currentPartyGroupShort)
+            : undefined;
         const partyVotes = p.partyVotes ?? 0;
         const pctOfPartyVotes = partyVotes
           ? (100 * p.totalVotes) / partyVotes
@@ -96,10 +106,19 @@ export const PartyTopCandidatesTile: FC<Props> = ({ data }) => {
           regionCode: p.oblast,
           pctOfPartyVotes,
           photoUrl: mp?.photoUrl,
+          groupLabel: group?.displayName,
+          groupColor: group?.color,
         };
       })
       .filter((r): r is NonNullable<typeof r> => !!r);
-  }, [stats, findCandidate, findMpByName, findRegion, i18n.language]);
+  }, [
+    stats,
+    findCandidate,
+    findMpByName,
+    findRegion,
+    i18n.language,
+    lookupParliamentGroup,
+  ]);
 
   if (rows.length === 0) return null;
 
@@ -190,7 +209,9 @@ export const PartyTopCandidatesTile: FC<Props> = ({ data }) => {
             >
               <Avatar
                 className="h-10 w-10 shrink-0 ring-2"
-                style={{ ["--tw-ring-color" as string]: color }}
+                style={{
+                  ["--tw-ring-color" as string]: r.groupColor ?? color,
+                }}
               >
                 {r.photoUrl && (
                   <AvatarImage
@@ -201,16 +222,28 @@ export const PartyTopCandidatesTile: FC<Props> = ({ data }) => {
                 )}
                 <AvatarFallback
                   className="text-white text-sm font-bold"
-                  style={{ backgroundColor: color }}
+                  style={{ backgroundColor: r.groupColor ?? color }}
                 >
                   {initials(r.name)}
                 </AvatarFallback>
               </Avatar>
               <div className="flex flex-col min-w-0">
                 <span className="text-sm font-semibold truncate">{r.name}</span>
-                <span className="text-[11px] text-muted-foreground truncate">
-                  {r.regionName ?? r.regionCode}
-                  {r.pref ? ` · #${r.pref}` : ""}
+                <span className="text-[11px] text-muted-foreground truncate flex items-center gap-1.5">
+                  {r.groupLabel && (
+                    <>
+                      <span
+                        className="inline-block w-2 h-2 rounded-sm shrink-0"
+                        style={{ backgroundColor: r.groupColor ?? color }}
+                      />
+                      <span className="font-semibold">{r.groupLabel}</span>
+                      <span>·</span>
+                    </>
+                  )}
+                  <span className="truncate">
+                    {r.regionName ?? r.regionCode}
+                    {r.pref ? ` · #${r.pref}` : ""}
+                  </span>
                 </span>
                 <span className="text-[11px] text-muted-foreground tabular-nums">
                   {formatThousands(r.totalVotes)} {t("votes").toLowerCase()}

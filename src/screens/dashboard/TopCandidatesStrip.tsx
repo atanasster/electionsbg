@@ -7,6 +7,11 @@ import { NationalPartyResult } from "@/data/dashboard/dashboardTypes";
 import { useElectionContext } from "@/data/ElectionContext";
 import { useCandidates } from "@/data/preferences/useCandidates";
 import { useMps } from "@/data/parliament/useMps";
+import {
+  useParliamentGroups,
+  stripPgPrefix,
+} from "@/data/parliament/useParliamentGroups";
+import { electionToNsFolder } from "@/data/parliament/nsFolders";
 import { useRegions } from "@/data/regions/useRegions";
 import { formatThousands } from "@/data/utils";
 import { Link } from "@/ux/Link";
@@ -54,8 +59,19 @@ export const TopCandidatesStrip: FC<Props> = ({
   const { t, i18n } = useTranslation();
   const { selected } = useElectionContext();
   const { findCandidate } = useCandidates();
-  const { findMpByName } = useMps();
+  const { findMpByName, mps, currentNs } = useMps();
+  const { childrenFor } = useParliamentGroups();
   const { findRegion } = useRegions();
+
+  // True when the selected election seated the currently-sitting NS — only
+  // then can we trust per-MP `currentPartyGroupShort` to attribute candidates
+  // to a specific child group.
+  const isCurrentNs = useMemo(() => {
+    if (!mps || !currentNs) return false;
+    const selFolder = electionToNsFolder(selected);
+    const currentFolder = currentNs.match(/^(\d+)/)?.[1] ?? null;
+    return !!selFolder && selFolder === currentFolder;
+  }, [mps, currentNs, selected]);
   const { data: preferences } = useQuery({
     queryKey: ["preferences_all_country", selected] as [
       string,
@@ -88,68 +104,115 @@ export const TopCandidatesStrip: FC<Props> = ({
             ? preferences.filter((r) => r.oblast === regionCode)
             : preferences;
 
+    // Build a single top-candidate row from a (possibly filtered) preference
+    // subset for one party. Returns null when no preference entries map to a
+    // known candidate. The labelOverride/colorOverride/keyOverride args carry
+    // a parliamentary-group identity (e.g. ПП vs ДБ) when the row represents
+    // one component of a coalition that splits in parliament.
+    const buildRow = (
+      p: NationalPartyResult,
+      prefs: PreferencesInfo[],
+      override?: {
+        partyNickName: string;
+        color: string;
+        keySuffix: string;
+      },
+    ) => {
+      if (!prefs.length) return null;
+      const top = prefs.reduce((a, b) =>
+        b.totalVotes > a.totalVotes ? b : a,
+      );
+      const candidate = top.oblast
+        ? findCandidate(top.oblast, top.partyNum, top.pref)
+        : undefined;
+      if (!candidate) return null;
+
+      const allEntries = prefs.filter(
+        (r) =>
+          r.oblast &&
+          findCandidate(r.oblast, r.partyNum, r.pref)?.name === candidate.name,
+      );
+      const totalVotes = allEntries.reduce((s, r) => s + r.totalVotes, 0);
+      const hasPaper = allEntries.some((r) => r.paperVotes != null);
+      const paperVotes = hasPaper
+        ? allEntries.reduce((s, r) => s + (r.paperVotes ?? 0), 0)
+        : undefined;
+      const hasMachine = allEntries.some((r) => r.machineVotes != null);
+      const machineVotes = hasMachine
+        ? allEntries.reduce((s, r) => s + (r.machineVotes ?? 0), 0)
+        : undefined;
+      const hasLy = allEntries.some((r) => r.lyTotalVotes != null);
+      const lyTotalVotes = hasLy
+        ? allEntries.reduce((s, r) => s + (r.lyTotalVotes ?? 0), 0)
+        : undefined;
+      const regionCount = new Set(allEntries.map((r) => r.oblast)).size;
+
+      const region = regionCount === 1 ? findRegion(top.oblast) : undefined;
+      const regionName = region
+        ? i18n.language === "bg"
+          ? region.long_name || region.name
+          : region.long_name_en || region.name_en
+        : undefined;
+
+      const mp = findMpByName(candidate.name);
+
+      return {
+        rowKey: `${p.partyNum}${override ? `:${override.keySuffix}` : ""}`,
+        partyNum: p.partyNum,
+        partyNickName: override?.partyNickName ?? p.nickName,
+        color: override?.color ?? p.color ?? "#888",
+        candidateName: candidate.name,
+        totalVotes,
+        paperVotes,
+        machineVotes,
+        partyVotes: p.totalVotes,
+        lyTotalVotes,
+        pref: top.pref,
+        regionName,
+        regionCount,
+        photoUrl: mp?.photoUrl,
+      };
+    };
+
     return eligibleParties
-      .map((p) => {
+      .flatMap((p) => {
         const partyPrefs = scopedPreferences.filter(
           (r) => r.partyNum === p.partyNum,
         );
-        if (!partyPrefs.length) return null;
-        const top = partyPrefs.reduce((a, b) =>
-          b.totalVotes > a.totalVotes ? b : a,
-        );
-        const candidate = top.oblast
-          ? findCandidate(top.oblast, top.partyNum, top.pref)
-          : undefined;
-        if (!candidate) return null;
-
-        // Aggregate across all regions the same candidate appears in
-        const allEntries = partyPrefs.filter(
-          (r) =>
-            r.oblast &&
-            findCandidate(r.oblast, r.partyNum, r.pref)?.name ===
-              candidate.name,
-        );
-        const totalVotes = allEntries.reduce((s, r) => s + r.totalVotes, 0);
-        const hasPaper = allEntries.some((r) => r.paperVotes != null);
-        const paperVotes = hasPaper
-          ? allEntries.reduce((s, r) => s + (r.paperVotes ?? 0), 0)
-          : undefined;
-        const hasMachine = allEntries.some((r) => r.machineVotes != null);
-        const machineVotes = hasMachine
-          ? allEntries.reduce((s, r) => s + (r.machineVotes ?? 0), 0)
-          : undefined;
-        const hasLy = allEntries.some((r) => r.lyTotalVotes != null);
-        const lyTotalVotes = hasLy
-          ? allEntries.reduce((s, r) => s + (r.lyTotalVotes ?? 0), 0)
-          : undefined;
-        const regionCount = new Set(allEntries.map((r) => r.oblast)).size;
-
-        const region = regionCount === 1 ? findRegion(top.oblast) : undefined;
-        const regionName = region
-          ? i18n.language === "bg"
-            ? region.long_name || region.name
-            : region.long_name_en || region.name_en
-          : undefined;
-
-        const mp = findMpByName(candidate.name);
-
-        return {
-          partyNum: p.partyNum,
-          partyNickName: p.nickName,
-          color: p.color || "#888",
-          candidateName: candidate.name,
-          totalVotes,
-          paperVotes,
-          machineVotes,
-          partyVotes: p.totalVotes,
-          lyTotalVotes,
-          pref: top.pref,
-          regionName,
-          regionCount,
-          photoUrl: mp?.photoUrl,
-        };
+        if (!partyPrefs.length) return [];
+        // Coalitions that splinter into parliamentary groups (e.g. ПП-ДБ →
+        // ПГ ПП + ПГ ДБ) get one top candidate per child. The lookup only
+        // works for the currently-sitting NS — for older elections we keep
+        // the coalition view since per-MP group attribution would be wrong.
+        const children = isCurrentNs ? childrenFor(p.nickName) : undefined;
+        if (children && children.length) {
+          const childRows = children
+            .map((c) => {
+              const childPrefs = partyPrefs.filter((r) => {
+                const cand = r.oblast
+                  ? findCandidate(r.oblast, r.partyNum, r.pref)
+                  : undefined;
+                if (!cand) return false;
+                const mp = findMpByName(cand.name);
+                if (!mp || !mp.isCurrent || !mp.currentPartyGroupShort)
+                  return false;
+                return stripPgPrefix(mp.currentPartyGroupShort) === c.shortName;
+              });
+              return buildRow(p, childPrefs, {
+                partyNickName: c.displayName,
+                color: c.color,
+                keySuffix: c.shortName,
+              });
+            })
+            .filter((r): r is NonNullable<typeof r> => !!r);
+          // If splits produced nothing (e.g. no candidate→MP matches yet),
+          // fall back to the coalition row so the user still sees a result.
+          if (childRows.length) return childRows;
+        }
+        const row = buildRow(p, partyPrefs);
+        return row ? [row] : [];
       })
-      .filter((r): r is NonNullable<typeof r> => !!r && !!r.candidateName)
+      .filter((r) => !!r.candidateName)
       .sort((a, b) => b.totalVotes - a.totalVotes);
   }, [
     preferences,
@@ -162,6 +225,8 @@ export const TopCandidatesStrip: FC<Props> = ({
     regionCodes,
     municipalityCode,
     ekatte,
+    childrenFor,
+    isCurrentNs,
   ]);
 
   if (rows.length === 0) return null;
@@ -195,7 +260,7 @@ export const TopCandidatesStrip: FC<Props> = ({
       <div className="flex flex-wrap gap-3 mt-1">
         {rows.map((r) => (
           <Tooltip
-            key={r.partyNum}
+            key={r.rowKey}
             className="max-w-56 p-2"
             content={
               <div className="flex flex-col gap-1">
