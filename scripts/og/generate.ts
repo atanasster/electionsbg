@@ -35,11 +35,6 @@ const writePng = (outPath: string, canvas: ReturnType<typeof renderCard>) => {
   fs.writeFileSync(outPath, canvas.toBuffer("image/png"));
 };
 
-const todayDate = (): string => {
-  const t = new Date();
-  return `${String(t.getDate()).padStart(2, "0")}.${String(t.getMonth() + 1).padStart(2, "0")}.${t.getFullYear()}`;
-};
-
 const renderHomeCard = (summary: NationalSummary, outPath: string) => {
   const tiles: Tile[] = [
     {
@@ -93,7 +88,6 @@ const renderHomeCard = (summary: NationalSummary, outPath: string) => {
       ? `Сравнение с ${localizeDate(summary.priorElection)}`
       : "",
     tiles,
-    footerRight: todayDate(),
   });
   writePng(outPath, canvas);
 };
@@ -137,7 +131,6 @@ const renderPartyCard = (
     title: party.name || party.nickName,
     subtitle: `Парламентарни избори в България — ${localizeDate(summary.election)}`,
     tiles,
-    footerRight: todayDate(),
   });
   writePng(outPath, canvas);
 };
@@ -159,7 +152,6 @@ const renderStaticPageCard = (
     title,
     subtitle,
     tiles,
-    footerRight: todayDate(),
   });
   writePng(outPath, canvas);
 };
@@ -222,7 +214,6 @@ const renderOblastCard = (
     title: `Резултати в ${region.long_name || region.name}`,
     subtitle: `Парламентарни избори — ${localizeDate(electionName)}`,
     tiles,
-    footerRight: todayDate(),
   });
   writePng(outPath, canvas);
 };

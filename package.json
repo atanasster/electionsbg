@@ -7,7 +7,7 @@
     "dev": "vite",
     "prebuild": "node ./scripts/prebuild.mjs",
     "build": "tsc -b && vite build",
-    "postbuild": "tsx ./scripts/og/generate.ts && tsx ./scripts/prerender/index.ts && tsx ./scripts/llms/buildFull.ts",
+    "postbuild": "tsx ./scripts/og/generate.ts && tsx ./scripts/prerender/index.ts && tsx ./scripts/llms/buildFull.ts && find dist public -name .DS_Store -delete",
     "lint": "eslint .",
     "format": "eslint . --fix",
     "preview": "vite preview",

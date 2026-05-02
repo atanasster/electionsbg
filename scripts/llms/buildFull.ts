@@ -90,7 +90,6 @@ lines.push(
 lines.push("");
 lines.push(`Site: ${SITE_URL}`);
 lines.push(`Sitemap index: ${SITE_URL}/sitemap_index.xml`);
-lines.push(`Generated: ${new Date().toISOString().slice(0, 10)}`);
 lines.push("");
 
 // ------------------------------------------------------------------
@@ -258,4 +257,11 @@ if (fs.existsSync(regionsFile)) {
 
 const out = lines.join("\n");
 fs.writeFileSync(path.join(PUBLIC, "llms-full.txt"), out, "utf-8");
+// Also write to dist/ so the file ships in the same build that generated it.
+// Without this, postbuild's update lands in public/ and only reaches dist/
+// on the *next* vite build — a one-build-stale gap.
+const dist = path.join(PROJECT_ROOT, "dist");
+if (fs.existsSync(dist)) {
+  fs.writeFileSync(path.join(dist, "llms-full.txt"), out, "utf-8");
+}
 console.log(`llms-full.txt: ${out.length} bytes, ${lines.length} lines`);
