@@ -42,8 +42,8 @@
       }
     ],
     "predeploy": [
-      "[ \"$SKIP_PREDEPLOY\" = \"1\" ] || npm --prefix \"$RESOURCE_DIR\"\"/..\" run lint",
-      "[ \"$SKIP_PREDEPLOY\" = \"1\" ] || npm --prefix \"$RESOURCE_DIR\"\"/..\" run build"
+      "[ -n \"$SKIP_PREDEPLOY\" ] || npm --prefix \"$RESOURCE_DIR\"\"/..\" run lint",
+      "[ -n \"$SKIP_PREDEPLOY\" ] || npm --prefix \"$RESOURCE_DIR\"\"/..\" run build"
     ]
   }
 }
