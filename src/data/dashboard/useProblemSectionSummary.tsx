@@ -9,7 +9,7 @@ import { useProblemSections } from "../reports/useProblemSections";
 import { useElectionContext } from "../ElectionContext";
 import { usePartyInfo } from "../parties/usePartyInfo";
 import { aggregateSections } from "../reports/aggregateSections";
-import { ElectionResults, StatsVote } from "../dataTypes";
+import { ElectionResults, SectionInfo, StatsVote } from "../dataTypes";
 import { findPrevVotes } from "../utils";
 
 const NATIONAL_THRESHOLD_PCT = 4;
@@ -33,31 +33,33 @@ export const useProblemSectionSummary = (
   const { parties: partyInfos } = usePartyInfo();
   const { parties: priorPartyInfos } = usePartyInfo(priorElections?.name);
 
-  const neighborhood = useMemo(
-    () =>
-      neighborhoodId
-        ? report?.neighborhoods.find((n) => n.id === neighborhoodId)
-        : undefined,
-    [report, neighborhoodId],
-  );
+  const currentSections = useMemo<SectionInfo[] | undefined>(() => {
+    if (!report?.neighborhoods) return undefined;
+    if (neighborhoodId) {
+      return report.neighborhoods.find((n) => n.id === neighborhoodId)
+        ?.sections;
+    }
+    return report.neighborhoods.flatMap((n) => n.sections);
+  }, [report, neighborhoodId]);
 
-  const priorNeighborhood = useMemo(
-    () =>
-      neighborhoodId
-        ? priorReport?.neighborhoods.find((n) => n.id === neighborhoodId)
-        : undefined,
-    [priorReport, neighborhoodId],
-  );
+  const priorSections = useMemo<SectionInfo[] | undefined>(() => {
+    if (!priorReport?.neighborhoods) return undefined;
+    if (neighborhoodId) {
+      return priorReport.neighborhoods.find((n) => n.id === neighborhoodId)
+        ?.sections;
+    }
+    return priorReport.neighborhoods.flatMap((n) => n.sections);
+  }, [priorReport, neighborhoodId]);
 
   const aggregate = useMemo(() => {
-    if (!neighborhood?.sections.length) return undefined;
-    return aggregateSections(neighborhood.sections);
-  }, [neighborhood]);
+    if (!currentSections?.length) return undefined;
+    return aggregateSections(currentSections);
+  }, [currentSections]);
 
   const priorAggregate = useMemo(() => {
-    if (!priorNeighborhood?.sections.length) return undefined;
-    return aggregateSections(priorNeighborhood.sections);
-  }, [priorNeighborhood]);
+    if (!priorSections?.length) return undefined;
+    return aggregateSections(priorSections);
+  }, [priorSections]);
 
   // Enrich prior votes with nickName so findPrevVotes / matchPartyNickName can
   // match parties across elections (party numbers change between cycles).
@@ -269,6 +271,6 @@ export const useProblemSectionSummary = (
   return {
     data,
     aggregate,
-    isLoading: reportLoading || (!!neighborhoodId && !partyInfos),
+    isLoading: reportLoading || !partyInfos,
   };
 };

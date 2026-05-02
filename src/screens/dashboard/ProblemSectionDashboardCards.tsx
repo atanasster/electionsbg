@@ -1,8 +1,11 @@
-import { FC } from "react";
+import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { useProblemSectionSummary } from "@/data/dashboard/useProblemSectionSummary";
 import { useProblemSectionsStats } from "@/data/reports/useProblemSectionsStats";
-import { ProblemSectionsNeighborhood } from "@/data/reports/useProblemSections";
+import {
+  ProblemSectionsNeighborhood,
+  useProblemSections,
+} from "@/data/reports/useProblemSections";
 import { PartyChangeCard } from "./cards/PartyChangeCard";
 import { TurnoutCard } from "./cards/TurnoutCard";
 import { PaperMachineCard } from "./cards/PaperMachineCard";
@@ -25,17 +28,25 @@ const SkeletonCard: FC<{ className?: string }> = ({
 );
 
 type Props = {
-  neighborhood: ProblemSectionsNeighborhood;
+  neighborhood?: ProblemSectionsNeighborhood;
 };
 
 export const ProblemSectionDashboardCards: FC<Props> = ({ neighborhood }) => {
   const { t } = useTranslation();
   const { data, aggregate, isLoading } = useProblemSectionSummary(
-    neighborhood.id,
+    neighborhood?.id,
   );
   const { data: stats } = useProblemSectionsStats();
+  const { data: report } = useProblemSections();
 
-  const basePath = `/reports/section/problem_sections/${neighborhood.id}`;
+  const sections = useMemo(() => {
+    if (neighborhood) return neighborhood.sections;
+    return report?.neighborhoods.flatMap((n) => n.sections) ?? [];
+  }, [neighborhood, report]);
+
+  const basePath = neighborhood
+    ? `/reports/section/problem_sections/${neighborhood.id}`
+    : undefined;
 
   if (isLoading) {
     return (
@@ -72,7 +83,7 @@ export const ProblemSectionDashboardCards: FC<Props> = ({ neighborhood }) => {
       </div>
       <div className="grid gap-3 grid-cols-1 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] mt-3">
         <SectionsMapTile
-          sections={neighborhood.sections}
+          sections={sections}
           markerVariant="problem"
           tooltipBadge={t("problem_section_badge")}
         />
@@ -80,8 +91,8 @@ export const ProblemSectionDashboardCards: FC<Props> = ({ neighborhood }) => {
       </div>
       <div className="grid gap-3 grid-cols-1 mt-3">
         <TopSectionsTile
-          sections={neighborhood.sections}
-          seeDetailsHref={`${basePath}/list`}
+          sections={sections}
+          seeDetailsHref={basePath ? `${basePath}/list` : undefined}
         />
       </div>
       <div className="grid gap-3 grid-cols-1 mt-3">
