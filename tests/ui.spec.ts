@@ -214,6 +214,36 @@ test.describe("UI rendering", () => {
       .innerText({ timeout: 10_000 });
     expect(h1Text).toContain(SAMPLE_PARTY.split("-")[0]); // "ГЕРБ"
   });
+
+  // src/App.tsx skips Google Analytics when navigator.webdriver is true so
+  // CI runs don't pollute the GA realtime dashboard. If that guard ever
+  // regresses (or Playwright stops reporting webdriver), this test will
+  // catch it before the dashboard does.
+  test("Google Analytics is not contacted from automation", async ({
+    page,
+  }) => {
+    const gaHits: string[] = [];
+    page.on("request", (req) => {
+      const u = req.url();
+      if (
+        u.includes("google-analytics.com") ||
+        u.includes("googletagmanager.com")
+      )
+        gaHits.push(u);
+    });
+    await page.goto("/", { waitUntil: "networkidle" });
+    // App.tsx defers init via requestIdleCallback / 2s setTimeout fallback —
+    // wait past that window so a regression actually has a chance to fire.
+    await page.waitForTimeout(2500);
+    expect(
+      await page.evaluate(() => navigator.webdriver),
+      "Playwright should report navigator.webdriver=true — guard depends on it",
+    ).toBe(true);
+    expect(
+      gaHits,
+      `GA was contacted from a webdriver-controlled browser:\n${gaHits.join("\n")}`,
+    ).toEqual([]);
+  });
 });
 
 test.describe("UI: theme and layout", () => {
