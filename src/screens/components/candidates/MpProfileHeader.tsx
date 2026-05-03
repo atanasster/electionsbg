@@ -4,13 +4,7 @@ import { Calendar, Languages, MapPin, ExternalLink, Award } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent } from "@/ux/Card";
 import { useMpProfile } from "@/data/parliament/useMpProfile";
-
-const initials = (name: string) => {
-  const parts = name.trim().split(/\s+/);
-  return (
-    (parts[0]?.[0] ?? "") + (parts[parts.length - 1]?.[0] ?? "")
-  ).toUpperCase();
-};
+import { initials } from "@/lib/utils";
 
 const formatDate = (iso: string | null, lang: string) => {
   if (!iso) return null;

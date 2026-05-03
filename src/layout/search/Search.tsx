@@ -161,13 +161,11 @@ const SearchInternal: FC = () => {
             open ? "block" : "hidden",
           )}
         >
-          <CommandList className="shadow-md ring-1 ring-slate-200 rounded-md w-[300px] ">
+          <CommandList className="shadow-md ring-1 ring-border rounded-md w-[360px] py-1">
             {value.length > 0 && (
-              <>
-                <SearchItems onSelect={handleSelectOption} />
-              </>
+              <SearchItems onSelect={handleSelectOption} />
             )}
-            <CommandPrimitive.Empty className="select-none px-2 py-3 text-center text-sm">
+            <CommandPrimitive.Empty className="select-none px-2 py-3 text-center text-sm text-muted-foreground">
               {t("no_results")}
             </CommandPrimitive.Empty>
           </CommandList>
@@ -184,6 +182,7 @@ const SearchInternal: FC = () => {
           ref={buttonRef}
           variant="ghost"
           role="button"
+          aria-label={t("search")}
           className="text-secondary-foreground w-[28px] "
           onBlur={handleBlur}
         >
@@ -191,7 +190,7 @@ const SearchInternal: FC = () => {
         </Button>
       </PopoverTrigger>
       <PopoverContent
-        className="w-[300px] p-0"
+        className="w-[360px] p-0"
         onInteractOutside={(e) => {
           if (
             e.target instanceof Element &&

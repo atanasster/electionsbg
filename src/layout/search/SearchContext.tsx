@@ -40,10 +40,33 @@ export const SearchContextProvider: FC<PropsWithChildren> = ({ children }) => {
           selected >= 0 && selected < searchItems.length
             ? searchItems[selected]
             : undefined;
-        const newItems =
-          search(searchTerm)
-            ?.filter((r) => (r.score || 1) <= (r.item.type === "a" ? 0.4 : 0.1))
-            .slice(0, 10) || [];
+        const groupOrder: Record<SearchIndexType["type"], number> = {
+          s: 0,
+          m: 1,
+          r: 2,
+          c: 3,
+          a: 4,
+        };
+        const PER_TYPE_LIMIT = 5;
+        const counts: Partial<Record<SearchIndexType["type"], number>> = {};
+        const filtered =
+          search(searchTerm)?.filter(
+            (r) => (r.score || 1) <= (r.item.type === "a" ? 0.4 : 0.1),
+          ) || [];
+        const limited: typeof filtered = [];
+        for (const r of filtered) {
+          const c = counts[r.item.type] || 0;
+          if (c >= PER_TYPE_LIMIT) continue;
+          counts[r.item.type] = c + 1;
+          limited.push(r);
+        }
+        const newItems = limited
+          .map((r, i) => ({ r, i }))
+          .sort((a, b) => {
+            const g = groupOrder[a.r.item.type] - groupOrder[b.r.item.type];
+            return g !== 0 ? g : a.i - b.i;
+          })
+          .map(({ r }) => r);
         setSearchItems(newItems);
         // Track search in Google Analytics
         trackSearch(searchTerm, newItems.length);

@@ -7,6 +7,7 @@ import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { SectionIndex } from "../dataTypes";
 import { useElectionContext } from "../ElectionContext";
 import { useCandidates } from "../preferences/useCandidates";
+import { useMps } from "../parliament/useMps";
 
 const queryFn = async ({
   queryKey,
@@ -26,6 +27,9 @@ export type SearchIndexType = {
   key: string;
   name: string;
   name_en?: string;
+  parentName?: string;
+  parentName_en?: string;
+  photoUrl?: string;
 };
 export const useSearchItems = () => {
   const { selected } = useElectionContext();
@@ -37,28 +41,44 @@ export const useSearchItems = () => {
   const { municipalities } = useMunicipalities();
   const { candidates } = useCandidates();
   const { regions } = useRegions();
+  const { findMpByName } = useMps();
   const fuse = useMemo(() => {
     if (settlements && municipalities && sections && candidates) {
-      const searchItems: SearchIndexType[] = settlements.map((s) => ({
-        type: "s",
-        key: s.ekatte,
-        name: s.name,
-        name_en: s.name_en,
-      }));
+      const regionByCode = new Map(regions.map((r) => [r.oblast, r]));
+      const muniByCode = new Map(municipalities.map((m) => [m.obshtina, m]));
+      const searchItems: SearchIndexType[] = settlements.map((s) => {
+        const muni = muniByCode.get(s.obshtina);
+        const region = regionByCode.get(s.oblast);
+        const parts = [muni?.name, region?.name].filter(Boolean);
+        const partsEn = [muni?.name_en, region?.name_en].filter(Boolean);
+        return {
+          type: "s",
+          key: s.ekatte,
+          name: s.name,
+          name_en: s.name_en,
+          parentName: parts.length ? parts.join(", ") : undefined,
+          parentName_en: partsEn.length ? partsEn.join(", ") : undefined,
+        };
+      });
       sections.forEach((s) => {
         searchItems.push({
           type: "c",
           key: s.section,
           name: s.section,
           name_en: s.settlement,
+          parentName: s.settlement,
+          parentName_en: s.settlement,
         });
       });
       municipalities.forEach((m) => {
+        const region = regionByCode.get(m.oblast);
         searchItems.push({
           type: "m",
           key: m.obshtina,
           name: m.name,
           name_en: m.name_en,
+          parentName: region?.name,
+          parentName_en: region?.name_en,
         });
       });
       regions.forEach((r) => {
@@ -69,25 +89,41 @@ export const useSearchItems = () => {
           name_en: r.name_en,
         });
       });
-      const names: string[] = [];
+      const candidateOblasts = new Map<string, Set<string>>();
       candidates?.forEach((r) => {
-        if (!names.includes(r.name)) {
-          searchItems.push({
-            type: "a",
-            key: r.name,
-            name: r.name,
-          });
-          names.push(r.name);
+        if (!candidateOblasts.has(r.name)) {
+          candidateOblasts.set(r.name, new Set());
         }
+        candidateOblasts.get(r.name)!.add(r.oblast);
+      });
+      const candidateEntries = Array.from(candidateOblasts.entries())
+        .map(([name, set]) => ({ name, oblastCount: set.size }))
+        .sort((a, b) => b.oblastCount - a.oblastCount);
+      candidateEntries.forEach((c) => {
+        const mp = findMpByName(c.name);
+        searchItems.push({
+          type: "a",
+          key: c.name,
+          name: c.name,
+          photoUrl: mp?.photoUrl,
+        });
       });
 
       return new Fuse<SearchIndexType>(searchItems, {
         includeScore: true,
+        includeMatches: true,
         keys: ["name", "name_en"],
       });
     }
     return undefined;
-  }, [candidates, municipalities, regions, sections, settlements]);
+  }, [
+    candidates,
+    findMpByName,
+    municipalities,
+    regions,
+    sections,
+    settlements,
+  ]);
   const search = (searchTern: string) => {
     return fuse?.search(searchTern);
   };

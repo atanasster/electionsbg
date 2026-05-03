@@ -18,6 +18,7 @@ import { Link } from "@/ux/Link";
 import { Tooltip } from "@/ux/Tooltip";
 import { Hint } from "@/ux/Hint";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { initials } from "@/lib/utils";
 import { StatCard } from "./StatCard";
 
 type Props = {
@@ -38,14 +39,6 @@ const queryFn = async ({
   const response = await fetch(`/${queryKey[1]}/preferences/country.json`);
   if (!response.ok) return undefined;
   return response.json();
-};
-
-const initials = (name?: string) => {
-  if (!name) return "?";
-  const parts = name.trim().split(/\s+/);
-  const first = parts[0]?.[0] ?? "";
-  const last = parts[parts.length - 1]?.[0] ?? "";
-  return (first + last).toUpperCase() || "?";
 };
 
 export const TopCandidatesStrip: FC<Props> = ({

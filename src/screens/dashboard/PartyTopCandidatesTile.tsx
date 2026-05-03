@@ -14,6 +14,7 @@ import { Link } from "@/ux/Link";
 import { Tooltip } from "@/ux/Tooltip";
 import { Hint } from "@/ux/Hint";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
+import { initials } from "@/lib/utils";
 import { StatCard } from "./StatCard";
 
 const TOP_N = 10;
@@ -35,16 +36,6 @@ const queryFn = async ({
   );
   if (!res.ok) return undefined;
   return res.json();
-};
-
-const initials = (name?: string) => {
-  if (!name) return "?";
-  const parts = name.trim().split(/\s+/);
-  return (
-    (
-      (parts[0]?.[0] ?? "") + (parts[parts.length - 1]?.[0] ?? "")
-    ).toUpperCase() || "?"
-  );
 };
 
 type Props = { data: PartyDashboardSummary };

@@ -12,6 +12,7 @@ import { electionToNsFolder, oblastToMir } from "@/data/parliament/nsFolders";
 import { Link } from "@/ux/Link";
 import { useTooltip } from "@/ux/useTooltip";
 import { Hint } from "@/ux/Hint";
+import { initials } from "@/lib/utils";
 import { StatCard } from "./StatCard";
 
 type Props = {
@@ -19,13 +20,6 @@ type Props = {
 };
 
 const normalize = (s: string) => s.toUpperCase().replace(/\s+/g, " ").trim();
-
-const initials = (name: string) => {
-  const parts = name.trim().split(/\s+/);
-  return (
-    (parts[0]?.[0] ?? "") + (parts[parts.length - 1]?.[0] ?? "")
-  ).toUpperCase();
-};
 
 type MpRow = {
   mp: MpIndexEntry;
