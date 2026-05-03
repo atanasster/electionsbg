@@ -28,14 +28,15 @@ export const TopSofiaAreasTile: FC<Props> = ({ parties }) => {
     if (!regions?.length) return [];
 
     const total = regions.reduce(
-      (s, r) => s + r.results.votes.reduce((sv, v) => sv + v.totalVotes, 0),
+      (s, r) => s + (r.results.protocol?.totalActualVoters ?? 0),
       0,
     );
     if (!total) return [];
 
     const enriched = regions
       .map((r) => {
-        const totalVotes = r.results.votes.reduce(
+        const turnout = r.results.protocol?.totalActualVoters ?? 0;
+        const validVotes = r.results.votes.reduce(
           (s, v) => s + v.totalVotes,
           0,
         );
@@ -59,11 +60,11 @@ export const TopSofiaAreasTile: FC<Props> = ({ parties }) => {
         return {
           key: r.key,
           name,
-          totalVotes,
+          totalVotes: turnout,
           machineVotes,
-          machinePct: totalVotes ? (machineVotes / totalVotes) * 100 : 0,
+          machinePct: validVotes ? (machineVotes / validVotes) * 100 : 0,
           topPartyNum,
-          pct: (totalVotes / total) * 100,
+          pct: (turnout / total) * 100,
         };
       })
       .sort((a, b) => b.totalVotes - a.totalVotes);
@@ -98,7 +99,7 @@ export const TopSofiaAreasTile: FC<Props> = ({ parties }) => {
           {t("region")}
         </span>
         <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground text-right">
-          {t("votes")}
+          {t("voters")}
         </span>
         <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground text-right">
           {t("dashboard_machine_pct")}

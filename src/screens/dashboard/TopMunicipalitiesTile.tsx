@@ -31,14 +31,15 @@ export const TopMunicipalitiesTile: FC<Props> = ({ parties, regionCode }) => {
   const rows = useMemo(() => {
     if (!data?.length) return [];
     const total = data.reduce(
-      (s, m) => s + m.results.votes.reduce((sv, v) => sv + v.totalVotes, 0),
+      (s, m) => s + (m.results.protocol?.totalActualVoters ?? 0),
       0,
     );
     if (!total) return [];
 
     const enriched = data
       .map((m) => {
-        const totalVotes = m.results.votes.reduce(
+        const turnout = m.results.protocol?.totalActualVoters ?? 0;
+        const validVotes = m.results.votes.reduce(
           (s, v) => s + v.totalVotes,
           0,
         );
@@ -62,11 +63,11 @@ export const TopMunicipalitiesTile: FC<Props> = ({ parties, regionCode }) => {
         return {
           key: m.obshtina,
           name,
-          totalVotes,
+          totalVotes: turnout,
           machineVotes,
-          machinePct: totalVotes ? (machineVotes / totalVotes) * 100 : 0,
+          machinePct: validVotes ? (machineVotes / validVotes) * 100 : 0,
           topPartyNum,
-          pct: (totalVotes / total) * 100,
+          pct: (turnout / total) * 100,
         };
       })
       .sort((a, b) => b.totalVotes - a.totalVotes)
@@ -111,7 +112,7 @@ export const TopMunicipalitiesTile: FC<Props> = ({ parties, regionCode }) => {
           {t("municipality")}
         </span>
         <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground text-right">
-          {t("votes")}
+          {t("voters")}
         </span>
         <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground text-right">
           {t("dashboard_machine_pct")}

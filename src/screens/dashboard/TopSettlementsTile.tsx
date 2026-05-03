@@ -34,14 +34,15 @@ export const TopSettlementsTile: FC<Props> = ({
   const rows = useMemo(() => {
     if (!data?.length) return [];
     const total = data.reduce(
-      (s, m) => s + m.results.votes.reduce((sv, v) => sv + v.totalVotes, 0),
+      (s, m) => s + (m.results.protocol?.totalActualVoters ?? 0),
       0,
     );
     if (!total) return [];
 
     const enriched = data
       .map((s) => {
-        const totalVotes = s.results.votes.reduce(
+        const turnout = s.results.protocol?.totalActualVoters ?? 0;
+        const validVotes = s.results.votes.reduce(
           (sum, v) => sum + v.totalVotes,
           0,
         );
@@ -65,11 +66,11 @@ export const TopSettlementsTile: FC<Props> = ({
         return {
           key: s.ekatte,
           name,
-          totalVotes,
+          totalVotes: turnout,
           machineVotes,
-          machinePct: totalVotes ? (machineVotes / totalVotes) * 100 : 0,
+          machinePct: validVotes ? (machineVotes / validVotes) * 100 : 0,
           topPartyNum,
-          pct: (totalVotes / total) * 100,
+          pct: (turnout / total) * 100,
         };
       })
       .sort((a, b) => b.totalVotes - a.totalVotes)
@@ -114,7 +115,7 @@ export const TopSettlementsTile: FC<Props> = ({
           {t("settlement")}
         </span>
         <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground text-right">
-          {t("votes")}
+          {t("voters")}
         </span>
         <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground text-right">
           {t("dashboard_machine_pct")}

@@ -8,7 +8,6 @@ import {
   regionVotesQueryFn,
 } from "@/data/regions/useRegionVotes";
 import { useRegions } from "@/data/regions/useRegions";
-import { SOFIA_REGIONS } from "@/data/dataTypes";
 import { NationalPartyResult } from "@/data/dashboard/dashboardTypes";
 import { useElectionContext } from "@/data/ElectionContext";
 import { useQuery } from "@tanstack/react-query";
@@ -17,7 +16,6 @@ import { Hint } from "@/ux/Hint";
 import { StatCard } from "./StatCard";
 
 const TOP_N = 10;
-const SOFIA_KEY = "S23";
 
 const DeltaBadge: FC<{ delta: number }> = ({ delta }) => {
   const sign = delta > 0 ? "+" : "";
@@ -65,78 +63,61 @@ export const TopRegionsTile: FC<Props> = ({ parties }) => {
     const regions = countryRegions();
     if (!regions) return [];
 
-    // Aggregate current votes per merged region key
-    type RegionAgg = {
-      totalVotes: number;
-      machineVotes: number;
-      partyVotes: Map<number, number>;
-    };
-    const aggMap = new Map<string, RegionAgg>();
-
-    for (const r of regions) {
-      const key = SOFIA_REGIONS.includes(r.key) ? SOFIA_KEY : r.key;
-      const agg = aggMap.get(key) ?? {
-        totalVotes: 0,
-        machineVotes: 0,
-        partyVotes: new Map<number, number>(),
-      };
-      for (const v of r.results.votes) {
-        agg.totalVotes += v.totalVotes;
-        agg.machineVotes += v.machineVotes ?? 0;
-        agg.partyVotes.set(
-          v.partyNum,
-          (agg.partyVotes.get(v.partyNum) ?? 0) + v.totalVotes,
-        );
-      }
-      aggMap.set(key, agg);
-    }
-
-    const countryTotal = Array.from(aggMap.values()).reduce(
-      (s, r) => s + r.totalVotes,
+    const countryTotal = regions.reduce(
+      (s, r) => s + (r.results.protocol?.totalActualVoters ?? 0),
       0,
     );
     if (countryTotal === 0) return [];
 
-    // Aggregate prior election votes per region
     const priorMap = new Map<string, number>();
     let priorCountryTotal = 0;
     if (priorVotes) {
       for (const r of priorVotes.filter((v) => v.key !== "32")) {
-        const key = SOFIA_REGIONS.includes(r.key) ? SOFIA_KEY : r.key;
-        const total = r.results.votes.reduce((s, v) => s + v.totalVotes, 0);
-        priorMap.set(key, (priorMap.get(key) ?? 0) + total);
+        const total = r.results.protocol?.totalActualVoters ?? 0;
+        priorMap.set(r.key, total);
         priorCountryTotal += total;
       }
     }
 
-    const sorted = Array.from(aggMap.entries())
-      .sort(([, a], [, b]) => b.totalVotes - a.totalVotes)
+    const sorted = [...regions]
+      .sort(
+        (a, b) =>
+          (b.results.protocol?.totalActualVoters ?? 0) -
+          (a.results.protocol?.totalActualVoters ?? 0),
+      )
       .slice(0, TOP_N);
-    const maxVotes = sorted[0]?.[1].totalVotes ?? 1;
+    const maxVotes = sorted[0]?.results.protocol?.totalActualVoters ?? 1;
 
-    return sorted.map(([key, agg]) => {
-      const info = findRegion(key);
-      const name =
-        key === SOFIA_KEY
-          ? t("sofia_city")
-          : i18n.language === "bg"
-            ? info?.name
-            : info?.name_en;
+    return sorted.map((r) => {
+      const turnout = r.results.protocol?.totalActualVoters ?? 0;
+      const validVotes = r.results.votes.reduce(
+        (s, v) => s + v.totalVotes,
+        0,
+      );
+      const machineVotes = r.results.votes.reduce(
+        (s, v) => s + (v.machineVotes ?? 0),
+        0,
+      );
 
-      // Top party by aggregated votes
       let topPartyNum = 0;
       let topPartyVotes = 0;
-      for (const [partyNum, votes] of agg.partyVotes) {
-        if (votes > topPartyVotes) {
-          topPartyVotes = votes;
-          topPartyNum = partyNum;
+      for (const v of r.results.votes) {
+        if (v.totalVotes > topPartyVotes) {
+          topPartyVotes = v.totalVotes;
+          topPartyNum = v.partyNum;
         }
       }
       const topPartyColor = partyColorMap.get(topPartyNum) ?? "#888";
       const topPartyName = partyNameMap.get(topPartyNum);
 
-      const currentPct = (agg.totalVotes / countryTotal) * 100;
-      const priorTotal = priorMap.get(key);
+      const info = findRegion(r.key);
+      const name =
+        (i18n.language === "bg"
+          ? info?.long_name || info?.name
+          : info?.long_name_en || info?.name_en) || r.key;
+
+      const currentPct = (turnout / countryTotal) * 100;
+      const priorTotal = priorMap.get(r.key);
       const priorPct =
         priorTotal && priorCountryTotal > 0
           ? (priorTotal / priorCountryTotal) * 100
@@ -145,14 +126,14 @@ export const TopRegionsTile: FC<Props> = ({ parties }) => {
         priorPct !== undefined ? currentPct - priorPct : undefined;
 
       const machinePct =
-        agg.totalVotes > 0 ? (agg.machineVotes / agg.totalVotes) * 100 : 0;
+        validVotes > 0 ? (machineVotes / validVotes) * 100 : 0;
 
       return {
-        key,
-        name: name ?? key,
-        totalVotes: agg.totalVotes,
+        key: r.key,
+        name,
+        totalVotes: turnout,
         pct: currentPct,
-        barPct: (agg.totalVotes / maxVotes) * 100,
+        barPct: (turnout / maxVotes) * 100,
         machinePct,
         deltaPct,
         topPartyColor,
@@ -163,7 +144,6 @@ export const TopRegionsTile: FC<Props> = ({ parties }) => {
     countryRegions,
     findRegion,
     i18n.language,
-    t,
     partyColorMap,
     partyNameMap,
     priorVotes,
@@ -200,7 +180,7 @@ export const TopRegionsTile: FC<Props> = ({ parties }) => {
           {t("dashboard_winner")}
         </span>
         <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground text-right">
-          {t("votes")}
+          {t("voters")}
         </span>
         <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground text-right">
           {t("dashboard_machine_pct")}
@@ -228,7 +208,7 @@ export const TopRegionsTile: FC<Props> = ({ parties }) => {
           }) => (
             <Link
               key={key}
-              to={key === SOFIA_KEY ? "/sofia" : `/municipality/${key}`}
+              to={`/municipality/${key}`}
               underline={false}
               className="contents"
             >
