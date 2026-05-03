@@ -13,6 +13,7 @@ import { PartyResultsTile } from "./PartyResultsTile";
 import { RegionsMapTile } from "./RegionsMapTile";
 import { TopCandidatesStrip } from "./TopCandidatesStrip";
 import { TopRegionsTile } from "./TopRegionsTile";
+import { TopLocationsTile } from "./TopLocationsTile";
 import { TopFinancingTile } from "./TopFinancingTile";
 import { FlashMemoryTile } from "./FlashMemoryTile";
 import { RecountTile } from "./RecountTile";
@@ -125,6 +126,16 @@ export const DashboardCards: FC = () => {
       <div className="grid gap-3 grid-cols-1 mt-3">
         <TopRegionsTile parties={data.parties} />
       </div>
+      {data.topDiaspora?.length || data.topCities?.length ? (
+        <div className="grid gap-3 grid-cols-1 lg:grid-cols-2 mt-3">
+          {data.topDiaspora?.length ? (
+            <TopLocationsTile variant="diaspora" items={data.topDiaspora} />
+          ) : null}
+          {data.topCities?.length ? (
+            <TopLocationsTile variant="cities" items={data.topCities} />
+          ) : null}
+        </div>
+      ) : null}
       {hasFlash ? (
         <div className="grid gap-3 grid-cols-1 mt-3">
           <FlashMemoryTile parties={data.parties} />
