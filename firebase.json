@@ -2,6 +2,11 @@
   "projects": {
     "default": "elections-bg"
   },
+  "emulators": {
+    "hosting": {
+      "port": 5002
+    }
+  },
   "hosting": {
     "public": "dist",
     "rewrites": [
