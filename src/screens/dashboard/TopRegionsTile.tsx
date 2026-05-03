@@ -90,10 +90,7 @@ export const TopRegionsTile: FC<Props> = ({ parties }) => {
 
     return sorted.map((r) => {
       const turnout = r.results.protocol?.totalActualVoters ?? 0;
-      const validVotes = r.results.votes.reduce(
-        (s, v) => s + v.totalVotes,
-        0,
-      );
+      const validVotes = r.results.votes.reduce((s, v) => s + v.totalVotes, 0);
       const machineVotes = r.results.votes.reduce(
         (s, v) => s + (v.machineVotes ?? 0),
         0,
@@ -125,8 +122,7 @@ export const TopRegionsTile: FC<Props> = ({ parties }) => {
       const deltaPct =
         priorPct !== undefined ? currentPct - priorPct : undefined;
 
-      const machinePct =
-        validVotes > 0 ? (machineVotes / validVotes) * 100 : 0;
+      const machinePct = validVotes > 0 ? (machineVotes / validVotes) * 100 : 0;
 
       return {
         key: r.key,
