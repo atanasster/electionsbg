@@ -105,7 +105,14 @@ export const RegionMpsTile: FC<Props> = ({ regionCode, parties }) => {
         b.mps.length - a.mps.length ||
         a.partyNickName.localeCompare(b.partyNickName, "bg"),
     );
-  }, [findMpsByRegion, mir, nsFolder, cikByName, partyByNum, lookupParliamentGroup]);
+  }, [
+    findMpsByRegion,
+    mir,
+    nsFolder,
+    cikByName,
+    partyByNum,
+    lookupParliamentGroup,
+  ]);
 
   if (!nsFolder || !mir) return null;
   const total = groups.reduce((s, g) => s + g.mps.length, 0);

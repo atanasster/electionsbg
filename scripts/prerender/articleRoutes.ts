@@ -7,10 +7,7 @@
 
 import fs from "fs";
 import path from "path";
-import {
-  PrerenderRoute,
-  SITE_URL,
-} from "./routes";
+import { PrerenderRoute, SITE_URL } from "./routes";
 import { buildArticleLd, buildBreadcrumbLd } from "./jsonLd";
 
 type ArticleMeta = {
@@ -124,17 +121,22 @@ const applyItalic = (s: string): string => {
 
 // Extract the first markdown table block following an h2/h3 whose name
 // contains the given marker. Returns the rendered HTML table or null.
-const extractFirstTable = (md: string, headingMarker: string): string | null => {
+const extractFirstTable = (
+  md: string,
+  headingMarker: string,
+): string | null => {
   const lines = md.split(/\r?\n/);
   let inTargetSection = false;
-  let collected: string[] = [];
+  const collected: string[] = [];
   let started = false;
   for (const raw of lines) {
     const line = raw;
     const h = /^(#{1,6})\s+(.*)$/.exec(line.trim());
     if (h) {
       if (started) break; // hit next heading after collecting table
-      inTargetSection = h[2].toLowerCase().includes(headingMarker.toLowerCase());
+      inTargetSection = h[2]
+        .toLowerCase()
+        .includes(headingMarker.toLowerCase());
       continue;
     }
     if (!inTargetSection) continue;
@@ -237,8 +239,7 @@ const buildArticleBody = (
   const summary = escapeHtml(meta.summary[lang]);
   const date = escapeHtml(meta.publishedAt);
 
-  const headlineMarker =
-    lang === "bg" ? "Основни числа" : "Headline numbers";
+  const headlineMarker = lang === "bg" ? "Основни числа" : "Headline numbers";
   const signalsMarker =
     lang === "bg"
       ? "Сигнали, заслужаващи обществен контрол"
@@ -296,10 +297,7 @@ const inferKeywords = (meta: ArticleMeta, lang: "bg" | "en"): string[] => {
   return base;
 };
 
-const buildIndexBody = (
-  articles: ArticleMeta[],
-  lang: "bg" | "en",
-): string => {
+const buildIndexBody = (articles: ArticleMeta[], lang: "bg" | "en"): string => {
   const labels =
     lang === "bg"
       ? {

@@ -6,11 +6,7 @@ import { FC, ReactNode, useContext } from "react";
 import { useTranslation } from "react-i18next";
 import { SearchContext } from "./SearchContext";
 import { Building2, MapPin, Map, Vote } from "lucide-react";
-import {
-  Avatar,
-  AvatarFallback,
-  AvatarImage,
-} from "@/components/ui/avatar";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 type ItemType = SearchIndexType["type"];
 
@@ -95,9 +91,7 @@ export const SearchItems: FC<{
                   ? "name_en"
                   : "name";
               const match = r.matches?.find((m) => m.key === matchKey);
-              const sectionNameMatch = r.matches?.find(
-                (m) => m.key === "name",
-              );
+              const sectionNameMatch = r.matches?.find((m) => m.key === "name");
               const sectionSettlementMatch = r.matches?.find(
                 (m) => m.key === "name_en",
               );

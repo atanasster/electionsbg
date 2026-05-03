@@ -117,9 +117,7 @@ export const MandatesTile: FC<Props> = ({ parties }) => {
     // == sum of child group MPs).
     const rows: SeatRow[] = [];
     seated.forEach((p) => {
-      const children = groupSeatsByShort
-        ? childrenFor(p.nickName)
-        : undefined;
+      const children = groupSeatsByShort ? childrenFor(p.nickName) : undefined;
       if (children && children.length) {
         for (const c of children) {
           const seats = groupSeatsByShort!.get(c.shortName) ?? 0;
@@ -201,9 +199,7 @@ export const MandatesTile: FC<Props> = ({ parties }) => {
             <g transform={`translate(${cx}, ${cy})`}>
               {dots.map(({ seat, color, row }, i) => {
                 const seatPct =
-                  TOTAL_SEATS > 0
-                    ? (row.seats / TOTAL_SEATS) * 100
-                    : 0;
+                  TOTAL_SEATS > 0 ? (row.seats / TOTAL_SEATS) * 100 : 0;
                 const parentParty = partyByNum.get(row.partyNum);
                 const partyPath = parentParty?.nickName ?? row.nickName;
                 const tooltipContent = (

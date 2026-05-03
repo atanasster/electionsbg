@@ -309,7 +309,9 @@ const aggregateRegionGroup = (
     ? subset.reduce(
         (s, r) =>
           s +
-          (r.priorPctOfRegion! ? (100 * r.priorVotes!) / r.priorPctOfRegion! : 0),
+          (r.priorPctOfRegion!
+            ? (100 * r.priorVotes!) / r.priorPctOfRegion!
+            : 0),
         0,
       )
     : undefined;
@@ -388,7 +390,12 @@ const perNeighborhoodPartyVotes = (
 // ---------- Section-level anomaly attribution ----------
 
 const countAnomalyAttribution = (
-  rows: { topPartyChange?: { partyNum: number }; bottomPartyChange?: { partyNum: number } }[] | undefined,
+  rows:
+    | {
+        topPartyChange?: { partyNum: number };
+        bottomPartyChange?: { partyNum: number };
+      }[]
+    | undefined,
   partyNum: number,
 ) => {
   if (!rows?.length) return { topChange: 0, bottomChange: 0 };
@@ -497,9 +504,7 @@ const buildPreferences = (
     if (!rows.length) continue;
     const partyPrefsInRegion = rows[0].partyPrefs ?? 0;
     const leader = rows.find((r) => r.pref === "101");
-    const winner = rows.reduce((m, r) =>
-      r.totalVotes > m.totalVotes ? r : m,
-    );
+    const winner = rows.reduce((m, r) => (r.totalVotes > m.totalVotes ? r : m));
     const beatBallotOrder = !!leader && winner.pref !== leader.pref;
     if (beatBallotOrder) {
       upsetRegions.push({ oblast, name_bg: regionName(oblast)?.name });
@@ -582,9 +587,7 @@ const buildCompetitive = (
       const rivalVotes = rivalMap.get(r.oblast) ?? 0;
       const allVotes = r.pctOfRegion ? (100 * r.votes) / r.pctOfRegion : 0;
       const leadVotes = r.votes - rivalVotes;
-      const leadPP = allVotes
-        ? round((100 * leadVotes) / allVotes)
-        : 0;
+      const leadPP = allVotes ? round((100 * leadVotes) / allVotes) : 0;
       return {
         oblast: r.oblast,
         name_bg: r.name_bg,
@@ -870,10 +873,7 @@ const buildBundle = (election: string, partyNum: number) => {
     .reduce((s, r) => s + r.pctOfPartyTotal, 0);
   const top10MuniShare = topMunicipalities
     .slice(0, 10)
-    .reduce(
-      (s, r) => s + (partyTotal ? (100 * r.votes) / partyTotal : 0),
-      0,
-    );
+    .reduce((s, r) => s + (partyTotal ? (100 * r.votes) / partyTotal : 0), 0);
   const top25MuniShare = topMunicipalities.reduce(
     (s, r) => s + (partyTotal ? (100 * r.votes) / partyTotal : 0),
     0,

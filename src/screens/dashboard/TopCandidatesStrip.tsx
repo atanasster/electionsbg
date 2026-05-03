@@ -112,9 +112,7 @@ export const TopCandidatesStrip: FC<Props> = ({
       },
     ) => {
       if (!prefs.length) return null;
-      const top = prefs.reduce((a, b) =>
-        b.totalVotes > a.totalVotes ? b : a,
-      );
+      const top = prefs.reduce((a, b) => (b.totalVotes > a.totalVotes ? b : a));
       const candidate = top.oblast
         ? findCandidate(top.oblast, top.partyNum, top.pref)
         : undefined;

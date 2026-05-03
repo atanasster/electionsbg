@@ -162,9 +162,7 @@ const SearchInternal: FC = () => {
           )}
         >
           <CommandList className="shadow-md ring-1 ring-border rounded-md w-[360px] py-1">
-            {value.length > 0 && (
-              <SearchItems onSelect={handleSelectOption} />
-            )}
+            {value.length > 0 && <SearchItems onSelect={handleSelectOption} />}
             <CommandPrimitive.Empty className="select-none px-2 py-3 text-center text-sm text-muted-foreground">
               {t("no_results")}
             </CommandPrimitive.Empty>

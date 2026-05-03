@@ -185,7 +185,11 @@ export const buildArticleLd = (params: {
   author: ORG,
   publisher: ORG,
   ...(params.image
-    ? { image: params.image.startsWith("http") ? params.image : `${SITE_URL}${params.image}` }
+    ? {
+        image: params.image.startsWith("http")
+          ? params.image
+          : `${SITE_URL}${params.image}`,
+      }
     : { image: `${SITE_URL}/images/og_image.png` }),
   ...(params.keywords && params.keywords.length
     ? { keywords: params.keywords.join(", ") }
