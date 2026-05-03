@@ -1,3 +1,5 @@
+import fs from "fs";
+import path from "path";
 import { test, expect, type Page, type ConsoleMessage } from "@playwright/test";
 
 // Same routes as seo.spec, but here we boot the SPA and verify it actually
@@ -7,6 +9,22 @@ import { test, expect, type Page, type ConsoleMessage } from "@playwright/test";
 
 const SAMPLE_PARTY = "ГЕРБ-СДС";
 const enc = (p: string) => p.split("/").map(encodeURIComponent).join("/");
+
+// True iff the data pipeline has been run (public/<date>/national_summary.json
+// exists). Tests that assert on per-party / per-candidate content depend on
+// that data being present, so they're gated on this. Smoke tests that only
+// require the SPA to mount don't need the gate. See seo.spec.ts for the same
+// pattern with more detail.
+const PARTY_DATA_PRESENT = (() => {
+  const publicDir = path.resolve(process.cwd(), "public");
+  if (!fs.existsSync(publicDir)) return false;
+  return fs
+    .readdirSync(publicDir)
+    .filter((d) => /^\d{4}_\d{2}_\d{2}$/.test(d))
+    .some((d) =>
+      fs.existsSync(path.join(publicDir, d, "national_summary.json")),
+    );
+})();
 
 // Routes hit by the navigation smoke tests. These are the screens users
 // actually click into from the menu, plus a couple of the deep prerendered
@@ -182,6 +200,10 @@ test.describe("UI rendering", () => {
   test("party detail page renders the party label as a heading", async ({
     page,
   }) => {
+    test.skip(
+      !PARTY_DATA_PRESENT,
+      "party data not generated — run `npm run data` first",
+    );
     await page.goto(`/party/${enc(SAMPLE_PARTY)}`, {
       waitUntil: "networkidle",
     });

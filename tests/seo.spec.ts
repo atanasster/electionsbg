@@ -1,3 +1,5 @@
+import fs from "fs";
+import path from "path";
 import { test, expect, type APIResponse } from "@playwright/test";
 
 // Per-segment percent-encode (matches scripts/prerender/index.ts:encodeUrlPath).
@@ -6,6 +8,27 @@ const enc = (p: string): string =>
     .split("/")
     .map((seg) => (seg ? encodeURIComponent(seg) : seg))
     .join("/");
+
+// The prerender step in `npm run build` reads generated JSON under
+// public/<YYYY_MM_DD>/ — most notably national_summary.json — to fill in
+// titles, h1s, and the hidden ssg-content body. Those files are produced by
+// `npm run data` and are gitignored (see commit 3aafa6e7), so on a fresh
+// checkout with no data run the prerender silently emits empty bodies.
+// Asserting on empty content would just produce hundreds of confusing
+// failures, so we skip the SEO suite in that case. CI surfaces the skip in
+// the run summary, which is the signal that the data pipeline needs to run.
+const PREREQ_DATA_PRESENT = (() => {
+  const publicDir = path.resolve(process.cwd(), "public");
+  if (!fs.existsSync(publicDir)) return false;
+  return fs
+    .readdirSync(publicDir)
+    .filter((d) => /^\d{4}_\d{2}_\d{2}$/.test(d))
+    .some((d) =>
+      fs.existsSync(path.join(publicDir, d, "national_summary.json")),
+    );
+})();
+const SKIP_REASON =
+  "prerender data not generated (no public/<date>/national_summary.json) — run `npm run data` first";
 
 // Sample dynamic identifiers that exist in every recent election dataset.
 // If these change, update here — the failure message will point to this file.
@@ -485,15 +508,18 @@ const runRouteCheck = (route: RouteCheck) => {
 };
 
 test.describe("prerender: Bulgarian routes", () => {
+  test.skip(!PREREQ_DATA_PRESENT, SKIP_REASON);
   for (const r of ROUTES) runRouteCheck(r);
 });
 
 test.describe("prerender: English mirrors", () => {
+  test.skip(!PREREQ_DATA_PRESENT, SKIP_REASON);
   for (const r of EN_ROUTES) runRouteCheck(r);
 });
 
 // Cross-cutting checks that don't fit the per-route table.
 test.describe("prerender: cross-cutting", () => {
+  test.skip(!PREREQ_DATA_PRESENT, SKIP_REASON);
   test("home page declares 3 JSON-LD blocks (WebSite + Organization + Dataset)", async ({
     request,
   }) => {
