@@ -1,0 +1,49 @@
+[
+  {
+    "mpId": 2712,
+    "declarantName": "Албена Владимирова Найденова",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Vacate",
+    "filedAt": "2022-05-03",
+    "entryNumber": "Ф500",
+    "controlHash": "1EBB9915",
+    "sourceUrl": "https://register.cacbg.bg/2022/3866C0E3-414F-4585-B33F-227BF0D1EC97134763.xml",
+    "ownershipStakes": [],
+    "income": []
+  },
+  {
+    "mpId": 2712,
+    "declarantName": "Албена Владимирова Найденова",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": "2021-04-22",
+    "entryNumber": "Г421",
+    "controlHash": "CFE8D59A",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/3866C0E3-414F-4585-B33F-227BF0D1EC97116628.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 83837,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountBgnDeclarant": 4320,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Съгл. Чл. 11 от ПОДНС",
+        "amountBgnDeclarant": 33236,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

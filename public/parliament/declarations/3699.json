@@ -1,0 +1,63 @@
+[
+  {
+    "mpId": 3699,
+    "declarantName": "Александра Стефанова Милчева",
+    "institution": "47-мо Народно събрание",
+    "declarationYear": 2023,
+    "fiscalYear": 2022,
+    "declarationType": "Annualy",
+    "filedAt": "2023-05-12",
+    "entryNumber": "Г3130",
+    "controlHash": "FC9715C8",
+    "sourceUrl": "https://register.cacbg.bg/2023/51BCE118-87E9-4C39-A925-D5D0CC48B09C149370.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Дялове",
+        "shareSize": "270",
+        "companyName": "Борусия Дортмунд",
+        "registeredOffice": "Дортмунд, Германия",
+        "valueBgn": 1800,
+        "holderName": "Робин Лауман",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата",
+        "companySlug": "Борусия-Дортмунд"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 78106,
+        "amountBgnSpouse": 179553
+      }
+    ]
+  },
+  {
+    "mpId": 3699,
+    "declarantName": "Александра Стефанова Милчева",
+    "institution": "47-мо Народно събрание",
+    "declarationYear": 2022,
+    "fiscalYear": 2021,
+    "declarationType": "Annualy",
+    "filedAt": "2022-05-12",
+    "entryNumber": "Г4132",
+    "controlHash": "5C542B40",
+    "sourceUrl": "https://register.cacbg.bg/2022/51BCE118-87E9-4C39-A925-D5D0CC48B09C136346.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 7137,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountBgnDeclarant": 206432,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

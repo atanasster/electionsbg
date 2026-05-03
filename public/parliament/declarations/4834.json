@@ -1,0 +1,48 @@
+[
+  {
+    "mpId": 4834,
+    "declarantName": "Христо Цветанов Расташки",
+    "institution": "51-во Народно събрание",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-14",
+    "entryNumber": "Г9611",
+    "controlHash": "199BF679",
+    "sourceUrl": "https://register.cacbg.bg/2025/12D74E53-2959-44D2-96ED-4720DE099660212658.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "дялове в дружество",
+        "shareSize": "90",
+        "companyName": "Расташки Консулт ООД",
+        "registeredOffice": "Ловеч",
+        "valueBgn": 90,
+        "holderName": "Христо Расташки",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата",
+        "companySlug": "Расташки-Консулт-ООД"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 13331,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountBgnDeclarant": 41524,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountBgnDeclarant": 10030,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

@@ -1,0 +1,43 @@
+[
+  {
+    "mpId": 2860,
+    "declarantName": "Андриан Иванов Райков",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Vacate",
+    "filedAt": null,
+    "entryNumber": "Ф415",
+    "controlHash": "A6C5E085",
+    "sourceUrl": "https://register.cacbg.bg/2022/5DAE5C77-67F6-4104-A179-1433E5A90D72133302.xml",
+    "ownershipStakes": [],
+    "income": []
+  },
+  {
+    "mpId": 2860,
+    "declarantName": "Андриан Иванов Райков",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": "2021-04-06",
+    "entryNumber": "Г544",
+    "controlHash": "A05AFCAD",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/5DAE5C77-67F6-4104-A179-1433E5A90D72116803.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 75465,
+        "amountBgnSpouse": 28359
+      },
+      {
+        "parent": null,
+        "category": "Други",
+        "amountBgnDeclarant": 31300,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

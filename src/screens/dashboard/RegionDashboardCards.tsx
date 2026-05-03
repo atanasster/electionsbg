@@ -10,6 +10,7 @@ import { ProblemVotesByPartyTile } from "./ProblemVotesByPartyTile";
 import { HistoricalTrendsTile } from "./HistoricalTrendsTile";
 import { PartyResultsTile } from "./PartyResultsTile";
 import { RegionMpsTile } from "./RegionMpsTile";
+import { MpConnectionsTile } from "./MpConnectionsTile";
 import { RegionMunicipalitiesMapTile } from "./RegionMunicipalitiesMapTile";
 import { TopCandidatesStrip } from "./TopCandidatesStrip";
 import { TopMunicipalitiesTile } from "./TopMunicipalitiesTile";
@@ -81,6 +82,9 @@ export const RegionDashboardCards: FC<Props> = ({ regionCode }) => {
       ) : null}
       <div className="grid gap-3 grid-cols-1 mt-3">
         <RegionMpsTile regionCode={regionCode} parties={data.parties} />
+      </div>
+      <div className="grid gap-3 grid-cols-1 mt-3">
+        <MpConnectionsTile regionCode={regionCode} />
       </div>
       <div className="grid gap-3 grid-cols-1 mt-3">
         <TopMunicipalitiesTile parties={data.parties} regionCode={regionCode} />

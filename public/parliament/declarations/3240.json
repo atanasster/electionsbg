@@ -1,0 +1,62 @@
+[
+  {
+    "mpId": 3240,
+    "declarantName": "Десислава Ангелова Тодорова",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Vacate",
+    "filedAt": "2022-05-23",
+    "entryNumber": "Ф585",
+    "controlHash": "DC21193C",
+    "sourceUrl": "https://register.cacbg.bg/2022/3E4641C9-C8B3-4432-812F-63529D806A70137079.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Дялове",
+        "shareSize": "100",
+        "companyName": "Респект Консулт България ЕООД",
+        "registeredOffice": "Пазарджик",
+        "valueBgn": 2,
+        "holderName": "Христо Георгиев Тодоров",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "Респект-Консулт-България-ЕООД"
+      }
+    ],
+    "income": []
+  },
+  {
+    "mpId": 3240,
+    "declarantName": "Десислава Ангелова Тодорова",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": "2021-04-23",
+    "entryNumber": "Г4622",
+    "controlHash": "4204917B",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/3E4641C9-C8B3-4432-812F-63529D806A70121742.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 67253,
+        "amountBgnSpouse": 71640
+      },
+      {
+        "parent": null,
+        "category": "НС - чл. 11 от Приложение към ПОДНС",
+        "amountBgnDeclarant": 31300,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа от трудов договор",
+        "amountBgnDeclarant": null,
+        "amountBgnSpouse": 19123
+      }
+    ]
+  }
+]

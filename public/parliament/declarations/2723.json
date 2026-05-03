@@ -1,0 +1,43 @@
+[
+  {
+    "mpId": 2723,
+    "declarantName": "Маргарита Николаева Николова",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Vacate",
+    "filedAt": "2022-04-12",
+    "entryNumber": "Ф360",
+    "controlHash": "6DBCA38E",
+    "sourceUrl": "https://register.cacbg.bg/2022/C9FDA747-B207-4E20-A9D7-A32013DA9AA9132881.xml",
+    "ownershipStakes": [],
+    "income": []
+  },
+  {
+    "mpId": 2723,
+    "declarantName": "Маргарита Николаева Николова",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г6561",
+    "controlHash": "E943621A",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/C9FDA747-B207-4E20-A9D7-A32013DA9AA9124191.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 79214,
+        "amountBgnSpouse": 5000
+      },
+      {
+        "parent": null,
+        "category": "Доход по реда на Правилник за организацията и дейността на Народното събрание /ПОДНС/",
+        "amountBgnDeclarant": 34000,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

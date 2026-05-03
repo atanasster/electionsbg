@@ -1,0 +1,56 @@
+[
+  {
+    "mpId": 4170,
+    "declarantName": "Ивайло Ванев Вълчев",
+    "institution": "49-то Народно събрание",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-15",
+    "entryNumber": "Г1224",
+    "controlHash": "76AAFD5B",
+    "sourceUrl": "https://register.cacbg.bg/2024/F8DED6A3-66D2-4017-B6CB-774C2675DF63182116.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "съдружник",
+        "shareSize": "1/6",
+        "companyName": "СОЛВО ООД",
+        "registeredOffice": "София",
+        "valueBgn": 1000,
+        "holderName": "Мария Христова Вълчева",
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване",
+        "companySlug": "СОЛВО-ООД"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 64230,
+        "amountBgnSpouse": 6111
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountBgnDeclarant": 30990,
+        "amountBgnSpouse": null
+      }
+    ]
+  },
+  {
+    "mpId": 4170,
+    "declarantName": "Ивайло Ванев Вълчев",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Entry",
+    "filedAt": "2021-05-14",
+    "entryNumber": "В899",
+    "controlHash": "B72F45C1",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/F8DED6A3-66D2-4017-B6CB-774C2675DF63122954.xml",
+    "ownershipStakes": [],
+    "income": []
+  }
+]

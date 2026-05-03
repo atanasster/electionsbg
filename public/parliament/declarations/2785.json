@@ -1,0 +1,43 @@
+[
+  {
+    "mpId": 2785,
+    "declarantName": "Красимир Илиев Богданов",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Vacate",
+    "filedAt": "2022-04-01",
+    "entryNumber": "Ф353",
+    "controlHash": "10CFD114",
+    "sourceUrl": "https://register.cacbg.bg/2022/55B0A926-8EB1-4336-B470-B2A7CC720FA2132844.xml",
+    "ownershipStakes": [],
+    "income": []
+  },
+  {
+    "mpId": 2785,
+    "declarantName": "Красимир Илиев Богданов",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": "2021-04-22",
+    "entryNumber": "Г6327",
+    "controlHash": "07C0D1E4",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/55B0A926-8EB1-4336-B470-B2A7CC720FA2123880.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 78525,
+        "amountBgnSpouse": 10999
+      },
+      {
+        "parent": null,
+        "category": "Доход на основание чл.11от Финансовите правила по бюджета на Народното събрание, приложение към ПОДНС",
+        "amountBgnDeclarant": 33200,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

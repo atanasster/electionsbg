@@ -1,0 +1,61 @@
+[
+  {
+    "mpId": 3942,
+    "declarantName": "Стефан Иванов Шилев",
+    "institution": "48-мо Народно събрание",
+    "declarationYear": 2023,
+    "fiscalYear": 2023,
+    "declarationType": "Vacate",
+    "filedAt": "2023-02-14",
+    "entryNumber": "Ф145",
+    "controlHash": "E4B8BDF2",
+    "sourceUrl": "https://register.cacbg.bg/2023/E0305774-5612-47EB-95B4-6C64F8B2C27A145395.xml",
+    "ownershipStakes": [],
+    "income": []
+  },
+  {
+    "mpId": 3942,
+    "declarantName": "Стефан Иванов Шилев",
+    "institution": "47-мо Народно събрание",
+    "declarationYear": 2022,
+    "fiscalYear": 2021,
+    "declarationType": "Annualy",
+    "filedAt": "2022-05-09",
+    "entryNumber": "Г3852",
+    "controlHash": "EA387054",
+    "sourceUrl": "https://register.cacbg.bg/2022/E0305774-5612-47EB-95B4-6C64F8B2C27A136044.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 7662,
+        "amountBgnSpouse": 21067
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountBgnDeclarant": 33628,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountBgnDeclarant": 39037,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountBgnDeclarant": 2263,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "ПОДНС",
+        "amountBgnDeclarant": 3292,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

@@ -1,0 +1,48 @@
+[
+  {
+    "mpId": 4792,
+    "declarantName": "СТЕФАН ИВАНОВ БУРДЖЕВ",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": "2021-04-16",
+    "entryNumber": "Г7812",
+    "controlHash": "60506B1C",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/C66CD4ED-F914-490E-BA52-A960C884425A125924.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "парична вноска",
+        "shareSize": "50%",
+        "companyName": "\"СЦ Прогрес\"ООД",
+        "registeredOffice": "Плевен",
+        "valueBgn": 1,
+        "holderName": "Стефан Иванов Бурджев",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата",
+        "companySlug": "СЦ-ПрогресООД"
+      },
+      {
+        "table": "10",
+        "itemType": "парична вноска",
+        "shareSize": "40%",
+        "companyName": "\"СИД УЕБ ГРУП\"ООД",
+        "registeredOffice": "Плевен",
+        "valueBgn": 200,
+        "holderName": "Стефан Иванов Бурджев",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата",
+        "companySlug": "СИД-УЕБ-ГРУПООД"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 66678,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

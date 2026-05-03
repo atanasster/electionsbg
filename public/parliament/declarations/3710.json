@@ -1,0 +1,49 @@
+[
+  {
+    "mpId": 3710,
+    "declarantName": "Пламен Николаев Николов",
+    "institution": "47-мо Народно събрание",
+    "declarationYear": 2022,
+    "fiscalYear": 2021,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г2497",
+    "controlHash": "06B0D753",
+    "sourceUrl": "https://register.cacbg.bg/2022/F2C944F5-EF43-4812-94C9-742114C4AB78134621.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 77922,
+        "amountBgnSpouse": 29858
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountBgnDeclarant": 41001,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "ПОДНС",
+        "amountBgnDeclarant": 10208,
+        "amountBgnSpouse": null
+      }
+    ]
+  },
+  {
+    "mpId": 3710,
+    "declarantName": "Пламен Николаев Николов",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Entry",
+    "filedAt": null,
+    "entryNumber": "В1191",
+    "controlHash": "983795A5",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/F2C944F5-EF43-4812-94C9-742114C4AB78124940.xml",
+    "ownershipStakes": [],
+    "income": []
+  }
+]

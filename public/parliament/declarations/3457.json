@@ -1,0 +1,54 @@
+[
+  {
+    "mpId": 3457,
+    "declarantName": "БЮРХАН ИЛИЯЗОВ АБАЗОВ",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": "2021-04-15",
+    "entryNumber": "Г1373",
+    "controlHash": "584A0082",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/DA8BCE55-FC80-403F-8971-9ECDAE18EAFE117782.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "ДЕМЕТРА ЗС ЕООД",
+        "shareSize": "100",
+        "companyName": "ДЕМЕТРА ЗС ЕООД",
+        "registeredOffice": "Русе",
+        "valueBgn": 5000,
+        "holderName": "ЗЮМРЮД САБРИЕВА АБАЗОВА",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата",
+        "companySlug": "ДЕМЕТРА-ЗС-ЕООД"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 88854,
+        "amountBgnSpouse": 14831
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountBgnDeclarant": 2500,
+        "amountBgnSpouse": 2500
+      },
+      {
+        "parent": "II. Други доходи, извън посочените в т. I.",
+        "category": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
+        "amountBgnDeclarant": 49386,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "ДОХОДИ ОТ РЕНТА",
+        "amountBgnDeclarant": 5780,
+        "amountBgnSpouse": 78054
+      }
+    ]
+  }
+]

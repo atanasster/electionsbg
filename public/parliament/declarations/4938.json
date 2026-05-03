@@ -1,0 +1,89 @@
+[
+  {
+    "mpId": 4938,
+    "declarantName": "Силви Кирилов Петров",
+    "institution": "50-то Народно събрание",
+    "declarationYear": 2024,
+    "fiscalYear": 2024,
+    "declarationType": "Entry",
+    "filedAt": "2024-07-15",
+    "entryNumber": "В1364",
+    "controlHash": "4348BE26",
+    "sourceUrl": "https://register.cacbg.bg/2024/A7E6D328-AA8E-4D6E-8E02-CCDC7FA98E3A188719.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "дялове",
+        "shareSize": "20%",
+        "companyName": "Тетнус България ООД",
+        "registeredOffice": "София (столица)",
+        "valueBgn": 1000,
+        "holderName": "Силви Кирилов Петров",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "Тетнус-България-ООД"
+      }
+    ],
+    "income": []
+  },
+  {
+    "mpId": 4938,
+    "declarantName": "Силви Кирилов Петров",
+    "institution": "47-мо Народно събрание",
+    "declarationYear": 2022,
+    "fiscalYear": 2021,
+    "declarationType": "Annualy",
+    "filedAt": "2022-05-12",
+    "entryNumber": "Г3947",
+    "controlHash": "124B7EAD",
+    "sourceUrl": "https://register.cacbg.bg/2022/A7E6D328-AA8E-4D6E-8E02-CCDC7FA98E3A136151.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 27225,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountBgnDeclarant": 6797,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "ПОДНС",
+        "amountBgnDeclarant": 11543,
+        "amountBgnSpouse": null
+      }
+    ]
+  },
+  {
+    "mpId": 4938,
+    "declarantName": "Силви  Кирилов Петров",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Entry",
+    "filedAt": "2021-05-14",
+    "entryNumber": "В1274",
+    "controlHash": "CE37D7D2",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/A7E6D328-AA8E-4D6E-8E02-CCDC7FA98E3A125746.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "дялове",
+        "shareSize": "20%",
+        "companyName": "Тентус България ООД",
+        "registeredOffice": "София (столица)",
+        "valueBgn": 1000,
+        "holderName": "Силви Кирилов Петров",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "Тентус-България-ООД"
+      }
+    ],
+    "income": []
+  }
+]

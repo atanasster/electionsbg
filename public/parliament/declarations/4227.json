@@ -1,0 +1,55 @@
+[
+  {
+    "mpId": 4227,
+    "declarantName": "Ванина Димитрова Вецина",
+    "institution": "49-то Народно събрание",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г624",
+    "controlHash": "DB84AD5F",
+    "sourceUrl": "https://register.cacbg.bg/2024/9072908A-249F-4D75-A878-59D05CBCE451181476.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 77323,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountBgnDeclarant": 23813,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountBgnDeclarant": 6975,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountBgnDeclarant": 12420,
+        "amountBgnSpouse": null
+      }
+    ]
+  },
+  {
+    "mpId": 4227,
+    "declarantName": "Ванина Димитрова Вецина",
+    "institution": "49-то Народно събрание",
+    "declarationYear": 2023,
+    "fiscalYear": 2023,
+    "declarationType": "Entry",
+    "filedAt": "2023-05-09",
+    "entryNumber": "В442",
+    "controlHash": "0685BE08",
+    "sourceUrl": "https://register.cacbg.bg/2023/9072908A-249F-4D75-A878-59D05CBCE451148481.xml",
+    "ownershipStakes": [],
+    "income": []
+  }
+]

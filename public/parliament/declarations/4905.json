@@ -1,0 +1,128 @@
+[
+  {
+    "mpId": 4905,
+    "declarantName": "Петър Василев Кьосев",
+    "institution": "51-во Народно събрание",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-27",
+    "entryNumber": "Г3833",
+    "controlHash": "994EC29C",
+    "sourceUrl": "https://register.cacbg.bg/2025/09CBAB85-0634-4249-BD22-1577BC4A8105206649.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 104934,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountBgnDeclarant": 41850,
+        "amountBgnSpouse": 71668
+      }
+    ]
+  },
+  {
+    "mpId": 4905,
+    "declarantName": "Петър Василев Кьосев",
+    "institution": "49-то Народно събрание",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-14",
+    "entryNumber": "Г1467",
+    "controlHash": "9307CDAA",
+    "sourceUrl": "https://register.cacbg.bg/2024/09CBAB85-0634-4249-BD22-1577BC4A8105182384.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 69004,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountBgnDeclarant": 16389,
+        "amountBgnSpouse": 44532
+      }
+    ]
+  },
+  {
+    "mpId": 4905,
+    "declarantName": "Петър Василев Кьосев",
+    "institution": "49-то Народно събрание",
+    "declarationYear": 2023,
+    "fiscalYear": 2023,
+    "declarationType": "Entry",
+    "filedAt": "2023-05-11",
+    "entryNumber": "В714",
+    "controlHash": "70B293D0",
+    "sourceUrl": "https://register.cacbg.bg/2023/09CBAB85-0634-4249-BD22-1577BC4A8105152077.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Дялове",
+        "shareSize": "100",
+        "companyName": "Издателска къща Селекта ЕООД",
+        "registeredOffice": "Бургас",
+        "valueBgn": 10,
+        "holderName": "Яна Василева Антонова - Кьосева",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "Издателска-къща-Селекта-ЕООД"
+      },
+      {
+        "table": "10",
+        "itemType": "Дялове",
+        "shareSize": "33.3",
+        "companyName": "Алекса про ЕООД",
+        "registeredOffice": "София",
+        "valueBgn": 3,
+        "holderName": "Яна Василева Антонова - Кьосева",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "Алекса-про-ЕООД"
+      }
+    ],
+    "income": []
+  },
+  {
+    "mpId": 4905,
+    "declarantName": "Петър Василев Кьосев",
+    "institution": "47-мо Народно събрание",
+    "declarationYear": 2022,
+    "fiscalYear": 2021,
+    "declarationType": "Annualy",
+    "filedAt": "2022-05-12",
+    "entryNumber": "Г4419",
+    "controlHash": "0F8193F2",
+    "sourceUrl": "https://register.cacbg.bg/2022/09CBAB85-0634-4249-BD22-1577BC4A8105136647.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 1277,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountBgnDeclarant": 17599,
+        "amountBgnSpouse": 37742
+      },
+      {
+        "parent": null,
+        "category": "Доходи по Приложение № 13, част II от обр.2001 от годишната данъчна декларация",
+        "amountBgnDeclarant": 25200,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

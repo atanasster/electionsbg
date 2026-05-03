@@ -1,0 +1,73 @@
+[
+  {
+    "mpId": 2871,
+    "declarantName": "ВАЛЕНТИНА АЛЕКСАНДРОВА НАЙДЕНОВА",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Vacate",
+    "filedAt": "2022-04-21",
+    "entryNumber": "Ф434",
+    "controlHash": "9C7F360D",
+    "sourceUrl": "https://register.cacbg.bg/2022/3CD272CD-C49B-4BF7-BAF3-9C93A91328F6133480.xml",
+    "ownershipStakes": [],
+    "income": []
+  },
+  {
+    "mpId": 2871,
+    "declarantName": "ВАЛЕНТИНА АЛЕКСАНДРОВА НАЙДЕНОВА",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": "2021-05-11",
+    "entryNumber": "Г3642",
+    "controlHash": "B2D453D1",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/3CD272CD-C49B-4BF7-BAF3-9C93A91328F6120525.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 85093,
+        "amountBgnSpouse": 4857
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountBgnDeclarant": 261,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountBgnDeclarant": null,
+        "amountBgnSpouse": 5184
+      },
+      {
+        "parent": null,
+        "category": "Доходи от задължително осигуряване в България, освободени от облагане съгласно чл.13, ал.1, т.6 от ЗДДФЛ",
+        "amountBgnDeclarant": 13465,
+        "amountBgnSpouse": 7441
+      },
+      {
+        "parent": null,
+        "category": "Доходи, получени от рента, аренда  или от друго възмездно предоставяне за ползване на земеделска земя, освободени от облагане съгласно чл.13, ал.1, т.24 от ЗДДФЛ",
+        "amountBgnDeclarant": 180,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Помощи, добавки и други плащания, освободени от облагане на основание чл.13, ал. 1, т.15,16 и 17 от ЗДДФЛ",
+        "amountBgnDeclarant": null,
+        "amountBgnSpouse": 583
+      },
+      {
+        "parent": null,
+        "category": "По чл. 11 от Приложение към ПОДНС",
+        "amountBgnDeclarant": 33666,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

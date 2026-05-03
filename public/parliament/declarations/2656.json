@@ -1,0 +1,49 @@
+[
+  {
+    "mpId": 2656,
+    "declarantName": "Николай Димитров Пенев",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Vacate",
+    "filedAt": "2022-03-28",
+    "entryNumber": "Ф367",
+    "controlHash": "D05A8EDB",
+    "sourceUrl": "https://register.cacbg.bg/2022/0AE81612-FE0B-43BC-8425-B419A370D63E132891.xml",
+    "ownershipStakes": [],
+    "income": []
+  },
+  {
+    "mpId": 2656,
+    "declarantName": "НИКОЛАЙ ДИМИТРОВ ПЕНЕВ",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": "2021-01-21",
+    "entryNumber": "Г61",
+    "controlHash": "24F328E1",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/0AE81612-FE0B-43BC-8425-B419A370D63E116092.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 79176,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountBgnDeclarant": 400,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "По чл. 11 на Приложение на ПОДНС",
+        "amountBgnDeclarant": 33666,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

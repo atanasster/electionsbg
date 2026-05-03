@@ -1,0 +1,81 @@
+[
+  {
+    "mpId": 4252,
+    "declarantName": "Гроздан Спасов Караджов",
+    "institution": "49-то Народно събрание",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-15",
+    "entryNumber": "Г636",
+    "controlHash": "2297D2F7",
+    "sourceUrl": "https://register.cacbg.bg/2024/47827EC9-C933-43FA-968C-7C0EF6828EBF181488.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "дялове",
+        "shareSize": "100 %",
+        "companyName": "Раведас ЕООД",
+        "registeredOffice": "София (столица)",
+        "valueBgn": 500,
+        "holderName": "Цецка Никифорова Караджова",
+        "legalBasis": "Учредяване",
+        "fundsOrigin": "заплата",
+        "companySlug": "Раведас-ЕООД"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 81606,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountBgnDeclarant": 37183,
+        "amountBgnSpouse": 384973
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountBgnDeclarant": null,
+        "amountBgnSpouse": 15419
+      },
+      {
+        "parent": null,
+        "category": "Дивиденти",
+        "amountBgnDeclarant": null,
+        "amountBgnSpouse": 899916
+      }
+    ]
+  },
+  {
+    "mpId": 4252,
+    "declarantName": "Гроздан Спасов Караджов",
+    "institution": "49-то Народно събрание",
+    "declarationYear": 2023,
+    "fiscalYear": 2023,
+    "declarationType": "Entry",
+    "filedAt": "2021-01-13",
+    "entryNumber": "В712",
+    "controlHash": "19E816C8",
+    "sourceUrl": "https://register.cacbg.bg/2023/47827EC9-C933-43FA-968C-7C0EF6828EBF152072.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "дялове",
+        "shareSize": "100%",
+        "companyName": "Раведас ЕООД",
+        "registeredOffice": "София (столица)",
+        "valueBgn": 500,
+        "holderName": "Цецка Никифорова Караджова",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "Раведас-ЕООД"
+      }
+    ],
+    "income": []
+  }
+]

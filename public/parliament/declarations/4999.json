@@ -1,0 +1,66 @@
+[
+  {
+    "mpId": 4999,
+    "declarantName": "Явор Илиев Хайтов",
+    "institution": "51-во Народно събрание",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-14",
+    "entryNumber": "Г9011",
+    "controlHash": "ABACD2C3",
+    "sourceUrl": "https://register.cacbg.bg/2025/D8A01BCE-CCEB-44C5-B074-F5F5AFC83153212041.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "дружествени дялове",
+        "shareSize": "100%",
+        "companyName": "СИАЛ 2018 ЕООД",
+        "registeredOffice": "София",
+        "valueBgn": 1000,
+        "holderName": "Валентина Ангелова Хайтова",
+        "legalBasis": "пар вноска",
+        "fundsOrigin": "заплата",
+        "companySlug": "СИАЛ-2018-ЕООД"
+      },
+      {
+        "table": "10",
+        "itemType": "дружествени дялове",
+        "shareSize": "10%",
+        "companyName": "ИНТЕРСОЛ ООД",
+        "registeredOffice": "София",
+        "valueBgn": 71720,
+        "holderName": "Валентина Ангелова Хайтова",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "спестявания",
+        "companySlug": "ИНТЕРСОЛ-ООД"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 149592,
+        "amountBgnSpouse": 82383
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountBgnDeclarant": 17601,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountBgnDeclarant": null,
+        "amountBgnSpouse": 915
+      },
+      {
+        "parent": null,
+        "category": "Доходи от разпореждане с фин инструменти, освободени от облагане",
+        "amountBgnDeclarant": null,
+        "amountBgnSpouse": 5201
+      }
+    ]
+  }
+]

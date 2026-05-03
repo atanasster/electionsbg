@@ -1,0 +1,67 @@
+[
+  {
+    "mpId": 2976,
+    "declarantName": "Калин Любенов Вельов",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": "2021-04-15",
+    "entryNumber": "Г6188",
+    "controlHash": "0D8AF70A",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/8A6E233F-6C44-4507-A57D-62ED983CE8A4123705.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Сдружение с нестопанска цел в ликвидация",
+        "shareSize": "0",
+        "companyName": "\"ТУМБАИТО\" Сдружение - в ликвидация",
+        "registeredOffice": "София",
+        "valueBgn": 0,
+        "holderName": "Калин Любенов Вельов",
+        "legalBasis": "няма",
+        "fundsOrigin": "няма",
+        "companySlug": "ТУМБАИТО-Сдружение-в-ликвидация"
+      },
+      {
+        "table": "11",
+        "itemType": "дялове",
+        "shareSize": "100%",
+        "companyName": "\"КЕЙ ВИ ПРАДАКШЪНС\" ЕООД",
+        "registeredOffice": "София",
+        "valueBgn": 5000,
+        "holderName": null,
+        "transfereeName": "Калин Любенов Вельов",
+        "legalBasis": "възмездно",
+        "fundsOrigin": null,
+        "companySlug": "КЕЙ-ВИ-ПРАДАКШЪНС-ЕООД"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 33955,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountBgnDeclarant": 9910,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountBgnDeclarant": 5095,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Съгласно чл. 11 Приложение към ПОДНС",
+        "amountBgnDeclarant": 13400,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

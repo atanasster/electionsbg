@@ -1,0 +1,55 @@
+[
+  {
+    "mpId": 2721,
+    "declarantName": "СПАС ЯНЕВ ПАНЧЕВ",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Vacate",
+    "filedAt": null,
+    "entryNumber": "Ф381",
+    "controlHash": "0D7ED654",
+    "sourceUrl": "https://register.cacbg.bg/2022/6B7EA22E-A598-402C-AB23-C3462CA81E38133020.xml",
+    "ownershipStakes": [],
+    "income": []
+  },
+  {
+    "mpId": 2721,
+    "declarantName": "Спас Янев Панчев",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": "2021-04-15",
+    "entryNumber": "Г7745",
+    "controlHash": "5CCCC83D",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/6B7EA22E-A598-402C-AB23-C3462CA81E38125782.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 64005,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountBgnDeclarant": 13848,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Пенсия",
+        "amountBgnDeclarant": 14650,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "чл.11 от Финансовите правила на НС",
+        "amountBgnDeclarant": 33166,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

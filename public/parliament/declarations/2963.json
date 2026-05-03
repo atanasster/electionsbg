@@ -1,0 +1,49 @@
+[
+  {
+    "mpId": 2963,
+    "declarantName": "Мария Йорданова Цветкова",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Vacate",
+    "filedAt": null,
+    "entryNumber": "Ф598",
+    "controlHash": "2CA18600",
+    "sourceUrl": "https://register.cacbg.bg/2022/07AE382B-E1DA-43ED-B645-794390716847138055.xml",
+    "ownershipStakes": [],
+    "income": []
+  },
+  {
+    "mpId": 2963,
+    "declarantName": "Мария Йорданова Цветкова",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": "2021-05-14",
+    "entryNumber": "Г6572",
+    "controlHash": "0C529825",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/07AE382B-E1DA-43ED-B645-794390716847124209.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 82022,
+        "amountBgnSpouse": 2632
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountBgnDeclarant": null,
+        "amountBgnSpouse": 968
+      },
+      {
+        "parent": null,
+        "category": "по чл.11 от Финансовите правила приложение към ПОДНС",
+        "amountBgnDeclarant": 33660,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

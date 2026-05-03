@@ -1,0 +1,60 @@
+[
+  {
+    "mpId": 3932,
+    "declarantName": "Иван Косев Манев",
+    "institution": "47-мо Народно събрание",
+    "declarationYear": 2022,
+    "fiscalYear": 2021,
+    "declarationType": "Annualy",
+    "filedAt": "2022-05-11",
+    "entryNumber": "Г4422",
+    "controlHash": "32D7557F",
+    "sourceUrl": "https://register.cacbg.bg/2022/79555C9A-5F6B-4B6F-B557-C3C6D1E21389136650.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Дялове",
+        "shareSize": "100",
+        "companyName": "УТГ ООД",
+        "registeredOffice": "София (столица)",
+        "valueBgn": 100,
+        "holderName": "Иван Косев Манев",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата",
+        "companySlug": "УТГ-ООД"
+      },
+      {
+        "table": "10",
+        "itemType": "Дялове",
+        "shareSize": "1",
+        "companyName": "УТГ ООД",
+        "registeredOffice": "София (столица)",
+        "valueBgn": 1,
+        "holderName": "Миглена Георгиева Белчева - Манева",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата",
+        "companySlug": "УТГ-ООД"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 1490,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountBgnDeclarant": 38527,
+        "amountBgnSpouse": 38688
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountBgnDeclarant": 1209,
+        "amountBgnSpouse": 4289
+      }
+    ]
+  }
+]

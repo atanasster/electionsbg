@@ -1,0 +1,106 @@
+[
+  {
+    "mpId": 4106,
+    "declarantName": "ИЛИНА СИМЕОНОВА МУТАФЧИЕВА",
+    "institution": "49-то Народно събрание",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-15",
+    "entryNumber": "Г1226",
+    "controlHash": "F7786251",
+    "sourceUrl": "https://register.cacbg.bg/2024/FC396318-B732-44CC-A92D-BE62F62B160A182120.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Малки човеци ООД",
+        "shareSize": "1/2",
+        "companyName": "Малки човеци ООД",
+        "registeredOffice": "Варна",
+        "valueBgn": 500,
+        "holderName": "ГЕОРГИ ХРИСТОВ АНГЕЛОВ",
+        "legalBasis": "УЧРЕДЯВАНЕ",
+        "fundsOrigin": "РАБОТНА ЗАПЛАТА",
+        "companySlug": "Малки-човеци-ООД"
+      },
+      {
+        "table": "10",
+        "itemType": "Зона 21 ООД",
+        "shareSize": "1/2",
+        "companyName": "Зона 21 ООД",
+        "registeredOffice": "София",
+        "valueBgn": 20,
+        "holderName": "ГЕОРГИ ХРИСТОВ АНГЕЛОВ",
+        "legalBasis": "УЧРЕДЯВАНЕ",
+        "fundsOrigin": "РАБОТНА ЗАПЛАТА",
+        "companySlug": "Зона-21-ООД"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 76758,
+        "amountBgnSpouse": 436557
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountBgnDeclarant": 616,
+        "amountBgnSpouse": 29400
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountBgnDeclarant": null,
+        "amountBgnSpouse": 45701
+      },
+      {
+        "parent": null,
+        "category": "ваучери за храна",
+        "amountBgnDeclarant": null,
+        "amountBgnSpouse": 1560
+      },
+      {
+        "parent": null,
+        "category": "социални разходи",
+        "amountBgnDeclarant": null,
+        "amountBgnSpouse": 500
+      },
+      {
+        "parent": null,
+        "category": "други необлагаеми доходи от работодател",
+        "amountBgnDeclarant": null,
+        "amountBgnSpouse": 100
+      }
+    ]
+  },
+  {
+    "mpId": 4106,
+    "declarantName": "Илина Симеонова Мутафчиева",
+    "institution": "48-мо Народно събрание",
+    "declarationYear": 2023,
+    "fiscalYear": 2023,
+    "declarationType": "Vacate",
+    "filedAt": "2023-03-02",
+    "entryNumber": "Ф401",
+    "controlHash": "F46F5A82",
+    "sourceUrl": "https://register.cacbg.bg/2023/FC396318-B732-44CC-A92D-BE62F62B160A145860.xml",
+    "ownershipStakes": [],
+    "income": []
+  },
+  {
+    "mpId": 4106,
+    "declarantName": "Илина Симеонова Мутафчиева",
+    "institution": "49-то Народно събрание",
+    "declarationYear": 2023,
+    "fiscalYear": 2023,
+    "declarationType": "Entry",
+    "filedAt": "2023-05-10",
+    "entryNumber": "В541",
+    "controlHash": "99CD708E",
+    "sourceUrl": "https://register.cacbg.bg/2023/FC396318-B732-44CC-A92D-BE62F62B160A149731.xml",
+    "ownershipStakes": [],
+    "income": []
+  }
+]

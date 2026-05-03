@@ -1,0 +1,140 @@
+[
+  {
+    "mpId": 2834,
+    "declarantName": "Менда Кирилова Стоянова",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Vacate",
+    "filedAt": "2022-05-18",
+    "entryNumber": "Ф542",
+    "controlHash": "37D62953",
+    "sourceUrl": "https://register.cacbg.bg/2022/6F1533E8-71FB-4E9F-B6EC-B4787E3CD223136083.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "дялове",
+        "shareSize": "1/3",
+        "companyName": "Фил-Комерс оод",
+        "registeredOffice": "Пловдив",
+        "valueBgn": 1700,
+        "holderName": "Георги Стоянов стоянов",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "Фил-Комерс-оод"
+      },
+      {
+        "table": "10",
+        "itemType": "дялове",
+        "shareSize": "1/2",
+        "companyName": "ТаксКонсулт оод",
+        "registeredOffice": "Пловдив",
+        "valueBgn": 2500,
+        "holderName": "Георги Стоянов стоянов",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "ТаксКонсулт-оод"
+      },
+      {
+        "table": "10",
+        "itemType": "дялове",
+        "shareSize": "1/2",
+        "companyName": "ТаксКонсулт оод",
+        "registeredOffice": "Пловдив",
+        "valueBgn": 2500,
+        "holderName": "Менда Кирилова Стоянова",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "ТаксКонсулт-оод"
+      },
+      {
+        "table": "10",
+        "itemType": "дялове",
+        "shareSize": "1/2",
+        "companyName": "Фил-Комерс Е оод",
+        "registeredOffice": "Пловдив",
+        "valueBgn": 2550,
+        "holderName": "Георги Стоянов стоянов",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "Фил-Комерс-Е-оод"
+      },
+      {
+        "table": "10",
+        "itemType": "дялове",
+        "shareSize": "60%",
+        "companyName": "Техноинженеринг оод",
+        "registeredOffice": "Пловдив",
+        "valueBgn": 3000,
+        "holderName": "Георги Стоянов стоянов",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "Техноинженеринг-оод"
+      },
+      {
+        "table": "10",
+        "itemType": "дялове",
+        "shareSize": "100%",
+        "companyName": "Меге инвесмънт еоод",
+        "registeredOffice": "Пловдив",
+        "valueBgn": 60140,
+        "holderName": "Георги Стоянов стоянов",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "Меге-инвесмънт-еоод"
+      }
+    ],
+    "income": []
+  },
+  {
+    "mpId": 2834,
+    "declarantName": "Менда Кирилова Стоянова",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": "2021-04-23",
+    "entryNumber": "Г6670",
+    "controlHash": "66700737",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/6F1533E8-71FB-4E9F-B6EC-B4787E3CD223124351.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 104560,
+        "amountBgnSpouse": 83571
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountBgnDeclarant": 3942,
+        "amountBgnSpouse": 3942
+      },
+      {
+        "parent": null,
+        "category": "Дивиденти",
+        "amountBgnDeclarant": 68875,
+        "amountBgnSpouse": 106875
+      },
+      {
+        "parent": null,
+        "category": "НС",
+        "amountBgnDeclarant": 31300,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "пенсия",
+        "amountBgnDeclarant": 8370,
+        "amountBgnSpouse": 8084
+      },
+      {
+        "parent": null,
+        "category": "продажба на земя",
+        "amountBgnDeclarant": 5000,
+        "amountBgnSpouse": 5000
+      }
+    ]
+  }
+]

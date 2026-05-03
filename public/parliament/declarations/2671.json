@@ -1,0 +1,56 @@
+[
+  {
+    "mpId": 2671,
+    "declarantName": "Жельо Иванов Бойчев",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Vacate",
+    "filedAt": "2022-04-18",
+    "entryNumber": "Ф404",
+    "controlHash": "38DA4197",
+    "sourceUrl": "https://register.cacbg.bg/2022/99CA3AFA-81EC-4575-8AAA-ADE59672EFAF133207.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Дялове",
+        "shareSize": "100%",
+        "companyName": "Ивени Консулт ЕООД",
+        "registeredOffice": "София (столица)",
+        "valueBgn": 5000,
+        "holderName": "Зорница Петрова Бойчева",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "Ивени-Консулт-ЕООД"
+      }
+    ],
+    "income": []
+  },
+  {
+    "mpId": 2671,
+    "declarantName": "Жельо Иванов Бойчев",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": "2021-03-23",
+    "entryNumber": "Г5586",
+    "controlHash": "3A304328",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/99CA3AFA-81EC-4575-8AAA-ADE59672EFAF122892.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 71250,
+        "amountBgnSpouse": 31669
+      },
+      {
+        "parent": null,
+        "category": "По чл. 11 от Приложението на ПОДНС",
+        "amountBgnDeclarant": 33666,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

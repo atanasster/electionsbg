@@ -1,0 +1,117 @@
+[
+  {
+    "mpId": 2826,
+    "declarantName": "Васил Миланов Антонов",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Vacate",
+    "filedAt": null,
+    "entryNumber": "Ф449",
+    "controlHash": "8A9F2F32",
+    "sourceUrl": "https://register.cacbg.bg/2022/A2CB470E-1407-4307-ACDA-18E82CF2D68D133684.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "дружествен дял",
+        "shareSize": "99%",
+        "companyName": "КА ГРУП ООД",
+        "registeredOffice": "Плевен",
+        "valueBgn": 4950,
+        "holderName": "Васил Миланов Антонов",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "КА-ГРУП-ООД"
+      },
+      {
+        "table": "10",
+        "itemType": "дружествен дял",
+        "shareSize": "4%",
+        "companyName": "КА ИНВЕСТ ООД",
+        "registeredOffice": "Плевен",
+        "valueBgn": 5000,
+        "holderName": "Васил Миланов Антонов",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "КА-ИНВЕСТ-ООД"
+      },
+      {
+        "table": "10",
+        "itemType": "дружествен дял",
+        "shareSize": "80%",
+        "companyName": "КА КОМЕРС ООД",
+        "registeredOffice": "Плевен",
+        "valueBgn": 4000,
+        "holderName": "Васил Миланов Антонов",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "КА-КОМЕРС-ООД"
+      }
+    ],
+    "income": []
+  },
+  {
+    "mpId": 2826,
+    "declarantName": "Васил Миланов Антонов",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г3675",
+    "controlHash": "C9CEB22D",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/A2CB470E-1407-4307-ACDA-18E82CF2D68D120572.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "дружествен дял",
+        "shareSize": "99%",
+        "companyName": "КА ГРУП ООД",
+        "registeredOffice": "Плевен",
+        "valueBgn": 4950,
+        "holderName": "Васил Миланов Антонов",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата",
+        "companySlug": "КА-ГРУП-ООД"
+      },
+      {
+        "table": "10",
+        "itemType": "дружествен дял",
+        "shareSize": "4%",
+        "companyName": "КА ИНВЕСТ ООД",
+        "registeredOffice": "Плевен",
+        "valueBgn": 5000,
+        "holderName": "Васил Миланов Антонов",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата",
+        "companySlug": "КА-ИНВЕСТ-ООД"
+      },
+      {
+        "table": "10",
+        "itemType": "дружествен дял",
+        "shareSize": "80%",
+        "companyName": "КА КОМЕРС ООД",
+        "registeredOffice": "Плевен",
+        "valueBgn": 4000,
+        "holderName": "Васил Миланов Антонов",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата",
+        "companySlug": "КА-КОМЕРС-ООД"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 95504,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "чл.11 ОТ ПРИЛОЖЕНИЕ НА ПОДНС",
+        "amountBgnDeclarant": 33666,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

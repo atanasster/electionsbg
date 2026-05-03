@@ -1,0 +1,49 @@
+[
+  {
+    "mpId": 2692,
+    "declarantName": "Пламен Трифонов Христов",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Vacate",
+    "filedAt": "2022-05-11",
+    "entryNumber": "Ф537",
+    "controlHash": "AD01A94B",
+    "sourceUrl": "https://register.cacbg.bg/2022/B0A2E550-9099-45EC-B7E2-17847D79E6A0136066.xml",
+    "ownershipStakes": [],
+    "income": []
+  },
+  {
+    "mpId": 2692,
+    "declarantName": "Пламен Трифонов Христов",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": "2021-04-22",
+    "entryNumber": "Г7092",
+    "controlHash": "C4F4EF39",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/B0A2E550-9099-45EC-B7E2-17847D79E6A0124966.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 72861,
+        "amountBgnSpouse": 74202
+      },
+      {
+        "parent": null,
+        "category": "чл.11 от Приложение към ПОДНС",
+        "amountBgnDeclarant": null,
+        "amountBgnSpouse": 33236
+      },
+      {
+        "parent": null,
+        "category": "чл.11 от Приложение към ПОДНС",
+        "amountBgnDeclarant": 33236,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

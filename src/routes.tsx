@@ -162,6 +162,21 @@ const CandidateDonationsScreen = lazy(() =>
     default: m.CandidateDonationsScreen,
   })),
 );
+const MpCompanyScreen = lazy(() =>
+  import("./screens/MpCompanyScreen").then((m) => ({
+    default: m.MpCompanyScreen,
+  })),
+);
+const ConnectionsScreen = lazy(() =>
+  import("./screens/ConnectionsScreen").then((m) => ({
+    default: m.ConnectionsScreen,
+  })),
+);
+const AllMpCompaniesScreen = lazy(() =>
+  import("./screens/AllMpCompaniesScreen").then((m) => ({
+    default: m.AllMpCompaniesScreen,
+  })),
+);
 const SimulatorScreen = lazy(() =>
   import("./screens/SimulatorScreen").then((m) => ({
     default: m.SimulatorScreen,
@@ -981,6 +996,30 @@ export const AuthRoutes = () => {
           element={
             <LayoutScreen>
               <CandidateDonationsScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="mp/companies"
+          element={
+            <LayoutScreen>
+              <AllMpCompaniesScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="mp/company/:slug"
+          element={
+            <LayoutScreen>
+              <MpCompanyScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="connections"
+          element={
+            <LayoutScreen>
+              <ConnectionsScreen />
             </LayoutScreen>
           }
         />

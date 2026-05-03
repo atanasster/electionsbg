@@ -1,0 +1,129 @@
+[
+  {
+    "mpId": 4837,
+    "declarantName": "Кирил Петков Петков",
+    "institution": "51-во Народно събрание",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-14",
+    "entryNumber": "Г9571",
+    "controlHash": "5158B449",
+    "sourceUrl": "https://register.cacbg.bg/2025/5B5F66B0-2030-46D1-AD92-7717FB285FFB212616.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 105208,
+        "amountBgnSpouse": 13439
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountBgnDeclarant": 4,
+        "amountBgnSpouse": 19427
+      }
+    ]
+  },
+  {
+    "mpId": 4837,
+    "declarantName": "Кирил Петков Петков",
+    "institution": "49-то Народно събрание",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-13",
+    "entryNumber": "Г1371",
+    "controlHash": "86BD99EB",
+    "sourceUrl": "https://register.cacbg.bg/2024/5B5F66B0-2030-46D1-AD92-7717FB285FFB182284.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Дялове",
+        "shareSize": "100%",
+        "companyName": "Сладкарницата на Линда",
+        "registeredOffice": "София (столица)",
+        "valueBgn": 2000,
+        "holderName": "Линда Кристин Петкова",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата",
+        "companySlug": "Сладкарницата-на-Линда"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 78400,
+        "amountBgnSpouse": 13439
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountBgnDeclarant": null,
+        "amountBgnSpouse": 4344
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountBgnDeclarant": null,
+        "amountBgnSpouse": 7267
+      }
+    ]
+  },
+  {
+    "mpId": 4837,
+    "declarantName": "Кирил Петков Петков",
+    "institution": "48-мо Народно събрание",
+    "declarationYear": 2023,
+    "fiscalYear": 2023,
+    "declarationType": "Vacate",
+    "filedAt": "2023-02-23",
+    "entryNumber": "Ф240",
+    "controlHash": "2A5E3395",
+    "sourceUrl": "https://register.cacbg.bg/2023/5B5F66B0-2030-46D1-AD92-7717FB285FFB145605.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "дялове",
+        "shareSize": "100%",
+        "companyName": "Сладкарницата на Линда",
+        "registeredOffice": "София",
+        "valueBgn": 2000,
+        "holderName": "Линда Кристин Петкова",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "Сладкарницата-на-Линда"
+      }
+    ],
+    "income": []
+  },
+  {
+    "mpId": 4837,
+    "declarantName": "Кирил Петков Петков",
+    "institution": "49-то Народно събрание",
+    "declarationYear": 2023,
+    "fiscalYear": 2023,
+    "declarationType": "Entry",
+    "filedAt": "2023-05-09",
+    "entryNumber": "В661",
+    "controlHash": "9CFB0C81",
+    "sourceUrl": "https://register.cacbg.bg/2023/5B5F66B0-2030-46D1-AD92-7717FB285FFB151570.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "дялове",
+        "shareSize": "100%",
+        "companyName": "Сладкарницата на Линда",
+        "registeredOffice": "София",
+        "valueBgn": 2000,
+        "holderName": "Линда Кристин Петкова",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "Сладкарницата-на-Линда"
+      }
+    ],
+    "income": []
+  }
+]

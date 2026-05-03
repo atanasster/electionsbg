@@ -1,0 +1,94 @@
+[
+  {
+    "mpId": 3957,
+    "declarantName": "Рена Енчева Стефанова",
+    "institution": "48-мо Народно събрание",
+    "declarationYear": 2023,
+    "fiscalYear": 2022,
+    "declarationType": "Annualy",
+    "filedAt": "2023-02-24",
+    "entryNumber": "Г223",
+    "controlHash": "BC35553E",
+    "sourceUrl": "https://register.cacbg.bg/2023/AC71611D-C92E-42B2-AC71-068007E03AEB145755.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Дялове в ООД",
+        "shareSize": "17 дяла",
+        "companyName": "Лега Консулт ООД",
+        "registeredOffice": "Русе",
+        "valueBgn": 1700,
+        "holderName": "Рена Енчева Стефанова",
+        "legalBasis": "други",
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "companySlug": "Лега-Консулт-ООД"
+      }
+    ],
+    "income": [
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountBgnDeclarant": 36190,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Дивидент",
+        "amountBgnDeclarant": 33368,
+        "amountBgnSpouse": null
+      }
+    ]
+  },
+  {
+    "mpId": 3957,
+    "declarantName": "Рена Енчева Стефанова",
+    "institution": "47-мо Народно събрание",
+    "declarationYear": 2022,
+    "fiscalYear": 2021,
+    "declarationType": "Annualy",
+    "filedAt": "2022-05-11",
+    "entryNumber": "Г4692",
+    "controlHash": "AC59929F",
+    "sourceUrl": "https://register.cacbg.bg/2022/AC71611D-C92E-42B2-AC71-068007E03AEB136935.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Дялове в ООД",
+        "shareSize": "17 дяла",
+        "companyName": "Лега Консулт ООД",
+        "registeredOffice": "Русе",
+        "valueBgn": 1700,
+        "holderName": "Рена Енчева Стефанова",
+        "legalBasis": "други",
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "companySlug": "Лега-Консулт-ООД"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 7631,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountBgnDeclarant": 300,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountBgnDeclarant": 13994,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Дивидент",
+        "amountBgnDeclarant": 34354,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

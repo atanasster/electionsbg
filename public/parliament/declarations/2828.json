@@ -1,0 +1,56 @@
+[
+  {
+    "mpId": 2828,
+    "declarantName": "Чавдар Йорданов Велинов",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Vacate",
+    "filedAt": "2022-05-04",
+    "entryNumber": "Ф494",
+    "controlHash": "2D26024A",
+    "sourceUrl": "https://register.cacbg.bg/2022/01229439-1878-400E-859B-1F7CFAABC2F3134622.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "дялове",
+        "shareSize": "20",
+        "companyName": "Партнерс експо ООД",
+        "registeredOffice": "Плевен",
+        "valueBgn": 2000,
+        "holderName": "Чавдар Йорданов Велинов",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "Партнерс-експо-ООД"
+      }
+    ],
+    "income": []
+  },
+  {
+    "mpId": 2828,
+    "declarantName": "Чавдар Йорданов Велинов",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": "2021-02-12",
+    "entryNumber": "Г69",
+    "controlHash": "ABEF66B5",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/01229439-1878-400E-859B-1F7CFAABC2F3116100.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 84430,
+        "amountBgnSpouse": 6000
+      },
+      {
+        "parent": null,
+        "category": "По чл. 11 от Приложението към ПОДНС",
+        "amountBgnDeclarant": 33626,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

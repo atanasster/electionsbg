@@ -1,0 +1,93 @@
+[
+  {
+    "mpId": 3235,
+    "declarantName": "Мирослав Иванов Аспарухов",
+    "institution": "Народно събраниe",
+    "declarationYear": 2022,
+    "fiscalYear": 2021,
+    "declarationType": "Annualy",
+    "filedAt": "2022-05-16",
+    "entryNumber": "Ф4875",
+    "controlHash": "863A4068",
+    "sourceUrl": "https://register.cacbg.bg/2022/BF505869-547A-406A-97AD-E4A61C705F70141604.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "едноличен собственик на капитала",
+        "shareSize": "100 %",
+        "companyName": "ФОЛКЛОР-М ЕООД",
+        "registeredOffice": "Враца",
+        "valueBgn": 5000,
+        "holderName": "Мирослав Иванов Аспарухов",
+        "legalBasis": "други",
+        "fundsOrigin": "заеми",
+        "companySlug": "ФОЛКЛОР-М-ЕООД"
+      },
+      {
+        "table": "10",
+        "itemType": "едноличен собственик на капитала",
+        "shareSize": "100 %",
+        "companyName": "А. С. П. Фолк дизайн ЕООД",
+        "registeredOffice": "Враца",
+        "valueBgn": 10,
+        "holderName": "Мирослав Иванов Аспарухов",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата",
+        "companySlug": "А.-С.-П.-Фолк-дизайн-ЕООД"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 3589,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountBgnDeclarant": 16706,
+        "amountBgnSpouse": null
+      }
+    ]
+  },
+  {
+    "mpId": 3235,
+    "declarantName": "Мирослав Иванов Аспарухов",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Entry",
+    "filedAt": "2021-04-23",
+    "entryNumber": "В1432",
+    "controlHash": "1C450D38",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/BF505869-547A-406A-97AD-E4A61C705F70126226.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "едноличен собственик на капитала",
+        "shareSize": "100 %",
+        "companyName": "ФОЛКЛОР-М ЕООД",
+        "registeredOffice": "Враца",
+        "valueBgn": 5000,
+        "holderName": "Мирослав Иванов Аспарухов",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "ФОЛКЛОР-М-ЕООД"
+      },
+      {
+        "table": "10",
+        "itemType": "едноличен собственик на капитала",
+        "shareSize": "100 %",
+        "companyName": "А. С. П. Фолк дизайн ЕООД",
+        "registeredOffice": "Враца",
+        "valueBgn": 10,
+        "holderName": "Мирослав Иванов Аспарухов",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "А.-С.-П.-Фолк-дизайн-ЕООД"
+      }
+    ],
+    "income": []
+  }
+]

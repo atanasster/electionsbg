@@ -1,0 +1,43 @@
+[
+  {
+    "mpId": 2840,
+    "declarantName": "Славчо Стоев Атанасов",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Vacate",
+    "filedAt": "2022-02-28",
+    "entryNumber": "Ф370",
+    "controlHash": "00211889",
+    "sourceUrl": "https://register.cacbg.bg/2022/29EA00EC-FE8C-4695-9759-88BF74C3F27A132911.xml",
+    "ownershipStakes": [],
+    "income": []
+  },
+  {
+    "mpId": 2840,
+    "declarantName": "Славчо Стоев Атанасов",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": "2021-04-20",
+    "entryNumber": "Г7739",
+    "controlHash": "26E22307",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/29EA00EC-FE8C-4695-9759-88BF74C3F27A125772.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 81588,
+        "amountBgnSpouse": 10416
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountBgnDeclarant": null,
+        "amountBgnSpouse": 900
+      }
+    ]
+  }
+]

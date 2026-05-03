@@ -1,0 +1,95 @@
+[
+  {
+    "mpId": 5133,
+    "declarantName": "МИЛЕН СТОЙЧЕВ ДЕЛИЙСКИ",
+    "institution": "51-во Народно събрание",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-14",
+    "entryNumber": "Г12552",
+    "controlHash": "8CFE6B81",
+    "sourceUrl": "https://register.cacbg.bg/2025/BE5374AE-6313-4061-ADE7-8CF93DBEE106215721.xml",
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "дружествен дял",
+        "shareSize": "5000",
+        "companyName": "ДМС ЕООД",
+        "registeredOffice": "гр. Силистра",
+        "valueBgn": 5000,
+        "holderName": null,
+        "transfereeName": "МИЛЕН СТОЙЧЕВ ДЕЛИЙСКИ",
+        "legalBasis": "възмездно",
+        "fundsOrigin": null,
+        "companySlug": "ДМС-ЕООД"
+      },
+      {
+        "table": "11",
+        "itemType": "дружествен дял",
+        "shareSize": "100",
+        "companyName": "ИВ СПЕД ЕООД",
+        "registeredOffice": "гр. Силистра",
+        "valueBgn": 100,
+        "holderName": null,
+        "transfereeName": "МИЛЕН СТОЙЧЕВ ДЕЛИЙСКИ",
+        "legalBasis": "възмездно",
+        "fundsOrigin": null,
+        "companySlug": "ИВ-СПЕД-ЕООД"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 76657,
+        "amountBgnSpouse": 6593
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountBgnDeclarant": 20561,
+        "amountBgnSpouse": 6593
+      }
+    ]
+  },
+  {
+    "mpId": 5133,
+    "declarantName": "МИЛЕН СТОЙЧЕВ ДЕЛИЙСКИ",
+    "institution": "50-то Народно събрание",
+    "declarationYear": 2024,
+    "fiscalYear": 2024,
+    "declarationType": "Entry",
+    "filedAt": "2024-07-18",
+    "entryNumber": "В1315",
+    "controlHash": "8E885BB3",
+    "sourceUrl": "https://register.cacbg.bg/2024/BE5374AE-6313-4061-ADE7-8CF93DBEE106188591.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "дружествен дял",
+        "shareSize": "100%",
+        "companyName": "ДМС ЕООД",
+        "registeredOffice": "Силистра",
+        "valueBgn": 5000,
+        "holderName": "МИЛЕН СТОЙЧЕВ ДЕЛИЙСКИ",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "ДМС-ЕООД"
+      },
+      {
+        "table": "10",
+        "itemType": "дружествен дял",
+        "shareSize": "100%",
+        "companyName": "ИВ СПЕД ЕООД",
+        "registeredOffice": "Силистра",
+        "valueBgn": 100,
+        "holderName": "МИЛЕН СТОЙЧЕВ ДЕЛИЙСКИ",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "ИВ-СПЕД-ЕООД"
+      }
+    ],
+    "income": []
+  }
+]

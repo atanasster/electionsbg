@@ -1,0 +1,55 @@
+[
+  {
+    "mpId": 2926,
+    "declarantName": "Калин Николов Поповски",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Vacate",
+    "filedAt": "2022-03-24",
+    "entryNumber": "Ф286",
+    "controlHash": "F010A279",
+    "sourceUrl": "https://register.cacbg.bg/2022/AF509A7C-319D-4817-9672-A89B024163D4132164.xml",
+    "ownershipStakes": [],
+    "income": []
+  },
+  {
+    "mpId": 2926,
+    "declarantName": "Калин Николов Поповски",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": "2021-04-20",
+    "entryNumber": "Г6190",
+    "controlHash": "6342A58F",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/AF509A7C-319D-4817-9672-A89B024163D4123708.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 85374,
+        "amountBgnSpouse": 24254
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountBgnDeclarant": 5648,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountBgnDeclarant": 540,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "По чл. 11 от Приложение на ПОДНС",
+        "amountBgnDeclarant": 33000,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

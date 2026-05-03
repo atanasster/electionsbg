@@ -1,0 +1,66 @@
+[
+  {
+    "mpId": 3694,
+    "declarantName": "Атанас Димитров Михнев",
+    "institution": "47-мо Народно събрание",
+    "declarationYear": 2022,
+    "fiscalYear": 2021,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г4717",
+    "controlHash": "855612F9",
+    "sourceUrl": "https://register.cacbg.bg/2022/820E99FE-2926-4517-A1F0-DD4BD72A6A0D136964.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "ЕООД",
+        "shareSize": "100 дяла, 100%",
+        "companyName": "М-консулт 33 ЕООД",
+        "registeredOffice": "София",
+        "valueBgn": 100,
+        "holderName": "Атанас Димитров Михнев",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата",
+        "companySlug": "М-консулт-33-ЕООД"
+      },
+      {
+        "table": "10",
+        "itemType": "ООД",
+        "shareSize": "20 дяла, 20%",
+        "companyName": "Ле Инвест ООД",
+        "registeredOffice": "София",
+        "valueBgn": 20,
+        "holderName": "Атанас Димитров Михнев",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата",
+        "companySlug": "Ле-Инвест-ООД"
+      },
+      {
+        "table": "10",
+        "itemType": "ООД",
+        "shareSize": "9 дяла, 7,96%",
+        "companyName": "Омнио ООД",
+        "registeredOffice": "София",
+        "valueBgn": 90,
+        "holderName": "Атанас Димитров Михнев",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата",
+        "companySlug": "Омнио-ООД"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 7192,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountBgnDeclarant": 4867,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

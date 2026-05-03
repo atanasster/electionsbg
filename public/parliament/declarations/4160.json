@@ -1,0 +1,102 @@
+[
+  {
+    "mpId": 4160,
+    "declarantName": "Андрей Атанасов Гюров",
+    "institution": "48-мо Народно събрание",
+    "declarationYear": 2023,
+    "fiscalYear": 2023,
+    "declarationType": "Vacate",
+    "filedAt": "2023-03-02",
+    "entryNumber": "Ф343",
+    "controlHash": "024421EE",
+    "sourceUrl": "https://register.cacbg.bg/2023/8134EC06-1A62-4D17-9543-6C6DE88759A9145774.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Дялове",
+        "shareSize": "2%",
+        "companyName": "Йонтех инженеринг ООД",
+        "registeredOffice": "София (столица)",
+        "valueBgn": 117000,
+        "holderName": "Андрей Атанасов Гюров",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "Йонтех-инженеринг-ООД"
+      }
+    ],
+    "income": []
+  },
+  {
+    "mpId": 4160,
+    "declarantName": "Андрей Атанасов Гюров",
+    "institution": "49-то Народно събрание",
+    "declarationYear": 2023,
+    "fiscalYear": 2023,
+    "declarationType": "Entry",
+    "filedAt": "2023-05-05",
+    "entryNumber": "В585",
+    "controlHash": "F3DCA468",
+    "sourceUrl": "https://register.cacbg.bg/2023/8134EC06-1A62-4D17-9543-6C6DE88759A9149902.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Дялове",
+        "shareSize": "2%",
+        "companyName": "Йонтех инженеринг ООД",
+        "registeredOffice": "София (столица)",
+        "valueBgn": 117000,
+        "holderName": "Андрей Атанасов Гюров",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "Йонтех-инженеринг-ООД"
+      }
+    ],
+    "income": []
+  },
+  {
+    "mpId": 4160,
+    "declarantName": "Андрей Атанасов Гюров",
+    "institution": "47-мо Народно събрание",
+    "declarationYear": 2022,
+    "fiscalYear": 2021,
+    "declarationType": "Annualy",
+    "filedAt": "2022-05-12",
+    "entryNumber": "Г4375",
+    "controlHash": "D728465E",
+    "sourceUrl": "https://register.cacbg.bg/2022/8134EC06-1A62-4D17-9543-6C6DE88759A9136601.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Дялове",
+        "shareSize": "2%",
+        "companyName": "Йонтех инженеринг ООД",
+        "registeredOffice": "София (столица)",
+        "valueBgn": 117000,
+        "holderName": "Андрей Атанасов Гюров",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата",
+        "companySlug": "Йонтех-инженеринг-ООД"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 9186,
+        "amountBgnSpouse": 15535
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountBgnDeclarant": 94898,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountBgnDeclarant": 6600,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

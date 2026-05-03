@@ -1,0 +1,49 @@
+[
+  {
+    "mpId": 2665,
+    "declarantName": "Мария Йорданова Илиева",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Vacate",
+    "filedAt": "2022-04-15",
+    "entryNumber": "Ф400",
+    "controlHash": "042FD974",
+    "sourceUrl": "https://register.cacbg.bg/2022/BBF86AD9-5041-4661-BBE2-C7629BB17359133155.xml",
+    "ownershipStakes": [],
+    "income": []
+  },
+  {
+    "mpId": 2665,
+    "declarantName": "Мария Йорданова Илиева",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": "2021-04-12",
+    "entryNumber": "Г6569",
+    "controlHash": "65A016AB",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/BBF86AD9-5041-4661-BBE2-C7629BB17359124205.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 76206,
+        "amountBgnSpouse": 15000
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountBgnDeclarant": 667,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Допълнителни разходи по чл.11 от Финансовите правила към ПОДНС",
+        "amountBgnDeclarant": 31300,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

@@ -1,0 +1,43 @@
+[
+  {
+    "mpId": 3101,
+    "declarantName": "Ивелина Веселинова Василева",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Vacate",
+    "filedAt": "2022-05-27",
+    "entryNumber": "Ф569",
+    "controlHash": "CF0367A0",
+    "sourceUrl": "https://register.cacbg.bg/2022/17CCBE83-3D1C-4B6D-A65B-9EAC1685A959136893.xml",
+    "ownershipStakes": [],
+    "income": []
+  },
+  {
+    "mpId": 3101,
+    "declarantName": "Ивелина Веселинова Василева",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": "2021-05-26",
+    "entryNumber": "Г5840",
+    "controlHash": "B66568B8",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/17CCBE83-3D1C-4B6D-A65B-9EAC1685A959123256.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 85047,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "По чл. 12 от финансовите правила по бюджета на НС - проложимо към ПОДНС",
+        "amountBgnDeclarant": 31300,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

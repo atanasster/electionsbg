@@ -1,0 +1,62 @@
+[
+  {
+    "mpId": 2920,
+    "declarantName": "РАЛИЦА ТРИЛКОВА ДОБРЕВА",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": "2021-04-20",
+    "entryNumber": "Г7619",
+    "controlHash": "ECBBF48F",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/4BD3323D-33AF-43DE-86D6-C68373A946FF125532.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 72235,
+        "amountBgnSpouse": 27162
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountBgnDeclarant": 31300,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Дивидент от \"Росагро\" ООД",
+        "amountBgnDeclarant": null,
+        "amountBgnSpouse": 228863
+      }
+    ]
+  },
+  {
+    "mpId": 2920,
+    "declarantName": "Ралица Трилкова Добрева",
+    "institution": "Народно събраниe",
+    "declarationYear": 2020,
+    "fiscalYear": 2020,
+    "declarationType": "Vacate",
+    "filedAt": "2022-06-21",
+    "entryNumber": "Ф755",
+    "controlHash": "08D7568F",
+    "sourceUrl": "https://register.cacbg.bg/2022/4BD3323D-33AF-43DE-86D6-C68373A946FF141074.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "ТЕХНИКА И ЗЕМЕДЕЛСКА ЗЕМЯ",
+        "shareSize": "50%",
+        "companyName": "РОСАГРО\"ООД",
+        "registeredOffice": "Селановци",
+        "valueBgn": 2500,
+        "holderName": "Ралица Трилкова Добрева",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "РОСАГРОООД"
+      }
+    ],
+    "income": []
+  }
+]

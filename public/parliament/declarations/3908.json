@@ -1,0 +1,100 @@
+[
+  {
+    "mpId": 3908,
+    "declarantName": "БОЙКО ЛЮБОМИРОВ КЛЕЧКОВ",
+    "institution": "48-мо Народно събрание",
+    "declarationYear": 2023,
+    "fiscalYear": 2023,
+    "declarationType": "Vacate",
+    "filedAt": "2023-02-14",
+    "entryNumber": "Ф135",
+    "controlHash": "5BB681A3",
+    "sourceUrl": "https://register.cacbg.bg/2023/DB2EB13A-F9A5-425A-990A-B2E229DEE9E3145382.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "ООД",
+        "shareSize": "25%",
+        "companyName": "АВТО ГРУП ООД",
+        "registeredOffice": "Кюстендил",
+        "valueBgn": 1300,
+        "holderName": "БОЙКО ЛЮБОМИРОВ КЛЕЧКОВ",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "АВТО-ГРУП-ООД"
+      }
+    ],
+    "income": []
+  },
+  {
+    "mpId": 3908,
+    "declarantName": "БОЙКО ЛЮБОМИРОВ КЛЕЧКОВ",
+    "institution": "47-мо Народно събрание",
+    "declarationYear": 2022,
+    "fiscalYear": 2021,
+    "declarationType": "Annualy",
+    "filedAt": "2022-05-05",
+    "entryNumber": "Г3840",
+    "controlHash": "865A3486",
+    "sourceUrl": "https://register.cacbg.bg/2022/DB2EB13A-F9A5-425A-990A-B2E229DEE9E3136030.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 26686,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountBgnDeclarant": 4154,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountBgnDeclarant": 0,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountBgnDeclarant": 0,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountBgnDeclarant": 0,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountBgnDeclarant": 0,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountBgnDeclarant": 17807,
+        "amountBgnSpouse": null
+      }
+    ]
+  },
+  {
+    "mpId": 3908,
+    "declarantName": "БОЙКО ЛЮБОМИРОВ КЛЕЧКОВ",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Entry",
+    "filedAt": "2021-08-10",
+    "entryNumber": "В3398",
+    "controlHash": "D2CAE674",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/DB2EB13A-F9A5-425A-990A-B2E229DEE9E3128734.xml",
+    "ownershipStakes": [],
+    "income": []
+  }
+]

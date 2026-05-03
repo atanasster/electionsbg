@@ -1,0 +1,128 @@
+[
+  {
+    "mpId": 2748,
+    "declarantName": "ЙОРДАН АПОСТОЛОВ АПОСТОЛОВ",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Vacate",
+    "filedAt": "2022-04-25",
+    "entryNumber": "Ф490",
+    "controlHash": "803F1837",
+    "sourceUrl": "https://register.cacbg.bg/2022/51E3DC95-507A-455D-B436-932793D6C727134523.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "ДРУЖЕСТВЕН ДЯЛ",
+        "shareSize": "40%",
+        "companyName": "Grand Agro Company",
+        "registeredOffice": "с.Твърдица-Молдова",
+        "valueBgn": 100,
+        "holderName": "ЙОРДАН АПОСТОЛОВ АПОСТОЛОВ",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "Grand-Agro-Company"
+      },
+      {
+        "table": "10",
+        "itemType": "ЕДНОЛИЧЕН СОБСТВЕНИК И УПРАВИТЕЛ",
+        "shareSize": "100%",
+        "companyName": "АГРОСТРОЙ-М ЕООД",
+        "registeredOffice": "Добрич",
+        "valueBgn": 5000,
+        "holderName": "ЙОРДАН АПОСТОЛОВ АПОСТОЛОВ",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "АГРОСТРОЙ-М-ЕООД"
+      },
+      {
+        "table": "10",
+        "itemType": "СЪДРУЖНИК И УПРАВИТЕЛ",
+        "shareSize": "2/3",
+        "companyName": "СД ВЪЗХОД-АРНЬО-АПОСТОЛОВА",
+        "registeredOffice": "Добрич",
+        "valueBgn": 67,
+        "holderName": "ВЕНЦИСЛАВА ЛАЗАРОВА АПОСТОЛОВА",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "СД-ВЪЗХОД-АРНЬО-АПОСТОЛОВА"
+      },
+      {
+        "table": "10",
+        "itemType": "СЪДРУЖНИК И УПРАВИТЕЛ",
+        "shareSize": "70%",
+        "companyName": "СИДОМ ООД",
+        "registeredOffice": "Добрич",
+        "valueBgn": 3500,
+        "holderName": "ВЕНЦИСЛАВА ЛАЗАРОВА АПОСТОЛОВА",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "СИДОМ-ООД"
+      },
+      {
+        "table": "10",
+        "itemType": "СЪДРУЖНИК И УПРАВИТЕЛ",
+        "shareSize": "25%",
+        "companyName": "ХЪНТЪР ХАУС 2010 ООД",
+        "registeredOffice": "Добрич",
+        "valueBgn": 20,
+        "holderName": "ВЕНЦИСЛАВА ЛАЗАРОВА АПОСТОЛОВА",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "ХЪНТЪР-ХАУС-2010-ООД"
+      },
+      {
+        "table": "10",
+        "itemType": "УПРАВИТЕЛ",
+        "shareSize": "65%",
+        "companyName": "ВЪЗХОД-ВАЛЕНТИНО ООД",
+        "registeredOffice": "Добрич",
+        "valueBgn": 65,
+        "holderName": "ВЕНЦИСЛАВА ЛАЗАРОВА АПОСТОЛОВА",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "ВЪЗХОД-ВАЛЕНТИНО-ООД"
+      }
+    ],
+    "income": []
+  },
+  {
+    "mpId": 2748,
+    "declarantName": "ЙОРДАН АПОСТОЛОВ АПОСТОЛОВ",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": "2021-04-20",
+    "entryNumber": "Г6042",
+    "controlHash": "E1799C57",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/51E3DC95-507A-455D-B436-932793D6C727123539.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 77528,
+        "amountBgnSpouse": 15052
+      },
+      {
+        "parent": null,
+        "category": "Доходи, получени от рента, аренда или друго възмездно предоставяне на земеделска земя -СД ВЪЗХОД-АРНЬО",
+        "amountBgnDeclarant": 405744,
+        "amountBgnSpouse": 50574
+      },
+      {
+        "parent": null,
+        "category": "Доходи, получени от рента, аренда или друго възмездно предоставяне на земеделска земя - АГРОСТРОЙ-М ЕООД",
+        "amountBgnDeclarant": 3915,
+        "amountBgnSpouse": 166
+      },
+      {
+        "parent": null,
+        "category": "Доходи получени от правилника на НС",
+        "amountBgnDeclarant": 33660,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

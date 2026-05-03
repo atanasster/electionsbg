@@ -1,0 +1,49 @@
+[
+  {
+    "mpId": 4038,
+    "declarantName": "Иван Валентинов Ганчев",
+    "institution": "48-мо Народно събрание",
+    "declarationYear": 2023,
+    "fiscalYear": 2023,
+    "declarationType": "Vacate",
+    "filedAt": "2023-03-01",
+    "entryNumber": "Ф378",
+    "controlHash": "E77AF5A3",
+    "sourceUrl": "https://register.cacbg.bg/2023/ECD61286-1BEB-4CE2-BE16-0EF61C61C583145831.xml",
+    "ownershipStakes": [],
+    "income": []
+  },
+  {
+    "mpId": 4038,
+    "declarantName": "Иван Валентинов Ганчев",
+    "institution": "47-мо Народно събрание",
+    "declarationYear": 2022,
+    "fiscalYear": 2021,
+    "declarationType": "Annualy",
+    "filedAt": "2022-05-09",
+    "entryNumber": "Г3877",
+    "controlHash": "68A47B80",
+    "sourceUrl": "https://register.cacbg.bg/2022/ECD61286-1BEB-4CE2-BE16-0EF61C61C583136077.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 2342,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountBgnDeclarant": 29401,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "По чл.11 от приложение на ПОДНС",
+        "amountBgnDeclarant": 2963,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

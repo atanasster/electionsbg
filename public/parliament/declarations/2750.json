@@ -1,0 +1,49 @@
+[
+  {
+    "mpId": 2750,
+    "declarantName": "Николай Асенов Тишев",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Vacate",
+    "filedAt": "2022-03-26",
+    "entryNumber": "Ф396",
+    "controlHash": "1CD4E182",
+    "sourceUrl": "https://register.cacbg.bg/2022/3A6986D2-9D54-4E7F-8544-2A540A03BAD8133119.xml",
+    "ownershipStakes": [],
+    "income": []
+  },
+  {
+    "mpId": 2750,
+    "declarantName": "Николай Асенов Тишев",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": "2021-02-24",
+    "entryNumber": "Г54",
+    "controlHash": "90156C69",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/3A6986D2-9D54-4E7F-8544-2A540A03BAD8116085.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 72891,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountBgnDeclarant": null,
+        "amountBgnSpouse": 23130
+      },
+      {
+        "parent": null,
+        "category": "чл. 11 от Финансови правила по бюджета на НС (приложение към ПОДНС)",
+        "amountBgnDeclarant": 33666,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

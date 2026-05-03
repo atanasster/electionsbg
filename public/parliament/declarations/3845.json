@@ -1,0 +1,60 @@
+[
+  {
+    "mpId": 3845,
+    "declarantName": "Владимир Славев Табутов",
+    "institution": "47-мо Народно събрание",
+    "declarationYear": 2022,
+    "fiscalYear": 2021,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г2408",
+    "controlHash": "CF2B52F6",
+    "sourceUrl": "https://register.cacbg.bg/2022/1BEB223E-A940-4400-A97C-739AE4C68F3E134522.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "парична вноска",
+        "shareSize": "100%",
+        "companyName": "Хек Солар ЕООД",
+        "registeredOffice": "Благоевград",
+        "valueBgn": 1027954,
+        "holderName": "Владимир Славев Табутов",
+        "legalBasis": "други",
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "companySlug": "Хек-Солар-ЕООД"
+      },
+      {
+        "table": "10",
+        "itemType": "парична вноска",
+        "shareSize": "50%",
+        "companyName": "Бельово ООД",
+        "registeredOffice": "Благоевград",
+        "valueBgn": 20000,
+        "holderName": "Владимир Славев Табутов",
+        "legalBasis": "други",
+        "fundsOrigin": "по Таблица 12 - ръчно",
+        "companySlug": "Бельово-ООД"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 7631,
+        "amountBgnSpouse": 19835
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountBgnDeclarant": 264091,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Дивидент получен през 2019г.",
+        "amountBgnDeclarant": 2559984,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

@@ -1,0 +1,43 @@
+[
+  {
+    "mpId": 2777,
+    "declarantName": "Владимир Цветанов Тошев",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Vacate",
+    "filedAt": "2022-05-13",
+    "entryNumber": "Ф518",
+    "controlHash": "463B2483",
+    "sourceUrl": "https://register.cacbg.bg/2022/B517E81F-556D-4B92-8545-15C2184C5341135644.xml",
+    "ownershipStakes": [],
+    "income": []
+  },
+  {
+    "mpId": 2777,
+    "declarantName": "Владимир Цветанов Тошев",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": "2021-04-10",
+    "entryNumber": "Г3979",
+    "controlHash": "C7B6A0A6",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/B517E81F-556D-4B92-8545-15C2184C5341120928.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 89000,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "по чл. 11 от ПОДНС",
+        "amountBgnDeclarant": 31300,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

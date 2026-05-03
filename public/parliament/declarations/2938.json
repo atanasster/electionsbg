@@ -1,0 +1,55 @@
+[
+  {
+    "mpId": 2938,
+    "declarantName": "Димитър Николов Лазаров",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Vacate",
+    "filedAt": "2022-05-16",
+    "entryNumber": "Ф605",
+    "controlHash": "54E99A4B",
+    "sourceUrl": "https://register.cacbg.bg/2022/2CC379DF-D565-42C4-9E96-77CCDF1B7C35138502.xml",
+    "ownershipStakes": [],
+    "income": []
+  },
+  {
+    "mpId": 2938,
+    "declarantName": "Димитър Николов Лазаров",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": "2021-04-19",
+    "entryNumber": "Г4972",
+    "controlHash": "EB077A96",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/2CC379DF-D565-42C4-9E96-77CCDF1B7C35122173.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 93807,
+        "amountBgnSpouse": 13190
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountBgnDeclarant": null,
+        "amountBgnSpouse": 11800
+      },
+      {
+        "parent": null,
+        "category": "по чл. 12 от финансовите правила по бюджета на НС - приложение към ПОДНС",
+        "amountBgnDeclarant": 31300,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "дивидент",
+        "amountBgnDeclarant": null,
+        "amountBgnSpouse": 90905
+      }
+    ]
+  }
+]

@@ -1,0 +1,49 @@
+[
+  {
+    "mpId": 2965,
+    "declarantName": "Евдокия Славчова Асенова",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Vacate",
+    "filedAt": "2022-04-11",
+    "entryNumber": "Ф380",
+    "controlHash": "6B5DB13E",
+    "sourceUrl": "https://register.cacbg.bg/2022/5B658292-662A-4736-B5AB-A6A970319ABA133019.xml",
+    "ownershipStakes": [],
+    "income": []
+  },
+  {
+    "mpId": 2965,
+    "declarantName": "Евдокия Славчова Асенова",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": "2021-01-27",
+    "entryNumber": "Г67",
+    "controlHash": "9F7020ED",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/5B658292-662A-4736-B5AB-A6A970319ABA116098.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 65677,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "чл. 11 от Финансови правила по бюджета на НС (приложение към ПОДНС)",
+        "amountBgnDeclarant": 33666,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "печалба от Български спортен тотализатор",
+        "amountBgnDeclarant": 11971,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

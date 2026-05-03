@@ -1,0 +1,43 @@
+[
+  {
+    "mpId": 2945,
+    "declarantName": "Емил Серафимов Тончев",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Vacate",
+    "filedAt": "2022-05-06",
+    "entryNumber": "Ф540",
+    "controlHash": "9BAEDF96",
+    "sourceUrl": "https://register.cacbg.bg/2022/871558C1-A716-4647-AA0B-29E0FF762DEC136072.xml",
+    "ownershipStakes": [],
+    "income": []
+  },
+  {
+    "mpId": 2945,
+    "declarantName": "Емил Серафимов Тончев",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г5232",
+    "controlHash": "50760818",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/871558C1-A716-4647-AA0B-29E0FF762DEC122503.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 79127,
+        "amountBgnSpouse": 12342
+      },
+      {
+        "parent": null,
+        "category": "Средства от народното събрание по чл.11 от финансовите правила по бюджета",
+        "amountBgnDeclarant": 31300,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

@@ -1,0 +1,49 @@
+[
+  {
+    "mpId": 2699,
+    "declarantName": "НИКОЛАЙ  ИВАНОВ ЦОНКОВ",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Vacate",
+    "filedAt": "2022-04-19",
+    "entryNumber": "Ф421",
+    "controlHash": "4AA2E010",
+    "sourceUrl": "https://register.cacbg.bg/2022/1D4EE175-9B91-410D-B5D6-4CAA5CFF5330133379.xml",
+    "ownershipStakes": [],
+    "income": []
+  },
+  {
+    "mpId": 2699,
+    "declarantName": "НИКОЛАЙ  ИВАНОВ ЦОНКОВ",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": "2021-02-04",
+    "entryNumber": "Г64",
+    "controlHash": "EDE08DF5",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/1D4EE175-9B91-410D-B5D6-4CAA5CFF5330116095.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 78160,
+        "amountBgnSpouse": 18300
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountBgnDeclarant": 2800,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "По чл. 11 от Приложение на ПОДНС",
+        "amountBgnDeclarant": 33666,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

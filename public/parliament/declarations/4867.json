@@ -1,0 +1,42 @@
+[
+  {
+    "mpId": 4867,
+    "declarantName": "Димитър Иванов Григоров",
+    "institution": "51-во Народно събрание",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-10",
+    "entryNumber": "Г10437",
+    "controlHash": "AC281A3D",
+    "sourceUrl": "https://register.cacbg.bg/2025/56127FE1-C98A-4558-8170-6F325BBC98B8213522.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Дялове",
+        "shareSize": "100",
+        "companyName": "Евроброд Груп ЕООД",
+        "registeredOffice": "Костинброд",
+        "valueBgn": 5000,
+        "holderName": "Димитър Иванов Григоров",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми",
+        "companySlug": "Евроброд-Груп-ЕООД"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 58880,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountBgnDeclarant": 528,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

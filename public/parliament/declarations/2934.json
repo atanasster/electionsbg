@@ -1,0 +1,54 @@
+[
+  {
+    "mpId": 2934,
+    "declarantName": "Руслан Здравков Тошев",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": "2021-04-09",
+    "entryNumber": "Г93",
+    "controlHash": "21B3173D",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/F7403A8B-8727-429F-BDEA-0499D517FD9C116166.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "дялове прехвърлени през 2009, но не е отразено в ТР",
+        "shareSize": "1",
+        "companyName": "СБОБАЛ 2000",
+        "registeredOffice": "Варна",
+        "valueBgn": 50,
+        "holderName": "Руслан Здравков Тошев",
+        "legalBasis": "договор",
+        "fundsOrigin": "заплата",
+        "companySlug": "СБОБАЛ-2000"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 82962,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountBgnDeclarant": 5019,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "наеми от земеделски земи",
+        "amountBgnDeclarant": 109708,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "съгласно ПОДНС",
+        "amountBgnDeclarant": 31300,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

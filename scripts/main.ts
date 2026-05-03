@@ -7,6 +7,7 @@ import { generateCanonicalParties } from "./parsers/canonicalParties";
 import { parseElections } from "./parsers/parse_elections";
 import { generateAllSearchFIles } from "./search";
 import { parseFinancing } from "./smetna_palata";
+import { parseFinancialDeclarations } from "./declarations";
 import { runPartyStats } from "./party_stats";
 import { createPreferencesFiles } from "./preferences";
 import { parseMachinesFlashMemory } from "./machines_memory";
@@ -102,6 +103,11 @@ const app = command({
       short: "g",
       defaultValue: () => false,
     }),
+    declarations: flag({
+      type: optional(boolean),
+      long: "declarations",
+      defaultValue: () => false,
+    }),
   },
   handler: async ({
     all,
@@ -117,6 +123,7 @@ const app = command({
     election,
     summary,
     coords,
+    declarations,
   }) => {
     production = prod;
     if (machines) {
@@ -162,6 +169,13 @@ const app = command({
     }
     if (candidates) {
       await createPreferencesFiles(stringify, election);
+    }
+    if (declarations) {
+      await parseFinancialDeclarations({
+        publicFolder,
+        dataFolder: inFolder,
+        stringify,
+      });
     }
   },
 });

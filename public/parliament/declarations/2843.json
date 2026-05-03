@@ -1,0 +1,67 @@
+[
+  {
+    "mpId": 2843,
+    "declarantName": "Константин Веселинов Попов",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Vacate",
+    "filedAt": "2022-04-19",
+    "entryNumber": "Ф387",
+    "controlHash": "44CF7888",
+    "sourceUrl": "https://register.cacbg.bg/2022/258631F2-7E65-4267-8C41-85F0948D3C96133072.xml",
+    "ownershipStakes": [],
+    "income": []
+  },
+  {
+    "mpId": 2843,
+    "declarantName": "Константин Веселинов Попов",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": "2021-01-25",
+    "entryNumber": "Г6263",
+    "controlHash": "AB168AE4",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/258631F2-7E65-4267-8C41-85F0948D3C96123799.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 90504,
+        "amountBgnSpouse": 36792
+      },
+      {
+        "parent": null,
+        "category": "Представителни разходи",
+        "amountBgnDeclarant": 31300,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Рента",
+        "amountBgnDeclarant": 750,
+        "amountBgnSpouse": 750
+      },
+      {
+        "parent": null,
+        "category": "Пенсия",
+        "amountBgnDeclarant": 14600,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "обезщетение за болнични",
+        "amountBgnDeclarant": 2750,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "допълнителни служебни плащания и награди",
+        "amountBgnDeclarant": null,
+        "amountBgnSpouse": 3500
+      }
+    ]
+  }
+]

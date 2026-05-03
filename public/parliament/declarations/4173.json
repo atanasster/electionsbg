@@ -1,0 +1,74 @@
+[
+  {
+    "mpId": 4173,
+    "declarantName": "Даниела Стоянова Божинова",
+    "institution": "49-то Народно събрание",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-14",
+    "entryNumber": "Г1775",
+    "controlHash": "39441E7C",
+    "sourceUrl": "https://register.cacbg.bg/2024/3E101CD5-4403-4187-83C4-E5A44AE0D5ED182728.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 93911,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountBgnDeclarant": 9145,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountBgnDeclarant": 10800,
+        "amountBgnSpouse": 22280
+      }
+    ]
+  },
+  {
+    "mpId": 4173,
+    "declarantName": "Даниела Стоянова Божинова",
+    "institution": "49-то Народно събрание",
+    "declarationYear": 2023,
+    "fiscalYear": 2023,
+    "declarationType": "Entry",
+    "filedAt": "2023-05-01",
+    "entryNumber": "В354",
+    "controlHash": "4C27CE40",
+    "sourceUrl": "https://register.cacbg.bg/2023/3E101CD5-4403-4187-83C4-E5A44AE0D5ED148050.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "100 дяла",
+        "shareSize": "20%",
+        "companyName": "Божинов Инвестмънт Груп ООД",
+        "registeredOffice": "Бургас",
+        "valueBgn": 1000,
+        "holderName": "Даниела Стоянова Божинова",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "Божинов-Инвестмънт-Груп-ООД"
+      },
+      {
+        "table": "10",
+        "itemType": "400 дяла",
+        "shareSize": "80%",
+        "companyName": "Божинов Инвестмънт Груп ООД",
+        "registeredOffice": "Бургас",
+        "valueBgn": 4000,
+        "holderName": "Росен Георгиев Божинов",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "Божинов-Инвестмънт-Груп-ООД"
+      }
+    ],
+    "income": []
+  }
+]

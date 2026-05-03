@@ -1,0 +1,49 @@
+[
+  {
+    "mpId": 2836,
+    "declarantName": "Атанас Иванов Ташков",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Vacate",
+    "filedAt": "2022-03-29",
+    "entryNumber": "Ф365",
+    "controlHash": "848565A3",
+    "sourceUrl": "https://register.cacbg.bg/2022/78D8195C-428B-45C2-93BB-C1A0B0711A90132888.xml",
+    "ownershipStakes": [],
+    "income": []
+  },
+  {
+    "mpId": 2836,
+    "declarantName": "Атанас Иванов Ташков",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": "2021-02-18",
+    "entryNumber": "Г1227",
+    "controlHash": "18EF4356",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/78D8195C-428B-45C2-93BB-C1A0B0711A90117543.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 80837,
+        "amountBgnSpouse": 42250
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountBgnDeclarant": 4320,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "по чл. 12 от финансовите правила по бюджета на НС - приложение към ПОДНС",
+        "amountBgnDeclarant": 31300,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

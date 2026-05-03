@@ -1,0 +1,43 @@
+[
+  {
+    "mpId": 2778,
+    "declarantName": "РОСЕН ЖИВКОВ ИВАНОВ",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Vacate",
+    "filedAt": "2022-04-19",
+    "entryNumber": "Ф407",
+    "controlHash": "38FBE49E",
+    "sourceUrl": "https://register.cacbg.bg/2022/9C8EA0A0-F31D-4E35-9490-D50EC59FEA82133211.xml",
+    "ownershipStakes": [],
+    "income": []
+  },
+  {
+    "mpId": 2778,
+    "declarantName": "РОСЕН ЖИВКОВ ИВАНОВ",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": "2021-04-26",
+    "entryNumber": "Г7622",
+    "controlHash": "7233D3C6",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/9C8EA0A0-F31D-4E35-9490-D50EC59FEA82125538.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 80796,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "СУМА ПО ЧЛ.11 ОТ ФИНАНСОВИТЕ ПРАВИЛА НА ПОДНС",
+        "amountBgnDeclarant": 33600,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

@@ -1,0 +1,35 @@
+[
+  {
+    "mpId": 4379,
+    "declarantName": "Йордан Стоянов Кръстанов",
+    "institution": "49-то Народно събрание",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-09",
+    "entryNumber": "Г1355",
+    "controlHash": "BF3CF8C3",
+    "sourceUrl": "https://register.cacbg.bg/2024/1746B5F2-2277-4898-8ECD-D632534A0504182262.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 476136,
+        "amountBgnSpouse": 57919
+      },
+      {
+        "parent": null,
+        "category": "необлагаем приход от Народно събрание по чл.11ФП ПОДНС",
+        "amountBgnDeclarant": 14000,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "дохот от дивиденти",
+        "amountBgnDeclarant": 200000,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

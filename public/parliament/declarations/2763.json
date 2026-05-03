@@ -1,0 +1,43 @@
+[
+  {
+    "mpId": 2763,
+    "declarantName": "Георги Димитров Андреев",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Vacate",
+    "filedAt": "2022-04-20",
+    "entryNumber": "Ф452",
+    "controlHash": "0F0062D2",
+    "sourceUrl": "https://register.cacbg.bg/2022/A4E14CF7-DF63-41E4-97D6-8BF531A22480133703.xml",
+    "ownershipStakes": [],
+    "income": []
+  },
+  {
+    "mpId": 2763,
+    "declarantName": "Георги Димитров Андреев",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": "2021-04-19",
+    "entryNumber": "Г4163",
+    "controlHash": "8CA5B1BC",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/A4E14CF7-DF63-41E4-97D6-8BF531A22480121153.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 64820,
+        "amountBgnSpouse": 20582
+      },
+      {
+        "parent": null,
+        "category": "чл. 11 от Финансови правила по бюджета на Народното събрание (приложение към ПОДНС)",
+        "amountBgnDeclarant": 33666,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

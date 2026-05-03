@@ -1,0 +1,43 @@
+[
+  {
+    "mpId": 2787,
+    "declarantName": "(unknown)",
+    "institution": "Народно събраниe",
+    "declarationYear": 2026,
+    "fiscalYear": null,
+    "declarationType": "Other",
+    "filedAt": "2022-04-19",
+    "entryNumber": "Ф388",
+    "controlHash": "952111FB",
+    "sourceUrl": "https://register.cacbg.bg/2022/EE122BF4-1778-42A6-B021-9DA56BD11E96133078.xml",
+    "ownershipStakes": [],
+    "income": []
+  },
+  {
+    "mpId": 2787,
+    "declarantName": "Слави Дичев Нецов",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г7736",
+    "controlHash": "AC032624",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/EE122BF4-1778-42A6-B021-9DA56BD11E96125767.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 97033,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "По чл. 11 от Приложение на ПОДНС",
+        "amountBgnDeclarant": 33296,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

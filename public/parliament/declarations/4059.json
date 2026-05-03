@@ -1,0 +1,120 @@
+[
+  {
+    "mpId": 4059,
+    "declarantName": "Цветелина Калинова Симеонова-Заркин",
+    "institution": "48-мо Народно събрание",
+    "declarationYear": 2023,
+    "fiscalYear": 2022,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г131",
+    "controlHash": "406911E5",
+    "sourceUrl": "https://register.cacbg.bg/2023/012618BC-276C-498F-BB80-D1B2F8585B27145393.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Дялове",
+        "shareSize": "10%",
+        "companyName": "ФРАНГО ФРАНЧАЙЗ ООД",
+        "registeredOffice": "София",
+        "valueBgn": 1000,
+        "holderName": "Йосиф Иванов Заркин",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата",
+        "companySlug": "ФРАНГО-ФРАНЧАЙЗ-ООД"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 83673,
+        "amountBgnSpouse": 5821
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountBgnDeclarant": 5240,
+        "amountBgnSpouse": null
+      }
+    ]
+  },
+  {
+    "mpId": 4059,
+    "declarantName": "Цветелина Калинова Симеонова-Заркин",
+    "institution": "47-мо Народно събрание",
+    "declarationYear": 2022,
+    "fiscalYear": 2021,
+    "declarationType": "Annualy",
+    "filedAt": "2022-05-12",
+    "entryNumber": "Г4420",
+    "controlHash": "A81582A6",
+    "sourceUrl": "https://register.cacbg.bg/2022/012618BC-276C-498F-BB80-D1B2F8585B27136648.xml",
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "дялове",
+        "shareSize": "15%",
+        "companyName": "Екотехпродукт ООД",
+        "registeredOffice": "София (столица)",
+        "valueBgn": 750,
+        "holderName": null,
+        "transfereeName": "Цветелина Калинова Симеонова-Заркин",
+        "legalBasis": "възмездно",
+        "fundsOrigin": null,
+        "companySlug": "Екотехпродукт-ООД"
+      },
+      {
+        "table": "11",
+        "itemType": "дялове",
+        "shareSize": "100%",
+        "companyName": "Каза Натура ЕООД",
+        "registeredOffice": "София (столица)",
+        "valueBgn": 100,
+        "holderName": null,
+        "transfereeName": "Цветелина Калинова Симеонова-Заркин",
+        "legalBasis": "възмездно",
+        "fundsOrigin": null,
+        "companySlug": "Каза-Натура-ЕООД"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 25256,
+        "amountBgnSpouse": 7480
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountBgnDeclarant": 7738,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountBgnDeclarant": 3850,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Получени дивиденти",
+        "amountBgnDeclarant": 14250,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Обезщетение за майчинство",
+        "amountBgnDeclarant": 5873,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Обезщетение за безработица",
+        "amountBgnDeclarant": null,
+        "amountBgnSpouse": 5000
+      }
+    ]
+  }
+]

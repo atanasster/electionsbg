@@ -352,3 +352,192 @@ export type PartyFinancing = {
     filing: PartyFiling;
   };
 };
+
+// MP property/interest declarations from register.cacbg.bg.
+// Sitting MPs cannot legally hold management roles (ЗПК Art. 35), so the
+// declaration only covers ownership stakes — management roles must come from
+// the Commerce Registry instead.
+export type MpOwnershipStake = {
+  table: "10" | "11"; // 10 = current shares, 11 = transferred in prior year
+  itemType: string | null; // raw "Вид на имуществото" cell
+  shareSize: string | null; // raw text, may be "100%" or a numeric quantity
+  companyName: string | null;
+  registeredOffice: string | null;
+  valueBgn: number | null;
+  holderName: string | null;
+  legalBasis: string | null;
+  fundsOrigin: string | null;
+  // Table 11 only — counterparty in the transfer
+  transfereeName?: string | null;
+  /** Resolved companies-index slug, written by the build pipeline after
+   * companies-index.json is materialised. Encodes the `-2`, `-3`, …
+   * disambiguation that handles companies sharing a base slug, so the
+   * candidate-page link lands on the right /mp/company/{slug} entry even
+   * when names collide. Optional for backward compatibility — pre-pipeline
+   * files won't have it. */
+  companySlug?: string | null;
+};
+
+export type MpIncomeRecord = {
+  parent: string | null; // e.g. "I. Облагаем доход от"
+  category: string | null;
+  amountBgnDeclarant: number | null;
+  amountBgnSpouse: number | null;
+};
+
+export type MpDeclaration = {
+  mpId: number;
+  declarantName: string;
+  institution: string; // e.g. "51-во Народно събрание"
+  declarationYear: number; // year filed
+  fiscalYear: number | null; // year covered (declarationYear - 1 for annual)
+  declarationType: string;
+  filedAt: string | null;
+  entryNumber: string | null;
+  controlHash: string | null;
+  sourceUrl: string;
+  ownershipStakes: MpOwnershipStake[];
+  income: MpIncomeRecord[];
+};
+
+// TR (Commerce Registry) enrichment, attached to each entry in
+// public/parliament/companies-index.json when we can match the declared
+// company by name. Sourced from raw_data/tr/state.sqlite (Phase 4 output).
+export type TrCompanyOfficer = {
+  role: string; // see scripts/declarations/tr/types.ts → TrRole
+  name: string;
+  positionLabel: string | null;
+  sharePercent: number | null;
+  addedAt: string;
+  /** Set when this person is also an MP (matched by normalized name). */
+  matchedMpId?: number;
+};
+
+export type TrCompanyEnrichment = {
+  uic: string;
+  legalForm: string | null;
+  status: string;
+  seat: string | null;
+  lastUpdated: string | null;
+  /** Currently-active officers (managers, directors, …). MP matches flagged. */
+  currentOfficers: TrCompanyOfficer[];
+  /** Currently-active equity holders (partners, sole owner, beneficial owner). */
+  currentOwners: TrCompanyOfficer[];
+};
+
+// Per-MP file: public/parliament/mp-management/{mpId}.json
+// Surfaces TR records whose normalized name matches the MP. Confidence model:
+// HIGH = name match + (TR seat city contains MP region OR another MP from the
+// same party already declared a stake in this UIC); MEDIUM = name match only.
+// LOW (surname-only) is suppressed entirely.
+export type MpManagementRole = {
+  uic: string;
+  companyName: string | null;
+  legalForm: string | null;
+  seat: string | null;
+  status: string;
+  role: string;
+  positionLabel: string | null;
+  sharePercent: number | null;
+  addedAt: string;
+  /** null = currently active; ISO date = when the role was erased. */
+  erasedAt: string | null;
+  confidence: "high" | "medium";
+  confidenceReason: string;
+};
+
+export type MpManagementFile = {
+  mpId: number;
+  mpName: string;
+  generatedAt: string;
+  total: number;
+  roles: MpManagementRole[];
+};
+
+// Spatial/connections graph at public/parliament/connections.json. Nodes are
+// MPs, companies, or non-MP persons; edges connect a person (MP or non-MP) to
+// a company they own a stake in or hold a role at. Uses string IDs so the file
+// stays human-inspectable.
+export type ConnectionsMpNode = {
+  id: string; // "mp:{mpId}"
+  type: "mp";
+  mpId: number;
+  label: string; // display name
+  partyGroupShort: string | null;
+  isCurrent: boolean;
+};
+export type ConnectionsCompanyNode = {
+  id: string; // "company:{slug}" or "company:tr:{uic}"
+  type: "company";
+  label: string;
+  slug: string | null; // null when the node only appears via TR (no declared stake)
+  uic: string | null;
+  legalForm: string | null;
+  status: string | null;
+  seat: string | null;
+};
+export type ConnectionsPersonNode = {
+  id: string; // "person:{normalizedName}"
+  type: "person";
+  label: string; // raw display name
+};
+export type ConnectionsNode =
+  | ConnectionsMpNode
+  | ConnectionsCompanyNode
+  | ConnectionsPersonNode;
+
+export type ConnectionsEdgeKind =
+  | "declared_stake" // MP declared this company in their property declaration
+  | "tr_role" // person holds/held a TR role at this company
+  | "tr_owner"; // person is/was a TR-recorded owner
+
+export type ConnectionsEdge = {
+  source: string; // person/MP node id
+  target: string; // company node id
+  kind: ConnectionsEdgeKind;
+  /** Specific role label, e.g. "manager", "partner". Free-form for
+   * declared_stake (Bulgarian text). */
+  role: string;
+  /** True when the edge represents a currently-active relationship. */
+  isCurrent: boolean;
+  /** Confidence model from integrate.ts (only meaningful on tr_role/tr_owner
+   * edges that resolve to an MP node — declared_stake is always "high"). */
+  confidence?: "high" | "medium";
+};
+
+export type ConnectionsGraph = {
+  generatedAt: string;
+  nodes: ConnectionsNode[];
+  edges: ConnectionsEdge[];
+};
+
+export type ConnectionsTopMp = {
+  mpId: number;
+  label: string;
+  partyGroupShort: string | null;
+  isCurrent: boolean;
+  /** Union of parliament-index nsFolders and any NS folder we can derive
+   * from the MP's declaration institutions (e.g. "51-во Народно събрание"
+   * → "51"). The fallback covers former MPs whose parliament.bg profile
+   * has an empty oldnsList — they still appear on the right per-election
+   * dashboards. */
+  nsFolders: string[];
+  totalDegree: number;
+  highConfDegree: number;
+};
+export type ConnectionsTopCompany = {
+  nodeId: string;
+  slug: string | null;
+  uic: string | null;
+  label: string;
+  legalForm: string | null;
+  status: string | null;
+  seat: string | null;
+  mpCount: number;
+  totalDegree: number;
+};
+export type ConnectionsRankings = {
+  generatedAt: string;
+  topMps: ConnectionsTopMp[];
+  topCompanies: ConnectionsTopCompany[];
+};

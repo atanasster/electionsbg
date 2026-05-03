@@ -1,0 +1,43 @@
+[
+  {
+    "mpId": 4716,
+    "declarantName": "(unknown)",
+    "institution": "47-мо Народно събрание",
+    "declarationYear": 2026,
+    "fiscalYear": null,
+    "declarationType": "Other",
+    "filedAt": null,
+    "entryNumber": "В280",
+    "controlHash": "7DD69F9E",
+    "sourceUrl": "https://register.cacbg.bg/2022/7A549328-9E3C-40FB-8396-47F932A66B1F131599.xml",
+    "ownershipStakes": [],
+    "income": []
+  },
+  {
+    "mpId": 4716,
+    "declarantName": "Венцислав Иванов Петков",
+    "institution": "51-во Народно събрание",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г10942",
+    "controlHash": "6148766A",
+    "sourceUrl": "https://register.cacbg.bg/2025/7A549328-9E3C-40FB-8396-47F932A66B1F214059.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 13594,
+        "amountBgnSpouse": 34112
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountBgnDeclarant": 7908,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

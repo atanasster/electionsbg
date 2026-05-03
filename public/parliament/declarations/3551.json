@@ -1,0 +1,93 @@
+[
+  {
+    "mpId": 3551,
+    "declarantName": "Златомира Димитрова Карагеоргиева-Мострова",
+    "institution": "47-мо Народно събрание",
+    "declarationYear": 2022,
+    "fiscalYear": 2021,
+    "declarationType": "Annualy",
+    "filedAt": "2022-05-13",
+    "entryNumber": "Г7762",
+    "controlHash": "7B6A22F2",
+    "sourceUrl": "https://register.cacbg.bg/2022/B6E91D25-2CB8-498E-B462-5F691C8A455F140123.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "дялове",
+        "shareSize": "17",
+        "companyName": "проект консулт оод в ликвидация",
+        "registeredOffice": "Бургас",
+        "valueBgn": 1700,
+        "holderName": "златомира димитрова карагеоргиева-мострова",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата",
+        "companySlug": "проект-консулт-оод-в-ликвидация"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 25086,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountBgnDeclarant": 30534,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountBgnDeclarant": 8600,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "ПОДНС",
+        "amountBgnDeclarant": 11543,
+        "amountBgnSpouse": null
+      }
+    ]
+  },
+  {
+    "mpId": 3551,
+    "declarantName": "Златомира Димитрова Карагеоргиева-Мострова",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Entry",
+    "filedAt": null,
+    "entryNumber": "В891",
+    "controlHash": "9961D0DE",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/B6E91D25-2CB8-498E-B462-5F691C8A455F122934.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "дялове",
+        "shareSize": "17",
+        "companyName": "Проект консулт ООД в ликвидация",
+        "registeredOffice": "Бургас",
+        "valueBgn": 1700,
+        "holderName": "Златомира Димитрова Карагеоргиева-Мострова",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "проект-консулт-оод-в-ликвидация"
+      },
+      {
+        "table": "10",
+        "itemType": "дялове",
+        "shareSize": "15",
+        "companyName": "Бургаска образователна компания ООД",
+        "registeredOffice": "Бургас",
+        "valueBgn": 15,
+        "holderName": "златомира Димитрова Карагеоргиева-Мострова",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "Бургаска-образователна-компания-ООД"
+      }
+    ],
+    "income": []
+  }
+]

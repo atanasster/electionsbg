@@ -1,0 +1,62 @@
+[
+  {
+    "mpId": 2833,
+    "declarantName": "Спас Георгиев Гърневски",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Vacate",
+    "filedAt": "2022-04-15",
+    "entryNumber": "Ф374",
+    "controlHash": "20AEF1FE",
+    "sourceUrl": "https://register.cacbg.bg/2022/75A35D3A-BC1A-4FA3-960B-9AA3F1433024132950.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "дялове",
+        "shareSize": "100%",
+        "companyName": "ФОКУС БГ ЕООД",
+        "registeredOffice": "Пловдив",
+        "valueBgn": 5000,
+        "holderName": "Донка Стоянова Гърневска",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "ФОКУС-БГ-ЕООД"
+      }
+    ],
+    "income": []
+  },
+  {
+    "mpId": 2833,
+    "declarantName": "Спас Георгиев Гърневски",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": "2021-01-21",
+    "entryNumber": "Г7743",
+    "controlHash": "ED3E228D",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/75A35D3A-BC1A-4FA3-960B-9AA3F1433024125778.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 73771,
+        "amountBgnSpouse": 13851
+      },
+      {
+        "parent": null,
+        "category": "По чл. 11 от Приложение на ПОДНС",
+        "amountBgnDeclarant": 31300,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "пенсия",
+        "amountBgnDeclarant": 14400,
+        "amountBgnSpouse": 7920
+      }
+    ]
+  }
+]

@@ -1,0 +1,98 @@
+[
+  {
+    "mpId": 2669,
+    "declarantName": "Теодора Радкова Георгиева",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Vacate",
+    "filedAt": "2022-05-16",
+    "entryNumber": "Ф568",
+    "controlHash": "757A71B9",
+    "sourceUrl": "https://register.cacbg.bg/2022/D897EE74-8D6C-4195-A466-1CAEC792358F136890.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "дружествен дял",
+        "shareSize": "100",
+        "companyName": "Евро кънстракшънс",
+        "registeredOffice": "София (столица)",
+        "valueBgn": 5000,
+        "holderName": "Теодора Радкова Георгиева",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "Евро-кънстракшънс"
+      },
+      {
+        "table": "10",
+        "itemType": "дружествен дял",
+        "shareSize": "99.9",
+        "companyName": "Джи енд джи естейт",
+        "registeredOffice": "София (столица)",
+        "valueBgn": 99900,
+        "holderName": "Теодора Радкова Георгиева",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "Джи-енд-джи-естейт"
+      },
+      {
+        "table": "10",
+        "itemType": "дружествен дял",
+        "shareSize": "100",
+        "companyName": "Консулт Г",
+        "registeredOffice": "София (столица)",
+        "valueBgn": 5,
+        "holderName": "Теодора Радкова Георгиева",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "Консулт-Г"
+      },
+      {
+        "table": "10",
+        "itemType": "дружествен дял",
+        "shareSize": "50",
+        "companyName": "Т.Г.",
+        "registeredOffice": "ЧУЖБИНА",
+        "valueBgn": 488957,
+        "holderName": "Теодора",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "Т.Г."
+      }
+    ],
+    "income": []
+  },
+  {
+    "mpId": 2669,
+    "declarantName": "Теодора Радкова Георгиева",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": "2021-05-12",
+    "entryNumber": "Г7844",
+    "controlHash": "D2064910",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/D897EE74-8D6C-4195-A466-1CAEC792358F125996.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 60126,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountBgnDeclarant": 16943,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "по чл.12 от финансовите правила по бюджета на НС - приложение към ПОДНС",
+        "amountBgnDeclarant": 31300,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

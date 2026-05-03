@@ -1,0 +1,62 @@
+[
+  {
+    "mpId": 3011,
+    "declarantName": "Милена Цветанова Дамянова",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Vacate",
+    "filedAt": "2022-06-12",
+    "entryNumber": "Ф716",
+    "controlHash": "6352CFAF",
+    "sourceUrl": "https://register.cacbg.bg/2022/75000B34-13F8-40CB-B09F-4832891E5C88140729.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Дялове",
+        "shareSize": "25",
+        "companyName": "\"Ивентс Криейтърс\" ООД",
+        "registeredOffice": "София (столица)",
+        "valueBgn": 2500,
+        "holderName": "Георги Александров Дамянов",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "Ивентс-Криейтърс-ООД"
+      }
+    ],
+    "income": []
+  },
+  {
+    "mpId": 3011,
+    "declarantName": "Милена Цветанова Дамянова",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": "2021-04-19",
+    "entryNumber": "Г6683",
+    "controlHash": "152FBA41",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/75000B34-13F8-40CB-B09F-4832891E5C88124376.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 77361,
+        "amountBgnSpouse": 56625
+      },
+      {
+        "parent": null,
+        "category": "Рента",
+        "amountBgnDeclarant": 924,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Средства по чл. 11 от Приложението към Правилника за организацията и дейността на Народното събрание",
+        "amountBgnDeclarant": 31300,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

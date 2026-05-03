@@ -1,0 +1,56 @@
+[
+  {
+    "mpId": 2947,
+    "declarantName": "Станислав Иванов Попов",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Vacate",
+    "filedAt": "2022-05-19",
+    "entryNumber": "Ф525",
+    "controlHash": "78DCA3DD",
+    "sourceUrl": "https://register.cacbg.bg/2022/3FF7C75F-E4DA-4123-87EE-540262CD80C4135973.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Дялове в ЕООД",
+        "shareSize": "100 %",
+        "companyName": "Камибо ЕООД",
+        "registeredOffice": "София (столица)",
+        "valueBgn": 5000,
+        "holderName": "Станислав Иванов Попов",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "Камибо-ЕООД"
+      }
+    ],
+    "income": []
+  },
+  {
+    "mpId": 2947,
+    "declarantName": "Станислав Иванов Попов",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": "2021-04-23",
+    "entryNumber": "Г7749",
+    "controlHash": "A937909F",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/3FF7C75F-E4DA-4123-87EE-540262CD80C4125794.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 76379,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "НС - чл. 11 от Приложение към ПОДНС",
+        "amountBgnDeclarant": 31300,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

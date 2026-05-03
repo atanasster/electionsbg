@@ -1,0 +1,43 @@
+[
+  {
+    "mpId": 2779,
+    "declarantName": "Цветан Борисов Топчиев",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Vacate",
+    "filedAt": "2022-04-13",
+    "entryNumber": "Ф393",
+    "controlHash": "319B0DAC",
+    "sourceUrl": "https://register.cacbg.bg/2022/70B81709-392B-4838-B6FE-718A26049D87133100.xml",
+    "ownershipStakes": [],
+    "income": []
+  },
+  {
+    "mpId": 2779,
+    "declarantName": "Цветан Борисов Топчиев",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": "2021-02-24",
+    "entryNumber": "Г58",
+    "controlHash": "A5CDAF2C",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/70B81709-392B-4838-B6FE-718A26049D87116089.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 76059,
+        "amountBgnSpouse": 18675
+      },
+      {
+        "parent": null,
+        "category": "По чл. 11 към Приложението на ПОДНС",
+        "amountBgnDeclarant": 33666,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

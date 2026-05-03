@@ -1,0 +1,55 @@
+[
+  {
+    "mpId": 2681,
+    "declarantName": "Борислав Иванов Борисов",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Vacate",
+    "filedAt": null,
+    "entryNumber": "Ф532",
+    "controlHash": "AEFAF3A1",
+    "sourceUrl": "https://register.cacbg.bg/2022/5251D4A1-7F08-4976-99E0-33E74AC14E04136024.xml",
+    "ownershipStakes": [],
+    "income": []
+  },
+  {
+    "mpId": 2681,
+    "declarantName": "Борилав Иванов Борисов",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г1370",
+    "controlHash": "15A56C32",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/5251D4A1-7F08-4976-99E0-33E74AC14E04117775.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 71631,
+        "amountBgnSpouse": 111496
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountBgnDeclarant": 10927,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountBgnDeclarant": 8145,
+        "amountBgnSpouse": 8145
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountBgnDeclarant": 31300,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

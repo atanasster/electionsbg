@@ -1,0 +1,160 @@
+[
+  {
+    "mpId": 2715,
+    "declarantName": "Борис Петков Кърчев",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Vacate",
+    "filedAt": "2022-04-19",
+    "entryNumber": "Ф433",
+    "controlHash": "235162FC",
+    "sourceUrl": "https://register.cacbg.bg/2022/BBD5FB6E-AB49-4385-B27A-A10094D9DE9B133479.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "дялово участие",
+        "shareSize": "30%",
+        "companyName": "МЕДИЯ ВИЖЪН",
+        "registeredOffice": "Стара Загора",
+        "valueBgn": 1500,
+        "holderName": "Борис Петков Кърчев",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "МЕДИЯ-ВИЖЪН"
+      },
+      {
+        "table": "10",
+        "itemType": "дялово участие",
+        "shareSize": "50%",
+        "companyName": "ТРАКИЯ КАБЕЛ",
+        "registeredOffice": "Стара Загора",
+        "valueBgn": 2500,
+        "holderName": "Борис Петков Кърчев",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "ТРАКИЯ-КАБЕЛ"
+      },
+      {
+        "table": "10",
+        "itemType": "дялово участие",
+        "shareSize": "100%",
+        "companyName": "ТРАКИЯ МОБАЙЛ",
+        "registeredOffice": "Стара Загора",
+        "valueBgn": 5000,
+        "holderName": "Борис Петков Кърчев",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "ТРАКИЯ-МОБАЙЛ"
+      },
+      {
+        "table": "10",
+        "itemType": "дялово участие",
+        "shareSize": "35%",
+        "companyName": "БОГДАНОВ ИНВЕСТ",
+        "registeredOffice": "Стара Загора",
+        "valueBgn": 1750,
+        "holderName": "Борис",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "БОГДАНОВ-ИНВЕСТ"
+      },
+      {
+        "table": "10",
+        "itemType": "дялово участие",
+        "shareSize": "100%",
+        "companyName": "МИРОЗА",
+        "registeredOffice": "Стара Загора",
+        "valueBgn": 2,
+        "holderName": "Мирослава Стефанова Кърчева",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "МИРОЗА"
+      },
+      {
+        "table": "10",
+        "itemType": "дялово участие",
+        "shareSize": "100%",
+        "companyName": "ЕМ и ЕР ФЕШЪН",
+        "registeredOffice": "Стара Загора",
+        "valueBgn": 2,
+        "holderName": "Мирослава",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "ЕМ-и-ЕР-ФЕШЪН"
+      }
+    ],
+    "income": []
+  },
+  {
+    "mpId": 2715,
+    "declarantName": "Борис Петков Кърчев",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": "2021-03-25",
+    "entryNumber": "Г1362",
+    "controlHash": "819EC0A6",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/BBD5FB6E-AB49-4385-B27A-A10094D9DE9B117750.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "дялово участие",
+        "shareSize": "35%",
+        "companyName": "БОГДАНОВ ИНВЕСТ",
+        "registeredOffice": "Стара Загора",
+        "valueBgn": 1500,
+        "holderName": "Борис Петков Кърчев",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата",
+        "companySlug": "БОГДАНОВ-ИНВЕСТ"
+      },
+      {
+        "table": "11",
+        "itemType": "дялово участие",
+        "shareSize": "10%",
+        "companyName": "МЕДИЯ ВИЖЪН",
+        "registeredOffice": "Стара Загора",
+        "valueBgn": 500,
+        "holderName": null,
+        "transfereeName": "Борис Петков Кърчев",
+        "legalBasis": "възмездно",
+        "fundsOrigin": null,
+        "companySlug": "МЕДИЯ-ВИЖЪН"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 76801,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "по Чл. 12 от Финансовите правила по бюджета на НС - приложение към ПОДНС",
+        "amountBgnDeclarant": 31300,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "сума за продажба на движими вещи и обрудване",
+        "amountBgnDeclarant": 180000,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "разпределен дивидент през 2020г.",
+        "amountBgnDeclarant": 50000,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "получена рента от замеделска земя",
+        "amountBgnDeclarant": 6118,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

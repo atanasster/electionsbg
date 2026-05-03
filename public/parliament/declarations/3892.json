@@ -1,0 +1,57 @@
+[
+  {
+    "mpId": 3892,
+    "declarantName": "Петя Цветанова Аврамова",
+    "institution": "48-мо Народно събрание",
+    "declarationYear": 2023,
+    "fiscalYear": 2023,
+    "declarationType": "Vacate",
+    "filedAt": "2023-02-17",
+    "entryNumber": "Ф233",
+    "controlHash": "ABC9A04C",
+    "sourceUrl": "https://register.cacbg.bg/2023/C6670CBE-658D-47CE-9E0A-E7B66D3FBF61145596.xml",
+    "ownershipStakes": [],
+    "income": []
+  },
+  {
+    "mpId": 3892,
+    "declarantName": "Петя Цветанова Аврамова",
+    "institution": "47-мо Народно събрание",
+    "declarationYear": 2022,
+    "fiscalYear": 2021,
+    "declarationType": "Annualy",
+    "filedAt": "2022-05-11",
+    "entryNumber": "Г4686",
+    "controlHash": "8D51D736",
+    "sourceUrl": "https://register.cacbg.bg/2022/C6670CBE-658D-47CE-9E0A-E7B66D3FBF61136929.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 60366,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "ПОДНС",
+        "amountBgnDeclarant": 9151,
+        "amountBgnSpouse": null
+      }
+    ]
+  },
+  {
+    "mpId": 3892,
+    "declarantName": "Петя Цветанова Аврамова",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Entry",
+    "filedAt": "2021-08-10",
+    "entryNumber": "В3254",
+    "controlHash": "1FE2BA08",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/C6670CBE-658D-47CE-9E0A-E7B66D3FBF61128464.xml",
+    "ownershipStakes": [],
+    "income": []
+  }
+]

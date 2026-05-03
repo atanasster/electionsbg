@@ -1,0 +1,74 @@
+[
+  {
+    "mpId": 2647,
+    "declarantName": "ДИМИТЪР КРУМОВ АЛЕКСАНДРОВ",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Vacate",
+    "filedAt": "2022-05-18",
+    "entryNumber": "Ф653",
+    "controlHash": "222041FE",
+    "sourceUrl": "https://register.cacbg.bg/2022/D5CE30B6-A600-4AD4-BA94-31FEFC48CBAA140131.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "ДЯЛ В ООД",
+        "shareSize": "100%",
+        "companyName": "ЕТЕР К ЕООД",
+        "registeredOffice": "Шумен",
+        "valueBgn": 10,
+        "holderName": "ДИМИТЪР КРУМОВ АЛЕКСАНДРОВ",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "ЕТЕР-К-ЕООД"
+      },
+      {
+        "table": "10",
+        "itemType": "ПОИМЕННИ АКЦИИ В АД",
+        "shareSize": "33.19%",
+        "companyName": "АЛ И КО АД",
+        "registeredOffice": "Шумен",
+        "valueBgn": 165963,
+        "holderName": "ДИМИТЪР КРУМОВ АЛЕКСАНДРОВ",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "АЛ-И-КО-АД"
+      }
+    ],
+    "income": []
+  },
+  {
+    "mpId": 2647,
+    "declarantName": "ДИМИТЪР КРУМОВ АЛЕКСАНДРОВ",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": "2021-04-28",
+    "entryNumber": "Г4676",
+    "controlHash": "6364F6DE",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/D5CE30B6-A600-4AD4-BA94-31FEFC48CBAA121867.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 84051,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Представителни ,съгласно чл.11 от Приложението към ПОДНС за финансови правила по бюджета на НС",
+        "amountBgnDeclarant": 31300,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "По чл.13,ал.1, т.2 от ЗДДФЛ",
+        "amountBgnDeclarant": 14000,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

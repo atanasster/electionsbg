@@ -1,0 +1,62 @@
+[
+  {
+    "mpId": 3899,
+    "declarantName": "Йорданка Яникова Костадинова",
+    "institution": "48-мо Народно събрание",
+    "declarationYear": 2023,
+    "fiscalYear": 2023,
+    "declarationType": "Vacate",
+    "filedAt": null,
+    "entryNumber": "Ф248",
+    "controlHash": "13027310",
+    "sourceUrl": "https://register.cacbg.bg/2023/49D85879-7C00-4C7C-A9AC-EB3AFA420357145615.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "ООД",
+        "shareSize": "1/2",
+        "companyName": "СТАР СПОРТ",
+        "registeredOffice": "Варна",
+        "valueBgn": 2500,
+        "holderName": "Костадин Христов Костадинов",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "СТАР-СПОРТ"
+      },
+      {
+        "table": "10",
+        "itemType": "ООД",
+        "shareSize": "1/2",
+        "companyName": "ИКО 2010",
+        "registeredOffice": "Варна",
+        "valueBgn": 5,
+        "holderName": "Костадин Христов Костадинов",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "ИКО-2010"
+      }
+    ],
+    "income": []
+  },
+  {
+    "mpId": 3899,
+    "declarantName": "Йорданка Яникова Костадинова",
+    "institution": "47-мо Народно събрание",
+    "declarationYear": 2022,
+    "fiscalYear": 2021,
+    "declarationType": "Annualy",
+    "filedAt": "2022-05-11",
+    "entryNumber": "Г4704",
+    "controlHash": "5868B60D",
+    "sourceUrl": "https://register.cacbg.bg/2022/49D85879-7C00-4C7C-A9AC-EB3AFA420357136948.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 44099,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

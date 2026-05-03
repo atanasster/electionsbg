@@ -14,6 +14,7 @@ import { HistoricalTrendsTile } from "./HistoricalTrendsTile";
 import { PartyResultsTile } from "./PartyResultsTile";
 import { SofiaMapTile } from "./SofiaMapTile";
 import { SofiaMpsTile } from "./SofiaMpsTile";
+import { MpConnectionsTile } from "./MpConnectionsTile";
 import { TopSofiaAreasTile } from "./TopSofiaAreasTile";
 import { TopCandidatesStrip } from "./TopCandidatesStrip";
 import { FlashMemoryTile } from "./FlashMemoryTile";
@@ -89,6 +90,9 @@ export const SofiaDashboardCards: FC = () => {
       ) : null}
       <div className="grid gap-3 grid-cols-1 mt-3">
         <SofiaMpsTile parties={data.parties} />
+      </div>
+      <div className="grid gap-3 grid-cols-1 mt-3">
+        <MpConnectionsTile regionCodes={SOFIA_REGIONS} />
       </div>
       <div className="grid gap-3 grid-cols-1 mt-3">
         <TopSofiaAreasTile parties={data.parties} />

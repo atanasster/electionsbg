@@ -1,0 +1,36 @@
+{
+  "mpId": 5300,
+  "mpName": "МИРОСЛАВ НИКОЛАЕВ ИВАНОВ",
+  "generatedAt": "2026-05-03T23:54:31.400Z",
+  "total": 2,
+  "roles": [
+    {
+      "uic": "206721258",
+      "companyName": "АРХИТИЙМ ДИЗАЙН",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "seat": "БЪЛГАРИЯ, гр. Пловдив, 4000",
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2021-11-12T13:53:31",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "206625936",
+      "companyName": "Лукс Гардън",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "seat": "БЪЛГАРИЯ, гр. Бургас, 8000",
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2021-08-23T10:26:41",
+      "erasedAt": null,
+      "confidence": "high",
+      "confidenceReason": "full-name match; seat contains MP region \"БУРГАС\""
+    }
+  ]
+}

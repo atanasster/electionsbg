@@ -1,0 +1,62 @@
+[
+  {
+    "mpId": 2847,
+    "declarantName": "Георги Ченков Търновалийски",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Vacate",
+    "filedAt": "2022-04-07",
+    "entryNumber": "Ф355",
+    "controlHash": "2EA573DC",
+    "sourceUrl": "https://register.cacbg.bg/2022/F034733F-6A2C-4417-B462-2728DC87C53F132847.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "дялове",
+        "shareSize": "50",
+        "companyName": "ПиДжейТи Фешън ООД",
+        "registeredOffice": "Пловдив",
+        "valueBgn": 2500,
+        "holderName": "Паулина Жекова Търновалийска",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "ПиДжейТи-Фешън-ООД"
+      },
+      {
+        "table": "10",
+        "itemType": "дялове",
+        "shareSize": "50",
+        "companyName": "Сюжет ООД",
+        "registeredOffice": "Пловдив",
+        "valueBgn": 2500,
+        "holderName": "Паулина Жекова Търновалийска",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "Сюжет-ООД"
+      }
+    ],
+    "income": []
+  },
+  {
+    "mpId": 2847,
+    "declarantName": "Георги Ченков Търновалийски",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г56",
+    "controlHash": "81058B45",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/F034733F-6A2C-4417-B462-2728DC87C53F116087.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 69525,
+        "amountBgnSpouse": 18617
+      }
+    ]
+  }
+]

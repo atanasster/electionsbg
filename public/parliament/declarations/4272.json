@@ -1,0 +1,90 @@
+[
+  {
+    "mpId": 4272,
+    "declarantName": "Ивелин Статев Иванов",
+    "institution": "49-то Народно събрание",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-04-11",
+    "entryNumber": "Г1235",
+    "controlHash": "E7A006EB",
+    "sourceUrl": "https://register.cacbg.bg/2024/F23FAF01-A4EE-470C-ADF0-137E02AFA942182131.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 64858,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Чл.11 ПОДНС",
+        "amountBgnDeclarant": 31979,
+        "amountBgnSpouse": null
+      }
+    ]
+  },
+  {
+    "mpId": 4272,
+    "declarantName": "Ивелин Статев Иванов",
+    "institution": "48-мо Народно събрание",
+    "declarationYear": 2023,
+    "fiscalYear": 2023,
+    "declarationType": "Vacate",
+    "filedAt": "2023-02-08",
+    "entryNumber": "Ф126",
+    "controlHash": "0A156CFC",
+    "sourceUrl": "https://register.cacbg.bg/2023/F23FAF01-A4EE-470C-ADF0-137E02AFA942145363.xml",
+    "ownershipStakes": [],
+    "income": []
+  },
+  {
+    "mpId": 4272,
+    "declarantName": "Ивелин Статев Иванов",
+    "institution": "49-то Народно събрание",
+    "declarationYear": 2023,
+    "fiscalYear": 2023,
+    "declarationType": "Entry",
+    "filedAt": null,
+    "entryNumber": "В515",
+    "controlHash": "3EBAEC26",
+    "sourceUrl": "https://register.cacbg.bg/2023/F23FAF01-A4EE-470C-ADF0-137E02AFA942149469.xml",
+    "ownershipStakes": [],
+    "income": []
+  },
+  {
+    "mpId": 4272,
+    "declarantName": "Ивелин Статев Иванов",
+    "institution": "47-мо Народно събрание",
+    "declarationYear": 2022,
+    "fiscalYear": 2021,
+    "declarationType": "Annualy",
+    "filedAt": "2022-05-10",
+    "entryNumber": "Г3800",
+    "controlHash": "587D725B",
+    "sourceUrl": "https://register.cacbg.bg/2022/F23FAF01-A4EE-470C-ADF0-137E02AFA942135983.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 7209,
+        "amountBgnSpouse": 26362
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountBgnDeclarant": 30315,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "ПОДНС",
+        "amountBgnDeclarant": 3292,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

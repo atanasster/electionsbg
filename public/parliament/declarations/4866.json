@@ -1,0 +1,100 @@
+[
+  {
+    "mpId": 4866,
+    "declarantName": "Ангел Николаев Славчев",
+    "institution": "51-во Народно събрание",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-30",
+    "entryNumber": "Г5664",
+    "controlHash": "A9D143C9",
+    "sourceUrl": "https://register.cacbg.bg/2025/E997450D-BEE4-4B74-AFF1-C2EB7818D9A2208605.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Дружествени дялове",
+        "shareSize": "100",
+        "companyName": "Апиа КОнсулт ЕООД",
+        "registeredOffice": "София",
+        "valueBgn": 100,
+        "holderName": "Петя Иванова Славчева",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата",
+        "companySlug": "Апиа-КОнсулт-ЕООД"
+      },
+      {
+        "table": "11",
+        "itemType": "Дружествени дялове",
+        "shareSize": "100",
+        "companyName": "Апиа Консулт",
+        "registeredOffice": "София",
+        "valueBgn": 100,
+        "holderName": null,
+        "transfereeName": "Ангел Николаев Славчев",
+        "legalBasis": "възмездно",
+        "fundsOrigin": null,
+        "companySlug": "Апиа-Консулт"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 58774,
+        "amountBgnSpouse": 35501
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountBgnDeclarant": 5767,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountBgnDeclarant": 850,
+        "amountBgnSpouse": 500
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountBgnDeclarant": 100,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Получени суми по чл.11 от ФП на НС",
+        "amountBgnDeclarant": 25532,
+        "amountBgnSpouse": null
+      }
+    ]
+  },
+  {
+    "mpId": 4866,
+    "declarantName": "Ангел Николаев Славчев",
+    "institution": "50-то Народно събрание",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-14",
+    "entryNumber": "Г6147",
+    "controlHash": "33310161",
+    "sourceUrl": "https://register.cacbg.bg/2024/E997450D-BEE4-4B74-AFF1-C2EB7818D9A2194244.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 900,
+        "amountBgnSpouse": 36507
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountBgnDeclarant": null,
+        "amountBgnSpouse": 4300
+      }
+    ]
+  }
+]

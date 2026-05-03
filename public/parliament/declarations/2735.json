@@ -1,0 +1,49 @@
+[
+  {
+    "mpId": 2735,
+    "declarantName": "Николай Кръстев Бошкилов",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Vacate",
+    "filedAt": "2022-04-06",
+    "entryNumber": "Ф351",
+    "controlHash": "7F4012EE",
+    "sourceUrl": "https://register.cacbg.bg/2022/390B908E-D4BF-4277-84F3-A0C4771D8DD6132837.xml",
+    "ownershipStakes": [],
+    "income": []
+  },
+  {
+    "mpId": 2735,
+    "declarantName": "Николай Кръстев Бошкилов",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г6757",
+    "controlHash": "AFF37A63",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/390B908E-D4BF-4277-84F3-A0C4771D8DD6124544.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 20435,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountBgnDeclarant": null,
+        "amountBgnSpouse": 3300
+      },
+      {
+        "parent": null,
+        "category": "Други",
+        "amountBgnDeclarant": 33666,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

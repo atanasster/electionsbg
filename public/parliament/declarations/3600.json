@@ -1,0 +1,49 @@
+[
+  {
+    "mpId": 3600,
+    "declarantName": "Пламен Николаев Абровски",
+    "institution": "47-мо Народно събрание",
+    "declarationYear": 2022,
+    "fiscalYear": 2021,
+    "declarationType": "Annualy",
+    "filedAt": "2022-05-12",
+    "entryNumber": "Г4702",
+    "controlHash": "8D4CF39F",
+    "sourceUrl": "https://register.cacbg.bg/2022/DCEA314B-DC54-411C-AAAC-C7DFF3128D26136945.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 30200,
+        "amountBgnSpouse": 25855
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountBgnDeclarant": 8850,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "ПОДНС",
+        "amountBgnDeclarant": 11543,
+        "amountBgnSpouse": null
+      }
+    ]
+  },
+  {
+    "mpId": 3600,
+    "declarantName": "Пламен Николаев Абровски",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Entry",
+    "filedAt": null,
+    "entryNumber": "В1189",
+    "controlHash": "9E5CB624",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/DCEA314B-DC54-411C-AAAC-C7DFF3128D26124936.xml",
+    "ownershipStakes": [],
+    "income": []
+  }
+]

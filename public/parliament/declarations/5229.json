@@ -1,0 +1,128 @@
+[
+  {
+    "mpId": 5229,
+    "declarantName": "Божидар Пламенов Божанов",
+    "institution": "51-во Народно събрание",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-14",
+    "entryNumber": "Г11023",
+    "controlHash": "9BB336FC",
+    "sourceUrl": "https://register.cacbg.bg/2025/74E1C875-3309-4F1A-AFAF-3940DE66C69A214143.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 120400,
+        "amountBgnSpouse": 61500
+      },
+      {
+        "parent": null,
+        "category": "Средства за допълнителни разходи по чл. 11 от ПОДНС",
+        "amountBgnDeclarant": 42680,
+        "amountBgnSpouse": null
+      }
+    ]
+  },
+  {
+    "mpId": 5229,
+    "declarantName": "Божидар Пламенов Божанов",
+    "institution": "49-то Народно събрание",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-10",
+    "entryNumber": "Г603",
+    "controlHash": "5398826B",
+    "sourceUrl": "https://register.cacbg.bg/2024/74E1C875-3309-4F1A-AFAF-3940DE66C69A181453.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 87769,
+        "amountBgnSpouse": null
+      }
+    ]
+  },
+  {
+    "mpId": 5229,
+    "declarantName": "Божидар Пламенов Божанов",
+    "institution": "48-мо Народно събрание",
+    "declarationYear": 2023,
+    "fiscalYear": 2023,
+    "declarationType": "Vacate",
+    "filedAt": "2022-11-19",
+    "entryNumber": "Ф398",
+    "controlHash": "89001B30",
+    "sourceUrl": "https://register.cacbg.bg/2023/74E1C875-3309-4F1A-AFAF-3940DE66C69A145854.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Дял в дружество с ограничена отговорност",
+        "shareSize": "50%",
+        "companyName": "LogSentinel B.V. (чуждестранно)",
+        "registeredOffice": "София (столица)",
+        "valueBgn": 120,
+        "holderName": "Екатерина Владиславова Михайлова",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "LogSentinel-B.V.-(чуждестранно)"
+      },
+      {
+        "table": "10",
+        "itemType": "Дял в дружество с ограничена отговорност",
+        "shareSize": "15%",
+        "companyName": "Мадж.ио",
+        "registeredOffice": "София (столица)",
+        "valueBgn": 211,
+        "holderName": "Екатерина Владиславова Михайлова",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "Мадж.ио"
+      }
+    ],
+    "income": []
+  },
+  {
+    "mpId": 5229,
+    "declarantName": "Божидар Пламенов Божанов",
+    "institution": "49-то Народно събрание",
+    "declarationYear": 2023,
+    "fiscalYear": 2023,
+    "declarationType": "Entry",
+    "filedAt": "2023-05-05",
+    "entryNumber": "В436",
+    "controlHash": "519F1A20",
+    "sourceUrl": "https://register.cacbg.bg/2023/74E1C875-3309-4F1A-AFAF-3940DE66C69A148452.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Дял в дружество с ограничена отговорност",
+        "shareSize": "50%",
+        "companyName": "LogSentinel B.V. (чуждестранно)",
+        "registeredOffice": "София (столица)",
+        "valueBgn": 120,
+        "holderName": "Екатерина Владиславова Михайлова",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "LogSentinel-B.V.-(чуждестранно)"
+      },
+      {
+        "table": "10",
+        "itemType": "Дял в дружество с ограничена отговорност",
+        "shareSize": "15%",
+        "companyName": "Мадж.ио",
+        "registeredOffice": "София (столица)",
+        "valueBgn": 211,
+        "holderName": "Екатерина Владиславова Михайлова",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "Мадж.ио"
+      }
+    ],
+    "income": []
+  }
+]

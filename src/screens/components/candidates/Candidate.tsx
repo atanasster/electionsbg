@@ -5,6 +5,9 @@ import { usePartyInfo } from "@/data/parties/usePartyInfo";
 import { PartyLink } from "../party/PartyLink";
 import { RegionLink } from "../regions/RegionLink";
 import { MpProfileHeader } from "./MpProfileHeader";
+import { MpFinancialDeclarations } from "./MpFinancialDeclarations";
+import { MpManagementRoles } from "./MpManagementRoles";
+import { MpConnectionsMini } from "./MpConnectionsMini";
 import { CandidateDashboardCards } from "@/screens/dashboard/CandidateDashboardCards";
 
 export const Candidate: FC<{ name: string }> = ({ name }) => {
@@ -25,6 +28,9 @@ export const Candidate: FC<{ name: string }> = ({ name }) => {
       </Title>
 
       <MpProfileHeader name={name} />
+      <MpFinancialDeclarations name={name} />
+      <MpManagementRoles name={name} />
+      <MpConnectionsMini name={name} />
 
       <table className="flex justify-center py-2">
         <tbody>

@@ -1,0 +1,104 @@
+[
+  {
+    "mpId": 5014,
+    "declarantName": "Васил Стефанов Стефанов",
+    "institution": "49-то Народно събрание",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-04-25",
+    "entryNumber": "Г622",
+    "controlHash": "E7EDBE79",
+    "sourceUrl": "https://register.cacbg.bg/2024/1050CBB0-9FDC-4BA4-AE59-B99844B1F2D9181474.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 88956,
+        "amountBgnSpouse": 2533
+      }
+    ]
+  },
+  {
+    "mpId": 5014,
+    "declarantName": "Васил Стефанов Стефанов",
+    "institution": "48-мо Народно събрание",
+    "declarationYear": 2023,
+    "fiscalYear": 2023,
+    "declarationType": "Vacate",
+    "filedAt": "2023-02-10",
+    "entryNumber": "Ф102",
+    "controlHash": "761A248E",
+    "sourceUrl": "https://register.cacbg.bg/2023/1050CBB0-9FDC-4BA4-AE59-B99844B1F2D9145269.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "дялове",
+        "shareSize": "100%",
+        "companyName": "\"Тирел Инженеринг\" ЕООД",
+        "registeredOffice": "София (столица)",
+        "valueBgn": 100,
+        "holderName": "Васил Стефанов Стефанов",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "Тирел-Инженеринг-ЕООД"
+      }
+    ],
+    "income": []
+  },
+  {
+    "mpId": 5014,
+    "declarantName": "Васил Стефанов Стефанов",
+    "institution": "49-то Народно събрание",
+    "declarationYear": 2023,
+    "fiscalYear": 2023,
+    "declarationType": "Entry",
+    "filedAt": "2023-05-11",
+    "entryNumber": "В645",
+    "controlHash": "ADAEDB1F",
+    "sourceUrl": "https://register.cacbg.bg/2023/1050CBB0-9FDC-4BA4-AE59-B99844B1F2D9151492.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "дялове",
+        "shareSize": "100%",
+        "companyName": "\"Тирел Инженеринг\" ЕООД",
+        "registeredOffice": "София (столица)",
+        "valueBgn": 100,
+        "holderName": "Васил Стефанов Стефанов",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "Тирел-Инженеринг-ЕООД"
+      }
+    ],
+    "income": []
+  },
+  {
+    "mpId": 5014,
+    "declarantName": "Васил Стефанов Стефанов",
+    "institution": "47-мо Народно събрание",
+    "declarationYear": 2022,
+    "fiscalYear": 2021,
+    "declarationType": "Annualy",
+    "filedAt": "2022-05-16",
+    "entryNumber": "Г4172",
+    "controlHash": "109F4D56",
+    "sourceUrl": "https://register.cacbg.bg/2022/1050CBB0-9FDC-4BA4-AE59-B99844B1F2D9136388.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 6847,
+        "amountBgnSpouse": 20350
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountBgnDeclarant": 15775,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

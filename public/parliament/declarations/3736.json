@@ -1,0 +1,48 @@
+[
+  {
+    "mpId": 3736,
+    "declarantName": "Пламен Петров Шалъфов",
+    "institution": "47-мо Народно събрание",
+    "declarationYear": 2022,
+    "fiscalYear": 2021,
+    "declarationType": "Annualy",
+    "filedAt": "2022-05-09",
+    "entryNumber": "Г3881",
+    "controlHash": "DAFFC77B",
+    "sourceUrl": "https://register.cacbg.bg/2022/466F463B-3657-4585-95AE-737B7A632289136081.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Дялове",
+        "shareSize": "16.5%",
+        "companyName": "Бадинка ООД",
+        "registeredOffice": "София (столица)",
+        "valueBgn": 66,
+        "holderName": "Пламен Петров Шалъфов",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата",
+        "companySlug": "Бадинка-ООД"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 21198,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountBgnDeclarant": 1980,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Дивиденти",
+        "amountBgnDeclarant": 63181,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

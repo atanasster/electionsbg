@@ -1,0 +1,35 @@
+[
+  {
+    "mpId": 4711,
+    "declarantName": "Александър Господинов Койчев",
+    "institution": "51-во Народно събрание",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-05",
+    "entryNumber": "Г6265",
+    "controlHash": "CFDC9BAA",
+    "sourceUrl": "https://register.cacbg.bg/2025/C436B084-1BD7-45BA-89F9-70936B2E7D37209220.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 14807,
+        "amountBgnSpouse": 4135
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountBgnDeclarant": 77945,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountBgnDeclarant": 3726,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

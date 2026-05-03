@@ -1,0 +1,62 @@
+[
+  {
+    "mpId": 2726,
+    "declarantName": "Кръстина Николова Таскова",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Vacate",
+    "filedAt": "2022-04-22",
+    "entryNumber": "Ф536",
+    "controlHash": "22BEC425",
+    "sourceUrl": "https://register.cacbg.bg/2022/60B87CAF-DDE7-408E-8061-E5F03B0BA139136047.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "дялове",
+        "shareSize": "100",
+        "companyName": "Фарм Солюшън ЕООД",
+        "registeredOffice": "Стара Загора",
+        "valueBgn": 5000,
+        "holderName": "Момчил Младенов Тасков",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "Фарм-Солюшън-ЕООД"
+      }
+    ],
+    "income": []
+  },
+  {
+    "mpId": 2726,
+    "declarantName": "Кръстина Николова Таскова",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г6379",
+    "controlHash": "E33B872B",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/60B87CAF-DDE7-408E-8061-E5F03B0BA139123955.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 70207,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountBgnDeclarant": null,
+        "amountBgnSpouse": 90691
+      },
+      {
+        "parent": null,
+        "category": "чл.11 от Приложение към ПОДНС",
+        "amountBgnDeclarant": 33236,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

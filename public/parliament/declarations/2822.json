@@ -1,0 +1,74 @@
+[
+  {
+    "mpId": 2822,
+    "declarantName": "Любомир Бойков Бонев",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Vacate",
+    "filedAt": "2022-04-27",
+    "entryNumber": "Ф471",
+    "controlHash": "097C4630",
+    "sourceUrl": "https://register.cacbg.bg/2022/699BC432-636C-4113-87F5-8F2692E3C913133900.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "дялове",
+        "shareSize": "50",
+        "companyName": "М Контрол ЕООД",
+        "registeredOffice": "Перник",
+        "valueBgn": 5000,
+        "holderName": "Верка Георгиева Бонева",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "М-Контрол-ЕООД"
+      },
+      {
+        "table": "10",
+        "itemType": "дялове",
+        "shareSize": "51",
+        "companyName": "Стройкомплект АБ ООД",
+        "registeredOffice": "Перник",
+        "valueBgn": 2550,
+        "holderName": "Верка Георгиева Бонева",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "Стройкомплект-АБ-ООД"
+      }
+    ],
+    "income": []
+  },
+  {
+    "mpId": 2822,
+    "declarantName": "Любомир Бойков Бонев",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": "2021-05-12",
+    "entryNumber": "Г6438",
+    "controlHash": "72147D72",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/699BC432-636C-4113-87F5-8F2692E3C913124037.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 73600,
+        "amountBgnSpouse": 22898
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountBgnDeclarant": 725,
+        "amountBgnSpouse": 725
+      },
+      {
+        "parent": null,
+        "category": "чл. 11 от Финансови правила по бюджета на НС (Приложение към ПОДНС)",
+        "amountBgnDeclarant": 33666,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

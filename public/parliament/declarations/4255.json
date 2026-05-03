@@ -1,0 +1,63 @@
+[
+  {
+    "mpId": 4255,
+    "declarantName": "Христо Йорданов Даскалов",
+    "institution": "49-то Народно събрание",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г1600",
+    "controlHash": "38B2657D",
+    "sourceUrl": "https://register.cacbg.bg/2024/932D92C4-CCB5-4961-BFAA-CC5B866D17A8182531.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 119144,
+        "amountBgnSpouse": 41235
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountBgnDeclarant": 3524,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountBgnDeclarant": 585,
+        "amountBgnSpouse": 250
+      }
+    ]
+  },
+  {
+    "mpId": 4255,
+    "declarantName": "Христо Йорданов Даскалов",
+    "institution": "48-мо Народно събрание",
+    "declarationYear": 2023,
+    "fiscalYear": 2023,
+    "declarationType": "Vacate",
+    "filedAt": "2023-02-13",
+    "entryNumber": "Ф115",
+    "controlHash": "0CFC781C",
+    "sourceUrl": "https://register.cacbg.bg/2023/932D92C4-CCB5-4961-BFAA-CC5B866D17A8145338.xml",
+    "ownershipStakes": [],
+    "income": []
+  },
+  {
+    "mpId": 4255,
+    "declarantName": "Христо Йорданов Даскалов",
+    "institution": "49-то Народно събрание",
+    "declarationYear": 2023,
+    "fiscalYear": 2023,
+    "declarationType": "Entry",
+    "filedAt": "2023-04-21",
+    "entryNumber": "В250",
+    "controlHash": "45514F67",
+    "sourceUrl": "https://register.cacbg.bg/2023/932D92C4-CCB5-4961-BFAA-CC5B866D17A8146954.xml",
+    "ownershipStakes": [],
+    "income": []
+  }
+]

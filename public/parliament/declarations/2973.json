@@ -1,0 +1,68 @@
+[
+  {
+    "mpId": 2973,
+    "declarantName": "СТОЙНО МИТЕВ СТОЙНОВ",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Vacate",
+    "filedAt": "2022-05-04",
+    "entryNumber": "Ф538",
+    "controlHash": "8289D976",
+    "sourceUrl": "https://register.cacbg.bg/2022/7ECABFE7-578A-4D35-B737-4BA1AE9298B5136068.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Дружествен дял",
+        "shareSize": "1",
+        "companyName": "Стеди-Вет ЕООД",
+        "registeredOffice": "Бургас",
+        "valueBgn": 5000,
+        "holderName": "Стойно Митев Стойнов",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "Стеди-Вет-ЕООД"
+      },
+      {
+        "table": "10",
+        "itemType": "Дружествен дял",
+        "shareSize": "10",
+        "companyName": "Стеди-Вет 2 ЕООД",
+        "registeredOffice": "Бургас",
+        "valueBgn": 10,
+        "holderName": "Стойно Митев Стойнов",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "Стеди-Вет-2-ЕООД"
+      }
+    ],
+    "income": []
+  },
+  {
+    "mpId": 2973,
+    "declarantName": "Стойно Митев Стойнов",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": "2021-02-25",
+    "entryNumber": "Г72",
+    "controlHash": "5613878A",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/7ECABFE7-578A-4D35-B737-4BA1AE9298B5116103.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 69577,
+        "amountBgnSpouse": 10448
+      },
+      {
+        "parent": null,
+        "category": "по чл.11 от ПДОНС",
+        "amountBgnDeclarant": 31300,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

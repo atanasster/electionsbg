@@ -1,0 +1,98 @@
+[
+  {
+    "mpId": 3794,
+    "declarantName": "Димитър Колев Гочев",
+    "institution": "47-мо Народно събрание",
+    "declarationYear": 2022,
+    "fiscalYear": 2021,
+    "declarationType": "Annualy",
+    "filedAt": "2022-05-15",
+    "entryNumber": "Г8853",
+    "controlHash": "0A161C18",
+    "sourceUrl": "https://register.cacbg.bg/2022/F336B08E-5E38-4F6E-89E3-B87B7379A5F4141874.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "дружествени дялове",
+        "shareSize": "50 лв.",
+        "companyName": "ЯНГ Лигал Консултинг ООД",
+        "registeredOffice": "София (столица)",
+        "valueBgn": 50,
+        "holderName": "Димитър Колев Гочев",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата",
+        "companySlug": "ЯНГ-Лигал-Консултинг-ООД"
+      },
+      {
+        "table": "10",
+        "itemType": "Дружествен дял",
+        "shareSize": "1 лв",
+        "companyName": "Адвокатско дружество \"Янков, Ненчев, Гочев и Янкова\"",
+        "registeredOffice": "София (столица)",
+        "valueBgn": 1,
+        "holderName": "Димитър Колев Гочев",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата",
+        "companySlug": "Адвокатско-дружество-Янков,-Ненчев,-Гочев-и-Янкова"
+      },
+      {
+        "table": "11",
+        "itemType": "Дружествени дялове",
+        "shareSize": "50 лв.",
+        "companyName": "ЯНГ Лигал Консултинг ООД",
+        "registeredOffice": "София (столица)",
+        "valueBgn": 50,
+        "holderName": null,
+        "transfereeName": "Димитър Колев Гочев",
+        "legalBasis": "възмездно",
+        "fundsOrigin": null,
+        "companySlug": "ЯНГ-Лигал-Консултинг-ООД"
+      },
+      {
+        "table": "11",
+        "itemType": "Дружествени дялове",
+        "shareSize": "1 лв.",
+        "companyName": "Адвокатско дружество \"Янков, Ненчев, Гочев и Янкова\"",
+        "registeredOffice": "София (столица)",
+        "valueBgn": 1,
+        "holderName": null,
+        "transfereeName": "Димитър Колев Гочев",
+        "legalBasis": "възмездно",
+        "fundsOrigin": null,
+        "companySlug": "Адвокатско-дружество-Янков,-Ненчев,-Гочев-и-Янкова"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 1728,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountBgnDeclarant": 32440,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountBgnDeclarant": 5344,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Доходи от дивиденти и ликвидационни дялове в полза на физически лица по чл. 38, ал. 1 ЗДДФЛ",
+        "amountBgnDeclarant": 35847,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Възнаграждения по граждански договори, при които данъкът се урежда от платеца",
+        "amountBgnDeclarant": 10110,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

@@ -1,0 +1,70 @@
+[
+  {
+    "mpId": 4043,
+    "declarantName": "Иво Георгиев Атанасов",
+    "institution": "48-мо Народно събрание",
+    "declarationYear": 2023,
+    "fiscalYear": 2023,
+    "declarationType": "Vacate",
+    "filedAt": "2023-02-13",
+    "entryNumber": "Ф114",
+    "controlHash": "199FEB56",
+    "sourceUrl": "https://register.cacbg.bg/2023/BD4E0AA6-4A1D-4CF1-A649-78AA62A2BC92145337.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Дялове",
+        "shareSize": "1500",
+        "companyName": "Интер Солар ООД",
+        "registeredOffice": "Видин",
+        "valueBgn": 1500,
+        "holderName": "Иво Георгиев Атанасов",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "Интер-Солар-ООД"
+      }
+    ],
+    "income": []
+  },
+  {
+    "mpId": 4043,
+    "declarantName": "Иво Георгиев Атанасов",
+    "institution": "47-мо Народно събрание",
+    "declarationYear": 2022,
+    "fiscalYear": 2021,
+    "declarationType": "Annualy",
+    "filedAt": "2022-05-07",
+    "entryNumber": "Г2523",
+    "controlHash": "89852BFF",
+    "sourceUrl": "https://register.cacbg.bg/2022/BD4E0AA6-4A1D-4CF1-A649-78AA62A2BC92134648.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 63768,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "ПОДНС",
+        "amountBgnDeclarant": 11543,
+        "amountBgnSpouse": null
+      }
+    ]
+  },
+  {
+    "mpId": 4043,
+    "declarantName": "Иво Георгиев Атанасов",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Entry",
+    "filedAt": "2021-05-10",
+    "entryNumber": "В948",
+    "controlHash": "7CE8921E",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/BD4E0AA6-4A1D-4CF1-A649-78AA62A2BC92123289.xml",
+    "ownershipStakes": [],
+    "income": []
+  }
+]

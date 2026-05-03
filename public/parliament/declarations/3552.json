@@ -1,0 +1,75 @@
+[
+  {
+    "mpId": 3552,
+    "declarantName": "Димитър Михайлов Ташев",
+    "institution": "47-мо Народно събрание",
+    "declarationYear": 2022,
+    "fiscalYear": 2021,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г4685",
+    "controlHash": "21CE6EBD",
+    "sourceUrl": "https://register.cacbg.bg/2022/6559E567-389D-4146-926B-AB82E24121BB136928.xml",
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "дялове",
+        "shareSize": "50.01%",
+        "companyName": "Пауър Мейл ООД",
+        "registeredOffice": "Бургас",
+        "valueBgn": 5001,
+        "holderName": null,
+        "transfereeName": "Димитър Михайлов Ташев",
+        "legalBasis": "възмездно",
+        "fundsOrigin": null,
+        "companySlug": "Пауър-Мейл-ООД"
+      },
+      {
+        "table": "11",
+        "itemType": "дялове",
+        "shareSize": "100%",
+        "companyName": "Поморие Девелъпмънт ЕООД",
+        "registeredOffice": "Бургас",
+        "valueBgn": 5000,
+        "holderName": null,
+        "transfereeName": "Димитър Михайлов Ташев",
+        "legalBasis": "възмездно",
+        "fundsOrigin": null,
+        "companySlug": "Поморие-Девелъпмънт-ЕООД"
+      },
+      {
+        "table": "11",
+        "itemType": "дялове",
+        "shareSize": "17%",
+        "companyName": "Валари ООД",
+        "registeredOffice": "Пловдив",
+        "valueBgn": 850,
+        "holderName": null,
+        "transfereeName": "Димитър Михайлов Ташев",
+        "legalBasis": "възмездно",
+        "fundsOrigin": null,
+        "companySlug": "Валари-ООД"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 6291,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountBgnDeclarant": 38736,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "НОИ- обезщетения",
+        "amountBgnDeclarant": 224,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

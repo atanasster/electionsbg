@@ -1,0 +1,49 @@
+[
+  {
+    "mpId": 2960,
+    "declarantName": "АННА НИКОЛАЕВА СЛАВОВА",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": "2021-04-26",
+    "entryNumber": "Г993",
+    "controlHash": "EBB9B8ED",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/CCEB8CBF-C1A1-488E-9AE8-B2B28A973895117283.xml",
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "ЕООД",
+        "shareSize": "100 %",
+        "companyName": "ИБЕРАНН",
+        "registeredOffice": "София (столица)",
+        "valueBgn": 1000,
+        "holderName": null,
+        "transfereeName": "ПЛАМЕН ИВАНОВ СЛАВОВ",
+        "legalBasis": "възмездно",
+        "fundsOrigin": null,
+        "companySlug": "ИБЕРАНН"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 69794,
+        "amountBgnSpouse": 42054
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountBgnDeclarant": 8604,
+        "amountBgnSpouse": 6480
+      },
+      {
+        "parent": null,
+        "category": "ЧЛ. 11 ОТ Финансови правила по бюджета на Народното събрание, приложение към ПОДНС",
+        "amountBgnDeclarant": 33666,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

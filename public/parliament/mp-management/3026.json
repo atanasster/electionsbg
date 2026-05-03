@@ -1,0 +1,36 @@
+{
+  "mpId": 3026,
+  "mpName": "АНТОН ЙОРДАНОВ АДАМОВ",
+  "generatedAt": "2026-05-03T23:54:31.376Z",
+  "total": 2,
+  "roles": [
+    {
+      "uic": "175203485",
+      "companyName": "БУЛГАРГАЗ",
+      "legalForm": "EAD",
+      "seat": null,
+      "status": "active",
+      "role": "director",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2022-02-03T09:02:04",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "206440670",
+      "companyName": "ТЕАТРО ВАРНА",
+      "legalForm": "OOD",
+      "seat": "БЪЛГАРИЯ, гр. Варна, 9000",
+      "status": "active",
+      "role": "partner",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2021-03-19T10:40:35",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    }
+  ]
+}

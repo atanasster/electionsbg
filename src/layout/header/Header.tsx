@@ -111,6 +111,13 @@ export const Header = () => {
         >
           {t("compare_title")}
         </Link>
+        <Link
+          to="/connections"
+          underline={false}
+          className="text-sm font-medium hidden lg:block lowercase whitespace-nowrap text-secondary-foreground hover:text-primary"
+        >
+          {t("connections_link_label")}
+        </Link>
         {reportsMenu.map((topMenu, idx) => (
           <DropdownMenu key={`${topMenu.title}=${idx}`}>
             <DropdownMenuTrigger asChild>
@@ -175,6 +182,12 @@ export const Header = () => {
             </DropdownMenuItem>
             <DropdownMenuItem>
               <Link to="/compare">{t("compare_title")}</Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <Link to="/connections">{t("connections_link_label")}</Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <Link to="/mp/companies">{t("all_companies")}</Link>
             </DropdownMenuItem>
             <DropdownMenuItem>
               <Link to="/timeline">{t("timeline_title")}</Link>

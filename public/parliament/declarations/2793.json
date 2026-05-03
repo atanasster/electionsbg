@@ -1,0 +1,55 @@
+[
+  {
+    "mpId": 2793,
+    "declarantName": "ДАНИЕЛ ПЕТКОВ ЙОРДАНОВ",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Vacate",
+    "filedAt": "2022-03-11",
+    "entryNumber": "Ф258",
+    "controlHash": "880726B7",
+    "sourceUrl": "https://register.cacbg.bg/2022/5A3E700C-62D1-4343-A8A8-784D897A1F5D131971.xml",
+    "ownershipStakes": [],
+    "income": []
+  },
+  {
+    "mpId": 2793,
+    "declarantName": "ДАНИЕЛ ПЕТКОВ ЙОРДАНОВ",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": "2021-04-05",
+    "entryNumber": "Г4383",
+    "controlHash": "0675E38A",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/5A3E700C-62D1-4343-A8A8-784D897A1F5D121453.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 61605,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountBgnDeclarant": 1570,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "ЧЛ.11 ОТ ПРИЛОЖЕНИЕ НА ПОДНС",
+        "amountBgnDeclarant": 33666,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "РЕНТА",
+        "amountBgnDeclarant": 2700,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

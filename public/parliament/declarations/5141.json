@@ -1,0 +1,43 @@
+[
+  {
+    "mpId": 5141,
+    "declarantName": "Антон Константинов Кутев",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Vacate",
+    "filedAt": "2022-04-13",
+    "entryNumber": "Ф350",
+    "controlHash": "BE2958B0",
+    "sourceUrl": "https://register.cacbg.bg/2022/F88C41E2-7359-476A-83AF-AB7A728DF82B132836.xml",
+    "ownershipStakes": [],
+    "income": []
+  },
+  {
+    "mpId": 5141,
+    "declarantName": "Антон Константинов Кутев",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": "2021-04-27",
+    "entryNumber": "Г1374",
+    "controlHash": "5BF8507C",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/F88C41E2-7359-476A-83AF-AB7A728DF82B117793.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 67368,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "По чл.11 от Приложението към ПОДНС",
+        "amountBgnDeclarant": 33666,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

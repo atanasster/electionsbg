@@ -1,0 +1,49 @@
+[
+  {
+    "mpId": 4991,
+    "declarantName": "Десислав Петров Тасков",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Vacate",
+    "filedAt": "2022-04-05",
+    "entryNumber": "Ф354",
+    "controlHash": "6559745A",
+    "sourceUrl": "https://register.cacbg.bg/2022/EC3E0C87-2A3F-4A61-B157-206EF2D9CA2A132845.xml",
+    "ownershipStakes": [],
+    "income": []
+  },
+  {
+    "mpId": 4991,
+    "declarantName": "Десислав Петров Тасков",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": "2021-02-25",
+    "entryNumber": "Г57",
+    "controlHash": "680D4486",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/EC3E0C87-2A3F-4A61-B157-206EF2D9CA2A116088.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 64420,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountBgnDeclarant": 16060,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "По чл. 11 от Приложението към ПОДНС",
+        "amountBgnDeclarant": 33666,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

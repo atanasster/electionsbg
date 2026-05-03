@@ -1,0 +1,49 @@
+[
+  {
+    "mpId": 2747,
+    "declarantName": "Димитър Стоянов Стоянов",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Vacate",
+    "filedAt": "2022-04-14",
+    "entryNumber": "Ф406",
+    "controlHash": "7AE85194",
+    "sourceUrl": "https://register.cacbg.bg/2022/1F2BA324-6785-4E86-AB0F-1014EB896D77133209.xml",
+    "ownershipStakes": [],
+    "income": []
+  },
+  {
+    "mpId": 2747,
+    "declarantName": "Димитър Стоянов Стоянов",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": "2021-03-23",
+    "entryNumber": "Г5099",
+    "controlHash": "15346BD5",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/1F2BA324-6785-4E86-AB0F-1014EB896D77122332.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 77786,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountBgnDeclarant": 802,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Чл.11 от Приложение към ПОДНС",
+        "amountBgnDeclarant": 33804,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

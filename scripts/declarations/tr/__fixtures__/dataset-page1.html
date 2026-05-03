@@ -1,0 +1,763 @@
+<!DOCTYPE html>
+<html lang="bg">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="csrf-token" content="JvMLorKYqyXDrnGaLcQL0uyGeYodsuWbanQsWVqX">
+            <title>Open Data Portal</title>
+    <!-- Styles -->
+    <link href="https://fonts.googleapis.com/css?family=Roboto&amp;subset=cyrillic,cyrillic-ext" rel="stylesheet">
+    <link rel="stylesheet" href="/css/custom.css">
+    <link href="https://data.egov.bg/fonts/vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+    <link href="https://data.egov.bg/fonts/vendor/sofia-sans/css/sofia-sans.css" rel="stylesheet">
+    <link href="https://data.egov.bg/css/select2.min.css" rel="stylesheet">
+    <link href="https://data.egov.bg/css/bootstrap-datepicker.min.css" rel="stylesheet">
+    <link href="https://data.egov.bg/css/app.css" rel="stylesheet">
+    <link href="https://data.egov.bg/css/nanoscroller.css" rel="stylesheet">
+    <link href="https://data.egov.bg/css/summernote/summernote.css" rel="stylesheet">
+    <link href="https://data.egov.bg/css/summernote/summernote-bs4.css" rel="stylesheet">
+    <link href="https://data.egov.bg/css/summernote/summernote.css" rel="stylesheet">
+    <link href="https://data.egov.bg/css/colorpicker.css" rel="stylesheet">
+    <link href="https://data.egov.bg/css/bootstrap-clockpicker.min.css" rel="stylesheet">
+
+    
+                <!-- Global site tag (gtag.js) - Google Analytics -->
+            <script async src="https://www.googletagmanager.com/gtag/js?id=UA-126964105-1"></script>
+        <script>
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){ dataLayer.push(arguments); }
+            gtag('js', new Date());
+
+            gtag('config', 'UA-126964105-1');
+        </script>
+    <!-- Google reCAPTCHA -->
+    <script src="https://www.google.com/recaptcha/api.js?hl=bg" async defer></script>
+<!-- Matomo -->
+        <script>
+        var _paq = window._paq = window._paq || [];
+        /* tracker methods like "setCustomDimension" should be called before "trackPageView" */
+        _paq.push(['trackPageView']);
+        _paq.push(['enableLinkTracking']);
+        (function() {
+            var u="https://analytics.egov.bg/";
+            _paq.push(['setTrackerUrl', u+'matomo.php']);
+            _paq.push(['setSiteId', '3']);
+            var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+            g.async=true; g.src=u+'matomo.js'; s.parentNode.insertBefore(g,s);
+        })();
+    </script>
+        <script src="https://code.jquery.com/jquery-3.6.0.min.js"
+            integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+            crossorigin="anonymous"></script>
+</head>
+<body class="theme-organisation">
+<div id="app" class="nano" data-lang="bg">
+    <div class="nano-content js-nano-content">
+        <nav class="navbar navbar-default navbar-static-top js-head">
+            <div class="container">
+                <div class="navbar-header">
+                    <div class="nav-logos col-xs-3 col-sm-2 col-md-1 col-lg-1 pull-left">
+                        <a href="https://data.egov.bg"><img alt="Лого на портала" src="https://data.egov.bg/img/opendata-logo-color.svg"></a>
+                    </div>
+                                            <div class="hamburger-trigger hidden-lg hidden-md hidden-sm col-xs-5 pull-right text-right">
+                                                            <span class="login-link">>
+                                    <a href="https://data.egov.bg/login">вход</a>
+                                </span>
+                                                        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#my-navbar">
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                                <span class="icon-bar"></span>
+                            </button>
+                        </div>
+                                        <div class="nav-name col-xs-12 hidden-sm col-md-5 col-lg-7">
+                        <b>Портал за отворени данни</b>
+                        <br>
+                        <p>Достъп до публични данни в Република България в отворен и машинночетим формат</p>
+                    </div>
+                    <div class="
+                            nav-controls
+                            text-right
+                            hidden-xs
+                            js-show-on-load
+                            col-sm-6 col-md-5 col-lg-4
+                            ">
+                                                                                    <span class="login-link">>
+                                        <a href="https://data.egov.bg/login">вход</a>
+                                    </span>
+                                                        <span class="search-input">
+                                    <form action="https://data.egov.bg/data" class="inline-block js-ga-event">
+                                        <input
+                                                type="text"
+                                                name="q"
+                                                placeholder="търси..."
+                                                data-ga-action="search"
+                                                data-ga-label="data search"
+                                                data-ga-category="data"
+                                        >
+                                    </form>
+                                </span>
+                        
+                        <span class="trans-link">
+                                <a
+                                        href="https://data.egov.bg/lang/en"
+                                >EN</a>
+                            </span>
+
+                                                    <span class="social-icons ">
+                                    <a
+                                            target="_blank"
+                                            href="http://www.facebook.com/sharer.php?u=https://data.egov.bg/organisation/dataset/2df0c2af-e769-4397-be33-fcbe269806f3"
+                                            class="fb"
+                                    ><span class="fa fa-facebook"></span></a>
+                                    <a
+                                            target="_blank"
+                                            href="http://twitter.com/intent/tweet?text=https://data.egov.bg/organisation/dataset/2df0c2af-e769-4397-be33-fcbe269806f3"
+                                            class="tw"
+                                    ><span class="fa fa-twitter"></span></a>
+                                    <a
+                                            target="_blank"
+                                            href="https://www.linkedin.com/shareArticle?mini=true&url=https://data.egov.bg/organisation/dataset/2df0c2af-e769-4397-be33-fcbe269806f3" class="in"
+                                    ><span class="fa fa-linkedin"></span></a>
+                                                                                                                                    </span>
+                                            </div>
+                    <div class="col-sm-12 hidden-xs hidden-md hidden-lg nav-name">
+                        <b>Портал за отворени данни</b>
+                        <br>
+                        <p>Достъп до публични данни в Република България в отворен и машинночетим формат</p>
+                    </div>
+                </div>
+                <div class="collapse navbar-collapse" id="my-navbar">
+                    <div class="hidden-lg hidden-md hidden-sm close-btn text-right">
+                        <span><img class="js-close-navbar" src="https://data.egov.bg/img/close-btn.png"></span>
+                    </div>
+                    <ul class="nav navbar-nav sections">
+                                                    <li class="index ">
+                                <a href="https://data.egov.bg">Начало</a>
+                            </li>
+                            <li class="data ">
+                                <a href="https://data.egov.bg/data">Данни</a>
+                            </li>
+                            <li class="organisation active">
+                                <a href="https://data.egov.bg/organisation">Организации</a>
+                            </li>
+                            <li class="request ">
+                                <a href="https://data.egov.bg/request">Заявки за данни</a>
+                            </li>
+                            <li class="news ">
+                                <a href="https://data.egov.bg/news">Новини и събития</a>
+                            </li>
+                            <li class="document ">
+                                <a href="https://data.egov.bg/document">Документи</a>
+                            </li>
+                                                                                                                                                                                                            <li
+                                                class="
+                                                    
+                                                user
+                                                        "
+                                        >
+                                            <a
+                                                    href="https://data.egov.bg/api-spetsifikatsiya?section=22"
+                                            >API спецификация</a>
+                                        </li>
+                                                                                                                                                                                                                                                                                                                                        <li
+                                    class="hidden-lg hidden-md hidden-sm js-check-url "
+                            >
+                                                                    <a href="https://data.egov.bg/login">Вход</a>
+                                                            </li>
+                            <li class="hidden-lg hidden-md hidden-sm">
+                                <input
+                                        type="text"
+                                        placeholder="търси..."
+                                        class="form-control rounded-input input-long js-ga-event"
+                                        data-ga-action="search"
+                                        data-ga-label="data search"
+                                        data-ga-category="data"
+                                >
+                            </li>
+                            <li class="hidden-lg hidden-md hidden-sm icons">
+                                <a
+                                        href="https://data.egov.bg/lang/en"
+                                >EN</a>
+                                <a href="http://www.facebook.com/sharer.php?u=https://data.egov.bg/organisation/dataset/2df0c2af-e769-4397-be33-fcbe269806f3" class="fb"><i class="fa fa-facebook"></i></a>
+                                <a href="http://twitter.com/intent/tweet?text=https://data.egov.bg/organisation/dataset/2df0c2af-e769-4397-be33-fcbe269806f3" class="tw"><i class="fa fa-twitter"></i></a>
+                                <a href="https://www.linkedin.com/shareArticle?mini=true&url=https://data.egov.bg/organisation/dataset/2df0c2af-e769-4397-be33-fcbe269806f3" class="in"><i class="fa fa-linkedin"></i></a>
+                            </li>
+                                            </ul>
+                </div>
+            </div>
+            <div class="underline">
+                <div class="container">
+                    <div id="slideText" style="position: relative;">
+
+                    </div>
+                </div>
+                <script type="text/javascript">
+                    let keyValue = document.cookie.match('(^|;) ?slideText=([^;]*)(;|$)');
+                    let value = keyValue ? keyValue[2] : null;
+                    function SlideText() {
+                        $('#slideText').animate({right: -200}, 2000);
+                        $('#slideText').animate({left: -100}, 2000);
+                        $('#slideText').animate({left: 0}, 2000);
+                    }
+                    function DeleteCoockie() {
+                        document.cookie = "slideText=0;expires=Wed Apr 07 2020 18:11:49 GMT+0300";
+                    }
+                    $(function() {
+                        $.get( "/msg", function( data ) {
+                            $("#slideText").html(data.msg);
+                        });
+                        if(value == null) {
+                            SlideText();
+                            let date = new Date();
+                            date.setTime(date.getTime() + (30 * 1000));
+                            document.cookie = "slideText=1;expires="+date;
+                        }
+                        setInterval(function(){ SlideText() }, 12000);
+                    });
+                </script>
+                                    <div class="help-btn js-help">
+                                                    <img class="js-open-help help-icon" src="https://data.egov.bg/img/help-icon.svg">
+                            <div class="js-help-bar help-container hidden">
+    <img class="help-icon-open" src="https://data.egov.bg/img/help-icon.svg">
+    <img class="close-help close-btn close" src="https://data.egov.bg/img/X.svg">
+    <div class="help-content m-t-sm">
+                    <h3>Липсва Помощна Страница</h3>
+                        </div>
+</div>
+                                            </div>
+                            </div>
+        </nav>
+
+        <div class="js-content m-b-xl">
+                <div class="container">
+                <div class="row">
+    <div class="col-sm-9 col-xs-11 p-sm col-sm-offset-3">
+        <div class="filter-content">
+            <div class="col-md-12">
+                <div class="row">
+                    <div class="col-xs-12 p-l-r-none">
+                        <ul class="nav filter-type right-border">
+                            <li><a class="p-l-none" href="https://data.egov.bg/organisation/profile/b93a0a74-4f8d-430a-884c-35e68c2d05b8">профил</a></li>
+                            <li><a class="active" href="https://data.egov.bg/organisation/b93a0a74-4f8d-430a-884c-35e68c2d05b8/datasets">данни</a></li>
+                            <li><a href="https://data.egov.bg/organisation/chronology/b93a0a74-4f8d-430a-884c-35e68c2d05b8">поток на дейността</a></li>
+                        </ul>
+                    </div>
+                                            <div class="col-xs-12 p-l-r-none m-t-sm">
+                            <ul class="nav filter-type right-border">
+                                <li><a class="p-l-none" href="https://data.egov.bg/groups?dataset=2df0c2af-e769-4397-be33-fcbe269806f3">групи</a></li>
+                                <li><a href="https://data.egov.bg/organisation/dataset/chronology/2df0c2af-e769-4397-be33-fcbe269806f3">поток на дейността</a></li>
+                            </ul>
+                        </div>
+                                    </div>
+            </div>
+        </div>
+    </div>
+</div>
+        <div class="row">
+        <div class="col-sm-9 col-xs-12 page-content col-sm-offset-3 p-h-sm">
+            <div class="articles">
+                <div class="article col-xs-12">
+                    <div>
+                                                    <div class="col-sm-7 col-xs-12 p-l-r-none m-t-lg m-b-md">
+                                <div class="col-md-8 col-sm-10 col-xs-12 logo-img p-l-r-none">
+                                    <a href="https://data.egov.bg/organisation/profile/b93a0a74-4f8d-430a-884c-35e68c2d05b8" title="Агенция по вписванията">
+                                        <img class="img-responsive" src="data:image/png;base64,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" alt="Агенция по вписванията">
+                                    </a>
+                                </div>
+                            </div>
+                            <div class="col-sm-12 col-xs-12 p-l-r-none">
+                                <h3>
+                                    <a href="https://data.egov.bg/organisation/profile/b93a0a74-4f8d-430a-884c-35e68c2d05b8">Агенция по вписванията</a>
+                                </h3>
+                            </div>
+                                            </div>
+                    <div class="col-xs-12 p-l-r-none m-t-md m-b-md">
+                        <div class="art-heading-bar row">
+                            <div class="col-sm-7 col-xs-12 p-l-r-none">
+                                <div class="p-w-sm">
+                                    <div class="socialPadding">
+    <div class="social fb">
+        <a target ="_blank" href="http://www.facebook.com/sharer.php?u=https://data.egov.bg/organisation/dataset/2df0c2af-e769-4397-be33-fcbe269806f3"><i class="fa fa-facebook"></i></a>
+    </div>
+    <div class="social tw">
+        <a target ="_blank" href="http://twitter.com/intent/tweet?text=https://data.egov.bg/organisation/dataset/2df0c2af-e769-4397-be33-fcbe269806f3"><i class="fa fa-twitter"></i></a>
+    </div>
+    <div class="social in">
+        <a target ="_blank" href="https://www.linkedin.com/shareArticle?mini=true&url=https://data.egov.bg/organisation/dataset/2df0c2af-e769-4397-be33-fcbe269806f3"><i class="fa fa-linkedin"></i></a>
+    </div>
+</div>
+                                </div>
+                                                                    <div class="status p-w-sm">
+                                        <span>одобрен </span>
+                                    </div>
+                                                            </div>
+                            <div class="follow pull-right">
+                                <form method="post">
+                                    <input type="hidden" name="_token" value="JvMLorKYqyXDrnGaLcQL0uyGeYodsuWbanQsWVqX">
+                                                                    </form>
+                            </div>
+                        </div>
+                        <h2>Търговски регистър - списък набори данни</h2>
+                        <p>
+                            <strong>Уникален идентификатор:</strong>
+                            &nbsp;2df0c2af-e769-4397-be33-fcbe269806f3
+                        </p>
+                                                    <p><strong>Описание:</strong></p>
+                            <p>Базата данни на Търговския регистър, с включена история и заличени лични данни. Вместо ЕГН/ЛНЧ се използва генериран на тяхна база низ (хеш+salt).</p>
+                                                                            <p>
+                                <strong>Лиценз:</strong>
+                                &nbsp;Условия за предоставяне на информация без защитени авторски права (CC0).
+                            </p>
+                                                                            <p>
+                                <strong>Основна тема:</strong>
+                                &nbsp;Правосъдие, правна система, обществена безопасност
+                            </p>
+                                                <div class="col-xs-12 p-l-none">
+                            <div class="pull-left">
+                                                                                                            <span class="badge badge-pill m-b-sm whitespace">агенция</span>
+                                                                            <span class="badge badge-pill m-b-sm whitespace">регистър</span>
+                                                                            <span class="badge badge-pill m-b-sm whitespace">търговски</span>
+                                                                            <span class="badge badge-pill m-b-sm whitespace">РМС 103/2015</span>
+                                                                            <span class="badge badge-pill m-b-sm whitespace">АВ</span>
+                                                                            <span class="badge badge-pill m-b-sm whitespace">ТР</span>
+                                                                            <span class="badge badge-pill m-b-sm whitespace">вписвания</span>
+                                                                                                </div>
+                        </div>
+
+                        
+                                                    <div class="col-sm-12 pull-left p-h-sm p-l-none">
+                                <div class="pull-left history">
+                                                                            <div class="row m-b-md">
+        <div class="col-xs-12 m-b-sm">Подреди по:</div>
+        <div class="col-xs-12 order-documents">
+                            <a
+                    href="https://data.egov.bg/organisation/dataset/2df0c2af-e769-4397-be33-fcbe269806f3?order=name"
+
+                    class=""
+                >Име</a><a
+                    href="https://data.egov.bg/organisation/dataset/2df0c2af-e769-4397-be33-fcbe269806f3?order=created_at"
+
+                    class=""
+                >Дата на създаване</a><a
+                    href="https://data.egov.bg/organisation/dataset/2df0c2af-e769-4397-be33-fcbe269806f3?order=updated_at"
+
+                    class=""
+                >Дата на редактиране</a>
+                <a
+                    href="https://data.egov.bg/organisation/dataset/2df0c2af-e769-4397-be33-fcbe269806f3?order_type=asc"
+
+                    class=""
+                >Възходящ ред</a>
+                <a
+                    href="https://data.egov.bg/organisation/dataset/2df0c2af-e769-4397-be33-fcbe269806f3?order_type=desc"
+
+                    class=""
+                >Низходящ ред</a>
+                    </div>
+    </div>
+                                    
+                                    <div class="row">
+        <div class="col-xs-12 text-center">
+            <ul class="pagination">
+        
+
+                    <li class="disabled"><span>&laquo;</span></li>
+        
+        
+                    
+            
+            
+                                                                        <li class="active"><span>1</span></li>
+                                                                                <li><a href="https://data.egov.bg/organisation/dataset/2df0c2af-e769-4397-be33-fcbe269806f3?rpage=2">2</a></li>
+                                                                                <li><a href="https://data.egov.bg/organisation/dataset/2df0c2af-e769-4397-be33-fcbe269806f3?rpage=3">3</a></li>
+                                                                                <li><a href="https://data.egov.bg/organisation/dataset/2df0c2af-e769-4397-be33-fcbe269806f3?rpage=4">4</a></li>
+                                                                                <li><a href="https://data.egov.bg/organisation/dataset/2df0c2af-e769-4397-be33-fcbe269806f3?rpage=5">5</a></li>
+                                                                                <li><a href="https://data.egov.bg/organisation/dataset/2df0c2af-e769-4397-be33-fcbe269806f3?rpage=6">6</a></li>
+                                                                                <li><a href="https://data.egov.bg/organisation/dataset/2df0c2af-e769-4397-be33-fcbe269806f3?rpage=7">7</a></li>
+                                                                                <li><a href="https://data.egov.bg/organisation/dataset/2df0c2af-e769-4397-be33-fcbe269806f3?rpage=8">8</a></li>
+                                                                    
+                            <li class="disabled"><span>...</span></li>
+            
+            
+                                
+            
+            
+                                                                        <li><a href="https://data.egov.bg/organisation/dataset/2df0c2af-e769-4397-be33-fcbe269806f3?rpage=167">167</a></li>
+                                                                                <li><a href="https://data.egov.bg/organisation/dataset/2df0c2af-e769-4397-be33-fcbe269806f3?rpage=168">168</a></li>
+                                                        
+        
+                    <li><a href="https://data.egov.bg/organisation/dataset/2df0c2af-e769-4397-be33-fcbe269806f3?rpage=2" rel="next">&raquo;</a></li>
+            </ul>
+
+        </div>
+    </div>
+                                                                            <div class="">
+                                            <a href="https://data.egov.bg/organisation/datasets/resourceView/9cf12b00-dae2-4e79-89ba-486c121b7173">
+                                            <span>
+                                                <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30"><path d="M26.72,29.9H3.33V0H26.72ZM4.62,28.61H25.43V1.29H4.62Z"/><path d="M11.09,6.18V9.12H8.14V6.18h2.95m1.29-1.3H6.85v5.53h5.53V4.88Z"/><path d="M11.09,13.48v2.94H8.14V13.48h2.95m1.29-1.29H6.85v5.52h5.53V12.19Z"/><path d="M11.09,20.78v2.94H8.14V20.78h2.95m1.29-1.29H6.85V25h5.53V19.49Z"/><rect x="14.34" y="21.38" width="7.57" height="1.74"/><rect x="14.34" y="14.08" width="7.57" height="1.74"/><rect x="14.34" y="6.78" width="7.57" height="1.74"/></svg>
+                                            </span>
+                                                <span class="version-heading">Ресурс</span>
+                                                <span class="version">&nbsp;&#8211;&nbsp;Търговски регистър 29.04.2026</span>
+                                            </a>
+                                        </div>
+                                                                            <div class="">
+                                            <a href="https://data.egov.bg/organisation/datasets/resourceView/f4870465-ca39-4449-b7f5-beaf49bebe83">
+                                            <span>
+                                                <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30"><path d="M26.72,29.9H3.33V0H26.72ZM4.62,28.61H25.43V1.29H4.62Z"/><path d="M11.09,6.18V9.12H8.14V6.18h2.95m1.29-1.3H6.85v5.53h5.53V4.88Z"/><path d="M11.09,13.48v2.94H8.14V13.48h2.95m1.29-1.29H6.85v5.52h5.53V12.19Z"/><path d="M11.09,20.78v2.94H8.14V20.78h2.95m1.29-1.29H6.85V25h5.53V19.49Z"/><rect x="14.34" y="21.38" width="7.57" height="1.74"/><rect x="14.34" y="14.08" width="7.57" height="1.74"/><rect x="14.34" y="6.78" width="7.57" height="1.74"/></svg>
+                                            </span>
+                                                <span class="version-heading">Ресурс</span>
+                                                <span class="version">&nbsp;&#8211;&nbsp;Търговски регистър 28.04.2026</span>
+                                            </a>
+                                        </div>
+                                                                            <div class="">
+                                            <a href="https://data.egov.bg/organisation/datasets/resourceView/ad01b9c1-9b67-4217-83b8-8961cc362f6b">
+                                            <span>
+                                                <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30"><path d="M26.72,29.9H3.33V0H26.72ZM4.62,28.61H25.43V1.29H4.62Z"/><path d="M11.09,6.18V9.12H8.14V6.18h2.95m1.29-1.3H6.85v5.53h5.53V4.88Z"/><path d="M11.09,13.48v2.94H8.14V13.48h2.95m1.29-1.29H6.85v5.52h5.53V12.19Z"/><path d="M11.09,20.78v2.94H8.14V20.78h2.95m1.29-1.29H6.85V25h5.53V19.49Z"/><rect x="14.34" y="21.38" width="7.57" height="1.74"/><rect x="14.34" y="14.08" width="7.57" height="1.74"/><rect x="14.34" y="6.78" width="7.57" height="1.74"/></svg>
+                                            </span>
+                                                <span class="version-heading">Ресурс</span>
+                                                <span class="version">&nbsp;&#8211;&nbsp;Търговски регистър 27.04.2026</span>
+                                            </a>
+                                        </div>
+                                                                            <div class="">
+                                            <a href="https://data.egov.bg/organisation/datasets/resourceView/76622ea5-d8a8-4383-91fe-ccd8ad4d1367">
+                                            <span>
+                                                <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30"><path d="M26.72,29.9H3.33V0H26.72ZM4.62,28.61H25.43V1.29H4.62Z"/><path d="M11.09,6.18V9.12H8.14V6.18h2.95m1.29-1.3H6.85v5.53h5.53V4.88Z"/><path d="M11.09,13.48v2.94H8.14V13.48h2.95m1.29-1.29H6.85v5.52h5.53V12.19Z"/><path d="M11.09,20.78v2.94H8.14V20.78h2.95m1.29-1.29H6.85V25h5.53V19.49Z"/><rect x="14.34" y="21.38" width="7.57" height="1.74"/><rect x="14.34" y="14.08" width="7.57" height="1.74"/><rect x="14.34" y="6.78" width="7.57" height="1.74"/></svg>
+                                            </span>
+                                                <span class="version-heading">Ресурс</span>
+                                                <span class="version">&nbsp;&#8211;&nbsp;Търговски регистър 25.04.2026</span>
+                                            </a>
+                                        </div>
+                                                                            <div class="">
+                                            <a href="https://data.egov.bg/organisation/datasets/resourceView/1c786c77-9628-4c76-b329-5514bfa0f900">
+                                            <span>
+                                                <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30"><path d="M26.72,29.9H3.33V0H26.72ZM4.62,28.61H25.43V1.29H4.62Z"/><path d="M11.09,6.18V9.12H8.14V6.18h2.95m1.29-1.3H6.85v5.53h5.53V4.88Z"/><path d="M11.09,13.48v2.94H8.14V13.48h2.95m1.29-1.29H6.85v5.52h5.53V12.19Z"/><path d="M11.09,20.78v2.94H8.14V20.78h2.95m1.29-1.29H6.85V25h5.53V19.49Z"/><rect x="14.34" y="21.38" width="7.57" height="1.74"/><rect x="14.34" y="14.08" width="7.57" height="1.74"/><rect x="14.34" y="6.78" width="7.57" height="1.74"/></svg>
+                                            </span>
+                                                <span class="version-heading">Ресурс</span>
+                                                <span class="version">&nbsp;&#8211;&nbsp;Търговски регистър 24.04.2026</span>
+                                            </a>
+                                        </div>
+                                                                            <div class="">
+                                            <a href="https://data.egov.bg/organisation/datasets/resourceView/af4d37c9-e4d9-4dbc-b4b7-283657178c88">
+                                            <span>
+                                                <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30"><path d="M26.72,29.9H3.33V0H26.72ZM4.62,28.61H25.43V1.29H4.62Z"/><path d="M11.09,6.18V9.12H8.14V6.18h2.95m1.29-1.3H6.85v5.53h5.53V4.88Z"/><path d="M11.09,13.48v2.94H8.14V13.48h2.95m1.29-1.29H6.85v5.52h5.53V12.19Z"/><path d="M11.09,20.78v2.94H8.14V20.78h2.95m1.29-1.29H6.85V25h5.53V19.49Z"/><rect x="14.34" y="21.38" width="7.57" height="1.74"/><rect x="14.34" y="14.08" width="7.57" height="1.74"/><rect x="14.34" y="6.78" width="7.57" height="1.74"/></svg>
+                                            </span>
+                                                <span class="version-heading">Ресурс</span>
+                                                <span class="version">&nbsp;&#8211;&nbsp;Търговски регистър 23.04.2026</span>
+                                            </a>
+                                        </div>
+                                                                            <div class="">
+                                            <a href="https://data.egov.bg/organisation/datasets/resourceView/c6d9c21a-63bb-471c-aac1-1ba2fdb0fef7">
+                                            <span>
+                                                <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30"><path d="M26.72,29.9H3.33V0H26.72ZM4.62,28.61H25.43V1.29H4.62Z"/><path d="M11.09,6.18V9.12H8.14V6.18h2.95m1.29-1.3H6.85v5.53h5.53V4.88Z"/><path d="M11.09,13.48v2.94H8.14V13.48h2.95m1.29-1.29H6.85v5.52h5.53V12.19Z"/><path d="M11.09,20.78v2.94H8.14V20.78h2.95m1.29-1.29H6.85V25h5.53V19.49Z"/><rect x="14.34" y="21.38" width="7.57" height="1.74"/><rect x="14.34" y="14.08" width="7.57" height="1.74"/><rect x="14.34" y="6.78" width="7.57" height="1.74"/></svg>
+                                            </span>
+                                                <span class="version-heading">Ресурс</span>
+                                                <span class="version">&nbsp;&#8211;&nbsp;Търговски регистър 22.04.2026</span>
+                                            </a>
+                                        </div>
+                                                                            <div class="">
+                                            <a href="https://data.egov.bg/organisation/datasets/resourceView/5067fa08-93fb-4350-9875-5e81fc06cd2e">
+                                            <span>
+                                                <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30"><path d="M26.72,29.9H3.33V0H26.72ZM4.62,28.61H25.43V1.29H4.62Z"/><path d="M11.09,6.18V9.12H8.14V6.18h2.95m1.29-1.3H6.85v5.53h5.53V4.88Z"/><path d="M11.09,13.48v2.94H8.14V13.48h2.95m1.29-1.29H6.85v5.52h5.53V12.19Z"/><path d="M11.09,20.78v2.94H8.14V20.78h2.95m1.29-1.29H6.85V25h5.53V19.49Z"/><rect x="14.34" y="21.38" width="7.57" height="1.74"/><rect x="14.34" y="14.08" width="7.57" height="1.74"/><rect x="14.34" y="6.78" width="7.57" height="1.74"/></svg>
+                                            </span>
+                                                <span class="version-heading">Ресурс</span>
+                                                <span class="version">&nbsp;&#8211;&nbsp;Търговски регистър 21.04.2026</span>
+                                            </a>
+                                        </div>
+                                                                            <div class="">
+                                            <a href="https://data.egov.bg/organisation/datasets/resourceView/3584e685-ac9c-49a9-83c8-a03bbf696c9c">
+                                            <span>
+                                                <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30"><path d="M26.72,29.9H3.33V0H26.72ZM4.62,28.61H25.43V1.29H4.62Z"/><path d="M11.09,6.18V9.12H8.14V6.18h2.95m1.29-1.3H6.85v5.53h5.53V4.88Z"/><path d="M11.09,13.48v2.94H8.14V13.48h2.95m1.29-1.29H6.85v5.52h5.53V12.19Z"/><path d="M11.09,20.78v2.94H8.14V20.78h2.95m1.29-1.29H6.85V25h5.53V19.49Z"/><rect x="14.34" y="21.38" width="7.57" height="1.74"/><rect x="14.34" y="14.08" width="7.57" height="1.74"/><rect x="14.34" y="6.78" width="7.57" height="1.74"/></svg>
+                                            </span>
+                                                <span class="version-heading">Ресурс</span>
+                                                <span class="version">&nbsp;&#8211;&nbsp;Търговски регистър 20.04.2026</span>
+                                            </a>
+                                        </div>
+                                                                            <div class="">
+                                            <a href="https://data.egov.bg/organisation/datasets/resourceView/a13df0a2-1836-4381-9d9c-c6b04e9eb653">
+                                            <span>
+                                                <svg id="Layer_1" data-name="Layer 1" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 30 30"><path d="M26.72,29.9H3.33V0H26.72ZM4.62,28.61H25.43V1.29H4.62Z"/><path d="M11.09,6.18V9.12H8.14V6.18h2.95m1.29-1.3H6.85v5.53h5.53V4.88Z"/><path d="M11.09,13.48v2.94H8.14V13.48h2.95m1.29-1.29H6.85v5.52h5.53V12.19Z"/><path d="M11.09,20.78v2.94H8.14V20.78h2.95m1.29-1.29H6.85V25h5.53V19.49Z"/><rect x="14.34" y="21.38" width="7.57" height="1.74"/><rect x="14.34" y="14.08" width="7.57" height="1.74"/><rect x="14.34" y="6.78" width="7.57" height="1.74"/></svg>
+                                            </span>
+                                                <span class="version-heading">Ресурс</span>
+                                                <span class="version">&nbsp;&#8211;&nbsp;Търговски регистър 17.04.2026</span>
+                                            </a>
+                                        </div>
+                                                                        <div class="row">
+        <div class="col-xs-12 text-center">
+            <ul class="pagination">
+        
+
+                    <li class="disabled"><span>&laquo;</span></li>
+        
+        
+                    
+            
+            
+                                                                        <li class="active"><span>1</span></li>
+                                                                                <li><a href="https://data.egov.bg/organisation/dataset/2df0c2af-e769-4397-be33-fcbe269806f3?rpage=2">2</a></li>
+                                                                                <li><a href="https://data.egov.bg/organisation/dataset/2df0c2af-e769-4397-be33-fcbe269806f3?rpage=3">3</a></li>
+                                                                                <li><a href="https://data.egov.bg/organisation/dataset/2df0c2af-e769-4397-be33-fcbe269806f3?rpage=4">4</a></li>
+                                                                                <li><a href="https://data.egov.bg/organisation/dataset/2df0c2af-e769-4397-be33-fcbe269806f3?rpage=5">5</a></li>
+                                                                                <li><a href="https://data.egov.bg/organisation/dataset/2df0c2af-e769-4397-be33-fcbe269806f3?rpage=6">6</a></li>
+                                                                                <li><a href="https://data.egov.bg/organisation/dataset/2df0c2af-e769-4397-be33-fcbe269806f3?rpage=7">7</a></li>
+                                                                                <li><a href="https://data.egov.bg/organisation/dataset/2df0c2af-e769-4397-be33-fcbe269806f3?rpage=8">8</a></li>
+                                                                    
+                            <li class="disabled"><span>...</span></li>
+            
+            
+                                
+            
+            
+                                                                        <li><a href="https://data.egov.bg/organisation/dataset/2df0c2af-e769-4397-be33-fcbe269806f3?rpage=167">167</a></li>
+                                                                                <li><a href="https://data.egov.bg/organisation/dataset/2df0c2af-e769-4397-be33-fcbe269806f3?rpage=168">168</a></li>
+                                                        
+        
+                    <li><a href="https://data.egov.bg/organisation/dataset/2df0c2af-e769-4397-be33-fcbe269806f3?rpage=2" rel="next">&raquo;</a></li>
+            </ul>
+
+        </div>
+    </div>
+                                </div>
+                            </div>
+                                                <p>
+                            <strong>Версия:</strong>&nbsp;33.1
+                        </p>
+                                                                                                                                                                                                <div class="info-bar-sm col-sm-12 col-xs-12 p-l-none">
+                            <ul class="p-l-none p-h-sm">
+                                <li>Създаден на: 2016-04-18 15:52:17</li>
+                                                                    <li>Създаден от: registryagency</li>
+                                                                                                    <li>Последна промяна: 2026-04-30 09:40:50</li>
+                                                                                                    <li>Последно променил: iordanka.mravkova</li>
+                                                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+            <div class="row">
+            <div class="col-sm-9 col-xs-12 page-content p-sm col-sm-offset-3 mng-btns" style="margin-top:-50px;">
+                                                                                                                                    <br>
+                            <a href="javascript:;" onclick="downloadZipFile('https://data.egov.bg/dataset/2df0c2af-e769-4397-be33-fcbe269806f3/resources/download/json')">
+                                <i class="fa fa-download"></i>
+                                .zip с всички ресурси в JSON формат
+                            </a>
+                                                                                                                                                                                        <br>
+                            <a href="javascript:;" onclick="downloadZipFile('https://data.egov.bg/dataset/2df0c2af-e769-4397-be33-fcbe269806f3/resources/download/xml')">
+                                <i class="fa fa-download"></i>
+                                .zip с всички ресурси в XML формат
+                            </a>
+                                                                                                                    </div>
+        </div>
+        <div class="row">
+        <div class="col-sm-9 col-xs-12 page-content p-sm col-sm-offset-3 mng-btns">
+                                            </div>
+    </div>
+
+    </div>
+        </div>
+
+        <footer>
+                            <div class="col-xs-12 m-t-xl p-t-sm text-center footer-sections">
+                    <div class="row">
+                        <div class="container">
+                                                                                                                                        <div
+                                                class="
+                                                    
+                                                user
+                                                        js-footer-section
+                                                        footer-section
+"
+                                        >
+                                            <a
+                                                    class="section-link"
+                                                    href="https://data.egov.bg/usloviya-za-polzvane?section=3"
+                                            >Условия за ползване</a><br><br>
+                                                                                                                                                <a
+                                                            class="
+                                                                
+                                                                    "
+                                                            href="https://data.egov.bg/usloviya-za-polzvane?section=3&amp;item=3"
+                                                    >Условия за ползване</a><br>
+                                                                                                    <a
+                                                            class="
+                                                                
+                                                                    "
+                                                            href="https://data.egov.bg/usloviya-za-polzvane?section=3&amp;item=19"
+                                                    >Политика за поверителност</a><br>
+                                                                                                    <a
+                                                            class="
+                                                                
+                                                                    "
+                                                            href="https://data.egov.bg/usloviya-za-polzvane?section=3&amp;item=20"
+                                                    >Бисквитки</a><br>
+                                                                                                                                    </div>
+                                                                                                                                                                                                                    <div
+                                                class="
+                                                    
+                                                data-attention
+                                                        js-footer-section
+                                                        footer-section
+"
+                                        >
+                                            <a
+                                                    class="section-link"
+                                                    href="https://data.egov.bg/dostpnost?section=4"
+                                            >Достъпност</a><br><br>
+                                                                                                                                                <a
+                                                            class="
+                                                                
+                                                                    "
+                                                            href="https://data.egov.bg/dostpnost?section=4&amp;item=4"
+                                                    >Достъпност</a><br>
+                                                                                                                                    </div>
+                                                                                                                                                <div
+                                                class="
+                                                    
+                                                visualisation
+                                                        js-footer-section
+                                                        footer-section
+"
+                                        >
+                                            <a
+                                                    class="section-link"
+                                                    href="https://data.egov.bg/statistika?section=1"
+                                            >Статистика</a><br><br>
+                                                                                                                                                <a
+                                                            class="
+                                                                
+                                                                    "
+                                                            href="https://data.egov.bg/statistika?section=1&amp;item=1"
+                                                    >Статистика</a><br>
+                                                                                                                                    </div>
+                                                                                                                                                <div
+                                                class="
+                                                    
+                                                contact
+                                                        js-footer-section
+                                                        footer-section
+"
+                                        >
+                                            <a
+                                                    class="section-link"
+                                                    href="https://data.egov.bg/kontakti?section=2"
+                                            >Контакти</a><br><br>
+                                                                                                                                                <a
+                                                            class="
+                                                                
+                                                                    "
+                                                            href="https://data.egov.bg/kontakti?section=2&amp;item=2"
+                                                    >Контакти</a><br>
+                                                                                                                                    </div>
+                                                                                                                        </div>
+                    </div>
+                </div>
+                        <div class="text-center col-xs-12 m-t-sm m-b-sm">
+                <div class="row">
+                    <div class="container">
+                        <div class="col-lg-5 col-md-5 col-sm-12 col-xs-12 text-left align-top m-t-md m-l-none img-wrapper">
+                            <div class="col-xs-6 m-t-sm footer-img">
+                                <a href="https://europa.eu/european-union/index_bg" target="_blank">
+                                    <img
+                                            alt="Официална страница на Европейския съюз"
+                                            src="https://data.egov.bg/img/euro-union.svg"
+                                    >
+                                </a>
+                            </div>
+                            <div class="col-xs-6 m-t-sm footer-img">
+                                <a class="m-l-r-md">
+                                    <img
+                                            alt="Добро управление"
+                                            src="https://data.egov.bg/img/upravlenie-logo.svg"
+                                    >
+                                </a>
+                            </div>
+                        </div>
+                        <div class="col-lg-7 col-md-7 col-sm-12 col-xs-12 footer-text">
+                            <h6 class="text-justify">
+                                Порталът за отворени данни на Република България е разработен в изпълнение на Проект: BG05SFOP001-2.001-0001 „Подобряване на процесите, свързани с предоставянето, достъпа и повторното използване на информацията от обществения сектор“, финансиран по Оперативна програма „Добро управление“
+                            </h6>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </footer>
+    </div>
+</div>
+<div id="ajax_loader_backgr">&nbsp;</div>
+<div id="ajax_loader">
+    <h2>Моля изчакайте</h2>
+    <p class="text"></p>
+    <div class="sk-cube-grid">
+        <div class="sk-cube sk-cube1"></div>
+        <div class="sk-cube sk-cube2"></div>
+        <div class="sk-cube sk-cube3"></div>
+        <div class="sk-cube sk-cube4"></div>
+        <div class="sk-cube sk-cube5"></div>
+        <div class="sk-cube sk-cube6"></div>
+        <div class="sk-cube sk-cube7"></div>
+        <div class="sk-cube sk-cube8"></div>
+        <div class="sk-cube sk-cube9"></div>
+    </div>
+</div>
+
+<span
+    class="js-translations"
+    data-search="Търсене:"
+    data-info="Показва _START_ до _END_ от общо _TOTAL_ записа"
+    data-info-filtered="(филтрирани от общо _MAX_ записа)"
+    data-info-empty="Показва 0 записа"
+    data-zero-records="Не са намерени записи"
+    data-length-menu="_MENU_ записа на страница"
+    data-next="Следваща"
+    data-previous="Предишна"
+    data-first="Първа"
+    data-last="Последна"
+    data-clear-org-filter="изчисти филтъра"
+    data-get-resource="Грешка при вземане на данни за ресурс"
+></span>
+<!-- Scripts -->
+
+<script src="https://data.egov.bg/js/app.js"></script>
+<script src="https://data.egov.bg/js/jquery.smartmenus.min.js"></script>
+<script src="https://data.egov.bg/js/jquery.smartmenus.bootstrap.min.js"></script>
+<script src="https://data.egov.bg/js/jquery.nanoscroller.min.js"></script>
+<script src="https://data.egov.bg/js/bootstrap-colorpicker.js"></script>
+<script src="https://data.egov.bg/js/bootstrap-clockpicker.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.js"></script>
+
+
+    <script type="text/javascript">
+
+        /**
+         * Prepare the zip file, prompt the user to download it when ready
+         * and delete it after that
+         *
+         * @param  url
+         */
+        function downloadZipFile(url) {
+
+            $("#ajax_loader_backgr").show();
+            $("#ajax_loader").show();
+            $("#ajax_loader .text").html("В зависимост от големината и броя на ресурсите <br> създаването на .zip файла може да отнеме известно време.");
+
+            $.ajax({
+                type: 'GET',
+                url: url,
+            }).done(function(data){
+
+              document.location = "/dataset/resources/download/zip/"+data.format+"/"+data.uri+"/"+data.delete_only_zip;
+              $("#ajax_loader_backgr").hide();
+              $("#ajax_loader").hide();
+
+            }).fail(function(jqXHR, textStatus){
+                if (textStatus == "error") {
+                    $("#ajax_loader_backgr").hide();
+                    $("#ajax_loader").hide();
+                    alert("Възникна грешка при генерирането на .zip файла. Моля опитайте отново");
+                }
+            });
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,131 @@
+[
+  {
+    "mpId": 4748,
+    "declarantName": "Деница Димитрова Симеонова",
+    "institution": "51-во Народно събрание",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-29",
+    "entryNumber": "Г4483",
+    "controlHash": "8EAE7A13",
+    "sourceUrl": "https://register.cacbg.bg/2025/2C32B80E-8C2B-476C-B648-D8DF8EB00329207335.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 110237,
+        "amountBgnSpouse": null
+      }
+    ]
+  },
+  {
+    "mpId": 4748,
+    "declarantName": "Деница Димитрова Симеонова",
+    "institution": "49-то Народно събрание",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-14",
+    "entryNumber": "Г1121",
+    "controlHash": "F8E7373B",
+    "sourceUrl": "https://register.cacbg.bg/2024/2C32B80E-8C2B-476C-B648-D8DF8EB00329182001.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 89756,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Парично обезщетение за безработица",
+        "amountBgnDeclarant": 720,
+        "amountBgnSpouse": null
+      }
+    ]
+  },
+  {
+    "mpId": 4748,
+    "declarantName": "Деница Димитрова Симеонова",
+    "institution": "48-мо Народно събрание",
+    "declarationYear": 2023,
+    "fiscalYear": 2023,
+    "declarationType": "Vacate",
+    "filedAt": "2023-03-01",
+    "entryNumber": "Ф338",
+    "controlHash": "B7CB8C87",
+    "sourceUrl": "https://register.cacbg.bg/2023/2C32B80E-8C2B-476C-B648-D8DF8EB00329145768.xml",
+    "ownershipStakes": [],
+    "income": []
+  },
+  {
+    "mpId": 4748,
+    "declarantName": "Деница Димитрова Симеонова",
+    "institution": "49-то Народно събрание",
+    "declarationYear": 2023,
+    "fiscalYear": 2023,
+    "declarationType": "Entry",
+    "filedAt": "2023-04-28",
+    "entryNumber": "В344",
+    "controlHash": "C38FF6A4",
+    "sourceUrl": "https://register.cacbg.bg/2023/2C32B80E-8C2B-476C-B648-D8DF8EB00329148016.xml",
+    "ownershipStakes": [],
+    "income": []
+  },
+  {
+    "mpId": 4748,
+    "declarantName": "Деница Димитрова Симеонова",
+    "institution": "47-мо Народно събрание",
+    "declarationYear": 2022,
+    "fiscalYear": 2021,
+    "declarationType": "Annualy",
+    "filedAt": "2022-05-11",
+    "entryNumber": "Г4402",
+    "controlHash": "D97E58EF",
+    "sourceUrl": "https://register.cacbg.bg/2022/2C32B80E-8C2B-476C-B648-D8DF8EB00329136630.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Дялове",
+        "shareSize": "50",
+        "companyName": "\"София ту гоу\" ООД",
+        "registeredOffice": "Враца",
+        "valueBgn": 50,
+        "holderName": "Деница Димитрова Симеонова",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата",
+        "companySlug": "София-ту-гоу-ООД"
+      },
+      {
+        "table": "11",
+        "itemType": "Дялове",
+        "shareSize": "50",
+        "companyName": "\"София ту гоу\" ООД",
+        "registeredOffice": "Враца",
+        "valueBgn": 50,
+        "holderName": null,
+        "transfereeName": "Деница Димитрова Симеонова",
+        "legalBasis": "възмездно",
+        "fundsOrigin": null,
+        "companySlug": "София-ту-гоу-ООД"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 7355,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountBgnDeclarant": 56846,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

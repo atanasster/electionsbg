@@ -1,0 +1,99 @@
+[
+  {
+    "mpId": 2824,
+    "declarantName": "Владислав Тошков Николов",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Vacate",
+    "filedAt": "2022-03-26",
+    "entryNumber": "Ф368",
+    "controlHash": "486C69BB",
+    "sourceUrl": "https://register.cacbg.bg/2022/B8BC6A8C-F586-4B26-A3BF-7B26B8495563132892.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "ЕООД",
+        "shareSize": "100",
+        "companyName": "Теодора ЕООД",
+        "registeredOffice": "Плевен",
+        "valueBgn": 5000,
+        "holderName": "Теодора Димитрова Николова",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "Теодора-ЕООД"
+      },
+      {
+        "table": "10",
+        "itemType": "ЕООД",
+        "shareSize": "100",
+        "companyName": "Теодора 72 ЕООД",
+        "registeredOffice": "Плевен",
+        "valueBgn": 200,
+        "holderName": "Теодора Димитрова Николова",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "Теодора-72-ЕООД"
+      }
+    ],
+    "income": []
+  },
+  {
+    "mpId": 2824,
+    "declarantName": "Владислав Тошков Николов",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": "2020-02-03",
+    "entryNumber": "Г3986",
+    "controlHash": "CF7A1112",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/B8BC6A8C-F586-4B26-A3BF-7B26B8495563120940.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "ЕООД",
+        "shareSize": "100",
+        "companyName": "Теодора ЕООД",
+        "registeredOffice": "Плевен",
+        "valueBgn": 5000,
+        "holderName": "Теодора Димитрова Николова",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата",
+        "companySlug": "Теодора-ЕООД"
+      },
+      {
+        "table": "10",
+        "itemType": "ЕООД",
+        "shareSize": "100",
+        "companyName": "Теодора 72 ЕООД",
+        "registeredOffice": "Плевен",
+        "valueBgn": 200,
+        "holderName": "Теодора Димитрова Николова",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата",
+        "companySlug": "Теодора-72-ЕООД"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 80999,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountBgnDeclarant": null,
+        "amountBgnSpouse": 40247
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountBgnDeclarant": 34000,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

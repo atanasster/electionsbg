@@ -1,0 +1,57 @@
+[
+  {
+    "mpId": 4234,
+    "declarantName": "Петър Николаев Куленски",
+    "institution": "48-мо Народно събрание",
+    "declarationYear": 2023,
+    "fiscalYear": 2023,
+    "declarationType": "Vacate",
+    "filedAt": "2023-02-26",
+    "entryNumber": "Ф265",
+    "controlHash": "FD19C14A",
+    "sourceUrl": "https://register.cacbg.bg/2023/BCD7134E-EBF6-4242-B2DB-93A2F25C1FDC145641.xml",
+    "ownershipStakes": [],
+    "income": []
+  },
+  {
+    "mpId": 4234,
+    "declarantName": "Петър Николаев Куленски",
+    "institution": "49-то Народно събрание",
+    "declarationYear": 2023,
+    "fiscalYear": 2023,
+    "declarationType": "Entry",
+    "filedAt": "2023-05-09",
+    "entryNumber": "В587",
+    "controlHash": "9CCB2B30",
+    "sourceUrl": "https://register.cacbg.bg/2023/BCD7134E-EBF6-4242-B2DB-93A2F25C1FDC149907.xml",
+    "ownershipStakes": [],
+    "income": []
+  },
+  {
+    "mpId": 4234,
+    "declarantName": "Петър Николаев Куленски",
+    "institution": "47-мо Народно събрание",
+    "declarationYear": 2022,
+    "fiscalYear": 2021,
+    "declarationType": "Annualy",
+    "filedAt": "2022-05-13",
+    "entryNumber": "Г4359",
+    "controlHash": "E3249CF2",
+    "sourceUrl": "https://register.cacbg.bg/2022/BCD7134E-EBF6-4242-B2DB-93A2F25C1FDC136583.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 6971,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountBgnDeclarant": 32588,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

@@ -1,0 +1,48 @@
+[
+  {
+    "mpId": 4371,
+    "declarantName": "Росица Василева Пандова-Йовкова",
+    "institution": "49-то Народно събрание",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-04-25",
+    "entryNumber": "Г1493",
+    "controlHash": "85716C15",
+    "sourceUrl": "https://register.cacbg.bg/2024/53638696-F8A4-4DA9-93A3-982D0DB1F50C182414.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "ЕООД",
+        "shareSize": "100",
+        "companyName": "МЕЛИТУС Д ЕООД",
+        "registeredOffice": "София (столица)",
+        "valueBgn": 1000,
+        "holderName": "Росица Василева Пандова",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата",
+        "companySlug": "МЕЛИТУС-Д-ЕООД"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 66930,
+        "amountBgnSpouse": 33165
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountBgnDeclarant": 5144,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountBgnDeclarant": 1027,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

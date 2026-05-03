@@ -1,0 +1,55 @@
+[
+  {
+    "mpId": 2727,
+    "declarantName": "Светла Маринова Бъчварова - Пиралкова",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Vacate",
+    "filedAt": null,
+    "entryNumber": "Ф369",
+    "controlHash": "AEF2B3A3",
+    "sourceUrl": "https://register.cacbg.bg/2022/5B722208-9E49-47B1-8658-DB4C5EAD0C1E132894.xml",
+    "ownershipStakes": [],
+    "income": []
+  },
+  {
+    "mpId": 2727,
+    "declarantName": "Светла Маринова Бъчварова - Пиралкова",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г7712",
+    "controlHash": "3CF48BA6",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/5B722208-9E49-47B1-8658-DB4C5EAD0C1E125708.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 98012,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountBgnDeclarant": null,
+        "amountBgnSpouse": 11584
+      },
+      {
+        "parent": null,
+        "category": "Чл. 11 Приложение към  ПОДНС - Финансови правила по бюджета на НС",
+        "amountBgnDeclarant": 33666,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Пенсия",
+        "amountBgnDeclarant": null,
+        "amountBgnSpouse": 14650
+      }
+    ]
+  }
+]

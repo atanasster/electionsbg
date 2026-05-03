@@ -1,0 +1,69 @@
+[
+  {
+    "mpId": 4819,
+    "declarantName": "Левент Орхан Мемиш",
+    "institution": "51-во Народно събрание",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-15",
+    "entryNumber": "Г10443",
+    "controlHash": "B1C49904",
+    "sourceUrl": "https://register.cacbg.bg/2025/34D9D2B8-F324-4045-820A-0D7A828EB298213528.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "дял",
+        "shareSize": "30%",
+        "companyName": "Енигма КСМ ООД",
+        "registeredOffice": "София",
+        "valueBgn": 1500,
+        "holderName": "Левент Орхан Мемиш",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата",
+        "companySlug": "Енигма-КСМ-ООД"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 60604,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Съгласно чл.11 от финансовите правила приложение по ПОДНС",
+        "amountBgnDeclarant": 18412,
+        "amountBgnSpouse": null
+      }
+    ]
+  },
+  {
+    "mpId": 4819,
+    "declarantName": "Левент Орхан Мемиш",
+    "institution": "50-то Народно събрание",
+    "declarationYear": 2024,
+    "fiscalYear": 2024,
+    "declarationType": "Entry",
+    "filedAt": "2024-07-18",
+    "entryNumber": "В1317",
+    "controlHash": "11422364",
+    "sourceUrl": "https://register.cacbg.bg/2024/34D9D2B8-F324-4045-820A-0D7A828EB298188595.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "дял",
+        "shareSize": "30%",
+        "companyName": "Енигма КСМ ООД",
+        "registeredOffice": "София (столица)",
+        "valueBgn": 1500,
+        "holderName": "Левент Орхан Мемиш",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "Енигма-КСМ-ООД"
+      }
+    ],
+    "income": []
+  }
+]

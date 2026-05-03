@@ -1,0 +1,49 @@
+[
+  {
+    "mpId": 2711,
+    "declarantName": "Лало Георгиев Кирилов",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Vacate",
+    "filedAt": null,
+    "entryNumber": "Ф424",
+    "controlHash": "430920FE",
+    "sourceUrl": "https://register.cacbg.bg/2022/736BE36C-12FA-42D2-9166-9197EDE15056133428.xml",
+    "ownershipStakes": [],
+    "income": []
+  },
+  {
+    "mpId": 2711,
+    "declarantName": "Лало Георгиев Кирилов",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": "2021-04-22",
+    "entryNumber": "Г6424",
+    "controlHash": "7BC660D3",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/736BE36C-12FA-42D2-9166-9197EDE15056124009.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 57949,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "По чл.11 от Приложение на ПОДНС",
+        "amountBgnDeclarant": 33663,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Доходи, получени от рента, аренда или от друго възмездно предоставяне за ползване на земеделска земя,\nосвободени от облагане съгласно чл. 13, ал. 1, т. 24 от ЗДДФЛ",
+        "amountBgnDeclarant": 320,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

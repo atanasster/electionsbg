@@ -1,0 +1,49 @@
+[
+  {
+    "mpId": 3870,
+    "declarantName": "Снежана Великова Апостолова",
+    "institution": "48-мо Народно събрание",
+    "declarationYear": 2023,
+    "fiscalYear": 2023,
+    "declarationType": "Vacate",
+    "filedAt": "2023-03-02",
+    "entryNumber": "Ф421",
+    "controlHash": "5133E59A",
+    "sourceUrl": "https://register.cacbg.bg/2023/A4C11B9A-70A9-41E6-B9D7-A8B97EF41F61145894.xml",
+    "ownershipStakes": [],
+    "income": []
+  },
+  {
+    "mpId": 3870,
+    "declarantName": "Снежана Великова Апостолова",
+    "institution": "47-мо Народно събрание",
+    "declarationYear": 2022,
+    "fiscalYear": 2021,
+    "declarationType": "Annualy",
+    "filedAt": "2022-05-13",
+    "entryNumber": "Г4409",
+    "controlHash": "2D498BFC",
+    "sourceUrl": "https://register.cacbg.bg/2022/A4C11B9A-70A9-41E6-B9D7-A8B97EF41F61136637.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 8407,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountBgnDeclarant": 11460,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountBgnDeclarant": 9101,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

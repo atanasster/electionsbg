@@ -1,0 +1,140 @@
+[
+  {
+    "mpId": 5082,
+    "declarantName": "Любен Иванов Иванов",
+    "institution": "51-во Народно събрание",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-14",
+    "entryNumber": "Г12306",
+    "controlHash": "2B6327A0",
+    "sourceUrl": "https://register.cacbg.bg/2025/806371D3-97C0-4BFB-A5F4-74202481C279215467.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 131443,
+        "amountBgnSpouse": 11196
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountBgnDeclarant": 13523,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Доходи по чл. 11 от ПОДНС",
+        "amountBgnDeclarant": 49679,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Изплатени от Окръжен съд Видин за минал период възнаграждение за синдик",
+        "amountBgnDeclarant": 6050,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Доходи по чл. 38 ал. 1 т. 2 б. а от ЗДДФЛ",
+        "amountBgnDeclarant": null,
+        "amountBgnSpouse": 9050
+      }
+    ]
+  },
+  {
+    "mpId": 5082,
+    "declarantName": "Любен Иванов Иванов",
+    "institution": "49-то Народно събрание",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-10",
+    "entryNumber": "Г1779",
+    "controlHash": "27B0D02F",
+    "sourceUrl": "https://register.cacbg.bg/2024/806371D3-97C0-4BFB-A5F4-74202481C279182732.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 107944,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountBgnDeclarant": 13878,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "доходи по чл. 11 от ПОДНС",
+        "amountBgnDeclarant": 37593,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "изплатен от Окръжен съд за минал период хонорар за адвокатски услуги",
+        "amountBgnDeclarant": 4800,
+        "amountBgnSpouse": null
+      }
+    ]
+  },
+  {
+    "mpId": 5082,
+    "declarantName": "Любен Иванов Иванов",
+    "institution": "48-мо Народно събрание",
+    "declarationYear": 2023,
+    "fiscalYear": 2023,
+    "declarationType": "Vacate",
+    "filedAt": "2023-02-17",
+    "entryNumber": "Ф299",
+    "controlHash": "194FB555",
+    "sourceUrl": "https://register.cacbg.bg/2023/806371D3-97C0-4BFB-A5F4-74202481C279145707.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Дружествени дялове",
+        "shareSize": "50",
+        "companyName": "МАЛ -2018 ООД",
+        "registeredOffice": "Видин",
+        "valueBgn": 50000,
+        "holderName": "Любен Иванов Иванов",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "МАЛ-2018-ООД"
+      }
+    ],
+    "income": []
+  },
+  {
+    "mpId": 5082,
+    "declarantName": "Любен Иванов Иванов",
+    "institution": "49-то Народно събрание",
+    "declarationYear": 2023,
+    "fiscalYear": 2023,
+    "declarationType": "Entry",
+    "filedAt": "2023-05-10",
+    "entryNumber": "В740",
+    "controlHash": "369AECE4",
+    "sourceUrl": "https://register.cacbg.bg/2023/806371D3-97C0-4BFB-A5F4-74202481C279152290.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Дружествени дялове",
+        "shareSize": "50",
+        "companyName": "МАЛ -2018 ООД",
+        "registeredOffice": "Видин",
+        "valueBgn": 50000,
+        "holderName": "Любен Иванов Иванов",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "МАЛ-2018-ООД"
+      }
+    ],
+    "income": []
+  }
+]

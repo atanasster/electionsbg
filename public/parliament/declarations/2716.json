@@ -1,0 +1,43 @@
+[
+  {
+    "mpId": 2716,
+    "declarantName": "ЕМИЛ МАРИНОВ ХРИСТОВ",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Vacate",
+    "filedAt": "2022-03-23",
+    "entryNumber": "Ф366",
+    "controlHash": "85B3595A",
+    "sourceUrl": "https://register.cacbg.bg/2022/76A28BE1-2024-4C1C-BD16-F1ECCAD99B0B132889.xml",
+    "ownershipStakes": [],
+    "income": []
+  },
+  {
+    "mpId": 2716,
+    "declarantName": "ЕМИЛ МАРИНОВ ХРИСТОВ",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": "2021-04-21",
+    "entryNumber": "Г5227",
+    "controlHash": "7DC30315",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/76A28BE1-2024-4C1C-BD16-F1ECCAD99B0B122497.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 117805,
+        "amountBgnSpouse": 41257
+      },
+      {
+        "parent": null,
+        "category": "Представителни  НС",
+        "amountBgnDeclarant": 31000,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

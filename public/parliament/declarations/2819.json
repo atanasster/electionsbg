@@ -1,0 +1,74 @@
+[
+  {
+    "mpId": 2819,
+    "declarantName": "Красимир Любомиров Велчев",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Vacate",
+    "filedAt": "2022-05-05",
+    "entryNumber": "Ф491",
+    "controlHash": "3F1489C3",
+    "sourceUrl": "https://register.cacbg.bg/2022/A4290BB2-E7A3-47F1-B7B5-53A9B565A9BE134524.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "капитал",
+        "shareSize": "100",
+        "companyName": "Кравел ЕООД",
+        "registeredOffice": "София",
+        "valueBgn": 5000,
+        "holderName": "Красимир Любомиров Велчев",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "Кравел-ЕООД"
+      }
+    ],
+    "income": []
+  },
+  {
+    "mpId": 2819,
+    "declarantName": "Красимир Любомиров Велчев",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": "2021-03-25",
+    "entryNumber": "Г6334",
+    "controlHash": "CBC25E77",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/A4290BB2-E7A3-47F1-B7B5-53A9B565A9BE123890.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 105695,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountBgnDeclarant": 17204,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountBgnDeclarant": 2104,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "пенсия",
+        "amountBgnDeclarant": 17280,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "по чл. 11 от Приложение към ПОДНС",
+        "amountBgnDeclarant": 31300,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

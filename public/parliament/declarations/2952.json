@@ -1,0 +1,69 @@
+[
+  {
+    "mpId": 2952,
+    "declarantName": "Георги Николов Вергиев",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Vacate",
+    "filedAt": null,
+    "entryNumber": "Ф650",
+    "controlHash": "E8E28B13",
+    "sourceUrl": "https://register.cacbg.bg/2022/42DA1D94-C3C7-4FEB-AD03-454D3ED2BE72140120.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "дялове",
+        "shareSize": "50 дяла",
+        "companyName": "\"МИГ\"\" ЕООД",
+        "registeredOffice": "Септември",
+        "valueBgn": 5000,
+        "holderName": "Георги Николов Вергиев",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "МИГ-ЕООД"
+      }
+    ],
+    "income": []
+  },
+  {
+    "mpId": 2952,
+    "declarantName": "Георги Николов Вергиев",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": "2021-03-25",
+    "entryNumber": "Г4233",
+    "controlHash": "B6E53A05",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/42DA1D94-C3C7-4FEB-AD03-454D3ED2BE72121247.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "дялове",
+        "shareSize": "50 дяла",
+        "companyName": "\"МИГ\" ЕООД",
+        "registeredOffice": "Септември",
+        "valueBgn": 5000,
+        "holderName": "Георги Николов Вергиев",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата",
+        "companySlug": "МИГ-ЕООД"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 80623,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "чл. 11 от Финансови правила по бюджета на НС (Приложение към ПОДНС)",
+        "amountBgnDeclarant": 33666,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

@@ -1,0 +1,49 @@
+[
+  {
+    "mpId": 2866,
+    "declarantName": "Алтимир Емилов Адамов",
+    "institution": "Народно събраниe",
+    "declarationYear": 2022,
+    "fiscalYear": 2022,
+    "declarationType": "Vacate",
+    "filedAt": null,
+    "entryNumber": "Ф448",
+    "controlHash": "BF5C6B31",
+    "sourceUrl": "https://register.cacbg.bg/2022/0FED3551-FE96-46FE-9053-3B16581C37F7133681.xml",
+    "ownershipStakes": [],
+    "income": []
+  },
+  {
+    "mpId": 2866,
+    "declarantName": "Алтимир Емилов Адамов",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г7317",
+    "controlHash": "7BD3A0D6",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/0FED3551-FE96-46FE-9053-3B16581C37F7125203.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 63668,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountBgnDeclarant": 3900,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "по чл.12 от финансовите правила по бюджета на народно събрание-приложение към ПОДНС",
+        "amountBgnDeclarant": 31300,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

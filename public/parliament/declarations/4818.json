@@ -1,0 +1,109 @@
+[
+  {
+    "mpId": 4818,
+    "declarantName": "ИВАН ВАЛЕНТИНОВ ИВАНОВ",
+    "institution": "49-то Народно събрание",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-03-12",
+    "entryNumber": "Г1216",
+    "controlHash": "B73A11FF",
+    "sourceUrl": "https://register.cacbg.bg/2024/05D642CC-97F0-4605-962E-5704F810E341182108.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 102314,
+        "amountBgnSpouse": 32473
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountBgnDeclarant": 2145,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "По чл. 11 от Приложение на ПОДНС",
+        "amountBgnDeclarant": 39104,
+        "amountBgnSpouse": null
+      }
+    ]
+  },
+  {
+    "mpId": 4818,
+    "declarantName": "ИВАН ВАЛЕНТИНОВ ИВАНОВ",
+    "institution": "48-мо Народно събрание",
+    "declarationYear": 2023,
+    "fiscalYear": 2022,
+    "declarationType": "Annualy",
+    "filedAt": "2023-02-03",
+    "entryNumber": "Г28",
+    "controlHash": "F0DFBFB1",
+    "sourceUrl": "https://register.cacbg.bg/2023/05D642CC-97F0-4605-962E-5704F810E341145112.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 27682,
+        "amountBgnSpouse": 23549
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountBgnDeclarant": 61745,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "чл. 11 от Финансови правила по бюджета на НС (Приложение към ПОДНС)",
+        "amountBgnDeclarant": 9034,
+        "amountBgnSpouse": null
+      }
+    ]
+  },
+  {
+    "mpId": 4818,
+    "declarantName": "ИВАН ВАЛЕНТИНОВ ИВАНОВ",
+    "institution": "49-то Народно събрание",
+    "declarationYear": 2023,
+    "fiscalYear": 2023,
+    "declarationType": "Entry",
+    "filedAt": "2023-04-24",
+    "entryNumber": "В377",
+    "controlHash": "D0F159B1",
+    "sourceUrl": "https://register.cacbg.bg/2023/05D642CC-97F0-4605-962E-5704F810E341148151.xml",
+    "ownershipStakes": [],
+    "income": []
+  },
+  {
+    "mpId": 4818,
+    "declarantName": "ИВАН ВАЛЕНТИНОВ ИВАНОВ",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Entry",
+    "filedAt": "2021-04-15",
+    "entryNumber": "В921",
+    "controlHash": "BD60CFC4",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/05D642CC-97F0-4605-962E-5704F810E341123110.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Дял в дружество в ликвидация",
+        "shareSize": "1/8",
+        "companyName": "Проджект инженеринг ООД",
+        "registeredOffice": "Шумен",
+        "valueBgn": 3,
+        "holderName": "Иван Валентинов Иванов",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "Проджект-инженеринг-ООД"
+      }
+    ],
+    "income": []
+  }
+]

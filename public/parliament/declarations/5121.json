@@ -1,0 +1,98 @@
+[
+  {
+    "mpId": 5121,
+    "declarantName": "(unknown)",
+    "institution": "48-мо Народно събрание",
+    "declarationYear": 2026,
+    "fiscalYear": null,
+    "declarationType": "Other",
+    "filedAt": "2023-02-10",
+    "entryNumber": "В84",
+    "controlHash": "023E5790",
+    "sourceUrl": "https://register.cacbg.bg/2023/71DA5780-0B28-44FF-B8AC-D17600DF0DA0145496.xml",
+    "ownershipStakes": [],
+    "income": []
+  },
+  {
+    "mpId": 5121,
+    "declarantName": "Атанас Петров Атанасов",
+    "institution": "49-то Народно събрание",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-10",
+    "entryNumber": "Г584",
+    "controlHash": "8898CFA2",
+    "sourceUrl": "https://register.cacbg.bg/2024/71DA5780-0B28-44FF-B8AC-D17600DF0DA0181431.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 109285,
+        "amountBgnSpouse": 28402
+      },
+      {
+        "parent": null,
+        "category": "доходи по чл. 11 от ПОДНС",
+        "amountBgnDeclarant": 37593,
+        "amountBgnSpouse": null
+      }
+    ]
+  },
+  {
+    "mpId": 5121,
+    "declarantName": "Атанас Петров Атанасов",
+    "institution": "49-то Народно събрание",
+    "declarationYear": 2023,
+    "fiscalYear": 2023,
+    "declarationType": "Entry",
+    "filedAt": "2023-05-10",
+    "entryNumber": "В748",
+    "controlHash": "F9F3FC93",
+    "sourceUrl": "https://register.cacbg.bg/2023/71DA5780-0B28-44FF-B8AC-D17600DF0DA0152332.xml",
+    "ownershipStakes": [],
+    "income": []
+  },
+  {
+    "mpId": 5121,
+    "declarantName": "Атанас Петров Атанасов",
+    "institution": "47-мо Народно събрание",
+    "declarationYear": 2022,
+    "fiscalYear": 2021,
+    "declarationType": "Annualy",
+    "filedAt": "2022-05-12",
+    "entryNumber": "Г4371",
+    "controlHash": "26ADC85A",
+    "sourceUrl": "https://register.cacbg.bg/2022/71DA5780-0B28-44FF-B8AC-D17600DF0DA0136597.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 36317,
+        "amountBgnSpouse": 27933
+      },
+      {
+        "parent": null,
+        "category": "чл. 11 от приложение ПОДНС",
+        "amountBgnDeclarant": 8411,
+        "amountBgnSpouse": null
+      }
+    ]
+  },
+  {
+    "mpId": 5121,
+    "declarantName": "Атанас Петров Атанасов",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Entry",
+    "filedAt": "2021-05-07",
+    "entryNumber": "В321",
+    "controlHash": "736DE43B",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/71DA5780-0B28-44FF-B8AC-D17600DF0DA0117546.xml",
+    "ownershipStakes": [],
+    "income": []
+  }
+]

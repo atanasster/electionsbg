@@ -1,0 +1,50 @@
+{
+  "mpId": 1443,
+  "mpName": "ПЕТЯ НИКОЛОВА РАЕВА",
+  "generatedAt": "2026-05-03T23:54:31.340Z",
+  "total": 3,
+  "roles": [
+    {
+      "uic": "107020750",
+      "companyName": "ВЕЦ ХРИСТО ЛУЛЕВ",
+      "legalForm": "OOD",
+      "seat": null,
+      "status": "active",
+      "role": "partner",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2022-07-29T14:29:52",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "206891965",
+      "companyName": "РАЕВ ПРОПЪРТИ",
+      "legalForm": "Дружество с ограничена отговорност",
+      "seat": "БЪЛГАРИЯ, гр. София, 1111",
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2022-05-05T09:41:17",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "206891965",
+      "companyName": "РАЕВ ПРОПЪРТИ",
+      "legalForm": "Дружество с ограничена отговорност",
+      "seat": "БЪЛГАРИЯ, гр. София, 1111",
+      "status": "active",
+      "role": "partner",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2022-05-05T09:41:17",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    }
+  ]
+}

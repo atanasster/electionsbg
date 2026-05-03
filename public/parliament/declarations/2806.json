@@ -1,0 +1,49 @@
+[
+  {
+    "mpId": 2806,
+    "declarantName": "Илиян Ангелов Тимчев",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Vacate",
+    "filedAt": "2022-05-19",
+    "entryNumber": "Ф590",
+    "controlHash": "72FB2BD4",
+    "sourceUrl": "https://register.cacbg.bg/2022/9BC86B52-87F6-4886-9260-96647A25D9AC137755.xml",
+    "ownershipStakes": [],
+    "income": []
+  },
+  {
+    "mpId": 2806,
+    "declarantName": "Илиян Ангелов Тимчев",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": "2021-02-04",
+    "entryNumber": "Г71",
+    "controlHash": "3E69B6A7",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/9BC86B52-87F6-4886-9260-96647A25D9AC116102.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 77983,
+        "amountBgnSpouse": 15159
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountBgnDeclarant": null,
+        "amountBgnSpouse": 323
+      },
+      {
+        "parent": null,
+        "category": "чл. 11 от Финансови правила по бюджета на Народното събрание (приложение към ПОДНС)",
+        "amountBgnDeclarant": 33666,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

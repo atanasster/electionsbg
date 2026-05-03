@@ -1,0 +1,43 @@
+[
+  {
+    "mpId": 2742,
+    "declarantName": "Ася Атанасова Пеева",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Vacate",
+    "filedAt": null,
+    "entryNumber": "Ф436",
+    "controlHash": "A8F46AF6",
+    "sourceUrl": "https://register.cacbg.bg/2022/C0B16B77-27B4-437E-838D-C56BD70925E3133483.xml",
+    "ownershipStakes": [],
+    "income": []
+  },
+  {
+    "mpId": 2742,
+    "declarantName": "Ася Атанасова Пеева",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": "2021-04-08",
+    "entryNumber": "Г1203",
+    "controlHash": "4FFAE400",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/C0B16B77-27B4-437E-838D-C56BD70925E3117511.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 78358,
+        "amountBgnSpouse": 23209
+      },
+      {
+        "parent": null,
+        "category": "По чл. 11 от Приложение на ПОДНС",
+        "amountBgnDeclarant": 31300,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

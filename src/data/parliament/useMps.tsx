@@ -44,12 +44,25 @@ export const useMps = () => {
     return m;
   }, [data]);
 
+  const byId = useMemo(() => {
+    const m = new Map<number, MpIndexEntry>();
+    if (!data) return m;
+    for (const mp of data.mps) m.set(mp.id, mp);
+    return m;
+  }, [data]);
+
   const findMpByName = useCallback(
     (name?: string | null): MpIndexEntry | undefined => {
       if (!name) return undefined;
       return byName.get(normalize(name));
     },
     [byName],
+  );
+
+  const findMpById = useCallback(
+    (id?: number | null): MpIndexEntry | undefined =>
+      id == null ? undefined : byId.get(id),
+    [byId],
   );
 
   // MPs whose nsFolders includes the given folder AND whose currentRegion
@@ -71,6 +84,7 @@ export const useMps = () => {
     mps: data?.mps,
     currentNs: data?.currentNs,
     findMpByName,
+    findMpById,
     findMpsByRegion,
   };
 };

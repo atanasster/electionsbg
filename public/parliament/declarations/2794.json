@@ -1,0 +1,43 @@
+[
+  {
+    "mpId": 2794,
+    "declarantName": "Красимир Христов Янков",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Vacate",
+    "filedAt": "2022-04-26",
+    "entryNumber": "Ф425",
+    "controlHash": "4E32DABE",
+    "sourceUrl": "https://register.cacbg.bg/2022/FC99F3D4-C441-4585-8C98-9C5B49490E77133429.xml",
+    "ownershipStakes": [],
+    "income": []
+  },
+  {
+    "mpId": 2794,
+    "declarantName": "Красимир Христов Янков",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": "2021-04-23",
+    "entryNumber": "Г6343",
+    "controlHash": "634397B8",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/FC99F3D4-C441-4585-8C98-9C5B49490E77123902.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 59820,
+        "amountBgnSpouse": 104544
+      },
+      {
+        "parent": null,
+        "category": "По чл. 11 от ПОДНС",
+        "amountBgnDeclarant": 33663,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

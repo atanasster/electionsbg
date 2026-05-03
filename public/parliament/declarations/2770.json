@@ -1,0 +1,55 @@
+[
+  {
+    "mpId": 2770,
+    "declarantName": "Клавдия Георгиева Григорова - Ганчева",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Vacate",
+    "filedAt": "2022-04-10",
+    "entryNumber": "Ф395",
+    "controlHash": "BC40A4E3",
+    "sourceUrl": "https://register.cacbg.bg/2022/24E3914D-4B9A-4C98-8A19-303994DA9ECF133117.xml",
+    "ownershipStakes": [],
+    "income": []
+  },
+  {
+    "mpId": 2770,
+    "declarantName": "Клавдия Георгиева Григорова - Ганчева",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": "2021-05-05",
+    "entryNumber": "Г6233",
+    "controlHash": "EEEBEEF1",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/24E3914D-4B9A-4C98-8A19-303994DA9ECF123760.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 76669,
+        "amountBgnSpouse": 42355
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountBgnDeclarant": null,
+        "amountBgnSpouse": 8339
+      },
+      {
+        "parent": "II. Други доходи, извън посочените в т. I.",
+        "category": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
+        "amountBgnDeclarant": 600,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "чл.11 от ПОДНС. Приложение към правилника, финансови правила по бюджета на Народното събрание.",
+        "amountBgnDeclarant": 31300,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

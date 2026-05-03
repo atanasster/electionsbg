@@ -1,0 +1,43 @@
+[
+  {
+    "mpId": 2751,
+    "declarantName": "Христиан Радев Митев",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Vacate",
+    "filedAt": "2022-04-18",
+    "entryNumber": "Ф408",
+    "controlHash": "DC30E472",
+    "sourceUrl": "https://register.cacbg.bg/2022/1AB1DDF5-D9E6-48B1-94C7-C2047271981F133212.xml",
+    "ownershipStakes": [],
+    "income": []
+  },
+  {
+    "mpId": 2751,
+    "declarantName": "Христиан Радев Митев",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": "2021-05-12",
+    "entryNumber": "Г248",
+    "controlHash": "25460A68",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/1AB1DDF5-D9E6-48B1-94C7-C2047271981F116412.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 73815,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "По чл. 12 от Финансовите правила по бюджета на НС от ПОДНС",
+        "amountBgnDeclarant": 33000,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

@@ -1,0 +1,54 @@
+[
+  {
+    "mpId": 4384,
+    "declarantName": "Милена Славова Димова",
+    "institution": "49-то Народно събрание",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-13",
+    "entryNumber": "Г1432",
+    "controlHash": "A31564C0",
+    "sourceUrl": "https://register.cacbg.bg/2024/20B329E0-4BDB-4CF3-AD75-B162B37240A8182348.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Дружествени дялове",
+        "shareSize": "100%",
+        "companyName": "\"Ник консулт 2016\"ЕООД",
+        "registeredOffice": "Варна",
+        "valueBgn": 2,
+        "holderName": "Милена Славова Димова",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата",
+        "companySlug": "Ник-консулт-2016ЕООД"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 12670,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountBgnDeclarant": 39996,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountBgnDeclarant": 1400,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Приход на основание чл.11 от финансовите правила на ПОДНС",
+        "amountBgnDeclarant": 6000,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

@@ -1,0 +1,55 @@
+[
+  {
+    "mpId": 2802,
+    "declarantName": "Кирил Боянов Калфин",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Vacate",
+    "filedAt": "2022-03-29",
+    "entryNumber": "Ф364",
+    "controlHash": "1299408B",
+    "sourceUrl": "https://register.cacbg.bg/2022/2C80DAC3-BEBA-4642-BE99-322D9C50F95B132887.xml",
+    "ownershipStakes": [],
+    "income": []
+  },
+  {
+    "mpId": 2802,
+    "declarantName": "Кирил Боянов Калфин",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": "2021-02-18",
+    "entryNumber": "Г6218",
+    "controlHash": "2AE660E5",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/2C80DAC3-BEBA-4642-BE99-322D9C50F95B123741.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 80988,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountBgnDeclarant": 49200,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "пенсия",
+        "amountBgnDeclarant": 14650,
+        "amountBgnSpouse": 9419
+      },
+      {
+        "parent": null,
+        "category": "по чл. 12 от финансовите правила по бюджета на НС - приложение към ПОДНС",
+        "amountBgnDeclarant": 31300,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

@@ -1,0 +1,54 @@
+[
+  {
+    "mpId": 4890,
+    "declarantName": "Иван Величков Минев",
+    "institution": "51-во Народно събрание",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-25-12",
+    "entryNumber": "Г10941",
+    "controlHash": "3240DA18",
+    "sourceUrl": "https://register.cacbg.bg/2025/CDF1A93D-FE6B-49EA-9F64-8970ACA78BE1214058.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Дружествени дялове",
+        "shareSize": "50",
+        "companyName": "ЯКОТО СУШИ ООД",
+        "registeredOffice": "Хасково",
+        "valueBgn": 50,
+        "holderName": "Иван Величков Минев",
+        "legalBasis": "дружествен договор",
+        "fundsOrigin": "адвокатски възнаграждения",
+        "companySlug": "ЯКОТО-СУШИ-ООД"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 63067,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountBgnDeclarant": 184995,
+        "amountBgnSpouse": 10572
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountBgnDeclarant": 181080,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountBgnDeclarant": 93150,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

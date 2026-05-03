@@ -1,0 +1,49 @@
+[
+  {
+    "mpId": 3658,
+    "declarantName": "Петър Ясенов Маринов",
+    "institution": "47-мо Народно събрание",
+    "declarationYear": 2022,
+    "fiscalYear": 2021,
+    "declarationType": "Annualy",
+    "filedAt": "2022-05-12",
+    "entryNumber": "Г4364",
+    "controlHash": "F38FFD1A",
+    "sourceUrl": "https://register.cacbg.bg/2022/51A6FDFF-67B5-43AA-8939-C4F7BFDCAD53136588.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 37340,
+        "amountBgnSpouse": 39403
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountBgnDeclarant": null,
+        "amountBgnSpouse": 210
+      },
+      {
+        "parent": null,
+        "category": "Средства по чл. 11 ФП ПОДНС",
+        "amountBgnDeclarant": 8412,
+        "amountBgnSpouse": null
+      }
+    ]
+  },
+  {
+    "mpId": 3658,
+    "declarantName": "Петър Ясенов Маринов",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Entry",
+    "filedAt": "2021-05-14",
+    "entryNumber": "В1179",
+    "controlHash": "C2947334",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/51A6FDFF-67B5-43AA-8939-C4F7BFDCAD53124852.xml",
+    "ownershipStakes": [],
+    "income": []
+  }
+]

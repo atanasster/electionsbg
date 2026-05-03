@@ -1,0 +1,86 @@
+[
+  {
+    "mpId": 2642,
+    "declarantName": "НИКОЛА ИЛИЕВ ДИНКОВ",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Vacate",
+    "filedAt": null,
+    "entryNumber": "Ф377",
+    "controlHash": "17B1E32B",
+    "sourceUrl": "https://register.cacbg.bg/2022/EE8A555D-BADB-4410-A228-FF1C601FFC54133001.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "ДЯЛОВЕ",
+        "shareSize": "100",
+        "companyName": "НИЛСТРОЙ ЕООД",
+        "registeredOffice": "СВИЛЕНГРАД",
+        "valueBgn": 5000,
+        "holderName": "НИКОЛА ИЛИЕВ ДИНКОВ",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "НИЛСТРОЙ-ЕООД"
+      },
+      {
+        "table": "10",
+        "itemType": "ДЯЛОВЕ",
+        "shareSize": "100",
+        "companyName": "ДИСВЕТ ЕООД",
+        "registeredOffice": "СВИЛЕНГРАД",
+        "valueBgn": 5000,
+        "holderName": "НИКОЛА ИЛИЕВ ДИНКОВ",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "ДИСВЕТ-ЕООД"
+      },
+      {
+        "table": "10",
+        "itemType": "ДЯЛОВЕ",
+        "shareSize": "50",
+        "companyName": "ИНВЕСТИЦИОННА ГРУПА ДОМ",
+        "registeredOffice": "СВИЛЕНГРАД",
+        "valueBgn": 2500,
+        "holderName": "НИКОЛА ИЛИЕВ ДИНКОВ",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "ИНВЕСТИЦИОННА-ГРУПА-ДОМ"
+      }
+    ],
+    "income": []
+  },
+  {
+    "mpId": 2642,
+    "declarantName": "НИКОЛА ИЛИЕВ ДИНКОВ",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г6751",
+    "controlHash": "B86E4CAE",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/EE8A555D-BADB-4410-A228-FF1C601FFC54124521.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 78959,
+        "amountBgnSpouse": 3748
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountBgnDeclarant": 6889,
+        "amountBgnSpouse": 6889
+      },
+      {
+        "parent": null,
+        "category": "ПО ЧЛ.11 ОТ ПРИЛОЖЕНИЕ НА ПОДНС",
+        "amountBgnDeclarant": 33666,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

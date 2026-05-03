@@ -1,0 +1,43 @@
+[
+  {
+    "mpId": 3060,
+    "declarantName": "КОЛЬО ЙОРДАНОВ МИЛЕВ",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Vacate",
+    "filedAt": "2022-05-18",
+    "entryNumber": "Ф533",
+    "controlHash": "19FFB811",
+    "sourceUrl": "https://register.cacbg.bg/2022/1DEF9421-831A-4AC0-93C1-B496555A0DD6136031.xml",
+    "ownershipStakes": [],
+    "income": []
+  },
+  {
+    "mpId": 3060,
+    "declarantName": "КОЛЬО ЙОРДАНОВ МИЛЕВ",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": "2021-02-17",
+    "entryNumber": "Г63",
+    "controlHash": "A51A52C3",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/1DEF9421-831A-4AC0-93C1-B496555A0DD6116094.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 89356,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "По чл. 11 от Приложение на ПОДНС",
+        "amountBgnDeclarant": 33666,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

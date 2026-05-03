@@ -1,0 +1,56 @@
+[
+  {
+    "mpId": 4633,
+    "declarantName": "Филиз Хакъева Хюсменова",
+    "institution": "49-то Народно събрание",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2024-05-02",
+    "entryNumber": "Г1580",
+    "controlHash": "A0B037A2",
+    "sourceUrl": "https://register.cacbg.bg/2024/38DB8F66-FC3F-4037-847E-F62B386487E1182511.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 93069,
+        "amountBgnSpouse": 85989
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountBgnDeclarant": null,
+        "amountBgnSpouse": 9663
+      }
+    ]
+  },
+  {
+    "mpId": 4633,
+    "declarantName": "Филиз Хакъева Хюсменова",
+    "institution": "49-то Народно събрание",
+    "declarationYear": 2023,
+    "fiscalYear": 2023,
+    "declarationType": "Entry",
+    "filedAt": null,
+    "entryNumber": "В579",
+    "controlHash": "A2F6FEFC",
+    "sourceUrl": "https://register.cacbg.bg/2023/38DB8F66-FC3F-4037-847E-F62B386487E1149885.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "парцел",
+        "shareSize": "33 %",
+        "companyName": "Милениум Билд ООД",
+        "registeredOffice": "гр. София, ул. Цар борис ІІІ, 15",
+        "valueBgn": 21481,
+        "holderName": "Тунан Тефиков Хюсменов",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "Милениум-Билд-ООД"
+      }
+    ],
+    "income": []
+  }
+]

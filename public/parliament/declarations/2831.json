@@ -1,0 +1,49 @@
+[
+  {
+    "mpId": 2831,
+    "declarantName": "Полина Цветославова Цанкова-Христова",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Vacate",
+    "filedAt": "2022-05-11",
+    "entryNumber": "Ф529",
+    "controlHash": "F12DD5A7",
+    "sourceUrl": "https://register.cacbg.bg/2022/5F8620A7-36E7-43CD-86DF-29D8CF0F38E6136002.xml",
+    "ownershipStakes": [],
+    "income": []
+  },
+  {
+    "mpId": 2831,
+    "declarantName": "Полина Цветославова Цанкова-Христова",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": "2021-04-22",
+    "entryNumber": "Г7140",
+    "controlHash": "89EF9FA0",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/5F8620A7-36E7-43CD-86DF-29D8CF0F38E6125019.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 74202,
+        "amountBgnSpouse": 72861
+      },
+      {
+        "parent": null,
+        "category": "чл.11 от Приложение към ПОДНС",
+        "amountBgnDeclarant": 33236,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "чл.11 от Приложение към ПОДНС",
+        "amountBgnDeclarant": null,
+        "amountBgnSpouse": 33236
+      }
+    ]
+  }
+]

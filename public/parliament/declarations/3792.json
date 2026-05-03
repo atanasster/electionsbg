@@ -1,0 +1,60 @@
+[
+  {
+    "mpId": 3792,
+    "declarantName": "Младен Тодоров Запрянов",
+    "institution": "47-мо Народно събрание",
+    "declarationYear": 2022,
+    "fiscalYear": 2021,
+    "declarationType": "Annualy",
+    "filedAt": "2022-01-11",
+    "entryNumber": "Г4757",
+    "controlHash": "A1F9020E",
+    "sourceUrl": "https://register.cacbg.bg/2022/72B15855-9F2E-4D40-964A-CC60357709E2137008.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Дялове в ЕООД",
+        "shareSize": "100%",
+        "companyName": "Адвиза ЕООД",
+        "registeredOffice": "София (столица)",
+        "valueBgn": 3000,
+        "holderName": "Младен Тодоров Запрянов",
+        "legalBasis": "внесен капитал",
+        "fundsOrigin": "заплата",
+        "companySlug": "Адвиза-ЕООД"
+      },
+      {
+        "table": "10",
+        "itemType": "Дялове в ЕООД",
+        "shareSize": "100%",
+        "companyName": "Георги Панайотов-Ирина Панайотова ЕООД",
+        "registeredOffice": "Плевен",
+        "valueBgn": 4000,
+        "holderName": "Ирина Георгиева Панайотова",
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване",
+        "companySlug": "Георги-Панайотов-Ирина-Панайотова-ЕООД"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 2341,
+        "amountBgnSpouse": 60831
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountBgnDeclarant": null,
+        "amountBgnSpouse": 12012
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountBgnDeclarant": 210,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

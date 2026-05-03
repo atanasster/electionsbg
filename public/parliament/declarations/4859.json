@@ -1,0 +1,60 @@
+[
+  {
+    "mpId": 4859,
+    "declarantName": "АТАНАС ВЛАДИМИРОВ АТАНАСОВ",
+    "institution": "51-во Народно събрание",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-14",
+    "entryNumber": "Г9610",
+    "controlHash": "02A5DDA4",
+    "sourceUrl": "https://register.cacbg.bg/2025/424609A1-EEE6-4913-BD65-00BE23291C99212657.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "дялове",
+        "shareSize": "50%",
+        "companyName": "ПИ ЕЙ КОНСУЛТИНГ ООД",
+        "registeredOffice": "София (столица)",
+        "valueBgn": 5000,
+        "holderName": "ЦВЕТЕЛИНА КИРИЛОВА ЦВЕТАНОВА",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата",
+        "companySlug": "ПИ-ЕЙ-КОНСУЛТИНГ-ООД"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 11620,
+        "amountBgnSpouse": 15289
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountBgnDeclarant": 49312,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountBgnDeclarant": 105000,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Дивидент",
+        "amountBgnDeclarant": 100000,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "По чл. 11 от финансовите правила по бюджета на НС, приложение към ПОДНС",
+        "amountBgnDeclarant": 3726,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

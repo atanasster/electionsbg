@@ -1,0 +1,56 @@
+[
+  {
+    "mpId": 3620,
+    "declarantName": "ИВАН БОРИСОВ ТОТЕВ",
+    "institution": "47-мо Народно събрание",
+    "declarationYear": 2022,
+    "fiscalYear": 2021,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г4674",
+    "controlHash": "7091E17C",
+    "sourceUrl": "https://register.cacbg.bg/2022/01C9557D-BDDE-44C9-84C2-8B45C93C77A1136917.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "24999 дружествени дялове",
+        "shareSize": "49.998",
+        "companyName": "Каменица Офис парк АД",
+        "registeredOffice": "Пловдив",
+        "valueBgn": 24999,
+        "holderName": "Иван Борисов Тотев",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата",
+        "companySlug": "Каменица-Офис-парк-АД"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 2500,
+        "amountBgnSpouse": 13600
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountBgnDeclarant": 46960,
+        "amountBgnSpouse": null
+      }
+    ]
+  },
+  {
+    "mpId": 3620,
+    "declarantName": "ИВАН БОРИСОВ ТОТЕВ",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Entry",
+    "filedAt": "2021-04-27",
+    "entryNumber": "В919",
+    "controlHash": "E26F1C66",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/01C9557D-BDDE-44C9-84C2-8B45C93C77A1123102.xml",
+    "ownershipStakes": [],
+    "income": []
+  }
+]

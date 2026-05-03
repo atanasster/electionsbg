@@ -1,0 +1,149 @@
+[
+  {
+    "mpId": 5293,
+    "declarantName": "Росен Димитров Желязков",
+    "institution": "49-то Народно събрание",
+    "declarationYear": 2024,
+    "fiscalYear": 2023,
+    "declarationType": "Annualy",
+    "filedAt": "2014-05-14",
+    "entryNumber": "Г1496",
+    "controlHash": "C74FC4F1",
+    "sourceUrl": "https://register.cacbg.bg/2024/B651925B-63D8-4122-B6B8-6ACCE3815580182421.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 113991,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "средства съгласно чл. 11 от ФП на НС- приложение към ПОДНС",
+        "amountBgnDeclarant": 31979,
+        "amountBgnSpouse": null
+      }
+    ]
+  },
+  {
+    "mpId": 5293,
+    "declarantName": "Росен Димитров Желязков",
+    "institution": "48-мо Народно събрание",
+    "declarationYear": 2023,
+    "fiscalYear": 2023,
+    "declarationType": "Vacate",
+    "filedAt": "2023-03-01",
+    "entryNumber": "Ф438",
+    "controlHash": "7EAABCD4",
+    "sourceUrl": "https://register.cacbg.bg/2023/B651925B-63D8-4122-B6B8-6ACCE3815580145937.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "дялове",
+        "shareSize": "100%",
+        "companyName": "Тера Пет 08 ЕООД",
+        "registeredOffice": "София",
+        "valueBgn": 5000,
+        "holderName": "Ралица Петрова Терзиева",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "Тера-Пет-08-ЕООД"
+      }
+    ],
+    "income": []
+  },
+  {
+    "mpId": 5293,
+    "declarantName": "Росен Димитров Желязков",
+    "institution": "49-то Народно събрание",
+    "declarationYear": 2023,
+    "fiscalYear": 2023,
+    "declarationType": "Entry",
+    "filedAt": "2023-05-10",
+    "entryNumber": "В497",
+    "controlHash": "39F2DCE5",
+    "sourceUrl": "https://register.cacbg.bg/2023/B651925B-63D8-4122-B6B8-6ACCE3815580149127.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "дялове",
+        "shareSize": "100%",
+        "companyName": "Тера Пет 08 ЕООД",
+        "registeredOffice": "София",
+        "valueBgn": 5000,
+        "holderName": "Ралица Петрова Терзиева",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "Тера-Пет-08-ЕООД"
+      }
+    ],
+    "income": []
+  },
+  {
+    "mpId": 5293,
+    "declarantName": "Росен Димитров Желязков",
+    "institution": "47-мо Народно събрание",
+    "declarationYear": 2022,
+    "fiscalYear": 2021,
+    "declarationType": "Annualy",
+    "filedAt": "2022-05-10",
+    "entryNumber": "Г4429",
+    "controlHash": "5DA63CC2",
+    "sourceUrl": "https://register.cacbg.bg/2022/B651925B-63D8-4122-B6B8-6ACCE3815580136657.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 79544,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountBgnDeclarant": 21245,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "ПОДНС",
+        "amountBgnDeclarant": 9151,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "дивидент",
+        "amountBgnDeclarant": null,
+        "amountBgnSpouse": 50000
+      }
+    ]
+  },
+  {
+    "mpId": 5293,
+    "declarantName": "Росен Димитров Желязков",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Entry",
+    "filedAt": "2021-08-17",
+    "entryNumber": "В3266",
+    "controlHash": "9AB12DD7",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/B651925B-63D8-4122-B6B8-6ACCE3815580128478.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "дялове",
+        "shareSize": "100%",
+        "companyName": "Тера Пет 08 ЕООД",
+        "registeredOffice": "София",
+        "valueBgn": 5000,
+        "holderName": "Ралица Петрова Терзиева",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "Тера-Пет-08-ЕООД"
+      }
+    ],
+    "income": []
+  }
+]

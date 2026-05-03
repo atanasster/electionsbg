@@ -1,0 +1,84 @@
+[
+  {
+    "mpId": 4147,
+    "declarantName": "СЛАВЕНА ДИМИТРОВА ТОЧЕВА",
+    "institution": "48-мо Народно събрание",
+    "declarationYear": 2023,
+    "fiscalYear": 2023,
+    "declarationType": "Vacate",
+    "filedAt": "2023-02-12",
+    "entryNumber": "Ф142",
+    "controlHash": "81143F64",
+    "sourceUrl": "https://register.cacbg.bg/2023/8EEB2D5E-E7E8-43FE-B1D6-D7C33A6AFC31145391.xml",
+    "ownershipStakes": [],
+    "income": []
+  },
+  {
+    "mpId": 4147,
+    "declarantName": "СЛАВЕНА ДИМИТРОВА ТОЧЕВА",
+    "institution": "49-то Народно събрание",
+    "declarationYear": 2023,
+    "fiscalYear": 2023,
+    "declarationType": "Entry",
+    "filedAt": "2023-05-11",
+    "entryNumber": "В521",
+    "controlHash": "7AE6704F",
+    "sourceUrl": "https://register.cacbg.bg/2023/8EEB2D5E-E7E8-43FE-B1D6-D7C33A6AFC31149497.xml",
+    "ownershipStakes": [],
+    "income": []
+  },
+  {
+    "mpId": 4147,
+    "declarantName": "СЛАВЕНА ДИМИТРОВА ТОЧЕВА",
+    "institution": "47-мо Народно събрание",
+    "declarationYear": 2022,
+    "fiscalYear": 2021,
+    "declarationType": "Annualy",
+    "filedAt": "2022-04-29",
+    "entryNumber": "Г2621",
+    "controlHash": "477B58AD",
+    "sourceUrl": "https://register.cacbg.bg/2022/8EEB2D5E-E7E8-43FE-B1D6-D7C33A6AFC31134757.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 28825,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "ПОДНС",
+        "amountBgnDeclarant": 20720,
+        "amountBgnSpouse": null
+      }
+    ]
+  },
+  {
+    "mpId": 4147,
+    "declarantName": "СЛАВЕНА ДИМИТРОВА ТОЧЕВА",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Entry",
+    "filedAt": "2021-04-26",
+    "entryNumber": "В1277",
+    "controlHash": "550123F1",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/8EEB2D5E-E7E8-43FE-B1D6-D7C33A6AFC31125760.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "ЕООД",
+        "shareSize": "10,00",
+        "companyName": "ТСМ ИНВЕСТ 2018",
+        "registeredOffice": "Варна",
+        "valueBgn": 1,
+        "holderName": "СЛАВЕНА ДИМИТРОВА ТОЧЕВА",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "ТСМ-ИНВЕСТ-2018"
+      }
+    ],
+    "income": []
+  }
+]

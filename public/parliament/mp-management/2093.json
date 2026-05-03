@@ -1,0 +1,36 @@
+{
+  "mpId": 2093,
+  "mpName": "НИКОЛА ДЖИПОВ НИКОЛОВ",
+  "generatedAt": "2026-05-03T23:54:31.355Z",
+  "total": 2,
+  "roles": [
+    {
+      "uic": "206117083",
+      "companyName": "КЕР ТОКИ ПАУЪР",
+      "legalForm": "AD",
+      "seat": null,
+      "status": "active",
+      "role": "director",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2022-04-28T10:18:06",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "202699138",
+      "companyName": "ФЕЦ ПЕРУН",
+      "legalForm": "OOD",
+      "seat": null,
+      "status": "ceased",
+      "role": "liquidator",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2021-05-10T11:00:07",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    }
+  ]
+}

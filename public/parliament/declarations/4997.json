@@ -1,0 +1,101 @@
+[
+  {
+    "mpId": 4997,
+    "declarantName": "Иван Руменов Клисурски",
+    "institution": "51-во Народно събрание",
+    "declarationYear": 2025,
+    "fiscalYear": 2025,
+    "declarationType": "Entry",
+    "filedAt": "2025-04-11",
+    "entryNumber": "В650",
+    "controlHash": "63EE5F74",
+    "sourceUrl": "https://register.cacbg.bg/2025/05A7E21F-59D5-44A9-B42D-FEC84CD26CC1204700.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Дялове",
+        "shareSize": "100",
+        "companyName": "Ай Ес Джи Медикъл ЕООД",
+        "registeredOffice": "София (столица)",
+        "valueBgn": 6,
+        "holderName": "Иван Руменов Клисурски",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "Ай-Ес-Джи-Медикъл-ЕООД"
+      },
+      {
+        "table": "10",
+        "itemType": "Дялове",
+        "shareSize": "50",
+        "companyName": "Бешка ООД",
+        "registeredOffice": "София (столица)",
+        "valueBgn": 10,
+        "holderName": "Иван Руменов Клисурски",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "Бешка-ООД"
+      }
+    ],
+    "income": []
+  },
+  {
+    "mpId": 4997,
+    "declarantName": "Иван Руменов Клисурски",
+    "institution": "47-мо Народно събрание",
+    "declarationYear": 2022,
+    "fiscalYear": 2021,
+    "declarationType": "Annualy",
+    "filedAt": "2022-05-13",
+    "entryNumber": "Г4734",
+    "controlHash": "4451EDC6",
+    "sourceUrl": "https://register.cacbg.bg/2022/05A7E21F-59D5-44A9-B42D-FEC84CD26CC1136981.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 17357,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountBgnDeclarant": 12318,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "ПОДНС",
+        "amountBgnDeclarant": 9151,
+        "amountBgnSpouse": null
+      }
+    ]
+  },
+  {
+    "mpId": 4997,
+    "declarantName": "Иван Руменов Клисурски",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Entry",
+    "filedAt": "2021-08-18",
+    "entryNumber": "В3136",
+    "controlHash": "6D38724D",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/05A7E21F-59D5-44A9-B42D-FEC84CD26CC1128324.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "дялове",
+        "shareSize": "50%",
+        "companyName": "АЙ ЕС ДЖИ МЕДИКЪЛ ООД",
+        "registeredOffice": "София",
+        "valueBgn": 3,
+        "holderName": "Иван Руменов Клисурски",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "АЙ-ЕС-ДЖИ-МЕДИКЪЛ-ООД"
+      }
+    ],
+    "income": []
+  }
+]

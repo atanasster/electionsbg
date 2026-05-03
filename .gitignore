@@ -25,6 +25,15 @@ dist.old-*
 /blob-report/
 /playwright/.cache/
 
+# Commerce Registry (TR) raw dump — ~540 MB zip + ~12 GB extracted JSON.
+# Re-fetch with `npx tsx scripts/declarations/tr/cli.ts --bulk` (or `--incremental`).
+/raw_data/tr/
+
+# Per-MP declaration XML cache from register.cacbg.bg. Re-fetched on demand by
+# `npm run data -- --declarations`. The processed JSON outputs under
+# public/parliament/declarations/ are committed; this raw cache is not.
+/raw_data/declarations/
+
 # Generated election data — regenerate with `npm run prod`
 # Pattern note: ignore directory *contents* (not the directory itself) so we can
 # re-include specific subtrees below. A leading-anchored `/public/2*/` would block

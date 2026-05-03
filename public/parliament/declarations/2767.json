@@ -1,0 +1,49 @@
+[
+  {
+    "mpId": 2767,
+    "declarantName": "Симеон Георгиев Найденов",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Vacate",
+    "filedAt": "2022-04-21",
+    "entryNumber": "Ф470",
+    "controlHash": "1765BDDF",
+    "sourceUrl": "https://register.cacbg.bg/2022/71385B77-001A-4CC8-B85C-04308E627E7E133899.xml",
+    "ownershipStakes": [],
+    "income": []
+  },
+  {
+    "mpId": 2767,
+    "declarantName": "Симеон Георгиев Найденов",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": "2020-04-19",
+    "entryNumber": "Г7726",
+    "controlHash": "AE0EBE96",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/71385B77-001A-4CC8-B85C-04308E627E7E125749.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 78290,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountBgnDeclarant": 9750,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "чл.11 от Приложение към ПОДНС",
+        "amountBgnDeclarant": 33230,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

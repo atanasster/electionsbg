@@ -1,0 +1,43 @@
+[
+  {
+    "mpId": 2791,
+    "declarantName": "ПЛАМЕН ИВАНОВ МАНУШЕВ",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Vacate",
+    "filedAt": null,
+    "entryNumber": "Ф409",
+    "controlHash": "C9918078",
+    "sourceUrl": "https://register.cacbg.bg/2022/BCD05712-7DE5-46BA-96CB-2EA540836DA3133214.xml",
+    "ownershipStakes": [],
+    "income": []
+  },
+  {
+    "mpId": 2791,
+    "declarantName": "ПЛАМЕН ИВАНОВ МАНУШЕВ",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": "2021-03-04",
+    "entryNumber": "Г7070",
+    "controlHash": "05A506D9",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/BCD05712-7DE5-46BA-96CB-2EA540836DA3124927.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 97762,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "ПО ЧЛ.11 ОТ ПРИЛОЖЕНИЕ ПО ПОДНС",
+        "amountBgnDeclarant": 31300,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

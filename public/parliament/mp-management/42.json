@@ -1,0 +1,50 @@
+{
+  "mpId": 42,
+  "mpName": "ЙОРДАН ДИМИТРОВ КОСТАДИНОВ",
+  "generatedAt": "2026-05-03T23:54:31.319Z",
+  "total": 3,
+  "roles": [
+    {
+      "uic": "160132559",
+      "companyName": "НИКОЛОВ И СИНОВЕ",
+      "legalForm": "AD",
+      "seat": null,
+      "status": "active",
+      "role": "director",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2022-01-18T13:38:24",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "206775900",
+      "companyName": "Риали Про",
+      "legalForm": "EOOD",
+      "seat": "БЪЛГАРИЯ, гр. Варна, 9009",
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2022-01-06T16:51:05",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "206775448",
+      "companyName": "Спорт Баланс 91",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "seat": "БЪЛГАРИЯ, гр. Варна, 9022",
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2022-01-06T14:38:31",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    }
+  ]
+}

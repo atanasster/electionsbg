@@ -1,0 +1,41 @@
+[
+  {
+    "mpId": 3210,
+    "declarantName": "Данка Евстатиева Зидарова - Люртова",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": "2021-04-26",
+    "entryNumber": "Г4421",
+    "controlHash": "12E1E5E9",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/DFDF7D47-548D-4D79-AA72-3C631B68455B121501.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 68456,
+        "amountBgnSpouse": 104
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountBgnDeclarant": null,
+        "amountBgnSpouse": 3130
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountBgnDeclarant": null,
+        "amountBgnSpouse": 3960
+      },
+      {
+        "parent": null,
+        "category": "Други",
+        "amountBgnDeclarant": 31300,
+        "amountBgnSpouse": null
+      }
+    ]
+  }
+]

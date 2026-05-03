@@ -1,0 +1,100 @@
+[
+  {
+    "mpId": 3537,
+    "declarantName": "Иван Йорданов Димитров",
+    "institution": "47-мо Народно събрание",
+    "declarationYear": 2022,
+    "fiscalYear": 2021,
+    "declarationType": "Annualy",
+    "filedAt": "2022-05-14",
+    "entryNumber": "Г4774",
+    "controlHash": "8DD4795D",
+    "sourceUrl": "https://register.cacbg.bg/2022/6AA59C77-AC98-4E29-983F-6D98C13E6460137031.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 29097,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountBgnDeclarant": 873,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountBgnDeclarant": 18685,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "чл.11 от ФП от ПОДНС",
+        "amountBgnDeclarant": 8411,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "чл.13, ал.1, т.1, б.Б от ЗДДФЛ",
+        "amountBgnDeclarant": 87656,
+        "amountBgnSpouse": null
+      }
+    ]
+  },
+  {
+    "mpId": 3537,
+    "declarantName": "Иван Йорданов Димитров",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Entry",
+    "filedAt": "2021-05-11",
+    "entryNumber": "В1566",
+    "controlHash": "137A83D7",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/567FE43E-3863-41E5-AF21-0A649E24D0C5126734.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Издателство",
+        "shareSize": "100%",
+        "companyName": "Издателство \"Захарий Стоянов\"",
+        "registeredOffice": "София",
+        "valueBgn": 5000,
+        "holderName": "Иван Йорданов Димитров",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "Издателство-Захарий-Стоянов"
+      },
+      {
+        "table": "10",
+        "itemType": "Издателство",
+        "shareSize": "100%",
+        "companyName": "Издателство Гео Милев\"",
+        "registeredOffice": "София",
+        "valueBgn": 5000,
+        "holderName": "Иван Йорданов Димитров",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "Издателство-Гео-Милев"
+      }
+    ],
+    "income": []
+  },
+  {
+    "mpId": 3537,
+    "declarantName": "Иван Йорданов Димитров",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Entry",
+    "filedAt": "2021-05-14",
+    "entryNumber": "В946",
+    "controlHash": "1639F21C",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/6AA59C77-AC98-4E29-983F-6D98C13E6460123284.xml",
+    "ownershipStakes": [],
+    "income": []
+  }
+]

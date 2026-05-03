@@ -1,0 +1,107 @@
+[
+  {
+    "mpId": 3993,
+    "declarantName": "Георги Станчев Георгиев",
+    "institution": "48-мо Народно събрание",
+    "declarationYear": 2023,
+    "fiscalYear": 2023,
+    "declarationType": "Vacate",
+    "filedAt": "2023-02-04",
+    "entryNumber": "Ф32",
+    "controlHash": "930C93E7",
+    "sourceUrl": "https://register.cacbg.bg/2023/686B2DE2-7A3E-4A98-B82D-F31D812D0B40145101.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Акции",
+        "shareSize": "100%",
+        "companyName": "МГ КОНСУЛТИНГ ЕООД",
+        "registeredOffice": "София (столица)",
+        "valueBgn": 5000,
+        "holderName": "Георги Станчев Георгиев",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "МГ-КОНСУЛТИНГ-ЕООД"
+      }
+    ],
+    "income": []
+  },
+  {
+    "mpId": 3993,
+    "declarantName": "Георги Станчев Георгиев",
+    "institution": "47-мо Народно събрание",
+    "declarationYear": 2022,
+    "fiscalYear": 2021,
+    "declarationType": "Annualy",
+    "filedAt": "2022-05-09",
+    "entryNumber": "Г2525",
+    "controlHash": "BB9035E6",
+    "sourceUrl": "https://register.cacbg.bg/2022/686B2DE2-7A3E-4A98-B82D-F31D812D0B40134650.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 29820,
+        "amountBgnSpouse": 17407
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountBgnDeclarant": 1980,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Дивидент",
+        "amountBgnDeclarant": 2890,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "45НС-ПОДНС",
+        "amountBgnDeclarant": 2392,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "46НС-ПОДНС",
+        "amountBgnDeclarant": 5859,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "47НС-ПОДНС",
+        "amountBgnDeclarant": 3292,
+        "amountBgnSpouse": null
+      }
+    ]
+  },
+  {
+    "mpId": 3993,
+    "declarantName": "Георги Станчев Георгиев",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Entry",
+    "filedAt": "2021-07-27",
+    "entryNumber": "В1861",
+    "controlHash": "54546E58",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/686B2DE2-7A3E-4A98-B82D-F31D812D0B40127324.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Акции",
+        "shareSize": "100%",
+        "companyName": "МГ КОНСУЛТИНГ",
+        "registeredOffice": "София (столица)",
+        "valueBgn": 5000,
+        "holderName": "Георги Станчев Георгиев",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "МГ-КОНСУЛТИНГ"
+      }
+    ],
+    "income": []
+  }
+]

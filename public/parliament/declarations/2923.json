@@ -1,0 +1,92 @@
+[
+  {
+    "mpId": 2923,
+    "declarantName": "КАЛИН ДИМИТРОВ ВАСИЛЕВ",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2021,
+    "declarationType": "Vacate",
+    "filedAt": "2022-05-09",
+    "entryNumber": "Ф562",
+    "controlHash": "785660E6",
+    "sourceUrl": "https://register.cacbg.bg/2022/FAC82556-F9B1-4110-999A-39412943C645136659.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "ДРУЖЕСТВЕНИ ДЯЛОВЕ",
+        "shareSize": "100",
+        "companyName": "ПАНЕГА КОНСУЛТ ЕООД",
+        "registeredOffice": "ЛУКОВИТ",
+        "valueBgn": 2,
+        "holderName": "КАЛИН ДИМИТРОВ ВАСИЛЕВ",
+        "legalBasis": null,
+        "fundsOrigin": null,
+        "companySlug": "ПАНЕГА-КОНСУЛТ-ЕООД"
+      }
+    ],
+    "income": []
+  },
+  {
+    "mpId": 2923,
+    "declarantName": "КАЛИН ДИМИТРОВ ВАСИЛЕВ",
+    "institution": "Народно събраниe",
+    "declarationYear": 2021,
+    "fiscalYear": 2020,
+    "declarationType": "Annualy",
+    "filedAt": "2021-04-22",
+    "entryNumber": "Г6185",
+    "controlHash": "1D6A1991",
+    "sourceUrl": "https://register.cacbg.bg/2021_nc/FAC82556-F9B1-4110-999A-39412943C645123700.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountBgnDeclarant": 80068,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountBgnDeclarant": 41000,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Допълнителен доход Народно събрание",
+        "amountBgnDeclarant": 31000,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Доход дивиденти Счетоводен фактор ЕООД",
+        "amountBgnDeclarant": 13344,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Доход от дивиденти СК КИКО КОМ ООД",
+        "amountBgnDeclarant": 3650,
+        "amountBgnSpouse": 3650
+      },
+      {
+        "parent": null,
+        "category": "Доход от дивиденти КИКО КОМ ЕООД",
+        "amountBgnDeclarant": 7640,
+        "amountBgnSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Д-р Валентина Господинова - Василева ПМП за ИП\" ЕООД",
+        "amountBgnDeclarant": null,
+        "amountBgnSpouse": 1600
+      },
+      {
+        "parent": null,
+        "category": "Кико ком Луковит ООД",
+        "amountBgnDeclarant": null,
+        "amountBgnSpouse": 18944
+      }
+    ]
+  }
+]
