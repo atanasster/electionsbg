@@ -236,6 +236,59 @@ if (fs.existsSync(pollsAnalysis) && fs.existsSync(pollsAgencies)) {
 }
 
 // ------------------------------------------------------------------
+// In-depth analytical articles (BG markdown sources, included in full).
+// Articles already live as standalone .md files under /public/articles/, but
+// inlining them here gives LLM crawlers a single fetch for the entire corpus.
+// ------------------------------------------------------------------
+type ArticleMeta = {
+  slug: string;
+  election?: string;
+  publishedAt: string;
+  category?: string;
+  title: { bg: string; en: string };
+  summary: { bg: string; en: string };
+};
+
+const articlesIndexFile = path.join(PUBLIC, "articles", "index.json");
+if (fs.existsSync(articlesIndexFile)) {
+  const articles: ArticleMeta[] = JSON.parse(
+    fs.readFileSync(articlesIndexFile, "utf-8"),
+  );
+  if (articles.length) {
+    lines.push(`## Аналитични статии`);
+    lines.push("");
+    lines.push(
+      `> Всяка статия се публикува на български и английски. Връзките водят до отделните страници на сайта; пълните Markdown-извори са включени по-долу.`,
+    );
+    lines.push("");
+    for (const a of articles) {
+      const bgMd = path.join(PUBLIC, "articles", `${a.slug}-bg.md`);
+      lines.push(`### ${a.title.bg}`);
+      lines.push("");
+      lines.push(
+        `URL (BG): ${SITE_URL}/articles/${a.slug}  |  URL (EN): ${SITE_URL}/en/articles/${a.slug}`,
+      );
+      lines.push(`Markdown (BG): ${SITE_URL}/articles/${a.slug}-bg.md`);
+      lines.push(`Markdown (EN): ${SITE_URL}/articles/${a.slug}-en.md`);
+      lines.push(`Публикувана: ${a.publishedAt}`);
+      if (a.category) lines.push(`Категория: ${a.category}`);
+      if (a.election) lines.push(`Избори: ${a.election}`);
+      lines.push("");
+      lines.push(`**Резюме:** ${a.summary.bg}`);
+      lines.push("");
+      if (fs.existsSync(bgMd)) {
+        const body = fs.readFileSync(bgMd, "utf-8").trim();
+        // Strip the document's own h1 (we already used it as h3 above) so the
+        // outline of llms-full.txt stays consistent.
+        const stripped = body.replace(/^#\s+[^\n]*\n+/, "");
+        lines.push(stripped);
+        lines.push("");
+      }
+    }
+  }
+}
+
+// ------------------------------------------------------------------
 // Region quick-reference (oblast → URL)
 // ------------------------------------------------------------------
 const regionsFile = path.join(PROJECT_ROOT, "src/data/json/regions.json");

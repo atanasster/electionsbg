@@ -217,6 +217,16 @@ const ElectionScreen = lazy(() =>
     default: m.ElectionScreen,
   })),
 );
+const ArticlesScreen = lazy(() =>
+  import("./screens/ArticlesScreen").then((m) => ({
+    default: m.ArticlesScreen,
+  })),
+);
+const ArticleScreen = lazy(() =>
+  import("./screens/ArticleScreen").then((m) => ({
+    default: m.ArticleScreen,
+  })),
+);
 const RegionPartiesScreen = lazy(() =>
   import("./screens/RegionPartiesScreen").then((m) => ({
     default: m.RegionPartiesScreen,
@@ -1059,6 +1069,22 @@ export const AuthRoutes = () => {
           element={
             <LayoutScreen>
               <ElectionScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="articles"
+          element={
+            <LayoutScreen>
+              <ArticlesScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="articles/:slug"
+          element={
+            <LayoutScreen>
+              <ArticleScreen />
             </LayoutScreen>
           }
         />

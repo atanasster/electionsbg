@@ -23,11 +23,16 @@ import { Search } from "../search/Search";
 import { ElectionsSelect } from "./ElectionsSelect";
 import { Logo } from "./Logo";
 import { useElectionContext } from "@/data/ElectionContext";
+import { useArticles } from "@/data/articles/useArticles";
 
 export const Header = () => {
   const { setTheme, theme } = useContext(ThemeContext);
   const { t, i18n } = useTranslation();
-  const { electionStats } = useElectionContext();
+  const { electionStats, selected } = useElectionContext();
+  const { data: articles } = useArticles();
+  const articleForSelectedElection = articles?.find(
+    (a) => a.election === selected,
+  );
   const RenderMenuItem: FC<{ item: MenuItem }> = ({ item }) => {
     if (item.category === "financials" && !electionStats?.hasFinancials) {
       return null;
@@ -40,6 +45,17 @@ export const Header = () => {
     }
     if (item.category === "suemg" && !electionStats?.hasSuemg) {
       return null;
+    }
+    if (item.category === "article_for_election") {
+      // Hide unless this election has an article — and link straight to it.
+      if (!articleForSelectedElection) return null;
+      return (
+        <DropdownMenuItem>
+          <Link to={`/articles/${articleForSelectedElection.slug}`}>
+            {t(item.title)}
+          </Link>
+        </DropdownMenuItem>
+      );
     }
     if (item.title === "-") {
       return <DropdownMenuSeparator />;

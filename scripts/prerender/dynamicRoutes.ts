@@ -20,6 +20,7 @@ import {
   buildSectionBody,
   buildSettlementBody,
 } from "./bodyBuilders";
+import { buildArticleRoutes } from "./articleRoutes";
 
 const BG_MONTHS = [
   "януари",
@@ -1201,5 +1202,6 @@ export const buildDynamicRoutes = (projectRoot: string): PrerenderRoute[] => {
     ...buildReportRoutes("settlement", SETTLEMENT_REPORTS),
     ...buildReportRoutes("municipality", MUNICIPALITY_REPORTS),
     ...buildReportRoutes("section", SECTION_REPORTS),
+    ...buildArticleRoutes(publicFolder),
   ];
 };

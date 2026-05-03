@@ -161,3 +161,35 @@ export const buildBreadcrumbLd = (
     item: item.url,
   })),
 });
+
+export const buildArticleLd = (params: {
+  headline: string;
+  description: string;
+  url: string;
+  datePublished: string;
+  dateModified?: string;
+  inLanguage: "bg" | "en";
+  image?: string;
+  keywords?: string[];
+  articleSection?: string;
+}) => ({
+  "@context": "https://schema.org",
+  "@type": "Article",
+  headline: params.headline,
+  description: params.description,
+  url: params.url,
+  mainEntityOfPage: { "@type": "WebPage", "@id": params.url },
+  datePublished: params.datePublished,
+  dateModified: params.dateModified ?? params.datePublished,
+  inLanguage: params.inLanguage,
+  author: ORG,
+  publisher: ORG,
+  ...(params.image
+    ? { image: params.image.startsWith("http") ? params.image : `${SITE_URL}${params.image}` }
+    : { image: `${SITE_URL}/images/og_image.png` }),
+  ...(params.keywords && params.keywords.length
+    ? { keywords: params.keywords.join(", ") }
+    : {}),
+  ...(params.articleSection ? { articleSection: params.articleSection } : {}),
+  isAccessibleForFree: true,
+});

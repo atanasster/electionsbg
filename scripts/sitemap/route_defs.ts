@@ -27,6 +27,7 @@ export const ENGLISH_STATIC_PAGES = [
   "financing",
   "parties",
   "regions",
+  "articles",
 ];
 
 export const routeDefs = (year: string): RouteDefs => [
@@ -48,6 +49,11 @@ export const routeDefs = (year: string): RouteDefs => [
 
   // Polls.
   { path: "polls", file: `polls-index` },
+
+  // Articles — long-form data analysis. Index page + one URL per article slug
+  // listed in public/articles/index.json.
+  { path: "articles", file: `articles-index` },
+  { path: "articles/:id", file: `articles-list` },
 
   // Per-election landing pages — one URL per cycle in elections.json.
   { path: "elections/:id", file: `elections-list` },

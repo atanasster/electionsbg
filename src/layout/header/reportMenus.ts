@@ -2,7 +2,16 @@ export type MenuItem = {
   title: string;
   link?: string;
   subMenu?: MenuItem[];
-  category?: "financials" | "recount" | "preferences" | "suemg";
+  category?:
+    | "financials"
+    | "recount"
+    | "preferences"
+    | "suemg"
+    // "article_for_election" hides the item unless an article exists for the
+    // currently-selected election, and rewrites `link` to that article's
+    // detail page so users land directly on the report. Header.tsx contains
+    // the rendering logic.
+    | "article_for_election";
 };
 
 export const reportsMenu: MenuItem[] = [
@@ -210,6 +219,11 @@ export const reportsMenu: MenuItem[] = [
       {
         title: "polls_title",
         link: "/polls",
+      },
+      {
+        title: "articles_title",
+        link: "/articles",
+        category: "article_for_election",
       },
       { title: "-" },
       {

@@ -155,7 +155,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
     path: "",
     title: HOME_TITLE,
     description: HOME_DESCRIPTION,
-    ogImage: "/og/home.png",
+    ogImage: "/og/dashboard-2026-04-19.png",
     bodyHtml: homeBody,
     jsonLd: [
       buildWebSiteLd(),

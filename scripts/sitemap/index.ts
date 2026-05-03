@@ -6,6 +6,7 @@ import { ElectionInfo, PartyInfo, SectionIndex } from "@/data/dataTypes";
 
 type SettlementBundleEntry = { ekatte?: string };
 type PollAgency = { id: string };
+type ArticleMeta = { slug: string };
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -60,6 +61,7 @@ const bucketFor = (urlPath: string): string => {
   if (urlPath.startsWith("/reports/")) return "reports";
   if (urlPath.startsWith("/polls")) return "polls";
   if (urlPath.startsWith("/elections/")) return "static";
+  if (urlPath.startsWith("/articles")) return "static";
   return "static";
 };
 
@@ -194,6 +196,27 @@ const enumeratePolls = (route: RouteDef, rootUrl: string) => {
   }
 };
 
+const articlesFile = `${projectPath}/public/articles/index.json`;
+const enumerateArticlesIndex = (rootUrl: string) => {
+  // Index page itself — falls back to today if the file is missing so the
+  // /articles landing route is still emitted even before any articles ship.
+  const lastmod = fs.existsSync(articlesFile)
+    ? safeFileMod(articlesFile)
+    : today;
+  pushUrl(`${rootUrl}/articles`, lastmod);
+};
+const enumerateArticles = (rootUrl: string, routes: string[]) => {
+  if (!fs.existsSync(articlesFile)) return;
+  const articles: ArticleMeta[] = JSON.parse(
+    fs.readFileSync(articlesFile, "utf-8"),
+  );
+  const lastmod = safeFileMod(articlesFile);
+  for (const a of articles) {
+    if (!a.slug) continue;
+    pushUrl(`${rootUrl}/${routes[0]}${a.slug}`, lastmod);
+  }
+};
+
 const getRoute = (route: RouteDef, rootUrl: string) => {
   if (route.children) {
     for (const r of route.children) getRoute(r, `${rootUrl}/${route.path}`);
@@ -211,6 +234,8 @@ const getRoute = (route: RouteDef, rootUrl: string) => {
       return enumerateCandidates(route, rootUrl, routes);
     if (route.file === "elections-list")
       return enumerateElections(rootUrl, routes);
+    if (route.file === "articles-list")
+      return enumerateArticles(rootUrl, routes);
     // Generic ":id" expansion against a folder of files (e.g. municipalities/by/{id}).
     const folders = route.file?.split(":id");
     if (!folders) throw new Error("Must assign file property: " + route.path);
@@ -230,6 +255,7 @@ const getRoute = (route: RouteDef, rootUrl: string) => {
   }
   // Static path.
   if (route.file === "polls-index") return enumeratePolls(route, rootUrl);
+  if (route.file === "articles-index") return enumerateArticlesIndex(rootUrl);
   if (route.file === "english-static-pages") {
     for (const slug of ENGLISH_STATIC_PAGES) {
       const enPath = slug ? `/en/${slug}` : `/en`;

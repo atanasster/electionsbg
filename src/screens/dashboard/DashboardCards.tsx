@@ -23,6 +23,7 @@ import { RecountTile } from "./RecountTile";
 import { SuspiciousSectionsTile } from "./SuspiciousSectionsTile";
 import { PollsTile } from "./PollsTile";
 import { AccuracyTrendsTile } from "./AccuracyTrendsTile";
+import { ArticlesTile } from "./ArticlesTile";
 
 const SkeletonCard: FC<{ className?: string }> = ({
   className = "h-[160px]",
@@ -181,6 +182,9 @@ export const DashboardCards: FC = () => {
       </div>
       <div className="grid gap-3 grid-cols-1 mt-3">
         <AccuracyTrendsTile />
+      </div>
+      <div className="grid gap-3 grid-cols-1 mt-3">
+        <ArticlesTile />
       </div>
       <ShareCardDialog
         open={shareOpen}

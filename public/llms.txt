@@ -21,8 +21,13 @@ Site language: primary Bulgarian, with English translations of the UI. All data 
 - [Timeline](https://electionsbg.com/timeline): bubble-timeline of party performance across all 13 votes.
 - [Simulator](https://electionsbg.com/simulator): coalition / seat-allocation what-if tool.
 - [Financing](https://electionsbg.com/financing): declared campaign income and expenditures.
+- [Data Analysis](https://electionsbg.com/articles): in-depth analytical articles on integrity, turnout, machine flash discrepancies, risk neighborhoods, and polling accuracy.
 - [Sitemap index](https://electionsbg.com/sitemap_index.xml): index of per-bucket sitemaps (~100,000 URLs total).
-- [Full long-form corpus](https://electionsbg.com/llms-full.txt): national summary, per-party retrospect, and polling analysis in plain Markdown — refreshed each build.
+- [Full long-form corpus](https://electionsbg.com/llms-full.txt): national summary, per-party retrospect, polling analysis, and full article texts in plain Markdown — refreshed each build.
+
+## Featured analyses
+
+- [Election Integrity Analysis — 19.04.2026 vs prior cycles](https://electionsbg.com/en/articles/2026-04-19-integrity) (English) / [Анализ на почтеността на изборите от 19.04.2026](https://electionsbg.com/articles/2026-04-19-integrity) (Bulgarian) — comparative integrity analysis across 12 elections (2009-2026): flash-memory anomalies ranked by votes impacted, suspicious-settlement clusters with party attribution, Roma risk neighborhoods, and the polling miss. Markdown sources: [/articles/2026-04-19-integrity-en.md](https://electionsbg.com/articles/2026-04-19-integrity-en.md) and [/articles/2026-04-19-integrity-bg.md](https://electionsbg.com/articles/2026-04-19-integrity-bg.md).
 
 ## URL patterns
 
@@ -31,6 +36,7 @@ Site language: primary Bulgarian, with English translations of the UI. All data 
 - `/settlement/{ekatte}` — settlement-level results by section.
 - `/section/{sectionId}` — individual polling-section detail.
 - `/reports/{level}/{metric}` — analytical reports (turnout, concentration, gainers/losers, invalid ballots, additional voters, supports-no-one) at municipality, settlement, or section level.
+- `/articles/{slug}` — long-form analytical articles. Each article is also available as raw Markdown at `/articles/{slug}-bg.md` and `/articles/{slug}-en.md` for direct LLM ingestion.
 
 ## Data
 
