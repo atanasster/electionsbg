@@ -126,6 +126,15 @@ export const markdownToHtml = (md: string): string => {
 // Home page body — national summary table.
 // ------------------------------------------------------------------
 
+type TopLocation = {
+  ekatte: string;
+  name: string;
+  name_en?: string;
+  sections: number;
+  voters?: number;
+  urlPath?: string;
+};
+
 type NationalSummary = {
   election: string;
   priorElection?: string;
@@ -151,7 +160,14 @@ type NationalSummary = {
     seats?: number;
     passedThreshold?: boolean;
   }>;
+  topDiaspora?: TopLocation[];
+  topCities?: TopLocation[];
 };
+
+// Top diaspora + city lists are precomputed in national_summary.json by
+// scripts/reports/nationalSummary.ts. The dashboard tile and the prerendered
+// home body both read them from there — single source of truth, consistent
+// sort and Sofia-aggregation behavior.
 
 export const buildHomeBody = (publicFolder: string, latest: string): string => {
   const file = path.join(publicFolder, latest, "national_summary.json");
@@ -193,6 +209,16 @@ export const buildHomeBody = (publicFolder: string, latest: string): string => {
     parts.push(
       `<p>Засечени отклонения по секции: <strong>${fmtInt(s.anomalies.total)}</strong>. Виж <a href="${SITE_URL}/reports/section/problem_sections">проблемни секции</a>.</p>`,
     );
+  }
+  const renderLoc = (l: TopLocation) =>
+    `<a href="${SITE_URL}${l.urlPath ?? `/sections/${l.ekatte}`}">${escapeHtml(l.name)}</a> (${fmtInt(l.voters ?? 0)} избиратели)`;
+  if (s.topDiaspora && s.topDiaspora.length) {
+    parts.push(`<h2>Гласуване в чужбина</h2>`);
+    parts.push(`<p>${s.topDiaspora.map(renderLoc).join(" · ")}</p>`);
+  }
+  if (s.topCities && s.topCities.length) {
+    parts.push(`<h2>Най-големи населени места</h2>`);
+    parts.push(`<p>${s.topCities.map(renderLoc).join(" · ")}</p>`);
   }
   return parts.join("\n");
 };
@@ -425,6 +451,15 @@ type SectionBodyInput = {
   };
   topVotes?: Array<{ partyNum: number; nickName: string; totalVotes: number }>;
   totalValidVotes?: number;
+  settlementContext?: {
+    settlementName: string;
+    turnoutPct: number;
+    winnerPartyNum: number;
+    winnerNickName: string;
+    winnerPct: number;
+  };
+  nationalPctByParty?: Map<number, number>;
+  flaggedNeighborhood?: { name: string; city: string };
 };
 
 export const buildSectionBody = (input: SectionBodyInput): string => {
@@ -462,22 +497,58 @@ export const buildSectionBody = (input: SectionBodyInput): string => {
       }</ul>`,
     );
   }
+  // Settlement-level turnout comparison: gives every section a unique sentence
+  // about how it stacks up against its settlement average.
+  if (input.settlementContext && input.protocol) {
+    const reg = input.protocol.numRegisteredVoters ?? 0;
+    const act = input.protocol.totalActualVoters ?? 0;
+    if (reg > 0) {
+      const sectionTurnout = (act / reg) * 100;
+      const dPp = sectionTurnout - input.settlementContext.turnoutPct;
+      const direction = dPp >= 0 ? "над" : "под";
+      const abs = Math.abs(dPp).toFixed(2).replace(".", ",");
+      parts.push(
+        `<p>Активността е ${fmtPct(sectionTurnout)} — ${abs} пп ${direction} средната за ${escapeHtml(input.settlementContext.settlementName)} (${fmtPct(input.settlementContext.turnoutPct)}).</p>`,
+      );
+    }
+  }
+  const nat = input.nationalPctByParty;
   if (input.topVotes && input.topVotes.length > 0) {
     parts.push(`<h2>Топ партии в секцията</h2>`);
+    const headDelta = nat ? `<th>vs нац.</th>` : "";
     parts.push(
-      `<table><thead><tr><th>Партия</th><th>Гласове</th><th>%</th></tr></thead><tbody>`,
+      `<table><thead><tr><th>Партия</th><th>Гласове</th><th>%</th>${headDelta}</tr></thead><tbody>`,
     );
     const total = input.totalValidVotes ?? 0;
     for (const v of input.topVotes) {
-      const pct =
-        total > 0
-          ? ((v.totalVotes / total) * 100).toFixed(2).replace(".", ",")
-          : "";
+      const pct = total > 0 ? (v.totalVotes / total) * 100 : 0;
+      const pctCell = total > 0 ? fmtPct(pct) : "";
+      let deltaCell = "";
+      if (nat) {
+        const np = nat.get(v.partyNum);
+        deltaCell = `<td>${np != null && total > 0 ? fmtSignedPct(pct - np) : ""}</td>`;
+      }
       parts.push(
-        `<tr><td><a href="${SITE_URL}/party/${encodeURIComponent(v.nickName)}">${escapeHtml(v.nickName)}</a></td><td>${fmtInt(v.totalVotes)}</td><td>${pct ? pct + "%" : ""}</td></tr>`,
+        `<tr><td><a href="${SITE_URL}/party/${encodeURIComponent(v.nickName)}">${escapeHtml(v.nickName)}</a></td><td>${fmtInt(v.totalVotes)}</td><td>${pctCell}</td>${deltaCell}</tr>`,
       );
     }
     parts.push(`</tbody></table>`);
+    // Settlement-winner contrast — emit only when the section's leading party
+    // differs from its settlement's leading party, so the line carries real
+    // distinguishing signal.
+    const sCtx = input.settlementContext;
+    const top = input.topVotes[0];
+    if (sCtx && top && top.partyNum !== sCtx.winnerPartyNum && total > 0) {
+      const topPct = (top.totalVotes / total) * 100;
+      parts.push(
+        `<p>Водещата партия в секцията е <a href="${SITE_URL}/party/${encodeURIComponent(top.nickName)}">${escapeHtml(top.nickName)}</a> (${fmtPct(topPct)}); в ${escapeHtml(sCtx.settlementName)} първа е <a href="${SITE_URL}/party/${encodeURIComponent(sCtx.winnerNickName)}">${escapeHtml(sCtx.winnerNickName)}</a> (${fmtPct(sCtx.winnerPct)}).</p>`,
+      );
+    }
+  }
+  if (input.flaggedNeighborhood) {
+    parts.push(
+      `<p>Секцията попада в наблюдавания списък с потенциално проблемни секции — район <strong>${escapeHtml(input.flaggedNeighborhood.name)}</strong>, ${escapeHtml(input.flaggedNeighborhood.city)}. Виж <a href="${SITE_URL}/reports/section/problem_sections">проблемни секции</a>.</p>`,
+    );
   }
   const navLinks: string[] = [];
   if (ekatte) {
@@ -493,6 +564,150 @@ export const buildSectionBody = (input: SectionBodyInput): string => {
   if (navLinks.length) {
     parts.push(`<p>Навигация: ${navLinks.join(" · ")}</p>`);
   }
+  return parts.join("\n");
+};
+
+// ------------------------------------------------------------------
+// Sections-list page body — /sections/{ekatte}.
+// Two flavors: Bulgarian settlements (address list, top parties) and
+// diaspora country pages (cities + FAQ-style voting facts).
+// ------------------------------------------------------------------
+
+type SectionListItem = {
+  section: string;
+  address?: string;
+  cityLabel?: string; // for diaspora: city after stripping country prefix
+};
+
+type SectionsListInput = {
+  ekatte: string;
+  displayName: string; // "гр.Бургас" or "Италия"
+  oblastName?: string;
+  oblastCode?: string;
+  isDiaspora: boolean;
+  electionDateLabel: string;
+  sections: SectionListItem[];
+  aggregate?: {
+    registered: number;
+    actual: number;
+    turnoutPct: number;
+    topParties: Array<{ nickName: string; pct: number; totalVotes: number }>;
+  };
+};
+
+export const buildSectionsListBody = (input: SectionsListInput): string => {
+  const parts: string[] = [];
+  const placeLabel =
+    input.isDiaspora || !input.oblastName
+      ? input.displayName
+      : `${input.displayName}, обл. ${input.oblastName}`;
+  const heading = input.isDiaspora
+    ? `Избирателни секции в ${input.displayName} — Парламентарни избори в България`
+    : `Избирателни секции в ${placeLabel}`;
+  parts.push(`<h1>${escapeHtml(heading)}</h1>`);
+  parts.push(
+    `<p>Списък на избирателните секции и адресите им за парламентарния вот ${escapeHtml(input.electionDateLabel)} — общо ${fmtInt(input.sections.length)} ${input.sections.length === 1 ? "секция" : "секции"}${input.isDiaspora ? "" : `, ${escapeHtml(placeLabel)}`}.</p>`,
+  );
+  if (input.aggregate) {
+    // Foreign sections register voters at the booth, so numRegisteredVoters
+    // is unreliable (often 0) — show the turnout line only when the ratio
+    // looks sane. Otherwise just emit the actual-voter count.
+    const a = input.aggregate;
+    const showTurnout =
+      !input.isDiaspora &&
+      a.registered > 0 &&
+      a.turnoutPct > 0 &&
+      a.turnoutPct <= 100;
+    if (showTurnout) {
+      parts.push(
+        `<p>Регистрирани избиратели: <strong>${fmtInt(a.registered)}</strong> · Гласували: <strong>${fmtInt(a.actual)}</strong> (${fmtPct(a.turnoutPct)}).</p>`,
+      );
+    } else if (a.actual > 0) {
+      parts.push(`<p>Гласували: <strong>${fmtInt(a.actual)}</strong>.</p>`);
+    }
+  }
+  if (input.aggregate && input.aggregate.topParties.length) {
+    parts.push(`<h2>Водещи партии</h2>`);
+    parts.push(
+      `<table><thead><tr><th>Партия</th><th>Гласове</th><th>%</th></tr></thead><tbody>`,
+    );
+    for (const p of input.aggregate.topParties) {
+      parts.push(
+        `<tr><td><a href="${SITE_URL}/party/${encodeURIComponent(p.nickName)}">${escapeHtml(p.nickName)}</a></td><td>${fmtInt(p.totalVotes)}</td><td>${fmtPct(p.pct)}</td></tr>`,
+      );
+    }
+    parts.push(`</tbody></table>`);
+  }
+
+  if (input.isDiaspora) {
+    // Aggregate sections per city for the diaspora summary.
+    const byCity = new Map<string, number>();
+    for (const s of input.sections) {
+      const city = s.cityLabel?.trim() || "—";
+      byCity.set(city, (byCity.get(city) ?? 0) + 1);
+    }
+    if (byCity.size > 0) {
+      parts.push(`<h2>Градове със секции</h2>`);
+      parts.push(
+        `<table><thead><tr><th>Град</th><th>Секции</th></tr></thead><tbody>`,
+      );
+      const sortedCities = [...byCity.entries()].sort(
+        (a, b) => b[1] - a[1] || a[0].localeCompare(b[0], "bg"),
+      );
+      for (const [city, count] of sortedCities) {
+        parts.push(
+          `<tr><td>${escapeHtml(city)}</td><td>${fmtInt(count)}</td></tr>`,
+        );
+      }
+      parts.push(`</tbody></table>`);
+    }
+  }
+
+  if (input.sections.length) {
+    parts.push(`<h2>Адреси на секциите</h2>`);
+    parts.push(
+      `<table><thead><tr><th>Секция</th><th>Адрес</th></tr></thead><tbody>`,
+    );
+    // Cap to 200 to keep Sofia-subdivision pages from blowing up; the
+    // dynamic SPA still shows the full list.
+    const capped = input.sections.slice(0, 200);
+    for (const s of capped) {
+      const addr = s.address ? s.address.replace(/\s+/g, " ") : "";
+      const city = input.isDiaspora && s.cityLabel ? `${s.cityLabel} — ` : "";
+      parts.push(
+        `<tr><td><a href="${SITE_URL}/section/${s.section}">№${escapeHtml(s.section)}</a></td><td>${escapeHtml(city + addr)}</td></tr>`,
+      );
+    }
+    parts.push(`</tbody></table>`);
+    if (input.sections.length > capped.length) {
+      parts.push(
+        `<p>Показани са първите ${fmtInt(capped.length)} от ${fmtInt(input.sections.length)} секции.</p>`,
+      );
+    }
+  }
+
+  if (input.isDiaspora) {
+    parts.push(`<h2>Често задавани въпроси</h2>`);
+    parts.push(
+      `<p><strong>Кой може да гласува в чужбина?</strong> Български граждани с навършени 18 години към изборния ден, без значение от постоянния им адрес, могат да гласуват в избирателните секции в чужбина.</p>`,
+    );
+    parts.push(
+      `<p><strong>Какви документи са необходими?</strong> Валидна българска лична карта или паспорт. Не се изисква предварителна регистрация в деня на изборите за вече разкритите секции.</p>`,
+    );
+    parts.push(
+      `<p><strong>Кога работят секциите?</strong> Секциите в чужбина обикновено отварят в 7:00 и затварят в 20:00 по местно време; ако в 20:00 пред секцията има чакащи избиратели, те имат право да гласуват.</p>`,
+    );
+    parts.push(
+      `<p><strong>Как се откриват нови секции?</strong> Български граждани могат да подадат заявления за разкриване на секция в населено място в чужбина чрез <a href="https://www.mfa.bg/" rel="nofollow noopener">МВнР</a> в срокове, обявени от ЦИК преди всеки вот.</p>`,
+    );
+  }
+
+  if (input.oblastCode && input.oblastName && !input.isDiaspora) {
+    parts.push(
+      `<p>Виж и: <a href="${SITE_URL}/settlement/${input.ekatte}">${escapeHtml(input.displayName)}</a> · <a href="${SITE_URL}/municipality/${input.oblastCode}">обл. ${escapeHtml(input.oblastName)}</a>.</p>`,
+    );
+  }
+
   return parts.join("\n");
 };
 

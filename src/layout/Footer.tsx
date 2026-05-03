@@ -22,7 +22,7 @@ export const Footer = () => {
         <li>
           <Anchor
             href="https://github.com/atanasster/electionsbg"
-            aria-label="github repository"
+            aria-label={`${t("open_source")} — GitHub`}
             className="mx-2 text-sm font-medium lowercase text-secondary-foreground hover:text-primary"
           >
             {t("open_source")}

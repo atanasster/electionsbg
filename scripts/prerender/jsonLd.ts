@@ -58,6 +58,7 @@ export const buildDatasetLd = (params: {
   creator: ORG,
   publisher: ORG,
   isAccessibleForFree: true,
+  license: "https://creativecommons.org/licenses/by/4.0/",
   inLanguage: ["bg", "en"],
   temporalCoverage: "2005-06-25/..",
   ...(params.spatialCoverage
@@ -147,6 +148,18 @@ export const buildPersonLd = (params: {
         })),
       }
     : {}),
+});
+
+export const buildFaqLd = (
+  items: Array<{ question: string; answer: string }>,
+) => ({
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  mainEntity: items.map((it) => ({
+    "@type": "Question",
+    name: it.question,
+    acceptedAnswer: { "@type": "Answer", text: it.answer },
+  })),
 });
 
 export const buildBreadcrumbLd = (

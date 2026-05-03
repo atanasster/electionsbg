@@ -22,6 +22,22 @@ const election = elections[0]?.name ?? "2024_10_27";
 
 const homePage = "https://electionsbg.com";
 const today = new Date().toISOString().slice(0, 10);
+// Election-data URLs (sections, settlements, candidates, parties, reports,
+// municipalities) only meaningfully change when a new election is added.
+// Using `today` for their lastmod tells crawlers to re-fetch them every
+// deploy even when the underlying data is unchanged — a waste of crawl
+// budget given there are ~100k such URLs. Use the latest election date
+// instead so lastmod stays stable between elections.
+const latestElectionDate = election.replace(/_/g, "-");
+// For election-data files, prefer the election date over the source-file
+// mtime (which moves to today on every prod rebuild). Falls back to the
+// file mtime / today for non-election sources.
+const electionAwareMod = (file: string): string => {
+  if (file.includes(`/${election}/`) || file.includes(`/public/${election}/`)) {
+    return latestElectionDate;
+  }
+  return safeFileMod(file);
+};
 
 // Per-segment percent-encode so Cyrillic and spaces (e.g. candidate names)
 // produce RFC 3986 compliant URLs. Leading slash is preserved.
@@ -47,7 +63,7 @@ const safeFileMod = (file: string): string => {
 };
 
 const routeXML = (url: string, file: string): string =>
-  urlEntry(url, safeFileMod(path.resolve(projectPath, file)));
+  urlEntry(url, electionAwareMod(path.resolve(projectPath, file)));
 
 // Bucket assignment — keep each bucket under the per-file 50,000 URL cap and
 // keyed by URL family so search engines refresh independent shards.
@@ -99,12 +115,11 @@ const enumerateParties = (
   const partiesFileName = `${projectPath}/public/${election}/cik_parties.json`;
   const data = fs.readFileSync(partiesFileName, "utf-8");
   const parties: PartyInfo[] = JSON.parse(data);
-  const lastmod = safeFileMod(partiesFileName);
   for (const party of parties) {
     expandWithSubTabs(
       `${rootUrl}/${routes[0]}${party.nickName}`,
       route.subTabs,
-      lastmod,
+      latestElectionDate,
     );
   }
 };
@@ -116,12 +131,11 @@ const enumerateSections = (
 ) => {
   const idxFile = `${projectPath}/public/${election}/sections_index.json`;
   const idx: SectionIndex[] = JSON.parse(fs.readFileSync(idxFile, "utf-8"));
-  const lastmod = safeFileMod(idxFile);
   for (const { section } of idx) {
     expandWithSubTabs(
       `${rootUrl}/${routes[0]}${section}`,
       route.subTabs,
-      lastmod,
+      latestElectionDate,
     );
   }
 };
@@ -144,7 +158,7 @@ const enumerateEkatteFromBundles = (
       expandWithSubTabs(
         `${rootUrl}/${routes[0]}${s.ekatte}`,
         route.subTabs,
-        today,
+        latestElectionDate,
       );
     }
   }
@@ -169,7 +183,11 @@ const enumerateCandidates = (
     }
   }
   for (const name of names) {
-    expandWithSubTabs(`${rootUrl}/${routes[0]}${name}`, route.subTabs, today);
+    expandWithSubTabs(
+      `${rootUrl}/${routes[0]}${name}`,
+      route.subTabs,
+      latestElectionDate,
+    );
   }
 };
 
@@ -247,7 +265,7 @@ const getRoute = (route: RouteDef, rootUrl: string) => {
         const fileParts = f.split(".");
         const p = routes.join(fileParts[0]);
         const baseUrl = `${rootUrl}/${p}`;
-        const lastmod = safeFileMod(fileName);
+        const lastmod = electionAwareMod(fileName);
         expandWithSubTabs(baseUrl, route.subTabs, lastmod);
       }
     }

@@ -1,11 +1,7 @@
-import { FC, useCallback, useState } from "react";
+import { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { Share2 } from "lucide-react";
-import { Button } from "@/components/ui/button";
 import { useNationalSummary } from "@/data/dashboard/useNationalSummary";
 import { useElectionContext } from "@/data/ElectionContext";
-import { renderDashboardCard } from "@/ux/cardExport/dashboardCard";
-import { ShareCardDialog } from "@/ux/cardExport/ShareCardDialog";
 import { PartyChangeCard } from "./cards/PartyChangeCard";
 import { TurnoutCard } from "./cards/TurnoutCard";
 import { PaperMachineCard } from "./cards/PaperMachineCard";
@@ -40,12 +36,6 @@ export const DashboardCards: FC = () => {
   const { t } = useTranslation();
   const { data, isLoading } = useNationalSummary();
   const { electionStats } = useElectionContext();
-  const [shareOpen, setShareOpen] = useState(false);
-
-  const renderCard = useCallback(() => {
-    if (!data) return Promise.reject(new Error("no data"));
-    return renderDashboardCard(data);
-  }, [data]);
 
   // electionStats is derived synchronously from in-memory data, so we use it
   // to gate the same set of optional rows in both the skeleton and live
@@ -59,9 +49,6 @@ export const DashboardCards: FC = () => {
     if (!isLoading && !data) return null;
     return (
       <section aria-label={t("dashboard")} className="my-4">
-        <div className="flex justify-end mb-2">
-          <div className="h-8 w-8" />
-        </div>
         <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
           <SkeletonCard />
           <SkeletonCard />
@@ -115,18 +102,6 @@ export const DashboardCards: FC = () => {
 
   return (
     <section aria-label={t("dashboard")} className="my-4">
-      <div className="flex justify-end mb-2">
-        <Button
-          variant="ghost"
-          size="icon"
-          onClick={() => setShareOpen(true)}
-          aria-label={t("share_card_title")}
-          title={t("share_card_button")}
-          className="h-8 w-8 rounded-full text-muted-foreground hover:text-foreground"
-        >
-          <Share2 className="h-4 w-4" />
-        </Button>
-      </div>
       <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
         <PartyChangeCard variant="gainer" change={data.topGainer} />
         <PartyChangeCard variant="loser" change={data.topLoser} />
@@ -186,13 +161,6 @@ export const DashboardCards: FC = () => {
       <div className="grid gap-3 grid-cols-1 mt-3">
         <ArticlesTile />
       </div>
-      <ShareCardDialog
-        open={shareOpen}
-        onOpenChange={setShareOpen}
-        title={t("share_card_title")}
-        filenameBase={`electionsbg-${data.election}`}
-        render={renderCard}
-      />
     </section>
   );
 };

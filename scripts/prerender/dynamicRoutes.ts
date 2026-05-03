@@ -10,7 +10,12 @@ import {
   Votes,
 } from "@/data/dataTypes";
 import { PrerenderRoute, SITE_URL } from "./routes";
-import { buildBreadcrumbLd, buildDatasetLd, buildPersonLd } from "./jsonLd";
+import {
+  buildBreadcrumbLd,
+  buildDatasetLd,
+  buildFaqLd,
+  buildPersonLd,
+} from "./jsonLd";
 import {
   buildElectionLandingBody,
   buildOblastBody,
@@ -18,6 +23,7 @@ import {
   buildPollsAgencyBody,
   buildPollsBody,
   buildSectionBody,
+  buildSectionsListBody,
   buildSettlementBody,
 } from "./bodyBuilders";
 import { buildArticleRoutes } from "./articleRoutes";
@@ -316,9 +322,262 @@ export const buildSettlementRoutes = (
   return result;
 };
 
+// /sections/{ekatte} — high-traffic landing page that lists every section in
+// an EKATTE (Bulgarian settlement, Sofia subdivision, or 2-letter ISO country
+// code for diaspora). Previously served by the SPA fallback only, so Google
+// saw the homepage meta on these. Prerendering them gives each one its own
+// title, description, body, and FAQ JSON-LD (diaspora only).
+export const buildSectionsListRoutes = (
+  publicFolder: string,
+  latestElection: string,
+  oblastNames: Map<string, string>,
+): PrerenderRoute[] => {
+  const byOblastDir = path.join(
+    publicFolder,
+    latestElection,
+    "sections",
+    "by-oblast",
+  );
+  if (!fs.existsSync(byOblastDir)) return [];
+
+  const partiesFile = path.join(
+    publicFolder,
+    latestElection,
+    "cik_parties.json",
+  );
+  const partyLabels = new Map<number, string>();
+  if (fs.existsSync(partiesFile)) {
+    const parties: PartyInfo[] = JSON.parse(
+      fs.readFileSync(partiesFile, "utf-8"),
+    );
+    for (const p of parties) partyLabels.set(p.number, p.nickName || p.name);
+  }
+
+  type EkatteAgg = {
+    ekatte: string;
+    sections: SectionInfo[];
+    isDiaspora: boolean;
+    oblastCode: string;
+  };
+  const byEkatte = new Map<string, EkatteAgg>();
+  for (const f of fs.readdirSync(byOblastDir)) {
+    if (!f.endsWith(".json")) continue;
+    let data: Record<string, SectionInfo>;
+    try {
+      data = JSON.parse(fs.readFileSync(path.join(byOblastDir, f), "utf-8"));
+    } catch {
+      continue;
+    }
+    for (const sec of Object.values(data)) {
+      if (!sec.ekatte) continue;
+      let agg = byEkatte.get(sec.ekatte);
+      if (!agg) {
+        agg = {
+          ekatte: sec.ekatte,
+          sections: [],
+          isDiaspora: sec.oblast === "32",
+          oblastCode: sec.oblast,
+        };
+        byEkatte.set(sec.ekatte, agg);
+      }
+      agg.sections.push(sec);
+    }
+  }
+
+  // Display name lookup from settlement bundles (BG settlements + diaspora
+  // countries). Sofia subdivisions like "68134-2302" aren't in this map and
+  // are derived from section data below.
+  const settlementMeta = new Map<string, { displayName: string }>();
+  const settlementsBy = path.join(
+    publicFolder,
+    latestElection,
+    "settlements",
+    "by",
+  );
+  if (fs.existsSync(settlementsBy)) {
+    for (const f of fs.readdirSync(settlementsBy)) {
+      if (!f.endsWith(".json")) continue;
+      let bundle: SettlementBundleEntry[];
+      try {
+        bundle = JSON.parse(
+          fs.readFileSync(path.join(settlementsBy, f), "utf-8"),
+        );
+      } catch {
+        continue;
+      }
+      for (const s of bundle) {
+        if (!s.ekatte) continue;
+        const name = `${s.t_v_m ? s.t_v_m + " " : ""}${s.name ?? ""}`.trim();
+        if (name) settlementMeta.set(s.ekatte, { displayName: name });
+      }
+    }
+  }
+
+  const electionDateLabel = formatElectionDateBg(latestElection);
+  const electionYear = latestElection.slice(0, 4);
+  const FAQ_DIASPORA = [
+    {
+      question: "Кой може да гласува в чужбина?",
+      answer:
+        "Български граждани с навършени 18 години към изборния ден, без значение от постоянния им адрес.",
+    },
+    {
+      question: "Какви документи са необходими за гласуване?",
+      answer:
+        "Валидна българска лична карта или паспорт. Не се изисква предварителна регистрация в деня на изборите за вече разкритите секции.",
+    },
+    {
+      question: "Кога работят избирателните секции в чужбина?",
+      answer:
+        "Обикновено от 7:00 до 20:00 по местно време. Чакащите пред секцията в 20:00 имат право да гласуват.",
+    },
+  ];
+
+  const result: PrerenderRoute[] = [];
+  for (const [ekatte, agg] of byEkatte) {
+    let displayName: string;
+    if (agg.isDiaspora) {
+      const meta = settlementMeta.get(ekatte);
+      const fallback = agg.sections[0]?.settlement?.split(",")[0]?.trim();
+      displayName = meta?.displayName || fallback || ekatte;
+    } else {
+      const meta = settlementMeta.get(ekatte);
+      if (meta) {
+        displayName = meta.displayName;
+      } else {
+        const settle =
+          agg.sections[0]?.settlement?.trim() || `EKATTE ${ekatte}`;
+        displayName = /^68134-/.test(ekatte)
+          ? `${settle} (район ${ekatte.replace("68134-", "")})`
+          : settle;
+      }
+    }
+    const oblastName =
+      !agg.isDiaspora && agg.oblastCode
+        ? oblastNames.get(agg.oblastCode)
+        : undefined;
+
+    let registered = 0;
+    let actual = 0;
+    const partyVotes = new Map<number, number>();
+    for (const s of agg.sections) {
+      registered += s.results?.protocol?.numRegisteredVoters ?? 0;
+      actual += s.results?.protocol?.totalActualVoters ?? 0;
+      const votes = s.results?.votes ?? [];
+      for (const v of votes) {
+        partyVotes.set(
+          v.partyNum,
+          (partyVotes.get(v.partyNum) ?? 0) + (v.totalVotes ?? 0),
+        );
+      }
+    }
+    const turnoutPct = registered > 0 ? (actual / registered) * 100 : 0;
+    const totalVotes = [...partyVotes.values()].reduce((a, b) => a + b, 0);
+    const topParties =
+      totalVotes > 0
+        ? [...partyVotes.entries()]
+            .sort((a, b) => b[1] - a[1])
+            .slice(0, 5)
+            .map(([num, votes]) => ({
+              nickName: partyLabels.get(num) ?? `№${num}`,
+              totalVotes: votes,
+              pct: (votes / totalVotes) * 100,
+            }))
+        : [];
+
+    const sortedSections = [...agg.sections].sort((a, b) =>
+      a.section.localeCompare(b.section),
+    );
+    const sectionItems = sortedSections.map((s) => {
+      const settle = s.settlement?.trim() ?? "";
+      const ci = settle.indexOf(",");
+      return {
+        section: s.section,
+        address: s.address,
+        cityLabel:
+          agg.isDiaspora && ci >= 0 ? settle.slice(ci + 1).trim() : undefined,
+      };
+    });
+
+    const placeLabel = oblastName
+      ? `${displayName}, обл. ${oblastName}`
+      : displayName;
+    const url = `${SITE_URL}/sections/${ekatte}`;
+    const sectionCount = sortedSections.length;
+    const title = agg.isDiaspora
+      ? `Избирателни секции в ${displayName} ${electionYear} — Парламентарни избори в България | electionsbg.com`
+      : `Избирателни секции в ${placeLabel} — Парламентарни избори ${electionYear} | electionsbg.com`;
+    const description = agg.isDiaspora
+      ? `Списък на ${sectionCount} избирателни секции за гласуване в ${displayName} на парламентарния вот ${electionDateLabel} — градове, адреси и резултати.`
+      : `${sectionCount} избирателни секции в ${placeLabel} с адреси и резултати по партии за парламентарния вот ${electionDateLabel}.`;
+
+    const breadcrumb = agg.isDiaspora
+      ? [
+          { name: "Начало", url: `${SITE_URL}/` },
+          { name: `Секции в ${displayName}`, url },
+        ]
+      : oblastName && agg.oblastCode
+        ? [
+            { name: "Начало", url: `${SITE_URL}/` },
+            {
+              name: `Област ${oblastName}`,
+              url: `${SITE_URL}/municipality/${agg.oblastCode}`,
+            },
+            { name: `Секции в ${displayName}`, url },
+          ]
+        : [
+            { name: "Начало", url: `${SITE_URL}/` },
+            { name: `Секции в ${displayName}`, url },
+          ];
+
+    const jsonLd: object[] = [
+      buildDatasetLd({
+        name: `Избирателни секции — ${placeLabel}`,
+        description,
+        url,
+        spatialCoverage: placeLabel,
+        keywords: [
+          "избирателни секции",
+          "секции за гласуване",
+          displayName,
+          "парламентарни избори",
+        ],
+      }),
+      buildBreadcrumbLd(breadcrumb),
+    ];
+    if (agg.isDiaspora) {
+      jsonLd.push(buildFaqLd(FAQ_DIASPORA));
+    }
+
+    result.push({
+      path: `sections/${ekatte}`,
+      title,
+      description,
+      bodyHtml: buildSectionsListBody({
+        ekatte,
+        displayName,
+        oblastName,
+        oblastCode: agg.isDiaspora ? undefined : agg.oblastCode,
+        isDiaspora: agg.isDiaspora,
+        electionDateLabel,
+        sections: sectionItems,
+        aggregate:
+          actual > 0 || topParties.length > 0
+            ? { registered, actual, turnoutPct, topParties }
+            : undefined,
+      }),
+      jsonLd,
+    });
+  }
+  return result;
+};
+
 type CandidateAggregate = {
   parties: Set<string>;
   elections: Set<string>;
+  // Per-election entries — used to render a "Кандидатствания" history table.
+  // A candidate may run on multiple lists in one cycle (rare); keep all rows.
+  history: Array<{ folder: string; partyLabel: string; oblast: string }>;
 };
 
 type MpIndexEntry = {
@@ -388,6 +647,8 @@ const buildCandidateBody = (
   yearSpan: string,
   indexEntry: MpIndexEntry | undefined,
   profile: RawMpProfile | null,
+  history: Array<{ folder: string; partyLabel: string; oblast: string }>,
+  oblastNames: Map<string, string>,
 ): string => {
   const parts: string[] = [];
   parts.push(`<h1>${escapeHtmlSimple(name)}</h1>`);
@@ -445,6 +706,35 @@ const buildCandidateBody = (
     parts.push(`<ul>${facts.map((f) => `<li>${f}</li>`).join("")}</ul>`);
   }
 
+  if (history.length > 0) {
+    // Sort newest-first; the first row is what the candidate's name most often
+    // resolves to in current search intent.
+    const sorted = [...history].sort((a, b) =>
+      b.folder.localeCompare(a.folder),
+    );
+    parts.push(`<h2>Кандидатствания</h2>`);
+    parts.push(
+      `<table><thead><tr><th>Избори</th><th>Листа</th><th>Област</th></tr></thead><tbody>`,
+    );
+    for (const h of sorted) {
+      const dateLabel = formatElectionDateBg(h.folder);
+      const partyCell = h.partyLabel.startsWith("№")
+        ? escapeHtmlSimple(h.partyLabel)
+        : `<a href="${SITE_URL}/party/${encodeURIComponent(h.partyLabel)}">${escapeHtmlSimple(h.partyLabel)}</a>`;
+      const oblastLabel = h.oblast
+        ? (oblastNames.get(h.oblast) ?? h.oblast)
+        : "";
+      const oblastCell =
+        h.oblast && oblastNames.has(h.oblast)
+          ? `<a href="${SITE_URL}/municipality/${h.oblast}">${escapeHtmlSimple(oblastLabel)}</a>`
+          : escapeHtmlSimple(oblastLabel);
+      parts.push(
+        `<tr><td>${escapeHtmlSimple(dateLabel)}</td><td>${partyCell}</td><td>${oblastCell}</td></tr>`,
+      );
+    }
+    parts.push(`</tbody></table>`);
+  }
+
   if (indexEntry?.id) {
     parts.push(
       `<p><a href="https://www.parliament.bg/bg/MP/${indexEntry.id}" rel="nofollow noopener">parliament.bg</a></p>`,
@@ -455,6 +745,7 @@ const buildCandidateBody = (
 
 export const buildCandidateRoutes = (
   publicFolder: string,
+  oblastNames: Map<string, string>,
 ): PrerenderRoute[] => {
   if (!fs.existsSync(publicFolder)) return [];
   const electionFolders = fs
@@ -517,12 +808,20 @@ export const buildCandidateRoutes = (
       if (!c.name) continue;
       let agg = byName.get(c.name);
       if (!agg) {
-        agg = { parties: new Set(), elections: new Set() };
+        agg = { parties: new Set(), elections: new Set(), history: [] };
         byName.set(c.name, agg);
       }
       agg.elections.add(folder);
-      const partyLabel = partyMap?.get(c.partyNum);
-      if (partyLabel) agg.parties.add(partyLabel);
+      const partyLabel = partyMap?.get(c.partyNum) ?? `№${c.partyNum}`;
+      if (partyMap?.get(c.partyNum)) agg.parties.add(partyLabel);
+      const key = `${folder}|${partyLabel}|${c.oblast ?? ""}`;
+      if (
+        !agg.history.some(
+          (h) => `${h.folder}|${h.partyLabel}|${h.oblast}` === key,
+        )
+      ) {
+        agg.history.push({ folder, partyLabel, oblast: c.oblast ?? "" });
+      }
     }
   }
 
@@ -603,6 +902,8 @@ export const buildCandidateRoutes = (
         yearSpan,
         indexEntry,
         profile,
+        agg.history,
+        oblastNames,
       ),
       jsonLd: [
         personLd,
@@ -659,6 +960,117 @@ export const buildSectionRoutes = (
       fs.readFileSync(partiesFile, "utf-8"),
     );
     for (const p of parties) partyLabels.set(p.number, p.nickName || p.name);
+  }
+
+  // Settlement aggregates — turnout + winning party — used to give every
+  // section a settlement-relative comparison line in the prerendered body.
+  type SettlementAgg = {
+    settlementName: string;
+    turnoutPct: number;
+    winnerPartyNum: number;
+    winnerNickName: string;
+    winnerPct: number;
+  };
+  const settlementAgg = new Map<string, SettlementAgg>();
+  const settlementsBy = path.join(
+    publicFolder,
+    latestElection,
+    "settlements",
+    "by",
+  );
+  if (fs.existsSync(settlementsBy)) {
+    type SettlementBundle = {
+      ekatte?: string;
+      name?: string;
+      t_v_m?: string;
+      results?: {
+        protocol?: {
+          numRegisteredVoters?: number;
+          totalActualVoters?: number;
+        };
+        votes?: Array<{ partyNum: number; totalVotes: number }>;
+      };
+    };
+    for (const f of fs.readdirSync(settlementsBy)) {
+      if (!f.endsWith(".json")) continue;
+      let bundle: SettlementBundle[];
+      try {
+        bundle = JSON.parse(
+          fs.readFileSync(path.join(settlementsBy, f), "utf-8"),
+        );
+      } catch {
+        continue;
+      }
+      for (const s of bundle) {
+        if (!s.ekatte || !s.results) continue;
+        const reg = s.results.protocol?.numRegisteredVoters ?? 0;
+        const act = s.results.protocol?.totalActualVoters ?? 0;
+        if (reg <= 0) continue;
+        const votes = s.results.votes ?? [];
+        const total = votes.reduce((a, v) => a + (v.totalVotes ?? 0), 0);
+        if (total <= 0) continue;
+        let top = votes[0];
+        for (const v of votes)
+          if ((v.totalVotes ?? 0) > (top.totalVotes ?? 0)) top = v;
+        const settlementName =
+          `${s.t_v_m ? s.t_v_m + " " : ""}${s.name ?? ""}`.trim();
+        settlementAgg.set(s.ekatte, {
+          settlementName,
+          turnoutPct: (act / reg) * 100,
+          winnerPartyNum: top.partyNum,
+          winnerNickName: partyLabels.get(top.partyNum) ?? `№${top.partyNum}`,
+          winnerPct: (top.totalVotes / total) * 100,
+        });
+      }
+    }
+  }
+
+  // National pct per party — for the "vs нац." delta column in the section
+  // top-parties table.
+  const nationalPctByParty = new Map<number, number>();
+  const nsFile = path.join(
+    publicFolder,
+    latestElection,
+    "national_summary.json",
+  );
+  if (fs.existsSync(nsFile)) {
+    try {
+      const ns: NationalSummaryFile = JSON.parse(
+        fs.readFileSync(nsFile, "utf-8"),
+      );
+      for (const p of ns.parties) nationalPctByParty.set(p.partyNum, p.pct);
+    } catch {
+      // ignore
+    }
+  }
+
+  // Risk-neighborhood flag per section — adds a paragraph on flagged sections.
+  const flaggedSections = new Map<string, { name: string; city: string }>();
+  const psFile = path.join(
+    publicFolder,
+    latestElection,
+    "problem_sections.json",
+  );
+  if (fs.existsSync(psFile)) {
+    try {
+      const ps: {
+        neighborhoods: Array<{
+          name_bg: string;
+          city_bg: string;
+          sections: Array<{ section: string }>;
+        }>;
+      } = JSON.parse(fs.readFileSync(psFile, "utf-8"));
+      for (const n of ps.neighborhoods) {
+        for (const sec of n.sections) {
+          flaggedSections.set(sec.section, {
+            name: n.name_bg,
+            city: n.city_bg,
+          });
+        }
+      }
+    } catch {
+      // ignore
+    }
   }
 
   const result: PrerenderRoute[] = [];
@@ -723,6 +1135,9 @@ export const buildSectionRoutes = (
         protocol: info?.results?.protocol,
         topVotes,
         totalValidVotes,
+        settlementContext: ekatte ? settlementAgg.get(ekatte) : undefined,
+        nationalPctByParty,
+        flaggedNeighborhood: flaggedSections.get(section),
       }),
       jsonLd: [
         buildDatasetLd({
@@ -1195,8 +1610,9 @@ export const buildDynamicRoutes = (projectRoot: string): PrerenderRoute[] => {
     ...oblastRoutes,
     ...buildOblastSubTabRoutes(regions, oblastParents),
     ...buildSettlementRoutes(publicFolder, latest, oblastNames),
+    ...buildSectionsListRoutes(publicFolder, latest, oblastNames),
     ...buildSectionRoutes(publicFolder, latest, oblastNames),
-    ...buildCandidateRoutes(publicFolder),
+    ...buildCandidateRoutes(publicFolder, oblastNames),
     ...buildPollsRoutes(publicFolder),
     ...buildElectionLandingRoutes(publicFolder, electionsFile),
     ...buildReportRoutes("settlement", SETTLEMENT_REPORTS),

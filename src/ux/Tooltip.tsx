@@ -17,9 +17,17 @@ export const Tooltip: FC<
 > = ({ content, children, className }) => {
   const isTouch = useTouch();
   if (isTouch) {
+    // Wrap in a span with role="button" so Radix's injected `aria-expanded`
+    // / `aria-haspopup` are valid (they're only allowed on button-role
+    // elements). Avoids switching to a real <button>, which would create
+    // invalid nested-interactive HTML when callers wrap inside an <a>.
     return (
       <Popover>
-        <PopoverTrigger asChild>{children}</PopoverTrigger>
+        <PopoverTrigger asChild>
+          <span role="button" tabIndex={0} className="cursor-pointer">
+            {children}
+          </span>
+        </PopoverTrigger>
         <PopoverContent
           className={cn(
             "max-w-72 text-sm bg-primary text-primary-foreground",

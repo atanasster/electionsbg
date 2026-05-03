@@ -49,6 +49,10 @@ export const TopRegionsTile: FC<Props> = ({ parties }) => {
     () => new Map(parties.map((p) => [p.partyNum, p.color ?? "#888"])),
     [parties],
   );
+  const partyNameMap = useMemo(
+    () => new Map(parties.map((p) => [p.partyNum, p.nickName])),
+    [parties],
+  );
 
   const { data: priorVotes } = useQuery({
     queryKey: regionVotesQueryKey(priorElections?.name ?? ""),
@@ -129,6 +133,7 @@ export const TopRegionsTile: FC<Props> = ({ parties }) => {
         }
       }
       const topPartyColor = partyColorMap.get(topPartyNum) ?? "#888";
+      const topPartyName = partyNameMap.get(topPartyNum);
 
       const currentPct = (agg.totalVotes / countryTotal) * 100;
       const priorTotal = priorMap.get(key);
@@ -151,9 +156,18 @@ export const TopRegionsTile: FC<Props> = ({ parties }) => {
         machinePct,
         deltaPct,
         topPartyColor,
+        topPartyName,
       };
     });
-  }, [countryRegions, findRegion, i18n.language, t, partyColorMap, priorVotes]);
+  }, [
+    countryRegions,
+    findRegion,
+    i18n.language,
+    t,
+    partyColorMap,
+    partyNameMap,
+    priorVotes,
+  ]);
 
   if (rows.length === 0) return null;
 
@@ -178,9 +192,12 @@ export const TopRegionsTile: FC<Props> = ({ parties }) => {
       }
       className="overflow-hidden"
     >
-      <div className="grid grid-cols-[minmax(0,1fr)_auto_auto_minmax(80px,1.5fr)_auto_auto] gap-x-3 gap-y-1.5 items-center mt-1 text-sm">
+      <div className="grid grid-cols-[minmax(0,1fr)_auto_auto_auto_minmax(80px,1.5fr)_auto_auto] gap-x-3 gap-y-1.5 items-center mt-1 text-sm">
         <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
           {t("region")}
+        </span>
+        <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
+          {t("dashboard_winner")}
         </span>
         <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground text-right">
           {t("votes")}
@@ -207,6 +224,7 @@ export const TopRegionsTile: FC<Props> = ({ parties }) => {
             machinePct,
             deltaPct,
             topPartyColor,
+            topPartyName,
           }) => (
             <Link
               key={key}
@@ -215,6 +233,19 @@ export const TopRegionsTile: FC<Props> = ({ parties }) => {
               className="contents"
             >
               <span className="truncate font-medium">{name}</span>
+              <span className="flex items-center gap-1.5 min-w-0 text-xs">
+                {topPartyName ? (
+                  <>
+                    <span
+                      className="inline-block h-2 w-2 rounded-full shrink-0"
+                      style={{ backgroundColor: topPartyColor }}
+                    />
+                    <span className="truncate">{topPartyName}</span>
+                  </>
+                ) : (
+                  <span className="text-muted-foreground">—</span>
+                )}
+              </span>
               <span className="tabular-nums text-xs text-muted-foreground text-right">
                 {formatThousands(totalVotes)}
               </span>

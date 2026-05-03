@@ -46,6 +46,21 @@ export type PaperMachineSummary = {
   deltaMachinePct?: number;
 };
 
+export type TopLocation = {
+  ekatte: string;
+  name: string;
+  name_en?: string;
+  sections: number;
+  voters?: number;
+  // Optional override target — used to point Sofia (which is split across many
+  // 68134-* subdivision EKATTEs and has no /sections/68134 page) to /sofia.
+  urlPath?: string;
+  // Winning party at this location (highest totalVotes).
+  winnerPartyNum?: number;
+  winnerNickName?: string;
+  winnerColor?: string;
+};
+
 export type NationalSummary = {
   election: string;
   priorElection?: string;
@@ -61,4 +76,6 @@ export type NationalSummary = {
   anomalies: AnomalyCounts;
   paperMachine?: PaperMachineSummary;
   parties: NationalPartyResult[];
+  topDiaspora?: TopLocation[];
+  topCities?: TopLocation[];
 };

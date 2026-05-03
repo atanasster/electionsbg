@@ -12,6 +12,7 @@ import {
   NationalSummary,
   PaperMachineSummary,
   PartyChange,
+  TopLocation,
 } from "@/data/dashboard/dashboardTypes";
 
 const NATIONAL_THRESHOLD_PCT = 4;
@@ -50,6 +51,225 @@ const readProblemSectionIds = (path: string): string[] => {
   } catch {
     return [];
   }
+};
+
+// Top-N diaspora countries and Bulgarian settlements by section count.
+// Used by the dashboard tiles + prerendered home body to surface high-intent
+// landing pages (people searching "where do I vote in X").
+const computeTopLocations = (
+  publicFolder: string,
+  year: string,
+  parties: PartyInfo[],
+): { topDiaspora: TopLocation[]; topCities: TopLocation[] } => {
+  const byOblastDir = `${publicFolder}/${year}/sections/by-oblast`;
+  const settlementsBy = `${publicFolder}/${year}/settlements/by`;
+  if (!fs.existsSync(byOblastDir)) {
+    return { topDiaspora: [], topCities: [] };
+  }
+
+  // partyNum → { nickName, color } lookup for filling in winner data.
+  const partyMeta = new Map<number, { nickName: string; color?: string }>();
+  for (const p of parties) {
+    partyMeta.set(p.number, { nickName: p.nickName || p.name, color: p.color });
+  }
+
+  // English names live in the global settlements catalog (public/settlements.json),
+  // not in the per-election bundles. Read it once so the dashboard can label
+  // diaspora countries and BG cities in EN when the user selects English UI.
+  const nameEnByEkatte = new Map<string, string>();
+  const globalSettlementsFile = `${publicFolder}/settlements.json`;
+  if (fs.existsSync(globalSettlementsFile)) {
+    try {
+      const all: Array<{ ekatte?: string; name_en?: string }> = JSON.parse(
+        fs.readFileSync(globalSettlementsFile, "utf-8"),
+      );
+      for (const s of all) {
+        if (s.ekatte && s.name_en) nameEnByEkatte.set(s.ekatte, s.name_en);
+      }
+    } catch {
+      // ignore
+    }
+  }
+
+  type Meta = {
+    name: string;
+    name_en?: string;
+    t_v_m?: string;
+    isDiaspora: boolean;
+  };
+  const meta = new Map<string, Meta>();
+  if (fs.existsSync(settlementsBy)) {
+    for (const f of fs.readdirSync(settlementsBy)) {
+      if (!f.endsWith(".json")) continue;
+      try {
+        const bundle: Array<{
+          ekatte?: string;
+          name?: string;
+          name_en?: string;
+          t_v_m?: string;
+          oblast?: string;
+        }> = JSON.parse(fs.readFileSync(`${settlementsBy}/${f}`, "utf-8"));
+        for (const s of bundle) {
+          if (!s.ekatte || !s.name) continue;
+          meta.set(s.ekatte, {
+            name: s.name,
+            name_en: s.name_en ?? nameEnByEkatte.get(s.ekatte),
+            t_v_m: s.t_v_m,
+            isDiaspora: s.oblast === "32",
+          });
+        }
+      } catch {
+        // ignore malformed bundle
+      }
+    }
+  }
+
+  type Agg = {
+    count: number;
+    voters: number;
+    isDiaspora: boolean;
+    partyVotes: Map<number, number>;
+  };
+  const counts = new Map<string, Agg>();
+  // Sofia City spans МИР 23, 24 and 25 — the city proper (ekatte 68134-*)
+  // PLUS the villages of Stolichna Obshtina (Bankya, Bistritsa, Dragalevtsi,
+  // Vladaya, etc., which have their own EKATTEs). Aggregate every section
+  // in those three MIRs under the synthetic key "sofia" so the Sofia entry
+  // matches the Top Regions tile (which uses the same MIR aggregation).
+  const SOFIA_KEY = "sofia";
+  const SOFIA_REGIONS = new Set(["23", "24", "25"]);
+  for (const f of fs.readdirSync(byOblastDir)) {
+    if (!f.endsWith(".json")) continue;
+    try {
+      const data: Record<
+        string,
+        {
+          ekatte?: string;
+          oblast?: string;
+          region?: string;
+          results?: {
+            protocol?: { totalActualVoters?: number };
+            votes?: Array<{ partyNum: number; totalVotes: number }>;
+          };
+        }
+      > = JSON.parse(fs.readFileSync(`${byOblastDir}/${f}`, "utf-8"));
+      for (const sec of Object.values(data)) {
+        if (!sec.ekatte) continue;
+        const key = SOFIA_REGIONS.has(sec.region ?? "")
+          ? SOFIA_KEY
+          : sec.ekatte;
+        const cur = counts.get(key) ?? {
+          count: 0,
+          voters: 0,
+          isDiaspora: sec.oblast === "32",
+          partyVotes: new Map<number, number>(),
+        };
+        cur.count++;
+        cur.voters += sec.results?.protocol?.totalActualVoters ?? 0;
+        for (const v of sec.results?.votes ?? []) {
+          cur.partyVotes.set(
+            v.partyNum,
+            (cur.partyVotes.get(v.partyNum) ?? 0) + (v.totalVotes ?? 0),
+          );
+        }
+        counts.set(key, cur);
+      }
+    } catch {
+      // ignore malformed file
+    }
+  }
+
+  const findWinner = (
+    pv: Map<number, number>,
+  ): Pick<TopLocation, "winnerPartyNum" | "winnerNickName" | "winnerColor"> => {
+    let topNum = 0;
+    let topVotes = 0;
+    for (const [num, votes] of pv) {
+      if (votes > topVotes) {
+        topVotes = votes;
+        topNum = num;
+      }
+    }
+    if (topVotes === 0) return {};
+    const m = partyMeta.get(topNum);
+    return {
+      winnerPartyNum: topNum,
+      winnerNickName: m?.nickName ?? `№${topNum}`,
+      winnerColor: m?.color,
+    };
+  };
+
+  const items: Array<TopLocation & { isDiaspora: boolean }> = [];
+  for (const [ekatte, agg] of counts) {
+    const winner = findWinner(agg.partyVotes);
+    if (ekatte === SOFIA_KEY) {
+      items.push({
+        ekatte: SOFIA_KEY,
+        name: "гр. София",
+        name_en: "Sofia",
+        sections: agg.count,
+        voters: agg.voters,
+        urlPath: "/sofia",
+        isDiaspora: false,
+        ...winner,
+      });
+      continue;
+    }
+    const m = meta.get(ekatte);
+    const name = m ? `${m.t_v_m ? m.t_v_m + " " : ""}${m.name}`.trim() : ekatte;
+    items.push({
+      ekatte,
+      name,
+      name_en: m?.name_en,
+      sections: agg.count,
+      voters: agg.voters,
+      isDiaspora: m?.isDiaspora ?? agg.isDiaspora,
+      ...winner,
+    });
+  }
+  const strip = (
+    arr: Array<TopLocation & { isDiaspora: boolean }>,
+  ): TopLocation[] =>
+    arr.map(
+      ({
+        ekatte,
+        name,
+        name_en,
+        sections,
+        voters,
+        urlPath,
+        winnerPartyNum,
+        winnerNickName,
+        winnerColor,
+      }) => ({
+        ekatte,
+        name,
+        name_en,
+        sections,
+        voters,
+        ...(urlPath ? { urlPath } : {}),
+        ...(winnerPartyNum != null ? { winnerPartyNum } : {}),
+        ...(winnerNickName ? { winnerNickName } : {}),
+        ...(winnerColor ? { winnerColor } : {}),
+      }),
+    );
+  // Rank by voter count — section count is a logistics signal but voters is
+  // what users actually care about (and matches the GSC traffic pattern).
+  const byVoters = (a: TopLocation, b: TopLocation) =>
+    (b.voters ?? 0) - (a.voters ?? 0);
+  const topDiaspora = strip(
+    items
+      .filter((e) => e.isDiaspora)
+      .sort(byVoters)
+      .slice(0, 10),
+  );
+  const topCities = strip(
+    items
+      .filter((e) => !e.isDiaspora)
+      .sort(byVoters)
+      .slice(0, 10),
+  );
+  return { topDiaspora, topCities };
 };
 
 const computeAnomalies = (
@@ -271,6 +491,12 @@ export const generateNationalSummary = ({
 
   const paperMachine = computePaperMachine(currentVotes, priorVotes);
 
+  const { topDiaspora, topCities } = computeTopLocations(
+    publicFolder,
+    year,
+    parties,
+  );
+
   const summary: NationalSummary = {
     election: year,
     priorElection: priorElection?.name,
@@ -290,6 +516,8 @@ export const generateNationalSummary = ({
     anomalies,
     paperMachine,
     parties: partyResults,
+    topDiaspora,
+    topCities,
   };
 
   const outFile = `${publicFolder}/${year}/national_summary.json`;
