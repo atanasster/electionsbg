@@ -1,0 +1,47 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:737",
+  "nodes": [
+    {
+      "id": "mp:737",
+      "type": "mp",
+      "mpId": 737,
+      "label": "ЦОНКО КИРОВ КИРОВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:115776726",
+      "type": "company",
+      "label": "НАЙСИ КАР",
+      "slug": null,
+      "uic": "115776726",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:СТОЯН ИЛИЕВ ИЛИЕВ",
+      "type": "person",
+      "label": "СТОЯН ИЛИЕВ ИЛИЕВ"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:737",
+      "target": "company:tr:115776726",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТОЯН ИЛИЕВ ИЛИЕВ",
+      "target": "company:tr:115776726",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

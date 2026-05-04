@@ -1,0 +1,118 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:3655",
+  "nodes": [
+    {
+      "id": "mp:3655",
+      "type": "mp",
+      "mpId": 3655,
+      "label": "АСЕН ГЕОРГИЕВ БАЛТОВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:130345786",
+      "type": "company",
+      "label": "УНИВЕРСИТЕТСКА МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ И СПЕШНА МЕДИЦИНА Н.И. ПИРОГОВ",
+      "slug": null,
+      "uic": "130345786",
+      "legalForm": "EAD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:3169",
+      "type": "mp",
+      "mpId": 3169,
+      "label": "ПЛАМЕН ИВАНОВ МИЛЕВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "person:ВАЛЕНТИН ДИМИТРОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "ВАЛЕНТИН ДИМИТРОВ ДИМИТРОВ"
+    },
+    {
+      "id": "person:ЖИВКА СЕВДАЛИНОВА САВОВА",
+      "type": "person",
+      "label": "ЖИВКА СЕВДАЛИНОВА САВОВА"
+    },
+    {
+      "id": "person:ИВАН ГЕОРГИЕВ ПОРОМАНСКИ",
+      "type": "person",
+      "label": "Иван Георгиев Поромански"
+    },
+    {
+      "id": "person:ЗЛАТИНА ГЕОРГИЕВА ГЕОРГИЕВА",
+      "type": "person",
+      "label": "ЗЛАТИНА ГЕОРГИЕВА ГЕОРГИЕВА"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3655",
+      "target": "company:tr:130345786",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3169",
+      "target": "company:tr:130345786",
+      "kind": "tr_role",
+      "role": "procurator",
+      "isCurrent": false,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВАЛЕНТИН ДИМИТРОВ ДИМИТРОВ",
+      "target": "company:tr:130345786",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖИВКА СЕВДАЛИНОВА САВОВА",
+      "target": "company:tr:130345786",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ГЕОРГИЕВ ПОРОМАНСКИ",
+      "target": "company:tr:130345786",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ГЕОРГИЕВ ПОРОМАНСКИ",
+      "target": "company:tr:130345786",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН ДИМИТРОВ ДИМИТРОВ",
+      "target": "company:tr:130345786",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗЛАТИНА ГЕОРГИЕВА ГЕОРГИЕВА",
+      "target": "company:tr:130345786",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

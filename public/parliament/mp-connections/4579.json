@@ -1,0 +1,34 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:4579",
+  "nodes": [
+    {
+      "id": "mp:4579",
+      "type": "mp",
+      "mpId": 4579,
+      "label": "ЗАХАРИ ГЕОРГИЕВ БОРАЧЕВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:127586318",
+      "type": "company",
+      "label": "Н.Н - АВИОХИМ",
+      "slug": null,
+      "uic": "127586318",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Шумен, 9700"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4579",
+      "target": "company:tr:127586318",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

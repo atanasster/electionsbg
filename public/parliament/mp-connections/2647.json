@@ -1,0 +1,70 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:2647",
+  "nodes": [
+    {
+      "id": "mp:2647",
+      "type": "mp",
+      "mpId": 2647,
+      "label": "ДИМИТЪР КРУМОВ АЛЕКСАНДРОВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:АЛ-И-КО-АД",
+      "type": "company",
+      "label": "АЛ И КО АД",
+      "slug": "АЛ-И-КО-АД",
+      "uic": "127003032",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": "Шумен"
+    },
+    {
+      "id": "company:ЕТЕР-К-ЕООД",
+      "type": "company",
+      "label": "ЕТЕР К ЕООД",
+      "slug": "ЕТЕР-К-ЕООД",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "Шумен"
+    },
+    {
+      "id": "company:tr:204832605",
+      "type": "company",
+      "label": "ЕТЕР-К",
+      "slug": null,
+      "uic": "204832605",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Шумен, 9700"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:2647",
+      "target": "company:АЛ-И-КО-АД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2647",
+      "target": "company:ЕТЕР-К-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2647",
+      "target": "company:tr:204832605",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

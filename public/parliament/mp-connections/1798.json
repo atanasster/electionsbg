@@ -1,0 +1,115 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:1798",
+  "nodes": [
+    {
+      "id": "mp:1798",
+      "type": "mp",
+      "mpId": 1798,
+      "label": "ДИМО ПЕТРОВ ПЕТРОВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:115504014",
+      "type": "company",
+      "label": "СИРМА - 99",
+      "slug": null,
+      "uic": "115504014",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:833067459",
+      "type": "company",
+      "label": "ТРАКИЙСКИ ПАМУК",
+      "slug": null,
+      "uic": "833067459",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:ДОБРИН ГЕОРГИЕВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "ДОБРИН ГЕОРГИЕВ ГЕОРГИЕВ"
+    },
+    {
+      "id": "person:ДОНКА КИРИЛОВА ПЕТРОВА",
+      "type": "person",
+      "label": "Донка Кирилова Петрова"
+    },
+    {
+      "id": "person:ПЛАМЕН ПЕТРОВ ПАВЛОВ",
+      "type": "person",
+      "label": "ПЛАМЕН ПЕТРОВ ПАВЛОВ"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:1798",
+      "target": "company:tr:115504014",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1798",
+      "target": "company:tr:833067459",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1798",
+      "target": "company:tr:833067459",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДОБРИН ГЕОРГИЕВ ГЕОРГИЕВ",
+      "target": "company:tr:115504014",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОНКА КИРИЛОВА ПЕТРОВА",
+      "target": "company:tr:833067459",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОНКА КИРИЛОВА ПЕТРОВА",
+      "target": "company:tr:833067459",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ПЕТРОВ ПАВЛОВ",
+      "target": "company:tr:833067459",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОНКА КИРИЛОВА ПЕТРОВА",
+      "target": "company:tr:833067459",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

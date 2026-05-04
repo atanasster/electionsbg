@@ -1,0 +1,34 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:2276",
+  "nodes": [
+    {
+      "id": "mp:2276",
+      "type": "mp",
+      "mpId": 2276,
+      "label": "АЛЕКСАНДЪР ИВАНОВ ГЕРЧЕВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:206588473",
+      "type": "company",
+      "label": "САНДОР 221",
+      "slug": null,
+      "uic": "206588473",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1225"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:2276",
+      "target": "company:tr:206588473",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

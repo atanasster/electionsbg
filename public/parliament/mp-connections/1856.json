@@ -1,0 +1,104 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:1856",
+  "nodes": [
+    {
+      "id": "mp:1856",
+      "type": "mp",
+      "mpId": 1856,
+      "label": "ЙОРДАН ВАСИЛЕВ ЙОРДАНОВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:201751226",
+      "type": "company",
+      "label": "МЕЛТЕРЕА",
+      "slug": null,
+      "uic": "201751226",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:203129867",
+      "type": "company",
+      "label": "ДИОР АУТО",
+      "slug": null,
+      "uic": "203129867",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:БОРЯНА СВЕТОСЛАВОВА ЯНКОВА",
+      "type": "person",
+      "label": "БОРЯНА СВЕТОСЛАВОВА ЯНКОВА"
+    },
+    {
+      "id": "person:ИЛИЯ НИКОЛОВ ИЛИЕВ",
+      "type": "person",
+      "label": "ИЛИЯ НИКОЛОВ ИЛИЕВ"
+    },
+    {
+      "id": "person:АЛЕК НИКОЛАЕВ АНТОНОВ",
+      "type": "person",
+      "label": "АЛЕК НИКОЛАЕВ АНТОНОВ"
+    },
+    {
+      "id": "person:ДИМИТРИЧКА БОРИСОВА ЙОРДАНОВА",
+      "type": "person",
+      "label": "ДИМИТРИЧКА БОРИСОВА ЙОРДАНОВА"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:1856",
+      "target": "company:tr:201751226",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1856",
+      "target": "company:tr:203129867",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:БОРЯНА СВЕТОСЛАВОВА ЯНКОВА",
+      "target": "company:tr:201751226",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯ НИКОЛОВ ИЛИЕВ",
+      "target": "company:tr:201751226",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕК НИКОЛАЕВ АНТОНОВ",
+      "target": "company:tr:201751226",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТРИЧКА БОРИСОВА ЙОРДАНОВА",
+      "target": "company:tr:203129867",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

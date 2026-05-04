@@ -1,0 +1,47 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:2287",
+  "nodes": [
+    {
+      "id": "mp:2287",
+      "type": "mp",
+      "mpId": 2287,
+      "label": "ВАСИЛ НИКОЛАЕВ МИХАЙЛОВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:206458405",
+      "type": "company",
+      "label": "ПАПАЙ 2021",
+      "slug": null,
+      "uic": "206458405",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, с. Хаджиево, 4441"
+    },
+    {
+      "id": "person:ДИМИТЪР АНГЕЛОВ КЕРЕНСКИ",
+      "type": "person",
+      "label": "ДИМИТЪР АНГЕЛОВ КЕРЕНСКИ"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:2287",
+      "target": "company:tr:206458405",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДИМИТЪР АНГЕЛОВ КЕРЕНСКИ",
+      "target": "company:tr:206458405",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

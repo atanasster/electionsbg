@@ -1,0 +1,52 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:2501",
+  "nodes": [
+    {
+      "id": "mp:2501",
+      "type": "mp",
+      "mpId": 2501,
+      "label": "ДИМИТЪР СПАСОВ ДИМИТРОВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:207022604",
+      "type": "company",
+      "label": "В.К.БЪЛГАРИЯ",
+      "slug": null,
+      "uic": "207022604",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Созопол, 8130"
+    },
+    {
+      "id": "company:tr:206749154",
+      "type": "company",
+      "label": "ЗДРАВЕ 01",
+      "slug": null,
+      "uic": "206749154",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Дупница, 2600"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:2501",
+      "target": "company:tr:207022604",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2501",
+      "target": "company:tr:206749154",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

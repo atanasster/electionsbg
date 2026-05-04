@@ -1,0 +1,99 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:3328",
+  "nodes": [
+    {
+      "id": "mp:3328",
+      "type": "mp",
+      "mpId": 3328,
+      "label": "ДИЛЯН ГОСПОДИНОВ ГОСПОДИНОВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:Хонекс-ЕООД",
+      "type": "company",
+      "label": "Хонекс ЕООД",
+      "slug": "Хонекс-ЕООД",
+      "uic": "204127602",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "Добрич"
+    },
+    {
+      "id": "company:tr:130539321",
+      "type": "company",
+      "label": "МЕД-ХОНИГ ВНОС, ИЗНОС",
+      "slug": null,
+      "uic": "130539321",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:201002554",
+      "type": "company",
+      "label": "БГагроимпекс",
+      "slug": null,
+      "uic": "201002554",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:ЯНА ЛЮБЧЕВА ГОСПОДИНОВА",
+      "type": "person",
+      "label": "ЯНА ЛЮБЧЕВА ГОСПОДИНОВА"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3328",
+      "target": "company:Хонекс-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3328",
+      "target": "company:Хонекс-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3328",
+      "target": "company:tr:130539321",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3328",
+      "target": "company:tr:201002554",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЯНА ЛЮБЧЕВА ГОСПОДИНОВА",
+      "target": "company:Хонекс-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНА ЛЮБЧЕВА ГОСПОДИНОВА",
+      "target": "company:tr:130539321",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

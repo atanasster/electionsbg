@@ -1,0 +1,120 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:4223",
+  "nodes": [
+    {
+      "id": "mp:4223",
+      "type": "mp",
+      "mpId": 4223,
+      "label": "НИКОЛАЙ ГЕОРГИЕВ ДРЕНЧЕВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:Братя-Градеви-ООД",
+      "type": "company",
+      "label": "Братя Градеви ООД",
+      "slug": "Братя-Градеви-ООД",
+      "uic": "131293456",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "София (столица)"
+    },
+    {
+      "id": "company:Душкабини-БГ-ЕООД",
+      "type": "company",
+      "label": "Душкабини БГ ЕООД",
+      "slug": "Душкабини-БГ-ЕООД",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "София (столица)"
+    },
+    {
+      "id": "company:Пет-могили-ЕООД",
+      "type": "company",
+      "label": "Пет могили ЕООД",
+      "slug": "Пет-могили-ЕООД",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "София (столица)"
+    },
+    {
+      "id": "company:Скайглас-ООД",
+      "type": "company",
+      "label": "Скайглас ООД",
+      "slug": "Скайглас-ООД",
+      "uic": "130736087",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "София (столица)"
+    },
+    {
+      "id": "mp:5159",
+      "type": "mp",
+      "mpId": 5159,
+      "label": "ДИМО ГЕОРГИЕВ ДРЕНЧЕВ",
+      "partyGroupShort": "ПГ ВЪЗРАЖДАНЕ",
+      "isCurrent": true
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4223",
+      "target": "company:Братя-Градеви-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4223",
+      "target": "company:Душкабини-БГ-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4223",
+      "target": "company:Пет-могили-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4223",
+      "target": "company:Скайглас-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5159",
+      "target": "company:Братя-Градеви-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5159",
+      "target": "company:Братя-Градеви-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5159",
+      "target": "company:Скайглас-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,110 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:3872",
+  "nodes": [
+    {
+      "id": "mp:3872",
+      "type": "mp",
+      "mpId": 3872,
+      "label": "АЛЕКСАНДЪР ГЕОРГИЕВ НИКОЛОВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:204858856",
+      "type": "company",
+      "label": "ТИМИ 1980",
+      "slug": null,
+      "uic": "204858856",
+      "legalForm": "Дружество с ограничена отговорност",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:206626671",
+      "type": "company",
+      "label": "АЛМАНА",
+      "slug": null,
+      "uic": "206626671",
+      "legalForm": "Дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Долна баня, 2040"
+    },
+    {
+      "id": "person:МАРГАРИТА МИНЧЕВА ГЕНЧЕВА",
+      "type": "person",
+      "label": "Маргарита Минчева Генчева"
+    },
+    {
+      "id": "person:МАРИЕТА ВАСИЛЕВА СВИЛЕНОВА",
+      "type": "person",
+      "label": "МАРИЕТА ВАСИЛЕВА СВИЛЕНОВА"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3872",
+      "target": "company:tr:204858856",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3872",
+      "target": "company:tr:204858856",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3872",
+      "target": "company:tr:206626671",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3872",
+      "target": "company:tr:206626671",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРГАРИТА МИНЧЕВА ГЕНЧЕВА",
+      "target": "company:tr:204858856",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРГАРИТА МИНЧЕВА ГЕНЧЕВА",
+      "target": "company:tr:204858856",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЕТА ВАСИЛЕВА СВИЛЕНОВА",
+      "target": "company:tr:206626671",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЕТА ВАСИЛЕВА СВИЛЕНОВА",
+      "target": "company:tr:206626671",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

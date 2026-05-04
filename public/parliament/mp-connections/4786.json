@@ -1,0 +1,70 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:4786",
+  "nodes": [
+    {
+      "id": "mp:4786",
+      "type": "mp",
+      "mpId": 4786,
+      "label": "ПЛАМЕН ТАЧЕВ ПЕТРОВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:Клуб-Амарант",
+      "type": "company",
+      "label": "Клуб Амарант",
+      "slug": "Клуб-Амарант",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "София (столица)"
+    },
+    {
+      "id": "company:Клуб-Амарант-ООД",
+      "type": "company",
+      "label": "Клуб Амарант ООД",
+      "slug": "Клуб-Амарант-ООД",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "София"
+    },
+    {
+      "id": "company:Хримас-ЕООД",
+      "type": "company",
+      "label": "Хримас ЕООД",
+      "slug": "Хримас-ЕООД",
+      "uic": "130917276",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "София (столица)"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4786",
+      "target": "company:Клуб-Амарант",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4786",
+      "target": "company:Клуб-Амарант-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4786",
+      "target": "company:Хримас-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

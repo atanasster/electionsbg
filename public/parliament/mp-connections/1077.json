@@ -1,0 +1,102 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:1077",
+  "nodes": [
+    {
+      "id": "mp:1077",
+      "type": "mp",
+      "mpId": 1077,
+      "label": "ЯНКО ИВАНОВ ЗДРАВКОВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:204467003",
+      "type": "company",
+      "label": "КОСМО КИБУС",
+      "slug": null,
+      "uic": "204467003",
+      "legalForm": "Дружество с ограничена отговорност",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:206217817",
+      "type": "company",
+      "label": "Медицински център Телемедицина България",
+      "slug": null,
+      "uic": "206217817",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:СНЕЖАНА КАРАМФИЛОВА КАРОВА",
+      "type": "person",
+      "label": "СНЕЖАНА КАРАМФИЛОВА КАРОВА"
+    },
+    {
+      "id": "person:НИНА ДИМИТРОВА ПЕТРОВА-КАШКИНА",
+      "type": "person",
+      "label": "НИНА ДИМИТРОВА ПЕТРОВА-КАШКИНА"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:1077",
+      "target": "company:tr:204467003",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1077",
+      "target": "company:tr:204467003",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1077",
+      "target": "company:tr:206217817",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СНЕЖАНА КАРАМФИЛОВА КАРОВА",
+      "target": "company:tr:204467003",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИНА ДИМИТРОВА ПЕТРОВА-КАШКИНА",
+      "target": "company:tr:204467003",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СНЕЖАНА КАРАМФИЛОВА КАРОВА",
+      "target": "company:tr:204467003",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИНА ДИМИТРОВА ПЕТРОВА-КАШКИНА",
+      "target": "company:tr:204467003",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

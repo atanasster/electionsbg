@@ -1,0 +1,52 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:5229",
+  "nodes": [
+    {
+      "id": "mp:5229",
+      "type": "mp",
+      "mpId": 5229,
+      "label": "БОЖИДАР ПЛАМЕНОВ БОЖАНОВ",
+      "partyGroupShort": "ПГ ДБ",
+      "isCurrent": true
+    },
+    {
+      "id": "company:Мадж.ио",
+      "type": "company",
+      "label": "Мадж.ио",
+      "slug": "Мадж.ио",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "София (столица)"
+    },
+    {
+      "id": "company:LogSentinel-B.V.-(чуждестранно)",
+      "type": "company",
+      "label": "LogSentinel B.V. (чуждестранно)",
+      "slug": "LogSentinel-B.V.-(чуждестранно)",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "София (столица)"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5229",
+      "target": "company:Мадж.ио",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5229",
+      "target": "company:LogSentinel-B.V.-(чуждестранно)",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

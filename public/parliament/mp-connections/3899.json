@@ -1,0 +1,52 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:3899",
+  "nodes": [
+    {
+      "id": "mp:3899",
+      "type": "mp",
+      "mpId": 3899,
+      "label": "ЙОРДАНКА ЯНИКОВА КОСТАДИНОВА",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:ИКО-2010",
+      "type": "company",
+      "label": "ИКО 2010",
+      "slug": "ИКО-2010",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "Варна"
+    },
+    {
+      "id": "company:СТАР-СПОРТ",
+      "type": "company",
+      "label": "СТАР СПОРТ",
+      "slug": "СТАР-СПОРТ",
+      "uic": "103845431",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Варна"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3899",
+      "target": "company:ИКО-2010",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3899",
+      "target": "company:СТАР-СПОРТ",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

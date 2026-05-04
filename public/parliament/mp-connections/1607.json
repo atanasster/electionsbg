@@ -1,0 +1,47 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:1607",
+  "nodes": [
+    {
+      "id": "mp:1607",
+      "type": "mp",
+      "mpId": 1607,
+      "label": "ЛЮБЕН ПЕТРОВ ТАТАРСКИ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:205497316",
+      "type": "company",
+      "label": "ПИРИН ЕЛИТ ИМОТИ 2019",
+      "slug": null,
+      "uic": "205497316",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:ХАМЕФА",
+      "type": "person",
+      "label": "ХАМЕФА"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:1607",
+      "target": "company:tr:205497316",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ХАМЕФА",
+      "target": "company:tr:205497316",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

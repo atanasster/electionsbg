@@ -1,0 +1,47 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:5182",
+  "nodes": [
+    {
+      "id": "mp:5182",
+      "type": "mp",
+      "mpId": 5182,
+      "label": "БОРИСЛАВ ПЛАМЕНОВ ГЕОРГИЕВ",
+      "partyGroupShort": "ПГ на ПБ",
+      "isCurrent": true
+    },
+    {
+      "id": "company:tr:206013217",
+      "type": "company",
+      "label": "ВЕМЕРЕА",
+      "slug": null,
+      "uic": "206013217",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:СВЕТОСЛАВ АЛЕКСАНДРОВ ДОКОВ",
+      "type": "person",
+      "label": "СВЕТОСЛАВ АЛЕКСАНДРОВ ДОКОВ"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5182",
+      "target": "company:tr:206013217",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СВЕТОСЛАВ АЛЕКСАНДРОВ ДОКОВ",
+      "target": "company:tr:206013217",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

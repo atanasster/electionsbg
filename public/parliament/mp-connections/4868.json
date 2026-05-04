@@ -1,0 +1,104 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:4868",
+  "nodes": [
+    {
+      "id": "mp:4868",
+      "type": "mp",
+      "mpId": 4868,
+      "label": "ВЕНЦИСЛАВ МИХАЙЛОВ АСЕНОВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:ВМ-Систем-ЕООД",
+      "type": "company",
+      "label": "ВМ Систем ЕООД",
+      "slug": "ВМ-Систем-ЕООД",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "София"
+    },
+    {
+      "id": "company:Метал-ВМ-ЕООД",
+      "type": "company",
+      "label": "Метал-ВМ ЕООД",
+      "slug": "Метал-ВМ-ЕООД",
+      "uic": "203219909",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "София"
+    },
+    {
+      "id": "company:Металика-М-Транс",
+      "type": "company",
+      "label": "Металика-М Транс",
+      "slug": "Металика-М-Транс",
+      "uic": "131267850",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "София"
+    },
+    {
+      "id": "person:ИЛИЯНА ЦВЕТАНОВА ХРИСТОВА",
+      "type": "person",
+      "label": "Илияна Цветанова Христова"
+    },
+    {
+      "id": "person:МИХАИЛ АСЕНОВ МИХАЙЛОВ",
+      "type": "person",
+      "label": "МИХАИЛ АСЕНОВ МИХАЙЛОВ"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4868",
+      "target": "company:ВМ-Систем-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4868",
+      "target": "company:Метал-ВМ-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4868",
+      "target": "company:Метал-ВМ-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4868",
+      "target": "company:Металика-М-Транс",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯНА ЦВЕТАНОВА ХРИСТОВА",
+      "target": "company:Метал-ВМ-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИХАИЛ АСЕНОВ МИХАЙЛОВ",
+      "target": "company:Металика-М-Транс",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:4314",
+  "nodes": [
+    {
+      "id": "mp:4314",
+      "type": "mp",
+      "mpId": 4314,
+      "label": "ДЕЯН НИКОЛАЕВ НИКОЛОВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:203127880",
+      "type": "company",
+      "label": "СИ КЕЙ ДИ",
+      "slug": null,
+      "uic": "203127880",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:202239734",
+      "type": "company",
+      "label": "ДЕМО ГРУП БГ",
+      "slug": null,
+      "uic": "202239734",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4314",
+      "target": "company:tr:203127880",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4314",
+      "target": "company:tr:202239734",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

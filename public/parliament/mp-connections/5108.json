@@ -1,0 +1,139 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:5108",
+  "nodes": [
+    {
+      "id": "mp:5108",
+      "type": "mp",
+      "mpId": 5108,
+      "label": "ИЛКО ПЕНКОВ ИЛИЕВ",
+      "partyGroupShort": "ПГ на ПБ",
+      "isCurrent": true
+    },
+    {
+      "id": "company:tr:125021188",
+      "type": "company",
+      "label": "МЕБЕЛ-СТИЛ",
+      "slug": null,
+      "uic": "125021188",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:202789564",
+      "type": "company",
+      "label": "МЕБЕЛ СТИЛ ТРАНС",
+      "slug": null,
+      "uic": "202789564",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:ИВО ИЛКОВ ИЛИЕВ",
+      "type": "person",
+      "label": "ИВО ИЛКОВ ИЛИЕВ"
+    },
+    {
+      "id": "person:ДЕСИСЛАВА ИЛКОВА ДАНЕВА",
+      "type": "person",
+      "label": "ДЕСИСЛАВА ИЛКОВА ДАНЕВА"
+    },
+    {
+      "id": "person:МЕБЕЛ СТИЛ ООД",
+      "type": "person",
+      "label": "МЕБЕЛ СТИЛ ООД"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5108",
+      "target": "company:tr:125021188",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5108",
+      "target": "company:tr:202789564",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВО ИЛКОВ ИЛИЕВ",
+      "target": "company:tr:125021188",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА ИЛКОВА ДАНЕВА",
+      "target": "company:tr:125021188",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВО ИЛКОВ ИЛИЕВ",
+      "target": "company:tr:125021188",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА ИЛКОВА ДАНЕВА",
+      "target": "company:tr:125021188",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА ИЛКОВА ДАНЕВА",
+      "target": "company:tr:202789564",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВО ИЛКОВ ИЛИЕВ",
+      "target": "company:tr:202789564",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА ИЛКОВА ДАНЕВА",
+      "target": "company:tr:202789564",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВО ИЛКОВ ИЛИЕВ",
+      "target": "company:tr:202789564",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МЕБЕЛ СТИЛ ООД",
+      "target": "company:tr:202789564",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

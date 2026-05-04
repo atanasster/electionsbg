@@ -1,0 +1,34 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:2410",
+  "nodes": [
+    {
+      "id": "mp:2410",
+      "type": "mp",
+      "mpId": 2410,
+      "label": "ДИМИТЪР ТАНЕВ ТАНЕВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:206935874",
+      "type": "company",
+      "label": "ДРИНК ТРЕЙД",
+      "slug": null,
+      "uic": "206935874",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, с. Сърнево, 6268"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:2410",
+      "target": "company:tr:206935874",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

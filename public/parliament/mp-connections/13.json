@@ -1,0 +1,55 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:13",
+  "nodes": [
+    {
+      "id": "mp:13",
+      "type": "mp",
+      "mpId": 13,
+      "label": "НЕСРИН МУСТАФА УЗУН",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:200724564",
+      "type": "company",
+      "label": "ФОТОН ПАРК",
+      "slug": null,
+      "uic": "200724564",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1407"
+    },
+    {
+      "id": "person:МИЙРЕМ МЕХМЕД УЗУН",
+      "type": "person",
+      "label": "МИЙРЕМ МЕХМЕД УЗУН"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:13",
+      "target": "company:tr:200724564",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:13",
+      "target": "company:tr:200724564",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МИЙРЕМ МЕХМЕД УЗУН",
+      "target": "company:tr:200724564",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

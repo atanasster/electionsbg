@@ -1,0 +1,65 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:1797",
+  "nodes": [
+    {
+      "id": "mp:1797",
+      "type": "mp",
+      "mpId": 1797,
+      "label": "ДИМО ВАСИЛЕВ ДИМОВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:206470592",
+      "type": "company",
+      "label": "ДИМОВ ДАВК",
+      "slug": null,
+      "uic": "206470592",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Стара Загора, 6000"
+    },
+    {
+      "id": "company:tr:175304801",
+      "type": "company",
+      "label": "ФЕСТ - АПОЛОНИЯ",
+      "slug": null,
+      "uic": "175304801",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:МАРГАРИТА ДАНАИЛОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "МАРГАРИТА ДАНАИЛОВА ДИМИТРОВА"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:1797",
+      "target": "company:tr:206470592",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1797",
+      "target": "company:tr:175304801",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРГАРИТА ДАНАИЛОВА ДИМИТРОВА",
+      "target": "company:tr:175304801",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

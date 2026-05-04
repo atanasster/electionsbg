@@ -1,0 +1,52 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:4273",
+  "nodes": [
+    {
+      "id": "mp:4273",
+      "type": "mp",
+      "mpId": 4273,
+      "label": "СТОЯН ИВАНОВ ГЕОРГИЕВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:102058263",
+      "type": "company",
+      "label": "ДАНИСТО-90-ГЕОРГИЕВИ И СИЕ",
+      "slug": null,
+      "uic": "102058263",
+      "legalForm": "SD",
+      "status": "ceased",
+      "seat": "БЪЛГАРИЯ, гр. Бургас, 8000"
+    },
+    {
+      "id": "company:tr:206415286",
+      "type": "company",
+      "label": "АМБУЛАТОРИЯ-ИНДИВИДУАЛНА ПРАКТИКА ЗА ПЪРВИЧНА МЕДИЦИНСКА ПОМОЩ-Д-Р СТОЯН ГЕОРГИЕВ",
+      "slug": null,
+      "uic": "206415286",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Стара Загора, 6000"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4273",
+      "target": "company:tr:102058263",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4273",
+      "target": "company:tr:206415286",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

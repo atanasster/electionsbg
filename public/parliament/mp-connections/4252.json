@@ -1,0 +1,65 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:4252",
+  "nodes": [
+    {
+      "id": "mp:4252",
+      "type": "mp",
+      "mpId": 4252,
+      "label": "ГРОЗДАН СПАСОВ КАРАДЖОВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:Раведас-ЕООД",
+      "type": "company",
+      "label": "Раведас ЕООД",
+      "slug": "Раведас-ЕООД",
+      "uic": "202564051",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "София (столица)"
+    },
+    {
+      "id": "company:tr:130844885",
+      "type": "company",
+      "label": "КЕЙ ДИВЕЛОПМЕНТС",
+      "slug": null,
+      "uic": "130844885",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "person:ДИНКО ИВАНОВ КУНЕВ",
+      "type": "person",
+      "label": "Динко Иванов Кунев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4252",
+      "target": "company:Раведас-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4252",
+      "target": "company:tr:130844885",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДИНКО ИВАНОВ КУНЕВ",
+      "target": "company:tr:130844885",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

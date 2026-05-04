@@ -1,0 +1,68 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:1046",
+  "nodes": [
+    {
+      "id": "mp:1046",
+      "type": "mp",
+      "mpId": 1046,
+      "label": "НЕДЯЛКО ТЕНЕВ НЕДЯЛКОВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:206974304",
+      "type": "company",
+      "label": "НЕДИН  НД",
+      "slug": null,
+      "uic": "206974304",
+      "legalForm": "Дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, с. Ягода, 6167"
+    },
+    {
+      "id": "person:НЕДЯЛКО ГАЛИНОВ НЕНОВ",
+      "type": "person",
+      "label": "Недялко Галинов Ненов"
+    },
+    {
+      "id": "person:ДИНКО ДИМИТРОВ ДИНЕВ",
+      "type": "person",
+      "label": "Динко Димитров Динев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:1046",
+      "target": "company:tr:206974304",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НЕДЯЛКО ГАЛИНОВ НЕНОВ",
+      "target": "company:tr:206974304",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИНКО ДИМИТРОВ ДИНЕВ",
+      "target": "company:tr:206974304",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕДЯЛКО ГАЛИНОВ НЕНОВ",
+      "target": "company:tr:206974304",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

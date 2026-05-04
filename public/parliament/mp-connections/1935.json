@@ -1,0 +1,34 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:1935",
+  "nodes": [
+    {
+      "id": "mp:1935",
+      "type": "mp",
+      "mpId": 1935,
+      "label": "ПЕТЪР СТЕФАНОВ СТОЯНОВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:130946630",
+      "type": "company",
+      "label": "ЦЕНТЪР ЗА ПОЛИТИЧЕСКИ ДИАЛОГ ПЕТЪР СТОЯНОВ",
+      "slug": null,
+      "uic": "130946630",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:1935",
+      "target": "company:tr:130946630",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:2847",
+  "nodes": [
+    {
+      "id": "mp:2847",
+      "type": "mp",
+      "mpId": 2847,
+      "label": "ГЕОРГИ ЧЕНКОВ ТЪРНОВАЛИЙСКИ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:ПиДжейТи-Фешън-ООД",
+      "type": "company",
+      "label": "ПиДжейТи Фешън ООД",
+      "slug": "ПиДжейТи-Фешън-ООД",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "Пловдив"
+    },
+    {
+      "id": "company:Сюжет-ООД",
+      "type": "company",
+      "label": "Сюжет ООД",
+      "slug": "Сюжет-ООД",
+      "uic": "115889414",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Пловдив"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:2847",
+      "target": "company:ПиДжейТи-Фешън-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2847",
+      "target": "company:Сюжет-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

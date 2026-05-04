@@ -1,0 +1,60 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:2510",
+  "nodes": [
+    {
+      "id": "mp:2510",
+      "type": "mp",
+      "mpId": 2510,
+      "label": "БОРИСЛАВ РАЙЧОВ МИЛАНОВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:130138766",
+      "type": "company",
+      "label": "ПАЗАРИ ИЗТОК",
+      "slug": null,
+      "uic": "130138766",
+      "legalForm": "EAD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:ДИМИТЪР ГЕОРГИЕВ КУНОВ",
+      "type": "person",
+      "label": "Димитър Георгиев Кунов"
+    },
+    {
+      "id": "person:ДАНИЕЛА ПЛАМЕНОВА СТОЙНЕВА",
+      "type": "person",
+      "label": "Даниела Пламенова Стойнева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:2510",
+      "target": "company:tr:130138766",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДИМИТЪР ГЕОРГИЕВ КУНОВ",
+      "target": "company:tr:130138766",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛА ПЛАМЕНОВА СТОЙНЕВА",
+      "target": "company:tr:130138766",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:4858",
+  "nodes": [
+    {
+      "id": "mp:4858",
+      "type": "mp",
+      "mpId": 4858,
+      "label": "ВИКТОР ТЕНЧЕВ ПАПАЗОВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:Адвансд-Мениджмънт-Консултинг-ООД",
+      "type": "company",
+      "label": "\"Адвансд Мениджмънт Консултинг\" ООД",
+      "slug": "Адвансд-Мениджмънт-Консултинг-ООД",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "София (столица)"
+    },
+    {
+      "id": "company:Криейтив-Солюшънс-ООД",
+      "type": "company",
+      "label": "\"Криейтив Солюшънс\" ООД",
+      "slug": "Криейтив-Солюшънс-ООД",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "София (столица)"
+    },
+    {
+      "id": "company:Уайн-Партнерс-ООД",
+      "type": "company",
+      "label": "\"Уайн Партнерс\" ООД",
+      "slug": "Уайн-Партнерс-ООД",
+      "uic": "200290461",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "София (столица)"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4858",
+      "target": "company:Адвансд-Мениджмънт-Консултинг-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4858",
+      "target": "company:Криейтив-Солюшънс-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4858",
+      "target": "company:Уайн-Партнерс-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

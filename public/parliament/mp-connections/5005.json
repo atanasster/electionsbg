@@ -1,0 +1,120 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:5005",
+  "nodes": [
+    {
+      "id": "mp:5005",
+      "type": "mp",
+      "mpId": 5005,
+      "label": "СТИЛИАНА ИВАНОВА БОБЧЕВА",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:206642622",
+      "type": "company",
+      "label": "БЕНДИДА 21",
+      "slug": null,
+      "uic": "206642622",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Пловдив, 4003"
+    },
+    {
+      "id": "company:tr:202918009",
+      "type": "company",
+      "label": "НАЦИОНАЛЕН ПЕРИЛЕН КОМБИНАТ",
+      "slug": null,
+      "uic": "202918009",
+      "legalForm": "Дружество с ограничена отговорност",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:РАДОСТИНА ИВАНОВА КИРИЛОВА",
+      "type": "person",
+      "label": "РАДОСТИНА ИВАНОВА КИРИЛОВА"
+    },
+    {
+      "id": "person:\"АЙ ЕС БИ\" ЕООД",
+      "type": "person",
+      "label": "\"АЙ ЕС БИ\" ЕООД"
+    },
+    {
+      "id": "person:ДЕЙВИД ВАЛЕНТИНОВ ЙОСИФОВ",
+      "type": "person",
+      "label": "Дейвид Валентинов Йосифов"
+    },
+    {
+      "id": "person:ДАНИЕЛ ЙОРДАНОВ БАЧОРСКИ",
+      "type": "person",
+      "label": "Даниел Йорданов Бачорски"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5005",
+      "target": "company:tr:206642622",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5005",
+      "target": "company:tr:202918009",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РАДОСТИНА ИВАНОВА КИРИЛОВА",
+      "target": "company:tr:206642622",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:\"АЙ ЕС БИ\" ЕООД",
+      "target": "company:tr:206642622",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОСТИНА ИВАНОВА КИРИЛОВА",
+      "target": "company:tr:206642622",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕЙВИД ВАЛЕНТИНОВ ЙОСИФОВ",
+      "target": "company:tr:202918009",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДАНИЕЛ ЙОРДАНОВ БАЧОРСКИ",
+      "target": "company:tr:202918009",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕЙВИД ВАЛЕНТИНОВ ЙОСИФОВ",
+      "target": "company:tr:202918009",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,159 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:3346",
+  "nodes": [
+    {
+      "id": "mp:3346",
+      "type": "mp",
+      "mpId": 3346,
+      "label": "ИВО АНГЕЛОВ ХРИСТОВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:ИНЕКС-АГРО-ООД",
+      "type": "company",
+      "label": "ИНЕКС АГРО ООД",
+      "slug": "ИНЕКС-АГРО-ООД",
+      "uic": "175039993",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "София (столица)"
+    },
+    {
+      "id": "company:ИНЕКС-ПРОПЪРТИС-ООД",
+      "type": "company",
+      "label": "ИНЕКС ПРОПЪРТИС ООД",
+      "slug": "ИНЕКС-ПРОПЪРТИС-ООД",
+      "uic": "175029757",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "София (столица)"
+    },
+    {
+      "id": "company:ФЕРЕКСИМ-ООД",
+      "type": "company",
+      "label": "ФЕРЕКСИМ ООД",
+      "slug": "ФЕРЕКСИМ-ООД",
+      "uic": "121755423",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "София (столица)"
+    },
+    {
+      "id": "person:НИКОЛАЙ ИВАНОВ ДРЕМСИЗОВ",
+      "type": "person",
+      "label": "НИКОЛАЙ ИВАНОВ ДРЕМСИЗОВ"
+    },
+    {
+      "id": "person:ИВАН НИКОЛОВ ДРЕМСИЗОВ",
+      "type": "person",
+      "label": "ИВАН НИКОЛОВ ДРЕМСИЗОВ"
+    },
+    {
+      "id": "person:\"ПИНИ-Д\" ООД",
+      "type": "person",
+      "label": "\"ПИНИ-Д\" ООД"
+    },
+    {
+      "id": "person:НИКОЛЕТА КАЛЧЕВА ЛИНГОРОВА-ХРИСТОВА",
+      "type": "person",
+      "label": "НИКОЛЕТА КАЛЧЕВА ЛИНГОРОВА-ХРИСТОВА"
+    },
+    {
+      "id": "person:АНА ПАНАЙОТОВА ДРЕМСИЗОВА",
+      "type": "person",
+      "label": "АНА ПАНАЙОТОВА ДРЕМСИЗОВА"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3346",
+      "target": "company:ИНЕКС-АГРО-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3346",
+      "target": "company:ИНЕКС-ПРОПЪРТИС-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3346",
+      "target": "company:ФЕРЕКСИМ-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ИВАНОВ ДРЕМСИЗОВ",
+      "target": "company:ИНЕКС-АГРО-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН НИКОЛОВ ДРЕМСИЗОВ",
+      "target": "company:ИНЕКС-АГРО-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:\"ПИНИ-Д\" ООД",
+      "target": "company:ИНЕКС-АГРО-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН НИКОЛОВ ДРЕМСИЗОВ",
+      "target": "company:ИНЕКС-АГРО-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛЕТА КАЛЧЕВА ЛИНГОРОВА-ХРИСТОВА",
+      "target": "company:ИНЕКС-АГРО-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНА ПАНАЙОТОВА ДРЕМСИЗОВА",
+      "target": "company:ИНЕКС-АГРО-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН НИКОЛОВ ДРЕМСИЗОВ",
+      "target": "company:ИНЕКС-ПРОПЪРТИС-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛЕТА КАЛЧЕВА ЛИНГОРОВА-ХРИСТОВА",
+      "target": "company:ИНЕКС-ПРОПЪРТИС-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

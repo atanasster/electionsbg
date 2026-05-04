@@ -1,0 +1,70 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:4997",
+  "nodes": [
+    {
+      "id": "mp:4997",
+      "type": "mp",
+      "mpId": 4997,
+      "label": "ИВАН РУМЕНОВ КЛИСУРСКИ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:Ай-Ес-Джи-Медикъл-ЕООД",
+      "type": "company",
+      "label": "Ай Ес Джи Медикъл ЕООД",
+      "slug": "Ай-Ес-Джи-Медикъл-ЕООД",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "София (столица)"
+    },
+    {
+      "id": "company:АЙ-ЕС-ДЖИ-МЕДИКЪЛ-ООД",
+      "type": "company",
+      "label": "АЙ ЕС ДЖИ МЕДИКЪЛ ООД",
+      "slug": "АЙ-ЕС-ДЖИ-МЕДИКЪЛ-ООД",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "София"
+    },
+    {
+      "id": "company:Бешка-ООД",
+      "type": "company",
+      "label": "Бешка ООД",
+      "slug": "Бешка-ООД",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "София (столица)"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4997",
+      "target": "company:Ай-Ес-Джи-Медикъл-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4997",
+      "target": "company:АЙ-ЕС-ДЖИ-МЕДИКЪЛ-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4997",
+      "target": "company:Бешка-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

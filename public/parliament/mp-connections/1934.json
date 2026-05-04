@@ -1,0 +1,63 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:1934",
+  "nodes": [
+    {
+      "id": "mp:1934",
+      "type": "mp",
+      "mpId": 1934,
+      "label": "ПЛАМЕН ДИМИТРОВ ДЕНЧЕВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:206469736",
+      "type": "company",
+      "label": "ЕКОЕНЕРГИЯ-ВТ",
+      "slug": null,
+      "uic": "206469736",
+      "legalForm": "Дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Велико Търново, 5000"
+    },
+    {
+      "id": "person:СВИЛЕН МИЛЧЕВ ЙОВКОВ",
+      "type": "person",
+      "label": "Свилен Милчев Йовков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:1934",
+      "target": "company:tr:206469736",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1934",
+      "target": "company:tr:206469736",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СВИЛЕН МИЛЧЕВ ЙОВКОВ",
+      "target": "company:tr:206469736",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВИЛЕН МИЛЧЕВ ЙОВКОВ",
+      "target": "company:tr:206469736",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

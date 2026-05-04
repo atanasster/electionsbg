@@ -1,0 +1,52 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:5232",
+  "nodes": [
+    {
+      "id": "mp:5232",
+      "type": "mp",
+      "mpId": 5232,
+      "label": "СТОЮ ТЕОДОРОВ СТОЕВ",
+      "partyGroupShort": "ПГ ПП",
+      "isCurrent": true
+    },
+    {
+      "id": "company:С-ПЛЮС-КОНСУЛТ-ООД",
+      "type": "company",
+      "label": "С ПЛЮС КОНСУЛТ ООД",
+      "slug": "С-ПЛЮС-КОНСУЛТ-ООД",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "София (столица)"
+    },
+    {
+      "id": "company:С+-КОНСУЛТ-ООД",
+      "type": "company",
+      "label": "С+ КОНСУЛТ ООД",
+      "slug": "С+-КОНСУЛТ-ООД",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "София (столица)"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5232",
+      "target": "company:С-ПЛЮС-КОНСУЛТ-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5232",
+      "target": "company:С+-КОНСУЛТ-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

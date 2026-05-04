@@ -1,0 +1,60 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:1086",
+  "nodes": [
+    {
+      "id": "mp:1086",
+      "type": "mp",
+      "mpId": 1086,
+      "label": "ГЕОРГИ ЦВЯТКОВ ТЕРЗИЙСКИ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:107596109",
+      "type": "company",
+      "label": "АДЕЛФИЯ",
+      "slug": null,
+      "uic": "107596109",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:НЕДЯЛКА БРАТОВАНОВА ТЕРЗИЙСКА",
+      "type": "person",
+      "label": "НЕДЯЛКА БРАТОВАНОВА ТЕРЗИЙСКА"
+    },
+    {
+      "id": "person:ФОНДАЦИЯ \"ЖЪЛЪД\"",
+      "type": "person",
+      "label": "ФОНДАЦИЯ \"ЖЪЛЪД\""
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:1086",
+      "target": "company:tr:107596109",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НЕДЯЛКА БРАТОВАНОВА ТЕРЗИЙСКА",
+      "target": "company:tr:107596109",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФОНДАЦИЯ \"ЖЪЛЪД\"",
+      "target": "company:tr:107596109",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

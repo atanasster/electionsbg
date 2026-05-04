@@ -1,0 +1,68 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:2609",
+  "nodes": [
+    {
+      "id": "mp:2609",
+      "type": "mp",
+      "mpId": 2609,
+      "label": "МАРИАНА ГЕОРГИЕВА ТОДОРОВА",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:102835135",
+      "type": "company",
+      "label": "СБР - НЕСЕБЪР",
+      "slug": null,
+      "uic": "102835135",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:ПЛАМЕН МИХАЙЛОВ ЛАКОВ",
+      "type": "person",
+      "label": "ПЛАМЕН МИХАЙЛОВ ЛАКОВ"
+    },
+    {
+      "id": "person:МОХАМЕД НАЖИ ТАЙСИР САКА АМИНИ",
+      "type": "person",
+      "label": "МОХАМЕД НАЖИ ТАЙСИР САКА АМИНИ"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:2609",
+      "target": "company:tr:102835135",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЛАМЕН МИХАЙЛОВ ЛАКОВ",
+      "target": "company:tr:102835135",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МОХАМЕД НАЖИ ТАЙСИР САКА АМИНИ",
+      "target": "company:tr:102835135",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН МИХАЙЛОВ ЛАКОВ",
+      "target": "company:tr:102835135",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

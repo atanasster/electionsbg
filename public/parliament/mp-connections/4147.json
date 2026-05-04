@@ -1,0 +1,34 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:4147",
+  "nodes": [
+    {
+      "id": "mp:4147",
+      "type": "mp",
+      "mpId": 4147,
+      "label": "СЛАВЕНА ДИМИТРОВА ТОЧЕВА",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:ТСМ-ИНВЕСТ-2018",
+      "type": "company",
+      "label": "ТСМ ИНВЕСТ 2018",
+      "slug": "ТСМ-ИНВЕСТ-2018",
+      "uic": "205414570",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "Варна"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4147",
+      "target": "company:ТСМ-ИНВЕСТ-2018",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

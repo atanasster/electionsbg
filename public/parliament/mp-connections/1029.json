@@ -1,0 +1,227 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:1029",
+  "nodes": [
+    {
+      "id": "mp:1029",
+      "type": "mp",
+      "mpId": 1029,
+      "label": "КАМЕН МАРИНОВ ПЕТКОВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:203626641",
+      "type": "company",
+      "label": "БИ СИ СИ ЕЛЕНА",
+      "slug": null,
+      "uic": "203626641",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:104642010",
+      "type": "company",
+      "label": "ЕЛЕНА ТУРС",
+      "slug": null,
+      "uic": "104642010",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:206769300",
+      "type": "company",
+      "label": "О соле мио",
+      "slug": null,
+      "uic": "206769300",
+      "legalForm": "Акционерно дружество",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1618"
+    },
+    {
+      "id": "person:ХРИСТО СЛАВОВ ХРИСТОВ",
+      "type": "person",
+      "label": "ХРИСТО СЛАВОВ ХРИСТОВ"
+    },
+    {
+      "id": "person:ВЕСЕЛА ВАЛЕНТИНОВА ГЛАВЧЕВА - НИКОЛОВА",
+      "type": "person",
+      "label": "ВЕСЕЛА ВАЛЕНТИНОВА ГЛАВЧЕВА - НИКОЛОВА"
+    },
+    {
+      "id": "person:МАРГАРИТА ИВАНОВА СТАЙНОВА",
+      "type": "person",
+      "label": "МАРГАРИТА ИВАНОВА СТАЙНОВА"
+    },
+    {
+      "id": "person:ИВА ПЛАМЕНОВА СТАЙНОВА",
+      "type": "person",
+      "label": "ИВА ПЛАМЕНОВА СТАЙНОВА"
+    },
+    {
+      "id": "person:ЕМИЛИЯ АПОСТОЛОВА СЛАВОВА",
+      "type": "person",
+      "label": "ЕМИЛИЯ АПОСТОЛОВА СЛАВОВА"
+    },
+    {
+      "id": "person:ЯНКО ИВАНОВ ЯНКОВ",
+      "type": "person",
+      "label": "ЯНКО ИВАНОВ ЯНКОВ"
+    },
+    {
+      "id": "person:СТЕФАН НИКОЛОВ ВАСИЛЕВ",
+      "type": "person",
+      "label": "СТЕФАН НИКОЛОВ ВАСИЛЕВ"
+    },
+    {
+      "id": "person:ПЕТЪР БОГОМИЛОВ МАНЧЕВ",
+      "type": "person",
+      "label": "ПЕТЪР БОГОМИЛОВ МАНЧЕВ"
+    },
+    {
+      "id": "person:МАНЧО ЗЛАТЕВ КОЛЕВ",
+      "type": "person",
+      "label": "МАНЧО ЗЛАТЕВ КОЛЕВ"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:1029",
+      "target": "company:tr:203626641",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1029",
+      "target": "company:tr:104642010",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1029",
+      "target": "company:tr:206769300",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1029",
+      "target": "company:tr:206769300",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ХРИСТО СЛАВОВ ХРИСТОВ",
+      "target": "company:tr:203626641",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛА ВАЛЕНТИНОВА ГЛАВЧЕВА - НИКОЛОВА",
+      "target": "company:tr:203626641",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРГАРИТА ИВАНОВА СТАЙНОВА",
+      "target": "company:tr:203626641",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВА ПЛАМЕНОВА СТАЙНОВА",
+      "target": "company:tr:203626641",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛИЯ АПОСТОЛОВА СЛАВОВА",
+      "target": "company:tr:203626641",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНКО ИВАНОВ ЯНКОВ",
+      "target": "company:tr:203626641",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН НИКОЛОВ ВАСИЛЕВ",
+      "target": "company:tr:104642010",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛИЯ АПОСТОЛОВА СЛАВОВА",
+      "target": "company:tr:104642010",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРГАРИТА ИВАНОВА СТАЙНОВА",
+      "target": "company:tr:104642010",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВА ПЛАМЕНОВА СТАЙНОВА",
+      "target": "company:tr:104642010",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР БОГОМИЛОВ МАНЧЕВ",
+      "target": "company:tr:206769300",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАНЧО ЗЛАТЕВ КОЛЕВ",
+      "target": "company:tr:206769300",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР БОГОМИЛОВ МАНЧЕВ",
+      "target": "company:tr:206769300",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

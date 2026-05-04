@@ -1,0 +1,76 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:4802",
+  "nodes": [
+    {
+      "id": "mp:4802",
+      "type": "mp",
+      "mpId": 4802,
+      "label": "ИВАН БОГОМИЛОВ ПЕТКОВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:Пропър-Холидей-ООД",
+      "type": "company",
+      "label": "\"Пропър Холидей\" ООД",
+      "slug": "Пропър-Холидей-ООД",
+      "uic": "201817384",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "Пловдив"
+    },
+    {
+      "id": "company:Чеси-Инс-Брокер-ООД",
+      "type": "company",
+      "label": "\"Чеси Инс Брокер\" ООД",
+      "slug": "Чеси-Инс-Брокер-ООД",
+      "uic": "115322442",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Пловдив"
+    },
+    {
+      "id": "mp:5092",
+      "type": "mp",
+      "mpId": 5092,
+      "label": "БОГОМИЛ ИВАНОВ ПЕТКОВ",
+      "partyGroupShort": "ПГ ПП",
+      "isCurrent": true
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4802",
+      "target": "company:Пропър-Холидей-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4802",
+      "target": "company:Чеси-Инс-Брокер-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4802",
+      "target": "company:Чеси-Инс-Брокер-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5092",
+      "target": "company:Чеси-Инс-Брокер-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

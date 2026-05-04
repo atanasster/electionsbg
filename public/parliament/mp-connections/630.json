@@ -1,0 +1,34 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:630",
+  "nodes": [
+    {
+      "id": "mp:630",
+      "type": "mp",
+      "mpId": 630,
+      "label": "ВЛАДИМИР ИВАНОВ ДИМИТРОВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:206841656",
+      "type": "company",
+      "label": "И Ви Лог",
+      "slug": null,
+      "uic": "206841656",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1715"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:630",
+      "target": "company:tr:206841656",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

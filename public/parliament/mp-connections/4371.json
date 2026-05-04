@@ -1,0 +1,52 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:4371",
+  "nodes": [
+    {
+      "id": "mp:4371",
+      "type": "mp",
+      "mpId": 4371,
+      "label": "РОСИЦА ВАСИЛЕВА ПАНДОВА-ЙОВКОВА",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:МЕЛИТУС-Д-ЕООД",
+      "type": "company",
+      "label": "МЕЛИТУС Д ЕООД",
+      "slug": "МЕЛИТУС-Д-ЕООД",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "София (столица)"
+    },
+    {
+      "id": "company:tr:206571709",
+      "type": "company",
+      "label": "Мелитус-Д",
+      "slug": null,
+      "uic": "206571709",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1233"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4371",
+      "target": "company:МЕЛИТУС-Д-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4371",
+      "target": "company:tr:206571709",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

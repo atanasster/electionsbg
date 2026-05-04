@@ -1,0 +1,60 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:580",
+  "nodes": [
+    {
+      "id": "mp:580",
+      "type": "mp",
+      "mpId": 580,
+      "label": "ВАСИЛ БОГДАНОВ ВАСИЛЕВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:204012144",
+      "type": "company",
+      "label": "ТЕРМ ИНЖЕНЕРИНГ СТРОЙ",
+      "slug": null,
+      "uic": "204012144",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:КОНСТАНТИН ВАСИЛЕВ ВАСИЛЕВ",
+      "type": "person",
+      "label": "Константин Василев Василев"
+    },
+    {
+      "id": "person:“ТЕРМ ИНЖЕНЕРИНГ“ ООД",
+      "type": "person",
+      "label": "“ТЕРМ ИНЖЕНЕРИНГ“ ООД"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:580",
+      "target": "company:tr:204012144",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КОНСТАНТИН ВАСИЛЕВ ВАСИЛЕВ",
+      "target": "company:tr:204012144",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:“ТЕРМ ИНЖЕНЕРИНГ“ ООД",
+      "target": "company:tr:204012144",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

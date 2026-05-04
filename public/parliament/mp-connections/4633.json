@@ -1,0 +1,81 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:4633",
+  "nodes": [
+    {
+      "id": "mp:4633",
+      "type": "mp",
+      "mpId": 4633,
+      "label": "ФИЛИЗ ХАКЪЕВА ХЮСМЕНОВА",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:Милениум-Билд-ООД",
+      "type": "company",
+      "label": "Милениум Билд ООД",
+      "slug": "Милениум-Билд-ООД",
+      "uic": "206417337",
+      "legalForm": "Дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1612"
+    },
+    {
+      "id": "person:АНЪЛ ТУНАН ХЮСМЕНОВ",
+      "type": "person",
+      "label": "АНЪЛ ТУНАН ХЮСМЕНОВ"
+    },
+    {
+      "id": "person:АНДРЕЙ ГЕНАДИЕВ СТРАТИЕВ",
+      "type": "person",
+      "label": "АНДРЕЙ ГЕНАДИЕВ СТРАТИЕВ"
+    },
+    {
+      "id": "person:ТУНАН ТЕФИКОВ ХЮСМЕНОВ",
+      "type": "person",
+      "label": "ТУНАН ТЕФИКОВ ХЮСМЕНОВ"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4633",
+      "target": "company:Милениум-Билд-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНЪЛ ТУНАН ХЮСМЕНОВ",
+      "target": "company:Милениум-Билд-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНДРЕЙ ГЕНАДИЕВ СТРАТИЕВ",
+      "target": "company:Милениум-Билд-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТУНАН ТЕФИКОВ ХЮСМЕНОВ",
+      "target": "company:Милениум-Билд-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНЪЛ ТУНАН ХЮСМЕНОВ",
+      "target": "company:Милениум-Билд-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

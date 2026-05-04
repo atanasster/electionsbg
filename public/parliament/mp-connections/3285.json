@@ -1,0 +1,47 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:3285",
+  "nodes": [
+    {
+      "id": "mp:3285",
+      "type": "mp",
+      "mpId": 3285,
+      "label": "ХРИСТИЯНА АНАСТАСОВА ТОДОРОВА",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:Грийн-Инвестмънт-Пропъртис-ООД",
+      "type": "company",
+      "label": "Грийн Инвестмънт Пропъртис ООД",
+      "slug": "Грийн-Инвестмънт-Пропъртис-ООД",
+      "uic": "205010452",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1415"
+    },
+    {
+      "id": "person:ПЕТЯ ИГНАТОВА ТОДОРОВА",
+      "type": "person",
+      "label": "ПЕТЯ ИГНАТОВА ТОДОРОВА"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3285",
+      "target": "company:Грийн-Инвестмънт-Пропъртис-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЯ ИГНАТОВА ТОДОРОВА",
+      "target": "company:Грийн-Инвестмънт-Пропъртис-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

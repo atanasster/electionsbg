@@ -1,0 +1,60 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:2435",
+  "nodes": [
+    {
+      "id": "mp:2435",
+      "type": "mp",
+      "mpId": 2435,
+      "label": "ДОБРОМИР ПРОДАНОВ ПРОДАНОВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:107589673",
+      "type": "company",
+      "label": "МЕРКУРИЙ ГРАНД",
+      "slug": null,
+      "uic": "107589673",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:ПАВЛИН СВЕТЛОЗАРОВ ПЕНЕВ",
+      "type": "person",
+      "label": "Павлин Светлозаров Пенев"
+    },
+    {
+      "id": "person:БОРИС ПРОДАНОВ ПРОДАНОВ",
+      "type": "person",
+      "label": "Борис Проданов Проданов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:2435",
+      "target": "company:tr:107589673",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПАВЛИН СВЕТЛОЗАРОВ ПЕНЕВ",
+      "target": "company:tr:107589673",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРИС ПРОДАНОВ ПРОДАНОВ",
+      "target": "company:tr:107589673",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,123 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:5188",
+  "nodes": [
+    {
+      "id": "mp:5188",
+      "type": "mp",
+      "mpId": 5188,
+      "label": "ВЛАДИМИР МИЛЧЕВ НИКОЛОВ",
+      "partyGroupShort": "ПГ на ПБ",
+      "isCurrent": true
+    },
+    {
+      "id": "company:tr:200456415",
+      "type": "company",
+      "label": "ЕНЕРГИЯ 2008 П",
+      "slug": null,
+      "uic": "200456415",
+      "legalForm": "Дружество с ограничена отговорност",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:206364151",
+      "type": "company",
+      "label": "НЕСТ БЪЛГАРИЯ",
+      "slug": null,
+      "uic": "206364151",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, ."
+    },
+    {
+      "id": "person:ИВАНКА МАРИНОВА ПЕТРОВА",
+      "type": "person",
+      "label": "ИВАНКА МАРИНОВА ПЕТРОВА"
+    },
+    {
+      "id": "person:КАЛОЯН ЛЮБОМИРОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "КАЛОЯН ЛЮБОМИРОВ ГЕОРГИЕВ"
+    },
+    {
+      "id": "person:ИВАН КРАСНОДАРОВ БЕЛОМОРСКИ",
+      "type": "person",
+      "label": "Иван Краснодаров Беломорски"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5188",
+      "target": "company:tr:200456415",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5188",
+      "target": "company:tr:200456415",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5188",
+      "target": "company:tr:206364151",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5188",
+      "target": "company:tr:206364151",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАНКА МАРИНОВА ПЕТРОВА",
+      "target": "company:tr:200456415",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАНКА МАРИНОВА ПЕТРОВА",
+      "target": "company:tr:200456415",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛОЯН ЛЮБОМИРОВ ГЕОРГИЕВ",
+      "target": "company:tr:206364151",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛОЯН ЛЮБОМИРОВ ГЕОРГИЕВ",
+      "target": "company:tr:206364151",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН КРАСНОДАРОВ БЕЛОМОРСКИ",
+      "target": "company:tr:206364151",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

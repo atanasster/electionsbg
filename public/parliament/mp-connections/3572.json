@@ -1,0 +1,47 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:3572",
+  "nodes": [
+    {
+      "id": "mp:3572",
+      "type": "mp",
+      "mpId": 3572,
+      "label": "МОМЧИЛ КУНЧЕВ ИВАНОВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:205028895",
+      "type": "company",
+      "label": "ЗЛАТАРИШКА ГОРА",
+      "slug": null,
+      "uic": "205028895",
+      "legalForm": "EOOD",
+      "status": "bankrupt",
+      "seat": null
+    },
+    {
+      "id": "person:ДРАГОМИР ИВАНОВ ГРИГОРОВ",
+      "type": "person",
+      "label": "Драгомир Иванов Григоров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3572",
+      "target": "company:tr:205028895",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДРАГОМИР ИВАНОВ ГРИГОРОВ",
+      "target": "company:tr:205028895",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -61,8 +61,8 @@ All under `public/parliament/`:
 | `declarations/{mpId}.json` × ~600 | ~3.6 MB total | One file per MP. Carries the **full** stake schema for `MpFinancialDeclarations`. |
 | `companies-index.json` | 1.1 MB / 89 KB / 48 KB | Aggregate by company. Per-stake fields trimmed to `CompanyIndexStake` projection — see "Why two stake schemas". |
 | `mp-management/{mpId}.json` × ~440 | ~2.0 MB total | TR-derived management roles per MP, with confidence. Empty without TR. |
-| `connections.json` | 2.5 MB / 218 KB / 136 KB | Cross-MP/company/person graph for `/connections`. Lazily fetched on that route. |
-| `connections-by-mp.json` | 314 KB / 59 KB / 42 KB | Per-MP 1-hop neighbourhoods. Loaded on each candidate page (`MpConnectionsMini`). |
+| `connections.json` | 2.5 MB / 218 KB / 136 KB | Cross-MP/company/person graph for `/connections`. Lazily fetched on that route only. |
+| `mp-connections/{mpId}.json` × ~600 | ~4.2 MB total (median ~1.8 KB / max ~190 KB raw) | Per-MP 1-hop + co-officer-2-hop subgraph. Loaded on each candidate page (`MpConnectionsMini`). MPs with no neighbourhood get no file (fetch 404 → component renders nothing). |
 | `connections-rankings.json` | 791 KB / 74 KB / 55 KB | Top-MPs / top-companies for the dashboard tile + `/connections` rankings card. **Loaded on every dashboard view** — keep it lean. |
 
 The four aggregate files at the bottom are **regenerated end-to-end on every run** of phases 2/5/6. The per-MP declaration files are append-only (one file per MP id; rewriting one file does not affect others).
@@ -94,7 +94,7 @@ public/parliament/declarations/         [Phase 4] state.sqlite
        └─[Phase 6] buildConnectionsGraph
                   ▼
               connections.json
-              connections-by-mp.json
+              mp-connections/{mpId}.json
               connections-rankings.json
 ```
 
@@ -154,7 +154,7 @@ When a new filing season opens (typically May for prior fiscal year):
    ```bash
    git add public/parliament/declarations public/parliament/companies-index.json \
            public/parliament/mp-management public/parliament/connections.json \
-           public/parliament/connections-by-mp.json public/parliament/connections-rankings.json
+           public/parliament/mp-connections public/parliament/connections-rankings.json
    git commit -m "Refresh declarations for 2026 filing year"
    ```
 

@@ -1,0 +1,191 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:3047",
+  "nodes": [
+    {
+      "id": "mp:3047",
+      "type": "mp",
+      "mpId": 3047,
+      "label": "НИКОЛА ХРИСТОВ КРЪСТЕВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:БАРДУКОВ-ООД",
+      "type": "company",
+      "label": "БАРДУКОВ ООД",
+      "slug": "БАРДУКОВ-ООД",
+      "uic": "200872545",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Пловдив"
+    },
+    {
+      "id": "company:ГЛОБАЛ-СЪРВИЗ-ЕС-ЕООД",
+      "type": "company",
+      "label": "ГЛОБАЛ СЪРВИЗ ЕС ЕООД",
+      "slug": "ГЛОБАЛ-СЪРВИЗ-ЕС-ЕООД",
+      "uic": "201932696",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "София (столица)"
+    },
+    {
+      "id": "company:ЕВРО-ТРЕЙД-94-ЕООД",
+      "type": "company",
+      "label": "ЕВРО ТРЕЙД 94 ЕООД",
+      "slug": "ЕВРО-ТРЕЙД-94-ЕООД",
+      "uic": "204549774",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "София"
+    },
+    {
+      "id": "company:ЕВРО-ТРЕЙЙД-94-ЕООД",
+      "type": "company",
+      "label": "ЕВРО ТРЕЙЙД 94 ЕООД",
+      "slug": "ЕВРО-ТРЕЙЙД-94-ЕООД",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "София"
+    },
+    {
+      "id": "company:ОРХАНИЕ-1-ООД",
+      "type": "company",
+      "label": "ОРХАНИЕ 1 ООД",
+      "slug": "ОРХАНИЕ-1-ООД",
+      "uic": "130952900",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "София"
+    },
+    {
+      "id": "company:ОРХАНИЕ-ДИСТРИБЮШЪН-ООД",
+      "type": "company",
+      "label": "ОРХАНИЕ ДИСТРИБЮШЪН ООД",
+      "slug": "ОРХАНИЕ-ДИСТРИБЮШЪН-ООД",
+      "uic": "200963781",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "София"
+    },
+    {
+      "id": "company:ФАСТ-БГ-ЕООД",
+      "type": "company",
+      "label": "ФАСТ БГ ЕООД",
+      "slug": "ФАСТ-БГ-ЕООД",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "София (столица)"
+    },
+    {
+      "id": "company:ФАСТ.БГ-ЕООД",
+      "type": "company",
+      "label": "ФАСТ.БГ ЕООД",
+      "slug": "ФАСТ.БГ-ЕООД",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "София (столица)"
+    },
+    {
+      "id": "company:ЦЕМА-ЕООД",
+      "type": "company",
+      "label": "ЦЕМА ЕООД",
+      "slug": "ЦЕМА-ЕООД",
+      "uic": "175081049",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "София"
+    },
+    {
+      "id": "person:ХРИСТИЯН ХРИСТОВ КРЪСТЕВ",
+      "type": "person",
+      "label": "ХРИСТИЯН ХРИСТОВ КРЪСТЕВ"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3047",
+      "target": "company:БАРДУКОВ-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3047",
+      "target": "company:ГЛОБАЛ-СЪРВИЗ-ЕС-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3047",
+      "target": "company:ЕВРО-ТРЕЙД-94-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3047",
+      "target": "company:ЕВРО-ТРЕЙЙД-94-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3047",
+      "target": "company:ОРХАНИЕ-1-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3047",
+      "target": "company:ОРХАНИЕ-ДИСТРИБЮШЪН-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3047",
+      "target": "company:ФАСТ-БГ-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3047",
+      "target": "company:ФАСТ.БГ-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3047",
+      "target": "company:ЦЕМА-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТИЯН ХРИСТОВ КРЪСТЕВ",
+      "target": "company:ГЛОБАЛ-СЪРВИЗ-ЕС-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

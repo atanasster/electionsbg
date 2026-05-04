@@ -1,0 +1,157 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:2695",
+  "nodes": [
+    {
+      "id": "mp:2695",
+      "type": "mp",
+      "mpId": 2695,
+      "label": "СТАНИСЛАВ СТОЯНОВ ИВАНОВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:112669637",
+      "type": "company",
+      "label": "КАРИ",
+      "slug": null,
+      "uic": "112669637",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:112619824",
+      "type": "company",
+      "label": "СТАНИ",
+      "slug": null,
+      "uic": "112619824",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:204276464",
+      "type": "company",
+      "label": "СИ ПЛАСТ 04",
+      "slug": null,
+      "uic": "204276464",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Пазарджик, 4400"
+    },
+    {
+      "id": "person:СТОЯН НИКОЛОВ ИВАНОВ",
+      "type": "person",
+      "label": "СТОЯН НИКОЛОВ ИВАНОВ"
+    },
+    {
+      "id": "person:НИНА НЕДЕЛКОВА ПАВЛОВА",
+      "type": "person",
+      "label": "НИНА НЕДЕЛКОВА ПАВЛОВА"
+    },
+    {
+      "id": "person:НИКОЛАЙ СТОЯНОВ ИВАНОВ",
+      "type": "person",
+      "label": "НИКОЛАЙ СТОЯНОВ ИВАНОВ"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:2695",
+      "target": "company:tr:112669637",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2695",
+      "target": "company:tr:112669637",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2695",
+      "target": "company:tr:112619824",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2695",
+      "target": "company:tr:204276464",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТОЯН НИКОЛОВ ИВАНОВ",
+      "target": "company:tr:112669637",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИНА НЕДЕЛКОВА ПАВЛОВА",
+      "target": "company:tr:112669637",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ СТОЯНОВ ИВАНОВ",
+      "target": "company:tr:112669637",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН НИКОЛОВ ИВАНОВ",
+      "target": "company:tr:112669637",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИНА НЕДЕЛКОВА ПАВЛОВА",
+      "target": "company:tr:112619824",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН НИКОЛОВ ИВАНОВ",
+      "target": "company:tr:112619824",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИНА НЕДЕЛКОВА ПАВЛОВА",
+      "target": "company:tr:204276464",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЯН НИКОЛОВ ИВАНОВ",
+      "target": "company:tr:204276464",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

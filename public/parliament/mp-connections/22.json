@@ -1,0 +1,68 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:22",
+  "nodes": [
+    {
+      "id": "mp:22",
+      "type": "mp",
+      "mpId": 22,
+      "label": "ЯНИ ДИМИТРОВ ЯНЕВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:203581032",
+      "type": "company",
+      "label": "АКАДЕМИЧЕН ПАРК 2020 ХОЛИДЕЙ",
+      "slug": null,
+      "uic": "203581032",
+      "legalForm": "EAD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:ИЛИЯ ПЕТРОВ РАЕВ",
+      "type": "person",
+      "label": "Илия Петров Раев"
+    },
+    {
+      "id": "person:НИКОЛА ПЕТРОВ НИКОЛОВ",
+      "type": "person",
+      "label": "Никола Петров Николов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:22",
+      "target": "company:tr:203581032",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:22",
+      "target": "company:tr:203581032",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИЛИЯ ПЕТРОВ РАЕВ",
+      "target": "company:tr:203581032",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛА ПЕТРОВ НИКОЛОВ",
+      "target": "company:tr:203581032",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

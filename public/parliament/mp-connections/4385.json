@@ -1,0 +1,68 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:4385",
+  "nodes": [
+    {
+      "id": "mp:4385",
+      "type": "mp",
+      "mpId": 4385,
+      "label": "ВЕНИАМИН ИВАНОВ ВОДЕНИЧАРОВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:131351354",
+      "type": "company",
+      "label": "ГРИЙН АГРО ГРУП",
+      "slug": null,
+      "uic": "131351354",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:ХРИСТО ВЕСЕЛИНОВ ГАДЕВ",
+      "type": "person",
+      "label": "Христо Веселинов Гадев"
+    },
+    {
+      "id": "person:БОЙКО ВЕСЕЛИНОВ ГАДЕВ",
+      "type": "person",
+      "label": "Бойко Веселинов Гадев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4385",
+      "target": "company:tr:131351354",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ХРИСТО ВЕСЕЛИНОВ ГАДЕВ",
+      "target": "company:tr:131351354",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЙКО ВЕСЕЛИНОВ ГАДЕВ",
+      "target": "company:tr:131351354",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО ВЕСЕЛИНОВ ГАДЕВ",
+      "target": "company:tr:131351354",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

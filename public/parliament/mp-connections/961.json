@@ -1,0 +1,34 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:961",
+  "nodes": [
+    {
+      "id": "mp:961",
+      "type": "mp",
+      "mpId": 961,
+      "label": "МИЛЕНА ИВАНОВА ХРИСТОВА",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:206746521",
+      "type": "company",
+      "label": "КРИСДЕНИ",
+      "slug": null,
+      "uic": "206746521",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Горна Оряховица, 5100"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:961",
+      "target": "company:tr:206746521",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

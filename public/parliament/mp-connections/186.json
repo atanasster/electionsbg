@@ -1,0 +1,52 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:186",
+  "nodes": [
+    {
+      "id": "mp:186",
+      "type": "mp",
+      "mpId": 186,
+      "label": "МИНЧО ВИКТОРОВ СПАСОВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:203988010",
+      "type": "company",
+      "label": "Авиационна, морска и специализирана агенция",
+      "slug": null,
+      "uic": "203988010",
+      "legalForm": "OOD",
+      "status": "ceased",
+      "seat": null
+    },
+    {
+      "id": "company:tr:201879158",
+      "type": "company",
+      "label": "ЛОЯЛКОНСУЛТ ММ",
+      "slug": null,
+      "uic": "201879158",
+      "legalForm": "EOOD",
+      "status": "ceased",
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:186",
+      "target": "company:tr:203988010",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:186",
+      "target": "company:tr:201879158",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

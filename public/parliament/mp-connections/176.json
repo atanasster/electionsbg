@@ -1,0 +1,123 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:176",
+  "nodes": [
+    {
+      "id": "mp:176",
+      "type": "mp",
+      "mpId": 176,
+      "label": "ГЕОРГИ ЙОРДАНОВ ДИМИТРОВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:204811835",
+      "type": "company",
+      "label": "БАР - ЛИДЕР",
+      "slug": null,
+      "uic": "204811835",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Варна, 9010"
+    },
+    {
+      "id": "company:tr:205022045",
+      "type": "company",
+      "label": "БАР - ПОРТ",
+      "slug": null,
+      "uic": "205022045",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Варна, 9000"
+    },
+    {
+      "id": "person:СИМЕОН ДЕТЕЛИНОВ ДИКОВ",
+      "type": "person",
+      "label": "СИМЕОН ДЕТЕЛИНОВ ДИКОВ"
+    },
+    {
+      "id": "person:КОНСТАНТИН ВЛАДИМИРОВ ЛОЗЕВ",
+      "type": "person",
+      "label": "КОНСТАНТИН ВЛАДИМИРОВ ЛОЗЕВ"
+    },
+    {
+      "id": "person:ЛОЗАН ВЛАДИМИРОВ ЛОЗЕВ",
+      "type": "person",
+      "label": "ЛОЗАН ВЛАДИМИРОВ ЛОЗЕВ"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:176",
+      "target": "company:tr:204811835",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:176",
+      "target": "company:tr:204811835",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:176",
+      "target": "company:tr:205022045",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СИМЕОН ДЕТЕЛИНОВ ДИКОВ",
+      "target": "company:tr:204811835",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОНСТАНТИН ВЛАДИМИРОВ ЛОЗЕВ",
+      "target": "company:tr:204811835",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИМЕОН ДЕТЕЛИНОВ ДИКОВ",
+      "target": "company:tr:204811835",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛОЗАН ВЛАДИМИРОВ ЛОЗЕВ",
+      "target": "company:tr:204811835",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КОНСТАНТИН ВЛАДИМИРОВ ЛОЗЕВ",
+      "target": "company:tr:204811835",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИМЕОН ДЕТЕЛИНОВ ДИКОВ",
+      "target": "company:tr:205022045",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

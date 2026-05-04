@@ -1,0 +1,104 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:2052",
+  "nodes": [
+    {
+      "id": "mp:2052",
+      "type": "mp",
+      "mpId": 2052,
+      "label": "ИЛИЯН СТРАХИЛОВ ПОПОВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:204764481",
+      "type": "company",
+      "label": "НЮ ТЕХНОЛОДЖИС БГ",
+      "slug": null,
+      "uic": "204764481",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:204626092",
+      "type": "company",
+      "label": "СОФИЯ КОНСУЛТИНГ ПАРТНЪРС",
+      "slug": null,
+      "uic": "204626092",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:ГЕОРГИ ИВАНОВ КУЗМЕВ",
+      "type": "person",
+      "label": "ГЕОРГИ ИВАНОВ КУЗМЕВ"
+    },
+    {
+      "id": "person:ФОНДАЦИЯ \"ЕКОФАМИЛИЯ\"",
+      "type": "person",
+      "label": "ФОНДАЦИЯ \"ЕКОФАМИЛИЯ\""
+    },
+    {
+      "id": "person:ВЯРА БЛАГОЕВА ПОПОВА",
+      "type": "person",
+      "label": "ВЯРА БЛАГОЕВА ПОПОВА"
+    },
+    {
+      "id": "person:СОФИЯ КОНСУЛТИНГ ПАРТНЪРС ООД",
+      "type": "person",
+      "label": "СОФИЯ КОНСУЛТИНГ ПАРТНЪРС ООД"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:2052",
+      "target": "company:tr:204764481",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2052",
+      "target": "company:tr:204626092",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГЕОРГИ ИВАНОВ КУЗМЕВ",
+      "target": "company:tr:204764481",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФОНДАЦИЯ \"ЕКОФАМИЛИЯ\"",
+      "target": "company:tr:204764481",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЯРА БЛАГОЕВА ПОПОВА",
+      "target": "company:tr:204764481",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СОФИЯ КОНСУЛТИНГ ПАРТНЪРС ООД",
+      "target": "company:tr:204764481",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

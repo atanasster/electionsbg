@@ -1,0 +1,655 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:1835",
+  "nodes": [
+    {
+      "id": "mp:1835",
+      "type": "mp",
+      "mpId": 1835,
+      "label": "ИВАН НИКОЛОВ ИВАНОВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:111542494",
+      "type": "company",
+      "label": "ДИАМЕД - М",
+      "slug": null,
+      "uic": "111542494",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:202803761",
+      "type": "company",
+      "label": "ДЖЕЙ ЕЛ ИНВЕСТМЪНТ",
+      "slug": null,
+      "uic": "202803761",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:202787296",
+      "type": "company",
+      "label": "ДЖЕЙ ЕЛ КЕПИТЪЛ",
+      "slug": null,
+      "uic": "202787296",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:103953492",
+      "type": "company",
+      "label": "БЕТА ЛОГИСТИКА",
+      "slug": null,
+      "uic": "103953492",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Варна"
+    },
+    {
+      "id": "company:tr:206402285",
+      "type": "company",
+      "label": "МИРА М ТРАНС",
+      "slug": null,
+      "uic": "206402285",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Казанлък, 6100"
+    },
+    {
+      "id": "company:tr:206466747",
+      "type": "company",
+      "label": "НИМАР СТРОЙ 2003",
+      "slug": null,
+      "uic": "206466747",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, с. Войводиново, 4135"
+    },
+    {
+      "id": "company:tr:175186406",
+      "type": "company",
+      "label": "АЙ ВИ ЗЕТ РИСК",
+      "slug": null,
+      "uic": "175186406",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1326"
+    },
+    {
+      "id": "company:tr:202649295",
+      "type": "company",
+      "label": "ФИДЛЪР",
+      "slug": null,
+      "uic": "202649295",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:126035397",
+      "type": "company",
+      "label": "СВИЛА",
+      "slug": null,
+      "uic": "126035397",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:205142817",
+      "type": "company",
+      "label": "Хиперсел",
+      "slug": null,
+      "uic": "205142817",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:126522017",
+      "type": "company",
+      "label": "СИДЕКС",
+      "slug": null,
+      "uic": "126522017",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Хасково, 6300"
+    },
+    {
+      "id": "company:tr:206423525",
+      "type": "company",
+      "label": "КИНТ ГРУП",
+      "slug": null,
+      "uic": "206423525",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Правец, 2161"
+    },
+    {
+      "id": "company:tr:201379861",
+      "type": "company",
+      "label": "АЙ ПИ ФОР ОЛ",
+      "slug": null,
+      "uic": "201379861",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:ЕЛЕНА ИВАНОВА ДАМЯНОВА",
+      "type": "person",
+      "label": "ЕЛЕНА ИВАНОВА ДАМЯНОВА"
+    },
+    {
+      "id": "person:ВЪРБАН ЦЕНОВ АНДРЕЕВ",
+      "type": "person",
+      "label": "ВЪРБАН ЦЕНОВ АНДРЕЕВ"
+    },
+    {
+      "id": "person:ВАНЯ ГЕОРГИЕВА ИВАНОВА",
+      "type": "person",
+      "label": "ВАНЯ ГЕОРГИЕВА ИВАНОВА"
+    },
+    {
+      "id": "person:НИКОЛАЙ ИВАНОВ ИВАНОВ",
+      "type": "person",
+      "label": "НИКОЛАЙ ИВАНОВ ИВАНОВ"
+    },
+    {
+      "id": "person:АННА ГЕОРГИЕВА ЖЕКОВА",
+      "type": "person",
+      "label": "Анна Георгиева Жекова"
+    },
+    {
+      "id": "person:ГАЛИН ПЕТРОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "Галин Петров Димитров"
+    },
+    {
+      "id": "person:МИРОСЛАВА МИЛКОВА МИХАЙЛОВА",
+      "type": "person",
+      "label": "Мирослава Милкова Михайлова"
+    },
+    {
+      "id": "person:ЖЕКО КОСТАДИНОВ ЗЛАТАНОВ",
+      "type": "person",
+      "label": "ЖЕКО КОСТАДИНОВ ЗЛАТАНОВ"
+    },
+    {
+      "id": "person:МАРИЯНА ХРИСТОВА ВЛАДИМИРОВА",
+      "type": "person",
+      "label": "МАРИЯНА ХРИСТОВА ВЛАДИМИРОВА"
+    },
+    {
+      "id": "person:ВЛАДИМИР ДИМИТРОВ ВЪЛКОВ",
+      "type": "person",
+      "label": "ВЛАДИМИР ДИМИТРОВ ВЪЛКОВ"
+    },
+    {
+      "id": "person:МАРИЯ НИКОЛАЕВА ИВАНОВА",
+      "type": "person",
+      "label": "МАРИЯ НИКОЛАЕВА ИВАНОВА"
+    },
+    {
+      "id": "person:НИКОЛА ЦВЕТАНОВ АРГИРОВ",
+      "type": "person",
+      "label": "Никола Цветанов Аргиров"
+    },
+    {
+      "id": "person:МИТКО СТЕФАНОВ ЧАНКОВ",
+      "type": "person",
+      "label": "МИТКО СТЕФАНОВ ЧАНКОВ"
+    },
+    {
+      "id": "person:СВЕТЛАНА ВИКТОРОВА НАСТЕВА",
+      "type": "person",
+      "label": "СВЕТЛАНА ВИКТОРОВА НАСТЕВА"
+    },
+    {
+      "id": "person:ДИМЧО ИВАНОВ ДЕРМЕНДЖИЕВ",
+      "type": "person",
+      "label": "ДИМЧО ИВАНОВ ДЕРМЕНДЖИЕВ"
+    },
+    {
+      "id": "person:ПЕТЪР ДИМОВ ГАВАНОЗОВ",
+      "type": "person",
+      "label": "ПЕТЪР ДИМОВ ГАВАНОЗОВ"
+    },
+    {
+      "id": "person:ЦВЕТАНА ВЪЛЧЕВА ДИМИТРОВА",
+      "type": "person",
+      "label": "ЦВЕТАНА ВЪЛЧЕВА ДИМИТРОВА"
+    },
+    {
+      "id": "person:АНГЕЛ КРУМОВ ГАТЕВ",
+      "type": "person",
+      "label": "Ангел Крумов Гатев"
+    },
+    {
+      "id": "person:ЯНИНА НИКОЛОВА ИВАНОВА",
+      "type": "person",
+      "label": "Янина Николова Иванова"
+    },
+    {
+      "id": "person:НИКОЛА ИВАНОВ КОЛЕВ",
+      "type": "person",
+      "label": "НИКОЛА ИВАНОВ КОЛЕВ"
+    },
+    {
+      "id": "person:АНТОНИЯ НИКОЛОВА ВАСИЛЕВА",
+      "type": "person",
+      "label": "АНТОНИЯ НИКОЛОВА ВАСИЛЕВА"
+    },
+    {
+      "id": "person:ТЕНЧО СТОЙЧЕВ СТОИЛОВ",
+      "type": "person",
+      "label": "ТЕНЧО СТОЙЧЕВ СТОИЛОВ"
+    },
+    {
+      "id": "person:СТОЙЧО ГЕОРГИЕВ СТОИЛОВ",
+      "type": "person",
+      "label": "СТОЙЧО ГЕОРГИЕВ СТОИЛОВ"
+    },
+    {
+      "id": "person:КАЛЛО ООД",
+      "type": "person",
+      "label": "КАЛЛО ООД"
+    },
+    {
+      "id": "person:КАЛЛО",
+      "type": "person",
+      "label": "КАЛЛО"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:1835",
+      "target": "company:tr:111542494",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1835",
+      "target": "company:tr:202803761",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1835",
+      "target": "company:tr:202787296",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1835",
+      "target": "company:tr:103953492",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1835",
+      "target": "company:tr:206402285",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1835",
+      "target": "company:tr:206466747",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1835",
+      "target": "company:tr:206466747",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1835",
+      "target": "company:tr:175186406",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1835",
+      "target": "company:tr:202649295",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1835",
+      "target": "company:tr:126035397",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1835",
+      "target": "company:tr:205142817",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1835",
+      "target": "company:tr:205142817",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1835",
+      "target": "company:tr:126522017",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1835",
+      "target": "company:tr:206423525",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1835",
+      "target": "company:tr:201379861",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1835",
+      "target": "company:tr:201379861",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЕЛЕНА ИВАНОВА ДАМЯНОВА",
+      "target": "company:tr:111542494",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЪРБАН ЦЕНОВ АНДРЕЕВ",
+      "target": "company:tr:111542494",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАНЯ ГЕОРГИЕВА ИВАНОВА",
+      "target": "company:tr:202803761",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ИВАНОВ ИВАНОВ",
+      "target": "company:tr:202803761",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАНЯ ГЕОРГИЕВА ИВАНОВА",
+      "target": "company:tr:202787296",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ИВАНОВ ИВАНОВ",
+      "target": "company:tr:202787296",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АННА ГЕОРГИЕВА ЖЕКОВА",
+      "target": "company:tr:103953492",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛИН ПЕТРОВ ДИМИТРОВ",
+      "target": "company:tr:103953492",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРОСЛАВА МИЛКОВА МИХАЙЛОВА",
+      "target": "company:tr:206402285",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖЕКО КОСТАДИНОВ ЗЛАТАНОВ",
+      "target": "company:tr:206466747",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖЕКО КОСТАДИНОВ ЗЛАТАНОВ",
+      "target": "company:tr:206466747",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯНА ХРИСТОВА ВЛАДИМИРОВА",
+      "target": "company:tr:206466747",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯНА ХРИСТОВА ВЛАДИМИРОВА",
+      "target": "company:tr:206466747",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЛАДИМИР ДИМИТРОВ ВЪЛКОВ",
+      "target": "company:tr:175186406",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ НИКОЛАЕВА ИВАНОВА",
+      "target": "company:tr:175186406",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛА ЦВЕТАНОВ АРГИРОВ",
+      "target": "company:tr:175186406",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛА ЦВЕТАНОВ АРГИРОВ",
+      "target": "company:tr:175186406",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИТКО СТЕФАНОВ ЧАНКОВ",
+      "target": "company:tr:202649295",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СВЕТЛАНА ВИКТОРОВА НАСТЕВА",
+      "target": "company:tr:202649295",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМЧО ИВАНОВ ДЕРМЕНДЖИЕВ",
+      "target": "company:tr:202649295",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТЪР ДИМОВ ГАВАНОЗОВ",
+      "target": "company:tr:126035397",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТАНА ВЪЛЧЕВА ДИМИТРОВА",
+      "target": "company:tr:126035397",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛ КРУМОВ ГАТЕВ",
+      "target": "company:tr:205142817",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНИНА НИКОЛОВА ИВАНОВА",
+      "target": "company:tr:205142817",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНИНА НИКОЛОВА ИВАНОВА",
+      "target": "company:tr:205142817",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛ КРУМОВ ГАТЕВ",
+      "target": "company:tr:205142817",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛА ИВАНОВ КОЛЕВ",
+      "target": "company:tr:126522017",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОНИЯ НИКОЛОВА ВАСИЛЕВА",
+      "target": "company:tr:126522017",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕНЧО СТОЙЧЕВ СТОИЛОВ",
+      "target": "company:tr:126522017",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЙЧО ГЕОРГИЕВ СТОИЛОВ",
+      "target": "company:tr:126522017",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛЛО ООД",
+      "target": "company:tr:201379861",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛЛО",
+      "target": "company:tr:201379861",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,122 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:3372",
+  "nodes": [
+    {
+      "id": "mp:3372",
+      "type": "mp",
+      "mpId": 3372,
+      "label": "ВАСИЛ ЙОРДАНОВ ГЕОРГИЕВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:Екс-Натура-ЕООД",
+      "type": "company",
+      "label": "Екс Натура ЕООД",
+      "slug": "Екс-Натура-ЕООД",
+      "uic": "203531104",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "Свищов"
+    },
+    {
+      "id": "company:Prista-Oil-Yağ-San.-ve-Tic.-Ltd.-Sti.",
+      "type": "company",
+      "label": "Prista Oil Yağ San. ve Tic. Ltd. Sti.",
+      "slug": "Prista-Oil-Yağ-San.-ve-Tic.-Ltd.-Sti.",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "Истанбул"
+    },
+    {
+      "id": "company:Prısta-Deniz-Yağları-tic-ltd",
+      "type": "company",
+      "label": "Prısta Deniz Yağları tic ltd",
+      "slug": "Prısta-Deniz-Yağları-tic-ltd",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "Истанбул"
+    },
+    {
+      "id": "company:tr:203532722",
+      "type": "company",
+      "label": "Рийд България",
+      "slug": null,
+      "uic": "203532722",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Свищов, 5250"
+    },
+    {
+      "id": "person:ЙОРДАН ХРИСТОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Йордан Христов Георгиев"
+    },
+    {
+      "id": "person:РИЙД ИНТЕРНЕШЪНЪЛ ИНК. - САЩ",
+      "type": "person",
+      "label": "Рийд Интернешънъл Инк. - САЩ"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3372",
+      "target": "company:Екс-Натура-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3372",
+      "target": "company:Prista-Oil-Yağ-San.-ve-Tic.-Ltd.-Sti.",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3372",
+      "target": "company:Prısta-Deniz-Yağları-tic-ltd",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3372",
+      "target": "company:tr:203532722",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЙОРДАН ХРИСТОВ ГЕОРГИЕВ",
+      "target": "company:Екс-Натура-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАН ХРИСТОВ ГЕОРГИЕВ",
+      "target": "company:tr:203532722",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РИЙД ИНТЕРНЕШЪНЪЛ ИНК. - САЩ",
+      "target": "company:tr:203532722",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

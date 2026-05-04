@@ -1,0 +1,34 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:4429",
+  "nodes": [
+    {
+      "id": "mp:4429",
+      "type": "mp",
+      "mpId": 4429,
+      "label": "БОГДАН СТЕФАНОВ ДОНЕВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:205369957",
+      "type": "company",
+      "label": "АРТ СЦЕНА",
+      "slug": null,
+      "uic": "205369957",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4429",
+      "target": "company:tr:205369957",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

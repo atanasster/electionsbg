@@ -1,0 +1,68 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:5009",
+  "nodes": [
+    {
+      "id": "mp:5009",
+      "type": "mp",
+      "mpId": 5009,
+      "label": "ЛЮБИША   БЛАЖЕВСКИ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:206946066",
+      "type": "company",
+      "label": "АМБУЛАТОРИЯ ЗА СПЕЦИАЛИЗИРАНА МЕДИЦИНСКА ПОМОЩ-МЕДИЦИНСКИ ЦЕНТЪР МЕДЕКСПРЕС 2022",
+      "slug": null,
+      "uic": "206946066",
+      "legalForm": "Дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Варна, 9000"
+    },
+    {
+      "id": "person:ПЕТКО КРАСИМИРОВ АТЕВ",
+      "type": "person",
+      "label": "ПЕТКО КРАСИМИРОВ АТЕВ"
+    },
+    {
+      "id": "person:ПАВЕЛ ПЕТКОВ МАРИНОВ",
+      "type": "person",
+      "label": "ПАВЕЛ ПЕТКОВ МАРИНОВ"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5009",
+      "target": "company:tr:206946066",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЕТКО КРАСИМИРОВ АТЕВ",
+      "target": "company:tr:206946066",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕТКО КРАСИМИРОВ АТЕВ",
+      "target": "company:tr:206946066",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЕЛ ПЕТКОВ МАРИНОВ",
+      "target": "company:tr:206946066",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

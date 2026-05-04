@@ -1,0 +1,34 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:5233",
+  "nodes": [
+    {
+      "id": "mp:5233",
+      "type": "mp",
+      "mpId": 5233,
+      "label": "ИВО ГЕОРГИЕВ МИХАЙЛОВ",
+      "partyGroupShort": "ПГ ПП",
+      "isCurrent": true
+    },
+    {
+      "id": "company:tr:206570240",
+      "type": "company",
+      "label": "ИВО - ДЕСИ 2021",
+      "slug": null,
+      "uic": "206570240",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1404"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5233",
+      "target": "company:tr:206570240",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

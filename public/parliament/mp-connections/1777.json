@@ -1,0 +1,68 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:1777",
+  "nodes": [
+    {
+      "id": "mp:1777",
+      "type": "mp",
+      "mpId": 1777,
+      "label": "ГЕОРГИ НИКОЛОВ КОЛЕВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:206498823",
+      "type": "company",
+      "label": "КОЛМОСТ",
+      "slug": null,
+      "uic": "206498823",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1606"
+    },
+    {
+      "id": "person:КОНСТАНТИН НАЧЕВ КАМЕНОВ",
+      "type": "person",
+      "label": "КОНСТАНТИН НАЧЕВ КАМЕНОВ"
+    },
+    {
+      "id": "person:ДИМИТЪР АЛЕКСАНДРОВ МОСТРОВ",
+      "type": "person",
+      "label": "ДИМИТЪР АЛЕКСАНДРОВ МОСТРОВ"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:1777",
+      "target": "company:tr:206498823",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1777",
+      "target": "company:tr:206498823",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КОНСТАНТИН НАЧЕВ КАМЕНОВ",
+      "target": "company:tr:206498823",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР АЛЕКСАНДРОВ МОСТРОВ",
+      "target": "company:tr:206498823",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

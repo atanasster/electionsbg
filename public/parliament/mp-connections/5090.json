@@ -1,0 +1,63 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:5090",
+  "nodes": [
+    {
+      "id": "mp:5090",
+      "type": "mp",
+      "mpId": 5090,
+      "label": "ИВАН ДИМИТРОВ ШИШКОВ",
+      "partyGroupShort": "ПГ на ПБ",
+      "isCurrent": true
+    },
+    {
+      "id": "company:tr:115825739",
+      "type": "company",
+      "label": "ИВАН КУОЛИТИ",
+      "slug": null,
+      "uic": "115825739",
+      "legalForm": "Дружество с ограничена отговорност",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:КРЕМЕНА ЯНКОВА ШИШКОВА",
+      "type": "person",
+      "label": "КРЕМЕНА ЯНКОВА ШИШКОВА"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5090",
+      "target": "company:tr:115825739",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5090",
+      "target": "company:tr:115825739",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КРЕМЕНА ЯНКОВА ШИШКОВА",
+      "target": "company:tr:115825739",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КРЕМЕНА ЯНКОВА ШИШКОВА",
+      "target": "company:tr:115825739",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

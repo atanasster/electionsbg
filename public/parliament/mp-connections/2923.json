@@ -1,0 +1,60 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:2923",
+  "nodes": [
+    {
+      "id": "mp:2923",
+      "type": "mp",
+      "mpId": 2923,
+      "label": "КАЛИН ДИМИТРОВ ВАСИЛЕВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:ПАНЕГА-КОНСУЛТ-ЕООД",
+      "type": "company",
+      "label": "ПАНЕГА КОНСУЛТ ЕООД",
+      "slug": "ПАНЕГА-КОНСУЛТ-ЕООД",
+      "uic": "206174223",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Луковит, 5770"
+    },
+    {
+      "id": "company:tr:202100535",
+      "type": "company",
+      "label": "СЧЕТОВОДЕН ФАКТОР",
+      "slug": null,
+      "uic": "202100535",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": null
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:2923",
+      "target": "company:ПАНЕГА-КОНСУЛТ-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2923",
+      "target": "company:ПАНЕГА-КОНСУЛТ-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2923",
+      "target": "company:tr:202100535",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

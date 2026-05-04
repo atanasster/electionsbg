@@ -1,0 +1,159 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:4152",
+  "nodes": [
+    {
+      "id": "mp:4152",
+      "type": "mp",
+      "mpId": 4152,
+      "label": "ИВО ГЕОРГИЕВ РУСЧЕВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:артиса",
+      "type": "company",
+      "label": "артиса",
+      "slug": "артиса",
+      "uic": "206586426",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "company:кар13",
+      "type": "company",
+      "label": "кар13",
+      "slug": "кар13",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "София"
+    },
+    {
+      "id": "company:русчев-естейтс",
+      "type": "company",
+      "label": "русчев естейтс",
+      "slug": "русчев-естейтс",
+      "uic": "205604309",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "София"
+    },
+    {
+      "id": "company:tr:206438491",
+      "type": "company",
+      "label": "Кар 13",
+      "slug": null,
+      "uic": "206438491",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1142"
+    },
+    {
+      "id": "person:ХРИСТО СТАНИСЛАВОВ СТЕФАНОВ",
+      "type": "person",
+      "label": "ХРИСТО СТАНИСЛАВОВ СТЕФАНОВ"
+    },
+    {
+      "id": "person:СИЛВИЯ СТАНЧЕВА БОРИСОВА",
+      "type": "person",
+      "label": "СИЛВИЯ СТАНЧЕВА БОРИСОВА"
+    },
+    {
+      "id": "person:ВЕРА АНГЕЛОВА РУСЧЕВА",
+      "type": "person",
+      "label": "ВЕРА АНГЕЛОВА РУСЧЕВА"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4152",
+      "target": "company:артиса",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4152",
+      "target": "company:артиса",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4152",
+      "target": "company:артиса",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4152",
+      "target": "company:кар13",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4152",
+      "target": "company:русчев-естейтс",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4152",
+      "target": "company:tr:206438491",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ХРИСТО СТАНИСЛАВОВ СТЕФАНОВ",
+      "target": "company:артиса",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО СТАНИСЛАВОВ СТЕФАНОВ",
+      "target": "company:артиса",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИЛВИЯ СТАНЧЕВА БОРИСОВА",
+      "target": "company:артиса",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕРА АНГЕЛОВА РУСЧЕВА",
+      "target": "company:русчев-естейтс",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕРА АНГЕЛОВА РУСЧЕВА",
+      "target": "company:tr:206438491",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

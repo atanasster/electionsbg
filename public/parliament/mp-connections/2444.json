@@ -1,0 +1,47 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:2444",
+  "nodes": [
+    {
+      "id": "mp:2444",
+      "type": "mp",
+      "mpId": 2444,
+      "label": "ИЛИЯ ЯНКОВ ИЛИЕВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:204876110",
+      "type": "company",
+      "label": "Триумф - Илия Илиев",
+      "slug": null,
+      "uic": "204876110",
+      "legalForm": "EOOD",
+      "status": "in_liquidation",
+      "seat": "БЪЛГАРИЯ, гр. Костинброд, 2230"
+    },
+    {
+      "id": "person:ГАВРАИЛ ДОНЧЕВ ХРУСАНОВ",
+      "type": "person",
+      "label": "Гавраил Дончев Хрусанов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:2444",
+      "target": "company:tr:204876110",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГАВРАИЛ ДОНЧЕВ ХРУСАНОВ",
+      "target": "company:tr:204876110",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

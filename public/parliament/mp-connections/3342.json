@@ -1,0 +1,34 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:3342",
+  "nodes": [
+    {
+      "id": "mp:3342",
+      "type": "mp",
+      "mpId": 3342,
+      "label": "ЮЛИЯН МИЛЧЕВ НЕНЧЕВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:206774951",
+      "type": "company",
+      "label": "Монна Интернешънъл",
+      "slug": null,
+      "uic": "206774951",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1700"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3342",
+      "target": "company:tr:206774951",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

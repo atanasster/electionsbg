@@ -1,0 +1,269 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:913",
+  "nodes": [
+    {
+      "id": "mp:913",
+      "type": "mp",
+      "mpId": 913,
+      "label": "ЕВГЕНИЙ ВАСИЛЕВ УЗУНОВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:123129553",
+      "type": "company",
+      "label": "М + С - 97",
+      "slug": null,
+      "uic": "123129553",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:104055430",
+      "type": "company",
+      "label": "ВИНПРОМ",
+      "slug": null,
+      "uic": "104055430",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Велико Търново, 5000"
+    },
+    {
+      "id": "company:tr:206417771",
+      "type": "company",
+      "label": "УСТРЕМ",
+      "slug": null,
+      "uic": "206417771",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Свищов, 5250"
+    },
+    {
+      "id": "person:\"БИК ХОЛД\" ООД",
+      "type": "person",
+      "label": "\"Бик холд\" ООД"
+    },
+    {
+      "id": "person:ДИМИТЪР БОГОМИЛОВ ТАНОВСКИ",
+      "type": "person",
+      "label": "ДИМИТЪР БОГОМИЛОВ ТАНОВСКИ"
+    },
+    {
+      "id": "person:ИВАН ДЕЛЧЕВ ДЕЛЧЕВ",
+      "type": "person",
+      "label": "ИВАН ДЕЛЧЕВ ДЕЛЧЕВ"
+    },
+    {
+      "id": "person:ВАСИЛ ГЕОРГИЕВ ВЕЛЕВ",
+      "type": "person",
+      "label": "ВАСИЛ ГЕОРГИЕВ ВЕЛЕВ"
+    },
+    {
+      "id": "person:СПАС БОРИСОВ ВИДЕВ",
+      "type": "person",
+      "label": "СПАС БОРИСОВ ВИДЕВ"
+    },
+    {
+      "id": "person:МИЛЕНА ИВАНОВА ДИМОВА",
+      "type": "person",
+      "label": "МИЛЕНА ИВАНОВА ДИМОВА"
+    },
+    {
+      "id": "person:НЕДКО КОЛЕВ ХРИСТОВ",
+      "type": "person",
+      "label": "НЕДКО КОЛЕВ ХРИСТОВ"
+    },
+    {
+      "id": "person:КАТЕРИНА ХРИСТОВА ХРИСТОВА",
+      "type": "person",
+      "label": "КАТЕРИНА ХРИСТОВА ХРИСТОВА"
+    },
+    {
+      "id": "person:НИКОЛА НЕДКОВ ХРИСТОВ",
+      "type": "person",
+      "label": "НИКОЛА НЕДКОВ ХРИСТОВ"
+    },
+    {
+      "id": "person:ГЕОРГИ ВАСИЛЕВ ВЕЛЕВ",
+      "type": "person",
+      "label": "Георги Василев Велев"
+    },
+    {
+      "id": "person:БОРИСЛАВ ТОДОРОВ БОРИСОВ",
+      "type": "person",
+      "label": "Борислав Тодоров Борисов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:913",
+      "target": "company:tr:123129553",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:913",
+      "target": "company:tr:104055430",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:913",
+      "target": "company:tr:206417771",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:913",
+      "target": "company:tr:206417771",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:\"БИК ХОЛД\" ООД",
+      "target": "company:tr:123129553",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР БОГОМИЛОВ ТАНОВСКИ",
+      "target": "company:tr:123129553",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ДЕЛЧЕВ ДЕЛЧЕВ",
+      "target": "company:tr:123129553",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ ГЕОРГИЕВ ВЕЛЕВ",
+      "target": "company:tr:104055430",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ ГЕОРГИЕВ ВЕЛЕВ",
+      "target": "company:tr:104055430",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СПАС БОРИСОВ ВИДЕВ",
+      "target": "company:tr:104055430",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕНА ИВАНОВА ДИМОВА",
+      "target": "company:tr:104055430",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕДКО КОЛЕВ ХРИСТОВ",
+      "target": "company:tr:104055430",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕДКО КОЛЕВ ХРИСТОВ",
+      "target": "company:tr:104055430",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАТЕРИНА ХРИСТОВА ХРИСТОВА",
+      "target": "company:tr:104055430",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛА НЕДКОВ ХРИСТОВ",
+      "target": "company:tr:104055430",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕДКО КОЛЕВ ХРИСТОВ",
+      "target": "company:tr:104055430",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СПАС БОРИСОВ ВИДЕВ",
+      "target": "company:tr:206417771",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ ВАСИЛЕВ ВЕЛЕВ",
+      "target": "company:tr:206417771",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СПАС БОРИСОВ ВИДЕВ",
+      "target": "company:tr:206417771",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРИСЛАВ ТОДОРОВ БОРИСОВ",
+      "target": "company:tr:206417771",
+      "kind": "tr_role",
+      "role": "procurator",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СПАС БОРИСОВ ВИДЕВ",
+      "target": "company:tr:206417771",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

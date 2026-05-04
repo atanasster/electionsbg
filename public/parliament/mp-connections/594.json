@@ -1,0 +1,162 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:594",
+  "nodes": [
+    {
+      "id": "mp:594",
+      "type": "mp",
+      "mpId": 594,
+      "label": "БРИГО ХРИСТОФОРОВ АСПАРУХОВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:121243960",
+      "type": "company",
+      "label": "ДАРУ КАР",
+      "slug": null,
+      "uic": "121243960",
+      "legalForm": "EAD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1592"
+    },
+    {
+      "id": "person:МИЛЕН АСЕНОВ ХРИСТОВ",
+      "type": "person",
+      "label": "МИЛЕН АСЕНОВ ХРИСТОВ"
+    },
+    {
+      "id": "person:АСЕН ЕМАНУИЛОВ АСЕНОВ",
+      "type": "person",
+      "label": "АСЕН ЕМАНУИЛОВ АСЕНОВ"
+    },
+    {
+      "id": "person:СТОЙНО ИВАНОВ ЦАНЕВ",
+      "type": "person",
+      "label": "СТОЙНО ИВАНОВ ЦАНЕВ"
+    },
+    {
+      "id": "person:АСЕН ХРИСТОВ АТАНАСОВ",
+      "type": "person",
+      "label": "АСЕН ХРИСТОВ АТАНАСОВ"
+    },
+    {
+      "id": "person:ЮЛИЯН КРЪСТЕВ ЙОРДАНОВ",
+      "type": "person",
+      "label": "ЮЛИЯН КРЪСТЕВ ЙОРДАНОВ"
+    },
+    {
+      "id": "person:АМ СЪРВИЗИС",
+      "type": "person",
+      "label": "АМ СЪРВИЗИС"
+    },
+    {
+      "id": "person:МАРТИН ИВАЙЛОВ САХАКЯН",
+      "type": "person",
+      "label": "Мартин Ивайлов Сахакян"
+    },
+    {
+      "id": "person:АНГЕЛИНА МАРДИК ДАДОВА",
+      "type": "person",
+      "label": "Ангелина Мардик Дадова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:594",
+      "target": "company:tr:121243960",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МИЛЕН АСЕНОВ ХРИСТОВ",
+      "target": "company:tr:121243960",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕН АСЕНОВ ХРИСТОВ",
+      "target": "company:tr:121243960",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АСЕН ЕМАНУИЛОВ АСЕНОВ",
+      "target": "company:tr:121243960",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЙНО ИВАНОВ ЦАНЕВ",
+      "target": "company:tr:121243960",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТОЙНО ИВАНОВ ЦАНЕВ",
+      "target": "company:tr:121243960",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АСЕН ХРИСТОВ АТАНАСОВ",
+      "target": "company:tr:121243960",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЮЛИЯН КРЪСТЕВ ЙОРДАНОВ",
+      "target": "company:tr:121243960",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АСЕН ХРИСТОВ АТАНАСОВ",
+      "target": "company:tr:121243960",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АМ СЪРВИЗИС",
+      "target": "company:tr:121243960",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРТИН ИВАЙЛОВ САХАКЯН",
+      "target": "company:tr:121243960",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛИНА МАРДИК ДАДОВА",
+      "target": "company:tr:121243960",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

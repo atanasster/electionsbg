@@ -1,0 +1,52 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:2976",
+  "nodes": [
+    {
+      "id": "mp:2976",
+      "type": "mp",
+      "mpId": 2976,
+      "label": "КАЛИН ЛЮБЕНОВ ВЕЛЬОВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:КЕЙ-ВИ-ПРАДАКШЪНС-ЕООД",
+      "type": "company",
+      "label": "\"КЕЙ ВИ ПРАДАКШЪНС\" ЕООД",
+      "slug": "КЕЙ-ВИ-ПРАДАКШЪНС-ЕООД",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "София"
+    },
+    {
+      "id": "company:ТУМБАИТО-Сдружение-в-ликвидация",
+      "type": "company",
+      "label": "\"ТУМБАИТО\" Сдружение - в ликвидация",
+      "slug": "ТУМБАИТО-Сдружение-в-ликвидация",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "София"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:2976",
+      "target": "company:КЕЙ-ВИ-ПРАДАКШЪНС-ЕООД",
+      "kind": "declared_stake",
+      "role": "transferred_share",
+      "isCurrent": false,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2976",
+      "target": "company:ТУМБАИТО-Сдружение-в-ликвидация",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

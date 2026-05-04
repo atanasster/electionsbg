@@ -1,0 +1,102 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:2874",
+  "nodes": [
+    {
+      "id": "mp:2874",
+      "type": "mp",
+      "mpId": 2874,
+      "label": "АЛЕКСАНДЪР НИКОЛАЕВ САБАНОВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:201738862",
+      "type": "company",
+      "label": "ДАНАУ",
+      "slug": null,
+      "uic": "201738862",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:201720217",
+      "type": "company",
+      "label": "СФ ГРУП",
+      "slug": null,
+      "uic": "201720217",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:ЦВЕТЕЛИН МИХАЙЛОВ МАРКОВ",
+      "type": "person",
+      "label": "ЦВЕТЕЛИН МИХАЙЛОВ МАРКОВ"
+    },
+    {
+      "id": "person:ИВЕЛИН НЕДЕЛЧЕВ ИВАНОВ",
+      "type": "person",
+      "label": "ИВЕЛИН НЕДЕЛЧЕВ ИВАНОВ"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:2874",
+      "target": "company:tr:201738862",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2874",
+      "target": "company:tr:201720217",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2874",
+      "target": "company:tr:201738862",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЦВЕТЕЛИН МИХАЙЛОВ МАРКОВ",
+      "target": "company:tr:201738862",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВЕЛИН НЕДЕЛЧЕВ ИВАНОВ",
+      "target": "company:tr:201738862",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТЕЛИН МИХАЙЛОВ МАРКОВ",
+      "target": "company:tr:201738862",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВЕЛИН НЕДЕЛЧЕВ ИВАНОВ",
+      "target": "company:tr:201738862",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

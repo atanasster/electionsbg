@@ -1,0 +1,232 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:676",
+  "nodes": [
+    {
+      "id": "mp:676",
+      "type": "mp",
+      "mpId": 676,
+      "label": "ИВАН ГАНЧОВ ИСКРОВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:206899190",
+      "type": "company",
+      "label": "МЛАДОСТ РЕНТ",
+      "slug": null,
+      "uic": "206899190",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "company:tr:203281145",
+      "type": "company",
+      "label": "УЕЛДРИНКС",
+      "slug": null,
+      "uic": "203281145",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:СИМЕОН ВАЛЕНТИНОВ ФИЛИПОВ",
+      "type": "person",
+      "label": "СИМЕОН ВАЛЕНТИНОВ ФИЛИПОВ"
+    },
+    {
+      "id": "person:МАРТИН ЗЕЕЛЕ",
+      "type": "person",
+      "label": "МАРТИН ЗЕЕЛЕ"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР ЕВГЕНИЕВИЧ КАМЧАРОВ",
+      "type": "person",
+      "label": "АЛЕКСАНДЪР ЕВГЕНИЕВИЧ КАМЧАРОВ"
+    },
+    {
+      "id": "person:ТИХОМИР ГЕОРГИЕВ ЙОВЧЕВ",
+      "type": "person",
+      "label": "ТИХОМИР ГЕОРГИЕВ ЙОВЧЕВ"
+    },
+    {
+      "id": "person:ЯВОР НИКОЛАЕВ ДРАГАНОВ",
+      "type": "person",
+      "label": "ЯВОР НИКОЛАЕВ ДРАГАНОВ"
+    },
+    {
+      "id": "person:ВЕСЕЛИН БОРИСОВ БОРИСОВ",
+      "type": "person",
+      "label": "ВЕСЕЛИН БОРИСОВ БОРИСОВ"
+    },
+    {
+      "id": "person:ОЛЕГ ЮРЬЕВИЧ НИТКИН",
+      "type": "person",
+      "label": "ОЛЕГ ЮРЬЕВИЧ НИТКИН"
+    },
+    {
+      "id": "person:НИКОЛАУС МЕЙЕР",
+      "type": "person",
+      "label": "НИКОЛАУС МЕЙЕР"
+    },
+    {
+      "id": "person:ВИТАЛИЙ ОЛЕГОВИЧ НИТКИН",
+      "type": "person",
+      "label": "ВИТАЛИЙ ОЛЕГОВИЧ НИТКИН"
+    },
+    {
+      "id": "person:ИВАЙЛО СТОЯНОВ СТОЯНОВ",
+      "type": "person",
+      "label": "ИВАЙЛО СТОЯНОВ СТОЯНОВ"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР КАМЧАРОВ",
+      "type": "person",
+      "label": "АЛЕКСАНДЪР КАМЧАРОВ"
+    },
+    {
+      "id": "person:НАИРА ВИЛЕНОВНА АДАМЯН",
+      "type": "person",
+      "label": "НАИРА ВИЛЕНОВНА АДАМЯН"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:676",
+      "target": "company:tr:206899190",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:676",
+      "target": "company:tr:203281145",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СИМЕОН ВАЛЕНТИНОВ ФИЛИПОВ",
+      "target": "company:tr:206899190",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРТИН ЗЕЕЛЕ",
+      "target": "company:tr:203281145",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ЕВГЕНИЕВИЧ КАМЧАРОВ",
+      "target": "company:tr:203281145",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТИХОМИР ГЕОРГИЕВ ЙОВЧЕВ",
+      "target": "company:tr:203281145",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯВОР НИКОЛАЕВ ДРАГАНОВ",
+      "target": "company:tr:203281145",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛИН БОРИСОВ БОРИСОВ",
+      "target": "company:tr:203281145",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОЛЕГ ЮРЬЕВИЧ НИТКИН",
+      "target": "company:tr:203281145",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАУС МЕЙЕР",
+      "target": "company:tr:203281145",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИТАЛИЙ ОЛЕГОВИЧ НИТКИН",
+      "target": "company:tr:203281145",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО СТОЯНОВ СТОЯНОВ",
+      "target": "company:tr:203281145",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТИХОМИР ГЕОРГИЕВ ЙОВЧЕВ",
+      "target": "company:tr:203281145",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР КАМЧАРОВ",
+      "target": "company:tr:203281145",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯВОР НИКОЛАЕВ ДРАГАНОВ",
+      "target": "company:tr:203281145",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР КАМЧАРОВ",
+      "target": "company:tr:203281145",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НАИРА ВИЛЕНОВНА АДАМЯН",
+      "target": "company:tr:203281145",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

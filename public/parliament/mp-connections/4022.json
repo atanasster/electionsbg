@@ -1,0 +1,52 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:4022",
+  "nodes": [
+    {
+      "id": "mp:4022",
+      "type": "mp",
+      "mpId": 4022,
+      "label": "ИМРЕН ИСМЕТОВА МЕХМЕДОВА",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:БИОЕЛИТ",
+      "type": "company",
+      "label": "\"БИОЕЛИТ\"",
+      "slug": "БИОЕЛИТ",
+      "uic": "125537379",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "Търговище"
+    },
+    {
+      "id": "company:БИОЕЛИТ-ЕООД",
+      "type": "company",
+      "label": "\"БИОЕЛИТ\" ЕООД",
+      "slug": "БИОЕЛИТ-ЕООД",
+      "uic": "125537379",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "Търговище"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4022",
+      "target": "company:БИОЕЛИТ",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4022",
+      "target": "company:БИОЕЛИТ-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

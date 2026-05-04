@@ -1,0 +1,73 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:2022",
+  "nodes": [
+    {
+      "id": "mp:2022",
+      "type": "mp",
+      "mpId": 2022,
+      "label": "МАРГАРИТА МИЛЕТИЕВА БОРИСОВА",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:113553308",
+      "type": "company",
+      "label": "БИСМАРГ - ЕС",
+      "slug": null,
+      "uic": "113553308",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР НАПОЛЕОНОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Александър Наполеонов Георгиев"
+    },
+    {
+      "id": "person:БИСЕР ИВАНОВ МЕХАНДЖИЙСКИ",
+      "type": "person",
+      "label": "Бисер Иванов Механджийски"
+    },
+    {
+      "id": "person:ЕЛЕНА АЛЕКСАНДРОВА МЕХАНДЖИЙСКА",
+      "type": "person",
+      "label": "Елена Александрова Механджийска"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:2022",
+      "target": "company:tr:113553308",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР НАПОЛЕОНОВ ГЕОРГИЕВ",
+      "target": "company:tr:113553308",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БИСЕР ИВАНОВ МЕХАНДЖИЙСКИ",
+      "target": "company:tr:113553308",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА АЛЕКСАНДРОВА МЕХАНДЖИЙСКА",
+      "target": "company:tr:113553308",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

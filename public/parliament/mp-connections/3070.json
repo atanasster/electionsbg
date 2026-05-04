@@ -1,0 +1,63 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:3070",
+  "nodes": [
+    {
+      "id": "mp:3070",
+      "type": "mp",
+      "mpId": 3070,
+      "label": "САШО ТОДОРОВ САВОВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:206617327",
+      "type": "company",
+      "label": "Смарт билд 21",
+      "slug": null,
+      "uic": "206617327",
+      "legalForm": "Дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Хасково, 6300"
+    },
+    {
+      "id": "person:ЖЕНИ НИКОЛАЕВА ПРОДАНОВА",
+      "type": "person",
+      "label": "ЖЕНИ НИКОЛАЕВА ПРОДАНОВА"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3070",
+      "target": "company:tr:206617327",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3070",
+      "target": "company:tr:206617327",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЖЕНИ НИКОЛАЕВА ПРОДАНОВА",
+      "target": "company:tr:206617327",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖЕНИ НИКОЛАЕВА ПРОДАНОВА",
+      "target": "company:tr:206617327",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

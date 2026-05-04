@@ -1,0 +1,60 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:2225",
+  "nodes": [
+    {
+      "id": "mp:2225",
+      "type": "mp",
+      "mpId": 2225,
+      "label": "ДОНЧО ЙОРДАНОВ ДИМИТРОВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:104568250",
+      "type": "company",
+      "label": "КАМЕЯ -ДИКС",
+      "slug": null,
+      "uic": "104568250",
+      "legalForm": "OOD",
+      "status": "ceased",
+      "seat": "БЪЛГАРИЯ, гр. Силистра, ."
+    },
+    {
+      "id": "person:ДИАН ПАРУШЕВ НИКОЛОВ",
+      "type": "person",
+      "label": "ДИАН ПАРУШЕВ НИКОЛОВ"
+    },
+    {
+      "id": "person:МАРИН МИХАЙЛОВ МИХАЙЛОВ",
+      "type": "person",
+      "label": "МАРИН МИХАЙЛОВ МИХАЙЛОВ"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:2225",
+      "target": "company:tr:104568250",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДИАН ПАРУШЕВ НИКОЛОВ",
+      "target": "company:tr:104568250",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИН МИХАЙЛОВ МИХАЙЛОВ",
+      "target": "company:tr:104568250",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

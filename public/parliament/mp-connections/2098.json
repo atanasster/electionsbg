@@ -1,0 +1,47 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:2098",
+  "nodes": [
+    {
+      "id": "mp:2098",
+      "type": "mp",
+      "mpId": 2098,
+      "label": "НИКОЛАЙ КИРИЛОВ ДОБРЕВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:204019929",
+      "type": "company",
+      "label": "СИНЕРДЖИ ХОЛДИНГ",
+      "slug": null,
+      "uic": "204019929",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1202"
+    },
+    {
+      "id": "person:СТОЯН ЙОРДАНОВ ХРИСТОВ",
+      "type": "person",
+      "label": "СТОЯН ЙОРДАНОВ ХРИСТОВ"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:2098",
+      "target": "company:tr:204019929",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТОЯН ЙОРДАНОВ ХРИСТОВ",
+      "target": "company:tr:204019929",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

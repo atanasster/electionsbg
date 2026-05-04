@@ -1,0 +1,47 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:897",
+  "nodes": [
+    {
+      "id": "mp:897",
+      "type": "mp",
+      "mpId": 897,
+      "label": "ВЕНЦИСЛАВ ВАСИЛЕВ ВЪРБАНОВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:200908393",
+      "type": "company",
+      "label": "СКАЙ БЛУ 33",
+      "slug": null,
+      "uic": "200908393",
+      "legalForm": "Дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Долни Дъбник, 5870"
+    },
+    {
+      "id": "person:ПАМЕЛА БОРИСЛАВОВА ЖЕЛЕЗАРОВА",
+      "type": "person",
+      "label": "Памела Бориславова Железарова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:897",
+      "target": "company:tr:200908393",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПАМЕЛА БОРИСЛАВОВА ЖЕЛЕЗАРОВА",
+      "target": "company:tr:200908393",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

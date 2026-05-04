@@ -1,0 +1,52 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:2196",
+  "nodes": [
+    {
+      "id": "mp:2196",
+      "type": "mp",
+      "mpId": 2196,
+      "label": "ИВАН ЙОСИФОВ ИВАНОВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:206994666",
+      "type": "company",
+      "label": "Маестро Мюзик",
+      "slug": null,
+      "uic": "206994666",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Сливница, 2200"
+    },
+    {
+      "id": "company:tr:206412094",
+      "type": "company",
+      "label": "\" ГЕВАЛ 21 \"",
+      "slug": null,
+      "uic": "206412094",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Годеч, 2240"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:2196",
+      "target": "company:tr:206994666",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2196",
+      "target": "company:tr:206412094",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

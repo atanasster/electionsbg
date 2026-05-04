@@ -1,0 +1,124 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:5267",
+  "nodes": [
+    {
+      "id": "mp:5267",
+      "type": "mp",
+      "mpId": 5267,
+      "label": "ВАЛЕНТИН МИРЧОВ МИЛУШЕВ",
+      "partyGroupShort": "ПГ на ГЕРБ-СДС",
+      "isCurrent": true
+    },
+    {
+      "id": "company:Албена-спорт-200-ООД",
+      "type": "company",
+      "label": "\"Албена спорт 200\" ООД",
+      "slug": "Албена-спорт-200-ООД",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "Самоков"
+    },
+    {
+      "id": "company:Албена-спорт-ООД",
+      "type": "company",
+      "label": "\"Албена спорт\" ООД",
+      "slug": "Албена-спорт-ООД",
+      "uic": "130554165",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Самоков"
+    },
+    {
+      "id": "company:Лиона-66-ЕООД",
+      "type": "company",
+      "label": "\"Лиона 66\" ЕООД",
+      "slug": "Лиона-66-ЕООД",
+      "uic": "200569904",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "София"
+    },
+    {
+      "id": "company:ФМ-2008-ООД",
+      "type": "company",
+      "label": "\"ФМ 2008\" ООД",
+      "slug": "ФМ-2008-ООД",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "София"
+    },
+    {
+      "id": "company:АлбенаСпорт-2000-ООД",
+      "type": "company",
+      "label": "АлбенаСпорт 2000 ООД",
+      "slug": "АлбенаСпорт-2000-ООД",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "София"
+    },
+    {
+      "id": "company:Алебнаспорт-ООД",
+      "type": "company",
+      "label": "Алебнаспорт ООД",
+      "slug": "Алебнаспорт-ООД",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "София"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5267",
+      "target": "company:Албена-спорт-200-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5267",
+      "target": "company:Албена-спорт-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5267",
+      "target": "company:Лиона-66-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5267",
+      "target": "company:ФМ-2008-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5267",
+      "target": "company:АлбенаСпорт-2000-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5267",
+      "target": "company:Алебнаспорт-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

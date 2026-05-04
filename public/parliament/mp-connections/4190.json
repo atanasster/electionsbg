@@ -1,0 +1,396 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:4190",
+  "nodes": [
+    {
+      "id": "mp:4190",
+      "type": "mp",
+      "mpId": 4190,
+      "label": "КАЛОЯН ТОНЕВ ИКОНОМОВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:Горичански-път-ООД",
+      "type": "company",
+      "label": "Горичански път ООД",
+      "slug": "Горичански-път-ООД",
+      "uic": "103129058",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "ВАРНА"
+    },
+    {
+      "id": "company:Едифис-Инженеринг-ЕООД",
+      "type": "company",
+      "label": "Едифис Инженеринг ЕООД",
+      "slug": "Едифис-Инженеринг-ЕООД",
+      "uic": "205236273",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1434"
+    },
+    {
+      "id": "company:ЗИГ-ЗАГ-КОР-ООД",
+      "type": "company",
+      "label": "ЗИГ ЗАГ КОР ООД",
+      "slug": "ЗИГ-ЗАГ-КОР-ООД",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "СОФИЯ"
+    },
+    {
+      "id": "company:Зиг-Заг-Корп-ООД",
+      "type": "company",
+      "label": "Зиг Заг Корп ООД",
+      "slug": "Зиг-Заг-Корп-ООД",
+      "uic": "204618373",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1434"
+    },
+    {
+      "id": "company:Концерн-Фреш-Ап",
+      "type": "company",
+      "label": "Концерн Фреш Ап",
+      "slug": "Концерн-Фреш-Ап",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "УКРАЙНА"
+    },
+    {
+      "id": "company:КРОУЛИ-ИНВЕСТ-ООД",
+      "type": "company",
+      "label": "КРОУЛИ ИНВЕСТ ООД",
+      "slug": "КРОУЛИ-ИНВЕСТ-ООД",
+      "uic": "204596247",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "ВАРНА"
+    },
+    {
+      "id": "company:МАРКЕТ-УИНГ-СЪРВИСИС-ООД",
+      "type": "company",
+      "label": "МАРКЕТ УИНГ СЪРВИСИС ООД",
+      "slug": "МАРКЕТ-УИНГ-СЪРВИСИС-ООД",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "СОФИЯ"
+    },
+    {
+      "id": "company:НОВОСОЛАР-ООД",
+      "type": "company",
+      "label": "НОВОСОЛАР ООД",
+      "slug": "НОВОСОЛАР-ООД",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "СОФИЯ"
+    },
+    {
+      "id": "company:ООО-СТРИМЛАЙН-ДЕВЕЛОПМЕНТ",
+      "type": "company",
+      "label": "ООО \"СТРИМЛАЙН ДЕВЕЛОПМЕНТ\"",
+      "slug": "ООО-СТРИМЛАЙН-ДЕВЕЛОПМЕНТ",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "Украйна"
+    },
+    {
+      "id": "company:ООО-СТРИЙМЛАЙН-ДЕВЕЛОПМЕНТ",
+      "type": "company",
+      "label": "ООО СТРИЙМЛАЙН ДЕВЕЛОПМЕНТ",
+      "slug": "ООО-СТРИЙМЛАЙН-ДЕВЕЛОПМЕНТ",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "УКРАЙНА"
+    },
+    {
+      "id": "company:Перинея-ООД",
+      "type": "company",
+      "label": "Перинея ООД",
+      "slug": "Перинея-ООД",
+      "uic": "103090331",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "ВАРНА"
+    },
+    {
+      "id": "company:Перинея-Балчик-ООД",
+      "type": "company",
+      "label": "Перинея-Балчик ООД",
+      "slug": "Перинея-Балчик-ООД",
+      "uic": "124716710",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "ВАРНА"
+    },
+    {
+      "id": "company:Харвестех-Енерджи-ЕООД",
+      "type": "company",
+      "label": "Харвестех Енерджи ЕООД",
+      "slug": "Харвестех-Енерджи-ЕООД",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "СОФИЯ"
+    },
+    {
+      "id": "company:Харвестех-ЕООД",
+      "type": "company",
+      "label": "Харвестех ЕООД",
+      "slug": "Харвестех-ЕООД",
+      "uic": "203933213",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1434"
+    },
+    {
+      "id": "company:Englobe-INC",
+      "type": "company",
+      "label": "Englobe INC",
+      "slug": "Englobe-INC",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "САЩ"
+    },
+    {
+      "id": "company:Triton-Development,-Incorporated",
+      "type": "company",
+      "label": "Triton Development, Incorporated",
+      "slug": "Triton-Development,-Incorporated",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "САЩ"
+    },
+    {
+      "id": "person:ЕВА ТОНЕВА СЮЛЕЙМАНИ",
+      "type": "person",
+      "label": "ЕВА ТОНЕВА СЮЛЕЙМАНИ"
+    },
+    {
+      "id": "person:ВИКТОРИЯ ИКОНОМОВА",
+      "type": "person",
+      "label": "ВИКТОРИЯ  ИКОНОМОВА"
+    },
+    {
+      "id": "person:\"МАРСАМ\" ООД",
+      "type": "person",
+      "label": "\"МАРСАМ\" ООД"
+    },
+    {
+      "id": "person:ГРИША НИКОЛАЕВ АНГЕЛОВ",
+      "type": "person",
+      "label": "ГРИША НИКОЛАЕВ АНГЕЛОВ"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4190",
+      "target": "company:Горичански-път-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4190",
+      "target": "company:Едифис-Инженеринг-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4190",
+      "target": "company:ЗИГ-ЗАГ-КОР-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4190",
+      "target": "company:Зиг-Заг-Корп-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4190",
+      "target": "company:Концерн-Фреш-Ап",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4190",
+      "target": "company:КРОУЛИ-ИНВЕСТ-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4190",
+      "target": "company:МАРКЕТ-УИНГ-СЪРВИСИС-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4190",
+      "target": "company:НОВОСОЛАР-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4190",
+      "target": "company:ООО-СТРИМЛАЙН-ДЕВЕЛОПМЕНТ",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4190",
+      "target": "company:ООО-СТРИЙМЛАЙН-ДЕВЕЛОПМЕНТ",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4190",
+      "target": "company:Перинея-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4190",
+      "target": "company:Перинея-Балчик-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4190",
+      "target": "company:Харвестех-Енерджи-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4190",
+      "target": "company:Харвестех-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4190",
+      "target": "company:Englobe-INC",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4190",
+      "target": "company:Triton-Development,-Incorporated",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕВА ТОНЕВА СЮЛЕЙМАНИ",
+      "target": "company:Горичански-път-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИКТОРИЯ ИКОНОМОВА",
+      "target": "company:Едифис-Инженеринг-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИКТОРИЯ ИКОНОМОВА",
+      "target": "company:Зиг-Заг-Корп-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИКТОРИЯ ИКОНОМОВА",
+      "target": "company:КРОУЛИ-ИНВЕСТ-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:\"МАРСАМ\" ООД",
+      "target": "company:КРОУЛИ-ИНВЕСТ-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИКТОРИЯ ИКОНОМОВА",
+      "target": "company:КРОУЛИ-ИНВЕСТ-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГРИША НИКОЛАЕВ АНГЕЛОВ",
+      "target": "company:Перинея-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГРИША НИКОЛАЕВ АНГЕЛОВ",
+      "target": "company:Перинея-Балчик-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИКТОРИЯ ИКОНОМОВА",
+      "target": "company:Харвестех-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

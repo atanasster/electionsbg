@@ -1,0 +1,60 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:1780",
+  "nodes": [
+    {
+      "id": "mp:1780",
+      "type": "mp",
+      "mpId": 1780,
+      "label": "ГЕОРГИ СИМЕОНОВ АГАФОНОВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:175094071",
+      "type": "company",
+      "label": "МАКС БИЛД",
+      "slug": null,
+      "uic": "175094071",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:ГЕОРГИ ГЕОРГИЕВ АГАФОНОВ",
+      "type": "person",
+      "label": "Георги Георгиев Агафонов"
+    },
+    {
+      "id": "person:АННА-МАРИЯ ГЕОРГИЕВА АГАФОНОВА",
+      "type": "person",
+      "label": "Анна-Мария Георгиева Агафонова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:1780",
+      "target": "company:tr:175094071",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГЕОРГИ ГЕОРГИЕВ АГАФОНОВ",
+      "target": "company:tr:175094071",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АННА-МАРИЯ ГЕОРГИЕВА АГАФОНОВА",
+      "target": "company:tr:175094071",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

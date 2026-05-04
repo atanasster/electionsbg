@@ -1,0 +1,88 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:4887",
+  "nodes": [
+    {
+      "id": "mp:4887",
+      "type": "mp",
+      "mpId": 4887,
+      "label": "ВЕСЕЛИН МИЛЕНОВ ВЕШЕВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:",
+      "type": "company",
+      "label": "-",
+      "slug": "",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "-"
+    },
+    {
+      "id": "company:Вешев-ЕООД",
+      "type": "company",
+      "label": "Вешев ЕООД",
+      "slug": "Вешев-ЕООД",
+      "uic": "200340670",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Варна"
+    },
+    {
+      "id": "company:Вешев-ООД",
+      "type": "company",
+      "label": "Вешев ООД",
+      "slug": "Вешев-ООД",
+      "uic": "200340670",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "варна"
+    },
+    {
+      "id": "company:Чан-2013-ООД",
+      "type": "company",
+      "label": "Чан 2013 ООД",
+      "slug": "Чан-2013-ООД",
+      "uic": "202444486",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Варна"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4887",
+      "target": "company:",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4887",
+      "target": "company:Вешев-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4887",
+      "target": "company:Вешев-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4887",
+      "target": "company:Чан-2013-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

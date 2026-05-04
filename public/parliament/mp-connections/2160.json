@@ -1,0 +1,73 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:2160",
+  "nodes": [
+    {
+      "id": "mp:2160",
+      "type": "mp",
+      "mpId": 2160,
+      "label": "МАКСИМ ЖЕКОВ ДИМОВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:175237936",
+      "type": "company",
+      "label": "ЛИНГАРД",
+      "slug": null,
+      "uic": "175237936",
+      "legalForm": "EAD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "person:БОРИСЛАВ ДИМЧЕВ СЛАВОВ",
+      "type": "person",
+      "label": "БОРИСЛАВ ДИМЧЕВ СЛАВОВ"
+    },
+    {
+      "id": "person:БУРГЛАНД ЕООД",
+      "type": "person",
+      "label": "БУРГЛАНД ЕООД"
+    },
+    {
+      "id": "person:АНДРЕЯ МАКСИМ ДИМОВА",
+      "type": "person",
+      "label": "АНДРЕЯ МАКСИМ ДИМОВА"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:2160",
+      "target": "company:tr:175237936",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:БОРИСЛАВ ДИМЧЕВ СЛАВОВ",
+      "target": "company:tr:175237936",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БУРГЛАНД ЕООД",
+      "target": "company:tr:175237936",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНДРЕЯ МАКСИМ ДИМОВА",
+      "target": "company:tr:175237936",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

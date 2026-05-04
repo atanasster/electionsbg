@@ -1,0 +1,34 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:4834",
+  "nodes": [
+    {
+      "id": "mp:4834",
+      "type": "mp",
+      "mpId": 4834,
+      "label": "ХРИСТО ЦВЕТАНОВ РАСТАШКИ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:Расташки-Консулт-ООД",
+      "type": "company",
+      "label": "Расташки Консулт ООД",
+      "slug": "Расташки-Консулт-ООД",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "Ловеч"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4834",
+      "target": "company:Расташки-Консулт-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

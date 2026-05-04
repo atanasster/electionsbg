@@ -1,0 +1,149 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:3794",
+  "nodes": [
+    {
+      "id": "mp:3794",
+      "type": "mp",
+      "mpId": 3794,
+      "label": "ДИМИТЪР КОЛЕВ ГОЧЕВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:Адвокатско-дружество-Янков,-Ненчев,-Гочев-и-Янкова",
+      "type": "company",
+      "label": "Адвокатско дружество \"Янков, Ненчев, Гочев и Янкова\"",
+      "slug": "Адвокатско-дружество-Янков,-Ненчев,-Гочев-и-Янкова",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "София (столица)"
+    },
+    {
+      "id": "company:ЯНГ-Лигал-Консултинг-ООД",
+      "type": "company",
+      "label": "ЯНГ Лигал Консултинг ООД",
+      "slug": "ЯНГ-Лигал-Консултинг-ООД",
+      "uic": "204638454",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "София (столица)"
+    },
+    {
+      "id": "person:ИВАН ИВАНОВ ЯНКОВ",
+      "type": "person",
+      "label": "Иван Иванов Янков"
+    },
+    {
+      "id": "person:ИВАН АТАНАСОВ ЯНКОВ",
+      "type": "person",
+      "label": "Иван Атанасов Янков"
+    },
+    {
+      "id": "person:ИВАН НИКОЛАЕВ ГЕНЧЕВ",
+      "type": "person",
+      "label": "Иван Николаев Генчев"
+    },
+    {
+      "id": "person:ВИКТОРИЯ ПАСКОВА ЯНКОВА",
+      "type": "person",
+      "label": "Виктория Паскова Янкова"
+    },
+    {
+      "id": "person:ОГНЯН ЛЮБЕНОВ НЕНЧЕВ",
+      "type": "person",
+      "label": "Огнян Любенов Ненчев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3794",
+      "target": "company:Адвокатско-дружество-Янков,-Ненчев,-Гочев-и-Янкова",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3794",
+      "target": "company:Адвокатско-дружество-Янков,-Ненчев,-Гочев-и-Янкова",
+      "kind": "declared_stake",
+      "role": "transferred_share",
+      "isCurrent": false,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3794",
+      "target": "company:ЯНГ-Лигал-Консултинг-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3794",
+      "target": "company:ЯНГ-Лигал-Консултинг-ООД",
+      "kind": "declared_stake",
+      "role": "transferred_share",
+      "isCurrent": false,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3794",
+      "target": "company:ЯНГ-Лигал-Консултинг-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ИВАНОВ ЯНКОВ",
+      "target": "company:ЯНГ-Лигал-Консултинг-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН АТАНАСОВ ЯНКОВ",
+      "target": "company:ЯНГ-Лигал-Консултинг-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН НИКОЛАЕВ ГЕНЧЕВ",
+      "target": "company:ЯНГ-Лигал-Консултинг-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИКТОРИЯ ПАСКОВА ЯНКОВА",
+      "target": "company:ЯНГ-Лигал-Консултинг-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ИВАНОВ ЯНКОВ",
+      "target": "company:ЯНГ-Лигал-Консултинг-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОГНЯН ЛЮБЕНОВ НЕНЧЕВ",
+      "target": "company:ЯНГ-Лигал-Консултинг-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

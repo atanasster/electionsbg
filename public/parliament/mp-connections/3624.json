@@ -1,0 +1,47 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:3624",
+  "nodes": [
+    {
+      "id": "mp:3624",
+      "type": "mp",
+      "mpId": 3624,
+      "label": "АЛЕКСАНДЪР НИКОЛАЕВ РАКШИЕВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:Активатор-ЕООД",
+      "type": "company",
+      "label": "Активатор ЕООД",
+      "slug": "Активатор-ЕООД",
+      "uic": "204532696",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1404"
+    },
+    {
+      "id": "person:ЛИЛИЯ НИКОЛАЕВА РАКШИЕВА",
+      "type": "person",
+      "label": "Лилия Николаева Ракшиева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3624",
+      "target": "company:Активатор-ЕООД",
+      "kind": "declared_stake",
+      "role": "transferred_share",
+      "isCurrent": false,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛИЛИЯ НИКОЛАЕВА РАКШИЕВА",
+      "target": "company:Активатор-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

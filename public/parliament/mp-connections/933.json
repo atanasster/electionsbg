@@ -1,0 +1,110 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:933",
+  "nodes": [
+    {
+      "id": "mp:933",
+      "type": "mp",
+      "mpId": 933,
+      "label": "ВЛАДИСЛАВ ЕВГЕНИЕВ ДИМИТРОВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:206374900",
+      "type": "company",
+      "label": "Ви Ви Ай Инвестмънт",
+      "slug": null,
+      "uic": "206374900",
+      "legalForm": "Акционерно дружество",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "company:tr:206357598",
+      "type": "company",
+      "label": "КМ ПРОПЪРТИС",
+      "slug": null,
+      "uic": "206357598",
+      "legalForm": "Дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Перник, 2304"
+    },
+    {
+      "id": "mp:2804",
+      "type": "mp",
+      "mpId": 2804,
+      "label": "ИВАЙЛО ЛЮБЕНОВ КОНСТАНТИНОВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "person:ПЕТЪР ЙОРДАНОВ ГОСПОДИНОВ",
+      "type": "person",
+      "label": "Петър Йорданов Господинов"
+    },
+    {
+      "id": "person:ЕВГЕНИ ДИМИТРОВ ПЕТРОВ",
+      "type": "person",
+      "label": "Евгени Димитров Петров"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:933",
+      "target": "company:tr:206374900",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:933",
+      "target": "company:tr:206374900",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:933",
+      "target": "company:tr:206357598",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:933",
+      "target": "company:tr:206357598",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2804",
+      "target": "company:tr:206374900",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЕТЪР ЙОРДАНОВ ГОСПОДИНОВ",
+      "target": "company:tr:206374900",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕВГЕНИ ДИМИТРОВ ПЕТРОВ",
+      "target": "company:tr:206357598",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

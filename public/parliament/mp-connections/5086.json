@@ -1,0 +1,60 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:5086",
+  "nodes": [
+    {
+      "id": "mp:5086",
+      "type": "mp",
+      "mpId": 5086,
+      "label": "ИВО СЕВДАЛИНОВ ЦАНЕВ",
+      "partyGroupShort": "ПГ ДПС",
+      "isCurrent": true
+    },
+    {
+      "id": "company:ИЗИДА-ЕООД",
+      "type": "company",
+      "label": "ИЗИДА ЕООД",
+      "slug": "ИЗИДА-ЕООД",
+      "uic": "117506672",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "company:КСБВ-ЕООД",
+      "type": "company",
+      "label": "КСБВ ЕООД",
+      "slug": "КСБВ-ЕООД",
+      "uic": "131476144",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "София (столица)"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5086",
+      "target": "company:ИЗИДА-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5086",
+      "target": "company:ИЗИДА-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5086",
+      "target": "company:КСБВ-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,63 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:2922",
+  "nodes": [
+    {
+      "id": "mp:2922",
+      "type": "mp",
+      "mpId": 2922,
+      "label": "ЙОРДАНКА ИВАНОВА ФИКИРЛИЙСКА",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:206289083",
+      "type": "company",
+      "label": "ВИКС 2021",
+      "slug": null,
+      "uic": "206289083",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:СЛАВЧО СТЕФАНОВ СТАНЧЕВ",
+      "type": "person",
+      "label": "СЛАВЧО СТЕФАНОВ СТАНЧЕВ"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:2922",
+      "target": "company:tr:206289083",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2922",
+      "target": "company:tr:206289083",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СЛАВЧО СТЕФАНОВ СТАНЧЕВ",
+      "target": "company:tr:206289083",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЛАВЧО СТЕФАНОВ СТАНЧЕВ",
+      "target": "company:tr:206289083",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

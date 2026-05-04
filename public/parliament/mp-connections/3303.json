@@ -1,0 +1,123 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:3303",
+  "nodes": [
+    {
+      "id": "mp:3303",
+      "type": "mp",
+      "mpId": 3303,
+      "label": "ДЕСИСЛАВА ЦВЕТАНОВА ЦОНЕВА",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:Ордер-ДЦ-ЕООД",
+      "type": "company",
+      "label": "Ордер ДЦ ЕООД",
+      "slug": "Ордер-ДЦ-ЕООД",
+      "uic": "203107956",
+      "legalForm": "Дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "Лом"
+    },
+    {
+      "id": "company:tr:205293915",
+      "type": "company",
+      "label": "С К Т Т  ИНТЕРНЕШЪНЪЛ",
+      "slug": null,
+      "uic": "205293915",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Балчик, 9601"
+    },
+    {
+      "id": "person:ЦВЕТЕЛИН ПЕТРОВ ЦОНЕВ",
+      "type": "person",
+      "label": "ЦВЕТЕЛИН ПЕТРОВ ЦОНЕВ"
+    },
+    {
+      "id": "person:ВАЛЕНТИНА ДИМИТРОВА ЦОНЕВА",
+      "type": "person",
+      "label": "ВАЛЕНТИНА ДИМИТРОВА ЦОНЕВА"
+    },
+    {
+      "id": "person:МАРИЯ ЦВЕТАНОВА ЦОНЕВА",
+      "type": "person",
+      "label": "МАРИЯ ЦВЕТАНОВА ЦОНЕВА"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3303",
+      "target": "company:Ордер-ДЦ-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3303",
+      "target": "company:Ордер-ДЦ-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3303",
+      "target": "company:Ордер-ДЦ-ЕООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3303",
+      "target": "company:tr:205293915",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЦВЕТЕЛИН ПЕТРОВ ЦОНЕВ",
+      "target": "company:Ордер-ДЦ-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЦВЕТЕЛИН ПЕТРОВ ЦОНЕВ",
+      "target": "company:Ордер-ДЦ-ЕООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИНА ДИМИТРОВА ЦОНЕВА",
+      "target": "company:tr:205293915",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИНА ДИМИТРОВА ЦОНЕВА",
+      "target": "company:tr:205293915",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ЦВЕТАНОВА ЦОНЕВА",
+      "target": "company:tr:205293915",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

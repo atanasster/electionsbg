@@ -1,0 +1,60 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:4931",
+  "nodes": [
+    {
+      "id": "mp:4931",
+      "type": "mp",
+      "mpId": 4931,
+      "label": "СТАНИСЛАВ ГЕОРГИЕВ ИВАНОВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:201395627",
+      "type": "company",
+      "label": "БГ ЕСТЕЙТ",
+      "slug": null,
+      "uic": "201395627",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:СИМЕОНКА ИВАНОВА ИВАНОВА",
+      "type": "person",
+      "label": "Симеонка Иванова Иванова"
+    },
+    {
+      "id": "person:ЕМИЛ СТОИЛОВ ИВАНОВ",
+      "type": "person",
+      "label": "Емил Стоилов Иванов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4931",
+      "target": "company:tr:201395627",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СИМЕОНКА ИВАНОВА ИВАНОВА",
+      "target": "company:tr:201395627",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕМИЛ СТОИЛОВ ИВАНОВ",
+      "target": "company:tr:201395627",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

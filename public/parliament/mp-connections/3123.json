@@ -1,0 +1,70 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:3123",
+  "nodes": [
+    {
+      "id": "mp:3123",
+      "type": "mp",
+      "mpId": 3123,
+      "label": "ВЕСЕЛА НИКОЛАЕВА ЛЕЧЕВА",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:Илиянци-строй-груп-ООД",
+      "type": "company",
+      "label": "\"Илиянци строй груп\" ООД",
+      "slug": "Илиянци-строй-груп-ООД",
+      "uic": "130991586",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "София (столица)"
+    },
+    {
+      "id": "company:Корект-транс-ООД",
+      "type": "company",
+      "label": "\"Корект транс\" ООД",
+      "slug": "Корект-транс-ООД",
+      "uic": "121766537",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "София (столица)"
+    },
+    {
+      "id": "company:Профита-ООД",
+      "type": "company",
+      "label": "\"Профита\" ООД",
+      "slug": "Профита-ООД",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "София (столица)"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3123",
+      "target": "company:Илиянци-строй-груп-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3123",
+      "target": "company:Корект-транс-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3123",
+      "target": "company:Профита-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

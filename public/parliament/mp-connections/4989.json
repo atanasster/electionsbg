@@ -1,0 +1,47 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:4989",
+  "nodes": [
+    {
+      "id": "mp:4989",
+      "type": "mp",
+      "mpId": 4989,
+      "label": "СТЕФАН ХРИСТОВ МАРИНОВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:205499000",
+      "type": "company",
+      "label": "ХОЛИДЕЙ БУРГАС",
+      "slug": null,
+      "uic": "205499000",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:ДОНКА СТЕФАНОВА НАУМОВА",
+      "type": "person",
+      "label": "ДОНКА СТЕФАНОВА НАУМОВА"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4989",
+      "target": "company:tr:205499000",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДОНКА СТЕФАНОВА НАУМОВА",
+      "target": "company:tr:205499000",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,221 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:4797",
+  "nodes": [
+    {
+      "id": "mp:4797",
+      "type": "mp",
+      "mpId": 4797,
+      "label": "ГЕОРГИ ВАЛЕНТИНОВ ГЕОРГИЕВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:206767637",
+      "type": "company",
+      "label": "ДжиЕсВи 21",
+      "slug": null,
+      "uic": "206767637",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Тервел, 9450"
+    },
+    {
+      "id": "company:tr:206006332",
+      "type": "company",
+      "label": "ЕС ВИ ЕМ",
+      "slug": null,
+      "uic": "206006332",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1225"
+    },
+    {
+      "id": "company:tr:206645062",
+      "type": "company",
+      "label": "ДЖИ ЕНД ПИ ТЕХНОЛОДЖИ",
+      "slug": null,
+      "uic": "206645062",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Плевен, 5800"
+    },
+    {
+      "id": "company:tr:206644744",
+      "type": "company",
+      "label": "ВЕЛВЕТ ХОУМ",
+      "slug": null,
+      "uic": "206644744",
+      "legalForm": "Дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1225"
+    },
+    {
+      "id": "company:tr:206643539",
+      "type": "company",
+      "label": "ГН моторс",
+      "slug": null,
+      "uic": "206643539",
+      "legalForm": "Дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Пловдив, 4002"
+    },
+    {
+      "id": "company:tr:206601903",
+      "type": "company",
+      "label": "ГОГО РЕТРО ТРАНС",
+      "slug": null,
+      "uic": "206601903",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Русе, 7000"
+    },
+    {
+      "id": "company:tr:206564522",
+      "type": "company",
+      "label": "ИНВЕСТ БГ 13",
+      "slug": null,
+      "uic": "206564522",
+      "legalForm": "Дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Божурище, 2227"
+    },
+    {
+      "id": "person:СИЛВИЯ ДОБРИНОВА ДОБРЕВА",
+      "type": "person",
+      "label": "СИЛВИЯ ДОБРИНОВА ДОБРЕВА"
+    },
+    {
+      "id": "person:НИКОЛАЙ ИВАНОВ ИВАНОВ",
+      "type": "person",
+      "label": "НИКОЛАЙ ИВАНОВ ИВАНОВ"
+    },
+    {
+      "id": "person:ЛЮБОМИР АЛЕКСАНДРОВ ЛЮБОМИРОВ",
+      "type": "person",
+      "label": "ЛЮБОМИР АЛЕКСАНДРОВ ЛЮБОМИРОВ"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4797",
+      "target": "company:tr:206767637",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4797",
+      "target": "company:tr:206006332",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4797",
+      "target": "company:tr:206645062",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4797",
+      "target": "company:tr:206644744",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4797",
+      "target": "company:tr:206644744",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4797",
+      "target": "company:tr:206643539",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4797",
+      "target": "company:tr:206643539",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4797",
+      "target": "company:tr:206601903",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4797",
+      "target": "company:tr:206564522",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4797",
+      "target": "company:tr:206564522",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СИЛВИЯ ДОБРИНОВА ДОБРЕВА",
+      "target": "company:tr:206644744",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СИЛВИЯ ДОБРИНОВА ДОБРЕВА",
+      "target": "company:tr:206644744",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ИВАНОВ ИВАНОВ",
+      "target": "company:tr:206643539",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБОМИР АЛЕКСАНДРОВ ЛЮБОМИРОВ",
+      "target": "company:tr:206564522",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБОМИР АЛЕКСАНДРОВ ЛЮБОМИРОВ",
+      "target": "company:tr:206564522",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

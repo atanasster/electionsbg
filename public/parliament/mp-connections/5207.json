@@ -1,0 +1,177 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:5207",
+  "nodes": [
+    {
+      "id": "mp:5207",
+      "type": "mp",
+      "mpId": 5207,
+      "label": "ТЕМЕНУЖКА ПЕТРОВА ПЕТКОВА",
+      "partyGroupShort": "ПГ на ГЕРБ-СДС",
+      "isCurrent": true
+    },
+    {
+      "id": "company:tr:121049756",
+      "type": "company",
+      "label": "МЕБЕЛСНАБ-96",
+      "slug": null,
+      "uic": "121049756",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:СТЕФАН НИКОЛОВ СТЕФАНОВ",
+      "type": "person",
+      "label": "СТЕФАН НИКОЛОВ СТЕФАНОВ"
+    },
+    {
+      "id": "person:ЙОРДАНКА МАКСИМОВА ВЕЛИЧКОВА",
+      "type": "person",
+      "label": "ЙОРДАНКА МАКСИМОВА ВЕЛИЧКОВА"
+    },
+    {
+      "id": "person:АНА ГЕОРГИЕВА МАРКОВА",
+      "type": "person",
+      "label": "АНА ГЕОРГИЕВА МАРКОВА"
+    },
+    {
+      "id": "person:ТОДОР ИВАНОВ КОЛЕВ",
+      "type": "person",
+      "label": "ТОДОР ИВАНОВ КОЛЕВ"
+    },
+    {
+      "id": "person:ДИМИТЪР ЕВЛОГИЕВ ТОДОРОВ",
+      "type": "person",
+      "label": "ДИМИТЪР ЕВЛОГИЕВ ТОДОРОВ"
+    },
+    {
+      "id": "person:НИКОЛАЙ ХРИСТОВ ИВАНОВ",
+      "type": "person",
+      "label": "НИКОЛАЙ ХРИСТОВ ИВАНОВ"
+    },
+    {
+      "id": "person:ТАТЯНА СТОЯНОВА ИЛИЕВА, ЕГН 5102016858, ВАЛЕНТИН СТОЯНОВ ИЛИЕВ, ЕГН 6905296820,МИРОСЛАВ СТОЯНОВ ИЛИЕВ, ЕГН 7502026828",
+      "type": "person",
+      "label": "ТАТЯНА СТОЯНОВА ИЛИЕВА, ЕГН 5102016858, ВАЛЕНТИН СТОЯНОВ ИЛИЕВ, ЕГН 6905296820,МИРОСЛАВ СТОЯНОВ ИЛИЕВ, ЕГН 7502026828"
+    },
+    {
+      "id": "person:ТОДОР ЛЮБЕНОВ СТАНКОВ, ЕГН 5608206880, ГАЛИНА ТОДОРОВА СТАНЧЕВА, ЕГН 8107226852, ЛЮБОМИР ТОДОРОВ СТАНКОВ, ЕГН 8301156586",
+      "type": "person",
+      "label": "ТОДОР ЛЮБЕНОВ СТАНКОВ, ЕГН 5608206880, ГАЛИНА ТОДОРОВА СТАНЧЕВА, ЕГН 8107226852, ЛЮБОМИР ТОДОРОВ СТАНКОВ, ЕГН 8301156586"
+    },
+    {
+      "id": "person:ЛЮБЕН МИХАЙЛОВ ЦВЕТКОВ",
+      "type": "person",
+      "label": "ЛЮБЕН МИХАЙЛОВ ЦВЕТКОВ"
+    },
+    {
+      "id": "person:МИХАИЛ ЦВЕТКОВ КОЛЕВ",
+      "type": "person",
+      "label": "МИХАИЛ ЦВЕТКОВ КОЛЕВ"
+    },
+    {
+      "id": "person:ХРИСТО МИХАЙЛОВ ЦВЕТКОВ",
+      "type": "person",
+      "label": "ХРИСТО МИХАЙЛОВ ЦВЕТКОВ"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5207",
+      "target": "company:tr:121049756",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТЕФАН НИКОЛОВ СТЕФАНОВ",
+      "target": "company:tr:121049756",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОРДАНКА МАКСИМОВА ВЕЛИЧКОВА",
+      "target": "company:tr:121049756",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНА ГЕОРГИЕВА МАРКОВА",
+      "target": "company:tr:121049756",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОР ИВАНОВ КОЛЕВ",
+      "target": "company:tr:121049756",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДИМИТЪР ЕВЛОГИЕВ ТОДОРОВ",
+      "target": "company:tr:121049756",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ ХРИСТОВ ИВАНОВ",
+      "target": "company:tr:121049756",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТАТЯНА СТОЯНОВА ИЛИЕВА, ЕГН 5102016858, ВАЛЕНТИН СТОЯНОВ ИЛИЕВ, ЕГН 6905296820,МИРОСЛАВ СТОЯНОВ ИЛИЕВ, ЕГН 7502026828",
+      "target": "company:tr:121049756",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОР ЛЮБЕНОВ СТАНКОВ, ЕГН 5608206880, ГАЛИНА ТОДОРОВА СТАНЧЕВА, ЕГН 8107226852, ЛЮБОМИР ТОДОРОВ СТАНКОВ, ЕГН 8301156586",
+      "target": "company:tr:121049756",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛЮБЕН МИХАЙЛОВ ЦВЕТКОВ",
+      "target": "company:tr:121049756",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИХАИЛ ЦВЕТКОВ КОЛЕВ",
+      "target": "company:tr:121049756",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ХРИСТО МИХАЙЛОВ ЦВЕТКОВ",
+      "target": "company:tr:121049756",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

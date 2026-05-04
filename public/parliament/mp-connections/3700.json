@@ -1,0 +1,60 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:3700",
+  "nodes": [
+    {
+      "id": "mp:3700",
+      "type": "mp",
+      "mpId": 3700,
+      "label": "ВЛАДИМИР МАРИНОВ МАРИНОВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:К-И-Инвест-Холдинг-ЕООД",
+      "type": "company",
+      "label": "К-И Инвест Холдинг ЕООД",
+      "slug": "К-И-Инвест-Холдинг-ЕООД",
+      "uic": "115825956",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, с. Брестник, 4107"
+    },
+    {
+      "id": "person:КАЛИНКА ВЪЛЕВА МАРИНОВА",
+      "type": "person",
+      "label": "КАЛИНКА ВЪЛЕВА МАРИНОВА"
+    },
+    {
+      "id": "person:ИВАН МАРИНОВ МАРИНОВ",
+      "type": "person",
+      "label": "ИВАН МАРИНОВ МАРИНОВ"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3700",
+      "target": "company:К-И-Инвест-Холдинг-ЕООД",
+      "kind": "declared_stake",
+      "role": "transferred_share",
+      "isCurrent": false,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИНКА ВЪЛЕВА МАРИНОВА",
+      "target": "company:К-И-Инвест-Холдинг-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН МАРИНОВ МАРИНОВ",
+      "target": "company:К-И-Инвест-Холдинг-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

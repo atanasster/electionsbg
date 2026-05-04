@@ -1,0 +1,47 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:584",
+  "nodes": [
+    {
+      "id": "mp:584",
+      "type": "mp",
+      "mpId": 584,
+      "label": "АЛЕКСАНДЪР ХРИСТОВ ФИЛИПОВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:206561316",
+      "type": "company",
+      "label": "ИНТЕРГРУП ЕУ",
+      "slug": null,
+      "uic": "206561316",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1387"
+    },
+    {
+      "id": "person:ГЕОРГИ ЛЮБОМИРОВ ФИНДАКОВ",
+      "type": "person",
+      "label": "ГЕОРГИ ЛЮБОМИРОВ ФИНДАКОВ"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:584",
+      "target": "company:tr:206561316",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГЕОРГИ ЛЮБОМИРОВ ФИНДАКОВ",
+      "target": "company:tr:206561316",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

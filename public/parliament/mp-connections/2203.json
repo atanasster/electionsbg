@@ -1,0 +1,68 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:2203",
+  "nodes": [
+    {
+      "id": "mp:2203",
+      "type": "mp",
+      "mpId": 2203,
+      "label": "ИВАН АСЕНОВ АТАНАСОВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:121480735",
+      "type": "company",
+      "label": "ЦЕМ КОНСУЛТ",
+      "slug": null,
+      "uic": "121480735",
+      "legalForm": "Дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1111"
+    },
+    {
+      "id": "person:ЮЛИЯ ИВАНОВА АТАНАСОВА",
+      "type": "person",
+      "label": "Юлия Иванова Атанасова"
+    },
+    {
+      "id": "person:НИКОЛЕТА ИВАНОВА АТАНАСОВА",
+      "type": "person",
+      "label": "Николета Иванова Атанасова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:2203",
+      "target": "company:tr:121480735",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2203",
+      "target": "company:tr:121480735",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЮЛИЯ ИВАНОВА АТАНАСОВА",
+      "target": "company:tr:121480735",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛЕТА ИВАНОВА АТАНАСОВА",
+      "target": "company:tr:121480735",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

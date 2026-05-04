@@ -1,0 +1,70 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:3459",
+  "nodes": [
+    {
+      "id": "mp:3459",
+      "type": "mp",
+      "mpId": 3459,
+      "label": "ЧАВДАР БОРИСОВ БОЖУРСКИ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:Била-трейд-ООД",
+      "type": "company",
+      "label": "\"Била трейд \" ООД",
+      "slug": "Била-трейд-ООД",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "Сливен"
+    },
+    {
+      "id": "company:Биогард-БГ-ООД",
+      "type": "company",
+      "label": "\"Биогард-БГ \" ООД",
+      "slug": "Биогард-БГ-ООД",
+      "uic": "201131061",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Сливен"
+    },
+    {
+      "id": "company:ПЧП-Сливен-ООД",
+      "type": "company",
+      "label": "\"ПЧП-Сливен \" ООД",
+      "slug": "ПЧП-Сливен-ООД",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "Сливен"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3459",
+      "target": "company:Била-трейд-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3459",
+      "target": "company:Биогард-БГ-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3459",
+      "target": "company:ПЧП-Сливен-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

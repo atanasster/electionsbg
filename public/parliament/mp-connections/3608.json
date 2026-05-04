@@ -1,0 +1,34 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:3608",
+  "nodes": [
+    {
+      "id": "mp:3608",
+      "type": "mp",
+      "mpId": 3608,
+      "label": "АЛЕКСАНДЪР НЕСТОРОВ НЕСТОРОВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:206410870",
+      "type": "company",
+      "label": "ХОЛИВУД 1",
+      "slug": null,
+      "uic": "206410870",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1408"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3608",
+      "target": "company:tr:206410870",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

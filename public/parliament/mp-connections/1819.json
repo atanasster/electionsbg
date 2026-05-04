@@ -1,0 +1,81 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:1819",
+  "nodes": [
+    {
+      "id": "mp:1819",
+      "type": "mp",
+      "mpId": 1819,
+      "label": "ИВАН АТАНАСОВ КОЛЧАКОВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:206335242",
+      "type": "company",
+      "label": "ОТС ФИНАНС",
+      "slug": null,
+      "uic": "206335242",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:ИВАЙЛО ГЕОРГИЕВ ПУЩИЕВ",
+      "type": "person",
+      "label": "ИВАЙЛО ГЕОРГИЕВ ПУЩИЕВ"
+    },
+    {
+      "id": "person:МАРИЯНА ТОНЕВА БАНЧЕВА",
+      "type": "person",
+      "label": "МАРИЯНА ТОНЕВА БАНЧЕВА"
+    },
+    {
+      "id": "person:СТЕФАН НИКОЛАЕВ КОЛЕВ",
+      "type": "person",
+      "label": "СТЕФАН НИКОЛАЕВ КОЛЕВ"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:1819",
+      "target": "company:tr:206335242",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВАЙЛО ГЕОРГИЕВ ПУЩИЕВ",
+      "target": "company:tr:206335242",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАЙЛО ГЕОРГИЕВ ПУЩИЕВ",
+      "target": "company:tr:206335242",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯНА ТОНЕВА БАНЧЕВА",
+      "target": "company:tr:206335242",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН НИКОЛАЕВ КОЛЕВ",
+      "target": "company:tr:206335242",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

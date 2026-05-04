@@ -1,0 +1,34 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:4936",
+  "nodes": [
+    {
+      "id": "mp:4936",
+      "type": "mp",
+      "mpId": 4936,
+      "label": "ТАНЕР КАДИР ТЮРКОГЛУ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:ЕГЕ-2013-ЕООД",
+      "type": "company",
+      "label": "ЕГЕ-2013 ЕООД",
+      "slug": "ЕГЕ-2013-ЕООД",
+      "uic": "202573762",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "ХАСКОВО"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4936",
+      "target": "company:ЕГЕ-2013-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,307 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:3725",
+  "nodes": [
+    {
+      "id": "mp:3725",
+      "type": "mp",
+      "mpId": 3725,
+      "label": "МАРИН ШИШЕВ ШИШЕВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:АБРАЗ-ЕООД",
+      "type": "company",
+      "label": "АБРАЗ ЕООД",
+      "slug": "АБРАЗ-ЕООД",
+      "uic": "116579075",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Разград, 7200"
+    },
+    {
+      "id": "company:Ламарин-ЕООД",
+      "type": "company",
+      "label": "Ламарин ЕООД",
+      "slug": "Ламарин-ЕООД",
+      "uic": "116564904",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Разград, 7200"
+    },
+    {
+      "id": "company:Нова-Идея-ЕООД",
+      "type": "company",
+      "label": "Нова Идея ЕООД",
+      "slug": "Нова-Идея-ЕООД",
+      "uic": "116587454",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "Разград"
+    },
+    {
+      "id": "company:Хай-Уей-Спорт-ООД",
+      "type": "company",
+      "label": "Хай Уей Спорт ООД",
+      "slug": "Хай-Уей-Спорт-ООД",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "Варна"
+    },
+    {
+      "id": "company:Четири-ООД",
+      "type": "company",
+      "label": "Четири ООД",
+      "slug": "Четири-ООД",
+      "uic": "205109016",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Варна"
+    },
+    {
+      "id": "company:tr:206421264",
+      "type": "company",
+      "label": "ИмПулс I",
+      "slug": null,
+      "uic": "206421264",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1784"
+    },
+    {
+      "id": "company:tr:205222590",
+      "type": "company",
+      "label": "БЕО",
+      "slug": null,
+      "uic": "205222590",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Бургас, 8000"
+    },
+    {
+      "id": "person:НЕДЕЛЧО ЙОРДАНОВ ПЕТРОВ",
+      "type": "person",
+      "label": "НЕДЕЛЧО ЙОРДАНОВ ПЕТРОВ"
+    },
+    {
+      "id": "person:МАРИЯ ВАСИЛЕВА БОЙЧЕВА",
+      "type": "person",
+      "label": "МАРИЯ ВАСИЛЕВА БОЙЧЕВА"
+    },
+    {
+      "id": "person:ФОНДАЦИЯ В ЧАСТНА ПОЛЗА \"МИЛЕНИУМ НОВА ИДЕЯ\"",
+      "type": "person",
+      "label": "ФОНДАЦИЯ В ЧАСТНА ПОЛЗА \"МИЛЕНИУМ НОВА ИДЕЯ\""
+    },
+    {
+      "id": "person:„ИМПЕТУС КАПИТАЛ“ ООД",
+      "type": "person",
+      "label": "„Импетус Капитал“ ООД"
+    },
+    {
+      "id": "person:БЛАГОВЕСТ СЛАВЧЕВ КРАЧЕВ",
+      "type": "person",
+      "label": "Благовест Славчев Крачев"
+    },
+    {
+      "id": "person:\"ИМПЕТУС ПАРТНЪРС“ ООД",
+      "type": "person",
+      "label": "\"Импетус Партнърс“ ООД"
+    },
+    {
+      "id": "person:ВИКТОР МАНЕВ МАНЕВ",
+      "type": "person",
+      "label": "Виктор Манев Манев"
+    },
+    {
+      "id": "person:НИКОЛАЙ АНГЕЛОВ МАРТИНОВ",
+      "type": "person",
+      "label": "Николай Ангелов Мартинов"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР БОГОМИЛОВ ВЕЛИЧКОВ",
+      "type": "person",
+      "label": "Александър Богомилов Величков"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3725",
+      "target": "company:АБРАЗ-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3725",
+      "target": "company:Ламарин-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3725",
+      "target": "company:Нова-Идея-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3725",
+      "target": "company:Хай-Уей-Спорт-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3725",
+      "target": "company:Четири-ООД",
+      "kind": "declared_stake",
+      "role": "transferred_share",
+      "isCurrent": false,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3725",
+      "target": "company:tr:206421264",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3725",
+      "target": "company:tr:205222590",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3725",
+      "target": "company:tr:206421264",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:НЕДЕЛЧО ЙОРДАНОВ ПЕТРОВ",
+      "target": "company:АБРАЗ-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕДЕЛЧО ЙОРДАНОВ ПЕТРОВ",
+      "target": "company:Ламарин-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕДЕЛЧО ЙОРДАНОВ ПЕТРОВ",
+      "target": "company:Нова-Идея-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ВАСИЛЕВА БОЙЧЕВА",
+      "target": "company:Четири-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРИЯ ВАСИЛЕВА БОЙЧЕВА",
+      "target": "company:Четири-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ФОНДАЦИЯ В ЧАСТНА ПОЛЗА \"МИЛЕНИУМ НОВА ИДЕЯ\"",
+      "target": "company:Четири-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:„ИМПЕТУС КАПИТАЛ“ ООД",
+      "target": "company:tr:206421264",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БЛАГОВЕСТ СЛАВЧЕВ КРАЧЕВ",
+      "target": "company:tr:206421264",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:\"ИМПЕТУС ПАРТНЪРС“ ООД",
+      "target": "company:tr:206421264",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:„ИМПЕТУС КАПИТАЛ“ ООД",
+      "target": "company:tr:206421264",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВИКТОР МАНЕВ МАНЕВ",
+      "target": "company:tr:206421264",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ АНГЕЛОВ МАРТИНОВ",
+      "target": "company:tr:206421264",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР БОГОМИЛОВ ВЕЛИЧКОВ",
+      "target": "company:tr:206421264",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НЕДЕЛЧО ЙОРДАНОВ ПЕТРОВ",
+      "target": "company:tr:205222590",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

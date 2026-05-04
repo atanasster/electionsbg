@@ -1,0 +1,71 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:2804",
+  "nodes": [
+    {
+      "id": "mp:2804",
+      "type": "mp",
+      "mpId": 2804,
+      "label": "ИВАЙЛО ЛЮБЕНОВ КОНСТАНТИНОВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:206374900",
+      "type": "company",
+      "label": "Ви Ви Ай Инвестмънт",
+      "slug": null,
+      "uic": "206374900",
+      "legalForm": "Акционерно дружество",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "mp:933",
+      "type": "mp",
+      "mpId": 933,
+      "label": "ВЛАДИСЛАВ ЕВГЕНИЕВ ДИМИТРОВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "person:ПЕТЪР ЙОРДАНОВ ГОСПОДИНОВ",
+      "type": "person",
+      "label": "Петър Йорданов Господинов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:2804",
+      "target": "company:tr:206374900",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:933",
+      "target": "company:tr:206374900",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:933",
+      "target": "company:tr:206374900",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ПЕТЪР ЙОРДАНОВ ГОСПОДИНОВ",
+      "target": "company:tr:206374900",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

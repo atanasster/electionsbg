@@ -1,0 +1,52 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:4710",
+  "nodes": [
+    {
+      "id": "mp:4710",
+      "type": "mp",
+      "mpId": 4710,
+      "label": "СЕВИМ ИСМАИЛ АЛИ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:Ем-енд-Си-строй-ООД",
+      "type": "company",
+      "label": "\"Ем енд Си строй\" ООД",
+      "slug": "Ем-енд-Си-строй-ООД",
+      "uic": "205037524",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Айтос"
+    },
+    {
+      "id": "company:Ем-енд-Си-стройООД",
+      "type": "company",
+      "label": "\"Ем енд Си строй\"ООД",
+      "slug": "Ем-енд-Си-стройООД",
+      "uic": "205037524",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Айтос"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4710",
+      "target": "company:Ем-енд-Си-строй-ООД",
+      "kind": "declared_stake",
+      "role": "transferred_share",
+      "isCurrent": false,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4710",
+      "target": "company:Ем-енд-Си-стройООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

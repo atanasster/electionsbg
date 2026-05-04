@@ -1,0 +1,173 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:3738",
+  "nodes": [
+    {
+      "id": "mp:3738",
+      "type": "mp",
+      "mpId": 3738,
+      "label": "ИВА МИТЕВА ЙОРДАНОВА-РУПЧЕВА",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:МИД-2000-ООД",
+      "type": "company",
+      "label": "“МИД 2000” ООД",
+      "slug": "МИД-2000-ООД",
+      "uic": "116509441",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Разград"
+    },
+    {
+      "id": "company:МИД-2000ООД",
+      "type": "company",
+      "label": "\"МИД 2000\"ООД",
+      "slug": "МИД-2000ООД",
+      "uic": "116509441",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Разград"
+    },
+    {
+      "id": "person:ИЛИЯН МАРТИНОВ НЕНОВ",
+      "type": "person",
+      "label": "ИЛИЯН МАРТИНОВ НЕНОВ"
+    },
+    {
+      "id": "person:ДЯКО ВЪРБАНОВ ДЯКОВ",
+      "type": "person",
+      "label": "ДЯКО ВЪРБАНОВ ДЯКОВ"
+    },
+    {
+      "id": "person:ПЕНКА ИВАНОВА МИТЕВА, ЕГН 4412165035; ИВА МИТЕВА ЙОРДАНОВА-РУПЧЕВА, ЕГН 7210255098; ЙОРДАН МИТЕВ ЙОРДАНОВ",
+      "type": "person",
+      "label": "ПЕНКА ИВАНОВА МИТЕВА, ЕГН 4412165035; ИВА МИТЕВА ЙОРДАНОВА-РУПЧЕВА, ЕГН 7210255098; ЙОРДАН МИТЕВ ЙОРДАНОВ"
+    },
+    {
+      "id": "person:ПЕНКА ИВАНОВА МИТЕВА, ИВА МИТЕВА ЙОРДАНОВА-РУПЧЕВА, ЙОРДАН МИТЕВ ЙОРДАНОВ",
+      "type": "person",
+      "label": "ПЕНКА ИВАНОВА МИТЕВА, ИВА МИТЕВА ЙОРДАНОВА-РУПЧЕВА, ЙОРДАН МИТЕВ ЙОРДАНОВ"
+    },
+    {
+      "id": "person:ПЕНКА ИВАНОВА МИТЕВА, ЕГН 4412165035, ИВА МИТЕВА ЙОРДАНОВА-РУПЧЕВА",
+      "type": "person",
+      "label": "ПЕНКА ИВАНОВА МИТЕВА, ЕГН 4412165035, ИВА МИТЕВА ЙОРДАНОВА-РУПЧЕВА"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3738",
+      "target": "company:МИД-2000-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3738",
+      "target": "company:МИД-2000ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯН МАРТИНОВ НЕНОВ",
+      "target": "company:МИД-2000-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЯКО ВЪРБАНОВ ДЯКОВ",
+      "target": "company:МИД-2000-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕНКА ИВАНОВА МИТЕВА, ЕГН 4412165035; ИВА МИТЕВА ЙОРДАНОВА-РУПЧЕВА, ЕГН 7210255098; ЙОРДАН МИТЕВ ЙОРДАНОВ",
+      "target": "company:МИД-2000-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯН МАРТИНОВ НЕНОВ",
+      "target": "company:МИД-2000-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕНКА ИВАНОВА МИТЕВА, ИВА МИТЕВА ЙОРДАНОВА-РУПЧЕВА, ЙОРДАН МИТЕВ ЙОРДАНОВ",
+      "target": "company:МИД-2000-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕНКА ИВАНОВА МИТЕВА, ЕГН 4412165035, ИВА МИТЕВА ЙОРДАНОВА-РУПЧЕВА",
+      "target": "company:МИД-2000-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯН МАРТИНОВ НЕНОВ",
+      "target": "company:МИД-2000ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЯКО ВЪРБАНОВ ДЯКОВ",
+      "target": "company:МИД-2000ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕНКА ИВАНОВА МИТЕВА, ЕГН 4412165035; ИВА МИТЕВА ЙОРДАНОВА-РУПЧЕВА, ЕГН 7210255098; ЙОРДАН МИТЕВ ЙОРДАНОВ",
+      "target": "company:МИД-2000ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛИЯН МАРТИНОВ НЕНОВ",
+      "target": "company:МИД-2000ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕНКА ИВАНОВА МИТЕВА, ИВА МИТЕВА ЙОРДАНОВА-РУПЧЕВА, ЙОРДАН МИТЕВ ЙОРДАНОВ",
+      "target": "company:МИД-2000ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЕНКА ИВАНОВА МИТЕВА, ЕГН 4412165035, ИВА МИТЕВА ЙОРДАНОВА-РУПЧЕВА",
+      "target": "company:МИД-2000ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

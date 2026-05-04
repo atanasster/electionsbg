@@ -1,0 +1,221 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:124",
+  "nodes": [
+    {
+      "id": "mp:124",
+      "type": "mp",
+      "mpId": 124,
+      "label": "МИТКО ИВАНОВ ДИМИТРОВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:205310962",
+      "type": "company",
+      "label": "СОД БЕРКУТ",
+      "slug": null,
+      "uic": "205310962",
+      "legalForm": "Дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Варна, 9000"
+    },
+    {
+      "id": "company:tr:123029460",
+      "type": "company",
+      "label": "МИТАК",
+      "slug": null,
+      "uic": "123029460",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:203010044",
+      "type": "company",
+      "label": "М&amp;М ГРУП 2014",
+      "slug": null,
+      "uic": "203010044",
+      "legalForm": "Дружество с ограничена отговорност",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:204935982",
+      "type": "company",
+      "label": "СВЕЖЕСТ ДИМИТРОВИ",
+      "slug": null,
+      "uic": "204935982",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:123763027",
+      "type": "company",
+      "label": "АССАРА",
+      "slug": null,
+      "uic": "123763027",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:ИВО ХРИСТОВ ИСКРЕНОВ",
+      "type": "person",
+      "label": "ИВО ХРИСТОВ ИСКРЕНОВ"
+    },
+    {
+      "id": "person:ИВАН МИТКОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "ИВАН МИТКОВ ДИМИТРОВ"
+    },
+    {
+      "id": "person:МАГДАЛЕНА МЛАДЕНОВА ИВАНОВА",
+      "type": "person",
+      "label": "МАГДАЛЕНА МЛАДЕНОВА ИВАНОВА"
+    },
+    {
+      "id": "person:МАРГАРИТА НИКОЛОВА ДИМИТРОВА",
+      "type": "person",
+      "label": "МАРГАРИТА НИКОЛОВА ДИМИТРОВА"
+    },
+    {
+      "id": "person:НИКОЛАЙ МИТКОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "НИКОЛАЙ МИТКОВ ДИМИТРОВ"
+    },
+    {
+      "id": "person:РАДОМИР МИТКОВ ДИМИТРОВ",
+      "type": "person",
+      "label": "РАДОМИР МИТКОВ ДИМИТРОВ"
+    },
+    {
+      "id": "person:ЙОВКА ЖЕЛЕВА ДИМИТРОВА",
+      "type": "person",
+      "label": "ЙОВКА ЖЕЛЕВА ДИМИТРОВА"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:124",
+      "target": "company:tr:205310962",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:124",
+      "target": "company:tr:205310962",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:124",
+      "target": "company:tr:123029460",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:124",
+      "target": "company:tr:203010044",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:124",
+      "target": "company:tr:203010044",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:124",
+      "target": "company:tr:204935982",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:124",
+      "target": "company:tr:123763027",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВО ХРИСТОВ ИСКРЕНОВ",
+      "target": "company:tr:205310962",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН МИТКОВ ДИМИТРОВ",
+      "target": "company:tr:123029460",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАГДАЛЕНА МЛАДЕНОВА ИВАНОВА",
+      "target": "company:tr:203010044",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАГДАЛЕНА МЛАДЕНОВА ИВАНОВА",
+      "target": "company:tr:203010044",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МАРГАРИТА НИКОЛОВА ДИМИТРОВА",
+      "target": "company:tr:204935982",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:НИКОЛАЙ МИТКОВ ДИМИТРОВ",
+      "target": "company:tr:204935982",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РАДОМИР МИТКОВ ДИМИТРОВ",
+      "target": "company:tr:204935982",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЙОВКА ЖЕЛЕВА ДИМИТРОВА",
+      "target": "company:tr:123763027",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

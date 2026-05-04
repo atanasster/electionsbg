@@ -1,0 +1,141 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:607",
+  "nodes": [
+    {
+      "id": "mp:607",
+      "type": "mp",
+      "mpId": 607,
+      "label": "МИРОСЛАВ ПЕТРОВ СЕВЛИЕВСКИ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:175256096",
+      "type": "company",
+      "label": "ИНВЕСТ ФОНД МЕНИДЖМЪНТ",
+      "slug": null,
+      "uic": "175256096",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:206523867",
+      "type": "company",
+      "label": "ЕРОУ МОБИЛИТИ",
+      "slug": null,
+      "uic": "206523867",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "person:РУСЛАН СТЕФАНОВ РАЙЧЕВ",
+      "type": "person",
+      "label": "Руслан Стефанов Райчев"
+    },
+    {
+      "id": "person:АНАТОЛИЙ ГЕОРГИЕВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Анатолий Георгиев Георгиев"
+    },
+    {
+      "id": "person:АЛЕКСАНДЪР ВИКТОРОВИЧ МАЙСТЕР",
+      "type": "person",
+      "label": "Александър Викторович Майстер"
+    },
+    {
+      "id": "person:БОЯН АНТОНИЕВ ГИРГИНОВ",
+      "type": "person",
+      "label": "Боян Антониев Гиргинов"
+    },
+    {
+      "id": "person:РУВИМ ВИКТОР ФАРХИ",
+      "type": "person",
+      "label": "Рувим Виктор Фархи"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:607",
+      "target": "company:tr:175256096",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:607",
+      "target": "company:tr:175256096",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:607",
+      "target": "company:tr:206523867",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РУСЛАН СТЕФАНОВ РАЙЧЕВ",
+      "target": "company:tr:175256096",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНАТОЛИЙ ГЕОРГИЕВ ГЕОРГИЕВ",
+      "target": "company:tr:175256096",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АЛЕКСАНДЪР ВИКТОРОВИЧ МАЙСТЕР",
+      "target": "company:tr:175256096",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОЯН АНТОНИЕВ ГИРГИНОВ",
+      "target": "company:tr:175256096",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУСЛАН СТЕФАНОВ РАЙЧЕВ",
+      "target": "company:tr:175256096",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУВИМ ВИКТОР ФАРХИ",
+      "target": "company:tr:206523867",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РУВИМ ВИКТОР ФАРХИ",
+      "target": "company:tr:206523867",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

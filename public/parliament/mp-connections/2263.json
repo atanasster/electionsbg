@@ -1,0 +1,206 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:2263",
+  "nodes": [
+    {
+      "id": "mp:2263",
+      "type": "mp",
+      "mpId": 2263,
+      "label": "ВЛАДИМИР НИКОЛОВ НИКОЛОВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:205495692",
+      "type": "company",
+      "label": "Джей Ди ТРАНС",
+      "slug": null,
+      "uic": "205495692",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, с. Крепост, 6410"
+    },
+    {
+      "id": "company:tr:204309416",
+      "type": "company",
+      "label": "ПРИСТАНИЩЕ ЕЗЕРОВО",
+      "slug": null,
+      "uic": "204309416",
+      "legalForm": "EAD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:206523582",
+      "type": "company",
+      "label": "Органик Инвест Драганово",
+      "slug": null,
+      "uic": "206523582",
+      "legalForm": "Дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Пловдив, 4003"
+    },
+    {
+      "id": "person:ВАЛЕНТИН ТОШКОВ ВЪЛЕВ",
+      "type": "person",
+      "label": "ВАЛЕНТИН ТОШКОВ ВЪЛЕВ"
+    },
+    {
+      "id": "person:КАЛОЯН ПЛАМЕНОВ БАНЕВ",
+      "type": "person",
+      "label": "КАЛОЯН ПЛАМЕНОВ БАНЕВ"
+    },
+    {
+      "id": "person:МИЛЕНА НЕДЕЛЧЕВА ЛЕВИЧАРОВА",
+      "type": "person",
+      "label": "Милена Неделчева Левичарова"
+    },
+    {
+      "id": "person:ПЛАМЕН ГЕОРГИЕВ СТИЛИЯНОВ",
+      "type": "person",
+      "label": "Пламен Георгиев Стилиянов"
+    },
+    {
+      "id": "person:ГЕОРГИ БОРИСОВ АМУДЖИЕВ",
+      "type": "person",
+      "label": "Георги Борисов Амуджиев"
+    },
+    {
+      "id": "person:ОЛЕКСАНДР СТЕЛМАЩУК",
+      "type": "person",
+      "label": "Олександр Стелмащук"
+    },
+    {
+      "id": "person:БОРИСЛАВ БОЖИДАРОВ БОЙЧИНОВ",
+      "type": "person",
+      "label": "Борислав Божидаров Бойчинов"
+    },
+    {
+      "id": "person:ВОЛОДИМИР КЕБА",
+      "type": "person",
+      "label": "Володимир Кеба"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:2263",
+      "target": "company:tr:205495692",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2263",
+      "target": "company:tr:205495692",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2263",
+      "target": "company:tr:204309416",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2263",
+      "target": "company:tr:206523582",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2263",
+      "target": "company:tr:206523582",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВАЛЕНТИН ТОШКОВ ВЪЛЕВ",
+      "target": "company:tr:205495692",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛОЯН ПЛАМЕНОВ БАНЕВ",
+      "target": "company:tr:205495692",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН ТОШКОВ ВЪЛЕВ",
+      "target": "company:tr:205495692",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛОЯН ПЛАМЕНОВ БАНЕВ",
+      "target": "company:tr:205495692",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕНА НЕДЕЛЧЕВА ЛЕВИЧАРОВА",
+      "target": "company:tr:204309416",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПЛАМЕН ГЕОРГИЕВ СТИЛИЯНОВ",
+      "target": "company:tr:204309416",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ БОРИСОВ АМУДЖИЕВ",
+      "target": "company:tr:204309416",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОЛЕКСАНДР СТЕЛМАЩУК",
+      "target": "company:tr:206523582",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРИСЛАВ БОЖИДАРОВ БОЙЧИНОВ",
+      "target": "company:tr:206523582",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВОЛОДИМИР КЕБА",
+      "target": "company:tr:206523582",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

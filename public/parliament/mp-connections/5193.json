@@ -1,0 +1,86 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:5193",
+  "nodes": [
+    {
+      "id": "mp:5193",
+      "type": "mp",
+      "mpId": 5193,
+      "label": "ЙОРДАН ЯВОРОВ ИВАНОВ",
+      "partyGroupShort": "ПГ ДБ",
+      "isCurrent": true
+    },
+    {
+      "id": "company:ИСИТ-ДОКУМЕНТИ-ООД",
+      "type": "company",
+      "label": "ИСИТ ДОКУМЕНТИ ООД",
+      "slug": "ИСИТ-ДОКУМЕНТИ-ООД",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "Пловдив"
+    },
+    {
+      "id": "company:ИСИТ-ООД",
+      "type": "company",
+      "label": "ИСИТ ООД",
+      "slug": "ИСИТ-ООД",
+      "uic": "201944360",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Пловдив"
+    },
+    {
+      "id": "person:ЯВОР ИВАНОВ ИВАНОВ",
+      "type": "person",
+      "label": "Явор Иванов Иванов"
+    },
+    {
+      "id": "person:ГАЛИНА ВЛАДИМИРОВА ТОШЕВА",
+      "type": "person",
+      "label": "Галина Владимирова Тошева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5193",
+      "target": "company:ИСИТ-ДОКУМЕНТИ-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5193",
+      "target": "company:ИСИТ-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5193",
+      "target": "company:ИСИТ-ООД",
+      "kind": "declared_stake",
+      "role": "transferred_share",
+      "isCurrent": false,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯВОР ИВАНОВ ИВАНОВ",
+      "target": "company:ИСИТ-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГАЛИНА ВЛАДИМИРОВА ТОШЕВА",
+      "target": "company:ИСИТ-ООД",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

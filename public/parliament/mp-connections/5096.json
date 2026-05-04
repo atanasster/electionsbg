@@ -1,0 +1,88 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:5096",
+  "nodes": [
+    {
+      "id": "mp:5096",
+      "type": "mp",
+      "mpId": 5096,
+      "label": "СВИЛЕН ПЕТРОВ ТРИФОНОВ",
+      "partyGroupShort": "ПГ ДБ",
+      "isCurrent": true
+    },
+    {
+      "id": "company:Елан-инвест-ООД",
+      "type": "company",
+      "label": "Елан инвест ООД",
+      "slug": "Елан-инвест-ООД",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "Плевен"
+    },
+    {
+      "id": "company:ЕООДТритон-енерджи",
+      "type": "company",
+      "label": "ЕООД\"Тритон енерджи\"",
+      "slug": "ЕООДТритон-енерджи",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "гр.Плевен"
+    },
+    {
+      "id": "company:ООДЕЛАН-Инвест",
+      "type": "company",
+      "label": "ООД\"ЕЛАН Инвест\"",
+      "slug": "ООДЕЛАН-Инвест",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "гр.Плевен"
+    },
+    {
+      "id": "company:ООДТритон-консулт",
+      "type": "company",
+      "label": "ООД\"Тритон консулт\"",
+      "slug": "ООДТритон-консулт",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "гр.Плевен"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5096",
+      "target": "company:Елан-инвест-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5096",
+      "target": "company:ЕООДТритон-енерджи",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5096",
+      "target": "company:ООДЕЛАН-Инвест",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5096",
+      "target": "company:ООДТритон-консулт",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

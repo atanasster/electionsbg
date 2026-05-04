@@ -1,0 +1,34 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:1896",
+  "nodes": [
+    {
+      "id": "mp:1896",
+      "type": "mp",
+      "mpId": 1896,
+      "label": "ХАСАН АЛИ ХАСАН",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:206821949",
+      "type": "company",
+      "label": "ХАРИ 23",
+      "slug": null,
+      "uic": "206821949",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Варна"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:1896",
+      "target": "company:tr:206821949",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

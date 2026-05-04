@@ -1,0 +1,156 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:5159",
+  "nodes": [
+    {
+      "id": "mp:5159",
+      "type": "mp",
+      "mpId": 5159,
+      "label": "ДИМО ГЕОРГИЕВ ДРЕНЧЕВ",
+      "partyGroupShort": "ПГ ВЪЗРАЖДАНЕ",
+      "isCurrent": true
+    },
+    {
+      "id": "company:Братя-Градеви-ООД",
+      "type": "company",
+      "label": "Братя Градеви ООД",
+      "slug": "Братя-Градеви-ООД",
+      "uic": "131293456",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "София (столица)"
+    },
+    {
+      "id": "company:Ефективни-Сгради-ООД",
+      "type": "company",
+      "label": "Ефективни Сгради ООД",
+      "slug": "Ефективни-Сгради-ООД",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "София"
+    },
+    {
+      "id": "company:Скай-Глас-ООД",
+      "type": "company",
+      "label": "Скай Глас ООД",
+      "slug": "Скай-Глас-ООД",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "София"
+    },
+    {
+      "id": "company:Скайглас-ООД",
+      "type": "company",
+      "label": "Скайглас ООД",
+      "slug": "Скайглас-ООД",
+      "uic": "130736087",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "София (столица)"
+    },
+    {
+      "id": "company:tr:201897722",
+      "type": "company",
+      "label": "ЕФЕКТИВНИ СГРАДИ - БЪЛГАРИЯ",
+      "slug": null,
+      "uic": "201897722",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:201894174",
+      "type": "company",
+      "label": "Душ кабини БГ",
+      "slug": null,
+      "uic": "201894174",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "mp:4223",
+      "type": "mp",
+      "mpId": 4223,
+      "label": "НИКОЛАЙ ГЕОРГИЕВ ДРЕНЧЕВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5159",
+      "target": "company:Братя-Градеви-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5159",
+      "target": "company:Братя-Градеви-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5159",
+      "target": "company:Ефективни-Сгради-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5159",
+      "target": "company:Скай-Глас-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5159",
+      "target": "company:Скайглас-ООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5159",
+      "target": "company:tr:201897722",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5159",
+      "target": "company:tr:201894174",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4223",
+      "target": "company:Братя-Градеви-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4223",
+      "target": "company:Скайглас-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

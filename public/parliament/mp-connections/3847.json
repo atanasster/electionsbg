@@ -1,0 +1,52 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:3847",
+  "nodes": [
+    {
+      "id": "mp:3847",
+      "type": "mp",
+      "mpId": 3847,
+      "label": "НАДЕЖДА ДАНАИЛОВА САМАРДЖИЕВА",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:Дана-2008-ЕООД",
+      "type": "company",
+      "label": "\"Дана 2008\" ЕООД",
+      "slug": "Дана-2008-ЕООД",
+      "uic": "200165712",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "Добринище"
+    },
+    {
+      "id": "company:Холимекс-ООД",
+      "type": "company",
+      "label": "\"Холимекс\" ООД",
+      "slug": "Холимекс-ООД",
+      "uic": "101663647",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Добринище"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3847",
+      "target": "company:Дана-2008-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3847",
+      "target": "company:Холимекс-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,52 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:3288",
+  "nodes": [
+    {
+      "id": "mp:3288",
+      "type": "mp",
+      "mpId": 3288,
+      "label": "МАРТИН ПЕТРОВ АНДОНОВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:Импекс-Билд-ЕООД",
+      "type": "company",
+      "label": "Импекс Билд ЕООД",
+      "slug": "Импекс-Билд-ЕООД",
+      "uic": "202955705",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "София (столица)"
+    },
+    {
+      "id": "company:Импекс-Варна-ЕООД",
+      "type": "company",
+      "label": "Импекс Варна ЕООД",
+      "slug": "Импекс-Варна-ЕООД",
+      "uic": "202274169",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "Варна"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3288",
+      "target": "company:Импекс-Билд-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3288",
+      "target": "company:Импекс-Варна-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

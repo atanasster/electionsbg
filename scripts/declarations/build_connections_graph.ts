@@ -8,8 +8,9 @@
  *   mp-management/{mpId}.json        — TR-derived management roles per MP
  *
  * Output:
- *   connections.json                 — full graph
- *   connections-by-mp.json           — { [mpId]: nodeIds[] } 1-hop neighborhood
+ *   connections.json                 — full graph (loaded by /connections only)
+ *   mp-connections/{mpId}.json       — per-MP subgraph (1-hop + co-officer 2-hop),
+ *                                      loaded on each candidate page
  *
  * Design notes:
  *   - Companies have two possible IDs: "company:{slug}" when they appear in a
@@ -407,7 +408,27 @@ export const buildConnectionsGraph = ({
     adjacency.set(e.target, b);
   }
 
-  const byMp: Record<number, string[]> = {};
+  // Index edges by node id once so the per-MP subgraph filter is O(neighborhood)
+  // rather than O(E) per MP.
+  const edgesByNode = new Map<string, ConnectionsEdge[]>();
+  for (const e of edges.values()) {
+    const a = edgesByNode.get(e.source) ?? [];
+    a.push(e);
+    edgesByNode.set(e.source, a);
+    if (e.target !== e.source) {
+      const b = edgesByNode.get(e.target) ?? [];
+      b.push(e);
+      edgesByNode.set(e.target, b);
+    }
+  }
+
+  const mpConnectionsDir = path.join(parliamentDir, "mp-connections");
+  fs.rmSync(mpConnectionsDir, { recursive: true, force: true });
+  fs.mkdirSync(mpConnectionsDir, { recursive: true });
+
+  const generatedAt = new Date().toISOString();
+  let mpFileCount = 0;
+
   for (const node of nodes.values()) {
     if (node.type !== "mp") continue;
     const ownId = node.id;
@@ -419,8 +440,35 @@ export const buildConnectionsGraph = ({
         if (n !== ownId) second.add(n);
       }
     }
-    const ids = new Set<string>([ownId, ...neighborCompanies, ...second]);
-    byMp[node.mpId] = Array.from(ids);
+    const idSet = new Set<string>([ownId, ...neighborCompanies, ...second]);
+    if (idSet.size <= 1) continue; // hub-only — skip the file; fetch 404s, frontend renders nothing
+    const subNodes: ConnectionsNode[] = [];
+    for (const id of idSet) {
+      const n = nodes.get(id);
+      if (n) subNodes.push(n);
+    }
+    const seenEdges = new Set<string>();
+    const subEdges: ConnectionsEdge[] = [];
+    for (const id of idSet) {
+      for (const e of edgesByNode.get(id) ?? []) {
+        if (!idSet.has(e.source) || !idSet.has(e.target)) continue;
+        const k = `${e.source}${e.target}${e.kind}${e.role ?? ""}`;
+        if (seenEdges.has(k)) continue;
+        seenEdges.add(k);
+        subEdges.push(e);
+      }
+    }
+    fs.writeFileSync(
+      path.join(mpConnectionsDir, `${node.mpId}.json`),
+      stringify({
+        generatedAt,
+        mpNodeId: ownId,
+        nodes: subNodes,
+        edges: subEdges,
+      }),
+      "utf-8",
+    );
+    mpFileCount++;
   }
 
   // ---- 4) Compute headline rankings --------------------------------------
@@ -562,21 +610,21 @@ export const buildConnectionsGraph = ({
   // ---- 5) Write outputs --------------------------------------------------
 
   const graph: ConnectionsGraph = {
-    generatedAt: new Date().toISOString(),
+    generatedAt,
     nodes: Array.from(nodes.values()),
     edges: Array.from(edges.values()),
   };
 
   const fullPath = path.join(parliamentDir, "connections.json");
-  const indexPath2 = path.join(parliamentDir, "connections-by-mp.json");
   const rankingsPath = path.join(parliamentDir, "connections-rankings.json");
   fs.writeFileSync(fullPath, stringify(graph), "utf-8");
-  fs.writeFileSync(
-    indexPath2,
-    stringify({ generatedAt: graph.generatedAt, byMp }),
-    "utf-8",
-  );
   fs.writeFileSync(rankingsPath, stringify(rankings), "utf-8");
+
+  // The legacy connections-by-mp.json index has been replaced by per-MP
+  // subgraph files under mp-connections/. Remove it if present so old clones
+  // don't keep a stale 300 KB file in their build output.
+  const legacyByMp = path.join(parliamentDir, "connections-by-mp.json");
+  if (fs.existsSync(legacyByMp)) fs.rmSync(legacyByMp);
 
   const counts = { mp: 0, company: 0, person: 0 };
   for (const n of graph.nodes) counts[n.type]++;
@@ -584,6 +632,9 @@ export const buildConnectionsGraph = ({
     `[connections] wrote ${graph.nodes.length} nodes ` +
       `(${counts.mp} MP, ${counts.company} company, ${counts.person} person), ` +
       `${graph.edges.length} edges → ${fullPath}`,
+  );
+  console.log(
+    `[connections]   per-MP subgraphs → ${mpFileCount} files in ${mpConnectionsDir}`,
   );
   console.log(
     `[connections]   rankings → ${rankings.topMps.length} top MPs, ` +

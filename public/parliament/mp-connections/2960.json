@@ -1,0 +1,78 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:2960",
+  "nodes": [
+    {
+      "id": "mp:2960",
+      "type": "mp",
+      "mpId": 2960,
+      "label": "АННА НИКОЛАЕВА СЛАВОВА",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:ИБЕРАНН",
+      "type": "company",
+      "label": "ИБЕРАНН",
+      "slug": "ИБЕРАНН",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "София (столица)"
+    },
+    {
+      "id": "company:tr:000689061",
+      "type": "company",
+      "label": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ &quot;КНЯГИНЯ КЛЕМЕНТИНА&quot; - СОФИЯ",
+      "slug": null,
+      "uic": "000689061",
+      "legalForm": "EAD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1233"
+    },
+    {
+      "id": "person:ДИМИТЪР ДЕЛЧЕВ РУСЕНОВ",
+      "type": "person",
+      "label": "ДИМИТЪР ДЕЛЧЕВ РУСЕНОВ"
+    },
+    {
+      "id": "person:БОРИЛ ПЕТРОВ ПЕТРОВ",
+      "type": "person",
+      "label": "БОРИЛ ПЕТРОВ ПЕТРОВ"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:2960",
+      "target": "company:ИБЕРАНН",
+      "kind": "declared_stake",
+      "role": "transferred_share",
+      "isCurrent": false,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2960",
+      "target": "company:tr:000689061",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДИМИТЪР ДЕЛЧЕВ РУСЕНОВ",
+      "target": "company:tr:000689061",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:БОРИЛ ПЕТРОВ ПЕТРОВ",
+      "target": "company:tr:000689061",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,143 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:5121",
+  "nodes": [
+    {
+      "id": "mp:5121",
+      "type": "mp",
+      "mpId": 5121,
+      "label": "АТАНАС ПЕТРОВ АТАНАСОВ",
+      "partyGroupShort": "ПГ ДБ",
+      "isCurrent": true
+    },
+    {
+      "id": "company:tr:206952724",
+      "type": "company",
+      "label": "Дон Камило",
+      "slug": null,
+      "uic": "206952724",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Пазарджик, 4400"
+    },
+    {
+      "id": "company:tr:206799762",
+      "type": "company",
+      "label": "Студио за маникюр Арте",
+      "slug": null,
+      "uic": "206799762",
+      "legalForm": "Дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Добрич, 9300"
+    },
+    {
+      "id": "company:tr:123677788",
+      "type": "company",
+      "label": "ГАЛ АТАНАСОВ",
+      "slug": null,
+      "uic": "123677788",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Стара Загора, 6000"
+    },
+    {
+      "id": "company:tr:201832124",
+      "type": "company",
+      "label": "ОЛИМПИЯ ШУМЕН",
+      "slug": null,
+      "uic": "201832124",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:ИВА ДИМИТРОВА СТОЯНОВА",
+      "type": "person",
+      "label": "ИВА ДИМИТРОВА СТОЯНОВА"
+    },
+    {
+      "id": "person:ТИХОМИР МИЛЕНОВ ГЕОРГИЕВ",
+      "type": "person",
+      "label": "ТИХОМИР МИЛЕНОВ ГЕОРГИЕВ"
+    },
+    {
+      "id": "person:\"СТАРС КЪМПАНИ\" АД",
+      "type": "person",
+      "label": "\"СТАРС КЪМПАНИ\" АД"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5121",
+      "target": "company:tr:206952724",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5121",
+      "target": "company:tr:206799762",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5121",
+      "target": "company:tr:123677788",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5121",
+      "target": "company:tr:201832124",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ИВА ДИМИТРОВА СТОЯНОВА",
+      "target": "company:tr:206799762",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВА ДИМИТРОВА СТОЯНОВА",
+      "target": "company:tr:206799762",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТИХОМИР МИЛЕНОВ ГЕОРГИЕВ",
+      "target": "company:tr:201832124",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТИХОМИР МИЛЕНОВ ГЕОРГИЕВ",
+      "target": "company:tr:201832124",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:\"СТАРС КЪМПАНИ\" АД",
+      "target": "company:tr:201832124",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

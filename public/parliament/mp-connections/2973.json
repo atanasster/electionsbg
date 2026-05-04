@@ -1,0 +1,68 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:2973",
+  "nodes": [
+    {
+      "id": "mp:2973",
+      "type": "mp",
+      "mpId": 2973,
+      "label": "СТОЙНО МИТЕВ СТОЙНОВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:Стеди-Вет-2-ЕООД",
+      "type": "company",
+      "label": "Стеди-Вет 2 ЕООД",
+      "slug": "Стеди-Вет-2-ЕООД",
+      "uic": "202832343",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "Бургас"
+    },
+    {
+      "id": "company:Стеди-Вет-ЕООД",
+      "type": "company",
+      "label": "Стеди-Вет ЕООД",
+      "slug": "Стеди-Вет-ЕООД",
+      "uic": "200272059",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "Бургас"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:2973",
+      "target": "company:Стеди-Вет-2-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2973",
+      "target": "company:Стеди-Вет-2-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2973",
+      "target": "company:Стеди-Вет-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2973",
+      "target": "company:Стеди-Вет-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

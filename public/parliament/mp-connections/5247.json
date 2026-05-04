@@ -1,0 +1,200 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:5247",
+  "nodes": [
+    {
+      "id": "mp:5247",
+      "type": "mp",
+      "mpId": 5247,
+      "label": "ПЕТЪР НИКОЛАЕВ ПЕТРОВ",
+      "partyGroupShort": "ПГ ВЪЗРАЖДАНЕ",
+      "isCurrent": true
+    },
+    {
+      "id": "company:АДВ.ДРУЖЕСТВО-ЙОСИФОВА-ИВАНОВ-И-ПЕТРОВ",
+      "type": "company",
+      "label": "АДВ.ДРУЖЕСТВО ЙОСИФОВА ИВАНОВ И ПЕТРОВ",
+      "slug": "АДВ.ДРУЖЕСТВО-ЙОСИФОВА-ИВАНОВ-И-ПЕТРОВ",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "София (столица)"
+    },
+    {
+      "id": "company:АДВ.ДРУЖЕСТВО-ЙОСИФОВА,-ИВАНОВ-И-ПЕТРОВ",
+      "type": "company",
+      "label": "АДВ.ДРУЖЕСТВО ЙОСИФОВА, ИВАНОВ И ПЕТРОВ",
+      "slug": "АДВ.ДРУЖЕСТВО-ЙОСИФОВА,-ИВАНОВ-И-ПЕТРОВ",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "София (столица)"
+    },
+    {
+      "id": "company:tr:205705393",
+      "type": "company",
+      "label": "Сити Маркет 1",
+      "slug": null,
+      "uic": "205705393",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Перник, 2300"
+    },
+    {
+      "id": "company:tr:207058015",
+      "type": "company",
+      "label": "Никаарт - МП",
+      "slug": null,
+      "uic": "207058015",
+      "legalForm": "Дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Сливен, 8800"
+    },
+    {
+      "id": "company:tr:206694521",
+      "type": "company",
+      "label": "ПНП Транс Къмпани",
+      "slug": null,
+      "uic": "206694521",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Ботевград, 2140"
+    },
+    {
+      "id": "company:tr:205911226",
+      "type": "company",
+      "label": "ПИ ВИ БИЛД",
+      "slug": null,
+      "uic": "205911226",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:МАРИЕТА НИКОЛАЕВА ПЕТРОВА",
+      "type": "person",
+      "label": "Мариета Николаева Петрова"
+    },
+    {
+      "id": "mp:2255",
+      "type": "mp",
+      "mpId": 2255,
+      "label": "ГЕОРГИ ДИМИТРОВ ГЕОРГИЕВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "person:БИСЕР ВЕЛИНОВ ДУРЕВ",
+      "type": "person",
+      "label": "Бисер Велинов Дурев"
+    },
+    {
+      "id": "person:СПАСИМИР НИКОЛАЕВ ПЕТРОВ",
+      "type": "person",
+      "label": "Спасимир Николаев Петров"
+    },
+    {
+      "id": "person:ПОЛЯ РУМЕНОВА РАЙНОВА-ГЕОРГИЕВА",
+      "type": "person",
+      "label": "Поля Руменова Райнова-Георгиева"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5247",
+      "target": "company:АДВ.ДРУЖЕСТВО-ЙОСИФОВА-ИВАНОВ-И-ПЕТРОВ",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5247",
+      "target": "company:АДВ.ДРУЖЕСТВО-ЙОСИФОВА,-ИВАНОВ-И-ПЕТРОВ",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5247",
+      "target": "company:tr:205705393",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5247",
+      "target": "company:tr:207058015",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5247",
+      "target": "company:tr:207058015",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5247",
+      "target": "company:tr:206694521",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5247",
+      "target": "company:tr:205911226",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРИЕТА НИКОЛАЕВА ПЕТРОВА",
+      "target": "company:tr:207058015",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2255",
+      "target": "company:tr:205911226",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:БИСЕР ВЕЛИНОВ ДУРЕВ",
+      "target": "company:tr:205911226",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СПАСИМИР НИКОЛАЕВ ПЕТРОВ",
+      "target": "company:tr:205911226",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПОЛЯ РУМЕНОВА РАЙНОВА-ГЕОРГИЕВА",
+      "target": "company:tr:205911226",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

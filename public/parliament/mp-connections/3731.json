@@ -1,0 +1,253 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:3731",
+  "nodes": [
+    {
+      "id": "mp:3731",
+      "type": "mp",
+      "mpId": 3731,
+      "label": "ЗАРКО ФИЛИПОВ МАРИНОВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:Интерлинк",
+      "type": "company",
+      "label": "Интерлинк",
+      "slug": "Интерлинк",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "Смолян"
+    },
+    {
+      "id": "company:Интерлинк-ЕООД",
+      "type": "company",
+      "label": "Интерлинк ЕООД",
+      "slug": "Интерлинк-ЕООД",
+      "uic": "120076070",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "Смолян"
+    },
+    {
+      "id": "company:Отзвук",
+      "type": "company",
+      "label": "Отзвук",
+      "slug": "Отзвук",
+      "uic": "830187859",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "Смолян"
+    },
+    {
+      "id": "company:Отзвук-ЕООД",
+      "type": "company",
+      "label": "Отзвук ЕООД",
+      "slug": "Отзвук-ЕООД",
+      "uic": "830187859",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "Смолян"
+    },
+    {
+      "id": "company:Отзвук-прес",
+      "type": "company",
+      "label": "Отзвук прес",
+      "slug": "Отзвук-прес",
+      "uic": "120523831",
+      "legalForm": "EOOD",
+      "status": "bankrupt",
+      "seat": "Смолян"
+    },
+    {
+      "id": "company:Отзвук-прес-ЕООД",
+      "type": "company",
+      "label": "Отзвук прес ЕООД",
+      "slug": "Отзвук-прес-ЕООД",
+      "uic": "120523831",
+      "legalForm": "EOOD",
+      "status": "bankrupt",
+      "seat": "Смолян"
+    },
+    {
+      "id": "company:Отзвук.БГ",
+      "type": "company",
+      "label": "Отзвук.БГ",
+      "slug": "Отзвук.БГ",
+      "uic": "205932341",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "Смолян"
+    },
+    {
+      "id": "company:Отзвук.БГ-ЕООД",
+      "type": "company",
+      "label": "Отзвук.БГ ЕООД",
+      "slug": "Отзвук.БГ-ЕООД",
+      "uic": "205932341",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "Смолян"
+    },
+    {
+      "id": "person:ЕЛИЦА ВАЛЕНТИНОВА МАРИНОВА",
+      "type": "person",
+      "label": "Елица Валентинова Маринова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3731",
+      "target": "company:Интерлинк",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3731",
+      "target": "company:Интерлинк-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3731",
+      "target": "company:Интерлинк-ЕООД",
+      "kind": "declared_stake",
+      "role": "transferred_share",
+      "isCurrent": false,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3731",
+      "target": "company:Отзвук",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3731",
+      "target": "company:Отзвук-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3731",
+      "target": "company:Отзвук-ЕООД",
+      "kind": "declared_stake",
+      "role": "transferred_share",
+      "isCurrent": false,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3731",
+      "target": "company:Отзвук-прес",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3731",
+      "target": "company:Отзвук-прес-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3731",
+      "target": "company:Отзвук-прес-ЕООД",
+      "kind": "declared_stake",
+      "role": "transferred_share",
+      "isCurrent": false,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3731",
+      "target": "company:Отзвук.БГ",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3731",
+      "target": "company:Отзвук.БГ-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3731",
+      "target": "company:Отзвук.БГ-ЕООД",
+      "kind": "declared_stake",
+      "role": "transferred_share",
+      "isCurrent": false,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛИЦА ВАЛЕНТИНОВА МАРИНОВА",
+      "target": "company:Интерлинк-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛИЦА ВАЛЕНТИНОВА МАРИНОВА",
+      "target": "company:Отзвук",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛИЦА ВАЛЕНТИНОВА МАРИНОВА",
+      "target": "company:Отзвук-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛИЦА ВАЛЕНТИНОВА МАРИНОВА",
+      "target": "company:Отзвук-прес",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛИЦА ВАЛЕНТИНОВА МАРИНОВА",
+      "target": "company:Отзвук-прес-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛИЦА ВАЛЕНТИНОВА МАРИНОВА",
+      "target": "company:Отзвук.БГ",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛИЦА ВАЛЕНТИНОВА МАРИНОВА",
+      "target": "company:Отзвук.БГ-ЕООД",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

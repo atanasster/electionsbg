@@ -1,0 +1,34 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:4837",
+  "nodes": [
+    {
+      "id": "mp:4837",
+      "type": "mp",
+      "mpId": 4837,
+      "label": "КИРИЛ ПЕТКОВ ПЕТКОВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:Сладкарницата-на-Линда",
+      "type": "company",
+      "label": "Сладкарницата на Линда",
+      "slug": "Сладкарницата-на-Линда",
+      "uic": "203097654",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "София (столица)"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4837",
+      "target": "company:Сладкарницата-на-Линда",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

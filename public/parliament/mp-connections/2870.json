@@ -1,0 +1,47 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:2870",
+  "nodes": [
+    {
+      "id": "mp:2870",
+      "type": "mp",
+      "mpId": 2870,
+      "label": "МИЛКО НЕДЯЛКОВ НЕДЯЛКОВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:203724936",
+      "type": "company",
+      "label": "ВЕСТНИКЪТ",
+      "slug": null,
+      "uic": "203724936",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:МАРИЯ БОНЧЕВА НЕДЯЛКОВА",
+      "type": "person",
+      "label": "МАРИЯ БОНЧЕВА НЕДЯЛКОВА"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:2870",
+      "target": "company:tr:203724936",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:МАРИЯ БОНЧЕВА НЕДЯЛКОВА",
+      "target": "company:tr:203724936",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

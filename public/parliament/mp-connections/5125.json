@@ -1,0 +1,52 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:5125",
+  "nodes": [
+    {
+      "id": "mp:5125",
+      "type": "mp",
+      "mpId": 5125,
+      "label": "МЛАДЕН НАЙДЕНОВ МАРИНОВ",
+      "partyGroupShort": "ПГ на ГЕРБ-СДС",
+      "isCurrent": true
+    },
+    {
+      "id": "company:БИОМИНЕРАЛ-ООД",
+      "type": "company",
+      "label": "\"БИОМИНЕРАЛ\" ООД",
+      "slug": "БИОМИНЕРАЛ-ООД",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "гр. Ябланица"
+    },
+    {
+      "id": "company:МВД-О5-ООД",
+      "type": "company",
+      "label": "\"МВД -О5\" ООД",
+      "slug": "МВД-О5-ООД",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "с. Разлив"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5125",
+      "target": "company:БИОМИНЕРАЛ-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5125",
+      "target": "company:МВД-О5-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

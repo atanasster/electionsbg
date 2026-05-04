@@ -1,0 +1,52 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:4938",
+  "nodes": [
+    {
+      "id": "mp:4938",
+      "type": "mp",
+      "mpId": 4938,
+      "label": "СИЛВИ КИРИЛОВ ПЕТРОВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:Тентус-България-ООД",
+      "type": "company",
+      "label": "Тентус България ООД",
+      "slug": "Тентус-България-ООД",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "София (столица)"
+    },
+    {
+      "id": "company:Тетнус-България-ООД",
+      "type": "company",
+      "label": "Тетнус България ООД",
+      "slug": "Тетнус-България-ООД",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "София (столица)"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4938",
+      "target": "company:Тентус-България-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:4938",
+      "target": "company:Тетнус-България-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:5255",
+  "nodes": [
+    {
+      "id": "mp:5255",
+      "type": "mp",
+      "mpId": 5255,
+      "label": "АЛЕКСАНДЪР ДИМИТРОВ СИМИДЧИЕВ",
+      "partyGroupShort": "ПГ ДБ",
+      "isCurrent": true
+    },
+    {
+      "id": "company:GlaxoSmithKline-PLC",
+      "type": "company",
+      "label": "GlaxoSmithKline PLC",
+      "slug": "GlaxoSmithKline-PLC",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "Great Britain"
+    },
+    {
+      "id": "company:GlaxoSmithKline-pls",
+      "type": "company",
+      "label": "GlaxoSmithKline pls",
+      "slug": "GlaxoSmithKline-pls",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "Great Britain"
+    },
+    {
+      "id": "company:Haleon",
+      "type": "company",
+      "label": "Haleon",
+      "slug": "Haleon",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "Great Britain"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5255",
+      "target": "company:GlaxoSmithKline-PLC",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5255",
+      "target": "company:GlaxoSmithKline-pls",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5255",
+      "target": "company:Haleon",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

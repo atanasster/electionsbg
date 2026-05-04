@@ -1,0 +1,63 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:2665",
+  "nodes": [
+    {
+      "id": "mp:2665",
+      "type": "mp",
+      "mpId": 2665,
+      "label": "МАРИЯ ЙОРДАНОВА ИЛИЕВА",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:206620661",
+      "type": "company",
+      "label": "ВАНЕСА 27",
+      "slug": null,
+      "uic": "206620661",
+      "legalForm": "Дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Пловдив, 4002"
+    },
+    {
+      "id": "person:СТЕФАН ВАСИЛЕВ ИЛИЕВ",
+      "type": "person",
+      "label": "СТЕФАН ВАСИЛЕВ ИЛИЕВ"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:2665",
+      "target": "company:tr:206620661",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2665",
+      "target": "company:tr:206620661",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТЕФАН ВАСИЛЕВ ИЛИЕВ",
+      "target": "company:tr:206620661",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТЕФАН ВАСИЛЕВ ИЛИЕВ",
+      "target": "company:tr:206620661",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

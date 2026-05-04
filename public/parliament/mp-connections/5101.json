@@ -1,0 +1,270 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:5101",
+  "nodes": [
+    {
+      "id": "mp:5101",
+      "type": "mp",
+      "mpId": 5101,
+      "label": "ГЕОРГИ НИКОЛАЕВ ГЕОРГИЕВ",
+      "partyGroupShort": "ПГ ВЪЗРАЖДАНЕ",
+      "isCurrent": true
+    },
+    {
+      "id": "company:БГ-ПРОГРЕСС",
+      "type": "company",
+      "label": "БГ ПРОГРЕСС",
+      "slug": "БГ-ПРОГРЕСС",
+      "uic": "202284206",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Хасково"
+    },
+    {
+      "id": "company:Голдмайнд",
+      "type": "company",
+      "label": "Голдмайнд",
+      "slug": "Голдмайнд",
+      "uic": "205184887",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "Пловдив"
+    },
+    {
+      "id": "company:tr:206970238",
+      "type": "company",
+      "label": "Стейлър",
+      "slug": null,
+      "uic": "206970238",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "company:tr:131461270",
+      "type": "company",
+      "label": "ЧИНАР-ПБ",
+      "slug": null,
+      "uic": "131461270",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1680"
+    },
+    {
+      "id": "company:tr:206739548",
+      "type": "company",
+      "label": "ЕПИК КОЛЕКТИВ",
+      "slug": null,
+      "uic": "206739548",
+      "legalForm": "Дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1142"
+    },
+    {
+      "id": "company:tr:206594375",
+      "type": "company",
+      "label": "МИТРОВИ 2021",
+      "slug": null,
+      "uic": "206594375",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Луковит, 5770"
+    },
+    {
+      "id": "company:tr:206424552",
+      "type": "company",
+      "label": "Георгиев 0777",
+      "slug": null,
+      "uic": "206424552",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Благоевград, 2700"
+    },
+    {
+      "id": "company:tr:206381154",
+      "type": "company",
+      "label": "ГЕОРГИ  ГЕОРГИЕВ 2021",
+      "slug": null,
+      "uic": "206381154",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Ямбол, 8600"
+    },
+    {
+      "id": "person:ВАЛЕНТИН ДИМИТРОВ ВЪЛЕВ",
+      "type": "person",
+      "label": "Валентин Димитров Вълев"
+    },
+    {
+      "id": "person:„ИНОВЕЙШЪН КЕПИТЪЛ ФОНД“ КДА",
+      "type": "person",
+      "label": "„Иновейшън Кепитъл Фонд“ КДА"
+    },
+    {
+      "id": "person:ИЛОНА ЮРИЕВНА ИВАНОВА",
+      "type": "person",
+      "label": "ИЛОНА ЮРИЕВНА ИВАНОВА"
+    },
+    {
+      "id": "person:МИРОСЛАВ ПРОЙНОВ ИВАНОВ",
+      "type": "person",
+      "label": "МИРОСЛАВ ПРОЙНОВ ИВАНОВ"
+    },
+    {
+      "id": "person:АНТОН ГЕОРГИЕВ ЛЬОЛЕВ",
+      "type": "person",
+      "label": "АНТОН ГЕОРГИЕВ ЛЬОЛЕВ"
+    },
+    {
+      "id": "person:ДЕЛЯН БОРИСЛАВОВ БОНЕВ",
+      "type": "person",
+      "label": "Делян Бориславов Бонев"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5101",
+      "target": "company:БГ-ПРОГРЕСС",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5101",
+      "target": "company:Голдмайнд",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5101",
+      "target": "company:tr:206970238",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5101",
+      "target": "company:tr:206970238",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5101",
+      "target": "company:tr:131461270",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5101",
+      "target": "company:tr:206739548",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5101",
+      "target": "company:tr:206594375",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5101",
+      "target": "company:tr:206424552",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5101",
+      "target": "company:tr:206381154",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВАЛЕНТИН ДИМИТРОВ ВЪЛЕВ",
+      "target": "company:tr:206970238",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАЛЕНТИН ДИМИТРОВ ВЪЛЕВ",
+      "target": "company:tr:206970238",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:„ИНОВЕЙШЪН КЕПИТЪЛ ФОНД“ КДА",
+      "target": "company:tr:206970238",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛОНА ЮРИЕВНА ИВАНОВА",
+      "target": "company:tr:131461270",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИЛОНА ЮРИЕВНА ИВАНОВА",
+      "target": "company:tr:131461270",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИРОСЛАВ ПРОЙНОВ ИВАНОВ",
+      "target": "company:tr:131461270",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНТОН ГЕОРГИЕВ ЛЬОЛЕВ",
+      "target": "company:tr:131461270",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕЛЯН БОРИСЛАВОВ БОНЕВ",
+      "target": "company:tr:206739548",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕЛЯН БОРИСЛАВОВ БОНЕВ",
+      "target": "company:tr:206739548",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,55 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:3620",
+  "nodes": [
+    {
+      "id": "mp:3620",
+      "type": "mp",
+      "mpId": 3620,
+      "label": "ИВАН БОРИСОВ ТОТЕВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:Каменица-Офис-парк-АД",
+      "type": "company",
+      "label": "Каменица Офис парк АД",
+      "slug": "Каменица-Офис-парк-АД",
+      "uic": "204666471",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": "Пловдив"
+    },
+    {
+      "id": "person:ГЕОРГИ БОРИСОВ ТОТЕВ",
+      "type": "person",
+      "label": "ГЕОРГИ БОРИСОВ ТОТЕВ"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3620",
+      "target": "company:Каменица-Офис-парк-АД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3620",
+      "target": "company:Каменица-Офис-парк-АД",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ БОРИСОВ ТОТЕВ",
+      "target": "company:Каменица-Офис-парк-АД",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

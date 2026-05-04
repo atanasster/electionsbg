@@ -1,0 +1,76 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:1056",
+  "nodes": [
+    {
+      "id": "mp:1056",
+      "type": "mp",
+      "mpId": 1056,
+      "label": "ГЮНЕР ФАРИЗ СЕРБЕСТ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:206536747",
+      "type": "company",
+      "label": "Анда Сторидж",
+      "slug": null,
+      "uic": "206536747",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1700"
+    },
+    {
+      "id": "person:ЯНИ КРАСЕН ГЕОРГИЕВ",
+      "type": "person",
+      "label": "Яни Красен Георгиев"
+    },
+    {
+      "id": "person:ЕГЕМЕН ГЮНЕР СЕРБЕСТ",
+      "type": "person",
+      "label": "Егемен Гюнер Сербест"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:1056",
+      "target": "company:tr:206536747",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЯНИ КРАСЕН ГЕОРГИЕВ",
+      "target": "company:tr:206536747",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕГЕМЕН ГЮНЕР СЕРБЕСТ",
+      "target": "company:tr:206536747",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЯНИ КРАСЕН ГЕОРГИЕВ",
+      "target": "company:tr:206536747",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕГЕМЕН ГЮНЕР СЕРБЕСТ",
+      "target": "company:tr:206536747",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,122 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:3373",
+  "nodes": [
+    {
+      "id": "mp:3373",
+      "type": "mp",
+      "mpId": 3373,
+      "label": "ТОДОР СТАМАТОВ ТОДОРОВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:Вилидж-Фрутс",
+      "type": "company",
+      "label": "\"Вилидж Фрутс\"",
+      "slug": "Вилидж-Фрутс",
+      "uic": "103889029",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": "Варна"
+    },
+    {
+      "id": "company:ТРИЗНАЦИ",
+      "type": "company",
+      "label": "\"ТРИЗНАЦИ\"",
+      "slug": "ТРИЗНАЦИ",
+      "uic": "103814884",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "Варна"
+    },
+    {
+      "id": "company:tr:103838337",
+      "type": "company",
+      "label": "ИДА -2003",
+      "slug": null,
+      "uic": "103838337",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Силистра, 7500"
+    },
+    {
+      "id": "person:ЙОРДАН НЕДЯЛКОВ РАДЕВ",
+      "type": "person",
+      "label": "ЙОРДАН НЕДЯЛКОВ РАДЕВ"
+    },
+    {
+      "id": "person:ТОДОРИНА АТАНАСОВА ТРИФОНОВА",
+      "type": "person",
+      "label": "Тодорина Атанасова Трифонова"
+    },
+    {
+      "id": "person:РОСИЦА НЕНОВА РАДЕВА",
+      "type": "person",
+      "label": "РОСИЦА НЕНОВА РАДЕВА"
+    },
+    {
+      "id": "person:ЕЛИЦА ЙОРДАНОВА ТОДОРОВА",
+      "type": "person",
+      "label": "ЕЛИЦА ЙОРДАНОВА ТОДОРОВА"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3373",
+      "target": "company:Вилидж-Фрутс",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3373",
+      "target": "company:ТРИЗНАЦИ",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:3373",
+      "target": "company:tr:103838337",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЙОРДАН НЕДЯЛКОВ РАДЕВ",
+      "target": "company:Вилидж-Фрутс",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОДОРИНА АТАНАСОВА ТРИФОНОВА",
+      "target": "company:Вилидж-Фрутс",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:РОСИЦА НЕНОВА РАДЕВА",
+      "target": "company:Вилидж-Фрутс",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛИЦА ЙОРДАНОВА ТОДОРОВА",
+      "target": "company:ТРИЗНАЦИ",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

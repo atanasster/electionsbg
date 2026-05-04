@@ -1,0 +1,68 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:1791",
+  "nodes": [
+    {
+      "id": "mp:1791",
+      "type": "mp",
+      "mpId": 1791,
+      "label": "ДИМИТЪР ИВАНОВ АБАДЖИЕВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:206954643",
+      "type": "company",
+      "label": "КОРПОРЪТ ЕНД ТРЪСТ СЪРВИСИЗ",
+      "slug": null,
+      "uic": "206954643",
+      "legalForm": "Дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "person:ЕВГЕНИ МИТЕВ ДОБРЕВ",
+      "type": "person",
+      "label": "Евгени Митев Добрев"
+    },
+    {
+      "id": "person:СЛАВЧО БОЯНОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Славчо Боянов Христов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:1791",
+      "target": "company:tr:206954643",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ЕВГЕНИ МИТЕВ ДОБРЕВ",
+      "target": "company:tr:206954643",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СЛАВЧО БОЯНОВ ХРИСТОВ",
+      "target": "company:tr:206954643",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕВГЕНИ МИТЕВ ДОБРЕВ",
+      "target": "company:tr:206954643",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

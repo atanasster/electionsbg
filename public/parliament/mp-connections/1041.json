@@ -1,0 +1,136 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:1041",
+  "nodes": [
+    {
+      "id": "mp:1041",
+      "type": "mp",
+      "mpId": 1041,
+      "label": "ЕМИЛ ДИМИТРОВ КАРАНИКОЛОВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:202174215",
+      "type": "company",
+      "label": "ГУС Маркетинг енд Консултинг",
+      "slug": null,
+      "uic": "202174215",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Казанлък, 6100"
+    },
+    {
+      "id": "company:tr:206705161",
+      "type": "company",
+      "label": "СТИКС- Ист",
+      "slug": null,
+      "uic": "206705161",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Казанлък, 6100"
+    },
+    {
+      "id": "person:ВОЛФГАНГ СТИКС",
+      "type": "person",
+      "label": "Волфганг Стикс"
+    },
+    {
+      "id": "person:КЛАУС ЛЮДВИГ МОНТИГЕЛ",
+      "type": "person",
+      "label": "Клаус Людвиг Монтигел"
+    },
+    {
+      "id": "person:СТИКС НАТУРКОЗМЕТИКС",
+      "type": "person",
+      "label": "СТИКС НАТУРКОЗМЕТИКС"
+    },
+    {
+      "id": "person:СТИКС НАТУРКОЗМЕТИК",
+      "type": "person",
+      "label": "СТИКС НАТУРКОЗМЕТИК"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:1041",
+      "target": "company:tr:202174215",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1041",
+      "target": "company:tr:206705161",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:1041",
+      "target": "company:tr:206705161",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВОЛФГАНГ СТИКС",
+      "target": "company:tr:202174215",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КЛАУС ЛЮДВИГ МОНТИГЕЛ",
+      "target": "company:tr:206705161",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КЛАУС ЛЮДВИГ МОНТИГЕЛ",
+      "target": "company:tr:206705161",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВОЛФГАНГ СТИКС",
+      "target": "company:tr:206705161",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТИКС НАТУРКОЗМЕТИКС",
+      "target": "company:tr:206705161",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВОЛФГАНГ СТИКС",
+      "target": "company:tr:206705161",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:СТИКС НАТУРКОЗМЕТИК",
+      "target": "company:tr:206705161",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

@@ -1,0 +1,68 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:115",
+  "nodes": [
+    {
+      "id": "mp:115",
+      "type": "mp",
+      "mpId": 115,
+      "label": "ДОБРОМИР ХРИСТОВ ГУЩЕРОВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:828050472",
+      "type": "company",
+      "label": "ДАНУБЕ ТУРС",
+      "slug": null,
+      "uic": "828050472",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:ДИАНА ДИМИТРОВА ГУЩЕРОВА",
+      "type": "person",
+      "label": "ДИАНА ДИМИТРОВА ГУЩЕРОВА"
+    },
+    {
+      "id": "person:ДОНКА ПЕТРОВА ЯНЕВА",
+      "type": "person",
+      "label": "ДОНКА ПЕТРОВА ЯНЕВА"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:115",
+      "target": "company:tr:828050472",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:115",
+      "target": "company:tr:828050472",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ДИАНА ДИМИТРОВА ГУЩЕРОВА",
+      "target": "company:tr:828050472",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДОНКА ПЕТРОВА ЯНЕВА",
+      "target": "company:tr:828050472",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

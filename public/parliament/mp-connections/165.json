@@ -1,0 +1,60 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:165",
+  "nodes": [
+    {
+      "id": "mp:165",
+      "type": "mp",
+      "mpId": 165,
+      "label": "ЕВГЕНИЙ ГИНЕВ ЖЕКОВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:123107005",
+      "type": "company",
+      "label": "ЗАГОРЕ-98",
+      "slug": null,
+      "uic": "123107005",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:ГЕОРГИ КОЛЕВ КЪРШИБРАДОВ",
+      "type": "person",
+      "label": "ГЕОРГИ КОЛЕВ КЪРШИБРАДОВ"
+    },
+    {
+      "id": "person:ЗЛАТКА ДИМОВА АНДОНОВА",
+      "type": "person",
+      "label": "ЗЛАТКА ДИМОВА АНДОНОВА"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:165",
+      "target": "company:tr:123107005",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ГЕОРГИ КОЛЕВ КЪРШИБРАДОВ",
+      "target": "company:tr:123107005",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЗЛАТКА ДИМОВА АНДОНОВА",
+      "target": "company:tr:123107005",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

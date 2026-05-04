@@ -1,0 +1,91 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:2776",
+  "nodes": [
+    {
+      "id": "mp:2776",
+      "type": "mp",
+      "mpId": 2776,
+      "label": "СИМЕОН ХРИСТОВ СИМЕОНОВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:206961794",
+      "type": "company",
+      "label": "Грейскейл",
+      "slug": null,
+      "uic": "206961794",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1407"
+    },
+    {
+      "id": "company:tr:119677469",
+      "type": "company",
+      "label": "БИЛДИНГ ИНВЕСТ",
+      "slug": null,
+      "uic": "119677469",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:СТЕФКА ПЕТРОВА СТОЙКОВА",
+      "type": "person",
+      "label": "Стефка Петрова Стойкова"
+    },
+    {
+      "id": "person:ТЕОДОРА СТОЙКОВА ВЪЛЕВА",
+      "type": "person",
+      "label": "ТЕОДОРА СТОЙКОВА ВЪЛЕВА"
+    },
+    {
+      "id": "person:ВЕНЕЛИН МАРЧЕВ ХРИСТОВ",
+      "type": "person",
+      "label": "ВЕНЕЛИН МАРЧЕВ ХРИСТОВ"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:2776",
+      "target": "company:tr:206961794",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2776",
+      "target": "company:tr:119677469",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТЕФКА ПЕТРОВА СТОЙКОВА",
+      "target": "company:tr:119677469",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТЕОДОРА СТОЙКОВА ВЪЛЕВА",
+      "target": "company:tr:119677469",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЕЛИН МАРЧЕВ ХРИСТОВ",
+      "target": "company:tr:119677469",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

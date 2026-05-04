@@ -1,0 +1,68 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:3730",
+  "nodes": [
+    {
+      "id": "mp:3730",
+      "type": "mp",
+      "mpId": 3730,
+      "label": "ГЕОРГИ ЙОРДАНОВ ГВОЗДЕЙКОВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:207035917",
+      "type": "company",
+      "label": "БЪЛГАРИЯ ХЕЛИ МЕД СЪРВИЗ",
+      "slug": null,
+      "uic": "207035917",
+      "legalForm": "Еднолично акционерно дружество",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1540"
+    },
+    {
+      "id": "person:БРАНИМИР ИВАНОВ РАДУИЛОВ",
+      "type": "person",
+      "label": "БРАНИМИР ИВАНОВ РАДУИЛОВ"
+    },
+    {
+      "id": "person:ГЕОРГИ МАРКОВ КЛИСУРСКИ",
+      "type": "person",
+      "label": "ГЕОРГИ МАРКОВ КЛИСУРСКИ"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:3730",
+      "target": "company:tr:207035917",
+      "kind": "tr_role",
+      "role": "representative",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:3730",
+      "target": "company:tr:207035917",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:БРАНИМИР ИВАНОВ РАДУИЛОВ",
+      "target": "company:tr:207035917",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ГЕОРГИ МАРКОВ КЛИСУРСКИ",
+      "target": "company:tr:207035917",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

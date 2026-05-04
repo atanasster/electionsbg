@@ -1,0 +1,34 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:5298",
+  "nodes": [
+    {
+      "id": "mp:5298",
+      "type": "mp",
+      "mpId": 5298,
+      "label": "АЛЕКСАНДЪР ДИМИТРОВ ПОПОВ",
+      "partyGroupShort": "ПГ на ПБ",
+      "isCurrent": true
+    },
+    {
+      "id": "company:tr:206879258",
+      "type": "company",
+      "label": "СмарТест-БГ",
+      "slug": null,
+      "uic": "206879258",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Ямбол, 8600"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5298",
+      "target": "company:tr:206879258",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    }
+  ]
+}

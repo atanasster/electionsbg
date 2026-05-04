@@ -1,0 +1,68 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:5269",
+  "nodes": [
+    {
+      "id": "mp:5269",
+      "type": "mp",
+      "mpId": 5269,
+      "label": "ТОДОР ЛЮБЕНОВ ДЖИКОВ",
+      "partyGroupShort": "ПГ на ПБ",
+      "isCurrent": true
+    },
+    {
+      "id": "company:tr:206645668",
+      "type": "company",
+      "label": "СЕЛ-ДЖИКОВИ",
+      "slug": null,
+      "uic": "206645668",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1680"
+    },
+    {
+      "id": "person:СВЕТОСЛАВ ЛЮБЕНОВ ДЖИКОВ",
+      "type": "person",
+      "label": "СВЕТОСЛАВ ЛЮБЕНОВ ДЖИКОВ"
+    },
+    {
+      "id": "person:ЛОРА ГЕОРГИЕВА ДЖИКОВА",
+      "type": "person",
+      "label": "Лора Георгиева Джикова"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5269",
+      "target": "company:tr:206645668",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5269",
+      "target": "company:tr:206645668",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": false,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СВЕТОСЛАВ ЛЮБЕНОВ ДЖИКОВ",
+      "target": "company:tr:206645668",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЛОРА ГЕОРГИЕВА ДЖИКОВА",
+      "target": "company:tr:206645668",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

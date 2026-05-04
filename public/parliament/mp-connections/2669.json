@@ -1,0 +1,112 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:2669",
+  "nodes": [
+    {
+      "id": "mp:2669",
+      "type": "mp",
+      "mpId": 2669,
+      "label": "ТЕОДОРА РАДКОВА ГЕОРГИЕВА",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:Джи-енд-джи-естейт",
+      "type": "company",
+      "label": "Джи енд джи естейт",
+      "slug": "Джи-енд-джи-естейт",
+      "uic": "204006814",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1434"
+    },
+    {
+      "id": "company:Евро-кънстракшънс",
+      "type": "company",
+      "label": "Евро кънстракшънс",
+      "slug": "Евро-кънстракшънс",
+      "uic": "175132579",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1434"
+    },
+    {
+      "id": "company:Консулт-Г",
+      "type": "company",
+      "label": "Консулт Г",
+      "slug": "Консулт-Г",
+      "uic": "201043202",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1434"
+    },
+    {
+      "id": "company:Т.Г.",
+      "type": "company",
+      "label": "Т.Г.",
+      "slug": "Т.Г.",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "ЧУЖБИНА"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:2669",
+      "target": "company:Джи-енд-джи-естейт",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2669",
+      "target": "company:Джи-енд-джи-естейт",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2669",
+      "target": "company:Евро-кънстракшънс",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2669",
+      "target": "company:Евро-кънстракшънс",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2669",
+      "target": "company:Консулт-Г",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2669",
+      "target": "company:Консулт-Г",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:2669",
+      "target": "company:Т.Г.",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

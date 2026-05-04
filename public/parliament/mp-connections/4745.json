@@ -1,0 +1,122 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:4745",
+  "nodes": [
+    {
+      "id": "mp:4745",
+      "type": "mp",
+      "mpId": 4745,
+      "label": "ВАНЯ ИВАНОВА ВАСИЛЕВА",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:131317829",
+      "type": "company",
+      "label": "ФАРМАПРО",
+      "slug": null,
+      "uic": "131317829",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:203206655",
+      "type": "company",
+      "label": "ЕСКЕЙП 99",
+      "slug": null,
+      "uic": "203206655",
+      "legalForm": "EOOD",
+      "status": "ceased",
+      "seat": null
+    },
+    {
+      "id": "company:tr:202444333",
+      "type": "company",
+      "label": "ЛЕЙДИ В.И.",
+      "slug": null,
+      "uic": "202444333",
+      "legalForm": "EOOD",
+      "status": "ceased",
+      "seat": null
+    },
+    {
+      "id": "person:ВИОЛЕТА ТОДОРОВА АРСОВА",
+      "type": "person",
+      "label": "ВИОЛЕТА ТОДОРОВА АРСОВА"
+    },
+    {
+      "id": "person:ИВАН БОРИСОВ ТРАЙКОВ",
+      "type": "person",
+      "label": "ИВАН БОРИСОВ ТРАЙКОВ"
+    },
+    {
+      "id": "person:ЖЕЛАНКА ДИМИТРОВА ИВАНОВА",
+      "type": "person",
+      "label": "ЖЕЛАНКА ДИМИТРОВА ИВАНОВА"
+    },
+    {
+      "id": "person:ВЕСЕЛКА ПЕТРОВА СТАМЕНОВА",
+      "type": "person",
+      "label": "ВЕСЕЛКА ПЕТРОВА СТАМЕНОВА"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4745",
+      "target": "company:tr:131317829",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4745",
+      "target": "company:tr:203206655",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:4745",
+      "target": "company:tr:202444333",
+      "kind": "tr_role",
+      "role": "liquidator",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ВИОЛЕТА ТОДОРОВА АРСОВА",
+      "target": "company:tr:131317829",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН БОРИСОВ ТРАЙКОВ",
+      "target": "company:tr:131317829",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЖЕЛАНКА ДИМИТРОВА ИВАНОВА",
+      "target": "company:tr:131317829",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕСЕЛКА ПЕТРОВА СТАМЕНОВА",
+      "target": "company:tr:131317829",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

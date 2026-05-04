@@ -1,0 +1,177 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:2784",
+  "nodes": [
+    {
+      "id": "mp:2784",
+      "type": "mp",
+      "mpId": 2784,
+      "label": "НИКОЛАЙ ГЕОРГИЕВ ИВАНОВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:206981779",
+      "type": "company",
+      "label": "НИМИ БУК",
+      "slug": null,
+      "uic": "206981779",
+      "legalForm": "Еднолично дружество с ограничена отговорност",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Раднево, 6260"
+    },
+    {
+      "id": "company:tr:206515685",
+      "type": "company",
+      "label": "ДЪРТИ БРАДЪРС",
+      "slug": null,
+      "uic": "206515685",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1000"
+    },
+    {
+      "id": "company:tr:204819650",
+      "type": "company",
+      "label": "Дефектед барс",
+      "slug": null,
+      "uic": "204819650",
+      "legalForm": "Дружество с ограничена отговорност",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:205162830",
+      "type": "company",
+      "label": "НЮ СТАР КОМЕРС",
+      "slug": null,
+      "uic": "205162830",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Радомир, 2400"
+    },
+    {
+      "id": "person:ОРЛИН ВЕСЕЛИНОВ ВАСИЛЕВ",
+      "type": "person",
+      "label": "Орлин Веселинов Василев"
+    },
+    {
+      "id": "person:КАЛИН БОРИСОВ БОРИСОВ",
+      "type": "person",
+      "label": "Калин Борисов Борисов"
+    },
+    {
+      "id": "person:ВАСИЛ НИКОЛАЕВ ЗЛАТАРЕВ",
+      "type": "person",
+      "label": "Васил Николаев Златарев"
+    },
+    {
+      "id": "person:ЕЛЕНА ЕНИСЛАВОВА ЯНЕВА",
+      "type": "person",
+      "label": "Елена Ениславова Янева"
+    },
+    {
+      "id": "person:ВЕНЦИСЛАВ ЦЕЦКОВ МАРИНОВ",
+      "type": "person",
+      "label": "Венцислав Цецков Маринов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:2784",
+      "target": "company:tr:206981779",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2784",
+      "target": "company:tr:206515685",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2784",
+      "target": "company:tr:204819650",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2784",
+      "target": "company:tr:205162830",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": false,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:ОРЛИН ВЕСЕЛИНОВ ВАСИЛЕВ",
+      "target": "company:tr:206515685",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИН БОРИСОВ БОРИСОВ",
+      "target": "company:tr:206515685",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ОРЛИН ВЕСЕЛИНОВ ВАСИЛЕВ",
+      "target": "company:tr:206515685",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВАСИЛ НИКОЛАЕВ ЗЛАТАРЕВ",
+      "target": "company:tr:206515685",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИН БОРИСОВ БОРИСОВ",
+      "target": "company:tr:206515685",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНА ЕНИСЛАВОВА ЯНЕВА",
+      "target": "company:tr:206515685",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИН БОРИСОВ БОРИСОВ",
+      "target": "company:tr:204819650",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ВЕНЦИСЛАВ ЦЕЦКОВ МАРИНОВ",
+      "target": "company:tr:205162830",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

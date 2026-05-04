@@ -1,0 +1,174 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:5014",
+  "nodes": [
+    {
+      "id": "mp:5014",
+      "type": "mp",
+      "mpId": 5014,
+      "label": "ВАСИЛ СТЕФАНОВ СТЕФАНОВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:Тирел-Инженеринг-ЕООД",
+      "type": "company",
+      "label": "\"Тирел Инженеринг\" ЕООД",
+      "slug": "Тирел-Инженеринг-ЕООД",
+      "uic": "203603183",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "София (столица)"
+    },
+    {
+      "id": "company:tr:831136740",
+      "type": "company",
+      "label": "ЕВРО-ФИНАНС",
+      "slug": null,
+      "uic": "831136740",
+      "legalForm": "AD",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. София, 1540"
+    },
+    {
+      "id": "company:tr:201929643",
+      "type": "company",
+      "label": "България Сийд Интернешънъл",
+      "slug": null,
+      "uic": "201929643",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:АСЕН МИЛКОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Асен Милков Христов"
+    },
+    {
+      "id": "person:КИРИЛ ИВАНОВ БОШОВ",
+      "type": "person",
+      "label": "Кирил Иванов Бошов"
+    },
+    {
+      "id": "person:ТОМА МАНОЛОВ КАВРОШИЛОВ",
+      "type": "person",
+      "label": "Тома Манолов Каврошилов"
+    },
+    {
+      "id": "person:ПАВЕЛ НИКОЛАЕВИЧ НИКОЛОВ",
+      "type": "person",
+      "label": "Павел Николаевич Николов"
+    },
+    {
+      "id": "person:МИЛЕНА ВАСИЛИЕВА АВРАМОВА",
+      "type": "person",
+      "label": "Милена Василиева Аврамова"
+    },
+    {
+      "id": "person:ИВАН ЖЕЛЕВ ВЛАЕВ",
+      "type": "person",
+      "label": "Иван Желев Влаев"
+    },
+    {
+      "id": "person:ДЕСИСЛАВА ВЕСЕЛИНОВА АНЕВА",
+      "type": "person",
+      "label": "Десислава Веселинова Анева"
+    },
+    {
+      "id": "person:КАЛИНКА ИВАНОВА ТЕНКОВА-ЙОРДАНОВА",
+      "type": "person",
+      "label": "КАЛИНКА ИВАНОВА ТЕНКОВА-ЙОРДАНОВА"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:5014",
+      "target": "company:Тирел-Инженеринг-ЕООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "mp:5014",
+      "target": "company:tr:831136740",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:5014",
+      "target": "company:tr:201929643",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:АСЕН МИЛКОВ ХРИСТОВ",
+      "target": "company:tr:831136740",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КИРИЛ ИВАНОВ БОШОВ",
+      "target": "company:tr:831136740",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ТОМА МАНОЛОВ КАВРОШИЛОВ",
+      "target": "company:tr:831136740",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ПАВЕЛ НИКОЛАЕВИЧ НИКОЛОВ",
+      "target": "company:tr:831136740",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:МИЛЕНА ВАСИЛИЕВА АВРАМОВА",
+      "target": "company:tr:831136740",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ИВАН ЖЕЛЕВ ВЛАЕВ",
+      "target": "company:tr:831136740",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ДЕСИСЛАВА ВЕСЕЛИНОВА АНЕВА",
+      "target": "company:tr:831136740",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:КАЛИНКА ИВАНОВА ТЕНКОВА-ЙОРДАНОВА",
+      "target": "company:tr:831136740",
+      "kind": "tr_role",
+      "role": "director",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

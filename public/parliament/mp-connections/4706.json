@@ -1,0 +1,86 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:4706",
+  "nodes": [
+    {
+      "id": "mp:4706",
+      "type": "mp",
+      "mpId": 4706,
+      "label": "КИРИЛ НИКОЛАЕВ ДОБРЕВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:130922953",
+      "type": "company",
+      "label": "ПИРИН ВАТ",
+      "slug": null,
+      "uic": "130922953",
+      "legalForm": "OOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:СТОЯН ЙОРДАНОВ ХРИСТОВ",
+      "type": "person",
+      "label": "СТОЯН ЙОРДАНОВ ХРИСТОВ"
+    },
+    {
+      "id": "person:АНГЕЛ ДИМИТРОВ ГЕРАКСИЕВ",
+      "type": "person",
+      "label": "АНГЕЛ ДИМИТРОВ ГЕРАКСИЕВ"
+    },
+    {
+      "id": "person:АНГЕЛ ТОДОРОВ ДЕРМЕНДЖИЕВ",
+      "type": "person",
+      "label": "АНГЕЛ ТОДОРОВ ДЕРМЕНДЖИЕВ"
+    },
+    {
+      "id": "person:ЕЛЕНКО ГЕОРГИЕВ БОЖКОВ",
+      "type": "person",
+      "label": "ЕЛЕНКО ГЕОРГИЕВ БОЖКОВ"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4706",
+      "target": "company:tr:130922953",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:СТОЯН ЙОРДАНОВ ХРИСТОВ",
+      "target": "company:tr:130922953",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛ ДИМИТРОВ ГЕРАКСИЕВ",
+      "target": "company:tr:130922953",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:АНГЕЛ ТОДОРОВ ДЕРМЕНДЖИЕВ",
+      "target": "company:tr:130922953",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    },
+    {
+      "source": "person:ЕЛЕНКО ГЕОРГИЕВ БОЖКОВ",
+      "target": "company:tr:130922953",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

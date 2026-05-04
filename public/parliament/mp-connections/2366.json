@@ -1,0 +1,65 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:2366",
+  "nodes": [
+    {
+      "id": "mp:2366",
+      "type": "mp",
+      "mpId": 2366,
+      "label": "СЕМИР ХУСЕИН АБУ МЕЛИХ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:102697008",
+      "type": "company",
+      "label": "МЕДИЦИНСКИ ЦЕНТЪР СВЕТА СОФИЯ",
+      "slug": null,
+      "uic": "102697008",
+      "legalForm": "Дружество с ограничена отговорност",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "company:tr:204279300",
+      "type": "company",
+      "label": "Дева Транспорт",
+      "slug": null,
+      "uic": "204279300",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": null
+    },
+    {
+      "id": "person:КАМАЛ АБУ МЕЛИХ",
+      "type": "person",
+      "label": "КАМАЛ АБУ МЕЛИХ"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:2366",
+      "target": "company:tr:102697008",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "mp:2366",
+      "target": "company:tr:204279300",
+      "kind": "tr_role",
+      "role": "manager",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:КАМАЛ АБУ МЕЛИХ",
+      "target": "company:tr:102697008",
+      "kind": "tr_owner",
+      "role": "partner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}

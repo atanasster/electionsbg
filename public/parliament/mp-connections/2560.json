@@ -1,0 +1,47 @@
+{
+  "generatedAt": "2026-05-04T00:35:55.256Z",
+  "mpNodeId": "mp:2560",
+  "nodes": [
+    {
+      "id": "mp:2560",
+      "type": "mp",
+      "mpId": 2560,
+      "label": "СВИЛЕН ФИЛИПОВ ИВАНОВ",
+      "partyGroupShort": null,
+      "isCurrent": false
+    },
+    {
+      "id": "company:tr:206907889",
+      "type": "company",
+      "label": "РЕГИОНАЛНА АСОЦИАЦИЯ ЗА РАЗВИТИЕ НА КОННИЯ СПОРТ",
+      "slug": null,
+      "uic": "206907889",
+      "legalForm": "ASSOC",
+      "status": "active",
+      "seat": "БЪЛГАРИЯ, гр. Русе, 7000"
+    },
+    {
+      "id": "person:РОСЕН СТОЯНОВ ХРИСТОВ",
+      "type": "person",
+      "label": "Росен Стоянов Христов"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:2560",
+      "target": "company:tr:206907889",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "medium"
+    },
+    {
+      "source": "person:РОСЕН СТОЯНОВ ХРИСТОВ",
+      "target": "company:tr:206907889",
+      "kind": "tr_owner",
+      "role": "actual_owner",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ]
+}
