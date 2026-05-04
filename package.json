@@ -105,5 +105,8 @@
     "unzipper": "^0.12.3",
     "vite": "^6.0.6",
     "vite-tsconfig-paths": "^5.1.4"
+  },
+  "overrides": {
+    "tar": "^7.5.13"
   }
 }
