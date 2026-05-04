@@ -30,9 +30,10 @@ export const Header = () => {
   const { t, i18n } = useTranslation();
   const { electionStats, selected } = useElectionContext();
   const { data: articles } = useArticles();
-  const articleForSelectedElection = articles?.find(
-    (a) => a.election === selected,
-  );
+  // An article with no `election` field is treated as universal — it applies
+  // to every cycle and shows up in the dropdown alongside any per-election piece.
+  const articlesForSelectedElection =
+    articles?.filter((a) => !a.election || a.election === selected) ?? [];
   const RenderMenuItem: FC<{ item: MenuItem }> = ({ item }) => {
     if (item.category === "financials" && !electionStats?.hasFinancials) {
       return null;
@@ -47,13 +48,15 @@ export const Header = () => {
       return null;
     }
     if (item.category === "article_for_election") {
-      // Hide unless this election has an article — and link straight to it.
-      if (!articleForSelectedElection) return null;
+      if (articlesForSelectedElection.length === 0) return null;
+      // Single match — link straight to it. Multiple — link to the index.
+      const target =
+        articlesForSelectedElection.length === 1
+          ? `/articles/${articlesForSelectedElection[0].slug}`
+          : "/articles";
       return (
         <DropdownMenuItem>
-          <Link to={`/articles/${articleForSelectedElection.slug}`}>
-            {t(item.title)}
-          </Link>
+          <Link to={target}>{t(item.title)}</Link>
         </DropdownMenuItem>
       );
     }
