@@ -37,21 +37,6 @@ const attr = (
   return v == null || v === "" ? null : v;
 };
 
-const FIELD_TO_ROLE: Record<string, TrRole> = {
-  "00070": "manager",
-  "00100": "representative",
-  "00120": "director",
-  "00130": "board_of_managers",
-  "00150": "controlling_board",
-  "00410": "procurator",
-  "00530": "branch_manager",
-  "05020": "liquidator",
-  "00190": "partner",
-  "00230": "sole_owner",
-  "00220": "foreign_trader",
-  "05500": "actual_owner",
-};
-
 // Section names inside a SubDeed that wrap arrays of person records.
 const PERSON_SECTION_TO_ROLE: Record<string, TrRole> = {
   Managers: "manager",
@@ -289,7 +274,9 @@ const handleSubDeed = (
     if (role) {
       for (const group of val) {
         if (typeof group === "object" && group !== null) {
-          out.push(...eventsFromPersonGroup(group as Wrapped, role, uic, companyName));
+          out.push(
+            ...eventsFromPersonGroup(group as Wrapped, role, uic, companyName),
+          );
         }
       }
       continue;

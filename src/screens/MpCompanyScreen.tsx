@@ -73,9 +73,7 @@ const OfficerRow: FC<{ officer: TrCompanyOfficer }> = ({ officer }) => {
     <div className="grid grid-cols-[1fr_auto] gap-3 items-center py-2 border-b last:border-b-0">
       <div className="min-w-0">
         <div className="text-sm font-medium truncate flex items-center gap-1.5">
-          {isMp && (
-            <MpAvatar mpId={officer.matchedMpId} name={officer.name} />
-          )}
+          {isMp && <MpAvatar mpId={officer.matchedMpId} name={officer.name} />}
           {isMp ? (
             <Link
               to={`/candidate/${encodeURIComponent(officer.name)}`}

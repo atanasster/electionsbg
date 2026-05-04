@@ -15,10 +15,7 @@ import {
 } from "d3-force";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { useMpConnections } from "@/data/parliament/useMpConnections";
-import type {
-  ConnectionsEdge,
-  ConnectionsNode,
-} from "@/data/dataTypes";
+import type { ConnectionsEdge, ConnectionsNode } from "@/data/dataTypes";
 
 type SimNode = ConnectionsNode &
   SimulationNodeDatum & {
@@ -59,7 +56,8 @@ export const MpConnectionsMini: FC<{ name: string }> = ({ name }) => {
   // Build simulation data. The hub MP is pinned at origin so the radial
   // layout is stable: the hub never wanders.
   const { simNodes, simLinks } = useMemo(() => {
-    if (!subgraph) return { simNodes: [] as SimNode[], simLinks: [] as SimLink[] };
+    if (!subgraph)
+      return { simNodes: [] as SimNode[], simLinks: [] as SimLink[] };
     const degree = new Map<string, number>();
     for (const e of subgraph.edges) {
       degree.set(e.source as string, (degree.get(e.source as string) ?? 0) + 1);
@@ -207,7 +205,9 @@ export const MpConnectionsMini: FC<{ name: string }> = ({ name }) => {
   if (!subgraph || subgraph.nodes.length <= 1) return null;
 
   // Stats: companies + non-MP persons in the immediate neighbourhood
-  const companyCount = subgraph.nodes.filter((n) => n.type === "company").length;
+  const companyCount = subgraph.nodes.filter(
+    (n) => n.type === "company",
+  ).length;
   const personCount = subgraph.nodes.filter((n) => n.type === "person").length;
   const otherMpCount = subgraph.nodes.filter(
     (n) => n.type === "mp" && n.id !== subgraph.mpNodeId,
@@ -252,7 +252,9 @@ export const MpConnectionsMini: FC<{ name: string }> = ({ name }) => {
           />
         </div>
         <div className="text-xs text-muted-foreground mt-2 min-h-[1.2em]">
-          {hoveredLabel ?? t("mp_connections_mini_hint") ?? "Hover a node to inspect."}
+          {hoveredLabel ??
+            t("mp_connections_mini_hint") ??
+            "Hover a node to inspect."}
         </div>
       </CardContent>
     </Card>

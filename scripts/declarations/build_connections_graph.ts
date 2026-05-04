@@ -59,8 +59,9 @@ const companySlugNodeId = (slug: string) => `company:${slug}`;
 const companyUicNodeId = (uic: string) => `company:tr:${uic}`;
 const personNodeId = (norm: string) => `person:${norm}`;
 
-const edgeKey = (e: Pick<ConnectionsEdge, "source" | "target" | "kind" | "role">) =>
-  `${e.source}|${e.target}|${e.kind}|${e.role}`;
+const edgeKey = (
+  e: Pick<ConnectionsEdge, "source" | "target" | "kind" | "role">,
+) => `${e.source}|${e.target}|${e.kind}|${e.role}`;
 
 export type BuildConnectionsArgs = {
   publicFolder: string;
@@ -114,8 +115,7 @@ export const buildConnectionsGraph = ({
     for (const stake of company.stakes) {
       const m = stake.institution?.match(/^(\d{2})-/);
       if (!m) continue;
-      const set =
-        declaredNsFoldersByMp.get(stake.mpId) ?? new Set<string>();
+      const set = declaredNsFoldersByMp.get(stake.mpId) ?? new Set<string>();
       set.add(m[1]);
       declaredNsFoldersByMp.set(stake.mpId, set);
     }
@@ -255,7 +255,8 @@ export const buildConnectionsGraph = ({
         source: mpId,
         target: companyNodeId,
         kind: "declared_stake",
-        role: stake.stake.table === "10" ? "current_share" : "transferred_share",
+        role:
+          stake.stake.table === "10" ? "current_share" : "transferred_share",
         isCurrent: stake.stake.table === "10",
         confidence: "high",
       });

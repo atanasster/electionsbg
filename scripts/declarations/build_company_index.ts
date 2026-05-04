@@ -194,7 +194,11 @@ export const annotatePerMpDeclarationsWithSlugs = ({
   stringify,
 }: BuildCompanyIndexArgs): void => {
   const dir = path.join(publicFolder, "parliament", "declarations");
-  const indexPath = path.join(publicFolder, "parliament", "companies-index.json");
+  const indexPath = path.join(
+    publicFolder,
+    "parliament",
+    "companies-index.json",
+  );
   if (!fs.existsSync(dir) || !fs.existsSync(indexPath)) return;
 
   const idx: CompaniesIndexFile = JSON.parse(
@@ -217,7 +221,9 @@ export const annotatePerMpDeclarationsWithSlugs = ({
     for (const decl of decls) {
       for (const stake of decl.ownershipStakes) {
         const raw = stake.companyName;
-        const resolved = raw ? (slugByKey.get(normalizeCompanyName(raw)) ?? null) : null;
+        const resolved = raw
+          ? (slugByKey.get(normalizeCompanyName(raw)) ?? null)
+          : null;
         if (stake.companySlug !== resolved) {
           stake.companySlug = resolved;
           changed = true;

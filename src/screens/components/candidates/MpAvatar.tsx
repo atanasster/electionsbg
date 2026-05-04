@@ -25,19 +25,13 @@ export const MpAvatar: FC<Props> = ({
   const mp = findMpById(mpId) ?? findMpByName(name);
   const photoUrl = mp?.photoUrl;
   const displayName = mp?.name ?? name ?? "";
-  const group = showPartyRing
-    ? lookup(mp?.currentPartyGroupShort)
-    : undefined;
+  const group = showPartyRing ? lookup(mp?.currentPartyGroupShort) : undefined;
   const ringStyle: CSSProperties | undefined = group
     ? { ["--tw-ring-color" as string]: group.color }
     : undefined;
   return (
     <Avatar
-      className={cn(
-        "h-5 w-5 shrink-0",
-        group && "ring-2",
-        className,
-      )}
+      className={cn("h-5 w-5 shrink-0", group && "ring-2", className)}
       style={ringStyle}
     >
       {photoUrl && (

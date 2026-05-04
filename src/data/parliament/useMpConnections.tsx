@@ -1,8 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import type {
-  ConnectionsEdge,
-  ConnectionsNode,
-} from "@/data/dataTypes";
+import type { ConnectionsEdge, ConnectionsNode } from "@/data/dataTypes";
 import { useMps } from "./useMps";
 
 export type MpConnectionsSubgraph = {

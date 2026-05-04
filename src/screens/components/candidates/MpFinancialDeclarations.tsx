@@ -4,10 +4,7 @@ import { useTranslation } from "react-i18next";
 import { Briefcase, ExternalLink, ArrowRightLeft } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { useMpDeclarations } from "@/data/parliament/useMpDeclarations";
-import type {
-  MpDeclaration,
-  MpOwnershipStake,
-} from "@/data/dataTypes";
+import type { MpDeclaration, MpOwnershipStake } from "@/data/dataTypes";
 
 const formatBgn = (n: number | null, lang: string): string => {
   if (n == null) return "—";
@@ -31,8 +28,7 @@ const StakeRow: FC<{
   const holder = stake.holderName?.trim();
   // Show holder only when it's not the declarant (i.e. spouse / family member)
   const heldByOther =
-    holder &&
-    holder.toLowerCase() !== declarantName.trim().toLowerCase();
+    holder && holder.toLowerCase() !== declarantName.trim().toLowerCase();
   return (
     <div className="grid grid-cols-[auto_1fr_auto] gap-3 items-center py-2 border-b last:border-b-0">
       <Icon className="h-4 w-4 text-muted-foreground" />

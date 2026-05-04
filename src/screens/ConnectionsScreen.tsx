@@ -85,7 +85,11 @@ const computeComponents = (
 const buildSimNodes = (
   graph: ConnectionsGraph,
   filters: Filters,
-): { simNodes: SimNode[]; simLinks: SimLink[]; degree: Map<string, number> } => {
+): {
+  simNodes: SimNode[];
+  simLinks: SimLink[];
+  degree: Map<string, number>;
+} => {
   // Filter edges first so we can drop orphan nodes.
   const filteredEdges = graph.edges.filter((e) => {
     if (filters.showCurrentOnly && !e.isCurrent) return false;
@@ -263,11 +267,15 @@ export const ConnectionsScreen: FC = () => {
       .force("center", forceCenter(0, 0))
       .force(
         "x",
-        forceX<SimNode>().x(targetX).strength(clusterByParty ? 0.15 : 0.04),
+        forceX<SimNode>()
+          .x(targetX)
+          .strength(clusterByParty ? 0.15 : 0.04),
       )
       .force(
         "y",
-        forceY<SimNode>().y(targetY).strength(clusterByParty ? 0.15 : 0.04),
+        forceY<SimNode>()
+          .y(targetY)
+          .strength(clusterByParty ? 0.15 : 0.04),
       )
       .alpha(1)
       .alphaDecay(0.02);
@@ -318,8 +326,7 @@ export const ConnectionsScreen: FC = () => {
         const s = link.source as SimNode;
         const tn = link.target as SimNode;
         if (s.x == null || tn.x == null) continue;
-        const onPath =
-          pathEdgeKeys && pathEdgeKeys.has(`${s.id}|${tn.id}`);
+        const onPath = pathEdgeKeys && pathEdgeKeys.has(`${s.id}|${tn.id}`);
         const dimmed =
           highlightSet &&
           !onPath &&
@@ -361,8 +368,7 @@ export const ConnectionsScreen: FC = () => {
             ? "#dc2626"
             : n.color;
         ctx.fill();
-        const isEndpoint =
-          n.id === pathFrom?.id || n.id === pathTo?.id;
+        const isEndpoint = n.id === pathFrom?.id || n.id === pathTo?.id;
         if (selected?.id === n.id || isEndpoint) {
           ctx.strokeStyle = isEndpoint ? "#dc2626" : "#000";
           ctx.lineWidth = 2 / cam.scale;
@@ -404,8 +410,7 @@ export const ConnectionsScreen: FC = () => {
       const label = normalizeForSearch(n.label);
       if (!label.includes(q)) continue;
       // Score: exact prefix beats substring; shorter labels win ties.
-      const score =
-        (label.startsWith(q) ? 1000 : 0) + (1000 - label.length);
+      const score = (label.startsWith(q) ? 1000 : 0) + (1000 - label.length);
       matches.push({ n, score });
     }
     matches.sort((a, b) => b.score - a.score);
@@ -563,7 +568,11 @@ export const ConnectionsScreen: FC = () => {
       return;
     }
     const trail: string[] = [];
-    for (let cur: string | null = pathTo.id; cur != null; cur = prev.get(cur) ?? null) {
+    for (
+      let cur: string | null = pathTo.id;
+      cur != null;
+      cur = prev.get(cur) ?? null
+    ) {
       trail.push(cur);
     }
     trail.reverse();
@@ -655,8 +664,7 @@ export const ConnectionsScreen: FC = () => {
                 </div>
                 <div>
                   <div className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-1">
-                    {t("connections_rankings_top_companies") ||
-                      "Top companies"}
+                    {t("connections_rankings_top_companies") || "Top companies"}
                   </div>
                   {rankings.topCompanies.slice(0, 10).map((row, i) => (
                     <div
@@ -816,7 +824,9 @@ export const ConnectionsScreen: FC = () => {
                     setShowSearchSuggestions(false);
                   }
                 }}
-                placeholder={t("connections_search_placeholder") || "Search node…"}
+                placeholder={
+                  t("connections_search_placeholder") || "Search node…"
+                }
                 className="px-2 py-1 rounded border border-border bg-background w-64"
               />
               {showSearchSuggestions && searchSuggestions.length > 0 && (
@@ -889,8 +899,7 @@ export const ConnectionsScreen: FC = () => {
             {pathFrom && pathTo && pathNodeIds && pathEdgeKeys && (
               <span className="text-muted-foreground">
                 {pathEdgeKeys.size === 0
-                  ? t("connections_no_path") ||
-                    "No path between these two MPs"
+                  ? t("connections_no_path") || "No path between these two MPs"
                   : `${pathFrom.label} → ${pathTo.label}: ${pathNodeIds.size - 1} ${t("connections_hops") || "hop(s)"}`}
               </span>
             )}
@@ -971,7 +980,8 @@ export const ConnectionsScreen: FC = () => {
             </div>
 
             <div className="text-xs text-muted-foreground mt-2">
-              {t("connections_neighbors") || "Connections"}: {detailNeighbors.length}
+              {t("connections_neighbors") || "Connections"}:{" "}
+              {detailNeighbors.length}
             </div>
             <div className="text-xs mt-1 grid grid-cols-1 md:grid-cols-2 gap-x-4">
               {detailNeighbors.slice(0, 24).map((n) => (

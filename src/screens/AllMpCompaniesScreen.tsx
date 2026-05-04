@@ -61,16 +61,14 @@ export const AllMpCompaniesScreen: FC = () => {
         });
       } else if (sortKey === "mps") {
         cmp = a.distinctMps.length - b.distinctMps.length;
-        if (cmp === 0)
-          cmp = a.displayName.localeCompare(b.displayName, "bg");
+        if (cmp === 0) cmp = a.displayName.localeCompare(b.displayName, "bg");
       } else {
         // status: active > in_liquidation > ceased > bankrupt > unknown/null
         const order = { active: 4, in_liquidation: 3, ceased: 2, bankrupt: 1 };
         const sa = order[a.tr?.status as keyof typeof order] ?? 0;
         const sb = order[b.tr?.status as keyof typeof order] ?? 0;
         cmp = sa - sb;
-        if (cmp === 0)
-          cmp = a.displayName.localeCompare(b.displayName, "bg");
+        if (cmp === 0) cmp = a.displayName.localeCompare(b.displayName, "bg");
       }
       return sortDir === "asc" ? cmp : -cmp;
     });

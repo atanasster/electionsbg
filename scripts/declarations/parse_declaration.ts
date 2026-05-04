@@ -48,7 +48,6 @@ const parseBgDate = (raw: string | null): string | null => {
 };
 
 const cellByNum = (
-  $: CheerioAPI,
   row: ReturnType<CheerioAPI>,
   num: number,
 ): string | null => {
@@ -72,44 +71,41 @@ const isEmptyRow = ($: CheerioAPI, row: ReturnType<CheerioAPI>): boolean => {
 };
 
 const parseTable10Row = (
-  $: CheerioAPI,
   row: ReturnType<CheerioAPI>,
 ): MpOwnershipStake => ({
   table: "10",
-  itemType: cellByNum($, row, 2),
-  shareSize: cellByNum($, row, 3),
-  companyName: cellByNum($, row, 4),
-  registeredOffice: cellByNum($, row, 5),
-  valueBgn: toNumber(cellByNum($, row, 6)),
-  holderName: cellByNum($, row, 7),
-  legalBasis: cellByNum($, row, 9),
-  fundsOrigin: cellByNum($, row, 10),
+  itemType: cellByNum(row, 2),
+  shareSize: cellByNum(row, 3),
+  companyName: cellByNum(row, 4),
+  registeredOffice: cellByNum(row, 5),
+  valueBgn: toNumber(cellByNum(row, 6)),
+  holderName: cellByNum(row, 7),
+  legalBasis: cellByNum(row, 9),
+  fundsOrigin: cellByNum(row, 10),
 });
 
 const parseTable11Row = (
-  $: CheerioAPI,
   row: ReturnType<CheerioAPI>,
 ): MpOwnershipStake => ({
   table: "11",
-  itemType: cellByNum($, row, 2),
-  shareSize: cellByNum($, row, 3),
-  companyName: cellByNum($, row, 4),
-  registeredOffice: cellByNum($, row, 5),
-  valueBgn: toNumber(cellByNum($, row, 6)),
+  itemType: cellByNum(row, 2),
+  shareSize: cellByNum(row, 3),
+  companyName: cellByNum(row, 4),
+  registeredOffice: cellByNum(row, 5),
+  valueBgn: toNumber(cellByNum(row, 6)),
   holderName: null,
-  transfereeName: cellByNum($, row, 7),
-  legalBasis: cellByNum($, row, 9),
+  transfereeName: cellByNum(row, 7),
+  legalBasis: cellByNum(row, 9),
   fundsOrigin: null,
 });
 
 const parseIncomeRow = (
-  $: CheerioAPI,
   row: ReturnType<CheerioAPI>,
 ): MpIncomeRecord => ({
   parent: row.attr("Parent") || null,
-  category: cellByNum($, row, 2),
-  amountBgnDeclarant: toNumber(cellByNum($, row, 3)),
-  amountBgnSpouse: toNumber(cellByNum($, row, 4)),
+  category: cellByNum(row, 2),
+  amountBgnDeclarant: toNumber(cellByNum(row, 3)),
+  amountBgnSpouse: toNumber(cellByNum(row, 4)),
 });
 
 export type ParseInput = {
@@ -163,7 +159,7 @@ export const parseDeclarationXml = ({
     t10.find("Row").each((_, el) => {
       const row = $(el);
       if (isEmptyRow($, row)) return;
-      const stake = parseTable10Row($, row);
+      const stake = parseTable10Row(row);
       const k = dedupKey(stake);
       if (seen.has(k)) return;
       seen.add(k);
@@ -176,7 +172,7 @@ export const parseDeclarationXml = ({
     t11.find("Row").each((_, el) => {
       const row = $(el);
       if (isEmptyRow($, row)) return;
-      const stake = parseTable11Row($, row);
+      const stake = parseTable11Row(row);
       const k = dedupKey(stake);
       if (seen.has(k)) return;
       seen.add(k);
@@ -189,7 +185,7 @@ export const parseDeclarationXml = ({
   if (t12.attr("Declared") === "True") {
     t12.find("Row").each((_, el) => {
       const row = $(el);
-      const rec = parseIncomeRow($, row);
+      const rec = parseIncomeRow(row);
       // Income table has many empty rows for unused categories; keep only
       // rows where at least one amount is set.
       if (rec.amountBgnDeclarant != null || rec.amountBgnSpouse != null) {

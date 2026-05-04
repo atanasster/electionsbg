@@ -1,9 +1,6 @@
 import { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
-import type {
-  MpOwnershipStake,
-  TrCompanyEnrichment,
-} from "@/data/dataTypes";
+import type { MpOwnershipStake, TrCompanyEnrichment } from "@/data/dataTypes";
 
 /** Subset of MpOwnershipStake actually rendered on /mp/company/{slug}.
  * The full per-MP declaration JSON keeps every field; here we ship only

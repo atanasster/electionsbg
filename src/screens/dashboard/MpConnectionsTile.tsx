@@ -67,9 +67,7 @@ export const MpConnectionsTile: FC<Props> = ({
     if (regionMpIds != null) {
       filtered = filtered.filter((m) => regionMpIds.has(m.mpId));
     } else if (selectedFolder) {
-      filtered = filtered.filter((m) =>
-        m.nsFolders?.includes(selectedFolder),
-      );
+      filtered = filtered.filter((m) => m.nsFolders?.includes(selectedFolder));
     }
     return filtered.slice(0, ROWS);
   }, [rankings, regionMpIds, selectedFolder]);
@@ -180,9 +178,7 @@ export const MpConnectionsTile: FC<Props> = ({
       </div>
       <div className="mt-2 pt-2 border-t flex items-center justify-between text-[11px] text-muted-foreground">
         <Link to="/mp/companies" className="text-primary hover:underline">
-          {t("dashboard_mp_connections_view_companies") ||
-            "All companies"}{" "}
-          →
+          {t("dashboard_mp_connections_view_companies") || "All companies"} →
         </Link>
         <span>
           {isRegional
