@@ -50,10 +50,7 @@ dist.old-*
 !/public/2*/parties/assessment/
 
 # Editor directories and files
-.vscode/*
-!.vscode/extensions.json
-!.vscode/launch.json
-.idea
+.claude/*.local.json
 .DS_Store
 *.suo
 *.ntvs*
