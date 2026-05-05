@@ -84,12 +84,13 @@ export const MpConnectionsMini: FC<{ name: string }> = ({ name }) => {
   // Build the canvas subgraph: union of all path nodes when paths exist,
   // otherwise fall back to the entire neighborhood (renders the same blob
   // the tile used to show — strictly better than empty for path-less MPs).
-  const { simNodes, simLinks, neighbors } = useMemo(() => {
+  const { simNodes, simLinks, neighbors, isStaticLayout } = useMemo(() => {
     if (!subgraph)
       return {
         simNodes: [] as ConnectionsSimNode[],
         simLinks: [] as ConnectionsSimLink[],
         neighbors: new Map<string, Set<string>>(),
+        isStaticLayout: false,
       };
 
     const includeSet = new Set<string>();
@@ -110,18 +111,45 @@ export const MpConnectionsMini: FC<{ name: string }> = ({ name }) => {
     }
     const filteredNodes = subgraph.nodes.filter((n) => includeSet.has(n.id));
 
-    const sn: ConnectionsSimNode[] = filteredNodes.map((n) => ({
-      ...n,
-      radius:
-        n.id === subgraph.mpNodeId
+    // 1-hop neighborhood fallback: place satellites in a deterministic ring
+    // around the hub. d3-force on such a small graph collapses the satellite
+    // onto the avatar, so we pin everything ourselves and skip the sim.
+    const useStatic = visiblePaths.length === 0;
+    const satellites = filteredNodes.filter(
+      (n) => n.id !== subgraph.mpNodeId,
+    );
+    const orbitR = Math.max(70, Math.min(120, 60 + satellites.length * 6));
+    const satIndex = new Map<string, number>();
+    satellites.forEach((n, i) => satIndex.set(n.id, i));
+
+    const sn: ConnectionsSimNode[] = filteredNodes.map((n) => {
+      const isHub = n.id === subgraph.mpNodeId;
+      const node: ConnectionsSimNode = {
+        ...n,
+        radius: isHub
           ? 8
           : n.type === "mp"
             ? 6
             : 3 + Math.min(5, Math.sqrt(degree.get(n.id) ?? 1) * 1.2),
-      color: TYPE_COLORS[n.type],
-      // Pin the hub MP at origin so the radial layout is stable.
-      ...(n.id === subgraph.mpNodeId ? { fx: 0, fy: 0 } : {}),
-    }));
+        color: TYPE_COLORS[n.type],
+      };
+      if (isHub) {
+        // Pin the hub MP at origin so the radial layout is stable.
+        node.fx = 0;
+        node.fy = 0;
+        node.x = 0;
+        node.y = 0;
+      } else if (useStatic) {
+        const idx = satIndex.get(n.id) ?? 0;
+        const total = satellites.length || 1;
+        const angle = (idx / total) * Math.PI * 2 - Math.PI / 2;
+        node.fx = Math.cos(angle) * orbitR;
+        node.fy = Math.sin(angle) * orbitR;
+        node.x = node.fx;
+        node.y = node.fy;
+      }
+      return node;
+    });
     const sl: ConnectionsSimLink[] = filteredEdges.map((e) => ({ ...e }));
 
     const adj = new Map<string, Set<string>>();
@@ -132,12 +160,18 @@ export const MpConnectionsMini: FC<{ name: string }> = ({ name }) => {
       adj.get(e.target)!.add(e.source);
     }
 
-    return { simNodes: sn, simLinks: sl, neighbors: adj };
+    return {
+      simNodes: sn,
+      simLinks: sl,
+      neighbors: adj,
+      isStaticLayout: useStatic,
+    };
   }, [subgraph, visiblePaths]);
 
-  // Run the d3-force simulation.
+  // Run the d3-force simulation. Skipped when every node is already pinned
+  // by the static radial fallback above.
   useEffect(() => {
-    if (simNodes.length === 0) return;
+    if (simNodes.length === 0 || isStaticLayout) return;
     const sim = forceSimulation<ConnectionsSimNode, ConnectionsSimLink>(
       simNodes,
     )
@@ -159,7 +193,7 @@ export const MpConnectionsMini: FC<{ name: string }> = ({ name }) => {
       sim.stop();
       simRef.current = null;
     };
-  }, [simNodes, simLinks]);
+  }, [simNodes, simLinks, isStaticLayout]);
 
   if (!subgraph || subgraph.nodes.length <= 1) return null;
 
