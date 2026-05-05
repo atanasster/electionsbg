@@ -20,7 +20,7 @@ import { candidateUrlFor } from "@/data/candidates/candidateSlug";
 import { Tooltip } from "@/ux/Tooltip";
 import { Hint } from "@/ux/Hint";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { initials } from "@/lib/utils";
+import { initials, firstLastName } from "@/lib/utils";
 import { StatCard } from "./StatCard";
 
 type Props = {
@@ -351,7 +351,7 @@ export const TopCandidatesStrip: FC<Props> = ({
               </Avatar>
               <div className="flex flex-col min-w-0">
                 <span className="text-sm font-semibold truncate">
-                  {r.candidateName}
+                  {firstLastName(r.candidateName)}
                 </span>
                 <span className="text-[11px] text-muted-foreground flex items-center gap-1.5 min-w-0">
                   <span
