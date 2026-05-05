@@ -69,12 +69,12 @@ export const partyEnglishNames: PartyEnglishOverride[] = [
   },
   {
     id: "p_16",
-    displayNameEn: "MRF",
+    displayNameEn: "DPS",
     nameEn: "Movement for Rights and Freedoms",
   },
   {
     id: "p_29",
-    displayNameEn: "MRF–NB",
+    displayNameEn: "DPS–NB",
     nameEn: "Movement for Rights and Freedoms – New Beginning",
   },
   {
