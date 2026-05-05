@@ -67,11 +67,11 @@ Three blocks were added to every MP profile, in this order:
 
 ### Financial declarations
 
-The first block is a year-by-year ledger of declared business interests, grouped by fiscal year. Each row links into the company's dedicated page; the right-hand column is the source XML on register.cacbg.bg so you can verify what was actually filed.
+The first block is a per-company summary of declared business interests. Each row links into the company's dedicated page and shows the years the stake was held with its share size and value; if those values changed between filings, the entries are broken out with an arrow between them so the progression is visible. Source XML links for every declaration sit in a footer at the bottom of the card so you can verify what was actually filed.
 
 ![Financial declarations on a candidate page](/articles/images/connections/03-candidate-declarations.png)
 
-The example here is **[Димитър Найденов](/candidate/%D0%94%D0%B8%D0%BC%D0%B8%D1%82%D1%8A%D1%80%20%D0%93%D0%B5%D0%BE%D1%80%D0%B3%D0%B8%D0%B5%D0%B2%20%D0%9D%D0%B0%D0%B9%D0%B4%D0%B5%D0%BD%D0%BE%D0%B2)** — the most-connected currently-sitting MP, with 14 high-confidence ties. His 2024 filing alone lists nine Burgas-based ОООд and ЕООД companies in the textile and fashion business (БИТЕКС, ДОРЕМИ ПЛЮС, НЕОМАКС 09, СУНМАКС, ДИТЕКС, ЗЕНИТ КОМЕРС, …) with stakes ranging from 17% to 100%.
+The example here is **[Димитър Найденов](/candidate/%D0%94%D0%B8%D0%BC%D0%B8%D1%82%D1%8A%D1%80%20%D0%93%D0%B5%D0%BE%D1%80%D0%B3%D0%B8%D0%B5%D0%B2%20%D0%9D%D0%B0%D0%B9%D0%B4%D0%B5%D0%BD%D0%BE%D0%B2)** — the most-connected currently-sitting MP, with 14 high-confidence ties. His 2024 filing alone lists nine Burgas-based ОООд and ЕООД companies in the textile and fashion business (БИТЕКС, ДОРЕМИ ПЛЮС, НЕОМАКС 09, СЪНМАКС, ДИТЕКС, ЗЕНИТ КОМЕРС, …) with stakes ranging from 17% to 100%.
 
 ### Management roles
 
