@@ -13,24 +13,27 @@ import { CandidateDashboardCards } from "@/screens/dashboard/CandidateDashboardC
 export const Candidate: FC<{ name: string }> = ({ name }) => {
   const { candidates } = useCandidates();
   const { findParty } = usePartyInfo();
-  const candidateInfo = useMemo(
-    () => candidates?.filter((c) => c.name === name),
-    [candidates, name],
-  );
+  // The URL name may arrive in any casing — connections links use the
+  // all-uppercase parliament.bg form, while internal links use the title-case
+  // form from candidates.json. Resolve to the canonical name for the
+  // candidate-election data fetches (which key off the title-case form).
+  const candidateInfo = useMemo(() => {
+    if (!candidates || !name) return undefined;
+    const target = name.toLocaleUpperCase();
+    return candidates.filter((c) => c.name.toLocaleUpperCase() === target);
+  }, [candidates, name]);
+  const canonicalName = candidateInfo?.[0]?.name ?? name;
 
   return (
     <div className="w-full">
       <Title
-        description={`Results for party candidate ${name}`}
+        description={`Results for party candidate ${canonicalName}`}
         className="md:pb-8"
       >
-        {name}
+        {canonicalName}
       </Title>
 
       <MpProfileHeader name={name} />
-      <MpFinancialDeclarations name={name} />
-      <MpManagementRoles name={name} />
-      <MpConnectionsMini name={name} />
 
       <table className="flex justify-center py-2">
         <tbody>
@@ -57,7 +60,11 @@ export const Candidate: FC<{ name: string }> = ({ name }) => {
         </tbody>
       </table>
 
-      <CandidateDashboardCards name={name} />
+      <CandidateDashboardCards name={canonicalName} />
+
+      <MpFinancialDeclarations name={name} />
+      <MpManagementRoles name={name} />
+      <MpConnectionsMini name={name} />
     </div>
   );
 };

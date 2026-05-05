@@ -47,10 +47,7 @@ const parseBgDate = (raw: string | null): string | null => {
   return `${m[3]}-${m[2]}-${m[1]}`;
 };
 
-const cellByNum = (
-  row: ReturnType<CheerioAPI>,
-  num: number,
-): string | null => {
+const cellByNum = (row: ReturnType<CheerioAPI>, num: number): string | null => {
   const cell = row.find(`Cell[Num="${num}"]`).first();
   if (cell.length === 0) return null;
   const t = cell.text().trim();
@@ -70,9 +67,7 @@ const isEmptyRow = ($: CheerioAPI, row: ReturnType<CheerioAPI>): boolean => {
   return populated.length === 0;
 };
 
-const parseTable10Row = (
-  row: ReturnType<CheerioAPI>,
-): MpOwnershipStake => ({
+const parseTable10Row = (row: ReturnType<CheerioAPI>): MpOwnershipStake => ({
   table: "10",
   itemType: cellByNum(row, 2),
   shareSize: cellByNum(row, 3),
@@ -84,9 +79,7 @@ const parseTable10Row = (
   fundsOrigin: cellByNum(row, 10),
 });
 
-const parseTable11Row = (
-  row: ReturnType<CheerioAPI>,
-): MpOwnershipStake => ({
+const parseTable11Row = (row: ReturnType<CheerioAPI>): MpOwnershipStake => ({
   table: "11",
   itemType: cellByNum(row, 2),
   shareSize: cellByNum(row, 3),
@@ -99,9 +92,7 @@ const parseTable11Row = (
   fundsOrigin: null,
 });
 
-const parseIncomeRow = (
-  row: ReturnType<CheerioAPI>,
-): MpIncomeRecord => ({
+const parseIncomeRow = (row: ReturnType<CheerioAPI>): MpIncomeRecord => ({
   parent: row.attr("Parent") || null,
   category: cellByNum(row, 2),
   amountBgnDeclarant: toNumber(cellByNum(row, 3)),

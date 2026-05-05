@@ -150,7 +150,7 @@ export const ConnectionsScreen: FC = () => {
   const [showRankings, setShowRankings] = useState(true);
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const containerRef = useRef<HTMLDivElement | null>(null);
+  const canvasWrapRef = useRef<HTMLDivElement | null>(null);
   const simRef = useRef<Simulation<SimNode, SimLink> | null>(null);
 
   // Camera (pan/zoom) maintained in plain refs so we re-render the canvas on
@@ -162,10 +162,26 @@ export const ConnectionsScreen: FC = () => {
   );
   const lastMouseRef = useRef<{ x: number; y: number } | null>(null);
   const hoveredIdRef = useRef<string | null>(null);
+  // Last cursor position over the canvas (in canvas-local px), used to pick
+  // a popover corner that won't sit under the cursor.
+  const cursorOnCanvasRef = useRef<{ x: number; y: number } | null>(null);
 
   const [size, setSize] = useState({ w: 800, h: 600 });
   const [hovered, setHovered] = useState<SimNode | null>(null);
   const [selected, setSelected] = useState<SimNode | null>(null);
+  // Popover position over the canvas. We pick the corner farthest from the
+  // cursor on the popover's first appearance and hold it until the popover
+  // disappears, so it doesn't dance between corners while users hover nodes.
+  const [popoverCorner, setPopoverCorner] = useState<"tl" | "tr" | "bl" | "br">(
+    "br",
+  );
+  // Vertical bounds of the canvas that are currently inside the viewport, in
+  // canvas-local px. The popover anchors to these instead of the canvas's own
+  // top/bottom so it stays on-screen when the graph extends beyond the fold.
+  const [visibleVRange, setVisibleVRange] = useState<{
+    top: number;
+    bottom: number;
+  }>({ top: 0, bottom: 0 });
   const [filters, setFilters] = useState<Filters>({
     showCurrentOnly: false,
     hideTransferred: false,
@@ -187,9 +203,9 @@ export const ConnectionsScreen: FC = () => {
   const [pathNodeIds, setPathNodeIds] = useState<Set<string> | null>(null);
   const [pathEdgeKeys, setPathEdgeKeys] = useState<Set<string> | null>(null);
 
-  // Resize observer keeps the canvas full-width.
+  // Resize observer keeps the canvas full-width within its card.
   useEffect(() => {
-    const el = containerRef.current;
+    const el = canvasWrapRef.current;
     if (!el) return;
     const ro = new ResizeObserver(() => {
       const rect = el.getBoundingClientRect();
@@ -201,6 +217,28 @@ export const ConnectionsScreen: FC = () => {
     ro.observe(el);
     return () => ro.disconnect();
   }, []);
+
+  // Track which vertical slice of the canvas is currently in the viewport so
+  // the popover can anchor inside it (the canvas often extends past the fold).
+  useEffect(() => {
+    const el = canvasWrapRef.current;
+    if (!el) return;
+    const update = () => {
+      const r = el.getBoundingClientRect();
+      const top = Math.max(0, -r.top);
+      const bottom = Math.min(r.height, window.innerHeight - r.top);
+      setVisibleVRange((prev) =>
+        prev.top === top && prev.bottom === bottom ? prev : { top, bottom },
+      );
+    };
+    update();
+    window.addEventListener("scroll", update, { passive: true });
+    window.addEventListener("resize", update);
+    return () => {
+      window.removeEventListener("scroll", update);
+      window.removeEventListener("resize", update);
+    };
+  }, [size.h]);
 
   // Rebuild simulation when graph or filters change.
   const { simNodes, simLinks, neighbors } = useMemo(() => {
@@ -477,6 +515,7 @@ export const ConnectionsScreen: FC = () => {
       lastMouseRef.current = { x: sx, y: sy };
       return;
     }
+    cursorOnCanvasRef.current = { x: sx, y: sy };
     const node = findNodeAt(sx, sy);
     hoveredIdRef.current = node?.id ?? null;
     setHovered(node);
@@ -532,10 +571,23 @@ export const ConnectionsScreen: FC = () => {
   };
 
   const onWheel = (e: React.WheelEvent<HTMLCanvasElement>) => {
+    // Only zoom on pinch (browsers set ctrlKey: true for trackpad pinch) or
+    // explicit Ctrl/Cmd+wheel. Otherwise let trackpad/wheel scroll the page.
+    if (!e.ctrlKey && !e.metaKey) return;
     e.preventDefault();
     const cam = cameraRef.current;
-    const factor = e.deltaY < 0 ? 1.1 : 1 / 1.1;
-    cam.scale = Math.max(0.2, Math.min(5, cam.scale * factor));
+    const rect = e.currentTarget.getBoundingClientRect();
+    const sx = e.clientX - rect.left;
+    const sy = e.clientY - rect.top;
+    // Anchor zoom on the cursor: keep the world point under it fixed.
+    const wx = (sx - size.w / 2 - cam.x) / cam.scale;
+    const wy = (sy - size.h / 2 - cam.y) / cam.scale;
+    // Smooth, delta-proportional factor instead of a fixed step per event.
+    const factor = Math.exp(-e.deltaY * 0.01);
+    const newScale = Math.max(0.2, Math.min(5, cam.scale * factor));
+    cam.x = sx - size.w / 2 - wx * newScale;
+    cam.y = sy - size.h / 2 - wy * newScale;
+    cam.scale = newScale;
   };
 
   // ---- Path-finding (BFS on the filtered neighbors map) ----------------
@@ -591,6 +643,32 @@ export const ConnectionsScreen: FC = () => {
 
   // ---- Detail panel content ----
   const detail = selected ?? hovered;
+  const detailVisible = !!detail;
+
+  // Recompute the popover's anchor corner only when the popover transitions
+  // from hidden to visible. While the popover is up we keep the same corner
+  // so it doesn't jump as the user hovers different nodes.
+  const wasDetailVisibleRef = useRef(false);
+  useEffect(() => {
+    if (!detailVisible) {
+      wasDetailVisibleRef.current = false;
+      return;
+    }
+    if (wasDetailVisibleRef.current) return;
+    wasDetailVisibleRef.current = true;
+    const c = cursorOnCanvasRef.current;
+    if (!c || size.w === 0 || size.h === 0) return;
+    const left = c.x < size.w / 2;
+    // Compare against the midpoint of the *visible* slice — picking
+    // top/bottom based on the full canvas can put the popover offscreen.
+    const visMidY =
+      visibleVRange.bottom > visibleVRange.top
+        ? (visibleVRange.top + visibleVRange.bottom) / 2
+        : size.h / 2;
+    const top = c.y < visMidY;
+    setPopoverCorner(top ? (left ? "br" : "bl") : left ? "tr" : "tl");
+  }, [detailVisible, size.w, size.h, visibleVRange.top, visibleVRange.bottom]);
+
   const detailNeighbors = detail
     ? Array.from(neighbors.get(detail.id) ?? [])
         .map((id) => simNodes.find((n) => n.id === id))
@@ -604,7 +682,7 @@ export const ConnectionsScreen: FC = () => {
   }, [simNodes, simLinks]);
 
   return (
-    <div className="w-full px-4 md:px-8" ref={containerRef}>
+    <div className="w-full px-4 md:px-8">
       <Title description="MP–company–person connections graph">
         {t("connections_title") || "Connections"}
       </Title>
@@ -905,127 +983,149 @@ export const ConnectionsScreen: FC = () => {
             )}
           </div>
 
-          {isLoading || !graph ? (
-            <div
-              className="text-sm text-muted-foreground"
-              style={{ height: size.h }}
-            >
-              {t("loading") || "Loading…"}
-            </div>
-          ) : (
-            <canvas
-              ref={canvasRef}
-              onMouseMove={onMouseMove}
-              onMouseDown={onMouseDown}
-              onMouseUp={onMouseUp}
-              onMouseLeave={() => {
-                draggingRef.current = null;
-                lastMouseRef.current = null;
-                hoveredIdRef.current = null;
-                setHovered(null);
-              }}
-              onWheel={onWheel}
-              className="w-full border rounded select-none"
-              style={{ width: size.w, height: size.h, touchAction: "none" }}
-            />
-          )}
-        </CardContent>
-      </Card>
-
-      {detail && (
-        <Card className="my-4">
-          <CardContent className="p-3 md:p-4">
-            <div className="text-sm font-semibold flex items-center gap-2">
-              {detail.type === "mp" ? (
-                <MpAvatar
-                  mpId={detail.mpId}
-                  name={detail.label}
-                  className="h-6 w-6"
-                />
-              ) : (
-                <span
-                  className="inline-block h-2 w-2 rounded-full"
-                  style={{ backgroundColor: TYPE_COLORS[detail.type] }}
-                />
-              )}
-              {detail.type === "mp" ? (
-                <Link
-                  to={`/candidate/${encodeURIComponent(detail.label)}`}
-                  className="hover:underline"
-                >
-                  {detail.label}
-                </Link>
-              ) : detail.type === "company" && detail.slug ? (
-                <Link
-                  to={`/mp/company/${encodeURIComponent(detail.slug)}`}
-                  className="hover:underline"
-                >
-                  {detail.label}
-                </Link>
-              ) : (
-                detail.label
-              )}
-              <span className="text-xs text-muted-foreground font-normal">
-                {detail.type === "mp"
-                  ? (t("connections_legend_mp") || "MP") +
-                    (detail.partyGroupShort
-                      ? ` · ${detail.partyGroupShort}`
-                      : "")
-                  : detail.type === "company"
-                    ? `${t("connections_legend_company") || "Company"}${
-                        detail.legalForm ? ` · ${detail.legalForm}` : ""
-                      }${detail.uic ? ` · ${detail.uic}` : ""}`
-                    : t("connections_legend_person") || "Other person"}
-              </span>
-            </div>
-
-            <div className="text-xs text-muted-foreground mt-2">
-              {t("connections_neighbors") || "Connections"}:{" "}
-              {detailNeighbors.length}
-            </div>
-            <div className="text-xs mt-1 grid grid-cols-1 md:grid-cols-2 gap-x-4">
-              {detailNeighbors.slice(0, 24).map((n) => (
-                <div key={n.id} className="truncate flex items-center gap-1.5">
-                  {n.type === "mp" ? (
+          <div ref={canvasWrapRef} className="w-full relative">
+            {isLoading || !graph ? (
+              <div
+                className="text-sm text-muted-foreground"
+                style={{ height: size.h }}
+              >
+                {t("loading") || "Loading…"}
+              </div>
+            ) : (
+              <canvas
+                ref={canvasRef}
+                onMouseMove={onMouseMove}
+                onMouseDown={onMouseDown}
+                onMouseUp={onMouseUp}
+                onMouseLeave={() => {
+                  draggingRef.current = null;
+                  lastMouseRef.current = null;
+                  hoveredIdRef.current = null;
+                  setHovered(null);
+                }}
+                onWheel={onWheel}
+                className="block border rounded select-none"
+                style={{ width: size.w, height: size.h, touchAction: "none" }}
+              />
+            )}
+            {detail && !isLoading && graph && (
+              <div
+                className="absolute z-10 bg-card/95 backdrop-blur-sm border rounded-md shadow-lg p-3 overflow-y-auto"
+                style={{
+                  ...(popoverCorner === "tl" || popoverCorner === "tr"
+                    ? { top: visibleVRange.top + 8 }
+                    : {
+                        bottom: Math.max(0, size.h - visibleVRange.bottom) + 8,
+                      }),
+                  ...(popoverCorner === "tl" || popoverCorner === "bl"
+                    ? { left: 8 }
+                    : { right: 8 }),
+                  maxWidth: Math.min(360, Math.max(220, size.w - 16)),
+                  maxHeight: Math.max(
+                    160,
+                    Math.floor(
+                      (visibleVRange.bottom - visibleVRange.top || size.h) *
+                        0.6,
+                    ),
+                  ),
+                }}
+              >
+                <div className="text-sm font-semibold flex items-center gap-2">
+                  {detail.type === "mp" ? (
                     <MpAvatar
-                      mpId={n.mpId}
-                      name={n.label}
-                      className="h-4 w-4"
+                      mpId={detail.mpId}
+                      name={detail.label}
+                      className="h-6 w-6"
                     />
                   ) : (
                     <span
-                      className="inline-block h-1.5 w-1.5 rounded-full align-middle"
-                      style={{ backgroundColor: TYPE_COLORS[n.type] }}
+                      className="inline-block h-2 w-2 rounded-full"
+                      style={{ backgroundColor: TYPE_COLORS[detail.type] }}
                     />
                   )}
-                  {n.type === "mp" ? (
+                  {detail.type === "mp" ? (
                     <Link
-                      to={`/candidate/${encodeURIComponent(n.label)}`}
-                      className="hover:underline"
+                      to={`/candidate/${encodeURIComponent(detail.label)}`}
+                      className="hover:underline truncate"
                     >
-                      {n.label}
+                      {detail.label}
                     </Link>
-                  ) : n.type === "company" && n.slug ? (
+                  ) : detail.type === "company" && detail.slug ? (
                     <Link
-                      to={`/mp/company/${encodeURIComponent(n.slug)}`}
-                      className="hover:underline"
+                      to={`/mp/company/${encodeURIComponent(detail.slug)}`}
+                      className="hover:underline truncate"
                     >
-                      {n.label}
+                      {detail.label}
                     </Link>
                   ) : (
-                    n.label
+                    <span className="truncate">{detail.label}</span>
                   )}
                 </div>
-              ))}
-              {detailNeighbors.length > 24 && (
-                <div className="text-muted-foreground italic">
-                  +{detailNeighbors.length - 24} {t("more") || "more"}…
+                <div className="text-xs text-muted-foreground mt-1">
+                  {detail.type === "mp"
+                    ? (t("connections_legend_mp") || "MP") +
+                      (detail.partyGroupShort
+                        ? ` · ${detail.partyGroupShort}`
+                        : "")
+                    : detail.type === "company"
+                      ? `${t("connections_legend_company") || "Company"}${
+                          detail.legalForm ? ` · ${detail.legalForm}` : ""
+                        }${detail.uic ? ` · ${detail.uic}` : ""}`
+                      : t("connections_legend_person") || "Other person"}
                 </div>
-              )}
-            </div>
-          </CardContent>
-        </Card>
-      )}
+
+                <div className="text-xs text-muted-foreground mt-2">
+                  {t("connections_neighbors") || "Connections"}:{" "}
+                  {detailNeighbors.length}
+                </div>
+                <div className="text-xs mt-1 flex flex-col gap-0.5">
+                  {detailNeighbors.slice(0, 24).map((n) => (
+                    <div
+                      key={n.id}
+                      className="truncate flex items-center gap-1.5"
+                    >
+                      {n.type === "mp" ? (
+                        <MpAvatar
+                          mpId={n.mpId}
+                          name={n.label}
+                          className="h-4 w-4"
+                        />
+                      ) : (
+                        <span
+                          className="inline-block h-1.5 w-1.5 rounded-full align-middle shrink-0"
+                          style={{ backgroundColor: TYPE_COLORS[n.type] }}
+                        />
+                      )}
+                      {n.type === "mp" ? (
+                        <Link
+                          to={`/candidate/${encodeURIComponent(n.label)}`}
+                          className="hover:underline truncate"
+                        >
+                          {n.label}
+                        </Link>
+                      ) : n.type === "company" && n.slug ? (
+                        <Link
+                          to={`/mp/company/${encodeURIComponent(n.slug)}`}
+                          className="hover:underline truncate"
+                        >
+                          {n.label}
+                        </Link>
+                      ) : (
+                        <span className="truncate">{n.label}</span>
+                      )}
+                    </div>
+                  ))}
+                  {detailNeighbors.length > 24 && (
+                    <div className="text-muted-foreground italic">
+                      +{detailNeighbors.length - 24} {t("more") || "more"}…
+                    </div>
+                  )}
+                </div>
+              </div>
+            )}
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 };

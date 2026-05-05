@@ -36,6 +36,7 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import { command, run, string, option, optional, flag, boolean } from "cmd-ts";
+import { titleCaseBgName } from "./name_case";
 
 const API = "https://www.parliament.bg/api/v1";
 const PHOTO_BASE = "https://www.parliament.bg/images/Assembly/";
@@ -175,14 +176,15 @@ const parseRegion = (vaName: string): { code: string; name: string } => {
 
 const toMp = (raw: RawMp): Mp => {
   const id = raw.A_ns_MP_id;
+  const rawName = [raw.A_ns_MPL_Name1, raw.A_ns_MPL_Name2, raw.A_ns_MPL_Name3]
+    .filter(Boolean)
+    .join(" ");
   return {
     id,
-    name: [raw.A_ns_MPL_Name1, raw.A_ns_MPL_Name2, raw.A_ns_MPL_Name3]
-      .filter(Boolean)
-      .join(" "),
-    givenName: raw.A_ns_MPL_Name1 ?? "",
-    middleName: raw.A_ns_MPL_Name2 ?? "",
-    familyName: raw.A_ns_MPL_Name3 ?? "",
+    name: titleCaseBgName(rawName),
+    givenName: titleCaseBgName(raw.A_ns_MPL_Name1 ?? ""),
+    middleName: titleCaseBgName(raw.A_ns_MPL_Name2 ?? ""),
+    familyName: titleCaseBgName(raw.A_ns_MPL_Name3 ?? ""),
     region: parseRegion(raw.A_ns_Va_name ?? ""),
     partyGroup: raw.A_ns_CL_value ?? "",
     partyGroupShort: (raw.A_ns_CL_value_short ?? "").trim(),
@@ -311,14 +313,14 @@ const buildIndexEntry = (
   const givenName = raw.A_ns_MPL_Name1 ?? mp?.givenName ?? "";
   const middleName = raw.A_ns_MPL_Name2 ?? mp?.middleName ?? "";
   const familyName = raw.A_ns_MPL_Name3 ?? mp?.familyName ?? "";
-  const name = [givenName, middleName, familyName].filter(Boolean).join(" ");
+  const rawName = [givenName, middleName, familyName].filter(Boolean).join(" ");
   const folders = (raw.oldnsList ?? [])
     .map((t) => t.A_ns_folder)
     .filter((f): f is string => !!f);
   return {
     id,
-    name,
-    normalizedName: name.toUpperCase().replace(/\s+/g, " ").trim(),
+    name: titleCaseBgName(rawName),
+    normalizedName: rawName.toUpperCase().replace(/\s+/g, " ").trim(),
     photoUrl: hasRealPhoto(raw.A_ns_MP_img)
       ? `${PHOTO_BASE}${raw.A_ns_MP_img}`
       : "",

@@ -71,7 +71,7 @@ The first block is a year-by-year ledger of declared business interests, grouped
 
 ![Financial declarations on a candidate page](/articles/images/connections/03-candidate-declarations.png)
 
-The example here is **[Димитър Найденов](/candidate/%D0%94%D0%98%D0%9C%D0%98%D0%A2%D0%AA%D0%A0%20%D0%93%D0%95%D0%9E%D0%A0%D0%93%D0%98%D0%95%D0%92%20%D0%9D%D0%90%D0%99%D0%94%D0%95%D0%9D%D0%9E%D0%92)** — the most-connected currently-sitting MP, with 14 high-confidence ties. His 2024 filing alone lists nine Burgas-based ОООд and ЕООД companies in the textile and fashion business (БИТЕКС, ДОРЕМИ ПЛЮС, НЕОМАКС 09, СУНМАКС, ДИТЕКС, ЗЕНИТ КОМЕРС, …) with stakes ranging from 17% to 100%.
+The example here is **[Димитър Найденов](/candidate/%D0%94%D0%B8%D0%BC%D0%B8%D1%82%D1%8A%D1%80%20%D0%93%D0%B5%D0%BE%D1%80%D0%B3%D0%B8%D0%B5%D0%B2%20%D0%9D%D0%B0%D0%B9%D0%B4%D0%B5%D0%BD%D0%BE%D0%B2)** — the most-connected currently-sitting MP, with 14 high-confidence ties. His 2024 filing alone lists nine Burgas-based ОООд and ЕООД companies in the textile and fashion business (БИТЕКС, ДОРЕМИ ПЛЮС, НЕОМАКС 09, СУНМАКС, ДИТЕКС, ЗЕНИТ КОМЕРС, …) with stakes ranging from 17% to 100%.
 
 ### Management roles
 
@@ -151,8 +151,8 @@ This is the killer feature for understanding the data, because it answers the qu
 
 Picking the example was not a guess; it was a query. Of the four sitting-MP nodes that fall inside the largest connected component, two come from clearly opposing benches:
 
-- **[Георги Иванов Георгиев](/candidate/%D0%93%D0%95%D0%9E%D0%A0%D0%93%D0%98%20%D0%98%D0%92%D0%90%D0%9D%D0%9E%D0%92%20%D0%93%D0%95%D0%9E%D0%A0%D0%93%D0%98%D0%95%D0%92)** — ПГ на ГЕРБ-СДС, 6 high-confidence ties, served NS 48–52
-- **[Рашид Мехмедов Узунов](/candidate/%D0%A0%D0%90%D0%A8%D0%98%D0%94%20%D0%9C%D0%95%D0%A5%D0%9C%D0%95%D0%94%D0%9E%D0%92%20%D0%A3%D0%97%D0%A3%D0%9D%D0%9E%D0%92)** — ПГ на ПБ (Periferia / Movement for Rights and Freedoms — New Beginning), 0 high-confidence ties, only 2 management roles
+- **[Георги Иванов Георгиев](/candidate/%D0%93%D0%B5%D0%BE%D1%80%D0%B3%D0%B8%20%D0%98%D0%B2%D0%B0%D0%BD%D0%BE%D0%B2%20%D0%93%D0%B5%D0%BE%D1%80%D0%B3%D0%B8%D0%B5%D0%B2)** — ПГ на ГЕРБ-СДС, 6 high-confidence ties, served NS 48–52
+- **[Рашид Мехмедов Узунов](/candidate/%D0%A0%D0%B0%D1%88%D0%B8%D0%B4%20%D0%9C%D0%B5%D1%85%D0%BC%D0%B5%D0%B4%D0%BE%D0%B2%20%D0%A3%D0%B7%D1%83%D0%BD%D0%BE%D0%B2)** — ПГ на ПБ (Periferia / Movement for Rights and Freedoms — New Beginning), 0 high-confidence ties, only 2 management roles
 
 Узунов looks unconnected at first glance — his candidate page is sparse:
 
@@ -170,7 +170,7 @@ A two-hop bridge through one intermediary MP and two companies. Read it left-to-
 
 **The honest caveat** — and this is the kind of thing the confidence filter was built for: every edge in this path is **medium confidence**. They are name matches against the Commerce Registry without an extra corroborating signal. If you toggle "high confidence only" on the orbital page, the path disappears, because both Димитров (the bridge) and the two cooperatives drop off the canvas entirely. That is not a bug — it is the difference between "almost certainly the same person" and "the name fits, look closer." A reader chasing this lead would want to verify the natural-person identities at the Commerce Registry portal before drawing any conclusion.
 
-For a more conservative example, the candidate page for **[Найденов](/candidate/%D0%94%D0%98%D0%9C%D0%98%D0%A2%D0%AA%D0%A0%20%D0%93%D0%95%D0%9E%D0%A0%D0%93%D0%98%D0%95%D0%92%20%D0%9D%D0%90%D0%99%D0%94%D0%95%D0%9D%D0%9E%D0%92)** (14 high-confidence ties — every one of them corroborated) is the better starting point if you want to see the pattern before chasing the noisier bridges.
+For a more conservative example, the candidate page for **[Найденов](/candidate/%D0%94%D0%B8%D0%BC%D0%B8%D1%82%D1%8A%D1%80%20%D0%93%D0%B5%D0%BE%D1%80%D0%B3%D0%B8%D0%B5%D0%B2%20%D0%9D%D0%B0%D0%B9%D0%B4%D0%B5%D0%BD%D0%BE%D0%B2)** (14 high-confidence ties — every one of them corroborated) is the better starting point if you want to see the pattern before chasing the noisier bridges.
 
 ---
 
