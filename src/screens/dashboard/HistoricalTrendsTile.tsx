@@ -31,7 +31,8 @@ export const HistoricalTrendsTile: FC<Props> = ({
     : regionCode
       ? regionStats
       : nationalStats;
-  const { colorFor, canonicalIdFor, fullNameFor } = useCanonicalParties();
+  const { colorFor, canonicalIdFor, fullNameFor, displayNameFor } =
+    useCanonicalParties();
 
   if (!stats?.length) return null;
 
@@ -67,6 +68,7 @@ export const HistoricalTrendsTile: FC<Props> = ({
         colorFor={colorFor}
         lineageFor={canonicalIdFor}
         fullNameFor={fullNameFor}
+        displayNameFor={displayNameFor}
         compact
       />
     </StatCard>

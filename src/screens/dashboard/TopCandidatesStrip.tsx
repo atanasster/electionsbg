@@ -6,6 +6,7 @@ import { PreferencesInfo } from "@/data/dataTypes";
 import { NationalPartyResult } from "@/data/dashboard/dashboardTypes";
 import { useElectionContext } from "@/data/ElectionContext";
 import { useCandidates } from "@/data/preferences/useCandidates";
+import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { useMps } from "@/data/parliament/useMps";
 import {
   useParliamentGroups,
@@ -56,6 +57,7 @@ export const TopCandidatesStrip: FC<Props> = ({
   const { findMpByName, mps, currentNs } = useMps();
   const { childrenFor } = useParliamentGroups();
   const { findRegion } = useRegions();
+  const { displayNameFor } = useCanonicalParties();
 
   // True when the selected election seated the currently-sitting NS — only
   // then can we trust per-MP `currentPartyGroupShort` to attribute candidates
@@ -263,7 +265,9 @@ export const TopCandidatesStrip: FC<Props> = ({
                     className="inline-block w-2 h-2 rounded-sm shrink-0"
                     style={{ backgroundColor: r.color }}
                   />
-                  <span>{r.partyNickName}</span>
+                  <span>
+                    {displayNameFor(r.partyNickName) ?? r.partyNickName}
+                  </span>
                   {r.regionCount > 1 ? (
                     <span>
                       · {r.regionCount} {t("regions").toLowerCase()}
@@ -354,7 +358,9 @@ export const TopCandidatesStrip: FC<Props> = ({
                     className="inline-block w-2 h-2 rounded-sm shrink-0"
                     style={{ backgroundColor: r.color }}
                   />
-                  <span className="truncate">{r.partyNickName}</span>
+                  <span className="truncate">
+                    {displayNameFor(r.partyNickName) ?? r.partyNickName}
+                  </span>
                   {r.regionCount > 1 ? (
                     <span className="truncate">
                       · {r.regionCount} {t("regions").toLowerCase()}
