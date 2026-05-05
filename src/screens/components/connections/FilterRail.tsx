@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Search, X } from "lucide-react";
 import { useConnectionsSearch } from "@/data/parliament/useConnectionsSearch";
+import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import type { ConnectionsSearchEntry } from "@/data/dataTypes";
 import { candidateUrlForMp } from "@/data/candidates/candidateSlug";
 import type { ConnectionsFilters } from "./useConnectionsFilters";
@@ -36,6 +37,7 @@ export const FilterRail: FC<Props> = ({
   availableNsFolders,
 }) => {
   const { t } = useTranslation();
+  const { partyGroupShortLabel } = useCanonicalParties();
 
   const anyActive =
     filters.ns === null ||
@@ -76,7 +78,9 @@ export const FilterRail: FC<Props> = ({
           onClick={() => setPartyPair(null)}
           className="inline-flex items-center gap-1 rounded-full border border-primary bg-primary/10 px-2 py-1 text-primary"
         >
-          {filters.partyPair[0]} × {filters.partyPair[1]}
+          {partyGroupShortLabel(filters.partyPair[0]) ?? filters.partyPair[0]}{" "}
+          ×{" "}
+          {partyGroupShortLabel(filters.partyPair[1]) ?? filters.partyPair[1]}
           <X className="h-3 w-3" />
         </button>
       )}

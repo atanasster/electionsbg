@@ -70,7 +70,12 @@ export const ConnectionPathRow: FC<Props> = ({
 
   if (segments.length < 2) return null;
 
+  const source = segments[0];
   const target = segments[segments.length - 1];
+  const sourceParty =
+    source.type === "mp" && source.partyGroupShort
+      ? (partyGroupShortLabel(source.partyGroupShort) ?? source.partyGroupShort)
+      : null;
   const targetParty =
     target.type === "mp" && target.partyGroupShort
       ? (partyGroupShortLabel(target.partyGroupShort) ?? target.partyGroupShort)
@@ -79,6 +84,11 @@ export const ConnectionPathRow: FC<Props> = ({
   return (
     <div className="rounded border border-border/60 px-3 py-2 hover:bg-muted/40 transition-colors">
       <div className="flex items-center gap-1.5 flex-wrap text-sm">
+        {sourceParty ? (
+          <span className="mr-1 text-[10px] uppercase tracking-wide text-muted-foreground">
+            ({sourceParty})
+          </span>
+        ) : null}
         {segments.map((node, i) => {
           const link = linkForNode(node);
           const isMp = node.type === "mp";
