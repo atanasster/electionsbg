@@ -2,7 +2,9 @@
 
 Bulgarian voters can already see how an MP votes, where they were elected, and how their party fared in any given polling station. What has been much harder to see — without manually downloading an XML declaration and cross-checking it against the Commerce Registry — is what *companies* sit behind those people, and how those companies link MPs to one another.
 
-That is the gap this feature fills. As of this writing, the graph contains **5,499 nodes** (605 MPs, 2,009 companies, 2,885 other named persons) joined by **6,568 edges** drawn from two open Bulgarian datasets. This article walks through where to find the new pages, what they show, and ends with a worked example: a real cross-party ownership path between two currently sitting MPs.
+That is the gap this feature fills. As of this writing, the graph contains **5,481 nodes** (605 MPs, 2,087 companies, 2,789 other named persons) joined by **6,568 edges** drawn from two open Bulgarian datasets. This article walks through where to find the new pages, what they show, and ends with a worked example: a real cross-party ownership path between two currently sitting MPs.
+
+> **Update (May 2026):** the `/connections` page has been rebuilt around a *story-first* layout — a hero sentence with a party × party heatmap, a ranked list of MP↔MP connection chains, a dedicated path-finder tab and an opt-in orbital graph. The old single-canvas view is now one of three tabs. §5 below describes the new design end-to-end; the older orbital screenshots remain as references for the "Explore graph" tab.
 
 ---
 
@@ -109,43 +111,73 @@ The avatar styling (party-coloured ring) is shared with the dashboard rankings r
 
 ---
 
-## 5. The orbital page — `/connections`
+## 5. The connections page — `/connections`
 
-This is the centerpiece. By default it shows every node and every edge in the graph at once, with the **most-connected** MPs ranked in the panel above the canvas:
+The centerpiece. The page is built around a single question: *who is connected to whom in this parliament, and through what?* Everything is precomputed at build time so the page reads at first glance — no canvas wrangling required, no global graph download just to see the headlines.
+
+### The hero block
+
+The first thing on the page is a one-sentence stat with a clickable heatmap underneath:
+
+> **11** MPs in parliament 52 have ties to **14** others through **20** shared companies.
+
+The numbers update with the scope filter (described below). Below the sentence, a **party × party heatmap** shows where MP↔MP ties cross party lines — each cell is the number of pair-paths whose two endpoints belong to those two parties. Cells are log-scaled so a single mega-cluster doesn't drown out everything else, and clicking any cell drills the list below into that exact party crossing. For the 52nd parliament the brightest cell is *Independent × ПГ на ПБ* with 5 ties; the only cross-party-bench tie that involves both a *currently-active group* on each side is *ПГ на ГЕРБ-СДС × ПГ на ПБ* — the cell with one tie that the worked example in §6 walks through.
+
+### The filter rail
+
+Sitting above the tabs is a chip-style filter rail (Linear/Notion pattern). Every state lives in the URL so a journalist can copy `electionsbg.com/connections?ns=52&crossParty=1` directly into a tweet:
+
+- **Smart entity search** — type any MP or company name; suggestions resolve as you type and selecting one navigates straight to the profile page. Backed by a precomputed search index of 605 MPs + 2,087 companies.
+- **Scope chip** (always visible) — defaults to the parliament selected in the global header. Click it to switch to a specific NS folder or the "All parliaments" lifetime view. Once you've picked an explicit scope it sticks even when you change elections in the global header.
+- **Cross-party only** — restrict to MP↔MP pairs whose endpoints belong to different parliamentary groups. This is the journalistically interesting filter and it always sits one click away.
+- **All current** — drop pairs whose canonical path includes any historical edges (transferred shares, ended TR roles).
+- **High confidence** — drop pairs whose canonical path uses any name-match (medium-confidence) link. Useful when you want to be conservative about identity matches.
+- **Party-pair chip** — appears automatically when you click a heatmap cell, showing the two parties as a removable chip. Drilldown is one click in, one click out.
+
+### The three tabs
+
+#### 1. Strongest ties (default)
+
+A ranked list of MP↔MP connections rendered as **chip chains** — the same `MP → Company → Associate → Company → MP` visualization used on every candidate page. Each row reads at a glance:
+
+- Top pair for the 52nd parliament: **Георги Иванов Георгиев** (ГЕРБ-СДС) → КРУМКООП-1 → Димитър Георгиев Димитров → АПИС МЕЛИФЕРА БЪЛГАРИЯ → **Рашид Мехмедов Узунов** (ПБ). 4 steps · currently active · name-match link.
+- The next two are family connections — the **Дренчев** brothers (Възраждане ↔ former MP) co-owning *Братя Градеви ООД*, and the **Петков** family (current ПП MP and his father) co-owning *Чеси Инс Брокер ООД*.
+
+Each pair is scored at build time: cross-party + both-currently-seated + multiple-shared-companies + currently-active-path + high-confidence-path + shorter-is-better, with cross-party as the dominant signal. The full scoring formula is documented at the top of `scripts/declarations/build_connections_graph.ts` so the weights can be retuned without rewriting the logic. Of the 49 distinct MP↔MP pairs in the global graph, 16 touch the 52nd parliament.
+
+A toolbar above the list adds three power-user controls:
+
+- **Compare 51 → 52** — when on, the rows are colour-coded: green for *new* pairs that appear in the selected parliament but not the prior one, neutral for *carried over* (in both), red strikethrough for *ended* (only in the prior). Bulgaria's parliamentary churn makes this view uniquely useful — it surfaces ownership patterns that survive the rotation of MPs.
+- **Export CSV** — downloads the current filtered list as a flat CSV with one row per pair, ready to open in Excel or Sheets. Columns mirror what's visible on the page (endpoints, parties, parliaments, shared-company count, full chain).
+- **Watchlist stars** — every chip-chain row carries a star next to each MP name. Starred MPs are kept in `localStorage` and rows containing a watched MP get a soft amber ring so you can scan the list for follow-ups without reading every name.
+
+#### 2. Find a connection
+
+A first-class autocomplete-driven path finder: pick a *From* MP, pick a *To* MP, and the page runs a BFS over the global graph for the shortest chain between them. Result renders as a single chip-chain row, exactly like the rows on the Strongest ties tab. The autocomplete pool defaults to the selected parliament — clear the scope chip to widen it.
+
+This replaces the old "click two nodes on the canvas" flow, which forced users into the orbital view to do the most useful query the page offers.
+
+#### 3. Explore graph
+
+The original orbital force-directed view, kept as an opt-in tab for power users who want to see the global topology. Same filters as before — *Current only*, *Hide transferred*, *High confidence only*, *Largest component only*, *Cluster by party* — and the same canvas behaviour (drag to pan, Ctrl/Cmd+scroll to zoom, click a node for the detail popover):
 
 ![Orbital page default view](/articles/images/connections/06-orbital-default.png)
 
-What the legend means at a glance:
-
-- **MPs**: 605, blue dots
-- **Companies**: 2,009, orange dots
-- **Other persons**: 2,885, grey dots
-- **Edges**: 6,568
-
 A few seconds of staring at the default view is enough to notice that the picture is *not* one big blob. There are **567 connected components**; the largest holds 971 nodes, the second 534, the third 191. Most of the graph is small clusters — an MP and their handful of personal businesses — with a handful of dense neighbourhoods where shared officers create cross-MP links.
 
-### Filters
-
-Across the top of the canvas:
-
-- **Current only** — drop transferred shares (Table 11 of the declaration) and ended Commerce Registry roles. Useful when you are asking "what is true today."
-- **Hide transferred** — keep historical roles but drop the 51 declared share-transfers.
-- **High confidence only** — restrict to the 4,988 corroborated edges. The 1,580 medium-confidence edges disappear, and so do any nodes that were only attached by a medium edge. Important: this often *fragments* paths that were visible in the default view (we will see one such case in the walkthrough below).
-- **Largest component only** — isolate the densest subgraph:
+The **Largest component only** filter (122 companies, 304 persons, 1,568 edges) is where most of the cross-MP ownership patterns live:
 
 ![Largest component only](/articles/images/connections/08-orbital-largest-component.png)
 
-  This view (122 companies, 304 persons, 1,568 edges) is where most of the cross-MP ownership patterns live. It is visually noisy, but every edge in here is part of a single connected web — meaning between any two nodes shown, *some* path through the data exists.
-
-- **Cluster by party** — adds an angular force that pulls each MP node towards its party's slot on the canvas, so intra-party clusters reveal themselves as petals of one colour:
+The **Cluster by party** filter pulls each MP node towards its party's slot on the canvas, so intra-party clusters reveal themselves as petals of one colour:
 
 ![Cluster by party](/articles/images/connections/07-orbital-cluster-by-party.png)
 
-  When a company sits *between* two party clusters, that is a hint worth chasing.
+When a company sits *between* two party clusters, that is a hint worth chasing — and the heatmap on the hero block now surfaces those crossings without making the user squint at the canvas.
 
 ### Companies index
 
-The "All companies" link below the dashboard tile (or the "View all" link on the orbital page) opens a flat, searchable table of every company that any MP has touched — currently **703** distinct companies:
+The "All companies" link in the dashboard tile opens a flat, searchable table of every company that any MP has touched — currently **2,087** distinct companies:
 
 ![Companies index](/articles/images/connections/09-all-companies.png)
 
@@ -155,38 +187,32 @@ Each row links to the company's dedicated page, which lists the active officers 
 
 The example above is **["ПиВи Квантум" ООД](/company/%D0%9F%D0%B8%D0%92%D0%B8-%D0%9A%D0%B2%D0%B0%D0%BD%D1%82%D1%83%D0%BC-%D0%9E%D0%9E%D0%94)** (UIC 206258486, seated in Велико Търново) — a company small enough that two MPs (Венеция Огнянова Нецова-Ангова in 48th and 49th NS, and Николай Георгиев Ангов in 47th NS) each declared a 33–100% stake against it across two fiscal years, including a transferred share in 2022.
 
-### Path finder
-
-Two MPs, one button. Pick "Find connection between two MPs," click two MP nodes, and the page runs a BFS over the whole edge set looking for the shortest path. If both MPs are in the same connected component it lights the path up in red. If they are not, it tells you so.
-
-This is the killer feature for understanding the data, because it answers the question that is impossible to answer by reading any single declaration in isolation: *do these two people, who voted on opposite sides of the chamber, share a business neighbourhood?*
-
-The orbital page is the right surface for an *exploratory* path query — pick any two MPs and check. For the targeted version of the same question — *who is this MP connected to?* — the candidate page already answers it without a single click: the offline pipeline runs that BFS up-front and bakes the top shortest paths into every MP's per-page file. See §4 for what that block looks like.
-
 ---
 
 ## 6. Worked example — a cross-party path between two sitting MPs
 
-Picking the example was not a guess; it was a query. Of the four sitting-MP nodes that fall inside the largest connected component, two come from clearly opposing benches:
+In the redesigned page this example is no longer something you have to *find* — it sits at the top of the Strongest ties tab the moment you load `/connections`. The scoring function ranks it first because it satisfies almost every signal at once: cross-party (ПГ на ГЕРБ-СДС × ПГ на ПБ), both endpoints currently seated in the 52nd parliament, every edge currently active. Toggling the *Cross-party only* chip in the filter rail collapses the 16 NS-52 pairs down to this single row.
 
-- **[Георги Иванов Георгиев](/candidate/%D0%93%D0%B5%D0%BE%D1%80%D0%B3%D0%B8%20%D0%98%D0%B2%D0%B0%D0%BD%D0%BE%D0%B2%20%D0%93%D0%B5%D0%BE%D1%80%D0%B3%D0%B8%D0%B5%D0%B2)** — ПГ на ГЕРБ-СДС, 6 high-confidence ties, served NS 48–52
-- **[Рашид Мехмедов Узунов](/candidate/%D0%A0%D0%B0%D1%88%D0%B8%D0%B4%20%D0%9C%D0%B5%D1%85%D0%BC%D0%B5%D0%B4%D0%BE%D0%B2%20%D0%A3%D0%B7%D1%83%D0%BD%D0%BE%D0%B2)** — ПГ на ПБ (Periferia / Movement for Rights and Freedoms — New Beginning), 0 high-confidence ties, only 2 management roles
+The two endpoints:
+
+- **[Георги Иванов Георгиев](/candidate/%D0%93%D0%B5%D0%BE%D1%80%D0%B3%D0%B8%20%D0%98%D0%B2%D0%B0%D0%BD%D0%BE%D0%B2%20%D0%93%D0%B5%D0%BE%D1%80%D0%B3%D0%B8%D0%B5%D0%B2)** — ПГ на ГЕРБ-СДС, served NS 48–52
+- **[Рашид Мехмедов Узунов](/candidate/%D0%A0%D0%B0%D1%88%D0%B8%D0%B4%20%D0%9C%D0%B5%D1%85%D0%BC%D0%B5%D0%B4%D0%BE%D0%B2%20%D0%A3%D0%B7%D1%83%D0%BD%D0%BE%D0%B2)** — ПГ на ПБ (Periferia / Movement for Rights and Freedoms — New Beginning)
 
 Узунов looks unconnected at first glance — his candidate page is sparse:
 
 ![Узунов candidate page](/articles/images/connections/11-orbital-pathfind-attempt.png)
 
-The path-finder on the orbital page picks up the bridge between him and Георгиев, and so does the candidate page for the bridge node itself — the two halves of the chain show up as separate path rows on **[Димитър Георгиев Димитров](/candidate/%D0%94%D0%B8%D0%BC%D0%B8%D1%82%D1%8A%D1%80%20%D0%93%D0%B5%D0%BE%D1%80%D0%B3%D0%B8%D0%B5%D0%B2%20%D0%94%D0%B8%D0%BC%D0%B8%D1%82%D1%80%D0%BE%D0%B2)**'s "Connections to other MPs" block (the example used in §4). Concatenating those two rows yields the full cross-party chain:
+But the precomputed top-pairs list surfaces the bridge between him and Георгиев directly. The chip chain, exactly as it appears on the page:
 
 > **Георги Иванов Георгиев (ГЕРБ-СДС)**
 > → company **КРУМКООП - 1** (UIC 108563610, OOD)
-> → **Димитър Георгиев Димитров** (former MP, 39 total degree, 0 high-confidence)
+> → **Димитър Георгиев Димитров** (former MP)
 > → company **АПИС МЕЛИФЕРА БЪЛГАРИЯ** (UIC 204909172, OOD)
 > → **Рашид Мехмедов Узунов (ПБ)**
 
-A two-hop bridge through one intermediary MP and two companies. Read it left-to-right: a sitting GERB-SDS MP and a sitting ПБ MP both share a partnership stake (`tr_owner` / `partner` role) in two cooperatives that are in turn co-owned by a former MP (Димитров). Whether that means anything is a journalistic question, not a graph one — but the graph is what surfaces the question.
+A two-hop bridge through one intermediary MP and two companies. Read it left-to-right: a sitting GERB-SDS MP and a sitting ПБ MP both share a partnership stake (`tr_owner` / `partner` role) in two cooperatives that are in turn co-owned by a former MP (Димитров). Whether that means anything is a journalistic question, not a graph one — but the graph is what surfaces the question. Each chip on the row links straight into the relevant entity page, and the *Source: TR* link at the end of the row jumps to the Commerce Registry filing for the first company on the chain so you can verify what is actually filed.
 
-**The honest caveat** — and this is the kind of thing the confidence filter was built for: every edge in this path is **medium confidence**. They are name matches against the Commerce Registry without an extra corroborating signal. The path footer on Димитров's candidate page flags this directly with a *name-match link* warning, and if you toggle "high confidence only" on the orbital page the path disappears entirely, because both Димитров (the bridge) and the two cooperatives drop off the canvas. That is not a bug — it is the difference between "almost certainly the same person" and "the name fits, look closer." A reader chasing this lead would want to verify the natural-person identities at the Commerce Registry portal before drawing any conclusion.
+**The honest caveat** — and this is the kind of thing the *High confidence* chip on the filter rail was built for: every edge in this path is **medium confidence**. They are name matches against the Commerce Registry without an extra corroborating signal. The chip-chain row footer flags this directly with a *name-match link* warning, and toggling *High confidence* in the rail makes the row disappear entirely, because the bridge (Димитров) and the two cooperatives all drop out. That is not a bug — it is the difference between "almost certainly the same person" and "the name fits, look closer." A reader chasing this lead would want to verify the natural-person identities at the Commerce Registry portal before drawing any conclusion (the *Source: TR* link on the row goes there directly).
 
 For a more conservative example, the candidate page for currently-sitting Възраждане MP **[Димо Георгиев Дренчев](/candidate/%D0%94%D0%B8%D0%BC%D0%BE%20%D0%93%D0%B5%D0%BE%D1%80%D0%B3%D0%B8%D0%B5%D0%B2%20%D0%94%D1%80%D0%B5%D0%BD%D1%87%D0%B5%D0%B2)** shows a single direct path:
 

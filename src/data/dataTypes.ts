@@ -465,6 +465,10 @@ export type ConnectionsMpNode = {
   label: string; // display name
   partyGroupShort: string | null;
   isCurrent: boolean;
+  /** All National Assembly numbers this MP belonged to. Mirrors
+   * `ConnectionsTopMp.nsFolders` so the global graph view can scope MPs to
+   * the user's selected election without depending on the rankings file. */
+  nsFolders: string[];
 };
 export type ConnectionsCompanyNode = {
   id: string; // "company:{slug}" or "company:tr:{uic}"
@@ -552,8 +556,121 @@ export type ConnectionsTopCompany = {
   mpCount: number;
   totalDegree: number;
 };
-export type ConnectionsRankings = {
-  generatedAt: string;
+export type ConnectionsRankingsScope = {
   topMps: ConnectionsTopMp[];
   topCompanies: ConnectionsTopCompany[];
+};
+
+/** A precomputed MP↔MP shortest path bundled with everything the UI needs to
+ * render it without fetching the full graph. Drives the global "Strongest
+ * connections" list on the Connections page. */
+export type ConnectionsTopPairEndpoint = {
+  mpId: number;
+  nodeId: string;
+  label: string;
+  partyGroupShort: string | null;
+  nsFolders: string[];
+  isCurrent: boolean;
+};
+export type ConnectionsTopPair = {
+  mpA: ConnectionsTopPairEndpoint;
+  mpB: ConnectionsTopPairEndpoint;
+  /** Shortest path between mpA and mpB (canonical from BFS). */
+  path: ConnectionsPath;
+  /** Resolved nodes for `path.nodeIds` so the UI can render chip chains
+   * directly. Same shape as the per-MP file's `nodes` array. */
+  pathNodes: ConnectionsNode[];
+  /** Best edge per consecutive pair on the path (uses the same scoring as
+   * per-MP files: current + high-confidence preferred). */
+  pathEdges: ConnectionsEdge[];
+  /** Total interestingness score (see build script for the formula). */
+  score: number;
+  /** Number of distinct companies that appear on length-2 paths between the
+   * two MPs — i.e. how many companies they share directly. 0 for length-4+
+   * pairs. */
+  sharedCompanyCount: number;
+  /** Convenience: true when partyGroupShort differs between mpA and mpB. */
+  crossParty: boolean;
+};
+export type ConnectionsTopPairsFile = {
+  generatedAt: string;
+  pairs: ConnectionsTopPair[];
+};
+
+/** Compact search-index row used by the global filter rail's entity
+ * autocomplete. Covers MPs and companies — non-MP persons are omitted to
+ * keep the suggestions defensible (their names are noisy and often
+ * resolved via low-confidence name-match links). */
+export type ConnectionsSearchEntry =
+  | {
+      type: "mp";
+      mpId: number;
+      label: string;
+      partyGroupShort: string | null;
+      nsFolders: string[];
+    }
+  | {
+      type: "company";
+      slug: string | null;
+      uic: string | null;
+      label: string;
+      seat: string | null;
+    };
+export type ConnectionsSearchFile = {
+  generatedAt: string;
+  entries: ConnectionsSearchEntry[];
+};
+
+/** Aggregated stats per parliament + lifetime, for the hero sentence
+ * "X MPs in parliament Y connected to Z others through W companies." */
+export type ConnectionsStatsScope = {
+  /** Total MPs in the parliament (or all parliaments for "all"). */
+  mpsTotal: number;
+  /** MPs that participate in at least one MP↔MP pair. */
+  mpsConnected: number;
+  /** Distinct other-MP endpoints reached from `mpsConnected`. */
+  otherMpsReached: number;
+  /** Distinct companies that appear on any MP↔MP path. */
+  sharedCompanies: number;
+};
+export type ConnectionsStatsFile = {
+  generatedAt: string;
+  /** Aggregated across every parliament (lifetime view). */
+  all: ConnectionsStatsScope;
+  /** Per-NS slices keyed by NS folder ("52", "51", ...). */
+  byNs: Record<string, ConnectionsStatsScope>;
+};
+
+/** Party × party tie-count matrix, used by the heatmap. Each cell is keyed
+ * by `min(partyA,partyB)|max(...)` so we never double-count symmetric pairs.
+ * `samplePairKeys` is the top-5 pair IDs by interestingness so a click on
+ * the cell can drill into the underlying chip-chains without re-fetching. */
+export type ConnectionsPartyMatrixCell = {
+  partyA: string;
+  partyB: string;
+  tieCount: number;
+  samplePairKeys: string[];
+};
+export type ConnectionsPartyMatrixScope = {
+  parties: string[];
+  cells: Record<string, ConnectionsPartyMatrixCell>;
+};
+export type ConnectionsPartyMatrixFile = {
+  generatedAt: string;
+  byNs: Record<string, ConnectionsPartyMatrixScope>;
+  all: ConnectionsPartyMatrixScope;
+};
+
+export type ConnectionsRankings = {
+  generatedAt: string;
+  /** Lifetime rankings — every MP/company with any degree, regardless of
+   * which parliament(s) they served in. Used by the "All parliaments"
+   * scope in the global Connections page and any caller that wants the
+   * full picture. */
+  topMps: ConnectionsTopMp[];
+  topCompanies: ConnectionsTopCompany[];
+  /** Per-parliament slices keyed by NS folder ("52", "51", ...). Each scope
+   * filters MPs to those whose `nsFolders` contains that NS, and recomputes
+   * the company rankings to count only the MPs in that NS. */
+  byNs: Record<string, ConnectionsRankingsScope>;
 };

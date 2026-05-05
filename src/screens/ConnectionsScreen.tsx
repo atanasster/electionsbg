@@ -16,11 +16,25 @@ import { Title } from "@/ux/Title";
 import { Card, CardContent } from "@/ux/Card";
 import { useConnectionsGraph } from "@/data/parliament/useConnectionsGraph";
 import { useConnectionsRankings } from "@/data/parliament/useConnectionsRankings";
+import { useConnectionsTopPairs } from "@/data/parliament/useConnectionsTopPairs";
+import { useElectionContext } from "@/data/ElectionContext";
+import { useSearchParam } from "@/screens/utils/useSearchParam";
+import { TopPairsList } from "@/screens/components/connections/TopPairsList";
+import {
+  exportPairsCsv,
+  downloadCsv,
+} from "@/screens/components/connections/exportPairsCsv";
+import { FindConnectionTab } from "@/screens/components/connections/FindConnectionTab";
+import { FilterRail } from "@/screens/components/connections/FilterRail";
+import { ConnectionsHero } from "@/screens/components/connections/ConnectionsHero";
+import { useConnectionsFilters } from "@/screens/components/connections/useConnectionsFilters";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import type {
   ConnectionsEdge,
   ConnectionsGraph,
   ConnectionsNode,
+  ConnectionsTopPair,
 } from "@/data/dataTypes";
 
 // d3-force mutates nodes in place — extend our typed node with the simulation
@@ -147,7 +161,152 @@ export const ConnectionsScreen: FC = () => {
   const { t } = useTranslation();
   const { graph, isLoading } = useConnectionsGraph();
   const { rankings } = useConnectionsRankings();
+  const { topPairs } = useConnectionsTopPairs();
+  const { selected: selectedElection } = useElectionContext();
   const [showRankings, setShowRankings] = useState(true);
+
+  // Active tab — URL-stateful so deep-links to e.g. ?tab=find or ?tab=graph
+  // round-trip cleanly. "ties" is the default landing experience.
+  const [tabParam, setTabParam] = useSearchParam("tab", { replace: true });
+  const activeTab =
+    tabParam === "find" || tabParam === "graph" ? tabParam : "ties";
+
+  // Filter state — lifted into the URL via useConnectionsFilters so all chips
+  // are shareable and back-button friendly.
+  const {
+    filters: connFilters,
+    setNs,
+    setCrossParty,
+    setCurrentOnly,
+    setHighConfidenceOnly,
+    setPartyPair,
+    resetAll,
+  } = useConnectionsFilters(selectedElection);
+  const selectedNs = connFilters.ns;
+
+  // Scoped rankings — when a parliament is selected and we have a per-NS
+  // slice, use it. Otherwise fall back to the lifetime list.
+  const scopedRankings = useMemo(() => {
+    if (!rankings) return undefined;
+    if (selectedNs && rankings.byNs?.[selectedNs]) {
+      const slice = rankings.byNs[selectedNs];
+      return {
+        topMps: slice.topMps,
+        topCompanies: slice.topCompanies,
+      };
+    }
+    return { topMps: rankings.topMps, topCompanies: rankings.topCompanies };
+  }, [rankings, selectedNs]);
+
+  // Scoped top pairs — apply NS scope (at least one endpoint sat in the
+  // selected NS), plus the rail's cross-party / currency / confidence
+  // filters. We don't require *both* endpoints in the selected NS because
+  // the most useful current-parliament view often surfaces "current MP X
+  // with ties to former MP Y" — the per-pair metadata still tells the user
+  // which parliament each endpoint came from.
+  const scopedPairs = useMemo(() => {
+    if (!topPairs) return [];
+    return topPairs.pairs.filter((p) => {
+      if (
+        selectedNs &&
+        !p.mpA.nsFolders.includes(selectedNs) &&
+        !p.mpB.nsFolders.includes(selectedNs)
+      ) {
+        return false;
+      }
+      if (connFilters.crossParty && !p.crossParty) return false;
+      if (connFilters.currentOnly && !p.path.isAllCurrent) return false;
+      if (connFilters.highConfidenceOnly && !p.path.isAllHighConfidence)
+        return false;
+      if (connFilters.partyPair) {
+        const [a, b] = connFilters.partyPair;
+        const pa = p.mpA.partyGroupShort ?? "Independent";
+        const pb = p.mpB.partyGroupShort ?? "Independent";
+        const matches = (pa === a && pb === b) || (pa === b && pb === a);
+        if (!matches) return false;
+      }
+      return true;
+    });
+  }, [
+    topPairs,
+    selectedNs,
+    connFilters.crossParty,
+    connFilters.currentOnly,
+    connFilters.highConfidenceOnly,
+    connFilters.partyPair,
+  ]);
+
+  const availableNsFolders = useMemo(
+    () => (rankings ? Object.keys(rankings.byNs ?? {}) : []),
+    [rankings],
+  );
+
+  // Parliament-diff mode — when on, compare scopedPairs against the prior
+  // parliament's pairs. We classify each pair as new (only in selectedNs),
+  // carried (in both), or ended (only in priorNs). Off by default.
+  const [diffMode, setDiffMode] = useState(false);
+  const priorNs = useMemo(() => {
+    if (!selectedNs) return null;
+    const n = Number(selectedNs);
+    return Number.isFinite(n) && n > 1 ? String(n - 1) : null;
+  }, [selectedNs]);
+
+  const diffPairs = useMemo(() => {
+    if (!diffMode || !topPairs || !selectedNs || !priorNs)
+      return { merged: scopedPairs, kind: () => null as null };
+
+    const inSelected = (p: ConnectionsTopPair) =>
+      p.mpA.nsFolders.includes(selectedNs) ||
+      p.mpB.nsFolders.includes(selectedNs);
+    const inPrior = (p: ConnectionsTopPair) =>
+      p.mpA.nsFolders.includes(priorNs) || p.mpB.nsFolders.includes(priorNs);
+
+    const filterByRailToggles = (p: ConnectionsTopPair) => {
+      if (connFilters.crossParty && !p.crossParty) return false;
+      if (connFilters.currentOnly && !p.path.isAllCurrent) return false;
+      if (connFilters.highConfidenceOnly && !p.path.isAllHighConfidence)
+        return false;
+      if (connFilters.partyPair) {
+        const [a, b] = connFilters.partyPair;
+        const pa = p.mpA.partyGroupShort ?? "Independent";
+        const pb = p.mpB.partyGroupShort ?? "Independent";
+        if (!((pa === a && pb === b) || (pa === b && pb === a))) return false;
+      }
+      return true;
+    };
+
+    const candidatesAfterToggles = topPairs.pairs.filter(filterByRailToggles);
+    const merged: ConnectionsTopPair[] = [];
+    const kindMap = new Map<string, "new" | "carried" | "ended">();
+    for (const p of candidatesAfterToggles) {
+      const inSel = inSelected(p);
+      const inPri = inPrior(p);
+      if (!inSel && !inPri) continue;
+      const key = `${p.mpA.nodeId}|${p.mpB.nodeId}`;
+      if (inSel && inPri) kindMap.set(key, "carried");
+      else if (inSel) kindMap.set(key, "new");
+      else kindMap.set(key, "ended");
+      merged.push(p);
+    }
+
+    return {
+      merged,
+      kind: (p: ConnectionsTopPair) => {
+        const key = `${p.mpA.nodeId}|${p.mpB.nodeId}`;
+        return kindMap.get(key) ?? null;
+      },
+    };
+  }, [
+    diffMode,
+    topPairs,
+    selectedNs,
+    priorNs,
+    scopedPairs,
+    connFilters.crossParty,
+    connFilters.currentOnly,
+    connFilters.highConfidenceOnly,
+    connFilters.partyPair,
+  ]);
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const canvasWrapRef = useRef<HTMLDivElement | null>(null);
@@ -697,445 +856,569 @@ export const ConnectionsScreen: FC = () => {
         {t("connections_title") || "Connections"}
       </Title>
 
-      {rankings && rankings.topMps.length > 0 && (
-        <Card className="my-4">
-          <CardContent className="p-3 md:p-4">
-            <div className="flex items-center justify-between mb-2">
-              <h3 className="text-sm font-semibold">
-                {t("connections_rankings_title") || "Most-connected"}
-                <span className="font-normal text-muted-foreground ml-2 text-xs">
-                  {t("connections_rankings_subtitle") ||
-                    "by high-confidence ties"}
-                </span>
-              </h3>
-              <button
-                type="button"
-                onClick={() => setShowRankings((v) => !v)}
-                className="text-xs text-primary hover:underline"
-              >
-                {showRankings
-                  ? t("connections_rankings_hide") || "Hide"
-                  : t("connections_rankings_show") || "Show"}
-              </button>
-            </div>
-            {showRankings && (
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-1">
-                <div>
-                  <div className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-1">
-                    {t("connections_rankings_top_mps") || "Top MPs"}
-                  </div>
-                  {rankings.topMps.slice(0, 10).map((row, i) => (
-                    <div
-                      key={row.mpId}
-                      className="text-xs flex items-center gap-2 py-0.5"
-                    >
-                      <span className="text-muted-foreground w-5 shrink-0 text-right">
-                        {i + 1}.
-                      </span>
-                      <MpAvatar mpId={row.mpId} name={row.label} />
-                      <Link
-                        to={`/candidate/${encodeURIComponent(row.label)}`}
-                        className="hover:underline truncate flex-1"
+      <ConnectionsHero
+        ns={selectedNs}
+        onCellClick={(a, b) => setPartyPair([a, b])}
+      />
+
+      <FilterRail
+        filters={connFilters}
+        setNs={setNs}
+        setCrossParty={setCrossParty}
+        setCurrentOnly={setCurrentOnly}
+        setHighConfidenceOnly={setHighConfidenceOnly}
+        setPartyPair={setPartyPair}
+        resetAll={resetAll}
+        availableNsFolders={availableNsFolders}
+      />
+
+      <Tabs
+        value={activeTab}
+        onValueChange={(v) => setTabParam(v === "ties" ? undefined : v)}
+        className="my-4"
+      >
+        <TabsList>
+          <TabsTrigger value="ties">
+            {t("connections_tab_ties") || "Strongest ties"}
+          </TabsTrigger>
+          <TabsTrigger value="find">
+            {t("connections_tab_find") || "Find a connection"}
+          </TabsTrigger>
+          <TabsTrigger value="graph">
+            {t("connections_tab_graph") || "Explore graph"}
+          </TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="ties">
+          {(diffMode ? diffPairs.merged.length : scopedPairs.length) > 0 && (
+            <Card className="my-4">
+              <CardContent className="p-3 md:p-4">
+                <div className="flex items-baseline justify-between mb-2 gap-2 flex-wrap">
+                  <h3 className="text-sm font-semibold">
+                    {t("connections_top_pairs_title") ||
+                      "Strongest connections"}
+                    <span className="font-normal text-muted-foreground ml-2 text-xs">
+                      {selectedNs
+                        ? t("connections_top_pairs_subtitle_scoped", {
+                            nsLabel: selectedNs,
+                          }) ||
+                          `MP↔MP ties touching the ${selectedNs}ᵗʰ parliament`
+                        : t("connections_top_pairs_subtitle_all") ||
+                          "Across all parliaments"}
+                    </span>
+                  </h3>
+                  <div className="flex items-center gap-2 text-xs">
+                    {priorNs && (
+                      <button
+                        type="button"
+                        onClick={() => setDiffMode((v) => !v)}
+                        className={
+                          diffMode
+                            ? "rounded-full border border-primary bg-primary/10 px-2 py-1 text-primary"
+                            : "rounded-full border border-border/60 px-2 py-1 text-muted-foreground hover:bg-muted"
+                        }
                       >
-                        {row.label}
-                      </Link>
-                      <span className="text-muted-foreground tabular-nums shrink-0">
-                        {row.highConfDegree}
-                      </span>
-                      {row.partyGroupShort && (
-                        <span className="text-muted-foreground text-[10px] truncate max-w-[120px] shrink-0">
-                          {row.partyGroupShort}
-                        </span>
-                      )}
-                    </div>
-                  ))}
-                </div>
-                <div>
-                  <div className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-1">
-                    {t("connections_rankings_top_companies") || "Top companies"}
-                  </div>
-                  {rankings.topCompanies.slice(0, 10).map((row, i) => (
-                    <div
-                      key={row.nodeId}
-                      className="text-xs flex items-baseline gap-2 py-0.5"
-                    >
-                      <span className="text-muted-foreground w-5 shrink-0 text-right">
-                        {i + 1}.
-                      </span>
-                      {row.slug ? (
-                        <Link
-                          to={`/mp/company/${encodeURIComponent(row.slug)}`}
-                          className="hover:underline truncate flex-1"
-                        >
-                          {row.label}
-                        </Link>
-                      ) : (
-                        <span className="truncate flex-1">{row.label}</span>
-                      )}
-                      <span className="text-muted-foreground tabular-nums shrink-0">
-                        {row.mpCount}{" "}
-                        {(t("connections_legend_mp") || "MP").toLowerCase()}
-                      </span>
-                      {row.seat && (
-                        <span className="text-muted-foreground text-[10px] truncate max-w-[100px] shrink-0">
-                          {row.seat}
-                        </span>
-                      )}
-                    </div>
-                  ))}
-                  <div className="mt-2 pt-2 border-t">
-                    <Link
-                      to="/mp/companies"
-                      className="text-xs text-primary hover:underline"
-                    >
-                      {t("connections_rankings_view_all") || "View all"} →
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            )}
-          </CardContent>
-        </Card>
-      )}
-
-      <Card className="my-4">
-        <CardContent className="p-3 md:p-4">
-          <div className="flex flex-wrap gap-3 items-center text-xs text-muted-foreground mb-3">
-            <span>
-              <span className="inline-block h-2 w-2 rounded-full bg-blue-600 mr-1 align-middle" />
-              {t("connections_legend_mp") || "MP"}
-              {": "}
-              {stats.mp}
-            </span>
-            <span>
-              <span className="inline-block h-2 w-2 rounded-full bg-amber-600 mr-1 align-middle" />
-              {t("connections_legend_company") || "Company"}
-              {": "}
-              {stats.company}
-            </span>
-            <span>
-              <span className="inline-block h-2 w-2 rounded-full bg-neutral-500 mr-1 align-middle" />
-              {t("connections_legend_person") || "Other person"}
-              {": "}
-              {stats.person}
-            </span>
-            <span>
-              {t("connections_legend_edges") || "Edges"}
-              {": "}
-              {stats.edges}
-            </span>
-            <span className="ml-auto flex gap-3 flex-wrap">
-              <label className="inline-flex gap-1 cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={filters.showCurrentOnly}
-                  onChange={(e) =>
-                    setFilters((f) => ({
-                      ...f,
-                      showCurrentOnly: e.target.checked,
-                    }))
-                  }
-                />
-                {t("connections_filter_current_only") || "Current only"}
-              </label>
-              <label className="inline-flex gap-1 cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={filters.hideTransferred}
-                  onChange={(e) =>
-                    setFilters((f) => ({
-                      ...f,
-                      hideTransferred: e.target.checked,
-                    }))
-                  }
-                />
-                {t("connections_filter_hide_transferred") || "Hide transfers"}
-              </label>
-              <label className="inline-flex gap-1 cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={filters.highConfidenceOnly}
-                  onChange={(e) =>
-                    setFilters((f) => ({
-                      ...f,
-                      highConfidenceOnly: e.target.checked,
-                    }))
-                  }
-                />
-                {t("connections_filter_high_confidence_only") ||
-                  "High confidence only"}
-              </label>
-              <label className="inline-flex gap-1 cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={filters.largestComponentOnly}
-                  onChange={(e) =>
-                    setFilters((f) => ({
-                      ...f,
-                      largestComponentOnly: e.target.checked,
-                    }))
-                  }
-                />
-                {t("connections_filter_largest_component") ||
-                  "Largest component only"}
-              </label>
-              <label className="inline-flex gap-1 cursor-pointer">
-                <input
-                  type="checkbox"
-                  checked={clusterByParty}
-                  onChange={(e) => setClusterByParty(e.target.checked)}
-                />
-                {t("connections_cluster_by_party") || "Cluster by party"}
-              </label>
-            </span>
-          </div>
-
-          <div className="flex flex-wrap gap-2 items-center text-xs mb-3 relative">
-            <div className="relative">
-              <input
-                ref={searchInputRef}
-                type="text"
-                value={searchQuery}
-                onChange={(e) => {
-                  setSearchQuery(e.target.value);
-                  setShowSearchSuggestions(true);
-                }}
-                onFocus={() => setShowSearchSuggestions(true)}
-                onBlur={() =>
-                  setTimeout(() => setShowSearchSuggestions(false), 150)
-                }
-                onKeyDown={(e) => {
-                  if (e.key === "Enter" && searchSuggestions.length > 0) {
-                    focusNode(searchSuggestions[0]);
-                  } else if (e.key === "Escape") {
-                    setSearchQuery("");
-                    setShowSearchSuggestions(false);
-                  }
-                }}
-                placeholder={
-                  t("connections_search_placeholder") || "Search node…"
-                }
-                className="px-2 py-1 rounded border border-border bg-background w-64"
-              />
-              {showSearchSuggestions && searchSuggestions.length > 0 && (
-                <div className="absolute top-full left-0 mt-1 z-10 w-64 bg-card border border-border rounded shadow-md max-h-64 overflow-y-auto">
-                  {searchSuggestions.map((n) => (
+                        {t("connections_diff_toggle", {
+                          nsLabel: selectedNs,
+                          priorLabel: priorNs,
+                        }) || `Compare ${priorNs} → ${selectedNs}`}
+                      </button>
+                    )}
                     <button
-                      key={n.id}
                       type="button"
-                      onMouseDown={(e) => {
-                        e.preventDefault();
-                        focusNode(n);
+                      onClick={() => {
+                        const blob = exportPairsCsv(
+                          diffMode ? diffPairs.merged : scopedPairs,
+                        );
+                        downloadCsv(
+                          blob,
+                          `connections-${selectedNs ?? "all"}.csv`,
+                        );
                       }}
-                      className="w-full text-left px-2 py-1.5 hover:bg-muted flex items-center gap-2 truncate"
+                      className="rounded-full border border-border/60 px-2 py-1 text-muted-foreground hover:bg-muted"
                     >
-                      {n.type === "mp" ? (
-                        <MpAvatar mpId={n.mpId} name={n.label} />
-                      ) : (
-                        <span
-                          className="inline-block h-2 w-2 rounded-full shrink-0"
-                          style={{ backgroundColor: TYPE_COLORS[n.type] }}
-                        />
-                      )}
-                      <span className="truncate">{n.label}</span>
+                      {t("connections_export_csv") || "Export CSV"}
                     </button>
-                  ))}
+                    <span className="text-muted-foreground tabular-nums">
+                      {diffMode ? diffPairs.merged.length : scopedPairs.length}
+                    </span>
+                  </div>
                 </div>
-              )}
-            </div>
-          </div>
+                <TopPairsList
+                  pairs={diffMode ? diffPairs.merged : scopedPairs}
+                  limit={20}
+                  diffKindFor={diffMode ? diffPairs.kind : undefined}
+                />
+              </CardContent>
+            </Card>
+          )}
 
-          <div className="flex flex-wrap gap-2 items-center text-xs mb-3">
-            <button
-              type="button"
-              onClick={() => {
-                setPathPickMode(true);
-                setPathFrom(null);
-                setPathTo(null);
-              }}
-              className={`px-2 py-1 rounded border ${
-                pathPickMode
-                  ? "bg-red-50 border-red-300 dark:bg-red-950/30 dark:border-red-700"
-                  : "border-border hover:bg-muted"
-              }`}
-            >
-              {t("connections_find_path") || "Find connection between two MPs"}
-            </button>
-            {pathPickMode && (
-              <span className="text-muted-foreground italic">
-                {!pathFrom
-                  ? t("connections_pick_first_mp") || "Click an MP node…"
-                  : !pathTo
-                    ? t("connections_pick_second_mp") ||
-                      "Click another MP node…"
-                    : ""}
-              </span>
-            )}
-            {(pathFrom || pathTo) && (
-              <button
-                type="button"
-                onClick={() => {
-                  setPathFrom(null);
-                  setPathTo(null);
-                  setPathPickMode(false);
-                }}
-                className="px-2 py-1 rounded border border-border hover:bg-muted"
-              >
-                {t("connections_clear_path") || "Clear"}
-              </button>
-            )}
-            {pathFrom && pathTo && pathNodeIds && pathEdgeKeys && (
-              <span className="text-muted-foreground">
-                {pathEdgeKeys.size === 0
-                  ? t("connections_no_path") || "No path between these two MPs"
-                  : `${pathFrom.label} → ${pathTo.label}: ${pathNodeIds.size - 1} ${t("connections_hops") || "hop(s)"}`}
-              </span>
-            )}
-          </div>
+          {scopedRankings && scopedRankings.topMps.length > 0 && (
+            <Card className="my-4">
+              <CardContent className="p-3 md:p-4">
+                <div className="flex items-center justify-between mb-2">
+                  <h3 className="text-sm font-semibold">
+                    {t("connections_rankings_title") || "Most-connected"}
+                    <span className="font-normal text-muted-foreground ml-2 text-xs">
+                      {t("connections_rankings_subtitle") ||
+                        "by high-confidence ties"}
+                    </span>
+                  </h3>
+                  <button
+                    type="button"
+                    onClick={() => setShowRankings((v) => !v)}
+                    className="text-xs text-primary hover:underline"
+                  >
+                    {showRankings
+                      ? t("connections_rankings_hide") || "Hide"
+                      : t("connections_rankings_show") || "Show"}
+                  </button>
+                </div>
+                {showRankings && (
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-1">
+                    <div>
+                      <div className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-1">
+                        {t("connections_rankings_top_mps") || "Top MPs"}
+                      </div>
+                      {scopedRankings.topMps.slice(0, 10).map((row, i) => (
+                        <div
+                          key={row.mpId}
+                          className="text-xs flex items-center gap-2 py-0.5"
+                        >
+                          <span className="text-muted-foreground w-5 shrink-0 text-right">
+                            {i + 1}.
+                          </span>
+                          <MpAvatar mpId={row.mpId} name={row.label} />
+                          <Link
+                            to={`/candidate/${encodeURIComponent(row.label)}`}
+                            className="hover:underline truncate flex-1"
+                          >
+                            {row.label}
+                          </Link>
+                          <span className="text-muted-foreground tabular-nums shrink-0">
+                            {row.highConfDegree}
+                          </span>
+                          {row.partyGroupShort && (
+                            <span className="text-muted-foreground text-[10px] truncate max-w-[120px] shrink-0">
+                              {row.partyGroupShort}
+                            </span>
+                          )}
+                        </div>
+                      ))}
+                    </div>
+                    <div>
+                      <div className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-1">
+                        {t("connections_rankings_top_companies") ||
+                          "Top companies"}
+                      </div>
+                      {scopedRankings.topCompanies
+                        .slice(0, 10)
+                        .map((row, i) => (
+                          <div
+                            key={row.nodeId}
+                            className="text-xs flex items-baseline gap-2 py-0.5"
+                          >
+                            <span className="text-muted-foreground w-5 shrink-0 text-right">
+                              {i + 1}.
+                            </span>
+                            {row.slug ? (
+                              <Link
+                                to={`/mp/company/${encodeURIComponent(row.slug)}`}
+                                className="hover:underline truncate flex-1"
+                              >
+                                {row.label}
+                              </Link>
+                            ) : (
+                              <span className="truncate flex-1">
+                                {row.label}
+                              </span>
+                            )}
+                            <span className="text-muted-foreground tabular-nums shrink-0">
+                              {row.mpCount}{" "}
+                              {(
+                                t("connections_legend_mp") || "MP"
+                              ).toLowerCase()}
+                            </span>
+                            {row.seat && (
+                              <span className="text-muted-foreground text-[10px] truncate max-w-[100px] shrink-0">
+                                {row.seat}
+                              </span>
+                            )}
+                          </div>
+                        ))}
+                      <div className="mt-2 pt-2 border-t">
+                        <Link
+                          to="/mp/companies"
+                          className="text-xs text-primary hover:underline"
+                        >
+                          {t("connections_rankings_view_all") || "View all"} →
+                        </Link>
+                      </div>
+                    </div>
+                  </div>
+                )}
+              </CardContent>
+            </Card>
+          )}
+        </TabsContent>
 
-          <div ref={canvasWrapRef} className="w-full relative">
-            {isLoading || !graph ? (
-              <div
-                className="text-sm text-muted-foreground"
-                style={{ height: size.h }}
-              >
-                {t("loading") || "Loading…"}
+        <TabsContent value="find">
+          <Card className="my-4">
+            <CardContent className="p-3 md:p-4">
+              <FindConnectionTab scopedNs={selectedNs} />
+            </CardContent>
+          </Card>
+        </TabsContent>
+
+        <TabsContent value="graph">
+          <Card className="my-4">
+            <CardContent className="p-3 md:p-4">
+              <div className="flex flex-wrap gap-3 items-center text-xs text-muted-foreground mb-3">
+                <span>
+                  <span className="inline-block h-2 w-2 rounded-full bg-blue-600 mr-1 align-middle" />
+                  {t("connections_legend_mp") || "MP"}
+                  {": "}
+                  {stats.mp}
+                </span>
+                <span>
+                  <span className="inline-block h-2 w-2 rounded-full bg-amber-600 mr-1 align-middle" />
+                  {t("connections_legend_company") || "Company"}
+                  {": "}
+                  {stats.company}
+                </span>
+                <span>
+                  <span className="inline-block h-2 w-2 rounded-full bg-neutral-500 mr-1 align-middle" />
+                  {t("connections_legend_person") || "Other person"}
+                  {": "}
+                  {stats.person}
+                </span>
+                <span>
+                  {t("connections_legend_edges") || "Edges"}
+                  {": "}
+                  {stats.edges}
+                </span>
+                <span className="ml-auto flex gap-3 flex-wrap">
+                  <label className="inline-flex gap-1 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={filters.showCurrentOnly}
+                      onChange={(e) =>
+                        setFilters((f) => ({
+                          ...f,
+                          showCurrentOnly: e.target.checked,
+                        }))
+                      }
+                    />
+                    {t("connections_filter_current_only") || "Current only"}
+                  </label>
+                  <label className="inline-flex gap-1 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={filters.hideTransferred}
+                      onChange={(e) =>
+                        setFilters((f) => ({
+                          ...f,
+                          hideTransferred: e.target.checked,
+                        }))
+                      }
+                    />
+                    {t("connections_filter_hide_transferred") ||
+                      "Hide transfers"}
+                  </label>
+                  <label className="inline-flex gap-1 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={filters.highConfidenceOnly}
+                      onChange={(e) =>
+                        setFilters((f) => ({
+                          ...f,
+                          highConfidenceOnly: e.target.checked,
+                        }))
+                      }
+                    />
+                    {t("connections_filter_high_confidence_only") ||
+                      "High confidence only"}
+                  </label>
+                  <label className="inline-flex gap-1 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={filters.largestComponentOnly}
+                      onChange={(e) =>
+                        setFilters((f) => ({
+                          ...f,
+                          largestComponentOnly: e.target.checked,
+                        }))
+                      }
+                    />
+                    {t("connections_filter_largest_component") ||
+                      "Largest component only"}
+                  </label>
+                  <label className="inline-flex gap-1 cursor-pointer">
+                    <input
+                      type="checkbox"
+                      checked={clusterByParty}
+                      onChange={(e) => setClusterByParty(e.target.checked)}
+                    />
+                    {t("connections_cluster_by_party") || "Cluster by party"}
+                  </label>
+                </span>
               </div>
-            ) : (
-              <canvas
-                ref={canvasRef}
-                onMouseMove={onMouseMove}
-                onMouseDown={onMouseDown}
-                onMouseUp={onMouseUp}
-                onMouseLeave={() => {
-                  draggingRef.current = null;
-                  lastMouseRef.current = null;
-                  hoveredIdRef.current = null;
-                  setHovered(null);
-                }}
-                onWheel={onWheel}
-                className="block border rounded select-none"
-                style={{ width: size.w, height: size.h, touchAction: "none" }}
-              />
-            )}
-            {detail && !isLoading && graph && (
-              <div
-                className="absolute z-10 bg-card/95 backdrop-blur-sm border rounded-md shadow-lg p-3 overflow-y-auto"
-                style={{
-                  ...(popoverCorner === "tl" || popoverCorner === "tr"
-                    ? { top: visibleVRange.top + 8 }
-                    : {
-                        bottom: Math.max(0, size.h - visibleVRange.bottom) + 8,
-                      }),
-                  ...(popoverCorner === "tl" || popoverCorner === "bl"
-                    ? { left: 8 }
-                    : { right: 8 }),
-                  maxWidth: Math.min(360, Math.max(220, size.w - 16)),
-                  maxHeight: Math.max(
-                    160,
-                    Math.floor(
-                      (visibleVRange.bottom - visibleVRange.top || size.h) *
-                        0.6,
-                    ),
-                  ),
-                }}
-              >
-                <div className="text-sm font-semibold flex items-center gap-2">
-                  {detail.type === "mp" ? (
-                    <MpAvatar
-                      mpId={detail.mpId}
-                      name={detail.label}
-                      className="h-6 w-6"
-                    />
-                  ) : (
-                    <span
-                      className="inline-block h-2 w-2 rounded-full"
-                      style={{ backgroundColor: TYPE_COLORS[detail.type] }}
-                    />
-                  )}
-                  {detail.type === "mp" ? (
-                    <Link
-                      to={`/candidate/${encodeURIComponent(detail.label)}`}
-                      className="hover:underline truncate"
-                    >
-                      {detail.label}
-                    </Link>
-                  ) : detail.type === "company" && detail.slug ? (
-                    <Link
-                      to={`/mp/company/${encodeURIComponent(detail.slug)}`}
-                      className="hover:underline truncate"
-                    >
-                      {detail.label}
-                    </Link>
-                  ) : (
-                    <span className="truncate">{detail.label}</span>
-                  )}
-                </div>
-                <div className="text-xs text-muted-foreground mt-1">
-                  {detail.type === "mp"
-                    ? (t("connections_legend_mp") || "MP") +
-                      (detail.partyGroupShort
-                        ? ` · ${detail.partyGroupShort}`
-                        : "")
-                    : detail.type === "company"
-                      ? `${t("connections_legend_company") || "Company"}${
-                          detail.legalForm ? ` · ${detail.legalForm}` : ""
-                        }${detail.uic ? ` · ${detail.uic}` : ""}`
-                      : t("connections_legend_person") || "Other person"}
-                </div>
 
-                <div className="text-xs text-muted-foreground mt-2">
-                  {t("connections_neighbors") || "Connections"}:{" "}
-                  {detailNeighbors.length}
+              <div className="flex flex-wrap gap-2 items-center text-xs mb-3 relative">
+                <div className="relative">
+                  <input
+                    ref={searchInputRef}
+                    type="text"
+                    value={searchQuery}
+                    onChange={(e) => {
+                      setSearchQuery(e.target.value);
+                      setShowSearchSuggestions(true);
+                    }}
+                    onFocus={() => setShowSearchSuggestions(true)}
+                    onBlur={() =>
+                      setTimeout(() => setShowSearchSuggestions(false), 150)
+                    }
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" && searchSuggestions.length > 0) {
+                        focusNode(searchSuggestions[0]);
+                      } else if (e.key === "Escape") {
+                        setSearchQuery("");
+                        setShowSearchSuggestions(false);
+                      }
+                    }}
+                    placeholder={
+                      t("connections_search_placeholder") || "Search node…"
+                    }
+                    className="px-2 py-1 rounded border border-border bg-background w-64"
+                  />
+                  {showSearchSuggestions && searchSuggestions.length > 0 && (
+                    <div className="absolute top-full left-0 mt-1 z-10 w-64 bg-card border border-border rounded shadow-md max-h-64 overflow-y-auto">
+                      {searchSuggestions.map((n) => (
+                        <button
+                          key={n.id}
+                          type="button"
+                          onMouseDown={(e) => {
+                            e.preventDefault();
+                            focusNode(n);
+                          }}
+                          className="w-full text-left px-2 py-1.5 hover:bg-muted flex items-center gap-2 truncate"
+                        >
+                          {n.type === "mp" ? (
+                            <MpAvatar mpId={n.mpId} name={n.label} />
+                          ) : (
+                            <span
+                              className="inline-block h-2 w-2 rounded-full shrink-0"
+                              style={{ backgroundColor: TYPE_COLORS[n.type] }}
+                            />
+                          )}
+                          <span className="truncate">{n.label}</span>
+                        </button>
+                      ))}
+                    </div>
+                  )}
                 </div>
-                <div className="text-xs mt-1 flex flex-col gap-0.5">
-                  {detailNeighbors.slice(0, 24).map((n) => (
-                    <div
-                      key={n.id}
-                      className="truncate flex items-center gap-1.5"
-                    >
-                      {n.type === "mp" ? (
+              </div>
+
+              <div className="flex flex-wrap gap-2 items-center text-xs mb-3">
+                <button
+                  type="button"
+                  onClick={() => {
+                    setPathPickMode(true);
+                    setPathFrom(null);
+                    setPathTo(null);
+                  }}
+                  className={`px-2 py-1 rounded border ${
+                    pathPickMode
+                      ? "bg-red-50 border-red-300 dark:bg-red-950/30 dark:border-red-700"
+                      : "border-border hover:bg-muted"
+                  }`}
+                >
+                  {t("connections_find_path") ||
+                    "Find connection between two MPs"}
+                </button>
+                {pathPickMode && (
+                  <span className="text-muted-foreground italic">
+                    {!pathFrom
+                      ? t("connections_pick_first_mp") || "Click an MP node…"
+                      : !pathTo
+                        ? t("connections_pick_second_mp") ||
+                          "Click another MP node…"
+                        : ""}
+                  </span>
+                )}
+                {(pathFrom || pathTo) && (
+                  <button
+                    type="button"
+                    onClick={() => {
+                      setPathFrom(null);
+                      setPathTo(null);
+                      setPathPickMode(false);
+                    }}
+                    className="px-2 py-1 rounded border border-border hover:bg-muted"
+                  >
+                    {t("connections_clear_path") || "Clear"}
+                  </button>
+                )}
+                {pathFrom && pathTo && pathNodeIds && pathEdgeKeys && (
+                  <span className="text-muted-foreground">
+                    {pathEdgeKeys.size === 0
+                      ? t("connections_no_path") ||
+                        "No path between these two MPs"
+                      : `${pathFrom.label} → ${pathTo.label}: ${pathNodeIds.size - 1} ${t("connections_hops") || "hop(s)"}`}
+                  </span>
+                )}
+              </div>
+
+              <div ref={canvasWrapRef} className="w-full relative">
+                {isLoading || !graph ? (
+                  <div
+                    className="text-sm text-muted-foreground"
+                    style={{ height: size.h }}
+                  >
+                    {t("loading") || "Loading…"}
+                  </div>
+                ) : (
+                  <canvas
+                    ref={canvasRef}
+                    onMouseMove={onMouseMove}
+                    onMouseDown={onMouseDown}
+                    onMouseUp={onMouseUp}
+                    onMouseLeave={() => {
+                      draggingRef.current = null;
+                      lastMouseRef.current = null;
+                      hoveredIdRef.current = null;
+                      setHovered(null);
+                    }}
+                    onWheel={onWheel}
+                    className="block border rounded select-none"
+                    style={{
+                      width: size.w,
+                      height: size.h,
+                      touchAction: "none",
+                    }}
+                  />
+                )}
+                {detail && !isLoading && graph && (
+                  <div
+                    className="absolute z-10 bg-card/95 backdrop-blur-sm border rounded-md shadow-lg p-3 overflow-y-auto"
+                    style={{
+                      ...(popoverCorner === "tl" || popoverCorner === "tr"
+                        ? { top: visibleVRange.top + 8 }
+                        : {
+                            bottom:
+                              Math.max(0, size.h - visibleVRange.bottom) + 8,
+                          }),
+                      ...(popoverCorner === "tl" || popoverCorner === "bl"
+                        ? { left: 8 }
+                        : { right: 8 }),
+                      maxWidth: Math.min(360, Math.max(220, size.w - 16)),
+                      maxHeight: Math.max(
+                        160,
+                        Math.floor(
+                          (visibleVRange.bottom - visibleVRange.top || size.h) *
+                            0.6,
+                        ),
+                      ),
+                    }}
+                  >
+                    <div className="text-sm font-semibold flex items-center gap-2">
+                      {detail.type === "mp" ? (
                         <MpAvatar
-                          mpId={n.mpId}
-                          name={n.label}
-                          className="h-4 w-4"
+                          mpId={detail.mpId}
+                          name={detail.label}
+                          className="h-6 w-6"
                         />
                       ) : (
                         <span
-                          className="inline-block h-1.5 w-1.5 rounded-full align-middle shrink-0"
-                          style={{ backgroundColor: TYPE_COLORS[n.type] }}
+                          className="inline-block h-2 w-2 rounded-full"
+                          style={{ backgroundColor: TYPE_COLORS[detail.type] }}
                         />
                       )}
-                      {n.type === "mp" ? (
+                      {detail.type === "mp" ? (
                         <Link
-                          to={`/candidate/${encodeURIComponent(n.label)}`}
+                          to={`/candidate/${encodeURIComponent(detail.label)}`}
                           className="hover:underline truncate"
                         >
-                          {n.label}
+                          {detail.label}
                         </Link>
-                      ) : n.type === "company" && n.slug ? (
+                      ) : detail.type === "company" && detail.slug ? (
                         <Link
-                          to={`/mp/company/${encodeURIComponent(n.slug)}`}
+                          to={`/mp/company/${encodeURIComponent(detail.slug)}`}
                           className="hover:underline truncate"
                         >
-                          {n.label}
+                          {detail.label}
                         </Link>
                       ) : (
-                        <span className="truncate">{n.label}</span>
+                        <span className="truncate">{detail.label}</span>
                       )}
                     </div>
-                  ))}
-                  {detailNeighbors.length > 24 && (
-                    <div className="text-muted-foreground italic">
-                      +{detailNeighbors.length - 24} {t("more") || "more"}…
+                    <div className="text-xs text-muted-foreground mt-1">
+                      {detail.type === "mp"
+                        ? (t("connections_legend_mp") || "MP") +
+                          (detail.partyGroupShort
+                            ? ` · ${detail.partyGroupShort}`
+                            : "")
+                        : detail.type === "company"
+                          ? `${t("connections_legend_company") || "Company"}${
+                              detail.legalForm ? ` · ${detail.legalForm}` : ""
+                            }${detail.uic ? ` · ${detail.uic}` : ""}`
+                          : t("connections_legend_person") || "Other person"}
                     </div>
-                  )}
-                </div>
+
+                    <div className="text-xs text-muted-foreground mt-2">
+                      {t("connections_neighbors") || "Connections"}:{" "}
+                      {detailNeighbors.length}
+                    </div>
+                    <div className="text-xs mt-1 flex flex-col gap-0.5">
+                      {detailNeighbors.slice(0, 24).map((n) => (
+                        <div
+                          key={n.id}
+                          className="truncate flex items-center gap-1.5"
+                        >
+                          {n.type === "mp" ? (
+                            <MpAvatar
+                              mpId={n.mpId}
+                              name={n.label}
+                              className="h-4 w-4"
+                            />
+                          ) : (
+                            <span
+                              className="inline-block h-1.5 w-1.5 rounded-full align-middle shrink-0"
+                              style={{ backgroundColor: TYPE_COLORS[n.type] }}
+                            />
+                          )}
+                          {n.type === "mp" ? (
+                            <Link
+                              to={`/candidate/${encodeURIComponent(n.label)}`}
+                              className="hover:underline truncate"
+                            >
+                              {n.label}
+                            </Link>
+                          ) : n.type === "company" && n.slug ? (
+                            <Link
+                              to={`/mp/company/${encodeURIComponent(n.slug)}`}
+                              className="hover:underline truncate"
+                            >
+                              {n.label}
+                            </Link>
+                          ) : (
+                            <span className="truncate">{n.label}</span>
+                          )}
+                        </div>
+                      ))}
+                      {detailNeighbors.length > 24 && (
+                        <div className="text-muted-foreground italic">
+                          +{detailNeighbors.length - 24} {t("more") || "more"}…
+                        </div>
+                      )}
+                    </div>
+                  </div>
+                )}
               </div>
-            )}
-          </div>
-        </CardContent>
-      </Card>
+            </CardContent>
+          </Card>
+        </TabsContent>
+      </Tabs>
     </div>
   );
 };
