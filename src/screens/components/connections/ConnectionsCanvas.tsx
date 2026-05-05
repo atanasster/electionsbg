@@ -11,6 +11,9 @@ import { useTranslation } from "react-i18next";
 import type { SimulationNodeDatum, SimulationLinkDatum } from "d3-force";
 import type { ConnectionsEdge, ConnectionsNode } from "@/data/dataTypes";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
+import { initials } from "@/lib/utils";
+import { useMps } from "@/data/parliament/useMps";
+import { useParliamentGroups } from "@/data/parliament/useParliamentGroups";
 
 /** d3-force mutates nodes in place — extend our typed node with sim fields. */
 export type ConnectionsSimNode = ConnectionsNode &
@@ -76,9 +79,25 @@ export const ConnectionsCanvas: FC<Props> = ({
   style,
 }) => {
   const { t } = useTranslation();
+  const { findMpById, findMpByName } = useMps();
+  const { lookup: lookupGroup } = useParliamentGroups();
 
   const wrapRef = useRef<HTMLDivElement | null>(null);
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
+  // Cache of MP photo images by URL so the RAF loop can render synchronously.
+  // Map value === null means "load failed"; HTMLImageElement may still be
+  // loading (check img.complete && img.naturalWidth > 0 before drawing).
+  const imageCacheRef = useRef<Map<string, HTMLImageElement | null>>(new Map());
+
+  const getMpImage = (url: string): HTMLImageElement | null => {
+    const cache = imageCacheRef.current;
+    if (cache.has(url)) return cache.get(url) ?? null;
+    const img = new Image();
+    img.onerror = () => cache.set(url, null);
+    img.src = url;
+    cache.set(url, img);
+    return img;
+  };
 
   // Camera in plain refs so the RAF render loop can read it without React
   // re-renders firing every frame.
@@ -210,19 +229,75 @@ export const ConnectionsCanvas: FC<Props> = ({
       for (const n of simNodes) {
         if (n.x == null || n.y == null) continue;
         const onPath = pathNodeIds?.has(n.id);
-        const dimmed = highlightSet && !onPath && !highlightSet.has(n.id);
-        ctx.beginPath();
-        ctx.arc(n.x, n.y, onPath ? n.radius + 1.5 : n.radius, 0, Math.PI * 2);
-        ctx.fillStyle = dimmed
-          ? "rgba(170,170,170,0.4)"
-          : onPath
-            ? "#dc2626"
-            : n.color;
-        ctx.fill();
+        const dimmed = !!(highlightSet && !onPath && !highlightSet.has(n.id));
+        const r = onPath ? n.radius + 1.5 : n.radius;
         const isHub = n.id === pinNodeId;
         const isEndpoint =
           n.id === pathEndpoints?.from?.id || n.id === pathEndpoints?.to?.id;
+
+        if (n.type === "mp") {
+          const mp = findMpById(n.mpId) ?? findMpByName(n.label);
+          const group = lookupGroup(
+            mp?.currentPartyGroupShort ?? n.partyGroupShort,
+          );
+          const ringWidth = Math.max(0.8, r * 0.18);
+          const innerR = Math.max(1, r - ringWidth);
+          const ringColor = onPath
+            ? "#dc2626"
+            : dimmed
+              ? "rgba(170,170,170,0.6)"
+              : (group?.color ?? n.color);
+
+          // Party-coloured ring
+          ctx.beginPath();
+          ctx.arc(n.x, n.y, r, 0, Math.PI * 2);
+          ctx.fillStyle = ringColor;
+          ctx.fill();
+
+          // Avatar interior (photo or initials)
+          const img = mp?.photoUrl ? getMpImage(mp.photoUrl) : null;
+          ctx.save();
+          ctx.beginPath();
+          ctx.arc(n.x, n.y, innerR, 0, Math.PI * 2);
+          ctx.clip();
+          if (img && img.complete && img.naturalWidth > 0) {
+            if (dimmed) ctx.globalAlpha = 0.45;
+            ctx.drawImage(
+              img,
+              n.x - innerR,
+              n.y - innerR,
+              innerR * 2,
+              innerR * 2,
+            );
+          } else {
+            ctx.fillStyle = dimmed ? "rgba(220,220,220,0.6)" : "#f5f5f4";
+            ctx.fill();
+            const text = initials(mp?.name ?? n.label);
+            if (text && innerR * cam.scale > 4) {
+              ctx.fillStyle = dimmed ? "rgba(80,80,80,0.7)" : "#3f3f46";
+              ctx.font = `bold ${innerR * 1.0}px system-ui, sans-serif`;
+              ctx.textAlign = "center";
+              ctx.textBaseline = "middle";
+              ctx.fillText(text, n.x, n.y);
+            }
+          }
+          ctx.restore();
+          // Restore label-drawing defaults touched inside save/restore is not
+          // needed since save/restore covers them; the loop continues.
+        } else {
+          ctx.beginPath();
+          ctx.arc(n.x, n.y, r, 0, Math.PI * 2);
+          ctx.fillStyle = dimmed
+            ? "rgba(170,170,170,0.4)"
+            : onPath
+              ? "#dc2626"
+              : n.color;
+          ctx.fill();
+        }
+
         if (selected?.id === n.id || isEndpoint || isHub) {
+          ctx.beginPath();
+          ctx.arc(n.x, n.y, r, 0, Math.PI * 2);
           ctx.strokeStyle = isEndpoint ? "#dc2626" : "#000";
           ctx.lineWidth = (isHub ? 2.5 : 2) / cam.scale;
           ctx.stroke();
@@ -264,6 +339,9 @@ export const ConnectionsCanvas: FC<Props> = ({
     pathEdgeKeys,
     pathEndpoints?.from?.id,
     pathEndpoints?.to?.id,
+    findMpById,
+    findMpByName,
+    lookupGroup,
   ]);
 
   // Choose popover corner only when the popover transitions from hidden to
