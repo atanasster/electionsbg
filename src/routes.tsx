@@ -162,6 +162,11 @@ const CandidateDonationsScreen = lazy(() =>
     default: m.CandidateDonationsScreen,
   })),
 );
+const CandidateConnectionsScreen = lazy(() =>
+  import("./screens/CandidateConnectionsScreen").then((m) => ({
+    default: m.CandidateConnectionsScreen,
+  })),
+);
 const MpCompanyScreen = lazy(() =>
   import("./screens/MpCompanyScreen").then((m) => ({
     default: m.MpCompanyScreen,
@@ -996,6 +1001,14 @@ export const AuthRoutes = () => {
           element={
             <LayoutScreen>
               <CandidateDonationsScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="candidate/:id/connections"
+          element={
+            <LayoutScreen>
+              <CandidateConnectionsScreen />
             </LayoutScreen>
           }
         />

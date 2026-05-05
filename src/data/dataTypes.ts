@@ -511,6 +511,22 @@ export type ConnectionsGraph = {
   edges: ConnectionsEdge[];
 };
 
+/** A pre-computed shortest path from one MP to another via the connections
+ * graph (companies, co-officers, owners). nodeIds is the ordered chain
+ * `[hubMpNodeId, ..., targetMpNodeId]` — so `length` (edge count) equals
+ * `nodeIds.length - 1`. The UI looks up node info from the per-MP file's
+ * `nodes` array and edges between consecutive nodeIds from `edges`. */
+export type ConnectionsPath = {
+  targetMpNodeId: string;
+  length: number;
+  nodeIds: string[];
+  /** True when every edge along this path is currently active (not historical
+   * / transferred). */
+  isAllCurrent: boolean;
+  /** True when every edge along this path has confidence: "high". */
+  isAllHighConfidence: boolean;
+};
+
 export type ConnectionsTopMp = {
   mpId: number;
   label: string;

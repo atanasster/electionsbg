@@ -1,11 +1,16 @@
 import { useQuery } from "@tanstack/react-query";
-import type { ConnectionsEdge, ConnectionsNode } from "@/data/dataTypes";
+import type {
+  ConnectionsEdge,
+  ConnectionsNode,
+  ConnectionsPath,
+} from "@/data/dataTypes";
 import { useMps } from "./useMps";
 
 export type MpConnectionsSubgraph = {
   mpNodeId: string;
   nodes: ConnectionsNode[];
   edges: ConnectionsEdge[];
+  paths: ConnectionsPath[];
 };
 
 type MpConnectionsFile = {
@@ -19,7 +24,14 @@ const fetchSubgraph = async (
   if (response.status === 404) return null;
   if (!response.ok) return null;
   const file: MpConnectionsFile = await response.json();
-  return { mpNodeId: file.mpNodeId, nodes: file.nodes, edges: file.edges };
+  return {
+    mpNodeId: file.mpNodeId,
+    nodes: file.nodes,
+    edges: file.edges,
+    // Older builds didn't emit `paths`; default to empty so the UI can
+    // safely fall back to the 1-hop graph.
+    paths: file.paths ?? [],
+  };
 };
 
 /** Fetch the precomputed 1-hop + co-officer 2-hop subgraph for a single MP.

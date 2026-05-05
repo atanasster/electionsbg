@@ -81,15 +81,31 @@ The second block lists Commerce Registry roles — both *currently active* and *
 
 The orange/green pill on each row shows the matching confidence — the same tier described in section 2. The green "high confidence" badge means the row is corroborated by something more than a bare name match (typically a same-region or same-fiscal-year cross-reference).
 
-### Mini connections graph
+### Connections to other MPs
 
-The third block is a one-hop neighbourhood view, with the MP pinned at the centre and every directly-linked company / co-officer radiating out:
+The third block answers the question the rest of the feature is built around: **does this MP share a business neighbourhood with any other MP, and if so, through what?**
 
-![Candidate mini graph](/articles/images/connections/05-candidate-mini-graph.png)
+For every MP, the offline pipeline runs a BFS over the full graph and records — up to four hops away — the shortest path to every other MP that is reachable. Those paths land directly on the candidate page as a stack of explicit chains, with each chip linking out to the company or person it represents:
 
-The header reports the totals — for Найденов, **11 companies and 5 other persons** are one hop away. Hovering a node shows its label; the "Open full graph" link takes you to the orbital page with this MP pre-selected.
+![Candidate connections to other MPs](/articles/images/connections/05-candidate-mini-graph.png)
 
-The avatar styling (party-coloured ring) is shared with the dashboard rankings rows and with the orbital page, so a person's identity stays visually consistent across the whole feature.
+The example above is **[Димитър Георгиев Димитров](/candidate/%D0%94%D0%B8%D0%BC%D0%B8%D1%82%D1%8A%D1%80%20%D0%93%D0%B5%D0%BE%D1%80%D0%B3%D0%B8%D0%B5%D0%B2%20%D0%94%D0%B8%D0%BC%D0%B8%D1%82%D1%80%D0%BE%D0%B2)** — a former MP and the most-connected node in the graph by paths-to-other-MPs (**7 paths to 7 other MPs**). Each row reads left-to-right as the chain from the hub MP to the target, with a footer that flags step count, whether every edge along it is currently active, and whether every link is high-confidence or only a name match.
+
+Two of the seven paths are direct (length 2 — both MPs touch the same company); the rest are length 4 (a shared associate sitting on two different companies). Sample rows from his page:
+
+> Димитров → **КРУМКООП - 1** → **Георги Иванов Георгиев** (ГЕРБ-СДС) — *2 steps · currently active · name-match link*
+>
+> Димитров → **АПИС МЕЛИФЕРА БЪЛГАРИЯ** → **Рашид Мехмедов Узунов** (ПБ) — *2 steps · currently active · name-match link*
+>
+> Димитров → **УСТРЕМ** → ИВАН ХРИСТОВ ИВАНОВ → **СЛЪНЦЕ БУТОВО** → **Иван Тодоров Иванов** — *4 steps · currently active · name-match link*
+
+Below the path rows is a small interactive subgraph showing only the nodes that appear in those paths — no orphan companies, no clutter. It uses the same canvas as the orbital page: drag to pan, Ctrl/Cmd+scroll to zoom, click any node for a detail popover that lists the node's metadata (party, legal form, UIC) and its full neighbour list with links.
+
+For MPs whose paths exceed the cap of 10, a "see details" link opens a dedicated page at `/candidate/:id/connections` that groups all of the paths by length — direct shared companies (length 2) first, indirect via a shared associate (length 4) below.
+
+For MPs with **no** paths to any other MP — typical of newly-seated MPs whose declarations have been filed alone, or of MPs whose declared companies share no officer with anyone else's — the tile falls back to the one-hop neighbourhood view (the same blob this section used to show before the path computation existed) so the page still tells you what companies the MP touches.
+
+The avatar styling (party-coloured ring) is shared with the dashboard rankings rows, the path popover, and with the orbital page, so a person's identity stays visually consistent across the whole feature.
 
 ---
 
@@ -145,6 +161,8 @@ Two MPs, one button. Pick "Find connection between two MPs," click two MP nodes,
 
 This is the killer feature for understanding the data, because it answers the question that is impossible to answer by reading any single declaration in isolation: *do these two people, who voted on opposite sides of the chamber, share a business neighbourhood?*
 
+The orbital page is the right surface for an *exploratory* path query — pick any two MPs and check. For the targeted version of the same question — *who is this MP connected to?* — the candidate page already answers it without a single click: the offline pipeline runs that BFS up-front and bakes the top shortest paths into every MP's per-page file. See §4 for what that block looks like.
+
 ---
 
 ## 6. Worked example — a cross-party path between two sitting MPs
@@ -158,7 +176,7 @@ Picking the example was not a guess; it was a query. Of the four sitting-MP node
 
 ![Узунов candidate page](/articles/images/connections/11-orbital-pathfind-attempt.png)
 
-But the BFS over the full graph finds a four-step path between him and Георгиев:
+The path-finder on the orbital page picks up the bridge between him and Георгиев, and so does the candidate page for the bridge node itself — the two halves of the chain show up as separate path rows on **[Димитър Георгиев Димитров](/candidate/%D0%94%D0%B8%D0%BC%D0%B8%D1%82%D1%8A%D1%80%20%D0%93%D0%B5%D0%BE%D1%80%D0%B3%D0%B8%D0%B5%D0%B2%20%D0%94%D0%B8%D0%BC%D0%B8%D1%82%D1%80%D0%BE%D0%B2)**'s "Connections to other MPs" block (the example used in §4). Concatenating those two rows yields the full cross-party chain:
 
 > **Георги Иванов Георгиев (ГЕРБ-СДС)**
 > → company **КРУМКООП - 1** (UIC 108563610, OOD)
@@ -168,9 +186,15 @@ But the BFS over the full graph finds a four-step path between him and Геор�
 
 A two-hop bridge through one intermediary MP and two companies. Read it left-to-right: a sitting GERB-SDS MP and a sitting ПБ MP both share a partnership stake (`tr_owner` / `partner` role) in two cooperatives that are in turn co-owned by a former MP (Димитров). Whether that means anything is a journalistic question, not a graph one — but the graph is what surfaces the question.
 
-**The honest caveat** — and this is the kind of thing the confidence filter was built for: every edge in this path is **medium confidence**. They are name matches against the Commerce Registry without an extra corroborating signal. If you toggle "high confidence only" on the orbital page, the path disappears, because both Димитров (the bridge) and the two cooperatives drop off the canvas entirely. That is not a bug — it is the difference between "almost certainly the same person" and "the name fits, look closer." A reader chasing this lead would want to verify the natural-person identities at the Commerce Registry portal before drawing any conclusion.
+**The honest caveat** — and this is the kind of thing the confidence filter was built for: every edge in this path is **medium confidence**. They are name matches against the Commerce Registry without an extra corroborating signal. The path footer on Димитров's candidate page flags this directly with a *name-match link* warning, and if you toggle "high confidence only" on the orbital page the path disappears entirely, because both Димитров (the bridge) and the two cooperatives drop off the canvas. That is not a bug — it is the difference between "almost certainly the same person" and "the name fits, look closer." A reader chasing this lead would want to verify the natural-person identities at the Commerce Registry portal before drawing any conclusion.
 
-For a more conservative example, the candidate page for **[Найденов](/candidate/%D0%94%D0%B8%D0%BC%D0%B8%D1%82%D1%8A%D1%80%20%D0%93%D0%B5%D0%BE%D1%80%D0%B3%D0%B8%D0%B5%D0%B2%20%D0%9D%D0%B0%D0%B9%D0%B4%D0%B5%D0%BD%D0%BE%D0%B2)** (14 high-confidence ties — every one of them corroborated) is the better starting point if you want to see the pattern before chasing the noisier bridges.
+For a more conservative example, the candidate page for currently-sitting Възраждане MP **[Димо Георгиев Дренчев](/candidate/%D0%94%D0%B8%D0%BC%D0%BE%20%D0%93%D0%B5%D0%BE%D1%80%D0%B3%D0%B8%D0%B5%D0%B2%20%D0%94%D1%80%D0%B5%D0%BD%D1%87%D0%B5%D0%B2)** shows a single direct path:
+
+> Димо Дренчев (ВЪЗРАЖДАНЕ) → **"Братя Градеви" ООД** → **Николай Дренчев** (former MP) — *2 steps · currently active · high confidence*
+
+Two brothers, one company they jointly own, both having served as MPs. Every edge is high-confidence because the natural-person identities are not in dispute — the "Дренчев" name matches uniquely to a single parliament profile in each case. It's a clean illustration of how the same data surfaces both the noisy bridges and the unambiguous ones. The third block on every candidate page (described in §4) is the place to start either kind of investigation.
+
+If you want to see the densest single MP profile in this regard, **[Найденов](/candidate/%D0%94%D0%B8%D0%BC%D0%B8%D1%82%D1%8A%D1%80%20%D0%93%D0%B5%D0%BE%D1%80%D0%B3%D0%B8%D0%B5%D0%B2%20%D0%9D%D0%B0%D0%B9%D0%B4%D0%B5%D0%BD%D0%BE%D0%B2)** (14 high-confidence ties — every one of them corroborated) is still the right page; he has no MP-to-MP paths because his Burgas textile network does not overlap with any other parliamentarian's, but the management-roles and declarations blocks above the empty-paths state are the longest in the dataset.
 
 ---
 
