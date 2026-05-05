@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { ShieldCheck, ExternalLink, CheckCircle2, Circle } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
@@ -12,15 +12,15 @@ const ConfidenceBadge: FC<{
   const { t } = useTranslation();
   const isHigh = confidence === "high";
   const label = isHigh
-    ? t("tr_confidence_high") || "high confidence"
-    : t("tr_confidence_medium") || "medium confidence";
+    ? t("tr_confidence_high") || "high"
+    : t("tr_confidence_medium") || "medium";
   return (
     <span
       title={reason}
       className={
         isHigh
-          ? "inline-flex items-center gap-1 rounded px-1.5 py-0.5 text-[10px] font-medium bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-200"
-          : "inline-flex items-center gap-1 rounded px-1.5 py-0.5 text-[10px] font-medium bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-200"
+          ? "inline-flex items-center gap-1 rounded px-1 py-px text-[10px] font-medium bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-200"
+          : "inline-flex items-center gap-1 rounded px-1 py-px text-[10px] font-medium bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-200"
       }
     >
       <ShieldCheck className="h-2.5 w-2.5" />
@@ -47,65 +47,118 @@ const trStatusLabel = (status: string, t: (k: string) => string): string => {
 };
 
 const trRoleLabel = (role: string, t: (k: string) => string): string => {
-  // We don't translate every role separately — the SQLite stores the raw
-  // identifier and the i18n table provides the labels. Fall back to the raw
-  // string if a key is missing.
   const key = `tr_role_${role}`;
   const translated = t(key);
   return translated && translated !== key ? translated : role;
 };
 
-const RoleRow: FC<{ role: MpManagementRole }> = ({ role }) => {
+type GroupedRole = {
+  uic: string;
+  companyName: string | null;
+  legalForm: string | null;
+  seat: string | null;
+  status: string;
+  confidence: "high" | "medium";
+  confidenceReason: string;
+  /** Earliest non-null erasedAt across the group, or null if any role is active. */
+  erasedAt: string | null;
+  isActive: boolean;
+  roles: MpManagementRole[];
+};
+
+const groupRolesByUic = (roles: MpManagementRole[]): GroupedRole[] => {
+  const map = new Map<string, GroupedRole>();
+  for (const r of roles) {
+    const existing = map.get(r.uic);
+    if (!existing) {
+      map.set(r.uic, {
+        uic: r.uic,
+        companyName: r.companyName,
+        legalForm: r.legalForm,
+        seat: r.seat,
+        status: r.status,
+        confidence: r.confidence,
+        confidenceReason: r.confidenceReason,
+        erasedAt: r.erasedAt,
+        isActive: r.erasedAt === null,
+        roles: [r],
+      });
+    } else {
+      existing.roles.push(r);
+      if (r.erasedAt === null) {
+        existing.isActive = true;
+        existing.erasedAt = null;
+      } else if (existing.erasedAt !== null && r.erasedAt > existing.erasedAt) {
+        existing.erasedAt = r.erasedAt;
+      }
+      if (r.confidence === "high" && existing.confidence !== "high") {
+        existing.confidence = "high";
+        existing.confidenceReason = r.confidenceReason;
+      }
+    }
+  }
+  return Array.from(map.values());
+};
+
+const RoleRow: FC<{ group: GroupedRole }> = ({ group }) => {
   const { t } = useTranslation();
-  const isActive = role.erasedAt === null;
-  const ActiveIcon = isActive ? CheckCircle2 : Circle;
+  const ActiveIcon = group.isActive ? CheckCircle2 : Circle;
+
+  const roleSummary = group.roles
+    .map((r) => {
+      const label = trRoleLabel(r.role, t);
+      return r.positionLabel ? `${label} (${r.positionLabel})` : label;
+    })
+    .join(", ");
+
   return (
-    <div className="grid grid-cols-[auto_1fr_auto] gap-3 items-center py-2 border-b last:border-b-0">
+    <div className="grid grid-cols-[auto_1fr_auto] gap-2 items-center py-1 border-b last:border-b-0">
       <ActiveIcon
         className={
-          isActive
-            ? "h-4 w-4 text-emerald-600 dark:text-emerald-400"
-            : "h-4 w-4 text-muted-foreground"
+          group.isActive
+            ? "h-3.5 w-3.5 text-emerald-600 dark:text-emerald-400"
+            : "h-3.5 w-3.5 text-muted-foreground"
         }
       />
       <div className="min-w-0">
-        <div className="text-sm font-medium truncate">
-          {role.companyName ?? "—"}
-          {role.legalForm && (
-            <span className="text-xs text-muted-foreground font-normal ml-1">
-              {role.legalForm}
+        <div className="text-sm truncate">
+          <span className="font-medium">{group.companyName ?? "—"}</span>
+          {group.legalForm && (
+            <span className="text-xs text-muted-foreground ml-1">
+              {group.legalForm}
             </span>
           )}
+          <span className="text-xs text-muted-foreground">
+            {" · "}
+            {roleSummary}
+            {" · "}
+            {trStatusLabel(group.status, t)}
+            {!group.isActive && group.erasedAt && (
+              <>
+                {" · "}
+                {t("tr_role_ended") || "ended"} {group.erasedAt.slice(0, 10)}
+              </>
+            )}
+          </span>
         </div>
-        <div className="text-xs text-muted-foreground truncate">
-          {trRoleLabel(role.role, t)}
-          {role.positionLabel ? ` · ${role.positionLabel}` : ""}
-          {" · "}
-          {trStatusLabel(role.status, t)}
-        </div>
-        {role.seat && (
-          <div className="text-xs text-muted-foreground truncate italic">
-            {role.seat}
+        {group.seat && (
+          <div className="text-[11px] text-muted-foreground truncate italic">
+            {group.seat}
           </div>
         )}
       </div>
-      <div className="text-right text-sm space-y-1">
+      <div className="flex items-center gap-2 shrink-0">
         <ConfidenceBadge
-          confidence={role.confidence}
-          reason={role.confidenceReason}
+          confidence={group.confidence}
+          reason={group.confidenceReason}
         />
-        <div className="text-[10px] text-muted-foreground">
-          {isActive
-            ? t("tr_currently_active") || "currently active"
-            : `${t("tr_role_ended") || "ended"} ${role.erasedAt?.slice(0, 10)}`}
-        </div>
         <a
-          href={`https://portal.registryagency.bg/CR/en/Reports/VerifiedPersonShortInfo?uic=${role.uic}`}
+          href={`https://portal.registryagency.bg/CR/en/Reports/VerifiedPersonShortInfo?uic=${group.uic}`}
           target="_blank"
           rel="noreferrer"
-          className="inline-flex items-center gap-1 text-[10px] text-primary hover:underline"
+          className="inline-flex items-center gap-1 text-[11px] text-primary hover:underline"
         >
-          {t("tr_eik") || "UIC"} {role.uic}
+          {group.uic}
           <ExternalLink className="h-2.5 w-2.5" />
         </a>
       </div>
@@ -117,7 +170,12 @@ export const MpManagementRoles: FC<{ name: string }> = ({ name }) => {
   const { t } = useTranslation();
   const { management } = useMpManagement(name);
 
-  if (!management || management.roles.length === 0) return null;
+  const groups = useMemo(
+    () => (management ? groupRolesByUic(management.roles) : []),
+    [management],
+  );
+
+  if (!management || groups.length === 0) return null;
 
   return (
     <Card className="my-4">
@@ -126,14 +184,14 @@ export const MpManagementRoles: FC<{ name: string }> = ({ name }) => {
           <ShieldCheck className="h-4 w-4" />
           {t("tr_management_roles") || "Management roles"}
           <span className="text-xs text-muted-foreground font-normal ml-1">
-            ({management.roles.length})
+            ({groups.length})
           </span>
         </CardTitle>
       </CardHeader>
       <CardContent>
         <div>
-          {management.roles.map((r, i) => (
-            <RoleRow key={`${r.uic}-${i}`} role={r} />
+          {groups.map((g) => (
+            <RoleRow key={g.uic} group={g} />
           ))}
         </div>
         <div className="text-xs text-muted-foreground mt-3 pt-3 border-t">
