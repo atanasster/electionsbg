@@ -11,7 +11,11 @@ import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 import { candidateUrlForMp } from "@/data/candidates/candidateSlug";
 import { Hint } from "@/ux/Hint";
 import { StatCard } from "./StatCard";
-import type { ConnectionsTopMp, DataProvenanceScope } from "@/data/dataTypes";
+import {
+  provenanceText,
+  provenanceTooltip,
+} from "./MpDeclarationsProvenance";
+import type { ConnectionsTopMp } from "@/data/dataTypes";
 
 type Props = {
   /** Optional region code (e.g. "S23"). When provided, the tile focuses on
@@ -21,69 +25,18 @@ type Props = {
   /** Optional set of region codes (e.g. Sofia's three MIRs). Used to union
    * MPs across multiple regions for a city-level view. */
   regionCodes?: string[];
+  /** When true, the tile suppresses its own provenance footer — the parent
+   * (typically a DashboardSection subtitle) is showing it instead. */
+  hideProvenance?: boolean;
   className?: string;
 };
 
 const ROWS = 5;
 
-const formatRefreshDate = (iso: string | undefined, locale: string): string => {
-  if (!iso) return "";
-  const d = new Date(iso);
-  if (Number.isNaN(d.getTime())) return "";
-  return d.toLocaleDateString(locale === "bg" ? "bg-BG" : "en-GB", {
-    month: "short",
-    year: "numeric",
-  });
-};
-
-const provenanceText = (
-  scope: DataProvenanceScope | undefined,
-  generatedAt: string | undefined,
-  locale: string,
-  t: (key: string, fallback?: string, opts?: Record<string, unknown>) => string,
-): string => {
-  if (!scope || scope.mpsWithDeclaration === 0) {
-    return t(
-      "dashboard_mp_connections_provenance_none",
-      "No declarations on file for this parliament yet",
-    );
-  }
-  const refreshed = formatRefreshDate(generatedAt, locale);
-  const opts = {
-    filed: scope.mpsWithDeclaration,
-    total: scope.mpsTotal,
-    date: refreshed,
-  };
-  if (scope.declarationYearMin === scope.declarationYearMax) {
-    return t(
-      "dashboard_mp_connections_provenance_one_year",
-      "Declarations {{year}} · {{filed}}/{{total}} MPs filed · refreshed {{date}}",
-      { ...opts, year: scope.declarationYearMin },
-    );
-  }
-  return t(
-    "dashboard_mp_connections_provenance",
-    "Declarations {{from}}–{{to}} · {{filed}}/{{total}} MPs filed · refreshed {{date}}",
-    {
-      ...opts,
-      from: scope.declarationYearMin,
-      to: scope.declarationYearMax,
-    },
-  );
-};
-
-const provenanceTooltip = (scope: DataProvenanceScope | undefined): string => {
-  if (!scope || scope.mpsWithDeclaration === 0) return "";
-  const years = Object.entries(scope.latestDeclarationYearByCount)
-    .sort((a, b) => Number(b[0]) - Number(a[0]))
-    .map(([year, count]) => `${year}: ${count}`)
-    .join(" · ");
-  return `Latest filing per MP — ${years}`;
-};
-
 export const MpConnectionsTile: FC<Props> = ({
   regionCode,
   regionCodes,
+  hideProvenance = false,
   className,
 }) => {
   const { t, i18n } = useTranslation();
@@ -219,7 +172,7 @@ export const MpConnectionsTile: FC<Props> = ({
         <Link to="/mp/companies" className="text-primary hover:underline">
           {t("dashboard_mp_connections_view_companies") || "All companies"} →
         </Link>
-        {!isRegional && provenanceScope && (
+        {!isRegional && !hideProvenance && provenanceScope && (
           <Hint
             text={provenanceTooltip(provenanceScope)}
             underline={false}

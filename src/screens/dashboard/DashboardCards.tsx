@@ -1,7 +1,18 @@
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
+import {
+  AlertTriangle,
+  Briefcase,
+  Building2,
+  CalendarDays,
+  Coins,
+  Gauge,
+  Map,
+} from "lucide-react";
 import { useNationalSummary } from "@/data/dashboard/useNationalSummary";
 import { useElectionContext } from "@/data/ElectionContext";
+import { useProblemSectionsStats } from "@/data/reports/useProblemSectionsStats";
+import { DashboardSectionId } from "@/data/articles/useArticles";
 import { PartyChangeCard } from "./cards/PartyChangeCard";
 import { TurnoutCard } from "./cards/TurnoutCard";
 import { PaperMachineCard } from "./cards/PaperMachineCard";
@@ -24,6 +35,19 @@ import { ArticlesTile } from "./ArticlesTile";
 import { MpConnectionsTile } from "./MpConnectionsTile";
 import { CarMakesTile } from "./CarMakesTile";
 import { MpAssetsTile } from "./MpAssetsTile";
+import { DashboardSection } from "./DashboardSection";
+import { MpDeclarationsProvenance } from "./MpDeclarationsProvenance";
+import { SectionArticlesProvider } from "./SectionArticlesContext";
+
+const SECTION_TOPICS: readonly DashboardSectionId[] = [
+  "votes",
+  "geography",
+  "anomalies",
+  "neighborhoods",
+  "financing",
+  "declarations",
+  "polling",
+];
 
 const SkeletonCard: FC<{ className?: string }> = ({
   className = "h-[160px]",
@@ -36,10 +60,22 @@ const SkeletonCard: FC<{ className?: string }> = ({
   </div>
 );
 
+const SkeletonSection: FC<{ rows?: number }> = ({ rows = 1 }) => (
+  <section className="mt-8 first:mt-2">
+    <div className="h-3 w-32 bg-muted rounded mb-4 animate-pulse" />
+    <div className="flex flex-col gap-4">
+      {Array.from({ length: rows }).map((_, i) => (
+        <SkeletonCard key={i} />
+      ))}
+    </div>
+  </section>
+);
+
 export const DashboardCards: FC = () => {
   const { t } = useTranslation();
   const { data, isLoading } = useNationalSummary();
   const { electionStats } = useElectionContext();
+  const { data: problemSectionsStats } = useProblemSectionsStats();
 
   // electionStats is derived synchronously from in-memory data, so we use it
   // to gate the same set of optional rows in both the skeleton and live
@@ -59,52 +95,23 @@ export const DashboardCards: FC = () => {
           <SkeletonCard />
           <SkeletonCard />
         </div>
-        <div className="grid gap-3 grid-cols-1 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] mt-3">
-          <SkeletonCard />
-          <SkeletonCard />
-        </div>
-        <div className="grid gap-3 grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] mt-3">
-          <SkeletonCard />
-          <SkeletonCard />
-        </div>
-        <div className="grid gap-3 grid-cols-1 mt-3">
-          <SkeletonCard />
-        </div>
-        {hasFlash ? (
-          <div className="grid gap-3 grid-cols-1 mt-3">
-            <SkeletonCard />
-          </div>
-        ) : null}
-        <div className="grid gap-3 grid-cols-1 mt-3">
-          <SkeletonCard />
-        </div>
-        <div className="grid gap-3 grid-cols-1 mt-3">
-          <SkeletonCard />
-        </div>
-        {hasFinancials ? (
-          <div className="grid gap-3 grid-cols-1 mt-3">
-            <SkeletonCard />
-          </div>
-        ) : null}
-        {hasRecount ? (
-          <div className="grid gap-3 grid-cols-1 mt-3">
-            <SkeletonCard />
-          </div>
-        ) : null}
-        <div className="grid gap-3 grid-cols-1 mt-3">
-          <SkeletonCard />
-        </div>
-        <div className="grid gap-3 grid-cols-1 mt-3">
-          <SkeletonCard />
-        </div>
-        <div className="grid gap-3 grid-cols-1 mt-3">
-          <SkeletonCard />
-        </div>
+        <SkeletonSection rows={2} />
+        <SkeletonSection rows={2} />
+        {hasFlash || hasRecount ? <SkeletonSection rows={2} /> : null}
+        <SkeletonSection rows={2} />
+        <SkeletonSection rows={2} />
+        {hasFinancials ? <SkeletonSection rows={1} /> : null}
+        <SkeletonSection rows={1} />
+        <SkeletonSection rows={2} />
       </section>
     );
   }
 
+  const hasTopLocations =
+    !!data.topDiaspora?.length || !!data.topCities?.length;
+
   return (
+    <SectionArticlesProvider order={SECTION_TOPICS}>
     <section aria-label={t("dashboard")} className="my-4">
       <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
         <PartyChangeCard variant="gainer" change={data.topGainer} />
@@ -118,70 +125,109 @@ export const DashboardCards: FC = () => {
           priorElection={data.priorElection}
         />
       </div>
-      <div className="grid gap-3 grid-cols-1 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)] mt-3">
-        <RegionsMapTile />
-        <PartyResultsTile parties={data.parties} />
-      </div>
-      <div className="grid gap-3 grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)] mt-3">
-        <MandatesTile parties={data.parties} />
-        <TopCandidatesStrip parties={data.parties} />
-      </div>
-      <div className="grid gap-3 grid-cols-1 lg:grid-cols-2 mt-3">
-        <MpConnectionsTile />
-        <CarMakesTile />
-      </div>
-      <div className="grid gap-3 grid-cols-1 mt-3">
-        <MpAssetsTile />
-      </div>
-      <div className="grid gap-3 grid-cols-1 mt-3">
-        <TopRegionsTile parties={data.parties} />
-      </div>
-      {data.topDiaspora?.length || data.topCities?.length ? (
-        <div className="grid gap-3 grid-cols-1 lg:grid-cols-2 mt-3">
-          {data.topDiaspora?.length ? (
-            <TopLocationsTile variant="diaspora" items={data.topDiaspora} />
-          ) : null}
-          {data.topCities?.length ? (
-            <TopLocationsTile variant="cities" items={data.topCities} />
-          ) : null}
+
+      <DashboardSection
+        id="votes"
+        title={t("dashboard_section_votes")}
+        icon={Gauge}
+        articleTopic="votes"
+      >
+        <div className="grid gap-3 grid-cols-1 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
+          <RegionsMapTile />
+          <PartyResultsTile parties={data.parties} />
         </div>
-      ) : null}
-      {hasFlash ? (
-        <div className="grid gap-3 grid-cols-1 mt-3">
-          <FlashMemoryTile parties={data.parties} />
+        <div className="grid gap-3 grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)]">
+          <MandatesTile parties={data.parties} />
+          <TopCandidatesStrip parties={data.parties} />
         </div>
-      ) : null}
-      <div className="grid gap-3 grid-cols-1 mt-3">
-        <SuspiciousSectionsTile parties={data.parties} />
-      </div>
-      <div className="grid gap-3 grid-cols-1 mt-3">
-        <ProblemSectionsTile parties={data.parties} />
-      </div>
-      <div className="grid gap-3 grid-cols-1 mt-3">
-        <ProblemVotesByPartyTile />
-      </div>
-      {hasFinancials ? (
-        <div className="grid gap-3 grid-cols-1 mt-3">
-          <TopFinancingTile parties={data.parties} />
-        </div>
-      ) : null}
-      {hasRecount ? (
-        <div className="grid gap-3 grid-cols-1 mt-3">
-          <RecountTile parties={data.parties} />
-        </div>
-      ) : null}
-      <div className="grid gap-3 grid-cols-1 mt-3">
         <HistoricalTrendsTile />
-      </div>
-      <div className="grid gap-3 grid-cols-1 mt-3">
+      </DashboardSection>
+
+      <DashboardSection
+        id="geography"
+        title={t("dashboard_section_geography")}
+        icon={Map}
+        articleTopic="geography"
+      >
+        <TopRegionsTile parties={data.parties} />
+        {hasTopLocations ? (
+          <div className="grid gap-3 grid-cols-1 lg:grid-cols-2">
+            {data.topDiaspora?.length ? (
+              <TopLocationsTile variant="diaspora" items={data.topDiaspora} />
+            ) : null}
+            {data.topCities?.length ? (
+              <TopLocationsTile variant="cities" items={data.topCities} />
+            ) : null}
+          </div>
+        ) : null}
+      </DashboardSection>
+
+      <DashboardSection
+        id="anomalies"
+        title={t("dashboard_section_anomalies")}
+        icon={AlertTriangle}
+        articleTopic="anomalies"
+      >
+        {hasFlash ? <FlashMemoryTile parties={data.parties} /> : null}
+        <SuspiciousSectionsTile parties={data.parties} />
+        {hasRecount ? <RecountTile parties={data.parties} /> : null}
+      </DashboardSection>
+
+      <DashboardSection
+        id="neighborhoods"
+        title={t("dashboard_section_neighborhoods")}
+        icon={Building2}
+        articleTopic="neighborhoods"
+      >
+        <ProblemSectionsTile parties={data.parties} />
+        <ProblemVotesByPartyTile />
+        {problemSectionsStats?.length ? (
+          <HistoricalTrendsTile
+            stats={problemSectionsStats}
+            seeDetailsTo="/reports/section/problem_sections"
+          />
+        ) : null}
+      </DashboardSection>
+
+      {hasFinancials ? (
+        <DashboardSection
+          id="financing"
+          title={t("dashboard_section_financing")}
+          icon={Coins}
+          articleTopic="financing"
+        >
+          <TopFinancingTile parties={data.parties} />
+        </DashboardSection>
+      ) : null}
+
+      <DashboardSection
+        id="declarations"
+        title={t("dashboard_section_declarations")}
+        subtitle={<MpDeclarationsProvenance />}
+        icon={Briefcase}
+        articleTopic="declarations"
+      >
+        <div className="grid gap-3 grid-cols-1 lg:grid-cols-2">
+          <MpConnectionsTile hideProvenance />
+          <CarMakesTile hideProvenance />
+        </div>
+        <MpAssetsTile />
+      </DashboardSection>
+
+      <DashboardSection
+        id="polling"
+        title={t("dashboard_section_polling")}
+        icon={CalendarDays}
+        articleTopic="polling"
+      >
         <PollsTile />
-      </div>
-      <div className="grid gap-3 grid-cols-1 mt-3">
         <AccuracyTrendsTile />
-      </div>
-      <div className="grid gap-3 grid-cols-1 mt-3">
-        <ArticlesTile />
+      </DashboardSection>
+
+      <div className="mt-6">
+        <ArticlesTile shownTopics={SECTION_TOPICS} />
       </div>
     </section>
+    </SectionArticlesProvider>
   );
 };

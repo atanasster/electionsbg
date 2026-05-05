@@ -14,12 +14,16 @@ type Props = {
   regionCode?: string;
   stats?: ElectionInfo[];
   basePath?: string;
+  // Overrides the default "See details" target. Use when the timeline lives on
+  // a route that doesn't follow the `${basePath}/timeline` pattern.
+  seeDetailsTo?: string;
 };
 
 export const HistoricalTrendsTile: FC<Props> = ({
   regionCode,
   stats: providedStats,
   basePath,
+  seeDetailsTo,
 }) => {
   const { t } = useTranslation();
   const { stats: nationalStats } = useElectionContext();
@@ -48,11 +52,12 @@ export const HistoricalTrendsTile: FC<Props> = ({
           </Hint>
           <Link
             to={
-              basePath
+              seeDetailsTo ??
+              (basePath
                 ? `${basePath}/timeline`
                 : regionCode
                   ? `/municipality/${regionCode}/timeline`
-                  : "/timeline"
+                  : "/timeline")
             }
             className="text-[10px] normal-case text-primary hover:underline"
             underline={false}

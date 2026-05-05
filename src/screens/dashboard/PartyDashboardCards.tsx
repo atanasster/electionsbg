@@ -1,6 +1,14 @@
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
+import {
+  Briefcase,
+  CalendarDays,
+  Coins,
+  Gauge,
+  Map,
+} from "lucide-react";
 import { PartyInfo } from "@/data/dataTypes";
+import { DashboardSectionId } from "@/data/articles/useArticles";
 import { useElectionContext } from "@/data/ElectionContext";
 import { usePartySummary } from "@/data/dashboard/usePartySummary";
 import { PartyVotersCard } from "./cards/PartyVotersCard";
@@ -23,6 +31,16 @@ import { PartyTopDonorsTile } from "./PartyTopDonorsTile";
 import { PartyTrajectoryTile } from "./PartyTrajectoryTile";
 import { PartyPollingDeltaTile } from "./PartyPollingDeltaTile";
 import { useFinancing } from "@/screens/components/party/campaign_financing/useFinancing";
+import { DashboardSection } from "./DashboardSection";
+import { SectionArticlesProvider } from "./SectionArticlesContext";
+
+const SECTION_TOPICS: readonly DashboardSectionId[] = [
+  "votes",
+  "geography",
+  "declarations",
+  "financing",
+  "polling",
+];
 
 const SkeletonCard: FC<{ className?: string }> = ({
   className = "h-[160px]",
@@ -86,47 +104,36 @@ export const PartyDashboardCards: FC<Props> = ({ party }) => {
             <SkeletonCard className={TILE_HEIGHTS.card} />
           </div>
         ) : null}
-        <div className="grid gap-3 grid-cols-1 mt-3">
+        <div className="grid gap-3 grid-cols-1 mt-8">
           <SkeletonCard className={TILE_HEIGHTS.assessment} />
-        </div>
-        <div className="grid gap-3 grid-cols-1 mt-3">
           <SkeletonCard className={TILE_HEIGHTS.regionSwings} />
+          <SkeletonCard className={TILE_HEIGHTS.trajectory} />
+        </div>
+        <div className="grid gap-3 grid-cols-1 mt-8">
+          <SkeletonCard className={TILE_HEIGHTS.topRegions} />
+          <SkeletonCard className={TILE_HEIGHTS.topMunicipalities} />
+          <SkeletonCard className={TILE_HEIGHTS.topSettlements} />
         </div>
         {hasPreferences ? (
-          <div className="grid gap-3 grid-cols-1 mt-3">
+          <div className="grid gap-3 grid-cols-1 mt-8">
             <SkeletonCard className={TILE_HEIGHTS.topCandidates} />
           </div>
         ) : null}
-        <div className="grid gap-3 grid-cols-1 mt-3">
-          <SkeletonCard className={TILE_HEIGHTS.topRegions} />
-        </div>
-        <div className="grid gap-3 grid-cols-1 mt-3">
-          <SkeletonCard className={TILE_HEIGHTS.trajectory} />
-        </div>
-        <div className="grid gap-3 grid-cols-1 mt-3">
-          <SkeletonCard className={TILE_HEIGHTS.pollingDelta} />
-        </div>
         {hasFinancials ? (
-          <>
-            <div className="grid gap-3 grid-cols-1 mt-3">
-              <SkeletonCard className={TILE_HEIGHTS.expenseBreakdown} />
-            </div>
-            <div className="grid gap-3 grid-cols-1 mt-3">
-              <SkeletonCard className={TILE_HEIGHTS.topDonors} />
-            </div>
-          </>
+          <div className="grid gap-3 grid-cols-1 mt-8">
+            <SkeletonCard className={TILE_HEIGHTS.expenseBreakdown} />
+            <SkeletonCard className={TILE_HEIGHTS.topDonors} />
+          </div>
         ) : null}
-        <div className="grid gap-3 grid-cols-1 mt-3">
-          <SkeletonCard className={TILE_HEIGHTS.topMunicipalities} />
-        </div>
-        <div className="grid gap-3 grid-cols-1 mt-3">
-          <SkeletonCard className={TILE_HEIGHTS.topSettlements} />
+        <div className="grid gap-3 grid-cols-1 mt-8">
+          <SkeletonCard className={TILE_HEIGHTS.pollingDelta} />
         </div>
       </section>
     );
   }
 
   return (
+    <SectionArticlesProvider order={SECTION_TOPICS}>
     <section aria-label={t("dashboard")} className="my-4">
       <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
         <div className={TILE_HEIGHTS.card}>
@@ -179,78 +186,89 @@ export const PartyDashboardCards: FC<Props> = ({ party }) => {
         </div>
       ) : null}
 
-      <div className={`grid gap-3 grid-cols-1 mt-3 ${TILE_HEIGHTS.assessment}`}>
-        <PartyAssessmentTile data={data} />
-      </div>
-
-      <div
-        className={`grid gap-3 grid-cols-1 mt-3 ${TILE_HEIGHTS.regionSwings}`}
+      <DashboardSection
+        id="votes"
+        title={t("dashboard_section_votes")}
+        icon={Gauge}
+        articleTopic="votes"
       >
-        <PartyRegionSwingsTile data={data} />
-      </div>
+        <div className={TILE_HEIGHTS.assessment}>
+          <PartyAssessmentTile data={data} />
+        </div>
+        <div className={TILE_HEIGHTS.regionSwings}>
+          <PartyRegionSwingsTile data={data} />
+        </div>
+        <div className={TILE_HEIGHTS.trajectory}>
+          <PartyTrajectoryTile data={data} />
+        </div>
+      </DashboardSection>
+
+      <DashboardSection
+        id="geography"
+        title={t("dashboard_section_geography")}
+        icon={Map}
+        articleTopic="geography"
+      >
+        <div className={TILE_HEIGHTS.topRegions}>
+          <PartyTopRegionsTile data={data} />
+        </div>
+        <div className={TILE_HEIGHTS.topMunicipalities}>
+          <PartyTopMunicipalitiesTile data={data} />
+        </div>
+        <div className={TILE_HEIGHTS.topSettlements}>
+          <PartyTopSettlementsTile data={data} />
+        </div>
+      </DashboardSection>
 
       {hasPreferences ? (
-        <div
-          className={`grid gap-3 grid-cols-1 mt-3 ${TILE_HEIGHTS.topCandidates}`}
+        <DashboardSection
+          id="declarations"
+          title={t("dashboard_section_declarations")}
+          icon={Briefcase}
+          articleTopic="declarations"
         >
-          <PartyTopCandidatesTile data={data} />
-        </div>
-      ) : null}
-
-      {hasPreferences ? (
-        <div className="grid gap-3 grid-cols-1 mt-3">
+          <div className={TILE_HEIGHTS.topCandidates}>
+            <PartyTopCandidatesTile data={data} />
+          </div>
           <PartyMpAssetsTile data={data} />
-        </div>
+        </DashboardSection>
       ) : null}
-
-      <div className={`grid gap-3 grid-cols-1 mt-3 ${TILE_HEIGHTS.topRegions}`}>
-        <PartyTopRegionsTile data={data} />
-      </div>
-
-      <div className={`grid gap-3 grid-cols-1 mt-3 ${TILE_HEIGHTS.trajectory}`}>
-        <PartyTrajectoryTile data={data} />
-      </div>
-
-      <div
-        className={`grid gap-3 grid-cols-1 mt-3 ${TILE_HEIGHTS.pollingDelta}`}
-      >
-        <PartyPollingDeltaTile data={data} />
-      </div>
 
       {hasFinancials ? (
-        <>
-          <div
-            className={`grid gap-3 grid-cols-1 mt-3 ${TILE_HEIGHTS.expenseBreakdown}`}
-          >
+        <DashboardSection
+          id="financing"
+          title={t("dashboard_section_financing")}
+          icon={Coins}
+          articleTopic="financing"
+        >
+          <div className={TILE_HEIGHTS.expenseBreakdown}>
             <PartyExpenseBreakdownTile
               filing={financing?.data.filing}
               priorFiling={priorFinancing?.data.filing}
               color={data.color}
             />
           </div>
-          <div
-            className={`grid gap-3 grid-cols-1 mt-3 ${TILE_HEIGHTS.topDonors}`}
-          >
+          <div className={TILE_HEIGHTS.topDonors}>
             <PartyTopDonorsTile
               financing={financing}
               partyNickName={data.nickName}
               color={data.color}
             />
           </div>
-        </>
+        </DashboardSection>
       ) : null}
 
-      <div
-        className={`grid gap-3 grid-cols-1 mt-3 ${TILE_HEIGHTS.topMunicipalities}`}
+      <DashboardSection
+        id="polling"
+        title={t("dashboard_section_polling")}
+        icon={CalendarDays}
+        articleTopic="polling"
       >
-        <PartyTopMunicipalitiesTile data={data} />
-      </div>
-
-      <div
-        className={`grid gap-3 grid-cols-1 mt-3 ${TILE_HEIGHTS.topSettlements}`}
-      >
-        <PartyTopSettlementsTile data={data} />
-      </div>
+        <div className={TILE_HEIGHTS.pollingDelta}>
+          <PartyPollingDeltaTile data={data} />
+        </div>
+      </DashboardSection>
     </section>
+    </SectionArticlesProvider>
   );
 };

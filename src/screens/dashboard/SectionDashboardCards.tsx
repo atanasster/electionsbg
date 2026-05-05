@@ -1,5 +1,7 @@
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
+import { AlertTriangle, Gauge } from "lucide-react";
+import { DashboardSectionId } from "@/data/articles/useArticles";
 import { useSectionSummary } from "@/data/dashboard/useSectionSummary";
 import { useSectionsVotes } from "@/data/sections/useSectionsVotes";
 import { useSectionStats } from "@/data/sections/useSectionStats";
@@ -10,6 +12,10 @@ import { HistoricalTrendsTile } from "./HistoricalTrendsTile";
 import { PartyResultsTile } from "./PartyResultsTile";
 import { FlashMemoryTile } from "./FlashMemoryTile";
 import { RecountTile } from "./RecountTile";
+import { DashboardSection } from "./DashboardSection";
+import { SectionArticlesProvider } from "./SectionArticlesContext";
+
+const SECTION_TOPICS: readonly DashboardSectionId[] = ["votes", "anomalies"];
 
 const SkeletonCard: FC<{ className?: string }> = ({
   className = "h-[140px]",
@@ -53,6 +59,7 @@ export const SectionDashboardCards: FC<Props> = ({ sectionCode }) => {
   if (!data) return null;
 
   return (
+    <SectionArticlesProvider order={SECTION_TOPICS}>
     <section aria-label={t("dashboard")} className="my-4">
       <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
         <PartyChangeCard variant="gainer" change={data.topGainer} />
@@ -66,27 +73,36 @@ export const SectionDashboardCards: FC<Props> = ({ sectionCode }) => {
           priorElection={data.priorElection}
         />
       </div>
-      <div className="grid gap-3 grid-cols-1 mt-3">
+
+      <DashboardSection
+        id="votes"
+        title={t("dashboard_section_votes")}
+        icon={Gauge}
+        articleTopic="votes"
+      >
         <PartyResultsTile parties={data.parties} basePath={basePath} />
-      </div>
-      <div className="grid gap-3 grid-cols-1 mt-3">
+        <HistoricalTrendsTile stats={stats} basePath={basePath} />
+      </DashboardSection>
+
+      <DashboardSection
+        id="anomalies"
+        title={t("dashboard_section_anomalies")}
+        icon={AlertTriangle}
+        articleTopic="anomalies"
+      >
         <FlashMemoryTile
           parties={data.parties}
           results={section?.results}
           basePath={basePath}
         />
-      </div>
-      <div className="grid gap-3 grid-cols-1 mt-3">
         <RecountTile
           parties={data.parties}
           results={section?.results}
           original={section?.original}
           basePath={basePath}
         />
-      </div>
-      <div className="grid gap-3 grid-cols-1 mt-3">
-        <HistoricalTrendsTile stats={stats} basePath={basePath} />
-      </div>
+      </DashboardSection>
     </section>
+    </SectionArticlesProvider>
   );
 };

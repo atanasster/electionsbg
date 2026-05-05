@@ -3,19 +3,31 @@ import { useTranslation } from "react-i18next";
 import { FileText } from "lucide-react";
 import { Hint } from "@/ux/Hint";
 import { Link } from "@/ux/Link";
-import { useArticles } from "@/data/articles/useArticles";
+import {
+  DashboardSectionId,
+  useArticles,
+} from "@/data/articles/useArticles";
 import { useElectionContext } from "@/data/ElectionContext";
 import { StatCard } from "./StatCard";
 
-export const ArticlesTile: FC = () => {
+type Props = {
+  // Topics already surfaced by SectionArticlesStrip on the same page. Articles
+  // whose topics are all covered above are hidden here to avoid duplication.
+  shownTopics?: readonly DashboardSectionId[];
+};
+
+export const ArticlesTile: FC<Props> = ({ shownTopics = [] }) => {
   const { t, i18n } = useTranslation();
   const lang: "bg" | "en" = i18n.language === "bg" ? "bg" : "en";
   const { selected } = useElectionContext();
   const { data: articles } = useArticles();
 
-  // Show only articles tied to the selected election. Cycles without a
-  // matching article hide the tile entirely (no empty card).
-  const matching = articles?.filter((a) => a.election === selected) ?? [];
+  const shown = new Set<DashboardSectionId>(shownTopics);
+  const matching = (articles ?? []).filter((a) => {
+    if (a.election && a.election !== selected) return false;
+    if (!a.topics || a.topics.length === 0) return true;
+    return a.topics.some((tp) => !shown.has(tp));
+  });
   if (matching.length === 0) return null;
 
   return (

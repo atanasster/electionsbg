@@ -1,5 +1,7 @@
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
+import { Coins, Gauge, Map } from "lucide-react";
+import { DashboardSectionId } from "@/data/articles/useArticles";
 import { useElectionContext } from "@/data/ElectionContext";
 import { useCandidateSummary } from "@/data/dashboard/useCandidateSummary";
 import { CandidatePreferencesCard } from "./cards/CandidatePreferencesCard";
@@ -11,6 +13,14 @@ import { CandidateTrajectoryTile } from "./CandidateTrajectoryTile";
 import { CandidateTopSettlementsTile } from "./CandidateTopSettlementsTile";
 import { CandidateTopSectionsTile } from "./CandidateTopSectionsTile";
 import { CandidateDonationsTile } from "./CandidateDonationsTile";
+import { DashboardSection } from "./DashboardSection";
+import { SectionArticlesProvider } from "./SectionArticlesContext";
+
+const SECTION_TOPICS: readonly DashboardSectionId[] = [
+  "votes",
+  "geography",
+  "financing",
+];
 
 const SkeletonCard: FC<{ className?: string }> = ({
   className = "h-[140px]",
@@ -55,6 +65,7 @@ export const CandidateDashboardCards: FC<Props> = ({ name, linkSlug }) => {
   }
 
   return (
+    <SectionArticlesProvider order={SECTION_TOPICS}>
     <section aria-label={t("dashboard")} className="my-4">
       <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
         <CandidatePreferencesCard data={data} />
@@ -66,27 +77,37 @@ export const CandidateDashboardCards: FC<Props> = ({ name, linkSlug }) => {
         <CandidateTopRegionCard data={data} />
       </div>
 
-      <div className="grid gap-3 grid-cols-1 mt-3">
+      <DashboardSection
+        id="votes"
+        title={t("dashboard_section_votes")}
+        icon={Gauge}
+        articleTopic="votes"
+      >
         <CandidateRegionsTile data={data} linkSlug={navSlug} />
-      </div>
-
-      <div className="grid gap-3 grid-cols-1 mt-3">
         <CandidateTrajectoryTile data={data} />
-      </div>
+      </DashboardSection>
 
-      <div className="grid gap-3 grid-cols-1 mt-3">
+      <DashboardSection
+        id="geography"
+        title={t("dashboard_section_geography")}
+        icon={Map}
+        articleTopic="geography"
+      >
         <CandidateTopSettlementsTile data={data} linkSlug={navSlug} />
-      </div>
-
-      <div className="grid gap-3 grid-cols-1 mt-3">
         <CandidateTopSectionsTile data={data} linkSlug={navSlug} />
-      </div>
+      </DashboardSection>
 
       {hasFinancials ? (
-        <div className="grid gap-3 grid-cols-1 mt-3">
+        <DashboardSection
+          id="financing"
+          title={t("dashboard_section_financing")}
+          icon={Coins}
+          articleTopic="financing"
+        >
           <CandidateDonationsTile name={name} linkSlug={navSlug} />
-        </div>
+        </DashboardSection>
       ) : null}
     </section>
+    </SectionArticlesProvider>
   );
 };

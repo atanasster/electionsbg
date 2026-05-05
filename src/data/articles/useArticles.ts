@@ -1,10 +1,21 @@
 import { useQuery, QueryFunctionContext } from "@tanstack/react-query";
 
+export type DashboardSectionId =
+  | "votes"
+  | "geography"
+  | "anomalies"
+  | "neighborhoods"
+  | "declarations"
+  | "financing"
+  | "history"
+  | "polling";
+
 export type ArticleMeta = {
   slug: string;
   election?: string;
   publishedAt: string;
   category?: string;
+  topics?: DashboardSectionId[];
   title: { bg: string; en: string };
   summary: { bg: string; en: string };
   ogImage?: string;
