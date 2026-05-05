@@ -32,6 +32,7 @@ import type {
   ConnectionsGraph,
   ConnectionsMpNode,
   ConnectionsNode,
+  ConnectionsPath,
   ConnectionsPersonNode,
   MpManagementFile,
   TrCompanyEnrichment,
@@ -54,9 +55,31 @@ type ParliamentIndex = { mps: MpIndexEntry[] };
 const normalizeName = (s: string) =>
   s.toUpperCase().replace(/\s+/g, " ").trim();
 
+// Bulgarian legal-entity suffix tokens. TR sometimes lists a company (rather
+// than a natural person) as an owner of another company — e.g. `"ДИТЕКС" ЕООД`
+// owns `ДИТЕКС ПРОПЪРТИ ЕООД`. Detecting the suffix lets us route those names
+// to a company node instead of fabricating a fake "person".
+const LEGAL_ENTITY_SUFFIX_RE =
+  /(?:^|[\s"„“»«'`])(ЕООД|ООД|АД|ЕАД|КД|СД|КДА|ДЗЗД|ЕТ)(?:[\s"„“»«'`.,;]|$)/u;
+
+const isLegalEntityName = (name: string): boolean =>
+  LEGAL_ENTITY_SUFFIX_RE.test(name.toUpperCase());
+
+// Strip surrounding quotes and trailing legal-form token to get a comparable
+// core name. `"ДИТЕКС" ЕООД` → `ДИТЕКС`, `ДИТЕКС ПРОПЪРТИ ЕООД` → `ДИТЕКС
+// ПРОПЪРТИ`. Used to match TR-listed company owners against the declared
+// companies index (whose `displayName` is the bare core name).
+const normalizeCompanyName = (name: string): string => {
+  let s = name.toUpperCase();
+  s = s.replace(/["„“»«'`]/g, " ");
+  s = s.replace(/(?:^|\s)(ЕООД|ООД|АД|ЕАД|КД|СД|КДА|ДЗЗД|ЕТ)(?=\s|$)/gu, " ");
+  return s.replace(/\s+/g, " ").trim();
+};
+
 const mpNodeId = (mpId: number) => `mp:${mpId}`;
 const companySlugNodeId = (slug: string) => `company:${slug}`;
 const companyUicNodeId = (uic: string) => `company:tr:${uic}`;
+const companyNameNodeId = (norm: string) => `company:name:${norm}`;
 const personNodeId = (norm: string) => `person:${norm}`;
 
 const edgeKey = (
@@ -133,6 +156,11 @@ export const buildConnectionsGraph = ({
   /** uic → company-slug nodeId, populated as we touch declared companies. Used
    * to alias TR-only company ids back to slugs when both sides resolve. */
   const uicToSlugNode = new Map<string, string>();
+  /** normalized company name → nodeId, populated as we touch any company node
+   * (declared, TR-only, or synthetic-by-name). Used to resolve a TR-listed
+   * legal-entity owner string back to an existing company instead of
+   * fabricating a person node for it. */
+  const companyByNormName = new Map<string, string>();
 
   const ensureMpNode = (mp: MpIndexEntry): string => {
     const id = mpNodeId(mp.id);
@@ -173,6 +201,8 @@ export const buildConnectionsGraph = ({
     if (enrichment?.uic) {
       uicToSlugNode.set(enrichment.uic, id);
     }
+    const normLabel = normalizeCompanyName(label);
+    if (normLabel) companyByNormName.set(normLabel, id);
     return id;
   };
 
@@ -200,6 +230,38 @@ export const buildConnectionsGraph = ({
       };
       nodes.set(id, node);
     }
+    if (label) {
+      const normLabel = normalizeCompanyName(label);
+      if (normLabel && !companyByNormName.has(normLabel)) {
+        companyByNormName.set(normLabel, id);
+      }
+    }
+    return id;
+  };
+
+  // Used when TR lists a legal entity (a company) as the owner of another
+  // company. We don't get a UIC in that record — it's just a name string —
+  // so resolve via the normalized-name index when possible, otherwise
+  // synthesize a `company:name:{...}` node so repeat appearances collapse.
+  const ensureCompanyNodeFromName = (rawName: string): string => {
+    const norm = normalizeCompanyName(rawName);
+    const existing = norm ? companyByNormName.get(norm) : undefined;
+    if (existing) return existing;
+    const id = companyNameNodeId(norm || normalizeName(rawName));
+    if (!nodes.has(id)) {
+      const node: ConnectionsCompanyNode = {
+        id,
+        type: "company",
+        label: rawName,
+        slug: null,
+        uic: null,
+        legalForm: null,
+        status: null,
+        seat: null,
+      };
+      nodes.set(id, node);
+      if (norm) companyByNormName.set(norm, id);
+    }
     return id;
   };
 
@@ -216,6 +278,15 @@ export const buildConnectionsGraph = ({
     }
     return id;
   };
+
+  // Routes a TR-listed name to either a company node (when the name carries a
+  // Bulgarian legal-entity suffix like ЕООД/ООД/АД) or a person node. The
+  // legal-entity branch prevents companies-as-owners from being fabricated as
+  // fake persons.
+  const ensurePersonOrCompanyNode = (rawName: string): string =>
+    isLegalEntityName(rawName)
+      ? ensureCompanyNodeFromName(rawName)
+      : ensurePersonNode(rawName);
 
   const addEdge = (e: ConnectionsEdge): void => {
     const k = edgeKey(e);
@@ -271,7 +342,7 @@ export const buildConnectionsGraph = ({
       for (const { p, isOwner } of all) {
         const personId = p.matchedMpId
           ? ensureMpNode(mpById.get(p.matchedMpId)!)
-          : ensurePersonNode(p.name);
+          : ensurePersonOrCompanyNode(p.name);
         addEdge({
           source: personId,
           target: companyNodeId,
@@ -366,7 +437,7 @@ export const buildConnectionsGraph = ({
             const matchedMp = mpByNormName.get(r.name_norm);
             const personId = matchedMp
               ? ensureMpNode(matchedMp)
-              : ensurePersonNode(r.name);
+              : ensurePersonOrCompanyNode(r.name);
             addEdge({
               source: personId,
               target: companyNodeId,
@@ -396,17 +467,40 @@ export const buildConnectionsGraph = ({
     }
   }
 
-  // ---- 4) Build per-MP 1-hop neighborhoods -------------------------------
+  // ---- 4) Build per-MP subgraphs (1-hop + 2-hop + MP→MP shortest paths) --
+  //
+  // Per-MP file shape:
+  //   - 1-hop neighborhood (companies the MP touches) + 2-hop (co-officers
+  //     of those companies) — keeps the small "neighborhood graph" use case.
+  //   - paths[] : pre-computed shortest paths from this MP to every other
+  //     MP reachable within MAX_PATH_LENGTH edges. Each path's nodes/edges
+  //     are unioned into nodes/edges so the UI never has to fetch the full
+  //     graph to render path chains on the candidate page.
+  //
+  // BFS from each MP gives one shortest path per (source, target) pair.
+  // Paths through the bipartite MP/person ↔ company graph have even length,
+  // so the meaningful caps are 2 (MP shares one company with another MP) and
+  // 4 (MP → company → person → company → MP). We keep a depth of 4 edges —
+  // beyond that paths become too tenuous to be evidence of anything.
 
-  // node id → set of node ids reachable in 1 hop (companies for MPs, MPs/persons for companies)
-  const adjacency = new Map<string, Set<string>>();
+  const MAX_PATH_LENGTH = 4;
+  const PATHS_PER_MP_LIMIT = 200;
+
+  // Adjacency: node id → array of {neighborId, edge}. Indexed by both ends
+  // so BFS can walk an edge from either side.
+  const adjacency = new Map<
+    string,
+    Array<{ neighbor: string; edge: ConnectionsEdge }>
+  >();
   for (const e of edges.values()) {
-    const a = adjacency.get(e.source) ?? new Set<string>();
-    a.add(e.target);
+    const a = adjacency.get(e.source) ?? [];
+    a.push({ neighbor: e.target, edge: e });
     adjacency.set(e.source, a);
-    const b = adjacency.get(e.target) ?? new Set<string>();
-    b.add(e.source);
-    adjacency.set(e.target, b);
+    if (e.target !== e.source) {
+      const b = adjacency.get(e.target) ?? [];
+      b.push({ neighbor: e.source, edge: e });
+      adjacency.set(e.target, b);
+    }
   }
 
   // Index edges by node id once so the per-MP subgraph filter is O(neighborhood)
@@ -423,26 +517,123 @@ export const buildConnectionsGraph = ({
     }
   }
 
+  // The UI wants to render the "best" edge between each consecutive node
+  // pair on a path — the most informative one when multiple roles exist
+  // (e.g. manager + partner on the same company). Pre-pick once.
+  const pickEdge = (a: string, b: string): ConnectionsEdge | undefined => {
+    const score = (e: ConnectionsEdge) =>
+      (e.isCurrent ? 2 : 0) + (e.confidence === "high" ? 1 : 0);
+    let best: ConnectionsEdge | undefined;
+    for (const { neighbor, edge } of adjacency.get(a) ?? []) {
+      if (neighbor !== b) continue;
+      if (!best || score(edge) > score(best)) best = edge;
+    }
+    return best;
+  };
+
+  const mpNodeIds = new Set<string>();
+  for (const n of nodes.values()) if (n.type === "mp") mpNodeIds.add(n.id);
+
+  /** Single-source BFS that records, for every other MP reachable within
+   * MAX_PATH_LENGTH edges, one shortest path back to source. */
+  const computePathsFrom = (sourceId: string): ConnectionsPath[] => {
+    type Entry = { prev: string | null; depth: number };
+    const visited = new Map<string, Entry>();
+    visited.set(sourceId, { prev: null, depth: 0 });
+    const queue: string[] = [sourceId];
+    const targets: string[] = [];
+
+    while (queue.length > 0) {
+      const cur = queue.shift()!;
+      const { depth } = visited.get(cur)!;
+      if (depth >= MAX_PATH_LENGTH) continue;
+      for (const { neighbor } of adjacency.get(cur) ?? []) {
+        if (visited.has(neighbor)) continue;
+        visited.set(neighbor, { prev: cur, depth: depth + 1 });
+        queue.push(neighbor);
+        if (neighbor !== sourceId && mpNodeIds.has(neighbor)) {
+          targets.push(neighbor);
+        }
+      }
+    }
+
+    const paths: ConnectionsPath[] = [];
+    for (const target of targets) {
+      const chain: string[] = [];
+      let cur: string | null = target;
+      while (cur !== null) {
+        chain.unshift(cur);
+        cur = visited.get(cur)!.prev;
+      }
+      let isAllCurrent = true;
+      let isAllHighConfidence = true;
+      for (let i = 0; i < chain.length - 1; i++) {
+        const e = pickEdge(chain[i], chain[i + 1]);
+        if (!e) {
+          isAllCurrent = false;
+          isAllHighConfidence = false;
+          break;
+        }
+        if (!e.isCurrent) isAllCurrent = false;
+        if (e.confidence !== "high") isAllHighConfidence = false;
+      }
+      paths.push({
+        targetMpNodeId: target,
+        length: chain.length - 1,
+        nodeIds: chain,
+        isAllCurrent,
+        isAllHighConfidence,
+      });
+    }
+
+    // Rank: shortest first → all-current preferred → all-high-conf
+    // preferred → alphabetical target name (stable). BFS records each
+    // target once, so no same-target dupes can occur here.
+    paths.sort((a, b) => {
+      if (a.length !== b.length) return a.length - b.length;
+      if (a.isAllCurrent !== b.isAllCurrent) return a.isAllCurrent ? -1 : 1;
+      if (a.isAllHighConfidence !== b.isAllHighConfidence)
+        return a.isAllHighConfidence ? -1 : 1;
+      const la = nodes.get(a.targetMpNodeId)?.label ?? "";
+      const lb = nodes.get(b.targetMpNodeId)?.label ?? "";
+      return la.localeCompare(lb, "bg");
+    });
+
+    return paths.slice(0, PATHS_PER_MP_LIMIT);
+  };
+
   const mpConnectionsDir = path.join(parliamentDir, "mp-connections");
   fs.rmSync(mpConnectionsDir, { recursive: true, force: true });
   fs.mkdirSync(mpConnectionsDir, { recursive: true });
 
   const generatedAt = new Date().toISOString();
   let mpFileCount = 0;
+  let totalPaths = 0;
 
   for (const node of nodes.values()) {
     if (node.type !== "mp") continue;
     const ownId = node.id;
-    const neighborCompanies = Array.from(adjacency.get(ownId) ?? []);
+    const neighborCompanies = (adjacency.get(ownId) ?? []).map(
+      (x) => x.neighbor,
+    );
     // 2-hop expansion: include co-officers/owners from each neighbor company
     const second = new Set<string>();
     for (const c of neighborCompanies) {
-      for (const n of adjacency.get(c) ?? []) {
+      for (const { neighbor: n } of adjacency.get(c) ?? []) {
         if (n !== ownId) second.add(n);
       }
     }
     const idSet = new Set<string>([ownId, ...neighborCompanies, ...second]);
-    if (idSet.size <= 1) continue; // hub-only — skip the file; fetch 404s, frontend renders nothing
+
+    // Compute paths and union all path nodes into idSet so the per-MP file
+    // carries everything the UI needs to render path chains without the
+    // global graph.
+    const paths = idSet.size > 0 ? computePathsFrom(ownId) : [];
+    for (const p of paths) {
+      for (const id of p.nodeIds) idSet.add(id);
+    }
+
+    if (idSet.size <= 1) continue; // hub-only — skip; fetch 404s, frontend renders nothing
     const subNodes: ConnectionsNode[] = [];
     for (const id of idSet) {
       const n = nodes.get(id);
@@ -466,13 +657,15 @@ export const buildConnectionsGraph = ({
         mpNodeId: ownId,
         nodes: subNodes,
         edges: subEdges,
+        paths,
       }),
       "utf-8",
     );
     mpFileCount++;
+    totalPaths += paths.length;
   }
 
-  // ---- 4) Compute headline rankings --------------------------------------
+  // ---- 5) Compute headline rankings --------------------------------------
   //
   // Surfaces "who is the most connected" without forcing users to grapple
   // with the force-directed graph. Persisted as a small JSON so the
@@ -608,7 +801,7 @@ export const buildConnectionsGraph = ({
     topCompanies: topCompaniesAll.filter((r) => r.totalDegree > 0),
   };
 
-  // ---- 5) Write outputs --------------------------------------------------
+  // ---- 6) Write outputs --------------------------------------------------
 
   const graph: ConnectionsGraph = {
     generatedAt,
@@ -635,7 +828,7 @@ export const buildConnectionsGraph = ({
       `${graph.edges.length} edges → ${fullPath}`,
   );
   console.log(
-    `[connections]   per-MP subgraphs → ${mpFileCount} files in ${mpConnectionsDir}`,
+    `[connections]   per-MP subgraphs → ${mpFileCount} files (${totalPaths} MP→MP paths total) in ${mpConnectionsDir}`,
   );
   console.log(
     `[connections]   rankings → ${rankings.topMps.length} top MPs, ` +
