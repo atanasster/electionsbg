@@ -31,6 +31,8 @@ import { useConnectionsFilters } from "@/screens/components/connections/useConne
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 import { candidateUrlForMp } from "@/data/candidates/candidateSlug";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
+import { useMps } from "@/data/parliament/useMps";
+import { useCandidateName } from "@/data/candidates/useCandidateName";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import type {
   ConnectionsEdge,
@@ -166,6 +168,20 @@ export const ConnectionsScreen: FC = () => {
   const { topPairs } = useConnectionsTopPairs();
   const { selected: selectedElection } = useElectionContext();
   const { partyGroupShortLabel } = useCanonicalParties();
+  const { findMpById } = useMps();
+  const { mpName } = useCandidateName();
+  // The connections rankings + graph JSON ship pre-rendered Bulgarian `label`
+  // strings for MP nodes; recover the MP record by id and use the locale-aware
+  // accessor so EN routes show the canonical English name without re-baking
+  // the JSON. Falls back to `label` for non-MP nodes (companies, addresses).
+  const localizedMpLabel = useCallback(
+    (mpId: number | null | undefined, fallback: string): string => {
+      if (mpId == null) return fallback;
+      const mp = findMpById(mpId);
+      return mp ? mpName(mp) : fallback;
+    },
+    [findMpById, mpName],
+  );
   const [showRankings, setShowRankings] = useState(true);
 
   // Active tab — URL-stateful so deep-links to e.g. ?tab=find or ?tab=graph
@@ -597,7 +613,9 @@ export const ConnectionsScreen: FC = () => {
           n.id === selected?.id ||
           n.radius > 6 / cam.scale + 2;
         if (!isImportant) continue;
-        ctx.fillText(n.label, n.x + n.radius + 2, n.y);
+        const label =
+          n.type === "mp" ? localizedMpLabel(n.mpId, n.label) : n.label;
+        ctx.fillText(label, n.x + n.radius + 2, n.y);
       }
 
       ctx.restore();
@@ -615,6 +633,7 @@ export const ConnectionsScreen: FC = () => {
     pathEdgeKeys,
     pathFrom?.id,
     pathTo?.id,
+    localizedMpLabel,
   ]);
 
   // ---- Search ------------------------------------------------------------
@@ -626,15 +645,24 @@ export const ConnectionsScreen: FC = () => {
     if (q.length < 2) return [];
     const matches: Array<{ n: SimNode; score: number }> = [];
     for (const n of simNodes) {
+      // Match against both the BG label and the MP's English form so a
+      // user typing "borisov" in the EN locale still finds the BG-labeled
+      // node. Companies / persons have no en form, so we just match the label.
+      const enLabel =
+        n.type === "mp" ? normalizeForSearch(localizedMpLabel(n.mpId, "")) : "";
       const label = normalizeForSearch(n.label);
-      if (!label.includes(q)) continue;
+      const labelHit = label.includes(q);
+      const enHit = enLabel ? enLabel.includes(q) : false;
+      if (!labelHit && !enHit) continue;
       // Score: exact prefix beats substring; shorter labels win ties.
-      const score = (label.startsWith(q) ? 1000 : 0) + (1000 - label.length);
+      const matched = labelHit ? label : enLabel;
+      const score =
+        (matched.startsWith(q) ? 1000 : 0) + (1000 - matched.length);
       matches.push({ n, score });
     }
     matches.sort((a, b) => b.score - a.score);
     return matches.slice(0, 8).map((m) => m.n);
-  }, [searchQuery, simNodes]);
+  }, [searchQuery, simNodes, localizedMpLabel]);
 
   const focusNode = (n: SimNode) => {
     setSelected(n);
@@ -992,32 +1020,35 @@ export const ConnectionsScreen: FC = () => {
                       <div className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-1">
                         {t("connections_rankings_top_mps") || "Top MPs"}
                       </div>
-                      {scopedRankings.topMps.slice(0, 10).map((row, i) => (
-                        <div
-                          key={row.mpId}
-                          className="text-xs flex items-center gap-2 py-0.5"
-                        >
-                          <span className="text-muted-foreground w-5 shrink-0 text-right">
-                            {i + 1}.
-                          </span>
-                          <MpAvatar mpId={row.mpId} name={row.label} />
-                          <Link
-                            to={candidateUrlForMp(row.mpId)}
-                            className="hover:underline truncate flex-1"
+                      {scopedRankings.topMps.slice(0, 10).map((row, i) => {
+                        const display = localizedMpLabel(row.mpId, row.label);
+                        return (
+                          <div
+                            key={row.mpId}
+                            className="text-xs flex items-center gap-2 py-0.5"
                           >
-                            {row.label}
-                          </Link>
-                          <span className="text-muted-foreground tabular-nums shrink-0">
-                            {row.highConfDegree}
-                          </span>
-                          {row.partyGroupShort && (
-                            <span className="text-muted-foreground text-[10px] truncate max-w-[120px] shrink-0">
-                              {partyGroupShortLabel(row.partyGroupShort) ??
-                                row.partyGroupShort}
+                            <span className="text-muted-foreground w-5 shrink-0 text-right">
+                              {i + 1}.
                             </span>
-                          )}
-                        </div>
-                      ))}
+                            <MpAvatar mpId={row.mpId} name={display} />
+                            <Link
+                              to={candidateUrlForMp(row.mpId)}
+                              className="hover:underline truncate flex-1"
+                            >
+                              {display}
+                            </Link>
+                            <span className="text-muted-foreground tabular-nums shrink-0">
+                              {row.highConfDegree}
+                            </span>
+                            {row.partyGroupShort && (
+                              <span className="text-muted-foreground text-[10px] truncate max-w-[120px] shrink-0">
+                                {partyGroupShortLabel(row.partyGroupShort) ??
+                                  row.partyGroupShort}
+                              </span>
+                            )}
+                          </div>
+                        );
+                      })}
                     </div>
                     <div>
                       <div className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-1">
@@ -1206,27 +1237,35 @@ export const ConnectionsScreen: FC = () => {
                   />
                   {showSearchSuggestions && searchSuggestions.length > 0 && (
                     <div className="absolute top-full left-0 mt-1 z-10 w-64 bg-card border border-border rounded shadow-md max-h-64 overflow-y-auto">
-                      {searchSuggestions.map((n) => (
-                        <button
-                          key={n.id}
-                          type="button"
-                          onMouseDown={(e) => {
-                            e.preventDefault();
-                            focusNode(n);
-                          }}
-                          className="w-full text-left px-2 py-1.5 hover:bg-muted flex items-center gap-2 truncate"
-                        >
-                          {n.type === "mp" ? (
-                            <MpAvatar mpId={n.mpId} name={n.label} />
-                          ) : (
-                            <span
-                              className="inline-block h-2 w-2 rounded-full shrink-0"
-                              style={{ backgroundColor: TYPE_COLORS[n.type] }}
-                            />
-                          )}
-                          <span className="truncate">{n.label}</span>
-                        </button>
-                      ))}
+                      {searchSuggestions.map((n) => {
+                        const display =
+                          n.type === "mp"
+                            ? localizedMpLabel(n.mpId, n.label)
+                            : n.label;
+                        return (
+                          <button
+                            key={n.id}
+                            type="button"
+                            onMouseDown={(e) => {
+                              e.preventDefault();
+                              focusNode(n);
+                            }}
+                            className="w-full text-left px-2 py-1.5 hover:bg-muted flex items-center gap-2 truncate"
+                          >
+                            {n.type === "mp" ? (
+                              <MpAvatar mpId={n.mpId} name={display} />
+                            ) : (
+                              <span
+                                className="inline-block h-2 w-2 rounded-full shrink-0"
+                                style={{
+                                  backgroundColor: TYPE_COLORS[n.type],
+                                }}
+                              />
+                            )}
+                            <span className="truncate">{display}</span>
+                          </button>
+                        );
+                      })}
                     </div>
                   )}
                 </div>
@@ -1335,35 +1374,47 @@ export const ConnectionsScreen: FC = () => {
                     }}
                   >
                     <div className="text-sm font-semibold flex items-center gap-2">
-                      {detail.type === "mp" ? (
-                        <MpAvatar
-                          mpId={detail.mpId}
-                          name={detail.label}
-                          className="h-6 w-6"
-                        />
-                      ) : (
-                        <span
-                          className="inline-block h-2 w-2 rounded-full"
-                          style={{ backgroundColor: TYPE_COLORS[detail.type] }}
-                        />
-                      )}
-                      {detail.type === "mp" ? (
-                        <Link
-                          to={candidateUrlForMp(detail.mpId)}
-                          className="hover:underline truncate"
-                        >
-                          {detail.label}
-                        </Link>
-                      ) : detail.type === "company" && detail.slug ? (
-                        <Link
-                          to={`/mp/company/${encodeURIComponent(detail.slug)}`}
-                          className="hover:underline truncate"
-                        >
-                          {detail.label}
-                        </Link>
-                      ) : (
-                        <span className="truncate">{detail.label}</span>
-                      )}
+                      {(() => {
+                        const detailDisplay =
+                          detail.type === "mp"
+                            ? localizedMpLabel(detail.mpId, detail.label)
+                            : detail.label;
+                        return (
+                          <>
+                            {detail.type === "mp" ? (
+                              <MpAvatar
+                                mpId={detail.mpId}
+                                name={detailDisplay}
+                                className="h-6 w-6"
+                              />
+                            ) : (
+                              <span
+                                className="inline-block h-2 w-2 rounded-full"
+                                style={{
+                                  backgroundColor: TYPE_COLORS[detail.type],
+                                }}
+                              />
+                            )}
+                            {detail.type === "mp" ? (
+                              <Link
+                                to={candidateUrlForMp(detail.mpId)}
+                                className="hover:underline truncate"
+                              >
+                                {detailDisplay}
+                              </Link>
+                            ) : detail.type === "company" && detail.slug ? (
+                              <Link
+                                to={`/mp/company/${encodeURIComponent(detail.slug)}`}
+                                className="hover:underline truncate"
+                              >
+                                {detailDisplay}
+                              </Link>
+                            ) : (
+                              <span className="truncate">{detailDisplay}</span>
+                            )}
+                          </>
+                        );
+                      })()}
                     </div>
                     <div className="text-xs text-muted-foreground mt-1">
                       {detail.type === "mp"
@@ -1383,42 +1434,50 @@ export const ConnectionsScreen: FC = () => {
                       {detailNeighbors.length}
                     </div>
                     <div className="text-xs mt-1 flex flex-col gap-0.5">
-                      {detailNeighbors.slice(0, 24).map((n) => (
-                        <div
-                          key={n.id}
-                          className="truncate flex items-center gap-1.5"
-                        >
-                          {n.type === "mp" ? (
-                            <MpAvatar
-                              mpId={n.mpId}
-                              name={n.label}
-                              className="h-4 w-4"
-                            />
-                          ) : (
-                            <span
-                              className="inline-block h-1.5 w-1.5 rounded-full align-middle shrink-0"
-                              style={{ backgroundColor: TYPE_COLORS[n.type] }}
-                            />
-                          )}
-                          {n.type === "mp" ? (
-                            <Link
-                              to={candidateUrlForMp(n.mpId)}
-                              className="hover:underline truncate"
-                            >
-                              {n.label}
-                            </Link>
-                          ) : n.type === "company" && n.slug ? (
-                            <Link
-                              to={`/mp/company/${encodeURIComponent(n.slug)}`}
-                              className="hover:underline truncate"
-                            >
-                              {n.label}
-                            </Link>
-                          ) : (
-                            <span className="truncate">{n.label}</span>
-                          )}
-                        </div>
-                      ))}
+                      {detailNeighbors.slice(0, 24).map((n) => {
+                        const nDisplay =
+                          n.type === "mp"
+                            ? localizedMpLabel(n.mpId, n.label)
+                            : n.label;
+                        return (
+                          <div
+                            key={n.id}
+                            className="truncate flex items-center gap-1.5"
+                          >
+                            {n.type === "mp" ? (
+                              <MpAvatar
+                                mpId={n.mpId}
+                                name={nDisplay}
+                                className="h-4 w-4"
+                              />
+                            ) : (
+                              <span
+                                className="inline-block h-1.5 w-1.5 rounded-full align-middle shrink-0"
+                                style={{
+                                  backgroundColor: TYPE_COLORS[n.type],
+                                }}
+                              />
+                            )}
+                            {n.type === "mp" ? (
+                              <Link
+                                to={candidateUrlForMp(n.mpId)}
+                                className="hover:underline truncate"
+                              >
+                                {nDisplay}
+                              </Link>
+                            ) : n.type === "company" && n.slug ? (
+                              <Link
+                                to={`/mp/company/${encodeURIComponent(n.slug)}`}
+                                className="hover:underline truncate"
+                              >
+                                {nDisplay}
+                              </Link>
+                            ) : (
+                              <span className="truncate">{nDisplay}</span>
+                            )}
+                          </div>
+                        );
+                      })}
                       {detailNeighbors.length > 24 && (
                         <div className="text-muted-foreground italic">
                           +{detailNeighbors.length - 24} {t("more") || "more"}…

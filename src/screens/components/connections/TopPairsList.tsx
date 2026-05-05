@@ -9,6 +9,8 @@ import type {
 } from "@/data/dataTypes";
 import { ConnectionPathRow } from "@/screens/components/candidates/ConnectionPathRow";
 import { useWatchlist } from "./useWatchlist";
+import { useMps } from "@/data/parliament/useMps";
+import { useCandidateName } from "@/data/candidates/useCandidateName";
 import { cn } from "@/lib/utils";
 
 /** Highlight kind from the parliament-diff toggle. `null` means no diff. */
@@ -78,6 +80,10 @@ const TopPairRow: FC<{
 }> = ({ pair, diffKind }) => {
   const { t } = useTranslation();
   const { isWatched, toggle } = useWatchlist();
+  const { findMpById } = useMps();
+  const { mpName } = useCandidateName();
+  const aLabel = mpName(findMpById(pair.mpA.mpId)) || pair.mpA.label;
+  const bLabel = mpName(findMpById(pair.mpB.mpId)) || pair.mpB.label;
 
   // Build the lookup tables ConnectionPathRow expects. The pair carries the
   // resolved nodes/edges so we never have to touch the global graph.
@@ -143,7 +149,7 @@ const TopPairRow: FC<{
           type="button"
           onClick={() => toggle(pair.mpA.mpId)}
           className="inline-flex items-center gap-0.5 hover:text-foreground"
-          aria-label={`Watch ${pair.mpA.label}`}
+          aria-label={`Watch ${aLabel}`}
         >
           <Star
             className={cn(
@@ -151,13 +157,13 @@ const TopPairRow: FC<{
               watchedA ? "fill-amber-400 text-amber-500" : "",
             )}
           />
-          <span className="truncate max-w-[10rem]">{pair.mpA.label}</span>
+          <span className="truncate max-w-[10rem]">{aLabel}</span>
         </button>
         <button
           type="button"
           onClick={() => toggle(pair.mpB.mpId)}
           className="inline-flex items-center gap-0.5 hover:text-foreground"
-          aria-label={`Watch ${pair.mpB.label}`}
+          aria-label={`Watch ${bLabel}`}
         >
           <Star
             className={cn(
@@ -165,7 +171,7 @@ const TopPairRow: FC<{
               watchedB ? "fill-amber-400 text-amber-500" : "",
             )}
           />
-          <span className="truncate max-w-[10rem]">{pair.mpB.label}</span>
+          <span className="truncate max-w-[10rem]">{bLabel}</span>
         </button>
         {trSourceUrl && (
           <a

@@ -37,6 +37,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 import { command, run, string, option, optional, flag, boolean } from "cmd-ts";
 import { titleCaseBgName } from "./name_case";
+import { transliterateName } from "../../src/data/candidates/transliterateName";
 
 const API = "https://www.parliament.bg/api/v1";
 const PHOTO_BASE = "https://www.parliament.bg/images/Assembly/";
@@ -88,6 +89,13 @@ type RawProfile = RawMp & {
   A_ns_CoalL_value?: string;
   A_ns_MRL_value?: string;
   A_ns_Va_id?: number;
+  // English-locale name parts. Backfilled from /api/v1/mp-profile/en/{id}
+  // when available, otherwise transliterated from the Bulgarian fields. We
+  // store the raw EN tokens (uppercase, as parliament.bg returns them) so the
+  // index/profile consumers can title-case consistently with the BG ones.
+  A_ns_MPL_Name1_en?: string;
+  A_ns_MPL_Name2_en?: string;
+  A_ns_MPL_Name3_en?: string;
   oldnsList?: {
     A_nsL_value: string;
     A_nsL_value_short: string;
@@ -288,7 +296,9 @@ const downloadPhoto = async (id: number, file: string): Promise<boolean> => {
 type IndexEntry = {
   id: number;
   name: string;
+  name_en: string; // title-cased English name (parliament.bg EN API or transliterated)
   normalizedName: string; // upper, single-spaced
+  normalizedName_en: string; // upper, single-spaced English form
   photoUrl: string;
   currentRegion: { code: string; name: string } | null;
   currentPartyGroup: string | null;
@@ -303,6 +313,24 @@ type IndexEntry = {
   scrapedAt: string;
 };
 
+// Build the English display name for an MP. Prefers parliament.bg's EN API
+// fields (already a Streamlined-System transliteration with the well-known
+// politician spellings — "BOYKO METODIEV BORISOV" → "Boyko Metodiev Borisov").
+// Falls back to algorithmic transliteration of the Bulgarian name when the
+// EN API returned nothing for this id (rare, but happens for older records).
+const buildEnglishName = (raw: RawProfile, bgName: string): string => {
+  const en = [
+    raw.A_ns_MPL_Name1_en ?? "",
+    raw.A_ns_MPL_Name2_en ?? "",
+    raw.A_ns_MPL_Name3_en ?? "",
+  ]
+    .filter(Boolean)
+    .join(" ")
+    .trim();
+  if (en) return titleCaseBgName(en);
+  return transliterateName(bgName);
+};
+
 const buildIndexEntry = (
   mp: Mp | null,
   raw: RawProfile,
@@ -314,13 +342,17 @@ const buildIndexEntry = (
   const middleName = raw.A_ns_MPL_Name2 ?? mp?.middleName ?? "";
   const familyName = raw.A_ns_MPL_Name3 ?? mp?.familyName ?? "";
   const rawName = [givenName, middleName, familyName].filter(Boolean).join(" ");
+  const titleCased = titleCaseBgName(rawName);
+  const nameEn = buildEnglishName(raw, titleCased);
   const folders = (raw.oldnsList ?? [])
     .map((t) => t.A_ns_folder)
     .filter((f): f is string => !!f);
   return {
     id,
-    name: titleCaseBgName(rawName),
+    name: titleCased,
+    name_en: nameEn,
     normalizedName: rawName.toUpperCase().replace(/\s+/g, " ").trim(),
+    normalizedName_en: nameEn.toUpperCase().replace(/\s+/g, " ").trim(),
     photoUrl: hasRealPhoto(raw.A_ns_MP_img)
       ? `${PHOTO_BASE}${raw.A_ns_MP_img}`
       : "",
@@ -343,6 +375,9 @@ const PROFILE_KEEP = new Set([
   "A_ns_MPL_Name1",
   "A_ns_MPL_Name2",
   "A_ns_MPL_Name3",
+  "A_ns_MPL_Name1_en",
+  "A_ns_MPL_Name2_en",
+  "A_ns_MPL_Name3_en",
   "A_ns_MP_BDate",
   "A_ns_B_Country",
   "A_ns_B_City",
@@ -476,6 +511,7 @@ const runHistory = async (opts: {
         const useCache =
           fs.existsSync(profileFile) && !(opts.refreshCurrent && isCurrent);
         let raw: RawProfile;
+        let fetchedFresh = false;
         if (useCache) {
           raw = JSON.parse(fs.readFileSync(profileFile, "utf8"));
         } else {
@@ -491,6 +527,28 @@ const runHistory = async (opts: {
           if (!raw.A_ns_MP_id) {
             empty++;
             continue;
+          }
+          fetchedFresh = true;
+        }
+        // Backfill English name parts from /api/v1/mp-profile/en/{id}. Fetched
+        // once per MP and persisted into the same trimmed profile JSON so
+        // subsequent runs serve from cache. Older cached profiles miss these
+        // keys; treat them as a one-time backfill on the next run.
+        const needsEnFetch =
+          fetchedFresh || !raw.A_ns_MPL_Name1_en || !raw.A_ns_MPL_Name3_en;
+        if (needsEnFetch) {
+          try {
+            const rawEn = await fetchJson<RawProfile>(
+              `${API}/mp-profile/en/${id}`,
+            );
+            if (rawEn && rawEn.A_ns_MPL_Name1) {
+              raw.A_ns_MPL_Name1_en = rawEn.A_ns_MPL_Name1;
+              raw.A_ns_MPL_Name2_en = rawEn.A_ns_MPL_Name2;
+              raw.A_ns_MPL_Name3_en = rawEn.A_ns_MPL_Name3;
+            }
+          } catch {
+            // EN profile missing — buildIndexEntry will fall back to the
+            // transliterator. No-op.
           }
         }
         const mp = currentMps.get(id) ?? null;
@@ -514,8 +572,10 @@ const runHistory = async (opts: {
           if (byName) entry.scrapedAt = byName;
         }
         index.push(entry);
-        // Persist trimmed profile (one file per MP — small, lazily fetched by frontend)
-        if (!useCache) {
+        // Persist trimmed profile (one file per MP — small, lazily fetched by
+        // frontend). Re-write cached files too when EN fields were backfilled,
+        // so subsequent runs don't re-hit the EN API for the same MP.
+        if (!useCache || needsEnFetch) {
           fs.writeFileSync(
             profileFile,
             JSON.stringify(

@@ -7,6 +7,7 @@ import { useAssetsRankings } from "@/data/parliament/useAssetsRankings";
 import { useMps } from "@/data/parliament/useMps";
 import { useElectionContext } from "@/data/ElectionContext";
 import { useCandidates } from "@/data/preferences/useCandidates";
+import { useCandidateName } from "@/data/candidates/useCandidateName";
 import { electionToNsFolder } from "@/data/parliament/nsFolders";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 import { candidateUrlForMp } from "@/data/candidates/candidateSlug";
@@ -54,7 +55,8 @@ export const PartyMpAssetsTile: FC<Props> = ({ data }) => {
   const { selected } = useElectionContext();
   const { rankings } = useAssetsRankings();
   const { findCandidate } = useCandidates();
-  const { findMpByName } = useMps();
+  const { findMpByName, findMpById } = useMps();
+  const { mpName } = useCandidateName();
 
   const { data: stats } = useQuery({
     queryKey: ["party_preferences_stats", selected, data.partyNum] as [
@@ -122,6 +124,11 @@ export const PartyMpAssetsTile: FC<Props> = ({ data }) => {
       <div className="mt-1">
         {topMps.map((row, i) => {
           const delta = row.delta;
+          // The rankings JSON ships a Bulgarian-only `label`; recover the MP
+          // record so we can show the locale-correct name without re-baking
+          // the rankings file.
+          const mp = findMpById(row.mpId);
+          const display = mp ? mpName(mp) : row.label;
           return (
             <div
               key={row.mpId}
@@ -130,12 +137,12 @@ export const PartyMpAssetsTile: FC<Props> = ({ data }) => {
               <span className="text-muted-foreground w-4 shrink-0 text-right tabular-nums">
                 {i + 1}.
               </span>
-              <MpAvatar mpId={row.mpId} name={row.label} />
+              <MpAvatar mpId={row.mpId} name={display} />
               <Link
                 to={candidateUrlForMp(row.mpId)}
                 className="hover:underline truncate flex-1"
               >
-                {row.label}
+                {display}
               </Link>
               <span className="text-muted-foreground text-[10px] tabular-nums shrink-0 hidden sm:inline">
                 {row.latestDeclarationYear}

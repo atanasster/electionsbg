@@ -21,6 +21,7 @@ import { Tooltip } from "@/ux/Tooltip";
 import { Hint } from "@/ux/Hint";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { initials, firstLastName } from "@/lib/utils";
+import { useCandidateName } from "@/data/candidates/useCandidateName";
 import { StatCard } from "./StatCard";
 
 type Props = {
@@ -58,6 +59,7 @@ export const TopCandidatesStrip: FC<Props> = ({
   const { childrenFor } = useParliamentGroups();
   const { findRegion } = useRegions();
   const { displayNameFor } = useCanonicalParties();
+  const { candidateName } = useCandidateName();
 
   // True when the selected election seated the currently-sitting NS — only
   // then can we trust per-MP `currentPartyGroupShort` to attribute candidates
@@ -150,12 +152,22 @@ export const TopCandidatesStrip: FC<Props> = ({
 
       const mp = findMpByName(candidate.name);
 
+      // Display name follows the active language. The Bulgarian form remains
+      // the canonical lookup key so /candidate/* URLs use the same slugs as
+      // the rest of the app.
+      const displayName = candidateName({
+        name: candidate.name,
+        // Prefer the matched MP's name_en (Wikipedia spelling); fall back to
+        // the candidate row's own transliterated form.
+        name_en: mp?.name_en ?? candidate.name_en,
+      });
       return {
         rowKey: `${p.partyNum}${override ? `:${override.keySuffix}` : ""}`,
         partyNum: p.partyNum,
         partyNickName: override?.partyNickName ?? p.nickName,
         color: override?.color ?? p.color ?? "#888",
-        candidateName: candidate.name,
+        candidateName: displayName,
+        candidateNameBg: candidate.name,
         totalVotes,
         paperVotes,
         machineVotes,
@@ -222,6 +234,7 @@ export const TopCandidatesStrip: FC<Props> = ({
     ekatte,
     childrenFor,
     isCurrentNs,
+    candidateName,
   ]);
 
   if (rows.length === 0) return null;
@@ -326,7 +339,7 @@ export const TopCandidatesStrip: FC<Props> = ({
               to={candidateUrlFor({
                 mpId: r.mpId,
                 partyNum: r.partyNum,
-                name: r.candidateName!,
+                name: r.candidateNameBg,
               })}
               underline={false}
               className="flex items-center gap-3 p-2 rounded-lg border border-border/60 hover:bg-muted/40 transition-colors min-w-0 flex-1 basis-[180px] max-w-[260px]"

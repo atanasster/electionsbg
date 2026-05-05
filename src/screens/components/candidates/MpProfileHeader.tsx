@@ -4,6 +4,15 @@ import { Calendar, Languages, MapPin, ExternalLink, Award } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent } from "@/ux/Card";
 import { useMpProfile } from "@/data/parliament/useMpProfile";
+import { useCandidateName } from "@/data/candidates/useCandidateName";
+import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
+import {
+  localizeCountry,
+  localizeNs,
+  localizeNsShort,
+  localizePosition,
+  localizeRegionName,
+} from "@/data/parliament/localizeMpProfile";
 import { initials } from "@/lib/utils";
 
 const formatDate = (iso: string | null, lang: string) => {
@@ -21,29 +30,47 @@ const formatDate = (iso: string | null, lang: string) => {
 
 export const MpProfileHeader: FC<{ name: string }> = ({ name }) => {
   const { t, i18n } = useTranslation();
+  const isEn = i18n.language === "en";
   const { profile, indexEntry, ns } = useMpProfile(name);
+  const { mpName } = useCandidateName();
+  const { partyGroupShortLabel } = useCanonicalParties();
 
   // Show as soon as we have the index entry — even before the heavier profile loads
   if (!indexEntry) return null;
 
+  const localizedName = mpName(indexEntry);
   const photoUrl = indexEntry.photoUrl;
   const region = profile?.region ?? indexEntry.currentRegion;
   const partyGroup = profile?.partyGroup ?? indexEntry.currentPartyGroup;
+  const partyGroupShort =
+    profile?.partyGroupShort ?? indexEntry.currentPartyGroupShort;
+  const partyGroupDisplay = isEn
+    ? (partyGroupShortLabel(partyGroupShort) ?? partyGroup)
+    : partyGroup;
   const position = profile?.position ?? indexEntry.position;
+  const positionDisplay = localizePosition(position, isEn);
   const isCurrent = indexEntry.isCurrent;
+  const nsDisplay = ns ? localizeNs(ns, isEn) : null;
 
+  const birthCountryDisplay = localizeCountry(profile?.birthCountry, isEn);
   const birthLine = [
     formatDate(profile?.birthDate ?? indexEntry.birthDate, i18n.language),
-    profile?.birthCity && profile?.birthCountry
-      ? `${profile.birthCity}, ${profile.birthCountry}`
-      : profile?.birthCity || profile?.birthCountry,
+    profile?.birthCity && birthCountryDisplay
+      ? `${profile.birthCity}, ${birthCountryDisplay}`
+      : profile?.birthCity || birthCountryDisplay,
   ]
     .filter(Boolean)
     .join(" · ");
 
+  const regionName = region?.name
+    ? localizeRegionName(region.name, isEn)
+    : null;
+
   const allTerms = [
-    ...(profile?.pastTerms.map((t) => t.nsShort) ?? []),
-    ...(isCurrent && ns ? [ns.replace(" Народно събрание", " НС")] : []),
+    ...(profile?.pastTerms.map((t) => localizeNsShort(t.nsShort, isEn)) ?? []),
+    ...(isCurrent && ns
+      ? [localizeNsShort(ns.replace(" Народно събрание", " НС"), isEn)]
+      : []),
   ];
 
   return (
@@ -53,28 +80,28 @@ export const MpProfileHeader: FC<{ name: string }> = ({ name }) => {
           <Avatar className="h-28 w-28 md:h-32 md:w-32 shrink-0 ring-2 ring-border">
             <AvatarImage
               src={photoUrl}
-              alt={indexEntry.name}
+              alt={localizedName}
               className="object-cover"
             />
             <AvatarFallback className="text-xl font-bold bg-muted">
-              {initials(indexEntry.name)}
+              {initials(localizedName)}
             </AvatarFallback>
           </Avatar>
 
           <div className="flex flex-col gap-2 min-w-0 flex-1 text-center sm:text-left">
             <div className="flex flex-col gap-0.5">
-              {isCurrent && ns ? (
+              {isCurrent && nsDisplay ? (
                 <div className="text-sm text-muted-foreground">
-                  {ns}
-                  {position ? ` · ${position}` : ""}
+                  {nsDisplay}
+                  {positionDisplay ? ` · ${positionDisplay}` : ""}
                 </div>
               ) : (
                 <div className="text-sm text-muted-foreground">
                   {t("former_mp") || "Former MP"}
                 </div>
               )}
-              {partyGroup && (
-                <div className="text-sm font-semibold">{partyGroup}</div>
+              {partyGroupDisplay && (
+                <div className="text-sm font-semibold">{partyGroupDisplay}</div>
               )}
             </div>
 
@@ -85,12 +112,12 @@ export const MpProfileHeader: FC<{ name: string }> = ({ name }) => {
                   <span>{birthLine}</span>
                 </div>
               )}
-              {region?.name && (
+              {regionName && (
                 <div className="flex items-center gap-1.5 text-muted-foreground">
                   <MapPin className="h-3.5 w-3.5 shrink-0" />
                   <span>
-                    {region.code ? `${region.code}-` : ""}
-                    {region.name}
+                    {region?.code ? `${region.code}-` : ""}
+                    {regionName}
                   </span>
                 </div>
               )}

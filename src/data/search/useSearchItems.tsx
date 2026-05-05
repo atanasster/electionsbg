@@ -89,22 +89,33 @@ export const useSearchItems = () => {
           name_en: r.name_en,
         });
       });
-      const candidateOblasts = new Map<string, Set<string>>();
+      const candidateOblasts = new Map<
+        string,
+        { en: string; oblasts: Set<string> }
+      >();
       candidates?.forEach((r) => {
         if (!candidateOblasts.has(r.name)) {
-          candidateOblasts.set(r.name, new Set());
+          candidateOblasts.set(r.name, { en: r.name_en, oblasts: new Set() });
         }
-        candidateOblasts.get(r.name)!.add(r.oblast);
+        candidateOblasts.get(r.name)!.oblasts.add(r.oblast);
       });
       const candidateEntries = Array.from(candidateOblasts.entries())
-        .map(([name, set]) => ({ name, oblastCount: set.size }))
+        .map(([name, v]) => ({
+          name,
+          name_en: v.en,
+          oblastCount: v.oblasts.size,
+        }))
         .sort((a, b) => b.oblastCount - a.oblastCount);
       candidateEntries.forEach((c) => {
         const mp = findMpByName(c.name);
+        // Prefer the MP's name_en (parliament.bg EN API) when matched, since
+        // it carries the canonical Wikipedia spelling for well-known
+        // politicians; fall back to the candidate's transliterated name_en.
         searchItems.push({
           type: "a",
           key: c.name,
           name: c.name,
+          name_en: mp?.name_en ?? c.name_en,
           photoUrl: mp?.photoUrl,
         });
       });

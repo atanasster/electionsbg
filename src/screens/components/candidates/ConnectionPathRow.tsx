@@ -9,6 +9,8 @@ import type {
 } from "@/data/dataTypes";
 import { candidateUrlForMp } from "@/data/candidates/candidateSlug";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
+import { useMps } from "@/data/parliament/useMps";
+import { useCandidateName } from "@/data/candidates/useCandidateName";
 import { cn } from "@/lib/utils";
 import { MpAvatar } from "./MpAvatar";
 
@@ -51,6 +53,13 @@ export const ConnectionPathRow: FC<Props> = ({
 }) => {
   const { t } = useTranslation();
   const { partyGroupShortLabel } = useCanonicalParties();
+  const { findMpById } = useMps();
+  const { mpName } = useCandidateName();
+  const labelFor = (n: ConnectionsNode): string => {
+    if (n.type !== "mp") return n.label;
+    const mp = findMpById(n.mpId);
+    return mp ? mpName(mp) : n.label;
+  };
 
   // Pre-resolve nodes once per render so we don't pay map lookups twice.
   const segments = useMemo(() => {
@@ -73,6 +82,7 @@ export const ConnectionPathRow: FC<Props> = ({
         {segments.map((node, i) => {
           const link = linkForNode(node);
           const isMp = node.type === "mp";
+          const display = labelFor(node);
           const chipBody = (
             <span
               className={cn(
@@ -81,14 +91,10 @@ export const ConnectionPathRow: FC<Props> = ({
                 isMp ? "py-0.5 pl-0.5 pr-2" : "px-2 py-0.5",
                 link && "hover:bg-muted",
               )}
-              title={node.label}
+              title={display}
             >
               {isMp ? (
-                <MpAvatar
-                  mpId={node.mpId}
-                  name={node.label}
-                  className="h-5 w-5"
-                />
+                <MpAvatar mpId={node.mpId} name={display} className="h-5 w-5" />
               ) : (
                 <>
                   <span
@@ -110,7 +116,7 @@ export const ConnectionPathRow: FC<Props> = ({
                   i === segments.length - 1 && "font-medium",
                 )}
               >
-                {truncate(node.label, 32)}
+                {truncate(display, 32)}
               </span>
             </span>
           );

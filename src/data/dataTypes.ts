@@ -109,6 +109,11 @@ export type SectionInfo = {
 export type CandidatesInfo = {
   oblast: string;
   name: string;
+  // Title-cased English form. For candidates matched to a parliament.bg MP
+  // record we reuse the MP's `name_en` (sourced from parliament.bg's EN API);
+  // for everyone else we transliterate the Bulgarian name with the Streamlined
+  // System (the 2009 Bulgarian Transliteration Law). Always populated.
+  name_en: string;
   partyNum: number;
   pref: string;
 };

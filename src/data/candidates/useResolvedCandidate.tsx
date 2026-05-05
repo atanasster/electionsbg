@@ -10,6 +10,7 @@ import {
   parseSlug,
   type ParsedSlug,
 } from "./candidateSlug";
+import { transliterateName } from "./transliterateName";
 
 /** A single (name, partyNum) bucket of CIK candidate rows merged with the
  * parliament.bg MP we matched it to (when any). Used by the candidate page,
@@ -22,6 +23,11 @@ export type ResolvedCandidate = {
   /** Title-case full name from the CIK roster, or the MP profile name when
    * no CIK row exists (e.g. a former MP not running this cycle). */
   name: string;
+  /** Title-case English form. Prefers the matched MP's name_en (sourced from
+   * parliament.bg's EN API) so well-known politicians show their canonical
+   * Wikipedia spelling; falls back to the CIK row's name_en (a Streamlined-
+   * System transliteration). Always populated. */
+  name_en: string;
   /** Election partyNum if we found CIK rows. May be null for former MPs
    * with no current candidacy. */
   partyNum: number | null;
@@ -141,6 +147,7 @@ const buildGroups = (
     out.push({
       slug: mp ? mpSlug(mp.id) : cikSlug(sample.partyNum, sample.name),
       name: sample.name,
+      name_en: mp?.name_en ?? sample.name_en ?? transliterateName(sample.name),
       partyNum: sample.partyNum,
       oblasts,
       prefs,
@@ -177,6 +184,7 @@ const buildResolvedFromMp = (
   return {
     slug: mpSlug(mp.id),
     name: mp.name,
+    name_en: mp.name_en ?? transliterateName(mp.name),
     partyNum: null,
     oblasts: [],
     prefs: {},
@@ -309,11 +317,17 @@ export const useResolvedCandidate = (
  * URL param so the page still renders something for legacy links). */
 export const useResolvedCandidateName = (
   idParam: string | undefined | null,
-): { name: string | null; isLoading: boolean; ambiguous: boolean } => {
+): {
+  name: string | null;
+  name_en: string | null;
+  isLoading: boolean;
+  ambiguous: boolean;
+} => {
   const { isLoading, canonical, matches } = useResolvedCandidate(idParam);
   return {
     isLoading,
     name: canonical?.name ?? null,
+    name_en: canonical?.name_en ?? null,
     ambiguous: matches.length > 1,
   };
 };

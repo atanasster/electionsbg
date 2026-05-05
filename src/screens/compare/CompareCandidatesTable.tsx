@@ -5,6 +5,7 @@ import { formatPct, localDate } from "@/data/utils";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { Link } from "@/ux/Link";
 import { candidateUrlFor } from "@/data/candidates/candidateSlug";
+import { useCandidateName } from "@/data/candidates/useCandidateName";
 import { CandidateSummary } from "./candidateSummary";
 
 type Props = {
@@ -92,6 +93,8 @@ const SectionRow: FC<{ label: string }> = ({ label }) => (
 
 const CandidateHeader: FC<{ c: CandidateSummary }> = ({ c }) => {
   const { displayNameFor } = useCanonicalParties();
+  const { nameForBg } = useCandidateName();
+  const display = nameForBg(c.name, c.name_en ?? null);
   return (
     <div className="flex flex-col items-end gap-0.5">
       <Link
@@ -107,7 +110,7 @@ const CandidateHeader: FC<{ c: CandidateSummary }> = ({ c }) => {
             className="inline-block w-3 h-3 rounded-sm shrink-0"
             style={{ backgroundColor: c.party?.color || "#888" }}
           />
-          <span className="font-medium normal-case">{c.name}</span>
+          <span className="font-medium normal-case">{display}</span>
         </span>
       </Link>
       <span className="text-xs text-muted-foreground normal-case">

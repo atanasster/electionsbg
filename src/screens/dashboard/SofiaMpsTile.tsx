@@ -15,6 +15,7 @@ import { candidateUrlForMp } from "@/data/candidates/candidateSlug";
 import { useTooltip } from "@/ux/useTooltip";
 import { Hint } from "@/ux/Hint";
 import { initials } from "@/lib/utils";
+import { useCandidateName } from "@/data/candidates/useCandidateName";
 import { StatCard } from "./StatCard";
 
 type Props = {
@@ -43,6 +44,7 @@ export const SofiaMpsTile: FC<Props> = ({ parties }) => {
   const { lookup: lookupParliamentGroup } = useParliamentGroups();
   const { candidates } = useCandidates();
   const { displayNameFor } = useCanonicalParties();
+  const { mpName } = useCandidateName();
   const { tooltip, onMouseEnter, onMouseLeave } = useTooltip({
     maxHeight: 240,
     maxWidth: 240,
@@ -151,22 +153,24 @@ export const SofiaMpsTile: FC<Props> = ({ parties }) => {
                   <div key={`s${i}`} className="h-9 w-9" aria-hidden />
                 ))}
                 {g.mps.map((r) => {
+                  const display = mpName(r.mp);
                   const tooltipContent = (
                     <div className="flex items-center gap-2">
                       {r.mp.photoUrl && (
                         <img
                           src={r.mp.photoUrl}
-                          alt={r.mp.name}
+                          alt={display}
                           loading="lazy"
                           className="h-12 w-12 rounded-full object-cover shrink-0"
                         />
                       )}
                       <div className="flex flex-col gap-0.5 min-w-0">
                         <div className="font-semibold text-sm leading-tight">
-                          {r.mp.name}
+                          {display}
                         </div>
                         <div className="text-[11px] text-primary-foreground/70 leading-tight">
-                          {displayNameFor(r.partyNickName) ?? r.partyNickName}
+                          {displayNameFor(r.partyNickName ?? "") ??
+                            r.partyNickName}
                         </div>
                       </div>
                     </div>
@@ -192,7 +196,7 @@ export const SofiaMpsTile: FC<Props> = ({ parties }) => {
                         {r.mp.photoUrl && (
                           <AvatarImage
                             src={r.mp.photoUrl}
-                            alt={r.mp.name}
+                            alt={display}
                             className="object-cover"
                           />
                         )}
@@ -200,7 +204,7 @@ export const SofiaMpsTile: FC<Props> = ({ parties }) => {
                           className="text-[10px] font-bold text-white"
                           style={{ backgroundColor: r.color }}
                         >
-                          {initials(r.mp.name)}
+                          {initials(display)}
                         </AvatarFallback>
                       </Avatar>
                     </Link>

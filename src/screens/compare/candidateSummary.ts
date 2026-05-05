@@ -46,6 +46,10 @@ export type CandidatePastBest = {
 
 export type CandidateSummary = {
   name: string;
+  // English form of `name`, populated from the candidate roster's name_en
+  // when present. Optional so older code paths that build a summary from a
+  // bare name don't have to fabricate one.
+  name_en?: string;
   party?: PartyInfo;
   oblastCodes: string[];
   oblastNames: string[];
@@ -255,6 +259,7 @@ export const computeCandidateSummary = (
 
   return {
     name,
+    name_en: roster[0]?.name_en,
     party,
     oblastCodes,
     oblastNames,

@@ -16,6 +16,7 @@ import { Tooltip } from "@/ux/Tooltip";
 import { Hint } from "@/ux/Hint";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { initials } from "@/lib/utils";
+import { useCandidateName } from "@/data/candidates/useCandidateName";
 import { StatCard } from "./StatCard";
 
 const TOP_N = 10;
@@ -48,6 +49,7 @@ export const PartyTopCandidatesTile: FC<Props> = ({ data }) => {
   const { findMpByName } = useMps();
   const { lookup: lookupParliamentGroup } = useParliamentGroups();
   const { findRegion } = useRegions();
+  const { candidateName } = useCandidateName();
   const color = data.color ?? "#888";
 
   const { data: stats } = useQuery({
@@ -88,7 +90,11 @@ export const PartyTopCandidatesTile: FC<Props> = ({ data }) => {
           ? (100 * p.totalVotes) / partyVotes
           : undefined;
         return {
-          name: candidate.name,
+          name: candidateName({
+            name: candidate.name,
+            name_en: mp?.name_en ?? candidate.name_en,
+          }),
+          nameBg: candidate.name,
           totalVotes: p.totalVotes,
           paperVotes: p.paperVotes,
           machineVotes: p.machineVotes,
@@ -112,6 +118,7 @@ export const PartyTopCandidatesTile: FC<Props> = ({ data }) => {
     findRegion,
     i18n.language,
     lookupParliamentGroup,
+    candidateName,
   ]);
 
   if (rows.length === 0) return null;
@@ -200,7 +207,7 @@ export const PartyTopCandidatesTile: FC<Props> = ({ data }) => {
               to={candidateUrlFor({
                 mpId: r.mpId,
                 partyNum: r.partyNum,
-                name: r.name,
+                name: r.nameBg,
               })}
               underline={false}
               className="flex items-center gap-3 p-2 rounded-lg border border-border/60 hover:bg-muted/40 transition-colors min-w-0 flex-1 basis-[200px] max-w-[280px]"

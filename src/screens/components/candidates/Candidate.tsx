@@ -3,6 +3,7 @@ import { FC, Fragment } from "react";
 import { useTranslation } from "react-i18next";
 import { usePartyInfo } from "@/data/parties/usePartyInfo";
 import { useResolvedCandidate } from "@/data/candidates/useResolvedCandidate";
+import { useCandidateName } from "@/data/candidates/useCandidateName";
 import { PartyLink } from "../party/PartyLink";
 import { RegionLink } from "../regions/RegionLink";
 import { MpProfileHeader } from "./MpProfileHeader";
@@ -29,6 +30,7 @@ export const Candidate: FC<{ name: string }> = ({ name }) => {
   const { t } = useTranslation();
   const { findParty } = usePartyInfo();
   const { isLoading, matches, canonical } = useResolvedCandidate(name);
+  const { isEn, nameForBg } = useCandidateName();
 
   if (isLoading) {
     return (
@@ -41,13 +43,14 @@ export const Candidate: FC<{ name: string }> = ({ name }) => {
   if (matches.length === 0) {
     // No candidate / MP matches the URL — render the bare-name page so the
     // sub-components can quietly render whatever historical data they have.
+    const headerName = nameForBg(name);
     return (
       <div className="w-full">
         <Title
-          description={`Results for party candidate ${name}`}
+          description={`Results for party candidate ${headerName}`}
           className="md:pb-8"
         >
-          {name}
+          {headerName}
         </Title>
         <MpProfileHeader name={name} />
         <CandidateDashboardCards name={name} />
@@ -63,19 +66,22 @@ export const Candidate: FC<{ name: string }> = ({ name }) => {
     return <CandidateNamesakeChooser name={name} matches={matches} />;
   }
 
-  const displayName = canonical.name;
+  // Bulgarian form is the lookup key for sub-components (they query against
+  // BG-keyed data files); the heading shown to the user follows the locale.
+  const lookupName = canonical.name;
+  const headerName = isEn ? canonical.name_en : canonical.name;
   const linkSlug = canonical.slug;
 
   return (
     <div className="w-full">
       <Title
-        description={`Results for party candidate ${displayName}`}
+        description={`Results for party candidate ${headerName}`}
         className="md:pb-8"
       >
-        {displayName}
+        {headerName}
       </Title>
 
-      {canonical.mpId != null && <MpProfileHeader name={displayName} />}
+      {canonical.mpId != null && <MpProfileHeader name={lookupName} />}
 
       {canonical.cikRows.length > 0 && (
         <div className="grid grid-cols-[auto_auto_auto] justify-center items-center gap-x-3 gap-y-1.5 px-4 py-2">
@@ -94,14 +100,14 @@ export const Candidate: FC<{ name: string }> = ({ name }) => {
         </div>
       )}
 
-      <CandidateDashboardCards name={displayName} linkSlug={linkSlug} />
+      <CandidateDashboardCards name={lookupName} linkSlug={linkSlug} />
 
       {canonical.mpId != null && (
         <>
-          <MpAssetsSummary name={displayName} linkSlug={linkSlug} />
-          <MpFinancialDeclarations name={displayName} />
-          <MpManagementRoles name={displayName} />
-          <MpConnectionsMini name={displayName} linkSlug={linkSlug} />
+          <MpAssetsSummary name={lookupName} linkSlug={linkSlug} />
+          <MpFinancialDeclarations name={lookupName} />
+          <MpManagementRoles name={lookupName} />
+          <MpConnectionsMini name={lookupName} linkSlug={linkSlug} />
         </>
       )}
     </div>

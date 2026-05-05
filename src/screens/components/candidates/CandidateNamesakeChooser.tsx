@@ -6,16 +6,23 @@ import type { ResolvedCandidate } from "@/data/candidates/useResolvedCandidate";
 import { usePartyInfo } from "@/data/parties/usePartyInfo";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { useRegions } from "@/data/regions/useRegions";
+import { useCandidateName } from "@/data/candidates/useCandidateName";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { initials } from "@/lib/utils";
 
 const RegionList: FC<{ codes: string[] }> = ({ codes }) => {
   const { findRegion } = useRegions();
+  const { i18n } = useTranslation();
+  const isBg = i18n.language === "bg";
   if (codes.length === 0) return null;
   return (
     <span className="text-xs text-muted-foreground">
       {codes
-        .map((c) => findRegion(c)?.name ?? c)
+        .map((c) => {
+          const r = findRegion(c);
+          if (!r) return c;
+          return isBg ? r.name : r.name_en || r.name;
+        })
         .filter(Boolean)
         .join(" · ")}
     </span>
@@ -33,11 +40,13 @@ export const CandidateNamesakeChooser: FC<{
   const { t } = useTranslation();
   const { findParty } = usePartyInfo();
   const { displayNameFor } = useCanonicalParties();
+  const { candidateName, nameForBg } = useCandidateName();
+  const headerName = nameForBg(name);
   return (
     <div className="w-full max-w-3xl mx-auto py-8">
       <h2 className="text-xl font-semibold flex items-center gap-2">
         <Users className="h-5 w-5" />
-        {name}
+        {headerName}
       </h2>
       <p className="text-sm text-muted-foreground mt-1">
         {t("candidate_namesake_intro") ||
@@ -46,6 +55,7 @@ export const CandidateNamesakeChooser: FC<{
       <ul className="mt-4 flex flex-col divide-y border rounded-md overflow-hidden">
         {matches.map((m) => {
           const party = m.partyNum != null ? findParty(m.partyNum) : null;
+          const display = candidateName(m);
           return (
             <li key={m.slug}>
               <Link
@@ -56,17 +66,17 @@ export const CandidateNamesakeChooser: FC<{
                   {m.mpEntry?.photoUrl && (
                     <AvatarImage
                       src={m.mpEntry.photoUrl}
-                      alt={m.name}
+                      alt={display}
                       className="object-cover"
                     />
                   )}
                   <AvatarFallback className="text-xs bg-muted">
-                    {initials(m.name)}
+                    {initials(display)}
                   </AvatarFallback>
                 </Avatar>
                 <div className="flex flex-col min-w-0 flex-1">
                   <div className="flex items-center gap-2 flex-wrap">
-                    <span className="font-medium">{m.name}</span>
+                    <span className="font-medium">{display}</span>
                     {party && (
                       <span
                         className="text-xs rounded px-1.5 py-0.5 text-white"

@@ -31,7 +31,7 @@ const ParliamentStrip: FC<{
       <div className="flex h-10 w-full overflow-hidden rounded border border-border">
         {segments.map((r) => {
           const party = findParty(r.partyNum);
-          const nick = party?.nickName ?? r.nickName;
+          const nick = party?.nickName ?? r.nickName ?? "";
           const label = displayNameFor(nick) ?? nick;
           const widthPct = (r.seats / TOTAL_SEATS) * 100;
           return (
@@ -109,7 +109,7 @@ const SeatTable: FC<{
                       to={`/party/${party?.nickName || r.nickName}`}
                       className="hover:underline"
                     >
-                      {displayNameFor(party?.nickName ?? r.nickName) ??
+                      {displayNameFor(party?.nickName ?? r.nickName ?? "") ??
                         party?.nickName ??
                         r.nickName}
                     </Link>

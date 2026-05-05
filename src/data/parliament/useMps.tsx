@@ -4,7 +4,13 @@ import { useQuery } from "@tanstack/react-query";
 export type MpIndexEntry = {
   id: number;
   name: string;
+  // Title-cased English form sourced from parliament.bg's EN profile API,
+  // falling back to a Streamlined-System transliteration of `name` when the
+  // EN profile is missing. Always populated.
+  name_en: string;
   normalizedName: string;
+  // Upper-case English form for case-insensitive lookups in the EN locale.
+  normalizedName_en: string;
   photoUrl: string;
   currentRegion: { code: string; name: string } | null;
   currentPartyGroup: string | null;
