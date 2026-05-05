@@ -15,6 +15,7 @@ import { electionToNsFolder } from "@/data/parliament/nsFolders";
 import { useRegions } from "@/data/regions/useRegions";
 import { formatThousands } from "@/data/utils";
 import { Link } from "@/ux/Link";
+import { candidateUrlFor } from "@/data/candidates/candidateSlug";
 import { Tooltip } from "@/ux/Tooltip";
 import { Hint } from "@/ux/Hint";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -162,6 +163,7 @@ export const TopCandidatesStrip: FC<Props> = ({
         regionName,
         regionCount,
         photoUrl: mp?.photoUrl,
+        mpId: mp?.id ?? null,
       };
     };
 
@@ -317,7 +319,11 @@ export const TopCandidatesStrip: FC<Props> = ({
             }
           >
             <Link
-              to={`/candidate/${encodeURIComponent(r.candidateName!)}`}
+              to={candidateUrlFor({
+                mpId: r.mpId,
+                partyNum: r.partyNum,
+                name: r.candidateName!,
+              })}
               underline={false}
               className="flex items-center gap-3 p-2 rounded-lg border border-border/60 hover:bg-muted/40 transition-colors min-w-0 flex-1 basis-[180px] max-w-[260px]"
             >

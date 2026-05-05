@@ -13,6 +13,7 @@ import { useMpCars } from "@/data/parliament/useMpCars";
 import { useElectionContext } from "@/data/ElectionContext";
 import { electionToNsFolder } from "@/data/parliament/nsFolders";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
+import { candidateUrlForMp } from "@/data/candidates/candidateSlug";
 import type { MpCarRow } from "@/data/dataTypes";
 
 type SortKey = "value" | "year" | "name" | "make";
@@ -181,7 +182,11 @@ export const MpCarsScreen: FC = () => {
               <th className="px-2 py-2 text-[11px] uppercase tracking-wide font-medium text-muted-foreground text-left">
                 {t("mp_cars_col_party") || "Party group"}
               </th>
-              <Th k="make" label={t("mp_cars_col_make") || "Make"} align="left" />
+              <Th
+                k="make"
+                label={t("mp_cars_col_make") || "Make"}
+                align="left"
+              />
               <th className="px-2 py-2 text-[11px] uppercase tracking-wide font-medium text-muted-foreground text-left">
                 {t("mp_cars_col_detail") || "Model (declared)"}
               </th>
@@ -206,7 +211,7 @@ export const MpCarsScreen: FC = () => {
                   <div className="flex items-center gap-2 min-w-0">
                     <MpAvatar mpId={row.mpId} name={row.mpName} />
                     <Link
-                      to={`/candidate/${encodeURIComponent(row.mpName)}`}
+                      to={candidateUrlForMp(row.mpId)}
                       className="hover:underline truncate"
                     >
                       {row.mpName}

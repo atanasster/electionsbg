@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { Search, X } from "lucide-react";
 import { useConnectionsSearch } from "@/data/parliament/useConnectionsSearch";
 import type { ConnectionsSearchEntry } from "@/data/dataTypes";
+import { candidateUrlForMp } from "@/data/candidates/candidateSlug";
 import type { ConnectionsFilters } from "./useConnectionsFilters";
 import { cn } from "@/lib/utils";
 
@@ -199,7 +200,7 @@ const SmartEntitySearch: FC = () => {
 
   const onPick = (entry: ConnectionsSearchEntry) => {
     if (entry.type === "mp") {
-      navigate(`/candidate/${encodeURIComponent(entry.label)}`);
+      navigate(candidateUrlForMp(entry.mpId));
     } else if (entry.slug) {
       navigate(`/mp/company/${encodeURIComponent(entry.slug)}`);
     }

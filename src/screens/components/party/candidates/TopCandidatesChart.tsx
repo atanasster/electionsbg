@@ -4,6 +4,7 @@ import { PartyInfo, RegionInfo } from "@/data/dataTypes";
 import { FC } from "react";
 import { formatThousands } from "@/data/utils";
 import { useCandidates } from "@/data/preferences/useCandidates";
+import { candidateUrlFor } from "@/data/candidates/candidateSlug";
 import { usePreferencesStats } from "./data/usePreferencesStats";
 import { useNavigateParams } from "@/ux/useNavigateParams";
 import { useRegions } from "@/data/regions/useRegions";
@@ -94,7 +95,13 @@ export const TopCandidatesChart: FC<{
               fill={party.color}
               cursor="pointer"
               onClick={() =>
-                navigate({ pathname: `/candidate/${p.full_name}` })
+                p.full_name &&
+                navigate({
+                  pathname: candidateUrlFor({
+                    partyNum: p.partyNum,
+                    name: p.full_name,
+                  }),
+                })
               }
             />
           ))}

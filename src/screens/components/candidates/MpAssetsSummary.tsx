@@ -22,7 +22,7 @@ import { useMpAssets } from "@/data/parliament/useMpAssets";
 import { useMpDeclarations } from "@/data/parliament/useMpDeclarations";
 import type { MpAsset, MpAssetCategory } from "@/data/dataTypes";
 
-type Props = { name: string };
+type Props = { name: string; linkSlug?: string };
 
 const CATEGORY_ICONS: Record<
   MpAssetCategory,
@@ -78,7 +78,7 @@ const ORDER: MpAssetCategory[] = [
   "debt",
 ];
 
-export const MpAssetsSummary: FC<Props> = ({ name }) => {
+export const MpAssetsSummary: FC<Props> = ({ name, linkSlug }) => {
   const { t, i18n } = useTranslation();
   const { rollup } = useMpAssets(name);
   const { declarations } = useMpDeclarations(name);
@@ -130,7 +130,7 @@ export const MpAssetsSummary: FC<Props> = ({ name }) => {
               : `${rollup.latestDeclarationYear}`}
           </span>
           <Link
-            to={`/candidate/${encodeURIComponent(name)}/assets`}
+            to={`/candidate/${linkSlug ?? encodeURIComponent(name)}/assets`}
             className="ml-auto inline-flex items-center gap-1 text-xs font-normal text-primary hover:underline normal-case"
           >
             {t("dashboard_see_details") || "See details"}

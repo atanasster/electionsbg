@@ -10,6 +10,7 @@ import { useMps, MpIndexEntry } from "@/data/parliament/useMps";
 import { useParliamentGroups } from "@/data/parliament/useParliamentGroups";
 import { electionToNsFolder, oblastToMir } from "@/data/parliament/nsFolders";
 import { Link } from "@/ux/Link";
+import { candidateUrlForMp } from "@/data/candidates/candidateSlug";
 import { useTooltip } from "@/ux/useTooltip";
 import { Hint } from "@/ux/Hint";
 import { initials } from "@/lib/utils";
@@ -171,7 +172,7 @@ export const SofiaMpsTile: FC<Props> = ({ parties }) => {
                   return (
                     <Link
                       key={r.mp.id}
-                      to={`/candidate/${encodeURIComponent(r.mp.name)}`}
+                      to={candidateUrlForMp(r.mp.id)}
                       underline={false}
                       className="block"
                       onMouseEnter={(e) =>

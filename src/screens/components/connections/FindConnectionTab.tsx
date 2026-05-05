@@ -11,6 +11,7 @@ import type {
   ConnectionsPath,
 } from "@/data/dataTypes";
 import { ConnectionPathRow } from "@/screens/components/candidates/ConnectionPathRow";
+import { candidateUrlForMp } from "@/data/candidates/candidateSlug";
 import { cn } from "@/lib/utils";
 
 type Props = {
@@ -253,7 +254,7 @@ const MpPicker: FC<PickerProps> = ({ label, value, onChange, options }) => {
           {label}
         </span>
         <Link
-          to={`/candidate/${encodeURIComponent(value.label)}`}
+          to={candidateUrlForMp(value.mpId)}
           className="font-medium hover:underline truncate flex-1"
         >
           {value.label}

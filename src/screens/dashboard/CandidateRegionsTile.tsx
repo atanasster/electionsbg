@@ -27,9 +27,9 @@ const DeltaBadge: FC<{ delta?: number }> = ({ delta }) => {
   );
 };
 
-type Props = { data: CandidateDashboardSummary };
+type Props = { data: CandidateDashboardSummary; linkSlug?: string };
 
-export const CandidateRegionsTile: FC<Props> = ({ data }) => {
+export const CandidateRegionsTile: FC<Props> = ({ data, linkSlug }) => {
   const { t, i18n } = useTranslation();
 
   const rows = useMemo(() => {
@@ -58,7 +58,7 @@ export const CandidateRegionsTile: FC<Props> = ({ data }) => {
 
   if (rows.length === 0) return null;
   const totalCount = data.regions.length;
-  const candidateName = encodeURIComponent(data.name);
+  const candidateSlug = linkSlug ?? encodeURIComponent(data.name);
 
   return (
     <StatCard
@@ -72,7 +72,7 @@ export const CandidateRegionsTile: FC<Props> = ({ data }) => {
           </Hint>
           {totalCount > TOP_N ? (
             <Link
-              to={`/candidate/${candidateName}/regions`}
+              to={`/candidate/${candidateSlug}/regions`}
               className="text-[10px] normal-case text-primary hover:underline"
               underline={false}
             >

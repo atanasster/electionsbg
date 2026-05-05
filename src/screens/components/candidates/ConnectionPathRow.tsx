@@ -7,6 +7,7 @@ import type {
   ConnectionsNode,
   ConnectionsPath,
 } from "@/data/dataTypes";
+import { candidateUrlForMp } from "@/data/candidates/candidateSlug";
 import { cn } from "@/lib/utils";
 import { MpAvatar } from "./MpAvatar";
 
@@ -31,8 +32,7 @@ const NON_MP_DOT: Record<"company" | "person", string> = {
 };
 
 const linkForNode = (n: ConnectionsNode): { to: string } | null => {
-  if (n.type === "mp")
-    return { to: `/candidate/${encodeURIComponent(n.label)}` };
+  if (n.type === "mp") return { to: candidateUrlForMp(n.mpId) };
   if (n.type === "company" && n.slug) return { to: `/mp/company/${n.slug}` };
   return null;
 };

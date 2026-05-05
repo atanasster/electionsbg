@@ -13,6 +13,7 @@ import { useAssetsRankings } from "@/data/parliament/useAssetsRankings";
 import { useElectionContext } from "@/data/ElectionContext";
 import { electionToNsFolder } from "@/data/parliament/nsFolders";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
+import { candidateUrlForMp } from "@/data/candidates/candidateSlug";
 import { formatThousands } from "@/data/utils";
 import type { MpAssetsRankingEntry } from "@/data/dataTypes";
 
@@ -197,7 +198,7 @@ export const AllMpAssetsScreen: FC = () => {
                   <div className="flex items-center gap-2 min-w-0">
                     <MpAvatar mpId={row.mpId} name={row.label} />
                     <Link
-                      to={`/candidate/${encodeURIComponent(row.label)}`}
+                      to={candidateUrlForMp(row.mpId)}
                       className="hover:underline truncate"
                     >
                       {row.label}
@@ -260,7 +261,7 @@ export const AllMpAssetsScreen: FC = () => {
                 </td>
                 <td className="px-2 py-1.5 text-right">
                   <Link
-                    to={`/candidate/${encodeURIComponent(row.label)}`}
+                    to={candidateUrlForMp(row.mpId)}
                     className="text-primary hover:underline inline-flex"
                     aria-label="open candidate"
                   >

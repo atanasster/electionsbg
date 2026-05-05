@@ -18,6 +18,7 @@ import {
 import { Title } from "@/ux/Title";
 import { useMpAssets } from "@/data/parliament/useMpAssets";
 import { useMpDeclarations } from "@/data/parliament/useMpDeclarations";
+import { useResolvedCandidateName } from "@/data/candidates/useResolvedCandidate";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 import type { MpAsset, MpAssetCategory, MpDeclaration } from "@/data/dataTypes";
 
@@ -320,7 +321,12 @@ const IncomeTable: FC<{ decl: MpDeclaration; lang: string }> = ({
 
 export const CandidateAssetsScreen: FC = () => {
   const { id } = useParams<{ id: string }>();
-  const name = id ? decodeURIComponent(id) : "";
+  const { name: resolved } = useResolvedCandidateName(id);
+  const fallback =
+    id && !id.startsWith("mp-") && !id.startsWith("c-")
+      ? decodeURIComponent(id)
+      : "";
+  const name = resolved ?? fallback;
   const { t, i18n } = useTranslation();
   const { rollup } = useMpAssets(name);
   const { declarations } = useMpDeclarations(name);
@@ -354,7 +360,7 @@ export const CandidateAssetsScreen: FC = () => {
   return (
     <div className="w-full">
       <Link
-        to={`/candidate/${encodeURIComponent(name)}`}
+        to={`/candidate/${id ?? encodeURIComponent(name)}`}
         className="inline-flex items-center gap-1 text-sm text-primary hover:underline mb-2"
       >
         <ArrowLeft className="h-4 w-4" />

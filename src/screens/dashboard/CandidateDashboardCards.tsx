@@ -23,13 +23,20 @@ const SkeletonCard: FC<{ className?: string }> = ({
   </div>
 );
 
-type Props = { name: string };
+type Props = {
+  name: string;
+  /** Slug used for in-page navigation links (regions / sections / donations).
+   * Defaults to URL-encoded name when omitted (legacy callers). When present,
+   * keeps disambiguation context alive across click-throughs. */
+  linkSlug?: string;
+};
 
-export const CandidateDashboardCards: FC<Props> = ({ name }) => {
+export const CandidateDashboardCards: FC<Props> = ({ name, linkSlug }) => {
   const { t } = useTranslation();
   const { electionStats } = useElectionContext();
   const { data, isLoading } = useCandidateSummary(name);
   const hasFinancials = !!electionStats?.hasFinancials;
+  const navSlug = linkSlug ?? encodeURIComponent(name);
 
   if (isLoading || !data) {
     return (
@@ -60,7 +67,7 @@ export const CandidateDashboardCards: FC<Props> = ({ name }) => {
       </div>
 
       <div className="grid gap-3 grid-cols-1 mt-3">
-        <CandidateRegionsTile data={data} />
+        <CandidateRegionsTile data={data} linkSlug={navSlug} />
       </div>
 
       <div className="grid gap-3 grid-cols-1 mt-3">
@@ -68,16 +75,16 @@ export const CandidateDashboardCards: FC<Props> = ({ name }) => {
       </div>
 
       <div className="grid gap-3 grid-cols-1 mt-3">
-        <CandidateTopSettlementsTile data={data} />
+        <CandidateTopSettlementsTile data={data} linkSlug={navSlug} />
       </div>
 
       <div className="grid gap-3 grid-cols-1 mt-3">
-        <CandidateTopSectionsTile data={data} />
+        <CandidateTopSectionsTile data={data} linkSlug={navSlug} />
       </div>
 
       {hasFinancials ? (
         <div className="grid gap-3 grid-cols-1 mt-3">
-          <CandidateDonationsTile name={name} />
+          <CandidateDonationsTile name={name} linkSlug={navSlug} />
         </div>
       ) : null}
     </section>

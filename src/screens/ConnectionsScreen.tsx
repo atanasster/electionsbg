@@ -29,6 +29,7 @@ import { FilterRail } from "@/screens/components/connections/FilterRail";
 import { ConnectionsHero } from "@/screens/components/connections/ConnectionsHero";
 import { useConnectionsFilters } from "@/screens/components/connections/useConnectionsFilters";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
+import { candidateUrlForMp } from "@/data/candidates/candidateSlug";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import type {
   ConnectionsEdge,
@@ -999,7 +1000,7 @@ export const ConnectionsScreen: FC = () => {
                           </span>
                           <MpAvatar mpId={row.mpId} name={row.label} />
                           <Link
-                            to={`/candidate/${encodeURIComponent(row.label)}`}
+                            to={candidateUrlForMp(row.mpId)}
                             className="hover:underline truncate flex-1"
                           >
                             {row.label}
@@ -1345,7 +1346,7 @@ export const ConnectionsScreen: FC = () => {
                       )}
                       {detail.type === "mp" ? (
                         <Link
-                          to={`/candidate/${encodeURIComponent(detail.label)}`}
+                          to={candidateUrlForMp(detail.mpId)}
                           className="hover:underline truncate"
                         >
                           {detail.label}
@@ -1398,7 +1399,7 @@ export const ConnectionsScreen: FC = () => {
                           )}
                           {n.type === "mp" ? (
                             <Link
-                              to={`/candidate/${encodeURIComponent(n.label)}`}
+                              to={candidateUrlForMp(n.mpId)}
                               className="hover:underline truncate"
                             >
                               {n.label}

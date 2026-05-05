@@ -9,9 +9,9 @@ import { StatCard } from "./StatCard";
 
 const TOP_N = 15;
 
-type Props = { data: CandidateDashboardSummary };
+type Props = { data: CandidateDashboardSummary; linkSlug?: string };
 
-export const CandidateTopSectionsTile: FC<Props> = ({ data }) => {
+export const CandidateTopSectionsTile: FC<Props> = ({ data, linkSlug }) => {
   const { t } = useTranslation();
 
   const rows = useMemo(() => {
@@ -48,7 +48,7 @@ export const CandidateTopSectionsTile: FC<Props> = ({ data }) => {
   }, [data]);
 
   if (rows.length === 0) return null;
-  const candidateName = encodeURIComponent(data.name);
+  const candidateSlug = linkSlug ?? encodeURIComponent(data.name);
 
   return (
     <StatCard
@@ -64,7 +64,7 @@ export const CandidateTopSectionsTile: FC<Props> = ({ data }) => {
             </div>
           </Hint>
           <Link
-            to={`/candidate/${candidateName}/sections`}
+            to={`/candidate/${candidateSlug}/sections`}
             className="text-[10px] normal-case text-primary hover:underline"
             underline={false}
           >

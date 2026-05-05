@@ -4,13 +4,18 @@ import { useTranslation } from "react-i18next";
 import { Title } from "@/ux/Title";
 import { localDate } from "@/data/utils";
 import { useElectionContext } from "@/data/ElectionContext";
+import { useResolvedCandidateName } from "@/data/candidates/useResolvedCandidate";
 import { ErrorSection } from "./components/ErrorSection";
 import { CandidateDonationsTable } from "./components/candidates/CandidateDonationsTable";
 
 export const CandidateDonationsScreen: FC = () => {
-  const { id: name } = useParams();
+  const { id } = useParams();
   const { selected, electionStats } = useElectionContext();
   const { t } = useTranslation();
+  const { name: resolved } = useResolvedCandidateName(id);
+  if (!id) return null;
+  const name =
+    resolved ?? (id.startsWith("mp-") || id.startsWith("c-") ? null : id);
   if (!name) return null;
   if (!electionStats?.hasFinancials) {
     return (

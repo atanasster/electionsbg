@@ -17,6 +17,7 @@ import {
   type CompanyIndexStake,
 } from "@/data/parliament/useCompanyIndex";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
+import { candidateUrlForMp } from "@/data/candidates/candidateSlug";
 import type { TrCompanyOfficer } from "@/data/dataTypes";
 
 const formatBgn = (n: number | null, lang: string): string => {
@@ -74,9 +75,9 @@ const OfficerRow: FC<{ officer: TrCompanyOfficer }> = ({ officer }) => {
       <div className="min-w-0">
         <div className="text-sm font-medium truncate flex items-center gap-1.5">
           {isMp && <MpAvatar mpId={officer.matchedMpId} name={officer.name} />}
-          {isMp ? (
+          {isMp && officer.matchedMpId != null ? (
             <Link
-              to={`/candidate/${encodeURIComponent(officer.name)}`}
+              to={candidateUrlForMp(officer.matchedMpId)}
               className="hover:underline"
             >
               {officer.name}
@@ -244,7 +245,11 @@ export const MpCompanyScreen: FC = () => {
                 <MpAvatar name={entry.declarantName} mpId={entry.mpId} />
                 <div className="min-w-0">
                   <Link
-                    to={`/candidate/${encodeURIComponent(entry.declarantName)}`}
+                    to={
+                      entry.mpId != null
+                        ? candidateUrlForMp(entry.mpId)
+                        : `/candidate/${encodeURIComponent(entry.declarantName)}`
+                    }
                     className="text-sm font-medium hover:underline truncate block"
                   >
                     {entry.declarantName}

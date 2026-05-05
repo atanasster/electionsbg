@@ -14,6 +14,7 @@ import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 import { initials } from "@/lib/utils";
 import { useMps } from "@/data/parliament/useMps";
 import { useParliamentGroups } from "@/data/parliament/useParliamentGroups";
+import { candidateUrlForMp } from "@/data/candidates/candidateSlug";
 
 /** d3-force mutates nodes in place — extend our typed node with sim fields. */
 export type ConnectionsSimNode = ConnectionsNode &
@@ -548,7 +549,7 @@ export const ConnectionsCanvas: FC<Props> = ({
               )}
               {detail.type === "mp" ? (
                 <Link
-                  to={`/candidate/${encodeURIComponent(detail.label)}`}
+                  to={candidateUrlForMp(detail.mpId)}
                   className="hover:underline truncate"
                 >
                   {detail.label}
@@ -596,7 +597,7 @@ export const ConnectionsCanvas: FC<Props> = ({
                   )}
                   {n.type === "mp" ? (
                     <Link
-                      to={`/candidate/${encodeURIComponent(n.label)}`}
+                      to={candidateUrlForMp(n.mpId)}
                       className="hover:underline truncate"
                     >
                       {n.label}

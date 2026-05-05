@@ -2,11 +2,16 @@ import { FC } from "react";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Title } from "@/ux/Title";
+import { useResolvedCandidateName } from "@/data/candidates/useResolvedCandidate";
 import { CandidateBySettlements } from "./components/candidates/CandidateBySettlements";
 
 export const CandidateSettlementsScreen: FC = () => {
-  const { id: name } = useParams();
+  const { id } = useParams();
   const { t } = useTranslation();
+  const { name: resolved } = useResolvedCandidateName(id);
+  if (!id) return null;
+  const name =
+    resolved ?? (id.startsWith("mp-") || id.startsWith("c-") ? null : id);
   if (!name) return null;
   return (
     <>

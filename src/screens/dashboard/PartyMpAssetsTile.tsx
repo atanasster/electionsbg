@@ -9,6 +9,7 @@ import { useElectionContext } from "@/data/ElectionContext";
 import { useCandidates } from "@/data/preferences/useCandidates";
 import { electionToNsFolder } from "@/data/parliament/nsFolders";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
+import { candidateUrlForMp } from "@/data/candidates/candidateSlug";
 import { formatThousands } from "@/data/utils";
 import type { MpAssetsRankingEntry, PreferencesInfo } from "@/data/dataTypes";
 import type { PartyDashboardSummary } from "@/data/dashboard/partyDashboardTypes";
@@ -131,7 +132,7 @@ export const PartyMpAssetsTile: FC<Props> = ({ data }) => {
               </span>
               <MpAvatar mpId={row.mpId} name={row.label} />
               <Link
-                to={`/candidate/${encodeURIComponent(row.label)}`}
+                to={candidateUrlForMp(row.mpId)}
                 className="hover:underline truncate flex-1"
               >
                 {row.label}

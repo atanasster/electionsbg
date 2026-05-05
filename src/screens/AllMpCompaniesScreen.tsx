@@ -5,6 +5,7 @@ import { Briefcase, ExternalLink } from "lucide-react";
 import { Title } from "@/ux/Title";
 import { useCompanyIndex } from "@/data/parliament/useCompanyIndex";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
+import { candidateUrlForMp } from "@/data/candidates/candidateSlug";
 
 type SortKey = "name" | "mps" | "status";
 type SortDir = "asc" | "desc";
@@ -38,10 +39,11 @@ export const AllMpCompaniesScreen: FC = () => {
         // declarantName casing varies between filings (cacbg writes some years
         // ALL CAPS, others Title Case). Dedup case-insensitively, keeping the
         // first observed display form for each.
-        const seen = new Map<string, string>();
+        const seen = new Map<string, { name: string; mpId: number | null }>();
         for (const s of c.stakes) {
           const key = s.declarantName.toUpperCase().replace(/\s+/g, " ").trim();
-          if (!seen.has(key)) seen.set(key, s.declarantName);
+          if (!seen.has(key))
+            seen.set(key, { name: s.declarantName, mpId: s.mpId ?? null });
         }
         return { ...c, distinctMps: Array.from(seen.values()) };
       })
@@ -177,17 +179,25 @@ export const AllMpCompaniesScreen: FC = () => {
                   </div>
                 </div>
                 <div className="min-w-0 text-xs text-muted-foreground flex flex-wrap items-center gap-x-1.5 gap-y-1">
-                  {c.distinctMps.slice(0, 3).map((name) => (
+                  {c.distinctMps.slice(0, 3).map((m) => (
                     <span
-                      key={name}
+                      key={m.name}
                       className="inline-flex items-center gap-1 max-w-full"
                     >
-                      <MpAvatar name={name} className="h-4 w-4" />
+                      <MpAvatar
+                        name={m.name}
+                        mpId={m.mpId ?? undefined}
+                        className="h-4 w-4"
+                      />
                       <Link
-                        to={`/candidate/${encodeURIComponent(name)}`}
+                        to={
+                          m.mpId != null
+                            ? candidateUrlForMp(m.mpId)
+                            : `/candidate/${encodeURIComponent(m.name)}`
+                        }
                         className="hover:underline truncate"
                       >
-                        {name}
+                        {m.name}
                       </Link>
                     </span>
                   ))}

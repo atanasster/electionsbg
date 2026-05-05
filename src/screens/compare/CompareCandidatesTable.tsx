@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { ArrowDown, ArrowUp, Minus } from "lucide-react";
 import { formatPct, localDate } from "@/data/utils";
 import { Link } from "@/ux/Link";
+import { candidateUrlFor } from "@/data/candidates/candidateSlug";
 import { CandidateSummary } from "./candidateSummary";
 
 type Props = {
@@ -91,7 +92,10 @@ const SectionRow: FC<{ label: string }> = ({ label }) => (
 const CandidateHeader: FC<{ c: CandidateSummary }> = ({ c }) => (
   <div className="flex flex-col items-end gap-0.5">
     <Link
-      to={`/candidate/${c.name}`}
+      to={candidateUrlFor({
+        partyNum: c.party?.number ?? null,
+        name: c.name,
+      })}
       className="hover:underline"
       underline={false}
     >

@@ -43,7 +43,10 @@ const TYPE_COLORS: Record<ConnectionsNode["type"], string> = {
  *
  * Uses the shared <ConnectionsCanvas> so pan/zoom and the node-detail
  * popover behave the same as on `/connections`. */
-export const MpConnectionsMini: FC<{ name: string }> = ({ name }) => {
+export const MpConnectionsMini: FC<{ name: string; linkSlug?: string }> = ({
+  name,
+  linkSlug,
+}) => {
   const { t } = useTranslation();
   const { subgraph } = useMpConnections(name);
   const simRef = useRef<Simulation<
@@ -198,7 +201,7 @@ export const MpConnectionsMini: FC<{ name: string }> = ({ name }) => {
   const otherMpCount = subgraph.nodes.filter(
     (n) => n.type === "mp" && n.id !== subgraph.mpNodeId,
   ).length;
-  const candidateSlug = encodeURIComponent(name);
+  const candidateSlug = linkSlug ?? encodeURIComponent(name);
   const showMore = paths.length > TOP_PATHS;
 
   return (

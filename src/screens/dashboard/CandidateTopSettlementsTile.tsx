@@ -10,9 +10,9 @@ import { StatCard } from "./StatCard";
 
 const TOP_N = 15;
 
-type Props = { data: CandidateDashboardSummary };
+type Props = { data: CandidateDashboardSummary; linkSlug?: string };
 
-export const CandidateTopSettlementsTile: FC<Props> = ({ data }) => {
+export const CandidateTopSettlementsTile: FC<Props> = ({ data, linkSlug }) => {
   const { t, i18n } = useTranslation();
   const { findSettlement } = useSettlementsInfo();
 
@@ -55,7 +55,7 @@ export const CandidateTopSettlementsTile: FC<Props> = ({ data }) => {
   }, [data, findSettlement, i18n.language]);
 
   if (rows.length === 0) return null;
-  const candidateName = encodeURIComponent(data.name);
+  const candidateSlug = linkSlug ?? encodeURIComponent(data.name);
 
   return (
     <StatCard
@@ -71,7 +71,7 @@ export const CandidateTopSettlementsTile: FC<Props> = ({ data }) => {
             </div>
           </Hint>
           <Link
-            to={`/candidate/${candidateName}/settlements`}
+            to={`/candidate/${candidateSlug}/settlements`}
             className="text-[10px] normal-case text-primary hover:underline"
             underline={false}
           >

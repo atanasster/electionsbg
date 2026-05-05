@@ -26,9 +26,9 @@ const queryFn = async ({
   return response.json();
 };
 
-type Props = { name: string };
+type Props = { name: string; linkSlug?: string };
 
-export const CandidateDonationsTile: FC<Props> = ({ name }) => {
+export const CandidateDonationsTile: FC<Props> = ({ name, linkSlug }) => {
   const { t } = useTranslation();
   const { selected } = useElectionContext();
   const { data } = useQuery({
@@ -62,7 +62,7 @@ export const CandidateDonationsTile: FC<Props> = ({ name }) => {
   }, [data]);
 
   if (!summary) return null;
-  const candidateName = encodeURIComponent(name);
+  const candidateSlug = linkSlug ?? encodeURIComponent(name);
 
   return (
     <StatCard
@@ -79,7 +79,7 @@ export const CandidateDonationsTile: FC<Props> = ({ name }) => {
           </Hint>
           {summary.count > TOP_N ? (
             <Link
-              to={`/candidate/${candidateName}/donations`}
+              to={`/candidate/${candidateSlug}/donations`}
               className="text-[10px] normal-case text-primary hover:underline"
               underline={false}
             >

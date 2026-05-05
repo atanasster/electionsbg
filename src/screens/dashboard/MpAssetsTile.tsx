@@ -6,6 +6,7 @@ import { useAssetsRankings } from "@/data/parliament/useAssetsRankings";
 import { useElectionContext } from "@/data/ElectionContext";
 import { electionToNsFolder } from "@/data/parliament/nsFolders";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
+import { candidateUrlForMp } from "@/data/candidates/candidateSlug";
 import { formatThousands } from "@/data/utils";
 import { StatCard } from "./StatCard";
 
@@ -86,7 +87,7 @@ export const MpAssetsTile: FC<Props> = ({ className }) => {
               </span>
               <MpAvatar mpId={row.mpId} name={row.label} />
               <Link
-                to={`/candidate/${encodeURIComponent(row.label)}`}
+                to={candidateUrlForMp(row.mpId)}
                 className="hover:underline truncate flex-1"
               >
                 {row.label}

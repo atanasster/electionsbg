@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { Network } from "lucide-react";
 import { Title } from "@/ux/Title";
 import { useMpConnections } from "@/data/parliament/useMpConnections";
+import { useResolvedCandidateName } from "@/data/candidates/useResolvedCandidate";
 import type { ConnectionsEdge, ConnectionsNode } from "@/data/dataTypes";
 import { ConnectionPathRow } from "./components/candidates/ConnectionPathRow";
 import { ErrorSection } from "./components/ErrorSection";
@@ -11,7 +12,12 @@ import { ErrorSection } from "./components/ErrorSection";
 export const CandidateConnectionsScreen: FC = () => {
   const { id } = useParams();
   const { t } = useTranslation();
-  const name = id ? decodeURIComponent(id) : null;
+  const { name: resolved } = useResolvedCandidateName(id);
+  const fallback =
+    id && !id.startsWith("mp-") && !id.startsWith("c-")
+      ? decodeURIComponent(id)
+      : null;
+  const name = resolved ?? fallback;
   const { subgraph, isLoading } = useMpConnections(name);
 
   const nodeById = useMemo(() => {

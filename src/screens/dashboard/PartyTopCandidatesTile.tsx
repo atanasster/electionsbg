@@ -11,6 +11,7 @@ import { useParliamentGroups } from "@/data/parliament/useParliamentGroups";
 import { useRegions } from "@/data/regions/useRegions";
 import { formatThousands } from "@/data/utils";
 import { Link } from "@/ux/Link";
+import { candidateUrlFor } from "@/data/candidates/candidateSlug";
 import { Tooltip } from "@/ux/Tooltip";
 import { Hint } from "@/ux/Hint";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
@@ -93,10 +94,12 @@ export const PartyTopCandidatesTile: FC<Props> = ({ data }) => {
           machineVotes: p.machineVotes,
           lyTotalVotes: p.lyTotalVotes,
           pref: p.pref,
+          partyNum: p.partyNum,
           regionName,
           regionCode: p.oblast,
           pctOfPartyVotes,
           photoUrl: mp?.photoUrl,
+          mpId: mp?.id ?? null,
           groupLabel: group?.displayName,
           groupColor: group?.color,
         };
@@ -194,7 +197,11 @@ export const PartyTopCandidatesTile: FC<Props> = ({ data }) => {
             }
           >
             <Link
-              to={`/candidate/${encodeURIComponent(r.name)}`}
+              to={candidateUrlFor({
+                mpId: r.mpId,
+                partyNum: r.partyNum,
+                name: r.name,
+              })}
               underline={false}
               className="flex items-center gap-3 p-2 rounded-lg border border-border/60 hover:bg-muted/40 transition-colors min-w-0 flex-1 basis-[200px] max-w-[280px]"
             >

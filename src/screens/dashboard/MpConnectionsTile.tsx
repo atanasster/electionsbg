@@ -8,12 +8,10 @@ import { useMps } from "@/data/parliament/useMps";
 import { useElectionContext } from "@/data/ElectionContext";
 import { electionToNsFolder, oblastToMir } from "@/data/parliament/nsFolders";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
+import { candidateUrlForMp } from "@/data/candidates/candidateSlug";
 import { Hint } from "@/ux/Hint";
 import { StatCard } from "./StatCard";
-import type {
-  ConnectionsTopMp,
-  DataProvenanceScope,
-} from "@/data/dataTypes";
+import type { ConnectionsTopMp, DataProvenanceScope } from "@/data/dataTypes";
 
 type Props = {
   /** Optional region code (e.g. "S23"). When provided, the tile focuses on
@@ -192,7 +190,7 @@ export const MpConnectionsTile: FC<Props> = ({
               </span>
               <MpAvatar mpId={row.mpId} name={row.label} />
               <Link
-                to={`/candidate/${encodeURIComponent(row.label)}`}
+                to={candidateUrlForMp(row.mpId)}
                 className="hover:underline truncate flex-1"
               >
                 {row.label}
