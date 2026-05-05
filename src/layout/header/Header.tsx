@@ -55,7 +55,7 @@ export const Header = () => {
           ? `/articles/${articlesForSelectedElection[0].slug}`
           : "/articles";
       return (
-        <DropdownMenuItem>
+        <DropdownMenuItem asChild>
           <Link to={target}>{t(item.title)}</Link>
         </DropdownMenuItem>
       );
@@ -79,7 +79,7 @@ export const Header = () => {
     }
     if (item.link) {
       return (
-        <DropdownMenuItem>
+        <DropdownMenuItem asChild>
           <Link to={item.link}>{t(item.title)}</Link>
         </DropdownMenuItem>
       );
