@@ -32,6 +32,20 @@ export const useCanonicalParties = () => {
     return map;
   }, [data]);
 
+  // Case-insensitive nickName → canonicalId index. Parliament group labels
+  // arrive uppercased (e.g. "ВЪЗРАЖДАНЕ") while canonical history nicknames
+  // are mixed-case ("Възраждане"), so an exact-match lookup misses them.
+  const byNickNameLower = useMemo(() => {
+    const map = new Map<string, string>();
+    if (data?.byNickName) {
+      for (const [nick, id] of Object.entries(data.byNickName)) {
+        const k = nick.toLocaleLowerCase("bg");
+        if (!map.has(k)) map.set(k, id);
+      }
+    }
+    return map;
+  }, [data]);
+
   const colorFor = (nickName: string): string | undefined => {
     const id = data?.byNickName[nickName];
     if (!id) return undefined;
@@ -78,6 +92,29 @@ export const useCanonicalParties = () => {
       : party.displayName;
   };
 
+  // Localize a parliament.bg group short label like "ПГ ВЪЗРАЖДАНЕ" or
+  // "ПГ на ГЕРБ-СДС" to the canonical party display name in the active
+  // language. Strips the "ПГ"/"ПГ на" prefix, then resolves via
+  // `byNickName` (case-insensitive). Falls back to the stripped label
+  // when no canonical match exists, and to the raw label when there's no
+  // PG prefix to strip.
+  const partyGroupShortLabel = (
+    partyGroupShort: string | null | undefined,
+  ): string | null => {
+    if (!partyGroupShort) return null;
+    const stripped = partyGroupShort.replace(/^ПГ(\s+на)?\s+/, "").trim();
+    if (!stripped) return partyGroupShort;
+    const id =
+      data?.byNickName[stripped] ??
+      byNickNameLower.get(stripped.toLocaleLowerCase("bg"));
+    if (!id) return stripped;
+    const party = byId.get(id);
+    if (!party) return stripped;
+    return isEn
+      ? (party.displayNameEn ?? party.displayName)
+      : party.displayName;
+  };
+
   return {
     data,
     byId,
@@ -87,5 +124,6 @@ export const useCanonicalParties = () => {
     fullNameFor,
     displayNameFor,
     displayNameForId,
+    partyGroupShortLabel,
   };
 };

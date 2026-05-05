@@ -8,6 +8,7 @@ import type {
   ConnectionsPath,
 } from "@/data/dataTypes";
 import { candidateUrlForMp } from "@/data/candidates/candidateSlug";
+import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { cn } from "@/lib/utils";
 import { MpAvatar } from "./MpAvatar";
 
@@ -49,6 +50,7 @@ export const ConnectionPathRow: FC<Props> = ({
   edgeBetween,
 }) => {
   const { t } = useTranslation();
+  const { partyGroupShortLabel } = useCanonicalParties();
 
   // Pre-resolve nodes once per render so we don't pay map lookups twice.
   const segments = useMemo(() => {
@@ -62,7 +64,7 @@ export const ConnectionPathRow: FC<Props> = ({
   const target = segments[segments.length - 1];
   const targetParty =
     target.type === "mp" && target.partyGroupShort
-      ? target.partyGroupShort
+      ? (partyGroupShortLabel(target.partyGroupShort) ?? target.partyGroupShort)
       : null;
 
   return (

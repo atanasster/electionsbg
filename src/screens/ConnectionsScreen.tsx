@@ -30,6 +30,7 @@ import { ConnectionsHero } from "@/screens/components/connections/ConnectionsHer
 import { useConnectionsFilters } from "@/screens/components/connections/useConnectionsFilters";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 import { candidateUrlForMp } from "@/data/candidates/candidateSlug";
+import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import type {
   ConnectionsEdge,
@@ -164,6 +165,7 @@ export const ConnectionsScreen: FC = () => {
   const { rankings } = useConnectionsRankings();
   const { topPairs } = useConnectionsTopPairs();
   const { selected: selectedElection } = useElectionContext();
+  const { partyGroupShortLabel } = useCanonicalParties();
   const [showRankings, setShowRankings] = useState(true);
 
   // Active tab — URL-stateful so deep-links to e.g. ?tab=find or ?tab=graph
@@ -1010,7 +1012,8 @@ export const ConnectionsScreen: FC = () => {
                           </span>
                           {row.partyGroupShort && (
                             <span className="text-muted-foreground text-[10px] truncate max-w-[120px] shrink-0">
-                              {row.partyGroupShort}
+                              {partyGroupShortLabel(row.partyGroupShort) ??
+                                row.partyGroupShort}
                             </span>
                           )}
                         </div>
@@ -1366,7 +1369,7 @@ export const ConnectionsScreen: FC = () => {
                       {detail.type === "mp"
                         ? (t("connections_legend_mp") || "MP") +
                           (detail.partyGroupShort
-                            ? ` · ${detail.partyGroupShort}`
+                            ? ` · ${partyGroupShortLabel(detail.partyGroupShort) ?? detail.partyGroupShort}`
                             : "")
                         : detail.type === "company"
                           ? `${t("connections_legend_company") || "Company"}${
