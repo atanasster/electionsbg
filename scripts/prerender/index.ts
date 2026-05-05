@@ -57,6 +57,9 @@ const renderSeoBlock = (
     : DEFAULT_OG_IMAGE;
   const title = escapeHtml(variant.title);
   const description = escapeHtml(variant.description);
+  // Twitter falls back to og:title / og:description when twitter-specific
+  // tags are absent — drop the redundant pair to save bytes per page.
+  // og:image:alt improves accessibility for shared cards.
   const lines = [
     "<!-- SEO -->",
     `    <title>${title}</title>`,
@@ -65,9 +68,8 @@ const renderSeoBlock = (
     `    <meta property="og:description" content="${description}" />`,
     `    <meta property="og:url" content="${variant.selfUrl}" />`,
     `    <meta property="og:image" content="${ogImage}" />`,
+    `    <meta property="og:image:alt" content="${title}" />`,
     `    <meta property="og:locale" content="${variant.lang === "en" ? "en_US" : "bg_BG"}" />`,
-    `    <meta name="twitter:title" content="${title}" />`,
-    `    <meta name="twitter:description" content="${description}" />`,
     `    <meta name="twitter:image" content="${ogImage}" />`,
     `    <link rel="canonical" href="${variant.selfUrl}" />`,
   ];
@@ -181,7 +183,7 @@ const writeRoute = (template: string, route: PrerenderRoute) => {
   }
 };
 
-const main = () => {
+const main = async () => {
   const indexPath = path.join(DIST, "index.html");
   if (!fs.existsSync(indexPath)) {
     throw new Error(
@@ -189,7 +191,7 @@ const main = () => {
     );
   }
   const template = fs.readFileSync(indexPath, "utf-8");
-  const dynamic = buildDynamicRoutes(PROJECT_ROOT);
+  const dynamic = await buildDynamicRoutes(PROJECT_ROOT);
   const all = [...prerenderRoutes, ...dynamic];
   // De-dupe by path (e.g. a static route shouldn't be overwritten by a dynamic one).
   const byPath = new Map<string, PrerenderRoute>();
@@ -204,4 +206,7 @@ const main = () => {
   );
 };
 
-main();
+main().catch((err) => {
+  console.error("prerender failed:", err);
+  process.exit(1);
+});

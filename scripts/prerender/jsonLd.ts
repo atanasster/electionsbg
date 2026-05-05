@@ -1,12 +1,25 @@
 const SITE_URL = "https://electionsbg.com";
 
+// Stable @id URIs so crawlers reconcile the WebSite + Organization nodes
+// across every prerendered page — the schema graph is one node referenced
+// many times, not 130k duplicate nodes. (Google's structured-data guidance
+// recommends emitting these on every page, not stripping them; the fix is
+// the @id, not the absence.)
+const ORG_ID = `${SITE_URL}/#organization`;
+const WEBSITE_ID = `${SITE_URL}/#website`;
+
 const ORG = {
   "@type": "Organization",
+  "@id": ORG_ID,
   name: "Elections Bulgaria",
   alternateName: "electionsbg.com",
   url: SITE_URL,
   logo: `${SITE_URL}/images/og_image.png`,
 };
+
+// Reference shape used wherever another schema entity needs to point at the
+// Organization without inlining its full payload again.
+const ORG_REF = { "@id": ORG_ID };
 
 export const buildOrganizationLd = () => ({
   "@context": "https://schema.org",
@@ -16,30 +29,28 @@ export const buildOrganizationLd = () => ({
 export const buildWebSiteLd = () => ({
   "@context": "https://schema.org",
   "@type": "WebSite",
+  "@id": WEBSITE_ID,
   name: "Elections Bulgaria",
   alternateName: "electionsbg.com",
   url: SITE_URL,
   inLanguage: ["bg", "en"],
-  publisher: ORG,
+  publisher: ORG_REF,
 });
 
 export const buildWebPageLd = (params: {
   title: string;
   description: string;
   url: string;
+  inLanguage?: "bg" | "en";
 }) => ({
   "@context": "https://schema.org",
   "@type": "WebPage",
   name: params.title,
   description: params.description,
   url: params.url,
-  inLanguage: "bg",
-  isPartOf: {
-    "@type": "WebSite",
-    url: SITE_URL,
-    name: "Elections Bulgaria",
-  },
-  publisher: ORG,
+  inLanguage: params.inLanguage ?? "bg",
+  isPartOf: { "@id": WEBSITE_ID },
+  publisher: ORG_REF,
 });
 
 export const buildDatasetLd = (params: {
@@ -185,9 +196,16 @@ export const buildArticleLd = (params: {
   image?: string;
   keywords?: string[];
   articleSection?: string;
+  // Override the @type — defaults to Article. Common alternatives:
+  // NewsArticle, BlogPosting, Report. Set per-article via frontmatter.
+  schemaType?: string;
+  // Override the default Organization author with a named human. The string
+  // is wrapped in a Person object; the Organization remains as the
+  // publisher so the Google guidelines are still satisfied.
+  author?: string;
 }) => ({
   "@context": "https://schema.org",
-  "@type": "Article",
+  "@type": params.schemaType ?? "Article",
   headline: params.headline,
   description: params.description,
   url: params.url,
@@ -195,7 +213,7 @@ export const buildArticleLd = (params: {
   datePublished: params.datePublished,
   dateModified: params.dateModified ?? params.datePublished,
   inLanguage: params.inLanguage,
-  author: ORG,
+  author: params.author ? { "@type": "Person", name: params.author } : ORG,
   publisher: ORG,
   ...(params.image
     ? {

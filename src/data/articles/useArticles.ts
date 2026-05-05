@@ -30,13 +30,22 @@ const indexQueryFn = async (): Promise<ArticleMeta[]> => {
 export const useArticles = () =>
   useQuery({ queryKey: ["articles_index"], queryFn: indexQueryFn });
 
+// Strip optional YAML frontmatter (`---\n...\n---`) before handing the body
+// to react-markdown. Authors may attach frontmatter for SEO/AIO metadata
+// (keywords, updatedAt, schemaType), which the prerender step consumes; the
+// runtime renderer should ignore it rather than print it as a horizontal
+// rule + key:value lines.
+const stripFrontmatter = (md: string): string =>
+  md.replace(/^---\r?\n[\s\S]*?\r?\n---\r?\n?/, "");
+
 const bodyQueryFn = async ({
   queryKey,
 }: QueryFunctionContext<[string, string, string]>): Promise<string> => {
   const [, slug, lang] = queryKey;
   const res = await fetch(`/articles/${slug}-${lang}.md`);
   if (!res.ok) throw new Error(`article ${slug} ${lang} not found`);
-  return res.text();
+  const raw = await res.text();
+  return stripFrontmatter(raw);
 };
 
 export const useArticleBody = (slug: string | undefined, lang: "bg" | "en") =>

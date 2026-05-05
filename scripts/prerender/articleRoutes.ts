@@ -1,24 +1,89 @@
 // Per-article prerender routes for /articles/<slug> (BG default + /en/ mirror).
-// Each article is enumerated from public/articles/index.json. The body is a
-// curated SEO/AIO summary — title, summary, headline-numbers table, section
-// TOC, and an inline link to the full article. The full markdown text is
-// served separately via /articles/<slug>-{lang}.md and ingested by AI/LLM
-// crawlers via /llms-full.txt.
+// Each article is enumerated from public/articles/index.json. The body is the
+// full markdown article rendered to inline HTML — crawlers and AIO bots
+// (GPTBot, ClaudeBot, Perplexity, all explicitly allowed in robots.txt) can
+// read the actual content, not just a summary stub. SPA visitors still hit
+// the React renderer; the inlined HTML lives in a hidden #ssg-content block.
+//
+// Per-article SEO/AIO metadata can also be authored as YAML frontmatter at
+// the top of each `{slug}-{lang}.md` file:
+//
+//   ---
+//   keywords: [parliament, integrity, anomalies]
+//   updatedAt: 2026-05-06
+//   author: Atanas Stoyanov
+//   schemaType: NewsArticle
+//   noindex: false
+//   ---
+//
+// Frontmatter fields override the index.json defaults; missing fields fall
+// through to the index.json values + the standard inferred keywords.
 
 import fs from "fs";
 import path from "path";
 import { PrerenderRoute, SITE_URL } from "./routes";
 import { buildArticleLd, buildBreadcrumbLd } from "./jsonLd";
+import {
+  ArticleImageDimensions,
+  collectImageDimensions,
+  Frontmatter,
+  parseFrontmatter,
+  renderMarkdownToHtml,
+} from "./articleMarkdown";
 
 type ArticleMeta = {
   slug: string;
   election?: string;
   publishedAt: string;
+  updatedAt?: string;
   category?: string;
   title: { bg: string; en: string };
   summary: { bg: string; en: string };
   ogImage?: string;
 };
+
+type FrontmatterFields = {
+  title?: string;
+  description?: string;
+  keywords?: string[];
+  updatedAt?: string;
+  author?: string;
+  canonical?: string;
+  noindex?: boolean;
+  schemaType?: string;
+  ogImage?: string;
+};
+
+const asString = (v: unknown): string | undefined =>
+  typeof v === "string" && v.trim() ? v.trim() : undefined;
+
+const asStringList = (v: unknown): string[] | undefined => {
+  if (Array.isArray(v)) {
+    const arr = v
+      .filter((x): x is string => typeof x === "string" && !!x.trim())
+      .map((x) => x.trim());
+    return arr.length ? arr : undefined;
+  }
+  if (typeof v === "string" && v.trim()) {
+    return v
+      .split(",")
+      .map((s) => s.trim())
+      .filter(Boolean);
+  }
+  return undefined;
+};
+
+const liftFrontmatter = (data: Frontmatter): FrontmatterFields => ({
+  title: asString(data.title),
+  description: asString(data.description) ?? asString(data.summary),
+  keywords: asStringList(data.keywords),
+  updatedAt: asString(data.updatedAt) ?? asString(data.dateModified),
+  author: asString(data.author),
+  canonical: asString(data.canonical),
+  noindex: data.noindex === true,
+  schemaType: asString(data.schemaType),
+  ogImage: asString(data.ogImage) ?? asString(data.image),
+});
 
 const escapeHtml = (s: string): string =>
   s
@@ -28,250 +93,38 @@ const escapeHtml = (s: string): string =>
     .replace(/</g, "&lt;")
     .replace(/>/g, "&gt;");
 
-// Strip markdown link syntax → keep just the visible text. Used for headings
-// and table cells where we want crawlable text without the URL noise.
-const stripMd = (s: string): string =>
-  s
-    .replace(/\[([^\]]+)\]\([^)]+\)/g, "$1")
-    .replace(/\*\*([^*]+)\*\*/g, "$1")
-    .replace(/\*([^*]+)\*/g, "$1")
-    .replace(/`([^`]+)`/g, "$1");
-
-// Convert a markdown link to a safe anchor (only http(s) and root-relative
-// paths are allowed; site-relative links are rebased onto SITE_URL so the
-// extracted block makes sense in isolation).
-const mdLinkToHtml = (text: string, url: string): string => {
-  const safeText = escapeHtml(stripMd(text));
-  let safeUrl = url.trim();
-  if (safeUrl.startsWith("/")) safeUrl = `${SITE_URL}${safeUrl}`;
-  if (!/^https?:\/\//.test(safeUrl)) {
-    return safeText; // unknown scheme — drop the link, keep the text
-  }
-  return `<a href="${escapeHtml(safeUrl)}">${safeText}</a>`;
-};
-
-// Render a single markdown line's inline formatting (links, bold, italic,
-// code) to HTML. Conservative: any unrecognised character is escaped.
-const renderInline = (line: string): string => {
-  let i = 0;
-  const out: string[] = [];
-  const linkRe = /\[([^\]]+)\]\(([^)]+)\)/g;
-  let m: RegExpExecArray | null;
-  let lastIndex = 0;
-  while ((m = linkRe.exec(line)) !== null) {
-    if (m.index > lastIndex) {
-      out.push(renderInlineNoLinks(line.slice(lastIndex, m.index)));
-    }
-    out.push(mdLinkToHtml(m[1], m[2]));
-    lastIndex = m.index + m[0].length;
-    i = lastIndex;
-  }
-  if (i < line.length) {
-    out.push(renderInlineNoLinks(line.slice(i)));
-  }
-  return out.join("");
-};
-
-const renderInlineNoLinks = (s: string): string => {
-  // Bold → strong, italic → em, code → code. Escape the surrounding text.
-  // Process bold first to avoid ** being treated as italic.
-  const parts: string[] = [];
-  let i = 0;
-  const boldRe = /\*\*([^*]+)\*\*/g;
-  let m: RegExpExecArray | null;
-  while ((m = boldRe.exec(s)) !== null) {
-    if (m.index > i) parts.push(applyItalicAndCode(s.slice(i, m.index)));
-    parts.push(`<strong>${applyItalicAndCode(m[1])}</strong>`);
-    i = m.index + m[0].length;
-  }
-  if (i < s.length) parts.push(applyItalicAndCode(s.slice(i)));
-  return parts.join("");
-};
-
-const applyItalicAndCode = (s: string): string => {
-  // First pass: code (escape contents). Then italic on the remainder.
-  const codeParts: string[] = [];
-  let i = 0;
-  const codeRe = /`([^`]+)`/g;
-  let m: RegExpExecArray | null;
-  while ((m = codeRe.exec(s)) !== null) {
-    if (m.index > i) codeParts.push(applyItalic(s.slice(i, m.index)));
-    codeParts.push(`<code>${escapeHtml(m[1])}</code>`);
-    i = m.index + m[0].length;
-  }
-  if (i < s.length) codeParts.push(applyItalic(s.slice(i)));
-  return codeParts.join("");
-};
-
-const applyItalic = (s: string): string => {
-  const parts: string[] = [];
-  let i = 0;
-  const re = /(?:^|[^*])\*([^*]+)\*(?!\*)/g;
-  let m: RegExpExecArray | null;
-  while ((m = re.exec(s)) !== null) {
-    const startOffset = m[0].startsWith("*") ? 0 : 1;
-    if (m.index + startOffset > i)
-      parts.push(escapeHtml(s.slice(i, m.index + startOffset)));
-    parts.push(`<em>${escapeHtml(m[1])}</em>`);
-    i = m.index + m[0].length;
-  }
-  if (i < s.length) parts.push(escapeHtml(s.slice(i)));
-  return parts.join("");
-};
-
-// Extract the first markdown table block following an h2/h3 whose name
-// contains the given marker. Returns the rendered HTML table or null.
-const extractFirstTable = (
-  md: string,
-  headingMarker: string,
-): string | null => {
-  const lines = md.split(/\r?\n/);
-  let inTargetSection = false;
-  const collected: string[] = [];
-  let started = false;
-  for (const raw of lines) {
-    const line = raw;
-    const h = /^(#{1,6})\s+(.*)$/.exec(line.trim());
-    if (h) {
-      if (started) break; // hit next heading after collecting table
-      inTargetSection = h[2]
-        .toLowerCase()
-        .includes(headingMarker.toLowerCase());
-      continue;
-    }
-    if (!inTargetSection) continue;
-    if (line.trim().startsWith("|")) {
-      collected.push(line.trim());
-      started = true;
-    } else if (started && !line.trim()) {
-      break;
-    }
-  }
-  if (collected.length < 2) return null;
-  // collected[0] = header, collected[1] = separator, rest = body rows
-  const header = parseRow(collected[0]);
-  const rows = collected.slice(2).map(parseRow);
-  const thead = header.map((c) => `<th>${renderInline(c)}</th>`).join("");
-  const tbody = rows
-    .map(
-      (r) => `<tr>${r.map((c) => `<td>${renderInline(c)}</td>`).join("")}</tr>`,
-    )
-    .join("");
-  return `<table><thead><tr>${thead}</tr></thead><tbody>${tbody}</tbody></table>`;
-};
-
-const parseRow = (line: string): string[] => {
-  const trimmed = line.replace(/^\||\|$/g, "");
-  return trimmed.split("|").map((c) => c.trim());
-};
-
-// Extract h2 headings from the markdown for a TOC.
-const extractH2Toc = (md: string): string[] => {
-  const lines = md.split(/\r?\n/);
-  const out: string[] = [];
-  for (const raw of lines) {
-    const m = /^##\s+(.*)$/.exec(raw.trim());
-    if (m) out.push(stripMd(m[1]));
-  }
-  return out;
-};
-
-// Extract the items in a numbered list following an h3 whose name contains
-// the given marker. Stops at the next heading. Returns just the first
-// sentence of each item (up to the first `.`, `—`, or `**`).
-const extractTopOrderedItems = (
-  md: string,
-  headingMarker: string,
-  max = 5,
-): string[] => {
-  const lines = md.split(/\r?\n/);
-  let inTarget = false;
-  const out: string[] = [];
-  for (const raw of lines) {
-    const h = /^(#{1,6})\s+(.*)$/.exec(raw.trim());
-    if (h) {
-      if (inTarget && out.length) break;
-      inTarget = h[2].toLowerCase().includes(headingMarker.toLowerCase());
-      continue;
-    }
-    if (!inTarget) continue;
-    const m = /^\d+\.\s+(.*)$/.exec(raw.trim());
-    if (m && out.length < max) {
-      // Keep just the lead phrase up to the first em-dash or period to keep
-      // the body compact.
-      const lead = m[1].split(/—|\.\s/)[0];
-      out.push(stripMd(lead));
-    }
-  }
-  return out;
-};
-
 const buildArticleBody = (
   meta: ArticleMeta,
   lang: "bg" | "en",
   md: string,
+  fm: FrontmatterFields,
+  imageDimensions: ArticleImageDimensions,
 ): string => {
   const labels =
     lang === "bg"
-      ? {
-          published: "Публикувана",
-          glossary: "Резюме",
-          headline: "Основни числа",
-          toc: "Съдържание",
-          signals: "Сигнали, заслужаващи обществен контрол",
-          readFull: "Прочети пълния анализ",
-        }
-      : {
-          published: "Published",
-          glossary: "Summary",
-          headline: "Headline numbers",
-          toc: "Contents",
-          signals: "Signals worth public scrutiny",
-          readFull: "Read the full analysis",
-        };
+      ? { published: "Публикувана", updated: "обновена" }
+      : { published: "Published", updated: "updated" };
 
-  const articleUrl =
-    lang === "en"
-      ? `${SITE_URL}/en/articles/${meta.slug}`
-      : `${SITE_URL}/articles/${meta.slug}`;
+  const titleStr = fm.title ?? meta.title[lang];
+  const summaryStr = fm.description ?? meta.summary[lang];
+  const date = meta.publishedAt;
+  const updated = fm.updatedAt ?? meta.updatedAt;
 
-  const title = escapeHtml(meta.title[lang]);
-  const summary = escapeHtml(meta.summary[lang]);
-  const date = escapeHtml(meta.publishedAt);
+  const bodyHtml = renderMarkdownToHtml(md, {
+    stripFirstH1: true,
+    imageDimensions,
+  });
 
-  const headlineMarker = lang === "bg" ? "Основни числа" : "Headline numbers";
-  const signalsMarker =
-    lang === "bg"
-      ? "Сигнали, заслужаващи обществен контрол"
-      : "Signals worth public scrutiny";
-
-  const headlineTable = extractFirstTable(md, headlineMarker);
-  const tocItems = extractH2Toc(md);
-  const signalLeads = extractTopOrderedItems(md, signalsMarker, 5);
-
-  const tocHtml =
-    tocItems.length > 0
-      ? `<h2>${labels.toc}</h2><ol>${tocItems.map((t) => `<li>${escapeHtml(t)}</li>`).join("")}</ol>`
-      : "";
-
-  const signalsHtml =
-    signalLeads.length > 0
-      ? `<h2>${labels.signals}</h2><ol>${signalLeads.map((s) => `<li>${renderInline(s)}</li>`).join("")}</ol>`
-      : "";
-
-  const headlineHtml = headlineTable
-    ? `<h2>${labels.headline}</h2>${headlineTable}`
-    : "";
+  const dateLine =
+    updated && updated !== date
+      ? `<p><strong>${labels.published}:</strong> ${escapeHtml(date)} · <em>${labels.updated}: ${escapeHtml(updated)}</em></p>`
+      : `<p><strong>${labels.published}:</strong> ${escapeHtml(date)}</p>`;
 
   return [
-    `<h1>${title}</h1>`,
-    `<p><strong>${labels.published}:</strong> ${date}</p>`,
-    `<h2>${labels.glossary}</h2>`,
-    `<p>${summary}</p>`,
-    headlineHtml,
-    signalsHtml,
-    tocHtml,
-    `<p><a href="${articleUrl}">${labels.readFull}</a></p>`,
+    `<h1>${escapeHtml(titleStr)}</h1>`,
+    dateLine,
+    summaryStr ? `<p><em>${escapeHtml(summaryStr)}</em></p>` : "",
+    bodyHtml,
   ]
     .filter(Boolean)
     .join("\n");
@@ -328,11 +181,21 @@ const buildIndexBody = (articles: ArticleMeta[], lang: "bg" | "en"): string => {
   ].join("\n");
 };
 
-export const buildArticleRoutes = (publicFolder: string): PrerenderRoute[] => {
+export const buildArticleRoutes = async (
+  publicFolder: string,
+): Promise<PrerenderRoute[]> => {
   const indexFile = path.join(publicFolder, "articles", "index.json");
   if (!fs.existsSync(indexFile)) return [];
   const articles: ArticleMeta[] = JSON.parse(
     fs.readFileSync(indexFile, "utf-8"),
+  );
+
+  // Pre-scan article images so the markdown renderer can stamp explicit
+  // width/height on each <img> — prevents CLS when the prerendered shell
+  // hands off to the SPA.
+  const imageDimensions = await collectImageDimensions(
+    publicFolder,
+    "articles/images",
   );
 
   const routes: PrerenderRoute[] = [];
@@ -370,58 +233,83 @@ export const buildArticleRoutes = (publicFolder: string): PrerenderRoute[] => {
   for (const meta of articles) {
     const bgPath = path.join(publicFolder, "articles", `${meta.slug}-bg.md`);
     const enPath = path.join(publicFolder, "articles", `${meta.slug}-en.md`);
-    const bgMd = fs.existsSync(bgPath) ? fs.readFileSync(bgPath, "utf-8") : "";
-    const enMd = fs.existsSync(enPath) ? fs.readFileSync(enPath, "utf-8") : "";
+    const bgRaw = fs.existsSync(bgPath) ? fs.readFileSync(bgPath, "utf-8") : "";
+    const enRaw = fs.existsSync(enPath) ? fs.readFileSync(enPath, "utf-8") : "";
+
+    const { data: bgFmRaw, content: bgMd } = parseFrontmatter(bgRaw);
+    const { data: enFmRaw, content: enMd } = parseFrontmatter(enRaw);
+    const bgFm = liftFrontmatter(bgFmRaw);
+    const enFm = liftFrontmatter(enFmRaw);
 
     const path_ = `articles/${meta.slug}`;
     const bgUrl = `${SITE_URL}/${path_}`;
     const enUrl = `${SITE_URL}/en/${path_}`;
 
-    const bgBody = bgMd ? buildArticleBody(meta, "bg", bgMd) : "";
-    const enBody = enMd ? buildArticleBody(meta, "en", enMd) : "";
+    const bgBody = bgMd
+      ? buildArticleBody(meta, "bg", bgMd, bgFm, imageDimensions)
+      : "";
+    const enBody = enMd
+      ? buildArticleBody(meta, "en", enMd, enFm, imageDimensions)
+      : "";
+
+    const bgTitle = bgFm.title ?? meta.title.bg;
+    const bgDescription = bgFm.description ?? meta.summary.bg;
+    const enTitle = enFm.title ?? meta.title.en;
+    const enDescription = enFm.description ?? meta.summary.en;
+    const bgKeywords = bgFm.keywords ?? inferKeywords(meta, "bg");
+    const enKeywords = enFm.keywords ?? inferKeywords(meta, "en");
+    const ogImage = bgFm.ogImage ?? enFm.ogImage ?? meta.ogImage;
+    const bgSchemaType = bgFm.schemaType;
+    const enSchemaType = enFm.schemaType;
 
     routes.push({
       path: path_,
-      title: `${meta.title.bg} | electionsbg.com`,
-      description: meta.summary.bg,
-      ogImage: meta.ogImage,
+      title: `${bgTitle} | electionsbg.com`,
+      description: bgDescription,
+      ogImage,
       bodyHtml: bgBody,
       jsonLd: [
         buildArticleLd({
-          headline: meta.title.bg,
-          description: meta.summary.bg,
+          headline: bgTitle,
+          description: bgDescription,
           url: bgUrl,
           datePublished: meta.publishedAt,
+          dateModified: bgFm.updatedAt ?? meta.updatedAt,
+          author: bgFm.author,
           inLanguage: "bg",
-          keywords: inferKeywords(meta, "bg"),
+          keywords: bgKeywords,
           articleSection: meta.category,
-          image: meta.ogImage,
+          image: ogImage,
+          schemaType: bgSchemaType,
         }),
         buildBreadcrumbLd([
           { name: "Начало", url: `${SITE_URL}/` },
           { name: "Анализи", url: `${SITE_URL}/articles` },
-          { name: meta.title.bg, url: bgUrl },
+          { name: bgTitle, url: bgUrl },
         ]),
       ],
       english: {
-        title: `${meta.title.en} | electionsbg.com`,
-        description: meta.summary.en,
+        title: `${enTitle} | electionsbg.com`,
+        description: enDescription,
         bodyHtml: enBody,
         jsonLd: [
           buildArticleLd({
-            headline: meta.title.en,
-            description: meta.summary.en,
+            headline: enTitle,
+            description: enDescription,
             url: enUrl,
             datePublished: meta.publishedAt,
+            dateModified: enFm.updatedAt ?? meta.updatedAt,
+            author: enFm.author,
             inLanguage: "en",
-            keywords: inferKeywords(meta, "en"),
+            keywords: enKeywords,
             articleSection: meta.category,
-            image: meta.ogImage,
+            image: ogImage,
+            schemaType: enSchemaType,
           }),
           buildBreadcrumbLd([
             { name: "Home", url: `${SITE_URL}/en/` },
             { name: "Analyses", url: `${SITE_URL}/en/articles` },
-            { name: meta.title.en, url: enUrl },
+            { name: enTitle, url: enUrl },
           ]),
         ],
       },

@@ -15,6 +15,7 @@ import {
   buildDatasetLd,
   buildFaqLd,
   buildPersonLd,
+  buildWebPageLd,
 } from "./jsonLd";
 import {
   buildElectionLandingBody,
@@ -133,29 +134,7 @@ export const buildPartyRoutes = (
       ogImage: `/og/party/${encodeURIComponent(p.nickName)}.png`,
       bodyHtml,
       jsonLd: [
-        buildDatasetLd({
-          name: `${label} — резултати по години и територии`,
-          description,
-          url,
-          spatialCoverage: "България",
-          keywords: [
-            label,
-            "парламентарни избори",
-            "Bulgaria",
-            "elections",
-            "results",
-          ],
-          distribution: [
-            {
-              url: `${SITE_URL}/${latestElection}/parties/by_region/${p.number}.json`,
-              name: "Резултати по области (JSON)",
-            },
-            {
-              url: `${SITE_URL}/${latestElection}/parties/by_municipality/${p.number}.json`,
-              name: "Резултати по общини (JSON)",
-            },
-          ],
-        }),
+        buildWebPageLd({ title, description, url }),
         buildBreadcrumbLd([
           { name: "Начало", url: `${SITE_URL}/` },
           { name: label, url },
@@ -166,17 +145,11 @@ export const buildPartyRoutes = (
         description: descriptionEn,
         bodyHtml,
         jsonLd: [
-          buildDatasetLd({
-            name: `${label} — results by year and territory`,
+          buildWebPageLd({
+            title: titleEn,
             description: descriptionEn,
             url: enUrl,
-            spatialCoverage: "Bulgaria",
-            keywords: [
-              label,
-              "Bulgarian elections",
-              "parliamentary elections",
-              "results",
-            ],
+            inLanguage: "en",
           }),
           buildBreadcrumbLd([
             { name: "Home", url: `${SITE_URL}/en/` },
@@ -190,8 +163,6 @@ export const buildPartyRoutes = (
 
 export const buildOblastRoutes = (
   regionsJsonPath: string,
-  publicFolder?: string,
-  latestElection?: string,
 ): PrerenderRoute[] => {
   const regions: RegionInfo[] = JSON.parse(
     fs.readFileSync(regionsJsonPath, "utf-8"),
@@ -203,15 +174,6 @@ export const buildOblastRoutes = (
       const url = `${SITE_URL}/municipality/${r.oblast}`;
       const title = `Резултати в ${displayName} — Парламентарни избори | electionsbg.com`;
       const description = `Подробни резултати, машинно гласуване, повторно преброяване и отклонения по секции в област ${displayName} на парламентарните избори в България.`;
-      const distribution =
-        publicFolder && latestElection
-          ? [
-              {
-                url: `${SITE_URL}/${latestElection}/region_votes.json`,
-                name: "Резултати по области (JSON)",
-              },
-            ]
-          : undefined;
       return {
         path: `municipality/${r.oblast}`,
         title,
@@ -219,19 +181,7 @@ export const buildOblastRoutes = (
         ogImage: `/og/region/${r.oblast}.png`,
         bodyHtml: buildOblastBody(r),
         jsonLd: [
-          buildDatasetLd({
-            name: `Парламентарни избори — резултати в област ${displayName}`,
-            description,
-            url,
-            spatialCoverage: displayName,
-            keywords: [
-              displayName,
-              "парламентарни избори",
-              "област",
-              "резултати",
-            ],
-            distribution,
-          }),
+          buildWebPageLd({ title, description, url }),
           buildBreadcrumbLd([
             { name: "Начало", url: `${SITE_URL}/` },
             { name: `Област ${displayName}`, url },
@@ -301,19 +251,7 @@ export const buildSettlementRoutes = (
           oblastCode: s.oblast,
         }),
         jsonLd: [
-          buildDatasetLd({
-            name: `Парламентарни избори — резултати в ${labelWithOblast}`,
-            description,
-            url,
-            spatialCoverage: labelWithOblast,
-            keywords: [
-              fullName,
-              ...(oblastName ? [oblastName] : []),
-              "парламентарни избори",
-              "секции",
-              "резултати",
-            ],
-          }),
+          buildWebPageLd({ title, description, url }),
           buildBreadcrumbLd(breadcrumb),
         ],
       });
@@ -531,18 +469,7 @@ export const buildSectionsListRoutes = (
           ];
 
     const jsonLd: object[] = [
-      buildDatasetLd({
-        name: `Избирателни секции — ${placeLabel}`,
-        description,
-        url,
-        spatialCoverage: placeLabel,
-        keywords: [
-          "избирателни секции",
-          "секции за гласуване",
-          displayName,
-          "парламентарни избори",
-        ],
-      }),
+      buildWebPageLd({ title, description, url }),
       buildBreadcrumbLd(breadcrumb),
     ];
     if (agg.isDiaspora) {
@@ -583,11 +510,19 @@ type CandidateAggregate = {
 type MpIndexEntry = {
   id: number;
   name: string;
+  name_en?: string;
   normalizedName: string;
+  normalizedName_en?: string;
   photoUrl: string;
-  currentRegion: { code: string; name: string } | null;
+  currentRegion: {
+    code: string;
+    name: string;
+    name_en?: string;
+  } | null;
   currentPartyGroup: string | null;
+  currentPartyGroup_en?: string | null;
   position: string | null;
+  position_en?: string | null;
   birthDate: string | null;
   isCurrent: boolean;
 };
@@ -639,6 +574,151 @@ const fmtBgDate = (iso: string | null | undefined): string | null => {
     "декември",
   ];
   return `${parseInt(m[3], 10)} ${months[parseInt(m[2], 10) - 1]} ${m[1]}`;
+};
+
+// Light translation table for the most common parliament-position labels —
+// proper-noun party names and region names stay in BG since the data isn't
+// translated server-side.
+const POSITION_EN: Record<string, string> = {
+  председател: "Speaker of the National Assembly",
+  "заместник-председател": "Deputy Speaker",
+  "парламентарен секретар": "Parliamentary Secretary",
+  квестор: "Quaestor",
+};
+
+const translatePositionEn = (position: string | null | undefined): string => {
+  if (!position) return "";
+  const k = position.trim().toLowerCase();
+  return POSITION_EN[k] ?? position.trim();
+};
+
+const fmtEnDate = (iso: string | null | undefined): string | null => {
+  if (!iso) return null;
+  const m = /^(\d{4})-(\d{2})-(\d{2})/.exec(iso);
+  if (!m) return iso;
+  const months = [
+    "January",
+    "February",
+    "March",
+    "April",
+    "May",
+    "June",
+    "July",
+    "August",
+    "September",
+    "October",
+    "November",
+    "December",
+  ];
+  return `${parseInt(m[3], 10)} ${months[parseInt(m[2], 10) - 1]} ${m[1]}`;
+};
+
+const buildCandidateBodyEn = (
+  nameBg: string,
+  nameEn: string,
+  partyLabels: string[],
+  yearSpan: string,
+  indexEntry: MpIndexEntry | undefined,
+  profile: RawMpProfile | null,
+  history: Array<{ folder: string; partyLabel: string; oblast: string }>,
+  oblastNames: Map<string, string>,
+): string => {
+  const parts: string[] = [];
+  parts.push(`<h1>${escapeHtmlSimple(nameEn)}</h1>`);
+  const headline: string[] = [];
+  const positionEn = translatePositionEn(indexEntry?.position);
+  if (positionEn) headline.push(escapeHtmlSimple(positionEn));
+  if (indexEntry?.currentRegion?.name) {
+    headline.push(
+      `Member of Parliament for ${escapeHtmlSimple(indexEntry.currentRegion.name)}`,
+    );
+  } else if (partyLabels.length) {
+    headline.push(
+      `candidate for the National Assembly${yearSpan ? ` (${yearSpan})` : ""}`,
+    );
+  }
+  if (indexEntry?.currentPartyGroup) {
+    headline.push(escapeHtmlSimple(indexEntry.currentPartyGroup));
+  } else if (partyLabels.length) {
+    headline.push(`from ${escapeHtmlSimple(partyLabels.join(", "))}`);
+  }
+  if (headline.length) parts.push(`<p>${headline.join(" · ")}.</p>`);
+
+  const facts: string[] = [];
+  const birthDate = fmtEnDate(indexEntry?.birthDate ?? profile?.A_ns_MP_BDate);
+  if (birthDate) {
+    const place = [profile?.A_ns_B_City, profile?.A_ns_B_Country]
+      .filter(Boolean)
+      .join(", ");
+    facts.push(
+      `Born ${escapeHtmlSimple(birthDate)}${place ? ` in ${escapeHtmlSimple(place)}` : ""}`,
+    );
+  }
+  if (profile?.A_ns_MPL_Prof) {
+    facts.push(`Profession: ${escapeHtmlSimple(profile.A_ns_MPL_Prof.trim())}`);
+  }
+  if (profile?.A_ns_MPL_Spec) {
+    facts.push(`Specialty: ${escapeHtmlSimple(profile.A_ns_MPL_Spec.trim())}`);
+  }
+  const langs = (profile?.lngList ?? [])
+    .map((l) => l.LngL_value ?? l.A_LngL_value ?? "")
+    .filter(Boolean);
+  if (langs.length) {
+    facts.push(`Languages: ${escapeHtmlSimple(langs.join(", "))}`);
+  }
+  if (profile?.oldnsList && profile.oldnsList.length) {
+    const terms = profile.oldnsList
+      .map((t) => t.A_nsL_value_short ?? t.A_nsL_value ?? "")
+      .filter(Boolean)
+      .join(", ");
+    if (terms)
+      facts.push(`National Assemblies served: ${escapeHtmlSimple(terms)}`);
+  }
+  if (facts.length) {
+    parts.push(`<ul>${facts.map((f) => `<li>${f}</li>`).join("")}</ul>`);
+  }
+
+  if (history.length > 0) {
+    const sorted = [...history].sort((a, b) =>
+      b.folder.localeCompare(a.folder),
+    );
+    parts.push(`<h2>Candidacies</h2>`);
+    parts.push(
+      `<table><thead><tr><th>Election</th><th>List</th><th>Region</th></tr></thead><tbody>`,
+    );
+    for (const h of sorted) {
+      // Reuse the BG date label — it's structured (DD month YYYY in Cyrillic);
+      // for an EN audience we render the ISO-like form.
+      const m = /^(\d{4})_(\d{2})_(\d{2})$/.exec(h.folder);
+      const dateLabel = m ? `${m[3]}.${m[2]}.${m[1]}` : h.folder;
+      const partyCell = h.partyLabel.startsWith("№")
+        ? escapeHtmlSimple(h.partyLabel)
+        : `<a href="${SITE_URL}/en/party/${encodeURIComponent(h.partyLabel)}">${escapeHtmlSimple(h.partyLabel)}</a>`;
+      const oblastLabel = h.oblast
+        ? (oblastNames.get(h.oblast) ?? h.oblast)
+        : "";
+      const oblastCell =
+        h.oblast && oblastNames.has(h.oblast)
+          ? `<a href="${SITE_URL}/en/municipality/${h.oblast}">${escapeHtmlSimple(oblastLabel)}</a>`
+          : escapeHtmlSimple(oblastLabel);
+      parts.push(
+        `<tr><td>${escapeHtmlSimple(dateLabel)}</td><td>${partyCell}</td><td>${oblastCell}</td></tr>`,
+      );
+    }
+    parts.push(`</tbody></table>`);
+  }
+
+  if (nameEn !== nameBg) {
+    parts.push(
+      `<p><small>Bulgarian name: ${escapeHtmlSimple(nameBg)}</small></p>`,
+    );
+  }
+  if (indexEntry?.id) {
+    parts.push(
+      `<p><a href="https://www.parliament.bg/bg/MP/${indexEntry.id}" rel="nofollow noopener">parliament.bg</a></p>`,
+    );
+  }
+  return parts.join("\n");
 };
 
 const buildCandidateBody = (
@@ -844,6 +924,8 @@ export const buildCandidateRoutes = (
 
     const indexEntry = mpByName.get(normalizeName(name));
     const profile = indexEntry ? loadProfile(indexEntry.id) : null;
+    const enUrl = `${SITE_URL}/en/candidate/${encodeURIComponent(name)}`;
+    const nameEn = indexEntry?.name_en?.trim() || name;
 
     const isMp = !!indexEntry;
     const titleRole = isMp
@@ -856,6 +938,20 @@ export const buildCandidateRoutes = (
       ? `${titleRole}${indexEntry.currentPartyGroup ? ` от ${indexEntry.currentPartyGroup}` : partyClause}`
       : `${titleRole}${partyClause}`;
     const description = `Резултати на ${name} като ${descRole} в парламентарните избори в България — преференции по области, общини, населени места и секции${profile?.A_ns_MPL_Prof ? `. Професия: ${profile.A_ns_MPL_Prof.trim()}` : ""}.`;
+
+    const titleRoleEn = isMp
+      ? indexEntry.isCurrent
+        ? "Member of Parliament"
+        : "Former Member of Parliament"
+      : "Parliamentary candidate";
+    const partyClauseEn = partyLabels.length
+      ? ` from ${partyLabels.join(", ")}`
+      : "";
+    const descRoleEn = isMp
+      ? `${titleRoleEn}${indexEntry.currentPartyGroup ? ` from ${indexEntry.currentPartyGroup}` : partyClauseEn}`
+      : `${titleRoleEn}${partyClauseEn}`;
+    const titleEn = `${nameEn} — ${titleRoleEn}${yearSpan ? ` (${yearSpan})` : ""} | electionsbg.com`;
+    const descriptionEn = `Results for ${nameEn} as ${descRoleEn} in Bulgaria's parliamentary elections — preference votes by region, municipality, settlement and polling section${profile?.A_ns_MPL_Prof ? `. Profession: ${profile.A_ns_MPL_Prof.trim()}` : ""}.`;
 
     const personLd = buildPersonLd({
       name,
@@ -891,6 +987,41 @@ export const buildCandidateRoutes = (
 
     const ogImage = indexEntry?.photoUrl;
 
+    const personLdEn =
+      nameEn !== name
+        ? buildPersonLd({
+            name: nameEn,
+            url: enUrl,
+            affiliations: partyLabels,
+            givenName: profile?.A_ns_MPL_Name1,
+            additionalName: profile?.A_ns_MPL_Name2,
+            familyName: profile?.A_ns_MPL_Name3,
+            birthDate: profile?.A_ns_MP_BDate,
+            birthPlace:
+              profile?.A_ns_B_City || profile?.A_ns_B_Country
+                ? {
+                    city: profile.A_ns_B_City,
+                    country: profile.A_ns_B_Country,
+                  }
+                : undefined,
+            jobTitle: profile?.A_ns_MPL_Prof?.trim(),
+            knowsAbout: profile?.A_ns_MPL_Spec?.trim(),
+            knowsLanguage: (profile?.lngList ?? [])
+              .map((l) => l.LngL_value ?? l.A_LngL_value ?? "")
+              .filter(Boolean),
+            image: indexEntry?.photoUrl,
+            memberOf: indexEntry?.isCurrent
+              ? {
+                  name: "National Assembly of the Republic of Bulgaria",
+                  url: `https://www.parliament.bg/bg/MP/${indexEntry.id}`,
+                }
+              : undefined,
+            sameAs: indexEntry?.id
+              ? [`https://www.parliament.bg/bg/MP/${indexEntry.id}`]
+              : undefined,
+          })
+        : personLd;
+
     result.push({
       path: `candidate/${name}`,
       title,
@@ -912,6 +1043,27 @@ export const buildCandidateRoutes = (
           { name, url },
         ]),
       ],
+      english: {
+        title: titleEn,
+        description: descriptionEn,
+        bodyHtml: buildCandidateBodyEn(
+          name,
+          nameEn,
+          partyLabels,
+          yearSpan,
+          indexEntry,
+          profile,
+          agg.history,
+          oblastNames,
+        ),
+        jsonLd: [
+          personLdEn,
+          buildBreadcrumbLd([
+            { name: "Home", url: `${SITE_URL}/en/` },
+            { name: nameEn, url: enUrl },
+          ]),
+        ],
+      },
     });
   }
   return result;
@@ -1140,19 +1292,7 @@ export const buildSectionRoutes = (
         flaggedNeighborhood: flaggedSections.get(section),
       }),
       jsonLd: [
-        buildDatasetLd({
-          name: `Парламентарни избори — секция №${section}, ${placeLabel}`,
-          description,
-          url,
-          spatialCoverage: placeLabel,
-          keywords: [
-            `секция ${section}`,
-            settlement,
-            ...(oblastName ? [oblastName] : []),
-            "парламентарни избори",
-            "резултати",
-          ],
-        }),
+        buildWebPageLd({ title, description, url }),
         buildBreadcrumbLd(breadcrumb),
       ],
     });
@@ -1379,19 +1519,15 @@ export const buildPollsRoutes = (publicFolder: string): PrerenderRoute[] => {
   ];
   for (const a of agencies) {
     const url = `${SITE_URL}/polls/${encodeURIComponent(a.id)}`;
+    const title = `${a.name_bg} — точност на социологическите проучвания | electionsbg.com`;
+    const description = `Точност, систематични отклонения (lean) и предупреждения за социологическата агенция ${a.name_bg} спрямо реалните резултати от парламентарните избори в България.`;
     result.push({
       path: `polls/${a.id}`,
-      title: `${a.name_bg} — точност на социологическите проучвания | electionsbg.com`,
-      description: `Точност, систематични отклонения (lean) и предупреждения за социологическата агенция ${a.name_bg} спрямо реалните резултати от парламентарните избори в България.`,
+      title,
+      description,
       bodyHtml: buildPollsAgencyBody(publicFolder, a),
       jsonLd: [
-        buildDatasetLd({
-          name: `${a.name_bg} — точност на проучванията`,
-          description: `Метрики за точност и отклонения на агенция ${a.name_bg}.`,
-          url,
-          spatialCoverage: "България",
-          keywords: [a.name_bg, "точност", "проучвания"],
-        }),
+        buildWebPageLd({ title, description, url }),
         buildBreadcrumbLd([
           { name: "Начало", url: `${SITE_URL}/` },
           { name: "Социологически проучвания", url: `${SITE_URL}/polls` },
@@ -1579,7 +1715,9 @@ const buildReportRoutes = (
   });
 };
 
-export const buildDynamicRoutes = (projectRoot: string): PrerenderRoute[] => {
+export const buildDynamicRoutes = async (
+  projectRoot: string,
+): Promise<PrerenderRoute[]> => {
   const publicFolder = path.join(projectRoot, "public");
   const electionsFile = path.join(projectRoot, "src/data/json/elections.json");
   const regionsFile = path.join(projectRoot, "src/data/json/regions.json");
@@ -1589,7 +1727,7 @@ export const buildDynamicRoutes = (projectRoot: string): PrerenderRoute[] => {
   );
   const oblastNames = buildOblastNameMap(regions);
   const partyRoutes = buildPartyRoutes(publicFolder, latest);
-  const oblastRoutes = buildOblastRoutes(regionsFile, publicFolder, latest);
+  const oblastRoutes = buildOblastRoutes(regionsFile);
 
   // Look up parents by their numeric/code key so sub-tab generators can clone
   // the rich body without rebuilding it.
@@ -1618,6 +1756,6 @@ export const buildDynamicRoutes = (projectRoot: string): PrerenderRoute[] => {
     ...buildReportRoutes("settlement", SETTLEMENT_REPORTS),
     ...buildReportRoutes("municipality", MUNICIPALITY_REPORTS),
     ...buildReportRoutes("section", SECTION_REPORTS),
-    ...buildArticleRoutes(publicFolder),
+    ...(await buildArticleRoutes(publicFolder)),
   ];
 };

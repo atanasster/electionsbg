@@ -6,7 +6,7 @@ import { ElectionInfo, PartyInfo, SectionIndex } from "@/data/dataTypes";
 
 type SettlementBundleEntry = { ekatte?: string };
 type PollAgency = { id: string };
-type ArticleMeta = { slug: string };
+type ArticleMeta = { slug: string; updatedAt?: string };
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -47,10 +47,14 @@ const encodeUrlPath = (p: string): string => {
   return lead + body.split("/").map(encodeURIComponent).join("/");
 };
 
+// Google has long-since deprioritised <changefreq> and <priority>; lastmod
+// alone is what crawlers act on. Emitting changefreq=monthly across ~130k
+// election URLs (which are immutable post-certification) actively misled
+// crawl-budget heuristics. Drop it.
 const urlEntry = (url: string, lastmod: string): string => {
   const isHome = url === "index" || url === "/index";
   const loc = isHome ? `${homePage}/` : `${homePage}${encodeUrlPath(url)}`;
-  return `<url><loc>${loc}</loc><lastmod>${lastmod}</lastmod><changefreq>monthly</changefreq></url>`;
+  return `<url><loc>${loc}</loc><lastmod>${lastmod}</lastmod></url>`;
 };
 
 const safeFileMod = (file: string): string => {
@@ -66,18 +70,21 @@ const routeXML = (url: string, file: string): string =>
   urlEntry(url, electionAwareMod(path.resolve(projectPath, file)));
 
 // Bucket assignment — keep each bucket under the per-file 50,000 URL cap and
-// keyed by URL family so search engines refresh independent shards.
+// keyed by URL family so search engines refresh independent shards. Strips a
+// leading /en/ prefix so EN mirrors land in the same bucket as their BG
+// canonicals (and stay sharded by family rather than language).
 const bucketFor = (urlPath: string): string => {
-  if (urlPath.startsWith("/section/")) return "sections";
-  if (urlPath.startsWith("/sections/")) return "sections";
-  if (urlPath.startsWith("/settlement/")) return "settlements";
-  if (urlPath.startsWith("/candidate/")) return "candidates";
-  if (urlPath.startsWith("/party/")) return "parties";
-  if (urlPath.startsWith("/municipality/")) return "regions";
-  if (urlPath.startsWith("/reports/")) return "reports";
-  if (urlPath.startsWith("/polls")) return "polls";
-  if (urlPath.startsWith("/elections/")) return "static";
-  if (urlPath.startsWith("/articles")) return "static";
+  const p = urlPath.replace(/^\/en\//, "/");
+  if (p.startsWith("/section/")) return "sections";
+  if (p.startsWith("/sections/")) return "sections";
+  if (p.startsWith("/settlement/")) return "settlements";
+  if (p.startsWith("/candidate/")) return "candidates";
+  if (p.startsWith("/party/")) return "parties";
+  if (p.startsWith("/municipality/")) return "regions";
+  if (p.startsWith("/reports/")) return "reports";
+  if (p.startsWith("/polls")) return "polls";
+  if (p.startsWith("/elections/")) return "static";
+  if (p.startsWith("/articles")) return "static";
   return "static";
 };
 
@@ -222,16 +229,42 @@ const enumerateArticlesIndex = (rootUrl: string) => {
     ? safeFileMod(articlesFile)
     : today;
   pushUrl(`${rootUrl}/articles`, lastmod);
+  // English mirror of the index page.
+  pushUrl(`${rootUrl}/en/articles`, lastmod);
+};
+// Pick the most recent of: per-language markdown mtime, the article's
+// `updatedAt` field (if present in index.json), and the article's
+// publishedAt. Returned as YYYY-MM-DD.
+const articleLastmod = (
+  slug: string,
+  publishedAt: string | undefined,
+  updatedAt: string | undefined,
+): string => {
+  const candidates: string[] = [];
+  for (const lang of ["bg", "en"]) {
+    const f = `${projectPath}/public/articles/${slug}-${lang}.md`;
+    if (fs.existsSync(f)) {
+      candidates.push(fs.statSync(f).mtime.toISOString().slice(0, 10));
+    }
+  }
+  if (updatedAt) candidates.push(updatedAt.slice(0, 10));
+  if (publishedAt) candidates.push(publishedAt.slice(0, 10));
+  if (!candidates.length) return today;
+  return candidates.sort().pop() ?? today;
 };
 const enumerateArticles = (rootUrl: string, routes: string[]) => {
   if (!fs.existsSync(articlesFile)) return;
-  const articles: ArticleMeta[] = JSON.parse(
+  const articles: Array<ArticleMeta & { publishedAt?: string }> = JSON.parse(
     fs.readFileSync(articlesFile, "utf-8"),
   );
-  const lastmod = safeFileMod(articlesFile);
   for (const a of articles) {
     if (!a.slug) continue;
+    const lastmod = articleLastmod(a.slug, a.publishedAt, a.updatedAt);
+    // BG (default) URL — emitted under the existing `articles` bucket.
     pushUrl(`${rootUrl}/${routes[0]}${a.slug}`, lastmod);
+    // EN mirror — Google needs `/en/articles/{slug}` enumerated to discover
+    // the prerendered EN HTML that articleRoutes.ts already emits.
+    pushUrl(`${rootUrl}/en/${routes[0]}${a.slug}`, lastmod);
   }
 };
 
@@ -318,6 +351,31 @@ const enumerateEnglishParties = () => {
   }
 };
 enumerateEnglishParties();
+
+// English mirrors for dynamic candidate routes. Candidates retain their BG
+// name as the canonical URL slug (the same encoding used in
+// /candidate/{name}); the EN variant just adds the /en/ prefix and gets a
+// localized title/description from prerender. Hreflang ties them together.
+const enumerateEnglishCandidates = () => {
+  const publicDir = path.resolve(projectPath, "public");
+  if (!fs.existsSync(publicDir)) return;
+  const electionDirs = fs
+    .readdirSync(publicDir)
+    .filter((d) => /^\d{4}_\d{2}_\d{2}$/.test(d));
+  const names = new Set<string>();
+  for (const ed of electionDirs) {
+    const candDir = path.join(publicDir, ed, "candidates");
+    if (!fs.existsSync(candDir)) continue;
+    for (const n of fs.readdirSync(candDir)) {
+      if (n.startsWith(".")) continue;
+      names.add(n);
+    }
+  }
+  for (const name of names) {
+    pushUrl(`/en/candidate/${name}`, latestElectionDate);
+  }
+};
+enumerateEnglishCandidates();
 
 const xmlHeader = `<?xml version="1.0" encoding="UTF-8"?>`;
 const urlsetOpen = `<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">`;
