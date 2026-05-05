@@ -1,5 +1,5 @@
 import { FC, useContext } from "react";
-import { Moon, SunMedium, Menu, Check } from "lucide-react";
+import { Moon, SunMedium, Menu, Check, ChevronDown } from "lucide-react";
 
 import {
   DropdownMenu,
@@ -17,7 +17,6 @@ import { themeDark, themeLight } from "@/theme/utils";
 import { ThemeContext } from "@/theme/ThemeContext";
 import { useTranslation } from "react-i18next";
 import { Link } from "@/ux/Link";
-import { Button } from "@/components/ui/button";
 import { MenuItem, reportsMenu } from "./reportMenus";
 import { Search } from "../search/Search";
 import { ElectionsSelect } from "./ElectionsSelect";
@@ -34,6 +33,10 @@ export const Header = () => {
   // to every cycle and shows up in the dropdown alongside any per-election piece.
   const articlesForSelectedElection =
     articles?.filter((a) => !a.election || a.election === selected) ?? [];
+  const analysisHref =
+    articlesForSelectedElection.length === 1
+      ? `/articles/${articlesForSelectedElection[0].slug}`
+      : "/articles";
   const RenderMenuItem: FC<{ item: MenuItem }> = ({ item }) => {
     if (item.category === "financials" && !electionStats?.hasFinancials) {
       return null;
@@ -46,19 +49,6 @@ export const Header = () => {
     }
     if (item.category === "suemg" && !electionStats?.hasSuemg) {
       return null;
-    }
-    if (item.category === "article_for_election") {
-      if (articlesForSelectedElection.length === 0) return null;
-      // Single match — link straight to it. Multiple — link to the index.
-      const target =
-        articlesForSelectedElection.length === 1
-          ? `/articles/${articlesForSelectedElection[0].slug}`
-          : "/articles";
-      return (
-        <DropdownMenuItem asChild>
-          <Link to={target}>{t(item.title)}</Link>
-        </DropdownMenuItem>
-      );
     }
     if (item.title === "-") {
       return <DropdownMenuSeparator />;
@@ -91,8 +81,8 @@ export const Header = () => {
     localStorage.setItem("language", language);
   };
   return (
-    <nav className="flex shadow-sm fixed w-full z-10 top-0 gap-2 md:gap-10 bg-muted border-b-2 justify-between items-center">
-      <div className=" flex text-xl text-primary flex-wrap items-center gap-4 p-4">
+    <nav className="flex shadow-sm fixed w-full z-10 top-0 gap-2 bg-muted border-b-2 justify-between items-center">
+      <div className="flex text-xl text-primary flex-wrap items-center gap-4 p-4">
         <Link to="/" className="flex flex-row items-center">
           <span className="sr-only">Elections in Bulgaria data statistics</span>
           <Logo className="size-7" />
@@ -103,33 +93,17 @@ export const Header = () => {
             <div className="font-semibold uppercase">{t("bg")}</div>
           </div>
         </Link>
+        <ElectionsSelect />
       </div>
-      <ElectionsSelect />
-      <div className="flex gap-6 items-center px-4">
+      <div className="flex flex-1 justify-end gap-3 items-center px-4 min-w-0">
         <Search />
-        <Link
-          to="/compare"
-          underline={false}
-          className="text-sm font-medium hidden lg:block lowercase whitespace-nowrap text-secondary-foreground hover:text-primary"
-        >
-          {t("compare_title")}
-        </Link>
-        <Link
-          to="/connections"
-          underline={false}
-          className="text-sm font-medium hidden lg:block lowercase whitespace-nowrap text-secondary-foreground hover:text-primary"
-        >
-          {t("connections_link_label")}
-        </Link>
         {reportsMenu.map((topMenu, idx) => (
           <DropdownMenu key={`${topMenu.title}=${idx}`}>
-            <DropdownMenuTrigger asChild>
-              <Button
-                variant="ghost"
-                className="font-medium hidden md:block lowercase text-secondary-foreground"
-              >
-                {t(topMenu.title)}
-              </Button>
+            <DropdownMenuTrigger
+              className="text-sm font-medium hidden lg:flex items-center gap-1 lowercase whitespace-nowrap text-secondary-foreground hover:text-primary focus:outline-none"
+            >
+              {t(topMenu.title)}
+              <ChevronDown className="h-3.5 w-3.5 opacity-70" aria-hidden />
             </DropdownMenuTrigger>
 
             <DropdownMenuContent className="w-56">
@@ -139,9 +113,25 @@ export const Header = () => {
             </DropdownMenuContent>
           </DropdownMenu>
         ))}
+        <Link
+          to="/connections"
+          underline={false}
+          className="text-sm font-medium hidden lg:block lowercase whitespace-nowrap text-secondary-foreground hover:text-primary"
+        >
+          {t("connections_link_label")}
+        </Link>
+        {articles && articles.length > 0 && (
+          <Link
+            to={analysisHref}
+            underline={false}
+            className="text-sm font-medium hidden lg:block lowercase whitespace-nowrap text-secondary-foreground hover:text-primary"
+          >
+            {t("analysis_title")}
+          </Link>
+        )}
 
         <button
-          className="text-sm font-medium hidden md:block text-secondary-foreground"
+          className="text-sm font-medium hidden lg:block text-secondary-foreground"
           aria-label={`${t("change_language_to")} ${t("changeLanguageTo")}`}
           onClick={() => {
             if (i18n.language === "bg") {
@@ -158,7 +148,7 @@ export const Header = () => {
           id="theme-toggle"
           type="button"
           aria-label="switch theme dark mode"
-          className="hidden md:block items-center p-2 w-10 h-10 justify-center rounded-lg text-muted-foreground hover:bg-accent/10 hover:text-accent focus:outline-none focus:ring-2 focus:ring-ring"
+          className="hidden lg:block items-center p-2 w-10 h-10 justify-center rounded-lg text-muted-foreground hover:bg-accent/10 hover:text-accent focus:outline-none focus:ring-2 focus:ring-ring"
         >
           {theme === themeDark ? (
             <SunMedium className="size-4" />
@@ -184,11 +174,13 @@ export const Header = () => {
               <Link to="/simulator">{t("coalition_simulator")}</Link>
             </DropdownMenuItem>
             <DropdownMenuItem>
-              <Link to="/compare">{t("compare_title")}</Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem>
               <Link to="/connections">{t("connections_link_label")}</Link>
             </DropdownMenuItem>
+            {articles && articles.length > 0 && (
+              <DropdownMenuItem>
+                <Link to={analysisHref}>{t("analysis_title")}</Link>
+              </DropdownMenuItem>
+            )}
             <DropdownMenuItem>
               <Link to="/mp/companies">{t("all_companies")}</Link>
             </DropdownMenuItem>
