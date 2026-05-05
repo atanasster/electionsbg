@@ -93,6 +93,95 @@ const edgeKey = (
   e: Pick<ConnectionsEdge, "source" | "target" | "kind" | "role">,
 ) => `${e.source}|${e.target}|${e.kind}|${e.role}`;
 
+/** Election folders under `<publicFolder>` in reverse chronological order
+ * (YYYY_MM_DD, lex-sorted descending). */
+const listElectionFoldersDesc = (publicFolder: string): string[] => {
+  if (!fs.existsSync(publicFolder)) return [];
+  return fs
+    .readdirSync(publicFolder, { withFileTypes: true })
+    .filter((d) => d.isDirectory())
+    .filter((d) => /^\d{4}_\d{2}_\d{2}$/.test(d.name))
+    .map((d) => d.name)
+    .sort()
+    .reverse();
+};
+
+/** Map MP id → candidacy party nickname (e.g. "МЕЧ") for non-current MPs.
+ * Used to label former MPs by the party they ran with most recently instead
+ * of dumping them into an "Independent" bucket. We walk election folders in
+ * reverse chronological order and stop at the first one where the MP's name
+ * appears as a candidate; if multiple partyNums share that name in the same
+ * cycle (candidate-side namesakes), we skip that cycle and keep walking back
+ * — better to use an older unambiguous candidacy than guess. Returns an
+ * empty map when the inputs are missing or unusable. */
+const inferCandidacyPartyByMpId = (
+  publicFolder: string,
+  mps: MpIndexEntry[],
+): Map<number, string> => {
+  const out = new Map<number, string>();
+  try {
+    const folders = listElectionFoldersDesc(publicFolder);
+    if (folders.length === 0) return out;
+    const pending = new Set<number>();
+    for (const mp of mps) {
+      if (!mp.currentPartyGroupShort) pending.add(mp.id);
+    }
+    if (pending.size === 0) return out;
+    const mpsByNormName = new Map<string, MpIndexEntry[]>();
+    for (const mp of mps) {
+      if (!pending.has(mp.id)) continue;
+      const list = mpsByNormName.get(mp.normalizedName);
+      if (list) list.push(mp);
+      else mpsByNormName.set(mp.normalizedName, [mp]);
+    }
+    for (const folder of folders) {
+      if (pending.size === 0) break;
+      const candPath = path.join(publicFolder, folder, "candidates.json");
+      const partiesPath = path.join(publicFolder, folder, "cik_parties.json");
+      if (!fs.existsSync(candPath) || !fs.existsSync(partiesPath)) continue;
+      const candidates = JSON.parse(fs.readFileSync(candPath, "utf-8")) as {
+        name: string;
+        partyNum: number;
+      }[];
+      const cikParties = JSON.parse(fs.readFileSync(partiesPath, "utf-8")) as {
+        number: number;
+        name: string;
+        nickName?: string;
+      }[];
+      const labelByPartyNum = new Map<number, string>(
+        cikParties.map((p) => [p.number, p.nickName?.trim() || p.name]),
+      );
+      const partyNumsByName = new Map<string, Set<number>>();
+      for (const c of candidates) {
+        const key = normalizeName(c.name);
+        let s = partyNumsByName.get(key);
+        if (!s) {
+          s = new Set<number>();
+          partyNumsByName.set(key, s);
+        }
+        s.add(c.partyNum);
+      }
+      for (const [name, group] of mpsByNormName) {
+        const partyNums = partyNumsByName.get(name);
+        if (!partyNums || partyNums.size !== 1) continue;
+        const num = partyNums.values().next().value as number;
+        const label = labelByPartyNum.get(num);
+        if (!label) continue;
+        for (const mp of group) {
+          if (!pending.has(mp.id)) continue;
+          out.set(mp.id, label);
+          pending.delete(mp.id);
+        }
+      }
+    }
+  } catch (e) {
+    console.warn(
+      `[connections] could not infer candidacy parties for non-current MPs: ${e}`,
+    );
+  }
+  return out;
+};
+
 export type BuildConnectionsArgs = {
   publicFolder: string;
   /** Where raw_data lives. When `<rawFolder>/tr/state.sqlite` exists, the
@@ -158,6 +247,20 @@ export const buildConnectionsGraph = ({
     return Array.from(merged);
   };
 
+  // For non-current MPs (former MPs, including 2026 candidates who didn't get
+  // seated in the 52nd NS), parliament.bg returns no current parliamentary
+  // group — `currentPartyGroupShort` is null. Bucketing them as "Independent"
+  // in the matrix is misleading (they're not unaffiliated, just not seated).
+  // Instead, look up their candidacy in the most recent election's
+  // candidates.json and use that party's nickname (e.g. "МЕЧ"). MP names are
+  // unique in our index, so a name match is unambiguous from the MP side; on
+  // the CIK side we only attach when all candidate rows for the name share a
+  // single partyNum (no candidate-side namesakes on different parties).
+  const inferredPartyShortByMpId = inferCandidacyPartyByMpId(
+    publicFolder,
+    mpIndex.mps,
+  );
+
   const nodes = new Map<string, ConnectionsNode>();
   const edges = new Map<string, ConnectionsEdge>();
   /** uic → company-slug nodeId, populated as we touch declared companies. Used
@@ -177,7 +280,10 @@ export const buildConnectionsGraph = ({
         type: "mp",
         mpId: mp.id,
         label: mp.name,
-        partyGroupShort: mp.currentPartyGroupShort,
+        partyGroupShort:
+          mp.currentPartyGroupShort ??
+          inferredPartyShortByMpId.get(mp.id) ??
+          null,
         isCurrent: mp.isCurrent,
         nsFolders: nsFoldersForMp(mp.id),
       };
