@@ -434,7 +434,17 @@ export const ConnectionsScreen: FC = () => {
     };
     raf = requestAnimationFrame(draw);
     return () => cancelAnimationFrame(raf);
-  }, [size, simNodes, simLinks, neighbors, selected]);
+  }, [
+    size,
+    simNodes,
+    simLinks,
+    neighbors,
+    selected,
+    pathNodeIds,
+    pathEdgeKeys,
+    pathFrom?.id,
+    pathTo?.id,
+  ]);
 
   // ---- Search ------------------------------------------------------------
   const normalizeForSearch = (s: string): string =>
