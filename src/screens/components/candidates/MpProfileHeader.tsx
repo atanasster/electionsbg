@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { Calendar, Languages, MapPin, ExternalLink, Award } from "lucide-react";
+import { Calendar, Languages, ExternalLink, Award } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Card, CardContent } from "@/ux/Card";
 import { useMpProfile } from "@/data/parliament/useMpProfile";
@@ -11,7 +11,6 @@ import {
   localizeNs,
   localizeNsShort,
   localizePosition,
-  localizeRegionName,
 } from "@/data/parliament/localizeMpProfile";
 import { initials } from "@/lib/utils";
 
@@ -40,7 +39,6 @@ export const MpProfileHeader: FC<{ name: string }> = ({ name }) => {
 
   const localizedName = mpName(indexEntry);
   const photoUrl = indexEntry.photoUrl;
-  const region = profile?.region ?? indexEntry.currentRegion;
   const partyGroup = profile?.partyGroup ?? indexEntry.currentPartyGroup;
   const partyGroupShort =
     profile?.partyGroupShort ?? indexEntry.currentPartyGroupShort;
@@ -62,10 +60,6 @@ export const MpProfileHeader: FC<{ name: string }> = ({ name }) => {
     .filter(Boolean)
     .join(" · ");
 
-  const regionName = region?.name
-    ? localizeRegionName(region.name, isEn)
-    : null;
-
   const allTerms = [
     ...(profile?.pastTerms.map((t) => localizeNsShort(t.nsShort, isEn)) ?? []),
     ...(isCurrent && ns
@@ -74,21 +68,21 @@ export const MpProfileHeader: FC<{ name: string }> = ({ name }) => {
   ];
 
   return (
-    <Card className="my-4">
-      <CardContent className="p-4 md:p-6">
-        <div className="flex flex-col sm:flex-row gap-4 md:gap-6 items-center sm:items-start">
-          <Avatar className="h-28 w-28 md:h-32 md:w-32 shrink-0 ring-2 ring-border">
+    <Card className="my-3">
+      <CardContent className="p-3 md:p-4">
+        <div className="flex flex-col sm:flex-row gap-3 md:gap-4 items-center sm:items-start">
+          <Avatar className="h-20 w-20 md:h-24 md:w-24 shrink-0 ring-2 ring-border">
             <AvatarImage
               src={photoUrl}
               alt={localizedName}
               className="object-cover"
             />
-            <AvatarFallback className="text-xl font-bold bg-muted">
+            <AvatarFallback className="text-lg font-bold bg-muted">
               {initials(localizedName)}
             </AvatarFallback>
           </Avatar>
 
-          <div className="flex flex-col gap-2 min-w-0 flex-1 text-center sm:text-left">
+          <div className="flex flex-col gap-1.5 min-w-0 flex-1 text-center sm:text-left">
             <div className="flex flex-col gap-0.5">
               {isCurrent && nsDisplay ? (
                 <div className="text-sm text-muted-foreground">
@@ -110,15 +104,6 @@ export const MpProfileHeader: FC<{ name: string }> = ({ name }) => {
                 <div className="flex items-center gap-1.5 text-muted-foreground">
                   <Calendar className="h-3.5 w-3.5 shrink-0" />
                   <span>{birthLine}</span>
-                </div>
-              )}
-              {regionName && (
-                <div className="flex items-center gap-1.5 text-muted-foreground">
-                  <MapPin className="h-3.5 w-3.5 shrink-0" />
-                  <span>
-                    {region?.code ? `${region.code}-` : ""}
-                    {regionName}
-                  </span>
                 </div>
               )}
               {profile?.profession && (

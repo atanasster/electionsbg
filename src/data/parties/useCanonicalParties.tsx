@@ -9,6 +9,13 @@ const queryFn = async (): Promise<CanonicalPartiesIndex | undefined> => {
   return response.json();
 };
 
+// parliament.bg sometimes abbreviates a party differently from CEC's
+// canonical nickname. Mapping is applied after dash/whitespace
+// normalization in `partyGroupShortLabel`.
+const PARLIAMENT_GROUP_ALIASES: Record<string, string> = {
+  ПБ: "ПрБ",
+};
+
 // Replaces useAllPartyColors with a single fetch (one canonical_parties.json
 // covers all elections). Adds canonical lineage IDs so cross-election views
 // like the bubble timeline can connect bubbles belonging to the same party.
@@ -98,15 +105,30 @@ export const useCanonicalParties = () => {
   // `byNickName` (case-insensitive). Falls back to the stripped label
   // when no canonical match exists, and to the raw label when there's no
   // PG prefix to strip.
+  //
+  // Dash normalization: parliament.bg's index emits en-dashes with spaces
+  // ("ГЕРБ – СДС"), while canonical nicknames use a plain hyphen and no
+  // spaces ("ГЕРБ-СДС"). Collapse en/em-dashes to "-" and trim spaces
+  // around the hyphen so both forms resolve.
+  //
+  // Aliases: parliament.bg uses some abbreviations that differ from the
+  // CEC canonical nicknames ("ПБ" vs "ПрБ" for Прогресивна България).
+  // Map the parliament-only forms to their canonical equivalent before
+  // lookup.
   const partyGroupShortLabel = (
     partyGroupShort: string | null | undefined,
   ): string | null => {
     if (!partyGroupShort) return null;
-    const stripped = partyGroupShort.replace(/^ПГ(\s+на)?\s+/, "").trim();
+    const stripped = partyGroupShort
+      .replace(/^ПГ(\s+на)?\s+/, "")
+      .replace(/[–—]/g, "-")
+      .replace(/\s*-\s*/g, "-")
+      .trim();
     if (!stripped) return partyGroupShort;
+    const aliased = PARLIAMENT_GROUP_ALIASES[stripped] ?? stripped;
     const id =
-      data?.byNickName[stripped] ??
-      byNickNameLower.get(stripped.toLocaleLowerCase("bg"));
+      data?.byNickName[aliased] ??
+      byNickNameLower.get(aliased.toLocaleLowerCase("bg"));
     if (!id) return stripped;
     const party = byId.get(id);
     if (!party) return stripped;
