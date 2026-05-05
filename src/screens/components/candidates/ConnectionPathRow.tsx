@@ -1,8 +1,9 @@
-import { FC, useMemo } from "react";
+import { FC, ReactNode, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { ArrowRight, Building2, UserSquare2 } from "lucide-react";
+import { ArrowRight, Building2, ExternalLink, UserSquare2 } from "lucide-react";
 import type {
+  ConnectionsCompanyNode,
   ConnectionsEdge,
   ConnectionsNode,
   ConnectionsPath,
@@ -12,6 +13,7 @@ import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { useMps } from "@/data/parliament/useMps";
 import { useCandidateName } from "@/data/candidates/useCandidateName";
 import { cn } from "@/lib/utils";
+import { Tooltip } from "@/ux/Tooltip";
 import { MpAvatar } from "./MpAvatar";
 
 type Props = {
@@ -42,6 +44,42 @@ const linkForNode = (n: ConnectionsNode): { to: string } | null => {
 
 const truncate = (s: string, max: number) =>
   s.length > max ? s.slice(0, max - 1) + "…" : s;
+
+const isTrOnlyCompany = (
+  n: ConnectionsNode,
+): n is ConnectionsCompanyNode & { uic: string } =>
+  n.type === "company" && !n.slug && !!n.uic;
+
+const TrOnlyCompanyTooltip: FC<{
+  node: ConnectionsCompanyNode & { uic: string };
+  children: ReactNode;
+}> = ({ node, children }) => {
+  const { t } = useTranslation();
+  const content = (
+    <div className="space-y-1">
+      <div className="font-medium">{node.label}</div>
+      <div className="text-xs space-y-0.5 opacity-90">
+        {node.legalForm ? <div>{node.legalForm}</div> : null}
+        {node.status ? (
+          <div>
+            {(t(`tr_status_${node.status}`) as string) || node.status}
+          </div>
+        ) : null}
+        {node.seat ? <div>{node.seat}</div> : null}
+      </div>
+      <a
+        href={`https://portal.registryagency.bg/CR/en/Reports/VerifiedPersonShortInfo?uic=${node.uic}`}
+        target="_blank"
+        rel="noreferrer"
+        className="inline-flex items-center gap-1 text-xs underline"
+      >
+        {t("tr_eik") || "UIC"} {node.uic}
+        <ExternalLink className="h-3 w-3" />
+      </a>
+    </div>
+  );
+  return <Tooltip content={content}>{children}</Tooltip>;
+};
 
 /** Renders one shortest-path chain as a horizontal row of node chips
  * separated by arrows, with a confidence/currency footer. The hub MP is
@@ -139,6 +177,10 @@ export const ConnectionPathRow: FC<Props> = ({
                 <Link to={link.to} className="no-underline">
                   {chipBody}
                 </Link>
+              ) : isTrOnlyCompany(node) ? (
+                <TrOnlyCompanyTooltip node={node}>
+                  {chipBody}
+                </TrOnlyCompanyTooltip>
               ) : (
                 chipBody
               )}
