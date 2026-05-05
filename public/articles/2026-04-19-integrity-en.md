@@ -23,8 +23,8 @@
 | Actual voters | 2,568,992 | 3,360,330 | +791k | — |
 | Registered voters | 6,619,877 | 6,627,747 | +8k (rolls essentially unchanged) | — |
 | Machine vote share | 38.04% | 47.61% | +9.57 pp | — |
-| Top party | [GERB-SDS](/party/%D0%93%D0%95%D0%A0%D0%91-%D0%A1%D0%94%D0%A1?elections=2024_10_27) 26.39% / 66 seats | [**PrB**](/party/%D0%9F%D1%80%D0%91?elections=2026_04_19) 44.59% / 131 seats | first single-party majority in the series | — |
-| New entrant top finish | — | [PrB](/party/%D0%9F%D1%80%D0%91?elections=2026_04_19) (zero in prior election) | first time a new party wins outright | — |
+| Top party | [GERB-SDS](/party/%D0%93%D0%95%D0%A0%D0%91-%D0%A1%D0%94%D0%A1?elections=2024_10_27) 26.39% / 66 seats | [**PB**](/party/%D0%9F%D1%80%D0%91?elections=2026_04_19) 44.59% / 131 seats | first single-party majority in the series | — |
+| New entrant top finish | — | [PB](/party/%D0%9F%D1%80%D0%91?elections=2026_04_19) (zero in prior election) | first time a new party wins outright | — |
 | Sections with at least one anomaly | 3,353 | 3,331 | -22 | — |
 | Sections with ["protocol **above** flash"](/reports/section/flash_memory_added?elections=2026_04_19) discrepancy | 126 | 88 | -38 | 190 (vs 330 in 10.2024) |
 | Sections with ["protocol **below** flash"](/reports/section/flash_memory_removed?elections=2026_04_19) discrepancy | 2,685 | **3,077** | +392 (all-time high) | **11,979** (vs 9,050; +2,929) |
@@ -71,18 +71,18 @@ Pre-2023 zeroes are *absence of comparable flash-drive data*, not absence of ano
 
 | party | sections where it is the biggest single loser | net votes lost in those sections (protocol − flash) |
 |---|---|---|
-| [PrB](/party/%D0%9F%D1%80%D0%91?elections=2026_04_19) (winner) | 1,418 | **−4,156** |
+| [PB](/party/%D0%9F%D1%80%D0%91?elections=2026_04_19) (winner) | 1,418 | **−4,156** |
 | [PP-DB](/party/%D0%9F%D0%9F-%D0%94%D0%91?elections=2026_04_19) | 614 | −1,582 |
 | [GERB-SDS](/party/%D0%93%D0%95%D0%A0%D0%91-%D0%A1%D0%94%D0%A1?elections=2026_04_19) | 234 | −350 |
 | [MECh](/party/%D0%9C%D0%95%D0%A7?elections=2026_04_19) | 165 | −197 |
 | [Vazrazhdane](/party/%D0%92%D1%8A%D0%B7%D1%80%D0%B0%D0%B6%D0%B4%D0%B0%D0%BD%D0%B5?elections=2026_04_19) | 117 | −136 |
 | [DPS](/party/%D0%94%D0%9F%D0%A1?elections=2026_04_19) | 80 | −125 |
 
-The [winning party](/party/%D0%9F%D1%80%D0%91?elections=2026_04_19) is the **largest net loser** from the protocol-vs-flash reconciliation. The pattern tracks machine vote share: machine-heavy parties get shaved proportionally. PrB's 4,156-vote shave is 0.29% of its 1,444,920 total — far from outcome-changing, and the **wrong direction** for any "fraud favouring the winner" hypothesis.
+The [winning party](/party/%D0%9F%D1%80%D0%91?elections=2026_04_19) is the **largest net loser** from the protocol-vs-flash reconciliation. The pattern tracks machine vote share: machine-heavy parties get shaved proportionally. PB's 4,156-vote shave is 0.29% of its 1,444,920 total — far from outcome-changing, and the **wrong direction** for any "fraud favouring the winner" hypothesis.
 
 **Largest single-section discrepancies in 2026:**
 
-- [**Section 192700162**](/section/192700162?elections=2026_04_19) (Ruse 27): -102 votes (-47.4% of machine votes); PrB loses 101 votes.
+- [**Section 192700162**](/section/192700162?elections=2026_04_19) (Ruse 27): -102 votes (-47.4% of machine votes); PB loses 101 votes.
 - [**Section 234608012**](/section/234608012?elections=2026_04_19) (Sofia-23, obsh. 08): -90 votes; PP-DB loses 90 votes.
 - [**Section 234616046**](/section/234616046?elections=2026_04_19) (Sofia-23, obsh. 16): -69 votes; PP-DB loses 34 votes.
 
@@ -121,7 +121,7 @@ Despite a +11.89 pp [national turnout](/?elections=2026_04_19) rise, sections wi
 
 *Methodology note: the per-section mean and the >5% / >10% thresholds are computed by the same formula the [section-level report](/reports/section/supports_no_one) uses — `100 × ⌈ (noOne ÷ totalActualVoters) × 100 ⌉ ÷ 100` — i.e. each section's percentage is **rounded up** to the nearest whole percent before counting and averaging. Without the ceiling rounding, the means would be ~0.3-0.4 pp lower, but the downward trend is the same.*
 
-Sections with significant protest vote (≥5% "no one") fell from 2,075 to 84 — a **96% reduction**. Combined with the +11.89 pp turnout rise, the most parsimonious read is *previously demobilised voters returned with a positive choice* — [PrB](/party/%D0%9F%D1%80%D0%91?elections=2026_04_19) absorbed the protest vote. This pattern is hard to fabricate.
+Sections with significant protest vote (≥5% "no one") fell from 2,075 to 84 — a **96% reduction**. Combined with the +11.89 pp turnout rise, the most parsimonious read is *previously demobilised voters returned with a positive choice* — [PB](/party/%D0%9F%D1%80%D0%91?elections=2026_04_19) absorbed the protest vote. This pattern is hard to fabricate.
 
 > **International context:** the same "protest-absorbed-by-new-movement" pattern appeared in Italy 2013 ([Five Star Movement](https://en.wikipedia.org/wiki/Five_Star_Movement)) where blank/null ballots and abstention dropped sharply as M5S took 25.6%; in France 2017 (Macron's En Marche absorbed both Socialist and Republican defectors and depressed blank ballots in round 1); and in Slovakia 2020 ([OĽaNO surge](https://en.wikipedia.org/wiki/2020_Slovak_parliamentary_election)). The fingerprint of fraud is the *opposite*: when protest votes are erased numerically (e.g. by reclassification or ballot substitution) without a movement-party surge, you typically see falling protest vote alongside falling turnout — not rising turnout, as Bulgaria 2026 shows.
 
@@ -199,28 +199,28 @@ Election Day list additions ([`additional_voters`](/reports/section/additional_v
 
 Despite turnout rising, **same-day additions are *down* in 5 of 8 neighborhoods**, with two large-magnitude declines (Nadezhda Sliven -6.7 pp, Fakulteta -5.2 pp). This is the opposite of what controlled-mobilisation would produce — the additional turnout was largely from voters already on the roll, not from courier-driven on-the-day registrations.
 
-### 5.5 Top party concentration — does PrB look like a patron?
+### 5.5 Top party concentration — does PB look like a patron?
 
-Captured-electorate signatures usually show one party with an *outsized* share. National PrB share: **44.59%**.
+Captured-electorate signatures usually show one party with an *outsized* share. National PB share: **44.59%**.
 
-| neighborhood | top party 10.2024 (share) | top party **04.2026** | PrB pp above national |
+| neighborhood | top party 10.2024 (share) | top party **04.2026** | PB pp above national |
 |---|---|---|---|
-| [Stolipinovo](/reports/section/problem_sections/stolipinovo?elections=2026_04_19) | GERB-SDS (41.5%) | PrB 50.5% | +5.9 pp |
-| [Fakulteta](/reports/section/problem_sections/fakulteta?elections=2026_04_19) | GERB-SDS (27.2%) | PrB 53.7% | +9.1 |
-| [Filipovci](/reports/section/problem_sections/filipovci?elections=2026_04_19) | DPS-NN (29.3%) | PrB 40.7% | -3.9 |
-| [Nadezhda Sliven](/reports/section/problem_sections/nadezhda_sliven?elections=2026_04_19) | DPS-NN (36.4%) | **PrB 59.7%** | **+15.1** |
-| [Pobeda Burgas](/reports/section/problem_sections/pobeda_burgas?elections=2026_04_19) | GERB-SDS (44.5%) | PrB 40.2% | -4.4 |
-| [Gorno Ezerovo](/reports/section/problem_sections/gorno_ezerovo?elections=2026_04_19) | GERB-SDS (44.9%) | PrB 56.5% | +11.9 |
-| [Dolno Ezerovo](/reports/section/problem_sections/dolno_ezerovo?elections=2026_04_19) | GERB-SDS (28.3%) | **PrB 60.1%** | **+15.5** |
-| [Maksuda](/reports/section/problem_sections/maksuda?elections=2026_04_19) | GERB-SDS (29.6%) | PrB 49.4% | +4.8 |
+| [Stolipinovo](/reports/section/problem_sections/stolipinovo?elections=2026_04_19) | GERB-SDS (41.5%) | PB 50.5% | +5.9 pp |
+| [Fakulteta](/reports/section/problem_sections/fakulteta?elections=2026_04_19) | GERB-SDS (27.2%) | PB 53.7% | +9.1 |
+| [Filipovci](/reports/section/problem_sections/filipovci?elections=2026_04_19) | DPS–NB (29.3%) | PB 40.7% | -3.9 |
+| [Nadezhda Sliven](/reports/section/problem_sections/nadezhda_sliven?elections=2026_04_19) | DPS–NB (36.4%) | **PB 59.7%** | **+15.1** |
+| [Pobeda Burgas](/reports/section/problem_sections/pobeda_burgas?elections=2026_04_19) | GERB-SDS (44.5%) | PB 40.2% | -4.4 |
+| [Gorno Ezerovo](/reports/section/problem_sections/gorno_ezerovo?elections=2026_04_19) | GERB-SDS (44.9%) | PB 56.5% | +11.9 |
+| [Dolno Ezerovo](/reports/section/problem_sections/dolno_ezerovo?elections=2026_04_19) | GERB-SDS (28.3%) | **PB 60.1%** | **+15.5** |
+| [Maksuda](/reports/section/problem_sections/maksuda?elections=2026_04_19) | GERB-SDS (29.6%) | PB 49.4% | +4.8 |
 
 Two patterns coexist:
-- In **Stolipinovo, Filipovci, Pobeda Burgas, and Maksuda** — the four most-populous tracked neighborhoods — PrB's share is at or below its national average. Not a patron signature.
-- In **Nadezhda Sliven, Gorno Ezerovo, Dolno Ezerovo, and Fakulteta** — the four smallest in registered-voter terms — PrB performs **9-15 pp above national**. These are the same four neighborhoods with the worst invalid rates and the deepest paper share.
+- In **Stolipinovo, Filipovci, Pobeda Burgas, and Maksuda** — the four most-populous tracked neighborhoods — PB's share is at or below its national average. Not a patron signature.
+- In **Nadezhda Sliven, Gorno Ezerovo, Dolno Ezerovo, and Fakulteta** — the four smallest in registered-voter terms — PB performs **9-15 pp above national**. These are the same four neighborhoods with the worst invalid rates and the deepest paper share.
 
-The neighborhoods where PrB looks anomalously strong are also the neighborhoods where the structural fairness signals (invalid, paper share) are most degraded. The most parsimonious read is that *whatever local broker network historically ran turnout in Nadezhda Sliven, Dolno/Gorno Ezerovo, and Fakulteta has migrated its allocation from the previous patron parties (GERB-SDS, DPS-NN) to PrB*. The headline national result is not driven by these four — they account for ~5,000 votes in total — but they are the cells where the cleanest fraud-style signature shows up, and they should be the focus of any post-election integrity review.
+The neighborhoods where PB looks anomalously strong are also the neighborhoods where the structural fairness signals (invalid, paper share) are most degraded. The most parsimonious read is that *whatever local broker network historically ran turnout in Nadezhda Sliven, Dolno/Gorno Ezerovo, and Fakulteta has migrated its allocation from the previous patron parties (GERB-SDS, DPS–NB) to PB*. The headline national result is not driven by these four — they account for ~5,000 votes in total — but they are the cells where the cleanest fraud-style signature shows up, and they should be the focus of any post-election integrity review.
 
-**One caveat:** of the four, only [Dolno Ezerovo](/reports/section/problem_sections/dolno_ezerovo?elections=2026_04_19) has a long-running pattern of swinging heavily toward each new movement party — [ITN in 04.2021](/reports/section/problem_sections/dolno_ezerovo?elections=2021_04_04) (25.9%) and [07.2021](/reports/section/problem_sections/dolno_ezerovo?elections=2021_07_11) (36.5%), [PP in 11.2021](/reports/section/problem_sections/dolno_ezerovo?elections=2021_11_14) (31.8%), now PrB. Its 60% PrB share in 2026 is partly consistent with ordinary movement-party adoption rather than a clear broker pivot. The other three — [Gorno Ezerovo](/reports/section/problem_sections/gorno_ezerovo?elections=2026_04_19) and [Fakulteta](/reports/section/problem_sections/fakulteta?elections=2026_04_19) voted GERB-SDS top in *seven straight elections* (04.2021 through 10.2024) and [Nadezhda Sliven](/reports/section/problem_sections/nadezhda_sliven?elections=2026_04_19) oscillated GERB-SDS / DPS without ever picking a movement party — making their abrupt 2026 pivot to PrB harder to explain without a broker-network shift.
+**One caveat:** of the four, only [Dolno Ezerovo](/reports/section/problem_sections/dolno_ezerovo?elections=2026_04_19) has a long-running pattern of swinging heavily toward each new movement party — [ITN in 04.2021](/reports/section/problem_sections/dolno_ezerovo?elections=2021_04_04) (25.9%) and [07.2021](/reports/section/problem_sections/dolno_ezerovo?elections=2021_07_11) (36.5%), [PP in 11.2021](/reports/section/problem_sections/dolno_ezerovo?elections=2021_11_14) (31.8%), now PB. Its 60% PB share in 2026 is partly consistent with ordinary movement-party adoption rather than a clear broker pivot. The other three — [Gorno Ezerovo](/reports/section/problem_sections/gorno_ezerovo?elections=2026_04_19) and [Fakulteta](/reports/section/problem_sections/fakulteta?elections=2026_04_19) voted GERB-SDS top in *seven straight elections* (04.2021 through 10.2024) and [Nadezhda Sliven](/reports/section/problem_sections/nadezhda_sliven?elections=2026_04_19) oscillated GERB-SDS / DPS without ever picking a movement party — making their abrupt 2026 pivot to PB harder to explain without a broker-network shift.
 
 ---
 
@@ -230,12 +230,12 @@ The neighborhoods where PrB looks anomalously strong are also the neighborhoods 
 
 | party | poll mean | actual | error |
 |---|---|---|---|
-| [PrB](/party/%D0%9F%D1%80%D0%91?elections=2026_04_19) | 35.20 | **44.59** | **+9.39 pp** |
+| [PB](/party/%D0%9F%D1%80%D0%91?elections=2026_04_19) | 35.20 | **44.59** | **+9.39 pp** |
 | [GERB-SDS](/party/%D0%93%D0%95%D0%A0%D0%91-%D0%A1%D0%94%D0%A1?elections=2026_04_19) | 19.55 | 13.39 | -6.16 |
 | [PP-DB](/party/%D0%9F%D0%9F-%D0%94%D0%91?elections=2026_04_19) | 12.15 | 12.62 | +0.47 |
 | [DPS](/party/%D0%94%D0%9F%D0%A1?elections=2026_04_19) | 9.58 | 7.12 | -2.46 |
 | [Vazrazhdane](/party/%D0%92%D1%8A%D0%B7%D1%80%D0%B0%D0%B6%D0%B4%D0%B0%D0%BD%D0%B5?elections=2026_04_19) | 7.08 | 4.26 | -2.82 |
-| [BSP-OL](/party/%D0%91%D0%A1%D0%9F-%D0%9E%D0%9B?elections=2026_04_19) | 4.00 | 3.02 | -0.98 |
+| [BSP-UL](/party/%D0%91%D0%A1%D0%9F-%D0%9E%D0%9B?elections=2026_04_19) | 4.00 | 3.02 | -0.98 |
 
 **For comparison, [final polls for 27.10.2024](/polls):**
 
@@ -244,7 +244,7 @@ The neighborhoods where PrB looks anomalously strong are also the neighborhoods 
 | [GERB-SDS](/party/%D0%93%D0%95%D0%A0%D0%91-%D0%A1%D0%94%D0%A1?elections=2024_10_27) | 25.26 | 26.39 | +1.13 |
 | [PP-DB](/party/%D0%9F%D0%9F-%D0%94%D0%91?elections=2024_10_27) | 16.98 | 14.21 | -2.77 |
 | [Vazrazhdane](/party/%D0%92%D1%8A%D0%B7%D1%80%D0%B0%D0%B6%D0%B4%D0%B0%D0%BD%D0%B5?elections=2024_10_27) | 14.18 | 13.36 | -0.82 |
-| [DPS-NN](/party/%D0%94%D0%9F%D0%A1-%D0%9D%D0%9D?elections=2024_10_27) | 11.08 | 11.51 | +0.43 |
+| [DPS–NB](/party/%D0%94%D0%9F%D0%A1-%D0%9D%D0%9D?elections=2024_10_27) | 11.08 | 11.51 | +0.43 |
 | [BSP](/party/%D0%91%D0%A1%D0%9F?elections=2024_10_27) | 8.42 | 7.57 | -0.85 |
 
 In [2024](/elections/2024_10_27), every party landed inside ±2.8 pp; in [2026](/elections/2026_04_19) the winner deviated +9.4 pp and GERB -6.2.
@@ -260,22 +260,22 @@ The largest meta-analysis of pre-election polls — Jennings & Wlezien, "[Electi
 
 So the **2024 BG aggregate MAE (1.20 pp) was unusually good** — better than the international historical average. The **2026 BG aggregate MAE (3.71 pp) is roughly at the real-world baseline** — not actually exceptional in aggregate.
 
-What *is* exceptional is the **dispersion**: a single +9.39 pp miss on PrB and a -6.16 pp miss on GERB-SDS pulling in opposite directions. Comparable single-party misses in major recent elections:
+What *is* exceptional is the **dispersion**: a single +9.39 pp miss on PB and a -6.16 pp miss on GERB-SDS pulling in opposite directions. Comparable single-party misses in major recent elections:
 
 | election | party | poll | actual | miss |
 |---|---|---|---|---|
-| **BG 2026-04** | **PrB (new)** | **35.2%** | **44.6%** | **+9.4 pp** |
+| **BG 2026-04** | **PB (new)** | **35.2%** | **44.6%** | **+9.4 pp** |
 | France 2017 round 2 | Macron | +22 lead | +32 lead | +10.0 pp |
 | Italy 2013 | [Five Star Movement](https://en.wikipedia.org/wiki/Opinion_polling_for_the_2013_Italian_general_election) (new) | ~20% | 25.6% | +5.6 pp |
 | US 2016 (state polls avg) | Trump | — | — | 5.2 pp |
 | US 2016 (national polls avg) | Trump–Clinton margin | — | — | 3.1 pp |
 | UK 2010 | Lib Dems (overestimate) | ~28% | 23% | -5 pp |
 
-The PrB miss (+9.4 pp) lands between the 2017 Macron round-2 underestimate (+10 pp) and the 2013 Five Star Movement underestimate (+5.6 pp). Both of those were also new-or-movement parties peaking late, and both produced equivalent national hand-wringing about polling failure that turned out, on review, to reflect known methodological weaknesses rather than fraud.
+The PB miss (+9.4 pp) lands between the 2017 Macron round-2 underestimate (+10 pp) and the 2013 Five Star Movement underestimate (+5.6 pp). Both of those were also new-or-movement parties peaking late, and both produced equivalent national hand-wringing about polling failure that turned out, on review, to reflect known methodological weaknesses rather than fraud.
 
 **Likely explanations for the 2026 miss:**
 
-1. **[PrB](/party/%D0%9F%D1%80%D0%91?elections=2026_04_19) is brand-new** (priorPct = 0). The systematic finding in the international literature — Five Star 2013, Macron's En Marche 2017, the Pirate party in Berlin 2011 — is that movement-style new parties are routinely under-polled by 5-10 pp in their breakthrough cycle. Likely-voter screens trained on prior turnout under-weight first-time and previously-demobilised voters; party-ID weighting anchors to the previous election where the new entrant scored zero.
+1. **[PB](/party/%D0%9F%D1%80%D0%91?elections=2026_04_19) is brand-new** (priorPct = 0). The systematic finding in the international literature — Five Star 2013, Macron's En Marche 2017, the Pirate party in Berlin 2011 — is that movement-style new parties are routinely under-polled by 5-10 pp in their breakthrough cycle. Likely-voter screens trained on prior turnout under-weight first-time and previously-demobilised voters; party-ID weighting anchors to the previous election where the new entrant scored zero.
 2. **Turnout model error.** Pollsters likely modelled near 2024-10's 38.81% baseline; actual was 50.7% — surplus voters were under-weighted in likely-voter models. Bulgarian-specific [research on turnout-driven polling error](https://www.pure.ed.ac.uk/ws/portalfiles/portal/194763074/DaoustBJPIR2021BlameItOnTurnout.pdf) finds turnout shifts >5 pp are the single largest driver of polling failure across Europe.
 3. **Anchoring on incumbent.** GERB numbers clustered tightly between 18.5-20.3% across all agencies — unusually narrow given the volatility, suggesting agencies anchored to historical baseline.
 
@@ -285,14 +285,14 @@ A polling miss of this magnitude is **not evidence of fraud** — Jennings & Wle
 
 ## 7. [Regional pattern](/regions?elections=2026_04_19)
 
-[PrB](/party/%D0%9F%D1%80%D0%91/regions?elections=2026_04_19) won **31 of 32 oblasts**. Exception: [Kardzhali](/municipality/KRZ?elections=2026_04_19) — won by [DPS](/party/%D0%94%D0%9F%D0%A1?elections=2026_04_19) at 56.1%.
+[PB](/party/%D0%9F%D1%80%D0%91/regions?elections=2026_04_19) won **31 of 32 oblasts**. Exception: [Kardzhali](/municipality/KRZ?elections=2026_04_19) — won by [DPS](/party/%D0%94%D0%9F%D0%A1?elections=2026_04_19) at 56.1%.
 
-**PrB shares:**
+**PB shares:**
 
 - **Highest:** [Plovdiv](/municipality/PDV?elections=2026_04_19) 54.4%, [Yambol](/municipality/JAM?elections=2026_04_19) 54.9%, [Vratsa](/municipality/VRC?elections=2026_04_19) 53.6%, [V. Tarnovo](/municipality/VTR?elections=2026_04_19) 52.8%
 - **Lowest:** [Sofia-23](/municipality/S23?elections=2026_04_19) 32.6% (central Sofia, [PP-DB](/party/%D0%9F%D0%9F-%D0%94%D0%91?elections=2026_04_19) stronghold), [Sofia-24](/municipality/S24?elections=2026_04_19) 35.0%, [Razgrad](/municipality/RAZ?elections=2026_04_19) 38.6%, [Blagoevgrad](/municipality/BLG?elections=2026_04_19) 39.8%, ["abroad"](/municipality/32?elections=2026_04_19) 38.0%
 
-No oblast where PrB wins with a patron-driven >65% share. The most-suspicious-on-its-face number is the **low** [central Sofia](/municipality/S23?elections=2026_04_19) figure, not a high one — the *expected* anti-populist district.
+No oblast where PB wins with a patron-driven >65% share. The most-suspicious-on-its-face number is the **low** [central Sofia](/municipality/S23?elections=2026_04_19) figure, not a high one — the *expected* anti-populist district.
 
 ---
 
@@ -327,14 +327,14 @@ The [19.04.2026 result](/elections/2026_04_19) reads, on the integrity metrics t
 
 Listed in order of **votes impacted**, with section/settlement counts as secondary context. Total turnout was 3,360,330 — a useful denominator for scale. Each item also flags the **top beneficiary** — i.e. the party that captured the most votes in the affected units, with raw counts so the partisan tilt of each signal is visible.
 
-1. [**~32,500 votes in 138 risk-neighborhood sections**](/reports/section/problem_sections?elections=2026_04_19) (~0.97% of national turnout, +7,353 votes vs 10.2024) — the single largest integrity-flagged vote bucket in the dataset. Most concentrated in [Maksuda (Varna)](/reports/section/problem_sections/maksuda?elections=2026_04_19), [Stolipinovo (Plovdiv)](/reports/section/problem_sections/stolipinovo?elections=2026_04_19), and the four high-PrB neighborhoods called out in item 6 below. **Top beneficiary: [PrB](/party/%D0%9F%D1%80%D0%91?elections=2026_04_19) — 15,548 votes (50.5% of all votes here, +5.9 pp above its 44.59% national share); top party in 130 of 138 sections.**
-2. [**~18,500 top-party votes across 145 settlements with >80% concentration**](/reports/settlement/concentrated?elections=2026_04_19) — down sharply from ~38,700 in 10.2024 (lowest since 2017), but still the second-largest single bucket and worth settlement-level review for the residual cluster. **Top beneficiary: [DPS](/party/%D0%94%D0%9F%D0%A1?elections=2026_04_19) — 15,863 votes (85.6% of the bucket), dominant in 131 of 145 settlements**. PrB is dominant in only 11 settlements (2,311 votes). This is the classic captured-electorate signature in historically DPS-base areas — *not* a PrB pattern.
-3. [**~12,000 votes in 3,077 sections of "protocol below flash" discrepancy**](/reports/section/flash_memory_removed?elections=2026_04_19) — 24% of all machine sections, series high in section share, +2,929 votes vs 10.2024. Multi-cycle transcription drift that cannot be explained by "honest mistakes"; modest in vote terms (~0.36% of turnout) but a process-quality issue that warrants technical investigation regardless of outcome. **No party benefits — votes are subtracted from all parties; PrB is the largest net loser at -4,156 votes (see §2.1 for the full breakdown).**
-4. [**~9,700 day-of list additions across 429 settlements**](/reports/settlement/additional_voters?elections=2026_04_19) (+4,320 votes vs 10.2024, settlement count near-doubled — series high), concentrated in [Smolyan](/municipality/SML?elections=2026_04_19), [Kardzhali](/municipality/KRZ?elections=2026_04_19) and [Vratsa](/municipality/VRC?elections=2026_04_19). Top extreme: [с. Vehtino](/sections/10910?elections=2026_04_19) at 161% added. **Estimated split (proportional to in-settlement vote share): PrB ~3,434 (35.5%), PP-DB ~1,844 (19.1%), GERB-SDS ~1,207 (12.5%), DPS ~1,124 (11.6%).** PrB's share here is ~9 pp *below* its 44.59% national — these settlements are not particularly PrB-leaning, so the surge is not a PrB-specific signal.
-5. [**~9,100 machine votes in 62 sections with completely missing flash drive**](/reports/section/missing_flash_memory?elections=2026_04_19) — nearly tripled in vote terms vs 10.2024 (3,146 votes), a sharper jump than the section count (33 → 62) implies. Un-auditable beyond paper. **Top beneficiary: [PrB](/party/%D0%9F%D1%80%D0%91?elections=2026_04_19) — 3,934 machine votes (43.2%, near its 44.59% national share). [PP-DB](/party/%D0%9F%D0%9F-%D0%94%D0%91?elections=2026_04_19) is notably *over*-represented at 2,251 votes (24.7% vs its 12.59% national).**
-6. [**Four risk neighborhoods (Nadezhda Sliven, Dolno/Gorno Ezerovo, Fakulteta) where PrB ran 9-15 pp above its national share**](/reports/section/problem_sections?elections=2026_04_19), in the same cells with the worst invalid-ballot rates (up to 4.6× national) and lowest machine share. The cleanest fraud-style signature in the dataset — small in absolute votes (~5,200 actual voters, a subset of the 32,500 in item 1) but worth a focused local review. **Top beneficiary: [PrB](/party/%D0%9F%D1%80%D0%91?elections=2026_04_19) — 2,710 votes (57.7% of all votes in these 28 sections, +13.1 pp above national).**
-7. [**~1,700 invalid ballots across 87 settlements with >10% invalid rate**](/reports/settlement/invalid_ballots?elections=2026_04_19) (+856 vs 10.2024). No party gets invalid ballots directly, but in the literature ([Stokes et al.](https://www.cambridge.org/core/books/brokers-voters-and-clientelism/2346382B38862E36C09042C779EA1510)) the implicit beneficiary is whoever the broker is paid to support — i.e. the dominant party in the flagged settlements: **PrB dominant in 58 settlements (5,249 votes), DPS in 20 (1,336 votes), GERB-SDS in 7 (383 votes).**
-8. [**~340 votes across 226 sections with reallocated votes between flash and protocol**](/reports/section/flash_memory?elections=2026_04_19) (+144 vs 10.2024) — small in absolute terms, but the upward trend in section count makes it worth tracking. **Effectively net-neutral by party: PrB is both top gainer (105 votes across 88 sections) and top loser (59 votes across 33 sections), net +46.**
+1. [**~32,500 votes in 138 risk-neighborhood sections**](/reports/section/problem_sections?elections=2026_04_19) (~0.97% of national turnout, +7,353 votes vs 10.2024) — the single largest integrity-flagged vote bucket in the dataset. Most concentrated in [Maksuda (Varna)](/reports/section/problem_sections/maksuda?elections=2026_04_19), [Stolipinovo (Plovdiv)](/reports/section/problem_sections/stolipinovo?elections=2026_04_19), and the four high-PB neighborhoods called out in item 6 below. **Top beneficiary: [PB](/party/%D0%9F%D1%80%D0%91?elections=2026_04_19) — 15,548 votes (50.5% of all votes here, +5.9 pp above its 44.59% national share); top party in 130 of 138 sections.**
+2. [**~18,500 top-party votes across 145 settlements with >80% concentration**](/reports/settlement/concentrated?elections=2026_04_19) — down sharply from ~38,700 in 10.2024 (lowest since 2017), but still the second-largest single bucket and worth settlement-level review for the residual cluster. **Top beneficiary: [DPS](/party/%D0%94%D0%9F%D0%A1?elections=2026_04_19) — 15,863 votes (85.6% of the bucket), dominant in 131 of 145 settlements**. PB is dominant in only 11 settlements (2,311 votes). This is the classic captured-electorate signature in historically DPS-base areas — *not* a PB pattern.
+3. [**~12,000 votes in 3,077 sections of "protocol below flash" discrepancy**](/reports/section/flash_memory_removed?elections=2026_04_19) — 24% of all machine sections, series high in section share, +2,929 votes vs 10.2024. Multi-cycle transcription drift that cannot be explained by "honest mistakes"; modest in vote terms (~0.36% of turnout) but a process-quality issue that warrants technical investigation regardless of outcome. **No party benefits — votes are subtracted from all parties; PB is the largest net loser at -4,156 votes (see §2.1 for the full breakdown).**
+4. [**~9,700 day-of list additions across 429 settlements**](/reports/settlement/additional_voters?elections=2026_04_19) (+4,320 votes vs 10.2024, settlement count near-doubled — series high), concentrated in [Smolyan](/municipality/SML?elections=2026_04_19), [Kardzhali](/municipality/KRZ?elections=2026_04_19) and [Vratsa](/municipality/VRC?elections=2026_04_19). Top extreme: [с. Vehtino](/sections/10910?elections=2026_04_19) at 161% added. **Estimated split (proportional to in-settlement vote share): PB ~3,434 (35.5%), PP-DB ~1,844 (19.1%), GERB-SDS ~1,207 (12.5%), DPS ~1,124 (11.6%).** PB's share here is ~9 pp *below* its 44.59% national — these settlements are not particularly PB-leaning, so the surge is not a PB-specific signal.
+5. [**~9,100 machine votes in 62 sections with completely missing flash drive**](/reports/section/missing_flash_memory?elections=2026_04_19) — nearly tripled in vote terms vs 10.2024 (3,146 votes), a sharper jump than the section count (33 → 62) implies. Un-auditable beyond paper. **Top beneficiary: [PB](/party/%D0%9F%D1%80%D0%91?elections=2026_04_19) — 3,934 machine votes (43.2%, near its 44.59% national share). [PP-DB](/party/%D0%9F%D0%9F-%D0%94%D0%91?elections=2026_04_19) is notably *over*-represented at 2,251 votes (24.7% vs its 12.59% national).**
+6. [**Four risk neighborhoods (Nadezhda Sliven, Dolno/Gorno Ezerovo, Fakulteta) where PB ran 9-15 pp above its national share**](/reports/section/problem_sections?elections=2026_04_19), in the same cells with the worst invalid-ballot rates (up to 4.6× national) and lowest machine share. The cleanest fraud-style signature in the dataset — small in absolute votes (~5,200 actual voters, a subset of the 32,500 in item 1) but worth a focused local review. **Top beneficiary: [PB](/party/%D0%9F%D1%80%D0%91?elections=2026_04_19) — 2,710 votes (57.7% of all votes in these 28 sections, +13.1 pp above national).**
+7. [**~1,700 invalid ballots across 87 settlements with >10% invalid rate**](/reports/settlement/invalid_ballots?elections=2026_04_19) (+856 vs 10.2024). No party gets invalid ballots directly, but in the literature ([Stokes et al.](https://www.cambridge.org/core/books/brokers-voters-and-clientelism/2346382B38862E36C09042C779EA1510)) the implicit beneficiary is whoever the broker is paid to support — i.e. the dominant party in the flagged settlements: **PB dominant in 58 settlements (5,249 votes), DPS in 20 (1,336 votes), GERB-SDS in 7 (383 votes).**
+8. [**~340 votes across 226 sections with reallocated votes between flash and protocol**](/reports/section/flash_memory?elections=2026_04_19) (+144 vs 10.2024) — small in absolute terms, but the upward trend in section count makes it worth tracking. **Effectively net-neutral by party: PB is both top gainer (105 votes across 88 sections) and top loser (59 votes across 33 sections), net +46.**
 
 ### The polling miss
 

@@ -88,6 +88,36 @@ type PartyInfo = {
   commonName?: string[];
 };
 
+type CanonicalPartiesFile = {
+  parties: {
+    id: string;
+    displayName?: string;
+    displayNameEn?: string;
+    history?: { nickName?: string }[];
+  }[];
+};
+
+let canonicalEnByNick: Map<string, string> | null = null;
+const getEnglishShortName = (
+  nickName: string | undefined,
+): string | undefined => {
+  if (!nickName) return undefined;
+  if (!canonicalEnByNick) {
+    canonicalEnByNick = new Map();
+    const cp = readJson<CanonicalPartiesFile>(
+      path.join(PUBLIC_DIR, "canonical_parties.json"),
+    );
+    for (const p of cp?.parties ?? []) {
+      if (!p.displayNameEn) continue;
+      if (p.displayName) canonicalEnByNick.set(p.displayName, p.displayNameEn);
+      for (const h of p.history ?? []) {
+        if (h.nickName) canonicalEnByNick.set(h.nickName, p.displayNameEn);
+      }
+    }
+  }
+  return canonicalEnByNick.get(nickName);
+};
+
 type Region = {
   oblast: string;
   name?: string;
@@ -158,6 +188,7 @@ type PreferencesStats = {
 
 type Candidate = {
   name: string;
+  name_en: string;
   oblast: string;
   partyNum: number;
   pref: string;
@@ -416,6 +447,7 @@ type PrefBlock = {
   topCandidatesNational: {
     pref: string;
     name?: string;
+    name_en?: string;
     oblast: string;
     oblastName_bg?: string;
     totalVotes: number;
@@ -427,9 +459,11 @@ type PrefBlock = {
     name_en?: string;
     pref: string;
     candidateName?: string;
+    candidateName_en?: string;
     votes: number;
     leaderVotes: number; // votes for the pref=101 candidate in that region
     leaderName?: string;
+    leaderName_en?: string;
     pctOfRegionPartyPrefs: number;
     beatBallotOrder: boolean;
   }[];
@@ -467,10 +501,13 @@ const buildPreferences = (
   );
   if (!stats || !regionsRows?.length) return null;
 
-  const candidateLookup = new Map<string, string>();
+  const candidateLookup = new Map<string, { name: string; name_en?: string }>();
   for (const c of candidates ?? []) {
     if (c.partyNum === partyNum) {
-      candidateLookup.set(`${c.oblast}|${c.pref}`, c.name);
+      candidateLookup.set(`${c.oblast}|${c.pref}`, {
+        name: c.name,
+        name_en: c.name_en,
+      });
     }
   }
 
@@ -481,7 +518,8 @@ const buildPreferences = (
 
   const topCandidatesNational = (stats.top ?? []).slice(0, 10).map((t) => ({
     pref: t.pref,
-    name: candidateLookup.get(`${t.oblast}|${t.pref}`),
+    name: candidateLookup.get(`${t.oblast}|${t.pref}`)?.name,
+    name_en: candidateLookup.get(`${t.oblast}|${t.pref}`)?.name_en,
     oblast: t.oblast,
     oblastName_bg: regionName(t.oblast)?.name,
     totalVotes: t.totalVotes,
@@ -510,17 +548,21 @@ const buildPreferences = (
       upsetRegions.push({ oblast, name_bg: regionName(oblast)?.name });
     }
     const info = regionName(oblast);
+    const winnerCand = candidateLookup.get(`${oblast}|${winner.pref}`);
+    const leaderCand = leader
+      ? candidateLookup.get(`${oblast}|${leader.pref}`)
+      : undefined;
     topCandidatesByRegion.push({
       oblast,
       name_bg: info?.name,
       name_en: info?.name_en,
       pref: winner.pref,
-      candidateName: candidateLookup.get(`${oblast}|${winner.pref}`),
+      candidateName: winnerCand?.name,
+      candidateName_en: winnerCand?.name_en,
       votes: winner.totalVotes,
       leaderVotes: leader?.totalVotes ?? 0,
-      leaderName: leader
-        ? candidateLookup.get(`${oblast}|${leader.pref}`)
-        : undefined,
+      leaderName: leaderCand?.name,
+      leaderName_en: leaderCand?.name_en,
       pctOfRegionPartyPrefs: partyPrefsInRegion
         ? round((100 * winner.totalVotes) / partyPrefsInRegion)
         : 0,
@@ -604,6 +646,7 @@ const buildCompetitive = (
   return {
     rivalPartyNum: rival.partyNum,
     rivalNickName: rival.nickName,
+    rivalDisplayNameEn: getEnglishShortName(rival.nickName),
     regionsWon,
     regionsLost,
     topMargins: rows.slice(0, 5),
@@ -1019,6 +1062,7 @@ const buildBundle = (election: string, partyNum: number) => {
     party: {
       number: party.number,
       nickName: party.nickName,
+      displayNameEn: getEnglishShortName(party.nickName),
       name_bg: party.name,
       name_en: party.name_en,
       color: party.color,
