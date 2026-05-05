@@ -6,7 +6,7 @@ import { Caption } from "@/ux/Caption";
 import { useElectionContext } from "@/data/ElectionContext";
 import { usePartyInfo } from "@/data/parties/usePartyInfo";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
-import { localDate, matchPartyNickName } from "@/data/utils";
+import { findPartyByNickName, localDate } from "@/data/utils";
 import { useFinancing } from "./components/party/campaign_financing/useFinancing";
 import { PartyTopDonorsTile } from "./dashboard/PartyTopDonorsTile";
 import { PartyDonorsCountCard } from "./dashboard/cards/PartyDonorsCountCard";
@@ -19,7 +19,7 @@ export const PartyDonorsScreen: FC = () => {
   const { selected, electionStats } = useElectionContext();
   const { parties } = usePartyInfo();
   const { fullNameFor, displayNameFor } = useCanonicalParties();
-  const party = parties?.find((p) => matchPartyNickName({ nickName }, p, true));
+  const party = nickName ? findPartyByNickName(parties, nickName) : undefined;
   const { financing } = useFinancing(party);
   const heading = nickName ? (displayNameFor(nickName) ?? nickName) : "";
 

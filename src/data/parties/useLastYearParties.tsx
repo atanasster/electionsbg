@@ -2,7 +2,7 @@ import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { PartyInfo } from "../dataTypes";
 import { useElectionContext } from "../ElectionContext";
 import { useCallback } from "react";
-import { matchPartyNickName } from "../utils";
+import { findPartyByNickName } from "../utils";
 
 const queryFn = async ({
   queryKey,
@@ -27,7 +27,7 @@ export const useLastYearParties = () => {
   });
   const partyByNickName = useCallback(
     (nickName?: string) =>
-      parties?.find((p) => matchPartyNickName({ nickName }, p, true)),
+      nickName ? findPartyByNickName(parties, nickName) : undefined,
     [parties],
   );
 

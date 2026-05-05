@@ -1,7 +1,7 @@
 import { useElectionContext } from "@/data/ElectionContext";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { usePartyInfo } from "@/data/parties/usePartyInfo";
-import { localDate, matchPartyNickName } from "@/data/utils";
+import { findPartyByNickName, localDate } from "@/data/utils";
 import { Caption } from "@/ux/Caption";
 import { Title } from "@/ux/Title";
 import { FC } from "react";
@@ -15,7 +15,7 @@ export const Party: FC<{ nickName: string }> = ({ nickName }) => {
   const { t } = useTranslation();
   const { selected } = useElectionContext();
   const { displayNameFor, fullNameFor } = useCanonicalParties();
-  const party = parties?.find((p) => matchPartyNickName({ nickName }, p, true));
+  const party = findPartyByNickName(parties, nickName);
   const heading = displayNameFor(nickName) ?? nickName;
   const title = fullNameFor(nickName, selected) ?? party?.name ?? nickName;
   return (

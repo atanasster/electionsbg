@@ -293,6 +293,19 @@ export const matchPartyNickName = (
   );
 };
 
+// Resolve a URL/user-supplied nickName to a single party in the given list.
+// Prefers an exact `nickName` match before falling back to `commonName`
+// aliases — without this, when two parties on the same ballot both alias the
+// same predecessor (e.g. ДПС split into АПС and the relabelled ДПС, where
+// АПС has commonName=["ДПС"]), `find` returns whichever appears first in the
+// list rather than the one the user actually asked for.
+export const findPartyByNickName = <T extends BasicPartyInfo>(
+  parties: T[] | undefined,
+  nickName: string,
+): T | undefined =>
+  parties?.find((p) => p.nickName === nickName) ??
+  parties?.find((p) => matchPartyNickName({ nickName }, p, true));
+
 type PrevVotesType = {
   prevTotalVotes?: number;
   prevMachineVotes?: number;

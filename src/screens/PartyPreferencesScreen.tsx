@@ -4,7 +4,7 @@ import { useTranslation } from "react-i18next";
 import { Title } from "@/ux/Title";
 import { usePartyInfo } from "@/data/parties/usePartyInfo";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
-import { matchPartyNickName, localDate } from "@/data/utils";
+import { findPartyByNickName, localDate } from "@/data/utils";
 import { useElectionContext } from "@/data/ElectionContext";
 import { ErrorSection } from "./components/ErrorSection";
 import { PartyCandidatesScreen } from "./components/party/candidates/PartyCandidatesScreen";
@@ -16,7 +16,7 @@ export const PartyPreferencesScreen: FC = () => {
   const { t } = useTranslation();
   const { fullNameFor, displayNameFor } = useCanonicalParties();
   if (!nickName) return null;
-  const party = parties?.find((p) => matchPartyNickName({ nickName }, p, true));
+  const party = findPartyByNickName(parties, nickName);
   if (parties && !party) {
     return (
       <ErrorSection
