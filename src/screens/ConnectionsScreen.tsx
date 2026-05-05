@@ -1,4 +1,4 @@
-import { FC, useEffect, useMemo, useRef, useState } from "react";
+import { FC, useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
@@ -309,7 +309,15 @@ export const ConnectionsScreen: FC = () => {
   ]);
 
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
-  const canvasWrapRef = useRef<HTMLDivElement | null>(null);
+  // Mirror the wrap element into state via a callback ref so effects can react
+  // to it appearing in the DOM. Radix Tabs only mounts inactive panel content
+  // when the user activates the tab, and that mount happens *after* React's
+  // effect for the activeTab change has already run — so a plain useRef + tab
+  // dep wouldn't catch it. The callback ref fires synchronously on mount.
+  const [wrapEl, setWrapEl] = useState<HTMLDivElement | null>(null);
+  const canvasWrapRef = useCallback((el: HTMLDivElement | null) => {
+    setWrapEl(el);
+  }, []);
   const simRef = useRef<Simulation<SimNode, SimLink> | null>(null);
 
   // Camera (pan/zoom) maintained in plain refs so we re-render the canvas on
@@ -362,28 +370,29 @@ export const ConnectionsScreen: FC = () => {
   const [pathNodeIds, setPathNodeIds] = useState<Set<string> | null>(null);
   const [pathEdgeKeys, setPathEdgeKeys] = useState<Set<string> | null>(null);
 
-  // Resize observer keeps the canvas full-width within its card.
+  // Resize observer keeps the canvas full-width within its card. Keyed off
+  // wrapEl so it re-attaches whenever the wrapper mounts — Radix only mounts
+  // inactive tab panels lazily, so the wrapper appears later than the parent
+  // component's mount.
   useEffect(() => {
-    const el = canvasWrapRef.current;
-    if (!el) return;
+    if (!wrapEl) return;
     const ro = new ResizeObserver(() => {
-      const rect = el.getBoundingClientRect();
+      const rect = wrapEl.getBoundingClientRect();
       setSize({
         w: Math.max(320, Math.floor(rect.width)),
         h: Math.max(420, Math.floor(window.innerHeight - rect.top - 24)),
       });
     });
-    ro.observe(el);
+    ro.observe(wrapEl);
     return () => ro.disconnect();
-  }, []);
+  }, [wrapEl]);
 
   // Track which vertical slice of the canvas is currently in the viewport so
   // the popover can anchor inside it (the canvas often extends past the fold).
   useEffect(() => {
-    const el = canvasWrapRef.current;
-    if (!el) return;
+    if (!wrapEl) return;
     const update = () => {
-      const r = el.getBoundingClientRect();
+      const r = wrapEl.getBoundingClientRect();
       const top = Math.max(0, -r.top);
       const bottom = Math.min(r.height, window.innerHeight - r.top);
       setVisibleVRange((prev) =>
@@ -397,7 +406,7 @@ export const ConnectionsScreen: FC = () => {
       window.removeEventListener("scroll", update);
       window.removeEventListener("resize", update);
     };
-  }, [size.h]);
+  }, [wrapEl, size.h]);
 
   // Rebuild simulation when graph or filters change.
   const { simNodes, simLinks, neighbors } = useMemo(() => {
