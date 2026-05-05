@@ -6,6 +6,7 @@ import { PartyLink } from "../party/PartyLink";
 import { RegionLink } from "../regions/RegionLink";
 import { MpProfileHeader } from "./MpProfileHeader";
 import { MpFinancialDeclarations } from "./MpFinancialDeclarations";
+import { MpAssetsSummary } from "./MpAssetsSummary";
 import { MpManagementRoles } from "./MpManagementRoles";
 import { MpConnectionsMini } from "./MpConnectionsMini";
 import { CandidateDashboardCards } from "@/screens/dashboard/CandidateDashboardCards";
@@ -62,6 +63,7 @@ export const Candidate: FC<{ name: string }> = ({ name }) => {
 
       <CandidateDashboardCards name={canonicalName} />
 
+      <MpAssetsSummary name={name} />
       <MpFinancialDeclarations name={name} />
       <MpManagementRoles name={name} />
       <MpConnectionsMini name={name} />

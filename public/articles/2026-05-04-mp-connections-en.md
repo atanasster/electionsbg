@@ -1,10 +1,12 @@
-# Following the money trail — a tour of the new MP business connections feature
+# Following the money trail — MP business connections and declared wealth
 
-Bulgarian voters can already see how an MP votes, where they were elected, and how their party fared in any given polling station. What has been much harder to see — without manually downloading an XML declaration and cross-checking it against the Commerce Registry — is what *companies* sit behind those people, and how those companies link MPs to one another.
+Bulgarian voters can already see how an MP votes, where they were elected, and how their party fared in any given polling station. What has been much harder to see — without manually downloading an XML declaration and cross-checking it against the Commerce Registry — is what *companies* sit behind those people, how those companies link MPs to one another, and how much wealth each MP actually declared in the first place.
 
-That is the gap this feature fills. As of this writing, the graph contains **5,481 nodes** (605 MPs, 2,087 companies, 2,789 other named persons) joined by **6,568 edges** drawn from two open Bulgarian datasets. This article walks through where to find the new pages, what they show, and ends with a worked example: a real cross-party ownership path between two currently sitting MPs.
+That is the gap these features fill. As of this writing, the graph contains **5,481 nodes** (605 MPs, 2,087 companies, 2,789 other named persons) joined by **6,568 edges** drawn from two open Bulgarian datasets, and the wealth aggregator covers **713 MPs across 1,802 declarations** spanning fiscal years 2020–2024. This article walks through where to find the new pages, what they show, and ends with a worked example: a real cross-party ownership path between two currently sitting MPs.
 
-> **Update (May 2026):** the `/connections` page has been rebuilt around a *story-first* layout — a hero sentence with a party × party heatmap, a ranked list of MP↔MP connection chains, a dedicated path-finder tab and an opt-in orbital graph. The old single-canvas view is now one of three tabs. §5 below describes the new design end-to-end; the older orbital screenshots remain as references for the "Explore graph" tab.
+> **Update (May 2026):** the `/connections` page was rebuilt around a *story-first* layout — a hero sentence with a party × party heatmap, a ranked list of MP↔MP connection chains, a dedicated path-finder tab and an opt-in orbital graph. The old single-canvas view is now one of three tabs.
+>
+> **Update (May 2026, second pass):** the declarations pipeline now also parses the property/wealth tables of every cacbg filing (real estate, vehicles, cash, bank deposits, receivables, debts, investments, securities) — not just the company-shares tables it originally read. The new feature ships as a **MPs by declared assets** tile on the home and party pages, a per-MP **Declared assets** summary card on every candidate page, a sortable **/mp-assets** page, and a per-candidate details page at **/candidate/:id/assets** that lists every declared asset row with its origin-of-funds note. §6 below describes the asset feature end-to-end.
 
 ---
 
@@ -25,7 +27,7 @@ Two source datasets, both open:
 
 | source | what it provides | format | refresh |
 |---|---|---|---|
-| [register.cacbg.bg](https://register.cacbg.bg/) (Court of Audit) | annual property/interest declarations — Tables 10 (current stakes) and 11 (transferred shares), filtered to the "Народни представители" declarant category | XML per declaration | annually each May |
+| [register.cacbg.bg](https://register.cacbg.bg/) (Court of Audit) | annual property/interest declarations filed by every MP. The parser reads Tables **1 / 1.1 / 1.2** (real estate — own, agricultural, foreign-used), **3 / 3.1 / 3.2 / 3.3 / 3.4** (vehicles — motor / agricultural / boats-aircraft / other / foreign-used), **4** (cash on hand), **5** (bank accounts & deposits), **6** (receivables > 10k BGN), **7** (debts > 10k BGN), **8** (investment & pension funds, incl. crypto), **9** (securities & financial instruments), **10** (current LLC shares), **11** (transferred shares) and **12** (income). Tables 2 and 3.5 (transferred-out property/vehicles) are intentionally skipped from the asset totals because the holdings have already left the declarant's estate. | XML per declaration | annually each May |
 | [data.egov.bg](https://data.egov.bg/) dataset 2df0c2af-… (Commerce Registry) | daily filings of officers, partners, beneficial owners, status, seat | bulk JSON / incremental | daily, processed in batches |
 
 Why both? Declarations alone show *MP → company* ties, which is enough to build a list. They do not show *MP → MP* ties through shared boards or co-owners, and that is exactly where most of the interesting overlaps live. The Commerce Registry supplies that connecting tissue.
@@ -61,15 +63,29 @@ The same tile appears on every regional dashboard, intersected with the MIR (mul
 
 Notice how the rankings change: **Ивайло Мирчев** (ДБ) is now first with 7 ties — instead of being fourth nationally — because the regional view drops everyone outside Sofia. **Мартин Димитров** (ДБ, six tenures spanning 40th–52nd parliament) appears second despite being in 8th position nationally for the same reason.
 
+Directly below the connections tile sits its sibling — the **MPs by declared assets** tile. Same compact ranking format, same per-NS scope, but ranked by **net worth in BGN** (declarant + spouse) computed from each MP's most recent filed declaration. Each row carries a YoY arrow vs the prior fiscal year so you can see which MPs declared a meaningful change since the last filing. For the 52nd parliament the lead by a wide margin is **Делян Пеевски** (ПГ ДПС, 21.7 M лв, ↓2.5 M vs 2023), followed by **Росица Кирова** (ПГ на ГЕРБ-СДС, 13.3 M лв, ↑10x vs 2023 driven by a single 3.4 M BGN receivable plus a 10 M BGN security holding). The "All MPs by assets →" link in the tile footer opens the full sortable table at `/mp-assets` (described in §6).
+
 ---
 
 ## 4. Where the feature appears — the candidate page
 
-Three blocks were added to every MP profile, in this order:
+Four blocks were added to every MP profile, in this order:
+
+### Declared assets
+
+A compact balance-sheet card sitting at the top of the connections section. The header reads `Declared assets · fiscal year N` and shows three big numbers: total assets, debts (when present, in red with a minus sign), and net worth in BGN. A YoY chip next to them shows the absolute delta vs the previous fiscal year's filing — green up arrow for net worth that grew since the prior declaration, red down arrow when it shrank.
+
+Below the headline numbers, a 4-column grid breaks the assets out by category — real estate, vehicles, bank accounts, cash, investments, securities, receivables, and (separately, in red) debts. Each tile shows the BGN total, the item count, and — where applicable — how many items the declarant filed *without* a value (typical of inherited real estate or rural plots).
+
+For declarations that include foreign-currency holdings, the card shows the BGN-converted total. Conversions use the BNB fixed peg for EUR (1.95583) and a small lookup table of recent average rates for USD / GBP / CHF / etc. — good enough for ranking, not a substitute for the spot rate on any specific filing date. Holdings whose currency is unknown to the table fall back to the raw amount (rare).
+
+A footer line links straight to the source XML on `register.cacbg.bg` for the same fiscal year, and a *See details* link in the card header opens the full per-row breakdown at `/candidate/:id/assets`. That details page (described in §6) shows every declared item with its location, area, year acquired, holder name, idealna chast (fractional ownership), legal basis and the verbatim *origin of funds* note that the declarant filed — the most journalistically interesting field on the form, because it's where the declarant explains *where the money came from*.
+
+For MPs whose latest declaration includes income above the 10k BGN threshold (Table 12), the card grows an inline **Annual income** breakdown — one row per category (salary, dividends, rents, etc.), declarant column and spouse column. Pee	vski's 2025 filing for example shows Annual taxable employment income 125,859 лв plus an "Art. 11" line of 50,616 лв — both reported by the declarant only, no spouse income.
 
 ### Financial declarations
 
-The first block is a per-company summary of declared business interests. Each row links into the company's dedicated page and shows the years the stake was held with its share size and value; if those values changed between filings, the entries are broken out with an arrow between them so the progression is visible. Source XML links for every declaration sit in a footer at the bottom of the card so you can verify what was actually filed.
+The second block is a per-company summary of declared business interests. Each row links into the company's dedicated page and shows the years the stake was held with its share size and value; if those values changed between filings, the entries are broken out with an arrow between them so the progression is visible. Source XML links for every declaration sit in a footer at the bottom of the card so you can verify what was actually filed.
 
 ![Financial declarations on a candidate page](/articles/images/connections/03-candidate-declarations.png)
 
@@ -77,7 +93,7 @@ The example here is **[Димитър Найденов](/candidate/%D0%94%D0%B8%
 
 ### Management roles
 
-The second block lists Commerce Registry roles — both *currently active* and *historical*. For sitting MPs the active list should be sparse by law (ЗПК Art. 35); historical roles are kept because they are part of the public record and routinely matter when reading the network.
+The third block lists Commerce Registry roles — both *currently active* and *historical*. For sitting MPs the active list should be sparse by law (ЗПК Art. 35); historical roles are kept because they are part of the public record and routinely matter when reading the network.
 
 ![Management roles on a candidate page](/articles/images/connections/04-candidate-management.png)
 
@@ -85,7 +101,7 @@ The orange/green pill on each row shows the matching confidence — the same tie
 
 ### Connections to other MPs
 
-The third block answers the question the rest of the feature is built around: **does this MP share a business neighbourhood with any other MP, and if so, through what?**
+The fourth block answers the question the rest of the feature is built around: **does this MP share a business neighbourhood with any other MP, and if so, through what?**
 
 For every MP, the offline pipeline runs a BFS over the full graph and records — up to four hops away — the shortest path to every other MP that is reachable. Those paths land directly on the candidate page as a stack of explicit chains, with each chip linking out to the company or person it represents:
 
@@ -121,7 +137,7 @@ The first thing on the page is a one-sentence stat with a clickable heatmap unde
 
 > **11** MPs in parliament 52 have ties to **14** others through **20** shared companies.
 
-The numbers update with the scope filter (described below). Below the sentence, a **party × party heatmap** shows where MP↔MP ties cross party lines — each cell is the number of pair-paths whose two endpoints belong to those two parties. Cells are log-scaled so a single mega-cluster doesn't drown out everything else, and clicking any cell drills the list below into that exact party crossing. For the 52nd parliament the brightest cell is *Independent × ПГ на ПБ* with 5 ties; the only cross-party-bench tie that involves both a *currently-active group* on each side is *ПГ на ГЕРБ-СДС × ПГ на ПБ* — the cell with one tie that the worked example in §6 walks through.
+The numbers update with the scope filter (described below). Below the sentence, a **party × party heatmap** shows where MP↔MP ties cross party lines — each cell is the number of pair-paths whose two endpoints belong to those two parties. Cells are log-scaled so a single mega-cluster doesn't drown out everything else, and clicking any cell drills the list below into that exact party crossing. For the 52nd parliament the brightest cell is *Independent × ПГ на ПБ* with 5 ties; the only cross-party-bench tie that involves both a *currently-active group* on each side is *ПГ на ГЕРБ-СДС × ПГ на ПБ* — the cell with one tie that the worked example in §7 walks through.
 
 ### The filter rail
 
@@ -189,7 +205,64 @@ The example above is **["ПиВи Квантум" ООД](/company/%D0%9F%D0%B8%
 
 ---
 
-## 6. Worked example — a cross-party path between two sitting MPs
+## 6. The assets pages — `/mp-assets` and `/candidate/:id/assets`
+
+Two pages cover the wealth feature end to end.
+
+### The rankings page
+
+`/mp-assets` is a flat sortable table of every MP whose latest declaration produced a non-zero asset or debt total — currently **713 MPs across 1,802 declarations**. The header carries two scope chips — "Selected parliament" (defaults to the NS picked in the global header) and "All parliaments" (lifetime view) — plus a free-text search that filters by name or party group. Every column is sortable: net worth (default sort, descending), total assets, debts, properties, year of latest filing, name, and the YoY change column.
+
+A small footnote on the properties column flags MPs whose declarations include items without a stated value — `8 (+3 n/v)` reads as "8 declared properties, 3 of them filed with no acquisition price." We don't impute prices for those — that would be editorial — so the rank-by-net-worth column is naturally a slight under-count for MPs whose real estate is mostly unvalued.
+
+### Per-party rollup
+
+The same ranking, scoped to a single party, appears on every party page right under the existing **Top candidates** tile. The list is computed by intersecting the global ranking with the party's candidate roster, so it covers everyone the party fielded — not just current MPs. For coalitions like ПП-ДБ this means the tile naturally shows MPs from both groups, which is usually what a reader wants when comparing across the coalition.
+
+### The details page
+
+`/candidate/:id/assets`, reached from the **See details** link in the candidate-page summary card, is the long form. It opens with the same headline numbers (total / debts / net worth) and a direct link to the source XML, then renders one table per asset category that the declarant filed against — typically real estate first, then vehicles, bank accounts, cash, investments, securities, receivables, and (when present) debts.
+
+Each table column carries the verbatim source data:
+
+| column | what it shows |
+|---|---|
+| Type / description | the cacbg row's "Вид на имота" / "Вид на превозното средство" / receivable type |
+| Location | for real estate, settlement + municipality |
+| Brand | for vehicles, the make + model |
+| Area (m²) | for real estate; the parser extracts the leading number even when the declarant appended a unit suffix like `917 кв.м.` |
+| Year | year acquired |
+| Holder | the natural person on the title; flagged "(spouse)" when the holder name doesn't match the declarant's |
+| Share | idealna chast — the fractional ownership the declarant entered (`1/1`, `1/2`, `1/4`, etc.); preserved as raw text since some declarants enter percentages instead |
+| Amount | the value as the declarant filed it, in the declared currency |
+| BGN | the BGN-equivalent used for ranking math (FX-converted when needed) |
+| Legal basis | the cacbg "Правно основание" cell — `покупко-продажба`, `договор за наем`, `наследство`, etc. |
+| Origin of funds | the verbatim "Произход на средствата" note. This is the most journalistically interesting field because it's where the declarant explains where the money came from — `заплата`, `спестявания`, `доходи от дивидент, продажба на акции`, `заеми`, etc. |
+
+Below the asset tables sits the **Annual income** table (Table 12) with one row per income category, declarant + spouse columns and a totals row at the bottom.
+
+### Worked example: Делян Пеевски
+
+Pee	vski's `/candidate/.../assets` page is the most data-dense in the dataset — 21.7 M лв total declared, broken down as:
+
+- **Real estate (8 items, 455,922 лв)** — every entry is a "къща с двор" (house with yard) or apartment in София-град, all acquired in 2024, all reported under `1/1` ownership, all with the legal basis "договор за наем" (rental contract) and the same origin-of-funds note: *"доходи от дивидент, продажба на акции, както и от продажба на дружествени дялове и получени дивиденти, декларирани и през предходни години"* (dividend income, sale of shares, sale of company stakes and dividends, also declared in previous years).
+- **Vehicles (5 items, 169,200 лв)** — BMW, Audi, Land Rover, Mercedes, Toyota, all acquired 2024, all under contract.
+- **Bank accounts (3 items, 1,091,888 лв)** — one BGN, one EUR, one USD; the latter two get FX-converted on the page.
+- **Cash (2 items, 758,400 лв)** — one BGN, one EUR.
+- **Investments (1 item, 83,093 лв)** — a 42,485 EUR fund holding.
+- **Receivables (1 item, 19,092,622 лв)** — a single declared receivable that dwarfs everything else on the page combined; legal basis "Решение на ЕСК за разпределен дивидент" (board decision on dividend distribution).
+
+Annual income on the same filing: 125,859 лв taxable employment income + 50,616 лв under "Art. 11 from the Annex of ПОДНС" — both declarant only.
+
+The YoY chip on the summary card shows ↓ −2.5 M лв vs the prior fiscal year, driven mostly by changes in the receivables line.
+
+### One known data-entry typo
+
+One MP — Страцимир Илков Павлов, 2021 declaration — reported a 71m² Varna apartment at 33,383,100 BGN, which is three orders of magnitude above his companion 41m² office in the same building (27,169 BGN). The most plausible reading is a misplaced decimal separator. Rather than let one declarant typo dominate every chart and ranking, the parser ships with a tiny `REAL_ESTATE_VALUE_OVERRIDES` table (currently one entry, narrowly matched on source URL + location + area + raw value) that corrects this single row to 33,383 BGN and explains why in a code comment. We don't do heuristic value-clamping ("anything over 100k BGN/m² must be wrong") — that would silently rewrite legitimate luxury properties. New typos will be added the same way as we find them.
+
+---
+
+## 7. Worked example — a cross-party path between two sitting MPs
 
 In the redesigned page this example is no longer something you have to *find* — it sits at the top of the Strongest ties tab the moment you load `/connections`. The scoring function ranks it first because it satisfies almost every signal at once: cross-party (ПГ на ГЕРБ-СДС × ПГ на ПБ), both endpoints currently seated in the 52nd parliament, every edge currently active. Toggling the *Cross-party only* chip in the filter rail collapses the 16 NS-52 pairs down to this single row.
 
@@ -218,28 +291,31 @@ For a more conservative example, the candidate page for currently-sitting Въз
 
 > Димо Дренчев (ВЪЗРАЖДАНЕ) → **"Братя Градеви" ООД** → **Николай Дренчев** (former MP) — *2 steps · currently active · high confidence*
 
-Two brothers, one company they jointly own, both having served as MPs. Every edge is high-confidence because the natural-person identities are not in dispute — the "Дренчев" name matches uniquely to a single parliament profile in each case. It's a clean illustration of how the same data surfaces both the noisy bridges and the unambiguous ones. The third block on every candidate page (described in §4) is the place to start either kind of investigation.
+Two brothers, one company they jointly own, both having served as MPs. Every edge is high-confidence because the natural-person identities are not in dispute — the "Дренчев" name matches uniquely to a single parliament profile in each case. It's a clean illustration of how the same data surfaces both the noisy bridges and the unambiguous ones. The "Connections to other MPs" block on every candidate page (described in §4) is the place to start either kind of investigation.
 
 If you want to see the densest single MP profile in this regard, **[Найденов](/candidate/%D0%94%D0%B8%D0%BC%D0%B8%D1%82%D1%8A%D1%80%20%D0%93%D0%B5%D0%BE%D1%80%D0%B3%D0%B8%D0%B5%D0%B2%20%D0%9D%D0%B0%D0%B9%D0%B4%D0%B5%D0%BD%D0%BE%D0%B2)** (14 high-confidence ties — every one of them corroborated) is still the right page; he has no MP-to-MP paths because his Burgas textile network does not overlap with any other parliamentarian's, but the management-roles and declarations blocks above the empty-paths state are the longest in the dataset.
 
 ---
 
-## 7. Refresh cadence
+## 8. Refresh cadence
 
-- **Declarations** — Court of Audit publishes the prior fiscal year's filings each May. Today's data set covers fiscal years 2022, 2023 and 2024; the 2025 filings should appear in May 2026.
+- **Declarations** — Court of Audit publishes the prior fiscal year's filings each May. Today's data set covers fiscal years 2020 through 2024; the 2025 filings appear in May 2026 and trigger the next rebuild.
 - **Commerce Registry** — incremental refresh; the ranking and per-MP files carry their own `generatedAt` timestamps so you can see staleness directly.
 
-When the next batch of declarations lands, the pipeline can be re-run via the project's `update-connections` script and the rankings + per-MP files regenerate from there.
+When the next batch of declarations lands, the pipeline can be re-run via the project's `update-connections` script. Both the connection graph and the asset rankings + per-MP wealth files regenerate from the same offline pass.
 
-## 8. Limitations and honest disclaimers
+## 9. Limitations and honest disclaimers
 
 - **Foreign-registered companies are invisible.** A Cypriot SPV that an MP owns will not show up unless they declared it on Table 10 — and most don't.
 - **Beneficial-ownership chains stop at one hop.** Where the public registries record a holding company as the owner of an operating company, the graph shows the relationship to the holding, not to the ultimate beneficiary.
 - **Name matching is heuristic.** Surname-only ties are dropped before publication, not flagged. The medium-confidence tier is exactly where to put your skepticism.
 - **Declarations are self-reported and lag by ~12 months.** A change in 2025 ownership will not appear until the May 2026 filing batch is processed.
 - **The Commerce Registry is current as of the last incremental refresh** — the timestamp is in `generatedAt`. Filings made after that date are not yet visible.
+- **Asset values are at acquisition price, not market value.** A 1999 Varna apartment that cost 33,000 BGN at the time stays in the dataset at 33,000 BGN even if it would sell today for 250k. Net-worth rankings should be read with this in mind — they reflect what was *declared*, not current market.
+- **Foreign-currency conversions use a single rate per currency.** EUR uses the BNB fixed peg (1.95583); USD/GBP/CHF/etc use a single recent BNB average. The actual exchange rate on the date the declarant filed was probably different. This is a deliberate ranking-vs-precision tradeoff — fine for ordering MPs, not a substitute for a per-filing rate.
+- **Some declarants typo digits.** When the typo is obvious enough to dominate a chart (Pavlov 2021, §6), we add a narrow override; otherwise we trust the declarant's number even when it's surprising.
 
-## 9. What this enables
+## 10. What this enables
 
 The intent of the feature is not to replace the Court of Audit or AKF (Anti-Corruption Commission). It is to make a record that is already public *legible* — to turn 605 separate XML files into a single graph that a citizen, a journalist, or a campaign-finance researcher can navigate in 30 seconds instead of 30 hours. Most of what is in here is uneventful. The point is that "uneventful" is now visible too, and that the few non-uneventful things stand out by contrast.
 

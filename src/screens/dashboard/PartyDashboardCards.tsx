@@ -15,6 +15,7 @@ import { PartyTopRegionsTile } from "./PartyTopRegionsTile";
 import { PartyTopMunicipalitiesTile } from "./PartyTopMunicipalitiesTile";
 import { PartyTopSettlementsTile } from "./PartyTopSettlementsTile";
 import { PartyTopCandidatesTile } from "./PartyTopCandidatesTile";
+import { PartyMpAssetsTile } from "./PartyMpAssetsTile";
 import { PartyRegionSwingsTile } from "./PartyRegionSwingsTile";
 import { PartyAssessmentTile } from "./PartyAssessmentTile";
 import { PartyExpenseBreakdownTile } from "./PartyExpenseBreakdownTile";
@@ -193,6 +194,12 @@ export const PartyDashboardCards: FC<Props> = ({ party }) => {
           className={`grid gap-3 grid-cols-1 mt-3 ${TILE_HEIGHTS.topCandidates}`}
         >
           <PartyTopCandidatesTile data={data} />
+        </div>
+      ) : null}
+
+      {hasPreferences ? (
+        <div className="grid gap-3 grid-cols-1 mt-3">
+          <PartyMpAssetsTile data={data} />
         </div>
       ) : null}
 

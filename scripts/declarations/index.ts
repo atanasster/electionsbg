@@ -26,6 +26,7 @@ import {
 } from "./build_company_index";
 import { integrateTr } from "./tr/integrate";
 import { buildConnectionsGraph } from "./build_connections_graph";
+import { buildAssetsRankings } from "./build_assets_rankings";
 
 const REGISTER_BASE = "https://register.cacbg.bg";
 
@@ -262,4 +263,8 @@ export const parseFinancialDeclarations = async ({
   // exists, also pull every current officer/owner for the touched UICs so the
   // graph surfaces non-MP co-officers (the "spatial" payoff).
   buildConnectionsGraph({ publicFolder, rawFolder: dataFolder, stringify });
+
+  // Phase 7: per-MP wealth rollups + cross-MP rankings file consumed by the
+  // home/party/candidate "MPs by declared assets" tiles.
+  buildAssetsRankings({ publicFolder, stringify });
 };

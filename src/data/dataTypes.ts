@@ -398,6 +398,142 @@ export type MpDeclaration = {
   sourceUrl: string;
   ownershipStakes: MpOwnershipStake[];
   income: MpIncomeRecord[];
+  /** Itemised wealth from declaration tables 1, 3, 4, 5, 6, 7, 8, 9
+   * (real estate, vehicles, cash, bank deposits, receivables, debts,
+   * investments, securities). Older declarations parsed before the assets
+   * extension may not have this field — treat as []. */
+  assets?: MpAsset[];
+};
+
+/** Categories covered by the wealth aggregator. `debt` is a liability and is
+ * subtracted in net-worth math; everything else is an asset. */
+export type MpAssetCategory =
+  | "real_estate" // Table 1
+  | "vehicle" // Table 3
+  | "cash" // Table 4
+  | "bank" // Table 5 (bank accounts / deposits)
+  | "receivable" // Table 6
+  | "debt" // Table 7 (liability)
+  | "investment" // Table 8 (funds, crypto)
+  | "security"; // Table 9 (shares & financial instruments)
+
+/** Single asset row from the cacbg declaration. The schema is unified so the
+ * UI can render lists generically — fields not relevant to a given category
+ * are simply null. `valueBgn` is the BGN-equivalent stored on the row when
+ * present; the parser falls back to `amount` when the declared currency is
+ * BGN and the equivalent column is empty. */
+export type MpAsset = {
+  category: MpAssetCategory;
+  /** "Вид на имота/средството" — human description of the asset kind. */
+  description: string | null;
+  /** Brand (vehicle), issuer (security), or country (foreign asset). */
+  detail: string | null;
+  /** Real-estate location (city/area). */
+  location: string | null;
+  /** Real-estate municipality/oblast. */
+  municipality: string | null;
+  areaSqm: number | null;
+  builtAreaSqm: number | null;
+  acquiredYear: number | null;
+  /** Fractional ownership "1/2", "1/4" etc. — preserved as raw text. */
+  share: string | null;
+  /** Currency the declarant entered (BGN, EUR, USD, …). null when n/a. */
+  currency: string | null;
+  /** Raw amount in the declared currency. */
+  amount: number | null;
+  /** BGN-equivalent for ranking math. null when the declarant left the value
+   * blank (common for inherited real estate). */
+  valueBgn: number | null;
+  /** Holder name as it appears in the declaration. */
+  holderName: string | null;
+  /** True when the holder is not the declarant (i.e. the declarant's spouse,
+   * cohabitant, or minor child whose holdings are reported on the same form).
+   * Computed by comparing the holder name to the declarant name. */
+  isSpouse: boolean;
+  legalBasis: string | null;
+  fundsOrigin: string | null;
+};
+
+/** Rollup of an MP's declared wealth at a single point in time (their
+ * latest filed declaration). Mirrors the per-MP file written to
+ * /public/parliament/mp-assets/{mpId}.json. */
+export type MpAssetCategoryRollup = {
+  /** Number of declared items in this category (declarant + spouse). */
+  count: number;
+  /** Items with a non-null BGN value. */
+  valuedCount: number;
+  /** Sum of valueBgn across declared + spouse holdings. */
+  totalBgn: number;
+};
+
+export type MpAssetsRollup = {
+  mpId: number;
+  name: string;
+  partyGroupShort: string | null;
+  isCurrent: boolean;
+  nsFolders: string[];
+  /** Year the most recent declaration was filed. */
+  latestDeclarationYear: number;
+  /** Year the declaration covers (`declarationYear - 1` for annual filings). */
+  fiscalYear: number | null;
+  declarationType: string;
+  sourceUrl: string;
+  /** Sum of all asset categories except `debt`. */
+  totalAssetsBgn: number;
+  /** Sum of `debt` rows (positive number). */
+  totalDebtsBgn: number;
+  /** `totalAssetsBgn − totalDebtsBgn`. */
+  netWorthBgn: number;
+  /** Same totals computed from the previous-year declaration (when one
+   * exists) so the UI can render a year-over-year delta. The `year` field
+   * is the fiscal year the prior declaration covered (preferred over
+   * declarationYear for display, so "vs 2023" reads consistently with
+   * the current "fiscal year 2024" header). */
+  previous: {
+    year: number;
+    totalAssetsBgn: number;
+    netWorthBgn: number;
+  } | null;
+  byCategory: Record<MpAssetCategory, MpAssetCategoryRollup>;
+};
+
+/** Top-N list rendered on the home + party + dedicated /mp-assets pages. */
+export type MpAssetsRankingEntry = {
+  mpId: number;
+  label: string;
+  partyGroupShort: string | null;
+  isCurrent: boolean;
+  nsFolders: string[];
+  latestDeclarationYear: number;
+  totalAssetsBgn: number;
+  totalDebtsBgn: number;
+  netWorthBgn: number;
+  /** Real-estate item count — surfaced separately because it's the most
+   * common category with missing value (so a count is meaningful even when
+   * totalAssetsBgn under-counts for that MP). */
+  realEstateCount: number;
+  /** Number of declared real-estate items where valueBgn is null. Drives the
+   * "+N properties without declared value" footnote. */
+  realEstateUnvalued: number;
+  /** Year-over-year change vs the prior declaration. `previousYear` is the
+   * fiscal year the prior declaration covered, so the display label
+   * matches the "fiscal year N" heading. null when this is the MP's
+   * first declaration in our dataset. */
+  delta: {
+    previousYear: number;
+    absoluteBgn: number;
+    pct: number | null; // null when previous total is 0
+  } | null;
+};
+
+export type MpAssetsRankings = {
+  generatedAt: string;
+  /** Lifetime: every MP with at least one parsed declaration, ranked by
+   * netWorthBgn from their most recent filing. */
+  topMps: MpAssetsRankingEntry[];
+  /** Per-NS slice keyed by NS folder ("52", "51", ...). MP must have served
+   * in that NS to appear here. */
+  byNs: Record<string, { topMps: MpAssetsRankingEntry[] }>;
 };
 
 // TR (Commerce Registry) enrichment, attached to each entry in

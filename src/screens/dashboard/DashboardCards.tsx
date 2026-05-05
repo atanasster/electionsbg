@@ -22,6 +22,7 @@ import { PollsTile } from "./PollsTile";
 import { AccuracyTrendsTile } from "./AccuracyTrendsTile";
 import { ArticlesTile } from "./ArticlesTile";
 import { MpConnectionsTile } from "./MpConnectionsTile";
+import { MpAssetsTile } from "./MpAssetsTile";
 
 const SkeletonCard: FC<{ className?: string }> = ({
   className = "h-[160px]",
@@ -126,6 +127,9 @@ export const DashboardCards: FC = () => {
       </div>
       <div className="grid gap-3 grid-cols-1 mt-3">
         <MpConnectionsTile />
+      </div>
+      <div className="grid gap-3 grid-cols-1 mt-3">
+        <MpAssetsTile />
       </div>
       <div className="grid gap-3 grid-cols-1 mt-3">
         <TopRegionsTile parties={data.parties} />

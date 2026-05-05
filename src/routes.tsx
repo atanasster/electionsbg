@@ -167,6 +167,11 @@ const CandidateConnectionsScreen = lazy(() =>
     default: m.CandidateConnectionsScreen,
   })),
 );
+const CandidateAssetsScreen = lazy(() =>
+  import("./screens/CandidateAssetsScreen").then((m) => ({
+    default: m.CandidateAssetsScreen,
+  })),
+);
 const MpCompanyScreen = lazy(() =>
   import("./screens/MpCompanyScreen").then((m) => ({
     default: m.MpCompanyScreen,
@@ -180,6 +185,11 @@ const ConnectionsScreen = lazy(() =>
 const AllMpCompaniesScreen = lazy(() =>
   import("./screens/AllMpCompaniesScreen").then((m) => ({
     default: m.AllMpCompaniesScreen,
+  })),
+);
+const AllMpAssetsScreen = lazy(() =>
+  import("./screens/AllMpAssetsScreen").then((m) => ({
+    default: m.AllMpAssetsScreen,
   })),
 );
 const SimulatorScreen = lazy(() =>
@@ -1013,10 +1023,26 @@ export const AuthRoutes = () => {
           }
         />
         <Route
+          path="candidate/:id/assets"
+          element={
+            <LayoutScreen>
+              <CandidateAssetsScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
           path="mp/companies"
           element={
             <LayoutScreen>
               <AllMpCompaniesScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="mp-assets"
+          element={
+            <LayoutScreen>
+              <AllMpAssetsScreen />
             </LayoutScreen>
           }
         />

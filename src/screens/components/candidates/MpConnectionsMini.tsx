@@ -115,9 +115,7 @@ export const MpConnectionsMini: FC<{ name: string }> = ({ name }) => {
     // around the hub. d3-force on such a small graph collapses the satellite
     // onto the avatar, so we pin everything ourselves and skip the sim.
     const useStatic = visiblePaths.length === 0;
-    const satellites = filteredNodes.filter(
-      (n) => n.id !== subgraph.mpNodeId,
-    );
+    const satellites = filteredNodes.filter((n) => n.id !== subgraph.mpNodeId);
     const orbitR = Math.max(70, Math.min(120, 60 + satellites.length * 6));
     const satIndex = new Map<string, number>();
     satellites.forEach((n, i) => satIndex.set(n.id, i));
