@@ -10,14 +10,14 @@ import { useCandidates } from "@/data/preferences/useCandidates";
 import { electionToNsFolder } from "@/data/parliament/nsFolders";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 import { formatThousands } from "@/data/utils";
-import type { MpAssetsRankingEntry } from "@/data/dataTypes";
+import type { MpAssetsRankingEntry, PreferencesInfo } from "@/data/dataTypes";
 import type { PartyDashboardSummary } from "@/data/dashboard/partyDashboardTypes";
 import { StatCard } from "./StatCard";
 
 const ROWS = 5;
 
 type PartyPrefStats = {
-  top?: { name?: string; oblast?: string; pref?: number; partyNum: number }[];
+  top?: PreferencesInfo[];
 };
 
 const queryFn = async ({
@@ -83,9 +83,8 @@ export const PartyMpAssetsTile: FC<Props> = ({ data }) => {
       const candidate = p.oblast
         ? findCandidate(p.oblast, p.partyNum, p.pref)
         : undefined;
-      const candidateName = candidate?.name ?? p.name;
-      if (!candidateName) continue;
-      const mp = findMpByName(candidateName);
+      if (!candidate) continue;
+      const mp = findMpByName(candidate.name);
       if (!mp) continue;
       if (seen.has(mp.id)) continue;
       const entry = byId.get(mp.id);
