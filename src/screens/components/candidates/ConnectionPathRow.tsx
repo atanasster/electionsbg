@@ -1,13 +1,14 @@
 import { FC, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { ArrowRight, Building2, User, UserSquare2 } from "lucide-react";
+import { ArrowRight, Building2, UserSquare2 } from "lucide-react";
 import type {
   ConnectionsEdge,
   ConnectionsNode,
   ConnectionsPath,
 } from "@/data/dataTypes";
 import { cn } from "@/lib/utils";
+import { MpAvatar } from "./MpAvatar";
 
 type Props = {
   path: ConnectionsPath;
@@ -19,14 +20,12 @@ type Props = {
   edgeBetween: (a: string, b: string) => ConnectionsEdge | undefined;
 };
 
-const TYPE_ICON: Record<ConnectionsNode["type"], FC<{ className?: string }>> = {
-  mp: User,
+const NON_MP_ICON: Record<"company" | "person", FC<{ className?: string }>> = {
   company: Building2,
   person: UserSquare2,
 };
 
-const TYPE_DOT: Record<ConnectionsNode["type"], string> = {
-  mp: "bg-blue-500",
+const NON_MP_DOT: Record<"company" | "person", string> = {
   company: "bg-amber-500",
   person: "bg-neutral-400",
 };
@@ -71,24 +70,38 @@ export const ConnectionPathRow: FC<Props> = ({
       <div className="flex items-center gap-1.5 flex-wrap text-sm">
         {segments.map((node, i) => {
           const link = linkForNode(node);
-          const Icon = TYPE_ICON[node.type];
+          const isMp = node.type === "mp";
           const chipBody = (
             <span
               className={cn(
-                "inline-flex items-center gap-1 rounded-full px-2 py-0.5 text-xs",
+                "inline-flex items-center gap-1 rounded-full text-xs",
                 "border border-border/60 bg-background",
+                isMp ? "py-0.5 pl-0.5 pr-2" : "px-2 py-0.5",
                 link && "hover:bg-muted",
               )}
               title={node.label}
             >
-              <span
-                className={cn(
-                  "h-1.5 w-1.5 rounded-full inline-block",
-                  TYPE_DOT[node.type],
-                )}
-                aria-hidden
-              />
-              <Icon className="h-3 w-3 opacity-60" />
+              {isMp ? (
+                <MpAvatar
+                  mpId={node.mpId}
+                  name={node.label}
+                  className="h-5 w-5"
+                />
+              ) : (
+                <>
+                  <span
+                    className={cn(
+                      "h-1.5 w-1.5 rounded-full inline-block",
+                      NON_MP_DOT[node.type],
+                    )}
+                    aria-hidden
+                  />
+                  {(() => {
+                    const Icon = NON_MP_ICON[node.type];
+                    return <Icon className="h-3 w-3 opacity-60" />;
+                  })()}
+                </>
+              )}
               <span
                 className={cn(
                   "max-w-[14rem] truncate",
