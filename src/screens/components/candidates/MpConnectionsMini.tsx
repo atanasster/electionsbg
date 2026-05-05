@@ -26,7 +26,7 @@ import {
 } from "@/screens/components/connections/ConnectionsCanvas";
 
 const TOP_PATHS = 10;
-const HEIGHT = 280;
+const HEIGHT = 380;
 
 const TYPE_COLORS: Record<ConnectionsNode["type"], string> = {
   mp: "#2563eb",
@@ -116,7 +116,7 @@ export const MpConnectionsMini: FC<{ name: string }> = ({ name }) => {
     // onto the avatar, so we pin everything ourselves and skip the sim.
     const useStatic = visiblePaths.length === 0;
     const satellites = filteredNodes.filter((n) => n.id !== subgraph.mpNodeId);
-    const orbitR = Math.max(70, Math.min(120, 60 + satellites.length * 6));
+    const orbitR = Math.max(150, Math.min(280, 110 + satellites.length * 18));
     const satIndex = new Map<string, number>();
     satellites.forEach((n, i) => satIndex.set(n.id, i));
 
@@ -125,10 +125,10 @@ export const MpConnectionsMini: FC<{ name: string }> = ({ name }) => {
       const node: ConnectionsSimNode = {
         ...n,
         radius: isHub
-          ? 8
+          ? 22
           : n.type === "mp"
-            ? 6
-            : 3 + Math.min(5, Math.sqrt(degree.get(n.id) ?? 1) * 1.2),
+            ? 16
+            : 4 + Math.min(6, Math.sqrt(degree.get(n.id) ?? 1) * 1.4),
         color: TYPE_COLORS[n.type],
       };
       if (isHub) {
@@ -177,13 +177,13 @@ export const MpConnectionsMini: FC<{ name: string }> = ({ name }) => {
         "link",
         forceLink<ConnectionsSimNode, ConnectionsSimLink>(simLinks)
           .id((d) => d.id)
-          .distance(55)
-          .strength(0.6),
+          .distance(140)
+          .strength(0.5),
       )
-      .force("charge", forceManyBody().strength(-80))
+      .force("charge", forceManyBody().strength(-360))
       .force("center", forceCenter(0, 0))
-      .force("x", forceX(0).strength(0.05))
-      .force("y", forceY(0).strength(0.05))
+      .force("x", forceX(0).strength(0.015))
+      .force("y", forceY(0).strength(0.04))
       .alpha(1)
       .alphaDecay(0.04);
     simRef.current = sim;
