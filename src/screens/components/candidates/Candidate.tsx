@@ -36,30 +36,23 @@ export const Candidate: FC<{ name: string }> = ({ name }) => {
 
       <MpProfileHeader name={name} />
 
-      <table className="flex justify-center py-2">
-        <tbody>
-          {candidateInfo?.map((c) => {
-            const party = findParty(c.partyNum);
-            return (
-              <tr key={`${c.oblast}-${c.pref}`}>
-                <td>
-                  <div className="my-1">
-                    <PartyLink party={party} width="w-14"></PartyLink>
-                  </div>
-                </td>
-                <td>
-                  <div className="text-lg px-2 font-semibold">
-                    <RegionLink oblast={c.oblast} />
-                  </div>
-                </td>
-                <td>
-                  <div className="text-lg px-2 font-semibold">{`#${c.pref}`}</div>
-                </td>
-              </tr>
-            );
-          })}
-        </tbody>
-      </table>
+      <div className="flex flex-col items-center gap-2 px-4 py-2">
+        {candidateInfo?.map((c) => {
+          const party = findParty(c.partyNum);
+          return (
+            <div
+              key={`${c.oblast}-${c.pref}`}
+              className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1"
+            >
+              <PartyLink party={party} width="w-14" />
+              <div className="text-base sm:text-lg font-semibold">
+                <RegionLink oblast={c.oblast} />
+              </div>
+              <div className="text-base sm:text-lg font-semibold">{`#${c.pref}`}</div>
+            </div>
+          );
+        })}
+      </div>
 
       <CandidateDashboardCards name={canonicalName} />
 
