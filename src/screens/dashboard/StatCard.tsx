@@ -22,7 +22,7 @@ export const StatCard: FC<PropsWithChildren<Props>> = ({
   return (
     <div
       className={cn(
-        "flex flex-col gap-2 rounded-xl border bg-card p-4 shadow-sm",
+        "flex h-full flex-col gap-2 rounded-xl border bg-card p-4 shadow-sm",
         className,
       )}
     >
