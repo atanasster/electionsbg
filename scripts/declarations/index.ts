@@ -27,6 +27,8 @@ import {
 import { integrateTr } from "./tr/integrate";
 import { buildConnectionsGraph } from "./build_connections_graph";
 import { buildAssetsRankings } from "./build_assets_rankings";
+import { buildCarMakes } from "./build_car_makes";
+import { buildDataProvenance } from "./build_data_provenance";
 
 const REGISTER_BASE = "https://register.cacbg.bg";
 
@@ -267,4 +269,14 @@ export const parseFinancialDeclarations = async ({
   // Phase 7: per-MP wealth rollups + cross-MP rankings file consumed by the
   // home/party/candidate "MPs by declared assets" tiles.
   buildAssetsRankings({ publicFolder, stringify });
+
+  // Dashboard "Top car makes" rollup — purely cosmetic but works as a
+  // sanity check that the declarations parser is still picking up the
+  // vehicle table. Cheap; reads the same files build_assets_rankings
+  // already touched.
+  buildCarMakes({ publicFolder, stringify });
+
+  // Per-NS provenance footnote (declaration year window + filing rate).
+  // Drives the staleness disclaimer on the connections tile.
+  buildDataProvenance({ publicFolder, stringify });
 };

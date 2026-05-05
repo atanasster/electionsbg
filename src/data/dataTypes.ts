@@ -680,6 +680,14 @@ export type ConnectionsTopMp = {
   nsFolders: string[];
   totalDegree: number;
   highConfDegree: number;
+  /** Number of distinct OTHER MPs that share at least one company with
+   * this MP (length-2 BFS paths only). The dashboard headline metric —
+   * "how many fellow MPs is X tied to". In a `byNs[ns]` slice this is
+   * restricted to co-MPs who also sat in `ns`. */
+  mpMpDirectDegree: number;
+  /** Number of distinct OTHER MPs reachable through any precomputed BFS
+   * path (≤ 4 hops). Always ≥ mpMpDirectDegree. Same NS-scoping rule. */
+  mpMpReachDegree: number;
 };
 export type ConnectionsTopCompany = {
   nodeId: string;
@@ -809,4 +817,101 @@ export type ConnectionsRankings = {
    * filters MPs to those whose `nsFolders` contains that NS, and recomputes
    * the company rankings to count only the MPs in that NS. */
   byNs: Record<string, ConnectionsRankingsScope>;
+};
+
+/** Distinct car-make rollup driving the "Top car makes" dashboard column.
+ * Each entry counts MPs (not vehicles) so a make doesn't get inflated by
+ * one MP declaring three cars of the same brand. The build script reads
+ * the most-recent declaration of every MP and includes only `category:
+ * "vehicle"` rows whose `description` is a passenger-car phrase (лек
+ * автомобил / джип). Motorcycles, trailers and utility vehicles are
+ * excluded so the column is comparable across MPs. */
+export type CarMakeEntry = {
+  /** Canonical make label, English-cased ("Volkswagen", "BMW"). */
+  make: string;
+  /** Distinct MPs declaring at least one car of this make in their most
+   * recent declaration (declarant + spouse). */
+  mpCount: number;
+  /** Total vehicles of this make across all counted MPs. */
+  vehicleCount: number;
+  /** Up to 6 MP ids declaring this make, for tooltip / drilldown. */
+  sampleMpIds: number[];
+};
+export type CarMakesScope = {
+  topMakes: CarMakeEntry[];
+  /** Free-text `detail` strings the alias table couldn't classify. Useful
+   * for iterating the alias map; the UI surfaces the bucketed count via
+   * `unmatched` in the dashboard footnote. */
+  unmatchedSamples: string[];
+  unmatchedMpCount: number;
+};
+export type CarMakesFile = {
+  generatedAt: string;
+  all: CarMakesScope;
+  byNs: Record<string, CarMakesScope>;
+};
+
+/** Single declared car row, flattened from the most-recent declaration of
+ * every MP. Drives the /mp-cars page. Spouse-held cars are included with
+ * `isSpouse: true`. Cars with no declared `valueBgn` get a `null` and sort
+ * to the bottom of the value-descending table.
+ *
+ * One row = one physical vehicle. The build pipeline collapses multiple
+ * declaration entries that describe the same car (typical Bulgarian case:
+ * an inheritance share + a partition share for a co-heir vehicle) into a
+ * single row, joining their fractional shares with " + " in `share`. */
+export type MpCarRow = {
+  mpId: number;
+  mpName: string;
+  partyGroupShort: string | null;
+  /** NS folders the MP sat in. The screen filters by selected NS. */
+  nsFolders: string[];
+  /** Canonical English-cased make ("Volkswagen") or null when the alias
+   * table didn't recognise the `detail` string. */
+  make: string | null;
+  /** Raw declarant text for the make+model field (e.g. "Фолксваген Голф"). */
+  detail: string | null;
+  /** "лек автомобил" / "джип" / etc. — kept so the page can hint at body
+   * style without us inventing a separate normalization. */
+  description: string | null;
+  acquiredYear: number | null;
+  valueBgn: number | null;
+  amount: number | null;
+  currency: string | null;
+  isSpouse: boolean;
+  /** Combined ownership share text, e.g. "1/6 + 5/6" when the row was
+   * merged from multiple declaration entries. null when no share was
+   * recorded. */
+  share: string | null;
+  /** Number of declaration entries that fed into this row. >1 means the
+   * MP declared the same physical car under multiple legal acts (typically
+   * inheritance + partition shares). */
+  mergedFromCount: number;
+  /** Year of the underlying declaration, for the column. */
+  declarationYear: number;
+  sourceUrl: string;
+};
+export type MpCarsFile = {
+  generatedAt: string;
+  cars: MpCarRow[];
+};
+
+/** Pipeline-wide provenance metadata: what year of declarations was used
+ * for each parliament's MPs. Drives the dashboard footnote
+ * "Declarations 2021–2025 · 187/240 MPs filed · refreshed Apr 2026" so
+ * the staleness of older NS scopes is visible to the reader. */
+export type DataProvenanceScope = {
+  mpsTotal: number;
+  mpsWithDeclaration: number;
+  declarationYearMin: number | null;
+  declarationYearMax: number | null;
+  /** Distribution of "latest declaration year per MP" — how many MPs in
+   * this scope had their freshest filing in 2025 vs 2024 vs ... */
+  latestDeclarationYearByCount: Record<string, number>;
+};
+export type DataProvenanceFile = {
+  generatedAt: string;
+  source: string;
+  all: DataProvenanceScope;
+  byNs: Record<string, DataProvenanceScope>;
 };

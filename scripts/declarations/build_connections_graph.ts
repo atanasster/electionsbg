@@ -34,6 +34,7 @@ import type {
   ConnectionsNode,
   ConnectionsPath,
   ConnectionsPersonNode,
+  ConnectionsPartyMatrixCell,
   ConnectionsPartyMatrixFile,
   ConnectionsPartyMatrixScope,
   ConnectionsStatsFile,
@@ -1006,6 +1007,8 @@ export const buildConnectionsGraph = ({
     nsFolders: string[];
     totalDegree: number;
     highConfDegree: number;
+    mpMpDirectDegree: number;
+    mpMpReachDegree: number;
   };
   type TopCompany = {
     nodeId: string;
@@ -1049,6 +1052,31 @@ export const buildConnectionsGraph = ({
     mpsByCompany.set(companyId, set);
   }
 
+  // Per-MP MP↔MP degree, derived from globalPairs (built in section 4b above).
+  // Direct = length-2 paths only — the MP and the other endpoint share at
+  // least one company; Reach = any precomputed path. The dashboard ranks by
+  // Direct because length-4 paths through a shared associate are too noisy
+  // to headline. We accumulate sets so we count distinct OTHER MPs, not
+  // pair instances.
+  const directCoMpsByMp = new Map<string, Set<string>>();
+  const reachCoMpsByMp = new Map<string, Set<string>>();
+  const ensureSet = (m: Map<string, Set<string>>, key: string): Set<string> => {
+    let s = m.get(key);
+    if (!s) {
+      s = new Set();
+      m.set(key, s);
+    }
+    return s;
+  };
+  for (const entry of globalPairs.values()) {
+    ensureSet(reachCoMpsByMp, entry.a).add(entry.b);
+    ensureSet(reachCoMpsByMp, entry.b).add(entry.a);
+    if (entry.path.length === 2) {
+      ensureSet(directCoMpsByMp, entry.a).add(entry.b);
+      ensureSet(directCoMpsByMp, entry.b).add(entry.a);
+    }
+  }
+
   for (const node of nodes.values()) {
     const row = degreeMap.get(node.id);
     if (!row) continue;
@@ -1061,6 +1089,8 @@ export const buildConnectionsGraph = ({
         nsFolders: nsFoldersForMp(node.mpId),
         totalDegree: row.totalDegree,
         highConfDegree: row.highConfDegree,
+        mpMpDirectDegree: directCoMpsByMp.get(node.id)?.size ?? 0,
+        mpMpReachDegree: reachCoMpsByMp.get(node.id)?.size ?? 0,
       });
     } else if (node.type === "company") {
       topCompaniesAll.push({
@@ -1077,11 +1107,15 @@ export const buildConnectionsGraph = ({
     }
   }
 
-  // We rank by high-confidence degree to keep the headlines defensible —
-  // common-name false positives don't count toward the top of the list.
-  // Tie-break by total degree, then alphabetical for stability.
+  // Headline rank is "how many fellow MPs does this person share a company
+  // with" — that's what readers want from the dashboard. We skip reach as
+  // a tiebreaker because a length-4 path can run through a name-matched
+  // associate node (low-confidence) and inflate the count for MPs whose
+  // co-MP ties are otherwise zero. Tie-break instead by raw high-conf
+  // degree (the MP's own business network depth), then total, then label.
   topMpsAll.sort(
     (a, b) =>
+      b.mpMpDirectDegree - a.mpMpDirectDegree ||
       b.highConfDegree - a.highConfDegree ||
       b.totalDegree - a.totalDegree ||
       a.label.localeCompare(b.label, "bg"),
@@ -1113,8 +1147,41 @@ export const buildConnectionsGraph = ({
   const byNs: Record<string, { topMps: TopMp[]; topCompanies: TopCompany[] }> =
     {};
   for (const ns of allNsFolders) {
-    const mpsInNs = lifetimeTopMps.filter((r) => r.nsFolders.includes(ns));
-    const mpNodeIdsInNs = new Set(mpsInNs.map((r) => mpNodeId(r.mpId)));
+    const mpsInNsRaw = lifetimeTopMps.filter((r) => r.nsFolders.includes(ns));
+    const mpNodeIdsInNs = new Set(mpsInNsRaw.map((r) => mpNodeId(r.mpId)));
+
+    // Recompute MP↔MP degree counting only co-MPs that ALSO sat in this
+    // parliament. Otherwise a 52nd-NS member would inherit ties with former
+    // MPs the dashboard reader has no reason to recognise as part of "this
+    // parliament's" network.
+    const directInNs = new Map<string, Set<string>>();
+    const reachInNs = new Map<string, Set<string>>();
+    for (const entry of globalPairs.values()) {
+      const aIn = mpNodeIdsInNs.has(entry.a);
+      const bIn = mpNodeIdsInNs.has(entry.b);
+      if (aIn && bIn) {
+        ensureSet(reachInNs, entry.a).add(entry.b);
+        ensureSet(reachInNs, entry.b).add(entry.a);
+        if (entry.path.length === 2) {
+          ensureSet(directInNs, entry.a).add(entry.b);
+          ensureSet(directInNs, entry.b).add(entry.a);
+        }
+      }
+    }
+
+    const mpsInNs = mpsInNsRaw
+      .map((r) => ({
+        ...r,
+        mpMpDirectDegree: directInNs.get(mpNodeId(r.mpId))?.size ?? 0,
+        mpMpReachDegree: reachInNs.get(mpNodeId(r.mpId))?.size ?? 0,
+      }))
+      .sort(
+        (a, b) =>
+          b.mpMpDirectDegree - a.mpMpDirectDegree ||
+          b.highConfDegree - a.highConfDegree ||
+          b.totalDegree - a.totalDegree ||
+          a.label.localeCompare(b.label, "bg"),
+      );
 
     const mpsByCompanyInNs = new Map<string, Set<string>>();
     const companyTotalDegreeInNs = new Map<string, number>();

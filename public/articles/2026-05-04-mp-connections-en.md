@@ -2,11 +2,13 @@
 
 Bulgarian voters can already see how an MP votes, where they were elected, and how their party fared in any given polling station. What has been much harder to see — without manually downloading an XML declaration and cross-checking it against the Commerce Registry — is what *companies* sit behind those people, how those companies link MPs to one another, and how much wealth each MP actually declared in the first place.
 
-That is the gap these features fill. As of this writing, the graph contains **5,481 nodes** (605 MPs, 2,087 companies, 2,789 other named persons) joined by **6,568 edges** drawn from two open Bulgarian datasets, and the wealth aggregator covers **713 MPs across 1,802 declarations** spanning fiscal years 2020–2024. This article walks through where to find the new pages, what they show, and ends with a worked example: a real cross-party ownership path between two currently sitting MPs.
+That is the gap these features fill. As of this writing, the graph contains **5,481 nodes** (605 MPs, 2,087 companies, 2,789 other named persons) joined by **6,568 edges** drawn from two open Bulgarian datasets; the wealth aggregator covers **713 MPs across the cacbg filings** spanning fiscal years 2020–2025; and a derived **`/mp-cars` page** lists every passenger car (570 lifetime, 69 for the 52nd parliament) extracted from those same declarations, sorted by declared BGN value. This article walks through where to find the new pages, what they show, and ends with a worked example: a real cross-party ownership path between two currently sitting MPs.
 
 > **Update (May 2026):** the `/connections` page was rebuilt around a *story-first* layout — a hero sentence with a party × party heatmap, a ranked list of MP↔MP connection chains, a dedicated path-finder tab and an opt-in orbital graph. The old single-canvas view is now one of three tabs.
 >
 > **Update (May 2026, second pass):** the declarations pipeline now also parses the property/wealth tables of every cacbg filing (real estate, vehicles, cash, bank deposits, receivables, debts, investments, securities) — not just the company-shares tables it originally read. The new feature ships as a **MPs by declared assets** tile on the home and party pages, a per-MP **Declared assets** summary card on every candidate page, a sortable **/mp-assets** page, and a per-candidate details page at **/candidate/:id/assets** that lists every declared asset row with its origin-of-funds note. §6 below describes the asset feature end-to-end.
+>
+> **Update (May 2026, third pass):** the **MP Business Connections** dashboard tile was split in two and reworked. The "Top companies" column has been retired — at the per-parliament scope nearly every "shared" company has just one or two MPs against it, and the two-MP cases are overwhelmingly family relatives co-owning a single SPV, not the cross-party signal the column suggested. The "Top MPs" column now ranks by **direct co-MP degree** (count of fellow MPs of the same parliament that share at least one declared company with this MP), tooltipped with the wider high-confidence-ties count for context. A new sibling tile **MPs' car makes** sits to its right, ranking the most-declared passenger-car brands per parliament; clicking through opens a sortable page at **/mp-cars** with every declared car ordered by BGN value. Both tiles carry a provenance footnote — *"Declarations YYYY–YYYY · X/Y MPs filed · refreshed Mon YYYY"* — so readers can see exactly how stale the underlying filings are for each parliament. The header link on the connections tile has been renamed *See details* (it always landed on the Strongest ties tab, not the orbital graph). §3 below has been rewritten around the new layout.
 
 ---
 
@@ -44,26 +46,39 @@ The graph file ([`/parliament/connections.json`](/parliament/connections.json)) 
 
 ---
 
-## 3. Where the feature appears — the dashboard tile
+## 3. Where the feature appears — the dashboard tiles
 
-The first place a casual reader meets the data is the **MP Business Connections** tile on the national dashboard:
+The first place a casual reader meets the data is a row of three sibling tiles on the national dashboard, sitting under the headline party-results block. The first two — **MP Business Connections** and **MPs' car makes** — render side-by-side; the third — **MPs by declared assets** — sits in its own row directly below.
+
+(The screenshots in this section pre-date the May 2026 split and still show the older combined tile with a "Top companies" column on the right; the live page no longer renders that column. The relevant text below describes the current layout.)
+
+### MP Business Connections
 
 ![National dashboard tile](/articles/images/connections/01-dashboard-tile.png)
 
-Two columns:
+A single column ranking the **most-connected MPs** of the currently-selected parliament — not by raw graph degree, but by **direct co-MP degree**: how many other MPs of the same parliament this person shares at least one declared company with. The number renders in a muted style when it is zero, which is the typical case for any individual MP. (Most cross-MP business overlaps in the data are family-driven, and the strict count being mostly-zero is the honest signal — see the "Update (May 2026, third pass)" note above for the rationale.) Hovering the number reveals a fuller tooltip *"N co-MP · M total ties"* where M is the MP's wider high-confidence neighbourhood (companies + non-MP associates) — the same number that used to be the headline on this tile.
 
-- **Top MPs** — ranked by **high-confidence** ties (the strict number, not the inflated medium-confidence one). The list is filtered to the **currently selected election**: switch the date picker to an older parliament and the list reshuffles to the people who actually sat in that body.
-- **Top companies** — ranked by how many distinct MPs declared a stake in them. The five entries above (ПиВи Квантум, Елеборейт, ЛЕД МАРК, ФАКЛА, Инолед) each have **two** MPs attached — that is the bar for being on this list at all.
+The list is filtered to the **currently selected election**: switch the date picker to an older parliament and the rankings reshuffle to the people who actually sat in that body. A click on any name jumps straight into that candidate's profile; the *See details* link in the top-right opens `/connections`.
 
-A click on any name jumps straight into that candidate's profile; a click on the "Graph" link in the top-right takes you to the orbital page (covered below).
+The footer carries an "All companies →" link to the companies index, plus a provenance line that reads, for example, *Declarations 2021–2026 · 102/240 MPs filed · refreshed May 2026* — a one-glance summary of how stale the data is for the parliament currently in scope. (Hovering it reveals the per-year filing breakdown, e.g. *2025: 80 · 2024: 14 · 2023: 2 · …*.) For just-elected parliaments where most MPs haven't filed yet — the 52nd, at the moment, with only 102/240 — that line is the honest disclaimer that the rest of the tile is reading older filings.
 
 The same tile appears on every regional dashboard, intersected with the MIR (multi-mandate region) the dashboard is showing. For example, on the Sofia dashboard it unions the three Sofia MIRs and shows only people who actually represented Sofia:
 
 ![Sofia regional tile](/articles/images/connections/02-sofia-region-tile.png)
 
-Notice how the rankings change: **Ивайло Мирчев** (ДБ) is now first with 7 ties — instead of being fourth nationally — because the regional view drops everyone outside Sofia. **Мартин Димитров** (ДБ, six tenures spanning 40th–52nd parliament) appears second despite being in 8th position nationally for the same reason.
+Notice how the rankings change: **Ивайло Мирчев** (ДБ) is now first with 7 ties — instead of being fourth nationally — because the regional view drops everyone outside Sofia. **Мартин Димитров** (ДБ, six tenures spanning 40th–52nd parliament) appears second despite being in 8th position nationally for the same reason. (Regional mode falls back to the wider ties count rather than the direct co-MP count, since intersecting the per-NS slice with a region usually leaves nothing to rank by.)
 
-Directly below the connections tile sits its sibling — the **MPs by declared assets** tile. Same compact ranking format, same per-NS scope, but ranked by **net worth in BGN** (declarant + spouse) computed from each MP's most recent filed declaration. Each row carries a YoY arrow vs the prior fiscal year so you can see which MPs declared a meaningful change since the last filing. For the 52nd parliament the lead by a wide margin is **Делян Пеевски** (ПГ ДПС, 21.7 M лв, ↓2.5 M vs 2023), followed by **Росица Кирова** (ПГ на ГЕРБ-СДС, 13.3 M лв, ↑10x vs 2023 driven by a single 3.4 M BGN receivable plus a 10 M BGN security holding). The "All MPs by assets →" link in the tile footer opens the full sortable table at `/mp-assets` (described in §6).
+### MPs' car makes
+
+A new sibling tile to the right, ranking the most-declared passenger-car brands among MPs of the currently selected parliament. The number next to each make is the count of *distinct MPs* declaring at least one car of that brand — an MP declaring three Volkswagens still counts as one VW, so the ranking is a popularity signal rather than a raw vehicle count. For the 52nd parliament the top entries are **Toyota (7 MPs)**, **Audi (7)**, **Škoda (6)**, **BMW (5)**, **Ford (4)** — German makes dominate the lifetime list nationally but the per-NS picture is more even.
+
+A *See details →* link in the header opens **/mp-cars**, the dedicated cars page covered in §6.5 below. The footer carries the same provenance footnote as the connections tile, drawing from the same `data-provenance.json` file, so the "as of" date stays consistent across the row.
+
+The make is detected by matching each declarant's free-text *Марка* field against an alias table that handles all the routine Cyrillic spellings (and a long tail of typos: *Фоксваген*, *Фолсваген*, *Фолц Ваген* all collapse to *Volkswagen*; *Митсубиши* collapses to *Mitsubishi*; etc.). When the alias table doesn't recognise a token the row falls through to "unknown" and the unmatched samples are logged on every build so the table can be extended. The current alias map covers ≈99% of declared cars; the remaining few are long-tail East European or generic brand names.
+
+### MPs by declared assets
+
+In its own row directly below: same compact ranking format, same per-NS scope, but ranked by **net worth in BGN** (declarant + spouse) computed from each MP's most recent filed declaration. Each row carries a YoY arrow vs the prior fiscal year so you can see which MPs declared a meaningful change since the last filing. For the 52nd parliament the lead by a wide margin is **Делян Пеевски** (ПГ ДПС, 21.7 M лв, ↓2.5 M vs 2023), followed by **Росица Кирова** (ПГ на ГЕРБ-СДС, 13.3 M лв, ↑10x vs 2023 driven by a single 3.4 M BGN receivable plus a 10 M BGN security holding). The "All MPs by assets →" link in the tile footer opens the full sortable table at `/mp-assets` (described in §6).
 
 ---
 
@@ -241,6 +256,18 @@ Each table column carries the verbatim source data:
 
 Below the asset tables sits the **Annual income** table (Table 12) with one row per income category, declarant + spouse columns and a totals row at the bottom.
 
+### The cars page — `/mp-cars`
+
+Reached from the *See details →* link on the **MPs' car makes** dashboard tile, `/mp-cars` is a flat sortable table of every passenger car or jeep extracted from the most recent declaration of every MP — currently **570 vehicles** lifetime, **69 for the 52nd parliament**. Spouse-held cars are included with the holder column flagged accordingly so the same physical car never gets double-counted across the household.
+
+Columns: rank, MP (avatar + link), party group, make (canonical English-cased), declared model text (verbatim), year acquired, declared BGN value, holder (MP / spouse), and a source-link icon to the underlying cacbg XML for each row. The default sort is by BGN value descending; every column header is clickable. A header toggle switches between *Selected parliament* and *All parliaments* scope; a free-text search filters by MP name, make, model, or party group.
+
+A summary line above the table reads, for example, *69 cars · 67 with declared value · combined 1,910,760 BGN* — useful for sense-checking the ranking. The page footer notes the source dataset (cacbg.bg, Court of Audit) and clarifies that motorcycles, trailers and utility vehicles are intentionally excluded so the table compares like-for-like across MPs.
+
+**Why some Model cells show `(1/6 + 5/6)`.** Bulgarian inheritance routinely produces declarations that list the same physical vehicle as two ownership shares filed under different legal acts — an inherited share + a partition share, or a declarant's half + their spouse's half declared as two rows under the same name. Faithfully rendering each row would inflate both the make ranking and the cars page (one car would show up twice). The build pipeline collapses such rows by `(MP, normalised model, year, holder)` and joins their fractional shares with " + " in the Model column, with `mergedFromCount` available on hover (`Combined from N declaration rows: 1/6 + 5/6`). The summed BGN value is the per-row sum across the merged shares (so when both halves of a half-half declaration carry a value, the row shows the full car's value). The underlying XML is one click away on every row, so the original split is always recoverable.
+
+The most expensive declared car in the lifetime view is a **Volkswagen Golf at 800,000 BGN** filed by former MP Ихсан Халил Хаккъ in 2024 — almost certainly a misplaced decimal separator in the original filing rather than a real luxury Golf, and a useful illustration of why the page footer flags that values are exactly as declared (no editorial clamping). For the 52nd parliament the top entry is **Десислава Танева's Lexus RX 350h at 149,876 BGN** (2024 acquisition), followed by **Валентин Милушев's Toyota at 88,000 BGN**.
+
 ### Worked example: Делян Пеевски
 
 Pee	vski's `/candidate/.../assets` page is the most data-dense in the dataset — 21.7 M лв total declared, broken down as:
@@ -299,10 +326,10 @@ If you want to see the densest single MP profile in this regard, **[Найден
 
 ## 8. Refresh cadence
 
-- **Declarations** — Court of Audit publishes the prior fiscal year's filings each May. Today's data set covers fiscal years 2020 through 2024; the 2025 filings appear in May 2026 and trigger the next rebuild.
+- **Declarations** — Court of Audit publishes the prior fiscal year's filings each May. Today's dataset covers fiscal years 2020 through 2025 (the early 2026 filings for the just-elected 52nd parliament are starting to land — currently 102 of its 240 MPs are on file). Each tile that depends on declarations carries a per-NS provenance footnote so the staleness is visible inline rather than buried.
 - **Commerce Registry** — incremental refresh; the ranking and per-MP files carry their own `generatedAt` timestamps so you can see staleness directly.
 
-When the next batch of declarations lands, the pipeline can be re-run via the project's `update-connections` script. Both the connection graph and the asset rankings + per-MP wealth files regenerate from the same offline pass.
+When the next batch of declarations lands, the pipeline can be re-run via the project's `update-connections` script. Both the connection graph and the asset / car rankings + per-MP wealth files regenerate from the same offline pass.
 
 ## 9. Limitations and honest disclaimers
 

@@ -192,6 +192,11 @@ const AllMpAssetsScreen = lazy(() =>
     default: m.AllMpAssetsScreen,
   })),
 );
+const MpCarsScreen = lazy(() =>
+  import("./screens/MpCarsScreen").then((m) => ({
+    default: m.MpCarsScreen,
+  })),
+);
 const SimulatorScreen = lazy(() =>
   import("./screens/SimulatorScreen").then((m) => ({
     default: m.SimulatorScreen,
@@ -1043,6 +1048,14 @@ export const AuthRoutes = () => {
           element={
             <LayoutScreen>
               <AllMpAssetsScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="mp-cars"
+          element={
+            <LayoutScreen>
+              <MpCarsScreen />
             </LayoutScreen>
           }
         />
