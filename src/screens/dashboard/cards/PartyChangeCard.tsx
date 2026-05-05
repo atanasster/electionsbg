@@ -2,6 +2,7 @@ import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { TrendingUp, TrendingDown } from "lucide-react";
 import { PartyChange } from "@/data/dashboard/dashboardTypes";
+import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { formatPct } from "@/data/utils";
 import { Link } from "@/ux/Link";
 import { StatCard } from "../StatCard";
@@ -17,6 +18,7 @@ const fmtCount = (n: number) => n.toLocaleString("bg-BG").replace(/\s/g, ",");
 
 export const PartyChangeCard: FC<Props> = ({ variant, change }) => {
   const { t } = useTranslation();
+  const { displayNameFor } = useCanonicalParties();
   const isGainer = variant === "gainer";
   const Icon = isGainer ? TrendingUp : TrendingDown;
   const accent = isGainer ? "text-positive" : "text-negative";
@@ -48,7 +50,7 @@ export const PartyChangeCard: FC<Props> = ({ variant, change }) => {
           className="text-lg font-semibold truncate hover:underline"
           underline={false}
         >
-          {change.nickName}
+          {displayNameFor(change.nickName) ?? change.nickName}
         </Link>
       </div>
       <div className={`flex items-baseline gap-2 ${accent}`}>

@@ -2,6 +2,7 @@ import { FC, ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { ArrowDown, ArrowUp, Minus } from "lucide-react";
 import { formatPct, localDate } from "@/data/utils";
+import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { Link } from "@/ux/Link";
 import { candidateUrlFor } from "@/data/candidates/candidateSlug";
 import { CandidateSummary } from "./candidateSummary";
@@ -89,35 +90,40 @@ const SectionRow: FC<{ label: string }> = ({ label }) => (
   </tr>
 );
 
-const CandidateHeader: FC<{ c: CandidateSummary }> = ({ c }) => (
-  <div className="flex flex-col items-end gap-0.5">
-    <Link
-      to={candidateUrlFor({
-        partyNum: c.party?.number ?? null,
-        name: c.name,
-      })}
-      className="hover:underline"
-      underline={false}
-    >
-      <span className="inline-flex items-center gap-2">
-        <span
-          className="inline-block w-3 h-3 rounded-sm shrink-0"
-          style={{ backgroundColor: c.party?.color || "#888" }}
-        />
-        <span className="font-medium normal-case">{c.name}</span>
+const CandidateHeader: FC<{ c: CandidateSummary }> = ({ c }) => {
+  const { displayNameFor } = useCanonicalParties();
+  return (
+    <div className="flex flex-col items-end gap-0.5">
+      <Link
+        to={candidateUrlFor({
+          partyNum: c.party?.number ?? null,
+          name: c.name,
+        })}
+        className="hover:underline"
+        underline={false}
+      >
+        <span className="inline-flex items-center gap-2">
+          <span
+            className="inline-block w-3 h-3 rounded-sm shrink-0"
+            style={{ backgroundColor: c.party?.color || "#888" }}
+          />
+          <span className="font-medium normal-case">{c.name}</span>
+        </span>
+      </Link>
+      <span className="text-xs text-muted-foreground normal-case">
+        {c.party?.nickName
+          ? (displayNameFor(c.party.nickName) ?? c.party.nickName)
+          : "—"}
+        {c.oblastNames.length > 0 && <> · {c.oblastNames.join(", ")}</>}
+        {c.prefs.length > 0 && (
+          <>
+            {" · "}#{c.prefs.join(", #")}
+          </>
+        )}
       </span>
-    </Link>
-    <span className="text-xs text-muted-foreground normal-case">
-      {c.party?.nickName ?? "—"}
-      {c.oblastNames.length > 0 && <> · {c.oblastNames.join(", ")}</>}
-      {c.prefs.length > 0 && (
-        <>
-          {" · "}#{c.prefs.join(", #")}
-        </>
-      )}
-    </span>
-  </div>
-);
+    </div>
+  );
+};
 
 export const CompareCandidatesTable: FC<Props> = ({ left, right }) => {
   const { t } = useTranslation();

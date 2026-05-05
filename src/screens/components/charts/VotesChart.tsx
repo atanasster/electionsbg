@@ -4,6 +4,7 @@ import { PartyVotes } from "@/data/dataTypes";
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { formatPct, formatThousands } from "@/data/utils";
+import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
 import { useNavigateParams } from "@/ux/useNavigateParams";
 
@@ -16,11 +17,12 @@ const CustomTooltip: FC<{
   label?: string;
 }> = ({ active, payload }) => {
   const { t } = useTranslation();
+  const { displayNameFor } = useCanonicalParties();
 
   return active && payload ? (
     <div className="z-50 overflow-hidden rounded-md bg-primary px-3 py-1.5 text-xs text-primary-foreground animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2">
       <div className="flex">
-        <div className="text-muted">{`${payload[0].payload.nickName}:`}</div>
+        <div className="text-muted">{`${displayNameFor(payload[0].payload.nickName) ?? payload[0].payload.nickName}:`}</div>
         <div className="ml-2 font-semibold">
           {`${formatThousands(payload[0].value)} ${payload[0].payload.pctVotes ? `(${formatPct(payload[0].payload.pctVotes, 2)})` : ""}`}
         </div>
@@ -36,6 +38,7 @@ export const VotesChart: FC<{ votes?: PartyVotes[]; maxRows?: number }> = ({
 }) => {
   const isLarge = useMediaQueryMatch("lg");
   const navigate = useNavigateParams();
+  const { displayNameFor } = useCanonicalParties();
   const topValue = votes?.length ? votes[0].totalVotes : undefined;
   return (
     <ChartContainer config={{}} style={{ maxHeight: "200px" }}>
@@ -57,14 +60,15 @@ export const VotesChart: FC<{ votes?: PartyVotes[]; maxRows?: number }> = ({
           tickMargin={25}
           tick={true}
           tickFormatter={(value: string) => {
-            if (value.length > 6) {
-              const parts = value.split("-");
+            const localized = displayNameFor(value) ?? value;
+            if (localized.length > 6) {
+              const parts = localized.split("-");
               if (parts.length > 1) {
                 return parts[0];
               }
             }
 
-            return maxRows ? value.slice(0, maxRows) : value;
+            return maxRows ? localized.slice(0, maxRows) : localized;
           }}
           interval={0}
         />

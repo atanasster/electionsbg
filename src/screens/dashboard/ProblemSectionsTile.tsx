@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { ShieldAlert } from "lucide-react";
 import { NationalPartyResult } from "@/data/dashboard/dashboardTypes";
 import { useProblemSections } from "@/data/reports/useProblemSections";
+import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { formatPct, formatThousands } from "@/data/utils";
 import { Link } from "@/ux/Link";
 import { Hint } from "@/ux/Hint";
@@ -24,6 +25,7 @@ export const ProblemSectionsTile: FC<Props> = ({
   ekatte,
 }) => {
   const { t, i18n } = useTranslation();
+  const { displayNameFor } = useCanonicalParties();
   const isBg = i18n.language === "bg";
   const { data } = useProblemSections();
 
@@ -166,7 +168,8 @@ export const ProblemSectionsTile: FC<Props> = ({
                       style={{ backgroundColor: r.topParty.color || "#888" }}
                     />
                     <span className="truncate font-medium">
-                      {r.topParty.nickName}
+                      {displayNameFor(r.topParty.nickName) ??
+                        r.topParty.nickName}
                     </span>
                   </>
                 ) : (

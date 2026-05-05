@@ -7,6 +7,7 @@ import { useElectionContext } from "@/data/ElectionContext";
 import { useCandidates } from "@/data/preferences/useCandidates";
 import { useMps, MpIndexEntry } from "@/data/parliament/useMps";
 import { useParliamentGroups } from "@/data/parliament/useParliamentGroups";
+import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { electionToNsFolder, oblastToMir } from "@/data/parliament/nsFolders";
 import { Link } from "@/ux/Link";
 import { candidateUrlForMp } from "@/data/candidates/candidateSlug";
@@ -41,6 +42,7 @@ export const RegionMpsTile: FC<Props> = ({ regionCode, parties }) => {
   const { findMpsByRegion } = useMps();
   const { lookup: lookupParliamentGroup } = useParliamentGroups();
   const { candidates } = useCandidates();
+  const { displayNameFor } = useCanonicalParties();
   const { tooltip, onMouseEnter, onMouseLeave } = useTooltip({
     maxHeight: 240,
     maxWidth: 240,
@@ -168,7 +170,7 @@ export const RegionMpsTile: FC<Props> = ({ regionCode, parties }) => {
                           {r.mp.name}
                         </div>
                         <div className="text-[11px] text-primary-foreground/70 leading-tight">
-                          {r.partyNickName}
+                          {displayNameFor(r.partyNickName) ?? r.partyNickName}
                         </div>
                       </div>
                     </div>
@@ -221,9 +223,9 @@ export const RegionMpsTile: FC<Props> = ({ regionCode, parties }) => {
                 </span>
                 <span
                   className="text-muted-foreground truncate w-full"
-                  title={g.partyNickName}
+                  title={displayNameFor(g.partyNickName) ?? g.partyNickName}
                 >
-                  {g.partyNickName}
+                  {displayNameFor(g.partyNickName) ?? g.partyNickName}
                 </span>
               </div>
             </div>

@@ -3,6 +3,7 @@ import { ChartContainer, ChartTooltip } from "@/components/ui/chart";
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { ElectionInfo, PartyInfo } from "@/data/dataTypes";
+import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { findPrevVotes, formatThousands, localDate } from "@/data/utils";
 
 const CustomTooltip: FC<{
@@ -73,6 +74,7 @@ export const HistoryChart: FC<{
   isConsolidated,
   animationDuration = 1000,
 }) => {
+  const { displayNameFor } = useCanonicalParties();
   const chartData = useMemo(() => {
     return stats
       .map((e) => {
@@ -81,16 +83,17 @@ export const HistoryChart: FC<{
           e.results?.votes,
           isConsolidated,
         );
+        const nick = nickName || party.nickName;
         return {
           date: localDate(e.name),
           name: e.name,
-          party: nickName || party.nickName,
+          party: displayNameFor(nick) ?? nick,
           total: e.results?.protocol?.totalActualVoters,
           votes: prevTotalVotes || 0,
         };
       })
       .sort((a, b) => a.name.localeCompare(b.name));
-  }, [isConsolidated, party, stats]);
+  }, [isConsolidated, party, stats, displayNameFor]);
   return (
     <ChartContainer config={{}} className={className}>
       <AreaChart

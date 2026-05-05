@@ -1,6 +1,7 @@
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { PartyInfo } from "@/data/dataTypes";
+import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import {
   findMinimalCoalitions,
   MAJORITY_SEATS,
@@ -21,6 +22,7 @@ export const MinimalCoalitions: FC<Props> = ({
   maxSize = 4,
 }) => {
   const { t } = useTranslation();
+  const { displayNameFor } = useCanonicalParties();
   const coalitions = useMemo(
     () => findMinimalCoalitions(rows, MAJORITY_SEATS, maxSize),
     [rows, maxSize],
@@ -53,7 +55,11 @@ export const MinimalCoalitions: FC<Props> = ({
                     style={{ backgroundColor: party?.color || "#888" }}
                   />
                   <span className="font-medium">
-                    {party?.nickName || row?.nickName}
+                    {(() => {
+                      const nick = party?.nickName ?? row?.nickName;
+                      if (!nick) return null;
+                      return displayNameFor(nick) ?? nick;
+                    })()}
                   </span>
                   <span className="text-muted-foreground tabular-nums">
                     ({row?.seats})

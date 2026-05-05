@@ -9,6 +9,7 @@ import {
 } from "@/data/parties/canonicalPartyTypes";
 import { cikPartiesFileName } from "scripts/consts";
 import { partyOverrides } from "./partyOverrides";
+import { partyEnglishNames } from "./partyEnglishNames";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -137,6 +138,8 @@ export const generateCanonicalParties = ({
     ov.aliases.forEach((a) => overrideByAlias.set(a, ov)),
   );
 
+  const englishById = new Map(partyEnglishNames.map((e) => [e.id, e]));
+
   const canonicals: CanonicalParty[] = [];
   groups.forEach((members) => {
     const sorted = [...members].sort((a, b) =>
@@ -146,6 +149,7 @@ export const generateCanonicalParties = ({
     const ov = overrideByAlias.get(newest.nickName);
     const id = ov ? ov.id : slugify(newest.nickName, taken);
     if (ov) taken.add(ov.id);
+    const en = englishById.get(id);
     const history: CanonicalPartyHistory[] = sorted
       .slice() // copy
       .sort((a, b) => a.election.localeCompare(b.election))
@@ -154,13 +158,26 @@ export const generateCanonicalParties = ({
         partyNum: m.partyNum,
         nickName: m.nickName,
         name: m.name,
+        nameEn: en?.nameByElection?.[m.election] ?? en?.nameEn,
       }));
     canonicals.push({
       id,
       displayName: ov ? ov.displayName : newest.nickName,
+      displayNameEn: en?.displayNameEn,
       color: newest.color || "#888",
       history,
     });
+  });
+
+  // Warn about English overrides whose id doesn't match any canonical lineage,
+  // so future renames don't silently drop translations.
+  const canonicalIds = new Set(canonicals.map((c) => c.id));
+  partyEnglishNames.forEach((e) => {
+    if (!canonicalIds.has(e.id)) {
+      console.warn(
+        `partyEnglishNames: id "${e.id}" not found in canonical parties (orphaned English override)`,
+      );
+    }
   });
 
   canonicals.sort((a, b) => a.id.localeCompare(b.id));

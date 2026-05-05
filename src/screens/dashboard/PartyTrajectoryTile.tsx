@@ -114,9 +114,11 @@ const ChartTooltip: FC<TooltipPayload> = ({ active, payload }) => {
 type Props = { data: PartyDashboardSummary };
 
 export const PartyTrajectoryTile: FC<Props> = ({ data }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const isEn = i18n.language === "en";
   const { stats, selected } = useElectionContext();
-  const { canonicalIdFor, consolidationIdFor, byId } = useCanonicalParties();
+  const { canonicalIdFor, consolidationIdFor, byId, displayNameFor } =
+    useCanonicalParties();
 
   const rows = useMemo<Row[]>(() => {
     const id = canonicalIdFor(data.nickName);
@@ -156,8 +158,8 @@ export const PartyTrajectoryTile: FC<Props> = ({ data }) => {
         pct: Math.round(pct * 100) / 100,
         totalVotes: partyV.totalVotes,
         position: pos?.position ?? 0,
-        nickName: h.nickName,
-        fullName: h.name,
+        nickName: displayNameFor(h.nickName) ?? h.nickName,
+        fullName: isEn ? (h.nameEn ?? h.name) : h.name,
         passedThreshold: pct >= THRESHOLD,
         isSelected: e.name === selected,
         rebrand,
@@ -172,6 +174,8 @@ export const PartyTrajectoryTile: FC<Props> = ({ data }) => {
     canonicalIdFor,
     consolidationIdFor,
     byId,
+    displayNameFor,
+    isEn,
   ]);
 
   if (rows.length < 2) return null;

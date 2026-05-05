@@ -2,6 +2,7 @@ import { FC, ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { ArrowDown, ArrowUp, Minus } from "lucide-react";
 import { formatPct } from "@/data/utils";
+import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { Link } from "@/ux/Link";
 import { PartySummary } from "./partySummary";
 
@@ -88,21 +89,24 @@ const SectionRow: FC<{ label: string }> = ({ label }) => (
   </tr>
 );
 
-const PartyHeader: FC<{ p: PartySummary }> = ({ p }) => (
-  <Link
-    to={`/party/${p.nickName}`}
-    className="hover:underline"
-    underline={false}
-  >
-    <span className="inline-flex items-center gap-2">
-      <span
-        className="inline-block w-3 h-3 rounded-sm shrink-0"
-        style={{ backgroundColor: p.color || "#888" }}
-      />
-      {p.nickName}
-    </span>
-  </Link>
-);
+const PartyHeader: FC<{ p: PartySummary }> = ({ p }) => {
+  const { displayNameFor } = useCanonicalParties();
+  return (
+    <Link
+      to={`/party/${p.nickName}`}
+      className="hover:underline"
+      underline={false}
+    >
+      <span className="inline-flex items-center gap-2">
+        <span
+          className="inline-block w-3 h-3 rounded-sm shrink-0"
+          style={{ backgroundColor: p.color || "#888" }}
+        />
+        {displayNameFor(p.nickName) ?? p.nickName}
+      </span>
+    </Link>
+  );
+};
 
 export const ComparePartiesTable: FC<Props> = ({ left, right }) => {
   const { t } = useTranslation();

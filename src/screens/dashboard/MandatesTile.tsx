@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Landmark } from "lucide-react";
 import { NationalPartyResult } from "@/data/dashboard/dashboardTypes";
 import { useElectionContext } from "@/data/ElectionContext";
+import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { useMps } from "@/data/parliament/useMps";
 import {
   useParliamentGroups,
@@ -84,6 +85,7 @@ export const MandatesTile: FC<Props> = ({ parties }) => {
   const { selected } = useElectionContext();
   const { mps, currentNs } = useMps();
   const { childrenFor } = useParliamentGroups();
+  const { displayNameFor } = useCanonicalParties();
 
   // Coalition→child-group MP counts, populated only when the selected election
   // is the currently-sitting NS (parliament.bg only reports current group
@@ -204,7 +206,9 @@ export const MandatesTile: FC<Props> = ({ parties }) => {
                 const partyPath = parentParty?.nickName ?? row.nickName;
                 const tooltipContent = (
                   <div className="flex flex-col gap-0.5">
-                    <div className="font-semibold">{row.nickName}</div>
+                    <div className="font-semibold">
+                      {displayNameFor(row.nickName) ?? row.nickName}
+                    </div>
                     <div className="tabular-nums">
                       {row.seats} {t("seats").toLowerCase()} ·{" "}
                       {seatPct.toFixed(1)}%
@@ -218,8 +222,10 @@ export const MandatesTile: FC<Props> = ({ parties }) => {
                     {row.isSplitChild && parentParty && (
                       <div className="opacity-75 text-xs">
                         {t("from_coalition", {
-                          coalition: parentParty.nickName,
-                          defaultValue: `от коалиция ${parentParty.nickName}`,
+                          coalition:
+                            displayNameFor(parentParty.nickName) ??
+                            parentParty.nickName,
+                          defaultValue: `от коалиция ${displayNameFor(parentParty.nickName) ?? parentParty.nickName}`,
                         })}
                       </div>
                     )}
@@ -280,7 +286,9 @@ export const MandatesTile: FC<Props> = ({ parties }) => {
                       className="inline-block w-3 h-3 rounded-sm shrink-0"
                       style={{ backgroundColor: r.color }}
                     />
-                    <span className="truncate font-medium">{r.nickName}</span>
+                    <span className="truncate font-medium">
+                      {displayNameFor(r.nickName) ?? r.nickName}
+                    </span>
                     <span className="ml-auto tabular-nums font-semibold">
                       {r.seats}
                     </span>

@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Title } from "@/ux/Title";
 import { useElectionContext } from "@/data/ElectionContext";
 import { usePartyInfo } from "@/data/parties/usePartyInfo";
+import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { localDate, formatPct, formatThousands } from "@/data/utils";
 import { Link } from "@/ux/Link";
 import { cn } from "@/lib/utils";
@@ -23,12 +24,15 @@ const ParliamentStrip: FC<{
   rows: SeatRow[];
   findParty: (n: number) => PartyInfo | undefined;
 }> = ({ rows, findParty }) => {
+  const { displayNameFor } = useCanonicalParties();
   const segments = rows.filter((r) => r.seats > 0);
   return (
     <div className="relative w-full">
       <div className="flex h-10 w-full overflow-hidden rounded border border-border">
         {segments.map((r) => {
           const party = findParty(r.partyNum);
+          const nick = party?.nickName ?? r.nickName;
+          const label = displayNameFor(nick) ?? nick;
           const widthPct = (r.seats / TOTAL_SEATS) * 100;
           return (
             <div
@@ -38,7 +42,7 @@ const ParliamentStrip: FC<{
                 width: `${widthPct}%`,
                 backgroundColor: party?.color || "#888",
               }}
-              title={`${party?.nickName || r.nickName}: ${r.seats}`}
+              title={`${label}: ${r.seats}`}
             />
           );
         })}
@@ -62,6 +66,7 @@ const SeatTable: FC<{
   showSimulatedColumn?: boolean;
 }> = ({ rows, officialByPartyNum, findParty, showSimulatedColumn }) => {
   const { t } = useTranslation();
+  const { displayNameFor } = useCanonicalParties();
   return (
     <div className="overflow-x-auto">
       <table className="w-full text-sm">
@@ -104,7 +109,9 @@ const SeatTable: FC<{
                       to={`/party/${party?.nickName || r.nickName}`}
                       className="hover:underline"
                     >
-                      {party?.nickName || r.nickName}
+                      {displayNameFor(party?.nickName ?? r.nickName) ??
+                        party?.nickName ??
+                        r.nickName}
                     </Link>
                   </span>
                 </td>

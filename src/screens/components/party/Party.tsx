@@ -1,4 +1,5 @@
 import { useElectionContext } from "@/data/ElectionContext";
+import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { usePartyInfo } from "@/data/parties/usePartyInfo";
 import { localDate, matchPartyNickName } from "@/data/utils";
 import { Caption } from "@/ux/Caption";
@@ -13,20 +14,22 @@ export const Party: FC<{ nickName: string }> = ({ nickName }) => {
   const { parties } = usePartyInfo();
   const { t } = useTranslation();
   const { selected } = useElectionContext();
+  const { displayNameFor, fullNameFor } = useCanonicalParties();
   const party = parties?.find((p) => matchPartyNickName({ nickName }, p, true));
-  const title = party?.name || nickName;
+  const heading = displayNameFor(nickName) ?? nickName;
+  const title = fullNameFor(nickName, selected) ?? party?.name ?? nickName;
   return (
     <div className="w-full">
       {parties && !party ? (
         <ErrorSection
-          title={nickName}
+          title={heading}
           description={`${t("no_party_information")} ${localDate(selected)}`}
         />
       ) : (
         <>
           <Title
             className="w-auto flex justify-center md:py-10"
-            title={nickName}
+            title={heading}
             description={`Results for party ${title}`}
           >
             <PartyLink

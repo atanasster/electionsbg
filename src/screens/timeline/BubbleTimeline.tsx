@@ -383,7 +383,7 @@ export const BubbleTimeline: FC<Props> = ({
                     style={{ fontSize: 10 }}
                   >
                     <div className="font-semibold" style={{ fontSize: 11 }}>
-                      {hover.nickName}
+                      {displayNameFor?.(hover.nickName) ?? hover.nickName}
                     </div>
                     {fullName && (
                       <div

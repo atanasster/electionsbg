@@ -2,6 +2,7 @@ import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { ArrowDown, ArrowUp, Minus } from "lucide-react";
 import { formatPct } from "@/data/utils";
+import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { Link } from "@/ux/Link";
 import { RegionSummary } from "./regionSummary";
 
@@ -56,6 +57,7 @@ const NumCell: FC<{ value?: number; format?: "thousands" | "pct" }> = ({
 
 export const CompareRegionsTable: FC<Props> = ({ left, right }) => {
   const { t } = useTranslation();
+  const { displayNameFor } = useCanonicalParties();
 
   const partyRows = useMemo(() => {
     const map = new Map<
@@ -178,7 +180,7 @@ export const CompareRegionsTable: FC<Props> = ({ left, right }) => {
                       className="hover:underline truncate"
                       underline={false}
                     >
-                      {r.nickName}
+                      {displayNameFor(r.nickName) ?? r.nickName}
                     </Link>
                   </span>
                 </td>

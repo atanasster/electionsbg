@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Title } from "@/ux/Title";
 import { usePartyInfo } from "@/data/parties/usePartyInfo";
+import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { matchPartyNickName, localDate } from "@/data/utils";
 import { useElectionContext } from "@/data/ElectionContext";
 import { ErrorSection } from "./components/ErrorSection";
@@ -13,17 +14,18 @@ export const PartyPreferencesScreen: FC = () => {
   const { parties } = usePartyInfo();
   const { selected } = useElectionContext();
   const { t } = useTranslation();
+  const { fullNameFor, displayNameFor } = useCanonicalParties();
   if (!nickName) return null;
   const party = parties?.find((p) => matchPartyNickName({ nickName }, p, true));
   if (parties && !party) {
     return (
       <ErrorSection
-        title={nickName}
+        title={displayNameFor(nickName) ?? nickName}
         description={`${t("no_party_information")} ${localDate(selected)}`}
       />
     );
   }
-  const partyName = party?.name || nickName;
+  const partyName = fullNameFor(nickName, selected) ?? party?.name ?? nickName;
   return (
     <>
       <Title

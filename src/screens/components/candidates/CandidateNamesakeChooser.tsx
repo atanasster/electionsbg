@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { Users } from "lucide-react";
 import type { ResolvedCandidate } from "@/data/candidates/useResolvedCandidate";
 import { usePartyInfo } from "@/data/parties/usePartyInfo";
+import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { useRegions } from "@/data/regions/useRegions";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { initials } from "@/lib/utils";
@@ -31,6 +32,7 @@ export const CandidateNamesakeChooser: FC<{
 }> = ({ name, matches }) => {
   const { t } = useTranslation();
   const { findParty } = usePartyInfo();
+  const { displayNameFor } = useCanonicalParties();
   return (
     <div className="w-full max-w-3xl mx-auto py-8">
       <h2 className="text-xl font-semibold flex items-center gap-2">
@@ -70,7 +72,7 @@ export const CandidateNamesakeChooser: FC<{
                         className="text-xs rounded px-1.5 py-0.5 text-white"
                         style={{ backgroundColor: party.color }}
                       >
-                        {party.nickName}
+                        {displayNameFor(party.nickName) ?? party.nickName}
                       </span>
                     )}
                     {m.mpEntry?.isCurrent && (

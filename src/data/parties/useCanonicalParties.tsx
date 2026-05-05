@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
+import { useTranslation } from "react-i18next";
 import { CanonicalPartiesIndex } from "./canonicalPartyTypes";
 
 const queryFn = async (): Promise<CanonicalPartiesIndex | undefined> => {
@@ -11,7 +12,15 @@ const queryFn = async (): Promise<CanonicalPartiesIndex | undefined> => {
 // Replaces useAllPartyColors with a single fetch (one canonical_parties.json
 // covers all elections). Adds canonical lineage IDs so cross-election views
 // like the bubble timeline can connect bubbles belonging to the same party.
+//
+// Display-name and full-name selectors are language-aware: when i18n is set
+// to English they return `displayNameEn` / `nameEn` if available, falling
+// back to the Bulgarian original. This keeps the UI in sync with the
+// language switcher without each call site needing to read i18n.language.
 export const useCanonicalParties = () => {
+  const { i18n } = useTranslation();
+  const isEn = i18n.language === "en";
+
   const { data } = useQuery({
     queryKey: ["canonical_parties"],
     queryFn,
@@ -46,17 +55,28 @@ export const useCanonicalParties = () => {
     const id = data?.byNickName[nickName];
     if (!id) return undefined;
     const party = byId.get(id);
-    return party?.history.find((h) => h.election === election)?.name;
+    const entry = party?.history.find((h) => h.election === election);
+    if (!entry) return undefined;
+    return isEn ? (entry.nameEn ?? entry.name) : entry.name;
   };
 
   const displayNameFor = (nickName: string): string | undefined => {
     const id = data?.byNickName[nickName];
     if (!id) return undefined;
-    return byId.get(id)?.displayName;
+    const party = byId.get(id);
+    if (!party) return undefined;
+    return isEn
+      ? (party.displayNameEn ?? party.displayName)
+      : party.displayName;
   };
 
-  const displayNameForId = (id: string): string | undefined =>
-    byId.get(id)?.displayName;
+  const displayNameForId = (id: string): string | undefined => {
+    const party = byId.get(id);
+    if (!party) return undefined;
+    return isEn
+      ? (party.displayNameEn ?? party.displayName)
+      : party.displayName;
+  };
 
   return {
     data,

@@ -4,6 +4,7 @@ import { RefreshCw } from "lucide-react";
 import { NationalPartyResult } from "@/data/dashboard/dashboardTypes";
 import { RecountOriginal, VoteResults } from "@/data/dataTypes";
 import { useRegionVotes } from "@/data/regions/useRegionVotes";
+import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { formatThousands, pctChange } from "@/data/utils";
 import { Link } from "@/ux/Link";
 import { Hint } from "@/ux/Hint";
@@ -32,6 +33,7 @@ export const RecountTile: FC<Props> = ({
 }) => {
   const { t } = useTranslation();
   const { countryVotes, votesByRegion } = useRegionVotes();
+  const { displayNameFor } = useCanonicalParties();
   const useProvided = !!(providedResults || providedOriginal);
   const country = useProvided ? null : countryVotes();
   const region = useProvided
@@ -150,7 +152,9 @@ export const RecountTile: FC<Props> = ({
                   className="inline-block w-2.5 h-2.5 rounded-full shrink-0"
                   style={{ backgroundColor: r.color }}
                 />
-                <span className="truncate font-medium">{r.nickName}</span>
+                <span className="truncate font-medium">
+                  {displayNameFor(r.nickName) ?? r.nickName}
+                </span>
               </div>
               <span
                 className={`tabular-nums text-xs font-semibold text-right ${

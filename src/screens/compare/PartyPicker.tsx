@@ -6,6 +6,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 
 export type PartyOption = {
   partyNum: number;
@@ -29,6 +30,7 @@ export const PartyPicker: FC<Props> = ({
   placeholder,
   onChange,
 }) => {
+  const { displayNameFor } = useCanonicalParties();
   return (
     <div className="flex flex-col gap-1 min-w-0 flex-1">
       <span className="text-xs font-medium uppercase tracking-wide text-muted-foreground">
@@ -51,7 +53,9 @@ export const PartyPicker: FC<Props> = ({
                   className="inline-block w-3 h-3 rounded-sm shrink-0"
                   style={{ backgroundColor: p.color || "#888" }}
                 />
-                <span className="truncate">{p.nickName}</span>
+                <span className="truncate">
+                  {displayNameFor(p.nickName) ?? p.nickName}
+                </span>
                 {p.pct !== undefined && (
                   <span className="text-xs text-muted-foreground tabular-nums">
                     {p.pct.toFixed(1)}%

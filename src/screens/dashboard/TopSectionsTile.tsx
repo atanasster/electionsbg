@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Vote } from "lucide-react";
 import { SectionInfo } from "@/data/dataTypes";
 import { usePartyInfo } from "@/data/parties/usePartyInfo";
+import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { formatPct, formatThousands } from "@/data/utils";
 import { Link } from "@/ux/Link";
 import { Hint } from "@/ux/Hint";
@@ -39,6 +40,7 @@ export const TopSectionsTile: FC<Props> = ({
 }) => {
   const { t } = useTranslation();
   const { topVotesParty } = usePartyInfo();
+  const { displayNameFor } = useCanonicalParties();
 
   const rows = useMemo(() => {
     if (!sections?.length) return [];
@@ -155,7 +157,9 @@ export const TopSectionsTile: FC<Props> = ({
                 style={{ backgroundColor: r.winner?.color || "#888" }}
               />
               <span className="truncate text-xs" title={r.winner?.nickName}>
-                {r.winner?.nickName ?? "—"}
+                {r.winner?.nickName
+                  ? (displayNameFor(r.winner.nickName) ?? r.winner.nickName)
+                  : "—"}
               </span>
             </span>
           </Link>

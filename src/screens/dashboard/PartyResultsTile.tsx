@@ -36,7 +36,7 @@ export const PartyResultsTile: FC<Props> = ({
   basePath,
 }) => {
   const { t } = useTranslation();
-  const { colorFor } = useCanonicalParties();
+  const { colorFor, displayNameFor } = useCanonicalParties();
 
   const rows = useMemo(() => {
     const qualifying = parties.filter((p) => p.passedThreshold);
@@ -97,7 +97,9 @@ export const PartyResultsTile: FC<Props> = ({
                 className="inline-block w-2.5 h-2.5 rounded-full shrink-0"
                 style={{ backgroundColor: color }}
               />
-              <span className="truncate font-medium">{party.nickName}</span>
+              <span className="truncate font-medium">
+                {displayNameFor(party.nickName) ?? party.nickName}
+              </span>
             </div>
             <span className="tabular-nums text-xs text-muted-foreground text-right">
               {formatThousands(party.totalVotes)}

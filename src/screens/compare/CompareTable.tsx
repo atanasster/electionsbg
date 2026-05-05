@@ -2,6 +2,7 @@ import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { ArrowDown, ArrowUp, Minus } from "lucide-react";
 import { NationalSummary } from "@/data/dashboard/dashboardTypes";
+import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { formatPct, localDate } from "@/data/utils";
 import { Link } from "@/ux/Link";
 
@@ -57,6 +58,7 @@ const NumCell: FC<{ value?: number; format?: "thousands" | "pct" }> = ({
 
 export const CompareTable: FC<Props> = ({ left, right }) => {
   const { t } = useTranslation();
+  const { displayNameFor } = useCanonicalParties();
 
   // Union of parties across both elections, keyed by nickName.
   const partyRows = useMemo(() => {
@@ -208,7 +210,7 @@ export const CompareTable: FC<Props> = ({ left, right }) => {
                       className="hover:underline truncate"
                       underline={false}
                     >
-                      {r.nickName}
+                      {displayNameFor(r.nickName) ?? r.nickName}
                     </Link>
                   </span>
                 </td>

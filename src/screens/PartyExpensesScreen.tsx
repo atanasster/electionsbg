@@ -5,6 +5,7 @@ import { Title } from "@/ux/Title";
 import { Caption } from "@/ux/Caption";
 import { useElectionContext } from "@/data/ElectionContext";
 import { usePartyInfo } from "@/data/parties/usePartyInfo";
+import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { localDate, matchPartyNickName } from "@/data/utils";
 import { useFinancing } from "./components/party/campaign_financing/useFinancing";
 import { OutsideServices } from "./components/party/campaign_financing/OusideServices";
@@ -21,13 +22,15 @@ export const PartyExpensesScreen: FC = () => {
   const { t } = useTranslation();
   const { selected, electionStats, priorElections } = useElectionContext();
   const { parties } = usePartyInfo();
+  const { fullNameFor, displayNameFor } = useCanonicalParties();
   const party = parties?.find((p) => matchPartyNickName({ nickName }, p, true));
   const { financing, priorFinancing } = useFinancing(party);
+  const heading = nickName ? (displayNameFor(nickName) ?? nickName) : "";
 
   if (!electionStats?.hasFinancials) {
     return (
       <ErrorSection
-        title={nickName ?? ""}
+        title={heading}
         description={`${t("no_financing_data")} ${localDate(selected)}`}
       />
     );
@@ -36,13 +39,15 @@ export const PartyExpensesScreen: FC = () => {
   if (parties && !party) {
     return (
       <ErrorSection
-        title={nickName ?? ""}
+        title={heading}
         description={`${t("no_party_information")} ${localDate(selected)}`}
       />
     );
   }
 
-  const title = party?.name || nickName || "";
+  const title = nickName
+    ? (fullNameFor(nickName, selected) ?? party?.name ?? nickName)
+    : "";
   const priorElection = priorFinancing ? priorElections?.name : undefined;
   const filing = financing?.data.filing;
   const priorFiling = priorFinancing?.data.filing;

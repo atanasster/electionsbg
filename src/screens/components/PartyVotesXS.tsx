@@ -1,6 +1,7 @@
 import { FC, useMemo } from "react";
 import { Votes } from "@/data/dataTypes";
 import { usePartyInfo } from "@/data/parties/usePartyInfo";
+import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { useTranslation } from "react-i18next";
 import { formatPct, formatThousands } from "@/data/utils";
 import { useTopParties } from "@/data/parties/useTopParties";
@@ -10,6 +11,7 @@ export const PartyVotesXS: FC<{
   className?: string;
 }> = ({ votes, className }) => {
   const { findParty } = usePartyInfo();
+  const { displayNameFor } = useCanonicalParties();
   const { t } = useTranslation();
   const total = useMemo(() => {
     return votes?.reduce((acc, curr) => acc + curr.totalVotes, 0);
@@ -38,7 +40,9 @@ export const PartyVotesXS: FC<{
                       style={{ backgroundColor: party?.color }}
                     />
                     <span className="truncate">
-                      {party?.nickName || t("unknown_party")}
+                      {party?.nickName
+                        ? (displayNameFor(party.nickName) ?? party.nickName)
+                        : t("unknown_party")}
                     </span>
                   </div>
                 </td>

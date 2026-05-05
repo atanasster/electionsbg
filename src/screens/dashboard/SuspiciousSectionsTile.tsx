@@ -7,6 +7,7 @@ import {
   SuspiciousTopSettlement,
   useSuspiciousSettlements,
 } from "@/data/dashboard/useSuspiciousSections";
+import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { formatPct, formatThousands } from "@/data/utils";
 import { Link } from "@/ux/Link";
 import { Hint } from "@/ux/Hint";
@@ -52,6 +53,7 @@ export const SuspiciousSectionsTile: FC<Props> = ({
   const { t, i18n } = useTranslation();
   const isBg = i18n.language === "bg";
   const { data } = useSuspiciousSettlements();
+  const { displayNameFor } = useCanonicalParties();
 
   if (!data) return null;
 
@@ -177,7 +179,12 @@ export const SuspiciousSectionsTile: FC<Props> = ({
                         <span
                           className="inline-block w-2.5 h-2.5 rounded-full shrink-0"
                           style={{ backgroundColor: party?.color || "#888" }}
-                          title={party?.nickName}
+                          title={
+                            party?.nickName
+                              ? (displayNameFor(party.nickName) ??
+                                party.nickName)
+                              : undefined
+                          }
                         />
                       ) : null}
                       {s.ekatte ? (

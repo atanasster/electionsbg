@@ -3,11 +3,13 @@ export type CanonicalPartyHistory = {
   partyNum: number;
   nickName: string;
   name?: string;
+  nameEn?: string;
 };
 
 export type CanonicalParty = {
   id: string; // stable slug (URL-safe ASCII)
   displayName: string; // label to show (latest election's nickName)
+  displayNameEn?: string; // English short label, parallel to displayName
   color: string;
   history: CanonicalPartyHistory[];
 };

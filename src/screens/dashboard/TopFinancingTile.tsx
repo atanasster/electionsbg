@@ -50,7 +50,7 @@ type Props = {
 export const TopFinancingTile: FC<Props> = ({ parties }) => {
   const { t } = useTranslation();
   const { selected, priorElections } = useElectionContext();
-  const { colorFor } = useCanonicalParties();
+  const { colorFor, displayNameFor } = useCanonicalParties();
   const { partyByNickName } = useLastYearParties();
 
   const { data: raw } = useQuery({
@@ -160,7 +160,9 @@ export const TopFinancingTile: FC<Props> = ({ parties }) => {
                   className="inline-block w-2.5 h-2.5 rounded-full shrink-0"
                   style={{ backgroundColor: color }}
                 />
-                <span className="truncate font-medium">{nickName}</span>
+                <span className="truncate font-medium">
+                  {displayNameFor(nickName) ?? nickName}
+                </span>
               </div>
               <span className="tabular-nums text-xs text-muted-foreground text-right">
                 {formatThousands(totalIncome)}

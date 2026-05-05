@@ -17,6 +17,7 @@ import { ElectionInfo } from "@/data/dataTypes";
 import { findPrevVotes, formatThousands, localDate } from "@/data/utils";
 import { useElectionContext } from "@/data/ElectionContext";
 import { usePartyInfo } from "@/data/parties/usePartyInfo";
+import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { cn } from "@/lib/utils";
 import { Caption } from "@/ux/Caption";
 import { useConsolidatedLabel } from "../useConsolidatedLabel";
@@ -34,6 +35,7 @@ const CustomTooltip: FC<{
   }[];
   label?: string;
 }> = ({ active, payload }) => {
+  const { displayNameFor } = useCanonicalParties();
   return active && payload?.[0] ? (
     <div className="z-50 overflow-hidden rounded-md bg-primary px-3 py-1.5 text-xs text-primary-foreground">
       <div className="text-muted text-sm text-center w-full pb-2">{`${payload[0].payload.date}`}</div>
@@ -48,7 +50,7 @@ const CustomTooltip: FC<{
                   backgroundColor: p.color,
                 }}
               >
-                {p.name}
+                {displayNameFor(p.name) ?? p.name}
               </div>
               <div className="font-semibold text-right ">
                 {`${formatThousands(p.value)}`}
@@ -64,21 +66,23 @@ const CustomLegend: FC<{ payload?: { dataKey: string; color: string }[] }> = ({
   payload,
 }) => {
   const { findByNickName } = usePartyInfo();
+  const { displayNameFor } = useCanonicalParties();
   return (
     payload && (
       <div className="flex flex-wrap gap-1 p-2 mt-2">
         {payload.map((p) => {
           const name = findByNickName(p.dataKey);
+          const label = displayNameFor(p.dataKey) ?? p.dataKey;
           return (
             name && (
-              <Hint key={p.dataKey} text={name.nickName}>
+              <Hint key={p.dataKey} text={label}>
                 <div
                   className="w-16 truncate text-white font-semibold px-1"
                   style={{
                     backgroundColor: p.color,
                   }}
                 >
-                  {p.dataKey}
+                  {label}
                 </div>
               </Hint>
             )

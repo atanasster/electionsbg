@@ -4,6 +4,7 @@ import { Cpu } from "lucide-react";
 import { NationalPartyResult } from "@/data/dashboard/dashboardTypes";
 import { VoteResults } from "@/data/dataTypes";
 import { useRegionVotes } from "@/data/regions/useRegionVotes";
+import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { formatThousands } from "@/data/utils";
 import { Link } from "@/ux/Link";
 import { Hint } from "@/ux/Hint";
@@ -32,6 +33,7 @@ export const FlashMemoryTile: FC<Props> = ({
 }) => {
   const { t } = useTranslation();
   const { countryVotes, votesByRegion } = useRegionVotes();
+  const { displayNameFor } = useCanonicalParties();
   const results: VoteResults = providedResults
     ? providedResults
     : regionCode
@@ -114,7 +116,9 @@ export const FlashMemoryTile: FC<Props> = ({
                   className="inline-block w-2.5 h-2.5 rounded-full shrink-0"
                   style={{ backgroundColor: r.color }}
                 />
-                <span className="truncate font-medium">{r.nickName}</span>
+                <span className="truncate font-medium">
+                  {displayNameFor(r.nickName) ?? r.nickName}
+                </span>
               </div>
               <span className="tabular-nums text-xs text-muted-foreground justify-self-end">
                 {formatThousands(r.machine)}

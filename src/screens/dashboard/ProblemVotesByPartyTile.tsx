@@ -4,6 +4,7 @@ import { Vote } from "lucide-react";
 import { useNationalSummary } from "@/data/dashboard/useNationalSummary";
 import { useElectionContext } from "@/data/ElectionContext";
 import { usePartyInfo } from "@/data/parties/usePartyInfo";
+import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { useProblemSections } from "@/data/reports/useProblemSections";
 import { SectionInfo } from "@/data/dataTypes";
 import { formatPct, formatThousands, matchPartyNickName } from "@/data/utils";
@@ -56,6 +57,7 @@ export const ProblemVotesByPartyTile: FC<Props> = ({
   ekatte,
 }) => {
   const { t } = useTranslation();
+  const { displayNameFor } = useCanonicalParties();
   const { priorElections } = useElectionContext();
   const { data: currentReport } = useProblemSections();
   const { data: priorReport } = useProblemSections(priorElections?.name);
@@ -200,7 +202,9 @@ export const ProblemVotesByPartyTile: FC<Props> = ({
                   className="inline-block w-2.5 h-2.5 rounded-full shrink-0"
                   style={{ backgroundColor: r.color || "#888" }}
                 />
-                <span className="truncate font-medium">{r.nickName}</span>
+                <span className="truncate font-medium">
+                  {displayNameFor(r.nickName) ?? r.nickName}
+                </span>
               </div>
               <span className="tabular-nums text-xs text-muted-foreground text-right">
                 {formatThousands(r.currentVotes)}
