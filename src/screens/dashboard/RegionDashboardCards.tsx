@@ -14,6 +14,7 @@ import { HistoricalTrendsTile } from "./HistoricalTrendsTile";
 import { PartyResultsTile } from "./PartyResultsTile";
 import { RegionMpsTile } from "./RegionMpsTile";
 import { MpConnectionsTile } from "./MpConnectionsTile";
+import { MpDeclarationsProvenance } from "./MpDeclarationsProvenance";
 import { RegionMunicipalitiesMapTile } from "./RegionMunicipalitiesMapTile";
 import { TopCandidatesStrip } from "./TopCandidatesStrip";
 import { TopMunicipalitiesTile } from "./TopMunicipalitiesTile";
@@ -146,6 +147,7 @@ export const RegionDashboardCards: FC<Props> = ({ regionCode }) => {
       <DashboardSection
         id="declarations"
         title={t("dashboard_section_declarations")}
+        subtitle={<MpDeclarationsProvenance regionCode={regionCode} />}
         icon={Briefcase}
         articleTopic="declarations"
       >

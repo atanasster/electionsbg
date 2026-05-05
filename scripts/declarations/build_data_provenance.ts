@@ -25,6 +25,7 @@ import type {
 type MpIndexEntry = {
   id: number;
   nsFolders: string[];
+  currentRegion: { code: string; name: string } | null;
 };
 type ParliamentIndex = { mps: MpIndexEntry[] };
 
@@ -130,11 +131,31 @@ export const buildDataProvenance = ({
     byNs[ns] = computeScope(total, latestsInNs);
   }
 
+  const byNsRegion: Record<string, Record<string, DataProvenanceScope>> = {};
+  for (const ns of allNsFolders) {
+    const mpsInNs = idx.mps.filter((mp) => mp.nsFolders.includes(ns));
+    const byMir: Record<string, MpIndexEntry[]> = {};
+    for (const mp of mpsInNs) {
+      const mir = mp.currentRegion?.code;
+      if (!mir) continue;
+      (byMir[mir] ??= []).push(mp);
+    }
+    const region: Record<string, DataProvenanceScope> = {};
+    for (const [mir, mpsInRegion] of Object.entries(byMir)) {
+      const latests = mpsInRegion
+        .map((mp) => latestByMp.get(mp.id))
+        .filter((x): x is LatestPerMp => x != null);
+      region[mir] = computeScope(mpsInRegion.length, latests);
+    }
+    byNsRegion[ns] = region;
+  }
+
   const out: DataProvenanceFile = {
     generatedAt: new Date().toISOString(),
     source: "register.cacbg.bg + Commerce Registry",
     all,
     byNs,
+    byNsRegion,
   };
   fs.writeFileSync(
     path.join(publicFolder, "parliament", "data-provenance.json"),

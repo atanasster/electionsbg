@@ -18,6 +18,7 @@ import { PartyResultsTile } from "./PartyResultsTile";
 import { SofiaMapTile } from "./SofiaMapTile";
 import { SofiaMpsTile } from "./SofiaMpsTile";
 import { MpConnectionsTile } from "./MpConnectionsTile";
+import { MpDeclarationsProvenance } from "./MpDeclarationsProvenance";
 import { TopSofiaAreasTile } from "./TopSofiaAreasTile";
 import { TopCandidatesStrip } from "./TopCandidatesStrip";
 import { FlashMemoryTile } from "./FlashMemoryTile";
@@ -166,6 +167,7 @@ export const SofiaDashboardCards: FC = () => {
       <DashboardSection
         id="declarations"
         title={t("dashboard_section_declarations")}
+        subtitle={<MpDeclarationsProvenance regionCodes={SOFIA_REGIONS} />}
         icon={Briefcase}
         articleTopic="declarations"
       >

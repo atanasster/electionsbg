@@ -914,4 +914,9 @@ export type DataProvenanceFile = {
   source: string;
   all: DataProvenanceScope;
   byNs: Record<string, DataProvenanceScope>;
+  /** Per-(NS, MIR code) scope, used by regional dashboards (Sofia / Region
+   * pages) to show "X/Y MPs filed in this region". MIR is the two-digit
+   * parliament.bg constituency code (e.g. "23" for Sofia 23 MIR). MPs
+   * without a recorded `currentRegion` are excluded. */
+  byNsRegion: Record<string, Record<string, DataProvenanceScope>>;
 };
