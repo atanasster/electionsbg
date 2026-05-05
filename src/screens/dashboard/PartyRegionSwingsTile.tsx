@@ -103,6 +103,7 @@ export const PartyRegionSwingsTile: FC<Props> = ({ data }) => {
           </Hint>
         </div>
       }
+      className="min-h-[280px]"
     >
       <div className="grid gap-6 md:grid-cols-2 mt-2">
         {renderColumn(gainers, t("dashboard_party_swing_gainers"), true)}

@@ -195,12 +195,8 @@ export const PartyDashboardCards: FC<Props> = ({ party }) => {
         <div className={TILE_HEIGHTS.assessment}>
           <PartyAssessmentTile data={data} />
         </div>
-        <div className={TILE_HEIGHTS.regionSwings}>
-          <PartyRegionSwingsTile data={data} />
-        </div>
-        <div className={TILE_HEIGHTS.trajectory}>
-          <PartyTrajectoryTile data={data} />
-        </div>
+        <PartyRegionSwingsTile data={data} />
+        <PartyTrajectoryTile data={data} />
       </DashboardSection>
 
       <DashboardSection
@@ -264,9 +260,7 @@ export const PartyDashboardCards: FC<Props> = ({ party }) => {
         icon={CalendarDays}
         articleTopic="polling"
       >
-        <div className={TILE_HEIGHTS.pollingDelta}>
-          <PartyPollingDeltaTile data={data} />
-        </div>
+        <PartyPollingDeltaTile data={data} />
       </DashboardSection>
     </section>
     </SectionArticlesProvider>

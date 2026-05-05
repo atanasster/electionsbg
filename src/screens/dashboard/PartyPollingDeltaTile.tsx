@@ -156,7 +156,7 @@ export const PartyPollingDeltaTile: FC<Props> = ({ data }) => {
           </div>
         </Hint>
       }
-      className="overflow-hidden"
+      className="overflow-hidden min-h-[280px]"
     >
       <div className="w-full h-[220px] mt-2">
         <ResponsiveContainer width="100%" height="100%">

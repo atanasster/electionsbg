@@ -194,7 +194,7 @@ export const PartyTrajectoryTile: FC<Props> = ({ data }) => {
           </div>
         </Hint>
       }
-      className="overflow-hidden"
+      className="overflow-hidden min-h-[280px]"
     >
       <div className="w-full h-[240px] mt-2">
         <ResponsiveContainer width="100%" height="100%">
