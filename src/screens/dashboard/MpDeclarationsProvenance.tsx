@@ -124,12 +124,18 @@ type Props = {
   /** Set of oblast codes (e.g. Sofia's three MIRs). Their per-MIR scopes
    * are summed. */
   regionCodes?: string[];
+  /** Explicit NS folder override ("52", "51", …). When provided as a string,
+   * uses that parliament's per-NS scope regardless of the global election
+   * selector. Pass `null` to force the lifetime ("All parliaments") scope.
+   * Leave `undefined` to fall through to the election-context default. */
+  nsFolder?: string | null;
   className?: string;
 };
 
 export const MpDeclarationsProvenance: FC<Props> = ({
   regionCode,
   regionCodes,
+  nsFolder,
   className,
 }) => {
   const { t, i18n } = useTranslation();
@@ -149,10 +155,13 @@ export const MpDeclarationsProvenance: FC<Props> = ({
 
   const isRegional = codes != null;
 
+  const effectiveFolder =
+    nsFolder === undefined ? selectedFolder : nsFolder;
+
   const scope = useMemo(() => {
     if (!provenance) return undefined;
-    if (codes && selectedFolder) {
-      const regionMap = provenance.byNsRegion?.[selectedFolder];
+    if (codes && effectiveFolder) {
+      const regionMap = provenance.byNsRegion?.[effectiveFolder];
       if (!regionMap) return undefined;
       const parts: DataProvenanceScope[] = [];
       for (const code of codes) {
@@ -164,11 +173,11 @@ export const MpDeclarationsProvenance: FC<Props> = ({
       if (parts.length === 0) return undefined;
       return mergeScopes(parts);
     }
-    if (selectedFolder && provenance.byNs[selectedFolder]) {
-      return provenance.byNs[selectedFolder];
+    if (effectiveFolder && provenance.byNs[effectiveFolder]) {
+      return provenance.byNs[effectiveFolder];
     }
     return provenance.all;
-  }, [provenance, selectedFolder, codes]);
+  }, [provenance, effectiveFolder, codes]);
 
   if (!scope) return null;
 

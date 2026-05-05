@@ -2,6 +2,7 @@ import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { useConnectionsStats } from "@/data/parliament/useConnectionsStats";
 import { useConnectionsPartyMatrix } from "@/data/parliament/useConnectionsPartyMatrix";
+import { MpDeclarationsProvenance } from "@/screens/dashboard/MpDeclarationsProvenance";
 import { cn } from "@/lib/utils";
 
 type Props = {
@@ -66,6 +67,7 @@ export const ConnectionsHero: FC<Props> = ({ ns, onCellClick }) => {
         </strong>{" "}
         {t("connections_hero_companies") || "shared companies"}.
       </p>
+      <MpDeclarationsProvenance nsFolder={ns} className="mt-1 block" />
 
       {matrixScope && matrixScope.parties.length >= 2 && (
         <div className="mt-3">
