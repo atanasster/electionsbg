@@ -1,5 +1,5 @@
 import { Title } from "@/ux/Title";
-import { FC } from "react";
+import { FC, Fragment } from "react";
 import { useTranslation } from "react-i18next";
 import { usePartyInfo } from "@/data/parties/usePartyInfo";
 import { useResolvedCandidate } from "@/data/candidates/useResolvedCandidate";
@@ -78,20 +78,17 @@ export const Candidate: FC<{ name: string }> = ({ name }) => {
       {canonical.mpId != null && <MpProfileHeader name={displayName} />}
 
       {canonical.cikRows.length > 0 && (
-        <div className="flex flex-col items-center gap-2 px-4 py-2">
+        <div className="grid grid-cols-[auto_auto_auto] justify-center items-center gap-x-3 gap-y-1.5 px-4 py-2">
           {canonical.cikRows.map((c) => {
             const party = findParty(c.partyNum);
             return (
-              <div
-                key={`${c.oblast}-${c.pref}`}
-                className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1"
-              >
-                <PartyLink party={party} width="w-14" />
-                <div className="text-base sm:text-lg font-semibold">
+              <Fragment key={`${c.oblast}-${c.pref}`}>
+                <PartyLink party={party} width="w-9 shrink-0" />
+                <div className="text-sm sm:text-base font-semibold">
                   <RegionLink oblast={c.oblast} />
                 </div>
-                <div className="text-base sm:text-lg font-semibold">{`#${c.pref}`}</div>
-              </div>
+                <div className="text-sm sm:text-base font-semibold tabular-nums">{`#${c.pref}`}</div>
+              </Fragment>
             );
           })}
         </div>
