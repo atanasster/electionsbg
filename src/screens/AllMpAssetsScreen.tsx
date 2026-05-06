@@ -136,7 +136,9 @@ export const AllMpAssetsScreen: FC = () => {
         cell: ({ row }) => {
           const delta = row.original.delta;
           if (!delta) {
-            return <div className="text-right text-xs text-muted-foreground">—</div>;
+            return (
+              <div className="text-right text-xs text-muted-foreground">—</div>
+            );
           }
           const colorClass =
             delta.absoluteBgn > 0

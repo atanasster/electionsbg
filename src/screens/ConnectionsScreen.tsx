@@ -1475,103 +1475,109 @@ export const ConnectionsScreen: FC = () => {
                 </div>
               </div>
             )}
-            {pathFrom && pathTo && pathNodeIds && pathEdgeKeys && !isLoading && graph && (
-              <div
-                className="absolute z-10 bg-card/95 backdrop-blur-sm border rounded-md shadow-lg p-3 overflow-y-auto"
-                style={{
-                  top: visibleVRange.top + 8,
-                  right: 8,
-                  maxWidth: Math.min(300, Math.max(200, size.w - 16)),
-                  maxHeight: Math.max(
-                    160,
-                    Math.floor(
-                      (visibleVRange.bottom - visibleVRange.top || size.h) * 0.6,
+            {pathFrom &&
+              pathTo &&
+              pathNodeIds &&
+              pathEdgeKeys &&
+              !isLoading &&
+              graph && (
+                <div
+                  className="absolute z-10 bg-card/95 backdrop-blur-sm border rounded-md shadow-lg p-3 overflow-y-auto"
+                  style={{
+                    top: visibleVRange.top + 8,
+                    right: 8,
+                    maxWidth: Math.min(300, Math.max(200, size.w - 16)),
+                    maxHeight: Math.max(
+                      160,
+                      Math.floor(
+                        (visibleVRange.bottom - visibleVRange.top || size.h) *
+                          0.6,
+                      ),
                     ),
-                  ),
-                }}
-              >
-                <div className="flex items-center justify-between gap-2 mb-2">
-                  <span className="text-xs font-semibold">
-                    {pathEdgeKeys.size === 0
-                      ? t("connections_no_path") || "No connection"
-                      : `${pathNodeIds.size - 1} ${t("connections_hops") || "hop(s)"}`}
-                  </span>
-                  <button
-                    type="button"
-                    className="text-muted-foreground hover:text-foreground text-base leading-none"
-                    onClick={() => {
-                      setPathFrom(null);
-                      setPathTo(null);
-                      setPathPickMode(false);
-                      setPathTrail(null);
-                      setSelected(null);
-                    }}
-                  >
-                    ×
-                  </button>
-                </div>
-                {pathEdgeKeys.size === 0 ? (
-                  <p className="text-xs text-muted-foreground">
-                    {`${pathFrom.type === "mp" ? localizedMpLabel(pathFrom.mpId, pathFrom.label) : pathFrom.label} — ${pathTo.type === "mp" ? localizedMpLabel(pathTo.mpId, pathTo.label) : pathTo.label}`}
-                  </p>
-                ) : (
-                  <div className="flex flex-col text-xs">
-                    {(pathTrail ?? []).map((nodeId, i) => {
-                      const node = simNodes.find((n) => n.id === nodeId);
-                      if (!node) return null;
-                      const label =
-                        node.type === "mp"
-                          ? localizedMpLabel(node.mpId, node.label)
-                          : node.label;
-                      return (
-                        <div key={nodeId}>
-                          {i > 0 && (
-                            <div className="pl-3 text-muted-foreground leading-none py-0.5">
-                              ↓
-                            </div>
-                          )}
-                          <div className="flex items-center gap-1.5">
-                            {node.type === "mp" ? (
-                              <MpAvatar
-                                mpId={node.mpId}
-                                name={label}
-                                className="h-4 w-4 shrink-0"
-                              />
-                            ) : (
-                              <span
-                                className="inline-block h-1.5 w-1.5 rounded-full shrink-0"
-                                style={{
-                                  backgroundColor: TYPE_COLORS[node.type],
-                                }}
-                              />
-                            )}
-                            {node.type === "mp" ? (
-                              <Link
-                                to={candidateUrlForMp(node.mpId)}
-                                className="font-medium hover:underline truncate"
-                              >
-                                {label}
-                              </Link>
-                            ) : node.type === "company" && node.slug ? (
-                              <Link
-                                to={`/mp/company/${encodeURIComponent(node.slug)}`}
-                                className="text-muted-foreground hover:underline truncate"
-                              >
-                                {label}
-                              </Link>
-                            ) : (
-                              <span className="text-muted-foreground truncate">
-                                {label}
-                              </span>
-                            )}
-                          </div>
-                        </div>
-                      );
-                    })}
+                  }}
+                >
+                  <div className="flex items-center justify-between gap-2 mb-2">
+                    <span className="text-xs font-semibold">
+                      {pathEdgeKeys.size === 0
+                        ? t("connections_no_path") || "No connection"
+                        : `${pathNodeIds.size - 1} ${t("connections_hops") || "hop(s)"}`}
+                    </span>
+                    <button
+                      type="button"
+                      className="text-muted-foreground hover:text-foreground text-base leading-none"
+                      onClick={() => {
+                        setPathFrom(null);
+                        setPathTo(null);
+                        setPathPickMode(false);
+                        setPathTrail(null);
+                        setSelected(null);
+                      }}
+                    >
+                      ×
+                    </button>
                   </div>
-                )}
-              </div>
-            )}
+                  {pathEdgeKeys.size === 0 ? (
+                    <p className="text-xs text-muted-foreground">
+                      {`${pathFrom.type === "mp" ? localizedMpLabel(pathFrom.mpId, pathFrom.label) : pathFrom.label} — ${pathTo.type === "mp" ? localizedMpLabel(pathTo.mpId, pathTo.label) : pathTo.label}`}
+                    </p>
+                  ) : (
+                    <div className="flex flex-col text-xs">
+                      {(pathTrail ?? []).map((nodeId, i) => {
+                        const node = simNodes.find((n) => n.id === nodeId);
+                        if (!node) return null;
+                        const label =
+                          node.type === "mp"
+                            ? localizedMpLabel(node.mpId, node.label)
+                            : node.label;
+                        return (
+                          <div key={nodeId}>
+                            {i > 0 && (
+                              <div className="pl-3 text-muted-foreground leading-none py-0.5">
+                                ↓
+                              </div>
+                            )}
+                            <div className="flex items-center gap-1.5">
+                              {node.type === "mp" ? (
+                                <MpAvatar
+                                  mpId={node.mpId}
+                                  name={label}
+                                  className="h-4 w-4 shrink-0"
+                                />
+                              ) : (
+                                <span
+                                  className="inline-block h-1.5 w-1.5 rounded-full shrink-0"
+                                  style={{
+                                    backgroundColor: TYPE_COLORS[node.type],
+                                  }}
+                                />
+                              )}
+                              {node.type === "mp" ? (
+                                <Link
+                                  to={candidateUrlForMp(node.mpId)}
+                                  className="font-medium hover:underline truncate"
+                                >
+                                  {label}
+                                </Link>
+                              ) : node.type === "company" && node.slug ? (
+                                <Link
+                                  to={`/mp/company/${encodeURIComponent(node.slug)}`}
+                                  className="text-muted-foreground hover:underline truncate"
+                                >
+                                  {label}
+                                </Link>
+                              ) : (
+                                <span className="text-muted-foreground truncate">
+                                  {label}
+                                </span>
+                              )}
+                            </div>
+                          </div>
+                        );
+                      })}
+                    </div>
+                  )}
+                </div>
+              )}
           </div>
         </CardContent>
       </Card>

@@ -3,7 +3,10 @@ import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Briefcase, ExternalLink } from "lucide-react";
 import { Title } from "@/ux/Title";
-import { useCompanyIndex, CompanyEntry } from "@/data/parliament/useCompanyIndex";
+import {
+  useCompanyIndex,
+  CompanyEntry,
+} from "@/data/parliament/useCompanyIndex";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 import { candidateUrlForMp } from "@/data/candidates/candidateSlug";
 import { DataTable, DataTableColumns } from "@/ux/data_table/DataTable";

@@ -183,9 +183,7 @@ const AssetTable: FC<{
         header: t("mp_assets_col_share") || "Share",
         enableSorting: false,
         cell: ({ row }) => (
-          <div className="text-right text-xs">
-            {row.original.share ?? "—"}
-          </div>
+          <div className="text-right text-xs">{row.original.share ?? "—"}</div>
         ),
       },
       {

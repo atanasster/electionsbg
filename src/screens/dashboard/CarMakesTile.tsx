@@ -127,9 +127,7 @@ export const CarMakesTile: FC<Props> = ({
   const titleKey = isRegional
     ? "dashboard_car_makes_region_title"
     : "dashboard_car_makes_title";
-  const titleFallback = isRegional
-    ? "Region MPs' car makes"
-    : "MPs' car makes";
+  const titleFallback = isRegional ? "Region MPs' car makes" : "MPs' car makes";
 
   return (
     <StatCard
