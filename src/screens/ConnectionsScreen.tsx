@@ -375,6 +375,13 @@ export const ConnectionsScreen: FC = () => {
   const [pathTo, setPathTo] = useState<SimNode | null>(null);
   const [pathNodeIds, setPathNodeIds] = useState<Set<string> | null>(null);
   const [pathEdgeKeys, setPathEdgeKeys] = useState<Set<string> | null>(null);
+  const [pathTrail, setPathTrail] = useState<string[] | null>(null);
+  const [fromQuery, setFromQuery] = useState("");
+  const [toQuery, setToQuery] = useState("");
+  const [fromOpen, setFromOpen] = useState(false);
+  const [toOpen, setToOpen] = useState(false);
+  const fromInputRef = useRef<HTMLInputElement>(null);
+  const toInputRef = useRef<HTMLInputElement>(null);
 
   // Resize observer keeps the canvas full-width within its card. Keyed off
   // wrapEl so it re-attaches whenever the wrapper mounts — Radix only mounts
@@ -717,9 +724,16 @@ export const ConnectionsScreen: FC = () => {
         } else if (!pathTo && node.id !== pathFrom.id) {
           setPathTo(node);
           setPathPickMode(false);
+          setSelected(null);
         } else if (node.id === pathFrom.id) {
           setPathFrom(null);
+          setPathPickMode(false);
         }
+      } else if (!pathPickMode && node && node.type === "mp") {
+        setSelected(node);
+        setPathPickMode(true);
+        setPathFrom(node);
+        setPathTo(null);
       } else {
         setSelected(node);
       }
@@ -753,6 +767,7 @@ export const ConnectionsScreen: FC = () => {
     if (!pathFrom || !pathTo) {
       setPathNodeIds(null);
       setPathEdgeKeys(null);
+      setPathTrail(null);
       return;
     }
     // BFS
@@ -775,6 +790,7 @@ export const ConnectionsScreen: FC = () => {
     if (!found) {
       setPathNodeIds(new Set([pathFrom.id, pathTo.id]));
       setPathEdgeKeys(new Set());
+      setPathTrail(null);
       return;
     }
     const trail: string[] = [];
@@ -797,7 +813,35 @@ export const ConnectionsScreen: FC = () => {
     }
     setPathNodeIds(nodeSet);
     setPathEdgeKeys(edgeSet);
+    setPathTrail(trail);
   }, [pathFrom, pathTo, neighbors]);
+
+  // Sync canvas-click selections into the search inputs (but don't clear query
+  // when pathFrom/pathTo is cleared by typing — that's handled by onChange).
+  useEffect(() => {
+    if (pathFrom?.type === "mp") {
+      setFromQuery(localizedMpLabel(pathFrom.mpId, pathFrom.label));
+    }
+  }, [pathFrom]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  useEffect(() => {
+    if (pathTo?.type === "mp") {
+      setToQuery(localizedMpLabel(pathTo.mpId, pathTo.label));
+    }
+  }, [pathTo]); // eslint-disable-line react-hooks/exhaustive-deps
+
+  // Auto-focus the appropriate search input when entering pick mode.
+  useEffect(() => {
+    if (!pathPickMode) return;
+    const timer = setTimeout(() => {
+      if (!pathFrom) {
+        fromInputRef.current?.focus();
+      } else {
+        toInputRef.current?.focus();
+      }
+    }, 50);
+    return () => clearTimeout(timer);
+  }, [pathPickMode, pathFrom?.id]); // eslint-disable-line react-hooks/exhaustive-deps
 
   // ---- Detail panel content ----
   const detail = selected ?? hovered;
@@ -838,6 +882,38 @@ export const ConnectionsScreen: FC = () => {
     for (const n of simNodes) counts[n.type]++;
     return { ...counts, edges: simLinks.length };
   }, [simNodes, simLinks]);
+
+  const mpNodes = useMemo(
+    () =>
+      simNodes.filter(
+        (n): n is SimNode & { type: "mp"; mpId: number } => n.type === "mp",
+      ),
+    [simNodes],
+  );
+
+  const filteredFromMps = useMemo(() => {
+    if (!fromQuery || !fromOpen) return [];
+    const q = fromQuery.toLowerCase();
+    return mpNodes
+      .filter(
+        (n) =>
+          n.id !== pathTo?.id &&
+          localizedMpLabel(n.mpId, n.label).toLowerCase().includes(q),
+      )
+      .slice(0, 10);
+  }, [fromQuery, fromOpen, mpNodes, pathTo?.id, localizedMpLabel]);
+
+  const filteredToMps = useMemo(() => {
+    if (!toQuery || !toOpen) return [];
+    const q = toQuery.toLowerCase();
+    return mpNodes
+      .filter(
+        (n) =>
+          n.id !== pathFrom?.id &&
+          localizedMpLabel(n.mpId, n.label).toLowerCase().includes(q),
+      )
+      .slice(0, 10);
+  }, [toQuery, toOpen, mpNodes, pathFrom?.id, localizedMpLabel]);
 
   return (
     <div className="w-full px-4 md:px-8">
@@ -1101,32 +1177,26 @@ export const ConnectionsScreen: FC = () => {
             </span>
           </div>
 
-          <div className="flex flex-wrap gap-2 items-center text-xs mb-3">
+          <div className="flex flex-wrap gap-2 items-center text-xs mb-2">
             <button
               type="button"
               onClick={() => {
                 setPathPickMode(true);
                 setPathFrom(null);
                 setPathTo(null);
+                setPathTrail(null);
+                setSelected(null);
+                setFromQuery("");
+                setToQuery("");
               }}
               className={`px-2 py-1 rounded border ${
-                pathPickMode
+                pathPickMode || !!pathFrom
                   ? "bg-red-50 border-red-300 dark:bg-red-950/30 dark:border-red-700"
                   : "border-border hover:bg-muted"
               }`}
             >
               {t("connections_find_path") || "Find connection between two MPs"}
             </button>
-            {pathPickMode && (
-              <span className="text-muted-foreground italic">
-                {!pathFrom
-                  ? t("connections_pick_first_mp") || "Click an MP node…"
-                  : !pathTo
-                    ? t("connections_pick_second_mp") ||
-                      "Click another MP node…"
-                    : ""}
-              </span>
-            )}
             {(pathFrom || pathTo) && (
               <button
                 type="button"
@@ -1134,20 +1204,112 @@ export const ConnectionsScreen: FC = () => {
                   setPathFrom(null);
                   setPathTo(null);
                   setPathPickMode(false);
+                  setPathTrail(null);
+                  setSelected(null);
+                  setFromQuery("");
+                  setToQuery("");
                 }}
                 className="px-2 py-1 rounded border border-border hover:bg-muted"
               >
                 {t("connections_clear_path") || "Clear"}
               </button>
             )}
-            {pathFrom && pathTo && pathNodeIds && pathEdgeKeys && (
-              <span className="text-muted-foreground">
-                {pathEdgeKeys.size === 0
-                  ? t("connections_no_path") || "No path between these two MPs"
-                  : `${pathFrom.label} → ${pathTo.label}: ${pathNodeIds.size - 1} ${t("connections_hops") || "hop(s)"}`}
-              </span>
-            )}
           </div>
+          {(pathPickMode || !!pathFrom) && (
+            <div className="flex gap-2 items-start mb-3 text-xs flex-wrap">
+              <div className="relative">
+                <input
+                  ref={fromInputRef}
+                  type="text"
+                  placeholder={t("connections_pick_first_mp") || "From MP…"}
+                  value={fromQuery}
+                  onChange={(e) => {
+                    setFromQuery(e.target.value);
+                    setFromOpen(true);
+                    setPathFrom(null);
+                    setPathTo(null);
+                    setPathTrail(null);
+                  }}
+                  onFocus={() => setFromOpen(true)}
+                  onBlur={() => setTimeout(() => setFromOpen(false), 150)}
+                  className="px-2 py-1 rounded border border-border text-xs w-52 bg-background focus:outline-none focus:ring-1 focus:ring-primary"
+                />
+                {fromOpen && filteredFromMps.length > 0 && (
+                  <div className="absolute top-full left-0 z-20 bg-card border border-border rounded shadow-lg max-h-52 overflow-y-auto w-64 mt-0.5">
+                    {filteredFromMps.map((n) => {
+                      const label = localizedMpLabel(n.mpId, n.label);
+                      return (
+                        <button
+                          key={n.id}
+                          type="button"
+                          className="w-full text-left px-2 py-1.5 hover:bg-muted flex items-center gap-1.5 text-xs"
+                          onMouseDown={(e) => {
+                            e.preventDefault();
+                            setPathFrom(n);
+                            setFromQuery(label);
+                            setFromOpen(false);
+                          }}
+                        >
+                          <MpAvatar
+                            mpId={n.mpId}
+                            name={label}
+                            className="h-4 w-4 shrink-0"
+                          />
+                          <span className="truncate">{label}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+              <span className="py-1 text-muted-foreground">→</span>
+              <div className="relative">
+                <input
+                  ref={toInputRef}
+                  type="text"
+                  placeholder={t("connections_pick_second_mp") || "To MP…"}
+                  value={toQuery}
+                  onChange={(e) => {
+                    setToQuery(e.target.value);
+                    setToOpen(true);
+                    setPathTo(null);
+                    setPathTrail(null);
+                  }}
+                  onFocus={() => setToOpen(true)}
+                  onBlur={() => setTimeout(() => setToOpen(false), 150)}
+                  className="px-2 py-1 rounded border border-border text-xs w-52 bg-background focus:outline-none focus:ring-1 focus:ring-primary"
+                />
+                {toOpen && filteredToMps.length > 0 && (
+                  <div className="absolute top-full left-0 z-20 bg-card border border-border rounded shadow-lg max-h-52 overflow-y-auto w-64 mt-0.5">
+                    {filteredToMps.map((n) => {
+                      const label = localizedMpLabel(n.mpId, n.label);
+                      return (
+                        <button
+                          key={n.id}
+                          type="button"
+                          className="w-full text-left px-2 py-1.5 hover:bg-muted flex items-center gap-1.5 text-xs"
+                          onMouseDown={(e) => {
+                            e.preventDefault();
+                            setPathTo(n);
+                            setToQuery(label);
+                            setToOpen(false);
+                            setPathPickMode(false);
+                          }}
+                        >
+                          <MpAvatar
+                            mpId={n.mpId}
+                            name={label}
+                            className="h-4 w-4 shrink-0"
+                          />
+                          <span className="truncate">{label}</span>
+                        </button>
+                      );
+                    })}
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
 
           <div ref={canvasWrapRef} className="w-full relative">
             {isLoading || !graph ? (
@@ -1311,6 +1473,103 @@ export const ConnectionsScreen: FC = () => {
                     </div>
                   )}
                 </div>
+              </div>
+            )}
+            {pathFrom && pathTo && pathNodeIds && pathEdgeKeys && !isLoading && graph && (
+              <div
+                className="absolute z-10 bg-card/95 backdrop-blur-sm border rounded-md shadow-lg p-3 overflow-y-auto"
+                style={{
+                  top: visibleVRange.top + 8,
+                  right: 8,
+                  maxWidth: Math.min(300, Math.max(200, size.w - 16)),
+                  maxHeight: Math.max(
+                    160,
+                    Math.floor(
+                      (visibleVRange.bottom - visibleVRange.top || size.h) * 0.6,
+                    ),
+                  ),
+                }}
+              >
+                <div className="flex items-center justify-between gap-2 mb-2">
+                  <span className="text-xs font-semibold">
+                    {pathEdgeKeys.size === 0
+                      ? t("connections_no_path") || "No connection"
+                      : `${pathNodeIds.size - 1} ${t("connections_hops") || "hop(s)"}`}
+                  </span>
+                  <button
+                    type="button"
+                    className="text-muted-foreground hover:text-foreground text-base leading-none"
+                    onClick={() => {
+                      setPathFrom(null);
+                      setPathTo(null);
+                      setPathPickMode(false);
+                      setPathTrail(null);
+                      setSelected(null);
+                    }}
+                  >
+                    ×
+                  </button>
+                </div>
+                {pathEdgeKeys.size === 0 ? (
+                  <p className="text-xs text-muted-foreground">
+                    {`${pathFrom.type === "mp" ? localizedMpLabel(pathFrom.mpId, pathFrom.label) : pathFrom.label} — ${pathTo.type === "mp" ? localizedMpLabel(pathTo.mpId, pathTo.label) : pathTo.label}`}
+                  </p>
+                ) : (
+                  <div className="flex flex-col text-xs">
+                    {(pathTrail ?? []).map((nodeId, i) => {
+                      const node = simNodes.find((n) => n.id === nodeId);
+                      if (!node) return null;
+                      const label =
+                        node.type === "mp"
+                          ? localizedMpLabel(node.mpId, node.label)
+                          : node.label;
+                      return (
+                        <div key={nodeId}>
+                          {i > 0 && (
+                            <div className="pl-3 text-muted-foreground leading-none py-0.5">
+                              ↓
+                            </div>
+                          )}
+                          <div className="flex items-center gap-1.5">
+                            {node.type === "mp" ? (
+                              <MpAvatar
+                                mpId={node.mpId}
+                                name={label}
+                                className="h-4 w-4 shrink-0"
+                              />
+                            ) : (
+                              <span
+                                className="inline-block h-1.5 w-1.5 rounded-full shrink-0"
+                                style={{
+                                  backgroundColor: TYPE_COLORS[node.type],
+                                }}
+                              />
+                            )}
+                            {node.type === "mp" ? (
+                              <Link
+                                to={candidateUrlForMp(node.mpId)}
+                                className="font-medium hover:underline truncate"
+                              >
+                                {label}
+                              </Link>
+                            ) : node.type === "company" && node.slug ? (
+                              <Link
+                                to={`/mp/company/${encodeURIComponent(node.slug)}`}
+                                className="text-muted-foreground hover:underline truncate"
+                              >
+                                {label}
+                              </Link>
+                            ) : (
+                              <span className="text-muted-foreground truncate">
+                                {label}
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                      );
+                    })}
+                  </div>
+                )}
               </div>
             )}
           </div>
