@@ -22,11 +22,28 @@ export type CompanyStakeEntry = {
   stake: CompanyIndexStake;
 };
 
+/** TR-only relationship between an MP and a company — manager, partner,
+ * historical role, transferred share. Populated by the post-graph extension
+ * step in build_connections_graph.ts so the All Companies page can show MPs
+ * connected via the Commerce Registry even when no stake was declared. */
+export type CompanyMpRole = {
+  mpId: number;
+  mpName: string;
+  /** Same vocabulary as ConnectionsEdge.role — `manager`, `partner`,
+   * `tr_owner`, `procurator`, etc. */
+  role: string;
+  isCurrent: boolean;
+  confidence: "high" | "medium";
+};
+
 export type CompanyEntry = {
   slug: string;
   displayName: string;
   registeredOffices: string[];
   stakes: CompanyStakeEntry[];
+  /** TR-only relationships (no declared stake). Empty array or omitted for
+   * declared-only entries. */
+  mpRoles?: CompanyMpRole[];
   /** Phase 5 TR enrichment — present only when the company name matched a
    * row in the reconstructed Commerce Registry SQLite. */
   tr?: TrCompanyEnrichment;

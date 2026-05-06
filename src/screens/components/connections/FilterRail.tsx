@@ -23,9 +23,10 @@ type Props = {
   availableNsFolders: string[];
 };
 
-/** Linear/Notion-style filter rail. Sits above the tabs on the Connections
- * page and applies to every tab below it (Strongest ties + Find a connection;
- * the Explore graph tab keeps its own canvas-specific toggles). */
+/** Linear/Notion-style filter rail at the top of the Connections page.
+ * Drives the strongest-connections list and most-connected rankings cards
+ * below it; the orbital graph card honours the rail's *Current only* and
+ * *High confidence* chips and adds its own canvas-specific toggles. */
 export const FilterRail: FC<Props> = ({
   filters,
   setNs,

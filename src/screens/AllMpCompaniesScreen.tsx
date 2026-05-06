@@ -38,12 +38,26 @@ export const AllMpCompaniesScreen: FC = () => {
         // One MP can declare the same company across multiple years and the
         // declarantName casing varies between filings (cacbg writes some years
         // ALL CAPS, others Title Case). Dedup case-insensitively, keeping the
-        // first observed display form for each.
-        const seen = new Map<string, { name: string; mpId: number | null }>();
+        // first observed display form for each. Then merge in the post-graph
+        // mpRoles list so TR-only relationships (manager, partner, …) show up
+        // alongside declared stakes.
+        const seen = new Map<
+          string,
+          { name: string; mpId: number | null; viaStake: boolean }
+        >();
         for (const s of c.stakes) {
           const key = s.declarantName.toUpperCase().replace(/\s+/g, " ").trim();
           if (!seen.has(key))
-            seen.set(key, { name: s.declarantName, mpId: s.mpId ?? null });
+            seen.set(key, {
+              name: s.declarantName,
+              mpId: s.mpId ?? null,
+              viaStake: true,
+            });
+        }
+        for (const r of c.mpRoles ?? []) {
+          const key = r.mpName.toUpperCase().replace(/\s+/g, " ").trim();
+          if (!seen.has(key))
+            seen.set(key, { name: r.mpName, mpId: r.mpId, viaStake: false });
         }
         return { ...c, distinctMps: Array.from(seen.values()) };
       })
@@ -52,6 +66,7 @@ export const AllMpCompaniesScreen: FC = () => {
         const hayParts = [c.displayName, ...c.registeredOffices];
         if (c.tr?.uic) hayParts.push(c.tr.uic);
         for (const s of c.stakes) hayParts.push(s.declarantName);
+        for (const r of c.mpRoles ?? []) hayParts.push(r.mpName);
         const hay = hayParts.join(" ").toLowerCase();
         return hay.includes(q);
       });
@@ -92,7 +107,7 @@ export const AllMpCompaniesScreen: FC = () => {
   return (
     <div className="w-full max-w-6xl mx-auto px-4 pb-12">
       <Title description={t("all_companies_description") || ""}>
-        {t("all_companies") || "Companies declared by MPs"}
+        {t("all_companies") || "MP-connected companies"}
       </Title>
 
       <div className="flex flex-wrap gap-3 items-center my-4">

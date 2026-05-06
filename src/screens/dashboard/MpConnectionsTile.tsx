@@ -124,12 +124,17 @@ export const MpConnectionsTile: FC<Props> = ({
           {t(mpsHeaderKey) || mpsHeaderFallback}
         </div>
         {topMps.map((row, i) => {
+          // The leading number is now the high-confidence neighbourhood
+          // size — corroborated companies + non-MP associates. The direct
+          // co-MP count stays in the tooltip as a secondary signal: it's
+          // typically zero for any individual MP, so showing it as the
+          // leading number left readers staring at a column of zeros.
           const tieTooltip = t(
             "dashboard_mp_connections_mp_ties_full",
-            "{{direct}} co-MP · {{ties}} total ties",
-            { direct: row.mpMpDirectDegree, ties: row.highConfDegree },
+            "{{ties}} total ties · {{direct}} co-MP",
+            { ties: row.highConfDegree, direct: row.mpMpDirectDegree },
           );
-          const directZero = row.mpMpDirectDegree === 0;
+          const tiesZero = row.highConfDegree === 0;
           return (
             <div
               key={row.mpId}
@@ -153,12 +158,12 @@ export const MpConnectionsTile: FC<Props> = ({
               <Hint text={tieTooltip} underline={false}>
                 <span
                   className={`tabular-nums shrink-0 ${
-                    directZero
+                    tiesZero
                       ? "text-muted-foreground/60"
                       : "text-foreground font-medium"
                   }`}
                 >
-                  {row.mpMpDirectDegree}
+                  {row.highConfDegree}
                 </span>
               </Hint>
             </div>

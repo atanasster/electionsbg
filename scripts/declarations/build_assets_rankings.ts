@@ -244,18 +244,23 @@ export const buildAssetsRankings = ({
   entries.sort((a, b) => b.netWorthBgn - a.netWorthBgn);
 
   // Per-NS slices: an MP appears in an NS if their nsFolders contains it.
+  // No artificial cap — the /mp-assets page renders the full list with a
+  // sortable table, and the dashboard tile already uses its own ROWS=5
+  // slice. A previous 200-cap left the JSON misleadingly truncated for
+  // anyone consuming it directly (713 MPs have rollups; only 200 were on
+  // the wire).
   const nsSet = new Set<string>();
   for (const e of entries) for (const f of e.nsFolders) nsSet.add(f);
   const byNs: Record<string, { topMps: MpAssetsRankingEntry[] }> = {};
   for (const ns of nsSet) {
     byNs[ns] = {
-      topMps: entries.filter((e) => e.nsFolders.includes(ns)).slice(0, 200),
+      topMps: entries.filter((e) => e.nsFolders.includes(ns)),
     };
   }
 
   const rankings: MpAssetsRankings = {
     generatedAt: new Date().toISOString(),
-    topMps: entries.slice(0, 200),
+    topMps: entries,
     byNs,
   };
 

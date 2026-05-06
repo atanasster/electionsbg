@@ -45,7 +45,12 @@ import type {
   TrCompanyEnrichment,
   TrCompanyOfficer,
 } from "../../src/data/dataTypes";
-import type { CompaniesIndexFile } from "./build_company_index";
+import type {
+  CompaniesIndexFile,
+  CompanyIndexEntry,
+  CompanyIndexEntryMpRole,
+} from "./build_company_index";
+import { slugifyCompanyName } from "./build_company_index";
 
 type MpIndexEntry = {
   id: number;
@@ -191,6 +196,130 @@ export type BuildConnectionsArgs = {
    * non-MP co-officers visible. */
   rawFolder?: string;
   stringify: (o: object) => string;
+};
+
+/** Augment companies-index entries with TR-only graph companies and
+ * `mpRoles` derived from MP↔company TR edges. Used at the tail of
+ * `buildConnectionsGraph` to lift the All Companies page scope from
+ * declared-only (~700) to the full graph (~2,000). */
+const augmentCompaniesIndexFromGraph = ({
+  existing,
+  nodes,
+  edges,
+  mpById,
+}: {
+  existing: CompanyIndexEntry[];
+  nodes: Map<string, ConnectionsNode>;
+  edges: Map<string, ConnectionsEdge>;
+  mpById: Map<number, MpIndexEntry>;
+}): CompanyIndexEntry[] => {
+  // Index existing entries by their graph node id so we can attach
+  // mpRoles in-place. Declared-stake entries use `company:{slug}` ids;
+  // TR-only entries we'll add use `company:tr:{uic}` or `company:name:…`.
+  const byNodeId = new Map<string, CompanyIndexEntry>();
+  for (const c of existing) {
+    byNodeId.set(`company:${c.slug}`, c);
+  }
+
+  // Slug usage map carried over from the existing index so disambiguation
+  // suffixes stay consistent when a TR-only company happens to slugify to
+  // the same string as an already-declared one.
+  const slugUseCount = new Map<string, number>();
+  for (const c of existing) {
+    // Strip any trailing "-2"/"-3" we might have appended originally so the
+    // base slug count starts where the original build left off.
+    const m = c.slug.match(/^(.*?)(?:-(\d+))?$/);
+    const base = m ? m[1] : c.slug;
+    const n = slugUseCount.get(base) ?? 0;
+    slugUseCount.set(base, n + 1);
+  }
+
+  // Add TR-only nodes as fresh CompanyIndexEntry rows.
+  for (const n of nodes.values()) {
+    if (n.type !== "company") continue;
+    if (byNodeId.has(n.id)) continue; // already in the declared index
+    if (!n.label || n.label.trim() === "" || n.label === "-") continue;
+    const baseSlug = n.slug ?? slugifyCompanyName(n.label);
+    if (!baseSlug) continue;
+    const used = slugUseCount.get(baseSlug) ?? 0;
+    slugUseCount.set(baseSlug, used + 1);
+    const slug = used === 0 ? baseSlug : `${baseSlug}-${used + 1}`;
+    const entry: CompanyIndexEntry = {
+      slug,
+      displayName: n.label,
+      registeredOffices: n.seat ? [n.seat] : [],
+      stakes: [],
+      mpRoles: [],
+      tr: n.uic
+        ? {
+            uic: n.uic,
+            legalForm: n.legalForm,
+            status: n.status ?? "unknown",
+            seat: n.seat,
+            lastUpdated: null,
+            currentOfficers: [],
+            currentOwners: [],
+          }
+        : undefined,
+    };
+    byNodeId.set(n.id, entry);
+  }
+
+  // Walk MP↔company edges and append mpRoles. We dedupe by (mpId, role) so a
+  // manager-and-partner combination shows two rows but a single TR row that
+  // appears in two graph passes (e.g. role + transferred share) collapses.
+  type RoleKey = string;
+  const roleSets = new Map<string, Set<RoleKey>>();
+  for (const e of edges.values()) {
+    const s = nodes.get(e.source);
+    const t = nodes.get(e.target);
+    if (!s || !t) continue;
+    let mpNode: ConnectionsMpNode | null = null;
+    let companyNodeId: string | null = null;
+    if (s.type === "mp" && t.type === "company") {
+      mpNode = s;
+      companyNodeId = t.id;
+    } else if (t.type === "mp" && s.type === "company") {
+      mpNode = t;
+      companyNodeId = s.id;
+    }
+    if (!mpNode || !companyNodeId) continue;
+    const entry = byNodeId.get(companyNodeId);
+    if (!entry) continue;
+    // Skip declared-stake edges — they're already represented by `stakes`.
+    if (e.kind === "declared_stake") continue;
+    const mp = mpById.get(mpNode.mpId);
+    if (!mp) continue;
+    const key: RoleKey = `${mpNode.mpId}|${e.role ?? e.kind}`;
+    const seen = roleSets.get(companyNodeId) ?? new Set<RoleKey>();
+    if (seen.has(key)) continue;
+    seen.add(key);
+    roleSets.set(companyNodeId, seen);
+    const role: CompanyIndexEntryMpRole = {
+      mpId: mpNode.mpId,
+      mpName: mp.name,
+      role: e.role ?? e.kind,
+      isCurrent: e.isCurrent,
+      // Edges with no recorded confidence are TR-derived and have already
+      // passed the medium-or-better filter at the merge step. Treat the
+      // residual undefined as medium so the type stays narrow downstream.
+      confidence: e.confidence ?? "medium",
+    };
+    if (!entry.mpRoles) entry.mpRoles = [];
+    entry.mpRoles.push(role);
+  }
+
+  // Stable order: declared-by count desc, then TR-role count desc, then name.
+  const all = Array.from(byNodeId.values());
+  all.sort((a, b) => {
+    const aMps = a.stakes.length + (a.mpRoles?.length ?? 0);
+    const bMps = b.stakes.length + (b.mpRoles?.length ?? 0);
+    if (aMps !== bMps) return bMps - aMps;
+    return a.displayName.localeCompare(b.displayName, "bg", {
+      sensitivity: "base",
+    });
+  });
+  return all;
 };
 
 export const buildConnectionsGraph = ({
@@ -649,7 +778,16 @@ export const buildConnectionsGraph = ({
   for (const n of nodes.values()) if (n.type === "mp") mpNodeIds.add(n.id);
 
   /** Single-source BFS that records, for every other MP reachable within
-   * MAX_PATH_LENGTH edges, one shortest path back to source. */
+   * MAX_PATH_LENGTH edges, one shortest path back to source.
+   *
+   * Paths are forbidden to pass through other MP nodes as intermediates —
+   * an MP neighbour is recorded as a terminal target but never expanded.
+   * Without this guard the BFS would emit "A → co1 → B → co2 → C" alongside
+   * the shorter "A → co1 → B" already in the list, double-counting the same
+   * underlying relationship: "A and C are connected" then becomes a
+   * concatenation of "A↔B" and "B↔C" rather than a fresh tie. Each MP↔MP
+   * pair stays a first-class shortest path through companies/non-MP people
+   * only. */
   const computePathsFrom = (sourceId: string): ConnectionsPath[] => {
     type Entry = { prev: string | null; depth: number };
     const visited = new Map<string, Entry>();
@@ -664,10 +802,14 @@ export const buildConnectionsGraph = ({
       for (const { neighbor } of adjacency.get(cur) ?? []) {
         if (visited.has(neighbor)) continue;
         visited.set(neighbor, { prev: cur, depth: depth + 1 });
-        queue.push(neighbor);
         if (neighbor !== sourceId && mpNodeIds.has(neighbor)) {
           targets.push(neighbor);
+          // Don't expand through other MPs — see comment above. Their own
+          // BFS (run separately for every MP) will pick up the onward
+          // hops as direct ties from their own perspective.
+          continue;
         }
+        queue.push(neighbor);
       }
     }
 
@@ -1213,16 +1355,23 @@ export const buildConnectionsGraph = ({
     }
   }
 
-  // Headline rank is "how many fellow MPs does this person share a company
-  // with" — that's what readers want from the dashboard. We skip reach as
-  // a tiebreaker because a length-4 path can run through a name-matched
-  // associate node (low-confidence) and inflate the count for MPs whose
-  // co-MP ties are otherwise zero. Tie-break instead by raw high-conf
-  // degree (the MP's own business network depth), then total, then label.
+  // Headline rank is the MP's high-confidence business neighbourhood size
+  // (companies + corroborated associates). Earlier versions sorted by raw
+  // direct co-MP degree first, but in practice that surfaces two failure
+  // modes: (a) the lifetime list bubbles up MPs with common Bulgarian names
+  // whose direct ties are all medium-confidence name-matches, and (b) any
+  // current-parliament slice typically has every direct count at zero, so
+  // the leading column degenerates into a tie-broken alphabetical scramble.
+  // High-conf degree is corroborated by construction and never zero for an
+  // MP that has any actual business footprint, so it gives the dashboard
+  // tile a meaningful leading number in both scopes. Direct co-MP degree
+  // stays as the secondary tiebreaker — when two MPs are equally embedded
+  // in the network, the one who actually shares companies with another MP
+  // wins.
   topMpsAll.sort(
     (a, b) =>
-      b.mpMpDirectDegree - a.mpMpDirectDegree ||
       b.highConfDegree - a.highConfDegree ||
+      b.mpMpDirectDegree - a.mpMpDirectDegree ||
       b.totalDegree - a.totalDegree ||
       a.label.localeCompare(b.label, "bg"),
   );
@@ -1237,7 +1386,13 @@ export const buildConnectionsGraph = ({
   // page uses the head, the regional dashboards filter by region, and a
   // dedicated /connections rankings panel can paginate further. This stays
   // compact in practice — under ~100 KB even with the full graph behind it.
-  const lifetimeTopMps = topMpsAll.filter((r) => r.totalDegree > 0);
+  //
+  // The MP filter requires at least one *high-confidence* edge — MPs whose
+  // entire business network is medium-confidence name matches are too noisy
+  // to surface as "most connected" without manual disambiguation, and they
+  // dominate the lifetime list otherwise (common surnames pull dozens of
+  // ambiguous Commerce Registry hits in).
+  const lifetimeTopMps = topMpsAll.filter((r) => r.highConfDegree > 0);
   const lifetimeTopCompanies = topCompaniesAll.filter((r) => r.totalDegree > 0);
 
   // Per-parliament slices. For each NS folder we filter MPs to those whose
@@ -1281,10 +1436,15 @@ export const buildConnectionsGraph = ({
         mpMpDirectDegree: directInNs.get(mpNodeId(r.mpId))?.size ?? 0,
         mpMpReachDegree: reachInNs.get(mpNodeId(r.mpId))?.size ?? 0,
       }))
+      // Sort matches the lifetime list: high-confidence neighbourhood size
+      // first (always a meaningful non-zero number for an MP with any
+      // business footprint), then within-NS direct co-MP degree as the
+      // tiebreaker. Avoids the all-zeros leading column when an NS slice
+      // happens to have no co-MP overlaps.
       .sort(
         (a, b) =>
-          b.mpMpDirectDegree - a.mpMpDirectDegree ||
           b.highConfDegree - a.highConfDegree ||
+          b.mpMpDirectDegree - a.mpMpDirectDegree ||
           b.totalDegree - a.totalDegree ||
           a.label.localeCompare(b.label, "bg"),
       );
@@ -1406,6 +1566,34 @@ export const buildConnectionsGraph = ({
   // don't keep a stale 300 KB file in their build output.
   const legacyByMp = path.join(parliamentDir, "connections-by-mp.json");
   if (fs.existsSync(legacyByMp)) fs.rmSync(legacyByMp);
+
+  // ---- 7) Extend companies-index.json with TR-only graph companies -------
+  //
+  // companies-index.json is built earlier in the pipeline from cacbg-declared
+  // stakes only. The connections graph augments it with companies an MP only
+  // touches via Commerce Registry roles (manager, partner, transferred share)
+  // — those companies appear as nodes here but never made it into the index.
+  // Without this pass, the All Companies page is artificially scoped to ~700
+  // declared companies while the graph reaches ~2,000.
+  //
+  // For every company node in the graph we also collect the MP↔company TR
+  // edges as `mpRoles`, so the page can show "Naydenov is an active manager
+  // here" alongside (or instead of) declared-stake rows.
+  const augmentedCompanies = augmentCompaniesIndexFromGraph({
+    existing: companiesIndex.companies,
+    nodes,
+    edges,
+    mpById,
+  });
+  fs.writeFileSync(
+    companiesIndexPath,
+    stringify({
+      generatedAt,
+      total: augmentedCompanies.length,
+      companies: augmentedCompanies,
+    }),
+    "utf-8",
+  );
 
   const counts = { mp: 0, company: 0, person: 0 };
   for (const n of graph.nodes) counts[n.type]++;

@@ -34,11 +34,29 @@ export type CompanyIndexEntryStake = {
   stake: CompanyIndexStake;
 };
 
+/** TR-only relationship between an MP and a company (manager, partner,
+ * historical role, …). Populated for *every* index entry by the post-graph
+ * pass in build_connections_graph.ts so the All Companies page can show MPs
+ * connected via the Commerce Registry even when no stake was declared. */
+export type CompanyIndexEntryMpRole = {
+  mpId: number;
+  mpName: string;
+  /** TR role string — `manager`, `partner`, `tr_owner`, `procurator`, etc.
+   * Same vocabulary as `ConnectionsEdge.role`. */
+  role: string;
+  isCurrent: boolean;
+  confidence: "high" | "medium";
+};
+
 export type CompanyIndexEntry = {
   slug: string;
   displayName: string; // canonical (most-frequent) raw form
   registeredOffices: string[]; // distinct values across stakes
   stakes: CompanyIndexEntryStake[];
+  /** TR-only relationships (no declared stake). Populated for every entry
+   * by the post-graph extension so MPs whose link to this company is purely
+   * via the Commerce Registry are still visible in the All Companies page. */
+  mpRoles?: CompanyIndexEntryMpRole[];
   /** Filled in by Phase 5 TR integration when the declared company name
    * matches a row in raw_data/tr/state.sqlite. */
   tr?: TrCompanyEnrichment;
@@ -150,9 +168,18 @@ export const buildCompanyIndex = ({
   // differ only in casing or quote style). Disambiguate by appending an
   // incrementing suffix so slugs remain unique route keys.
   const slugUseCount = new Map<string, number>();
+  let droppedPlaceholder = 0;
   for (const [, g] of groups) {
     const displayName = pickDisplayName(g.rawNames);
     const baseSlug = slugifyCompanyName(displayName);
+    // Skip placeholder rows: declarants occasionally enter "-" or pure
+    // punctuation in the company name field. Slugifying them yields "" which
+    // can't be linked from the UI, and the resulting node ends up as a
+    // disconnected blob in the connections graph.
+    if (!baseSlug) {
+      droppedPlaceholder += g.stakes.length;
+      continue;
+    }
     const n = slugUseCount.get(baseSlug) ?? 0;
     slugUseCount.set(baseSlug, n + 1);
     const slug = n === 0 ? baseSlug : `${baseSlug}-${n + 1}`;
@@ -162,6 +189,11 @@ export const buildCompanyIndex = ({
       registeredOffices: Array.from(g.offices),
       stakes: g.stakes.sort((a, b) => b.declarationYear - a.declarationYear),
     });
+  }
+  if (droppedPlaceholder > 0) {
+    console.warn(
+      `[declarations] dropped ${droppedPlaceholder} placeholder stake(s) with no resolvable company name`,
+    );
   }
   companies.sort((a, b) =>
     a.displayName.localeCompare(b.displayName, "bg", { sensitivity: "base" }),

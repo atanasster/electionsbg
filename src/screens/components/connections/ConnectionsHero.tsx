@@ -14,9 +14,9 @@ type Props = {
   onCellClick?: (partyA: string, partyB: string) => void;
 };
 
-/** Hero block above the tabs: a one-sentence stat + a clickable party × party
- * heatmap. Both data sources are precomputed at build time so this renders
- * without loading the global graph. */
+/** Hero block at the top of the Connections page: a one-sentence stat + a
+ * clickable party × party heatmap. Both data sources are precomputed at
+ * build time so this renders without loading the global graph. */
 export const ConnectionsHero: FC<Props> = ({ ns, onCellClick }) => {
   const { t } = useTranslation();
   const { stats } = useConnectionsStats();
@@ -33,9 +33,9 @@ export const ConnectionsHero: FC<Props> = ({ ns, onCellClick }) => {
   }, [matrix, ns]);
 
   if (!scope || scope.mpsConnected === 0) {
-    // Don't render an empty hero — the page still has tabs below for the
-    // user to explore. Showing "0 MPs connected" would be confusing on
-    // parliaments without coverage.
+    // Don't render an empty hero — the strongest-connections, rankings and
+    // orbital graph cards below still let the user explore. Showing "0 MPs
+    // connected" would be confusing on parliaments without coverage.
     return null;
   }
 
