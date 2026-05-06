@@ -1,8 +1,8 @@
 import { FC, PropsWithChildren, useMemo } from "react";
 import { DashboardSectionId, useArticles } from "@/data/articles/useArticles";
 import { useElectionContext } from "@/data/ElectionContext";
-import { SectionArticlesContext } from "./sectionArticlesContext";
-import type { Assignment } from "./sectionArticlesContext";
+import { SectionArticlesContext } from "./articlesAssignment";
+import type { Assignment } from "./articlesAssignment";
 
 type Props = {
   // Topic order on the page. Each article is assigned to the FIRST topic it

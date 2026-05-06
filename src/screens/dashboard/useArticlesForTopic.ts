@@ -3,7 +3,7 @@ import type {
   DashboardSectionId,
   ArticleMeta,
 } from "@/data/articles/useArticles";
-import { SectionArticlesContext } from "./sectionArticlesContext";
+import { SectionArticlesContext } from "./articlesAssignment";
 
 export const useArticlesForTopic = (
   topic: DashboardSectionId,
