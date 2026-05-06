@@ -386,7 +386,7 @@ export const ConnectionsScreen: FC = () => {
       const rect = wrapEl.getBoundingClientRect();
       setSize({
         w: Math.max(320, Math.floor(rect.width)),
-        h: Math.max(420, Math.floor(window.innerHeight - rect.top - 24)),
+        h: Math.max(640, Math.floor(window.innerHeight - 80)),
       });
     });
     ro.observe(wrapEl);
