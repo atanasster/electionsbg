@@ -18,13 +18,11 @@ import { useConnectionsGraph } from "@/data/parliament/useConnectionsGraph";
 import { useConnectionsRankings } from "@/data/parliament/useConnectionsRankings";
 import { useConnectionsTopPairs } from "@/data/parliament/useConnectionsTopPairs";
 import { useElectionContext } from "@/data/ElectionContext";
-import { useSearchParam } from "@/screens/utils/useSearchParam";
 import { TopPairsList } from "@/screens/components/connections/TopPairsList";
 import {
   exportPairsCsv,
   downloadCsv,
 } from "@/screens/components/connections/exportPairsCsv";
-import { FindConnectionTab } from "@/screens/components/connections/FindConnectionTab";
 import { FilterRail } from "@/screens/components/connections/FilterRail";
 import { ConnectionsHero } from "@/screens/components/connections/ConnectionsHero";
 import { useConnectionsFilters } from "@/screens/components/connections/useConnectionsFilters";
@@ -33,7 +31,6 @@ import { candidateUrlForMp } from "@/data/candidates/candidateSlug";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { useMps } from "@/data/parliament/useMps";
 import { useCandidateName } from "@/data/candidates/useCandidateName";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import type {
   ConnectionsEdge,
   ConnectionsGraph,
@@ -61,9 +58,7 @@ const radiusForDegree = (degree: number): number =>
   3 + Math.min(7, Math.sqrt(degree) * 1.5);
 
 type Filters = {
-  showCurrentOnly: boolean;
   hideTransferred: boolean;
-  highConfidenceOnly: boolean;
   largestComponentOnly: boolean;
 };
 
@@ -103,16 +98,21 @@ const computeComponents = (
 const buildSimNodes = (
   graph: ConnectionsGraph,
   filters: Filters,
+  currentOnly: boolean,
+  highConfidenceOnly: boolean,
 ): {
   simNodes: SimNode[];
   simLinks: SimLink[];
   degree: Map<string, number>;
 } => {
-  // Filter edges first so we can drop orphan nodes.
+  // Filter edges first so we can drop orphan nodes. `currentOnly` and
+  // `highConfidenceOnly` come from the page-level FilterRail (shared with the
+  // strongest-connections list); `filters.hideTransferred` and
+  // `filters.largestComponentOnly` are graph-only layout knobs.
   const filteredEdges = graph.edges.filter((e) => {
-    if (filters.showCurrentOnly && !e.isCurrent) return false;
+    if (currentOnly && !e.isCurrent) return false;
     if (filters.hideTransferred && e.role === "transferred_share") return false;
-    if (filters.highConfidenceOnly && e.confidence !== "high") return false;
+    if (highConfidenceOnly && e.confidence !== "high") return false;
     return true;
   });
 
@@ -184,13 +184,7 @@ export const ConnectionsScreen: FC = () => {
   );
   const [showRankings, setShowRankings] = useState(true);
 
-  // Active tab — URL-stateful so deep-links to e.g. ?tab=find or ?tab=graph
-  // round-trip cleanly. "ties" is the default landing experience.
-  const [tabParam, setTabParam] = useSearchParam("tab", { replace: true });
-  const activeTab =
-    tabParam === "find" || tabParam === "graph" ? tabParam : "ties";
-
-  // Filter state — lifted into the URL via useConnectionsFilters so all chips
+// Filter state — lifted into the URL via useConnectionsFilters so all chips
   // are shareable and back-button friendly.
   const {
     filters: connFilters,
@@ -369,17 +363,10 @@ export const ConnectionsScreen: FC = () => {
     bottom: number;
   }>({ top: 0, bottom: 0 });
   const [filters, setFilters] = useState<Filters>({
-    showCurrentOnly: false,
     hideTransferred: false,
-    highConfidenceOnly: false,
     largestComponentOnly: false,
   });
   const [clusterByParty, setClusterByParty] = useState(false);
-
-  // Search-by-name autocomplete
-  const [searchQuery, setSearchQuery] = useState("");
-  const [showSearchSuggestions, setShowSearchSuggestions] = useState(false);
-  const searchInputRef = useRef<HTMLInputElement | null>(null);
 
   // Path-finding: when two MPs are picked, BFS the unfiltered graph to find
   // the shortest path between them, then highlight it.
@@ -435,7 +422,12 @@ export const ConnectionsScreen: FC = () => {
         simLinks: [] as SimLink[],
         neighbors: new Map<string, Set<string>>(),
       };
-    const { simNodes, simLinks } = buildSimNodes(graph, filters);
+    const { simNodes, simLinks } = buildSimNodes(
+      graph,
+      filters,
+      connFilters.currentOnly,
+      connFilters.highConfidenceOnly,
+    );
     const neighbors = new Map<string, Set<string>>();
     for (const e of simLinks) {
       const s = e.source as string;
@@ -446,7 +438,12 @@ export const ConnectionsScreen: FC = () => {
       neighbors.get(t)!.add(s);
     }
     return { simNodes, simLinks, neighbors };
-  }, [graph, filters]);
+  }, [
+    graph,
+    filters,
+    connFilters.currentOnly,
+    connFilters.highConfidenceOnly,
+  ]);
 
   // Map party group → angular target (radians) for clustering. Computed once
   // per simulation rebuild so partyAngle stays stable across ticks.
@@ -635,49 +632,6 @@ export const ConnectionsScreen: FC = () => {
     pathTo?.id,
     localizedMpLabel,
   ]);
-
-  // ---- Search ------------------------------------------------------------
-  const normalizeForSearch = (s: string): string =>
-    s.toLowerCase().replace(/\s+/g, " ").trim();
-
-  const searchSuggestions = useMemo<SimNode[]>(() => {
-    const q = normalizeForSearch(searchQuery);
-    if (q.length < 2) return [];
-    const matches: Array<{ n: SimNode; score: number }> = [];
-    for (const n of simNodes) {
-      // Match against both the BG label and the MP's English form so a
-      // user typing "borisov" in the EN locale still finds the BG-labeled
-      // node. Companies / persons have no en form, so we just match the label.
-      const enLabel =
-        n.type === "mp" ? normalizeForSearch(localizedMpLabel(n.mpId, "")) : "";
-      const label = normalizeForSearch(n.label);
-      const labelHit = label.includes(q);
-      const enHit = enLabel ? enLabel.includes(q) : false;
-      if (!labelHit && !enHit) continue;
-      // Score: exact prefix beats substring; shorter labels win ties.
-      const matched = labelHit ? label : enLabel;
-      const score =
-        (matched.startsWith(q) ? 1000 : 0) + (1000 - matched.length);
-      matches.push({ n, score });
-    }
-    matches.sort((a, b) => b.score - a.score);
-    return matches.slice(0, 8).map((m) => m.n);
-  }, [searchQuery, simNodes, localizedMpLabel]);
-
-  const focusNode = (n: SimNode) => {
-    setSelected(n);
-    if (n.x != null && n.y != null) {
-      // Center camera on the node (subtract because translate(cam.x, cam.y)
-      // shifts the world by cam.x; to put node at center of screen with
-      // scale s, we need cam.x = -node.x * s).
-      const s = cameraRef.current.scale;
-      cameraRef.current.x = -n.x * s;
-      cameraRef.current.y = -n.y * s;
-    }
-    setSearchQuery("");
-    setShowSearchSuggestions(false);
-    searchInputRef.current?.blur();
-  };
 
   // ---- Mouse interactions: hover, click, pan, drag node, zoom ----
   const screenToWorld = (sx: number, sy: number) => {
@@ -912,24 +866,7 @@ export const ConnectionsScreen: FC = () => {
         availableNsFolders={availableNsFolders}
       />
 
-      <Tabs
-        value={activeTab}
-        onValueChange={(v) => setTabParam(v === "ties" ? undefined : v)}
-        className="my-4"
-      >
-        <TabsList>
-          <TabsTrigger value="ties">
-            {t("connections_tab_ties") || "Strongest ties"}
-          </TabsTrigger>
-          <TabsTrigger value="find">
-            {t("connections_tab_find") || "Find a connection"}
-          </TabsTrigger>
-          <TabsTrigger value="graph">
-            {t("connections_tab_graph") || "Explore graph"}
-          </TabsTrigger>
-        </TabsList>
-
-        <TabsContent value="ties">
+      <div className="my-4">
           {(diffMode ? diffPairs.merged.length : scopedPairs.length) > 0 && (
             <Card className="my-4">
               <CardContent className="p-3 md:p-4">
@@ -1104,19 +1041,15 @@ export const ConnectionsScreen: FC = () => {
               </CardContent>
             </Card>
           )}
-        </TabsContent>
+      </div>
 
-        <TabsContent value="find">
-          <Card className="my-4">
-            <CardContent className="p-3 md:p-4">
-              <FindConnectionTab scopedNs={selectedNs} />
-            </CardContent>
-          </Card>
-        </TabsContent>
-
-        <TabsContent value="graph">
-          <Card className="my-4">
-            <CardContent className="p-3 md:p-4">
+      {/* Orbital graph — rendered as a normal card below the strongest-ties
+          and rankings sections so it is always visible. */}
+      <Card className="my-4">
+        <CardContent className="p-3 md:p-4">
+          <h3 className="text-sm font-semibold mb-3">
+            {t("connections_tab_graph") || "Explore graph"}
+          </h3>
               <div className="flex flex-wrap gap-3 items-center text-xs text-muted-foreground mb-3">
                 <span>
                   <span className="inline-block h-2 w-2 rounded-full bg-blue-600 mr-1 align-middle" />
@@ -1145,19 +1078,6 @@ export const ConnectionsScreen: FC = () => {
                   <label className="inline-flex gap-1 cursor-pointer">
                     <input
                       type="checkbox"
-                      checked={filters.showCurrentOnly}
-                      onChange={(e) =>
-                        setFilters((f) => ({
-                          ...f,
-                          showCurrentOnly: e.target.checked,
-                        }))
-                      }
-                    />
-                    {t("connections_filter_current_only") || "Current only"}
-                  </label>
-                  <label className="inline-flex gap-1 cursor-pointer">
-                    <input
-                      type="checkbox"
                       checked={filters.hideTransferred}
                       onChange={(e) =>
                         setFilters((f) => ({
@@ -1168,20 +1088,6 @@ export const ConnectionsScreen: FC = () => {
                     />
                     {t("connections_filter_hide_transferred") ||
                       "Hide transfers"}
-                  </label>
-                  <label className="inline-flex gap-1 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={filters.highConfidenceOnly}
-                      onChange={(e) =>
-                        setFilters((f) => ({
-                          ...f,
-                          highConfidenceOnly: e.target.checked,
-                        }))
-                      }
-                    />
-                    {t("connections_filter_high_confidence_only") ||
-                      "High confidence only"}
                   </label>
                   <label className="inline-flex gap-1 cursor-pointer">
                     <input
@@ -1206,69 +1112,6 @@ export const ConnectionsScreen: FC = () => {
                     {t("connections_cluster_by_party") || "Cluster by party"}
                   </label>
                 </span>
-              </div>
-
-              <div className="flex flex-wrap gap-2 items-center text-xs mb-3 relative">
-                <div className="relative">
-                  <input
-                    ref={searchInputRef}
-                    type="text"
-                    value={searchQuery}
-                    onChange={(e) => {
-                      setSearchQuery(e.target.value);
-                      setShowSearchSuggestions(true);
-                    }}
-                    onFocus={() => setShowSearchSuggestions(true)}
-                    onBlur={() =>
-                      setTimeout(() => setShowSearchSuggestions(false), 150)
-                    }
-                    onKeyDown={(e) => {
-                      if (e.key === "Enter" && searchSuggestions.length > 0) {
-                        focusNode(searchSuggestions[0]);
-                      } else if (e.key === "Escape") {
-                        setSearchQuery("");
-                        setShowSearchSuggestions(false);
-                      }
-                    }}
-                    placeholder={
-                      t("connections_search_placeholder") || "Search node…"
-                    }
-                    className="px-2 py-1 rounded border border-border bg-background w-64"
-                  />
-                  {showSearchSuggestions && searchSuggestions.length > 0 && (
-                    <div className="absolute top-full left-0 mt-1 z-10 w-64 bg-card border border-border rounded shadow-md max-h-64 overflow-y-auto">
-                      {searchSuggestions.map((n) => {
-                        const display =
-                          n.type === "mp"
-                            ? localizedMpLabel(n.mpId, n.label)
-                            : n.label;
-                        return (
-                          <button
-                            key={n.id}
-                            type="button"
-                            onMouseDown={(e) => {
-                              e.preventDefault();
-                              focusNode(n);
-                            }}
-                            className="w-full text-left px-2 py-1.5 hover:bg-muted flex items-center gap-2 truncate"
-                          >
-                            {n.type === "mp" ? (
-                              <MpAvatar mpId={n.mpId} name={display} />
-                            ) : (
-                              <span
-                                className="inline-block h-2 w-2 rounded-full shrink-0"
-                                style={{
-                                  backgroundColor: TYPE_COLORS[n.type],
-                                }}
-                              />
-                            )}
-                            <span className="truncate">{display}</span>
-                          </button>
-                        );
-                      })}
-                    </div>
-                  )}
-                </div>
               </div>
 
               <div className="flex flex-wrap gap-2 items-center text-xs mb-3">
@@ -1321,35 +1164,35 @@ export const ConnectionsScreen: FC = () => {
                 )}
               </div>
 
-              <div ref={canvasWrapRef} className="w-full relative">
-                {isLoading || !graph ? (
-                  <div
-                    className="text-sm text-muted-foreground"
-                    style={{ height: size.h }}
-                  >
-                    {t("loading") || "Loading…"}
-                  </div>
-                ) : (
-                  <canvas
-                    ref={canvasRef}
-                    onMouseMove={onMouseMove}
-                    onMouseDown={onMouseDown}
-                    onMouseUp={onMouseUp}
-                    onMouseLeave={() => {
-                      draggingRef.current = null;
-                      lastMouseRef.current = null;
-                      hoveredIdRef.current = null;
-                      setHovered(null);
-                    }}
-                    onWheel={onWheel}
-                    className="block border rounded select-none"
-                    style={{
-                      width: size.w,
-                      height: size.h,
-                      touchAction: "none",
-                    }}
-                  />
-                )}
+          <div ref={canvasWrapRef} className="w-full relative">
+            {isLoading || !graph ? (
+              <div
+                className="text-sm text-muted-foreground"
+                style={{ height: size.h }}
+              >
+                {t("loading") || "Loading…"}
+              </div>
+            ) : (
+              <canvas
+                ref={canvasRef}
+                onMouseMove={onMouseMove}
+                onMouseDown={onMouseDown}
+                onMouseUp={onMouseUp}
+                onMouseLeave={() => {
+                  draggingRef.current = null;
+                  lastMouseRef.current = null;
+                  hoveredIdRef.current = null;
+                  setHovered(null);
+                }}
+                onWheel={onWheel}
+                className="block border rounded select-none"
+                style={{
+                  width: size.w,
+                  height: size.h,
+                  touchAction: "none",
+                }}
+              />
+            )}
                 {detail && !isLoading && graph && (
                   <div
                     className="absolute z-10 bg-card/95 backdrop-blur-sm border rounded-md shadow-lg p-3 overflow-y-auto"
@@ -1486,11 +1329,9 @@ export const ConnectionsScreen: FC = () => {
                     </div>
                   </div>
                 )}
-              </div>
-            </CardContent>
-          </Card>
-        </TabsContent>
-      </Tabs>
+          </div>
+        </CardContent>
+      </Card>
     </div>
   );
 };
