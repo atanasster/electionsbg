@@ -1,7 +1,7 @@
 import { FC, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Wallet, ArrowUp, ArrowDown, ExternalLink } from "lucide-react";
+import { ArrowUp, ArrowDown, ExternalLink } from "lucide-react";
 import { Title } from "@/ux/Title";
 import { useAssetsRankings } from "@/data/parliament/useAssetsRankings";
 import { useElectionContext } from "@/data/ElectionContext";

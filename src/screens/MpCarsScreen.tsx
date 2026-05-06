@@ -1,7 +1,7 @@
 import { FC, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Car, ExternalLink } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 import { Title } from "@/ux/Title";
 import { useMpCars } from "@/data/parliament/useMpCars";
 import { useElectionContext } from "@/data/ElectionContext";

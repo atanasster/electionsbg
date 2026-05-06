@@ -132,7 +132,7 @@ The avatar styling (party-coloured ring) is shared with the dashboard rankings r
 
 ## 5. The [connections page](/connections)
 
-The centerpiece. The page is built around a single question: *who is connected to whom in this parliament, and through what?* The page lays out as a vertical stack: a hero stat block on top, a chip filter rail beneath it, then three cards in order — strongest connections, most-connected rankings, and the orbital graph.
+The centerpiece. The page is built around a single question: *who is connected to whom in this parliament, and through what?* The page lays out as a vertical stack: a hero stat block on top, a chip filter rail beneath it, then two cards in order — strongest connections and the orbital graph.
 
 ### The hero block
 
@@ -167,8 +167,6 @@ A toolbar above the list adds three power-user controls:
 
 - **Compare 51 → 52** — when on, the rows are colour-coded: green for *new* pairs that appear in the selected parliament but not the prior one, neutral for *carried over* (in both), red strikethrough for *ended* (only in the prior). Bulgaria's parliamentary churn makes this view uniquely useful — it surfaces ownership patterns that survive the rotation of MPs.
 - **Export CSV** — downloads the current filtered list as a flat CSV with one row per pair, ready to open in Excel or Sheets. Columns mirror what's visible on the page (endpoints, parties, parliaments, shared-company count, full chain).
-- **Watchlist stars** — every chip-chain row carries a star next to each MP name. Starred MPs are saved in your browser and rows containing a watched MP get a soft amber ring so you can scan the list for follow-ups without reading every name.
-
 ### Most-connected rankings card
 
 Sits directly below the strongest-connections list. A two-column grid: **Top MPs** by high-confidence ties on the left, **Top companies** by MP count on the right, ten rows each. Both lists honour the scope chip in the rail — switch to NS-52 and the top MPs become the same set the dashboard tile shows (Naydenov 10, Terziyski 7, Martin Dimitrov 4, Dilov 4, Aliyeva-Veli 4). A *View all →* link under the companies column goes to the [flat companies index](/mp/companies).

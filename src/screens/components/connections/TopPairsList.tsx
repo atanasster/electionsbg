@@ -1,6 +1,6 @@
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { ExternalLink, Star } from "lucide-react";
+import { ExternalLink } from "lucide-react";
 import type {
   ConnectionsCompanyNode,
   ConnectionsEdge,
@@ -8,7 +8,6 @@ import type {
   ConnectionsTopPair,
 } from "@/data/dataTypes";
 import { ConnectionPathRow } from "@/screens/components/candidates/ConnectionPathRow";
-import { useWatchlist } from "./useWatchlist";
 import { useMps } from "@/data/parliament/useMps";
 import { useCandidateName } from "@/data/candidates/useCandidateName";
 import { cn } from "@/lib/utils";
@@ -79,7 +78,6 @@ const TopPairRow: FC<{
   diffKind: PairDiffKind;
 }> = ({ pair, diffKind }) => {
   const { t } = useTranslation();
-  const { isWatched, toggle } = useWatchlist();
   const { findMpById } = useMps();
   const { mpName } = useCandidateName();
   const aLabel = mpName(findMpById(pair.mpA.mpId)) || pair.mpA.label;
@@ -122,16 +120,11 @@ const TopPairRow: FC<{
     return null;
   }, [pair.pathNodes]);
 
-  const watchedA = isWatched(pair.mpA.mpId);
-  const watchedB = isWatched(pair.mpB.mpId);
-  const anyWatched = watchedA || watchedB;
-
   return (
     <div
       className={cn(
         "rounded border border-border/60",
         diffKind && `border-l-4 ${DIFF_BORDER[diffKind]}`,
-        anyWatched && "ring-1 ring-amber-400",
       )}
     >
       <ConnectionPathRow
@@ -145,34 +138,8 @@ const TopPairRow: FC<{
             {t(DIFF_LABEL[diffKind]) || DIFF_LABEL_FALLBACK[diffKind]}
           </span>
         )}
-        <button
-          type="button"
-          onClick={() => toggle(pair.mpA.mpId)}
-          className="inline-flex items-center gap-0.5 hover:text-foreground"
-          aria-label={`Watch ${aLabel}`}
-        >
-          <Star
-            className={cn(
-              "h-3 w-3",
-              watchedA ? "fill-amber-400 text-amber-500" : "",
-            )}
-          />
-          <span className="truncate max-w-[10rem]">{aLabel}</span>
-        </button>
-        <button
-          type="button"
-          onClick={() => toggle(pair.mpB.mpId)}
-          className="inline-flex items-center gap-0.5 hover:text-foreground"
-          aria-label={`Watch ${bLabel}`}
-        >
-          <Star
-            className={cn(
-              "h-3 w-3",
-              watchedB ? "fill-amber-400 text-amber-500" : "",
-            )}
-          />
-          <span className="truncate max-w-[10rem]">{bLabel}</span>
-        </button>
+        <span className="truncate max-w-[10rem]">{aLabel}</span>
+        <span className="truncate max-w-[10rem]">{bLabel}</span>
         {trSourceUrl && (
           <a
             href={trSourceUrl}
