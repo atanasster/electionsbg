@@ -1,6 +1,6 @@
 ---
 name: update-connections
-description: Refresh the MP business-connections data — pulls property/interest declarations from register.cacbg.bg (Court of Audit) and Commerce Registry filings from data.egov.bg, then rebuilds the connections graph, rankings, and per-MP files under public/parliament/. Use when the user asks to refresh declarations, update business connections, add a new declaration year (e.g. 2026 filings appear in spring), regenerate the connections graph, rebuild the Commerce Registry SQLite, or fix missing companies / management roles on candidate pages. Also use after a fresh git clone if `public/parliament/connections.json` or `companies-index.json` is missing.
+description: Refresh the MP business-connections data — pulls property/interest declarations from register.cacbg.bg (Court of Audit) and Commerce Registry filings from data.egov.bg, then rebuilds the connections graph, rankings, and per-MP files under public/parliament/. Also flags unrealistic-looking declared values (cars/apartments/assets) and walks the operator through adding a typo override. Use when the user asks to refresh declarations, update business connections, add a new declaration year (e.g. 2026 filings appear in spring), regenerate the connections graph, rebuild the Commerce Registry SQLite, fix missing companies / management roles on candidate pages, or investigate a suspicious-looking declared value flagged by the typo checker. Also use after a fresh git clone if `public/parliament/connections.json` or `companies-index.json` is missing.
 allowed-tools:
   - Read
   - Bash
@@ -148,9 +148,19 @@ When a new filing season opens (typically May for prior fiscal year):
 
 3. **Watch the warnings** — every `[declarations] no MP match for "..."` is a declarant we couldn't link to an MP id. Common causes are listed under "Common pitfalls". A handful per year is normal; dozens means the parliament index is stale (re-run **parliament-scrape** first).
 
-4. **Spot-check the dashboard** at `/?_=` (cache-bust) — the "Бизнес връзки на депутатите" tile should show the new year reflected in any MP whose declarations grew. The tile filters by current parliament's NS folder; switch elections to verify older NSes still populate.
+4. **Run the typo flagger** (mandatory). After the rebuild, scan the new
+   declarations for unrealistic-looking BGN values that survived parsing:
+   ```bash
+   npx tsx scripts/declarations/check_suspicious_values.ts
+   ```
+   Flagged rows fall into three categories — see "Typo and unrealistic-value
+   detection" below for the decision flow. Already-overridden typos do not
+   re-flag (the parser corrects them before the value lands in the JSON);
+   anything new that prints a "FLAG" line needs operator action.
 
-5. **Commit**:
+5. **Spot-check the dashboard** at `/?_=` (cache-bust) — the "Бизнес връзки на депутатите" tile should show the new year reflected in any MP whose declarations grew. The tile filters by current parliament's NS folder; switch elections to verify older NSes still populate.
+
+6. **Commit**:
    ```bash
    git add public/parliament/declarations public/parliament/companies-index.json \
            public/parliament/mp-management public/parliament/connections.json \
@@ -179,7 +189,10 @@ The backfill above lives in the rankings file only. `index.json` still reflects 
 Two distinct companies whose names differ only in casing or quote style slug to the same string (e.g. `"Хранител"` vs `"хранител"`). `build_company_index.ts` disambiguates by appending `-2`, `-3`, …. `MpCompanyScreen` decodes the slug and looks up by exact match — never assume one slug = one company without checking the index.
 
 ### `"-"` placeholder values in declarations
-register.cacbg.bg uses `"-"` as a "no value" sentinel in `itemType`, `companyName`, `holderName`, etc. Don't treat them as real strings (e.g. don't slugify `"-"`, don't display as company name). The per-stake `companyName` on `companies-index.json` was specifically removed for this reason — the parent `displayName` is the canonical reference.
+register.cacbg.bg uses `"-"` as a "no value" sentinel in `itemType`, `companyName`, `holderName`, etc. Don't treat them as real strings (e.g. don't slugify `"-"`, don't display as company name). The per-stake `companyName` on `companies-index.json` was specifically removed for this reason — the parent `displayName` is the canonical reference. `build_company_index.ts` also drops any group whose canonical display name slugifies to empty (a `"-"` only entry) so the connections graph doesn't grow a placeholder company node.
+
+### Decimal/thousand separator typos in declared values
+A non-trivial fraction of declared BGN values are off by 100×–1000× because the declarant typed thousand-separators where the form expected decimals (or vice versa). Without intervention these dominate the assets ranking and the per-MP wealth pages. The pipeline handles them via narrow per-row overrides plus an automated flagger — see "Typo and unrealistic-value detection" below for the override tables, the heuristic thresholds, and the decision flow.
 
 ### TR SQLite is optional
 If `raw_data/tr/state.sqlite` is missing (e.g. fresh clone before TR bulk runs), `integrateTr` and `buildConnectionsGraph` log `no TR SQLite — skipping` and produce **partial** outputs:
@@ -202,6 +215,109 @@ The full `MpOwnershipStake` lives in `public/parliament/declarations/{mpId}.json
 
 ### Per-MP files vs aggregates
 Per-MP files (`declarations/{mpId}.json`, `mp-management/{mpId}.json`) are **lazy** — the candidate page fetches one. Aggregates (`companies-index.json`, `connections-rankings.json`) are **eager** in the routes that use them. When trimming output, weigh field cost against load frequency: trimming `connections.json` matters more than trimming `mp-management/{mpId}.json`.
+
+## Typo and unrealistic-value detection
+
+Declarants occasionally enter the wrong number of zeros — a 33,000 BGN
+apartment becomes 33,000,000, a 1999 VW Golf becomes 800,000 BGN. Left
+alone these typos dominate every chart on the site (highest declared car,
+top assets ranking, single-mp net worth) and silently corrupt the totals.
+
+The pipeline handles them in two layers:
+
+### Layer 1 — narrow overrides applied at parse time
+
+Two tables in `scripts/declarations/parse_declaration.ts`:
+
+- `REAL_ESTATE_VALUE_OVERRIDES` — Table 1 rows. Match key:
+  `sourceUrlContains` + `location` + `areaSqm` + raw value.
+- `VEHICLE_VALUE_OVERRIDES` — Table 3 rows. Match key:
+  `sourceUrlContains` + `acquiredYear` + raw value, plus optional
+  `detailContains` (case-insensitive substring) to disambiguate when an MP
+  has multiple cars in the same filing.
+
+Each entry corrects exactly one declared value; the parser swaps in the
+`correctedValue` and the rest of the pipeline never sees the original. Both
+match keys are intentionally narrow — heuristic clamps ("anything over 100k
+BGN/m² must be wrong") would silently rewrite legitimate luxury holdings.
+
+**Persistent vs per-filing source URLs**: register.cacbg.bg URLs share a
+UUID prefix that's the declarant's persistent identifier, with a 6-digit
+trailing suffix per filing year. If the same MP files the same erroneous
+row across multiple years, match by the **persistent prefix only** so one
+override covers every year. Concrete example —
+`D6FB7B43-A7B9-496A-BEA5-05040F3EB514` (Hakkı's prefix) covers his 2022,
+2023, and 2024 filings of the same VW Golf row.
+
+### Layer 2 — automated flagging of unhandled rows
+
+```bash
+npx tsx scripts/declarations/check_suspicious_values.ts
+```
+
+Walks every row in `public/parliament/declarations/{mpId}.json` and prints
+"FLAG" lines for any whose declared BGN value passes a category-specific
+heuristic threshold. Already-overridden rows don't re-flag because Layer 1
+corrects them before they land in the per-MP JSON. Run after every
+`npm run data -- --declarations` (also wired into the new-year refresh
+playbook above).
+
+Current thresholds (`THRESHOLDS` constant in the script — keep narrow):
+
+| Category | Threshold |
+|---|---|
+| Real estate | > 5M BGN absolute, OR > 100k BGN/m² when area is present |
+| Vehicle | > 500k BGN absolute, OR > 150k BGN for cars > 15 years old |
+| Bank / cash | > 50M BGN per row |
+| Receivable | > 100M BGN per row (Peevski's 19M legitimate row sits well below) |
+| Investment / security | > 50M BGN per row |
+
+For each flagged row the operator decides:
+
+1. **Real typo** — add an entry to the matching override table in
+   `parse_declaration.ts` keyed by sourceUrl (use the persistent prefix
+   when the same row appears across years), then re-run
+   `scripts/declarations/rebuild_all_from_cache.ts`. The flagger should
+   stop reporting the row on the next run.
+2. **Legitimate large holding** — leave it alone. It will keep flagging
+   on every check; that's intentional. Don't widen the threshold to make
+   one row pass — that risks silencing the next typo at the same
+   magnitude.
+3. **Wrong field, not wrong value** (e.g. a 3000 m² plot entered as
+   "3 m²" with the price intact) — neither override nor accept fixes
+   this. Flagging is correct; we don't currently support area overrides.
+   Note it on the spreadsheet of "known data-entry errors we live with"
+   and move on. The article §6 already calls this case out for the
+   Pavlov 2021 typo.
+
+### Adding a new typo override — worked example
+
+Operator sees this on the flagger:
+
+```
+▸ Стратсимир Илков Павлов — real_estate
+  33,383,100 BGN — real-estate value > 5,000,000 BGN
+  апартамент | гр.Варна | 71.14 m² | acquired 1999
+  declaration 2021: https://register.cacbg.bg/2021_nc/BA28CE20-4161-418F-A6A7-F02741296A4B125934.xml
+```
+
+The companion office (41 m², same year) on the same declaration is 27,169
+BGN — the magnitude gap is the tell. Add to `REAL_ESTATE_VALUE_OVERRIDES`:
+
+```ts
+{
+  sourceUrlContains: "BA28CE20-4161-418F-A6A7-F02741296A4B125934",
+  location: "Варна",
+  areaSqm: 71.14,
+  rawValue: 33383100,
+  correctedValue: 33383,
+  note: "Corrected: declarant misplaced separator (source value 33,383,100 BGN for 71m² Varna apartment).",
+}
+```
+
+Re-run `npx tsx scripts/declarations/rebuild_all_from_cache.ts`. The
+flagger no longer reports the row, and the assets ranking / candidate
+page now show the corrected value.
 
 ## Debug knobs
 
@@ -229,7 +345,9 @@ For the TR side, `--limit N` on `--reconstruct` replays only the first N days (s
 | Path | Purpose |
 |---|---|
 | `scripts/declarations/index.ts` | Phase 1 entry. Walks register.cacbg.bg, writes per-MP JSON, then chains into phases 2/5/6. |
-| `scripts/declarations/parse_declaration.ts` | XML → `MpDeclaration` (stakes + income tables). |
+| `scripts/declarations/parse_declaration.ts` | XML → `MpDeclaration` (stakes + income tables). Also owns `REAL_ESTATE_VALUE_OVERRIDES` and `VEHICLE_VALUE_OVERRIDES` — narrow per-row corrections for declarant typos. |
+| `scripts/declarations/check_suspicious_values.ts` | Flagger that prints any per-row BGN value above the heuristic thresholds. Run after every declarations refresh; informational exit code only. |
+| `scripts/declarations/rebuild_all_from_cache.ts` | Re-parse every cached declaration XML and re-run every downstream builder, no network. Use after editing `parse_declaration.ts` (e.g. adding an override) so existing per-MP JSON files pick up the change. |
 | `scripts/declarations/build_company_index.ts` | Phase 2. Aggregates per-MP stakes by company name. Defines `CompanyIndexStake` projection. |
 | `scripts/declarations/tr/cli.ts` | Phase 3 + 4 entry. Bulk + incremental + reconstruct subcommands. |
 | `scripts/declarations/tr/integrate.ts` | Phase 5. Joins TR SQLite into companies-index + emits mp-management/. |

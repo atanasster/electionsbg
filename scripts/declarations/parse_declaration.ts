@@ -201,6 +201,53 @@ const REAL_ESTATE_VALUE_OVERRIDES: Array<{
     correctedValue: 33383,
     note: "Corrected: declarant misplaced separator (source value 33,383,100 BGN for 71m² Varna apartment).",
   },
+  {
+    // Рена Енчева Стефанова 2022 + 2023 — same 73m² apartment in Ruse
+    // acquired 1998 declared at 5,887,000 BGN each year. ~80,000 BGN/m²
+    // is implausible for 1998 Ruse (regional city, before EU accession);
+    // declarant typed thousand-separators in place of decimals — same
+    // pattern as the Pavlov 2021 entry above. Corrected to /1000.
+    //
+    // Match key uses the persistent UUID prefix so a single entry covers
+    // both filing years (2022 suffix 136935, 2023 suffix 145755).
+    sourceUrlContains: "AC71611D-C92E-42B2-AC71-068007E03AEB",
+    location: "гр.Русе",
+    areaSqm: 73,
+    rawValue: 5887000,
+    correctedValue: 5887,
+    note: "Corrected: declarant misplaced separator (source value 5,887,000 BGN for 73m² Ruse apartment, applied to every filing year that includes the row).",
+  },
+];
+
+/** Same idea as REAL_ESTATE_VALUE_OVERRIDES, applied to Table 3 (vehicles).
+ * Each entry matches by (sourceUrl, raw amount, acquired year) — narrow
+ * enough that legitimate luxury-car declarations are not affected. */
+const VEHICLE_VALUE_OVERRIDES: Array<{
+  sourceUrlContains: string;
+  detailContains?: string;
+  acquiredYear: number;
+  rawValue: number;
+  correctedValue: number;
+  note: string;
+}> = [
+  {
+    // Ихсан Халил Хаккъ — 1999 VW Golf declared at 800,000 BGN across
+    // multiple filing years. A 1999 base-spec Golf does not retail for
+    // ~400× its private-party value; declarant typed the decimal/thousand
+    // separator three orders of magnitude off in every filing that
+    // referenced the car. Corrected to 800 BGN.
+    //
+    // Match key uses the MP's persistent URL prefix so all of his filings
+    // (2022/2023/2024 declarations sharing UUID-prefix D6FB7B43-…-05040F3EB514
+    // but differing in the trailing 6-digit per-declaration suffix) are
+    // covered with one entry.
+    sourceUrlContains: "D6FB7B43-A7B9-496A-BEA5-05040F3EB514",
+    detailContains: "голф",
+    acquiredYear: 1999,
+    rawValue: 800000,
+    correctedValue: 800,
+    note: "Corrected: declarant misplaced separator (source value 800,000 BGN for 1999 VW Golf, applied to every filing year that includes the row).",
+  },
 ];
 
 const parseTable1Row = (
@@ -246,18 +293,34 @@ const parseTable1Row = (
 const parseTable3Row = (
   row: ReturnType<CheerioAPI>,
   declarantName: string,
+  sourceUrl: string,
 ): MpAsset => {
   const holder = cellByNum(row, 6);
-  const value = toNumber(cellByNum(row, 4));
+  const rawValue = toNumber(cellByNum(row, 4));
+  const detail = cellByNum(row, 3);
+  const acquiredYear = toIntYear(cellByNum(row, 5));
+  let value = rawValue;
+  if (rawValue != null && acquiredYear != null) {
+    const fix = VEHICLE_VALUE_OVERRIDES.find(
+      (o) =>
+        sourceUrl.includes(o.sourceUrlContains) &&
+        o.acquiredYear === acquiredYear &&
+        o.rawValue === rawValue &&
+        (o.detailContains == null ||
+          (detail != null &&
+            detail.toLowerCase().includes(o.detailContains.toLowerCase()))),
+    );
+    if (fix) value = fix.correctedValue;
+  }
   return {
     category: "vehicle",
     description: cellByNum(row, 2),
-    detail: cellByNum(row, 3),
+    detail,
     location: null,
     municipality: null,
     areaSqm: null,
     builtAreaSqm: null,
-    acquiredYear: toIntYear(cellByNum(row, 5)),
+    acquiredYear,
     share: cellByNum(row, 8),
     currency: value != null ? "BGN" : null,
     amount: value,
@@ -376,7 +439,7 @@ const parseAssetTables = (
     t.find("Row").each((_, el) => {
       const row = $(el);
       if (isEmptyRow($, row)) return;
-      out.push(parseTable3Row(row, declarantName));
+      out.push(parseTable3Row(row, declarantName, sourceUrl));
     });
   }
 
