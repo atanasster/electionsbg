@@ -99,9 +99,7 @@ export const Header = () => {
         <Search />
         {reportsMenu.map((topMenu, idx) => (
           <DropdownMenu key={`${topMenu.title}=${idx}`}>
-            <DropdownMenuTrigger
-              className="text-sm font-medium hidden lg:flex items-center gap-1 lowercase whitespace-nowrap text-secondary-foreground hover:text-primary focus:outline-none"
-            >
+            <DropdownMenuTrigger className="text-sm font-medium hidden lg:flex items-center gap-1 lowercase whitespace-nowrap text-secondary-foreground hover:text-primary focus:outline-none">
               {t(topMenu.title)}
               <ChevronDown className="h-3.5 w-3.5 opacity-70" aria-hidden />
             </DropdownMenuTrigger>

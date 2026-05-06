@@ -3,10 +3,7 @@ import { useTranslation } from "react-i18next";
 import { FileText } from "lucide-react";
 import { Hint } from "@/ux/Hint";
 import { Link } from "@/ux/Link";
-import {
-  DashboardSectionId,
-  useArticles,
-} from "@/data/articles/useArticles";
+import { DashboardSectionId, useArticles } from "@/data/articles/useArticles";
 import { useElectionContext } from "@/data/ElectionContext";
 import { StatCard } from "./StatCard";
 

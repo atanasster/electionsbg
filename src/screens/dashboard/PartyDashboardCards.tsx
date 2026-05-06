@@ -1,12 +1,6 @@
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
-import {
-  Briefcase,
-  CalendarDays,
-  Coins,
-  Gauge,
-  Map,
-} from "lucide-react";
+import { Briefcase, CalendarDays, Coins, Gauge, Map } from "lucide-react";
 import { PartyInfo } from "@/data/dataTypes";
 import { DashboardSectionId } from "@/data/articles/useArticles";
 import { useElectionContext } from "@/data/ElectionContext";
@@ -134,135 +128,135 @@ export const PartyDashboardCards: FC<Props> = ({ party }) => {
 
   return (
     <SectionArticlesProvider order={SECTION_TOPICS}>
-    <section aria-label={t("dashboard")} className="my-4">
-      <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-        <div className={TILE_HEIGHTS.card}>
-          <PartyVotersCard data={data} />
-        </div>
-        <div className={TILE_HEIGHTS.card}>
-          <PartyPositionCard data={data} />
-        </div>
-        <div className={TILE_HEIGHTS.card}>
-          <PartyPaperMachineCard
-            paperMachine={data.paperMachine}
-            priorElection={data.priorElection}
-          />
-        </div>
-        <div className={TILE_HEIGHTS.card}>
-          <PartyTopRegionCard data={data} />
-        </div>
-      </div>
-
-      {hasFinancials ? (
-        <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 mt-3">
+      <section aria-label={t("dashboard")} className="my-4">
+        <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
           <div className={TILE_HEIGHTS.card}>
-            <PartyRaisedFundsCard
-              filing={financing?.data.filing}
-              priorFiling={priorFinancing?.data.filing}
+            <PartyVotersCard data={data} />
+          </div>
+          <div className={TILE_HEIGHTS.card}>
+            <PartyPositionCard data={data} />
+          </div>
+          <div className={TILE_HEIGHTS.card}>
+            <PartyPaperMachineCard
+              paperMachine={data.paperMachine}
               priorElection={data.priorElection}
-              partyNickName={data.nickName}
             />
           </div>
           <div className={TILE_HEIGHTS.card}>
-            <PartyCampaignCostCard
-              filing={financing?.data.filing}
-              priorFiling={priorFinancing?.data.filing}
-              priorElection={data.priorElection}
-              partyNickName={data.nickName}
-            />
-          </div>
-          <div className={TILE_HEIGHTS.card}>
-            <PartyTopExpenseCard
-              filing={financing?.data.filing}
-              partyNickName={data.nickName}
-            />
-          </div>
-          <div className={TILE_HEIGHTS.card}>
-            <PartyDonorsCountCard
-              financing={financing}
-              partyNickName={data.nickName}
-            />
+            <PartyTopRegionCard data={data} />
           </div>
         </div>
-      ) : null}
 
-      <DashboardSection
-        id="votes"
-        title={t("dashboard_section_votes")}
-        icon={Gauge}
-        articleTopic="votes"
-      >
-        <div className={TILE_HEIGHTS.assessment}>
-          <PartyAssessmentTile data={data} />
-        </div>
-        <PartyRegionSwingsTile data={data} />
-        <PartyTrajectoryTile data={data} />
-      </DashboardSection>
+        {hasFinancials ? (
+          <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 mt-3">
+            <div className={TILE_HEIGHTS.card}>
+              <PartyRaisedFundsCard
+                filing={financing?.data.filing}
+                priorFiling={priorFinancing?.data.filing}
+                priorElection={data.priorElection}
+                partyNickName={data.nickName}
+              />
+            </div>
+            <div className={TILE_HEIGHTS.card}>
+              <PartyCampaignCostCard
+                filing={financing?.data.filing}
+                priorFiling={priorFinancing?.data.filing}
+                priorElection={data.priorElection}
+                partyNickName={data.nickName}
+              />
+            </div>
+            <div className={TILE_HEIGHTS.card}>
+              <PartyTopExpenseCard
+                filing={financing?.data.filing}
+                partyNickName={data.nickName}
+              />
+            </div>
+            <div className={TILE_HEIGHTS.card}>
+              <PartyDonorsCountCard
+                financing={financing}
+                partyNickName={data.nickName}
+              />
+            </div>
+          </div>
+        ) : null}
 
-      <DashboardSection
-        id="geography"
-        title={t("dashboard_section_geography")}
-        icon={Map}
-        articleTopic="geography"
-      >
-        <div className={TILE_HEIGHTS.topRegions}>
-          <PartyTopRegionsTile data={data} />
-        </div>
-        <div className={TILE_HEIGHTS.topMunicipalities}>
-          <PartyTopMunicipalitiesTile data={data} />
-        </div>
-        <div className={TILE_HEIGHTS.topSettlements}>
-          <PartyTopSettlementsTile data={data} />
-        </div>
-      </DashboardSection>
-
-      {hasPreferences ? (
         <DashboardSection
-          id="declarations"
-          title={t("dashboard_section_declarations")}
-          icon={Briefcase}
-          articleTopic="declarations"
+          id="votes"
+          title={t("dashboard_section_votes")}
+          icon={Gauge}
+          articleTopic="votes"
         >
-          <div className={TILE_HEIGHTS.topCandidates}>
-            <PartyTopCandidatesTile data={data} />
+          <div className={TILE_HEIGHTS.assessment}>
+            <PartyAssessmentTile data={data} />
           </div>
-          <PartyMpAssetsTile data={data} />
+          <PartyRegionSwingsTile data={data} />
+          <PartyTrajectoryTile data={data} />
         </DashboardSection>
-      ) : null}
 
-      {hasFinancials ? (
         <DashboardSection
-          id="financing"
-          title={t("dashboard_section_financing")}
-          icon={Coins}
-          articleTopic="financing"
+          id="geography"
+          title={t("dashboard_section_geography")}
+          icon={Map}
+          articleTopic="geography"
         >
-          <div className={TILE_HEIGHTS.expenseBreakdown}>
-            <PartyExpenseBreakdownTile
-              filing={financing?.data.filing}
-              priorFiling={priorFinancing?.data.filing}
-              color={data.color}
-            />
+          <div className={TILE_HEIGHTS.topRegions}>
+            <PartyTopRegionsTile data={data} />
           </div>
-          <div className={TILE_HEIGHTS.topDonors}>
-            <PartyTopDonorsTile
-              financing={financing}
-              partyNickName={data.nickName}
-              color={data.color}
-            />
+          <div className={TILE_HEIGHTS.topMunicipalities}>
+            <PartyTopMunicipalitiesTile data={data} />
+          </div>
+          <div className={TILE_HEIGHTS.topSettlements}>
+            <PartyTopSettlementsTile data={data} />
           </div>
         </DashboardSection>
-      ) : null}
 
-      <DashboardSection
-        id="polling"
-        title={t("dashboard_section_polling")}
-        icon={CalendarDays}
-        articleTopic="polling"
-      >
-        <PartyPollingDeltaTile data={data} />
-      </DashboardSection>
-    </section>
+        {hasPreferences ? (
+          <DashboardSection
+            id="declarations"
+            title={t("dashboard_section_declarations")}
+            icon={Briefcase}
+            articleTopic="declarations"
+          >
+            <div className={TILE_HEIGHTS.topCandidates}>
+              <PartyTopCandidatesTile data={data} />
+            </div>
+            <PartyMpAssetsTile data={data} />
+          </DashboardSection>
+        ) : null}
+
+        {hasFinancials ? (
+          <DashboardSection
+            id="financing"
+            title={t("dashboard_section_financing")}
+            icon={Coins}
+            articleTopic="financing"
+          >
+            <div className={TILE_HEIGHTS.expenseBreakdown}>
+              <PartyExpenseBreakdownTile
+                filing={financing?.data.filing}
+                priorFiling={priorFinancing?.data.filing}
+                color={data.color}
+              />
+            </div>
+            <div className={TILE_HEIGHTS.topDonors}>
+              <PartyTopDonorsTile
+                financing={financing}
+                partyNickName={data.nickName}
+                color={data.color}
+              />
+            </div>
+          </DashboardSection>
+        ) : null}
+
+        <DashboardSection
+          id="polling"
+          title={t("dashboard_section_polling")}
+          icon={CalendarDays}
+          articleTopic="polling"
+        >
+          <PartyPollingDeltaTile data={data} />
+        </DashboardSection>
+      </section>
     </SectionArticlesProvider>
   );
 };

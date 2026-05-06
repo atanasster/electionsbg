@@ -76,94 +76,96 @@ export const MunicipalityDashboardCards: FC<Props> = ({ municipalityCode }) => {
 
   return (
     <SectionArticlesProvider order={SECTION_TOPICS}>
-    <section aria-label={t("dashboard")} className="my-4">
-      <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-        <PartyChangeCard variant="gainer" change={data.topGainer} />
-        <PartyChangeCard variant="loser" change={data.topLoser} />
-        <TurnoutCard
-          turnout={data.turnout}
-          priorElection={data.priorElection}
-        />
-        <PaperMachineCard
-          paperMachine={data.paperMachine}
-          priorElection={data.priorElection}
-        />
-      </div>
-
-      <DashboardSection
-        id="votes"
-        title={t("dashboard_section_votes")}
-        icon={Gauge}
-        articleTopic="votes"
-      >
-        <div className="grid gap-3 grid-cols-1 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
-          <MunicipalitySettlementsMapTile municipalityCode={municipalityCode} />
-          <PartyResultsTile parties={data.parties} basePath={basePath} />
+      <section aria-label={t("dashboard")} className="my-4">
+        <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+          <PartyChangeCard variant="gainer" change={data.topGainer} />
+          <PartyChangeCard variant="loser" change={data.topLoser} />
+          <TurnoutCard
+            turnout={data.turnout}
+            priorElection={data.priorElection}
+          />
+          <PaperMachineCard
+            paperMachine={data.paperMachine}
+            priorElection={data.priorElection}
+          />
         </div>
-        {electionStats?.hasPreferences ? (
-          <TopCandidatesStrip
+
+        <DashboardSection
+          id="votes"
+          title={t("dashboard_section_votes")}
+          icon={Gauge}
+          articleTopic="votes"
+        >
+          <div className="grid gap-3 grid-cols-1 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
+            <MunicipalitySettlementsMapTile
+              municipalityCode={municipalityCode}
+            />
+            <PartyResultsTile parties={data.parties} basePath={basePath} />
+          </div>
+          {electionStats?.hasPreferences ? (
+            <TopCandidatesStrip
+              parties={data.parties}
+              municipalityCode={municipalityCode}
+              basePath={basePath}
+            />
+          ) : null}
+          <HistoricalTrendsTile stats={stats} basePath={basePath} />
+        </DashboardSection>
+
+        <DashboardSection
+          id="geography"
+          title={t("dashboard_section_geography")}
+          icon={Map}
+          articleTopic="geography"
+        >
+          <TopSettlementsTile
             parties={data.parties}
             municipalityCode={municipalityCode}
+          />
+        </DashboardSection>
+
+        <DashboardSection
+          id="anomalies"
+          title={t("dashboard_section_anomalies")}
+          icon={AlertTriangle}
+          articleTopic="anomalies"
+        >
+          <FlashMemoryTile
+            parties={data.parties}
+            results={municipality?.results}
             basePath={basePath}
           />
-        ) : null}
-        <HistoricalTrendsTile stats={stats} basePath={basePath} />
-      </DashboardSection>
-
-      <DashboardSection
-        id="geography"
-        title={t("dashboard_section_geography")}
-        icon={Map}
-        articleTopic="geography"
-      >
-        <TopSettlementsTile
-          parties={data.parties}
-          municipalityCode={municipalityCode}
-        />
-      </DashboardSection>
-
-      <DashboardSection
-        id="anomalies"
-        title={t("dashboard_section_anomalies")}
-        icon={AlertTriangle}
-        articleTopic="anomalies"
-      >
-        <FlashMemoryTile
-          parties={data.parties}
-          results={municipality?.results}
-          basePath={basePath}
-        />
-        <SuspiciousSectionsTile
-          parties={data.parties}
-          municipalityCode={municipalityCode}
-        />
-        <RecountTile
-          parties={data.parties}
-          results={municipality?.results}
-          original={municipality?.original}
-          basePath={basePath}
-        />
-      </DashboardSection>
-
-      <DashboardSection
-        id="neighborhoods"
-        title={t("dashboard_section_neighborhoods")}
-        icon={Building2}
-        articleTopic="neighborhoods"
-      >
-        <ProblemSectionsTile
-          parties={data.parties}
-          municipalityCode={municipalityCode}
-        />
-        <ProblemVotesByPartyTile municipalityCode={municipalityCode} />
-        {problemSectionsStats?.length ? (
-          <HistoricalTrendsTile
-            stats={problemSectionsStats}
-            seeDetailsTo="/reports/section/problem_sections"
+          <SuspiciousSectionsTile
+            parties={data.parties}
+            municipalityCode={municipalityCode}
           />
-        ) : null}
-      </DashboardSection>
-    </section>
+          <RecountTile
+            parties={data.parties}
+            results={municipality?.results}
+            original={municipality?.original}
+            basePath={basePath}
+          />
+        </DashboardSection>
+
+        <DashboardSection
+          id="neighborhoods"
+          title={t("dashboard_section_neighborhoods")}
+          icon={Building2}
+          articleTopic="neighborhoods"
+        >
+          <ProblemSectionsTile
+            parties={data.parties}
+            municipalityCode={municipalityCode}
+          />
+          <ProblemVotesByPartyTile municipalityCode={municipalityCode} />
+          {problemSectionsStats?.length ? (
+            <HistoricalTrendsTile
+              stats={problemSectionsStats}
+              seeDetailsTo="/reports/section/problem_sections"
+            />
+          ) : null}
+        </DashboardSection>
+      </section>
     </SectionArticlesProvider>
   );
 };

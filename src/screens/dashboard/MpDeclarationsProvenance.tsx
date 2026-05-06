@@ -26,12 +26,20 @@ const mergeScopes = (scopes: DataProvenanceScope[]): DataProvenanceScope => {
     mpsTotal += s.mpsTotal;
     mpsWithDeclaration += s.mpsWithDeclaration;
     if (s.declarationYearMin != null) {
-      min = min == null ? s.declarationYearMin : Math.min(min, s.declarationYearMin);
+      min =
+        min == null
+          ? s.declarationYearMin
+          : Math.min(min, s.declarationYearMin);
     }
     if (s.declarationYearMax != null) {
-      max = max == null ? s.declarationYearMax : Math.max(max, s.declarationYearMax);
+      max =
+        max == null
+          ? s.declarationYearMax
+          : Math.max(max, s.declarationYearMax);
     }
-    for (const [year, count] of Object.entries(s.latestDeclarationYearByCount)) {
+    for (const [year, count] of Object.entries(
+      s.latestDeclarationYearByCount,
+    )) {
       byCount[year] = (byCount[year] ?? 0) + count;
     }
   }
@@ -155,8 +163,7 @@ export const MpDeclarationsProvenance: FC<Props> = ({
 
   const isRegional = codes != null;
 
-  const effectiveFolder =
-    nsFolder === undefined ? selectedFolder : nsFolder;
+  const effectiveFolder = nsFolder === undefined ? selectedFolder : nsFolder;
 
   const scope = useMemo(() => {
     if (!provenance) return undefined;

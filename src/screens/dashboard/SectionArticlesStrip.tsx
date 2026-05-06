@@ -2,10 +2,7 @@ import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { FileText } from "lucide-react";
 import { Link } from "@/ux/Link";
-import {
-  DashboardSectionId,
-  useArticles,
-} from "@/data/articles/useArticles";
+import { DashboardSectionId, useArticles } from "@/data/articles/useArticles";
 import { useElectionContext } from "@/data/ElectionContext";
 import { useArticlesForTopic } from "./SectionArticlesContext";
 
@@ -46,9 +43,7 @@ export const SectionArticlesStrip: FC<Props> = ({ topic }) => {
             >
               {a.title[lang]}
             </Link>
-            <div className="text-xs text-muted-foreground">
-              {a.publishedAt}
-            </div>
+            <div className="text-xs text-muted-foreground">{a.publishedAt}</div>
           </li>
         ))}
       </ul>

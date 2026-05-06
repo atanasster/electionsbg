@@ -60,49 +60,49 @@ export const SectionDashboardCards: FC<Props> = ({ sectionCode }) => {
 
   return (
     <SectionArticlesProvider order={SECTION_TOPICS}>
-    <section aria-label={t("dashboard")} className="my-4">
-      <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-        <PartyChangeCard variant="gainer" change={data.topGainer} />
-        <PartyChangeCard variant="loser" change={data.topLoser} />
-        <TurnoutCard
-          turnout={data.turnout}
-          priorElection={data.priorElection}
-        />
-        <PaperMachineCard
-          paperMachine={data.paperMachine}
-          priorElection={data.priorElection}
-        />
-      </div>
+      <section aria-label={t("dashboard")} className="my-4">
+        <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+          <PartyChangeCard variant="gainer" change={data.topGainer} />
+          <PartyChangeCard variant="loser" change={data.topLoser} />
+          <TurnoutCard
+            turnout={data.turnout}
+            priorElection={data.priorElection}
+          />
+          <PaperMachineCard
+            paperMachine={data.paperMachine}
+            priorElection={data.priorElection}
+          />
+        </div>
 
-      <DashboardSection
-        id="votes"
-        title={t("dashboard_section_votes")}
-        icon={Gauge}
-        articleTopic="votes"
-      >
-        <PartyResultsTile parties={data.parties} basePath={basePath} />
-        <HistoricalTrendsTile stats={stats} basePath={basePath} />
-      </DashboardSection>
+        <DashboardSection
+          id="votes"
+          title={t("dashboard_section_votes")}
+          icon={Gauge}
+          articleTopic="votes"
+        >
+          <PartyResultsTile parties={data.parties} basePath={basePath} />
+          <HistoricalTrendsTile stats={stats} basePath={basePath} />
+        </DashboardSection>
 
-      <DashboardSection
-        id="anomalies"
-        title={t("dashboard_section_anomalies")}
-        icon={AlertTriangle}
-        articleTopic="anomalies"
-      >
-        <FlashMemoryTile
-          parties={data.parties}
-          results={section?.results}
-          basePath={basePath}
-        />
-        <RecountTile
-          parties={data.parties}
-          results={section?.results}
-          original={section?.original}
-          basePath={basePath}
-        />
-      </DashboardSection>
-    </section>
+        <DashboardSection
+          id="anomalies"
+          title={t("dashboard_section_anomalies")}
+          icon={AlertTriangle}
+          articleTopic="anomalies"
+        >
+          <FlashMemoryTile
+            parties={data.parties}
+            results={section?.results}
+            basePath={basePath}
+          />
+          <RecountTile
+            parties={data.parties}
+            results={section?.results}
+            original={section?.original}
+            basePath={basePath}
+          />
+        </DashboardSection>
+      </section>
     </SectionArticlesProvider>
   );
 };

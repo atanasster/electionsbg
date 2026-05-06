@@ -74,86 +74,92 @@ export const RegionDashboardCards: FC<Props> = ({ regionCode }) => {
 
   return (
     <SectionArticlesProvider order={SECTION_TOPICS}>
-    <section aria-label={t("dashboard")} className="my-4">
-      <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-        <PartyChangeCard variant="gainer" change={data.topGainer} />
-        <PartyChangeCard variant="loser" change={data.topLoser} />
-        <TurnoutCard
-          turnout={data.turnout}
-          priorElection={data.priorElection}
-        />
-        <PaperMachineCard
-          paperMachine={data.paperMachine}
-          priorElection={data.priorElection}
-        />
-      </div>
-
-      <DashboardSection
-        id="votes"
-        title={t("dashboard_section_votes")}
-        icon={Gauge}
-        articleTopic="votes"
-      >
-        <div className="grid gap-3 grid-cols-1 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
-          <RegionMunicipalitiesMapTile regionCode={regionCode} />
-          <PartyResultsTile parties={data.parties} regionCode={regionCode} />
-        </div>
-        {electionStats?.hasPreferences ? (
-          <TopCandidatesStrip parties={data.parties} regionCode={regionCode} />
-        ) : null}
-        <RegionMpsTile regionCode={regionCode} parties={data.parties} />
-        <HistoricalTrendsTile regionCode={regionCode} />
-      </DashboardSection>
-
-      <DashboardSection
-        id="geography"
-        title={t("dashboard_section_geography")}
-        icon={Map}
-        articleTopic="geography"
-      >
-        <TopMunicipalitiesTile parties={data.parties} regionCode={regionCode} />
-      </DashboardSection>
-
-      <DashboardSection
-        id="anomalies"
-        title={t("dashboard_section_anomalies")}
-        icon={AlertTriangle}
-        articleTopic="anomalies"
-      >
-        <FlashMemoryTile parties={data.parties} regionCode={regionCode} />
-        <SuspiciousSectionsTile
-          parties={data.parties}
-          regionCode={regionCode}
-        />
-        <RecountTile parties={data.parties} regionCode={regionCode} />
-      </DashboardSection>
-
-      <DashboardSection
-        id="neighborhoods"
-        title={t("dashboard_section_neighborhoods")}
-        icon={Building2}
-        articleTopic="neighborhoods"
-      >
-        <ProblemSectionsTile parties={data.parties} regionCode={regionCode} />
-        <ProblemVotesByPartyTile regionCode={regionCode} />
-        {problemSectionsStats?.length ? (
-          <HistoricalTrendsTile
-            stats={problemSectionsStats}
-            seeDetailsTo="/reports/section/problem_sections"
+      <section aria-label={t("dashboard")} className="my-4">
+        <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+          <PartyChangeCard variant="gainer" change={data.topGainer} />
+          <PartyChangeCard variant="loser" change={data.topLoser} />
+          <TurnoutCard
+            turnout={data.turnout}
+            priorElection={data.priorElection}
           />
-        ) : null}
-      </DashboardSection>
+          <PaperMachineCard
+            paperMachine={data.paperMachine}
+            priorElection={data.priorElection}
+          />
+        </div>
 
-      <DashboardSection
-        id="declarations"
-        title={t("dashboard_section_declarations")}
-        subtitle={<MpDeclarationsProvenance regionCode={regionCode} />}
-        icon={Briefcase}
-        articleTopic="declarations"
-      >
-        <MpConnectionsTile regionCode={regionCode} />
-      </DashboardSection>
-    </section>
+        <DashboardSection
+          id="votes"
+          title={t("dashboard_section_votes")}
+          icon={Gauge}
+          articleTopic="votes"
+        >
+          <div className="grid gap-3 grid-cols-1 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
+            <RegionMunicipalitiesMapTile regionCode={regionCode} />
+            <PartyResultsTile parties={data.parties} regionCode={regionCode} />
+          </div>
+          {electionStats?.hasPreferences ? (
+            <TopCandidatesStrip
+              parties={data.parties}
+              regionCode={regionCode}
+            />
+          ) : null}
+          <RegionMpsTile regionCode={regionCode} parties={data.parties} />
+          <HistoricalTrendsTile regionCode={regionCode} />
+        </DashboardSection>
+
+        <DashboardSection
+          id="geography"
+          title={t("dashboard_section_geography")}
+          icon={Map}
+          articleTopic="geography"
+        >
+          <TopMunicipalitiesTile
+            parties={data.parties}
+            regionCode={regionCode}
+          />
+        </DashboardSection>
+
+        <DashboardSection
+          id="anomalies"
+          title={t("dashboard_section_anomalies")}
+          icon={AlertTriangle}
+          articleTopic="anomalies"
+        >
+          <FlashMemoryTile parties={data.parties} regionCode={regionCode} />
+          <SuspiciousSectionsTile
+            parties={data.parties}
+            regionCode={regionCode}
+          />
+          <RecountTile parties={data.parties} regionCode={regionCode} />
+        </DashboardSection>
+
+        <DashboardSection
+          id="neighborhoods"
+          title={t("dashboard_section_neighborhoods")}
+          icon={Building2}
+          articleTopic="neighborhoods"
+        >
+          <ProblemSectionsTile parties={data.parties} regionCode={regionCode} />
+          <ProblemVotesByPartyTile regionCode={regionCode} />
+          {problemSectionsStats?.length ? (
+            <HistoricalTrendsTile
+              stats={problemSectionsStats}
+              seeDetailsTo="/reports/section/problem_sections"
+            />
+          ) : null}
+        </DashboardSection>
+
+        <DashboardSection
+          id="declarations"
+          title={t("dashboard_section_declarations")}
+          subtitle={<MpDeclarationsProvenance regionCode={regionCode} />}
+          icon={Briefcase}
+          articleTopic="declarations"
+        >
+          <MpConnectionsTile regionCode={regionCode} />
+        </DashboardSection>
+      </section>
     </SectionArticlesProvider>
   );
 };

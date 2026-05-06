@@ -112,122 +112,122 @@ export const DashboardCards: FC = () => {
 
   return (
     <SectionArticlesProvider order={SECTION_TOPICS}>
-    <section aria-label={t("dashboard")} className="my-4">
-      <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-        <PartyChangeCard variant="gainer" change={data.topGainer} />
-        <PartyChangeCard variant="loser" change={data.topLoser} />
-        <TurnoutCard
-          turnout={data.turnout}
-          priorElection={data.priorElection}
-        />
-        <PaperMachineCard
-          paperMachine={data.paperMachine}
-          priorElection={data.priorElection}
-        />
-      </div>
-
-      <DashboardSection
-        id="votes"
-        title={t("dashboard_section_votes")}
-        icon={Gauge}
-        articleTopic="votes"
-      >
-        <div className="grid gap-3 grid-cols-1 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
-          <RegionsMapTile />
-          <PartyResultsTile parties={data.parties} />
-        </div>
-        <div className="grid gap-3 grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)]">
-          <MandatesTile parties={data.parties} />
-          <TopCandidatesStrip parties={data.parties} />
-        </div>
-        <HistoricalTrendsTile />
-      </DashboardSection>
-
-      <DashboardSection
-        id="geography"
-        title={t("dashboard_section_geography")}
-        icon={Map}
-        articleTopic="geography"
-      >
-        <TopRegionsTile parties={data.parties} />
-        {hasTopLocations ? (
-          <div className="grid gap-3 grid-cols-1 lg:grid-cols-2">
-            {data.topDiaspora?.length ? (
-              <TopLocationsTile variant="diaspora" items={data.topDiaspora} />
-            ) : null}
-            {data.topCities?.length ? (
-              <TopLocationsTile variant="cities" items={data.topCities} />
-            ) : null}
-          </div>
-        ) : null}
-      </DashboardSection>
-
-      <DashboardSection
-        id="anomalies"
-        title={t("dashboard_section_anomalies")}
-        icon={AlertTriangle}
-        articleTopic="anomalies"
-      >
-        {hasFlash ? <FlashMemoryTile parties={data.parties} /> : null}
-        <SuspiciousSectionsTile parties={data.parties} />
-        {hasRecount ? <RecountTile parties={data.parties} /> : null}
-      </DashboardSection>
-
-      <DashboardSection
-        id="neighborhoods"
-        title={t("dashboard_section_neighborhoods")}
-        icon={Building2}
-        articleTopic="neighborhoods"
-      >
-        <ProblemSectionsTile parties={data.parties} />
-        <ProblemVotesByPartyTile />
-        {problemSectionsStats?.length ? (
-          <HistoricalTrendsTile
-            stats={problemSectionsStats}
-            seeDetailsTo="/reports/section/problem_sections"
+      <section aria-label={t("dashboard")} className="my-4">
+        <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+          <PartyChangeCard variant="gainer" change={data.topGainer} />
+          <PartyChangeCard variant="loser" change={data.topLoser} />
+          <TurnoutCard
+            turnout={data.turnout}
+            priorElection={data.priorElection}
           />
-        ) : null}
-      </DashboardSection>
-
-      {hasFinancials ? (
-        <DashboardSection
-          id="financing"
-          title={t("dashboard_section_financing")}
-          icon={Coins}
-          articleTopic="financing"
-        >
-          <TopFinancingTile parties={data.parties} />
-        </DashboardSection>
-      ) : null}
-
-      <DashboardSection
-        id="declarations"
-        title={t("dashboard_section_declarations")}
-        subtitle={<MpDeclarationsProvenance />}
-        icon={Briefcase}
-        articleTopic="declarations"
-      >
-        <div className="grid gap-3 grid-cols-1 lg:grid-cols-2">
-          <MpConnectionsTile hideProvenance />
-          <CarMakesTile hideProvenance />
+          <PaperMachineCard
+            paperMachine={data.paperMachine}
+            priorElection={data.priorElection}
+          />
         </div>
-        <MpAssetsTile />
-      </DashboardSection>
 
-      <DashboardSection
-        id="polling"
-        title={t("dashboard_section_polling")}
-        icon={CalendarDays}
-        articleTopic="polling"
-      >
-        <PollsTile />
-        <AccuracyTrendsTile />
-      </DashboardSection>
+        <DashboardSection
+          id="votes"
+          title={t("dashboard_section_votes")}
+          icon={Gauge}
+          articleTopic="votes"
+        >
+          <div className="grid gap-3 grid-cols-1 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
+            <RegionsMapTile />
+            <PartyResultsTile parties={data.parties} />
+          </div>
+          <div className="grid gap-3 grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)]">
+            <MandatesTile parties={data.parties} />
+            <TopCandidatesStrip parties={data.parties} />
+          </div>
+          <HistoricalTrendsTile />
+        </DashboardSection>
 
-      <div className="mt-6">
-        <ArticlesTile shownTopics={SECTION_TOPICS} />
-      </div>
-    </section>
+        <DashboardSection
+          id="geography"
+          title={t("dashboard_section_geography")}
+          icon={Map}
+          articleTopic="geography"
+        >
+          <TopRegionsTile parties={data.parties} />
+          {hasTopLocations ? (
+            <div className="grid gap-3 grid-cols-1 lg:grid-cols-2">
+              {data.topDiaspora?.length ? (
+                <TopLocationsTile variant="diaspora" items={data.topDiaspora} />
+              ) : null}
+              {data.topCities?.length ? (
+                <TopLocationsTile variant="cities" items={data.topCities} />
+              ) : null}
+            </div>
+          ) : null}
+        </DashboardSection>
+
+        <DashboardSection
+          id="anomalies"
+          title={t("dashboard_section_anomalies")}
+          icon={AlertTriangle}
+          articleTopic="anomalies"
+        >
+          {hasFlash ? <FlashMemoryTile parties={data.parties} /> : null}
+          <SuspiciousSectionsTile parties={data.parties} />
+          {hasRecount ? <RecountTile parties={data.parties} /> : null}
+        </DashboardSection>
+
+        <DashboardSection
+          id="neighborhoods"
+          title={t("dashboard_section_neighborhoods")}
+          icon={Building2}
+          articleTopic="neighborhoods"
+        >
+          <ProblemSectionsTile parties={data.parties} />
+          <ProblemVotesByPartyTile />
+          {problemSectionsStats?.length ? (
+            <HistoricalTrendsTile
+              stats={problemSectionsStats}
+              seeDetailsTo="/reports/section/problem_sections"
+            />
+          ) : null}
+        </DashboardSection>
+
+        {hasFinancials ? (
+          <DashboardSection
+            id="financing"
+            title={t("dashboard_section_financing")}
+            icon={Coins}
+            articleTopic="financing"
+          >
+            <TopFinancingTile parties={data.parties} />
+          </DashboardSection>
+        ) : null}
+
+        <DashboardSection
+          id="declarations"
+          title={t("dashboard_section_declarations")}
+          subtitle={<MpDeclarationsProvenance />}
+          icon={Briefcase}
+          articleTopic="declarations"
+        >
+          <div className="grid gap-3 grid-cols-1 lg:grid-cols-2">
+            <MpConnectionsTile hideProvenance />
+            <CarMakesTile hideProvenance />
+          </div>
+          <MpAssetsTile />
+        </DashboardSection>
+
+        <DashboardSection
+          id="polling"
+          title={t("dashboard_section_polling")}
+          icon={CalendarDays}
+          articleTopic="polling"
+        >
+          <PollsTile />
+          <AccuracyTrendsTile />
+        </DashboardSection>
+
+        <div className="mt-6">
+          <ArticlesTile shownTopics={SECTION_TOPICS} />
+        </div>
+      </section>
     </SectionArticlesProvider>
   );
 };

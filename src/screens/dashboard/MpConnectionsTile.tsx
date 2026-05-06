@@ -11,10 +11,7 @@ import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 import { candidateUrlForMp } from "@/data/candidates/candidateSlug";
 import { Hint } from "@/ux/Hint";
 import { StatCard } from "./StatCard";
-import {
-  provenanceText,
-  provenanceTooltip,
-} from "./MpDeclarationsProvenance";
+import { provenanceText, provenanceTooltip } from "./MpDeclarationsProvenance";
 import type { ConnectionsTopMp } from "@/data/dataTypes";
 
 type Props = {

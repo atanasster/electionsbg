@@ -66,48 +66,48 @@ export const CandidateDashboardCards: FC<Props> = ({ name, linkSlug }) => {
 
   return (
     <SectionArticlesProvider order={SECTION_TOPICS}>
-    <section aria-label={t("dashboard")} className="my-4">
-      <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-        <CandidatePreferencesCard data={data} />
-        <CandidatePaperMachineCard
-          paperMachine={data.paperMachine}
-          priorElection={data.priorElection}
-        />
-        <CandidateBallotCard data={data} />
-        <CandidateTopRegionCard data={data} />
-      </div>
+      <section aria-label={t("dashboard")} className="my-4">
+        <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+          <CandidatePreferencesCard data={data} />
+          <CandidatePaperMachineCard
+            paperMachine={data.paperMachine}
+            priorElection={data.priorElection}
+          />
+          <CandidateBallotCard data={data} />
+          <CandidateTopRegionCard data={data} />
+        </div>
 
-      <DashboardSection
-        id="votes"
-        title={t("dashboard_section_votes")}
-        icon={Gauge}
-        articleTopic="votes"
-      >
-        <CandidateRegionsTile data={data} linkSlug={navSlug} />
-        <CandidateTrajectoryTile data={data} />
-      </DashboardSection>
-
-      <DashboardSection
-        id="geography"
-        title={t("dashboard_section_geography")}
-        icon={Map}
-        articleTopic="geography"
-      >
-        <CandidateTopSettlementsTile data={data} linkSlug={navSlug} />
-        <CandidateTopSectionsTile data={data} linkSlug={navSlug} />
-      </DashboardSection>
-
-      {hasFinancials ? (
         <DashboardSection
-          id="financing"
-          title={t("dashboard_section_financing")}
-          icon={Coins}
-          articleTopic="financing"
+          id="votes"
+          title={t("dashboard_section_votes")}
+          icon={Gauge}
+          articleTopic="votes"
         >
-          <CandidateDonationsTile name={name} linkSlug={navSlug} />
+          <CandidateRegionsTile data={data} linkSlug={navSlug} />
+          <CandidateTrajectoryTile data={data} />
         </DashboardSection>
-      ) : null}
-    </section>
+
+        <DashboardSection
+          id="geography"
+          title={t("dashboard_section_geography")}
+          icon={Map}
+          articleTopic="geography"
+        >
+          <CandidateTopSettlementsTile data={data} linkSlug={navSlug} />
+          <CandidateTopSectionsTile data={data} linkSlug={navSlug} />
+        </DashboardSection>
+
+        {hasFinancials ? (
+          <DashboardSection
+            id="financing"
+            title={t("dashboard_section_financing")}
+            icon={Coins}
+            articleTopic="financing"
+          >
+            <CandidateDonationsTile name={name} linkSlug={navSlug} />
+          </DashboardSection>
+        ) : null}
+      </section>
     </SectionArticlesProvider>
   );
 };

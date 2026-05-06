@@ -78,102 +78,105 @@ export const SofiaDashboardCards: FC = () => {
 
   return (
     <SectionArticlesProvider order={SECTION_TOPICS}>
-    <section aria-label={t("dashboard")} className="my-4">
-      <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-        <PartyChangeCard variant="gainer" change={data.topGainer} />
-        <PartyChangeCard variant="loser" change={data.topLoser} />
-        <TurnoutCard
-          turnout={data.turnout}
-          priorElection={data.priorElection}
-        />
-        <PaperMachineCard
-          paperMachine={data.paperMachine}
-          priorElection={data.priorElection}
-        />
-      </div>
-
-      <DashboardSection
-        id="votes"
-        title={t("dashboard_section_votes")}
-        icon={Gauge}
-        articleTopic="votes"
-      >
-        <div className="grid gap-3 grid-cols-1 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
-          <SofiaMapTile />
-          <PartyResultsTile parties={data.parties} basePath={SOFIA_BASE_PATH} />
+      <section aria-label={t("dashboard")} className="my-4">
+        <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+          <PartyChangeCard variant="gainer" change={data.topGainer} />
+          <PartyChangeCard variant="loser" change={data.topLoser} />
+          <TurnoutCard
+            turnout={data.turnout}
+            priorElection={data.priorElection}
+          />
+          <PaperMachineCard
+            paperMachine={data.paperMachine}
+            priorElection={data.priorElection}
+          />
         </div>
-        {electionStats?.hasPreferences ? (
-          <TopCandidatesStrip
+
+        <DashboardSection
+          id="votes"
+          title={t("dashboard_section_votes")}
+          icon={Gauge}
+          articleTopic="votes"
+        >
+          <div className="grid gap-3 grid-cols-1 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
+            <SofiaMapTile />
+            <PartyResultsTile
+              parties={data.parties}
+              basePath={SOFIA_BASE_PATH}
+            />
+          </div>
+          {electionStats?.hasPreferences ? (
+            <TopCandidatesStrip
+              parties={data.parties}
+              regionCodes={SOFIA_REGIONS}
+              basePath={SOFIA_BASE_PATH}
+            />
+          ) : null}
+          <SofiaMpsTile parties={data.parties} />
+          <HistoricalTrendsTile stats={sofiaStats} basePath={SOFIA_BASE_PATH} />
+        </DashboardSection>
+
+        <DashboardSection
+          id="geography"
+          title={t("dashboard_section_geography")}
+          icon={Map}
+          articleTopic="geography"
+        >
+          <TopSofiaAreasTile parties={data.parties} />
+        </DashboardSection>
+
+        <DashboardSection
+          id="anomalies"
+          title={t("dashboard_section_anomalies")}
+          icon={AlertTriangle}
+          articleTopic="anomalies"
+        >
+          <FlashMemoryTile
             parties={data.parties}
-            regionCodes={SOFIA_REGIONS}
+            results={sofia?.results}
             basePath={SOFIA_BASE_PATH}
           />
-        ) : null}
-        <SofiaMpsTile parties={data.parties} />
-        <HistoricalTrendsTile stats={sofiaStats} basePath={SOFIA_BASE_PATH} />
-      </DashboardSection>
-
-      <DashboardSection
-        id="geography"
-        title={t("dashboard_section_geography")}
-        icon={Map}
-        articleTopic="geography"
-      >
-        <TopSofiaAreasTile parties={data.parties} />
-      </DashboardSection>
-
-      <DashboardSection
-        id="anomalies"
-        title={t("dashboard_section_anomalies")}
-        icon={AlertTriangle}
-        articleTopic="anomalies"
-      >
-        <FlashMemoryTile
-          parties={data.parties}
-          results={sofia?.results}
-          basePath={SOFIA_BASE_PATH}
-        />
-        <SuspiciousSectionsTile
-          parties={data.parties}
-          regionCodes={SOFIA_REGIONS}
-        />
-        <RecountTile
-          parties={data.parties}
-          results={sofia?.results}
-          original={sofia?.original}
-          basePath={SOFIA_BASE_PATH}
-        />
-      </DashboardSection>
-
-      <DashboardSection
-        id="neighborhoods"
-        title={t("dashboard_section_neighborhoods")}
-        icon={Building2}
-        articleTopic="neighborhoods"
-      >
-        <ProblemSectionsTile
-          parties={data.parties}
-          regionCodes={SOFIA_REGIONS}
-        />
-        <ProblemVotesByPartyTile regionCodes={SOFIA_REGIONS} />
-        {problemSectionsStats?.length ? (
-          <HistoricalTrendsTile
-            stats={problemSectionsStats}
-            seeDetailsTo="/reports/section/problem_sections"
+          <SuspiciousSectionsTile
+            parties={data.parties}
+            regionCodes={SOFIA_REGIONS}
           />
-        ) : null}
-      </DashboardSection>
+          <RecountTile
+            parties={data.parties}
+            results={sofia?.results}
+            original={sofia?.original}
+            basePath={SOFIA_BASE_PATH}
+          />
+        </DashboardSection>
 
-      <DashboardSection
-        id="declarations"
-        title={t("dashboard_section_declarations")}
-        subtitle={<MpDeclarationsProvenance regionCodes={SOFIA_REGIONS} />}
-        icon={Briefcase}
-        articleTopic="declarations"
-      >
-        <MpConnectionsTile regionCodes={SOFIA_REGIONS} />
-      </DashboardSection>
-    </section>
+        <DashboardSection
+          id="neighborhoods"
+          title={t("dashboard_section_neighborhoods")}
+          icon={Building2}
+          articleTopic="neighborhoods"
+        >
+          <ProblemSectionsTile
+            parties={data.parties}
+            regionCodes={SOFIA_REGIONS}
+          />
+          <ProblemVotesByPartyTile regionCodes={SOFIA_REGIONS} />
+          {problemSectionsStats?.length ? (
+            <HistoricalTrendsTile
+              stats={problemSectionsStats}
+              seeDetailsTo="/reports/section/problem_sections"
+            />
+          ) : null}
+        </DashboardSection>
+
+        <DashboardSection
+          id="declarations"
+          title={t("dashboard_section_declarations")}
+          subtitle={<MpDeclarationsProvenance regionCodes={SOFIA_REGIONS} />}
+          icon={Briefcase}
+          articleTopic="declarations"
+        >
+          <MpConnectionsTile regionCodes={SOFIA_REGIONS} />
+        </DashboardSection>
+      </section>
     </SectionArticlesProvider>
   );
 };

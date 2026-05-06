@@ -78,8 +78,7 @@ export const FilterRail: FC<Props> = ({
           onClick={() => setPartyPair(null)}
           className="inline-flex items-center gap-1 rounded-full border border-primary bg-primary/10 px-2 py-1 text-primary"
         >
-          {partyGroupShortLabel(filters.partyPair[0]) ?? filters.partyPair[0]}{" "}
-          ×{" "}
+          {partyGroupShortLabel(filters.partyPair[0]) ?? filters.partyPair[0]} ×{" "}
           {partyGroupShortLabel(filters.partyPair[1]) ?? filters.partyPair[1]}
           <X className="h-3 w-3" />
         </button>
