@@ -2,7 +2,6 @@ import { FC, useMemo } from "react";
 import { useParams, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
-  Wallet,
   Home as HomeIcon,
   Car,
   Banknote,
@@ -21,6 +20,7 @@ import { useMpDeclarations } from "@/data/parliament/useMpDeclarations";
 import { useResolvedCandidateName } from "@/data/candidates/useResolvedCandidate";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 import type { MpAsset, MpAssetCategory, MpDeclaration } from "@/data/dataTypes";
+import { DataTable, DataTableColumns } from "@/ux/data_table/DataTable";
 
 const CATEGORY_ICONS: Record<
   MpAssetCategory,
@@ -107,16 +107,145 @@ const AssetTable: FC<{
   const isVehicle = category === "vehicle";
 
   const totalBgn = rows.reduce((s, r) => s + (r.valueBgn ?? 0), 0);
+  const categoryTitle =
+    t(CATEGORY_KEYS[category]) || CATEGORY_FALLBACKS[category];
+
+  const columns = useMemo<DataTableColumns<MpAsset, unknown>>(
+    () => [
+      {
+        accessorKey: "description",
+        header: t("mp_assets_col_description") || "Type / description",
+        cell: ({ row }) => row.original.description ?? "—",
+      },
+      {
+        id: "location",
+        hidden: !(isRealEstate || isVehicle),
+        header: isRealEstate
+          ? t("mp_assets_col_location") || "Location"
+          : t("mp_assets_col_brand") || "Brand",
+        accessorFn: (row) =>
+          isRealEstate
+            ? [row.location, row.municipality].filter(Boolean).join(" · ")
+            : row.detail,
+        cell: ({ row }) => (
+          <span className="text-muted-foreground">
+            {isRealEstate
+              ? [row.original.location, row.original.municipality]
+                  .filter(Boolean)
+                  .join(" · ") || "—"
+              : (row.original.detail ?? "—")}
+          </span>
+        ),
+      },
+      {
+        accessorKey: "areaSqm",
+        hidden: !isRealEstate,
+        header: t("mp_assets_col_area") || "Area (m²)",
+        sortUndefined: "last",
+        cell: ({ row }) => (
+          <div className="text-right tabular-nums">
+            {row.original.areaSqm ?? "—"}
+          </div>
+        ),
+      },
+      {
+        accessorKey: "acquiredYear",
+        header: t("mp_assets_col_year") || "Year",
+        sortUndefined: "last",
+        cell: ({ row }) => (
+          <div className="text-right text-xs tabular-nums">
+            {row.original.acquiredYear ?? "—"}
+          </div>
+        ),
+      },
+      {
+        accessorKey: "holderName",
+        header: t("mp_assets_col_holder") || "Holder",
+        cell: ({ row }) => (
+          <span className="text-xs">
+            {row.original.holderName ? (
+              <>
+                {row.original.holderName}
+                {row.original.isSpouse && (
+                  <span className="ml-1 italic text-muted-foreground">
+                    ({t("mp_assets_spouse") || "spouse"})
+                  </span>
+                )}
+              </>
+            ) : (
+              "—"
+            )}
+          </span>
+        ),
+      },
+      {
+        accessorKey: "share",
+        header: t("mp_assets_col_share") || "Share",
+        enableSorting: false,
+        cell: ({ row }) => (
+          <div className="text-right text-xs">
+            {row.original.share ?? "—"}
+          </div>
+        ),
+      },
+      {
+        accessorKey: "amount",
+        header: t("mp_assets_col_amount") || "Amount",
+        sortUndefined: "last",
+        cell: ({ row }) => (
+          <div className="text-right tabular-nums font-mono text-xs">
+            {row.original.amount != null
+              ? `${formatBgn(row.original.amount, lang)} ${row.original.currency ?? ""}`.trim()
+              : "—"}
+          </div>
+        ),
+      },
+      {
+        accessorKey: "valueBgn",
+        header: "BGN",
+        sortUndefined: "last",
+        cell: ({ row }) => (
+          <div
+            className={`text-right tabular-nums font-mono ${isDebt ? "text-red-600" : ""}`}
+          >
+            {formatBgn(row.original.valueBgn, lang)}
+          </div>
+        ),
+      },
+      {
+        accessorKey: "legalBasis",
+        header: t("mp_assets_col_legal_basis") || "Legal basis",
+        enableSorting: false,
+        cell: ({ row }) => (
+          <span className="text-xs text-muted-foreground">
+            {row.original.legalBasis ?? "—"}
+          </span>
+        ),
+      },
+      {
+        accessorKey: "fundsOrigin",
+        header: t("mp_assets_col_origin") || "Origin of funds",
+        enableSorting: false,
+        cell: ({ row }) => (
+          <span
+            className="text-xs text-muted-foreground max-w-[280px] block"
+            title={row.original.fundsOrigin ?? undefined}
+          >
+            {row.original.fundsOrigin ?? "—"}
+          </span>
+        ),
+      },
+    ],
+    [t, isDebt, isRealEstate, isVehicle, lang],
+  );
 
   return (
-    <div className="rounded-lg border bg-card mb-6">
-      <div className="px-4 py-3 border-b flex items-center gap-3 bg-muted/30">
+    <div className="mb-6">
+      <div className="flex items-center gap-3 mb-2">
         <Icon
           className={`h-5 w-5 ${isDebt ? "text-red-600" : "text-muted-foreground"}`}
         />
-        <h2 className="text-base font-semibold">
-          {t(CATEGORY_KEYS[category]) || CATEGORY_FALLBACKS[category]}
-        </h2>
+        <h2 className="text-base font-semibold">{categoryTitle}</h2>
         <span className="text-xs text-muted-foreground">
           · {rows.length}{" "}
           {rows.length === 1
@@ -129,109 +258,12 @@ const AssetTable: FC<{
           {totalBgn > 0 ? `${formatBgn(totalBgn, lang)} лв` : "—"}
         </span>
       </div>
-      <div className="overflow-x-auto">
-        <table className="w-full text-sm">
-          <thead className="text-[11px] text-muted-foreground uppercase tracking-wide">
-            <tr className="border-b bg-muted/10">
-              <th className="text-left font-normal px-3 py-2 w-8">#</th>
-              <th className="text-left font-normal px-3 py-2">
-                {t("mp_assets_col_description") || "Type / description"}
-              </th>
-              {(isRealEstate || isVehicle) && (
-                <th className="text-left font-normal px-3 py-2">
-                  {isRealEstate
-                    ? t("mp_assets_col_location") || "Location"
-                    : t("mp_assets_col_brand") || "Brand"}
-                </th>
-              )}
-              {isRealEstate && (
-                <th className="text-right font-normal px-3 py-2">
-                  {t("mp_assets_col_area") || "Area (m²)"}
-                </th>
-              )}
-              <th className="text-right font-normal px-3 py-2">
-                {t("mp_assets_col_year") || "Year"}
-              </th>
-              <th className="text-left font-normal px-3 py-2">
-                {t("mp_assets_col_holder") || "Holder"}
-              </th>
-              <th className="text-right font-normal px-3 py-2">
-                {t("mp_assets_col_share") || "Share"}
-              </th>
-              <th className="text-right font-normal px-3 py-2">
-                {t("mp_assets_col_amount") || "Amount"}
-              </th>
-              <th className="text-right font-normal px-3 py-2">BGN</th>
-              <th className="text-left font-normal px-3 py-2">
-                {t("mp_assets_col_legal_basis") || "Legal basis"}
-              </th>
-              <th className="text-left font-normal px-3 py-2">
-                {t("mp_assets_col_origin") || "Origin of funds"}
-              </th>
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map((r, i) => (
-              <tr key={i} className={i % 2 === 0 ? "" : "bg-muted/10"}>
-                <td className="px-3 py-2 text-xs text-muted-foreground tabular-nums">
-                  {i + 1}
-                </td>
-                <td className="px-3 py-2">{r.description ?? "—"}</td>
-                {(isRealEstate || isVehicle) && (
-                  <td className="px-3 py-2 text-muted-foreground">
-                    {isRealEstate
-                      ? [r.location, r.municipality]
-                          .filter(Boolean)
-                          .join(" · ") || "—"
-                      : (r.detail ?? "—")}
-                  </td>
-                )}
-                {isRealEstate && (
-                  <td className="px-3 py-2 text-right tabular-nums">
-                    {r.areaSqm ?? "—"}
-                  </td>
-                )}
-                <td className="px-3 py-2 text-right text-xs tabular-nums">
-                  {r.acquiredYear ?? "—"}
-                </td>
-                <td className="px-3 py-2 text-xs">
-                  {r.holderName ? (
-                    <span>
-                      {r.holderName}
-                      {r.isSpouse && (
-                        <span className="ml-1 italic text-muted-foreground">
-                          ({t("mp_assets_spouse") || "spouse"})
-                        </span>
-                      )}
-                    </span>
-                  ) : (
-                    "—"
-                  )}
-                </td>
-                <td className="px-3 py-2 text-right text-xs">
-                  {r.share ?? "—"}
-                </td>
-                <td className="px-3 py-2 text-right tabular-nums font-mono text-xs">
-                  {r.amount != null
-                    ? `${formatBgn(r.amount, lang)} ${r.currency ?? ""}`.trim()
-                    : "—"}
-                </td>
-                <td
-                  className={`px-3 py-2 text-right tabular-nums font-mono ${isDebt ? "text-red-600" : ""}`}
-                >
-                  {formatBgn(r.valueBgn, lang)}
-                </td>
-                <td className="px-3 py-2 text-xs text-muted-foreground">
-                  {r.legalBasis ?? "—"}
-                </td>
-                <td className="px-3 py-2 text-xs text-muted-foreground max-w-[280px]">
-                  {r.fundsOrigin ?? "—"}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
+      <DataTable<MpAsset, unknown>
+        title={categoryTitle}
+        pageSize={25}
+        columns={columns}
+        data={rows}
+      />
     </div>
   );
 };
@@ -369,17 +401,19 @@ export const CandidateAssetsScreen: FC = () => {
       <Title
         description={`${t("mp_assets_page_title") || "Declared assets"} · ${name}`}
       >
-        <span className="inline-flex items-center gap-3">
-          <MpAvatar name={name} className="h-8 w-8" />
-          <span className="inline-flex items-center gap-2">
-            <Wallet className="h-5 w-5" />
+        <span className="inline-flex flex-col gap-1">
+          <span className="inline-flex items-center gap-3">
+            <MpAvatar name={name} className="h-8 w-8" />
             {t("mp_assets_title") || "Declared assets"}
           </span>
-          <span className="text-sm font-normal text-muted-foreground">
-            ·{" "}
-            {rollup.fiscalYear
-              ? `${t("fiscal_year") || "fiscal year"} ${rollup.fiscalYear}`
-              : `${rollup.latestDeclarationYear}`}
+          <span className="inline-flex items-center gap-2 text-sm font-normal">
+            <span className="font-semibold text-base">{name}</span>
+            <span className="text-muted-foreground">
+              ·{" "}
+              {rollup.fiscalYear
+                ? `${t("fiscal_year") || "fiscal year"} ${rollup.fiscalYear}`
+                : `${rollup.latestDeclarationYear}`}
+            </span>
           </span>
         </span>
       </Title>

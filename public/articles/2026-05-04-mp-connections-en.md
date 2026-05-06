@@ -2,7 +2,7 @@
 
 Bulgarian voters can already see how an MP votes, where they were elected, and how their party fared in any given polling station. What has been much harder to see — without manually downloading an XML declaration and cross-checking it against the Commerce Registry — is what *companies* sit behind those people, how those companies link MPs to one another, and how much wealth each MP actually declared in the first place.
 
-That is the gap these features fill. As of this writing, the graph contains **5,480 nodes** (605 MPs, 2,086 companies, 2,789 other named persons) joined by **6,567 edges** drawn from two open Bulgarian datasets; the wealth aggregator covers **713 MPs across 1,802 cacbg filings** spanning fiscal years 2020 through the first 2026 batch; and a derived [cars page](/mp-cars) lists every passenger car (570 lifetime, 69 for the 52nd parliament) extracted from those same declarations, sorted by declared BGN value. This article walks through where to find the new pages, what they show, and ends with a worked example: a pair of brothers, one currently seated and one former, both MPs of different parties and co-owners of the same company.
+That is the gap these features fill. As of this writing, the graph contains **5,302 nodes** (581 MPs, 1,957 companies, 2,764 other named persons) joined by **6,355 edges** drawn from two open Bulgarian datasets; the wealth aggregator covers **744 MPs across 1,802 cacbg filings** spanning fiscal years 2020 through the first 2026 batch; and a derived [cars page](/mp-cars) lists every passenger car (572 lifetime, 69 for the 52nd parliament) extracted from those same declarations, sorted by declared BGN value. This article walks through where to find the new pages, what they show, and ends with a worked example: a pair of brothers, one currently seated and one former, both MPs of different parties and co-owners of the same company.
 
 ---
 
@@ -30,11 +30,11 @@ Why both? Declarations alone show *MP → company* ties, which is enough to buil
 
 Every edge in the graph carries a **confidence** label that surfaces throughout the UI:
 
-- **High** — name match plus seat-in-region or same-party co-declaration corroboration. There are 4,987 high-confidence edges.
-- **Medium** — name match alone, no corroboration. There are 1,580 medium-confidence edges.
+- **High** — name match plus seat-in-region or same-party co-declaration corroboration. There are 4,773 high-confidence edges.
+- **Medium** — name match alone, no corroboration. There are 1,582 medium-confidence edges.
 - **Low** — surname-only matches. These are dropped before publication, not displayed.
 
-Edge breakdown by source: **730 declared stakes**, **2,722 Commerce Registry ownership/partner edges**, **3,115 Commerce Registry role edges** (manager, director, representative, procurator, liquidator, etc.).
+Edge breakdown by source: **586 declared stakes**, **2,697 Commerce Registry ownership/partner edges**, **3,072 Commerce Registry role edges** (manager, director, representative, procurator, liquidator, etc.).
 
 ---
 
@@ -54,7 +54,7 @@ The same tile appears on every regional dashboard, intersected with the MIR (mul
 
 ![Sofia regional tile](/articles/images/connections/02-sofia-region-tile.png)
 
-Notice how the ranking reshuffles entirely: every name on the national list either drops out (wrong region) or moves down the order. **Ivaylo Mirchev** (DB) takes the top slot with 7 high-confidence ties — instead of being fourth nationally — because the regional view drops everyone outside Sofia. **Martin Dimitrov** (DB, six tenures spanning 40th–52nd parliament) appears second despite being further down the national list for the same reason. The tooltip on each row still reveals the (usually zero) direct co-MP count, so a reader can see at a glance that a given Sofia MP's wider ties don't necessarily overlap with another sitting Sofia MP's.
+Notice how the ranking reshuffles entirely: every name on the national list either drops out (wrong region) or moves down the order. **Martin Dimitrov** (DB, six tenures spanning 40th–52nd parliament) takes the top slot with 4 high-confidence ties — he sits further down the national list but leads regionally once everyone outside Sofia is dropped. The tooltip on each row still reveals the (usually zero) direct co-MP count, so a reader can see at a glance that a given Sofia MP's wider ties don't necessarily overlap with another sitting Sofia MP's.
 
 ### MPs' car makes
 
@@ -92,7 +92,7 @@ The second block is a per-company summary of declared business interests. Each r
 
 ![Financial declarations on a candidate page](/articles/images/connections/03-candidate-declarations.png)
 
-The example here is **[Dimitar Naydenov](/candidate/%D0%94%D0%B8%D0%BC%D0%B8%D1%82%D1%8A%D1%80%20%D0%93%D0%B5%D0%BE%D1%80%D0%B3%D0%B8%D0%B5%D0%B2%20%D0%9D%D0%B0%D0%B9%D0%B4%D0%B5%D0%BD%D0%BE%D0%B2)** — the most-connected currently-sitting MP, with 14 high-confidence ties. His 2024 filing alone lists nine Burgas-based ОООд and ЕООД companies in the textile and fashion business (БИТЕКС, ДОРЕМИ ПЛЮС, НЕОМАКС 09, СЪНМАКС, ДИТЕКС, ЗЕНИТ КОМЕРС, …) with stakes ranging from 17% to 100%.
+The example here is **[Dimitar Naydenov](/candidate/%D0%94%D0%B8%D0%BC%D0%B8%D1%82%D1%8A%D1%80%20%D0%93%D0%B5%D0%BE%D1%80%D0%B3%D0%B8%D0%B5%D0%B2%20%D0%9D%D0%B0%D0%B9%D0%B4%D0%B5%D0%BD%D0%BE%D0%B2)** — the most-connected currently-sitting MP, with 10 high-confidence ties. His 2024 filing alone lists nine Burgas-based ОООд and ЕООД companies in the textile and fashion business (БИТЕКС, ДОРЕМИ ПЛЮС, НЕОМАКС 09, СЪНМАКС, ДИТЕКС, ЗЕНИТ КОМЕРС, …) with stakes ranging from 17% to 100%.
 
 ### Management roles
 
@@ -138,7 +138,7 @@ The centerpiece. The page is built around a single question: *who is connected t
 
 The first thing on the page is a one-sentence stat with a clickable heatmap underneath:
 
-> **11** MPs in parliament 52 have ties to **14** others through **20** shared companies.
+> **11** MPs in parliament 52 have ties to **13** others through **19** shared companies.
 
 The numbers update with the scope filter (described below). Below the sentence, a **party × party heatmap** shows where MP↔MP ties cross party lines — each cell is the number of pair-paths whose two endpoints belong to those two parties. Cells are log-scaled so a single mega-cluster doesn't drown out everything else, and clicking any cell drills the list below into that exact party crossing. For the 52nd parliament the journalistically interesting cells are the cross-party ones — the brightest single cross-bench cell is *PG of GERB-SDS × PG of PB*, and the *ГЛАСЪ × PG of Vazrazhdane* cell that the worked example in §7 walks through.
 
@@ -146,7 +146,7 @@ The numbers update with the scope filter (described below). Below the sentence, 
 
 Sitting under the hero block is a chip-style filter rail (Linear/Notion pattern). Every state lives in the URL so a journalist can copy `electionsbg.com/connections?ns=52&crossParty=1` directly into a tweet, and the same chip set drives both the strongest-connections card below and the rankings list, so toggling a chip reshuffles both views in lockstep:
 
-- **Smart entity search** — type any MP or company name; suggestions resolve as you type and selecting one navigates straight to the profile page. Backed by a precomputed search index of 605 MPs + 2,087 companies.
+- **Smart entity search** — type any MP or company name; suggestions resolve as you type and selecting one navigates straight to the profile page. Backed by a precomputed search index of 581 MPs + 1,957 companies.
 - **Scope chip** (always visible) — defaults to the parliament selected in the global header. Click it to switch to a specific NS folder or the "All parliaments" lifetime view. Once you've picked an explicit scope it sticks even when you change elections in the global header.
 - **Cross-party only** — restrict to MP↔MP pairs whose endpoints belong to different parliamentary groups. This is the journalistically interesting filter and it always sits one click away.
 - **All current** — drop pairs whose canonical path includes any historical edges (transferred shares, ended TR roles).
@@ -161,7 +161,7 @@ A ranked list of MP↔MP connections rendered as **chip chains** — the same `M
 - Next: a cross-party medium-confidence bridge running **Georgi Ivanov Georgiev (GERB-SDS) → КРУМКООП-1 → Dimitar Georgiev Dimitrov → АПИС МЕЛИФЕРА БЪЛГАРИЯ → Rashid Mehmedov Uzunov (PB)**. 4 steps · currently active · name-match link — this row drops out the moment you tick *High confidence*.
 - And the **Petkov** family (current PP MP and his father, BSP) co-owning *Чеси Инс Брокер ООД*.
 
-Each pair is scored on a small handful of signals: cross-party + both-currently-seated + multiple-shared-companies + currently-active-path + high-confidence-path + shorter-is-better, with high-confidence and cross-party as the dominant ones. Of the 45 distinct MP↔MP pairs in the graph, around 16 touch the 52nd parliament.
+Each pair is scored on a small handful of signals: cross-party + both-currently-seated + multiple-shared-companies + currently-active-path + high-confidence-path + shorter-is-better, with high-confidence and cross-party as the dominant ones. Of the 45 distinct MP↔MP pairs in the graph, around 8 touch the 52nd parliament.
 
 A toolbar above the list adds three power-user controls:
 
@@ -171,7 +171,7 @@ A toolbar above the list adds three power-user controls:
 
 ### Most-connected rankings card
 
-Sits directly below the strongest-connections list. A two-column grid: **Top MPs** by high-confidence ties on the left, **Top companies** by MP count on the right, ten rows each. Both lists honour the scope chip in the rail — switch to NS-52 and the top MPs become the same set the dashboard tile shows (Naydenov 14, Apostolov 11, Petkov 8, Mirchev 7, …). A *View all →* link under the companies column goes to the [flat companies index](/mp/companies).
+Sits directly below the strongest-connections list. A two-column grid: **Top MPs** by high-confidence ties on the left, **Top companies** by MP count on the right, ten rows each. Both lists honour the scope chip in the rail — switch to NS-52 and the top MPs become the same set the dashboard tile shows (Naydenov 10, Terziyski 7, Martin Dimitrov 4, Dilov 4, Aliyeva-Veli 4). A *View all →* link under the companies column goes to the [flat companies index](/mp/companies).
 
 ### Orbital graph card
 
@@ -195,7 +195,7 @@ A *Find connection between two MPs* button on this same card flips the canvas in
 
 ### Companies index
 
-The "All companies" link in the dashboard tile opens a [flat, searchable table](/mp/companies) of every company any MP is connected to — currently **2,086** distinct companies. **702** of those are companies an MP declared a stake in directly; the rest are companies an MP holds (or held) a Commerce Registry role at — manager, partner, procurator, etc. The "Linked MPs" column folds both kinds of relationship into a single name list, so a row will list the same MP whether they declared 100% ownership or only an active manager appointment.
+The "All companies" link in the dashboard tile opens a [flat, searchable table](/mp/companies) of every company any MP is connected to — currently **1,957** distinct companies. **571** of those are companies an MP declared a stake in directly; the rest are companies an MP holds (or held) a Commerce Registry role at — manager, partner, procurator, etc. The "Linked MPs" column folds both kinds of relationship into a single name list, so a row will list the same MP whether they declared 100% ownership or only an active manager appointment.
 
 ![Companies index](/articles/images/connections/09-all-companies.png)
 
@@ -213,7 +213,7 @@ Two pages cover the wealth feature end to end.
 
 ### The rankings page
 
-The [assets ranking](/mp-assets) is a flat sortable table of every MP whose latest declaration produced a non-zero asset or debt total — currently **713 MPs across 1,802 declarations**. The header carries two scope chips — "Selected parliament" (defaults to the NS picked in the global header) and "All parliaments" (lifetime view) — plus a free-text search that filters by name or party group. Every column is sortable: net worth (default sort, descending), total assets, debts, properties, year of latest filing, name, and the YoY change column.
+The [assets ranking](/mp-assets) is a flat sortable table of every MP whose latest declaration produced a non-zero asset or debt total — currently **744 MPs across 1,802 declarations**. The header carries two scope chips — "Selected parliament" (defaults to the NS picked in the global header) and "All parliaments" (lifetime view) — plus a free-text search that filters by name or party group. Every column is sortable: net worth (default sort, descending), total assets, debts, properties, year of latest filing, name, and the YoY change column.
 
 A small footnote on the properties column flags MPs whose declarations include items without a stated value — `8 (+3 n/v)` reads as "8 declared properties, 3 of them filed with no acquisition price." We don't impute prices for those — that would be editorial — so the rank-by-net-worth column is naturally a slight under-count for MPs whose real estate is mostly unvalued.
 
@@ -245,7 +245,7 @@ Below the asset tables sits the **Annual income** table (Table 12) with one row 
 
 ### The [cars page](/mp-cars)
 
-Reached from the *See details →* link on the **MPs' car makes** dashboard tile, the cars page is a flat sortable table of every passenger car or jeep extracted from the most recent declaration of every MP — currently **570 vehicles** lifetime, **69 for the 52nd parliament**. Spouse-held cars are included with the holder column flagged accordingly so the same physical car never gets double-counted across the household.
+Reached from the *See details →* link on the **MPs' car makes** dashboard tile, the cars page is a flat sortable table of every passenger car or jeep extracted from the most recent declaration of every MP — currently **572 vehicles** lifetime, **69 for the 52nd parliament**. Spouse-held cars are included with the holder column flagged accordingly so the same physical car never gets double-counted across the household.
 
 Columns: rank, MP (avatar + link), party group, make (canonical English-cased), declared model text (verbatim), year acquired, declared BGN value, holder (MP / spouse), and a source-link icon to the underlying cacbg XML for each row. The default sort is by BGN value descending; every column header is clickable. A header toggle switches between *Selected parliament* and *All parliaments* scope; a free-text search filters by MP name, make, model, or party group.
 
@@ -313,7 +313,7 @@ But the precomputed top-pairs list surfaces the bridge directly. Each chip on th
 
 **The honest caveat** — and this is the kind of thing the *High confidence* chip on the filter rail was built for: every edge in *this* row is **medium confidence**. They are name matches against the Commerce Registry without an extra corroborating signal. The chip-chain row footer flags this directly with a *name-match link* warning, and toggling *High confidence* in the rail makes the row disappear entirely, because the bridge (Dimitrov) and the two cooperatives all drop out. That is not a bug — it is the difference between "almost certainly the same person" and "the name fits, look closer." A reader chasing this lead would want to verify the natural-person identities at the Commerce Registry portal before drawing any conclusion (the *Source: TR* link on the row goes there directly). The Drenchev brothers above are what high-confidence looks like; this row is what medium-confidence looks like, side by side on the same list.
 
-If you want to see the densest single MP profile in this regard, **[Naydenov](/candidate/%D0%94%D0%B8%D0%BC%D0%B8%D1%82%D1%8A%D1%80%20%D0%93%D0%B5%D0%BE%D1%80%D0%B3%D0%B8%D0%B5%D0%B2%20%D0%9D%D0%B0%D0%B9%D0%B4%D0%B5%D0%BD%D0%BE%D0%B2)** (14 high-confidence ties — every one of them corroborated) is the right page; he has no MP-to-MP paths because his Burgas textile network does not overlap with any other parliamentarian's, but the management-roles and declarations blocks above the empty-paths state are the longest in the dataset.
+If you want to see the densest single MP profile in this regard, **[Naydenov](/candidate/%D0%94%D0%B8%D0%BC%D0%B8%D1%82%D1%8A%D1%80%20%D0%93%D0%B5%D0%BE%D1%80%D0%B3%D0%B8%D0%B5%D0%B2%20%D0%9D%D0%B0%D0%B9%D0%B4%D0%B5%D0%BD%D0%BE%D0%B2)** (10 high-confidence ties — every one of them corroborated) is the right page; he has no MP-to-MP paths because his Burgas textile network does not overlap with any other parliamentarian's, but the management-roles and declarations blocks above the empty-paths state are the longest in the dataset.
 
 ---
 

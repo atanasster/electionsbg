@@ -1236,14 +1236,30 @@ export const buildConnectionsGraph = ({
     }
     return r;
   };
+  // Count unique neighbors rather than parallel edges so that a company with
+  // both a transferred_share and a current_share edge counts as one connection,
+  // not two. highConfDegree is displayed as the "neighbourhood size" in the UI.
+  const highConfNeighborsSeen = new Map<string, Set<string>>();
   for (const e of edges.values()) {
     const a = ensureRow(e.source);
     const b = ensureRow(e.target);
     a.totalDegree++;
     b.totalDegree++;
     if (e.confidence === "high") {
-      a.highConfDegree++;
-      b.highConfDegree++;
+      if (!highConfNeighborsSeen.has(e.source))
+        highConfNeighborsSeen.set(e.source, new Set());
+      if (!highConfNeighborsSeen.has(e.target))
+        highConfNeighborsSeen.set(e.target, new Set());
+      const aSeen = highConfNeighborsSeen.get(e.source)!;
+      const bSeen = highConfNeighborsSeen.get(e.target)!;
+      if (!aSeen.has(e.target)) {
+        a.highConfDegree++;
+        aSeen.add(e.target);
+      }
+      if (!bSeen.has(e.source)) {
+        b.highConfDegree++;
+        bSeen.add(e.source);
+      }
     }
   }
 

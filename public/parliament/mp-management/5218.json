@@ -1,1 +1,50 @@
-{"mpId":5218,"mpName":"Ивайло Христов Христов","generatedAt":"2026-05-06T08:59:26.333Z","total":3,"roles":[{"uic":"206972997","companyName":"ГЛОРИ ЛИЙВС","legalForm":"Дружество с ограничена отговорност","seat":"БЪЛГАРИЯ, гр. Варна, 9000","status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2022-06-10T11:35:35","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"206972997","companyName":"ГЛОРИ ЛИЙВС","legalForm":"Дружество с ограничена отговорност","seat":"БЪЛГАРИЯ, гр. Варна, 9000","status":"active","role":"partner","positionLabel":null,"sharePercent":null,"addedAt":"2022-06-10T11:35:35","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"},{"uic":"175210939","companyName":"ЗОВ КОМЕРС","legalForm":"OOD","seat":null,"status":"active","role":"manager","positionLabel":null,"sharePercent":null,"addedAt":"2021-12-22T11:36:33","erasedAt":null,"confidence":"medium","confidenceReason":"full-name match"}]}
+{
+  "mpId": 5218,
+  "mpName": "Ивайло Христов Христов",
+  "generatedAt": "2026-05-06T09:15:58.224Z",
+  "total": 3,
+  "roles": [
+    {
+      "uic": "206972997",
+      "companyName": "ГЛОРИ ЛИЙВС",
+      "legalForm": "Дружество с ограничена отговорност",
+      "seat": "БЪЛГАРИЯ, гр. Варна, 9000",
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2022-06-10T11:35:35",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "206972997",
+      "companyName": "ГЛОРИ ЛИЙВС",
+      "legalForm": "Дружество с ограничена отговорност",
+      "seat": "БЪЛГАРИЯ, гр. Варна, 9000",
+      "status": "active",
+      "role": "partner",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2022-06-10T11:35:35",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    },
+    {
+      "uic": "175210939",
+      "companyName": "ЗОВ КОМЕРС",
+      "legalForm": "OOD",
+      "seat": null,
+      "status": "active",
+      "role": "manager",
+      "positionLabel": null,
+      "sharePercent": null,
+      "addedAt": "2021-12-22T11:36:33",
+      "erasedAt": null,
+      "confidence": "medium",
+      "confidenceReason": "full-name match"
+    }
+  ]
+}
