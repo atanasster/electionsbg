@@ -117,11 +117,75 @@ export const MpConnectionsMini: FC<{ name: string; linkSlug?: string }> = ({
     // 1-hop neighborhood fallback: place satellites in a deterministic ring
     // around the hub. d3-force on such a small graph collapses the satellite
     // onto the avatar, so we pin everything ourselves and skip the sim.
-    const useStatic = visiblePaths.length === 0;
+    // Cap radii by half the canvas height (minus avatar radius and label
+    // padding) so MP nodes don't get clipped at the top/bottom of the panel.
+    const maxOrbitR = Math.max(80, HEIGHT / 2 - 40);
+    const useNeighborhoodFallback = visiblePaths.length === 0;
     const satellites = filteredNodes.filter((n) => n.id !== subgraph.mpNodeId);
-    const orbitR = Math.max(150, Math.min(280, 110 + satellites.length * 18));
+    const orbitR = Math.max(
+      90,
+      Math.min(maxOrbitR, 110 + satellites.length * 18),
+    );
     const satIndex = new Map<string, number>();
     satellites.forEach((n, i) => satIndex.set(n.id, i));
+
+    // Path-subgraph mode: lay out the full chain statically. Pin each target
+    // MP at a deterministic angle around the hub, then place each intermediate
+    // (company/person) at its fractional position along the line from hub to
+    // target. Without this, d3-force charge repulsion fights the link force
+    // and intermediates can settle on the opposite side of the hub from their
+    // target MP — the bug this layout exists to prevent.
+    const pinnedPositions = new Map<string, { x: number; y: number }>();
+    if (!useNeighborhoodFallback) {
+      const targetMpIds: string[] = [];
+      const seenTargets = new Set<string>();
+      for (const p of visiblePaths) {
+        if (p.targetMpNodeId && !seenTargets.has(p.targetMpNodeId)) {
+          seenTargets.add(p.targetMpNodeId);
+          targetMpIds.push(p.targetMpNodeId);
+        }
+      }
+      const targetCount = targetMpIds.length || 1;
+      const targetR = Math.max(
+        110,
+        Math.min(maxOrbitR, 110 + targetCount * 12),
+      );
+      const targetAngle = new Map<string, number>();
+      targetMpIds.forEach((id, i) => {
+        const angle = (i / targetCount) * Math.PI * 2 - Math.PI / 2;
+        targetAngle.set(id, angle);
+        pinnedPositions.set(id, {
+          x: Math.cos(angle) * targetR,
+          y: Math.sin(angle) * targetR,
+        });
+      });
+      pinnedPositions.set(subgraph.mpNodeId, { x: 0, y: 0 });
+
+      // For intermediate nodes: average their position across every path they
+      // appear on (a node can be on multiple paths to different targets).
+      const sums = new Map<string, { x: number; y: number; n: number }>();
+      for (const p of visiblePaths) {
+        const angle = targetAngle.get(p.targetMpNodeId);
+        if (angle === undefined) continue;
+        const len = p.nodeIds.length;
+        if (len < 3) continue;
+        for (let i = 1; i < len - 1; i++) {
+          const id = p.nodeIds[i];
+          if (pinnedPositions.has(id)) continue;
+          const t = i / (len - 1);
+          const r = t * targetR;
+          const x = Math.cos(angle) * r;
+          const y = Math.sin(angle) * r;
+          const prior = sums.get(id) ?? { x: 0, y: 0, n: 0 };
+          prior.x += x;
+          prior.y += y;
+          prior.n += 1;
+          sums.set(id, prior);
+        }
+      }
+      for (const [id, s] of sums)
+        pinnedPositions.set(id, { x: s.x / s.n, y: s.y / s.n });
+    }
 
     const sn: ConnectionsSimNode[] = filteredNodes.map((n) => {
       const isHub = n.id === subgraph.mpNodeId;
@@ -135,12 +199,11 @@ export const MpConnectionsMini: FC<{ name: string; linkSlug?: string }> = ({
         color: TYPE_COLORS[n.type],
       };
       if (isHub) {
-        // Pin the hub MP at origin so the radial layout is stable.
         node.fx = 0;
         node.fy = 0;
         node.x = 0;
         node.y = 0;
-      } else if (useStatic) {
+      } else if (useNeighborhoodFallback) {
         const idx = satIndex.get(n.id) ?? 0;
         const total = satellites.length || 1;
         const angle = (idx / total) * Math.PI * 2 - Math.PI / 2;
@@ -148,10 +211,32 @@ export const MpConnectionsMini: FC<{ name: string; linkSlug?: string }> = ({
         node.fy = Math.sin(angle) * orbitR;
         node.x = node.fx;
         node.y = node.fy;
+      } else {
+        const pos = pinnedPositions.get(n.id);
+        if (pos) {
+          node.fx = pos.x;
+          node.fy = pos.y;
+          node.x = pos.x;
+          node.y = pos.y;
+        }
       }
       return node;
     });
+    // Resolve link source/target to node objects up-front. d3-force's
+    // forceLink normally does this, but every node here is pinned so we skip
+    // the sim entirely — without manual resolution the canvas wouldn't have
+    // x/y to draw the edges. We mirror d3-force's mutation by replacing the
+    // string ids with node refs after construction (the link type narrows
+    // source/target to `string`, but the canvas already casts to a node).
+    const nodeById = new Map<string, ConnectionsSimNode>();
+    for (const n of sn) nodeById.set(n.id, n);
     const sl: ConnectionsSimLink[] = filteredEdges.map((e) => ({ ...e }));
+    for (const link of sl) {
+      const src = nodeById.get(link.source as unknown as string);
+      const tgt = nodeById.get(link.target as unknown as string);
+      if (src) link.source = src as unknown as string;
+      if (tgt) link.target = tgt as unknown as string;
+    }
 
     const adj = new Map<string, Set<string>>();
     for (const e of filteredEdges) {
@@ -161,11 +246,14 @@ export const MpConnectionsMini: FC<{ name: string; linkSlug?: string }> = ({
       adj.get(e.target)!.add(e.source);
     }
 
+    // Both branches now produce a fully-pinned layout, so the d3-force
+    // simulation is unnecessary. The flag is kept in case a future tweak
+    // re-introduces unpinned nodes.
     return {
       simNodes: sn,
       simLinks: sl,
       neighbors: adj,
-      isStaticLayout: useStatic,
+      isStaticLayout: true,
     };
   }, [subgraph, visiblePaths]);
 
