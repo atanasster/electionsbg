@@ -983,7 +983,6 @@ export const ConnectionsScreen: FC = () => {
             </CardContent>
           </Card>
         )}
-
       </div>
 
       {/* Orbital graph — rendered as a normal card below the strongest-ties
