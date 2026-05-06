@@ -184,7 +184,7 @@ export const ConnectionsScreen: FC = () => {
   );
   const [showRankings, setShowRankings] = useState(true);
 
-// Filter state — lifted into the URL via useConnectionsFilters so all chips
+  // Filter state — lifted into the URL via useConnectionsFilters so all chips
   // are shareable and back-button friendly.
   const {
     filters: connFilters,
@@ -438,12 +438,7 @@ export const ConnectionsScreen: FC = () => {
       neighbors.get(t)!.add(s);
     }
     return { simNodes, simLinks, neighbors };
-  }, [
-    graph,
-    filters,
-    connFilters.currentOnly,
-    connFilters.highConfidenceOnly,
-  ]);
+  }, [graph, filters, connFilters.currentOnly, connFilters.highConfidenceOnly]);
 
   // Map party group → angular target (radians) for clustering. Computed once
   // per simulation rebuild so partyAngle stays stable across ticks.
@@ -867,180 +862,173 @@ export const ConnectionsScreen: FC = () => {
       />
 
       <div className="my-4">
-          {(diffMode ? diffPairs.merged.length : scopedPairs.length) > 0 && (
-            <Card className="my-4">
-              <CardContent className="p-3 md:p-4">
-                <div className="flex items-baseline justify-between mb-2 gap-2 flex-wrap">
-                  <h3 className="text-sm font-semibold">
-                    {t("connections_top_pairs_title") ||
-                      "Strongest connections"}
-                    <span className="font-normal text-muted-foreground ml-2 text-xs">
-                      {selectedNs
-                        ? t("connections_top_pairs_subtitle_scoped", {
-                            nsLabel: selectedNs,
-                          }) ||
-                          `MP↔MP ties touching the ${selectedNs}ᵗʰ parliament`
-                        : t("connections_top_pairs_subtitle_all") ||
-                          "Across all parliaments"}
-                    </span>
-                  </h3>
-                  <div className="flex items-center gap-2 text-xs">
-                    {priorNs && (
-                      <button
-                        type="button"
-                        onClick={() => setDiffMode((v) => !v)}
-                        className={
-                          diffMode
-                            ? "rounded-full border border-primary bg-primary/10 px-2 py-1 text-primary"
-                            : "rounded-full border border-border/60 px-2 py-1 text-muted-foreground hover:bg-muted"
-                        }
-                      >
-                        {t("connections_diff_toggle", {
+        {(diffMode ? diffPairs.merged.length : scopedPairs.length) > 0 && (
+          <Card className="my-4">
+            <CardContent className="p-3 md:p-4">
+              <div className="flex items-baseline justify-between mb-2 gap-2 flex-wrap">
+                <h3 className="text-sm font-semibold">
+                  {t("connections_top_pairs_title") || "Strongest connections"}
+                  <span className="font-normal text-muted-foreground ml-2 text-xs">
+                    {selectedNs
+                      ? t("connections_top_pairs_subtitle_scoped", {
                           nsLabel: selectedNs,
-                          priorLabel: priorNs,
-                        }) || `Compare ${priorNs} → ${selectedNs}`}
-                      </button>
-                    )}
+                        }) ||
+                        `MP↔MP ties touching the ${selectedNs}ᵗʰ parliament`
+                      : t("connections_top_pairs_subtitle_all") ||
+                        "Across all parliaments"}
+                  </span>
+                </h3>
+                <div className="flex items-center gap-2 text-xs">
+                  {priorNs && (
                     <button
                       type="button"
-                      onClick={() => {
-                        const blob = exportPairsCsv(
-                          diffMode ? diffPairs.merged : scopedPairs,
-                        );
-                        downloadCsv(
-                          blob,
-                          `connections-${selectedNs ?? "all"}.csv`,
-                        );
-                      }}
-                      className="rounded-full border border-border/60 px-2 py-1 text-muted-foreground hover:bg-muted"
+                      onClick={() => setDiffMode((v) => !v)}
+                      className={
+                        diffMode
+                          ? "rounded-full border border-primary bg-primary/10 px-2 py-1 text-primary"
+                          : "rounded-full border border-border/60 px-2 py-1 text-muted-foreground hover:bg-muted"
+                      }
                     >
-                      {t("connections_export_csv") || "Export CSV"}
+                      {t("connections_diff_toggle", {
+                        nsLabel: selectedNs,
+                        priorLabel: priorNs,
+                      }) || `Compare ${priorNs} → ${selectedNs}`}
                     </button>
-                    <span className="text-muted-foreground tabular-nums">
-                      {diffMode ? diffPairs.merged.length : scopedPairs.length}
-                    </span>
-                  </div>
-                </div>
-                <TopPairsList
-                  pairs={diffMode ? diffPairs.merged : scopedPairs}
-                  limit={20}
-                  diffKindFor={diffMode ? diffPairs.kind : undefined}
-                />
-              </CardContent>
-            </Card>
-          )}
-
-          {scopedRankings && scopedRankings.topMps.length > 0 && (
-            <Card className="my-4">
-              <CardContent className="p-3 md:p-4">
-                <div className="flex items-center justify-between mb-2">
-                  <h3 className="text-sm font-semibold">
-                    {t("connections_rankings_title") || "Most-connected"}
-                    <span className="font-normal text-muted-foreground ml-2 text-xs">
-                      {t("connections_rankings_subtitle") ||
-                        "by high-confidence ties"}
-                    </span>
-                  </h3>
+                  )}
                   <button
                     type="button"
-                    onClick={() => setShowRankings((v) => !v)}
-                    className="text-xs text-primary hover:underline"
+                    onClick={() => {
+                      const blob = exportPairsCsv(
+                        diffMode ? diffPairs.merged : scopedPairs,
+                      );
+                      downloadCsv(
+                        blob,
+                        `connections-${selectedNs ?? "all"}.csv`,
+                      );
+                    }}
+                    className="rounded-full border border-border/60 px-2 py-1 text-muted-foreground hover:bg-muted"
                   >
-                    {showRankings
-                      ? t("connections_rankings_hide") || "Hide"
-                      : t("connections_rankings_show") || "Show"}
+                    {t("connections_export_csv") || "Export CSV"}
                   </button>
+                  <span className="text-muted-foreground tabular-nums">
+                    {diffMode ? diffPairs.merged.length : scopedPairs.length}
+                  </span>
                 </div>
-                {showRankings && (
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-1">
-                    <div>
-                      <div className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-1">
-                        {t("connections_rankings_top_mps") || "Top MPs"}
-                      </div>
-                      {scopedRankings.topMps.slice(0, 10).map((row, i) => {
-                        const display = localizedMpLabel(row.mpId, row.label);
-                        return (
-                          <div
-                            key={row.mpId}
-                            className="text-xs flex items-center gap-2 py-0.5"
-                          >
-                            <span className="text-muted-foreground w-5 shrink-0 text-right">
-                              {i + 1}.
-                            </span>
-                            <MpAvatar mpId={row.mpId} name={display} />
-                            <Link
-                              to={candidateUrlForMp(row.mpId)}
-                              className="hover:underline truncate flex-1"
-                            >
-                              {display}
-                            </Link>
-                            <span className="text-muted-foreground tabular-nums shrink-0">
-                              {row.highConfDegree}
-                            </span>
-                            {row.partyGroupShort && (
-                              <span className="text-muted-foreground text-[10px] truncate max-w-[120px] shrink-0">
-                                {partyGroupShortLabel(row.partyGroupShort) ??
-                                  row.partyGroupShort}
-                              </span>
-                            )}
-                          </div>
-                        );
-                      })}
+              </div>
+              <TopPairsList
+                pairs={diffMode ? diffPairs.merged : scopedPairs}
+                limit={20}
+                diffKindFor={diffMode ? diffPairs.kind : undefined}
+              />
+            </CardContent>
+          </Card>
+        )}
+
+        {scopedRankings && scopedRankings.topMps.length > 0 && (
+          <Card className="my-4">
+            <CardContent className="p-3 md:p-4">
+              <div className="flex items-center justify-between mb-2">
+                <h3 className="text-sm font-semibold">
+                  {t("connections_rankings_title") || "Most-connected"}
+                  <span className="font-normal text-muted-foreground ml-2 text-xs">
+                    {t("connections_rankings_subtitle") ||
+                      "by high-confidence ties"}
+                  </span>
+                </h3>
+                <button
+                  type="button"
+                  onClick={() => setShowRankings((v) => !v)}
+                  className="text-xs text-primary hover:underline"
+                >
+                  {showRankings
+                    ? t("connections_rankings_hide") || "Hide"
+                    : t("connections_rankings_show") || "Show"}
+                </button>
+              </div>
+              {showRankings && (
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-1">
+                  <div>
+                    <div className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-1">
+                      {t("connections_rankings_top_mps") || "Top MPs"}
                     </div>
-                    <div>
-                      <div className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-1">
-                        {t("connections_rankings_top_companies") ||
-                          "Top companies"}
-                      </div>
-                      {scopedRankings.topCompanies
-                        .slice(0, 10)
-                        .map((row, i) => (
-                          <div
-                            key={row.nodeId}
-                            className="text-xs flex items-baseline gap-2 py-0.5"
-                          >
-                            <span className="text-muted-foreground w-5 shrink-0 text-right">
-                              {i + 1}.
-                            </span>
-                            {row.slug ? (
-                              <Link
-                                to={`/mp/company/${encodeURIComponent(row.slug)}`}
-                                className="hover:underline truncate flex-1"
-                              >
-                                {row.label}
-                              </Link>
-                            ) : (
-                              <span className="truncate flex-1">
-                                {row.label}
-                              </span>
-                            )}
-                            <span className="text-muted-foreground tabular-nums shrink-0">
-                              {row.mpCount}{" "}
-                              {(
-                                t("connections_legend_mp") || "MP"
-                              ).toLowerCase()}
-                            </span>
-                            {row.seat && (
-                              <span className="text-muted-foreground text-[10px] truncate max-w-[100px] shrink-0">
-                                {row.seat}
-                              </span>
-                            )}
-                          </div>
-                        ))}
-                      <div className="mt-2 pt-2 border-t">
-                        <Link
-                          to="/mp/companies"
-                          className="text-xs text-primary hover:underline"
+                    {scopedRankings.topMps.slice(0, 10).map((row, i) => {
+                      const display = localizedMpLabel(row.mpId, row.label);
+                      return (
+                        <div
+                          key={row.mpId}
+                          className="text-xs flex items-center gap-2 py-0.5"
                         >
-                          {t("connections_rankings_view_all") || "View all"} →
-                        </Link>
+                          <span className="text-muted-foreground w-5 shrink-0 text-right">
+                            {i + 1}.
+                          </span>
+                          <MpAvatar mpId={row.mpId} name={display} />
+                          <Link
+                            to={candidateUrlForMp(row.mpId)}
+                            className="hover:underline truncate flex-1"
+                          >
+                            {display}
+                          </Link>
+                          <span className="text-muted-foreground tabular-nums shrink-0">
+                            {row.highConfDegree}
+                          </span>
+                          {row.partyGroupShort && (
+                            <span className="text-muted-foreground text-[10px] truncate max-w-[120px] shrink-0">
+                              {partyGroupShortLabel(row.partyGroupShort) ??
+                                row.partyGroupShort}
+                            </span>
+                          )}
+                        </div>
+                      );
+                    })}
+                  </div>
+                  <div>
+                    <div className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-1">
+                      {t("connections_rankings_top_companies") ||
+                        "Top companies"}
+                    </div>
+                    {scopedRankings.topCompanies.slice(0, 10).map((row, i) => (
+                      <div
+                        key={row.nodeId}
+                        className="text-xs flex items-baseline gap-2 py-0.5"
+                      >
+                        <span className="text-muted-foreground w-5 shrink-0 text-right">
+                          {i + 1}.
+                        </span>
+                        {row.slug ? (
+                          <Link
+                            to={`/mp/company/${encodeURIComponent(row.slug)}`}
+                            className="hover:underline truncate flex-1"
+                          >
+                            {row.label}
+                          </Link>
+                        ) : (
+                          <span className="truncate flex-1">{row.label}</span>
+                        )}
+                        <span className="text-muted-foreground tabular-nums shrink-0">
+                          {row.mpCount}{" "}
+                          {(t("connections_legend_mp") || "MP").toLowerCase()}
+                        </span>
+                        {row.seat && (
+                          <span className="text-muted-foreground text-[10px] truncate max-w-[100px] shrink-0">
+                            {row.seat}
+                          </span>
+                        )}
                       </div>
+                    ))}
+                    <div className="mt-2 pt-2 border-t">
+                      <Link
+                        to="/mp/companies"
+                        className="text-xs text-primary hover:underline"
+                      >
+                        {t("connections_rankings_view_all") || "View all"} →
+                      </Link>
                     </div>
                   </div>
-                )}
-              </CardContent>
-            </Card>
-          )}
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        )}
       </div>
 
       {/* Orbital graph — rendered as a normal card below the strongest-ties
@@ -1050,119 +1038,116 @@ export const ConnectionsScreen: FC = () => {
           <h3 className="text-sm font-semibold mb-3">
             {t("connections_tab_graph") || "Explore graph"}
           </h3>
-              <div className="flex flex-wrap gap-3 items-center text-xs text-muted-foreground mb-3">
-                <span>
-                  <span className="inline-block h-2 w-2 rounded-full bg-blue-600 mr-1 align-middle" />
-                  {t("connections_legend_mp") || "MP"}
-                  {": "}
-                  {stats.mp}
-                </span>
-                <span>
-                  <span className="inline-block h-2 w-2 rounded-full bg-amber-600 mr-1 align-middle" />
-                  {t("connections_legend_company") || "Company"}
-                  {": "}
-                  {stats.company}
-                </span>
-                <span>
-                  <span className="inline-block h-2 w-2 rounded-full bg-neutral-500 mr-1 align-middle" />
-                  {t("connections_legend_person") || "Other person"}
-                  {": "}
-                  {stats.person}
-                </span>
-                <span>
-                  {t("connections_legend_edges") || "Edges"}
-                  {": "}
-                  {stats.edges}
-                </span>
-                <span className="ml-auto flex gap-3 flex-wrap">
-                  <label className="inline-flex gap-1 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={filters.hideTransferred}
-                      onChange={(e) =>
-                        setFilters((f) => ({
-                          ...f,
-                          hideTransferred: e.target.checked,
-                        }))
-                      }
-                    />
-                    {t("connections_filter_hide_transferred") ||
-                      "Hide transfers"}
-                  </label>
-                  <label className="inline-flex gap-1 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={filters.largestComponentOnly}
-                      onChange={(e) =>
-                        setFilters((f) => ({
-                          ...f,
-                          largestComponentOnly: e.target.checked,
-                        }))
-                      }
-                    />
-                    {t("connections_filter_largest_component") ||
-                      "Largest component only"}
-                  </label>
-                  <label className="inline-flex gap-1 cursor-pointer">
-                    <input
-                      type="checkbox"
-                      checked={clusterByParty}
-                      onChange={(e) => setClusterByParty(e.target.checked)}
-                    />
-                    {t("connections_cluster_by_party") || "Cluster by party"}
-                  </label>
-                </span>
-              </div>
+          <div className="flex flex-wrap gap-3 items-center text-xs text-muted-foreground mb-3">
+            <span>
+              <span className="inline-block h-2 w-2 rounded-full bg-blue-600 mr-1 align-middle" />
+              {t("connections_legend_mp") || "MP"}
+              {": "}
+              {stats.mp}
+            </span>
+            <span>
+              <span className="inline-block h-2 w-2 rounded-full bg-amber-600 mr-1 align-middle" />
+              {t("connections_legend_company") || "Company"}
+              {": "}
+              {stats.company}
+            </span>
+            <span>
+              <span className="inline-block h-2 w-2 rounded-full bg-neutral-500 mr-1 align-middle" />
+              {t("connections_legend_person") || "Other person"}
+              {": "}
+              {stats.person}
+            </span>
+            <span>
+              {t("connections_legend_edges") || "Edges"}
+              {": "}
+              {stats.edges}
+            </span>
+            <span className="ml-auto flex gap-3 flex-wrap">
+              <label className="inline-flex gap-1 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={filters.hideTransferred}
+                  onChange={(e) =>
+                    setFilters((f) => ({
+                      ...f,
+                      hideTransferred: e.target.checked,
+                    }))
+                  }
+                />
+                {t("connections_filter_hide_transferred") || "Hide transfers"}
+              </label>
+              <label className="inline-flex gap-1 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={filters.largestComponentOnly}
+                  onChange={(e) =>
+                    setFilters((f) => ({
+                      ...f,
+                      largestComponentOnly: e.target.checked,
+                    }))
+                  }
+                />
+                {t("connections_filter_largest_component") ||
+                  "Largest component only"}
+              </label>
+              <label className="inline-flex gap-1 cursor-pointer">
+                <input
+                  type="checkbox"
+                  checked={clusterByParty}
+                  onChange={(e) => setClusterByParty(e.target.checked)}
+                />
+                {t("connections_cluster_by_party") || "Cluster by party"}
+              </label>
+            </span>
+          </div>
 
-              <div className="flex flex-wrap gap-2 items-center text-xs mb-3">
-                <button
-                  type="button"
-                  onClick={() => {
-                    setPathPickMode(true);
-                    setPathFrom(null);
-                    setPathTo(null);
-                  }}
-                  className={`px-2 py-1 rounded border ${
-                    pathPickMode
-                      ? "bg-red-50 border-red-300 dark:bg-red-950/30 dark:border-red-700"
-                      : "border-border hover:bg-muted"
-                  }`}
-                >
-                  {t("connections_find_path") ||
-                    "Find connection between two MPs"}
-                </button>
-                {pathPickMode && (
-                  <span className="text-muted-foreground italic">
-                    {!pathFrom
-                      ? t("connections_pick_first_mp") || "Click an MP node…"
-                      : !pathTo
-                        ? t("connections_pick_second_mp") ||
-                          "Click another MP node…"
-                        : ""}
-                  </span>
-                )}
-                {(pathFrom || pathTo) && (
-                  <button
-                    type="button"
-                    onClick={() => {
-                      setPathFrom(null);
-                      setPathTo(null);
-                      setPathPickMode(false);
-                    }}
-                    className="px-2 py-1 rounded border border-border hover:bg-muted"
-                  >
-                    {t("connections_clear_path") || "Clear"}
-                  </button>
-                )}
-                {pathFrom && pathTo && pathNodeIds && pathEdgeKeys && (
-                  <span className="text-muted-foreground">
-                    {pathEdgeKeys.size === 0
-                      ? t("connections_no_path") ||
-                        "No path between these two MPs"
-                      : `${pathFrom.label} → ${pathTo.label}: ${pathNodeIds.size - 1} ${t("connections_hops") || "hop(s)"}`}
-                  </span>
-                )}
-              </div>
+          <div className="flex flex-wrap gap-2 items-center text-xs mb-3">
+            <button
+              type="button"
+              onClick={() => {
+                setPathPickMode(true);
+                setPathFrom(null);
+                setPathTo(null);
+              }}
+              className={`px-2 py-1 rounded border ${
+                pathPickMode
+                  ? "bg-red-50 border-red-300 dark:bg-red-950/30 dark:border-red-700"
+                  : "border-border hover:bg-muted"
+              }`}
+            >
+              {t("connections_find_path") || "Find connection between two MPs"}
+            </button>
+            {pathPickMode && (
+              <span className="text-muted-foreground italic">
+                {!pathFrom
+                  ? t("connections_pick_first_mp") || "Click an MP node…"
+                  : !pathTo
+                    ? t("connections_pick_second_mp") ||
+                      "Click another MP node…"
+                    : ""}
+              </span>
+            )}
+            {(pathFrom || pathTo) && (
+              <button
+                type="button"
+                onClick={() => {
+                  setPathFrom(null);
+                  setPathTo(null);
+                  setPathPickMode(false);
+                }}
+                className="px-2 py-1 rounded border border-border hover:bg-muted"
+              >
+                {t("connections_clear_path") || "Clear"}
+              </button>
+            )}
+            {pathFrom && pathTo && pathNodeIds && pathEdgeKeys && (
+              <span className="text-muted-foreground">
+                {pathEdgeKeys.size === 0
+                  ? t("connections_no_path") || "No path between these two MPs"
+                  : `${pathFrom.label} → ${pathTo.label}: ${pathNodeIds.size - 1} ${t("connections_hops") || "hop(s)"}`}
+              </span>
+            )}
+          </div>
 
           <div ref={canvasWrapRef} className="w-full relative">
             {isLoading || !graph ? (
@@ -1193,142 +1178,141 @@ export const ConnectionsScreen: FC = () => {
                 }}
               />
             )}
-                {detail && !isLoading && graph && (
-                  <div
-                    className="absolute z-10 bg-card/95 backdrop-blur-sm border rounded-md shadow-lg p-3 overflow-y-auto"
-                    style={{
-                      ...(popoverCorner === "tl" || popoverCorner === "tr"
-                        ? { top: visibleVRange.top + 8 }
-                        : {
-                            bottom:
-                              Math.max(0, size.h - visibleVRange.bottom) + 8,
-                          }),
-                      ...(popoverCorner === "tl" || popoverCorner === "bl"
-                        ? { left: 8 }
-                        : { right: 8 }),
-                      maxWidth: Math.min(360, Math.max(220, size.w - 16)),
-                      maxHeight: Math.max(
-                        160,
-                        Math.floor(
-                          (visibleVRange.bottom - visibleVRange.top || size.h) *
-                            0.6,
-                        ),
-                      ),
-                    }}
-                  >
-                    <div className="text-sm font-semibold flex items-center gap-2">
-                      {(() => {
-                        const detailDisplay =
-                          detail.type === "mp"
-                            ? localizedMpLabel(detail.mpId, detail.label)
-                            : detail.label;
-                        return (
-                          <>
-                            {detail.type === "mp" ? (
-                              <MpAvatar
-                                mpId={detail.mpId}
-                                name={detailDisplay}
-                                className="h-6 w-6"
-                              />
-                            ) : (
-                              <span
-                                className="inline-block h-2 w-2 rounded-full"
-                                style={{
-                                  backgroundColor: TYPE_COLORS[detail.type],
-                                }}
-                              />
-                            )}
-                            {detail.type === "mp" ? (
-                              <Link
-                                to={candidateUrlForMp(detail.mpId)}
-                                className="hover:underline truncate"
-                              >
-                                {detailDisplay}
-                              </Link>
-                            ) : detail.type === "company" && detail.slug ? (
-                              <Link
-                                to={`/mp/company/${encodeURIComponent(detail.slug)}`}
-                                className="hover:underline truncate"
-                              >
-                                {detailDisplay}
-                              </Link>
-                            ) : (
-                              <span className="truncate">{detailDisplay}</span>
-                            )}
-                          </>
-                        );
-                      })()}
-                    </div>
-                    <div className="text-xs text-muted-foreground mt-1">
-                      {detail.type === "mp"
-                        ? (t("connections_legend_mp") || "MP") +
-                          (detail.partyGroupShort
-                            ? ` · ${partyGroupShortLabel(detail.partyGroupShort) ?? detail.partyGroupShort}`
-                            : "")
-                        : detail.type === "company"
-                          ? `${t("connections_legend_company") || "Company"}${
-                              detail.legalForm ? ` · ${detail.legalForm}` : ""
-                            }${detail.uic ? ` · ${detail.uic}` : ""}`
-                          : t("connections_legend_person") || "Other person"}
-                    </div>
-
-                    <div className="text-xs text-muted-foreground mt-2">
-                      {t("connections_neighbors") || "Connections"}:{" "}
-                      {detailNeighbors.length}
-                    </div>
-                    <div className="text-xs mt-1 flex flex-col gap-0.5">
-                      {detailNeighbors.slice(0, 24).map((n) => {
-                        const nDisplay =
-                          n.type === "mp"
-                            ? localizedMpLabel(n.mpId, n.label)
-                            : n.label;
-                        return (
-                          <div
-                            key={n.id}
-                            className="truncate flex items-center gap-1.5"
+            {detail && !isLoading && graph && (
+              <div
+                className="absolute z-10 bg-card/95 backdrop-blur-sm border rounded-md shadow-lg p-3 overflow-y-auto"
+                style={{
+                  ...(popoverCorner === "tl" || popoverCorner === "tr"
+                    ? { top: visibleVRange.top + 8 }
+                    : {
+                        bottom: Math.max(0, size.h - visibleVRange.bottom) + 8,
+                      }),
+                  ...(popoverCorner === "tl" || popoverCorner === "bl"
+                    ? { left: 8 }
+                    : { right: 8 }),
+                  maxWidth: Math.min(360, Math.max(220, size.w - 16)),
+                  maxHeight: Math.max(
+                    160,
+                    Math.floor(
+                      (visibleVRange.bottom - visibleVRange.top || size.h) *
+                        0.6,
+                    ),
+                  ),
+                }}
+              >
+                <div className="text-sm font-semibold flex items-center gap-2">
+                  {(() => {
+                    const detailDisplay =
+                      detail.type === "mp"
+                        ? localizedMpLabel(detail.mpId, detail.label)
+                        : detail.label;
+                    return (
+                      <>
+                        {detail.type === "mp" ? (
+                          <MpAvatar
+                            mpId={detail.mpId}
+                            name={detailDisplay}
+                            className="h-6 w-6"
+                          />
+                        ) : (
+                          <span
+                            className="inline-block h-2 w-2 rounded-full"
+                            style={{
+                              backgroundColor: TYPE_COLORS[detail.type],
+                            }}
+                          />
+                        )}
+                        {detail.type === "mp" ? (
+                          <Link
+                            to={candidateUrlForMp(detail.mpId)}
+                            className="hover:underline truncate"
                           >
-                            {n.type === "mp" ? (
-                              <MpAvatar
-                                mpId={n.mpId}
-                                name={nDisplay}
-                                className="h-4 w-4"
-                              />
-                            ) : (
-                              <span
-                                className="inline-block h-1.5 w-1.5 rounded-full align-middle shrink-0"
-                                style={{
-                                  backgroundColor: TYPE_COLORS[n.type],
-                                }}
-                              />
-                            )}
-                            {n.type === "mp" ? (
-                              <Link
-                                to={candidateUrlForMp(n.mpId)}
-                                className="hover:underline truncate"
-                              >
-                                {nDisplay}
-                              </Link>
-                            ) : n.type === "company" && n.slug ? (
-                              <Link
-                                to={`/mp/company/${encodeURIComponent(n.slug)}`}
-                                className="hover:underline truncate"
-                              >
-                                {nDisplay}
-                              </Link>
-                            ) : (
-                              <span className="truncate">{nDisplay}</span>
-                            )}
-                          </div>
-                        );
-                      })}
-                      {detailNeighbors.length > 24 && (
-                        <div className="text-muted-foreground italic">
-                          +{detailNeighbors.length - 24} {t("more") || "more"}…
-                        </div>
-                      )}
+                            {detailDisplay}
+                          </Link>
+                        ) : detail.type === "company" && detail.slug ? (
+                          <Link
+                            to={`/mp/company/${encodeURIComponent(detail.slug)}`}
+                            className="hover:underline truncate"
+                          >
+                            {detailDisplay}
+                          </Link>
+                        ) : (
+                          <span className="truncate">{detailDisplay}</span>
+                        )}
+                      </>
+                    );
+                  })()}
+                </div>
+                <div className="text-xs text-muted-foreground mt-1">
+                  {detail.type === "mp"
+                    ? (t("connections_legend_mp") || "MP") +
+                      (detail.partyGroupShort
+                        ? ` · ${partyGroupShortLabel(detail.partyGroupShort) ?? detail.partyGroupShort}`
+                        : "")
+                    : detail.type === "company"
+                      ? `${t("connections_legend_company") || "Company"}${
+                          detail.legalForm ? ` · ${detail.legalForm}` : ""
+                        }${detail.uic ? ` · ${detail.uic}` : ""}`
+                      : t("connections_legend_person") || "Other person"}
+                </div>
+
+                <div className="text-xs text-muted-foreground mt-2">
+                  {t("connections_neighbors") || "Connections"}:{" "}
+                  {detailNeighbors.length}
+                </div>
+                <div className="text-xs mt-1 flex flex-col gap-0.5">
+                  {detailNeighbors.slice(0, 24).map((n) => {
+                    const nDisplay =
+                      n.type === "mp"
+                        ? localizedMpLabel(n.mpId, n.label)
+                        : n.label;
+                    return (
+                      <div
+                        key={n.id}
+                        className="truncate flex items-center gap-1.5"
+                      >
+                        {n.type === "mp" ? (
+                          <MpAvatar
+                            mpId={n.mpId}
+                            name={nDisplay}
+                            className="h-4 w-4"
+                          />
+                        ) : (
+                          <span
+                            className="inline-block h-1.5 w-1.5 rounded-full align-middle shrink-0"
+                            style={{
+                              backgroundColor: TYPE_COLORS[n.type],
+                            }}
+                          />
+                        )}
+                        {n.type === "mp" ? (
+                          <Link
+                            to={candidateUrlForMp(n.mpId)}
+                            className="hover:underline truncate"
+                          >
+                            {nDisplay}
+                          </Link>
+                        ) : n.type === "company" && n.slug ? (
+                          <Link
+                            to={`/mp/company/${encodeURIComponent(n.slug)}`}
+                            className="hover:underline truncate"
+                          >
+                            {nDisplay}
+                          </Link>
+                        ) : (
+                          <span className="truncate">{nDisplay}</span>
+                        )}
+                      </div>
+                    );
+                  })}
+                  {detailNeighbors.length > 24 && (
+                    <div className="text-muted-foreground italic">
+                      +{detailNeighbors.length - 24} {t("more") || "more"}…
                     </div>
-                  </div>
-                )}
+                  )}
+                </div>
+              </div>
+            )}
           </div>
         </CardContent>
       </Card>

@@ -61,9 +61,7 @@ const TrOnlyCompanyTooltip: FC<{
       <div className="text-xs space-y-0.5 opacity-90">
         {node.legalForm ? <div>{node.legalForm}</div> : null}
         {node.status ? (
-          <div>
-            {(t(`tr_status_${node.status}`) as string) || node.status}
-          </div>
+          <div>{(t(`tr_status_${node.status}`) as string) || node.status}</div>
         ) : null}
         {node.seat ? <div>{node.seat}</div> : null}
       </div>
