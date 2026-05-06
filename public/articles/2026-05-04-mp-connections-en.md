@@ -144,7 +144,7 @@ The numbers update with the scope filter (described below). Below the sentence, 
 
 ### The filter rail
 
-Sitting under the hero block is a chip-style filter rail (Linear/Notion pattern). Every state lives in the URL so a journalist can copy `electionsbg.com/connections?ns=52&crossParty=1` directly into a tweet, and the same chip set drives both the strongest-connections card below and the rankings list, so toggling a chip reshuffles both views in lockstep:
+Sitting under the hero block is a chip-style filter rail (Linear/Notion pattern). Every state lives in the URL so a journalist can copy `electionsbg.com/connections?ns=52&crossParty=1` directly into a tweet, and the same chip set drives both the strongest-connections card below and the orbital graph, so toggling a chip reshuffles both views in lockstep:
 
 - **Smart entity search** — type any MP or company name; suggestions resolve as you type and selecting one navigates straight to the profile page. Backed by a precomputed search index of 581 MPs + 1,957 companies.
 - **Scope chip** (always visible) — defaults to the parliament selected in the global header. Click it to switch to a specific NS folder or the "All parliaments" lifetime view. Once you've picked an explicit scope it sticks even when you change elections in the global header.
@@ -167,10 +167,6 @@ A toolbar above the list adds three power-user controls:
 
 - **Compare 51 → 52** — when on, the rows are colour-coded: green for *new* pairs that appear in the selected parliament but not the prior one, neutral for *carried over* (in both), red strikethrough for *ended* (only in the prior). Bulgaria's parliamentary churn makes this view uniquely useful — it surfaces ownership patterns that survive the rotation of MPs.
 - **Export CSV** — downloads the current filtered list as a flat CSV with one row per pair, ready to open in Excel or Sheets. Columns mirror what's visible on the page (endpoints, parties, parliaments, shared-company count, full chain).
-### Most-connected rankings card
-
-Sits directly below the strongest-connections list. A two-column grid: **Top MPs** by high-confidence ties on the left, **Top companies** by MP count on the right, ten rows each. Both lists honour the scope chip in the rail — switch to NS-52 and the top MPs become the same set the dashboard tile shows (Naydenov 10, Terziyski 7, Martin Dimitrov 4, Dilov 4, Aliyeva-Veli 4). A *View all →* link under the companies column goes to the [flat companies index](/mp/companies).
-
 ### Orbital graph card
 
 An always-visible force-directed canvas at the bottom of the page. The same data, drawn as nodes and edges. Standard filter set lives just above the canvas — *Hide transfers*, *Largest component only*, *Cluster by party* — and the rail's *Current only* and *High confidence* chips also flow through to the canvas, so the orbital view honours the same filters as the strongest-connections list above. Usual canvas behaviour: drag to pan, Ctrl/Cmd+scroll to zoom, click a node for the detail popover.

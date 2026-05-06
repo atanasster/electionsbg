@@ -182,8 +182,6 @@ export const ConnectionsScreen: FC = () => {
     },
     [findMpById, mpName],
   );
-  const [showRankings, setShowRankings] = useState(true);
-
   // Filter state — lifted into the URL via useConnectionsFilters so all chips
   // are shareable and back-button friendly.
   const {
@@ -196,20 +194,6 @@ export const ConnectionsScreen: FC = () => {
     resetAll,
   } = useConnectionsFilters(selectedElection);
   const selectedNs = connFilters.ns;
-
-  // Scoped rankings — when a parliament is selected and we have a per-NS
-  // slice, use it. Otherwise fall back to the lifetime list.
-  const scopedRankings = useMemo(() => {
-    if (!rankings) return undefined;
-    if (selectedNs && rankings.byNs?.[selectedNs]) {
-      const slice = rankings.byNs[selectedNs];
-      return {
-        topMps: slice.topMps,
-        topCompanies: slice.topCompanies,
-      };
-    }
-    return { topMps: rankings.topMps, topCompanies: rankings.topCompanies };
-  }, [rankings, selectedNs]);
 
   // Scoped top pairs — apply NS scope (at least one endpoint sat in the
   // selected NS), plus the rail's cross-party / currency / confidence
@@ -1000,111 +984,6 @@ export const ConnectionsScreen: FC = () => {
           </Card>
         )}
 
-        {scopedRankings && scopedRankings.topMps.length > 0 && (
-          <Card className="my-4">
-            <CardContent className="p-3 md:p-4">
-              <div className="flex items-center justify-between mb-2">
-                <h3 className="text-sm font-semibold">
-                  {t("connections_rankings_title") || "Most-connected"}
-                  <span className="font-normal text-muted-foreground ml-2 text-xs">
-                    {t("connections_rankings_subtitle") ||
-                      "by high-confidence ties"}
-                  </span>
-                </h3>
-                <button
-                  type="button"
-                  onClick={() => setShowRankings((v) => !v)}
-                  className="text-xs text-primary hover:underline"
-                >
-                  {showRankings
-                    ? t("connections_rankings_hide") || "Hide"
-                    : t("connections_rankings_show") || "Show"}
-                </button>
-              </div>
-              {showRankings && (
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-x-6 gap-y-1">
-                  <div>
-                    <div className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-1">
-                      {t("connections_rankings_top_mps") || "Top MPs"}
-                    </div>
-                    {scopedRankings.topMps.slice(0, 10).map((row, i) => {
-                      const display = localizedMpLabel(row.mpId, row.label);
-                      return (
-                        <div
-                          key={row.mpId}
-                          className="text-xs flex items-center gap-2 py-0.5"
-                        >
-                          <span className="text-muted-foreground w-5 shrink-0 text-right">
-                            {i + 1}.
-                          </span>
-                          <MpAvatar mpId={row.mpId} name={display} />
-                          <Link
-                            to={candidateUrlForMp(row.mpId)}
-                            className="hover:underline truncate flex-1"
-                          >
-                            {display}
-                          </Link>
-                          <span className="text-muted-foreground tabular-nums shrink-0">
-                            {row.highConfDegree}
-                          </span>
-                          {row.partyGroupShort && (
-                            <span className="text-muted-foreground text-[10px] truncate max-w-[120px] shrink-0">
-                              {partyGroupShortLabel(row.partyGroupShort) ??
-                                row.partyGroupShort}
-                            </span>
-                          )}
-                        </div>
-                      );
-                    })}
-                  </div>
-                  <div>
-                    <div className="text-xs font-semibold uppercase tracking-wide text-muted-foreground mb-1">
-                      {t("connections_rankings_top_companies") ||
-                        "Top companies"}
-                    </div>
-                    {scopedRankings.topCompanies.slice(0, 10).map((row, i) => (
-                      <div
-                        key={row.nodeId}
-                        className="text-xs flex items-baseline gap-2 py-0.5"
-                      >
-                        <span className="text-muted-foreground w-5 shrink-0 text-right">
-                          {i + 1}.
-                        </span>
-                        {row.slug ? (
-                          <Link
-                            to={`/mp/company/${encodeURIComponent(row.slug)}`}
-                            className="hover:underline truncate flex-1"
-                          >
-                            {row.label}
-                          </Link>
-                        ) : (
-                          <span className="truncate flex-1">{row.label}</span>
-                        )}
-                        <span className="text-muted-foreground tabular-nums shrink-0">
-                          {row.mpCount}{" "}
-                          {(t("connections_legend_mp") || "MP").toLowerCase()}
-                        </span>
-                        {row.seat && (
-                          <span className="text-muted-foreground text-[10px] truncate max-w-[100px] shrink-0">
-                            {row.seat}
-                          </span>
-                        )}
-                      </div>
-                    ))}
-                    <div className="mt-2 pt-2 border-t">
-                      <Link
-                        to="/mp/companies"
-                        className="text-xs text-primary hover:underline"
-                      >
-                        {t("connections_rankings_view_all") || "View all"} →
-                      </Link>
-                    </div>
-                  </div>
-                </div>
-              )}
-            </CardContent>
-          </Card>
-        )}
       </div>
 
       {/* Orbital graph — rendered as a normal card below the strongest-ties
