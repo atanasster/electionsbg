@@ -10,6 +10,7 @@ const initAnalytics = () => {
   // Skip GA for automated browsers (Playwright, Selenium, headless crawlers).
   // navigator.webdriver is set to true by every WebDriver-controlled browser,
   // so this also blocks future automation tools without per-tool plumbing.
+  if (import.meta.env.DEV) return;
   if (typeof navigator !== "undefined" && navigator.webdriver) return;
   gaInitialized = true;
   import("react-ga4").then(({ default: ReactGA }) => {
