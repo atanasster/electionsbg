@@ -304,7 +304,7 @@ export const DataTable = <TData, TValue>({
             <div className="flex items-center justify-end space-x-2">
               <Button
                 variant="outline"
-                className="flex justify-between w-18 md:w-24 text-secondary-foreground p-2 md:p-4 text-xs md:text-sm"
+                className="flex justify-between w-20 md:w-28 text-secondary-foreground p-2 md:p-4 text-xs md:text-sm whitespace-nowrap"
                 onClick={() => table.previousPage()}
                 disabled={!table.getCanPreviousPage()}
               >
@@ -314,7 +314,7 @@ export const DataTable = <TData, TValue>({
               <div className="text-center text-xs md:text-sm">{`${table.getState().pagination.pageIndex + 1} / ${table.getPageCount()}`}</div>
               <Button
                 variant="outline"
-                className="flex justify-between w-16 md:w-24 text-secondary-foreground p-2 md:p-4 text-xs md:text-sm"
+                className="flex justify-between w-20 md:w-28 text-secondary-foreground p-2 md:p-4 text-xs md:text-sm whitespace-nowrap"
                 onClick={() => table.nextPage()}
                 disabled={!table.getCanNextPage()}
               >
