@@ -3,8 +3,9 @@ import { useTranslation } from "react-i18next";
 import { Wallet, ArrowRight, ArrowUp, ArrowDown } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useAssetsRankings } from "@/data/parliament/useAssetsRankings";
+import { useMps } from "@/data/parliament/useMps";
 import { useElectionContext } from "@/data/ElectionContext";
-import { electionToNsFolder } from "@/data/parliament/nsFolders";
+import { electionToNsFolder, oblastToMir } from "@/data/parliament/nsFolders";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 import { candidateUrlForMp } from "@/data/candidates/candidateSlug";
 import { formatThousands } from "@/data/utils";
@@ -26,13 +27,25 @@ const formatBgnCompact = (n: number, lang: string): string => {
 };
 
 type Props = {
+  /** Optional region code (e.g. "S23"). When provided, the tile focuses on
+   * MPs from that region; when omitted, it shows nationwide top MPs.
+   * Mutually exclusive with `regionCodes`. */
+  regionCode?: string;
+  /** Optional set of region codes (e.g. Sofia's three MIRs). Used to union
+   * MPs across multiple regions for a city-level view. */
+  regionCodes?: string[];
   className?: string;
 };
 
-export const MpAssetsTile: FC<Props> = ({ className }) => {
+export const MpAssetsTile: FC<Props> = ({
+  regionCode,
+  regionCodes,
+  className,
+}) => {
   const { t, i18n } = useTranslation();
   const { rankings } = useAssetsRankings();
   const { selected } = useElectionContext();
+  const { findMpsByRegion } = useMps();
 
   // Default to MPs of the currently selected parliament. Fall back to the
   // lifetime list when the selected election doesn't map to an NS we have
@@ -42,16 +55,55 @@ export const MpAssetsTile: FC<Props> = ({ className }) => {
     [selected],
   );
 
+  const regionMpIds = useMemo(() => {
+    const codes = regionCodes ?? (regionCode ? [regionCode] : null);
+    if (!codes || codes.length === 0) return null;
+    if (!selectedFolder) return null;
+    const ids = new Set<number>();
+    for (const code of codes) {
+      const mir = oblastToMir(code);
+      if (!mir) continue;
+      for (const m of findMpsByRegion(mir, selectedFolder)) ids.add(m.id);
+    }
+    return ids;
+  }, [regionCode, regionCodes, selectedFolder, findMpsByRegion]);
+
+  const isRegional = regionMpIds != null;
+
   const topMps = useMemo(() => {
     if (!rankings) return [];
+    if (isRegional) {
+      return rankings.topMps
+        .filter((m) => regionMpIds!.has(m.mpId))
+        .slice(0, ROWS);
+    }
     if (selectedFolder && rankings.byNs[selectedFolder]?.topMps?.length) {
       return rankings.byNs[selectedFolder].topMps.slice(0, ROWS);
     }
     return rankings.topMps.slice(0, ROWS);
-  }, [rankings, selectedFolder]);
+  }, [rankings, isRegional, regionMpIds, selectedFolder]);
+
+  const detailsTo = useMemo(() => {
+    if (regionCodes && regionCodes.length > 0) {
+      const params = new URLSearchParams({ regions: regionCodes.join(",") });
+      return `/mp-assets?${params.toString()}`;
+    }
+    if (regionCode) {
+      const params = new URLSearchParams({ region: regionCode });
+      return `/mp-assets?${params.toString()}`;
+    }
+    return "/mp-assets";
+  }, [regionCode, regionCodes]);
 
   if (!rankings) return null;
   if (topMps.length === 0) return null;
+
+  const titleKey = isRegional
+    ? "dashboard_mp_assets_region_title"
+    : "dashboard_mp_assets_title";
+  const titleFallback = isRegional
+    ? "Region MPs by declared assets"
+    : "MPs by declared assets";
 
   return (
     <StatCard
@@ -60,12 +112,10 @@ export const MpAssetsTile: FC<Props> = ({ className }) => {
         <div className="flex items-center justify-between w-full gap-2">
           <div className="flex items-center gap-2 min-w-0">
             <Wallet className="h-4 w-4 shrink-0" />
-            <span className="truncate">
-              {t("dashboard_mp_assets_title") || "MPs by declared assets"}
-            </span>
+            <span className="truncate">{t(titleKey) || titleFallback}</span>
           </div>
           <Link
-            to="/mp-assets"
+            to={detailsTo}
             className="inline-flex items-center gap-1 text-[11px] text-primary hover:underline normal-case shrink-0"
           >
             {t("dashboard_see_details") || "See details"}
@@ -130,7 +180,7 @@ export const MpAssetsTile: FC<Props> = ({ className }) => {
         })}
       </div>
       <div className="mt-2 pt-2 border-t flex items-center justify-between text-[11px] text-muted-foreground">
-        <Link to="/mp-assets" className="text-primary hover:underline">
+        <Link to={detailsTo} className="text-primary hover:underline">
           {t("dashboard_mp_assets_view_all") || "All MPs by assets"} →
         </Link>
         <span>

@@ -11,6 +11,8 @@ import { candidateUrlForMp } from "@/data/candidates/candidateSlug";
 import { formatThousands } from "@/data/utils";
 import type { MpAssetsRankingEntry } from "@/data/dataTypes";
 import { DataTable, DataTableColumns } from "@/ux/data_table/DataTable";
+import { useRegionScope } from "@/screens/utils/useRegionScope";
+import { RegionScopeChip } from "@/screens/utils/RegionScopeChip";
 
 type Scope = "ns" | "all";
 
@@ -26,16 +28,23 @@ export const AllMpAssetsScreen: FC = () => {
   const { rankings } = useAssetsRankings();
   const { selected } = useElectionContext();
   const [scope, setScope] = useState<Scope>("ns");
+  const { regionMpIds, label: regionLabel, clearedParams } = useRegionScope();
 
   const folder = useMemo(() => electionToNsFolder(selected), [selected]);
 
   const source: MpAssetsRankingEntry[] = useMemo(() => {
     if (!rankings) return [];
+    let rows: MpAssetsRankingEntry[];
     if (scope === "ns" && folder && rankings.byNs[folder]?.topMps?.length) {
-      return rankings.byNs[folder].topMps;
+      rows = rankings.byNs[folder].topMps;
+    } else {
+      rows = rankings.topMps;
     }
-    return rankings.topMps;
-  }, [rankings, scope, folder]);
+    if (regionMpIds) {
+      rows = rows.filter((m) => regionMpIds.has(m.mpId));
+    }
+    return rows;
+  }, [rankings, scope, folder, regionMpIds]);
 
   const columns: DataTableColumns<MpAssetsRankingEntry, unknown> = useMemo(
     () => [
@@ -172,7 +181,10 @@ export const AllMpAssetsScreen: FC = () => {
   if (!rankings) return null;
 
   const scopeToggle = (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-2 flex-wrap">
+      {regionLabel && (
+        <RegionScopeChip label={regionLabel} clearedParams={clearedParams} />
+      )}
       <button
         type="button"
         onClick={() => setScope("ns")}
@@ -203,10 +215,7 @@ export const AllMpAssetsScreen: FC = () => {
   return (
     <div className="w-full">
       <Title description={t("mp_assets_page_description") || ""}>
-        <span className="inline-flex items-center gap-2">
-          <Wallet className="h-5 w-5" />
-          {t("mp_assets_page_title") || "MPs by declared assets"}
-        </span>
+        {t("mp_assets_page_title") || "MPs by declared assets"}
       </Title>
 
       <DataTable<MpAssetsRankingEntry, unknown>

@@ -14,6 +14,8 @@ import { HistoricalTrendsTile } from "./HistoricalTrendsTile";
 import { PartyResultsTile } from "./PartyResultsTile";
 import { RegionMpsTile } from "./RegionMpsTile";
 import { MpConnectionsTile } from "./MpConnectionsTile";
+import { CarMakesTile } from "./CarMakesTile";
+import { MpAssetsTile } from "./MpAssetsTile";
 import { MpDeclarationsProvenance } from "./MpDeclarationsProvenance";
 import { RegionMunicipalitiesMapTile } from "./RegionMunicipalitiesMapTile";
 import { TopCandidatesStrip } from "./TopCandidatesStrip";
@@ -157,7 +159,11 @@ export const RegionDashboardCards: FC<Props> = ({ regionCode }) => {
           icon={Briefcase}
           articleTopic="declarations"
         >
-          <MpConnectionsTile regionCode={regionCode} />
+          <div className="grid gap-3 grid-cols-1 lg:grid-cols-2">
+            <MpConnectionsTile regionCode={regionCode} />
+            <CarMakesTile regionCode={regionCode} hideProvenance />
+          </div>
+          <MpAssetsTile regionCode={regionCode} />
         </DashboardSection>
       </section>
     </SectionArticlesProvider>

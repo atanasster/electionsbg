@@ -7,11 +7,12 @@ const queryFn = async (): Promise<MpCarsFile | undefined> => {
   return response.json();
 };
 
-export const useMpCars = () => {
+export const useMpCars = (options?: { enabled?: boolean }) => {
   const { data, isLoading } = useQuery({
     queryKey: ["mp_cars"] as [string],
     queryFn,
     staleTime: Infinity,
+    enabled: options?.enabled ?? true,
   });
   return { mpCars: data, isLoading };
 };

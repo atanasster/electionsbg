@@ -10,6 +10,8 @@ import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 import { candidateUrlForMp } from "@/data/candidates/candidateSlug";
 import type { MpCarRow } from "@/data/dataTypes";
 import { DataTable, DataTableColumns } from "@/ux/data_table/DataTable";
+import { useRegionScope } from "@/screens/utils/useRegionScope";
+import { RegionScopeChip } from "@/screens/utils/RegionScopeChip";
 
 type Scope = "ns" | "all";
 
@@ -25,19 +27,26 @@ export const MpCarsScreen: FC = () => {
   const { mpCars } = useMpCars();
   const { selected } = useElectionContext();
   const [scope, setScope] = useState<Scope>("ns");
+  const { regionMpIds, label: regionLabel, clearedParams } = useRegionScope();
 
   const folder = useMemo(() => electionToNsFolder(selected), [selected]);
 
   const source: MpCarRow[] = useMemo(() => {
     if (!mpCars) return [];
+    let rows: MpCarRow[];
     if (scope === "ns" && folder) {
       const inScope = mpCars.cars.filter((c) => c.nsFolders.includes(folder));
       // Fall back to lifetime when the selected NS produced nothing — avoids
       // an empty page on parliaments with no filings yet.
-      return inScope.length > 0 ? inScope : mpCars.cars;
+      rows = inScope.length > 0 ? inScope : mpCars.cars;
+    } else {
+      rows = mpCars.cars;
     }
-    return mpCars.cars;
-  }, [mpCars, scope, folder]);
+    if (regionMpIds) {
+      rows = rows.filter((c) => regionMpIds.has(c.mpId));
+    }
+    return rows;
+  }, [mpCars, scope, folder, regionMpIds]);
 
   const columns: DataTableColumns<MpCarRow, unknown> = useMemo(
     () => [
@@ -163,7 +172,10 @@ export const MpCarsScreen: FC = () => {
   const valued = source.filter((r) => r.valueBgn != null).length;
 
   const scopeToggle = (
-    <div className="flex items-center gap-2">
+    <div className="flex items-center gap-2 flex-wrap">
+      {regionLabel && (
+        <RegionScopeChip label={regionLabel} clearedParams={clearedParams} />
+      )}
       <button
         type="button"
         onClick={() => setScope("ns")}
@@ -194,10 +206,7 @@ export const MpCarsScreen: FC = () => {
   return (
     <div className="w-full">
       <Title description={t("mp_cars_page_description") || ""}>
-        <span className="inline-flex items-center gap-2">
-          <Car className="h-5 w-5" />
-          {t("mp_cars_page_title") || "MP-declared cars"}
-        </span>
+        {t("mp_cars_page_title") || "MP-declared cars"}
       </Title>
 
       <div className="text-xs text-muted-foreground mt-4 mb-2">

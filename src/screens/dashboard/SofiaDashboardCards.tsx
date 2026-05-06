@@ -18,6 +18,8 @@ import { PartyResultsTile } from "./PartyResultsTile";
 import { SofiaMapTile } from "./SofiaMapTile";
 import { SofiaMpsTile } from "./SofiaMpsTile";
 import { MpConnectionsTile } from "./MpConnectionsTile";
+import { CarMakesTile } from "./CarMakesTile";
+import { MpAssetsTile } from "./MpAssetsTile";
 import { MpDeclarationsProvenance } from "./MpDeclarationsProvenance";
 import { TopSofiaAreasTile } from "./TopSofiaAreasTile";
 import { TopCandidatesStrip } from "./TopCandidatesStrip";
@@ -174,7 +176,11 @@ export const SofiaDashboardCards: FC = () => {
           icon={Briefcase}
           articleTopic="declarations"
         >
-          <MpConnectionsTile regionCodes={SOFIA_REGIONS} />
+          <div className="grid gap-3 grid-cols-1 lg:grid-cols-2">
+            <MpConnectionsTile regionCodes={SOFIA_REGIONS} />
+            <CarMakesTile regionCodes={SOFIA_REGIONS} hideProvenance />
+          </div>
+          <MpAssetsTile regionCodes={SOFIA_REGIONS} />
         </DashboardSection>
       </section>
     </SectionArticlesProvider>
