@@ -70,6 +70,7 @@ export const DashboardSection: FC<PropsWithChildren<Props>> = ({
 
   return (
     <section
+      id={id}
       data-dashboard-section={id}
       className={cn("mt-8 first:mt-2", className)}
     >

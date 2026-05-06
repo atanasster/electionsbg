@@ -592,10 +592,45 @@ const LayoutScreen: FC<PropsWithChildren> = ({ children }) => {
 };
 
 const ScrollToTop: FC = () => {
-  const { pathname } = useLocation();
+  const { pathname, hash } = useLocation();
   useEffect(() => {
+    if (hash) {
+      const id = hash.slice(1);
+      let debounce: ReturnType<typeof setTimeout> | null = null;
+
+      // Debounced scroll: fires 350ms after the last DOM mutation so the
+      // layout has settled (sections above the target may expand as data loads).
+      const scheduleScroll = () => {
+        if (debounce) clearTimeout(debounce);
+        debounce = setTimeout(() => {
+          const el = document.getElementById(id);
+          if (!el) return;
+          const navH = document.querySelector("nav")?.offsetHeight ?? 0;
+          const top =
+            el.getBoundingClientRect().top + window.scrollY - navH - 8;
+          window.scrollTo({ top, behavior: "smooth" });
+        }, 350);
+      };
+
+      if (document.getElementById(id)) {
+        scheduleScroll();
+      } else {
+        // Element not yet in DOM — wait for it, then debounce from there
+        const observer = new MutationObserver(scheduleScroll);
+        observer.observe(document.body, { childList: true, subtree: true });
+        const stopTimer = setTimeout(() => observer.disconnect(), 5000);
+        return () => {
+          observer.disconnect();
+          clearTimeout(stopTimer);
+          if (debounce) clearTimeout(debounce);
+        };
+      }
+      return () => {
+        if (debounce) clearTimeout(debounce);
+      };
+    }
     window.scrollTo({ top: 0, left: 0, behavior: "auto" });
-  }, [pathname]);
+  }, [pathname, hash]);
   return null;
 };
 

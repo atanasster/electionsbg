@@ -79,19 +79,23 @@ export const ArticleScreen: FC = () => {
                       href.startsWith("/") &&
                       !href.startsWith("//")
                     ) {
-                      const [pathname, search = ""] = href.split("?");
+                      const hashIdx = href.indexOf("#");
+                      const hash = hashIdx !== -1 ? href.slice(hashIdx) : "";
+                      const hrefWithoutHash =
+                        hashIdx !== -1 ? href.slice(0, hashIdx) : href;
+                      const [pathname, search = ""] =
+                        hrefWithoutHash.split("?");
                       const incoming = new URLSearchParams(search);
                       const merged = searchParams(
                         Object.fromEntries(incoming.entries()),
                       );
                       const finalSearch = merged.toString();
+                      const base = finalSearch
+                        ? `${pathname}?${finalSearch}`
+                        : pathname;
                       return (
                         <RouterLink
-                          to={
-                            finalSearch
-                              ? `${pathname}?${finalSearch}`
-                              : pathname
-                          }
+                          to={hash ? `${base}${hash}` : base}
                           className="text-primary underline underline-offset-4 decoration-primary/40 hover:decoration-primary"
                         >
                           {children}

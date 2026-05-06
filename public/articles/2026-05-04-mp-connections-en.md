@@ -11,7 +11,7 @@ That is the gap these features fill. As of this writing, the graph contains **5,
 This is a **graph of declared and registered business ties** between sitting and former MPs.
 
 - **Declared ties**: ownership stakes that an MP filed with the [Court of Audit](https://register.cacbg.bg/) on their annual property/interest declaration.
-- **Registered ties**: management roles, partnerships and beneficial-ownership entries pulled from the [Commerce Registry](https://data.egov.bg/) (Търговски регистър) for those same companies, plus other companies the same individuals appear on.
+- **Registered ties**: management roles, partnerships and beneficial-ownership entries pulled from the [Commerce Registry](https://portal.registryagency.bg/CR/) (Търговски регистър) for those same companies, plus other companies the same individuals appear on.
 
 It is **not** a list of accusations. Bulgarian law forbids sitting MPs from holding *active* management roles in commercial companies (ЗПК Art. 35), but it does not forbid ownership stakes — and historical management roles linger in the Commerce Registry as part of the public record. Most of what you see here is perfectly legal. The point of the graph is to make that legal-but-public record easy to read.
 
@@ -40,7 +40,7 @@ Edge breakdown by source: **730 declared stakes**, **2,722 Commerce Registry own
 
 ## 3. Where the feature appears — the dashboard tiles
 
-The first place a casual reader meets the data is the **Declarations** section of the national dashboard, sitting under *Anomalies* and *Neighborhoods*. The section header carries one shared provenance line (e.g. *Declarations 2021–2026 · 102/240 MPs filed · refreshed May 2026*) so each tile underneath doesn't repeat it. Three tiles sit inside the section: **MP Business Connections** and **MPs' car makes** render side-by-side at the top of the section; **MPs by declared assets** sits in its own row directly below.
+The first place a casual reader meets the data is the [**Declarations**](/#declarations) section of the national dashboard, sitting under [*Anomalies*](/#anomalies) and [*Neighborhoods*](/#neighborhoods). The section header carries one shared provenance line (e.g. *Declarations 2021–2026 · 102/240 MPs filed · refreshed May 2026*) so each tile underneath doesn't repeat it. Three tiles sit inside the section: **MP Business Connections** and **MPs' car makes** render side-by-side at the top of the section; **MPs by declared assets** sits in its own row directly below.
 
 ### MP Business Connections
 
@@ -48,9 +48,9 @@ The first place a casual reader meets the data is the **Declarations** section o
 
 The top tile in the section. A single column ranking the top five **most-connected MPs** of the currently-selected parliament by their **high-confidence neighbourhood size** — corroborated companies plus non-MP associates joined to them through Commerce Registry edges. Hovering the number reveals a fuller tooltip *"M total ties · N co-MP"* where N is the count of fellow MPs of the same parliament this person shares at least one company with (typically zero — the honest signal that genuine MP↔MP business overlaps are rare and mostly family-driven). MPs with no high-confidence ties are dropped from the list entirely; common Bulgarian surnames otherwise float ambiguous name-match-only ties to the top.
 
-The list is filtered to the **currently selected election**: switch the date picker to an older parliament and the rankings reshuffle to the people who actually sat in that body. A click on any name jumps straight into that candidate's profile; the *See details* link in the top-right opens the [connections page](/connections); the *All companies →* link in the footer opens the flat companies index. The provenance line is shared across the section header (described above), so the tile itself stays uncluttered. Hovering the section provenance reveals the per-year filing breakdown, e.g. *2025: 80 · 2024: 14 · 2023: 2 · …*. For just-elected parliaments where most MPs haven't filed yet — the 52nd, at the moment, with only 102/240 — that line is the honest disclaimer that the rest of the tile is reading older filings.
+The list is filtered to the **currently selected election**: switch the date picker to an older parliament and the rankings reshuffle to the people who actually sat in that body. A click on any name jumps straight into that candidate's profile; the *See details* link in the top-right opens the [connections page](/connections); the *All companies →* link in the footer opens the [flat companies index](/mp/companies). The provenance line is shared across the section header (described above), so the tile itself stays uncluttered. Hovering the section provenance reveals the per-year filing breakdown, e.g. *2025: 80 · 2024: 14 · 2023: 2 · …*. For just-elected parliaments where most MPs haven't filed yet — the 52nd, at the moment, with only 102/240 — that line is the honest disclaimer that the rest of the tile is reading older filings.
 
-The same tile appears on every regional dashboard, intersected with the MIR (multi-mandate region) the dashboard is showing. For example, on the Sofia dashboard it unions the three Sofia MIRs and shows only people who actually represented Sofia:
+The same tile appears on every regional dashboard, intersected with the MIR (multi-mandate region) the dashboard is showing. For example, on the [Sofia dashboard](/sofia#declarations) it unions the three Sofia MIRs and shows only people who actually represented Sofia:
 
 ![Sofia regional tile](/articles/images/connections/02-sofia-region-tile.png)
 
@@ -171,7 +171,7 @@ A toolbar above the list adds three power-user controls:
 
 ### Most-connected rankings card
 
-Sits directly below the strongest-connections list. A two-column grid: **Top MPs** by high-confidence ties on the left, **Top companies** by MP count on the right, ten rows each. Both lists honour the scope chip in the rail — switch to NS-52 and the top MPs become the same set the dashboard tile shows (Naydenov 14, Apostolov 11, Petkov 8, Mirchev 7, …). A *View all →* link under the companies column goes to the flat companies index.
+Sits directly below the strongest-connections list. A two-column grid: **Top MPs** by high-confidence ties on the left, **Top companies** by MP count on the right, ten rows each. Both lists honour the scope chip in the rail — switch to NS-52 and the top MPs become the same set the dashboard tile shows (Naydenov 14, Apostolov 11, Petkov 8, Mirchev 7, …). A *View all →* link under the companies column goes to the [flat companies index](/mp/companies).
 
 ### Orbital graph card
 
@@ -195,7 +195,7 @@ A *Find connection between two MPs* button on this same card flips the canvas in
 
 ### Companies index
 
-The "All companies" link in the dashboard tile opens a flat, searchable table of every company any MP is connected to — currently **2,086** distinct companies. **702** of those are companies an MP declared a stake in directly; the rest are companies an MP holds (or held) a Commerce Registry role at — manager, partner, procurator, etc. The "Linked MPs" column folds both kinds of relationship into a single name list, so a row will list the same MP whether they declared 100% ownership or only an active manager appointment.
+The "All companies" link in the dashboard tile opens a [flat, searchable table](/mp/companies) of every company any MP is connected to — currently **2,086** distinct companies. **702** of those are companies an MP declared a stake in directly; the rest are companies an MP holds (or held) a Commerce Registry role at — manager, partner, procurator, etc. The "Linked MPs" column folds both kinds of relationship into a single name list, so a row will list the same MP whether they declared 100% ownership or only an active manager appointment.
 
 ![Companies index](/articles/images/connections/09-all-companies.png)
 
