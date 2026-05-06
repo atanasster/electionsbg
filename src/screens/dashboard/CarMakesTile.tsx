@@ -10,7 +10,7 @@ import { useElectionContext } from "@/data/ElectionContext";
 import { electionToNsFolder, oblastToMir } from "@/data/parliament/nsFolders";
 import { Hint } from "@/ux/Hint";
 import { StatCard } from "./StatCard";
-import { provenanceText, provenanceTooltip } from "./MpDeclarationsProvenance";
+import { provenanceText, provenanceTooltip } from "./provenanceUtils";
 import type { CarMakeEntry } from "@/data/dataTypes";
 
 type Props = {

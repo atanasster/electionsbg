@@ -1,20 +1,8 @@
-import {
-  FC,
-  PropsWithChildren,
-  createContext,
-  useContext,
-  useMemo,
-} from "react";
-import {
-  ArticleMeta,
-  DashboardSectionId,
-  useArticles,
-} from "@/data/articles/useArticles";
+import { FC, PropsWithChildren, useMemo } from "react";
+import { DashboardSectionId, useArticles } from "@/data/articles/useArticles";
 import { useElectionContext } from "@/data/ElectionContext";
-
-type Assignment = Map<DashboardSectionId, ArticleMeta[]>;
-
-const SectionArticlesContext = createContext<Assignment | null>(null);
+import { SectionArticlesContext } from "./sectionArticlesContext";
+import type { Assignment } from "./sectionArticlesContext";
 
 type Props = {
   // Topic order on the page. Each article is assigned to the FIRST topic it
@@ -49,14 +37,4 @@ export const SectionArticlesProvider: FC<PropsWithChildren<Props>> = ({
       {children}
     </SectionArticlesContext.Provider>
   );
-};
-
-// Returns the articles assigned to this topic, or null if no provider is
-// mounted (in which case the strip falls back to its own filtering).
-export const useArticlesForTopic = (
-  topic: DashboardSectionId,
-): ArticleMeta[] | null => {
-  const assignment = useContext(SectionArticlesContext);
-  if (!assignment) return null;
-  return assignment.get(topic) ?? [];
 };

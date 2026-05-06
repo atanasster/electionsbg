@@ -4,7 +4,7 @@ import { FileText } from "lucide-react";
 import { Link } from "@/ux/Link";
 import { DashboardSectionId, useArticles } from "@/data/articles/useArticles";
 import { useElectionContext } from "@/data/ElectionContext";
-import { useArticlesForTopic } from "./SectionArticlesContext";
+import { useArticlesForTopic } from "./useArticlesForTopic";
 
 type Props = {
   topic: DashboardSectionId;
