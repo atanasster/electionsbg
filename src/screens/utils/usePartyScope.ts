@@ -50,9 +50,7 @@ export const usePartyScope = (): PartyScope => {
 
   const partyNum = useMemo<number | null>(() => {
     if (canonicalParty) {
-      const entry = canonicalParty.history.find(
-        (h) => h.election === selected,
-      );
+      const entry = canonicalParty.history.find((h) => h.election === selected);
       return entry?.partyNum ?? null;
     }
     if (partyNumParam) {
@@ -99,9 +97,7 @@ export const usePartyScope = (): PartyScope => {
 
   const fullName = useMemo<string | null>(() => {
     if (canonicalParty) {
-      const entry = canonicalParty.history.find(
-        (h) => h.election === selected,
-      );
+      const entry = canonicalParty.history.find((h) => h.election === selected);
       if (entry) {
         const name =
           i18n.language === "en" ? (entry.nameEn ?? entry.name) : entry.name;
