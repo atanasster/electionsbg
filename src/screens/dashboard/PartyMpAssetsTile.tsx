@@ -8,6 +8,8 @@ import { useMps } from "@/data/parliament/useMps";
 import { useElectionContext } from "@/data/ElectionContext";
 import { useCandidates } from "@/data/preferences/useCandidates";
 import { useCandidateName } from "@/data/candidates/useCandidateName";
+import { usePartyInfo } from "@/data/parties/usePartyInfo";
+import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { electionToNsFolder } from "@/data/parliament/nsFolders";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 import { candidateUrlForMp } from "@/data/candidates/candidateSlug";
@@ -57,6 +59,8 @@ export const PartyMpAssetsTile: FC<Props> = ({ data }) => {
   const { findCandidate } = useCandidates();
   const { findMpByName, findMpById } = useMps();
   const { mpName } = useCandidateName();
+  const { findParty } = usePartyInfo();
+  const { canonicalIdFor } = useCanonicalParties();
 
   const { data: stats } = useQuery({
     queryKey: ["party_preferences_stats", selected, data.partyNum] as [
@@ -68,6 +72,16 @@ export const PartyMpAssetsTile: FC<Props> = ({ data }) => {
   });
 
   const folder = useMemo(() => electionToNsFolder(selected), [selected]);
+
+  const detailsTo = useMemo(() => {
+    const party = findParty(data.partyNum);
+    const canonicalId = party?.nickName
+      ? canonicalIdFor(party.nickName)
+      : undefined;
+    return canonicalId
+      ? `/mp-assets?partyId=${encodeURIComponent(canonicalId)}`
+      : `/mp-assets?partyNum=${data.partyNum}`;
+  }, [findParty, canonicalIdFor, data.partyNum]);
 
   const topMps = useMemo(() => {
     if (!rankings || !stats?.top) return [];
@@ -112,7 +126,7 @@ export const PartyMpAssetsTile: FC<Props> = ({ data }) => {
             </span>
           </div>
           <Link
-            to="/mp-assets"
+            to={detailsTo}
             className="inline-flex items-center gap-1 text-[11px] text-primary hover:underline normal-case"
           >
             {t("dashboard_see_details") || "See details"}

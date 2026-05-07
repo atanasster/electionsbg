@@ -13,6 +13,8 @@ import type { MpAssetsRankingEntry } from "@/data/dataTypes";
 import { DataTable, DataTableColumns } from "@/ux/data_table/DataTable";
 import { useRegionScope } from "@/screens/utils/useRegionScope";
 import { RegionScopeChip } from "@/screens/utils/RegionScopeChip";
+import { usePartyScope } from "@/screens/utils/usePartyScope";
+import { PartyScopeChip } from "@/screens/utils/PartyScopeChip";
 
 type Scope = "ns" | "all";
 
@@ -28,7 +30,17 @@ export const AllMpAssetsScreen: FC = () => {
   const { rankings } = useAssetsRankings();
   const { selected } = useElectionContext();
   const [scope, setScope] = useState<Scope>("ns");
-  const { regionMpIds, label: regionLabel, clearedParams } = useRegionScope();
+  const {
+    regionMpIds,
+    label: regionLabel,
+    clearedParams: regionClearedParams,
+  } = useRegionScope();
+  const {
+    partyMpIds,
+    label: partyLabel,
+    fullName: partyFullName,
+    clearedParams: partyClearedParams,
+  } = usePartyScope();
 
   const folder = useMemo(() => electionToNsFolder(selected), [selected]);
 
@@ -43,8 +55,11 @@ export const AllMpAssetsScreen: FC = () => {
     if (regionMpIds) {
       rows = rows.filter((m) => regionMpIds.has(m.mpId));
     }
+    if (partyMpIds) {
+      rows = rows.filter((m) => partyMpIds.has(m.mpId));
+    }
     return rows;
-  }, [rankings, scope, folder, regionMpIds]);
+  }, [rankings, scope, folder, regionMpIds, partyMpIds]);
 
   const columns: DataTableColumns<MpAssetsRankingEntry, unknown> = useMemo(
     () => [
@@ -185,7 +200,13 @@ export const AllMpAssetsScreen: FC = () => {
   const scopeToggle = (
     <div className="flex items-center gap-2 flex-wrap">
       {regionLabel && (
-        <RegionScopeChip label={regionLabel} clearedParams={clearedParams} />
+        <RegionScopeChip
+          label={regionLabel}
+          clearedParams={regionClearedParams}
+        />
+      )}
+      {partyLabel && (
+        <PartyScopeChip label={partyLabel} clearedParams={partyClearedParams} />
       )}
       <button
         type="button"
@@ -216,8 +237,28 @@ export const AllMpAssetsScreen: FC = () => {
 
   return (
     <div className="w-full">
-      <Title description={t("mp_assets_page_description") || ""}>
-        {t("mp_assets_page_title") || "MPs by declared assets"}
+      <Title
+        description={t("mp_assets_page_description") || ""}
+        title={
+          partyFullName
+            ? `${partyFullName} — ${t("mp_assets_page_title") || "MPs by declared assets"}`
+            : t("mp_assets_page_title") || "MPs by declared assets"
+        }
+        className={
+          partyFullName
+            ? "text-base md:text-xl lg:text-2xl py-4 md:py-6"
+            : undefined
+        }
+      >
+        {partyFullName ? (
+          <>
+            {partyFullName}
+            <br />
+            {t("mp_assets_page_title") || "MPs by declared assets"}
+          </>
+        ) : (
+          t("mp_assets_page_title") || "MPs by declared assets"
+        )}
       </Title>
 
       <DataTable<MpAssetsRankingEntry, unknown>
