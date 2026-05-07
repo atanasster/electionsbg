@@ -15,6 +15,12 @@ export type PrerenderRoute = {
   // hidden #ssg-content element and is invisible to humans — React mounts
   // separately into #root. Pass only safe HTML; no scripts/styles.
   bodyHtml?: string;
+  // If set, the emitted <link rel="canonical"> points here instead of the
+  // route's own URL, and hreflang alternates are suppressed (the canonical
+  // target carries them). Use for thin variants of a parent page (e.g.
+  // candidate /sections, /donations) so crawlers consolidate signal to the
+  // parent and stop reporting these as "Crawled - currently not indexed".
+  canonicalUrl?: string;
   // English variant for /en/{path}. When present we also emit the EN file and
   // wire bidirectional hreflang alternates between the two URLs.
   english?: {
@@ -22,6 +28,7 @@ export type PrerenderRoute = {
     description: string;
     bodyHtml?: string;
     jsonLd?: object[];
+    canonicalUrl?: string;
   };
 };
 

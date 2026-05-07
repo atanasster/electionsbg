@@ -94,13 +94,10 @@ export const routeDefs = (year: string): RouteDefs => [
   {
     path: "candidate/:id",
     file: `candidates`,
-    // Sub-tabs deliberately omitted: /candidate/{name}/sections and /donations
-    // are not prerendered (no per-tab title/description), so emitting them in
-    // the sitemap pointed crawlers at SPA-fallback URLs that all served the
-    // homepage <title>. The base /candidate/{name} is what humans search for;
-    // the in-app tabs render the same underlying data with a different view.
-    // Re-add subTabs here only after also adding a buildCandidateSubTabRoutes
-    // entry in scripts/prerender/dynamicRoutes.ts that emits unique meta.
+    // Sub-tabs deliberately omitted: buildCandidateSubTabRoutes in
+    // scripts/prerender/dynamicRoutes.ts now emits a thin file per sub-tab with
+    // <link rel="canonical"> pointing back to /candidate/{name}, so they should
+    // stay out of the sitemap (canonicalized pages don't belong there).
   },
   {
     path: "reports",

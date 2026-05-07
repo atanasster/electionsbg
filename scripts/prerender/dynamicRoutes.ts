@@ -1069,6 +1069,71 @@ export const buildCandidateRoutes = (
   return result;
 };
 
+// Sub-tab paths under /candidate/{name}/{slug} that exist as routes in the SPA
+// (see src/routes.tsx). Each gets a thin prerendered variant whose
+// <link rel="canonical"> points back to the parent /candidate/{name}, so
+// crawlers consolidate signal there instead of treating these as duplicate
+// homepage-titled pages — the prior cause of "Crawled - currently not indexed"
+// in GSC. Title is unique enough for browser tabs and AI bots that ignore
+// canonical hints; the pages themselves stay out of the search index.
+const CANDIDATE_SUB_TABS: Array<{ slug: string; bg: string; en: string }> = [
+  { slug: "regions", bg: "по области", en: "by region" },
+  { slug: "municipalities", bg: "по общини", en: "by municipality" },
+  { slug: "settlements", bg: "по населени места", en: "by settlement" },
+  { slug: "sections", bg: "по секции", en: "by section" },
+  { slug: "donations", bg: "дарения", en: "donations" },
+  { slug: "connections", bg: "бизнес връзки", en: "business connections" },
+  { slug: "assets", bg: "имущество", en: "assets" },
+];
+
+const TITLE_SUFFIX = " | electionsbg.com";
+
+const stripTitleSuffix = (t: string): string =>
+  t.endsWith(TITLE_SUFFIX) ? t.slice(0, -TITLE_SUFFIX.length) : t;
+
+const encodeUrlPath = (p: string): string =>
+  p.split("/").map(encodeURIComponent).join("/");
+
+export const buildCandidateSubTabRoutes = (
+  candidateRoutes: PrerenderRoute[],
+): PrerenderRoute[] => {
+  const result: PrerenderRoute[] = [];
+  for (const parent of candidateRoutes) {
+    if (!parent.path.startsWith("candidate/")) continue;
+    const name = parent.path.slice("candidate/".length);
+    if (!name || name.includes("/")) continue;
+    const parentUrl = `${SITE_URL}/${encodeUrlPath(parent.path)}`;
+    const parentEnUrl = parent.english
+      ? `${SITE_URL}/en/${encodeUrlPath(parent.path)}`
+      : undefined;
+    const parentTitleBg = stripTitleSuffix(parent.title);
+    const parentTitleEn = parent.english
+      ? stripTitleSuffix(parent.english.title)
+      : parentTitleBg;
+
+    for (const tab of CANDIDATE_SUB_TABS) {
+      const subPath = `${parent.path}/${tab.slug}`;
+      result.push({
+        path: subPath,
+        title: `${parentTitleBg} — ${tab.bg}${TITLE_SUFFIX}`,
+        description: parent.description,
+        ogImage: parent.ogImage,
+        canonicalUrl: parentUrl,
+        ...(parent.english
+          ? {
+              english: {
+                title: `${parentTitleEn} — ${tab.en}${TITLE_SUFFIX}`,
+                description: parent.english.description,
+                canonicalUrl: parentEnUrl,
+              },
+            }
+          : {}),
+      });
+    }
+  }
+  return result;
+};
+
 export const buildSectionRoutes = (
   publicFolder: string,
   latestElection: string,
@@ -1742,6 +1807,8 @@ export const buildDynamicRoutes = async (
     .filter((r) => r.oblast !== "32")
     .forEach((r, i) => oblastParents.set(r.oblast, oblastRoutes[i]));
 
+  const candidateRoutes = buildCandidateRoutes(publicFolder, oblastNames);
+
   return [
     ...partyRoutes,
     ...buildPartySubTabRoutes(parties, partyParents),
@@ -1750,7 +1817,8 @@ export const buildDynamicRoutes = async (
     ...buildSettlementRoutes(publicFolder, latest, oblastNames),
     ...buildSectionsListRoutes(publicFolder, latest, oblastNames),
     ...buildSectionRoutes(publicFolder, latest, oblastNames),
-    ...buildCandidateRoutes(publicFolder, oblastNames),
+    ...candidateRoutes,
+    ...buildCandidateSubTabRoutes(candidateRoutes),
     ...buildPollsRoutes(publicFolder),
     ...buildElectionLandingRoutes(publicFolder, electionsFile),
     ...buildReportRoutes("settlement", SETTLEMENT_REPORTS),

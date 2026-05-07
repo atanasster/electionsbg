@@ -42,8 +42,11 @@ type RenderVariant = {
   description: string;
   bodyHtml?: string;
   jsonLd?: object[];
-  selfUrl: string; // canonical URL for this variant
+  selfUrl: string; // URL for og:url
   altUrl?: string; // companion-language URL (for hreflang alternate)
+  // If set, <link rel="canonical"> points here instead of selfUrl, and
+  // hreflang alternates are suppressed (the canonical target owns them).
+  canonicalUrl?: string;
 };
 
 const renderSeoBlock = (
@@ -60,6 +63,7 @@ const renderSeoBlock = (
   // Twitter falls back to og:title / og:description when twitter-specific
   // tags are absent — drop the redundant pair to save bytes per page.
   // og:image:alt improves accessibility for shared cards.
+  const canonicalHref = variant.canonicalUrl ?? variant.selfUrl;
   const lines = [
     "<!-- SEO -->",
     `    <title>${title}</title>`,
@@ -71,25 +75,29 @@ const renderSeoBlock = (
     `    <meta property="og:image:alt" content="${title}" />`,
     `    <meta property="og:locale" content="${variant.lang === "en" ? "en_US" : "bg_BG"}" />`,
     `    <meta name="twitter:image" content="${ogImage}" />`,
-    `    <link rel="canonical" href="${variant.selfUrl}" />`,
+    `    <link rel="canonical" href="${canonicalHref}" />`,
   ];
-  if (variant.altUrl) {
-    // Bidirectional hreflang — each language declares both itself and the
-    // alternate; x-default points to the BG (default) variant.
-    const bgUrl = variant.lang === "bg" ? variant.selfUrl : variant.altUrl;
-    const enUrl = variant.lang === "en" ? variant.selfUrl : variant.altUrl;
-    lines.push(`    <link rel="alternate" hreflang="bg" href="${bgUrl}" />`);
-    lines.push(`    <link rel="alternate" hreflang="en" href="${enUrl}" />`);
-    lines.push(
-      `    <link rel="alternate" hreflang="x-default" href="${bgUrl}" />`,
-    );
-  } else {
-    lines.push(
-      `    <link rel="alternate" hreflang="bg" href="${variant.selfUrl}" />`,
-    );
-    lines.push(
-      `    <link rel="alternate" hreflang="x-default" href="${variant.selfUrl}" />`,
-    );
+  // Skip hreflang alternates when this page canonicalizes to a different URL —
+  // alternates belong on the canonical target, not on the variant pointing at it.
+  if (!variant.canonicalUrl) {
+    if (variant.altUrl) {
+      // Bidirectional hreflang — each language declares both itself and the
+      // alternate; x-default points to the BG (default) variant.
+      const bgUrl = variant.lang === "bg" ? variant.selfUrl : variant.altUrl;
+      const enUrl = variant.lang === "en" ? variant.selfUrl : variant.altUrl;
+      lines.push(`    <link rel="alternate" hreflang="bg" href="${bgUrl}" />`);
+      lines.push(`    <link rel="alternate" hreflang="en" href="${enUrl}" />`);
+      lines.push(
+        `    <link rel="alternate" hreflang="x-default" href="${bgUrl}" />`,
+      );
+    } else {
+      lines.push(
+        `    <link rel="alternate" hreflang="bg" href="${variant.selfUrl}" />`,
+      );
+      lines.push(
+        `    <link rel="alternate" hreflang="x-default" href="${variant.selfUrl}" />`,
+      );
+    }
   }
   if (variant.jsonLd && variant.jsonLd.length) {
     for (const obj of variant.jsonLd) {
@@ -159,6 +167,7 @@ const writeRoute = (template: string, route: PrerenderRoute) => {
       jsonLd: route.jsonLd,
       selfUrl: bgUrl,
       altUrl: enUrl,
+      canonicalUrl: route.canonicalUrl,
     },
     route.path === "" ? "index.html" : path.join(route.path, "index.html"),
   );
@@ -175,6 +184,7 @@ const writeRoute = (template: string, route: PrerenderRoute) => {
         jsonLd: route.english.jsonLd ?? route.jsonLd,
         selfUrl: enUrl!,
         altUrl: bgUrl,
+        canonicalUrl: route.english.canonicalUrl,
       },
       route.path === ""
         ? path.join("en", "index.html")
