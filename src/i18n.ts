@@ -27,4 +27,17 @@ i18n
     interpolation: {
       escapeValue: false, // react already safes from xss => https://www.i18next.com/translation-function/interpolation#unescape
     },
+
+    // Disable Suspense for translation loading. Translations are bundled at
+    // build time so they're always ready synchronously, but useSuspense=true
+    // (the react-i18next default) means useTranslation can still throw a
+    // Promise on the very first render of any component that calls it. That
+    // throw aborts the render mid-way, and on the retry React 19's strict-
+    // mode hook-order check sees a different number of hooks than the first
+    // pass — surfacing as a "change in the order of Hooks" warning on screens
+    // that call useTranslation transitively from custom hooks (e.g.
+    // useRegionScope, useCanonicalParties). Returning synchronously with
+    // ready=false costs nothing here because the resources are already in
+    // memory.
+    react: { useSuspense: false },
   });
