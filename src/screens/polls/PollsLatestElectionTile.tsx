@@ -37,21 +37,21 @@ export const PollsLatestElectionTile: FC<Props> = ({ election, agencies }) => {
         </Hint>
       }
     >
-      <div className="grid grid-cols-[auto_minmax(0,1fr)_minmax(160px,4fr)_auto_auto_minmax(0,1.2fr)] gap-x-3 gap-y-1.5 items-center mt-1 text-sm">
+      <div className="grid grid-cols-[auto_minmax(0,1.6fr)_auto_auto] sm:grid-cols-[auto_minmax(0,1fr)_minmax(160px,4fr)_auto_auto_minmax(0,1.2fr)] gap-x-3 gap-y-1.5 items-center mt-1 text-sm">
         <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
           #
         </span>
         <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
           {t("polls_agency")}
         </span>
-        <span />
+        <span className="hidden sm:block" />
         <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground text-right">
           MAE
         </span>
-        <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground text-right">
+        <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground text-right whitespace-normal leading-tight">
           {t("polls_days_before")}
         </span>
-        <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
+        <span className="hidden sm:block text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
           {t("polls_biggest_miss")}
         </span>
         {sorted.map((a, idx) => {
@@ -74,7 +74,7 @@ export const PollsLatestElectionTile: FC<Props> = ({ election, agencies }) => {
               <span className="font-medium truncate text-primary group-hover:underline">
                 {name}
               </span>
-              <div className="relative h-2 rounded-full bg-muted overflow-hidden">
+              <div className="hidden sm:block relative h-2 rounded-full bg-muted overflow-hidden">
                 <div
                   className="absolute top-0 bottom-0 left-0 rounded-full"
                   style={{
@@ -99,7 +99,7 @@ export const PollsLatestElectionTile: FC<Props> = ({ election, agencies }) => {
               <span className="tabular-nums text-xs text-muted-foreground text-right">
                 {a.daysBefore}d
               </span>
-              <span className="text-xs truncate">
+              <span className="hidden sm:block text-xs truncate">
                 <span className="font-medium">{a.biggestMiss.key}</span>{" "}
                 <span className={`tabular-nums font-semibold ${missColor}`}>
                   {sign}

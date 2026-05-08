@@ -236,7 +236,7 @@ export const AgencyPollsList: FC<Props> = ({ polls, details, elections }) => {
       }
     >
       {anyPollHasActuals ? (
-        <div className="text-[11px] text-muted-foreground -mt-1 mb-1">
+        <div className="hidden sm:block text-[11px] text-muted-foreground -mt-1 mb-1">
           {t("polls_actual_marker_legend")}
         </div>
       ) : null}
@@ -309,9 +309,9 @@ export const AgencyPollsList: FC<Props> = ({ polls, details, elections }) => {
               ) : null}
               {ds.length > 0 ? (
                 <>
-                  <div className="grid grid-cols-[minmax(0,1fr)_minmax(80px,2fr)_auto_auto_auto] gap-x-3 gap-y-1 items-center text-xs">
+                  <div className="grid grid-cols-[minmax(0,1fr)_auto_auto_auto] sm:grid-cols-[minmax(0,1fr)_minmax(80px,2fr)_auto_auto_auto] gap-x-3 gap-y-1 items-center text-xs">
                     <span />
-                    <span />
+                    <span className="hidden sm:block" />
                     <span className="text-[10px] uppercase tracking-wide text-muted-foreground text-right">
                       {t("polls_polled_short")}
                     </span>
@@ -358,7 +358,7 @@ export const AgencyPollsList: FC<Props> = ({ polls, details, elections }) => {
                           >
                             {isBg ? d.nickName_bg : d.nickName_en}
                           </Link>
-                          <div className="relative h-2 rounded-full bg-muted">
+                          <div className="hidden sm:block relative h-2 rounded-full bg-muted">
                             <div
                               className="absolute top-0 bottom-0 left-0 rounded-full bg-primary/70"
                               style={{ width: `${widthPolled}%` }}
