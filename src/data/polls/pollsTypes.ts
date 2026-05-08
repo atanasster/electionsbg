@@ -9,6 +9,20 @@ export type Agency = {
   abbr_en: string;
 };
 
+export type PollGenre =
+  | "raw_attitudes"
+  | "forecast"
+  | "both_published"
+  | "unclear";
+
+export type PollResidual = {
+  undecided: number | null;
+  wontVote: number | null;
+  wontSay: number | null;
+  otherNamedMinor: number | null;
+  notes?: string;
+};
+
 export type Poll = {
   id: string;
   agencyId: string;
@@ -17,6 +31,8 @@ export type Poll = {
   respondents: number | null;
   methodology: Lang;
   source: string;
+  genre?: PollGenre;
+  residual?: PollResidual | null;
 };
 
 export type PollDetail = {
@@ -30,6 +46,7 @@ export type PollDetail = {
 export type PartyError = {
   key: string;
   polled: number;
+  polledRaw?: number;
   actual: number;
   error: number;
 };
@@ -40,6 +57,8 @@ export type ElectionAgencyError = {
   fieldworkEnd: string;
   daysBefore: number;
   respondents: number | null;
+  genre?: PollGenre;
+  normalization?: { applied: boolean; redistributed: number };
   errors: PartyError[];
   mae: number;
   rmse: number;
@@ -70,6 +89,7 @@ export type AgencyProfile = {
   electionsCovered: string[];
   overallMAE: number;
   overallRMSE: number;
+  medianDaysBefore?: number | null;
   partyBias: { key: string; meanError: number; samples: number }[];
   blocLean: Record<BlocId, { meanError: number; samples: number }>;
   houseEffect: { key: string; meanDiff: number; samples: number }[];

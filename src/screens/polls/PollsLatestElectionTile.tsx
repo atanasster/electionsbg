@@ -1,7 +1,7 @@
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import { Target } from "lucide-react";
+import { Target, Scale } from "lucide-react";
 import { StatCard } from "@/screens/dashboard/StatCard";
 import { Hint } from "@/ux/Hint";
 import { Agency, ElectionAccuracy } from "@/data/polls/pollsTypes";
@@ -83,7 +83,17 @@ export const PollsLatestElectionTile: FC<Props> = ({ election, agencies }) => {
                   }}
                 />
               </div>
-              <span className="tabular-nums text-xs font-semibold text-right">
+              <span className="flex items-center justify-end gap-1 tabular-nums text-xs font-semibold">
+                {a.normalization?.applied ? (
+                  <Hint
+                    text={t("polls_normalization_applied", {
+                      pp: a.normalization.redistributed.toFixed(1),
+                    })}
+                    underline={false}
+                  >
+                    <Scale className="h-3 w-3 text-muted-foreground" />
+                  </Hint>
+                ) : null}
                 {a.mae.toFixed(2)}
               </span>
               <span className="tabular-nums text-xs text-muted-foreground text-right">

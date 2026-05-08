@@ -43,6 +43,16 @@ type Agency = {
   abbr_en: string;
 };
 
+type PollGenre = "raw_attitudes" | "forecast" | "both_published" | "unclear";
+
+type PollResidual = {
+  undecided: number | null;
+  wontVote: number | null;
+  wontSay: number | null;
+  otherNamedMinor: number | null;
+  notes?: string;
+};
+
 type Poll = {
   id: string;
   agencyId: string;
@@ -51,6 +61,8 @@ type Poll = {
   respondents: number | null;
   methodology: Lang;
   source: string;
+  genre?: PollGenre;
+  residual?: PollResidual | null;
 };
 
 type PollDetail = {
@@ -648,6 +660,11 @@ const seedFromIzboriai = (): {
 const isWikiSource = (url: string | null | undefined): boolean =>
   !!url && /(?:bg|en)\.wikipedia\.org/.test(url);
 
+// A poll is considered "curated" once it has been hand-validated against the
+// agency's primary publication and tagged with a genre. Curated polls are
+// immutable to the scraper — Wikipedia is not authoritative for them.
+const isCurated = (p: Poll): boolean => p.genre !== undefined;
+
 const mergePolls = (existing: Poll[], incoming: Poll[]): Poll[] => {
   const byId = new Map<string, Poll>();
   for (const p of existing) byId.set(p.id, p);
@@ -657,6 +674,7 @@ const mergePolls = (existing: Poll[], incoming: Poll[]): Poll[] => {
       byId.set(p.id, p);
       continue;
     }
+    if (isCurated(cur)) continue; // never overwrite a curated record
     // Source merge: prefer the richer of the two. A non-wiki article/agency URL
     // beats a wiki URL beats null/N/A. This lets the scraper upgrade old polls
     // that were saved with just the cycle URL once Wikipedia adds a citation.
@@ -679,12 +697,18 @@ const mergePolls = (existing: Poll[], incoming: Poll[]): Poll[] => {
 const mergeDetails = (
   existing: PollDetail[],
   incoming: PollDetail[],
+  curatedPollIds: Set<string>,
 ): PollDetail[] => {
-  // Replace details for any pollId that has incoming entries (treat scrape as authoritative
-  // for that poll's per-party numbers); keep details for polls untouched by the scrape.
-  const incomingPollIds = new Set(incoming.map((d) => d.pollId));
+  // For curated polls, keep existing details and ignore incoming.
+  // For non-curated polls, treat the scrape as authoritative for per-party numbers.
+  const incomingPollIds = new Set(
+    incoming.filter((d) => !curatedPollIds.has(d.pollId)).map((d) => d.pollId),
+  );
   const kept = existing.filter((d) => !incomingPollIds.has(d.pollId));
-  return [...kept, ...incoming];
+  const incomingFiltered = incoming.filter(
+    (d) => !curatedPollIds.has(d.pollId),
+  );
+  return [...kept, ...incomingFiltered];
 };
 
 const mergeAgencies = (existing: Agency[], incoming: Agency[]): Agency[] => {
@@ -720,9 +744,17 @@ const main = async (opts: { seedIzboriai: boolean; outDir: string }) => {
 
   for (const cycle of CYCLES) {
     const r = await scrapeCycle(cycle);
+    const curatedIds = new Set(polls.filter(isCurated).map((p) => p.id));
     polls = mergePolls(polls, r.polls);
-    details = mergeDetails(details, r.details);
+    details = mergeDetails(details, r.details, curatedIds);
     agencies = mergeAgencies(agencies, r.agencies);
+    if (curatedIds.size) {
+      const skipped = r.polls.filter((p) => curatedIds.has(p.id)).length;
+      if (skipped)
+        console.log(
+          `  ↪ ${skipped} curated polls left untouched (genre tag preserves them)`,
+        );
+    }
   }
 
   fs.writeFileSync(

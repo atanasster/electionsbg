@@ -228,14 +228,18 @@ The neighborhoods where PB looks anomalously strong are also the neighborhoods w
 
 **Final polls for 19.04.2026** — averaged across all agencies whose fieldwork ended within 14 days of election day (06.04 - 14.04.2026). Four agencies fall in this window: [Market Links](/polls/ML), [Myara](/polls/MY), [CAM (Center for Analysis and Marketing)](/polls/CAM), and [Sova Harris](/polls/SH).
 
+> **Methodology note.** Two of the four agencies (ML, CAM) publish *raw electoral attitudes* with an explicit "undecided" share rather than an already-redistributed forecast. To compare apples-to-apples against the official ЦИК result (which reports vote share among ballots cast), the [/polls](/polls) leaderboard rebases those agencies' shares by proportionally redistributing the undecided share across the named parties — `share × (1 + undecided / Σshares)` — before scoring. The poll-mean column below uses these normalised values; raw published numbers are noted where they differ materially.
+
 | party | poll mean | actual | error |
 |---|---|---|---|
-| [PB](/party/%D0%9F%D1%80%D0%91?elections=2026_04_19) | 35.20 | **44.59** | **+9.39 pp** |
-| [GERB-SDS](/party/%D0%93%D0%95%D0%A0%D0%91-%D0%A1%D0%94%D0%A1?elections=2026_04_19) | 19.55 | 13.39 | -6.16 |
-| [PP-DB](/party/%D0%9F%D0%9F-%D0%94%D0%91?elections=2026_04_19) | 12.15 | 12.62 | +0.47 |
-| [DPS](/party/%D0%94%D0%9F%D0%A1?elections=2026_04_19) | 9.58 | 7.12 | -2.46 |
-| [Vazrazhdane](/party/%D0%92%D1%8A%D0%B7%D1%80%D0%B0%D0%B6%D0%B4%D0%B0%D0%BD%D0%B5?elections=2026_04_19) | 7.08 | 4.26 | -2.82 |
-| [BSP-UL](/party/%D0%91%D0%A1%D0%9F-%D0%9E%D0%9B?elections=2026_04_19) | 4.00 | 3.02 | -0.98 |
+| [PB](/party/%D0%9F%D1%80%D0%91?elections=2026_04_19) | 37.02 | **44.59** | **+7.57 pp** |
+| [GERB-SDS](/party/%D0%93%D0%95%D0%A0%D0%91-%D0%A1%D0%94%D0%A1?elections=2026_04_19) | 21.70 | 13.39 | -8.31 |
+| [PP-DB](/party/%D0%9F%D0%9F-%D0%94%D0%91?elections=2026_04_19) | 13.25 | 12.62 | -0.63 |
+| [DPS](/party/%D0%94%D0%9F%D0%A1?elections=2026_04_19) | 10.56 | 7.12 | -3.44 |
+| [Vazrazhdane](/party/%D0%92%D1%8A%D0%B7%D1%80%D0%B0%D0%B6%D0%B4%D0%B0%D0%BD%D0%B5?elections=2026_04_19) | 7.23 | 4.26 | -2.97 |
+| [BSP-UL](/party/%D0%91%D0%A1%D0%9F-%D0%9E%D0%9B?elections=2026_04_19) | 4.07 | 3.02 | -1.05 |
+
+PB's raw published shares were lower (ML 30.8%, MY 34.6%, CAM 33.5%, SH 34.7% — mean **33.4%**), giving a raw miss of -11.2 pp. The proportional rebase above absorbs the four agencies' explicit "undecided" pools (~10-15% each) into the named parties, which shrinks the apparent PB miss to **-7.6 pp** but enlarges the GERB-SDS overshoot. ML's *own* published forecast for this cycle (a separate methodological artefact, not in the table above — median of four prognostic models with expert weighting) put PB at **38%**, which would have closed the miss further to -6.6 pp. The take-away is the same regardless of methodology: the four pre-election polls all materially under-pegged the new entrant.
 
 **For comparison, [final polls for 27.10.2024](/polls):**
 
@@ -247,31 +251,32 @@ The neighborhoods where PB looks anomalously strong are also the neighborhoods w
 | [DPS–NB](/party/%D0%94%D0%9F%D0%A1-%D0%9D%D0%9D?elections=2024_10_27) | 11.08 | 11.51 | +0.43 |
 | [BSP](/party/%D0%91%D0%A1%D0%9F?elections=2024_10_27) | 8.42 | 7.57 | -0.85 |
 
-In [2024](/elections/2024_10_27), every party landed inside ±2.8 pp; in [2026](/elections/2026_04_19) the winner deviated +9.4 pp and GERB -6.2.
+In [2024](/elections/2024_10_27), every party landed inside ±2.8 pp; in [2026](/elections/2026_04_19) the winner deviated -7.6 pp (after rebase) and GERB-SDS deviated +8.3 pp in the opposite direction.
 
 ### How does this compare to international benchmarks?
 
 The mean absolute error (MAE) across the parties shown:
 
 - **2024-10-27 BG MAE:** 1.20 pp (across 5 parliamentary parties)
-- **2026-04-19 BG MAE:** 3.71 pp (across 6 parliamentary parties)
+- **2026-04-19 BG MAE:** 3.99 pp (across 6 parliamentary parties, post-rebase)
 
 The largest meta-analysis of pre-election polls — Jennings & Wlezien, "[Election polling errors across time and space](https://www.nature.com/articles/s41562-018-0315-6)" (Nature Human Behaviour, 2018), 30,000+ polls in 351 elections across 45 countries (1942-2017) — finds the eve-of-election MAE at **~2 percentage points** internationally. The American Association for Public Opinion Research notes that real-world error tends to run [closer to 3.5 pp](https://www.pewresearch.org/short-reads/2016/09/08/understanding-the-margin-of-error-in-election-polls/) once non-sampling sources are included, roughly double the textbook ±3 pp sampling margin for an n=1,000 poll.
 
-So the **2024 BG aggregate MAE (1.20 pp) was unusually good** — better than the international historical average. The **2026 BG aggregate MAE (3.71 pp) is roughly at the real-world baseline** — not actually exceptional in aggregate.
+So the **2024 BG aggregate MAE (1.20 pp) was unusually good** — better than the international historical average. The **2026 BG aggregate MAE (3.99 pp) is roughly at the real-world baseline** — not actually exceptional in aggregate.
 
-What *is* exceptional is the **dispersion**: a single +9.39 pp miss on PB and a -6.16 pp miss on GERB-SDS pulling in opposite directions. Comparable single-party misses in major recent elections:
+What *is* exceptional is the **dispersion**: a -7.6 pp miss on PB (after rebase; -11.2 pp on raw published shares) and a +8.3 pp miss on GERB-SDS pulling in opposite directions. Comparable single-party misses in major recent elections:
 
 | election | party | poll | actual | miss |
 |---|---|---|---|---|
-| **BG 2026-04** | **PB (new)** | **35.2%** | **44.6%** | **+9.4 pp** |
+| **BG 2026-04 (post-rebase)** | **PB (new)** | **37.0%** | **44.6%** | **+7.6 pp** |
+| **BG 2026-04 (raw published)** | PB (new) | 33.4% | 44.6% | +11.2 pp |
 | France 2017 round 2 | Macron | +22 lead | +32 lead | +10.0 pp |
 | Italy 2013 | [Five Star Movement](https://en.wikipedia.org/wiki/Opinion_polling_for_the_2013_Italian_general_election) (new) | ~20% | 25.6% | +5.6 pp |
 | US 2016 (state polls avg) | Trump | — | — | 5.2 pp |
 | US 2016 (national polls avg) | Trump–Clinton margin | — | — | 3.1 pp |
 | UK 2010 | Lib Dems (overestimate) | ~28% | 23% | -5 pp |
 
-The PB miss (+9.4 pp) lands between the 2017 Macron round-2 underestimate (+10 pp) and the 2013 Five Star Movement underestimate (+5.6 pp). Both of those were also new-or-movement parties peaking late, and both produced equivalent national hand-wringing about polling failure that turned out, on review, to reflect known methodological weaknesses rather than fraud.
+The PB miss (between +7.6 and +11.2 pp depending on methodology) sits in the same range as the 2017 Macron round-2 underestimate (+10 pp) and the 2013 Five Star Movement underestimate (+5.6 pp). Both of those were also new-or-movement parties peaking late, and both produced equivalent national hand-wringing about polling failure that turned out, on review, to reflect known methodological weaknesses rather than fraud.
 
 **Likely explanations for the 2026 miss:**
 
@@ -338,7 +343,7 @@ Listed in order of **votes impacted**, with section/settlement counts as seconda
 
 ### The polling miss
 
-The ~9 pp miss on the winner is a **forecast failure, not an integrity finding**, but it is the largest in the series and warrants a methodology post-mortem from polling agencies — particularly turnout modelling and incumbent anchoring.
+The ~7.6-11.2 pp miss on the winner (depending on whether one applies the proportional-redistribution rebase) is a **forecast failure, not an integrity finding**, but it is the largest in the series and warrants a methodology post-mortem from polling agencies — particularly turnout modelling, incumbent anchoring, and how to weight a brand-new entrant that polled at zero in the previous cycle.
 
 ---
 

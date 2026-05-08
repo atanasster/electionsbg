@@ -14,6 +14,7 @@ import {
 import { PollsHeadlinesTile } from "./polls/PollsHeadlinesTile";
 import { PollsLeaderboardTile } from "./polls/PollsLeaderboardTile";
 import { PollsLatestElectionTile } from "./polls/PollsLatestElectionTile";
+import { PollsMethodologyTile } from "./polls/PollsMethodologyTile";
 
 const SkeletonCard: FC<{ className?: string }> = ({
   className = "h-[160px]",
@@ -143,6 +144,10 @@ export const PollsScreen: FC = () => {
 
         <div className="mt-3">
           <PollsLeaderboardTile profiles={agencyProfiles} agencies={agencies} />
+        </div>
+
+        <div className="mt-3">
+          <PollsMethodologyTile />
         </div>
 
         {/* Selected-election section: narrative + final-poll errors */}

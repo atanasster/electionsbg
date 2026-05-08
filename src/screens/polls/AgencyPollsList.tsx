@@ -17,6 +17,14 @@ const isoToLocalDate = (iso: string | null): string => {
   return localDate(iso.replace(/-/g, "_"));
 };
 
+// Localised display of the fieldwork string. The data is stored in EN-month
+// form ("Mar 13-19 2026", "through Apr 16 2026") so the analyzer can parse it
+// uniformly; for BG users we translate the "through" prefix.
+const localizeFieldwork = (fw: string, isBg: boolean): string => {
+  if (!isBg) return fw;
+  return fw.replace(/^through\s+/i, "до ");
+};
+
 // Mirror analyze_accuracy.ts so the actual % we display matches the value used
 // in the MAE computation. Polled labels ("Прогресивна България", "ГЕРБ – СДС")
 // differ from the canonical actual-result keys ("ПрБ", "ГЕРБ-СДС").
@@ -45,18 +53,30 @@ const POLL_TO_ACTUAL: Record<string, string> = {
   Воля: "Воля",
 };
 
+// Mirror analyze_accuracy.ts: strip "Коалиция " prefix that some agencies
+// prepend to alliance labels (ML 2024+ xlsx).
+const stripCoalitionPrefix = (s: string): string =>
+  s.replace(/^\s*Коалиция\s+/i, "").trim();
+
 const resolveActualKey = (
   polledBg: string,
   actualKeys: Set<string>,
 ): string | null => {
-  const direct = POLL_TO_ACTUAL[polledBg.trim()];
-  if (direct && actualKeys.has(direct)) return direct;
-  const norm = normKey(polledBg);
-  if (actualKeys.has(norm)) return norm;
-  if (norm === "ДПС-НН" && actualKeys.has("ДПС")) return "ДПС";
-  if (norm === "ДПС" && actualKeys.has("ДПС-НН")) return "ДПС-НН";
-  if (norm === "БСП" && actualKeys.has("БСП-ОЛ")) return "БСП-ОЛ";
-  if (norm === "БСП-ОЛ" && actualKeys.has("БСП")) return "БСП";
+  const tryOne = (label: string): string | null => {
+    const direct = POLL_TO_ACTUAL[label.trim()];
+    if (direct && actualKeys.has(direct)) return direct;
+    const norm = normKey(label);
+    if (actualKeys.has(norm)) return norm;
+    if (norm === "ДПС-НН" && actualKeys.has("ДПС")) return "ДПС";
+    if (norm === "ДПС" && actualKeys.has("ДПС-НН")) return "ДПС-НН";
+    if (norm === "БСП" && actualKeys.has("БСП-ОЛ")) return "БСП-ОЛ";
+    if (norm === "БСП-ОЛ" && actualKeys.has("БСП")) return "БСП";
+    return null;
+  };
+  const first = tryOne(polledBg);
+  if (first) return first;
+  const stripped = stripCoalitionPrefix(polledBg);
+  if (stripped !== polledBg) return tryOne(stripped);
   return null;
 };
 
@@ -198,6 +218,12 @@ export const AgencyPollsList: FC<Props> = ({ polls, details, elections }) => {
     );
   }
 
+  // Show the actual-result-marker legend once at the top, only if at least one
+  // poll has scored actuals to draw a marker for.
+  const anyPollHasActuals = sortedPolls.some(
+    (p) => !!(p.electionDate && actualByElection.get(p.electionDate)),
+  );
+
   return (
     <StatCard
       label={
@@ -209,6 +235,11 @@ export const AgencyPollsList: FC<Props> = ({ polls, details, elections }) => {
         </div>
       }
     >
+      {anyPollHasActuals ? (
+        <div className="text-[11px] text-muted-foreground -mt-1 mb-1">
+          {t("polls_actual_marker_legend")}
+        </div>
+      ) : null}
       <div className="flex flex-col gap-3 mt-1">
         {sortedPolls.map((p) => {
           const ds = detailsByPoll.get(p.id) ?? [];
@@ -242,7 +273,9 @@ export const AgencyPollsList: FC<Props> = ({ polls, details, elections }) => {
               className="rounded-lg border bg-background/50 p-3 flex flex-col gap-2"
             >
               <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1 text-xs">
-                <span className="font-semibold text-sm">{p.fieldwork}</span>
+                <span className="font-semibold text-sm">
+                  {localizeFieldwork(p.fieldwork, isBg)}
+                </span>
                 {p.electionDate ? (
                   <span className="text-muted-foreground">
                     {t("polls_for_election")}: {isoToLocalDate(p.electionDate)}
@@ -325,15 +358,21 @@ export const AgencyPollsList: FC<Props> = ({ polls, details, elections }) => {
                           >
                             {isBg ? d.nickName_bg : d.nickName_en}
                           </Link>
-                          <div className="relative h-2 rounded-full bg-muted overflow-hidden">
+                          <div className="relative h-2 rounded-full bg-muted">
                             <div
                               className="absolute top-0 bottom-0 left-0 rounded-full bg-primary/70"
                               style={{ width: `${widthPolled}%` }}
                             />
                             {actualLeftPct !== undefined ? (
                               <div
-                                className="absolute top-[-2px] bottom-[-2px] w-[2px] bg-foreground"
-                                style={{ left: `${actualLeftPct}%` }}
+                                className="absolute top-[-3px] bottom-[-3px] w-[2px] bg-foreground"
+                                style={{
+                                  left: `${actualLeftPct}%`,
+                                  // Halo: 1px ring of the page-background colour around the
+                                  // marker, so it stays visible whether it lands inside the
+                                  // bar (dark on dark) or in the muted track.
+                                  boxShadow: "0 0 0 1px hsl(var(--background))",
+                                }}
                                 title={t("polls_actual_short")}
                               />
                             ) : null}
@@ -357,11 +396,6 @@ export const AgencyPollsList: FC<Props> = ({ polls, details, elections }) => {
                       );
                     })}
                   </div>
-                  {actuals ? (
-                    <div className="text-[10px] text-muted-foreground mt-1">
-                      {t("polls_actual_marker_legend")}
-                    </div>
-                  ) : null}
                 </>
               ) : (
                 <div className="text-xs text-muted-foreground">

@@ -1,9 +1,9 @@
 /**
  * Turns public/polls/accuracy.json into a runtime-loaded narrative
- * (public/polls/analysis.json) via Gemini calls. The narrative has two parts:
+ * (public/polls/analysis.json) via Claude calls. The narrative has two parts:
  *
- *   1. agencyTakes — cross-election profile for each polling agency (one Gemini call)
- *   2. byElection[date] — per-election headlines + story (N Gemini calls, run with
+ *   1. agencyTakes — cross-election profile for each polling agency (one Claude call)
+ *   2. byElection[date] — per-election headlines + story (N Claude calls, run with
  *      concurrency 3). This way each election shows headlines that actually describe
  *      that election rather than always describing the 2026 cycle.
  *
@@ -13,7 +13,7 @@
  *   tsx scripts/polls/generate_analysis.ts
  *   tsx scripts/polls/generate_analysis.ts --only 2026-04-19   # regenerate one election
  *
- * Requires GEMINI_API_KEY in .env.local.
+ * Requires ANTHROPIC_API_KEY in .env.local.
  */
 
 import fs from "fs";
@@ -26,10 +26,11 @@ const __dirname = path.dirname(__filename);
 
 const POLLS_DIR = path.resolve(__dirname, "../../public/polls");
 const ENV_FILE = path.resolve(__dirname, "../../.env.local");
-// gemini-2.5-pro is the higher-quality default for new generations. The hand-crafted
-// analysis.json shipped with this repo was written by Claude Opus 4.7; future
-// regenerations via this script will overwrite it with Gemini output.
-const MODEL = "gemini-2.5-pro";
+// Claude Opus 4.7 (1M context) is the model used for the editorial analysis.
+// The "model" field in the generated analysis.json reflects this label so the
+// site footer attributes the analysis correctly.
+const MODEL = "claude-opus-4-7";
+const MODEL_LABEL = "Claude Opus 4.7 (1M context)";
 const ELECTION_CONCURRENCY = 3;
 
 const loadEnv = () => {
@@ -87,35 +88,45 @@ type ElectionNarrative = {
   story: { en: string; bg: string };
 };
 
-type GeminiResponse = {
-  candidates?: { content?: { parts?: { text?: string }[] } }[];
+type ClaudeResponse = {
+  content?: { type?: string; text?: string }[];
 };
 
-const callGemini = async (apiKey: string, prompt: string): Promise<string> => {
-  const url = `https://generativelanguage.googleapis.com/v1beta/models/${MODEL}:generateContent?key=${apiKey}`;
+// Strip markdown fences if Claude wraps the JSON. The prompts ask for raw JSON
+// but cache-warmed responses occasionally return a ```json ... ``` block.
+const unfenceJson = (s: string): string => {
+  const fenced = s.match(/```(?:json)?\s*([\s\S]*?)\s*```/);
+  return fenced ? fenced[1] : s;
+};
+
+const callClaude = async (apiKey: string, prompt: string): Promise<string> => {
+  const url = "https://api.anthropic.com/v1/messages";
   const body = {
-    contents: [{ parts: [{ text: prompt }] }],
-    generationConfig: {
-      responseMimeType: "application/json",
-      temperature: 0.4,
-    },
+    model: MODEL,
+    max_tokens: 4096,
+    temperature: 0.4,
+    messages: [{ role: "user", content: prompt }],
   };
   const res = await fetch(url, {
     method: "POST",
-    headers: { "Content-Type": "application/json" },
+    headers: {
+      "Content-Type": "application/json",
+      "x-api-key": apiKey,
+      "anthropic-version": "2023-06-01",
+    },
     body: JSON.stringify(body),
   });
   if (!res.ok) {
     const txt = await res.text();
-    throw new Error(`gemini ${res.status}: ${txt.slice(0, 500)}`);
+    throw new Error(`claude ${res.status}: ${txt.slice(0, 500)}`);
   }
-  const json = (await res.json()) as GeminiResponse;
-  const text = json.candidates?.[0]?.content?.parts?.[0]?.text;
+  const json = (await res.json()) as ClaudeResponse;
+  const text = json.content?.find((b) => b.type === "text")?.text;
   if (!text)
     throw new Error(
-      `gemini returned no text: ${JSON.stringify(json).slice(0, 300)}`,
+      `claude returned no text: ${JSON.stringify(json).slice(0, 300)}`,
     );
-  return text;
+  return unfenceJson(text);
 };
 
 // ──────────── prompt builders ────────────
@@ -234,7 +245,7 @@ const parseJsonOrFail = (
   } catch (e) {
     fs.writeFileSync(contextFile, raw);
     throw new Error(
-      `Gemini returned invalid JSON; raw saved to ${contextFile}: ${(e as Error).message}`,
+      `Claude returned invalid JSON; raw saved to ${contextFile}: ${(e as Error).message}`,
     );
   }
 };
@@ -262,8 +273,8 @@ const runWithConcurrency = async <T, R>(
 
 const main = async (opts: { pollsDir: string; only?: string }) => {
   loadEnv();
-  const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey) throw new Error("GEMINI_API_KEY not set (check .env.local)");
+  const apiKey = process.env.ANTHROPIC_API_KEY;
+  if (!apiKey) throw new Error("ANTHROPIC_API_KEY not set (check .env.local)");
 
   const accFile = path.join(opts.pollsDir, "accuracy.json");
   if (!fs.existsSync(accFile))
@@ -304,7 +315,7 @@ const main = async (opts: { pollsDir: string; only?: string }) => {
     valid,
     async (date) => {
       const prompt = buildElectionPrompt(acc, date);
-      const raw = await callGemini(apiKey, prompt);
+      const raw = await callClaude(apiKey, prompt);
       const parsed = parseJsonOrFail(
         raw,
         path.join(opts.pollsDir, `analysis.${date}.raw.txt`),
@@ -324,7 +335,7 @@ const main = async (opts: { pollsDir: string; only?: string }) => {
     agencyTakes = prior.agencyTakes;
   } else {
     console.log(`→ generating cross-election agencyTakes`);
-    const raw = await callGemini(apiKey, buildAgencyTakesPrompt(acc));
+    const raw = await callClaude(apiKey, buildAgencyTakesPrompt(acc));
     const parsed = parseJsonOrFail(
       raw,
       path.join(opts.pollsDir, "analysis.agencyTakes.raw.txt"),
@@ -335,7 +346,7 @@ const main = async (opts: { pollsDir: string; only?: string }) => {
 
   const out = {
     generatedAt: new Date().toISOString(),
-    model: MODEL,
+    model: MODEL_LABEL,
     inputAccuracyGeneratedAt: acc.generatedAt,
     agencyTakes,
     byElection,

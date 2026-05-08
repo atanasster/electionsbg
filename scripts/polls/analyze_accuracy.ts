@@ -32,6 +32,16 @@ type Agency = {
   abbr_en: string;
 };
 
+type PollGenre = "raw_attitudes" | "forecast" | "both_published" | "unclear";
+
+type PollResidual = {
+  undecided: number | null;
+  wontVote: number | null;
+  wontSay: number | null;
+  otherNamedMinor: number | null;
+  notes?: string;
+};
+
 type Poll = {
   id: string;
   agencyId: string;
@@ -40,6 +50,8 @@ type Poll = {
   respondents: number | null;
   methodology: Lang;
   source: string;
+  genre?: PollGenre;
+  residual?: PollResidual | null;
 };
 
 type PollDetail = {
@@ -143,19 +155,32 @@ const blocOf = (key: string): BlocId => BLOC_OF[key] ?? "other";
 // Resolve a poll's party label to the matching actual-results nickName for that election.
 // Returns null if no match — those parties are excluded from MAE (the agency didn't poll
 // or the actual result doesn't list it; either way it's noise for the metric).
+// Strip a "Коалиция " ("Coalition ") prefix that some agencies — notably ML in
+// their 2024+ xlsx — prepend to alliance labels. Without this, "Коалиция
+// Прогресивна България" silently fails to match the actual-result key "ПрБ".
+const stripCoalitionPrefix = (s: string): string =>
+  s.replace(/^\s*Коалиция\s+/i, "").trim();
+
 const resolveActualKey = (
   polledBg: string,
   actualKeys: Set<string>,
 ): string | null => {
-  const direct = POLL_TO_ACTUAL[polledBg.trim()];
-  if (direct && actualKeys.has(direct)) return direct;
-  const norm = normKey(polledBg);
-  if (actualKeys.has(norm)) return norm;
-  // ДПС / ДПС-НН ambiguity — try both.
-  if (norm === "ДПС-НН" && actualKeys.has("ДПС")) return "ДПС";
-  if (norm === "ДПС" && actualKeys.has("ДПС-НН")) return "ДПС-НН";
-  if (norm === "БСП" && actualKeys.has("БСП-ОЛ")) return "БСП-ОЛ";
-  if (norm === "БСП-ОЛ" && actualKeys.has("БСП")) return "БСП";
+  const tryOne = (label: string): string | null => {
+    const direct = POLL_TO_ACTUAL[label.trim()];
+    if (direct && actualKeys.has(direct)) return direct;
+    const norm = normKey(label);
+    if (actualKeys.has(norm)) return norm;
+    // ДПС / ДПС-НН ambiguity — try both.
+    if (norm === "ДПС-НН" && actualKeys.has("ДПС")) return "ДПС";
+    if (norm === "ДПС" && actualKeys.has("ДПС-НН")) return "ДПС-НН";
+    if (norm === "БСП" && actualKeys.has("БСП-ОЛ")) return "БСП-ОЛ";
+    if (norm === "БСП-ОЛ" && actualKeys.has("БСП")) return "БСП";
+    return null;
+  };
+  const first = tryOne(polledBg);
+  if (first) return first;
+  const stripped = stripCoalitionPrefix(polledBg);
+  if (stripped !== polledBg) return tryOne(stripped);
   return null;
 };
 
@@ -189,8 +214,16 @@ const MONTH_EN: Record<string, number> = {
 };
 const parseFieldworkEnd = (fw: string): string | null => {
   const s = fw.trim();
+  // "through Mon D YYYY" — used for ML records where we know the publication date but
+  // not the exact fieldwork range.
+  let m = s.match(/^through\s+([A-Za-z]{3})\s+(\d{1,2})\s+(\d{4})$/i);
+  if (m) {
+    const mo = MONTH_EN[m[1].toLowerCase()];
+    if (mo === undefined) return null;
+    return `${m[3]}-${String(mo + 1).padStart(2, "0")}-${m[2].padStart(2, "0")}`;
+  }
   // Cross-month range: "Mon D - Mon D YYYY"
-  let m = s.match(
+  m = s.match(
     /^([A-Za-z]{3})\s+\d{1,2}\s*-\s*([A-Za-z]{3})\s+(\d{1,2})\s+(\d{4})$/,
   );
   if (m) {
@@ -228,7 +261,19 @@ type ElectionAgencyError = {
   fieldworkEnd: string;
   daysBefore: number;
   respondents: number | null;
-  errors: { key: string; polled: number; actual: number; error: number }[];
+  genre?: PollGenre;
+  // Proportional redistribution applied to polled shares before scoring against
+  // the official result. `redistributed` is the total residual (in pp) that was
+  // spread across the named parties: undecided + wontSay. wontVote is excluded
+  // since those respondents don't appear in the official-result denominator either.
+  normalization: { applied: boolean; redistributed: number };
+  errors: {
+    key: string;
+    polled: number;
+    polledRaw: number;
+    actual: number;
+    error: number;
+  }[];
   mae: number;
   rmse: number;
   biggestMiss: { key: string; error: number };
@@ -249,6 +294,10 @@ type AgencyProfile = {
   electionsCovered: string[];
   overallMAE: number;
   overallRMSE: number;
+  // Median days-before-vote across the agency's scored polls. A small number means the
+  // agency typically polls right before vote (a structural advantage on accuracy);
+  // a large number means stale polls drive the score.
+  medianDaysBefore: number | null;
   partyBias: { key: string; meanError: number; samples: number }[];
   blocLean: Record<BlocId, { meanError: number; samples: number }>;
   // Relative-to-consensus house effect: how each agency differs from the cross-agency mean
@@ -265,6 +314,35 @@ const readJson = <T>(file: string): T | null => {
 const mean = (xs: number[]) =>
   xs.length === 0 ? 0 : xs.reduce((a, b) => a + b, 0) / xs.length;
 const round = (n: number, dp = 2) => Math.round(n * 10 ** dp) / 10 ** dp;
+
+// Apply proportional redistribution of the will-vote residual (undecided + wontSay)
+// across the named-party shares, per Market Links' published formula:
+//
+//   newShare[i] = share[i] × (1 + R / Σshare)   where R = undecided + wontSay
+//
+// wontVote is intentionally excluded — those respondents won't show up in the
+// official-result denominator either, so their shares shouldn't be reattributed.
+// otherNamedMinor is also left alone — it represents itemised small parties that
+// already exist in the named-party set or in the official "Other" bucket.
+//
+// Genre gates whether redistribution is applied:
+// - "raw_attitudes" / "both_published": the stored shares include the undecided
+//   in the denominator → redistribute.
+// - "forecast": the agency already absorbed the undecided → DON'T redistribute
+//   (residual is informational only).
+// - "unclear" / undefined: be conservative, DON'T redistribute.
+const shouldRedistribute = (genre: PollGenre | undefined): boolean =>
+  genre === "raw_attitudes" || genre === "both_published";
+
+const computeRedistribution = (
+  residual: PollResidual | null | undefined,
+  genre: PollGenre | undefined,
+): number => {
+  if (!residual || !shouldRedistribute(genre)) return 0;
+  const u = residual.undecided ?? 0;
+  const ws = residual.wontSay ?? 0;
+  return u + ws;
+};
 
 const computeElectionAccuracy = (
   electionDate: string,
@@ -303,16 +381,25 @@ const computeElectionAccuracy = (
     if (!last) continue;
 
     const polledRows = details.filter((d) => d.pollId === last.poll.id);
+    const sumNamed = polledRows.reduce((s, r) => s + r.support, 0);
+    const redistributed = computeRedistribution(
+      last.poll.residual,
+      last.poll.genre,
+    );
+    const scale =
+      redistributed > 0 && sumNamed > 0 ? 1 + redistributed / sumNamed : 1;
     const errors: ElectionAgencyError["errors"] = [];
     for (const r of polledRows) {
       const key = resolveActualKey(r.nickName_bg, actualKeys);
       if (!key) continue;
       const actual = actuals.get(key)!;
+      const polled = round(r.support * scale);
       errors.push({
         key,
-        polled: r.support,
+        polled,
+        polledRaw: r.support,
         actual: actual.pct,
-        error: round(r.support - actual.pct),
+        error: round(polled - actual.pct),
       });
     }
     if (errors.length === 0) continue;
@@ -329,6 +416,11 @@ const computeElectionAccuracy = (
       fieldworkEnd: last.end,
       daysBefore: daysBetween(last.end, electionDate),
       respondents: last.poll.respondents,
+      genre: last.poll.genre,
+      normalization: {
+        applied: scale !== 1,
+        redistributed: round(redistributed),
+      },
       errors: errors.sort((a, b) => Math.abs(b.error) - Math.abs(a.error)),
       mae,
       rmse,
@@ -340,7 +432,7 @@ const computeElectionAccuracy = (
   return {
     electionDate,
     actualResults: summary.parties
-      .filter((p) => p.pct >= 1)
+      .filter((p) => p.pct >= 0.1)
       .map((p) => ({
         key: p.nickName,
         pct: p.pct,
@@ -431,12 +523,14 @@ const buildAgencyProfiles = (
   return agencies.map((a) => {
     const allErrors: { key: string; error: number; abs: number }[] = [];
     const electionsCovered: string[] = [];
+    const daysBeforeSamples: number[] = [];
     let preElectionPolls = 0;
     for (const e of elections) {
       const agencyEntry = e.agencies.find((x) => x.agencyId === a.id);
       if (!agencyEntry) continue;
       electionsCovered.push(e.electionDate);
       preElectionPolls += 1;
+      daysBeforeSamples.push(agencyEntry.daysBefore);
       for (const err of agencyEntry.errors) {
         allErrors.push({
           key: err.key,
@@ -445,6 +539,17 @@ const buildAgencyProfiles = (
         });
       }
     }
+    const sortedDB = [...daysBeforeSamples].sort((x, y) => x - y);
+    const medianDaysBefore =
+      sortedDB.length === 0
+        ? null
+        : sortedDB.length % 2 === 1
+          ? sortedDB[(sortedDB.length - 1) / 2]
+          : Math.round(
+              (sortedDB[sortedDB.length / 2 - 1] +
+                sortedDB[sortedDB.length / 2]) /
+                2,
+            );
 
     const overallMAE = round(mean(allErrors.map((e) => e.abs)));
     const overallRMSE = round(
@@ -508,6 +613,7 @@ const buildAgencyProfiles = (
       electionsCovered,
       overallMAE,
       overallRMSE,
+      medianDaysBefore,
       partyBias: partyBias.slice(0, 12),
       blocLean,
       houseEffect,
