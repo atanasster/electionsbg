@@ -285,6 +285,8 @@ type ElectionAccuracy = {
   agencies: ElectionAgencyError[];
 };
 
+type AgencyGrade = "A+" | "A" | "B+" | "B" | "C+" | "C" | "D" | "F";
+
 type AgencyProfile = {
   agencyId: string;
   name_bg: string;
@@ -294,16 +296,65 @@ type AgencyProfile = {
   electionsCovered: string[];
   overallMAE: number;
   overallRMSE: number;
+  // MAE shrunk toward the cross-agency mean using k pseudo-elections, so a single-cycle
+  // agency cannot rank above a long-running one purely on luck. Formula:
+  //   shrunk = (n × raw + k × overallMean) / (n + k)
+  shrunkMAE: number;
   // Median days-before-vote across the agency's scored polls. A small number means the
   // agency typically polls right before vote (a structural advantage on accuracy);
   // a large number means stale polls drive the score.
   medianDaysBefore: number | null;
+  // Per-poll signed difference vs. the consensus of *other* agencies on the same cycle.
+  // Positive = this agency was closer to the actual result than the rest of the field.
+  // Captures whether an agency adds information beyond what the consensus already gives.
+  plusMinus: number | null;
+  plusMinusSamples: number;
+  // Share of (party, agency-poll, election) triples where the agency's polled share
+  // correctly placed the party on the right side of the 4% barrier (above/below).
+  // Range 0..1; null if no scored parties.
+  barrierCallRate: number | null;
+  barrierCallTotal: number;
+  // Composite grade derived from shrunkMAE + plusMinus + barrierCallRate. Tunable
+  // thresholds in `gradeFor` below.
+  grade: AgencyGrade;
+  // MAE per election the agency covered, for the per-agency trend sparkline.
+  maeHistory: { electionDate: string; mae: number; rmse: number }[];
   partyBias: { key: string; meanError: number; samples: number }[];
   blocLean: Record<BlocId, { meanError: number; samples: number }>;
   // Relative-to-consensus house effect: how each agency differs from the cross-agency mean
   // *of the same election cycle* — flags lean even without ground truth (useful for inter-
   // election polls).
   houseEffect: { key: string; meanDiff: number; samples: number }[];
+};
+
+// Bayesian shrinkage strength. k=4 means an agency with 4 elections sits halfway between
+// its own MAE and the cross-agency mean; with 1 election it's 80% pulled to the mean.
+const SHRINKAGE_K = 4;
+
+// Threshold for "passed the barrier" — all post-2005 elections used 4%. (Pre-2005
+// thresholds existed but predate our dataset.)
+const BARRIER_PCT = 4;
+
+const gradeFor = (
+  shrunkMAE: number,
+  plusMinus: number | null,
+  barrierCallRate: number | null,
+): AgencyGrade => {
+  // Adjust raw MAE downward for agencies that beat consensus and call the barrier well.
+  // The bumps are small so MAE remains the dominant signal.
+  const pmAdj =
+    plusMinus === null ? 0 : Math.max(-0.5, Math.min(0.5, plusMinus));
+  const barrierAdj =
+    barrierCallRate === null ? 0 : (barrierCallRate - 0.85) * 1.5;
+  const score = shrunkMAE - pmAdj - barrierAdj;
+  if (score < 1.6) return "A+";
+  if (score < 1.9) return "A";
+  if (score < 2.2) return "B+";
+  if (score < 2.5) return "B";
+  if (score < 2.9) return "C+";
+  if (score < 3.3) return "C";
+  if (score < 3.8) return "D";
+  return "F";
 };
 
 const readJson = <T>(file: string): T | null => {
@@ -604,6 +655,50 @@ const buildAgencyProfiles = (
       .sort((a, b) => Math.abs(b.meanDiff) - Math.abs(a.meanDiff))
       .slice(0, 12);
 
+    // Plus/Minus: per (agency, election), compare this agency's MAE to the average
+    // MAE of every *other* agency in the same cycle. Aggregate across the agency's
+    // covered elections. Positive means this agency consistently beats the consensus.
+    const pmSamples: number[] = [];
+    for (const e of elections) {
+      const me = e.agencies.find((x) => x.agencyId === a.id);
+      if (!me) continue;
+      const others = e.agencies.filter((x) => x.agencyId !== a.id);
+      if (others.length === 0) continue;
+      const consensus = mean(others.map((x) => x.mae));
+      pmSamples.push(consensus - me.mae);
+    }
+    const plusMinus = pmSamples.length === 0 ? null : round(mean(pmSamples));
+
+    // Barrier-call: did the agency place each party on the right side of 4%?
+    // Counted per (agency, election, party). Both sides matter — a party shown at
+    // 5% that actually got 3% is wrong; one shown at 3% that got 5% is also wrong.
+    let barrierCorrect = 0;
+    let barrierTotal = 0;
+    for (const e of elections) {
+      const me = e.agencies.find((x) => x.agencyId === a.id);
+      if (!me) continue;
+      const passedSet = new Set(
+        e.actualResults.filter((r) => r.passedThreshold).map((r) => r.key),
+      );
+      for (const err of me.errors) {
+        const polledAbove = err.polled >= BARRIER_PCT;
+        const actualAbove = passedSet.has(err.key);
+        barrierTotal += 1;
+        if (polledAbove === actualAbove) barrierCorrect += 1;
+      }
+    }
+    const barrierCallRate =
+      barrierTotal === 0 ? null : round(barrierCorrect / barrierTotal, 3);
+
+    // MAE history per election, in chronological order, for the trend sparkline.
+    const maeHistory = elections
+      .filter((e) => e.agencies.some((x) => x.agencyId === a.id))
+      .map((e) => {
+        const me = e.agencies.find((x) => x.agencyId === a.id)!;
+        return { electionDate: e.electionDate, mae: me.mae, rmse: me.rmse };
+      })
+      .sort((x, y) => (x.electionDate < y.electionDate ? -1 : 1));
+
     return {
       agencyId: a.id,
       name_bg: a.name_bg,
@@ -613,7 +708,16 @@ const buildAgencyProfiles = (
       electionsCovered,
       overallMAE,
       overallRMSE,
+      // Placeholders — shrunk MAE and grade depend on the cross-agency mean, computed
+      // after this loop. Filled in by the caller.
+      shrunkMAE: overallMAE,
       medianDaysBefore,
+      plusMinus,
+      plusMinusSamples: pmSamples.length,
+      barrierCallRate,
+      barrierCallTotal: barrierTotal,
+      grade: "B" as AgencyGrade,
+      maeHistory,
       partyBias: partyBias.slice(0, 12),
       blocLean,
       houseEffect,
@@ -653,9 +757,26 @@ const main = async (opts: { pollsDir: string }) => {
 
   // Drop the "NA" pseudo-agency (general-consensus placeholder, not a real pollster)
   const realAgencies = agencies.filter((a) => a.id !== "NA");
-  const profiles = buildAgencyProfiles(realAgencies, polls, details, elections)
-    .filter((p) => p.preElectionPolls > 0)
-    .sort((a, b) => a.overallMAE - b.overallMAE);
+  const profilesRaw = buildAgencyProfiles(
+    realAgencies,
+    polls,
+    details,
+    elections,
+  ).filter((p) => p.preElectionPolls > 0);
+
+  // Shrunk MAE: pull each agency's MAE toward the cross-agency mean, weighted by sample
+  // size. Computed here (not inside buildAgencyProfiles) because we need every agency's
+  // overallMAE to know the prior.
+  const overallMean = mean(profilesRaw.map((p) => p.overallMAE));
+  for (const p of profilesRaw) {
+    const n = p.electionsCovered.length;
+    p.shrunkMAE = round(
+      (n * p.overallMAE + SHRINKAGE_K * overallMean) / (n + SHRINKAGE_K),
+    );
+    p.grade = gradeFor(p.shrunkMAE, p.plusMinus, p.barrierCallRate);
+  }
+  // Sort by shrunk MAE so the leaderboard reflects the same metric the grade uses.
+  const profiles = profilesRaw.sort((a, b) => a.shrunkMAE - b.shrunkMAE);
 
   const out = {
     generatedAt: new Date().toISOString(),
@@ -669,12 +790,18 @@ const main = async (opts: { pollsDir: string }) => {
   console.log(`✓ wrote ${path.join(opts.pollsDir, "accuracy.json")}`);
 
   // Console summary
-  console.log(
-    "\nAgency leaderboard (overall MAE across all pre-election last-polls):",
-  );
+  console.log("\nAgency leaderboard (sorted by shrunk MAE):");
   for (const p of profiles) {
+    const pm =
+      p.plusMinus === null
+        ? "  —  "
+        : `${p.plusMinus >= 0 ? "+" : ""}${p.plusMinus.toFixed(2)}`;
+    const bc =
+      p.barrierCallRate === null
+        ? "—"
+        : `${(p.barrierCallRate * 100).toFixed(0)}%`;
     console.log(
-      `  ${p.agencyId.padEnd(5)} MAE=${p.overallMAE.toFixed(2)}  RMSE=${p.overallRMSE.toFixed(2)}  elections=${p.electionsCovered.length}  polls=${p.preElectionPolls}`,
+      `  ${p.grade.padEnd(2)} ${p.agencyId.padEnd(5)} MAE=${p.overallMAE.toFixed(2)} shrunk=${p.shrunkMAE.toFixed(2)}  +/-=${pm}  barrier=${bc}  n=${p.electionsCovered.length}`,
     );
   }
   console.log("\nMost recent election (2026-04-19) — agency last-poll MAE:");

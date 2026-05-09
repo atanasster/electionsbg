@@ -133,11 +133,18 @@ export const PollsScreen: FC = () => {
             <div className="text-[10px] uppercase tracking-wide text-muted-foreground">
               {t("polls_most_accurate")}
             </div>
-            <div className="text-2xl font-extrabold mt-1 truncate">
-              {best?.name_en}
+            <div className="flex items-center gap-2 mt-1">
+              {best ? (
+                <span className="px-2 py-0.5 rounded-md text-xs font-bold tabular-nums bg-emerald-600 text-white">
+                  {best.grade}
+                </span>
+              ) : null}
+              <div className="text-2xl font-extrabold truncate">
+                {best?.name_en}
+              </div>
             </div>
             <div className="text-xs text-muted-foreground tabular-nums">
-              MAE {best?.overallMAE.toFixed(2)}
+              MAE {best?.shrunkMAE.toFixed(2)}
             </div>
           </div>
         </div>

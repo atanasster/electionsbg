@@ -80,6 +80,8 @@ export type BlocId =
   | "populist"
   | "other";
 
+export type AgencyGrade = "A+" | "A" | "B+" | "B" | "C+" | "C" | "D" | "F";
+
 export type AgencyProfile = {
   agencyId: string;
   name_bg: string;
@@ -89,7 +91,14 @@ export type AgencyProfile = {
   electionsCovered: string[];
   overallMAE: number;
   overallRMSE: number;
+  shrunkMAE: number;
   medianDaysBefore?: number | null;
+  plusMinus: number | null;
+  plusMinusSamples: number;
+  barrierCallRate: number | null;
+  barrierCallTotal: number;
+  grade: AgencyGrade;
+  maeHistory: { electionDate: string; mae: number; rmse: number }[];
   partyBias: { key: string; meanError: number; samples: number }[];
   blocLean: Record<BlocId, { meanError: number; samples: number }>;
   houseEffect: { key: string; meanDiff: number; samples: number }[];

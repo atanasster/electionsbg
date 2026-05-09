@@ -58,6 +58,16 @@ export const PollsAgencyScreen: FC = () => {
     [details, agencyId],
   );
 
+  // Cross-agency mean MAE — used as the "consensus" reference line on the per-agency
+  // MAE-history chart, so a viewer can see at a glance which cycles the agency beat or
+  // missed the field on.
+  const consensusMAE = useMemo(() => {
+    const profiles = accuracy?.agencyProfiles ?? [];
+    if (profiles.length === 0) return undefined;
+    const total = profiles.reduce((s, p) => s + p.overallMAE, 0);
+    return total / profiles.length;
+  }, [accuracy]);
+
   const title = agency ? (isBg ? agency.name_bg : agency.name_en) : agencyId;
 
   if (!ready) {
@@ -105,7 +115,12 @@ export const PollsAgencyScreen: FC = () => {
         </Link>
 
         <div className="mt-3">
-          <AgencyProfileCard profile={profile} agency={agency} take={take} />
+          <AgencyProfileCard
+            profile={profile}
+            agency={agency}
+            take={take}
+            consensusMAE={consensusMAE}
+          />
         </div>
 
         <div className="mt-3">

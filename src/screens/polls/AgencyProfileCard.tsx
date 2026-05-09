@@ -4,19 +4,38 @@ import { ExternalLink, Sparkles, AlertTriangle } from "lucide-react";
 import { StatCard } from "@/screens/dashboard/StatCard";
 import {
   Agency,
+  AgencyGrade,
   AgencyProfile,
   AgencyTake,
   BlocId,
 } from "@/data/polls/pollsTypes";
 import { BLOC_COLORS, BLOC_LABELS } from "./blocColors";
+import { AgencyMaeHistory } from "./AgencyMaeHistory";
+
+const GRADE_STYLE: Record<AgencyGrade, string> = {
+  "A+": "bg-emerald-600 text-white",
+  A: "bg-emerald-500 text-white",
+  "B+": "bg-lime-500 text-white",
+  B: "bg-amber-400 text-foreground",
+  "C+": "bg-amber-500 text-white",
+  C: "bg-orange-500 text-white",
+  D: "bg-rose-500 text-white",
+  F: "bg-rose-700 text-white",
+};
 
 type Props = {
   profile: AgencyProfile;
   agency?: Agency;
   take?: AgencyTake;
+  consensusMAE?: number;
 };
 
-export const AgencyProfileCard: FC<Props> = ({ profile, agency, take }) => {
+export const AgencyProfileCard: FC<Props> = ({
+  profile,
+  agency,
+  take,
+  consensusMAE,
+}) => {
   const { t, i18n } = useTranslation();
   const isBg = i18n.language === "bg";
   const name = agency
@@ -50,7 +69,13 @@ export const AgencyProfileCard: FC<Props> = ({ profile, agency, take }) => {
     <StatCard
       label={
         <div className="flex items-center justify-between w-full gap-2">
-          <div className="flex items-baseline gap-2 min-w-0">
+          <div className="flex items-center gap-2 min-w-0">
+            <span
+              className={`px-2 py-0.5 rounded-md text-sm font-bold tabular-nums ${GRADE_STYLE[profile.grade]}`}
+              title={t("polls_grade_hint")}
+            >
+              {profile.grade}
+            </span>
             <span className="text-base font-semibold text-foreground truncate">
               {name}
             </span>
@@ -72,13 +97,47 @@ export const AgencyProfileCard: FC<Props> = ({ profile, agency, take }) => {
         </div>
       }
     >
-      <div className="grid grid-cols-3 gap-2 mt-1">
+      <div className="grid grid-cols-2 sm:grid-cols-4 gap-2 mt-1">
         <div>
           <div className="text-[10px] uppercase tracking-wide text-muted-foreground">
-            MAE
+            {t("polls_shrunk_mae")}
           </div>
           <div className="tabular-nums text-lg font-semibold">
-            {profile.overallMAE.toFixed(2)}
+            {profile.shrunkMAE.toFixed(2)}
+          </div>
+          <div className="text-[10px] text-muted-foreground tabular-nums">
+            {t("polls_raw")} {profile.overallMAE.toFixed(2)}
+          </div>
+        </div>
+        <div>
+          <div className="text-[10px] uppercase tracking-wide text-muted-foreground">
+            {t("polls_plus_minus")}
+          </div>
+          <div
+            className={`tabular-nums text-lg font-semibold ${
+              profile.plusMinus === null
+                ? "text-muted-foreground"
+                : profile.plusMinus > 0
+                  ? "text-emerald-600"
+                  : "text-rose-600"
+            }`}
+          >
+            {profile.plusMinus === null
+              ? "—"
+              : `${profile.plusMinus > 0 ? "+" : ""}${profile.plusMinus.toFixed(2)}`}
+          </div>
+        </div>
+        <div>
+          <div className="text-[10px] uppercase tracking-wide text-muted-foreground">
+            {t("polls_barrier_call")}
+          </div>
+          <div className="tabular-nums text-lg font-semibold">
+            {profile.barrierCallRate === null
+              ? "—"
+              : `${Math.round(profile.barrierCallRate * 100)}%`}
+          </div>
+          <div className="text-[10px] text-muted-foreground tabular-nums">
+            n={profile.barrierCallTotal}
           </div>
         </div>
         <div>
@@ -88,16 +147,15 @@ export const AgencyProfileCard: FC<Props> = ({ profile, agency, take }) => {
           <div className="tabular-nums text-lg font-semibold">
             {profile.electionsCovered.length}
           </div>
-        </div>
-        <div>
-          <div className="text-[10px] uppercase tracking-wide text-muted-foreground">
-            {t("polls_total")}
-          </div>
-          <div className="tabular-nums text-lg font-semibold">
-            {profile.totalPolls}
+          <div className="text-[10px] text-muted-foreground tabular-nums">
+            {profile.totalPolls} {t("polls_total").toLowerCase()}
           </div>
         </div>
       </div>
+
+      {consensusMAE !== undefined ? (
+        <AgencyMaeHistory profile={profile} consensusMAE={consensusMAE} />
+      ) : null}
 
       {/* Bloc lean diverging bars */}
       {blocs.length > 0 ? (
