@@ -1,33 +1,36 @@
 import { FC } from "react";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Title } from "@/ux/Title";
-import { useResolvedCandidateName } from "@/data/candidates/useResolvedCandidate";
+import { useResolvedCandidate } from "@/data/candidates/useResolvedCandidate";
+import { useCandidateName } from "@/data/candidates/useCandidateName";
+import { CandidateHeader } from "./components/candidates/CandidateHeader";
 import { CandidateBySections } from "./components/candidates/CandidateBySections";
 
 export const CandidateSectionsScreen: FC = () => {
   const { id } = useParams();
   const { t } = useTranslation();
-  const { name: resolved } = useResolvedCandidateName(id);
+  const { canonical } = useResolvedCandidate(id);
+  const { isEn, nameForBg } = useCandidateName();
   if (!id) return null;
-  const name =
-    resolved ?? (id.startsWith("mp-") || id.startsWith("c-") ? null : id);
-  if (!name) return null;
+  const lookupName =
+    canonical?.name ??
+    (id.startsWith("mp-") || id.startsWith("c-") ? null : id);
+  if (!lookupName) return null;
+  const displayName = canonical
+    ? isEn
+      ? canonical.name_en
+      : canonical.name
+    : nameForBg(lookupName);
   return (
     <>
-      <Title
-        description={t("votes_by_section")}
-        title={`${name} — ${t("votes_by_section")}`}
-        className="text-base md:text-xl lg:text-2xl py-4 md:py-6"
-      >
-        <>
-          {name}
-          <br />
-          {t("votes_by_section")}
-        </>
-      </Title>
+      <CandidateHeader
+        displayName={displayName}
+        lookupName={lookupName}
+        cikRows={canonical?.cikRows}
+        subtitle={t("votes_by_section")}
+      />
       <div className="w-full max-w-7xl mx-auto px-4 pb-12">
-        <CandidateBySections name={name} />
+        <CandidateBySections name={lookupName} />
       </div>
     </>
   );

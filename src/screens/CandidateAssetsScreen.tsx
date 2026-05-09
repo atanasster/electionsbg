@@ -1,5 +1,5 @@
 import { FC, useMemo } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
   Home as HomeIcon,
@@ -11,14 +11,14 @@ import {
   HandCoins,
   AlertCircle,
   ExternalLink,
-  ArrowLeft,
   Coins,
 } from "lucide-react";
 import { Title } from "@/ux/Title";
 import { useMpAssets } from "@/data/parliament/useMpAssets";
 import { useMpDeclarations } from "@/data/parliament/useMpDeclarations";
-import { useResolvedCandidateName } from "@/data/candidates/useResolvedCandidate";
-import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
+import { useResolvedCandidate } from "@/data/candidates/useResolvedCandidate";
+import { useCandidateName } from "@/data/candidates/useCandidateName";
+import { CandidateHeader } from "@/screens/components/candidates/CandidateHeader";
 import type { MpAsset, MpAssetCategory, MpDeclaration } from "@/data/dataTypes";
 import { DataTable, DataTableColumns } from "@/ux/data_table/DataTable";
 
@@ -351,15 +351,21 @@ const IncomeTable: FC<{ decl: MpDeclaration; lang: string }> = ({
 
 export const CandidateAssetsScreen: FC = () => {
   const { id } = useParams<{ id: string }>();
-  const { name: resolved } = useResolvedCandidateName(id);
+  const { canonical } = useResolvedCandidate(id);
+  const { isEn, nameForBg } = useCandidateName();
   const fallback =
     id && !id.startsWith("mp-") && !id.startsWith("c-")
       ? decodeURIComponent(id)
       : "";
-  const name = resolved ?? fallback;
+  const lookupName = canonical?.name ?? fallback;
+  const displayName = canonical
+    ? isEn
+      ? canonical.name_en
+      : canonical.name
+    : nameForBg(lookupName);
   const { t, i18n } = useTranslation();
-  const { rollup } = useMpAssets(name);
-  const { declarations } = useMpDeclarations(name);
+  const { rollup } = useMpAssets(lookupName);
+  const { declarations } = useMpDeclarations(lookupName);
 
   const latestDecl = useMemo(() => {
     if (!rollup || declarations.length === 0) return undefined;
@@ -378,7 +384,7 @@ export const CandidateAssetsScreen: FC = () => {
   if (!rollup || !latestDecl) {
     return (
       <div className="w-full">
-        <Title>{name}</Title>
+        <Title>{displayName}</Title>
         <div className="text-sm text-muted-foreground">
           {t("mp_assets_no_data") ||
             "No declared assets data for this candidate."}
@@ -387,34 +393,22 @@ export const CandidateAssetsScreen: FC = () => {
     );
   }
 
+  const subtitle = `${t("mp_assets_title") || "Declared assets"} · ${
+    rollup.fiscalYear
+      ? `${t("fiscal_year") || "fiscal year"} ${rollup.fiscalYear}`
+      : rollup.latestDeclarationYear
+  }`;
+
   return (
     <div className="w-full">
-      <Link
-        to={`/candidate/${id ?? encodeURIComponent(name)}`}
-        className="inline-flex items-center gap-1 text-sm text-primary hover:underline mb-2"
-      >
-        <ArrowLeft className="h-4 w-4" />
-        {name}
-      </Link>
-      <Title
-        description={`${t("mp_assets_page_title") || "Declared assets"} · ${name}`}
-      >
-        <span className="inline-flex flex-col gap-1">
-          <span className="inline-flex items-center gap-3">
-            <MpAvatar name={name} className="h-8 w-8" />
-            {t("mp_assets_title") || "Declared assets"}
-          </span>
-          <span className="inline-flex items-center gap-2 text-sm font-normal">
-            <span className="font-semibold text-base">{name}</span>
-            <span className="text-muted-foreground">
-              ·{" "}
-              {rollup.fiscalYear
-                ? `${t("fiscal_year") || "fiscal year"} ${rollup.fiscalYear}`
-                : `${rollup.latestDeclarationYear}`}
-            </span>
-          </span>
-        </span>
-      </Title>
+      <CandidateHeader
+        displayName={displayName}
+        lookupName={lookupName}
+        cikRows={canonical?.cikRows}
+        backTo={`/candidate/${id ?? encodeURIComponent(lookupName)}`}
+        subtitle={subtitle}
+        seoDescription={`${t("mp_assets_page_title") || "Declared assets"} · ${displayName}`}
+      />
 
       <div className="flex flex-wrap items-baseline gap-x-8 gap-y-2 mb-6 mt-4">
         <div>

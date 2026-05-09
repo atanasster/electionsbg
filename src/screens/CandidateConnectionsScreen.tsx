@@ -1,24 +1,30 @@
 import { FC, useMemo } from "react";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Network } from "lucide-react";
-import { Title } from "@/ux/Title";
 import { useMpConnections } from "@/data/parliament/useMpConnections";
-import { useResolvedCandidateName } from "@/data/candidates/useResolvedCandidate";
+import { useResolvedCandidate } from "@/data/candidates/useResolvedCandidate";
+import { useCandidateName } from "@/data/candidates/useCandidateName";
 import type { ConnectionsEdge, ConnectionsNode } from "@/data/dataTypes";
+import { CandidateHeader } from "./components/candidates/CandidateHeader";
 import { ConnectionPathRow } from "./components/candidates/ConnectionPathRow";
 import { ErrorSection } from "./components/ErrorSection";
 
 export const CandidateConnectionsScreen: FC = () => {
   const { id } = useParams();
   const { t } = useTranslation();
-  const { name: resolved } = useResolvedCandidateName(id);
+  const { canonical } = useResolvedCandidate(id);
+  const { isEn, nameForBg } = useCandidateName();
   const fallback =
     id && !id.startsWith("mp-") && !id.startsWith("c-")
       ? decodeURIComponent(id)
       : null;
-  const name = resolved ?? fallback;
-  const { subgraph, isLoading } = useMpConnections(name);
+  const lookupName = canonical?.name ?? fallback;
+  const displayName = canonical
+    ? isEn
+      ? canonical.name_en
+      : canonical.name
+    : nameForBg(fallback);
+  const { subgraph, isLoading } = useMpConnections(lookupName);
 
   const nodeById = useMemo(() => {
     const m = new Map<string, ConnectionsNode>();
@@ -45,12 +51,12 @@ export const CandidateConnectionsScreen: FC = () => {
     };
   }, [subgraph]);
 
-  if (!name) return null;
+  if (!lookupName) return null;
 
   if (!isLoading && (!subgraph || subgraph.paths.length === 0)) {
     return (
       <ErrorSection
-        title={name}
+        title={displayName}
         description={
           t("mp_connections_no_paths_long") ||
           "No business-connection paths to other MPs were found for this candidate. Either they have no declared companies, or none of those companies share an officer/owner with another MP."
@@ -73,16 +79,15 @@ export const CandidateConnectionsScreen: FC = () => {
 
   return (
     <>
-      <Title
-        description={`Business connection paths from ${name} to other MPs`}
-        title={`${name} — ${t("mp_connections_full_title") || "Connections to other MPs"}`}
-        className="text-base md:text-xl lg:text-2xl py-4 md:py-6"
-      >
-        <span className="inline-flex items-center gap-2">
-          <Network className="h-5 w-5" />
-          {name}
-        </span>
-      </Title>
+      <CandidateHeader
+        displayName={displayName}
+        lookupName={lookupName}
+        cikRows={canonical?.cikRows}
+        subtitle={
+          t("mp_connections_full_title") || "Connections to other MPs"
+        }
+        seoDescription={`Business connection paths from ${displayName} to other MPs`}
+      />
       <div className="w-full max-w-5xl mx-auto px-4 pb-12 space-y-6">
         <p className="text-sm text-muted-foreground">
           {t("mp_connections_full_intro") ||

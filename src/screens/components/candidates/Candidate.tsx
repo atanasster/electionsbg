@@ -1,11 +1,8 @@
-import { Title } from "@/ux/Title";
-import { FC, Fragment } from "react";
+import { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { usePartyInfo } from "@/data/parties/usePartyInfo";
 import { useResolvedCandidate } from "@/data/candidates/useResolvedCandidate";
 import { useCandidateName } from "@/data/candidates/useCandidateName";
-import { PartyLink } from "../party/PartyLink";
-import { RegionLink } from "../regions/RegionLink";
+import { CandidateHeader } from "./CandidateHeader";
 import { MpProfileHeader } from "./MpProfileHeader";
 import { MpFinancialDeclarations } from "./MpFinancialDeclarations";
 import { MpAssetsSummary } from "./MpAssetsSummary";
@@ -28,7 +25,6 @@ import { CandidateDashboardCards } from "@/screens/dashboard/CandidateDashboardC
  * parties no longer leaks across people. */
 export const Candidate: FC<{ name: string }> = ({ name }) => {
   const { t } = useTranslation();
-  const { findParty } = usePartyInfo();
   const { isLoading, matches, canonical } = useResolvedCandidate(name);
   const { isEn, nameForBg } = useCandidateName();
 
@@ -53,12 +49,11 @@ export const Candidate: FC<{ name: string }> = ({ name }) => {
     const headerName = nameForBg(name);
     return (
       <div className="w-full">
-        <Title
-          description={`Results for party candidate ${headerName}`}
-          className="md:pb-8"
-        >
-          {headerName}
-        </Title>
+        <CandidateHeader
+          displayName={headerName}
+          lookupName={name}
+          seoDescription={`Results for party candidate ${headerName}`}
+        />
         <MpProfileHeader name={name} />
         <CandidateDashboardCards name={name} />
         <MpAssetsSummary name={name} />
@@ -81,31 +76,14 @@ export const Candidate: FC<{ name: string }> = ({ name }) => {
 
   return (
     <div className="w-full">
-      <Title
-        description={`Results for party candidate ${headerName}`}
-        className="md:pb-8"
-      >
-        {headerName}
-      </Title>
+      <CandidateHeader
+        displayName={headerName}
+        lookupName={lookupName}
+        cikRows={canonical.cikRows}
+        seoDescription={`Results for party candidate ${headerName}`}
+      />
 
       {canonical.mpId != null && <MpProfileHeader name={lookupName} />}
-
-      {canonical.cikRows.length > 0 && (
-        <div className="grid grid-cols-[auto_auto_auto] justify-center items-center gap-x-3 gap-y-1.5 px-4 py-2">
-          {canonical.cikRows.map((c) => {
-            const party = findParty(c.partyNum);
-            return (
-              <Fragment key={`${c.oblast}-${c.pref}`}>
-                <PartyLink party={party} width="w-9 shrink-0" />
-                <div className="text-sm sm:text-base font-semibold">
-                  <RegionLink oblast={c.oblast} />
-                </div>
-                <div className="text-sm sm:text-base font-semibold tabular-nums">{`#${c.pref}`}</div>
-              </Fragment>
-            );
-          })}
-        </div>
-      )}
 
       <CandidateDashboardCards name={lookupName} linkSlug={linkSlug} />
 
