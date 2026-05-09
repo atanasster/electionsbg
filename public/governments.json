@@ -241,16 +241,31 @@
       "pmBg": "Андрей Атанасов Гюров",
       "pmEn": "Andrey Gyurov",
       "startDate": "2026-02-19",
-      "endDate": null,
+      "endDate": "2026-05-08",
       "type": "caretaker",
       "parties": [],
       "partiesEn": [],
       "pmPartyBg": "ПП-ДБ",
       "pmPartyEn": "PP-DB",
-      "endReason": "incumbent",
-      "endReasonBg": "Действащо служебно правителство; преведе изборите на 19 април 2026 г.",
-      "endReasonEn": "Incumbent caretaker cabinet; oversaw the 19 April 2026 election",
+      "endReason": "snap_election",
+      "endReasonBg": "Служебно правителство преди извънредните избори на 19 април 2026 г.",
+      "endReasonEn": "Caretaker cabinet ahead of the 19 April 2026 snap election",
       "source": "https://en.wikipedia.org/wiki/Government_of_Bulgaria"
+    },
+    {
+      "id": "radev",
+      "pmBg": "Румен Георгиев Радев",
+      "pmEn": "Rumen Radev",
+      "startDate": "2026-05-08",
+      "endDate": null,
+      "type": "regular",
+      "parties": ["ПрБ"],
+      "partiesEn": ["PB"],
+      "precedingElection": "2026_04_19",
+      "endReason": "incumbent",
+      "endReasonBg": "Действащо правителство, избрано със 122 гласа „за“, 70 „против“ и 36 „въздържал се“",
+      "endReasonEn": "Incumbent cabinet elected with 122 votes in favour, 70 against, 36 abstaining",
+      "source": "https://parliament.bg/bg/news/ID/6527"
     }
   ]
 }

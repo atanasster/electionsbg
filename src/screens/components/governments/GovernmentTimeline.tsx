@@ -24,6 +24,7 @@ import { Tooltip as UxTooltip } from "@/ux/Tooltip";
 import { tooltipSurfaceClass } from "@/components/ui/tooltipSurface";
 import { cn } from "@/lib/utils";
 import { useMps } from "@/data/parliament/useMps";
+import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 
 const ELECTION_DATES = [
@@ -54,41 +55,67 @@ export const toFractionalYear = (iso: string): number => {
 
 const isoFromElectionKey = (key: string) => key.replace(/_/g, "-");
 
-const partyColor: Record<string, string> = {
-  ГЕРБ: "#1f3a93",
-  "ГЕРБ-СДС": "#1f3a93",
-  БСП: "#c0392b",
-  "БСП-ОЛ": "#c0392b",
-  ПП: "#16a085",
-  "ПП-ДБ": "#16a085",
-  ДБ: "#0d6efd",
-  ИТН: "#f1c40f",
-  ДПС: "#5b9bd5",
-  НДСВ: "#f4a261",
-  АБВ: "#aa4e50",
+type ColorResolver = (nickName: string) => string | undefined;
+
+const FALLBACK_PARTY_COLOR = "#475569";
+
+// Caretaker fallbacks for the historical predecessor labels we still ship in
+// public/governments.json — these aren't current CEC nicknames, so the
+// canonical resolver doesn't know them.
+const LEGACY_PARTY_COLORS: Record<string, string> = {
   "Реформаторски блок": "#9b59b6",
   "Патриотичен фронт": "#7f8c8d",
   "Обединени патриоти": "#7f8c8d",
 };
 
-const hexToRgba = (hex: string, alpha: number): string => {
-  const h = hex.replace("#", "");
-  const r = parseInt(h.slice(0, 2), 16);
-  const g = parseInt(h.slice(2, 4), 16);
-  const b = parseInt(h.slice(4, 6), 16);
-  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+const resolvePartyColor = (
+  nickName: string | undefined,
+  colorFor: ColorResolver,
+): string => {
+  if (!nickName) return FALLBACK_PARTY_COLOR;
+  return (
+    colorFor(nickName) ??
+    LEGACY_PARTY_COLORS[nickName] ??
+    FALLBACK_PARTY_COLOR
+  );
 };
 
-const colorForGovernment = (g: Government, alpha = 0.18): string => {
+// Recharts/inline-style consumers need a string colour, so normalise rgb()/
+// rgba()/hex inputs into the same rgba() representation with a chosen alpha.
+const withAlpha = (color: string, alpha: number): string => {
+  const trimmed = color.trim();
+  const rgbMatch = trimmed.match(
+    /^rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)/i,
+  );
+  if (rgbMatch) {
+    return `rgba(${rgbMatch[1]}, ${rgbMatch[2]}, ${rgbMatch[3]}, ${alpha})`;
+  }
+  if (trimmed.startsWith("#")) {
+    const h = trimmed.slice(1);
+    const expand = h.length === 3 ? h.split("").map((c) => c + c).join("") : h;
+    const r = parseInt(expand.slice(0, 2), 16);
+    const g = parseInt(expand.slice(2, 4), 16);
+    const b = parseInt(expand.slice(4, 6), 16);
+    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+  }
+  return trimmed;
+};
+
+const colorForGovernment = (
+  g: Government,
+  colorFor: ColorResolver,
+  alpha = 0.18,
+): string => {
   if (g.type === "caretaker") return `rgba(120, 120, 120, ${alpha})`;
-  const lead = g.parties[0];
-  const c = partyColor[lead] ?? "#475569";
-  return hexToRgba(c, alpha);
+  return withAlpha(resolvePartyColor(g.parties[0], colorFor), alpha);
 };
 
-export const colorForGovernmentSolid = (g: Government): string => {
+export const colorForGovernmentSolid = (
+  g: Government,
+  colorFor: ColorResolver,
+): string => {
   if (g.type === "caretaker") return "#94a3b8";
-  return partyColor[g.parties[0]] ?? "#475569";
+  return resolvePartyColor(g.parties[0], colorFor);
 };
 
 // Reused per chart so the line palette stays consistent across the page.
@@ -303,6 +330,7 @@ export const CabinetStrip: FC<{
   xDomain: [number, number];
   lang: "en" | "bg";
 }> = ({ governments, xDomain, lang }) => {
+  const { colorFor } = useCanonicalParties();
   return (
     <div
       className="flex h-14 mb-1 rounded overflow-hidden"
@@ -325,7 +353,7 @@ export const CabinetStrip: FC<{
               className="h-full flex items-center justify-center text-[10px] font-medium overflow-hidden border-r border-background/40 last:border-r-0 cursor-help"
               style={{
                 width: `${widthPct}%`,
-                backgroundColor: colorForGovernmentSolid(g),
+                backgroundColor: colorForGovernmentSolid(g, colorFor),
                 color:
                   g.type === "caretaker" ? "rgba(255,255,255,0.95)" : "#fff",
                 opacity: g.type === "caretaker" ? 0.6 : 0.95,
@@ -387,6 +415,7 @@ export const GovernmentTimeline: FC<{
 }) => {
   const { t, i18n } = useTranslation();
   const lang: "en" | "bg" = i18n.language === "bg" ? "bg" : "en";
+  const { colorFor } = useCanonicalParties();
 
   const initial = useMemo<Toggle>(() => {
     const on = new Set<MacroIndicatorKey>(defaultEnabled ?? indicatorKeys);
@@ -506,7 +535,7 @@ export const GovernmentTimeline: FC<{
                   key={`band-${g.id}`}
                   x1={x1}
                   x2={x2}
-                  fill={colorForGovernment(g)}
+                  fill={colorForGovernment(g, colorFor)}
                   fillOpacity={1}
                   stroke="none"
                   ifOverflow="visible"
