@@ -320,7 +320,16 @@ export const ConnectionsCanvas: FC<Props> = ({
           n.type === "mp" ||
           n.radius > 6 / cam.scale + 2;
         if (!isImportant) continue;
-        ctx.fillText(n.label, n.x + n.radius + 2, n.y);
+        if (isHub) {
+          // Hub sits at the canvas center; placing its label to the right
+          // clips off-canvas on narrow viewports. Center it below the avatar
+          // instead so it stays inside the bitmap regardless of width.
+          ctx.textAlign = "center";
+          ctx.fillText(n.label, n.x, n.y + n.radius + 8 / cam.scale);
+          ctx.textAlign = "left";
+        } else {
+          ctx.fillText(n.label, n.x + n.radius + 2, n.y);
+        }
       }
 
       ctx.restore();

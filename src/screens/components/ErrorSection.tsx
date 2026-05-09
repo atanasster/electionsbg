@@ -15,11 +15,11 @@ export const ErrorSection: FC<{ title: string; description?: string }> = ({
     <div className="w-full py-16 h-full">
       <Separator />
       <div className="overflow-hidden sm:rounded-lg pb-8 flex justify-center">
-        <div className="text-center pt-8 w-9/12">
+        <div className="text-center pt-8 w-full sm:w-9/12 px-4">
           <Title className="text-destructive" description={description}>
             {title}
           </Title>
-          <p className="text-4xl pb-8 px-12 font-medium text-secondary-foreground">
+          <p className="text-lg sm:text-2xl md:text-4xl pb-8 px-2 sm:px-8 md:px-12 font-medium text-secondary-foreground">
             {description}
           </p>
           <Button onClick={() => navigate({ pathname: "/" })}>
