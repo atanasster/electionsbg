@@ -28,12 +28,7 @@ export const Tooltip: FC<
             {children}
           </span>
         </PopoverTrigger>
-        <PopoverContent
-          className={cn(
-            "max-w-72 text-sm bg-primary text-primary-foreground",
-            className,
-          )}
-        >
+        <PopoverContent className={cn("max-w-72 text-sm", className)}>
           {content}
         </PopoverContent>
       </Popover>

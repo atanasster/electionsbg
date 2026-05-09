@@ -217,6 +217,11 @@ const CompareScreen = lazy(() =>
     default: m.CompareScreen,
   })),
 );
+const VoteFlowMethodologyScreen = lazy(() =>
+  import("./screens/VoteFlowMethodologyScreen").then((m) => ({
+    default: m.VoteFlowMethodologyScreen,
+  })),
+);
 const PartyTimelineScreen = lazy(() =>
   import("./screens/PartyTimelineScreen").then((m) => ({
     default: m.PartyTimelineScreen,
@@ -1149,6 +1154,14 @@ export const AuthRoutes = () => {
           element={
             <LayoutScreen>
               <CompareScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="where-did-votes-go/methodology"
+          element={
+            <LayoutScreen>
+              <VoteFlowMethodologyScreen />
             </LayoutScreen>
           }
         />

@@ -12,6 +12,8 @@ import {
 } from "recharts";
 import { localDate } from "@/data/utils";
 import { AgencyProfile } from "@/data/polls/pollsTypes";
+import { tooltipSurfaceClass } from "@/components/ui/tooltipSurface";
+import { cn } from "@/lib/utils";
 
 type TooltipDatum = { value: number; payload: { label: string; mae: number } };
 
@@ -22,7 +24,7 @@ const TooltipBody: FC<{ active?: boolean; payload?: TooltipDatum[] }> = ({
   if (!active || !payload?.[0]) return null;
   const d = payload[0].payload;
   return (
-    <div className="rounded-md bg-primary px-2 py-1 text-[11px] text-primary-foreground shadow">
+    <div className={cn(tooltipSurfaceClass, "px-2 py-1 text-[11px]")}>
       <div className="font-semibold">{d.label}</div>
       <div className="tabular-nums">MAE {d.mae.toFixed(2)}</div>
     </div>

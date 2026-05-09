@@ -18,6 +18,7 @@ import { useElectionContext } from "@/data/ElectionContext";
 import { Hint } from "@/ux/Hint";
 import { Link } from "@/ux/Link";
 import { usePreserveParams } from "@/ux/usePreserveParams";
+import { tooltipSurfaceCompactClass } from "@/components/ui/tooltipSurface";
 import { localDate } from "@/data/utils";
 import { StatCard } from "./StatCard";
 
@@ -52,25 +53,21 @@ const ChartTooltip: FC<TooltipPayload> = ({ active, payload }) => {
   if (!active || !payload?.[0]) return null;
   const r = payload[0].payload;
   return (
-    <div className="rounded-md bg-primary px-3 py-1.5 text-xs text-primary-foreground shadow">
+    <div className={tooltipSurfaceCompactClass}>
       <div className="font-semibold">{r.label}</div>
       <div className="flex gap-2 mt-1">
-        <span className="text-primary-foreground/70">
-          {t("polls_avg_mae")}:
-        </span>
+        <span className="text-muted-foreground">{t("polls_avg_mae")}:</span>
         <span className="tabular-nums font-semibold">
           {r.avgMae.toFixed(2)}
         </span>
       </div>
       <div className="flex gap-2">
-        <span className="text-primary-foreground/70">
-          {t("polls_worst_mae")}:
-        </span>
+        <span className="text-muted-foreground">{t("polls_worst_mae")}:</span>
         <span className="tabular-nums font-semibold">
           {r.maxMae.toFixed(2)}
         </span>
       </div>
-      <div className="text-primary-foreground/70 mt-0.5">
+      <div className="text-muted-foreground mt-0.5">
         {r.agencyCount}{" "}
         {(r.agencyCount === 1
           ? t("polls_agency")

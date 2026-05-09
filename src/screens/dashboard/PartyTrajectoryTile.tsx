@@ -22,6 +22,7 @@ import {
   totalAllVotes,
 } from "@/data/utils";
 import { Hint } from "@/ux/Hint";
+import { tooltipSurfaceCompactClass } from "@/components/ui/tooltipSurface";
 import { StatCard } from "./StatCard";
 
 const THRESHOLD = 4;
@@ -74,30 +75,30 @@ const ChartTooltip: FC<TooltipPayload> = ({ active, payload }) => {
   if (!active || !payload?.[0]) return null;
   const r = payload[0].payload;
   return (
-    <div className="rounded-md bg-primary px-3 py-1.5 text-xs text-primary-foreground shadow">
+    <div className={tooltipSurfaceCompactClass}>
       <div className="font-semibold">{r.label}</div>
       {r.fullName ? (
-        <div className="text-primary-foreground/80 max-w-[220px] truncate">
+        <div className="text-muted-foreground max-w-[220px] truncate">
           {r.fullName}
         </div>
       ) : (
-        <div className="text-primary-foreground/80">{r.nickName}</div>
+        <div className="text-muted-foreground">{r.nickName}</div>
       )}
       <div className="flex gap-2 mt-1">
-        <span className="text-primary-foreground/70">{t("share")}:</span>
+        <span className="text-muted-foreground">{t("share")}:</span>
         <span className="tabular-nums font-semibold">{r.pct.toFixed(2)}%</span>
       </div>
       <div className="flex gap-2">
-        <span className="text-primary-foreground/70">{t("votes")}:</span>
+        <span className="text-muted-foreground">{t("votes")}:</span>
         <span className="tabular-nums font-semibold">
           {formatThousands(r.totalVotes)}
         </span>
       </div>
       <div className="flex gap-2">
-        <span className="text-primary-foreground/70">{t("position")}:</span>
+        <span className="text-muted-foreground">{t("position")}:</span>
         <span className="tabular-nums font-semibold">#{r.position}</span>
       </div>
-      <div className="text-primary-foreground/70 mt-0.5">
+      <div className="text-muted-foreground mt-0.5">
         {r.passedThreshold
           ? t("dashboard_above_threshold")
           : t("dashboard_below_threshold")}

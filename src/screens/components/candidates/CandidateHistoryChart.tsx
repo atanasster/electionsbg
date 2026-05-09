@@ -1,5 +1,7 @@
 import { Bar, BarChart, CartesianGrid, Cell, XAxis, YAxis } from "recharts";
 import { ChartContainer, ChartTooltip } from "@/components/ui/chart";
+import { tooltipSurfaceCompactClass } from "@/components/ui/tooltipSurface";
+import { cn } from "@/lib/utils";
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { formatThousands, localDate } from "@/data/utils";
@@ -20,7 +22,7 @@ const CustomTooltip: FC<{
   const { t } = useTranslation();
 
   return active && payload?.[0] ? (
-    <div className="z-50 overflow-hidden rounded-md bg-primary px-3 py-1.5 text-xs text-primary-foreground shadow">
+    <div className={cn("z-50 overflow-hidden", tooltipSurfaceCompactClass)}>
       <div className="flex flex-col items-start gap-1">
         <div className="font-semibold">{`${payload[0].payload.date} · ${payload[0].payload.party}`}</div>
         {payload[0].payload.preferences
@@ -28,14 +30,14 @@ const CustomTooltip: FC<{
           .map((p, index) => {
             return (
               <div key={`region_${index}`} className="flex gap-1">
-                <div className="text-primary-foreground/70">
+                <div className="text-muted-foreground">
                   {p.region_name}
                   {":"}
                 </div>
                 <div className="font-semibold tabular-nums">
                   {formatThousands(p.preferences)}
                 </div>
-                <div className="text-primary-foreground/60 lowercase">
+                <div className="text-muted-foreground lowercase">
                   {t("pref.")}
                 </div>
               </div>

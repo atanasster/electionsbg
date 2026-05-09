@@ -18,6 +18,7 @@ import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { PartyDashboardSummary } from "@/data/dashboard/partyDashboardTypes";
 import { localDate } from "@/data/utils";
 import { Hint } from "@/ux/Hint";
+import { tooltipSurfaceCompactClass } from "@/components/ui/tooltipSurface";
 import { StatCard } from "./StatCard";
 
 type Row = {
@@ -38,10 +39,10 @@ const ChartTooltip: FC<TooltipPayload> = ({ active, payload }) => {
   const r = payload[0].payload;
   const sign = r.delta > 0 ? "+" : "";
   return (
-    <div className="rounded-md bg-primary px-3 py-1.5 text-xs text-primary-foreground shadow">
+    <div className={tooltipSurfaceCompactClass}>
       <div className="font-semibold">{r.label}</div>
       <div className="flex gap-2 mt-1">
-        <span className="text-primary-foreground/70">
+        <span className="text-muted-foreground">
           {t("party_polling_delta_actual")}:
         </span>
         <span className="tabular-nums font-semibold">
@@ -49,7 +50,7 @@ const ChartTooltip: FC<TooltipPayload> = ({ active, payload }) => {
         </span>
       </div>
       <div className="flex gap-2">
-        <span className="text-primary-foreground/70">
+        <span className="text-muted-foreground">
           {t("party_polling_delta_polled")}:
         </span>
         <span className="tabular-nums font-semibold">
@@ -57,7 +58,7 @@ const ChartTooltip: FC<TooltipPayload> = ({ active, payload }) => {
         </span>
       </div>
       <div className="flex gap-2">
-        <span className="text-primary-foreground/70">
+        <span className="text-muted-foreground">
           {t("party_polling_delta_diff")}:
         </span>
         <span className="tabular-nums font-semibold">
@@ -65,7 +66,7 @@ const ChartTooltip: FC<TooltipPayload> = ({ active, payload }) => {
           {r.delta.toFixed(2)} pp
         </span>
       </div>
-      <div className="text-primary-foreground/70 mt-0.5">
+      <div className="text-muted-foreground mt-0.5">
         {r.agencyCount}{" "}
         {(r.agencyCount === 1
           ? t("polls_agency")

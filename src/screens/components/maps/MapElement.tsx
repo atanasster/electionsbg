@@ -65,7 +65,7 @@ export function MapElement<DType extends GeoJSONProps>({
                 <div className="text-lg text-center pb-1">{`${i18n.language === "bg" ? info.long_name || info.name : info.long_name_en || info.name_en}`}</div>
                 {!!votes && <PartyVotesXS votes={votes} />}
                 {showShift && shift && (
-                  <div className="mt-2 pt-2 border-t border-primary-foreground/20 text-[11px] leading-tight">
+                  <div className="mt-2 pt-2 border-t border-border text-[11px] leading-tight">
                     <div className="text-[10px] uppercase tracking-wide opacity-70 mb-1">
                       {priorDate
                         ? t("shift_vs", { date: priorDate })

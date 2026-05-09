@@ -374,12 +374,18 @@ export const BubbleTimeline: FC<Props> = ({
                   y={ry}
                   width={tw}
                   height={th}
-                  rx={4}
-                  className="fill-primary"
+                  rx={6}
+                  style={{
+                    fill: "hsl(var(--popover))",
+                    stroke: "hsl(var(--border))",
+                    strokeWidth: 1,
+                    filter:
+                      "drop-shadow(0 4px 6px rgb(0 0 0 / 0.07)) drop-shadow(0 2px 4px rgb(0 0 0 / 0.06))",
+                  }}
                 />
                 <foreignObject x={-tw / 2} y={ry} width={tw} height={th}>
                   <div
-                    className="text-primary-foreground px-2 py-1.5 text-center leading-tight"
+                    className="text-popover-foreground px-2 py-1.5 text-center leading-tight"
                     style={{ fontSize: 10 }}
                   >
                     <div className="font-semibold" style={{ fontSize: 11 }}>
@@ -387,13 +393,16 @@ export const BubbleTimeline: FC<Props> = ({
                     </div>
                     {fullName && (
                       <div
-                        className="opacity-90 mt-0.5"
+                        className="text-muted-foreground mt-0.5"
                         style={{ fontSize: 9 }}
                       >
                         {fullName}
                       </div>
                     )}
-                    <div className="opacity-80 mt-0.5" style={{ fontSize: 9 }}>
+                    <div
+                      className="text-muted-foreground mt-0.5"
+                      style={{ fontSize: 9 }}
+                    >
                       {localDate(hover.electionName)} ·{" "}
                       {formatPct(hover.pct, 1)} ·{" "}
                       {formatThousands(hover.totalVotes)}

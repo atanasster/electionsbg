@@ -11,6 +11,7 @@ import { PaperMachineCard } from "./cards/PaperMachineCard";
 import { ProblemSectionsTile } from "./ProblemSectionsTile";
 import { ProblemVotesByPartyTile } from "./ProblemVotesByPartyTile";
 import { HistoricalTrendsTile } from "./HistoricalTrendsTile";
+import { VoteFlowTile } from "@/screens/components/voteFlow/VoteFlowTile";
 import { PartyResultsTile } from "./PartyResultsTile";
 import { RegionMpsTile } from "./RegionMpsTile";
 import { MpConnectionsTile } from "./MpConnectionsTile";
@@ -108,6 +109,7 @@ export const RegionDashboardCards: FC<Props> = ({ regionCode }) => {
             />
           ) : null}
           <RegionMpsTile regionCode={regionCode} parties={data.parties} />
+          <VoteFlowTile regionCode={regionCode} />
           <HistoricalTrendsTile regionCode={regionCode} />
         </DashboardSection>
 

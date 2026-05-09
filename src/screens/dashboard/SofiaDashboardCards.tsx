@@ -14,6 +14,7 @@ import { PaperMachineCard } from "./cards/PaperMachineCard";
 import { ProblemSectionsTile } from "./ProblemSectionsTile";
 import { ProblemVotesByPartyTile } from "./ProblemVotesByPartyTile";
 import { HistoricalTrendsTile } from "./HistoricalTrendsTile";
+import { VoteFlowTile } from "@/screens/components/voteFlow/VoteFlowTile";
 import { PartyResultsTile } from "./PartyResultsTile";
 import { SofiaMapTile } from "./SofiaMapTile";
 import { SofiaMpsTile } from "./SofiaMpsTile";
@@ -115,6 +116,7 @@ export const SofiaDashboardCards: FC = () => {
             />
           ) : null}
           <SofiaMpsTile parties={data.parties} />
+          <VoteFlowTile regionCodes={SOFIA_REGIONS} />
           <HistoricalTrendsTile stats={sofiaStats} basePath={SOFIA_BASE_PATH} />
         </DashboardSection>
 

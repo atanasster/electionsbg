@@ -12,6 +12,7 @@ import { runPartyStats } from "./party_stats";
 import { createPreferencesFiles } from "./preferences";
 import { parseMachinesFlashMemory } from "./machines_memory";
 import { backfillSectionCoords } from "./parsers/backfill_section_coords";
+import { generateVoteFlows } from "./voteFlows";
 
 const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
 const __dirname = path.dirname(__filename); // get the name of the directory
@@ -108,6 +109,12 @@ const app = command({
       long: "declarations",
       defaultValue: () => false,
     }),
+    flows: flag({
+      type: optional(boolean),
+      long: "flows",
+      short: "w",
+      defaultValue: () => false,
+    }),
   },
   handler: async ({
     all,
@@ -124,6 +131,7 @@ const app = command({
     summary,
     coords,
     declarations,
+    flows,
   }) => {
     production = prod;
     if (machines) {
@@ -176,6 +184,9 @@ const app = command({
         dataFolder: inFolder,
         stringify,
       });
+    }
+    if (flows || all) {
+      generateVoteFlows({ publicFolder, stringify });
     }
   },
 });

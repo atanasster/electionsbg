@@ -21,6 +21,8 @@ import {
   MacroPoint,
 } from "@/data/macro/useMacro";
 import { Tooltip as UxTooltip } from "@/ux/Tooltip";
+import { tooltipSurfaceClass } from "@/components/ui/tooltipSurface";
+import { cn } from "@/lib/utils";
 import { useMps } from "@/data/parliament/useMps";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 
@@ -175,19 +177,19 @@ const TooltipContent: FC<{
     return s <= yearMid && e >= yearStart;
   });
   return (
-    <div className="rounded-md bg-primary px-3 py-2 text-xs text-primary-foreground shadow max-w-xs">
+    <div className={cn(tooltipSurfaceClass, "px-3 py-2 text-xs max-w-xs")}>
       <div className="font-semibold mb-1">{label}</div>
       {matching.map((g) => (
-        <div key={g.id} className="text-primary-foreground/85 mb-0.5">
+        <div key={g.id} className="mb-0.5">
           <span className="font-semibold">
             {lang === "bg" ? g.pmBg : g.pmEn}
           </span>
-          <span className="ml-1 text-primary-foreground/70">
+          <span className="ml-1 text-muted-foreground">
             ({g.type === "caretaker" ? caretakerLabel : regularLabel})
           </span>
         </div>
       ))}
-      <div className="mt-1 border-t border-primary-foreground/20 pt-1 flex flex-col gap-0.5">
+      <div className="mt-1 border-t border-border pt-1 flex flex-col gap-0.5">
         {payload
           ?.filter((p) => enabled[p.dataKey as MacroIndicatorKey])
           .map((p) => {
@@ -269,11 +271,7 @@ const PillTooltip: FC<{
           <div className="flex items-center gap-1.5">
             <span className="font-semibold">{fullName}</span>
             <span className="opacity-70">
-              (
-              {isCaretaker
-                ? t("gov_type_caretaker")
-                : t("gov_type_regular")}
-              )
+              ({isCaretaker ? t("gov_type_caretaker") : t("gov_type_regular")})
             </span>
           </div>
           {pmPartyLabel ? (
@@ -319,7 +317,10 @@ export const CabinetStrip: FC<{
         const horizontal = widthPct >= PILL_HORIZONTAL_THRESHOLD;
         const showLabel = widthPct >= PILL_LABEL_THRESHOLD;
         return (
-          <UxTooltip key={`pill-${g.id}`} content={<PillTooltip g={g} lang={lang} />}>
+          <UxTooltip
+            key={`pill-${g.id}`}
+            content={<PillTooltip g={g} lang={lang} />}
+          >
             <div
               className="h-full flex items-center justify-center text-[10px] font-medium overflow-hidden border-r border-background/40 last:border-r-0 cursor-help"
               style={{

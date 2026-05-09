@@ -1,5 +1,7 @@
 import { Bar, BarChart, Cell, CartesianGrid, XAxis, LabelList } from "recharts";
 import { ChartContainer, ChartTooltip } from "@/components/ui/chart";
+import { tooltipSurfaceCompactClass } from "@/components/ui/tooltipSurface";
+import { cn } from "@/lib/utils";
 import { PartyInfo, RegionInfo } from "@/data/dataTypes";
 import { FC } from "react";
 import { formatThousands } from "@/data/utils";
@@ -20,9 +22,14 @@ const CustomTooltip: FC<{
 }> = ({ active, payload }) => {
   const { t, i18n } = useTranslation();
   return active && payload ? (
-    <div className="z-50 overflow-hidden rounded-md bg-primary px-3 py-1.5 text-xs text-primary-foreground animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2">
+    <div
+      className={cn(
+        "z-50 overflow-hidden animate-in fade-in-0 zoom-in-95",
+        tooltipSurfaceCompactClass,
+      )}
+    >
       <div className="flex">
-        <div className="text-muted">{`${payload[0].payload.name} (${i18n.language === "en" ? payload[0].payload.region?.name_en : payload[0].payload.region?.name}):`}</div>
+        <div className="text-muted-foreground">{`${payload[0].payload.name} (${i18n.language === "en" ? payload[0].payload.region?.name_en : payload[0].payload.region?.name}):`}</div>
         <div className="ml-2 font-semibold">
           {`${formatThousands(payload[0].value)} ${t("pref.")}`}
         </div>

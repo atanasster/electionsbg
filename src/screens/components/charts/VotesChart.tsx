@@ -1,5 +1,7 @@
 import { Bar, BarChart, Cell, CartesianGrid, XAxis, LabelList } from "recharts";
 import { ChartContainer, ChartTooltip } from "@/components/ui/chart";
+import { tooltipSurfaceCompactClass } from "@/components/ui/tooltipSurface";
+import { cn } from "@/lib/utils";
 import { PartyVotes } from "@/data/dataTypes";
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
@@ -20,13 +22,20 @@ const CustomTooltip: FC<{
   const { displayNameFor } = useCanonicalParties();
 
   return active && payload ? (
-    <div className="z-50 overflow-hidden rounded-md bg-primary px-3 py-1.5 text-xs text-primary-foreground animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2">
+    <div
+      className={cn(
+        "z-50 overflow-hidden animate-in fade-in-0 zoom-in-95",
+        tooltipSurfaceCompactClass,
+      )}
+    >
       <div className="flex">
-        <div className="text-muted">{`${displayNameFor(payload[0].payload.nickName) ?? payload[0].payload.nickName}:`}</div>
+        <div className="text-muted-foreground">{`${displayNameFor(payload[0].payload.nickName) ?? payload[0].payload.nickName}:`}</div>
         <div className="ml-2 font-semibold">
           {`${formatThousands(payload[0].value)} ${payload[0].payload.pctVotes ? `(${formatPct(payload[0].payload.pctVotes, 2)})` : ""}`}
         </div>
-        <div className="text-muted ml-1 lowercase ">{t("votes")}</div>
+        <div className="text-muted-foreground ml-1 lowercase">
+          {t("votes")}
+        </div>
       </div>
     </div>
   ) : null;

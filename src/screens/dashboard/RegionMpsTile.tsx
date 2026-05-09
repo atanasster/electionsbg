@@ -172,7 +172,7 @@ export const RegionMpsTile: FC<Props> = ({ regionCode, parties }) => {
                         <div className="font-semibold text-sm leading-tight">
                           {display}
                         </div>
-                        <div className="text-[11px] text-primary-foreground/70 leading-tight">
+                        <div className="text-[11px] text-muted-foreground leading-tight">
                           {displayNameFor(r.partyNickName ?? "") ??
                             r.partyNickName}
                         </div>

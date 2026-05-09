@@ -19,6 +19,7 @@ import { useElectionContext } from "@/data/ElectionContext";
 import { usePartyInfo } from "@/data/parties/usePartyInfo";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { cn } from "@/lib/utils";
+import { tooltipSurfaceCompactClass } from "@/components/ui/tooltipSurface";
 import { Caption } from "@/ux/Caption";
 import { useConsolidatedLabel } from "../useConsolidatedLabel";
 import { Hint } from "@/ux/Hint";
@@ -37,8 +38,8 @@ const CustomTooltip: FC<{
 }> = ({ active, payload }) => {
   const { displayNameFor } = useCanonicalParties();
   return active && payload?.[0] ? (
-    <div className="z-50 overflow-hidden rounded-md bg-primary px-3 py-1.5 text-xs text-primary-foreground">
-      <div className="text-muted text-sm text-center w-full pb-2">{`${payload[0].payload.date}`}</div>
+    <div className={cn("z-50 overflow-hidden", tooltipSurfaceCompactClass)}>
+      <div className="text-muted-foreground text-sm text-center w-full pb-2">{`${payload[0].payload.date}`}</div>
       <div className="flex flex-col items-start gap-0.5">
         {payload
           .sort((a, b) => b.value - a.value)

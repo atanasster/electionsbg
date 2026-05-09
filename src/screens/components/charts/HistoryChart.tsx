@@ -1,5 +1,7 @@
 import { Area, AreaChart, XAxis } from "recharts";
 import { ChartContainer, ChartTooltip } from "@/components/ui/chart";
+import { tooltipSurfaceCompactClass } from "@/components/ui/tooltipSurface";
+import { cn } from "@/lib/utils";
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { ElectionInfo, PartyInfo } from "@/data/dataTypes";
@@ -22,9 +24,9 @@ const CustomTooltip: FC<{
 }> = ({ active, payload }) => {
   const { t } = useTranslation();
   return active && payload?.[0] ? (
-    <div className="z-50 overflow-hidden rounded-md bg-primary px-3 py-1.5 text-xs text-primary-foreground">
+    <div className={cn("z-50 overflow-hidden", tooltipSurfaceCompactClass)}>
       <div className="flex flex-col items-start gap-2">
-        <div className="text-muted">{`${payload[0].payload.date}`}</div>
+        <div className="text-muted-foreground">{`${payload[0].payload.date}`}</div>
         {payload[0].payload.total && (
           <div className="flex gap-2">
             <div>

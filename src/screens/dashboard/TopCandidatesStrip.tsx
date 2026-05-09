@@ -273,7 +273,7 @@ export const TopCandidatesStrip: FC<Props> = ({
             content={
               <div className="flex flex-col gap-1">
                 <div className="font-semibold">{r.candidateName}</div>
-                <div className="flex items-center gap-1.5 text-primary-foreground/70">
+                <div className="flex items-center gap-1.5 text-muted-foreground">
                   <span
                     className="inline-block w-2 h-2 rounded-sm shrink-0"
                     style={{ backgroundColor: r.color }}
@@ -292,7 +292,7 @@ export const TopCandidatesStrip: FC<Props> = ({
                     <span className="ml-auto font-mono">#{r.pref}</span>
                   )}
                 </div>
-                <div className="border-t border-primary-foreground/20 pt-1 flex flex-col gap-0.5">
+                <div className="border-t border-border pt-1 flex flex-col gap-0.5">
                   <div className="flex justify-between gap-4">
                     <span>{t("votes")}</span>
                     <span className="font-semibold tabular-nums">
@@ -300,7 +300,7 @@ export const TopCandidatesStrip: FC<Props> = ({
                     </span>
                   </div>
                   {r.paperVotes != null && (
-                    <div className="flex justify-between gap-4 text-primary-foreground/70">
+                    <div className="flex justify-between gap-4 text-muted-foreground">
                       <span>{t("paper_votes")}</span>
                       <span className="tabular-nums">
                         {formatThousands(r.paperVotes)}
@@ -308,7 +308,7 @@ export const TopCandidatesStrip: FC<Props> = ({
                     </div>
                   )}
                   {r.machineVotes != null && r.machineVotes > 0 && (
-                    <div className="flex justify-between gap-4 text-primary-foreground/70">
+                    <div className="flex justify-between gap-4 text-muted-foreground">
                       <span>{t("machine_votes")}</span>
                       <span className="tabular-nums">
                         {formatThousands(r.machineVotes)}
@@ -316,7 +316,7 @@ export const TopCandidatesStrip: FC<Props> = ({
                     </div>
                   )}
                   {r.partyVotes != null && r.partyVotes > 0 && (
-                    <div className="flex justify-between gap-4 text-primary-foreground/70">
+                    <div className="flex justify-between gap-4 text-muted-foreground">
                       <span>% {t("of_party_votes")}</span>
                       <span className="tabular-nums">
                         {((r.totalVotes / r.partyVotes) * 100).toFixed(1)}%
@@ -324,7 +324,7 @@ export const TopCandidatesStrip: FC<Props> = ({
                     </div>
                   )}
                   {r.lyTotalVotes != null && (
-                    <div className="flex justify-between gap-4 text-primary-foreground/70">
+                    <div className="flex justify-between gap-4 text-muted-foreground">
                       <span>{t("prev_elections")}</span>
                       <span className="tabular-nums">
                         {formatThousands(r.lyTotalVotes)}

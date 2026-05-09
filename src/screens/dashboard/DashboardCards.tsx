@@ -20,6 +20,7 @@ import { ProblemSectionsTile } from "./ProblemSectionsTile";
 import { ProblemVotesByPartyTile } from "./ProblemVotesByPartyTile";
 import { MandatesTile } from "./MandatesTile";
 import { HistoricalTrendsTile } from "./HistoricalTrendsTile";
+import { VoteFlowTile } from "@/screens/components/voteFlow/VoteFlowTile";
 import { GovernmentsTile } from "./GovernmentsTile";
 import { PartyResultsTile } from "./PartyResultsTile";
 import { RegionsMapTile } from "./RegionsMapTile";
@@ -141,6 +142,7 @@ export const DashboardCards: FC = () => {
             <MandatesTile parties={data.parties} />
             <TopCandidatesStrip parties={data.parties} />
           </div>
+          <VoteFlowTile />
           <HistoricalTrendsTile />
           <GovernmentsTile />
         </DashboardSection>

@@ -154,13 +154,13 @@ export const PartyTopCandidatesTile: FC<Props> = ({ data }) => {
             content={
               <div className="flex flex-col gap-1">
                 <div className="font-semibold">{r.name}</div>
-                <div className="flex items-center gap-1.5 text-primary-foreground/70">
+                <div className="flex items-center gap-1.5 text-muted-foreground">
                   {r.regionName && <span>{r.regionName}</span>}
                   {r.pref && (
                     <span className="ml-auto font-mono">#{r.pref}</span>
                   )}
                 </div>
-                <div className="border-t border-primary-foreground/20 pt-1 flex flex-col gap-0.5">
+                <div className="border-t border-border pt-1 flex flex-col gap-0.5">
                   <div className="flex justify-between gap-4">
                     <span>{t("votes")}</span>
                     <span className="font-semibold tabular-nums">
@@ -168,7 +168,7 @@ export const PartyTopCandidatesTile: FC<Props> = ({ data }) => {
                     </span>
                   </div>
                   {r.paperVotes != null && (
-                    <div className="flex justify-between gap-4 text-primary-foreground/70">
+                    <div className="flex justify-between gap-4 text-muted-foreground">
                       <span>{t("paper_votes")}</span>
                       <span className="tabular-nums">
                         {formatThousands(r.paperVotes)}
@@ -176,7 +176,7 @@ export const PartyTopCandidatesTile: FC<Props> = ({ data }) => {
                     </div>
                   )}
                   {r.machineVotes != null && r.machineVotes > 0 && (
-                    <div className="flex justify-between gap-4 text-primary-foreground/70">
+                    <div className="flex justify-between gap-4 text-muted-foreground">
                       <span>{t("machine_votes")}</span>
                       <span className="tabular-nums">
                         {formatThousands(r.machineVotes)}
@@ -184,7 +184,7 @@ export const PartyTopCandidatesTile: FC<Props> = ({ data }) => {
                     </div>
                   )}
                   {r.pctOfPartyVotes != null && (
-                    <div className="flex justify-between gap-4 text-primary-foreground/70">
+                    <div className="flex justify-between gap-4 text-muted-foreground">
                       <span>% {t("of_party_votes")}</span>
                       <span className="tabular-nums">
                         {r.pctOfPartyVotes.toFixed(1)}%
@@ -192,7 +192,7 @@ export const PartyTopCandidatesTile: FC<Props> = ({ data }) => {
                     </div>
                   )}
                   {r.lyTotalVotes != null && (
-                    <div className="flex justify-between gap-4 text-primary-foreground/70">
+                    <div className="flex justify-between gap-4 text-muted-foreground">
                       <span>{t("prev_elections")}</span>
                       <span className="tabular-nums">
                         {formatThousands(r.lyTotalVotes)}
