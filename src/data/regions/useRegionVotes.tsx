@@ -27,6 +27,16 @@ export const regionVotesQueryKey = (
   election: string,
 ): [string, string | null | undefined] => ["region_votes", election];
 export const regionVotesQueryFn = queryFn;
+
+export const useRegionVotesFor = (electionDate?: string | null) => {
+  const { data } = useQuery({
+    queryKey: ["region_votes", electionDate ?? ""],
+    queryFn,
+    enabled: !!electionDate,
+  });
+  return data;
+};
+
 export const useRegionVotes = () => {
   const { selected, electionStats } = useElectionContext();
   const { data: votes } = useQuery({

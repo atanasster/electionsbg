@@ -38,7 +38,7 @@ export const SettlementsMap: React.FC<{
     <div>
       <div className="relative">
         <LeafletMap size={size} bounds={bounds} scale={scale} />
-        <SVGMapContainer size={size}>
+        <SVGMapContainer size={size} supportsShiftArrows={false}>
           {maps}
           {markers}
           {labels}

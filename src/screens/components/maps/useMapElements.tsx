@@ -4,6 +4,8 @@ import { ElectionResults, LocationInfo } from "@/data/dataTypes";
 import { MapElement } from "./MapElement";
 import { MapText } from "./MapText";
 import { MapMarker } from "./MapMarker";
+import { MapShiftArrow } from "./MapShiftArrow";
+import { RegionShift } from "./computeShifts";
 import { minMaxVotes } from "@/data/utils";
 import { getDataProjection } from "@/screens/components/maps/d3_utils";
 import { MapCoordinates } from "@/layout/dataview/MapLayout";
@@ -22,6 +24,7 @@ export function useMapElements<DType extends GeoJSONProps>({
   size,
   findInfo,
   findVotes,
+  findShift,
   onClick,
   ...tooltipEvents
 }: {
@@ -31,6 +34,7 @@ export function useMapElements<DType extends GeoJSONProps>({
 
   findVotes: (props: DType) => ElectionResults | undefined;
   findInfo: (props: DType) => LocationInfo | undefined;
+  findShift?: (props: DType) => RegionShift | undefined;
   onClick: (props: DType) => NavigateParams;
 } & TooltipEvents): MapElementsList & {
   bounds: [[number, number], [number, number]];
@@ -40,7 +44,7 @@ export function useMapElements<DType extends GeoJSONProps>({
     () => getDataProjection(mapGeo as d3.GeoPermissibleObjects, size),
     [mapGeo, size],
   );
-  const { withNames } = useOptions();
+  const { withNames, withShiftArrows } = useOptions();
   const { maxVotes, minVotes } = useMemo(() => minMaxVotes(votes), [votes]);
   return {
     bounds,
@@ -51,6 +55,7 @@ export function useMapElements<DType extends GeoJSONProps>({
             (acc: MapElementsList, feature, idx) => {
               const v = findVotes(feature.properties);
               const info = findInfo(feature.properties);
+              const shift = findShift?.(feature.properties);
               return {
                 maps: [
                   ...acc.maps,
@@ -62,6 +67,7 @@ export function useMapElements<DType extends GeoJSONProps>({
                       geoPath={path}
                       info={info}
                       votes={v?.results.votes}
+                      shift={shift}
                       onClick={onClick}
                       {...tooltipEvents}
                     />
@@ -80,14 +86,25 @@ export function useMapElements<DType extends GeoJSONProps>({
                 ],
                 markers: [
                   ...acc.markers,
-                  <MapMarker
-                    info={info}
-                    key={`label-${idx}`}
-                    projection={projection}
-                    minVotes={minVotes}
-                    maxVotes={maxVotes}
-                    votes={v?.results.votes}
-                  />,
+                  withShiftArrows &&
+                  shift?.deltaPp !== undefined &&
+                  Math.abs(shift.deltaPp) >= 0.25 ? (
+                    <MapShiftArrow
+                      info={info}
+                      key={`shift-${idx}`}
+                      projection={projection}
+                      shift={shift}
+                    />
+                  ) : (
+                    <MapMarker
+                      info={info}
+                      key={`label-${idx}`}
+                      projection={projection}
+                      minVotes={minVotes}
+                      maxVotes={maxVotes}
+                      votes={v?.results.votes}
+                    />
+                  ),
                 ],
               };
             },
@@ -99,10 +116,12 @@ export function useMapElements<DType extends GeoJSONProps>({
       votes,
       findVotes,
       findInfo,
+      findShift,
       path,
       onClick,
       tooltipEvents,
       withNames,
+      withShiftArrows,
       projection,
       minVotes,
       maxVotes,

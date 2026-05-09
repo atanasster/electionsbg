@@ -2,17 +2,20 @@ import { ReactNode } from "react";
 import { useTranslation } from "react-i18next";
 import { MapCoordinates } from "@/layout/dataview/MapLayout";
 import { Button } from "@/components/ui/button";
-import { Layers2 } from "lucide-react";
+import { ArrowUpDown, Layers2 } from "lucide-react";
 import { useOptions } from "@/layout/dataview/OptionsContext";
 
 export const SVGMapContainer = ({
   size,
   children,
+  supportsShiftArrows = true,
 }: {
   size: MapCoordinates;
   children: ReactNode;
+  supportsShiftArrows?: boolean;
 }) => {
-  const { withNames, setWithNames } = useOptions();
+  const { withNames, setWithNames, withShiftArrows, setWithShiftArrows } =
+    useOptions();
   const { t } = useTranslation();
   return (
     <>
@@ -34,16 +37,33 @@ export const SVGMapContainer = ({
       <div
         className={`flex items-center space-x-2 absolute top-0`}
         style={{
-          left: size[0] - 48,
+          left: size[0] - (supportsShiftArrows ? 96 : 48),
         }}
       >
+        {supportsShiftArrows && (
+          <Button
+            variant="outline"
+            role="switch"
+            aria-checked={withShiftArrows}
+            aria-label={t("map_shift_arrows")}
+            title={t("map_shift_arrows")}
+            data-state={withShiftArrows ? "checked" : "unchecked"}
+            className="data-[state=checked]:bg-accent data-[state=checked]:text-accent-foreground"
+            onClick={() => {
+              setWithShiftArrows(!withShiftArrows);
+            }}
+          >
+            <ArrowUpDown />
+          </Button>
+        )}
         <Button
           variant="outline"
           role="switch"
           aria-checked={withNames}
           aria-label={t("with_names")}
+          title={t("with_names")}
           data-state={withNames ? "checked" : "unchecked"}
-          className="data-[state=checked]:bg-muted text-muted-foreground"
+          className="data-[state=checked]:bg-accent data-[state=checked]:text-accent-foreground"
           onClick={() => {
             setWithNames(!withNames);
           }}

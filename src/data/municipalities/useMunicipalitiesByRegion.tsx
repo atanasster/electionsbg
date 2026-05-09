@@ -26,3 +26,15 @@ export const useMunicipalitiesByRegion = (region: string) => {
   });
   return data;
 };
+
+export const useMunicipalitiesByRegionFor = (
+  region: string,
+  electionDate?: string | null,
+) => {
+  const { data } = useQuery({
+    queryKey: ["settlements_by_municipality", electionDate ?? "", region],
+    queryFn,
+    enabled: !!electionDate && !!region,
+  });
+  return data;
+};
