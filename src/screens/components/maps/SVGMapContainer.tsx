@@ -9,14 +9,18 @@ export const SVGMapContainer = ({
   size,
   children,
   supportsShiftArrows = true,
+  supportsNames = true,
 }: {
   size: MapCoordinates;
   children: ReactNode;
   supportsShiftArrows?: boolean;
+  supportsNames?: boolean;
 }) => {
   const { withNames, setWithNames, withShiftArrows, setWithShiftArrows } =
     useOptions();
   const { t } = useTranslation();
+  const buttonCount =
+    (supportsShiftArrows ? 1 : 0) + (supportsNames ? 1 : 0);
   return (
     <>
       <svg
@@ -34,43 +38,47 @@ export const SVGMapContainer = ({
         </defs>
         {children}
       </svg>
-      <div
-        className={`flex items-center space-x-2 absolute top-0`}
-        style={{
-          left: size[0] - (supportsShiftArrows ? 96 : 48),
-        }}
-      >
-        {supportsShiftArrows && (
-          <Button
-            variant="outline"
-            role="switch"
-            aria-checked={withShiftArrows}
-            aria-label={t("map_shift_arrows")}
-            title={t("map_shift_arrows")}
-            data-state={withShiftArrows ? "checked" : "unchecked"}
-            className="data-[state=checked]:bg-accent data-[state=checked]:text-accent-foreground"
-            onClick={() => {
-              setWithShiftArrows(!withShiftArrows);
-            }}
-          >
-            <ArrowUpDown />
-          </Button>
-        )}
-        <Button
-          variant="outline"
-          role="switch"
-          aria-checked={withNames}
-          aria-label={t("with_names")}
-          title={t("with_names")}
-          data-state={withNames ? "checked" : "unchecked"}
-          className="data-[state=checked]:bg-accent data-[state=checked]:text-accent-foreground"
-          onClick={() => {
-            setWithNames(!withNames);
+      {buttonCount > 0 && (
+        <div
+          className={`flex items-center space-x-2 absolute top-0`}
+          style={{
+            left: size[0] - buttonCount * 48,
           }}
         >
-          <Layers2 />
-        </Button>
-      </div>
+          {supportsShiftArrows && (
+            <Button
+              variant="outline"
+              role="switch"
+              aria-checked={withShiftArrows}
+              aria-label={t("map_shift_arrows")}
+              title={t("map_shift_arrows")}
+              data-state={withShiftArrows ? "checked" : "unchecked"}
+              className="data-[state=checked]:bg-accent data-[state=checked]:text-accent-foreground"
+              onClick={() => {
+                setWithShiftArrows(!withShiftArrows);
+              }}
+            >
+              <ArrowUpDown />
+            </Button>
+          )}
+          {supportsNames && (
+            <Button
+              variant="outline"
+              role="switch"
+              aria-checked={withNames}
+              aria-label={t("with_names")}
+              title={t("with_names")}
+              data-state={withNames ? "checked" : "unchecked"}
+              className="data-[state=checked]:bg-accent data-[state=checked]:text-accent-foreground"
+              onClick={() => {
+                setWithNames(!withNames);
+              }}
+            >
+              <Layers2 />
+            </Button>
+          )}
+        </div>
+      )}
     </>
   );
 };

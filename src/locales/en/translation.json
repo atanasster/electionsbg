@@ -978,6 +978,7 @@
   "census_metric_religion_muslim": "Muslim",
   "census_metric_religion_none": "No religion",
   "census_metric_edu_tertiary": "Tertiary education",
+  "census_metric_edu_secondary": "Secondary or higher",
   "census_metric_edu_primary_or_lower": "Primary or lower",
   "census_metric_employment_rate": "Employment rate",
   "census_metric_unemployment_rate": "Unemployment rate",
@@ -994,5 +995,6 @@
   "census_level_obshtina": "Municipalities ({{count}})",
   "filter_by_name": "Filter by name",
   "showing": "Showing",
-  "of": "of"
+  "of": "of",
+  "census_settlement_dimensions_note": "Ethnicity, religion and education are only published at the municipality level by NSI; settlements show population, age and sex."
 }

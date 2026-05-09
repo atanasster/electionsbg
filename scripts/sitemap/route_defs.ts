@@ -28,6 +28,8 @@ export const ENGLISH_STATIC_PAGES = [
   "parties",
   "regions",
   "articles",
+  "governments",
+  "demographics",
 ];
 
 export const routeDefs = (year: string): RouteDefs => [
@@ -37,6 +39,8 @@ export const routeDefs = (year: string): RouteDefs => [
   { path: "simulator", file: `src/screens/SimulatorScreen.tsx` },
   { path: "compare", file: `src/screens/CompareScreen.tsx` },
   { path: "timeline", file: `src/screens/PartyTimelineScreen.tsx` },
+  { path: "governments", file: `src/screens/GovernmentsScreen.tsx` },
+  { path: "demographics", file: `src/screens/DemographicsScreen.tsx` },
   // English mirrors of the top static pages (one URL each).
   { path: "en-mirrors", file: `english-static-pages` },
 

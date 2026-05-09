@@ -217,6 +217,10 @@ export const reportsMenu: MenuItem[] = [
         title: "governments_title",
         link: "/governments",
       },
+      {
+        title: "demographics_title",
+        link: "/demographics",
+      },
       { title: "-" },
       {
         title: "campaign_financing",

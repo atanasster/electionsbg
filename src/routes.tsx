@@ -207,6 +207,11 @@ const GovernmentsScreen = lazy(() =>
     default: m.GovernmentsScreen,
   })),
 );
+const DemographicsScreen = lazy(() =>
+  import("./screens/DemographicsScreen").then((m) => ({
+    default: m.DemographicsScreen,
+  })),
+);
 const CompareScreen = lazy(() =>
   import("./screens/CompareScreen").then((m) => ({
     default: m.CompareScreen,
@@ -1128,6 +1133,14 @@ export const AuthRoutes = () => {
           element={
             <LayoutScreen>
               <GovernmentsScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="demographics"
+          element={
+            <LayoutScreen>
+              <DemographicsScreen />
             </LayoutScreen>
           }
         />

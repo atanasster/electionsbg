@@ -20,6 +20,7 @@ import { MpDeclarationsProvenance } from "./MpDeclarationsProvenance";
 import { RegionMunicipalitiesMapTile } from "./RegionMunicipalitiesMapTile";
 import { TopCandidatesStrip } from "./TopCandidatesStrip";
 import { TopMunicipalitiesTile } from "./TopMunicipalitiesTile";
+import { CensusDemographicsTile } from "./CensusDemographicsTile";
 import { FlashMemoryTile } from "./FlashMemoryTile";
 import { RecountTile } from "./RecountTile";
 import { SuspiciousSectionsTile } from "./SuspiciousSectionsTile";
@@ -120,6 +121,7 @@ export const RegionDashboardCards: FC<Props> = ({ regionCode }) => {
             parties={data.parties}
             regionCode={regionCode}
           />
+          <CensusDemographicsTile regionCode={regionCode} />
         </DashboardSection>
 
         <DashboardSection

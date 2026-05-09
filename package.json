@@ -26,6 +26,7 @@
     "polls:analyze": "tsx ./scripts/polls/analyze_accuracy.ts",
     "polls:gen-analysis": "tsx ./scripts/polls/generate_analysis.ts",
     "polls": "npm run polls:scrape && npm run polls:analyze && npm run polls:gen-analysis",
+    "census": "tsx ./scripts/census/build_census.ts",
     "party:bundle": "tsx ./scripts/parties/bundle_party_data.ts",
     "party:gen-retrospect": "tsx ./scripts/parties/generate_retrospect.ts",
     "stats": "npx vite-bundle-visualizer",
@@ -105,7 +106,8 @@
     "typescript-eslint": "^8.18.2",
     "unzipper": "^0.12.3",
     "vite": "^6.0.6",
-    "vite-tsconfig-paths": "^5.1.4"
+    "vite-tsconfig-paths": "^5.1.4",
+    "xlsx": "^0.18.5"
   },
   "overrides": {
     "tar": "^7.5.13"

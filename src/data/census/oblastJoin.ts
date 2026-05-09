@@ -1,0 +1,37 @@
+// NUTS3 → NSI oblast 3-letter code. Sofia city's three election MIRs and
+// Plovdiv's grad/oblast split all collapse to the geographic NSI oblasts
+// SOF and PDV respectively, since NSI publishes Census data only at the
+// administrative oblast level.
+export const NUTS3_TO_OBLAST: Record<string, string> = {
+  BG413: "BLG",
+  BG341: "BGS",
+  BG331: "VAR",
+  BG321: "VTR",
+  BG311: "VID",
+  BG313: "VRC",
+  BG322: "GAB",
+  BG332: "DOB",
+  BG425: "KRZ",
+  BG415: "KNL",
+  BG315: "LOV",
+  BG312: "MON",
+  BG423: "PAZ",
+  BG414: "PER",
+  BG314: "PVN",
+  BG421: "PDV",
+  "BG421-1": "PDV",
+  BG324: "RAZ",
+  BG323: "RSE",
+  BG325: "SLS",
+  BG342: "SLV",
+  BG424: "SML",
+  BG416: "SOF",
+  BG417: "SOF",
+  BG418: "SOF",
+  BG412: "SFO",
+  BG344: "SZR",
+  BG334: "TGV",
+  BG422: "HKV",
+  BG333: "SHU",
+  BG343: "JAM",
+};

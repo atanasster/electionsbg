@@ -446,6 +446,88 @@ export const prerenderRoutes: PrerenderRoute[] = [
     },
   }),
   staticPage({
+    path: "governments",
+    title:
+      "Български правителства от 2005 г. — макроикономика и наблюдения | electionsbg.com",
+    description:
+      "Всички български кабинети от 2005 г. на фона на БВП, инфлацията, безработицата, индексите за управление и доверие, плюс наблюденията на ОССЕ/ОДИХР за всеки парламентарен вот.",
+    breadcrumbName: "Правителства",
+    ogImage: "/og/governments.png",
+    bodyHtml: `
+<h1>Български правителства от 2005 г.</h1>
+<p>Всеки кабинет, заемал властта в България след 2005 г., представен като оцветена ивица на обща времева линия. Линиите налагат годишните макроикономически показатели — растеж на реалния БВП, хармонизирана инфлация (ХИПЦ) и безработица — за да личи кой мандат при какъв икономически контекст е управлявал.</p>
+<h2>Какво ще намерите тук</h2>
+<ul>
+<li><strong>Икономика</strong> — БВП, инфлация и безработица по години (Евростат).</li>
+<li><strong>Индекс за възприятие на корупцията</strong> — оценка на България по скалата 0–100 на Transparency International.</li>
+<li><strong>Worldwide Governance Indicators</strong> — върховенство на закона, контрол върху корупцията и ефективност на управлението (Световна банка).</li>
+<li><strong>Доверие в институциите</strong> — Евробарометър за доверието в Народното събрание, правителството и ЕС.</li>
+<li><strong>Европейски средства</strong> — годишни постъпления в България спрямо вноските към бюджета на ЕС.</li>
+<li><strong>Наблюдение от ОССЕ/ОДИХР</strong> — резюмета на международните докладите за всеки парламентарен вот.</li>
+</ul>
+<p>Източници: <a href="https://ec.europa.eu/eurostat/databrowser/" rel="nofollow noopener">Евростат</a>, <a href="https://databank.worldbank.org/source/worldwide-governance-indicators" rel="nofollow noopener">World Bank WGI</a>, <a href="https://www.transparency.org/en/cpi" rel="nofollow noopener">Transparency International CPI</a>, <a href="https://europa.eu/eurobarometer/" rel="nofollow noopener">Евробарометър</a>, <a href="https://www.osce.org/odihr/elections/bulgaria" rel="nofollow noopener">ОССЕ/ОДИХР</a>.</p>`.trim(),
+    english: {
+      title:
+        "Bulgarian Governments Since 2005 — Macro Backdrop and Observations | electionsbg.com",
+      description:
+        "Every Bulgarian cabinet since 2005 set against GDP, inflation, unemployment, governance and trust indices, with OSCE/ODIHR observation reports for each parliamentary vote.",
+      breadcrumbName: "Governments",
+      bodyHtml: `
+<h1>Bulgarian governments since 2005</h1>
+<p>Every cabinet that has held power in Bulgaria since 2005, shown as a coloured band on a shared timeline. Overlaid lines plot the macroeconomic backdrop — real GDP growth, harmonised inflation (HICP), and unemployment — so each term sits next to the economic conditions in which it governed.</p>
+<h2>What you'll find</h2>
+<ul>
+<li><strong>Economy</strong> — GDP, inflation and unemployment by year (Eurostat).</li>
+<li><strong>Corruption Perceptions Index</strong> — Bulgaria's score on Transparency International's 0–100 scale.</li>
+<li><strong>Worldwide Governance Indicators</strong> — rule of law, control of corruption and government effectiveness (World Bank).</li>
+<li><strong>Trust in institutions</strong> — Eurobarometer trust shares for the National Assembly, the government and the EU.</li>
+<li><strong>EU funds</strong> — annual inflows to Bulgaria against contributions to the EU budget.</li>
+<li><strong>OSCE/ODIHR observation</strong> — summaries of the international reports on each parliamentary vote.</li>
+</ul>
+<p>Sources: <a href="https://ec.europa.eu/eurostat/databrowser/" rel="nofollow noopener">Eurostat</a>, <a href="https://databank.worldbank.org/source/worldwide-governance-indicators" rel="nofollow noopener">World Bank WGI</a>, <a href="https://www.transparency.org/en/cpi" rel="nofollow noopener">Transparency International CPI</a>, <a href="https://europa.eu/eurobarometer/" rel="nofollow noopener">Eurobarometer</a>, <a href="https://www.osce.org/odihr/elections/bulgaria" rel="nofollow noopener">OSCE/ODIHR</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "demographics",
+    title:
+      "Демография на България — Преброяване 2021 и резултати по области | electionsbg.com",
+    description:
+      "Преброяването 2021 на НСИ наложено върху регионалните изборни данни — етнос, вероизповедание, образование, възраст и заетост по 28-те области и 265 общини, плюс корелации с резултатите на партиите.",
+    breadcrumbName: "Демография",
+    ogImage: "/og/demographics.png",
+    bodyHtml: `
+<h1>Демография на България — Преброяване 2021</h1>
+<p>Окончателните резултати на Преброяване 2021 на НСИ (към 7 септември 2021 г.), представени паралелно с електоралните данни — за всяка от 28-те области и 265-те общини: етнически състав, вероизповедание, образование, възрастова структура, заетост и пол.</p>
+<h2>Какво ще намерите тук</h2>
+<ul>
+<li><strong>Разбивка за цялата страна</strong> — общи дялове по етнос, вероизповедание, образование, възраст и пол (6 519 789 души).</li>
+<li><strong>Карта по демографски показател</strong> — хороплет по 14 показателя на ниво област, превключваем чрез падащо меню.</li>
+<li><strong>Резултат на партия спрямо демография</strong> — точкова диаграма на областно ниво с коефициент на корелация (Pearson r) — изборният резултат на избрана партия срещу избрана демографска променлива.</li>
+<li><strong>Сравнение по области и общини</strong> — сортируема таблица с превключване между 28 области и 265 общини, с филтър по име.</li>
+<li><strong>Демография на общинско и селищно ниво</strong> — отделни прозорци на страниците на областите, общините и населените места (за селищата НСИ публикува само население, възраст и пол).</li>
+</ul>
+<p>Източник: <a href="https://census2021.bg/" rel="nofollow noopener">Преброяване на населението и жилищния фонд 2021 г. на НСИ</a>.</p>`.trim(),
+    english: {
+      title:
+        "Bulgaria Demographics — Census 2021 vs. Election Results by Oblast | electionsbg.com",
+      description:
+        "NSI Census 2021 mapped onto Bulgaria's regional electoral data — ethnicity, religion, education, age and employment across 28 oblasts and 265 municipalities, with party-level correlation crosstabs.",
+      breadcrumbName: "Demographics",
+      bodyHtml: `
+<h1>Bulgaria demographics — Census 2021</h1>
+<p>Final results of Bulgaria's 2021 Population and Housing Census (reference date 7 September 2021), shown alongside the electoral data — for each of the 28 oblasts and 265 municipalities: ethnic composition, religious denomination, education attainment, age structure, employment and sex.</p>
+<h2>What you'll find</h2>
+<ul>
+<li><strong>Country breakdown</strong> — national shares by ethnicity, religion, education, age and sex (6,519,789 residents).</li>
+<li><strong>Choropleth map</strong> — 14 toggleable demographic indicators at oblast level.</li>
+<li><strong>Vote share vs. demographics</strong> — oblast-level scatter with Pearson correlation between any party's regional vote share and any demographic dimension.</li>
+<li><strong>Oblast & municipality comparison table</strong> — sortable, with a level toggle between 28 oblasts and 265 obshtinas and a name filter.</li>
+<li><strong>Per-oblast, per-obshtina and per-settlement dashboards</strong> — embedded demographic tile on every regional page (settlements show population, age and sex only — NSI doesn't publish ethnicity, religion or education at that granularity).</li>
+</ul>
+<p>Source: <a href="https://census2021.bg/" rel="nofollow noopener">NSI Population and Housing Census 2021</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
     path: "preferences",
     title:
       "Преференциален вот по партии — парламентарни избори | electionsbg.com",

@@ -975,6 +975,7 @@
   "census_metric_religion_muslim": "Мюсюлмани",
   "census_metric_religion_none": "Без вероизповедание",
   "census_metric_edu_tertiary": "Висше образование",
+  "census_metric_edu_secondary": "Средно и по-високо",
   "census_metric_edu_primary_or_lower": "Начално и по-ниско",
   "census_metric_employment_rate": "Коефициент на заетост",
   "census_metric_unemployment_rate": "Коефициент на безработица",
@@ -991,5 +992,6 @@
   "census_level_obshtina": "Общини ({{count}})",
   "filter_by_name": "Филтър по име",
   "showing": "Показани",
-  "of": "от"
+  "of": "от",
+  "census_settlement_dimensions_note": "Етнос, вероизповедание и образование се публикуват от НСИ само на общинско ниво; за населените места са налични население, възраст и пол."
 }

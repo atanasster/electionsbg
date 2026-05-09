@@ -16,6 +16,7 @@ import { HistoricalTrendsTile } from "./HistoricalTrendsTile";
 import { PartyResultsTile } from "./PartyResultsTile";
 import { SectionsMapTile } from "./SectionsMapTile";
 import { TopSectionsTile } from "./TopSectionsTile";
+import { CensusDemographicsTile } from "./CensusDemographicsTile";
 import { TopCandidatesStrip } from "./TopCandidatesStrip";
 import { FlashMemoryTile } from "./FlashMemoryTile";
 import { RecountTile } from "./RecountTile";
@@ -117,6 +118,7 @@ export const SettlementDashboardCards: FC<Props> = ({ ekatte }) => {
           articleTopic="geography"
         >
           <TopSectionsTile ekatte={ekatte} sections={settlement?.sections} />
+          <CensusDemographicsTile regionCode={ekatte} isSettlement />
         </DashboardSection>
 
         <DashboardSection
