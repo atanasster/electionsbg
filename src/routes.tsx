@@ -202,6 +202,11 @@ const SimulatorScreen = lazy(() =>
     default: m.SimulatorScreen,
   })),
 );
+const GovernmentsScreen = lazy(() =>
+  import("./screens/GovernmentsScreen").then((m) => ({
+    default: m.GovernmentsScreen,
+  })),
+);
 const CompareScreen = lazy(() =>
   import("./screens/CompareScreen").then((m) => ({
     default: m.CompareScreen,
@@ -1115,6 +1120,14 @@ export const AuthRoutes = () => {
           element={
             <LayoutScreen>
               <SimulatorScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="governments"
+          element={
+            <LayoutScreen>
+              <GovernmentsScreen />
             </LayoutScreen>
           }
         />

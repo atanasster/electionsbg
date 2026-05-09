@@ -1,0 +1,532 @@
+import { FC, useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
+import {
+  CartesianGrid,
+  Line,
+  LineChart,
+  ReferenceArea,
+  ReferenceLine,
+  ResponsiveContainer,
+  Tooltip,
+  XAxis,
+  YAxis,
+} from "recharts";
+import {
+  Government,
+  GovernmentEndReason,
+} from "@/data/governments/useGovernments";
+import {
+  MacroIndicatorKey,
+  MacroPayload,
+  MacroPoint,
+} from "@/data/macro/useMacro";
+import { Tooltip as UxTooltip } from "@/ux/Tooltip";
+
+const ELECTION_DATES = [
+  "2005_06_25",
+  "2009_07_05",
+  "2013_05_12",
+  "2014_10_05",
+  "2017_03_26",
+  "2021_04_04",
+  "2021_07_11",
+  "2021_11_14",
+  "2022_10_02",
+  "2023_04_02",
+  "2024_06_09",
+  "2024_10_27",
+  "2026_04_19",
+];
+
+// Year fraction so that we can place dates on a numeric X axis. Jan 1 = .00,
+// Dec 31 ≈ .997. Good enough for visual placement at year-resolution.
+export const toFractionalYear = (iso: string): number => {
+  const d = new Date(iso);
+  const y = d.getUTCFullYear();
+  const start = Date.UTC(y, 0, 1);
+  const end = Date.UTC(y + 1, 0, 1);
+  return y + (d.getTime() - start) / (end - start);
+};
+
+const isoFromElectionKey = (key: string) => key.replace(/_/g, "-");
+
+const partyColor: Record<string, string> = {
+  ГЕРБ: "#1f3a93",
+  "ГЕРБ-СДС": "#1f3a93",
+  БСП: "#c0392b",
+  "БСП-ОЛ": "#c0392b",
+  ПП: "#16a085",
+  "ПП-ДБ": "#16a085",
+  ДБ: "#0d6efd",
+  ИТН: "#f1c40f",
+  ДПС: "#5b9bd5",
+  НДСВ: "#f4a261",
+  АБВ: "#aa4e50",
+  "Реформаторски блок": "#9b59b6",
+  "Патриотичен фронт": "#7f8c8d",
+  "Обединени патриоти": "#7f8c8d",
+};
+
+const hexToRgba = (hex: string, alpha: number): string => {
+  const h = hex.replace("#", "");
+  const r = parseInt(h.slice(0, 2), 16);
+  const g = parseInt(h.slice(2, 4), 16);
+  const b = parseInt(h.slice(4, 6), 16);
+  return `rgba(${r}, ${g}, ${b}, ${alpha})`;
+};
+
+const colorForGovernment = (g: Government, alpha = 0.18): string => {
+  if (g.type === "caretaker") return `rgba(120, 120, 120, ${alpha})`;
+  const lead = g.parties[0];
+  const c = partyColor[lead] ?? "#475569";
+  return hexToRgba(c, alpha);
+};
+
+export const colorForGovernmentSolid = (g: Government): string => {
+  if (g.type === "caretaker") return "#94a3b8";
+  return partyColor[g.parties[0]] ?? "#475569";
+};
+
+// Reused per chart so the line palette stays consistent across the page.
+const SERIES_COLORS: Record<MacroIndicatorKey, string> = {
+  gdpGrowth: "#10b981",
+  inflation: "#ef4444",
+  unemployment: "#3b82f6",
+  gdpPerCapita: "#a855f7",
+  wgiRuleOfLaw: "#0ea5e9",
+  wgiControlOfCorruption: "#8b5cf6",
+  wgiGovEffectiveness: "#06b6d4",
+  cpi: "#f59e0b",
+  trustParliament: "#dc2626",
+  trustGovernment: "#0d9488",
+  trustEu: "#2563eb",
+  euFunds: "#6366f1",
+  euContribution: "#f97316",
+};
+
+export const xDomainFor = (governments: Government[]): [number, number] => {
+  const earliest = governments.length
+    ? Math.min(...governments.map((g) => toFractionalYear(g.startDate)))
+    : 2005;
+  const latestEnd = governments.length
+    ? Math.max(
+        ...governments.map((g) =>
+          toFractionalYear(g.endDate ?? new Date().toISOString()),
+        ),
+      )
+    : new Date().getFullYear();
+  return [Math.floor(earliest), Math.ceil(latestEnd) + 0.1];
+};
+
+type ChartRow = { year: number } & Partial<Record<MacroIndicatorKey, number>>;
+
+const buildChartData = (
+  macro: MacroPayload | undefined,
+  keys: MacroIndicatorKey[],
+): ChartRow[] => {
+  if (!macro) return [];
+  const years = new Set<number>();
+  for (const k of keys) {
+    for (const p of macro.series[k] ?? []) years.add(p.year);
+  }
+  const sorted = [...years].sort((a, b) => a - b);
+  const lookup = (key: MacroIndicatorKey, year: number) =>
+    macro.series[key]?.find((p: MacroPoint) => p.year === year)?.value;
+  return sorted.map((year) => {
+    const row: ChartRow = { year };
+    for (const k of keys) row[k] = lookup(k, year);
+    return row;
+  });
+};
+
+type Toggle = Partial<Record<MacroIndicatorKey, boolean>>;
+
+const TooltipContent: FC<{
+  active?: boolean;
+  payload?: { value: number; dataKey: string; color: string }[];
+  label?: number;
+  governments: Government[];
+  lang: "en" | "bg";
+  indicatorTitles: MacroPayload["indicators"];
+  enabled: Toggle;
+  caretakerLabel: string;
+  regularLabel: string;
+  unitFormatter: (key: MacroIndicatorKey, value: number) => string;
+}> = ({
+  active,
+  payload,
+  label,
+  governments,
+  lang,
+  indicatorTitles,
+  enabled,
+  caretakerLabel,
+  regularLabel,
+  unitFormatter,
+}) => {
+  if (!active || label === undefined) return null;
+  const yearStart = label;
+  const yearMid = label + 0.5;
+  const matching = governments.filter((g) => {
+    const s = toFractionalYear(g.startDate);
+    const e = g.endDate ? toFractionalYear(g.endDate) : 9999;
+    return s <= yearMid && e >= yearStart;
+  });
+  return (
+    <div className="rounded-md bg-primary px-3 py-2 text-xs text-primary-foreground shadow max-w-xs">
+      <div className="font-semibold mb-1">{label}</div>
+      {matching.map((g) => (
+        <div key={g.id} className="text-primary-foreground/85 mb-0.5">
+          <span className="font-semibold">
+            {lang === "bg" ? g.pmBg : g.pmEn}
+          </span>
+          <span className="ml-1 text-primary-foreground/70">
+            ({g.type === "caretaker" ? caretakerLabel : regularLabel})
+          </span>
+        </div>
+      ))}
+      <div className="mt-1 border-t border-primary-foreground/20 pt-1 flex flex-col gap-0.5">
+        {payload
+          ?.filter((p) => enabled[p.dataKey as MacroIndicatorKey])
+          .map((p) => {
+            const meta = indicatorTitles[p.dataKey as MacroIndicatorKey];
+            return (
+              <div key={p.dataKey} className="flex justify-between gap-2">
+                <span style={{ color: p.color }}>
+                  {lang === "bg" ? meta.titleBg : meta.titleEn}
+                </span>
+                <span className="font-semibold tabular-nums">
+                  {typeof p.value === "number"
+                    ? unitFormatter(p.dataKey as MacroIndicatorKey, p.value)
+                    : "—"}
+                </span>
+              </div>
+            );
+          })}
+      </div>
+    </div>
+  );
+};
+
+// Cabinet strip rendered as a flex row above the chart. Padding mirrors the
+// chart's left margin (8) + YAxis width (36) and right margin (32) so each
+// pill aligns with the plot area below.
+//
+// Cabinets vary widely in tenure (Borisov-III ran 4 years; the Райков caretaker
+// ran ~2.5 months). Wide pills get horizontal text; narrow ones use rotated
+// (vertical) text so the surname still reads. Pills below ~1% of the timeline
+// drop the label entirely — the colour band + tooltip carry the identification.
+const PILL_HORIZONTAL_THRESHOLD = 5; // pct width
+const PILL_LABEL_THRESHOLD = 1; // pct width
+
+const formatDateLocal = (iso: string | null, lang: "en" | "bg"): string => {
+  if (!iso) return "—";
+  const d = new Date(iso);
+  return d.toLocaleDateString(lang === "bg" ? "bg-BG" : "en-GB", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+  });
+};
+
+const PillTooltip: FC<{
+  g: Government;
+  lang: "en" | "bg";
+}> = ({ g, lang }) => {
+  const { t } = useTranslation();
+  const endReasonMap: Record<GovernmentEndReason, string> = {
+    term_end: t("gov_end_term_end"),
+    election: t("gov_end_election"),
+    snap_election: t("gov_end_snap_election"),
+    no_confidence: t("gov_end_no_confidence"),
+    resignation: t("gov_end_resignation"),
+    rotation_failed: t("gov_end_rotation_failed"),
+    incumbent: t("gov_end_incumbent"),
+  };
+  const fullName = lang === "bg" ? g.pmBg : g.pmEn;
+  const parties = lang === "bg" ? g.parties : (g.partiesEn ?? g.parties);
+  const endReasonText = lang === "bg" ? g.endReasonBg : g.endReasonEn;
+  return (
+    <div className="flex flex-col gap-1.5 text-xs">
+      <div className="flex items-center gap-2">
+        <span
+          className="inline-block w-2.5 h-2.5 rounded-sm"
+          style={{ backgroundColor: colorForGovernmentSolid(g) }}
+        />
+        <span className="font-semibold">{fullName}</span>
+        <span className="opacity-70">
+          (
+          {g.type === "caretaker"
+            ? t("gov_type_caretaker")
+            : t("gov_type_regular")}
+          )
+        </span>
+      </div>
+      <div className="opacity-80 tabular-nums">
+        {formatDateLocal(g.startDate, lang)} –{" "}
+        {formatDateLocal(g.endDate, lang)}
+      </div>
+      {parties.length > 0 && (
+        <div className="opacity-80">{parties.join(", ")}</div>
+      )}
+      <div className="opacity-90 italic">
+        {endReasonMap[g.endReason]}
+        {g.endReason !== "incumbent" && endReasonText
+          ? ` — ${endReasonText}`
+          : ""}
+      </div>
+    </div>
+  );
+};
+
+export const CabinetStrip: FC<{
+  governments: Government[];
+  xDomain: [number, number];
+  lang: "en" | "bg";
+}> = ({ governments, xDomain, lang }) => {
+  return (
+    <div
+      className="flex h-14 mb-1 rounded overflow-hidden"
+      style={{ paddingLeft: 44, paddingRight: 32 }}
+    >
+      {governments.map((g) => {
+        const start = toFractionalYear(g.startDate);
+        const end = toFractionalYear(g.endDate ?? new Date().toISOString());
+        const widthPct = ((end - start) / (xDomain[1] - xDomain[0])) * 100;
+        const surname =
+          (lang === "bg" ? g.pmBg : g.pmEn).split(" ").pop() ?? "";
+        const horizontal = widthPct >= PILL_HORIZONTAL_THRESHOLD;
+        const showLabel = widthPct >= PILL_LABEL_THRESHOLD;
+        return (
+          <UxTooltip key={`pill-${g.id}`} content={<PillTooltip g={g} lang={lang} />}>
+            <div
+              className="h-full flex items-center justify-center text-[10px] font-medium overflow-hidden border-r border-background/40 last:border-r-0 cursor-help"
+              style={{
+                width: `${widthPct}%`,
+                backgroundColor: colorForGovernmentSolid(g),
+                color:
+                  g.type === "caretaker" ? "rgba(255,255,255,0.95)" : "#fff",
+                opacity: g.type === "caretaker" ? 0.6 : 0.95,
+              }}
+            >
+              {showLabel && horizontal && (
+                <span className="truncate px-1">{surname}</span>
+              )}
+              {showLabel && !horizontal && (
+                <span
+                  className="px-0.5 leading-none whitespace-nowrap"
+                  style={{
+                    writingMode: "vertical-rl",
+                    transform: "rotate(180deg)",
+                  }}
+                >
+                  {surname}
+                </span>
+              )}
+            </div>
+          </UxTooltip>
+        );
+      })}
+    </div>
+  );
+};
+
+export const GovernmentTimeline: FC<{
+  governments: Government[];
+  macro: MacroPayload | undefined;
+  /** Which indicator series this chart can show. */
+  indicatorKeys: MacroIndicatorKey[];
+  /** Subset of indicatorKeys enabled by default. Defaults to all. */
+  defaultEnabled?: MacroIndicatorKey[];
+  /** Y-axis tick formatter. */
+  yAxisFormatter?: (v: number) => string;
+  /** Optional fixed Y-axis domain (pass to override Recharts' auto-scale). */
+  yDomain?: [number, number] | [number | "auto", number | "auto"];
+  /** Tooltip value formatter — falls back to yAxisFormatter when omitted. */
+  unitFormatter?: (key: MacroIndicatorKey, value: number) => string;
+  /** Chart height (px). Default 360. */
+  height?: number;
+  /** Show a horizontal y=0 reference line. Useful for signed indicators. */
+  showZeroLine?: boolean;
+  /** Hide the per-series toggle pills above the chart. Used by the dashboard
+      tile where a glanceable view matters more than per-series interaction. */
+  hideToggles?: boolean;
+}> = ({
+  governments,
+  macro,
+  indicatorKeys,
+  defaultEnabled,
+  yAxisFormatter = (v) => `${v}`,
+  yDomain,
+  unitFormatter,
+  height = 360,
+  showZeroLine,
+  hideToggles,
+}) => {
+  const { t, i18n } = useTranslation();
+  const lang: "en" | "bg" = i18n.language === "bg" ? "bg" : "en";
+
+  const initial = useMemo<Toggle>(() => {
+    const on = new Set<MacroIndicatorKey>(defaultEnabled ?? indicatorKeys);
+    const out: Toggle = {};
+    for (const k of indicatorKeys) out[k] = on.has(k);
+    return out;
+  }, [indicatorKeys, defaultEnabled]);
+
+  const [enabled, setEnabled] = useState<Toggle>(initial);
+
+  const chartData = useMemo(
+    () => buildChartData(macro, indicatorKeys),
+    [macro, indicatorKeys],
+  );
+
+  const xDomain = useMemo<[number, number]>(
+    () => xDomainFor(governments),
+    [governments],
+  );
+
+  const toggle = (key: MacroIndicatorKey) =>
+    setEnabled((s) => ({ ...s, [key]: !s[key] }));
+
+  const tooltipFormatter =
+    unitFormatter ?? ((_k: MacroIndicatorKey, v: number) => yAxisFormatter(v));
+
+  if (!macro || chartData.length === 0) {
+    return (
+      <div className="text-sm text-muted-foreground">
+        {t("gov_macro_unavailable")}
+      </div>
+    );
+  }
+
+  return (
+    <div className="w-full">
+      {!hideToggles && (
+        <div className="flex flex-wrap gap-2 mb-3 text-xs">
+          {indicatorKeys.map((k) => {
+            const meta = macro.indicators[k];
+            if (!meta) return null;
+            return (
+              <button
+                key={k}
+                onClick={() => toggle(k)}
+                className={`px-3 py-1 rounded-full border transition-colors ${
+                  enabled[k]
+                    ? "border-transparent text-white"
+                    : "bg-background hover:bg-accent/10"
+                }`}
+                style={
+                  enabled[k]
+                    ? { backgroundColor: SERIES_COLORS[k] }
+                    : { borderColor: SERIES_COLORS[k], color: SERIES_COLORS[k] }
+                }
+              >
+                {lang === "bg" ? meta.titleBg : meta.titleEn}
+              </button>
+            );
+          })}
+        </div>
+      )}
+
+      <div className="w-full" style={{ height }}>
+        <ResponsiveContainer width="100%" height="100%">
+          <LineChart
+            data={chartData}
+            margin={{ top: 8, right: 32, left: 8, bottom: 24 }}
+          >
+            <CartesianGrid
+              strokeDasharray="3 3"
+              vertical={false}
+              opacity={0.2}
+            />
+            <XAxis
+              dataKey="year"
+              type="number"
+              domain={xDomain}
+              tick={{ fontSize: 11 }}
+              tickLine={false}
+              axisLine={false}
+              allowDecimals={false}
+              ticks={Array.from(
+                { length: Math.ceil(xDomain[1]) - Math.floor(xDomain[0]) + 1 },
+                (_, i) => Math.floor(xDomain[0]) + i,
+              )}
+            />
+            <YAxis
+              tick={{ fontSize: 11 }}
+              tickLine={false}
+              axisLine={false}
+              width={36}
+              domain={yDomain}
+              tickFormatter={yAxisFormatter}
+            />
+            <Tooltip
+              content={
+                <TooltipContent
+                  governments={governments}
+                  lang={lang}
+                  indicatorTitles={macro.indicators}
+                  enabled={enabled}
+                  caretakerLabel={t("gov_type_caretaker")}
+                  regularLabel={t("gov_type_regular")}
+                  unitFormatter={tooltipFormatter}
+                />
+              }
+            />
+
+            {governments.map((g) => {
+              const x1 = toFractionalYear(g.startDate);
+              const x2 = toFractionalYear(
+                g.endDate ?? new Date().toISOString(),
+              );
+              return (
+                <ReferenceArea
+                  key={`band-${g.id}`}
+                  x1={x1}
+                  x2={x2}
+                  fill={colorForGovernment(g)}
+                  fillOpacity={1}
+                  stroke="none"
+                  ifOverflow="visible"
+                />
+              );
+            })}
+
+            {ELECTION_DATES.map((key) => {
+              const x = toFractionalYear(isoFromElectionKey(key));
+              return (
+                <ReferenceLine
+                  key={`elec-${key}`}
+                  x={x}
+                  stroke="#64748b"
+                  strokeDasharray="3 3"
+                  strokeOpacity={0.5}
+                />
+              );
+            })}
+
+            {showZeroLine && (
+              <ReferenceLine y={0} stroke="#64748b" strokeOpacity={0.3} />
+            )}
+
+            {indicatorKeys.map((k) =>
+              enabled[k] ? (
+                <Line
+                  key={k}
+                  type="monotone"
+                  dataKey={k}
+                  stroke={SERIES_COLORS[k]}
+                  strokeWidth={2.5}
+                  dot={{ r: 3 }}
+                  activeDot={{ r: 5 }}
+                  isAnimationActive={false}
+                  connectNulls
+                />
+              ) : null,
+            )}
+          </LineChart>
+        </ResponsiveContainer>
+      </div>
+    </div>
+  );
+};

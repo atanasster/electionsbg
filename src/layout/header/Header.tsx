@@ -185,6 +185,9 @@ export const Header = () => {
             <DropdownMenuItem>
               <Link to="/timeline">{t("timeline_title")}</Link>
             </DropdownMenuItem>
+            <DropdownMenuItem>
+              <Link to="/governments">{t("governments_title")}</Link>
+            </DropdownMenuItem>
             <DropdownMenuSeparator />
             {reportsMenu.map((main) =>
               main.subMenu?.map((menu, idx) => (
