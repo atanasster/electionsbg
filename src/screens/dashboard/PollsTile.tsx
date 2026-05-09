@@ -7,6 +7,7 @@ import {
   usePollsAccuracy,
   usePollsAnalysis,
 } from "@/data/polls/usePolls";
+import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { Hint } from "@/ux/Hint";
 import { Link } from "@/ux/Link";
 import { StatCard } from "./StatCard";
@@ -18,6 +19,7 @@ export const PollsTile: FC = () => {
   const { data: accuracy } = usePollsAccuracy();
   const { data: agencies } = useAgencies();
   const { data: analysis } = usePollsAnalysis();
+  const { colorFor } = useCanonicalParties();
 
   const electionIso = selected?.replace(/_/g, "-");
 
@@ -67,15 +69,21 @@ export const PollsTile: FC = () => {
           {t("polls_agency")}
         </span>
         <span />
-        <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground text-right">
-          MAE
-        </span>
-        <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground text-right">
-          {t("polls_days_before")}
-        </span>
-        <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
-          {t("polls_biggest_miss")}
-        </span>
+        <Hint text={t("dashboard_polls_mae_hint")} underline={false}>
+          <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground text-right">
+            MAE
+          </span>
+        </Hint>
+        <Hint text={t("dashboard_polls_days_before_hint")} underline={false}>
+          <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground text-right">
+            {t("polls_days_before")}
+          </span>
+        </Hint>
+        <Hint text={t("dashboard_polls_biggest_miss_hint")} underline={false}>
+          <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
+            {t("polls_biggest_miss")}
+          </span>
+        </Hint>
         {entry.agencies.map((a) => {
           const ag = agencyById.get(a.agencyId);
           const name = ag ? (isBg ? ag.name_bg : ag.name_en) : a.agencyId;
@@ -108,9 +116,23 @@ export const PollsTile: FC = () => {
               <span className="tabular-nums text-xs text-muted-foreground text-right">
                 {a.daysBefore}d
               </span>
-              <span className="text-xs truncate">
-                <span className="font-medium">{a.biggestMiss.key}</span>{" "}
-                <span className={`tabular-nums font-semibold ${missColor}`}>
+              <span className="text-xs truncate flex items-center gap-1.5 min-w-0">
+                <Link
+                  to={`/party/${a.biggestMiss.key}`}
+                  className="inline-flex items-center gap-1 font-medium hover:underline min-w-0"
+                  underline={false}
+                >
+                  <span
+                    className="inline-block w-2.5 h-2.5 rounded-sm shrink-0"
+                    style={{
+                      backgroundColor: colorFor(a.biggestMiss.key) || "#888",
+                    }}
+                  />
+                  <span className="truncate">{a.biggestMiss.key}</span>
+                </Link>
+                <span
+                  className={`tabular-nums font-semibold shrink-0 ${missColor}`}
+                >
                   {sign}
                   {a.biggestMiss.error.toFixed(1)}pp
                 </span>
