@@ -24,6 +24,7 @@ import {
 import path from "path";
 import { fileURLToPath } from "url";
 import { saveSplitObject } from "../dataReaders";
+import { buildPartyDemographics } from "../parties/build_demographics";
 
 const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
 const __dirname = path.dirname(__filename); // get the name of the directory
@@ -223,4 +224,5 @@ export const runPartyStats = (stringify: (o: object) => string) => {
     getDataFileName: (year) =>
       `${rawDataFolder}/${year}/${sectionVotesFileName}`,
   });
+  buildPartyDemographics({ publicFolder, stringify });
 };

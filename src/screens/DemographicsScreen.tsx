@@ -1,9 +1,10 @@
 import { useCallback } from "react";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
+import { ArrowRight } from "lucide-react";
 import { Title } from "@/ux/Title";
 import { useCensus } from "@/data/census/useCensus";
 import { CountryBreakdown } from "./components/demographics/CountryBreakdown";
-import { OblastDemographicsTable } from "./components/demographics/OblastDemographicsTable";
 import { CensusChoroplethMap } from "./components/demographics/CensusChoroplethMap";
 import { MetricSelector } from "./components/demographics/MetricSelector";
 import { VoteDemographicScatter } from "./components/demographics/VoteDemographicScatter";
@@ -76,7 +77,7 @@ export const DemographicsScreen = () => {
         </MapLayout>
       </section>
 
-      <section className="mb-12">
+      <section id="scatter" className="mb-12 scroll-mt-24">
         <h2 className="text-lg font-semibold mb-3">
           {t("census_crosstab_heading")}
         </h2>
@@ -90,10 +91,38 @@ export const DemographicsScreen = () => {
         <h2 className="text-lg font-semibold mb-3">
           {t("census_oblast_table_heading")}
         </h2>
-        <OblastDemographicsTable
-          oblasts={census.oblasts}
-          municipalities={census.municipalities}
-        />
+        <div className="grid gap-3 sm:grid-cols-2">
+          <Link
+            to="/demographics/regions"
+            className="group flex items-center justify-between rounded-xl border bg-card p-4 shadow-sm hover:bg-muted transition-colors"
+          >
+            <div>
+              <div className="font-semibold">
+                {t("demographics_regions_title")}
+              </div>
+              <div className="text-xs text-muted-foreground mt-0.5">
+                {t("census_level_oblast", { count: census.oblasts.length })}
+              </div>
+            </div>
+            <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:translate-x-0.5 transition-transform" />
+          </Link>
+          <Link
+            to="/demographics/municipalities"
+            className="group flex items-center justify-between rounded-xl border bg-card p-4 shadow-sm hover:bg-muted transition-colors"
+          >
+            <div>
+              <div className="font-semibold">
+                {t("demographics_municipalities_title")}
+              </div>
+              <div className="text-xs text-muted-foreground mt-0.5">
+                {t("census_level_obshtina", {
+                  count: census.municipalities.length,
+                })}
+              </div>
+            </div>
+            <ArrowRight className="h-4 w-4 text-muted-foreground group-hover:translate-x-0.5 transition-transform" />
+          </Link>
+        </div>
       </section>
 
       <p className="text-[11px] text-muted-foreground mt-4">

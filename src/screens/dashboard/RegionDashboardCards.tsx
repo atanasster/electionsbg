@@ -5,6 +5,7 @@ import { DashboardSectionId } from "@/data/articles/useArticles";
 import { useElectionContext } from "@/data/ElectionContext";
 import { useRegionSummary } from "@/data/dashboard/useRegionSummary";
 import { useProblemSectionsStats } from "@/data/reports/useProblemSectionsStats";
+import { SOFIA_REGIONS } from "@/data/dataTypes";
 import { PartyChangeCard } from "./cards/PartyChangeCard";
 import { TurnoutCard } from "./cards/TurnoutCard";
 import { PaperMachineCard } from "./cards/PaperMachineCard";
@@ -123,7 +124,14 @@ export const RegionDashboardCards: FC<Props> = ({ regionCode }) => {
             parties={data.parties}
             regionCode={regionCode}
           />
-          <CensusDemographicsTile regionCode={regionCode} />
+          {/* Census data is published at the city level, not per Sofia MIR
+              (S23/S24/S25), so the three Sofia electoral districts share the
+              same demographics. The Sofia city dashboard renders this tile
+              for the whole city; per-MIR pages omit it to avoid implying
+              MIR-level census data exists. */}
+          {!SOFIA_REGIONS.includes(regionCode) && (
+            <CensusDemographicsTile regionCode={regionCode} />
+          )}
         </DashboardSection>
 
         <DashboardSection

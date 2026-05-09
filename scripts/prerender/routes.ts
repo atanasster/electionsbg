@@ -503,7 +503,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <li><strong>Разбивка за цялата страна</strong> — общи дялове по етнос, вероизповедание, образование, възраст и пол (6 519 789 души).</li>
 <li><strong>Карта по демографски показател</strong> — хороплет по 14 показателя на ниво област, превключваем чрез падащо меню.</li>
 <li><strong>Резултат на партия спрямо демография</strong> — точкова графика на областно ниво с коефициент на корелация (Pearson r) — изборният резултат на избрана партия срещу избрана демографска променлива.</li>
-<li><strong>Сравнение по области и общини</strong> — сортируема таблица с превключване между 28 области и 265 общини, с филтър по име.</li>
+<li><strong>Сравнение по области</strong> и <strong>сравнение по общини</strong> — отделни сортируеми таблици на дъщерни страници (<code>/demographics/regions</code> и <code>/demographics/municipalities</code>) с филтър по име.</li>
 <li><strong>Демография на общинско и селищно ниво</strong> — отделни прозорци на страниците на областите, общините и населените места (за селищата НСИ публикува само население, възраст и пол).</li>
 </ul>
 <p>Източник: <a href="https://census2021.bg/" rel="nofollow noopener">Преброяване на населението и жилищния фонд 2021 г. на НСИ</a>.</p>`.trim(),
@@ -521,9 +521,54 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <li><strong>Country breakdown</strong> — national shares by ethnicity, religion, education, age and sex (6,519,789 residents).</li>
 <li><strong>Choropleth map</strong> — 14 toggleable demographic indicators at oblast level.</li>
 <li><strong>Vote share vs. demographics</strong> — oblast-level scatter with Pearson correlation between any party's regional vote share and any demographic dimension.</li>
-<li><strong>Oblast & municipality comparison table</strong> — sortable, with a level toggle between 28 oblasts and 265 obshtinas and a name filter.</li>
+<li><strong>Oblast comparison table</strong> and <strong>municipality comparison table</strong> — sortable, paginated tables on dedicated subpages (<code>/demographics/regions</code> and <code>/demographics/municipalities</code>) with a name filter.</li>
 <li><strong>Per-oblast, per-obshtina and per-settlement dashboards</strong> — embedded demographic tile on every regional page (settlements show population, age and sex only — NSI doesn't publish ethnicity, religion or education at that granularity).</li>
 </ul>
+<p>Source: <a href="https://census2021.bg/" rel="nofollow noopener">NSI Population and Housing Census 2021</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "demographics/regions",
+    title:
+      "Демография на 28-те области — Преброяване 2021 | electionsbg.com",
+    description:
+      "Сортируема таблица с демографските показатели на 28-те административни области от Преброяване 2021 на НСИ — население, етнос, вероизповедание, образование, възраст и заетост.",
+    breadcrumbName: "Области — демография",
+    bodyHtml: `
+<h1>Демография по области — Преброяване 2021</h1>
+<p>Преброяване 2021 на НСИ за 28-те административни области на България — население, етнически състав, вероизповедание, образование, възрастова структура и заетост, в сортируема таблица. София-град е представена като една област; областните данни не следят разделението на трите столични МИР, които съществуват само в електоралната статистика.</p>
+<p>Източник: <a href="https://census2021.bg/" rel="nofollow noopener">Преброяване на населението и жилищния фонд 2021 г. на НСИ</a>.</p>`.trim(),
+    english: {
+      title: "Bulgaria oblast demographics — Census 2021 | electionsbg.com",
+      description:
+        "Sortable table with Census 2021 demographics for Bulgaria's 28 administrative oblasts — population, ethnicity, religion, education, age and employment.",
+      breadcrumbName: "Oblast demographics",
+      bodyHtml: `
+<h1>Bulgaria oblast demographics — Census 2021</h1>
+<p>NSI Census 2021 data for Bulgaria's 28 administrative oblasts — population, ethnic composition, religion, education attainment, age structure and employment, in a sortable table. Sofia City is represented as a single oblast; the three Sofia electoral districts (MIRs) only exist in the election dataset.</p>
+<p>Source: <a href="https://census2021.bg/" rel="nofollow noopener">NSI Population and Housing Census 2021</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "demographics/municipalities",
+    title:
+      "Демография на 265-те общини — Преброяване 2021 | electionsbg.com",
+    description:
+      "Сортируема таблица с демографските показатели на 265-те общини на България от Преброяване 2021 на НСИ — население, етнос, вероизповедание, образование, възраст и заетост, с филтър по име.",
+    breadcrumbName: "Общини — демография",
+    bodyHtml: `
+<h1>Демография по общини — Преброяване 2021</h1>
+<p>Преброяване 2021 на НСИ за 265-те общини на България — население, етнически състав, вероизповедание, образование, възрастова структура и заетост. Таблицата поддържа сортиране по всяка колона, филтър по име на общината и страниране (по 30 общини на страница).</p>
+<p>Източник: <a href="https://census2021.bg/" rel="nofollow noopener">Преброяване на населението и жилищния фонд 2021 г. на НСИ</a>.</p>`.trim(),
+    english: {
+      title:
+        "Bulgaria municipality demographics — Census 2021 | electionsbg.com",
+      description:
+        "Sortable table with Census 2021 demographics for Bulgaria's 265 municipalities — population, ethnicity, religion, education, age and employment, with a name filter.",
+      breadcrumbName: "Municipality demographics",
+      bodyHtml: `
+<h1>Bulgaria municipality demographics — Census 2021</h1>
+<p>NSI Census 2021 data for Bulgaria's 265 municipalities — population, ethnic composition, religion, education attainment, age structure and employment. The table supports per-column sorting, a name filter and pagination (30 municipalities per page).</p>
 <p>Source: <a href="https://census2021.bg/" rel="nofollow noopener">NSI Population and Housing Census 2021</a>.</p>`.trim(),
     },
   }),

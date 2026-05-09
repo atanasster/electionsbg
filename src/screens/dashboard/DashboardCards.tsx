@@ -26,6 +26,7 @@ import { PartyResultsTile } from "./PartyResultsTile";
 import { RegionsMapTile } from "./RegionsMapTile";
 import { TopCandidatesStrip } from "./TopCandidatesStrip";
 import { TopRegionsTile } from "./TopRegionsTile";
+import { DemographicCleavagesTile } from "./DemographicCleavagesTile";
 import { TopLocationsTile } from "./TopLocationsTile";
 import { TopFinancingTile } from "./TopFinancingTile";
 import { FlashMemoryTile } from "./FlashMemoryTile";
@@ -154,6 +155,7 @@ export const DashboardCards: FC = () => {
           articleTopic="geography"
         >
           <TopRegionsTile parties={data.parties} />
+          <DemographicCleavagesTile />
           {hasTopLocations ? (
             <div className="grid gap-3 grid-cols-1 lg:grid-cols-2">
               {data.topDiaspora?.length ? (

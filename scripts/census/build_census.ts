@@ -42,6 +42,15 @@ const OUT_SETTLEMENTS = path.resolve(
   __dirname,
   "../../public/census_2021_settlements.json",
 );
+// Per-entity slice directories. Each oblast/municipality gets its own ~1KB
+// JSON so the dashboard tiles can fetch a single slice instead of paying for
+// the full ~28+265-row payload up-front. Settlements stay in the existing
+// sidecar (5k entries × ~150B; per-file overhead would dwarf the savings).
+const OUT_OBLAST_DIR = path.resolve(__dirname, "../../public/census/oblasts");
+const OUT_MUNI_DIR = path.resolve(
+  __dirname,
+  "../../public/census/municipalities",
+);
 
 const FILE_POP = "Census2021_Population_EN.xlsx";
 const FILE_ETHNO = "Census2021_Ethnocultural characteristics_EN.xlsx";
@@ -558,6 +567,28 @@ const main = () => {
     `Wrote ${OUT_FILE}: country + ${oblasts.length} oblasts + ${munis.length} municipalities`,
   );
   console.log(`Wrote ${OUT_SETTLEMENTS}: ${settlements.length} settlements`);
+
+  // Emit per-entity slices so dashboard tiles can fetch only their own row.
+  // Compact (no pretty-print) — these files are ~1KB each.
+  for (const dir of [OUT_OBLAST_DIR, OUT_MUNI_DIR]) {
+    fs.mkdirSync(dir, { recursive: true });
+    for (const f of fs.readdirSync(dir)) fs.rmSync(path.join(dir, f));
+  }
+  for (const o of oblasts) {
+    fs.writeFileSync(
+      path.join(OUT_OBLAST_DIR, `${o.code}.json`),
+      JSON.stringify(o),
+    );
+  }
+  for (const m of munis) {
+    fs.writeFileSync(
+      path.join(OUT_MUNI_DIR, `${m.code}.json`),
+      JSON.stringify(m),
+    );
+  }
+  console.log(
+    `Wrote ${oblasts.length} oblast slices to ${OUT_OBLAST_DIR}/ and ${munis.length} municipality slices to ${OUT_MUNI_DIR}/`,
+  );
 };
 
 main();

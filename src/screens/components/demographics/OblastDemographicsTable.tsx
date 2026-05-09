@@ -49,9 +49,13 @@ type Row = (CensusOblastEntity | CensusMunicipalityEntity) & {
 export const OblastDemographicsTable: React.FC<{
   oblasts: CensusOblastEntity[];
   municipalities?: CensusMunicipalityEntity[];
-}> = ({ oblasts, municipalities }) => {
+  // When set, hides the level switcher and locks the table to that tier.
+  // Used by the dedicated /demographics/regions and /demographics/municipalities
+  // pages so each one shows only its own list.
+  lockedLevel?: Level;
+}> = ({ oblasts, municipalities, lockedLevel }) => {
   const { t, i18n } = useTranslation();
-  const [level, setLevel] = useState<Level>("oblast");
+  const [level, setLevel] = useState<Level>(lockedLevel ?? "oblast");
   const [sortKey, setSortKey] = useState<SortKey>("population");
   const [sortDir, setSortDir] = useState<"asc" | "desc">("desc");
   const [filter, setFilter] = useState("");
@@ -147,27 +151,29 @@ export const OblastDemographicsTable: React.FC<{
   return (
     <div className="overflow-x-auto">
       <div className="flex flex-wrap items-center gap-2 mb-3">
-        <div className="inline-flex rounded-md border overflow-hidden">
-          <Button
-            variant={level === "oblast" ? "default" : "ghost"}
-            size="sm"
-            className="rounded-none"
-            onClick={() => onChangeLevel("oblast")}
-          >
-            {t("census_level_oblast", { count: oblasts.length })}
-          </Button>
-          <Button
-            variant={level === "obshtina" ? "default" : "ghost"}
-            size="sm"
-            className="rounded-none"
-            onClick={() => onChangeLevel("obshtina")}
-            disabled={!municipalities?.length}
-          >
-            {t("census_level_obshtina", {
-              count: municipalities?.length ?? 0,
-            })}
-          </Button>
-        </div>
+        {!lockedLevel && (
+          <div className="inline-flex rounded-md border overflow-hidden">
+            <Button
+              variant={level === "oblast" ? "default" : "ghost"}
+              size="sm"
+              className="rounded-none"
+              onClick={() => onChangeLevel("oblast")}
+            >
+              {t("census_level_oblast", { count: oblasts.length })}
+            </Button>
+            <Button
+              variant={level === "obshtina" ? "default" : "ghost"}
+              size="sm"
+              className="rounded-none"
+              onClick={() => onChangeLevel("obshtina")}
+              disabled={!municipalities?.length}
+            >
+              {t("census_level_obshtina", {
+                count: municipalities?.length ?? 0,
+              })}
+            </Button>
+          </div>
+        )}
         {level === "obshtina" && (
           <Input
             placeholder={t("filter_by_name")}
@@ -216,13 +222,16 @@ export const OblastDemographicsTable: React.FC<{
               : info?.long_name_en || info?.name_en || row.nameEn;
             // Sofia city is administratively a single-obshtina oblast
             // (SOF46 is its only municipality and isn't in our
-            // municipalities.json), so route it to the SOF oblast page where
-            // its dashboard actually lives.
+            // municipalities.json). Its dashboard lives at /sofia — which
+            // aggregates the three election MIRs (S23/S24/S25) — not under
+            // /municipality/ since SOF isn't an election region code.
             const linkTo =
               level === "oblast"
-                ? `/municipality/${row.code}`
+                ? row.code === "SOF"
+                  ? "/sofia"
+                  : `/municipality/${row.code}`
                 : row.code === "SOF46"
-                  ? "/municipality/SOF"
+                  ? "/sofia"
                   : `/settlement/${row.code}`;
             return (
               <TableRow key={row.code}>

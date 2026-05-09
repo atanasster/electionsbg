@@ -23,6 +23,7 @@ import { CarMakesTile } from "./CarMakesTile";
 import { MpAssetsTile } from "./MpAssetsTile";
 import { MpDeclarationsProvenance } from "./MpDeclarationsProvenance";
 import { TopSofiaAreasTile } from "./TopSofiaAreasTile";
+import { CensusDemographicsTile } from "./CensusDemographicsTile";
 import { TopCandidatesStrip } from "./TopCandidatesStrip";
 import { FlashMemoryTile } from "./FlashMemoryTile";
 import { RecountTile } from "./RecountTile";
@@ -127,6 +128,7 @@ export const SofiaDashboardCards: FC = () => {
           articleTopic="geography"
         >
           <TopSofiaAreasTile parties={data.parties} />
+          <CensusDemographicsTile regionCode="SOF" />
         </DashboardSection>
 
         <DashboardSection

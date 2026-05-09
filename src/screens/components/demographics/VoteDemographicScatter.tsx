@@ -1,4 +1,4 @@
-import { useCallback, useMemo } from "react";
+import { useCallback, useEffect, useMemo, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import {
@@ -15,52 +15,15 @@ import { usePartyInfo } from "@/data/parties/usePartyInfo";
 import { useElectionContext } from "@/data/ElectionContext";
 import { useTooltip } from "@/ux/useTooltip";
 import { useSearchParam } from "@/screens/utils/useSearchParam";
+import { formatThousands } from "@/data/utils";
 import { MetricSelector } from "./MetricSelector";
 import { METRIC_BY_KEY } from "./censusMetrics";
+import {
+  PERCENT_METRICS,
+  pearson,
+  censusMetricCount,
+} from "./voteDemographicCorrelation";
 import type { CensusMetric } from "@/data/census/censusTypes";
-
-const PERCENT_METRICS: CensusMetric[] = [
-  "ethnicBulgarian",
-  "ethnicTurkish",
-  "ethnicRoma",
-  "religionChristian",
-  "religionMuslim",
-  "religionNoneOrUndecl",
-  "eduTertiary",
-  "eduSecondary",
-  "eduPrimaryOrLower",
-  "ageUnder15",
-  "age65plus",
-  "employmentRate",
-  "unemploymentRate",
-  "activityRate",
-];
-
-// Pearson correlation. Returns 0 when sample is too small or variance is 0.
-const pearson = (xs: number[], ys: number[]): number => {
-  const n = xs.length;
-  if (n < 3) return 0;
-  let sx = 0;
-  let sy = 0;
-  for (let i = 0; i < n; i++) {
-    sx += xs[i];
-    sy += ys[i];
-  }
-  const mx = sx / n;
-  const my = sy / n;
-  let num = 0;
-  let dx2 = 0;
-  let dy2 = 0;
-  for (let i = 0; i < n; i++) {
-    const dx = xs[i] - mx;
-    const dy = ys[i] - my;
-    num += dx * dy;
-    dx2 += dx * dx;
-    dy2 += dy * dy;
-  }
-  const denom = Math.sqrt(dx2 * dy2);
-  return denom === 0 ? 0 : num / denom;
-};
 
 export const VoteDemographicScatter: React.FC = () => {
   const { t, i18n } = useTranslation();
@@ -69,6 +32,8 @@ export const VoteDemographicScatter: React.FC = () => {
   const { countryRegions } = useRegionVotes();
   const { parties, findParty } = usePartyInfo();
   const { selected } = useElectionContext();
+  const containerRef = useRef<HTMLDivElement>(null);
+  const [hoveredOblast, setHoveredOblast] = useState<string | undefined>();
 
   const DEFAULT_METRIC: CensusMetric = "eduSecondary";
   const [scatterMetricParam, setScatterMetricParam] = useSearchParam(
@@ -93,6 +58,16 @@ export const VoteDemographicScatter: React.FC = () => {
   const partyNum: number | undefined = scatterPartyParam
     ? Number(scatterPartyParam)
     : undefined;
+
+  // When the scatter is deep-linked from outside (e.g. the party dashboard's
+  // Demographic profile tile), scroll it into view so users land on the chart
+  // they clicked rather than the top of the demographics page.
+  useEffect(() => {
+    if (scatterPartyParam && containerRef.current) {
+      containerRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   const setPartyNum = useCallback(
     (n: number) => {
       setScatterPartyParam(String(n));
@@ -141,7 +116,10 @@ export const VoteDemographicScatter: React.FC = () => {
       x: number; // demographic %
       y: number; // party vote share %
       regionRoute: string;
+      partyVotes: number;
       totalVotes: number;
+      population: number;
+      groupCount?: number;
     }[] = [];
     // Aggregate by NSI oblast (so Sofia 23/24/25 collapse into one SOF bubble
     // and PDV/PDV-00 into PDV).
@@ -178,7 +156,10 @@ export const VoteDemographicScatter: React.FC = () => {
         x: xRaw * 100,
         y: (agg.partyVotes / agg.totalVotes) * 100,
         regionRoute: `/municipality/${oblastCode}`,
+        partyVotes: agg.partyVotes,
         totalVotes: agg.totalVotes,
+        population: entity.population,
+        groupCount: censusMetricCount(entity, metric),
       });
     }
     return points;
@@ -232,7 +213,7 @@ export const VoteDemographicScatter: React.FC = () => {
   const metricLabel = t(METRIC_BY_KEY[metric].i18nKey);
 
   return (
-    <div>
+    <div ref={containerRef} className="scroll-mt-24">
       <div className="flex flex-wrap items-center gap-3 mb-4">
         <div>
           <label className="text-xs text-muted-foreground block mb-1">
@@ -285,7 +266,7 @@ export const VoteDemographicScatter: React.FC = () => {
           </span>
         </div>
       </div>
-      <div className="relative">
+      <div>
         <svg viewBox={`0 0 ${W} ${H}`} className="w-full h-auto">
           {/* axes */}
           <line
@@ -355,59 +336,94 @@ export const VoteDemographicScatter: React.FC = () => {
               ? `${isBg ? partyInfo.nickName : partyInfo.nickName_en || partyInfo.nickName} %`
               : ""}
           </text>
-          {dataPoints.map((p) => (
-            <g key={p.oblast}>
-              <Link to={p.regionRoute} role="link">
-                <circle
-                  cx={xScale(p.x)}
-                  cy={yScale(p.y)}
-                  r={Math.max(4, Math.sqrt(p.totalVotes) / 30)}
-                  fill={partyColor}
-                  fillOpacity={0.7}
-                  stroke="white"
-                  strokeWidth={1.2}
-                  cursor="pointer"
-                  onMouseEnter={(e) =>
-                    tooltipEvents.onMouseEnter(
-                      { pageX: e.pageX, pageY: e.pageY },
-                      <div className="text-left">
-                        <div className="text-base font-semibold pb-1">
-                          {isBg ? p.nameBg : p.nameEn}
-                        </div>
-                        <div className="text-xs text-muted-foreground">
-                          {metricLabel}:{" "}
-                          <span className="text-foreground font-medium">
-                            {p.x.toFixed(1)}%
-                          </span>
-                        </div>
-                        <div className="text-xs text-muted-foreground">
-                          {partyInfo
-                            ? isBg
-                              ? partyInfo.nickName
-                              : partyInfo.nickName_en || partyInfo.nickName
-                            : "Party"}
-                          :{" "}
-                          <span className="text-foreground font-medium">
-                            {p.y.toFixed(1)}%
-                          </span>
-                        </div>
-                      </div>,
-                    )
-                  }
-                  onMouseMove={(e) =>
-                    tooltipEvents.onMouseMove({
-                      pageX: e.pageX,
-                      pageY: e.pageY,
-                    })
-                  }
-                  onMouseLeave={tooltipEvents.onMouseLeave}
-                />
-              </Link>
-            </g>
-          ))}
+          {dataPoints.map((p) => {
+            const partyName = partyInfo
+              ? isBg
+                ? partyInfo.nickName
+                : partyInfo.nickName_en || partyInfo.nickName
+              : t("party");
+            const isHovered = hoveredOblast === p.oblast;
+            return (
+              <g key={p.oblast}>
+                <Link to={p.regionRoute} role="link">
+                  <circle
+                    cx={xScale(p.x)}
+                    cy={yScale(p.y)}
+                    r={Math.max(4, Math.sqrt(p.totalVotes) / 30)}
+                    fill={partyColor}
+                    fillOpacity={isHovered ? 0.95 : 0.7}
+                    stroke={isHovered ? "hsl(var(--foreground))" : "white"}
+                    strokeWidth={isHovered ? 2.5 : 1.2}
+                    cursor="pointer"
+                    onMouseEnter={(e) => {
+                      setHoveredOblast(p.oblast);
+                      tooltipEvents.onMouseEnter(
+                        { pageX: e.pageX, pageY: e.pageY },
+                        <div className="text-left min-w-[220px]">
+                          <div className="text-base font-semibold pb-1.5 border-b border-border mb-1.5">
+                            {isBg ? p.nameBg : p.nameEn}
+                          </div>
+                          <div className="grid grid-cols-[auto_1fr] gap-x-3 gap-y-1 text-xs">
+                            <span className="text-muted-foreground">
+                              {metricLabel}
+                            </span>
+                            <span className="text-foreground font-medium tabular-nums text-right">
+                              {p.x.toFixed(1)}%
+                              {p.groupCount !== undefined ? (
+                                <span className="text-muted-foreground font-normal ml-1">
+                                  ({formatThousands(p.groupCount)})
+                                </span>
+                              ) : null}
+                            </span>
+                            <span className="text-muted-foreground">
+                              {partyName}
+                            </span>
+                            <span
+                              className="font-semibold tabular-nums text-right"
+                              style={{ color: partyColor }}
+                            >
+                              {p.y.toFixed(1)}%
+                              <span className="text-muted-foreground font-normal ml-1">
+                                ({formatThousands(p.partyVotes)})
+                              </span>
+                            </span>
+                            <span className="text-muted-foreground">
+                              {t("census_tooltip_total_votes")}
+                            </span>
+                            <span className="text-foreground font-medium tabular-nums text-right">
+                              {formatThousands(p.totalVotes)}
+                            </span>
+                            <span className="text-muted-foreground">
+                              {t("census_tooltip_population")}
+                            </span>
+                            <span className="text-foreground font-medium tabular-nums text-right">
+                              {formatThousands(p.population)}
+                            </span>
+                          </div>
+                          <div className="text-[10px] text-muted-foreground italic mt-1.5 pt-1.5 border-t border-border">
+                            {t("census_tooltip_click_hint")}
+                          </div>
+                        </div>,
+                      );
+                    }}
+                    onMouseMove={(e) =>
+                      tooltipEvents.onMouseMove({
+                        pageX: e.pageX,
+                        pageY: e.pageY,
+                      })
+                    }
+                    onMouseLeave={() => {
+                      setHoveredOblast(undefined);
+                      tooltipEvents.onMouseLeave();
+                    }}
+                  />
+                </Link>
+              </g>
+            );
+          })}
         </svg>
-        {tooltip}
       </div>
+      {tooltip}
       <p className="text-xs text-muted-foreground mt-2">
         {t("census_scatter_note", { date: selected })}
       </p>

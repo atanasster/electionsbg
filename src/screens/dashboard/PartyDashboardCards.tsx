@@ -20,6 +20,7 @@ import { PartyTopCandidatesTile } from "./PartyTopCandidatesTile";
 import { PartyMpAssetsTile } from "./PartyMpAssetsTile";
 import { PartyCarMakesTile } from "./PartyCarMakesTile";
 import { PartyRegionSwingsTile } from "./PartyRegionSwingsTile";
+import { PartyDemographicFingerprintTile } from "./PartyDemographicFingerprintTile";
 import { PartyAssessmentTile } from "./PartyAssessmentTile";
 import { PartyExpenseBreakdownTile } from "./PartyExpenseBreakdownTile";
 import { PartyTopDonorsTile } from "./PartyTopDonorsTile";
@@ -56,6 +57,7 @@ const TILE_HEIGHTS = {
   card: "min-h-[160px]",
   assessment: "min-h-[220px]",
   regionSwings: "min-h-[280px]",
+  fingerprint: "min-h-[480px]",
   topCandidates: "min-h-[320px]",
   topRegions: "min-h-[440px]",
   trajectory: "min-h-[280px]",
@@ -102,6 +104,7 @@ export const PartyDashboardCards: FC<Props> = ({ party }) => {
         <div className="grid gap-3 grid-cols-1 mt-8">
           <SkeletonCard className={TILE_HEIGHTS.assessment} />
           <SkeletonCard className={TILE_HEIGHTS.regionSwings} />
+          <SkeletonCard className={TILE_HEIGHTS.fingerprint} />
           <SkeletonCard className={TILE_HEIGHTS.trajectory} />
         </div>
         <div className="grid gap-3 grid-cols-1 mt-8">
@@ -191,6 +194,9 @@ export const PartyDashboardCards: FC<Props> = ({ party }) => {
             <PartyAssessmentTile data={data} />
           </div>
           <PartyRegionSwingsTile data={data} />
+          <div className={TILE_HEIGHTS.fingerprint}>
+            <PartyDemographicFingerprintTile data={data} />
+          </div>
           <PartyTrajectoryTile data={data} />
         </DashboardSection>
 

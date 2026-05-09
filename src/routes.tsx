@@ -212,6 +212,16 @@ const DemographicsScreen = lazy(() =>
     default: m.DemographicsScreen,
   })),
 );
+const RegionsDemographicsScreen = lazy(() =>
+  import("./screens/RegionsDemographicsScreen").then((m) => ({
+    default: m.RegionsDemographicsScreen,
+  })),
+);
+const MunicipalitiesDemographicsScreen = lazy(() =>
+  import("./screens/MunicipalitiesDemographicsScreen").then((m) => ({
+    default: m.MunicipalitiesDemographicsScreen,
+  })),
+);
 const CompareScreen = lazy(() =>
   import("./screens/CompareScreen").then((m) => ({
     default: m.CompareScreen,
@@ -1146,6 +1156,22 @@ export const AuthRoutes = () => {
           element={
             <LayoutScreen>
               <DemographicsScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="demographics/regions"
+          element={
+            <LayoutScreen>
+              <RegionsDemographicsScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="demographics/municipalities"
+          element={
+            <LayoutScreen>
+              <MunicipalitiesDemographicsScreen />
             </LayoutScreen>
           }
         />
