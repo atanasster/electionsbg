@@ -21,6 +21,8 @@ import {
   MacroPoint,
 } from "@/data/macro/useMacro";
 import { Tooltip as UxTooltip } from "@/ux/Tooltip";
+import { useMps } from "@/data/parliament/useMps";
+import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 
 const ELECTION_DATES = [
   "2005_06_25",
@@ -234,6 +236,7 @@ const PillTooltip: FC<{
   lang: "en" | "bg";
 }> = ({ g, lang }) => {
   const { t } = useTranslation();
+  const { findMpByName } = useMps();
   const endReasonMap: Record<GovernmentEndReason, string> = {
     term_end: t("gov_end_term_end"),
     election: t("gov_end_election"),
@@ -246,21 +249,39 @@ const PillTooltip: FC<{
   const fullName = lang === "bg" ? g.pmBg : g.pmEn;
   const parties = lang === "bg" ? g.parties : (g.partiesEn ?? g.parties);
   const endReasonText = lang === "bg" ? g.endReasonBg : g.endReasonEn;
+  const mp = findMpByName(g.pmBg);
+  const isCaretaker = g.type === "caretaker";
+  const pmPartyLabel = isCaretaker
+    ? lang === "bg"
+      ? g.pmPartyBg
+      : (g.pmPartyEn ?? g.pmPartyBg)
+    : parties[0];
   return (
     <div className="flex flex-col gap-1.5 text-xs">
       <div className="flex items-center gap-2">
-        <span
-          className="inline-block w-2.5 h-2.5 rounded-sm"
-          style={{ backgroundColor: colorForGovernmentSolid(g) }}
+        <MpAvatar
+          name={g.pmBg}
+          mpId={mp?.id}
+          className="h-7 w-7"
+          showPartyRing={false}
         />
-        <span className="font-semibold">{fullName}</span>
-        <span className="opacity-70">
-          (
-          {g.type === "caretaker"
-            ? t("gov_type_caretaker")
-            : t("gov_type_regular")}
-          )
-        </span>
+        <div className="flex flex-col leading-tight min-w-0">
+          <div className="flex items-center gap-1.5">
+            <span className="font-semibold">{fullName}</span>
+            <span className="opacity-70">
+              (
+              {isCaretaker
+                ? t("gov_type_caretaker")
+                : t("gov_type_regular")}
+              )
+            </span>
+          </div>
+          {pmPartyLabel ? (
+            <span className="text-[10px] uppercase tracking-wide opacity-70">
+              {isCaretaker ? `(${pmPartyLabel})` : pmPartyLabel}
+            </span>
+          ) : null}
+        </div>
       </div>
       <div className="opacity-80 tabular-nums">
         {formatDateLocal(g.startDate, lang)} –{" "}

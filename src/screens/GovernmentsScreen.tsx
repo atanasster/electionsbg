@@ -12,6 +12,33 @@ import {
 import { GovernmentTable } from "./components/governments/GovernmentTable";
 import { ElectionObservations } from "./components/governments/ElectionObservations";
 
+type ChartSource = { href: string; label: string };
+
+const ChartSources = ({
+  sources,
+  prefix,
+}: {
+  sources: ChartSource[];
+  prefix: string;
+}) => (
+  <p className="text-[11px] text-muted-foreground mb-3">
+    {prefix}{" "}
+    {sources.map((s, i) => (
+      <span key={s.href}>
+        {i > 0 ? " · " : null}
+        <a
+          href={s.href}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="underline"
+        >
+          {s.label}
+        </a>
+      </span>
+    ))}
+  </p>
+);
+
 export const GovernmentsScreen = () => {
   const { t, i18n } = useTranslation();
   const { data: governments } = useGovernments();
@@ -52,6 +79,23 @@ export const GovernmentsScreen = () => {
         <h2 className="text-lg font-semibold mb-3">
           {t("governments_chart_economy")}
         </h2>
+        <ChartSources
+          prefix={t("governments_chart_sources_prefix")}
+          sources={[
+            {
+              href: "https://ec.europa.eu/eurostat/databrowser/view/nama_10_gdp/default/table",
+              label: "Eurostat nama_10_gdp (real GDP growth)",
+            },
+            {
+              href: "https://ec.europa.eu/eurostat/databrowser/view/prc_hicp_aind/default/table",
+              label: "Eurostat prc_hicp_aind (HICP inflation)",
+            },
+            {
+              href: "https://ec.europa.eu/eurostat/databrowser/view/une_rt_a/default/table",
+              label: "Eurostat une_rt_a (unemployment rate)",
+            },
+          ]}
+        />
         <GovernmentTimeline
           governments={governments}
           macro={macro}
@@ -70,6 +114,15 @@ export const GovernmentsScreen = () => {
         <p className="text-xs text-muted-foreground mb-3 max-w-3xl">
           {t("governments_chart_cpi_explainer")}
         </p>
+        <ChartSources
+          prefix={t("governments_chart_source_prefix")}
+          sources={[
+            {
+              href: "https://www.transparency.org/en/countries/bulgaria",
+              label: "Transparency International — CPI, Bulgaria",
+            },
+          ]}
+        />
         <GovernmentTimeline
           governments={governments}
           macro={macro}
@@ -88,6 +141,16 @@ export const GovernmentsScreen = () => {
         <p className="text-xs text-muted-foreground mb-3 max-w-3xl">
           {t("governments_chart_wgi_explainer")}
         </p>
+        <ChartSources
+          prefix={t("governments_chart_source_prefix")}
+          sources={[
+            {
+              href: "https://databank.worldbank.org/source/worldwide-governance-indicators",
+              label:
+                "World Bank — Worldwide Governance Indicators (Rule of Law, Control of Corruption, Government Effectiveness)",
+            },
+          ]}
+        />
         <GovernmentTimeline
           governments={governments}
           macro={macro}
@@ -111,6 +174,16 @@ export const GovernmentsScreen = () => {
         <p className="text-xs text-muted-foreground mb-3 max-w-3xl">
           {t("governments_chart_trust_explainer")}
         </p>
+        <ChartSources
+          prefix={t("governments_chart_source_prefix")}
+          sources={[
+            {
+              href: "https://europa.eu/eurobarometer/surveys/browse/all/series/4961",
+              label:
+                "Standard Eurobarometer — annual mean of spring & autumn waves (Bulgaria)",
+            },
+          ]}
+        />
         <GovernmentTimeline
           governments={governments}
           macro={macro}
@@ -129,6 +202,16 @@ export const GovernmentsScreen = () => {
         <p className="text-xs text-muted-foreground mb-3 max-w-3xl">
           {t("governments_chart_eu_funds_explainer")}
         </p>
+        <ChartSources
+          prefix={t("governments_chart_source_prefix")}
+          sources={[
+            {
+              href: "https://commission.europa.eu/strategy-and-policy/eu-budget/performance-and-reporting_en",
+              label:
+                "European Commission — EU budget performance & reporting (annual financial reports)",
+            },
+          ]}
+        />
         <GovernmentTimeline
           governments={governments}
           macro={macro}
