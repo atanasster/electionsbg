@@ -64,7 +64,7 @@ export const ElectionsSelect: FC = () => {
   const nextElection = currentIdx > 0 ? elections[currentIdx - 1] : undefined;
 
   return (
-    <div className="flex gap-1 items-center pl-2 sm:pl-0 md:pl-10 lg:pl-32 xl:pl-52">
+    <div className="flex gap-1 items-center">
       <Hint text={t("prior_elections")}>
         <Button
           variant="ghost"

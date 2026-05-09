@@ -218,6 +218,10 @@ export const reportsMenu: MenuItem[] = [
         link: "/governments",
       },
       {
+        title: "connections_link_label",
+        link: "/connections",
+      },
+      {
         title: "demographics_title",
         link: "/demographics",
       },

@@ -106,7 +106,7 @@ export const Header = () => {
       ref={navRef}
       className="flex shadow-sm fixed w-full z-10 top-0 gap-2 bg-muted border-b-2 justify-between items-center"
     >
-      <div className="flex text-xl text-primary flex-wrap items-center gap-4 p-4">
+      <div className="flex text-xl text-primary flex-wrap items-center gap-3 p-4">
         <Link to="/" className="flex flex-row items-center">
           <span className="sr-only">Elections in Bulgaria data statistics</span>
           <Logo className="size-7" />
@@ -117,6 +117,10 @@ export const Header = () => {
             <div className="font-semibold uppercase">{t("bg")}</div>
           </div>
         </Link>
+        <div
+          aria-hidden
+          className="hidden sm:block h-6 w-px bg-border/70"
+        />
         <ElectionsSelect />
       </div>
       <div className="flex flex-1 justify-end gap-3 items-center px-4 min-w-0">
@@ -135,13 +139,6 @@ export const Header = () => {
             </DropdownMenuContent>
           </DropdownMenu>
         ))}
-        <Link
-          to="/connections"
-          underline={false}
-          className="text-sm font-medium hidden lg:block lowercase whitespace-nowrap text-secondary-foreground hover:text-primary"
-        >
-          {t("connections_link_label")}
-        </Link>
         {articles && articles.length > 0 && (
           <Link
             to={analysisHref}
@@ -194,9 +191,6 @@ export const Header = () => {
           <DropdownMenuContent className="w-56">
             <DropdownMenuItem>
               <Link to="/simulator">{t("coalition_simulator")}</Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <Link to="/connections">{t("connections_link_label")}</Link>
             </DropdownMenuItem>
             {articles && articles.length > 0 && (
               <DropdownMenuItem>
