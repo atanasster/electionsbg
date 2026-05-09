@@ -152,21 +152,22 @@ export const PartyExpenseBreakdownTile: FC<Props> = ({
       }
       className="overflow-hidden"
     >
-      <div className="grid grid-cols-[minmax(0,1.2fr)_auto_minmax(120px,2fr)_auto_auto] gap-x-3 gap-y-1.5 items-center mt-1 text-sm">
+      <div className="grid grid-cols-[minmax(0,1.2fr)_auto_auto_auto] sm:grid-cols-[minmax(0,1.2fr)_auto_minmax(120px,2fr)_auto_auto] gap-x-3 gap-y-1.5 items-center mt-1 text-sm">
         <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
           {t("dashboard_category")}
         </span>
         <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground text-right">
           {t("amount")}
         </span>
-        <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
+        <span className="hidden sm:inline text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
           {t("dashboard_share_of_cost")}
         </span>
         <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground text-right">
           {t("share")}
         </span>
         <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground text-right">
-          {t("dashboard_change")}
+          <span className="hidden sm:inline">{t("dashboard_change")}</span>
+          <span className="sm:hidden">Δ</span>
         </span>
         {rows.map((r) => (
           <div key={r.key} className="contents">
@@ -174,7 +175,7 @@ export const PartyExpenseBreakdownTile: FC<Props> = ({
             <span className="tabular-nums text-xs text-muted-foreground text-right">
               {formatThousands(r.amount)}
             </span>
-            <div className="h-2 rounded-full bg-muted overflow-hidden">
+            <div className="hidden sm:block h-2 rounded-full bg-muted overflow-hidden">
               <div
                 className="h-full rounded-full"
                 style={{

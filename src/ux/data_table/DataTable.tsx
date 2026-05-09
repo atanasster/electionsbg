@@ -171,9 +171,9 @@ export const DataTable = <TData, TValue>({
                           key={cell.id}
                           className={cn(
                             "px-2 py-1 md:px-3",
-                            isOdd && "bg-muted/30",
-                            isSticky && "sticky left-0 z-5",
-                            isSticky && !isOdd && "bg-card",
+                            isOdd && !isSticky && "bg-muted/30",
+                            isSticky && "sticky left-0 z-5 bg-card",
+                            isSticky && isOdd && "bg-muted",
                             "group-hover:bg-muted/50",
                             (
                               cell.column.columnDef as DataTableColumnDef<

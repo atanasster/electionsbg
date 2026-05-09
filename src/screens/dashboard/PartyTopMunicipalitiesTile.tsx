@@ -80,7 +80,7 @@ export const PartyTopMunicipalitiesTile: FC<Props> = ({ data }) => {
       }
       className="overflow-hidden"
     >
-      <div className="grid grid-cols-[minmax(0,1fr)_auto_auto_minmax(80px,1.5fr)_auto_auto] gap-x-3 gap-y-1.5 items-center mt-1 text-sm">
+      <div className="grid grid-cols-[minmax(0,1fr)_auto_auto_auto_auto] sm:grid-cols-[minmax(0,1fr)_auto_auto_minmax(80px,1.5fr)_auto_auto] gap-x-3 gap-y-1.5 items-center mt-1 text-sm">
         <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
           {t("municipality")}
         </span>
@@ -88,16 +88,19 @@ export const PartyTopMunicipalitiesTile: FC<Props> = ({ data }) => {
           {t("votes")}
         </span>
         <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground text-right">
-          {t("position")}
+          <span className="hidden sm:inline">{t("position")}</span>
+          <span className="sm:hidden">#</span>
         </span>
-        <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
+        <span className="hidden sm:inline text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
           {t("dashboard_share_of_party")}
         </span>
         <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground text-right">
-          {t("dashboard_pct_local")}
+          <span className="hidden sm:inline">{t("dashboard_pct_local")}</span>
+          <span className="sm:hidden">%</span>
         </span>
         <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground text-right">
-          {t("dashboard_change_votes")}
+          <span className="hidden sm:inline">{t("dashboard_change_votes")}</span>
+          <span className="sm:hidden">Δ</span>
         </span>
         {rows.map((r) => (
           <Link
@@ -113,7 +116,7 @@ export const PartyTopMunicipalitiesTile: FC<Props> = ({ data }) => {
             <span className="tabular-nums text-xs text-muted-foreground text-right">
               #{r.position}
             </span>
-            <div className="h-2 rounded-full bg-muted overflow-hidden">
+            <div className="hidden sm:block h-2 rounded-full bg-muted overflow-hidden">
               <div
                 className="h-full rounded-full"
                 style={{

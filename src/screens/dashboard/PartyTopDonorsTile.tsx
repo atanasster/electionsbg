@@ -76,7 +76,7 @@ export const PartyTopDonorsTile: FC<Props> = ({
       }
       className="overflow-hidden"
     >
-      <div className="grid grid-cols-[minmax(0,1.4fr)_auto_auto_minmax(100px,1.5fr)_auto] gap-x-3 gap-y-1.5 items-center mt-1 text-sm">
+      <div className="grid grid-cols-[minmax(0,1.4fr)_auto_auto_auto] sm:grid-cols-[minmax(0,1.4fr)_auto_auto_minmax(100px,1.5fr)_auto] gap-x-3 gap-y-1.5 items-center mt-1 text-sm">
         <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
           {t("name")}
         </span>
@@ -86,7 +86,7 @@ export const PartyTopDonorsTile: FC<Props> = ({
         <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground text-right">
           {t("amount")}
         </span>
-        <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
+        <span className="hidden sm:inline text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
           {t("dashboard_share_of_donors")}
         </span>
         <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground text-right">
@@ -103,7 +103,7 @@ export const PartyTopDonorsTile: FC<Props> = ({
             <span className="tabular-nums text-xs text-muted-foreground text-right">
               {formatThousands(r.total)}
             </span>
-            <div className="h-2 rounded-full bg-muted overflow-hidden">
+            <div className="hidden sm:block h-2 rounded-full bg-muted overflow-hidden">
               <div
                 className="h-full rounded-full"
                 style={{
