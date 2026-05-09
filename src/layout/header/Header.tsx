@@ -1,4 +1,4 @@
-import { FC, useContext } from "react";
+import { FC, useContext, useLayoutEffect, useRef } from "react";
 import { Moon, SunMedium, Menu, Check, ChevronDown } from "lucide-react";
 
 import {
@@ -29,6 +29,27 @@ export const Header = () => {
   const { t, i18n } = useTranslation();
   const { electionStats, selected } = useElectionContext();
   const { data: articles } = useArticles();
+  const navRef = useRef<HTMLElement>(null);
+  // The nav is `position: fixed`, so the page content is offset by its
+  // height via the `--header-height` CSS variable (see Layout.tsx). On
+  // very narrow viewports (~<340px) the inner left group wraps to a
+  // second line, growing the nav beyond its single-row height — measuring
+  // here keeps the offset in sync regardless of wrap, font load, or i18n.
+  useLayoutEffect(() => {
+    const nav = navRef.current;
+    if (!nav) return;
+    const root = document.documentElement;
+    const update = () => {
+      root.style.setProperty("--header-height", `${nav.offsetHeight}px`);
+    };
+    update();
+    const ro = new ResizeObserver(update);
+    ro.observe(nav);
+    return () => {
+      ro.disconnect();
+      root.style.removeProperty("--header-height");
+    };
+  }, []);
   // An article with no `election` field is treated as universal — it applies
   // to every cycle and shows up in the dropdown alongside any per-election piece.
   const articlesForSelectedElection =
@@ -81,7 +102,10 @@ export const Header = () => {
     localStorage.setItem("language", language);
   };
   return (
-    <nav className="flex shadow-sm fixed w-full z-10 top-0 gap-2 bg-muted border-b-2 justify-between items-center">
+    <nav
+      ref={navRef}
+      className="flex shadow-sm fixed w-full z-10 top-0 gap-2 bg-muted border-b-2 justify-between items-center"
+    >
       <div className="flex text-xl text-primary flex-wrap items-center gap-4 p-4">
         <Link to="/" className="flex flex-row items-center">
           <span className="sr-only">Elections in Bulgaria data statistics</span>

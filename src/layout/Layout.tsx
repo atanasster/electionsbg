@@ -17,7 +17,7 @@ export const Layout = (props: React.PropsWithChildren) => {
           AboutScreen) already self-center with `mx-auto max-w-*`, so
           dropping items-center doesn't widen them visually.
         */}
-        <div className="container flex flex-col justify-center items-stretch p-2 pt-[70px]">
+        <div className="container flex flex-col justify-center items-stretch p-2 pt-[var(--header-height,70px)]">
           {props.children}
         </div>
       </main>
