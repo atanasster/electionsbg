@@ -1,7 +1,6 @@
 import { FC } from "react";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Title } from "@/ux/Title";
 import { Caption } from "@/ux/Caption";
 import { useElectionContext } from "@/data/ElectionContext";
 import { usePartyInfo } from "@/data/parties/usePartyInfo";
@@ -14,7 +13,7 @@ import { MediaPackage } from "./components/party/campaign_financing/MediaPackage
 import { PartyCampaignCostCard } from "./dashboard/cards/PartyCampaignCostCard";
 import { PartyTopExpenseCard } from "./dashboard/cards/PartyTopExpenseCard";
 import { PartyExpenseBreakdownTile } from "./dashboard/PartyExpenseBreakdownTile";
-import { PartyLink } from "./components/party/PartyLink";
+import { PartyHeader } from "./components/party/PartyHeader";
 import { ErrorSection } from "./components/ErrorSection";
 
 export const PartyExpensesScreen: FC = () => {
@@ -45,28 +44,23 @@ export const PartyExpensesScreen: FC = () => {
     );
   }
 
-  const title = nickName
+  const partyName = nickName
     ? (fullNameFor(nickName, selected) ?? party?.name ?? nickName)
     : "";
+  const subtitle = t("campaign_cost");
   const priorElection = priorFinancing ? priorElections?.name : undefined;
   const filing = financing?.data.filing;
   const priorFiling = priorFinancing?.data.filing;
 
   return (
-    <div className="w-full max-w-7xl mx-auto px-4 pb-12">
-      <Title
-        className="w-auto flex justify-center md:py-10"
-        title={title}
-        description={`${t("campaign_cost")} — ${title}`}
-      >
-        <PartyLink
-          className="w-auto px-4"
-          party={party}
-          width="w-16"
-          link={false}
-        />
-      </Title>
-      <Caption>{`${title} — ${t("campaign_cost")}`}</Caption>
+    <div className="w-full max-w-7xl mx-auto px-4 md:px-8 pb-12">
+      <PartyHeader
+        party={party}
+        fullName={partyName}
+        subtitle={subtitle}
+        seoTitle={`${partyName} — ${subtitle}`}
+        seoDescription={`${subtitle} — ${partyName}`}
+      />
       <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 my-4">
         <PartyCampaignCostCard
           filing={filing}

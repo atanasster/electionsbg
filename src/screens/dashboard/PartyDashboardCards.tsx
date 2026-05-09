@@ -18,6 +18,7 @@ import { PartyTopMunicipalitiesTile } from "./PartyTopMunicipalitiesTile";
 import { PartyTopSettlementsTile } from "./PartyTopSettlementsTile";
 import { PartyTopCandidatesTile } from "./PartyTopCandidatesTile";
 import { PartyMpAssetsTile } from "./PartyMpAssetsTile";
+import { PartyCarMakesTile } from "./PartyCarMakesTile";
 import { PartyRegionSwingsTile } from "./PartyRegionSwingsTile";
 import { PartyAssessmentTile } from "./PartyAssessmentTile";
 import { PartyExpenseBreakdownTile } from "./PartyExpenseBreakdownTile";
@@ -213,14 +214,17 @@ export const PartyDashboardCards: FC<Props> = ({ party }) => {
         {hasPreferences ? (
           <DashboardSection
             id="declarations"
-            title={t("dashboard_section_declarations")}
+            title={t("dashboard_section_candidates")}
             icon={Briefcase}
             articleTopic="declarations"
           >
             <div className={TILE_HEIGHTS.topCandidates}>
               <PartyTopCandidatesTile data={data} />
             </div>
-            <PartyMpAssetsTile data={data} />
+            <div className="grid gap-4 grid-cols-1 lg:grid-cols-2">
+              <PartyMpAssetsTile data={data} />
+              <PartyCarMakesTile data={data} />
+            </div>
           </DashboardSection>
         ) : null}
 

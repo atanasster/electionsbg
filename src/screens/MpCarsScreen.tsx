@@ -12,6 +12,9 @@ import type { MpCarRow } from "@/data/dataTypes";
 import { DataTable, DataTableColumns } from "@/ux/data_table/DataTable";
 import { useRegionScope } from "@/screens/utils/useRegionScope";
 import { RegionScopeChip } from "@/screens/utils/RegionScopeChip";
+import { usePartyScope } from "@/screens/utils/usePartyScope";
+import { PartyScopeChip } from "@/screens/utils/PartyScopeChip";
+import { PartyHeader } from "@/screens/components/party/PartyHeader";
 
 type Scope = "ns" | "all";
 
@@ -27,7 +30,18 @@ export const MpCarsScreen: FC = () => {
   const { mpCars } = useMpCars();
   const { selected } = useElectionContext();
   const [scope, setScope] = useState<Scope>("ns");
-  const { regionMpIds, label: regionLabel, clearedParams } = useRegionScope();
+  const {
+    regionMpIds,
+    label: regionLabel,
+    clearedParams: regionClearedParams,
+  } = useRegionScope();
+  const {
+    party: scopedParty,
+    partyMpIds,
+    label: partyLabel,
+    fullName: partyFullName,
+    clearedParams: partyClearedParams,
+  } = usePartyScope();
 
   const folder = useMemo(() => electionToNsFolder(selected), [selected]);
 
@@ -45,8 +59,11 @@ export const MpCarsScreen: FC = () => {
     if (regionMpIds) {
       rows = rows.filter((c) => regionMpIds.has(c.mpId));
     }
+    if (partyMpIds) {
+      rows = rows.filter((c) => partyMpIds.has(c.mpId));
+    }
     return rows;
-  }, [mpCars, scope, folder, regionMpIds]);
+  }, [mpCars, scope, folder, regionMpIds, partyMpIds]);
 
   const columns: DataTableColumns<MpCarRow, unknown> = useMemo(
     () => [
@@ -174,7 +191,13 @@ export const MpCarsScreen: FC = () => {
   const scopeToggle = (
     <div className="flex items-center gap-2 flex-wrap">
       {regionLabel && (
-        <RegionScopeChip label={regionLabel} clearedParams={clearedParams} />
+        <RegionScopeChip
+          label={regionLabel}
+          clearedParams={regionClearedParams}
+        />
+      )}
+      {partyLabel && (
+        <PartyScopeChip label={partyLabel} clearedParams={partyClearedParams} />
       )}
       <button
         type="button"
@@ -203,11 +226,29 @@ export const MpCarsScreen: FC = () => {
     </div>
   );
 
+  const pageTitle = t("mp_cars_page_title") || "MP-declared cars";
+
   return (
-    <div className="w-full">
-      <Title description={t("mp_cars_page_description") || ""}>
-        {t("mp_cars_page_title") || "MP-declared cars"}
-      </Title>
+    <div
+      className={
+        partyFullName
+          ? "w-full max-w-7xl mx-auto px-4 md:px-8 pb-12"
+          : "w-full"
+      }
+    >
+      {partyFullName ? (
+        <PartyHeader
+          party={scopedParty}
+          fullName={partyFullName}
+          subtitle={pageTitle}
+          seoTitle={`${partyFullName} — ${pageTitle}`}
+          seoDescription={t("mp_cars_page_description") || pageTitle}
+        />
+      ) : (
+        <Title description={t("mp_cars_page_description") || ""}>
+          {pageTitle}
+        </Title>
+      )}
 
       <div className="text-xs text-muted-foreground mt-4 mb-2">
         {t("mp_cars_page_summary", {
@@ -220,7 +261,7 @@ export const MpCarsScreen: FC = () => {
       </div>
 
       <DataTable<MpCarRow, unknown>
-        title={t("mp_cars_page_title") || "MP-declared cars"}
+        title={pageTitle}
         pageSize={25}
         columns={columns}
         data={source}

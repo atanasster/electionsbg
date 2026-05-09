@@ -2,12 +2,10 @@ import { useElectionContext } from "@/data/ElectionContext";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { usePartyInfo } from "@/data/parties/usePartyInfo";
 import { findPartyByNickName, localDate } from "@/data/utils";
-import { Caption } from "@/ux/Caption";
-import { Title } from "@/ux/Title";
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { ErrorSection } from "../ErrorSection";
-import { PartyLink } from "./PartyLink";
+import { PartyHeader } from "./PartyHeader";
 import { PartyDashboardCards } from "@/screens/dashboard/PartyDashboardCards";
 
 export const Party: FC<{ nickName: string }> = ({ nickName }) => {
@@ -17,7 +15,7 @@ export const Party: FC<{ nickName: string }> = ({ nickName }) => {
   const { displayNameFor, fullNameFor } = useCanonicalParties();
   const party = findPartyByNickName(parties, nickName);
   const heading = displayNameFor(nickName) ?? nickName;
-  const title = fullNameFor(nickName, selected) ?? party?.name ?? nickName;
+  const fullName = fullNameFor(nickName, selected) ?? party?.name ?? nickName;
   return (
     <div className="w-full">
       {parties && !party ? (
@@ -27,19 +25,12 @@ export const Party: FC<{ nickName: string }> = ({ nickName }) => {
         />
       ) : (
         <>
-          <Title
-            className="w-auto flex justify-center md:py-10"
-            title={heading}
-            description={`Results for party ${title}`}
-          >
-            <PartyLink
-              className="w-auto px-4"
-              party={party}
-              width="w-16"
-              link={false}
-            />
-          </Title>
-          <Caption>{title}</Caption>
+          <PartyHeader
+            party={party}
+            fullName={fullName}
+            seoTitle={heading}
+            seoDescription={`Results for party ${fullName}`}
+          />
           {party && <PartyDashboardCards party={party} />}
         </>
       )}

@@ -4,7 +4,6 @@ import { PartyResultsRow } from "@/data/dataTypes";
 import { useTranslation } from "react-i18next";
 import { useRegions } from "@/data/regions/useRegions";
 import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
-import { Caption } from "@/ux/Caption";
 import { Link } from "@/ux/Link";
 import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
 import { useSettlementsInfo } from "@/data/settlements/useSettlements";
@@ -235,7 +234,6 @@ export function PartyResultsTable({
   );
   return data?.length ? (
     <div className="w-full">
-      <Caption className="py-8">{title}</Caption>
       <DataTable
         title={title}
         pageSize={Math.min(data.length, 32)}

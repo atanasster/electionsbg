@@ -15,6 +15,7 @@ import { useRegionScope } from "@/screens/utils/useRegionScope";
 import { RegionScopeChip } from "@/screens/utils/RegionScopeChip";
 import { usePartyScope } from "@/screens/utils/usePartyScope";
 import { PartyScopeChip } from "@/screens/utils/PartyScopeChip";
+import { PartyHeader } from "@/screens/components/party/PartyHeader";
 
 type Scope = "ns" | "all";
 
@@ -36,6 +37,7 @@ export const AllMpAssetsScreen: FC = () => {
     clearedParams: regionClearedParams,
   } = useRegionScope();
   const {
+    party: scopedParty,
     partyMpIds,
     label: partyLabel,
     fullName: partyFullName,
@@ -235,34 +237,32 @@ export const AllMpAssetsScreen: FC = () => {
     </div>
   );
 
+  const pageTitle = t("mp_assets_page_title") || "MPs by declared assets";
+
   return (
-    <div className="w-full">
-      <Title
-        description={t("mp_assets_page_description") || ""}
-        title={
-          partyFullName
-            ? `${partyFullName} — ${t("mp_assets_page_title") || "MPs by declared assets"}`
-            : t("mp_assets_page_title") || "MPs by declared assets"
-        }
-        className={
-          partyFullName
-            ? "text-base md:text-xl lg:text-2xl py-4 md:py-6"
-            : undefined
-        }
-      >
-        {partyFullName ? (
-          <>
-            {partyFullName}
-            <br />
-            {t("mp_assets_page_title") || "MPs by declared assets"}
-          </>
-        ) : (
-          t("mp_assets_page_title") || "MPs by declared assets"
-        )}
-      </Title>
+    <div
+      className={
+        partyFullName
+          ? "w-full max-w-7xl mx-auto px-4 md:px-8 pb-12"
+          : "w-full"
+      }
+    >
+      {partyFullName ? (
+        <PartyHeader
+          party={scopedParty}
+          fullName={partyFullName}
+          subtitle={pageTitle}
+          seoTitle={`${partyFullName} — ${pageTitle}`}
+          seoDescription={t("mp_assets_page_description") || pageTitle}
+        />
+      ) : (
+        <Title description={t("mp_assets_page_description") || ""}>
+          {pageTitle}
+        </Title>
+      )}
 
       <DataTable<MpAssetsRankingEntry, unknown>
-        title={t("mp_assets_page_title") || "MPs by declared assets"}
+        title={pageTitle}
         pageSize={25}
         columns={columns}
         data={source}

@@ -6,6 +6,7 @@ import { useMps } from "@/data/parliament/useMps";
 import { usePartyInfo } from "@/data/parties/usePartyInfo";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { useElectionContext } from "@/data/ElectionContext";
+import type { PartyInfo } from "@/data/dataTypes";
 
 /** URL-driven party filter for detail pages (/mp-assets, /mp-cars, ...).
  *
@@ -23,6 +24,8 @@ import { useElectionContext } from "@/data/ElectionContext";
 export type PartyScope = {
   partyNum: number | null;
   partyMpIds: Set<number> | null;
+  /** Resolved PartyInfo for the current election, when one is found. */
+  party: PartyInfo | undefined;
   /** Short label (nickName) for chips. */
   label: string | null;
   /** Canonical full party name for the current election, for page titles. */
@@ -124,5 +127,5 @@ export const usePartyScope = (): PartyScope => {
     return next;
   }, [searchParams]);
 
-  return { partyNum, partyMpIds, label, fullName, clearedParams };
+  return { partyNum, partyMpIds, party, label, fullName, clearedParams };
 };
