@@ -131,11 +131,11 @@ const queryFn = async ({
 };
 
 export const useMpProfile = (name?: string | null) => {
-  const { findMpByName, currentNs } = useMps();
+  const { findMpByName, currentNs, isLoading: mpsLoading } = useMps();
   const indexEntry = findMpByName(name);
   const id = indexEntry?.id;
 
-  const { data: raw } = useQuery({
+  const { data: raw, isLoading: profileLoading } = useQuery({
     queryKey: ["parliament_profile", id] as [string, number | undefined],
     queryFn,
     enabled: !!id,
@@ -152,5 +152,10 @@ export const useMpProfile = (name?: string | null) => {
     });
   }, [raw, indexEntry]);
 
-  return { profile, indexEntry, ns: currentNs };
+  // isLoading reflects "we don't yet know whether this name maps to an MP".
+  // Once the parliament index has resolved, indexEntry presence is decisive
+  // even if the profile JSON is still in flight.
+  const isLoading = mpsLoading || (!!id && profileLoading);
+
+  return { profile, indexEntry, ns: currentNs, isLoading };
 };

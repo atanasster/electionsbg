@@ -80,10 +80,24 @@ const ORDER: MpAssetCategory[] = [
 
 export const MpAssetsSummary: FC<Props> = ({ name, linkSlug }) => {
   const { t, i18n } = useTranslation();
-  const { rollup } = useMpAssets(name);
-  const { declarations } = useMpDeclarations(name);
+  const { rollup, isLoading: assetsLoading } = useMpAssets(name);
+  const { declarations, isLoading: declsLoading } = useMpDeclarations(name);
 
-  if (!rollup) return null;
+  if (!rollup) {
+    // Reserve the typical card height while data is in flight so the
+    // candidate page doesn't shift down when this drops in. After the
+    // queries resolve, render nothing if there are no assets to show.
+    if (assetsLoading || declsLoading) {
+      return (
+        <Card className="my-4" aria-hidden>
+          <CardContent>
+            <div className="min-h-[260px]" />
+          </CardContent>
+        </Card>
+      );
+    }
+    return null;
+  }
 
   const lang = i18n.language;
   const declarantName = declarations[0]?.declarantName ?? null;
@@ -120,7 +134,7 @@ export const MpAssetsSummary: FC<Props> = ({ name, linkSlug }) => {
   return (
     <Card className="my-4">
       <CardHeader className="pb-2">
-        <CardTitle className="text-base flex items-center gap-2">
+        <CardTitle className="text-base flex items-center gap-2 flex-wrap">
           <Wallet className="h-4 w-4" />
           {t("mp_assets_title") || "Declared assets"}
           <span className="text-xs font-normal text-muted-foreground">

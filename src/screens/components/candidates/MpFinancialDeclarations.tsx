@@ -234,7 +234,7 @@ const StakeRow: FC<{ stake: ConsolidatedStake; lang: string }> = ({
 
 export const MpFinancialDeclarations: FC<{ name: string }> = ({ name }) => {
   const { t, i18n } = useTranslation();
-  const { declarations } = useMpDeclarations(name);
+  const { declarations, isLoading } = useMpDeclarations(name);
 
   const consolidated = useMemo(
     () => consolidate(declarations.filter((d) => d.ownershipStakes.length > 0)),
@@ -249,7 +249,20 @@ export const MpFinancialDeclarations: FC<{ name: string }> = ({ name }) => {
     [declarations],
   );
 
-  if (consolidated.length === 0) return null;
+  if (consolidated.length === 0) {
+    // Reserve a placeholder card while declarations are loading so this
+    // section doesn't pop in and push the rest of the candidate page down.
+    if (isLoading) {
+      return (
+        <Card className="my-4" aria-hidden>
+          <CardContent>
+            <div className="min-h-[180px]" />
+          </CardContent>
+        </Card>
+      );
+    }
+    return null;
+  }
 
   return (
     <Card className="my-4">

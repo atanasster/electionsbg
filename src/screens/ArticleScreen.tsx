@@ -43,32 +43,30 @@ export const ArticleScreen: FC = () => {
           {t("articles_title")}
         </RouterLink>
 
+        <header className="mt-4 mb-8 border-b border-border/60 pb-6">
+          {formattedDate ? (
+            <div className="text-[11px] font-medium uppercase tracking-[0.12em] text-muted-foreground">
+              {formattedDate}
+            </div>
+          ) : null}
+          <h1 className="mt-2 text-2xl md:text-3xl font-extrabold leading-tight tracking-tight text-foreground">
+            {title}
+          </h1>
+          {description ? (
+            <p className="mt-3 text-base md:text-lg leading-relaxed text-muted-foreground">
+              {description}
+            </p>
+          ) : null}
+        </header>
+
         {isLoading ? (
-          <div className="mt-8 text-sm text-muted-foreground">
-            {t("loading")}
-          </div>
+          <div className="text-sm text-muted-foreground">{t("loading")}</div>
         ) : isError || !bodyWithoutH1 ? (
-          <div className="mt-8 text-sm text-muted-foreground">
+          <div className="text-sm text-muted-foreground">
             {t("articles_not_found")}
           </div>
         ) : (
           <>
-            <header className="mt-4 mb-8 border-b border-border/60 pb-6">
-              {formattedDate ? (
-                <div className="text-[11px] font-medium uppercase tracking-[0.12em] text-muted-foreground">
-                  {formattedDate}
-                </div>
-              ) : null}
-              <h1 className="mt-2 text-2xl md:text-3xl font-extrabold leading-tight tracking-tight text-foreground">
-                {title}
-              </h1>
-              {description ? (
-                <p className="mt-3 text-base md:text-lg leading-relaxed text-muted-foreground">
-                  {description}
-                </p>
-              ) : null}
-            </header>
-
             <div className="prose-article">
               <Markdown
                 remarkPlugins={[remarkGfm]}
@@ -182,6 +180,20 @@ export const ArticleScreen: FC = () => {
                     <blockquote className="my-4 border-l-4 border-primary/40 pl-4 italic text-muted-foreground">
                       {children}
                     </blockquote>
+                  ),
+                  img: ({ src, alt }) => (
+                    // [aspect-ratio:16/9] reserves space before the image
+                    // loads so the article body doesn't reflow per image.
+                    // object-contain lets non-16:9 images letterbox rather
+                    // than crop. Authors who want a tighter ratio can
+                    // override per-image via inline HTML.
+                    <img
+                      src={src}
+                      alt={alt ?? ""}
+                      loading="lazy"
+                      decoding="async"
+                      className="my-6 w-full rounded-lg border border-border/40 [aspect-ratio:16/9] object-contain bg-muted/30"
+                    />
                   ),
                 }}
               >

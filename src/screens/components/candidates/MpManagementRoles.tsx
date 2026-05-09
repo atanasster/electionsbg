@@ -168,14 +168,27 @@ const RoleRow: FC<{ group: GroupedRole }> = ({ group }) => {
 
 export const MpManagementRoles: FC<{ name: string }> = ({ name }) => {
   const { t } = useTranslation();
-  const { management } = useMpManagement(name);
+  const { management, isLoading } = useMpManagement(name);
 
   const groups = useMemo(
     () => (management ? groupRolesByUic(management.roles) : []),
     [management],
   );
 
-  if (!management || groups.length === 0) return null;
+  if (!management || groups.length === 0) {
+    // Reserve a placeholder while the management JSON is loading so the
+    // candidate page doesn't shift when this section drops in.
+    if (isLoading) {
+      return (
+        <Card className="my-4" aria-hidden>
+          <CardContent>
+            <div className="min-h-[160px]" />
+          </CardContent>
+        </Card>
+      );
+    }
+    return null;
+  }
 
   return (
     <Card className="my-4">

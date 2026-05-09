@@ -79,11 +79,13 @@ export const SectionScreen = () => {
         description={titleStr}
       />
       <H1>{title}</H1>
-      {subtitle ? (
-        <p className="text-center text-sm text-muted-foreground -mt-2 mb-2">
-          {subtitle}
-        </p>
-      ) : null}
+      {/* Subtitle line is always rendered so it reserves the same vertical
+        space whether or not section data has loaded yet. Without this, the
+        line drops in once `useSectionsVotes` resolves and pushes the
+        dashboard cards below it down by ~24px. */}
+      <p className="text-center text-sm text-muted-foreground -mt-2 mb-2 min-h-[1.25rem]">
+        {subtitle}
+      </p>
       {problemNeighborhood ? (
         <div className="flex justify-center mb-2">
           <Link

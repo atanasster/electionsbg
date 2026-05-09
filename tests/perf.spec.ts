@@ -123,6 +123,22 @@ test.describe("performance", () => {
       path: "/reports/municipality/turnout",
       label: "report — municipality turnout",
     },
+    // Routes flagged in Search Console CWV report on 2026-05-09 — initially
+    // not covered by the gate, each had a sub-component that returned `null`
+    // until its query resolved and then injected hundreds of pixels mid-page.
+    {
+      path: "/candidate/%D0%9A%D0%B8%D1%80%D0%B8%D0%BB%20%D0%99%D0%BE%D1%81%D0%B8%D1%84%D0%BE%D0%B2%20%D0%92%D0%B0%D1%81%D0%B8%D0%BB%D0%B5%D0%B2",
+      label: "candidate detail (MP)",
+    },
+    { path: "/sections/IT", label: "sections list — international" },
+    {
+      path: "/reports/section/problem_sections",
+      label: "report — problem sections",
+    },
+    {
+      path: "/en/articles/2026-05-04-mp-connections",
+      label: "article — mp-connections",
+    },
   ];
 
   for (const { path, label } of CLS_ROUTES) {
@@ -148,6 +164,68 @@ test.describe("performance", () => {
               }
             }).observe({ type: "layout-shift", buffered: true });
             setTimeout(() => resolve(total), 1500);
+          }),
+      );
+      expect(cls, `CLS=${cls.toFixed(4)} on ${path}`).toBeLessThan(0.1);
+    });
+  }
+
+  // Slow-network CLS check. The unthrottled tests above can pass even when a
+  // page injects content asynchronously, because the firebase emulator
+  // serves JSON fast enough that fetches complete before first paint. Field
+  // CrUX (the metric Search Console reports) sees real-world latency, where
+  // those late fetches manifest as layout shifts. We pick the routes whose
+  // shape is most sensitive to staggered data arrival (multi-card pages
+  // with per-card queries) and re-run the gate while delaying each /static
+  // JSON response by 800ms — enough to push the data past first paint.
+  const SLOW_CLS_ROUTES: Array<{ path: string; label: string }> = [
+    {
+      path: "/candidate/%D0%9A%D0%B8%D1%80%D0%B8%D0%BB%20%D0%99%D0%BE%D1%81%D0%B8%D1%84%D0%BE%D0%B2%20%D0%92%D0%B0%D1%81%D0%B8%D0%BB%D0%B5%D0%B2",
+      label: "candidate detail (MP)",
+    },
+    {
+      path: "/reports/section/problem_sections",
+      label: "report — problem sections",
+    },
+    {
+      path: "/en/articles/2026-05-04-mp-connections",
+      label: "article — mp-connections",
+    },
+  ];
+
+  for (const { path, label } of SLOW_CLS_ROUTES) {
+    test(`CLS stays under 0.1 with slow JSON — ${label} (${path})`, async ({
+      page,
+    }) => {
+      await page.route("**/*.json", async (route) => {
+        await new Promise((r) => setTimeout(r, 800));
+        await route.continue();
+      });
+      await page.route("**/*.md", async (route) => {
+        await new Promise((r) => setTimeout(r, 800));
+        await route.continue();
+      });
+      await page.goto(path, { waitUntil: "networkidle" });
+      const cls = await page.evaluate(
+        () =>
+          new Promise<number>((resolve) => {
+            let total = 0;
+            new PerformanceObserver((list) => {
+              for (const e of list.getEntries() as PerformanceEntry[] &
+                {
+                  hadRecentInput?: boolean;
+                  value?: number;
+                }[]) {
+                const ls = e as PerformanceEntry & {
+                  hadRecentInput?: boolean;
+                  value?: number;
+                };
+                if (!ls.hadRecentInput && typeof ls.value === "number") {
+                  total += ls.value;
+                }
+              }
+            }).observe({ type: "layout-shift", buffered: true });
+            setTimeout(() => resolve(total), 2500);
           }),
       );
       expect(cls, `CLS=${cls.toFixed(4)} on ${path}`).toBeLessThan(0.1);

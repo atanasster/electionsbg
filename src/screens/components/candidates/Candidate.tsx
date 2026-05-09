@@ -33,9 +33,16 @@ export const Candidate: FC<{ name: string }> = ({ name }) => {
   const { isEn, nameForBg } = useCandidateName();
 
   if (isLoading) {
+    // Reserve roughly the height of a typical candidate page so the layout
+    // doesn't jump from a one-line "Loading…" to a multi-card screen once
+    // the candidate index resolves. This was the dominant CLS source on
+    // /candidate/* pages because the swap inserts ~1500px above the fold.
     return (
-      <div className="w-full px-4 md:px-8 py-6 text-sm text-muted-foreground">
-        {t("loading") || "Loading…"}
+      <div className="w-full px-4 md:px-8 py-6">
+        <div className="text-sm text-muted-foreground text-center">
+          {t("loading") || "Loading…"}
+        </div>
+        <div aria-hidden className="min-h-[1200px]" />
       </div>
     );
   }

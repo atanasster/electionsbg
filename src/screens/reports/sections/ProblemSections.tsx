@@ -53,7 +53,20 @@ export const ProblemSections = () => {
 
   const title = t("problem_sections");
 
-  if (isLoading) return null;
+  if (isLoading) {
+    // Render the page shell with a min-height body so the route reaches its
+    // final size before the neighborhoods + dashboard cards arrive. Without
+    // this the page is empty until data resolves, then injects ~1500px of
+    // content — a sitewide CLS source on this report.
+    return (
+      <div className="w-full">
+        <div className="px-4 md:px-8">
+          <H1>{title}</H1>
+          <div className="min-h-[1200px]" />
+        </div>
+      </div>
+    );
+  }
 
   if (!data || !data.neighborhoods.length) {
     return (

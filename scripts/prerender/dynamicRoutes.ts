@@ -127,6 +127,43 @@ export const buildPartyRoutes = (
     const titleEn = `${label} — Bulgarian Parliamentary Elections | electionsbg.com`;
     const descriptionEn = `Results of ${label} by year, region, municipality and section in Bulgaria's parliamentary elections since 2005, plus declared campaign financing.`;
     const bodyHtml = buildPartyBody(publicFolder, latestElection, p, summary);
+    // Distribution links point at the structured data files the party page
+    // is built from. Search engines and dataset crawlers (Google Dataset
+    // Search, OpenAIRE, etc.) use these to ingest the underlying numbers.
+    const distribution = [
+      {
+        url: `${SITE_URL}/${latestElection}/cik_parties.json`,
+        name: "Списък на партиите (JSON)",
+      },
+      {
+        url: `${SITE_URL}/${latestElection}/parties/by_region/${p.number}.json`,
+        name: `${label} — резултати по области (JSON)`,
+      },
+      {
+        url: `${SITE_URL}/${latestElection}/parties/by_municipality/${p.number}.json`,
+        name: `${label} — резултати по общини (JSON)`,
+      },
+    ];
+    const distributionEn = [
+      {
+        url: `${SITE_URL}/${latestElection}/cik_parties.json`,
+        name: "Party list (JSON)",
+      },
+      {
+        url: `${SITE_URL}/${latestElection}/parties/by_region/${p.number}.json`,
+        name: `${label} — results by region (JSON)`,
+      },
+      {
+        url: `${SITE_URL}/${latestElection}/parties/by_municipality/${p.number}.json`,
+        name: `${label} — results by municipality (JSON)`,
+      },
+    ];
+    const datasetKeywords = [label, "парламентарни избори", "резултати"];
+    const datasetKeywordsEn = [
+      label,
+      "Bulgarian parliamentary elections",
+      "results",
+    ];
     return {
       path: `party/${p.nickName}`,
       title,
@@ -135,6 +172,14 @@ export const buildPartyRoutes = (
       bodyHtml,
       jsonLd: [
         buildWebPageLd({ title, description, url }),
+        buildDatasetLd({
+          name: `${label} — резултати на парламентарни избори`,
+          description,
+          url,
+          spatialCoverage: "България",
+          keywords: datasetKeywords,
+          distribution,
+        }),
         buildBreadcrumbLd([
           { name: "Начало", url: `${SITE_URL}/` },
           { name: label, url },
@@ -150,6 +195,14 @@ export const buildPartyRoutes = (
             description: descriptionEn,
             url: enUrl,
             inLanguage: "en",
+          }),
+          buildDatasetLd({
+            name: `${label} — Bulgarian parliamentary election results`,
+            description: descriptionEn,
+            url: enUrl,
+            spatialCoverage: "Bulgaria",
+            keywords: datasetKeywordsEn,
+            distribution: distributionEn,
           }),
           buildBreadcrumbLd([
             { name: "Home", url: `${SITE_URL}/en/` },

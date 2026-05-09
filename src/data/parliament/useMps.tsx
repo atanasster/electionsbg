@@ -37,7 +37,7 @@ const queryFn = async (): Promise<IndexFile | undefined> => {
 };
 
 export const useMps = () => {
-  const { data } = useQuery({
+  const { data, isLoading } = useQuery({
     queryKey: ["parliament_index"] as [string],
     queryFn,
     staleTime: Infinity,
@@ -92,5 +92,6 @@ export const useMps = () => {
     findMpByName,
     findMpById,
     findMpsByRegion,
+    isLoading,
   };
 };

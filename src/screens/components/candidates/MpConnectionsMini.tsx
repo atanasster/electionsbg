@@ -48,7 +48,7 @@ export const MpConnectionsMini: FC<{ name: string; linkSlug?: string }> = ({
   linkSlug,
 }) => {
   const { t } = useTranslation();
-  const { subgraph } = useMpConnections(name);
+  const { subgraph, isLoading } = useMpConnections(name);
   const simRef = useRef<Simulation<
     ConnectionsSimNode,
     ConnectionsSimLink
@@ -284,7 +284,21 @@ export const MpConnectionsMini: FC<{ name: string; linkSlug?: string }> = ({
     };
   }, [simNodes, simLinks, isStaticLayout]);
 
-  if (!subgraph || subgraph.nodes.length <= 1) return null;
+  if (!subgraph || subgraph.nodes.length <= 1) {
+    // Reserve space for the connections graph card while it's loading so
+    // the candidate page settles at its final height before the SVG drops
+    // in. The graph is the tallest sub-card (~400px) so this matters most.
+    if (isLoading) {
+      return (
+        <Card className="my-4" aria-hidden>
+          <CardContent>
+            <div className="min-h-[420px]" />
+          </CardContent>
+        </Card>
+      );
+    }
+    return null;
+  }
 
   const otherMpCount = subgraph.nodes.filter(
     (n) => n.type === "mp" && n.id !== subgraph.mpNodeId,

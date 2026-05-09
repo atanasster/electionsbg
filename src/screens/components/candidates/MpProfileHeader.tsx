@@ -30,12 +30,25 @@ const formatDate = (iso: string | null, lang: string) => {
 export const MpProfileHeader: FC<{ name: string }> = ({ name }) => {
   const { t, i18n } = useTranslation();
   const isEn = i18n.language === "en";
-  const { profile, indexEntry, ns } = useMpProfile(name);
+  const { profile, indexEntry, ns, isLoading } = useMpProfile(name);
   const { mpName } = useCandidateName();
   const { partyGroupShortLabel } = useCanonicalParties();
 
-  // Show as soon as we have the index entry — even before the heavier profile loads
-  if (!indexEntry) return null;
+  // Reserve the card's height while the parliament index resolves so the
+  // candidate page doesn't shift down when the avatar + meta row drops in.
+  // Once we know there's no MP for this name, render nothing.
+  if (!indexEntry) {
+    if (isLoading) {
+      return (
+        <Card className="my-3" aria-hidden>
+          <CardContent className="p-3 md:p-4">
+            <div className="min-h-[120px] md:min-h-[112px]" />
+          </CardContent>
+        </Card>
+      );
+    }
+    return null;
+  }
 
   const localizedName = mpName(indexEntry);
   const photoUrl = indexEntry.photoUrl;
