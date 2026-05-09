@@ -51,7 +51,7 @@ export const AgencyMaeHistory: FC<{
         <ResponsiveContainer width="100%" height="100%">
           <LineChart
             data={data}
-            margin={{ top: 6, right: 8, left: -16, bottom: 0 }}
+            margin={{ top: 6, right: 8, left: 0, bottom: 0 }}
           >
             <CartesianGrid
               strokeDasharray="3 3"
@@ -72,7 +72,7 @@ export const AgencyMaeHistory: FC<{
               tick={{ fontSize: 9 }}
               tickLine={false}
               axisLine={false}
-              width={28}
+              width={32}
               domain={[0, maxY]}
               tickFormatter={(v) => `${v}`}
             />

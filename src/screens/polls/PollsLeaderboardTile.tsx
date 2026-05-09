@@ -67,19 +67,23 @@ export const PollsLeaderboardTile: FC<Props> = ({ profiles, agencies }) => {
             {t("polls_plus_minus")}
           </span>
         </Hint>
-        <Hint text={t("polls_barrier_call_hint")} underline={false}>
-          <span className="hidden md:block text-[10px] font-medium uppercase tracking-wide text-muted-foreground text-right whitespace-normal leading-tight">
-            {t("polls_barrier_call")}
-          </span>
-        </Hint>
+        <span className="hidden md:block">
+          <Hint text={t("polls_barrier_call_hint")} underline={false}>
+            <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground text-right whitespace-normal leading-tight">
+              {t("polls_barrier_call")}
+            </span>
+          </Hint>
+        </span>
         <span className="hidden lg:block text-[10px] font-medium uppercase tracking-wide text-muted-foreground text-right">
           {t("polls_elections")}
         </span>
-        <Hint text={t("polls_median_days_before_hint")} underline={false}>
-          <span className="hidden lg:block text-[10px] font-medium uppercase tracking-wide text-muted-foreground text-right whitespace-normal leading-tight">
-            {t("polls_median_days_before")}
-          </span>
-        </Hint>
+        <span className="hidden lg:block">
+          <Hint text={t("polls_median_days_before_hint")} underline={false}>
+            <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground text-right whitespace-normal leading-tight">
+              {t("polls_median_days_before")}
+            </span>
+          </Hint>
+        </span>
 
         {profiles.map((p, idx) => {
           const a = agencyById.get(p.agencyId);

@@ -18,6 +18,8 @@ export const PollsMethodologyTile: FC = () => {
         <p>{t("polls_methodology_intro")}</p>
         <p>{t("polls_methodology_normalization")}</p>
         <p>{t("polls_methodology_genre")}</p>
+        <p>{t("polls_methodology_shrunk")}</p>
+        <p>{t("polls_methodology_grade")}</p>
         <p className="text-xs">{t("polls_methodology_caveat")}</p>
       </div>
     </StatCard>
