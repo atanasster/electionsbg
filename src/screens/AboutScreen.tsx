@@ -206,6 +206,37 @@ export const AboutScreen = () => {
               </ul>
             </DataGroup>
 
+            <DataGroup title={t("mp_business_interests")}>
+              <ul className="space-y-2">
+                <SourceItem
+                  href="https://register.cacbg.bg/"
+                  label={t("mp_declarations_source")}
+                />
+                <SourceItem
+                  href="https://data.egov.bg/"
+                  label={t("commerce_registry_source")}
+                />
+              </ul>
+            </DataGroup>
+
+            <DataGroup title={t("census_section")}>
+              <ul className="space-y-2">
+                <SourceItem
+                  href="https://census2021.bg/"
+                  label={t("census_2021_source")}
+                />
+              </ul>
+            </DataGroup>
+
+            <DataGroup title={t("polls_data_section")}>
+              <ul className="space-y-2">
+                <SourceItem
+                  href="https://bg.wikipedia.org/"
+                  label={t("polls_wikipedia_source")}
+                />
+              </ul>
+            </DataGroup>
+
             <DataGroup title={t("election_results")}>
               <div className="flex flex-wrap gap-2">
                 {electionResults.map((e) => (

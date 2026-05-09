@@ -208,6 +208,7 @@ The SPA is fully static. SPA rewrites and per-route prerendering are configured 
 
 ### Election results (CIK)
 
+- [19.04.2026](https://results.cik.bg/pe202604/opendata/index.html)
 - [27.10.2024](https://results.cik.bg/pe202410/opendata/index.html)
 - [09.06.2024](https://results.cik.bg/europe2024/opendata/index.html)
 - [02.04.2023](https://results.cik.bg/ns2023/csv.html)
