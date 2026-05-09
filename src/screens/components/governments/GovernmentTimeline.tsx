@@ -26,6 +26,10 @@ import { cn } from "@/lib/utils";
 import { useMps } from "@/data/parliament/useMps";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
+import {
+  toFractionalYear,
+  xDomainFor,
+} from "@/screens/components/governments/governmentTimelineUtils";
 
 const ELECTION_DATES = [
   "2005_06_25",
@@ -42,16 +46,6 @@ const ELECTION_DATES = [
   "2024_10_27",
   "2026_04_19",
 ];
-
-// Year fraction so that we can place dates on a numeric X axis. Jan 1 = .00,
-// Dec 31 ≈ .997. Good enough for visual placement at year-resolution.
-export const toFractionalYear = (iso: string): number => {
-  const d = new Date(iso);
-  const y = d.getUTCFullYear();
-  const start = Date.UTC(y, 0, 1);
-  const end = Date.UTC(y + 1, 0, 1);
-  return y + (d.getTime() - start) / (end - start);
-};
 
 const isoFromElectionKey = (key: string) => key.replace(/_/g, "-");
 
@@ -74,9 +68,7 @@ const resolvePartyColor = (
 ): string => {
   if (!nickName) return FALLBACK_PARTY_COLOR;
   return (
-    colorFor(nickName) ??
-    LEGACY_PARTY_COLORS[nickName] ??
-    FALLBACK_PARTY_COLOR
+    colorFor(nickName) ?? LEGACY_PARTY_COLORS[nickName] ?? FALLBACK_PARTY_COLOR
   );
 };
 
@@ -84,15 +76,19 @@ const resolvePartyColor = (
 // rgba()/hex inputs into the same rgba() representation with a chosen alpha.
 const withAlpha = (color: string, alpha: number): string => {
   const trimmed = color.trim();
-  const rgbMatch = trimmed.match(
-    /^rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)/i,
-  );
+  const rgbMatch = trimmed.match(/^rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)/i);
   if (rgbMatch) {
     return `rgba(${rgbMatch[1]}, ${rgbMatch[2]}, ${rgbMatch[3]}, ${alpha})`;
   }
   if (trimmed.startsWith("#")) {
     const h = trimmed.slice(1);
-    const expand = h.length === 3 ? h.split("").map((c) => c + c).join("") : h;
+    const expand =
+      h.length === 3
+        ? h
+            .split("")
+            .map((c) => c + c)
+            .join("")
+        : h;
     const r = parseInt(expand.slice(0, 2), 16);
     const g = parseInt(expand.slice(2, 4), 16);
     const b = parseInt(expand.slice(4, 6), 16);
@@ -110,7 +106,7 @@ const colorForGovernment = (
   return withAlpha(resolvePartyColor(g.parties[0], colorFor), alpha);
 };
 
-export const colorForGovernmentSolid = (
+const colorForGovernmentSolid = (
   g: Government,
   colorFor: ColorResolver,
 ): string => {
@@ -133,20 +129,6 @@ const SERIES_COLORS: Record<MacroIndicatorKey, string> = {
   trustEu: "#2563eb",
   euFunds: "#6366f1",
   euContribution: "#f97316",
-};
-
-export const xDomainFor = (governments: Government[]): [number, number] => {
-  const earliest = governments.length
-    ? Math.min(...governments.map((g) => toFractionalYear(g.startDate)))
-    : 2005;
-  const latestEnd = governments.length
-    ? Math.max(
-        ...governments.map((g) =>
-          toFractionalYear(g.endDate ?? new Date().toISOString()),
-        ),
-      )
-    : new Date().getFullYear();
-  return [Math.floor(earliest), Math.ceil(latestEnd) + 0.1];
 };
 
 type ChartRow = { year: number } & Partial<Record<MacroIndicatorKey, number>>;

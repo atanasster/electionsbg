@@ -99,7 +99,9 @@ export const PartyTopMunicipalitiesTile: FC<Props> = ({ data }) => {
           <span className="sm:hidden">%</span>
         </span>
         <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground text-right">
-          <span className="hidden sm:inline">{t("dashboard_change_votes")}</span>
+          <span className="hidden sm:inline">
+            {t("dashboard_change_votes")}
+          </span>
           <span className="sm:hidden">Δ</span>
         </span>
         {rows.map((r) => (

@@ -52,7 +52,9 @@ export const CensusDemographicsTile: FC<Props> = ({
   // Settlement entities use `ekatte` instead of `code` and only carry the
   // population/age/sex dimensions, so they need a thin adapter to satisfy
   // CensusEntity (the shape CountryBreakdown expects).
-  const settlementEntity = isSettlement ? findSettlement(regionCode) : undefined;
+  const settlementEntity = isSettlement
+    ? findSettlement(regionCode)
+    : undefined;
   const entity: CensusEntity | undefined = settlementEntity
     ? {
         code: settlementEntity.ekatte,

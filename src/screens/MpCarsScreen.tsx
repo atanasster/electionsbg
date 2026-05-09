@@ -231,9 +231,7 @@ export const MpCarsScreen: FC = () => {
   return (
     <div
       className={
-        partyFullName
-          ? "w-full max-w-7xl mx-auto px-4 md:px-8 pb-12"
-          : "w-full"
+        partyFullName ? "w-full max-w-7xl mx-auto px-4 md:px-8 pb-12" : "w-full"
       }
     >
       {partyFullName ? (

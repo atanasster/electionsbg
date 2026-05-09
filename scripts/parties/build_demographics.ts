@@ -20,11 +20,7 @@
 
 import fs from "fs";
 import path from "path";
-import type {
-  ElectionInfo,
-  ElectionRegion,
-  PartyInfo,
-} from "@/data/dataTypes";
+import type { ElectionInfo, ElectionRegion, PartyInfo } from "@/data/dataTypes";
 import type {
   CensusOblastEntity,
   CensusMetric,
@@ -285,10 +281,7 @@ export const buildPartyDemographics = ({
     for (const region of regionVotes) {
       const oblastCode = NUTS3_TO_OBLAST[region.nuts3];
       if (!oblastCode || !oblastByCode.has(oblastCode)) continue;
-      const total = region.results.votes.reduce(
-        (s, v) => s + v.totalVotes,
-        0,
-      );
+      const total = region.results.votes.reduce((s, v) => s + v.totalVotes, 0);
       let agg = oblastAggs.get(oblastCode);
       if (!agg) {
         agg = { total: 0, partyTotals: new Map() };

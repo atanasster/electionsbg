@@ -21,7 +21,12 @@ export const RegionsDemographicsScreen = () => {
       <Title description={t("demographics_regions_description")}>
         {t("demographics_regions_title")}
       </Title>
-      {census && <OblastDemographicsTable oblasts={census.oblasts} lockedLevel="oblast" />}
+      {census && (
+        <OblastDemographicsTable
+          oblasts={census.oblasts}
+          lockedLevel="oblast"
+        />
+      )}
     </div>
   );
 };

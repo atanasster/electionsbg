@@ -19,8 +19,7 @@ export const SVGMapContainer = ({
   const { withNames, setWithNames, withShiftArrows, setWithShiftArrows } =
     useOptions();
   const { t } = useTranslation();
-  const buttonCount =
-    (supportsShiftArrows ? 1 : 0) + (supportsNames ? 1 : 0);
+  const buttonCount = (supportsShiftArrows ? 1 : 0) + (supportsNames ? 1 : 0);
   return (
     <>
       <svg

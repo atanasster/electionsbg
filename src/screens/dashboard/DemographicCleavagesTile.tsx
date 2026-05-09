@@ -104,7 +104,9 @@ export const DemographicCleavagesTile: FC = () => {
               to={scatterTo}
               className="grid grid-cols-[minmax(0,1fr)_minmax(160px,2.5fr)_auto] gap-x-3 items-center text-xs hover:bg-muted/50 rounded px-1 py-0.5 -mx-1 group"
             >
-              <span className="leading-tight group-hover:underline">{label}</span>
+              <span className="leading-tight group-hover:underline">
+                {label}
+              </span>
               <div className="relative h-5">
                 {/* Track + zero line */}
                 <div className="absolute inset-x-0 top-1/2 h-px bg-border -translate-y-1/2" />

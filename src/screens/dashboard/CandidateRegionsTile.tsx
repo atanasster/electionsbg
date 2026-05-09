@@ -91,18 +91,24 @@ export const CandidateRegionsTile: FC<Props> = ({ data, linkSlug }) => {
           {t("preferences")}
         </span>
         <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground text-right">
-          <span className="hidden sm:inline">{t("dashboard_ballot_short")}</span>
+          <span className="hidden sm:inline">
+            {t("dashboard_ballot_short")}
+          </span>
           <span className="sm:hidden">#</span>
         </span>
         <span className="hidden sm:inline text-[10px] font-medium uppercase tracking-wide text-muted-foreground">
           {t("dashboard_share_of_party_prefs")}
         </span>
         <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground text-right">
-          <span className="hidden sm:inline">{t("dashboard_pct_of_region")}</span>
+          <span className="hidden sm:inline">
+            {t("dashboard_pct_of_region")}
+          </span>
           <span className="sm:hidden">%</span>
         </span>
         <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground text-right">
-          <span className="hidden sm:inline">{t("dashboard_change_votes")}</span>
+          <span className="hidden sm:inline">
+            {t("dashboard_change_votes")}
+          </span>
           <span className="sm:hidden">Δ</span>
         </span>
         {rows.map((r) => (

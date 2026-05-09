@@ -60,10 +60,7 @@ export const PartyDemographicFingerprintTile: FC<Props> = ({ data }) => {
         className="inline-flex items-center gap-1.5 rounded-full border bg-background px-2.5 py-1 text-xs hover:bg-muted transition-colors"
       >
         <span className="font-medium">{label}</span>
-        <span
-          className="font-semibold tabular-nums"
-          style={{ color }}
-        >
+        <span className="font-semibold tabular-nums" style={{ color }}>
           {fmtR(r)}
         </span>
       </Link>
@@ -74,10 +71,7 @@ export const PartyDemographicFingerprintTile: FC<Props> = ({ data }) => {
     <StatCard
       label={
         <div className="flex items-center justify-between w-full">
-          <Hint
-            text={t("dashboard_party_fingerprint_hint")}
-            underline={false}
-          >
+          <Hint text={t("dashboard_party_fingerprint_hint")} underline={false}>
             <div className="flex items-center gap-2">
               <Users className="h-4 w-4" />
               <span>{t("dashboard_party_fingerprint")}</span>

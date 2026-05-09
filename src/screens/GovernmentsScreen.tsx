@@ -7,8 +7,8 @@ import { useObservations } from "@/data/governments/useObservations";
 import {
   CabinetStrip,
   GovernmentTimeline,
-  xDomainFor,
 } from "./components/governments/GovernmentTimeline";
+import { xDomainFor } from "./components/governments/governmentTimelineUtils";
 import { GovernmentTable } from "./components/governments/GovernmentTable";
 import { ElectionObservations } from "./components/governments/ElectionObservations";
 

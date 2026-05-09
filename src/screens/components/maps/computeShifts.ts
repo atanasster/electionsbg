@@ -1,9 +1,4 @@
-import {
-  ElectionResults,
-  PartyInfo,
-  StatsVote,
-  Votes,
-} from "@/data/dataTypes";
+import { ElectionResults, PartyInfo, StatsVote, Votes } from "@/data/dataTypes";
 import {
   findPrevVotes,
   matchPartyNickName,

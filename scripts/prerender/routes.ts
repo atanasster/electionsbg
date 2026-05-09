@@ -529,8 +529,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "demographics/regions",
-    title:
-      "Демография на 28-те области — Преброяване 2021 | electionsbg.com",
+    title: "Демография на 28-те области — Преброяване 2021 | electionsbg.com",
     description:
       "Сортируема таблица с демографските показатели на 28-те административни области от Преброяване 2021 на НСИ — население, етнос, вероизповедание, образование, възраст и заетост.",
     breadcrumbName: "Области — демография",
@@ -551,8 +550,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "demographics/municipalities",
-    title:
-      "Демография на 265-те общини — Преброяване 2021 | electionsbg.com",
+    title: "Демография на 265-те общини — Преброяване 2021 | electionsbg.com",
     description:
       "Сортируема таблица с демографските показатели на 265-те общини на България от Преброяване 2021 на НСИ — население, етнос, вероизповедание, образование, възраст и заетост, с филтър по име.",
     breadcrumbName: "Общини — демография",

@@ -47,7 +47,8 @@ export const CandidateHeader: FC<Props> = ({
   const { findParty } = usePartyInfo();
   const subtitleText = typeof subtitle === "string" ? subtitle : undefined;
   const resolvedSeoTitle =
-    seoTitle ?? (subtitleText ? `${displayName} — ${subtitleText}` : displayName);
+    seoTitle ??
+    (subtitleText ? `${displayName} — ${subtitleText}` : displayName);
   const resolvedSeoDescription =
     seoDescription ?? subtitleText ?? `Results for candidate ${displayName}`;
   return (

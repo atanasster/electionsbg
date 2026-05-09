@@ -195,7 +195,8 @@ export const useCensusOblastSlice = (oblast?: string) => {
   const code = oblastToCensusCode(oblast);
   return useQuery({
     queryKey: ["census_oblast_slice", code],
-    queryFn: () => fetchJson<CensusOblastEntity>(`/census/oblasts/${code}.json`),
+    queryFn: () =>
+      fetchJson<CensusOblastEntity>(`/census/oblasts/${code}.json`),
     enabled: !!code,
   });
 };

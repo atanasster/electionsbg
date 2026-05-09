@@ -23,10 +23,7 @@ export const MunicipalitiesMap: React.FC<{
   const votes = useMunicipalitiesByRegion(region);
   const mapGeo = useMunicipalitiesMap(region);
   const { priorElections } = useElectionContext();
-  const priorVotes = useMunicipalitiesByRegionFor(
-    region,
-    priorElections?.name,
-  );
+  const priorVotes = useMunicipalitiesByRegionFor(region, priorElections?.name);
   const { parties: currentParties } = usePartyInfo();
   const { parties: priorParties } = usePartyInfo(priorElections?.name);
 

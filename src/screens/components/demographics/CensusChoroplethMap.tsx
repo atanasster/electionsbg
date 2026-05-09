@@ -81,9 +81,7 @@ export const CensusChoroplethMap: React.FC<{
     return range[0] + (range[1] - range[0]) * t;
   };
   const legend = range && (
-    <div
-      className="absolute bottom-3 left-3 z-[1000] rounded-md bg-background/90 backdrop-blur-sm border border-border shadow-sm px-3 py-2 w-[220px] pointer-events-none"
-    >
+    <div className="absolute bottom-3 left-3 z-[1000] rounded-md bg-background/90 backdrop-blur-sm border border-border shadow-sm px-3 py-2 w-[220px] pointer-events-none">
       <div className="text-[11px] font-medium text-foreground mb-1 truncate">
         {metricLabel}
       </div>

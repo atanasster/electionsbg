@@ -1,4 +1,7 @@
-import type { CensusMetric, CensusOblastEntity } from "@/data/census/censusTypes";
+import type {
+  CensusMetric,
+  CensusOblastEntity,
+} from "@/data/census/censusTypes";
 import { censusMetricValue } from "@/data/census/useCensus";
 import { NUTS3_TO_OBLAST } from "@/data/census/oblastJoin";
 import type { ElectionRegion } from "@/data/dataTypes";

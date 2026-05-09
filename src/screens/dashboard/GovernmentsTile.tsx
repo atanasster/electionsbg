@@ -6,8 +6,8 @@ import { useMacro } from "@/data/macro/useMacro";
 import {
   CabinetStrip,
   GovernmentTimeline,
-  xDomainFor,
 } from "@/screens/components/governments/GovernmentTimeline";
+import { xDomainFor } from "@/screens/components/governments/governmentTimelineUtils";
 import { Link } from "@/ux/Link";
 import { Hint } from "@/ux/Hint";
 import { StatCard } from "./StatCard";
@@ -47,11 +47,7 @@ export const GovernmentsTile: FC = () => {
       className="overflow-hidden"
     >
       {xDomain ? (
-        <CabinetStrip
-          governments={governments}
-          xDomain={xDomain}
-          lang={lang}
-        />
+        <CabinetStrip governments={governments} xDomain={xDomain} lang={lang} />
       ) : null}
       <GovernmentTimeline
         governments={governments}

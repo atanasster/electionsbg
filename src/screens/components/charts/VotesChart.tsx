@@ -33,9 +33,7 @@ const CustomTooltip: FC<{
         <div className="ml-2 font-semibold">
           {`${formatThousands(payload[0].value)} ${payload[0].payload.pctVotes ? `(${formatPct(payload[0].payload.pctVotes, 2)})` : ""}`}
         </div>
-        <div className="text-muted-foreground ml-1 lowercase">
-          {t("votes")}
-        </div>
+        <div className="text-muted-foreground ml-1 lowercase">{t("votes")}</div>
       </div>
     </div>
   ) : null;

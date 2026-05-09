@@ -104,7 +104,9 @@ export const PartyTopRegionsTile: FC<Props> = ({ data }) => {
           {t("dashboard_share_of_party")}
         </span>
         <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground text-right">
-          <span className="hidden sm:inline">{t("dashboard_pct_of_region")}</span>
+          <span className="hidden sm:inline">
+            {t("dashboard_pct_of_region")}
+          </span>
           <span className="sm:hidden">%</span>
         </span>
         <span className="text-[10px] font-medium uppercase tracking-wide text-muted-foreground text-right">

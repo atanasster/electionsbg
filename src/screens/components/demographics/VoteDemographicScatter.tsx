@@ -64,7 +64,10 @@ export const VoteDemographicScatter: React.FC = () => {
   // they clicked rather than the top of the demographics page.
   useEffect(() => {
     if (scatterPartyParam && containerRef.current) {
-      containerRef.current.scrollIntoView({ behavior: "smooth", block: "start" });
+      containerRef.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);

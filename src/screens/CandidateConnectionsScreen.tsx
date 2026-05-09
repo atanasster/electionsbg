@@ -83,9 +83,7 @@ export const CandidateConnectionsScreen: FC = () => {
         displayName={displayName}
         lookupName={lookupName}
         cikRows={canonical?.cikRows}
-        subtitle={
-          t("mp_connections_full_title") || "Connections to other MPs"
-        }
+        subtitle={t("mp_connections_full_title") || "Connections to other MPs"}
         seoDescription={`Business connection paths from ${displayName} to other MPs`}
       />
       <div className="w-full max-w-5xl mx-auto px-4 pb-12 space-y-6">

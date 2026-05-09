@@ -117,10 +117,7 @@ export const Header = () => {
             <div className="font-semibold uppercase">{t("bg")}</div>
           </div>
         </Link>
-        <div
-          aria-hidden
-          className="hidden sm:block h-6 w-px bg-border/70"
-        />
+        <div aria-hidden className="hidden sm:block h-6 w-px bg-border/70" />
         <ElectionsSelect />
       </div>
       <div className="flex flex-1 justify-end gap-3 items-center px-4 min-w-0">
