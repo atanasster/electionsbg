@@ -1,14 +1,23 @@
 // Tier 1 watcher runner.
 //
-//   npm run watch        → diff fingerprints, write state, print report to stdout.
+//   npm run watch        → diff fingerprints, write state, print report to
+//                          stdout AND data-reports/<YYYY-MM-DD>.md.
 //
-// Invoked by .github/workflows/watch.yml on a daily cron. The workflow captures
-// stdout, opens a GitHub issue with the report, and commits any state changes.
+// Designed to be invoked by a Claude Desktop local routine (one run per day).
+// State changes commit themselves into state/watch/ via the routine's
+// post-run git step; this script just writes files.
 
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
 import { SOURCES } from "./sources/index";
 import { readState, writeState } from "./state";
 import { renderReport } from "./report";
 import type { ReportEntry, WatchState } from "./types";
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const REPORTS_DIR = path.resolve(__dirname, "../../data-reports");
 
 const main = async (): Promise<void> => {
   const runAt = new Date().toISOString();
@@ -46,13 +55,22 @@ const main = async (): Promise<void> => {
     }
   }
 
-  process.stdout.write(renderReport(entries, runAt));
+  const report = renderReport(entries, runAt);
+  process.stdout.write(report);
+
+  // Persist a per-day copy under data-reports/. One file per UTC day; if the
+  // routine runs more than once in a day the file is overwritten with the
+  // freshest snapshot (state/watch/ still tracks the diff). `latest.md` is a
+  // convenience pointer for "show me the most recent".
+  fs.mkdirSync(REPORTS_DIR, { recursive: true });
+  const dayFile = path.join(REPORTS_DIR, `${runAt.slice(0, 10)}.md`);
+  fs.writeFileSync(dayFile, report);
+  const latestFile = path.join(REPORTS_DIR, "latest.md");
+  fs.writeFileSync(latestFile, report);
 
   // Exit 0 even when individual sources errored — the report is the success
-  // signal and lists every error in its own section. If we exit non-zero,
-  // the GH Actions workflow short-circuits before committing state and
-  // posting the issue, hiding the report from the team. Whole-process
-  // crashes (caught below) still exit 2 so true failures fail loudly.
+  // signal and lists every error in its own section. Whole-process crashes
+  // (caught below) still exit 2 so true failures fail loudly.
 };
 
 main().catch((e) => {
