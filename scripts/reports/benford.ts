@@ -18,7 +18,7 @@ import type { PartyInfo, SectionInfo } from "@/data/dataTypes";
 //   - Williams College Kossosky-Miller analysis (2020)
 
 const MIN_VOTES_1BL = 10; // sections below this break the 1BL test
-const MIN_VOTES_2BL = 100; // 2BL needs higher counts to be informative
+const MIN_VOTES_2BL = 10; // 2BL only needs two significant digits to exist
 
 // Expected Benford first-digit distribution: log10(1 + 1/d).
 const benford1 = (d: number): number => Math.log10(1 + 1 / d);

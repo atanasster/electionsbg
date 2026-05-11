@@ -75,10 +75,16 @@ export const BenfordScreen = () => {
       <MethodologyCallout
         variant="disputed"
         title={t("benford_caveat_title")}
-        className="mb-4"
+        className="mb-2"
       >
         {t("benford_caveat_body")}
       </MethodologyCallout>
+      <Link
+        to="/benford/methodology"
+        className="inline-block mb-4 text-xs text-foreground hover:underline"
+      >
+        {t("benford_read_methodology")} →
+      </Link>
 
       {/* Mode toggle */}
       <div className="flex items-center justify-between flex-wrap gap-2 mb-3">
@@ -236,10 +242,16 @@ export const BenfordDetailScreen = () => {
       <MethodologyCallout
         variant="disputed"
         title={t("benford_caveat_title")}
-        className="mt-3 mb-4"
+        className="mt-3 mb-2"
       >
         {t("benford_caveat_body")}
       </MethodologyCallout>
+      <Link
+        to="/benford/methodology"
+        className="inline-block mb-4 text-xs text-foreground hover:underline"
+      >
+        {t("benford_read_methodology")} →
+      </Link>
 
       {/* Mode toggle */}
       <div className="flex items-center justify-between flex-wrap gap-2 mb-3">
