@@ -12,6 +12,7 @@ export const reportsMenu: MenuItem[] = [
       { title: "compare_title", link: "/compare" },
       { title: "wasted_votes_title", link: "/wasted-vote" },
       { title: "persistence_title", link: "/persistence" },
+      { title: "benford_title", link: "/benford" },
       { title: "-" },
       { title: "anomaly_reports" },
       { title: "-" },

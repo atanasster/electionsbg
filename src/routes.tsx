@@ -217,6 +217,16 @@ const PersistenceScreen = lazy(() =>
     default: m.PersistenceScreen,
   })),
 );
+const BenfordScreen = lazy(() =>
+  import("./screens/BenfordScreen").then((m) => ({
+    default: m.BenfordScreen,
+  })),
+);
+const BenfordDetailScreen = lazy(() =>
+  import("./screens/BenfordScreen").then((m) => ({
+    default: m.BenfordDetailScreen,
+  })),
+);
 const SectionsWastedVote = lazy(() =>
   import("./screens/reports/sections/SectionsWastedVote").then((m) => ({
     default: m.SectionsWastedVote,
@@ -1194,6 +1204,22 @@ export const AuthRoutes = () => {
           element={
             <LayoutScreen>
               <PersistenceScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="benford"
+          element={
+            <LayoutScreen>
+              <BenfordScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="benford/:partyNum"
+          element={
+            <LayoutScreen>
+              <BenfordDetailScreen />
             </LayoutScreen>
           }
         />

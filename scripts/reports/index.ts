@@ -17,6 +17,7 @@ import { generateRegionHistory } from "./regionHistory";
 import { generateSuspiciousSections } from "./suspiciousSections";
 import { regionWastedReport } from "./region_wasted";
 import { generateWastedVotesDashboard } from "./wasted_votes_dashboard";
+import { generateBenfordReport } from "./benford";
 
 const NATIONAL_THRESHOLD_PCT = 4;
 
@@ -132,6 +133,13 @@ export const generateReports = (
           stringify,
         });
       }
+      generateBenfordReport({
+        publicFolder,
+        reportsFolder,
+        year,
+        parties,
+        stringify,
+      });
       generateProblemSections({
         publicFolder,
         dataFolder,
