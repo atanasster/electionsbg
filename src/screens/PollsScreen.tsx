@@ -77,7 +77,7 @@ export const PollsScreen: FC = () => {
     return (
       <>
         <Title description={t("polls_description")}>{title}</Title>
-        <div className="w-full max-w-7xl mx-auto px-4 pb-12 flex flex-col gap-3">
+        <div className="pb-12 flex flex-col gap-3">
           <SkeletonCard className="h-[220px]" />
           <SkeletonCard className="h-[300px]" />
           <SkeletonCard className="h-[420px]" />
@@ -97,7 +97,7 @@ export const PollsScreen: FC = () => {
   return (
     <>
       <Title description={t("polls_description")}>{title}</Title>
-      <section className="w-full max-w-7xl mx-auto px-4 pb-12">
+      <section className="pb-12">
         {/* All-time section: cross-election aggregate stats */}
         <SectionHeader
           icon={<Globe2 className="h-3.5 w-3.5" />}

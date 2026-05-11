@@ -164,7 +164,7 @@ export const WastedVoteScreen = () => {
   }, [selectedKey, regions]);
 
   return (
-    <div className="w-full max-w-6xl mx-auto px-4 pb-12">
+    <div className="pb-12">
       <SEO
         title={t("wasted_votes_title")}
         description={t("wasted_votes_description")}
@@ -173,7 +173,7 @@ export const WastedVoteScreen = () => {
         <H1 className="text-xl md:text-2xl font-bold text-foreground">
           {t("wasted_votes_title")}
         </H1>
-        <p className="text-sm text-muted-foreground mt-1 max-w-3xl">
+        <p className="text-sm text-muted-foreground mt-1 max-w-3xl mx-auto text-center">
           {t("wasted_votes_description")}
         </p>
       </div>

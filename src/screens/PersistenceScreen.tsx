@@ -129,7 +129,7 @@ export const PersistenceScreen = () => {
   }, [summary]);
 
   return (
-    <div className="w-full max-w-6xl mx-auto px-4 pb-12">
+    <div className="pb-12">
       <SEO
         title={t("persistence_title")}
         description={t("persistence_description")}
@@ -138,11 +138,11 @@ export const PersistenceScreen = () => {
         <H1 className="text-xl md:text-2xl font-bold text-foreground">
           {t("persistence_title")}
         </H1>
-        <p className="text-sm text-muted-foreground mt-1 max-w-3xl">
+        <p className="text-sm text-muted-foreground mt-1 max-w-3xl mx-auto text-center">
           {t("persistence_description")}
         </p>
         {fromDate && toDate && (
-          <div className="mt-2 text-xs text-muted-foreground flex items-center gap-2">
+          <div className="mt-2 text-xs text-muted-foreground flex items-center gap-2 justify-center">
             <span className="tabular-nums">{localDate(fromDate)}</span>
             <ArrowRight className="h-3 w-3" />
             <span className="tabular-nums">{localDate(toDate)}</span>

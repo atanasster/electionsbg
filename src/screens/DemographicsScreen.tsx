@@ -59,19 +59,19 @@ export const DemographicsScreen = () => {
 
   if (!census) {
     return (
-      <div className="w-full max-w-6xl mx-auto px-4 pb-12">
+      <div className="pb-12">
         <Title>{t("demographics_title")}</Title>
       </div>
     );
   }
 
   return (
-    <div className="w-full max-w-6xl mx-auto px-4 pb-12">
+    <div className="pb-12">
       <Title description={t("demographics_description")}>
         {t("demographics_title")}
       </Title>
 
-      <p className="text-sm text-muted-foreground mb-6 max-w-3xl">
+      <p className="text-sm text-muted-foreground mb-6 max-w-3xl mx-auto text-center">
         {t("demographics_explainer")}
       </p>
 

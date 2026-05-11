@@ -54,19 +54,19 @@ export const GovernmentsScreen = () => {
 
   if (!governments) {
     return (
-      <div className="w-full max-w-6xl mx-auto px-4 pb-12">
+      <div className="pb-12">
         <Title>{t("governments_title")}</Title>
       </div>
     );
   }
 
   return (
-    <div className="w-full max-w-6xl mx-auto px-4 pb-12">
+    <div className="pb-12">
       <Title description={t("governments_description")}>
         {t("governments_title")}
       </Title>
 
-      <p className="text-sm text-muted-foreground mb-6 max-w-3xl">
+      <p className="text-sm text-muted-foreground mb-6 max-w-3xl mx-auto text-center">
         {t("governments_explainer")}
       </p>
 

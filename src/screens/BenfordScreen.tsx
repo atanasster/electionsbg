@@ -61,13 +61,13 @@ export const BenfordScreen = () => {
   const activeMode = mode === "second" && !hasAnyTwo ? "first" : mode;
 
   return (
-    <div className="w-full max-w-6xl mx-auto px-4 pb-12">
+    <div className="pb-12">
       <SEO title={t("benford_title")} description={t("benford_description")} />
       <div className="py-4 md:py-6">
         <H1 className="text-xl md:text-2xl font-bold text-foreground">
           {t("benford_title")}
         </H1>
-        <p className="text-sm text-muted-foreground mt-1 max-w-3xl">
+        <p className="text-sm text-muted-foreground mt-1 max-w-3xl mx-auto text-center">
           {t("benford_description")}
         </p>
       </div>
