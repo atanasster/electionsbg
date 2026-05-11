@@ -4,6 +4,7 @@ import {
   VoteFlowDiagnostics,
   VoteFlowIndex,
   VoteFlowMatrix,
+  VoteFlowPersistenceSummary,
   VoteFlowScopeFile,
 } from "./voteFlowTypes";
 import { dataUrl } from "@/data/dataUrl";
@@ -16,6 +17,30 @@ const indexQueryFn = async (): Promise<VoteFlowIndex | undefined> => {
 
 export const useVoteFlowIndex = () =>
   useQuery({ queryKey: ["voteFlowIndex"], queryFn: indexQueryFn });
+
+// Per-cycle-pair persistence summary — small (~1.5KB), drives the
+// regional choropleth and the home dashboard's persistence tile.
+const persistenceQueryFn = async (
+  from: string,
+  to: string,
+): Promise<VoteFlowPersistenceSummary | undefined> => {
+  const response = await fetch(
+    dataUrl(`/transitions/${from}_${to}/persistence.json`),
+  );
+  if (!response.ok) return undefined;
+  return response.json();
+};
+
+export const useVoteFlowPersistence = (
+  from: string | undefined,
+  to: string | undefined,
+) =>
+  useQuery({
+    queryKey: ["voteFlowPersistence", from ?? "", to ?? ""],
+    queryFn: () => persistenceQueryFn(from!, to!),
+    enabled: !!from && !!to,
+    placeholderData: keepPreviousData,
+  });
 
 const scopeFn = async (
   from: string,

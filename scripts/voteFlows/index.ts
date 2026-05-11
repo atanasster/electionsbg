@@ -19,7 +19,10 @@ import { ElectionInfo } from "@/data/dataTypes";
 import { reconcileCycles } from "./reconcile";
 import { estimateOblast } from "./estimate";
 import { buildVoteFlowScopeFiles } from "./aggregate";
-import { VoteFlowIndex } from "@/data/voteFlows/voteFlowTypes";
+import {
+  VoteFlowIndex,
+  VoteFlowPersistenceSummary,
+} from "@/data/voteFlows/voteFlowTypes";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -101,6 +104,26 @@ export const generateVoteFlows = ({
     if (!fs.existsSync(pairDir)) fs.mkdirSync(pairDir);
     for (const [scope, payload] of Object.entries(scopeFiles)) {
       fs.writeFileSync(path.join(pairDir, `${scope}.json`), stringify(payload));
+    }
+    // Regional persistence rollup — one small file per cycle pair so the
+    // choropleth doesn't have to fetch 30+ per-oblast scope files just to
+    // colour the map. ~1.5KB.
+    if (scopeFiles.national.persistence) {
+      const summary: VoteFlowPersistenceSummary = {
+        from: fromDate,
+        to: toDate,
+        national: scopeFiles.national.persistence,
+        byOblast: Object.entries(scopeFiles)
+          .filter(([scope, file]) => scope !== "national" && file.persistence)
+          .map(([scope, file]) => ({
+            oblast: scope,
+            persistence: file.persistence!,
+          })),
+      };
+      fs.writeFileSync(
+        path.join(pairDir, "persistence.json"),
+        stringify(summary),
+      );
     }
     indexPairs.push({ from: fromDate, to: toDate });
     const nationalDiag = scopeFiles.national.diagnostics;

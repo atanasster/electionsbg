@@ -1,0 +1,451 @@
+{
+  "from": "2013_05_12",
+  "to": "2014_10_05",
+  "national": {
+    "stayedVotes": 1586210,
+    "votedBothNamed": 2600565,
+    "stayRate": 0.6099479510751521,
+    "topDefection": {
+      "fromId": "p_139",
+      "toId": "p_111",
+      "votes": 70528,
+      "share": 0.7846437577265113
+    }
+  },
+  "byOblast": [
+    {
+      "oblast": "10",
+      "persistence": {
+        "stayedVotes": 17264,
+        "votedBothNamed": 41986,
+        "stayRate": 0.4111792002237381,
+        "topDefection": {
+          "fromId": "bsp",
+          "toId": "p_117",
+          "votes": 12190,
+          "share": 0.9103403929485308
+        }
+      }
+    },
+    {
+      "oblast": "11",
+      "persistence": {
+        "stayedVotes": 32657,
+        "votedBothNamed": 54729,
+        "stayRate": 0.5967020529473248,
+        "topDefection": {
+          "fromId": "bsp",
+          "toId": "p_113",
+          "votes": 2715,
+          "share": 0.14451715099085904
+        }
+      }
+    },
+    {
+      "oblast": "12",
+      "persistence": {
+        "stayedVotes": 20936,
+        "votedBothNamed": 53159,
+        "stayRate": 0.3938344735534474,
+        "topDefection": {
+          "fromId": "bsp",
+          "toId": "gerb",
+          "votes": 5450,
+          "share": 0.2563418783855693
+        }
+      }
+    },
+    {
+      "oblast": "13",
+      "persistence": {
+        "stayedVotes": 67939,
+        "votedBothNamed": 96536,
+        "stayRate": 0.7037624127103291,
+        "topDefection": {
+          "fromId": "ataka",
+          "toId": "p_113",
+          "votes": 2660,
+          "share": 0.25010716071754907
+        }
+      }
+    },
+    {
+      "oblast": "14",
+      "persistence": {
+        "stayedVotes": 25067,
+        "votedBothNamed": 46132,
+        "stayRate": 0.5433752331689415,
+        "topDefection": {
+          "fromId": "bsp",
+          "toId": "p_89",
+          "votes": 4507,
+          "share": 0.25460346409863854
+        }
+      }
+    },
+    {
+      "oblast": "15",
+      "persistence": {
+        "stayedVotes": 59699,
+        "votedBothNamed": 101258,
+        "stayRate": 0.589571958159152,
+        "topDefection": {
+          "fromId": "bsp",
+          "toId": "p_89",
+          "votes": 4909,
+          "share": 0.1522821661950465
+        }
+      }
+    },
+    {
+      "oblast": "16",
+      "persistence": {
+        "stayedVotes": 79713,
+        "votedBothNamed": 130075,
+        "stayRate": 0.6128267510820904,
+        "topDefection": {
+          "fromId": "p_139",
+          "toId": "p_111",
+          "votes": 4360,
+          "share": 0.7912274748551187
+        }
+      }
+    },
+    {
+      "oblast": "17",
+      "persistence": {
+        "stayedVotes": 34730,
+        "votedBothNamed": 88759,
+        "stayRate": 0.39128157876166914,
+        "topDefection": {
+          "fromId": "bsp",
+          "toId": "p_117",
+          "votes": 24740,
+          "share": 0.847504939960482
+        }
+      }
+    },
+    {
+      "oblast": "18",
+      "persistence": {
+        "stayedVotes": 42491,
+        "votedBothNamed": 52995,
+        "stayRate": 0.8017997214643078,
+        "topDefection": {
+          "fromId": "p_122",
+          "toId": "p_16",
+          "votes": 1888,
+          "share": 0.7567222629378216
+        }
+      }
+    },
+    {
+      "oblast": "19",
+      "persistence": {
+        "stayedVotes": 48698,
+        "votedBothNamed": 86750,
+        "stayRate": 0.5613640893318259,
+        "topDefection": {
+          "fromId": "bsp",
+          "toId": "gerb",
+          "votes": 4339,
+          "share": 0.16361718255195967
+        }
+      }
+    },
+    {
+      "oblast": "20",
+      "persistence": {
+        "stayedVotes": 39172,
+        "votedBothNamed": 54029,
+        "stayRate": 0.7250164978319891,
+        "topDefection": {
+          "fromId": "p_122",
+          "toId": "p_111",
+          "votes": 2114,
+          "share": 0.8670455118953894
+        }
+      }
+    },
+    {
+      "oblast": "21",
+      "persistence": {
+        "stayedVotes": 39717,
+        "votedBothNamed": 64993,
+        "stayRate": 0.611102744551441,
+        "topDefection": {
+          "fromId": "bsp",
+          "toId": "p_16",
+          "votes": 2024,
+          "share": 0.1244702541708115
+        }
+      }
+    },
+    {
+      "oblast": "22",
+      "persistence": {
+        "stayedVotes": 31093,
+        "votedBothNamed": 47475,
+        "stayRate": 0.6549430566441851,
+        "topDefection": {
+          "fromId": "bsp",
+          "toId": "p_113",
+          "votes": 2472,
+          "share": 0.15877272706371023
+        }
+      }
+    },
+    {
+      "oblast": "23",
+      "persistence": {
+        "stayedVotes": 99342,
+        "votedBothNamed": 179003,
+        "stayRate": 0.554973506638905,
+        "topDefection": {
+          "fromId": "p_139",
+          "toId": "p_111",
+          "votes": 17826,
+          "share": 0.9668733823744133
+        }
+      }
+    },
+    {
+      "oblast": "24",
+      "persistence": {
+        "stayedVotes": 52694,
+        "votedBothNamed": 98369,
+        "stayRate": 0.5356770583968598,
+        "topDefection": {
+          "fromId": "p_139",
+          "toId": "p_111",
+          "votes": 12792,
+          "share": 0.9679348049425067
+        }
+      }
+    },
+    {
+      "oblast": "25",
+      "persistence": {
+        "stayedVotes": 79886,
+        "votedBothNamed": 128725,
+        "stayRate": 0.620590858121139,
+        "topDefection": {
+          "fromId": "p_139",
+          "toId": "p_111",
+          "votes": 7049,
+          "share": 0.7672752708561541
+        }
+      }
+    },
+    {
+      "oblast": "26",
+      "persistence": {
+        "stayedVotes": 59992,
+        "votedBothNamed": 89259,
+        "stayRate": 0.6721178484594716,
+        "topDefection": {
+          "fromId": "p_66",
+          "toId": "p_74",
+          "votes": 2718,
+          "share": 0.5266177539758492
+        }
+      }
+    },
+    {
+      "oblast": "27",
+      "persistence": {
+        "stayedVotes": 85051,
+        "votedBothNamed": 121834,
+        "stayRate": 0.698091135162705,
+        "topDefection": {
+          "fromId": "p_66",
+          "toId": "p_74",
+          "votes": 4745,
+          "share": 0.7595173881500396
+        }
+      }
+    },
+    {
+      "oblast": "28",
+      "persistence": {
+        "stayedVotes": 34303,
+        "votedBothNamed": 53633,
+        "stayRate": 0.6396019968954552,
+        "topDefection": {
+          "fromId": "p_122",
+          "toId": "p_16",
+          "votes": 2530,
+          "share": 0.5110881219996037
+        }
+      }
+    },
+    {
+      "oblast": "29",
+      "persistence": {
+        "stayedVotes": 58599,
+        "votedBothNamed": 92911,
+        "stayRate": 0.630699239304821,
+        "topDefection": {
+          "fromId": "p_66",
+          "toId": "p_74",
+          "votes": 3199,
+          "share": 0.6551366270029536
+        }
+      }
+    },
+    {
+      "oblast": "30",
+      "persistence": {
+        "stayedVotes": 53709,
+        "votedBothNamed": 74623,
+        "stayRate": 0.7197425853925044,
+        "topDefection": {
+          "fromId": "p_66",
+          "toId": "p_74",
+          "votes": 1775,
+          "share": 0.6271924706486615
+        }
+      }
+    },
+    {
+      "oblast": "31",
+      "persistence": {
+        "stayedVotes": 28610,
+        "votedBothNamed": 48369,
+        "stayRate": 0.5914908343235673,
+        "topDefection": {
+          "fromId": "p_131",
+          "toId": "p_16",
+          "votes": 2656,
+          "share": 0.8952205600433529
+        }
+      }
+    },
+    {
+      "oblast": "01",
+      "persistence": {
+        "stayedVotes": 71805,
+        "votedBothNamed": 121454,
+        "stayRate": 0.5912148467028884,
+        "topDefection": {
+          "fromId": "ataka",
+          "toId": "gerb",
+          "votes": 4366,
+          "share": 0.4216413350101422
+        }
+      }
+    },
+    {
+      "oblast": "02",
+      "persistence": {
+        "stayedVotes": 100253,
+        "votedBothNamed": 163790,
+        "stayRate": 0.6120842556804234,
+        "topDefection": {
+          "fromId": "p_66",
+          "toId": "p_74",
+          "votes": 14267,
+          "share": 0.934036934106854
+        }
+      }
+    },
+    {
+      "oblast": "03",
+      "persistence": {
+        "stayedVotes": 85230,
+        "votedBothNamed": 138266,
+        "stayRate": 0.6164210830048203,
+        "topDefection": {
+          "fromId": "bsp",
+          "toId": "p_16",
+          "votes": 4492,
+          "share": 0.14009970445720116
+        }
+      }
+    },
+    {
+      "oblast": "04",
+      "persistence": {
+        "stayedVotes": 56406,
+        "votedBothNamed": 90374,
+        "stayRate": 0.6241381864235149,
+        "topDefection": {
+          "fromId": "p_144",
+          "toId": "p_111",
+          "votes": 3437,
+          "share": 0.8513301191046824
+        }
+      }
+    },
+    {
+      "oblast": "05",
+      "persistence": {
+        "stayedVotes": 21443,
+        "votedBothNamed": 34811,
+        "stayRate": 0.615972923010353,
+        "topDefection": {
+          "fromId": "bsp",
+          "toId": "p_113",
+          "votes": 1940,
+          "share": 0.11775859526040679
+        }
+      }
+    },
+    {
+      "oblast": "06",
+      "persistence": {
+        "stayedVotes": 40024,
+        "votedBothNamed": 67558,
+        "stayRate": 0.5924480942223073,
+        "topDefection": {
+          "fromId": "bsp",
+          "toId": "p_113",
+          "votes": 4096,
+          "share": 0.1480527983752755
+        }
+      }
+    },
+    {
+      "oblast": "07",
+      "persistence": {
+        "stayedVotes": 21266,
+        "votedBothNamed": 43761,
+        "stayRate": 0.4859682991995299,
+        "topDefection": {
+          "fromId": "bsp",
+          "toId": "p_117",
+          "votes": 5329,
+          "share": 0.6164467592088613
+        }
+      }
+    },
+    {
+      "oblast": "08",
+      "persistence": {
+        "stayedVotes": 41413,
+        "votedBothNamed": 70094,
+        "stayRate": 0.5908231164874426,
+        "topDefection": {
+          "fromId": "p_66",
+          "toId": "p_74",
+          "votes": 2176,
+          "share": 0.5505316229861892
+        }
+      }
+    },
+    {
+      "oblast": "09",
+      "persistence": {
+        "stayedVotes": 57005,
+        "votedBothNamed": 64857,
+        "stayRate": 0.8789383190963436,
+        "topDefection": {
+          "fromId": "p_122",
+          "toId": "p_16",
+          "votes": 1989,
+          "share": 0.8688534716195622
+        }
+      }
+    }
+  ]
+}

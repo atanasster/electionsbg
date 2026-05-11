@@ -10,11 +10,77 @@ import {
   VoteFlowEdge,
   VoteFlowMatrix,
   VoteFlowNode,
+  VoteFlowPersistence,
   VoteFlowScopeFile,
   VoteFlowDiagnostics,
 } from "@/data/voteFlows/voteFlowTypes";
 import { ReconcileResult } from "./reconcile";
 import { OblastEstimate } from "./estimate";
+
+// Voter persistence — see VoteFlowPersistence comment in voteFlowTypes.ts.
+// Computed directly from the dense flow matrix (before edge thresholding)
+// so small-but-real flows still contribute to the stay-rate denominator.
+const computePersistence = ({
+  fromIds,
+  toIds,
+  flows,
+}: {
+  fromIds: string[];
+  toIds: string[];
+  flows: number[][];
+}): VoteFlowPersistence => {
+  const isReal = (id: string) => !id.startsWith("__");
+  let stayed = 0;
+  let votedBothNamed = 0;
+  let topDef:
+    | { fromId: string; toId: string; votes: number; fromOutflow: number }
+    | undefined;
+  // Track total outflow per from-party so we can express the top defection
+  // as a share of that party's voters.
+  const fromOutflow = new Map<string, number>();
+  for (let i = 0; i < fromIds.length; i += 1) {
+    if (!isReal(fromIds[i])) continue;
+    for (let j = 0; j < toIds.length; j += 1) {
+      if (!isReal(toIds[j])) continue;
+      fromOutflow.set(
+        fromIds[i],
+        (fromOutflow.get(fromIds[i]) ?? 0) + flows[i][j],
+      );
+    }
+  }
+  for (let i = 0; i < fromIds.length; i += 1) {
+    if (!isReal(fromIds[i])) continue;
+    for (let j = 0; j < toIds.length; j += 1) {
+      if (!isReal(toIds[j])) continue;
+      const v = flows[i][j];
+      votedBothNamed += v;
+      if (fromIds[i] === toIds[j]) {
+        stayed += v;
+      } else if (!topDef || v > topDef.votes) {
+        topDef = {
+          fromId: fromIds[i],
+          toId: toIds[j],
+          votes: v,
+          fromOutflow: fromOutflow.get(fromIds[i]) ?? 0,
+        };
+      }
+    }
+  }
+  const persistence: VoteFlowPersistence = {
+    stayedVotes: Math.round(stayed),
+    votedBothNamed: Math.round(votedBothNamed),
+    stayRate: votedBothNamed > 0 ? stayed / votedBothNamed : 0,
+  };
+  if (topDef && topDef.fromOutflow > 0) {
+    persistence.topDefection = {
+      fromId: topDef.fromId,
+      toId: topDef.toId,
+      votes: Math.round(topDef.votes),
+      share: topDef.votes / topDef.fromOutflow,
+    };
+  }
+  return persistence;
+};
 
 const buildMatrix = ({
   fromIds,
@@ -139,6 +205,11 @@ export const buildVoteFlowScopeFiles = ({
       scope: "national",
       matrix: national,
       diagnostics,
+      persistence: computePersistence({
+        fromIds,
+        toIds,
+        flows: nationalFlows,
+      }),
     },
   };
   for (const est of estimates) {
@@ -155,6 +226,11 @@ export const buildVoteFlowScopeFiles = ({
         toTotals: ob.toTotals,
         flows: est.flows,
         labels,
+      }),
+      persistence: computePersistence({
+        fromIds,
+        toIds,
+        flows: est.flows,
       }),
     };
   }

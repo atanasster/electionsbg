@@ -77,6 +77,43 @@ export type VoteFlowScopeFile = {
   scope: string;
   matrix: VoteFlowMatrix;
   diagnostics?: VoteFlowDiagnostics;
+  /** Voter-persistence rollup for this scope. Optional for backwards
+   * compatibility with cycle pairs that pre-date the persistence feature. */
+  persistence?: VoteFlowPersistence;
+};
+
+/** Voter persistence — share of named-party voters who stayed with the
+ * same party across a cycle pair. Excludes pseudo nodes (abstain, added,
+ * removed, __small_all) from both numerator and denominator, so this
+ * isolates *party loyalty* from turnout volatility. The `topDefection`
+ * is the single largest non-self flow from a named party to another
+ * named party (or to abstain), suitable for the "21% who left went
+ * to PP-DB" tooltip caption. */
+export type VoteFlowPersistence = {
+  /** Total votes that stayed with the same named party. */
+  stayedVotes: number;
+  /** Total votes from named parties to named parties (including stayed). */
+  votedBothNamed: number;
+  /** stayedVotes / votedBothNamed, 0–1. */
+  stayRate: number;
+  topDefection?: {
+    fromId: string;
+    toId: string;
+    votes: number;
+    /** Share of fromId's outflow that went to toId, 0–1. */
+    share: number;
+  };
+};
+
+/** Per-pair regional persistence rollup. One row per oblast (28 country
+ * MIRs + Sofia's 3 MIRs + diaspora "32"). Written to
+ * /transitions/<from>_<to>/persistence.json so the choropleth fetches a
+ * single small file rather than 30+ per-oblast scope files. */
+export type VoteFlowPersistenceSummary = {
+  from: string;
+  to: string;
+  national: VoteFlowPersistence;
+  byOblast: { oblast: string; persistence: VoteFlowPersistence }[];
 };
 
 /** Index of available cycle pairs, written once to /transitions/index.json

@@ -212,6 +212,11 @@ const WastedVoteRegionsScreen = lazy(() =>
     default: m.WastedVoteRegionsScreen,
   })),
 );
+const PersistenceScreen = lazy(() =>
+  import("./screens/PersistenceScreen").then((m) => ({
+    default: m.PersistenceScreen,
+  })),
+);
 const SectionsWastedVote = lazy(() =>
   import("./screens/reports/sections/SectionsWastedVote").then((m) => ({
     default: m.SectionsWastedVote,
@@ -1181,6 +1186,14 @@ export const AuthRoutes = () => {
           element={
             <LayoutScreen>
               <WastedVoteRegionsScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="persistence"
+          element={
+            <LayoutScreen>
+              <PersistenceScreen />
             </LayoutScreen>
           }
         />

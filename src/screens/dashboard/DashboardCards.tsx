@@ -20,6 +20,7 @@ import { ProblemSectionsTile } from "./ProblemSectionsTile";
 import { ProblemVotesByPartyTile } from "./ProblemVotesByPartyTile";
 import { MandatesTile } from "./MandatesTile";
 import { WastedVoteTile } from "./WastedVoteTile";
+import { PersistenceTile } from "./PersistenceTile";
 // Chart-heavy tiles are pulled in lazily so the recharts/d3 vendor chunk
 // (~460 KB) stays off the critical path on landing. Each tile fetches its
 // chunk in parallel with the page render and pops in when ready.
@@ -161,6 +162,7 @@ export const DashboardCards: FC = () => {
           </div>
           <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
             <WastedVoteTile />
+            <PersistenceTile />
           </div>
           <Suspense fallback={null}>
             <VoteFlowTile />
