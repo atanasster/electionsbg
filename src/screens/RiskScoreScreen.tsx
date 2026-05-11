@@ -9,7 +9,7 @@ import {
 import { Template } from "@/screens/reports/sections/Template";
 import { MethodologyCallout } from "@/screens/components/MethodologyCallout";
 import { RiskBandBadge } from "@/screens/components/riskScore/RiskBandBadge";
-import { SIGNAL_COLORS } from "@/screens/components/riskScore/RiskWaterfall";
+import { SIGNAL_COLORS } from "@/screens/components/riskScore/signalColors";
 import { Link } from "@/ux/Link";
 import {
   Tooltip as ShadcnTooltip,
@@ -126,9 +126,7 @@ export const RiskScoreScreen = () => {
                         // only square; matching the tooltip with the
                         // signal color would be misleading (the dot is
                         // showing absence-of-signal, not the signal).
-                        borderLeftColor: isFired
-                          ? color
-                          : "hsl(var(--border))",
+                        borderLeftColor: isFired ? color : "hsl(var(--border))",
                         opacity: isFired ? 1 : 0.85,
                       }}
                     >

@@ -13,17 +13,7 @@ import { formatPct } from "@/data/utils";
 // its raw value so a journalist can ground-truth against the underlying
 // reports.
 
-// Shared signal palette — reused by the SIGNALS column on the
-// /risk-score overview table so the dots in that column match the
-// waterfall colors a reader will see when they click through.
-export const SIGNAL_COLORS: Record<RiskComponentId, string> = {
-  recount: "#a855f7", // purple — recount adjustments
-  suemgMismatch: "#f97316", // orange — flash-memory delta
-  invalidBallots: "#ef4444", // red — invalid ballots
-  additionalVoters: "#eab308", // amber — list additions
-  concentrated: "#06b6d4", // cyan — single-party dominance
-  peerOutlier: "#8b5cf6", // violet — settlement outlier
-};
+import { SIGNAL_COLORS } from "./signalColors";
 
 const formatRaw = (id: RiskComponentId, raw?: number): string => {
   if (raw === undefined) return "—";

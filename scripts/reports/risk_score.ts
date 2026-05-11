@@ -307,9 +307,7 @@ export const generateRiskScoreReport = ({
     // outlier, concentrated) there is no single "affected party" — the
     // anomaly belongs to the section as a whole. Showing the section
     // winner in those cases would falsely imply a connection.
-    let affectedParty:
-      | { partyNum: number; change: number }
-      | undefined;
+    let affectedParty: { partyNum: number; change: number } | undefined;
     const considerParty = (partyNum?: number, change?: number) => {
       if (partyNum === undefined || change === undefined) return;
       if (!affectedParty || Math.abs(change) > Math.abs(affectedParty.change)) {
