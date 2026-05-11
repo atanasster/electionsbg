@@ -115,6 +115,34 @@ git commit -m "rollcall: ingest sessions through YYYY-MM-DD"
 
 The canary fixture is committed too — that's the regression-test baseline.
 
+## Data-integrity contract
+
+This skill is designed to **fail loud rather than write a corrupt or partial vote record**. The frontend reads these JSONs and treats them as authoritative; silent ingest of wrong data would poison every downstream metric (loyalty, similarity, cohesion).
+
+Surfaces that halt the ingest before any write:
+
+| Surface | Trigger | Action |
+|---|---|---|
+| HTTP error on parliament.bg | 5xx after 3 retries, or any 4xx | Throws |
+| Stenogram body shorter than expected | API returned non-JSON or empty | Throws |
+| CSV column missing | Header doesn't include NAME/textbox7/etc | Throws naming the missing column |
+| Unknown vote code | Cell value not in `+/-/=/0/О/П/Р/empty` map | Throws naming the code |
+| Session has zero vote items | Parser found no items in the CSV | Throws |
+| Tally sum ≠ vote count | Indicates parser dropped rows | Throws naming the item |
+| Vote count outside `seated ± tolerance` | Seated 240, vote count outside the band | Throws (override per-run with `--seated-tolerance` for swearing-in days) |
+| Canary mismatch | Pinned stenogram 11120 produces bytes different from the committed fixture | Throws |
+| Diff-cap exceeded | Run would touch > 5% of existing files | Throws |
+
+Surfaces that are **intentionally non-fatal** (and why):
+
+| Surface | Behaviour | Why not a hard fail |
+|---|---|---|
+| Stenogram has no roll-call CSV | Logged as "skipped" with date + id | Procedural sessions legitimately have no vote attachments |
+| MP id present in CSV but missing from `data/parliament/profiles/` | Collected into `unresolvedMpIds[]` on the session file; CSV name preserved in `mpNames` | parliament.bg's mp-profile API has known gaps the vote CSVs don't share; rejecting these would discard real votes |
+| Walker finds 0 new stenograms | Logged as "nothing to ingest" | Weekends/recess legitimately have no new sessions |
+
+Successful ingest always prints a final summary line per session: `+ YYYY-MM-DD (id N): K item(s), R rows · U unresolved id(s) → sessions/<date>.json`. If you don't see that line, no JSON was written for that session.
+
 ## Common pitfalls
 
 ### Canary mismatch

@@ -101,11 +101,31 @@ Report:
 
 Response: "1 changed source but no automated handler — `CIK news & decisions`. Manual investigation needed. Nothing to invoke."
 
+## Data-integrity contract (CRITICAL)
+
+This orchestrator MUST NOT claim success it didn't earn. Specifically:
+
+1. **Trust downstream skills to fail loud.** Every tier-2 ingest skill is built to throw rather than write empty/partial data when upstream restructures. If a Skill invocation returns an error (or its terminal output contains "Error:", a stack trace, or otherwise signals failure), treat that source as **failed**, not "completed with warnings".
+
+2. **Halt on first failure by default.** When a downstream skill fails, STOP the orchestration. Do not proceed to the next mapped skill. Report which skill failed and what error, then ask the user whether to (a) skip and continue with the rest, (b) abort entirely, or (c) investigate.
+
+3. **Never paraphrase ingest output as "done".** Read the actual stdout. Quote the relevant success/failure marker. Examples:
+   - `update-rollcall` success looks like `+ YYYY-MM-DD (id N): K item(s), R rows · U unresolved id(s) → sessions/<date>.json` for each session, plus a final summary.
+   - `update-financing` success looks like a per-section recap (`· <section>: N years` or `· <section>: not_implemented`).
+   - If you don't see those lines, the skill did not write data for that target — say so.
+
+4. **Don't hallucinate counts.** When reporting back, use exact numbers from the skill's actual stdout. If a skill says "found 0 new sessions, nothing to ingest" that is a legitimate result for weekends/recess — report it as zero, do not invent a number.
+
+5. **Surface `not_implemented` separately.** Some skills (like `/update-financing`'s subsidii section) intentionally report `not_implemented` for parts they can't yet handle. Pass that through to the user verbatim — don't fold it into "success".
+
+6. **Errors section of the report.** The watcher's own `## Errors` section lists upstream-fetch failures from the previous day. Surface those to the user but **do not auto-retry them via this orchestrator** — the watcher will re-probe them on its next run. Manual investigation only.
+
 ## What this skill does NOT do
 
 - **Does not re-run the watcher.** The report is the input. If you want a fresh fingerprint, run `npm run watch` first.
 - **Does not commit or push.** Each downstream skill handles its own commit policy. After all skills finish, the user decides whether to `git push`.
 - **Does not act on Unchanged or Errors sections.** Only `## Changed` triggers ingest. Errors are surfaced to the user but not auto-retried.
+- **Does not silently skip failed skills.** A downstream failure halts the orchestrator until the user decides how to proceed (see Data-integrity contract above).
 
 ## Quick command reference
 

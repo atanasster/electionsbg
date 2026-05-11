@@ -1,10 +1,12 @@
 {
-  "scrapedAt": "2026-05-11T09:13:47.856Z",
+  "scrapedAt": "2026-05-11T09:18:13.677Z",
+  "status": "ok",
   "sections": [
     {
       "id": "otcheti",
       "label": "Годишни финансови отчети",
       "url": "https://www.bulnao.government.bg/bg/kontrol-partii/otcheti-na-partii/",
+      "status": "ok",
       "years": [
         {
           "year": 2025,
@@ -87,7 +89,9 @@
       "id": "subsidii",
       "label": "Доклади за субсидии",
       "url": "https://www.bulnao.government.bg/bg/kontrol-partii/dokladi-subsidii/",
-      "years": []
+      "status": "not_implemented",
+      "years": [],
+      "note": "Static HTML has no year anchors; ingest requires Playwright or upstream API access. Not yet implemented."
     }
   ]
 }

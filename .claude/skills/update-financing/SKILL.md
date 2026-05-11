@@ -62,6 +62,24 @@ git add data/financing
 git commit -m "financing: refresh annual-reports index"
 ```
 
+## Data-integrity contract
+
+The scraper is designed to **fail loudly rather than write a stale or empty index**. The frontend reads this file and trusts it; we must not silently let upstream restructures corrupt that trust.
+
+Concrete guarantees:
+
+| Surface | Behaviour |
+|---|---|
+| HTTP non-2xx | Throws with status code + URL. No file is written. |
+| Response < 1000 bytes (likely redirect/error page) | Throws with byte count. No file written. |
+| Section with `minimumYears: N` parses fewer than N years | Throws naming the section, URL, and counts. No file written. |
+| Section marked `notImplemented: true` | Emitted explicitly with `status: "not_implemented"` and a `note` explaining why. Never confused with a "found nothing" result. |
+| Successful sections | Emitted with `status: "ok"` plus the actual year entries. |
+
+Top-level `data/financing/index.json` always has `status: "ok"` — it's never partial. Any failure halts the script before write. To diagnose a thrown failure, open the URL named in the error message in a browser; if the page looks fine to a human, the parser regex in `scripts/financing/scrape_index.ts` needs updating, then re-run.
+
+**When `minimumYears` is breached**: that's the canary signal that the upstream CMS restructured. Don't lower the minimum to make it pass — fix the parser to handle the new layout.
+
 ## What this skill does NOT do (v1 limitations)
 
 - **Does not ingest per-party filings.** The actual financial statements live on `gfopp.bulnao.government.bg` — a legacy ASP.NET WebForms app with `s1.aspx … s4.aspx` sub-pages (filed-on-time / not-filed / filed-late / non-compliant). Direct fetches return 403 without a session cookie + __VIEWSTATE from the year landing page. Deep ingest there is a separate project.
