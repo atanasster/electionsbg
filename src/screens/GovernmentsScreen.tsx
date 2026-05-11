@@ -8,6 +8,7 @@ import {
   CabinetStrip,
   GovernmentTimeline,
 } from "./components/governments/GovernmentTimeline";
+import { InflationBreakdownChart } from "./components/governments/InflationBreakdownChart";
 import { xDomainFor } from "./components/governments/governmentTimelineUtils";
 import { GovernmentTable } from "./components/governments/GovernmentTable";
 import { ElectionObservations } from "./components/governments/ElectionObservations";
@@ -83,27 +84,130 @@ export const GovernmentsScreen = () => {
           prefix={t("governments_chart_sources_prefix")}
           sources={[
             {
-              href: "https://ec.europa.eu/eurostat/databrowser/view/nama_10_gdp/default/table",
-              label: "Eurostat nama_10_gdp (real GDP growth)",
+              href: "https://ec.europa.eu/eurostat/databrowser/view/namq_10_gdp/default/table",
+              label: "Eurostat namq_10_gdp (real GDP growth, quarterly)",
             },
             {
-              href: "https://ec.europa.eu/eurostat/databrowser/view/prc_hicp_aind/default/table",
-              label: "Eurostat prc_hicp_aind (HICP inflation)",
+              href: "https://ec.europa.eu/eurostat/databrowser/view/prc_hicp_minr/default/table",
+              label: "Eurostat prc_hicp_minr (HICP inflation, monthly→quarterly mean)",
             },
             {
-              href: "https://ec.europa.eu/eurostat/databrowser/view/une_rt_a/default/table",
-              label: "Eurostat une_rt_a (unemployment rate)",
+              href: "https://ec.europa.eu/eurostat/databrowser/view/une_rt_q/default/table",
+              label: "Eurostat une_rt_q (unemployment rate, quarterly)",
             },
           ]}
         />
         <GovernmentTimeline
           governments={governments}
           macro={macro}
-          indicatorKeys={["gdpGrowth", "inflation", "unemployment"]}
+          indicatorKeys={[
+            {
+              labelKey: "governments_chart_group_headline",
+              keys: ["gdpGrowth", "inflation", "unemployment", "labourIncome"],
+            },
+            {
+              labelKey: "governments_chart_group_activity",
+              keys: ["industrialProd", "retailVolume"],
+            },
+          ]}
+          defaultEnabled={["gdpGrowth", "inflation", "unemployment"]}
+          yAxisFormatter={(v) => `${v}`}
+          unitFormatter={(k, v) =>
+            k === "industrialProd" || k === "retailVolume"
+              ? v.toFixed(1)
+              : `${v.toFixed(1)}%`
+          }
+          showZeroLine
+          height={360}
+        />
+      </section>
+
+      <section className="mb-10">
+        <h2 className="text-lg font-semibold mb-3">
+          {t("governments_chart_inflation_breakdown")}
+        </h2>
+        <p className="text-xs text-muted-foreground mb-3 max-w-3xl">
+          {t("governments_chart_inflation_breakdown_explainer")}
+        </p>
+        <ChartSources
+          prefix={t("governments_chart_source_prefix")}
+          sources={[
+            {
+              href: "https://ec.europa.eu/eurostat/databrowser/view/prc_hicp_minr/default/table",
+              label:
+                "Eurostat prc_hicp_minr (HICP by ECOICOP, monthly→quarterly mean)",
+            },
+          ]}
+        />
+        <InflationBreakdownChart
+          governments={governments}
+          macro={macro}
+          height={340}
+        />
+      </section>
+
+      <section className="mb-10">
+        <h2 className="text-lg font-semibold mb-3">
+          {t("governments_chart_fiscal")}
+        </h2>
+        <p className="text-xs text-muted-foreground mb-3 max-w-3xl">
+          {t("governments_chart_fiscal_explainer")}
+        </p>
+        <ChartSources
+          prefix={t("governments_chart_sources_prefix")}
+          sources={[
+            {
+              href: "https://ec.europa.eu/eurostat/databrowser/view/gov_10q_ggdebt/default/table",
+              label: "Eurostat gov_10q_ggdebt (government gross debt, % of GDP)",
+            },
+            {
+              href: "https://ec.europa.eu/eurostat/databrowser/view/gov_10q_ggnfa/default/table",
+              label: "Eurostat gov_10q_ggnfa (net lending/borrowing, % of GDP)",
+            },
+            {
+              href: "https://ec.europa.eu/eurostat/databrowser/view/ei_bpm6ca_q/default/table",
+              label: "Eurostat ei_bpm6ca_q (current account balance, % of GDP)",
+            },
+          ]}
+        />
+        <GovernmentTimeline
+          governments={governments}
+          macro={macro}
+          indicatorKeys={["govDebt", "budgetBalance", "currentAccount"]}
           yAxisFormatter={(v) => `${v}%`}
           unitFormatter={(_k, v) => `${v.toFixed(1)}%`}
           showZeroLine
-          height={360}
+          height={320}
+        />
+      </section>
+
+      <section className="mb-10">
+        <h2 className="text-lg font-semibold mb-3">
+          {t("governments_chart_sentiment")}
+        </h2>
+        <p className="text-xs text-muted-foreground mb-3 max-w-3xl">
+          {t("governments_chart_sentiment_explainer")}
+        </p>
+        <ChartSources
+          prefix={t("governments_chart_source_prefix")}
+          sources={[
+            {
+              href: "https://ec.europa.eu/eurostat/databrowser/view/ei_bssi_m_r2/default/table",
+              label:
+                "Eurostat ei_bssi_m_r2 (consumer confidence + Economic Sentiment Indicator)",
+            },
+          ]}
+        />
+        <GovernmentTimeline
+          governments={governments}
+          macro={macro}
+          indicatorKeys={["consumerConfidence", "economicSentiment"]}
+          yAxisFormatter={(v) => v.toFixed(0)}
+          unitFormatter={(k, v) =>
+            k === "consumerConfidence" ? v.toFixed(1) : v.toFixed(1)
+          }
+          showZeroLine
+          height={300}
         />
       </section>
 
@@ -221,6 +325,110 @@ export const GovernmentsScreen = () => {
           yDomain={[0, 4]}
           height={280}
         />
+      </section>
+
+      <section className="mb-10">
+        <h2 className="text-lg font-semibold mb-3">
+          {t("governments_chart_social")}
+        </h2>
+        <p className="text-xs text-muted-foreground mb-3 max-w-3xl">
+          {t("governments_chart_social_explainer")}
+        </p>
+        <ChartSources
+          prefix={t("governments_chart_sources_prefix")}
+          sources={[
+            {
+              href: "https://ec.europa.eu/eurostat/databrowser/view/une_rt_q/default/table",
+              label: "Eurostat une_rt_q (youth unemployment, ages 15-24)",
+            },
+            {
+              href: "https://ec.europa.eu/eurostat/databrowser/view/prc_hpi_q/default/table",
+              label: "Eurostat prc_hpi_q (house price index, YoY)",
+            },
+            {
+              href: "https://ec.europa.eu/eurostat/databrowser/view/ilc_di12/default/table",
+              label: "Eurostat ilc_di12 (Gini coefficient)",
+            },
+            {
+              href: "https://ec.europa.eu/eurostat/databrowser/view/ilc_li02/default/table",
+              label: "Eurostat ilc_li02 (at-risk-of-poverty rate)",
+            },
+          ]}
+        />
+        {/* Four tiles — each is a small standalone chart. Different units so
+            they can't share a Y-axis. grid-cols-2 on phone+, 4 across on
+            desktop. */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          <div>
+            <div className="text-xs font-medium text-muted-foreground mb-1">
+              {macro?.indicators.youthUnemployment &&
+                (lang === "bg"
+                  ? macro.indicators.youthUnemployment.titleBg
+                  : macro.indicators.youthUnemployment.titleEn)}
+            </div>
+            <GovernmentTimeline
+              governments={governments}
+              macro={macro}
+              indicatorKeys={["youthUnemployment"]}
+              yAxisFormatter={(v) => `${v}%`}
+              unitFormatter={(_k, v) => `${v.toFixed(1)}%`}
+              hideToggles
+              height={200}
+            />
+          </div>
+          <div>
+            <div className="text-xs font-medium text-muted-foreground mb-1">
+              {macro?.indicators.housePricesYoY &&
+                (lang === "bg"
+                  ? macro.indicators.housePricesYoY.titleBg
+                  : macro.indicators.housePricesYoY.titleEn)}
+            </div>
+            <GovernmentTimeline
+              governments={governments}
+              macro={macro}
+              indicatorKeys={["housePricesYoY"]}
+              yAxisFormatter={(v) => `${v}%`}
+              unitFormatter={(_k, v) => `${v.toFixed(1)}%`}
+              showZeroLine
+              hideToggles
+              height={200}
+            />
+          </div>
+          <div>
+            <div className="text-xs font-medium text-muted-foreground mb-1">
+              {macro?.indicators.gini &&
+                (lang === "bg"
+                  ? macro.indicators.gini.titleBg
+                  : macro.indicators.gini.titleEn)}
+            </div>
+            <GovernmentTimeline
+              governments={governments}
+              macro={macro}
+              indicatorKeys={["gini"]}
+              yAxisFormatter={(v) => v.toFixed(0)}
+              unitFormatter={(_k, v) => v.toFixed(1)}
+              hideToggles
+              height={200}
+            />
+          </div>
+          <div>
+            <div className="text-xs font-medium text-muted-foreground mb-1">
+              {macro?.indicators.povertyRate &&
+                (lang === "bg"
+                  ? macro.indicators.povertyRate.titleBg
+                  : macro.indicators.povertyRate.titleEn)}
+            </div>
+            <GovernmentTimeline
+              governments={governments}
+              macro={macro}
+              indicatorKeys={["povertyRate"]}
+              yAxisFormatter={(v) => `${v}%`}
+              unitFormatter={(_k, v) => `${v.toFixed(1)}%`}
+              hideToggles
+              height={200}
+            />
+          </div>
+        </div>
       </section>
 
       <section className="mb-10">

@@ -4,7 +4,7 @@ import {
   Government,
   GovernmentEndReason,
 } from "@/data/governments/useGovernments";
-import { MacroPayload } from "@/data/macro/useMacro";
+import { MacroPayload, MacroPoint } from "@/data/macro/useMacro";
 import { useMps } from "@/data/parliament/useMps";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 import { CandidateLink } from "@/screens/components/candidates/CandidateLink";
@@ -19,11 +19,12 @@ const formatDate = (iso: string | null, lang: string): string => {
   });
 };
 
-// Average a yearly indicator across the years a cabinet was in office, weighted
-// by the fraction of the year they served. Annual data is the highest-frequency
-// signal we have, so this is approximate but visually meaningful.
+// Weighted average of an indicator across the period a cabinet was in office.
+// Annual points cover the full calendar year; quarterly points cover their
+// 3-month window. Each point contributes value × days-of-overlap; the sum is
+// divided by total overlapping days to get a time-weighted mean.
 const periodAverage = (
-  series: { year: number; value: number }[] | undefined,
+  series: MacroPoint[] | undefined,
   startIso: string,
   endIso: string | null,
 ): number | null => {
@@ -35,10 +36,18 @@ const periodAverage = (
   let weightedSum = 0;
   let totalWeight = 0;
   for (const point of series) {
-    const yStart = new Date(Date.UTC(point.year, 0, 1));
-    const yEnd = new Date(Date.UTC(point.year + 1, 0, 1));
-    const overlapStart = start > yStart ? start : yStart;
-    const overlapEnd = end < yEnd ? end : yEnd;
+    let pStart: Date;
+    let pEnd: Date;
+    if (point.quarter) {
+      const month0 = (point.quarter - 1) * 3;
+      pStart = new Date(Date.UTC(point.year, month0, 1));
+      pEnd = new Date(Date.UTC(point.year, month0 + 3, 1));
+    } else {
+      pStart = new Date(Date.UTC(point.year, 0, 1));
+      pEnd = new Date(Date.UTC(point.year + 1, 0, 1));
+    }
+    const overlapStart = start > pStart ? start : pStart;
+    const overlapEnd = end < pEnd ? end : pEnd;
     const overlapMs = overlapEnd.getTime() - overlapStart.getTime();
     if (overlapMs <= 0) continue;
     const days = overlapMs / (1000 * 60 * 60 * 24);
@@ -48,11 +57,43 @@ const periodAverage = (
   return totalWeight > 0 ? weightedSum / totalWeight : null;
 };
 
+// Stock-indicator delta: difference between the point closest to a cabinet's
+// start date and the point closest to its end date. For quarterly stocks
+// like government debt this answers "did the level rise or fall under X?".
+// Returns the delta or null if there's no overlapping data.
+const periodDelta = (
+  series: MacroPoint[] | undefined,
+  startIso: string,
+  endIso: string | null,
+): number | null => {
+  if (!series?.length) return null;
+  const start = new Date(startIso).getTime();
+  const end = new Date(endIso ?? new Date().toISOString()).getTime();
+  if (end <= start) return null;
+  const pointTime = (p: MacroPoint): number => {
+    const month0 = p.quarter ? (p.quarter - 1) * 3 : 0;
+    return Date.UTC(p.year, month0, p.quarter ? 1 : 6);
+  };
+  let first: MacroPoint | null = null;
+  let last: MacroPoint | null = null;
+  for (const p of series) {
+    const t = pointTime(p);
+    if (t < start) continue;
+    if (t > end) continue;
+    if (!first) first = p;
+    last = p;
+  }
+  if (!first || !last) return null;
+  return last.value - first.value;
+};
+
 // Total a flow indicator (e.g. annual EU funds in EUR bn) across a cabinet's
 // tenure, pro-rated by the fraction of the year they served. Distinct from
 // periodAverage because we want the cumulative volume, not the mean rate.
+// Only used for annual flow indicators today — quarterly flows would need
+// a 3-month window analogous to periodAverage's quarter branch.
 const periodTotal = (
-  series: { year: number; value: number }[] | undefined,
+  series: MacroPoint[] | undefined,
   startIso: string,
   endIso: string | null,
 ): number | null => {
@@ -120,9 +161,14 @@ export const GovernmentTable: FC<{
         g.startDate,
         g.endDate,
       );
+      const debtChange = periodDelta(
+        macro?.series.govDebt,
+        g.startDate,
+        g.endDate,
+      );
       return {
         g,
-        indicators: { gdpGrowth, inflation, unemployment, euFunds },
+        indicators: { gdpGrowth, inflation, unemployment, euFunds, debtChange },
       };
     });
   }, [governments, macro]);
@@ -144,6 +190,7 @@ export const GovernmentTable: FC<{
               {t("gov_avg_unemployment")}
             </th>
             <th className="text-right py-2 pr-3">{t("gov_eu_funds")}</th>
+            <th className="text-right py-2 pr-3">{t("gov_debt_change")}</th>
             <th className="text-left py-2">{t("gov_end_reason")}</th>
           </tr>
         </thead>
@@ -251,6 +298,19 @@ export const GovernmentTable: FC<{
                   {indicators.euFunds === null
                     ? "—"
                     : `€${indicators.euFunds.toFixed(1)}B`}
+                </td>
+                <td
+                  className={`py-2 pr-3 text-right tabular-nums ${
+                    indicators.debtChange === null
+                      ? ""
+                      : indicators.debtChange > 0
+                        ? "text-rose-600"
+                        : "text-emerald-700"
+                  }`}
+                >
+                  {indicators.debtChange === null
+                    ? "—"
+                    : `${indicators.debtChange > 0 ? "+" : ""}${indicators.debtChange.toFixed(1)} pp`}
                 </td>
                 <td className="py-2 text-muted-foreground text-xs">
                   {endReason}

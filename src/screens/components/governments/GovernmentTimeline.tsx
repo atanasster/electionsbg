@@ -18,7 +18,8 @@ import {
 import {
   MacroIndicatorKey,
   MacroPayload,
-  MacroPoint,
+  labelForFractionalX,
+  pointToFractionalX,
 } from "@/data/macro/useMacro";
 import { Tooltip as UxTooltip } from "@/ux/Tooltip";
 import { tooltipSurfaceClass } from "@/components/ui/tooltipSurface";
@@ -30,6 +31,7 @@ import {
   toFractionalYear,
   xDomainFor,
 } from "@/screens/components/governments/governmentTimelineUtils";
+import { useChartInsets } from "@/screens/components/governments/governmentChartInsets";
 
 const ELECTION_DATES = [
   "2005_06_25",
@@ -115,11 +117,37 @@ const colorForGovernmentSolid = (
 };
 
 // Reused per chart so the line palette stays consistent across the page.
+// Colours may repeat across charts (gdpGrowth and inflationCore both green,
+// inflation and inflationEnergy both red) — they never appear in the same
+// chart together, so within-chart contrast is what matters.
 const SERIES_COLORS: Record<MacroIndicatorKey, string> = {
+  // economy
   gdpGrowth: "#10b981",
   inflation: "#ef4444",
   unemployment: "#3b82f6",
   gdpPerCapita: "#a855f7",
+  // fiscal / external
+  govDebt: "#0891b2",
+  budgetBalance: "#e11d48",
+  currentAccount: "#7c3aed",
+  // HICP breakdown (stacked area uses these directly)
+  inflationFood: "#f59e0b",
+  inflationEnergy: "#dc2626",
+  inflationServices: "#3b82f6",
+  inflationCore: "#10b981",
+  // activity (index 2021 = 100) + labour income (% YoY)
+  industrialProd: "#047857",
+  retailVolume: "#0d9488",
+  labourIncome: "#65a30d",
+  // sentiment (different scales — own chart)
+  consumerConfidence: "#38bdf8",
+  economicSentiment: "#4f46e5",
+  // social
+  youthUnemployment: "#1d4ed8",
+  housePricesYoY: "#a16207",
+  gini: "#7c3aed",
+  povertyRate: "#be185d",
+  // governance / curated
   wgiRuleOfLaw: "#0ea5e9",
   wgiControlOfCorruption: "#8b5cf6",
   wgiGovEffectiveness: "#06b6d4",
@@ -131,25 +159,26 @@ const SERIES_COLORS: Record<MacroIndicatorKey, string> = {
   euContribution: "#f97316",
 };
 
-type ChartRow = { year: number } & Partial<Record<MacroIndicatorKey, number>>;
+// Rows are keyed by fractional year (mid-year for annual, mid-quarter for
+// quarterly). Sparse — most cells are undefined when cadences are mixed,
+// which is fine because `<Line connectNulls>` handles it.
+type ChartRow = { x: number } & Partial<Record<MacroIndicatorKey, number>>;
 
 const buildChartData = (
   macro: MacroPayload | undefined,
   keys: MacroIndicatorKey[],
 ): ChartRow[] => {
   if (!macro) return [];
-  const years = new Set<number>();
+  const rows = new Map<number, ChartRow>();
   for (const k of keys) {
-    for (const p of macro.series[k] ?? []) years.add(p.year);
+    for (const p of macro.series[k] ?? []) {
+      const x = pointToFractionalX(p);
+      const row = rows.get(x) ?? { x };
+      row[k] = p.value;
+      rows.set(x, row);
+    }
   }
-  const sorted = [...years].sort((a, b) => a - b);
-  const lookup = (key: MacroIndicatorKey, year: number) =>
-    macro.series[key]?.find((p: MacroPoint) => p.year === year)?.value;
-  return sorted.map((year) => {
-    const row: ChartRow = { year };
-    for (const k of keys) row[k] = lookup(k, year);
-    return row;
-  });
+  return [...rows.values()].sort((a, b) => a.x - b.x);
 };
 
 type Toggle = Partial<Record<MacroIndicatorKey, boolean>>;
@@ -178,16 +207,17 @@ const TooltipContent: FC<{
   unitFormatter,
 }) => {
   if (!active || label === undefined) return null;
-  const yearStart = label;
-  const yearMid = label + 0.5;
+  // label is the fractional x of the hovered row — match cabinets in office
+  // at that instant rather than at year resolution.
+  const t = label;
   const matching = governments.filter((g) => {
     const s = toFractionalYear(g.startDate);
     const e = g.endDate ? toFractionalYear(g.endDate) : 9999;
-    return s <= yearMid && e >= yearStart;
+    return s <= t && e >= t;
   });
   return (
     <div className={cn(tooltipSurfaceClass, "px-3 py-2 text-xs max-w-xs")}>
-      <div className="font-semibold mb-1">{label}</div>
+      <div className="font-semibold mb-1">{labelForFractionalX(label)}</div>
       {matching.map((g) => (
         <div key={g.id} className="mb-0.5">
           <span className="font-semibold">
@@ -313,10 +343,11 @@ export const CabinetStrip: FC<{
   lang: "en" | "bg";
 }> = ({ governments, xDomain, lang }) => {
   const { colorFor } = useCanonicalParties();
+  const insets = useChartInsets();
   return (
     <div
       className="flex h-14 mb-1 rounded overflow-hidden"
-      style={{ paddingLeft: 44, paddingRight: 32 }}
+      style={{ paddingLeft: insets.paddingLeft, paddingRight: insets.paddingRight }}
     >
       {governments.map((g) => {
         const start = toFractionalYear(g.startDate);
@@ -363,12 +394,33 @@ export const CabinetStrip: FC<{
   );
 };
 
+// Either a flat list of indicator keys (one ungrouped row of pills above the
+// chart) or labelled groups (one row per group with a small leading label).
+// Grouped form is used when a single chart hosts >5 indicators or distinct
+// conceptual buckets (e.g. headline + activity + sentiment).
+export type IndicatorGroup = {
+  labelKey: string;
+  keys: MacroIndicatorKey[];
+};
+export type IndicatorSpec = MacroIndicatorKey[] | IndicatorGroup[];
+
+const flattenSpec = (spec: IndicatorSpec): MacroIndicatorKey[] =>
+  Array.isArray(spec) && spec.length > 0 && typeof spec[0] === "string"
+    ? (spec as MacroIndicatorKey[])
+    : (spec as IndicatorGroup[]).flatMap((g) => g.keys);
+
+const isGrouped = (spec: IndicatorSpec): spec is IndicatorGroup[] =>
+  Array.isArray(spec) && spec.length > 0 && typeof spec[0] !== "string";
+
 export const GovernmentTimeline: FC<{
   governments: Government[];
   macro: MacroPayload | undefined;
-  /** Which indicator series this chart can show. */
-  indicatorKeys: MacroIndicatorKey[];
-  /** Subset of indicatorKeys enabled by default. Defaults to all. */
+  /**
+   * Which indicator series this chart can show. Pass a flat array for one
+   * row of pills, or a list of `{labelKey, keys}` groups for category rows.
+   */
+  indicatorKeys: IndicatorSpec;
+  /** Subset of indicator keys enabled by default. Defaults to all. */
   defaultEnabled?: MacroIndicatorKey[];
   /** Y-axis tick formatter. */
   yAxisFormatter?: (v: number) => string;
@@ -398,19 +450,22 @@ export const GovernmentTimeline: FC<{
   const { t, i18n } = useTranslation();
   const lang: "en" | "bg" = i18n.language === "bg" ? "bg" : "en";
   const { colorFor } = useCanonicalParties();
+  const insets = useChartInsets();
+
+  const flatKeys = useMemo(() => flattenSpec(indicatorKeys), [indicatorKeys]);
 
   const initial = useMemo<Toggle>(() => {
-    const on = new Set<MacroIndicatorKey>(defaultEnabled ?? indicatorKeys);
+    const on = new Set<MacroIndicatorKey>(defaultEnabled ?? flatKeys);
     const out: Toggle = {};
-    for (const k of indicatorKeys) out[k] = on.has(k);
+    for (const k of flatKeys) out[k] = on.has(k);
     return out;
-  }, [indicatorKeys, defaultEnabled]);
+  }, [flatKeys, defaultEnabled]);
 
   const [enabled, setEnabled] = useState<Toggle>(initial);
 
   const chartData = useMemo(
-    () => buildChartData(macro, indicatorKeys),
-    [macro, indicatorKeys],
+    () => buildChartData(macro, flatKeys),
+    [macro, flatKeys],
   );
 
   const xDomain = useMemo<[number, number]>(
@@ -434,38 +489,85 @@ export const GovernmentTimeline: FC<{
 
   return (
     <div className="w-full">
-      {!hideToggles && (
-        <div className="flex flex-wrap gap-2 mb-3 text-xs">
-          {indicatorKeys.map((k) => {
-            const meta = macro.indicators[k];
-            if (!meta) return null;
-            return (
-              <button
-                key={k}
-                onClick={() => toggle(k)}
-                className={`px-3 py-1 rounded-full border transition-colors ${
-                  enabled[k]
-                    ? "border-transparent text-white"
-                    : "bg-background hover:bg-accent/10"
-                }`}
-                style={
-                  enabled[k]
-                    ? { backgroundColor: SERIES_COLORS[k] }
-                    : { borderColor: SERIES_COLORS[k], color: SERIES_COLORS[k] }
-                }
+      {!hideToggles &&
+        (isGrouped(indicatorKeys) ? (
+          <div className="mb-3 flex flex-col gap-1.5">
+            {indicatorKeys.map((group) => (
+              <div
+                key={group.labelKey}
+                className="flex flex-wrap items-center gap-2 text-xs"
               >
-                {lang === "bg" ? meta.titleBg : meta.titleEn}
-              </button>
-            );
-          })}
-        </div>
-      )}
+                <span className="text-[10px] uppercase tracking-wide text-muted-foreground min-w-[64px]">
+                  {t(group.labelKey)}
+                </span>
+                {group.keys.map((k) => {
+                  const meta = macro.indicators[k];
+                  if (!meta) return null;
+                  return (
+                    <button
+                      key={k}
+                      onClick={() => toggle(k)}
+                      className={`px-3 py-1 rounded-full border transition-colors ${
+                        enabled[k]
+                          ? "border-transparent text-white"
+                          : "bg-background hover:bg-accent/10"
+                      }`}
+                      style={
+                        enabled[k]
+                          ? { backgroundColor: SERIES_COLORS[k] }
+                          : {
+                              borderColor: SERIES_COLORS[k],
+                              color: SERIES_COLORS[k],
+                            }
+                      }
+                    >
+                      {lang === "bg" ? meta.titleBg : meta.titleEn}
+                    </button>
+                  );
+                })}
+              </div>
+            ))}
+          </div>
+        ) : (
+          <div className="flex flex-wrap gap-2 mb-3 text-xs">
+            {flatKeys.map((k) => {
+              const meta = macro.indicators[k];
+              if (!meta) return null;
+              return (
+                <button
+                  key={k}
+                  onClick={() => toggle(k)}
+                  className={`px-3 py-1 rounded-full border transition-colors ${
+                    enabled[k]
+                      ? "border-transparent text-white"
+                      : "bg-background hover:bg-accent/10"
+                  }`}
+                  style={
+                    enabled[k]
+                      ? { backgroundColor: SERIES_COLORS[k] }
+                      : {
+                          borderColor: SERIES_COLORS[k],
+                          color: SERIES_COLORS[k],
+                        }
+                  }
+                >
+                  {lang === "bg" ? meta.titleBg : meta.titleEn}
+                </button>
+              );
+            })}
+          </div>
+        ))}
 
       <div className="w-full" style={{ height }}>
         <ResponsiveContainer width="100%" height="100%">
           <LineChart
             data={chartData}
-            margin={{ top: 8, right: 32, left: 8, bottom: 24 }}
+            margin={{
+              top: 8,
+              right: insets.marginRight,
+              left: insets.marginLeft,
+              bottom: 24,
+            }}
           >
             <CartesianGrid
               strokeDasharray="3 3"
@@ -473,7 +575,7 @@ export const GovernmentTimeline: FC<{
               opacity={0.2}
             />
             <XAxis
-              dataKey="year"
+              dataKey="x"
               type="number"
               domain={xDomain}
               tick={{ fontSize: 11 }}
@@ -489,7 +591,7 @@ export const GovernmentTimeline: FC<{
               tick={{ fontSize: 11 }}
               tickLine={false}
               axisLine={false}
-              width={36}
+              width={insets.yAxisWidth}
               domain={yDomain}
               tickFormatter={yAxisFormatter}
             />
@@ -542,21 +644,25 @@ export const GovernmentTimeline: FC<{
               <ReferenceLine y={0} stroke="#64748b" strokeOpacity={0.3} />
             )}
 
-            {indicatorKeys.map((k) =>
-              enabled[k] ? (
+            {flatKeys.map((k) => {
+              if (!enabled[k]) return null;
+              // Quarterly series have 4x the points across the same span,
+              // so shrink the dot to keep the line readable.
+              const quarterly = macro.indicators[k]?.cadence === "quarterly";
+              return (
                 <Line
                   key={k}
                   type="monotone"
                   dataKey={k}
                   stroke={SERIES_COLORS[k]}
                   strokeWidth={2.5}
-                  dot={{ r: 3 }}
-                  activeDot={{ r: 5 }}
+                  dot={{ r: quarterly ? 1.5 : 3 }}
+                  activeDot={{ r: quarterly ? 3 : 5 }}
                   isAnimationActive={false}
                   connectNulls
                 />
-              ) : null,
-            )}
+              );
+            })}
           </LineChart>
         </ResponsiveContainer>
       </div>
