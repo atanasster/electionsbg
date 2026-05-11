@@ -12,6 +12,7 @@ export const settlementReports = ({
   parties,
   prevYearParties,
   election,
+  belowThresholdPartyNums,
 }: {
   reportsFolder: string;
   dataFolder: string;
@@ -21,6 +22,7 @@ export const settlementReports = ({
   parties: PartyInfo[];
   prevYearParties?: PartyInfo[];
   election: ElectionInfo;
+  belowThresholdPartyNums?: Set<number>;
 }) => {
   const settlementFolder = `${reportsFolder}/settlement`;
   if (!fs.existsSync(settlementFolder)) {
@@ -38,5 +40,6 @@ export const settlementReports = ({
     prevYearFindRow: (row) =>
       prevYearVotes?.find((r) => r.ekatte === row.ekatte)?.results.votes,
     election,
+    belowThresholdPartyNums,
   });
 };

@@ -10,12 +10,17 @@ export const reportsMenu: MenuItem[] = [
     title: "explore_title",
     subMenu: [
       { title: "compare_title", link: "/compare" },
+      { title: "wasted_votes_title", link: "/wasted-vote" },
       { title: "-" },
       { title: "anomaly_reports" },
       { title: "-" },
       {
         title: "municipalities",
         subMenu: [
+          {
+            title: "wasted_votes_title",
+            link: "/reports/municipality/wasted-votes",
+          },
           {
             title: "concentrated_party_votes",
             link: "/reports/municipality/concentrated",
@@ -79,6 +84,10 @@ export const reportsMenu: MenuItem[] = [
         title: "settlements",
         subMenu: [
           {
+            title: "wasted_votes_title",
+            link: "/reports/settlement/wasted-votes",
+          },
+          {
             title: "concentrated_party_votes",
             link: "/reports/settlement/concentrated",
           },
@@ -140,6 +149,10 @@ export const reportsMenu: MenuItem[] = [
       {
         title: "sections",
         subMenu: [
+          {
+            title: "wasted_votes_title",
+            link: "/reports/section/wasted-votes",
+          },
           {
             title: "concentrated_party_votes",
             link: "/reports/section/concentrated",

@@ -21,6 +21,10 @@ export type CalcProcProps<DType extends DataTypes> = {
   parties: PartyInfo[];
   prevYearParties?: PartyInfo[];
   original?: RecountOriginal;
+  // partyNums that fell below the 4% national threshold this cycle;
+  // populated by generateReports() once per election, before per-level
+  // reports run, so wasted_votes can filter by it.
+  belowThresholdPartyNums?: Set<number>;
 };
 
 export const round = (num: number) => Math.ceil(num * 100) / 100;

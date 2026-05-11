@@ -30,6 +30,7 @@ export const saveReport = <
   parties,
   prevYearParties,
   election,
+  belowThresholdPartyNums,
 }: {
   reportFolder: string;
   stringify: (o: object) => string;
@@ -39,6 +40,7 @@ export const saveReport = <
   parties: PartyInfo[];
   prevYearParties?: PartyInfo[];
   election: ElectionInfo;
+  belowThresholdPartyNums?: Set<number>;
 }) => {
   reportValues.forEach((r) => {
     const rows = votes
@@ -56,6 +58,7 @@ export const saveReport = <
             prevYearParties,
             original: row.original,
             election,
+            belowThresholdPartyNums,
           }),
           ...(additionalFields ? additionalFields(row) : {}),
         };

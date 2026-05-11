@@ -12,6 +12,7 @@ export const sectionReports = ({
   parties,
   prevYearParties,
   election,
+  belowThresholdPartyNums,
 }: {
   reportsFolder: string;
   dataFolder: string;
@@ -21,6 +22,7 @@ export const sectionReports = ({
   parties: PartyInfo[];
   prevYearParties?: PartyInfo[];
   election: ElectionInfo;
+  belowThresholdPartyNums?: Set<number>;
 }) => {
   const sectionFolder = `${reportsFolder}/section`;
   if (!fs.existsSync(sectionFolder)) {
@@ -38,5 +40,6 @@ export const sectionReports = ({
     prevYearFindRow: (row) =>
       prevYearVotes?.find((r) => r.section === row.section)?.results.votes,
     election,
+    belowThresholdPartyNums,
   });
 };

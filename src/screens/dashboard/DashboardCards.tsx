@@ -19,6 +19,7 @@ import { PaperMachineCard } from "./cards/PaperMachineCard";
 import { ProblemSectionsTile } from "./ProblemSectionsTile";
 import { ProblemVotesByPartyTile } from "./ProblemVotesByPartyTile";
 import { MandatesTile } from "./MandatesTile";
+import { WastedVoteTile } from "./WastedVoteTile";
 // Chart-heavy tiles are pulled in lazily so the recharts/d3 vendor chunk
 // (~460 KB) stays off the critical path on landing. Each tile fetches its
 // chunk in parallel with the page render and pops in when ready.
@@ -157,6 +158,9 @@ export const DashboardCards: FC = () => {
           <div className="grid gap-3 grid-cols-1 lg:grid-cols-[minmax(0,1fr)_minmax(0,1.4fr)]">
             <MandatesTile parties={data.parties} />
             <TopCandidatesStrip parties={data.parties} />
+          </div>
+          <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3">
+            <WastedVoteTile />
           </div>
           <Suspense fallback={null}>
             <VoteFlowTile />

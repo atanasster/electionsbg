@@ -61,6 +61,20 @@ export type TopLocation = {
   winnerColor?: string;
 };
 
+// National wasted-vote summary: share of valid votes cast for parties that
+// fell below the 4% threshold and won zero seats. `almostMadeIt` is the 2–4%
+// band (parties that came close); `fringe` is <2%.
+export type WastedVotesSummary = {
+  validVotes: number;
+  wastedVotes: number;
+  share: number;
+  almostMadeItVotes: number;
+  almostMadeItShare: number;
+  fringeVotes: number;
+  fringeShare: number;
+  parties: { partyNum: number; totalVotes: number; pct: number }[];
+};
+
 export type NationalSummary = {
   election: string;
   priorElection?: string;
@@ -78,4 +92,5 @@ export type NationalSummary = {
   parties: NationalPartyResult[];
   topDiaspora?: TopLocation[];
   topCities?: TopLocation[];
+  wastedVotes?: WastedVotesSummary;
 };

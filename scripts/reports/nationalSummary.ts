@@ -13,6 +13,7 @@ import {
   PaperMachineSummary,
   PartyChange,
   TopLocation,
+  WastedVotesSummary,
 } from "@/data/dashboard/dashboardTypes";
 
 const NATIONAL_THRESHOLD_PCT = 4;
@@ -489,6 +490,38 @@ export const generateNationalSummary = ({
     `${publicFolder}/${year}/problem_sections.json`,
   );
 
+  const wastedVotes: WastedVotesSummary | undefined = (() => {
+    if (!totalCurrent) return undefined;
+    let wasted = 0;
+    let almostMadeIt = 0;
+    let fringe = 0;
+    const parties: { partyNum: number; totalVotes: number; pct: number }[] = [];
+    for (const r of partyResults) {
+      if (!r.passedThreshold) {
+        wasted += r.totalVotes;
+        if (r.pct >= 2) almostMadeIt += r.totalVotes;
+        else fringe += r.totalVotes;
+        if (r.totalVotes > 0)
+          parties.push({
+            partyNum: r.partyNum,
+            totalVotes: r.totalVotes,
+            pct: r.pct,
+          });
+      }
+    }
+    parties.sort((a, b) => b.totalVotes - a.totalVotes);
+    return {
+      validVotes: totalCurrent,
+      wastedVotes: wasted,
+      share: round((100 * wasted) / totalCurrent),
+      almostMadeItVotes: almostMadeIt,
+      almostMadeItShare: round((100 * almostMadeIt) / totalCurrent),
+      fringeVotes: fringe,
+      fringeShare: round((100 * fringe) / totalCurrent),
+      parties,
+    } satisfies WastedVotesSummary;
+  })();
+
   const paperMachine = computePaperMachine(currentVotes, priorVotes);
 
   const { topDiaspora, topCities } = computeTopLocations(
@@ -518,6 +551,7 @@ export const generateNationalSummary = ({
     parties: partyResults,
     topDiaspora,
     topCities,
+    wastedVotes,
   };
 
   const outFile = `${publicFolder}/${year}/national_summary.json`;

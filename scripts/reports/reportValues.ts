@@ -171,6 +171,35 @@ export const reportValues: ReportValue[] = [
     },
   },
   {
+    name: "wasted_votes",
+    direction: "desc",
+    calc: ({ votes, belowThresholdPartyNums }) => {
+      if (!belowThresholdPartyNums || !votes?.length) return undefined;
+      let total = 0;
+      let wasted = 0;
+      let topWastedParty: { partyNum: number; totalVotes: number } | undefined;
+      for (const v of votes) {
+        total += v.totalVotes;
+        if (belowThresholdPartyNums.has(v.partyNum)) {
+          wasted += v.totalVotes;
+          if (!topWastedParty || v.totalVotes > topWastedParty.totalVotes) {
+            topWastedParty = { partyNum: v.partyNum, totalVotes: v.totalVotes };
+          }
+        }
+      }
+      if (total === 0 || wasted === 0) return undefined;
+      const pct = round((100 * wasted) / total);
+      return {
+        partyNum: topWastedParty?.partyNum ?? 0,
+        totalVotes: topWastedParty?.totalVotes ?? 0,
+        pctPartyVote: topWastedParty
+          ? round((100 * topWastedParty.totalVotes) / total)
+          : 0,
+        value: pct,
+      } as CalcRowType;
+    },
+  },
+  {
     name: "recount_zero_votes",
     direction: "desc",
     calc: (props) => {

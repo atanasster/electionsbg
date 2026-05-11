@@ -1,7 +1,7 @@
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
-import { ElectionInfo, PartyInfo } from "@/data/dataTypes";
+import { ElectionInfo, ElectionRegion, PartyInfo } from "@/data/dataTypes";
 import { municipalityReports } from "./municipality_reports";
 import { settlementReports } from "./settlement_reports";
 import { sectionReports } from "./section_reports";
@@ -11,10 +11,43 @@ import {
   generateProblemSections,
   generateProblemSectionsStats,
 } from "./problem_sections";
-import { cikPartiesFileName } from "scripts/consts";
+import { cikPartiesFileName, regionsVotesFileName } from "scripts/consts";
 import { generateNationalSummary } from "./nationalSummary";
 import { generateRegionHistory } from "./regionHistory";
 import { generateSuspiciousSections } from "./suspiciousSections";
+import { regionWastedReport } from "./region_wasted";
+import { generateWastedVotesDashboard } from "./wasted_votes_dashboard";
+
+const NATIONAL_THRESHOLD_PCT = 4;
+
+// Compute the set of partyNums that fell below the 4% national threshold
+// for a given election by summing per-region totals. Returns an empty set
+// if region_votes.json is missing — wasted_votes reports will then skip
+// that election.
+const computeBelowThresholdSet = (
+  publicFolder: string,
+  year: string,
+): Set<number> => {
+  const regionsFile = `${publicFolder}/${year}/${regionsVotesFileName}`;
+  if (!fs.existsSync(regionsFile)) return new Set();
+  const regions: ElectionRegion[] = JSON.parse(
+    fs.readFileSync(regionsFile, "utf-8"),
+  );
+  const totals = new Map<number, number>();
+  let grandTotal = 0;
+  for (const r of regions) {
+    for (const v of r.results?.votes ?? []) {
+      totals.set(v.partyNum, (totals.get(v.partyNum) ?? 0) + v.totalVotes);
+      grandTotal += v.totalVotes;
+    }
+  }
+  if (grandTotal === 0) return new Set();
+  const below = new Set<number>();
+  for (const [partyNum, votes] of totals) {
+    if ((100 * votes) / grandTotal < NATIONAL_THRESHOLD_PCT) below.add(partyNum);
+  }
+  return below;
+};
 
 const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
 const __dirname = path.dirname(__filename); // get the name of the directory
@@ -23,7 +56,7 @@ export const generateReports = (
   stringify: (o: object) => string,
   election?: string,
 ) => {
-  const publicFolder = path.resolve(__dirname, `../../public`);
+  const publicFolder = path.resolve(__dirname, `../../data`);
   const electionsFile = path.resolve(
     __dirname,
     "../../src/data/json/elections.json",
@@ -65,6 +98,10 @@ export const generateReports = (
             ),
           )
         : undefined;
+      const belowThresholdPartyNums = computeBelowThresholdSet(
+        publicFolder,
+        year,
+      );
       const params = {
         reportsFolder,
         dataFolder,
@@ -74,10 +111,27 @@ export const generateReports = (
         parties,
         prevYearParties,
         election: e,
+        belowThresholdPartyNums,
       };
       municipalityReports(params);
       settlementReports(params);
       sectionReports(params);
+      if (belowThresholdPartyNums.size > 0) {
+        regionWastedReport({
+          publicFolder,
+          reportsFolder,
+          year,
+          parties,
+          belowThresholdPartyNums,
+          stringify,
+        });
+        generateWastedVotesDashboard({
+          publicFolder,
+          reportsFolder,
+          year,
+          stringify,
+        });
+      }
       generateProblemSections({
         publicFolder,
         dataFolder,
@@ -116,7 +170,7 @@ export const generateSummariesOnly = (
   stringify: (o: object) => string,
   election?: string,
 ) => {
-  const publicFolder = path.resolve(__dirname, `../../public`);
+  const publicFolder = path.resolve(__dirname, `../../data`);
   const electionsFile = path.resolve(
     __dirname,
     "../../src/data/json/elections.json",

@@ -16,6 +16,7 @@ export const municipalityReports = ({
   parties,
   prevYearParties,
   election,
+  belowThresholdPartyNums,
 }: {
   reportsFolder: string;
   dataFolder: string;
@@ -25,6 +26,7 @@ export const municipalityReports = ({
   parties: PartyInfo[];
   prevYearParties?: PartyInfo[];
   election: ElectionInfo;
+  belowThresholdPartyNums?: Set<number>;
 }) => {
   const municipalityFolder = `${reportsFolder}/municipality`;
   if (!fs.existsSync(municipalityFolder)) {
@@ -43,5 +45,6 @@ export const municipalityReports = ({
       return pr?.results.votes;
     },
     election,
+    belowThresholdPartyNums,
   });
 };

@@ -202,6 +202,31 @@ const SimulatorScreen = lazy(() =>
     default: m.SimulatorScreen,
   })),
 );
+const WastedVoteScreen = lazy(() =>
+  import("./screens/WastedVoteScreen").then((m) => ({
+    default: m.WastedVoteScreen,
+  })),
+);
+const WastedVoteRegionsScreen = lazy(() =>
+  import("./screens/WastedVoteRegionsScreen").then((m) => ({
+    default: m.WastedVoteRegionsScreen,
+  })),
+);
+const SectionsWastedVote = lazy(() =>
+  import("./screens/reports/sections/SectionsWastedVote").then((m) => ({
+    default: m.SectionsWastedVote,
+  })),
+);
+const SettlementsWastedVote = lazy(() =>
+  import("./screens/reports/settlements/SettlementsWastedVote").then((m) => ({
+    default: m.SettlementsWastedVote,
+  })),
+);
+const MunicipalitiesWastedVote = lazy(() =>
+  import("./screens/reports/municipalities/MunicipalitiesWastedVote").then(
+    (m) => ({ default: m.MunicipalitiesWastedVote }),
+  ),
+);
 const GovernmentsScreen = lazy(() =>
   import("./screens/GovernmentsScreen").then((m) => ({
     default: m.GovernmentsScreen,
@@ -1144,6 +1169,22 @@ export const AuthRoutes = () => {
           }
         />
         <Route
+          path="wasted-vote"
+          element={
+            <LayoutScreen>
+              <WastedVoteScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="wasted-vote/regions"
+          element={
+            <LayoutScreen>
+              <WastedVoteRegionsScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
           path="governments"
           element={
             <LayoutScreen>
@@ -1283,6 +1324,14 @@ export const AuthRoutes = () => {
         <Route path="reports">
           <Route path="settlement">
             <Route
+              path="wasted-votes"
+              element={
+                <LayoutScreen>
+                  <SettlementsWastedVote />
+                </LayoutScreen>
+              }
+            />
+            <Route
               path="concentrated"
               element={
                 <LayoutScreen>
@@ -1381,6 +1430,14 @@ export const AuthRoutes = () => {
           </Route>
           <Route path="municipality">
             <Route
+              path="wasted-votes"
+              element={
+                <LayoutScreen>
+                  <MunicipalitiesWastedVote />
+                </LayoutScreen>
+              }
+            />
+            <Route
               path="concentrated"
               element={
                 <LayoutScreen>
@@ -1478,6 +1535,14 @@ export const AuthRoutes = () => {
             />
           </Route>
           <Route path="section">
+            <Route
+              path="wasted-votes"
+              element={
+                <LayoutScreen>
+                  <SectionsWastedVote />
+                </LayoutScreen>
+              }
+            />
             <Route
               path="concentrated"
               element={
