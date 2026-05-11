@@ -784,7 +784,12 @@ const valueAt = (
 const aggregateMonthlyToQuarterly = (
   monthly: { year: number; month: number; value: number }[],
 ): MacroPoint[] => {
-  type Bucket = { sum: number; count: number; year: number; quarter: 1 | 2 | 3 | 4 };
+  type Bucket = {
+    sum: number;
+    count: number;
+    year: number;
+    quarter: 1 | 2 | 3 | 4;
+  };
   const buckets = new Map<string, Bucket>();
   for (const p of monthly) {
     const quarter = Math.ceil(p.month / 3) as 1 | 2 | 3 | 4;
@@ -868,9 +873,7 @@ const fetchEurostat = async (i: EurostatIndicator): Promise<MacroPoint[]> => {
         value: v,
       });
     }
-    all.sort(
-      (a, b) => a.year - b.year || (a.quarter ?? 0) - (b.quarter ?? 0),
-    );
+    all.sort((a, b) => a.year - b.year || (a.quarter ?? 0) - (b.quarter ?? 0));
 
     if (i.derive === "yoyGrowth") {
       const out: MacroPoint[] = [];
@@ -969,9 +972,7 @@ const main = async () => {
         ...(ind.source === "eurostat"
           ? { sourceUrl: ind.sourceUrl, datasetCode: ind.dataset }
           : {}),
-        ...(ind.source === "worldbank"
-          ? { sourceUrl: ind.sourceUrl }
-          : {}),
+        ...(ind.source === "worldbank" ? { sourceUrl: ind.sourceUrl } : {}),
         ...(ind.source === "curated"
           ? {
               sourceUrl: ind.sourceUrl,

@@ -89,7 +89,8 @@ export const GovernmentsScreen = () => {
             },
             {
               href: "https://ec.europa.eu/eurostat/databrowser/view/prc_hicp_minr/default/table",
-              label: "Eurostat prc_hicp_minr (HICP inflation, monthly→quarterly mean)",
+              label:
+                "Eurostat prc_hicp_minr (HICP inflation, monthly→quarterly mean)",
             },
             {
               href: "https://ec.europa.eu/eurostat/databrowser/view/une_rt_q/default/table",
@@ -158,7 +159,8 @@ export const GovernmentsScreen = () => {
           sources={[
             {
               href: "https://ec.europa.eu/eurostat/databrowser/view/gov_10q_ggdebt/default/table",
-              label: "Eurostat gov_10q_ggdebt (government gross debt, % of GDP)",
+              label:
+                "Eurostat gov_10q_ggdebt (government gross debt, % of GDP)",
             },
             {
               href: "https://ec.europa.eu/eurostat/databrowser/view/gov_10q_ggnfa/default/table",

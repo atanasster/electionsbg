@@ -23,22 +23,50 @@ interface EurostatResponse {
 // live inside datasets already tracked here (prc_hicp_minr / une_rt_q), so
 // they're covered without separate entries.
 const DATASETS: { code: string; query: string }[] = [
-  { code: "namq_10_gdp",     query: "geo=BG&unit=CLV_PCH_SM&na_item=B1GQ&s_adj=SCA&freq=Q" },
-  { code: "prc_hicp_minr",   query: "geo=BG&unit=RCH_A&coicop18=TOTAL" },
-  { code: "une_rt_q",        query: "geo=BG&unit=PC_ACT&age=Y15-74&sex=T&s_adj=NSA&freq=Q" },
-  { code: "gov_10q_ggdebt",  query: "geo=BG&unit=PC_GDP&sector=S13&na_item=GD&freq=Q" },
-  { code: "gov_10q_ggnfa",   query: "geo=BG&unit=PC_GDP&sector=S13&na_item=B9&s_adj=SCA&freq=Q" },
-  { code: "ei_bpm6ca_q",     query: "geo=BG&unit=PC_GDP&s_adj=NSA&sector10=S1&sectpart=S1&partner=WRL_REST&stk_flow=BAL&bop_item=CA&freq=Q" },
+  {
+    code: "namq_10_gdp",
+    query: "geo=BG&unit=CLV_PCH_SM&na_item=B1GQ&s_adj=SCA&freq=Q",
+  },
+  { code: "prc_hicp_minr", query: "geo=BG&unit=RCH_A&coicop18=TOTAL" },
+  {
+    code: "une_rt_q",
+    query: "geo=BG&unit=PC_ACT&age=Y15-74&sex=T&s_adj=NSA&freq=Q",
+  },
+  {
+    code: "gov_10q_ggdebt",
+    query: "geo=BG&unit=PC_GDP&sector=S13&na_item=GD&freq=Q",
+  },
+  {
+    code: "gov_10q_ggnfa",
+    query: "geo=BG&unit=PC_GDP&sector=S13&na_item=B9&s_adj=SCA&freq=Q",
+  },
+  {
+    code: "ei_bpm6ca_q",
+    query:
+      "geo=BG&unit=PC_GDP&s_adj=NSA&sector10=S1&sectpart=S1&partner=WRL_REST&stk_flow=BAL&bop_item=CA&freq=Q",
+  },
   // Activity + sentiment (Phase 3).
-  { code: "sts_inpr_q",      query: "geo=BG&indic_bt=PRD&nace_r2=B-D&s_adj=SCA&unit=I21&freq=Q" },
-  { code: "sts_trtu_m",      query: "geo=BG&indic_bt=VOL_SLS&nace_r2=G&s_adj=SCA&unit=I21" },
-  { code: "ei_bssi_m_r2",    query: "geo=BG&indic=BS-ESI-I&s_adj=SA" },
+  {
+    code: "sts_inpr_q",
+    query: "geo=BG&indic_bt=PRD&nace_r2=B-D&s_adj=SCA&unit=I21&freq=Q",
+  },
+  {
+    code: "sts_trtu_m",
+    query: "geo=BG&indic_bt=VOL_SLS&nace_r2=G&s_adj=SCA&unit=I21",
+  },
+  { code: "ei_bssi_m_r2", query: "geo=BG&indic=BS-ESI-I&s_adj=SA" },
   // Social (Phase 4).
-  { code: "prc_hpi_q",       query: "geo=BG&purchase=TOTAL&unit=RCH_A&freq=Q" },
-  { code: "ilc_di12",        query: "geo=BG&statinfo=GINI_HND&age=TOTAL" },
+  { code: "prc_hpi_q", query: "geo=BG&purchase=TOTAL&unit=RCH_A&freq=Q" },
+  { code: "ilc_di12", query: "geo=BG&statinfo=GINI_HND&age=TOTAL" },
   // Phase 4 addendum.
-  { code: "ilc_li02",        query: "geo=BG&indic_il=LI_R_MD60&sex=T&age=TOTAL&unit=PC" },
-  { code: "namq_10_a10",     query: "geo=BG&na_item=D1&unit=CP_MEUR&s_adj=SCA&nace_r2=TOTAL&freq=Q" },
+  {
+    code: "ilc_li02",
+    query: "geo=BG&indic_il=LI_R_MD60&sex=T&age=TOTAL&unit=PC",
+  },
+  {
+    code: "namq_10_a10",
+    query: "geo=BG&na_item=D1&unit=CP_MEUR&s_adj=SCA&nace_r2=TOTAL&freq=Q",
+  },
 ];
 
 const buildUrl = (code: string, query: string): string =>

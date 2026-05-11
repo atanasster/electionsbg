@@ -347,7 +347,10 @@ export const CabinetStrip: FC<{
   return (
     <div
       className="flex h-14 mb-1 rounded overflow-hidden"
-      style={{ paddingLeft: insets.paddingLeft, paddingRight: insets.paddingRight }}
+      style={{
+        paddingLeft: insets.paddingLeft,
+        paddingRight: insets.paddingRight,
+      }}
     >
       {governments.map((g) => {
         const start = toFractionalYear(g.startDate);
