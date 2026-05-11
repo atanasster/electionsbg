@@ -48,12 +48,11 @@ const main = async (): Promise<void> => {
 
   process.stdout.write(renderReport(entries, runAt));
 
-  // Silence is treated as failure per PRD success criteria. We always print a
-  // report, but exit non-zero if any source errored so the workflow step
-  // surfaces the failure (and the team gets the issue with errors listed).
-  if (entries.some((e) => e.status === "error")) {
-    process.exitCode = 1;
-  }
+  // Exit 0 even when individual sources errored — the report is the success
+  // signal and lists every error in its own section. If we exit non-zero,
+  // the GH Actions workflow short-circuits before committing state and
+  // posting the issue, hiding the report from the team. Whole-process
+  // crashes (caught below) still exit 2 so true failures fail loudly.
 };
 
 main().catch((e) => {
