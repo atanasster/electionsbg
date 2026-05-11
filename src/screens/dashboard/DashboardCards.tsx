@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, lazy, Suspense } from "react";
 import { useTranslation } from "react-i18next";
 import {
   AlertTriangle,
@@ -19,8 +19,19 @@ import { PaperMachineCard } from "./cards/PaperMachineCard";
 import { ProblemSectionsTile } from "./ProblemSectionsTile";
 import { ProblemVotesByPartyTile } from "./ProblemVotesByPartyTile";
 import { MandatesTile } from "./MandatesTile";
-import { HistoricalTrendsTile } from "./HistoricalTrendsTile";
-import { VoteFlowTile } from "@/screens/components/voteFlow/VoteFlowTile";
+// Chart-heavy tiles are pulled in lazily so the recharts/d3 vendor chunk
+// (~460 KB) stays off the critical path on landing. Each tile fetches its
+// chunk in parallel with the page render and pops in when ready.
+const HistoricalTrendsTile = lazy(() =>
+  import("./HistoricalTrendsTile").then((m) => ({
+    default: m.HistoricalTrendsTile,
+  })),
+);
+const VoteFlowTile = lazy(() =>
+  import("@/screens/components/voteFlow/VoteFlowTile").then((m) => ({
+    default: m.VoteFlowTile,
+  })),
+);
 import { GovernmentsTile } from "./GovernmentsTile";
 import { PartyResultsTile } from "./PartyResultsTile";
 import { RegionsMapTile } from "./RegionsMapTile";
@@ -33,7 +44,11 @@ import { FlashMemoryTile } from "./FlashMemoryTile";
 import { RecountTile } from "./RecountTile";
 import { SuspiciousSectionsTile } from "./SuspiciousSectionsTile";
 import { PollsTile } from "./PollsTile";
-import { AccuracyTrendsTile } from "./AccuracyTrendsTile";
+const AccuracyTrendsTile = lazy(() =>
+  import("./AccuracyTrendsTile").then((m) => ({
+    default: m.AccuracyTrendsTile,
+  })),
+);
 import { ArticlesTile } from "./ArticlesTile";
 import { MpConnectionsTile } from "./MpConnectionsTile";
 import { CarMakesTile } from "./CarMakesTile";
@@ -143,8 +158,10 @@ export const DashboardCards: FC = () => {
             <MandatesTile parties={data.parties} />
             <TopCandidatesStrip parties={data.parties} />
           </div>
-          <VoteFlowTile />
-          <HistoricalTrendsTile />
+          <Suspense fallback={null}>
+            <VoteFlowTile />
+            <HistoricalTrendsTile />
+          </Suspense>
           <GovernmentsTile />
         </DashboardSection>
 
@@ -188,10 +205,12 @@ export const DashboardCards: FC = () => {
           <ProblemSectionsTile parties={data.parties} />
           <ProblemVotesByPartyTile />
           {problemSectionsStats?.length ? (
-            <HistoricalTrendsTile
-              stats={problemSectionsStats}
-              seeDetailsTo="/reports/section/problem_sections"
-            />
+            <Suspense fallback={null}>
+              <HistoricalTrendsTile
+                stats={problemSectionsStats}
+                seeDetailsTo="/reports/section/problem_sections"
+              />
+            </Suspense>
           ) : null}
         </DashboardSection>
 
@@ -227,7 +246,9 @@ export const DashboardCards: FC = () => {
           articleTopic="polling"
         >
           <PollsTile />
-          <AccuracyTrendsTile />
+          <Suspense fallback={null}>
+            <AccuracyTrendsTile />
+          </Suspense>
         </DashboardSection>
 
         <div className="mt-6">

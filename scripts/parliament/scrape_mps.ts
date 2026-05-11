@@ -713,6 +713,39 @@ const runHistory = async (opts: {
     };
     await Promise.all(Array.from({ length: opts.concurrency }, next));
     console.log(`✓ photos: ${ok} downloaded/cached, ${miss} missing`);
+
+    // Clear photoUrl on the index for any MP whose .webp didn't materialise
+    // on disk (download failed this run AND no successful prior cache).
+    // Keeps cached profile JSONs intact so a later --refresh-current run
+    // can still retry, but stops the SPA from claiming a photo we can't
+    // serve — avoids the broken-image-then-fallback flash on candidate
+    // strips and dashboard tiles for MPs whose parliament.bg photo link
+    // is dead.
+    let cleared = 0;
+    for (const mp of deduped) {
+      if (!mp.photoUrl) continue;
+      const file = path.join(photoDir, `${mp.id}.webp`);
+      if (!fs.existsSync(file)) {
+        mp.photoUrl = "";
+        cleared++;
+      }
+    }
+    if (cleared > 0) {
+      console.log(
+        `→ cleared photoUrl on ${cleared} MPs without a usable .webp file`,
+      );
+      fs.writeFileSync(
+        path.join(opts.out, "index.json"),
+        JSON.stringify({
+          scrapedAt: topScrapedAt || nowIso,
+          currentNs: list.A_ns_CL_value,
+          total: deduped.length,
+          rawTotal: index.length,
+          mps: deduped,
+        }),
+      );
+      console.log(`✓ rewrote ${path.join(opts.out, "index.json")}`);
+    }
   }
 };
 
