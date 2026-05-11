@@ -120,22 +120,44 @@ export const RiskScoreScreen = () => {
                     </TooltipTrigger>
                     <TooltipContent
                       className="max-w-72 text-sm border-l-4 p-2.5"
-                      style={{ borderLeftColor: color }}
+                      style={{
+                        // Color-coded accent only for firing signals.
+                        // For non-firing signals the dot is an outline-
+                        // only square; matching the tooltip with the
+                        // signal color would be misleading (the dot is
+                        // showing absence-of-signal, not the signal).
+                        borderLeftColor: isFired
+                          ? color
+                          : "hsl(var(--border))",
+                        opacity: isFired ? 1 : 0.85,
+                      }}
                     >
                       <div className="space-y-0.5">
                         <div className="font-semibold flex items-center gap-2">
                           <span
-                            className="inline-block w-2 h-2 rounded-sm shrink-0"
-                            style={{ background: color }}
+                            className="inline-block w-2 h-2 rounded-sm shrink-0 border"
+                            style={
+                              isFired
+                                ? { background: color, borderColor: color }
+                                : { borderColor: "hsl(var(--border))" }
+                            }
                           />
-                          {t(`risk_signal_${id}`)}
+                          <span
+                            className={isFired ? "" : "text-muted-foreground"}
+                          >
+                            {t(`risk_signal_${id}`)}
+                          </span>
                         </div>
                         <div className="text-muted-foreground text-[11px]">
                           {t(`risk_signal_${id}_caption`)}
                         </div>
-                        {isFired && (
+                        {isFired ? (
                           <div className="text-[11px] tabular-nums">
                             +{c.contribution.toFixed(1)}
+                          </div>
+                        ) : (
+                          <div className="text-[11px] text-muted-foreground italic">
+                            {t("risk_signal_not_fired")}
                           </div>
                         )}
                       </div>
