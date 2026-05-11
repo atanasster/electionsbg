@@ -20,7 +20,10 @@ export const cacbgDeclarations: WatchSource = {
   cadence: "weekly",
 
   async fingerprint(): Promise<Fingerprint> {
-    const html = await fetchText(PAGE);
+    // register.cacbg.bg serves an incomplete TLS chain that Node rejects but
+    // curl/browsers accept. Override per-source to keep the rest of the
+    // watcher's TLS verification strict.
+    const html = await fetchText(PAGE, { insecureTls: true });
     if (!html) throw new Error("empty registry page");
     // Strip volatile bits (CSRF tokens, build hashes) before hashing so the
     // fingerprint reflects actual content drift.

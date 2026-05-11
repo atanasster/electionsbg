@@ -1,9 +1,14 @@
-// CIK (Централна избирателна комисия) news/decisions index. CIK publishes
-// decisions and announcements at /bg/news; during election cycles this is
-// hourly, between cycles weekly. We fingerprint the HTML of the index and
-// extract the latest decision number/date if present.
+// CIK (Централна избирателна комисия) news/decisions index.
 //
-// CIK uses Cloudflare on results.cik.bg but the public site cik.bg is open.
+// DISABLED in v1 — cik.bg sits behind Cloudflare's anti-bot challenge and
+// returns HTTP 403 for plain curl/fetch (including from CI). The
+// parliament-scrape SKILL.md already documents this constraint for the
+// related results.cik.bg domain.
+//
+// To re-enable: swap fetchText for a Playwright-based fetch (Playwright is
+// already a devDependency for the test suite), or discover an RSS/JSON
+// endpoint that bypasses the challenge. Until then this source is omitted
+// from SOURCES in ./index.ts — kept in the file so the toggle is one-line.
 
 import type { WatchSource, Fingerprint } from "../types";
 import { fetchText, sha256Short } from "../fingerprint";
@@ -18,9 +23,8 @@ export const cik: WatchSource = {
 
   async fingerprint(): Promise<Fingerprint> {
     const html = await fetchText(PAGE);
-    if (!html) throw new Error("empty CIK page");
-    // Heuristic: pull all decision/announcement titles (links inside the news
-    // list) and hash them. Robust to layout chrome changes.
+    if (!html)
+      throw new Error("Cloudflare challenge on cik.bg — needs Playwright");
     const titles = Array.from(
       html.matchAll(
         /<a[^>]*href="[^"]*\/bg\/news\/[^"]+"[^>]*>([^<]{4,200})<\/a>/g,

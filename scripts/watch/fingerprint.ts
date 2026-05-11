@@ -1,4 +1,5 @@
 import { createHash } from "crypto";
+import { Agent, fetch as undiciFetch } from "undici";
 
 export const sha256 = (input: string | Uint8Array): string =>
   createHash("sha256").update(input).digest("hex");
@@ -13,6 +14,13 @@ const DEFAULT_HEADERS: Record<string, string> = {
   "Accept-Language": "bg,en;q=0.7",
 };
 
+// Permissive TLS dispatcher for upstreams that serve incomplete certificate
+// chains. Node's bundled CA list rejects them; curl/browsers accept them
+// because they ship more intermediates. register.cacbg.bg is the case we
+// care about — its leaf cert is fine, the chain is incomplete. Only used
+// for public read-only fingerprinting requests.
+const insecureAgent = new Agent({ connect: { rejectUnauthorized: false } });
+
 export interface FetchOpts {
   headers?: Record<string, string>;
   // Treat HTTP 404 as a recoverable "not found" rather than throwing — useful
@@ -20,6 +28,9 @@ export interface FetchOpts {
   allow404?: boolean;
   // Retry transient failures (network + 5xx) with exponential backoff.
   retries?: number;
+  // Disable TLS cert chain verification for this request only. Use only when
+  // the upstream is known to serve an incomplete chain. Read-only data!
+  insecureTls?: boolean;
 }
 
 export const fetchText = async (
@@ -29,9 +40,10 @@ export const fetchText = async (
   const retries = opts.retries ?? 3;
   for (let attempt = 0; attempt <= retries; attempt++) {
     try {
-      const res = await fetch(url, {
-        headers: { ...DEFAULT_HEADERS, ...(opts.headers ?? {}) },
-      });
+      const headers = { ...DEFAULT_HEADERS, ...(opts.headers ?? {}) };
+      const res = opts.insecureTls
+        ? await undiciFetch(url, { headers, dispatcher: insecureAgent })
+        : await fetch(url, { headers });
       if (res.status === 404 && opts.allow404) return null;
       if (res.status >= 500 && attempt < retries)
         throw new Error(`HTTP ${res.status}`);

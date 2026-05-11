@@ -7,10 +7,13 @@
 import type { WatchSource, Fingerprint, WatchState } from "../types";
 import { fetchJson } from "../fingerprint";
 
-// JSON-stat metadata for the HICP monthly-annual-rate dataset. Filtered to
-// BG to keep payload tiny — we only need the `updated` field.
+// JSON-stat for the HICP monthly-annual-rate dataset, filtered to BG and the
+// single most recent period. We only need the `updated` field; the rest of
+// the payload is incidental. `time=YYYYMmm` returns HTTP 400 if the value
+// doesn't match a published period; `lastTimePeriod=1` always returns the
+// freshest one without needing to track which month we're on.
 const URL =
-  "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/prc_hicp_manr?geo=BG&format=JSON&lang=EN&time=2026M04";
+  "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data/prc_hicp_manr?geo=BG&format=JSON&lang=EN&lastTimePeriod=1";
 
 interface EurostatResponse {
   updated?: string;
