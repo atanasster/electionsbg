@@ -79,20 +79,21 @@ export const RiskScoreScreen = () => {
 
   return (
     <div className="w-full">
-      <MethodologyCallout
-        variant="disputed"
-        title={t("risk_score_caveat_title")}
-        className="max-w-5xl mx-auto mt-4 mx-4"
-      >
-        {t("risk_score_caveat_body")}{" "}
-        <Link
-          to="/risk-score/methodology"
-          className="text-primary hover:underline"
-          underline={false}
+      <div className="px-4 md:px-8 pt-4">
+        <MethodologyCallout
+          variant="disputed"
+          title={t("risk_score_caveat_title")}
         >
-          {t("risk_read_full_methodology")} →
-        </Link>
-      </MethodologyCallout>
+          {t("risk_score_caveat_body")}{" "}
+          <Link
+            to="/risk-score/methodology"
+            className="text-primary hover:underline"
+            underline={false}
+          >
+            {t("risk_read_full_methodology")} →
+          </Link>
+        </MethodologyCallout>
+      </div>
       <Template
         defaultThreshold={60}
         bigger={true}
