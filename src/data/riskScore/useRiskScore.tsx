@@ -28,9 +28,15 @@ export type RiskScoreRow = {
   oblast?: string;
   obshtina?: string;
   ekatte?: string;
+  /** Section winner — for the standard ПАРТИЯ/ГЛАСОВЕ/% columns. */
   partyNum?: number;
   totalVotes?: number;
   pctPartyVote?: number;
+  /** Party affected by a party-specific risk signal (recount / SUEMG)
+   * and its signed vote change. Undefined when no party-specific
+   * signal fired. */
+  affectedPartyNum?: number;
+  affectedPartyChange?: number;
   score: number;
   band: RiskBand;
   signalsAvailable: number;

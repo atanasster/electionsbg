@@ -74,11 +74,22 @@ export type RiskScoreRow = {
   oblast?: string;
   obshtina?: string;
   ekatte?: string;
-  /** Winning party + its raw vote count for this section. Surfaced
-   * in the overview table's ПАРТИЯ + ГЛАСОВЕ columns. */
+  /** Section winner + its raw vote count and share. Surfaced in the
+   * overview table's ПАРТИЯ + ГЛАСОВЕ + % columns to match every other
+   * per-section report on the site. Note that the section winner is
+   * NOT necessarily the party "affected" by the risk score — see
+   * `affectedPartyNum` for that, and the methodology page for the
+   * full distinction. */
   partyNum?: number;
   totalVotes?: number;
   pctPartyVote?: number;
+  /** Party with the largest absolute vote change from a party-specific
+   * risk signal (recount or SUEMG mismatch). Undefined when no
+   * party-specific signal fired. */
+  affectedPartyNum?: number;
+  /** Signed vote change for `affectedPartyNum` (positive = gained,
+   * negative = lost during the adjustment). */
+  affectedPartyChange?: number;
   score: number; // 0–100
   band: RiskBand;
   signalsAvailable: number;
@@ -386,12 +397,22 @@ export const generateRiskScoreReport = ({
       ekatte: s.ekatte,
       obshtina: s.obshtina,
       oblast: s.oblast,
-      // Affected party + signed vote change, only when a party-specific
-      // signal fired. Undefined for sections where the firing signals are
-      // purely section-level (invalid ballots, additional voters, peer
-      // outlier, concentrated) — those have no single "affected party".
-      partyNum: (affectedParty as typeof affectedParty)?.partyNum,
-      totalVotes: (affectedParty as typeof affectedParty)?.change,
+      // Section winner — populates the standard ПАРТИЯ + ГЛАСОВЕ + %
+      // columns so the overview table doesn't look broken with all
+      // those columns empty. NOT the same as the "affected party";
+      // see affectedPartyNum below.
+      partyNum: s.topPartyNum,
+      totalVotes: s.topPartyVotes,
+      pctPartyVote:
+        s.totalVotes && s.totalVotes > 0
+          ? Math.round(((s.topPartyVotes ?? 0) / s.totalVotes) * 10000) / 100
+          : undefined,
+      // Affected party + signed change, when a party-specific signal
+      // (recount or SUEMG) fired. Surfaced separately so the table can
+      // distinguish "this section's winner" from "the party whose votes
+      // moved during the recount/flash-memory adjustment".
+      affectedPartyNum: (affectedParty as typeof affectedParty)?.partyNum,
+      affectedPartyChange: (affectedParty as typeof affectedParty)?.change,
       score: Math.round(score * 10) / 10,
       band: bandOf(score),
       signalsAvailable: components.length,
