@@ -13,7 +13,10 @@ import { formatPct } from "@/data/utils";
 // its raw value so a journalist can ground-truth against the underlying
 // reports.
 
-const SIGNAL_COLORS: Record<RiskComponentId, string> = {
+// Shared signal palette — reused by the SIGNALS column on the
+// /risk-score overview table so the dots in that column match the
+// waterfall colors a reader will see when they click through.
+export const SIGNAL_COLORS: Record<RiskComponentId, string> = {
   recount: "#a855f7", // purple — recount adjustments
   suemgMismatch: "#f97316", // orange — flash-memory delta
   invalidBallots: "#ef4444", // red — invalid ballots

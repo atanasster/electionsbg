@@ -1,12 +1,29 @@
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { useRiskScore, type RiskBand } from "@/data/riskScore/useRiskScore";
+import {
+  useRiskScore,
+  type RiskBand,
+  type RiskComponent,
+  type RiskComponentId,
+} from "@/data/riskScore/useRiskScore";
 import { Template } from "@/screens/reports/sections/Template";
 import { MethodologyCallout } from "@/screens/components/MethodologyCallout";
 import { RiskBandBadge } from "@/screens/components/riskScore/RiskBandBadge";
+import { SIGNAL_COLORS } from "@/screens/components/riskScore/RiskWaterfall";
 import { Link } from "@/ux/Link";
 import type { ReportRow } from "@/data/dataTypes";
 import type { ReportColumns } from "@/screens/reports/common/ReportTemplate";
+
+// Order matches the weight ordering in the pipeline — recount + SUEMG
+// (heavier weights) on the left, peer outlier (lightest) on the right.
+const SIGNAL_ORDER: RiskComponentId[] = [
+  "recount",
+  "suemgMismatch",
+  "invalidBallots",
+  "additionalVoters",
+  "concentrated",
+  "peerOutlier",
+];
 
 // Overview screen — uses the standard section-report template (same
 // look + filter UX as every other per-section report on the site).
@@ -18,6 +35,7 @@ type RiskAugmentedRow = ReportRow & {
   band?: RiskBand;
   signalsAvailable?: number;
   signalsTotal?: number;
+  components?: RiskComponent[];
 };
 
 export const RiskScoreScreen = () => {
@@ -42,6 +60,7 @@ export const RiskScoreScreen = () => {
         band: r.band,
         signalsAvailable: r.signalsAvailable,
         signalsTotal: r.signalsTotal,
+        components: r.components,
       })),
     [data],
   );
@@ -65,11 +84,29 @@ export const RiskScoreScreen = () => {
         header: t("risk_col_signals"),
         cell: ({ row }) => {
           const v = row.original as RiskAugmentedRow;
-          if (v.signalsAvailable === undefined) return null;
+          if (!v.components) return null;
+          const fired = new Set(v.components.map((c) => c.id));
           return (
-            <span className="tabular-nums text-xs text-muted-foreground">
-              {v.signalsAvailable} / {v.signalsTotal}
-            </span>
+            <div className="flex items-center gap-1">
+              {SIGNAL_ORDER.map((id) => {
+                const isFired = fired.has(id);
+                return (
+                  <span
+                    key={id}
+                    title={t(`risk_signal_${id}`)}
+                    className="block w-2.5 h-2.5 rounded-sm border"
+                    style={
+                      isFired
+                        ? {
+                            background: SIGNAL_COLORS[id],
+                            borderColor: SIGNAL_COLORS[id],
+                          }
+                        : { borderColor: "hsl(var(--border))" }
+                    }
+                  />
+                );
+              })}
+            </div>
           );
         },
       },
