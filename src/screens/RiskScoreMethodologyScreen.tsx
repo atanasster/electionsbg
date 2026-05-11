@@ -1,8 +1,8 @@
+import { FC, PropsWithChildren } from "react";
 import { useTranslation } from "react-i18next";
 import { ArticleLayout } from "@/components/article/ArticleLayout";
 import {
   ArticleH2,
-  ArticleH3,
   ArticleLI,
   ArticleP,
   ArticleStrong,
@@ -10,11 +10,18 @@ import {
 } from "@/components/article/ArticleProse";
 import { MethodologyCallout } from "@/screens/components/MethodologyCallout";
 
-// Methodology page for the section risk-screening score. Mirrors the
-// VoteFlowMethodologyScreen layout — long-form prose under
-// ArticleLayout so it reads like the rest of the site's editorial
-// content. Every concept the UI surfaces (signals, weights, bands,
-// percentile, partial-data masking) is grounded here.
+// Paragraph that begins with a bolded short label (signal name + weight,
+// or sub-topic title) followed by a colon and a plain-text explanation.
+// Used inside the "Шестте сигнала" and "Важни уточнения" sections.
+const LabelP: FC<PropsWithChildren<{ label: string }>> = ({
+  label,
+  children,
+}) => (
+  <ArticleP>
+    <ArticleStrong>{label}</ArticleStrong> {children}
+  </ArticleP>
+);
+
 export const RiskScoreMethodologyScreen = () => {
   const { t } = useTranslation();
   return (
@@ -26,7 +33,7 @@ export const RiskScoreMethodologyScreen = () => {
     >
       <MethodologyCallout
         variant="disputed"
-        title={t("risk_score_caveat_title")}
+        title={t("risk_methodology_caveat_title")}
         className="mb-4"
       >
         {t("risk_score_caveat_body")}
@@ -40,24 +47,24 @@ export const RiskScoreMethodologyScreen = () => {
 
       <ArticleH2>{t("risk_methodology_h_signals")}</ArticleH2>
       <ArticleP>{t("risk_methodology_p_signals_intro")}</ArticleP>
-
-      <ArticleH3>{t("risk_signal_recount")}</ArticleH3>
-      <ArticleP>{t("risk_methodology_p_recount")}</ArticleP>
-
-      <ArticleH3>{t("risk_signal_suemgMismatch")}</ArticleH3>
-      <ArticleP>{t("risk_methodology_p_suemg")}</ArticleP>
-
-      <ArticleH3>{t("risk_signal_invalidBallots")}</ArticleH3>
-      <ArticleP>{t("risk_methodology_p_invalid")}</ArticleP>
-
-      <ArticleH3>{t("risk_signal_additionalVoters")}</ArticleH3>
-      <ArticleP>{t("risk_methodology_p_additional")}</ArticleP>
-
-      <ArticleH3>{t("risk_signal_concentrated")}</ArticleH3>
-      <ArticleP>{t("risk_methodology_p_concentrated")}</ArticleP>
-
-      <ArticleH3>{t("risk_signal_peerOutlier")}</ArticleH3>
-      <ArticleP>{t("risk_methodology_p_peer")}</ArticleP>
+      <LabelP label={t("risk_methodology_signal_recount_t")}>
+        {t("risk_methodology_signal_recount_p")}
+      </LabelP>
+      <LabelP label={t("risk_methodology_signal_suemg_t")}>
+        {t("risk_methodology_signal_suemg_p")}
+      </LabelP>
+      <LabelP label={t("risk_methodology_signal_invalid_t")}>
+        {t("risk_methodology_signal_invalid_p")}
+      </LabelP>
+      <LabelP label={t("risk_methodology_signal_additional_t")}>
+        {t("risk_methodology_signal_additional_p")}
+      </LabelP>
+      <LabelP label={t("risk_methodology_signal_concentrated_t")}>
+        {t("risk_methodology_signal_concentrated_p")}
+      </LabelP>
+      <LabelP label={t("risk_methodology_signal_peer_t")}>
+        {t("risk_methodology_signal_peer_p")}
+      </LabelP>
 
       <ArticleH2>{t("risk_methodology_h_formula")}</ArticleH2>
       <ArticleP>{t("risk_methodology_p_formula1")}</ArticleP>
@@ -70,50 +77,40 @@ export const RiskScoreMethodologyScreen = () => {
       <ArticleP>{t("risk_methodology_p_bands_intro")}</ArticleP>
       <ArticleUL>
         <ArticleLI>
-          <ArticleStrong>{t("risk_band_low")}</ArticleStrong>{" "}
+          <ArticleStrong>{t("risk_band_low")} (0–30):</ArticleStrong>{" "}
           {t("risk_methodology_band_low")}
         </ArticleLI>
         <ArticleLI>
-          <ArticleStrong>{t("risk_band_elevated")}</ArticleStrong>{" "}
+          <ArticleStrong>{t("risk_band_elevated")} (30–60):</ArticleStrong>{" "}
           {t("risk_methodology_band_elevated")}
         </ArticleLI>
         <ArticleLI>
-          <ArticleStrong>{t("risk_band_high")}</ArticleStrong>{" "}
+          <ArticleStrong>{t("risk_band_high")} (60–80):</ArticleStrong>{" "}
           {t("risk_methodology_band_high")}
         </ArticleLI>
         <ArticleLI>
-          <ArticleStrong>{t("risk_band_critical")}</ArticleStrong>{" "}
+          <ArticleStrong>{t("risk_band_critical")} (80–100):</ArticleStrong>{" "}
           {t("risk_methodology_band_critical")}
         </ArticleLI>
       </ArticleUL>
 
-      <ArticleH2>{t("risk_methodology_h_percentile")}</ArticleH2>
-      <ArticleP>{t("risk_methodology_p_percentile")}</ArticleP>
-
-      <ArticleH2>{t("risk_methodology_h_affected_party")}</ArticleH2>
-      <ArticleP>{t("risk_methodology_p_affected_party")}</ArticleP>
-
-      <ArticleH2>{t("risk_methodology_h_partial")}</ArticleH2>
-      <ArticleP>{t("risk_methodology_p_partial1")}</ArticleP>
-      <ArticleP>{t("risk_methodology_p_partial2")}</ArticleP>
-
-      <ArticleH2>{t("risk_methodology_h_caveats")}</ArticleH2>
-      <ArticleUL>
-        <ArticleLI>{t("risk_methodology_caveat_screening")}</ArticleLI>
-        <ArticleLI>{t("risk_methodology_caveat_weights")}</ArticleLI>
-        <ArticleLI>{t("risk_methodology_caveat_small_n")}</ArticleLI>
-        <ArticleLI>{t("risk_methodology_caveat_demographic")}</ArticleLI>
-        <ArticleLI>{t("risk_methodology_caveat_independence")}</ArticleLI>
-        <ArticleLI>{t("risk_methodology_caveat_neighborhood")}</ArticleLI>
-      </ArticleUL>
+      <ArticleH2>{t("risk_methodology_h_important")}</ArticleH2>
+      <LabelP label={t("risk_methodology_important_percentile_t")}>
+        {t("risk_methodology_important_percentile_p")}
+      </LabelP>
+      <LabelP label={t("risk_methodology_important_party_t")}>
+        {t("risk_methodology_important_party_p")}
+      </LabelP>
+      <LabelP label={t("risk_methodology_important_evidence_t")}>
+        {t("risk_methodology_important_evidence_p")}
+      </LabelP>
+      <LabelP label={t("risk_methodology_important_context_t")}>
+        {t("risk_methodology_important_context_p")}
+      </LabelP>
 
       <ArticleH2>{t("risk_methodology_h_how_to_use")}</ArticleH2>
       <ArticleP>{t("risk_methodology_p_how_to_use1")}</ArticleP>
       <ArticleP>{t("risk_methodology_p_how_to_use2")}</ArticleP>
-      <ArticleP>{t("risk_methodology_p_how_to_use3")}</ArticleP>
-
-      <ArticleH2>{t("risk_methodology_h_source")}</ArticleH2>
-      <ArticleP>{t("risk_methodology_p_source")}</ArticleP>
     </ArticleLayout>
   );
 };
