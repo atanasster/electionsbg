@@ -2,9 +2,9 @@
 // transition matrix between every consecutive pair of parliamentary
 // elections. Each cycle pair becomes a directory of per-scope files:
 //
-//   /public/transitions/<from>_<to>/national.json       (~12KB)
-//   /public/transitions/<from>_<to>/<mir>.json          (~8KB each)
-//   /public/transitions/index.json                       (catalog)
+//   /data/transitions/<from>_<to>/national.json       (~12KB)
+//   /data/transitions/<from>_<to>/<mir>.json          (~8KB each)
+//   /data/transitions/index.json                       (catalog)
 //
 // Splitting per scope means the home dashboard fetches ~12KB instead of
 // the ~436KB combined file used previously. Run on demand via

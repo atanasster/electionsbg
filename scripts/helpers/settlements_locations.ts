@@ -10,16 +10,13 @@ const __dirname = path.dirname(__filename); // get the name of the directory
 const raw_folder = path.resolve(__dirname, "../../raw_data");
 const settlementsFileName = path.resolve(
   __dirname,
-  "../../public/settlements.json",
+  "../../data/settlements.json",
 );
 const settlements: SettlementInfo[] = JSON.parse(
   fs.readFileSync(settlementsFileName, "utf8"),
 );
 
-const muniFileName = path.resolve(
-  __dirname,
-  "../../public/municipalities.json",
-);
+const muniFileName = path.resolve(__dirname, "../../data/municipalities.json");
 
 const municipalities: MunicipalityInfo[] = JSON.parse(
   fs.readFileSync(muniFileName, "utf8"),

@@ -1,5 +1,6 @@
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { RegionHistory } from "./regionHistoryTypes";
+import { dataUrl } from "@/data/dataUrl";
 
 const queryFn = async ({
   queryKey,
@@ -7,7 +8,7 @@ const queryFn = async ({
   RegionHistory | undefined
 > => {
   if (!queryKey[1]) return undefined;
-  const response = await fetch(`/regions/${queryKey[1]}_history.json`);
+  const response = await fetch(dataUrl(`/regions/${queryKey[1]}_history.json`));
   if (!response.ok) return undefined;
   return response.json();
 };

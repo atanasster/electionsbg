@@ -1,3 +1,16 @@
+---
+keywords:
+  - MP business connections
+  - Court of Audit declarations
+  - Bulgarian Commerce Registry
+  - asset declarations
+  - MP declared wealth
+  - MP cars
+  - 52nd National Assembly
+  - political transparency
+  - ownership graph
+  - beneficial ownership
+---
 # Following the money trail — MP business connections and declared wealth
 
 Bulgarian voters can already see how an MP votes, where they were elected, and how their party fared in any given polling station. What has been much harder to see — without manually downloading an XML declaration and cross-checking it against the Commerce Registry — is what *companies* sit behind those people, how those companies link MPs to one another, and how much wealth each MP actually declared in the first place.

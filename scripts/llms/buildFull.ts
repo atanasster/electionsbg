@@ -12,6 +12,10 @@ import { ElectionInfo, PartyInfo, RegionInfo } from "@/data/dataTypes";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const PROJECT_ROOT = path.resolve(__dirname, "../..");
+// Source data lives in /data/ post-GCS migration; the llms-full.txt output
+// still belongs in /public/ so search/LLM crawlers can fetch it from the
+// site root (electionsbg.com/llms-full.txt).
+const DATA = path.join(PROJECT_ROOT, "data");
 const PUBLIC = path.join(PROJECT_ROOT, "public");
 const SITE_URL = "https://electionsbg.com";
 
@@ -95,7 +99,7 @@ lines.push("");
 // ------------------------------------------------------------------
 // Latest national summary
 // ------------------------------------------------------------------
-const nsFile = path.join(PUBLIC, latest ?? "", "national_summary.json");
+const nsFile = path.join(DATA, latest ?? "", "national_summary.json");
 let summary: NationalSummary | null = null;
 if (latest && fs.existsSync(nsFile)) {
   summary = JSON.parse(fs.readFileSync(nsFile, "utf-8"));
@@ -143,8 +147,8 @@ if (latest && summary) {
 // Party retrospects (latest election)
 // ------------------------------------------------------------------
 if (latest) {
-  const partiesFile = path.join(PUBLIC, latest, "cik_parties.json");
-  const assessmentDir = path.join(PUBLIC, latest, "parties", "assessment");
+  const partiesFile = path.join(DATA, latest, "cik_parties.json");
+  const assessmentDir = path.join(DATA, latest, "parties", "assessment");
   if (fs.existsSync(partiesFile) && fs.existsSync(assessmentDir)) {
     const parties: PartyInfo[] = JSON.parse(
       fs.readFileSync(partiesFile, "utf-8"),
@@ -192,8 +196,8 @@ if (latest) {
 // ------------------------------------------------------------------
 // Polls analysis
 // ------------------------------------------------------------------
-const pollsAnalysis = path.join(PUBLIC, "polls", "analysis.json");
-const pollsAgencies = path.join(PUBLIC, "polls", "agencies.json");
+const pollsAnalysis = path.join(DATA, "polls", "analysis.json");
+const pollsAgencies = path.join(DATA, "polls", "agencies.json");
 if (fs.existsSync(pollsAnalysis) && fs.existsSync(pollsAgencies)) {
   const analysis = JSON.parse(fs.readFileSync(pollsAnalysis, "utf-8"));
   const agencies = JSON.parse(fs.readFileSync(pollsAgencies, "utf-8"));
@@ -237,8 +241,9 @@ if (fs.existsSync(pollsAnalysis) && fs.existsSync(pollsAgencies)) {
 
 // ------------------------------------------------------------------
 // In-depth analytical articles (BG markdown sources, included in full).
-// Articles already live as standalone .md files under /public/articles/, but
-// inlining them here gives LLM crawlers a single fetch for the entire corpus.
+// Articles are site content (not data) — they live under /public/articles/
+// and ship through Firebase Hosting. Inlining them here gives LLM crawlers
+// a single fetch for the entire corpus.
 // ------------------------------------------------------------------
 type ArticleMeta = {
   slug: string;

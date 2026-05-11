@@ -3,6 +3,7 @@ import { useElectionContext } from "@/data/ElectionContext";
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { FC } from "react";
 import { PreferencesTable } from "../preferences/PreferencesTable";
+import { dataUrl } from "@/data/dataUrl";
 
 const queryFn = async ({
   queryKey,
@@ -13,7 +14,7 @@ const queryFn = async ({
     return null;
   }
   const response = await fetch(
-    `/${queryKey[1]}/candidates/${queryKey[2]}/regions.json`,
+    dataUrl(`/${queryKey[1]}/candidates/${queryKey[2]}/regions.json`),
   );
   const data = await response.json();
   return data;

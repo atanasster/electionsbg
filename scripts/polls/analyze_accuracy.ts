@@ -18,7 +18,7 @@ import { command, run, option, string } from "cmd-ts";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const POLLS_DIR = path.resolve(__dirname, "../../public/polls");
+const POLLS_DIR = path.resolve(__dirname, "../../data/polls");
 const PUBLIC_DIR = path.resolve(__dirname, "../../public");
 
 type Lang = { en: string; bg: string };
@@ -783,9 +783,10 @@ const main = async (opts: { pollsDir: string }) => {
     elections,
     agencyProfiles: profiles,
   };
+  // Minified — ships to /public/ and is fetched client-side.
   fs.writeFileSync(
     path.join(opts.pollsDir, "accuracy.json"),
-    JSON.stringify(out, null, 2),
+    JSON.stringify(out),
   );
   console.log(`✓ wrote ${path.join(opts.pollsDir, "accuracy.json")}`);
 

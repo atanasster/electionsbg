@@ -1,3 +1,16 @@
+---
+keywords:
+  - Bulgarian election integrity
+  - 19 April 2026 election
+  - flash memory discrepancies
+  - section-level anomalies
+  - risk neighborhoods
+  - voter turnout
+  - protest vote
+  - polling accuracy
+  - machine voting Bulgaria
+  - problem sections
+---
 # Election Integrity Analysis — [19.04.2026](/elections/2026_04_19) vs prior cycles
 
 **Dataset:** 12 elections, 2009-07-05 through 2026-04-19. All metrics extracted from `/public/<date>/` — national summary, problem sections, suspicious settlements, section reports and polls.

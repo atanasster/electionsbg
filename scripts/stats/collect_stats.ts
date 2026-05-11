@@ -226,7 +226,8 @@ const collectStats = ({
 };
 
 export const runStats = (stringify: (o: object) => string) => {
-  const outFolder = path.resolve(__dirname, `../../public/`);
+  // Election folders moved to /data/ during the GCS migration.
+  const outFolder = path.resolve(__dirname, `../../data/`);
 
   const electionsFile = path.resolve(
     __dirname,

@@ -26,7 +26,7 @@ const loadSettlementMeta = (): Map<string, SettlementMeta> => {
   const __filename = fileURLToPath(import.meta.url);
   const file = path.resolve(
     path.dirname(__filename),
-    "../../public/settlements.json",
+    "../../data/settlements.json",
   );
   const list: SettlementMeta[] = JSON.parse(fs.readFileSync(file, "utf-8"));
   settlementMetaIndex = new Map(list.map((s) => [s.ekatte, s]));

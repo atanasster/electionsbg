@@ -24,7 +24,7 @@ import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const OUT_FILE = path.resolve(__dirname, "../../public/macro.json");
+const OUT_FILE = path.resolve(__dirname, "../../data/macro.json");
 
 const EUROSTAT_BASE =
   "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data";
@@ -510,7 +510,8 @@ const main = async () => {
     series,
   };
 
-  fs.writeFileSync(OUT_FILE, JSON.stringify(payload, null, 2));
+  // Minified — ships to /public/ and is fetched client-side.
+  fs.writeFileSync(OUT_FILE, JSON.stringify(payload));
   console.log(`\nWrote ${OUT_FILE}`);
 };
 

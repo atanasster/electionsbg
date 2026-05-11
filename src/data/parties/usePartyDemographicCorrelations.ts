@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useElectionContext } from "../ElectionContext";
 import type { CensusMetric } from "../census/censusTypes";
+import { dataUrl } from "@/data/dataUrl";
 
 export type PartyDemographicCorrelation = {
   metric: CensusMetric;
@@ -25,7 +26,7 @@ export const usePartyDemographicCorrelations = (partyNum?: number) => {
     queryFn: async (): Promise<PartyDemographicsPayload | undefined> => {
       if (!selected || partyNum === undefined) return undefined;
       const res = await fetch(
-        `/${selected}/parties/demographics/${partyNum}.json`,
+        dataUrl(`/${selected}/parties/demographics/${partyNum}.json`),
       );
       if (!res.ok) return undefined;
       return (await res.json()) as PartyDemographicsPayload;

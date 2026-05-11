@@ -42,6 +42,21 @@ const BG_MONTHS = [
   "декември",
 ];
 
+const EN_MONTHS = [
+  "January",
+  "February",
+  "March",
+  "April",
+  "May",
+  "June",
+  "July",
+  "August",
+  "September",
+  "October",
+  "November",
+  "December",
+];
+
 export const formatElectionDateBg = (folder: string): string => {
   const m = /^(\d{4})_(\d{2})_(\d{2})$/.exec(folder);
   if (!m) return folder;
@@ -49,6 +64,24 @@ export const formatElectionDateBg = (folder: string): string => {
   const month = parseInt(m[2], 10);
   const day = parseInt(m[3], 10);
   return `${day} ${BG_MONTHS[month - 1]} ${year}`;
+};
+
+export const formatElectionDateEn = (folder: string): string => {
+  const m = /^(\d{4})_(\d{2})_(\d{2})$/.exec(folder);
+  if (!m) return folder;
+  const year = m[1];
+  const month = parseInt(m[2], 10);
+  const day = parseInt(m[3], 10);
+  return `${day} ${EN_MONTHS[month - 1]} ${year}`;
+};
+
+const fmtIntEn = (n: number): string => Math.round(n).toLocaleString("en-US");
+
+const fmtPctEn = (n: number, digits = 2): string => `${n.toFixed(digits)}%`;
+
+const fmtSignedPctEn = (n: number, digits = 2): string => {
+  const sign = n > 0 ? "+" : "";
+  return `${sign}${n.toFixed(digits)} pp`;
 };
 
 // ------------------------------------------------------------------
@@ -425,6 +458,55 @@ export const buildElectionLandingBody = (
   if (s.anomalies) {
     parts.push(
       `<p>Засечени отклонения по секции: <strong>${fmtInt(s.anomalies.total)}</strong>.</p>`,
+    );
+  }
+  return parts.join("\n");
+};
+
+export const buildElectionLandingBodyEn = (
+  publicFolder: string,
+  electionDate: string,
+): string => {
+  const file = path.join(publicFolder, electionDate, "national_summary.json");
+  const dateLabel = formatElectionDateEn(electionDate);
+  if (!fs.existsSync(file)) {
+    return `<h1>Bulgarian parliamentary elections — ${escapeHtml(dateLabel)}</h1>`;
+  }
+  const s: NationalSummary = JSON.parse(fs.readFileSync(file, "utf-8"));
+  const parts: string[] = [];
+  parts.push(
+    `<h1>Bulgarian parliamentary elections — ${escapeHtml(dateLabel)}</h1>`,
+  );
+  parts.push(
+    `<p>Turnout: <strong>${fmtPctEn(s.turnout.pct)}</strong> (${fmtIntEn(s.turnout.actual)} of ${fmtIntEn(s.turnout.registered)} registered).</p>`,
+  );
+  if (s.topGainer && s.topLoser) {
+    parts.push(
+      `<p>Biggest gain: <a href="${SITE_URL}/en/party/${encodeURIComponent(s.topGainer.nickName)}">${escapeHtml(s.topGainer.nickName)}</a> (${fmtSignedPctEn(s.topGainer.deltaPct)}). Biggest loss: <a href="${SITE_URL}/en/party/${encodeURIComponent(s.topLoser.nickName)}">${escapeHtml(s.topLoser.nickName)}</a> (${fmtSignedPctEn(s.topLoser.deltaPct)}).</p>`,
+    );
+  }
+  if (s.paperMachine) {
+    parts.push(
+      `<p>Paper / machine vote: ${fmtPctEn(s.paperMachine.paperPct)} / ${fmtPctEn(s.paperMachine.machinePct)}.</p>`,
+    );
+  }
+  parts.push(`<h2>Parties and results</h2>`);
+  parts.push(
+    `<table><thead><tr><th>Party</th><th>Votes</th><th>%</th><th>Δ</th><th>Seats</th></tr></thead><tbody>`,
+  );
+  for (const p of s.parties) {
+    const linkable = p.passedThreshold !== false;
+    const partyCell = linkable
+      ? `<a href="${SITE_URL}/en/party/${encodeURIComponent(p.nickName)}">${escapeHtml(p.nickName)}</a>`
+      : escapeHtml(p.nickName);
+    parts.push(
+      `<tr><td>${partyCell}</td><td>${fmtIntEn(p.totalVotes)}</td><td>${fmtPctEn(p.pct)}</td><td>${p.deltaPct != null ? fmtSignedPctEn(p.deltaPct) : ""}</td><td>${p.seats ?? ""}</td></tr>`,
+    );
+  }
+  parts.push(`</tbody></table>`);
+  if (s.anomalies) {
+    parts.push(
+      `<p>Section-level anomalies detected: <strong>${fmtIntEn(s.anomalies.total)}</strong>.</p>`,
     );
   }
   return parts.join("\n");

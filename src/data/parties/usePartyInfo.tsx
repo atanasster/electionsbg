@@ -1,5 +1,6 @@
 import { useCallback, useMemo } from "react";
 import { PartyInfo, PartyVotes, Votes } from "../dataTypes";
+import { dataUrl } from "@/data/dataUrl";
 
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { useElectionContext } from "../ElectionContext";
@@ -13,7 +14,7 @@ const queryFn = async ({
   if (!queryKey[1]) {
     return [];
   }
-  const response = await fetch(`/${queryKey[1]}/cik_parties.json`);
+  const response = await fetch(dataUrl(`/${queryKey[1]}/cik_parties.json`));
   const data = await response.json();
   return data;
 };

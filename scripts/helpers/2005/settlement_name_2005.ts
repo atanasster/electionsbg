@@ -1,5 +1,5 @@
 import { ElectionSettlement } from "@/data/dataTypes";
-import settlementsData from "../../../public/settlements.json";
+import settlementsData from "../../../data/settlements.json";
 export const parseSettlement2005 = (
   settlementName: string,
   oblast: string,

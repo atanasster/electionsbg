@@ -1,9 +1,10 @@
 import { useQuery } from "@tanstack/react-query";
 import { useCallback } from "react";
 import { MunicipalityInfo } from "../dataTypes";
+import { dataUrl } from "@/data/dataUrl";
 
 const queryFn = async (): Promise<MunicipalityInfo[]> => {
-  const response = await fetch("/municipalities.json");
+  const response = await fetch(dataUrl("/municipalities.json"));
   const data = await response.json();
   return data;
 };

@@ -1,10 +1,11 @@
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { ElectionInfo } from "../dataTypes";
+import { dataUrl } from "@/data/dataUrl";
 
 const queryFn = async ({
   queryKey,
 }: QueryFunctionContext<[string]>): Promise<ElectionInfo[] | null> => {
-  const response = await fetch(`/${queryKey[0]}.json`);
+  const response = await fetch(dataUrl(`/${queryKey[0]}.json`));
   if (!response.ok) return null;
   return response.json();
 };

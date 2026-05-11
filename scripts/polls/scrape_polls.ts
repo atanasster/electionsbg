@@ -23,7 +23,7 @@ import type { Element } from "domhandler";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const OUT_DIR = path.resolve(__dirname, "../../public/polls");
+const OUT_DIR = path.resolve(__dirname, "../../data/polls");
 const IZBORIAI_DIR = "/Users/atanasster/izboriai/public";
 
 const HEADERS = {
@@ -757,17 +757,18 @@ const main = async (opts: { seedIzboriai: boolean; outDir: string }) => {
     }
   }
 
-  fs.writeFileSync(
-    path.join(opts.outDir, "polls.json"),
-    JSON.stringify(polls, null, 2),
-  );
+  // Minified — these ship to /public/ and are fetched client-side.
+  // Pretty-printing wastes ~25% bytes on the wire and parse time in the
+  // browser. See scripts/minify-public-json.mjs for the one-shot cleanup
+  // that normalised the historical files.
+  fs.writeFileSync(path.join(opts.outDir, "polls.json"), JSON.stringify(polls));
   fs.writeFileSync(
     path.join(opts.outDir, "polls_details.json"),
-    JSON.stringify(details, null, 2),
+    JSON.stringify(details),
   );
   fs.writeFileSync(
     path.join(opts.outDir, "agencies.json"),
-    JSON.stringify(agencies, null, 2),
+    JSON.stringify(agencies),
   );
   console.log(
     `✓ wrote ${polls.length} polls / ${details.length} details / ${agencies.length} agencies → ${opts.outDir}`,

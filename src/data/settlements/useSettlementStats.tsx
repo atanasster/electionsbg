@@ -2,6 +2,7 @@ import { ElectionInfo } from "../dataTypes";
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { useElectionContext } from "../ElectionContext";
 import { useMemo } from "react";
+import { dataUrl } from "@/data/dataUrl";
 
 const queryFn = async ({
   queryKey,
@@ -11,7 +12,9 @@ const queryFn = async ({
   if (!queryKey[1]) {
     return [];
   }
-  const response = await fetch(`/settlements/${queryKey[1]}_stats.json`);
+  const response = await fetch(
+    dataUrl(`/settlements/${queryKey[1]}_stats.json`),
+  );
   const data = await response.json();
   return data;
 };

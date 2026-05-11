@@ -1,5 +1,6 @@
 import { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { dataUrl } from "@/data/dataUrl";
 
 // Override map for parliamentary groups that don't map 1:1 to a CIK ballot
 // party — typically the components of a coalition that split into separate
@@ -21,7 +22,7 @@ export type ParliamentGroup = {
 type ParliamentGroupsFile = { groups: ParliamentGroup[] };
 
 const queryFn = async (): Promise<ParliamentGroupsFile | undefined> => {
-  const response = await fetch(`/parliament_groups.json`);
+  const response = await fetch(dataUrl(`/parliament_groups.json`));
   if (!response.ok) return undefined;
   return response.json();
 };

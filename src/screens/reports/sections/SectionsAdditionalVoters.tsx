@@ -2,6 +2,7 @@ import { useElectionContext } from "@/data/ElectionContext";
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { ReportRow } from "@/data/dataTypes";
 import { Template } from "./Template";
+import { dataUrl } from "@/data/dataUrl";
 
 const queryFn = async ({
   queryKey,
@@ -12,7 +13,7 @@ const queryFn = async ({
     return [];
   }
   const response = await fetch(
-    `/${queryKey[1]}/reports/section/additional_voters.json`,
+    dataUrl(`/${queryKey[1]}/reports/section/additional_voters.json`),
   );
   const data = await response.json();
   return data;

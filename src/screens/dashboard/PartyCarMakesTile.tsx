@@ -13,6 +13,7 @@ import { electionToNsFolder } from "@/data/parliament/nsFolders";
 import type { CarMakeEntry, PreferencesInfo } from "@/data/dataTypes";
 import type { PartyDashboardSummary } from "@/data/dashboard/partyDashboardTypes";
 import { StatCard } from "./StatCard";
+import { dataUrl } from "@/data/dataUrl";
 
 const ROWS = 5;
 
@@ -28,7 +29,7 @@ const queryFn = async ({
   const [, election, partyNum] = queryKey;
   if (!election || !partyNum) return undefined;
   const res = await fetch(
-    `/${election}/parties/preferences/${partyNum}/stats.json`,
+    dataUrl(`/${election}/parties/preferences/${partyNum}/stats.json`),
   );
   if (!res.ok) return undefined;
   return res.json();

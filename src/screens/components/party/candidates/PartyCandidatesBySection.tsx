@@ -4,6 +4,7 @@ import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { PreferencesTable } from "../../preferences/PreferencesTable";
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
+import { dataUrl } from "@/data/dataUrl";
 
 const queryFn = async ({
   queryKey,
@@ -14,7 +15,7 @@ const queryFn = async ({
     return null;
   }
   const response = await fetch(
-    `/${queryKey[1]}/parties/preferences/${queryKey[2]}/sections.json`,
+    dataUrl(`/${queryKey[1]}/parties/preferences/${queryKey[2]}/sections.json`),
   );
   const data = await response.json();
   return data;

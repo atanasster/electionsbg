@@ -24,7 +24,7 @@ Object.keys(splitted).forEach((key) => {
     type: "FeatureCollection",
     features: splitted[key],
   });
-  const outFolder = path.resolve(__dirname, `../../public/maps/regions`);
+  const outFolder = path.resolve(__dirname, `../../data/maps/regions`);
   const outFile = `${outFolder}/${key}.json`;
   fs.writeFileSync(outFile, json, "utf8");
 });

@@ -1,8 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import type { ConnectionsTopPairsFile } from "@/data/dataTypes";
+import { dataUrl } from "@/data/dataUrl";
 
 const queryFn = async (): Promise<ConnectionsTopPairsFile | undefined> => {
-  const response = await fetch(`/parliament/connections-top-pairs.json`);
+  const response = await fetch(
+    dataUrl(`/parliament/connections-top-pairs.json`),
+  );
   if (!response.ok) return undefined;
   return response.json();
 };

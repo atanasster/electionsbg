@@ -6,12 +6,13 @@ import {
   PollsAccuracy,
   PollsAnalysis,
 } from "./pollsTypes";
+import { dataUrl } from "@/data/dataUrl";
 
 // Polls span elections, so these queries are not keyed on the selected election.
 // All five files live at /polls/*.json (top-level, election-independent).
 
 const fetchJson = async <T,>(path: string): Promise<T | undefined> => {
-  const res = await fetch(path);
+  const res = await fetch(dataUrl(path));
   if (!res.ok) return undefined;
   return (await res.json()) as T;
 };

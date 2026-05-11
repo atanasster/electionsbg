@@ -10,7 +10,8 @@ export const findSectionInOtherElections = (
   section: string,
   yearMonth: string,
 ): SectionInfo | undefined => {
-  const outFolder = path.resolve(__dirname, `../../public/`);
+  // Election folders moved to /data/ during the GCS migration.
+  const outFolder = path.resolve(__dirname, `../../data/`);
 
   const elections: string[] = fs
     .readdirSync(outFolder, { withFileTypes: true })

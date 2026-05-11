@@ -1,5 +1,6 @@
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { useElectionContext } from "../ElectionContext";
+import { dataUrl } from "@/data/dataUrl";
 
 export type SuspiciousTopSettlement = {
   ekatte: string;
@@ -40,7 +41,7 @@ const queryFn = async ({
 >): Promise<SuspiciousSettlementsReport | null> => {
   if (!queryKey[1]) return null;
   const response = await fetch(
-    `/${queryKey[1]}/dashboard/suspicious_settlements.json`,
+    dataUrl(`/${queryKey[1]}/dashboard/suspicious_settlements.json`),
   );
   if (!response.ok) return null;
   return response.json();

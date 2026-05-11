@@ -16,6 +16,7 @@ import { Title } from "@/ux/Title";
 import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
 import { useLastYearParties } from "@/data/parties/useLastYearParties";
 import { PartyLink } from "../party/PartyLink";
+import { dataUrl } from "@/data/dataUrl";
 
 const queryFn = async ({
   queryKey,
@@ -25,7 +26,9 @@ const queryFn = async ({
   if (!queryKey[1]) {
     return [];
   }
-  const response = await fetch(`/${queryKey[1]}/parties/financing.json`);
+  const response = await fetch(
+    dataUrl(`/${queryKey[1]}/parties/financing.json`),
+  );
   const data = await response.json();
   return data;
 };

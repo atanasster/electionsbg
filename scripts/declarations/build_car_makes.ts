@@ -4,7 +4,7 @@
  * counts distinct MPs declaring at least one passenger car of each make.
  * Spouse-held cars count toward the MP's set.
  *
- * Output: /public/parliament/car-makes.json
+ * Output: /data/parliament/car-makes.json
  *
  * Why distinct MPs and not vehicle count? — A senator declaring three
  * Volkswagens would dominate raw vehicle counts; the journalistic question

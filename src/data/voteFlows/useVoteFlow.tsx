@@ -6,9 +6,10 @@ import {
   VoteFlowMatrix,
   VoteFlowScopeFile,
 } from "./voteFlowTypes";
+import { dataUrl } from "@/data/dataUrl";
 
 const indexQueryFn = async (): Promise<VoteFlowIndex | undefined> => {
-  const response = await fetch(`/transitions/index.json`);
+  const response = await fetch(dataUrl(`/transitions/index.json`));
   if (!response.ok) return undefined;
   return response.json();
 };
@@ -21,7 +22,9 @@ const scopeFn = async (
   to: string,
   scope: string,
 ): Promise<VoteFlowScopeFile | undefined> => {
-  const response = await fetch(`/transitions/${from}_${to}/${scope}.json`);
+  const response = await fetch(
+    dataUrl(`/transitions/${from}_${to}/${scope}.json`),
+  );
   if (!response.ok) return undefined;
   return response.json();
 };

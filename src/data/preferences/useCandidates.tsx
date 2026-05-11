@@ -2,6 +2,7 @@ import { useCallback } from "react";
 import { CandidatesInfo } from "../dataTypes";
 import { useElectionContext } from "../ElectionContext";
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
+import { dataUrl } from "@/data/dataUrl";
 
 const queryFn = async ({
   queryKey,
@@ -11,7 +12,7 @@ const queryFn = async ({
   if (!queryKey[1]) {
     return undefined;
   }
-  const response = await fetch(`/${queryKey[1]}/candidates.json`);
+  const response = await fetch(dataUrl(`/${queryKey[1]}/candidates.json`));
   const data = await response.json();
   return data;
 };

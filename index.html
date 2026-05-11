@@ -47,8 +47,15 @@
     />
     <link rel="canonical" href="https://electionsbg.com/" />
     <!-- /SEO -->
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Pre-warm the GCS bucket connection. Every data fetch from React
+         Query goes to storage.googleapis.com (post-migration); without this
+         hint the browser pays ~120ms of DNS+TCP+TLS on the first JSON
+         request. With it, the handshake overlaps with HTML parsing. -->
+    <link
+      rel="preconnect"
+      href="https://storage.googleapis.com"
+      crossorigin
+    />
     <link rel="preconnect" href="https://a.tile.openstreetmap.org" crossorigin />
     <link rel="preconnect" href="https://b.tile.openstreetmap.org" crossorigin />
     <link rel="preconnect" href="https://c.tile.openstreetmap.org" crossorigin />
@@ -58,24 +65,25 @@
       href="https://www.parliament.bg"
       crossorigin
     />
+    <!-- Self-hosted Inter + Fraunces. The .woff2 files and the @font-face CSS
+         live in /public/fonts/, refreshed by `node scripts/fonts/fetch-fonts.mjs`.
+         Eliminates the render-blocking round-trip to fonts.googleapis.com and
+         keeps everything on the site origin (cached + gzipped by Firebase). -->
     <link
       rel="preload"
       as="font"
       type="font/woff2"
       crossorigin
-      href="https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2"
+      href="/fonts/inter-v20-UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7W0Q5nw.woff2"
     />
     <link
       rel="preload"
       as="font"
       type="font/woff2"
       crossorigin
-      href="https://fonts.gstatic.com/s/fraunces/v38/6NU78FyLNQOQZAnv9bYEvDiIdE9Ea92uemAk_WBq8U_9v0c2Wa0KxC9TeP2Xz5c.woff2"
+      href="/fonts/fraunces-v38-6NU78FyLNQOQZAnv9bYEvDiIdE9Ea92uemAk_WBq8U_9v0c2Wa0KxC9TeP2Xz5c.woff2"
     />
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,400;9..144,500;9..144,600;9..144,700&display=swap"
-    />
+    <link rel="stylesheet" href="/fonts/fonts.css" />
   </head>
   <body>
     <!-- BODY -->

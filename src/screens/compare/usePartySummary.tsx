@@ -5,6 +5,7 @@ import {
   PreferencesVotes,
 } from "@/data/dataTypes";
 import { useElectionContext } from "@/data/ElectionContext";
+import { dataUrl } from "@/data/dataUrl";
 
 const partyResultsFn = async ({
   queryKey,
@@ -14,7 +15,7 @@ const partyResultsFn = async ({
   const [, election, partyNum, scope] = queryKey;
   if (!election || !partyNum) return null;
   const response = await fetch(
-    `/${election}/parties/${scope}/${partyNum}.json`,
+    dataUrl(`/${election}/parties/${scope}/${partyNum}.json`),
   );
   if (!response.ok) return null;
   return response.json();
@@ -34,7 +35,7 @@ const preferenceStatsFn = async ({
   const [, election, partyNum] = queryKey;
   if (!election || !partyNum) return undefined;
   const response = await fetch(
-    `/${election}/parties/preferences/${partyNum}/stats.json`,
+    dataUrl(`/${election}/parties/preferences/${partyNum}/stats.json`),
   );
   if (!response.ok) return undefined;
   return response.json();

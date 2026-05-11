@@ -1,7 +1,85 @@
 import react from "@vitejs/plugin-react-swc";
 import tsconfigPaths from "vite-tsconfig-paths";
+import fs from "node:fs";
 import path from "path";
+import type { Connect, Plugin } from "vite";
 import { defineConfig, loadEnv } from "vite";
+
+// In production we serve large/changing JSON from a GCS bucket via the
+// `dataUrl` helper (see src/data/dataUrl.ts). The historical archives and
+// per-domain data folders moved out of public/ into data/ so they don't
+// get bundled into the Firebase Hosting deploy.
+//
+// Dev and `vite preview` still need to serve those files locally though,
+// or every data fetch would 404. This plugin mounts data/ as a second
+// "public dir" that overlays onto the dev/preview server at root.
+const DATA_DIR = path.resolve(__dirname, "data");
+
+const CONTENT_TYPES: Record<string, string> = {
+  ".json": "application/json; charset=utf-8",
+  ".md": "text/markdown; charset=utf-8",
+  ".svg": "image/svg+xml",
+  ".png": "image/png",
+  ".jpg": "image/jpeg",
+  ".jpeg": "image/jpeg",
+  ".webp": "image/webp",
+  ".xml": "application/xml",
+  ".txt": "text/plain; charset=utf-8",
+};
+
+const serveDataMiddleware: Connect.NextHandleFunction = (req, res, next) => {
+  if (req.method !== "GET" && req.method !== "HEAD") return next();
+  const url = decodeURIComponent((req.url ?? "").split("?")[0]);
+  // Reject path traversal attempts; resolve and then verify it's still
+  // inside DATA_DIR.
+  const resolved = path.resolve(path.join(DATA_DIR, url));
+  if (resolved !== DATA_DIR && !resolved.startsWith(DATA_DIR + path.sep)) {
+    return next();
+  }
+  fs.stat(resolved, (err, stat) => {
+    if (err || !stat.isFile()) return next();
+    const ext = path.extname(resolved).toLowerCase();
+    res.setHeader(
+      "Content-Type",
+      CONTENT_TYPES[ext] || "application/octet-stream",
+    );
+    res.setHeader("Cache-Control", "no-cache");
+    if (req.method === "HEAD") {
+      res.end();
+      return;
+    }
+    fs.createReadStream(resolved).pipe(res);
+  });
+};
+
+const serveDataDir = (): Plugin => ({
+  name: "serve-data-dir",
+  configureServer(server) {
+    server.middlewares.use(serveDataMiddleware);
+  },
+  configurePreviewServer(server) {
+    server.middlewares.use(serveDataMiddleware);
+  },
+});
+
+// Vite emits a `<link rel="stylesheet">` for every CSS chunk reachable from
+// the entry import graph, including chunks loaded only by lazy/dynamic
+// imports. For heavy "only used on a few routes" CSS (leaflet, charts, pdf,
+// markdown), this turns into render-blocking bytes the landing page never
+// uses. The dynamic `import("leaflet/dist/leaflet.css")` inside LeafletMap
+// already tells Vite to bundle the CSS as a separate chunk and load it via
+// runtime injection when the JS chunk loads — we just need to stop Vite
+// from also injecting an eager stylesheet link in the prerendered HTML.
+const stripLazyCss = (): Plugin => ({
+  name: "strip-lazy-css",
+  enforce: "post",
+  transformIndexHtml(html) {
+    return html.replace(
+      /<link rel="stylesheet"[^>]*\/assets\/vendor-(leaflet|charts|pdf|markdown)[^>]*>\s*/g,
+      "",
+    );
+  },
+});
 
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => {
@@ -12,7 +90,7 @@ export default defineConfig(({ mode }) => {
     define: {
       "process.env.API_KEY": JSON.stringify(env.GEMINI_API_KEY),
     },
-    plugins: [react(), tsconfigPaths()],
+    plugins: [react(), tsconfigPaths(), serveDataDir(), stripLazyCss()],
     build: {
       // Lift the warning threshold a bit since we still have some larger
       // domain-specific chunks (maps + jspdf) that are loaded on demand.

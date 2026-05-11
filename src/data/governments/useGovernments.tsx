@@ -1,4 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
+import { dataUrl } from "@/data/dataUrl";
 
 export type GovernmentEndReason =
   | "term_end"
@@ -37,7 +38,7 @@ type GovernmentsPayload = {
 };
 
 const fetchJson = async <T,>(path: string): Promise<T | undefined> => {
-  const res = await fetch(path);
+  const res = await fetch(dataUrl(path));
   if (!res.ok) return undefined;
   return (await res.json()) as T;
 };

@@ -3,6 +3,7 @@ import { PartyInfo } from "../dataTypes";
 import { useElectionContext } from "../ElectionContext";
 import { useCallback } from "react";
 import { findPartyByNickName } from "../utils";
+import { dataUrl } from "@/data/dataUrl";
 
 const queryFn = async ({
   queryKey,
@@ -12,7 +13,7 @@ const queryFn = async ({
   if (!queryKey[1]) {
     return [];
   }
-  const response = await fetch(`/${queryKey[1]}/cik_parties.json`);
+  const response = await fetch(dataUrl(`/${queryKey[1]}/cik_parties.json`));
   const data = await response.json();
   return data;
 };

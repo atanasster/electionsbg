@@ -33,6 +33,12 @@ export type PrerenderRoute = {
 };
 
 export const SITE_URL = "https://electionsbg.com";
+// Per-election data JSON ships from the GCS bucket (post-migration), not
+// from the site origin. JSON-LD Dataset distribution URLs need to point at
+// the bucket so Google Dataset Search can actually fetch the data — pointing
+// at electionsbg.com/2026_04_19/...json would 404 since those files are no
+// longer served by Firebase Hosting.
+export const DATA_URL = "https://storage.googleapis.com/data-electionsbg-com";
 export const DEFAULT_OG_IMAGE = `${SITE_URL}/images/og_image.png`;
 
 import fs from "fs";

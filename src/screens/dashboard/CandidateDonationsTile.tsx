@@ -8,6 +8,7 @@ import { formatThousands } from "@/data/utils";
 import { Link } from "@/ux/Link";
 import { Hint } from "@/ux/Hint";
 import { StatCard } from "./StatCard";
+import { dataUrl } from "@/data/dataUrl";
 
 const TOP_N = 10;
 
@@ -20,7 +21,7 @@ const queryFn = async ({
 >): Promise<CandidateDonation[] | null> => {
   if (!queryKey[1] || !queryKey[2]) return null;
   const response = await fetch(
-    `/${queryKey[1]}/candidates/${queryKey[2]}/donations.json`,
+    dataUrl(`/${queryKey[1]}/candidates/${queryKey[2]}/donations.json`),
   );
   if (!response.ok) return null;
   return response.json();

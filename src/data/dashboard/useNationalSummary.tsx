@@ -1,6 +1,7 @@
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { useElectionContext } from "../ElectionContext";
 import { NationalSummary } from "./dashboardTypes";
+import { dataUrl } from "@/data/dataUrl";
 
 const queryFn = async ({
   queryKey,
@@ -8,7 +9,9 @@ const queryFn = async ({
   NationalSummary | undefined
 > => {
   if (!queryKey[1]) return undefined;
-  const response = await fetch(`/${queryKey[1]}/national_summary.json`);
+  const response = await fetch(
+    dataUrl(`/${queryKey[1]}/national_summary.json`),
+  );
   if (!response.ok) return undefined;
   return response.json();
 };

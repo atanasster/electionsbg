@@ -1,5 +1,6 @@
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { CandidateStats } from "@/data/dataTypes";
+import { dataUrl } from "@/data/dataUrl";
 import { useElectionContext } from "@/data/ElectionContext";
 import { CandidateRegionRow } from "./candidateSummary";
 
@@ -11,7 +12,7 @@ const regionsFn = async ({
   const [, election, name] = queryKey;
   if (!election || !name) return null;
   const response = await fetch(
-    `/${election}/candidates/${encodeURIComponent(name)}/regions.json`,
+    dataUrl(`/${election}/candidates/${encodeURIComponent(name)}/regions.json`),
   );
   if (!response.ok) return null;
   return response.json();
@@ -25,7 +26,9 @@ const prefStatsFn = async ({
   const [, election, name] = queryKey;
   if (!election || !name) return null;
   const response = await fetch(
-    `/${election}/candidates/${encodeURIComponent(name)}/preferences_stats.json`,
+    dataUrl(
+      `/${election}/candidates/${encodeURIComponent(name)}/preferences_stats.json`,
+    ),
   );
   if (!response.ok) return null;
   return response.json();

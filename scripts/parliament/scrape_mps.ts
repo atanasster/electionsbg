@@ -36,12 +36,20 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import { command, run, string, option, optional, flag, boolean } from "cmd-ts";
+import sharp from "sharp";
 import { titleCaseBgName } from "./name_case";
 import { transliterateName } from "../../src/data/candidates/transliterateName";
 
 const API = "https://www.parliament.bg/api/v1";
 const PHOTO_BASE = "https://www.parliament.bg/images/Assembly/";
 const PROFILE_BASE = "https://www.parliament.bg/bg/MP/";
+
+// Local relative path under /data/parliament/photos/ that the SPA fetches
+// (after dataUrl resolution → bucket). Stored alongside the MP profile so
+// the page doesn't have to round-trip to parliament.bg, which sets
+// Cache-Control: 0 on its photos and was the single biggest perf hit
+// (~4 MB re-downloaded every visit per Lighthouse before this change).
+const localPhotoUrl = (id: number): string => `/parliament/photos/${id}.webp`;
 
 // parliament.bg returns "mp_blank.png" (a generic silhouette) for MPs without
 // a real photo. The URL loads fine, so the frontend's <AvatarImage> never
@@ -202,9 +210,7 @@ const toMp = (raw: RawMp): Mp => {
       : null,
     termFrom: raw.A_ns_MSP_date_F,
     termTo: raw.A_ns_MSP_date_T === "9999-12-31" ? "" : raw.A_ns_MSP_date_T,
-    photoUrl: hasRealPhoto(raw.A_ns_MP_img)
-      ? `${PHOTO_BASE}${raw.A_ns_MP_img}`
-      : "",
+    photoUrl: hasRealPhoto(raw.A_ns_MP_img) ? localPhotoUrl(id) : "",
     profileUrl: `${PROFILE_BASE}${id}`,
   };
 };
@@ -280,13 +286,18 @@ const aggregateByRegion = (mps: Mp[], nsName: string): SeatsByRegion => {
   };
 };
 
+// Download an MP photo from parliament.bg and re-encode to WebP at quality 82.
+// Source PNGs are ~200 KB each; WebP brings them to ~50-80 KB without visible
+// loss at the avatar sizes we use. Stored at `${file}` (caller picks the path,
+// expected to end in .webp).
 const downloadPhoto = async (id: number, file: string): Promise<boolean> => {
   try {
     const res = await fetch(`${PHOTO_BASE}${id}.png`, { headers: HEADERS });
     if (!res.ok) return false;
-    const buf = Buffer.from(await res.arrayBuffer());
-    if (buf.length < 100) return false;
-    fs.writeFileSync(file, buf);
+    const src = Buffer.from(await res.arrayBuffer());
+    if (src.length < 100) return false;
+    const out = await sharp(src).webp({ quality: 82 }).toBuffer();
+    fs.writeFileSync(file, out);
     return true;
   } catch {
     return false;
@@ -353,9 +364,7 @@ const buildIndexEntry = (
     name_en: nameEn,
     normalizedName: rawName.toUpperCase().replace(/\s+/g, " ").trim(),
     normalizedName_en: nameEn.toUpperCase().replace(/\s+/g, " ").trim(),
-    photoUrl: hasRealPhoto(raw.A_ns_MP_img)
-      ? `${PHOTO_BASE}${raw.A_ns_MP_img}`
-      : "",
+    photoUrl: hasRealPhoto(raw.A_ns_MP_img) ? localPhotoUrl(id) : "",
     currentRegion: mp?.region ?? null,
     currentPartyGroup: mp?.partyGroup ?? null,
     currentPartyGroupShort: mp?.partyGroupShort ?? null,
@@ -429,6 +438,7 @@ const runHistory = async (opts: {
   maxId: number;
   concurrency: number;
   refreshCurrent: boolean;
+  photos: boolean;
 }) => {
   const profilesDir = path.join(opts.out, "profiles");
   fs.mkdirSync(profilesDir, { recursive: true });
@@ -651,25 +661,59 @@ const runHistory = async (opts: {
     (mx, m) => (m.scrapedAt > mx ? m.scrapedAt : mx),
     "",
   );
+  // Minified — ships to /data/parliament/ and is fetched client-side.
   fs.writeFileSync(
     path.join(opts.out, "index.json"),
-    JSON.stringify(
-      {
-        scrapedAt: topScrapedAt || nowIso,
-        currentNs: list.A_ns_CL_value,
-        total: deduped.length,
-        rawTotal: index.length,
-        mps: deduped,
-      },
-      null,
-      2,
-    ),
+    JSON.stringify({
+      scrapedAt: topScrapedAt || nowIso,
+      currentNs: list.A_ns_CL_value,
+      total: deduped.length,
+      rawTotal: index.length,
+      mps: deduped,
+    }),
   );
   console.log(
     `\n✓ kept ${index.length} raw → ${deduped.length} deduped, ${empty} empty ids, ${failed} failures`,
   );
   console.log(`✓ wrote ${path.join(opts.out, "index.json")}`);
   console.log(`✓ wrote ${index.length} files under ${profilesDir}/`);
+
+  // Photos — same logic as `main()`. Re-encoded to .webp under
+  // <out>/photos/ so the SPA can serve them from the bucket with our long
+  // immutable cache instead of round-tripping to parliament.bg on every
+  // visit (their server sets Cache-Control: 0). Skip if file already exists.
+  if (opts.photos) {
+    const photoDir = path.join(opts.out, "photos");
+    fs.mkdirSync(photoDir, { recursive: true });
+    const candidates = deduped.filter((m) => m.photoUrl);
+    console.log(
+      `→ downloading ${candidates.length} MP photos to ${photoDir} (webp)`,
+    );
+    let ok = 0;
+    let miss = 0;
+    let idx = 0;
+    const next = async (): Promise<void> => {
+      while (idx < candidates.length) {
+        const i = idx++;
+        const mp = candidates[i];
+        const file = path.join(photoDir, `${mp.id}.webp`);
+        if (fs.existsSync(file)) {
+          ok++;
+          continue;
+        }
+        const got = await downloadPhoto(mp.id, file);
+        if (got) ok++;
+        else miss++;
+        if ((ok + miss) % 100 === 0) {
+          console.log(
+            `  ${ok + miss}/${candidates.length} (${ok} ok, ${miss} missing)`,
+          );
+        }
+      }
+    };
+    await Promise.all(Array.from({ length: opts.concurrency }, next));
+    console.log(`✓ photos: ${ok} downloaded/cached, ${miss} missing`);
+  }
 };
 
 const main = async (opts: {
@@ -716,30 +760,28 @@ const main = async (opts: {
 
   const seats = aggregateByRegion(mps, list.A_ns_CL_value);
 
+  // Minified — these ship to /data/parliament/ and are fetched client-side.
   fs.writeFileSync(
     path.join(opts.out, "seats_by_region.json"),
-    JSON.stringify(seats, null, 2),
+    JSON.stringify(seats),
   );
   fs.writeFileSync(
     path.join(opts.out, "mps.json"),
-    JSON.stringify(
-      { scrapedAt: new Date().toISOString(), ns: list.A_ns_CL_value, mps },
-      null,
-      2,
-    ),
+    JSON.stringify({
+      scrapedAt: new Date().toISOString(),
+      ns: list.A_ns_CL_value,
+      mps,
+    }),
   );
   if (profiles) {
+    // Minified — ships to /data/parliament/ and is fetched client-side.
     fs.writeFileSync(
       path.join(opts.out, "mp_profiles.json"),
-      JSON.stringify(
-        {
-          scrapedAt: new Date().toISOString(),
-          ns: list.A_ns_CL_value,
-          profiles,
-        },
-        null,
-        2,
-      ),
+      JSON.stringify({
+        scrapedAt: new Date().toISOString(),
+        ns: list.A_ns_CL_value,
+        profiles,
+      }),
     );
   }
   console.log(`✓ wrote ${path.join(opts.out, "seats_by_region.json")}`);
@@ -750,7 +792,7 @@ const main = async (opts: {
   if (opts.photos) {
     const photoDir = path.join(opts.out, "photos");
     fs.mkdirSync(photoDir, { recursive: true });
-    console.log(`→ downloading ${mps.length} photos to ${photoDir}`);
+    console.log(`→ downloading ${mps.length} photos to ${photoDir} (webp)`);
     let ok = 0;
     let miss = 0;
     const concurrency = 8;
@@ -759,7 +801,9 @@ const main = async (opts: {
       while (idx < mps.length) {
         const i = idx++;
         const mp = mps[i];
-        const file = path.join(photoDir, `${mp.id}.png`);
+        // .webp — re-encoded from the parliament.bg PNG via sharp inside
+        // downloadPhoto. ~3-4× smaller than the source PNG.
+        const file = path.join(photoDir, `${mp.id}.webp`);
         if (fs.existsSync(file)) {
           ok++;
           continue;
@@ -785,12 +829,16 @@ const cli = command({
       long: "out",
       short: "o",
       defaultValue: () =>
-        path.resolve(__dirname, "../../public/2024_10_27/parliament"),
+        path.resolve(__dirname, "../../data/2024_10_27/parliament"),
     }),
     photos: flag({
       type: optional(boolean),
       long: "photos",
-      defaultValue: () => false,
+      // Default true so every scrape downloads/refreshes MP photos. Each is
+      // re-encoded to .webp under data/parliament/photos/, served from the
+      // bucket with our 1-year immutable cache (much better than the
+      // Cache-Control: 0 parliament.bg sets on its PNGs).
+      defaultValue: () => true,
     }),
     profiles: flag({
       type: optional(boolean),
@@ -819,21 +867,30 @@ const cli = command({
     }),
   },
   handler: async (args) => {
+    // cmd-ts's `flag({type: optional(boolean), defaultValue})` doesn't
+    // populate `defaultValue` when the flag is omitted — it just leaves the
+    // value undefined. So we have to apply the "default true" semantics here:
+    // photos run unless the user explicitly passes `--no-photos`. (We don't
+    // currently expose --no-photos; just don't pass --photos to skip — but
+    // since the flag is positive, omitting it means "do the default", which
+    // is now: download.)
+    const wantsPhotos = args.photos !== false;
     if (args.all) {
       const out = args.out.endsWith("/2024_10_27/parliament")
-        ? path.resolve(__dirname, "../../public/parliament")
+        ? path.resolve(__dirname, "../../data/parliament")
         : args.out;
       await runHistory({
         out,
         maxId: parseInt(args.maxId ?? "5200", 10),
         concurrency: parseInt(args.concurrency ?? "8", 10),
         refreshCurrent: !!args.refreshCurrent,
+        photos: wantsPhotos,
       });
       return;
     }
     await main({
       out: args.out,
-      photos: !!args.photos,
+      photos: wantsPhotos,
       profiles: !!args.profiles,
     });
   },

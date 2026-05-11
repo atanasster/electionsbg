@@ -1,6 +1,7 @@
 import { useQuery } from "@tanstack/react-query";
 import { useElectionContext } from "../ElectionContext";
 import type { CensusMetric } from "../census/censusTypes";
+import { dataUrl } from "@/data/dataUrl";
 
 export type DemographicCleavageParty = {
   partyNum: number;
@@ -31,7 +32,7 @@ export const useDemographicCleavages = () => {
     queryFn: async (): Promise<DemographicCleavagesPayload | undefined> => {
       if (!selected) return undefined;
       const res = await fetch(
-        `/${selected}/dashboard/demographic_cleavages.json`,
+        dataUrl(`/${selected}/dashboard/demographic_cleavages.json`),
       );
       if (!res.ok) return undefined;
       return (await res.json()) as DemographicCleavagesPayload;

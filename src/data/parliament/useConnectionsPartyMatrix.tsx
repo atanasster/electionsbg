@@ -1,8 +1,11 @@
 import { useQuery } from "@tanstack/react-query";
 import type { ConnectionsPartyMatrixFile } from "@/data/dataTypes";
+import { dataUrl } from "@/data/dataUrl";
 
 const queryFn = async (): Promise<ConnectionsPartyMatrixFile | undefined> => {
-  const response = await fetch(`/parliament/connections-party-matrix.json`);
+  const response = await fetch(
+    dataUrl(`/parliament/connections-party-matrix.json`),
+  );
   if (!response.ok) return undefined;
   return response.json();
 };

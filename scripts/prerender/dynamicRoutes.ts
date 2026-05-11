@@ -9,7 +9,7 @@ import {
   SectionInfo,
   Votes,
 } from "@/data/dataTypes";
-import { PrerenderRoute, SITE_URL } from "./routes";
+import { DATA_URL, PrerenderRoute, SITE_URL } from "./routes";
 import {
   buildBreadcrumbLd,
   buildDatasetLd,
@@ -19,6 +19,7 @@ import {
 } from "./jsonLd";
 import {
   buildElectionLandingBody,
+  buildElectionLandingBodyEn,
   buildOblastBody,
   buildPartyBody,
   buildPollsAgencyBody,
@@ -26,6 +27,7 @@ import {
   buildSectionBody,
   buildSectionsListBody,
   buildSettlementBody,
+  formatElectionDateEn,
 } from "./bodyBuilders";
 import { buildArticleRoutes } from "./articleRoutes";
 
@@ -132,29 +134,29 @@ export const buildPartyRoutes = (
     // Search, OpenAIRE, etc.) use these to ingest the underlying numbers.
     const distribution = [
       {
-        url: `${SITE_URL}/${latestElection}/cik_parties.json`,
+        url: `${DATA_URL}/${latestElection}/cik_parties.json`,
         name: "Списък на партиите (JSON)",
       },
       {
-        url: `${SITE_URL}/${latestElection}/parties/by_region/${p.number}.json`,
+        url: `${DATA_URL}/${latestElection}/parties/by_region/${p.number}.json`,
         name: `${label} — резултати по области (JSON)`,
       },
       {
-        url: `${SITE_URL}/${latestElection}/parties/by_municipality/${p.number}.json`,
+        url: `${DATA_URL}/${latestElection}/parties/by_municipality/${p.number}.json`,
         name: `${label} — резултати по общини (JSON)`,
       },
     ];
     const distributionEn = [
       {
-        url: `${SITE_URL}/${latestElection}/cik_parties.json`,
+        url: `${DATA_URL}/${latestElection}/cik_parties.json`,
         name: "Party list (JSON)",
       },
       {
-        url: `${SITE_URL}/${latestElection}/parties/by_region/${p.number}.json`,
+        url: `${DATA_URL}/${latestElection}/parties/by_region/${p.number}.json`,
         name: `${label} — results by region (JSON)`,
       },
       {
-        url: `${SITE_URL}/${latestElection}/parties/by_municipality/${p.number}.json`,
+        url: `${DATA_URL}/${latestElection}/parties/by_municipality/${p.number}.json`,
         name: `${label} — results by municipality (JSON)`,
       },
     ];
@@ -1534,9 +1536,41 @@ export const buildElectionLandingRoutes = (
     .map((e) => {
       const date = e.name;
       const dateLabel = formatElectionDateBg(date);
+      const dateLabelEn = formatElectionDateEn(date);
       const url = `${SITE_URL}/elections/${date}`;
+      const enUrl = `${SITE_URL}/en/elections/${date}`;
       const title = `Парламентарни избори ${dateLabel} в България — резултати | electionsbg.com`;
       const description = `Резултати от парламентарните избори в България на ${dateLabel} — избирателна активност, разпределение на гласове и мандати по партии, машинно и хартиено гласуване, отклонения по секции.`;
+      const titleEn = `Bulgarian parliamentary elections ${dateLabelEn} — results | electionsbg.com`;
+      const descriptionEn = `Results of the Bulgarian parliamentary elections on ${dateLabelEn} — turnout, vote and seat distribution by party, paper vs. machine voting, section-level anomalies.`;
+      const distribution = [
+        {
+          url: `${DATA_URL}/${date}/national_summary.json`,
+          name: "Национално резюме (JSON)",
+        },
+        {
+          url: `${DATA_URL}/${date}/region_votes.json`,
+          name: "Резултати по области (JSON)",
+        },
+        {
+          url: `${DATA_URL}/${date}/cik_parties.json`,
+          name: "Списък на партиите (JSON)",
+        },
+      ];
+      const distributionEn = [
+        {
+          url: `${DATA_URL}/${date}/national_summary.json`,
+          name: "National summary (JSON)",
+        },
+        {
+          url: `${DATA_URL}/${date}/region_votes.json`,
+          name: "Results by region (JSON)",
+        },
+        {
+          url: `${DATA_URL}/${date}/cik_parties.json`,
+          name: "Party list (JSON)",
+        },
+      ];
       return {
         path: `elections/${date}`,
         title,
@@ -1554,26 +1588,37 @@ export const buildElectionLandingRoutes = (
               "резултати",
               "България",
             ],
-            distribution: [
-              {
-                url: `${SITE_URL}/${date}/national_summary.json`,
-                name: "Национално резюме (JSON)",
-              },
-              {
-                url: `${SITE_URL}/${date}/region_votes.json`,
-                name: "Резултати по области (JSON)",
-              },
-              {
-                url: `${SITE_URL}/${date}/cik_parties.json`,
-                name: "Списък на партиите (JSON)",
-              },
-            ],
+            distribution,
           }),
           buildBreadcrumbLd([
             { name: "Начало", url: `${SITE_URL}/` },
             { name: `Избори ${dateLabel}`, url },
           ]),
         ],
+        english: {
+          title: titleEn,
+          description: descriptionEn,
+          bodyHtml: buildElectionLandingBodyEn(publicFolder, date),
+          jsonLd: [
+            buildDatasetLd({
+              name: `Bulgarian parliamentary elections ${dateLabelEn} — results`,
+              description: descriptionEn,
+              url: enUrl,
+              spatialCoverage: "Bulgaria",
+              keywords: [
+                "Bulgarian parliamentary elections",
+                dateLabelEn,
+                "results",
+                "Bulgaria",
+              ],
+              distribution: distributionEn,
+            }),
+            buildBreadcrumbLd([
+              { name: "Home", url: `${SITE_URL}/en/` },
+              { name: `Elections ${dateLabelEn}`, url: enUrl },
+            ]),
+          ],
+        },
       };
     });
 };
@@ -1615,15 +1660,15 @@ export const buildPollsRoutes = (publicFolder: string): PrerenderRoute[] => {
           ],
           distribution: [
             {
-              url: `${SITE_URL}/polls/polls.json`,
+              url: `${DATA_URL}/polls/polls.json`,
               name: "Сурови проучвания (JSON)",
             },
             {
-              url: `${SITE_URL}/polls/accuracy.json`,
+              url: `${DATA_URL}/polls/accuracy.json`,
               name: "Грешки по проучване (JSON)",
             },
             {
-              url: `${SITE_URL}/polls/analysis.json`,
+              url: `${DATA_URL}/polls/analysis.json`,
               name: "Анализ на агенции (JSON)",
             },
           ],
@@ -1836,7 +1881,11 @@ const buildReportRoutes = (
 export const buildDynamicRoutes = async (
   projectRoot: string,
 ): Promise<PrerenderRoute[]> => {
-  const publicFolder = path.join(projectRoot, "public");
+  // Election data folders moved to /data/ during the GCS migration. The
+  // variable name is kept (`publicFolder`) because every helper in this
+  // module takes it as `publicFolder` for historical reasons; threading
+  // a rename through the whole module is a separate cleanup.
+  const publicFolder = path.join(projectRoot, "data");
   const electionsFile = path.join(projectRoot, "src/data/json/elections.json");
   const regionsFile = path.join(projectRoot, "src/data/json/regions.json");
   const latest = getLatestElection(electionsFile);
@@ -1877,6 +1926,8 @@ export const buildDynamicRoutes = async (
     ...buildReportRoutes("settlement", SETTLEMENT_REPORTS),
     ...buildReportRoutes("municipality", MUNICIPALITY_REPORTS),
     ...buildReportRoutes("section", SECTION_REPORTS),
-    ...(await buildArticleRoutes(publicFolder)),
+    // Articles are site content (human-authored markdown + same-origin
+    // images), not data — they live under /public/ rather than /data/.
+    ...(await buildArticleRoutes(path.join(projectRoot, "public"))),
   ];
 };

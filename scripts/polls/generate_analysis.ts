@@ -24,7 +24,7 @@ import { command, run, option, string, optional } from "cmd-ts";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
-const POLLS_DIR = path.resolve(__dirname, "../../public/polls");
+const POLLS_DIR = path.resolve(__dirname, "../../data/polls");
 const ENV_FILE = path.resolve(__dirname, "../../.env.local");
 // Claude Opus 4.7 (1M context) is the model used for the editorial analysis.
 // The "model" field in the generated analysis.json reflects this label so the
@@ -351,7 +351,8 @@ const main = async (opts: { pollsDir: string; only?: string }) => {
     agencyTakes,
     byElection,
   };
-  fs.writeFileSync(outFile, JSON.stringify(out, null, 2));
+  // Minified — ships to /public/ and is fetched client-side.
+  fs.writeFileSync(outFile, JSON.stringify(out));
   console.log(
     `✓ wrote ${outFile}  (${Object.keys(byElection).length} elections, ${agencyTakes.length} agency takes)`,
   );

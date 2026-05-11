@@ -11,7 +11,7 @@
  * those people made as 49th/50th/51st-NS members or as private citizens
  * in between mandates.
  *
- * Output: /public/parliament/data-provenance.json
+ * Output: /data/parliament/data-provenance.json
  */
 
 import fs from "fs";

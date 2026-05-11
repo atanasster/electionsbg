@@ -3,6 +3,7 @@ import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { ReportRow } from "@/data/dataTypes";
 import { Template } from "./Template";
 import { useSuemgColumns } from "../common/suemgColumns";
+import { dataUrl } from "@/data/dataUrl";
 
 const queryFn = async ({
   queryKey,
@@ -13,7 +14,7 @@ const queryFn = async ({
     return [];
   }
   const response = await fetch(
-    `/${queryKey[1]}/reports/section/suemg_missing_flash.json`,
+    dataUrl(`/${queryKey[1]}/reports/section/suemg_missing_flash.json`),
   );
   const data = await response.json();
   return data;

@@ -1,5 +1,9 @@
 import { useQuery, QueryFunctionContext } from "@tanstack/react-query";
 
+// Articles are site content (markdown + same-origin images), not data —
+// they ship through Firebase Hosting under /articles/, not the GCS bucket.
+// Plain relative fetch resolves against the site origin in both dev and prod.
+
 export type DashboardSectionId =
   | "votes"
   | "geography"

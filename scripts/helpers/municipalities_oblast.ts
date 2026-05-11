@@ -1,6 +1,6 @@
 import fs from "fs";
 import path from "path";
-import municipalities from "../../public/municipalities.json";
+import municipalities from "../../data/municipalities.json";
 import regions from "../../src/data/json/regions.json";
 import { fileURLToPath } from "url";
 const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
@@ -14,5 +14,5 @@ const muni = municipalities.map((s) => {
   return { ...s, oblast: region.oblast };
 });
 const json = JSON.stringify(muni);
-const outFile = path.resolve(__dirname, "../../public/municipalities.json");
+const outFile = path.resolve(__dirname, "../../data/municipalities.json");
 fs.writeFileSync(outFile, json, "utf8");

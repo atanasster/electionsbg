@@ -2,7 +2,7 @@
  * Build the MP-by-declared-assets rollups consumed by the home, party and
  * candidate pages.
  *
- * For every per-MP file at /public/parliament/declarations/{mpId}.json:
+ * For every per-MP file at /data/parliament/declarations/{mpId}.json:
  *   1. Pick the MOST RECENT declaration (highest declarationYear). Annual
  *      filings get +1 in declarationYear over their fiscal year, so this
  *      naturally prefers a 2025 annual filing over a 2024 vacate filing
@@ -13,8 +13,8 @@
  *   3. Find the next-most-recent declaration to compute year-over-year delta.
  *
  * Outputs:
- *   /public/parliament/mp-assets/{mpId}.json   — full per-MP rollup
- *   /public/parliament/assets-rankings.json    — top MPs (lifetime + per-NS)
+ *   /data/parliament/mp-assets/{mpId}.json   — full per-MP rollup
+ *   /data/parliament/assets-rankings.json    — top MPs (lifetime + per-NS)
  */
 
 import fs from "fs";

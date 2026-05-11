@@ -23,6 +23,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { initials, firstLastName } from "@/lib/utils";
 import { useCandidateName } from "@/data/candidates/useCandidateName";
 import { StatCard } from "./StatCard";
+import { dataUrl } from "@/data/dataUrl";
 
 type Props = {
   parties: NationalPartyResult[];
@@ -39,7 +40,9 @@ const queryFn = async ({
   PreferencesInfo[] | undefined
 > => {
   if (!queryKey[1]) return undefined;
-  const response = await fetch(`/${queryKey[1]}/preferences/country.json`);
+  const response = await fetch(
+    dataUrl(`/${queryKey[1]}/preferences/country.json`),
+  );
   if (!response.ok) return undefined;
   return response.json();
 };

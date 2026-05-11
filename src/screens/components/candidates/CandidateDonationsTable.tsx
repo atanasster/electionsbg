@@ -4,6 +4,7 @@ import { DataTable, DataTableColumns } from "@/ux/data_table/DataTable";
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
+import { dataUrl } from "@/data/dataUrl";
 
 type CandidateDonations = Omit<FinancingFromCandidates, "name">;
 
@@ -16,7 +17,7 @@ const queryFn = async ({
     return undefined;
   }
   const response = await fetch(
-    `/${queryKey[1]}/candidates/${queryKey[2]}/donations.json`,
+    dataUrl(`/${queryKey[1]}/candidates/${queryKey[2]}/donations.json`),
   );
   const data = await response.json();
   return data;

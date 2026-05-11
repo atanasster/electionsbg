@@ -157,7 +157,8 @@ const generate = async (election: string, partyNum: number) => {
     bg: parsed.bg,
     en: parsed.en,
   };
-  fs.writeFileSync(outFile, JSON.stringify(out, null, 2));
+  // Minified — ships to /public/ and is fetched client-side.
+  fs.writeFileSync(outFile, JSON.stringify(out));
   console.log(`✓ wrote ${outFile}`);
 };
 

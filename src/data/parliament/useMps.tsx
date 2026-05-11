@@ -1,5 +1,19 @@
 import { useCallback, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
+import { dataUrl } from "@/data/dataUrl";
+
+// MP photos are stored at /parliament/photos/<id>.webp (cached locally
+// from parliament.bg by the scraper, served from the bucket with our
+// long immutable cache). The scraper writes the relative path into
+// the index; the SPA resolves it through dataUrl so the fetch hits the
+// bucket origin in production. Backwards-compat: legacy index files
+// (pre-photo-caching) may still have absolute parliament.bg URLs — those
+// pass through unchanged.
+const resolvePhoto = (url: string): string => {
+  if (!url) return "";
+  if (url.startsWith("http")) return url;
+  return dataUrl(url);
+};
 
 export type MpIndexEntry = {
   id: number;
@@ -31,9 +45,13 @@ type IndexFile = {
 const normalize = (s: string) => s.toUpperCase().replace(/\s+/g, " ").trim();
 
 const queryFn = async (): Promise<IndexFile | undefined> => {
-  const response = await fetch(`/parliament/index.json`);
+  const response = await fetch(dataUrl(`/parliament/index.json`));
   if (!response.ok) return undefined;
-  return response.json();
+  const file = (await response.json()) as IndexFile;
+  // Resolve photoUrl once at ingest so every consumer sees an absolute,
+  // bucket-resolved URL without having to know about the dataUrl seam.
+  for (const mp of file.mps) mp.photoUrl = resolvePhoto(mp.photoUrl);
+  return file;
 };
 
 export const useMps = () => {

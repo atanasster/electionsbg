@@ -1,6 +1,7 @@
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { PartyResultsRow } from "../dataTypes";
 import { useElectionContext } from "../ElectionContext";
+import { dataUrl } from "@/data/dataUrl";
 
 type Scope = "by_region" | "by_municipality" | "by_settlement";
 
@@ -12,7 +13,7 @@ const queryFn = async ({
   const [, scope, election, partyNum] = queryKey;
   if (!election || !partyNum) return null;
   const response = await fetch(
-    `/${election}/parties/${scope}/${partyNum}.json`,
+    dataUrl(`/${election}/parties/${scope}/${partyNum}.json`),
   );
   if (!response.ok) return null;
   return response.json();

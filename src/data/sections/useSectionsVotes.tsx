@@ -1,6 +1,7 @@
 import { SectionInfo } from "../dataTypes";
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { useElectionContext } from "../ElectionContext";
+import { dataUrl } from "@/data/dataUrl";
 
 // Per-election section data is bundled by oblast (the leading 2 digits of
 // the 9-digit section ID). One fetch covers every section in that oblast,
@@ -13,7 +14,9 @@ const queryFn = async ({
   [section: string]: SectionInfo;
 }> => {
   const [, date, oblast] = queryKey;
-  const response = await fetch(`/${date}/sections/by-oblast/${oblast}.json`);
+  const response = await fetch(
+    dataUrl(`/${date}/sections/by-oblast/${oblast}.json`),
+  );
   return response.json();
 };
 

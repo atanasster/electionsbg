@@ -1,8 +1,13 @@
 import { MapCoordinates } from "@/layout/dataview/MapLayout";
 import { FC, PropsWithChildren, useEffect } from "react";
 import { MapContainer, TileLayer, useMap } from "react-leaflet";
-import "leaflet/dist/leaflet.css";
 import { zoomFromScale } from "./d3_utils";
+
+// Leaflet's stylesheet is loaded dynamically so it lands in its own chunk
+// (alongside vendor-leaflet.js) instead of being injected as a render-blocking
+// `<link rel="stylesheet">` in every prerendered page. Most landing pages
+// don't render a map, so we don't want to pay 5-6 KB of blocking CSS for them.
+import("leaflet/dist/leaflet.css");
 
 const InvalidateOnResize: FC<{ width: number; height: number }> = ({
   width,

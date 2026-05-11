@@ -37,19 +37,19 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const RAW_DIR = path.resolve(__dirname, "../../raw_data/census_2021");
-const OUT_FILE = path.resolve(__dirname, "../../public/census_2021.json");
+const OUT_FILE = path.resolve(__dirname, "../../data/census_2021.json");
 const OUT_SETTLEMENTS = path.resolve(
   __dirname,
-  "../../public/census_2021_settlements.json",
+  "../../data/census_2021_settlements.json",
 );
 // Per-entity slice directories. Each oblast/municipality gets its own ~1KB
 // JSON so the dashboard tiles can fetch a single slice instead of paying for
 // the full ~28+265-row payload up-front. Settlements stay in the existing
 // sidecar (5k entries × ~150B; per-file overhead would dwarf the savings).
-const OUT_OBLAST_DIR = path.resolve(__dirname, "../../public/census/oblasts");
+const OUT_OBLAST_DIR = path.resolve(__dirname, "../../data/census/oblasts");
 const OUT_MUNI_DIR = path.resolve(
   __dirname,
-  "../../public/census/municipalities",
+  "../../data/census/municipalities",
 );
 
 const FILE_POP = "Census2021_Population_EN.xlsx";
@@ -163,7 +163,7 @@ const muniBgNames: Record<string, string> = (() => {
   const out: Record<string, string> = { SOF46: "Столична община" };
   try {
     const raw = fs.readFileSync(
-      path.resolve(__dirname, "../../public/municipalities.json"),
+      path.resolve(__dirname, "../../data/municipalities.json"),
       "utf-8",
     );
     const arr = JSON.parse(raw) as { obshtina: string; name: string }[];
@@ -561,8 +561,9 @@ const main = () => {
     municipalities: munis,
   };
 
-  fs.writeFileSync(OUT_FILE, JSON.stringify(payload, null, 2));
-  fs.writeFileSync(OUT_SETTLEMENTS, JSON.stringify(settlements, null, 2));
+  // Minified — ships to /public/ and is fetched client-side.
+  fs.writeFileSync(OUT_FILE, JSON.stringify(payload));
+  fs.writeFileSync(OUT_SETTLEMENTS, JSON.stringify(settlements));
   console.log(
     `Wrote ${OUT_FILE}: country + ${oblasts.length} oblasts + ${munis.length} municipalities`,
   );

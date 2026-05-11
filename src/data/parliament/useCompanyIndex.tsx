@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import type { MpOwnershipStake, TrCompanyEnrichment } from "@/data/dataTypes";
+import { dataUrl } from "@/data/dataUrl";
 
 /** Subset of MpOwnershipStake actually rendered on /mp/company/{slug}.
  * The full per-MP declaration JSON keeps every field; here we ship only
@@ -56,7 +57,7 @@ type IndexFile = {
 };
 
 const queryFn = async (): Promise<IndexFile | undefined> => {
-  const response = await fetch(`/parliament/companies-index.json`);
+  const response = await fetch(dataUrl(`/parliament/companies-index.json`));
   if (!response.ok) return undefined;
   return response.json();
 };

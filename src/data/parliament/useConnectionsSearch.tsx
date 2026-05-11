@@ -1,8 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import type { ConnectionsSearchFile } from "@/data/dataTypes";
+import { dataUrl } from "@/data/dataUrl";
 
 const queryFn = async (): Promise<ConnectionsSearchFile | undefined> => {
-  const response = await fetch(`/parliament/connections-search.json`);
+  const response = await fetch(dataUrl(`/parliament/connections-search.json`));
   if (!response.ok) return undefined;
   return response.json();
 };

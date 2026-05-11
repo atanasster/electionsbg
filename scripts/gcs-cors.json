@@ -1,0 +1,14 @@
+[
+  {
+    "origin": [
+      "https://electionsbg.com",
+      "https://www.electionsbg.com",
+      "https://elections-bg.web.app",
+      "https://electionsbg-staging.web.app",
+      "http://localhost:5173"
+    ],
+    "method": ["GET", "HEAD"],
+    "responseHeader": ["Content-Type", "Cache-Control", "Content-Encoding"],
+    "maxAgeSeconds": 3600
+  }
+]

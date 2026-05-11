@@ -12,7 +12,10 @@ import { saveCandidateStats } from "./save_candidate_stats";
 const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
 const __dirname = path.dirname(__filename); // get the name of the directory
 
-const publicFolder = path.resolve(__dirname, `../../public/`);
+// Election folders moved out of /public/ during the GCS migration; they now
+// live under /data/ and are served from the bucket in production. The dir
+// scan that builds preferences still walks them locally.
+const dataFolder = path.resolve(__dirname, `../../data/`);
 const rawFolder = path.resolve(__dirname, `../../raw_data/`);
 
 export const createPreferencesFiles = async (
@@ -20,7 +23,7 @@ export const createPreferencesFiles = async (
   election?: string,
 ) => {
   const folders = fs
-    .readdirSync(publicFolder, { withFileTypes: true })
+    .readdirSync(dataFolder, { withFileTypes: true })
     .filter((file) => file.isDirectory())
     .filter((file) => file.name.startsWith("20"))
     .sort((a, b) => a.name.localeCompare(b.name));
@@ -33,7 +36,7 @@ export const createPreferencesFiles = async (
         const preferencesMunicipalities: Record<string, PreferencesInfo[]> = {};
         const preferencesSettlements: Record<string, PreferencesInfo[]> = {};
 
-        const outFolder = `${publicFolder}/${e.name}`;
+        const outFolder = `${dataFolder}/${e.name}`;
         const inFolder = `${rawFolder}/${e.name}`;
         const candidates = await parseCandidates(inFolder, e.name);
         fs.writeFileSync(
@@ -55,7 +58,7 @@ export const createPreferencesFiles = async (
           if (ly) {
             lyCandidates = JSON.parse(
               fs.readFileSync(
-                `${publicFolder}/${ly.name}/candidates.json`,
+                `${dataFolder}/${ly.name}/candidates.json`,
                 "utf-8",
               ),
             );
@@ -134,7 +137,9 @@ export const createPreferencesFiles = async (
         }
         process.stdout.write("\n");
         savePreferences({
-          publicFolder,
+          // savePreferences's interface still calls the output folder
+          // `publicFolder` for historical reasons; it now resolves to /data/.
+          publicFolder: dataFolder,
           dataFolder: rawFolder,
           year: e.name,
           prevYears: folders.slice(0, index).map((e) => e.name),
@@ -150,7 +155,7 @@ export const createPreferencesFiles = async (
           stringify,
           prevYears: folders.slice(0, index).map((e) => e.name),
           year: e.name,
-          publicFolder,
+          publicFolder: dataFolder,
         });
       }
     }),

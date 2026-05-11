@@ -219,7 +219,9 @@ const renderOblastCard = (
 };
 
 const main = () => {
-  const publicFolder = path.join(PROJECT_ROOT, "public");
+  // Source data lives in /data/ post-GCS migration; the variable name is
+  // kept (`publicFolder`) for minimal blast radius — only reads happen.
+  const publicFolder = path.join(PROJECT_ROOT, "data");
   const distFolder = path.join(PROJECT_ROOT, "dist");
   if (!fs.existsSync(distFolder)) {
     throw new Error(

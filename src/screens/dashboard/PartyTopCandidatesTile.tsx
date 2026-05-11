@@ -18,6 +18,7 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { initials } from "@/lib/utils";
 import { useCandidateName } from "@/data/candidates/useCandidateName";
 import { StatCard } from "./StatCard";
+import { dataUrl } from "@/data/dataUrl";
 
 const TOP_N = 10;
 
@@ -34,7 +35,7 @@ const queryFn = async ({
   const [, election, partyNum] = queryKey;
   if (!election || !partyNum) return undefined;
   const res = await fetch(
-    `/${election}/parties/preferences/${partyNum}/stats.json`,
+    dataUrl(`/${election}/parties/preferences/${partyNum}/stats.json`),
   );
   if (!res.ok) return undefined;
   return res.json();

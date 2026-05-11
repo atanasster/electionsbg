@@ -9,6 +9,7 @@ import {
 import { addRecounts, addResults, initializeRecount } from "../utils";
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { useElectionContext } from "../ElectionContext";
+import { dataUrl } from "@/data/dataUrl";
 
 const queryFn = async ({
   queryKey,
@@ -18,7 +19,7 @@ const queryFn = async ({
   if (!queryKey[1]) {
     return [];
   }
-  const response = await fetch(`/${queryKey[1]}/region_votes.json`);
+  const response = await fetch(dataUrl(`/${queryKey[1]}/region_votes.json`));
   const data = await response.json();
   return data;
 };

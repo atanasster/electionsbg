@@ -23,8 +23,10 @@ const PUBLIC_PARLIAMENT = path.join(process.cwd(), "public", "parliament");
 
 const readJson = <T>(p: string): T =>
   JSON.parse(fs.readFileSync(p, "utf-8")) as T;
+// Minified — files under public/parliament/ ship to /public/ and are
+// fetched client-side. Keep trailing newline for tooling that expects it.
 const writeJson = (p: string, data: unknown) =>
-  fs.writeFileSync(p, JSON.stringify(data, null, 2) + "\n", "utf-8");
+  fs.writeFileSync(p, JSON.stringify(data) + "\n", "utf-8");
 
 let filesTouched = 0;
 

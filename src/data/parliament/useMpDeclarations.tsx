@@ -1,6 +1,7 @@
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { useMps } from "./useMps";
 import type { MpDeclaration } from "@/data/dataTypes";
+import { dataUrl } from "@/data/dataUrl";
 
 const queryFn = async ({
   queryKey,
@@ -9,7 +10,7 @@ const queryFn = async ({
 > => {
   const id = queryKey[1];
   if (!id) return [];
-  const response = await fetch(`/parliament/declarations/${id}.json`);
+  const response = await fetch(dataUrl(`/parliament/declarations/${id}.json`));
   if (!response.ok) return [];
   return response.json();
 };

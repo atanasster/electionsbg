@@ -32,7 +32,8 @@
     "stats": "npx vite-bundle-visualizer",
     "deploy": "firebase deploy -P default",
     "deploy:fast": "SKIP_PREDEPLOY=1 firebase deploy -P default",
-    "staging": "firebase deploy -P staging"
+    "staging": "firebase deploy -P staging",
+    "staging:fast": "SKIP_PREDEPLOY=1 firebase deploy -P staging"
   },
   "dependencies": {
     "@radix-ui/react-accordion": "^1.2.3",

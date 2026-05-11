@@ -8,6 +8,7 @@ import { SectionIndex } from "../dataTypes";
 import { useElectionContext } from "../ElectionContext";
 import { useCandidates } from "../preferences/useCandidates";
 import { useMps } from "../parliament/useMps";
+import { dataUrl } from "@/data/dataUrl";
 
 const queryFn = async ({
   queryKey,
@@ -17,7 +18,7 @@ const queryFn = async ({
   if (!queryKey[1]) {
     return [];
   }
-  const response = await fetch(`/${queryKey[1]}/sections_index.json`);
+  const response = await fetch(dataUrl(`/${queryKey[1]}/sections_index.json`));
   const data = await response.json();
   return data;
 };

@@ -18,7 +18,13 @@ const __filename = fileURLToPath(import.meta.url); // get the resolved path to t
 const __dirname = path.dirname(__filename); // get the name of the directory
 
 let production: boolean | undefined = undefined;
-const publicFolder = path.resolve(__dirname, "../public");
+// Election data folders moved out of /public/ to /data/ during the GCS
+// migration so they no longer ship through Firebase Hosting. The variable
+// keeps the historical name `publicFolder` because every script in this
+// pipeline takes a `publicFolder` argument that resolves to the data
+// output root — renaming through the entire interface chain would be a
+// large unrelated change. See src/data/dataUrl.ts for the runtime seam.
+const publicFolder = path.resolve(__dirname, "../data");
 const inFolder = path.resolve(__dirname, "../raw_data");
 
 const stringify = (o: object) => stringifyJSON(o, production);

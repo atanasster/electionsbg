@@ -16,6 +16,7 @@ import {
 import { Link } from "@/ux/Link";
 import { Hint } from "@/ux/Hint";
 import { StatCard } from "./StatCard";
+import { dataUrl } from "@/data/dataUrl";
 
 const queryFn = async ({
   queryKey,
@@ -23,7 +24,9 @@ const queryFn = async ({
   PartyFilingRecord[]
 > => {
   if (!queryKey[1]) return [];
-  const response = await fetch(`/${queryKey[1]}/parties/financing.json`);
+  const response = await fetch(
+    dataUrl(`/${queryKey[1]}/parties/financing.json`),
+  );
   return response.json();
 };
 

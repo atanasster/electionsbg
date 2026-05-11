@@ -2,9 +2,10 @@ import { useQuery } from "@tanstack/react-query";
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { CanonicalPartiesIndex } from "./canonicalPartyTypes";
+import { dataUrl } from "@/data/dataUrl";
 
 const queryFn = async (): Promise<CanonicalPartiesIndex | undefined> => {
-  const response = await fetch(`/canonical_parties.json`);
+  const response = await fetch(dataUrl(`/canonical_parties.json`));
   if (!response.ok) return undefined;
   return response.json();
 };

@@ -9,6 +9,7 @@ import {
   CandidateDashboardSummary,
   CandidateRegionRow,
 } from "./candidateDashboardTypes";
+import { dataUrl } from "@/data/dataUrl";
 
 const round = (n: number, digits = 2) => {
   const f = Math.pow(10, digits);
@@ -22,7 +23,7 @@ const statsQueryFn = async ({
 >): Promise<CandidateStats | null> => {
   if (!queryKey[1] || !queryKey[2]) return null;
   const response = await fetch(
-    `/${queryKey[1]}/candidates/${queryKey[2]}/preferences_stats.json`,
+    dataUrl(`/${queryKey[1]}/candidates/${queryKey[2]}/preferences_stats.json`),
   );
   if (!response.ok) return null;
   return response.json();
@@ -35,7 +36,7 @@ const regionsQueryFn = async ({
 >): Promise<PreferencesInfo[] | null> => {
   if (!queryKey[1] || !queryKey[2]) return null;
   const response = await fetch(
-    `/${queryKey[1]}/candidates/${queryKey[2]}/regions.json`,
+    dataUrl(`/${queryKey[1]}/candidates/${queryKey[2]}/regions.json`),
   );
   if (!response.ok) return null;
   return response.json();

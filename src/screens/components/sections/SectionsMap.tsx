@@ -1,7 +1,10 @@
 import { FC, useMemo } from "react";
 import { MapContainer, TileLayer, CircleMarker, Tooltip } from "react-leaflet";
-import "leaflet/dist/leaflet.css";
 import { LatLngBoundsExpression } from "leaflet";
+
+// Dynamic import keeps leaflet's CSS out of the render-blocking entry HTML;
+// see LeafletMap.tsx for the rationale.
+import("leaflet/dist/leaflet.css");
 import { MapCoordinates } from "@/layout/dataview/MapLayout";
 import { SectionInfo } from "@/data/dataTypes";
 import { usePartyInfo } from "@/data/parties/usePartyInfo";

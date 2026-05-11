@@ -4,6 +4,7 @@ import { useTranslation } from "react-i18next";
 import { PartyResultsTable } from "./PartyResultsTable";
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { useElectionContext } from "@/data/ElectionContext";
+import { dataUrl } from "@/data/dataUrl";
 
 const queryFn = async ({
   queryKey,
@@ -14,7 +15,7 @@ const queryFn = async ({
     return null;
   }
   const response = await fetch(
-    `/${queryKey[1]}/parties/by_region/${queryKey[2]}.json`,
+    dataUrl(`/${queryKey[1]}/parties/by_region/${queryKey[2]}.json`),
   );
   const data = await response.json();
   return data;

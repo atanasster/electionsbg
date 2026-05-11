@@ -22,10 +22,7 @@ type MpIndexFile = { mps: { normalizedName: string; name_en: string }[] };
 let mpEnByNormalizedName: Map<string, string> | null = null;
 const loadMpIndex = (): Map<string, string> => {
   if (mpEnByNormalizedName) return mpEnByNormalizedName;
-  const indexFile = path.resolve(
-    __dirname,
-    "../../public/parliament/index.json",
-  );
+  const indexFile = path.resolve(__dirname, "../../data/parliament/index.json");
   const m = new Map<string, string>();
   if (fs.existsSync(indexFile)) {
     try {

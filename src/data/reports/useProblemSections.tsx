@@ -1,6 +1,7 @@
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { SectionInfo } from "../dataTypes";
 import { useElectionContext } from "../ElectionContext";
+import { dataUrl } from "@/data/dataUrl";
 
 export type ProblemSectionsNeighborhood = {
   id: string;
@@ -22,7 +23,9 @@ const queryFn = async ({
   [string, string | null | undefined]
 >): Promise<ProblemSectionsReport | null> => {
   if (!queryKey[1]) return null;
-  const response = await fetch(`/${queryKey[1]}/problem_sections.json`);
+  const response = await fetch(
+    dataUrl(`/${queryKey[1]}/problem_sections.json`),
+  );
   if (!response.ok) return null;
   return response.json();
 };

@@ -1,8 +1,9 @@
 import { useQuery } from "@tanstack/react-query";
 import type { MpCarsFile } from "@/data/dataTypes";
+import { dataUrl } from "@/data/dataUrl";
 
 const queryFn = async (): Promise<MpCarsFile | undefined> => {
-  const response = await fetch(`/parliament/mp-cars.json`);
+  const response = await fetch(dataUrl(`/parliament/mp-cars.json`));
   if (!response.ok) return undefined;
   return response.json();
 };

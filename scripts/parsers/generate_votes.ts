@@ -1,10 +1,10 @@
 import fs from "fs";
 import { FullSectionProtocol } from "./protocols";
-import settlementsData from "../../public/settlements.json";
+import settlementsData from "../../data/settlements.json";
 const settlements = settlementsData;
 import regionsData from "../../src/data/json/regions.json";
 const regions = regionsData;
-import municipalitiesData from "../../public/municipalities.json";
+import municipalitiesData from "../../data/municipalities.json";
 import {
   ElectionMunicipality,
   ElectionRegion,

@@ -8,6 +8,7 @@ import { PartyDashboardSummary } from "@/data/dashboard/partyDashboardTypes";
 import { useElectionContext } from "@/data/ElectionContext";
 import { Hint } from "@/ux/Hint";
 import { StatCard } from "./StatCard";
+import { dataUrl } from "@/data/dataUrl";
 
 type Lang = "bg" | "en";
 
@@ -27,7 +28,9 @@ const queryFn = async ({
 >): Promise<PartyAssessment | undefined> => {
   const [, election, partyNum] = queryKey;
   if (!election || !partyNum) return undefined;
-  const res = await fetch(`/${election}/parties/assessment/${partyNum}.json`);
+  const res = await fetch(
+    dataUrl(`/${election}/parties/assessment/${partyNum}.json`),
+  );
   if (!res.ok) return undefined;
   return res.json();
 };

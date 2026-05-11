@@ -5,6 +5,7 @@ import type {
   ConnectionsPath,
 } from "@/data/dataTypes";
 import { useMps } from "./useMps";
+import { dataUrl } from "@/data/dataUrl";
 
 export type MpConnectionsSubgraph = {
   mpNodeId: string;
@@ -20,7 +21,9 @@ type MpConnectionsFile = {
 const fetchSubgraph = async (
   mpId: number,
 ): Promise<MpConnectionsSubgraph | null> => {
-  const response = await fetch(`/parliament/mp-connections/${mpId}.json`);
+  const response = await fetch(
+    dataUrl(`/parliament/mp-connections/${mpId}.json`),
+  );
   if (response.status === 404) return null;
   if (!response.ok) return null;
   const file: MpConnectionsFile = await response.json();

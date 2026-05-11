@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { QueryFunctionContext, useQuery } from "@tanstack/react-query";
 import { useMps } from "./useMps";
+import { dataUrl } from "@/data/dataUrl";
 
 // Raw shape returned by parliament.bg's /api/v1/mp-profile/bg/{id} (we cache to disk)
 type RawProfile = {
@@ -58,7 +59,6 @@ export type MpProfile = {
   municipalities: string[];
 };
 
-const PHOTO_BASE = "https://www.parliament.bg/images/Assembly/";
 const PROFILE_BASE = "https://www.parliament.bg/bg/MP/";
 
 const parseRegion = (
@@ -90,9 +90,14 @@ const toProfile = (
   partyGroup: fallback.partyGroup,
   partyGroupShort: fallback.partyGroupShort,
   position: fallback.position,
+  // Photos cached locally under data/parliament/photos/ as .webp by the
+  // scraper; resolved through dataUrl so they hit the GCS bucket (immutable
+  // 1y cache) instead of parliament.bg (which sets Cache-Control: 0).
+  // Empty string when the MP has no real photo on file — frontend then
+  // shows the AvatarFallback initials.
   photoUrl: raw.A_ns_MP_img
-    ? `${PHOTO_BASE}${raw.A_ns_MP_img}`
-    : `${PHOTO_BASE}${raw.A_ns_MP_id}.png`,
+    ? dataUrl(`/parliament/photos/${raw.A_ns_MP_id}.webp`)
+    : "",
   profileUrl: `${PROFILE_BASE}${raw.A_ns_MP_id}`,
   birthDate: raw.A_ns_MP_BDate || null,
   birthCountry: raw.A_ns_B_Country || null,
@@ -125,7 +130,7 @@ const queryFn = async ({
 > => {
   const id = queryKey[1];
   if (!id) return undefined;
-  const response = await fetch(`/parliament/profiles/${id}.json`);
+  const response = await fetch(dataUrl(`/parliament/profiles/${id}.json`));
   if (!response.ok) return undefined;
   return response.json();
 };
