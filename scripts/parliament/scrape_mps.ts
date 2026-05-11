@@ -661,6 +661,22 @@ const runHistory = async (opts: {
     (mx, m) => (m.scrapedAt > mx ? m.scrapedAt : mx),
     "",
   );
+
+  // Minimum-deduped-MPs guard. Bulgarian parliaments since 1991 have had
+  // 240 seats; the deduped index (everyone who has ever served) accumulates
+  // to ~2000+. Anything below 200 means the parliament.bg API mass-failed,
+  // returned a different shape, or our walker bailed early — refuse to
+  // overwrite the on-disk index with a near-empty result that would erase
+  // all historical MPs the frontend joins against.
+  const MIN_DEDUPED = 200;
+  if (deduped.length < MIN_DEDUPED) {
+    throw new Error(
+      `safety check: deduped MP count ${deduped.length} < ${MIN_DEDUPED} (kept ${index.length} raw, ${empty} empty ids, ${failed} failures). ` +
+        `Likely parliament.bg API mass-failed or returned a different shape. ` +
+        `Refusing to overwrite ${path.join(opts.out, "index.json")} with a near-empty roster.`,
+    );
+  }
+
   // Minified — ships to /data/parliament/ and is fetched client-side.
   fs.writeFileSync(
     path.join(opts.out, "index.json"),

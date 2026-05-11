@@ -533,8 +533,16 @@ const scrapeCycle = async (cycle: Cycle): Promise<ScrapeResult> => {
     }
   }
   if (!parsed) {
-    console.warn(`  ! no polling table found`);
-    return { polls: [], details: [], agencies: [], unknownAgencies: new Set() };
+    // Hard fail: BG Wiki polls table not detected. Either the page layout
+    // changed (new column ordering, header text, table class) or the URL is
+    // wrong for this cycle. Returning an empty result here would silently
+    // merge "no new polls" into polls.json, which the user can't easily
+    // distinguish from a genuinely quiet polling week.
+    throw new Error(
+      `no polling table found at ${cycle.url} — the BG Wikipedia page likely restructured. ` +
+        `Open it in a browser, check the table class/headers, then update parseTable() in scripts/polls/scrape_polls.ts. ` +
+        `Refusing to write a stale polls.json.`,
+    );
   }
 
   const noteMap = buildCiteNoteMap($);

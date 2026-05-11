@@ -133,6 +133,30 @@ for k, v in d.get('dimension', {}).items():
 
 A 413 `EXTRACTION_TOO_BIG` means a dimension wasn't narrowed enough — add a filter.
 
+## Data-integrity contract
+
+The fetcher is designed to **fail loud rather than write a partial `data/macro.json`** when an indicator's upstream API returns errors or unexpected data.
+
+Fail-loud surfaces (the script throws and writes nothing):
+
+| Surface | Trigger |
+|---|---|
+| Eurostat HTTP non-2xx for any indicator | `Eurostat <key> returned <status> for <url>` |
+| World Bank HTTP non-2xx for any WGI series | `World Bank <key> returned <status> for <url>` |
+| Any per-indicator parsing exception | Logged as `failed: <message>` then re-thrown — halts the whole run |
+| `process.exit(1)` from the top-level `.catch` | Any unhandled rejection during the run |
+
+Notable: the script does NOT currently enforce a minimum `points` count regression check — the SKILL says "If a `points` count drops by more than ~5%, treat as a regression" but that's a human-eyeball step on the printed `N points (latest …)` line. If you want this automated, add a `minPoints` field per indicator and throw when `data.length < minPoints` after fetch.
+
+Intentional non-fatal skips:
+
+| Surface | Behaviour |
+|---|---|
+| Curated CPI / Eurobarometer / EU-funds entry missing for a year | The chart simply lacks that point; no error. These are inline constants edited by hand. |
+| Quarterly Eurostat dataset returning a `null` last cell (publication lag) | Filtered out of the series; no warning needed. Standard Eurostat behaviour at the leading edge. |
+
+After every run, eyeball the per-indicator `N points (latest …)` lines. If a series suddenly halves, the upstream query was rejected silently OR the dataset publisher changed dimensions — investigate before committing.
+
 ## What this skill does NOT do
 
 - **Does not change the chart UI.** Adding a new indicator key requires hand-editing `useMacro.tsx`, `GovernmentTimeline.tsx`, and `GovernmentsScreen.tsx` (see above). The skill only refreshes data.

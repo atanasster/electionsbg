@@ -322,6 +322,30 @@ preview_console_logs --level error
 
 A new election with no `byElection` entry will throw — that means the narrative wasn't saved correctly.
 
+## Data-integrity contract
+
+The scraper is designed to **fail loud rather than write a stale or empty polls.json** when upstream restructures.
+
+Fail-loud surfaces (the script throws and writes nothing):
+
+| Surface | Trigger |
+|---|---|
+| HTTP non-2xx on the Wikipedia cycle URL | `fetch ${cycle.url}: ${status}` |
+| No polling table detected on the page | "no polling table found at … — the BG Wikipedia page likely restructured" |
+| Accuracy analyzer fed missing inputs (`polls.json` / `polls_details.json`) | Throws naming the missing file |
+| Claude API call from `generate_analysis.ts` returns non-2xx | Throws with status + body excerpt |
+
+Intentional non-fatal skips (warned but ingest continues):
+
+| Surface | Behaviour | Why not a hard fail |
+|---|---|---|
+| Unknown agency name (not in `AGENCY_ALIASES`) | Logged as `unknown agencies skipped: …` | A genuinely new pollster surfaced; the user adds an alias and re-runs |
+| Period text that doesn't parse (`could not parse period`) | Row dropped with a warning | One row's malformed cell shouldn't reject the whole table |
+| Individual party-cell parse failures (`pct === null`) | Row dropped if no party details parse | Same — cell-level resilience |
+| Filler rows (campaign-close markers, CEC actual-result rows) | Silently skipped | Intentional; CEC results come from `national_summary.json`, not the polls table |
+
+The downstream `analyze_accuracy.ts` step has its own loud failure when a party label can't be matched against actual results — surfaces as ?-prefixed errors in the leaderboard output and is documented under "Handle unmatched parties" above.
+
 ## Common pitfalls
 
 - **JSON validation**: BG strings with embedded `«»` or em-dashes are fine, but watch for unescaped quotes in stories. Always run `node -e "JSON.parse(require('fs').readFileSync('public/polls/analysis.json'))"` after writing.

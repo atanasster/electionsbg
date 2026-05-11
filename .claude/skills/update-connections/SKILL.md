@@ -168,6 +168,32 @@ When a new filing season opens (typically May for prior fiscal year):
    git commit -m "Refresh declarations for 2026 filing year"
    ```
 
+## Data-integrity contract
+
+This pipeline has two upstream stages — register.cacbg.bg (declarations XML) and data.egov.bg (Commerce Registry bulk JSON) — each with its own fail-loud surfaces. The shared rule: **never overwrite `data/parliament/{connections,companies-index,…}.json` with a partial result when an upstream stage failed mid-run**.
+
+Fail-loud surfaces (a run throws and the affected output is not written):
+
+| Stage | Surface | Trigger |
+|---|---|---|
+| Declarations fetch | HTTP non-2xx on register.cacbg.bg | `GET <url> → <status>` |
+| TR dataset-index fetch | HTTP non-2xx | `GET <url> → <status>` |
+| TR bulk-zip prepare | HTTP non-2xx OR returned an HTML error stub | `prepare GET ... → <status>` / `prepare returned non-JSON body` |
+| TR bulk-zip download | HTTP non-2xx OR empty body | `download GET → <status>` / `download returned empty body` |
+| TR state reconstruction | Required SQLite schema missing | Thrown by `reconstruct_state.ts` |
+
+Intentional non-fatal skips (logged with `[stage]` prefix, ingest continues):
+
+| Surface | Behaviour | Why |
+|---|---|---|
+| `raw_data/declarations/<dir>` missing | Builder for that step warns `not found — skipping` | Allows partial pipeline runs (e.g. assets rebuild without re-fetching declarations) |
+| Per-MP declaration parse returns null on a field | The field is omitted from that MP's record | Cell-level parser resilience — one bad row shouldn't reject a whole filing |
+| TR SQLite not present at integrate-time | Integration step warns and returns null; `connections.json` is built without company management metadata | Optional enrichment; `npm run prod` should still succeed without it |
+| Unmatched MP name (married, hyphen variant) | Counted in the "unmatched" tally at the end | Documented below — irreducible 1-2 per parliament |
+| Slug collision across companies | First-wins with a warning | Documented below |
+
+The per-stage summaries printed at the end of each `npm run data -- --connections` / `--declarations` / `--companies` run tell you the actual counts — if any of them suddenly drop by >10% vs. the previous run's commit, treat as a regression and investigate before committing.
+
 ## Common pitfalls
 
 ### register.cacbg.bg cert is not in Node's CA bundle

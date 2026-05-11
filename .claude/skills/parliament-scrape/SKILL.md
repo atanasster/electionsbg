@@ -71,6 +71,28 @@ When parliament.bg's `coll-list-ns/bg` starts returning a NEW current NS (e.g. 5
    ```
    The diff will mostly be in `index.json` plus 240-ish profile files (the sitting MPs' updated `oldnsList`).
 
+## Data-integrity contract
+
+The scraper is designed to **fail loud rather than overwrite `data/parliament/index.json` with a near-empty roster** when parliament.bg's API mass-fails.
+
+Fail-loud surfaces (the script throws before any write):
+
+| Surface | Trigger |
+|---|---|
+| HTTP non-2xx on `coll-list-ns/bg` or `mp-profile/<lang>/<id>` after 3 retries | `fetch failed for <url>: <status>` |
+| Deduped MP count < 200 after the full walk | `safety check: deduped MP count N < 200 (kept R raw, …)`. Catches "parliament.bg returned a different shape and we'd write an empty roster". |
+
+Intentional non-fatal skips (documented as normal):
+
+| Surface | Behaviour | Why not a hard fail |
+|---|---|---|
+| MP id returns `[]` from `mp-profile/bg/<id>` | Counted as `empty`, walk continues | parliament.bg has ~1170 gaps in its id sequence — these are real holes, not failures |
+| MP id throws during fetch (network/transient) | Counted as `failed`, walk continues | Occasional 5xx; the retry loop already handles 3 attempts |
+| Photo download fails for one MP | `photoUrl` cleared on that MP's index entry | Doesn't invalidate the rest of the roster; the SPA falls back to initials |
+| English-name backfill (`mp-profile/en/<id>`) fails | Falls back to transliterating the BG name | Older records often have no EN profile; transliteration is acceptable |
+
+Summary line after every run prints `kept R raw → D deduped, E empty ids, F failures` so you can see at a glance whether the run is healthy. A normal `--all --refresh-current` produces D ≈ 2100+ deduped, E ≈ 1170, F ≈ 0.
+
 ## Common pitfalls
 
 ### Cloudflare blocks results.cik.bg
