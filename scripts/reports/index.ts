@@ -18,6 +18,7 @@ import { generateSuspiciousSections } from "./suspiciousSections";
 import { regionWastedReport } from "./region_wasted";
 import { generateWastedVotesDashboard } from "./wasted_votes_dashboard";
 import { generateBenfordReport } from "./benford";
+import { generateRiskScoreReport } from "./risk_score";
 
 const NATIONAL_THRESHOLD_PCT = 4;
 
@@ -138,6 +139,12 @@ export const generateReports = (
         reportsFolder,
         year,
         parties,
+        stringify,
+      });
+      generateRiskScoreReport({
+        publicFolder,
+        reportsFolder,
+        year,
         stringify,
       });
       generateProblemSections({

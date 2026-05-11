@@ -227,6 +227,16 @@ const BenfordDetailScreen = lazy(() =>
     default: m.BenfordDetailScreen,
   })),
 );
+const RiskScoreScreen = lazy(() =>
+  import("./screens/RiskScoreScreen").then((m) => ({
+    default: m.RiskScoreScreen,
+  })),
+);
+const RiskScoreDetailScreen = lazy(() =>
+  import("./screens/RiskScoreScreen").then((m) => ({
+    default: m.RiskScoreDetailScreen,
+  })),
+);
 const SectionsWastedVote = lazy(() =>
   import("./screens/reports/sections/SectionsWastedVote").then((m) => ({
     default: m.SectionsWastedVote,
@@ -1220,6 +1230,22 @@ export const AuthRoutes = () => {
           element={
             <LayoutScreen>
               <BenfordDetailScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="risk-score"
+          element={
+            <LayoutScreen>
+              <RiskScoreScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="risk-score/:sectionId"
+          element={
+            <LayoutScreen>
+              <RiskScoreDetailScreen />
             </LayoutScreen>
           }
         />

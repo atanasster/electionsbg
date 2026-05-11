@@ -10,6 +10,7 @@ import { SEO } from "@/ux/SEO";
 import { H1 } from "@/ux/H1";
 import { Link } from "@/ux/Link";
 import { SectionDashboardCards } from "./dashboard/SectionDashboardCards";
+import { SectionRiskBadge } from "./components/riskScore/SectionRiskBadge";
 
 export const SectionScreen = () => {
   const { id: sectionCode } = useParams();
@@ -86,8 +87,8 @@ export const SectionScreen = () => {
       <p className="text-center text-sm text-muted-foreground -mt-2 mb-2 min-h-[1.25rem]">
         {subtitle}
       </p>
-      {problemNeighborhood ? (
-        <div className="flex justify-center mb-2">
+      <div className="flex justify-center gap-2 mb-2 flex-wrap">
+        {problemNeighborhood ? (
           <Link
             to={`/reports/section/problem_sections/${problemNeighborhood.id}`}
             underline={false}
@@ -102,8 +103,9 @@ export const SectionScreen = () => {
                 : problemNeighborhood.name_en}
             </span>
           </Link>
-        </div>
-      ) : null}
+        ) : null}
+        <SectionRiskBadge sectionCode={sectionCode} />
+      </div>
       <SectionDashboardCards sectionCode={sectionCode} />
     </>
   );

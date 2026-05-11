@@ -13,6 +13,7 @@ export const reportsMenu: MenuItem[] = [
       { title: "wasted_votes_title", link: "/wasted-vote" },
       { title: "persistence_title", link: "/persistence" },
       { title: "benford_title", link: "/benford" },
+      { title: "risk_score_title", link: "/risk-score" },
       { title: "-" },
       { title: "anomaly_reports" },
       { title: "-" },
