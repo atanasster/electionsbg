@@ -28,6 +28,9 @@ export type RiskScoreRow = {
   oblast?: string;
   obshtina?: string;
   ekatte?: string;
+  partyNum?: number;
+  totalVotes?: number;
+  pctPartyVote?: number;
   score: number;
   band: RiskBand;
   signalsAvailable: number;

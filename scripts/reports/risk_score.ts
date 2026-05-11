@@ -74,6 +74,11 @@ export type RiskScoreRow = {
   oblast?: string;
   obshtina?: string;
   ekatte?: string;
+  /** Winning party + its raw vote count for this section. Surfaced
+   * in the overview table's ПАРТИЯ + ГЛАСОВЕ columns. */
+  partyNum?: number;
+  totalVotes?: number;
+  pctPartyVote?: number;
   score: number; // 0–100
   band: RiskBand;
   signalsAvailable: number;
@@ -134,6 +139,13 @@ type SectionStat = {
   section: string;
   ekatte?: string;
   obshtina?: string;
+  oblast?: string;
+  /** Winning party's number — surfaced in the overview table's ПАРТИЯ
+   * column so a reader can see which party led the section at a glance,
+   * matching the convention of every other per-section report. */
+  topPartyNum?: number;
+  topPartyVotes?: number;
+  totalVotes?: number;
   turnout: number;
   winnerShare: number;
 };
@@ -156,12 +168,13 @@ const loadSectionStats = (
           section: string;
           ekatte?: string;
           obshtina?: string;
+          oblast?: string;
           results?: {
             protocol?: {
               totalActualVoters?: number;
               numRegisteredVoters?: number;
             };
-            votes?: { totalVotes: number }[];
+            votes?: { partyNum: number; totalVotes: number }[];
           };
         }
       >;
@@ -171,14 +184,25 @@ const loadSectionStats = (
         if (!reg || !actual) continue;
         const votes = s.results?.votes ?? [];
         const totalVotes = votes.reduce((s2, v) => s2 + v.totalVotes, 0);
-        const topVotes = votes.reduce((m, v) => Math.max(m, v.totalVotes), 0);
+        let topPartyNum: number | undefined;
+        let topPartyVotes = 0;
+        for (const v of votes) {
+          if (v.totalVotes > topPartyVotes) {
+            topPartyVotes = v.totalVotes;
+            topPartyNum = v.partyNum;
+          }
+        }
         if (totalVotes <= 0) continue;
         out.push({
           section: secId,
           ekatte: s.ekatte,
           obshtina: s.obshtina,
+          oblast: s.oblast,
+          topPartyNum,
+          topPartyVotes,
+          totalVotes,
           turnout: actual / reg,
-          winnerShare: topVotes / totalVotes,
+          winnerShare: topPartyVotes / totalVotes,
         });
       }
     } catch {
@@ -332,6 +356,13 @@ export const generateRiskScoreReport = ({
       section: s.section,
       ekatte: s.ekatte,
       obshtina: s.obshtina,
+      oblast: s.oblast,
+      partyNum: s.topPartyNum,
+      totalVotes: s.topPartyVotes,
+      pctPartyVote:
+        s.totalVotes && s.totalVotes > 0
+          ? Math.round(((s.topPartyVotes ?? 0) / s.totalVotes) * 10000) / 100
+          : undefined,
       score: Math.round(score * 10) / 10,
       band: bandOf(score),
       signalsAvailable: components.length,

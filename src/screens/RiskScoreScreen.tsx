@@ -30,6 +30,11 @@ export const RiskScoreScreen = () => {
         obshtina: r.obshtina,
         ekatte: r.ekatte,
         section: r.section,
+        // Winning party + its vote count surface in the standard
+        // template's ПАРТИЯ + ГЛАСОВЕ columns.
+        partyNum: r.partyNum,
+        totalVotes: r.totalVotes,
+        pctPartyVote: r.pctPartyVote,
         // `value` powers the threshold slider — 0–100 score range plays
         // cleanly with the existing 5/10/20/.../90 dropdown values.
         value: r.score,
