@@ -164,7 +164,7 @@ export const Header = () => {
           id="theme-toggle"
           type="button"
           aria-label="switch theme dark mode"
-          className="hidden lg:block items-center p-2 w-10 h-10 justify-center rounded-lg text-muted-foreground hover:bg-accent/10 hover:text-accent focus:outline-none focus:ring-2 focus:ring-ring"
+          className="hidden lg:flex items-center p-2 w-10 h-10 justify-center rounded-lg text-muted-foreground hover:bg-accent/10 hover:text-accent focus:outline-none focus:ring-2 focus:ring-ring"
         >
           {theme === themeDark ? (
             <SunMedium className="size-4" />
