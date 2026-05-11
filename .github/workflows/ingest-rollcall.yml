@@ -1,0 +1,60 @@
+name: ingest-rollcall
+on:
+  # Manual trigger; the watcher can fire this via repository_dispatch once the
+  # roll-call ingest has been stable for ~30 days (PRD Phase 3). Until then,
+  # workflow_dispatch only — the user runs /update-rollcall locally.
+  workflow_dispatch:
+  repository_dispatch:
+    types: [ingest-rollcall]
+
+permissions:
+  contents: write    # commit data/parliament/votes/ + open PR on failure
+  pull-requests: write
+  issues: write      # comment on the watch-report issue with results
+
+concurrency:
+  group: ingest-rollcall
+  cancel-in-progress: false
+
+jobs:
+  ingest:
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    env:
+      GCS_BUCKET: gs://data-electionsbg-com
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - run: npm ci
+
+      - name: Authenticate to GCS
+        uses: google-github-actions/auth@v2
+        with:
+          credentials_json: ${{ secrets.GCS_SERVICE_ACCOUNT_JSON }}
+
+      - uses: google-github-actions/setup-gcloud@v2
+
+      - name: Run ingest
+        id: ingest
+        run: |
+          set -o pipefail
+          npm run rollcall:scrape -- --upload 2>&1 | tee /tmp/ingest.log
+
+      - name: Commit ingest results
+        run: |
+          git config user.name  "ingest-bot"
+          git config user.email "ingest-bot@users.noreply.github.com"
+          git add data/parliament/votes tests/fixtures/parliament/votes
+          if git diff --cached --quiet; then
+            echo "no data changes"
+          else
+            DATE_TAG=$(date -u +%Y-%m-%d)
+            git commit -m "rollcall: ingest through ${DATE_TAG}"
+            git pull --rebase origin main
+            git push
+          fi

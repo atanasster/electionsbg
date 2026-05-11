@@ -1,0 +1,67 @@
+name: watch-sources
+on:
+  schedule:
+    # 06:00 UTC = 09:00 Europe/Sofia. Daily.
+    - cron: "0 6 * * *"
+  workflow_dispatch:
+
+permissions:
+  contents: write   # commit state/watch/*.json changes back to main
+  issues: write     # post the daily report as a labeled issue
+
+concurrency:
+  group: watch-sources
+  cancel-in-progress: false
+
+jobs:
+  watch:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+
+      - run: npm ci
+
+      - name: Run watcher
+        id: watch
+        run: |
+          set -o pipefail
+          npm run watch | tee /tmp/report.md
+          {
+            echo "report<<WATCH_REPORT_EOF"
+            cat /tmp/report.md
+            echo "WATCH_REPORT_EOF"
+          } >> "$GITHUB_OUTPUT"
+
+      - name: Commit state changes
+        run: |
+          git config user.name  "watch-bot"
+          git config user.email "watch-bot@users.noreply.github.com"
+          git add state/watch
+          if git diff --cached --quiet; then
+            echo "no state changes"
+          else
+            git commit -m "watch: state update $(date -u +%Y-%m-%dT%H:%MZ)"
+            # Pull-rebase to absorb any concurrent commits then push.
+            git pull --rebase origin main
+            git push
+          fi
+
+      - name: Post report issue
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const today = new Date().toISOString().slice(0, 10);
+            const body = `${{ steps.watch.outputs.report }}`;
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title: `Watch report — ${today}`,
+              body,
+              labels: ["watch-report"],
+            });
