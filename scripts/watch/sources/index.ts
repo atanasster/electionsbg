@@ -5,6 +5,7 @@ import { wikiPolls } from "./wiki_polls";
 import { cacbgDeclarations } from "./cacbg_declarations";
 import { egovCommerce } from "./egov_commerce";
 import { eurostat } from "./eurostat";
+import { eurostatRegional } from "./eurostat_regional";
 import { smetnaPalata } from "./smetna_palata";
 
 // cik is intentionally omitted — see ./cik.ts header. Re-add to this array
@@ -17,4 +18,5 @@ export const SOURCES: WatchSource[] = [
   smetnaPalata,
   egovCommerce,
   eurostat,
+  eurostatRegional,
 ];

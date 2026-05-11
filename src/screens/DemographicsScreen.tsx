@@ -8,13 +8,22 @@ import { CountryBreakdown } from "./components/demographics/CountryBreakdown";
 import { CensusChoroplethMap } from "./components/demographics/CensusChoroplethMap";
 import { MetricSelector } from "./components/demographics/MetricSelector";
 import { VoteDemographicScatter } from "./components/demographics/VoteDemographicScatter";
+import { RegionalChoroplethMap } from "./components/regional/RegionalChoroplethMap";
+import { RegionalIndicatorSelector } from "./components/regional/RegionalIndicatorSelector";
 import { MapLayout } from "@/layout/dataview/MapLayout";
 import { useSearchParam } from "./utils/useSearchParam";
 import { CENSUS_METRICS } from "./components/demographics/censusMetrics";
 import type { CensusMetric } from "@/data/census/censusTypes";
+import type { RegionalIndicatorKey } from "@/data/regional/useRegional";
 
 const DEFAULT_MAP_METRIC: CensusMetric = "eduSecondary";
 const VALID_METRICS = new Set<CensusMetric>(CENSUS_METRICS.map((m) => m.key));
+const DEFAULT_REGIONAL_INDICATOR: RegionalIndicatorKey = "gdpPerCapita";
+const VALID_REGIONAL_INDICATORS = new Set<RegionalIndicatorKey>([
+  "gdpPerCapita",
+  "population",
+  "netMigration",
+]);
 
 export const DemographicsScreen = () => {
   const { t, i18n } = useTranslation();
@@ -31,6 +40,20 @@ export const DemographicsScreen = () => {
       setMetricParam(m === DEFAULT_MAP_METRIC ? undefined : m);
     },
     [setMetricParam],
+  );
+  const [regionalParam, setRegionalParam] = useSearchParam("regional", {
+    replace: true,
+  });
+  const regionalIndicator: RegionalIndicatorKey =
+    regionalParam &&
+    VALID_REGIONAL_INDICATORS.has(regionalParam as RegionalIndicatorKey)
+      ? (regionalParam as RegionalIndicatorKey)
+      : DEFAULT_REGIONAL_INDICATOR;
+  const setRegionalIndicator = useCallback(
+    (k: RegionalIndicatorKey) => {
+      setRegionalParam(k === DEFAULT_REGIONAL_INDICATOR ? undefined : k);
+    },
+    [setRegionalParam],
   );
   const lang = i18n.language;
 
@@ -74,6 +97,24 @@ export const DemographicsScreen = () => {
         </div>
         <MapLayout>
           {(size) => <CensusChoroplethMap metric={mapMetric} size={size} />}
+        </MapLayout>
+      </section>
+
+      <section id="regional" className="mb-12 scroll-mt-24">
+        <div className="flex items-center justify-between flex-wrap gap-3 mb-1">
+          <h2 className="text-lg font-semibold">{t("regional_map_heading")}</h2>
+          <RegionalIndicatorSelector
+            value={regionalIndicator}
+            onChange={setRegionalIndicator}
+          />
+        </div>
+        <p className="text-sm text-muted-foreground mb-4 max-w-3xl">
+          {t("regional_map_explainer")}
+        </p>
+        <MapLayout>
+          {(size) => (
+            <RegionalChoroplethMap indicator={regionalIndicator} size={size} />
+          )}
         </MapLayout>
       </section>
 

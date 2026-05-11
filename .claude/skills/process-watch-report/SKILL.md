@@ -34,6 +34,7 @@ The "Changed" section of the report contains a bulleted list. Each bullet's labe
 | `data.egov.bg Commerce Registry` | `update-connections` |
 | `Сметна палата party financing` | `update-financing` |
 | `Eurostat macro` (BG) | `update-macro` |
+| `Eurostat regional` (BG) | `update-regional` |
 | `CIK news` (if re-enabled) | _no skill yet — surface as TODO_ |
 
 Some sources map to the same skill (`update-connections` handles both declarations and Commerce Registry); dedupe so it only runs once.
@@ -51,6 +52,7 @@ Each watcher source maps to one downstream skill. Multiple sources can map to th
 | `egov_commerce` | `update-connections` |
 | `smetna_palata` | `update-financing` |
 | `eurostat` | `update-macro` |
+| `eurostat_regional` | `update-regional` |
 | `cik` (if re-enabled) | _no skill yet — surface as TODO_ |
 
 ## Procedure

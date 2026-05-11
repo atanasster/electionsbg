@@ -23,6 +23,7 @@ import { RegionMunicipalitiesMapTile } from "./RegionMunicipalitiesMapTile";
 import { TopCandidatesStrip } from "./TopCandidatesStrip";
 import { TopMunicipalitiesTile } from "./TopMunicipalitiesTile";
 import { CensusDemographicsTile } from "./CensusDemographicsTile";
+import { RegionalIndicatorsTile } from "./RegionalIndicatorsTile";
 import { FlashMemoryTile } from "./FlashMemoryTile";
 import { RecountTile } from "./RecountTile";
 import { SuspiciousSectionsTile } from "./SuspiciousSectionsTile";
@@ -132,6 +133,7 @@ export const RegionDashboardCards: FC<Props> = ({ regionCode }) => {
           {!SOFIA_REGIONS.includes(regionCode) && (
             <CensusDemographicsTile regionCode={regionCode} />
           )}
+          <RegionalIndicatorsTile regionCode={regionCode} />
         </DashboardSection>
 
         <DashboardSection

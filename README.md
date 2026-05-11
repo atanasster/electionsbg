@@ -106,6 +106,7 @@ npm run bucket:sync:dry    # same, but -n (preview only)
 #   npx tsx scripts/financing/scrape_index.ts          # Сметна палата annual-reports index
 #   npx tsx scripts/parliament/scrape_mps.ts --all     # parliament.bg MP roster
 #   npx tsx scripts/macro/fetch_eurostat.ts            # Eurostat + WGI + curated tables
+#   npx tsx scripts/regional/fetch_eurostat.ts         # Eurostat NUTS 3 (per oblast) indicators
 #   npx tsx scripts/stamp-ingest.ts <skill>            # mark a skill ingest as successful
 npm run deploy             # Firebase deploy (production)
 npm run deploy:fast        # Firebase deploy without re-running the data pipeline (SKIP_PREDEPLOY=1)
@@ -146,6 +147,7 @@ Files and directories the SPA fetches at runtime — all under `/data/` locally 
 | `governments.json` | Government coalitions and ministers by parliamentary term |
 | `parliament_groups.json` | Parliamentary group (faction) memberships |
 | `macro.json` | Macroeconomic + governance indicators for the cabinet timeline (Eurostat GDP/HICP/unemployment, World Bank WGI, Transparency International CPI, Eurobarometer trust, EU funds) |
+| `regional.json` | Per-oblast Eurostat NUTS 3 indicators (GDP per capita, population, net migration) — drives the drilldown tile and the `/demographics` choropleth |
 | `census_2021.json`, `census_2021_settlements.json` | Census aggregates |
 | `problem_sections_stats.json` | Risk-neighborhood summary stats |
 
@@ -197,8 +199,9 @@ Pipeline subdirectories of note:
 - `voteFlows/` — transition matrices between consecutive elections
 - `machines_memory/` — SUEMG flash-memory corrections
 - `macro/` — Eurostat + World Bank + curated economic / governance indicators (with absolute-floor + 10% regression check per indicator)
+- `regional/` — Eurostat NUTS 3 (oblast-level) indicators for the `/municipality/<code>` drilldown tile and the `/demographics` regional choropleth (per-oblast floor + 10% regression check)
 - `financing/` — Сметна палата annual-reports index scraper (writes `data/financing/index.json`)
-- `watch/` — Tier-1 daily watcher (7 upstream sources fingerprint-diffed → daily markdown report under `data-reports/` + per-source state under `state/watch/`, see "Continuous data refresh" below)
+- `watch/` — Tier-1 daily watcher (8 upstream sources fingerprint-diffed → daily markdown report under `data-reports/` + per-source state under `state/watch/`, see "Continuous data refresh" below)
 - `lib/upload.ts` — shared GCS upload helpers (gzipped text via `gsutil cp -Z`, binaries as-is)
 - `lib/ingest-state.ts` — per-skill ingest-marker helpers consumed by `scripts/stamp-ingest.ts` and the `/process-watch-report` orchestrator
 - `fonts/fetch-fonts.mjs` — one-shot fetcher for self-hosted Inter + Fraunces
@@ -224,6 +227,7 @@ For contributors using [Claude Code](https://claude.com/claude-code), the repo i
 | `update-rollcall` | Ingest new parliament.bg roll-call vote sessions. Validates against a canary fixture; tracks unresolved MP ids without dropping them. |
 | `update-financing` | Refresh the Сметна палата annual-reports year index (`data/financing/index.json`). |
 | `update-macro` | Refresh `data/macro.json` from Eurostat + World Bank + curated tables. |
+| `update-regional` | Refresh `data/regional.json` from Eurostat NUTS 3 (per-oblast GDP/capita, population, net migration). |
 | `parliament-scrape` | Scrape MP photos/bios/seat data from parliament.bg (run after a new parliament is seated). |
 | `party-retrospect` | Generate per-party campaign retrospects. |
 
@@ -235,7 +239,7 @@ These can also be run by hand via the npm scripts and the `scripts/` CLI flags l
 
 Two-tier model.
 
-**Tier 1 — daily watcher.** `npm run watch` (`scripts/watch/index.ts`) fingerprint-diffs 7 upstream sources (parliament.bg MPs + votes, BG Wikipedia polls, register.cacbg.bg declarations, Сметна палата party financing, data.egov.bg Commerce Registry, Eurostat macro) and writes:
+**Tier 1 — daily watcher.** `npm run watch` (`scripts/watch/index.ts`) fingerprint-diffs 8 upstream sources (parliament.bg MPs + votes, BG Wikipedia polls, register.cacbg.bg declarations, Сметна палата party financing, data.egov.bg Commerce Registry, Eurostat macro, Eurostat regional NUTS 3) and writes:
 - `data-reports/<YYYY-MM-DD>.md` + `data-reports/latest.md` — human-readable daily snapshot
 - `state/watch/<source>.json` — per-source `lastChanged` + `lastChecked`
 

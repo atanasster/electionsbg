@@ -228,6 +228,19 @@ export const AboutScreen = () => {
               </ul>
             </DataGroup>
 
+            <DataGroup title={t("eurostat_section")}>
+              <ul className="space-y-2">
+                <SourceItem
+                  href="https://ec.europa.eu/eurostat/databrowser/"
+                  label={t("eurostat_macro_source")}
+                />
+                <SourceItem
+                  href="https://ec.europa.eu/eurostat/databrowser/view/nama_10r_3gdp/default/table"
+                  label={t("eurostat_regional_source")}
+                />
+              </ul>
+            </DataGroup>
+
             <DataGroup title={t("polls_data_section")}>
               <ul className="space-y-2">
                 <SourceItem
