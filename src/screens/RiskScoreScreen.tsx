@@ -11,7 +11,11 @@ import { MethodologyCallout } from "@/screens/components/MethodologyCallout";
 import { RiskBandBadge } from "@/screens/components/riskScore/RiskBandBadge";
 import { SIGNAL_COLORS } from "@/screens/components/riskScore/RiskWaterfall";
 import { Link } from "@/ux/Link";
-import { Tooltip } from "@/ux/Tooltip";
+import {
+  Tooltip as ShadcnTooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import type { ReportRow } from "@/data/dataTypes";
 import type { ReportColumns } from "@/screens/reports/common/ReportTemplate";
 
@@ -92,12 +96,38 @@ export const RiskScoreScreen = () => {
               {SIGNAL_ORDER.map((id) => {
                 const c = byId.get(id);
                 const isFired = !!c;
+                const color = SIGNAL_COLORS[id];
                 return (
-                  <Tooltip
+                  // `disableHoverableContent` makes the tooltip close
+                  // immediately when the cursor leaves the trigger — without
+                  // it, Radix keeps the previous tooltip "alive" while the
+                  // cursor crosses the small gap to the next dot, which
+                  // looked like the tooltip was stuck on the wrong square.
+                  <ShadcnTooltip
                     key={id}
-                    content={
+                    delayDuration={0}
+                    disableHoverableContent
+                  >
+                    <TooltipTrigger asChild>
+                      <span
+                        className="block w-2.5 h-2.5 rounded-sm border"
+                        style={
+                          isFired
+                            ? { background: color, borderColor: color }
+                            : { borderColor: "hsl(var(--border))" }
+                        }
+                      />
+                    </TooltipTrigger>
+                    <TooltipContent
+                      className="max-w-72 text-sm border-l-4 p-2.5"
+                      style={{ borderLeftColor: color }}
+                    >
                       <div className="space-y-0.5">
-                        <div className="font-semibold">
+                        <div className="font-semibold flex items-center gap-2">
+                          <span
+                            className="inline-block w-2 h-2 rounded-sm shrink-0"
+                            style={{ background: color }}
+                          />
                           {t(`risk_signal_${id}`)}
                         </div>
                         <div className="text-muted-foreground text-[11px]">
@@ -109,20 +139,8 @@ export const RiskScoreScreen = () => {
                           </div>
                         )}
                       </div>
-                    }
-                  >
-                    <span
-                      className="block w-2.5 h-2.5 rounded-sm border"
-                      style={
-                        isFired
-                          ? {
-                              background: SIGNAL_COLORS[id],
-                              borderColor: SIGNAL_COLORS[id],
-                            }
-                          : { borderColor: "hsl(var(--border))" }
-                      }
-                    />
-                  </Tooltip>
+                    </TooltipContent>
+                  </ShadcnTooltip>
                 );
               })}
             </div>
