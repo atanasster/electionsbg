@@ -11,6 +11,7 @@ import { MethodologyCallout } from "@/screens/components/MethodologyCallout";
 import { RiskBandBadge } from "@/screens/components/riskScore/RiskBandBadge";
 import { SIGNAL_COLORS } from "@/screens/components/riskScore/RiskWaterfall";
 import { Link } from "@/ux/Link";
+import { Tooltip } from "@/ux/Tooltip";
 import type { ReportRow } from "@/data/dataTypes";
 import type { ReportColumns } from "@/screens/reports/common/ReportTemplate";
 
@@ -85,25 +86,43 @@ export const RiskScoreScreen = () => {
         cell: ({ row }) => {
           const v = row.original as RiskAugmentedRow;
           if (!v.components) return null;
-          const fired = new Set(v.components.map((c) => c.id));
+          const byId = new Map(v.components.map((c) => [c.id, c]));
           return (
             <div className="flex items-center gap-1">
               {SIGNAL_ORDER.map((id) => {
-                const isFired = fired.has(id);
+                const c = byId.get(id);
+                const isFired = !!c;
                 return (
-                  <span
+                  <Tooltip
                     key={id}
-                    title={t(`risk_signal_${id}`)}
-                    className="block w-2.5 h-2.5 rounded-sm border"
-                    style={
-                      isFired
-                        ? {
-                            background: SIGNAL_COLORS[id],
-                            borderColor: SIGNAL_COLORS[id],
-                          }
-                        : { borderColor: "hsl(var(--border))" }
+                    content={
+                      <div className="space-y-0.5">
+                        <div className="font-semibold">
+                          {t(`risk_signal_${id}`)}
+                        </div>
+                        <div className="text-muted-foreground text-[11px]">
+                          {t(`risk_signal_${id}_caption`)}
+                        </div>
+                        {isFired && (
+                          <div className="text-[11px] tabular-nums">
+                            +{c.contribution.toFixed(1)}
+                          </div>
+                        )}
+                      </div>
                     }
-                  />
+                  >
+                    <span
+                      className="block w-2.5 h-2.5 rounded-sm border"
+                      style={
+                        isFired
+                          ? {
+                              background: SIGNAL_COLORS[id],
+                              borderColor: SIGNAL_COLORS[id],
+                            }
+                          : { borderColor: "hsl(var(--border))" }
+                      }
+                    />
+                  </Tooltip>
                 );
               })}
             </div>
