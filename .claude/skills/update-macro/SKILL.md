@@ -42,7 +42,7 @@ Loading wgiRuleOfLaw (worldbank)... 20 points (latest 2024)
 Wrote /Users/.../data/macro.json
 ```
 
-If a `points` count drops by more than ~5%, treat as a regression — likely upstream filter change. Investigate before committing.
+The script auto-fails on a count regression — see "Data-integrity contract" below — so if you see "safety check: <key> dropped from N → M points (X% < -10%)", treat as a regression and investigate before re-running.
 
 ## Step 2 — Verify
 
@@ -146,7 +146,13 @@ Fail-loud surfaces (the script throws and writes nothing):
 | Any per-indicator parsing exception | Logged as `failed: <message>` then re-thrown — halts the whole run |
 | `process.exit(1)` from the top-level `.catch` | Any unhandled rejection during the run |
 
-Notable: the script does NOT currently enforce a minimum `points` count regression check — the SKILL says "If a `points` count drops by more than ~5%, treat as a regression" but that's a human-eyeball step on the printed `N points (latest …)` line. If you want this automated, add a `minPoints` field per indicator and throw when `data.length < minPoints` after fetch.
+Two layers of count-based guards are enforced automatically (since adding the `minPoints` plumbing):
+
+1. **Absolute floor.** Each Eurostat / WorldBank indicator must return at least its `minPoints` (or the cadence default: 60 quarterly, 12 annual). A fetch returning fewer points throws `safety check: <key> (<source>) returned N points, below floor F`. Catches the catastrophic case where the upstream query is silently rejected and returns near-empty data. Override per-indicator on series with known shorter history (e.g. `retailVolume` starts ~2014, override `minPoints: 35`).
+
+2. **Regression vs. prior committed run.** Before writing, each fetched series is compared against the same `key` in the previously-committed `data/macro.json`. If the count dropped by more than 10%, throws `safety check: <key> dropped from P → C points (X% < -10%)`. Catches the gradual case where the upstream still answers but with a narrower window (dimension filter semantics changed). Run the same script after a clean fetch to re-seed the baseline.
+
+Curated series (CPI, Eurobarometer, EU funds) bypass both checks — they're inline constants in `fetch_eurostat.ts` and self-validating.
 
 Intentional non-fatal skips:
 

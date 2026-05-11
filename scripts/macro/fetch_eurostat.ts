@@ -28,6 +28,18 @@ const __dirname = path.dirname(__filename);
 
 const OUT_FILE = path.resolve(__dirname, "../../data/macro.json");
 
+// Absolute floors per cadence. A fetched series shorter than this is treated
+// as a catastrophic upstream-query failure (mass-NULL response, dimension
+// rejection, etc.) and the run is aborted. Per-indicator overrides via
+// `minPoints` on the indicator entry. Floors are conservative — well below
+// what every current indicator produces on a healthy day.
+const MIN_POINTS_QUARTERLY = 60; // ~15 years of quarterly data
+const MIN_POINTS_ANNUAL = 12; // ~12 years
+// Regression threshold: if a series shrinks by more than this fraction
+// compared to the previously-committed data/macro.json, abort. Catches the
+// "filter narrowed silently" case the SKILL.md describes.
+const REGRESSION_THRESHOLD = 0.1; // 10% drop = trip
+
 const EUROSTAT_BASE =
   "https://ec.europa.eu/eurostat/api/dissemination/statistics/1.0/data";
 const WORLD_BANK_BASE = "https://api.worldbank.org/v2";
@@ -61,6 +73,10 @@ type EurostatIndicator = {
   // (e.g. real compensation in chain-linked EUR) and we want growth.
   // Drops the first 4 quarters / 1 year (no comparison available).
   derive?: "yoyGrowth";
+  // Optional per-indicator minimum point count. If the fetch returns fewer,
+  // the script throws — catches catastrophic upstream-query mass-failure.
+  // Defaults to MIN_POINTS_QUARTERLY / MIN_POINTS_ANNUAL based on cadence.
+  minPoints?: number;
   sourceUrl: string;
   unitLabelEn: string;
   unitLabelBg: string;
@@ -73,6 +89,7 @@ type WorldBankIndicator = {
   key: string;
   indicatorCode: string;
   cadence: Cadence;
+  minPoints?: number;
   sourceUrl: string;
   unitLabelEn: string;
   unitLabelBg: string;
@@ -343,6 +360,10 @@ const EUROSTAT_INDICATORS: EurostatIndicator[] = [
       s_adj: "SCA",
       unit: "I21",
     },
+    // Eurostat publishes this series starting much later than START_YEAR
+    // (around 2014-2015), so the natural floor of 60 quarterly points is
+    // wrong. ~44 is the healthy baseline.
+    minPoints: 35,
     cadence: "quarterly",
     aggregate: "monthlyAvgToQuarter",
     sourceUrl:
@@ -943,9 +964,29 @@ type IndicatorMeta = {
   attributionBg?: string;
 };
 
+const readPriorSeries = (): Record<string, MacroPoint[]> | null => {
+  if (!fs.existsSync(OUT_FILE)) return null;
+  try {
+    const raw = JSON.parse(fs.readFileSync(OUT_FILE, "utf8")) as {
+      series?: Record<string, MacroPoint[]>;
+    };
+    return raw.series ?? null;
+  } catch {
+    return null;
+  }
+};
+
+const floorFor = (ind: EurostatIndicator | WorldBankIndicator): number => {
+  if (ind.minPoints !== undefined) return ind.minPoints;
+  return ind.cadence === "quarterly"
+    ? MIN_POINTS_QUARTERLY
+    : MIN_POINTS_ANNUAL;
+};
+
 const main = async () => {
   const series: Record<string, MacroPoint[]> = {};
   const meta: Record<string, IndicatorMeta> = {};
+  const prior = readPriorSeries();
 
   const all: Indicator[] = [
     ...EUROSTAT_INDICATORS,
@@ -960,6 +1001,39 @@ const main = async () => {
       if (ind.source === "eurostat") data = await fetchEurostat(ind);
       else if (ind.source === "worldbank") data = await fetchWorldBank(ind);
       else data = ind.series;
+
+      // Absolute-floor check (Eurostat / WorldBank only — curated series
+      // are inline constants and self-validating). Catches "upstream query
+      // mass-failed and returned 0/few points" before we overwrite the
+      // committed data/macro.json with a broken series.
+      if (ind.source !== "curated") {
+        const floor = floorFor(ind);
+        if (data.length < floor) {
+          throw new Error(
+            `safety check: ${ind.key} (${ind.source}) returned ${data.length} points, below floor ${floor}. ` +
+              `Likely upstream query rejected silently or dimension filtering broke. ` +
+              `Refusing to overwrite data/macro.json with a near-empty series.`,
+          );
+        }
+      }
+
+      // Regression-vs-prior check. If we have a previously-committed series
+      // for this key, abort when the new fetch returns materially fewer
+      // points. Catches the case where the upstream still answers but with
+      // a narrower window (e.g. dimension filter changed semantics).
+      if (prior && prior[ind.key]) {
+        const prev = prior[ind.key].length;
+        if (prev > 0) {
+          const drop = (prev - data.length) / prev;
+          if (drop > REGRESSION_THRESHOLD) {
+            throw new Error(
+              `safety check: ${ind.key} dropped from ${prev} → ${data.length} points (${(drop * 100).toFixed(1)}% < -${(REGRESSION_THRESHOLD * 100).toFixed(0)}%). ` +
+                `Upstream filter likely tightened. ` +
+                `Refusing to overwrite data/macro.json — investigate before re-running.`,
+            );
+          }
+        }
+      }
 
       series[ind.key] = data;
       meta[ind.key] = {
