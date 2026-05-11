@@ -67,7 +67,10 @@ export const CompositeIndexHero: FC = () => {
   );
 
   return (
-    <div className="rounded-2xl border bg-card p-5 shadow-sm">
+    <div
+      data-og="composite-index-hero"
+      className="rounded-2xl border bg-card p-5 shadow-sm"
+    >
       <div className="flex flex-col md:flex-row md:items-center gap-4">
         <Hint text={t("composite_index_hint")} underline={false}>
           <div className="flex items-baseline gap-3 shrink-0">

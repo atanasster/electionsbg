@@ -172,7 +172,7 @@ export const RiskScoreScreen = () => {
   );
 
   return (
-    <div className="w-full">
+    <div data-og="risk-score-page" className="w-full">
       <div className="px-4 md:px-8 pt-4">
         <MethodologyCallout
           variant="disputed"

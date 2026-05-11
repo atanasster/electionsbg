@@ -176,13 +176,13 @@ const enumerateCandidates = (
   rootUrl: string,
   routes: string[],
 ) => {
-  const publicDir = path.resolve(projectPath, "public");
+  const dataDir = path.resolve(projectPath, "data");
   const electionDirs = fs
-    .readdirSync(publicDir)
+    .readdirSync(dataDir)
     .filter((d) => /^\d{4}_\d{2}_\d{2}$/.test(d));
   const names = new Set<string>();
   for (const ed of electionDirs) {
-    const candDir = path.join(publicDir, ed, "candidates");
+    const candDir = path.join(dataDir, ed, "candidates");
     if (!fs.existsSync(candDir)) continue;
     for (const n of fs.readdirSync(candDir)) {
       if (n.startsWith(".")) continue;
@@ -357,14 +357,14 @@ enumerateEnglishParties();
 // /candidate/{name}); the EN variant just adds the /en/ prefix and gets a
 // localized title/description from prerender. Hreflang ties them together.
 const enumerateEnglishCandidates = () => {
-  const publicDir = path.resolve(projectPath, "public");
-  if (!fs.existsSync(publicDir)) return;
+  const dataDir = path.resolve(projectPath, "data");
+  if (!fs.existsSync(dataDir)) return;
   const electionDirs = fs
-    .readdirSync(publicDir)
+    .readdirSync(dataDir)
     .filter((d) => /^\d{4}_\d{2}_\d{2}$/.test(d));
   const names = new Set<string>();
   for (const ed of electionDirs) {
-    const candDir = path.join(publicDir, ed, "candidates");
+    const candDir = path.join(dataDir, ed, "candidates");
     if (!fs.existsSync(candDir)) continue;
     for (const n of fs.readdirSync(candDir)) {
       if (n.startsWith(".")) continue;

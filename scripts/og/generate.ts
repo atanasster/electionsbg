@@ -323,6 +323,97 @@ const main = () => {
     path.join(distFolder, "og", "about.png"),
   );
 
+  // /risk-analysis, /risk-score, /benford, /persistence, /wasted-vote and
+  // /connections use Playwright screenshots of the live dashboards instead
+  // of rendered cards — see scripts/og/capture-screens.ts. Their .png files
+  // live under public/og/ (not dist/og/) and ship through the static-asset
+  // copy. Cards below cover the text-heavy methodology pages and ranked
+  // tables, which don't have a strong visual element worth screenshotting.
+
+  renderStaticPageCard(
+    "Индекс на изборния риск — методология",
+    "Как се изчислява композитната оценка 0–100",
+    [
+      { label: "компоненти", value: "6 сигнала" },
+      { label: "категории", value: "4 нива" },
+      { label: "тегло", value: "по сигнал" },
+      { label: "тип", value: "методология" },
+    ],
+    path.join(distFolder, "og", "risk-analysis-methodology.png"),
+  );
+
+  renderStaticPageCard(
+    "Скрининг на секциите — методология",
+    "Дефиниции, прагове и формули зад шестте сигнала",
+    [
+      { label: "сигнали", value: "6" },
+      { label: "прагове", value: "по сигнал" },
+      { label: "обединяване", value: "0–100" },
+      { label: "тип", value: "методология" },
+    ],
+    path.join(distFolder, "og", "risk-score-methodology.png"),
+  );
+
+  renderStaticPageCard(
+    "Бенфорд — методология",
+    "Защо 2BL и кога отклонението не означава фалшификация",
+    [
+      { label: "тест", value: "2BL (втора)" },
+      { label: "мин. гласове", value: "≥ 10 / секция" },
+      { label: "мин. секции", value: "≥ 30 / партия" },
+      { label: "тип", value: "методология" },
+    ],
+    path.join(distFolder, "og", "benford-methodology.png"),
+  );
+
+  renderStaticPageCard(
+    "Къде отидоха гласовете — методология",
+    "Поток на гласовете между два парламентарни вота",
+    [
+      { label: "метод", value: "NNLS Goodman" },
+      { label: "мащабиране", value: "RAS" },
+      { label: "ниво", value: "секция → МИР" },
+      { label: "тип", value: "методология" },
+    ],
+    path.join(distFolder, "og", "vote-flow-methodology.png"),
+  );
+
+  renderStaticPageCard(
+    "Фирми с участие на депутати",
+    "Списък на компании със собственик или ръководител-депутат",
+    [
+      { label: "източник", value: "Търг. регистър" },
+      { label: "обогатяване", value: "Декларации" },
+      { label: "филтри", value: "по партия" },
+      { label: "обхват", value: "действащ парламент" },
+    ],
+    path.join(distFolder, "og", "mp-companies.png"),
+  );
+
+  renderStaticPageCard(
+    "Народни представители по активи",
+    "Класиране по декларирано нетно имущество",
+    [
+      { label: "източник", value: "Сметна палата" },
+      { label: "обхват", value: "декларант + съпруг" },
+      { label: "метрика", value: "нетно имущество" },
+      { label: "валута", value: "BGN" },
+    ],
+    path.join(distFolder, "og", "mp-assets.png"),
+  );
+
+  renderStaticPageCard(
+    "Коли, декларирани от депутатите",
+    "Леки автомобили и джипове от подадените декларации",
+    [
+      { label: "източник", value: "Сметна палата" },
+      { label: "видове", value: "лек + джип" },
+      { label: "стойност", value: "BGN" },
+      { label: "обхват", value: "декларант + съпруг" },
+    ],
+    path.join(distFolder, "og", "mp-cars.png"),
+  );
+
   // Party cards.
   const partiesFile = path.join(publicFolder, latest, cikPartiesFileName);
   const parties: PartyInfo[] = fs.existsSync(partiesFile)

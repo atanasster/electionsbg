@@ -577,6 +577,480 @@ export const prerenderRoutes: PrerenderRoute[] = [
     },
   }),
   staticPage({
+    path: "risk-analysis",
+    title:
+      "Анализ на изборния риск — обобщен скрининг | electionsbg.com",
+    description:
+      "Композитен индекс на изборния риск плюс шест независими статистически сигнала: секционен скрининг, тест на Бенфорд, разлики с флаш паметта, концентрация на гласове, рискови махали и съответствие със социологията.",
+    breadcrumbName: "Анализ на риска",
+    ogImage: "/og/risk-analysis.png",
+    bodyHtml: `
+<h1>Анализ на изборния риск</h1>
+<p>Тази страница обединява всеки статистически сигнал за рисково поведение, който публикуваме за избрания парламентарен вот. Композитният индекс на изборния риск дава една обобщена оценка от 0 до 100, а тилите под него позволяват разглеждане на всеки от отделните сигнали, които я съставят.</p>
+<h2>Какво включва</h2>
+<ul>
+<li><a href="${SITE_URL}/risk-score">Скрининг на риска по секции</a> — композитна оценка от шест независими статистически теста за всяка избирателна секция.</li>
+<li><a href="${SITE_URL}/benford">Закон на Бенфорд</a> — разпределение на първата и втората цифра в броя гласове по партии.</li>
+<li>Машинно гласуване — секции с разминаване между протокола от флаш паметта и официалния протокол.</li>
+<li>Концентрация на гласовете — секции с подозрително висок дял за една партия.</li>
+<li>Рискови махали — секции в Ромските махали с исторически тренд.</li>
+<li>Съпоставка със социологията — средни предизборни прогнози срещу окончателен резултат.</li>
+</ul>
+<p>Това е инструмент за <strong>скрининг</strong>, не присъда. Всеки сигнал има невинни обяснения и трябва да се чете в контекст. Виж <a href="${SITE_URL}/risk-analysis/methodology">пълната методология</a> за детайли.</p>`.trim(),
+    english: {
+      title:
+        "Election Risk Analysis — Consolidated Screening | electionsbg.com",
+      description:
+        "Composite Election Risk Index plus six independent statistical signals: section-level risk score, Benford digit distributions, flash-memory drift, vote concentration, at-risk neighborhoods, and polling expectation gap.",
+      breadcrumbName: "Risk analysis",
+      bodyHtml: `
+<h1>Election risk analysis</h1>
+<p>This page consolidates every statistical screening signal we publish for the selected parliamentary vote. The Election Risk Index gives one rolled-up 0–100 reading, and the tiles below let you drill into each of the underlying signals that feed it.</p>
+<h2>What's included</h2>
+<ul>
+<li><a href="${SITE_URL}/en/risk-score">Section-level risk screening</a> — composite score from six independent statistical tests per polling section.</li>
+<li><a href="${SITE_URL}/en/benford">Benford's law</a> — first- and second-digit distributions of per-section vote counts, by party.</li>
+<li>Machine voting — sections where the flash-memory protocol disagrees with the official protocol.</li>
+<li>Vote concentration — sections with a suspiciously high single-party share.</li>
+<li>At-risk neighborhoods — sections inside Roma neighborhoods with historical trend.</li>
+<li>Polling expectation gap — pre-election poll averages against the final result.</li>
+</ul>
+<p>This is a <strong>screening</strong> tool, not a verdict. Each signal has innocent explanations and must be read in context. See the <a href="${SITE_URL}/en/risk-analysis/methodology">full methodology</a> for details.</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "risk-analysis/methodology",
+    title:
+      "Индекс на изборния риск — методология | electionsbg.com",
+    description:
+      "Как се изчислява композитният индекс на изборния риск: тегла на шестте сигнала, скали, бенчмаркове и ограничения.",
+    breadcrumbName: "Методология на анализа",
+    ogImage: "/og/risk-analysis-methodology.png",
+    bodyHtml: `
+<h1>Индекс на изборния риск — методология</h1>
+<p>Композитният Индекс на изборния риск свежда шест независими сигнала до една обобщена оценка от 0 до 100. Тази страница описва точно как се изчислява всеки от компонентите, как се претеглят и какво НЕ показва числото.</p>
+<h2>Какво обхваща страницата</h2>
+<ul>
+<li>Кои са шестте сигнала и как се изчислява всеки поотделно.</li>
+<li>Как се нормализират към единна 0–100 скала, преди да се обединят.</li>
+<li>Тегла, прагове и категории (Нисък / Умерен / Висок / Критичен).</li>
+<li>Кога индексът подвежда — малки извадки, демографски ефекти, законни корекции.</li>
+</ul>
+<p>Виж самата страница <a href="${SITE_URL}/risk-analysis">Анализ на изборния риск</a> за приложение върху последните избори.</p>`.trim(),
+    english: {
+      title:
+        "Election Risk Index — Methodology | electionsbg.com",
+      description:
+        "How the composite Election Risk Index is built: weights on six signals, normalization, benchmarks, and limitations.",
+      breadcrumbName: "Risk analysis methodology",
+      bodyHtml: `
+<h1>Election Risk Index — methodology</h1>
+<p>The composite Election Risk Index distils six independent screening signals into a single 0–100 reading. This page documents exactly how each component is computed, how they are weighted, and what the number does not say.</p>
+<h2>What this page covers</h2>
+<ul>
+<li>The six underlying signals and how each is computed.</li>
+<li>How signals are normalized to a common 0–100 scale before they are combined.</li>
+<li>Weights, thresholds, and bands (Low / Moderate / High / Critical).</li>
+<li>When the index misleads — small samples, demographic effects, lawful recount corrections.</li>
+</ul>
+<p>See the <a href="${SITE_URL}/en/risk-analysis">Election Risk Analysis</a> page for the index applied to the latest election.</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "risk-score",
+    title:
+      "Скрининг на риска по секции — парламентарни избори | electionsbg.com",
+    description:
+      "Композитна оценка 0–100 за всяка избирателна секция, която обединява шест независими сигнала: разлики при преброяване, разминаване с флаш паметта, дял невалидни бюлетини, допълнително вписани, концентрация и отклонение спрямо съседни секции.",
+    breadcrumbName: "Скрининг на секциите",
+    ogImage: "/og/risk-score.png",
+    bodyHtml: `
+<h1>Скрининг на риска по секции</h1>
+<p>За всяка избирателна секция изчисляваме композитна оценка от 0 до 100, която обединява шест независими статистически сигнала, вече публикувани като отделни доклади. Висока оценка означава, че секцията заслужава по-внимателен преглед — не присъда.</p>
+<h2>Шестте сигнала</h2>
+<ul>
+<li><strong>Разлики при преброяване</strong> — разлики между първото и второто броене на бюлетините.</li>
+<li><strong>Разминаване с флаш паметта</strong> — несъответствие между официалния протокол и протокола от устройството за машинно гласуване.</li>
+<li><strong>Дял невалидни бюлетини</strong> — секции с необичайно висок дял на недействителни гласове.</li>
+<li><strong>Допълнително вписани</strong> — секции с непропорционално много дописани в избирателния списък.</li>
+<li><strong>Концентрация</strong> — секции с подозрително висок дял за една партия.</li>
+<li><strong>Отклонение спрямо съседни секции</strong> — резултати, които се различават статистически от близките секции в същото населено място.</li>
+</ul>
+<p>Виж <a href="${SITE_URL}/risk-score/methodology">пълната методология</a> за прагове, формули и категории.</p>`.trim(),
+    english: {
+      title:
+        "Section-level Risk Screening — Bulgarian Parliamentary Elections | electionsbg.com",
+      description:
+        "Composite 0–100 score per polling section, combining six independent signals: recount delta, flash-memory mismatch, invalid-ballot share, additional voters, single-party concentration, and outlier vs. peer sections.",
+      breadcrumbName: "Section risk screening",
+      bodyHtml: `
+<h1>Section-level risk screening</h1>
+<p>Each polling section receives a composite 0–100 score combining six independent statistical signals already published as standalone reports. A high score means the section is statistically unusual along multiple dimensions and warrants a closer look — that is all.</p>
+<h2>The six signals</h2>
+<ul>
+<li><strong>Recount delta</strong> — discrepancies between the first and second tally of ballots.</li>
+<li><strong>Flash-memory mismatch</strong> — gap between the official protocol and the machine-voting device's protocol.</li>
+<li><strong>Invalid-ballot share</strong> — sections with an unusually high share of invalid ballots.</li>
+<li><strong>Additional voters</strong> — sections with a disproportionately high count of voters added on election day.</li>
+<li><strong>Vote concentration</strong> — sections with a suspiciously high single-party share.</li>
+<li><strong>Peer-section outliers</strong> — results that diverge statistically from nearby sections in the same settlement.</li>
+</ul>
+<p>See the <a href="${SITE_URL}/en/risk-score/methodology">full methodology</a> for thresholds, formulas, and bands.</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "risk-score/methodology",
+    title: "Скрининг на секциите — методология | electionsbg.com",
+    description:
+      "Точните дефиниции, прагове и формули зад секционния скрининг — как всеки от шестте сигнала се изчислява и как се обединяват в обща оценка.",
+    breadcrumbName: "Методология на скрининга",
+    ogImage: "/og/risk-score-methodology.png",
+    bodyHtml: `
+<h1>Скрининг на секциите — методология</h1>
+<p>Тази страница описва как се изчислява композитната оценка за всяка избирателна секция: какво измерва всеки от шестте сигнала, какви прагове прилагаме и как се обединяват в едно число от 0 до 100.</p>
+<h2>Шестте сигнала</h2>
+<ul>
+<li><strong>Разлики при преброяване</strong> — статистическо отклонение между първото и второто броене.</li>
+<li><strong>Разминаване с флаш паметта</strong> — несъответствия между двата протокола.</li>
+<li><strong>Дял невалидни бюлетини</strong> — секции, чийто дял е значително над общинския медиан.</li>
+<li><strong>Допълнително вписани</strong> — % допълнителни избиратели спрямо първоначалния списък.</li>
+<li><strong>Концентрация</strong> — индекс на Хърфиндал–Хиршман по партии.</li>
+<li><strong>Отклонение спрямо съседни секции</strong> — z-score спрямо съседи в същото населено място.</li>
+</ul>
+<p>За резюме виж главната страница <a href="${SITE_URL}/risk-score">Скрининг на риска по секции</a>.</p>`.trim(),
+    english: {
+      title: "Section Risk Screening — Methodology | electionsbg.com",
+      description:
+        "Exact definitions, thresholds, and formulas behind the section-level risk screening — how each of the six signals is computed and how they are combined into a single score.",
+      breadcrumbName: "Risk screening methodology",
+      bodyHtml: `
+<h1>Section risk screening — methodology</h1>
+<p>This page documents how the composite score per polling section is built: what each of the six signals measures, the thresholds we apply, and how they are combined into a single 0–100 reading.</p>
+<h2>The six signals</h2>
+<ul>
+<li><strong>Recount delta</strong> — statistical departure between the first and second tally.</li>
+<li><strong>Flash-memory mismatch</strong> — discrepancies between the two protocols.</li>
+<li><strong>Invalid-ballot share</strong> — sections significantly above the municipal median.</li>
+<li><strong>Additional voters</strong> — share of voters added on top of the initial roll.</li>
+<li><strong>Vote concentration</strong> — Herfindahl–Hirschman index across parties.</li>
+<li><strong>Peer-section outliers</strong> — z-score against neighboring sections in the same settlement.</li>
+</ul>
+<p>For the live screen see <a href="${SITE_URL}/en/risk-score">Section-level risk screening</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "benford",
+    title:
+      "Законът на Бенфорд по партии — парламентарни избори | electionsbg.com",
+    description:
+      "Разпределение на първата и втората цифра в броя гласове по секции, по партии. Сравнява наблюдаваните дялове с очакваната крива на Бенфорд, с обяснение защо отклонението не е доказателство за фалшификация.",
+    breadcrumbName: "Закон на Бенфорд",
+    ogImage: "/og/benford.png",
+    bodyHtml: `
+<h1>Законът на Бенфорд по партии</h1>
+<p>Законът на Бенфорд описва закономерност в естествени числови масиви: водещата цифра не се появява с еднаква честота. Изборната криминалистика заимства теста с хипотезата, че изфабрикуваните резултати трудно биха следвали тази крива.</p>
+<p>Тук показваме разпределението на първата и втората цифра в броя гласове по секции за всяка партия и го сравняваме с очакваната крива на Бенфорд. Литературата (Mebane) препоръчва теста за втора цифра (2BL) пред теста за първа цифра при изборни данни, тъй като броят на гласовете в секция е ограничен в малък диапазон.</p>
+<p><strong>Това не е доказателство за фалшификация.</strong> Много чисти изборни данни не преминават теста за първа цифра. Виж <a href="${SITE_URL}/benford/methodology">пълната методология</a> за нюансите.</p>`.trim(),
+    english: {
+      title:
+        "Benford's Law by Party — Bulgarian Parliamentary Elections | electionsbg.com",
+      description:
+        "First- and second-digit distributions of per-section vote counts, by party. Compares observed shares against the Benford-expected curve, with the caveats explaining why deviation is not evidence of fraud.",
+      breadcrumbName: "Benford's law",
+      bodyHtml: `
+<h1>Benford's law by party</h1>
+<p>Benford's law describes a regularity in many naturally-occurring numerical datasets: the leading digit does not appear with equal frequency. Election forensics borrowed the test on the hypothesis that fabricated results would struggle to follow the same curve.</p>
+<p>This page shows the first- and second-digit distribution of per-section vote counts for each party against the Benford-expected curve. The literature (Mebane) recommends the second-digit test (2BL) over the first-digit test for election data, because per-section vote counts are range-bounded.</p>
+<p><strong>This is not evidence of fraud.</strong> Plenty of clean electoral data fails the first-digit test. See the <a href="${SITE_URL}/en/benford/methodology">full methodology</a> for the nuances.</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "benford/methodology",
+    title: "Законът на Бенфорд — методология | electionsbg.com",
+    description:
+      "Защо съществува тестът на Бенфорд, какво показват резултатите му, защо предпочитаме теста за втора цифра (2BL) и кога отклоненията не бива да ни подвеждат.",
+    breadcrumbName: "Методология на Бенфорд",
+    ogImage: "/og/benford-methodology.png",
+    bodyHtml: `
+<h1>Законът на Бенфорд — методология</h1>
+<p>Тази страница обяснява защо съществува тестът на Бенфорд, защо предпочитаме теста за втора цифра (2BL) пред този за първа цифра при изборни данни, какви прагове прилагаме и как се четат показателите MAD и χ². Целта е да направим прозрачно както какво може, така и какво не може да каже тестът.</p>
+<h2>Какво ще намерите тук</h2>
+<ul>
+<li>Защо тестът за първа цифра често дава „отклонение“ при чисти изборни данни.</li>
+<li>Защо 2BL (втора цифра) е препоръчителен — линията на Mebane.</li>
+<li>Прагове: минимум 10 гласа на секция, минимум 30 секции на партия.</li>
+<li>Категории по MAD: Близо до Бенфорд / Умерено / Силно отклонение.</li>
+</ul>
+<p>За приложението виж <a href="${SITE_URL}/benford">Закон на Бенфорд по партии</a>.</p>`.trim(),
+    english: {
+      title: "Benford's Law — Methodology | electionsbg.com",
+      description:
+        "Why this test exists, what its results actually tell us, why we prefer the second-digit test (2BL), and when deviations should not mislead us.",
+      breadcrumbName: "Benford methodology",
+      bodyHtml: `
+<h1>Benford's law — methodology</h1>
+<p>This page explains why the Benford test exists, why we prefer the second-digit test (2BL) to the first-digit test for election data, what thresholds we apply, and how MAD and χ² should be read. The goal is to make transparent both what the test can and cannot say.</p>
+<h2>What you'll find</h2>
+<ul>
+<li>Why the first-digit test often shows "deviation" on clean electoral data.</li>
+<li>Why 2BL (second digit) is preferred — Mebane's line of work.</li>
+<li>Thresholds: minimum 10 votes per section, minimum 30 sections per party.</li>
+<li>MAD bands: Close to Benford / Moderate / Strong deviation.</li>
+</ul>
+<p>For the live screen see <a href="${SITE_URL}/en/benford">Benford's law by party</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "persistence",
+    title:
+      "Лоялност на гласоподавателите — парламентарни избори | electionsbg.com",
+    description:
+      "Дял на гласоподавателите за идентифицирани партии, които остават при същата партия между два последователни избора — измерено по секции с регресия Goodman и мащабиране RAS.",
+    breadcrumbName: "Лоялност",
+    ogImage: "/og/persistence.png",
+    bodyHtml: `
+<h1>Лоялност на гласоподавателите</h1>
+<p>За всеки парламентарен вот изчисляваме каква част от гласоподавателите за идентифицирани партии са останали при същата партия между двата последователни избора. Това отделя партийната лоялност от колебанията в избирателната активност.</p>
+<h2>Как се чете</h2>
+<ul>
+<li><strong>Дял на лоялните</strong> — % гласоподаватели, които са избрали същата партия и на двата вота.</li>
+<li><strong>Сменили партия</strong> — % гласоподаватели, които са преминали при друга партия между двата избора.</li>
+<li><strong>Най-голям преход</strong> — единичното най-голямо движение партия → партия (източник, цел, дял от изходящите гласове на партията-източник).</li>
+<li><strong>По МИР</strong> — лоялност за всеки многомандатен район, плюс най-стабилните и най-колебливите.</li>
+</ul>
+<p>Лоялността е оценена от поток на гласовете по секции (NNLS Goodman регресия + RAS мащабиране). Сигналът е устойчив на регионално ниво, но е <strong>агрегирана оценка</strong>, не индивидуално измерване.</p>`.trim(),
+    english: {
+      title:
+        "Voter Persistence — Bulgarian Parliamentary Elections | electionsbg.com",
+      description:
+        "Share of named-party voters who stayed with the same party across two consecutive elections — estimated from per-section vote flow with NNLS Goodman regression and RAS scaling.",
+      breadcrumbName: "Voter persistence",
+      bodyHtml: `
+<h1>Voter persistence</h1>
+<p>For each parliamentary vote we estimate what share of named-party voters stayed with the same party across two consecutive elections. This isolates party loyalty from swings in turnout.</p>
+<h2>How to read it</h2>
+<ul>
+<li><strong>Stay rate</strong> — share of voters who chose the same named party in both elections.</li>
+<li><strong>Churn</strong> — share of named-party voters who switched parties between cycles.</li>
+<li><strong>Top defection</strong> — the single largest party-to-party movement (source, destination, share of source-party outflow).</li>
+<li><strong>By region</strong> — loyalty per multi-mandate region, plus the most stable and most volatile regions.</li>
+</ul>
+<p>Persistence is estimated from per-section voter flow (NNLS Goodman regression + RAS scaling). The signal is robust at the regional level but is an <strong>aggregate estimate</strong>, not an individual-voter measurement.</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "wasted-vote",
+    title:
+      "Изгубени гласове за партии под 4% — парламентарни избори | electionsbg.com",
+    description:
+      "Дял на действителните гласове, подадени за партии под прага от 4% — гласове, които не са избрали никого. Разбивка национално и по МИР.",
+    breadcrumbName: "Изгубени гласове",
+    ogImage: "/og/wasted-vote.png",
+    bodyHtml: `
+<h1>Изгубени гласове за партии под 4%</h1>
+<p>В българската избирателна система партии под прага от 4% не получават мандати. Гласовете, подадени за тях, остават без представителство — често ги наричаме „изгубени гласове“.</p>
+<h2>Какво се показва</h2>
+<ul>
+<li><strong>Изгубени национално</strong> — общ дял на гласовете за партии под прага.</li>
+<li><strong>Близо до прага (2–4%)</strong> — партии, които са били почти на ръба.</li>
+<li><strong>Под 2%</strong> — фрагментирани „маргинални“ гласове.</li>
+<li><strong>По МИР</strong> — карта и сортируема таблица по многомандатни райони. Виж <a href="${SITE_URL}/wasted-vote/regions">пълния списък по области</a>.</li>
+</ul>
+<p>Изчисление: сума на гласовете за партии под 4% национален праг, разделена на общия брой действителни гласове.</p>`.trim(),
+    english: {
+      title:
+        "Wasted Votes — Sub-4% Parties in Bulgarian Parliamentary Elections | electionsbg.com",
+      description:
+        "Share of valid votes cast for parties below the 4% national threshold — votes that elected nobody. National and per-region breakdown.",
+      breadcrumbName: "Wasted votes",
+      bodyHtml: `
+<h1>Wasted votes — parties below 4%</h1>
+<p>Bulgaria's electoral system gives no seats to parties under the 4% threshold. Votes cast for those parties end up with no representation — what we usually call "wasted votes".</p>
+<h2>What you'll find</h2>
+<ul>
+<li><strong>Wasted nationally</strong> — total share of votes cast for sub-threshold parties.</li>
+<li><strong>Almost made it (2–4%)</strong> — parties that came close to passing.</li>
+<li><strong>Fringe (&lt;2%)</strong> — fragmented "margin" votes.</li>
+<li><strong>By region</strong> — choropleth map plus sortable table by multi-mandate region. See the <a href="${SITE_URL}/en/wasted-vote/regions">full regional ranking</a>.</li>
+</ul>
+<p>Calculation: sum of votes for parties below the 4% national threshold, divided by total valid votes.</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "wasted-vote/regions",
+    title:
+      "Изгубени гласове по области — парламентарни избори | electionsbg.com",
+    description:
+      "Сортируема таблица с дела на изгубените гласове за всеки от 28-те многомандатни района — гласове за партии под 4% национален праг.",
+    breadcrumbName: "Изгубени гласове по МИР",
+    ogImage: "/og/wasted-vote.png",
+    bodyHtml: `
+<h1>Изгубени гласове по области</h1>
+<p>Пълна сортируема таблица по 28-те многомандатни избирателни района (МИР). За всяка област — общ брой действителни гласове, гласове за партии под 4% и дял изгубени гласове.</p>
+<p>Виж и <a href="${SITE_URL}/wasted-vote">обобщеното представяне</a> на национално ниво с карта и топ партии под прага.</p>`.trim(),
+    english: {
+      title:
+        "Wasted Votes by Region — Bulgarian Parliamentary Elections | electionsbg.com",
+      description:
+        "Sortable table of wasted-vote share across all 28 Bulgarian multi-mandate districts (MIR) — votes cast for parties below the 4% national threshold.",
+      breadcrumbName: "Wasted votes by region",
+      bodyHtml: `
+<h1>Wasted votes by region</h1>
+<p>Sortable table across Bulgaria's 28 multi-mandate districts (MIR). For each region — total valid votes, votes for sub-4% parties, and the wasted-vote share.</p>
+<p>See also the <a href="${SITE_URL}/en/wasted-vote">national overview</a> with the choropleth map and top sub-threshold parties.</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "where-did-votes-go/methodology",
+    title:
+      "Къде отидоха гласовете — методология | electionsbg.com",
+    description:
+      "Методология на анализа на потока на гласовете между две парламентарни сесии — NNLS Goodman регресия по секции, RAS мащабиране и ограниченията на агрегираната оценка.",
+    breadcrumbName: "Методология на потока на гласовете",
+    ogImage: "/og/vote-flow-methodology.png",
+    bodyHtml: `
+<h1>Къде отидоха гласовете — методология</h1>
+<p>Анализът „Къде отидоха гласовете“ оценява потока от една партия към друга между два последователни вота на ниво многомандатен район. Тази страница описва статистическия метод зад оценките.</p>
+<h2>Какво обхваща страницата</h2>
+<ul>
+<li>Goodman регресия с неотрицателни най-малки квадрати (NNLS) на ниво секция.</li>
+<li>RAS мащабиране, което гарантира, че редовете и колоните на матрицата на прехода съответстват на наблюдаваните общи стойности.</li>
+<li>Защо включваме „малки партии“ и негласувалите като отделни категории.</li>
+<li>Кога методът подвежда — секции с малък брой гласоподаватели, демографски промени, новорегистрирани избиратели.</li>
+</ul>
+<p>Виж също <a href="${SITE_URL}/persistence">Лоялност на гласоподавателите</a>, която използва същия метод за измерване на партийната устойчивост.</p>`.trim(),
+    english: {
+      title:
+        "Where Did Votes Go — Methodology | electionsbg.com",
+      description:
+        "Methodology behind the vote-flow analysis between two parliamentary cycles — per-section NNLS Goodman regression, RAS scaling, and the limits of an aggregate estimate.",
+      breadcrumbName: "Vote-flow methodology",
+      bodyHtml: `
+<h1>Where did votes go — methodology</h1>
+<p>The "where did votes go" analysis estimates flows from one party to another between two consecutive cycles at the multi-mandate region level. This page documents the statistical method behind the estimates.</p>
+<h2>What this page covers</h2>
+<ul>
+<li>Non-negative least squares (NNLS) Goodman regression at the section level.</li>
+<li>RAS scaling, which forces the row and column sums of the transition matrix to match observed totals.</li>
+<li>Why "small parties" and abstainers are included as their own categories.</li>
+<li>When the method misleads — sections with few voters, demographic change, newly registered voters.</li>
+</ul>
+<p>See also <a href="${SITE_URL}/en/persistence">Voter persistence</a>, which uses the same method to measure party loyalty.</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "connections",
+    title:
+      "Бизнес-връзки между народните представители | electionsbg.com",
+    description:
+      "Графика на бизнес-връзките между действащите народни представители — общи фирми, имуществени декларации и пътища между депутати от различни партии.",
+    breadcrumbName: "Бизнес-връзки",
+    ogImage: "/og/connections.png",
+    bodyHtml: `
+<h1>Бизнес-връзки между народните представители</h1>
+<p>Графиката на бизнес-връзките показва кои действащи народни представители са свързани чрез обща фирма, съвместно акционерство или роли в управлението. Източник са декларациите, подадени пред Сметната палата, и публичните данни от Търговския регистър.</p>
+<h2>Какво ще намерите тук</h2>
+<ul>
+<li>Графика на връзките с разцветяване по партийна група.</li>
+<li>Откриване на пътища между двама конкретни депутати.</li>
+<li><a href="${SITE_URL}/mp/companies">Списък на всички фирми</a> с поне един депутат-собственик или ръководител.</li>
+<li><a href="${SITE_URL}/mp-assets">Класиране на депутатите</a> по декларирани активи.</li>
+<li><a href="${SITE_URL}/mp-cars">Декларирани коли</a> на народните представители.</li>
+</ul>
+<p>Източник: <a href="https://register.cacbg.bg" rel="nofollow noopener">register.cacbg.bg</a> (Сметна палата) и <a href="https://www.registryagency.bg" rel="nofollow noopener">Търговски регистър</a>.</p>`.trim(),
+    english: {
+      title:
+        "MP Business Connections — Bulgarian Parliament | electionsbg.com",
+      description:
+        "Network graph of business connections among sitting Bulgarian MPs — shared companies, asset declarations, and paths between MPs from different parties.",
+      breadcrumbName: "MP business connections",
+      bodyHtml: `
+<h1>MP business connections</h1>
+<p>The business-connections graph shows which sitting Bulgarian MPs are connected through a shared company, joint shareholding, or roles on the same board. Sources: declarations filed with the Bulgarian Court of Audit, and public Commerce Registry filings.</p>
+<h2>What you'll find</h2>
+<ul>
+<li>Network graph coloured by parliamentary group.</li>
+<li>Path-finding between any two named MPs.</li>
+<li><a href="${SITE_URL}/en/mp/companies">List of all companies</a> with at least one MP owner or director.</li>
+<li><a href="${SITE_URL}/en/mp-assets">MPs ranked</a> by declared assets.</li>
+<li><a href="${SITE_URL}/en/mp-cars">Cars declared</a> by MPs.</li>
+</ul>
+<p>Sources: <a href="https://register.cacbg.bg" rel="nofollow noopener">register.cacbg.bg</a> (Court of Audit) and the <a href="https://www.registryagency.bg" rel="nofollow noopener">Bulgarian Commerce Registry</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "mp/companies",
+    title:
+      "Фирми с участие на народни представители | electionsbg.com",
+    description:
+      "Списък на всички фирми, в които действащите народни представители са собственици, акционери или членове на управлението — данни от Търговския регистър и декларациите на Сметната палата.",
+    breadcrumbName: "Фирми на депутати",
+    ogImage: "/og/mp-companies.png",
+    bodyHtml: `
+<h1>Фирми с участие на народни представители</h1>
+<p>Списък на всички фирми, в които поне един действащ народен представител фигурира като собственик, акционер или роля в управлението. Данните се обединяват от декларациите, подадени пред Сметната палата, и от публичните филинги в Търговския регистър.</p>
+<p>За мрежовия изглед виж <a href="${SITE_URL}/connections">Бизнес-връзки между депутатите</a>.</p>`.trim(),
+    english: {
+      title:
+        "Companies Owned or Run by MPs — Bulgarian Parliament | electionsbg.com",
+      description:
+        "Every company in which a sitting Bulgarian MP is an owner, shareholder, or board member — sourced from the Commerce Registry and Court of Audit declarations.",
+      breadcrumbName: "MP companies",
+      bodyHtml: `
+<h1>Companies owned or run by MPs</h1>
+<p>Every company in which at least one sitting Bulgarian MP figures as an owner, shareholder, or role on the board. Data is combined from declarations filed with the Court of Audit and public filings in the Commerce Registry.</p>
+<p>For the network view see <a href="${SITE_URL}/en/connections">MP business connections</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "mp-assets",
+    title:
+      "Народни представители по декларирани активи | electionsbg.com",
+    description:
+      "Класиране на действащите народни представители по декларирано имущество — недвижими имоти, превозни средства, парични средства, инвестиции и дялове във фирми (декларант + съпруг).",
+    breadcrumbName: "Активи на депутати",
+    ogImage: "/og/mp-assets.png",
+    bodyHtml: `
+<h1>Народни представители по декларирани активи</h1>
+<p>Класиране на действащите народни представители по нетното имущество, декларирано в последната подадена декларация пред Сметната палата. Нетното имущество се изчислява като сума на декларираните недвижими имоти, превозни средства, парични средства и банкови депозити, вземания, инвестиции, ценни книжа и дялове във фирми (декларант + съпруг), намалена с декларираните задължения.</p>
+<p>Източник: <a href="https://register.cacbg.bg" rel="nofollow noopener">register.cacbg.bg</a> (Сметна палата).</p>`.trim(),
+    english: {
+      title:
+        "MPs by Declared Assets — Bulgarian Parliament | electionsbg.com",
+      description:
+        "Sitting Bulgarian MPs ranked by net worth from their most recent property/interest declaration filed with the Court of Audit (declarant + spouse, minus declared debts).",
+      breadcrumbName: "MPs by assets",
+      bodyHtml: `
+<h1>MPs by declared assets</h1>
+<p>Sitting Bulgarian MPs ranked by net worth from their most recent property/interest declaration filed with the Court of Audit. Net worth is the sum of declared real estate, vehicles, cash, bank deposits, receivables, investments, securities and company shares (declarant + spouse) minus declared debts.</p>
+<p>Source: <a href="https://register.cacbg.bg" rel="nofollow noopener">register.cacbg.bg</a> (Bulgarian Court of Audit).</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "mp-cars",
+    title:
+      "Коли, декларирани от народните представители | electionsbg.com",
+    description:
+      "Всеки лек автомобил или джип, деклариран от действащ депутат (или съпруг), от последната подадена декларация — подреден по декларирана стойност в лева.",
+    breadcrumbName: "Коли на депутати",
+    ogImage: "/og/mp-cars.png",
+    bodyHtml: `
+<h1>Коли, декларирани от народните представители</h1>
+<p>Всеки лек автомобил или джип, деклариран от действащ народен представител (или съпруг) в последната подадена пред Сметната палата декларация — подреден по декларирана стойност в лева. Колите на съпругата/съпруга се показват с притежател „съпруг“.</p>
+<p>Източник: <a href="https://register.cacbg.bg" rel="nofollow noopener">register.cacbg.bg</a> (Сметна палата).</p>`.trim(),
+    english: {
+      title:
+        "Cars Declared by MPs — Bulgarian Parliament | electionsbg.com",
+      description:
+        "Every passenger car or jeep declared by a sitting Bulgarian MP (or spouse) in their most recent declaration, sorted by declared BGN value.",
+      breadcrumbName: "MP cars",
+      bodyHtml: `
+<h1>Cars declared by MPs</h1>
+<p>Every passenger car or jeep declared by a sitting MP (or spouse) in their most recent declaration filed with the Court of Audit — sorted by declared BGN value. Spouse-held cars are listed with holder = spouse.</p>
+<p>Source: <a href="https://register.cacbg.bg" rel="nofollow noopener">register.cacbg.bg</a> (Bulgarian Court of Audit).</p>`.trim(),
+    },
+  }),
+  staticPage({
     path: "preferences",
     title:
       "Преференциален вот по партии — парламентарни избори | electionsbg.com",
