@@ -77,7 +77,8 @@ Some sources map to the same skill (`update-connections` handles both declaratio
 
    ## Next steps
    - `git status` summary if there are uncommitted changes
-   - Suggested commit message
+   - Suggested commit message (one per logical group of files)
+   - Suggested bucket deploy command — see "Bucket deploy" below
    - Whether to `git push` or hold
    ```
 
@@ -88,6 +89,21 @@ Some sources map to the same skill (`update-connections` handles both declaratio
    **For an "error" status** (skill threw), copy the error message verbatim and stop the orchestrator — don't proceed to the next skill until the user decides how to handle.
 
    **Quote concrete numbers from skill stdout.** If `update-rollcall` printed `+ 2026-05-09 (id 11124): 11 item(s), 2640 rows · 37 unresolved id(s) → sessions/2026-05-09.json`, that's the kind of detail that belongs in **Captured**. If `update-macro` printed `Loading gdpGrowth (eurostat)... 84 points (latest 2025 Q4)` for 22 indicators, summarise: "22 indicators refreshed; latest period 2025 Q4 (quarterly), 2025 (annual)" — but if any indicator's count changed, name it.
+
+   ### Bucket deploy
+
+   After committing, `data/` lives in two places: the git repo (history, audit) and `gs://data-electionsbg-com` (what the live SPA fetches). The bucket is the one users see. The Next steps section MUST always include the deploy commands when anything under `data/` was modified:
+
+   ```bash
+   npm run bucket:sync:dry    # preview which files would upload
+   npm run bucket:sync        # push to gs://data-electionsbg-com
+   ```
+
+   `bucket:sync` rsyncs the entire `data/` directory (everything: JSON + .webp photos + anything else); `-j json,svg,xml,txt,html,css,md` controls which extensions get gzip transport encoding, not which files upload. The Cache-Control is `public, max-age=3600, stale-while-revalidate=604800` — fresh content propagates within an hour, with SWR letting the SPA serve a slightly-stale copy in the meantime.
+
+   When `Files changed` is "none" for every skill, omit the bucket-sync lines from Next steps — there's nothing new to push. If even one skill wrote files, include them.
+
+   Code/UI changes are out of scope for this orchestrator (`npm run deploy` deploys the Firebase bundle and is not needed for pure-data refresh).
 
 ## Examples
 
@@ -167,11 +183,16 @@ _(none)_
 
 ## Next steps
 - 1 file modified: `data/macro.json`. Suggested commit:
-  ```
+  ```bash
   git add data/macro.json
   git commit -m "macro: refresh through 2026 Q1 (7 new Eurostat releases)"
   ```
-- No push needed yet — user decides.
+- Deploy to bucket (fresh data takes ≤ 1h to propagate):
+  ```bash
+  npm run bucket:sync:dry    # preview
+  npm run bucket:sync        # push to gs://data-electionsbg-com
+  ```
+- No `git push` needed yet — user decides.
 ```
 
 The summary is mandatory whether or not data changed. A "no changes detected" run still gets a section per executed skill so the user can see what was checked.
