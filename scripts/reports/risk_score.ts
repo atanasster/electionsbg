@@ -290,6 +290,22 @@ export const generateRiskScoreReport = ({
     let weightedSum = 0;
     let weightTotal = 0;
 
+    // Track the party most affected by the firing signals — but only when
+    // the signal itself is party-specific (recount / suemg). For
+    // section-level signals (invalid ballots, additional voters, peer
+    // outlier, concentrated) there is no single "affected party" — the
+    // anomaly belongs to the section as a whole. Showing the section
+    // winner in those cases would falsely imply a connection.
+    let affectedParty:
+      | { partyNum: number; change: number }
+      | undefined;
+    const considerParty = (partyNum?: number, change?: number) => {
+      if (partyNum === undefined || change === undefined) return;
+      if (!affectedParty || Math.abs(change) > Math.abs(affectedParty.change)) {
+        affectedParty = { partyNum, change };
+      }
+    };
+
     const addSignal = (
       id: RiskComponent["id"],
       raw: number | undefined,
@@ -316,6 +332,11 @@ export const generateRiskScoreReport = ({
       const total = (rc.totalVotes ?? 0) || 1;
       const churn = ((rc.addedVotes ?? 0) + (rc.removedVotes ?? 0)) / total;
       addSignal("recount", churn, churn / CAPS.recountPct);
+      considerParty(rc.topPartyChange?.partyNum, rc.topPartyChange?.change);
+      considerParty(
+        rc.bottomPartyChange?.partyNum,
+        rc.bottomPartyChange?.change,
+      );
     }
 
     // SUEMG flash-memory mismatch: absolute pctSuemg / 100, capped.
@@ -323,6 +344,14 @@ export const generateRiskScoreReport = ({
     if (suemg) {
       const pct = Math.abs(suemg.pctSuemg ?? 0) / 100;
       addSignal("suemgMismatch", pct, pct / CAPS.suemgPct);
+      considerParty(
+        suemg.topPartyChange?.partyNum,
+        suemg.topPartyChange?.change,
+      );
+      considerParty(
+        suemg.bottomPartyChange?.partyNum,
+        suemg.bottomPartyChange?.change,
+      );
     }
 
     const inv = invalid.get(s.section);
@@ -357,12 +386,12 @@ export const generateRiskScoreReport = ({
       ekatte: s.ekatte,
       obshtina: s.obshtina,
       oblast: s.oblast,
-      partyNum: s.topPartyNum,
-      totalVotes: s.topPartyVotes,
-      pctPartyVote:
-        s.totalVotes && s.totalVotes > 0
-          ? Math.round(((s.topPartyVotes ?? 0) / s.totalVotes) * 10000) / 100
-          : undefined,
+      // Affected party + signed vote change, only when a party-specific
+      // signal fired. Undefined for sections where the firing signals are
+      // purely section-level (invalid ballots, additional voters, peer
+      // outlier, concentrated) — those have no single "affected party".
+      partyNum: (affectedParty as typeof affectedParty)?.partyNum,
+      totalVotes: (affectedParty as typeof affectedParty)?.change,
       score: Math.round(score * 10) / 10,
       band: bandOf(score),
       signalsAvailable: components.length,
