@@ -4,6 +4,7 @@ import { useRiskScore, type RiskBand } from "@/data/riskScore/useRiskScore";
 import { Template } from "@/screens/reports/sections/Template";
 import { MethodologyCallout } from "@/screens/components/MethodologyCallout";
 import { RiskBandBadge } from "@/screens/components/riskScore/RiskBandBadge";
+import { Link } from "@/ux/Link";
 import type { ReportRow } from "@/data/dataTypes";
 import type { ReportColumns } from "@/screens/reports/common/ReportTemplate";
 
@@ -83,7 +84,14 @@ export const RiskScoreScreen = () => {
         title={t("risk_score_caveat_title")}
         className="max-w-5xl mx-auto mt-4 mx-4"
       >
-        {t("risk_score_caveat_body")}
+        {t("risk_score_caveat_body")}{" "}
+        <Link
+          to="/risk-score/methodology"
+          className="text-primary hover:underline"
+          underline={false}
+        >
+          {t("risk_read_full_methodology")} →
+        </Link>
       </MethodologyCallout>
       <Template
         defaultThreshold={60}

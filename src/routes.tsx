@@ -232,6 +232,11 @@ const RiskScoreScreen = lazy(() =>
     default: m.RiskScoreScreen,
   })),
 );
+const RiskScoreMethodologyScreen = lazy(() =>
+  import("./screens/RiskScoreMethodologyScreen").then((m) => ({
+    default: m.RiskScoreMethodologyScreen,
+  })),
+);
 const SectionsWastedVote = lazy(() =>
   import("./screens/reports/sections/SectionsWastedVote").then((m) => ({
     default: m.SectionsWastedVote,
@@ -275,6 +280,11 @@ const CompareScreen = lazy(() =>
 const VoteFlowMethodologyScreen = lazy(() =>
   import("./screens/VoteFlowMethodologyScreen").then((m) => ({
     default: m.VoteFlowMethodologyScreen,
+  })),
+);
+const BenfordMethodologyScreen = lazy(() =>
+  import("./screens/BenfordMethodologyScreen").then((m) => ({
+    default: m.BenfordMethodologyScreen,
   })),
 );
 const PartyTimelineScreen = lazy(() =>
@@ -1221,6 +1231,14 @@ export const AuthRoutes = () => {
           }
         />
         <Route
+          path="benford/methodology"
+          element={
+            <LayoutScreen>
+              <BenfordMethodologyScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
           path="benford/:partyNum"
           element={
             <LayoutScreen>
@@ -1233,6 +1251,14 @@ export const AuthRoutes = () => {
           element={
             <LayoutScreen>
               <RiskScoreScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="risk-score/methodology"
+          element={
+            <LayoutScreen>
+              <RiskScoreMethodologyScreen />
             </LayoutScreen>
           }
         />

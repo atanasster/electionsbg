@@ -2,6 +2,7 @@ import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { ShieldAlert } from "lucide-react";
 import { Hint } from "@/ux/Hint";
+import { Link } from "@/ux/Link";
 import { useRiskScoreForSection } from "@/data/riskScore/useRiskScore";
 import { StatCard } from "./StatCard";
 import { RiskBandBadge } from "@/screens/components/riskScore/RiskBandBadge";
@@ -43,7 +44,14 @@ export const SectionRiskTile: FC<{ sectionCode: string }> = ({
       className="overflow-hidden"
     >
       <MethodologyCallout variant="disputed" className="text-[11px] my-2">
-        {t("risk_score_caveat_body")}
+        {t("risk_score_caveat_body")}{" "}
+        <Link
+          to="/risk-score/methodology"
+          className="text-primary hover:underline"
+          underline={false}
+        >
+          {t("risk_read_full_methodology")} →
+        </Link>
       </MethodologyCallout>
 
       {/* Compact KPI row */}
