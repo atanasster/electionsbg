@@ -61,7 +61,9 @@ public/                   App-bundle assets that ship through Firebase Hosting:
 data/                     Election + parliament + polls + census JSON consumed
                             by the SPA at runtime. Served from GCS bucket in
                             production; Vite middleware mounts it at root in dev
-state/                    Watcher fingerprint state (gitignored)
+state/                    Watcher fingerprints (`state/watch/`) and per-skill
+                            ingest markers (`state/ingest/`) — committed so
+                            the orchestrator survives multi-day gaps
 raw_data/                 CIK CSV/ZIP exports and other inputs to the pipeline
 docs/plans/               PRDs for in-flight and planned work
 ```
@@ -95,10 +97,16 @@ npm run llms               # rebuild llms.txt and llms-full.txt
 npm run census             # rebuild Census 2021 JSON from raw_data/census_2021/
 npm run polls              # scrape + analyze polls + regenerate analysis narratives
 npm run watch              # Tier-1 watcher: diff fingerprints across upstream sources
+                           #   (also writes data-reports/<date>.md for the orchestrator)
 npm run rollcall:scrape    # ingest new parliament.bg roll-call vote sessions
 npm run derived:rebuild    # recompute MP loyalty / similarity / party cohesion
 npm run bucket:sync        # incremental rsync of data/ to GCS bucket
 npm run bucket:sync:dry    # same, but -n (preview only)
+# Helpers invoked by Claude Code skills (no top-level wrapper):
+#   npx tsx scripts/financing/scrape_index.ts          # Сметна палата annual-reports index
+#   npx tsx scripts/parliament/scrape_mps.ts --all     # parliament.bg MP roster
+#   npx tsx scripts/macro/fetch_eurostat.ts            # Eurostat + WGI + curated tables
+#   npx tsx scripts/stamp-ingest.ts <skill>            # mark a skill ingest as successful
 npm run deploy             # Firebase deploy (production)
 npm run deploy:fast        # Firebase deploy without re-running the data pipeline (SKIP_PREDEPLOY=1)
 npm run staging            # Firebase deploy (staging)
@@ -188,9 +196,11 @@ Pipeline subdirectories of note:
 - `census/` — NSI Census 2021 ingestion
 - `voteFlows/` — transition matrices between consecutive elections
 - `machines_memory/` — SUEMG flash-memory corrections
-- `macro/` — Eurostat + World Bank + curated economic / governance indicators
-- `watch/` — Tier-1 daily watcher (8 upstream sources fingerprint-diffed → daily report issue, see "Continuous data refresh" below)
+- `macro/` — Eurostat + World Bank + curated economic / governance indicators (with absolute-floor + 10% regression check per indicator)
+- `financing/` — Сметна палата annual-reports index scraper (writes `data/financing/index.json`)
+- `watch/` — Tier-1 daily watcher (7 upstream sources fingerprint-diffed → daily markdown report under `data-reports/` + per-source state under `state/watch/`, see "Continuous data refresh" below)
 - `lib/upload.ts` — shared GCS upload helpers (gzipped text via `gsutil cp -Z`, binaries as-is)
+- `lib/ingest-state.ts` — per-skill ingest-marker helpers consumed by `scripts/stamp-ingest.ts` and the `/process-watch-report` orchestrator
 - `fonts/fetch-fonts.mjs` — one-shot fetcher for self-hosted Inter + Fraunces
 - `reports/`, `party_stats/`, `preferences/`, `search/`, `stats/`, `recount/` — analytical and aggregation stages
 - `og/`, `prerender/`, `sitemap/`, `images/`, `llms/` — build-time output (run from `postbuild`)
@@ -206,22 +216,38 @@ Both are written to JSON consumed by the SPA — there are no LLM calls at runti
 
 For contributors using [Claude Code](https://claude.com/claude-code), the repo includes project-specific skills under `.claude/skills/` for the recurring data-refresh workflows:
 
-- `update-connections` — refresh MP declarations + Commerce Registry, rebuild the connections graph, flag suspicious declared values.
-- `update-polls` — scrape new polls from Wikipedia, recompute accuracy, write the per-election narrative.
-- `update-rollcall` — ingest new parliament.bg roll-call vote sessions (triggered when the daily watcher report flags new sessions).
-- `parliament-scrape` — scrape MP photos/bios/seat data from parliament.bg (run after a new parliament is seated).
-- `party-retrospect` — generate per-party campaign retrospects.
+| Skill | What it does |
+|---|---|
+| `process-watch-report` | Orchestrator. Compares `state/watch/*.json` against `state/ingest/*.json` and runs every tier-2 skill whose mapped sources have changed since its last successful ingest. Survives multi-day gaps. |
+| `update-connections` | Refresh MP declarations + Commerce Registry, rebuild the connections graph, flag suspicious declared values. |
+| `update-polls` | Scrape new polls from Wikipedia, recompute accuracy, write the per-election narrative. |
+| `update-rollcall` | Ingest new parliament.bg roll-call vote sessions. Validates against a canary fixture; tracks unresolved MP ids without dropping them. |
+| `update-financing` | Refresh the Сметна палата annual-reports year index (`data/financing/index.json`). |
+| `update-macro` | Refresh `data/macro.json` from Eurostat + World Bank + curated tables. |
+| `parliament-scrape` | Scrape MP photos/bios/seat data from parliament.bg (run after a new parliament is seated). |
+| `party-retrospect` | Generate per-party campaign retrospects. |
+
+Every tier-2 ingest skill has a "Data-integrity contract" section in its `SKILL.md` enumerating fail-loud surfaces (HTTP errors, schema drift, canary mismatch, count-floor / regression breaches) and intentional non-fatal skips. The orchestrator halts on first downstream failure and refuses to stamp `state/ingest/<skill>.json` until a clean run.
 
 These can also be run by hand via the npm scripts and the `scripts/` CLI flags listed above.
 
 ## Continuous data refresh
 
-GitHub Actions workflows under `.github/workflows/`:
+Two-tier model.
 
-| Workflow | Schedule | What it does |
+**Tier 1 — daily watcher.** `npm run watch` (`scripts/watch/index.ts`) fingerprint-diffs 7 upstream sources (parliament.bg MPs + votes, BG Wikipedia polls, register.cacbg.bg declarations, Сметна палата party financing, data.egov.bg Commerce Registry, Eurostat macro) and writes:
+- `data-reports/<YYYY-MM-DD>.md` + `data-reports/latest.md` — human-readable daily snapshot
+- `state/watch/<source>.json` — per-source `lastChanged` + `lastChecked`
+
+Scheduled via a local Claude Desktop routine — runs from the contributor's machine so source-blocking on cloud-runner IPs (data.egov.bg in particular) doesn't apply. CIK is omitted in v1; its endpoint sits behind Cloudflare and needs a Playwright-based fetch.
+
+**Tier 2 — on-demand ingest.** Tell Claude Code `process-watch-report` (or "sync data based on the watcher"). The orchestrator compares `state/watch/*.json` against `state/ingest/<skill>.json` and runs only the skills whose mapped sources have advanced since their last successful ingest. Multi-day gaps are handled correctly — the decision is state-driven, not based on the latest report file alone.
+
+`.github/workflows/` keeps two workflow_dispatch-only jobs for heavier ingest paths that need the bucket service account:
+
+| Workflow | Trigger | What it does |
 |---|---|---|
-| `watch.yml` | daily 06:00 UTC | Tier-1 watcher: diffs fingerprints across 8 upstream sources (parliament.bg MPs + votes, BG Wikipedia polls, register.cacbg.bg, Сметна палата, data.egov.bg, CIK, Eurostat) and posts a labeled report issue. Commits byte-stable state to `state/watch/`. |
-| `ingest-rollcall.yml` | `workflow_dispatch` + `repository_dispatch` | Triggered by the watcher when new vote sessions are detected. Runs `scrape_rollcall.ts`, validates against the canary fixture, uploads to the bucket. |
+| `ingest-rollcall.yml` | `workflow_dispatch` + `repository_dispatch` | Runs `scrape_rollcall.ts` end-to-end (validates against the canary fixture, uploads to the bucket). Same skill as `/update-rollcall` but from CI. |
 | `rebuild-derived.yml` | weekly Sunday 23:00 UTC | Recomputes loyalty / similarity / cohesion from the accumulated session JSONs. |
 | `test.yml` | on PRs | Lint + Playwright. |
 
