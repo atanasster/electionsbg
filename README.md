@@ -16,22 +16,25 @@ The app started as election results visualization and has grown to cover the bro
 - **Demographics** — Census 2021 overlays (age, education, ethnicity) at country/region/municipality level.
 - **Campaign financing** — donors, income, expenses, donor leaderboards, parsed from the Court of Audit's Smetna Palata register.
 - **Vote flows** — transition matrices estimating where each party's votes moved between consecutive elections.
-- **Articles** — long-form editorials and methodology notes (MDX).
+- **Articles** — long-form editorials and methodology notes (plain markdown, BG + EN).
 
 A simulator at `/simulator` lets you redistribute votes and see the resulting seat allocation under Bulgaria's electoral formula.
 
 ## Tech stack
 
 - **React 19** + **TypeScript** (strict), **Vite 6** with SWC
-- **React Router v7** for ~80 routes, all wrapped in a shared `<Layout>`
+- **React Router v7** with every screen lazy-loaded
 - **TanStack React Query v5** for all data fetching (`staleTime: Infinity`, no refetch on focus)
 - **Tailwind CSS** + CSS Modules; **Radix UI** primitives with shadcn-style wrappers in `src/components/ui/`
-- **Recharts** for charts, **D3** for Sankey/vote-flow diagrams, **Leaflet** for maps
+- **Recharts** for charts, **D3** for Sankey/vote-flow diagrams, **Leaflet** for maps (CSS dynamically loaded so it stays off the landing critical path)
 - **TanStack Table** for the data grids
+- **react-markdown** for the long-form articles (plain `.md` with YAML frontmatter, not MDX)
 - **i18next** with English and Bulgarian, preference stored in `localStorage`
-- **MDX** for articles
+- **Self-hosted Inter + Fraunces** under `/public/fonts/` (refreshed via `node scripts/fonts/fetch-fonts.mjs`)
 - **Playwright** for E2E, SEO, performance, and responsive smoke tests
-- **Firebase Hosting** with SPA rewrites in `firebase.json`
+- **Firebase Hosting** for the SPA shell (rewrites in `firebase.json`)
+- **Google Cloud Storage** (`gs://data-electionsbg-com`) for the data layer — fetched at runtime via the `dataUrl()` helper so data updates don't require a Firebase deploy
+- **GitHub Actions** for the daily upstream watcher + ingest jobs (see `.github/workflows/`)
 
 ## Project layout
 
@@ -41,6 +44,7 @@ src/
   data/                   React Query hooks per domain (regions, municipalities,
                             settlements, sections, parties, candidates, parliament,
                             polls, governments, census, articles, voteFlows, ...)
+  data/dataUrl.ts         Resolves data paths to local (dev) or GCS bucket (prod)
   data/ElectionContext    Selected election date — every data hook reads from here
   screens/                Page-level components matching the route structure
   screens/components/     Reusable cross-screen components
@@ -49,67 +53,103 @@ src/
   ux/                     Data tables, tooltips, touch handling, media queries
   locales/                i18n strings (also public/locales/ at runtime)
 
-scripts/                  Offline data pipeline (see "Data pipeline" below)
-public/                   Pre-built JSON consumed by the SPA — see "Public data" below
+scripts/                  Offline data pipeline + watcher + bucket helpers
+                            (see "Data pipeline" below)
+public/                   App-bundle assets that ship through Firebase Hosting:
+                            favicons, fonts, OG cards, sitemaps, llms.txt,
+                            robots.txt, articles markdown + images
+data/                     Election + parliament + polls + census JSON consumed
+                            by the SPA at runtime. Served from GCS bucket in
+                            production; Vite middleware mounts it at root in dev
+state/                    Watcher fingerprint state (gitignored)
 raw_data/                 CIK CSV/ZIP exports and other inputs to the pipeline
+docs/plans/               PRDs for in-flight and planned work
 ```
 
 `@/*` is a tsconfig path alias for `src/*`.
 
 ## Local development
 
-The generated election data under `public/2*/`, `public/sections/`, `public/settlements/`, `public/municipalities/`, and `public/regions/` is **not committed to git** — it is reproduced from `raw_data/` by the pipeline. After cloning:
+The generated election data under `data/2*/`, `data/sections/`, `data/settlements/`, `data/municipalities/`, and `data/regions/` is **not committed to git** — it is reproduced from `raw_data/` by the pipeline. After cloning:
 
 ```bash
 npm install
-npm run prod      # regenerate public/ data from raw_data/ (a few minutes)
+npm run prod      # regenerate data/ from raw_data/ (a few minutes)
 npm run dev       # start the Vite dev server
 ```
 
-`npm run build` and `npm run deploy` run the data pipeline as part of `prebuild`/`predeploy`, so `npm run prod` is only needed manually for local dev or after a `git pull` that touched pipeline code.
+The Vite dev server includes a `serveDataDir` plugin (see `vite.config.ts`) that mounts `/data/` at the root of the dev server, so `fetch("/2026_04_19/national_summary.json")` resolves to `data/2026_04_19/national_summary.json` locally without needing the bucket.
+
+In production the same fetch resolves to `https://storage.googleapis.com/data-electionsbg-com/2026_04_19/national_summary.json` because `VITE_DATA_BASE_URL` is set in `.env.production`. The `dataUrl()` helper in `src/data/` is the single seam — every data fetch goes through it.
 
 ### Other scripts
 
 ```bash
-npm run build         # tsc -b && vite build, then OG images, prerender, llms.txt, image opt
-npm run lint          # ESLint
-npm run format        # ESLint --fix
-npm run preview       # serve the production build locally
-npm test              # Playwright (also: test:ui, test:seo, test:perf, test:desktop, test:mobile)
-npm run sitemap       # regenerate sitemap_*.xml
-npm run llms          # rebuild llms.txt and llms-full.txt
-npm run census        # rebuild Census 2021 JSON from raw_data/census_2021/
-npm run polls         # scrape + analyze polls + regenerate analysis narratives
-npm run deploy        # Firebase deploy (production)
-npm run staging       # Firebase deploy (staging)
+npm run build              # tsc -b && vite build, then OG images, prerender, llms.txt, image opt
+npm run lint               # ESLint
+npm run format             # ESLint --fix
+npm run preview            # serve the production build locally
+npm test                   # Playwright (also: test:ui, test:seo, test:perf, test:desktop, test:mobile)
+npm run sitemap            # regenerate sitemap_*.xml (also auto-runs in postbuild)
+npm run llms               # rebuild llms.txt and llms-full.txt
+npm run census             # rebuild Census 2021 JSON from raw_data/census_2021/
+npm run polls              # scrape + analyze polls + regenerate analysis narratives
+npm run watch              # Tier-1 watcher: diff fingerprints across upstream sources
+npm run rollcall:scrape    # ingest new parliament.bg roll-call vote sessions
+npm run derived:rebuild    # recompute MP loyalty / similarity / party cohesion
+npm run bucket:sync        # incremental rsync of data/ to GCS bucket
+npm run bucket:sync:dry    # same, but -n (preview only)
+npm run deploy             # Firebase deploy (production)
+npm run deploy:fast        # Firebase deploy without re-running the data pipeline (SKIP_PREDEPLOY=1)
+npm run staging            # Firebase deploy (staging)
+npm run staging:fast       # same with SKIP_PREDEPLOY=1
+npm run stats              # bundle size visualizer
 ```
 
 ## Data flow
 
 1. Raw inputs live in `raw_data/` — CIK CSV/ZIP exports per election, NSI Census XLSX, scraped Wikipedia/Smetna-Palata/parliament.bg/Court-of-Audit data.
-2. The pipeline in `scripts/` transforms those into static JSON under `public/YYYY_MM_DD/` (per election) and a handful of cross-cutting directories (`public/parliament/`, `public/polls/`, `public/census/`, `public/governments.json`, etc.).
-3. The SPA fetches those JSON files directly. There is no backend server, no database, and no runtime API — just static files behind Firebase's CDN.
+2. The pipeline in `scripts/` transforms those into static JSON under `data/YYYY_MM_DD/` (per election) and a handful of cross-cutting directories (`data/parliament/`, `data/polls/`, `data/census/`, `data/governments.json`, etc.).
+3. The SPA fetches those JSON files via the `dataUrl()` helper, which prefixes the bucket origin in production. There is no backend server, no database, and no runtime API.
 
-### Public data layout
+### Architecture: Firebase shell + GCS data layer
 
-Top-level files and directories the SPA fetches at runtime:
+The site is split across two origins to decouple data updates from app deploys:
+
+- **Firebase Hosting** (`electionsbg.com`) serves the SPA shell: prerendered HTML, JS bundle, fonts, OG cards, sitemaps, articles markdown, favicons. Anything in `/public/` ships here. SPA rewrites and per-route prerendering live in `firebase.json`.
+- **GCS bucket** (`gs://data-electionsbg-com`) serves the data layer: per-election JSON, parliament/, polls/, census/, declarations/. Anything in `/data/` syncs here via `npm run bucket:sync`.
+
+A scraper writing fresh polls or roll-call data only needs `npm run bucket:sync` — no Firebase deploy. App code changes still need a deploy because the prerendered HTML (~445k files) ships through Firebase. Both bucket and Firebase are gzipped; the bucket has CORS open to all SPA origins.
+
+### Data layout
+
+Files and directories the SPA fetches at runtime — all under `/data/` locally and `gs://data-electionsbg-com/` in production:
 
 | Path | Contents |
 |---|---|
 | `YYYY_MM_DD/` | Per-election results, reports, party assessments, candidate data, financing |
-| `parliament/` | MP index, profiles, declarations, business-connections graph, companies index |
+| `parliament/` | MP index, profiles, declarations, business-connections graph, companies index, cached MP photos (.webp), roll-call sessions + derived metrics |
 | `polls/` | Polls, agencies, accuracy metrics, narrative analyses |
 | `census/` | Per-region and per-municipality Census 2021 slices |
-| `articles/` | MDX article content |
-| `og/` | Pre-generated Open Graph share images |
-| `regions/` `municipalities/` `settlements/` `sections/` | Geography-keyed per-location detail |
+| `regions/` `municipalities/` `settlements/` `sections/` | Geography-keyed per-location detail (gitignored — regenerated by `npm run prod`) |
+| `transitions/` | Vote-flow transition matrices between consecutive elections |
+| `maps/` | Per-region/municipality GeoJSON slices |
 | `canonical_parties.json` | Master party register (name variants, history, colors) |
 | `governments.json` | Government coalitions and ministers by parliamentary term |
 | `parliament_groups.json` | Parliamentary group (faction) memberships |
-| `macro.json` | National aggregates (turnout, invalid %, paper vs machine, SUEMG flag counts) |
+| `macro.json` | Macroeconomic + governance indicators for the cabinet timeline (Eurostat GDP/HICP/unemployment, World Bank WGI, Transparency International CPI, Eurobarometer trust, EU funds) |
 | `census_2021.json`, `census_2021_settlements.json` | Census aggregates |
 | `problem_sections_stats.json` | Risk-neighborhood summary stats |
-| `llms.txt`, `llms-full.txt` | LLM-readable corpus for AI tools |
+
+Files that stay on Firebase Hosting (under `/public/`):
+
+| Path | Contents |
+|---|---|
+| `articles/` | Long-form `.md` content + image attachments (rendered by react-markdown) |
+| `og/` | Pre-generated Open Graph share images |
+| `fonts/` | Self-hosted Inter + Fraunces .woff2 |
+| `sitemap_*.xml`, `robots.txt`, `llms.txt`, `llms-full.txt` | Crawler artifacts (must be at site origin) |
+| favicons, app icons, `site.webmanifest` | PWA + browser chrome |
 
 ## Data pipeline (`scripts/`)
 
@@ -138,7 +178,9 @@ The CLI entry point is `scripts/main.ts` (cmd-ts). Flags select which stages to 
 Pipeline subdirectories of note:
 
 - `parsers/` — CIK results, party canonicalization, candidate dedup
-- `parliament/` — scraper for MP photos, bios, term history from parliament.bg
+- `parliament/` — scraper for MP photos (re-encoded to .webp via sharp), bios, term history from parliament.bg
+- `parliament/rollcall/` + `scrape_rollcall.ts` — roll-call vote ingest (per-session CSVs from stenogram attachments → `data/parliament/votes/sessions/<date>.json`)
+- `parliament/derived/` — MP loyalty, MP-MP cosine similarity, per-party cohesion (recomputed weekly from session JSONs)
 - `declarations/` — Court-of-Audit property/interest filings + Commerce Registry → MP↔company graph, rankings, per-MP 1-hop subgraphs
 - `smetna_palata/` — campaign financing parsing
 - `polls/` — Wikipedia scrape + accuracy analysis + narrative generation
@@ -146,7 +188,11 @@ Pipeline subdirectories of note:
 - `census/` — NSI Census 2021 ingestion
 - `voteFlows/` — transition matrices between consecutive elections
 - `machines_memory/` — SUEMG flash-memory corrections
-- `reports/`, `party_stats/`, `preferences/`, `search/`, `stats/`, `recount/`, `macro/` — analytical and aggregation stages
+- `macro/` — Eurostat + World Bank + curated economic / governance indicators
+- `watch/` — Tier-1 daily watcher (8 upstream sources fingerprint-diffed → daily report issue, see "Continuous data refresh" below)
+- `lib/upload.ts` — shared GCS upload helpers (gzipped text via `gsutil cp -Z`, binaries as-is)
+- `fonts/fetch-fonts.mjs` — one-shot fetcher for self-hosted Inter + Fraunces
+- `reports/`, `party_stats/`, `preferences/`, `search/`, `stats/`, `recount/` — analytical and aggregation stages
 - `og/`, `prerender/`, `sitemap/`, `images/`, `llms/` — build-time output (run from `postbuild`)
 
 Some narrative content is generated with LLMs:
@@ -162,34 +208,67 @@ For contributors using [Claude Code](https://claude.com/claude-code), the repo i
 
 - `update-connections` — refresh MP declarations + Commerce Registry, rebuild the connections graph, flag suspicious declared values.
 - `update-polls` — scrape new polls from Wikipedia, recompute accuracy, write the per-election narrative.
+- `update-rollcall` — ingest new parliament.bg roll-call vote sessions (triggered when the daily watcher report flags new sessions).
 - `parliament-scrape` — scrape MP photos/bios/seat data from parliament.bg (run after a new parliament is seated).
 - `party-retrospect` — generate per-party campaign retrospects.
 
 These can also be run by hand via the npm scripts and the `scripts/` CLI flags listed above.
 
+## Continuous data refresh
+
+GitHub Actions workflows under `.github/workflows/`:
+
+| Workflow | Schedule | What it does |
+|---|---|---|
+| `watch.yml` | daily 06:00 UTC | Tier-1 watcher: diffs fingerprints across 8 upstream sources (parliament.bg MPs + votes, BG Wikipedia polls, register.cacbg.bg, Сметна палата, data.egov.bg, CIK, Eurostat) and posts a labeled report issue. Commits byte-stable state to `state/watch/`. |
+| `ingest-rollcall.yml` | `workflow_dispatch` + `repository_dispatch` | Triggered by the watcher when new vote sessions are detected. Runs `scrape_rollcall.ts`, validates against the canary fixture, uploads to the bucket. |
+| `rebuild-derived.yml` | weekly Sunday 23:00 UTC | Recomputes loyalty / similarity / cohesion from the accumulated session JSONs. |
+| `test.yml` | on PRs | Lint + Playwright. |
+
+See `docs/plans/data-watch-ingest-pipeline.md` for the full spec.
+
 ## Environment variables
 
-`.env.local`:
+`.env.local` (gitignored — secrets):
 
 ```
 ANTHROPIC_API_KEY=...   # only for npm run polls:gen-analysis
 GEMINI_API_KEY=...      # only for npm run party:gen-retrospect
-                        # also injected into the frontend bundle as process.env.API_KEY
-                        # via vite.config.ts — used by the in-app AI helpers
 ```
 
-Both keys are optional unless you're regenerating the AI-written narratives.
+Both keys are optional unless you're regenerating the AI-written narratives. (`vite.config.ts` historically injected `GEMINI_API_KEY` into the frontend bundle as `process.env.API_KEY`, but no `src/` code currently consumes it.)
+
+`.env.production` (committed — public bucket URL):
+
+```
+VITE_DATA_BASE_URL=https://storage.googleapis.com/data-electionsbg-com
+```
+
+Empty in dev so the Vite middleware serves data from local `/data/`. The `dataUrl()` helper handles both cases transparently.
 
 ## Deployment
 
-Firebase Hosting, two projects:
+The SPA shell deploys to Firebase Hosting; the data layer syncs to the GCS bucket.
+
+**Firebase Hosting (SPA shell):**
 
 - `npm run deploy` → production (`elections-bg`)
 - `npm run staging` → staging (`electionsbg-staging`)
+- `npm run deploy:fast` / `npm run staging:fast` → skip the predeploy data pipeline (`SKIP_PREDEPLOY=1`)
 
-Both run the full data pipeline as `predeploy`. `deploy:fast` skips it (`SKIP_PREDEPLOY=1`).
+Both run the full data pipeline as `predeploy` unless skipped. SPA rewrites and per-route prerendering are configured in `firebase.json`; prerendered HTML (~445k files: per-candidate, per-section, per-settlement) is generated by `scripts/prerender/` during `postbuild` so crawlers see populated `<meta>` tags.
 
-The SPA is fully static. SPA rewrites and per-route prerendering are configured in `firebase.json`; prerendered HTML is generated by `scripts/prerender/` during `postbuild` so crawlers see populated `<meta>` tags.
+**GCS bucket (data layer):**
+
+- `npm run bucket:sync` → incremental rsync of `data/` (text gzipped via `-j json,svg,xml,txt,html,css,md`, binaries as-is)
+- `npm run bucket:sync:dry` → preview without uploading
+
+After most data updates (new polls, scraped roll-calls, refreshed declarations) only the bucket needs to update — no Firebase deploy. Deploy time for SPA changes alone is ~20 min; data-only updates are seconds.
+
+Bucket conventions:
+- Cache-Control: `public, max-age=3600, stale-while-revalidate=604800`
+- Content-Encoding: `gzip` for text via `gsutil cp -Z` / `rsync -j`
+- CORS: open `GET, HEAD` from all SPA origins (see `scripts/gcs-cors.json`)
 
 ## Data sources
 
@@ -237,4 +316,9 @@ The SPA is fully static. SPA rewrites and per-route prerendering are configured 
 
 ## Contributing
 
-Issues and PRs welcome. There is no test suite for the data pipeline itself — verify changes by running `npm run prod` locally and diffing the resulting JSON against `git`.
+Issues and PRs welcome.
+
+- For SPA changes: `npm run lint && npm run build` then `npm test` (Playwright). The lint check is part of `predeploy`.
+- For data-pipeline changes: run `npm run prod` locally and diff the resulting JSON against `git`. The roll-call ingest has a canary regression fixture at `tests/fixtures/parliament/votes/canary.json` — `npm run rollcall:scrape` validates against it and fails loud if the parser drifts.
+- For new upstream sources: add a module under `scripts/watch/sources/` following the existing pattern, then a sibling `/update-<source>` skill under `.claude/skills/` for the ingest. See `docs/plans/data-watch-ingest-pipeline.md` for the full spec.
+- Open PRDs and roadmap items live under `docs/plans/`.
