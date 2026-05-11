@@ -237,6 +237,11 @@ const RiskScoreMethodologyScreen = lazy(() =>
     default: m.RiskScoreMethodologyScreen,
   })),
 );
+const RiskAnalysisScreen = lazy(() =>
+  import("./screens/RiskAnalysisScreen").then((m) => ({
+    default: m.RiskAnalysisScreen,
+  })),
+);
 const SectionsWastedVote = lazy(() =>
   import("./screens/reports/sections/SectionsWastedVote").then((m) => ({
     default: m.SectionsWastedVote,
@@ -1243,6 +1248,14 @@ export const AuthRoutes = () => {
           element={
             <LayoutScreen>
               <BenfordDetailScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="risk-analysis"
+          element={
+            <LayoutScreen>
+              <RiskAnalysisScreen />
             </LayoutScreen>
           }
         />

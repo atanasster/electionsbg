@@ -45,6 +45,9 @@ import { TopFinancingTile } from "./TopFinancingTile";
 import { FlashMemoryTile } from "./FlashMemoryTile";
 import { RecountTile } from "./RecountTile";
 import { SuspiciousSectionsTile } from "./SuspiciousSectionsTile";
+import { BenfordTile } from "./BenfordTile";
+import { RiskScoreTile } from "./RiskScoreTile";
+import { CompositeIndexRibbon } from "@/screens/components/riskAnalysis/CompositeIndexRibbon";
 import { PollsTile } from "./PollsTile";
 const AccuracyTrendsTile = lazy(() =>
   import("./AccuracyTrendsTile").then((m) => ({
@@ -197,8 +200,13 @@ export const DashboardCards: FC = () => {
           icon={AlertTriangle}
           articleTopic="anomalies"
         >
+          <CompositeIndexRibbon />
           {hasFlash ? <FlashMemoryTile parties={data.parties} /> : null}
           <SuspiciousSectionsTile parties={data.parties} />
+          <div className="grid gap-3 grid-cols-1 lg:grid-cols-2">
+            <RiskScoreTile />
+            <BenfordTile />
+          </div>
           {hasRecount ? <RecountTile parties={data.parties} /> : null}
         </DashboardSection>
 
