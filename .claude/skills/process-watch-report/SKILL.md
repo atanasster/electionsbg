@@ -1,6 +1,6 @@
 ---
 name: process-watch-report
-description: Read the latest daily watch report at data-reports/latest.md (or a specific date) and invoke the matching tier-2 ingest skill for every upstream source flagged as Changed. Use when the user says "process today's watch report", "sync data based on the watcher", "refresh everything that changed", "run the right skills for what changed", or otherwise asks to act on what the daily watcher found.
+description: Compare state/watch/* (what the daily watcher discovered) against state/ingest/* (what each downstream skill last ingested) and invoke every skill whose mapped sources have changed since its last successful run. Use when the user says "process today's watch report", "sync data based on the watcher", "refresh everything that changed", "run the right skills for what changed", or otherwise asks to act on what the daily watcher found. Robust to multi-day gaps between orchestrator runs — never misses an intermediate-day change.
 allowed-tools:
   - Read
   - Bash
@@ -9,15 +9,17 @@ allowed-tools:
 
 # Process watch report (orchestrator skill)
 
-The daily watcher in `scripts/watch/` produces a markdown report under `data-reports/` listing which upstream sources changed since the last run. This skill is the bridge from that report to the tier-2 ingest skills — read the report, identify which sources flipped, invoke the matching skill for each.
+The daily watcher in `scripts/watch/` writes per-source state to `state/watch/<source>.json` (with a `lastChanged` ISO timestamp) and also produces a human-readable daily report under `data-reports/`. This orchestrator decides what to ingest by comparing watcher state against per-skill ingest markers under `state/ingest/<skill>.json` (with a `lastSuccessfulIngest` timestamp).
 
-Use this instead of asking the user to remember which skill maps to which source.
+Why state-driven, not report-driven? The watcher's `## Changed` section in any one report is relative to the previous watcher run, not the last successful ingest. If a source changed on Monday but the orchestrator wasn't run until Wednesday, Wednesday's report only lists Wednesday's changes — Monday's would be silently missed. State files are the durable truth: `state/watch/<source>.json.lastChanged` is "when did this source last actually move?" and `state/ingest/<skill>.json.lastSuccessfulIngest` is "when did we last ingest that move?". The comparison is invariant under any number of skipped days.
+
+The human-readable reports under `data-reports/` are still useful for narration in the final summary — but they're no longer the decision input.
 
 ## Inputs
 
-By default, read `data-reports/latest.md` (the file the watcher overwrites on each run). If the user names a date — e.g. "process the 2026-05-11 report" — read `data-reports/2026-05-11.md` instead.
-
-If the file doesn't exist, suggest running `npm run watch` first.
+- `state/watch/<source>.json` for each watcher source — the truth about what's changed when. Always exists once the watcher has run at least once.
+- `state/ingest/<skill>.json` for each tier-2 skill that has run successfully under this orchestrator. May be missing on first run after the state-driven migration — see "Bootstrap" below.
+- `data-reports/<YYYY-MM-DD>.md` reports — read for narration in the final summary, not for decision-making.
 
 ## Source → skill mapping
 
@@ -36,26 +38,85 @@ The "Changed" section of the report contains a bulleted list. Each bullet's labe
 
 Some sources map to the same skill (`update-connections` handles both declarations and Commerce Registry); dedupe so it only runs once.
 
+## Source → skill mapping (canonical)
+
+Each watcher source maps to one downstream skill. Multiple sources can map to the same skill (deduped at queue-build time):
+
+| Watcher source id (state/watch/&lt;id&gt;.json) | Mapped skill |
+|---|---|
+| `parliament_votes` | `update-rollcall` |
+| `parliament_mps` | `parliament-scrape` |
+| `wiki_polls` | `update-polls` |
+| `cacbg_declarations` | `update-connections` |
+| `egov_commerce` | `update-connections` |
+| `smetna_palata` | `update-financing` |
+| `eurostat` | `update-macro` |
+| `cik` (if re-enabled) | _no skill yet — surface as TODO_ |
+
 ## Procedure
 
-1. **Read the report.** Default to `data-reports/latest.md`. If the user provided a date, use that file instead. If the file is missing, tell the user to run `npm run watch` first and stop.
+1. **Enumerate state.** Inspect both directories via Bash. Each watcher source has `lastChanged`; each ingested skill has `lastSuccessfulIngest`.
 
-2. **Identify changes.** Parse the markdown's `## Changed` section. The body is either `_(no changes — all upstreams stable)_` (do nothing, tell the user the report is clean) or a list of bullets, each starting with `- **<source label>**:` followed by the change detail.
+   ```bash
+   # Watcher state — one per source
+   for f in state/watch/*.json; do
+     jq -r --arg name "$f" '"\($name) lastChanged=\(.lastChanged // "?")"' "$f"
+   done
 
-3. **Build the deduped skill list.** Walk each changed source, look up the mapping table above, collect the unique target skills in the order they first appeared. Skip sources with no skill mapping but list them at the end as "no automated handler — manual investigation needed".
+   # Ingest markers — one per skill (may be empty on first run)
+   for f in state/ingest/*.json; do
+     [ "$f" = "state/ingest/.gitkeep" ] && continue
+     jq -r --arg name "$f" '"\($name) skill=\(.skill) lastSuccessfulIngest=\(.lastSuccessfulIngest)"' "$f"
+   done
+   ```
 
-4. **Confirm with the user before doing destructive work.** Some of these skills are heavy (multi-minute scrapes, bucket uploads, git commits). Print the plan first:
+2. **Build the work queue.** For each watcher source:
+   - Look up its mapped skill in the table above. If no mapping, log it as "skipped — no handler" and move on.
+   - Read the mapped skill's `state/ingest/<skill>.json`:
+     - **Missing marker (skill never stamped)** → queue the skill AND flag "first-run bootstrap"; see "Bootstrap" below before invoking.
+     - **`lastChanged > lastSuccessfulIngest`** → queue the skill.
+     - **`lastChanged <= lastSuccessfulIngest`** → skip (already ingested this change).
 
-   > "Today's report has 2 changed sources mapping to 2 skills:
-   > 1. `update-macro` — Eurostat new releases (~30s)
-   > 2. `update-financing` — Сметна палата party-financing index (~10s)
-   > Proceed?"
+   Dedupe the queue: if `cacbg_declarations` and `egov_commerce` both flag `update-connections`, queue it once. Preserve the watcher-source-order so the user sees a stable plan.
 
-   Wait for user confirmation (or proceed automatically if they already said "go" / "run all" / "yes proceed").
+3. **Confirm the plan with the user before doing destructive work.** Print which sources triggered which skills and the estimated work. Example:
 
-5. **Invoke each skill in sequence.** Use the `Skill` tool, one skill at a time. Don't parallelise — the downstream skills can conflict on `data/` writes. After each skill returns, capture the actual stdout for the final summary (counts, file paths, status). Don't paraphrase as "done" — extract specifics.
+   > Plan for orchestrator run:
+   > - `update-macro` ← `eurostat` (changed 2026-05-09, last ingest 2026-05-07) — ~30s
+   > - `update-financing` ← `smetna_palata` (changed 2026-05-11, never ingested) — first run, ~10s
+   > Proceed?
 
-   Before the next invocation, run `git diff --stat data/` (or the specific subdir the skill writes to) to capture what physically changed on disk vs. what the skill claims. The truth is the diff; the skill output is the narration.
+   Wait for user confirmation (or proceed automatically if they already said "go" / "run all" / "yes proceed"). If the queue is empty, print "Nothing to ingest — every changed source has already been processed since its last change" and stop.
+
+4. **Invoke each skill in sequence.** Use the `Skill` tool, one skill at a time. Don't parallelise — they can conflict on `data/` writes. Capture each invocation's actual stdout (counts, file paths, status) for the final summary. Do NOT paraphrase as "done" — quote specifics.
+
+   Before the next invocation, run `git diff --stat data/` to capture what physically changed on disk vs. what the skill claims. The diff is truth; skill output is narration.
+
+5. **Stamp success.** After each skill completes without error, run:
+
+   ```bash
+   npx tsx scripts/stamp-ingest.ts <skill-name> --summary "<one-line recap>"
+   ```
+
+   This writes `state/ingest/<skill>.json` with `lastSuccessfulIngest = now`. If the skill threw, do NOT stamp — the orchestrator's halt-on-error rule below applies.
+
+   The summary should reflect what was actually ingested (e.g. `"2 new sessions through 2026-05-10"` for rollcall, `"15 years tracked, 0 net change"` for financing). It lives in the marker file and shows up in `git log -p state/ingest/`.
+
+## Bootstrap (first orchestrator run after this migration)
+
+When `state/ingest/<skill>.json` is missing for a queued skill, you have two paths — ASK the user which:
+
+**(a) Treat current state as the baseline (recommended for established repos)**
+Stamp the marker to `now` without actually running the skill. This says "everything up to this moment is considered ingested; future changes will trigger ingest normally". Use when the user knows the existing data is up to date (typical case — the repo has already had ingests via earlier workflows).
+
+```bash
+npx tsx scripts/stamp-ingest.ts <skill-name> --summary "bootstrap: marker seeded, no run"
+```
+
+**(b) Actually run the skill (true backfill)**
+For a clean clone, an explicit backfill, or when the user is unsure whether existing data is current. The skill runs, ingests anything new, then the marker is stamped on success.
+
+Default to asking unless the user said "bootstrap markers" or "run all" or similar upfront.
 
 6. **Final summary (REQUIRED).** Once all skills have run, print a structured per-skill recap. This is the deliverable — never collapse it into "all done" or a single paragraph. Format:
 
@@ -107,45 +168,52 @@ Some sources map to the same skill (`update-connections` handles both declaratio
 
 ## Examples
 
-### Clean report (no changes)
+### Nothing to ingest
 
-Report's Changed section: `_(no changes — all upstreams stable)_`.
+Every watcher source's `lastChanged` is older than or equal to its mapped skill's `lastSuccessfulIngest`. Response:
 
-Response: "Today's watch report shows no upstream changes (all 7 sources stable). Nothing to ingest."
+> Nothing to ingest — all 7 sources are at or behind their last successful ingest. Watcher last ran <UTC>.
 
 ### Single change
 
-Report:
 ```
-## Changed
-- **BG Wikipedia polls (2026 cycle)**: +3 rows since 2026-05-04 (110 → 113)
+state/watch/wiki_polls.json:    lastChanged = 2026-05-11T01:30:00Z
+state/ingest/update-polls.json: lastSuccessfulIngest = 2026-05-04T01:30:00Z
 ```
 
-Plan: invoke `update-polls`.
+Queue: `update-polls`.
 
 ### Multiple changes, dedupe
 
-Report:
 ```
-## Changed
-- **Сметна палата declarations registry**: index hash <new>
-- **data.egov.bg Commerce Registry (Търговски регистър)**: 1 new resource on top: …
-- **Eurostat macro (BG): 13 datasets**: new release · sts_inpr_q …
+state/watch/cacbg_declarations.json:  lastChanged = 2026-05-10T...
+state/watch/egov_commerce.json:       lastChanged = 2026-05-11T...
+state/watch/eurostat.json:            lastChanged = 2026-05-09T...
+state/ingest/update-connections.json: lastSuccessfulIngest = 2026-05-01T...
+state/ingest/update-macro.json:       lastSuccessfulIngest = 2026-05-05T...
 ```
 
-Plan: 2 skills (declarations + commerce both map to update-connections, dedupe to one invocation):
+Queue (deduped, declarations + commerce both → update-connections):
 1. `update-connections`
 2. `update-macro`
 
+### Multi-day gap (the case option B fixes)
+
+You haven't run the orchestrator for 4 days. During that window:
+- Tuesday: `eurostat` flipped → `eurostat.lastChanged = Tue`
+- Wednesday: `wiki_polls` flipped → `wiki_polls.lastChanged = Wed`
+- Friday: `parliament_votes` flipped → `parliament_votes.lastChanged = Fri`
+
+Each downstream skill's `lastSuccessfulIngest` is still Monday's value. The orchestrator queues all three (`update-macro`, `update-polls`, `update-rollcall`) — none are missed, even though the latest report file only mentions Friday's change.
+
 ### Unmapped source
 
-Report:
 ```
-## Changed
-- **CIK news & decisions**: 4 new news items, latest: …
+state/watch/cik.json: lastChanged = ... (changed)
+mapping: no skill yet
 ```
 
-(CIK is currently in the no-handler bucket.)
+Surface in the final summary's `## Skipped` section: "CIK news & decisions changed but has no automated handler — manual investigation needed."
 
 Response: "1 changed source but no automated handler — `CIK news & decisions`. Manual investigation needed. Nothing to invoke."
 
@@ -214,14 +282,19 @@ This orchestrator MUST NOT claim success it didn't earn. Specifically:
 
 5. **Surface `not_implemented` separately.** Some skills (like `/update-financing`'s subsidii section) intentionally report `not_implemented` for parts they can't yet handle. Pass that through to the user verbatim — don't fold it into "success".
 
-6. **Errors section of the report.** The watcher's own `## Errors` section lists upstream-fetch failures from the previous day. Surface those to the user but **do not auto-retry them via this orchestrator** — the watcher will re-probe them on its next run. Manual investigation only.
+6. **Errors section of the latest report.** The watcher's own `## Errors` section in the most recent report file lists upstream-fetch failures. Surface those to the user but **do not auto-retry them via this orchestrator** — the watcher will re-probe them on its next run. Manual investigation only.
+
+7. **Only stamp `state/ingest/<skill>.json` on success.** If the skill threw, do NOT stamp. The next orchestrator run will re-detect the source as still-needing-ingest and re-queue the skill. This is the self-healing property — a transient failure isn't masked.
+
+8. **Manual skill invocations don't stamp.** If the user runs `/update-rollcall` directly (outside the orchestrator), no marker is written. The orchestrator's next run will see `source.lastChanged > skill.lastSuccessfulIngest` and re-queue the skill. Since every tier-2 skill is idempotent on no-op input (rollcall walker finds no new sessions, financing scraper writes the same 15 years, etc.), this is wasteful at most — never wrong. The user can manually stamp after a direct run: `npx tsx scripts/stamp-ingest.ts <skill-name>`.
 
 ## What this skill does NOT do
 
-- **Does not re-run the watcher.** The report is the input. If you want a fresh fingerprint, run `npm run watch` first.
+- **Does not re-run the watcher.** State files are the input. If you want fresh fingerprints, run `npm run watch` first.
 - **Does not commit or push.** Each downstream skill handles its own commit policy. After all skills finish, the user decides whether to `git push`.
-- **Does not act on Unchanged or Errors sections.** Only `## Changed` triggers ingest. Errors are surfaced to the user but not auto-retried.
+- **Does not auto-retry the watcher's Errors section.** Surfaced to the user only.
 - **Does not silently skip failed skills.** A downstream failure halts the orchestrator until the user decides how to proceed (see Data-integrity contract above).
+- **Does not skip a queued skill just because the latest report doesn't mention it.** The decision is state-driven (`lastChanged` vs `lastSuccessfulIngest`), not report-driven. Multi-day gaps still get fully ingested.
 
 ## Quick command reference
 
