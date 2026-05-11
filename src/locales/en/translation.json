@@ -113,6 +113,7 @@
   "risk_score_description": "Composite 0–100 score per polling section, combining six independent signals already published as standalone reports: recount delta, flash-memory mismatch, invalid-ballot share, additional voters, single-party concentration, and statistical outlier vs. settlement peers.",
   "risk_score_caveat_title": "This is a screening tool, not a fraud determination",
   "risk_score_caveat_body": "A high score means the section is statistically unusual along multiple dimensions and warrants a closer look — that is all. Each underlying signal has innocent explanations (small section size, demographic homogeneity, late voter registration drives, recount procedure correctly catching errors). Always check the per-section decomposition before drawing conclusions.",
+  "risk_score_rule": "screening score ≥",
   "risk_band_low": "Low",
   "risk_band_elevated": "Elevated",
   "risk_band_high": "High",
@@ -1177,5 +1178,9 @@
   "filter_by_name": "Filter by name",
   "showing": "Showing",
   "of": "of",
-  "census_settlement_dimensions_note": "Ethnicity, religion and education are only published at the municipality level by NSI; settlements show population, age and sex."
+  "census_settlement_dimensions_note": "Ethnicity, religion and education are only published at the municipality level by NSI; settlements show population, age and sex.",
+  "regional_tile_heading": "Regional indicators",
+  "regional_tile_hint": "Latest annual values per oblast (Eurostat NUTS 3) with year-over-year change.",
+  "regional_sofia_oblast_footnote": "Eurostat publishes Sofia city as one NUTS 3 entity — the same value applies to all three Sofia electoral districts.",
+  "regional_source_attribution": "Source: Eurostat."
 }

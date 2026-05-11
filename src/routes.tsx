@@ -232,11 +232,6 @@ const RiskScoreScreen = lazy(() =>
     default: m.RiskScoreScreen,
   })),
 );
-const RiskScoreDetailScreen = lazy(() =>
-  import("./screens/RiskScoreScreen").then((m) => ({
-    default: m.RiskScoreDetailScreen,
-  })),
-);
 const SectionsWastedVote = lazy(() =>
   import("./screens/reports/sections/SectionsWastedVote").then((m) => ({
     default: m.SectionsWastedVote,
@@ -1238,14 +1233,6 @@ export const AuthRoutes = () => {
           element={
             <LayoutScreen>
               <RiskScoreScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="risk-score/:sectionId"
-          element={
-            <LayoutScreen>
-              <RiskScoreDetailScreen />
             </LayoutScreen>
           }
         />
