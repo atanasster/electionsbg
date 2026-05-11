@@ -28,7 +28,7 @@ export const SectionRiskTile: FC<{ sectionCode: string }> = ({
           <Hint text={t("risk_score_description")} underline={false}>
             <div className="flex items-center gap-2 text-muted-foreground text-xs font-medium uppercase tracking-wide">
               <ShieldAlert className="h-4 w-4" />
-              <span>{t("risk_score_title")}</span>
+              <span>{t("risk_score_section_title")}</span>
             </div>
           </Hint>
           <RiskBandBadge
