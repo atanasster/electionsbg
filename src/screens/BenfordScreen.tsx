@@ -25,6 +25,24 @@ const partyLabel = (
 ) =>
   isBg ? p.nickName || p.name || "?" : p.nickName || p.name_en || p.name || "?";
 
+// Plain-language read of the MAD score, calibrated to actual BG section-vote
+// distributions (not Nigrini's accounting thresholds, which are too strict
+// for range-bounded electoral data). Three buckets:
+//   close     < 0.04 — distribution tracks Benford
+//   moderate  0.04–0.08 — some deviation, common for parties
+//   strong    ≥ 0.08 — pronounced deviation, usually from small or
+//                       range-bounded per-section counts (NOT fraud)
+type MadBucket = "close" | "moderate" | "strong";
+const madBucket = (mad: number): MadBucket =>
+  mad < 0.04 ? "close" : mad < 0.08 ? "moderate" : "strong";
+
+const bucketColor = (b: MadBucket): string =>
+  b === "close"
+    ? "bg-emerald-500"
+    : b === "moderate"
+      ? "bg-amber-500"
+      : "bg-orange-600";
+
 // Overview — small multiples grid, one mini-chart per party. Defaults to
 // 2BL because that's the Mebane-recommended applicable test for vote
 // counts; the user can switch to 1BL.
@@ -102,53 +120,64 @@ export const BenfordScreen = () => {
       </div>
 
       {/* Small-multiples grid — sorted by partyNum (NOT deviation) so the
-          ordering doesn't imply a ranking. */}
+          ordering doesn't imply a ranking. Filter out parties without
+          test data for the current mode rather than showing empty tiles. */}
       <div className={`grid gap-3 ${PARTIES_PER_ROW}`}>
-        {entries.map((p) => {
-          const test = activeMode === "first" ? p.firstDigit : p.secondDigit;
-          return (
-            <Link
-              key={p.partyNum}
-              to={`/benford/${p.partyNum}`}
-              className="block rounded-xl border bg-card p-3 hover:bg-muted/30 transition-colors"
-            >
-              <div className="flex items-center justify-between gap-2 mb-1">
-                <div className="flex items-center gap-2 min-w-0">
-                  <span
-                    className="inline-block w-2.5 h-2.5 rounded-full shrink-0"
-                    style={{ backgroundColor: p.color || "#888" }}
-                  />
-                  <span className="truncate text-xs font-semibold">
-                    {partyLabel(p, isBg)}
+        {entries
+          .map((p) => ({
+            p,
+            test: activeMode === "first" ? p.firstDigit : p.secondDigit,
+          }))
+          .filter((x) => x.test)
+          .map(({ p, test }) => {
+            const bucket = madBucket(test!.mad);
+            return (
+              <Link
+                key={p.partyNum}
+                to={`/benford/${p.partyNum}`}
+                className="block rounded-xl border bg-card p-3 hover:bg-muted/30 transition-colors"
+              >
+                <div className="flex items-center justify-between gap-2 mb-1">
+                  <div className="flex items-center gap-2 min-w-0">
+                    <span
+                      className="inline-block w-2.5 h-2.5 rounded-full shrink-0"
+                      style={{ backgroundColor: p.color || "#888" }}
+                    />
+                    <span className="truncate text-xs font-semibold">
+                      {partyLabel(p, isBg)}
+                    </span>
+                  </div>
+                  <span className="text-[10px] text-muted-foreground tabular-nums">
+                    n={formatThousands(test!.n)}
                   </span>
                 </div>
-                <span className="text-[10px] text-muted-foreground tabular-nums">
-                  {test ? `n=${formatThousands(test.n)}` : "—"}
-                </span>
-              </div>
-              <BenfordChart
-                test={test}
-                mode={activeMode}
-                color={p.color}
-                small
-              />
-              <div className="mt-1 grid grid-cols-2 gap-x-2 text-[10px] text-muted-foreground tabular-nums">
-                <span>
-                  MAD:{" "}
-                  <span className="font-mono">
-                    {test ? test.mad.toFixed(4) : "—"}
+                <BenfordChart
+                  test={test}
+                  mode={activeMode}
+                  color={p.color}
+                  small
+                />
+                <div className="mt-1 grid grid-cols-2 gap-x-2 text-[10px] text-muted-foreground tabular-nums">
+                  <span>
+                    MAD:{" "}
+                    <span className="font-mono">{test!.mad.toFixed(4)}</span>
                   </span>
-                </span>
-                <span className="text-right">
-                  χ²:{" "}
-                  <span className="font-mono">
-                    {test ? test.chi2.toFixed(0) : "—"}
+                  <span className="text-right">
+                    χ²:{" "}
+                    <span className="font-mono">{test!.chi2.toFixed(0)}</span>
                   </span>
-                </span>
-              </div>
-            </Link>
-          );
-        })}
+                </div>
+                {/* Plain-language interpretation footer. Colored dot
+                    cues the bucket; the label avoids any fraud framing. */}
+                <div className="mt-1.5 pt-1.5 border-t flex items-start gap-1.5 text-[10px] text-muted-foreground leading-snug">
+                  <span
+                    className={`inline-block w-1.5 h-1.5 rounded-full shrink-0 mt-1 ${bucketColor(bucket)}`}
+                  />
+                  <span>{t(`benford_bucket_${bucket}`)}</span>
+                </div>
+              </Link>
+            );
+          })}
       </div>
 
       <p className="text-[11px] text-muted-foreground mt-6">
@@ -310,7 +339,17 @@ export const BenfordDetailScreen = () => {
         )}
       </StatCard>
 
-      <p className="text-xs text-muted-foreground leading-relaxed mt-4">
+      {test && (
+        <div className="mt-4 flex items-start gap-2 text-sm">
+          <span
+            className={`inline-block w-2 h-2 rounded-full shrink-0 mt-1.5 ${bucketColor(madBucket(test.mad))}`}
+          />
+          <span className="font-medium">
+            {t(`benford_bucket_${madBucket(test.mad)}`)}
+          </span>
+        </div>
+      )}
+      <p className="text-xs text-muted-foreground leading-relaxed mt-3">
         {t("benford_interpretation")}
       </p>
     </div>
