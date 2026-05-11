@@ -39,9 +39,17 @@ export const useParliamentGroups = () => {
     staleTime: Infinity,
   });
 
+  // parliament.bg uses long names for some groups (e.g. "ПГ на Продължаваме
+  // Промяната") and short forms for others (e.g. "ПГ ДПС"). Index every alias
+  // a group might be referenced by — uppercased so case mismatches between the
+  // override file and parliament.bg's casing don't cause a miss.
   const byShort = useMemo(() => {
     const m = new Map<string, ParliamentGroup>();
-    for (const g of data?.groups ?? []) m.set(g.shortName, g);
+    for (const g of data?.groups ?? []) {
+      for (const alias of [g.shortName, g.longName, g.displayName]) {
+        if (alias) m.set(alias.toUpperCase(), g);
+      }
+    }
     return m;
   }, [data]);
 
@@ -64,7 +72,7 @@ export const useParliamentGroups = () => {
     () =>
       (currentPartyGroupShort?: string | null): ParliamentGroup | undefined => {
         if (!currentPartyGroupShort) return undefined;
-        return byShort.get(stripPgPrefix(currentPartyGroupShort));
+        return byShort.get(stripPgPrefix(currentPartyGroupShort).toUpperCase());
       },
     [byShort],
   );

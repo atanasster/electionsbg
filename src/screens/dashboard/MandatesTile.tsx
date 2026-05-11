@@ -5,10 +5,7 @@ import { NationalPartyResult } from "@/data/dashboard/dashboardTypes";
 import { useElectionContext } from "@/data/ElectionContext";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { useMps } from "@/data/parliament/useMps";
-import {
-  useParliamentGroups,
-  stripPgPrefix,
-} from "@/data/parliament/useParliamentGroups";
+import { useParliamentGroups } from "@/data/parliament/useParliamentGroups";
 import { electionToNsFolder } from "@/data/parliament/nsFolders";
 import { MAJORITY_SEATS, TOTAL_SEATS } from "@/screens/utils/seatAllocation";
 import { formatPct, formatThousands } from "@/data/utils";
@@ -84,12 +81,15 @@ export const MandatesTile: FC<Props> = ({ parties }) => {
   const navigate = useNavigateParams();
   const { selected } = useElectionContext();
   const { mps, currentNs } = useMps();
-  const { childrenFor } = useParliamentGroups();
+  const { childrenFor, lookup: lookupParliamentGroup } = useParliamentGroups();
   const { displayNameFor } = useCanonicalParties();
 
-  // Coalition→child-group MP counts, populated only when the selected election
-  // is the currently-sitting NS (parliament.bg only reports current group
-  // membership, so we can't reconstruct splits for past parliaments).
+  // Coalition→child-group MP counts, keyed by override-group shortName.
+  // Populated only when the selected election is the currently-sitting NS
+  // (parliament.bg only reports current group membership, so we can't
+  // reconstruct splits for past parliaments). The lookup resolves both the
+  // short- and long-name forms parliament.bg uses for a group, so the key
+  // matches the `shortName` returned by `childrenFor`.
   const groupSeatsByShort = useMemo(() => {
     if (!mps || !currentNs) return null;
     const selFolder = electionToNsFolder(selected);
@@ -98,11 +98,12 @@ export const MandatesTile: FC<Props> = ({ parties }) => {
     const counts = new Map<string, number>();
     for (const mp of mps) {
       if (!mp.isCurrent || !mp.currentPartyGroupShort) continue;
-      const bare = stripPgPrefix(mp.currentPartyGroupShort);
-      counts.set(bare, (counts.get(bare) ?? 0) + 1);
+      const grp = lookupParliamentGroup(mp.currentPartyGroupShort);
+      if (!grp) continue;
+      counts.set(grp.shortName, (counts.get(grp.shortName) ?? 0) + 1);
     }
     return counts;
-  }, [mps, currentNs, selected]);
+  }, [mps, currentNs, selected, lookupParliamentGroup]);
 
   const partyByNum = useMemo(
     () => new Map(parties.map((p) => [p.partyNum, p])),
@@ -120,11 +121,12 @@ export const MandatesTile: FC<Props> = ({ parties }) => {
     const rows: SeatRow[] = [];
     seated.forEach((p) => {
       const children = groupSeatsByShort ? childrenFor(p.nickName) : undefined;
+      const childRows: SeatRow[] = [];
       if (children && children.length) {
         for (const c of children) {
           const seats = groupSeatsByShort!.get(c.shortName) ?? 0;
           if (seats <= 0) continue;
-          rows.push({
+          childRows.push({
             partyNum: p.partyNum, // click-through still goes to the coalition
             nickName: c.displayName,
             color: c.color,
@@ -134,6 +136,12 @@ export const MandatesTile: FC<Props> = ({ parties }) => {
             isSplitChild: true,
           });
         }
+      }
+      // Fall back to the coalition row when no child seats resolved — avoids
+      // silently dropping a coalition if MP data hasn't caught up to a recent
+      // split or a parliament.bg group name is unrecognized.
+      if (childRows.length > 0) {
+        rows.push(...childRows);
       } else {
         rows.push({
           partyNum: p.partyNum,
