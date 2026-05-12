@@ -3,7 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Title } from "@/ux/Title";
 import { useGovernments } from "@/data/governments/useGovernments";
 import { useMacro } from "@/data/macro/useMacro";
-import { useObservations } from "@/data/governments/useObservations";
+import { Link } from "react-router-dom";
 import {
   CabinetStrip,
   GovernmentTimeline,
@@ -11,7 +11,6 @@ import {
 import { InflationBreakdownChart } from "./components/governments/InflationBreakdownChart";
 import { xDomainFor } from "./components/governments/governmentTimelineUtils";
 import { GovernmentTable } from "./components/governments/GovernmentTable";
-import { ElectionObservations } from "./components/governments/ElectionObservations";
 
 type ChartSource = { href: string; label: string };
 
@@ -44,7 +43,6 @@ export const GovernmentsScreen = () => {
   const { t, i18n } = useTranslation();
   const { data: governments } = useGovernments();
   const { data: macro } = useMacro();
-  const { data: observations } = useObservations();
   const lang: "en" | "bg" = i18n.language === "bg" ? "bg" : "en";
 
   const xDomain = useMemo<[number, number] | null>(
@@ -440,17 +438,20 @@ export const GovernmentsScreen = () => {
         <GovernmentTable governments={governments} macro={macro} />
       </section>
 
-      {observations ? (
-        <section className="mb-10">
-          <h2 className="text-lg font-semibold mb-3">
-            {t("governments_observations_heading")}
-          </h2>
-          <p className="text-xs text-muted-foreground mb-3 max-w-3xl">
-            {t("governments_observations_explainer")}
-          </p>
-          <ElectionObservations payload={observations} />
-        </section>
-      ) : null}
+      <section className="mb-10">
+        <h2 className="text-lg font-semibold mb-3">
+          {t("governments_observations_heading")}
+        </h2>
+        <p className="text-xs text-muted-foreground mb-3 max-w-3xl">
+          {t("governments_observations_explainer")}
+        </p>
+        <Link
+          to="/observations"
+          className="text-sm text-primary hover:underline"
+        >
+          {t("observations_nav_link")}
+        </Link>
+      </section>
 
       <p className="text-[11px] text-muted-foreground mt-6">
         {t("governments_source_prefix")}{" "}

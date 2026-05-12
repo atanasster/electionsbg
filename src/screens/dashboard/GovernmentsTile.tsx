@@ -46,6 +46,13 @@ export const GovernmentsTile: FC = () => {
       }
       className="overflow-hidden"
     >
+      <Link
+        to="/observations"
+        className="text-[10px] normal-case text-muted-foreground hover:text-primary hover:underline self-start -mt-1"
+        underline={false}
+      >
+        {t("observations_nav_link")}
+      </Link>
       {xDomain ? (
         <CabinetStrip governments={governments} xDomain={xDomain} lang={lang} />
       ) : null}

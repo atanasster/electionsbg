@@ -81,6 +81,7 @@
     "vaul": "^1.1.2"
   },
   "devDependencies": {
+    "@anthropic-ai/sdk": "^0.95.2",
     "@eslint/js": "^9.13.0",
     "@napi-rs/canvas": "^0.1.99",
     "@playwright/test": "^1.59.1",

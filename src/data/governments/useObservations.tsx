@@ -9,6 +9,8 @@ export type ElectionObservation = {
   reportUrl: string;
   summaryEn: string;
   summaryBg: string;
+  longSummaryEn?: string;
+  longSummaryBg?: string;
 };
 
 export type ObservationsPayload = {
