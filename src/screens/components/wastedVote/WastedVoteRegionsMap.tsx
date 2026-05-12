@@ -72,12 +72,15 @@ export const WastedVoteRegionsMap: FC<{
           rather than CSS classes keeps it in lockstep with MapLayout's
           ResizeObserver — no feedback loop because our `.relative` adds
           no content beyond what the LeafletMap occupies. */}
-      <div className="relative" style={{ width: size[0], height: size[1] }}>
+      <div
+        className="relative isolate"
+        style={{ width: size[0], height: size[1] }}
+      >
         <LeafletMap size={size} bounds={bounds} scale={scale} />
         <SVGMapContainer
           size={size}
           supportsShiftArrows={false}
-          supportsNames={true}
+          supportsNames={false}
         >
           {mapGeo.features.map((feature, idx) => {
             const props = feature.properties as RegionJSONProps;

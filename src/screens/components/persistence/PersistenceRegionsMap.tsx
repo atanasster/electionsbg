@@ -73,7 +73,10 @@ export const PersistenceRegionsMap: FC<{
 
   return (
     <div className="flex w-full">
-      <div className="relative" style={{ width: size[0], height: size[1] }}>
+      <div
+        className="relative isolate"
+        style={{ width: size[0], height: size[1] }}
+      >
         <LeafletMap size={size} bounds={bounds} scale={scale} />
         <SVGMapContainer
           size={size}

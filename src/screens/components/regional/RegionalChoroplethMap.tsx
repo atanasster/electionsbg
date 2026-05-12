@@ -121,7 +121,7 @@ export const RegionalChoroplethMap: React.FC<{
   return (
     <div className="flex w-full">
       <div
-        className="relative"
+        className="relative isolate"
         style={{ width: `${size[0]}px`, height: `${size[1]}px` }}
       >
         <LeafletMap size={size} bounds={proj.bounds} scale={proj.scale} />
