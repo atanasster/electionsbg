@@ -59,8 +59,7 @@ export const CompositeIndexRibbon: FC = () => {
   const Icon = BAND_ICONS[composite.band];
   const score = Math.round(composite.score);
   const ordered = [...composite.components].sort(
-    (a, b) =>
-      COMPONENT_ORDER.indexOf(a.id) - COMPONENT_ORDER.indexOf(b.id),
+    (a, b) => COMPONENT_ORDER.indexOf(a.id) - COMPONENT_ORDER.indexOf(b.id),
   );
 
   return (

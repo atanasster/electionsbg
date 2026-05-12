@@ -56,7 +56,13 @@ export type RiskComposite = {
 };
 
 const BAND = (score: number): RiskCompositeBand =>
-  score < 20 ? "calm" : score < 40 ? "elevated" : score < 60 ? "high" : "critical";
+  score < 20
+    ? "calm"
+    : score < 40
+      ? "elevated"
+      : score < 60
+        ? "high"
+        : "critical";
 
 // Cap calibration — every cap is a percentage of national turnout (or
 // of total machine votes for the machine-only components), so the six
@@ -249,7 +255,10 @@ export const useRiskComposite = (): RiskComposite | null => {
       for (const v of country.results.votes)
         totalMachine += v.machineVotes ?? 0;
       const v = risk.missingFlashMachineVotes;
-      if (totalMachine > 0 && (v > 0 || national?.anomalies?.suemgMissingFlash)) {
+      if (
+        totalMachine > 0 &&
+        (v > 0 || national?.anomalies?.suemgMissingFlash)
+      ) {
         const sharePct = (100 * v) / totalMachine;
         const value = Math.min(100, (100 * sharePct) / MISSING_FLASH_CAP_PCT);
         components.push({
@@ -331,8 +340,7 @@ export const useRiskComposite = (): RiskComposite | null => {
 
     const available = components.filter((c) => c.available);
     if (!available.length) return null;
-    const score =
-      available.reduce((s, c) => s + c.value, 0) / available.length;
+    const score = available.reduce((s, c) => s + c.value, 0) / available.length;
 
     return {
       score,

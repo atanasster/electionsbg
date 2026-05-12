@@ -138,7 +138,9 @@ const captureOne = async (page: Page, c: Capture): Promise<void> => {
       height: OG_H,
     },
   });
-  console.log(`wrote ${out} (anchor=${anchorSel}, center=${!!c.centerOnAnchor})`);
+  console.log(
+    `wrote ${out} (anchor=${anchorSel}, center=${!!c.centerOnAnchor})`,
+  );
 };
 
 const filter = process.argv.slice(2);

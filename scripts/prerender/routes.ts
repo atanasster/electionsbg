@@ -578,8 +578,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "risk-analysis",
-    title:
-      "Анализ на изборния риск — обобщен скрининг | electionsbg.com",
+    title: "Анализ на изборния риск — обобщен скрининг | electionsbg.com",
     description:
       "Композитен индекс на изборния риск плюс шест независими статистически сигнала: секционен скрининг, тест на Бенфорд, разлики с флаш паметта, концентрация на гласове, рискови махали и съответствие със социологията.",
     breadcrumbName: "Анализ на риска",
@@ -620,8 +619,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "risk-analysis/methodology",
-    title:
-      "Индекс на изборния риск — методология | electionsbg.com",
+    title: "Индекс на изборния риск — методология | electionsbg.com",
     description:
       "Как се изчислява композитният индекс на изборния риск: тегла на шестте сигнала, скали, бенчмаркове и ограничения.",
     breadcrumbName: "Методология на анализа",
@@ -638,8 +636,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 </ul>
 <p>Виж самата страница <a href="${SITE_URL}/risk-analysis">Анализ на изборния риск</a> за приложение върху последните избори.</p>`.trim(),
     english: {
-      title:
-        "Election Risk Index — Methodology | electionsbg.com",
+      title: "Election Risk Index — Methodology | electionsbg.com",
       description:
         "How the composite Election Risk Index is built: weights on six signals, normalization, benchmarks, and limitations.",
       breadcrumbName: "Risk analysis methodology",
@@ -902,8 +899,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "where-did-votes-go/methodology",
-    title:
-      "Къде отидоха гласовете — методология | electionsbg.com",
+    title: "Къде отидоха гласовете — методология | electionsbg.com",
     description:
       "Методология на анализа на потока на гласовете между две парламентарни сесии — NNLS Goodman регресия по секции, RAS мащабиране и ограниченията на агрегираната оценка.",
     breadcrumbName: "Методология на потока на гласовете",
@@ -920,8 +916,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 </ul>
 <p>Виж също <a href="${SITE_URL}/persistence">Лоялност на гласоподавателите</a>, която използва същия метод за измерване на партийната устойчивост.</p>`.trim(),
     english: {
-      title:
-        "Where Did Votes Go — Methodology | electionsbg.com",
+      title: "Where Did Votes Go — Methodology | electionsbg.com",
       description:
         "Methodology behind the vote-flow analysis between two parliamentary cycles — per-section NNLS Goodman regression, RAS scaling, and the limits of an aggregate estimate.",
       breadcrumbName: "Vote-flow methodology",
@@ -940,8 +935,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "connections",
-    title:
-      "Бизнес-връзки между народните представители | electionsbg.com",
+    title: "Бизнес-връзки между народните представители | electionsbg.com",
     description:
       "Графика на бизнес-връзките между действащите народни представители — общи фирми, имуществени декларации и пътища между депутати от различни партии.",
     breadcrumbName: "Бизнес-връзки",
@@ -959,8 +953,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 </ul>
 <p>Източник: <a href="https://register.cacbg.bg" rel="nofollow noopener">register.cacbg.bg</a> (Сметна палата) и <a href="https://www.registryagency.bg" rel="nofollow noopener">Търговски регистър</a>.</p>`.trim(),
     english: {
-      title:
-        "MP Business Connections — Bulgarian Parliament | electionsbg.com",
+      title: "MP Business Connections — Bulgarian Parliament | electionsbg.com",
       description:
         "Network graph of business connections among sitting Bulgarian MPs — shared companies, asset declarations, and paths between MPs from different parties.",
       breadcrumbName: "MP business connections",
@@ -980,8 +973,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "mp/companies",
-    title:
-      "Фирми с участие на народни представители | electionsbg.com",
+    title: "Фирми с участие на народни представители | electionsbg.com",
     description:
       "Списък на всички фирми, в които действащите народни представители са собственици, акционери или членове на управлението — данни от Търговския регистър и декларациите на Сметната палата.",
     breadcrumbName: "Фирми на депутати",
@@ -1004,8 +996,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "mp-assets",
-    title:
-      "Народни представители по декларирани активи | electionsbg.com",
+    title: "Народни представители по декларирани активи | electionsbg.com",
     description:
       "Класиране на действащите народни представители по декларирано имущество — недвижими имоти, превозни средства, парични средства, инвестиции и дялове във фирми (декларант + съпруг).",
     breadcrumbName: "Активи на депутати",
@@ -1015,8 +1006,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>Класиране на действащите народни представители по нетното имущество, декларирано в последната подадена декларация пред Сметната палата. Нетното имущество се изчислява като сума на декларираните недвижими имоти, превозни средства, парични средства и банкови депозити, вземания, инвестиции, ценни книжа и дялове във фирми (декларант + съпруг), намалена с декларираните задължения.</p>
 <p>Източник: <a href="https://register.cacbg.bg" rel="nofollow noopener">register.cacbg.bg</a> (Сметна палата).</p>`.trim(),
     english: {
-      title:
-        "MPs by Declared Assets — Bulgarian Parliament | electionsbg.com",
+      title: "MPs by Declared Assets — Bulgarian Parliament | electionsbg.com",
       description:
         "Sitting Bulgarian MPs ranked by net worth from their most recent property/interest declaration filed with the Court of Audit (declarant + spouse, minus declared debts).",
       breadcrumbName: "MPs by assets",
@@ -1028,8 +1018,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "mp-cars",
-    title:
-      "Коли, декларирани от народните представители | electionsbg.com",
+    title: "Коли, декларирани от народните представители | electionsbg.com",
     description:
       "Всеки лек автомобил или джип, деклариран от действащ депутат (или съпруг), от последната подадена декларация — подреден по декларирана стойност в лева.",
     breadcrumbName: "Коли на депутати",
@@ -1039,8 +1028,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>Всеки лек автомобил или джип, деклариран от действащ народен представител (или съпруг) в последната подадена пред Сметната палата декларация — подреден по декларирана стойност в лева. Колите на съпругата/съпруга се показват с притежател „съпруг“.</p>
 <p>Източник: <a href="https://register.cacbg.bg" rel="nofollow noopener">register.cacbg.bg</a> (Сметна палата).</p>`.trim(),
     english: {
-      title:
-        "Cars Declared by MPs — Bulgarian Parliament | electionsbg.com",
+      title: "Cars Declared by MPs — Bulgarian Parliament | electionsbg.com",
       description:
         "Every passenger car or jeep declared by a sitting Bulgarian MP (or spouse) in their most recent declaration, sorted by declared BGN value.",
       breadcrumbName: "MP cars",

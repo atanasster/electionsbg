@@ -18,8 +18,10 @@ type Bucket = "moderate" | "strong";
 const bucketOf = (mad: number): Bucket => (mad >= 0.08 ? "strong" : "moderate");
 
 const bucketBadge: Record<Bucket, string> = {
-  moderate: "bg-amber-500/15 text-amber-700 dark:text-amber-300 border-amber-500/40",
-  strong: "bg-orange-600/15 text-orange-700 dark:text-orange-300 border-orange-600/40",
+  moderate:
+    "bg-amber-500/15 text-amber-700 dark:text-amber-300 border-amber-500/40",
+  strong:
+    "bg-orange-600/15 text-orange-700 dark:text-orange-300 border-orange-600/40",
 };
 
 // Risk-analysis page section — every party with a 2BL (preferred) or 1BL
@@ -78,7 +80,9 @@ export const BenfordRiskCard: FC = () => {
 
   const headline =
     qualifying.length === 0
-      ? t("risk_analysis_benford_none", { total: formatThousands(totalEvaluated) })
+      ? t("risk_analysis_benford_none", {
+          total: formatThousands(totalEvaluated),
+        })
       : t("risk_analysis_benford_headline", {
           strong: formatThousands(strongCount),
           moderate: formatThousands(moderateCount),
@@ -108,7 +112,11 @@ export const BenfordRiskCard: FC = () => {
       <p className="text-sm text-muted-foreground leading-relaxed mt-1">
         {headline}{" "}
         <span className="text-[11px]">
-          ({mode === "second" ? t("benford_mode_second") : t("benford_mode_first")})
+          (
+          {mode === "second"
+            ? t("benford_mode_second")
+            : t("benford_mode_first")}
+          )
         </span>
       </p>
       {qualifying.length > 0 ? (

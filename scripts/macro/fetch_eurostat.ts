@@ -978,9 +978,7 @@ const readPriorSeries = (): Record<string, MacroPoint[]> | null => {
 
 const floorFor = (ind: EurostatIndicator | WorldBankIndicator): number => {
   if (ind.minPoints !== undefined) return ind.minPoints;
-  return ind.cadence === "quarterly"
-    ? MIN_POINTS_QUARTERLY
-    : MIN_POINTS_ANNUAL;
+  return ind.cadence === "quarterly" ? MIN_POINTS_QUARTERLY : MIN_POINTS_ANNUAL;
 };
 
 const main = async () => {

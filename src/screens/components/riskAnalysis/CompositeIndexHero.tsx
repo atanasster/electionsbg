@@ -66,8 +66,7 @@ export const CompositeIndexHero: FC = () => {
   const Icon = BAND_ICONS[composite.band];
   const score = Math.round(composite.score);
   const ordered = [...composite.components].sort(
-    (a, b) =>
-      COMPONENT_ORDER.indexOf(a.id) - COMPONENT_ORDER.indexOf(b.id),
+    (a, b) => COMPONENT_ORDER.indexOf(a.id) - COMPONENT_ORDER.indexOf(b.id),
   );
 
   return (
@@ -158,7 +157,9 @@ export const CompositeIndexHero: FC = () => {
         })}
       </div>
 
-      <div className={cn("mt-3 h-0.5 rounded-full", BAND_ACCENT[composite.band])} />
+      <div
+        className={cn("mt-3 h-0.5 rounded-full", BAND_ACCENT[composite.band])}
+      />
     </div>
   );
 };

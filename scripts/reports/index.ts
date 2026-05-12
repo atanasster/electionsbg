@@ -46,7 +46,8 @@ const computeBelowThresholdSet = (
   if (grandTotal === 0) return new Set();
   const below = new Set<number>();
   for (const [partyNum, votes] of totals) {
-    if ((100 * votes) / grandTotal < NATIONAL_THRESHOLD_PCT) below.add(partyNum);
+    if ((100 * votes) / grandTotal < NATIONAL_THRESHOLD_PCT)
+      below.add(partyNum);
   }
   return below;
 };

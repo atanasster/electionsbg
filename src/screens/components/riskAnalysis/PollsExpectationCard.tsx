@@ -22,8 +22,7 @@ type Verdict = "lower" | "normal" | "higher";
 const verdictBadge: Record<Verdict, string> = {
   lower:
     "bg-emerald-100 text-emerald-900 dark:bg-emerald-950/40 dark:text-emerald-200 border-emerald-500/30",
-  normal:
-    "bg-muted text-foreground border-border",
+  normal: "bg-muted text-foreground border-border",
   higher:
     "bg-amber-100 text-amber-900 dark:bg-amber-950/40 dark:text-amber-200 border-amber-500/40",
 };
@@ -54,8 +53,7 @@ export const PollsExpectationCard: FC = () => {
     const priorMeans = accuracy.elections
       .filter((e) => e.electionDate !== electionIso && e.agencies.length > 0)
       .map(
-        (e) =>
-          e.agencies.reduce((s, a) => s + a.mae, 0) / e.agencies.length,
+        (e) => e.agencies.reduce((s, a) => s + a.mae, 0) / e.agencies.length,
       );
     const histMean =
       priorMeans.length > 0
