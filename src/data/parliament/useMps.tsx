@@ -46,7 +46,10 @@ const normalize = (s: string) => s.toUpperCase().replace(/\s+/g, " ").trim();
 
 const queryFn = async (): Promise<IndexFile | undefined> => {
   const response = await fetch(dataUrl(`/parliament/index.json`));
-  if (!response.ok) return undefined;
+  if (response.status === 404) return undefined;
+  if (!response.ok) {
+    throw new Error(`fetch failed: ${response.status} ${response.url}`);
+  }
   const file = (await response.json()) as IndexFile;
   // Resolve photoUrl once at ingest so every consumer sees an absolute,
   // bucket-resolved URL without having to know about the dataUrl seam.

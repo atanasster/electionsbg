@@ -25,7 +25,10 @@ const statsQueryFn = async ({
   const response = await fetch(
     dataUrl(`/${queryKey[1]}/candidates/${queryKey[2]}/preferences_stats.json`),
   );
-  if (!response.ok) return null;
+  if (response.status === 404) return null;
+  if (!response.ok) {
+    throw new Error(`fetch failed: ${response.status} ${response.url}`);
+  }
   return response.json();
 };
 
@@ -38,7 +41,10 @@ const regionsQueryFn = async ({
   const response = await fetch(
     dataUrl(`/${queryKey[1]}/candidates/${queryKey[2]}/regions.json`),
   );
-  if (!response.ok) return null;
+  if (response.status === 404) return null;
+  if (!response.ok) {
+    throw new Error(`fetch failed: ${response.status} ${response.url}`);
+  }
   return response.json();
 };
 

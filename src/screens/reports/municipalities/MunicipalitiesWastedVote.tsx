@@ -13,7 +13,10 @@ const queryFn = async ({
   const response = await fetch(
     dataUrl(`/${queryKey[1]}/reports/municipality/wasted_votes.json`),
   );
-  if (!response.ok) return [];
+  if (response.status === 404) return [];
+  if (!response.ok) {
+    throw new Error(`fetch failed: ${response.status} ${response.url}`);
+  }
   return response.json();
 };
 

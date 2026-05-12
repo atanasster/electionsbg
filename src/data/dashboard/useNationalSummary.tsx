@@ -12,7 +12,10 @@ const queryFn = async ({
   const response = await fetch(
     dataUrl(`/${queryKey[1]}/national_summary.json`),
   );
-  if (!response.ok) return undefined;
+  if (response.status === 404) return undefined;
+  if (!response.ok) {
+    throw new Error(`national_summary fetch failed: ${response.status}`);
+  }
   return response.json();
 };
 

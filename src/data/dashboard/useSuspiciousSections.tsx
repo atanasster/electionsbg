@@ -51,7 +51,10 @@ const queryFn = async ({
   const response = await fetch(
     dataUrl(`/${queryKey[1]}/dashboard/suspicious_settlements.json`),
   );
-  if (!response.ok) return null;
+  if (response.status === 404) return null;
+  if (!response.ok) {
+    throw new Error(`fetch failed: ${response.status} ${response.url}`);
+  }
   return response.json();
 };
 

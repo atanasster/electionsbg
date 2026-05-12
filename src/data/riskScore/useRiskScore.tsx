@@ -64,7 +64,10 @@ const queryFn = async ({
   const response = await fetch(
     dataUrl(`/${queryKey[1]}/reports/section/risk_score.json`),
   );
-  if (!response.ok) return null;
+  if (response.status === 404) return null;
+  if (!response.ok) {
+    throw new Error(`fetch failed: ${response.status} ${response.url}`);
+  }
   return response.json();
 };
 
@@ -90,7 +93,10 @@ const riskScoreByPrefixQueryFn = async ({
   const response = await fetch(
     dataUrl(`/${queryKey[1]}/reports/section/risk_score/${queryKey[2]}.json`),
   );
-  if (!response.ok) return null;
+  if (response.status === 404) return null;
+  if (!response.ok) {
+    throw new Error(`fetch failed: ${response.status} ${response.url}`);
+  }
   return response.json();
 };
 
@@ -140,7 +146,10 @@ const summaryQueryFn = async ({
   const response = await fetch(
     dataUrl(`/${queryKey[1]}/reports/section/risk_score_summary.json`),
   );
-  if (!response.ok) return null;
+  if (response.status === 404) return null;
+  if (!response.ok) {
+    throw new Error(`fetch failed: ${response.status} ${response.url}`);
+  }
   return response.json();
 };
 

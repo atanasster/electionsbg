@@ -4,7 +4,10 @@ import { dataUrl } from "@/data/dataUrl";
 
 const queryFn = async (): Promise<MpAssetsRankings | undefined> => {
   const response = await fetch(dataUrl(`/parliament/assets-rankings.json`));
-  if (!response.ok) return undefined;
+  if (response.status === 404) return undefined;
+  if (!response.ok) {
+    throw new Error(`fetch failed: ${response.status} ${response.url}`);
+  }
   return response.json();
 };
 

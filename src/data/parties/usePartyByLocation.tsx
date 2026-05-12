@@ -15,7 +15,10 @@ const queryFn = async ({
   const response = await fetch(
     dataUrl(`/${election}/parties/${scope}/${partyNum}.json`),
   );
-  if (!response.ok) return null;
+  if (response.status === 404) return null;
+  if (!response.ok) {
+    throw new Error(`fetch failed: ${response.status} ${response.url}`);
+  }
   return response.json();
 };
 

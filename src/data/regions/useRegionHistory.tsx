@@ -9,7 +9,10 @@ const queryFn = async ({
 > => {
   if (!queryKey[1]) return undefined;
   const response = await fetch(dataUrl(`/regions/${queryKey[1]}_history.json`));
-  if (!response.ok) return undefined;
+  if (response.status === 404) return undefined;
+  if (!response.ok) {
+    throw new Error(`fetch failed: ${response.status} ${response.url}`);
+  }
   return response.json();
 };
 

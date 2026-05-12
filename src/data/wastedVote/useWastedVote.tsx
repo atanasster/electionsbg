@@ -51,7 +51,10 @@ const regionQueryFn = async ({
   const response = await fetch(
     dataUrl(`/${queryKey[1]}/reports/region/wasted_votes.json`),
   );
-  if (!response.ok) return null;
+  if (response.status === 404) return null;
+  if (!response.ok) {
+    throw new Error(`fetch failed: ${response.status} ${response.url}`);
+  }
   return response.json();
 };
 
@@ -64,7 +67,10 @@ const reportQueryFn = async ({
   const response = await fetch(
     dataUrl(`/${queryKey[2]}/reports/${queryKey[1]}/wasted_votes.json`),
   );
-  if (!response.ok) return null;
+  if (response.status === 404) return null;
+  if (!response.ok) {
+    throw new Error(`fetch failed: ${response.status} ${response.url}`);
+  }
   return response.json();
 };
 
@@ -109,7 +115,10 @@ const dashboardQueryFn = async ({
   const response = await fetch(
     dataUrl(`/${queryKey[1]}/dashboard/wasted_votes.json`),
   );
-  if (!response.ok) return null;
+  if (response.status === 404) return null;
+  if (!response.ok) {
+    throw new Error(`fetch failed: ${response.status} ${response.url}`);
+  }
   return response.json();
 };
 

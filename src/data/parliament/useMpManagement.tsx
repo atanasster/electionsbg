@@ -11,7 +11,10 @@ const queryFn = async ({
   const id = queryKey[1];
   if (!id) return null;
   const response = await fetch(dataUrl(`/parliament/mp-management/${id}.json`));
-  if (!response.ok) return null;
+  if (response.status === 404) return null;
+  if (!response.ok) {
+    throw new Error(`fetch failed: ${response.status} ${response.url}`);
+  }
   return response.json();
 };
 

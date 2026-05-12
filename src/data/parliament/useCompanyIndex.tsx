@@ -58,7 +58,10 @@ type IndexFile = {
 
 const queryFn = async (): Promise<IndexFile | undefined> => {
   const response = await fetch(dataUrl(`/parliament/companies-index.json`));
-  if (!response.ok) return undefined;
+  if (response.status === 404) return undefined;
+  if (!response.ok) {
+    throw new Error(`fetch failed: ${response.status} ${response.url}`);
+  }
   return response.json();
 };
 

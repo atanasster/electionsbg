@@ -17,7 +17,10 @@ const partyResultsFn = async ({
   const response = await fetch(
     dataUrl(`/${election}/parties/${scope}/${partyNum}.json`),
   );
-  if (!response.ok) return null;
+  if (response.status === 404) return null;
+  if (!response.ok) {
+    throw new Error(`fetch failed: ${response.status} ${response.url}`);
+  }
   return response.json();
 };
 
@@ -37,7 +40,10 @@ const preferenceStatsFn = async ({
   const response = await fetch(
     dataUrl(`/${election}/parties/preferences/${partyNum}/stats.json`),
   );
-  if (!response.ok) return undefined;
+  if (response.status === 404) return undefined;
+  if (!response.ok) {
+    throw new Error(`fetch failed: ${response.status} ${response.url}`);
+  }
   return response.json();
 };
 

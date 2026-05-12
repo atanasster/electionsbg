@@ -11,7 +11,10 @@ import { dataUrl } from "@/data/dataUrl";
 
 const indexQueryFn = async (): Promise<VoteFlowIndex | undefined> => {
   const response = await fetch(dataUrl(`/transitions/index.json`));
-  if (!response.ok) return undefined;
+  if (response.status === 404) return undefined;
+  if (!response.ok) {
+    throw new Error(`fetch failed: ${response.status} ${response.url}`);
+  }
   return response.json();
 };
 
@@ -27,7 +30,10 @@ const persistenceQueryFn = async (
   const response = await fetch(
     dataUrl(`/transitions/${from}_${to}/persistence.json`),
   );
-  if (!response.ok) return undefined;
+  if (response.status === 404) return undefined;
+  if (!response.ok) {
+    throw new Error(`fetch failed: ${response.status} ${response.url}`);
+  }
   return response.json();
 };
 
@@ -50,7 +56,10 @@ const scopeFn = async (
   const response = await fetch(
     dataUrl(`/transitions/${from}_${to}/${scope}.json`),
   );
-  if (!response.ok) return undefined;
+  if (response.status === 404) return undefined;
+  if (!response.ok) {
+    throw new Error(`fetch failed: ${response.status} ${response.url}`);
+  }
   return response.json();
 };
 

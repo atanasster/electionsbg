@@ -11,7 +11,10 @@ const queryFn = async ({
   const id = queryKey[1];
   if (!id) return undefined;
   const response = await fetch(dataUrl(`/parliament/mp-assets/${id}.json`));
-  if (!response.ok) return undefined;
+  if (response.status === 404) return undefined;
+  if (!response.ok) {
+    throw new Error(`fetch failed: ${response.status} ${response.url}`);
+  }
   return response.json();
 };
 

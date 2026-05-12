@@ -4,7 +4,10 @@ import { dataUrl } from "@/data/dataUrl";
 
 const queryFn = async (): Promise<MpCarsFile | undefined> => {
   const response = await fetch(dataUrl(`/parliament/mp-cars.json`));
-  if (!response.ok) return undefined;
+  if (response.status === 404) return undefined;
+  if (!response.ok) {
+    throw new Error(`fetch failed: ${response.status} ${response.url}`);
+  }
   return response.json();
 };
 

@@ -11,7 +11,10 @@ const queryFn = async ({
   const id = queryKey[1];
   if (!id) return [];
   const response = await fetch(dataUrl(`/parliament/declarations/${id}.json`));
-  if (!response.ok) return [];
+  if (response.status === 404) return [];
+  if (!response.ok) {
+    throw new Error(`fetch failed: ${response.status} ${response.url}`);
+  }
   return response.json();
 };
 

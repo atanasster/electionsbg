@@ -6,7 +6,10 @@ const queryFn = async (): Promise<ConnectionsTopPairsFile | undefined> => {
   const response = await fetch(
     dataUrl(`/parliament/connections-top-pairs.json`),
   );
-  if (!response.ok) return undefined;
+  if (response.status === 404) return undefined;
+  if (!response.ok) {
+    throw new Error(`fetch failed: ${response.status} ${response.url}`);
+  }
   return response.json();
 };
 

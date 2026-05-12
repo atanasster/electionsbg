@@ -25,7 +25,10 @@ const fetchSubgraph = async (
     dataUrl(`/parliament/mp-connections/${mpId}.json`),
   );
   if (response.status === 404) return null;
-  if (!response.ok) return null;
+  if (response.status === 404) return null;
+  if (!response.ok) {
+    throw new Error(`fetch failed: ${response.status} ${response.url}`);
+  }
   const file: MpConnectionsFile = await response.json();
   return {
     mpNodeId: file.mpNodeId,
