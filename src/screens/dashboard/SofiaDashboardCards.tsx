@@ -1,7 +1,6 @@
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { AlertTriangle, Briefcase, Building2, Gauge, Map } from "lucide-react";
-import { DashboardSectionId } from "@/data/articles/useArticles";
 import { useElectionContext } from "@/data/ElectionContext";
 import { useSofiaSummary } from "@/data/dashboard/useSofiaSummary";
 import { useSofiaStats } from "@/data/country/useSofiaStats";
@@ -24,22 +23,14 @@ import { MpAssetsTile } from "./MpAssetsTile";
 import { MpDeclarationsProvenance } from "./MpDeclarationsProvenance";
 import { TopSofiaAreasTile } from "./TopSofiaAreasTile";
 import { CensusDemographicsTile } from "./CensusDemographicsTile";
+import { IndicatorsTile } from "./IndicatorsTile";
 import { TopCandidatesStrip } from "./TopCandidatesStrip";
 import { FlashMemoryTile } from "./FlashMemoryTile";
 import { RecountTile } from "./RecountTile";
 import { SuspiciousSectionsTile } from "./SuspiciousSectionsTile";
 import { DashboardSection } from "./DashboardSection";
-import { SectionArticlesProvider } from "./SectionArticlesContext";
 
 const SOFIA_BASE_PATH = "/sofia";
-
-const SECTION_TOPICS: readonly DashboardSectionId[] = [
-  "votes",
-  "geography",
-  "anomalies",
-  "neighborhoods",
-  "declarations",
-];
 
 const SkeletonCard: FC<{ className?: string }> = ({
   className = "h-[140px]",
@@ -81,112 +72,103 @@ export const SofiaDashboardCards: FC = () => {
   if (!data) return null;
 
   return (
-    <SectionArticlesProvider order={SECTION_TOPICS}>
-      <section aria-label={t("dashboard")} className="my-4">
-        <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-          <PartyChangeCard variant="gainer" change={data.topGainer} />
-          <PartyChangeCard variant="loser" change={data.topLoser} />
-          <TurnoutCard
-            turnout={data.turnout}
-            priorElection={data.priorElection}
-          />
-          <PaperMachineCard
-            paperMachine={data.paperMachine}
-            priorElection={data.priorElection}
-          />
+    <section aria-label={t("dashboard")} className="my-4">
+      <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+        <PartyChangeCard variant="gainer" change={data.topGainer} />
+        <PartyChangeCard variant="loser" change={data.topLoser} />
+        <TurnoutCard
+          turnout={data.turnout}
+          priorElection={data.priorElection}
+        />
+        <PaperMachineCard
+          paperMachine={data.paperMachine}
+          priorElection={data.priorElection}
+        />
+      </div>
+
+      <DashboardSection
+        id="votes"
+        title={t("dashboard_section_votes")}
+        icon={Gauge}
+      >
+        <div className="grid gap-3 grid-cols-1 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
+          <SofiaMapTile />
+          <PartyResultsTile parties={data.parties} basePath={SOFIA_BASE_PATH} />
         </div>
-
-        <DashboardSection
-          id="votes"
-          title={t("dashboard_section_votes")}
-          icon={Gauge}
-          articleTopic="votes"
-        >
-          <div className="grid gap-3 grid-cols-1 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
-            <SofiaMapTile />
-            <PartyResultsTile
-              parties={data.parties}
-              basePath={SOFIA_BASE_PATH}
-            />
-          </div>
-          {electionStats?.hasPreferences ? (
-            <TopCandidatesStrip
-              parties={data.parties}
-              regionCodes={SOFIA_REGIONS}
-              basePath={SOFIA_BASE_PATH}
-            />
-          ) : null}
-          <SofiaMpsTile parties={data.parties} />
-          <VoteFlowTile regionCodes={SOFIA_REGIONS} />
-          <HistoricalTrendsTile stats={sofiaStats} basePath={SOFIA_BASE_PATH} />
-        </DashboardSection>
-
-        <DashboardSection
-          id="geography"
-          title={t("dashboard_section_geography")}
-          icon={Map}
-          articleTopic="geography"
-        >
-          <TopSofiaAreasTile parties={data.parties} />
-          <CensusDemographicsTile regionCode="SOF" />
-        </DashboardSection>
-
-        <DashboardSection
-          id="anomalies"
-          title={t("dashboard_section_anomalies")}
-          icon={AlertTriangle}
-          articleTopic="anomalies"
-        >
-          <FlashMemoryTile
-            parties={data.parties}
-            results={sofia?.results}
-            basePath={SOFIA_BASE_PATH}
-          />
-          <SuspiciousSectionsTile
+        {electionStats?.hasPreferences ? (
+          <TopCandidatesStrip
             parties={data.parties}
             regionCodes={SOFIA_REGIONS}
-          />
-          <RecountTile
-            parties={data.parties}
-            results={sofia?.results}
-            original={sofia?.original}
             basePath={SOFIA_BASE_PATH}
           />
-        </DashboardSection>
+        ) : null}
+        <SofiaMpsTile parties={data.parties} />
+        <VoteFlowTile regionCodes={SOFIA_REGIONS} />
+        <HistoricalTrendsTile stats={sofiaStats} basePath={SOFIA_BASE_PATH} />
+      </DashboardSection>
 
-        <DashboardSection
-          id="neighborhoods"
-          title={t("dashboard_section_neighborhoods")}
-          icon={Building2}
-          articleTopic="neighborhoods"
-        >
-          <ProblemSectionsTile
-            parties={data.parties}
-            regionCodes={SOFIA_REGIONS}
+      <DashboardSection
+        id="geography"
+        title={t("dashboard_section_geography")}
+        icon={Map}
+      >
+        <TopSofiaAreasTile parties={data.parties} />
+        <CensusDemographicsTile regionCode="SOF" />
+        <IndicatorsTile obshtinaCode="SOF00" />
+      </DashboardSection>
+
+      <DashboardSection
+        id="anomalies"
+        title={t("dashboard_section_anomalies")}
+        icon={AlertTriangle}
+      >
+        <FlashMemoryTile
+          parties={data.parties}
+          results={sofia?.results}
+          basePath={SOFIA_BASE_PATH}
+        />
+        <SuspiciousSectionsTile
+          parties={data.parties}
+          regionCodes={SOFIA_REGIONS}
+        />
+        <RecountTile
+          parties={data.parties}
+          results={sofia?.results}
+          original={sofia?.original}
+          basePath={SOFIA_BASE_PATH}
+        />
+      </DashboardSection>
+
+      <DashboardSection
+        id="neighborhoods"
+        title={t("dashboard_section_neighborhoods")}
+        icon={Building2}
+      >
+        <ProblemSectionsTile
+          parties={data.parties}
+          regionCodes={SOFIA_REGIONS}
+        />
+        <ProblemVotesByPartyTile regionCodes={SOFIA_REGIONS} />
+        {problemSectionsStats?.length ? (
+          <HistoricalTrendsTile
+            stats={problemSectionsStats}
+            seeDetailsTo="/reports/section/problem_sections"
           />
-          <ProblemVotesByPartyTile regionCodes={SOFIA_REGIONS} />
-          {problemSectionsStats?.length ? (
-            <HistoricalTrendsTile
-              stats={problemSectionsStats}
-              seeDetailsTo="/reports/section/problem_sections"
-            />
-          ) : null}
-        </DashboardSection>
+        ) : null}
+      </DashboardSection>
 
-        <DashboardSection
-          id="declarations"
-          title={t("dashboard_section_declarations")}
-          subtitle={<MpDeclarationsProvenance regionCodes={SOFIA_REGIONS} />}
-          icon={Briefcase}
-          articleTopic="declarations"
-        >
-          <div className="grid gap-3 grid-cols-1 lg:grid-cols-2">
-            <MpConnectionsTile regionCodes={SOFIA_REGIONS} />
-            <CarMakesTile regionCodes={SOFIA_REGIONS} hideProvenance />
-          </div>
-          <MpAssetsTile regionCodes={SOFIA_REGIONS} />
-        </DashboardSection>
-      </section>
-    </SectionArticlesProvider>
+      <DashboardSection
+        id="declarations"
+        title={t("dashboard_section_declarations")}
+        subtitle={<MpDeclarationsProvenance regionCodes={SOFIA_REGIONS} />}
+        icon={Briefcase}
+      >
+        <div className="grid gap-3 grid-cols-1 lg:grid-cols-2">
+          <MpConnectionsTile regionCodes={SOFIA_REGIONS} />
+          <CarMakesTile regionCodes={SOFIA_REGIONS} hideProvenance />
+        </div>
+        <MpAssetsTile regionCodes={SOFIA_REGIONS} />
+      </DashboardSection>
+    </section>
   );
 };

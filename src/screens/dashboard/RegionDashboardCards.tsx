@@ -1,7 +1,6 @@
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import { AlertTriangle, Briefcase, Building2, Gauge, Map } from "lucide-react";
-import { DashboardSectionId } from "@/data/articles/useArticles";
 import { useElectionContext } from "@/data/ElectionContext";
 import { useRegionSummary } from "@/data/dashboard/useRegionSummary";
 import { useProblemSectionsStats } from "@/data/reports/useProblemSectionsStats";
@@ -28,15 +27,6 @@ import { FlashMemoryTile } from "./FlashMemoryTile";
 import { RecountTile } from "./RecountTile";
 import { SuspiciousSectionsTile } from "./SuspiciousSectionsTile";
 import { DashboardSection } from "./DashboardSection";
-import { SectionArticlesProvider } from "./SectionArticlesContext";
-
-const SECTION_TOPICS: readonly DashboardSectionId[] = [
-  "votes",
-  "geography",
-  "anomalies",
-  "neighborhoods",
-  "declarations",
-];
 
 const SkeletonCard: FC<{ className?: string }> = ({
   className = "h-[140px]",
@@ -79,107 +69,94 @@ export const RegionDashboardCards: FC<Props> = ({ regionCode }) => {
   if (!data) return null;
 
   return (
-    <SectionArticlesProvider order={SECTION_TOPICS}>
-      <section aria-label={t("dashboard")} className="my-4">
-        <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
-          <PartyChangeCard variant="gainer" change={data.topGainer} />
-          <PartyChangeCard variant="loser" change={data.topLoser} />
-          <TurnoutCard
-            turnout={data.turnout}
-            priorElection={data.priorElection}
-          />
-          <PaperMachineCard
-            paperMachine={data.paperMachine}
-            priorElection={data.priorElection}
-          />
+    <section aria-label={t("dashboard")} className="my-4">
+      <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
+        <PartyChangeCard variant="gainer" change={data.topGainer} />
+        <PartyChangeCard variant="loser" change={data.topLoser} />
+        <TurnoutCard
+          turnout={data.turnout}
+          priorElection={data.priorElection}
+        />
+        <PaperMachineCard
+          paperMachine={data.paperMachine}
+          priorElection={data.priorElection}
+        />
+      </div>
+
+      <DashboardSection
+        id="votes"
+        title={t("dashboard_section_votes")}
+        icon={Gauge}
+      >
+        <div className="grid gap-3 grid-cols-1 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
+          <RegionMunicipalitiesMapTile regionCode={regionCode} />
+          <PartyResultsTile parties={data.parties} regionCode={regionCode} />
         </div>
+        {electionStats?.hasPreferences ? (
+          <TopCandidatesStrip parties={data.parties} regionCode={regionCode} />
+        ) : null}
+        <RegionMpsTile regionCode={regionCode} parties={data.parties} />
+        <VoteFlowTile regionCode={regionCode} />
+        <HistoricalTrendsTile regionCode={regionCode} />
+      </DashboardSection>
 
-        <DashboardSection
-          id="votes"
-          title={t("dashboard_section_votes")}
-          icon={Gauge}
-          articleTopic="votes"
-        >
-          <div className="grid gap-3 grid-cols-1 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
-            <RegionMunicipalitiesMapTile regionCode={regionCode} />
-            <PartyResultsTile parties={data.parties} regionCode={regionCode} />
-          </div>
-          {electionStats?.hasPreferences ? (
-            <TopCandidatesStrip
-              parties={data.parties}
-              regionCode={regionCode}
-            />
-          ) : null}
-          <RegionMpsTile regionCode={regionCode} parties={data.parties} />
-          <VoteFlowTile regionCode={regionCode} />
-          <HistoricalTrendsTile regionCode={regionCode} />
-        </DashboardSection>
-
-        <DashboardSection
-          id="geography"
-          title={t("dashboard_section_geography")}
-          icon={Map}
-          articleTopic="geography"
-        >
-          <TopMunicipalitiesTile
-            parties={data.parties}
-            regionCode={regionCode}
-          />
-          {/* Census data is published at the city level, not per Sofia MIR
+      <DashboardSection
+        id="geography"
+        title={t("dashboard_section_geography")}
+        icon={Map}
+      >
+        <TopMunicipalitiesTile parties={data.parties} regionCode={regionCode} />
+        {/* Census data is published at the city level, not per Sofia MIR
               (S23/S24/S25), so the three Sofia electoral districts share the
               same demographics. The Sofia city dashboard renders this tile
               for the whole city; per-MIR pages omit it to avoid implying
               MIR-level census data exists. */}
-          {!SOFIA_REGIONS.includes(regionCode) && (
-            <CensusDemographicsTile regionCode={regionCode} />
-          )}
-          <RegionalIndicatorsTile regionCode={regionCode} />
-        </DashboardSection>
+        {!SOFIA_REGIONS.includes(regionCode) && (
+          <CensusDemographicsTile regionCode={regionCode} />
+        )}
+        <RegionalIndicatorsTile regionCode={regionCode} />
+      </DashboardSection>
 
-        <DashboardSection
-          id="anomalies"
-          title={t("dashboard_section_anomalies")}
-          icon={AlertTriangle}
-          articleTopic="anomalies"
-        >
-          <FlashMemoryTile parties={data.parties} regionCode={regionCode} />
-          <SuspiciousSectionsTile
-            parties={data.parties}
-            regionCode={regionCode}
+      <DashboardSection
+        id="anomalies"
+        title={t("dashboard_section_anomalies")}
+        icon={AlertTriangle}
+      >
+        <FlashMemoryTile parties={data.parties} regionCode={regionCode} />
+        <SuspiciousSectionsTile
+          parties={data.parties}
+          regionCode={regionCode}
+        />
+        <RecountTile parties={data.parties} regionCode={regionCode} />
+      </DashboardSection>
+
+      <DashboardSection
+        id="neighborhoods"
+        title={t("dashboard_section_neighborhoods")}
+        icon={Building2}
+      >
+        <ProblemSectionsTile parties={data.parties} regionCode={regionCode} />
+        <ProblemVotesByPartyTile regionCode={regionCode} />
+        {problemSectionsStats?.length ? (
+          <HistoricalTrendsTile
+            stats={problemSectionsStats}
+            seeDetailsTo="/reports/section/problem_sections"
           />
-          <RecountTile parties={data.parties} regionCode={regionCode} />
-        </DashboardSection>
+        ) : null}
+      </DashboardSection>
 
-        <DashboardSection
-          id="neighborhoods"
-          title={t("dashboard_section_neighborhoods")}
-          icon={Building2}
-          articleTopic="neighborhoods"
-        >
-          <ProblemSectionsTile parties={data.parties} regionCode={regionCode} />
-          <ProblemVotesByPartyTile regionCode={regionCode} />
-          {problemSectionsStats?.length ? (
-            <HistoricalTrendsTile
-              stats={problemSectionsStats}
-              seeDetailsTo="/reports/section/problem_sections"
-            />
-          ) : null}
-        </DashboardSection>
-
-        <DashboardSection
-          id="declarations"
-          title={t("dashboard_section_declarations")}
-          subtitle={<MpDeclarationsProvenance regionCode={regionCode} />}
-          icon={Briefcase}
-          articleTopic="declarations"
-        >
-          <div className="grid gap-3 grid-cols-1 lg:grid-cols-2">
-            <MpConnectionsTile regionCode={regionCode} />
-            <CarMakesTile regionCode={regionCode} hideProvenance />
-          </div>
-          <MpAssetsTile regionCode={regionCode} />
-        </DashboardSection>
-      </section>
-    </SectionArticlesProvider>
+      <DashboardSection
+        id="declarations"
+        title={t("dashboard_section_declarations")}
+        subtitle={<MpDeclarationsProvenance regionCode={regionCode} />}
+        icon={Briefcase}
+      >
+        <div className="grid gap-3 grid-cols-1 lg:grid-cols-2">
+          <MpConnectionsTile regionCode={regionCode} />
+          <CarMakesTile regionCode={regionCode} hideProvenance />
+        </div>
+        <MpAssetsTile regionCode={regionCode} />
+      </DashboardSection>
+    </section>
   );
 };
