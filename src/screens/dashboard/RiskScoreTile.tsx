@@ -1,7 +1,7 @@
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { ShieldAlert } from "lucide-react";
-import { useRiskScore } from "@/data/riskScore/useRiskScore";
+import { useRiskScoreSummary } from "@/data/riskScore/useRiskScore";
 import { useNationalSummary } from "@/data/dashboard/useNationalSummary";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { formatPct, formatThousands } from "@/data/utils";
@@ -15,19 +15,23 @@ import { RiskBandBadge } from "@/screens/components/riskScore/RiskBandBadge";
 // risk-analysis page but compact (3 rows, no per-signal breakdown).
 export const RiskScoreTile: FC = () => {
   const { t } = useTranslation();
-  const { data } = useRiskScore();
+  const { data } = useRiskScoreSummary();
   const { data: nat } = useNationalSummary();
   const { displayNameFor } = useCanonicalParties();
 
   const { top, criticalCount, totalCount, criticalShare } = useMemo(() => {
-    const rows = data?.rows ?? [];
-    const critical = rows.filter((r) => r.band === "critical");
-    const sorted = [...critical].sort((a, b) => b.score - a.score).slice(0, 3);
+    if (!data)
+      return { top: [], criticalCount: 0, totalCount: 0, criticalShare: 0 };
+    const sorted = [...data.topCritical]
+      .sort((a, b) => b.score - a.score)
+      .slice(0, 3);
     return {
       top: sorted,
-      criticalCount: critical.length,
-      totalCount: rows.length,
-      criticalShare: rows.length ? (100 * critical.length) / rows.length : 0,
+      criticalCount: data.counts.critical,
+      totalCount: data.totalSections,
+      criticalShare: data.totalSections
+        ? (100 * data.counts.critical) / data.totalSections
+        : 0,
     };
   }, [data]);
 

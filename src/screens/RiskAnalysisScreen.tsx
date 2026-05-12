@@ -8,6 +8,7 @@ import {
   MapPin,
   ShieldAlert,
   Sigma,
+  Target,
 } from "lucide-react";
 import { SEO } from "@/ux/SEO";
 import { H1 } from "@/ux/H1";
@@ -26,6 +27,7 @@ import { RiskScoreTopCard } from "@/screens/components/riskAnalysis/RiskScoreTop
 import { BenfordRiskCard } from "@/screens/components/riskAnalysis/BenfordRiskCard";
 import { RelatedAnalysesCard } from "@/screens/components/riskAnalysis/RelatedAnalysesCard";
 import { CompositeIndexHero } from "@/screens/components/riskAnalysis/CompositeIndexHero";
+import { PollsExpectationCard } from "@/screens/components/riskAnalysis/PollsExpectationCard";
 
 const HistoricalTrendsTile = lazy(() =>
   import("@/screens/dashboard/HistoricalTrendsTile").then((m) => ({
@@ -50,7 +52,7 @@ export const RiskAnalysisScreen = () => {
   const parties = national?.parties ?? [];
 
   return (
-    <div className="w-full max-w-6xl mx-auto px-4 pb-12">
+    <div className="pb-12">
       <SEO
         title={t("risk_analysis_title")}
         description={t("risk_analysis_description")}
@@ -59,10 +61,10 @@ export const RiskAnalysisScreen = () => {
         <H1 className="text-xl md:text-2xl font-bold text-foreground">
           {t("risk_analysis_title")}
         </H1>
-        <p className="text-sm text-muted-foreground mt-1 max-w-3xl">
+        <p className="text-sm text-muted-foreground mt-1 max-w-3xl mx-auto text-center">
           {t("risk_analysis_description")}
         </p>
-        <p className="text-[11px] text-muted-foreground mt-1">
+        <p className="text-[11px] text-muted-foreground mt-1 text-center">
           {t("risk_analysis_election_for", { date: localDate(selected) })}
         </p>
       </div>
@@ -74,7 +76,7 @@ export const RiskAnalysisScreen = () => {
       >
         {t("risk_analysis_caveat_body")}{" "}
         <Link
-          to="/risk-score/methodology"
+          to="/risk-analysis/methodology"
           className="text-primary hover:underline"
           underline={false}
         >
@@ -118,6 +120,14 @@ export const RiskAnalysisScreen = () => {
         icon={MapPin}
       >
         <SuspiciousSectionsTile parties={parties} />
+      </DashboardSection>
+
+      <DashboardSection
+        id="anomalies"
+        title={t("risk_analysis_section_polls")}
+        icon={Target}
+      >
+        <PollsExpectationCard />
       </DashboardSection>
 
       <DashboardSection

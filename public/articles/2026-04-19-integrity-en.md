@@ -13,6 +13,8 @@ keywords:
 ---
 # Election Integrity Analysis — [19.04.2026](/elections/2026_04_19) vs prior cycles
 
+> **Update (2026-05-12):** see the [follow-up article](/articles/2026-04-19-risk-screening) for new aggregation tools added since this piece — the composite Election Risk Index, per-section risk screening (`/risk-score`), and per-party Benford 2BL test (`/benford`). All three are reachable from the new [`/risk-analysis`](/risk-analysis?elections=2026_04_19) dashboard.
+
 **Dataset:** 12 elections, 2009-07-05 through 2026-04-19. All metrics extracted from `/public/<date>/` — national summary, problem sections, suspicious settlements, section reports and polls.
 
 **Glossary of indicators used below:**

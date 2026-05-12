@@ -109,6 +109,34 @@ export type RiskScoreReport = {
   rows: RiskScoreRow[];
 };
 
+// Tiny summary file consumed by the home-page risk tiles and the
+// /risk-analysis page hero. Avoids shipping the full ~12 MB rows array
+// to readers who only need band counts + the top critical sections.
+// The full report stays at /reports/section/risk_score.json for the
+// /risk-score table.
+export type RiskScoreSummary = {
+  election: string;
+  generatedAt: string;
+  signalsTotal: number;
+  totalSections: number;
+  counts: Record<RiskBand, number>;
+  /** Sum of section votes (totalActualVoters) per band — used by the
+   * composite Election Risk Index to vote-weight the section-screening
+   * component on the same denominator (national turnout) as the other
+   * vote-weighted components. */
+  votesByBand: Record<RiskBand, number>;
+  /** National total of section actual voters, summed across every row
+   * regardless of band. The denominator for vote-weighted components. */
+  totalActualVoters: number;
+  /** Sum of machine votes in sections flagged as missing flash drive at
+   * protocol time (component 4 of the composite). Vote-weighted variant
+   * of the suemgMissingFlash count from national_summary. */
+  missingFlashMachineVotes: number;
+  topCritical: RiskScoreRow[];
+};
+
+const TOP_CRITICAL_N = 10;
+
 // Load a section-level report file and index by section ID.
 const loadByKey = <T extends ReportRow & { section?: string }>(
   filePath: string,
@@ -439,9 +467,10 @@ export const generateRiskScoreReport = ({
   // sections first".
   rows.sort((a, b) => b.score - a.score);
 
+  const generatedAt = new Date().toISOString();
   const out: RiskScoreReport = {
     election: year,
-    generatedAt: new Date().toISOString(),
+    generatedAt,
     signalsTotal: Object.keys(WEIGHTS).length,
     weights: WEIGHTS,
     caps: CAPS,
@@ -453,5 +482,94 @@ export const generateRiskScoreReport = ({
     "Successfully added file ",
     file,
     `(${rows.length} sections scored)`,
+  );
+
+  const counts: Record<RiskBand, number> = {
+    low: 0,
+    elevated: 0,
+    high: 0,
+    critical: 0,
+  };
+  const votesByBand: Record<RiskBand, number> = {
+    low: 0,
+    elevated: 0,
+    high: 0,
+    critical: 0,
+  };
+  let totalActualVoters = 0;
+  // Index section stats by section id so we can look up the SECTION
+  // total votes (sum of all party votes) for vote-weighting. Note that
+  // RiskScoreRow.totalVotes is the WINNING party's votes, not the
+  // section's total — so we cannot use it here.
+  const sectionTotalById = new Map<string, number>();
+  for (const s of stats) sectionTotalById.set(s.section, s.totalVotes ?? 0);
+  for (const r of rows) {
+    counts[r.band]++;
+    const sectionTotal = sectionTotalById.get(r.section) ?? 0;
+    votesByBand[r.band] += sectionTotal;
+    totalActualVoters += sectionTotal;
+  }
+  const topCritical = rows
+    .filter((r) => r.band === "critical")
+    .slice(0, TOP_CRITICAL_N);
+
+  // Read suemg_missing_flash.json (already produced by the suemg pipeline
+  // in this same folder) and sum the per-section machine-votes-affected
+  // value. Used by the composite's vote-weighted "missing flash" component
+  // instead of the bare section count from national_summary.
+  let missingFlashMachineVotes = 0;
+  const missingFlashFile = `${reportsFolder}/section/suemg_missing_flash.json`;
+  if (fs.existsSync(missingFlashFile)) {
+    try {
+      const rows = JSON.parse(
+        fs.readFileSync(missingFlashFile, "utf-8"),
+      ) as Array<{ value?: number }>;
+      for (const r of rows) missingFlashMachineVotes += r.value ?? 0;
+    } catch {
+      // ignore — keep 0
+    }
+  }
+
+  const summary: RiskScoreSummary = {
+    election: year,
+    generatedAt,
+    signalsTotal: Object.keys(WEIGHTS).length,
+    totalSections: rows.length,
+    counts,
+    votesByBand,
+    totalActualVoters,
+    missingFlashMachineVotes,
+    topCritical,
+  };
+  const summaryFile = `${reportsFolder}/section/risk_score_summary.json`;
+  fs.writeFileSync(summaryFile, stringify(summary), "utf8");
+  console.log(
+    "Successfully added file ",
+    summaryFile,
+    `(counts + top ${topCritical.length} critical, missingFlashVotes=${missingFlashMachineVotes})`,
+  );
+
+  // Per-prefix split — section IDs begin with a 2-digit oblast code
+  // (e.g. "06" = Vratsa). Splitting the rows into one file per prefix
+  // lets the section detail page (`useRiskScoreForSection`) fetch only
+  // the ~300–700 KB bucket its section belongs to instead of the full
+  // ~12 MB report.
+  const byPrefix = new Map<string, RiskScoreRow[]>();
+  for (const r of rows) {
+    const prefix = r.section?.slice(0, 2);
+    if (!prefix) continue;
+    if (!byPrefix.has(prefix)) byPrefix.set(prefix, []);
+    byPrefix.get(prefix)!.push(r);
+  }
+  const prefixDir = `${reportsFolder}/section/risk_score`;
+  fs.mkdirSync(prefixDir, { recursive: true });
+  for (const [prefix, prefixRows] of byPrefix) {
+    const file = `${prefixDir}/${prefix}.json`;
+    fs.writeFileSync(file, stringify(prefixRows), "utf8");
+  }
+  console.log(
+    "Successfully added per-prefix files in ",
+    prefixDir,
+    `(${byPrefix.size} buckets, ${rows.length} rows total)`,
   );
 };

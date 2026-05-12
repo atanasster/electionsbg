@@ -35,8 +35,11 @@ const COMPONENT_ORDER: RiskCompositeComponent["id"][] = [
   "sections",
   "benford",
   "machine",
+  "missingFlash",
   "concentration",
   "procedural",
+  "neighborhoods",
+  "polls",
 ];
 
 const componentBarColor = (value: number): string =>
@@ -85,7 +88,7 @@ export const CompositeIndexRibbon: FC = () => {
 
         <div className="hidden lg:block h-8 w-px bg-border shrink-0" />
 
-        <div className="flex-1 grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-x-3 gap-y-1.5">
+        <div className="flex-1 grid grid-cols-2 sm:grid-cols-4 gap-x-4 gap-y-1.5">
           {ordered.map((c) => {
             const value = Math.round(c.value);
             return (

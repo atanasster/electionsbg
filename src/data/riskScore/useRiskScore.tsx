@@ -76,11 +76,78 @@ export const useRiskScore = () => {
   });
 };
 
-// Single-section lookup. Used by SectionScreen to show the risk badge.
-// Re-uses the same query (one fetch per election, cached) and just
-// filters client-side.
+// Single-section lookup. Used by SectionScreen and section-detail tiles
+// to show the risk badge + per-signal breakdown. Section IDs begin with
+// a 2-digit oblast prefix, so we fetch only the ~300–700 KB bucket the
+// section belongs to (`risk_score/<prefix>.json`) instead of the full
+// ~12 MB report.
+const riskScoreByPrefixQueryFn = async ({
+  queryKey,
+}: QueryFunctionContext<
+  [string, string | null | undefined, string | null | undefined]
+>): Promise<RiskScoreRow[] | null> => {
+  if (!queryKey[1] || !queryKey[2]) return null;
+  const response = await fetch(
+    dataUrl(`/${queryKey[1]}/reports/section/risk_score/${queryKey[2]}.json`),
+  );
+  if (!response.ok) return null;
+  return response.json();
+};
+
 export const useRiskScoreForSection = (sectionId?: string) => {
-  const q = useRiskScore();
-  const row = q.data?.rows.find((r) => r.section === sectionId);
+  const { selected } = useElectionContext();
+  const prefix = sectionId ? sectionId.slice(0, 2) : undefined;
+  const q = useQuery({
+    queryKey: ["risk_score_prefix", selected, prefix] as [
+      string,
+      string | null | undefined,
+      string | null | undefined,
+    ],
+    queryFn: riskScoreByPrefixQueryFn,
+    enabled: !!sectionId && !!prefix,
+  });
+  const row = q.data?.find((r) => r.section === sectionId);
   return { ...q, row };
+};
+
+// Tiny summary (~few KB) — band counts + top critical sections. Used
+// by the home-page risk tiles, the /risk-analysis hero, and the top-
+// sections card so they don't pull the full ~12 MB rows array.
+export type RiskScoreSummary = {
+  election: string;
+  generatedAt: string;
+  signalsTotal: number;
+  totalSections: number;
+  counts: Record<RiskBand, number>;
+  /** Sum of section votes per band — used by the composite for
+   * vote-weighted section screening. */
+  votesByBand: Record<RiskBand, number>;
+  /** Sum of section votes across every row (the denominator for
+   * vote-weighted section screening). */
+  totalActualVoters: number;
+  /** Machine votes in sections flagged as missing flash drive — used by
+   * the composite's vote-weighted Missing Flash component. */
+  missingFlashMachineVotes: number;
+  topCritical: RiskScoreRow[];
+};
+
+const summaryQueryFn = async ({
+  queryKey,
+}: QueryFunctionContext<
+  [string, string | null | undefined]
+>): Promise<RiskScoreSummary | null> => {
+  if (!queryKey[1]) return null;
+  const response = await fetch(
+    dataUrl(`/${queryKey[1]}/reports/section/risk_score_summary.json`),
+  );
+  if (!response.ok) return null;
+  return response.json();
+};
+
+export const useRiskScoreSummary = () => {
+  const { selected } = useElectionContext();
+  return useQuery({
+    queryKey: ["risk_score_summary", selected],
+    queryFn: summaryQueryFn,
+  });
 };

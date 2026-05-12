@@ -75,11 +75,22 @@ export type SuspiciousCategory = {
   count: number;
   threshold: number;
   top: SuspiciousTopSettlement[];
+  /** Sum of "votes affected" across ALL flagged settlements (not just
+   * the top N). Semantics depend on the category:
+   *   concentrated  → top-party votes in flagged settlements
+   *   invalidBallots → invalid ballots in flagged settlements
+   *   additionalVoters → additional voters added on day-of in flagged settlements
+   * Used by the composite Election Risk Index to vote-weight each
+   * component on the same denominator (national turnout). */
+  votesAffected: number;
 };
 
 export type SuspiciousSettlementsReport = {
   election: string;
   thresholds: typeof SUSPICIOUS_THRESHOLDS;
+  /** National actual voters across all non-abroad settlements — the
+   * denominator used by the composite for vote-weighted percentages. */
+  nationalActualVoters: number;
   concentrated: SuspiciousCategory;
   invalidBallots: SuspiciousCategory;
   additionalVoters: SuspiciousCategory;
@@ -113,6 +124,7 @@ const computeConcentrated = (
   settlements: ElectionSettlement[],
 ): SuspiciousCategory => {
   const flagged: SuspiciousTopSettlement[] = [];
+  let votesAffected = 0;
   for (const s of settlements) {
     if (s.oblast === ABROAD_OBLAST) continue;
     const protocol = s.results?.protocol;
@@ -130,6 +142,7 @@ const computeConcentrated = (
     if (!topVotes) continue;
     const pct = (100 * topVotes) / totalValid;
     if (pct < SUSPICIOUS_THRESHOLDS.concentratedPct) continue;
+    votesAffected += topVotes;
     flagged.push({
       ...buildBaseTop(s, pct),
       partyNum: topParty,
@@ -141,6 +154,7 @@ const computeConcentrated = (
     count: flagged.length,
     threshold: SUSPICIOUS_THRESHOLDS.concentratedPct,
     top: flagged.slice(0, TOP_N),
+    votesAffected,
   };
 };
 
@@ -148,14 +162,15 @@ const computeInvalidBallots = (
   settlements: ElectionSettlement[],
 ): SuspiciousCategory => {
   const flagged: SuspiciousTopSettlement[] = [];
+  let votesAffected = 0;
   for (const s of settlements) {
     if (s.oblast === ABROAD_OBLAST) continue;
     const protocol = s.results?.protocol;
     if (!protocol?.numPaperBallotsFound) continue;
-    const pct =
-      (100 * (protocol.numInvalidBallotsFound ?? 0)) /
-      protocol.numPaperBallotsFound;
+    const invalid = protocol.numInvalidBallotsFound ?? 0;
+    const pct = (100 * invalid) / protocol.numPaperBallotsFound;
     if (pct < SUSPICIOUS_THRESHOLDS.invalidBallotsPct) continue;
+    votesAffected += invalid;
     flagged.push(buildBaseTop(s, pct));
   }
   flagged.sort((a, b) => b.value - a.value);
@@ -163,6 +178,7 @@ const computeInvalidBallots = (
     count: flagged.length,
     threshold: SUSPICIOUS_THRESHOLDS.invalidBallotsPct,
     top: flagged.slice(0, TOP_N),
+    votesAffected,
   };
 };
 
@@ -170,6 +186,7 @@ const computeAdditionalVoters = (
   settlements: ElectionSettlement[],
 ): SuspiciousCategory => {
   const flagged: SuspiciousTopSettlement[] = [];
+  let votesAffected = 0;
   for (const s of settlements) {
     if (s.oblast === ABROAD_OBLAST) continue;
     const protocol = s.results?.protocol;
@@ -180,9 +197,10 @@ const computeAdditionalVoters = (
     ) {
       continue;
     }
-    const pct =
-      (100 * (protocol.numAdditionalVoters ?? 0)) / protocol.totalActualVoters;
+    const additional = protocol.numAdditionalVoters ?? 0;
+    const pct = (100 * additional) / protocol.totalActualVoters;
     if (pct < SUSPICIOUS_THRESHOLDS.additionalVotersPct) continue;
+    votesAffected += additional;
     flagged.push(buildBaseTop(s, pct));
   }
   flagged.sort((a, b) => b.value - a.value);
@@ -190,6 +208,7 @@ const computeAdditionalVoters = (
     count: flagged.length,
     threshold: SUSPICIOUS_THRESHOLDS.additionalVotersPct,
     top: flagged.slice(0, TOP_N),
+    votesAffected,
   };
 };
 
@@ -206,9 +225,15 @@ export const generateSuspiciousSections = ({
 }) => {
   const settlements = settlementDataReader(dataFolder, year);
   if (!settlements) return;
+  let nationalActualVoters = 0;
+  for (const s of settlements) {
+    if (s.oblast === ABROAD_OBLAST) continue;
+    nationalActualVoters += s.results?.protocol?.totalActualVoters ?? 0;
+  }
   const report: SuspiciousSettlementsReport = {
     election: year,
     thresholds: SUSPICIOUS_THRESHOLDS,
+    nationalActualVoters,
     concentrated: computeConcentrated(settlements),
     invalidBallots: computeInvalidBallots(settlements),
     additionalVoters: computeAdditionalVoters(settlements),

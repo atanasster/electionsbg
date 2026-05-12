@@ -9,6 +9,7 @@ export const reportsMenu: MenuItem[] = [
   {
     title: "explore_title",
     subMenu: [
+      { title: "risk_analysis_title", link: "/risk-analysis" },
       { title: "compare_title", link: "/compare" },
       { title: "wasted_votes_title", link: "/wasted-vote" },
       { title: "persistence_title", link: "/persistence" },

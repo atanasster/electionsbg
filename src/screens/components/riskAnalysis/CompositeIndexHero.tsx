@@ -8,6 +8,7 @@ import {
 } from "@/data/riskScore/useRiskComposite";
 import { cn } from "@/lib/utils";
 import { Hint } from "@/ux/Hint";
+import { Link } from "@/ux/Link";
 
 // Hero shown at the top of /risk-analysis. Always renders the composite
 // alongside the breakdown — the breakdown isn't optional, because a
@@ -41,8 +42,11 @@ const COMPONENT_ORDER: RiskCompositeComponent["id"][] = [
   "sections",
   "benford",
   "machine",
+  "missingFlash",
   "concentration",
   "procedural",
+  "neighborhoods",
+  "polls",
 ];
 
 const componentBarColor = (value: number): string =>
@@ -100,9 +104,16 @@ export const CompositeIndexHero: FC = () => {
             total: composite.totalCount,
           })}
         </p>
+        <Link
+          to="/risk-analysis/methodology"
+          underline={false}
+          className="text-[11px] uppercase tracking-wide text-primary hover:underline shrink-0 self-start md:self-center"
+        >
+          {t("composite_index_methodology")} →
+        </Link>
       </div>
 
-      <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+      <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-8 gap-3">
         {ordered.map((c) => {
           const value = Math.round(c.value);
           return (
@@ -113,7 +124,7 @@ export const CompositeIndexHero: FC = () => {
             >
               <div
                 className={cn(
-                  "rounded-lg border p-3 flex flex-col gap-1.5",
+                  "h-full rounded-lg border p-3 flex flex-col gap-1.5",
                   c.available ? "bg-background" : "bg-muted/30 opacity-60",
                 )}
               >

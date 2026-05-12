@@ -1,8 +1,12 @@
-import { useMemo } from "react";
-import { useRiskScore } from "./useRiskScore";
+import { useMemo, useRef } from "react";
+import { useRiskScoreSummary } from "./useRiskScore";
 import { useRegionVotes } from "@/data/regions/useRegionVotes";
 import { useSuspiciousSettlements } from "@/data/dashboard/useSuspiciousSections";
 import { useBenford } from "@/data/benford/useBenford";
+import { useNationalSummary } from "@/data/dashboard/useNationalSummary";
+import { useProblemSections } from "@/data/reports/useProblemSections";
+import { usePollsAccuracy } from "@/data/polls/usePolls";
+import { useElectionContext } from "@/data/ElectionContext";
 
 // Composite "Индекс на изборния риск" — five equal-weighted screening
 // signals normalized to 0–100, then averaged across the components that
@@ -29,7 +33,10 @@ export type RiskCompositeComponentId =
   | "machine"
   | "concentration"
   | "procedural"
-  | "benford";
+  | "benford"
+  | "neighborhoods"
+  | "missingFlash"
+  | "polls";
 
 export type RiskCompositeComponent = {
   id: RiskCompositeComponentId;
@@ -51,40 +58,83 @@ export type RiskComposite = {
 const BAND = (score: number): RiskCompositeBand =>
   score < 20 ? "calm" : score < 40 ? "elevated" : score < 60 ? "high" : "critical";
 
-// Cap calibration — see file header. Adjust after seeing 2009–2026
-// values across the back-catalogue if the bands look off.
-const CONCENTRATION_CAP = 200; // 200 ≥80% settlements → component = 100
-const PROCEDURAL_CAP = 600; // 600 invalid+additional flags combined → 100
+// Cap calibration — every cap is a percentage of national turnout (or
+// of total machine votes for the machine-only components), so the six
+// vote-weighted components live on the same denominator. Tweak after
+// observing 2009–2026 backtest distributions if the bands look off.
+//
+// Section screening — band-weighted votes (1.0×crit + 0.5×high + 0.2×elev)
+// run ~1.5–2% of turnout for typical post-2021 cycles; cap at 5% so the
+// component lands mid-range without saturating on a typical election.
+const SECTION_CAP_PCT = 5;
+// Concentration — top-party votes in ≥80% settlements; ~0.5–1% of turnout
+// is typical, cap at 2% lets a doubling register as max.
+const CONCENTRATION_CAP_PCT = 2;
+// Procedural anomalies — invalid + additional voters in flagged settlements;
+// ~0.3–0.5% of turnout typical, cap at 2%.
+const PROCEDURAL_CAP_PCT = 2;
+// Risk-neighborhood vote share — structurally ~1% (demographic share of
+// the eight tracked communities). Cap at 2% so a doubling reads as max.
+const NEIGHBORHOOD_CAP_PCT = 2;
+// Missing-flash machine votes as % of all machine votes. Article shows
+// ~0.27% in 2026 (peak so far ~0.6% in 2024-06); cap at 1% for headroom.
+const MISSING_FLASH_CAP_PCT = 1;
+// Polls — pollster mean MAE in pp. Floor below the international ~1.5 pp
+// baseline so well-polled elections score 0; cap at 5 pp.
+const POLLS_FLOOR_PP = 1.5;
+const POLLS_CAP_PP = 5;
 
 export const useRiskComposite = (): RiskComposite | null => {
-  const { data: risk } = useRiskScore();
+  const { data: risk } = useRiskScoreSummary();
   const { countryVotes, votes: regionVotes } = useRegionVotes();
   const { data: suspicious } = useSuspiciousSettlements();
   const { data: benford } = useBenford();
+  const { data: national } = useNationalSummary();
+  const { data: problemSections } = useProblemSections();
+  const { data: pollsAccuracy } = usePollsAccuracy();
+  const { selected } = useElectionContext();
 
-  return useMemo(() => {
+  // Sticky cache: keep the last coherent composite around so that during
+  // a year switch the hero/ribbon don't flash to null while React Query
+  // is settling the new data. We render the previous value (one frame
+  // off, but valid) instead of disappearing — much less jarring.
+  const lastCoherentRef = useRef<RiskComposite | null>(null);
+
+  const fresh = useMemo(() => {
+    // Coherence gate: every election-stamped data source must report the
+    // currently selected election. React Query's per-hook fetches settle
+    // at slightly different times after a year change, so without this
+    // guard the composite would briefly render a Frankenstein value
+    // mixing old + new election data — the visible "30 → other → 30"
+    // flicker on year switch.
+    if (
+      !risk ||
+      risk.election !== selected ||
+      !suspicious ||
+      suspicious.election !== selected ||
+      !national ||
+      national.election !== selected
+    ) {
+      return null;
+    }
+
     const components: RiskCompositeComponent[] = [];
 
-    // 1. Section screening — weighted band rate. Weights mirror the
-    // human read of the bands: critical fully counts, high half, elevated
-    // a fifth, low not at all.
-    if (risk?.rows.length) {
-      let critical = 0;
-      let high = 0;
-      let elevated = 0;
-      for (const r of risk.rows) {
-        if (r.band === "critical") critical++;
-        else if (r.band === "high") high++;
-        else if (r.band === "elevated") elevated++;
-      }
-      const total = risk.rows.length;
+    // 1. Section screening — VOTE-weighted band rate. Sums section
+    // votes by band, weights critical=1.0, high=0.5, elevated=0.2, and
+    // expresses as % of national turnout. The band weights are the
+    // confidence in each anomaly tier; the result reads as "what fraction
+    // of the national vote sits in sections we'd flag for review."
+    if (risk?.votesByBand && risk.totalActualVoters > 0) {
+      const { critical, high, elevated } = risk.votesByBand;
       const weighted = critical * 1.0 + high * 0.5 + elevated * 0.2;
-      const value = Math.min(100, (100 * weighted) / total);
+      const sharePct = (100 * weighted) / risk.totalActualVoters;
+      const value = Math.min(100, (100 * sharePct) / SECTION_CAP_PCT);
       components.push({
         id: "sections",
         value,
         available: true,
-        detail: `${critical + high} / ${total}`,
+        detail: `${Math.round(weighted).toLocaleString("bg-BG")} / ${risk.totalActualVoters.toLocaleString("bg-BG")} (${sharePct.toFixed(2)}%)`,
       });
     } else {
       components.push({ id: "sections", value: 0, available: false });
@@ -121,39 +171,101 @@ export const useRiskComposite = (): RiskComposite | null => {
       components.push({ id: "machine", value: 0, available: false });
     }
 
-    // 3. Geographic concentration — count of settlements with one party
-    // ≥80% of the vote, capped at CONCENTRATION_CAP.
-    if (suspicious) {
-      const count = suspicious.concentrated.count;
-      const value = Math.min(100, (100 * count) / CONCENTRATION_CAP);
+    // 3. Geographic concentration — VOTE-weighted: top-party votes in
+    // ≥80% concentrated settlements, as % of national turnout. Capped
+    // at CONCENTRATION_CAP_PCT.
+    if (suspicious && suspicious.nationalActualVoters > 0) {
+      const v = suspicious.concentrated.votesAffected ?? 0;
+      const total = suspicious.nationalActualVoters;
+      const sharePct = (100 * v) / total;
+      const value = Math.min(100, (100 * sharePct) / CONCENTRATION_CAP_PCT);
       components.push({
         id: "concentration",
         value,
         available: true,
-        detail: `${count.toLocaleString("bg-BG")}`,
+        detail: `${v.toLocaleString("bg-BG")} / ${total.toLocaleString("bg-BG")} (${sharePct.toFixed(2)}%)`,
       });
     } else {
       components.push({ id: "concentration", value: 0, available: false });
     }
 
-    // 4. Procedural anomalies — combined count of settlements with
-    // ≥10% invalid ballots OR ≥10% additional voters, capped at
-    // PROCEDURAL_CAP.
-    if (suspicious) {
-      const count =
-        suspicious.invalidBallots.count + suspicious.additionalVoters.count;
-      const value = Math.min(100, (100 * count) / PROCEDURAL_CAP);
+    // 4. Procedural anomalies — VOTE-weighted: invalid + additional
+    // voters in flagged settlements, as % of national turnout. Capped
+    // at PROCEDURAL_CAP_PCT.
+    if (suspicious && suspicious.nationalActualVoters > 0) {
+      const v =
+        (suspicious.invalidBallots.votesAffected ?? 0) +
+        (suspicious.additionalVoters.votesAffected ?? 0);
+      const total = suspicious.nationalActualVoters;
+      const sharePct = (100 * v) / total;
+      const value = Math.min(100, (100 * sharePct) / PROCEDURAL_CAP_PCT);
       components.push({
         id: "procedural",
         value,
         available: true,
-        detail: `${count.toLocaleString("bg-BG")}`,
+        detail: `${v.toLocaleString("bg-BG")} / ${total.toLocaleString("bg-BG")} (${sharePct.toFixed(2)}%)`,
       });
     } else {
       components.push({ id: "procedural", value: 0, available: false });
     }
 
-    // 5. Statistical fingerprint — Benford 2BL strong-deviation rate
+    // 5. Risk neighborhoods — share of national turnout in the eight
+    // tracked communities. The integrity article identifies this as the
+    // single largest integrity-flagged vote bucket in the dataset.
+    // Structural signal (vote share is constrained by the demographic
+    // share of these communities) so values cluster around the cap; the
+    // discrimination comes from elections where the share drifts up.
+    if (problemSections?.neighborhoods?.length && national?.turnout?.actual) {
+      let mahalaVoters = 0;
+      for (const n of problemSections.neighborhoods) {
+        for (const s of n.sections ?? []) {
+          mahalaVoters += s.results?.protocol?.totalActualVoters ?? 0;
+        }
+      }
+      const total = national.turnout.actual;
+      const sharePct = (100 * mahalaVoters) / total;
+      const value = Math.min(100, (100 * sharePct) / NEIGHBORHOOD_CAP_PCT);
+      components.push({
+        id: "neighborhoods",
+        value,
+        available: true,
+        detail: `${mahalaVoters.toLocaleString("bg-BG")} / ${total.toLocaleString("bg-BG")} (${sharePct.toFixed(2)}%)`,
+      });
+    } else {
+      components.push({ id: "neighborhoods", value: 0, available: false });
+    }
+
+    // 6. Missing flash auditability — VOTE-weighted: machine votes in
+    // sections that ran machines but submitted no flash drive (and so
+    // can't be end-to-end audited), as % of total machine votes. Capped
+    // at MISSING_FLASH_CAP_PCT.
+    if (
+      risk &&
+      typeof risk.missingFlashMachineVotes === "number" &&
+      regionVotes
+    ) {
+      const country = countryVotes();
+      let totalMachine = 0;
+      for (const v of country.results.votes)
+        totalMachine += v.machineVotes ?? 0;
+      const v = risk.missingFlashMachineVotes;
+      if (totalMachine > 0 && (v > 0 || national?.anomalies?.suemgMissingFlash)) {
+        const sharePct = (100 * v) / totalMachine;
+        const value = Math.min(100, (100 * sharePct) / MISSING_FLASH_CAP_PCT);
+        components.push({
+          id: "missingFlash",
+          value,
+          available: true,
+          detail: `${v.toLocaleString("bg-BG")} / ${totalMachine.toLocaleString("bg-BG")} (${sharePct.toFixed(2)}%)`,
+        });
+      } else {
+        components.push({ id: "missingFlash", value: 0, available: false });
+      }
+    } else {
+      components.push({ id: "missingFlash", value: 0, available: false });
+    }
+
+    // 7. Statistical fingerprint — Benford 2BL strong-deviation rate
     // among parties with at least 100 sections (per Mebane). Falls back
     // to 1BL only if no party has enough sections for 2BL.
     if (benford?.parties.length) {
@@ -183,6 +295,40 @@ export const useRiskComposite = (): RiskComposite | null => {
       components.push({ id: "benford", value: 0, available: false });
     }
 
+    // 8. Polling discrepancy — mean MAE across all agencies that polled
+    // this election, offset and capped: ≤1.5 pp (international baseline)
+    // = 0, ≥5 pp = max. The article includes the polling miss as one of
+    // the headline integrity-adjacent signals; the offset calibration
+    // mitigates the "BG polls always elevated" concern by treating
+    // typical accuracy as a neutral 0 rather than a permanent floor.
+    // Polling error has structural causes (methodology, late deciders,
+    // sample bias) — high values here do NOT imply election irregularity,
+    // only forecast failure.
+    const electionIsoForPolls = selected?.replace(/_/g, "-");
+    const pollsEntry = pollsAccuracy?.elections.find(
+      (e) => e.electionDate === electionIsoForPolls,
+    );
+    if (pollsEntry && pollsEntry.agencies.length > 0) {
+      const meanMae =
+        pollsEntry.agencies.reduce((s, a) => s + a.mae, 0) /
+        pollsEntry.agencies.length;
+      const value = Math.min(
+        100,
+        Math.max(
+          0,
+          ((meanMae - POLLS_FLOOR_PP) / (POLLS_CAP_PP - POLLS_FLOOR_PP)) * 100,
+        ),
+      );
+      components.push({
+        id: "polls",
+        value,
+        available: true,
+        detail: `${meanMae.toFixed(2)} pp`,
+      });
+    } else {
+      components.push({ id: "polls", value: 0, available: false });
+    }
+
     const available = components.filter((c) => c.available);
     if (!available.length) return null;
     const score =
@@ -195,5 +341,25 @@ export const useRiskComposite = (): RiskComposite | null => {
       availableCount: available.length,
       totalCount: components.length,
     };
-  }, [risk, countryVotes, regionVotes, suspicious, benford]);
+  }, [
+    risk,
+    countryVotes,
+    regionVotes,
+    suspicious,
+    benford,
+    national,
+    problemSections,
+    pollsAccuracy,
+    selected,
+  ]);
+
+  // If the freshly-computed composite is coherent, cache and return it.
+  // Otherwise (mid-transition between elections), fall back to the last
+  // coherent value so the UI doesn't flash to empty. On first load both
+  // are null, which lets the hero/ribbon stay hidden until first paint.
+  if (fresh) {
+    lastCoherentRef.current = fresh;
+    return fresh;
+  }
+  return lastCoherentRef.current;
 };

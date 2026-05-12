@@ -1,7 +1,7 @@
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { ShieldAlert } from "lucide-react";
-import { useRiskScore } from "@/data/riskScore/useRiskScore";
+import { useRiskScoreSummary } from "@/data/riskScore/useRiskScore";
 import { useNationalSummary } from "@/data/dashboard/useNationalSummary";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { useRegions } from "@/data/regions/useRegions";
@@ -13,8 +13,6 @@ import { Hint } from "@/ux/Hint";
 import { StatCard } from "@/screens/dashboard/StatCard";
 import { RiskBandBadge } from "@/screens/components/riskScore/RiskBandBadge";
 
-const TOP_N = 10;
-
 const stripPrefix = (s?: string) => (s ?? "").replace(/^\d+\.\s*/, "");
 
 // Risk-analysis page section — top N highest-scoring sections in the
@@ -25,7 +23,7 @@ const stripPrefix = (s?: string) => (s ?? "").replace(/^\d+\.\s*/, "");
 export const RiskScoreTopCard: FC = () => {
   const { t, i18n } = useTranslation();
   const isBg = i18n.language === "bg";
-  const { data } = useRiskScore();
+  const { data } = useRiskScoreSummary();
   const { data: nat } = useNationalSummary();
   const { displayNameFor } = useCanonicalParties();
   const { findRegion } = useRegions();
@@ -33,14 +31,16 @@ export const RiskScoreTopCard: FC = () => {
   const { findSettlement } = useSettlementsInfo();
 
   const { top, totals } = useMemo(() => {
-    const rows = data?.rows ?? [];
-    const counts = { low: 0, elevated: 0, high: 0, critical: 0 };
-    for (const r of rows) counts[r.band]++;
-    const critical = rows
-      .filter((r) => r.band === "critical")
-      .sort((a, b) => b.score - a.score)
-      .slice(0, TOP_N);
-    return { top: critical, totals: { ...counts, total: rows.length } };
+    if (!data)
+      return {
+        top: [],
+        totals: { low: 0, elevated: 0, high: 0, critical: 0, total: 0 },
+      };
+    const critical = [...data.topCritical].sort((a, b) => b.score - a.score);
+    return {
+      top: critical,
+      totals: { ...data.counts, total: data.totalSections },
+    };
   }, [data]);
 
   if (!data) return null;

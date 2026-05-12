@@ -19,6 +19,11 @@ export type SuspiciousCategory = {
   count: number;
   threshold: number;
   top: SuspiciousTopSettlement[];
+  /** Sum of "votes affected" across ALL flagged settlements (not just
+   * the top N): top-party votes for `concentrated`, invalid ballots for
+   * `invalidBallots`, additional voters for `additionalVoters`. Used by
+   * the composite Election Risk Index for vote-weighting. */
+  votesAffected: number;
 };
 
 export type SuspiciousSettlementsReport = {
@@ -29,6 +34,9 @@ export type SuspiciousSettlementsReport = {
     additionalVotersPct: number;
     additionalVotersMinActual: number;
   };
+  /** National actual voters across all non-abroad settlements — the
+   * denominator the composite uses for vote-weighted percentages. */
+  nationalActualVoters: number;
   concentrated: SuspiciousCategory;
   invalidBallots: SuspiciousCategory;
   additionalVoters: SuspiciousCategory;
