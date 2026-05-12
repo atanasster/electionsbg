@@ -21,12 +21,12 @@ import { buildDataProvenance } from "./build_data_provenance";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const REPO = path.resolve(__dirname, "../..");
-const PUBLIC = path.join(REPO, "public");
+const DATA = path.join(REPO, "data");
 const RAW = path.join(REPO, "raw_data");
 
 const stringify = (o: object): string => JSON.stringify(o, null, 0);
 
-buildConnectionsGraph({ publicFolder: PUBLIC, rawFolder: RAW, stringify });
-buildAssetsRankings({ publicFolder: PUBLIC, stringify });
-buildCarMakes({ publicFolder: PUBLIC, stringify });
-buildDataProvenance({ publicFolder: PUBLIC, stringify });
+buildConnectionsGraph({ publicFolder: DATA, rawFolder: RAW, stringify });
+buildAssetsRankings({ publicFolder: DATA, stringify });
+buildCarMakes({ publicFolder: DATA, stringify });
+buildDataProvenance({ publicFolder: DATA, stringify });

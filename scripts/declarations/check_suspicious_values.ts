@@ -22,7 +22,7 @@ import type { MpDeclaration } from "../../src/data/dataTypes";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const REPO = path.resolve(__dirname, "../..");
-const PUBLIC = path.join(REPO, "public");
+const DATA = path.join(REPO, "data");
 
 /** Heuristic thresholds. These are deliberately permissive — we want to flag
  * obvious typos (4+ orders of magnitude wrong) without false-positiving on
@@ -79,7 +79,7 @@ const formatBgn = (n: number): string =>
   new Intl.NumberFormat("en-GB").format(Math.round(n));
 
 const main = () => {
-  const declDir = path.join(PUBLIC, "parliament", "declarations");
+  const declDir = path.join(DATA, "parliament", "declarations");
   if (!fs.existsSync(declDir)) {
     console.error(`[check-suspicious] missing ${declDir}`);
     process.exit(1);

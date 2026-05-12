@@ -262,13 +262,13 @@ const main = async (): Promise<void> => {
     db.close();
 
     // Phase 5: reuse the just-built SQLite to drive integrateTr against a
-    // temp public/ that mirrors the real parliament inputs (so we don't
+    // temp dir that mirrors the real parliament inputs (so we don't
     // mutate the committed files). Tests the code path even though one
     // day's TR data is unlikely to match many of the 166 declared companies.
-    const realPublic = path.join(__dirname, "..", "..", "..", "public");
-    const realIndex = path.join(realPublic, "parliament", "index.json");
+    const realData = path.join(__dirname, "..", "..", "..", "data");
+    const realIndex = path.join(realData, "parliament", "index.json");
     const realCompaniesIndex = path.join(
-      realPublic,
+      realData,
       "parliament",
       "companies-index.json",
     );

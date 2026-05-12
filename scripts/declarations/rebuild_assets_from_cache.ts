@@ -20,7 +20,7 @@ import type { MpDeclaration } from "../../src/data/dataTypes";
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const REPO = path.resolve(__dirname, "../..");
-const PUBLIC = path.join(REPO, "public");
+const DATA = path.join(REPO, "data");
 const RAW = path.join(REPO, "raw_data");
 
 const cachePathFromSourceUrl = (sourceUrl: string): string | null => {
@@ -32,7 +32,7 @@ const cachePathFromSourceUrl = (sourceUrl: string): string | null => {
 };
 
 const main = () => {
-  const declDir = path.join(PUBLIC, "parliament", "declarations");
+  const declDir = path.join(DATA, "parliament", "declarations");
   if (!fs.existsSync(declDir)) {
     console.error(`[rebuild-assets] missing ${declDir}`);
     process.exit(1);
@@ -91,7 +91,7 @@ const main = () => {
   );
 
   buildAssetsRankings({
-    publicFolder: PUBLIC,
+    publicFolder: DATA,
     stringify: (o) => JSON.stringify(o, null, 0),
   });
 };
