@@ -20,6 +20,15 @@ export const Footer = () => {
           </Link>
         </li>
         <li>
+          <Link
+            to="/data-changes"
+            underline={false}
+            className="mx-2 text-sm font-medium lowercase text-secondary-foreground hover:text-primary"
+          >
+            {t("data_changes_title")}
+          </Link>
+        </li>
+        <li>
           <Anchor
             href="https://github.com/atanasster/electionsbg"
             aria-label={`${t("open_source")} — GitHub`}

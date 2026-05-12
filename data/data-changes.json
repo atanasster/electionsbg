@@ -1,0 +1,33 @@
+{
+  "updatedAt": "2026-05-12T10:36:28.384Z",
+  "entries": [
+    {
+      "timestamp": "2026-05-12T10:36:28.384Z",
+      "date": "2026-05-12",
+      "skill": "update-indicators",
+      "summary": "first-run backfill: 1 indicator (unemployment), 265 munis, 10 years (2016-2025)",
+      "links": [
+        {
+          "to": "/demographics/municipalities",
+          "labelKey": "data_changes_link_municipalities_demographics"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-12T09:51:34.294Z",
+      "date": "2026-05-12",
+      "skill": "update-connections",
+      "summary": "first real ingest after May-11 bootstrap; refreshed partyGroupShort for ~70 entries, 2 MP isCurrent flips, no new declarations",
+      "links": [
+        {
+          "to": "/connections",
+          "labelKey": "data_changes_link_connections"
+        },
+        {
+          "to": "/mp-assets",
+          "labelKey": "data_changes_link_assets"
+        }
+      ]
+    }
+  ]
+}

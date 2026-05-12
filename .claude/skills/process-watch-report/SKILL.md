@@ -104,6 +104,27 @@ Each watcher source maps to one downstream skill. Multiple sources can map to th
 
    The summary should reflect what was actually ingested (e.g. `"2 new sessions through 2026-05-10"` for rollcall, `"15 years tracked, 0 net change"` for financing). It lives in the marker file and shows up in `git log -p state/ingest/`.
 
+   **Then append a row to the public data-changes log — but only when data actually changed.** The `/data-changes` SPA page is for readers, not auditors; it should list substantive refreshes, not bootstrap stamps or fetchedAt-only churn. Use `git diff --stat data/` (the truth) as the gate:
+
+   ```bash
+   # If the skill actually wrote new/changed bytes under data/, append.
+   # If the diff is empty (or only metadata files moved), skip.
+   if [ -n "$(git diff --stat data/)" ]; then
+     npx tsx scripts/append-data-change.ts <skill-name> \
+       --summary "<same one-line recap>" \
+       --source "<upstream label, e.g. 'Eurostat macro (BG)'>"
+   fi
+   ```
+
+   Use the same `--summary` text as the stamp — keeping the two in sync means `git log -p state/ingest/` and the public page tell the same story. The script is also defensive: it auto-skips when the summary matches no-op patterns (`bootstrap:`, `unchanged`, `no data changes`, `only fetchedAt diff`, `timestamp-only diff`, `no run`), so a stray call won't pollute the page — but `git diff --stat` is the cleaner upstream gate.
+
+   **Specifically do NOT append for:**
+   - Bootstrap stamps (option (a) from "Bootstrap" above — `"bootstrap: marker seeded, no run"`).
+   - Skills that ran but produced no on-disk data diff (e.g. macro where every series is current).
+   - Watcher-fingerprint flips that were chrome-only (financing's `subsidii` page churn, etc.).
+
+   **Re-seed (rarely):** if you ever need to rebuild `data/data-changes.json` from current `state/ingest/*.json` markers, run `npx tsx scripts/seed-data-changes.ts`. The seeder applies the same no-op filter, so it's safe to re-run.
+
 ## Bootstrap (first orchestrator run after this migration)
 
 When `state/ingest/<skill>.json` is missing for a queued skill, you have two paths — ASK the user which:

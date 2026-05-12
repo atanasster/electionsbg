@@ -56,6 +56,11 @@ const SectionTimelineScreen = lazy(() =>
 const AboutScreen = lazy(() =>
   import("./screens/AboutScreen").then((m) => ({ default: m.AboutScreen })),
 );
+const DataChangesScreen = lazy(() =>
+  import("./screens/DataChangesScreen").then((m) => ({
+    default: m.DataChangesScreen,
+  })),
+);
 const SofiaScreen = lazy(() =>
   import("./screens/SofiaScreen").then((m) => ({ default: m.SofiaScreen })),
 );
@@ -797,6 +802,14 @@ export const AuthRoutes = () => {
           element={
             <LayoutScreen>
               <AboutScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="data-changes"
+          element={
+            <LayoutScreen>
+              <DataChangesScreen />
             </LayoutScreen>
           }
         />
