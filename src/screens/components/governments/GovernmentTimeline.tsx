@@ -32,6 +32,7 @@ import {
   xDomainFor,
 } from "@/screens/components/governments/governmentTimelineUtils";
 import { useChartInsets } from "@/screens/components/governments/governmentChartInsets";
+import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
 
 const ELECTION_DATES = [
   "2005_06_25",
@@ -259,7 +260,12 @@ const TooltipContent: FC<{
 // ran ~2.5 months). Wide pills get horizontal text; narrow ones use rotated
 // (vertical) text so the surname still reads. Pills below ~1% of the timeline
 // drop the label entirely — the colour band + tooltip carry the identification.
-const PILL_HORIZONTAL_THRESHOLD = 5; // pct width
+// On phone-width viewports the timeline is only ~300px wide, so even a 4-year
+// pill is too narrow for a 7–9 char Bulgarian surname horizontal. We force
+// every pill vertical and make the strip taller (h-24 ≈ 96px) so the full
+// surname fits.
+const PILL_HORIZONTAL_THRESHOLD_DESKTOP = 5; // pct width
+const PILL_HORIZONTAL_THRESHOLD_MOBILE = Infinity; // never horizontal
 const PILL_LABEL_THRESHOLD = 1; // pct width
 
 const formatDateLocal = (iso: string | null, lang: "en" | "bg"): string => {
@@ -344,9 +350,16 @@ export const CabinetStrip: FC<{
 }> = ({ governments, xDomain, lang }) => {
   const { colorFor } = useCanonicalParties();
   const insets = useChartInsets();
+  const isSmall = useMediaQueryMatch("sm");
+  const horizontalThreshold = isSmall
+    ? PILL_HORIZONTAL_THRESHOLD_MOBILE
+    : PILL_HORIZONTAL_THRESHOLD_DESKTOP;
   return (
     <div
-      className="flex h-14 mb-1 rounded overflow-hidden"
+      className={cn(
+        "flex mb-1 rounded overflow-hidden",
+        isSmall ? "h-24" : "h-14",
+      )}
       style={{
         paddingLeft: insets.paddingLeft,
         paddingRight: insets.paddingRight,
@@ -358,7 +371,7 @@ export const CabinetStrip: FC<{
         const widthPct = ((end - start) / (xDomain[1] - xDomain[0])) * 100;
         const surname =
           (lang === "bg" ? g.pmBg : g.pmEn).split(" ").pop() ?? "";
-        const horizontal = widthPct >= PILL_HORIZONTAL_THRESHOLD;
+        const horizontal = widthPct >= horizontalThreshold;
         const showLabel = widthPct >= PILL_LABEL_THRESHOLD;
         return (
           <UxTooltip
