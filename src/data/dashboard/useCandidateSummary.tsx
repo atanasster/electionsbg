@@ -16,6 +16,9 @@ const round = (n: number, digits = 2) => {
   return Math.round(n * f) / f;
 };
 
+const isJsonResponse = (response: Response) =>
+  (response.headers.get("content-type") ?? "").includes("json");
+
 const statsQueryFn = async ({
   queryKey,
 }: QueryFunctionContext<
@@ -25,7 +28,7 @@ const statsQueryFn = async ({
   const response = await fetch(
     dataUrl(`/${queryKey[1]}/candidates/${queryKey[2]}/preferences_stats.json`),
   );
-  if (response.status === 404) return null;
+  if (response.status === 404 || !isJsonResponse(response)) return null;
   if (!response.ok) {
     throw new Error(`fetch failed: ${response.status} ${response.url}`);
   }
@@ -41,7 +44,7 @@ const regionsQueryFn = async ({
   const response = await fetch(
     dataUrl(`/${queryKey[1]}/candidates/${queryKey[2]}/regions.json`),
   );
-  if (response.status === 404) return null;
+  if (response.status === 404 || !isJsonResponse(response)) return null;
   if (!response.ok) {
     throw new Error(`fetch failed: ${response.status} ${response.url}`);
   }
@@ -50,7 +53,10 @@ const regionsQueryFn = async ({
 
 export const useCandidateSummary = (
   name?: string,
-): { data?: CandidateDashboardSummary; isLoading: boolean } => {
+): {
+  data: CandidateDashboardSummary | null | undefined;
+  isLoading: boolean;
+} => {
   const { selected, priorElections } = useElectionContext();
   const { findParty } = usePartyInfo();
   const { findRegion } = useRegions();
@@ -65,9 +71,10 @@ export const useCandidateSummary = (
     queryFn: regionsQueryFn,
   });
 
-  const data = useMemo<CandidateDashboardSummary | undefined>(() => {
+  const data = useMemo<CandidateDashboardSummary | null | undefined>(() => {
     if (!name || !selected) return undefined;
-    if (!regionRows) return undefined;
+    if (regionRows === undefined) return undefined;
+    if (regionRows === null) return null;
 
     const partyNum = regionRows[0]?.partyNum ?? 0;
     const party = findParty(partyNum);

@@ -48,7 +48,7 @@ export const CandidateDashboardCards: FC<Props> = ({ name, linkSlug }) => {
   const hasFinancials = !!electionStats?.hasFinancials;
   const navSlug = linkSlug ?? encodeURIComponent(name);
 
-  if (isLoading || !data) {
+  if (isLoading || data === undefined) {
     return (
       <section aria-label={t("dashboard")} className="my-4">
         <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4">
@@ -62,6 +62,10 @@ export const CandidateDashboardCards: FC<Props> = ({ name, linkSlug }) => {
         </div>
       </section>
     );
+  }
+
+  if (data === null) {
+    return null;
   }
 
   return (
