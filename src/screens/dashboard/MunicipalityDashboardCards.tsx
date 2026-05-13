@@ -96,7 +96,6 @@ export const MunicipalityDashboardCards: FC<Props> = ({ municipalityCode }) => {
           id="votes"
           title={t("dashboard_section_votes")}
           icon={Gauge}
-          articleTopic="votes"
         >
           <div className="grid gap-3 grid-cols-1 lg:grid-cols-[minmax(0,1.4fr)_minmax(0,1fr)]">
             <MunicipalitySettlementsMapTile
@@ -118,7 +117,6 @@ export const MunicipalityDashboardCards: FC<Props> = ({ municipalityCode }) => {
           id="geography"
           title={t("dashboard_section_geography")}
           icon={Map}
-          articleTopic="geography"
         >
           <TopSettlementsTile
             parties={data.parties}
@@ -135,7 +133,6 @@ export const MunicipalityDashboardCards: FC<Props> = ({ municipalityCode }) => {
           id="anomalies"
           title={t("dashboard_section_anomalies")}
           icon={AlertTriangle}
-          articleTopic="anomalies"
         >
           <FlashMemoryTile
             parties={data.parties}
@@ -158,7 +155,6 @@ export const MunicipalityDashboardCards: FC<Props> = ({ municipalityCode }) => {
           id="neighborhoods"
           title={t("dashboard_section_neighborhoods")}
           icon={Building2}
-          articleTopic="neighborhoods"
         >
           <ProblemSectionsTile
             parties={data.parties}

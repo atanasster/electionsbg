@@ -241,6 +241,23 @@ export const AboutScreen = () => {
               </ul>
             </DataGroup>
 
+            <DataGroup title={t("indicators_section")}>
+              <ul className="space-y-2">
+                <SourceItem
+                  href="https://www.az.government.bg/stats/4/"
+                  label={t("indicators_az_source")}
+                />
+                <SourceItem
+                  href="https://data.egov.bg/data/view/066b4b04-d81d-444e-a61c-8ca0516079e4"
+                  label={t("indicators_mon_dzi_source")}
+                />
+                <SourceItem
+                  href="https://www.nsi.bg/bg/content/2975/население-по-области-общини-местоживеене-и-пол"
+                  label={t("indicators_nsi_pop_source")}
+                />
+              </ul>
+            </DataGroup>
+
             <DataGroup title={t("polls_data_section")}>
               <ul className="space-y-2">
                 <SourceItem

@@ -34,6 +34,11 @@ dist.old-*
 # public/parliament/declarations/ are committed; this raw cache is not.
 /raw_data/declarations/
 
+# Cached XLSX downloads from external publishers (AZ годишен обзор etc.).
+# Re-fetched on demand by `/update-indicators`. The merged data/indicators.json
+# is committed; this raw cache is not.
+/raw_data/indicators/
+
 # Generated election data — regenerate with `npm run prod`
 # Pattern note: ignore directory *contents* (not the directory itself) so we can
 # re-include specific subtrees below. A leading-anchored `/data/2*/` would block

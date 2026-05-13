@@ -1,0 +1,15 @@
+{
+  "_doc": "AZ-code → app obshtina-code map for entries that don't match by direct passthrough. The synthetic SOF00 is the Sofia-city aggregate; the hook in src/data/indicators/useIndicators.tsx falls back to it when a Sofia district (S2301..S2524) has no per-district value.",
+  "code_aliases": {
+    "SOF46": "SOF00",
+    "PAZ30": "PAZ39"
+  },
+  "name_aliases": {
+    "_doc": "Pre-2024 annual reviews don't include AZ codes; rows must be matched by Bulgarian municipality name within the surrounding Област context. Format: 'Област-name||Община-name' → obshtina code. Populated lazily as the normalize step encounters unmatched names — keep the file sorted to keep diffs reviewable.",
+    "Добрич||Добрич - град": "DOB28",
+    "Добрич||Добрич-град": "DOB28",
+    "Добрич||гр.Добрич": "DOB28",
+    "Добрич||Добрич - села": "DOB15",
+    "Добрич||Добрич - селска": "DOB15"
+  }
+}

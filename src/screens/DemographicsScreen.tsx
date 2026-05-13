@@ -10,11 +10,14 @@ import { MetricSelector } from "./components/demographics/MetricSelector";
 import { VoteDemographicScatter } from "./components/demographics/VoteDemographicScatter";
 import { RegionalChoroplethMap } from "./components/regional/RegionalChoroplethMap";
 import { RegionalIndicatorSelector } from "./components/regional/RegionalIndicatorSelector";
+import { IndicatorsChoroplethMap } from "./components/indicators/IndicatorsChoroplethMap";
+import { IndicatorsSelector } from "./components/indicators/IndicatorsSelector";
 import { MapLayout } from "@/layout/dataview/MapLayout";
 import { useSearchParam } from "./utils/useSearchParam";
 import { CENSUS_METRICS } from "./components/demographics/censusMetrics";
 import type { CensusMetric } from "@/data/census/censusTypes";
 import type { RegionalIndicatorKey } from "@/data/regional/useRegional";
+import type { IndicatorId } from "@/data/indicators/useIndicators";
 
 const DEFAULT_MAP_METRIC: CensusMetric = "eduSecondary";
 const VALID_METRICS = new Set<CensusMetric>(CENSUS_METRICS.map((m) => m.key));
@@ -23,6 +26,12 @@ const VALID_REGIONAL_INDICATORS = new Set<RegionalIndicatorKey>([
   "gdpPerCapita",
   "population",
   "netMigration",
+]);
+const DEFAULT_INDICATOR: IndicatorId = "unemployment";
+const VALID_INDICATORS = new Set<IndicatorId>([
+  "unemployment",
+  "dzi",
+  "populationChange",
 ]);
 
 export const DemographicsScreen = () => {
@@ -54,6 +63,19 @@ export const DemographicsScreen = () => {
       setRegionalParam(k === DEFAULT_REGIONAL_INDICATOR ? undefined : k);
     },
     [setRegionalParam],
+  );
+  const [indicatorParam, setIndicatorParam] = useSearchParam("indicator", {
+    replace: true,
+  });
+  const indicator: IndicatorId =
+    indicatorParam && VALID_INDICATORS.has(indicatorParam as IndicatorId)
+      ? (indicatorParam as IndicatorId)
+      : DEFAULT_INDICATOR;
+  const setIndicator = useCallback(
+    (k: IndicatorId) => {
+      setIndicatorParam(k === DEFAULT_INDICATOR ? undefined : k);
+    },
+    [setIndicatorParam],
   );
   const lang = i18n.language;
 
@@ -114,6 +136,23 @@ export const DemographicsScreen = () => {
         <MapLayout>
           {(size) => (
             <RegionalChoroplethMap indicator={regionalIndicator} size={size} />
+          )}
+        </MapLayout>
+      </section>
+
+      <section id="indicators" className="mb-12 scroll-mt-24">
+        <div className="flex items-center justify-between flex-wrap gap-3 mb-1">
+          <h2 className="text-lg font-semibold">
+            {t("indicators_map_heading")}
+          </h2>
+          <IndicatorsSelector value={indicator} onChange={setIndicator} />
+        </div>
+        <p className="text-sm text-muted-foreground mb-4 max-w-3xl">
+          {t("indicators_map_explainer")}
+        </p>
+        <MapLayout>
+          {(size) => (
+            <IndicatorsChoroplethMap indicator={indicator} size={size} />
           )}
         </MapLayout>
       </section>

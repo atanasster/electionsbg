@@ -6,6 +6,9 @@ import { cacbgDeclarations } from "./cacbg_declarations";
 import { egovCommerce } from "./egov_commerce";
 import { eurostat } from "./eurostat";
 import { eurostatRegional } from "./eurostat_regional";
+import { indicatorsAz } from "./indicators_az";
+import { indicatorsMonDzi } from "./indicators_mon_dzi";
+import { indicatorsNsiPop } from "./indicators_nsi_pop";
 import { smetnaPalata } from "./smetna_palata";
 
 // cik is intentionally omitted — see ./cik.ts header. Re-add to this array
@@ -19,4 +22,7 @@ export const SOURCES: WatchSource[] = [
   egovCommerce,
   eurostat,
   eurostatRegional,
+  indicatorsAz,
+  indicatorsMonDzi,
+  indicatorsNsiPop,
 ];

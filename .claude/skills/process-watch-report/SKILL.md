@@ -35,6 +35,9 @@ The "Changed" section of the report contains a bulleted list. Each bullet's labe
 | `Сметна палата party financing` | `update-financing` |
 | `Eurostat macro` (BG) | `update-macro` |
 | `Eurostat regional` (BG) | `update-regional` |
+| `AZ (Агенция по заетостта)` | `update-indicators` |
+| `МОН: ДЗИ резултати` | `update-indicators` |
+| `НСИ: население по общини` | `update-indicators` |
 | `CIK news` (if re-enabled) | _no skill yet — surface as TODO_ |
 
 Some sources map to the same skill (`update-connections` handles both declarations and Commerce Registry); dedupe so it only runs once.
@@ -53,6 +56,9 @@ Each watcher source maps to one downstream skill. Multiple sources can map to th
 | `smetna_palata` | `update-financing` |
 | `eurostat` | `update-macro` |
 | `eurostat_regional` | `update-regional` |
+| `indicators_az` | `update-indicators` |
+| `indicators_mon_dzi` | `update-indicators` |
+| `indicators_nsi_pop` | `update-indicators` |
 | `cik` (if re-enabled) | _no skill yet — surface as TODO_ |
 
 ## Procedure

@@ -1,19 +1,22 @@
-# Watch report — 2026-05-12 (12.05.2026 г., 09:08 Europe/Sofia)
+# Watch report — 2026-05-12 (12.05.2026 г., 15:25 Europe/Sofia)
 
 ## Changed
-- **data.egov.bg Commerce Registry (Търговски регистър)**: 1 new resource(s) on top: a5896511-a8be-412d-b50a-8de2e5a34636
-- **Eurostat regional (BG): 3 NUTS3 datasets** · first run: 3 datasets · latest update 2026-05-05T11:00:00+0200
+- **НСИ: население по общини (timeseries XLSX)** · first run: 351945 bytes
 
 ## Unchanged
 - Parliament roll-call votes: unchanged (no new sessions (max id 11123, 2026-05-08))
 - Parliament MPs (active roster): unchanged (52-ро Народно събрание — 231 MPs)
 - BG Wikipedia polls (2026 cycle): unchanged (113 poll table rows)
 - Сметна палата declarations registry: unchanged (index hash f74f6ec3cebb3123)
-- Сметна палата party financing: unchanged (index hash 45bb661f3488412d)
-- Eurostat macro (BG): 13 datasets: unchanged (13 datasets · latest update 2026-05-09T11:00:00+0200)
+- Сметна палата party financing: unchanged (index hash a3e16b0813480dba)
+- data.egov.bg Commerce Registry (Търговски регистър): unchanged (10 resources on page 1, hash 6a399fd980838f8f)
+- Eurostat macro (BG): 13 datasets: unchanged (13 datasets · latest update 2026-05-12T11:00:00+0200)
+- Eurostat regional (BG): 3 NUTS3 datasets: unchanged (3 datasets · latest update 2026-05-05T11:00:00+0200)
+- AZ (Агенция по заетостта): annual unemployment reviews: unchanged (18 annual reviews · latest 2025)
+- МОН: ДЗИ резултати (data.egov.bg): unchanged (10 resources)
 
 ## Errors
 _(none)_
 
 ---
-_Watcher run at 2026-05-12T06:08:45.233Z UTC._
+_Watcher run at 2026-05-12T12:25:13.239Z UTC._
