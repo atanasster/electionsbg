@@ -341,6 +341,7 @@ const main = async (args: {
     items: number;
     relPath: string;
     isNew: boolean;
+    ns: string;
   }> = [];
   for (const sten of stenograms) {
     const result = await ingestSession(sten, ctx, {
