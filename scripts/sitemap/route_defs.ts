@@ -46,6 +46,10 @@ export const ENGLISH_STATIC_PAGES = [
   "mp/companies",
   "mp-assets",
   "mp-cars",
+  "procurement",
+  "procurement/contractors",
+  "procurement/awarders",
+  "procurement/mps",
   "parliament",
   "parliament/cohesion",
   "parliament/embedding",
@@ -95,6 +99,19 @@ export const routeDefs = (year: string): RouteDefs => [
   { path: "mp/companies", file: `src/screens/AllMpCompaniesScreen.tsx` },
   { path: "mp-assets", file: `src/screens/AllMpAssetsScreen.tsx` },
   { path: "mp-cars", file: `src/screens/MpCarsScreen.tsx` },
+
+  // Public procurement.
+  { path: "procurement", file: `src/screens/ProcurementScreen.tsx` },
+  {
+    path: "procurement/contractors",
+    file: `src/screens/TopContractorsScreen.tsx`,
+  },
+  {
+    path: "procurement/awarders",
+    file: `src/screens/TopAwardersScreen.tsx`,
+  },
+  { path: "procurement/mps", file: `src/screens/TopMpsScreen.tsx` },
+
   {
     path: "parliament",
     file: `src/screens/ParliamentHubScreen.tsx`,

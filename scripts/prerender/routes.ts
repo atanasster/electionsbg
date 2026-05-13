@@ -1117,6 +1117,113 @@ export const prerenderRoutes: PrerenderRoute[] = [
     },
   }),
   staticPage({
+    path: "procurement",
+    title:
+      "Обществени поръчки — договори и народни представители | electionsbg.com",
+    description:
+      "Агрегирани данни за обществените поръчки от data.egov.bg — топ изпълнители, възложители и народни представители с бизнес-интереси в спечелили фирми.",
+    breadcrumbName: "Обществени поръчки",
+    ogImage: "/og/procurement.png",
+    bodyHtml: `
+<h1>Обществени поръчки — договори и народни представители</h1>
+<p>Агрегирани данни за обществените поръчки, публикувани от Агенцията по обществени поръчки (АОП) чрез data.egov.bg. Можете да разгледате данните в рамките на мандата на избраното Народно събрание или за целия наличен период.</p>
+<h2>Какво ще намерите тук</h2>
+<ul>
+<li>Обобщени статистики — брой договори, обща сума, брой изпълнители и възложители.</li>
+<li><a href="${SITE_URL}/procurement/contractors">Топ изпълнители</a> — фирми с най-голям обем спечелени поръчки.</li>
+<li><a href="${SITE_URL}/procurement/awarders">Топ възложители</a> — държавни органи с най-голям обем възложени поръчки.</li>
+<li><a href="${SITE_URL}/procurement/mps">Депутати с връзки</a> — народни представители, чиито свързани фирми са спечелили поръчки.</li>
+<li>Sankey графика на паричния поток: възложител → фирма → депутат.</li>
+</ul>
+<p>Източник: <a href="https://data.egov.bg/organisation/about/aop" rel="nofollow noopener">data.egov.bg</a> (АОП OCDS, двуседмични пакети).</p>`.trim(),
+    english: {
+      title: "Public Procurement — Contracts and MPs | electionsbg.com",
+      description:
+        "Aggregated public-procurement data from data.egov.bg — top contractors, awarders, and MPs whose connected companies won contracts.",
+      breadcrumbName: "Public procurement",
+      bodyHtml: `
+<h1>Public procurement — contracts and MPs</h1>
+<p>Aggregated public-procurement data published by the Bulgarian Public Procurement Agency (АОП) via data.egov.bg. Browse data scoped to the selected parliament's term or across the full corpus.</p>
+<h2>What you'll find</h2>
+<ul>
+<li>Summary statistics — contract count, total value, contractor and awarder counts.</li>
+<li><a href="${SITE_URL}/en/procurement/contractors">Top contractors</a> — companies with the highest total procurement.</li>
+<li><a href="${SITE_URL}/en/procurement/awarders">Top awarders</a> — state bodies with the highest total awarded.</li>
+<li><a href="${SITE_URL}/en/procurement/mps">MP-connected</a> — MPs whose declared business interests received procurement.</li>
+<li>Sankey diagram of the money flow: awarder → company → MP.</li>
+</ul>
+<p>Source: <a href="https://data.egov.bg/organisation/about/aop" rel="nofollow noopener">data.egov.bg</a> (АОП OCDS, fortnightly bundles).</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "procurement/contractors",
+    title: "Топ изпълнители на обществени поръчки | electionsbg.com",
+    description:
+      "Пълна сортируема таблица на фирмите, спечелили най-много обществени поръчки — обща сума, брой договори и дали фирмата е свързана с народен представител.",
+    breadcrumbName: "Топ изпълнители",
+    ogImage: "/og/procurement-contractors.png",
+    bodyHtml: `
+<h1>Топ изпълнители на обществени поръчки</h1>
+<p>Пълна сортируема таблица на фирмите, спечелили най-много обществени поръчки от публичния регистър на АОП. Изпълнителите, свързани с народен представител, са маркирани.</p>
+<p>Виж и <a href="${SITE_URL}/procurement">общия преглед на обществените поръчки</a> и <a href="${SITE_URL}/procurement/mps">депутатите с бизнес-интереси</a>.</p>`.trim(),
+    english: {
+      title: "Top Public Procurement Contractors | electionsbg.com",
+      description:
+        "Full sortable table of companies that won the most public-procurement contracts — total value, contract count, and whether the company is MP-connected.",
+      breadcrumbName: "Top contractors",
+      bodyHtml: `
+<h1>Top public procurement contractors</h1>
+<p>Full sortable table of companies with the highest total procurement from the Bulgarian Public Procurement Agency (АОП) register. MP-connected contractors are highlighted.</p>
+<p>See also the <a href="${SITE_URL}/en/procurement">procurement overview</a> and <a href="${SITE_URL}/en/procurement/mps">MPs with business interests</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "procurement/awarders",
+    title: "Топ възложители на обществени поръчки | electionsbg.com",
+    description:
+      "Държавни органи с най-голям обем възложени обществени поръчки — обща сума в евро, брой договори и период на активност.",
+    breadcrumbName: "Топ възложители",
+    ogImage: "/og/procurement-awarders.png",
+    bodyHtml: `
+<h1>Топ възложители на обществени поръчки</h1>
+<p>Държавни органи и общини, наредили най-много обществени поръчки в рамките на мандата на избраното Народно събрание — подредени по обща стойност на договорите в евро.</p>
+<p>Виж и <a href="${SITE_URL}/procurement">общия преглед</a> и <a href="${SITE_URL}/procurement/contractors">топ изпълнителите</a>.</p>`.trim(),
+    english: {
+      title: "Top Public Procurement Awarders | electionsbg.com",
+      description:
+        "State bodies with the highest total awarded in public procurement — total EUR value, contract count, and the period covered.",
+      breadcrumbName: "Top awarders",
+      bodyHtml: `
+<h1>Top public procurement awarders</h1>
+<p>Government bodies and municipalities that awarded the most procurement during the selected parliament's term — ranked by total contract value converted to EUR.</p>
+<p>See also the <a href="${SITE_URL}/en/procurement">overview</a> and <a href="${SITE_URL}/en/procurement/contractors">top contractors</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "procurement/mps",
+    title: "Депутати с обществени поръчки на свързани фирми | electionsbg.com",
+    description:
+      "Народни представители, чиито декларирани бизнес-интереси съвпадат с фирми, спечелили обществени поръчки — обща сума, брой фирми и договори.",
+    breadcrumbName: "Депутати с поръчки",
+    ogImage: "/og/procurement-mps.png",
+    bodyHtml: `
+<h1>Депутати с обществени поръчки на свързани фирми</h1>
+<p>Народни представители, чиито декларирани пред Сметната палата бизнес-интереси (собственост или управление на фирма) съвпадат с изпълнители на обществени поръчки в периода на съответния мандат.</p>
+<p>Данните за поръчките са от АОП (data.egov.bg); бизнес-интересите — от имуществените декларации (register.cacbg.bg) и Търговския регистър.</p>
+<p>Виж и <a href="${SITE_URL}/procurement">общия преглед</a> и <a href="${SITE_URL}/connections">бизнес-връзките между депутатите</a>.</p>`.trim(),
+    english: {
+      title: "MPs with Connected-Company Procurement | electionsbg.com",
+      description:
+        "Bulgarian MPs whose declared business interests overlap with companies that won public-procurement contracts — total value, company count, and contract count.",
+      breadcrumbName: "MP-connected procurement",
+      bodyHtml: `
+<h1>MPs with connected-company procurement</h1>
+<p>Sitting Bulgarian MPs whose declared business interests (ownership or directorship) at the Court of Audit overlap with companies that won public-procurement contracts during the parliament's term.</p>
+<p>Procurement data: АОП via data.egov.bg. Business interests: property declarations at register.cacbg.bg and the Commerce Registry.</p>
+<p>See also the <a href="${SITE_URL}/en/procurement">procurement overview</a> and <a href="${SITE_URL}/en/connections">MP business connections</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
     path: "preferences",
     title:
       "Преференциален вот по партии — парламентарни избори | electionsbg.com",

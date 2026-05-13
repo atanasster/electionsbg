@@ -124,6 +124,39 @@ const captures: Capture[] = [
     settleMs: 2500,
   },
   {
+    slug: "procurement",
+    routePath: "procurement",
+    // Wait for the stat cards grid (data-og="procurement-stats"), then anchor
+    // on the flow tile (sankey) once it settles below the stats.
+    waitFor: '[data-og="procurement-stats"]',
+    anchor: '[data-og="procurement-flow"]',
+    centerOnAnchor: true,
+    settleMs: 3000,
+  },
+  {
+    slug: "procurement-contractors",
+    routePath: "procurement/contractors",
+    // DataTable renders tbody rows once the JSON is fetched.
+    waitFor: 'section[aria-label="top-contractors"] tbody tr',
+    anchor: 'section[aria-label="top-contractors"]',
+    settleMs: 1500,
+  },
+  {
+    slug: "procurement-awarders",
+    routePath: "procurement/awarders",
+    waitFor: 'section[aria-label="top-awarders"] tbody tr',
+    anchor: 'section[aria-label="top-awarders"]',
+    settleMs: 1500,
+  },
+  {
+    slug: "procurement-mps",
+    routePath: "procurement/mps",
+    // MP rows include avatars — give a bit more settle time for images.
+    waitFor: 'section[aria-label="top-mps"] tbody tr',
+    anchor: 'section[aria-label="top-mps"]',
+    settleMs: 2000,
+  },
+  {
     slug: "votes",
     // Representative recent session in NS 52 with a dozen items, so the
     // first-item hemicycle is well-populated.
