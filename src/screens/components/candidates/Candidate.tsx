@@ -36,7 +36,7 @@ export const Candidate: FC<{ name: string }> = ({ name }) => {
     // the candidate index resolves. This was the dominant CLS source on
     // /candidate/* pages because the swap inserts ~1500px above the fold.
     return (
-      <div className="w-full px-4 md:px-8 py-6">
+      <div className="w-full py-6">
         <div className="text-sm text-muted-foreground text-center">
           {t("loading") || "Loading…"}
         </div>

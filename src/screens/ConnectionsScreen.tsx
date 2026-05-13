@@ -900,7 +900,7 @@ export const ConnectionsScreen: FC = () => {
   }, [toQuery, toOpen, mpNodes, pathFrom?.id, localizedMpLabel]);
 
   return (
-    <div className="w-full px-4 md:px-8">
+    <div className="w-full">
       <Title description="MP–company–person connections graph">
         {t("connections_title") || "Connections"}
       </Title>
