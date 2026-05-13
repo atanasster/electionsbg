@@ -10,6 +10,8 @@ keywords:
 ---
 # Election risk screening — new tools and what they show for [19.04.2026](/elections/2026_04_19)
 
+> **Note (May 2026).** The composite index has since been restructured: it now averages only the five process-integrity signals into the headline, with Benford / neighborhood swing / electoral volatility / polling error shown as separate context signals. The specific scores quoted below (composite 30, machine integrity 0, risk-neighborhoods 48) reflect the original methodology and no longer match the live page. The current methodology and the framework-comparison rationale are documented in [Rebuilding the Election Risk Index](/articles/2026-05-13-risk-index-restructure).
+
 This is a follow-up to the [10 days earlier integrity analysis](/articles/2026-04-19-integrity), which surveyed every per-anomaly metric we publish for the 19.04.2026 election. Since that piece went out we have added three new aggregation layers on top of those raw metrics, all reachable from the new [`/risk-analysis`](/risk-analysis?elections=2026_04_19) dashboard:
 
 1. A national **Composite Election Risk Index** (0–100, 4 bands) that averages eight independent screening signals into a single headline number, surfaced on the home page and at the top of `/risk-analysis`.
