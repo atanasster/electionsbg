@@ -21,6 +21,7 @@ export const ENGLISH_STATIC_PAGES = [
   "sofia/recount",
   "sofia/timeline",
   "about",
+  "data-changes",
   "simulator",
   "compare",
   "timeline",
@@ -29,6 +30,7 @@ export const ENGLISH_STATIC_PAGES = [
   "regions",
   "articles",
   "governments",
+  "observations",
   "demographics",
   "risk-analysis",
   "risk-analysis/methodology",
@@ -50,10 +52,12 @@ export const routeDefs = (year: string): RouteDefs => [
   { path: "index", file: `data/${year}/region_votes.json` },
   { path: "sofia", file: `data/${year}/region_votes.json` },
   { path: "about", file: `src/screens/AboutScreen.tsx` },
+  { path: "data-changes", file: `src/screens/DataChangesScreen.tsx` },
   { path: "simulator", file: `src/screens/SimulatorScreen.tsx` },
   { path: "compare", file: `src/screens/CompareScreen.tsx` },
   { path: "timeline", file: `src/screens/PartyTimelineScreen.tsx` },
   { path: "governments", file: `src/screens/GovernmentsScreen.tsx` },
+  { path: "observations", file: `src/screens/ObservationsScreen.tsx` },
   { path: "demographics", file: `src/screens/DemographicsScreen.tsx` },
 
   // Risk / forensics screens.

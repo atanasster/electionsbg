@@ -402,6 +402,32 @@ const main = () => {
     path.join(distFolder, "og", "mp-assets.png"),
   );
 
+  // /observations — OSCE/ODIHR election observation reports landing page.
+  renderStaticPageCard(
+    "Доклади ОССЕ/ОДИХР",
+    "Международни наблюдения на парламентарните избори в България",
+    [
+      { label: "източник", value: "OSCE/ODIHR" },
+      { label: "обхват", value: yearSpan },
+      { label: "доклади", value: "EOM / LEOM / EAM" },
+      { label: "резюмета", value: "Claude AI" },
+    ],
+    path.join(distFolder, "og", "observations.png"),
+  );
+
+  // /data-changes — public log of dataset refreshes.
+  renderStaticPageCard(
+    "Промени в данните",
+    "Дневник на обновяванията на electionsbg.com",
+    [
+      { label: "обхват", value: "всички набори" },
+      { label: "проследява", value: "обновявания" },
+      { label: "източник", value: "pipeline" },
+      { label: "тип", value: "log" },
+    ],
+    path.join(distFolder, "og", "data-changes.png"),
+  );
+
   renderStaticPageCard(
     "Коли, декларирани от депутатите",
     "Леки автомобили и джипове от подадените декларации",
