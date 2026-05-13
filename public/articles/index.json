@@ -1,22 +1,5 @@
 [
   {
-    "slug": "2026-05-13-risk-index-restructure",
-    "election": "2026_04_19",
-    "publishedAt": "2026-05-13",
-    "category": "data_analysis",
-    "topics": ["anomalies"],
-    "author": "Claude Opus 4.7",
-    "title": {
-      "bg": "Реконструиране на индекса на изборния риск — процесна цялост и контекст",
-      "en": "Rebuilding the Election Risk Index — process integrity vs context"
-    },
-    "summary": {
-      "bg": "Защо разделихме композитния индекс на пет сигнала за процесна цялост (главен индекс) и четири контекстуални сигнала, как международните рамки подкрепят това и какво показва новата схема за вота на 19.04.2026 г. — 47 / 100 (Висок риск).",
-      "en": "Why we split the composite into five process-integrity signals (the headline) and four context signals, how the international frameworks (Norris PEI, V-Dem EQI, Klimek PNAS) back the split, and what 19.04.2026 reads under the new scheme — 47 / 100 (High risk)."
-    },
-    "ogImage": "/og/risk-screening-2026-04-19.png"
-  },
-  {
     "slug": "2026-05-13-procurement",
     "publishedAt": "2026-05-13",
     "category": "feature",
@@ -35,17 +18,17 @@
   {
     "slug": "2026-04-19-risk-screening",
     "election": "2026_04_19",
-    "publishedAt": "2026-05-12",
+    "publishedAt": "2026-05-13",
     "category": "data_analysis",
     "topics": ["anomalies"],
     "author": "Claude Opus 4.7",
     "title": {
       "bg": "Скрининг на изборния риск — нови инструменти за вота на 19.04.2026",
-      "en": "Election risk screening — new tools and what they show for 19.04.2026"
+      "en": "Election risk screening — new tools for the 19.04.2026 vote"
     },
     "summary": {
-      "bg": "Допълнение към анализа на интегритета: Композитен индекс на изборния риск (30/100, Повишен), скрининг по секции (10 критични от 12 705) и тест на Бенфорд по партии (2 със силно отклонение).",
-      "en": "Follow-up to the integrity analysis: composite Election Risk Index (30/100, Elevated), per-section risk screening (10 Critical out of 12,705), and per-party Benford 2BL test (2 strong-deviation parties)."
+      "bg": "Композитен индекс (47/100, Висок риск) от пет сигнала за процесна цялост, плюс четири контекстуални сигнала (Бенфорд, преориентиране в махалите, електорална волатилност, социологическа грешка). Скрининг по секции (10 критични от 12 705) и тест на Бенфорд по партии. Със сравнение с международните рамки за изборен интегритет.",
+      "en": "Composite index (47/100, High risk) from five process-integrity signals, plus four context signals (Benford, neighborhood swing, electoral volatility, polling error). Per-section risk screening (10 Critical out of 12,705) and per-party Benford 2BL. Aligned with the international electoral-integrity frameworks."
     },
     "ogImage": "/og/risk-screening-2026-04-19.png"
   },
