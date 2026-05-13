@@ -12,6 +12,12 @@
       "runtimeExecutable": "npm",
       "runtimeArgs": ["run", "preview"],
       "port": 4173
+    },
+    {
+      "name": "firebase-emulator",
+      "runtimeExecutable": "firebase",
+      "runtimeArgs": ["emulators:start", "--only", "hosting"],
+      "port": 5002
     }
   ]
 }
