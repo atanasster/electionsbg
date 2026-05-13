@@ -156,6 +156,7 @@ const ingestSession = async (
   items: number;
   relPath: string;
   isNew: boolean;
+  ns: string;
 } | null> => {
   const csvRef = findRollcallCsv(sten);
   if (!csvRef) {

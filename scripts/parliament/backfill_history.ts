@@ -39,12 +39,12 @@ const INDEX_FILE = path.join(VOTES_DIR, "index.json");
 
 const main = async (args: {
   from: string;
-  max: string;
-  gapStop: string;
+  max: string | undefined;
+  gapStop: string | undefined;
 }): Promise<void> => {
   const from = parseInt(args.from, 10);
-  const max = parseInt(args.max, 10);
-  const gapStop = parseInt(args.gapStop, 10);
+  const max = parseInt(args.max ?? "500", 10);
+  const gapStop = parseInt(args.gapStop ?? "30", 10);
   if (!Number.isFinite(from) || !Number.isFinite(max)) {
     throw new Error("--from and --max must be integers");
   }
