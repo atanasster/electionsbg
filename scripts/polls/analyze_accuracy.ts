@@ -367,7 +367,7 @@ const mean = (xs: number[]) =>
 const round = (n: number, dp = 2) => Math.round(n * 10 ** dp) / 10 ** dp;
 
 // Apply proportional redistribution of the will-vote residual (undecided + wontSay)
-// across the named-party shares, per Market Links' published formula:
+// across the named-party shares — standard proportional reallocation:
 //
 //   newShare[i] = share[i] × (1 + R / Σshare)   where R = undecided + wontSay
 //
