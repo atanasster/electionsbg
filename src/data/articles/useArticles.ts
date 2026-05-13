@@ -10,6 +10,7 @@ export type DashboardSectionId =
   | "anomalies"
   | "neighborhoods"
   | "declarations"
+  | "procurement"
   | "financing"
   | "history"
   | "polling"
@@ -24,6 +25,7 @@ export type ArticleMeta = {
   title: { bg: string; en: string };
   summary: { bg: string; en: string };
   ogImage?: string;
+  author?: string;
 };
 
 const indexQueryFn = async (): Promise<ArticleMeta[]> => {

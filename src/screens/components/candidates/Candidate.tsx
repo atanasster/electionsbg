@@ -8,6 +8,7 @@ import { MpFinancialDeclarations } from "./MpFinancialDeclarations";
 import { MpAssetsSummary } from "./MpAssetsSummary";
 import { MpManagementRoles } from "./MpManagementRoles";
 import { MpConnectionsMini } from "./MpConnectionsMini";
+import { MpConnectedContractsTile } from "./MpConnectedContractsTile";
 import { MpVotingTile } from "./MpVotingTile";
 import { MpTwinsTile } from "./MpTwinsTile";
 import { CandidateNamesakeChooser } from "./CandidateNamesakeChooser";
@@ -97,6 +98,7 @@ export const Candidate: FC<{ name: string }> = ({ name }) => {
           <MpFinancialDeclarations name={lookupName} />
           <MpManagementRoles name={lookupName} />
           <MpConnectionsMini name={lookupName} linkSlug={linkSlug} />
+          <MpConnectedContractsTile name={lookupName} linkSlug={linkSlug} />
         </>
       )}
     </div>

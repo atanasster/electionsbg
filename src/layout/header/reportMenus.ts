@@ -246,6 +246,10 @@ export const reportsMenu: MenuItem[] = [
         link: "/connections",
       },
       {
+        title: "procurement_link_label",
+        link: "/procurement",
+      },
+      {
         title: "demographics_title",
         link: "/demographics",
       },

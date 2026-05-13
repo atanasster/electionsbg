@@ -15,6 +15,7 @@ const TOPIC_LABEL_KEY: Record<DashboardSectionId, string> = {
   anomalies: "dashboard_section_anomalies",
   neighborhoods: "dashboard_section_neighborhoods",
   declarations: "dashboard_section_declarations",
+  procurement: "dashboard_section_procurement",
   financing: "dashboard_section_financing",
   history: "dashboard_section_history",
   polling: "dashboard_section_polling",

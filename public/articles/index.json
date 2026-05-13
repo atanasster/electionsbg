@@ -1,1 +1,68 @@
-[{"slug":"2026-04-19-risk-screening","election":"2026_04_19","publishedAt":"2026-05-12","category":"data_analysis","topics":["anomalies"],"title":{"bg":"Скрининг на изборния риск — нови инструменти за вота на 19.04.2026","en":"Election risk screening — new tools and what they show for 19.04.2026"},"summary":{"bg":"Допълнение към анализа на интегритета: Композитен индекс на изборния риск (30/100, Повишен), скрининг по секции (10 критични от 12 705) и тест на Бенфорд по партии (2 със силно отклонение).","en":"Follow-up to the integrity analysis: composite Election Risk Index (30/100, Elevated), per-section risk screening (10 Critical out of 12,705), and per-party Benford 2BL test (2 strong-deviation parties)."},"ogImage":"/og/risk-screening-2026-04-19.png"},{"slug":"2026-05-04-mp-connections","publishedAt":"2026-05-04","category":"feature","topics":["declarations"],"title":{"bg":"По следите на търговските връзки — преглед на новия модул за бизнес-връзки на народните представители","en":"Following the money trail — a tour of the new MP business connections feature"},"summary":{"bg":"Каква е новата графика за бизнес-връзки между депутатите, откъде идват данните, как се чете и пример за намиране на път между двама седящи депутати от различни партии.","en":"What the new MP business-connections graph is, where the data comes from, how to read it, and a worked example of a cross-party ownership path between two sitting MPs."},"ogImage":"/articles/images/connections/07-orbital-cluster-by-party.png"},{"slug":"2026-04-19-integrity","election":"2026_04_19","publishedAt":"2026-05-03","category":"data_analysis","topics":["anomalies","neighborhoods","polling"],"title":{"bg":"Анализ на почтеността на изборите от 19.04.2026","en":"Election Integrity Analysis — 19.04.2026 vs prior cycles"},"summary":{"bg":"Сравнителен анализ на 12 избора (2009-2026): аномалии на флаш памет, активност, протестен вот, рискови махали и социология.","en":"Comparative analysis across 12 elections (2009-2026): flash-memory anomalies, turnout, protest vote, risk neighborhoods and polling."},"ogImage":"/og/dashboard-2026-04-19.png"}]
+[
+  {
+    "slug": "2026-05-13-procurement",
+    "publishedAt": "2026-05-13",
+    "category": "feature",
+    "topics": ["procurement"],
+    "author": "Claude Opus 4.7",
+    "title": {
+      "bg": "Парите на държавата — нов модул за обществените поръчки и кои фирми, свързани с депутати, са получавали плащания",
+      "en": "The state's money — a new module for public procurement, and which MP-connected companies have been paid"
+    },
+    "summary": {
+      "bg": "Какво представлява новият модул за обществените поръчки, откъде идват данните (244 556 договора от 2011 до 2026 г.), как се чете и пример с бивш депутат, представляващ най-големия фармацевтичен дистрибутор с 3 985 държавни договора за €1,59 млрд.",
+      "en": "What the new public-procurement module is, where the data comes from (244,556 contracts spanning 2011–2026), how to read it, and a worked example of a former MP recorded as representative of Bulgaria's largest pharmaceutical distributor — a company with 3,985 state contracts totalling €1.59B."
+    },
+    "ogImage": "/og/procurement.png"
+  },
+  {
+    "slug": "2026-04-19-risk-screening",
+    "election": "2026_04_19",
+    "publishedAt": "2026-05-12",
+    "category": "data_analysis",
+    "topics": ["anomalies"],
+    "author": "Claude Opus 4.7",
+    "title": {
+      "bg": "Скрининг на изборния риск — нови инструменти за вота на 19.04.2026",
+      "en": "Election risk screening — new tools and what they show for 19.04.2026"
+    },
+    "summary": {
+      "bg": "Допълнение към анализа на интегритета: Композитен индекс на изборния риск (30/100, Повишен), скрининг по секции (10 критични от 12 705) и тест на Бенфорд по партии (2 със силно отклонение).",
+      "en": "Follow-up to the integrity analysis: composite Election Risk Index (30/100, Elevated), per-section risk screening (10 Critical out of 12,705), and per-party Benford 2BL test (2 strong-deviation parties)."
+    },
+    "ogImage": "/og/risk-screening-2026-04-19.png"
+  },
+  {
+    "slug": "2026-05-04-mp-connections",
+    "publishedAt": "2026-05-04",
+    "category": "feature",
+    "topics": ["declarations"],
+    "author": "Claude Opus 4.7",
+    "title": {
+      "bg": "По следите на търговските връзки — преглед на новия модул за бизнес-връзки на народните представители",
+      "en": "Following the money trail — a tour of the new MP business connections feature"
+    },
+    "summary": {
+      "bg": "Каква е новата графика за бизнес-връзки между депутатите, откъде идват данните, как се чете и пример за намиране на път между двама седящи депутати от различни партии.",
+      "en": "What the new MP business-connections graph is, where the data comes from, how to read it, and a worked example of a cross-party ownership path between two sitting MPs."
+    },
+    "ogImage": "/articles/images/connections/07-orbital-cluster-by-party.png"
+  },
+  {
+    "slug": "2026-04-19-integrity",
+    "election": "2026_04_19",
+    "publishedAt": "2026-05-03",
+    "category": "data_analysis",
+    "topics": ["anomalies", "neighborhoods", "polling"],
+    "author": "Claude Opus 4.7",
+    "title": {
+      "bg": "Анализ на почтеността на изборите от 19.04.2026",
+      "en": "Election Integrity Analysis — 19.04.2026 vs prior cycles"
+    },
+    "summary": {
+      "bg": "Сравнителен анализ на 12 избора (2009-2026): аномалии на флаш памет, активност, протестен вот, рискови махали и социология.",
+      "en": "Comparative analysis across 12 elections (2009-2026): flash-memory anomalies, turnout, protest vote, risk neighborhoods and polling."
+    },
+    "ogImage": "/og/dashboard-2026-04-19.png"
+  }
+]

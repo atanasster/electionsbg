@@ -1,4 +1,5 @@
 import { FC, lazy, Suspense } from "react";
+import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
   AlertTriangle,
@@ -7,8 +8,12 @@ import {
   CalendarDays,
   Coins,
   Gauge,
+  Landmark,
   Map,
 } from "lucide-react";
+import { useProcurementByNs } from "@/data/procurement/useProcurementByNs";
+import { TopMpsTile } from "@/screens/components/procurement/TopMpsTile";
+import { TopContractorsTile } from "@/screens/components/procurement/TopContractorsTile";
 import { useNationalSummary } from "@/data/dashboard/useNationalSummary";
 import { useElectionContext } from "@/data/ElectionContext";
 import { useProblemSectionsStats } from "@/data/reports/useProblemSectionsStats";
@@ -71,6 +76,7 @@ const SECTION_TOPICS: readonly DashboardSectionId[] = [
   "neighborhoods",
   "financing",
   "declarations",
+  "procurement",
   "polling",
 ];
 
@@ -101,6 +107,7 @@ export const DashboardCards: FC = () => {
   const { data, isLoading } = useNationalSummary();
   const { electionStats } = useElectionContext();
   const { data: problemSectionsStats } = useProblemSectionsStats();
+  const { data: procurementByNs } = useProcurementByNs();
 
   // electionStats is derived synchronously from in-memory data, so we use it
   // to gate the same set of optional rows in both the skeleton and live
@@ -256,6 +263,31 @@ export const DashboardCards: FC = () => {
           </div>
           <MpAssetsTile />
         </DashboardSection>
+
+        {procurementByNs && procurementByNs.topMps.length > 0 ? (
+          <DashboardSection
+            id="procurement"
+            title={t("dashboard_section_procurement")}
+            subtitle={
+              <span className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                <span>{t("dashboard_section_procurement_subtitle")}</span>
+                <Link
+                  to="/procurement"
+                  className="text-primary hover:underline whitespace-nowrap"
+                >
+                  {t("dashboard_section_procurement_link")}
+                </Link>
+              </span>
+            }
+            icon={Landmark}
+            articleTopic="procurement"
+          >
+            <div className="grid gap-3 grid-cols-1 xl:grid-cols-2">
+              <TopMpsTile data={procurementByNs} />
+              <TopContractorsTile byNs={procurementByNs} />
+            </div>
+          </DashboardSection>
+        ) : null}
 
         <DashboardSection
           id="polling"

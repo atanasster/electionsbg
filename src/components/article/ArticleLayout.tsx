@@ -21,6 +21,8 @@ type Props = {
   /** ISO 8601 string. When set, formatted into the locale-aware long form
    * shown above the title. Optional — documentation pages usually omit it. */
   date?: string;
+  /** Byline shown next to the date (e.g. "Claude Opus 4.7"). */
+  author?: string;
   /** Breadcrumb back-link, e.g. `{ to: "/articles", label: t("articles_title") }`.
    * Pass `null` to hide. */
   breadcrumb: Breadcrumb | null;
@@ -36,6 +38,7 @@ export const ArticleLayout: FC<Props> = ({
   title,
   description,
   date,
+  author,
   breadcrumb,
   seo = true,
   seoType = "article",
@@ -66,9 +69,11 @@ export const ArticleLayout: FC<Props> = ({
           </RouterLink>
         ) : null}
         <header className="mt-4 mb-8 border-b border-border/60 pb-6">
-          {formattedDate ? (
-            <div className="text-[11px] font-medium uppercase tracking-[0.12em] text-muted-foreground">
-              {formattedDate}
+          {formattedDate || author ? (
+            <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-[11px] font-medium uppercase tracking-[0.12em] text-muted-foreground">
+              {formattedDate ? <span>{formattedDate}</span> : null}
+              {formattedDate && author ? <span aria-hidden>·</span> : null}
+              {author ? <span>{author}</span> : null}
             </div>
           ) : null}
           <h1 className="mt-2 text-2xl md:text-3xl font-extrabold leading-tight tracking-tight text-foreground">

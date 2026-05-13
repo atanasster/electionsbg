@@ -925,3 +925,245 @@ export type DataProvenanceFile = {
    * without a recorded `currentRegion` are excluded. */
   byNsRegion: Record<string, Record<string, DataProvenanceScope>>;
 };
+
+/** Public procurement (АОП) cross-reference. Mirrors
+ * scripts/procurement/types.ts on the SPA side. */
+export type ProcurementRelationKind =
+  | "partner"
+  | "manager"
+  | "branch_manager"
+  | "director"
+  | "actual_owner"
+  | "representative"
+  | "liquidator"
+  | "procurator"
+  | "stake";
+export type ProcurementRelation = {
+  kind: ProcurementRelationKind;
+  isCurrent?: boolean;
+  confidence?: "high" | "medium" | "low";
+  shareSize?: string;
+  valueBgn?: number;
+  fiscalYear?: number;
+  declarationYear?: number;
+};
+export type ProcurementByYear = {
+  year: string;
+  totalByCurrency: Record<string, number>;
+  contractCount: number;
+};
+export type ProcurementMpConnectedContractor = {
+  mpId: number;
+  mpName: string;
+  contractorEik: string;
+  contractorName: string;
+  relations: ProcurementRelation[];
+  totalByCurrency: Record<string, number>;
+  contractCount: number;
+  awardCount: number;
+  byYear: ProcurementByYear[];
+  topAwarders: Array<{
+    eik: string;
+    name: string;
+    totalByCurrency: Record<string, number>;
+    contractCount: number;
+  }>;
+};
+export type ProcurementMpConnectedFile = {
+  generatedAt: string;
+  total: number;
+  entries: ProcurementMpConnectedContractor[];
+};
+
+export type ProcurementContractTag = "award" | "contract" | "contractAmendment";
+
+/** One contract / award / amendment row. Mirrors scripts/procurement/types.Contract. */
+export type ProcurementContract = {
+  key: string;
+  ocid: string;
+  releaseId: string;
+  contractId?: string;
+  tag: ProcurementContractTag;
+  date: string;
+  dateSigned?: string;
+  awarderEik: string;
+  awarderName: string;
+  awarderRegion?: string;
+  contractorEik: string;
+  contractorEikFull?: string;
+  contractorName: string;
+  amount?: number;
+  currency?: string;
+  title: string;
+  cpv?: string;
+  procurementMethod?: string;
+  category?: string;
+  bundleUuid: string;
+  sourceUrl: string;
+};
+
+/** Per-contractor full contract list, at
+ * data/procurement/contractor_contracts/<EIK>.json. */
+export type ProcurementContractorContractsFile = {
+  eik: string;
+  name: string;
+  generatedAt: string;
+  count: number;
+  contracts: ProcurementContract[];
+};
+
+/** Per-awarder full contract list, at
+ * data/procurement/awarder_contracts/<EIK>.json. Same shape as
+ * ProcurementContractorContractsFile, just keyed on the buyer side. */
+export type ProcurementAwarderContractsFile = {
+  eik: string;
+  name: string;
+  generatedAt: string;
+  count: number;
+  contracts: ProcurementContract[];
+};
+
+/** Slim contract row embedded inside per-entity rollups. Mirrors
+ * scripts/procurement/types.ts RollupContractRow. */
+export type ProcurementRollupContractRow = {
+  key: string;
+  ocid: string;
+  date: string;
+  amount?: number;
+  currency?: string;
+  partyEik: string;
+  partyName: string;
+  bundleUuid: string;
+  sourceUrl: string;
+};
+
+/** Per-awarder rollup at data/procurement/awarders/<EIK>.json (matches the
+ * scripts/procurement/types.ts AwarderRollup shape). */
+export type ProcurementAwarderRollup = {
+  eik: string;
+  name: string;
+  region?: string;
+  totalByCurrency: Record<string, number>;
+  contractCount: number;
+  awardCount: number;
+  byContractor: Array<{
+    eik: string;
+    name: string;
+    totalByCurrency: Record<string, number>;
+    contractCount: number;
+  }>;
+  byYear: ProcurementByYear[];
+  topContracts: ProcurementRollupContractRow[];
+  generatedAt: string;
+};
+
+/** Per-contractor rollup at data/procurement/contractors/<EIK>.json. */
+export type ProcurementContractorRollup = {
+  eik: string;
+  name: string;
+  totalByCurrency: Record<string, number>;
+  contractCount: number;
+  awardCount: number;
+  byAwarder: Array<{
+    eik: string;
+    name: string;
+    totalByCurrency: Record<string, number>;
+    contractCount: number;
+  }>;
+  byYear: ProcurementByYear[];
+  topContracts: ProcurementRollupContractRow[];
+  contractRefs: Array<{
+    monthFile: string;
+    indexes: number[];
+  }>;
+  generatedAt: string;
+};
+
+/** Top-contractors index file. */
+export type ProcurementTopContractorEntry = {
+  eik: string;
+  name: string;
+  totalByCurrency: Record<string, number>;
+  contractCount: number;
+  awardCount: number;
+  mpTied: boolean;
+  mpIds: number[];
+};
+export type ProcurementTopContractorsFile = {
+  generatedAt: string;
+  total: number;
+  entries: ProcurementTopContractorEntry[];
+};
+
+/** Per-election (per-NS) pre-aggregated procurement slice. Filtered to the
+ * election's [start, end) date range. Lives at data/procurement/by_ns/<e>.json. */
+export type ProcurementByNsTopContractor = {
+  eik: string;
+  name: string;
+  totalEur: number;
+  contractCount: number;
+  mpTied: boolean;
+  mpIds: number[];
+};
+export type ProcurementByNsTopAwarder = {
+  eik: string;
+  name: string;
+  totalEur: number;
+  contractCount: number;
+};
+export type ProcurementByNsTopMp = {
+  mpId: number;
+  mpName: string;
+  totalEur: number;
+  contractCount: number;
+  contractorCount: number;
+  topContractorNames: string[];
+};
+export type ProcurementByNsFile = {
+  electionDate: string;
+  start: string;
+  end: string | null;
+  generatedAt: string;
+  totals: {
+    contracts: number;
+    amendments: number;
+    awards: number;
+    contractorCount: number;
+    awarderCount: number;
+    totalEur: number;
+    mpCount: number;
+    mpConnectedContractorCount: number;
+    mpConnectedTotalEur: number;
+  };
+  topContractors: ProcurementByNsTopContractor[];
+  topAwarders: ProcurementByNsTopAwarder[];
+  topMps: ProcurementByNsTopMp[];
+};
+
+/** Global procurement index file (data/procurement/index.json). */
+export type ProcurementIndexFile = {
+  generatedAt: string;
+  lastIngest: string;
+  years: string[];
+  months: string[];
+  totals: {
+    contracts: number;
+    awards: number;
+    amendments: number;
+    contractorCount: number;
+    awarderCount: number;
+    byCurrency: Record<string, number>;
+  };
+  periods: Array<{
+    bundleUuid: string;
+    periodStart: string;
+    periodEnd: string;
+  }>;
+  crossReference?: {
+    generatedAt: string;
+    mpCount: number;
+    contractorCount: number;
+    pairCount: number;
+    byCurrency: Record<string, number>;
+  };
+};

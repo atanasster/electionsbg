@@ -39,6 +39,22 @@ dist.old-*
 # is committed; this raw cache is not.
 /raw_data/indicators/
 
+# Cached АОП OCDS bundles from data.egov.bg (~20 MB each, ~26/year).
+# Re-fetched on demand by `/update-procurement`. The normalized JSON outputs
+# under data/procurement/ are committed; this raw cache is not.
+/raw_data/procurement/
+
+# Bulky derived procurement files — same convention as /data/2*/*: regenerated
+# from the corpus + cross-reference, shipped to the GCS bucket directly, not
+# committed. The small metadata (index.json, bundles.json, by_ns/, derived/)
+# is committed so the per-NS slice + flow + top-contractor index ship with
+# the repo.
+/data/procurement/contracts/
+/data/procurement/contractor_contracts/
+/data/procurement/awarder_contracts/
+/data/procurement/contractors/
+/data/procurement/awarders/
+
 # Generated election data — regenerate with `npm run prod`
 # Pattern note: ignore directory *contents* (not the directory itself) so we can
 # re-include specific subtrees below. A leading-anchored `/data/2*/` would block

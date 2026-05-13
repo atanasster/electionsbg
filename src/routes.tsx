@@ -177,6 +177,66 @@ const CandidateAssetsScreen = lazy(() =>
     default: m.CandidateAssetsScreen,
   })),
 );
+const CandidateProcurementScreen = lazy(() =>
+  import("./screens/CandidateProcurementScreen").then((m) => ({
+    default: m.CandidateProcurementScreen,
+  })),
+);
+const ProcurementScreen = lazy(() =>
+  import("./screens/ProcurementScreen").then((m) => ({
+    default: m.ProcurementScreen,
+  })),
+);
+const TopContractorsScreen = lazy(() =>
+  import("./screens/TopContractorsScreen").then((m) => ({
+    default: m.TopContractorsScreen,
+  })),
+);
+const TopAwardersScreen = lazy(() =>
+  import("./screens/TopAwardersScreen").then((m) => ({
+    default: m.TopAwardersScreen,
+  })),
+);
+const TopMpsScreen = lazy(() =>
+  import("./screens/TopMpsScreen").then((m) => ({
+    default: m.TopMpsScreen,
+  })),
+);
+const CompanyByEikScreen = lazy(() =>
+  import("./screens/CompanyByEikScreen").then((m) => ({
+    default: m.CompanyByEikScreen,
+  })),
+);
+const AwarderByEikScreen = lazy(() =>
+  import("./screens/AwarderByEikScreen").then((m) => ({
+    default: m.AwarderByEikScreen,
+  })),
+);
+const AwarderContractsScreen = lazy(() =>
+  import("./screens/AwarderContractsScreen").then((m) => ({
+    default: m.AwarderContractsScreen,
+  })),
+);
+const AwarderContractorsScreen = lazy(() =>
+  import("./screens/AwarderContractorsScreen").then((m) => ({
+    default: m.AwarderContractorsScreen,
+  })),
+);
+const CompanyContractsScreen = lazy(() =>
+  import("./screens/CompanyContractsScreen").then((m) => ({
+    default: m.CompanyContractsScreen,
+  })),
+);
+const CompanyAwardersScreen = lazy(() =>
+  import("./screens/CompanyAwardersScreen").then((m) => ({
+    default: m.CompanyAwardersScreen,
+  })),
+);
+const ContractDetailScreen = lazy(() =>
+  import("./screens/ContractDetailScreen").then((m) => ({
+    default: m.ContractDetailScreen,
+  })),
+);
 const SessionsIndexScreen = lazy(() =>
   import("./screens/SessionsIndexScreen").then((m) => ({
     default: m.SessionsIndexScreen,
@@ -1200,6 +1260,102 @@ export const AuthRoutes = () => {
           element={
             <LayoutScreen>
               <CandidateAssetsScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="candidate/:id/procurement"
+          element={
+            <LayoutScreen>
+              <CandidateProcurementScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="procurement"
+          element={
+            <LayoutScreen>
+              <ProcurementScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="procurement/contractors"
+          element={
+            <LayoutScreen>
+              <TopContractorsScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="procurement/awarders"
+          element={
+            <LayoutScreen>
+              <TopAwardersScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="procurement/mps"
+          element={
+            <LayoutScreen>
+              <TopMpsScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="procurement/contract/:id"
+          element={
+            <LayoutScreen>
+              <ContractDetailScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="company/:eik"
+          element={
+            <LayoutScreen>
+              <CompanyByEikScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="company/:eik/contracts"
+          element={
+            <LayoutScreen>
+              <CompanyContractsScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="company/:eik/awarders"
+          element={
+            <LayoutScreen>
+              <CompanyAwardersScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="awarder/:eik"
+          element={
+            <LayoutScreen>
+              <AwarderByEikScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="awarder/:eik/contracts"
+          element={
+            <LayoutScreen>
+              <AwarderContractsScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="awarder/:eik/contractors"
+          element={
+            <LayoutScreen>
+              <AwarderContractorsScreen />
             </LayoutScreen>
           }
         />

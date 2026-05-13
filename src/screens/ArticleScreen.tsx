@@ -29,6 +29,7 @@ export const ArticleScreen: FC = () => {
       title={title}
       description={description}
       date={meta?.publishedAt}
+      author={meta?.author}
       breadcrumb={{ to: "/articles", label: t("articles_title") }}
     >
       {isLoading ? (

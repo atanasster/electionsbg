@@ -1,6 +1,7 @@
 import { FC, useMemo, useState } from "react";
 import { useParams, useSearchParams } from "react-router-dom";
 import { Link } from "@/ux/Link";
+import { PartyTag } from "@/screens/components/party/PartyTag";
 import { useTranslation } from "react-i18next";
 import {
   Calendar,
@@ -13,7 +14,6 @@ import { Title } from "@/ux/Title";
 import { useRollcallSession } from "@/data/parliament/votes/useRollcallSession";
 import { useCandidateUrlForVote } from "@/data/parliament/votes/useCandidateUrlForVote";
 import { useMps } from "@/data/parliament/useMps";
-import { useParliamentGroups } from "@/data/parliament/useParliamentGroups";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 import { SessionVoteHemicycle } from "@/screens/components/votes/SessionVoteHemicycle";
 import type { SessionItem, VoteValue } from "@/data/parliament/votes/types";
@@ -380,39 +380,6 @@ export const SessionScreen: FC = () => {
         )}
       </div>
     </div>
-  );
-};
-
-const PartyTag: FC<{ partyShort: string }> = ({ partyShort }) => {
-  const { colorForPartyShort, labelForPartyShort, nickNameForPartyShort } =
-    useParliamentGroups();
-  const color = colorForPartyShort(partyShort);
-  const label = labelForPartyShort(partyShort) || partyShort;
-  const nickName = nickNameForPartyShort(partyShort);
-  // White text reads cleanly on every CIK party color; fallback grey gets a
-  // subtler styling. Tag is a Link when we can resolve it to a CIK party
-  // page, otherwise plain text.
-  const tag = (
-    <span
-      className="inline-flex items-center px-2 py-0.5 rounded text-[10px] font-semibold uppercase tracking-wide whitespace-nowrap"
-      style={
-        color
-          ? { backgroundColor: color, color: "rgba(255,255,255,0.95)" }
-          : {
-              backgroundColor: "transparent",
-              color: "var(--muted-foreground)",
-              border: "1px solid hsl(var(--border))",
-            }
-      }
-    >
-      {label}
-    </span>
-  );
-  if (!nickName) return tag;
-  return (
-    <Link to={`/party/${nickName}`} underline={false}>
-      {tag}
-    </Link>
   );
 };
 
