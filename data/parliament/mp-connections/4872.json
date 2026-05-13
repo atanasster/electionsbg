@@ -1,1 +1,46 @@
-{"generatedAt":"2026-05-12T09:49:21.788Z","mpNodeId":"mp:4872","nodes":[{"id":"mp:4872","type":"mp","mpId":4872,"label":"Маноил Минчев Манев","partyGroupShort":"ГЕРБ-СДС","isCurrent":false,"nsFolders":["43","44","45","46","47","48","49","50","51"]},{"id":"company:МАГСИМ-ЕООД","type":"company","label":"МАГСИМ ЕООД","slug":"МАГСИМ-ЕООД","uic":"123738910","legalForm":"EOOD","status":"active","seat":"Стара Загора"}],"edges":[{"source":"mp:4872","target":"company:МАГСИМ-ЕООД","kind":"declared_stake","role":"transferred_share","isCurrent":false,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-05-13T06:11:38.192Z",
+  "mpNodeId": "mp:4872",
+  "nodes": [
+    {
+      "id": "mp:4872",
+      "type": "mp",
+      "mpId": 4872,
+      "label": "Маноил Минчев Манев",
+      "partyGroupShort": "ГЕРБ-СДС",
+      "isCurrent": false,
+      "nsFolders": [
+        "43",
+        "44",
+        "45",
+        "46",
+        "47",
+        "48",
+        "49",
+        "50",
+        "51"
+      ]
+    },
+    {
+      "id": "company:МАГСИМ-ЕООД",
+      "type": "company",
+      "label": "МАГСИМ ЕООД",
+      "slug": "МАГСИМ-ЕООД",
+      "uic": "123738910",
+      "legalForm": "EOOD",
+      "status": "active",
+      "seat": "Стара Загора"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4872",
+      "target": "company:МАГСИМ-ЕООД",
+      "kind": "declared_stake",
+      "role": "transferred_share",
+      "isCurrent": false,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}

@@ -1,6 +1,23 @@
 {
-  "updatedAt": "2026-05-12T10:36:28.384Z",
+  "updatedAt": "2026-05-13T06:12:08.249Z",
   "entries": [
+    {
+      "timestamp": "2026-05-13T06:12:08.249Z",
+      "date": "2026-05-13",
+      "skill": "update-connections",
+      "summary": "TR snapshot refresh: 562,677 companies, 226,953 persons; 5302 graph nodes / 6355 edges; 22 high-conf + 1722 medium mp-management roles",
+      "source": "data.egov.bg Commerce Registry",
+      "links": [
+        {
+          "to": "/connections",
+          "labelKey": "data_changes_link_connections"
+        },
+        {
+          "to": "/mp-assets",
+          "labelKey": "data_changes_link_assets"
+        }
+      ]
+    },
     {
       "timestamp": "2026-05-12T10:36:28.384Z",
       "date": "2026-05-12",

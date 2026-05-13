@@ -1,1 +1,43 @@
-{"generatedAt":"2026-05-12T09:49:21.788Z","mpNodeId":"mp:4140","nodes":[{"id":"mp:4140","type":"mp","mpId":4140,"label":"Елхан Мехмедов Кълков","partyGroupShort":"ДПС","isCurrent":false,"nsFolders":["44","45","46","47","48","49"]},{"id":"company:ДИКЧАН-85-ООД","type":"company","label":"\"ДИКЧАН 85\" ООД","slug":"ДИКЧАН-85-ООД","uic":null,"legalForm":null,"status":null,"seat":"Благоевград"}],"edges":[{"source":"mp:4140","target":"company:ДИКЧАН-85-ООД","kind":"declared_stake","role":"current_share","isCurrent":true,"confidence":"high"}],"paths":[]}
+{
+  "generatedAt": "2026-05-13T06:11:38.192Z",
+  "mpNodeId": "mp:4140",
+  "nodes": [
+    {
+      "id": "mp:4140",
+      "type": "mp",
+      "mpId": 4140,
+      "label": "Елхан Мехмедов Кълков",
+      "partyGroupShort": "ДПС",
+      "isCurrent": false,
+      "nsFolders": [
+        "44",
+        "45",
+        "46",
+        "47",
+        "48",
+        "49"
+      ]
+    },
+    {
+      "id": "company:ДИКЧАН-85-ООД",
+      "type": "company",
+      "label": "\"ДИКЧАН 85\" ООД",
+      "slug": "ДИКЧАН-85-ООД",
+      "uic": null,
+      "legalForm": null,
+      "status": null,
+      "seat": "Благоевград"
+    }
+  ],
+  "edges": [
+    {
+      "source": "mp:4140",
+      "target": "company:ДИКЧАН-85-ООД",
+      "kind": "declared_stake",
+      "role": "current_share",
+      "isCurrent": true,
+      "confidence": "high"
+    }
+  ],
+  "paths": []
+}
