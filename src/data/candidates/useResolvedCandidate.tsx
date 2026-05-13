@@ -52,10 +52,14 @@ const normalize = (s: string) => s.toUpperCase().replace(/\s+/g, " ").trim();
  * the CIK nickname alone won't substring into the parliamentary label.
  * `commonName` from canonical-parties carries the alternative tokens
  * (`["ПП", "ДБ", "ДаБГ", "ДСБ"]`); we add the nickname itself plus any
- * dash-separated pieces so e.g. `ПП-ДБ` also tries `ПП` and `ДБ`. */
+ * dash-separated pieces so e.g. `ПП-ДБ` also tries `ПП` and `ДБ`.
+ * `fullName` contributes long words (≥5 chars) so that parliament group
+ * labels like "ПГ на Демократична България" match via "демократична" even
+ * when they don't contain the 2-letter abbreviation "ДБ". */
 const partyHintTokens = (
   nickName: string | null,
   commonName: string[] | undefined,
+  fullName?: string | null,
 ): string[] => {
   const out = new Set<string>();
   const add = (s: string) => {
@@ -67,6 +71,12 @@ const partyHintTokens = (
     for (const piece of nickName.split(/[-/+,]/)) add(piece);
   }
   for (const alt of commonName ?? []) add(alt);
+  if (fullName) {
+    for (const word of fullName.split(/[\s–—\-/+,]+/)) {
+      const t = word.trim().toLowerCase();
+      if (t.length >= 5) out.add(t);
+    }
+  }
   return Array.from(out);
 };
 
@@ -220,6 +230,7 @@ export const useResolvedCandidate = (
       return partyHintTokens(
         party.nickName ?? party.name ?? null,
         party.commonName,
+        party.name,
       );
     };
   }, [findParty]);
