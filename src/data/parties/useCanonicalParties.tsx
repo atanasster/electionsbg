@@ -57,14 +57,45 @@ export const useCanonicalParties = () => {
     return map;
   }, [data]);
 
+  // Try the input directly, then via the parliament.bg→CEC alias map (e.g.
+  // "ПБ" → "ПрБ"). Case-insensitive lookup catches the all-caps parliament
+  // labels against mixed-case canonical nicknames.
+  const resolveCanonicalId = (input: string): string | undefined => {
+    if (!input) return undefined;
+    return (
+      data?.byNickName[input] ??
+      byNickNameLower.get(input.toLocaleLowerCase("bg")) ??
+      data?.byNickName[PARLIAMENT_GROUP_ALIASES[input] ?? ""] ??
+      byNickNameLower.get(
+        (PARLIAMENT_GROUP_ALIASES[input] ?? "").toLocaleLowerCase("bg"),
+      )
+    );
+  };
+
   const colorFor = (nickName: string): string | undefined => {
-    const id = data?.byNickName[nickName];
+    const id = resolveCanonicalId(nickName);
     if (!id) return undefined;
     return byId.get(id)?.color;
   };
 
   const canonicalIdFor = (nickName: string): string | undefined =>
     data?.byNickName[nickName];
+
+  // Resolve any input (exact, case-insensitive, or via parliament-group alias
+  // like "ПБ" → "ПрБ") to the canonical nickName form actually used as the
+  // SPA's /party/<nickName> URL slug. Returns the original casing from the
+  // data — important when the input is an all-caps parliament.bg label that
+  // doesn't match the CIK casing.
+  const findCanonicalNickName = (input: string): string | undefined => {
+    if (!input) return undefined;
+    if (data?.byNickName[input]) return input;
+    const id = resolveCanonicalId(input);
+    if (!id) return undefined;
+    for (const nick of Object.keys(data?.byNickName ?? {})) {
+      if (data?.byNickName[nick] === id) return nick;
+    }
+    return undefined;
+  };
 
   // Like canonicalIdFor, but reassigns predecessor-party nicknames to the
   // successor coalition's lineage when CEC `commonName` says they belong
@@ -86,7 +117,7 @@ export const useCanonicalParties = () => {
   };
 
   const displayNameFor = (nickName: string): string | undefined => {
-    const id = data?.byNickName[nickName];
+    const id = resolveCanonicalId(nickName);
     if (!id) return undefined;
     const party = byId.get(id);
     if (!party) return undefined;
@@ -147,6 +178,7 @@ export const useCanonicalParties = () => {
     colorFor,
     canonicalIdFor,
     consolidationIdFor,
+    findCanonicalNickName,
     fullNameFor,
     displayNameFor,
     displayNameForId,

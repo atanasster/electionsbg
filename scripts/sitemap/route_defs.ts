@@ -46,6 +46,9 @@ export const ENGLISH_STATIC_PAGES = [
   "mp/companies",
   "mp-assets",
   "mp-cars",
+  "parliament",
+  "parliament/cohesion",
+  "parliament/embedding",
 ];
 
 export const routeDefs = (year: string): RouteDefs => [
@@ -92,6 +95,18 @@ export const routeDefs = (year: string): RouteDefs => [
   { path: "mp/companies", file: `src/screens/AllMpCompaniesScreen.tsx` },
   { path: "mp-assets", file: `src/screens/AllMpAssetsScreen.tsx` },
   { path: "mp-cars", file: `src/screens/MpCarsScreen.tsx` },
+  {
+    path: "parliament",
+    file: `src/screens/ParliamentHubScreen.tsx`,
+  },
+  {
+    path: "parliament/cohesion",
+    file: `src/screens/ParliamentCohesionScreen.tsx`,
+  },
+  {
+    path: "parliament/embedding",
+    file: `src/screens/ParliamentEmbeddingScreen.tsx`,
+  },
 
   // English mirrors of the top static pages (one URL each).
   { path: "en-mirrors", file: `english-static-pages` },

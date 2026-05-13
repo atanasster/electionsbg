@@ -34,6 +34,10 @@ type Capture = {
   settleMs?: number;
   // Optional extra CSS to hide noisy chrome (popovers, tooltips, etc.).
   extraCss?: string;
+  // Optional CSS selector to click after `waitFor` resolves but before
+  // measuring/screenshotting. For pages where the chart is only rendered
+  // after a user interaction (e.g. expanding the first accordion item).
+  clickFirst?: string;
 };
 
 const captures: Capture[] = [
@@ -89,6 +93,50 @@ const captures: Capture[] = [
     centerOnAnchor: true,
     settleMs: 4500,
   },
+  {
+    slug: "parliament-cohesion",
+    routePath: "parliament/cohesion",
+    // Cohesion screen leads with a Recharts line chart showing per-session
+    // group discipline over time.
+    waitFor: ".recharts-surface",
+    anchor: ".recharts-wrapper",
+    centerOnAnchor: true,
+    settleMs: 2500,
+  },
+  {
+    slug: "parliament-embedding",
+    routePath: "parliament/embedding",
+    // UMAP scatter — the chart IS the page. Center the clip on the recharts
+    // wrapper so all clusters land in frame.
+    waitFor: ".recharts-surface",
+    anchor: ".recharts-wrapper",
+    centerOnAnchor: true,
+    settleMs: 2500,
+  },
+  {
+    slug: "parliament",
+    routePath: "parliament",
+    // Hub has four tiles; the heatmap (correlation tile) has the most visual
+    // weight at OG aspect ratio. Wait for any cell, then anchor the grid.
+    waitFor: 'div[title*="↔"]',
+    anchor: 'div[title*="↔"]',
+    centerOnAnchor: true,
+    settleMs: 2500,
+  },
+  {
+    slug: "votes",
+    // Representative recent session in NS 52 with a dozen items, so the
+    // first-item hemicycle is well-populated.
+    routePath: "votes/2026-05-07",
+    waitFor: 'li[id^="item-"] button',
+    // Expand the first item so SessionVoteHemicycle renders the SVG seats.
+    clickFirst: 'li[id^="item-"] button',
+    // Hemicycle SVG carries the i18n-driven aria-label; the page-chrome logo
+    // also uses role="img", so target by aria-label to disambiguate.
+    anchor: 'svg[aria-label^="Полукръг"]',
+    centerOnAnchor: true,
+    settleMs: 2500,
+  },
 ];
 
 const HIDE_CHROME_CSS = `
@@ -104,6 +152,13 @@ const captureOne = async (page: Page, c: Capture): Promise<void> => {
   await page.goto(url, { waitUntil: "networkidle", timeout: 60_000 });
   await page.addStyleTag({ content: HIDE_CHROME_CSS + (c.extraCss ?? "") });
   await page.waitForSelector(c.waitFor, { timeout: 30_000 });
+
+  if (c.clickFirst) {
+    await page.locator(c.clickFirst).first().click();
+    // Give React a moment to mount the newly-revealed sub-tree (e.g. the
+    // hemicycle SVG) before we ask for its bounding box.
+    await page.waitForSelector(c.anchor ?? c.waitFor, { timeout: 15_000 });
+  }
 
   const anchorSel = c.anchor ?? c.waitFor;
   await page

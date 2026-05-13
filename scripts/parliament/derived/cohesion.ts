@@ -14,9 +14,20 @@ export interface CohesionEntry {
   membersTracked: number;
 }
 
+// One row per (party, session date) — average per-item cohesion within that
+// day. Lets the frontend chart cohesion over time without re-loading every
+// session. Sorted by date ascending so plotting libraries can stream it.
+export interface CohesionSeriesPoint {
+  date: string;
+  partyShort: string;
+  cohesion: number;
+  items: number;
+}
+
 export interface CohesionOutput {
   computedAt: string;
   entries: CohesionEntry[];
+  series: CohesionSeriesPoint[];
 }
 
 const itemCohesion = (yes: number, no: number, abstain: number): number => {
@@ -37,8 +48,14 @@ const median = (xs: number[]): number => {
 export const computeCohesion = (sessions: SessionFile[]): CohesionOutput => {
   const memberCount = new Map<string, Set<number>>();
   const perItemByParty: Array<Map<string, number>> = [];
+  // Per-session per-party scores, in addition to the flat per-item list. Used
+  // to build the time series at the end (one row per (date, party)).
+  const perSessionScores = new Map<string, Map<string, number[]>>();
 
   for (const file of sessions) {
+    const dateBucket =
+      perSessionScores.get(file.date) ?? new Map<string, number[]>();
+    perSessionScores.set(file.date, dateBucket);
     for (const item of file.sessions) {
       const counts = new Map<string, { y: number; n: number; a: number }>();
       for (const v of item.votes) {
@@ -56,7 +73,11 @@ export const computeCohesion = (sessions: SessionFile[]): CohesionOutput => {
       }
       const itemMap = new Map<string, number>();
       for (const [party, c] of counts) {
-        itemMap.set(party, itemCohesion(c.y, c.n, c.a));
+        const score = itemCohesion(c.y, c.n, c.a);
+        itemMap.set(party, score);
+        const arr = dateBucket.get(party) ?? [];
+        arr.push(score);
+        dateBucket.set(party, arr);
       }
       perItemByParty.push(itemMap);
     }
@@ -85,8 +106,20 @@ export const computeCohesion = (sessions: SessionFile[]): CohesionOutput => {
   }
   entries.sort((a, b) => b.meanCohesion - a.meanCohesion);
 
+  const series: CohesionSeriesPoint[] = [];
+  for (const [date, byParty] of [...perSessionScores.entries()].sort((a, b) =>
+    a[0].localeCompare(b[0]),
+  )) {
+    for (const [partyShort, scores] of [...byParty.entries()].sort()) {
+      if (scores.length === 0) continue;
+      const mean = scores.reduce((s, v) => s + v, 0) / scores.length;
+      series.push({ date, partyShort, cohesion: mean, items: scores.length });
+    }
+  }
+
   return {
     computedAt: new Date().toISOString(),
     entries,
+    series,
   };
 };

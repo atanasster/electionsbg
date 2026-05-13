@@ -58,12 +58,14 @@ import { ArticlesTile } from "./ArticlesTile";
 import { MpConnectionsTile } from "./MpConnectionsTile";
 import { CarMakesTile } from "./CarMakesTile";
 import { MpAssetsTile } from "./MpAssetsTile";
+import { ParliamentSection } from "./ParliamentSection";
 import { DashboardSection } from "./DashboardSection";
 import { MpDeclarationsProvenance } from "./MpDeclarationsProvenance";
 import { SectionArticlesProvider } from "./SectionArticlesContext";
 
 const SECTION_TOPICS: readonly DashboardSectionId[] = [
   "votes",
+  "parliament",
   "geography",
   "anomalies",
   "neighborhoods",
@@ -173,6 +175,8 @@ export const DashboardCards: FC = () => {
           </Suspense>
           <GovernmentsTile />
         </DashboardSection>
+
+        <ParliamentSection />
 
         <DashboardSection
           id="geography"

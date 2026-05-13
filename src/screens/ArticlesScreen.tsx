@@ -18,6 +18,7 @@ const TOPIC_LABEL_KEY: Record<DashboardSectionId, string> = {
   financing: "dashboard_section_financing",
   history: "dashboard_section_history",
   polling: "dashboard_section_polling",
+  parliament: "dashboard_section_parliament",
 };
 
 // Deterministic gradient seeded by slug — keeps cards without an ogImage

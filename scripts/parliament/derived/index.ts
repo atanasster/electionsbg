@@ -16,6 +16,8 @@ import { command, run, flag, optional, boolean } from "cmd-ts";
 import { computeLoyalty } from "./loyalty";
 import { computeSimilarity } from "./similarity";
 import { computeCohesion } from "./cohesion";
+import { computeEmbedding } from "./embedding";
+import { computePartyCorrelation } from "./party_correlation";
 import type { SessionFile } from "./types";
 import { uploadText } from "../../lib/upload";
 
@@ -45,6 +47,22 @@ const writeJson = (file: string, data: unknown): void => {
   fs.writeFileSync(file, JSON.stringify(data, null, 2) + "\n");
 };
 
+// Group sessions by their NS field so each derived metric can be computed
+// independently per parliament. Mixing 51st and 52nd NS sessions into one
+// aggregate (the old behaviour) produces misleading numbers when a party
+// loses its seats between elections — the homepage was showing ИТН in the
+// 52nd-NS heatmap even though they didn't make the threshold in April 2026.
+const groupByNs = (sessions: SessionFile[]): Map<string, SessionFile[]> => {
+  const m = new Map<string, SessionFile[]>();
+  for (const s of sessions) {
+    const ns = s.ns || "?";
+    const arr = m.get(ns) ?? [];
+    arr.push(s);
+    m.set(ns, arr);
+  }
+  return m;
+};
+
 const main = async (args: { upload: boolean }): Promise<void> => {
   const sessions = readAllSessions();
   if (sessions.length === 0) {
@@ -52,26 +70,89 @@ const main = async (args: { upload: boolean }): Promise<void> => {
     return;
   }
 
-  console.log(`→ computing loyalty over ${sessions.length} session(s)`);
-  const loyalty = computeLoyalty(sessions);
-  writeJson(path.join(DERIVED_DIR, "loyalty.json"), loyalty);
-  console.log(`  ✓ ${loyalty.entries.length} MP entries`);
-
-  console.log(`→ computing similarity (cosine, top-K)`);
-  const similarity = computeSimilarity(sessions);
-  writeJson(path.join(DERIVED_DIR, "similarity.json"), similarity);
+  const byNs = groupByNs(sessions);
+  const nsKeys = [...byNs.keys()].sort();
+  const nowIso = new Date().toISOString();
   console.log(
-    `  ✓ ${similarity.entries.length} MP entries, top-K=${similarity.topK}`,
+    `→ slicing ${sessions.length} session(s) by NS: ${nsKeys.map((k) => `${k}(${byNs.get(k)!.length})`).join(", ")}`,
   );
 
-  console.log(`→ computing party cohesion`);
-  const cohesion = computeCohesion(sessions);
-  writeJson(path.join(DERIVED_DIR, "cohesion.json"), cohesion);
-  console.log(`  ✓ ${cohesion.entries.length} party entries`);
+  // Each derived file follows the same envelope:
+  //   { computedAt, byNs: { "51": <metric>, "52": <metric> } }
+  // Consumers pick the slice matching their current election context.
+
+  console.log(`→ computing loyalty per NS`);
+  const loyaltyByNs: Record<string, ReturnType<typeof computeLoyalty>> = {};
+  for (const ns of nsKeys) loyaltyByNs[ns] = computeLoyalty(byNs.get(ns)!);
+  writeJson(path.join(DERIVED_DIR, "loyalty.json"), {
+    computedAt: nowIso,
+    byNs: loyaltyByNs,
+  });
+  console.log(
+    `  ✓ ${nsKeys.map((k) => `${k}:${loyaltyByNs[k].entries.length}`).join(", ")} MP entries`,
+  );
+
+  console.log(`→ computing similarity per NS (cosine, top-K)`);
+  const similarityByNs: Record<
+    string,
+    ReturnType<typeof computeSimilarity>
+  > = {};
+  for (const ns of nsKeys)
+    similarityByNs[ns] = computeSimilarity(byNs.get(ns)!);
+  writeJson(path.join(DERIVED_DIR, "similarity.json"), {
+    computedAt: nowIso,
+    byNs: similarityByNs,
+  });
+  console.log(
+    `  ✓ ${nsKeys.map((k) => `${k}:${similarityByNs[k].entries.length}`).join(", ")} MP entries`,
+  );
+
+  console.log(`→ computing party cohesion per NS`);
+  const cohesionByNs: Record<string, ReturnType<typeof computeCohesion>> = {};
+  for (const ns of nsKeys) cohesionByNs[ns] = computeCohesion(byNs.get(ns)!);
+  writeJson(path.join(DERIVED_DIR, "cohesion.json"), {
+    computedAt: nowIso,
+    byNs: cohesionByNs,
+  });
+  console.log(
+    `  ✓ ${nsKeys.map((k) => `${k}:${cohesionByNs[k].entries.length}`).join(", ")} party entries`,
+  );
+
+  console.log(`→ computing 2D UMAP embedding per NS`);
+  const embeddingByNs: Record<string, ReturnType<typeof computeEmbedding>> = {};
+  for (const ns of nsKeys) embeddingByNs[ns] = computeEmbedding(byNs.get(ns)!);
+  writeJson(path.join(DERIVED_DIR, "embedding.json"), {
+    computedAt: nowIso,
+    byNs: embeddingByNs,
+  });
+  console.log(
+    `  ✓ ${nsKeys.map((k) => `${k}:${embeddingByNs[k].points.length}`).join(", ")} MPs projected`,
+  );
+
+  console.log(`→ computing party-to-party correlation per NS`);
+  const partyCorrelationByNs: Record<
+    string,
+    ReturnType<typeof computePartyCorrelation>
+  > = {};
+  for (const ns of nsKeys)
+    partyCorrelationByNs[ns] = computePartyCorrelation(byNs.get(ns)!);
+  writeJson(path.join(DERIVED_DIR, "party_correlation.json"), {
+    computedAt: nowIso,
+    byNs: partyCorrelationByNs,
+  });
+  console.log(
+    `  ✓ ${nsKeys.map((k) => `${k}:${partyCorrelationByNs[k].parties.length}²`).join(", ")} party matrices`,
+  );
 
   if (args.upload) {
     console.log(`→ uploading derived/ to bucket`);
-    for (const f of ["loyalty.json", "similarity.json", "cohesion.json"]) {
+    for (const f of [
+      "loyalty.json",
+      "similarity.json",
+      "cohesion.json",
+      "embedding.json",
+      "party_correlation.json",
+    ]) {
       await uploadText(
         path.join(DERIVED_DIR, f),
         `parliament/votes/derived/${f}`,

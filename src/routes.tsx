@@ -177,6 +177,31 @@ const CandidateAssetsScreen = lazy(() =>
     default: m.CandidateAssetsScreen,
   })),
 );
+const SessionsIndexScreen = lazy(() =>
+  import("./screens/SessionsIndexScreen").then((m) => ({
+    default: m.SessionsIndexScreen,
+  })),
+);
+const SessionScreen = lazy(() =>
+  import("./screens/SessionScreen").then((m) => ({
+    default: m.SessionScreen,
+  })),
+);
+const ParliamentCohesionScreen = lazy(() =>
+  import("./screens/ParliamentCohesionScreen").then((m) => ({
+    default: m.ParliamentCohesionScreen,
+  })),
+);
+const ParliamentEmbeddingScreen = lazy(() =>
+  import("./screens/ParliamentEmbeddingScreen").then((m) => ({
+    default: m.ParliamentEmbeddingScreen,
+  })),
+);
+const ParliamentHubScreen = lazy(() =>
+  import("./screens/ParliamentHubScreen").then((m) => ({
+    default: m.ParliamentHubScreen,
+  })),
+);
 const MpCompanyScreen = lazy(() =>
   import("./screens/MpCompanyScreen").then((m) => ({
     default: m.MpCompanyScreen,
@@ -1175,6 +1200,46 @@ export const AuthRoutes = () => {
           element={
             <LayoutScreen>
               <CandidateAssetsScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="votes"
+          element={
+            <LayoutScreen>
+              <SessionsIndexScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="votes/:date"
+          element={
+            <LayoutScreen>
+              <SessionScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="parliament/cohesion"
+          element={
+            <LayoutScreen>
+              <ParliamentCohesionScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="parliament/embedding"
+          element={
+            <LayoutScreen>
+              <ParliamentEmbeddingScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="parliament"
+          element={
+            <LayoutScreen>
+              <ParliamentHubScreen />
             </LayoutScreen>
           }
         />

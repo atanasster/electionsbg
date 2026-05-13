@@ -238,6 +238,10 @@ export const reportsMenu: MenuItem[] = [
         link: "/governments",
       },
       {
+        title: "dashboard_section_parliament",
+        link: "/parliament",
+      },
+      {
         title: "connections_link_label",
         link: "/connections",
       },

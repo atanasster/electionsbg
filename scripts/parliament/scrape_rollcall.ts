@@ -23,11 +23,15 @@ import { command, run, optional, option, string, flag, boolean } from "cmd-ts";
 import {
   fetchStenogram,
   findRollcallCsv,
+  findGroupsCsv,
+  findRollcallPdf,
   fetchCsv,
+  publicUrl,
   walkStenogramsForward,
   type PlSten,
 } from "./rollcall/api";
 import { parseCsv, groupByItem, type SessionItem } from "./rollcall/parse";
+import { extractItemTitles } from "./rollcall/titles";
 import {
   canonicalJson,
   checkDiffSize,
@@ -76,6 +80,14 @@ interface SessionFile {
   // mp-profile API doesn't store historical party affiliation, so the CSV is
   // the only source for per-session party. Used by derived metrics.
   mpParty: Record<string, string>;
+  // Per-item title parsed out of the "Гласуване по парламентарни групи" CSV
+  // shipped alongside the per-MP one. Keys are stringified item numbers
+  // ("1", "2", ...); missing entries fall back to outcome labels on the
+  // frontend.
+  itemTitles?: Record<string, string>;
+  // Absolute URL of the per-MP PDF on parliament.bg. Used by the SPA to deep-
+  // link "See source" from the session screen.
+  pdfUrl?: string;
   sessions: Array<{
     item: number;
     tallies: SessionItem["tallies"];
@@ -88,11 +100,26 @@ interface IndexFile {
   ns: string;
   lastStenogramId: number;
   lastDate: string;
+  // Per-NS MP roster snapshot taken from the latest session of each parliament.
+  // Lets every tile that just needs party / name lookups (embedding scatter,
+  // bridge MPs, twins, loyalty fallbacks) avoid fetching the full ~100 KB
+  // session JSON — the index is already loaded by all of them.
+  mpProfileByNs?: Record<
+    string,
+    {
+      mpNames: Record<string, string>;
+      mpParty: Record<string, string>;
+    }
+  >;
   sessions: Array<{
     date: string;
     stenogramId: number;
     items: number;
     file: string;
+    // Parliament-number folder this session belongs to ("51", "52", …). Lets
+    // the SPA scope the sessions list to the user's selected election without
+    // fetching every session file just to read its `ns` field.
+    ns?: string;
   }>;
 }
 
@@ -179,6 +206,20 @@ const ingestSession = async (
     return null;
   }
 
+  let itemTitles: Record<string, string> = {};
+  const groupsRef = findGroupsCsv(sten);
+  if (groupsRef) {
+    try {
+      const groupsCsv = await fetchCsv(groupsRef.Pl_StenDfile);
+      itemTitles = extractItemTitles(groupsCsv);
+    } catch (e) {
+      console.log(
+        `  · ${sten.Pl_Sten_date}: groups CSV fetch failed — titles will fall back (${(e as Error).message})`,
+      );
+    }
+  }
+  const pdfRef = findRollcallPdf(sten);
+  const pdfUrl = pdfRef ? publicUrl(pdfRef.Pl_StenDfile) : undefined;
   const sessionFile: SessionFile = {
     ns: rows[0]?.nsFolder ? `${rows[0].nsFolder}` : "",
     date: sten.Pl_Sten_date,
@@ -187,6 +228,8 @@ const ingestSession = async (
     unresolvedMpIds,
     mpNames,
     mpParty,
+    ...(Object.keys(itemTitles).length > 0 ? { itemTitles } : {}),
+    ...(pdfUrl ? { pdfUrl } : {}),
     sessions: items,
   };
   const { path: relPath, isNew } = writeSession(sessionFile);
@@ -199,6 +242,7 @@ const ingestSession = async (
     items: items.length,
     relPath,
     isNew,
+    ns: sessionFile.ns,
   };
 };
 
@@ -315,10 +359,25 @@ const main = async (args: {
   const modCount = ingested.filter((r) => !r.isNew).length;
   checkDiffSize(baselineFileCount, newCount, modCount);
 
-  // Update index.
+  // Update index. Backfill `ns` on any pre-existing entries by reading the
+  // session file from disk — the index didn't carry it before this commit.
   const existing = readIndex();
   const sessionsMap = new Map(
-    (existing?.sessions ?? []).map((s) => [s.date, s] as const),
+    (existing?.sessions ?? []).map((s) => {
+      if (s.ns) return [s.date, s] as const;
+      const sessionPath = path.join(VOTES_DIR, s.file);
+      let ns = "";
+      try {
+        const sf = JSON.parse(fs.readFileSync(sessionPath, "utf8")) as {
+          ns?: string;
+        };
+        ns = sf.ns ?? "";
+      } catch {
+        // Leave ns empty if the session file is missing/unreadable; the SPA
+        // will exclude it from any election-scoped view rather than misplace it.
+      }
+      return [s.date, { ...s, ns }] as const;
+    }),
   );
   for (const r of ingested) {
     sessionsMap.set(r.date, {
@@ -326,6 +385,7 @@ const main = async (args: {
       stenogramId: r.stenogramId,
       items: r.items,
       file: r.relPath,
+      ns: r.ns,
     });
   }
   const sessions = [...sessionsMap.values()].sort((a, b) =>
@@ -342,6 +402,7 @@ const main = async (args: {
       existing?.lastStenogramId ?? 0,
     ),
     lastDate: latestSten?.Pl_Sten_date ?? existing?.lastDate ?? "",
+    mpProfileByNs: buildMpProfileByNs(sessions),
     sessions,
   };
   writeIndex(idx);
@@ -361,6 +422,44 @@ const deriveNsFromSession = (filePath: string): string => {
   if (!fs.existsSync(fullPath)) return "";
   const data = JSON.parse(fs.readFileSync(fullPath, "utf8")) as SessionFile;
   return data.ns ?? "";
+};
+
+// Walk session files newest-first per NS and snapshot the latest mpNames +
+// mpParty maps. Embedded in the index so every tile that just needs party /
+// name lookup can skip the ~100 KB session JSON.
+const buildMpProfileByNs = (
+  sessions: IndexFile["sessions"],
+): IndexFile["mpProfileByNs"] => {
+  const out: NonNullable<IndexFile["mpProfileByNs"]> = {};
+  // Sort newest-first within each NS so the first read wins.
+  const byNs = new Map<string, IndexFile["sessions"]>();
+  for (const s of sessions) {
+    const ns = s.ns ?? "";
+    if (!ns) continue;
+    const arr = byNs.get(ns) ?? [];
+    arr.push(s);
+    byNs.set(ns, arr);
+  }
+  for (const [ns, arr] of byNs) {
+    arr.sort((a, b) => b.date.localeCompare(a.date));
+    for (const entry of arr) {
+      const sessionPath = path.join(VOTES_DIR, entry.file);
+      if (!fs.existsSync(sessionPath)) continue;
+      try {
+        const sf = JSON.parse(fs.readFileSync(sessionPath, "utf8")) as {
+          mpNames?: Record<string, string>;
+          mpParty?: Record<string, string>;
+        };
+        if (sf.mpNames && sf.mpParty) {
+          out[ns] = { mpNames: sf.mpNames, mpParty: sf.mpParty };
+          break;
+        }
+      } catch {
+        // skip and try next
+      }
+    }
+  }
+  return out;
 };
 
 const cli = command({

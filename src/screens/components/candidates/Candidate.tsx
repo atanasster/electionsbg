@@ -8,6 +8,8 @@ import { MpFinancialDeclarations } from "./MpFinancialDeclarations";
 import { MpAssetsSummary } from "./MpAssetsSummary";
 import { MpManagementRoles } from "./MpManagementRoles";
 import { MpConnectionsMini } from "./MpConnectionsMini";
+import { MpVotingTile } from "./MpVotingTile";
+import { MpTwinsTile } from "./MpTwinsTile";
 import { CandidateNamesakeChooser } from "./CandidateNamesakeChooser";
 import { CandidateDashboardCards } from "@/screens/dashboard/CandidateDashboardCards";
 
@@ -89,6 +91,8 @@ export const Candidate: FC<{ name: string }> = ({ name }) => {
 
       {canonical.mpId != null && (
         <>
+          <MpVotingTile name={lookupName} linkSlug={linkSlug} />
+          <MpTwinsTile name={lookupName} />
           <MpAssetsSummary name={lookupName} linkSlug={linkSlug} />
           <MpFinancialDeclarations name={lookupName} />
           <MpManagementRoles name={lookupName} />

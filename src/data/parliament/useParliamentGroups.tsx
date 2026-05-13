@@ -1,6 +1,7 @@
-import { useMemo } from "react";
+import { useCallback, useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { dataUrl } from "@/data/dataUrl";
+import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 
 // Override map for parliamentary groups that don't map 1:1 to a CIK ballot
 // party — typically the components of a coalition that split into separate
@@ -91,7 +92,81 @@ export const useParliamentGroups = () => {
     [byParent],
   );
 
-  return { lookup, childrenFor, stripPgPrefix };
+  const {
+    colorFor: cikColorFor,
+    displayNameFor: cikDisplayNameFor,
+    findCanonicalNickName: cikFindNickName,
+  } = useCanonicalParties();
+
+  // Roll-call CSVs label parliamentary groups with their bare short name
+  // (e.g. "ГЕРБ - СДС", "БСП - ОЛ"), with whitespace around the hyphen and
+  // sometimes a "ПГ на" prefix. Try a few normal forms when bridging into
+  // canonical-CIK lookups so colours/labels resolve for every group, not
+  // just the ones that have an explicit entry in parliament_groups.json.
+  const variants = (short: string): string[] => {
+    const stripped = stripPgPrefix(short);
+    const out = new Set<string>([short, stripped]);
+    out.add(stripped.replace(/\s*[-–—]\s*/g, "-"));
+    out.add(stripped.replace(/\s+/g, ""));
+    return [...out];
+  };
+
+  const colorForPartyShort = useCallback(
+    (short?: string | null): string | undefined => {
+      if (!short) return undefined;
+      const override = lookup(short)?.color;
+      if (override) return override;
+      for (const v of variants(short)) {
+        const c = cikColorFor(v);
+        if (c) return c;
+      }
+      return undefined;
+    },
+    [lookup, cikColorFor],
+  );
+
+  const labelForPartyShort = useCallback(
+    (short?: string | null): string => {
+      if (!short) return "";
+      const override = lookup(short)?.displayName;
+      if (override) return override;
+      for (const v of variants(short)) {
+        const n = cikDisplayNameFor(v);
+        if (n) return n;
+      }
+      return stripPgPrefix(short);
+    },
+    [lookup, cikDisplayNameFor],
+  );
+
+  // CIK nickName usable as the SPA's /party/<nickName> URL slug. For
+  // parliamentary groups that are components of a coalition (e.g. ПП split
+  // off ПП-ДБ) the URL targets the parent coalition. Returns undefined when
+  // no CIK match is found — caller decides whether to render a link or text.
+  const nickNameForPartyShort = useCallback(
+    (short?: string | null): string | undefined => {
+      if (!short) return undefined;
+      const override = lookup(short);
+      if (override?.parentCoalitionNickName) {
+        return override.parentCoalitionNickName;
+      }
+      for (const v of variants(short)) {
+        const nick = cikFindNickName(v);
+        if (nick) return nick;
+      }
+      return undefined;
+    },
+    [lookup, cikFindNickName],
+  );
+
+  return {
+    lookup,
+    childrenFor,
+    stripPgPrefix,
+    colorForPartyShort,
+    labelForPartyShort,
+    nickNameForPartyShort,
+  };
 };
 
 export { stripPgPrefix };

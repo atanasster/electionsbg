@@ -90,6 +90,35 @@ export const findRollcallCsv = (sten: PlSten): StenFile | null => {
   );
 };
 
+// "Гласуване по парламентарни групи" CSV. Same data day-shape but rows are
+// per-group instead of per-MP, and the first column (textbox3) carries the
+// item title ("по тема <…>"). We use it only to enrich the per-MP file with
+// human-readable titles.
+export const findGroupsCsv = (sten: PlSten): StenFile | null => {
+  return (
+    (sten.files ?? []).find(
+      (f) =>
+        f.Pl_StenDname.includes("парламентарни групи") &&
+        f.Pl_StenDfile.endsWith(".csv"),
+    ) ?? null
+  );
+};
+
+// Per-MP PDF for the day — useful as a "see source document" deep-link from
+// the frontend.
+export const findRollcallPdf = (sten: PlSten): StenFile | null => {
+  return (
+    (sten.files ?? []).find(
+      (f) =>
+        f.Pl_StenDname.includes("Поименно") && f.Pl_StenDfile.endsWith(".pdf"),
+    ) ?? null
+  );
+};
+
+// Absolute URL for a parliament.bg attachment path.
+export const publicUrl = (relativeUrl: string): string =>
+  relativeUrl.startsWith("http") ? relativeUrl : `${PUB}${relativeUrl}`;
+
 export const fetchCsv = async (relativeUrl: string): Promise<string> => {
   const url = relativeUrl.startsWith("http")
     ? relativeUrl

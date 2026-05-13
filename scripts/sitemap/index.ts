@@ -83,6 +83,8 @@ const bucketFor = (urlPath: string): string => {
   if (p.startsWith("/municipality/")) return "regions";
   if (p.startsWith("/reports/")) return "reports";
   if (p.startsWith("/polls")) return "polls";
+  if (p.startsWith("/votes")) return "votes";
+  if (p.startsWith("/parliament/")) return "votes";
   if (p.startsWith("/elections/")) return "static";
   if (p.startsWith("/articles")) return "static";
   return "static";
@@ -207,6 +209,30 @@ const enumerateElections = (rootUrl: string, routes: string[]) => {
   }
 };
 
+const enumerateVotes = (rootUrl: string) => {
+  // Roll-call sessions: one URL per voting day. Skip if the index file
+  // hasn't been generated yet (fresh clone before any ingest).
+  const idxFile = `${projectPath}/data/parliament/votes/index.json`;
+  if (!fs.existsSync(idxFile)) return;
+  let idx: { sessions?: Array<{ date: string }>; lastDate?: string };
+  try {
+    idx = JSON.parse(fs.readFileSync(idxFile, "utf-8"));
+  } catch {
+    return;
+  }
+  const sessions = idx.sessions ?? [];
+  // Use index.json's mtime (refreshed on every ingest) so crawlers learn
+  // about new sessions without scanning per-session files.
+  const lastmod = safeFileMod(idxFile);
+  pushUrl(`${rootUrl}/votes`, lastmod);
+  pushUrl(`${rootUrl}/en/votes`, lastmod);
+  for (const s of sessions) {
+    if (!/^\d{4}-\d{2}-\d{2}$/.test(s.date)) continue;
+    pushUrl(`${rootUrl}/votes/${s.date}`, s.date);
+    pushUrl(`${rootUrl}/en/votes/${s.date}`, s.date);
+  }
+};
+
 const enumeratePolls = (route: RouteDef, rootUrl: string) => {
   const indexUrl = `${rootUrl}/${route.path}`;
   pushUrl(indexUrl, today);
@@ -326,6 +352,7 @@ const getRoute = (route: RouteDef, rootUrl: string) => {
 };
 
 routeDefs(election).forEach((r) => getRoute(r, ""));
+enumerateVotes("");
 
 // English mirrors for dynamic party routes — every BG /party/X URL also has
 // an EN counterpart at /en/party/X (with the same sub-tabs). Mirrors are

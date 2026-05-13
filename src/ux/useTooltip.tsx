@@ -81,7 +81,10 @@ export const useTooltip = (
         <div
           ref={containerRef}
           className={cn(
-            "absolute overflow-hidden animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-10",
+            // pointer-events-none: tooltip overlays the trigger and would
+            // otherwise steal hover, causing the trigger's onMouseLeave to
+            // fire as the cursor enters the tip — a classic flicker loop.
+            "absolute overflow-hidden pointer-events-none animate-in fade-in-0 zoom-in-95 data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=closed]:zoom-out-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 z-10",
             tooltipSurfaceCompactClass,
           )}
           style={{ left: `${tooltip.x + gap}px`, top: `${tooltip.y + gap}px` }}

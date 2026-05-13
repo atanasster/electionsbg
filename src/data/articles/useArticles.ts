@@ -12,7 +12,8 @@ export type DashboardSectionId =
   | "declarations"
   | "financing"
   | "history"
-  | "polling";
+  | "polling"
+  | "parliament";
 
 export type ArticleMeta = {
   slug: string;

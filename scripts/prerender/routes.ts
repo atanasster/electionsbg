@@ -1150,6 +1150,91 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <p>След първоначалното броене на гласовете в СИК, всички протоколи минават през второ броене в РИК. Когато двете броения дават различен резултат, се отчита отклонение.</p>
 <p>Тук са секциите с най-голямо отклонение между двете броения — по обща сума, по партия и по тип разлика (партия → партия, партия → недействителна).</p>`.trim(),
   }),
+  staticPage({
+    path: "parliament",
+    title:
+      "Парламент — анализ на гласуванията в Народното събрание | electionsbg.com",
+    description:
+      "Анализ на поименните гласувания в българското Народно събрание — архив на заседанията, партийна дисциплина, гласови близнаци и UMAP визуализация на гласовото пространство.",
+    breadcrumbName: "Парламент",
+    ogImage: "/og/parliament.png",
+    bodyHtml: `
+<h1>Парламент — анализ на гласуванията</h1>
+<p>Аналитични страници върху поименните гласувания в българското Народно събрание. Данните се извличат от стенограмите на parliament.bg.</p>
+<ul>
+<li><a href="${SITE_URL}/votes">Архив на поименните гласувания</a> по заседания, с разбивка по точка и парламентарна група.</li>
+<li><a href="${SITE_URL}/parliament/cohesion">Партийна дисциплина</a> — колко обединени гласуват членовете на всяка група, с динамика по време.</li>
+<li>Гласови близнаци — кои депутати гласуват най-сходно с други, с акцент на близнаци от различни групи. Достъпни от страницата на всеки депутат.</li>
+<li><a href="${SITE_URL}/parliament/embedding">Гласово пространство</a> — UMAP визуализация на цялото гласово поведение.</li>
+</ul>`.trim(),
+    english: {
+      title:
+        "Parliament — Bulgarian National Assembly Voting Analytics | electionsbg.com",
+      description:
+        "Roll-call voting analytics for the Bulgarian National Assembly — session archive, group cohesion, voting twins, and a UMAP map of MP voting behaviour.",
+      breadcrumbName: "Parliament",
+      bodyHtml: `
+<h1>Parliament — voting analytics</h1>
+<p>Analytical views over roll-call voting in the Bulgarian National Assembly. Data is sourced from parliament.bg stenograms.</p>
+<ul>
+<li><a href="${SITE_URL}/en/votes">Roll-call vote archive</a>, broken down per item and per parliamentary group.</li>
+<li><a href="${SITE_URL}/en/parliament/cohesion">Group cohesion</a> — how unified each parliamentary group votes, with a per-session trend.</li>
+<li>Voting twins — which MPs vote most similarly, surfacing twins from different groups. Available from each MP's candidate page.</li>
+<li><a href="${SITE_URL}/en/parliament/embedding">Voting space</a> — UMAP projection of every MP's voting behaviour.</li>
+</ul>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "parliament/embedding",
+    title:
+      "Гласовото пространство на Народното събрание — UMAP визуализация | electionsbg.com",
+    description:
+      "2D проекция (UMAP) на гласуванията на всеки действащ народен представител. Депутати, които гласуват сходно, се появяват близо един до друг — клъстерите разкриват неформални блокове.",
+    breadcrumbName: "Гласово пространство",
+    ogImage: "/og/parliament-embedding.png",
+    bodyHtml: `
+<h1>Гласовото пространство на Народното събрание</h1>
+<p>Всяка точка е един депутат. Разстоянието приближено отразява колко различно гласуват двама депутати — съседите гласуват по същия начин в по-голяма част от случаите.</p>
+<p>Подредбата е UMAP проекция на векторите от поименните гласувания (за / против / въздържал се) на всеки депутат. Цветът показва парламентарната група. Клъстерите разкриват неформалните блокове.</p>
+<p>Виж и <a href="${SITE_URL}/parliament/cohesion">партийната дисциплина</a> и <a href="${SITE_URL}/votes">архива на поименните гласувания</a>.</p>`.trim(),
+    english: {
+      title: "MP Voting Space — UMAP Embedding | electionsbg.com",
+      description:
+        "2D UMAP projection of every sitting Bulgarian MP's roll-call vote vector. MPs who vote similarly appear close together; clusters reveal informal blocs.",
+      breadcrumbName: "Voting space",
+      bodyHtml: `
+<h1>MP voting space</h1>
+<p>Each dot is one MP. Distance approximates how differently two MPs vote — neighbours vote the same way most of the time.</p>
+<p>Layout is a UMAP projection of the full vote-vector space, coloured by parliamentary group. Clusters reveal informal blocs.</p>
+<p>See also <a href="${SITE_URL}/en/parliament/cohesion">parliamentary group cohesion</a> and the <a href="${SITE_URL}/en/votes">roll-call archive</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "parliament/cohesion",
+    title:
+      "Партийна дисциплина в Народното събрание — обединеност при гласуване | electionsbg.com",
+    description:
+      "Колко обединени гласуват парламентарните групи в българското Народно събрание — средна и медианна обединеност по точки, размер на групата и брой обхванати гласувания.",
+    breadcrumbName: "Партийна дисциплина",
+    ogImage: "/og/parliament-cohesion.png",
+    bodyHtml: `
+<h1>Партийна дисциплина в Народното събрание</h1>
+<p>За всяка точка, по която Народното събрание гласува, измерваме каква част от членовете на дадена парламентарна група са гласували еднакво. След това усредняваме по всички точки в текущия мандат.</p>
+<p>1,00 означава, че всеки път цялата група е гласувала по един и същ начин; 0,50 означава равноделно разцепление. Отсъствията не се отчитат.</p>
+<p>Виж и <a href="${SITE_URL}/votes">архива на поименните гласувания</a> и <a href="${SITE_URL}/connections">бизнес-връзките между депутатите</a>.</p>`.trim(),
+    english: {
+      title:
+        "Parliamentary Group Cohesion — Bulgarian National Assembly | electionsbg.com",
+      description:
+        "How unified the parliamentary groups vote in Bulgaria's National Assembly — mean and median cohesion per item, group size, and items covered.",
+      breadcrumbName: "Group cohesion",
+      bodyHtml: `
+<h1>Parliamentary group cohesion</h1>
+<p>For each item on which the National Assembly votes, we measure the share of a group's members who voted the same way. We then average across every item in the current parliament.</p>
+<p>1.00 means the entire group voted identically every time; 0.50 is an even split. Absences are excluded.</p>
+<p>See also the <a href="${SITE_URL}/en/votes">archive of roll-call votes</a> and the <a href="${SITE_URL}/en/connections">business-connections graph</a>.</p>`.trim(),
+    },
+  }),
 ];
 
 const sofiaSubTabs: Array<{

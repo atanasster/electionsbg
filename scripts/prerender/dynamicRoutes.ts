@@ -1878,6 +1878,146 @@ const buildReportRoutes = (
   });
 };
 
+// Roll-call sessions: index + one URL per voting day.
+//
+// Data lives in data/parliament/votes/ (uploaded to the GCS bucket; the
+// prerender step reads from the local mirror when present). If the local
+// directory isn't there yet — e.g. fresh clone before the watcher has run —
+// no votes routes are emitted, so SEO doesn't reference 404s.
+interface VotesIndexFile {
+  scrapedAt: string;
+  ns: string;
+  lastDate: string;
+  sessions: Array<{
+    date: string;
+    stenogramId: number;
+    items: number;
+    file: string;
+  }>;
+}
+
+const BG_MONTH_NAMES = [
+  "януари",
+  "февруари",
+  "март",
+  "април",
+  "май",
+  "юни",
+  "юли",
+  "август",
+  "септември",
+  "октомври",
+  "ноември",
+  "декември",
+];
+
+const formatVoteDateBg = (iso: string): string => {
+  const m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(iso);
+  if (!m) return iso;
+  return `${parseInt(m[3], 10)} ${BG_MONTH_NAMES[parseInt(m[2], 10) - 1]} ${m[1]} г.`;
+};
+
+const formatVoteDateEn = (iso: string): string => {
+  const d = new Date(iso + "T00:00:00Z");
+  return new Intl.DateTimeFormat("en-GB", {
+    year: "numeric",
+    month: "long",
+    day: "numeric",
+    timeZone: "UTC",
+  }).format(d);
+};
+
+export const buildVotesRoutes = (projectRoot: string): PrerenderRoute[] => {
+  const idxFile = path.join(projectRoot, "data/parliament/votes/index.json");
+  if (!fs.existsSync(idxFile)) return [];
+  let idx: VotesIndexFile;
+  try {
+    idx = JSON.parse(fs.readFileSync(idxFile, "utf-8"));
+  } catch {
+    return [];
+  }
+  if (!idx.sessions?.length) return [];
+
+  const indexUrl = `${SITE_URL}/votes`;
+  const totalItems = idx.sessions.reduce((n, s) => n + (s.items ?? 0), 0);
+  const result: PrerenderRoute[] = [
+    {
+      path: "votes",
+      title:
+        "Поименни гласувания в Народното събрание — данни по точки | electionsbg.com",
+      description: `Поименни гласувания в Народното събрание на България. ${idx.sessions.length} заседания, общо ${totalItems} точки. Разбивка по депутат и парламентарна група за всяка точка.`,
+      ogImage: "/og/votes.png",
+      bodyHtml: `
+<h1>Поименни гласувания в Народното събрание</h1>
+<p>Архив на всички пленарни заседания, в които Народното събрание е провело поименно гласуване. За всяка точка се записва как е гласувал всеки депутат — "за", "против", "въздържал се" или "отсъствал" — заедно с разбивка по парламентарна група.</p>
+<p>Данните се извличат от стенограмите на parliament.bg.</p>`.trim(),
+      jsonLd: [
+        buildBreadcrumbLd([
+          { name: "Начало", url: `${SITE_URL}/` },
+          { name: "Поименни гласувания", url: indexUrl },
+        ]),
+      ],
+    },
+  ];
+
+  for (const s of idx.sessions) {
+    const url = `${SITE_URL}/votes/${s.date}`;
+    const enUrl = `${SITE_URL}/en/votes/${s.date}`;
+    const dateBg = formatVoteDateBg(s.date);
+    const dateEn = formatVoteDateEn(s.date);
+    const title = `Поименно гласуване — ${dateBg} | electionsbg.com`;
+    const description = `Поименно гласуване в Народното събрание на ${dateBg}: ${s.items} точки с разбивка по депутат и парламентарна група.`;
+    const titleEn = `Roll-call vote — ${dateEn} | electionsbg.com`;
+    const descriptionEn = `Roll-call vote in the Bulgarian National Assembly on ${dateEn}: ${s.items} items with per-MP and per-party breakdowns.`;
+    result.push({
+      path: `votes/${s.date}`,
+      title,
+      description,
+      ogImage: "/og/votes.png",
+      bodyHtml: `
+<h1>Поименно гласуване · ${dateBg}</h1>
+<p>${s.items} ${s.items === 1 ? "точка" : "точки"} в дневния ред на това заседание. Кликнете върху точка, за да видите как е гласувал всеки депутат и обобщение по парламентарни групи.</p>`.trim(),
+      jsonLd: [
+        buildWebPageLd({ title, description, url }),
+        buildDatasetLd({
+          name: `Поименно гласуване — ${dateBg}`,
+          description,
+          url,
+          spatialCoverage: "България",
+          keywords: ["поименно гласуване", "Народно събрание", s.date],
+          distribution: [
+            {
+              url: `${DATA_URL}/parliament/votes/sessions/${s.date}.json`,
+              name: "Подадени гласове по точки (JSON)",
+            },
+          ],
+        }),
+        buildBreadcrumbLd([
+          { name: "Начало", url: `${SITE_URL}/` },
+          { name: "Поименни гласувания", url: indexUrl },
+          { name: dateBg, url },
+        ]),
+      ],
+      english: {
+        title: titleEn,
+        description: descriptionEn,
+        bodyHtml: `
+<h1>Roll-call vote · ${dateEn}</h1>
+<p>${s.items} ${s.items === 1 ? "item" : "items"} on the agenda for this session. Click an item to see how every MP voted and the per-party breakdown.</p>`.trim(),
+        jsonLd: [
+          buildWebPageLd({
+            title: titleEn,
+            description: descriptionEn,
+            url: enUrl,
+            inLanguage: "en",
+          }),
+        ],
+      },
+    });
+  }
+  return result;
+};
+
 export const buildDynamicRoutes = async (
   projectRoot: string,
 ): Promise<PrerenderRoute[]> => {
@@ -1922,6 +2062,7 @@ export const buildDynamicRoutes = async (
     ...candidateRoutes,
     ...buildCandidateSubTabRoutes(candidateRoutes),
     ...buildPollsRoutes(publicFolder),
+    ...buildVotesRoutes(projectRoot),
     ...buildElectionLandingRoutes(publicFolder, electionsFile),
     ...buildReportRoutes("settlement", SETTLEMENT_REPORTS),
     ...buildReportRoutes("municipality", MUNICIPALITY_REPORTS),
