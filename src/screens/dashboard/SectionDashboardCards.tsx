@@ -79,7 +79,6 @@ export const SectionDashboardCards: FC<Props> = ({ sectionCode }) => {
           id="votes"
           title={t("dashboard_section_votes")}
           icon={Gauge}
-          articleTopic="votes"
         >
           <PartyResultsTile parties={data.parties} basePath={basePath} />
           <HistoricalTrendsTile stats={stats} basePath={basePath} />
@@ -89,7 +88,6 @@ export const SectionDashboardCards: FC<Props> = ({ sectionCode }) => {
           id="anomalies"
           title={t("dashboard_section_anomalies")}
           icon={AlertTriangle}
-          articleTopic="anomalies"
         >
           <FlashMemoryTile
             parties={data.parties}
