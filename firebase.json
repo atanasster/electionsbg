@@ -9,6 +9,10 @@
   },
   "hosting": {
     "public": "dist",
+    "redirects": [
+      { "source": "/index", "destination": "/", "type": 301 },
+      { "source": "/en/index", "destination": "/en", "type": 301 }
+    ],
     "rewrites": [
       {
         "source": "/en/**",
