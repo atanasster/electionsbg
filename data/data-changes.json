@@ -1,6 +1,32 @@
 {
-  "updatedAt": "2026-05-13T06:12:08.249Z",
+  "updatedAt": "2026-05-13T16:38:16.750Z",
   "entries": [
+    {
+      "timestamp": "2026-05-13T16:38:16.750Z",
+      "date": "2026-05-13",
+      "skill": "parliament-scrape",
+      "summary": "52nd NS: +9 new MP ids (5322-5330) and 17 profile updates; 2119 deduped MPs, 1536 photos cached",
+      "source": "parliament.bg /api/v1",
+      "links": [
+        {
+          "to": "/connections",
+          "labelKey": "data_changes_link_parliament"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-13T16:37:14.970Z",
+      "date": "2026-05-13",
+      "skill": "update-macro",
+      "summary": "29 indicators refreshed; latest quarterly 2026 Q1 (gdpGrowth, inflation, inflationCore, industrialProd, consumerConfidence, economicSentiment)",
+      "source": "Eurostat macro (BG)",
+      "links": [
+        {
+          "to": "/demographics",
+          "labelKey": "data_changes_link_demographics"
+        }
+      ]
+    },
     {
       "timestamp": "2026-05-13T06:12:08.249Z",
       "date": "2026-05-13",
