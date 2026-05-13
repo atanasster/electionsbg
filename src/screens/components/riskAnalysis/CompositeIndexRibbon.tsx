@@ -11,9 +11,10 @@ import { Link } from "@/ux/Link";
 import { Hint } from "@/ux/Hint";
 
 // Slim ribbon shown at the top of the home Anomalies section. Shows the
-// composite + 5 mini-bars in one row; the "see full analysis" link
-// becomes the ribbon's call-to-action so it doesn't compete with the
-// section-header link slot.
+// composite + five integrity-track mini-bars. Context-track signals
+// (Benford, neighborhood swing, electoral volatility, polls) are
+// intentionally omitted here — the headline ribbon is for the integrity
+// signal at a glance, and context belongs on the dedicated page.
 
 const BAND_CLASSES: Record<RiskCompositeBand, string> = {
   calm: "bg-emerald-100 text-emerald-900 dark:bg-emerald-950/40 dark:text-emerald-200 border-emerald-500/40",
@@ -31,15 +32,12 @@ const BAND_ICONS: Record<RiskCompositeBand, typeof ShieldAlert> = {
   critical: ShieldAlert,
 };
 
-const COMPONENT_ORDER: RiskCompositeComponent["id"][] = [
+const INTEGRITY_ORDER: RiskCompositeComponent["id"][] = [
   "sections",
-  "benford",
   "machine",
   "missingFlash",
   "concentration",
   "procedural",
-  "neighborhoods",
-  "polls",
 ];
 
 const componentBarColor = (value: number): string =>
@@ -58,9 +56,11 @@ export const CompositeIndexRibbon: FC = () => {
 
   const Icon = BAND_ICONS[composite.band];
   const score = Math.round(composite.score);
-  const ordered = [...composite.components].sort(
-    (a, b) => COMPONENT_ORDER.indexOf(a.id) - COMPONENT_ORDER.indexOf(b.id),
-  );
+  const ordered = composite.components
+    .filter((c) => c.track === "integrity")
+    .sort(
+      (a, b) => INTEGRITY_ORDER.indexOf(a.id) - INTEGRITY_ORDER.indexOf(b.id),
+    );
 
   return (
     <div className="rounded-xl border bg-card p-3 shadow-sm">
@@ -87,7 +87,7 @@ export const CompositeIndexRibbon: FC = () => {
 
         <div className="hidden lg:block h-8 w-px bg-border shrink-0" />
 
-        <div className="flex-1 grid grid-cols-2 sm:grid-cols-4 gap-x-4 gap-y-1.5">
+        <div className="flex-1 grid grid-cols-1 sm:grid-cols-5 gap-x-4 gap-y-1.5">
           {ordered.map((c) => {
             const value = Math.round(c.value);
             return (

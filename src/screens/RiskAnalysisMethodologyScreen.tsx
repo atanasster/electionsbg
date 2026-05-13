@@ -19,11 +19,10 @@ const LabelP: FC<PropsWithChildren<{ label: string }>> = ({
   </ArticleP>
 );
 
-// Methodology page for the Composite Election Risk Index — the 8-component
-// 0–100 aggregation rendered in CompositeIndexHero (on /risk-analysis) and
-// CompositeIndexRibbon (on the home Anomalies section). Mirrors the
-// RiskScoreMethodologyScreen structure: caveat banner → what it is →
-// components → formula → bands → important caveats → how to use.
+// Methodology page for the Composite Election Risk Index. The index has
+// two tracks (rendered as two sections on this page): five integrity-track
+// components averaged into the headline, plus four context-track signals
+// shown alongside but excluded from the headline.
 export const RiskAnalysisMethodologyScreen = () => {
   const { t } = useTranslation();
   return (
@@ -46,14 +45,12 @@ export const RiskAnalysisMethodologyScreen = () => {
       <ArticleH2>{t("composite_methodology_h_what")}</ArticleH2>
       <ArticleP>{t("composite_methodology_p_what1")}</ArticleP>
       <ArticleP>{t("composite_methodology_p_what2")}</ArticleP>
+      <ArticleP>{t("composite_methodology_p_what3")}</ArticleP>
 
       <ArticleH2>{t("composite_methodology_h_components")}</ArticleH2>
       <ArticleP>{t("composite_methodology_p_components_intro")}</ArticleP>
       <LabelP label={t("composite_methodology_c_sections_t")}>
         {t("composite_methodology_c_sections_p")}
-      </LabelP>
-      <LabelP label={t("composite_methodology_c_benford_t")}>
-        {t("composite_methodology_c_benford_p")}
       </LabelP>
       <LabelP label={t("composite_methodology_c_machine_t")}>
         {t("composite_methodology_c_machine_p")}
@@ -67,8 +64,17 @@ export const RiskAnalysisMethodologyScreen = () => {
       <LabelP label={t("composite_methodology_c_procedural_t")}>
         {t("composite_methodology_c_procedural_p")}
       </LabelP>
-      <LabelP label={t("composite_methodology_c_neighborhoods_t")}>
-        {t("composite_methodology_c_neighborhoods_p")}
+
+      <ArticleH2>{t("composite_methodology_h_context")}</ArticleH2>
+      <ArticleP>{t("composite_methodology_p_context_intro")}</ArticleP>
+      <LabelP label={t("composite_methodology_c_benford_t")}>
+        {t("composite_methodology_c_benford_p")}
+      </LabelP>
+      <LabelP label={t("composite_methodology_c_neighborhoodsSwing_t")}>
+        {t("composite_methodology_c_neighborhoodsSwing_p")}
+      </LabelP>
+      <LabelP label={t("composite_methodology_c_voteSwitching_t")}>
+        {t("composite_methodology_c_voteSwitching_p")}
       </LabelP>
       <LabelP label={t("composite_methodology_c_polls_t")}>
         {t("composite_methodology_c_polls_p")}

@@ -10,10 +10,11 @@ import { cn } from "@/lib/utils";
 import { Hint } from "@/ux/Hint";
 import { Link } from "@/ux/Link";
 
-// Hero shown at the top of /risk-analysis. Always renders the composite
-// alongside the breakdown — the breakdown isn't optional, because a
-// single number without provenance is exactly the kind of thing the
-// methodology callout warns against.
+// Hero shown at the top of /risk-analysis. The headline 0–100 is the
+// INTEGRITY track only (5 process-integrity signals). The CONTEXT track
+// (Benford, neighborhood swing, electoral volatility, polling error) is
+// shown alongside but not folded into the score — those signals can light
+// up in perfectly clean elections.
 
 const BAND_CLASSES: Record<RiskCompositeBand, string> = {
   calm: "bg-emerald-100 text-emerald-900 dark:bg-emerald-950/40 dark:text-emerald-200 border-emerald-500/40",
@@ -38,14 +39,18 @@ const BAND_ICONS: Record<RiskCompositeBand, typeof ShieldAlert> = {
   critical: ShieldAlert,
 };
 
-const COMPONENT_ORDER: RiskCompositeComponent["id"][] = [
+const INTEGRITY_ORDER: RiskCompositeComponent["id"][] = [
   "sections",
-  "benford",
   "machine",
   "missingFlash",
   "concentration",
   "procedural",
-  "neighborhoods",
+];
+
+const CONTEXT_ORDER: RiskCompositeComponent["id"][] = [
+  "benford",
+  "neighborhoodsSwing",
+  "voteSwitching",
   "polls",
 ];
 
@@ -58,6 +63,50 @@ const componentBarColor = (value: number): string =>
         ? "bg-orange-500"
         : "bg-red-500";
 
+const Tile: FC<{
+  component: RiskCompositeComponent;
+  muted?: boolean;
+}> = ({ component: c, muted }) => {
+  const { t } = useTranslation();
+  const value = Math.round(c.value);
+  return (
+    <Hint text={t(`composite_component_${c.id}_hint`)} underline={false}>
+      <div
+        className={cn(
+          "h-full rounded-lg border p-3 flex flex-col gap-1.5",
+          c.available ? "bg-background" : "bg-muted/30 opacity-60",
+          muted && c.available && "bg-muted/20",
+        )}
+      >
+        <div className="flex items-baseline justify-between gap-2">
+          <span className="text-[10px] uppercase tracking-wide text-muted-foreground truncate">
+            {t(`composite_component_${c.id}`)}
+          </span>
+          <span className="text-base font-semibold tabular-nums">
+            {c.available ? value : "—"}
+          </span>
+        </div>
+        <div className="relative h-1.5 rounded-full bg-muted overflow-hidden">
+          {c.available ? (
+            <div
+              className={cn(
+                "absolute inset-y-0 left-0 rounded-full",
+                componentBarColor(c.value),
+              )}
+              style={{ width: `${Math.max(2, c.value)}%` }}
+            />
+          ) : null}
+        </div>
+        <span className="text-[10px] text-muted-foreground tabular-nums">
+          {c.available
+            ? (c.detail ?? " ")
+            : t("composite_component_unavailable")}
+        </span>
+      </div>
+    </Hint>
+  );
+};
+
 export const CompositeIndexHero: FC = () => {
   const { t } = useTranslation();
   const composite = useRiskComposite();
@@ -65,9 +114,15 @@ export const CompositeIndexHero: FC = () => {
 
   const Icon = BAND_ICONS[composite.band];
   const score = Math.round(composite.score);
-  const ordered = [...composite.components].sort(
-    (a, b) => COMPONENT_ORDER.indexOf(a.id) - COMPONENT_ORDER.indexOf(b.id),
-  );
+
+  const integrity = composite.components
+    .filter((c) => c.track === "integrity")
+    .sort(
+      (a, b) => INTEGRITY_ORDER.indexOf(a.id) - INTEGRITY_ORDER.indexOf(b.id),
+    );
+  const context = composite.components
+    .filter((c) => c.track === "context")
+    .sort((a, b) => CONTEXT_ORDER.indexOf(a.id) - CONTEXT_ORDER.indexOf(b.id));
 
   return (
     <div
@@ -99,8 +154,8 @@ export const CompositeIndexHero: FC = () => {
         <div className="hidden md:block h-12 w-px bg-border shrink-0" />
         <p className="text-xs text-muted-foreground leading-relaxed flex-1">
           {t("composite_index_caption", {
-            available: composite.availableCount,
-            total: composite.totalCount,
+            available: composite.integrityAvailableCount,
+            total: composite.integrityTotalCount,
           })}
         </p>
         <Link
@@ -112,49 +167,37 @@ export const CompositeIndexHero: FC = () => {
         </Link>
       </div>
 
-      <div className="mt-5 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 xl:grid-cols-8 gap-3">
-        {ordered.map((c) => {
-          const value = Math.round(c.value);
-          return (
-            <Hint
-              key={c.id}
-              text={t(`composite_component_${c.id}_hint`)}
-              underline={false}
-            >
-              <div
-                className={cn(
-                  "h-full rounded-lg border p-3 flex flex-col gap-1.5",
-                  c.available ? "bg-background" : "bg-muted/30 opacity-60",
-                )}
-              >
-                <div className="flex items-baseline justify-between gap-2">
-                  <span className="text-[10px] uppercase tracking-wide text-muted-foreground truncate">
-                    {t(`composite_component_${c.id}`)}
-                  </span>
-                  <span className="text-base font-semibold tabular-nums">
-                    {c.available ? value : "—"}
-                  </span>
-                </div>
-                <div className="relative h-1.5 rounded-full bg-muted overflow-hidden">
-                  {c.available ? (
-                    <div
-                      className={cn(
-                        "absolute inset-y-0 left-0 rounded-full",
-                        componentBarColor(c.value),
-                      )}
-                      style={{ width: `${Math.max(2, c.value)}%` }}
-                    />
-                  ) : null}
-                </div>
-                <span className="text-[10px] text-muted-foreground tabular-nums">
-                  {c.available
-                    ? (c.detail ?? " ")
-                    : t("composite_component_unavailable")}
-                </span>
-              </div>
+      <div className="mt-5">
+        <div className="text-[10px] uppercase tracking-[0.16em] text-muted-foreground mb-2">
+          {t("composite_track_integrity")}
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-5 gap-3">
+          {integrity.map((c) => (
+            <Tile key={c.id} component={c} />
+          ))}
+        </div>
+      </div>
+
+      <div className="mt-4">
+        <div className="flex items-baseline justify-between gap-2 mb-2">
+          <span className="text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
+            {t("composite_track_context")}
+          </span>
+          {composite.contextScore != null ? (
+            <Hint text={t("composite_context_hint")} underline={false}>
+              <span className="text-[10px] text-muted-foreground tabular-nums">
+                {t("composite_context_average", {
+                  value: Math.round(composite.contextScore),
+                })}
+              </span>
             </Hint>
-          );
-        })}
+          ) : null}
+        </div>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3">
+          {context.map((c) => (
+            <Tile key={c.id} component={c} muted />
+          ))}
+        </div>
       </div>
 
       <div
