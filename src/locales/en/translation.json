@@ -1414,6 +1414,8 @@
   "indicators_az_source": "Агенция по заетостта — registered unemployment per municipality (annual review, XLSX)",
   "indicators_mon_dzi_source": "Министерство на образованието via data.egov.bg — state-matura (DZI) results per school, aggregated to municipality",
   "indicators_nsi_pop_source": "Национален статистически институт — annual population per municipality (Pop_6.1.1 timeseries XLSX)",
+  "procurement_section": "Public procurement",
+  "procurement_aop_source": "Агенция за обществени поръчки (АОП) via data.egov.bg — fortnightly OCDS-standard contract bundles (since 2026) and annual CSV dumps for prior years (2011-2023)",
   "dashboard_anomalies_full_analysis": "See full risk analysis",
   "dashboard_benford": "Benford's law",
   "dashboard_benford_hint": "Number of parties whose first- or second-digit distribution of section vote counts deviates from Benford's expectation (MAD). This is a screening signal, not evidence of fraud.",

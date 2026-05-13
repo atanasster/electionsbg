@@ -267,6 +267,15 @@ export const AboutScreen = () => {
               </ul>
             </DataGroup>
 
+            <DataGroup title={t("procurement_section")}>
+              <ul className="space-y-2">
+                <SourceItem
+                  href="https://data.egov.bg/organisation/about/aop"
+                  label={t("procurement_aop_source")}
+                />
+              </ul>
+            </DataGroup>
+
             <DataGroup title={t("election_results")}>
               <div className="flex flex-wrap gap-2">
                 {electionResults.map((e) => (

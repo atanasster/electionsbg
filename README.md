@@ -15,6 +15,7 @@ The app started as election results visualization and has grown to cover the bro
 - **Polls** — pre-election polls scraped from Wikipedia, accuracy metrics per agency, and editorial narratives.
 - **Demographics** — Census 2021 overlays (age, education, ethnicity) at country/region/municipality level, plus annual sub-national indicators per municipality (registered unemployment, state-matura DZI scores, NSI year-over-year population change) with year-over-year deltas and a country-wide choropleth.
 - **Campaign financing** — donors, income, expenses, donor leaderboards, parsed from the Court of Audit's Smetna Palata register.
+- **Public procurement** — fortnightly OCDS contract bundles from the АОП (Агенция за обществени поръчки) feed on data.egov.bg, aggregated per contractor / awarding body / month, with an MP cross-reference layer that surfaces awards going to companies owned or managed by sitting MPs.
 - **Vote flows** — transition matrices estimating where each party's votes moved between consecutive elections.
 - **Articles** — long-form editorials and methodology notes (plain markdown, BG + EN).
 
@@ -109,6 +110,8 @@ npm run bucket:sync:dry    # same, but -n (preview only)
 #   npx tsx scripts/regional/fetch_eurostat.ts         # Eurostat NUTS 3 (per oblast) indicators
 #   npx tsx scripts/indicators/fetch.ts                # AZ unemployment + МОН DZI per municipality
 #   npx tsx scripts/stamp-ingest.ts <skill>            # mark a skill ingest as successful
+npm run procurement:ingest        # АОП fortnight OCDS bundles → data/procurement/
+npm run procurement:ingest-legacy # АОП annual CSVs (pre-2026) → data/procurement/
 npm run deploy             # Firebase deploy (production)
 npm run deploy:fast        # Firebase deploy without re-running the data pipeline (SKIP_PREDEPLOY=1)
 npm run staging            # Firebase deploy (staging)
@@ -150,6 +153,7 @@ Files and directories the SPA fetches at runtime — all under `/data/` locally 
 | `macro.json` | Macroeconomic + governance indicators for the cabinet timeline (Eurostat GDP/HICP/unemployment, World Bank WGI, Transparency International CPI, Eurobarometer trust, EU funds) |
 | `regional.json` | Per-oblast Eurostat NUTS 3 indicators (GDP per capita, population, net migration) — drives the drilldown tile and the `/demographics` choropleth |
 | `indicators.json` | Per-municipality annual indicators (registered unemployment from Агенция по заетостта, DZI matura scores from МОН via data.egov.bg) — drives the municipality drilldown tile and the muni-granularity `/demographics` choropleth, with Sofia city aggregate fallback for the 24 districts |
+| `procurement/` | Public-procurement contracts from АОП via data.egov.bg: per-month `Contract[]` shards under `contracts/<YYYY>/<YYYY-MM>.json`, per-contractor and per-awarder rollups, an MP cross-reference (`derived/mp_connected.json`, `derived/top_contractors.json`, `derived/flow.json`), plus `index.json` + `bundles.json` |
 | `census_2021.json`, `census_2021_settlements.json` | Census aggregates |
 | `problem_sections_stats.json` | Risk-neighborhood summary stats |
 
@@ -203,6 +207,7 @@ Pipeline subdirectories of note:
 - `macro/` — Eurostat + World Bank + curated economic / governance indicators (with absolute-floor + 10% regression check per indicator)
 - `regional/` — Eurostat NUTS 3 (oblast-level) indicators for the `/municipality/<code>` drilldown tile and the `/demographics` regional choropleth (per-oblast floor + 10% regression check)
 - `indicators/` — Annual sub-national indicators pulled from multiple BG sources (AZ годишен обзор for registered unemployment, МОН via data.egov.bg for DZI scores). Source-pluggable: `sources/<source>.ts` files normalise to a common shape, `_name_aliases.json` carries the manual code/name overrides, `build.ts` merges to `data/indicators.json`. Floor + match-rate safety checks per source.
+- `procurement/` — АОП public-procurement ingest. `ingest.ts` walks the data.egov.bg dataset listing for the АОП org, downloads each fortnight bundle (cached gzipped under `raw_data/procurement/`), normalizes the OCDS releases into flat `Contract` rows via `normalize.ts`, writes month-shards under `data/procurement/contracts/`, then rebuilds per-EIK rollups (`rollups.ts`), MP cross-reference (`cross_reference.ts`, EIK-keyed against `companies-index.json`), and the journalism payload (`derived.ts` — top contractors + sankey-shaped flow). `ingest_legacy.ts` handles pre-OCDS annual CSV dumps (2011-2023). Canary fixture + diff-cap + amount sanity checks in `validate.ts`.
 - `financing/` — Сметна палата annual-reports index scraper (writes `data/financing/index.json`)
 - `watch/` — Tier-1 daily watcher (8 upstream sources fingerprint-diffed → daily markdown report under `data-reports/` + per-source state under `state/watch/`, see "Continuous data refresh" below)
 - `lib/upload.ts` — shared GCS upload helpers (gzipped text via `gsutil cp -Z`, binaries as-is)
@@ -232,6 +237,7 @@ For contributors using [Claude Code](https://claude.com/claude-code), the repo i
 | `update-macro` | Refresh `data/macro.json` from Eurostat + World Bank + curated tables. |
 | `update-regional` | Refresh `data/regional.json` from Eurostat NUTS 3 (per-oblast GDP/capita, population, net migration). |
 | `update-indicators` | Refresh `data/indicators.json` — annual per-municipality registered unemployment from Агенция по заетостта and DZI matura scores from МОН via data.egov.bg. Source-pluggable; new annual sub-national indicators slot in with one source file. |
+| `update-procurement` | Ingest АОП fortnight OCDS bundles from data.egov.bg into `data/procurement/`. Normalizes releases into per-month `Contract` shards, rebuilds per-contractor / per-awarder rollups, and runs the MP cross-reference (EIK-joined against `companies-index.json`) to surface contracts going to companies tied to sitting MPs. Canary-pinned with a diff-cap; pre-OCDS years (2011-2023) are backfilled via the sibling `procurement:ingest-legacy` script. |
 | `parliament-scrape` | Scrape MP photos/bios/seat data from parliament.bg (run after a new parliament is seated). |
 | `party-retrospect` | Generate per-party campaign retrospects. |
 
@@ -243,7 +249,7 @@ These can also be run by hand via the npm scripts and the `scripts/` CLI flags l
 
 Two-tier model.
 
-**Tier 1 — daily watcher.** `npm run watch` (`scripts/watch/index.ts`) fingerprint-diffs 11 upstream sources (parliament.bg MPs + votes, BG Wikipedia polls, register.cacbg.bg declarations, Сметна палата party financing, data.egov.bg Commerce Registry, Eurostat macro, Eurostat regional NUTS 3, Агенция по заетостта годишен обзор, МОН ДЗИ via data.egov.bg, НСИ population timeseries) and writes:
+**Tier 1 — daily watcher.** `npm run watch` (`scripts/watch/index.ts`) fingerprint-diffs 12 upstream sources (parliament.bg MPs + votes, BG Wikipedia polls, register.cacbg.bg declarations, Сметна палата party financing, data.egov.bg Commerce Registry, data.egov.bg АОП procurement, Eurostat macro, Eurostat regional NUTS 3, Агенция по заетостта годишен обзор, МОН ДЗИ via data.egov.bg, НСИ population timeseries) and writes:
 - `data-reports/<YYYY-MM-DD>.md` + `data-reports/latest.md` — human-readable daily snapshot
 - `state/watch/<source>.json` — per-source `lastChanged` + `lastChecked`
 
@@ -345,6 +351,7 @@ Bucket conventions:
 - [parliament.bg API](https://www.parliament.bg/) — MP profiles, photos, term history.
 - [register.cacbg.bg](https://register.cacbg.bg/) — Court of Audit MP property and interest declarations.
 - [data.egov.bg Commerce Registry dataset](https://data.egov.bg/) — daily Trade Register filings (companies, officers, status).
+- [data.egov.bg АОП open-data feed](https://data.egov.bg/organisation/about/aop) — Агенция за обществени поръчки (АОП) fortnightly OCDS-standard public-procurement bundles (since 2026-01-01) and annual CSV dumps for prior years (2011-2023).
 - [NSI Census 2021](https://census2021.bg/) — population, ethnocultural, economic characteristics.
 - [Bulgarian Wikipedia](https://bg.wikipedia.org/) — pre-election polling tables (per parliamentary election).
 - [Eurostat](https://ec.europa.eu/eurostat/) — quarterly/annual macro indicators (GDP, HICP, unemployment, fiscal balances) and NUTS 3 oblast-level series (GDP per capita, population, net migration).
