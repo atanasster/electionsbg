@@ -310,7 +310,9 @@ export const SessionScreen: FC = () => {
                         <ChevronRight className="h-4 w-4 text-muted-foreground shrink-0" />
                       )}
                       <div className="flex-1 min-w-0">
-                        <div className="font-medium">
+                        <div
+                          className={`font-medium ${isOpen ? "" : "line-clamp-2"}`}
+                        >
                           <span className="text-xs text-muted-foreground font-normal mr-2 tabular-nums">
                             #{item.item}
                           </span>
