@@ -250,6 +250,10 @@ export const reportsMenu: MenuItem[] = [
         link: "/procurement",
       },
       {
+        title: "budget_link_label",
+        link: "/budget",
+      },
+      {
         title: "demographics_title",
         link: "/demographics",
       },

@@ -5,6 +5,7 @@ import { wikiPolls } from "./wiki_polls";
 import { cacbgDeclarations } from "./cacbg_declarations";
 import { egovCommerce } from "./egov_commerce";
 import { egovProcurement } from "./egov_procurement";
+import { egovBudgetExecution } from "./egov_budget_execution";
 import { eurostat } from "./eurostat";
 import { eurostatRegional } from "./eurostat_regional";
 import { indicatorsAz } from "./indicators_az";
@@ -22,6 +23,7 @@ export const SOURCES: WatchSource[] = [
   smetnaPalata,
   egovCommerce,
   egovProcurement,
+  egovBudgetExecution,
   eurostat,
   eurostatRegional,
   indicatorsAz,

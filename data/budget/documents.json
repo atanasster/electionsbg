@@ -1,0 +1,117 @@
+{
+  "documents": [
+    {
+      "discovery": "auto",
+      "fiscalYear": 2024,
+      "id": "audit-2024",
+      "kind": "audit-report",
+      "seq": 0,
+      "sources": [
+        {
+          "format": "pdf",
+          "role": "report",
+          "url": "https://www.bulnao.government.bg/bg/documents/15515/OD_Durj_budjet_11.2025.pdf"
+        }
+      ],
+      "title": "Одитен доклад за извършен одит на отчета за изпълнението на държавния бюджет на Република България за 2024 г."
+    },
+    {
+      "discovery": "auto",
+      "fiscalYear": 2025,
+      "id": "law-2025",
+      "kind": "law",
+      "notes": "Placeholder — the promulgated text and appropriation annexes are attached in Phase 3 (PDF-annex parsing).",
+      "seq": 0,
+      "sources": [],
+      "title": "Закон за държавния бюджет на Република България за 2025 г."
+    },
+    {
+      "discovery": "auto",
+      "fiscalYear": 2026,
+      "id": "law-2026",
+      "kind": "law",
+      "notes": "Placeholder — the promulgated text and appropriation annexes are attached in Phase 3 (PDF-annex parsing).",
+      "seq": 0,
+      "sources": [],
+      "title": "Закон за държавния бюджет на Република България за 2026 г."
+    },
+    {
+      "discovery": "auto",
+      "fiscalYear": null,
+      "id": "kfp-egov",
+      "kind": "kfp-feed",
+      "notes": "Monthly cash-execution snapshots of the state budget published by the Ministry of Finance on data.egov.bg. The primary Phase 1 source.",
+      "seq": 0,
+      "sources": [
+        {
+          "format": "html",
+          "label": "data.egov.bg dataset — state budget execution",
+          "role": "dataset",
+          "url": "https://data.egov.bg/data/view/79ce7de2-0150-4ba7-a96c-dbacb76c95b6"
+        },
+        {
+          "format": "json",
+          "label": "Execution as of 2025-06-30",
+          "role": "resource",
+          "url": "https://data.egov.bg/resource/download/5e1788dd-ca69-45cd-9648-a1bda2f9426c/json"
+        },
+        {
+          "format": "json",
+          "label": "Execution as of 2025-07-31",
+          "role": "resource",
+          "url": "https://data.egov.bg/resource/download/6bde4b5a-2e2e-43b6-9eb7-c0c6f8fd37a8/json"
+        },
+        {
+          "format": "json",
+          "label": "Execution as of 2025-08-31",
+          "role": "resource",
+          "url": "https://data.egov.bg/resource/download/7cfc725e-d6a9-40b3-940a-637ab8244bc2/json"
+        },
+        {
+          "format": "json",
+          "label": "Execution as of 2025-09-30",
+          "role": "resource",
+          "url": "https://data.egov.bg/resource/download/d52d4880-d3b0-49d6-baaf-4478da78c5ce/json"
+        },
+        {
+          "format": "json",
+          "label": "Execution as of 2025-10-31",
+          "role": "resource",
+          "url": "https://data.egov.bg/resource/download/592e78e0-1e17-4bcb-bd6f-0f37fef38e33/json"
+        },
+        {
+          "format": "json",
+          "label": "Execution as of 2025-11-30",
+          "role": "resource",
+          "url": "https://data.egov.bg/resource/download/49d2d4dc-61c2-4226-93d8-feba930defd2/json"
+        },
+        {
+          "format": "json",
+          "label": "Execution as of 2025-12-31",
+          "role": "resource",
+          "url": "https://data.egov.bg/resource/download/817cf3fb-7e59-4cf7-9f50-8cbccd11bb60/json"
+        },
+        {
+          "format": "json",
+          "label": "Execution as of 2026-01-31",
+          "role": "resource",
+          "url": "https://data.egov.bg/resource/download/771277e5-7a73-4e75-9c90-76139f126648/json"
+        },
+        {
+          "format": "json",
+          "label": "Execution as of 2026-02-28",
+          "role": "resource",
+          "url": "https://data.egov.bg/resource/download/d209b2ca-b43b-4447-85d6-ec01b097bf3a/json"
+        },
+        {
+          "format": "json",
+          "label": "Execution as of 2026-03-31",
+          "role": "resource",
+          "url": "https://data.egov.bg/resource/download/ba988f39-2fa2-43b4-a662-62afbce10ae8/json"
+        }
+      ],
+      "title": "КФП — state budget execution by major budget indicators"
+    }
+  ],
+  "generatedAt": "2026-05-14T14:47:30.686Z"
+}

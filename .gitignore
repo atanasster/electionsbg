@@ -55,6 +55,19 @@ dist.old-*
 /data/procurement/contractors/
 /data/procurement/awarders/
 
+# Cached budget source artifacts (egov КФП resources, minfin Excel, bulnao
+# PDFs). Re-fetched on demand by `/update-budget`. The normalized JSON outputs
+# under data/budget/ are committed; this raw cache is not.
+/raw_data/budget/
+
+# Bulky regenerable budget files — same convention as procurement above. The
+# small metadata (index.json, kfp.json, documents.json, classification/,
+# crosswalk-overrides.json) is committed; the per-year fact / reconciliation /
+# ministry shards (Phase 2+) are regenerated and shipped to the bucket only.
+/data/budget/facts/
+/data/budget/reconciliation/
+/data/budget/ministries/
+
 # Generated election data — regenerate with `npm run prod`
 # Pattern note: ignore directory *contents* (not the directory itself) so we can
 # re-include specific subtrees below. A leading-anchored `/data/2*/` would block

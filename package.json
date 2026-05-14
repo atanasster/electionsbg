@@ -34,6 +34,7 @@
     "derived:rebuild": "tsx ./scripts/parliament/derived/index.ts",
     "procurement:ingest": "tsx ./scripts/procurement/ingest.ts",
     "procurement:ingest-legacy": "tsx ./scripts/procurement/ingest_legacy.ts",
+    "budget:ingest": "tsx ./scripts/budget/ingest.ts",
     "bucket:sync": "gsutil -m -h 'Cache-Control:public,max-age=300,must-revalidate' rsync -r -j json,svg,xml,txt,html,css,md data gs://data-electionsbg-com",
     "bucket:sync:dry": "gsutil -m rsync -r -n -j json,svg,xml,txt,html,css,md data gs://data-electionsbg-com",
     "stats": "npx vite-bundle-visualizer",

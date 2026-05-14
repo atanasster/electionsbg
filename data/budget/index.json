@@ -1,0 +1,149 @@
+{
+  "country": "BG",
+  "documentCount": 4,
+  "fiscalYears": [
+    {
+      "actual": {
+        "balance": {
+          "amount": -6088604791,
+          "amountEur": -3113054197,
+          "currency": "BGN"
+        },
+        "euContribution": {
+          "amount": 2035981033,
+          "amountEur": 1040980572,
+          "currency": "BGN"
+        },
+        "expenditure": {
+          "amount": 55508616167,
+          "amountEur": 28381104783,
+          "currency": "BGN"
+        },
+        "financing": {
+          "amount": 6088583958,
+          "amountEur": 3113043546,
+          "currency": "BGN"
+        },
+        "revenue": {
+          "amount": 51455992409,
+          "amountEur": 26309031158,
+          "currency": "BGN"
+        }
+      },
+      "asOf": "2025-12-31",
+      "complete": true,
+      "currency": "BGN",
+      "firstPeriod": "2025-06",
+      "fiscalYear": 2025,
+      "lastPeriod": "2025-12",
+      "monthsAvailable": 7,
+      "planned": {
+        "balance": {
+          "amount": -7132647400,
+          "amountEur": -3646864707,
+          "currency": "BGN"
+        },
+        "euContribution": {
+          "amount": 2020542300,
+          "amountEur": 1033086874,
+          "currency": "BGN"
+        },
+        "expenditure": {
+          "amount": 60280486000,
+          "amountEur": 30820923086,
+          "currency": "BGN"
+        },
+        "financing": {
+          "amount": 7132647400,
+          "amountEur": 3646864707,
+          "currency": "BGN"
+        },
+        "revenue": {
+          "amount": 55168380900,
+          "amountEur": 28207145253,
+          "currency": "BGN"
+        }
+      },
+      "projected": null,
+      "projectionBasis": null
+    },
+    {
+      "actual": {
+        "balance": {
+          "amount": -1918355713,
+          "amountEur": -1918355713,
+          "currency": "EUR"
+        },
+        "euContribution": {
+          "amount": 259519479,
+          "amountEur": 259519479,
+          "currency": "EUR"
+        },
+        "expenditure": {
+          "amount": 7116102687,
+          "amountEur": 7116102687,
+          "currency": "EUR"
+        },
+        "financing": {
+          "amount": 1918355713,
+          "amountEur": 1918355713,
+          "currency": "EUR"
+        },
+        "revenue": {
+          "amount": 5457266453,
+          "amountEur": 5457266453,
+          "currency": "EUR"
+        }
+      },
+      "asOf": "2026-03-31",
+      "complete": false,
+      "currency": "EUR",
+      "firstPeriod": "2026-01",
+      "fiscalYear": 2026,
+      "lastPeriod": "2026-03",
+      "monthsAvailable": 3,
+      "planned": null,
+      "projected": null,
+      "projectionBasis": null
+    }
+  ],
+  "generatedAt": "2026-05-14T14:47:30.687Z",
+  "kfp": {
+    "cadences": [
+      "monthly"
+    ],
+    "firstPeriod": "2025-06",
+    "lastPeriod": "2026-03",
+    "observationCount": 50
+  },
+  "lastIngest": "2026-05-14T14:47:30.687Z",
+  "years": [
+    {
+      "fiscalYear": 2025,
+      "kfpPeriods": [
+        "2025-06",
+        "2025-07",
+        "2025-08",
+        "2025-09",
+        "2025-10",
+        "2025-11",
+        "2025-12"
+      ],
+      "stages": [
+        "execution",
+        "law"
+      ]
+    },
+    {
+      "fiscalYear": 2026,
+      "kfpPeriods": [
+        "2026-01",
+        "2026-02",
+        "2026-03"
+      ],
+      "stages": [
+        "execution"
+      ]
+    }
+  ]
+}

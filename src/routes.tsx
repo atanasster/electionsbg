@@ -237,6 +237,16 @@ const ContractDetailScreen = lazy(() =>
     default: m.ContractDetailScreen,
   })),
 );
+const BudgetScreen = lazy(() =>
+  import("./screens/BudgetScreen").then((m) => ({
+    default: m.BudgetScreen,
+  })),
+);
+const BudgetMethodologyScreen = lazy(() =>
+  import("./screens/BudgetMethodologyScreen").then((m) => ({
+    default: m.BudgetMethodologyScreen,
+  })),
+);
 const SessionsIndexScreen = lazy(() =>
   import("./screens/SessionsIndexScreen").then((m) => ({
     default: m.SessionsIndexScreen,
@@ -1356,6 +1366,22 @@ export const AuthRoutes = () => {
           element={
             <LayoutScreen>
               <AwarderContractorsScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="budget"
+          element={
+            <LayoutScreen>
+              <BudgetScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="budget/methodology"
+          element={
+            <LayoutScreen>
+              <BudgetMethodologyScreen />
             </LayoutScreen>
           }
         />

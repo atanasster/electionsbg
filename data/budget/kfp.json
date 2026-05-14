@@ -1,0 +1,2920 @@
+{
+  "constituentBudget": "state",
+  "country": "BG",
+  "generatedAt": "2026-05-14T14:47:22.351Z",
+  "latestSnapshot": {
+    "asOf": "2026-03-31",
+    "constituentBudget": "state",
+    "currency": "EUR",
+    "fiscalYear": 2026,
+    "period": "2026-03",
+    "sections": [
+      {
+        "code": "I",
+        "executed": {
+          "amount": 5457266453,
+          "amountEur": 5457266453,
+          "currency": "EUR"
+        },
+        "kind": "revenue",
+        "labelBg": "I. ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ",
+        "labelEn": "Revenue, grants and donations",
+        "lines": [
+          {
+            "executed": {
+              "amount": 4872950191,
+              "amountEur": 4872950191,
+              "currency": "EUR"
+            },
+            "labelBg": "Данъчни приходи",
+            "labelEn": "Tax revenue",
+            "planned": null
+          },
+          {
+            "executed": {
+              "amount": 71199768,
+              "amountEur": 71199768,
+              "currency": "EUR"
+            },
+            "labelBg": "Корпоративен данък",
+            "labelEn": "Corporate income tax",
+            "planned": null
+          },
+          {
+            "executed": {
+              "amount": 29828053,
+              "amountEur": 29828053,
+              "currency": "EUR"
+            },
+            "labelBg": "Данъци върху  дивидентите, ликвидац. дялове и доходите на местни и чужд. юрид. лица",
+            "labelEn": "",
+            "planned": null
+          },
+          {
+            "executed": {
+              "amount": 1052618764,
+              "amountEur": 1052618764,
+              "currency": "EUR"
+            },
+            "labelBg": "Данъци в/у доходите на физически лица",
+            "labelEn": "Personal income tax",
+            "planned": null
+          },
+          {
+            "executed": {
+              "amount": 2824245114,
+              "amountEur": 2824245114,
+              "currency": "EUR"
+            },
+            "labelBg": "Данък върху добавената стойност",
+            "labelEn": "Value added tax",
+            "planned": null
+          },
+          {
+            "executed": {
+              "amount": 803610193,
+              "amountEur": 803610193,
+              "currency": "EUR"
+            },
+            "labelBg": "Акцизи",
+            "labelEn": "Excise duties",
+            "planned": null
+          },
+          {
+            "executed": {
+              "amount": 9930381,
+              "amountEur": 9930381,
+              "currency": "EUR"
+            },
+            "labelBg": "Данък върху застрахователните премии",
+            "labelEn": "",
+            "planned": null
+          },
+          {
+            "executed": {
+              "amount": 63385174,
+              "amountEur": 63385174,
+              "currency": "EUR"
+            },
+            "labelBg": "Мита и митнически такси",
+            "labelEn": "Customs duties",
+            "planned": null
+          },
+          {
+            "executed": {
+              "amount": 18132744,
+              "amountEur": 18132744,
+              "currency": "EUR"
+            },
+            "labelBg": "Други данъци",
+            "labelEn": "Other taxes",
+            "planned": null
+          },
+          {
+            "executed": {
+              "amount": 551022255,
+              "amountEur": 551022255,
+              "currency": "EUR"
+            },
+            "labelBg": "Неданъчни приходи",
+            "labelEn": "Non-tax revenue",
+            "planned": null
+          },
+          {
+            "executed": {
+              "amount": 81128923,
+              "amountEur": 81128923,
+              "currency": "EUR"
+            },
+            "labelBg": "Приходи и доходи  от собственост",
+            "labelEn": "",
+            "planned": null
+          },
+          {
+            "executed": {
+              "amount": 0,
+              "amountEur": 0,
+              "currency": "EUR"
+            },
+            "labelBg": "Превишение на приходите над разходите на БНБ",
+            "labelEn": "",
+            "planned": null
+          },
+          {
+            "executed": {
+              "amount": 338949553,
+              "amountEur": 338949553,
+              "currency": "EUR"
+            },
+            "labelBg": "Приходи от такси",
+            "labelEn": "Fees",
+            "planned": null
+          },
+          {
+            "executed": {
+              "amount": 52119965,
+              "amountEur": 52119965,
+              "currency": "EUR"
+            },
+            "labelBg": "Глоби, санкции и наказателни лихви",
+            "labelEn": "Fines and penalties",
+            "planned": null
+          },
+          {
+            "executed": {
+              "amount": 78823814,
+              "amountEur": 78823814,
+              "currency": "EUR"
+            },
+            "labelBg": "Други неданъчни приходи",
+            "labelEn": "",
+            "planned": null
+          },
+          {
+            "executed": {
+              "amount": 33294007,
+              "amountEur": 33294007,
+              "currency": "EUR"
+            },
+            "labelBg": "Помощи",
+            "labelEn": "Grants",
+            "planned": null
+          }
+        ],
+        "planned": null,
+        "series": "revenue"
+      },
+      {
+        "code": "II",
+        "executed": {
+          "amount": 7116102687,
+          "amountEur": 7116102687,
+          "currency": "EUR"
+        },
+        "kind": "expenditure",
+        "labelBg": "II.  РАЗХОДИ И ТРАНСФЕРИ",
+        "labelEn": "Expenditure and transfers",
+        "lines": [
+          {
+            "executed": {
+              "amount": 2893439207,
+              "amountEur": 2893439207,
+              "currency": "EUR"
+            },
+            "labelBg": "Разходи",
+            "labelEn": "Expenditure",
+            "planned": null
+          },
+          {
+            "executed": {
+              "amount": 1626542407,
+              "amountEur": 1626542407,
+              "currency": "EUR"
+            },
+            "labelBg": "Персонал",
+            "labelEn": "Personnel",
+            "planned": null
+          },
+          {
+            "executed": {
+              "amount": 397315186,
+              "amountEur": 397315186,
+              "currency": "EUR"
+            },
+            "labelBg": "Издръжка",
+            "labelEn": "Operations and maintenance",
+            "planned": null
+          },
+          {
+            "executed": {
+              "amount": 218846400,
+              "amountEur": 218846400,
+              "currency": "EUR"
+            },
+            "labelBg": "Лихви - общо",
+            "labelEn": "Interest — total",
+            "planned": null
+          },
+          {
+            "executed": {
+              "amount": 182359687,
+              "amountEur": 182359687,
+              "currency": "EUR"
+            },
+            "labelBg": "Лихви по външни заеми",
+            "labelEn": "",
+            "planned": null
+          },
+          {
+            "executed": {
+              "amount": 36486713,
+              "amountEur": 36486713,
+              "currency": "EUR"
+            },
+            "labelBg": "Лихви по вътрешни заеми",
+            "labelEn": "",
+            "planned": null
+          },
+          {
+            "executed": {
+              "amount": 254271495,
+              "amountEur": 254271495,
+              "currency": "EUR"
+            },
+            "labelBg": "Социални разходи, стипендии",
+            "labelEn": "Social spending and scholarships",
+            "planned": null
+          },
+          {
+            "executed": {
+              "amount": 209626947,
+              "amountEur": 209626947,
+              "currency": "EUR"
+            },
+            "labelBg": "Субсидии",
+            "labelEn": "Subsidies",
+            "planned": null
+          },
+          {
+            "executed": {
+              "amount": 542301,
+              "amountEur": 542301,
+              "currency": "EUR"
+            },
+            "labelBg": "Предоставени текущи и капиталови трансфери за чужбина",
+            "labelEn": "",
+            "planned": null
+          },
+          {
+            "executed": {
+              "amount": 186309489,
+              "amountEur": 186309489,
+              "currency": "EUR"
+            },
+            "labelBg": "Капиталови разходи",
+            "labelEn": "Capital expenditure",
+            "planned": null
+          },
+          {
+            "executed": {
+              "amount": -15018,
+              "amountEur": -15018,
+              "currency": "EUR"
+            },
+            "labelBg": "Прираст на държавния резерв - нето",
+            "labelEn": "",
+            "planned": null
+          },
+          {
+            "executed": null,
+            "labelBg": "Резерв за непредвидени и/или неотложни разходи:",
+            "labelEn": "",
+            "planned": null
+          },
+          {
+            "executed": {
+              "amount": 4222663480,
+              "amountEur": 4222663480,
+              "currency": "EUR"
+            },
+            "labelBg": "Трансфери (нето)",
+            "labelEn": "Transfers (net)",
+            "planned": null
+          },
+          {
+            "executed": {
+              "amount": 4253049801,
+              "amountEur": 4253049801,
+              "currency": "EUR"
+            },
+            "labelBg": "Предоставени трансфери",
+            "labelEn": "",
+            "planned": null
+          },
+          {
+            "executed": {
+              "amount": 160652028,
+              "amountEur": 160652028,
+              "currency": "EUR"
+            },
+            "labelBg": "ДВУ, БАН, ССА, БНТ, БНР и БТА",
+            "labelEn": "",
+            "planned": null
+          },
+          {
+            "executed": {
+              "amount": 1752592632,
+              "amountEur": 1752592632,
+              "currency": "EUR"
+            },
+            "labelBg": "Общини",
+            "labelEn": "Municipalities",
+            "planned": null
+          },
+          {
+            "executed": {
+              "amount": 2112028078,
+              "amountEur": 2112028078,
+              "currency": "EUR"
+            },
+            "labelBg": "Социалноосигурителни фондове",
+            "labelEn": "Social security funds",
+            "planned": null
+          },
+          {
+            "executed": {
+              "amount": 19933108,
+              "amountEur": 19933108,
+              "currency": "EUR"
+            },
+            "labelBg": "Бюджети по чл.13 (4) от ЗПФ - нето",
+            "labelEn": "",
+            "planned": null
+          },
+          {
+            "executed": {
+              "amount": 207843955,
+              "amountEur": 207843955,
+              "currency": "EUR"
+            },
+            "labelBg": "Други трансфери - нето",
+            "labelEn": "",
+            "planned": null
+          },
+          {
+            "executed": {
+              "amount": 30386321,
+              "amountEur": 30386321,
+              "currency": "EUR"
+            },
+            "labelBg": "Получени трансфери",
+            "labelEn": "",
+            "planned": null
+          },
+          {
+            "executed": {
+              "amount": 3065884,
+              "amountEur": 3065884,
+              "currency": "EUR"
+            },
+            "labelBg": "Общини",
+            "labelEn": "Municipalities",
+            "planned": null
+          },
+          {
+            "executed": {
+              "amount": 27320437,
+              "amountEur": 27320437,
+              "currency": "EUR"
+            },
+            "labelBg": "Социалноосигурителни фондове",
+            "labelEn": "Social security funds",
+            "planned": null
+          }
+        ],
+        "planned": null,
+        "series": "expenditure"
+      },
+      {
+        "code": "III",
+        "executed": {
+          "amount": 259519479,
+          "amountEur": 259519479,
+          "currency": "EUR"
+        },
+        "kind": "expenditure",
+        "labelBg": "III. ВНОСКА В ОБЩИЯ БЮДЖЕТ НА ЕС",
+        "labelEn": "Contribution to the EU budget",
+        "lines": [],
+        "planned": null,
+        "series": "euContribution"
+      },
+      {
+        "code": "IV",
+        "executed": {
+          "amount": -1918355713,
+          "amountEur": -1918355713,
+          "currency": "EUR"
+        },
+        "kind": "balance",
+        "labelBg": "IV. БЮДЖЕТНО САЛДО (дефицит \"-\" / излишък \"+\") = /I-II-III/",
+        "labelEn": "Budget balance (deficit / surplus)",
+        "lines": [],
+        "planned": null,
+        "series": "balance"
+      },
+      {
+        "code": "V",
+        "executed": {
+          "amount": 1918355713,
+          "amountEur": 1918355713,
+          "currency": "EUR"
+        },
+        "kind": "financing",
+        "labelBg": "V. ФИНАНСИРАНЕ",
+        "labelEn": "Financing",
+        "lines": [
+          {
+            "executed": {
+              "amount": -21186931,
+              "amountEur": -21186931,
+              "currency": "EUR"
+            },
+            "labelBg": "Външно финансиране  (нето)",
+            "labelEn": "External financing (net)",
+            "planned": null
+          },
+          {
+            "executed": {
+              "amount": -18106352,
+              "amountEur": -18106352,
+              "currency": "EUR"
+            },
+            "labelBg": "Заеми и дълг, поет на межд. капит. пазари (нето)",
+            "labelEn": "",
+            "planned": null
+          },
+          {
+            "executed": {
+              "amount": -3080579,
+              "amountEur": -3080579,
+              "currency": "EUR"
+            },
+            "labelBg": "Депозити (нето) в чужбина",
+            "labelEn": "",
+            "planned": null
+          },
+          {
+            "executed": {
+              "amount": 1964742821,
+              "amountEur": 1964742821,
+              "currency": "EUR"
+            },
+            "labelBg": "Вътрешно финансиране  (нето)",
+            "labelEn": "Domestic financing (net)",
+            "planned": null
+          },
+          {
+            "executed": {
+              "amount": 0,
+              "amountEur": 0,
+              "currency": "EUR"
+            },
+            "labelBg": "Небанково (нето)",
+            "labelEn": "",
+            "planned": null
+          },
+          {
+            "executed": {
+              "amount": 1964742821,
+              "amountEur": 1964742821,
+              "currency": "EUR"
+            },
+            "labelBg": "Банково (нето)",
+            "labelEn": "",
+            "planned": null
+          },
+          {
+            "executed": null,
+            "labelBg": "Приватизация, придобиване на дялове и акции,",
+            "labelEn": "",
+            "planned": null
+          },
+          {
+            "executed": {
+              "amount": -25200177,
+              "amountEur": -25200177,
+              "currency": "EUR"
+            },
+            "labelBg": "и възмездни  средства (нето)",
+            "labelEn": "",
+            "planned": null
+          },
+          {
+            "executed": {
+              "amount": 35268,
+              "amountEur": 35268,
+              "currency": "EUR"
+            },
+            "labelBg": "в т.ч.: приватизация на дялове, акции и участия",
+            "labelEn": "",
+            "planned": null
+          }
+        ],
+        "planned": null,
+        "series": "financing"
+      }
+    ]
+  },
+  "observations": [
+    {
+      "asOf": "2025-06-30",
+      "cadence": "monthly",
+      "constituentBudget": "state",
+      "executed": {
+        "amount": -3448918490,
+        "amountEur": -1763404023,
+        "currency": "BGN"
+      },
+      "fiscalYear": 2025,
+      "period": "2025-06",
+      "planned": {
+        "amount": -7132647400,
+        "amountEur": -3646864707,
+        "currency": "BGN"
+      },
+      "series": "balance",
+      "sourceRef": {
+        "documentId": "kfp-egov",
+        "rowLabel": "IV. БЮДЖЕТНО САЛДО (дефицит \"-\" / излишък \"+\") = /I-II-III/",
+        "sheet": "5e1788dd-ca69-45cd-9648-a1bda2f9426c"
+      }
+    },
+    {
+      "asOf": "2025-06-30",
+      "cadence": "monthly",
+      "constituentBudget": "state",
+      "executed": {
+        "amount": 1018742554,
+        "amountEur": 520874797,
+        "currency": "BGN"
+      },
+      "fiscalYear": 2025,
+      "period": "2025-06",
+      "planned": {
+        "amount": 2020542300,
+        "amountEur": 1033086874,
+        "currency": "BGN"
+      },
+      "series": "euContribution",
+      "sourceRef": {
+        "documentId": "kfp-egov",
+        "rowLabel": "III. ВНОСКА В ОБЩИЯ БЮДЖЕТ НА ЕС",
+        "sheet": "5e1788dd-ca69-45cd-9648-a1bda2f9426c"
+      }
+    },
+    {
+      "asOf": "2025-06-30",
+      "cadence": "monthly",
+      "constituentBudget": "state",
+      "executed": {
+        "amount": 26556003563,
+        "amountEur": 13577869019,
+        "currency": "BGN"
+      },
+      "fiscalYear": 2025,
+      "period": "2025-06",
+      "planned": {
+        "amount": 60280486000,
+        "amountEur": 30820923086,
+        "currency": "BGN"
+      },
+      "series": "expenditure",
+      "sourceRef": {
+        "documentId": "kfp-egov",
+        "rowLabel": "II.  РАЗХОДИ И ТРАНСФЕРИ",
+        "sheet": "5e1788dd-ca69-45cd-9648-a1bda2f9426c"
+      }
+    },
+    {
+      "asOf": "2025-06-30",
+      "cadence": "monthly",
+      "constituentBudget": "state",
+      "executed": {
+        "amount": 3448896723,
+        "amountEur": 1763392894,
+        "currency": "BGN"
+      },
+      "fiscalYear": 2025,
+      "period": "2025-06",
+      "planned": {
+        "amount": 7132647400,
+        "amountEur": 3646864707,
+        "currency": "BGN"
+      },
+      "series": "financing",
+      "sourceRef": {
+        "documentId": "kfp-egov",
+        "rowLabel": "V. ФИНАНСИРАНЕ",
+        "sheet": "5e1788dd-ca69-45cd-9648-a1bda2f9426c"
+      }
+    },
+    {
+      "asOf": "2025-06-30",
+      "cadence": "monthly",
+      "constituentBudget": "state",
+      "executed": {
+        "amount": 24125827627,
+        "amountEur": 12335339793,
+        "currency": "BGN"
+      },
+      "fiscalYear": 2025,
+      "period": "2025-06",
+      "planned": {
+        "amount": 55168380900,
+        "amountEur": 28207145253,
+        "currency": "BGN"
+      },
+      "series": "revenue",
+      "sourceRef": {
+        "documentId": "kfp-egov",
+        "rowLabel": "I. ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ",
+        "sheet": "5e1788dd-ca69-45cd-9648-a1bda2f9426c"
+      }
+    },
+    {
+      "asOf": "2025-07-31",
+      "cadence": "monthly",
+      "constituentBudget": "state",
+      "executed": {
+        "amount": -3618838637,
+        "amountEur": -1850282814,
+        "currency": "BGN"
+      },
+      "fiscalYear": 2025,
+      "period": "2025-07",
+      "planned": {
+        "amount": -7132647400,
+        "amountEur": -3646864707,
+        "currency": "BGN"
+      },
+      "series": "balance",
+      "sourceRef": {
+        "documentId": "kfp-egov",
+        "rowLabel": "IV. БЮДЖЕТНО САЛДО (дефицит \"-\" / излишък \"+\") = /I-II-III/",
+        "sheet": "6bde4b5a-2e2e-43b6-9eb7-c0c6f8fd37a8"
+      }
+    },
+    {
+      "asOf": "2025-07-31",
+      "cadence": "monthly",
+      "constituentBudget": "state",
+      "executed": {
+        "amount": 1167400868,
+        "amountEur": 596882586,
+        "currency": "BGN"
+      },
+      "fiscalYear": 2025,
+      "period": "2025-07",
+      "planned": {
+        "amount": 2020542300,
+        "amountEur": 1033086874,
+        "currency": "BGN"
+      },
+      "series": "euContribution",
+      "sourceRef": {
+        "documentId": "kfp-egov",
+        "rowLabel": "III. ВНОСКА В ОБЩИЯ БЮДЖЕТ НА ЕС",
+        "sheet": "6bde4b5a-2e2e-43b6-9eb7-c0c6f8fd37a8"
+      }
+    },
+    {
+      "asOf": "2025-07-31",
+      "cadence": "monthly",
+      "constituentBudget": "state",
+      "executed": {
+        "amount": 31254214680,
+        "amountEur": 15980026219,
+        "currency": "BGN"
+      },
+      "fiscalYear": 2025,
+      "period": "2025-07",
+      "planned": {
+        "amount": 60280486000,
+        "amountEur": 30820923086,
+        "currency": "BGN"
+      },
+      "series": "expenditure",
+      "sourceRef": {
+        "documentId": "kfp-egov",
+        "rowLabel": "II.  РАЗХОДИ И ТРАНСФЕРИ",
+        "sheet": "6bde4b5a-2e2e-43b6-9eb7-c0c6f8fd37a8"
+      }
+    },
+    {
+      "asOf": "2025-07-31",
+      "cadence": "monthly",
+      "constituentBudget": "state",
+      "executed": {
+        "amount": 3618849356,
+        "amountEur": 1850288295,
+        "currency": "BGN"
+      },
+      "fiscalYear": 2025,
+      "period": "2025-07",
+      "planned": {
+        "amount": 7132647400,
+        "amountEur": 3646864707,
+        "currency": "BGN"
+      },
+      "series": "financing",
+      "sourceRef": {
+        "documentId": "kfp-egov",
+        "rowLabel": "V. ФИНАНСИРАНЕ",
+        "sheet": "6bde4b5a-2e2e-43b6-9eb7-c0c6f8fd37a8"
+      }
+    },
+    {
+      "asOf": "2025-07-31",
+      "cadence": "monthly",
+      "constituentBudget": "state",
+      "executed": {
+        "amount": 28802776911,
+        "amountEur": 14726625991,
+        "currency": "BGN"
+      },
+      "fiscalYear": 2025,
+      "period": "2025-07",
+      "planned": {
+        "amount": 55168380900,
+        "amountEur": 28207145253,
+        "currency": "BGN"
+      },
+      "series": "revenue",
+      "sourceRef": {
+        "documentId": "kfp-egov",
+        "rowLabel": "I. ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ",
+        "sheet": "6bde4b5a-2e2e-43b6-9eb7-c0c6f8fd37a8"
+      }
+    },
+    {
+      "asOf": "2025-08-31",
+      "cadence": "monthly",
+      "constituentBudget": "state",
+      "executed": {
+        "amount": -4263927026,
+        "amountEur": -2180111270,
+        "currency": "BGN"
+      },
+      "fiscalYear": 2025,
+      "period": "2025-08",
+      "planned": {
+        "amount": -7132647400,
+        "amountEur": -3646864707,
+        "currency": "BGN"
+      },
+      "series": "balance",
+      "sourceRef": {
+        "documentId": "kfp-egov",
+        "rowLabel": "IV. БЮДЖЕТНО САЛДО (дефицит \"-\" / излишък \"+\") = /I-II-III/",
+        "sheet": "7cfc725e-d6a9-40b3-940a-637ab8244bc2"
+      }
+    },
+    {
+      "asOf": "2025-08-31",
+      "cadence": "monthly",
+      "constituentBudget": "state",
+      "executed": {
+        "amount": 1312171728,
+        "amountEur": 670902751,
+        "currency": "BGN"
+      },
+      "fiscalYear": 2025,
+      "period": "2025-08",
+      "planned": {
+        "amount": 2020542300,
+        "amountEur": 1033086874,
+        "currency": "BGN"
+      },
+      "series": "euContribution",
+      "sourceRef": {
+        "documentId": "kfp-egov",
+        "rowLabel": "III. ВНОСКА В ОБЩИЯ БЮДЖЕТ НА ЕС",
+        "sheet": "7cfc725e-d6a9-40b3-940a-637ab8244bc2"
+      }
+    },
+    {
+      "asOf": "2025-08-31",
+      "cadence": "monthly",
+      "constituentBudget": "state",
+      "executed": {
+        "amount": 35681527903,
+        "amountEur": 18243675525,
+        "currency": "BGN"
+      },
+      "fiscalYear": 2025,
+      "period": "2025-08",
+      "planned": {
+        "amount": 60280486000,
+        "amountEur": 30820923086,
+        "currency": "BGN"
+      },
+      "series": "expenditure",
+      "sourceRef": {
+        "documentId": "kfp-egov",
+        "rowLabel": "II.  РАЗХОДИ И ТРАНСФЕРИ",
+        "sheet": "7cfc725e-d6a9-40b3-940a-637ab8244bc2"
+      }
+    },
+    {
+      "asOf": "2025-08-31",
+      "cadence": "monthly",
+      "constituentBudget": "state",
+      "executed": {
+        "amount": 4263922025,
+        "amountEur": 2180108713,
+        "currency": "BGN"
+      },
+      "fiscalYear": 2025,
+      "period": "2025-08",
+      "planned": {
+        "amount": 7132647400,
+        "amountEur": 3646864707,
+        "currency": "BGN"
+      },
+      "series": "financing",
+      "sourceRef": {
+        "documentId": "kfp-egov",
+        "rowLabel": "V. ФИНАНСИРАНЕ",
+        "sheet": "7cfc725e-d6a9-40b3-940a-637ab8244bc2"
+      }
+    },
+    {
+      "asOf": "2025-08-31",
+      "cadence": "monthly",
+      "constituentBudget": "state",
+      "executed": {
+        "amount": 32729772605,
+        "amountEur": 16734467006,
+        "currency": "BGN"
+      },
+      "fiscalYear": 2025,
+      "period": "2025-08",
+      "planned": {
+        "amount": 55168380900,
+        "amountEur": 28207145253,
+        "currency": "BGN"
+      },
+      "series": "revenue",
+      "sourceRef": {
+        "documentId": "kfp-egov",
+        "rowLabel": "I. ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ",
+        "sheet": "7cfc725e-d6a9-40b3-940a-637ab8244bc2"
+      }
+    },
+    {
+      "asOf": "2025-09-30",
+      "cadence": "monthly",
+      "constituentBudget": "state",
+      "executed": {
+        "amount": -5210529582,
+        "amountEur": -2664101472,
+        "currency": "BGN"
+      },
+      "fiscalYear": 2025,
+      "period": "2025-09",
+      "planned": {
+        "amount": -7132647400,
+        "amountEur": -3646864707,
+        "currency": "BGN"
+      },
+      "series": "balance",
+      "sourceRef": {
+        "documentId": "kfp-egov",
+        "rowLabel": "IV. БЮДЖЕТНО САЛДО (дефицит \"-\" / излишък \"+\") = /I-II-III/",
+        "sheet": "d52d4880-d3b0-49d6-baaf-4478da78c5ce"
+      }
+    },
+    {
+      "asOf": "2025-09-30",
+      "cadence": "monthly",
+      "constituentBudget": "state",
+      "executed": {
+        "amount": 1471404304,
+        "amountEur": 752317075,
+        "currency": "BGN"
+      },
+      "fiscalYear": 2025,
+      "period": "2025-09",
+      "planned": {
+        "amount": 2020542300,
+        "amountEur": 1033086874,
+        "currency": "BGN"
+      },
+      "series": "euContribution",
+      "sourceRef": {
+        "documentId": "kfp-egov",
+        "rowLabel": "III. ВНОСКА В ОБЩИЯ БЮДЖЕТ НА ЕС",
+        "sheet": "d52d4880-d3b0-49d6-baaf-4478da78c5ce"
+      }
+    },
+    {
+      "asOf": "2025-09-30",
+      "cadence": "monthly",
+      "constituentBudget": "state",
+      "executed": {
+        "amount": 40728279350,
+        "amountEur": 20824038567,
+        "currency": "BGN"
+      },
+      "fiscalYear": 2025,
+      "period": "2025-09",
+      "planned": {
+        "amount": 60280486000,
+        "amountEur": 30820923086,
+        "currency": "BGN"
+      },
+      "series": "expenditure",
+      "sourceRef": {
+        "documentId": "kfp-egov",
+        "rowLabel": "II.  РАЗХОДИ И ТРАНСФЕРИ",
+        "sheet": "d52d4880-d3b0-49d6-baaf-4478da78c5ce"
+      }
+    },
+    {
+      "asOf": "2025-09-30",
+      "cadence": "monthly",
+      "constituentBudget": "state",
+      "executed": {
+        "amount": 5210529584,
+        "amountEur": 2664101473,
+        "currency": "BGN"
+      },
+      "fiscalYear": 2025,
+      "period": "2025-09",
+      "planned": {
+        "amount": 7132647400,
+        "amountEur": 3646864707,
+        "currency": "BGN"
+      },
+      "series": "financing",
+      "sourceRef": {
+        "documentId": "kfp-egov",
+        "rowLabel": "V. ФИНАНСИРАНЕ",
+        "sheet": "d52d4880-d3b0-49d6-baaf-4478da78c5ce"
+      }
+    },
+    {
+      "asOf": "2025-09-30",
+      "cadence": "monthly",
+      "constituentBudget": "state",
+      "executed": {
+        "amount": 36989154072,
+        "amountEur": 18912254169,
+        "currency": "BGN"
+      },
+      "fiscalYear": 2025,
+      "period": "2025-09",
+      "planned": {
+        "amount": 55168380900,
+        "amountEur": 28207145253,
+        "currency": "BGN"
+      },
+      "series": "revenue",
+      "sourceRef": {
+        "documentId": "kfp-egov",
+        "rowLabel": "I. ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ",
+        "sheet": "d52d4880-d3b0-49d6-baaf-4478da78c5ce"
+      }
+    },
+    {
+      "asOf": "2025-10-31",
+      "cadence": "monthly",
+      "constituentBudget": "state",
+      "executed": {
+        "amount": -5494839482,
+        "amountEur": -2809466816,
+        "currency": "BGN"
+      },
+      "fiscalYear": 2025,
+      "period": "2025-10",
+      "planned": {
+        "amount": -7132647400,
+        "amountEur": -3646864707,
+        "currency": "BGN"
+      },
+      "series": "balance",
+      "sourceRef": {
+        "documentId": "kfp-egov",
+        "rowLabel": "IV. БЮДЖЕТНО САЛДО (дефицит \"-\" / излишък \"+\") = /I-II-III/",
+        "sheet": "592e78e0-1e17-4bcb-bd6f-0f37fef38e33"
+      }
+    },
+    {
+      "asOf": "2025-10-31",
+      "cadence": "monthly",
+      "constituentBudget": "state",
+      "executed": {
+        "amount": 1622274104,
+        "amountEur": 829455578,
+        "currency": "BGN"
+      },
+      "fiscalYear": 2025,
+      "period": "2025-10",
+      "planned": {
+        "amount": 2020542300,
+        "amountEur": 1033086874,
+        "currency": "BGN"
+      },
+      "series": "euContribution",
+      "sourceRef": {
+        "documentId": "kfp-egov",
+        "rowLabel": "III. ВНОСКА В ОБЩИЯ БЮДЖЕТ НА ЕС",
+        "sheet": "592e78e0-1e17-4bcb-bd6f-0f37fef38e33"
+      }
+    },
+    {
+      "asOf": "2025-10-31",
+      "cadence": "monthly",
+      "constituentBudget": "state",
+      "executed": {
+        "amount": 45381396662,
+        "amountEur": 23203139671,
+        "currency": "BGN"
+      },
+      "fiscalYear": 2025,
+      "period": "2025-10",
+      "planned": {
+        "amount": 60280486000,
+        "amountEur": 30820923086,
+        "currency": "BGN"
+      },
+      "series": "expenditure",
+      "sourceRef": {
+        "documentId": "kfp-egov",
+        "rowLabel": "II.  РАЗХОДИ И ТРАНСФЕРИ",
+        "sheet": "592e78e0-1e17-4bcb-bd6f-0f37fef38e33"
+      }
+    },
+    {
+      "asOf": "2025-10-31",
+      "cadence": "monthly",
+      "constituentBudget": "state",
+      "executed": {
+        "amount": 5494793072,
+        "amountEur": 2809443087,
+        "currency": "BGN"
+      },
+      "fiscalYear": 2025,
+      "period": "2025-10",
+      "planned": {
+        "amount": 7132647400,
+        "amountEur": 3646864707,
+        "currency": "BGN"
+      },
+      "series": "financing",
+      "sourceRef": {
+        "documentId": "kfp-egov",
+        "rowLabel": "V. ФИНАНСИРАНЕ",
+        "sheet": "592e78e0-1e17-4bcb-bd6f-0f37fef38e33"
+      }
+    },
+    {
+      "asOf": "2025-10-31",
+      "cadence": "monthly",
+      "constituentBudget": "state",
+      "executed": {
+        "amount": 41508831284,
+        "amountEur": 21223128433,
+        "currency": "BGN"
+      },
+      "fiscalYear": 2025,
+      "period": "2025-10",
+      "planned": {
+        "amount": 55168380900,
+        "amountEur": 28207145253,
+        "currency": "BGN"
+      },
+      "series": "revenue",
+      "sourceRef": {
+        "documentId": "kfp-egov",
+        "rowLabel": "I. ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ",
+        "sheet": "592e78e0-1e17-4bcb-bd6f-0f37fef38e33"
+      }
+    },
+    {
+      "asOf": "2025-11-30",
+      "cadence": "monthly",
+      "constituentBudget": "state",
+      "executed": {
+        "amount": -5242180821,
+        "amountEur": -2680284494,
+        "currency": "BGN"
+      },
+      "fiscalYear": 2025,
+      "period": "2025-11",
+      "planned": {
+        "amount": -7132647400,
+        "amountEur": -3646864707,
+        "currency": "BGN"
+      },
+      "series": "balance",
+      "sourceRef": {
+        "documentId": "kfp-egov",
+        "rowLabel": "IV. БЮДЖЕТНО САЛДО (дефицит \"-\" / излишък \"+\") = /I-II-III/",
+        "sheet": "49d2d4dc-61c2-4226-93d8-feba930defd2"
+      }
+    },
+    {
+      "asOf": "2025-11-30",
+      "cadence": "monthly",
+      "constituentBudget": "state",
+      "executed": {
+        "amount": 1869016354,
+        "amountEur": 955612888,
+        "currency": "BGN"
+      },
+      "fiscalYear": 2025,
+      "period": "2025-11",
+      "planned": {
+        "amount": 2020542300,
+        "amountEur": 1033086874,
+        "currency": "BGN"
+      },
+      "series": "euContribution",
+      "sourceRef": {
+        "documentId": "kfp-egov",
+        "rowLabel": "III. ВНОСКА В ОБЩИЯ БЮДЖЕТ НА ЕС",
+        "sheet": "49d2d4dc-61c2-4226-93d8-feba930defd2"
+      }
+    },
+    {
+      "asOf": "2025-11-30",
+      "cadence": "monthly",
+      "constituentBudget": "state",
+      "executed": {
+        "amount": 50273238816,
+        "amountEur": 25704298848,
+        "currency": "BGN"
+      },
+      "fiscalYear": 2025,
+      "period": "2025-11",
+      "planned": {
+        "amount": 60280486000,
+        "amountEur": 30820923086,
+        "currency": "BGN"
+      },
+      "series": "expenditure",
+      "sourceRef": {
+        "documentId": "kfp-egov",
+        "rowLabel": "II.  РАЗХОДИ И ТРАНСФЕРИ",
+        "sheet": "49d2d4dc-61c2-4226-93d8-feba930defd2"
+      }
+    },
+    {
+      "asOf": "2025-11-30",
+      "cadence": "monthly",
+      "constituentBudget": "state",
+      "executed": {
+        "amount": 5242156885,
+        "amountEur": 2680272255,
+        "currency": "BGN"
+      },
+      "fiscalYear": 2025,
+      "period": "2025-11",
+      "planned": {
+        "amount": 7132647400,
+        "amountEur": 3646864707,
+        "currency": "BGN"
+      },
+      "series": "financing",
+      "sourceRef": {
+        "documentId": "kfp-egov",
+        "rowLabel": "V. ФИНАНСИРАНЕ",
+        "sheet": "49d2d4dc-61c2-4226-93d8-feba930defd2"
+      }
+    },
+    {
+      "asOf": "2025-11-30",
+      "cadence": "monthly",
+      "constituentBudget": "state",
+      "executed": {
+        "amount": 46900074349,
+        "amountEur": 23979627242,
+        "currency": "BGN"
+      },
+      "fiscalYear": 2025,
+      "period": "2025-11",
+      "planned": {
+        "amount": 55168380900,
+        "amountEur": 28207145253,
+        "currency": "BGN"
+      },
+      "series": "revenue",
+      "sourceRef": {
+        "documentId": "kfp-egov",
+        "rowLabel": "I. ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ",
+        "sheet": "49d2d4dc-61c2-4226-93d8-feba930defd2"
+      }
+    },
+    {
+      "asOf": "2025-12-31",
+      "cadence": "monthly",
+      "constituentBudget": "state",
+      "executed": {
+        "amount": -6088604791,
+        "amountEur": -3113054197,
+        "currency": "BGN"
+      },
+      "fiscalYear": 2025,
+      "period": "2025-12",
+      "planned": {
+        "amount": -7132647400,
+        "amountEur": -3646864707,
+        "currency": "BGN"
+      },
+      "series": "balance",
+      "sourceRef": {
+        "documentId": "kfp-egov",
+        "rowLabel": "IV. БЮДЖЕТНО САЛДО (дефицит \"-\" / излишък \"+\") = /I-II-III/",
+        "sheet": "817cf3fb-7e59-4cf7-9f50-8cbccd11bb60"
+      }
+    },
+    {
+      "asOf": "2025-12-31",
+      "cadence": "monthly",
+      "constituentBudget": "state",
+      "executed": {
+        "amount": 2035981033,
+        "amountEur": 1040980572,
+        "currency": "BGN"
+      },
+      "fiscalYear": 2025,
+      "period": "2025-12",
+      "planned": {
+        "amount": 2020542300,
+        "amountEur": 1033086874,
+        "currency": "BGN"
+      },
+      "series": "euContribution",
+      "sourceRef": {
+        "documentId": "kfp-egov",
+        "rowLabel": "III. ВНОСКА В ОБЩИЯ БЮДЖЕТ НА ЕС",
+        "sheet": "817cf3fb-7e59-4cf7-9f50-8cbccd11bb60"
+      }
+    },
+    {
+      "asOf": "2025-12-31",
+      "cadence": "monthly",
+      "constituentBudget": "state",
+      "executed": {
+        "amount": 55508616167,
+        "amountEur": 28381104783,
+        "currency": "BGN"
+      },
+      "fiscalYear": 2025,
+      "period": "2025-12",
+      "planned": {
+        "amount": 60280486000,
+        "amountEur": 30820923086,
+        "currency": "BGN"
+      },
+      "series": "expenditure",
+      "sourceRef": {
+        "documentId": "kfp-egov",
+        "rowLabel": "II.  РАЗХОДИ И ТРАНСФЕРИ",
+        "sheet": "817cf3fb-7e59-4cf7-9f50-8cbccd11bb60"
+      }
+    },
+    {
+      "asOf": "2025-12-31",
+      "cadence": "monthly",
+      "constituentBudget": "state",
+      "executed": {
+        "amount": 6088583958,
+        "amountEur": 3113043546,
+        "currency": "BGN"
+      },
+      "fiscalYear": 2025,
+      "period": "2025-12",
+      "planned": {
+        "amount": 7132647400,
+        "amountEur": 3646864707,
+        "currency": "BGN"
+      },
+      "series": "financing",
+      "sourceRef": {
+        "documentId": "kfp-egov",
+        "rowLabel": "V. ФИНАНСИРАНЕ",
+        "sheet": "817cf3fb-7e59-4cf7-9f50-8cbccd11bb60"
+      }
+    },
+    {
+      "asOf": "2025-12-31",
+      "cadence": "monthly",
+      "constituentBudget": "state",
+      "executed": {
+        "amount": 51455992409,
+        "amountEur": 26309031158,
+        "currency": "BGN"
+      },
+      "fiscalYear": 2025,
+      "period": "2025-12",
+      "planned": {
+        "amount": 55168380900,
+        "amountEur": 28207145253,
+        "currency": "BGN"
+      },
+      "series": "revenue",
+      "sourceRef": {
+        "documentId": "kfp-egov",
+        "rowLabel": "I. ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ",
+        "sheet": "817cf3fb-7e59-4cf7-9f50-8cbccd11bb60"
+      }
+    },
+    {
+      "asOf": "2026-01-31",
+      "cadence": "monthly",
+      "constituentBudget": "state",
+      "executed": {
+        "amount": -105367739,
+        "amountEur": -105367739,
+        "currency": "EUR"
+      },
+      "fiscalYear": 2026,
+      "period": "2026-01",
+      "planned": null,
+      "series": "balance",
+      "sourceRef": {
+        "documentId": "kfp-egov",
+        "rowLabel": "IV. БЮДЖЕТНО САЛДО (дефицит \"-\" / излишък \"+\") = /I-II-III/",
+        "sheet": "771277e5-7a73-4e75-9c90-76139f126648"
+      }
+    },
+    {
+      "asOf": "2026-01-31",
+      "cadence": "monthly",
+      "constituentBudget": "state",
+      "executed": {
+        "amount": 101106142,
+        "amountEur": 101106142,
+        "currency": "EUR"
+      },
+      "fiscalYear": 2026,
+      "period": "2026-01",
+      "planned": null,
+      "series": "euContribution",
+      "sourceRef": {
+        "documentId": "kfp-egov",
+        "rowLabel": "III. ВНОСКА В ОБЩИЯ БЮДЖЕТ НА ЕС",
+        "sheet": "771277e5-7a73-4e75-9c90-76139f126648"
+      }
+    },
+    {
+      "asOf": "2026-01-31",
+      "cadence": "monthly",
+      "constituentBudget": "state",
+      "executed": {
+        "amount": 2254795790,
+        "amountEur": 2254795790,
+        "currency": "EUR"
+      },
+      "fiscalYear": 2026,
+      "period": "2026-01",
+      "planned": null,
+      "series": "expenditure",
+      "sourceRef": {
+        "documentId": "kfp-egov",
+        "rowLabel": "II.  РАЗХОДИ И ТРАНСФЕРИ",
+        "sheet": "771277e5-7a73-4e75-9c90-76139f126648"
+      }
+    },
+    {
+      "asOf": "2026-01-31",
+      "cadence": "monthly",
+      "constituentBudget": "state",
+      "executed": {
+        "amount": 105367737,
+        "amountEur": 105367737,
+        "currency": "EUR"
+      },
+      "fiscalYear": 2026,
+      "period": "2026-01",
+      "planned": null,
+      "series": "financing",
+      "sourceRef": {
+        "documentId": "kfp-egov",
+        "rowLabel": "V. ФИНАНСИРАНЕ",
+        "sheet": "771277e5-7a73-4e75-9c90-76139f126648"
+      }
+    },
+    {
+      "asOf": "2026-01-31",
+      "cadence": "monthly",
+      "constituentBudget": "state",
+      "executed": {
+        "amount": 2250534193,
+        "amountEur": 2250534193,
+        "currency": "EUR"
+      },
+      "fiscalYear": 2026,
+      "period": "2026-01",
+      "planned": null,
+      "series": "revenue",
+      "sourceRef": {
+        "documentId": "kfp-egov",
+        "rowLabel": "I. ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ",
+        "sheet": "771277e5-7a73-4e75-9c90-76139f126648"
+      }
+    },
+    {
+      "asOf": "2026-02-28",
+      "cadence": "monthly",
+      "constituentBudget": "state",
+      "executed": {
+        "amount": -1057197363,
+        "amountEur": -1057197363,
+        "currency": "EUR"
+      },
+      "fiscalYear": 2026,
+      "period": "2026-02",
+      "planned": null,
+      "series": "balance",
+      "sourceRef": {
+        "documentId": "kfp-egov",
+        "rowLabel": "IV. БЮДЖЕТНО САЛДО (дефицит \"-\" / излишък \"+\") = /I-II-III/",
+        "sheet": "d209b2ca-b43b-4447-85d6-ec01b097bf3a"
+      }
+    },
+    {
+      "asOf": "2026-02-28",
+      "cadence": "monthly",
+      "constituentBudget": "state",
+      "executed": {
+        "amount": 221828673,
+        "amountEur": 221828673,
+        "currency": "EUR"
+      },
+      "fiscalYear": 2026,
+      "period": "2026-02",
+      "planned": null,
+      "series": "euContribution",
+      "sourceRef": {
+        "documentId": "kfp-egov",
+        "rowLabel": "III. ВНОСКА В ОБЩИЯ БЮДЖЕТ НА ЕС",
+        "sheet": "d209b2ca-b43b-4447-85d6-ec01b097bf3a"
+      }
+    },
+    {
+      "asOf": "2026-02-28",
+      "cadence": "monthly",
+      "constituentBudget": "state",
+      "executed": {
+        "amount": 4636474089,
+        "amountEur": 4636474089,
+        "currency": "EUR"
+      },
+      "fiscalYear": 2026,
+      "period": "2026-02",
+      "planned": null,
+      "series": "expenditure",
+      "sourceRef": {
+        "documentId": "kfp-egov",
+        "rowLabel": "II.  РАЗХОДИ И ТРАНСФЕРИ",
+        "sheet": "d209b2ca-b43b-4447-85d6-ec01b097bf3a"
+      }
+    },
+    {
+      "asOf": "2026-02-28",
+      "cadence": "monthly",
+      "constituentBudget": "state",
+      "executed": {
+        "amount": 1057197361,
+        "amountEur": 1057197361,
+        "currency": "EUR"
+      },
+      "fiscalYear": 2026,
+      "period": "2026-02",
+      "planned": null,
+      "series": "financing",
+      "sourceRef": {
+        "documentId": "kfp-egov",
+        "rowLabel": "V. ФИНАНСИРАНЕ",
+        "sheet": "d209b2ca-b43b-4447-85d6-ec01b097bf3a"
+      }
+    },
+    {
+      "asOf": "2026-02-28",
+      "cadence": "monthly",
+      "constituentBudget": "state",
+      "executed": {
+        "amount": 3801105399,
+        "amountEur": 3801105399,
+        "currency": "EUR"
+      },
+      "fiscalYear": 2026,
+      "period": "2026-02",
+      "planned": null,
+      "series": "revenue",
+      "sourceRef": {
+        "documentId": "kfp-egov",
+        "rowLabel": "I. ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ",
+        "sheet": "d209b2ca-b43b-4447-85d6-ec01b097bf3a"
+      }
+    },
+    {
+      "asOf": "2026-03-31",
+      "cadence": "monthly",
+      "constituentBudget": "state",
+      "executed": {
+        "amount": -1918355713,
+        "amountEur": -1918355713,
+        "currency": "EUR"
+      },
+      "fiscalYear": 2026,
+      "period": "2026-03",
+      "planned": null,
+      "series": "balance",
+      "sourceRef": {
+        "documentId": "kfp-egov",
+        "rowLabel": "IV. БЮДЖЕТНО САЛДО (дефицит \"-\" / излишък \"+\") = /I-II-III/",
+        "sheet": "ba988f39-2fa2-43b4-a662-62afbce10ae8"
+      }
+    },
+    {
+      "asOf": "2026-03-31",
+      "cadence": "monthly",
+      "constituentBudget": "state",
+      "executed": {
+        "amount": 259519479,
+        "amountEur": 259519479,
+        "currency": "EUR"
+      },
+      "fiscalYear": 2026,
+      "period": "2026-03",
+      "planned": null,
+      "series": "euContribution",
+      "sourceRef": {
+        "documentId": "kfp-egov",
+        "rowLabel": "III. ВНОСКА В ОБЩИЯ БЮДЖЕТ НА ЕС",
+        "sheet": "ba988f39-2fa2-43b4-a662-62afbce10ae8"
+      }
+    },
+    {
+      "asOf": "2026-03-31",
+      "cadence": "monthly",
+      "constituentBudget": "state",
+      "executed": {
+        "amount": 7116102687,
+        "amountEur": 7116102687,
+        "currency": "EUR"
+      },
+      "fiscalYear": 2026,
+      "period": "2026-03",
+      "planned": null,
+      "series": "expenditure",
+      "sourceRef": {
+        "documentId": "kfp-egov",
+        "rowLabel": "II.  РАЗХОДИ И ТРАНСФЕРИ",
+        "sheet": "ba988f39-2fa2-43b4-a662-62afbce10ae8"
+      }
+    },
+    {
+      "asOf": "2026-03-31",
+      "cadence": "monthly",
+      "constituentBudget": "state",
+      "executed": {
+        "amount": 1918355713,
+        "amountEur": 1918355713,
+        "currency": "EUR"
+      },
+      "fiscalYear": 2026,
+      "period": "2026-03",
+      "planned": null,
+      "series": "financing",
+      "sourceRef": {
+        "documentId": "kfp-egov",
+        "rowLabel": "V. ФИНАНСИРАНЕ",
+        "sheet": "ba988f39-2fa2-43b4-a662-62afbce10ae8"
+      }
+    },
+    {
+      "asOf": "2026-03-31",
+      "cadence": "monthly",
+      "constituentBudget": "state",
+      "executed": {
+        "amount": 5457266453,
+        "amountEur": 5457266453,
+        "currency": "EUR"
+      },
+      "fiscalYear": 2026,
+      "period": "2026-03",
+      "planned": null,
+      "series": "revenue",
+      "sourceRef": {
+        "documentId": "kfp-egov",
+        "rowLabel": "I. ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ",
+        "sheet": "ba988f39-2fa2-43b4-a662-62afbce10ae8"
+      }
+    }
+  ],
+  "snapshots": [
+    {
+      "asOf": "2025-12-31",
+      "constituentBudget": "state",
+      "currency": "BGN",
+      "fiscalYear": 2025,
+      "period": "2025-12",
+      "sections": [
+        {
+          "code": "I",
+          "executed": {
+            "amount": 51455992409,
+            "amountEur": 26309031158,
+            "currency": "BGN"
+          },
+          "kind": "revenue",
+          "labelBg": "I. ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ",
+          "labelEn": "Revenue, grants and donations",
+          "lines": [
+            {
+              "executed": {
+                "amount": 44542628052,
+                "amountEur": 22774284090,
+                "currency": "BGN"
+              },
+              "labelBg": "Данъчни приходи",
+              "labelEn": "Tax revenue",
+              "planned": {
+                "amount": 48187200000,
+                "amountEur": 24637724138,
+                "currency": "BGN"
+              }
+            },
+            {
+              "executed": {
+                "amount": 6509059654,
+                "amountEur": 3328029355,
+                "currency": "BGN"
+              },
+              "labelBg": "Корпоративен данък",
+              "labelEn": "Corporate income tax",
+              "planned": {
+                "amount": 6445028000,
+                "amountEur": 3295290490,
+                "currency": "BGN"
+              }
+            },
+            {
+              "executed": {
+                "amount": 146563340,
+                "amountEur": 74936646,
+                "currency": "BGN"
+              },
+              "labelBg": "Данъци върху  дивидентите, ликвидац. дялове и доходите на местни и чужд. юрид. лица",
+              "labelEn": "",
+              "planned": {
+                "amount": 174402000,
+                "amountEur": 89170327,
+                "currency": "BGN"
+              }
+            },
+            {
+              "executed": {
+                "amount": 8183159323,
+                "amountEur": 4183982924,
+                "currency": "BGN"
+              },
+              "labelBg": "Данъци в/у доходите на физически лица",
+              "labelEn": "Personal income tax",
+              "planned": {
+                "amount": 7972100000,
+                "amountEur": 4076070006,
+                "currency": "BGN"
+              }
+            },
+            {
+              "executed": {
+                "amount": 21571502027,
+                "amountEur": 11029333852,
+                "currency": "BGN"
+              },
+              "labelBg": "Данък върху добавената стойност",
+              "labelEn": "Value added tax",
+              "planned": {
+                "amount": 24833600000,
+                "amountEur": 12697218061,
+                "currency": "BGN"
+              }
+            },
+            {
+              "executed": {
+                "amount": 7423722652,
+                "amountEur": 3795689120,
+                "currency": "BGN"
+              },
+              "labelBg": "Акцизи",
+              "labelEn": "Excise duties",
+              "planned": {
+                "amount": 7693000000,
+                "amountEur": 3933368442,
+                "currency": "BGN"
+              }
+            },
+            {
+              "executed": {
+                "amount": 77331671,
+                "amountEur": 39539056,
+                "currency": "BGN"
+              },
+              "labelBg": "Данък върху застрахователните премии",
+              "labelEn": "",
+              "planned": {
+                "amount": 74600000,
+                "amountEur": 38142374,
+                "currency": "BGN"
+              }
+            },
+            {
+              "executed": {
+                "amount": 398254816,
+                "amountEur": 203624454,
+                "currency": "BGN"
+              },
+              "labelBg": "Мита и митнически такси",
+              "labelEn": "Customs duties",
+              "planned": {
+                "amount": 366950000,
+                "amountEur": 187618556,
+                "currency": "BGN"
+              }
+            },
+            {
+              "executed": {
+                "amount": 233034569,
+                "amountEur": 119148683,
+                "currency": "BGN"
+              },
+              "labelBg": "Други данъци",
+              "labelEn": "Other taxes",
+              "planned": {
+                "amount": 627520000,
+                "amountEur": 320845881,
+                "currency": "BGN"
+              }
+            },
+            {
+              "executed": {
+                "amount": 6556210341,
+                "amountEur": 3352137119,
+                "currency": "BGN"
+              },
+              "labelBg": "Неданъчни приходи",
+              "labelEn": "Non-tax revenue",
+              "planned": {
+                "amount": 6980680900,
+                "amountEur": 3569165469,
+                "currency": "BGN"
+              }
+            },
+            {
+              "executed": {
+                "amount": 2606563709,
+                "amountEur": 1332714862,
+                "currency": "BGN"
+              },
+              "labelBg": "Приходи и доходи  от собственост",
+              "labelEn": "",
+              "planned": {
+                "amount": 2535674900,
+                "amountEur": 1296469990,
+                "currency": "BGN"
+              }
+            },
+            {
+              "executed": {
+                "amount": 550000000,
+                "amountEur": 281210535,
+                "currency": "BGN"
+              },
+              "labelBg": "Превишение на приходите над разходите на БНБ",
+              "labelEn": "",
+              "planned": {
+                "amount": 550000000,
+                "amountEur": 281210535,
+                "currency": "BGN"
+              }
+            },
+            {
+              "executed": {
+                "amount": 2396189593,
+                "amountEur": 1225152285,
+                "currency": "BGN"
+              },
+              "labelBg": "Приходи от такси",
+              "labelEn": "Fees",
+              "planned": {
+                "amount": 2527833200,
+                "amountEur": 1292460592,
+                "currency": "BGN"
+              }
+            },
+            {
+              "executed": {
+                "amount": 444603892,
+                "amountEur": 227322360,
+                "currency": "BGN"
+              },
+              "labelBg": "Глоби, санкции и наказателни лихви",
+              "labelEn": "Fines and penalties",
+              "planned": {
+                "amount": 435078000,
+                "amountEur": 222451849,
+                "currency": "BGN"
+              }
+            },
+            {
+              "executed": {
+                "amount": 558853147,
+                "amountEur": 285737077,
+                "currency": "BGN"
+              },
+              "labelBg": "Други неданъчни приходи",
+              "labelEn": "",
+              "planned": {
+                "amount": 932094800,
+                "amountEur": 476572504,
+                "currency": "BGN"
+              }
+            },
+            {
+              "executed": {
+                "amount": 357154016,
+                "amountEur": 182609949,
+                "currency": "BGN"
+              },
+              "labelBg": "Помощи",
+              "labelEn": "Grants",
+              "planned": {
+                "amount": 500000,
+                "amountEur": 255646,
+                "currency": "BGN"
+              }
+            }
+          ],
+          "planned": {
+            "amount": 55168380900,
+            "amountEur": 28207145253,
+            "currency": "BGN"
+          },
+          "series": "revenue"
+        },
+        {
+          "code": "II",
+          "executed": {
+            "amount": 55508616167,
+            "amountEur": 28381104783,
+            "currency": "BGN"
+          },
+          "kind": "expenditure",
+          "labelBg": "II.  РАЗХОДИ И ТРАНСФЕРИ",
+          "labelEn": "Expenditure and transfers",
+          "lines": [
+            {
+              "executed": {
+                "amount": 25311056275,
+                "amountEur": 12941337578,
+                "currency": "BGN"
+              },
+              "labelBg": "Разходи",
+              "labelEn": "Expenditure",
+              "planned": {
+                "amount": 30803920300,
+                "amountEur": 15749794358,
+                "currency": "BGN"
+              }
+            },
+            {
+              "executed": {
+                "amount": 12312872795,
+                "amountEur": 6295471894,
+                "currency": "BGN"
+              },
+              "labelBg": "Персонал",
+              "labelEn": "Personnel",
+              "planned": {
+                "amount": 12737657100,
+                "amountEur": 6512660661,
+                "currency": "BGN"
+              }
+            },
+            {
+              "executed": {
+                "amount": 4052371656,
+                "amountEur": 2071944727,
+                "currency": "BGN"
+              },
+              "labelBg": "Издръжка",
+              "labelEn": "Operations and maintenance",
+              "planned": {
+                "amount": 5429435800,
+                "amountEur": 2776026444,
+                "currency": "BGN"
+              }
+            },
+            {
+              "executed": {
+                "amount": 1386538685,
+                "amountEur": 708925973,
+                "currency": "BGN"
+              },
+              "labelBg": "Лихви - общо",
+              "labelEn": "Interest — total",
+              "planned": {
+                "amount": 1567008800,
+                "amountEur": 801198877,
+                "currency": "BGN"
+              }
+            },
+            {
+              "executed": {
+                "amount": 1178429122,
+                "amountEur": 602521243,
+                "currency": "BGN"
+              },
+              "labelBg": "Лихви по външни заеми",
+              "labelEn": "",
+              "planned": {
+                "amount": 1349127400,
+                "amountEur": 689797886,
+                "currency": "BGN"
+              }
+            },
+            {
+              "executed": {
+                "amount": 208109563,
+                "amountEur": 106404730,
+                "currency": "BGN"
+              },
+              "labelBg": "Лихви по вътрешни заеми",
+              "labelEn": "",
+              "planned": {
+                "amount": 217881400,
+                "amountEur": 111400991,
+                "currency": "BGN"
+              }
+            },
+            {
+              "executed": {
+                "amount": 1993866357,
+                "amountEur": 1019447681,
+                "currency": "BGN"
+              },
+              "labelBg": "Социални разходи, стипендии",
+              "labelEn": "Social spending and scholarships",
+              "planned": {
+                "amount": 3388110200,
+                "amountEur": 1732313238,
+                "currency": "BGN"
+              }
+            },
+            {
+              "executed": {
+                "amount": 1888739718,
+                "amountEur": 965697284,
+                "currency": "BGN"
+              },
+              "labelBg": "Субсидии",
+              "labelEn": "Subsidies",
+              "planned": {
+                "amount": 2140479500,
+                "amountEur": 1094409790,
+                "currency": "BGN"
+              }
+            },
+            {
+              "executed": {
+                "amount": 28893439,
+                "amountEur": 14772981,
+                "currency": "BGN"
+              },
+              "labelBg": "Предоставени текущи и капиталови трансфери за чужбина",
+              "labelEn": "",
+              "planned": {
+                "amount": 27705600,
+                "amountEur": 14165648,
+                "currency": "BGN"
+              }
+            },
+            {
+              "executed": {
+                "amount": 3626007251,
+                "amountEur": 1853948069,
+                "currency": "BGN"
+              },
+              "labelBg": "Капиталови разходи",
+              "labelEn": "Capital expenditure",
+              "planned": {
+                "amount": 5350848200,
+                "amountEur": 2735845242,
+                "currency": "BGN"
+              }
+            },
+            {
+              "executed": {
+                "amount": 21766374,
+                "amountEur": 11128970,
+                "currency": "BGN"
+              },
+              "labelBg": "Прираст на държавния резерв - нето",
+              "labelEn": "",
+              "planned": {
+                "amount": 31275100,
+                "amountEur": 15990705,
+                "currency": "BGN"
+              }
+            },
+            {
+              "executed": null,
+              "labelBg": "Резерв за непредвидени и/или неотложни разходи:",
+              "labelEn": "",
+              "planned": {
+                "amount": 131400000,
+                "amountEur": 67183753,
+                "currency": "BGN"
+              }
+            },
+            {
+              "executed": {
+                "amount": 30197539058,
+                "amountEur": 15439756552,
+                "currency": "BGN"
+              },
+              "labelBg": "Трансфери (нето)",
+              "labelEn": "Transfers (net)",
+              "planned": {
+                "amount": 29476565700,
+                "amountEur": 15071128728,
+                "currency": "BGN"
+              }
+            },
+            {
+              "executed": {
+                "amount": 30239134466,
+                "amountEur": 15461023947,
+                "currency": "BGN"
+              },
+              "labelBg": "Предоставени на:",
+              "labelEn": "",
+              "planned": {
+                "amount": 29489965700,
+                "amountEur": 15077980039,
+                "currency": "BGN"
+              }
+            },
+            {
+              "executed": {
+                "amount": 1304676911,
+                "amountEur": 667070712,
+                "currency": "BGN"
+              },
+              "labelBg": "ДВУ, БАН, ССА, БНТ, БНР и БТА",
+              "labelEn": "",
+              "planned": {
+                "amount": 1712850100,
+                "amountEur": 875766350,
+                "currency": "BGN"
+              }
+            },
+            {
+              "executed": {
+                "amount": 12423847231,
+                "amountEur": 6352212222,
+                "currency": "BGN"
+              },
+              "labelBg": "Общини",
+              "labelEn": "Municipalities",
+              "planned": {
+                "amount": 8925909100,
+                "amountEur": 4563744855,
+                "currency": "BGN"
+              }
+            },
+            {
+              "executed": {
+                "amount": 15925388608,
+                "amountEur": 8142521900,
+                "currency": "BGN"
+              },
+              "labelBg": "Социалноосигурителни фондове",
+              "labelEn": "Social security funds",
+              "planned": {
+                "amount": 15874337700,
+                "amountEur": 8116419985,
+                "currency": "BGN"
+              }
+            },
+            {
+              "executed": {
+                "amount": 375539540,
+                "amountEur": 192010318,
+                "currency": "BGN"
+              },
+              "labelBg": "Бюджети по чл.13 (4) от ЗПФ - нето",
+              "labelEn": "",
+              "planned": {
+                "amount": 819720100,
+                "amountEur": 419116232,
+                "currency": "BGN"
+              }
+            },
+            {
+              "executed": {
+                "amount": 209713609,
+                "amountEur": 107224866,
+                "currency": "BGN"
+              },
+              "labelBg": "Други трансфери - нето",
+              "labelEn": "",
+              "planned": {
+                "amount": 2157148700,
+                "amountEur": 1102932617,
+                "currency": "BGN"
+              }
+            },
+            {
+              "executed": {
+                "amount": 41595408,
+                "amountEur": 21267394,
+                "currency": "BGN"
+              },
+              "labelBg": "Получени от:",
+              "labelEn": "",
+              "planned": {
+                "amount": 13400000,
+                "amountEur": 6851311,
+                "currency": "BGN"
+              }
+            },
+            {
+              "executed": {
+                "amount": 31923121,
+                "amountEur": 16322033,
+                "currency": "BGN"
+              },
+              "labelBg": "Общини",
+              "labelEn": "Municipalities",
+              "planned": null
+            },
+            {
+              "executed": {
+                "amount": 9672287,
+                "amountEur": 4945362,
+                "currency": "BGN"
+              },
+              "labelBg": "ДОО",
+              "labelEn": "",
+              "planned": {
+                "amount": 7400000,
+                "amountEur": 3783560,
+                "currency": "BGN"
+              }
+            }
+          ],
+          "planned": {
+            "amount": 60280486000,
+            "amountEur": 30820923086,
+            "currency": "BGN"
+          },
+          "series": "expenditure"
+        },
+        {
+          "code": "III",
+          "executed": {
+            "amount": 2035981033,
+            "amountEur": 1040980572,
+            "currency": "BGN"
+          },
+          "kind": "expenditure",
+          "labelBg": "III. ВНОСКА В ОБЩИЯ БЮДЖЕТ НА ЕС",
+          "labelEn": "Contribution to the EU budget",
+          "lines": [],
+          "planned": {
+            "amount": 2020542300,
+            "amountEur": 1033086874,
+            "currency": "BGN"
+          },
+          "series": "euContribution"
+        },
+        {
+          "code": "IV",
+          "executed": {
+            "amount": -6088604791,
+            "amountEur": -3113054197,
+            "currency": "BGN"
+          },
+          "kind": "balance",
+          "labelBg": "IV. БЮДЖЕТНО САЛДО (дефицит \"-\" / излишък \"+\") = /I-II-III/",
+          "labelEn": "Budget balance (deficit / surplus)",
+          "lines": [],
+          "planned": {
+            "amount": -7132647400,
+            "amountEur": -3646864707,
+            "currency": "BGN"
+          },
+          "series": "balance"
+        },
+        {
+          "code": "V",
+          "executed": {
+            "amount": 6088583958,
+            "amountEur": 3113043546,
+            "currency": "BGN"
+          },
+          "kind": "financing",
+          "labelBg": "V. ФИНАНСИРАНЕ",
+          "labelEn": "Financing",
+          "lines": [
+            {
+              "executed": {
+                "amount": 14214059158,
+                "amountEur": 7267533046,
+                "currency": "BGN"
+              },
+              "labelBg": "Външно финансиране  (нето)",
+              "labelEn": "External financing (net)",
+              "planned": {
+                "amount": 16086725500,
+                "amountEur": 8225012143,
+                "currency": "BGN"
+              }
+            },
+            {
+              "executed": {
+                "amount": 14223283760,
+                "amountEur": 7272249510,
+                "currency": "BGN"
+              },
+              "labelBg": "Заеми и дълг, поет на межд. капит. пазари (нето)",
+              "labelEn": "",
+              "planned": null
+            },
+            {
+              "executed": {
+                "amount": -9224602,
+                "amountEur": -4716464,
+                "currency": "BGN"
+              },
+              "labelBg": "Депозити (нето) в чужбина",
+              "labelEn": "",
+              "planned": null
+            },
+            {
+              "executed": {
+                "amount": -2265768098,
+                "amountEur": -1158468833,
+                "currency": "BGN"
+              },
+              "labelBg": "Вътрешно финансиране  (нето)",
+              "labelEn": "Domestic financing (net)",
+              "planned": {
+                "amount": -1434159300,
+                "amountEur": -733274006,
+                "currency": "BGN"
+              }
+            },
+            {
+              "executed": {
+                "amount": 0,
+                "amountEur": 0,
+                "currency": "BGN"
+              },
+              "labelBg": "Небанково (нето)",
+              "labelEn": "",
+              "planned": null
+            },
+            {
+              "executed": {
+                "amount": -2265768098,
+                "amountEur": -1158468833,
+                "currency": "BGN"
+              },
+              "labelBg": "Банково (нето)",
+              "labelEn": "",
+              "planned": null
+            },
+            {
+              "executed": null,
+              "labelBg": "Приватизация, придобиване на дялове и акции,",
+              "labelEn": "",
+              "planned": null
+            },
+            {
+              "executed": {
+                "amount": -5859707102,
+                "amountEur": -2996020667,
+                "currency": "BGN"
+              },
+              "labelBg": "и възмездни  средства (нето)",
+              "labelEn": "",
+              "planned": {
+                "amount": -7519918800,
+                "amountEur": -3844873430,
+                "currency": "BGN"
+              }
+            },
+            {
+              "executed": {
+                "amount": 54946,
+                "amountEur": 28093,
+                "currency": "BGN"
+              },
+              "labelBg": "в т.ч.: приватизация на дялове, акции и участия",
+              "labelEn": "",
+              "planned": {
+                "amount": 500000,
+                "amountEur": 255646,
+                "currency": "BGN"
+              }
+            }
+          ],
+          "planned": {
+            "amount": 7132647400,
+            "amountEur": 3646864707,
+            "currency": "BGN"
+          },
+          "series": "financing"
+        }
+      ]
+    },
+    {
+      "asOf": "2026-03-31",
+      "constituentBudget": "state",
+      "currency": "EUR",
+      "fiscalYear": 2026,
+      "period": "2026-03",
+      "sections": [
+        {
+          "code": "I",
+          "executed": {
+            "amount": 5457266453,
+            "amountEur": 5457266453,
+            "currency": "EUR"
+          },
+          "kind": "revenue",
+          "labelBg": "I. ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ",
+          "labelEn": "Revenue, grants and donations",
+          "lines": [
+            {
+              "executed": {
+                "amount": 4872950191,
+                "amountEur": 4872950191,
+                "currency": "EUR"
+              },
+              "labelBg": "Данъчни приходи",
+              "labelEn": "Tax revenue",
+              "planned": null
+            },
+            {
+              "executed": {
+                "amount": 71199768,
+                "amountEur": 71199768,
+                "currency": "EUR"
+              },
+              "labelBg": "Корпоративен данък",
+              "labelEn": "Corporate income tax",
+              "planned": null
+            },
+            {
+              "executed": {
+                "amount": 29828053,
+                "amountEur": 29828053,
+                "currency": "EUR"
+              },
+              "labelBg": "Данъци върху  дивидентите, ликвидац. дялове и доходите на местни и чужд. юрид. лица",
+              "labelEn": "",
+              "planned": null
+            },
+            {
+              "executed": {
+                "amount": 1052618764,
+                "amountEur": 1052618764,
+                "currency": "EUR"
+              },
+              "labelBg": "Данъци в/у доходите на физически лица",
+              "labelEn": "Personal income tax",
+              "planned": null
+            },
+            {
+              "executed": {
+                "amount": 2824245114,
+                "amountEur": 2824245114,
+                "currency": "EUR"
+              },
+              "labelBg": "Данък върху добавената стойност",
+              "labelEn": "Value added tax",
+              "planned": null
+            },
+            {
+              "executed": {
+                "amount": 803610193,
+                "amountEur": 803610193,
+                "currency": "EUR"
+              },
+              "labelBg": "Акцизи",
+              "labelEn": "Excise duties",
+              "planned": null
+            },
+            {
+              "executed": {
+                "amount": 9930381,
+                "amountEur": 9930381,
+                "currency": "EUR"
+              },
+              "labelBg": "Данък върху застрахователните премии",
+              "labelEn": "",
+              "planned": null
+            },
+            {
+              "executed": {
+                "amount": 63385174,
+                "amountEur": 63385174,
+                "currency": "EUR"
+              },
+              "labelBg": "Мита и митнически такси",
+              "labelEn": "Customs duties",
+              "planned": null
+            },
+            {
+              "executed": {
+                "amount": 18132744,
+                "amountEur": 18132744,
+                "currency": "EUR"
+              },
+              "labelBg": "Други данъци",
+              "labelEn": "Other taxes",
+              "planned": null
+            },
+            {
+              "executed": {
+                "amount": 551022255,
+                "amountEur": 551022255,
+                "currency": "EUR"
+              },
+              "labelBg": "Неданъчни приходи",
+              "labelEn": "Non-tax revenue",
+              "planned": null
+            },
+            {
+              "executed": {
+                "amount": 81128923,
+                "amountEur": 81128923,
+                "currency": "EUR"
+              },
+              "labelBg": "Приходи и доходи  от собственост",
+              "labelEn": "",
+              "planned": null
+            },
+            {
+              "executed": {
+                "amount": 0,
+                "amountEur": 0,
+                "currency": "EUR"
+              },
+              "labelBg": "Превишение на приходите над разходите на БНБ",
+              "labelEn": "",
+              "planned": null
+            },
+            {
+              "executed": {
+                "amount": 338949553,
+                "amountEur": 338949553,
+                "currency": "EUR"
+              },
+              "labelBg": "Приходи от такси",
+              "labelEn": "Fees",
+              "planned": null
+            },
+            {
+              "executed": {
+                "amount": 52119965,
+                "amountEur": 52119965,
+                "currency": "EUR"
+              },
+              "labelBg": "Глоби, санкции и наказателни лихви",
+              "labelEn": "Fines and penalties",
+              "planned": null
+            },
+            {
+              "executed": {
+                "amount": 78823814,
+                "amountEur": 78823814,
+                "currency": "EUR"
+              },
+              "labelBg": "Други неданъчни приходи",
+              "labelEn": "",
+              "planned": null
+            },
+            {
+              "executed": {
+                "amount": 33294007,
+                "amountEur": 33294007,
+                "currency": "EUR"
+              },
+              "labelBg": "Помощи",
+              "labelEn": "Grants",
+              "planned": null
+            }
+          ],
+          "planned": null,
+          "series": "revenue"
+        },
+        {
+          "code": "II",
+          "executed": {
+            "amount": 7116102687,
+            "amountEur": 7116102687,
+            "currency": "EUR"
+          },
+          "kind": "expenditure",
+          "labelBg": "II.  РАЗХОДИ И ТРАНСФЕРИ",
+          "labelEn": "Expenditure and transfers",
+          "lines": [
+            {
+              "executed": {
+                "amount": 2893439207,
+                "amountEur": 2893439207,
+                "currency": "EUR"
+              },
+              "labelBg": "Разходи",
+              "labelEn": "Expenditure",
+              "planned": null
+            },
+            {
+              "executed": {
+                "amount": 1626542407,
+                "amountEur": 1626542407,
+                "currency": "EUR"
+              },
+              "labelBg": "Персонал",
+              "labelEn": "Personnel",
+              "planned": null
+            },
+            {
+              "executed": {
+                "amount": 397315186,
+                "amountEur": 397315186,
+                "currency": "EUR"
+              },
+              "labelBg": "Издръжка",
+              "labelEn": "Operations and maintenance",
+              "planned": null
+            },
+            {
+              "executed": {
+                "amount": 218846400,
+                "amountEur": 218846400,
+                "currency": "EUR"
+              },
+              "labelBg": "Лихви - общо",
+              "labelEn": "Interest — total",
+              "planned": null
+            },
+            {
+              "executed": {
+                "amount": 182359687,
+                "amountEur": 182359687,
+                "currency": "EUR"
+              },
+              "labelBg": "Лихви по външни заеми",
+              "labelEn": "",
+              "planned": null
+            },
+            {
+              "executed": {
+                "amount": 36486713,
+                "amountEur": 36486713,
+                "currency": "EUR"
+              },
+              "labelBg": "Лихви по вътрешни заеми",
+              "labelEn": "",
+              "planned": null
+            },
+            {
+              "executed": {
+                "amount": 254271495,
+                "amountEur": 254271495,
+                "currency": "EUR"
+              },
+              "labelBg": "Социални разходи, стипендии",
+              "labelEn": "Social spending and scholarships",
+              "planned": null
+            },
+            {
+              "executed": {
+                "amount": 209626947,
+                "amountEur": 209626947,
+                "currency": "EUR"
+              },
+              "labelBg": "Субсидии",
+              "labelEn": "Subsidies",
+              "planned": null
+            },
+            {
+              "executed": {
+                "amount": 542301,
+                "amountEur": 542301,
+                "currency": "EUR"
+              },
+              "labelBg": "Предоставени текущи и капиталови трансфери за чужбина",
+              "labelEn": "",
+              "planned": null
+            },
+            {
+              "executed": {
+                "amount": 186309489,
+                "amountEur": 186309489,
+                "currency": "EUR"
+              },
+              "labelBg": "Капиталови разходи",
+              "labelEn": "Capital expenditure",
+              "planned": null
+            },
+            {
+              "executed": {
+                "amount": -15018,
+                "amountEur": -15018,
+                "currency": "EUR"
+              },
+              "labelBg": "Прираст на държавния резерв - нето",
+              "labelEn": "",
+              "planned": null
+            },
+            {
+              "executed": null,
+              "labelBg": "Резерв за непредвидени и/или неотложни разходи:",
+              "labelEn": "",
+              "planned": null
+            },
+            {
+              "executed": {
+                "amount": 4222663480,
+                "amountEur": 4222663480,
+                "currency": "EUR"
+              },
+              "labelBg": "Трансфери (нето)",
+              "labelEn": "Transfers (net)",
+              "planned": null
+            },
+            {
+              "executed": {
+                "amount": 4253049801,
+                "amountEur": 4253049801,
+                "currency": "EUR"
+              },
+              "labelBg": "Предоставени трансфери",
+              "labelEn": "",
+              "planned": null
+            },
+            {
+              "executed": {
+                "amount": 160652028,
+                "amountEur": 160652028,
+                "currency": "EUR"
+              },
+              "labelBg": "ДВУ, БАН, ССА, БНТ, БНР и БТА",
+              "labelEn": "",
+              "planned": null
+            },
+            {
+              "executed": {
+                "amount": 1752592632,
+                "amountEur": 1752592632,
+                "currency": "EUR"
+              },
+              "labelBg": "Общини",
+              "labelEn": "Municipalities",
+              "planned": null
+            },
+            {
+              "executed": {
+                "amount": 2112028078,
+                "amountEur": 2112028078,
+                "currency": "EUR"
+              },
+              "labelBg": "Социалноосигурителни фондове",
+              "labelEn": "Social security funds",
+              "planned": null
+            },
+            {
+              "executed": {
+                "amount": 19933108,
+                "amountEur": 19933108,
+                "currency": "EUR"
+              },
+              "labelBg": "Бюджети по чл.13 (4) от ЗПФ - нето",
+              "labelEn": "",
+              "planned": null
+            },
+            {
+              "executed": {
+                "amount": 207843955,
+                "amountEur": 207843955,
+                "currency": "EUR"
+              },
+              "labelBg": "Други трансфери - нето",
+              "labelEn": "",
+              "planned": null
+            },
+            {
+              "executed": {
+                "amount": 30386321,
+                "amountEur": 30386321,
+                "currency": "EUR"
+              },
+              "labelBg": "Получени трансфери",
+              "labelEn": "",
+              "planned": null
+            },
+            {
+              "executed": {
+                "amount": 3065884,
+                "amountEur": 3065884,
+                "currency": "EUR"
+              },
+              "labelBg": "Общини",
+              "labelEn": "Municipalities",
+              "planned": null
+            },
+            {
+              "executed": {
+                "amount": 27320437,
+                "amountEur": 27320437,
+                "currency": "EUR"
+              },
+              "labelBg": "Социалноосигурителни фондове",
+              "labelEn": "Social security funds",
+              "planned": null
+            }
+          ],
+          "planned": null,
+          "series": "expenditure"
+        },
+        {
+          "code": "III",
+          "executed": {
+            "amount": 259519479,
+            "amountEur": 259519479,
+            "currency": "EUR"
+          },
+          "kind": "expenditure",
+          "labelBg": "III. ВНОСКА В ОБЩИЯ БЮДЖЕТ НА ЕС",
+          "labelEn": "Contribution to the EU budget",
+          "lines": [],
+          "planned": null,
+          "series": "euContribution"
+        },
+        {
+          "code": "IV",
+          "executed": {
+            "amount": -1918355713,
+            "amountEur": -1918355713,
+            "currency": "EUR"
+          },
+          "kind": "balance",
+          "labelBg": "IV. БЮДЖЕТНО САЛДО (дефицит \"-\" / излишък \"+\") = /I-II-III/",
+          "labelEn": "Budget balance (deficit / surplus)",
+          "lines": [],
+          "planned": null,
+          "series": "balance"
+        },
+        {
+          "code": "V",
+          "executed": {
+            "amount": 1918355713,
+            "amountEur": 1918355713,
+            "currency": "EUR"
+          },
+          "kind": "financing",
+          "labelBg": "V. ФИНАНСИРАНЕ",
+          "labelEn": "Financing",
+          "lines": [
+            {
+              "executed": {
+                "amount": -21186931,
+                "amountEur": -21186931,
+                "currency": "EUR"
+              },
+              "labelBg": "Външно финансиране  (нето)",
+              "labelEn": "External financing (net)",
+              "planned": null
+            },
+            {
+              "executed": {
+                "amount": -18106352,
+                "amountEur": -18106352,
+                "currency": "EUR"
+              },
+              "labelBg": "Заеми и дълг, поет на межд. капит. пазари (нето)",
+              "labelEn": "",
+              "planned": null
+            },
+            {
+              "executed": {
+                "amount": -3080579,
+                "amountEur": -3080579,
+                "currency": "EUR"
+              },
+              "labelBg": "Депозити (нето) в чужбина",
+              "labelEn": "",
+              "planned": null
+            },
+            {
+              "executed": {
+                "amount": 1964742821,
+                "amountEur": 1964742821,
+                "currency": "EUR"
+              },
+              "labelBg": "Вътрешно финансиране  (нето)",
+              "labelEn": "Domestic financing (net)",
+              "planned": null
+            },
+            {
+              "executed": {
+                "amount": 0,
+                "amountEur": 0,
+                "currency": "EUR"
+              },
+              "labelBg": "Небанково (нето)",
+              "labelEn": "",
+              "planned": null
+            },
+            {
+              "executed": {
+                "amount": 1964742821,
+                "amountEur": 1964742821,
+                "currency": "EUR"
+              },
+              "labelBg": "Банково (нето)",
+              "labelEn": "",
+              "planned": null
+            },
+            {
+              "executed": null,
+              "labelBg": "Приватизация, придобиване на дялове и акции,",
+              "labelEn": "",
+              "planned": null
+            },
+            {
+              "executed": {
+                "amount": -25200177,
+                "amountEur": -25200177,
+                "currency": "EUR"
+              },
+              "labelBg": "и възмездни  средства (нето)",
+              "labelEn": "",
+              "planned": null
+            },
+            {
+              "executed": {
+                "amount": 35268,
+                "amountEur": 35268,
+                "currency": "EUR"
+              },
+              "labelBg": "в т.ч.: приватизация на дялове, акции и участия",
+              "labelEn": "",
+              "planned": null
+            }
+          ],
+          "planned": null,
+          "series": "financing"
+        }
+      ]
+    }
+  ],
+  "sources": {
+    "bulnao": "https://www.bulnao.government.bg/bg/oditna-dejnost/dokladi/",
+    "egov": "https://data.egov.bg/data/view/79ce7de2-0150-4ba7-a96c-dbacb76c95b6",
+    "minfin": "https://www.minfin.bg/en/statistics/13"
+  }
+}

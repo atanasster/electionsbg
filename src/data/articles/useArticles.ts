@@ -11,6 +11,7 @@ export type DashboardSectionId =
   | "neighborhoods"
   | "declarations"
   | "procurement"
+  | "budget"
   | "financing"
   | "history"
   | "polling"

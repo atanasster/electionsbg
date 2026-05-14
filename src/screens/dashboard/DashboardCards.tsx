@@ -10,8 +10,12 @@ import {
   Gauge,
   Landmark,
   Map,
+  Wallet,
 } from "lucide-react";
 import { useProcurementByNs } from "@/data/procurement/useProcurementByNs";
+import { useBudgetIndex } from "@/data/budget/useBudget";
+import { useBudgetTerm } from "@/data/budget/useBudgetTerm";
+import { BudgetSummaryTile } from "@/screens/components/budget/BudgetSummaryTile";
 import { TopMpsTile } from "@/screens/components/procurement/TopMpsTile";
 import { TopContractorsTile } from "@/screens/components/procurement/TopContractorsTile";
 import { useNationalSummary } from "@/data/dashboard/useNationalSummary";
@@ -77,6 +81,7 @@ const SECTION_TOPICS: readonly DashboardSectionId[] = [
   "financing",
   "declarations",
   "procurement",
+  "budget",
   "polling",
 ];
 
@@ -108,6 +113,8 @@ export const DashboardCards: FC = () => {
   const { electionStats } = useElectionContext();
   const { data: problemSectionsStats } = useProblemSectionsStats();
   const { data: procurementByNs } = useProcurementByNs();
+  const { data: budgetIndex } = useBudgetIndex();
+  const budgetTerm = useBudgetTerm(budgetIndex);
 
   // electionStats is derived synchronously from in-memory data, so we use it
   // to gate the same set of optional rows in both the skeleton and live
@@ -286,6 +293,28 @@ export const DashboardCards: FC = () => {
               <TopMpsTile data={procurementByNs} />
               <TopContractorsTile byNs={procurementByNs} />
             </div>
+          </DashboardSection>
+        ) : null}
+
+        {budgetTerm.yearsWithData.length > 0 ? (
+          <DashboardSection
+            id="budget"
+            title={t("dashboard_section_budget")}
+            subtitle={
+              <span className="flex flex-wrap items-center gap-x-3 gap-y-1">
+                <span>{t("dashboard_section_budget_subtitle")}</span>
+                <Link
+                  to="/budget"
+                  className="text-primary hover:underline whitespace-nowrap"
+                >
+                  {t("dashboard_section_budget_link")}
+                </Link>
+              </span>
+            }
+            icon={Wallet}
+            articleTopic="budget"
+          >
+            <BudgetSummaryTile />
           </DashboardSection>
         ) : null}
 
