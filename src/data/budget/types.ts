@@ -156,6 +156,22 @@ export interface ReconciliationRow {
   completeness: "exact" | "partial" | "missing";
 }
 
+// Phase 4 — a spending unit matched to its public-procurement awarder.
+export interface MinistryProcurement {
+  nodeId: string;
+  eik: string;
+  awarderName: string;
+  totalEur: number;
+  contractCount: number;
+  mpConnectedContractorCount: number;
+}
+
+export interface MinistryProcurementFile {
+  generatedAt: string;
+  procurementIndexGeneratedAt: string | null;
+  entries: MinistryProcurement[];
+}
+
 export interface BudgetYearCoverage {
   fiscalYear: number;
   stages: Array<"law" | "amendment" | "execution">;

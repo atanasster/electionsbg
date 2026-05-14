@@ -35,6 +35,7 @@ import type { ParsedResource } from "./kfp";
 import { parseLawHtml } from "./law_html";
 import type { ParsedLawUnit } from "./law_html";
 import { buildAdminRegistry, buildLawFacts } from "./facts";
+import { crossReferenceProcurement } from "./cross_reference";
 import { buildEconomicFacts } from "./normalize_egov";
 import {
   buildAdminReconciliation,
@@ -69,6 +70,11 @@ const ADMIN_REGISTRY_FILE = path.join(CLASSIFICATION_DIR, "admin.json");
 const ECONOMIC_REGISTRY_FILE = path.join(CLASSIFICATION_DIR, "economic.json");
 const FACTS_DIR = path.join(BUDGET_DIR, "facts");
 const RECONCILIATION_DIR = path.join(BUDGET_DIR, "reconciliation");
+const MINISTRY_PROCUREMENT_FILE = path.join(
+  BUDGET_DIR,
+  "derived",
+  "ministry_procurement.json",
+);
 const CANARY_FIXTURE = path.resolve(
   __dirname,
   "../../tests/fixtures/budget/canary.json",
@@ -219,6 +225,13 @@ const main = async (args: {
     runCanary(LAW_CANARY_FIXTURE, unitsByYear.get(LAW_CANARY_YEAR));
   }
   const adminRegistry = buildAdminRegistry(unitsByYear);
+  // Phase 4 — match spending units to procurement awarders (stamps `eik` onto
+  // the admin registry nodes). Non-fatal when data/procurement/ is absent.
+  const ministryProcurement = crossReferenceProcurement(adminRegistry);
+  console.log(
+    `  procurement cross-link: ${ministryProcurement.entries.length}/` +
+      `${adminRegistry.nodes.length} spending unit(s) matched to an awarder`,
+  );
   const lawFactsByYear = new Map(
     [...unitsByYear.entries()].map(([year, units]) => [
       year,
@@ -301,6 +314,14 @@ const main = async (args: {
     touched++;
   }
   if (writeIfChanged(ECONOMIC_REGISTRY_FILE, canonicalJson(economicRegistry))) {
+    touched++;
+  }
+  if (
+    writeIfChanged(
+      MINISTRY_PROCUREMENT_FILE,
+      canonicalJson(ministryProcurement),
+    )
+  ) {
     touched++;
   }
   for (const [year, facts] of lawFactsByYear) {

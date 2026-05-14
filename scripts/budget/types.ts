@@ -311,6 +311,32 @@ export interface BudgetDocumentsFile {
   documents: BudgetDocument[];
 }
 
+// ---------------------------------------------------------------------------
+// Procurement cross-link — data/budget/derived/ministry_procurement.json
+// ---------------------------------------------------------------------------
+
+// One first-level spending unit matched to its public-procurement awarder
+// (by name → EIK), with that awarder's procurement footprint. Lets the budget
+// dashboard follow a ministry's appropriation through to the contracts it
+// actually awarded — and flag the MP-connected ones.
+export interface MinistryProcurement {
+  nodeId: string; // admin classification node id
+  eik: string; // the matched procurement awarder EIK
+  awarderName: string; // the awarder's name as it appears in the procurement data
+  totalEur: number; // total awarded by this ministry across all years
+  contractCount: number;
+  // Distinct MP-connected contractors this ministry has paid (0 when the
+  // procurement MP cross-reference is absent).
+  mpConnectedContractorCount: number;
+}
+
+export interface MinistryProcurementFile {
+  generatedAt: string;
+  // null when data/procurement/ is not available at ingest time.
+  procurementIndexGeneratedAt: string | null;
+  entries: MinistryProcurement[];
+}
+
 // Provenance stamp carried by every fact / observation back to documents.json.
 export interface BudgetSourceRef {
   documentId: string;

@@ -7,12 +7,24 @@
 import { FC } from "react";
 import { Link, useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { ChevronLeft, Coins, Landmark, Scale } from "lucide-react";
+import {
+  ChevronLeft,
+  Coins,
+  Landmark,
+  Scale,
+  Receipt,
+  ArrowRight,
+  Users,
+} from "lucide-react";
 import { Title } from "@/ux/Title";
 import { StatCard } from "./dashboard/StatCard";
+import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEur } from "@/lib/currency";
 import { useBudgetMinistry } from "@/data/budget/useBudgetReconciliation";
 import type { MinistryYearFigures } from "@/data/budget/useBudgetReconciliation";
+import { useMinistryProcurement } from "@/data/budget/useBudget";
+
+const numFmt = new Intl.NumberFormat("bg-BG");
 
 const SkeletonCard: FC = () => (
   <div className="rounded-xl border bg-card p-4 shadow-sm animate-pulse h-[110px]">
@@ -73,6 +85,58 @@ const YearBlock: FC<{ figures: MinistryYearFigures }> = ({ figures }) => {
   );
 };
 
+// Phase 4 — the spending unit's public-procurement footprint, linking the
+// budget pillar through to the contracts it actually awarded.
+const ProcurementBlock: FC<{ nodeId: string }> = ({ nodeId }) => {
+  const { t } = useTranslation();
+  const { data: procFile } = useMinistryProcurement();
+  const entry = procFile?.entries.find((e) => e.nodeId === nodeId);
+  if (!entry) return null;
+  return (
+    <Card className="my-4" data-og="ministry-procurement">
+      <CardHeader className="pb-2">
+        <CardTitle className="text-base flex items-center gap-2">
+          <Receipt className="h-4 w-4" />
+          {t("budget_ministry_procurement_title") || "Public procurement"}
+        </CardTitle>
+      </CardHeader>
+      <CardContent className="pt-0 space-y-2">
+        <div className="flex items-baseline gap-2">
+          <Coins className="h-5 w-5 text-amber-600 shrink-0" />
+          <span className="text-xl font-bold tabular-nums">
+            {formatEur(entry.totalEur)}
+          </span>
+          <span className="text-sm text-muted-foreground">
+            {t("budget_ministry_procurement_across") || "across"}{" "}
+            {numFmt.format(entry.contractCount)}{" "}
+            {t("budget_ministry_procurement_contracts") || "contracts"}
+          </span>
+        </div>
+        {entry.mpConnectedContractorCount > 0 ? (
+          <div className="flex items-baseline gap-1.5 text-sm">
+            <Users className="h-4 w-4 text-amber-600 shrink-0" />
+            <span className="tabular-nums font-medium">
+              {numFmt.format(entry.mpConnectedContractorCount)}
+            </span>
+            <span className="text-muted-foreground">
+              {t("budget_ministry_procurement_mp") ||
+                "MP-connected contractor(s) paid by this unit"}
+            </span>
+          </div>
+        ) : null}
+        <Link
+          to={`/awarder/${entry.eik}`}
+          className="inline-flex items-center gap-1 text-sm text-primary hover:underline"
+        >
+          {t("budget_ministry_procurement_link") ||
+            "View this unit's procurement contracts"}
+          <ArrowRight className="h-3.5 w-3.5" />
+        </Link>
+      </CardContent>
+    </Card>
+  );
+};
+
 export const BudgetMinistryScreen: FC = () => {
   const { t, i18n } = useTranslation();
   const { id } = useParams<{ id: string }>();
@@ -130,6 +194,7 @@ export const BudgetMinistryScreen: FC = () => {
         {data.years.map((figures) => (
           <YearBlock key={figures.fiscalYear} figures={figures} />
         ))}
+        {id ? <ProcurementBlock nodeId={id} /> : null}
       </section>
     </>
   );
