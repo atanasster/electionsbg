@@ -104,11 +104,21 @@ export const getLatestElection = (electionsFile: string): string => {
 };
 
 const oblastDisplayName = (r: RegionInfo): string => r.long_name || r.name;
+const oblastDisplayNameEn = (r: RegionInfo): string =>
+  r.long_name_en || r.name_en || r.name;
 
 const buildOblastNameMap = (regions: RegionInfo[]): Map<string, string> => {
   const map = new Map<string, string>();
   for (const r of regions) {
     if (!map.has(r.oblast)) map.set(r.oblast, oblastDisplayName(r));
+  }
+  return map;
+};
+
+const buildOblastNameMapEn = (regions: RegionInfo[]): Map<string, string> => {
+  const map = new Map<string, string>();
+  for (const r of regions) {
+    if (!map.has(r.oblast)) map.set(r.oblast, oblastDisplayNameEn(r));
   }
   return map;
 };
@@ -678,7 +688,7 @@ const buildCandidateFaqEn = (
   if (f) {
     items.push({
       question: `How many preference votes did ${name} get?`,
-      answer: `${name} received ${formatNumber(f.totalPreferences)} preference votes in the ${formatElectionDateEn(f.electionDate)} election — most in ${f.topOblastName} (${formatNumber(f.topOblastPreferences)}).`,
+      answer: `${name} received ${formatNumber(f.totalPreferences)} preference votes in the ${formatElectionDateEn(f.electionDate)} election — most in ${f.topOblastNameEn} (${formatNumber(f.topOblastPreferences)}).`,
     });
     items.push({
       question: `Which party did ${name} run for?`,
@@ -726,9 +736,9 @@ const fmtBgDate = (iso: string | null | undefined): string | null => {
   return `${parseInt(m[3], 10)} ${months[parseInt(m[2], 10) - 1]} ${m[1]}`;
 };
 
-// Light translation table for the most common parliament-position labels —
-// proper-noun party names and region names stay in BG since the data isn't
-// translated server-side.
+// Light translation table for the most common parliament-position labels.
+// Region names are translated (regions.json carries name_en / long_name_en);
+// proper-noun party names stay in BG since cik_parties.json isn't translated.
 const POSITION_EN: Record<string, string> = {
   председател: "Speaker of the National Assembly",
   "заместник-председател": "Deputy Speaker",
@@ -771,7 +781,7 @@ const buildCandidateBodyEn = (
   indexEntry: MpIndexEntry | undefined,
   profile: RawMpProfile | null,
   history: Array<{ folder: string; partyLabel: string; oblast: string }>,
-  oblastNames: Map<string, string>,
+  oblastNamesEn: Map<string, string>,
   cardData: CandidateCardData | undefined,
 ): string => {
   const parts: string[] = [];
@@ -800,7 +810,7 @@ const buildCandidateBodyEn = (
   if (cardData?.facts) {
     const f = cardData.facts;
     parts.push(
-      `<p>In their most recent candidacy (${formatElectionDateEn(f.electionDate)}), ${escapeHtmlSimple(nameEn)} received ${formatNumber(f.totalPreferences)} preference votes — most in ${escapeHtmlSimple(f.topOblastName)} (${formatNumber(f.topOblastPreferences)}).</p>`,
+      `<p>In their most recent candidacy (${formatElectionDateEn(f.electionDate)}), ${escapeHtmlSimple(nameEn)} received ${formatNumber(f.totalPreferences)} preference votes — most in ${escapeHtmlSimple(f.topOblastNameEn)} (${formatNumber(f.topOblastPreferences)}).</p>`,
     );
   }
 
@@ -855,10 +865,10 @@ const buildCandidateBodyEn = (
         ? escapeHtmlSimple(h.partyLabel)
         : `<a href="${SITE_URL}/en/party/${encodeURIComponent(h.partyLabel)}">${escapeHtmlSimple(h.partyLabel)}</a>`;
       const oblastLabel = h.oblast
-        ? (oblastNames.get(h.oblast) ?? h.oblast)
+        ? (oblastNamesEn.get(h.oblast) ?? h.oblast)
         : "";
       const oblastCell =
-        h.oblast && oblastNames.has(h.oblast)
+        h.oblast && oblastNamesEn.has(h.oblast)
           ? `<a href="${SITE_URL}/en/municipality/${h.oblast}">${escapeHtmlSimple(oblastLabel)}</a>`
           : escapeHtmlSimple(oblastLabel);
       parts.push(
@@ -996,6 +1006,7 @@ const buildCandidateBody = (
 export const buildCandidateRoutes = (
   publicFolder: string,
   oblastNames: Map<string, string>,
+  oblastNamesEn: Map<string, string>,
 ): PrerenderRoute[] => {
   if (!fs.existsSync(publicFolder)) return [];
   const electionFolders = fs
@@ -1106,7 +1117,7 @@ export const buildCandidateRoutes = (
       ? ` ${formatNumber(cardData.facts.totalPreferences)} преференции на изборите на ${formatElectionDateBg(cardData.facts.electionDate)}, най-силно представяне в област ${cardData.facts.topOblastName}.`
       : "";
     const factsClauseEn = cardData?.facts
-      ? ` ${formatNumber(cardData.facts.totalPreferences)} preference votes in the ${formatElectionDateEn(cardData.facts.electionDate)} election, strongest in ${cardData.facts.topOblastName}.`
+      ? ` ${formatNumber(cardData.facts.totalPreferences)} preference votes in the ${formatElectionDateEn(cardData.facts.electionDate)} election, strongest in ${cardData.facts.topOblastNameEn}.`
       : "";
 
     const isMp = !!indexEntry;
@@ -1256,7 +1267,7 @@ export const buildCandidateRoutes = (
           indexEntry,
           profile,
           agg.history,
-          oblastNames,
+          oblastNamesEn,
           cardData,
         ),
         jsonLd: jsonLdEn,
@@ -2175,6 +2186,7 @@ export const buildDynamicRoutes = async (
     fs.readFileSync(regionsFile, "utf-8"),
   );
   const oblastNames = buildOblastNameMap(regions);
+  const oblastNamesEn = buildOblastNameMapEn(regions);
   const partyRoutes = buildPartyRoutes(publicFolder, latest);
   const oblastRoutes = buildOblastRoutes(regionsFile);
 
@@ -2191,7 +2203,11 @@ export const buildDynamicRoutes = async (
     .filter((r) => r.oblast !== "32")
     .forEach((r, i) => oblastParents.set(r.oblast, oblastRoutes[i]));
 
-  const candidateRoutes = buildCandidateRoutes(publicFolder, oblastNames);
+  const candidateRoutes = buildCandidateRoutes(
+    publicFolder,
+    oblastNames,
+    oblastNamesEn,
+  );
 
   return [
     ...partyRoutes,

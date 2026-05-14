@@ -45,7 +45,8 @@ export type CandidateFacts = {
   electionDate: string; // e.g. "2026_04_19"
   totalPreferences: number; // summed across all oblasts they ran in
   topOblast: string; // oblast code, e.g. "BGS"
-  topOblastName: string; // display name, e.g. "Бургас"
+  topOblastName: string; // Bulgarian display name, e.g. "Бургас"
+  topOblastNameEn: string; // English display name, e.g. "Burgas"
   topOblastPreferences: number;
   party: { number: number; name: string; nickName: string; color: string };
 };
@@ -75,7 +76,13 @@ export type CandidateCardData = {
   facts: CandidateFacts | null;
 };
 
-type RawRegion = { oblast: string; name: string; long_name?: string };
+type RawRegion = {
+  oblast: string;
+  name: string;
+  name_en?: string;
+  long_name?: string;
+  long_name_en?: string;
+};
 type RawElection = { name: string };
 type RawCandidate = {
   name: string;
@@ -122,6 +129,7 @@ const readJson = <T>(file: string): T | null => {
 const computeFacts = (
   prefStatsFile: string,
   oblastNames: Map<string, string>,
+  oblastNamesEn: Map<string, string>,
 ): CandidateFacts | null => {
   const data = readJson<RawPrefStats>(prefStatsFile);
   if (!data?.stats) return null;
@@ -143,6 +151,7 @@ const computeFacts = (
     totalPreferences: total,
     topOblast: top.oblast,
     topOblastName: oblastNames.get(top.oblast) ?? top.oblast,
+    topOblastNameEn: oblastNamesEn.get(top.oblast) ?? top.oblast,
     topOblastPreferences: top.preferences ?? 0,
     party: entry.party,
   };
@@ -171,9 +180,11 @@ export const loadCandidateCardData = (
       path.join(projectRoot, "src/data/json/regions.json"),
     ) ?? [];
   const oblastNames = new Map<string, string>();
+  const oblastNamesEn = new Map<string, string>();
   for (const r of regions) {
     if (!oblastNames.has(r.oblast)) {
       oblastNames.set(r.oblast, r.long_name || r.name);
+      oblastNamesEn.set(r.oblast, r.long_name_en || r.name_en || r.name);
     }
   }
 
@@ -208,6 +219,7 @@ export const loadCandidateCardData = (
         "preferences_stats.json",
       ),
       oblastNames,
+      oblastNamesEn,
     );
   };
 
