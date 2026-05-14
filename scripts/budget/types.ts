@@ -148,9 +148,6 @@ export interface KfpFile {
   observations: KfpObservation[];
   // The latest detailed snapshot per fiscal year (one entry per FY).
   snapshots: KfpSnapshot[];
-  // The globally latest snapshot — convenience mirror of the last `snapshots`
-  // entry by date.
-  latestSnapshot: KfpSnapshot | null;
 }
 
 // ---------------------------------------------------------------------------
@@ -335,6 +332,35 @@ export interface MinistryProcurementFile {
   // null when data/procurement/ is not available at ingest time.
   procurementIndexGeneratedAt: string | null;
   entries: MinistryProcurement[];
+}
+
+// ---------------------------------------------------------------------------
+// Per-ministry rollup — data/budget/ministries/<nodeId>.json
+// ---------------------------------------------------------------------------
+
+// A self-contained slice for the ministry detail screen: everything that
+// screen renders for one spending unit, so it fetches ONE small file instead
+// of every year's whole-corpus reconciliation + the program registry.
+export interface MinistryRollupYear {
+  fiscalYear: number;
+  revenue: Money | null;
+  expenditure: Money | null;
+  balance: Money | null;
+  programs: Array<{
+    nodeId: string;
+    nameBg: string;
+    nameEn: string;
+    planned: Money | null;
+  }>;
+}
+
+export interface MinistryRollup {
+  nodeId: string; // admin classification node id (the route param)
+  nameBg: string;
+  nameEn: string;
+  eik: string | null; // procurement awarder EIK, when matched
+  years: MinistryRollupYear[]; // ascending by fiscalYear
+  procurement: MinistryProcurement | null;
 }
 
 // Provenance stamp carried by every fact / observation back to documents.json.

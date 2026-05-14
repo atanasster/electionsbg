@@ -10,6 +10,7 @@ import type {
   BudgetDocumentsFile,
   KfpFile,
   MinistryProcurementFile,
+  MinistryRollup,
 } from "./types";
 
 const fetchJson = async <T,>(path: string): Promise<T | null> => {
@@ -49,5 +50,17 @@ export const useMinistryProcurement = () =>
       fetchJson<MinistryProcurementFile>(
         "/budget/derived/ministry_procurement.json",
       ),
+    staleTime: Infinity,
+  });
+
+// One spending unit's self-contained rollup — the single small file the
+// ministry detail screen fetches (years of figures + programs + procurement),
+// instead of every year's whole-corpus reconciliation. 404 → null.
+export const useBudgetMinistryRollup = (nodeId: string | undefined) =>
+  useQuery({
+    queryKey: ["budget", "ministry", nodeId] as const,
+    queryFn: () =>
+      fetchJson<MinistryRollup>(`/budget/ministries/${nodeId}.json`),
+    enabled: !!nodeId,
     staleTime: Infinity,
   });

@@ -36,6 +36,7 @@ import { parseLawHtml } from "./law_html";
 import type { ParsedLawUnit } from "./law_html";
 import { buildAdminRegistry, buildLawFacts, buildProgramData } from "./facts";
 import { crossReferenceProcurement } from "./cross_reference";
+import { buildMinistryRollups } from "./ministries";
 import { buildEconomicFacts } from "./normalize_egov";
 import {
   buildAdminReconciliation,
@@ -48,6 +49,7 @@ import {
   canonicalJson,
   checkDiffSize,
   countDomainFiles,
+  pruneDir,
   runCanary,
   writeIfChanged,
 } from "./validate";
@@ -72,6 +74,7 @@ const ECONOMIC_REGISTRY_FILE = path.join(CLASSIFICATION_DIR, "economic.json");
 const PROGRAM_REGISTRY_FILE = path.join(CLASSIFICATION_DIR, "program.json");
 const FACTS_DIR = path.join(BUDGET_DIR, "facts");
 const RECONCILIATION_DIR = path.join(BUDGET_DIR, "reconciliation");
+const MINISTRIES_DIR = path.join(BUDGET_DIR, "ministries");
 const MINISTRY_PROCUREMENT_FILE = path.join(
   BUDGET_DIR,
   "derived",
@@ -211,7 +214,7 @@ const main = async (args: {
   // 3. Build КФП outputs.
   const kfp = buildKfpFile(parsed, SOURCES);
   console.log(
-    `  kfp.json: ${kfp.observations.length} observation(s), latest ${kfp.latestSnapshot?.period ?? "—"}`,
+    `  kfp.json: ${kfp.observations.length} observation(s), ${kfp.snapshots.length} snapshot(s)`,
   );
 
   // 3b. State Budget Laws — parse the Държавен вестник HTML for each year into
@@ -270,6 +273,17 @@ const main = async (args: {
     `  program registry: ${programRegistry.nodes.length} node(s); ` +
       `facts: ${[...programFactsByYear.values()].reduce((n, f) => n + f.length, 0)} row(s)`,
   );
+
+  // 3d. Per-ministry rollups — one self-contained slice per spending unit so
+  // the ministry detail screen fetches a single small file.
+  const ministryRollups = buildMinistryRollups(
+    adminRegistry,
+    adminReconByYear,
+    programRegistry,
+    programReconByYear,
+    ministryProcurement,
+  );
+  console.log(`  ministry rollups: ${ministryRollups.length} file(s)`);
 
   // 3c. Economic grain — the egov feed's plan + execution columns give a real
   // plan-vs-actual pair per economic node. Reconciliation computes the variance.
@@ -379,6 +393,35 @@ const main = async (args: {
     const file = path.join(RECONCILIATION_DIR, String(year), "by-program.json");
     if (writeIfChanged(file, canonicalJson(rows))) touched++;
   }
+  // Per-ministry rollups — the sliced files the ministry detail screen reads.
+  for (const rollup of ministryRollups) {
+    const file = path.join(MINISTRIES_DIR, `${rollup.nodeId}.json`);
+    if (writeIfChanged(file, canonicalJson(rollup))) touched++;
+  }
+
+  // 4b. Prune orphan files from the regenerable shard dirs (a renamed node or
+  // a parser change can leave stale files behind — e.g. the old facts/law.json).
+  let pruned = pruneDir(
+    MINISTRIES_DIR,
+    new Set(ministryRollups.map((r) => `${r.nodeId}.json`)),
+  );
+  const FACT_FILES = new Set(["admin.json", "economic.json", "program.json"]);
+  const RECON_FILES = new Set([
+    "by-admin.json",
+    "by-economic.json",
+    "by-program.json",
+  ]);
+  for (const yearDir of fs.existsSync(FACTS_DIR)
+    ? fs.readdirSync(FACTS_DIR)
+    : []) {
+    pruned += pruneDir(path.join(FACTS_DIR, yearDir), FACT_FILES);
+  }
+  for (const yearDir of fs.existsSync(RECONCILIATION_DIR)
+    ? fs.readdirSync(RECONCILIATION_DIR)
+    : []) {
+    pruned += pruneDir(path.join(RECONCILIATION_DIR, yearDir), RECON_FILES);
+  }
+  if (pruned > 0) console.log(`→ pruned ${pruned} stale shard file(s)`);
 
   // 5. Diff cap.
   checkDiffSize(baselineFileCount, touched);

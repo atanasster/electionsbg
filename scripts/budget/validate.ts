@@ -97,3 +97,17 @@ export const writeIfChanged = (file: string, text: string): boolean => {
   fs.writeFileSync(file, text);
   return true;
 };
+
+// Delete *.json files directly in `dir` whose basename is not in `keep` — for
+// pruning regenerable shard dirs (a renamed node or a parser change can leave
+// orphan files behind). Returns the count pruned.
+export const pruneDir = (dir: string, keep: Set<string>): number => {
+  if (!fs.existsSync(dir)) return 0;
+  let pruned = 0;
+  for (const entry of fs.readdirSync(dir)) {
+    if (!entry.endsWith(".json") || keep.has(entry)) continue;
+    fs.unlinkSync(path.join(dir, entry));
+    pruned++;
+  }
+  return pruned;
+};

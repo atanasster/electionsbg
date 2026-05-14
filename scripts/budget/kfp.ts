@@ -401,18 +401,13 @@ export const buildKfpFile = (
       ? a.series.localeCompare(b.series)
       : a.period.localeCompare(b.period),
   );
-  const snapshots = buildSnapshots(parsed);
-  const latest = [...parsed].sort((a, b) =>
-    a.header.asOf.localeCompare(b.header.asOf),
-  )[parsed.length - 1];
   return {
     generatedAt: new Date().toISOString(),
     country: "BG",
     constituentBudget: "state",
     sources,
     observations,
-    snapshots,
-    latestSnapshot: latest ? snapshotFromParsed(latest) : null,
+    snapshots: buildSnapshots(parsed),
   };
 };
 

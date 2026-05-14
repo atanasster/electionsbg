@@ -73,7 +73,6 @@ export interface KfpFile {
   sources: Record<string, string>;
   observations: KfpObservation[];
   snapshots: KfpSnapshot[];
-  latestSnapshot: KfpSnapshot | null;
 }
 
 // Full-year figures for one fiscal year, one Money per top-level series.
@@ -194,6 +193,30 @@ export interface MinistryProcurementFile {
   generatedAt: string;
   procurementIndexGeneratedAt: string | null;
   entries: MinistryProcurement[];
+}
+
+// Per-ministry rollup — the self-contained slice the ministry detail screen
+// fetches (one small file instead of every year's whole-corpus reconciliation).
+export interface MinistryRollupYear {
+  fiscalYear: number;
+  revenue: Money | null;
+  expenditure: Money | null;
+  balance: Money | null;
+  programs: Array<{
+    nodeId: string;
+    nameBg: string;
+    nameEn: string;
+    planned: Money | null;
+  }>;
+}
+
+export interface MinistryRollup {
+  nodeId: string;
+  nameBg: string;
+  nameEn: string;
+  eik: string | null;
+  years: MinistryRollupYear[];
+  procurement: MinistryProcurement | null;
 }
 
 export interface BudgetYearCoverage {
