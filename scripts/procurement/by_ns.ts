@@ -18,7 +18,7 @@
 
 import fs from "fs";
 import path from "path";
-import type { Contract, MpConnectedFile } from "./types";
+import type { Contract, MpCompanyRelation, MpConnectedFile } from "./types";
 import { canonicalJson } from "./validate";
 
 // Same fixed-rate table as src/screens/components/candidates/procurement/
@@ -93,7 +93,26 @@ export interface NsTopMp {
   // Top 3 contractor names — enough to identify "what this MP is connected
   // to" without fetching the per-MP file.
   topContractorNames: string[];
+  // Worst confidence across the MP's contributing (mpId, EIK) links. "high"
+  // only if every contributing link is high; otherwise "medium". Lets the UI
+  // flag rows that rest on a name-match-only TR link so a reader can judge
+  // whether the row needs verification.
+  confidence: "high" | "medium";
 }
+
+// A stake relation is self-declared by the MP (sourced from register.cacbg.bg
+// declarations), so it's the strongest possible signal — implicitly "high".
+// TR-derived roles carry an explicit confidence from integrate.ts. Combine.
+const computeLinkConfidence = (
+  relations: MpCompanyRelation[],
+): "high" | "medium" => {
+  let best: "high" | "medium" = "medium";
+  for (const r of relations) {
+    if (r.kind === "stake") return "high";
+    if (r.confidence === "high") best = "high";
+  }
+  return best;
+};
 
 export interface ProcurementByNs {
   electionDate: string; // "2026_04_19"
@@ -250,13 +269,20 @@ const accumulate = (
 // Materialise the per-MP totals from the date-filtered accumulator. Picks
 // each MP's top 3 contractors (by EUR) for the preview label so the SPA can
 // render "MP X · top: COMPANY A, COMPANY B" without a second fetch.
-const materialiseTopMps = (acc: Accum): NsTopMp[] =>
+const materialiseTopMps = (
+  acc: Accum,
+  linkConfidence: Map<string, "high" | "medium">,
+): NsTopMp[] =>
   [...acc.byMp.entries()]
     .map(([mpId, v]) => {
       const topContractorNames = [...v.byContractor.values()]
         .sort((a, b) => b.eur - a.eur)
         .slice(0, 3)
         .map((c) => c.name);
+      const eiks = [...v.byContractor.keys()];
+      const allHigh = eiks.every(
+        (eik) => linkConfidence.get(`${mpId}|${eik}`) === "high",
+      );
       return {
         mpId,
         mpName: v.mpName,
@@ -264,6 +290,7 @@ const materialiseTopMps = (acc: Accum): NsTopMp[] =>
         contractCount: v.count,
         contractorCount: v.contractorEiks.size,
         topContractorNames,
+        confidence: (allHigh ? "high" : "medium") as "high" | "medium",
       };
     })
     .sort((a, b) => b.totalEur - a.totalEur)
@@ -277,6 +304,10 @@ export const buildByNs = (
   // EIK → MPs map for per-row attribution during the corpus walk.
   const eikToMps = new Map<string, MpLink[]>();
   const mpTiedEiks = new Map<string, number[]>();
+  // (mpId, EIK) → confidence ("high" if any stake or high-confidence TR role,
+  // else medium). Used to downgrade a top-MP row that rests on a name-match-only
+  // TR link, so the procurement UI can flag it.
+  const linkConfidence = new Map<string, "high" | "medium">();
   for (const e of opts.mpConnected.entries) {
     const arr = eikToMps.get(e.contractorEik) ?? [];
     if (!arr.some((m) => m.mpId === e.mpId)) {
@@ -286,6 +317,10 @@ export const buildByNs = (
     const ids = mpTiedEiks.get(e.contractorEik) ?? [];
     if (!ids.includes(e.mpId)) ids.push(e.mpId);
     mpTiedEiks.set(e.contractorEik, ids);
+    linkConfidence.set(
+      `${e.mpId}|${e.contractorEik}`,
+      computeLinkConfidence(e.relations),
+    );
   }
   const accums = accumulate(opts.contractsDir, ranges, eikToMps);
   let filesWritten = 0;
@@ -312,7 +347,7 @@ export const buildByNs = (
       }))
       .sort((a, b) => b.totalEur - a.totalEur)
       .slice(0, TOP_N);
-    const topMps = materialiseTopMps(acc);
+    const topMps = materialiseTopMps(acc, linkConfidence);
     const totalEur = [...acc.byContractor.values()].reduce(
       (s, v) => s + v.eur,
       0,

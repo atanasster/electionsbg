@@ -50,6 +50,13 @@ type MpIndexEntry = {
   currentRegion: { code: string; name: string } | null;
   currentPartyGroup: string | null;
   isCurrent: boolean;
+  /** NS terms the MP held a mandate in. Empty for non-seated candidates that
+   * parliament.bg's `--all` scrape pulls in alongside actual MPs. */
+  nsFolders: string[];
+  /** Local photo path; empty string when parliament.bg returns the blank
+   * silhouette (typically for non-seated candidate profiles). Used as one of
+   * the cohort signals for distinguishing real MPs from electoral candidates. */
+  photoUrl: string;
 };
 type ParliamentIndex = {
   scrapedAt: string;
@@ -234,6 +241,35 @@ export type IntegrateTrResult = {
   mpFilesWritten: number;
   mpHighConfidence: number;
   mpMediumConfidence: number;
+  mpRolesSuppressed: number;
+  mpsSkippedNotSeated: number;
+};
+
+// Editorial suppression list for confirmed false-positive name matches.
+// Lives at data/declarations/tr_match_suppressions.json so Phase-2 web-search
+// verification can append to it programmatically. See the file's own entries
+// for the rationale on each suppression.
+type TrMatchSuppressionEntry = {
+  mpId: number;
+  uic: string;
+  mpName?: string;
+  companyName?: string;
+  reason?: string;
+  sources?: string[];
+  verifiedAt?: string;
+};
+
+const loadTrMatchSuppressions = (publicFolder: string): Set<string> => {
+  const file = path.join(
+    publicFolder,
+    "declarations",
+    "tr_match_suppressions.json",
+  );
+  if (!fs.existsSync(file)) return new Set();
+  const entries = JSON.parse(
+    fs.readFileSync(file, "utf-8"),
+  ) as TrMatchSuppressionEntry[];
+  return new Set(entries.map((e) => `${e.mpId}|${e.uic}`));
 };
 
 export const integrateTr = ({
@@ -394,7 +430,13 @@ export const integrateTr = ({
   // Build a uic → set of mpIds (from declarations) for the high-confidence
   // "another MP of the same party already declared a stake in this UIC" rule.
   const uicToDeclaredMpIds = new Map<string, Set<number>>();
+  // Cohort backfill: any MP who filed a declaration counts as a real MP even
+  // if their parliament.bg `oldnsList` is empty (e.g. pre-1997 mandates before
+  // parliament.bg coverage). Self-declaration is independent evidence that
+  // they held a mandate at some point.
+  const mpIdsWithDeclarations = new Set<number>();
   for (const c of companiesIndex.companies) {
+    for (const s of c.stakes) mpIdsWithDeclarations.add(s.mpId);
     const uic = c.tr?.uic;
     if (!uic) continue;
     const set = uicToDeclaredMpIds.get(uic) ?? new Set<number>();
@@ -425,11 +467,26 @@ export const integrateTr = ({
     "parliament",
     "mp-management",
   );
+  // Wipe and recreate so per-MP files from prior runs (including non-seated
+  // profiles now excluded by the cohort filter, or MPs whose roles were all
+  // suppressed via tr_match_suppressions.json) don't linger and feed into
+  // downstream consumers like build_connections_graph.ts phase 2.
+  if (fs.existsSync(mpManagementDir)) {
+    for (const file of fs.readdirSync(mpManagementDir)) {
+      if (file.endsWith(".json")) {
+        fs.unlinkSync(path.join(mpManagementDir, file));
+      }
+    }
+  }
   fs.mkdirSync(mpManagementDir, { recursive: true });
 
   let mpFilesWritten = 0;
   let mpHighConfidence = 0;
   let mpMediumConfidence = 0;
+  let mpRolesSuppressed = 0;
+  let mpsSkippedNotSeated = 0;
+
+  const trMatchSuppressions = loadTrMatchSuppressions(publicFolder);
 
   // Index MP party-group → set of mpIds. Used for the "same-party already
   // declared this UIC" arm of the high-confidence rule.
@@ -443,6 +500,30 @@ export const integrateTr = ({
   }
 
   for (const mp of mpIndex.mps) {
+    // Cohort filter: parliament.bg's `--all` scrape includes every profile id,
+    // which sweeps in non-seated candidates (people in their member DB who
+    // never held a mandate — typically electoral-list candidates who lost).
+    // For TR matching we only want actual MPs. A profile passes when at least
+    // one of these is true:
+    //   - currently seated (`isCurrent`), OR
+    //   - has at least one historical NS folder (parliament.bg covers ~38th NS
+    //     onward), OR
+    //   - filed a CACBG declaration (covers pre-1997 mandates and any case
+    //     where parliament.bg's `oldnsList` is incomplete), OR
+    //   - has a real photo (parliament.bg returns the blank silhouette for
+    //     non-seated candidate profiles — the scraper strips it to "").
+    // Without this check, a common name like "Пламен Иванов Иванов" attached
+    // to a never-seated candidate profile would still match every TR officer
+    // with the same name and surface on the procurement page as an "MP".
+    const isSeatedCohort =
+      mp.isCurrent ||
+      mp.nsFolders.length > 0 ||
+      mpIdsWithDeclarations.has(mp.id) ||
+      !!mp.photoUrl;
+    if (!isSeatedCohort) {
+      mpsSkippedNotSeated++;
+      continue;
+    }
     const rows = allRolesByName.all(mp.normalizedName) as RoleRow[];
     if (rows.length === 0) continue;
 
@@ -454,9 +535,18 @@ export const integrateTr = ({
 
     const roles: MpManagementRole[] = [];
     for (const r of rows) {
+      if (trMatchSuppressions.has(`${mp.id}|${r.uic}`)) {
+        mpRolesSuppressed++;
+        continue;
+      }
       const seatNorm = r.seat ? normalizeName(r.seat) : "";
       const seatMatch = !!region && seatNorm.includes(region);
       const declaredMps = uicToDeclaredMpIds.get(r.uic);
+      // Self-declaration is the strongest possible witness: the MP themselves
+      // filed a stake in this UIC, which independently confirms the identity
+      // behind the TR name match. Distinct from partyMatch, which corroborates
+      // via a different same-party MP's declaration.
+      const selfMatch = !!declaredMps && declaredMps.has(mp.id);
       const partyMatch =
         !!declaredMps &&
         !!partyMpIds &&
@@ -469,6 +559,10 @@ export const integrateTr = ({
       if (seatMatch) {
         confidence = "high";
         reasons.push(`seat contains MP region "${regionName}"`);
+      }
+      if (selfMatch) {
+        confidence = "high";
+        reasons.push("MP declared a stake in this UIC");
       }
       if (partyMatch) {
         confidence = "high";
@@ -521,7 +615,13 @@ export const integrateTr = ({
 
   console.log(
     `[tr/integrate] wrote ${mpFilesWritten} mp-management file(s) — ` +
-      `${mpHighConfidence} high-confidence roles, ${mpMediumConfidence} medium`,
+      `${mpHighConfidence} high-confidence roles, ${mpMediumConfidence} medium` +
+      (mpRolesSuppressed
+        ? `, ${mpRolesSuppressed} suppressed via tr_match_suppressions.json`
+        : "") +
+      (mpsSkippedNotSeated
+        ? `, ${mpsSkippedNotSeated} non-seated profile(s) skipped`
+        : ""),
   );
 
   return {
@@ -530,5 +630,7 @@ export const integrateTr = ({
     mpFilesWritten,
     mpHighConfidence,
     mpMediumConfidence,
+    mpRolesSuppressed,
+    mpsSkippedNotSeated,
   };
 };

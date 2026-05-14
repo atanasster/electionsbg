@@ -11,6 +11,7 @@ import { Title } from "@/ux/Title";
 import { useProcurementByNs } from "@/data/procurement/useProcurementByNs";
 import type { ProcurementByNsTopMp } from "@/data/dataTypes";
 import { MpAvatar } from "./components/candidates/MpAvatar";
+import { ConfidenceBadge } from "./components/connections/ConfidenceBadge";
 
 const formatEur = new Intl.NumberFormat("bg-BG", { maximumFractionDigits: 0 });
 
@@ -38,13 +39,18 @@ export const TopMpsScreen: FC = () => {
           const e = row.original;
           return (
             <div>
-              <Link
-                to={`/candidate/mp-${e.mpId}#mp-procurement`}
-                className="font-medium hover:underline inline-flex items-center gap-2"
-              >
-                <MpAvatar mpId={e.mpId} name={e.mpName} />
-                {e.mpName}
-              </Link>
+              <span className="inline-flex items-center gap-2">
+                <Link
+                  to={`/candidate/mp-${e.mpId}#mp-procurement`}
+                  className="font-medium hover:underline inline-flex items-center gap-2"
+                >
+                  <MpAvatar mpId={e.mpId} name={e.mpName} />
+                  {e.mpName}
+                </Link>
+                {e.confidence === "medium" ? (
+                  <ConfidenceBadge confidence="medium" showHigh={false} />
+                ) : null}
+              </span>
               {e.topContractorNames.length > 0 ? (
                 <div className="text-xs text-muted-foreground truncate max-w-md">
                   {e.topContractorNames.join(", ")}

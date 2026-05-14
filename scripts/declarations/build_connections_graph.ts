@@ -61,6 +61,7 @@ type MpIndexEntry = {
   currentPartyGroupShort: string | null;
   nsFolders: string[];
   isCurrent: boolean;
+  photoUrl: string;
 };
 type ParliamentIndex = { mps: MpIndexEntry[] };
 
@@ -347,11 +348,7 @@ export const buildConnectionsGraph = ({
   );
 
   const mpById = new Map<number, MpIndexEntry>();
-  const mpByNormName = new Map<string, MpIndexEntry>();
-  for (const mp of mpIndex.mps) {
-    mpById.set(mp.id, mp);
-    mpByNormName.set(mp.normalizedName, mp);
-  }
+  for (const mp of mpIndex.mps) mpById.set(mp.id, mp);
 
   // For MPs whose parliament.bg profile has an empty oldnsList (e.g. ex-MPs
   // like Ивелин Михайлов whose record never picked up the historical NS
@@ -359,14 +356,35 @@ export const buildConnectionsGraph = ({
   // declaration entry carries an institution string like
   // "51-во Народно събрание".
   const declaredNsFoldersByMp = new Map<number, Set<string>>();
+  const mpIdsWithDeclarations = new Set<number>();
   for (const company of companiesIndex.companies) {
     for (const stake of company.stakes) {
+      mpIdsWithDeclarations.add(stake.mpId);
       const m = stake.institution?.match(/^(\d{2})-/);
       if (!m) continue;
       const set = declaredNsFoldersByMp.get(stake.mpId) ?? new Set<string>();
       set.add(m[1]);
       declaredNsFoldersByMp.set(stake.mpId, set);
     }
+  }
+
+  // Cohort filter for name-based TR matching: parliament.bg's `--all` scrape
+  // pulls every profile id, including non-seated electoral candidates. Their
+  // common names (e.g. "Пламен Иванов Иванов") would otherwise match real TR
+  // officers and surface as MP↔company edges on the connections graph + the
+  // procurement page. Same predicate as scripts/declarations/tr/integrate.ts.
+  // Keeps `mpById` unfiltered so existing declared-stake edges (which key on
+  // declarant mpId, not name) keep working — only excludes non-seated profiles
+  // from the name-based lookup used in TR officer expansion below.
+  const mpByNormName = new Map<string, MpIndexEntry>();
+  for (const mp of mpIndex.mps) {
+    const isSeatedCohort =
+      mp.isCurrent ||
+      mp.nsFolders.length > 0 ||
+      mpIdsWithDeclarations.has(mp.id) ||
+      !!mp.photoUrl;
+    if (!isSeatedCohort) continue;
+    mpByNormName.set(mp.normalizedName, mp);
   }
   const nsFoldersForMp = (mpId: number): string[] => {
     const fromIndex = mpById.get(mpId)?.nsFolders ?? [];

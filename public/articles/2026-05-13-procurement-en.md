@@ -5,8 +5,7 @@ keywords:
   - data.egov.bg
   - state contracts
   - MP-connected companies
-  - Sofarma Trading
-  - Ministry of Health
+  - Energy Supply EOOD
   - CAIS EOP
   - cacbg
   - Commerce Registry
@@ -17,9 +16,9 @@ keywords:
 
 For years Bulgarian voters have been able to see *how* a given MP voted, *where* they were elected from, and *what* they declared as assets or shareholdings. What was missing — without manually downloading thousands of JSON bundles from data.egov.bg and cross-checking against the [MP business graph](/connections) — was the other side of the redistribution ledger: **which companies the state actually pays, how much they have been paid, and which of those companies have a recorded link to a sitting or former MP**.
 
-The new [Public procurement](/procurement) module fills exactly that gap. The corpus currently holds **244,556 contracts and amendments** from **3,369 awarders** to **23,123 contractors**, covering **2011 through 2026**. During the post-2026-04-19 period (the 52nd National Assembly), 7 MPs have connected companies that received a combined €1.4M. Across the full 15-year corpus — **77 MPs are linked to 91 companies that together have received over €2.6B in state contracts**.
+The new [Public procurement](/procurement) module fills exactly that gap. The corpus currently holds **244,556 contracts and amendments** from **3,369 awarders** to **23,123 contractors**, covering **2011 through 2026**. During the post-2026-04-19 period (the 52nd National Assembly), 4 MPs have connected companies that received a combined €283K. Across the full 15-year corpus — **63 MPs are linked to 69 companies that together have received over €1B in state contracts**.
 
-This article walks through the data sources, the four new pages (full corpus, company, awarder, MP), and ends with a worked example: a former MP whose Commerce Registry record names him as representative and director of Bulgaria's largest pharmaceutical distributor — a company with nearly 4,000 state contracts totalling €1.59B.
+This article walks through the data sources, the four new pages (full corpus, company, awarder, MP), and ends with a worked example: a three-term former MP who openly declared a shareholding in an energy-supply company that has won €7M in contracts across the railway operator, the Naval Command, and the Council of Ministers.
 
 ---
 
@@ -94,11 +93,11 @@ Three tiles with "See all →" links to dedicated pages:
 
 ---
 
-## 5. The contractor page — [/company/:eik](/company/103267194)
+## 5. The contractor page — [/company/:eik](/company/175392783)
 
 A dashboard-style page for every contractor company. Four KPI cards at the top (total awarded, contracts, awarders, MP-connected), beneath them a "MP linkages" tile (when applicable), a dual-axis "By year" chart (bars for euro value, line for contract count), and two side-by-side tiles at the bottom:
 
-- **Top contracts** — the company's ten largest contracts by value, with date, awarder, amount, and a direct link to [CAIS ЕОП](https://app.eop.bg/) for each. The *See all →* link opens the full paginated table at [/company/:eik/contracts](/company/103267194/contracts).
+- **Top contracts** — the company's ten largest contracts by value, with date, awarder, amount, and a direct link to [CAIS ЕОП](https://app.eop.bg/) for each. The *See all →* link opens the full paginated table at [/company/:eik/contracts](/company/175392783/contracts).
 - **Top awarders** — which state institutions have paid this company the most, with total amount and contract count for each.
 
 A footer line at the bottom of the page cites the source and links to data.egov.bg.
@@ -107,9 +106,9 @@ A footer line at the bottom of the page cites the source and links to data.egov.
 
 A mirror dashboard of the contractor page, but from the buyer side — what is this institution's total state spending, to which contractors, in which years, and which of those contractors are MP-linked. When the awarder is a municipality or central government institution, the page lists in a dedicated card exactly the contractors with connected persons in parliament — along with the total each has been paid.
 
-## 7. The MP page — [/candidate/:id](/candidate/mp-2237)
+## 7. The MP page — [/candidate/:id](/candidate/mp-3410)
 
-In the profile of every MP whose recorded-linked companies appear in the corpus, a new **"Connected companies with public procurement"** tile has been added. It lists every such company with the linkage type (management role or shareholding), the total contract value, and a link to the company's own page. The *See full details →* link opens a dedicated page at [/candidate/:id/procurement](/candidate/mp-2237/procurement), which for every linked company shows:
+In the profile of every MP whose recorded-linked companies appear in the corpus, a new **"Connected companies with public procurement"** tile has been added. It lists every such company with the linkage type (management role or shareholding), the total contract value, and a link to the company's own page. The *See full details →* link opens a dedicated page at [/candidate/:id/procurement](/candidate/mp-3410/procurement), which for every linked company shows:
 
 - Linkage type (representative, director, partner, beneficial owner, procurator, liquidator, declared shareholding)
 - Contract count and total value in euros
@@ -120,48 +119,50 @@ A summary line at the top of the page reads *N companies · M contracts · €X 
 
 ---
 
-## 8. A worked example — the former MP and the pharmaceutical distributor
+## 8. A worked example — the former MP and the energy-supply company
 
-This example sits at the top of the [Top MPs by connected procurement](/procurement/mps) ranking the moment you open the module. It is also the densest single case in the entire corpus.
+This is the cleanest high-confidence case in the corpus: the MP himself declared the shareholding to the Audit Office, so the "is this the right person?" question doesn't arise.
 
 ### The two sides
 
-- **[Dimitar Georgiev Dimitrov](/candidate/mp-2237)** — former MP, recorded in the Commerce Registry as *representative* and *director* of the company below.
-- **[SOPHARMA TRADING AD](/company/103267194)** (EIK 103267194) — Bulgaria's largest pharmaceutical distributor.
+- **[Georgi Stoyanov Kadiev](/candidate/mp-3410)** — former three-term MP (40th, 42nd, and 43rd National Assembly), who in his Audit Office filing declared a shareholding in the company below.
+- **[ENERGY SUPPLY EOOD](/company/175392783)** (EIK 175392783) — an energy supplier registered in Bulgaria.
 
-The link is a name match against the Commerce Registry (confidence: medium — as is the case for most Commerce Registry-only entries) and is currently active.
+The link is **high confidence** — sourced not from a Commerce Registry name match but from the MP's own filing.
 
 ### The numbers
 
-Across the full 15-year corpus, [Sopharma Trading's page](/company/103267194) shows:
+Across the full 15-year corpus, [Energy Supply's page](/company/175392783) shows:
 
-- **3,985 contracts + amendments** from **50 state awarders**
-- **Total value €1.58B** (€228M in EUR after the eurozone transition + 2.64B leva for 2011–2025)
-- The "By year" chart shows a steady run of around €70–100M per year through 2011–2019, then a sharp jump in 2022 — €280M across 580 contracts (the bar tooltip for 2022 confirms the numbers).
+- **22 contracts + amendments** from a small set of state buyers
+- **Total value ≈ €7.06M**
 
-The top five awarders for this company:
+The top three awarders for this company:
 
-| awarder | total | contracts |
-|---|---|---|
-| [Ministry of Health](/awarder/000695317) | €132.2M | 734 |
-| [University Hospital "Sveti Georgi" EAD (Plovdiv)](/awarder/115576405) | €111.5M | 71 |
-| [Military Medical Academy](/awarder/129000273) | €111.3M | 96 |
-| University Hospital "Dr Georgi Stranski" EAD (Pleven) | €131.1M | 89 |
-| Specialised Hospital for Active Treatment of Haematological Diseases EAD | €106.2M | 45 |
+| awarder | total |
+|---|---|
+| National Railway Infrastructure Company (НКЖИ) | BGN 2.95M |
+| Naval Forces Command, Varna | BGN 2.44M |
+| Council of Ministers | BGN 1.78M |
 
-In other words: more than half of Bulgaria's largest oncology and university hospitals have paid this company under public procurement. That **is not in itself surprising** — Sopharma Trading is a national distributor of medicines, diagnostics and medical devices, and oncology therapies and hospital supply are markets where a small number of registered distributors cover the whole country. But the fact that the company's representative and director (per the Commerce Registry record) was a Member of Parliament is worth seeing — and that is precisely what this module is for.
+This is exactly the scenario the declaration system was designed for: the MP openly registered the interest, the state openly signed the contracts, and a citizen can now see both sides together in a couple of minutes — without downloading hundreds of XML files.
 
-### Why medium confidence
+### Why this is high confidence (and why most rows aren't)
 
-The link is labelled "medium confidence" because the name match against the Commerce Registry is purely textual — without cross-confirmation from electoral district or co-declaration. This is the *conservative* part of the system: it includes any record whose name matches unambiguously, and leaves it to the reader to verify whether it is in fact the same physical person. The source link to the Commerce Registry record is one click away on the company page's "MP linkages" tile.
+Most MP↔company rows on the dashboard sit at *medium* confidence — they rest on a name match against the Commerce Registry's officer list, without further corroboration. A row is **promoted to high** only when at least one of these is true:
 
-By contrast, *high-confidence* links are confirmed by at least one additional signal — typically a co-declaration in [register.cacbg.bg](https://register.cacbg.bg/) or a clear cross-reference from a party list.
+1. **The MP self-declared the shareholding** — as Kadiev did here; this is the strongest possible witness because it's the MP themselves saying "yes, this is me."
+2. **The company's registered seat overlaps the MP's electoral district** — independent geographic evidence.
+3. **A co-partisan MP also declared the same company** — the second declaration corroborates the identity.
 
-### What is (and isn't) visible
+What the medium label honestly admits: "the name matches, the rest is up to you." A national pharmaceutical-distributor executive named Dimitar Dimitrov, for example, will share a name with thousands of unrelated Bulgarian citizens; the conservative thing is to flag rather than assert.
 
-What *is* visible in the data: a former MP is recorded in the public Commerce Registry as representative and director of a company that between 2011 and 2026 has won close to 4,000 state contracts totalling €1.59B, of which a quarter comes from the Ministry of Health alone.
+### What we actively suppress
 
-What is **not** visible: whether those contracts were won by tender or directly awarded, whether prices were above market, whether a management role here implies active involvement in bidding or merely formal corporate representation before the state. The module *does not answer* those questions — they are answered by [АОП](https://app.eop.bg/), [CAIS ЕОП](https://app.eop.bg/) and the Competition Protection Commission, not by the chart here.
+Two classes of false positive are stripped before the data ever hits the dashboard:
+
+- **Non-seated profiles**: `parliament.bg` returns a full registry of every name in its database — including electoral-list candidates who never won a seat. With common Bulgarian name combinations, a never-seated profile would otherwise attach to dozens of unrelated Commerce Registry officers. Profiles with no current term, no historical term, no Audit Office declaration, and no parliament-issued photo are excluded automatically.
+- **Confirmed name collisions**: where public reporting clearly identifies a different individual behind a Commerce Registry record (a corporate executive with a common name who is demonstrably not the politician), the row is added to a hand-maintained suppression list and never reaches the published data.
 
 ---
 

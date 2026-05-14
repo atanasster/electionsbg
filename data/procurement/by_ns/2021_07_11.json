@@ -2,7 +2,7 @@
   "electionDate": "2021_07_11",
   "start": "2021-07-11",
   "end": "2021-11-14",
-  "generatedAt": "2026-05-13T13:40:09.847Z",
+  "generatedAt": "2026-05-14T03:17:23.838Z",
   "totals": {
     "contracts": 2705,
     "amendments": 0,
@@ -10,9 +10,9 @@
     "contractorCount": 347,
     "awarderCount": 107,
     "totalEur": 451068388.4079905,
-    "mpCount": 4,
-    "mpConnectedContractorCount": 4,
-    "mpConnectedTotalEur": 31740191.023759723
+    "mpCount": 3,
+    "mpConnectedContractorCount": 3,
+    "mpConnectedTotalEur": 2062223.4550037582
   },
   "topContractors": [
     {
@@ -28,10 +28,8 @@
       "name": "Софарма Трейдинг АД (Предишно наименование: Санита Трейдинг АД - Варна)",
       "totalEur": 29677967.568755966,
       "contractCount": 372,
-      "mpTied": true,
-      "mpIds": [
-        2237
-      ]
+      "mpTied": false,
+      "mpIds": []
     },
     {
       "eik": "202513217",
@@ -724,16 +722,6 @@
   ],
   "topMps": [
     {
-      "mpId": 2237,
-      "mpName": "Димитър Георгиев Димитров",
-      "totalEur": 29677967.568755966,
-      "contractCount": 372,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "Софарма Трейдинг АД (Предишно наименование: Санита Трейдинг АД - Варна)"
-      ]
-    },
-    {
       "mpId": 805,
       "mpName": "Йордан Петков Йорданов",
       "totalEur": 2012169.871614609,
@@ -741,7 +729,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "Контракс АД  - старо - Контракс ЕАД - София"
-      ]
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 2657,
@@ -751,7 +740,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "Монбат АД - София"
-      ]
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 819,
@@ -761,7 +751,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "ПЛОВДИВИНВЕСТ АД - Пловдив"
-      ]
+      ],
+      "confidence": "medium"
     }
   ]
 }

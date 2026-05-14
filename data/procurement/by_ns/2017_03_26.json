@@ -2,7 +2,7 @@
   "electionDate": "2017_03_26",
   "start": "2017-03-26",
   "end": "2021-04-04",
-  "generatedAt": "2026-05-13T13:40:09.850Z",
+  "generatedAt": "2026-05-14T03:17:23.841Z",
   "totals": {
     "contracts": 58169,
     "amendments": 0,
@@ -10,9 +10,9 @@
     "contractorCount": 8135,
     "awarderCount": 1369,
     "totalEur": 18546107137.212433,
-    "mpCount": 42,
-    "mpConnectedContractorCount": 47,
-    "mpConnectedTotalEur": 433823691.70633435
+    "mpCount": 36,
+    "mpConnectedContractorCount": 39,
+    "mpConnectedTotalEur": 220966452.63136366
   },
   "topContractors": [
     {
@@ -76,10 +76,8 @@
       "name": "Софарма Трейдинг АД (Предишно наименование: Санита Трейдинг АД - Варна)",
       "totalEur": 208308505.98467132,
       "contractCount": 530,
-      "mpTied": true,
-      "mpIds": [
-        2237
-      ]
+      "mpTied": false,
+      "mpIds": []
     },
     {
       "eik": "177338186",
@@ -724,17 +722,6 @@
   ],
   "topMps": [
     {
-      "mpId": 2237,
-      "mpName": "Димитър Георгиев Димитров",
-      "totalEur": 208409940.81285167,
-      "contractCount": 533,
-      "contractorCount": 2,
-      "topContractorNames": [
-        "Софарма Трейдинг АД (Предишно наименование: Санита Трейдинг АД - Варна)",
-        "ЕВН Трейдинг Саут Ийст Юръп ЕАД, София"
-      ]
-    },
-    {
       "mpId": 3271,
       "mpName": "Георги Захаринин Попов",
       "totalEur": 73063609.82293962,
@@ -742,19 +729,20 @@
       "contractorCount": 1,
       "topContractorNames": [
         "Автомагистрали ЕАД"
-      ]
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 876,
       "mpName": "Христо Димитров Христов",
-      "totalEur": 43051368.24263866,
-      "contractCount": 47,
-      "contractorCount": 3,
+      "totalEur": 40713990.45418057,
+      "contractCount": 16,
+      "contractorCount": 2,
       "topContractorNames": [
         "АБ АД - Хасково",
-        "Джи И Хелткеър България ЕООД",
         "„КОРУНД-Х“ ЕООД"
-      ]
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 237,
@@ -764,7 +752,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "Национална електрическа компания ЕАД - София"
-      ]
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 805,
@@ -775,7 +764,8 @@
       "topContractorNames": [
         "Контракс АД  - старо - Контракс ЕАД - София",
         "Комнет България Холдинг ООД"
-      ]
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 1689,
@@ -785,7 +775,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "МИНИ МАРИЦА - ИЗТОК ЕАД"
-      ]
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 2476,
@@ -796,7 +787,8 @@
       "topContractorNames": [
         "Аквахим АД - гр. София",
         "Аквахим 2020 ЕООД"
-      ]
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 3026,
@@ -806,7 +798,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "Булгаргаз ЕАД - София"
-      ]
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 2647,
@@ -816,7 +809,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "АЛ И КО АД"
-      ]
+      ],
+      "confidence": "high"
     },
     {
       "mpId": 193,
@@ -826,18 +820,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "Минпроект ЕАД - София"
-      ]
-    },
-    {
-      "mpId": 722,
-      "mpName": "Веселин Борисов Черкезов",
-      "totalEur": 1745209.9620110134,
-      "contractCount": 6,
-      "contractorCount": 2,
-      "topContractorNames": [
-        "ЕСП Златни пясъци ООД",
-        "ВиК-Златни пясъци ООД"
-      ]
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 5094,
@@ -847,17 +831,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "Еврохим-Груп ООД - Габрово"
-      ]
-    },
-    {
-      "mpId": 2115,
-      "mpName": "Пламен Иванов Иванов",
-      "totalEur": 1149526.6255247134,
-      "contractCount": 13,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "НАПОИТЕЛНИ СИСТЕМИ ЕАД КЛОН СРЕДЕН ДУНАВ ПЛЕВЕН"
-      ]
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 4649,
@@ -867,7 +842,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "НАПОИТЕЛНИ СИСТЕМИ ЕАД КЛОН СРЕДЕН ДУНАВ ПЛЕВЕН"
-      ]
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 2657,
@@ -877,7 +853,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "Монбат АД - София"
-      ]
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 4170,
@@ -887,7 +864,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "Солво ООД - София"
-      ]
+      ],
+      "confidence": "high"
     },
     {
       "mpId": 3169,
@@ -897,7 +875,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "УНИВЕРСИТЕТСКА МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ И СПЕШНА МЕДИЦИНА Н.И. ПИРОГОВ ЕАД"
-      ]
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 3655,
@@ -907,7 +886,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "УНИВЕРСИТЕТСКА МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ И СПЕШНА МЕДИЦИНА Н.И. ПИРОГОВ ЕАД"
-      ]
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 3410,
@@ -917,7 +897,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "Енерджи съплай ЕООД -  София"
-      ]
+      ],
+      "confidence": "high"
     },
     {
       "mpId": 3016,
@@ -927,7 +908,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "Ученически отдих и спорт ЕАД"
-      ]
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 2946,
@@ -938,7 +920,8 @@
       "topContractorNames": [
         "Джи пи ес системи България ЕООД - Пловдив",
         "РАДИО СОТ ООД"
-      ]
+      ],
+      "confidence": "high"
     },
     {
       "mpId": 5268,
@@ -948,7 +931,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "ПЪТСТРОЙ-92 АД"
-      ]
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 3185,
@@ -958,7 +942,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "АЛЛ Фреш лайн ЕООД - Плевен"
-      ]
+      ],
+      "confidence": "high"
     },
     {
       "mpId": 2440,
@@ -969,7 +954,8 @@
       "topContractorNames": [
         "НЮТЕК ИНЖЕНЕРИНГ ООД",
         "ОЛИМПИА АУТО АД - гр. Сливен"
-      ]
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 4745,
@@ -979,7 +965,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "Фармапро ООД - София"
-      ]
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 819,
@@ -989,17 +976,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "ПЛОВДИВИНВЕСТ АД"
-      ]
-    },
-    {
-      "mpId": 2097,
-      "mpName": "Николай Иванов Христов",
-      "totalEur": 288996.58968315244,
-      "contractCount": 8,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "Крепежи България Трейдинг ООД-Варна"
-      ]
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 928,
@@ -1009,7 +987,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "„ТИ енд ТИ“ ООД"
-      ]
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 4716,
@@ -1019,7 +998,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "Национална спортна база ЕАД"
-      ]
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 5197,
@@ -1029,7 +1009,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "Национална спортна база ЕАД"
-      ]
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 2456,
@@ -1039,7 +1020,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "Балканкар - Рекорд АД - Пловдив"
-      ]
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 1586,
@@ -1049,7 +1031,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "ЕВРО ФЕРТ АД  - Димитровград"
-      ]
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 5005,
@@ -1059,17 +1042,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "Тедей – М"
-      ]
-    },
-    {
-      "mpId": 1822,
-      "mpName": "Иван Георгиев Иванов",
-      "totalEur": 51171.91166921461,
-      "contractCount": 19,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "ВОДОСНАБДЯВАНЕ И КАНАЛИЗАЦИЯ ЕООД"
-      ]
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 1639,
@@ -1079,7 +1053,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "БРЕЙН ТРЪСТ СЕКЮРИТИ ООД - Пловдив"
-      ]
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 5113,
@@ -1089,7 +1064,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "Керамика Летница 2010 ЕООД"
-      ]
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 2734,
@@ -1099,7 +1075,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "Ватом Томови 1991 ООД"
-      ]
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 5292,
@@ -1109,17 +1086,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "Авто лукс ООД - с. Старцево"
-      ]
-    },
-    {
-      "mpId": 1900,
-      "mpName": "Тодор Йорданов Тодоров",
-      "totalEur": 24542.01029741849,
-      "contractCount": 4,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "Минибус-Експрес, гр. Добрич"
-      ]
+      ],
+      "confidence": "high"
     },
     {
       "mpId": 5092,
@@ -1129,7 +1097,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "Осъм инженеринг АД - Ловеч"
-      ]
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 4739,
@@ -1139,7 +1108,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "Конкурент НЮЗ ЕООД - Враца"
-      ]
+      ],
+      "confidence": "high"
     },
     {
       "mpId": 5086,
@@ -1149,7 +1119,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "КСБВ ЕООД - София"
-      ]
+      ],
+      "confidence": "high"
     }
   ]
 }

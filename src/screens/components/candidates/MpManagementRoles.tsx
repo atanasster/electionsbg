@@ -4,30 +4,7 @@ import { ShieldCheck, ExternalLink, CheckCircle2, Circle } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { useMpManagement } from "@/data/parliament/useMpManagement";
 import type { MpManagementRole } from "@/data/dataTypes";
-
-const ConfidenceBadge: FC<{
-  confidence: "high" | "medium";
-  reason: string;
-}> = ({ confidence, reason }) => {
-  const { t } = useTranslation();
-  const isHigh = confidence === "high";
-  const label = isHigh
-    ? t("tr_confidence_high") || "high"
-    : t("tr_confidence_medium") || "medium";
-  return (
-    <span
-      title={reason}
-      className={
-        isHigh
-          ? "inline-flex items-center gap-1 rounded px-1 py-px text-[10px] font-medium bg-emerald-100 text-emerald-800 dark:bg-emerald-950/60 dark:text-emerald-200"
-          : "inline-flex items-center gap-1 rounded px-1 py-px text-[10px] font-medium bg-amber-100 text-amber-800 dark:bg-amber-950/60 dark:text-amber-200"
-      }
-    >
-      <ShieldCheck className="h-2.5 w-2.5" />
-      {label}
-    </span>
-  );
-};
+import { ConfidenceBadge } from "@/screens/components/connections/ConfidenceBadge";
 
 const trStatusLabel = (status: string, t: (k: string) => string): string => {
   switch (status) {

@@ -1118,6 +1118,10 @@ export type ProcurementByNsTopMp = {
   contractCount: number;
   contractorCount: number;
   topContractorNames: string[];
+  // "medium" when at least one contributing (mpId, EIK) link rests on a
+  // name-match-only TR role. "high" when every link is corroborated (declared
+  // stake, or TR role with seat/party witness). UI shows a badge for medium.
+  confidence: "high" | "medium";
 };
 export type ProcurementByNsFile = {
   electionDate: string;

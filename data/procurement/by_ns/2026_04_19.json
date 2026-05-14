@@ -2,7 +2,7 @@
   "electionDate": "2026_04_19",
   "start": "2026-04-19",
   "end": null,
-  "generatedAt": "2026-05-13T13:40:09.837Z",
+  "generatedAt": "2026-05-14T03:17:23.826Z",
   "totals": {
     "contracts": 340,
     "amendments": 90,
@@ -10,9 +10,9 @@
     "contractorCount": 296,
     "awarderCount": 197,
     "totalEur": 275662199.8600001,
-    "mpCount": 7,
-    "mpConnectedContractorCount": 5,
-    "mpConnectedTotalEur": 1406800.4600000002
+    "mpCount": 4,
+    "mpConnectedContractorCount": 3,
+    "mpConnectedTotalEur": 282779.13
   },
   "topContractors": [
     {
@@ -720,26 +720,6 @@
   ],
   "topMps": [
     {
-      "mpId": 2237,
-      "mpName": "Димитър Георгиев Димитров",
-      "totalEur": 576182.3300000001,
-      "contractCount": 4,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "СОФАРМА ТРЕЙДИНГ АД"
-      ]
-    },
-    {
-      "mpId": 876,
-      "mpName": "Христо Димитров Христов",
-      "totalEur": 547839,
-      "contractCount": 1,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "Джи И Хелткеър България ЕООД"
-      ]
-    },
-    {
       "mpId": 4716,
       "mpName": "Венцислав Иванов Петков",
       "totalEur": 153387.56,
@@ -747,7 +727,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "НАЦИОНАЛНА СПОРТНА БАЗА ЕАД"
-      ]
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 5197,
@@ -757,7 +738,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "НАЦИОНАЛНА СПОРТНА БАЗА ЕАД"
-      ]
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 2456,
@@ -767,17 +749,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "ИНКОМ ГОРНАКОВ ЕООД"
-      ]
-    },
-    {
-      "mpId": 2115,
-      "mpName": "Пламен Иванов Иванов",
-      "totalEur": 60000,
-      "contractCount": 1,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "НАПОИТЕЛНИ СИСТЕМИ ЕАД"
-      ]
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 4649,
@@ -787,7 +760,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "НАПОИТЕЛНИ СИСТЕМИ ЕАД"
-      ]
+      ],
+      "confidence": "medium"
     }
   ]
 }

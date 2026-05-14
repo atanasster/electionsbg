@@ -16,6 +16,7 @@ import { useProcurementByNs } from "@/data/procurement/useProcurementByNs";
 import { useMpParty } from "@/data/procurement/useMpParty";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 import { PartyTag } from "@/screens/components/party/PartyTag";
+import { ConfidenceBadge } from "@/screens/components/connections/ConfidenceBadge";
 
 const TOP_ROWS = 10;
 
@@ -54,6 +55,9 @@ const renderMps = (
           </span>
         </Link>
         <PartyTag partyShort={partyForMp(e.mpId)} />
+        {e.confidence === "medium" ? (
+          <ConfidenceBadge confidence="medium" showHigh={false} />
+        ) : null}
         <span className="tabular-nums shrink-0 min-w-[70px] text-right font-medium">
           €{formatEur.format(Math.round(e.totalEur))}
         </span>

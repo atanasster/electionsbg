@@ -2,7 +2,7 @@
   "electionDate": "2024_10_27",
   "start": "2024-10-27",
   "end": "2026-04-19",
-  "generatedAt": "2026-05-13T13:40:09.840Z",
+  "generatedAt": "2026-05-14T03:17:23.831Z",
   "totals": {
     "contracts": 11082,
     "amendments": 2385,
@@ -10,9 +10,9 @@
     "contractorCount": 3711,
     "awarderCount": 1385,
     "totalEur": 17296556061.551308,
-    "mpCount": 23,
-    "mpConnectedContractorCount": 24,
-    "mpConnectedTotalEur": 762202993.1699998
+    "mpCount": 19,
+    "mpConnectedContractorCount": 19,
+    "mpConnectedTotalEur": 531266952.69000006
   },
   "topContractors": [
     {
@@ -86,10 +86,8 @@
       "name": "СОФАРМА ТРЕЙДИНГ АД",
       "totalEur": 227343590.4099999,
       "contractCount": 193,
-      "mpTied": true,
-      "mpIds": [
-        2237
-      ]
+      "mpTied": false,
+      "mpIds": []
     },
     {
       "eik": "201432883",
@@ -728,17 +726,6 @@
   ],
   "topMps": [
     {
-      "mpId": 2237,
-      "mpName": "Димитър Георгиев Димитров",
-      "totalEur": 229347190.7599999,
-      "contractCount": 198,
-      "contractorCount": 2,
-      "topContractorNames": [
-        "СОФАРМА ТРЕЙДИНГ АД",
-        "ЕВН ТРЕЙДИНГ САУТ ИЙСТ ЮРЪП ЕАД"
-      ]
-    },
-    {
       "mpId": 3271,
       "mpName": "Георги Захаринин Попов",
       "totalEur": 227943701.65999997,
@@ -746,7 +733,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "АВТОМАГИСТРАЛИ ЕАД"
-      ]
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 1044,
@@ -756,18 +744,19 @@
       "contractorCount": 1,
       "topContractorNames": [
         "ПЪТСТРОЙ ВДХ ЕАД"
-      ]
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 876,
       "mpName": "Христо Димитров Христов",
-      "totalEur": 100693297.63,
-      "contractCount": 4,
-      "contractorCount": 2,
+      "totalEur": 100554988.16,
+      "contractCount": 1,
+      "contractorCount": 1,
       "topContractorNames": [
-        "АБ АД",
-        "Джи И Хелткеър България ЕООД"
-      ]
+        "АБ АД"
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 4507,
@@ -777,7 +766,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "Фонд мениджър на финансови инструменти в България ЕАД"
-      ]
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 805,
@@ -788,7 +778,8 @@
       "topContractorNames": [
         "КОНТРАКС АД",
         "ДАЙРЕКТ СЪРВИСИЗ ООД"
-      ]
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 4745,
@@ -798,7 +789,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "ФАРМАПРО ООД"
-      ]
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 928,
@@ -808,7 +800,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "ТИ енд ТИ ООД"
-      ]
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 2476,
@@ -818,27 +811,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "АКВАХИМ 2020 ЕООД"
-      ]
-    },
-    {
-      "mpId": 2093,
-      "mpName": "Никола Джипов Николов",
-      "totalEur": 1349230.45,
-      "contractCount": 15,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "КЕР ТОКИ ПАУЪР АД"
-      ]
-    },
-    {
-      "mpId": 2115,
-      "mpName": "Пламен Иванов Иванов",
-      "totalEur": 1195725.3900000001,
-      "contractCount": 6,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "Напоителни системи ЕАД-клон Шумен"
-      ]
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 4649,
@@ -848,7 +822,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "Напоителни системи ЕАД-клон Шумен"
-      ]
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 2456,
@@ -858,7 +833,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "ИНКОМ ГОРНАКОВ ЕООД"
-      ]
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 5005,
@@ -868,7 +844,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "НАЦИОНАЛЕН ПЕРИЛЕН КОМБИНАТ ООД"
-      ]
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 5165,
@@ -878,17 +855,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "ДИМАКС СОД ООД"
-      ]
-    },
-    {
-      "mpId": 2001,
-      "mpName": "Христо Георгиев Христов",
-      "totalEur": 101309.8,
-      "contractCount": 3,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "ДАРИК РАДИО АД"
-      ]
+      ],
+      "confidence": "high"
     },
     {
       "mpId": 4716,
@@ -898,7 +866,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "НАЦИОНАЛНА СПОРТНА БАЗА ЕАД"
-      ]
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 5197,
@@ -908,7 +877,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "НАЦИОНАЛНА СПОРТНА БАЗА ЕАД"
-      ]
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 5094,
@@ -918,7 +888,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "ЕВРОХИМ-ГРУП ООД"
-      ]
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 819,
@@ -928,7 +899,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "ПЛОВДИВИНВЕСТ АД"
-      ]
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 2853,
@@ -938,7 +910,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "МЕДИЦИНСКИ ЦЕНТЪР МЛАДОСТ ВАРНА ООД"
-      ]
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 3026,
@@ -948,7 +921,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "БУЛГАРГАЗ ЕАД"
-      ]
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 2946,
@@ -958,7 +932,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "РАДИО СОТ ООД"
-      ]
+      ],
+      "confidence": "high"
     }
   ]
 }

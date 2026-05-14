@@ -2,7 +2,7 @@
   "electionDate": "2022_10_02",
   "start": "2022-10-02",
   "end": "2023-04-02",
-  "generatedAt": "2026-05-13T13:40:09.844Z",
+  "generatedAt": "2026-05-14T03:17:23.835Z",
   "totals": {
     "contracts": 16151,
     "amendments": 0,
@@ -10,9 +10,9 @@
     "contractorCount": 4126,
     "awarderCount": 1452,
     "totalEur": 3371092576.983256,
-    "mpCount": 26,
-    "mpConnectedContractorCount": 27,
-    "mpConnectedTotalEur": 217650976.69020316
+    "mpCount": 23,
+    "mpConnectedContractorCount": 24,
+    "mpConnectedTotalEur": 82860431.50478312
   },
   "topContractors": [
     {
@@ -28,10 +28,8 @@
       "name": "СОФАРМА ТРЕЙДИНГ АД",
       "totalEur": 126336178.95727132,
       "contractCount": 185,
-      "mpTied": true,
-      "mpIds": [
-        2237
-      ]
+      "mpTied": false,
+      "mpIds": []
     },
     {
       "eik": "180846084",
@@ -728,16 +726,6 @@
   ],
   "topMps": [
     {
-      "mpId": 2237,
-      "mpName": "Димитър Георгиев Димитров",
-      "totalEur": 126336178.95727132,
-      "contractCount": 185,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "СОФАРМА ТРЕЙДИНГ АД"
-      ]
-    },
-    {
       "mpId": 3271,
       "mpName": "Георги Захаринин Попов",
       "totalEur": 21408856.0866742,
@@ -745,7 +733,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "АВТОМАГИСТРАЛИ ЕАД"
-      ]
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 1689,
@@ -755,18 +744,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "МИНИ МАРИЦА - ИЗТОК ЕАД"
-      ]
-    },
-    {
-      "mpId": 876,
-      "mpName": "Христо Димитров Христов",
-      "totalEur": 14210835.967338674,
-      "contractCount": 34,
-      "contractorCount": 2,
-      "topContractorNames": [
-        "АБ АД",
-        "Джи И Хелткеър България ЕООД"
-      ]
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 3026,
@@ -776,7 +755,19 @@
       "contractorCount": 1,
       "topContractorNames": [
         "БУЛГАРГАЗ ЕАД"
-      ]
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 876,
+      "mpName": "Христо Димитров Христов",
+      "totalEur": 12136763.205391059,
+      "contractCount": 19,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "АБ АД"
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 805,
@@ -787,17 +778,8 @@
       "topContractorNames": [
         "КОНТРАКС АД",
         "ДАЙРЕКТ СЪРВИСИЗ ООД"
-      ]
-    },
-    {
-      "mpId": 2093,
-      "mpName": "Никола Джипов Николов",
-      "totalEur": 6380293.466201046,
-      "contractCount": 83,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "КЕР ТОКИ ПАУЪР АД"
-      ]
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 2476,
@@ -807,7 +789,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "АКВАХИМ 2020 ЕООД"
-      ]
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 237,
@@ -817,7 +800,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "НАЦИОНАЛНА ЕЛЕКТРИЧЕСКА КОМПАНИЯ ЕАД"
-      ]
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 5268,
@@ -827,7 +811,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "ПЪТСТРОЙ-92 АД"
-      ]
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 1609,
@@ -837,7 +822,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "Евротръст Технолъджис АД"
-      ]
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 1586,
@@ -847,7 +833,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "ЕВРО ФЕРТ АД"
-      ]
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 5005,
@@ -857,7 +844,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "НАЦИОНАЛЕН ПЕРИЛЕН КОМБИНАТ ООД"
-      ]
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 1059,
@@ -867,7 +855,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "АллП БИЛДИНГ ЕООД"
-      ]
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 5094,
@@ -877,7 +866,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "ЕВРОХИМ-ГРУП ООД"
-      ]
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 2647,
@@ -887,7 +877,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "АЛ И КО АД"
-      ]
+      ],
+      "confidence": "high"
     },
     {
       "mpId": 1639,
@@ -897,7 +888,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "БРЕЙН ТРЪСТ СЕКЮРИТИ ООД"
-      ]
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 4590,
@@ -907,7 +899,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "Никел Проект ООД"
-      ]
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 1044,
@@ -917,7 +910,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "ПЪТСТРОЙ ВДХ ЕАД"
-      ]
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 819,
@@ -927,7 +921,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "ПЛОВДИВИНВЕСТ АД"
-      ]
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 2440,
@@ -937,7 +932,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "ОЛИМПИА АУТО АД"
-      ]
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 4456,
@@ -947,7 +943,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "ПЕТРОВ И БОРИСОВ АРХИТЕКТИ ЕООД"
-      ]
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 4059,
@@ -957,7 +954,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "ЕКОТЕХПРОДУКТ ООД"
-      ]
+      ],
+      "confidence": "high"
     },
     {
       "mpId": 2853,
@@ -967,17 +965,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "МЕДИЦИНСКИ ЦЕНТЪР МЛАДОСТ ВАРНА ООД"
-      ]
-    },
-    {
-      "mpId": 2115,
-      "mpName": "Пламен Иванов Иванов",
-      "totalEur": 0.276097615845958,
-      "contractCount": 1,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "НАПОИТЕЛНИ СИСТЕМИ ЕАД"
-      ]
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 4649,
@@ -987,7 +976,8 @@
       "contractorCount": 1,
       "topContractorNames": [
         "НАПОИТЕЛНИ СИСТЕМИ ЕАД"
-      ]
+      ],
+      "confidence": "medium"
     }
   ]
 }
