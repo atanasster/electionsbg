@@ -34,12 +34,13 @@ import {
 import type { ParsedResource } from "./kfp";
 import { parseLawHtml } from "./law_html";
 import type { ParsedLawUnit } from "./law_html";
-import { buildAdminRegistry, buildLawFacts } from "./facts";
+import { buildAdminRegistry, buildLawFacts, buildProgramData } from "./facts";
 import { crossReferenceProcurement } from "./cross_reference";
 import { buildEconomicFacts } from "./normalize_egov";
 import {
   buildAdminReconciliation,
   buildEconomicReconciliation,
+  buildProgramReconciliation,
 } from "./reconcile";
 import { buildDocuments } from "./documents";
 import { ensureScaffolds, BUDGET_DIR } from "./classification";
@@ -68,6 +69,7 @@ const INDEX_FILE = path.join(BUDGET_DIR, "index.json");
 const CLASSIFICATION_DIR = path.join(BUDGET_DIR, "classification");
 const ADMIN_REGISTRY_FILE = path.join(CLASSIFICATION_DIR, "admin.json");
 const ECONOMIC_REGISTRY_FILE = path.join(CLASSIFICATION_DIR, "economic.json");
+const PROGRAM_REGISTRY_FILE = path.join(CLASSIFICATION_DIR, "program.json");
 const FACTS_DIR = path.join(BUDGET_DIR, "facts");
 const RECONCILIATION_DIR = path.join(BUDGET_DIR, "reconciliation");
 const MINISTRY_PROCUREMENT_FILE = path.join(
@@ -136,13 +138,19 @@ const buildIndex = (
     if (o.executed) stages.add("execution");
     cov.stages = [...stages].sort();
   }
-  // Law years contribute the "law" stage and the `admin` dimension.
-  for (const fiscalYear of unitsByYear.keys()) {
+  // Law years contribute the "law" stage and the `admin` dimension — plus the
+  // `program` dimension when the law text carries program-budget tables.
+  for (const [fiscalYear, units] of unitsByYear) {
     const cov = coverageFor(fiscalYear);
     const stages = new Set<BudgetStage>(cov.stages);
     stages.add("law");
     cov.stages = [...stages].sort();
-    cov.dimensions = { ...(cov.dimensions ?? {}), admin: true };
+    const hasPrograms = units.some((u) => u.programs.length > 0);
+    cov.dimensions = {
+      ...(cov.dimensions ?? {}),
+      admin: true,
+      ...(hasPrograms ? { program: true } : {}),
+    };
   }
   // Years with economic-grain reconciliation (egov plan + execution columns).
   for (const fiscalYear of economicYears) {
@@ -249,6 +257,20 @@ const main = async (args: {
       `facts: ${[...lawFactsByYear.values()].reduce((n, f) => n + f.length, 0)} row(s)`,
   );
 
+  // 3b-ii. Program grain — the policy-area / budget-program tables in the law.
+  const { registry: programRegistry, factsByYear: programFactsByYear } =
+    buildProgramData(unitsByYear);
+  const programReconByYear = new Map(
+    [...programFactsByYear.entries()].map(([year, facts]) => [
+      year,
+      buildProgramReconciliation(year, facts, programRegistry),
+    ]),
+  );
+  console.log(
+    `  program registry: ${programRegistry.nodes.length} node(s); ` +
+      `facts: ${[...programFactsByYear.values()].reduce((n, f) => n + f.length, 0)} row(s)`,
+  );
+
   // 3c. Economic grain — the egov feed's plan + execution columns give a real
   // plan-vs-actual pair per economic node. Reconciliation computes the variance.
   console.log("→ building economic-grain facts + variance");
@@ -316,6 +338,9 @@ const main = async (args: {
   if (writeIfChanged(ECONOMIC_REGISTRY_FILE, canonicalJson(economicRegistry))) {
     touched++;
   }
+  if (writeIfChanged(PROGRAM_REGISTRY_FILE, canonicalJson(programRegistry))) {
+    touched++;
+  }
   if (
     writeIfChanged(
       MINISTRY_PROCUREMENT_FILE,
@@ -332,6 +357,11 @@ const main = async (args: {
     const file = path.join(FACTS_DIR, String(year), "economic.json");
     if (writeIfChanged(file, canonicalJson(facts))) touched++;
   }
+  for (const [year, facts] of programFactsByYear) {
+    if (facts.length === 0) continue;
+    const file = path.join(FACTS_DIR, String(year), "program.json");
+    if (writeIfChanged(file, canonicalJson(facts))) touched++;
+  }
   for (const [year, rows] of adminReconByYear) {
     const file = path.join(RECONCILIATION_DIR, String(year), "by-admin.json");
     if (writeIfChanged(file, canonicalJson(rows))) touched++;
@@ -342,6 +372,11 @@ const main = async (args: {
       String(year),
       "by-economic.json",
     );
+    if (writeIfChanged(file, canonicalJson(rows))) touched++;
+  }
+  for (const [year, rows] of programReconByYear) {
+    if (rows.length === 0) continue;
+    const file = path.join(RECONCILIATION_DIR, String(year), "by-program.json");
     if (writeIfChanged(file, canonicalJson(rows))) touched++;
   }
 

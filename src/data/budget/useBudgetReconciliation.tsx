@@ -8,11 +8,11 @@
 import { useQueries, useQuery } from "@tanstack/react-query";
 import { dataUrl } from "@/data/dataUrl";
 import { useBudgetIndex } from "./useBudget";
-import type { Money, ReconciliationRow } from "./types";
+import type { ClassificationRegistry, Money, ReconciliationRow } from "./types";
 
 const fetchReconciliation = async (
   fiscalYear: number,
-  dimension: "admin" | "economic",
+  dimension: "admin" | "economic" | "program",
 ): Promise<ReconciliationRow[] | null> => {
   const r = await fetch(
     dataUrl(`/budget/reconciliation/${fiscalYear}/by-${dimension}.json`),
@@ -24,6 +24,14 @@ const fetchReconciliation = async (
 
 const fetchByAdmin = (fiscalYear: number) =>
   fetchReconciliation(fiscalYear, "admin");
+
+const fetchProgramRegistry =
+  async (): Promise<ClassificationRegistry | null> => {
+    const r = await fetch(dataUrl("/budget/classification/program.json"));
+    if (r.status === 404) return null;
+    if (!r.ok) throw new Error(`fetch failed: ${r.status} ${r.url}`);
+    return (await r.json()) as ClassificationRegistry;
+  };
 
 // Admin-dimension reconciliation for one fiscal year. Pass `null` to disable
 // the query (e.g. when the selected year has no admin data).
@@ -111,4 +119,76 @@ export const useBudgetMinistry = (
     },
     isLoading,
   };
+};
+
+// One spending unit's program budget across every fiscal year whose law text
+// carries program-budget tables. Drives the program drill-down on the ministry
+// detail screen.
+export interface MinistryProgramRow {
+  nodeId: string;
+  nameBg: string;
+  nameEn: string;
+  planned: Money | null;
+}
+
+export interface MinistryProgramYear {
+  fiscalYear: number;
+  programs: MinistryProgramRow[];
+}
+
+export const useBudgetMinistryPrograms = (
+  adminNodeId: string | undefined,
+): { data: MinistryProgramYear[]; isLoading: boolean } => {
+  const { data: index, isLoading: indexLoading } = useBudgetIndex();
+  const { data: registry, isLoading: registryLoading } = useQuery({
+    queryKey: ["budget", "classification", "program"] as const,
+    queryFn: fetchProgramRegistry,
+    staleTime: Infinity,
+  });
+  const programYears = (index?.years ?? [])
+    .filter((y) => y.dimensions?.program)
+    .map((y) => y.fiscalYear)
+    .sort((a, b) => a - b);
+
+  const results = useQueries({
+    queries: programYears.map((year) => ({
+      queryKey: ["budget", "reconciliation", "program", year] as const,
+      queryFn: () => fetchReconciliation(year, "program"),
+      staleTime: Infinity,
+    })),
+  });
+
+  const isLoading =
+    indexLoading || registryLoading || results.some((r) => r.isLoading);
+  if (!adminNodeId || !registry) return { data: [], isLoading };
+
+  // Program node ids owned by this ministry.
+  const ownedIds = new Set(
+    registry.nodes
+      .filter((n) => n.ownerAdminId === adminNodeId)
+      .map((n) => n.id),
+  );
+  if (ownedIds.size === 0) return { data: [], isLoading };
+
+  const out: MinistryProgramYear[] = [];
+  results.forEach((res, i) => {
+    const rows = res.data;
+    if (!rows) return;
+    const programs = rows
+      .filter((r) => ownedIds.has(r.nodeId))
+      .map((r) => ({
+        nodeId: r.nodeId,
+        nameBg: r.nodeNameBg,
+        nameEn: r.nodeNameEn,
+        planned: r.planned,
+      }))
+      .sort(
+        (a, b) => (b.planned?.amountEur ?? 0) - (a.planned?.amountEur ?? 0),
+      );
+    if (programs.length > 0) {
+      out.push({ fiscalYear: programYears[i], programs });
+    }
+  });
+
+  return { data: out.sort((a, b) => a.fiscalYear - b.fiscalYear), isLoading };
 };

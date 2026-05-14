@@ -20,8 +20,14 @@ import { Title } from "@/ux/Title";
 import { StatCard } from "./dashboard/StatCard";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEur } from "@/lib/currency";
-import { useBudgetMinistry } from "@/data/budget/useBudgetReconciliation";
-import type { MinistryYearFigures } from "@/data/budget/useBudgetReconciliation";
+import {
+  useBudgetMinistry,
+  useBudgetMinistryPrograms,
+} from "@/data/budget/useBudgetReconciliation";
+import type {
+  MinistryYearFigures,
+  MinistryProgramYear,
+} from "@/data/budget/useBudgetReconciliation";
 import { useMinistryProcurement } from "@/data/budget/useBudget";
 
 const numFmt = new Intl.NumberFormat("bg-BG");
@@ -82,6 +88,68 @@ const YearBlock: FC<{ figures: MinistryYearFigures }> = ({ figures }) => {
         </StatCard>
       </div>
     </div>
+  );
+};
+
+// The unit's program budget — the policy-area / program appropriations the
+// State Budget Law sets, per fiscal year, as a proportional bar list.
+const ProgramBlock: FC<{ nodeId: string; lang: "bg" | "en" }> = ({
+  nodeId,
+  lang,
+}) => {
+  const { t } = useTranslation();
+  const { data: years } = useBudgetMinistryPrograms(nodeId);
+  if (years.length === 0) return null;
+  return (
+    <Card className="my-4" data-og="ministry-programs">
+      <CardHeader className="pb-2">
+        <CardTitle className="text-base flex items-center gap-2">
+          <Landmark className="h-4 w-4" />
+          {t("budget_ministry_programs_title") || "Budget by program"}
+        </CardTitle>
+      </CardHeader>
+      <CardContent className="pt-0">
+        {years.map((py: MinistryProgramYear) => {
+          const max = Math.max(
+            1,
+            ...py.programs.map((p) => p.planned?.amountEur ?? 0),
+          );
+          return (
+            <div
+              key={py.fiscalYear}
+              className="py-2 border-b border-border/40 last:border-b-0"
+            >
+              <div className="text-xs font-bold tabular-nums mb-1.5">
+                {py.fiscalYear}
+              </div>
+              <ul className="space-y-1.5">
+                {py.programs.map((p) => {
+                  const v = p.planned?.amountEur ?? 0;
+                  return (
+                    <li key={p.nodeId} className="text-xs">
+                      <div className="flex items-baseline justify-between gap-2">
+                        <span className="truncate text-muted-foreground">
+                          {lang === "en" && p.nameEn ? p.nameEn : p.nameBg}
+                        </span>
+                        <span className="tabular-nums shrink-0">
+                          {formatEur(v)}
+                        </span>
+                      </div>
+                      <div className="mt-0.5 h-1 rounded bg-muted overflow-hidden">
+                        <div
+                          className="h-full rounded bg-primary/60"
+                          style={{ width: `${(v / max) * 100}%` }}
+                        />
+                      </div>
+                    </li>
+                  );
+                })}
+              </ul>
+            </div>
+          );
+        })}
+      </CardContent>
+    </Card>
   );
 };
 
@@ -194,6 +262,7 @@ export const BudgetMinistryScreen: FC = () => {
         {data.years.map((figures) => (
           <YearBlock key={figures.fiscalYear} figures={figures} />
         ))}
+        {id ? <ProgramBlock nodeId={id} lang={lang} /> : null}
         {id ? <ProcurementBlock nodeId={id} /> : null}
       </section>
     </>

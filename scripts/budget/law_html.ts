@@ -43,10 +43,20 @@ export interface ParsedLawSection {
   lines: ParsedLawLine[];
 }
 
+// One row of a unit's program-budget table ("област на политика / бюджетна
+// програма") — the appropriation by policy area / program.
+export interface ParsedLawProgram {
+  code: string; // "1.", "2." — the leading numbered label
+  nameBg: string;
+  amount: Money | null;
+}
+
 export interface ParsedLawUnit {
   unitName: string; // "Министерството на външните работи"
   fiscalYear: number;
   sections: ParsedLawSection[];
+  // Empty for units that publish no program budget in the law text.
+  programs: ParsedLawProgram[];
 }
 
 // "Приема бюджета на X за YYYY г." — one per first-level spending unit.
@@ -113,6 +123,33 @@ const isUnitTable = (rows: string[][]): boolean =>
     (r) =>
       r.some((c) => /Показатели/i.test(c)) && r.some((c) => /Сума/i.test(c)),
   );
+
+// A "program budget table" has a header row naming the policy-area / program
+// column ("Наименование на областта на политика/бюджетната програма").
+const isProgramTable = (rows: string[][]): boolean =>
+  rows.some((r) =>
+    r.some(
+      (c) =>
+        /област(та)?\s+на\s+политика/i.test(c) ||
+        /бюджетна(та)?\s+програма/i.test(c),
+    ),
+  );
+
+// Parse a program-budget table's rows into [code, name, amount] entries.
+const parseProgramTable = (rows: string[][]): ParsedLawProgram[] => {
+  const programs: ParsedLawProgram[] = [];
+  for (const row of rows) {
+    const code = (row[0] ?? "").trim();
+    const name = cellText(row[1]);
+    if (!LINE_RE.test(code) || !name) continue;
+    programs.push({
+      code: code.replace(/\.$/, ""),
+      nameBg: name,
+      amount: cellToMoney(row[row.length - 1]),
+    });
+  }
+  return programs;
+};
 
 // Parse one unit table's rows into the I…IV section structure.
 const parseUnitTable = (rows: string[][]): ParsedLawSection[] => {
@@ -200,26 +237,32 @@ export const parseLawHtml = (
   const units: ParsedLawUnit[] = [];
   const usedTableOrders = new Set<number>();
   for (const marker of yearMarkers) {
-    // The unit's table is the first unit-table appearing after its marker and
-    // before the next marker.
+    // Scan the tables in this unit's block — from its marker to the next.
+    // The first unit-table (I…IV) is the appropriations; the first program
+    // table is the policy-area / program budget (absent for some units).
     const nextMarkerOrder =
       yearMarkers.find((m) => m.order > marker.order)?.order ?? Infinity;
-    let chosen: { node: DomNode; rows: string[][] } | null = null;
+    let mainRows: string[][] | null = null;
+    let programRows: string[][] | null = null;
     for (const tbl of tables) {
       if (tbl.order <= marker.order || tbl.order >= nextMarkerOrder) continue;
       if (usedTableOrders.has(tbl.order)) continue;
       const rows = tableRows(tbl.node, $);
-      if (isUnitTable(rows)) {
-        chosen = { node: tbl.node, rows };
+      if (!mainRows && isUnitTable(rows)) {
+        mainRows = rows;
         usedTableOrders.add(tbl.order);
-        break;
+      } else if (!programRows && isProgramTable(rows)) {
+        programRows = rows;
+        usedTableOrders.add(tbl.order);
       }
+      if (mainRows && programRows) break;
     }
-    if (!chosen) continue; // unit with no parseable table — skipped, not fatal
+    if (!mainRows) continue; // unit with no parseable table — skipped, not fatal
     units.push({
       unitName: marker.unit,
       fiscalYear,
-      sections: parseUnitTable(chosen.rows),
+      sections: parseUnitTable(mainRows),
+      programs: programRows ? parseProgramTable(programRows) : [],
     });
   }
 

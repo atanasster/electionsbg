@@ -61,6 +61,39 @@ export const buildAdminReconciliation = (
   );
 };
 
+// Build the program-dimension reconciliation for one fiscal year from its
+// program-grain law facts. Like the admin dimension, this is plan-only —
+// program-level execution is not published in a machine-readable form — so
+// every row is `completeness: "missing"` on the executed side.
+export const buildProgramReconciliation = (
+  fiscalYear: number,
+  programFacts: BudgetFact[],
+  registry: ClassificationRegistry,
+): ReconciliationRow[] => {
+  const rows: ReconciliationRow[] = [];
+  for (const fact of programFacts) {
+    const nodeId = fact.classification.program;
+    if (!nodeId || !fact.grain.includes("program")) continue;
+    const { nameBg, nameEn } = nodeName(registry, nodeId);
+    rows.push({
+      fiscalYear,
+      dimension: "program",
+      nodeId,
+      nodeNameBg: nameBg,
+      nodeNameEn: nameEn,
+      kind: fact.kind,
+      planned: fact.money,
+      amendmentTrail: [],
+      amended: null,
+      executed: null,
+      varianceEur: null,
+      variancePct: null,
+      completeness: "missing",
+    });
+  }
+  return rows.sort((a, b) => a.nodeId.localeCompare(b.nodeId));
+};
+
 // Build the economic-dimension reconciliation for one fiscal year. The egov
 // feed carries both a plan ("Закон") and an execution ("Изпълнение") column,
 // so — for a complete year — every economic node gets a real plan-vs-actual

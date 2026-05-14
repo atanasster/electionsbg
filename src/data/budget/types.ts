@@ -156,6 +156,30 @@ export interface ReconciliationRow {
   completeness: "exact" | "partial" | "missing";
 }
 
+// A node in one of the four classification registries (admin / functional /
+// economic / program). The frontend reads these to resolve names and, for
+// programs, to find which ministry owns a program.
+export interface ClassificationNode {
+  id: string;
+  dimension: "admin" | "functional" | "economic" | "program";
+  nameBg: string;
+  nameEn: string;
+  parentId: string | null;
+  ownerAdminId?: string; // program nodes — the owning ministry's admin node id
+  eik?: string; // admin nodes — the procurement awarder EIK
+  history: Array<{
+    fiscalYear: number;
+    sourceCode: string;
+    sourceName: string;
+  }>;
+}
+
+export interface ClassificationRegistry {
+  dimension: "admin" | "functional" | "economic" | "program";
+  generatedAt: string;
+  nodes: ClassificationNode[];
+}
+
 // Phase 4 — a spending unit matched to its public-procurement awarder.
 export interface MinistryProcurement {
   nodeId: string;

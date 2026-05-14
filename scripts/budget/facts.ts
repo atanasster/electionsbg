@@ -9,6 +9,7 @@
 // (merge drifted names, add ministry EIKs for the Phase 4 procurement link).
 
 import { createHash } from "crypto";
+import { slugify } from "./slug";
 import type { ParsedLawUnit } from "./law_html";
 import type {
   BudgetFact,
@@ -205,3 +206,120 @@ export const buildLawFacts = (
 };
 
 export { slugifyUnit };
+
+// ---------------------------------------------------------------------------
+// Program grain — the policy-area / budget-program tables in the law.
+// ---------------------------------------------------------------------------
+
+const programFactKey = (fiscalYear: number, programId: string): string =>
+  createHash("sha256")
+    .update(`${fiscalYear}|law|0|expenditure|program:${programId}`)
+    .digest("hex")
+    .slice(0, 12);
+
+interface ProgramDataResult {
+  registry: ClassificationRegistry;
+  factsByYear: Map<number, BudgetFact[]>;
+}
+
+// Build the program classification registry + program-grain BudgetFacts from
+// every parsed law year. A program node is owned by its spending unit
+// (`ownerAdminId` / `parentId`); ids are stable per (owner, program name), with
+// a numeric suffix only when two different units share a program slug.
+export const buildProgramData = (
+  unitsByYear: Map<number, ParsedLawUnit[]>,
+): ProgramDataResult => {
+  const idByKey = new Map<string, string>(); // "ownerId|name" -> program id
+  const ownerById = new Map<string, string>(); // program id -> ownerId
+  const programId = (ownerAdminId: string, programName: string): string => {
+    const key = `${ownerAdminId}|${programName}`;
+    const existing = idByKey.get(key);
+    if (existing) return existing;
+    const base = slugify(programName, "prog");
+    let id = base;
+    let n = 1;
+    while (ownerById.has(id) && ownerById.get(id) !== ownerAdminId) {
+      n += 1;
+      id = `${base}-${n}`;
+    }
+    idByKey.set(key, id);
+    ownerById.set(id, ownerAdminId);
+    return id;
+  };
+
+  const nodes = new Map<string, ClassificationNode>();
+  const factsByYear = new Map<number, BudgetFact[]>();
+
+  for (const [year, units] of [...unitsByYear.entries()].sort(
+    (a, b) => a[0] - b[0],
+  )) {
+    const facts: BudgetFact[] = [];
+    for (const unit of units) {
+      if (unit.programs.length === 0) continue;
+      const ownerAdminId = slugifyUnit(unit.unitName);
+      for (const program of unit.programs) {
+        const id = programId(ownerAdminId, program.nameBg);
+        let node = nodes.get(id);
+        if (!node) {
+          node = {
+            id,
+            dimension: "program",
+            nameBg: program.nameBg,
+            nameEn: "",
+            parentId: ownerAdminId,
+            ownerAdminId,
+            history: [],
+          };
+          nodes.set(id, node);
+        }
+        if (!node.history.some((h) => h.fiscalYear === year)) {
+          node.history.push({
+            fiscalYear: year,
+            sourceCode: program.code,
+            sourceName: program.nameBg,
+          });
+        }
+        if (!program.amount) continue;
+        facts.push({
+          key: programFactKey(year, id),
+          fiscalYear: year,
+          version: {
+            stage: "law",
+            seq: 0,
+            effectiveDate: LAW_PROMULGATION[year] ?? `${year - 1}-12-31`,
+            documentId: `law-${year}`,
+          },
+          kind: "expenditure",
+          classification: {
+            admin: ownerAdminId,
+            functional: null,
+            economic: null,
+            program: id,
+            programLine: null,
+          },
+          grain: ["admin", "program"],
+          money: program.amount,
+          sourceRef: {
+            documentId: `law-${year}`,
+            rowLabel: program.nameBg,
+          },
+        });
+      }
+    }
+    facts.sort((a, b) =>
+      (a.classification.program ?? "").localeCompare(
+        b.classification.program ?? "",
+      ),
+    );
+    factsByYear.set(year, facts);
+  }
+
+  return {
+    registry: {
+      dimension: "program",
+      generatedAt: new Date().toISOString(),
+      nodes: [...nodes.values()].sort((a, b) => a.id.localeCompare(b.id)),
+    },
+    factsByYear,
+  };
+};
