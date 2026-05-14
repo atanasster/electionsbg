@@ -2,7 +2,7 @@
   "electionDate": "2023_04_02",
   "start": "2023-04-02",
   "end": "2024-06-09",
-  "generatedAt": "2026-05-14T03:17:23.833Z",
+  "generatedAt": "2026-05-14T03:48:54.208Z",
   "totals": {
     "contracts": 26630,
     "amendments": 0,
@@ -10,9 +10,9 @@
     "contractorCount": 5281,
     "awarderCount": 1750,
     "totalEur": 4392347062.243562,
-    "mpCount": 32,
-    "mpConnectedContractorCount": 33,
-    "mpConnectedTotalEur": 32851986.593926866
+    "mpCount": 23,
+    "mpConnectedContractorCount": 24,
+    "mpConnectedTotalEur": 14194867.319756826
   },
   "topContractors": [
     {
@@ -720,17 +720,6 @@
   ],
   "topMps": [
     {
-      "mpId": 1044,
-      "mpName": "Иван Николаев Иванов",
-      "totalEur": 8792468.49675074,
-      "contractCount": 7,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "ПЪТСТРОЙ ВДХ ЕАД"
-      ],
-      "confidence": "medium"
-    },
-    {
       "mpId": 805,
       "mpName": "Йордан Петков Йорданов",
       "totalEur": 8761226.809078494,
@@ -744,28 +733,6 @@
       "confidence": "medium"
     },
     {
-      "mpId": 2476,
-      "mpName": "Борислав Любенов Великов",
-      "totalEur": 3311391.813194398,
-      "contractCount": 47,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "АКВАХИМ 2020 ЕООД"
-      ],
-      "confidence": "medium"
-    },
-    {
-      "mpId": 1059,
-      "mpName": "Иван Петров Иванов",
-      "totalEur": 2988869.288230572,
-      "contractCount": 4,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "АллП БИЛДИНГ ЕООД"
-      ],
-      "confidence": "medium"
-    },
-    {
       "mpId": 237,
       "mpName": "Светослав Иванов Спасов",
       "totalEur": 2758996.436295588,
@@ -773,39 +740,6 @@
       "contractorCount": 1,
       "topContractorNames": [
         "НАЦИОНАЛНА ЕЛЕКТРИЧЕСКА КОМПАНИЯ ЕАД"
-      ],
-      "confidence": "medium"
-    },
-    {
-      "mpId": 876,
-      "mpName": "Христо Димитров Христов",
-      "totalEur": 1314389.7578010357,
-      "contractCount": 5,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "АБ АД"
-      ],
-      "confidence": "medium"
-    },
-    {
-      "mpId": 2657,
-      "mpName": "Петър Христов Петров",
-      "totalEur": 1070776.46830246,
-      "contractCount": 6,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "МОНБАТ АД"
-      ],
-      "confidence": "medium"
-    },
-    {
-      "mpId": 928,
-      "mpName": "Иван Димитров Иванов",
-      "totalEur": 946287.7652965749,
-      "contractCount": 4,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "ТИ енд ТИ ООД"
       ],
       "confidence": "medium"
     },
@@ -887,17 +821,6 @@
       "confidence": "high"
     },
     {
-      "mpId": 1586,
-      "mpName": "Йордан Георгиев Стойков",
-      "totalEur": 118476.55471078775,
-      "contractCount": 3,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "ЕВРО ФЕРТ АД"
-      ],
-      "confidence": "medium"
-    },
-    {
       "mpId": 5268,
       "mpName": "Румен Ангелов Миланов",
       "totalEur": 113392.8408910795,
@@ -905,17 +828,6 @@
       "contractorCount": 1,
       "topContractorNames": [
         "ПЪТСТРОЙ-92 АД"
-      ],
-      "confidence": "medium"
-    },
-    {
-      "mpId": 4349,
-      "mpName": "Петър Георгиев Петров",
-      "totalEur": 98247.29143125936,
-      "contractCount": 5,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "АВТОЦЕНТЪР - МП ООД"
       ],
       "confidence": "medium"
     },
@@ -1037,17 +949,6 @@
       "contractorCount": 1,
       "topContractorNames": [
         "БУЛГАРГАЗ ЕАД"
-      ],
-      "confidence": "medium"
-    },
-    {
-      "mpId": 2456,
-      "mpName": "Петър Иванов Петров",
-      "totalEur": 16211.838452217216,
-      "contractCount": 1,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "ИНКОМ ГОРНАКОВ ЕООД"
       ],
       "confidence": "medium"
     },

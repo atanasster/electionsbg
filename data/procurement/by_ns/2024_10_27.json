@@ -2,7 +2,7 @@
   "electionDate": "2024_10_27",
   "start": "2024-10-27",
   "end": "2026-04-19",
-  "generatedAt": "2026-05-14T03:17:23.831Z",
+  "generatedAt": "2026-05-14T03:48:54.205Z",
   "totals": {
     "contracts": 11082,
     "amendments": 2385,
@@ -10,9 +10,9 @@
     "contractorCount": 3711,
     "awarderCount": 1385,
     "totalEur": 17296556061.551308,
-    "mpCount": 19,
-    "mpConnectedContractorCount": 19,
-    "mpConnectedTotalEur": 531266952.69000006
+    "mpCount": 13,
+    "mpConnectedContractorCount": 13,
+    "mpConnectedTotalEur": 249750284.74999994
   },
   "topContractors": [
     {
@@ -102,10 +102,8 @@
       "name": "ПЪТСТРОЙ ВДХ ЕАД",
       "totalEur": 137814282.55,
       "contractCount": 5,
-      "mpTied": true,
-      "mpIds": [
-        1044
-      ]
+      "mpTied": false,
+      "mpIds": []
     },
     {
       "eik": "115004094",
@@ -224,10 +222,8 @@
       "name": "АБ АД",
       "totalEur": 100554988.16,
       "contractCount": 1,
-      "mpTied": true,
-      "mpIds": [
-        876
-      ]
+      "mpTied": false,
+      "mpIds": []
     },
     {
       "eik": "203769479",
@@ -737,39 +733,6 @@
       "confidence": "medium"
     },
     {
-      "mpId": 1044,
-      "mpName": "Иван Николаев Иванов",
-      "totalEur": 137814282.55,
-      "contractCount": 5,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "ПЪТСТРОЙ ВДХ ЕАД"
-      ],
-      "confidence": "medium"
-    },
-    {
-      "mpId": 876,
-      "mpName": "Христо Димитров Христов",
-      "totalEur": 100554988.16,
-      "contractCount": 1,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "АБ АД"
-      ],
-      "confidence": "medium"
-    },
-    {
-      "mpId": 4507,
-      "mpName": "Владимир Андонов Данаилов",
-      "totalEur": 33000000,
-      "contractCount": 1,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "Фонд мениджър на финансови инструменти в България ЕАД"
-      ],
-      "confidence": "medium"
-    },
-    {
       "mpId": 805,
       "mpName": "Йордан Петков Йорданов",
       "totalEur": 12533764.860000001,
@@ -793,28 +756,6 @@
       "confidence": "medium"
     },
     {
-      "mpId": 928,
-      "mpName": "Иван Димитров Иванов",
-      "totalEur": 6523077.160000001,
-      "contractCount": 8,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "ТИ енд ТИ ООД"
-      ],
-      "confidence": "medium"
-    },
-    {
-      "mpId": 2476,
-      "mpName": "Борислав Любенов Великов",
-      "totalEur": 2436319.5500000007,
-      "contractCount": 19,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "АКВАХИМ 2020 ЕООД"
-      ],
-      "confidence": "medium"
-    },
-    {
       "mpId": 4649,
       "mpName": "Генади Събков Събков",
       "totalEur": 1195725.3900000001,
@@ -822,17 +763,6 @@
       "contractorCount": 1,
       "topContractorNames": [
         "Напоителни системи ЕАД-клон Шумен"
-      ],
-      "confidence": "medium"
-    },
-    {
-      "mpId": 2456,
-      "mpName": "Петър Иванов Петров",
-      "totalEur": 1188000.52,
-      "contractCount": 2,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "ИНКОМ ГОРНАКОВ ЕООД"
       ],
       "confidence": "medium"
     },

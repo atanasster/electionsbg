@@ -2,7 +2,7 @@
   "electionDate": "2014_10_05",
   "start": "2014-10-05",
   "end": "2017-03-26",
-  "generatedAt": "2026-05-14T03:17:23.844Z",
+  "generatedAt": "2026-05-14T03:48:54.219Z",
   "totals": {
     "contracts": 50477,
     "amendments": 0,
@@ -10,9 +10,9 @@
     "contractorCount": 8593,
     "awarderCount": 1438,
     "totalEur": 10493201185.55723,
-    "mpCount": 30,
-    "mpConnectedContractorCount": 30,
-    "mpConnectedTotalEur": 51212941.18609491
+    "mpCount": 25,
+    "mpConnectedContractorCount": 25,
+    "mpConnectedTotalEur": 40850264.02090162
   },
   "topContractors": [
     {
@@ -743,17 +743,6 @@
       "confidence": "medium"
     },
     {
-      "mpId": 2476,
-      "mpName": "Борислав Любенов Великов",
-      "totalEur": 8995819.462836748,
-      "contractCount": 180,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "Аквахим АД - гр. София"
-      ],
-      "confidence": "medium"
-    },
-    {
       "mpId": 3410,
       "mpName": "Георги  Стоянов Кадиев",
       "totalEur": 3863982.043429132,
@@ -783,17 +772,6 @@
       "contractorCount": 1,
       "topContractorNames": [
         "Автомагистрали ЕАД"
-      ],
-      "confidence": "medium"
-    },
-    {
-      "mpId": 876,
-      "mpName": "Христо Димитров Христов",
-      "totalEur": 928834.9703195062,
-      "contractCount": 3,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "АБ АД - Хасково"
       ],
       "confidence": "medium"
     },
@@ -897,17 +875,6 @@
       "confidence": "high"
     },
     {
-      "mpId": 2657,
-      "mpName": "Петър Христов Петров",
-      "totalEur": 344624.02151516237,
-      "contractCount": 10,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "Монбат АД - София"
-      ],
-      "confidence": "medium"
-    },
-    {
       "mpId": 5086,
       "mpName": "Иво Севдалинов Цанев",
       "totalEur": 234171.68158786808,
@@ -951,17 +918,6 @@
         "ДЖИ ПИ ЕС СИСТЕМИ БЪЛГАРИЯ\" ЕООД, Пловдив"
       ],
       "confidence": "high"
-    },
-    {
-      "mpId": 5113,
-      "mpName": "Георги Иванов Георгиев",
-      "totalEur": 91583.62434362904,
-      "contractCount": 4,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "Керамика Летница 2010 ЕООД"
-      ],
-      "confidence": "medium"
     },
     {
       "mpId": 237,
@@ -1037,17 +993,6 @@
       "contractorCount": 1,
       "topContractorNames": [
         "Раломекс АД - Завет"
-      ],
-      "confidence": "medium"
-    },
-    {
-      "mpId": 193,
-      "mpName": "Димитър Кинов Стоянов",
-      "totalEur": 1815.0861782465756,
-      "contractCount": 1,
-      "contractorCount": 1,
-      "topContractorNames": [
-        "Минпроект ЕАД - София"
       ],
       "confidence": "medium"
     }

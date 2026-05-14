@@ -61,7 +61,6 @@ type MpIndexEntry = {
   currentPartyGroupShort: string | null;
   nsFolders: string[];
   isCurrent: boolean;
-  photoUrl: string;
 };
 type ParliamentIndex = { mps: MpIndexEntry[] };
 
@@ -356,10 +355,8 @@ export const buildConnectionsGraph = ({
   // declaration entry carries an institution string like
   // "51-во Народно събрание".
   const declaredNsFoldersByMp = new Map<number, Set<string>>();
-  const mpIdsWithDeclarations = new Set<number>();
   for (const company of companiesIndex.companies) {
     for (const stake of company.stakes) {
-      mpIdsWithDeclarations.add(stake.mpId);
       const m = stake.institution?.match(/^(\d{2})-/);
       if (!m) continue;
       const set = declaredNsFoldersByMp.get(stake.mpId) ?? new Set<string>();
@@ -368,22 +365,16 @@ export const buildConnectionsGraph = ({
     }
   }
 
-  // Cohort filter for name-based TR matching: parliament.bg's `--all` scrape
-  // pulls every profile id, including non-seated electoral candidates. Their
-  // common names (e.g. "Пламен Иванов Иванов") would otherwise match real TR
-  // officers and surface as MP↔company edges on the connections graph + the
-  // procurement page. Same predicate as scripts/declarations/tr/integrate.ts.
-  // Keeps `mpById` unfiltered so existing declared-stake edges (which key on
-  // declarant mpId, not name) keep working — only excludes non-seated profiles
-  // from the name-based lookup used in TR officer expansion below.
+  // Name-based TR lookup for the phase-3 officer expansion below. We only
+  // include an MP if integrate.ts wrote them a mp-management file — that is
+  // the single source of truth for "this profile survived the full TR-match
+  // filter" (cohort filter + suppression list + name-frequency guard). Without
+  // this, phase-3 would re-introduce MP↔company edges that integrate.ts
+  // deliberately dropped. `mpById` stays unfiltered so declared-stake edges
+  // (which key on declarant mpId, not name) keep working regardless.
   const mpByNormName = new Map<string, MpIndexEntry>();
   for (const mp of mpIndex.mps) {
-    const isSeatedCohort =
-      mp.isCurrent ||
-      mp.nsFolders.length > 0 ||
-      mpIdsWithDeclarations.has(mp.id) ||
-      !!mp.photoUrl;
-    if (!isSeatedCohort) continue;
+    if (!fs.existsSync(path.join(mpManagementDir, `${mp.id}.json`))) continue;
     mpByNormName.set(mp.normalizedName, mp);
   }
   const nsFoldersForMp = (mpId: number): string[] => {

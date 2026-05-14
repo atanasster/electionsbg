@@ -242,6 +242,7 @@ export type IntegrateTrResult = {
   mpHighConfidence: number;
   mpMediumConfidence: number;
   mpRolesSuppressed: number;
+  mpRolesFreqSuppressed: number;
   mpsSkippedNotSeated: number;
 };
 
@@ -455,6 +456,24 @@ export const integrateTr = ({
       WHERE cp.name_norm = ?`,
   );
 
+  // Name-frequency table: how many TR officer/owner rows carry each normalized
+  // name. A name appearing many times across unrelated companies is either a
+  // very common Bulgarian name (Иван Иванов) or a registered agent / notary
+  // who represents dozens of shell companies — in both cases a pure name match
+  // to an MP is unreliable. The full distribution: ~68% of names appear once,
+  // only ~0.5% appear 11+ times. See COMMON_NAME_TR_ROWS below.
+  const nameFrequency = new Map<string, number>();
+  for (const row of db
+    .prepare(
+      `SELECT name_norm, COUNT(*) AS n FROM company_persons GROUP BY name_norm`,
+    )
+    .iterate() as IterableIterator<{ name_norm: string; n: number }>) {
+    nameFrequency.set(row.name_norm, row.n);
+  }
+  // Threshold for "this name is too common for a bare name match to stand on
+  // its own". 11+ TR rows ≈ top 0.5% of the name-frequency distribution.
+  const COMMON_NAME_TR_ROWS = 11;
+
   type RoleRow = PersonRow & {
     company_name: string | null;
     legal_form: string | null;
@@ -485,6 +504,7 @@ export const integrateTr = ({
   let mpMediumConfidence = 0;
   let mpRolesSuppressed = 0;
   let mpsSkippedNotSeated = 0;
+  let mpRolesFreqSuppressed = 0;
 
   const trMatchSuppressions = loadTrMatchSuppressions(publicFolder);
 
@@ -588,6 +608,23 @@ export const integrateTr = ({
       });
     }
 
+    // Phase 2a — name-frequency guard. If the MP's normalized name is common
+    // in TR (COMMON_NAME_TR_ROWS+ officer rows across unrelated companies) AND
+    // not a single one of their TR roles earned a high-confidence
+    // corroboration (region overlap / self-declared stake / same-party
+    // witness), there is no evidence this profile is a distinct person rather
+    // than a namesake — drop the whole medium-only set. An MP who declared
+    // even one company anywhere keeps every row: the declaration anchors the
+    // identity, and selfMatch would already have promoted at least one role to
+    // high, so this branch wouldn't fire.
+    const nameRows = nameFrequency.get(mp.normalizedName) ?? 0;
+    const hasHighRole = roles.some((r) => r.confidence === "high");
+    if (nameRows >= COMMON_NAME_TR_ROWS && !hasHighRole && roles.length > 0) {
+      mpRolesFreqSuppressed += roles.length;
+      mpMediumConfidence -= roles.length;
+      continue;
+    }
+
     // Currently-active first, then most-recent erasures.
     roles.sort((a, b) => {
       if ((a.erasedAt === null) !== (b.erasedAt === null)) {
@@ -619,6 +656,9 @@ export const integrateTr = ({
       (mpRolesSuppressed
         ? `, ${mpRolesSuppressed} suppressed via tr_match_suppressions.json`
         : "") +
+      (mpRolesFreqSuppressed
+        ? `, ${mpRolesFreqSuppressed} suppressed by name-frequency guard`
+        : "") +
       (mpsSkippedNotSeated
         ? `, ${mpsSkippedNotSeated} non-seated profile(s) skipped`
         : ""),
@@ -631,6 +671,7 @@ export const integrateTr = ({
     mpHighConfidence,
     mpMediumConfidence,
     mpRolesSuppressed,
+    mpRolesFreqSuppressed,
     mpsSkippedNotSeated,
   };
 };
