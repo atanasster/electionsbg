@@ -17,8 +17,7 @@ export type ProcurementFlowNode = {
 export type ProcurementFlowLink = {
   source: string;
   target: string;
-  value: number;
-  currency: string;
+  valueEur: number;
 };
 
 export type ProcurementFlowFile = {

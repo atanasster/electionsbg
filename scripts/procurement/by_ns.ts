@@ -20,25 +20,7 @@ import fs from "fs";
 import path from "path";
 import type { Contract, MpCompanyRelation, MpConnectedFile } from "./types";
 import { canonicalJson } from "./validate";
-
-// Same fixed-rate table as src/screens/components/candidates/procurement/
-// formatAmount.ts — duplicated here because the pipeline does aggregation
-// in absolute EUR before serialization, while the SPA does only display
-// conversion. Keep these two tables in sync.
-const EUR_PER_UNIT: Record<string, number> = {
-  EUR: 1,
-  BGN: 1 / 1.95583,
-  USD: 0.92,
-  GBP: 1.17,
-  CHF: 1.05,
-};
-
-const toEur = (amount: number, currency: string | undefined): number => {
-  if (!amount || amount <= 0 || !currency) return 0;
-  const rate = EUR_PER_UNIT[currency];
-  if (rate === undefined) return 0;
-  return amount * rate;
-};
+import { toEur } from "@/lib/currency";
 
 // Top-N cap per category in each per-NS file. Keeps file size predictable
 // (top 50 × ~150 bytes/row ≈ 7.5 KB per category).
@@ -206,8 +188,10 @@ const accumulate = (
         fs.readFileSync(path.join(yearDir, file), "utf8"),
       ) as Contract[];
       for (const r of rows) {
-        const eur = toEur(r.amount ?? 0, r.currency);
-        if (eur <= 0) continue;
+        // USD/GBP/CHF rows (toEur -> null) are excluded from these MP-focused
+        // aggregates — negligible volume, not worth approximate-rate noise.
+        const eur = toEur(r.amount, r.currency);
+        if (eur == null || eur <= 0) continue;
         for (const range of ranges) {
           if (!inRange(r.date, range.start, range.end)) continue;
           const acc = out.get(range.electionDate);

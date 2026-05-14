@@ -20,6 +20,7 @@ import { useResolvedCandidate } from "@/data/candidates/useResolvedCandidate";
 import { useCandidateName } from "@/data/candidates/useCandidateName";
 import { CandidateHeader } from "@/screens/components/candidates/CandidateHeader";
 import type { MpAsset, MpAssetCategory, MpDeclaration } from "@/data/dataTypes";
+import { formatEur } from "@/lib/currency";
 import { DataTable, DataTableColumns } from "@/ux/data_table/DataTable";
 
 const CATEGORY_ICONS: Record<
@@ -69,7 +70,7 @@ const ORDER: MpAssetCategory[] = [
   "debt",
 ];
 
-const formatBgn = (n: number | null | undefined, lang: string): string => {
+const fmtNum = (n: number | null | undefined, lang: string): string => {
   if (n == null) return "—";
   const locale = lang === "bg" ? "bg-BG" : "en-GB";
   return new Intl.NumberFormat(locale, { maximumFractionDigits: 0 }).format(
@@ -106,7 +107,7 @@ const AssetTable: FC<{
   const isRealEstate = category === "real_estate";
   const isVehicle = category === "vehicle";
 
-  const totalBgn = rows.reduce((s, r) => s + (r.valueBgn ?? 0), 0);
+  const totalEur = rows.reduce((s, r) => s + (r.valueEur ?? 0), 0);
   const categoryTitle =
     t(CATEGORY_KEYS[category]) || CATEGORY_FALLBACKS[category];
 
@@ -188,25 +189,27 @@ const AssetTable: FC<{
       },
       {
         accessorKey: "amount",
-        header: t("mp_assets_col_amount") || "Amount",
+        header: t("mp_assets_col_amount_original") || "Original",
         sortUndefined: "last",
         cell: ({ row }) => (
-          <div className="text-right tabular-nums font-mono text-xs">
+          <div className="text-right tabular-nums font-mono text-xs text-muted-foreground">
             {row.original.amount != null
-              ? `${formatBgn(row.original.amount, lang)} ${row.original.currency ?? ""}`.trim()
+              ? `${fmtNum(row.original.amount, lang)} ${row.original.currency ?? ""}`.trim()
               : "—"}
           </div>
         ),
       },
       {
-        accessorKey: "valueBgn",
-        header: "BGN",
+        accessorKey: "valueEur",
+        header: "€",
         sortUndefined: "last",
         cell: ({ row }) => (
           <div
             className={`text-right tabular-nums font-mono ${isDebt ? "text-red-600" : ""}`}
           >
-            {formatBgn(row.original.valueBgn, lang)}
+            {row.original.valueEur != null
+              ? formatEur(row.original.valueEur, lang)
+              : "—"}
           </div>
         ),
       },
@@ -253,7 +256,7 @@ const AssetTable: FC<{
         <span
           className={`ml-auto font-mono tabular-nums ${isDebt ? "text-red-600" : ""}`}
         >
-          {totalBgn > 0 ? `${formatBgn(totalBgn, lang)} лв` : "—"}
+          {totalEur > 0 ? formatEur(totalEur, lang) : "—"}
         </span>
       </div>
       <DataTable<MpAsset, unknown>
@@ -272,11 +275,11 @@ const IncomeTable: FC<{ decl: MpDeclaration; lang: string }> = ({
 }) => {
   const { t } = useTranslation();
   const rows = decl.income.filter(
-    (r) => (r.amountBgnDeclarant ?? 0) !== 0 || (r.amountBgnSpouse ?? 0) !== 0,
+    (r) => (r.amountEurDeclarant ?? 0) !== 0 || (r.amountEurSpouse ?? 0) !== 0,
   );
   if (rows.length === 0) return null;
-  const totalDecl = rows.reduce((s, r) => s + (r.amountBgnDeclarant ?? 0), 0);
-  const totalSpouse = rows.reduce((s, r) => s + (r.amountBgnSpouse ?? 0), 0);
+  const totalDecl = rows.reduce((s, r) => s + (r.amountEurDeclarant ?? 0), 0);
+  const totalSpouse = rows.reduce((s, r) => s + (r.amountEurSpouse ?? 0), 0);
   return (
     <div className="rounded-lg border bg-card mb-6">
       <div className="px-4 py-3 border-b flex items-center gap-3 bg-muted/30">
@@ -291,7 +294,7 @@ const IncomeTable: FC<{ decl: MpDeclaration; lang: string }> = ({
             : t("mp_income_rows") || "rows"}
         </span>
         <span className="ml-auto font-mono tabular-nums">
-          {formatBgn(totalDecl + totalSpouse, lang)} лв
+          {formatEur(totalDecl + totalSpouse, lang)}
         </span>
       </div>
       <div className="overflow-x-auto">
@@ -303,10 +306,10 @@ const IncomeTable: FC<{ decl: MpDeclaration; lang: string }> = ({
                 {t("mp_income_category") || "Category"}
               </th>
               <th className="text-right font-normal px-3 py-2">
-                {t("mp_income_declarant") || "Declarant"} (лв)
+                {t("mp_income_declarant") || "Declarant"} (€)
               </th>
               <th className="text-right font-normal px-3 py-2">
-                {t("mp_income_spouse") || "Spouse"} (лв)
+                {t("mp_income_spouse") || "Spouse"} (€)
               </th>
             </tr>
           </thead>
@@ -325,10 +328,10 @@ const IncomeTable: FC<{ decl: MpDeclaration; lang: string }> = ({
                   {r.category ?? "—"}
                 </td>
                 <td className="px-3 py-2 text-right tabular-nums font-mono">
-                  {formatBgn(r.amountBgnDeclarant, lang)}
+                  {fmtNum(r.amountEurDeclarant, lang)}
                 </td>
                 <td className="px-3 py-2 text-right tabular-nums font-mono">
-                  {formatBgn(r.amountBgnSpouse, lang)}
+                  {fmtNum(r.amountEurSpouse, lang)}
                 </td>
               </tr>
             ))}
@@ -336,10 +339,10 @@ const IncomeTable: FC<{ decl: MpDeclaration; lang: string }> = ({
               <td />
               <td className="px-3 py-2">{t("total") || "Total"}</td>
               <td className="px-3 py-2 text-right tabular-nums font-mono">
-                {formatBgn(totalDecl, lang)}
+                {fmtNum(totalDecl, lang)}
               </td>
               <td className="px-3 py-2 text-right tabular-nums font-mono">
-                {formatBgn(totalSpouse, lang)}
+                {fmtNum(totalSpouse, lang)}
               </td>
             </tr>
           </tbody>
@@ -416,20 +419,16 @@ export const CandidateAssetsScreen: FC = () => {
             {t("mp_assets_total") || "Total assets"}
           </div>
           <div className="text-2xl font-bold tabular-nums">
-            {formatBgn(rollup.totalAssetsBgn, lang)}{" "}
-            <span className="text-base font-normal text-muted-foreground">
-              лв
-            </span>
+            {formatEur(rollup.totalAssetsEur, lang)}
           </div>
         </div>
-        {rollup.totalDebtsBgn > 0 && (
+        {rollup.totalDebtsEur > 0 && (
           <div>
             <div className="text-[10px] uppercase tracking-wide text-muted-foreground">
               {t("mp_assets_debts") || "Debts"}
             </div>
             <div className="text-lg font-semibold tabular-nums text-red-600">
-              −{formatBgn(rollup.totalDebtsBgn, lang)}{" "}
-              <span className="text-sm font-normal">лв</span>
+              −{formatEur(rollup.totalDebtsEur, lang)}
             </div>
           </div>
         )}
@@ -438,10 +437,7 @@ export const CandidateAssetsScreen: FC = () => {
             {t("mp_assets_net_worth") || "Net worth"}
           </div>
           <div className="text-2xl font-bold tabular-nums">
-            {formatBgn(rollup.netWorthBgn, lang)}{" "}
-            <span className="text-base font-normal text-muted-foreground">
-              лв
-            </span>
+            {formatEur(rollup.netWorthEur, lang)}
           </div>
         </div>
         <a

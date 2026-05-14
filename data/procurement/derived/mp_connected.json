@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-14T03:48:49.887Z",
+  "generatedAt": "2026-05-14T12:35:33.506Z",
   "total": 55,
   "entries": [
     {
@@ -14,65 +14,55 @@
           "confidence": "medium"
         }
       ],
-      "totalByCurrency": {
-        "BGN": 189321159.58,
-        "EUR": 227943701.65999997
-      },
+      "totalEur": 324742073.49190766,
+      "totalOther": {},
       "contractCount": 15,
       "awardCount": 0,
       "byYear": [
         {
           "year": "2013",
-          "totalByCurrency": {
-            "BGN": 620000
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 317000.96634165547,
+          "totalOther": {}
         },
         {
           "year": "2016",
-          "totalByCurrency": {
-            "BGN": 3000000
-          },
-          "contractCount": 2
+          "contractCount": 2,
+          "totalEur": 1533875.6435886554,
+          "totalOther": {}
         },
         {
           "year": "2019",
-          "totalByCurrency": {
-            "BGN": 142900000
-          },
-          "contractCount": 5
+          "contractCount": 5,
+          "totalEur": 73063609.82293962,
+          "totalOther": {}
         },
         {
           "year": "2022",
-          "totalByCurrency": {
-            "BGN": 42142082
-          },
-          "contractCount": 3
+          "contractCount": 3,
+          "totalEur": 21546904.383305296,
+          "totalOther": {}
         },
         {
           "year": "2023",
-          "totalByCurrency": {
-            "BGN": 659077.58
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 336981.01573245117,
+          "totalOther": {}
         },
         {
           "year": "2026",
-          "totalByCurrency": {
-            "EUR": 227943701.65999997
-          },
-          "contractCount": 3
+          "contractCount": 3,
+          "totalEur": 227943701.65999997,
+          "totalOther": {}
         }
       ],
       "topAwarders": [
         {
           "eik": "000695089",
           "name": "АГЕНЦИЯ \"ПЪТНА ИНФРАСТРУКТУРА\"",
-          "totalByCurrency": {
-            "BGN": 189321159.58,
-            "EUR": 227943701.65999997
-          },
-          "contractCount": 15
+          "contractCount": 15,
+          "totalEur": 324742073.49190766,
+          "totalOther": {}
         }
       ]
     },
@@ -88,148 +78,125 @@
           "confidence": "medium"
         }
       ],
-      "totalByCurrency": {
-        "BGN": 135237509.65,
-        "EUR": 9755722.480000002
-      },
+      "totalEur": 78901563.19724026,
+      "totalOther": {},
       "contractCount": 791,
       "awardCount": 0,
       "byYear": [
         {
           "year": "2011",
-          "totalByCurrency": {
-            "BGN": 1694796.43
-          },
-          "contractCount": 19
+          "contractCount": 19,
+          "totalEur": 866535.6549393352,
+          "totalOther": {}
         },
         {
           "year": "2012",
-          "totalByCurrency": {
-            "BGN": 4476437.329999999
-          },
-          "contractCount": 30
+          "contractCount": 30,
+          "totalEur": 2288766.063512677,
+          "totalOther": {}
         },
         {
           "year": "2013",
-          "totalByCurrency": {
-            "BGN": 9857939.770000001
-          },
-          "contractCount": 52
+          "contractCount": 52,
+          "totalEur": 5040284.569722318,
+          "totalOther": {}
         },
         {
           "year": "2014",
-          "totalByCurrency": {
-            "BGN": 6667781.679999999
-          },
-          "contractCount": 52
+          "contractCount": 52,
+          "totalEur": 3409182.6385728815,
+          "totalOther": {}
         },
         {
           "year": "2015",
-          "totalByCurrency": {
-            "BGN": 8867861.67
-          },
-          "contractCount": 35
+          "contractCount": 35,
+          "totalEur": 4534065.67544214,
+          "totalOther": {}
         },
         {
           "year": "2016",
-          "totalByCurrency": {
-            "BGN": 6539748.659999999
-          },
-          "contractCount": 57
+          "contractCount": 57,
+          "totalEur": 3343720.3949218486,
+          "totalOther": {}
         },
         {
           "year": "2017",
-          "totalByCurrency": {
-            "BGN": 17395667.61
-          },
-          "contractCount": 83
+          "contractCount": 83,
+          "totalEur": 8894263.616981026,
+          "totalOther": {}
         },
         {
           "year": "2019",
-          "totalByCurrency": {
-            "BGN": 15553408.99
-          },
-          "contractCount": 87
+          "contractCount": 87,
+          "totalEur": 7952331.741511277,
+          "totalOther": {}
         },
         {
           "year": "2020",
-          "totalByCurrency": {
-            "BGN": 10381446.61
-          },
-          "contractCount": 21
+          "contractCount": 21,
+          "totalEur": 5307949.366765005,
+          "totalOther": {}
         },
         {
           "year": "2021",
-          "totalByCurrency": {
-            "BGN": 7903519.24
-          },
-          "contractCount": 35
+          "contractCount": 35,
+          "totalEur": 4041005.220290107,
+          "totalOther": {}
         },
         {
           "year": "2022",
-          "totalByCurrency": {
-            "BGN": 26537056.930000007
-          },
-          "contractCount": 127
+          "contractCount": 127,
+          "totalEur": 13568181.75915085,
+          "totalOther": {}
         },
         {
           "year": "2023",
-          "totalByCurrency": {
-            "BGN": 19361844.73
-          },
-          "contractCount": 160
+          "contractCount": 160,
+          "totalEur": 9899554.01543079,
+          "totalOther": {}
         },
         {
           "year": "2026",
-          "totalByCurrency": {
-            "EUR": 9755722.480000002
-          },
-          "contractCount": 33
+          "contractCount": 33,
+          "totalEur": 9755722.480000002,
+          "totalOther": {}
         }
       ],
       "topAwarders": [
         {
+          "eik": "130277958",
+          "name": "Електроразпределителни мрежи Запад ЕАД",
+          "contractCount": 2,
+          "totalEur": 8093970.440610431,
+          "totalOther": {}
+        },
+        {
           "eik": "000695114",
           "name": "МИНИСТЕРСТВО НА ОБРАЗОВАНИЕТО И НАУКАТА",
-          "totalByCurrency": {
-            "BGN": 13559917.33,
-            "EUR": 422371.06
-          },
-          "contractCount": 36
+          "contractCount": 36,
+          "totalEur": 7355446.700520904,
+          "totalOther": {}
         },
         {
           "eik": "831641791",
           "name": "ИНФОРМАЦИОННО ОБСЛУЖВАНЕ АД",
-          "totalByCurrency": {
-            "BGN": 13813010
-          },
-          "contractCount": 21
-        },
-        {
-          "eik": "130277958",
-          "name": "Електроразпределителни мрежи Запад ЕАД",
-          "totalByCurrency": {
-            "BGN": 2901436,
-            "EUR": 6610489.77
-          },
-          "contractCount": 2
+          "contractCount": 21,
+          "totalEur": 7062479.867882178,
+          "totalOther": {}
         },
         {
           "eik": "129009710",
           "name": "Държавна агенция \"Национална сигурност\"",
-          "totalByCurrency": {
-            "BGN": 6193149.99,
-            "EUR": 35725.5
-          },
-          "contractCount": 24
+          "contractCount": 24,
+          "totalEur": 3202232.808917442,
+          "totalOther": {}
         },
         {
           "eik": "121399226",
           "name": "Национално сдружение на общините в Република България /НСОРБ/",
-          "totalByCurrency": {
-            "BGN": 6002697
-          },
-          "contractCount": 5
+          "contractCount": 5,
+          "totalEur": 3069130.2413808974,
+          "totalOther": {}
         }
       ]
     },
@@ -245,84 +212,73 @@
           "confidence": "medium"
         }
       ],
-      "totalByCurrency": {
-        "BGN": 119298484
-      },
+      "totalEur": 60996346.308216974,
+      "totalOther": {},
       "contractCount": 19,
       "awardCount": 0,
       "byYear": [
         {
           "year": "2011",
-          "totalByCurrency": {
-            "BGN": 300000
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 153387.56435886555,
+          "totalOther": {}
         },
         {
           "year": "2012",
-          "totalByCurrency": {
-            "BGN": 829000
-          },
-          "contractCount": 2
+          "contractCount": 2,
+          "totalEur": 423860.9695116651,
+          "totalOther": {}
         },
         {
           "year": "2013",
-          "totalByCurrency": {
-            "BGN": 14588100
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 7458777.092078555,
+          "totalOther": {}
         },
         {
           "year": "2014",
-          "totalByCurrency": {
-            "BGN": 640000
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 327226.80396557983,
+          "totalOther": {}
         },
         {
           "year": "2016",
-          "totalByCurrency": {
-            "BGN": 1820000
-          },
-          "contractCount": 4
+          "contractCount": 4,
+          "totalEur": 930551.2237771177,
+          "totalOther": {}
         },
         {
           "year": "2017",
-          "totalByCurrency": {
-            "BGN": 31121280
-          },
-          "contractCount": 2
+          "contractCount": 2,
+          "totalEur": 15912057.79643425,
+          "totalOther": {}
         },
         {
           "year": "2019",
-          "totalByCurrency": {
-            "BGN": 37280400
-          },
-          "contractCount": 4
+          "contractCount": 4,
+          "totalEur": 19061165.847747505,
+          "totalOther": {}
         },
         {
           "year": "2020",
-          "totalByCurrency": {
-            "BGN": 300000
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 153387.56435886555,
+          "totalOther": {}
         },
         {
           "year": "2022",
-          "totalByCurrency": {
-            "BGN": 32419704
-          },
-          "contractCount": 3
+          "contractCount": 3,
+          "totalEur": 16575931.445984568,
+          "totalOther": {}
         }
       ],
       "topAwarders": [
         {
           "eik": "123531939",
           "name": "ТЕЦ МАРИЦА ИЗТОК 2 ЕАД",
-          "totalByCurrency": {
-            "BGN": 119298484
-          },
-          "contractCount": 19
+          "contractCount": 19,
+          "totalEur": 60996346.308216974,
+          "totalOther": {}
         }
       ]
     },
@@ -338,81 +294,71 @@
           "confidence": "medium"
         }
       ],
-      "totalByCurrency": {
-        "BGN": 75957790.42999999
-      },
+      "totalEur": 38836601.56046282,
+      "totalOther": {},
       "contractCount": 9,
       "awardCount": 0,
       "byYear": [
         {
           "year": "2016",
-          "totalByCurrency": {
-            "BGN": 168440
-          },
-          "contractCount": 2
+          "contractCount": 2,
+          "totalEur": 86122.00446869104,
+          "totalOther": {}
         },
         {
           "year": "2019",
-          "totalByCurrency": {
-            "BGN": 62363144.76
-          },
-          "contractCount": 4
+          "contractCount": 4,
+          "totalEur": 31885769.601652496,
+          "totalOther": {}
         },
         {
           "year": "2022",
-          "totalByCurrency": {
-            "BGN": 8030077.67
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 4105713.518046047,
+          "totalOther": {}
         },
         {
           "year": "2023",
-          "totalByCurrency": {
-            "BGN": 5396128
-          },
-          "contractCount": 2
+          "contractCount": 2,
+          "totalEur": 2758996.436295588,
+          "totalOther": {}
         }
       ],
       "topAwarders": [
         {
           "eik": "175405647",
           "name": "БДЖ - Пътнически превози ЕООД",
-          "totalByCurrency": {
-            "BGN": 55979144.76
-          },
-          "contractCount": 2
+          "contractCount": 2,
+          "totalEur": 28621682.232095834,
+          "totalOther": {}
         },
         {
           "eik": "123531939",
           "name": "ТЕЦ МАРИЦА ИЗТОК 2 ЕАД",
-          "totalByCurrency": {
-            "BGN": 11140080
-          },
-          "contractCount": 3
+          "contractCount": 3,
+          "totalEur": 5695832.45987637,
+          "totalOther": {}
         },
         {
           "eik": "106513772",
           "name": "АЕЦ КОЗЛОДУЙ ЕАД",
-          "totalByCurrency": {
-            "BGN": 8030077.67
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 4105713.518046047,
+          "totalOther": {}
         },
         {
           "eik": "833017552",
           "name": "МИНИ МАРИЦА - ИЗТОК ЕАД",
-          "totalByCurrency": {
-            "BGN": 640048
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 327251.34597587725,
+          "totalOther": {}
         },
         {
           "eik": "121683785",
           "name": "Столичен електротранспорт\" ЕАД - София",
-          "totalByCurrency": {
-            "BGN": 168440
-          },
-          "contractCount": 2
+          "contractCount": 2,
+          "totalEur": 86122.00446869104,
+          "totalOther": {}
         }
       ]
     },
@@ -428,453 +374,63 @@
           "confidence": "medium"
         }
       ],
-      "totalByCurrency": {
-        "BGN": 42281864.96,
-        "EUR": 18644.59
-      },
+      "totalEur": 21637018.865882874,
+      "totalOther": {},
       "contractCount": 11,
       "awardCount": 0,
       "byYear": [
         {
           "year": "2017",
-          "totalByCurrency": {
-            "BGN": 340000
-          },
-          "contractCount": 2
+          "contractCount": 2,
+          "totalEur": 173839.23960671428,
+          "totalOther": {}
         },
         {
           "year": "2019",
-          "totalByCurrency": {
-            "BGN": 14911370
-          },
-          "contractCount": 4
+          "contractCount": 4,
+          "totalEur": 7624062.418512857,
+          "totalOther": {}
         },
         {
           "year": "2022",
-          "totalByCurrency": {
-            "BGN": 4821120
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 2464999.514272713,
+          "totalOther": {}
         },
         {
           "year": "2023",
-          "totalByCurrency": {
-            "BGN": 22209374.96
-          },
-          "contractCount": 3
+          "contractCount": 3,
+          "totalEur": 11355473.103490591,
+          "totalOther": {}
         },
         {
           "year": "2026",
-          "totalByCurrency": {
-            "EUR": 18644.59
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 18644.59,
+          "totalOther": {}
         }
       ],
       "topAwarders": [
         {
           "eik": "121683408",
           "name": "СТОЛИЧЕН АВТОТРАНСПОРТ ЕАД",
-          "totalByCurrency": {
-            "BGN": 41379290
-          },
-          "contractCount": 4
+          "contractCount": 4,
+          "totalEur": 21156895.026663873,
+          "totalOther": {}
         },
         {
           "eik": "121023551",
           "name": "Летище София ЕАД",
-          "totalByCurrency": {
-            "BGN": 601000
-          },
-          "contractCount": 4
+          "contractCount": 4,
+          "totalEur": 307286.4205989273,
+          "totalOther": {}
         },
         {
           "eik": "117001983",
           "name": "СВОБОДНА ЗОНА-РУСЕ ЕАД",
-          "totalByCurrency": {
-            "BGN": 301574.96,
-            "EUR": 18644.59
-          },
-          "contractCount": 3
-        }
-      ]
-    },
-    {
-      "mpId": 2647,
-      "mpName": "ДИМИТЪР КРУМОВ АЛЕКСАНДРОВ",
-      "contractorEik": "127003032",
-      "contractorName": "АЛ И КО АД",
-      "relations": [
-        {
-          "kind": "stake",
-          "shareSize": "33.19%",
-          "valueBgn": 165963,
-          "fiscalYear": 2021,
-          "declarationYear": 2021
-        }
-      ],
-      "totalByCurrency": {
-        "BGN": 17262454.550000004
-      },
-      "contractCount": 120,
-      "awardCount": 0,
-      "byYear": [
-        {
-          "year": "2011",
-          "totalByCurrency": {
-            "BGN": 1265073.6
-          },
-          "contractCount": 11
-        },
-        {
-          "year": "2012",
-          "totalByCurrency": {
-            "BGN": 1622571.7200000002
-          },
-          "contractCount": 14
-        },
-        {
-          "year": "2013",
-          "totalByCurrency": {
-            "BGN": 1952854.22
-          },
-          "contractCount": 20
-        },
-        {
-          "year": "2014",
-          "totalByCurrency": {
-            "BGN": 873689.4900000001
-          },
-          "contractCount": 10
-        },
-        {
-          "year": "2015",
-          "totalByCurrency": {
-            "BGN": 1649019.7000000002
-          },
-          "contractCount": 12
-        },
-        {
-          "year": "2016",
-          "totalByCurrency": {
-            "BGN": 653284.78
-          },
-          "contractCount": 8
-        },
-        {
-          "year": "2017",
-          "totalByCurrency": {
-            "BGN": 4307171.9
-          },
-          "contractCount": 21
-        },
-        {
-          "year": "2019",
-          "totalByCurrency": {
-            "BGN": 3870190.8200000003
-          },
-          "contractCount": 11
-        },
-        {
-          "year": "2020",
-          "totalByCurrency": {
-            "BGN": 193734.66999999998
-          },
-          "contractCount": 4
-        },
-        {
-          "year": "2022",
-          "totalByCurrency": {
-            "BGN": 351897.73000000004
-          },
-          "contractCount": 3
-        },
-        {
-          "year": "2023",
-          "totalByCurrency": {
-            "BGN": 522965.92
-          },
-          "contractCount": 6
-        }
-      ],
-      "topAwarders": [
-        {
-          "eik": "127512595",
-          "name": "Държавно предприятие /ДП/ \"Кабиюк\" - Шумен",
-          "totalByCurrency": {
-            "BGN": 5143891.51
-          },
-          "contractCount": 13
-        },
-        {
-          "eik": "000852544",
-          "name": "Община Балчик",
-          "totalByCurrency": {
-            "BGN": 2767498
-          },
-          "contractCount": 4
-        },
-        {
-          "eik": "837068284",
-          "name": "Водоснабдяване и канализация ООД - Шумен",
-          "totalByCurrency": {
-            "BGN": 1937781.5
-          },
-          "contractCount": 4
-        },
-        {
-          "eik": "000931625",
-          "name": "Община Велики Преслав",
-          "totalByCurrency": {
-            "BGN": 800640
-          },
-          "contractCount": 6
-        },
-        {
-          "eik": "000850187",
-          "name": "ДОМ ЗА МЕДИКО-СОЦИАЛНИ ГРИЖИ ЗА ДЕЦА - ДОБРИЧ",
-          "totalByCurrency": {
-            "BGN": 742008
-          },
-          "contractCount": 8
-        }
-      ]
-    },
-    {
-      "mpId": 5268,
-      "mpName": "Румен Ангелов Миланов",
-      "contractorEik": "121015330",
-      "contractorName": "ПЪТСТРОЙ-92 АД",
-      "relations": [
-        {
-          "kind": "director",
-          "isCurrent": true,
-          "confidence": "medium"
-        }
-      ],
-      "totalByCurrency": {
-        "BGN": 13805793.109999998
-      },
-      "contractCount": 28,
-      "awardCount": 0,
-      "byYear": [
-        {
-          "year": "2011",
-          "totalByCurrency": {
-            "BGN": 2081769.66
-          },
-          "contractCount": 2
-        },
-        {
-          "year": "2012",
-          "totalByCurrency": {
-            "BGN": 549508.97
-          },
-          "contractCount": 3
-        },
-        {
-          "year": "2013",
-          "totalByCurrency": {
-            "BGN": 5687704.13
-          },
-          "contractCount": 1
-        },
-        {
-          "year": "2014",
-          "totalByCurrency": {
-            "BGN": 1443628.97
-          },
-          "contractCount": 3
-        },
-        {
-          "year": "2015",
-          "totalByCurrency": {
-            "BGN": 1042793
-          },
-          "contractCount": 2
-        },
-        {
-          "year": "2016",
-          "totalByCurrency": {
-            "BGN": 140020.24
-          },
-          "contractCount": 2
-        },
-        {
-          "year": "2017",
-          "totalByCurrency": {
-            "BGN": 310200.28
-          },
-          "contractCount": 2
-        },
-        {
-          "year": "2020",
-          "totalByCurrency": {
-            "BGN": 449785.66000000003
-          },
-          "contractCount": 2
-        },
-        {
-          "year": "2022",
-          "totalByCurrency": {
-            "BGN": 1135059.42
-          },
-          "contractCount": 6
-        },
-        {
-          "year": "2023",
-          "totalByCurrency": {
-            "BGN": 965322.7799999999
-          },
-          "contractCount": 5
-        }
-      ],
-      "topAwarders": [
-        {
-          "eik": "000695089",
-          "name": "Агенция \"Пътна инфраструктура\" /АПИ/ - /Старо наименование - /Национална агенция \"Пътна инфраструктура\" /НАПИ/ - /Старо наименование - Фонд \"Републиканска пътна инфраструктура\"/ /ФРПИ/",
-          "totalByCurrency": {
-            "BGN": 8706556.76
-          },
-          "contractCount": 4
-        },
-        {
-          "eik": "000776089",
-          "name": "ОБЩИНА БОТЕВГРАД",
-          "totalByCurrency": {
-            "BGN": 1396225.19
-          },
-          "contractCount": 8
-        },
-        {
-          "eik": "000193371",
-          "name": "Община Мездра",
-          "totalByCurrency": {
-            "BGN": 1364046.4900000002
-          },
-          "contractCount": 9
-        },
-        {
-          "eik": "000291723",
-          "name": "Община Ябланица",
-          "totalByCurrency": {
-            "BGN": 1105022
-          },
-          "contractCount": 1
-        },
-        {
-          "eik": "000777248",
-          "name": "ОБЩИНА МИРКОВО",
-          "totalByCurrency": {
-            "BGN": 896247.7799999999
-          },
-          "contractCount": 4
-        }
-      ]
-    },
-    {
-      "mpId": 3410,
-      "mpName": "Георги  Стоянов Кадиев",
-      "contractorEik": "175392783",
-      "contractorName": "ЕНЕРДЖИ СЪПЛАЙ ЕООД",
-      "relations": [
-        {
-          "kind": "stake",
-          "shareSize": "100",
-          "valueBgn": 120000,
-          "fiscalYear": 2021,
-          "declarationYear": 2021
-        }
-      ],
-      "totalByCurrency": {
-        "BGN": 13801637.879999999
-      },
-      "contractCount": 22,
-      "awardCount": 0,
-      "byYear": [
-        {
-          "year": "2014",
-          "totalByCurrency": {
-            "BGN": 4738745.88
-          },
-          "contractCount": 4
-        },
-        {
-          "year": "2015",
-          "totalByCurrency": {
-            "BGN": 4320960
-          },
-          "contractCount": 3
-        },
-        {
-          "year": "2016",
-          "totalByCurrency": {
-            "BGN": 3236332
-          },
-          "contractCount": 7
-        },
-        {
-          "year": "2017",
-          "totalByCurrency": {
-            "BGN": 1171000
-          },
-          "contractCount": 5
-        },
-        {
-          "year": "2019",
-          "totalByCurrency": {
-            "BGN": 144600
-          },
-          "contractCount": 2
-        },
-        {
-          "year": "2023",
-          "totalByCurrency": {
-            "BGN": 190000
-          },
-          "contractCount": 1
-        }
-      ],
-      "topAwarders": [
-        {
-          "eik": "130823243",
-          "name": "ДП Национална компания \"Железопътна инфраструктура\" /НКЖИ/ - София",
-          "totalByCurrency": {
-            "BGN": 2951200
-          },
-          "contractCount": 1
-        },
-        {
-          "eik": "129010196",
-          "name": "Командване на военноморските сили, гр.Варна",
-          "totalByCurrency": {
-            "BGN": 2440000
-          },
-          "contractCount": 1
-        },
-        {
-          "eik": "000695025",
-          "name": "Министерски съвет /МС/ на Република България /РБ/",
-          "totalByCurrency": {
-            "BGN": 1780000
-          },
-          "contractCount": 2
-        },
-        {
-          "eik": "130175000",
-          "name": "Софийска вода\" АД",
-          "totalByCurrency": {
-            "BGN": 1558788
-          },
-          "contractCount": 1
-        },
-        {
-          "eik": "829053806",
-          "name": "Водоснабдяване и канализация /В и К/ ООД - Сливен",
-          "totalByCurrency": {
-            "BGN": 1296760
-          },
-          "contractCount": 1
+          "contractCount": 3,
+          "totalEur": 172837.41862007434,
+          "totalOther": {}
         }
       ]
     },
@@ -890,96 +446,417 @@
           "confidence": "medium"
         }
       ],
-      "totalByCurrency": {
-        "BGN": 6638723.44,
-        "EUR": 6998023.300000001
-      },
+      "totalEur": 10392348.696379032,
+      "totalOther": {},
       "contractCount": 33,
       "awardCount": 0,
       "byYear": [
         {
           "year": "2011",
-          "totalByCurrency": {
-            "BGN": 1045570.55
-          },
-          "contractCount": 3
+          "contractCount": 3,
+          "totalEur": 534591.7334328649,
+          "totalOther": {}
         },
         {
           "year": "2013",
-          "totalByCurrency": {
-            "BGN": 1594435.11
-          },
-          "contractCount": 4
+          "contractCount": 4,
+          "totalEur": 815221.7268371996,
+          "totalOther": {}
         },
         {
           "year": "2014",
-          "totalByCurrency": {
-            "BGN": 2017203.7799999998
-          },
-          "contractCount": 5
+          "contractCount": 5,
+          "totalEur": 1031379.9154323228,
+          "totalOther": {}
         },
         {
           "year": "2019",
-          "totalByCurrency": {
-            "BGN": 648014
-          },
-          "contractCount": 4
+          "contractCount": 4,
+          "totalEur": 331324.2971014863,
+          "totalOther": {}
         },
         {
           "year": "2022",
-          "totalByCurrency": {
-            "BGN": 1333500
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 681807.7235751573,
+          "totalOther": {}
         },
         {
           "year": "2026",
-          "totalByCurrency": {
-            "EUR": 6998023.300000001
-          },
-          "contractCount": 16
+          "contractCount": 16,
+          "totalEur": 6998023.300000001,
+          "totalOther": {}
         }
       ],
       "topAwarders": [
         {
           "eik": "115576405",
           "name": "УНИВЕРСИТЕТСКА МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ \"СВЕТИ ГЕОРГИ\" ЕАД",
-          "totalByCurrency": {
-            "EUR": 2686685.4599999995
-          },
-          "contractCount": 3
+          "contractCount": 3,
+          "totalEur": 2686685.4599999995,
+          "totalOther": {}
         },
         {
           "eik": "000662790",
           "name": "Специализирана болница за активно лечение по детски болести – проф.Иван Митев ЕАД",
-          "totalByCurrency": {
-            "EUR": 2582062.0799999996
-          },
-          "contractCount": 3
+          "contractCount": 3,
+          "totalEur": 2582062.0799999996,
+          "totalOther": {}
         },
         {
           "eik": "831605795",
           "name": "УНИВЕРСИТЕТСКА МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ \"АЛЕКСАНДРОВСКА\" ЕАД",
-          "totalByCurrency": {
-            "EUR": 1726821.5600000003
-          },
-          "contractCount": 9
+          "contractCount": 9,
+          "totalEur": 1726821.5600000003,
+          "totalOther": {}
         },
         {
           "eik": "000695317",
           "name": "МИНИСТЕРСТВО НА ЗДРАВЕОПАЗВАНЕТО",
-          "totalByCurrency": {
-            "BGN": 1606637
-          },
-          "contractCount": 2
+          "contractCount": 2,
+          "totalEur": 821460.4541294489,
+          "totalOther": {}
         },
         {
           "eik": "000812197",
           "name": "Комплексен онкологичен център - Стара Загора\" ЕООД - Старо наименование /Междуобластен диспансер за онкологични заболявания със стационар /МДОЗС/ - Стара Загора ЕООД/",
-          "totalByCurrency": {
-            "BGN": 1600583.04
-          },
-          "contractCount": 2
+          "contractCount": 2,
+          "totalEur": 818365.1135323623,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
+      "mpId": 2647,
+      "mpName": "ДИМИТЪР КРУМОВ АЛЕКСАНДРОВ",
+      "contractorEik": "127003032",
+      "contractorName": "АЛ И КО АД",
+      "relations": [
+        {
+          "kind": "stake",
+          "shareSize": "33.19%",
+          "valueEur": 84855.53447896801,
+          "fiscalYear": 2021,
+          "declarationYear": 2021
+        }
+      ],
+      "totalEur": 8826152.860933723,
+      "totalOther": {},
+      "contractCount": 120,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2011",
+          "contractCount": 11,
+          "totalEur": 646821.8607956725,
+          "totalOther": {}
+        },
+        {
+          "year": "2012",
+          "contractCount": 14,
+          "totalEur": 829607.747094584,
+          "totalOther": {}
+        },
+        {
+          "year": "2013",
+          "contractCount": 20,
+          "totalEur": 998478.507845774,
+          "totalOther": {}
+        },
+        {
+          "year": "2014",
+          "contractCount": 10,
+          "totalEur": 446710.3429234648,
+          "totalOther": {}
+        },
+        {
+          "year": "2015",
+          "contractCount": 12,
+          "totalEur": 843130.384542624,
+          "totalOther": {}
+        },
+        {
+          "year": "2016",
+          "contractCount": 8,
+          "totalEur": 334019.2041230578,
+          "totalOther": {}
+        },
+        {
+          "year": "2017",
+          "contractCount": 21,
+          "totalEur": 2202222.023386491,
+          "totalOther": {}
+        },
+        {
+          "year": "2019",
+          "contractCount": 11,
+          "totalEur": 1978797.1449461356,
+          "totalOther": {}
+        },
+        {
+          "year": "2020",
+          "contractCount": 4,
+          "totalEur": 99054.96387722858,
+          "totalOther": {}
+        },
+        {
+          "year": "2022",
+          "contractCount": 3,
+          "totalEur": 179922.452360379,
+          "totalOther": {}
+        },
+        {
+          "year": "2023",
+          "contractCount": 6,
+          "totalEur": 267388.2290383111,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "127512595",
+          "name": "Държавно предприятие /ДП/ \"Кабиюк\" - Шумен",
+          "contractCount": 13,
+          "totalEur": 2630029.966817157,
+          "totalOther": {}
+        },
+        {
+          "eik": "000852544",
+          "name": "Община Балчик",
+          "contractCount": 4,
+          "totalEur": 1414999.2586267723,
+          "totalOther": {}
+        },
+        {
+          "eik": "837068284",
+          "name": "Водоснабдяване и канализация ООД - Шумен",
+          "contractCount": 4,
+          "totalEur": 990771.9484822301,
+          "totalOther": {}
+        },
+        {
+          "eik": "000931625",
+          "name": "Община Велики Преслав",
+          "contractCount": 6,
+          "totalEur": 409360.7317609404,
+          "totalOther": {}
+        },
+        {
+          "eik": "000850187",
+          "name": "ДОМ ЗА МЕДИКО-СОЦИАЛНИ ГРИЖИ ЗА ДЕЦА - ДОБРИЧ",
+          "contractCount": 8,
+          "totalEur": 379382.6661826437,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
+      "mpId": 5268,
+      "mpName": "Румен Ангелов Миланов",
+      "contractorEik": "121015330",
+      "contractorName": "ПЪТСТРОЙ-92 АД",
+      "relations": [
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "totalEur": 7058789.93061769,
+      "totalOther": {},
+      "contractCount": 28,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2011",
+          "contractCount": 2,
+          "totalEur": 1064391.9256786122,
+          "totalOther": {}
+        },
+        {
+          "year": "2012",
+          "contractCount": 3,
+          "totalEur": 280959.47500549635,
+          "totalOther": {}
+        },
+        {
+          "year": "2013",
+          "contractCount": 1,
+          "totalEur": 2908076.944315201,
+          "totalOther": {}
+        },
+        {
+          "year": "2014",
+          "contractCount": 3,
+          "totalEur": 738115.7718206593,
+          "totalOther": {}
+        },
+        {
+          "year": "2015",
+          "contractCount": 2,
+          "totalEur": 533171.5946682483,
+          "totalOther": {}
+        },
+        {
+          "year": "2016",
+          "contractCount": 2,
+          "totalEur": 71591.21191514599,
+          "totalOther": {}
+        },
+        {
+          "year": "2017",
+          "contractCount": 2,
+          "totalEur": 158602.88470879372,
+          "totalOther": {}
+        },
+        {
+          "year": "2020",
+          "contractCount": 2,
+          "totalEur": 229971.75623648273,
+          "totalOther": {}
+        },
+        {
+          "year": "2022",
+          "contractCount": 6,
+          "totalEur": 580346.6661212887,
+          "totalOther": {}
+        },
+        {
+          "year": "2023",
+          "contractCount": 5,
+          "totalEur": 493561.7001477633,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000695089",
+          "name": "Агенция \"Пътна инфраструктура\" /АПИ/ - /Старо наименование - /Национална агенция \"Пътна инфраструктура\" /НАПИ/ - /Старо наименование - Фонд \"Републиканска пътна инфраструктура\"/ /ФРПИ/",
+          "contractCount": 4,
+          "totalEur": 4451591.784562053,
+          "totalOther": {}
+        },
+        {
+          "eik": "000776089",
+          "name": "ОБЩИНА БОТЕВГРАД",
+          "contractCount": 8,
+          "totalEur": 713878.6039686475,
+          "totalOther": {}
+        },
+        {
+          "eik": "000193371",
+          "name": "Община Мездра",
+          "contractCount": 9,
+          "totalEur": 697425.8959111989,
+          "totalOther": {}
+        },
+        {
+          "eik": "000291723",
+          "name": "Община Ябланица",
+          "contractCount": 1,
+          "totalEur": 564988.7771432077,
+          "totalOther": {}
+        },
+        {
+          "eik": "000777248",
+          "name": "ОБЩИНА МИРКОВО",
+          "contractCount": 4,
+          "totalEur": 458244.21345413453,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
+      "mpId": 3410,
+      "mpName": "Георги  Стоянов Кадиев",
+      "contractorEik": "175392783",
+      "contractorName": "ЕНЕРДЖИ СЪПЛАЙ ЕООД",
+      "relations": [
+        {
+          "kind": "stake",
+          "shareSize": "100",
+          "valueEur": 61355.02574354622,
+          "fiscalYear": 2021,
+          "declarationYear": 2021
+        }
+      ],
+      "totalEur": 7056665.395254188,
+      "totalOther": {},
+      "contractCount": 22,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2014",
+          "contractCount": 4,
+          "totalEur": 2422882.29549603,
+          "totalOther": {}
+        },
+        {
+          "year": "2015",
+          "contractCount": 3,
+          "totalEur": 2209271.7669736124,
+          "totalOther": {}
+        },
+        {
+          "year": "2016",
+          "contractCount": 7,
+          "totalEur": 1654710.2764555202,
+          "totalOther": {}
+        },
+        {
+          "year": "2017",
+          "contractCount": 5,
+          "totalEur": 598722.7928807718,
+          "totalOther": {}
+        },
+        {
+          "year": "2019",
+          "contractCount": 2,
+          "totalEur": 73932.80602097319,
+          "totalOther": {}
+        },
+        {
+          "year": "2023",
+          "contractCount": 1,
+          "totalEur": 97145.45742728151,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "130823243",
+          "name": "ДП Национална компания \"Железопътна инфраструктура\" /НКЖИ/ - София",
+          "contractCount": 1,
+          "totalEur": 1508924.59978628,
+          "totalOther": {}
+        },
+        {
+          "eik": "129010196",
+          "name": "Командване на военноморските сили, гр.Варна",
+          "contractCount": 1,
+          "totalEur": 1247552.1901187731,
+          "totalOther": {}
+        },
+        {
+          "eik": "000695025",
+          "name": "Министерски съвет /МС/ на Република България /РБ/",
+          "contractCount": 2,
+          "totalEur": 910099.5485292689,
+          "totalOther": {}
+        },
+        {
+          "eik": "130175000",
+          "name": "Софийска вода\" АД",
+          "contractCount": 1,
+          "totalEur": 796995.648906091,
+          "totalOther": {}
+        },
+        {
+          "eik": "829053806",
+          "name": "Водоснабдяване и канализация /В и К/ ООД - Сливен",
+          "contractCount": 1,
+          "totalEur": 663022.8598600082,
+          "totalOther": {}
         }
       ]
     },
@@ -995,325 +872,83 @@
           "confidence": "medium"
         }
       ],
-      "totalByCurrency": {
-        "BGN": 6275683.720000001,
-        "EUR": 2778042.38
-      },
+      "totalEur": 5986748.514991283,
+      "totalOther": {},
       "contractCount": 12,
       "awardCount": 0,
       "byYear": [
         {
           "year": "2011",
-          "totalByCurrency": {
-            "BGN": 750000
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 383468.91089716385,
+          "totalOther": {}
         },
         {
           "year": "2014",
-          "totalByCurrency": {
-            "BGN": 85931.5
-          },
-          "contractCount": 2
+          "contractCount": 2,
+          "totalEur": 43936.07828901285,
+          "totalOther": {}
         },
         {
           "year": "2015",
-          "totalByCurrency": {
-            "BGN": 899208
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 459757.7499066892,
+          "totalOther": {}
         },
         {
           "year": "2022",
-          "totalByCurrency": {
-            "BGN": 35000
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 17895.215841867648,
+          "totalOther": {}
         },
         {
           "year": "2023",
-          "totalByCurrency": {
-            "BGN": 4505544.220000001
-          },
-          "contractCount": 5
+          "contractCount": 5,
+          "totalEur": 2303648.180056549,
+          "totalOther": {}
         },
         {
           "year": "2026",
-          "totalByCurrency": {
-            "EUR": 2778042.38
-          },
-          "contractCount": 2
+          "contractCount": 2,
+          "totalEur": 2778042.38,
+          "totalOther": {}
         }
       ],
       "topAwarders": [
         {
           "eik": "831609046",
           "name": "ТОПЛОФИКАЦИЯ СОФИЯ ЕАД",
-          "totalByCurrency": {
-            "BGN": 5399208,
-            "EUR": 2684282.38
-          },
-          "contractCount": 3
+          "contractCount": 3,
+          "totalEur": 5444853.595289672,
+          "totalOther": {}
         },
         {
           "eik": "121100421",
           "name": "Държавен фонд \"Земеделие\" /ДФЗ/",
-          "totalByCurrency": {
-            "BGN": 750000
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 383468.91089716385,
+          "totalOther": {}
         },
         {
           "eik": "000696327",
           "name": "СТОЛИЧНА ОБЩИНА",
-          "totalByCurrency": {
-            "EUR": 93760
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 93760,
+          "totalOther": {}
         },
         {
           "eik": "130403691",
           "name": "Институт по публична администрация/ИПА/ - /Старо наименование - Институт по публична администрация и европейска интеграция/ИПАЕИ/",
-          "totalByCurrency": {
-            "BGN": 78462.5
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 40117.239228358296,
+          "totalOther": {}
         },
         {
           "eik": "102011085",
           "name": "ТОПЛОФИКАЦИЯ - БУРГАС АД",
-          "totalByCurrency": {
-            "BGN": 35000
-          },
-          "contractCount": 1
-        }
-      ]
-    },
-    {
-      "mpId": 5094,
-      "mpName": "Николай Иванов Косев",
-      "contractorEik": "107564054",
-      "contractorName": "ЕВРОХИМ-ГРУП ООД",
-      "relations": [
-        {
-          "kind": "partner",
-          "isCurrent": true,
-          "confidence": "medium"
-        }
-      ],
-      "totalByCurrency": {
-        "BGN": 7005503.49,
-        "EUR": 50566.77
-      },
-      "contractCount": 52,
-      "awardCount": 0,
-      "byYear": [
-        {
-          "year": "2011",
-          "totalByCurrency": {
-            "BGN": 81412.5
-          },
-          "contractCount": 2
-        },
-        {
-          "year": "2012",
-          "totalByCurrency": {
-            "BGN": 156013.2
-          },
-          "contractCount": 2
-        },
-        {
-          "year": "2013",
-          "totalByCurrency": {
-            "BGN": 437224.6
-          },
-          "contractCount": 3
-        },
-        {
-          "year": "2015",
-          "totalByCurrency": {
-            "BGN": 107461.54
-          },
-          "contractCount": 2
-        },
-        {
-          "year": "2016",
-          "totalByCurrency": {
-            "BGN": 451440
-          },
-          "contractCount": 2
-        },
-        {
-          "year": "2017",
-          "totalByCurrency": {
-            "BGN": 602108.6
-          },
-          "contractCount": 10
-        },
-        {
-          "year": "2019",
-          "totalByCurrency": {
-            "BGN": 2324751.6500000004
-          },
-          "contractCount": 13
-        },
-        {
-          "year": "2022",
-          "totalByCurrency": {
-            "BGN": 1927755.9
-          },
-          "contractCount": 9
-        },
-        {
-          "year": "2023",
-          "totalByCurrency": {
-            "BGN": 917335.5
-          },
-          "contractCount": 8
-        },
-        {
-          "year": "2026",
-          "totalByCurrency": {
-            "EUR": 50566.77
-          },
-          "contractCount": 1
-        }
-      ],
-      "topAwarders": [
-        {
-          "eik": "117505556",
-          "name": "УНИВЕРСИТЕТСКА МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ \"КАНЕВ\" АД",
-          "totalByCurrency": {
-            "BGN": 2256000
-          },
-          "contractCount": 3
-        },
-        {
-          "eik": "104510514",
-          "name": "МНОГОПРОФИЛНА ОБЛАСТНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ \"Д-Р СТЕФАН ЧЕРКЕЗОВ\" АД",
-          "totalByCurrency": {
-            "BGN": 1371440
-          },
-          "contractCount": 5
-        },
-        {
-          "eik": "107507217",
-          "name": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ \"Д-Р ТОТА ВЕНКОВА\" АД",
-          "totalByCurrency": {
-            "BGN": 791957.5
-          },
-          "contractCount": 7
-        },
-        {
-          "eik": "116503980",
-          "name": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ \"СВ.ИВАН РИЛСКИ\" - РАЗГРАД АД",
-          "totalByCurrency": {
-            "BGN": 585850,
-            "EUR": 50566.77
-          },
-          "contractCount": 6
-        },
-        {
-          "eik": "175405647",
-          "name": "БДЖ - Пътнически превози ЕООД",
-          "totalByCurrency": {
-            "BGN": 387136.88999999996
-          },
-          "contractCount": 7
-        }
-      ]
-    },
-    {
-      "mpId": 3016,
-      "mpName": "Борис Цветков Цветков",
-      "contractorEik": "175030371",
-      "contractorName": "УЧЕНИЧЕСКИ ОТДИХ И СПОРТ ЕАД",
-      "relations": [
-        {
-          "kind": "director",
-          "isCurrent": true,
-          "confidence": "medium"
-        }
-      ],
-      "totalByCurrency": {
-        "BGN": 6991412.4
-      },
-      "contractCount": 12,
-      "awardCount": 0,
-      "byYear": [
-        {
-          "year": "2012",
-          "totalByCurrency": {
-            "BGN": 333328
-          },
-          "contractCount": 1
-        },
-        {
-          "year": "2013",
-          "totalByCurrency": {
-            "BGN": 3823328
-          },
-          "contractCount": 2
-        },
-        {
-          "year": "2014",
-          "totalByCurrency": {
-            "BGN": 333120
-          },
-          "contractCount": 1
-        },
-        {
-          "year": "2015",
-          "totalByCurrency": {
-            "BGN": 266470.4
-          },
-          "contractCount": 1
-        },
-        {
-          "year": "2016",
-          "totalByCurrency": {
-            "BGN": 599998
-          },
-          "contractCount": 2
-        },
-        {
-          "year": "2017",
-          "totalByCurrency": {
-            "BGN": 599964
-          },
-          "contractCount": 2
-        },
-        {
-          "year": "2019",
-          "totalByCurrency": {
-            "BGN": 699804
-          },
-          "contractCount": 2
-        },
-        {
-          "year": "2023",
-          "totalByCurrency": {
-            "BGN": 335400
-          },
-          "contractCount": 1
-        }
-      ],
-      "topAwarders": [
-        {
-          "eik": "000672382",
-          "name": "НАЦИОНАЛЕН ДВОРЕЦ НА ДЕЦАТА",
-          "totalByCurrency": {
-            "BGN": 3501412.4
-          },
-          "contractCount": 11
-        },
-        {
-          "eik": "000695114",
-          "name": "Министерство на образованието, младежта  и науката /МОМН/ - /Старо наименование-Министерство на образованието и науката /МОН/",
-          "totalByCurrency": {
-            "BGN": 3490000
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 17895.215841867648,
+          "totalOther": {}
         }
       ]
     },
@@ -1329,132 +964,312 @@
           "confidence": "medium"
         }
       ],
-      "totalByCurrency": {
-        "BGN": 5398830.2,
-        "EUR": 1255725.3900000001
-      },
+      "totalEur": 4016103.439216957,
+      "totalOther": {},
       "contractCount": 41,
       "awardCount": 0,
       "byYear": [
         {
           "year": "2011",
-          "totalByCurrency": {
-            "BGN": 805810
-          },
-          "contractCount": 5
+          "contractCount": 5,
+          "totalEur": 412004.11078672484,
+          "totalOther": {}
         },
         {
           "year": "2012",
-          "totalByCurrency": {
-            "BGN": 566549
-          },
-          "contractCount": 4
+          "contractCount": 4,
+          "totalEur": 289671.9039998364,
+          "totalOther": {}
         },
         {
           "year": "2013",
-          "totalByCurrency": {
-            "BGN": 130000
-          },
-          "contractCount": 2
+          "contractCount": 2,
+          "totalEur": 66467.94455550841,
+          "totalOther": {}
         },
         {
           "year": "2014",
-          "totalByCurrency": {
-            "BGN": 560640
-          },
-          "contractCount": 3
+          "contractCount": 3,
+          "totalEur": 286650.68027384795,
+          "totalOther": {}
         },
         {
           "year": "2016",
-          "totalByCurrency": {
-            "BGN": 806000
-          },
-          "contractCount": 2
+          "contractCount": 2,
+          "totalEur": 412101.2562441521,
+          "totalOther": {}
         },
         {
           "year": "2017",
-          "totalByCurrency": {
-            "BGN": 935166.66
-          },
-          "contractCount": 4
+          "contractCount": 4,
+          "totalEur": 478143.12082338444,
+          "totalOther": {}
         },
         {
           "year": "2019",
-          "totalByCurrency": {
-            "BGN": 848800
-          },
-          "contractCount": 6
+          "contractCount": 6,
+          "totalEur": 433984.54875935026,
+          "totalOther": {}
         },
         {
           "year": "2020",
-          "totalByCurrency": {
-            "BGN": 464312
-          },
-          "contractCount": 3
+          "contractCount": 3,
+          "totalEur": 237398.9559419786,
+          "totalOther": {}
         },
         {
           "year": "2022",
-          "totalByCurrency": {
-            "BGN": 129452
-          },
-          "contractCount": 2
+          "contractCount": 2,
+          "totalEur": 66187.75660461288,
+          "totalOther": {}
         },
         {
           "year": "2023",
-          "totalByCurrency": {
-            "BGN": 152100.53999999998
-          },
-          "contractCount": 3
+          "contractCount": 3,
+          "totalEur": 77767.77122756066,
+          "totalOther": {}
         },
         {
           "year": "2026",
-          "totalByCurrency": {
-            "EUR": 1255725.3900000001
-          },
-          "contractCount": 7
+          "contractCount": 7,
+          "totalEur": 1255725.3900000001,
+          "totalOther": {}
         }
       ],
       "topAwarders": [
         {
           "eik": "109513731",
           "name": "ТЕЦ \"Бобов дол",
-          "totalByCurrency": {
-            "BGN": 2976000
-          },
-          "contractCount": 7
-        },
-        {
-          "eik": "114005624",
-          "name": "ТОПЛОФИКАЦИЯ - ПЛЕВЕН АД",
-          "totalByCurrency": {
-            "BGN": 941812.54,
-            "EUR": 325181.64
-          },
-          "contractCount": 5
+          "contractCount": 7,
+          "totalEur": 1521604.638439946,
+          "totalOther": {}
         },
         {
           "eik": "835014989",
           "name": "ВОДОСНАБДЯВАНЕ И КАНАЛИЗАЦИЯ ООД",
-          "totalByCurrency": {
-            "EUR": 910000
-          },
-          "contractCount": 4
+          "contractCount": 4,
+          "totalEur": 910000,
+          "totalOther": {}
+        },
+        {
+          "eik": "114005624",
+          "name": "ТОПЛОФИКАЦИЯ - ПЛЕВЕН АД",
+          "contractCount": 5,
+          "totalEur": 806722.7453107887,
+          "totalOther": {}
         },
         {
           "eik": "000471504",
           "name": "ОБЩИНА ПЛОВДИВ",
-          "totalByCurrency": {
-            "BGN": 737670
-          },
-          "contractCount": 9
+          "contractCount": 9,
+          "totalEur": 377164.6820020145,
+          "totalOther": {}
         },
         {
           "eik": "000696327",
           "name": "СТОЛИЧНА ОБЩИНА",
-          "totalByCurrency": {
-            "BGN": 437978.66000000003
-          },
-          "contractCount": 10
+          "contractCount": 10,
+          "totalEur": 223934.932995199,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
+      "mpId": 5094,
+      "mpName": "Николай Иванов Косев",
+      "contractorEik": "107564054",
+      "contractorName": "ЕВРОХИМ-ГРУП ООД",
+      "relations": [
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "totalEur": 3632423.828128774,
+      "totalOther": {},
+      "contractCount": 52,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2011",
+          "contractCount": 2,
+          "totalEur": 41625.55027788714,
+          "totalOther": {}
+        },
+        {
+          "year": "2012",
+          "contractCount": 2,
+          "totalEur": 79768.28251944188,
+          "totalOther": {}
+        },
+        {
+          "year": "2013",
+          "contractCount": 3,
+          "totalEur": 223549.38823926414,
+          "totalOther": {}
+        },
+        {
+          "year": "2015",
+          "contractCount": 2,
+          "totalEur": 54944.21294284268,
+          "totalOther": {}
+        },
+        {
+          "year": "2016",
+          "contractCount": 2,
+          "totalEur": 230817.6068472209,
+          "totalOther": {}
+        },
+        {
+          "year": "2017",
+          "contractCount": 10,
+          "totalEur": 307853.2387784214,
+          "totalOther": {}
+        },
+        {
+          "year": "2019",
+          "contractCount": 13,
+          "totalEur": 1188626.6444425131,
+          "totalOther": {}
+        },
+        {
+          "year": "2022",
+          "contractCount": 9,
+          "totalEur": 985645.9405981092,
+          "totalOther": {}
+        },
+        {
+          "year": "2023",
+          "contractCount": 8,
+          "totalEur": 469026.1934830737,
+          "totalOther": {}
+        },
+        {
+          "year": "2026",
+          "contractCount": 1,
+          "totalEur": 50566.77,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "117505556",
+          "name": "УНИВЕРСИТЕТСКА МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ \"КАНЕВ\" АД",
+          "contractCount": 3,
+          "totalEur": 1153474.483978669,
+          "totalOther": {}
+        },
+        {
+          "eik": "104510514",
+          "name": "МНОГОПРОФИЛНА ОБЛАСТНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ \"Д-Р СТЕФАН ЧЕРКЕЗОВ\" АД",
+          "contractCount": 5,
+          "totalEur": 701206.1375477419,
+          "totalOther": {}
+        },
+        {
+          "eik": "107507217",
+          "name": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ \"Д-Р ТОТА ВЕНКОВА\" АД",
+          "contractCount": 7,
+          "totalEur": 404921.4400024542,
+          "totalOther": {}
+        },
+        {
+          "eik": "116503980",
+          "name": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ \"СВ.ИВАН РИЛСКИ\" - РАЗГРАД АД",
+          "contractCount": 6,
+          "totalEur": 350107.11859880463,
+          "totalOther": {}
+        },
+        {
+          "eik": "175405647",
+          "name": "БДЖ - Пътнически превози ЕООД",
+          "contractCount": 7,
+          "totalEur": 197939.94876855347,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
+      "mpId": 3016,
+      "mpName": "Борис Цветков Цветков",
+      "contractorEik": "175030371",
+      "contractorName": "УЧЕНИЧЕСКИ ОТДИХ И СПОРТ ЕАД",
+      "relations": [
+        {
+          "kind": "director",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "totalEur": 3574652.398214569,
+      "totalOther": {},
+      "contractCount": 12,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2012",
+          "contractCount": 1,
+          "totalEur": 170427.90017537313,
+          "totalOther": {}
+        },
+        {
+          "year": "2013",
+          "contractCount": 2,
+          "totalEur": 1954836.5655501757,
+          "totalOther": {}
+        },
+        {
+          "year": "2014",
+          "contractCount": 1,
+          "totalEur": 170321.5514640843,
+          "totalOther": {}
+        },
+        {
+          "year": "2015",
+          "contractCount": 1,
+          "totalEur": 136244.15209910882,
+          "totalOther": {}
+        },
+        {
+          "year": "2016",
+          "contractCount": 2,
+          "totalEur": 306774.1061339687,
+          "totalOther": {}
+        },
+        {
+          "year": "2017",
+          "contractCount": 2,
+          "totalEur": 306756.722210008,
+          "totalOther": {}
+        },
+        {
+          "year": "2019",
+          "contractCount": 2,
+          "totalEur": 357804.1036286385,
+          "totalOther": {}
+        },
+        {
+          "year": "2023",
+          "contractCount": 1,
+          "totalEur": 171487.29695321168,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "000672382",
+          "name": "НАЦИОНАЛЕН ДВОРЕЦ НА ДЕЦАТА",
+          "contractCount": 11,
+          "totalEur": 1790243.7328397662,
+          "totalOther": {}
+        },
+        {
+          "eik": "000695114",
+          "name": "Министерство на образованието, младежта  и науката /МОМН/ - /Старо наименование-Министерство на образованието и науката /МОН/",
+          "contractCount": 1,
+          "totalEur": 1784408.6653748024,
+          "totalOther": {}
         }
       ]
     },
@@ -1475,147 +1290,125 @@
           "confidence": "medium"
         }
       ],
-      "totalByCurrency": {
-        "BGN": 3483281.89,
-        "EUR": 61072.73
-      },
+      "totalEur": 1842046.4802748195,
+      "totalOther": {},
       "contractCount": 97,
       "awardCount": 0,
       "byYear": [
         {
           "year": "2011",
-          "totalByCurrency": {
-            "BGN": 124946,
-            "EUR": 12500
-          },
-          "contractCount": 6
+          "contractCount": 6,
+          "totalEur": 76383.87538794271,
+          "totalOther": {}
         },
         {
           "year": "2012",
-          "totalByCurrency": {
-            "BGN": 64116
-          },
-          "contractCount": 7
+          "contractCount": 7,
+          "totalEur": 32781.99025477674,
+          "totalOther": {}
         },
         {
           "year": "2013",
-          "totalByCurrency": {
-            "BGN": 597960.64
-          },
-          "contractCount": 5
+          "contractCount": 5,
+          "totalEur": 305732.42050689476,
+          "totalOther": {}
         },
         {
           "year": "2014",
-          "totalByCurrency": {
-            "BGN": 28133
-          },
-          "contractCount": 5
+          "contractCount": 5,
+          "totalEur": 14384.174493693215,
+          "totalOther": {}
         },
         {
           "year": "2015",
-          "totalByCurrency": {
-            "BGN": 513950
-          },
-          "contractCount": 3
+          "contractCount": 3,
+          "totalEur": 262778.4623407965,
+          "totalOther": {}
         },
         {
           "year": "2016",
-          "totalByCurrency": {
-            "BGN": 297857.31999999995
-          },
-          "contractCount": 14
+          "contractCount": 14,
+          "totalEur": 152292.029470864,
+          "totalOther": {}
         },
         {
           "year": "2017",
-          "totalByCurrency": {
-            "BGN": 131878.85
-          },
-          "contractCount": 10
+          "contractCount": 10,
+          "totalEur": 67428.58530649391,
+          "totalOther": {}
         },
         {
           "year": "2019",
-          "totalByCurrency": {
-            "BGN": 501780
-          },
-          "contractCount": 14
+          "contractCount": 14,
+          "totalEur": 256556.04014663852,
+          "totalOther": {}
         },
         {
           "year": "2020",
-          "totalByCurrency": {
-            "BGN": 7100
-          },
-          "contractCount": 3
+          "contractCount": 3,
+          "totalEur": 3630.1723564931513,
+          "totalOther": {}
         },
         {
           "year": "2021",
-          "totalByCurrency": {
-            "BGN": 44299.56
-          },
-          "contractCount": 4
+          "contractCount": 4,
+          "totalEur": 22650.00536856475,
+          "totalOther": {}
         },
         {
           "year": "2022",
-          "totalByCurrency": {
-            "BGN": 44700
-          },
-          "contractCount": 9
+          "contractCount": 9,
+          "totalEur": 22854.747089470966,
+          "totalOther": {}
         },
         {
           "year": "2023",
-          "totalByCurrency": {
-            "BGN": 1126560.52
-          },
-          "contractCount": 16
+          "contractCount": 16,
+          "totalEur": 576001.2475521901,
+          "totalOther": {}
         },
         {
           "year": "2026",
-          "totalByCurrency": {
-            "EUR": 48572.73
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 48572.73,
+          "totalOther": {}
         }
       ],
       "topAwarders": [
         {
           "eik": "115576405",
           "name": "УНИВЕРСИТЕТСКА МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ \"СВЕТИ ГЕОРГИ\" ЕАД",
-          "totalByCurrency": {
-            "BGN": 916577.52
-          },
-          "contractCount": 6
+          "contractCount": 6,
+          "totalEur": 468638.6444629646,
+          "totalOther": {}
         },
         {
           "eik": "000471504",
           "name": "ОБЩИНА ПЛОВДИВ - РАЙОН \"СЕВЕР\"",
-          "totalByCurrency": {
-            "BGN": 512531.56000000006,
-            "EUR": 48572.73
-          },
-          "contractCount": 20
+          "contractCount": 20,
+          "totalEur": 310625.9554848326,
+          "totalOther": {}
         },
         {
           "eik": "000193058",
           "name": "Община Бяла Слатина",
-          "totalByCurrency": {
-            "BGN": 456000
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 233149.09782547562,
+          "totalOther": {}
         },
         {
           "eik": "115816423",
           "name": "Община Сопот",
-          "totalByCurrency": {
-            "BGN": 450000
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 230081.34653829833,
+          "totalOther": {}
         },
         {
           "eik": "000614938",
           "name": "ОБЩИНА ЗЛАТОГРАД",
-          "totalByCurrency": {
-            "BGN": 155395.7
-          },
-          "contractCount": 6
+          "contractCount": 6,
+          "totalEur": 79452.55978280322,
+          "totalOther": {}
         }
       ]
     },
@@ -1628,47 +1421,122 @@
         {
           "kind": "stake",
           "shareSize": "1/6",
-          "valueBgn": 1000,
+          "valueEur": 511.29188119621847,
           "fiscalYear": 2023,
           "declarationYear": 2024
         }
       ],
-      "totalByCurrency": {
-        "BGN": 3517000
-      },
+      "totalEur": 1798213.5461671003,
+      "totalOther": {},
       "contractCount": 4,
       "awardCount": 0,
       "byYear": [
         {
           "year": "2013",
-          "totalByCurrency": {
-            "BGN": 1513000
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 773584.6162498785,
+          "totalOther": {}
         },
         {
           "year": "2015",
-          "totalByCurrency": {
-            "BGN": 380000
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 194290.91485456302,
+          "totalOther": {}
         },
         {
           "year": "2017",
-          "totalByCurrency": {
-            "BGN": 1624000
-          },
-          "contractCount": 2
+          "contractCount": 2,
+          "totalEur": 830338.0150626588,
+          "totalOther": {}
         }
       ],
       "topAwarders": [
         {
           "eik": "130175000",
           "name": "Софийска вода\" АД",
-          "totalByCurrency": {
-            "BGN": 3517000
-          },
-          "contractCount": 4
+          "contractCount": 4,
+          "totalEur": 1798213.5461671003,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
+      "mpId": 5005,
+      "mpName": "Стилиана Иванова Бобчева",
+      "contractorEik": "202918009",
+      "contractorName": "НАЦИОНАЛЕН ПЕРИЛЕН КОМБИНАТ ООД",
+      "relations": [
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "totalEur": 1665185.0038036027,
+      "totalOther": {},
+      "contractCount": 16,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2019",
+          "contractCount": 2,
+          "totalEur": 130643.45060664782,
+          "totalOther": {}
+        },
+        {
+          "year": "2022",
+          "contractCount": 8,
+          "totalEur": 587864.7275069919,
+          "totalOther": {}
+        },
+        {
+          "year": "2023",
+          "contractCount": 3,
+          "totalEur": 278903.58568996284,
+          "totalOther": {}
+        },
+        {
+          "year": "2026",
+          "contractCount": 3,
+          "totalEur": 667773.24,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "114532352",
+          "name": "УНИВЕРСИТЕТСКА МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - Д-Р ГЕОРГИ СТРАНСКИ ЕАД",
+          "contractCount": 1,
+          "totalEur": 461696.57,
+          "totalOther": {}
+        },
+        {
+          "eik": "101505152",
+          "name": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - БЛАГОЕВГРАД АД",
+          "contractCount": 3,
+          "totalEur": 254816.62267482345,
+          "totalOther": {}
+        },
+        {
+          "eik": "000662769",
+          "name": "Специализирана болница за активно лечение по акушерство и гинекология - Майчин дом ЕАД",
+          "contractCount": 1,
+          "totalEur": 247383.46379797836,
+          "totalOther": {}
+        },
+        {
+          "eik": "831605795",
+          "name": "УНИВЕРСИТЕТСКА МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ \"АЛЕКСАНДРОВСКА\" ЕАД",
+          "contractCount": 1,
+          "totalEur": 149492,
+          "totalOther": {}
+        },
+        {
+          "eik": "129007218",
+          "name": "Медицински институт към Министерство на вътрешните работи /МВР/",
+          "contractCount": 2,
+          "totalEur": 130643.45060664782,
+          "totalOther": {}
         }
       ]
     },
@@ -1689,90 +1557,77 @@
           "confidence": "medium"
         }
       ],
-      "totalByCurrency": {
-        "BGN": 2520000,
-        "EUR": 254623.35
-      },
+      "totalEur": 1543078.8906144707,
+      "totalOther": {},
       "contractCount": 14,
       "awardCount": 0,
       "byYear": [
         {
           "year": "2016",
-          "totalByCurrency": {
-            "BGN": 1080000
-          },
-          "contractCount": 4
+          "contractCount": 4,
+          "totalEur": 552195.231691916,
+          "totalOther": {}
         },
         {
           "year": "2017",
-          "totalByCurrency": {
-            "BGN": 440000
-          },
-          "contractCount": 2
+          "contractCount": 2,
+          "totalEur": 224968.42772633614,
+          "totalOther": {}
         },
         {
           "year": "2022",
-          "totalByCurrency": {
-            "BGN": 900000
-          },
-          "contractCount": 2
+          "contractCount": 2,
+          "totalEur": 460162.69307659665,
+          "totalOther": {}
         },
         {
           "year": "2023",
-          "totalByCurrency": {
-            "BGN": 100000
-          },
-          "contractCount": 2
+          "contractCount": 2,
+          "totalEur": 51129.188119621846,
+          "totalOther": {}
         },
         {
           "year": "2026",
-          "totalByCurrency": {
-            "EUR": 254623.35
-          },
-          "contractCount": 4
+          "contractCount": 4,
+          "totalEur": 254623.35,
+          "totalOther": {}
         }
       ],
       "topAwarders": [
         {
           "eik": "121505512",
           "name": "БЪЛГАРСКА ФЕДЕРАЦИЯ ПО БОРБА Сдружение",
-          "totalByCurrency": {
-            "BGN": 1340000,
-            "EUR": 153387.56
-          },
-          "contractCount": 6
+          "contractCount": 6,
+          "totalEur": 838518.6808029327,
+          "totalOther": {}
         },
         {
           "eik": "121341855",
           "name": "Сдружение \"Българска федерация по бокс",
-          "totalByCurrency": {
-            "BGN": 780000
-          },
-          "contractCount": 2
+          "contractCount": 2,
+          "totalEur": 398807.6673330504,
+          "totalOther": {}
         },
         {
           "eik": "121448709",
           "name": "Сдружение Българска федерация по биатлон",
-          "totalByCurrency": {
-            "BGN": 300000
-          },
-          "contractCount": 2
+          "contractCount": 2,
+          "totalEur": 153387.56435886555,
+          "totalOther": {}
         },
         {
           "eik": "176464933",
           "name": "БЪЛГАРСКИ СТРЕЛКОВИ СЪЮЗ Сдружение",
-          "totalByCurrency": {
-            "EUR": 101235.79000000001
-          },
-          "contractCount": 2
+          "contractCount": 2,
+          "totalEur": 101235.79000000001,
+          "totalOther": {}
         },
         {
           "eik": "831331305",
           "name": "БЪЛГАРСКА ФЕДЕРАЦИЯ ПЛУВНИ СПОРТОВЕ Сдружение",
-          "totalByCurrency": {
-            "BGN": 100000
-          },
-          "contractCount": 2
+          "contractCount": 2,
+          "totalEur": 51129.188119621846,
+          "totalOther": {}
         }
       ]
     },
@@ -1788,182 +1643,77 @@
           "confidence": "medium"
         }
       ],
-      "totalByCurrency": {
-        "BGN": 2520000,
-        "EUR": 254623.35
-      },
+      "totalEur": 1543078.8906144707,
+      "totalOther": {},
       "contractCount": 14,
       "awardCount": 0,
       "byYear": [
         {
           "year": "2016",
-          "totalByCurrency": {
-            "BGN": 1080000
-          },
-          "contractCount": 4
+          "contractCount": 4,
+          "totalEur": 552195.231691916,
+          "totalOther": {}
         },
         {
           "year": "2017",
-          "totalByCurrency": {
-            "BGN": 440000
-          },
-          "contractCount": 2
+          "contractCount": 2,
+          "totalEur": 224968.42772633614,
+          "totalOther": {}
         },
         {
           "year": "2022",
-          "totalByCurrency": {
-            "BGN": 900000
-          },
-          "contractCount": 2
+          "contractCount": 2,
+          "totalEur": 460162.69307659665,
+          "totalOther": {}
         },
         {
           "year": "2023",
-          "totalByCurrency": {
-            "BGN": 100000
-          },
-          "contractCount": 2
+          "contractCount": 2,
+          "totalEur": 51129.188119621846,
+          "totalOther": {}
         },
         {
           "year": "2026",
-          "totalByCurrency": {
-            "EUR": 254623.35
-          },
-          "contractCount": 4
+          "contractCount": 4,
+          "totalEur": 254623.35,
+          "totalOther": {}
         }
       ],
       "topAwarders": [
         {
           "eik": "121505512",
           "name": "БЪЛГАРСКА ФЕДЕРАЦИЯ ПО БОРБА Сдружение",
-          "totalByCurrency": {
-            "BGN": 1340000,
-            "EUR": 153387.56
-          },
-          "contractCount": 6
+          "contractCount": 6,
+          "totalEur": 838518.6808029327,
+          "totalOther": {}
         },
         {
           "eik": "121341855",
           "name": "Сдружение \"Българска федерация по бокс",
-          "totalByCurrency": {
-            "BGN": 780000
-          },
-          "contractCount": 2
+          "contractCount": 2,
+          "totalEur": 398807.6673330504,
+          "totalOther": {}
         },
         {
           "eik": "121448709",
           "name": "Сдружение Българска федерация по биатлон",
-          "totalByCurrency": {
-            "BGN": 300000
-          },
-          "contractCount": 2
+          "contractCount": 2,
+          "totalEur": 153387.56435886555,
+          "totalOther": {}
         },
         {
           "eik": "176464933",
           "name": "БЪЛГАРСКИ СТРЕЛКОВИ СЪЮЗ Сдружение",
-          "totalByCurrency": {
-            "EUR": 101235.79000000001
-          },
-          "contractCount": 2
+          "contractCount": 2,
+          "totalEur": 101235.79000000001,
+          "totalOther": {}
         },
         {
           "eik": "831331305",
           "name": "БЪЛГАРСКА ФЕДЕРАЦИЯ ПЛУВНИ СПОРТОВЕ Сдружение",
-          "totalByCurrency": {
-            "BGN": 100000
-          },
-          "contractCount": 2
-        }
-      ]
-    },
-    {
-      "mpId": 5005,
-      "mpName": "Стилиана Иванова Бобчева",
-      "contractorEik": "202918009",
-      "contractorName": "НАЦИОНАЛЕН ПЕРИЛЕН КОМБИНАТ ООД",
-      "relations": [
-        {
-          "kind": "partner",
-          "isCurrent": true,
-          "confidence": "medium"
-        }
-      ],
-      "totalByCurrency": {
-        "BGN": 1950767.85,
-        "EUR": 667773.24
-      },
-      "contractCount": 16,
-      "awardCount": 0,
-      "byYear": [
-        {
-          "year": "2019",
-          "totalByCurrency": {
-            "BGN": 255516.38
-          },
-          "contractCount": 2
-        },
-        {
-          "year": "2022",
-          "totalByCurrency": {
-            "BGN": 1149763.47
-          },
-          "contractCount": 8
-        },
-        {
-          "year": "2023",
-          "totalByCurrency": {
-            "BGN": 545488
-          },
-          "contractCount": 3
-        },
-        {
-          "year": "2026",
-          "totalByCurrency": {
-            "EUR": 667773.24
-          },
-          "contractCount": 3
-        }
-      ],
-      "topAwarders": [
-        {
-          "eik": "000662769",
-          "name": "Специализирана болница за активно лечение по акушерство и гинекология - Майчин дом ЕАД",
-          "totalByCurrency": {
-            "BGN": 483840
-          },
-          "contractCount": 1
-        },
-        {
-          "eik": "114532352",
-          "name": "УНИВЕРСИТЕТСКА МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - Д-Р ГЕОРГИ СТРАНСКИ ЕАД",
-          "totalByCurrency": {
-            "EUR": 461696.57
-          },
-          "contractCount": 1
-        },
-        {
-          "eik": "101505152",
-          "name": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ - БЛАГОЕВГРАД АД",
-          "totalByCurrency": {
-            "BGN": 387708,
-            "EUR": 56584.67
-          },
-          "contractCount": 3
-        },
-        {
-          "eik": "129007218",
-          "name": "Медицински институт към Министерство на вътрешните работи /МВР/",
-          "totalByCurrency": {
-            "BGN": 255516.38
-          },
-          "contractCount": 2
-        },
-        {
-          "eik": "113513858",
-          "name": "МБАЛ \" РАХИЛА АНГЕЛОВА\" АД",
-          "totalByCurrency": {
-            "BGN": 217000
-          },
-          "contractCount": 1
+          "contractCount": 2,
+          "totalEur": 51129.188119621846,
+          "totalOther": {}
         }
       ]
     },
@@ -1976,100 +1726,88 @@
         {
           "kind": "stake",
           "shareSize": "80%",
-          "valueBgn": 4000,
+          "valueEur": 2045.1675247848739,
           "fiscalYear": 2021,
           "declarationYear": 2021
         }
       ],
-      "totalByCurrency": {
-        "BGN": 2476541.6399999997
-      },
+      "totalEur": 1266235.633976368,
+      "totalOther": {},
       "contractCount": 14,
       "awardCount": 0,
       "byYear": [
         {
           "year": "2011",
-          "totalByCurrency": {
-            "BGN": 716257.44
-          },
-          "contractCount": 3
+          "contractCount": 3,
+          "totalEur": 366216.61391838756,
+          "totalOther": {}
         },
         {
           "year": "2012",
-          "totalByCurrency": {
-            "BGN": 45388
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 23206.515903733965,
+          "totalOther": {}
         },
         {
           "year": "2013",
-          "totalByCurrency": {
-            "BGN": 970121
-          },
-          "contractCount": 5
+          "contractCount": 5,
+          "totalEur": 496014.9910779567,
+          "totalOther": {}
         },
         {
           "year": "2014",
-          "totalByCurrency": {
-            "BGN": 49975.2
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 25551.914021157256,
+          "totalOther": {}
         },
         {
           "year": "2016",
-          "totalByCurrency": {
-            "BGN": 360000
-          },
-          "contractCount": 2
+          "contractCount": 2,
+          "totalEur": 184065.07723063865,
+          "totalOther": {}
         },
         {
           "year": "2017",
-          "totalByCurrency": {
-            "BGN": 334800
-          },
-          "contractCount": 2
+          "contractCount": 2,
+          "totalEur": 171180.52182449395,
+          "totalOther": {}
         }
       ],
       "topAwarders": [
         {
           "eik": "000413579",
           "name": "Община Белене",
-          "totalByCurrency": {
-            "BGN": 1715160
-          },
-          "contractCount": 7
+          "contractCount": 7,
+          "totalEur": 876947.3829525061,
+          "totalOther": {}
         },
         {
           "eik": "000133965",
           "name": "Община Свищов",
-          "totalByCurrency": {
-            "BGN": 306768
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 156847.98781080154,
+          "totalOther": {}
         },
         {
           "eik": "129009070",
           "name": "Държавно предприятие \"Фонд затворно дело\" /ДП \"ФЗД\"/",
-          "totalByCurrency": {
-            "BGN": 270254
-          },
-          "contractCount": 2
+          "contractCount": 2,
+          "totalEur": 138178.67606080283,
+          "totalOther": {}
         },
         {
           "eik": "000413942",
           "name": "Община Искър",
-          "totalByCurrency": {
-            "BGN": 138971.64
-          },
-          "contractCount": 3
+          "contractCount": 3,
+          "totalEur": 71055.07124852366,
+          "totalOther": {}
         },
         {
           "eik": "000412255",
           "name": "Многопрофилна болница за активно лечение /МБАЛ/ - Гулянци ЕООД",
-          "totalByCurrency": {
-            "BGN": 45388
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 23206.515903733965,
+          "totalOther": {}
         }
       ]
     },
@@ -2085,42 +1823,37 @@
           "confidence": "medium"
         }
       ],
-      "totalByCurrency": {
-        "BGN": 2392521.7800000003
-      },
+      "totalEur": 1223276.9616991254,
+      "totalOther": {},
       "contractCount": 4,
       "awardCount": 0,
       "byYear": [
         {
           "year": "2012",
-          "totalByCurrency": {
-            "BGN": 832337.96
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 425567.6413594228,
+          "totalOther": {}
         },
         {
           "year": "2014",
-          "totalByCurrency": {
-            "BGN": 124998.72
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 63910.83069591938,
+          "totalOther": {}
         },
         {
           "year": "2019",
-          "totalByCurrency": {
-            "BGN": 1435185.1
-          },
-          "contractCount": 2
+          "contractCount": 2,
+          "totalEur": 733798.489643783,
+          "totalOther": {}
         }
       ],
       "topAwarders": [
         {
           "eik": "000695317",
           "name": "Министерство на здравеопазването /МЗ/",
-          "totalByCurrency": {
-            "BGN": 2392521.7800000003
-          },
-          "contractCount": 4
+          "contractCount": 4,
+          "totalEur": 1223276.9616991254,
+          "totalOther": {}
         }
       ]
     },
@@ -2136,42 +1869,37 @@
           "confidence": "medium"
         }
       ],
-      "totalByCurrency": {
-        "BGN": 2392521.7800000003
-      },
+      "totalEur": 1223276.9616991254,
+      "totalOther": {},
       "contractCount": 4,
       "awardCount": 0,
       "byYear": [
         {
           "year": "2012",
-          "totalByCurrency": {
-            "BGN": 832337.96
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 425567.6413594228,
+          "totalOther": {}
         },
         {
           "year": "2014",
-          "totalByCurrency": {
-            "BGN": 124998.72
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 63910.83069591938,
+          "totalOther": {}
         },
         {
           "year": "2019",
-          "totalByCurrency": {
-            "BGN": 1435185.1
-          },
-          "contractCount": 2
+          "contractCount": 2,
+          "totalEur": 733798.489643783,
+          "totalOther": {}
         }
       ],
       "topAwarders": [
         {
           "eik": "000695317",
           "name": "Министерство на здравеопазването /МЗ/",
-          "totalByCurrency": {
-            "BGN": 2392521.7800000003
-          },
-          "contractCount": 4
+          "contractCount": 4,
+          "totalEur": 1223276.9616991254,
+          "totalOther": {}
         }
       ]
     },
@@ -2187,88 +1915,77 @@
           "confidence": "medium"
         }
       ],
-      "totalByCurrency": {
-        "BGN": 1832636.67
-      },
+      "totalEur": 937012.2505534735,
+      "totalOther": {},
       "contractCount": 10,
       "awardCount": 0,
       "byYear": [
         {
           "year": "2015",
-          "totalByCurrency": {
-            "BGN": 538200
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 275177.2904598048,
+          "totalOther": {}
         },
         {
           "year": "2017",
-          "totalByCurrency": {
-            "BGN": 1079640
-          },
-          "contractCount": 4
+          "contractCount": 4,
+          "totalEur": 552011.1666146853,
+          "totalOther": {}
         },
         {
           "year": "2019",
-          "totalByCurrency": {
-            "BGN": 59980
-          },
-          "contractCount": 2
+          "contractCount": 2,
+          "totalEur": 30667.287034149183,
+          "totalOther": {}
         },
         {
           "year": "2022",
-          "totalByCurrency": {
-            "BGN": 84916.67
-          },
-          "contractCount": 2
+          "contractCount": 2,
+          "totalEur": 43417.20394921849,
+          "totalOther": {}
         },
         {
           "year": "2023",
-          "totalByCurrency": {
-            "BGN": 69900
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 35739.30249561567,
+          "totalOther": {}
         }
       ],
       "topAwarders": [
         {
           "eik": "201617654",
           "name": "Държавно предприятие - Югоизточно държавно предприятие /ДПЮИДП/ - Сливен",
-          "totalByCurrency": {
-            "BGN": 1509840
-          },
-          "contractCount": 3
+          "contractCount": 3,
+          "totalEur": 771968.9339052985,
+          "totalOther": {}
         },
         {
           "eik": "123531939",
           "name": "ТЕЦ \"Марица Изток\" 2 ЕАД",
-          "totalByCurrency": {
-            "BGN": 108000
-          },
-          "contractCount": 2
+          "contractCount": 2,
+          "totalEur": 55219.5231691916,
+          "totalOther": {}
         },
         {
           "eik": "201619580",
           "name": "ТЕРИТОРИАЛНО ПОДЕЛЕНИЕ \"ДЪРЖАВНО ГОРСКО СТОПАНСТВО-БОРИНО",
-          "totalByCurrency": {
-            "BGN": 94980
-          },
-          "contractCount": 3
+          "contractCount": 3,
+          "totalEur": 48562.502876016835,
+          "totalOther": {}
         },
         {
           "eik": "201617412",
           "name": "ТЕРИТОРИАЛНО ПОДЕЛЕНИЕ ДЪРЖАВНО ГОРСКО СТОПАНСТВО-ОМУРТАГ",
-          "totalByCurrency": {
-            "BGN": 69900
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 35739.30249561567,
+          "totalOther": {}
         },
         {
           "eik": "000818022",
           "name": "ОБЩИНА - СТАРА ЗАГОРА",
-          "totalByCurrency": {
-            "BGN": 49916.67
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 25521.988107350844,
+          "totalOther": {}
         }
       ]
     },
@@ -2281,71 +1998,63 @@
         {
           "kind": "stake",
           "shareSize": "250",
-          "valueBgn": 100000,
+          "valueEur": 51129.188119621846,
           "fiscalYear": 2021,
           "declarationYear": 2021
         }
       ],
-      "totalByCurrency": {
-        "BGN": 1698460
-      },
+      "totalEur": 868408.8085365293,
+      "totalOther": {},
       "contractCount": 5,
       "awardCount": 0,
       "byYear": [
         {
           "year": "2012",
-          "totalByCurrency": {
-            "BGN": 769100
-          },
-          "contractCount": 3
+          "contractCount": 3,
+          "totalEur": 393234.5858280116,
+          "totalOther": {}
         },
         {
           "year": "2013",
-          "totalByCurrency": {
-            "BGN": 659490
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 337191.88273009413,
+          "totalOther": {}
         },
         {
           "year": "2022",
-          "totalByCurrency": {
-            "BGN": 269870
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 137982.3399784235,
+          "totalOther": {}
         }
       ],
       "topAwarders": [
         {
           "eik": "000133634",
           "name": "Община Велико Търново",
-          "totalByCurrency": {
-            "BGN": 659490
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 337191.88273009413,
+          "totalOther": {}
         },
         {
           "eik": "831909905",
           "name": "Министерство на земеделието и храните /МЗХ//Старо наименование: Министерство на земеделието и продоволствието /МЗП/",
-          "totalByCurrency": {
-            "BGN": 553900
-          },
-          "contractCount": 2
+          "contractCount": 2,
+          "totalEur": 283204.57299458544,
+          "totalOther": {}
         },
         {
           "eik": "130925885",
           "name": "ИЗПЪЛНИТЕЛНА АГЕНЦИЯ ПО СЕЛЕКЦИЯ И РЕПРОДУКЦИЯ В ЖИВОТНОВЪДСТВОТО",
-          "totalByCurrency": {
-            "BGN": 269870
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 137982.3399784235,
+          "totalOther": {}
         },
         {
           "eik": "000472182",
           "name": "Община Марица, област Пловдив",
-          "totalByCurrency": {
-            "BGN": 215200
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 110030.01283342621,
+          "totalOther": {}
         }
       ]
     },
@@ -2363,144 +2072,124 @@
         {
           "kind": "stake",
           "shareSize": "1",
-          "valueBgn": 50,
+          "valueEur": 25.564594059810926,
           "fiscalYear": 2020,
           "declarationYear": 2021
         }
       ],
-      "totalByCurrency": {
-        "BGN": 1290753,
-        "EUR": 5695.79
-      },
+      "totalEur": 665647.3195296626,
+      "totalOther": {},
       "contractCount": 67,
       "awardCount": 0,
       "byYear": [
         {
           "year": "2011",
-          "totalByCurrency": {
-            "BGN": 12085
-          },
-          "contractCount": 2
+          "contractCount": 2,
+          "totalEur": 6178.9623842563005,
+          "totalOther": {}
         },
         {
           "year": "2012",
-          "totalByCurrency": {
-            "BGN": 5280
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 2699.6211327160336,
+          "totalOther": {}
         },
         {
           "year": "2013",
-          "totalByCurrency": {
-            "BGN": 262760
-          },
-          "contractCount": 5
+          "contractCount": 5,
+          "totalEur": 134347.05470311837,
+          "totalOther": {}
         },
         {
           "year": "2014",
-          "totalByCurrency": {
-            "BGN": 149280
-          },
-          "contractCount": 6
+          "contractCount": 6,
+          "totalEur": 76325.6520249715,
+          "totalOther": {}
         },
         {
           "year": "2015",
-          "totalByCurrency": {
-            "BGN": 17768
-          },
-          "contractCount": 4
+          "contractCount": 4,
+          "totalEur": 9084.634145094411,
+          "totalOther": {}
         },
         {
           "year": "2016",
-          "totalByCurrency": {
-            "BGN": 82320
-          },
-          "contractCount": 4
+          "contractCount": 4,
+          "totalEur": 42089.547660072705,
+          "totalOther": {}
         },
         {
           "year": "2017",
-          "totalByCurrency": {
-            "BGN": 456436
-          },
-          "contractCount": 17
+          "contractCount": 17,
+          "totalEur": 233372.02108567717,
+          "totalOther": {}
         },
         {
           "year": "2019",
-          "totalByCurrency": {
-            "BGN": 31088
-          },
-          "contractCount": 10
+          "contractCount": 10,
+          "totalEur": 15895.04200262804,
+          "totalOther": {}
         },
         {
           "year": "2020",
-          "totalByCurrency": {
-            "BGN": 26934
-          },
-          "contractCount": 4
+          "contractCount": 4,
+          "totalEur": 13771.13552813895,
+          "totalOther": {}
         },
         {
           "year": "2022",
-          "totalByCurrency": {
-            "BGN": 76878
-          },
-          "contractCount": 4
+          "contractCount": 4,
+          "totalEur": 39307.09724260288,
+          "totalOther": {}
         },
         {
           "year": "2023",
-          "totalByCurrency": {
-            "BGN": 169924
-          },
-          "contractCount": 8
+          "contractCount": 8,
+          "totalEur": 86880.76162038623,
+          "totalOther": {}
         },
         {
           "year": "2026",
-          "totalByCurrency": {
-            "EUR": 5695.79
-          },
-          "contractCount": 2
+          "contractCount": 2,
+          "totalEur": 5695.79,
+          "totalOther": {}
         }
       ],
       "topAwarders": [
         {
           "eik": "000351736",
           "name": "ОБЩИНА ПАЗАРДЖИК",
-          "totalByCurrency": {
-            "BGN": 609414
-          },
-          "contractCount": 4
+          "contractCount": 4,
+          "totalEur": 311588.4304873123,
+          "totalOther": {}
         },
         {
           "eik": "121082521",
           "name": "ТЕРИТОРИАЛНО ПОДЕЛЕНИЕ НА НОИ - гр. ПАЗАРДЖИК",
-          "totalByCurrency": {
-            "BGN": 296360
-          },
-          "contractCount": 11
+          "contractCount": 11,
+          "totalEur": 151526.46191131131,
+          "totalOther": {}
         },
         {
           "eik": "201619580",
           "name": "ТЕРИТОРИАЛНО ПОДЕЛЕНИЕ \"ДЪРЖАВНО ГОРСКО СТОПАНСТВО РАКИТОВО\"",
-          "totalByCurrency": {
-            "BGN": 128254,
-            "EUR": 5695.79
-          },
-          "contractCount": 27
+          "contractCount": 27,
+          "totalEur": 71271.0189309398,
+          "totalOther": {}
         },
         {
           "eik": "000351743",
           "name": "Общинско предприятие \"Чистота\" гр. Панагюрище",
-          "totalByCurrency": {
-            "BGN": 116424
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 59526.64597638854,
+          "totalOther": {}
         },
         {
           "eik": "201627506",
           "name": "ТЕРИТОРИАЛНО ПОДЕЛЕНИЕ \"ДЪРЖАВНО ГОРСКО СТОПАНСТВО БЕЛОВО",
-          "totalByCurrency": {
-            "BGN": 61560
-          },
-          "contractCount": 15
+          "contractCount": 15,
+          "totalEur": 31475.12820643921,
+          "totalOther": {}
         }
       ]
     },
@@ -2516,28 +2205,25 @@
           "confidence": "medium"
         }
       ],
-      "totalByCurrency": {
-        "BGN": 1005111
-      },
+      "totalEur": 513905.0940010124,
+      "totalOther": {},
       "contractCount": 1,
       "awardCount": 0,
       "byYear": [
         {
           "year": "2023",
-          "totalByCurrency": {
-            "BGN": 1005111
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 513905.0940010124,
+          "totalOther": {}
         }
       ],
       "topAwarders": [
         {
           "eik": "000696327",
           "name": "СТОЛИЧНА ОБЩИНА",
-          "totalByCurrency": {
-            "BGN": 1005111
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 513905.0940010124,
+          "totalOther": {}
         }
       ]
     },
@@ -2550,55 +2236,49 @@
         {
           "kind": "stake",
           "shareSize": "80",
-          "valueBgn": 40000,
+          "valueEur": 20451.67524784874,
           "fiscalYear": 2021,
           "declarationYear": 2021
         }
       ],
-      "totalByCurrency": {
-        "BGN": 948160
-      },
+      "totalEur": 484786.5100750065,
+      "totalOther": {},
       "contractCount": 5,
       "awardCount": 0,
       "byYear": [
         {
           "year": "2013",
-          "totalByCurrency": {
-            "BGN": 300000
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 153387.56435886555,
+          "totalOther": {}
         },
         {
           "year": "2016",
-          "totalByCurrency": {
-            "BGN": 8160
-          },
-          "contractCount": 2
+          "contractCount": 2,
+          "totalEur": 4172.1417505611425,
+          "totalOther": {}
         },
         {
           "year": "2019",
-          "totalByCurrency": {
-            "BGN": 640000
-          },
-          "contractCount": 2
+          "contractCount": 2,
+          "totalEur": 327226.80396557983,
+          "totalOther": {}
         }
       ],
       "topAwarders": [
         {
           "eik": "130175000",
           "name": "Софийска вода\" АД",
-          "totalByCurrency": {
-            "BGN": 940000
-          },
-          "contractCount": 3
+          "contractCount": 3,
+          "totalEur": 480614.3683244454,
+          "totalOther": {}
         },
         {
           "eik": "201617654",
           "name": "Териториално поделение държавно горско стопанство /ТПДГС/ - Казанлък към Държавно предприятие - Югоизточно държавно предприятие /ДПЮИДП/ - Сливен",
-          "totalByCurrency": {
-            "BGN": 8160
-          },
-          "contractCount": 2
+          "contractCount": 2,
+          "totalEur": 4172.1417505611425,
+          "totalOther": {}
         }
       ]
     },
@@ -2611,33 +2291,30 @@
         {
           "kind": "stake",
           "shareSize": "100%",
-          "valueBgn": 200,
+          "valueEur": 102.2583762392437,
           "fiscalYear": 2021,
           "declarationYear": 2021
         }
       ],
-      "totalByCurrency": {
-        "BGN": 729120
-      },
+      "totalEur": 372793.1364177868,
+      "totalOther": {},
       "contractCount": 2,
       "awardCount": 0,
       "byYear": [
         {
           "year": "2019",
-          "totalByCurrency": {
-            "BGN": 729120
-          },
-          "contractCount": 2
+          "contractCount": 2,
+          "totalEur": 372793.1364177868,
+          "totalOther": {}
         }
       ],
       "topAwarders": [
         {
           "eik": "114532352",
           "name": "Университетска многопрофилна болница за активно лечение /УМБАЛ/ \"Д-р Георги Странски\" ЕАД - Плевен",
-          "totalByCurrency": {
-            "BGN": 729120
-          },
-          "contractCount": 2
+          "contractCount": 2,
+          "totalEur": 372793.1364177868,
+          "totalOther": {}
         }
       ]
     },
@@ -2653,28 +2330,25 @@
           "confidence": "medium"
         }
       ],
-      "totalByCurrency": {
-        "BGN": 499687.8
-      },
+      "totalEur": 255486.31527279978,
+      "totalOther": {},
       "contractCount": 1,
       "awardCount": 0,
       "byYear": [
         {
           "year": "2020",
-          "totalByCurrency": {
-            "BGN": 499687.8
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 255486.31527279978,
+          "totalOther": {}
         }
       ],
       "topAwarders": [
         {
           "eik": "106513772",
           "name": "АЕЦ КОЗЛОДУЙ ЕАД",
-          "totalByCurrency": {
-            "BGN": 499687.8
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 255486.31527279978,
+          "totalOther": {}
         }
       ]
     },
@@ -2687,48 +2361,43 @@
         {
           "kind": "stake",
           "shareSize": "50",
-          "valueBgn": 5000,
+          "valueEur": 2556.4594059810925,
           "fiscalYear": 2024,
           "declarationYear": 2025
         }
       ],
-      "totalByCurrency": {
-        "BGN": 465500
-      },
+      "totalEur": 238006.3706968397,
+      "totalOther": {},
       "contractCount": 4,
       "awardCount": 0,
       "byYear": [
         {
           "year": "2016",
-          "totalByCurrency": {
-            "BGN": 458000
-          },
-          "contractCount": 2
+          "contractCount": 2,
+          "totalEur": 234171.68158786808,
+          "totalOther": {}
         },
         {
           "year": "2019",
-          "totalByCurrency": {
-            "BGN": 7500
-          },
-          "contractCount": 2
+          "contractCount": 2,
+          "totalEur": 3834.6891089716387,
+          "totalOther": {}
         }
       ],
       "topAwarders": [
         {
           "eik": "000133972",
           "name": "Община Стражица",
-          "totalByCurrency": {
-            "BGN": 458000
-          },
-          "contractCount": 2
+          "contractCount": 2,
+          "totalEur": 234171.68158786808,
+          "totalOther": {}
         },
         {
           "eik": "000689022",
           "name": "Втора многопрофилна болница за активно лечение /II МБАЛ/ - София ЕАД",
-          "totalByCurrency": {
-            "BGN": 7500
-          },
-          "contractCount": 2
+          "contractCount": 2,
+          "totalEur": 3834.6891089716387,
+          "totalOther": {}
         }
       ]
     },
@@ -2744,72 +2413,61 @@
           "confidence": "medium"
         }
       ],
-      "totalByCurrency": {
-        "BGN": 339713.08
-      },
+      "totalEur": 173692.53974016148,
+      "totalOther": {},
       "contractCount": 4,
       "awardCount": 0,
       "byYear": [
         {
           "year": "2023",
-          "totalByCurrency": {
-            "BGN": 339713.08
-          },
-          "contractCount": 4
+          "contractCount": 4,
+          "totalEur": 173692.53974016148,
+          "totalOther": {}
         }
       ],
       "topAwarders": [
         {
           "eik": "000696327",
           "name": "РАЙОН \"ВРЪБНИЦА",
-          "totalByCurrency": {
-            "BGN": 339713.08
-          },
-          "contractCount": 4
+          "contractCount": 4,
+          "totalEur": 173692.53974016148,
+          "totalOther": {}
         }
       ]
     },
     {
-      "mpId": 1639,
-      "mpName": "Николай Петков Петков",
-      "contractorEik": "204013666",
-      "contractorName": "БРЕЙН ТРЪСТ СЕКЮРИТИ ООД",
+      "mpId": 5165,
+      "mpName": "Валери Пламенов Лачовски",
+      "contractorEik": "202809611",
+      "contractorName": "ДИМАКС СОД ООД",
       "relations": [
         {
-          "kind": "partner",
-          "isCurrent": true,
-          "confidence": "medium"
+          "kind": "stake",
+          "shareSize": "50%",
+          "valueEur": 0.5112918811962185,
+          "fiscalYear": 2024,
+          "declarationYear": 2025
         }
       ],
-      "totalByCurrency": {
-        "BGN": 274207.19999999995
-      },
-      "contractCount": 4,
+      "totalEur": 165658.57,
+      "totalOther": {},
+      "contractCount": 1,
       "awardCount": 0,
       "byYear": [
         {
-          "year": "2019",
-          "totalByCurrency": {
-            "BGN": 82080
-          },
-          "contractCount": 2
-        },
-        {
-          "year": "2023",
-          "totalByCurrency": {
-            "BGN": 192127.2
-          },
-          "contractCount": 2
+          "year": "2026",
+          "contractCount": 1,
+          "totalEur": 165658.57,
+          "totalOther": {}
         }
       ],
       "topAwarders": [
         {
-          "eik": "130344823",
-          "name": "СПЕЦИАЛИЗИРАНИ БОЛНИЦИ ЗА РЕХАБИЛИТАЦИЯ - НАЦИОНАЛЕН КОМПЛЕКС ЕАД",
-          "totalByCurrency": {
-            "BGN": 274207.19999999995
-          },
-          "contractCount": 4
+          "eik": "824106518",
+          "name": "ВОДОСНАБДЯВАНЕ И КАНАЛИЗАЦИЯ ЕООД",
+          "contractCount": 1,
+          "totalEur": 165658.57,
+          "totalOther": {}
         }
       ]
     },
@@ -2825,75 +2483,104 @@
           "confidence": "medium"
         }
       ],
-      "totalByCurrency": {
-        "BGN": 245854.58,
-        "EUR": 20922.06
-      },
+      "totalEur": 146625.5107089062,
+      "totalOther": {},
       "contractCount": 11,
       "awardCount": 0,
       "byYear": [
         {
           "year": "2013",
-          "totalByCurrency": {
-            "BGN": 3116.38
-          },
-          "contractCount": 4
+          "contractCount": 4,
+          "totalEur": 1593.3797927222715,
+          "totalOther": {}
         },
         {
           "year": "2022",
-          "totalByCurrency": {
-            "BGN": 209039.8
-          },
-          "contractCount": 4
+          "contractCount": 4,
+          "totalEur": 106880.35258688127,
+          "totalOther": {}
         },
         {
           "year": "2023",
-          "totalByCurrency": {
-            "BGN": 33698.4
-          },
-          "contractCount": 2
+          "contractCount": 2,
+          "totalEur": 17229.71832930265,
+          "totalOther": {}
         },
         {
           "year": "2026",
-          "totalByCurrency": {
-            "EUR": 20922.06
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 20922.06,
+          "totalOther": {}
         }
       ],
       "topAwarders": [
         {
           "eik": "000093442",
           "name": "ОБЩИНА ВАРНА",
-          "totalByCurrency": {
-            "BGN": 209000
-          },
-          "contractCount": 3
+          "contractCount": 3,
+          "totalEur": 106860.00317000966,
+          "totalOther": {}
         },
         {
           "eik": "130362903",
           "name": "АГЕНЦИЯ ПО ГЕОДЕЗИЯ, КАРТОГРАФИЯ И КАДАСТЪР",
-          "totalByCurrency": {
-            "BGN": 31700,
-            "EUR": 20922.06
-          },
-          "contractCount": 2
+          "contractCount": 2,
+          "totalEur": 37130.01263392012,
+          "totalOther": {}
         },
         {
           "eik": "121817309",
           "name": "Районна прокуратура, гр. Разград",
-          "totalByCurrency": {
-            "BGN": 3116.38
-          },
-          "contractCount": 4
+          "contractCount": 4,
+          "totalEur": 1593.3797927222715,
+          "totalOther": {}
         },
         {
           "eik": "121858220",
           "name": "РАЙОННА ЗДРАВНООСИГУРИТЕЛНА КАСА - СИЛИСТРА",
-          "totalByCurrency": {
-            "BGN": 2038.2
-          },
-          "contractCount": 2
+          "contractCount": 2,
+          "totalEur": 1042.1151122541326,
+          "totalOther": {}
+        }
+      ]
+    },
+    {
+      "mpId": 1639,
+      "mpName": "Николай Петков Петков",
+      "contractorEik": "204013666",
+      "contractorName": "БРЕЙН ТРЪСТ СЕКЮРИТИ ООД",
+      "relations": [
+        {
+          "kind": "partner",
+          "isCurrent": true,
+          "confidence": "medium"
+        }
+      ],
+      "totalEur": 140199.9151255477,
+      "totalOther": {},
+      "contractCount": 4,
+      "awardCount": 0,
+      "byYear": [
+        {
+          "year": "2019",
+          "contractCount": 2,
+          "totalEur": 41966.837608585614,
+          "totalOther": {}
+        },
+        {
+          "year": "2023",
+          "contractCount": 2,
+          "totalEur": 98233.07751696212,
+          "totalOther": {}
+        }
+      ],
+      "topAwarders": [
+        {
+          "eik": "130344823",
+          "name": "СПЕЦИАЛИЗИРАНИ БОЛНИЦИ ЗА РЕХАБИЛИТАЦИЯ - НАЦИОНАЛЕН КОМПЛЕКС ЕАД",
+          "contractCount": 4,
+          "totalEur": 140199.9151255477,
+          "totalOther": {}
         }
       ]
     },
@@ -2909,49 +2596,43 @@
           "confidence": "medium"
         }
       ],
-      "totalByCurrency": {
-        "BGN": 221940.15000000002
-      },
+      "totalEur": 113476.19680647092,
+      "totalOther": {},
       "contractCount": 5,
       "awardCount": 0,
       "byYear": [
         {
           "year": "2012",
-          "totalByCurrency": {
-            "BGN": 27431.75
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 14025.631062004366,
+          "totalOther": {}
         },
         {
           "year": "2013",
-          "totalByCurrency": {
-            "BGN": 94769.13
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 48454.68675702899,
+          "totalOther": {}
         },
         {
           "year": "2015",
-          "totalByCurrency": {
-            "BGN": 68943.27
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 35250.134214118814,
+          "totalOther": {}
         },
         {
           "year": "2017",
-          "totalByCurrency": {
-            "BGN": 30796
-          },
-          "contractCount": 2
+          "contractCount": 2,
+          "totalEur": 15745.744773318746,
+          "totalOther": {}
         }
       ],
       "topAwarders": [
         {
           "eik": "000291709",
           "name": "Община Троян",
-          "totalByCurrency": {
-            "BGN": 221940.15000000002
-          },
-          "contractCount": 5
+          "contractCount": 5,
+          "totalEur": 113476.19680647092,
+          "totalOther": {}
         }
       ]
     },
@@ -2972,72 +2653,63 @@
           "confidence": "medium"
         }
       ],
-      "totalByCurrency": {
-        "BGN": 215014
-      },
+      "totalEur": 109934.91254352372,
+      "totalOther": {},
       "contractCount": 7,
       "awardCount": 0,
       "byYear": [
         {
           "year": "2011",
-          "totalByCurrency": {
-            "BGN": 30780
-          },
-          "contractCount": 2
+          "contractCount": 2,
+          "totalEur": 15737.564103219605,
+          "totalOther": {}
         },
         {
           "year": "2012",
-          "totalByCurrency": {
-            "BGN": 20000
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 10225.83762392437,
+          "totalOther": {}
         },
         {
           "year": "2013",
-          "totalByCurrency": {
-            "BGN": 58334
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 29825.700597700208,
+          "totalOther": {}
         },
         {
           "year": "2015",
-          "totalByCurrency": {
-            "BGN": 87500
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 44738.03960466912,
+          "totalOther": {}
         },
         {
           "year": "2016",
-          "totalByCurrency": {
-            "BGN": 18400
-          },
-          "contractCount": 2
+          "contractCount": 2,
+          "totalEur": 9407.77061401042,
+          "totalOther": {}
         }
       ],
       "topAwarders": [
         {
           "eik": "000852188",
           "name": "Община Добричка",
-          "totalByCurrency": {
-            "BGN": 182834
-          },
-          "contractCount": 4
+          "contractCount": 4,
+          "totalEur": 93481.53980662941,
+          "totalOther": {}
         },
         {
           "eik": "000851111",
           "name": "Център за психично здраве /ЦПЗ/ д-р П. Станчев- Добрич\" ЕООД /старо наименование - Областен диспансер за психични заболявания със стационар /ОДПЗС/ \"Д-р П. Станчев\" ЕООД- Добрич",
-          "totalByCurrency": {
-            "BGN": 18400
-          },
-          "contractCount": 2
+          "contractCount": 2,
+          "totalEur": 9407.77061401042,
+          "totalOther": {}
         },
         {
           "eik": "834056394",
           "name": "Държавна психиатрична болница /ДПБ/ - с. Карвуна",
-          "totalByCurrency": {
-            "BGN": 13780
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 7045.602122883891,
+          "totalOther": {}
         }
       ]
     },
@@ -3053,35 +2725,31 @@
           "confidence": "medium"
         }
       ],
-      "totalByCurrency": {
-        "BGN": 208804
-      },
+      "totalEur": 106759.7899612952,
+      "totalOther": {},
       "contractCount": 7,
       "awardCount": 0,
       "byYear": [
         {
           "year": "2017",
-          "totalByCurrency": {
-            "BGN": 142060
-          },
-          "contractCount": 4
+          "contractCount": 4,
+          "totalEur": 72634.1246427348,
+          "totalOther": {}
         },
         {
           "year": "2023",
-          "totalByCurrency": {
-            "BGN": 66744
-          },
-          "contractCount": 3
+          "contractCount": 3,
+          "totalEur": 34125.66531856041,
+          "totalOther": {}
         }
       ],
       "topAwarders": [
         {
           "eik": "000056814",
           "name": "ОБЩИНА БУРГАС",
-          "totalByCurrency": {
-            "BGN": 208804
-          },
-          "contractCount": 7
+          "contractCount": 7,
+          "totalEur": 106759.7899612952,
+          "totalOther": {}
         }
       ]
     },
@@ -3094,56 +2762,50 @@
         {
           "kind": "stake",
           "shareSize": "1/1",
-          "valueBgn": 5000,
+          "valueEur": 2556.4594059810925,
           "fiscalYear": 2020,
           "declarationYear": 2021
         }
       ],
-      "totalByCurrency": {
-        "BGN": 206249.71000000002
-      },
+      "totalEur": 105453.80222207453,
+      "totalOther": {},
       "contractCount": 3,
       "awardCount": 0,
       "byYear": [
         {
           "year": "2011",
-          "totalByCurrency": {
-            "BGN": 184976.96000000002
-          },
-          "contractCount": 2
+          "contractCount": 2,
+          "totalEur": 94577.21785635767,
+          "totalOther": {}
         },
         {
           "year": "2012",
-          "totalByCurrency": {
-            "BGN": 21272.75
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 10876.584365716857,
+          "totalOther": {}
         }
       ],
       "topAwarders": [
         {
           "eik": "115532049",
           "name": "Многопрофилна болница за активно лечение /МБАЛ/ - Пловдив АД",
-          "totalByCurrency": {
-            "BGN": 101655.96
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 51975.867023207546,
+          "totalOther": {}
         },
         {
           "eik": "000812197",
           "name": "Комплексен онкологичен център - Стара Загора\" ЕООД - Старо наименование /Междуобластен диспансер за онкологични заболявания със стационар /МДОЗС/ - Стара Загора ЕООД/",
-          "totalByCurrency": {
-            "BGN": 83321
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 42601.35083315012,
+          "totalOther": {}
         },
         {
           "eik": "115627433",
           "name": "Диагностично-консултативен център /ДКЦ/ \"Св. Георги\" ЕООД - Пловдив",
-          "totalByCurrency": {
-            "BGN": 21272.75
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 10876.584365716857,
+          "totalOther": {}
         }
       ]
     },
@@ -3156,87 +2818,43 @@
         {
           "kind": "stake",
           "shareSize": "100",
-          "valueBgn": 5000,
+          "valueEur": 2556.4594059810925,
           "fiscalYear": 2023,
           "declarationYear": 2023
         }
       ],
-      "totalByCurrency": {
-        "BGN": 186656
-      },
+      "totalEur": 95435.69737656135,
+      "totalOther": {},
       "contractCount": 2,
       "awardCount": 0,
       "byYear": [
         {
           "year": "2014",
-          "totalByCurrency": {
-            "BGN": 18656
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 9538.661335596653,
+          "totalOther": {}
         },
         {
           "year": "2023",
-          "totalByCurrency": {
-            "BGN": 168000
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 85897.03604096471,
+          "totalOther": {}
         }
       ],
       "topAwarders": [
         {
           "eik": "123531939",
           "name": "ТЕЦ МАРИЦА ИЗТОК 2 ЕАД",
-          "totalByCurrency": {
-            "BGN": 168000
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 85897.03604096471,
+          "totalOther": {}
         },
         {
           "eik": "000291591",
           "name": "Община Ловеч",
-          "totalByCurrency": {
-            "BGN": 18656
-          },
-          "contractCount": 1
-        }
-      ]
-    },
-    {
-      "mpId": 5165,
-      "mpName": "Валери Пламенов Лачовски",
-      "contractorEik": "202809611",
-      "contractorName": "ДИМАКС СОД ООД",
-      "relations": [
-        {
-          "kind": "stake",
-          "shareSize": "50%",
-          "valueBgn": 1,
-          "fiscalYear": 2024,
-          "declarationYear": 2025
-        }
-      ],
-      "totalByCurrency": {
-        "EUR": 165658.57
-      },
-      "contractCount": 1,
-      "awardCount": 0,
-      "byYear": [
-        {
-          "year": "2026",
-          "totalByCurrency": {
-            "EUR": 165658.57
-          },
-          "contractCount": 1
-        }
-      ],
-      "topAwarders": [
-        {
-          "eik": "824106518",
-          "name": "ВОДОСНАБДЯВАНЕ И КАНАЛИЗАЦИЯ ЕООД",
-          "totalByCurrency": {
-            "EUR": 165658.57
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 9538.661335596653,
+          "totalOther": {}
         }
       ]
     },
@@ -3254,33 +2872,30 @@
         {
           "kind": "stake",
           "shareSize": "100",
-          "valueBgn": 5000,
+          "valueEur": 2556.4594059810925,
           "fiscalYear": 2021,
           "declarationYear": 2021
         }
       ],
-      "totalByCurrency": {
-        "BGN": 145615.38
-      },
+      "totalEur": 74451.9615713022,
+      "totalOther": {},
       "contractCount": 1,
       "awardCount": 0,
       "byYear": [
         {
           "year": "2023",
-          "totalByCurrency": {
-            "BGN": 145615.38
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 74451.9615713022,
+          "totalOther": {}
         }
       ],
       "topAwarders": [
         {
           "eik": "000903825",
           "name": "ОБЩИНА СВИЛЕНГРАД",
-          "totalByCurrency": {
-            "BGN": 145615.38
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 74451.9615713022,
+          "totalOther": {}
         }
       ]
     },
@@ -3296,43 +2911,38 @@
           "confidence": "medium"
         }
       ],
-      "totalByCurrency": {
-        "BGN": 136900
-      },
+      "totalEur": 69995.85853576231,
+      "totalOther": {},
       "contractCount": 4,
       "awardCount": 0,
       "byYear": [
         {
           "year": "2022",
-          "totalByCurrency": {
-            "BGN": 69500
-          },
-          "contractCount": 2
+          "contractCount": 2,
+          "totalEur": 35534.78574313719,
+          "totalOther": {}
         },
         {
           "year": "2023",
-          "totalByCurrency": {
-            "BGN": 67400
-          },
-          "contractCount": 2
+          "contractCount": 2,
+          "totalEur": 34461.07279262513,
+          "totalOther": {}
         }
       ],
       "topAwarders": [
         {
           "eik": "000405689",
           "name": "МЕДИЦИНСКИ УНИВЕРСИТЕТ",
-          "totalByCurrency": {
-            "BGN": 87900
-          },
-          "contractCount": 3
+          "contractCount": 3,
+          "totalEur": 44942.55635714761,
+          "totalOther": {}
         },
         {
           "eik": "000403802",
           "name": "ДРАМАТИЧНО - КУКЛЕН ТЕАТЪР \"ИВАН РАДОЕВ",
-          "totalByCurrency": {
-            "BGN": 49000
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 25053.302178614707,
+          "totalOther": {}
         }
       ]
     },
@@ -3345,48 +2955,43 @@
         {
           "kind": "stake",
           "shareSize": "15%",
-          "valueBgn": 750,
+          "valueEur": 383.4689108971639,
           "fiscalYear": 2021,
           "declarationYear": 2022
         }
       ],
-      "totalByCurrency": {
-        "BGN": 131750
-      },
+      "totalEur": 67362.70534760179,
+      "totalOther": {},
       "contractCount": 2,
       "awardCount": 0,
       "byYear": [
         {
           "year": "2022",
-          "totalByCurrency": {
-            "BGN": 56250
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 28760.16831728729,
+          "totalOther": {}
         },
         {
           "year": "2023",
-          "totalByCurrency": {
-            "BGN": 75500
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 38602.537030314495,
+          "totalOther": {}
         }
       ],
       "topAwarders": [
         {
           "eik": "000670634",
           "name": "ЛЕСОТЕХНИЧЕСКИ УНИВЕРСИТЕТ",
-          "totalByCurrency": {
-            "BGN": 75500
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 38602.537030314495,
+          "totalOther": {}
         },
         {
           "eik": "000776349",
           "name": "ОБЩИНА КОСТЕНЕЦ",
-          "totalByCurrency": {
-            "BGN": 56250
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 28760.16831728729,
+          "totalOther": {}
         }
       ]
     },
@@ -3402,28 +3007,25 @@
           "confidence": "medium"
         }
       ],
-      "totalByCurrency": {
-        "BGN": 127400.45
-      },
+      "totalEur": 65138.815745744774,
+      "totalOther": {},
       "contractCount": 1,
       "awardCount": 0,
       "byYear": [
         {
           "year": "2023",
-          "totalByCurrency": {
-            "BGN": 127400.45
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 65138.815745744774,
+          "totalOther": {}
         }
       ],
       "topAwarders": [
         {
           "eik": "128501598",
           "name": "МНОГОПРОФИЛНА БОЛНИЦА ЗА АКТИВНО ЛЕЧЕНИЕ \"СВ.ПАНТЕЛЕЙМОН\" - ЯМБОЛ АД",
-          "totalByCurrency": {
-            "BGN": 127400.45
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 65138.815745744774,
+          "totalOther": {}
         }
       ]
     },
@@ -3436,54 +3038,48 @@
         {
           "kind": "stake",
           "shareSize": "10%",
-          "valueBgn": 500,
+          "valueEur": 255.64594059810923,
           "fiscalYear": 2024,
           "declarationYear": 2025
         }
       ],
-      "totalByCurrency": {
-        "BGN": 122800
-      },
+      "totalEur": 62786.643010895634,
+      "totalOther": {},
       "contractCount": 5,
       "awardCount": 0,
       "byYear": [
         {
           "year": "2013",
-          "totalByCurrency": {
-            "BGN": 2800
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 1431.6172673494118,
+          "totalOther": {}
         },
         {
           "year": "2019",
-          "totalByCurrency": {
-            "BGN": 52000
-          },
-          "contractCount": 2
+          "contractCount": 2,
+          "totalEur": 26587.17782220336,
+          "totalOther": {}
         },
         {
           "year": "2022",
-          "totalByCurrency": {
-            "BGN": 8000
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 4090.3350495697478,
+          "totalOther": {}
         },
         {
           "year": "2023",
-          "totalByCurrency": {
-            "BGN": 60000
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 30677.51287177311,
+          "totalOther": {}
         }
       ],
       "topAwarders": [
         {
           "eik": "201619580",
           "name": "ТЕРИТОРИАЛНО ПОДЕЛЕНИЕ \"ДЪРЖАВНО ГОРСКО СТОПАНСТВО-ЗЛАТОГРАД",
-          "totalByCurrency": {
-            "BGN": 122800
-          },
-          "contractCount": 5
+          "contractCount": 5,
+          "totalEur": 62786.643010895634,
+          "totalOther": {}
         }
       ]
     },
@@ -3499,49 +3095,43 @@
           "confidence": "medium"
         }
       ],
-      "totalByCurrency": {
-        "BGN": 81536.21
-      },
+      "totalEur": 41688.802196509925,
+      "totalOther": {},
       "contractCount": 9,
       "awardCount": 0,
       "byYear": [
         {
           "year": "2019",
-          "totalByCurrency": {
-            "BGN": 20000
-          },
-          "contractCount": 2
+          "contractCount": 2,
+          "totalEur": 10225.83762392437,
+          "totalOther": {}
         },
         {
           "year": "2021",
-          "totalByCurrency": {
-            "BGN": 40000
-          },
-          "contractCount": 2
+          "contractCount": 2,
+          "totalEur": 20451.67524784874,
+          "totalOther": {}
         },
         {
           "year": "2022",
-          "totalByCurrency": {
-            "BGN": 14536.21
-          },
-          "contractCount": 3
+          "contractCount": 3,
+          "totalEur": 7432.246156363282,
+          "totalOther": {}
         },
         {
           "year": "2023",
-          "totalByCurrency": {
-            "BGN": 7000
-          },
-          "contractCount": 2
+          "contractCount": 2,
+          "totalEur": 3579.0431683735296,
+          "totalOther": {}
         }
       ],
       "topAwarders": [
         {
           "eik": "201617654",
           "name": "ТЕРИТОРИАЛНО ПОДЕЛЕНИЕ \"ДЪРЖАВНО ГОРСКО СТОПАНСТВО КОСТИ",
-          "totalByCurrency": {
-            "BGN": 81536.21
-          },
-          "contractCount": 9
+          "contractCount": 9,
+          "totalEur": 41688.802196509925,
+          "totalOther": {}
         }
       ]
     },
@@ -3562,28 +3152,25 @@
           "confidence": "medium"
         }
       ],
-      "totalByCurrency": {
-        "BGN": 50000
-      },
+      "totalEur": 25564.594059810923,
+      "totalOther": {},
       "contractCount": 1,
       "awardCount": 0,
       "byYear": [
         {
           "year": "2022",
-          "totalByCurrency": {
-            "BGN": 50000
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 25564.594059810923,
+          "totalOther": {}
         }
       ],
       "topAwarders": [
         {
           "eik": "130823243",
           "name": "НАЦИОНАЛНА КОМПАНИЯ \"ЖЕЛЕЗОПЪТНА ИНФРАСТРУКТУРА\" ДП",
-          "totalByCurrency": {
-            "BGN": 50000
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 25564.594059810923,
+          "totalOther": {}
         }
       ]
     },
@@ -3599,28 +3186,25 @@
           "confidence": "medium"
         }
       ],
-      "totalByCurrency": {
-        "BGN": 39275
-      },
+      "totalEur": 20080.98863398148,
+      "totalOther": {},
       "contractCount": 1,
       "awardCount": 0,
       "byYear": [
         {
           "year": "2012",
-          "totalByCurrency": {
-            "BGN": 39275
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 20080.98863398148,
+          "totalOther": {}
         }
       ],
       "topAwarders": [
         {
           "eik": "127521758",
           "name": "Комплексен онкологичен център/КОЦ/ - Шумен ЕООД/Старо наименование - Междуобластен диспансер за онкологични заболявания със стационар /МДОЗС/ - Шумен",
-          "totalByCurrency": {
-            "BGN": 39275
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 20080.98863398148,
+          "totalOther": {}
         }
       ]
     },
@@ -3641,28 +3225,25 @@
           "confidence": "medium"
         }
       ],
-      "totalByCurrency": {
-        "BGN": 36381.1
-      },
+      "totalEur": 18601.361058987743,
+      "totalOther": {},
       "contractCount": 1,
       "awardCount": 0,
       "byYear": [
         {
           "year": "2013",
-          "totalByCurrency": {
-            "BGN": 36381.1
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 18601.361058987743,
+          "totalOther": {}
         }
       ],
       "topAwarders": [
         {
           "eik": "000133901",
           "name": "Община Павликени",
-          "totalByCurrency": {
-            "BGN": 36381.1
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 18601.361058987743,
+          "totalOther": {}
         }
       ]
     },
@@ -3678,43 +3259,38 @@
           "confidence": "medium"
         }
       ],
-      "totalByCurrency": {
-        "BGN": 33484.5
-      },
+      "totalEur": 17120.352995914778,
+      "totalOther": {},
       "contractCount": 3,
       "awardCount": 0,
       "byYear": [
         {
           "year": "2013",
-          "totalByCurrency": {
-            "BGN": 15484.5
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 7917.0991343828455,
+          "totalOther": {}
         },
         {
           "year": "2016",
-          "totalByCurrency": {
-            "BGN": 18000
-          },
-          "contractCount": 2
+          "contractCount": 2,
+          "totalEur": 9203.253861531934,
+          "totalOther": {}
         }
       ],
       "topAwarders": [
         {
           "eik": "000559025",
           "name": "Професионална гимназия по механизация на селското стопанство /ПГМСС/ \"Никола Йонков Вапцаров\" с. Средище",
-          "totalByCurrency": {
-            "BGN": 18000
-          },
-          "contractCount": 2
+          "contractCount": 2,
+          "totalEur": 9203.253861531934,
+          "totalOther": {}
         },
         {
           "eik": "000559000",
           "name": "Професионална земеделска гимназия - Добруджа, гр. Силистра",
-          "totalByCurrency": {
-            "BGN": 15484.5
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 7917.0991343828455,
+          "totalOther": {}
         }
       ]
     },
@@ -3730,43 +3306,38 @@
           "confidence": "medium"
         }
       ],
-      "totalByCurrency": {
-        "BGN": 25818.12
-      },
+      "totalEur": 13200.595143749711,
+      "totalOther": {},
       "contractCount": 3,
       "awardCount": 0,
       "byYear": [
         {
           "year": "2014",
-          "totalByCurrency": {
-            "BGN": 2197.44
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 1123.5332314158184,
+          "totalOther": {}
         },
         {
           "year": "2015",
-          "totalByCurrency": {
-            "BGN": 23620.68
-          },
-          "contractCount": 2
+          "contractCount": 2,
+          "totalEur": 12077.061912333895,
+          "totalOther": {}
         }
       ],
       "topAwarders": [
         {
           "eik": "000522685",
           "name": "Русенски университет \"Ангел Кънчев",
-          "totalByCurrency": {
-            "BGN": 22500
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 11504.067326914916,
+          "totalOther": {}
         },
         {
           "eik": "129010214",
           "name": "Военно - географска служба /ВГС/ към Министерство на отбраната /МО/",
-          "totalByCurrency": {
-            "BGN": 3318.12
-          },
-          "contractCount": 2
+          "contractCount": 2,
+          "totalEur": 1696.5278168347963,
+          "totalOther": {}
         }
       ]
     },
@@ -3779,33 +3350,30 @@
         {
           "kind": "stake",
           "shareSize": "100%",
-          "valueBgn": 5000,
+          "valueEur": 2556.4594059810925,
           "fiscalYear": 2024,
           "declarationYear": 2025
         }
       ],
-      "totalByCurrency": {
-        "BGN": 11666.4
-      },
+      "totalEur": 5964.935602787563,
+      "totalOther": {},
       "contractCount": 2,
       "awardCount": 0,
       "byYear": [
         {
           "year": "2019",
-          "totalByCurrency": {
-            "BGN": 11666.4
-          },
-          "contractCount": 2
+          "contractCount": 2,
+          "totalEur": 5964.935602787563,
+          "totalOther": {}
         }
       ],
       "topAwarders": [
         {
           "eik": "000193414",
           "name": "Община Оряхово",
-          "totalByCurrency": {
-            "BGN": 11666.4
-          },
-          "contractCount": 2
+          "contractCount": 2,
+          "totalEur": 5964.935602787563,
+          "totalOther": {}
         }
       ]
     },
@@ -3818,33 +3386,30 @@
         {
           "kind": "stake",
           "shareSize": "100",
-          "valueBgn": 5000,
+          "valueEur": 2556.4594059810925,
           "fiscalYear": 2023,
           "declarationYear": 2023
         }
       ],
-      "totalByCurrency": {
-        "BGN": 9160
-      },
+      "totalEur": 4683.433631757362,
+      "totalOther": {},
       "contractCount": 1,
       "awardCount": 0,
       "byYear": [
         {
           "year": "2014",
-          "totalByCurrency": {
-            "BGN": 9160
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 4683.433631757362,
+          "totalOther": {}
         }
       ],
       "topAwarders": [
         {
           "eik": "000044541",
           "name": "Университет \"Проф. д-р Асен Златаров\" - Бургас",
-          "totalByCurrency": {
-            "BGN": 9160
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 4683.433631757362,
+          "totalOther": {}
         }
       ]
     },
@@ -3862,40 +3427,36 @@
         {
           "kind": "stake",
           "shareSize": "25%",
-          "valueBgn": 1250,
+          "valueEur": 639.1148514952731,
           "fiscalYear": 2023,
           "declarationYear": 2024
         }
       ],
-      "totalByCurrency": {
-        "BGN": 3598
-      },
+      "totalEur": 1839.6281885439942,
+      "totalOther": {},
       "contractCount": 2,
       "awardCount": 0,
       "byYear": [
         {
           "year": "2013",
-          "totalByCurrency": {
-            "BGN": 2018
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 1031.7870162539689,
+          "totalOther": {}
         },
         {
           "year": "2014",
-          "totalByCurrency": {
-            "BGN": 1580
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 807.8411722900253,
+          "totalOther": {}
         }
       ],
       "topAwarders": [
         {
           "eik": "000817956",
           "name": "Община Раднево, област Стара Загора",
-          "totalByCurrency": {
-            "BGN": 3598
-          },
-          "contractCount": 2
+          "contractCount": 2,
+          "totalEur": 1839.6281885439942,
+          "totalOther": {}
         }
       ]
     },
@@ -3908,40 +3469,36 @@
         {
           "kind": "stake",
           "shareSize": "50%",
-          "valueBgn": 2500,
+          "valueEur": 1278.2297029905462,
           "fiscalYear": 2021,
           "declarationYear": 2022
         }
       ],
-      "totalByCurrency": {
-        "BGN": 2000
-      },
+      "totalEur": 1022.5837623924369,
+      "totalOther": {},
       "contractCount": 2,
       "awardCount": 0,
       "byYear": [
         {
           "year": "2011",
-          "totalByCurrency": {
-            "BGN": 1500
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 766.9378217943278,
+          "totalOther": {}
         },
         {
           "year": "2013",
-          "totalByCurrency": {
-            "BGN": 500
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 255.64594059810923,
+          "totalOther": {}
         }
       ],
       "topAwarders": [
         {
           "eik": "000817778",
           "name": "Община Казанлък",
-          "totalByCurrency": {
-            "BGN": 2000
-          },
-          "contractCount": 2
+          "contractCount": 2,
+          "totalEur": 1022.5837623924369,
+          "totalOther": {}
         }
       ]
     },
@@ -3954,33 +3511,30 @@
         {
           "kind": "stake",
           "shareSize": "50",
-          "valueBgn": 5000,
+          "valueEur": 2556.4594059810925,
           "fiscalYear": 2021,
           "declarationYear": 2021
         }
       ],
-      "totalByCurrency": {
-        "BGN": 1700
-      },
+      "totalEur": 869.1961980335715,
+      "totalOther": {},
       "contractCount": 1,
       "awardCount": 0,
       "byYear": [
         {
           "year": "2013",
-          "totalByCurrency": {
-            "BGN": 1700
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 869.1961980335715,
+          "totalOther": {}
         }
       ],
       "topAwarders": [
         {
           "eik": "000386790",
           "name": "Община Трън",
-          "totalByCurrency": {
-            "BGN": 1700
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 869.1961980335715,
+          "totalOther": {}
         }
       ]
     },
@@ -3996,28 +3550,25 @@
           "confidence": "medium"
         }
       ],
-      "totalByCurrency": {
-        "BGN": 167
-      },
+      "totalEur": 85.38574415976849,
+      "totalOther": {},
       "contractCount": 1,
       "awardCount": 0,
       "byYear": [
         {
           "year": "2014",
-          "totalByCurrency": {
-            "BGN": 167
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 85.38574415976849,
+          "totalOther": {}
         }
       ],
       "topAwarders": [
         {
           "eik": "121817309",
           "name": "Районна прокуратура, гр. Кнежа",
-          "totalByCurrency": {
-            "BGN": 167
-          },
-          "contractCount": 1
+          "contractCount": 1,
+          "totalEur": 85.38574415976849,
+          "totalOther": {}
         }
       ]
     }

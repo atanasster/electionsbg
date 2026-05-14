@@ -25,7 +25,7 @@ import { useContractor } from "@/data/procurement/useContractor";
 import { useMpConnectedContracts } from "@/data/parliament/useMpConnectedContracts";
 import { dataUrl } from "@/data/dataUrl";
 import type { ProcurementMpConnectedFile } from "@/data/dataTypes";
-import { formatTotalAsEur } from "./components/candidates/procurement/formatAmount";
+import { formatEurWithOther } from "@/lib/currency";
 import { summarizeRelations } from "./components/candidates/procurement/relationLabel";
 import { MpAvatar } from "./components/candidates/MpAvatar";
 import { CompanyTopContractsTile } from "./components/procurement/CompanyTopContractsTile";
@@ -65,7 +65,7 @@ const SkeletonCard: FC = () => (
 
 export const CompanyByEikScreen: FC = () => {
   const { eik } = useParams<{ eik: string }>();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { data: c, isLoading } = useContractor(eik);
   const { entries: mpLinks } = useMpConnectedForEik(eik);
 
@@ -119,7 +119,8 @@ export const CompanyByEikScreen: FC = () => {
             <div className="flex items-baseline gap-2">
               <Coins className="h-5 w-5 text-muted-foreground shrink-0" />
               <span className="text-base md:text-lg font-bold tabular-nums break-words">
-                {formatTotalAsEur(c.totalByCurrency) || "—"}
+                {formatEurWithOther(c.totalEur, c.totalOther, i18n.language) ||
+                  "—"}
               </span>
             </div>
           </StatCard>

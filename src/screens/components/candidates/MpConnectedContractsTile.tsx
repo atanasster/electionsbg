@@ -13,7 +13,7 @@ import { ArrowRight, Receipt } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { useMpConnectedContracts } from "@/data/parliament/useMpConnectedContracts";
 import { summarizeRelations } from "./procurement/relationLabel";
-import { formatTotalAsEur } from "./procurement/formatAmount";
+import { formatEurWithOther } from "@/lib/currency";
 
 const TOP_ROWS = 5;
 
@@ -25,7 +25,7 @@ export const MpConnectedContractsTile: FC<{
   name: string;
   linkSlug?: string;
 }> = ({ name, linkSlug }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { entries, summary, isLoading } = useMpConnectedContracts(name);
   const ref = useRef<HTMLDivElement>(null);
   const { hash } = useLocation();
@@ -74,7 +74,12 @@ export const MpConnectedContractsTile: FC<{
             "Connected companies with public-procurement contracts"}
           <span className="text-xs text-muted-foreground font-normal ml-1">
             {entries.length} {t("procurement_tile_companies") || "compan(ies)"}{" "}
-            · {formatTotalAsEur(summary.totalsByCurrency)}
+            ·{" "}
+            {formatEurWithOther(
+              summary.totalEur,
+              summary.totalOther,
+              i18n.language,
+            )}
           </span>
           <Link
             to={`/candidate/${candidateSlug}/procurement`}
@@ -102,7 +107,7 @@ export const MpConnectedContractsTile: FC<{
                 {summarizeRelations(t, e.relations)}
               </span>
               <span className="ml-auto text-sm tabular-nums">
-                {formatTotalAsEur(e.totalByCurrency)}
+                {formatEurWithOther(e.totalEur, e.totalOther, i18n.language)}
               </span>
             </li>
           ))}

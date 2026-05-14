@@ -20,7 +20,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { useAwarder } from "@/data/procurement/useAwarder";
 import { dataUrl } from "@/data/dataUrl";
 import type { ProcurementMpConnectedFile } from "@/data/dataTypes";
-import { formatTotalAsEur } from "./components/candidates/procurement/formatAmount";
+import { formatEurWithOther } from "@/lib/currency";
 import { MpAvatar } from "./components/candidates/MpAvatar";
 import { AwarderTopContractsTile } from "./components/procurement/AwarderTopContractsTile";
 import { AwarderTopContractorsTile } from "./components/procurement/AwarderTopContractorsTile";
@@ -53,7 +53,7 @@ const useMpConnected = () =>
 
 export const AwarderByEikScreen: FC = () => {
   const { eik } = useParams<{ eik: string }>();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { data: a, isLoading } = useAwarder(eik);
   const { data: mpConnected } = useMpConnected();
 
@@ -139,7 +139,8 @@ export const AwarderByEikScreen: FC = () => {
             <div className="flex items-baseline gap-2">
               <Coins className="h-5 w-5 text-muted-foreground shrink-0" />
               <span className="text-base md:text-lg font-bold tabular-nums break-words">
-                {formatTotalAsEur(a.totalByCurrency) || "—"}
+                {formatEurWithOther(a.totalEur, a.totalOther, i18n.language) ||
+                  "—"}
               </span>
             </div>
           </StatCard>
@@ -254,7 +255,11 @@ export const AwarderByEikScreen: FC = () => {
                           </div>
                         </td>
                         <td className="px-3 py-2 text-right tabular-nums">
-                          {formatTotalAsEur(contractor.totalByCurrency) || "—"}
+                          {formatEurWithOther(
+                            contractor.totalEur,
+                            contractor.totalOther,
+                            i18n.language,
+                          ) || "—"}
                         </td>
                         <td className="px-3 py-2 text-right tabular-nums hidden md:table-cell">
                           {contractor.contractCount.toLocaleString("bg-BG")}

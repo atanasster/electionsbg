@@ -22,6 +22,7 @@ import type {
   MpIncomeRecord,
   MpOwnershipStake,
 } from "../../src/data/dataTypes";
+import { toEur } from "../../src/lib/currency";
 
 const text = ($: CheerioAPI, sel: string): string | null => {
   const el = $(sel).first();
@@ -75,7 +76,8 @@ const parseTable10Row = (row: ReturnType<CheerioAPI>): MpOwnershipStake => ({
   shareSize: cellByNum(row, 3),
   companyName: cellByNum(row, 4),
   registeredOffice: cellByNum(row, 5),
-  valueBgn: toNumber(cellByNum(row, 6)),
+  // Cell 6 is the declared BGN value — convert to euros (locked peg).
+  valueEur: toEur(toNumber(cellByNum(row, 6)), "BGN"),
   holderName: cellByNum(row, 7),
   legalBasis: cellByNum(row, 9),
   fundsOrigin: cellByNum(row, 10),
@@ -87,7 +89,7 @@ const parseTable11Row = (row: ReturnType<CheerioAPI>): MpOwnershipStake => ({
   shareSize: cellByNum(row, 3),
   companyName: cellByNum(row, 4),
   registeredOffice: cellByNum(row, 5),
-  valueBgn: toNumber(cellByNum(row, 6)),
+  valueEur: toEur(toNumber(cellByNum(row, 6)), "BGN"),
   holderName: null,
   transfereeName: cellByNum(row, 7),
   legalBasis: cellByNum(row, 9),
@@ -127,48 +129,24 @@ const isSpouseHolder = (
   return h !== normName(declarantName);
 };
 
-/** Approximate cross-rates to BGN, used only when the declarant filled the
- * foreign-currency amount column but left "Равностойност в лв." blank. EUR
- * is a fixed peg (the rate the Bulgarian National Bank publishes); the
- * others are recent (~2024) BNB averages. Declarations span ~5 years so
- * pinpoint accuracy is impossible — these are good-enough for ranking. */
-const BGN_RATES: Record<string, number> = {
-  BGN: 1,
-  ЛВ: 1,
-  ЛЕВА: 1,
-  EUR: 1.95583, // BGN/EUR fixed peg
-  USD: 1.8,
-  GBP: 2.3,
-  CHF: 2.05,
-  CAD: 1.35,
-  AUD: 1.2,
-  TRY: 0.06,
-  RUB: 0.02,
-};
-
-/** Pick the BGN figure for an asset row.
+/** Pick the euro figure for an asset row.
  *
  * Cacbg rows have:
  *   - amount in declared currency (cell A)
  *   - currency code (cell B)
  *   - "Равностойност в лв." BGN equivalent (cell C)
  *
- * Preference: BGN equivalent when present → amount converted to BGN via
- * BGN_RATES → null. The conversion ensures foreign-currency holdings show
- * up in totals and rankings instead of being treated as "unvalued". */
-const pickBgnValue = (
+ * Preference: the declarant's BGN equivalent (converted to euros at the
+ * locked peg) → the declared amount when it's in BGN or EUR → null. Foreign
+ * currencies (USD/GBP/CHF, …) without a declarant-provided BGN equivalent
+ * stay unvalued: we don't apply approximate cross-rates. See src/lib/currency.ts. */
+const pickEurValue = (
   amount: number | null,
   currency: string | null,
   bgnEquiv: number | null,
 ): number | null => {
-  if (bgnEquiv != null && bgnEquiv !== 0) return bgnEquiv;
-  if (amount == null) return null;
-  const c = (currency ?? "").trim().toUpperCase();
-  const rate = BGN_RATES[c];
-  if (rate != null) return amount * rate;
-  // Unknown currency — return amount as-is rather than dropping it. Keeps
-  // the row out of "no value" without inflating it 1.95×.
-  return amount;
+  if (bgnEquiv != null && bgnEquiv !== 0) return toEur(bgnEquiv, "BGN");
+  return toEur(amount, currency);
 };
 
 /** Hand-curated fixes for declaration entries where the declarant clearly
@@ -282,7 +260,7 @@ const parseTable1Row = (
     share: cellByNum(row, 10),
     currency: value != null ? "BGN" : null,
     amount: value,
-    valueBgn: value,
+    valueEur: toEur(value, "BGN"),
     holderName: holder,
     isSpouse: isSpouseHolder(holder, declarantName),
     legalBasis: cellByNum(row, 12),
@@ -324,7 +302,7 @@ const parseTable3Row = (
     share: cellByNum(row, 8),
     currency: value != null ? "BGN" : null,
     amount: value,
-    valueBgn: value,
+    valueEur: toEur(value, "BGN"),
     holderName: holder,
     isSpouse: isSpouseHolder(holder, declarantName),
     legalBasis: cellByNum(row, 9),
@@ -366,7 +344,7 @@ const parseMoneyRow = (
     share: null,
     currency,
     amount,
-    valueBgn: pickBgnValue(amount, currency, bgnEquiv),
+    valueEur: pickEurValue(amount, currency, bgnEquiv),
     holderName: holder,
     isSpouse: isSpouseHolder(holder, declarantName),
     legalBasis: cells.legalBasis ? cellByNum(row, cells.legalBasis) : null,
@@ -392,7 +370,7 @@ const parseTable9Row = (
     share: cellByNum(row, 3), // count of securities — preserve raw text
     currency: price != null ? "BGN" : null,
     amount: price,
-    valueBgn: price,
+    valueEur: toEur(price, "BGN"),
     holderName: holder,
     isSpouse: isSpouseHolder(holder, declarantName),
     legalBasis: cellByNum(row, 10),
@@ -551,8 +529,9 @@ const parseAssetTables = (
 const parseIncomeRow = (row: ReturnType<CheerioAPI>): MpIncomeRecord => ({
   parent: row.attr("Parent") || null,
   category: cellByNum(row, 2),
-  amountBgnDeclarant: toNumber(cellByNum(row, 3)),
-  amountBgnSpouse: toNumber(cellByNum(row, 4)),
+  // Income cells are declared in leva — convert to euros at the locked peg.
+  amountEurDeclarant: toEur(toNumber(cellByNum(row, 3)), "BGN"),
+  amountEurSpouse: toEur(toNumber(cellByNum(row, 4)), "BGN"),
 });
 
 export type ParseInput = {
@@ -598,7 +577,7 @@ export const parseDeclarationXml = ({
       s.holderName ?? "",
       s.shareSize ?? "",
       s.registeredOffice ?? "",
-      s.valueBgn ?? "",
+      s.valueEur ?? "",
     ].join("|");
 
   const t10 = $('Table[Num="10"]').first();
@@ -637,7 +616,7 @@ export const parseDeclarationXml = ({
       const rec = parseIncomeRow(row);
       // Income table has many empty rows for unused categories; keep only
       // rows where at least one amount is set.
-      if (rec.amountBgnDeclarant != null || rec.amountBgnSpouse != null) {
+      if (rec.amountEurDeclarant != null || rec.amountEurSpouse != null) {
         income.push(rec);
       }
     });

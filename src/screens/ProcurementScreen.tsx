@@ -15,10 +15,9 @@ import { ProcurementFlowTile } from "./components/procurement/ProcurementFlowTil
 import { TopContractorsTile } from "./components/procurement/TopContractorsTile";
 import { TopAwardersTile } from "./components/procurement/TopAwardersTile";
 import { TopMpsTile } from "./components/procurement/TopMpsTile";
-import { formatTotalAsEur } from "./components/candidates/procurement/formatAmount";
+import { formatEur, formatEurWithOther } from "@/lib/currency";
 
 const numFmt = new Intl.NumberFormat("bg-BG");
-const formatEur = new Intl.NumberFormat("bg-BG", { maximumFractionDigits: 0 });
 
 const SkeletonCard: FC = () => (
   <div className="rounded-xl border bg-card p-4 shadow-sm animate-pulse h-[140px]">
@@ -133,13 +132,13 @@ export const ProcurementScreen: FC = () => {
             label={t("procurement_index_total_awarded") || "Total awarded"}
             hint={
               t("procurement_index_total_hint") ||
-              "Converted to EUR (BGN at the locked 1.95583 parity; other currencies via fixed approximations)."
+              "In euro. Pre-2026 contracts in leva are converted at the locked 1.95583 parity; the rare USD/GBP/CHF contracts are kept in their own currency."
             }
           >
             <div className="flex items-baseline gap-2">
               <Coins className="h-5 w-5 text-muted-foreground shrink-0" />
               <span className="text-base md:text-lg font-bold tabular-nums break-words">
-                €{formatEur.format(Math.round(byNs.totals.totalEur))}
+                {formatEur(byNs.totals.totalEur)}
               </span>
             </div>
           </StatCard>
@@ -186,7 +185,7 @@ export const ProcurementScreen: FC = () => {
               {t("procurement_index_mp_companies") || "companies"}
             </div>
             <div className="text-xs font-medium tabular-nums">
-              €{formatEur.format(Math.round(byNs.totals.mpConnectedTotalEur))}
+              {formatEur(byNs.totals.mpConnectedTotalEur)}
             </div>
           </StatCard>
         </div>
@@ -263,7 +262,10 @@ function renderGlobalView(
             <div className="flex items-baseline gap-2">
               <Coins className="h-5 w-5 text-muted-foreground shrink-0" />
               <span className="text-base md:text-lg font-bold tabular-nums break-words">
-                {formatTotalAsEur(index.totals.byCurrency) || "—"}
+                {formatEurWithOther(
+                  index.totals.totalEur,
+                  index.totals.totalOther,
+                ) || "—"}
               </span>
             </div>
           </StatCard>
@@ -300,7 +302,7 @@ function renderGlobalView(
                   {t("procurement_index_mp_companies") || "companies"}
                 </div>
                 <div className="text-xs font-medium tabular-nums">
-                  {formatTotalAsEur(cr.byCurrency) || "—"}
+                  {formatEurWithOther(cr.totalEur, cr.totalOther) || "—"}
                 </div>
               </>
             ) : null}

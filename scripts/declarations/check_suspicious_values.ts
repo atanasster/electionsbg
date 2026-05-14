@@ -18,6 +18,7 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import type { MpDeclaration } from "../../src/data/dataTypes";
+import { BGN_PER_EUR } from "../../src/lib/currency";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -100,7 +101,10 @@ const main = () => {
       stats.declsScanned++;
       for (const asset of decl.assets ?? []) {
         stats.assetsScanned++;
-        const bgn = asset.valueBgn;
+        // Asset values are stored in euros; this checker's thresholds are
+        // round leva figures, so compare in leva (locked 1.95583 peg).
+        const bgn =
+          asset.valueEur == null ? null : asset.valueEur * BGN_PER_EUR;
         if (bgn == null || bgn <= 0) continue;
 
         const flagOne = (reason: string, rowSummary: string) => {

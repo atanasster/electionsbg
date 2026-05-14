@@ -21,11 +21,13 @@ import type {
   ProcurementFlowNode,
   ProcurementFlowNodeType,
 } from "@/data/procurement/useProcurementFlow";
+import { formatEur } from "@/lib/currency";
 
 type NodeDatum = SankeyExtraProperties & ProcurementFlowNode;
+// d3-sankey requires a numeric `value` field to size the ribbons — it holds
+// the link's euro total (see scripts/procurement/derived.ts).
 type LinkDatum = SankeyExtraProperties & {
   value: number;
-  currency: string;
 };
 
 const NODE_WIDTH = 14;
@@ -40,14 +42,7 @@ const TYPE_COLOR: Record<ProcurementFlowNodeType, string> = {
   mp: "#2563eb",
 };
 
-const FORMATTER = new Intl.NumberFormat("bg-BG", { maximumFractionDigits: 0 });
-
-const formatLinkValue = (l: LinkDatum): string => {
-  const amt = FORMATTER.format(Math.round(l.value));
-  if (l.currency === "EUR") return `€${amt}`;
-  if (l.currency === "BGN") return `${amt} лв`;
-  return `${amt} ${l.currency}`;
-};
+const formatLinkValue = (l: LinkDatum): string => formatEur(l.value);
 
 export interface FlowHover {
   kind: "link" | "node";
@@ -58,8 +53,7 @@ export interface FlowHover {
   // For link hover.
   sourceLabel?: string;
   targetLabel?: string;
-  value?: number;
-  currency?: string;
+  valueEur?: number;
   clientX: number;
   clientY: number;
 }
@@ -82,7 +76,6 @@ export const ProcurementFlowSankey: FC<{
       source: number;
       target: number;
       value: number;
-      currency: string;
     }> = [];
     for (const l of links) {
       const s = idToIdx.get(l.source);
@@ -90,12 +83,11 @@ export const ProcurementFlowSankey: FC<{
       if (s === undefined || t === undefined) continue;
       // d3-sankey requires value > 0 to render the ribbon. Skip zero-value
       // links — they're noise from non-priced award notices.
-      if (!(l.value > 0)) continue;
+      if (!(l.valueEur > 0)) continue;
       sankeyLinks.push({
         source: s,
         target: t,
-        value: l.value,
-        currency: l.currency,
+        value: l.valueEur,
       });
     }
     return { nodes: nodes.map((n) => ({ ...n })), links: sankeyLinks };
@@ -171,8 +163,7 @@ export const ProcurementFlowSankey: FC<{
                   kind: "link",
                   sourceLabel: s.label,
                   targetLabel: t.label,
-                  value: link.value,
-                  currency: link.currency,
+                  valueEur: link.value,
                   clientX: e.clientX,
                   clientY: e.clientY,
                 })
@@ -182,8 +173,7 @@ export const ProcurementFlowSankey: FC<{
                   kind: "link",
                   sourceLabel: s.label,
                   targetLabel: t.label,
-                  value: link.value,
-                  currency: link.currency,
+                  valueEur: link.value,
                   clientX: e.clientX,
                   clientY: e.clientY,
                 })

@@ -41,7 +41,7 @@ const CustomTooltip: FC<{
             <div className="font-semibold">
               {formatThousands(payload[0].payload.totalFinancing)}
             </div>
-            <div className="text-muted-foreground">{`${t("lv")}.`}</div>
+            <div className="text-muted-foreground">{t("lv")}</div>
           </div>
         )}
         <div className="flex gap-1">

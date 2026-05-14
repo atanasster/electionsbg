@@ -39,7 +39,7 @@ interface CompanyEntry {
     sourceUrl: string;
     stake: {
       shareSize?: string;
-      valueBgn?: number;
+      valueEur?: number;
     };
   }>;
   tr?: {
@@ -153,7 +153,7 @@ export const buildEikLinkageMap = (
       linkage.relations.push({
         kind: "stake",
         shareSize: s.stake.shareSize,
-        valueBgn: s.stake.valueBgn,
+        valueEur: s.stake.valueEur,
         fiscalYear: s.fiscalYear,
         declarationYear: s.declarationYear,
       });
@@ -195,7 +195,8 @@ export const buildMpConnected = (
         contractorEik: contractor.eik,
         contractorName: contractor.name,
         relations: linkage.relations,
-        totalByCurrency: contractor.totalByCurrency,
+        totalEur: contractor.totalEur,
+        totalOther: contractor.totalOther,
         contractCount: contractor.contractCount,
         awardCount: contractor.awardCount,
         byYear: contractor.byYear,
@@ -203,20 +204,14 @@ export const buildMpConnected = (
       });
     }
   }
-  // Sort: largest total first (raw sum across currencies — same caveat as the
-  // top-contractors list. Currency mix shifts ordering by <5 ranks).
-  entries.sort(
-    (a, b) => sumTotals(b.totalByCurrency) - sumTotals(a.totalByCurrency),
-  );
+  // Sort: largest euro total first.
+  entries.sort((a, b) => b.totalEur - a.totalEur);
   return {
     generatedAt: new Date().toISOString(),
     total: entries.length,
     entries,
   };
 };
-
-const sumTotals = (bag: Record<string, number>): number =>
-  Object.values(bag).reduce((s, n) => s + n, 0);
 
 export const writeMpConnected = (
   outDir: string,

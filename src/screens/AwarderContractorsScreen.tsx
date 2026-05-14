@@ -16,7 +16,7 @@ import type {
   ProcurementAwarderRollup,
   ProcurementMpConnectedFile,
 } from "@/data/dataTypes";
-import { formatTotalAsEur } from "./components/candidates/procurement/formatAmount";
+import { formatEurWithOther } from "@/lib/currency";
 import { ErrorSection } from "./components/ErrorSection";
 
 type Row = ProcurementAwarderRollup["byContractor"][number];
@@ -35,7 +35,7 @@ const useMpConnected = () =>
 
 export const AwarderContractorsScreen: FC = () => {
   const { eik } = useParams<{ eik: string }>();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { data, isLoading } = useAwarder(eik);
   const { data: mpConnected } = useMpConnected();
 
@@ -78,26 +78,14 @@ export const AwarderContractorsScreen: FC = () => {
       },
       {
         id: "totalEur",
-        accessorFn: (row) =>
-          Object.entries(row.totalByCurrency).reduce(
-            (s, [cur, n]) =>
-              s +
-              (cur === "EUR"
-                ? n
-                : cur === "BGN"
-                  ? n / 1.95583
-                  : cur === "USD"
-                    ? n * 0.92
-                    : cur === "GBP"
-                      ? n * 1.17
-                      : cur === "CHF"
-                        ? n * 1.05
-                        : 0),
-            0,
-          ),
+        accessorFn: (row) => row.totalEur,
         header: t("company_col_total") || "Total",
         cell: ({ row }) =>
-          formatTotalAsEur(row.original.totalByCurrency) || "—",
+          formatEurWithOther(
+            row.original.totalEur,
+            row.original.totalOther,
+            i18n.language,
+          ) || "—",
         meta: { align: "right" },
       },
       {
@@ -106,7 +94,7 @@ export const AwarderContractorsScreen: FC = () => {
         meta: { align: "right" },
       },
     ],
-    [t, mpTiedEiks],
+    [t, i18n.language, mpTiedEiks],
   );
 
   if (isLoading) {

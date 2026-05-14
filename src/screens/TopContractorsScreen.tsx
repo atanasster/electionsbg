@@ -12,10 +12,10 @@ import { DataTable } from "@/ux/data_table/DataTable";
 import { Title } from "@/ux/Title";
 import { useTopContractors } from "@/data/procurement/useProcurementIndex";
 import type { ProcurementTopContractorEntry } from "@/data/dataTypes";
-import { formatTotalAsEur } from "./components/candidates/procurement/formatAmount";
+import { formatEurWithOther } from "@/lib/currency";
 
 export const TopContractorsScreen: FC = () => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { data, isLoading } = useTopContractors();
 
   const columns = useMemo<ColumnDef<ProcurementTopContractorEntry>[]>(
@@ -56,13 +56,16 @@ export const TopContractorsScreen: FC = () => {
       },
       {
         id: "total",
-        // Sort by raw sum across currencies — see formatAmount caveat. The
-        // displayed cell preserves the per-currency split.
-        accessorFn: (row) =>
-          Object.values(row.totalByCurrency).reduce((s, n) => s + n, 0),
+        // Sort by the euro total. The cell appends any native USD/GBP/CHF
+        // remainder we keep un-converted (see src/lib/currency.ts).
+        accessorFn: (row) => row.totalEur,
         header: t("procurement_index_col_total") || "Total",
         cell: ({ row }) =>
-          formatTotalAsEur(row.original.totalByCurrency) || "—",
+          formatEurWithOther(
+            row.original.totalEur,
+            row.original.totalOther,
+            i18n.language,
+          ) || "—",
         meta: { align: "right" },
       },
       {
@@ -71,7 +74,7 @@ export const TopContractorsScreen: FC = () => {
         meta: { align: "right" },
       },
     ],
-    [t],
+    [t, i18n.language],
   );
 
   return (

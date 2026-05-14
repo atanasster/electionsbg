@@ -7,13 +7,13 @@ import { useParams, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Receipt, ExternalLink } from "lucide-react";
 import { useContract } from "@/data/procurement/useContract";
-import { formatTotalByCurrency } from "./components/candidates/procurement/formatAmount";
+import { formatAmountEur } from "@/lib/currency";
 import { resolveContractSource } from "./components/candidates/procurement/sourceUrl";
 import { ErrorSection } from "./components/ErrorSection";
 
 export const ContractDetailScreen: FC = () => {
   const { id } = useParams<{ id: string }>();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { data: c, isLoading } = useContract(id);
 
   if (isLoading) {
@@ -59,11 +59,26 @@ export const ContractDetailScreen: FC = () => {
         <h1 className="text-xl md:text-2xl font-semibold leading-snug">
           {c.title || t("contract_untitled") || "Untitled contract"}
         </h1>
-        {c.amount != null ? (
-          <p className="text-2xl font-bold tabular-nums">
-            {formatTotalByCurrency({ [c.currency ?? "EUR"]: c.amount })}
-          </p>
-        ) : null}
+        {c.amount != null
+          ? (() => {
+              const { primary, original } = formatAmountEur(
+                c.amountEur,
+                c.amount,
+                c.currency,
+                i18n.language,
+              );
+              return (
+                <p className="text-2xl font-bold tabular-nums">
+                  {primary}
+                  {original ? (
+                    <span className="block text-sm font-normal text-muted-foreground">
+                      {t("contract_originally") || "originally"} {original}
+                    </span>
+                  ) : null}
+                </p>
+              );
+            })()
+          : null}
       </header>
 
       <section className="rounded-xl border bg-card p-4 shadow-sm space-y-2 text-sm">

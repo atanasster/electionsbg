@@ -22,6 +22,7 @@
 import { createHash } from "crypto";
 import type { Contract, ContractTag } from "./types";
 import { canonicalEik, isValidEik } from "./eik";
+import { toEur } from "@/lib/currency";
 
 // Stable per-row slug. Mirrors the dedupe key used by writeMonthShards in
 // ingest.ts so a row's URL persists across re-runs.
@@ -260,6 +261,9 @@ export const normalizeBundle = (
             contractorName: supplier.name,
             amount: contract.value?.amount,
             currency: contract.value?.currency,
+            amountEur:
+              toEur(contract.value?.amount, contract.value?.currency) ??
+              undefined,
             title: contract.title ?? release.tender?.title ?? "",
             cpv,
             procurementMethod,
@@ -295,6 +299,8 @@ export const normalizeBundle = (
             contractorName: supplier.name,
             amount: award.value?.amount,
             currency: award.value?.currency,
+            amountEur:
+              toEur(award.value?.amount, award.value?.currency) ?? undefined,
             title: award.title ?? release.tender?.title ?? "",
             cpv,
             procurementMethod,

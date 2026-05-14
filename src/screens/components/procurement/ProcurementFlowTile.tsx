@@ -13,6 +13,7 @@ import { GitFork } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { useProcurementFlow } from "@/data/procurement/useProcurementFlow";
 import { ProcurementFlowSankey, type FlowHover } from "./ProcurementFlowSankey";
+import { formatEur } from "@/lib/currency";
 
 const HEIGHT = 820;
 // Below this width the 3 columns can't fit their labels without overlap.
@@ -37,15 +38,6 @@ const pickDefaultThreshold = (
   return Math.max(0, Math.floor(sorted[targetCount] ?? 0));
 };
 
-const FMT_INT = new Intl.NumberFormat("bg-BG", { maximumFractionDigits: 0 });
-
-const formatThreshold = (v: number, currency: string): string => {
-  const s = FMT_INT.format(Math.round(v));
-  if (currency === "EUR") return `€${s}`;
-  if (currency === "BGN") return `${s} лв`;
-  return `${s} ${currency}`;
-};
-
 export const ProcurementFlowTile: FC = () => {
   const { t } = useTranslation();
   const { data, isLoading } = useProcurementFlow();
@@ -66,7 +58,7 @@ export const ProcurementFlowTile: FC = () => {
   }, []);
 
   const maxValue = useMemo(
-    () => data?.links.reduce((m, l) => Math.max(m, l.value), 0) ?? 0,
+    () => data?.links.reduce((m, l) => Math.max(m, l.valueEur), 0) ?? 0,
     [data],
   );
   // Initialise the threshold to the value that keeps DEFAULT_VISIBLE_LINKS
@@ -76,7 +68,7 @@ export const ProcurementFlowTile: FC = () => {
     if (!data || threshold !== null) return;
     setThreshold(
       pickDefaultThreshold(
-        data.links.map((l) => l.value),
+        data.links.map((l) => l.valueEur),
         DEFAULT_VISIBLE_LINKS,
       ),
     );
@@ -85,7 +77,7 @@ export const ProcurementFlowTile: FC = () => {
   const effectiveThreshold = threshold ?? 0;
   const filtered = useMemo(() => {
     if (!data) return { nodes: [], links: [] };
-    const links = data.links.filter((l) => l.value >= effectiveThreshold);
+    const links = data.links.filter((l) => l.valueEur >= effectiveThreshold);
     // Drop nodes with no surviving links.
     const keep = new Set<string>();
     for (const l of links) {
@@ -99,8 +91,6 @@ export const ProcurementFlowTile: FC = () => {
   // Hide tile entirely when there's nothing to show (procurement data exists
   // but no MP-tied flows yet).
   if (!isLoading && (!data || data.links.length === 0)) return null;
-
-  const currency = data?.links[0]?.currency ?? "EUR";
 
   return (
     <Card className="my-4" data-og="procurement-flow">
@@ -137,7 +127,7 @@ export const ProcurementFlowTile: FC = () => {
                   className="accent-primary w-40"
                 />
                 <span className="font-medium tabular-nums">
-                  {formatThreshold(effectiveThreshold, currency)}
+                  {formatEur(effectiveThreshold)}
                 </span>
               </label>
               <Legend />
@@ -180,7 +170,7 @@ export const ProcurementFlowTile: FC = () => {
                 <strong className="text-foreground">{hover.targetLabel}</strong>
                 {" · "}
                 <span className="tabular-nums font-medium text-foreground">
-                  {formatThreshold(hover.value ?? 0, hover.currency ?? "EUR")}
+                  {formatEur(hover.valueEur ?? 0)}
                 </span>
               </div>
             ) : (
@@ -192,7 +182,7 @@ export const ProcurementFlowTile: FC = () => {
 
             <p className="text-[11px] text-muted-foreground/80">
               {t("procurement_flow_source_hint") ||
-                "Графиката показва само компании със свръзка към депутат. Сумите са в основната валута на договора (без курсова конверсия)."}
+                "Графиката показва само компании със свръзка към депутат. Сумите са в евро (левовете са конвертирани по фиксирания курс 1.95583)."}
             </p>
           </>
         )}

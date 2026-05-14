@@ -5,23 +5,13 @@ import { Briefcase, ExternalLink, ArrowRightLeft } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { useMpDeclarations } from "@/data/parliament/useMpDeclarations";
 import type { MpDeclaration, MpOwnershipStake } from "@/data/dataTypes";
-
-const formatBgn = (n: number | null, lang: string): string => {
-  if (n == null) return "—";
-  try {
-    return new Intl.NumberFormat(lang === "bg" ? "bg-BG" : "en-GB", {
-      maximumFractionDigits: 0,
-    }).format(n);
-  } catch {
-    return String(n);
-  }
-};
+import { formatEur } from "@/lib/currency";
 
 type StakeYear = {
   year: number;
   fromFiscal: boolean;
   shareSize: string | null;
-  valueBgn: number | null;
+  valueEur: number | null;
 };
 
 type StakeRange = {
@@ -29,7 +19,7 @@ type StakeRange = {
   toYear: number;
   fromFiscal: boolean;
   shareSize: string | null;
-  valueBgn: number | null;
+  valueEur: number | null;
 };
 
 type ConsolidatedStake = {
@@ -65,7 +55,7 @@ const collapseRanges = (entries: StakeYear[]): StakeRange[] => {
     const sameValues =
       last &&
       last.shareSize === e.shareSize &&
-      last.valueBgn === e.valueBgn &&
+      last.valueEur === e.valueEur &&
       // only collapse contiguous or duplicate years (gaps break the range)
       e.year - last.toYear <= 1;
     if (sameValues) {
@@ -76,7 +66,7 @@ const collapseRanges = (entries: StakeYear[]): StakeRange[] => {
         toYear: e.year,
         fromFiscal: e.fromFiscal,
         shareSize: e.shareSize,
-        valueBgn: e.valueBgn,
+        valueEur: e.valueEur,
       });
     }
   }
@@ -122,7 +112,7 @@ const consolidate = (declarations: MpDeclaration[]): ConsolidatedStake[] => {
         year,
         fromFiscal,
         shareSize: stake.shareSize,
-        valueBgn: stake.valueBgn,
+        valueEur: stake.valueEur,
       });
     }
     const ranges = collapseRanges(Array.from(byYear.values()));
@@ -157,7 +147,7 @@ const RangeLabel: FC<{ r: StakeRange; lang: string }> = ({ r, lang }) => {
     r.fromYear === r.toYear ? `${r.fromYear}` : `${r.fromYear}–${r.toYear}`;
   const parts: string[] = [];
   if (r.shareSize) parts.push(r.shareSize);
-  if (r.valueBgn != null) parts.push(`${formatBgn(r.valueBgn, lang)} лв`);
+  if (r.valueEur != null) parts.push(formatEur(r.valueEur, lang));
   return (
     <span className="font-mono">
       <span className="text-muted-foreground">{yearLabel}</span>

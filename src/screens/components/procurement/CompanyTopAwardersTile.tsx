@@ -8,7 +8,7 @@ import { useTranslation } from "react-i18next";
 import { ArrowRight, Building2 } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import type { ProcurementContractorRollup } from "@/data/dataTypes";
-import { formatTotalAsEur } from "../candidates/procurement/formatAmount";
+import { formatEurWithOther } from "@/lib/currency";
 
 const TOP_ROWS = 10;
 
@@ -16,7 +16,7 @@ export const CompanyTopAwardersTile: FC<{
   eik: string;
   rollup: ProcurementContractorRollup;
 }> = ({ eik, rollup }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const rows = rollup.byAwarder.slice(0, TOP_ROWS);
   if (rows.length === 0) return null;
 
@@ -73,7 +73,11 @@ export const CompanyTopAwardersTile: FC<{
                     </Link>
                   </td>
                   <td className="px-3 py-2 text-right tabular-nums">
-                    {formatTotalAsEur(a.totalByCurrency) || "—"}
+                    {formatEurWithOther(
+                      a.totalEur,
+                      a.totalOther,
+                      i18n.language,
+                    ) || "—"}
                   </td>
                   <td className="px-3 py-2 text-right tabular-nums hidden md:table-cell">
                     {a.contractCount.toLocaleString("bg-BG")}

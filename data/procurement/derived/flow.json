@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-05-14T03:48:53.368Z",
+  "generatedAt": "2026-05-14T12:35:36.775Z",
   "nodes": [
     {
       "id": "awarder:000017149",
@@ -1297,6 +1297,16 @@
       "label": "ТРОЛЕЙБУСЕН ТРАНСПОРТ ЕООД"
     },
     {
+      "id": "awarder:824106518",
+      "type": "awarder",
+      "label": "ВОДОСНАБДЯВАНЕ И КАНАЛИЗАЦИЯ ЕООД"
+    },
+    {
+      "id": "contractor:202809611",
+      "type": "contractor",
+      "label": "ДИМАКС СОД ООД"
+    },
+    {
       "id": "awarder:828050351",
       "type": "awarder",
       "label": "ВОДОСНАБДЯВАНЕ И КАНАЛИЗАЦИЯ ООД"
@@ -1397,6 +1407,11 @@
       "label": "Антон Йорданов Адамов"
     },
     {
+      "id": "mp:4745",
+      "type": "mp",
+      "label": "Ваня Иванова Василева"
+    },
+    {
       "id": "mp:2647",
       "type": "mp",
       "label": "ДИМИТЪР КРУМОВ АЛЕКСАНДРОВ"
@@ -1412,9 +1427,9 @@
       "label": "Георги  Стоянов Кадиев"
     },
     {
-      "id": "mp:4745",
+      "id": "mp:4649",
       "type": "mp",
-      "label": "Ваня Иванова Василева"
+      "label": "Генади Събков Събков"
     },
     {
       "id": "mp:5094",
@@ -1425,11 +1440,6 @@
       "id": "mp:3016",
       "type": "mp",
       "label": "Борис Цветков Цветков"
-    },
-    {
-      "id": "mp:4649",
-      "type": "mp",
-      "label": "Генади Събков Събков"
     },
     {
       "id": "mp:819",
@@ -1447,6 +1457,11 @@
       "label": "Ивайло Ванев Вълчев"
     },
     {
+      "id": "mp:5005",
+      "type": "mp",
+      "label": "Стилиана Иванова Бобчева"
+    },
+    {
       "id": "mp:4716",
       "type": "mp",
       "label": "Венцислав Иванов Петков"
@@ -1455,11 +1470,6 @@
       "id": "mp:5197",
       "type": "mp",
       "label": "Йордан Йовчев Йовчев"
-    },
-    {
-      "id": "mp:5005",
-      "type": "mp",
-      "label": "Стилиана Иванова Бобчева"
     },
     {
       "id": "mp:2826",
@@ -1547,9 +1557,9 @@
       "label": "Пламен Николаев Николов"
     },
     {
-      "id": "mp:1639",
+      "id": "mp:5165",
       "type": "mp",
-      "label": "Николай Петков Петков"
+      "label": "Валери Пламенов Лачовски"
     },
     {
       "id": "contractor:103873562",
@@ -1560,6 +1570,11 @@
       "id": "mp:2853",
       "type": "mp",
       "label": "Дора Стоянова Христова"
+    },
+    {
+      "id": "mp:1639",
+      "type": "mp",
+      "label": "Николай Петков Петков"
     },
     {
       "id": "contractor:110001952",
@@ -1595,16 +1610,6 @@
       "id": "mp:4925",
       "type": "mp",
       "label": "МЮМЮН САЛИ МЮМЮН"
-    },
-    {
-      "id": "contractor:202809611",
-      "type": "contractor",
-      "label": "ДИМАКС СОД ООД"
-    },
-    {
-      "id": "mp:5165",
-      "type": "mp",
-      "label": "Валери Пламенов Лачовски"
     },
     {
       "id": "contractor:126736213",
@@ -1746,1856 +1751,1552 @@
     {
       "source": "awarder:000017149",
       "target": "contractor:175415627",
-      "value": 155510,
-      "currency": "BGN"
+      "valueEur": 79511.00044482393
     },
     {
       "source": "awarder:000025039",
       "target": "contractor:825240527",
-      "value": 97100,
-      "currency": "BGN"
+      "valueEur": 49646.441664152815
     },
     {
       "source": "awarder:000043884",
       "target": "contractor:175415627",
-      "value": 95979.71,
-      "currency": "EUR"
+      "valueEur": 95979.71
     },
     {
       "source": "awarder:000044541",
       "target": "contractor:175415627",
-      "value": 344799.6,
-      "currency": "BGN"
+      "valueEur": 176293.23611970365
     },
     {
       "source": "awarder:000044541",
       "target": "contractor:102683542",
-      "value": 9160,
-      "currency": "BGN"
+      "valueEur": 4683.433631757362
     },
     {
       "source": "awarder:000082175",
       "target": "contractor:127003032",
-      "value": 148040.56,
-      "currency": "BGN"
+      "valueEur": 75691.93641574166
     },
     {
       "source": "awarder:000082442",
       "target": "contractor:127003032",
-      "value": 36060,
-      "currency": "BGN"
+      "valueEur": 18437.185235935638
     },
     {
       "source": "awarder:000083284",
       "target": "contractor:175415627",
-      "value": 101920,
-      "currency": "BGN"
+      "valueEur": 52110.86853151859
     },
     {
       "source": "awarder:000083626",
       "target": "contractor:175415627",
-      "value": 40095,
-      "currency": "BGN"
+      "valueEur": 20500.24797656238
     },
     {
       "source": "awarder:000087375",
       "target": "contractor:175415627",
-      "value": 239733,
-      "currency": "BGN"
+      "valueEur": 122573.53655481305
     },
     {
       "source": "awarder:000093741",
       "target": "contractor:175415627",
-      "value": 93301,
-      "currency": "BGN"
+      "valueEur": 47704.04380748838
     },
     {
       "source": "awarder:000093759",
       "target": "contractor:175415627",
-      "value": 209091,
-      "currency": "BGN"
+      "valueEur": 106906.53073119852
     },
     {
       "source": "awarder:000124026",
       "target": "contractor:175415627",
-      "value": 188622.76,
-      "currency": "BGN"
+      "valueEur": 96441.28579682283
     },
     {
       "source": "awarder:000133933",
       "target": "contractor:175415627",
-      "value": 1080090,
-      "currency": "BGN"
+      "valueEur": 552241.2479612236
     },
     {
       "source": "awarder:000133972",
       "target": "contractor:131476144",
-      "value": 458000,
-      "currency": "BGN"
+      "valueEur": 234171.68158786808
     },
     {
       "source": "awarder:000134063",
       "target": "contractor:175415627",
-      "value": 36126.2,
-      "currency": "BGN"
+      "valueEur": 18471.03275847083
     },
     {
       "source": "awarder:000159682",
       "target": "contractor:175415627",
-      "value": 59076,
-      "currency": "BGN"
+      "valueEur": 30205.079173547805
     },
     {
       "source": "awarder:000193058",
       "target": "contractor:825240527",
-      "value": 456000,
-      "currency": "BGN"
+      "valueEur": 233149.09782547562
     },
     {
       "source": "awarder:000193371",
       "target": "contractor:121015330",
-      "value": 1364046.4900000002,
-      "currency": "BGN"
+      "valueEur": 697425.8959111989
     },
     {
       "source": "awarder:000212633",
       "target": "contractor:175415627",
-      "value": 79531.45,
-      "currency": "EUR"
+      "valueEur": 79531.45
     },
     {
       "source": "awarder:000289053",
       "target": "contractor:202918009",
-      "value": 1.47,
-      "currency": "BGN"
+      "valueEur": 0.7515990653584411
     },
     {
       "source": "awarder:000291723",
       "target": "contractor:121015330",
-      "value": 1105022,
-      "currency": "BGN"
+      "valueEur": 564988.7771432077
     },
     {
       "source": "awarder:000334231",
       "target": "contractor:175415627",
-      "value": 65792.76,
-      "currency": "EUR"
+      "valueEur": 65792.76
     },
     {
       "source": "awarder:000344332",
       "target": "contractor:175415627",
-      "value": 247224.96,
-      "currency": "EUR"
+      "valueEur": 247224.96
     },
     {
       "source": "awarder:000351565",
       "target": "contractor:825240527",
-      "value": 39060,
-      "currency": "BGN"
+      "valueEur": 19971.060879524295
     },
     {
       "source": "awarder:000351864",
       "target": "contractor:825240527",
-      "value": 6000,
-      "currency": "BGN"
+      "valueEur": 3067.751287177311
     },
     {
       "source": "awarder:000386790",
       "target": "contractor:113566864",
-      "value": 1700,
-      "currency": "BGN"
+      "valueEur": 869.1961980335715
     },
     {
       "source": "awarder:000386833",
       "target": "contractor:175415627",
-      "value": 31407,
-      "currency": "BGN"
+      "valueEur": 16058.144112729635
     },
     {
       "source": "awarder:000403802",
       "target": "contractor:205590667",
-      "value": 49000,
-      "currency": "BGN"
+      "valueEur": 25053.302178614707
     },
     {
       "source": "awarder:000412255",
       "target": "contractor:114680479",
-      "value": 45388,
-      "currency": "BGN"
+      "valueEur": 23206.515903733965
     },
     {
       "source": "awarder:000413579",
       "target": "contractor:114680479",
-      "value": 1715160,
-      "currency": "BGN"
+      "valueEur": 876947.3829525061
     },
     {
       "source": "awarder:000413942",
       "target": "contractor:114680479",
-      "value": 138971.64,
-      "currency": "BGN"
+      "valueEur": 71055.07124852366
     },
     {
       "source": "awarder:000455457",
       "target": "contractor:175415627",
-      "value": 906906.99,
-      "currency": "BGN"
+      "valueEur": 463694.1809871001
     },
     {
       "source": "awarder:000455471",
       "target": "contractor:175415627",
-      "value": 916285.2999999999,
-      "currency": "BGN"
+      "valueEur": 574695.8147494413
     },
     {
       "source": "awarder:000471340",
       "target": "contractor:825240527",
-      "value": 7200,
-      "currency": "BGN"
+      "valueEur": 3681.3015446127733
     },
     {
       "source": "awarder:000522685",
       "target": "contractor:175415627",
-      "value": 345224,
-      "currency": "BGN"
+      "valueEur": 176510.22839408333
     },
     {
       "source": "awarder:000559000",
       "target": "contractor:116003561",
-      "value": 15484.5,
-      "currency": "BGN"
+      "valueEur": 7917.0991343828455
     },
     {
       "source": "awarder:000559025",
       "target": "contractor:116003561",
-      "value": 18000,
-      "currency": "BGN"
+      "valueEur": 9203.253861531934
     },
     {
       "source": "awarder:000610982",
       "target": "contractor:175415627",
-      "value": 51335.06,
-      "currency": "EUR"
+      "valueEur": 51335.06
     },
     {
       "source": "awarder:000614938",
       "target": "contractor:825240527",
-      "value": 155395.7,
-      "currency": "BGN"
+      "valueEur": 79452.55978280322
     },
     {
       "source": "awarder:000649519",
       "target": "contractor:175415627",
-      "value": 111303.6,
-      "currency": "BGN"
+      "valueEur": 56908.627027911425
     },
     {
       "source": "awarder:000662064",
       "target": "contractor:175415627",
-      "value": 32000,
-      "currency": "BGN"
+      "valueEur": 16361.340198278991
     },
     {
       "source": "awarder:000662769",
       "target": "contractor:202918009",
-      "value": 483840,
-      "currency": "BGN"
+      "valueEur": 247383.46379797836
     },
     {
       "source": "awarder:000662776",
       "target": "contractor:131317829",
-      "value": 1199290.7,
-      "currency": "BGN"
+      "valueEur": 613187.5981041297
     },
     {
       "source": "awarder:000662790",
       "target": "contractor:131317829",
-      "value": 2582062.0799999996,
-      "currency": "EUR"
+      "valueEur": 2582062.0799999996
     },
     {
       "source": "awarder:000662790",
       "target": "contractor:175415627",
-      "value": 175228.1,
-      "currency": "BGN"
+      "valueEur": 89592.70488743909
     },
     {
       "source": "awarder:000662819",
       "target": "contractor:175415627",
-      "value": 70024.8,
-      "currency": "BGN"
+      "valueEur": 35803.11172238896
     },
     {
       "source": "awarder:000663668",
       "target": "contractor:175415627",
-      "value": 45614,
-      "currency": "BGN"
+      "valueEur": 23322.06786888431
     },
     {
       "source": "awarder:000663725",
       "target": "contractor:175415627",
-      "value": 5780,
-      "currency": "BGN"
+      "valueEur": 2955.267073314143
     },
     {
       "source": "awarder:000663814",
       "target": "contractor:175415627",
-      "value": 11845,
-      "currency": "BGN"
+      "valueEur": 6056.252332769208
     },
     {
       "source": "awarder:000670552",
       "target": "contractor:175415627",
-      "value": 2174,
-      "currency": "BGN"
+      "valueEur": 1111.548549720579
     },
     {
       "source": "awarder:000670616",
       "target": "contractor:175415627",
-      "value": 586740.26,
-      "currency": "BGN"
+      "valueEur": 299995.53130895837
     },
     {
       "source": "awarder:000670634",
       "target": "contractor:175415627",
-      "value": 106364.1,
-      "currency": "BGN"
+      "valueEur": 54383.10078074271
     },
     {
       "source": "awarder:000670659",
       "target": "contractor:175415627",
-      "value": 103783,
-      "currency": "BGN"
+      "valueEur": 53063.405306187145
     },
     {
       "source": "awarder:000670673",
       "target": "contractor:175415627",
-      "value": 185658.59,
-      "currency": "BGN"
+      "valueEur": 94925.72974133743
     },
     {
       "source": "awarder:000670680",
       "target": "contractor:175415627",
-      "value": 4511498.8100000005,
-      "currency": "BGN"
+      "valueEur": 2306692.7135794014
     },
     {
       "source": "awarder:000670709",
       "target": "contractor:175415627",
-      "value": 50000,
-      "currency": "BGN"
+      "valueEur": 25564.594059810923
     },
     {
       "source": "awarder:000670716",
       "target": "contractor:175415627",
-      "value": 36383,
-      "currency": "BGN"
+      "valueEur": 18602.332513562018
     },
     {
       "source": "awarder:000670805",
       "target": "contractor:175415627",
-      "value": 138740,
-      "currency": "BGN"
+      "valueEur": 70936.63559716336
     },
     {
       "source": "awarder:000671049",
       "target": "contractor:131380345",
-      "value": 5544.22,
-      "currency": "BGN"
+      "valueEur": 2834.714673565699
     },
     {
       "source": "awarder:000672343",
       "target": "contractor:175415627",
-      "value": 1308847,
-      "currency": "BGN"
+      "valueEur": 669202.844828027
     },
     {
       "source": "awarder:000672382",
       "target": "contractor:175030371",
-      "value": 3501412.4,
-      "currency": "BGN"
+      "valueEur": 1790243.7328397662
     },
     {
       "source": "awarder:000689182",
       "target": "contractor:202918009",
-      "value": 156366,
-      "currency": "BGN"
+      "valueEur": 79948.6662951279
     },
     {
       "source": "awarder:000693654",
       "target": "contractor:175415627",
-      "value": 47819,
-      "currency": "BGN"
+      "valueEur": 24449.46646692197
     },
     {
       "source": "awarder:000695018",
       "target": "contractor:175415627",
-      "value": 852937.5,
-      "currency": "BGN"
+      "valueEur": 436100.01891779964
     },
     {
       "source": "awarder:000695018",
       "target": "contractor:175392783",
-      "value": 270000,
-      "currency": "BGN"
+      "valueEur": 138048.807922979
     },
     {
       "source": "awarder:000695025",
       "target": "contractor:175392783",
-      "value": 1780000,
-      "currency": "BGN"
+      "valueEur": 910099.5485292689
     },
     {
       "source": "awarder:000695064",
       "target": "contractor:175415627",
-      "value": 141375,
-      "currency": "BGN"
+      "valueEur": 72283.88970411538
     },
     {
       "source": "awarder:000695071",
       "target": "contractor:175415627",
-      "value": 14898,
-      "currency": "BGN"
+      "valueEur": 7617.226446061263
     },
     {
       "source": "awarder:000695089",
       "target": "contractor:831646048",
-      "value": 227943701.65999997,
-      "currency": "EUR"
+      "valueEur": 324742073.49190766
     },
     {
       "source": "awarder:000695114",
       "target": "contractor:175415627",
-      "value": 13559917.33,
-      "currency": "BGN"
+      "valueEur": 7355446.700520904
     },
     {
       "source": "awarder:000695114",
       "target": "contractor:175030371",
-      "value": 3490000,
-      "currency": "BGN"
+      "valueEur": 1784408.6653748024
     },
     {
       "source": "awarder:000695121",
       "target": "contractor:175415627",
-      "value": 196442.22999999998,
-      "currency": "BGN"
+      "valueEur": 100439.31732308022
     },
     {
       "source": "awarder:000695228",
       "target": "contractor:175415627",
-      "value": 1420018.2,
-      "currency": "BGN"
+      "valueEur": 726043.776810868
     },
     {
       "source": "awarder:000695235",
       "target": "contractor:175415627",
-      "value": 1954214.7999999998,
-      "currency": "BGN"
+      "valueEur": 999174.1613534918
     },
     {
       "source": "awarder:000695349",
       "target": "contractor:175415627",
-      "value": 3551078.7,
-      "currency": "BGN"
+      "valueEur": 1815637.708798822
     },
     {
       "source": "awarder:000695395",
       "target": "contractor:175415627",
-      "value": 1705758.46,
-      "currency": "BGN"
+      "valueEur": 872140.4518797646
     },
     {
       "source": "awarder:000696532",
       "target": "contractor:175415627",
-      "value": 98504,
-      "currency": "BGN"
+      "valueEur": 50364.295465352305
     },
     {
       "source": "awarder:000697179",
       "target": "contractor:175415627",
-      "value": 2137619.87,
-      "currency": "BGN"
+      "valueEur": 1204930.834614716
     },
     {
       "source": "awarder:000697371",
       "target": "contractor:175415627",
-      "value": 1603912.62,
-      "currency": "BGN"
+      "valueEur": 820067.5007541556
     },
     {
       "source": "awarder:000697600",
       "target": "contractor:175415627",
-      "value": 3649230,
-      "currency": "BGN"
+      "valueEur": 1865821.6716176765
     },
     {
       "source": "awarder:000698391",
       "target": "contractor:175415627",
-      "value": 138569,
-      "currency": "BGN"
+      "valueEur": 70849.2046854788
     },
     {
       "source": "awarder:000760156",
       "target": "contractor:175415627",
-      "value": 166929.6,
-      "currency": "BGN"
+      "valueEur": 85349.74921133228
     },
     {
       "source": "awarder:000764763",
       "target": "contractor:175415627",
-      "value": 46493.82,
-      "currency": "EUR"
+      "valueEur": 46493.82
     },
     {
       "source": "awarder:000770246",
       "target": "contractor:131317829",
-      "value": 275072,
-      "currency": "BGN"
+      "valueEur": 140642.08034440622
     },
     {
       "source": "awarder:000776089",
       "target": "contractor:121015330",
-      "value": 1396225.19,
-      "currency": "BGN"
+      "valueEur": 713878.6039686475
     },
     {
       "source": "awarder:000776331",
       "target": "contractor:121015330",
-      "value": 257694.89,
-      "currency": "BGN"
+      "valueEur": 131757.3050827526
     },
     {
       "source": "awarder:000777248",
       "target": "contractor:121015330",
-      "value": 896247.7799999999,
-      "currency": "BGN"
+      "valueEur": 458244.21345413453
     },
     {
       "source": "awarder:000812197",
       "target": "contractor:131317829",
-      "value": 1600583.04,
-      "currency": "BGN"
+      "valueEur": 818365.1135323623
     },
     {
       "source": "awarder:000850187",
       "target": "contractor:127003032",
-      "value": 742008,
-      "currency": "BGN"
+      "valueEur": 379382.6661826437
     },
     {
       "source": "awarder:000851111",
       "target": "contractor:124121775",
-      "value": 18400,
-      "currency": "BGN"
+      "valueEur": 9407.77061401042
     },
     {
       "source": "awarder:000852188",
       "target": "contractor:124121775",
-      "value": 182834,
-      "currency": "BGN"
+      "valueEur": 93481.53980662941
     },
     {
       "source": "awarder:000852544",
       "target": "contractor:127003032",
-      "value": 2767498,
-      "currency": "BGN"
+      "valueEur": 1414999.2586267723
     },
     {
       "source": "awarder:000870058",
       "target": "contractor:175415627",
-      "value": 70366.42,
-      "currency": "BGN"
+      "valueEur": 35977.77925484321
     },
     {
       "source": "awarder:000874028",
       "target": "contractor:175392783",
-      "value": 190000,
-      "currency": "BGN"
+      "valueEur": 97145.45742728151
     },
     {
       "source": "awarder:000921111",
       "target": "contractor:127003032",
-      "value": 206571,
-      "currency": "BGN"
+      "valueEur": 105618.07519058404
     },
     {
       "source": "awarder:000921944",
       "target": "contractor:127003032",
-      "value": 100212.6,
-      "currency": "BGN"
+      "valueEur": 51237.88877356417
     },
     {
       "source": "awarder:000922028",
       "target": "contractor:127003032",
-      "value": 143935.56,
-      "currency": "BGN"
+      "valueEur": 73593.08324343117
     },
     {
       "source": "awarder:000922252",
       "target": "contractor:127003032",
-      "value": 88093.8,
-      "currency": "BGN"
+      "valueEur": 45041.64472372343
     },
     {
       "source": "awarder:000922786",
       "target": "contractor:127003032",
-      "value": 259353,
-      "currency": "BGN"
+      "valueEur": 132605.08326388284
     },
     {
       "source": "awarder:000929072",
       "target": "contractor:127003032",
-      "value": 554453.8,
-      "currency": "BGN"
+      "valueEur": 283487.7264383919
     },
     {
       "source": "awarder:000931415",
       "target": "contractor:127003032",
-      "value": 10000,
-      "currency": "BGN"
+      "valueEur": 5112.918811962185
     },
     {
       "source": "awarder:000931511",
       "target": "contractor:127003032",
-      "value": 366266.66,
-      "currency": "BGN"
+      "valueEur": 187269.16961085575
     },
     {
       "source": "awarder:000931625",
       "target": "contractor:127003032",
-      "value": 800640,
-      "currency": "BGN"
+      "valueEur": 409360.7317609404
     },
     {
       "source": "awarder:000931657",
       "target": "contractor:127003032",
-      "value": 193383.44,
-      "currency": "BGN"
+      "valueEur": 98875.38282979604
     },
     {
       "source": "awarder:000932193",
       "target": "contractor:127003032",
-      "value": 33855.66,
-      "currency": "BGN"
+      "valueEur": 17310.124090539568
     },
     {
       "source": "awarder:000934863",
       "target": "contractor:175415627",
-      "value": 78542,
-      "currency": "BGN"
+      "valueEur": 40157.886932913396
     },
     {
       "source": "awarder:000970521",
       "target": "contractor:175415627",
-      "value": 49979,
-      "currency": "BGN"
+      "valueEur": 25553.856930305803
     },
     {
       "source": "awarder:040624317",
       "target": "contractor:175415627",
-      "value": 24498.32,
-      "currency": "BGN"
+      "valueEur": 12525.792118946943
     },
     {
       "source": "awarder:101505152",
       "target": "contractor:202918009",
-      "value": 387708,
-      "currency": "BGN"
+      "valueEur": 254816.62267482345
     },
     {
       "source": "awarder:102011085",
       "target": "contractor:131380345",
-      "value": 35000,
-      "currency": "BGN"
+      "valueEur": 17895.215841867648
     },
     {
       "source": "awarder:102180174",
       "target": "contractor:175415627",
-      "value": 9751,
-      "currency": "BGN"
+      "valueEur": 4985.607133544327
     },
     {
       "source": "awarder:103003668",
       "target": "contractor:175392783",
-      "value": 574684,
-      "currency": "BGN"
+      "valueEur": 293831.26345336763
     },
     {
       "source": "awarder:103061301",
       "target": "contractor:175415627",
-      "value": 255646,
-      "currency": "EUR"
+      "valueEur": 255646
     },
     {
       "source": "awarder:103098602",
       "target": "contractor:175415627",
-      "value": 54741.98,
-      "currency": "EUR"
+      "valueEur": 54741.98
     },
     {
       "source": "awarder:103552688",
       "target": "contractor:175415627",
-      "value": 48305,
-      "currency": "BGN"
+      "valueEur": 24697.954321183333
     },
     {
       "source": "awarder:104510514",
       "target": "contractor:107564054",
-      "value": 1371440,
-      "currency": "BGN"
+      "valueEur": 701206.1375477419
     },
     {
       "source": "awarder:104512579",
       "target": "contractor:107564054",
-      "value": 85500,
-      "currency": "BGN"
+      "valueEur": 43715.45584227668
     },
     {
       "source": "awarder:106513772",
       "target": "contractor:000649348",
-      "value": 8030077.67,
-      "currency": "BGN"
+      "valueEur": 4105713.518046047
     },
     {
       "source": "awarder:106518890",
       "target": "contractor:107564054",
-      "value": 89955.9,
-      "currency": "BGN"
+      "valueEur": 45993.72133569891
     },
     {
       "source": "awarder:107504281",
       "target": "contractor:107564054",
-      "value": 66000,
-      "currency": "BGN"
+      "valueEur": 33745.26415895042
     },
     {
       "source": "awarder:107507217",
       "target": "contractor:107564054",
-      "value": 791957.5,
-      "currency": "BGN"
+      "valueEur": 404921.4400024542
     },
     {
       "source": "awarder:108070973",
       "target": "contractor:175415627",
-      "value": 73940,
-      "currency": "BGN"
+      "valueEur": 37804.921695648394
     },
     {
       "source": "awarder:109080582",
       "target": "contractor:202918009",
-      "value": 132840,
-      "currency": "BGN"
+      "valueEur": 67920.01349810566
     },
     {
       "source": "awarder:109513731",
       "target": "contractor:831160078",
-      "value": 2976000,
-      "currency": "BGN"
+      "valueEur": 1521604.638439946
     },
     {
       "source": "awarder:110503990",
       "target": "contractor:202918009",
-      "value": 38364,
-      "currency": "BGN"
+      "valueEur": 19615.201730211727
     },
     {
       "source": "awarder:113513858",
       "target": "contractor:202918009",
-      "value": 217000,
-      "currency": "BGN"
+      "valueEur": 110950.33821957941
     },
     {
       "source": "awarder:114005624",
       "target": "contractor:831160078",
-      "value": 941812.54,
-      "currency": "BGN"
+      "valueEur": 806722.7453107887
     },
     {
       "source": "awarder:114125755",
       "target": "contractor:175415627",
-      "value": 27872,
-      "currency": "BGN"
+      "valueEur": 14250.727312701001
     },
     {
       "source": "awarder:115013798",
       "target": "contractor:175415627",
-      "value": 6546.25,
-      "currency": "BGN"
+      "valueEur": 3347.0444772807455
     },
     {
       "source": "awarder:115627433",
       "target": "contractor:200193238",
-      "value": 21272.75,
-      "currency": "BGN"
+      "valueEur": 10876.584365716857
     },
     {
       "source": "awarder:115816423",
       "target": "contractor:825240527",
-      "value": 450000,
-      "currency": "BGN"
+      "valueEur": 230081.34653829833
     },
     {
       "source": "awarder:116503980",
       "target": "contractor:107564054",
-      "value": 585850,
-      "currency": "BGN"
+      "valueEur": 350107.11859880463
     },
     {
       "source": "awarder:117001983",
       "target": "contractor:175203485",
-      "value": 301574.96,
-      "currency": "BGN"
+      "valueEur": 172837.41862007434
     },
     {
       "source": "awarder:117505556",
       "target": "contractor:107564054",
-      "value": 2256000,
-      "currency": "BGN"
+      "valueEur": 1153474.483978669
     },
     {
       "source": "awarder:117527022",
       "target": "contractor:131317829",
-      "value": 620760,
-      "currency": "BGN"
+      "valueEur": 317389.5481713646
     },
     {
       "source": "awarder:118501906",
       "target": "contractor:107564054",
-      "value": 336400,
-      "currency": "BGN"
+      "valueEur": 171998.5888344079
     },
     {
       "source": "awarder:119508736",
       "target": "contractor:175415627",
-      "value": 54820,
-      "currency": "BGN"
+      "valueEur": 28029.020927176698
     },
     {
       "source": "awarder:120068166",
       "target": "contractor:175415627",
-      "value": 824131.2,
-      "currency": "BGN"
+      "valueEur": 421371.59160049696
     },
     {
       "source": "awarder:121004469",
       "target": "contractor:175415627",
-      "value": 93952,
-      "currency": "BGN"
+      "valueEur": 48036.89482214712
     },
     {
       "source": "awarder:121015056",
       "target": "contractor:175415627",
-      "value": 1166762,
-      "currency": "BGN"
+      "valueEur": 1210106.1978882623
     },
     {
       "source": "awarder:121023551",
       "target": "contractor:175203485",
-      "value": 601000,
-      "currency": "BGN"
+      "valueEur": 307286.4205989273
     },
     {
       "source": "awarder:121082521",
       "target": "contractor:175415627",
-      "value": 919732,
-      "currency": "BGN"
+      "valueEur": 470251.50447636045
     },
     {
       "source": "awarder:121100421",
       "target": "contractor:175415627",
-      "value": 2289160,
-      "currency": "BGN"
+      "valueEur": 1170428.9227591355
     },
     {
       "source": "awarder:121100421",
       "target": "contractor:131380345",
-      "value": 750000,
-      "currency": "BGN"
+      "valueEur": 383468.91089716385
     },
     {
       "source": "awarder:121242837",
       "target": "contractor:175415627",
-      "value": 96972,
-      "currency": "BGN"
+      "valueEur": 49580.9963033597
     },
     {
       "source": "awarder:121267370",
       "target": "contractor:175415627",
-      "value": 225109,
-      "currency": "BGN"
+      "valueEur": 115096.40408419954
     },
     {
       "source": "awarder:121268006",
       "target": "contractor:175415627",
-      "value": 54149,
-      "currency": "BGN"
+      "valueEur": 27685.944074894036
     },
     {
       "source": "awarder:121341855",
       "target": "contractor:831635354",
-      "value": 780000,
-      "currency": "BGN"
+      "valueEur": 398807.6673330504
     },
     {
       "source": "awarder:121399226",
       "target": "contractor:175415627",
-      "value": 6002697,
-      "currency": "BGN"
+      "valueEur": 3069130.2413808974
     },
     {
       "source": "awarder:121410441",
       "target": "contractor:175415627",
-      "value": 188140,
-      "currency": "BGN"
+      "valueEur": 96194.45452825655
     },
     {
       "source": "awarder:121448709",
       "target": "contractor:831635354",
-      "value": 300000,
-      "currency": "BGN"
+      "valueEur": 153387.56435886555
     },
     {
       "source": "awarder:121459246",
       "target": "contractor:175415627",
-      "value": 66423,
-      "currency": "BGN"
+      "valueEur": 33961.54062469642
     },
     {
       "source": "awarder:121486802",
       "target": "contractor:175415627",
-      "value": 43842,
-      "currency": "BGN"
+      "valueEur": 22416.05865540461
     },
     {
       "source": "awarder:121505512",
       "target": "contractor:831635354",
-      "value": 1340000,
-      "currency": "BGN"
+      "valueEur": 838518.6808029327
     },
     {
       "source": "awarder:121513231",
       "target": "contractor:175415627",
-      "value": 983254.35,
-      "currency": "BGN"
+      "valueEur": 502729.96630586503
     },
     {
       "source": "awarder:121516918",
       "target": "contractor:175415627",
-      "value": 531130,
-      "currency": "BGN"
+      "valueEur": 271562.45685974753
     },
     {
       "source": "awarder:121604974",
       "target": "contractor:175415627",
-      "value": 2984318.4,
-      "currency": "BGN"
+      "valueEur": 1525857.7688244889
     },
     {
       "source": "awarder:121683408",
       "target": "contractor:175203485",
-      "value": 41379290,
-      "currency": "BGN"
+      "valueEur": 21156895.026663873
     },
     {
       "source": "awarder:121747864",
       "target": "contractor:175415627",
-      "value": 23602,
-      "currency": "BGN"
+      "valueEur": 12067.510979993149
     },
     {
       "source": "awarder:121817309",
       "target": "contractor:175415627",
-      "value": 4880291.04,
-      "currency": "BGN"
+      "valueEur": 2495253.1866266495
     },
     {
       "source": "awarder:121858220",
       "target": "contractor:175415627",
-      "value": 1481223.81,
-      "currency": "BGN"
+      "valueEur": 757337.7082875301
     },
     {
       "source": "awarder:123531939",
       "target": "contractor:833017552",
-      "value": 119298484,
-      "currency": "BGN"
+      "valueEur": 60996346.308216974
     },
     {
       "source": "awarder:124504885",
       "target": "contractor:127003032",
-      "value": 317004,
-      "currency": "BGN"
+      "valueEur": 162081.57150672603
     },
     {
       "source": "awarder:125501290",
       "target": "contractor:107564054",
-      "value": 348570,
-      "currency": "BGN"
+      "valueEur": 178221.01102856587
     },
     {
       "source": "awarder:127022634",
       "target": "contractor:127003032",
-      "value": 695863.0399999999,
-      "currency": "BGN"
+      "valueEur": 355789.1227765194
     },
     {
       "source": "awarder:127511380",
       "target": "contractor:127003032",
-      "value": 31765.21,
-      "currency": "BGN"
+      "valueEur": 16241.293977492931
     },
     {
       "source": "awarder:127512595",
       "target": "contractor:127003032",
-      "value": 5143891.51,
-      "currency": "BGN"
+      "valueEur": 2630029.966817157
     },
     {
       "source": "awarder:127521092",
       "target": "contractor:127003032",
-      "value": 297162.67,
-      "currency": "BGN"
+      "valueEur": 151936.86056559108
     },
     {
       "source": "awarder:127526189",
       "target": "contractor:127003032",
-      "value": 703856.56,
-      "currency": "BGN"
+      "valueEur": 359876.1446546991
     },
     {
       "source": "awarder:128501598",
       "target": "contractor:206705325",
-      "value": 127400.45,
-      "currency": "BGN"
+      "valueEur": 65138.815745744774
     },
     {
       "source": "awarder:129003305",
       "target": "contractor:175415627",
-      "value": 101613.72,
-      "currency": "BGN"
+      "valueEur": 51954.27005414581
     },
     {
       "source": "awarder:129009094",
       "target": "contractor:175415627",
-      "value": 21453,
-      "currency": "BGN"
+      "valueEur": 10968.744727302475
     },
     {
       "source": "awarder:129009710",
       "target": "contractor:175415627",
-      "value": 6193149.99,
-      "currency": "BGN"
+      "valueEur": 3202232.808917442
     },
     {
       "source": "awarder:129010011",
       "target": "contractor:175415627",
-      "value": 346692,
-      "currency": "BGN"
+      "valueEur": 177260.80487567937
     },
     {
       "source": "awarder:129010090",
       "target": "contractor:175415627",
-      "value": 155250,
-      "currency": "BGN"
+      "valueEur": 79378.06455571292
     },
     {
       "source": "awarder:129010125",
       "target": "contractor:175415627",
-      "value": 2957672.7,
-      "currency": "BGN"
+      "valueEur": 1512234.0387456988
     },
     {
       "source": "awarder:129010164",
       "target": "contractor:175415627",
-      "value": 2430014.2,
-      "currency": "BGN"
+      "valueEur": 1242446.531651524
     },
     {
       "source": "awarder:129010196",
       "target": "contractor:175392783",
-      "value": 2440000,
-      "currency": "BGN"
+      "valueEur": 1247552.1901187731
     },
     {
       "source": "awarder:129010207",
       "target": "contractor:175415627",
-      "value": 55254,
-      "currency": "BGN"
+      "valueEur": 28250.921603615858
     },
     {
       "source": "awarder:129010214",
       "target": "contractor:825095010",
-      "value": 3318.12,
-      "currency": "BGN"
+      "valueEur": 1696.5278168347963
     },
     {
       "source": "awarder:129010221",
       "target": "contractor:175415627",
-      "value": 43096,
-      "currency": "BGN"
+      "valueEur": 22034.634912032234
     },
     {
       "source": "awarder:129010641",
       "target": "contractor:175415627",
-      "value": 267837,
-      "currency": "BGN"
+      "valueEur": 136942.88358395157
     },
     {
       "source": "awarder:129010659",
       "target": "contractor:175415627",
-      "value": 1486168.37,
-      "currency": "BGN"
+      "valueEur": 759865.8216716177
     },
     {
       "source": "awarder:129010666",
       "target": "contractor:175415627",
-      "value": 6997.2,
-      "currency": "BGN"
+      "valueEur": 3577.61155110618
     },
     {
       "source": "awarder:129010698",
       "target": "contractor:175415627",
-      "value": 324199,
-      "currency": "BGN"
+      "valueEur": 165760.31659193285
     },
     {
       "source": "awarder:129010997",
       "target": "contractor:175415627",
-      "value": 459850.45,
-      "currency": "BGN"
+      "valueEur": 235117.80164942762
     },
     {
       "source": "awarder:130008993",
       "target": "contractor:175415627",
-      "value": 63471.2,
-      "currency": "BGN"
+      "valueEur": 32452.30924978142
     },
     {
       "source": "awarder:130047747",
       "target": "contractor:175415627",
-      "value": 319988,
-      "currency": "BGN"
+      "valueEur": 163607.26648021556
     },
     {
       "source": "awarder:130098909",
       "target": "contractor:175415627",
-      "value": 35970,
-      "currency": "BGN"
+      "valueEur": 18391.168966627978
     },
     {
       "source": "awarder:130193990",
       "target": "contractor:175415627",
-      "value": 28154.09,
-      "currency": "BGN"
+      "valueEur": 14394.957639467642
     },
     {
       "source": "awarder:130277958",
       "target": "contractor:175415627",
-      "value": 6610489.77,
-      "currency": "EUR"
+      "valueEur": 8093970.440610431
     },
     {
       "source": "awarder:130344823",
       "target": "contractor:204013666",
-      "value": 274207.19999999995,
-      "currency": "BGN"
+      "valueEur": 140199.9151255477
     },
     {
       "source": "awarder:130362903",
       "target": "contractor:175415627",
-      "value": 1474468,
-      "currency": "BGN"
+      "valueEur": 753883.5174836259
     },
     {
       "source": "awarder:130403691",
       "target": "contractor:131380345",
-      "value": 78462.5,
-      "currency": "BGN"
+      "valueEur": 40117.239228358296
     },
     {
       "source": "awarder:130453541",
       "target": "contractor:175415627",
-      "value": 99119,
-      "currency": "BGN"
+      "valueEur": 50678.73997228798
     },
     {
       "source": "awarder:130485795",
       "target": "contractor:202918009",
-      "value": 167328,
-      "currency": "BGN"
+      "valueEur": 85553.44789680085
     },
     {
       "source": "awarder:130523915",
       "target": "contractor:175415627",
-      "value": 3726,
-      "currency": "BGN"
+      "valueEur": 1905.07354933711
     },
     {
       "source": "awarder:130925885",
       "target": "contractor:115147345",
-      "value": 269870,
-      "currency": "BGN"
+      "valueEur": 137982.3399784235
     },
     {
       "source": "awarder:130961721",
       "target": "contractor:175415627",
-      "value": 1395699.6,
-      "currency": "BGN"
+      "valueEur": 713609.8740688097
     },
     {
       "source": "awarder:131045382",
       "target": "contractor:175415627",
-      "value": 15306,
-      "currency": "BGN"
+      "valueEur": 7825.83353358932
     },
     {
       "source": "awarder:131060676",
       "target": "contractor:175415627",
-      "value": 203222.4,
-      "currency": "BGN"
+      "valueEur": 103905.9631972104
     },
     {
       "source": "awarder:131177220",
       "target": "contractor:175415627",
-      "value": 397317,
-      "currency": "BGN"
+      "valueEur": 203144.95636123794
     },
     {
       "source": "awarder:131177220",
       "target": "contractor:131380345",
-      "value": 7469,
-      "currency": "BGN"
+      "valueEur": 3818.839060654556
     },
     {
       "source": "awarder:131236380",
       "target": "contractor:175415627",
-      "value": 6578,
-      "currency": "BGN"
+      "valueEur": 3363.2779945087254
     },
     {
       "source": "awarder:131282355",
       "target": "contractor:175415627",
-      "value": 1247389.4100000001,
-      "currency": "BGN"
+      "valueEur": 637780.0780231411
     },
     {
       "source": "awarder:131448376",
       "target": "contractor:175415627",
-      "value": 131277.93,
-      "currency": "EUR"
+      "valueEur": 131277.93
     },
     {
       "source": "awarder:131463734",
       "target": "contractor:175415627",
-      "value": 124607,
-      "currency": "BGN"
+      "valueEur": 63710.5474402172
     },
     {
       "source": "awarder:131516795",
       "target": "contractor:175415627",
-      "value": 16580,
-      "currency": "BGN"
+      "valueEur": 8477.219390233302
     },
     {
       "source": "awarder:175077093",
       "target": "contractor:175415627",
-      "value": 32282.99,
-      "currency": "BGN"
+      "valueEur": 16506.030687738712
     },
     {
       "source": "awarder:175263817",
       "target": "contractor:175392783",
-      "value": 368600,
-      "currency": "BGN"
+      "valueEur": 188462.18740892614
     },
     {
       "source": "awarder:175263817",
       "target": "contractor:175415627",
-      "value": 31792,
-      "currency": "BGN"
+      "valueEur": 16254.991486990179
     },
     {
       "source": "awarder:175405647",
       "target": "contractor:000649348",
-      "value": 55979144.76,
-      "currency": "BGN"
+      "valueEur": 28621682.232095834
     },
     {
       "source": "awarder:175451413",
       "target": "contractor:175415627",
-      "value": 100848,
-      "currency": "BGN"
+      "valueEur": 51562.76363487624
     },
     {
       "source": "awarder:175618225",
       "target": "contractor:175415627",
-      "value": 104353,
-      "currency": "BGN"
+      "valueEur": 53354.84167846899
     },
     {
       "source": "awarder:175905481",
       "target": "contractor:175415627",
-      "value": 590581.22,
-      "currency": "BGN"
+      "valueEur": 301959.38297295774
     },
     {
       "source": "awarder:175905727",
       "target": "contractor:175415627",
-      "value": 183041,
-      "currency": "BGN"
+      "valueEur": 93587.37722603703
     },
     {
       "source": "awarder:175905823",
       "target": "contractor:175415627",
-      "value": 54000,
-      "currency": "BGN"
+      "valueEur": 27609.7615845958
     },
     {
       "source": "awarder:176094665",
       "target": "contractor:175415627",
-      "value": 143902,
-      "currency": "BGN"
+      "valueEur": 73575.92428789823
     },
     {
       "source": "awarder:176464933",
       "target": "contractor:831635354",
-      "value": 101235.79000000001,
-      "currency": "EUR"
+      "valueEur": 101235.79000000001
     },
     {
       "source": "awarder:176789453",
       "target": "contractor:175415627",
-      "value": 36793.619999999995,
-      "currency": "BGN"
+      "valueEur": 18812.279185818807
     },
     {
       "source": "awarder:176789460",
       "target": "contractor:175415627",
-      "value": 118129.5,
-      "currency": "BGN"
+      "valueEur": 60398.65427976869
     },
     {
       "source": "awarder:176937717",
       "target": "contractor:175415627",
-      "value": 214301,
-      "currency": "BGN"
+      "valueEur": 109570.36143223081
     },
     {
       "source": "awarder:176968825",
       "target": "contractor:175415627",
-      "value": 24408,
-      "currency": "BGN"
+      "valueEur": 12479.6122362373
     },
     {
       "source": "awarder:177057552",
       "target": "contractor:175415627",
-      "value": 45682,
-      "currency": "BGN"
+      "valueEur": 23356.835716805654
     },
     {
       "source": "awarder:177098809",
       "target": "contractor:175415627",
-      "value": 2658481.2,
-      "currency": "BGN"
+      "valueEur": 1359259.8538727805
     },
     {
       "source": "awarder:177167454",
       "target": "contractor:175415627",
-      "value": 60550,
-      "currency": "BGN"
+      "valueEur": 30958.72340643103
     },
     {
       "source": "awarder:177224179",
       "target": "contractor:175415627",
-      "value": 94267.40999999999,
-      "currency": "BGN"
+      "valueEur": 48198.16139439521
     },
     {
       "source": "awarder:177477022",
       "target": "contractor:127003032",
-      "value": 277639,
-      "currency": "BGN"
+      "valueEur": 141954.5666034369
     },
     {
       "source": "awarder:177549112",
       "target": "contractor:175415627",
-      "value": 26010.5,
-      "currency": "BGN"
+      "valueEur": 13298.95747585424
     },
     {
       "source": "awarder:200105779",
       "target": "contractor:131317829",
-      "value": 471120,
-      "currency": "BGN"
+      "valueEur": 240879.83106916246
     },
     {
       "source": "awarder:200464696",
       "target": "contractor:127003032",
-      "value": 352565.71,
-      "currency": "BGN"
+      "valueEur": 180263.98511118043
     },
     {
       "source": "awarder:201617412",
       "target": "contractor:127003032",
-      "value": 220227.33999999997,
-      "currency": "BGN"
+      "valueEur": 112600.4509594392
     },
     {
       "source": "awarder:201617654",
       "target": "contractor:119622608",
-      "value": 1509840,
-      "currency": "BGN"
+      "valueEur": 771968.9339052985
     },
     {
       "source": "awarder:201664675",
       "target": "contractor:175415627",
-      "value": 74965,
-      "currency": "BGN"
+      "valueEur": 38328.99587387452
     },
     {
       "source": "awarder:202099976",
       "target": "contractor:175415627",
-      "value": 2254008.14,
-      "currency": "BGN"
+      "valueEur": 1152456.0621321895
     },
     {
       "source": "awarder:824104727",
       "target": "contractor:175392783",
-      "value": 739878,
-      "currency": "BGN"
+      "valueEur": 378293.61447569577
+    },
+    {
+      "source": "awarder:824106518",
+      "target": "contractor:202809611",
+      "valueEur": 165658.57
     },
     {
       "source": "awarder:828050351",
       "target": "contractor:127003032",
-      "value": 188017,
-      "currency": "BGN"
+      "valueEur": 96131.56562686941
     },
     {
       "source": "awarder:829053806",
       "target": "contractor:175392783",
-      "value": 1296760,
-      "currency": "BGN"
+      "valueEur": 663022.8598600082
     },
     {
       "source": "awarder:831331305",
       "target": "contractor:831635354",
-      "value": 100000,
-      "currency": "BGN"
+      "valueEur": 51129.188119621846
     },
     {
       "source": "awarder:831545394",
       "target": "contractor:175415627",
-      "value": 1121038.8900000001,
-      "currency": "BGN"
+      "valueEur": 573178.0829622208
     },
     {
       "source": "awarder:831605795",
       "target": "contractor:131317829",
-      "value": 1726821.5600000003,
-      "currency": "EUR"
+      "valueEur": 1726821.5600000003
     },
     {
       "source": "awarder:831609046",
       "target": "contractor:131380345",
-      "value": 5399208,
-      "currency": "BGN"
+      "valueEur": 5444853.595289672
     },
     {
       "source": "awarder:831609046",
       "target": "contractor:175415627",
-      "value": 3038048.1,
-      "currency": "BGN"
+      "valueEur": 1672719.3282135974
     },
     {
       "source": "awarder:831641791",
       "target": "contractor:175415627",
-      "value": 13813010,
-      "currency": "BGN"
+      "valueEur": 7062479.867882178
     },
     {
       "source": "awarder:831661388",
       "target": "contractor:175415627",
-      "value": 831574.9999999999,
-      "currency": "BGN"
+      "valueEur": 425177.5461057453
     },
     {
       "source": "awarder:831909905",
       "target": "contractor:175415627",
-      "value": 1578019.5,
-      "currency": "BGN"
+      "valueEur": 806828.5587193161
     },
     {
       "source": "awarder:831909905",
       "target": "contractor:115147345",
-      "value": 553900,
-      "currency": "BGN"
+      "valueEur": 283204.57299458544
     },
     {
       "source": "awarder:831910252",
       "target": "contractor:175415627",
-      "value": 285457.6,
-      "currency": "BGN"
+      "valueEur": 145952.15330575765
     },
     {
       "source": "awarder:831917834",
       "target": "contractor:175415627",
-      "value": 4076706.4799999995,
-      "currency": "BGN"
+      "valueEur": 2669445.0152440136
     },
     {
       "source": "awarder:834056394",
       "target": "contractor:124121775",
-      "value": 13780,
-      "currency": "BGN"
+      "valueEur": 7045.602122883891
     },
     {
       "source": "awarder:835014989",
       "target": "contractor:831160078",
-      "value": 910000,
-      "currency": "EUR"
+      "valueEur": 910000
     },
     {
       "source": "awarder:837068284",
       "target": "contractor:127003032",
-      "value": 1937781.5,
-      "currency": "BGN"
+      "valueEur": 990771.9484822301
     },
     {
       "source": "awarder:837077874",
       "target": "contractor:127003032",
-      "value": 537030,
-      "currency": "BGN"
+      "valueEur": 274579.07895880524
     },
     {
       "source": "contractor:831646048",
       "target": "mp:3271",
-      "value": 227943701.65999997,
-      "currency": "EUR"
+      "valueEur": 324742073.49190766
     },
     {
       "source": "contractor:175415627",
       "target": "mp:805",
-      "value": 135237509.65,
-      "currency": "BGN"
+      "valueEur": 78901563.19724026
     },
     {
       "source": "contractor:833017552",
       "target": "mp:1689",
-      "value": 119298484,
-      "currency": "BGN"
+      "valueEur": 60996346.308216974
     },
     {
       "source": "contractor:000649348",
       "target": "mp:237",
-      "value": 75957790.42999999,
-      "currency": "BGN"
+      "valueEur": 38836601.56046282
     },
     {
       "source": "contractor:175203485",
       "target": "mp:3026",
-      "value": 42281864.96,
-      "currency": "BGN"
-    },
-    {
-      "source": "contractor:127003032",
-      "target": "mp:2647",
-      "value": 17262454.550000004,
-      "currency": "BGN"
-    },
-    {
-      "source": "contractor:121015330",
-      "target": "mp:5268",
-      "value": 13805793.109999998,
-      "currency": "BGN"
-    },
-    {
-      "source": "contractor:175392783",
-      "target": "mp:3410",
-      "value": 13801637.879999999,
-      "currency": "BGN"
+      "valueEur": 21637018.865882874
     },
     {
       "source": "contractor:131317829",
       "target": "mp:4745",
-      "value": 6998023.300000001,
-      "currency": "EUR"
+      "valueEur": 10392348.696379032
+    },
+    {
+      "source": "contractor:127003032",
+      "target": "mp:2647",
+      "valueEur": 8826152.860933723
+    },
+    {
+      "source": "contractor:121015330",
+      "target": "mp:5268",
+      "valueEur": 7058789.93061769
+    },
+    {
+      "source": "contractor:175392783",
+      "target": "mp:3410",
+      "valueEur": 7056665.395254188
     },
     {
       "source": "contractor:131380345",
       "target": "mp:805",
-      "value": 6275683.720000001,
-      "currency": "BGN"
-    },
-    {
-      "source": "contractor:107564054",
-      "target": "mp:5094",
-      "value": 7005503.49,
-      "currency": "BGN"
-    },
-    {
-      "source": "contractor:175030371",
-      "target": "mp:3016",
-      "value": 6991412.4,
-      "currency": "BGN"
+      "valueEur": 5986748.514991283
     },
     {
       "source": "contractor:831160078",
       "target": "mp:4649",
-      "value": 5398830.2,
-      "currency": "BGN"
+      "valueEur": 4016103.439216957
+    },
+    {
+      "source": "contractor:107564054",
+      "target": "mp:5094",
+      "valueEur": 3632423.828128774
+    },
+    {
+      "source": "contractor:175030371",
+      "target": "mp:3016",
+      "valueEur": 3574652.398214569
     },
     {
       "source": "contractor:825240527",
       "target": "mp:819",
-      "value": 3483281.89,
-      "currency": "BGN"
+      "valueEur": 1842046.4802748195
     },
     {
       "source": "contractor:121489392",
       "target": "mp:4170",
-      "value": 3517000,
-      "currency": "BGN"
-    },
-    {
-      "source": "contractor:831635354",
-      "target": "mp:4716",
-      "value": 2520000,
-      "currency": "BGN"
-    },
-    {
-      "source": "contractor:831635354",
-      "target": "mp:5197",
-      "value": 2520000,
-      "currency": "BGN"
+      "valueEur": 1798213.5461671003
     },
     {
       "source": "contractor:202918009",
       "target": "mp:5005",
-      "value": 1950767.85,
-      "currency": "BGN"
+      "valueEur": 1665185.0038036027
+    },
+    {
+      "source": "contractor:831635354",
+      "target": "mp:4716",
+      "valueEur": 1543078.8906144707
+    },
+    {
+      "source": "contractor:831635354",
+      "target": "mp:5197",
+      "valueEur": 1543078.8906144707
     },
     {
       "source": "contractor:114680479",
       "target": "mp:2826",
-      "value": 2476541.6399999997,
-      "currency": "BGN"
+      "valueEur": 1266235.633976368
     },
     {
       "source": "contractor:130345786",
       "target": "mp:3169",
-      "value": 2392521.7800000003,
-      "currency": "BGN"
+      "valueEur": 1223276.9616991254
     },
     {
       "source": "contractor:130345786",
       "target": "mp:3655",
-      "value": 2392521.7800000003,
-      "currency": "BGN"
+      "valueEur": 1223276.9616991254
     },
     {
       "source": "contractor:119622608",
       "target": "mp:2440",
-      "value": 1832636.67,
-      "currency": "BGN"
+      "valueEur": 937012.2505534735
     },
     {
       "source": "contractor:115147345",
       "target": "mp:3351",
-      "value": 1698460,
-      "currency": "BGN"
+      "valueEur": 868408.8085365293
     },
     {
       "source": "contractor:112028994",
       "target": "mp:2946",
-      "value": 1290753,
-      "currency": "BGN"
+      "valueEur": 665647.3195296626
     },
     {
       "source": "contractor:203397356",
       "target": "mp:1609",
-      "value": 1005111,
-      "currency": "BGN"
+      "valueEur": 513905.0940010124
     },
     {
       "source": "contractor:201498495",
       "target": "mp:2946",
-      "value": 948160,
-      "currency": "BGN"
+      "valueEur": 484786.5100750065
     },
     {
       "source": "contractor:205555253",
       "target": "mp:3185",
-      "value": 729120,
-      "currency": "BGN"
+      "valueEur": 372793.1364177868
     },
     {
       "source": "contractor:130967927",
       "target": "mp:2440",
-      "value": 499687.8,
-      "currency": "BGN"
+      "valueEur": 255486.31527279978
     },
     {
       "source": "contractor:131476144",
       "target": "mp:5086",
-      "value": 465500,
-      "currency": "BGN"
+      "valueEur": 238006.3706968397
     },
     {
       "source": "contractor:206867786",
       "target": "mp:3710",
-      "value": 339713.08,
-      "currency": "BGN"
-    },
-    {
-      "source": "contractor:204013666",
-      "target": "mp:1639",
-      "value": 274207.19999999995,
-      "currency": "BGN"
-    },
-    {
-      "source": "contractor:103873562",
-      "target": "mp:2853",
-      "value": 245854.58,
-      "currency": "BGN"
-    },
-    {
-      "source": "contractor:110001952",
-      "target": "mp:5092",
-      "value": 221940.15000000002,
-      "currency": "BGN"
-    },
-    {
-      "source": "contractor:124121775",
-      "target": "mp:50",
-      "value": 215014,
-      "currency": "BGN"
-    },
-    {
-      "source": "contractor:102151443",
-      "target": "mp:805",
-      "value": 208804,
-      "currency": "BGN"
-    },
-    {
-      "source": "contractor:200193238",
-      "target": "mp:2838",
-      "value": 206249.71000000002,
-      "currency": "BGN"
-    },
-    {
-      "source": "contractor:200502607",
-      "target": "mp:4925",
-      "value": 186656,
-      "currency": "BGN"
+      "valueEur": 173692.53974016148
     },
     {
       "source": "contractor:202809611",
       "target": "mp:5165",
-      "value": 165658.57,
-      "currency": "EUR"
+      "valueEur": 165658.57
+    },
+    {
+      "source": "contractor:103873562",
+      "target": "mp:2853",
+      "valueEur": 146625.5107089062
+    },
+    {
+      "source": "contractor:204013666",
+      "target": "mp:1639",
+      "valueEur": 140199.9151255477
+    },
+    {
+      "source": "contractor:110001952",
+      "target": "mp:5092",
+      "valueEur": 113476.19680647092
+    },
+    {
+      "source": "contractor:124121775",
+      "target": "mp:50",
+      "valueEur": 109934.91254352372
+    },
+    {
+      "source": "contractor:102151443",
+      "target": "mp:805",
+      "valueEur": 106759.7899612952
+    },
+    {
+      "source": "contractor:200193238",
+      "target": "mp:2838",
+      "valueEur": 105453.80222207453
+    },
+    {
+      "source": "contractor:200502607",
+      "target": "mp:4925",
+      "valueEur": 95435.69737656135
     },
     {
       "source": "contractor:126736213",
       "target": "mp:2642",
-      "value": 145615.38,
-      "currency": "BGN"
+      "valueEur": 74451.9615713022
     },
     {
       "source": "contractor:205590667",
       "target": "mp:4456",
-      "value": 136900,
-      "currency": "BGN"
+      "valueEur": 69995.85853576231
     },
     {
       "source": "contractor:121125663",
       "target": "mp:4059",
-      "value": 131750,
-      "currency": "BGN"
+      "valueEur": 67362.70534760179
     },
     {
       "source": "contractor:206705325",
       "target": "mp:4590",
-      "value": 127400.45,
-      "currency": "BGN"
+      "valueEur": 65138.815745744774
     },
     {
       "source": "contractor:120601904",
       "target": "mp:5292",
-      "value": 122800,
-      "currency": "BGN"
+      "valueEur": 62786.643010895634
     },
     {
       "source": "contractor:204503086",
       "target": "mp:2734",
-      "value": 81536.21,
-      "currency": "BGN"
+      "valueEur": 41688.802196509925
     },
     {
       "source": "contractor:130822878",
       "target": "mp:139",
-      "value": 50000,
-      "currency": "BGN"
+      "valueEur": 25564.594059810923
     },
     {
       "source": "contractor:201832124",
       "target": "mp:5121",
-      "value": 39275,
-      "currency": "BGN"
+      "valueEur": 20080.98863398148
     },
     {
       "source": "contractor:104688050",
       "target": "mp:1622",
-      "value": 36381.1,
-      "currency": "BGN"
+      "valueEur": 18601.361058987743
     },
     {
       "source": "contractor:116003561",
       "target": "mp:5205",
-      "value": 33484.5,
-      "currency": "BGN"
+      "valueEur": 17120.352995914778
     },
     {
       "source": "contractor:825095010",
       "target": "mp:4663",
-      "value": 25818.12,
-      "currency": "BGN"
+      "valueEur": 13200.595143749711
     },
     {
       "source": "contractor:200137677",
       "target": "mp:4739",
-      "value": 11666.4,
-      "currency": "BGN"
+      "valueEur": 5964.935602787563
     },
     {
       "source": "contractor:102683542",
       "target": "mp:4171",
-      "value": 9160,
-      "currency": "BGN"
+      "valueEur": 4683.433631757362
     },
     {
       "source": "contractor:123139451",
       "target": "mp:4372",
-      "value": 3598,
-      "currency": "BGN"
+      "valueEur": 1839.6281885439942
     },
     {
       "source": "contractor:123716465",
       "target": "mp:3782",
-      "value": 2000,
-      "currency": "BGN"
+      "valueEur": 1022.5837623924369
     },
     {
       "source": "contractor:113566864",
       "target": "mp:2822",
-      "value": 1700,
-      "currency": "BGN"
+      "valueEur": 869.1961980335715
     },
     {
       "source": "contractor:106510662",
       "target": "mp:5165",
-      "value": 167,
-      "currency": "BGN"
+      "valueEur": 85.38574415976849
     }
   ]
 }

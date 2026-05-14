@@ -45,10 +45,14 @@ export interface Contract {
   contractorEikFull?: string;
   contractorName: string;
 
-  // Money. Currency is preserved as-is — Bulgaria's eurozone transition (BGN
-  // → EUR on 2026-01-01) means historical and current data mix; do not coerce.
+  // Money. The native amount + currency are preserved as-is — the UI footnotes
+  // the original ("originally 5 000 лв"). `amountEur` is the euro-converted
+  // value used for every aggregate and display figure: set for BGN/EUR rows
+  // (BGN via the locked 1.95583 peg), undefined for the rare USD/GBP/CHF rows
+  // which the UI shows natively. See src/lib/currency.ts.
   amount?: number;
   currency?: string;
+  amountEur?: number;
 
   // Subject.
   title: string;
@@ -95,6 +99,7 @@ export interface RollupContractRow {
   date: string;
   amount?: number;
   currency?: string;
+  amountEur?: number;
   // The "other side" of the relation — embedded so the tile can render a link.
   // On a ContractorRollup these point to the awarder; on an AwarderRollup
   // these point to the contractor.
@@ -108,21 +113,25 @@ export interface RollupContractRow {
 export interface ContractorRollup {
   eik: string;
   name: string;
-  // Totals keyed by currency — preserves BGN vs EUR rather than coercing.
-  totalByCurrency: Record<string, number>;
+  // Euro total (EUR + BGN folded via the locked peg). `totalOther` carries
+  // the rare USD/GBP/CHF remainder we keep native. See src/lib/currency.ts.
+  totalEur: number;
+  totalOther: Record<string, number>;
   contractCount: number;
   awardCount: number;
-  // Top awarders, sorted by total amount in the dominant currency.
+  // Top awarders, sorted by euro total.
   byAwarder: Array<{
     eik: string;
     name: string;
-    totalByCurrency: Record<string, number>;
+    totalEur: number;
+    totalOther: Record<string, number>;
     contractCount: number;
   }>;
   // Per-year breakdown.
   byYear: Array<{
     year: string;
-    totalByCurrency: Record<string, number>;
+    totalEur: number;
+    totalOther: Record<string, number>;
     contractCount: number;
   }>;
   // Top contracts by amount (descending). Drives the "Top contracts" tile on
@@ -143,19 +152,22 @@ export interface AwarderRollup {
   eik: string;
   name: string;
   region?: string;
-  totalByCurrency: Record<string, number>;
+  totalEur: number;
+  totalOther: Record<string, number>;
   contractCount: number;
   awardCount: number;
   // Top contractors this awarder has paid.
   byContractor: Array<{
     eik: string;
     name: string;
-    totalByCurrency: Record<string, number>;
+    totalEur: number;
+    totalOther: Record<string, number>;
     contractCount: number;
   }>;
   byYear: Array<{
     year: string;
-    totalByCurrency: Record<string, number>;
+    totalEur: number;
+    totalOther: Record<string, number>;
     contractCount: number;
   }>;
   // Top contracts by amount (descending). Drives the "Top contracts" tile on
@@ -176,7 +188,8 @@ export interface ProcurementIndex {
     amendments: number;
     contractorCount: number;
     awarderCount: number;
-    byCurrency: Record<string, number>;
+    totalEur: number;
+    totalOther: Record<string, number>;
   };
   // Last-seen fortnight bundles, mirrors bundles.json. Useful for "what
   // periods does the SPA have data for" without a second fetch.
@@ -192,7 +205,8 @@ export interface ProcurementIndex {
     mpCount: number;
     contractorCount: number;
     pairCount: number;
-    byCurrency: Record<string, number>;
+    totalEur: number;
+    totalOther: Record<string, number>;
   };
 }
 
@@ -219,7 +233,7 @@ export interface MpCompanyRelation {
   // For "stake" kind. Multiple stakes can exist (per-year filings); we record
   // the most recent fiscalYear's data.
   shareSize?: string;
-  valueBgn?: number;
+  valueEur?: number;
   fiscalYear?: number;
   declarationYear?: number;
 }
@@ -232,7 +246,8 @@ export interface MpConnectedContractor {
   relations: MpCompanyRelation[];
   // Rollup of all (award, contract, amendment) rows where this contractor
   // appears, regardless of awarding body.
-  totalByCurrency: Record<string, number>;
+  totalEur: number;
+  totalOther: Record<string, number>;
   // contractCount lumps signed contracts + amendments together. They share
   // amount semantics (each amendment carries the post-amendment value); the
   // UI can split them later by re-reading the underlying month-shards if it
@@ -241,7 +256,8 @@ export interface MpConnectedContractor {
   awardCount: number;
   byYear: Array<{
     year: string;
-    totalByCurrency: Record<string, number>;
+    totalEur: number;
+    totalOther: Record<string, number>;
     contractCount: number;
   }>;
   // Top awarding bodies for this contractor — same shape as ContractorRollup
@@ -250,7 +266,8 @@ export interface MpConnectedContractor {
   topAwarders: Array<{
     eik: string;
     name: string;
-    totalByCurrency: Record<string, number>;
+    totalEur: number;
+    totalOther: Record<string, number>;
     contractCount: number;
   }>;
 }
@@ -264,7 +281,8 @@ export interface MpConnectedFile {
 export interface TopContractorEntry {
   eik: string;
   name: string;
-  totalByCurrency: Record<string, number>;
+  totalEur: number;
+  totalOther: Record<string, number>;
   contractCount: number;
   awardCount: number;
   mpTied: boolean;
@@ -275,8 +293,7 @@ export interface TopContractorEntry {
 export interface TopContractorsFile {
   generatedAt: string;
   total: number;
-  // Top N by sum of totalByCurrency (raw — currency-mix caveat applies). The
-  // SPA's /procurement page reads this directly.
+  // Top N by euro total. The SPA's /procurement page reads this directly.
   entries: TopContractorEntry[];
 }
 
@@ -292,7 +309,8 @@ export interface FlowFile {
   links: Array<{
     source: string;
     target: string;
-    value: number; // amount summed; primary currency (most frequent) only
-    currency: string;
+    // Euro total summed across the edge's contracts (EUR + BGN folded). Edges
+    // whose contracts are entirely USD/GBP/CHF are dropped — see derived.ts.
+    valueEur: number;
   }>;
 }

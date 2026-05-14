@@ -24,42 +24,20 @@ import { useMpConnectedContracts } from "@/data/parliament/useMpConnectedContrac
 import { CandidateHeader } from "./components/candidates/CandidateHeader";
 import { ErrorSection } from "./components/ErrorSection";
 import { summarizeRelations } from "./components/candidates/procurement/relationLabel";
-import { formatTotalAsEur } from "./components/candidates/procurement/formatAmount";
+import type { ProcurementByYear } from "@/data/dataTypes";
+import { formatEur, formatEurWithOther } from "@/lib/currency";
 
 // Per-company inline by-year chart. Compact (180px tall), no Card wrapper —
 // embeds inline next to the company's relation/contract metadata.
-const FMT_INT = new Intl.NumberFormat("bg-BG", { maximumFractionDigits: 0 });
-const EUR_PER_UNIT: Record<string, number> = {
-  EUR: 1,
-  BGN: 1 / 1.95583,
-  USD: 0.92,
-  GBP: 1.17,
-  CHF: 1.05,
-};
-const sumEur = (bag: Record<string, number>): number => {
-  let eur = 0;
-  for (const [cur, amt] of Object.entries(bag)) {
-    if (!amt || amt <= 0) continue;
-    const rate = EUR_PER_UNIT[cur];
-    if (rate === undefined) continue;
-    eur += amt * rate;
-  }
-  return eur;
-};
-
 const InlineByYearChart: FC<{
-  rows: Array<{
-    year: string;
-    totalByCurrency: Record<string, number>;
-    contractCount: number;
-  }>;
+  rows: ProcurementByYear[];
 }> = ({ rows }) => {
   const { t } = useTranslation();
   if (!rows.length) return null;
   const sorted = [...rows].sort((a, b) => a.year.localeCompare(b.year));
   const data = sorted.map((r) => ({
     year: r.year,
-    eur: sumEur(r.totalByCurrency),
+    eur: r.totalEur,
     contractCount: r.contractCount,
   }));
   return (
@@ -127,7 +105,7 @@ const InlineByYearChart: FC<{
                       {payload[0].payload.year}
                     </div>
                     <div className="tabular-nums">
-                      €{FMT_INT.format(Math.round(payload[0].payload.eur))}
+                      {formatEur(payload[0].payload.eur)}
                     </div>
                     <div className="text-muted-foreground tabular-nums">
                       {payload[0].payload.contractCount.toLocaleString("bg-BG")}{" "}
@@ -161,7 +139,7 @@ const InlineByYearChart: FC<{
 
 export const CandidateProcurementScreen: FC = () => {
   const { id } = useParams();
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const { canonical } = useResolvedCandidate(id);
   const { isEn, nameForBg } = useCandidateName();
   const fallback =
@@ -226,7 +204,13 @@ export const CandidateProcurementScreen: FC = () => {
               {t("procurement_page_companies") || "company/-ies"} ·{" "}
               <strong>{summary.contractCount}</strong>{" "}
               {t("procurement_page_contracts") || "contract(s)"} ·{" "}
-              <strong>{formatTotalAsEur(summary.totalsByCurrency)}</strong>{" "}
+              <strong>
+                {formatEurWithOther(
+                  summary.totalEur,
+                  summary.totalOther,
+                  i18n.language,
+                )}
+              </strong>{" "}
               {t("procurement_page_total_awarded") || "total awarded"}
               {minYear && maxYear ? (
                 <span className="text-muted-foreground">
@@ -262,7 +246,7 @@ export const CandidateProcurementScreen: FC = () => {
                   EIK {e.contractorEik}
                 </span>
                 <span className="ml-auto text-sm tabular-nums font-medium">
-                  {formatTotalAsEur(e.totalByCurrency)}
+                  {formatEurWithOther(e.totalEur, e.totalOther, i18n.language)}
                 </span>
               </div>
               <div className="mt-1 text-xs">
@@ -303,8 +287,13 @@ export const CandidateProcurementScreen: FC = () => {
                           {a.name}
                         </Link>{" "}
                         <span className="text-muted-foreground tabular-nums">
-                          ({formatTotalAsEur(a.totalByCurrency)},{" "}
-                          {a.contractCount}{" "}
+                          (
+                          {formatEurWithOther(
+                            a.totalEur,
+                            a.totalOther,
+                            i18n.language,
+                          )}
+                          , {a.contractCount}{" "}
                           {t("procurement_page_contracts") || "contract(s)"})
                         </span>
                       </li>

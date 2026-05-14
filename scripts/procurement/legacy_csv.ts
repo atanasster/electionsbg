@@ -34,6 +34,7 @@ import { createHash } from "crypto";
 import { parse } from "csv-parse/sync";
 import { canonicalEik, isValidEik } from "./eik";
 import type { Contract } from "./types";
+import { toEur } from "@/lib/currency";
 
 export interface LegacyDataset {
   year: string; // "2023" or "2011-2015"
@@ -417,6 +418,7 @@ export const parseLegacyCsv = (
       contractorName,
       amount,
       currency: currencyRaw || "BGN",
+      amountEur: toEur(amount, currencyRaw || "BGN") ?? undefined,
       title: contractSubject || tenderSubject || "",
       category: category || undefined,
       bundleUuid: ds.datasetUuid,

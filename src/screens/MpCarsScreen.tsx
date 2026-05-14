@@ -9,6 +9,7 @@ import { electionToNsFolder } from "@/data/parliament/nsFolders";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 import { candidateUrlForMp } from "@/data/candidates/candidateSlug";
 import type { MpCarRow } from "@/data/dataTypes";
+import { formatEur } from "@/lib/currency";
 import { DataTable, DataTableColumns } from "@/ux/data_table/DataTable";
 import { useRegionScope } from "@/screens/utils/useRegionScope";
 import { RegionScopeChip } from "@/screens/utils/RegionScopeChip";
@@ -17,13 +18,6 @@ import { PartyScopeChip } from "@/screens/utils/PartyScopeChip";
 import { PartyHeader } from "@/screens/components/party/PartyHeader";
 
 type Scope = "ns" | "all";
-
-const formatBgn = (n: number, lang: string): string => {
-  const locale = lang === "bg" ? "bg-BG" : "en-GB";
-  return new Intl.NumberFormat(locale, { maximumFractionDigits: 0 }).format(
-    Math.round(n),
-  );
-};
 
 export const MpCarsScreen: FC = () => {
   const { t, i18n } = useTranslation();
@@ -138,13 +132,13 @@ export const MpCarsScreen: FC = () => {
         ),
       },
       {
-        accessorKey: "valueBgn",
-        header: t("mp_cars_col_value") || "Value (BGN)",
+        accessorKey: "valueEur",
+        header: t("mp_cars_col_value") || "Value (€)",
         sortUndefined: "last",
         cell: ({ row }) => (
           <div className="text-right tabular-nums font-mono">
-            {row.original.valueBgn != null ? (
-              formatBgn(row.original.valueBgn, i18n.language)
+            {row.original.valueEur != null ? (
+              formatEur(row.original.valueEur, i18n.language)
             ) : (
               <span className="text-muted-foreground">—</span>
             )}
@@ -185,8 +179,8 @@ export const MpCarsScreen: FC = () => {
 
   if (!mpCars) return null;
 
-  const totalValue = source.reduce((s, r) => s + (r.valueBgn ?? 0), 0);
-  const valued = source.filter((r) => r.valueBgn != null).length;
+  const totalValue = source.reduce((s, r) => s + (r.valueEur ?? 0), 0);
+  const valued = source.filter((r) => r.valueEur != null).length;
 
   const scopeToggle = (
     <div className="flex items-center gap-2 flex-wrap">
@@ -251,10 +245,10 @@ export const MpCarsScreen: FC = () => {
       <div className="text-xs text-muted-foreground mt-4 mb-2">
         {t("mp_cars_page_summary", {
           defaultValue:
-            "{{total}} cars · {{valued}} with declared value · combined {{sum}} BGN",
+            "{{total}} cars · {{valued}} with declared value · combined {{sum}}",
           total: source.length,
           valued,
-          sum: formatBgn(totalValue, i18n.language),
+          sum: formatEur(totalValue, i18n.language),
         })}
       </div>
 
@@ -264,7 +258,7 @@ export const MpCarsScreen: FC = () => {
         columns={columns}
         data={source}
         toolbarItems={scopeToggle}
-        initialSort={[{ id: "valueBgn", desc: true }]}
+        initialSort={[{ id: "valueEur", desc: true }]}
       />
 
       <div className="text-xs text-muted-foreground mt-4">

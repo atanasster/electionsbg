@@ -10,21 +10,9 @@ import { ArrowRight, Receipt, ExternalLink } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { useAwarder } from "@/data/procurement/useAwarder";
 import { resolveContractSource } from "../candidates/procurement/sourceUrl";
+import { ContractAmount } from "./ContractAmount";
 
 const TOP_ROWS = 10;
-const FMT_INT = new Intl.NumberFormat("bg-BG", { maximumFractionDigits: 0 });
-
-const formatAmount = (
-  amount: number | undefined,
-  currency: string | undefined,
-): string => {
-  if (amount == null || amount <= 0) return "—";
-  const rounded = Math.round(amount);
-  if (currency === "EUR") return `€${FMT_INT.format(rounded)}`;
-  if (currency === "BGN") return `${FMT_INT.format(rounded)} лв`;
-  if (!currency) return FMT_INT.format(rounded);
-  return `${FMT_INT.format(rounded)} ${currency}`;
-};
 
 export const AwarderTopContractsTile: FC<{ eik: string }> = ({ eik }) => {
   const { t } = useTranslation();
@@ -93,7 +81,11 @@ export const AwarderTopContractsTile: FC<{ eik: string }> = ({ eik }) => {
                       </Link>
                     </td>
                     <td className="px-3 py-2 text-right tabular-nums">
-                      {formatAmount(c.amount, c.currency)}
+                      <ContractAmount
+                        amountEur={c.amountEur}
+                        amount={c.amount}
+                        currency={c.currency}
+                      />
                     </td>
                     <td className="px-3 py-2 text-xs">
                       <div className="flex items-center gap-2">

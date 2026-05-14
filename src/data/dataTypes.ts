@@ -368,7 +368,9 @@ export type MpOwnershipStake = {
   shareSize: string | null; // raw text, may be "100%" or a numeric quantity
   companyName: string | null;
   registeredOffice: string | null;
-  valueBgn: number | null;
+  /** Declared stake value in euros. Source declarations record it in leva;
+   * the parser converts at the locked 1.95583 peg. See src/lib/currency.ts. */
+  valueEur: number | null;
   holderName: string | null;
   legalBasis: string | null;
   fundsOrigin: string | null;
@@ -386,8 +388,10 @@ export type MpOwnershipStake = {
 export type MpIncomeRecord = {
   parent: string | null; // e.g. "I. Облагаем доход от"
   category: string | null;
-  amountBgnDeclarant: number | null;
-  amountBgnSpouse: number | null;
+  /** Declared income in euros (converted from the leva source figures at the
+   * locked 1.95583 peg). See src/lib/currency.ts. */
+  amountEurDeclarant: number | null;
+  amountEurSpouse: number | null;
 };
 
 export type MpDeclaration = {
@@ -424,9 +428,9 @@ export type MpAssetCategory =
 
 /** Single asset row from the cacbg declaration. The schema is unified so the
  * UI can render lists generically — fields not relevant to a given category
- * are simply null. `valueBgn` is the BGN-equivalent stored on the row when
- * present; the parser falls back to `amount` when the declared currency is
- * BGN and the equivalent column is empty. */
+ * are simply null. `valueEur` is the euro value stored on the row; the parser
+ * converts the declarant's leva figure (or BGN-equivalent column) at the
+ * locked 1.95583 peg. See src/lib/currency.ts. */
 export type MpAsset = {
   category: MpAssetCategory;
   /** "Вид на имота/средството" — human description of the asset kind. */
@@ -444,11 +448,13 @@ export type MpAsset = {
   share: string | null;
   /** Currency the declarant entered (BGN, EUR, USD, …). null when n/a. */
   currency: string | null;
-  /** Raw amount in the declared currency. */
+  /** Raw amount in the declared (native) currency — kept so the UI can
+   * footnote the original ("originally 5 000 лв"). */
   amount: number | null;
-  /** BGN-equivalent for ranking math. null when the declarant left the value
-   * blank (common for inherited real estate). */
-  valueBgn: number | null;
+  /** Euro value for ranking math + display. null when the declarant left the
+   * value blank, or for foreign-currency rows with no declarant-provided BGN
+   * equivalent (common for inherited real estate). */
+  valueEur: number | null;
   /** Holder name as it appears in the declaration. */
   holderName: string | null;
   /** True when the holder is not the declarant (i.e. the declarant's spouse,
@@ -465,10 +471,10 @@ export type MpAsset = {
 export type MpAssetCategoryRollup = {
   /** Number of declared items in this category (declarant + spouse). */
   count: number;
-  /** Items with a non-null BGN value. */
+  /** Items with a non-null euro value. */
   valuedCount: number;
-  /** Sum of valueBgn across declared + spouse holdings. */
-  totalBgn: number;
+  /** Sum of valueEur across declared + spouse holdings. */
+  totalEur: number;
 };
 
 export type MpAssetsRollup = {
@@ -483,12 +489,12 @@ export type MpAssetsRollup = {
   fiscalYear: number | null;
   declarationType: string;
   sourceUrl: string;
-  /** Sum of all asset categories except `debt`. */
-  totalAssetsBgn: number;
-  /** Sum of `debt` rows (positive number). */
-  totalDebtsBgn: number;
-  /** `totalAssetsBgn − totalDebtsBgn`. */
-  netWorthBgn: number;
+  /** Sum of all asset categories except `debt`, in euros. */
+  totalAssetsEur: number;
+  /** Sum of `debt` rows (positive number), in euros. */
+  totalDebtsEur: number;
+  /** `totalAssetsEur − totalDebtsEur`. */
+  netWorthEur: number;
   /** Same totals computed from the previous-year declaration (when one
    * exists) so the UI can render a year-over-year delta. The `year` field
    * is the fiscal year the prior declaration covered (preferred over
@@ -496,8 +502,8 @@ export type MpAssetsRollup = {
    * the current "fiscal year 2024" header). */
   previous: {
     year: number;
-    totalAssetsBgn: number;
-    netWorthBgn: number;
+    totalAssetsEur: number;
+    netWorthEur: number;
   } | null;
   byCategory: Record<MpAssetCategory, MpAssetCategoryRollup>;
 };
@@ -510,14 +516,14 @@ export type MpAssetsRankingEntry = {
   isCurrent: boolean;
   nsFolders: string[];
   latestDeclarationYear: number;
-  totalAssetsBgn: number;
-  totalDebtsBgn: number;
-  netWorthBgn: number;
+  totalAssetsEur: number;
+  totalDebtsEur: number;
+  netWorthEur: number;
   /** Real-estate item count — surfaced separately because it's the most
    * common category with missing value (so a count is meaningful even when
-   * totalAssetsBgn under-counts for that MP). */
+   * totalAssetsEur under-counts for that MP). */
   realEstateCount: number;
-  /** Number of declared real-estate items where valueBgn is null. Drives the
+  /** Number of declared real-estate items where valueEur is null. Drives the
    * "+N properties without declared value" footnote. */
   realEstateUnvalued: number;
   /** Year-over-year change vs the prior declaration. `previousYear` is the
@@ -526,7 +532,7 @@ export type MpAssetsRankingEntry = {
    * first declaration in our dataset. */
   delta: {
     previousYear: number;
-    absoluteBgn: number;
+    absoluteEur: number;
     pct: number | null; // null when previous total is 0
   } | null;
 };
@@ -534,7 +540,7 @@ export type MpAssetsRankingEntry = {
 export type MpAssetsRankings = {
   generatedAt: string;
   /** Lifetime: every MP with at least one parsed declaration, ranked by
-   * netWorthBgn from their most recent filing. */
+   * netWorthEur from their most recent filing. */
   topMps: MpAssetsRankingEntry[];
   /** Per-NS slice keyed by NS folder ("52", "51", ...). MP must have served
    * in that NS to appear here. */
@@ -858,7 +864,7 @@ export type CarMakesFile = {
 
 /** Single declared car row, flattened from the most-recent declaration of
  * every MP. Drives the /mp-cars page. Spouse-held cars are included with
- * `isSpouse: true`. Cars with no declared `valueBgn` get a `null` and sort
+ * `isSpouse: true`. Cars with no declared `valueEur` get a `null` and sort
  * to the bottom of the value-descending table.
  *
  * One row = one physical vehicle. The build pipeline collapses multiple
@@ -880,7 +886,10 @@ export type MpCarRow = {
    * style without us inventing a separate normalization. */
   description: string | null;
   acquiredYear: number | null;
-  valueBgn: number | null;
+  /** Euro value (converted from the declared leva figure at the locked peg).
+   * null when the declarant left the value blank. */
+  valueEur: number | null;
+  /** Raw declared amount in the native currency, for the "originally" note. */
   amount: number | null;
   currency: string | null;
   isSpouse: boolean;
@@ -943,13 +952,14 @@ export type ProcurementRelation = {
   isCurrent?: boolean;
   confidence?: "high" | "medium" | "low";
   shareSize?: string;
-  valueBgn?: number;
+  valueEur?: number;
   fiscalYear?: number;
   declarationYear?: number;
 };
 export type ProcurementByYear = {
   year: string;
-  totalByCurrency: Record<string, number>;
+  totalEur: number;
+  totalOther: Record<string, number>;
   contractCount: number;
 };
 export type ProcurementMpConnectedContractor = {
@@ -958,14 +968,16 @@ export type ProcurementMpConnectedContractor = {
   contractorEik: string;
   contractorName: string;
   relations: ProcurementRelation[];
-  totalByCurrency: Record<string, number>;
+  totalEur: number;
+  totalOther: Record<string, number>;
   contractCount: number;
   awardCount: number;
   byYear: ProcurementByYear[];
   topAwarders: Array<{
     eik: string;
     name: string;
-    totalByCurrency: Record<string, number>;
+    totalEur: number;
+    totalOther: Record<string, number>;
     contractCount: number;
   }>;
 };
@@ -994,6 +1006,9 @@ export type ProcurementContract = {
   contractorName: string;
   amount?: number;
   currency?: string;
+  /** Euro-converted amount (BGN via the locked peg). Undefined for the rare
+   * USD/GBP/CHF rows, which the UI shows natively. See src/lib/currency.ts. */
+  amountEur?: number;
   title: string;
   cpv?: string;
   procurementMethod?: string;
@@ -1031,6 +1046,7 @@ export type ProcurementRollupContractRow = {
   date: string;
   amount?: number;
   currency?: string;
+  amountEur?: number;
   partyEik: string;
   partyName: string;
   bundleUuid: string;
@@ -1043,13 +1059,15 @@ export type ProcurementAwarderRollup = {
   eik: string;
   name: string;
   region?: string;
-  totalByCurrency: Record<string, number>;
+  totalEur: number;
+  totalOther: Record<string, number>;
   contractCount: number;
   awardCount: number;
   byContractor: Array<{
     eik: string;
     name: string;
-    totalByCurrency: Record<string, number>;
+    totalEur: number;
+    totalOther: Record<string, number>;
     contractCount: number;
   }>;
   byYear: ProcurementByYear[];
@@ -1061,13 +1079,15 @@ export type ProcurementAwarderRollup = {
 export type ProcurementContractorRollup = {
   eik: string;
   name: string;
-  totalByCurrency: Record<string, number>;
+  totalEur: number;
+  totalOther: Record<string, number>;
   contractCount: number;
   awardCount: number;
   byAwarder: Array<{
     eik: string;
     name: string;
-    totalByCurrency: Record<string, number>;
+    totalEur: number;
+    totalOther: Record<string, number>;
     contractCount: number;
   }>;
   byYear: ProcurementByYear[];
@@ -1083,7 +1103,8 @@ export type ProcurementContractorRollup = {
 export type ProcurementTopContractorEntry = {
   eik: string;
   name: string;
-  totalByCurrency: Record<string, number>;
+  totalEur: number;
+  totalOther: Record<string, number>;
   contractCount: number;
   awardCount: number;
   mpTied: boolean;
@@ -1156,7 +1177,8 @@ export type ProcurementIndexFile = {
     amendments: number;
     contractorCount: number;
     awarderCount: number;
-    byCurrency: Record<string, number>;
+    totalEur: number;
+    totalOther: Record<string, number>;
   };
   periods: Array<{
     bundleUuid: string;
@@ -1168,6 +1190,7 @@ export type ProcurementIndexFile = {
     mpCount: number;
     contractorCount: number;
     pairCount: number;
-    byCurrency: Record<string, number>;
+    totalEur: number;
+    totalOther: Record<string, number>;
   };
 };

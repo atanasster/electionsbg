@@ -7,7 +7,7 @@
  *      filings get +1 in declarationYear over their fiscal year, so this
  *      naturally prefers a 2025 annual filing over a 2024 vacate filing
  *      that was actually entered earlier.
- *   2. Sum valueBgn across all asset rows (declarant + spouse), bucketed by
+ *   2. Sum valueEur across all asset rows (declarant + spouse), bucketed by
  *      MpAssetCategory. `debt` rows are tracked separately so net-worth =
  *      assets − debts.
  *   3. Find the next-most-recent declaration to compute year-over-year delta.
@@ -43,15 +43,15 @@ const ALL_CATEGORIES: MpAssetCategory[] = [
 const emptyByCategory = (): Record<MpAssetCategory, MpAssetCategoryRollup> => {
   const out = {} as Record<MpAssetCategory, MpAssetCategoryRollup>;
   for (const c of ALL_CATEGORIES) {
-    out[c] = { count: 0, valuedCount: 0, totalBgn: 0 };
+    out[c] = { count: 0, valuedCount: 0, totalEur: 0 };
   }
   return out;
 };
 
 type DeclarationTotals = {
-  totalAssetsBgn: number;
-  totalDebtsBgn: number;
-  netWorthBgn: number;
+  totalAssetsEur: number;
+  totalDebtsEur: number;
+  netWorthEur: number;
   byCategory: Record<MpAssetCategory, MpAssetCategoryRollup>;
 };
 
@@ -62,9 +62,9 @@ const totalsForDeclaration = (decl: MpDeclaration): DeclarationTotals => {
     const bucket = byCategory[a.category];
     if (!bucket) continue;
     bucket.count++;
-    if (a.valueBgn != null) {
+    if (a.valueEur != null) {
       bucket.valuedCount++;
-      bucket.totalBgn += a.valueBgn;
+      bucket.totalEur += a.valueEur;
     }
   }
   // Treat the declarant's company shares (table 10) as a category too so
@@ -74,21 +74,21 @@ const totalsForDeclaration = (decl: MpDeclaration): DeclarationTotals => {
     if (stake.table !== "10") continue;
     const bucket = byCategory.security; // fold into "securities" bucket
     bucket.count++;
-    if (stake.valueBgn != null) {
+    if (stake.valueEur != null) {
       bucket.valuedCount++;
-      bucket.totalBgn += stake.valueBgn;
+      bucket.totalEur += stake.valueEur;
     }
   }
-  let totalAssetsBgn = 0;
+  let totalAssetsEur = 0;
   for (const c of ALL_CATEGORIES) {
     if (c === "debt") continue;
-    totalAssetsBgn += byCategory[c].totalBgn;
+    totalAssetsEur += byCategory[c].totalEur;
   }
-  const totalDebtsBgn = byCategory.debt.totalBgn;
+  const totalDebtsEur = byCategory.debt.totalEur;
   return {
-    totalAssetsBgn,
-    totalDebtsBgn,
-    netWorthBgn: totalAssetsBgn - totalDebtsBgn,
+    totalAssetsEur,
+    totalDebtsEur,
+    netWorthEur: totalAssetsEur - totalDebtsEur,
     byCategory,
   };
 };
@@ -113,11 +113,11 @@ const buildEntry = (
   const delta = rollup.previous
     ? {
         previousYear: rollup.previous.year,
-        absoluteBgn: rollup.netWorthBgn - rollup.previous.netWorthBgn,
+        absoluteEur: rollup.netWorthEur - rollup.previous.netWorthEur,
         pct:
-          rollup.previous.netWorthBgn !== 0
-            ? ((rollup.netWorthBgn - rollup.previous.netWorthBgn) /
-                Math.abs(rollup.previous.netWorthBgn)) *
+          rollup.previous.netWorthEur !== 0
+            ? ((rollup.netWorthEur - rollup.previous.netWorthEur) /
+                Math.abs(rollup.previous.netWorthEur)) *
               100
             : null,
       }
@@ -129,9 +129,9 @@ const buildEntry = (
     isCurrent: mp.isCurrent,
     nsFolders: mp.nsFolders,
     latestDeclarationYear: rollup.latestDeclarationYear,
-    totalAssetsBgn: rollup.totalAssetsBgn,
-    totalDebtsBgn: rollup.totalDebtsBgn,
-    netWorthBgn: rollup.netWorthBgn,
+    totalAssetsEur: rollup.totalAssetsEur,
+    totalDebtsEur: rollup.totalDebtsEur,
+    netWorthEur: rollup.netWorthEur,
     realEstateCount: re.count,
     realEstateUnvalued: re.count - re.valuedCount,
     delta,
@@ -194,7 +194,7 @@ export const buildAssetsRankings = ({
 
     // Skip MPs whose latest declaration produced literally zero across
     // every asset and debt category — they are noise on the leaderboard.
-    if (totals.totalAssetsBgn === 0 && totals.totalDebtsBgn === 0) continue;
+    if (totals.totalAssetsEur === 0 && totals.totalDebtsEur === 0) continue;
 
     let previous: MpAssetsRollup["previous"] = null;
     if (sorted.length > 1) {
@@ -208,8 +208,8 @@ export const buildAssetsRankings = ({
         const t = totalsForDeclaration(prior);
         previous = {
           year: prior.fiscalYear ?? prior.declarationYear,
-          totalAssetsBgn: t.totalAssetsBgn,
-          netWorthBgn: t.netWorthBgn,
+          totalAssetsEur: t.totalAssetsEur,
+          netWorthEur: t.netWorthEur,
         };
       }
     }
@@ -224,9 +224,9 @@ export const buildAssetsRankings = ({
       fiscalYear: latest.fiscalYear,
       declarationType: latest.declarationType,
       sourceUrl: latest.sourceUrl,
-      totalAssetsBgn: totals.totalAssetsBgn,
-      totalDebtsBgn: totals.totalDebtsBgn,
-      netWorthBgn: totals.netWorthBgn,
+      totalAssetsEur: totals.totalAssetsEur,
+      totalDebtsEur: totals.totalDebtsEur,
+      netWorthEur: totals.netWorthEur,
       previous,
       byCategory: totals.byCategory,
     };
@@ -241,7 +241,7 @@ export const buildAssetsRankings = ({
     entries.push(buildEntry(mp, rollup));
   }
 
-  entries.sort((a, b) => b.netWorthBgn - a.netWorthBgn);
+  entries.sort((a, b) => b.netWorthEur - a.netWorthEur);
 
   // Per-NS slices: an MP appears in an NS if their nsFolders contains it.
   // No artificial cap — the /mp-assets page renders the full list with a

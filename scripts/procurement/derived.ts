@@ -14,26 +14,11 @@ import type {
 } from "./types";
 import { canonicalJson } from "./validate";
 
-const sumTotals = (bag: Record<string, number>): number =>
-  Object.values(bag).reduce((s, n) => s + n, 0);
-
-const dominantCurrency = (bag: Record<string, number>): string => {
-  let best = "";
-  let bestVal = -Infinity;
-  for (const [cur, val] of Object.entries(bag)) {
-    if (val > bestVal) {
-      best = cur;
-      bestVal = val;
-    }
-  }
-  return best;
-};
-
 const TOP_LIMIT = 1000;
 
-// Top contractors across the corpus, sorted by total (any currency). The
-// per-MP-tied subset is identified by intersecting with the MP-connected
-// EIK set — same `mpTied: boolean` shape the SPA's /procurement page expects.
+// Top contractors across the corpus, sorted by euro total. The per-MP-tied
+// subset is identified by intersecting with the MP-connected EIK set — same
+// `mpTied: boolean` shape the SPA's /procurement page expects.
 export const buildTopContractors = (
   contractorsDir: string,
   mpConnected: MpConnectedFile,
@@ -56,7 +41,8 @@ export const buildTopContractors = (
       all.push({
         eik: c.eik,
         name: c.name,
-        totalByCurrency: c.totalByCurrency,
+        totalEur: c.totalEur,
+        totalOther: c.totalOther,
         contractCount: c.contractCount,
         awardCount: c.awardCount,
         mpTied: !!tiedSet,
@@ -64,9 +50,7 @@ export const buildTopContractors = (
       });
     }
   }
-  all.sort(
-    (a, b) => sumTotals(b.totalByCurrency) - sumTotals(a.totalByCurrency),
-  );
+  all.sort((a, b) => b.totalEur - a.totalEur);
   return {
     generatedAt: new Date().toISOString(),
     total: all.length,
@@ -78,9 +62,9 @@ export const buildTopContractors = (
 // that touch an MP-connected contract are included; the full procurement
 // graph would be unreadable.
 //
-// Edge values are summed amounts in the contractor's dominant currency to
-// avoid the mixed-currency sum problem. The UI displays the currency on the
-// edge label.
+// Edge values are euro totals (EUR + BGN folded via the locked peg). Edges
+// whose contracts are entirely USD/GBP/CHF collapse to 0 and are dropped —
+// negligible at current data volumes.
 export const buildFlow = (
   awardersDir: string,
   mpConnected: MpConnectedFile,
@@ -106,9 +90,8 @@ export const buildFlow = (
     let touched = false;
     for (const bc of a.byContractor) {
       if (!tiedEiks.has(bc.eik)) continue;
-      const currency = dominantCurrency(bc.totalByCurrency);
-      const value = bc.totalByCurrency[currency] ?? 0;
-      if (value <= 0) continue;
+      const valueEur = bc.totalEur;
+      if (valueEur <= 0) continue;
       touched = true;
       const awarderNode = `awarder:${a.eik}`;
       const contractorNode = `contractor:${bc.eik}`;
@@ -125,22 +108,20 @@ export const buildFlow = (
       links.push({
         source: awarderNode,
         target: contractorNode,
-        value,
-        currency,
+        valueEur,
       });
     }
     if (!touched) continue;
   }
 
-  // Contractor → MP links. Sum the contractor's total per MP that links to
-  // it. With multiple MPs per contractor (rare but happens), each MP gets a
+  // Contractor → MP links. Sum the contractor's euro total per MP that links
+  // to it. With multiple MPs per contractor (rare but happens), each MP gets a
   // separate edge weighted by the contractor's total (full amount, not split
   // — the journalism payload is "this MP is tied to this contractor", not
-  // "this MP got X лв"; the contractor got X лв and is connected to the MP).
+  // "this MP got €X"; the contractor got €X and is connected to the MP).
   for (const entry of mpConnected.entries) {
-    const currency = dominantCurrency(entry.totalByCurrency);
-    const value = entry.totalByCurrency[currency] ?? 0;
-    if (value <= 0) continue;
+    const valueEur = entry.totalEur;
+    if (valueEur <= 0) continue;
     const contractorNode = `contractor:${entry.contractorEik}`;
     const mpNode = `mp:${entry.mpId}`;
     nodes.set(contractorNode, {
@@ -152,8 +133,7 @@ export const buildFlow = (
     links.push({
       source: contractorNode,
       target: mpNode,
-      value,
-      currency,
+      valueEur,
     });
   }
 

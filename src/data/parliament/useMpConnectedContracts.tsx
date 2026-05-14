@@ -39,10 +39,11 @@ const useMpConnectedFile = () =>
   });
 
 export interface MpConnectedSummary {
-  // Sum across all currencies — raw, mixed-currency-caveat-applies. Used
-  // only for ranking + the at-a-glance "total awarded" pill on the tile.
-  // The UI splits BGN vs EUR explicitly when rendering individual rows.
-  totalsByCurrency: Record<string, number>;
+  // Euro total across all connected contractors (EUR + BGN folded via the
+  // locked peg). `totalOther` carries the rare USD/GBP/CHF remainder we keep
+  // native. See src/lib/currency.ts.
+  totalEur: number;
+  totalOther: Record<string, number>;
   contractCount: number;
   awardCount: number;
 }
@@ -66,20 +67,26 @@ export const useMpConnectedContracts = (
     if (mpId == null || !q.data) {
       return {
         entries: [],
-        summary: { totalsByCurrency: {}, contractCount: 0, awardCount: 0 },
+        summary: {
+          totalEur: 0,
+          totalOther: {},
+          contractCount: 0,
+          awardCount: 0,
+        },
         isLoading: mpId == null ? false : q.isLoading,
       };
     }
     const entries = q.data.entries.filter((e) => e.mpId === mpId);
     const summary: MpConnectedSummary = {
-      totalsByCurrency: {},
+      totalEur: 0,
+      totalOther: {},
       contractCount: 0,
       awardCount: 0,
     };
     for (const e of entries) {
-      for (const [cur, amt] of Object.entries(e.totalByCurrency)) {
-        summary.totalsByCurrency[cur] =
-          (summary.totalsByCurrency[cur] ?? 0) + amt;
+      summary.totalEur += e.totalEur;
+      for (const [cur, amt] of Object.entries(e.totalOther)) {
+        summary.totalOther[cur] = (summary.totalOther[cur] ?? 0) + amt;
       }
       summary.contractCount += e.contractCount;
       summary.awardCount += e.awardCount;

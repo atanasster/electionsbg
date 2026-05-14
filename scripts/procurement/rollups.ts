@@ -12,6 +12,7 @@ import type {
   RollupContractRow,
 } from "./types";
 import { canonicalJson } from "./validate";
+import { splitBag } from "@/lib/currency";
 
 // How many contracts to embed per-entity for the dashboard "top contracts"
 // tile. 20 keeps the rollup small (~5 KB extra) while giving the tile
@@ -127,8 +128,12 @@ export const buildRollups = (contractsDir: string): RollupResult => {
     amendments: 0,
     contractorCount: 0,
     awarderCount: 0,
-    byCurrency: {},
+    totalEur: 0,
+    totalOther: {},
   };
+  // In-memory per-currency accumulator; collapsed to totalEur / totalOther
+  // via splitBag once the full corpus has been walked.
+  const totalsBag: Record<string, number> = {};
 
   if (!fs.existsSync(contractsDir)) {
     return { contractors: [], awarders: [], totals };
@@ -144,7 +149,6 @@ export const buildRollups = (contractsDir: string): RollupResult => {
     if (!stat.isDirectory()) continue;
     for (const file of fs.readdirSync(yearDir).sort()) {
       if (!/^\d{4}-\d{2}\.json$/.test(file)) continue;
-      const month = file.replace(/\.json$/, "");
       const fullPath = path.join(yearDir, file);
       const monthFile = `contracts/${year}/${file}`;
       const rows = JSON.parse(fs.readFileSync(fullPath, "utf8")) as Contract[];
@@ -153,7 +157,7 @@ export const buildRollups = (contractsDir: string): RollupResult => {
         if (row.tag === "contract") totals.contracts++;
         else if (row.tag === "award") totals.awards++;
         else if (row.tag === "contractAmendment") totals.amendments++;
-        addCurrency(totals.byCurrency, row.currency, row.amount);
+        addCurrency(totalsBag, row.currency, row.amount);
 
         // Contractor.
         const ca =
@@ -256,6 +260,7 @@ export const buildRollups = (contractsDir: string): RollupResult => {
             date: row.date,
             amount: row.amount,
             currency: row.currency,
+            amountEur: row.amountEur,
             partyEik: row.awarderEik,
             partyName: row.awarderName,
             bundleUuid: row.bundleUuid,
@@ -267,48 +272,72 @@ export const buildRollups = (contractsDir: string): RollupResult => {
             date: row.date,
             amount: row.amount,
             currency: row.currency,
+            amountEur: row.amountEur,
             partyEik: row.contractorEik,
             partyName: row.contractorName,
             bundleUuid: row.bundleUuid,
             sourceUrl: row.sourceUrl,
           });
         }
-
-        // month referenced in totals
-        if (!totals.byCurrency[month]) {
-          // unused — month tally lives in the index file separately
-        }
       });
     }
   }
 
+  const totalsSplit = splitBag(totalsBag);
+  totals.totalEur = totalsSplit.totalEur;
+  totals.totalOther = totalsSplit.totalOther;
   totals.contractorCount = contractors.size;
   totals.awarderCount = awarders.size;
 
   const now = new Date().toISOString();
 
-  // Materialise: sort byAwarder / byContractor / byYear consistently, and cap
-  // byAwarder lists at a sensible top-N to keep per-EIK files small.
+  // Materialise: the in-memory accumulators carry per-currency bags; the
+  // output shape carries totalEur + totalOther (see src/lib/currency.ts).
+  // Cap nested lists at a top-N to keep per-EIK files small.
   const TOP_LIMIT = 50;
 
-  const sortByTotal = <T extends { totalByCurrency: Record<string, number> }>(
+  // Collapse a nested entry's currency bag, sort the list by euro total desc.
+  const finalizeEntries = <
+    T extends { totalByCurrency: Record<string, number> },
+  >(
     arr: T[],
-  ): T[] =>
-    arr.sort(
-      (a, b) => sumTotals(b.totalByCurrency) - sumTotals(a.totalByCurrency),
-    );
+  ): Array<
+    Omit<T, "totalByCurrency"> & {
+      totalEur: number;
+      totalOther: Record<string, number>;
+    }
+  > =>
+    arr
+      .map(({ totalByCurrency, ...rest }) => ({
+        ...rest,
+        ...splitBag(totalByCurrency),
+      }))
+      .sort((a, b) => b.totalEur - a.totalEur);
+
+  // byYear keeps chronological order; only the currency bag is collapsed.
+  const finalizeByYear = (
+    arr: Array<{
+      year: string;
+      totalByCurrency: Record<string, number>;
+      contractCount: number;
+    }>,
+  ) =>
+    arr
+      .map(({ totalByCurrency, ...rest }) => ({
+        ...rest,
+        ...splitBag(totalByCurrency),
+      }))
+      .sort((a, b) => a.year.localeCompare(b.year));
 
   const contractorOut: ContractorRollup[] = [...contractors.values()].map(
     (c) => ({
       eik: c.eik,
       name: c.name,
-      totalByCurrency: c.totalByCurrency,
+      ...splitBag(c.totalByCurrency),
       contractCount: c.contractCount,
       awardCount: c.awardCount,
-      byAwarder: sortByTotal([...c.byAwarder.values()]).slice(0, TOP_LIMIT),
-      byYear: [...c.byYear.values()].sort((a, b) =>
-        a.year.localeCompare(b.year),
-      ),
+      byAwarder: finalizeEntries([...c.byAwarder.values()]).slice(0, TOP_LIMIT),
+      byYear: finalizeByYear([...c.byYear.values()]),
       topContracts: c.topContracts,
       contractRefs: [...c.refsByMonth.entries()]
         .sort((a, b) => (a[0] < b[0] ? 1 : -1))
@@ -321,24 +350,20 @@ export const buildRollups = (contractsDir: string): RollupResult => {
     eik: a.eik,
     name: a.name,
     region: a.region,
-    totalByCurrency: a.totalByCurrency,
+    ...splitBag(a.totalByCurrency),
     contractCount: a.contractCount,
     awardCount: a.awardCount,
-    byContractor: sortByTotal([...a.byContractor.values()]).slice(0, TOP_LIMIT),
-    byYear: [...a.byYear.values()].sort((a, b) => a.year.localeCompare(b.year)),
+    byContractor: finalizeEntries([...a.byContractor.values()]).slice(
+      0,
+      TOP_LIMIT,
+    ),
+    byYear: finalizeByYear([...a.byYear.values()]),
     topContracts: a.topContracts,
     generatedAt: now,
   }));
 
   return { contractors: contractorOut, awarders: awarderOut, totals };
 };
-
-// Sum every currency total — used purely for ranking. Mixed BGN/EUR rows
-// during the eurozone transition shouldn't be naively summed for display,
-// but for "which contractor got the most overall" ordering it's a useful
-// proxy (the order changes by <5 ranks when re-computed with a fx of 1.95).
-const sumTotals = (bag: Record<string, number>): number =>
-  Object.values(bag).reduce((s, n) => s + n, 0);
 
 export const writeRollups = (
   outDir: string,

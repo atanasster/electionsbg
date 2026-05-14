@@ -10,7 +10,7 @@ import { dataUrl } from "@/data/dataUrl";
  * companies-index.json (~10 KB brotli savings). */
 export type CompanyIndexStake = Pick<
   MpOwnershipStake,
-  "table" | "shareSize" | "valueBgn" | "legalBasis" | "fundsOrigin"
+  "table" | "shareSize" | "valueEur" | "legalBasis" | "fundsOrigin"
 >;
 
 export type CompanyStakeEntry = {

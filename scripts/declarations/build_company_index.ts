@@ -21,7 +21,7 @@ import type {
  * declarations under public/parliament/declarations/ keep the full record. */
 export type CompanyIndexStake = Pick<
   MpOwnershipStake,
-  "table" | "shareSize" | "valueBgn" | "legalBasis" | "fundsOrigin"
+  "table" | "shareSize" | "valueEur" | "legalBasis" | "fundsOrigin"
 >;
 
 export type CompanyIndexEntryStake = {
@@ -154,7 +154,7 @@ export const buildCompanyIndex = ({
           stake: {
             table: stake.table,
             shareSize: stake.shareSize,
-            valueBgn: stake.valueBgn,
+            valueEur: stake.valueEur,
             legalBasis: stake.legalBasis,
             fundsOrigin: stake.fundsOrigin,
           },

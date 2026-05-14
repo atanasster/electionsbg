@@ -19,17 +19,7 @@ import {
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 import { candidateUrlForMp } from "@/data/candidates/candidateSlug";
 import type { TrCompanyOfficer } from "@/data/dataTypes";
-
-const formatBgn = (n: number | null, lang: string): string => {
-  if (n == null) return "—";
-  try {
-    return new Intl.NumberFormat(lang === "bg" ? "bg-BG" : "en-GB", {
-      maximumFractionDigits: 0,
-    }).format(n);
-  } catch {
-    return String(n);
-  }
-};
+import { formatEur } from "@/lib/currency";
 
 const StakeIcon: FC<{ stake: CompanyIndexStake }> = ({ stake }) =>
   stake.table === "11" ? (
@@ -281,9 +271,9 @@ export const MpCompanyScreen: FC = () => {
                       {entry.stake.shareSize}
                     </div>
                   )}
-                  {entry.stake.valueBgn != null && (
+                  {entry.stake.valueEur != null && (
                     <div className="text-xs text-muted-foreground">
-                      {formatBgn(entry.stake.valueBgn, i18n.language)} лв
+                      {formatEur(entry.stake.valueEur, i18n.language)}
                     </div>
                   )}
                   <a

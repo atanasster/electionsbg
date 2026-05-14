@@ -21,6 +21,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { useMpAssets } from "@/data/parliament/useMpAssets";
 import { useMpDeclarations } from "@/data/parliament/useMpDeclarations";
 import type { MpAsset, MpAssetCategory } from "@/data/dataTypes";
+import { formatEur } from "@/lib/currency";
 
 type Props = { name: string; linkSlug?: string };
 
@@ -58,13 +59,6 @@ const CATEGORY_FALLBACKS: Record<MpAssetCategory, string> = {
   debt: "Debts",
   investment: "Investments",
   security: "Securities & shares",
-};
-
-const formatBgn = (n: number, lang: string): string => {
-  const locale = lang === "bg" ? "bg-BG" : "en-GB";
-  return new Intl.NumberFormat(locale, { maximumFractionDigits: 0 }).format(
-    Math.round(n),
-  );
 };
 
 const ORDER: MpAssetCategory[] = [
@@ -107,26 +101,26 @@ export const MpAssetsSummary: FC<Props> = ({ name, linkSlug }) => {
     (d) => d.declarationYear === rollup.latestDeclarationYear,
   );
   const unvaluedItems: MpAsset[] = (latestDecl?.assets ?? []).filter(
-    (a) => a.category !== "debt" && a.valueBgn == null,
+    (a) => a.category !== "debt" && a.valueEur == null,
   );
 
   // Income from Table 12 of the same declaration. Only rows where at least
   // one party (declarant or spouse) has a non-zero amount are kept.
   const incomeRows = (latestDecl?.income ?? []).filter(
-    (r) => (r.amountBgnDeclarant ?? 0) !== 0 || (r.amountBgnSpouse ?? 0) !== 0,
+    (r) => (r.amountEurDeclarant ?? 0) !== 0 || (r.amountEurSpouse ?? 0) !== 0,
   );
   const incomeTotalDeclarant = incomeRows.reduce(
-    (s, r) => s + (r.amountBgnDeclarant ?? 0),
+    (s, r) => s + (r.amountEurDeclarant ?? 0),
     0,
   );
   const incomeTotalSpouse = incomeRows.reduce(
-    (s, r) => s + (r.amountBgnSpouse ?? 0),
+    (s, r) => s + (r.amountEurSpouse ?? 0),
     0,
   );
 
   const delta = rollup.previous
     ? {
-        absolute: rollup.netWorthBgn - rollup.previous.netWorthBgn,
+        absolute: rollup.netWorthEur - rollup.previous.netWorthEur,
         previousYear: rollup.previous.year,
       }
     : null;
@@ -159,20 +153,16 @@ export const MpAssetsSummary: FC<Props> = ({ name, linkSlug }) => {
               {t("mp_assets_total") || "Total assets"}
             </div>
             <div className="text-2xl font-bold tabular-nums">
-              {formatBgn(rollup.totalAssetsBgn, lang)}{" "}
-              <span className="text-base font-normal text-muted-foreground">
-                лв
-              </span>
+              {formatEur(rollup.totalAssetsEur, lang)}
             </div>
           </div>
-          {rollup.totalDebtsBgn > 0 && (
+          {rollup.totalDebtsEur > 0 && (
             <div>
               <div className="text-[10px] uppercase tracking-wide text-muted-foreground">
                 {t("mp_assets_debts") || "Debts"}
               </div>
               <div className="text-lg font-semibold tabular-nums text-red-600">
-                −{formatBgn(rollup.totalDebtsBgn, lang)}{" "}
-                <span className="text-sm font-normal">лв</span>
+                −{formatEur(rollup.totalDebtsEur, lang)}
               </div>
             </div>
           )}
@@ -181,10 +171,7 @@ export const MpAssetsSummary: FC<Props> = ({ name, linkSlug }) => {
               {t("mp_assets_net_worth") || "Net worth"}
             </div>
             <div className="text-2xl font-bold tabular-nums">
-              {formatBgn(rollup.netWorthBgn, lang)}{" "}
-              <span className="text-base font-normal text-muted-foreground">
-                лв
-              </span>
+              {formatEur(rollup.netWorthEur, lang)}
             </div>
           </div>
           {delta && delta.absolute !== 0 && (
@@ -203,8 +190,7 @@ export const MpAssetsSummary: FC<Props> = ({ name, linkSlug }) => {
                   <ArrowDown className="h-4 w-4" />
                 )}
                 {delta.absolute > 0 ? "+" : "−"}
-                {formatBgn(Math.abs(delta.absolute), lang)}{" "}
-                <span className="text-sm font-normal">лв</span>
+                {formatEur(Math.abs(delta.absolute), lang)}
               </div>
             </div>
           )}
@@ -228,7 +214,7 @@ export const MpAssetsSummary: FC<Props> = ({ name, linkSlug }) => {
                     {t(CATEGORY_KEYS[c]) || CATEGORY_FALLBACKS[c]}
                   </div>
                   <div className="text-sm font-semibold tabular-nums">
-                    {r.totalBgn > 0 ? `${formatBgn(r.totalBgn, lang)} лв` : "—"}
+                    {r.totalEur > 0 ? formatEur(r.totalEur, lang) : "—"}
                   </div>
                   <div className="text-[11px] text-muted-foreground">
                     {r.count}{" "}
@@ -251,7 +237,7 @@ export const MpAssetsSummary: FC<Props> = ({ name, linkSlug }) => {
               {t("mp_income_heading") || "Annual income"}
               <span className="text-muted-foreground font-normal">
                 · {t("total") || "Total"}{" "}
-                {formatBgn(incomeTotalDeclarant + incomeTotalSpouse, lang)} лв
+                {formatEur(incomeTotalDeclarant + incomeTotalSpouse, lang)}
               </span>
             </div>
             <div className="overflow-x-auto">
@@ -274,13 +260,13 @@ export const MpAssetsSummary: FC<Props> = ({ name, linkSlug }) => {
                     <tr key={i} className="border-b border-border/30">
                       <td className="py-1 pr-2">{r.category ?? "—"}</td>
                       <td className="py-1 px-2 text-right tabular-nums font-mono">
-                        {r.amountBgnDeclarant
-                          ? `${formatBgn(r.amountBgnDeclarant, lang)} лв`
+                        {r.amountEurDeclarant
+                          ? formatEur(r.amountEurDeclarant, lang)
                           : "—"}
                       </td>
                       <td className="py-1 pl-2 text-right tabular-nums font-mono">
-                        {r.amountBgnSpouse
-                          ? `${formatBgn(r.amountBgnSpouse, lang)} лв`
+                        {r.amountEurSpouse
+                          ? formatEur(r.amountEurSpouse, lang)
                           : "—"}
                       </td>
                     </tr>

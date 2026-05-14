@@ -416,14 +416,16 @@ const main = async (args: {
 
     // Build the index summary. Aggregate totals across MP-connected
     // contractors for the at-a-glance "total awarded to MP-tied" figure.
-    const byCurrency: Record<string, number> = {};
+    let totalEur = 0;
+    const totalOther: Record<string, number> = {};
     const mpSet = new Set<number>();
     const contractorSet = new Set<string>();
     for (const e of mpConnected.entries) {
       mpSet.add(e.mpId);
       contractorSet.add(e.contractorEik);
-      for (const [cur, amt] of Object.entries(e.totalByCurrency)) {
-        byCurrency[cur] = (byCurrency[cur] ?? 0) + amt;
+      totalEur += e.totalEur;
+      for (const [cur, amt] of Object.entries(e.totalOther)) {
+        totalOther[cur] = (totalOther[cur] ?? 0) + amt;
       }
     }
     crossRefSummary = {
@@ -431,7 +433,8 @@ const main = async (args: {
       mpCount: mpSet.size,
       contractorCount: contractorSet.size,
       pairCount: mpConnected.entries.length,
-      byCurrency,
+      totalEur,
+      totalOther,
     };
   } else {
     console.log(

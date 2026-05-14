@@ -19,7 +19,7 @@ import { PartyHeader } from "@/screens/components/party/PartyHeader";
 
 type Scope = "ns" | "all";
 
-const formatBgn = (n: number, lang: string): string => {
+const fmtNum = (n: number, lang: string): string => {
   const locale = lang === "bg" ? "bg-BG" : "en-GB";
   return new Intl.NumberFormat(locale, { maximumFractionDigits: 0 }).format(
     Math.round(n),
@@ -100,33 +100,33 @@ export const AllMpAssetsScreen: FC = () => {
         ),
       },
       {
-        accessorKey: "totalAssetsBgn",
-        header: t("mp_assets_col_assets") || "Assets (BGN)",
+        accessorKey: "totalAssetsEur",
+        header: t("mp_assets_col_assets") || "Assets (€)",
         cell: ({ row }) => (
           <div className="text-right tabular-nums font-mono">
-            {formatBgn(row.original.totalAssetsBgn, i18n.language)}
+            {fmtNum(row.original.totalAssetsEur, i18n.language)}
           </div>
         ),
       },
       {
-        accessorKey: "totalDebtsBgn",
-        header: t("mp_assets_col_debts") || "Debts (BGN)",
+        accessorKey: "totalDebtsEur",
+        header: t("mp_assets_col_debts") || "Debts (€)",
         cell: ({ row }) => (
           <div
-            className={`text-right tabular-nums font-mono ${row.original.totalDebtsBgn > 0 ? "text-red-600" : "text-muted-foreground"}`}
+            className={`text-right tabular-nums font-mono ${row.original.totalDebtsEur > 0 ? "text-red-600" : "text-muted-foreground"}`}
           >
-            {row.original.totalDebtsBgn > 0
-              ? formatBgn(row.original.totalDebtsBgn, i18n.language)
+            {row.original.totalDebtsEur > 0
+              ? fmtNum(row.original.totalDebtsEur, i18n.language)
               : "—"}
           </div>
         ),
       },
       {
-        accessorKey: "netWorthBgn",
-        header: t("mp_assets_col_net") || "Net (BGN)",
+        accessorKey: "netWorthEur",
+        header: t("mp_assets_col_net") || "Net (€)",
         cell: ({ row }) => (
           <div className="text-right tabular-nums font-mono font-semibold">
-            {formatBgn(row.original.netWorthBgn, i18n.language)}
+            {fmtNum(row.original.netWorthEur, i18n.language)}
           </div>
         ),
       },
@@ -147,7 +147,7 @@ export const AllMpAssetsScreen: FC = () => {
       },
       {
         id: "delta",
-        accessorFn: (row) => row.delta?.absoluteBgn ?? null,
+        accessorFn: (row) => row.delta?.absoluteEur ?? null,
         header: t("mp_assets_col_yoy") || "YoY change",
         sortUndefined: "last",
         cell: ({ row }) => {
@@ -158,22 +158,22 @@ export const AllMpAssetsScreen: FC = () => {
             );
           }
           const colorClass =
-            delta.absoluteBgn > 0
+            delta.absoluteEur > 0
               ? "text-green-600"
-              : delta.absoluteBgn < 0
+              : delta.absoluteEur < 0
                 ? "text-red-600"
                 : "text-muted-foreground";
           return (
             <div className={`text-right text-xs tabular-nums ${colorClass}`}>
               <span className="inline-flex items-center gap-0.5">
-                {delta.absoluteBgn > 0 ? (
+                {delta.absoluteEur > 0 ? (
                   <ArrowUp className="h-3 w-3" />
-                ) : delta.absoluteBgn < 0 ? (
+                ) : delta.absoluteEur < 0 ? (
                   <ArrowDown className="h-3 w-3" />
                 ) : null}
                 {delta.pct != null
                   ? `${Math.abs(delta.pct).toFixed(0)}%`
-                  : `${formatThousands(Math.round(Math.abs(delta.absoluteBgn)))}`}
+                  : `${formatThousands(Math.round(Math.abs(delta.absoluteEur)))}`}
               </span>
             </div>
           );
@@ -265,7 +265,7 @@ export const AllMpAssetsScreen: FC = () => {
         columns={columns}
         data={source}
         toolbarItems={scopeToggle}
-        initialSort={[{ id: "netWorthBgn", desc: true }]}
+        initialSort={[{ id: "netWorthEur", desc: true }]}
       />
 
       <div className="text-xs text-muted-foreground mt-4">

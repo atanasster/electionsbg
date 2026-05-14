@@ -14,7 +14,7 @@ import { ArrowRight, Receipt } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { useTopContractors } from "@/data/procurement/useProcurementIndex";
 import type { ProcurementByNsFile } from "@/data/dataTypes";
-import { formatTotalAsEur } from "../candidates/procurement/formatAmount";
+import { formatEur, formatEurWithOther } from "@/lib/currency";
 
 const TOP_ROWS = 10;
 
@@ -26,14 +26,12 @@ interface Row {
   mpTied: boolean;
 }
 
-const formatEur = new Intl.NumberFormat("bg-BG", { maximumFractionDigits: 0 });
-
 export const TopContractorsTile: FC<{
   // When provided, render the per-NS top contractors. Otherwise fall back to
   // the global top_contractors.json (full-corpus view).
   byNs?: ProcurementByNsFile | null;
 }> = ({ byNs }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const allYears = useTopContractors();
   const useNs = byNs !== undefined;
 
@@ -43,7 +41,7 @@ export const TopContractorsTile: FC<{
       return byNs.topContractors.slice(0, TOP_ROWS).map((e) => ({
         eik: e.eik,
         name: e.name,
-        totalDisplay: `€${formatEur.format(Math.round(e.totalEur))}`,
+        totalDisplay: formatEur(e.totalEur, i18n.language),
         contractCount: e.contractCount,
         mpTied: e.mpTied,
       }));
@@ -52,12 +50,13 @@ export const TopContractorsTile: FC<{
       allYears.data?.entries.slice(0, TOP_ROWS).map((e) => ({
         eik: e.eik,
         name: e.name,
-        totalDisplay: formatTotalAsEur(e.totalByCurrency) || "—",
+        totalDisplay:
+          formatEurWithOther(e.totalEur, e.totalOther, i18n.language) || "—",
         contractCount: e.contractCount,
         mpTied: e.mpTied,
       })) ?? []
     );
-  }, [useNs, byNs, allYears.data]);
+  }, [useNs, byNs, allYears.data, i18n.language]);
 
   const isLoading = useNs ? false : allYears.isLoading;
 

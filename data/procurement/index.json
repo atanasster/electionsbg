@@ -1,6 +1,6 @@
 {
-  "generatedAt": "2026-05-14T03:48:55.189Z",
-  "lastIngest": "2026-05-14T03:48:55.189Z",
+  "generatedAt": "2026-05-14T12:35:38.543Z",
+  "lastIngest": "2026-05-14T12:35:38.543Z",
   "years": [
     "2011",
     "2012",
@@ -172,9 +172,8 @@
     "amendments": 2482,
     "contractorCount": 23123,
     "awarderCount": 3369,
-    "byCurrency": {
-      "BGN": 102504167988.11156,
-      "EUR": 18142623513.31006,
+    "totalEur": 70552172394.40482,
+    "totalOther": {
       "USD": 29256763.67000001,
       "CHF": 572061.6,
       "GBP": 2990001.9
@@ -223,13 +222,11 @@
     }
   ],
   "crossReference": {
-    "generatedAt": "2026-05-14T03:48:55.188Z",
+    "generatedAt": "2026-05-14T12:35:38.542Z",
     "mpCount": 50,
     "contractorCount": 53,
     "pairCount": 55,
-    "byCurrency": {
-      "BGN": 671856601.7000002,
-      "EUR": 250230795.65999994
-    }
+    "totalEur": 593745621.4372917,
+    "totalOther": {}
   }
 }

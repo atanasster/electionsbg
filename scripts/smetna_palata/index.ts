@@ -10,9 +10,39 @@ import { candidatesFileName, cikPartiesFileName } from "scripts/consts";
 import { fileURLToPath } from "url";
 import { parsePartyFinancing } from "./party_financials";
 import { parseCandidateDonations } from "./parse_candidate_donations";
+import { BGN_PER_EUR } from "@/lib/currency";
 
 const __filename = fileURLToPath(import.meta.url); // get the resolved path to the file
 const __dirname = path.dirname(__filename); // get the name of the directory
+
+// Bulgaria adopted the euro on 2026-01-01. Campaign-finance filings for
+// elections before then are denominated in leva; from 2026 onward they are
+// already in euros. We convert legacy filings to euros at the locked 1.95583
+// peg so the SPA displays a single currency everywhere.
+//
+// Safe to walk every number: in the parsed financing tree every numeric leaf
+// is a monetary amount — names, dates, goals and coalition labels are all
+// strings (see scripts/smetna_palata/parse_*.ts).
+const convertFinancingToEur = <T>(value: T): T => {
+  if (typeof value === "number") {
+    return (Number.isFinite(value) ? value / BGN_PER_EUR : value) as T;
+  }
+  if (Array.isArray(value)) {
+    return value.map((v) => convertFinancingToEur(v)) as T;
+  }
+  if (value && typeof value === "object") {
+    const out: Record<string, unknown> = {};
+    for (const [k, v] of Object.entries(value)) {
+      out[k] = convertFinancingToEur(v);
+    }
+    return out as T;
+  }
+  return value;
+};
+
+// First euro-denominated election. Filings for earlier elections are
+// converted from leva; this one and later are stored as-is.
+const FIRST_EURO_ELECTION_YEAR = 2026;
 
 export const parseCampaignFinancing = async ({
   dataFolder,
@@ -94,6 +124,14 @@ export const parseFinancing = async ({
         publicFolder: `${publicFolder}/${e.name}`,
         stringify,
       });
+      // Legacy (pre-2026) filings are in leva — convert to euros so the
+      // stored JSON is uniformly euro-denominated.
+      const electionYear = Number(e.name.slice(0, 4));
+      if (partiesFinancing && electionYear < FIRST_EURO_ELECTION_YEAR) {
+        for (const p of partiesFinancing) {
+          p.data = convertFinancingToEur(p.data);
+        }
+      }
       if (partiesFinancing) {
         const allCandidates: Record<
           string,

@@ -13,21 +13,7 @@ import { DataTable } from "@/ux/data_table/DataTable";
 import { useContractorContracts } from "@/data/procurement/useContractorContracts";
 import { resolveContractSource } from "../candidates/procurement/sourceUrl";
 import type { ProcurementContract } from "@/data/dataTypes";
-
-const FMT_EUR = new Intl.NumberFormat("bg-BG", { maximumFractionDigits: 0 });
-const FMT_BGN = new Intl.NumberFormat("bg-BG", { maximumFractionDigits: 0 });
-
-const formatAmount = (
-  amount: number | undefined,
-  currency: string | undefined,
-): string => {
-  if (amount == null || amount <= 0) return "—";
-  const rounded = Math.round(amount);
-  if (currency === "EUR") return `€${FMT_EUR.format(rounded)}`;
-  if (currency === "BGN") return `${FMT_BGN.format(rounded)} лв`;
-  if (!currency) return FMT_EUR.format(rounded);
-  return `${FMT_EUR.format(rounded)} ${currency}`;
-};
+import { ContractAmount } from "./ContractAmount";
 
 const tagBadgeClasses = (tag: ProcurementContract["tag"]): string => {
   if (tag === "contractAmendment")
@@ -93,12 +79,19 @@ export const CompanyContractsTile: FC<{ eik: string }> = ({ eik }) => {
       {
         accessorKey: "amount",
         header: t("company_contract_amount") || "Amount",
-        cell: ({ row }) =>
-          formatAmount(row.original.amount, row.original.currency),
+        cell: ({ row }) => (
+          <ContractAmount
+            amountEur={row.original.amountEur}
+            amount={row.original.amount}
+            currency={row.original.currency}
+          />
+        ),
         meta: { align: "right" },
-        // Custom sort: numeric on raw amount (the cell renders formatted)
+        // Custom sort: numeric on the euro amount (native amount for the rare
+        // foreign-currency rows that have no euro figure).
         sortingFn: (a, b) =>
-          (a.original.amount ?? 0) - (b.original.amount ?? 0),
+          (a.original.amountEur ?? a.original.amount ?? 0) -
+          (b.original.amountEur ?? b.original.amount ?? 0),
       },
       {
         id: "source",

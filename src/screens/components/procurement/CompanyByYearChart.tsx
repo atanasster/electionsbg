@@ -16,36 +16,12 @@ import {
 } from "recharts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { TrendingUp } from "lucide-react";
+import type { ProcurementByYear } from "@/data/dataTypes";
+import { formatEur } from "@/lib/currency";
 
-const FMT_INT = new Intl.NumberFormat("bg-BG", { maximumFractionDigits: 0 });
-
-// EUR conversion rates — must match formatAmount.ts on the SPA + by_ns.ts
-// on the pipeline. Duplicated here to keep this chart component self-
-// contained.
-const EUR_PER_UNIT: Record<string, number> = {
-  EUR: 1,
-  BGN: 1 / 1.95583,
-  USD: 0.92,
-  GBP: 1.17,
-  CHF: 1.05,
-};
-
-const toEur = (bag: Record<string, number>): number => {
-  let eur = 0;
-  for (const [cur, amt] of Object.entries(bag)) {
-    if (!amt || amt <= 0) continue;
-    const rate = EUR_PER_UNIT[cur];
-    if (rate === undefined) continue;
-    eur += amt * rate;
-  }
-  return eur;
-};
-
-export interface ByYearRow {
-  year: string;
-  totalByCurrency: Record<string, number>;
-  contractCount: number;
-}
+// Per-year rollup row. The euro total (`totalEur`) is what this chart plots;
+// `totalOther` (rare USD/GBP/CHF remainder) is not charted.
+export type ByYearRow = ProcurementByYear;
 
 interface ChartDatum {
   year: string;
@@ -67,7 +43,7 @@ const ChartTooltip: FC<{ active?: boolean; payload?: TooltipPayload[] }> = ({
   return (
     <div className="rounded-md border bg-popover px-2 py-1.5 text-popover-foreground shadow-sm text-xs">
       <div className="font-semibold">{d.year}</div>
-      <div className="tabular-nums">€{FMT_INT.format(Math.round(d.eur))}</div>
+      <div className="tabular-nums">{formatEur(d.eur)}</div>
       <div className="text-muted-foreground tabular-nums">
         {d.contractCount.toLocaleString("bg-BG")}{" "}
         {t("company_col_contracts") || "contracts"}
@@ -88,7 +64,7 @@ export const CompanyByYearChart: FC<{
   const sorted = [...rows].sort((a, b) => a.year.localeCompare(b.year));
   const data: ChartDatum[] = sorted.map((r) => ({
     year: r.year,
-    eur: toEur(r.totalByCurrency),
+    eur: r.totalEur,
     contractCount: r.contractCount,
   }));
 

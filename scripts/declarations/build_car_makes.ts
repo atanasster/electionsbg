@@ -356,7 +356,7 @@ export const buildCarMakes = ({
     type Bucket = {
       first: CarRowAccum;
       shares: string[];
-      valueBgnSum: number | null;
+      valueEurSum: number | null;
       mergedCount: number;
     };
     const buckets = new Map<string, Bucket>();
@@ -374,8 +374,8 @@ export const buildCarMakes = ({
       if (existing) {
         existing.mergedCount++;
         if (a.share) existing.shares.push(a.share);
-        if (a.valueBgn != null) {
-          existing.valueBgnSum = (existing.valueBgnSum ?? 0) + a.valueBgn;
+        if (a.valueEur != null) {
+          existing.valueEurSum = (existing.valueEurSum ?? 0) + a.valueEur;
         }
       } else {
         buckets.set(key, {
@@ -388,7 +388,7 @@ export const buildCarMakes = ({
             detail: a.detail,
             description: a.description,
             acquiredYear: a.acquiredYear,
-            valueBgn: a.valueBgn,
+            valueEur: a.valueEur,
             amount: a.amount,
             currency: a.currency,
             isSpouse: a.isSpouse,
@@ -398,7 +398,7 @@ export const buildCarMakes = ({
             sourceUrl: latest.sourceUrl,
           },
           shares: a.share ? [a.share] : [],
-          valueBgnSum: a.valueBgn,
+          valueEurSum: a.valueEur,
           mergedCount: 1,
         });
       }
@@ -410,7 +410,7 @@ export const buildCarMakes = ({
     for (const bucket of buckets.values()) {
       const row: CarRowAccum = {
         ...bucket.first,
-        valueBgn: bucket.valueBgnSum,
+        valueEur: bucket.valueEurSum,
         share: bucket.shares.length > 0 ? bucket.shares.join(" + ") : null,
         mergedFromCount: bucket.mergedCount,
       };
@@ -435,11 +435,11 @@ export const buildCarMakes = ({
     });
   }
 
-  // Sort by valueBgn DESC, nulls last. Tie-break by year (newer first) so
+  // Sort by valueEur DESC, nulls last. Tie-break by year (newer first) so
   // identical-value pairs stay deterministic.
   carRows.sort((a, b) => {
-    const av = a.valueBgn ?? -Infinity;
-    const bv = b.valueBgn ?? -Infinity;
+    const av = a.valueEur ?? -Infinity;
+    const bv = b.valueEur ?? -Infinity;
     if (av !== bv) return bv - av;
     const ay = a.acquiredYear ?? -Infinity;
     const by = b.acquiredYear ?? -Infinity;

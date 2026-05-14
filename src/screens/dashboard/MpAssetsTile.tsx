@@ -13,17 +13,17 @@ import { StatCard } from "./StatCard";
 
 const ROWS = 5;
 
-// Compact BGN formatter for very large values: 1.2M, 350K, 12,500.
-const formatBgnCompact = (n: number, lang: string): string => {
+// Compact euro formatter for very large values: €1.2M, €350K, €12 500.
+const formatEurCompact = (n: number, lang: string): string => {
   const abs = Math.abs(n);
   const locale = lang === "bg" ? "bg-BG" : "en-GB";
   if (abs >= 1_000_000) {
-    return `${new Intl.NumberFormat(locale, { maximumFractionDigits: 1 }).format(n / 1_000_000)}M`;
+    return `€${new Intl.NumberFormat(locale, { maximumFractionDigits: 1 }).format(n / 1_000_000)}M`;
   }
   if (abs >= 10_000) {
-    return `${new Intl.NumberFormat(locale, { maximumFractionDigits: 0 }).format(Math.round(n / 1000))}K`;
+    return `€${new Intl.NumberFormat(locale, { maximumFractionDigits: 0 }).format(Math.round(n / 1000))}K`;
   }
-  return formatThousands(Math.round(n)) || "0";
+  return `€${formatThousands(Math.round(n)) || "0"}`;
 };
 
 type Props = {
@@ -151,24 +151,24 @@ export const MpAssetsTile: FC<Props> = ({
                 {row.latestDeclarationYear}
               </span>
               <span className="font-mono tabular-nums shrink-0 min-w-[70px] text-right">
-                {formatBgnCompact(row.netWorthBgn, i18n.language)}
+                {formatEurCompact(row.netWorthEur, i18n.language)}
               </span>
-              {delta && delta.absoluteBgn !== 0 ? (
+              {delta && delta.absoluteEur !== 0 ? (
                 <span
                   className={`inline-flex items-center gap-0.5 text-[10px] tabular-nums shrink-0 min-w-[58px] justify-end ${
-                    delta.absoluteBgn > 0 ? "text-green-600" : "text-red-600"
+                    delta.absoluteEur > 0 ? "text-green-600" : "text-red-600"
                   }`}
-                  title={`${delta.absoluteBgn > 0 ? "+" : ""}${formatThousands(Math.round(delta.absoluteBgn))} лв ${t("vs_previous") || "vs"} ${delta.previousYear}`}
+                  title={`${delta.absoluteEur > 0 ? "+" : ""}€${formatThousands(Math.round(delta.absoluteEur))} ${t("vs_previous") || "vs"} ${delta.previousYear}`}
                 >
-                  {delta.absoluteBgn > 0 ? (
+                  {delta.absoluteEur > 0 ? (
                     <ArrowUp className="h-3 w-3" />
                   ) : (
                     <ArrowDown className="h-3 w-3" />
                   )}
                   {delta.pct != null
                     ? `${Math.abs(delta.pct).toFixed(0)}%`
-                    : formatBgnCompact(
-                        Math.abs(delta.absoluteBgn),
+                    : formatEurCompact(
+                        Math.abs(delta.absoluteEur),
                         i18n.language,
                       )}
                 </span>
@@ -185,7 +185,7 @@ export const MpAssetsTile: FC<Props> = ({
         </Link>
         <span>
           {t("dashboard_mp_assets_count_label") ||
-            "BGN net worth, declarant + spouse"}
+            "Net worth (€), declarant + spouse"}
         </span>
       </div>
     </StatCard>
