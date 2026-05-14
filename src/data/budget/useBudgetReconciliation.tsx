@@ -10,16 +10,20 @@ import { dataUrl } from "@/data/dataUrl";
 import { useBudgetIndex } from "./useBudget";
 import type { Money, ReconciliationRow } from "./types";
 
-const fetchByAdmin = async (
+const fetchReconciliation = async (
   fiscalYear: number,
+  dimension: "admin" | "economic",
 ): Promise<ReconciliationRow[] | null> => {
   const r = await fetch(
-    dataUrl(`/budget/reconciliation/${fiscalYear}/by-admin.json`),
+    dataUrl(`/budget/reconciliation/${fiscalYear}/by-${dimension}.json`),
   );
   if (r.status === 404) return null;
   if (!r.ok) throw new Error(`fetch failed: ${r.status} ${r.url}`);
   return (await r.json()) as ReconciliationRow[];
 };
+
+const fetchByAdmin = (fiscalYear: number) =>
+  fetchReconciliation(fiscalYear, "admin");
 
 // Admin-dimension reconciliation for one fiscal year. Pass `null` to disable
 // the query (e.g. when the selected year has no admin data).
@@ -27,6 +31,16 @@ export const useBudgetAdminReconciliation = (fiscalYear: number | null) =>
   useQuery({
     queryKey: ["budget", "reconciliation", "admin", fiscalYear] as const,
     queryFn: () => fetchByAdmin(fiscalYear as number),
+    enabled: fiscalYear != null,
+    staleTime: Infinity,
+  });
+
+// Economic-dimension reconciliation for one fiscal year — the plan-vs-actual
+// variance per economic node (section + line). Pass `null` to disable.
+export const useBudgetEconomicReconciliation = (fiscalYear: number | null) =>
+  useQuery({
+    queryKey: ["budget", "reconciliation", "economic", fiscalYear] as const,
+    queryFn: () => fetchReconciliation(fiscalYear as number, "economic"),
     enabled: fiscalYear != null,
     staleTime: Infinity,
   });

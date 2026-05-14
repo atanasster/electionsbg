@@ -35,7 +35,11 @@ import type { ParsedResource } from "./kfp";
 import { parseLawHtml } from "./law_html";
 import type { ParsedLawUnit } from "./law_html";
 import { buildAdminRegistry, buildLawFacts } from "./facts";
-import { buildAdminReconciliation } from "./reconcile";
+import { buildEconomicFacts } from "./normalize_egov";
+import {
+  buildAdminReconciliation,
+  buildEconomicReconciliation,
+} from "./reconcile";
 import { buildDocuments } from "./documents";
 import { ensureScaffolds, BUDGET_DIR } from "./classification";
 import {
@@ -60,11 +64,9 @@ const __dirname = path.dirname(__filename);
 const KFP_FILE = path.join(BUDGET_DIR, "kfp.json");
 const DOCUMENTS_FILE = path.join(BUDGET_DIR, "documents.json");
 const INDEX_FILE = path.join(BUDGET_DIR, "index.json");
-const ADMIN_REGISTRY_FILE = path.join(
-  BUDGET_DIR,
-  "classification",
-  "admin.json",
-);
+const CLASSIFICATION_DIR = path.join(BUDGET_DIR, "classification");
+const ADMIN_REGISTRY_FILE = path.join(CLASSIFICATION_DIR, "admin.json");
+const ECONOMIC_REGISTRY_FILE = path.join(CLASSIFICATION_DIR, "economic.json");
 const FACTS_DIR = path.join(BUDGET_DIR, "facts");
 const RECONCILIATION_DIR = path.join(BUDGET_DIR, "reconciliation");
 const CANARY_FIXTURE = path.resolve(
@@ -75,12 +77,17 @@ const LAW_CANARY_FIXTURE = path.resolve(
   __dirname,
   "../../tests/fixtures/budget/law-canary.json",
 );
+const ECONOMIC_CANARY_FIXTURE = path.resolve(
+  __dirname,
+  "../../tests/fixtures/budget/economic-canary.json",
+);
 
 // Pinned resource for the canary — the 2025-12 (full-year) snapshot. Re-parsed
 // every run; byte drift in the parser or currency conversion throws.
 const CANARY_RESOURCE_UUID = "817cf3fb-7e59-4cf7-9f50-8cbccd11bb60";
-// Pinned fiscal year for the law-parser canary.
+// Pinned fiscal years for the law- and economic-parser canaries.
 const LAW_CANARY_YEAR = 2024;
+const ECONOMIC_CANARY_YEAR = 2025;
 
 const SOURCES: Record<string, string> = {
   egov: "https://data.egov.bg/data/view/79ce7de2-0150-4ba7-a96c-dbacb76c95b6",
@@ -104,6 +111,7 @@ const buildIndex = (
   documents: BudgetDocumentsFile,
   parsed: ParsedResource[],
   unitsByYear: Map<number, ParsedLawUnit[]>,
+  economicYears: Set<number>,
 ): BudgetIndex => {
   const periods = [...new Set(kfp.observations.map((o) => o.period))].sort();
   const byYear = new Map<number, BudgetYearCoverage>();
@@ -129,6 +137,11 @@ const buildIndex = (
     stages.add("law");
     cov.stages = [...stages].sort();
     cov.dimensions = { ...(cov.dimensions ?? {}), admin: true };
+  }
+  // Years with economic-grain reconciliation (egov plan + execution columns).
+  for (const fiscalYear of economicYears) {
+    const cov = coverageFor(fiscalYear);
+    cov.dimensions = { ...(cov.dimensions ?? {}), economic: true };
   }
   for (const cov of byYear.values()) cov.kfpPeriods.sort();
   return {
@@ -223,12 +236,44 @@ const main = async (args: {
       `facts: ${[...lawFactsByYear.values()].reduce((n, f) => n + f.length, 0)} row(s)`,
   );
 
+  // 3c. Economic grain — the egov feed's plan + execution columns give a real
+  // plan-vs-actual pair per economic node. Reconciliation computes the variance.
+  console.log("→ building economic-grain facts + variance");
+  const { factsByYear: economicFactsByYear, registry: economicRegistry } =
+    buildEconomicFacts(parsed);
+  if (economicFactsByYear.has(ECONOMIC_CANARY_YEAR)) {
+    console.log(`→ canary on economic facts ${ECONOMIC_CANARY_YEAR}`);
+    runCanary(
+      ECONOMIC_CANARY_FIXTURE,
+      economicFactsByYear.get(ECONOMIC_CANARY_YEAR),
+    );
+  }
+  const economicReconByYear = new Map(
+    [...economicFactsByYear.entries()].map(([year, facts]) => [
+      year,
+      buildEconomicReconciliation(year, facts, economicRegistry),
+    ]),
+  );
+  const reconciledEconomic = [...economicReconByYear.values()]
+    .flat()
+    .filter((r) => r.completeness === "exact").length;
+  console.log(
+    `  economic registry: ${economicRegistry.nodes.length} node(s); ` +
+      `${reconciledEconomic} node-year(s) with plan-vs-actual variance`,
+  );
+
   console.log("→ building document index");
   const bulnaoHtml = await fetchBulnaoAuditHtml();
   const documents = buildDocuments(parsed, bulnaoHtml, readPreviousDocuments());
   console.log(`  documents.json: ${documents.documents.length} document(s)`);
 
-  const index = buildIndex(kfp, documents, parsed, unitsByYear);
+  const index = buildIndex(
+    kfp,
+    documents,
+    parsed,
+    unitsByYear,
+    new Set(economicFactsByYear.keys()),
+  );
   const projectable = index.fiscalYears.filter((f) => f.projected).length;
   console.log(
     `  index.json: ${index.fiscalYears.length} fiscal year(s) ` +
@@ -241,7 +286,7 @@ const main = async (args: {
       `✓ dry run: ${kfp.observations.length} observation(s), ` +
         `${documents.documents.length} document(s), ` +
         `${index.years.length} fiscal year(s), ` +
-        `${adminRegistry.nodes.length} admin node(s) — not written`,
+        `${adminRegistry.nodes.length} admin + ${economicRegistry.nodes.length} economic node(s) — not written`,
     );
     return;
   }
@@ -255,12 +300,27 @@ const main = async (args: {
   if (writeIfChanged(ADMIN_REGISTRY_FILE, canonicalJson(adminRegistry))) {
     touched++;
   }
+  if (writeIfChanged(ECONOMIC_REGISTRY_FILE, canonicalJson(economicRegistry))) {
+    touched++;
+  }
   for (const [year, facts] of lawFactsByYear) {
-    const file = path.join(FACTS_DIR, String(year), "law.json");
+    const file = path.join(FACTS_DIR, String(year), "admin.json");
+    if (writeIfChanged(file, canonicalJson(facts))) touched++;
+  }
+  for (const [year, facts] of economicFactsByYear) {
+    const file = path.join(FACTS_DIR, String(year), "economic.json");
     if (writeIfChanged(file, canonicalJson(facts))) touched++;
   }
   for (const [year, rows] of adminReconByYear) {
     const file = path.join(RECONCILIATION_DIR, String(year), "by-admin.json");
+    if (writeIfChanged(file, canonicalJson(rows))) touched++;
+  }
+  for (const [year, rows] of economicReconByYear) {
+    const file = path.join(
+      RECONCILIATION_DIR,
+      String(year),
+      "by-economic.json",
+    );
     if (writeIfChanged(file, canonicalJson(rows))) touched++;
   }
 

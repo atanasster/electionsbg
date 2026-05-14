@@ -33,6 +33,7 @@ import { BudgetTrendTile } from "./components/budget/BudgetTrendTile";
 import { BudgetBreakdownTile } from "./components/budget/BudgetBreakdownTile";
 import { BudgetJourneyTile } from "./components/budget/BudgetJourneyTile";
 import { BudgetMinistriesTile } from "./components/budget/BudgetMinistriesTile";
+import { BudgetVarianceTile } from "./components/budget/BudgetVarianceTile";
 
 const SkeletonCard: FC = () => (
   <div className="rounded-xl border bg-card p-4 shadow-sm animate-pulse h-[120px]">
@@ -291,7 +292,10 @@ export const BudgetScreen: FC = () => {
 
         <BudgetTrendTile observations={scopedObservations} />
 
-        <BudgetMinistriesTile fiscalYear={summary.fiscalYear} />
+        <div className="grid gap-4 xl:grid-cols-2">
+          <BudgetVarianceTile fiscalYear={summary.fiscalYear} />
+          <BudgetMinistriesTile fiscalYear={summary.fiscalYear} />
+        </div>
 
         <div className="grid gap-4 xl:grid-cols-2">
           {snapshot ? <BudgetBreakdownTile snapshot={snapshot} /> : null}

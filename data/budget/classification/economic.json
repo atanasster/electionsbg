@@ -1,5 +1,1021 @@
 {
   "dimension": "economic",
-  "generatedAt": "1970-01-01T00:00:00.000Z",
-  "nodes": []
+  "generatedAt": "2026-05-14T15:45:57.585Z",
+  "nodes": [
+    {
+      "dimension": "economic",
+      "history": [
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Акцизи",
+          "sourceName": "Акцизи"
+        },
+        {
+          "fiscalYear": 2026,
+          "sourceCode": "Акцизи",
+          "sourceName": "Акцизи"
+        }
+      ],
+      "id": "eco-aktsizi",
+      "nameBg": "Акцизи",
+      "nameEn": "",
+      "parentId": "eco-revenue"
+    },
+    {
+      "dimension": "economic",
+      "history": [
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "IV. БЮДЖЕТНО САЛДО (дефицит \"-\" / излишък \"+\") = /I-II-III/",
+          "sourceName": "IV. БЮДЖЕТНО САЛДО (дефицит \"-\" / излишък \"+\") = /I-II-III/"
+        },
+        {
+          "fiscalYear": 2026,
+          "sourceCode": "IV. БЮДЖЕТНО САЛДО (дефицит \"-\" / излишък \"+\") = /I-II-III/",
+          "sourceName": "IV. БЮДЖЕТНО САЛДО (дефицит \"-\" / излишък \"+\") = /I-II-III/"
+        }
+      ],
+      "id": "eco-balance",
+      "nameBg": "IV. БЮДЖЕТНО САЛДО (дефицит \"-\" / излишък \"+\") = /I-II-III/",
+      "nameEn": "",
+      "parentId": null
+    },
+    {
+      "dimension": "economic",
+      "history": [
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Банково (нето)",
+          "sourceName": "Банково (нето)"
+        },
+        {
+          "fiscalYear": 2026,
+          "sourceCode": "Банково (нето)",
+          "sourceName": "Банково (нето)"
+        }
+      ],
+      "id": "eco-bankovo-neto",
+      "nameBg": "Банково (нето)",
+      "nameEn": "",
+      "parentId": "eco-financing"
+    },
+    {
+      "dimension": "economic",
+      "history": [
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Бюджети по чл.13 (4) от ЗПФ - нето",
+          "sourceName": "Бюджети по чл.13 (4) от ЗПФ - нето"
+        },
+        {
+          "fiscalYear": 2026,
+          "sourceCode": "Бюджети по чл.13 (4) от ЗПФ - нето",
+          "sourceName": "Бюджети по чл.13 (4) от ЗПФ - нето"
+        }
+      ],
+      "id": "eco-byudzheti-po-chl-13-4-ot-zpf-neto",
+      "nameBg": "Бюджети по чл.13 (4) от ЗПФ - нето",
+      "nameEn": "",
+      "parentId": "eco-expenditure"
+    },
+    {
+      "dimension": "economic",
+      "history": [
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Данъчни приходи",
+          "sourceName": "Данъчни приходи"
+        },
+        {
+          "fiscalYear": 2026,
+          "sourceCode": "Данъчни приходи",
+          "sourceName": "Данъчни приходи"
+        }
+      ],
+      "id": "eco-danachni-prihodi",
+      "nameBg": "Данъчни приходи",
+      "nameEn": "",
+      "parentId": "eco-revenue"
+    },
+    {
+      "dimension": "economic",
+      "history": [
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Данък върху добавената стойност",
+          "sourceName": "Данък върху добавената стойност"
+        },
+        {
+          "fiscalYear": 2026,
+          "sourceCode": "Данък върху добавената стойност",
+          "sourceName": "Данък върху добавената стойност"
+        }
+      ],
+      "id": "eco-danak-varhu-dobavenata-stoynost",
+      "nameBg": "Данък върху добавената стойност",
+      "nameEn": "",
+      "parentId": "eco-revenue"
+    },
+    {
+      "dimension": "economic",
+      "history": [
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Данък върху застрахователните премии",
+          "sourceName": "Данък върху застрахователните премии"
+        },
+        {
+          "fiscalYear": 2026,
+          "sourceCode": "Данък върху застрахователните премии",
+          "sourceName": "Данък върху застрахователните премии"
+        }
+      ],
+      "id": "eco-danak-varhu-zastrahovatelnite-premii",
+      "nameBg": "Данък върху застрахователните премии",
+      "nameEn": "",
+      "parentId": "eco-revenue"
+    },
+    {
+      "dimension": "economic",
+      "history": [
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Данъци в/у доходите на физически лица",
+          "sourceName": "Данъци в/у доходите на физически лица"
+        },
+        {
+          "fiscalYear": 2026,
+          "sourceCode": "Данъци в/у доходите на физически лица",
+          "sourceName": "Данъци в/у доходите на физически лица"
+        }
+      ],
+      "id": "eco-danatsi-v-u-dohodite-na-fizicheski-litsa",
+      "nameBg": "Данъци в/у доходите на физически лица",
+      "nameEn": "",
+      "parentId": "eco-revenue"
+    },
+    {
+      "dimension": "economic",
+      "history": [
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Данъци върху  дивидентите, ликвидац. дялове и доходите на местни и чужд. юрид. лица",
+          "sourceName": "Данъци върху  дивидентите, ликвидац. дялове и доходите на местни и чужд. юрид. лица"
+        },
+        {
+          "fiscalYear": 2026,
+          "sourceCode": "Данъци върху  дивидентите, ликвидац. дялове и доходите на местни и чужд. юрид. лица",
+          "sourceName": "Данъци върху  дивидентите, ликвидац. дялове и доходите на местни и чужд. юрид. лица"
+        }
+      ],
+      "id": "eco-danatsi-varhu-dividentite-likvidats-dyalove-i-dohodite-na-me",
+      "nameBg": "Данъци върху  дивидентите, ликвидац. дялове и доходите на местни и чужд. юрид. лица",
+      "nameEn": "",
+      "parentId": "eco-revenue"
+    },
+    {
+      "dimension": "economic",
+      "history": [
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Депозити (нето) в чужбина",
+          "sourceName": "Депозити (нето) в чужбина"
+        },
+        {
+          "fiscalYear": 2026,
+          "sourceCode": "Депозити (нето) в чужбина",
+          "sourceName": "Депозити (нето) в чужбина"
+        }
+      ],
+      "id": "eco-depoziti-neto-v-chuzhbina",
+      "nameBg": "Депозити (нето) в чужбина",
+      "nameEn": "",
+      "parentId": "eco-financing"
+    },
+    {
+      "dimension": "economic",
+      "history": [
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "ДОО",
+          "sourceName": "ДОО"
+        }
+      ],
+      "id": "eco-doo",
+      "nameBg": "ДОО",
+      "nameEn": "",
+      "parentId": "eco-expenditure"
+    },
+    {
+      "dimension": "economic",
+      "history": [
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Други данъци",
+          "sourceName": "Други данъци"
+        },
+        {
+          "fiscalYear": 2026,
+          "sourceCode": "Други данъци",
+          "sourceName": "Други данъци"
+        }
+      ],
+      "id": "eco-drugi-danatsi",
+      "nameBg": "Други данъци",
+      "nameEn": "",
+      "parentId": "eco-revenue"
+    },
+    {
+      "dimension": "economic",
+      "history": [
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Други неданъчни приходи",
+          "sourceName": "Други неданъчни приходи"
+        },
+        {
+          "fiscalYear": 2026,
+          "sourceCode": "Други неданъчни приходи",
+          "sourceName": "Други неданъчни приходи"
+        }
+      ],
+      "id": "eco-drugi-nedanachni-prihodi",
+      "nameBg": "Други неданъчни приходи",
+      "nameEn": "",
+      "parentId": "eco-revenue"
+    },
+    {
+      "dimension": "economic",
+      "history": [
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Други трансфери - нето",
+          "sourceName": "Други трансфери - нето"
+        },
+        {
+          "fiscalYear": 2026,
+          "sourceCode": "Други трансфери - нето",
+          "sourceName": "Други трансфери - нето"
+        }
+      ],
+      "id": "eco-drugi-transferi-neto",
+      "nameBg": "Други трансфери - нето",
+      "nameEn": "",
+      "parentId": "eco-expenditure"
+    },
+    {
+      "dimension": "economic",
+      "history": [
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "ДВУ, БАН, ССА, БНТ, БНР и БТА",
+          "sourceName": "ДВУ, БАН, ССА, БНТ, БНР и БТА"
+        },
+        {
+          "fiscalYear": 2026,
+          "sourceCode": "ДВУ, БАН, ССА, БНТ, БНР и БТА",
+          "sourceName": "ДВУ, БАН, ССА, БНТ, БНР и БТА"
+        }
+      ],
+      "id": "eco-dvu-ban-ssa-bnt-bnr-i-bta",
+      "nameBg": "ДВУ, БАН, ССА, БНТ, БНР и БТА",
+      "nameEn": "",
+      "parentId": "eco-expenditure"
+    },
+    {
+      "dimension": "economic",
+      "history": [
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "III. ВНОСКА В ОБЩИЯ БЮДЖЕТ НА ЕС",
+          "sourceName": "III. ВНОСКА В ОБЩИЯ БЮДЖЕТ НА ЕС"
+        },
+        {
+          "fiscalYear": 2026,
+          "sourceCode": "III. ВНОСКА В ОБЩИЯ БЮДЖЕТ НА ЕС",
+          "sourceName": "III. ВНОСКА В ОБЩИЯ БЮДЖЕТ НА ЕС"
+        }
+      ],
+      "id": "eco-eucontribution",
+      "nameBg": "III. ВНОСКА В ОБЩИЯ БЮДЖЕТ НА ЕС",
+      "nameEn": "",
+      "parentId": null
+    },
+    {
+      "dimension": "economic",
+      "history": [
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "II.  РАЗХОДИ И ТРАНСФЕРИ",
+          "sourceName": "II.  РАЗХОДИ И ТРАНСФЕРИ"
+        },
+        {
+          "fiscalYear": 2026,
+          "sourceCode": "II.  РАЗХОДИ И ТРАНСФЕРИ",
+          "sourceName": "II.  РАЗХОДИ И ТРАНСФЕРИ"
+        }
+      ],
+      "id": "eco-expenditure",
+      "nameBg": "II.  РАЗХОДИ И ТРАНСФЕРИ",
+      "nameEn": "",
+      "parentId": null
+    },
+    {
+      "dimension": "economic",
+      "history": [
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "V. ФИНАНСИРАНЕ",
+          "sourceName": "V. ФИНАНСИРАНЕ"
+        },
+        {
+          "fiscalYear": 2026,
+          "sourceCode": "V. ФИНАНСИРАНЕ",
+          "sourceName": "V. ФИНАНСИРАНЕ"
+        }
+      ],
+      "id": "eco-financing",
+      "nameBg": "V. ФИНАНСИРАНЕ",
+      "nameEn": "",
+      "parentId": null
+    },
+    {
+      "dimension": "economic",
+      "history": [
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Глоби, санкции и наказателни лихви",
+          "sourceName": "Глоби, санкции и наказателни лихви"
+        },
+        {
+          "fiscalYear": 2026,
+          "sourceCode": "Глоби, санкции и наказателни лихви",
+          "sourceName": "Глоби, санкции и наказателни лихви"
+        }
+      ],
+      "id": "eco-globi-sanktsii-i-nakazatelni-lihvi",
+      "nameBg": "Глоби, санкции и наказателни лихви",
+      "nameEn": "",
+      "parentId": "eco-revenue"
+    },
+    {
+      "dimension": "economic",
+      "history": [
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "и възмездни  средства (нето)",
+          "sourceName": "и възмездни  средства (нето)"
+        },
+        {
+          "fiscalYear": 2026,
+          "sourceCode": "и възмездни  средства (нето)",
+          "sourceName": "и възмездни  средства (нето)"
+        }
+      ],
+      "id": "eco-i-vazmezdni-sredstva-neto",
+      "nameBg": "и възмездни  средства (нето)",
+      "nameEn": "",
+      "parentId": "eco-financing"
+    },
+    {
+      "dimension": "economic",
+      "history": [
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Издръжка",
+          "sourceName": "Издръжка"
+        },
+        {
+          "fiscalYear": 2026,
+          "sourceCode": "Издръжка",
+          "sourceName": "Издръжка"
+        }
+      ],
+      "id": "eco-izdrazhka",
+      "nameBg": "Издръжка",
+      "nameEn": "",
+      "parentId": "eco-expenditure"
+    },
+    {
+      "dimension": "economic",
+      "history": [
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Капиталови разходи",
+          "sourceName": "Капиталови разходи"
+        },
+        {
+          "fiscalYear": 2026,
+          "sourceCode": "Капиталови разходи",
+          "sourceName": "Капиталови разходи"
+        }
+      ],
+      "id": "eco-kapitalovi-razhodi",
+      "nameBg": "Капиталови разходи",
+      "nameEn": "",
+      "parentId": "eco-expenditure"
+    },
+    {
+      "dimension": "economic",
+      "history": [
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Корпоративен данък",
+          "sourceName": "Корпоративен данък"
+        },
+        {
+          "fiscalYear": 2026,
+          "sourceCode": "Корпоративен данък",
+          "sourceName": "Корпоративен данък"
+        }
+      ],
+      "id": "eco-korporativen-danak",
+      "nameBg": "Корпоративен данък",
+      "nameEn": "",
+      "parentId": "eco-revenue"
+    },
+    {
+      "dimension": "economic",
+      "history": [
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Лихви - общо",
+          "sourceName": "Лихви - общо"
+        },
+        {
+          "fiscalYear": 2026,
+          "sourceCode": "Лихви - общо",
+          "sourceName": "Лихви - общо"
+        }
+      ],
+      "id": "eco-lihvi-obshto",
+      "nameBg": "Лихви - общо",
+      "nameEn": "",
+      "parentId": "eco-expenditure"
+    },
+    {
+      "dimension": "economic",
+      "history": [
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Лихви по външни заеми",
+          "sourceName": "Лихви по външни заеми"
+        },
+        {
+          "fiscalYear": 2026,
+          "sourceCode": "Лихви по външни заеми",
+          "sourceName": "Лихви по външни заеми"
+        }
+      ],
+      "id": "eco-lihvi-po-vanshni-zaemi",
+      "nameBg": "Лихви по външни заеми",
+      "nameEn": "",
+      "parentId": "eco-expenditure"
+    },
+    {
+      "dimension": "economic",
+      "history": [
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Лихви по вътрешни заеми",
+          "sourceName": "Лихви по вътрешни заеми"
+        },
+        {
+          "fiscalYear": 2026,
+          "sourceCode": "Лихви по вътрешни заеми",
+          "sourceName": "Лихви по вътрешни заеми"
+        }
+      ],
+      "id": "eco-lihvi-po-vatreshni-zaemi",
+      "nameBg": "Лихви по вътрешни заеми",
+      "nameEn": "",
+      "parentId": "eco-expenditure"
+    },
+    {
+      "dimension": "economic",
+      "history": [
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Мита и митнически такси",
+          "sourceName": "Мита и митнически такси"
+        },
+        {
+          "fiscalYear": 2026,
+          "sourceCode": "Мита и митнически такси",
+          "sourceName": "Мита и митнически такси"
+        }
+      ],
+      "id": "eco-mita-i-mitnicheski-taksi",
+      "nameBg": "Мита и митнически такси",
+      "nameEn": "",
+      "parentId": "eco-revenue"
+    },
+    {
+      "dimension": "economic",
+      "history": [
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Небанково (нето)",
+          "sourceName": "Небанково (нето)"
+        },
+        {
+          "fiscalYear": 2026,
+          "sourceCode": "Небанково (нето)",
+          "sourceName": "Небанково (нето)"
+        }
+      ],
+      "id": "eco-nebankovo-neto",
+      "nameBg": "Небанково (нето)",
+      "nameEn": "",
+      "parentId": "eco-financing"
+    },
+    {
+      "dimension": "economic",
+      "history": [
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Неданъчни приходи",
+          "sourceName": "Неданъчни приходи"
+        },
+        {
+          "fiscalYear": 2026,
+          "sourceCode": "Неданъчни приходи",
+          "sourceName": "Неданъчни приходи"
+        }
+      ],
+      "id": "eco-nedanachni-prihodi",
+      "nameBg": "Неданъчни приходи",
+      "nameEn": "",
+      "parentId": "eco-revenue"
+    },
+    {
+      "dimension": "economic",
+      "history": [
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Общини",
+          "sourceName": "Общини"
+        },
+        {
+          "fiscalYear": 2026,
+          "sourceCode": "Общини",
+          "sourceName": "Общини"
+        }
+      ],
+      "id": "eco-obshtini",
+      "nameBg": "Общини",
+      "nameEn": "",
+      "parentId": "eco-expenditure"
+    },
+    {
+      "dimension": "economic",
+      "history": [
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Общини",
+          "sourceName": "Общини"
+        },
+        {
+          "fiscalYear": 2026,
+          "sourceCode": "Общини",
+          "sourceName": "Общини"
+        }
+      ],
+      "id": "eco-obshtini-2",
+      "nameBg": "Общини",
+      "nameEn": "",
+      "parentId": "eco-expenditure"
+    },
+    {
+      "dimension": "economic",
+      "history": [
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Персонал",
+          "sourceName": "Персонал"
+        },
+        {
+          "fiscalYear": 2026,
+          "sourceCode": "Персонал",
+          "sourceName": "Персонал"
+        }
+      ],
+      "id": "eco-personal",
+      "nameBg": "Персонал",
+      "nameEn": "",
+      "parentId": "eco-expenditure"
+    },
+    {
+      "dimension": "economic",
+      "history": [
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Получени от:",
+          "sourceName": "Получени от:"
+        }
+      ],
+      "id": "eco-polucheni-ot",
+      "nameBg": "Получени от:",
+      "nameEn": "",
+      "parentId": "eco-expenditure"
+    },
+    {
+      "dimension": "economic",
+      "history": [
+        {
+          "fiscalYear": 2026,
+          "sourceCode": "Получени трансфери",
+          "sourceName": "Получени трансфери"
+        }
+      ],
+      "id": "eco-polucheni-transferi",
+      "nameBg": "Получени трансфери",
+      "nameEn": "",
+      "parentId": "eco-expenditure"
+    },
+    {
+      "dimension": "economic",
+      "history": [
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Помощи",
+          "sourceName": "Помощи"
+        },
+        {
+          "fiscalYear": 2026,
+          "sourceCode": "Помощи",
+          "sourceName": "Помощи"
+        }
+      ],
+      "id": "eco-pomoshti",
+      "nameBg": "Помощи",
+      "nameEn": "",
+      "parentId": "eco-revenue"
+    },
+    {
+      "dimension": "economic",
+      "history": [
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Предоставени на:",
+          "sourceName": "Предоставени на:"
+        }
+      ],
+      "id": "eco-predostaveni-na",
+      "nameBg": "Предоставени на:",
+      "nameEn": "",
+      "parentId": "eco-expenditure"
+    },
+    {
+      "dimension": "economic",
+      "history": [
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Предоставени текущи и капиталови трансфери за чужбина",
+          "sourceName": "Предоставени текущи и капиталови трансфери за чужбина"
+        },
+        {
+          "fiscalYear": 2026,
+          "sourceCode": "Предоставени текущи и капиталови трансфери за чужбина",
+          "sourceName": "Предоставени текущи и капиталови трансфери за чужбина"
+        }
+      ],
+      "id": "eco-predostaveni-tekushti-i-kapitalovi-transferi-za-chuzhbina",
+      "nameBg": "Предоставени текущи и капиталови трансфери за чужбина",
+      "nameEn": "",
+      "parentId": "eco-expenditure"
+    },
+    {
+      "dimension": "economic",
+      "history": [
+        {
+          "fiscalYear": 2026,
+          "sourceCode": "Предоставени трансфери",
+          "sourceName": "Предоставени трансфери"
+        }
+      ],
+      "id": "eco-predostaveni-transferi",
+      "nameBg": "Предоставени трансфери",
+      "nameEn": "",
+      "parentId": "eco-expenditure"
+    },
+    {
+      "dimension": "economic",
+      "history": [
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Превишение на приходите над разходите на БНБ",
+          "sourceName": "Превишение на приходите над разходите на БНБ"
+        },
+        {
+          "fiscalYear": 2026,
+          "sourceCode": "Превишение на приходите над разходите на БНБ",
+          "sourceName": "Превишение на приходите над разходите на БНБ"
+        }
+      ],
+      "id": "eco-previshenie-na-prihodite-nad-razhodite-na-bnb",
+      "nameBg": "Превишение на приходите над разходите на БНБ",
+      "nameEn": "",
+      "parentId": "eco-revenue"
+    },
+    {
+      "dimension": "economic",
+      "history": [
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Приходи и доходи  от собственост",
+          "sourceName": "Приходи и доходи  от собственост"
+        },
+        {
+          "fiscalYear": 2026,
+          "sourceCode": "Приходи и доходи  от собственост",
+          "sourceName": "Приходи и доходи  от собственост"
+        }
+      ],
+      "id": "eco-prihodi-i-dohodi-ot-sobstvenost",
+      "nameBg": "Приходи и доходи  от собственост",
+      "nameEn": "",
+      "parentId": "eco-revenue"
+    },
+    {
+      "dimension": "economic",
+      "history": [
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Приходи от такси",
+          "sourceName": "Приходи от такси"
+        },
+        {
+          "fiscalYear": 2026,
+          "sourceCode": "Приходи от такси",
+          "sourceName": "Приходи от такси"
+        }
+      ],
+      "id": "eco-prihodi-ot-taksi",
+      "nameBg": "Приходи от такси",
+      "nameEn": "",
+      "parentId": "eco-revenue"
+    },
+    {
+      "dimension": "economic",
+      "history": [
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Прираст на държавния резерв - нето",
+          "sourceName": "Прираст на държавния резерв - нето"
+        },
+        {
+          "fiscalYear": 2026,
+          "sourceCode": "Прираст на държавния резерв - нето",
+          "sourceName": "Прираст на държавния резерв - нето"
+        }
+      ],
+      "id": "eco-prirast-na-darzhavniya-rezerv-neto",
+      "nameBg": "Прираст на държавния резерв - нето",
+      "nameEn": "",
+      "parentId": "eco-expenditure"
+    },
+    {
+      "dimension": "economic",
+      "history": [
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Приватизация, придобиване на дялове и акции,",
+          "sourceName": "Приватизация, придобиване на дялове и акции,"
+        },
+        {
+          "fiscalYear": 2026,
+          "sourceCode": "Приватизация, придобиване на дялове и акции,",
+          "sourceName": "Приватизация, придобиване на дялове и акции,"
+        }
+      ],
+      "id": "eco-privatizatsiya-pridobivane-na-dyalove-i-aktsii",
+      "nameBg": "Приватизация, придобиване на дялове и акции,",
+      "nameEn": "",
+      "parentId": "eco-financing"
+    },
+    {
+      "dimension": "economic",
+      "history": [
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Разходи",
+          "sourceName": "Разходи"
+        },
+        {
+          "fiscalYear": 2026,
+          "sourceCode": "Разходи",
+          "sourceName": "Разходи"
+        }
+      ],
+      "id": "eco-razhodi",
+      "nameBg": "Разходи",
+      "nameEn": "",
+      "parentId": "eco-expenditure"
+    },
+    {
+      "dimension": "economic",
+      "history": [
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "I. ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ",
+          "sourceName": "I. ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ"
+        },
+        {
+          "fiscalYear": 2026,
+          "sourceCode": "I. ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ",
+          "sourceName": "I. ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ"
+        }
+      ],
+      "id": "eco-revenue",
+      "nameBg": "I. ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ",
+      "nameEn": "",
+      "parentId": null
+    },
+    {
+      "dimension": "economic",
+      "history": [
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Резерв за непредвидени и/или неотложни разходи:",
+          "sourceName": "Резерв за непредвидени и/или неотложни разходи:"
+        },
+        {
+          "fiscalYear": 2026,
+          "sourceCode": "Резерв за непредвидени и/или неотложни разходи:",
+          "sourceName": "Резерв за непредвидени и/или неотложни разходи:"
+        }
+      ],
+      "id": "eco-rezerv-za-nepredvideni-i-ili-neotlozhni-razhodi",
+      "nameBg": "Резерв за непредвидени и/или неотложни разходи:",
+      "nameEn": "",
+      "parentId": "eco-expenditure"
+    },
+    {
+      "dimension": "economic",
+      "history": [
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Социални разходи, стипендии",
+          "sourceName": "Социални разходи, стипендии"
+        },
+        {
+          "fiscalYear": 2026,
+          "sourceCode": "Социални разходи, стипендии",
+          "sourceName": "Социални разходи, стипендии"
+        }
+      ],
+      "id": "eco-sotsialni-razhodi-stipendii",
+      "nameBg": "Социални разходи, стипендии",
+      "nameEn": "",
+      "parentId": "eco-expenditure"
+    },
+    {
+      "dimension": "economic",
+      "history": [
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Социалноосигурителни фондове",
+          "sourceName": "Социалноосигурителни фондове"
+        },
+        {
+          "fiscalYear": 2026,
+          "sourceCode": "Социалноосигурителни фондове",
+          "sourceName": "Социалноосигурителни фондове"
+        }
+      ],
+      "id": "eco-sotsialnoosiguritelni-fondove",
+      "nameBg": "Социалноосигурителни фондове",
+      "nameEn": "",
+      "parentId": "eco-expenditure"
+    },
+    {
+      "dimension": "economic",
+      "history": [
+        {
+          "fiscalYear": 2026,
+          "sourceCode": "Социалноосигурителни фондове",
+          "sourceName": "Социалноосигурителни фондове"
+        }
+      ],
+      "id": "eco-sotsialnoosiguritelni-fondove-2",
+      "nameBg": "Социалноосигурителни фондове",
+      "nameEn": "",
+      "parentId": "eco-expenditure"
+    },
+    {
+      "dimension": "economic",
+      "history": [
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Субсидии",
+          "sourceName": "Субсидии"
+        },
+        {
+          "fiscalYear": 2026,
+          "sourceCode": "Субсидии",
+          "sourceName": "Субсидии"
+        }
+      ],
+      "id": "eco-subsidii",
+      "nameBg": "Субсидии",
+      "nameEn": "",
+      "parentId": "eco-expenditure"
+    },
+    {
+      "dimension": "economic",
+      "history": [
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Трансфери (нето)",
+          "sourceName": "Трансфери (нето)"
+        },
+        {
+          "fiscalYear": 2026,
+          "sourceCode": "Трансфери (нето)",
+          "sourceName": "Трансфери (нето)"
+        }
+      ],
+      "id": "eco-transferi-neto",
+      "nameBg": "Трансфери (нето)",
+      "nameEn": "",
+      "parentId": "eco-expenditure"
+    },
+    {
+      "dimension": "economic",
+      "history": [
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "в т.ч.: приватизация на дялове, акции и участия",
+          "sourceName": "в т.ч.: приватизация на дялове, акции и участия"
+        },
+        {
+          "fiscalYear": 2026,
+          "sourceCode": "в т.ч.: приватизация на дялове, акции и участия",
+          "sourceName": "в т.ч.: приватизация на дялове, акции и участия"
+        }
+      ],
+      "id": "eco-v-t-ch-privatizatsiya-na-dyalove-aktsii-i-uchastiya",
+      "nameBg": "в т.ч.: приватизация на дялове, акции и участия",
+      "nameEn": "",
+      "parentId": "eco-financing"
+    },
+    {
+      "dimension": "economic",
+      "history": [
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Външно финансиране  (нето)",
+          "sourceName": "Външно финансиране  (нето)"
+        },
+        {
+          "fiscalYear": 2026,
+          "sourceCode": "Външно финансиране  (нето)",
+          "sourceName": "Външно финансиране  (нето)"
+        }
+      ],
+      "id": "eco-vanshno-finansirane-neto",
+      "nameBg": "Външно финансиране  (нето)",
+      "nameEn": "",
+      "parentId": "eco-financing"
+    },
+    {
+      "dimension": "economic",
+      "history": [
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Вътрешно финансиране  (нето)",
+          "sourceName": "Вътрешно финансиране  (нето)"
+        },
+        {
+          "fiscalYear": 2026,
+          "sourceCode": "Вътрешно финансиране  (нето)",
+          "sourceName": "Вътрешно финансиране  (нето)"
+        }
+      ],
+      "id": "eco-vatreshno-finansirane-neto",
+      "nameBg": "Вътрешно финансиране  (нето)",
+      "nameEn": "",
+      "parentId": "eco-financing"
+    },
+    {
+      "dimension": "economic",
+      "history": [
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Заеми и дълг, поет на межд. капит. пазари (нето)",
+          "sourceName": "Заеми и дълг, поет на межд. капит. пазари (нето)"
+        },
+        {
+          "fiscalYear": 2026,
+          "sourceCode": "Заеми и дълг, поет на межд. капит. пазари (нето)",
+          "sourceName": "Заеми и дълг, поет на межд. капит. пазари (нето)"
+        }
+      ],
+      "id": "eco-zaemi-i-dalg-poet-na-mezhd-kapit-pazari-neto",
+      "nameBg": "Заеми и дълг, поет на межд. капит. пазари (нето)",
+      "nameEn": "",
+      "parentId": "eco-financing"
+    }
+  ]
 }

@@ -60,3 +60,71 @@ export const buildAdminReconciliation = (
       : a.nodeId.localeCompare(b.nodeId),
   );
 };
+
+// Build the economic-dimension reconciliation for one fiscal year. The egov
+// feed carries both a plan ("Закон") and an execution ("Изпълнение") column,
+// so — for a complete year — every economic node gets a real plan-vs-actual
+// pair and a computed variance. `completeness` is "exact" when both stages are
+// present, "missing" when one is absent (e.g. the post-euro 2026 feed has no
+// plan column).
+export const buildEconomicReconciliation = (
+  fiscalYear: number,
+  economicFacts: BudgetFact[],
+  registry: ClassificationRegistry,
+): ReconciliationRow[] => {
+  // Group the law + execution facts by (economic node, kind).
+  const groups = new Map<
+    string,
+    {
+      nodeId: string;
+      kind: BudgetFact["kind"];
+      planned: BudgetFact["money"] | null;
+      executed: BudgetFact["money"] | null;
+    }
+  >();
+  for (const fact of economicFacts) {
+    const nodeId = fact.classification.economic;
+    if (!nodeId || !fact.grain.includes("economic")) continue;
+    const key = `${nodeId}|${fact.kind}`;
+    let g = groups.get(key);
+    if (!g) {
+      g = { nodeId, kind: fact.kind, planned: null, executed: null };
+      groups.set(key, g);
+    }
+    if (fact.version.stage === "law") g.planned = fact.money;
+    if (fact.version.stage === "execution") g.executed = fact.money;
+  }
+
+  const rows: ReconciliationRow[] = [];
+  for (const g of groups.values()) {
+    const { nameBg, nameEn } = nodeName(registry, g.nodeId);
+    const varianceEur =
+      g.planned && g.executed
+        ? g.executed.amountEur - g.planned.amountEur
+        : null;
+    const variancePct =
+      varianceEur != null && g.planned && g.planned.amountEur !== 0
+        ? (varianceEur / Math.abs(g.planned.amountEur)) * 100
+        : null;
+    rows.push({
+      fiscalYear,
+      dimension: "economic",
+      nodeId: g.nodeId,
+      nodeNameBg: nameBg,
+      nodeNameEn: nameEn,
+      kind: g.kind,
+      planned: g.planned,
+      amendmentTrail: [],
+      amended: null,
+      executed: g.executed,
+      varianceEur,
+      variancePct,
+      completeness: g.planned && g.executed ? "exact" : "missing",
+    });
+  }
+  return rows.sort((a, b) =>
+    a.nodeId === b.nodeId
+      ? a.kind.localeCompare(b.kind)
+      : a.nodeId.localeCompare(b.nodeId),
+  );
+};

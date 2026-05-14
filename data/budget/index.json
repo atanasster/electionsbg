@@ -107,7 +107,7 @@
       "projectionBasis": null
     }
   ],
-  "generatedAt": "2026-05-14T15:29:56.545Z",
+  "generatedAt": "2026-05-14T15:45:57.939Z",
   "kfp": {
     "cadences": [
       "monthly"
@@ -116,7 +116,7 @@
     "lastPeriod": "2026-03",
     "observationCount": 50
   },
-  "lastIngest": "2026-05-14T15:29:56.545Z",
+  "lastIngest": "2026-05-14T15:45:57.939Z",
   "years": [
     {
       "dimensions": {
@@ -130,7 +130,8 @@
     },
     {
       "dimensions": {
-        "admin": true
+        "admin": true,
+        "economic": true
       },
       "fiscalYear": 2025,
       "kfpPeriods": [
@@ -148,6 +149,9 @@
       ]
     },
     {
+      "dimensions": {
+        "economic": true
+      },
       "fiscalYear": 2026,
       "kfpPeriods": [
         "2026-01",
