@@ -292,12 +292,12 @@ export const BudgetScreen: FC = () => {
 
         <BudgetTrendTile observations={scopedObservations} />
 
-        <div className="grid gap-4 xl:grid-cols-2">
+        <div className="grid gap-4 grid-cols-1 xl:grid-cols-2">
           <BudgetVarianceTile fiscalYear={summary.fiscalYear} />
           <BudgetMinistriesTile fiscalYear={summary.fiscalYear} />
         </div>
 
-        <div className="grid gap-4 xl:grid-cols-2">
+        <div className="grid gap-4 grid-cols-1 xl:grid-cols-2">
           {snapshot ? <BudgetBreakdownTile snapshot={snapshot} /> : null}
           <BudgetJourneyTile documents={scopedDocuments} index={index} />
         </div>
