@@ -19,6 +19,7 @@ import {
 } from "./jsonLd";
 import {
   loadCandidateCardData,
+  loadEnPartyNames,
   type CandidateCardData,
 } from "../og/candidateData";
 import {
@@ -569,11 +570,18 @@ export const buildSectionsListRoutes = (
 };
 
 type CandidateAggregate = {
-  parties: Set<string>;
+  parties: Set<string>; // Bulgarian party labels
+  partiesEn: Set<string>; // English party labels (same order of discovery)
   elections: Set<string>;
   // Per-election entries — used to render a "Кандидатствания" history table.
   // A candidate may run on multiple lists in one cycle (rare); keep all rows.
-  history: Array<{ folder: string; partyLabel: string; oblast: string }>;
+  // partyLabel is BG (also the /party/ route slug); partyLabelEn is display-only.
+  history: Array<{
+    folder: string;
+    partyLabel: string;
+    partyLabelEn: string;
+    oblast: string;
+  }>;
 };
 
 type MpIndexEntry = {
@@ -692,12 +700,12 @@ const buildCandidateFaqEn = (
     });
     items.push({
       question: `Which party did ${name} run for?`,
-      answer: `In the ${formatElectionDateEn(f.electionDate)} election, ${name} ran on the ${f.party.name} (${f.party.nickName}) list.`,
+      answer: `In the ${formatElectionDateEn(f.electionDate)} election, ${name} ran on the ${f.party.nameEn} (${f.party.nickNameEn}) list.`,
     });
   } else if (card.candidacy) {
     items.push({
       question: `Which party did ${name} run for?`,
-      answer: `${name} ran on the ${card.candidacy.partyNickName ?? `№${card.candidacy.partyNum}`} list in ${card.candidacy.oblastName}.`,
+      answer: `${name} ran on the ${card.candidacy.partyNickNameEn ?? card.candidacy.partyNickName ?? `№${card.candidacy.partyNum}`} list in ${card.candidacy.oblastName}.`,
     });
   }
   items.push({
@@ -776,11 +784,16 @@ const fmtEnDate = (iso: string | null | undefined): string | null => {
 const buildCandidateBodyEn = (
   nameBg: string,
   nameEn: string,
-  partyLabels: string[],
+  partyLabelsEn: string[],
   yearSpan: string,
   indexEntry: MpIndexEntry | undefined,
   profile: RawMpProfile | null,
-  history: Array<{ folder: string; partyLabel: string; oblast: string }>,
+  history: Array<{
+    folder: string;
+    partyLabel: string;
+    partyLabelEn: string;
+    oblast: string;
+  }>,
   oblastNamesEn: Map<string, string>,
   cardData: CandidateCardData | undefined,
 ): string => {
@@ -793,15 +806,17 @@ const buildCandidateBodyEn = (
     headline.push(
       `Member of Parliament for ${escapeHtmlSimple(indexEntry.currentRegion.name)}`,
     );
-  } else if (partyLabels.length) {
+  } else if (partyLabelsEn.length) {
     headline.push(
       `candidate for the National Assembly${yearSpan ? ` (${yearSpan})` : ""}`,
     );
   }
   if (indexEntry?.currentPartyGroup) {
+    // The parliamentary-group name has no EN form in parliament/index.json,
+    // so it stays in BG.
     headline.push(escapeHtmlSimple(indexEntry.currentPartyGroup));
-  } else if (partyLabels.length) {
-    headline.push(`from ${escapeHtmlSimple(partyLabels.join(", "))}`);
+  } else if (partyLabelsEn.length) {
+    headline.push(`from ${escapeHtmlSimple(partyLabelsEn.join(", "))}`);
   }
   if (headline.length) parts.push(`<p>${headline.join(" · ")}.</p>`);
 
@@ -861,9 +876,10 @@ const buildCandidateBodyEn = (
       // for an EN audience we render the ISO-like form.
       const m = /^(\d{4})_(\d{2})_(\d{2})$/.exec(h.folder);
       const dateLabel = m ? `${m[3]}.${m[2]}.${m[1]}` : h.folder;
+      // The /party/ route slug is the BG nickname; only the label is EN.
       const partyCell = h.partyLabel.startsWith("№")
-        ? escapeHtmlSimple(h.partyLabel)
-        : `<a href="${SITE_URL}/en/party/${encodeURIComponent(h.partyLabel)}">${escapeHtmlSimple(h.partyLabel)}</a>`;
+        ? escapeHtmlSimple(h.partyLabelEn)
+        : `<a href="${SITE_URL}/en/party/${encodeURIComponent(h.partyLabel)}">${escapeHtmlSimple(h.partyLabelEn)}</a>`;
       const oblastLabel = h.oblast
         ? (oblastNamesEn.get(h.oblast) ?? h.oblast)
         : "";
@@ -1054,6 +1070,10 @@ export const buildCandidateRoutes = (
     }
   };
 
+  // English party names per "{election}|{partyNum}" — cik_parties.json is
+  // BG-only, so the EN labels come from canonical_parties.json.
+  const enParties = loadEnPartyNames(path.dirname(publicFolder));
+
   const byName = new Map<string, CandidateAggregate>();
   for (const folder of electionFolders) {
     const candFile = path.join(publicFolder, folder, "candidates.json");
@@ -1069,19 +1089,34 @@ export const buildCandidateRoutes = (
       if (!c.name) continue;
       let agg = byName.get(c.name);
       if (!agg) {
-        agg = { parties: new Set(), elections: new Set(), history: [] };
+        agg = {
+          parties: new Set(),
+          partiesEn: new Set(),
+          elections: new Set(),
+          history: [],
+        };
         byName.set(c.name, agg);
       }
       agg.elections.add(folder);
       const partyLabel = partyMap?.get(c.partyNum) ?? `№${c.partyNum}`;
-      if (partyMap?.get(c.partyNum)) agg.parties.add(partyLabel);
+      const partyLabelEn =
+        enParties.get(`${folder}|${c.partyNum}`)?.nickNameEn ?? partyLabel;
+      if (partyMap?.get(c.partyNum)) {
+        agg.parties.add(partyLabel);
+        agg.partiesEn.add(partyLabelEn);
+      }
       const key = `${folder}|${partyLabel}|${c.oblast ?? ""}`;
       if (
         !agg.history.some(
           (h) => `${h.folder}|${h.partyLabel}|${h.oblast}` === key,
         )
       ) {
-        agg.history.push({ folder, partyLabel, oblast: c.oblast ?? "" });
+        agg.history.push({
+          folder,
+          partyLabel,
+          partyLabelEn,
+          oblast: c.oblast ?? "",
+        });
       }
     }
   }
@@ -1104,8 +1139,12 @@ export const buildCandidateRoutes = (
         ? `${earliestYear}–${latestYear}`
         : (latestYear ?? "");
     const partyLabels = Array.from(agg.parties);
+    const partyLabelsEn = Array.from(agg.partiesEn);
     const partyClause = partyLabels.length
       ? ` от ${partyLabels.join(", ")}`
+      : "";
+    const partyClauseEn = partyLabelsEn.length
+      ? ` from ${partyLabelsEn.join(", ")}`
       : "";
 
     const indexEntry = mpByName.get(normalizeName(name));
@@ -1137,9 +1176,6 @@ export const buildCandidateRoutes = (
         ? "Member of Parliament"
         : "Former Member of Parliament"
       : "Parliamentary candidate";
-    const partyClauseEn = partyLabels.length
-      ? ` from ${partyLabels.join(", ")}`
-      : "";
     const descRoleEn = isMp
       ? `${titleRoleEn}${indexEntry.currentPartyGroup ? ` from ${indexEntry.currentPartyGroup}` : partyClauseEn}`
       : `${titleRoleEn}${partyClauseEn}`;
@@ -1190,7 +1226,7 @@ export const buildCandidateRoutes = (
         ? buildPersonLd({
             name: nameEn,
             url: enUrl,
-            affiliations: partyLabels,
+            affiliations: partyLabelsEn,
             givenName: profile?.A_ns_MPL_Name1,
             additionalName: profile?.A_ns_MPL_Name2,
             familyName: profile?.A_ns_MPL_Name3,
@@ -1262,7 +1298,7 @@ export const buildCandidateRoutes = (
         bodyHtml: buildCandidateBodyEn(
           name,
           nameEn,
-          partyLabels,
+          partyLabelsEn,
           yearSpan,
           indexEntry,
           profile,

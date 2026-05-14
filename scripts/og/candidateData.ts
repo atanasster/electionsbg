@@ -48,7 +48,14 @@ export type CandidateFacts = {
   topOblastName: string; // Bulgarian display name, e.g. "Бургас"
   topOblastNameEn: string; // English display name, e.g. "Burgas"
   topOblastPreferences: number;
-  party: { number: number; name: string; nickName: string; color: string };
+  party: {
+    number: number;
+    name: string; // Bulgarian full name, e.g. "ПРОГРЕСИВНА БЪЛГАРИЯ"
+    nameEn: string; // English full name, e.g. "Progressive Bulgaria"
+    nickName: string; // Bulgarian short name, e.g. "ПрБ"
+    nickNameEn: string; // English short name, e.g. "PB"
+    color: string;
+  };
 };
 
 export type CandidateCardData = {
@@ -66,6 +73,7 @@ export type CandidateCardData = {
   candidacy?: {
     partyNum: number;
     partyNickName?: string;
+    partyNickNameEn?: string;
     partyColor?: string;
     oblast: string;
     oblastName: string;
@@ -123,6 +131,40 @@ const readJson = <T>(file: string): T | null => {
   }
 };
 
+// English party names live in canonical_parties.json, not in the per-election
+// cik_parties.json / preferences_stats.json (those are BG-only). Keyed by
+// "{election}|{partyNum}" since the same party sits at a different ballot
+// number each election.
+export type EnPartyName = { nameEn: string; nickNameEn: string };
+
+export const loadEnPartyNames = (
+  projectRoot: string,
+): Map<string, EnPartyName> => {
+  const canonical = readJson<{
+    parties: Array<{
+      displayNameEn?: string;
+      history?: Array<{
+        election: string;
+        partyNum: number;
+        nameEn?: string;
+      }>;
+    }>;
+  }>(path.join(projectRoot, "data", "canonical_parties.json"));
+  const map = new Map<string, EnPartyName>();
+  for (const p of canonical?.parties ?? []) {
+    for (const h of p.history ?? []) {
+      const key = `${h.election}|${h.partyNum}`;
+      if (h.nameEn && !map.has(key)) {
+        map.set(key, {
+          nameEn: h.nameEn,
+          nickNameEn: p.displayNameEn || h.nameEn,
+        });
+      }
+    }
+  }
+  return map;
+};
+
 // Finds the candidate's preferences_stats.json (it lives under whichever
 // election folder they last ran in) and reduces it to the most-recent
 // election that actually has preference results.
@@ -130,6 +172,7 @@ const computeFacts = (
   prefStatsFile: string,
   oblastNames: Map<string, string>,
   oblastNamesEn: Map<string, string>,
+  enParties: Map<string, EnPartyName>,
 ): CandidateFacts | null => {
   const data = readJson<RawPrefStats>(prefStatsFile);
   if (!data?.stats) return null;
@@ -146,6 +189,7 @@ const computeFacts = (
     total += v;
     if (v > (top.preferences ?? 0)) top = p;
   }
+  const en = enParties.get(`${entry.elections_date}|${entry.party.number}`);
   return {
     electionDate: entry.elections_date,
     totalPreferences: total,
@@ -153,7 +197,14 @@ const computeFacts = (
     topOblastName: oblastNames.get(top.oblast) ?? top.oblast,
     topOblastNameEn: oblastNamesEn.get(top.oblast) ?? top.oblast,
     topOblastPreferences: top.preferences ?? 0,
-    party: entry.party,
+    party: {
+      number: entry.party.number,
+      name: entry.party.name,
+      nameEn: en?.nameEn ?? entry.party.name,
+      nickName: entry.party.nickName,
+      nickNameEn: en?.nickNameEn ?? entry.party.nickName,
+      color: entry.party.color,
+    },
   };
 };
 
@@ -207,6 +258,8 @@ export const loadCandidateCardData = (
     }
   }
 
+  const enParties = loadEnPartyNames(projectRoot);
+
   const factsFor = (name: string): CandidateFacts | null => {
     const folder = newestFolderByName.get(name);
     if (!folder) return null;
@@ -220,6 +273,7 @@ export const loadCandidateCardData = (
       ),
       oblastNames,
       oblastNamesEn,
+      enParties,
     );
   };
 
@@ -241,6 +295,7 @@ export const loadCandidateCardData = (
     const key = normalizeName(c.name);
     if (byNormalizedName.has(key)) continue; // first row wins (same person, two lists is rare)
     const party = partyByNum.get(c.partyNum);
+    const enParty = enParties.get(`${latestElection}|${c.partyNum}`);
     byNormalizedName.set(key, {
       name: c.name,
       nameEn: c.name_en ?? c.name,
@@ -248,6 +303,7 @@ export const loadCandidateCardData = (
       candidacy: {
         partyNum: c.partyNum,
         partyNickName: party?.nickName,
+        partyNickNameEn: enParty?.nickNameEn,
         partyColor: party?.color,
         oblast: c.oblast,
         oblastName: oblastNames.get(c.oblast) ?? c.oblast,
