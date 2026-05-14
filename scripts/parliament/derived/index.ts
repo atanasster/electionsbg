@@ -18,6 +18,7 @@ import { computeSimilarity } from "./similarity";
 import { computeCohesion } from "./cohesion";
 import { computeEmbedding } from "./embedding";
 import { computePartyCorrelation } from "./party_correlation";
+import { dedupeRevotes } from "./dedupe";
 import type { SessionFile } from "./types";
 import { uploadText } from "../../lib/upload";
 
@@ -64,11 +65,20 @@ const groupByNs = (sessions: SessionFile[]): Map<string, SessionFile[]> => {
 };
 
 const main = async (args: { upload: boolean }): Promise<void> => {
-  const sessions = readAllSessions();
-  if (sessions.length === 0) {
+  const rawSessions = readAllSessions();
+  if (rawSessions.length === 0) {
     console.log("✓ no sessions yet; nothing to derive");
     return;
   }
+
+  // Collapse re-votes (an item and its "прегласуване", or a verbatim repeat)
+  // so a decision voted N times in a day counts as one dimension, not N.
+  const sessions = dedupeRevotes(rawSessions);
+  const rawItems = rawSessions.reduce((n, f) => n + f.sessions.length, 0);
+  const keptItems = sessions.reduce((n, f) => n + f.sessions.length, 0);
+  console.log(
+    `→ dedup re-votes: ${rawItems} → ${keptItems} item(s) (dropped ${rawItems - keptItems} superseded cast(s))`,
+  );
 
   const byNs = groupByNs(sessions);
   const nsKeys = [...byNs.keys()].sort();

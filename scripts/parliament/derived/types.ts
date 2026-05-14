@@ -24,5 +24,8 @@ export interface SessionFile {
   mpParty?: Record<string, string>;
   mpNames?: Record<string, string>;
   unresolvedMpIds?: number[];
+  // Per-item title keyed by stringified item number. Used to collapse
+  // re-votes (an item and its "прегласуване") before computing metrics.
+  itemTitles?: Record<string, string>;
   sessions: SessionItemFile[];
 }
