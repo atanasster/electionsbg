@@ -1800,5 +1800,9 @@
   "budget_months_short": "mo",
   "budget_projection_pending": "full-year projection pending — needs a prior fiscal year for the seasonal baseline",
   "budget_term_no_data": "No budget data for this parliament’s term yet.",
-  "candidate_summary_line": "{{votes}} preference votes in the {{date}} election · strongest in {{region}} ({{regionVotes}} preference votes)"
+  "candidate_summary_line": "{{votes}} preference votes in the {{date}} election · strongest in {{region}} ({{regionVotes}} preference votes)",
+  "budget_ministries_title": "By spending unit",
+  "budget_ministries_subtitle": "Expenditure appropriated by the State Budget Law for fiscal year",
+  "budget_ministry_not_found": "No budget-law data found for this spending unit.",
+  "budget_ministry_intro": "Appropriations set by the State Budget Law. Ministry-level execution (actual spending) is published in the year-end execution report and is not yet ingested."
 }

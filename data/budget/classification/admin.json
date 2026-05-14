@@ -1,5 +1,899 @@
 {
   "dimension": "admin",
-  "generatedAt": "1970-01-01T00:00:00.000Z",
-  "nodes": []
+  "generatedAt": "2026-05-14T15:29:56.037Z",
+  "nodes": [
+    {
+      "dimension": "admin",
+      "history": [
+        {
+          "fiscalYear": 2024,
+          "sourceCode": "Администрацията на президента",
+          "sourceName": "Администрацията на президента"
+        },
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Администрацията на президента",
+          "sourceName": "Администрацията на президента"
+        }
+      ],
+      "id": "admin-administratsiyata-na-prezidenta",
+      "nameBg": "Администрацията на президента",
+      "nameEn": "Presidential Administration",
+      "parentId": null
+    },
+    {
+      "dimension": "admin",
+      "history": [
+        {
+          "fiscalYear": 2024,
+          "sourceCode": "Агенцията за ядрено регулиране",
+          "sourceName": "Агенцията за ядрено регулиране"
+        },
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Агенцията за ядрено регулиране",
+          "sourceName": "Агенцията за ядрено регулиране"
+        }
+      ],
+      "id": "admin-agentsiyata-za-yadreno-regulirane",
+      "nameBg": "Агенцията за ядрено регулиране",
+      "nameEn": "",
+      "parentId": null
+    },
+    {
+      "dimension": "admin",
+      "history": [
+        {
+          "fiscalYear": 2024,
+          "sourceCode": "Държавен фонд „Земеделие“",
+          "sourceName": "Държавен фонд „Земеделие“"
+        },
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Държавен фонд „Земеделие“",
+          "sourceName": "Държавен фонд „Земеделие“"
+        }
+      ],
+      "id": "admin-darzhaven-fond-zemedelie",
+      "nameBg": "Държавен фонд „Земеделие“",
+      "nameEn": "",
+      "parentId": null
+    },
+    {
+      "dimension": "admin",
+      "history": [
+        {
+          "fiscalYear": 2024,
+          "sourceCode": "Държавната агенция „Държавен резерв и военновременни запаси“",
+          "sourceName": "Държавната агенция „Държавен резерв и военновременни запаси“"
+        },
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Държавната агенция „Държавен резерв и военновременни запаси“",
+          "sourceName": "Държавната агенция „Държавен резерв и военновременни запаси“"
+        }
+      ],
+      "id": "admin-darzhavnata-agentsiya-darzhaven-rezerv-i-voennovremenni-zapa",
+      "nameBg": "Държавната агенция „Държавен резерв и военновременни запаси“",
+      "nameEn": "",
+      "parentId": null
+    },
+    {
+      "dimension": "admin",
+      "history": [
+        {
+          "fiscalYear": 2024,
+          "sourceCode": "Държавната агенция „Национална сигурност“",
+          "sourceName": "Държавната агенция „Национална сигурност“"
+        },
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Държавната агенция „Национална сигурност“",
+          "sourceName": "Държавната агенция „Национална сигурност“"
+        }
+      ],
+      "id": "admin-darzhavnata-agentsiya-natsionalna-sigurnost",
+      "nameBg": "Държавната агенция „Национална сигурност“",
+      "nameEn": "",
+      "parentId": null
+    },
+    {
+      "dimension": "admin",
+      "history": [
+        {
+          "fiscalYear": 2024,
+          "sourceCode": "Държавната агенция „Разузнаване“",
+          "sourceName": "Държавната агенция „Разузнаване“"
+        },
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Държавната агенция „Разузнаване“",
+          "sourceName": "Държавната агенция „Разузнаване“"
+        }
+      ],
+      "id": "admin-darzhavnata-agentsiya-razuznavane",
+      "nameBg": "Държавната агенция „Разузнаване“",
+      "nameEn": "",
+      "parentId": null
+    },
+    {
+      "dimension": "admin",
+      "history": [
+        {
+          "fiscalYear": 2024,
+          "sourceCode": "Държавната агенция „Технически операции“",
+          "sourceName": "Държавната агенция „Технически операции“"
+        },
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Държавната агенция „Технически операции“",
+          "sourceName": "Държавната агенция „Технически операции“"
+        }
+      ],
+      "id": "admin-darzhavnata-agentsiya-tehnicheski-operatsii",
+      "nameBg": "Държавната агенция „Технически операции“",
+      "nameEn": "",
+      "parentId": null
+    },
+    {
+      "dimension": "admin",
+      "history": [
+        {
+          "fiscalYear": 2024,
+          "sourceCode": "Държавната комисия по сигурността на информацията",
+          "sourceName": "Държавната комисия по сигурността на информацията"
+        },
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Държавната комисия по сигурността на информацията",
+          "sourceName": "Държавната комисия по сигурността на информацията"
+        }
+      ],
+      "id": "admin-darzhavnata-komisiya-po-sigurnostta-na-informatsiyata",
+      "nameBg": "Държавната комисия по сигурността на информацията",
+      "nameEn": "",
+      "parentId": null
+    },
+    {
+      "dimension": "admin",
+      "history": [
+        {
+          "fiscalYear": 2024,
+          "sourceCode": "Комисията за енергийно и водно регулиране",
+          "sourceName": "Комисията за енергийно и водно регулиране"
+        },
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Комисията за енергийно и водно регулиране",
+          "sourceName": "Комисията за енергийно и водно регулиране"
+        }
+      ],
+      "id": "admin-komisiyata-za-energiyno-i-vodno-regulirane",
+      "nameBg": "Комисията за енергийно и водно регулиране",
+      "nameEn": "",
+      "parentId": null
+    },
+    {
+      "dimension": "admin",
+      "history": [
+        {
+          "fiscalYear": 2024,
+          "sourceCode": "Комисията за финансов надзор",
+          "sourceName": "Комисията за финансов надзор"
+        },
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Комисията за финансов надзор",
+          "sourceName": "Комисията за финансов надзор"
+        }
+      ],
+      "id": "admin-komisiyata-za-finansov-nadzor",
+      "nameBg": "Комисията за финансов надзор",
+      "nameEn": "",
+      "parentId": null
+    },
+    {
+      "dimension": "admin",
+      "history": [
+        {
+          "fiscalYear": 2024,
+          "sourceCode": "Комисията за отнемане на незаконно придобитото имущество",
+          "sourceName": "Комисията за отнемане на незаконно придобитото имущество"
+        },
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Комисията за отнемане на незаконно придобитото имущество",
+          "sourceName": "Комисията за отнемане на незаконно придобитото имущество"
+        }
+      ],
+      "id": "admin-komisiyata-za-otnemane-na-nezakonno-pridobitoto-imushtestvo",
+      "nameBg": "Комисията за отнемане на незаконно придобитото имущество",
+      "nameEn": "",
+      "parentId": null
+    },
+    {
+      "dimension": "admin",
+      "history": [
+        {
+          "fiscalYear": 2024,
+          "sourceCode": "Комисията за противодействие на корупцията",
+          "sourceName": "Комисията за противодействие на корупцията"
+        },
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Комисията за противодействие на корупцията",
+          "sourceName": "Комисията за противодействие на корупцията"
+        }
+      ],
+      "id": "admin-komisiyata-za-protivodeystvie-na-koruptsiyata",
+      "nameBg": "Комисията за противодействие на корупцията",
+      "nameEn": "",
+      "parentId": null
+    },
+    {
+      "dimension": "admin",
+      "history": [
+        {
+          "fiscalYear": 2024,
+          "sourceCode": "Комисията за публичен надзор над регистрираните одитори",
+          "sourceName": "Комисията за публичен надзор над регистрираните одитори"
+        },
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Комисията за публичен надзор над регистрираните одитори",
+          "sourceName": "Комисията за публичен надзор над регистрираните одитори"
+        }
+      ],
+      "id": "admin-komisiyata-za-publichen-nadzor-nad-registriranite-oditori",
+      "nameBg": "Комисията за публичен надзор над регистрираните одитори",
+      "nameEn": "",
+      "parentId": null
+    },
+    {
+      "dimension": "admin",
+      "history": [
+        {
+          "fiscalYear": 2024,
+          "sourceCode": "Комисията за регулиране на съобщенията",
+          "sourceName": "Комисията за регулиране на съобщенията"
+        },
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Комисията за регулиране на съобщенията",
+          "sourceName": "Комисията за регулиране на съобщенията"
+        }
+      ],
+      "id": "admin-komisiyata-za-regulirane-na-saobshteniyata",
+      "nameBg": "Комисията за регулиране на съобщенията",
+      "nameEn": "",
+      "parentId": null
+    },
+    {
+      "dimension": "admin",
+      "history": [
+        {
+          "fiscalYear": 2024,
+          "sourceCode": "Комисията за защита на конкуренцията",
+          "sourceName": "Комисията за защита на конкуренцията"
+        },
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Комисията за защита на конкуренцията",
+          "sourceName": "Комисията за защита на конкуренцията"
+        }
+      ],
+      "id": "admin-komisiyata-za-zashtita-na-konkurentsiyata",
+      "nameBg": "Комисията за защита на конкуренцията",
+      "nameEn": "",
+      "parentId": null
+    },
+    {
+      "dimension": "admin",
+      "history": [
+        {
+          "fiscalYear": 2024,
+          "sourceCode": "Комисията за защита на личните данни",
+          "sourceName": "Комисията за защита на личните данни"
+        },
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Комисията за защита на личните данни",
+          "sourceName": "Комисията за защита на личните данни"
+        }
+      ],
+      "id": "admin-komisiyata-za-zashtita-na-lichnite-danni",
+      "nameBg": "Комисията за защита на личните данни",
+      "nameEn": "",
+      "parentId": null
+    },
+    {
+      "dimension": "admin",
+      "history": [
+        {
+          "fiscalYear": 2024,
+          "sourceCode": "Комисията за защита от дискриминация",
+          "sourceName": "Комисията за защита от дискриминация"
+        },
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Комисията за защита от дискриминация",
+          "sourceName": "Комисията за защита от дискриминация"
+        }
+      ],
+      "id": "admin-komisiyata-za-zashtita-ot-diskriminatsiya",
+      "nameBg": "Комисията за защита от дискриминация",
+      "nameEn": "",
+      "parentId": null
+    },
+    {
+      "dimension": "admin",
+      "history": [
+        {
+          "fiscalYear": 2024,
+          "sourceCode": "Конституционния съд",
+          "sourceName": "Конституционния съд"
+        },
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Конституционния съд",
+          "sourceName": "Конституционния съд"
+        }
+      ],
+      "id": "admin-konstitutsionniya-sad",
+      "nameBg": "Конституционния съд",
+      "nameEn": "Constitutional Court",
+      "parentId": null
+    },
+    {
+      "dimension": "admin",
+      "history": [
+        {
+          "fiscalYear": 2024,
+          "sourceCode": "Министерския съвет",
+          "sourceName": "Министерския съвет"
+        },
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Министерския съвет",
+          "sourceName": "Министерския съвет"
+        }
+      ],
+      "id": "admin-ministerskiya-savet",
+      "nameBg": "Министерския съвет",
+      "nameEn": "Council of Ministers",
+      "parentId": null
+    },
+    {
+      "dimension": "admin",
+      "history": [
+        {
+          "fiscalYear": 2024,
+          "sourceCode": "Министерството на електронното управление",
+          "sourceName": "Министерството на електронното управление"
+        },
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Министерството на електронното управление",
+          "sourceName": "Министерството на електронното управление"
+        }
+      ],
+      "id": "admin-ministerstvoto-na-elektronnoto-upravlenie",
+      "nameBg": "Министерството на електронното управление",
+      "nameEn": "Ministry of e-Governance",
+      "parentId": null
+    },
+    {
+      "dimension": "admin",
+      "history": [
+        {
+          "fiscalYear": 2024,
+          "sourceCode": "Министерството на енергетиката",
+          "sourceName": "Министерството на енергетиката"
+        },
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Министерството на енергетиката",
+          "sourceName": "Министерството на енергетиката"
+        }
+      ],
+      "id": "admin-ministerstvoto-na-energetikata",
+      "nameBg": "Министерството на енергетиката",
+      "nameEn": "Ministry of Energy",
+      "parentId": null
+    },
+    {
+      "dimension": "admin",
+      "history": [
+        {
+          "fiscalYear": 2024,
+          "sourceCode": "Министерството на финансите",
+          "sourceName": "Министерството на финансите"
+        },
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Министерството на финансите",
+          "sourceName": "Министерството на финансите"
+        }
+      ],
+      "id": "admin-ministerstvoto-na-finansite",
+      "nameBg": "Министерството на финансите",
+      "nameEn": "Ministry of Finance",
+      "parentId": null
+    },
+    {
+      "dimension": "admin",
+      "history": [
+        {
+          "fiscalYear": 2024,
+          "sourceCode": "Министерството на икономиката и индустрията",
+          "sourceName": "Министерството на икономиката и индустрията"
+        },
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Министерството на икономиката и индустрията",
+          "sourceName": "Министерството на икономиката и индустрията"
+        }
+      ],
+      "id": "admin-ministerstvoto-na-ikonomikata-i-industriyata",
+      "nameBg": "Министерството на икономиката и индустрията",
+      "nameEn": "Ministry of Economy and Industry",
+      "parentId": null
+    },
+    {
+      "dimension": "admin",
+      "history": [
+        {
+          "fiscalYear": 2024,
+          "sourceCode": "Министерството на иновациите и растежа",
+          "sourceName": "Министерството на иновациите и растежа"
+        },
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Министерството на иновациите и растежа",
+          "sourceName": "Министерството на иновациите и растежа"
+        }
+      ],
+      "id": "admin-ministerstvoto-na-inovatsiite-i-rastezha",
+      "nameBg": "Министерството на иновациите и растежа",
+      "nameEn": "Ministry of Innovation and Growth",
+      "parentId": null
+    },
+    {
+      "dimension": "admin",
+      "history": [
+        {
+          "fiscalYear": 2024,
+          "sourceCode": "Министерството на културата",
+          "sourceName": "Министерството на културата"
+        },
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Министерството на културата",
+          "sourceName": "Министерството на културата"
+        }
+      ],
+      "id": "admin-ministerstvoto-na-kulturata",
+      "nameBg": "Министерството на културата",
+      "nameEn": "Ministry of Culture",
+      "parentId": null
+    },
+    {
+      "dimension": "admin",
+      "history": [
+        {
+          "fiscalYear": 2024,
+          "sourceCode": "Министерството на младежта и спорта",
+          "sourceName": "Министерството на младежта и спорта"
+        },
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Министерството на младежта и спорта",
+          "sourceName": "Министерството на младежта и спорта"
+        }
+      ],
+      "id": "admin-ministerstvoto-na-mladezhta-i-sporta",
+      "nameBg": "Министерството на младежта и спорта",
+      "nameEn": "Ministry of Youth and Sports",
+      "parentId": null
+    },
+    {
+      "dimension": "admin",
+      "history": [
+        {
+          "fiscalYear": 2024,
+          "sourceCode": "Министерството на образованието и науката",
+          "sourceName": "Министерството на образованието и науката"
+        },
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Министерството на образованието и науката",
+          "sourceName": "Министерството на образованието и науката"
+        }
+      ],
+      "id": "admin-ministerstvoto-na-obrazovanieto-i-naukata",
+      "nameBg": "Министерството на образованието и науката",
+      "nameEn": "Ministry of Education and Science",
+      "parentId": null
+    },
+    {
+      "dimension": "admin",
+      "history": [
+        {
+          "fiscalYear": 2024,
+          "sourceCode": "Министерството на околната среда и водите",
+          "sourceName": "Министерството на околната среда и водите"
+        },
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Министерството на околната среда и водите",
+          "sourceName": "Министерството на околната среда и водите"
+        }
+      ],
+      "id": "admin-ministerstvoto-na-okolnata-sreda-i-vodite",
+      "nameBg": "Министерството на околната среда и водите",
+      "nameEn": "Ministry of Environment and Water",
+      "parentId": null
+    },
+    {
+      "dimension": "admin",
+      "history": [
+        {
+          "fiscalYear": 2024,
+          "sourceCode": "Министерството на отбраната",
+          "sourceName": "Министерството на отбраната"
+        },
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Министерството на отбраната",
+          "sourceName": "Министерството на отбраната"
+        }
+      ],
+      "id": "admin-ministerstvoto-na-otbranata",
+      "nameBg": "Министерството на отбраната",
+      "nameEn": "Ministry of Defence",
+      "parentId": null
+    },
+    {
+      "dimension": "admin",
+      "history": [
+        {
+          "fiscalYear": 2024,
+          "sourceCode": "Министерството на правосъдието",
+          "sourceName": "Министерството на правосъдието"
+        },
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Министерството на правосъдието",
+          "sourceName": "Министерството на правосъдието"
+        }
+      ],
+      "id": "admin-ministerstvoto-na-pravosadieto",
+      "nameBg": "Министерството на правосъдието",
+      "nameEn": "Ministry of Justice",
+      "parentId": null
+    },
+    {
+      "dimension": "admin",
+      "history": [
+        {
+          "fiscalYear": 2024,
+          "sourceCode": "Министерството на регионалното развитие и благоустройството",
+          "sourceName": "Министерството на регионалното развитие и благоустройството"
+        },
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Министерството на регионалното развитие и благоустройството",
+          "sourceName": "Министерството на регионалното развитие и благоустройството"
+        }
+      ],
+      "id": "admin-ministerstvoto-na-regionalnoto-razvitie-i-blagoustroystvoto",
+      "nameBg": "Министерството на регионалното развитие и благоустройството",
+      "nameEn": "Ministry of Regional Development and Public Works",
+      "parentId": null
+    },
+    {
+      "dimension": "admin",
+      "history": [
+        {
+          "fiscalYear": 2024,
+          "sourceCode": "Министерството на транспорта и съобщенията",
+          "sourceName": "Министерството на транспорта и съобщенията"
+        },
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Министерството на транспорта и съобщенията",
+          "sourceName": "Министерството на транспорта и съобщенията"
+        }
+      ],
+      "id": "admin-ministerstvoto-na-transporta-i-saobshteniyata",
+      "nameBg": "Министерството на транспорта и съобщенията",
+      "nameEn": "Ministry of Transport and Communications",
+      "parentId": null
+    },
+    {
+      "dimension": "admin",
+      "history": [
+        {
+          "fiscalYear": 2024,
+          "sourceCode": "Министерството на труда и социалната политика",
+          "sourceName": "Министерството на труда и социалната политика"
+        },
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Министерството на труда и социалната политика",
+          "sourceName": "Министерството на труда и социалната политика"
+        }
+      ],
+      "id": "admin-ministerstvoto-na-truda-i-sotsialnata-politika",
+      "nameBg": "Министерството на труда и социалната политика",
+      "nameEn": "Ministry of Labour and Social Policy",
+      "parentId": null
+    },
+    {
+      "dimension": "admin",
+      "history": [
+        {
+          "fiscalYear": 2024,
+          "sourceCode": "Министерството на туризма",
+          "sourceName": "Министерството на туризма"
+        },
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Министерството на туризма",
+          "sourceName": "Министерството на туризма"
+        }
+      ],
+      "id": "admin-ministerstvoto-na-turizma",
+      "nameBg": "Министерството на туризма",
+      "nameEn": "Ministry of Tourism",
+      "parentId": null
+    },
+    {
+      "dimension": "admin",
+      "history": [
+        {
+          "fiscalYear": 2024,
+          "sourceCode": "Министерството на външните работи",
+          "sourceName": "Министерството на външните работи"
+        },
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Министерството на външните работи",
+          "sourceName": "Министерството на външните работи"
+        }
+      ],
+      "id": "admin-ministerstvoto-na-vanshnite-raboti",
+      "nameBg": "Министерството на външните работи",
+      "nameEn": "Ministry of Foreign Affairs",
+      "parentId": null
+    },
+    {
+      "dimension": "admin",
+      "history": [
+        {
+          "fiscalYear": 2024,
+          "sourceCode": "Министерството на вътрешните работи",
+          "sourceName": "Министерството на вътрешните работи"
+        },
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Министерството на вътрешните работи",
+          "sourceName": "Министерството на вътрешните работи"
+        }
+      ],
+      "id": "admin-ministerstvoto-na-vatreshnite-raboti",
+      "nameBg": "Министерството на вътрешните работи",
+      "nameEn": "Ministry of the Interior",
+      "parentId": null
+    },
+    {
+      "dimension": "admin",
+      "history": [
+        {
+          "fiscalYear": 2024,
+          "sourceCode": "Министерството на здравеопазването",
+          "sourceName": "Министерството на здравеопазването"
+        },
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Министерството на здравеопазването",
+          "sourceName": "Министерството на здравеопазването"
+        }
+      ],
+      "id": "admin-ministerstvoto-na-zdraveopazvaneto",
+      "nameBg": "Министерството на здравеопазването",
+      "nameEn": "Ministry of Health",
+      "parentId": null
+    },
+    {
+      "dimension": "admin",
+      "history": [
+        {
+          "fiscalYear": 2024,
+          "sourceCode": "Министерството на земеделието и храните",
+          "sourceName": "Министерството на земеделието и храните"
+        },
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Министерството на земеделието и храните",
+          "sourceName": "Министерството на земеделието и храните"
+        }
+      ],
+      "id": "admin-ministerstvoto-na-zemedelieto-i-hranite",
+      "nameBg": "Министерството на земеделието и храните",
+      "nameEn": "Ministry of Agriculture and Food",
+      "parentId": null
+    },
+    {
+      "dimension": "admin",
+      "history": [
+        {
+          "fiscalYear": 2024,
+          "sourceCode": "Народното събрание",
+          "sourceName": "Народното събрание"
+        },
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Народното събрание",
+          "sourceName": "Народното събрание"
+        }
+      ],
+      "id": "admin-narodnoto-sabranie",
+      "nameBg": "Народното събрание",
+      "nameEn": "National Assembly",
+      "parentId": null
+    },
+    {
+      "dimension": "admin",
+      "history": [
+        {
+          "fiscalYear": 2024,
+          "sourceCode": "Националната служба за охрана",
+          "sourceName": "Националната служба за охрана"
+        },
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Националната служба за охрана",
+          "sourceName": "Националната служба за охрана"
+        }
+      ],
+      "id": "admin-natsionalnata-sluzhba-za-ohrana",
+      "nameBg": "Националната служба за охрана",
+      "nameEn": "",
+      "parentId": null
+    },
+    {
+      "dimension": "admin",
+      "history": [
+        {
+          "fiscalYear": 2024,
+          "sourceCode": "Националния статистически институт",
+          "sourceName": "Националния статистически институт"
+        },
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Националния статистически институт",
+          "sourceName": "Националния статистически институт"
+        }
+      ],
+      "id": "admin-natsionalniya-statisticheski-institut",
+      "nameBg": "Националния статистически институт",
+      "nameEn": "",
+      "parentId": null
+    },
+    {
+      "dimension": "admin",
+      "history": [
+        {
+          "fiscalYear": 2024,
+          "sourceCode": "Националното бюро за контрол на специалните разузнавателни средства",
+          "sourceName": "Националното бюро за контрол на специалните разузнавателни средства"
+        },
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Националното бюро за контрол на специалните разузнавателни средства",
+          "sourceName": "Националното бюро за контрол на специалните разузнавателни средства"
+        }
+      ],
+      "id": "admin-natsionalnoto-byuro-za-kontrol-na-spetsialnite-razuznavateln",
+      "nameBg": "Националното бюро за контрол на специалните разузнавателни средства",
+      "nameEn": "",
+      "parentId": null
+    },
+    {
+      "dimension": "admin",
+      "history": [
+        {
+          "fiscalYear": 2024,
+          "sourceCode": "Омбудсмана",
+          "sourceName": "Омбудсмана"
+        },
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Омбудсмана",
+          "sourceName": "Омбудсмана"
+        }
+      ],
+      "id": "admin-ombudsmana",
+      "nameBg": "Омбудсмана",
+      "nameEn": "Ombudsman",
+      "parentId": null
+    },
+    {
+      "dimension": "admin",
+      "history": [
+        {
+          "fiscalYear": 2024,
+          "sourceCode": "съдебната власт",
+          "sourceName": "съдебната власт"
+        },
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "съдебната власт",
+          "sourceName": "съдебната власт"
+        }
+      ],
+      "id": "admin-sadebnata-vlast",
+      "nameBg": "съдебната власт",
+      "nameEn": "Judiciary",
+      "parentId": null
+    },
+    {
+      "dimension": "admin",
+      "history": [
+        {
+          "fiscalYear": 2024,
+          "sourceCode": "Съвета за електронни медии",
+          "sourceName": "Съвета за електронни медии"
+        },
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Съвета за електронни медии",
+          "sourceName": "Съвета за електронни медии"
+        }
+      ],
+      "id": "admin-saveta-za-elektronni-medii",
+      "nameBg": "Съвета за електронни медии",
+      "nameEn": "",
+      "parentId": null
+    },
+    {
+      "dimension": "admin",
+      "history": [
+        {
+          "fiscalYear": 2024,
+          "sourceCode": "Сметната палата",
+          "sourceName": "Сметната палата"
+        },
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Сметната палата",
+          "sourceName": "Сметната палата"
+        }
+      ],
+      "id": "admin-smetnata-palata",
+      "nameBg": "Сметната палата",
+      "nameEn": "National Audit Office",
+      "parentId": null
+    },
+    {
+      "dimension": "admin",
+      "history": [
+        {
+          "fiscalYear": 2024,
+          "sourceCode": "Централната избирателна комисия",
+          "sourceName": "Централната избирателна комисия"
+        },
+        {
+          "fiscalYear": 2025,
+          "sourceCode": "Централната избирателна комисия",
+          "sourceName": "Централната избирателна комисия"
+        }
+      ],
+      "id": "admin-tsentralnata-izbiratelna-komisiya",
+      "nameBg": "Централната избирателна комисия",
+      "nameEn": "",
+      "parentId": null
+    }
+  ]
 }

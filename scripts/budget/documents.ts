@@ -14,7 +14,12 @@
 // because the operator commits them into documents.json directly and this
 // builder merges rather than replaces (see mergeDocuments).
 
-import { EGOV_DATASET_UUID, BULNAO_AUDIT_URL } from "./fetch_sources";
+import {
+  EGOV_DATASET_UUID,
+  BULNAO_AUDIT_URL,
+  LAW_DV_MATERIALS,
+  lawDvUrl,
+} from "./fetch_sources";
 import type {
   BudgetDocument,
   BudgetDocumentsFile,
@@ -60,24 +65,50 @@ const buildKfpDocument = (parsed: ParsedResource[]): BudgetDocument => {
   };
 };
 
-// One "law" placeholder per fiscal year present in the feed. Sources are empty
-// on purpose — the Phase 3 annex work attaches the real bill / Държавен
-// вестник / annex URLs. Kept so the frontend budget-journey timeline has the
-// law node from day one.
-const buildLawStubs = (parsed: ParsedResource[]): BudgetDocument[] => {
-  const years = [...new Set(parsed.map((p) => p.header.fiscalYear))].sort();
-  return years.map((year) => ({
-    id: `law-${year}`,
-    kind: "law" as const,
-    fiscalYear: year,
-    seq: 0,
-    title: `Закон за държавния бюджет на Република България за ${year} г.`,
-    sources: [],
-    discovery: "auto" as const,
-    notes:
-      "Placeholder — the promulgated text and appropriation annexes are " +
-      "attached in Phase 3 (PDF-annex parsing).",
-  }));
+// One "law" entry per fiscal year that appears in the КФП feed or has a known
+// Държавен вестник promulgation. Years in LAW_DV_MATERIALS carry the real DV
+// HTML source (and are parsed for per-ministry appropriations); the rest stay
+// as placeholders until their idMat is resolved.
+const buildLawDocuments = (parsed: ParsedResource[]): BudgetDocument[] => {
+  const years = new Set<number>(parsed.map((p) => p.header.fiscalYear));
+  for (const y of Object.keys(LAW_DV_MATERIALS)) years.add(parseInt(y, 10));
+  return [...years]
+    .sort((a, b) => a - b)
+    .map((year) => {
+      const idMat = LAW_DV_MATERIALS[year];
+      const title = `Закон за държавния бюджет на Република България за ${year} г.`;
+      if (idMat) {
+        return {
+          id: `law-${year}`,
+          kind: "law" as const,
+          fiscalYear: year,
+          seq: 0,
+          title,
+          sources: [
+            {
+              role: "promulgated" as const,
+              url: lawDvUrl(idMat),
+              format: "html" as const,
+              label:
+                "Държавен вестник — promulgated text + appropriation tables",
+            },
+          ],
+          discovery: "auto-confirmed" as const,
+        };
+      }
+      return {
+        id: `law-${year}`,
+        kind: "law" as const,
+        fiscalYear: year,
+        seq: 0,
+        title,
+        sources: [],
+        discovery: "auto" as const,
+        notes:
+          "Placeholder — resolve the Държавен вестник idMat and add it to " +
+          "LAW_DV_MATERIALS in scripts/budget/fetch_sources.ts.",
+      };
+    });
 };
 
 // Best-effort scrape of the Сметна палата audit-report listing. The page lists
@@ -158,7 +189,7 @@ export const buildDocuments = (
 ): BudgetDocumentsFile => {
   const fresh: BudgetDocument[] = [
     buildKfpDocument(parsed),
-    ...buildLawStubs(parsed),
+    ...buildLawDocuments(parsed),
   ];
   if (bulnaoHtml) {
     try {

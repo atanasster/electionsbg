@@ -1,0 +1,7207 @@
+[
+  {
+    "fiscalYear": 2024,
+    "sections": [
+      {
+        "amount": {
+          "amount": 100000000,
+          "amountEur": 51129188,
+          "currency": "BGN"
+        },
+        "code": "I",
+        "kind": "revenue",
+        "labelBg": "ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 100000000,
+              "amountEur": 51129188,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Неданъчни приходи"
+          },
+          {
+            "amount": {
+              "amount": 85000000,
+              "amountEur": 43459810,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Съдебни такси"
+          },
+          {
+            "amount": {
+              "amount": 1300000,
+              "amountEur": 664679,
+              "currency": "BGN"
+            },
+            "code": "1.2",
+            "labelBg": "Приходи и доходи от собственост"
+          },
+          {
+            "amount": {
+              "amount": 10400000,
+              "amountEur": 5317436,
+              "currency": "BGN"
+            },
+            "code": "1.3",
+            "labelBg": "Глоби, санкции и наказателни лихви"
+          },
+          {
+            "amount": {
+              "amount": 3300000,
+              "amountEur": 1687263,
+              "currency": "BGN"
+            },
+            "code": "1.4",
+            "labelBg": "Други приходи"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 1221324900,
+          "amountEur": 624453506,
+          "currency": "BGN"
+        },
+        "code": "II",
+        "kind": "expenditure",
+        "labelBg": "РАЗХОДИ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 1192854900,
+              "amountEur": 609897026,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Текущи разходи"
+          },
+          {
+            "amount": {
+              "amount": 27570000,
+              "amountEur": 14096317,
+              "currency": "BGN"
+            },
+            "code": "2",
+            "labelBg": "Капиталови разходи"
+          },
+          {
+            "amount": {
+              "amount": 27570000,
+              "amountEur": 14096317,
+              "currency": "BGN"
+            },
+            "code": "2.1",
+            "labelBg": "Придобиване на дълготрайни активи и основен ремонт"
+          },
+          {
+            "amount": {
+              "amount": 900000,
+              "amountEur": 460163,
+              "currency": "BGN"
+            },
+            "code": "3",
+            "labelBg": "Резерв за непредвидени и/или неотложни разходи"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 1121324900,
+          "amountEur": 573324318,
+          "currency": "BGN"
+        },
+        "code": "III",
+        "kind": "financing",
+        "labelBg": "БЮДЖЕТНИ ВЗАИМООТНОШЕНИЯ (ТРАНСФЕРИ) – (+/-)",
+        "lines": [
+          {
+            "amount": {
+              "amount": 1121324900,
+              "amountEur": 573324318,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Бюджетно взаимоотношение с централния бюджет (+/-)"
+          }
+        ]
+      },
+      {
+        "amount": null,
+        "code": "IV",
+        "kind": "balance",
+        "labelBg": "БЮДЖЕТНО САЛДО (І-ІІ+ІІІ)",
+        "lines": []
+      },
+      {
+        "amount": null,
+        "code": "V",
+        "kind": "financing",
+        "labelBg": "ОПЕРАЦИИ В ЧАСТТА НА ФИНАНСИРАНЕТО – НЕТО",
+        "lines": []
+      }
+    ],
+    "unitName": "съдебната власт"
+  },
+  {
+    "fiscalYear": 2024,
+    "sections": [
+      {
+        "amount": {
+          "amount": 1740000,
+          "amountEur": 889648,
+          "currency": "BGN"
+        },
+        "code": "I",
+        "kind": "revenue",
+        "labelBg": "ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 1740000,
+              "amountEur": 889648,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Неданъчни приходи"
+          },
+          {
+            "amount": {
+              "amount": 580000,
+              "amountEur": 296549,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Държавни такси"
+          },
+          {
+            "amount": {
+              "amount": 1270600,
+              "amountEur": 649647,
+              "currency": "BGN"
+            },
+            "code": "1.2",
+            "labelBg": "Приходи и доходи от собственост"
+          },
+          {
+            "amount": {
+              "amount": -110600,
+              "amountEur": -56549,
+              "currency": "BGN"
+            },
+            "code": "1.3",
+            "labelBg": "Други приходи"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 120172900,
+          "amountEur": 61443428,
+          "currency": "BGN"
+        },
+        "code": "II",
+        "kind": "expenditure",
+        "labelBg": "РАЗХОДИ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 106651900,
+              "amountEur": 54530251,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Текущи разходи"
+          },
+          {
+            "amount": {
+              "amount": 13021000,
+              "amountEur": 6657532,
+              "currency": "BGN"
+            },
+            "code": "2",
+            "labelBg": "Капиталови разходи"
+          },
+          {
+            "amount": {
+              "amount": 13021000,
+              "amountEur": 6657532,
+              "currency": "BGN"
+            },
+            "code": "2.1",
+            "labelBg": "Придобиване на дълготрайни активи и основен ремонт"
+          },
+          {
+            "amount": {
+              "amount": 500000,
+              "amountEur": 255646,
+              "currency": "BGN"
+            },
+            "code": "3",
+            "labelBg": "Резерв за непредвидени и/или неотложни разходи"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 118432900,
+          "amountEur": 60553780,
+          "currency": "BGN"
+        },
+        "code": "III",
+        "kind": "financing",
+        "labelBg": "БЮДЖЕТНИ ВЗАИМООТНОШЕНИЯ (ТРАНСФЕРИ) – (+/-)",
+        "lines": [
+          {
+            "amount": {
+              "amount": 118432900,
+              "amountEur": 60553780,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Бюджетно взаимоотношение с централния бюджет (+/-)"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 0,
+          "amountEur": 0,
+          "currency": "BGN"
+        },
+        "code": "IV",
+        "kind": "balance",
+        "labelBg": "БЮДЖЕТНО САЛДО (І-ІІ+ІІІ)",
+        "lines": []
+      },
+      {
+        "amount": {
+          "amount": 0,
+          "amountEur": 0,
+          "currency": "BGN"
+        },
+        "code": "V",
+        "kind": "financing",
+        "labelBg": "ОПЕРАЦИИ В ЧАСТТА НА ФИНАНСИРАНЕТО – НЕТО",
+        "lines": []
+      }
+    ],
+    "unitName": "Народното събрание"
+  },
+  {
+    "fiscalYear": 2024,
+    "sections": [
+      {
+        "amount": {
+          "amount": 40000,
+          "amountEur": 20452,
+          "currency": "BGN"
+        },
+        "code": "I",
+        "kind": "revenue",
+        "labelBg": "ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 40000,
+              "amountEur": 20452,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Неданъчни приходи"
+          },
+          {
+            "amount": {
+              "amount": 40000,
+              "amountEur": 20452,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Глоби, санкции и наказателни лихви"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 33271800,
+          "amountEur": 17011601,
+          "currency": "BGN"
+        },
+        "code": "II",
+        "kind": "expenditure",
+        "labelBg": "РАЗХОДИ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 30347800,
+              "amountEur": 15516584,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Текущи разходи"
+          },
+          {
+            "amount": {
+              "amount": 27126400,
+              "amountEur": 13869508,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Персонал"
+          },
+          {
+            "amount": {
+              "amount": 2924000,
+              "amountEur": 1495017,
+              "currency": "BGN"
+            },
+            "code": "2",
+            "labelBg": "Капиталови разходи"
+          },
+          {
+            "amount": {
+              "amount": 2924000,
+              "amountEur": 1495017,
+              "currency": "BGN"
+            },
+            "code": "2.1",
+            "labelBg": "Придобиване на дълготрайни активи и основен ремонт"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 33231800,
+          "amountEur": 16991150,
+          "currency": "BGN"
+        },
+        "code": "III",
+        "kind": "financing",
+        "labelBg": "БЮДЖЕТНИ ВЗАИМООТНОШЕНИЯ (ТРАНСФЕРИ) – (+/-)",
+        "lines": [
+          {
+            "amount": {
+              "amount": 33231800,
+              "amountEur": 16991150,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Бюджетно взаимоотношение с централния бюджет (+/-)"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 0,
+          "amountEur": 0,
+          "currency": "BGN"
+        },
+        "code": "IV",
+        "kind": "balance",
+        "labelBg": "БЮДЖЕТНО САЛДО (І-ІІ+ІІІ)",
+        "lines": []
+      },
+      {
+        "amount": {
+          "amount": 0,
+          "amountEur": 0,
+          "currency": "BGN"
+        },
+        "code": "V",
+        "kind": "financing",
+        "labelBg": "ОПЕРАЦИИ В ЧАСТТА НА ФИНАНСИРАНЕТО – НЕТО",
+        "lines": []
+      }
+    ],
+    "unitName": "Сметната палата"
+  },
+  {
+    "fiscalYear": 2024,
+    "sections": [
+      {
+        "amount": null,
+        "code": "I",
+        "kind": "revenue",
+        "labelBg": "ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ",
+        "lines": []
+      },
+      {
+        "amount": {
+          "amount": 10720800,
+          "amountEur": 5481458,
+          "currency": "BGN"
+        },
+        "code": "II",
+        "kind": "expenditure",
+        "labelBg": "РАЗХОДИ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 10720800,
+              "amountEur": 5481458,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Текущи разходи"
+          },
+          {
+            "amount": {
+              "amount": 8134800,
+              "amountEur": 4159257,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Персонал"
+          },
+          {
+            "amount": null,
+            "code": "2",
+            "labelBg": "Капиталови разходи"
+          },
+          {
+            "amount": null,
+            "code": "2.1",
+            "labelBg": "Придобиване на дълготрайни активи и основен ремонт"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 10720800,
+          "amountEur": 5481458,
+          "currency": "BGN"
+        },
+        "code": "III",
+        "kind": "financing",
+        "labelBg": "БЮДЖЕТНИ ВЗАИМООТНОШЕНИЯ (ТРАНСФЕРИ) – (+/-)",
+        "lines": [
+          {
+            "amount": {
+              "amount": 10720800,
+              "amountEur": 5481458,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Бюджетно взаимоотношение с централния бюджет (+/-)"
+          }
+        ]
+      },
+      {
+        "amount": null,
+        "code": "IV",
+        "kind": "balance",
+        "labelBg": "БЮДЖЕТНО САЛДО (І-ІІ+ІІІ)",
+        "lines": []
+      },
+      {
+        "amount": null,
+        "code": "V",
+        "kind": "financing",
+        "labelBg": "ОПЕРАЦИИ В ЧАСТТА НА ФИНАНСИРАНЕТО – НЕТО",
+        "lines": []
+      }
+    ],
+    "unitName": "Администрацията на президента"
+  },
+  {
+    "fiscalYear": 2024,
+    "sections": [
+      {
+        "amount": {
+          "amount": 13117800,
+          "amountEur": 6707025,
+          "currency": "BGN"
+        },
+        "code": "I",
+        "kind": "revenue",
+        "labelBg": "ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 13117800,
+              "amountEur": 6707025,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Неданъчни приходи"
+          },
+          {
+            "amount": {
+              "amount": 639000,
+              "amountEur": 326716,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Държавни такси"
+          },
+          {
+            "amount": {
+              "amount": 7945400,
+              "amountEur": 4062419,
+              "currency": "BGN"
+            },
+            "code": "1.2",
+            "labelBg": "Приходи и доходи от собственост"
+          },
+          {
+            "amount": {
+              "amount": 4533400,
+              "amountEur": 2317891,
+              "currency": "BGN"
+            },
+            "code": "1.3",
+            "labelBg": "Други приходи"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 160445300,
+          "amountEur": 82034379,
+          "currency": "BGN"
+        },
+        "code": "II",
+        "kind": "expenditure",
+        "labelBg": "РАЗХОДИ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 160445300,
+              "amountEur": 82034379,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Текущи разходи"
+          },
+          {
+            "amount": {
+              "amount": 79500000,
+              "amountEur": 40647705,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Персонал"
+          },
+          {
+            "amount": {
+              "amount": 49204100,
+              "amountEur": 25157657,
+              "currency": "BGN"
+            },
+            "code": "1.2",
+            "labelBg": "Субсидии и други текущи трансфери"
+          },
+          {
+            "amount": {
+              "amount": 49204100,
+              "amountEur": 25157657,
+              "currency": "BGN"
+            },
+            "code": "1.2.1",
+            "labelBg": "Субсидии и други текущи трансфери за юридически лица с нестопанска цел"
+          },
+          {
+            "amount": {
+              "amount": 440200,
+              "amountEur": 225071,
+              "currency": "BGN"
+            },
+            "code": "1.3",
+            "labelBg": "Текущи трансфери, обезщетения и помощи за домакинствата"
+          },
+          {
+            "amount": {
+              "amount": 0,
+              "amountEur": 0,
+              "currency": "BGN"
+            },
+            "code": "2",
+            "labelBg": "Капиталови разходи"
+          },
+          {
+            "amount": {
+              "amount": 0,
+              "amountEur": 0,
+              "currency": "BGN"
+            },
+            "code": "2.1",
+            "labelBg": "Придобиване на дълготрайни активи и основен ремонт"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 147327500,
+          "amountEur": 75327355,
+          "currency": "BGN"
+        },
+        "code": "III",
+        "kind": "financing",
+        "labelBg": "БЮДЖЕТНИ ВЗАИМООТНОШЕНИЯ (ТРАНСФЕРИ) – (+/-)",
+        "lines": [
+          {
+            "amount": {
+              "amount": 147327500,
+              "amountEur": 75327355,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Бюджетно взаимоотношение с централния бюджет (+/-)"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 0,
+          "amountEur": 0,
+          "currency": "BGN"
+        },
+        "code": "IV",
+        "kind": "balance",
+        "labelBg": "БЮДЖЕТНО САЛДО (І-ІІ+ІІІ)",
+        "lines": []
+      },
+      {
+        "amount": {
+          "amount": 0,
+          "amountEur": 0,
+          "currency": "BGN"
+        },
+        "code": "V",
+        "kind": "financing",
+        "labelBg": "ОПЕРАЦИИ В ЧАСТТА НА ФИНАНСИРАНЕТО – НЕТО",
+        "lines": []
+      }
+    ],
+    "unitName": "Министерския съвет"
+  },
+  {
+    "fiscalYear": 2024,
+    "sections": [
+      {
+        "amount": null,
+        "code": "I",
+        "kind": "revenue",
+        "labelBg": "ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ",
+        "lines": []
+      },
+      {
+        "amount": {
+          "amount": 8858000,
+          "amountEur": 4529023,
+          "currency": "BGN"
+        },
+        "code": "II",
+        "kind": "expenditure",
+        "labelBg": "РАЗХОДИ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 8638000,
+              "amountEur": 4416539,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Текущи разходи"
+          },
+          {
+            "amount": {
+              "amount": 8098000,
+              "amountEur": 4140442,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Персонал"
+          },
+          {
+            "amount": {
+              "amount": 220000,
+              "amountEur": 112484,
+              "currency": "BGN"
+            },
+            "code": "2",
+            "labelBg": "Капиталови разходи"
+          },
+          {
+            "amount": {
+              "amount": 220000,
+              "amountEur": 112484,
+              "currency": "BGN"
+            },
+            "code": "2.1",
+            "labelBg": "Придобиване на дълготрайни активи и основен ремонт"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 8858000,
+          "amountEur": 4529023,
+          "currency": "BGN"
+        },
+        "code": "III",
+        "kind": "financing",
+        "labelBg": "БЮДЖЕТНИ ВЗАИМООТНОШЕНИЯ (ТРАНСФЕРИ) – (+/-)",
+        "lines": [
+          {
+            "amount": {
+              "amount": 8858000,
+              "amountEur": 4529023,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Бюджетно взаимоотношение с централния бюджет (+/-)"
+          }
+        ]
+      },
+      {
+        "amount": null,
+        "code": "IV",
+        "kind": "balance",
+        "labelBg": "БЮДЖЕТНО САЛДО (І-ІІ+ІІІ)",
+        "lines": []
+      },
+      {
+        "amount": null,
+        "code": "V",
+        "kind": "financing",
+        "labelBg": "ОПЕРАЦИИ В ЧАСТТА НА ФИНАНСИРАНЕТО – НЕТО",
+        "lines": []
+      }
+    ],
+    "unitName": "Конституционния съд"
+  },
+  {
+    "fiscalYear": 2024,
+    "sections": [
+      {
+        "amount": null,
+        "code": "I",
+        "kind": "revenue",
+        "labelBg": "ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ",
+        "lines": []
+      },
+      {
+        "amount": {
+          "amount": 4669500,
+          "amountEur": 2387477,
+          "currency": "BGN"
+        },
+        "code": "II",
+        "kind": "expenditure",
+        "labelBg": "РАЗХОДИ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 4669500,
+              "amountEur": 2387477,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Текущи разходи"
+          },
+          {
+            "amount": {
+              "amount": 3519500,
+              "amountEur": 1799492,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Персонал"
+          },
+          {
+            "amount": null,
+            "code": "2",
+            "labelBg": "Капиталови разходи"
+          },
+          {
+            "amount": null,
+            "code": "2.1",
+            "labelBg": "Придобиване на дълготрайни активи и основен ремонт"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 4669500,
+          "amountEur": 2387477,
+          "currency": "BGN"
+        },
+        "code": "III",
+        "kind": "financing",
+        "labelBg": "БЮДЖЕТНИ ВЗАИМООТНОШЕНИЯ (ТРАНСФЕРИ) – (+/-)",
+        "lines": [
+          {
+            "amount": {
+              "amount": 4669500,
+              "amountEur": 2387477,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Бюджетно взаимоотношение с централния бюджет (+/-)"
+          }
+        ]
+      },
+      {
+        "amount": null,
+        "code": "IV",
+        "kind": "balance",
+        "labelBg": "БЮДЖЕТНО САЛДО (І-ІІ+ІІІ)",
+        "lines": []
+      },
+      {
+        "amount": null,
+        "code": "V",
+        "kind": "financing",
+        "labelBg": "ОПЕРАЦИИ В ЧАСТТА НА ФИНАНСИРАНЕТО – НЕТО",
+        "lines": []
+      }
+    ],
+    "unitName": "Омбудсмана"
+  },
+  {
+    "fiscalYear": 2024,
+    "sections": [
+      {
+        "amount": {
+          "amount": 515053700,
+          "amountEur": 263342775,
+          "currency": "BGN"
+        },
+        "code": "I",
+        "kind": "revenue",
+        "labelBg": "ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 515053700,
+              "amountEur": 263342775,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Неданъчни приходи"
+          },
+          {
+            "amount": {
+              "amount": 509906600,
+              "amountEur": 260711105,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Държавни такси"
+          },
+          {
+            "amount": {
+              "amount": 744900,
+              "amountEur": 380861,
+              "currency": "BGN"
+            },
+            "code": "1.2",
+            "labelBg": "Приходи и доходи от собственост"
+          },
+          {
+            "amount": {
+              "amount": 2074000,
+              "amountEur": 1060419,
+              "currency": "BGN"
+            },
+            "code": "1.3",
+            "labelBg": "Глоби, санкции и наказателни лихви"
+          },
+          {
+            "amount": {
+              "amount": 2328200,
+              "amountEur": 1190390,
+              "currency": "BGN"
+            },
+            "code": "1.4",
+            "labelBg": "Други приходи"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 734112400,
+          "amountEur": 375345710,
+          "currency": "BGN"
+        },
+        "code": "II",
+        "kind": "expenditure",
+        "labelBg": "РАЗХОДИ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 734112400,
+              "amountEur": 375345710,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Текущи разходи"
+          },
+          {
+            "amount": {
+              "amount": 530399400,
+              "amountEur": 271188907,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Персонал"
+          },
+          {
+            "amount": {
+              "amount": 4793200,
+              "amountEur": 2450724,
+              "currency": "BGN"
+            },
+            "code": "1.2",
+            "labelBg": "Субсидии и други текущи трансфери"
+          },
+          {
+            "amount": {
+              "amount": 4793200,
+              "amountEur": 2450724,
+              "currency": "BGN"
+            },
+            "code": "1.2.1",
+            "labelBg": "Субсидии и други текущи трансфери за финансови институции"
+          },
+          {
+            "amount": {
+              "amount": 1500000,
+              "amountEur": 766938,
+              "currency": "BGN"
+            },
+            "code": "1.3",
+            "labelBg": "Текущи трансфери, обезщетения и помощи за домакинствата"
+          },
+          {
+            "amount": null,
+            "code": "2",
+            "labelBg": "Капиталови разходи"
+          },
+          {
+            "amount": null,
+            "code": "2.1",
+            "labelBg": "Придобиване на дълготрайни активи и основен ремонт"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 219058700,
+          "amountEur": 112002935,
+          "currency": "BGN"
+        },
+        "code": "III",
+        "kind": "financing",
+        "labelBg": "БЮДЖЕТНИ ВЗАИМООТНОШЕНИЯ (ТРАНСФЕРИ) – (+/-)",
+        "lines": [
+          {
+            "amount": {
+              "amount": 255448000,
+              "amountEur": 130608488,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Бюджетно взаимоотношение с централния бюджет (+/-)"
+          },
+          {
+            "amount": {
+              "amount": -7740000,
+              "amountEur": -3957399,
+              "currency": "BGN"
+            },
+            "code": "2",
+            "labelBg": "Бюджетни взаимоотношения с други бюджетни организации (+/-)"
+          },
+          {
+            "amount": {
+              "amount": -7740000,
+              "amountEur": -3957399,
+              "currency": "BGN"
+            },
+            "code": "2.1",
+            "labelBg": "Предоставени трансфери (-)"
+          },
+          {
+            "amount": {
+              "amount": -28649300,
+              "amountEur": -14648154,
+              "currency": "BGN"
+            },
+            "code": "3",
+            "labelBg": "Трансфери между бюджети и сметки за средствата от Европейския съюз (+/-)"
+          },
+          {
+            "amount": {
+              "amount": -28649300,
+              "amountEur": -14648154,
+              "currency": "BGN"
+            },
+            "code": "3.1",
+            "labelBg": "Предоставени трансфери (-)"
+          }
+        ]
+      },
+      {
+        "amount": null,
+        "code": "IV",
+        "kind": "balance",
+        "labelBg": "БЮДЖЕТНО САЛДО (І-ІІ+ІІІ)",
+        "lines": []
+      },
+      {
+        "amount": null,
+        "code": "V",
+        "kind": "financing",
+        "labelBg": "ОПЕРАЦИИ В ЧАСТТА НА ФИНАНСИРАНЕТО – НЕТО",
+        "lines": []
+      }
+    ],
+    "unitName": "Министерството на финансите"
+  },
+  {
+    "fiscalYear": 2024,
+    "sections": [
+      {
+        "amount": {
+          "amount": 53122300,
+          "amountEur": 27161001,
+          "currency": "BGN"
+        },
+        "code": "I",
+        "kind": "revenue",
+        "labelBg": "ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 53122300,
+              "amountEur": 27161001,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Неданъчни приходи"
+          },
+          {
+            "amount": {
+              "amount": 41086100,
+              "amountEur": 21006989,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Държавни такси"
+          },
+          {
+            "amount": {
+              "amount": 7846200,
+              "amountEur": 4011698,
+              "currency": "BGN"
+            },
+            "code": "1.2",
+            "labelBg": "Приходи и доходи от собственост"
+          },
+          {
+            "amount": {
+              "amount": 250000,
+              "amountEur": 127823,
+              "currency": "BGN"
+            },
+            "code": "1.3",
+            "labelBg": "Глоби, санкции и наказателни лихви"
+          },
+          {
+            "amount": {
+              "amount": 3940000,
+              "amountEur": 2014490,
+              "currency": "BGN"
+            },
+            "code": "1.4",
+            "labelBg": "Други приходи"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 179087800,
+          "amountEur": 91566138,
+          "currency": "BGN"
+        },
+        "code": "II",
+        "kind": "expenditure",
+        "labelBg": "РАЗХОДИ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 172243300,
+              "amountEur": 88066601,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Текущи разходи"
+          },
+          {
+            "amount": {
+              "amount": 45876600,
+              "amountEur": 23456333,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Персонал"
+          },
+          {
+            "amount": null,
+            "code": "2",
+            "labelBg": "Капиталови разходи"
+          },
+          {
+            "amount": null,
+            "code": "2.1",
+            "labelBg": "Придобиване на дълготрайни активи и основен ремонт"
+          },
+          {
+            "amount": {
+              "amount": 6844500,
+              "amountEur": 3499537,
+              "currency": "BGN"
+            },
+            "code": "3",
+            "labelBg": "Предоставени текущи и капиталови трансфери за чужбина"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 125965500,
+          "amountEur": 64405137,
+          "currency": "BGN"
+        },
+        "code": "III",
+        "kind": "financing",
+        "labelBg": "БЮДЖЕТНИ ВЗАИМООТНОШЕНИЯ (ТРАНСФЕРИ) – (+/-)",
+        "lines": [
+          {
+            "amount": {
+              "amount": 131307500,
+              "amountEur": 67136459,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Бюджетно взаимоотношение с централния бюджет (+/-)"
+          },
+          {
+            "amount": {
+              "amount": -5342000,
+              "amountEur": -2731321,
+              "currency": "BGN"
+            },
+            "code": "2",
+            "labelBg": "Трансфери между бюджети и сметки за средствата от Европейския съюз (+/-)"
+          },
+          {
+            "amount": {
+              "amount": -5342000,
+              "amountEur": -2731321,
+              "currency": "BGN"
+            },
+            "code": "2.1",
+            "labelBg": "Предоставени трансфери (-)"
+          }
+        ]
+      },
+      {
+        "amount": null,
+        "code": "IV",
+        "kind": "balance",
+        "labelBg": "БЮДЖЕТНО САЛДО (І-ІІ+ІІІ)",
+        "lines": []
+      },
+      {
+        "amount": null,
+        "code": "V",
+        "kind": "financing",
+        "labelBg": "ОПЕРАЦИИ В ЧАСТТА НА ФИНАНСИРАНЕТО – НЕТО",
+        "lines": []
+      }
+    ],
+    "unitName": "Министерството на външните работи"
+  },
+  {
+    "fiscalYear": 2024,
+    "sections": [
+      {
+        "amount": {
+          "amount": 144000000,
+          "amountEur": 73626031,
+          "currency": "BGN"
+        },
+        "code": "I",
+        "kind": "revenue",
+        "labelBg": "ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 144000000,
+              "amountEur": 73626031,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Неданъчни приходи"
+          },
+          {
+            "amount": {
+              "amount": 40000,
+              "amountEur": 20452,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Държавни такси"
+          },
+          {
+            "amount": {
+              "amount": 124300000,
+              "amountEur": 63553581,
+              "currency": "BGN"
+            },
+            "code": "1.2",
+            "labelBg": "Приходи и доходи от собственост"
+          },
+          {
+            "amount": {
+              "amount": 1080000,
+              "amountEur": 552195,
+              "currency": "BGN"
+            },
+            "code": "1.3",
+            "labelBg": "Глоби, санкции и наказателни лихви"
+          },
+          {
+            "amount": {
+              "amount": 18580000,
+              "amountEur": 9499803,
+              "currency": "BGN"
+            },
+            "code": "1.4",
+            "labelBg": "Други приходи"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 2129194000,
+          "amountEur": 1088639606,
+          "currency": "BGN"
+        },
+        "code": "II",
+        "kind": "expenditure",
+        "labelBg": "РАЗХОДИ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 2129194000,
+              "amountEur": 1088639606,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Текущи разходи"
+          },
+          {
+            "amount": {
+              "amount": 1680069500,
+              "amountEur": 859005895,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Персонал"
+          },
+          {
+            "amount": {
+              "amount": 4420000,
+              "amountEur": 2259910,
+              "currency": "BGN"
+            },
+            "code": "1.2",
+            "labelBg": "Субсидии и други текущи трансфери"
+          },
+          {
+            "amount": {
+              "amount": 3958000,
+              "amountEur": 2023693,
+              "currency": "BGN"
+            },
+            "code": "1.2.1",
+            "labelBg": "Субсидии и други текущи трансфери за нефинансови предприятия"
+          },
+          {
+            "amount": {
+              "amount": 462000,
+              "amountEur": 236217,
+              "currency": "BGN"
+            },
+            "code": "1.2.2",
+            "labelBg": "Субсидии и други текущи трансфери за юридически лица с нестопанска цел"
+          },
+          {
+            "amount": {
+              "amount": 262000,
+              "amountEur": 133958,
+              "currency": "BGN"
+            },
+            "code": "1.2.2.1",
+            "labelBg": "Съюз на ветераните от войните в България"
+          },
+          {
+            "amount": {
+              "amount": 200000,
+              "amountEur": 102258,
+              "currency": "BGN"
+            },
+            "code": "1.2.2.2",
+            "labelBg": "За възстановяване на български военни гробища и военни паметници в страната и в чужбина и създаване на публичен дигитален архив"
+          },
+          {
+            "amount": {
+              "amount": 1360000,
+              "amountEur": 695357,
+              "currency": "BGN"
+            },
+            "code": "1.3",
+            "labelBg": "Текущи трансфери, обезщетения и помощи за домакинствата"
+          },
+          {
+            "amount": null,
+            "code": "2",
+            "labelBg": "Капиталови разходи"
+          },
+          {
+            "amount": null,
+            "code": "2.1",
+            "labelBg": "Придобиване на дълготрайни активи и основен ремонт"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 1985194000,
+          "amountEur": 1015013575,
+          "currency": "BGN"
+        },
+        "code": "III",
+        "kind": "financing",
+        "labelBg": "БЮДЖЕТНИ ВЗАИМООТНОШЕНИЯ (ТРАНСФЕРИ) – (+/-)",
+        "lines": [
+          {
+            "amount": {
+              "amount": 2044234200,
+              "amountEur": 1045200350,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Бюджетно взаимоотношение с централния бюджет (+/-)"
+          },
+          {
+            "amount": {
+              "amount": -59040200,
+              "amountEur": -30186775,
+              "currency": "BGN"
+            },
+            "code": "2",
+            "labelBg": "Бюджетни взаимоотношения с други бюджетни организации (+/-)"
+          },
+          {
+            "amount": {
+              "amount": -59040200,
+              "amountEur": -30186775,
+              "currency": "BGN"
+            },
+            "code": "2.1",
+            "labelBg": "Предоставени трансфери (-)"
+          },
+          {
+            "amount": {
+              "amount": -59040200,
+              "amountEur": -30186775,
+              "currency": "BGN"
+            },
+            "code": "2.1.1",
+            "labelBg": "– за държавните висши училища"
+          }
+        ]
+      },
+      {
+        "amount": null,
+        "code": "IV",
+        "kind": "balance",
+        "labelBg": "БЮДЖЕТНО САЛДО (І-ІІ+ІІІ)",
+        "lines": []
+      },
+      {
+        "amount": null,
+        "code": "V",
+        "kind": "financing",
+        "labelBg": "ОПЕРАЦИИ В ЧАСТТА НА ФИНАНСИРАНЕТО – НЕТО",
+        "lines": []
+      }
+    ],
+    "unitName": "Министерството на отбраната"
+  },
+  {
+    "fiscalYear": 2024,
+    "sections": [
+      {
+        "amount": {
+          "amount": 386000000,
+          "amountEur": 197358666,
+          "currency": "BGN"
+        },
+        "code": "I",
+        "kind": "revenue",
+        "labelBg": "ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 386000000,
+              "amountEur": 197358666,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Неданъчни приходи"
+          },
+          {
+            "amount": {
+              "amount": 106564000,
+              "amountEur": 54485308,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Държавни такси"
+          },
+          {
+            "amount": {
+              "amount": 65500000,
+              "amountEur": 33489618,
+              "currency": "BGN"
+            },
+            "code": "1.2",
+            "labelBg": "Приходи и доходи от собственост"
+          },
+          {
+            "amount": {
+              "amount": 230000000,
+              "amountEur": 117597133,
+              "currency": "BGN"
+            },
+            "code": "1.3",
+            "labelBg": "Глоби, санкции и наказателни лихви"
+          },
+          {
+            "amount": {
+              "amount": -16064000,
+              "amountEur": -8213393,
+              "currency": "BGN"
+            },
+            "code": "1.4",
+            "labelBg": "Други приходи"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 2767327800,
+          "amountEur": 1414912237,
+          "currency": "BGN"
+        },
+        "code": "II",
+        "kind": "expenditure",
+        "labelBg": "РАЗХОДИ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 2767327800,
+              "amountEur": 1414912237,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Текущи разходи"
+          },
+          {
+            "amount": {
+              "amount": 2536447000,
+              "amountEur": 1296864758,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Персонал"
+          },
+          {
+            "amount": null,
+            "code": "2",
+            "labelBg": "Капиталови разходи"
+          },
+          {
+            "amount": null,
+            "code": "2.1",
+            "labelBg": "Придобиване на дълготрайни активи и основен ремонт"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 2381327800,
+          "amountEur": 1217553571,
+          "currency": "BGN"
+        },
+        "code": "III",
+        "kind": "financing",
+        "labelBg": "БЮДЖЕТНИ ВЗАИМООТНОШЕНИЯ (ТРАНСФЕРИ) – (+/-)",
+        "lines": [
+          {
+            "amount": {
+              "amount": 2416327800,
+              "amountEur": 1235448786,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Бюджетно взаимоотношение с централния бюджет (+/-)"
+          },
+          {
+            "amount": {
+              "amount": -35000000,
+              "amountEur": -17895216,
+              "currency": "BGN"
+            },
+            "code": "2",
+            "labelBg": "Трансфери между бюджети и сметки за средствата от Европейския съюз (+/-)"
+          },
+          {
+            "amount": {
+              "amount": -35000000,
+              "amountEur": -17895216,
+              "currency": "BGN"
+            },
+            "code": "2.1",
+            "labelBg": "Предоставени трансфери (-)"
+          }
+        ]
+      },
+      {
+        "amount": null,
+        "code": "IV",
+        "kind": "balance",
+        "labelBg": "БЮДЖЕТНО САЛДО (І-ІІ+ІІІ)",
+        "lines": []
+      },
+      {
+        "amount": null,
+        "code": "V",
+        "kind": "financing",
+        "labelBg": "ОПЕРАЦИИ В ЧАСТТА НА ФИНАНСИРАНЕТО – НЕТО",
+        "lines": []
+      }
+    ],
+    "unitName": "Министерството на вътрешните работи"
+  },
+  {
+    "fiscalYear": 2024,
+    "sections": [
+      {
+        "amount": {
+          "amount": 62830000,
+          "amountEur": 32124469,
+          "currency": "BGN"
+        },
+        "code": "I",
+        "kind": "revenue",
+        "labelBg": "ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 62830000,
+              "amountEur": 32124469,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Неданъчни приходи"
+          },
+          {
+            "amount": {
+              "amount": 62594000,
+              "amountEur": 32003804,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Държавни такси"
+          },
+          {
+            "amount": {
+              "amount": 36000,
+              "amountEur": 18407,
+              "currency": "BGN"
+            },
+            "code": "1.2",
+            "labelBg": "Глоби, санкции и наказателни лихви"
+          },
+          {
+            "amount": {
+              "amount": 200000,
+              "amountEur": 102258,
+              "currency": "BGN"
+            },
+            "code": "1.3",
+            "labelBg": "Други приходи"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 486990600,
+          "amountEur": 248994340,
+          "currency": "BGN"
+        },
+        "code": "II",
+        "kind": "expenditure",
+        "labelBg": "РАЗХОДИ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 486990600,
+              "amountEur": 248994340,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Текущи разходи"
+          },
+          {
+            "amount": {
+              "amount": 389478300,
+              "amountEur": 199137093,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Персонал"
+          },
+          {
+            "amount": {
+              "amount": 19440000,
+              "amountEur": 9939514,
+              "currency": "BGN"
+            },
+            "code": "1.2",
+            "labelBg": "Субсидии и други текущи трансфери"
+          },
+          {
+            "amount": {
+              "amount": 19440000,
+              "amountEur": 9939514,
+              "currency": "BGN"
+            },
+            "code": "1.2.1",
+            "labelBg": "Субсидии и други текущи трансфери за юридически лица с нестопанска цел"
+          },
+          {
+            "amount": null,
+            "code": "2",
+            "labelBg": "Капиталови разходи"
+          },
+          {
+            "amount": null,
+            "code": "2.1",
+            "labelBg": "Придобиване на дълготрайни активи и основен ремонт"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 424160600,
+          "amountEur": 216869871,
+          "currency": "BGN"
+        },
+        "code": "III",
+        "kind": "financing",
+        "labelBg": "БЮДЖЕТНИ ВЗАИМООТНОШЕНИЯ (ТРАНСФЕРИ) – (+/-)",
+        "lines": [
+          {
+            "amount": {
+              "amount": 424329800,
+              "amountEur": 216956382,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Бюджетно взаимоотношение с централния бюджет (+/-)"
+          },
+          {
+            "amount": {
+              "amount": -169200,
+              "amountEur": -86511,
+              "currency": "BGN"
+            },
+            "code": "2",
+            "labelBg": "Трансфери между бюджети и сметки за средствата от Европейския съюз (+/-)"
+          },
+          {
+            "amount": {
+              "amount": -169200,
+              "amountEur": -86511,
+              "currency": "BGN"
+            },
+            "code": "2.1",
+            "labelBg": "Предоставени трансфери (-)"
+          }
+        ]
+      },
+      {
+        "amount": null,
+        "code": "IV",
+        "kind": "balance",
+        "labelBg": "БЮДЖЕТНО САЛДО (І-ІІ+ІІІ)",
+        "lines": []
+      },
+      {
+        "amount": null,
+        "code": "V",
+        "kind": "financing",
+        "labelBg": "ОПЕРАЦИИ В ЧАСТТА НА ФИНАНСИРАНЕТО – НЕТО",
+        "lines": []
+      }
+    ],
+    "unitName": "Министерството на правосъдието"
+  },
+  {
+    "fiscalYear": 2024,
+    "sections": [
+      {
+        "amount": {
+          "amount": 47000000,
+          "amountEur": 24030718,
+          "currency": "BGN"
+        },
+        "code": "I",
+        "kind": "revenue",
+        "labelBg": "ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 47000000,
+              "amountEur": 24030718,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Неданъчни приходи"
+          },
+          {
+            "amount": {
+              "amount": 43150000,
+              "amountEur": 22062245,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Държавни такси"
+          },
+          {
+            "amount": {
+              "amount": 50000,
+              "amountEur": 25565,
+              "currency": "BGN"
+            },
+            "code": "1.2",
+            "labelBg": "Приходи и доходи от собственост"
+          },
+          {
+            "amount": {
+              "amount": 7000000,
+              "amountEur": 3579043,
+              "currency": "BGN"
+            },
+            "code": "1.3",
+            "labelBg": "Глоби, санкции и наказателни лихви"
+          },
+          {
+            "amount": {
+              "amount": -3200000,
+              "amountEur": -1636134,
+              "currency": "BGN"
+            },
+            "code": "1.4",
+            "labelBg": "Други приходи"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 2862221000,
+          "amountEur": 1463430359,
+          "currency": "BGN"
+        },
+        "code": "II",
+        "kind": "expenditure",
+        "labelBg": "РАЗХОДИ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 2862221000,
+              "amountEur": 1463430359,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Текущи разходи"
+          },
+          {
+            "amount": {
+              "amount": 235649400,
+              "amountEur": 120485625,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Персонал"
+          },
+          {
+            "amount": {
+              "amount": 14424000,
+              "amountEur": 7374874,
+              "currency": "BGN"
+            },
+            "code": "1.2",
+            "labelBg": "Субсидии и други текущи трансфери"
+          },
+          {
+            "amount": {
+              "amount": 8924600,
+              "amountEur": 4563076,
+              "currency": "BGN"
+            },
+            "code": "1.2.1",
+            "labelBg": "Субсидии и други текущи трансфери за нефинансови предприятия"
+          },
+          {
+            "amount": {
+              "amount": 5499400,
+              "amountEur": 2811799,
+              "currency": "BGN"
+            },
+            "code": "1.2.2",
+            "labelBg": "Субсидии и други текущи трансфери за юридически лица с нестопанска цел"
+          },
+          {
+            "amount": {
+              "amount": 709600,
+              "amountEur": 362813,
+              "currency": "BGN"
+            },
+            "code": "1.2.2.1",
+            "labelBg": "Сдружение „Съюз на инвалидите в България“"
+          },
+          {
+            "amount": {
+              "amount": 282900,
+              "amountEur": 144644,
+              "currency": "BGN"
+            },
+            "code": "1.2.2.2",
+            "labelBg": "Сдружение „Съюз на военноинвалидите и военнопострадалите“"
+          },
+          {
+            "amount": {
+              "amount": 722200,
+              "amountEur": 369255,
+              "currency": "BGN"
+            },
+            "code": "1.2.2.3",
+            "labelBg": "Сдружение „Съюз на слепите в България“"
+          },
+          {
+            "amount": {
+              "amount": 212800,
+              "amountEur": 108803,
+              "currency": "BGN"
+            },
+            "code": "1.2.2.4",
+            "labelBg": "Сдружение „Българска асоциация за лица с интелектуални затруднения“"
+          },
+          {
+            "amount": {
+              "amount": 478400,
+              "amountEur": 244602,
+              "currency": "BGN"
+            },
+            "code": "1.2.2.5",
+            "labelBg": "Кооперативен съюз „Национален съюз на трудовопроизводителните кооперации“"
+          },
+          {
+            "amount": {
+              "amount": 112700,
+              "amountEur": 57623,
+              "currency": "BGN"
+            },
+            "code": "1.2.2.6",
+            "labelBg": "Сдружение „Асоциация на родителите на деца с увреден слух“"
+          },
+          {
+            "amount": {
+              "amount": 372600,
+              "amountEur": 190507,
+              "currency": "BGN"
+            },
+            "code": "1.2.2.7",
+            "labelBg": "Сдружение „Съюз на глухите в България“"
+          },
+          {
+            "amount": {
+              "amount": 406000,
+              "amountEur": 207585,
+              "currency": "BGN"
+            },
+            "code": "1.2.2.8",
+            "labelBg": "Сдружение „Българска асоциация „Диабет“"
+          },
+          {
+            "amount": {
+              "amount": 92000,
+              "amountEur": 47039,
+              "currency": "BGN"
+            },
+            "code": "1.2.2.9",
+            "labelBg": "Сдружение „Асоциация на родителите на деца с нарушено зрение“"
+          },
+          {
+            "amount": {
+              "amount": 193200,
+              "amountEur": 98782,
+              "currency": "BGN"
+            },
+            "code": "1.2.2.10",
+            "labelBg": "Сдружение „Национална асоциация на сляпо-глухите в България“"
+          },
+          {
+            "amount": {
+              "amount": 312800,
+              "amountEur": 159932,
+              "currency": "BGN"
+            },
+            "code": "1.2.2.11",
+            "labelBg": "Национално сдружение на работодателите на хората с увреждания"
+          },
+          {
+            "amount": {
+              "amount": 287500,
+              "amountEur": 146996,
+              "currency": "BGN"
+            },
+            "code": "1.2.2.12",
+            "labelBg": "Сдружение „Център за психологически изследвания“"
+          },
+          {
+            "amount": {
+              "amount": 59800,
+              "amountEur": 30575,
+              "currency": "BGN"
+            },
+            "code": "1.2.2.13",
+            "labelBg": "Сдружение „Българска асоциация за невромускулни заболявания“"
+          },
+          {
+            "amount": {
+              "amount": 52900,
+              "amountEur": 27047,
+              "currency": "BGN"
+            },
+            "code": "1.2.2.14",
+            "labelBg": "Сдружение „Национална организация „Малки български хора“"
+          },
+          {
+            "amount": {
+              "amount": 59800,
+              "amountEur": 30575,
+              "currency": "BGN"
+            },
+            "code": "1.2.2.15",
+            "labelBg": "Сдружение „Асоциация на родители на деца с епилепсия“"
+          },
+          {
+            "amount": {
+              "amount": 236900,
+              "amountEur": 121125,
+              "currency": "BGN"
+            },
+            "code": "1.2.2.16",
+            "labelBg": "Сдружение „Национален център за рехабилитация на слепи“"
+          },
+          {
+            "amount": {
+              "amount": 51800,
+              "amountEur": 26485,
+              "currency": "BGN"
+            },
+            "code": "1.2.2.17",
+            "labelBg": "Сдружение „Българска асоциация за рекреация, интеграция и спорт“"
+          },
+          {
+            "amount": {
+              "amount": 230000,
+              "amountEur": 117597,
+              "currency": "BGN"
+            },
+            "code": "1.2.2.18",
+            "labelBg": "Сдружение „Национален алианс за социална отговорност“"
+          },
+          {
+            "amount": {
+              "amount": 113900,
+              "amountEur": 58236,
+              "currency": "BGN"
+            },
+            "code": "1.2.2.19",
+            "labelBg": "Кооперация „Национална потребителна кооперация на слепите в България“"
+          },
+          {
+            "amount": {
+              "amount": 51800,
+              "amountEur": 26485,
+              "currency": "BGN"
+            },
+            "code": "1.2.2.20",
+            "labelBg": "Сдружение „Българска асоциация за рекреация и туризъм“"
+          },
+          {
+            "amount": {
+              "amount": 59800,
+              "amountEur": 30575,
+              "currency": "BGN"
+            },
+            "code": "1.2.2.21",
+            "labelBg": "Сдружение „Национална асоциация на хората с придобити увреждания“"
+          },
+          {
+            "amount": {
+              "amount": 2577298100,
+              "amountEur": 1317751594,
+              "currency": "BGN"
+            },
+            "code": "1.3",
+            "labelBg": "Текущи трансфери, обезщетения и помощи за домакинствата"
+          },
+          {
+            "amount": null,
+            "code": "2",
+            "labelBg": "Капиталови разходи"
+          },
+          {
+            "amount": null,
+            "code": "2.1",
+            "labelBg": "Придобиване на дълготрайни активи и основен ремонт"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 2815221000,
+          "amountEur": 1439399641,
+          "currency": "BGN"
+        },
+        "code": "III",
+        "kind": "financing",
+        "labelBg": "БЮДЖЕТНИ ВЗАИМООТНОШЕНИЯ (ТРАНСФЕРИ) – (+/-)",
+        "lines": [
+          {
+            "amount": {
+              "amount": 2811221000,
+              "amountEur": 1437354474,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Бюджетно взаимоотношение с централния бюджет (+/-)"
+          },
+          {
+            "amount": {
+              "amount": 4000000,
+              "amountEur": 2045168,
+              "currency": "BGN"
+            },
+            "code": "2",
+            "labelBg": "Бюджетни взаимоотношения с други бюджетни организации (+/-)"
+          },
+          {
+            "amount": {
+              "amount": 4000000,
+              "amountEur": 2045168,
+              "currency": "BGN"
+            },
+            "code": "2.1",
+            "labelBg": "Получени трансфери (+)"
+          },
+          {
+            "amount": {
+              "amount": 4000000,
+              "amountEur": 2045168,
+              "currency": "BGN"
+            },
+            "code": "2.1.1",
+            "labelBg": "– от Държавното обществено осигуряване"
+          }
+        ]
+      },
+      {
+        "amount": null,
+        "code": "IV",
+        "kind": "balance",
+        "labelBg": "БЮДЖЕТНО САЛДО (І-ІІ+ІІІ)",
+        "lines": []
+      },
+      {
+        "amount": null,
+        "code": "V",
+        "kind": "financing",
+        "labelBg": "ОПЕРАЦИИ В ЧАСТТА НА ФИНАНСИРАНЕТО – НЕТО",
+        "lines": []
+      }
+    ],
+    "unitName": "Министерството на труда и социалната политика"
+  },
+  {
+    "fiscalYear": 2024,
+    "sections": [
+      {
+        "amount": {
+          "amount": 39285000,
+          "amountEur": 20086102,
+          "currency": "BGN"
+        },
+        "code": "I",
+        "kind": "revenue",
+        "labelBg": "ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 39285000,
+              "amountEur": 20086102,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Неданъчни приходи"
+          },
+          {
+            "amount": {
+              "amount": 29260000,
+              "amountEur": 14960400,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Държавни такси"
+          },
+          {
+            "amount": {
+              "amount": 8185000,
+              "amountEur": 4184924,
+              "currency": "BGN"
+            },
+            "code": "1.2",
+            "labelBg": "Приходи и доходи от собственост"
+          },
+          {
+            "amount": {
+              "amount": 2000000,
+              "amountEur": 1022584,
+              "currency": "BGN"
+            },
+            "code": "1.3",
+            "labelBg": "Глоби, санкции и наказателни лихви"
+          },
+          {
+            "amount": {
+              "amount": -160000,
+              "amountEur": -81807,
+              "currency": "BGN"
+            },
+            "code": "1.4",
+            "labelBg": "Други приходи"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 1058723400,
+          "amountEur": 541316679,
+          "currency": "BGN"
+        },
+        "code": "II",
+        "kind": "expenditure",
+        "labelBg": "РАЗХОДИ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 1058723400,
+              "amountEur": 541316679,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Текущи разходи"
+          },
+          {
+            "amount": {
+              "amount": 514628600,
+              "amountEur": 263125425,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Персонал"
+          },
+          {
+            "amount": {
+              "amount": 317631300,
+              "amountEur": 162402305,
+              "currency": "BGN"
+            },
+            "code": "1.2",
+            "labelBg": "Субсидии и други текущи трансфери"
+          },
+          {
+            "amount": {
+              "amount": 309931300,
+              "amountEur": 158465357,
+              "currency": "BGN"
+            },
+            "code": "1.2.1",
+            "labelBg": "Субсидии и други текущи трансфери за нефинансови предприятия"
+          },
+          {
+            "amount": {
+              "amount": 7700000,
+              "amountEur": 3936947,
+              "currency": "BGN"
+            },
+            "code": "1.2.2",
+            "labelBg": "Субсидии и други текущи трансфери за юридически лица с нестопанска цел"
+          },
+          {
+            "amount": {
+              "amount": 7700000,
+              "amountEur": 3936947,
+              "currency": "BGN"
+            },
+            "code": "1.2.2.1",
+            "labelBg": "Български Червен кръст, в т.ч.:"
+          },
+          {
+            "amount": {
+              "amount": 2600000,
+              "amountEur": 1329359,
+              "currency": "BGN"
+            },
+            "code": "1.2.2.1.1",
+            "labelBg": "Планинска спасителна служба при Български Червен кръст"
+          },
+          {
+            "amount": {
+              "amount": 22000000,
+              "amountEur": 11248421,
+              "currency": "BGN"
+            },
+            "code": "1.3",
+            "labelBg": "Текущи трансфери, обезщетения и помощи за домакинствата"
+          },
+          {
+            "amount": {
+              "amount": 0,
+              "amountEur": 0,
+              "currency": "BGN"
+            },
+            "code": "2",
+            "labelBg": "Капиталови разходи"
+          },
+          {
+            "amount": {
+              "amount": 0,
+              "amountEur": 0,
+              "currency": "BGN"
+            },
+            "code": "2.1",
+            "labelBg": "Придобиване на дълготрайни активи и основен ремонт"
+          },
+          {
+            "amount": {
+              "amount": 0,
+              "amountEur": 0,
+              "currency": "BGN"
+            },
+            "code": "2.2",
+            "labelBg": "Капиталови трансфери"
+          },
+          {
+            "amount": {
+              "amount": 0,
+              "amountEur": 0,
+              "currency": "BGN"
+            },
+            "code": "2.2.1",
+            "labelBg": "Български Червен кръст"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 1019073800,
+          "amountEur": 521044160,
+          "currency": "BGN"
+        },
+        "code": "III",
+        "kind": "financing",
+        "labelBg": "БЮДЖЕТНИ ВЗАИМООТНОШЕНИЯ (ТРАНСФЕРИ) – (+/-)",
+        "lines": [
+          {
+            "amount": {
+              "amount": 1194690700,
+              "amountEur": 610835655,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Бюджетно взаимоотношение с централния бюджет (+/-)"
+          },
+          {
+            "amount": {
+              "amount": -175616900,
+              "amountEur": -89791495,
+              "currency": "BGN"
+            },
+            "code": "2",
+            "labelBg": "Бюджетни взаимоотношения с други бюджетни организации (+/-)"
+          },
+          {
+            "amount": {
+              "amount": 3150000,
+              "amountEur": 1610569,
+              "currency": "BGN"
+            },
+            "code": "2.1",
+            "labelBg": "Получени трансфери (+)"
+          },
+          {
+            "amount": {
+              "amount": 3150000,
+              "amountEur": 1610569,
+              "currency": "BGN"
+            },
+            "code": "2.1.1",
+            "labelBg": "– от Държавното обществено осигуряване"
+          },
+          {
+            "amount": {
+              "amount": -178766900,
+              "amountEur": -91402065,
+              "currency": "BGN"
+            },
+            "code": "2.2",
+            "labelBg": "Предоставени трансфери (-)"
+          },
+          {
+            "amount": {
+              "amount": -178766900,
+              "amountEur": -91402065,
+              "currency": "BGN"
+            },
+            "code": "2.2.1",
+            "labelBg": "– за Националната здравноосигурителна каса"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": -364600,
+          "amountEur": -186417,
+          "currency": "BGN"
+        },
+        "code": "IV",
+        "kind": "balance",
+        "labelBg": "БЮДЖЕТНО САЛДО (І-ІІ+ІІІ)",
+        "lines": []
+      },
+      {
+        "amount": {
+          "amount": 364600,
+          "amountEur": 186417,
+          "currency": "BGN"
+        },
+        "code": "V",
+        "kind": "financing",
+        "labelBg": "ОПЕРАЦИИ В ЧАСТТА НА ФИНАНСИРАНЕТО – НЕТО",
+        "lines": [
+          {
+            "amount": {
+              "amount": 364600,
+              "amountEur": 186417,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Предоставени кредити (нето)"
+          }
+        ]
+      }
+    ],
+    "unitName": "Министерството на здравеопазването"
+  },
+  {
+    "fiscalYear": 2024,
+    "sections": [
+      {
+        "amount": {
+          "amount": 9300000,
+          "amountEur": 4755014,
+          "currency": "BGN"
+        },
+        "code": "I",
+        "kind": "revenue",
+        "labelBg": "ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 8800000,
+              "amountEur": 4499369,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Неданъчни приходи"
+          },
+          {
+            "amount": {
+              "amount": 875000,
+              "amountEur": 447380,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Държавни такси"
+          },
+          {
+            "amount": {
+              "amount": 7418700,
+              "amountEur": 3793121,
+              "currency": "BGN"
+            },
+            "code": "1.2",
+            "labelBg": "Приходи и доходи от собственост"
+          },
+          {
+            "amount": {
+              "amount": 35000,
+              "amountEur": 17895,
+              "currency": "BGN"
+            },
+            "code": "1.3",
+            "labelBg": "Глоби, санкции и наказателни лихви"
+          },
+          {
+            "amount": {
+              "amount": 471300,
+              "amountEur": 240972,
+              "currency": "BGN"
+            },
+            "code": "1.4",
+            "labelBg": "Други приходи"
+          },
+          {
+            "amount": {
+              "amount": 500000,
+              "amountEur": 255646,
+              "currency": "BGN"
+            },
+            "code": "2",
+            "labelBg": "Помощи и дарения"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 1133225200,
+          "amountEur": 579408844,
+          "currency": "BGN"
+        },
+        "code": "II",
+        "kind": "expenditure",
+        "labelBg": "РАЗХОДИ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 1119245200,
+              "amountEur": 572260984,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Текущи разходи"
+          },
+          {
+            "amount": {
+              "amount": 684303100,
+              "amountEur": 349878619,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Персонал"
+          },
+          {
+            "amount": {
+              "amount": 57639900,
+              "amountEur": 29470813,
+              "currency": "BGN"
+            },
+            "code": "1.1.1",
+            "labelBg": "в т.ч. Персонал без делегирани бюджети"
+          },
+          {
+            "amount": {
+              "amount": 19022900,
+              "amountEur": 9726254,
+              "currency": "BGN"
+            },
+            "code": "1.2",
+            "labelBg": "Субсидии и други текущи трансфери"
+          },
+          {
+            "amount": {
+              "amount": 18722900,
+              "amountEur": 9572867,
+              "currency": "BGN"
+            },
+            "code": "1.2.1",
+            "labelBg": "Субсидии и други текущи трансфери за нефинансови предприятия"
+          },
+          {
+            "amount": {
+              "amount": 300000,
+              "amountEur": 153388,
+              "currency": "BGN"
+            },
+            "code": "1.2.2",
+            "labelBg": "Субсидии и други текущи трансфери за юридически лица с нестопанска цел"
+          },
+          {
+            "amount": {
+              "amount": 100000,
+              "amountEur": 51129,
+              "currency": "BGN"
+            },
+            "code": "1.2.2.1",
+            "labelBg": "Македонски научен институт"
+          },
+          {
+            "amount": {
+              "amount": 100000,
+              "amountEur": 51129,
+              "currency": "BGN"
+            },
+            "code": "1.2.2.2",
+            "labelBg": "Добруджански научен институт"
+          },
+          {
+            "amount": {
+              "amount": 100000,
+              "amountEur": 51129,
+              "currency": "BGN"
+            },
+            "code": "1.2.2.3",
+            "labelBg": "Тракийски научен институт"
+          },
+          {
+            "amount": {
+              "amount": 16000,
+              "amountEur": 8181,
+              "currency": "BGN"
+            },
+            "code": "1.3",
+            "labelBg": "Текущи трансфери, обезщетения и помощи за домакинствата"
+          },
+          {
+            "amount": {
+              "amount": 0,
+              "amountEur": 0,
+              "currency": "BGN"
+            },
+            "code": "2",
+            "labelBg": "Капиталови разходи"
+          },
+          {
+            "amount": {
+              "amount": 0,
+              "amountEur": 0,
+              "currency": "BGN"
+            },
+            "code": "2.1",
+            "labelBg": "Придобиване на дълготрайни активи и основен ремонт"
+          },
+          {
+            "amount": {
+              "amount": 13980000,
+              "amountEur": 7147860,
+              "currency": "BGN"
+            },
+            "code": "3",
+            "labelBg": "Предоставени текущи и капиталови трансфери за чужбина"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 1125925200,
+          "amountEur": 575676414,
+          "currency": "BGN"
+        },
+        "code": "III",
+        "kind": "financing",
+        "labelBg": "БЮДЖЕТНИ ВЗАИМООТНОШЕНИЯ (ТРАНСФЕРИ) – (+/-)",
+        "lines": [
+          {
+            "amount": {
+              "amount": 2110004200,
+              "amountEur": 1078828017,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Бюджетно взаимоотношение с централния бюджет (+/-)"
+          },
+          {
+            "amount": {
+              "amount": -979079000,
+              "amountEur": -500595144,
+              "currency": "BGN"
+            },
+            "code": "2",
+            "labelBg": "Бюджетни взаимоотношения с други бюджетни организации (+/-)"
+          },
+          {
+            "amount": {
+              "amount": -979079000,
+              "amountEur": -500595144,
+              "currency": "BGN"
+            },
+            "code": "2.1",
+            "labelBg": "Предоставени трансфери (-)"
+          },
+          {
+            "amount": {
+              "amount": -171899800,
+              "amountEur": -87890972,
+              "currency": "BGN"
+            },
+            "code": "2.1.1",
+            "labelBg": "в т.ч. за Българската академия на науките"
+          },
+          {
+            "amount": {
+              "amount": -807179200,
+              "amountEur": -412704172,
+              "currency": "BGN"
+            },
+            "code": "2.1.2",
+            "labelBg": "за държавните висши училища"
+          },
+          {
+            "amount": {
+              "amount": -5000000,
+              "amountEur": -2556459,
+              "currency": "BGN"
+            },
+            "code": "3",
+            "labelBg": "Трансфери между бюджети и сметки за средствата от Европейския съюз (+/-)"
+          },
+          {
+            "amount": {
+              "amount": -5000000,
+              "amountEur": -2556459,
+              "currency": "BGN"
+            },
+            "code": "3.1",
+            "labelBg": "Предоставени трансфери (-)"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 2000000,
+          "amountEur": 1022584,
+          "currency": "BGN"
+        },
+        "code": "IV",
+        "kind": "balance",
+        "labelBg": "БЮДЖЕТНО САЛДО (І-ІІ+ІІІ)",
+        "lines": []
+      },
+      {
+        "amount": {
+          "amount": -2000000,
+          "amountEur": -1022584,
+          "currency": "BGN"
+        },
+        "code": "V",
+        "kind": "financing",
+        "labelBg": "ОПЕРАЦИИ В ЧАСТТА НА ФИНАНСИРАНЕТО – НЕТО",
+        "lines": [
+          {
+            "amount": {
+              "amount": -2000000,
+              "amountEur": -1022584,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Плащания по активирани гаранции, поръчителства и преоформен държавен дълг (нето)"
+          }
+        ]
+      }
+    ],
+    "unitName": "Министерството на образованието и науката"
+  },
+  {
+    "fiscalYear": 2024,
+    "sections": [
+      {
+        "amount": {
+          "amount": 48000000,
+          "amountEur": 24542010,
+          "currency": "BGN"
+        },
+        "code": "I",
+        "kind": "revenue",
+        "labelBg": "ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 48000000,
+              "amountEur": 24542010,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Неданъчни приходи"
+          },
+          {
+            "amount": {
+              "amount": 500000,
+              "amountEur": 255646,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Държавни такси"
+          },
+          {
+            "amount": {
+              "amount": 47300000,
+              "amountEur": 24184106,
+              "currency": "BGN"
+            },
+            "code": "1.2",
+            "labelBg": "Приходи и доходи от собственост"
+          },
+          {
+            "amount": {
+              "amount": 1100000,
+              "amountEur": 562421,
+              "currency": "BGN"
+            },
+            "code": "1.3",
+            "labelBg": "Глоби, санкции и наказателни лихви"
+          },
+          {
+            "amount": {
+              "amount": -900000,
+              "amountEur": -460163,
+              "currency": "BGN"
+            },
+            "code": "1.4",
+            "labelBg": "Други приходи"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 403350500,
+          "amountEur": 206229836,
+          "currency": "BGN"
+        },
+        "code": "II",
+        "kind": "expenditure",
+        "labelBg": "РАЗХОДИ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 403350500,
+              "amountEur": 206229836,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Текущи разходи"
+          },
+          {
+            "amount": {
+              "amount": 214613500,
+              "amountEur": 109730140,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Персонал"
+          },
+          {
+            "amount": {
+              "amount": 11968100,
+              "amountEur": 6119192,
+              "currency": "BGN"
+            },
+            "code": "1.1.1",
+            "labelBg": "в т.ч. Персонал без делегирани бюджети"
+          },
+          {
+            "amount": {
+              "amount": 63473500,
+              "amountEur": 32453485,
+              "currency": "BGN"
+            },
+            "code": "1.2",
+            "labelBg": "Субсидии и други текущи трансфери"
+          },
+          {
+            "amount": {
+              "amount": 59222000,
+              "amountEur": 30279728,
+              "currency": "BGN"
+            },
+            "code": "1.2.1",
+            "labelBg": "Субсидии и други текущи трансфери за нефинансови предприятия"
+          },
+          {
+            "amount": {
+              "amount": 4251500,
+              "amountEur": 2173757,
+              "currency": "BGN"
+            },
+            "code": "1.2.2",
+            "labelBg": "Субсидии и други текущи трансфери за юридически лица с нестопанска цел"
+          },
+          {
+            "amount": {
+              "amount": 226000,
+              "amountEur": 115552,
+              "currency": "BGN"
+            },
+            "code": "1.2.2.1",
+            "labelBg": "Национален дарителски фонд „13 века България“"
+          },
+          {
+            "amount": {
+              "amount": 612000,
+              "amountEur": 312911,
+              "currency": "BGN"
+            },
+            "code": "1.2.2.2",
+            "labelBg": "Регионален център за опазване на нематериалното културно наследство в Югоизточна Европа"
+          },
+          {
+            "amount": {
+              "amount": 86000,
+              "amountEur": 43971,
+              "currency": "BGN"
+            },
+            "code": "1.2.2.3",
+            "labelBg": "Съюз на народните читалища"
+          },
+          {
+            "amount": {
+              "amount": 310100,
+              "amountEur": 158552,
+              "currency": "BGN"
+            },
+            "code": "1.3",
+            "labelBg": "Текущи трансфери, обезщетения и помощи за домакинствата"
+          },
+          {
+            "amount": null,
+            "code": "2",
+            "labelBg": "Капиталови разходи"
+          },
+          {
+            "amount": null,
+            "code": "2.1",
+            "labelBg": "Придобиване на дълготрайни активи и основен ремонт"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 355350500,
+          "amountEur": 181687826,
+          "currency": "BGN"
+        },
+        "code": "III",
+        "kind": "financing",
+        "labelBg": "БЮДЖЕТНИ ВЗАИМООТНОШЕНИЯ (ТРАНСФЕРИ) – (+/-)",
+        "lines": [
+          {
+            "amount": {
+              "amount": 351550500,
+              "amountEur": 179744916,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Бюджетно взаимоотношение с централния бюджет (+/-)"
+          },
+          {
+            "amount": {
+              "amount": 3800000,
+              "amountEur": 1942909,
+              "currency": "BGN"
+            },
+            "code": "2",
+            "labelBg": "Бюджетни взаимоотношения с други бюджетни организации (+/-)"
+          },
+          {
+            "amount": {
+              "amount": 3800000,
+              "amountEur": 1942909,
+              "currency": "BGN"
+            },
+            "code": "2.1",
+            "labelBg": "Получени трансфери (+)"
+          }
+        ]
+      },
+      {
+        "amount": null,
+        "code": "IV",
+        "kind": "balance",
+        "labelBg": "БЮДЖЕТНО САЛДО (І-ІІ+ІІІ)",
+        "lines": []
+      },
+      {
+        "amount": null,
+        "code": "V",
+        "kind": "financing",
+        "labelBg": "ОПЕРАЦИИ В ЧАСТТА НА ФИНАНСИРАНЕТО – НЕТО",
+        "lines": []
+      }
+    ],
+    "unitName": "Министерството на културата"
+  },
+  {
+    "fiscalYear": 2024,
+    "sections": [
+      {
+        "amount": {
+          "amount": 48642900,
+          "amountEur": 24870720,
+          "currency": "BGN"
+        },
+        "code": "I",
+        "kind": "revenue",
+        "labelBg": "ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 48642900,
+              "amountEur": 24870720,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Неданъчни приходи"
+          },
+          {
+            "amount": {
+              "amount": 41400000,
+              "amountEur": 21167484,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Държавни такси"
+          },
+          {
+            "amount": {
+              "amount": 5765000,
+              "amountEur": 2947598,
+              "currency": "BGN"
+            },
+            "code": "1.2",
+            "labelBg": "Приходи и доходи от собственост"
+          },
+          {
+            "amount": {
+              "amount": 1665000,
+              "amountEur": 851301,
+              "currency": "BGN"
+            },
+            "code": "1.3",
+            "labelBg": "Глоби, санкции и наказателни лихви"
+          },
+          {
+            "amount": {
+              "amount": -187100,
+              "amountEur": -95663,
+              "currency": "BGN"
+            },
+            "code": "1.4",
+            "labelBg": "Други приходи"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 117986400,
+          "amountEur": 60325488,
+          "currency": "BGN"
+        },
+        "code": "II",
+        "kind": "expenditure",
+        "labelBg": "РАЗХОДИ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 117986400,
+              "amountEur": 60325488,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Текущи разходи"
+          },
+          {
+            "amount": {
+              "amount": 75829700,
+              "amountEur": 38771110,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Персонал"
+          },
+          {
+            "amount": {
+              "amount": 55843700,
+              "amountEur": 28552430,
+              "currency": "BGN"
+            },
+            "code": "1.1.1",
+            "labelBg": "в т.ч. Персонал без делегирани бюджети"
+          },
+          {
+            "amount": {
+              "amount": 300000,
+              "amountEur": 153388,
+              "currency": "BGN"
+            },
+            "code": "1.2",
+            "labelBg": "Текущи трансфери, обезщетения и помощи за домакинствата"
+          },
+          {
+            "amount": null,
+            "code": "2",
+            "labelBg": "Капиталови разходи"
+          },
+          {
+            "amount": null,
+            "code": "2.1",
+            "labelBg": "Придобиване на дълготрайни активи и основен ремонт"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 69343500,
+          "amountEur": 35454769,
+          "currency": "BGN"
+        },
+        "code": "III",
+        "kind": "financing",
+        "labelBg": "БЮДЖЕТНИ ВЗАИМООТНОШЕНИЯ (ТРАНСФЕРИ) – (+/-)",
+        "lines": [
+          {
+            "amount": {
+              "amount": 110058600,
+              "amountEur": 56272069,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Бюджетно взаимоотношение с централния бюджет (+/-)"
+          },
+          {
+            "amount": {
+              "amount": -40715100,
+              "amountEur": -20817300,
+              "currency": "BGN"
+            },
+            "code": "2",
+            "labelBg": "Бюджетни взаимоотношения с други бюджетни организации (+/-)"
+          },
+          {
+            "amount": {
+              "amount": 6000000,
+              "amountEur": 3067751,
+              "currency": "BGN"
+            },
+            "code": "2.1",
+            "labelBg": "Получени трансфери (+)"
+          },
+          {
+            "amount": {
+              "amount": 6000000,
+              "amountEur": 3067751,
+              "currency": "BGN"
+            },
+            "code": "2.1.1",
+            "labelBg": "– от Предприятието за управление на дейностите по опазване на околната среда"
+          },
+          {
+            "amount": {
+              "amount": -46715100,
+              "amountEur": -23885051,
+              "currency": "BGN"
+            },
+            "code": "2.2",
+            "labelBg": "Предоставени трансфери (-)"
+          },
+          {
+            "amount": {
+              "amount": -675000,
+              "amountEur": -345122,
+              "currency": "BGN"
+            },
+            "code": "2.2.1",
+            "labelBg": "в т.ч. за Българската академия на науките"
+          },
+          {
+            "amount": {
+              "amount": -46040100,
+              "amountEur": -23539929,
+              "currency": "BGN"
+            },
+            "code": "2.2.2",
+            "labelBg": "за Предприятието за управление на дейностите по опазване на околната среда"
+          }
+        ]
+      },
+      {
+        "amount": null,
+        "code": "IV",
+        "kind": "balance",
+        "labelBg": "БЮДЖЕТНО САЛДО (І-ІІ+ІІІ)",
+        "lines": []
+      },
+      {
+        "amount": null,
+        "code": "V",
+        "kind": "financing",
+        "labelBg": "ОПЕРАЦИИ В ЧАСТТА НА ФИНАНСИРАНЕТО – НЕТО",
+        "lines": []
+      }
+    ],
+    "unitName": "Министерството на околната среда и водите"
+  },
+  {
+    "fiscalYear": 2024,
+    "sections": [
+      {
+        "amount": {
+          "amount": 35347400,
+          "amountEur": 18072839,
+          "currency": "BGN"
+        },
+        "code": "I",
+        "kind": "revenue",
+        "labelBg": "ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 35347400,
+              "amountEur": 18072839,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Неданъчни приходи"
+          },
+          {
+            "amount": {
+              "amount": 29136400,
+              "amountEur": 14897205,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Държавни такси"
+          },
+          {
+            "amount": {
+              "amount": 5204000,
+              "amountEur": 2660763,
+              "currency": "BGN"
+            },
+            "code": "1.2",
+            "labelBg": "Приходи и доходи от собственост"
+          },
+          {
+            "amount": {
+              "amount": 2629000,
+              "amountEur": 1344186,
+              "currency": "BGN"
+            },
+            "code": "1.3",
+            "labelBg": "Глоби, санкции и наказателни лихви"
+          },
+          {
+            "amount": {
+              "amount": -1622000,
+              "amountEur": -829315,
+              "currency": "BGN"
+            },
+            "code": "1.4",
+            "labelBg": "Други приходи"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 92469700,
+          "amountEur": 47279007,
+          "currency": "BGN"
+        },
+        "code": "II",
+        "kind": "expenditure",
+        "labelBg": "РАЗХОДИ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 92469700,
+              "amountEur": 47279007,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Текущи разходи"
+          },
+          {
+            "amount": {
+              "amount": 50847600,
+              "amountEur": 25997965,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Персонал"
+          },
+          {
+            "amount": {
+              "amount": 14040000,
+              "amountEur": 7178538,
+              "currency": "BGN"
+            },
+            "code": "1.2",
+            "labelBg": "Субсидии и други текущи трансфери"
+          },
+          {
+            "amount": {
+              "amount": 12000000,
+              "amountEur": 6135503,
+              "currency": "BGN"
+            },
+            "code": "1.2.1",
+            "labelBg": "Субсидии и други текущи трансфери за нефинансови предприятия"
+          },
+          {
+            "amount": {
+              "amount": 2040000,
+              "amountEur": 1043035,
+              "currency": "BGN"
+            },
+            "code": "1.2.2",
+            "labelBg": "Субсидии и други текущи трансфери за юридически лица с нестопанска цел"
+          },
+          {
+            "amount": {
+              "amount": 1970000,
+              "amountEur": 1007245,
+              "currency": "BGN"
+            },
+            "code": "1.2.2.1",
+            "labelBg": "Български институт за стандартизация"
+          },
+          {
+            "amount": null,
+            "code": "2",
+            "labelBg": "Капиталови разходи"
+          },
+          {
+            "amount": null,
+            "code": "2.1",
+            "labelBg": "Придобиване на дълготрайни активи и основен ремонт"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 57122300,
+          "amountEur": 29206168,
+          "currency": "BGN"
+        },
+        "code": "III",
+        "kind": "financing",
+        "labelBg": "БЮДЖЕТНИ ВЗАИМООТНОШЕНИЯ (ТРАНСФЕРИ) – (+/-)",
+        "lines": [
+          {
+            "amount": {
+              "amount": 80061300,
+              "amountEur": 40934693,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Бюджетно взаимоотношение с централния бюджет (+/-)"
+          },
+          {
+            "amount": {
+              "amount": -22836700,
+              "amountEur": -11676219,
+              "currency": "BGN"
+            },
+            "code": "2",
+            "labelBg": "Бюджетни взаимоотношения с други бюджетни организации (+/-)"
+          },
+          {
+            "amount": {
+              "amount": -22836700,
+              "amountEur": -11676219,
+              "currency": "BGN"
+            },
+            "code": "2.1",
+            "labelBg": "Предоставени трансфери (-)"
+          },
+          {
+            "amount": {
+              "amount": -22836700,
+              "amountEur": -11676219,
+              "currency": "BGN"
+            },
+            "code": "2.1.1",
+            "labelBg": "– за Държавно предприятие „Управление и стопанисване на язовири“"
+          },
+          {
+            "amount": {
+              "amount": -102300,
+              "amountEur": -52305,
+              "currency": "BGN"
+            },
+            "code": "3",
+            "labelBg": "Трансфери между бюджети и сметки за средствата от Европейския съюз (+/-)"
+          },
+          {
+            "amount": {
+              "amount": -102300,
+              "amountEur": -52305,
+              "currency": "BGN"
+            },
+            "code": "3.1",
+            "labelBg": "Предоставени трансфери (-)"
+          }
+        ]
+      },
+      {
+        "amount": null,
+        "code": "IV",
+        "kind": "balance",
+        "labelBg": "БЮДЖЕТНО САЛДО (І-ІІ+ІІІ)",
+        "lines": []
+      },
+      {
+        "amount": null,
+        "code": "V",
+        "kind": "financing",
+        "labelBg": "ОПЕРАЦИИ В ЧАСТТА НА ФИНАНСИРАНЕТО – НЕТО",
+        "lines": []
+      }
+    ],
+    "unitName": "Министерството на икономиката и индустрията"
+  },
+  {
+    "fiscalYear": 2024,
+    "sections": [
+      {
+        "amount": null,
+        "code": "I",
+        "kind": "revenue",
+        "labelBg": "ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ",
+        "lines": []
+      },
+      {
+        "amount": {
+          "amount": 58323700,
+          "amountEur": 29820434,
+          "currency": "BGN"
+        },
+        "code": "II",
+        "kind": "expenditure",
+        "labelBg": "РАЗХОДИ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 58323700,
+              "amountEur": 29820434,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Текущи разходи"
+          },
+          {
+            "amount": {
+              "amount": 14066300,
+              "amountEur": 7191985,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Персонал"
+          },
+          {
+            "amount": {
+              "amount": 27929700,
+              "amountEur": 14280229,
+              "currency": "BGN"
+            },
+            "code": "1.2",
+            "labelBg": "Субсидии и други текущи трансфери"
+          },
+          {
+            "amount": {
+              "amount": 27929700,
+              "amountEur": 14280229,
+              "currency": "BGN"
+            },
+            "code": "1.2.1",
+            "labelBg": "Субсидии и други текущи трансфери за нефинансови предприятия"
+          },
+          {
+            "amount": null,
+            "code": "2",
+            "labelBg": "Капиталови разходи"
+          },
+          {
+            "amount": null,
+            "code": "2.1",
+            "labelBg": "Придобиване на дълготрайни активи и основен ремонт"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 62263600,
+          "amountEur": 31834873,
+          "currency": "BGN"
+        },
+        "code": "III",
+        "kind": "financing",
+        "labelBg": "БЮДЖЕТНИ ВЗАИМООТНОШЕНИЯ (ТРАНСФЕРИ) – (+/-)",
+        "lines": [
+          {
+            "amount": {
+              "amount": 62263600,
+              "amountEur": 31834873,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Бюджетно взаимоотношение с централния бюджет (+/-)"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 3939900,
+          "amountEur": 2014439,
+          "currency": "BGN"
+        },
+        "code": "IV",
+        "kind": "balance",
+        "labelBg": "БЮДЖЕТНО САЛДО (І-ІІ+ІІІ)",
+        "lines": []
+      },
+      {
+        "amount": {
+          "amount": -3939900,
+          "amountEur": -2014439,
+          "currency": "BGN"
+        },
+        "code": "V",
+        "kind": "financing",
+        "labelBg": "ОПЕРАЦИИ В ЧАСТТА НА ФИНАНСИРАНЕТО – НЕТО",
+        "lines": [
+          {
+            "amount": {
+              "amount": -3939900,
+              "amountEur": -2014439,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Придобиване на дялове, акции и съучастия (нето)"
+          }
+        ]
+      }
+    ],
+    "unitName": "Министерството на иновациите и растежа"
+  },
+  {
+    "fiscalYear": 2024,
+    "sections": [
+      {
+        "amount": {
+          "amount": 385212000,
+          "amountEur": 196955768,
+          "currency": "BGN"
+        },
+        "code": "I",
+        "kind": "revenue",
+        "labelBg": "ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 385212000,
+              "amountEur": 196955768,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Неданъчни приходи"
+          },
+          {
+            "amount": {
+              "amount": 2642000,
+              "amountEur": 1350833,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Държавни такси"
+          },
+          {
+            "amount": {
+              "amount": 4300000,
+              "amountEur": 2198555,
+              "currency": "BGN"
+            },
+            "code": "1.2",
+            "labelBg": "Глоби, санкции и наказателни лихви"
+          },
+          {
+            "amount": {
+              "amount": 378270000,
+              "amountEur": 193406380,
+              "currency": "BGN"
+            },
+            "code": "1.3",
+            "labelBg": "Други приходи"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 67132500,
+          "amountEur": 34324302,
+          "currency": "BGN"
+        },
+        "code": "II",
+        "kind": "expenditure",
+        "labelBg": "РАЗХОДИ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 67132500,
+              "amountEur": 34324302,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Текущи разходи"
+          },
+          {
+            "amount": {
+              "amount": 11594600,
+              "amountEur": 5928225,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Персонал"
+          },
+          {
+            "amount": {
+              "amount": 51053500,
+              "amountEur": 26103240,
+              "currency": "BGN"
+            },
+            "code": "1.2",
+            "labelBg": "Субсидии и други текущи трансфери"
+          },
+          {
+            "amount": {
+              "amount": 51053500,
+              "amountEur": 26103240,
+              "currency": "BGN"
+            },
+            "code": "1.2.1",
+            "labelBg": "Субсидии и други текущи трансфери за нефинансови предприятия"
+          },
+          {
+            "amount": null,
+            "code": "2",
+            "labelBg": "Капиталови разходи"
+          },
+          {
+            "amount": null,
+            "code": "2.1",
+            "labelBg": "Придобиване на дълготрайни активи и основен ремонт"
+          },
+          {
+            "amount": null,
+            "code": "2.2",
+            "labelBg": "Капиталови трансфери"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": -318079500,
+          "amountEur": -162631466,
+          "currency": "BGN"
+        },
+        "code": "III",
+        "kind": "financing",
+        "labelBg": "БЮДЖЕТНИ ВЗАИМООТНОШЕНИЯ (ТРАНСФЕРИ) – (+/-)",
+        "lines": [
+          {
+            "amount": {
+              "amount": -318061600,
+              "amountEur": -162622314,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Бюджетно взаимоотношение с централния бюджет (+/-)"
+          },
+          {
+            "amount": {
+              "amount": -17900,
+              "amountEur": -9152,
+              "currency": "BGN"
+            },
+            "code": "2",
+            "labelBg": "Трансфери между бюджети и сметки за средствата от Европейския съюз (+/-)"
+          },
+          {
+            "amount": {
+              "amount": -17900,
+              "amountEur": -9152,
+              "currency": "BGN"
+            },
+            "code": "2.1",
+            "labelBg": "Предоставени трансфери (-)"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 0,
+          "amountEur": 0,
+          "currency": "BGN"
+        },
+        "code": "IV",
+        "kind": "balance",
+        "labelBg": "БЮДЖЕТНО САЛДО (І-ІІ+ІІІ)",
+        "lines": []
+      },
+      {
+        "amount": {
+          "amount": 0,
+          "amountEur": 0,
+          "currency": "BGN"
+        },
+        "code": "V",
+        "kind": "financing",
+        "labelBg": "ОПЕРАЦИИ В ЧАСТТА НА ФИНАНСИРАНЕТО – НЕТО",
+        "lines": []
+      }
+    ],
+    "unitName": "Министерството на енергетиката"
+  },
+  {
+    "fiscalYear": 2024,
+    "sections": [
+      {
+        "amount": {
+          "amount": 9445900,
+          "amountEur": 4829612,
+          "currency": "BGN"
+        },
+        "code": "I",
+        "kind": "revenue",
+        "labelBg": "ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 9445900,
+              "amountEur": 4829612,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Неданъчни приходи"
+          },
+          {
+            "amount": {
+              "amount": 854000,
+              "amountEur": 436643,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Държавни такси"
+          },
+          {
+            "amount": {
+              "amount": 1800000,
+              "amountEur": 920325,
+              "currency": "BGN"
+            },
+            "code": "1.2",
+            "labelBg": "Приходи и доходи от собственост"
+          },
+          {
+            "amount": {
+              "amount": 300000,
+              "amountEur": 153388,
+              "currency": "BGN"
+            },
+            "code": "1.3",
+            "labelBg": "Глоби, санкции и наказателни лихви"
+          },
+          {
+            "amount": {
+              "amount": 6491900,
+              "amountEur": 3319256,
+              "currency": "BGN"
+            },
+            "code": "1.4",
+            "labelBg": "Други приходи"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 28342300,
+          "amountEur": 14491188,
+          "currency": "BGN"
+        },
+        "code": "II",
+        "kind": "expenditure",
+        "labelBg": "РАЗХОДИ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 28342300,
+              "amountEur": 14491188,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Текущи разходи"
+          },
+          {
+            "amount": {
+              "amount": 5212900,
+              "amountEur": 2665313,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Персонал"
+          },
+          {
+            "amount": null,
+            "code": "2",
+            "labelBg": "Капиталови разходи"
+          },
+          {
+            "amount": null,
+            "code": "2.1",
+            "labelBg": "Придобиване на дълготрайни активи и основен ремонт"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 18896400,
+          "amountEur": 9661576,
+          "currency": "BGN"
+        },
+        "code": "III",
+        "kind": "financing",
+        "labelBg": "БЮДЖЕТНИ ВЗАИМООТНОШЕНИЯ (ТРАНСФЕРИ) – (+/-)",
+        "lines": [
+          {
+            "amount": {
+              "amount": 18896400,
+              "amountEur": 9661576,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Бюджетно взаимоотношение с централния бюджет (+/-)"
+          }
+        ]
+      },
+      {
+        "amount": null,
+        "code": "IV",
+        "kind": "balance",
+        "labelBg": "БЮДЖЕТНО САЛДО (І-ІІ+ІІІ)",
+        "lines": []
+      },
+      {
+        "amount": null,
+        "code": "V",
+        "kind": "financing",
+        "labelBg": "ОПЕРАЦИИ В ЧАСТТА НА ФИНАНСИРАНЕТО – НЕТО",
+        "lines": []
+      }
+    ],
+    "unitName": "Министерството на туризма"
+  },
+  {
+    "fiscalYear": 2024,
+    "sections": [
+      {
+        "amount": {
+          "amount": 959489000,
+          "amountEur": 490578936,
+          "currency": "BGN"
+        },
+        "code": "I",
+        "kind": "revenue",
+        "labelBg": "ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 959489000,
+              "amountEur": 490578936,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Неданъчни приходи"
+          },
+          {
+            "amount": {
+              "amount": 953770000,
+              "amountEur": 487654858,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Държавни такси"
+          },
+          {
+            "amount": {
+              "amount": 1630000,
+              "amountEur": 833406,
+              "currency": "BGN"
+            },
+            "code": "1.2",
+            "labelBg": "Приходи и доходи от собственост"
+          },
+          {
+            "amount": {
+              "amount": 1570000,
+              "amountEur": 802728,
+              "currency": "BGN"
+            },
+            "code": "1.3",
+            "labelBg": "Глоби, санкции и наказателни лихви"
+          },
+          {
+            "amount": {
+              "amount": 2519000,
+              "amountEur": 1287944,
+              "currency": "BGN"
+            },
+            "code": "1.4",
+            "labelBg": "Други приходи"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 1110095500,
+          "amountEur": 567582817,
+          "currency": "BGN"
+        },
+        "code": "II",
+        "kind": "expenditure",
+        "labelBg": "РАЗХОДИ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 1110095500,
+              "amountEur": 567582817,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Текущи разходи"
+          },
+          {
+            "amount": {
+              "amount": 115805300,
+              "amountEur": 59210310,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Персонал"
+          },
+          {
+            "amount": {
+              "amount": 729000,
+              "amountEur": 372732,
+              "currency": "BGN"
+            },
+            "code": "1.2",
+            "labelBg": "Субсидии и други текущи трансфери"
+          },
+          {
+            "amount": {
+              "amount": 729000,
+              "amountEur": 372732,
+              "currency": "BGN"
+            },
+            "code": "1.2.1",
+            "labelBg": "Субсидии и други текущи трансфери за юридически лица с нестопанска цел"
+          },
+          {
+            "amount": {
+              "amount": 0,
+              "amountEur": 0,
+              "currency": "BGN"
+            },
+            "code": "2",
+            "labelBg": "Капиталови разходи"
+          },
+          {
+            "amount": {
+              "amount": 0,
+              "amountEur": 0,
+              "currency": "BGN"
+            },
+            "code": "2.1",
+            "labelBg": "Придобиване на дълготрайни активи и основен ремонт"
+          },
+          {
+            "amount": {
+              "amount": 0,
+              "amountEur": 0,
+              "currency": "BGN"
+            },
+            "code": "2.2",
+            "labelBg": "Капиталови трансфери"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 150606500,
+          "amountEur": 77003881,
+          "currency": "BGN"
+        },
+        "code": "III",
+        "kind": "financing",
+        "labelBg": "БЮДЖЕТНИ ВЗАИМООТНОШЕНИЯ (ТРАНСФЕРИ) – (+/-)",
+        "lines": [
+          {
+            "amount": {
+              "amount": 171362000,
+              "amountEur": 87615999,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Бюджетно взаимоотношение с централния бюджет (+/-)"
+          },
+          {
+            "amount": {
+              "amount": -20755500,
+              "amountEur": -10612119,
+              "currency": "BGN"
+            },
+            "code": "2",
+            "labelBg": "Трансфери между бюджети и сметки за средствата от Европейския съюз (+/-)"
+          },
+          {
+            "amount": {
+              "amount": -20755500,
+              "amountEur": -10612119,
+              "currency": "BGN"
+            },
+            "code": "2.1",
+            "labelBg": "Предоставени трансфери (-)"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 0,
+          "amountEur": 0,
+          "currency": "BGN"
+        },
+        "code": "IV",
+        "kind": "balance",
+        "labelBg": "БЮДЖЕТНО САЛДО (І-ІІ+ІІІ)",
+        "lines": []
+      },
+      {
+        "amount": {
+          "amount": 0,
+          "amountEur": 0,
+          "currency": "BGN"
+        },
+        "code": "V",
+        "kind": "financing",
+        "labelBg": "ОПЕРАЦИИ В ЧАСТТА НА ФИНАНСИРАНЕТО – НЕТО",
+        "lines": []
+      }
+    ],
+    "unitName": "Министерството на регионалното развитие и благоустройството"
+  },
+  {
+    "fiscalYear": 2024,
+    "sections": [
+      {
+        "amount": {
+          "amount": 204386000,
+          "amountEur": 104500902,
+          "currency": "BGN"
+        },
+        "code": "I",
+        "kind": "revenue",
+        "labelBg": "ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 204386000,
+              "amountEur": 104500902,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Неданъчни приходи"
+          },
+          {
+            "amount": {
+              "amount": 77000000,
+              "amountEur": 39369475,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Държавни такси"
+          },
+          {
+            "amount": {
+              "amount": 112386000,
+              "amountEur": 57462049,
+              "currency": "BGN"
+            },
+            "code": "1.2",
+            "labelBg": "Приходи и доходи от собственост"
+          },
+          {
+            "amount": {
+              "amount": 2000000,
+              "amountEur": 1022584,
+              "currency": "BGN"
+            },
+            "code": "1.3",
+            "labelBg": "Глоби, санкции и наказателни лихви"
+          },
+          {
+            "amount": {
+              "amount": 13000000,
+              "amountEur": 6646794,
+              "currency": "BGN"
+            },
+            "code": "1.4",
+            "labelBg": "Други приходи"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 303743700,
+          "amountEur": 155301688,
+          "currency": "BGN"
+        },
+        "code": "II",
+        "kind": "expenditure",
+        "labelBg": "РАЗХОДИ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 303743700,
+              "amountEur": 155301688,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Текущи разходи"
+          },
+          {
+            "amount": {
+              "amount": 215012700,
+              "amountEur": 109934248,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Персонал"
+          },
+          {
+            "amount": {
+              "amount": 29300000,
+              "amountEur": 14980852,
+              "currency": "BGN"
+            },
+            "code": "1.2",
+            "labelBg": "Субсидии и други текущи трансфери"
+          },
+          {
+            "amount": {
+              "amount": 29300000,
+              "amountEur": 14980852,
+              "currency": "BGN"
+            },
+            "code": "1.2.1",
+            "labelBg": "Субсидии и други текущи трансфери за нефинансови предприятия"
+          },
+          {
+            "amount": null,
+            "code": "2",
+            "labelBg": "Капиталови разходи"
+          },
+          {
+            "amount": null,
+            "code": "2.1",
+            "labelBg": "Придобиване на дълготрайни активи и основен ремонт"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 99357700,
+          "amountEur": 50800785,
+          "currency": "BGN"
+        },
+        "code": "III",
+        "kind": "financing",
+        "labelBg": "БЮДЖЕТНИ ВЗАИМООТНОШЕНИЯ (ТРАНСФЕРИ) – (+/-)",
+        "lines": [
+          {
+            "amount": {
+              "amount": 173936200,
+              "amountEur": 88932167,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Бюджетно взаимоотношение с централния бюджет (+/-)"
+          },
+          {
+            "amount": {
+              "amount": -53909000,
+              "amountEur": -27563234,
+              "currency": "BGN"
+            },
+            "code": "2",
+            "labelBg": "Бюджетни взаимоотношения с други бюджетни организации (+/-)"
+          },
+          {
+            "amount": {
+              "amount": -53909000,
+              "amountEur": -27563234,
+              "currency": "BGN"
+            },
+            "code": "2.1",
+            "labelBg": "Предоставени трансфери (-)"
+          },
+          {
+            "amount": {
+              "amount": -53909000,
+              "amountEur": -27563234,
+              "currency": "BGN"
+            },
+            "code": "2.1.1",
+            "labelBg": "– за Селскостопанската академия"
+          },
+          {
+            "amount": {
+              "amount": -20669500,
+              "amountEur": -10568148,
+              "currency": "BGN"
+            },
+            "code": "3",
+            "labelBg": "Трансфери между бюджети и сметки за средствата от Европейския съюз (+/-)"
+          },
+          {
+            "amount": {
+              "amount": -20669500,
+              "amountEur": -10568148,
+              "currency": "BGN"
+            },
+            "code": "3.1",
+            "labelBg": "Предоставени трансфери (-)"
+          }
+        ]
+      },
+      {
+        "amount": null,
+        "code": "IV",
+        "kind": "balance",
+        "labelBg": "БЮДЖЕТНО САЛДО (І-ІІ+ІІІ)",
+        "lines": []
+      },
+      {
+        "amount": null,
+        "code": "V",
+        "kind": "financing",
+        "labelBg": "ОПЕРАЦИИ В ЧАСТТА НА ФИНАНСИРАНЕТО – НЕТО",
+        "lines": []
+      }
+    ],
+    "unitName": "Министерството на земеделието и храните"
+  },
+  {
+    "fiscalYear": 2024,
+    "sections": [
+      {
+        "amount": {
+          "amount": 54161800,
+          "amountEur": 27692489,
+          "currency": "BGN"
+        },
+        "code": "I",
+        "kind": "revenue",
+        "labelBg": "ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 54161800,
+              "amountEur": 27692489,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Неданъчни приходи"
+          },
+          {
+            "amount": {
+              "amount": 27229800,
+              "amountEur": 13922376,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Държавни такси"
+          },
+          {
+            "amount": {
+              "amount": 807000,
+              "amountEur": 412613,
+              "currency": "BGN"
+            },
+            "code": "1.2",
+            "labelBg": "Приходи и доходи от собственост"
+          },
+          {
+            "amount": {
+              "amount": 7969000,
+              "amountEur": 4074485,
+              "currency": "BGN"
+            },
+            "code": "1.3",
+            "labelBg": "Глоби, санкции и наказателни лихви"
+          },
+          {
+            "amount": {
+              "amount": 18156000,
+              "amountEur": 9283015,
+              "currency": "BGN"
+            },
+            "code": "1.4",
+            "labelBg": "Други приходи"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 696301800,
+          "amountEur": 356013457,
+          "currency": "BGN"
+        },
+        "code": "II",
+        "kind": "expenditure",
+        "labelBg": "РАЗХОДИ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 696301800,
+              "amountEur": 356013457,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Текущи разходи"
+          },
+          {
+            "amount": {
+              "amount": 58229000,
+              "amountEur": 29772015,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Персонал"
+          },
+          {
+            "amount": {
+              "amount": 603633200,
+              "amountEur": 308632754,
+              "currency": "BGN"
+            },
+            "code": "1.2",
+            "labelBg": "Субсидии и други текущи трансфери"
+          },
+          {
+            "amount": {
+              "amount": 603633200,
+              "amountEur": 308632754,
+              "currency": "BGN"
+            },
+            "code": "1.2.1",
+            "labelBg": "Субсидии и други текущи трансфери за нефинансови предприятия"
+          },
+          {
+            "amount": {
+              "amount": 209890000,
+              "amountEur": 107315053,
+              "currency": "BGN"
+            },
+            "code": "1.2.1.1",
+            "labelBg": "– за „БДЖ – Пътнически превози“ – ЕООД"
+          },
+          {
+            "amount": {
+              "amount": 301230000,
+              "amountEur": 154016453,
+              "currency": "BGN"
+            },
+            "code": "1.2.1.2",
+            "labelBg": "– за Национална компания „Железопътна инфраструктура“"
+          },
+          {
+            "amount": {
+              "amount": 86536700,
+              "amountEur": 44245512,
+              "currency": "BGN"
+            },
+            "code": "1.2.1.3",
+            "labelBg": "– за „Български пощи“ – ЕАД"
+          },
+          {
+            "amount": {
+              "amount": 5976500,
+              "amountEur": 3055736,
+              "currency": "BGN"
+            },
+            "code": "1.2.1.4",
+            "labelBg": "– за „България Хели Мед Сървиз“ – ЕАД"
+          },
+          {
+            "amount": null,
+            "code": "2",
+            "labelBg": "Капиталови разходи"
+          },
+          {
+            "amount": null,
+            "code": "2.1",
+            "labelBg": "Придобиване на дълготрайни активи и основен ремонт"
+          },
+          {
+            "amount": null,
+            "code": "2.2",
+            "labelBg": "Капиталови трансфери"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 642140000,
+          "amountEur": 328320969,
+          "currency": "BGN"
+        },
+        "code": "III",
+        "kind": "financing",
+        "labelBg": "БЮДЖЕТНИ ВЗАИМООТНОШЕНИЯ (ТРАНСФЕРИ) – (+/-)",
+        "lines": [
+          {
+            "amount": {
+              "amount": 453950200,
+              "amountEur": 232101052,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Бюджетно взаимоотношение с централния бюджет (+/-)"
+          },
+          {
+            "amount": {
+              "amount": 214331800,
+              "amountEur": 109586109,
+              "currency": "BGN"
+            },
+            "code": "2",
+            "labelBg": "Бюджетни взаимоотношения с други бюджетни организации (+/-)"
+          },
+          {
+            "amount": {
+              "amount": 214331800,
+              "amountEur": 109586109,
+              "currency": "BGN"
+            },
+            "code": "2.1",
+            "labelBg": "Получени трансфери (+)"
+          },
+          {
+            "amount": {
+              "amount": 250000,
+              "amountEur": 127823,
+              "currency": "BGN"
+            },
+            "code": "2.1.1",
+            "labelBg": "– от Държавното обществено осигуряване"
+          },
+          {
+            "amount": {
+              "amount": -26142000,
+              "amountEur": -13366192,
+              "currency": "BGN"
+            },
+            "code": "3",
+            "labelBg": "Трансфери между бюджети и сметки за средствата от Европейския съюз (+/-)"
+          },
+          {
+            "amount": {
+              "amount": -26142000,
+              "amountEur": -13366192,
+              "currency": "BGN"
+            },
+            "code": "3.1",
+            "labelBg": "Предоставени трансфери (-)"
+          }
+        ]
+      },
+      {
+        "amount": null,
+        "code": "IV",
+        "kind": "balance",
+        "labelBg": "БЮДЖЕТНО САЛДО (І-ІІ+ІІІ)",
+        "lines": []
+      },
+      {
+        "amount": null,
+        "code": "V",
+        "kind": "financing",
+        "labelBg": "ОПЕРАЦИИ В ЧАСТТА НА ФИНАНСИРАНЕТО – НЕТО",
+        "lines": []
+      }
+    ],
+    "unitName": "Министерството на транспорта и съобщенията"
+  },
+  {
+    "fiscalYear": 2024,
+    "sections": [
+      {
+        "amount": null,
+        "code": "I",
+        "kind": "revenue",
+        "labelBg": "ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ",
+        "lines": []
+      },
+      {
+        "amount": {
+          "amount": 42935600,
+          "amountEur": 21952624,
+          "currency": "BGN"
+        },
+        "code": "II",
+        "kind": "expenditure",
+        "labelBg": "РАЗХОДИ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 42935600,
+              "amountEur": 21952624,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Текущи разходи"
+          },
+          {
+            "amount": {
+              "amount": 24324000,
+              "amountEur": 12436664,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Персонал"
+          },
+          {
+            "amount": null,
+            "code": "2",
+            "labelBg": "Капиталови разходи"
+          },
+          {
+            "amount": null,
+            "code": "2.1",
+            "labelBg": "Придобиване на дълготрайни активи и основен ремонт"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 42935600,
+          "amountEur": 21952624,
+          "currency": "BGN"
+        },
+        "code": "III",
+        "kind": "financing",
+        "labelBg": "БЮДЖЕТНИ ВЗАИМООТНОШЕНИЯ (ТРАНСФЕРИ) – (+/-)",
+        "lines": [
+          {
+            "amount": {
+              "amount": 20927700,
+              "amountEur": 10700163,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Бюджетно взаимоотношение с централния бюджет (+/-)"
+          },
+          {
+            "amount": {
+              "amount": 23786900,
+              "amountEur": 12162049,
+              "currency": "BGN"
+            },
+            "code": "2",
+            "labelBg": "Бюджетни взаимоотношения с други бюджетни организации (+/-)"
+          },
+          {
+            "amount": {
+              "amount": 23786900,
+              "amountEur": 12162049,
+              "currency": "BGN"
+            },
+            "code": "2.1",
+            "labelBg": "Получени трансфери (+)"
+          },
+          {
+            "amount": {
+              "amount": -1779000,
+              "amountEur": -909588,
+              "currency": "BGN"
+            },
+            "code": "3",
+            "labelBg": "Трансфери между бюджети и сметки за средствата от Европейския съюз (+/-)"
+          },
+          {
+            "amount": {
+              "amount": -1779000,
+              "amountEur": -909588,
+              "currency": "BGN"
+            },
+            "code": "3.1",
+            "labelBg": "Предоставени трансфери (-)"
+          }
+        ]
+      },
+      {
+        "amount": null,
+        "code": "IV",
+        "kind": "balance",
+        "labelBg": "БЮДЖЕТНО САЛДО (І-ІІ+ІІІ)",
+        "lines": []
+      },
+      {
+        "amount": null,
+        "code": "V",
+        "kind": "financing",
+        "labelBg": "ОПЕРАЦИИ В ЧАСТТА НА ФИНАНСИРАНЕТО – НЕТО",
+        "lines": []
+      }
+    ],
+    "unitName": "Министерството на електронното управление"
+  },
+  {
+    "fiscalYear": 2024,
+    "sections": [
+      {
+        "amount": {
+          "amount": 38700000,
+          "amountEur": 19786996,
+          "currency": "BGN"
+        },
+        "code": "I",
+        "kind": "revenue",
+        "labelBg": "ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 38700000,
+              "amountEur": 19786996,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Неданъчни приходи"
+          },
+          {
+            "amount": {
+              "amount": 38893000,
+              "amountEur": 19885675,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Приходи и доходи от собственост"
+          },
+          {
+            "amount": {
+              "amount": -193000,
+              "amountEur": -98679,
+              "currency": "BGN"
+            },
+            "code": "1.2",
+            "labelBg": "Други приходи"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 137444400,
+          "amountEur": 70274206,
+          "currency": "BGN"
+        },
+        "code": "II",
+        "kind": "expenditure",
+        "labelBg": "РАЗХОДИ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 137444400,
+              "amountEur": 70274206,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Текущи разходи"
+          },
+          {
+            "amount": {
+              "amount": 26258000,
+              "amountEur": 13425502,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Персонал"
+          },
+          {
+            "amount": {
+              "amount": 8985300,
+              "amountEur": 4594111,
+              "currency": "BGN"
+            },
+            "code": "1.1.1",
+            "labelBg": "в т.ч. Персонал без делегирани бюджети"
+          },
+          {
+            "amount": {
+              "amount": 91375200,
+              "amountEur": 46719398,
+              "currency": "BGN"
+            },
+            "code": "1.2",
+            "labelBg": "Субсидии и други текущи трансфери"
+          },
+          {
+            "amount": {
+              "amount": 180000,
+              "amountEur": 92033,
+              "currency": "BGN"
+            },
+            "code": "1.2.1",
+            "labelBg": "Субсидии и други текущи трансфери за нефинансови предприятия"
+          },
+          {
+            "amount": {
+              "amount": 91195200,
+              "amountEur": 46627365,
+              "currency": "BGN"
+            },
+            "code": "1.2.2",
+            "labelBg": "Субсидии и други текущи трансфери за юридически лица с нестопанска цел"
+          },
+          {
+            "amount": {
+              "amount": 13321000,
+              "amountEur": 6810919,
+              "currency": "BGN"
+            },
+            "code": "1.3",
+            "labelBg": "Текущи трансфери, обезщетения и помощи за домакинствата"
+          },
+          {
+            "amount": null,
+            "code": "2",
+            "labelBg": "Капиталови разходи"
+          },
+          {
+            "amount": null,
+            "code": "2.1",
+            "labelBg": "Придобиване на дълготрайни активи и основен ремонт"
+          },
+          {
+            "amount": null,
+            "code": "2.2",
+            "labelBg": "Капиталови трансфери"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 98744400,
+          "amountEur": 50487210,
+          "currency": "BGN"
+        },
+        "code": "III",
+        "kind": "financing",
+        "labelBg": "БЮДЖЕТНИ ВЗАИМООТНОШЕНИЯ (ТРАНСФЕРИ) – (+/-)",
+        "lines": [
+          {
+            "amount": {
+              "amount": 94915900,
+              "amountEur": 48529729,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Бюджетно взаимоотношение с централния бюджет (+/-)"
+          },
+          {
+            "amount": {
+              "amount": 3940000,
+              "amountEur": 2014490,
+              "currency": "BGN"
+            },
+            "code": "2",
+            "labelBg": "Бюджетни взаимоотношения с други бюджетни организации (+/-)"
+          },
+          {
+            "amount": {
+              "amount": 7740000,
+              "amountEur": 3957399,
+              "currency": "BGN"
+            },
+            "code": "2.1",
+            "labelBg": "Получени трансфери (+)"
+          },
+          {
+            "amount": {
+              "amount": -3800000,
+              "amountEur": -1942909,
+              "currency": "BGN"
+            },
+            "code": "2.2",
+            "labelBg": "Предоставени трансфери (-)"
+          },
+          {
+            "amount": {
+              "amount": -111500,
+              "amountEur": -57009,
+              "currency": "BGN"
+            },
+            "code": "3",
+            "labelBg": "Трансфери между бюджети и сметки за средствата от Европейския съюз (+/-)"
+          },
+          {
+            "amount": {
+              "amount": -111500,
+              "amountEur": -57009,
+              "currency": "BGN"
+            },
+            "code": "3.1",
+            "labelBg": "Предоставени трансфери (-)"
+          }
+        ]
+      },
+      {
+        "amount": null,
+        "code": "IV",
+        "kind": "balance",
+        "labelBg": "БЮДЖЕТНО САЛДО (І-ІІ+ІІІ)",
+        "lines": []
+      },
+      {
+        "amount": null,
+        "code": "V",
+        "kind": "financing",
+        "labelBg": "ОПЕРАЦИИ В ЧАСТТА НА ФИНАНСИРАНЕТО – НЕТО",
+        "lines": []
+      }
+    ],
+    "unitName": "Министерството на младежта и спорта"
+  },
+  {
+    "fiscalYear": 2024,
+    "sections": [
+      {
+        "amount": {
+          "amount": 200000,
+          "amountEur": 102258,
+          "currency": "BGN"
+        },
+        "code": "I",
+        "kind": "revenue",
+        "labelBg": "ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 200000,
+              "amountEur": 102258,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Неданъчни приходи"
+          },
+          {
+            "amount": {
+              "amount": 15000,
+              "amountEur": 7669,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Приходи и доходи от собственост"
+          },
+          {
+            "amount": {
+              "amount": 185000,
+              "amountEur": 94589,
+              "currency": "BGN"
+            },
+            "code": "1.2",
+            "labelBg": "Глоби, санкции и наказателни лихви"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 171035500,
+          "amountEur": 87449063,
+          "currency": "BGN"
+        },
+        "code": "II",
+        "kind": "expenditure",
+        "labelBg": "РАЗХОДИ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 171035500,
+              "amountEur": 87449063,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Текущи разходи"
+          },
+          {
+            "amount": {
+              "amount": 162538000,
+              "amountEur": 83104360,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Персонал"
+          },
+          {
+            "amount": null,
+            "code": "2",
+            "labelBg": "Капиталови разходи"
+          },
+          {
+            "amount": null,
+            "code": "2.1",
+            "labelBg": "Придобиване на дълготрайни активи и основен ремонт"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 170835500,
+          "amountEur": 87346804,
+          "currency": "BGN"
+        },
+        "code": "III",
+        "kind": "financing",
+        "labelBg": "БЮДЖЕТНИ ВЗАИМООТНОШЕНИЯ (ТРАНСФЕРИ) – (+/-)",
+        "lines": [
+          {
+            "amount": {
+              "amount": 170835500,
+              "amountEur": 87346804,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Бюджетно взаимоотношение с централния бюджет (+/-)"
+          }
+        ]
+      },
+      {
+        "amount": null,
+        "code": "IV",
+        "kind": "balance",
+        "labelBg": "БЮДЖЕТНО САЛДО (І-ІІ+ІІІ)",
+        "lines": []
+      },
+      {
+        "amount": null,
+        "code": "V",
+        "kind": "financing",
+        "labelBg": "ОПЕРАЦИИ В ЧАСТТА НА ФИНАНСИРАНЕТО – НЕТО",
+        "lines": []
+      }
+    ],
+    "unitName": "Държавната агенция „Национална сигурност“"
+  },
+  {
+    "fiscalYear": 2024,
+    "sections": [
+      {
+        "amount": null,
+        "code": "I",
+        "kind": "revenue",
+        "labelBg": "ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ",
+        "lines": []
+      },
+      {
+        "amount": {
+          "amount": 3629900,
+          "amountEur": 1855938,
+          "currency": "BGN"
+        },
+        "code": "II",
+        "kind": "expenditure",
+        "labelBg": "РАЗХОДИ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 3629900,
+              "amountEur": 1855938,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Текущи разходи"
+          },
+          {
+            "amount": {
+              "amount": 2799300,
+              "amountEur": 1431259,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Персонал"
+          },
+          {
+            "amount": null,
+            "code": "2",
+            "labelBg": "Капиталови разходи"
+          },
+          {
+            "amount": null,
+            "code": "2.1",
+            "labelBg": "Придобиване на дълготрайни активи и основен ремонт"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 3629900,
+          "amountEur": 1855938,
+          "currency": "BGN"
+        },
+        "code": "III",
+        "kind": "financing",
+        "labelBg": "БЮДЖЕТНИ ВЗАИМООТНОШЕНИЯ (ТРАНСФЕРИ) – (+/-)",
+        "lines": [
+          {
+            "amount": {
+              "amount": 3629900,
+              "amountEur": 1855938,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Бюджетно взаимоотношение с централния бюджет (+/-)"
+          }
+        ]
+      },
+      {
+        "amount": null,
+        "code": "IV",
+        "kind": "balance",
+        "labelBg": "БЮДЖЕТНО САЛДО (І-ІІ+ІІІ)",
+        "lines": []
+      },
+      {
+        "amount": null,
+        "code": "V",
+        "kind": "financing",
+        "labelBg": "ОПЕРАЦИИ В ЧАСТТА НА ФИНАНСИРАНЕТО – НЕТО",
+        "lines": []
+      }
+    ],
+    "unitName": "Комисията за защита от дискриминация"
+  },
+  {
+    "fiscalYear": 2024,
+    "sections": [
+      {
+        "amount": {
+          "amount": 700000,
+          "amountEur": 357904,
+          "currency": "BGN"
+        },
+        "code": "I",
+        "kind": "revenue",
+        "labelBg": "ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 700000,
+              "amountEur": 357904,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Неданъчни приходи"
+          },
+          {
+            "amount": {
+              "amount": 700000,
+              "amountEur": 357904,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Глоби, санкции и наказателни лихви"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 5808900,
+          "amountEur": 2970043,
+          "currency": "BGN"
+        },
+        "code": "II",
+        "kind": "expenditure",
+        "labelBg": "РАЗХОДИ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 5808900,
+              "amountEur": 2970043,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Текущи разходи"
+          },
+          {
+            "amount": {
+              "amount": 4973100,
+              "amountEur": 2542706,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Персонал"
+          },
+          {
+            "amount": null,
+            "code": "2",
+            "labelBg": "Капиталови разходи"
+          },
+          {
+            "amount": null,
+            "code": "2.1",
+            "labelBg": "Придобиване на дълготрайни активи и основен ремонт"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 5108900,
+          "amountEur": 2612139,
+          "currency": "BGN"
+        },
+        "code": "III",
+        "kind": "financing",
+        "labelBg": "БЮДЖЕТНИ ВЗАИМООТНОШЕНИЯ (ТРАНСФЕРИ) – (+/-)",
+        "lines": [
+          {
+            "amount": {
+              "amount": 5108900,
+              "amountEur": 2612139,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Бюджетно взаимоотношение с централния бюджет (+/-)"
+          }
+        ]
+      },
+      {
+        "amount": null,
+        "code": "IV",
+        "kind": "balance",
+        "labelBg": "БЮДЖЕТНО САЛДО (І-ІІ+ІІІ)",
+        "lines": []
+      },
+      {
+        "amount": null,
+        "code": "V",
+        "kind": "financing",
+        "labelBg": "ОПЕРАЦИИ В ЧАСТТА НА ФИНАНСИРАНЕТО – НЕТО",
+        "lines": []
+      }
+    ],
+    "unitName": "Комисията за защита на личните данни"
+  },
+  {
+    "fiscalYear": 2024,
+    "sections": [
+      {
+        "amount": {
+          "amount": 40000,
+          "amountEur": 20452,
+          "currency": "BGN"
+        },
+        "code": "I",
+        "kind": "revenue",
+        "labelBg": "ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 40000,
+              "amountEur": 20452,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Неданъчни приходи"
+          },
+          {
+            "amount": {
+              "amount": 40000,
+              "amountEur": 20452,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Глоби, санкции и наказателни лихви"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 14214500,
+          "amountEur": 7267758,
+          "currency": "BGN"
+        },
+        "code": "II",
+        "kind": "expenditure",
+        "labelBg": "РАЗХОДИ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 14214500,
+              "amountEur": 7267758,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Текущи разходи"
+          },
+          {
+            "amount": {
+              "amount": 11479500,
+              "amountEur": 5869375,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Персонал"
+          },
+          {
+            "amount": null,
+            "code": "2",
+            "labelBg": "Капиталови разходи"
+          },
+          {
+            "amount": null,
+            "code": "2.1",
+            "labelBg": "Придобиване на дълготрайни активи и основен ремонт"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 14174500,
+          "amountEur": 7247307,
+          "currency": "BGN"
+        },
+        "code": "III",
+        "kind": "financing",
+        "labelBg": "БЮДЖЕТНИ ВЗАИМООТНОШЕНИЯ (ТРАНСФЕРИ) – (+/-)",
+        "lines": [
+          {
+            "amount": {
+              "amount": 14174500,
+              "amountEur": 7247307,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Бюджетно взаимоотношение с централния бюджет (+/-)"
+          }
+        ]
+      },
+      {
+        "amount": null,
+        "code": "IV",
+        "kind": "balance",
+        "labelBg": "БЮДЖЕТНО САЛДО (І-ІІ+ІІІ)",
+        "lines": []
+      },
+      {
+        "amount": null,
+        "code": "V",
+        "kind": "financing",
+        "labelBg": "ОПЕРАЦИИ В ЧАСТТА НА ФИНАНСИРАНЕТО – НЕТО",
+        "lines": []
+      }
+    ],
+    "unitName": "Комисията за отнемане на незаконно придобитото имущество"
+  },
+  {
+    "fiscalYear": 2024,
+    "sections": [
+      {
+        "amount": {
+          "amount": 30000,
+          "amountEur": 15339,
+          "currency": "BGN"
+        },
+        "code": "I",
+        "kind": "revenue",
+        "labelBg": "ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 30000,
+              "amountEur": 15339,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Неданъчни приходи"
+          },
+          {
+            "amount": {
+              "amount": 30000,
+              "amountEur": 15339,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Глоби, санкции и наказателни лихви"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 10887100,
+          "amountEur": 5566486,
+          "currency": "BGN"
+        },
+        "code": "II",
+        "kind": "expenditure",
+        "labelBg": "РАЗХОДИ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 10887100,
+              "amountEur": 5566486,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Текущи разходи"
+          },
+          {
+            "amount": {
+              "amount": 8956400,
+              "amountEur": 4579335,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Персонал"
+          },
+          {
+            "amount": null,
+            "code": "2",
+            "labelBg": "Капиталови разходи"
+          },
+          {
+            "amount": null,
+            "code": "2.1",
+            "labelBg": "Придобиване на дълготрайни активи и основен ремонт"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 10857100,
+          "amountEur": 5551147,
+          "currency": "BGN"
+        },
+        "code": "III",
+        "kind": "financing",
+        "labelBg": "БЮДЖЕТНИ ВЗАИМООТНОШЕНИЯ (ТРАНСФЕРИ) – (+/-)",
+        "lines": [
+          {
+            "amount": {
+              "amount": 10857100,
+              "amountEur": 5551147,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Бюджетно взаимоотношение с централния бюджет (+/-)"
+          }
+        ]
+      },
+      {
+        "amount": null,
+        "code": "IV",
+        "kind": "balance",
+        "labelBg": "БЮДЖЕТНО САЛДО (І-ІІ+ІІІ)",
+        "lines": []
+      },
+      {
+        "amount": null,
+        "code": "V",
+        "kind": "financing",
+        "labelBg": "ОПЕРАЦИИ В ЧАСТТА НА ФИНАНСИРАНЕТО – НЕТО",
+        "lines": []
+      }
+    ],
+    "unitName": "Комисията за противодействие на корупцията"
+  },
+  {
+    "fiscalYear": 2024,
+    "sections": [
+      {
+        "amount": {
+          "amount": 300000,
+          "amountEur": 153388,
+          "currency": "BGN"
+        },
+        "code": "I",
+        "kind": "revenue",
+        "labelBg": "ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 300000,
+              "amountEur": 153388,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Неданъчни приходи"
+          },
+          {
+            "amount": {
+              "amount": 300000,
+              "amountEur": 153388,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Приходи и доходи от собственост"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 66618400,
+          "amountEur": 34061447,
+          "currency": "BGN"
+        },
+        "code": "II",
+        "kind": "expenditure",
+        "labelBg": "РАЗХОДИ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 66618400,
+              "amountEur": 34061447,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Текущи разходи"
+          },
+          {
+            "amount": {
+              "amount": 59312400,
+              "amountEur": 30325949,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Персонал"
+          },
+          {
+            "amount": {
+              "amount": 0,
+              "amountEur": 0,
+              "currency": "BGN"
+            },
+            "code": "2",
+            "labelBg": "Капиталови разходи"
+          },
+          {
+            "amount": {
+              "amount": 0,
+              "amountEur": 0,
+              "currency": "BGN"
+            },
+            "code": "2.1",
+            "labelBg": "Придобиване на дълготрайни активи и основен ремонт"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 66318400,
+          "amountEur": 33908059,
+          "currency": "BGN"
+        },
+        "code": "III",
+        "kind": "financing",
+        "labelBg": "БЮДЖЕТНИ ВЗАИМООТНОШЕНИЯ (ТРАНСФЕРИ) – (+/-)",
+        "lines": [
+          {
+            "amount": {
+              "amount": 66318400,
+              "amountEur": 33908059,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Бюджетно взаимоотношение с централния бюджет (+/-)"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 0,
+          "amountEur": 0,
+          "currency": "BGN"
+        },
+        "code": "IV",
+        "kind": "balance",
+        "labelBg": "БЮДЖЕТНО САЛДО (І-ІІ+ІІІ)",
+        "lines": []
+      },
+      {
+        "amount": {
+          "amount": 0,
+          "amountEur": 0,
+          "currency": "BGN"
+        },
+        "code": "V",
+        "kind": "financing",
+        "labelBg": "ОПЕРАЦИИ В ЧАСТТА НА ФИНАНСИРАНЕТО – НЕТО",
+        "lines": []
+      }
+    ],
+    "unitName": "Националната служба за охрана"
+  },
+  {
+    "fiscalYear": 2024,
+    "sections": [
+      {
+        "amount": null,
+        "code": "I",
+        "kind": "revenue",
+        "labelBg": "ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ",
+        "lines": []
+      },
+      {
+        "amount": {
+          "amount": 49467000,
+          "amountEur": 25292075,
+          "currency": "BGN"
+        },
+        "code": "II",
+        "kind": "expenditure",
+        "labelBg": "РАЗХОДИ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 49467000,
+              "amountEur": 25292075,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Текущи разходи"
+          },
+          {
+            "amount": null,
+            "code": "2",
+            "labelBg": "Капиталови разходи"
+          },
+          {
+            "amount": null,
+            "code": "2.1",
+            "labelBg": "Придобиване на дълготрайни активи и основен ремонт"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 49467000,
+          "amountEur": 25292075,
+          "currency": "BGN"
+        },
+        "code": "III",
+        "kind": "financing",
+        "labelBg": "БЮДЖЕТНИ ВЗАИМООТНОШЕНИЯ (ТРАНСФЕРИ) – (+/-)",
+        "lines": [
+          {
+            "amount": {
+              "amount": 49467000,
+              "amountEur": 25292075,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Бюджетно взаимоотношение с централния бюджет (+/-)"
+          }
+        ]
+      },
+      {
+        "amount": null,
+        "code": "IV",
+        "kind": "balance",
+        "labelBg": "БЮДЖЕТНО САЛДО (І-ІІ+ІІІ)",
+        "lines": []
+      },
+      {
+        "amount": null,
+        "code": "V",
+        "kind": "financing",
+        "labelBg": "ОПЕРАЦИИ В ЧАСТТА НА ФИНАНСИРАНЕТО – НЕТО",
+        "lines": []
+      }
+    ],
+    "unitName": "Държавната агенция „Разузнаване“"
+  },
+  {
+    "fiscalYear": 2024,
+    "sections": [
+      {
+        "amount": {
+          "amount": 950000,
+          "amountEur": 485727,
+          "currency": "BGN"
+        },
+        "code": "I",
+        "kind": "revenue",
+        "labelBg": "ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 950000,
+              "amountEur": 485727,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Неданъчни приходи"
+          },
+          {
+            "amount": {
+              "amount": 950000,
+              "amountEur": 485727,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Приходи и доходи от собственост"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 29216600,
+          "amountEur": 14938210,
+          "currency": "BGN"
+        },
+        "code": "II",
+        "kind": "expenditure",
+        "labelBg": "РАЗХОДИ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 29216600,
+              "amountEur": 14938210,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Текущи разходи"
+          },
+          {
+            "amount": {
+              "amount": 23778100,
+              "amountEur": 12157549,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Персонал"
+          },
+          {
+            "amount": null,
+            "code": "2",
+            "labelBg": "Капиталови разходи"
+          },
+          {
+            "amount": null,
+            "code": "2.1",
+            "labelBg": "Придобиване на дълготрайни активи и основен ремонт"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 28266600,
+          "amountEur": 14452483,
+          "currency": "BGN"
+        },
+        "code": "III",
+        "kind": "financing",
+        "labelBg": "БЮДЖЕТНИ ВЗАИМООТНОШЕНИЯ (ТРАНСФЕРИ) – (+/-)",
+        "lines": [
+          {
+            "amount": {
+              "amount": 28766600,
+              "amountEur": 14708129,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Бюджетно взаимоотношение с централния бюджет (+/-)"
+          },
+          {
+            "amount": {
+              "amount": -500000,
+              "amountEur": -255646,
+              "currency": "BGN"
+            },
+            "code": "2",
+            "labelBg": "Трансфери между бюджети и сметки за средствата от Европейския съюз (+/-)"
+          },
+          {
+            "amount": {
+              "amount": -500000,
+              "amountEur": -255646,
+              "currency": "BGN"
+            },
+            "code": "2.1",
+            "labelBg": "Предоставени трансфери (-)"
+          }
+        ]
+      },
+      {
+        "amount": null,
+        "code": "IV",
+        "kind": "balance",
+        "labelBg": "БЮДЖЕТНО САЛДО (І-ІІ+ІІІ)",
+        "lines": []
+      },
+      {
+        "amount": null,
+        "code": "V",
+        "kind": "financing",
+        "labelBg": "ОПЕРАЦИИ В ЧАСТТА НА ФИНАНСИРАНЕТО – НЕТО",
+        "lines": []
+      }
+    ],
+    "unitName": "Националния статистически институт"
+  },
+  {
+    "fiscalYear": 2024,
+    "sections": [
+      {
+        "amount": {
+          "amount": 7000000,
+          "amountEur": 3579043,
+          "currency": "BGN"
+        },
+        "code": "I",
+        "kind": "revenue",
+        "labelBg": "ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 7000000,
+              "amountEur": 3579043,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Неданъчни приходи"
+          },
+          {
+            "amount": {
+              "amount": 4000000,
+              "amountEur": 2045168,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Държавни такси"
+          },
+          {
+            "amount": {
+              "amount": 3000000,
+              "amountEur": 1533876,
+              "currency": "BGN"
+            },
+            "code": "1.2",
+            "labelBg": "Глоби, санкции и наказателни лихви"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 6960500,
+          "amountEur": 3558847,
+          "currency": "BGN"
+        },
+        "code": "II",
+        "kind": "expenditure",
+        "labelBg": "РАЗХОДИ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 6960500,
+              "amountEur": 3558847,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Текущи разходи"
+          },
+          {
+            "amount": {
+              "amount": 6212000,
+              "amountEur": 3176145,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Персонал"
+          },
+          {
+            "amount": null,
+            "code": "2",
+            "labelBg": "Капиталови разходи"
+          },
+          {
+            "amount": null,
+            "code": "2.1",
+            "labelBg": "Придобиване на дълготрайни активи и основен ремонт"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": -39500,
+          "amountEur": -20196,
+          "currency": "BGN"
+        },
+        "code": "III",
+        "kind": "financing",
+        "labelBg": "БЮДЖЕТНИ ВЗАИМООТНОШЕНИЯ (ТРАНСФЕРИ) – (+/-)",
+        "lines": [
+          {
+            "amount": {
+              "amount": -39500,
+              "amountEur": -20196,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Бюджетно взаимоотношение с централния бюджет (+/-)"
+          }
+        ]
+      },
+      {
+        "amount": null,
+        "code": "IV",
+        "kind": "balance",
+        "labelBg": "БЮДЖЕТНО САЛДО (І-ІІ+ІІІ)",
+        "lines": []
+      },
+      {
+        "amount": null,
+        "code": "V",
+        "kind": "financing",
+        "labelBg": "ОПЕРАЦИИ В ЧАСТТА НА ФИНАНСИРАНЕТО – НЕТО",
+        "lines": []
+      }
+    ],
+    "unitName": "Комисията за защита на конкуренцията"
+  },
+  {
+    "fiscalYear": 2024,
+    "sections": [
+      {
+        "amount": {
+          "amount": 253335000,
+          "amountEur": 129528129,
+          "currency": "BGN"
+        },
+        "code": "I",
+        "kind": "revenue",
+        "labelBg": "ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 253335000,
+              "amountEur": 129528129,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Неданъчни приходи"
+          },
+          {
+            "amount": {
+              "amount": 253085000,
+              "amountEur": 129400306,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Държавни такси"
+          },
+          {
+            "amount": {
+              "amount": 250000,
+              "amountEur": 127823,
+              "currency": "BGN"
+            },
+            "code": "1.2",
+            "labelBg": "Глоби, санкции и наказателни лихви"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 15466300,
+          "amountEur": 7907794,
+          "currency": "BGN"
+        },
+        "code": "II",
+        "kind": "expenditure",
+        "labelBg": "РАЗХОДИ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 15466300,
+              "amountEur": 7907794,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Текущи разходи"
+          },
+          {
+            "amount": {
+              "amount": 11661900,
+              "amountEur": 5962635,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Персонал"
+          },
+          {
+            "amount": null,
+            "code": "2",
+            "labelBg": "Капиталови разходи"
+          },
+          {
+            "amount": null,
+            "code": "2.1",
+            "labelBg": "Придобиване на дълготрайни активи и основен ремонт"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": -237868700,
+          "amountEur": -121620335,
+          "currency": "BGN"
+        },
+        "code": "III",
+        "kind": "financing",
+        "labelBg": "БЮДЖЕТНИ ВЗАИМООТНОШЕНИЯ (ТРАНСФЕРИ) – (+/-)",
+        "lines": [
+          {
+            "amount": {
+              "amount": -237868700,
+              "amountEur": -121620335,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Бюджетни взаимоотношения с други бюджетни организации (+/-)"
+          },
+          {
+            "amount": {
+              "amount": -237868700,
+              "amountEur": -121620335,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Предоставени трансфери (-)"
+          }
+        ]
+      },
+      {
+        "amount": null,
+        "code": "IV",
+        "kind": "balance",
+        "labelBg": "БЮДЖЕТНО САЛДО (І-ІІ+ІІІ)",
+        "lines": []
+      },
+      {
+        "amount": null,
+        "code": "V",
+        "kind": "financing",
+        "labelBg": "ОПЕРАЦИИ В ЧАСТТА НА ФИНАНСИРАНЕТО – НЕТО",
+        "lines": []
+      }
+    ],
+    "unitName": "Комисията за регулиране на съобщенията"
+  },
+  {
+    "fiscalYear": 2024,
+    "sections": [
+      {
+        "amount": {
+          "amount": 1200000,
+          "amountEur": 613550,
+          "currency": "BGN"
+        },
+        "code": "I",
+        "kind": "revenue",
+        "labelBg": "ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 1200000,
+              "amountEur": 613550,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Неданъчни приходи"
+          },
+          {
+            "amount": {
+              "amount": 1200000,
+              "amountEur": 613550,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Държавни такси"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 2909700,
+          "amountEur": 1487706,
+          "currency": "BGN"
+        },
+        "code": "II",
+        "kind": "expenditure",
+        "labelBg": "РАЗХОДИ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 2909700,
+              "amountEur": 1487706,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Текущи разходи"
+          },
+          {
+            "amount": {
+              "amount": 2209300,
+              "amountEur": 1129597,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Персонал"
+          },
+          {
+            "amount": null,
+            "code": "2",
+            "labelBg": "Капиталови разходи"
+          },
+          {
+            "amount": null,
+            "code": "2.1",
+            "labelBg": "Придобиване на дълготрайни активи и основен ремонт"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 1709700,
+          "amountEur": 874156,
+          "currency": "BGN"
+        },
+        "code": "III",
+        "kind": "financing",
+        "labelBg": "БЮДЖЕТНИ ВЗАИМООТНОШЕНИЯ (ТРАНСФЕРИ) – (+/-)",
+        "lines": [
+          {
+            "amount": {
+              "amount": 1709700,
+              "amountEur": 874156,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Бюджетно взаимоотношение с централния бюджет (+/-)"
+          }
+        ]
+      },
+      {
+        "amount": null,
+        "code": "IV",
+        "kind": "balance",
+        "labelBg": "БЮДЖЕТНО САЛДО (І-ІІ+ІІІ)",
+        "lines": []
+      },
+      {
+        "amount": null,
+        "code": "V",
+        "kind": "financing",
+        "labelBg": "ОПЕРАЦИИ В ЧАСТТА НА ФИНАНСИРАНЕТО – НЕТО",
+        "lines": []
+      }
+    ],
+    "unitName": "Съвета за електронни медии"
+  },
+  {
+    "fiscalYear": 2024,
+    "sections": [
+      {
+        "amount": {
+          "amount": 22000000,
+          "amountEur": 11248421,
+          "currency": "BGN"
+        },
+        "code": "I",
+        "kind": "revenue",
+        "labelBg": "ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 22000000,
+              "amountEur": 11248421,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Неданъчни приходи"
+          },
+          {
+            "amount": {
+              "amount": 21809900,
+              "amountEur": 11151225,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Държавни такси"
+          },
+          {
+            "amount": {
+              "amount": 9100,
+              "amountEur": 4653,
+              "currency": "BGN"
+            },
+            "code": "1.2",
+            "labelBg": "Приходи и доходи от собственост"
+          },
+          {
+            "amount": {
+              "amount": 181000,
+              "amountEur": 92544,
+              "currency": "BGN"
+            },
+            "code": "1.3",
+            "labelBg": "Глоби, санкции и наказателни лихви"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 13072200,
+          "amountEur": 6683710,
+          "currency": "BGN"
+        },
+        "code": "II",
+        "kind": "expenditure",
+        "labelBg": "РАЗХОДИ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 13072200,
+              "amountEur": 6683710,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Текущи разходи"
+          },
+          {
+            "amount": {
+              "amount": 10857200,
+              "amountEur": 5551198,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Персонал"
+          },
+          {
+            "amount": null,
+            "code": "2",
+            "labelBg": "Капиталови разходи"
+          },
+          {
+            "amount": null,
+            "code": "2.1",
+            "labelBg": "Придобиване на дълготрайни активи и основен ремонт"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": -8927800,
+          "amountEur": -4564712,
+          "currency": "BGN"
+        },
+        "code": "III",
+        "kind": "financing",
+        "labelBg": "БЮДЖЕТНИ ВЗАИМООТНОШЕНИЯ (ТРАНСФЕРИ) – (+/-)",
+        "lines": [
+          {
+            "amount": {
+              "amount": -8927800,
+              "amountEur": -4564712,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Бюджетно взаимоотношение с централния бюджет (+/-)"
+          }
+        ]
+      },
+      {
+        "amount": null,
+        "code": "IV",
+        "kind": "balance",
+        "labelBg": "БЮДЖЕТНО САЛДО (І-ІІ+ІІІ)",
+        "lines": []
+      },
+      {
+        "amount": null,
+        "code": "V",
+        "kind": "financing",
+        "labelBg": "ОПЕРАЦИИ В ЧАСТТА НА ФИНАНСИРАНЕТО – НЕТО",
+        "lines": []
+      }
+    ],
+    "unitName": "Комисията за енергийно и водно регулиране"
+  },
+  {
+    "fiscalYear": 2024,
+    "sections": [
+      {
+        "amount": {
+          "amount": 10100000,
+          "amountEur": 5164048,
+          "currency": "BGN"
+        },
+        "code": "I",
+        "kind": "revenue",
+        "labelBg": "ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 10100000,
+              "amountEur": 5164048,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Неданъчни приходи"
+          },
+          {
+            "amount": {
+              "amount": 10100000,
+              "amountEur": 5164048,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Държавни такси"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 8233000,
+          "amountEur": 4209466,
+          "currency": "BGN"
+        },
+        "code": "II",
+        "kind": "expenditure",
+        "labelBg": "РАЗХОДИ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 8233000,
+              "amountEur": 4209466,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Текущи разходи"
+          },
+          {
+            "amount": {
+              "amount": 4408300,
+              "amountEur": 2253928,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Персонал"
+          },
+          {
+            "amount": null,
+            "code": "2",
+            "labelBg": "Капиталови разходи"
+          },
+          {
+            "amount": null,
+            "code": "2.1",
+            "labelBg": "Придобиване на дълготрайни активи и основен ремонт"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": -1867000,
+          "amountEur": -954582,
+          "currency": "BGN"
+        },
+        "code": "III",
+        "kind": "financing",
+        "labelBg": "БЮДЖЕТНИ ВЗАИМООТНОШЕНИЯ (ТРАНСФЕРИ) – (+/-)",
+        "lines": [
+          {
+            "amount": {
+              "amount": -1867000,
+              "amountEur": -954582,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Бюджетно взаимоотношение с централния бюджет (+/-)"
+          }
+        ]
+      },
+      {
+        "amount": null,
+        "code": "IV",
+        "kind": "balance",
+        "labelBg": "БЮДЖЕТНО САЛДО (І-ІІ+ІІІ)",
+        "lines": []
+      },
+      {
+        "amount": null,
+        "code": "V",
+        "kind": "financing",
+        "labelBg": "ОПЕРАЦИИ В ЧАСТТА НА ФИНАНСИРАНЕТО – НЕТО",
+        "lines": []
+      }
+    ],
+    "unitName": "Агенцията за ядрено регулиране"
+  },
+  {
+    "fiscalYear": 2024,
+    "sections": [
+      {
+        "amount": null,
+        "code": "I",
+        "kind": "revenue",
+        "labelBg": "ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ",
+        "lines": []
+      },
+      {
+        "amount": {
+          "amount": 13730900,
+          "amountEur": 7020498,
+          "currency": "BGN"
+        },
+        "code": "II",
+        "kind": "expenditure",
+        "labelBg": "РАЗХОДИ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 13730900,
+              "amountEur": 7020498,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Текущи разходи"
+          },
+          {
+            "amount": {
+              "amount": 11633200,
+              "amountEur": 5947961,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Персонал"
+          },
+          {
+            "amount": null,
+            "code": "2",
+            "labelBg": "Капиталови разходи"
+          },
+          {
+            "amount": null,
+            "code": "2.1",
+            "labelBg": "Придобиване на дълготрайни активи и основен ремонт"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 13730900,
+          "amountEur": 7020498,
+          "currency": "BGN"
+        },
+        "code": "III",
+        "kind": "financing",
+        "labelBg": "БЮДЖЕТНИ ВЗАИМООТНОШЕНИЯ (ТРАНСФЕРИ) – (+/-)",
+        "lines": [
+          {
+            "amount": {
+              "amount": 13730900,
+              "amountEur": 7020498,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Бюджетно взаимоотношение с централния бюджет (+/-)"
+          }
+        ]
+      },
+      {
+        "amount": null,
+        "code": "IV",
+        "kind": "balance",
+        "labelBg": "БЮДЖЕТНО САЛДО (І-ІІ+ІІІ)",
+        "lines": []
+      },
+      {
+        "amount": null,
+        "code": "V",
+        "kind": "financing",
+        "labelBg": "ОПЕРАЦИИ В ЧАСТТА НА ФИНАНСИРАНЕТО – НЕТО",
+        "lines": []
+      }
+    ],
+    "unitName": "Държавната комисия по сигурността на информацията"
+  },
+  {
+    "fiscalYear": 2024,
+    "sections": [
+      {
+        "amount": {
+          "amount": 2050000,
+          "amountEur": 1048148,
+          "currency": "BGN"
+        },
+        "code": "I",
+        "kind": "revenue",
+        "labelBg": "ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 2050000,
+              "amountEur": 1048148,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Неданъчни приходи"
+          },
+          {
+            "amount": {
+              "amount": 40000,
+              "amountEur": 20452,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Държавни такси"
+          },
+          {
+            "amount": {
+              "amount": 310000,
+              "amountEur": 158500,
+              "currency": "BGN"
+            },
+            "code": "1.2",
+            "labelBg": "Приходи и доходи от собственост"
+          },
+          {
+            "amount": {
+              "amount": 1700000,
+              "amountEur": 869196,
+              "currency": "BGN"
+            },
+            "code": "1.3",
+            "labelBg": "Глоби, санкции и наказателни лихви"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 58262400,
+          "amountEur": 29789092,
+          "currency": "BGN"
+        },
+        "code": "II",
+        "kind": "expenditure",
+        "labelBg": "РАЗХОДИ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 26987300,
+              "amountEur": 13798387,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Текущи разходи"
+          },
+          {
+            "amount": {
+              "amount": 13073900,
+              "amountEur": 6684579,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Персонал"
+          },
+          {
+            "amount": null,
+            "code": "2",
+            "labelBg": "Капиталови разходи"
+          },
+          {
+            "amount": null,
+            "code": "2.1",
+            "labelBg": "Придобиване на дълготрайни активи и основен ремонт"
+          },
+          {
+            "amount": {
+              "amount": 31275100,
+              "amountEur": 15990705,
+              "currency": "BGN"
+            },
+            "code": "3",
+            "labelBg": "Прираст на държавния резерв (нето)"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 56212400,
+          "amountEur": 28740944,
+          "currency": "BGN"
+        },
+        "code": "III",
+        "kind": "financing",
+        "labelBg": "БЮДЖЕТНИ ВЗАИМООТНОШЕНИЯ (ТРАНСФЕРИ) – (+/-)",
+        "lines": [
+          {
+            "amount": {
+              "amount": 56212400,
+              "amountEur": 28740944,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Бюджетно взаимоотношение с централния бюджет (+/-)"
+          }
+        ]
+      },
+      {
+        "amount": null,
+        "code": "IV",
+        "kind": "balance",
+        "labelBg": "БЮДЖЕТНО САЛДО (І-ІІ+ІІІ)",
+        "lines": []
+      },
+      {
+        "amount": null,
+        "code": "V",
+        "kind": "financing",
+        "labelBg": "ОПЕРАЦИИ В ЧАСТТА НА ФИНАНСИРАНЕТО – НЕТО",
+        "lines": []
+      }
+    ],
+    "unitName": "Държавната агенция „Държавен резерв и военновременни запаси“"
+  },
+  {
+    "fiscalYear": 2024,
+    "sections": [
+      {
+        "amount": {
+          "amount": 21380000,
+          "amountEur": 10931420,
+          "currency": "BGN"
+        },
+        "code": "I",
+        "kind": "revenue",
+        "labelBg": "ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 21380000,
+              "amountEur": 10931420,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Неданъчни приходи"
+          },
+          {
+            "amount": {
+              "amount": 18380000,
+              "amountEur": 9397545,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Държавни такси"
+          },
+          {
+            "amount": {
+              "amount": 3000000,
+              "amountEur": 1533876,
+              "currency": "BGN"
+            },
+            "code": "1.2",
+            "labelBg": "Глоби, санкции и наказателни лихви"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 21050400,
+          "amountEur": 10762899,
+          "currency": "BGN"
+        },
+        "code": "II",
+        "kind": "expenditure",
+        "labelBg": "РАЗХОДИ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 21050400,
+              "amountEur": 10762899,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Текущи разходи"
+          },
+          {
+            "amount": {
+              "amount": 15445700,
+              "amountEur": 7897261,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Персонал"
+          },
+          {
+            "amount": null,
+            "code": "2",
+            "labelBg": "Капиталови разходи"
+          },
+          {
+            "amount": null,
+            "code": "2.1",
+            "labelBg": "Придобиване на дълготрайни активи и основен ремонт"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": -329600,
+          "amountEur": -168522,
+          "currency": "BGN"
+        },
+        "code": "III",
+        "kind": "financing",
+        "labelBg": "БЮДЖЕТНИ ВЗАИМООТНОШЕНИЯ (ТРАНСФЕРИ) – (+/-)",
+        "lines": [
+          {
+            "amount": {
+              "amount": -329600,
+              "amountEur": -168522,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Бюджетно взаимоотношение с централния бюджет (+/-)"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 0,
+          "amountEur": 0,
+          "currency": "BGN"
+        },
+        "code": "IV",
+        "kind": "balance",
+        "labelBg": "БЮДЖЕТНО САЛДО (І-ІІ+ІІІ)",
+        "lines": []
+      },
+      {
+        "amount": null,
+        "code": "V",
+        "kind": "financing",
+        "labelBg": "ОПЕРАЦИИ В ЧАСТТА НА ФИНАНСИРАНЕТО – НЕТО",
+        "lines": []
+      }
+    ],
+    "unitName": "Комисията за финансов надзор"
+  },
+  {
+    "fiscalYear": 2024,
+    "sections": [
+      {
+        "amount": null,
+        "code": "I",
+        "kind": "revenue",
+        "labelBg": "ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ",
+        "lines": []
+      },
+      {
+        "amount": {
+          "amount": 2317000,
+          "amountEur": 1184663,
+          "currency": "BGN"
+        },
+        "code": "II",
+        "kind": "expenditure",
+        "labelBg": "РАЗХОДИ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 2317000,
+              "amountEur": 1184663,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Текущи разходи"
+          },
+          {
+            "amount": {
+              "amount": 1839500,
+              "amountEur": 940521,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Персонал"
+          },
+          {
+            "amount": null,
+            "code": "2",
+            "labelBg": "Капиталови разходи"
+          },
+          {
+            "amount": null,
+            "code": "2.1",
+            "labelBg": "Придобиване на дълготрайни активи и основен ремонт"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 2317000,
+          "amountEur": 1184663,
+          "currency": "BGN"
+        },
+        "code": "III",
+        "kind": "financing",
+        "labelBg": "БЮДЖЕТНИ ВЗАИМООТНОШЕНИЯ (ТРАНСФЕРИ) – (+/-)",
+        "lines": [
+          {
+            "amount": {
+              "amount": 2317000,
+              "amountEur": 1184663,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Бюджетно взаимоотношение с централния бюджет (+/-)"
+          }
+        ]
+      },
+      {
+        "amount": null,
+        "code": "IV",
+        "kind": "balance",
+        "labelBg": "БЮДЖЕТНО САЛДО (І-ІІ+ІІІ)",
+        "lines": []
+      },
+      {
+        "amount": null,
+        "code": "V",
+        "kind": "financing",
+        "labelBg": "ОПЕРАЦИИ В ЧАСТТА НА ФИНАНСИРАНЕТО – НЕТО",
+        "lines": []
+      }
+    ],
+    "unitName": "Комисията за публичен надзор над регистрираните одитори"
+  },
+  {
+    "fiscalYear": 2024,
+    "sections": [
+      {
+        "amount": null,
+        "code": "I",
+        "kind": "revenue",
+        "labelBg": "ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ",
+        "lines": []
+      },
+      {
+        "amount": {
+          "amount": 7360800,
+          "amountEur": 3763517,
+          "currency": "BGN"
+        },
+        "code": "II",
+        "kind": "expenditure",
+        "labelBg": "РАЗХОДИ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 7360800,
+              "amountEur": 3763517,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Текущи разходи"
+          },
+          {
+            "amount": {
+              "amount": 5374200,
+              "amountEur": 2747785,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Персонал"
+          },
+          {
+            "amount": null,
+            "code": "2",
+            "labelBg": "Капиталови разходи"
+          },
+          {
+            "amount": null,
+            "code": "2.1",
+            "labelBg": "Придобиване на дълготрайни активи и основен ремонт"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 7360800,
+          "amountEur": 3763517,
+          "currency": "BGN"
+        },
+        "code": "III",
+        "kind": "financing",
+        "labelBg": "БЮДЖЕТНИ ВЗАИМООТНОШЕНИЯ (ТРАНСФЕРИ) – (+/-)",
+        "lines": [
+          {
+            "amount": {
+              "amount": 7360800,
+              "amountEur": 3763517,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Бюджетно взаимоотношение с централния бюджет (+/-)"
+          }
+        ]
+      },
+      {
+        "amount": null,
+        "code": "IV",
+        "kind": "balance",
+        "labelBg": "БЮДЖЕТНО САЛДО (І-ІІ+ІІІ)",
+        "lines": []
+      },
+      {
+        "amount": null,
+        "code": "V",
+        "kind": "financing",
+        "labelBg": "ОПЕРАЦИИ В ЧАСТТА НА ФИНАНСИРАНЕТО – НЕТО",
+        "lines": []
+      }
+    ],
+    "unitName": "Централната избирателна комисия"
+  },
+  {
+    "fiscalYear": 2024,
+    "sections": [
+      {
+        "amount": {
+          "amount": 3000000,
+          "amountEur": 1533876,
+          "currency": "BGN"
+        },
+        "code": "I",
+        "kind": "revenue",
+        "labelBg": "ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 3000000,
+              "amountEur": 1533876,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Неданъчни приходи"
+          },
+          {
+            "amount": {
+              "amount": 2246700,
+              "amountEur": 1148719,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Приходи и доходи от собственост"
+          },
+          {
+            "amount": {
+              "amount": 753300,
+              "amountEur": 385156,
+              "currency": "BGN"
+            },
+            "code": "1.2",
+            "labelBg": "Други приходи"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 528807900,
+          "amountEur": 270375186,
+          "currency": "BGN"
+        },
+        "code": "II",
+        "kind": "expenditure",
+        "labelBg": "РАЗХОДИ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 528807900,
+              "amountEur": 270375186,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Текущи разходи"
+          },
+          {
+            "amount": {
+              "amount": 58054900,
+              "amountEur": 29682999,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Персонал"
+          },
+          {
+            "amount": {
+              "amount": 450350000,
+              "amountEur": 230260299,
+              "currency": "BGN"
+            },
+            "code": "1.2",
+            "labelBg": "Субсидии и други текущи трансфери"
+          },
+          {
+            "amount": {
+              "amount": 450350000,
+              "amountEur": 230260299,
+              "currency": "BGN"
+            },
+            "code": "1.2.1",
+            "labelBg": "Субсидии и други текущи трансфери за нефинансови предприятия"
+          },
+          {
+            "amount": null,
+            "code": "2",
+            "labelBg": "Капиталови разходи"
+          },
+          {
+            "amount": null,
+            "code": "2.1",
+            "labelBg": "Придобиване на дълготрайни активи и основен ремонт"
+          },
+          {
+            "amount": null,
+            "code": "2.2",
+            "labelBg": "Капиталови трансфери"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 565807900,
+          "amountEur": 289292986,
+          "currency": "BGN"
+        },
+        "code": "III",
+        "kind": "financing",
+        "labelBg": "БЮДЖЕТНИ ВЗАИМООТНОШЕНИЯ (ТРАНСФЕРИ) – (+/-)",
+        "lines": [
+          {
+            "amount": {
+              "amount": 565807900,
+              "amountEur": 289292986,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Бюджетно взаимоотношение с централния бюджет (+/-)"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 40000000,
+          "amountEur": 20451675,
+          "currency": "BGN"
+        },
+        "code": "IV",
+        "kind": "balance",
+        "labelBg": "БЮДЖЕТНО САЛДО (І-ІІ+ІІІ)",
+        "lines": []
+      },
+      {
+        "amount": {
+          "amount": -40000000,
+          "amountEur": -20451675,
+          "currency": "BGN"
+        },
+        "code": "V",
+        "kind": "financing",
+        "labelBg": "ОПЕРАЦИИ В ЧАСТТА НА ФИНАНСИРАНЕТО – НЕТО",
+        "lines": [
+          {
+            "amount": {
+              "amount": -40000000,
+              "amountEur": -20451675,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Предоставени кредити (нето)"
+          }
+        ]
+      }
+    ],
+    "unitName": "Държавен фонд „Земеделие“"
+  },
+  {
+    "fiscalYear": 2024,
+    "sections": [
+      {
+        "amount": null,
+        "code": "I",
+        "kind": "revenue",
+        "labelBg": "ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ",
+        "lines": []
+      },
+      {
+        "amount": {
+          "amount": 2142400,
+          "amountEur": 1095392,
+          "currency": "BGN"
+        },
+        "code": "II",
+        "kind": "expenditure",
+        "labelBg": "РАЗХОДИ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 2142400,
+              "amountEur": 1095392,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Текущи разходи"
+          },
+          {
+            "amount": {
+              "amount": 1714400,
+              "amountEur": 876559,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Персонал"
+          },
+          {
+            "amount": null,
+            "code": "2",
+            "labelBg": "Капиталови разходи"
+          },
+          {
+            "amount": null,
+            "code": "2.1",
+            "labelBg": "Придобиване на дълготрайни активи и основен ремонт"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 2142400,
+          "amountEur": 1095392,
+          "currency": "BGN"
+        },
+        "code": "III",
+        "kind": "financing",
+        "labelBg": "БЮДЖЕТНИ ВЗАИМООТНОШЕНИЯ (ТРАНСФЕРИ) – (+/-)",
+        "lines": [
+          {
+            "amount": {
+              "amount": 2142400,
+              "amountEur": 1095392,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Бюджетно взаимоотношение с централния бюджет (+/-)"
+          }
+        ]
+      },
+      {
+        "amount": null,
+        "code": "IV",
+        "kind": "balance",
+        "labelBg": "БЮДЖЕТНО САЛДО (І-ІІ+ІІІ)",
+        "lines": []
+      },
+      {
+        "amount": null,
+        "code": "V",
+        "kind": "financing",
+        "labelBg": "ОПЕРАЦИИ В ЧАСТТА НА ФИНАНСИРАНЕТО – НЕТО",
+        "lines": []
+      }
+    ],
+    "unitName": "Националното бюро за контрол на специалните разузнавателни средства"
+  },
+  {
+    "fiscalYear": 2024,
+    "sections": [
+      {
+        "amount": {
+          "amount": 92000,
+          "amountEur": 47039,
+          "currency": "BGN"
+        },
+        "code": "I",
+        "kind": "revenue",
+        "labelBg": "ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 92000,
+              "amountEur": 47039,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Неданъчни приходи"
+          },
+          {
+            "amount": {
+              "amount": 85000,
+              "amountEur": 43460,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Приходи и доходи от собственост"
+          },
+          {
+            "amount": {
+              "amount": 5000,
+              "amountEur": 2556,
+              "currency": "BGN"
+            },
+            "code": "1.2",
+            "labelBg": "Глоби, санкции и наказателни лихви"
+          },
+          {
+            "amount": {
+              "amount": 2000,
+              "amountEur": 1023,
+              "currency": "BGN"
+            },
+            "code": "1.3",
+            "labelBg": "Други приходи"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 85623900,
+          "amountEur": 43778805,
+          "currency": "BGN"
+        },
+        "code": "II",
+        "kind": "expenditure",
+        "labelBg": "РАЗХОДИ",
+        "lines": [
+          {
+            "amount": {
+              "amount": 85623900,
+              "amountEur": 43778805,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Текущи разходи"
+          },
+          {
+            "amount": {
+              "amount": 81354900,
+              "amountEur": 41596100,
+              "currency": "BGN"
+            },
+            "code": "1.1",
+            "labelBg": "Персонал"
+          },
+          {
+            "amount": null,
+            "code": "2",
+            "labelBg": "Капиталови разходи"
+          },
+          {
+            "amount": null,
+            "code": "2.1",
+            "labelBg": "Придобиване на дълготрайни активи и основен ремонт"
+          }
+        ]
+      },
+      {
+        "amount": {
+          "amount": 85531900,
+          "amountEur": 43731766,
+          "currency": "BGN"
+        },
+        "code": "III",
+        "kind": "financing",
+        "labelBg": "БЮДЖЕТНИ ВЗАИМООТНОШЕНИЯ (ТРАНСФЕРИ) – (+/-)",
+        "lines": [
+          {
+            "amount": {
+              "amount": 85531900,
+              "amountEur": 43731766,
+              "currency": "BGN"
+            },
+            "code": "1",
+            "labelBg": "Бюджетно взаимоотношение с централния бюджет (+/-)"
+          }
+        ]
+      },
+      {
+        "amount": null,
+        "code": "IV",
+        "kind": "balance",
+        "labelBg": "БЮДЖЕТНО САЛДО (І-ІІ+ІІІ)",
+        "lines": []
+      },
+      {
+        "amount": null,
+        "code": "V",
+        "kind": "financing",
+        "labelBg": "ОПЕРАЦИИ В ЧАСТТА НА ФИНАНСИРАНЕТО – НЕТО",
+        "lines": []
+      }
+    ],
+    "unitName": "Държавната агенция „Технически операции“"
+  }
+]

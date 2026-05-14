@@ -16,13 +16,35 @@
       "title": "Одитен доклад за извършен одит на отчета за изпълнението на държавния бюджет на Република България за 2024 г."
     },
     {
-      "discovery": "auto",
+      "discovery": "auto-confirmed",
+      "fiscalYear": 2024,
+      "id": "law-2024",
+      "kind": "law",
+      "seq": 0,
+      "sources": [
+        {
+          "format": "html",
+          "label": "Държавен вестник — promulgated text + appropriation tables",
+          "role": "promulgated",
+          "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=202168"
+        }
+      ],
+      "title": "Закон за държавния бюджет на Република България за 2024 г."
+    },
+    {
+      "discovery": "auto-confirmed",
       "fiscalYear": 2025,
       "id": "law-2025",
       "kind": "law",
-      "notes": "Placeholder — the promulgated text and appropriation annexes are attached in Phase 3 (PDF-annex parsing).",
       "seq": 0,
-      "sources": [],
+      "sources": [
+        {
+          "format": "html",
+          "label": "Държавен вестник — promulgated text + appropriation tables",
+          "role": "promulgated",
+          "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=233694"
+        }
+      ],
       "title": "Закон за държавния бюджет на Република България за 2025 г."
     },
     {
@@ -30,7 +52,7 @@
       "fiscalYear": 2026,
       "id": "law-2026",
       "kind": "law",
-      "notes": "Placeholder — the promulgated text and appropriation annexes are attached in Phase 3 (PDF-annex parsing).",
+      "notes": "Placeholder — resolve the Държавен вестник idMat and add it to LAW_DV_MATERIALS in scripts/budget/fetch_sources.ts.",
       "seq": 0,
       "sources": [],
       "title": "Закон за държавния бюджет на Република България за 2026 г."
@@ -113,5 +135,5 @@
       "title": "КФП — state budget execution by major budget indicators"
     }
   ],
-  "generatedAt": "2026-05-14T14:47:30.686Z"
+  "generatedAt": "2026-05-14T15:29:56.545Z"
 }

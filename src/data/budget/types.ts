@@ -136,6 +136,26 @@ export interface BudgetDocumentsFile {
   documents: BudgetDocument[];
 }
 
+// One reconciliation row — a classification node's budget journey for a fiscal
+// year. Phase 3 (admin dimension): `planned` from the State Budget Law;
+// `executed` null (ministry-grain execution not yet available), so
+// `completeness` is "missing".
+export interface ReconciliationRow {
+  fiscalYear: number;
+  dimension: "admin" | "functional" | "economic" | "program";
+  nodeId: string;
+  nodeNameBg: string;
+  nodeNameEn: string;
+  kind: FactKind;
+  planned: Money | null;
+  amendmentTrail: Array<{ seq: number; effectiveDate: string; money: Money }>;
+  amended: Money | null;
+  executed: Money | null;
+  varianceEur: number | null;
+  variancePct: number | null;
+  completeness: "exact" | "partial" | "missing";
+}
+
 export interface BudgetYearCoverage {
   fiscalYear: number;
   stages: Array<"law" | "amendment" | "execution">;

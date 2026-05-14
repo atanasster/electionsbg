@@ -32,6 +32,19 @@ const egovResourceUrl = (uuid: string): string =>
 export const BULNAO_AUDIT_URL =
   "https://www.bulnao.government.bg/bg/oditna-dejnost/dokladi/";
 
+// State Budget Law promulgations on Държавен вестник, keyed by fiscal year.
+// `idMat` is the DV material id; the law text + per-spending-unit appropriation
+// tables are served as HTML at showMaterialDV.jsp?idMat=<id>. Hand-curated —
+// add a new year when its budget law is promulgated (resolve the idMat from
+// dv.parliament.bg). The 2026 law is intentionally absent until promulgated.
+export const LAW_DV_MATERIALS: Record<number, string> = {
+  2024: "202168",
+  2025: "233694",
+};
+
+const lawHtmlUrl = (idMat: string): string =>
+  `https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=${idMat}`;
+
 // A single egov resource: a 2D string array. Row 0 is the header.
 export type EgovResource = string[][];
 
@@ -113,6 +126,37 @@ export const fetchEgovResource = async (
   }
   return parsed as EgovResource;
 };
+
+// Fetch a State Budget Law's promulgated HTML from Държавен вестник. The page
+// is large (~6 MB) and rarely changes once promulgated, so it is gzip-cached
+// under raw_data/budget/ like the egov resources.
+export const fetchLawHtml = async (
+  fiscalYear: number,
+  idMat: string,
+  opts: { refresh?: boolean } = {},
+): Promise<string> => {
+  fs.mkdirSync(CACHE_DIR, { recursive: true });
+  const cache = path.join(CACHE_DIR, `law-${fiscalYear}.html.gz`);
+  if (!opts.refresh && fs.existsSync(cache)) {
+    return zlib.gunzipSync(fs.readFileSync(cache)).toString("utf8");
+  }
+  const html = await fetchText(lawHtmlUrl(idMat));
+  if (!html || html.length < 10000) {
+    throw new Error(
+      `budget law ${fiscalYear} (idMat=${idMat}): empty or too-small response`,
+    );
+  }
+  try {
+    fs.writeFileSync(cache, zlib.gzipSync(html, { level: 9 }));
+  } catch (e) {
+    console.warn(
+      `  cache write failed for law-${fiscalYear}: ${(e as Error).message}`,
+    );
+  }
+  return html;
+};
+
+export const lawDvUrl = lawHtmlUrl;
 
 // Best-effort fetch of the bulnao audit-report listing HTML. Non-fatal:
 // returns null on any failure so the ingest still completes.

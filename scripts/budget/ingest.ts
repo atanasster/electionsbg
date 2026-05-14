@@ -1,8 +1,13 @@
-// Budget ingest CLI. Phase 1: pulls the data.egov.bg КФП feed (state budget
-// execution by major budget indicators), parses every monthly resource into
-// the KfpObservation series + latest snapshot, assembles the document index,
-// seeds the (empty) classification registries, and writes canonical JSON to
-// data/budget/.
+// Budget ingest CLI.
+//
+// КФП feed (data.egov.bg): every monthly resource → the KfpObservation series,
+// per-fiscal-year roll-ups, and the latest snapshot.
+//
+// State Budget Laws (Държавен вестник HTML): each year's per-spending-unit
+// appropriations → admin-grain BudgetFacts under facts/<YYYY>/law.json, the
+// administrative classification registry, and reconciliation/<YYYY>/by-admin.json.
+//
+// Plus the budget-journey document index and the classification scaffolds.
 //
 // CLI:
 //   tsx scripts/budget/ingest.ts                 # incremental ingest
@@ -18,6 +23,8 @@ import {
   fetchEgovResourceUuids,
   fetchEgovResource,
   fetchBulnaoAuditHtml,
+  fetchLawHtml,
+  LAW_DV_MATERIALS,
 } from "./fetch_sources";
 import {
   parseEgovResource,
@@ -25,6 +32,10 @@ import {
   buildFiscalYearSummaries,
 } from "./kfp";
 import type { ParsedResource } from "./kfp";
+import { parseLawHtml } from "./law_html";
+import type { ParsedLawUnit } from "./law_html";
+import { buildAdminRegistry, buildLawFacts } from "./facts";
+import { buildAdminReconciliation } from "./reconcile";
 import { buildDocuments } from "./documents";
 import { ensureScaffolds, BUDGET_DIR } from "./classification";
 import {
@@ -49,14 +60,27 @@ const __dirname = path.dirname(__filename);
 const KFP_FILE = path.join(BUDGET_DIR, "kfp.json");
 const DOCUMENTS_FILE = path.join(BUDGET_DIR, "documents.json");
 const INDEX_FILE = path.join(BUDGET_DIR, "index.json");
+const ADMIN_REGISTRY_FILE = path.join(
+  BUDGET_DIR,
+  "classification",
+  "admin.json",
+);
+const FACTS_DIR = path.join(BUDGET_DIR, "facts");
+const RECONCILIATION_DIR = path.join(BUDGET_DIR, "reconciliation");
 const CANARY_FIXTURE = path.resolve(
   __dirname,
   "../../tests/fixtures/budget/canary.json",
+);
+const LAW_CANARY_FIXTURE = path.resolve(
+  __dirname,
+  "../../tests/fixtures/budget/law-canary.json",
 );
 
 // Pinned resource for the canary — the 2025-12 (full-year) snapshot. Re-parsed
 // every run; byte drift in the parser or currency conversion throws.
 const CANARY_RESOURCE_UUID = "817cf3fb-7e59-4cf7-9f50-8cbccd11bb60";
+// Pinned fiscal year for the law-parser canary.
+const LAW_CANARY_YEAR = 2024;
 
 const SOURCES: Record<string, string> = {
   egov: "https://data.egov.bg/data/view/79ce7de2-0150-4ba7-a96c-dbacb76c95b6",
@@ -79,20 +103,32 @@ const buildIndex = (
   kfp: KfpFile,
   documents: BudgetDocumentsFile,
   parsed: ParsedResource[],
+  unitsByYear: Map<number, ParsedLawUnit[]>,
 ): BudgetIndex => {
   const periods = [...new Set(kfp.observations.map((o) => o.period))].sort();
   const byYear = new Map<number, BudgetYearCoverage>();
-  for (const o of kfp.observations) {
-    let cov = byYear.get(o.fiscalYear);
+  const coverageFor = (fiscalYear: number): BudgetYearCoverage => {
+    let cov = byYear.get(fiscalYear);
     if (!cov) {
-      cov = { fiscalYear: o.fiscalYear, stages: [], kfpPeriods: [] };
-      byYear.set(o.fiscalYear, cov);
+      cov = { fiscalYear, stages: [], kfpPeriods: [] };
+      byYear.set(fiscalYear, cov);
     }
+    return cov;
+  };
+  for (const o of kfp.observations) {
+    const cov = coverageFor(o.fiscalYear);
     if (!cov.kfpPeriods.includes(o.period)) cov.kfpPeriods.push(o.period);
     const stages = new Set<BudgetStage>(cov.stages);
-    if (o.planned) stages.add("law");
     if (o.executed) stages.add("execution");
     cov.stages = [...stages].sort();
+  }
+  // Law years contribute the "law" stage and the `admin` dimension.
+  for (const fiscalYear of unitsByYear.keys()) {
+    const cov = coverageFor(fiscalYear);
+    const stages = new Set<BudgetStage>(cov.stages);
+    stages.add("law");
+    cov.stages = [...stages].sort();
+    cov.dimensions = { ...(cov.dimensions ?? {}), admin: true };
   }
   for (const cov of byYear.values()) cov.kfpPeriods.sort();
   return {
@@ -145,10 +181,46 @@ const main = async (args: {
     parseEgovResource(canaryRows, CANARY_RESOURCE_UUID),
   );
 
-  // 3. Build outputs.
+  // 3. Build КФП outputs.
   const kfp = buildKfpFile(parsed, SOURCES);
   console.log(
     `  kfp.json: ${kfp.observations.length} observation(s), latest ${kfp.latestSnapshot?.period ?? "—"}`,
+  );
+
+  // 3b. State Budget Laws — parse the Държавен вестник HTML for each year into
+  // per-spending-unit appropriations (the `admin` grain).
+  console.log("→ parsing state budget laws");
+  const unitsByYear = new Map<number, ParsedLawUnit[]>();
+  for (const [yearStr, idMat] of Object.entries(LAW_DV_MATERIALS)) {
+    const year = parseInt(yearStr, 10);
+    const html = await fetchLawHtml(year, idMat, {
+      refresh: args.refreshCache,
+    });
+    const units = parseLawHtml(html, year);
+    unitsByYear.set(year, units);
+    console.log(`  • ${year}: ${units.length} spending unit(s)`);
+  }
+  // Law-parser canary — re-parse the pinned year and byte-compare.
+  if (unitsByYear.has(LAW_CANARY_YEAR)) {
+    console.log(`→ canary on budget law ${LAW_CANARY_YEAR}`);
+    runCanary(LAW_CANARY_FIXTURE, unitsByYear.get(LAW_CANARY_YEAR));
+  }
+  const adminRegistry = buildAdminRegistry(unitsByYear);
+  const lawFactsByYear = new Map(
+    [...unitsByYear.entries()].map(([year, units]) => [
+      year,
+      buildLawFacts(year, units),
+    ]),
+  );
+  const adminReconByYear = new Map(
+    [...lawFactsByYear.entries()].map(([year, facts]) => [
+      year,
+      buildAdminReconciliation(year, facts, adminRegistry),
+    ]),
+  );
+  console.log(
+    `  admin registry: ${adminRegistry.nodes.length} node(s); ` +
+      `facts: ${[...lawFactsByYear.values()].reduce((n, f) => n + f.length, 0)} row(s)`,
   );
 
   console.log("→ building document index");
@@ -156,7 +228,7 @@ const main = async (args: {
   const documents = buildDocuments(parsed, bulnaoHtml, readPreviousDocuments());
   console.log(`  documents.json: ${documents.documents.length} document(s)`);
 
-  const index = buildIndex(kfp, documents, parsed);
+  const index = buildIndex(kfp, documents, parsed, unitsByYear);
   const projectable = index.fiscalYears.filter((f) => f.projected).length;
   console.log(
     `  index.json: ${index.fiscalYears.length} fiscal year(s) ` +
@@ -168,7 +240,8 @@ const main = async (args: {
     console.log(
       `✓ dry run: ${kfp.observations.length} observation(s), ` +
         `${documents.documents.length} document(s), ` +
-        `${index.years.length} fiscal year(s) — not written`,
+        `${index.years.length} fiscal year(s), ` +
+        `${adminRegistry.nodes.length} admin node(s) — not written`,
     );
     return;
   }
@@ -179,6 +252,17 @@ const main = async (args: {
   if (writeIfChanged(KFP_FILE, canonicalJson(kfp))) touched++;
   if (writeIfChanged(DOCUMENTS_FILE, canonicalJson(documents))) touched++;
   if (writeIfChanged(INDEX_FILE, canonicalJson(index))) touched++;
+  if (writeIfChanged(ADMIN_REGISTRY_FILE, canonicalJson(adminRegistry))) {
+    touched++;
+  }
+  for (const [year, facts] of lawFactsByYear) {
+    const file = path.join(FACTS_DIR, String(year), "law.json");
+    if (writeIfChanged(file, canonicalJson(facts))) touched++;
+  }
+  for (const [year, rows] of adminReconByYear) {
+    const file = path.join(RECONCILIATION_DIR, String(year), "by-admin.json");
+    if (writeIfChanged(file, canonicalJson(rows))) touched++;
+  }
 
   // 5. Diff cap.
   checkDiffSize(baselineFileCount, touched);
@@ -193,7 +277,8 @@ const main = async (args: {
 
   console.log(
     `✓ budget ingest complete — ${index.kfp.observationCount} observation(s), ` +
-      `${index.years.length} year(s), ${index.documentCount} document(s)`,
+      `${index.years.length} year(s), ${index.documentCount} document(s), ` +
+      `${adminRegistry.nodes.length} admin node(s) across ${lawFactsByYear.size} law year(s)`,
   );
 };
 
