@@ -12,7 +12,7 @@ import { useTranslation } from "react-i18next";
 import { GitFork } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { useProcurementFlow } from "@/data/procurement/useProcurementFlow";
-import { ProcurementFlowSankey, type FlowHover } from "./ProcurementFlowSankey";
+import { ProcurementFlowSankey } from "./ProcurementFlowSankey";
 import { formatEur } from "@/lib/currency";
 
 const HEIGHT = 820;
@@ -45,13 +45,20 @@ export const ProcurementFlowTile: FC = () => {
   // effect below computes a sensible default that filters out the long tail
   // of small links. Operators can drag the slider down to 0 to see everything.
   const [threshold, setThreshold] = useState<number | null>(null);
-  const [width, setWidth] = useState(0);
-  const [hover, setHover] = useState<FlowHover | null>(null);
+  const [size, setSize] = useState({ width: 0, height: 0 });
+  // Measures the scroll box's usable content area. Width drives the layout;
+  // height keeps the SVG flush with the box so it never overflows — a fixed
+  // pixel height would fight the box's border (and, on mobile, the horizontal
+  // scrollbar) and surface a stray vertical scrollbar.
   const containerRef = useCallback((el: HTMLDivElement | null) => {
     if (!el) return;
-    setWidth(el.clientWidth);
+    setSize({ width: el.clientWidth, height: el.clientHeight });
     const ro = new ResizeObserver((entries) => {
-      for (const ent of entries) setWidth(ent.contentRect.width);
+      for (const ent of entries)
+        setSize({
+          width: ent.contentRect.width,
+          height: ent.contentRect.height,
+        });
     });
     ro.observe(el);
     return () => ro.disconnect();
@@ -134,25 +141,26 @@ export const ProcurementFlowTile: FC = () => {
             </div>
 
             <div
+              ref={containerRef}
               className="rounded-md border bg-card overflow-x-auto"
               style={{ height: HEIGHT }}
             >
-              {/* Inner div tracks layout width — min-width keeps the diagram
-                  legible on mobile (where 3 columns at viewport width would
-                  collide). On desktop the inner div matches the viewport, no
-                  scroll. */}
+              {/* min-width keeps the 3-column diagram legible on mobile, where
+                  fitting it to the viewport would collide the labels; the box
+                  scrolls horizontally to reach the overflow. */}
               <div
-                ref={containerRef}
-                style={{ minWidth: MIN_DIAGRAM_WIDTH, height: HEIGHT }}
+                style={{
+                  minWidth: MIN_DIAGRAM_WIDTH,
+                  height: size.height || HEIGHT,
+                }}
               >
-                {filtered.links.length >= MIN_LINKS_TO_RENDER && width > 0 ? (
+                {filtered.links.length >= MIN_LINKS_TO_RENDER &&
+                size.width > 0 ? (
                   <ProcurementFlowSankey
                     nodes={filtered.nodes}
                     links={filtered.links}
-                    width={Math.max(width, MIN_DIAGRAM_WIDTH)}
-                    height={HEIGHT}
-                    hoveredId={hover?.nodeId ?? null}
-                    onHover={setHover}
+                    width={Math.max(size.width, MIN_DIAGRAM_WIDTH)}
+                    height={size.height || HEIGHT}
                   />
                 ) : (
                   <div className="flex items-center justify-center h-full text-sm text-muted-foreground p-4 text-center">
@@ -163,26 +171,18 @@ export const ProcurementFlowTile: FC = () => {
               </div>
             </div>
 
-            {hover && hover.kind === "link" ? (
-              <div className="text-xs text-muted-foreground">
-                <strong className="text-foreground">{hover.sourceLabel}</strong>
-                {" → "}
-                <strong className="text-foreground">{hover.targetLabel}</strong>
-                {" · "}
-                <span className="tabular-nums font-medium text-foreground">
-                  {formatEur(hover.valueEur ?? 0)}
-                </span>
-              </div>
-            ) : (
-              <div className="text-xs text-muted-foreground">
-                {t("procurement_flow_hint") ||
-                  "Hover a link or точка to inspect. Дебелината на лентата отговаря на сумата."}
-              </div>
-            )}
+            <div className="text-xs text-muted-foreground">
+              <strong className="text-foreground">
+                {t("procurement_flow_hint_label")}
+              </strong>
+              : {t("procurement_flow_hint")}
+            </div>
 
             <p className="text-[11px] text-muted-foreground/80">
-              {t("procurement_flow_source_hint") ||
-                "Графиката показва само компании със свръзка към депутат. Сумите са в евро (левовете са конвертирани по фиксирания курс 1.95583)."}
+              <strong className="text-foreground">
+                {t("procurement_flow_scope_label")}
+              </strong>
+              : {t("procurement_flow_source_hint")}
             </p>
           </>
         )}
