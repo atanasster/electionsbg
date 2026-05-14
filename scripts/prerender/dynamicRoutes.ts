@@ -18,6 +18,10 @@ import {
   buildWebPageLd,
 } from "./jsonLd";
 import {
+  loadCandidateCardData,
+  type CandidateCardData,
+} from "../og/candidateData";
+import {
   buildElectionLandingBody,
   buildElectionLandingBodyEn,
   buildOblastBody,
@@ -602,6 +606,97 @@ type RawMpProfile = {
 const normalizeName = (s: string): string =>
   s.toUpperCase().replace(/\s+/g, " ").trim();
 
+// Thousands-separated integer — comma form reads unambiguously in both the
+// Bulgarian and English prerendered bodies and matches the OG card style.
+const formatNumber = (n: number): string => n.toLocaleString("en-US");
+
+// Role sentence shared by the body summary and the FAQ — derived from the
+// parliament index (current/former MP) or the candidate ballot.
+const roleSentenceBg = (name: string, card: CandidateCardData): string => {
+  switch (card.role) {
+    case "current_mp":
+      return card.mp?.partyGroupShort
+        ? `${name} е действащ народен представител (${card.mp.partyGroupShort}).`
+        : `${name} е действащ народен представител.`;
+    case "former_mp":
+      return `${name} е бивш народен представител.`;
+    default:
+      return `${name} е кандидат за народен представител.`;
+  }
+};
+
+const roleSentenceEn = (name: string, card: CandidateCardData): string => {
+  switch (card.role) {
+    case "current_mp":
+      return card.mp?.partyGroupShort
+        ? `${name} is a sitting member of the National Assembly (${card.mp.partyGroupShort}).`
+        : `${name} is a sitting member of the National Assembly.`;
+    case "former_mp":
+      return `${name} is a former member of the National Assembly.`;
+    default:
+      return `${name} is a candidate for the National Assembly.`;
+  }
+};
+
+// FAQ Q&As for a candidate page — keyed off the same shared facts as the
+// summary line. Returns [] when there isn't enough to make a useful FAQ
+// (the caller skips the FAQPage JSON-LD below two items).
+const buildCandidateFaqBg = (
+  name: string,
+  card: CandidateCardData,
+): Array<{ question: string; answer: string }> => {
+  const items: Array<{ question: string; answer: string }> = [];
+  const f = card.facts;
+  if (f) {
+    items.push({
+      question: `Колко преференции получи ${name}?`,
+      answer: `${name} получи общо ${formatNumber(f.totalPreferences)} преференции на изборите на ${formatElectionDateBg(f.electionDate)} — най-много в област ${f.topOblastName} (${formatNumber(f.topOblastPreferences)}).`,
+    });
+    items.push({
+      question: `За коя партия се кандидатира ${name}?`,
+      answer: `На изборите на ${formatElectionDateBg(f.electionDate)} ${name} се кандидатира от ${f.party.name} (${f.party.nickName}).`,
+    });
+  } else if (card.candidacy) {
+    items.push({
+      question: `За коя партия се кандидатира ${name}?`,
+      answer: `${name} се кандидатира от ${card.candidacy.partyNickName ?? `№${card.candidacy.partyNum}`} в област ${card.candidacy.oblastName}.`,
+    });
+  }
+  items.push({
+    question: `${name} народен представител ли е?`,
+    answer: roleSentenceBg(name, card),
+  });
+  return items;
+};
+
+const buildCandidateFaqEn = (
+  name: string,
+  card: CandidateCardData,
+): Array<{ question: string; answer: string }> => {
+  const items: Array<{ question: string; answer: string }> = [];
+  const f = card.facts;
+  if (f) {
+    items.push({
+      question: `How many preference votes did ${name} get?`,
+      answer: `${name} received ${formatNumber(f.totalPreferences)} preference votes in the ${formatElectionDateEn(f.electionDate)} election — most in ${f.topOblastName} (${formatNumber(f.topOblastPreferences)}).`,
+    });
+    items.push({
+      question: `Which party did ${name} run for?`,
+      answer: `In the ${formatElectionDateEn(f.electionDate)} election, ${name} ran on the ${f.party.name} (${f.party.nickName}) list.`,
+    });
+  } else if (card.candidacy) {
+    items.push({
+      question: `Which party did ${name} run for?`,
+      answer: `${name} ran on the ${card.candidacy.partyNickName ?? `№${card.candidacy.partyNum}`} list in ${card.candidacy.oblastName}.`,
+    });
+  }
+  items.push({
+    question: `Is ${name} a member of parliament?`,
+    answer: roleSentenceEn(name, card),
+  });
+  return items;
+};
+
 const escapeHtmlSimple = (s: string): string =>
   String(s)
     .replace(/&/g, "&amp;")
@@ -677,6 +772,7 @@ const buildCandidateBodyEn = (
   profile: RawMpProfile | null,
   history: Array<{ folder: string; partyLabel: string; oblast: string }>,
   oblastNames: Map<string, string>,
+  cardData: CandidateCardData | undefined,
 ): string => {
   const parts: string[] = [];
   parts.push(`<h1>${escapeHtmlSimple(nameEn)}</h1>`);
@@ -698,6 +794,15 @@ const buildCandidateBodyEn = (
     headline.push(`from ${escapeHtmlSimple(partyLabels.join(", "))}`);
   }
   if (headline.length) parts.push(`<p>${headline.join(" · ")}.</p>`);
+
+  // Plain-language results summary — the answer a name-searcher actually
+  // wants, above the per-region tables.
+  if (cardData?.facts) {
+    const f = cardData.facts;
+    parts.push(
+      `<p>In their most recent candidacy (${formatElectionDateEn(f.electionDate)}), ${escapeHtmlSimple(nameEn)} received ${formatNumber(f.totalPreferences)} preference votes — most in ${escapeHtmlSimple(f.topOblastName)} (${formatNumber(f.topOblastPreferences)}).</p>`,
+    );
+  }
 
   const facts: string[] = [];
   const birthDate = fmtEnDate(indexEntry?.birthDate ?? profile?.A_ns_MP_BDate);
@@ -784,6 +889,7 @@ const buildCandidateBody = (
   profile: RawMpProfile | null,
   history: Array<{ folder: string; partyLabel: string; oblast: string }>,
   oblastNames: Map<string, string>,
+  cardData: CandidateCardData | undefined,
 ): string => {
   const parts: string[] = [];
   parts.push(`<h1>${escapeHtmlSimple(name)}</h1>`);
@@ -805,6 +911,15 @@ const buildCandidateBody = (
     headline.push(`от ${escapeHtmlSimple(partyLabels.join(", "))}`);
   }
   if (headline.length) parts.push(`<p>${headline.join(" · ")}.</p>`);
+
+  // Plain-language results summary — the answer a name-searcher actually
+  // wants, above the per-region tables.
+  if (cardData?.facts) {
+    const f = cardData.facts;
+    parts.push(
+      `<p>На последните избори, в които се кандидатира (${formatElectionDateBg(f.electionDate)}), ${escapeHtmlSimple(name)} получи общо ${formatNumber(f.totalPreferences)} преференции — най-много в област ${escapeHtmlSimple(f.topOblastName)} (${formatNumber(f.topOblastPreferences)}).</p>`,
+    );
+  }
 
   const facts: string[] = [];
   const birthDate = fmtBgDate(indexEntry?.birthDate ?? profile?.A_ns_MP_BDate);
@@ -960,6 +1075,11 @@ export const buildCandidateRoutes = (
     }
   }
 
+  // In-scope card set (latest-election candidates + all MPs) with shared
+  // facts — drives the composed OG image, the body summary line, the
+  // results clause in the meta description, and the FAQ JSON-LD.
+  const candidateCardSet = loadCandidateCardData(path.dirname(publicFolder));
+
   const result: PrerenderRoute[] = [];
   for (const [name, agg] of byName) {
     const url = `${SITE_URL}/candidate/${encodeURIComponent(name)}`;
@@ -981,6 +1101,13 @@ export const buildCandidateRoutes = (
     const profile = indexEntry ? loadProfile(indexEntry.id) : null;
     const enUrl = `${SITE_URL}/en/candidate/${encodeURIComponent(name)}`;
     const nameEn = indexEntry?.name_en?.trim() || name;
+    const cardData = candidateCardSet.byNormalizedName.get(normalizeName(name));
+    const factsClauseBg = cardData?.facts
+      ? ` ${formatNumber(cardData.facts.totalPreferences)} преференции на изборите на ${formatElectionDateBg(cardData.facts.electionDate)}, най-силно представяне в област ${cardData.facts.topOblastName}.`
+      : "";
+    const factsClauseEn = cardData?.facts
+      ? ` ${formatNumber(cardData.facts.totalPreferences)} preference votes in the ${formatElectionDateEn(cardData.facts.electionDate)} election, strongest in ${cardData.facts.topOblastName}.`
+      : "";
 
     const isMp = !!indexEntry;
     const titleRole = isMp
@@ -992,7 +1119,7 @@ export const buildCandidateRoutes = (
     const descRole = isMp
       ? `${titleRole}${indexEntry.currentPartyGroup ? ` от ${indexEntry.currentPartyGroup}` : partyClause}`
       : `${titleRole}${partyClause}`;
-    const description = `Резултати на ${name} като ${descRole} в парламентарните избори в България — преференции по области, общини, населени места и секции${profile?.A_ns_MPL_Prof ? `. Професия: ${profile.A_ns_MPL_Prof.trim()}` : ""}.`;
+    const description = `${name} — ${descRole} в парламентарните избори в България.${factsClauseBg} Преференции по области, общини, населени места и секции${profile?.A_ns_MPL_Prof ? `. Професия: ${profile.A_ns_MPL_Prof.trim()}` : ""}.`;
 
     const titleRoleEn = isMp
       ? indexEntry.isCurrent
@@ -1006,7 +1133,7 @@ export const buildCandidateRoutes = (
       ? `${titleRoleEn}${indexEntry.currentPartyGroup ? ` from ${indexEntry.currentPartyGroup}` : partyClauseEn}`
       : `${titleRoleEn}${partyClauseEn}`;
     const titleEn = `${nameEn} — ${titleRoleEn}${yearSpan ? ` (${yearSpan})` : ""} | electionsbg.com`;
-    const descriptionEn = `Results for ${nameEn} as ${descRoleEn} in Bulgaria's parliamentary elections — preference votes by region, municipality, settlement and polling section${profile?.A_ns_MPL_Prof ? `. Profession: ${profile.A_ns_MPL_Prof.trim()}` : ""}.`;
+    const descriptionEn = `${nameEn} — ${descRoleEn} in Bulgaria's parliamentary elections.${factsClauseEn} Preference votes by region, municipality, settlement and polling section${profile?.A_ns_MPL_Prof ? `. Profession: ${profile.A_ns_MPL_Prof.trim()}` : ""}.`;
 
     const personLd = buildPersonLd({
       name,
@@ -1040,7 +1167,12 @@ export const buildCandidateRoutes = (
         : undefined,
     });
 
-    const ogImage = indexEntry?.photoUrl;
+    // Composed OG card for in-scope candidates (every latest-election
+    // candidate + every MP); generate.ts writes it under cardData.name, so
+    // resolve the filename through the card set rather than the route name.
+    const ogImage = cardData
+      ? `/og/candidate/${encodeURIComponent(cardData.name)}.webp`
+      : indexEntry?.photoUrl;
 
     const personLdEn =
       nameEn !== name
@@ -1077,6 +1209,26 @@ export const buildCandidateRoutes = (
           })
         : personLd;
 
+    // FAQ JSON-LD — only when there's enough for a useful FAQPage (≥2 Q&As).
+    const faqBg = cardData ? buildCandidateFaqBg(name, cardData) : [];
+    const faqEn = cardData ? buildCandidateFaqEn(nameEn, cardData) : [];
+    const jsonLdBg: object[] = [
+      personLd,
+      buildBreadcrumbLd([
+        { name: "Начало", url: `${SITE_URL}/` },
+        { name, url },
+      ]),
+    ];
+    if (faqBg.length >= 2) jsonLdBg.push(buildFaqLd(faqBg));
+    const jsonLdEn: object[] = [
+      personLdEn,
+      buildBreadcrumbLd([
+        { name: "Home", url: `${SITE_URL}/en/` },
+        { name: nameEn, url: enUrl },
+      ]),
+    ];
+    if (faqEn.length >= 2) jsonLdEn.push(buildFaqLd(faqEn));
+
     result.push({
       path: `candidate/${name}`,
       title,
@@ -1090,14 +1242,9 @@ export const buildCandidateRoutes = (
         profile,
         agg.history,
         oblastNames,
+        cardData,
       ),
-      jsonLd: [
-        personLd,
-        buildBreadcrumbLd([
-          { name: "Начало", url: `${SITE_URL}/` },
-          { name, url },
-        ]),
-      ],
+      jsonLd: jsonLdBg,
       english: {
         title: titleEn,
         description: descriptionEn,
@@ -1110,14 +1257,9 @@ export const buildCandidateRoutes = (
           profile,
           agg.history,
           oblastNames,
+          cardData,
         ),
-        jsonLd: [
-          personLdEn,
-          buildBreadcrumbLd([
-            { name: "Home", url: `${SITE_URL}/en/` },
-            { name: nameEn, url: enUrl },
-          ]),
-        ],
+        jsonLd: jsonLdEn,
       },
     });
   }

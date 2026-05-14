@@ -39,7 +39,7 @@ export const SITE_URL = "https://electionsbg.com";
 // at electionsbg.com/2026_04_19/...json would 404 since those files are no
 // longer served by Firebase Hosting.
 export const DATA_URL = "https://storage.googleapis.com/data-electionsbg-com";
-export const DEFAULT_OG_IMAGE = `${SITE_URL}/images/og_image.png`;
+export const DEFAULT_OG_IMAGE = `${SITE_URL}/images/og_image.webp`;
 
 import fs from "fs";
 import path from "path";

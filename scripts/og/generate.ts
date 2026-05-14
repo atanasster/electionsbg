@@ -9,7 +9,10 @@ import {
 } from "@/data/dataTypes";
 import { NationalSummary } from "@/data/dashboard/dashboardTypes";
 import { cikPartiesFileName, regionsVotesFileName } from "scripts/consts";
-import { renderCard, PALETTE, type Tile } from "./cardRenderer";
+import { renderCard, PALETTE, type Tile, type CardSpec } from "./cardRenderer";
+import { renderCandidateCard } from "./candidateCard";
+import { loadCandidateCardData } from "./candidateData";
+import { createOgCache, hashFile } from "./cache";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -28,14 +31,17 @@ const formatPctSigned = (pct: number, digits = 2): string => {
 const formatThousands = (n: number): string =>
   n.toLocaleString("bg-BG").replace(/\s/g, ",");
 
-const ensureDir = (p: string) => fs.mkdirSync(p, { recursive: true });
-
-const writePng = (outPath: string, canvas: ReturnType<typeof renderCard>) => {
-  ensureDir(path.dirname(outPath));
-  fs.writeFileSync(outPath, canvas.toBuffer("image/png"));
+// Card render jobs are collected first, then pushed through the incremental
+// cache — a card whose CardSpec is byte-identical to last build is copied
+// from cache instead of re-encoded. The CardSpec fully determines the pixels
+// for renderCard()-based cards, so it doubles as the cache fingerprint.
+type CardJob = { relPath: string; spec: CardSpec };
+const jobs: CardJob[] = [];
+const queue = (relPath: string, spec: CardSpec): void => {
+  jobs.push({ relPath, spec });
 };
 
-const renderHomeCard = (summary: NationalSummary, outPath: string) => {
+const renderHomeCard = (summary: NationalSummary, relPath: string) => {
   const tiles: Tile[] = [
     {
       label: "избирателна активност",
@@ -82,20 +88,19 @@ const renderHomeCard = (summary: NationalSummary, outPath: string) => {
       deltaColor: PALETTE.amber,
     },
   ];
-  const canvas = renderCard({
+  queue(relPath, {
     title: `Парламентарни избори ${localizeDate(summary.election)}`,
     subtitle: summary.priorElection
       ? `Сравнение с ${localizeDate(summary.priorElection)}`
       : "",
     tiles,
   });
-  writePng(outPath, canvas);
 };
 
 const renderPartyCard = (
   party: PartyInfo,
   summary: NationalSummary,
-  outPath: string,
+  relPath: string,
 ) => {
   const inSummary = summary.parties.find((p) => p.partyNum === party.number);
   const pctText = inSummary ? `${inSummary.pct.toFixed(2)}%` : "—";
@@ -127,12 +132,11 @@ const renderPartyCard = (
       deltaColor: PALETTE.muted,
     },
   ];
-  const canvas = renderCard({
+  queue(relPath, {
     title: party.name || party.nickName,
     subtitle: `Парламентарни избори в България — ${localizeDate(summary.election)}`,
     tiles,
   });
-  writePng(outPath, canvas);
 };
 
 type StaticPageHighlight = { label: string; value: string; accent?: string };
@@ -141,19 +145,14 @@ const renderStaticPageCard = (
   title: string,
   subtitle: string,
   highlights: StaticPageHighlight[],
-  outPath: string,
+  relPath: string,
 ) => {
   const tiles: Tile[] = highlights.map((h) => ({
     label: h.label,
     value: h.value,
     accent: h.accent,
   }));
-  const canvas = renderCard({
-    title,
-    subtitle,
-    tiles,
-  });
-  writePng(outPath, canvas);
+  queue(relPath, { title, subtitle, tiles });
 };
 
 const renderOblastCard = (
@@ -161,7 +160,7 @@ const renderOblastCard = (
   voteData: ElectionRegion,
   electionName: string,
   parties: PartyInfo[],
-  outPath: string,
+  relPath: string,
 ) => {
   const total = voteData.results.votes.reduce((s, v) => s + v.totalVotes, 0);
   const protocol = voteData.results.protocol;
@@ -210,15 +209,14 @@ const renderOblastCard = (
       deltaColor: PALETTE.muted,
     },
   ];
-  const canvas = renderCard({
+  queue(relPath, {
     title: `Резултати в ${region.long_name || region.name}`,
     subtitle: `Парламентарни избори — ${localizeDate(electionName)}`,
     tiles,
   });
-  writePng(outPath, canvas);
 };
 
-const main = () => {
+const main = async () => {
   // Source data lives in /data/ post-GCS migration; the variable name is
   // kept (`publicFolder`) for minimal blast radius — only reads happen.
   const publicFolder = path.join(PROJECT_ROOT, "data");
@@ -241,7 +239,7 @@ const main = () => {
     const summary: NationalSummary = JSON.parse(
       fs.readFileSync(summaryPath, "utf-8"),
     );
-    renderHomeCard(summary, path.join(distFolder, "og", "home.png"));
+    renderHomeCard(summary, "home.png");
   }
 
   // Static-page cards: branded covers for /timeline, /compare, /simulator,
@@ -260,7 +258,7 @@ const main = () => {
       { label: "размер", value: "гласове" },
       { label: "цвят", value: "партия" },
     ],
-    path.join(distFolder, "og", "timeline.png"),
+    "timeline.png",
   );
 
   renderStaticPageCard(
@@ -272,7 +270,7 @@ const main = () => {
       { label: "показатели", value: "активност" },
       { label: "и", value: "партии" },
     ],
-    path.join(distFolder, "og", "compare.png"),
+    "compare.png",
   );
 
   renderStaticPageCard(
@@ -284,7 +282,7 @@ const main = () => {
       { label: "праг", value: "0–10%" },
       { label: "коалиции до", value: "4 партии" },
     ],
-    path.join(distFolder, "og", "simulator.png"),
+    "simulator.png",
   );
 
   renderStaticPageCard(
@@ -296,7 +294,7 @@ const main = () => {
       { label: "разходи", value: "медии" },
       { label: "обхват", value: yearSpan },
     ],
-    path.join(distFolder, "og", "financing.png"),
+    "financing.png",
   );
 
   renderStaticPageCard(
@@ -308,7 +306,7 @@ const main = () => {
       { label: "24 МИР", value: "София" },
       { label: "25 МИР", value: "София" },
     ],
-    path.join(distFolder, "og", "sofia.png"),
+    "sofia.png",
   );
 
   renderStaticPageCard(
@@ -320,7 +318,7 @@ const main = () => {
       { label: "обхват", value: yearSpan },
       { label: "език", value: "BG / EN" },
     ],
-    path.join(distFolder, "og", "about.png"),
+    "about.png",
   );
 
   // /risk-analysis, /risk-score, /benford, /persistence, /wasted-vote and
@@ -339,7 +337,7 @@ const main = () => {
       { label: "тегло", value: "по сигнал" },
       { label: "тип", value: "методология" },
     ],
-    path.join(distFolder, "og", "risk-analysis-methodology.png"),
+    "risk-analysis-methodology.png",
   );
 
   renderStaticPageCard(
@@ -351,7 +349,7 @@ const main = () => {
       { label: "обединяване", value: "0–100" },
       { label: "тип", value: "методология" },
     ],
-    path.join(distFolder, "og", "risk-score-methodology.png"),
+    "risk-score-methodology.png",
   );
 
   renderStaticPageCard(
@@ -363,7 +361,7 @@ const main = () => {
       { label: "мин. секции", value: "≥ 30 / партия" },
       { label: "тип", value: "методология" },
     ],
-    path.join(distFolder, "og", "benford-methodology.png"),
+    "benford-methodology.png",
   );
 
   renderStaticPageCard(
@@ -375,7 +373,7 @@ const main = () => {
       { label: "ниво", value: "секция → МИР" },
       { label: "тип", value: "методология" },
     ],
-    path.join(distFolder, "og", "vote-flow-methodology.png"),
+    "vote-flow-methodology.png",
   );
 
   renderStaticPageCard(
@@ -387,7 +385,7 @@ const main = () => {
       { label: "филтри", value: "по партия" },
       { label: "обхват", value: "действащ парламент" },
     ],
-    path.join(distFolder, "og", "mp-companies.png"),
+    "mp-companies.png",
   );
 
   renderStaticPageCard(
@@ -399,7 +397,7 @@ const main = () => {
       { label: "метрика", value: "нетно имущество" },
       { label: "валута", value: "BGN" },
     ],
-    path.join(distFolder, "og", "mp-assets.png"),
+    "mp-assets.png",
   );
 
   // /observations — OSCE/ODIHR election observation reports landing page.
@@ -412,7 +410,7 @@ const main = () => {
       { label: "доклади", value: "EOM / LEOM / EAM" },
       { label: "резюмета", value: "Claude AI" },
     ],
-    path.join(distFolder, "og", "observations.png"),
+    "observations.png",
   );
 
   // /data-changes — public log of dataset refreshes.
@@ -425,7 +423,7 @@ const main = () => {
       { label: "източник", value: "pipeline" },
       { label: "тип", value: "log" },
     ],
-    path.join(distFolder, "og", "data-changes.png"),
+    "data-changes.png",
   );
 
   renderStaticPageCard(
@@ -437,7 +435,7 @@ const main = () => {
       { label: "стойност", value: "BGN" },
       { label: "обхват", value: "декларант + съпруг" },
     ],
-    path.join(distFolder, "og", "mp-cars.png"),
+    "mp-cars.png",
   );
 
   // Party cards.
@@ -452,11 +450,7 @@ const main = () => {
     parties.forEach((p) => {
       if (!p.nickName) return;
       const fileName = encodeURIComponent(p.nickName) + ".png";
-      renderPartyCard(
-        p,
-        summary,
-        path.join(distFolder, "og", "party", fileName),
-      );
+      renderPartyCard(p, summary, `party/${fileName}`);
     });
   }
 
@@ -475,21 +469,42 @@ const main = () => {
       if (!r.oblast || r.oblast === "32") return;
       const v = byKey.get(r.oblast);
       if (!v) return;
-      renderOblastCard(
-        r,
-        v,
-        latest,
-        parties,
-        path.join(distFolder, "og", "region", `${r.oblast}.png`),
-      );
+      renderOblastCard(r, v, latest, parties, `region/${r.oblast}.png`);
     });
   }
 
+  // Push every renderCard()-based job through the incremental cache. The
+  // CardSpec is the complete visual input, so it is the cache fingerprint.
+  const cache = createOgCache(PROJECT_ROOT);
+  for (const job of jobs) {
+    await cache.render(job.relPath, job.spec, () =>
+      renderCard(job.spec).toBuffer("image/png"),
+    );
+  }
+
+  // Composed per-candidate cards: every candidate in the latest election plus
+  // every MP. Output is webp directly (the set is large — keeping it out of
+  // the optimize.ts png→webp pass keeps that pass's rewrite map small).
+  const candidateSet = loadCandidateCardData(PROJECT_ROOT);
+  for (const card of candidateSet.cards) {
+    const relPath = `candidate/${encodeURIComponent(card.name)}.webp`;
+    // The photo is an external asset, not part of `card` — fold its content
+    // hash into the fingerprint so a re-scraped photo re-renders the card.
+    const fingerprint = {
+      card,
+      photo: card.mp?.photoPath ? hashFile(card.mp.photoPath) : null,
+    };
+    await cache.render(relPath, fingerprint, () => renderCandidateCard(card));
+  }
+
+  const { hits, misses } = cache.save();
   console.log(
-    `OG images generated: home + ${parties.length} parties + ${
-      regions.filter((r) => r.oblast && r.oblast !== "32").length
-    } oblasts`,
+    `OG images: ${jobs.length} static/party/oblast + ${candidateSet.cards.length} candidate cards ` +
+      `(${misses} rendered, ${hits} cached)`,
   );
 };
 
-main();
+main().catch((err) => {
+  console.error("OG generation failed:", err);
+  process.exit(1);
+});

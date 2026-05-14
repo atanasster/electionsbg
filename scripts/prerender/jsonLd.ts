@@ -14,7 +14,7 @@ const ORG = {
   name: "Elections Bulgaria",
   alternateName: "electionsbg.com",
   url: SITE_URL,
-  logo: `${SITE_URL}/images/og_image.png`,
+  logo: `${SITE_URL}/images/og_image.webp`,
 };
 
 // Reference shape used wherever another schema entity needs to point at the
@@ -221,7 +221,7 @@ export const buildArticleLd = (params: {
           ? params.image
           : `${SITE_URL}${params.image}`,
       }
-    : { image: `${SITE_URL}/images/og_image.png` }),
+    : { image: `${SITE_URL}/images/og_image.webp` }),
   ...(params.keywords && params.keywords.length
     ? { keywords: params.keywords.join(", ") }
     : {}),

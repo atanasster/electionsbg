@@ -1,14 +1,17 @@
 // Postbuild step: convert dist/ image assets to webp, delete the originals,
 // and rewrite path references in HTML / JSON / Markdown / XML so the runtime
 // + prerendered pages all point at the new files. Saves ~70% on the article
-// image set without touching the og/ images (kept as PNG/JPG so social
-// previewers across older clients always render).
+// image set, and shrinks the social-card set substantially.
 //
 // Scope is intentionally narrow:
 //   - dist/articles/images/**     — body images embedded in long-form posts
-//   - dist/<root>/*.{png,jpg,jpeg} — any top-level decorative images
+//   - dist/og/**                   — social / Open Graph cards. Modern crawlers
+//                                    (Facebook, Twitter, Telegram, Google) all
+//                                    handle webp. The candidate-page cards are
+//                                    already emitted as webp by og/generate.ts,
+//                                    so this pass only catches the rendered
+//                                    PNG cards + Playwright-captured screens.
 // Skipped:
-//   - dist/og/**                   — social/Open Graph (broad legacy support)
 //   - dist/images/**               — favicons / brand glyphs (multiple sizes)
 //   - dist/assets/**               — Vite-built hashed assets (renaming would
 //                                    desync the bundler's import graph)
@@ -29,7 +32,7 @@ const DIST = path.join(PROJECT_ROOT, "dist");
 
 // Directory roots (relative to dist/) that are ELIGIBLE for webp conversion.
 // Anything outside this list is left untouched.
-const CONVERT_ROOTS = ["articles/images"];
+const CONVERT_ROOTS = ["articles/images", "og"];
 
 // Globs (matched against paths relative to dist/) excluded from conversion
 // even when they sit under a CONVERT_ROOT — currently empty, kept for

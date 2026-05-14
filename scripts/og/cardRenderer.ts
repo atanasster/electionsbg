@@ -39,7 +39,7 @@ export type CardSpec = {
   footerRight?: string;
 };
 
-const drawRoundedRect = (
+export const drawRoundedRect = (
   ctx: SKRSContext2D,
   x: number,
   y: number,
@@ -60,7 +60,7 @@ const drawRoundedRect = (
   ctx.closePath();
 };
 
-const drawTile = (
+export const drawTile = (
   ctx: SKRSContext2D,
   x: number,
   y: number,
@@ -133,7 +133,7 @@ const drawHeader = (ctx: SKRSContext2D, title: string, subtitle?: string) => {
   }
 };
 
-const drawFooter = (ctx: SKRSContext2D, left: string, right: string) => {
+export const drawFooter = (ctx: SKRSContext2D, left: string, right: string) => {
   ctx.fillStyle = PALETTE.muted;
   ctx.font = `500 18px ${FONT_STACK}`;
   ctx.textBaseline = "middle";
