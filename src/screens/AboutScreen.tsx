@@ -286,6 +286,10 @@ export const AboutScreen = () => {
                   href="https://data.egov.bg/organisation/about/aop"
                   label={t("procurement_aop_source")}
                 />
+                <SourceItem
+                  href="https://www2.aop.bg/stopanski-subekti/stopanski-subekti-s-narusheniya/"
+                  label={t("procurement_aop_debarred_source")}
+                />
               </ul>
             </DataGroup>
 
