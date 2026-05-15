@@ -7,16 +7,9 @@
 // and lets the user pick which one to drill into (persisted in `?fy=`).
 
 import { useMemo } from "react";
-import { useElectionContext } from "@/data/ElectionContext";
+import { useParliamentTerm } from "@/data/parliament/useParliamentTerm";
 import { useSearchParam } from "@/screens/utils/useSearchParam";
 import type { BudgetIndex, FiscalYearSummary } from "./types";
-
-// "2024_10_27" → Date. Returns null for anything that isn't a date name.
-const electionDate = (name: string): Date | null => {
-  const m = name.match(/^(\d{4})_(\d{2})_(\d{2})$/);
-  if (!m) return null;
-  return new Date(`${m[1]}-${m[2]}-${m[3]}`);
-};
 
 export interface BudgetTermYear {
   fiscalYear: number;
@@ -42,17 +35,8 @@ export interface BudgetTerm {
 export const useBudgetTerm = (
   index: BudgetIndex | null | undefined,
 ): BudgetTerm => {
-  const { selected, elections } = useElectionContext();
+  const { election: selected, termStart, termEnd } = useParliamentTerm();
   const [fyParam, setFyParam] = useSearchParam("fy", { replace: true });
-
-  const { termStart, termEnd } = useMemo(() => {
-    const idx = elections.indexOf(selected);
-    const start = electionDate(selected);
-    // elections is newest-first, so the entry *before* `selected` is the
-    // next (newer) election — the end of this term.
-    const end = idx > 0 ? electionDate(elections[idx - 1]) : null;
-    return { termStart: start, termEnd: end };
-  }, [selected, elections]);
 
   const years = useMemo<BudgetTermYear[]>(() => {
     if (!termStart) return [];

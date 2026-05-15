@@ -5,6 +5,12 @@ import { Layout } from "./layout/Layout";
 // Eagerly load the home screen so the landing page has no Suspense flash.
 import { DashboardScreen } from "@/screens/DashboardScreen";
 
+const GovernanceScreen = lazy(() =>
+  import("@/screens/GovernanceScreen").then((m) => ({
+    default: m.GovernanceScreen,
+  })),
+);
+
 const MunicipalitiesScreen = lazy(() =>
   import("@/screens/MunicipalitiesScreen").then((m) => ({
     default: m.MunicipalitiesScreen,
@@ -851,6 +857,14 @@ export const AuthRoutes = () => {
           element={
             <LayoutScreen>
               <DashboardScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="governance"
+          element={
+            <LayoutScreen>
+              <GovernanceScreen />
             </LayoutScreen>
           }
         />

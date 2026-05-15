@@ -1,7 +1,10 @@
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
+import { ArrowRight, Briefcase, Landmark, Vote, Wallet } from "lucide-react";
+import { Link } from "@/ux/Link";
 import { useResolvedCandidate } from "@/data/candidates/useResolvedCandidate";
 import { useCandidateName } from "@/data/candidates/useCandidateName";
+import { DashboardSection } from "@/screens/dashboard/DashboardSection";
 import { CandidateHeader } from "./CandidateHeader";
 import { MpProfileHeader } from "./MpProfileHeader";
 import { MpFinancialDeclarations } from "./MpFinancialDeclarations";
@@ -92,13 +95,68 @@ export const Candidate: FC<{ name: string }> = ({ name }) => {
 
       {canonical.mpId != null && (
         <>
-          <MpVotingTile name={lookupName} linkSlug={linkSlug} />
-          <MpTwinsTile name={lookupName} />
-          <MpAssetsSummary name={lookupName} linkSlug={linkSlug} />
-          <MpFinancialDeclarations name={lookupName} />
-          <MpManagementRoles name={lookupName} />
-          <MpConnectionsMini name={lookupName} linkSlug={linkSlug} />
-          <MpConnectedContractsTile name={lookupName} linkSlug={linkSlug} />
+          <DashboardSection
+            id="parliament"
+            title={t("mp_section_voting") || "Voting & similarity"}
+            icon={Vote}
+          >
+            <MpVotingTile name={lookupName} linkSlug={linkSlug} />
+            <MpTwinsTile name={lookupName} />
+          </DashboardSection>
+
+          <DashboardSection
+            id="declarations"
+            title={t("mp_section_assets") || "Assets & declarations"}
+            icon={Wallet}
+          >
+            <MpAssetsSummary name={lookupName} linkSlug={linkSlug} />
+            <MpFinancialDeclarations name={lookupName} />
+          </DashboardSection>
+
+          <DashboardSection
+            id="declarations"
+            title={t("mp_section_business") || "Business & management"}
+            icon={Briefcase}
+          >
+            <MpManagementRoles name={lookupName} />
+            <MpConnectionsMini name={lookupName} linkSlug={linkSlug} />
+          </DashboardSection>
+
+          <DashboardSection
+            id="procurement"
+            title={t("mp_section_procurement") || "Public procurement"}
+            icon={Landmark}
+          >
+            <MpConnectedContractsTile name={lookupName} linkSlug={linkSlug} />
+          </DashboardSection>
+
+          <div className="mt-6 flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
+            <span>{t("mp_section_explore_more") || "Explore further"}:</span>
+            <Link
+              to="/governance"
+              underline={false}
+              className="inline-flex items-center gap-1 rounded-full border bg-card px-3 py-1 text-primary hover:underline"
+            >
+              {t("nav_governance") || "Governance"}
+              <ArrowRight className="h-3 w-3" />
+            </Link>
+            <Link
+              to="/parliament"
+              underline={false}
+              className="inline-flex items-center gap-1 rounded-full border bg-card px-3 py-1 text-primary hover:underline"
+            >
+              {t("dashboard_section_parliament")}
+              <ArrowRight className="h-3 w-3" />
+            </Link>
+            <Link
+              to="/connections"
+              underline={false}
+              className="inline-flex items-center gap-1 rounded-full border bg-card px-3 py-1 text-primary hover:underline"
+            >
+              {t("connections_link_label")}
+              <ArrowRight className="h-3 w-3" />
+            </Link>
+          </div>
         </>
       )}
     </div>

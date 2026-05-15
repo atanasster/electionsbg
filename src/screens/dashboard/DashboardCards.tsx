@@ -1,23 +1,13 @@
 import { FC, lazy, Suspense } from "react";
-import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
   AlertTriangle,
-  Briefcase,
   Building2,
   CalendarDays,
   Coins,
   Gauge,
-  Landmark,
   Map,
-  Wallet,
 } from "lucide-react";
-import { useProcurementByNs } from "@/data/procurement/useProcurementByNs";
-import { useBudgetIndex } from "@/data/budget/useBudget";
-import { useBudgetTerm } from "@/data/budget/useBudgetTerm";
-import { BudgetSummaryTile } from "@/screens/components/budget/BudgetSummaryTile";
-import { TopMpsTile } from "@/screens/components/procurement/TopMpsTile";
-import { TopContractorsTile } from "@/screens/components/procurement/TopContractorsTile";
 import { useNationalSummary } from "@/data/dashboard/useNationalSummary";
 import { useElectionContext } from "@/data/ElectionContext";
 import { useProblemSectionsStats } from "@/data/reports/useProblemSectionsStats";
@@ -43,7 +33,6 @@ const VoteFlowTile = lazy(() =>
     default: m.VoteFlowTile,
   })),
 );
-import { GovernmentsTile } from "./GovernmentsTile";
 import { PartyResultsTile } from "./PartyResultsTile";
 import { RegionsMapTile } from "./RegionsMapTile";
 import { TopCandidatesStrip } from "./TopCandidatesStrip";
@@ -64,24 +53,15 @@ const AccuracyTrendsTile = lazy(() =>
   })),
 );
 import { ArticlesTile } from "./ArticlesTile";
-import { MpConnectionsTile } from "./MpConnectionsTile";
-import { CarMakesTile } from "./CarMakesTile";
-import { MpAssetsTile } from "./MpAssetsTile";
-import { ParliamentSection } from "./ParliamentSection";
 import { DashboardSection } from "./DashboardSection";
-import { MpDeclarationsProvenance } from "./MpDeclarationsProvenance";
 import { SectionArticlesProvider } from "./SectionArticlesContext";
 
 const SECTION_TOPICS: readonly DashboardSectionId[] = [
   "votes",
-  "parliament",
   "geography",
   "anomalies",
   "neighborhoods",
   "financing",
-  "declarations",
-  "procurement",
-  "budget",
   "polling",
 ];
 
@@ -112,9 +92,6 @@ export const DashboardCards: FC = () => {
   const { data, isLoading } = useNationalSummary();
   const { electionStats } = useElectionContext();
   const { data: problemSectionsStats } = useProblemSectionsStats();
-  const { data: procurementByNs } = useProcurementByNs();
-  const { data: budgetIndex } = useBudgetIndex();
-  const budgetTerm = useBudgetTerm(budgetIndex);
 
   // electionStats is derived synchronously from in-memory data, so we use it
   // to gate the same set of optional rows in both the skeleton and live
@@ -138,9 +115,7 @@ export const DashboardCards: FC = () => {
         <SkeletonSection rows={2} />
         {hasFlash || hasRecount ? <SkeletonSection rows={2} /> : null}
         <SkeletonSection rows={2} />
-        <SkeletonSection rows={2} />
         {hasFinancials ? <SkeletonSection rows={1} /> : null}
-        <SkeletonSection rows={1} />
         <SkeletonSection rows={2} />
       </section>
     );
@@ -187,10 +162,7 @@ export const DashboardCards: FC = () => {
             <VoteFlowTile />
             <HistoricalTrendsTile />
           </Suspense>
-          <GovernmentsTile />
         </DashboardSection>
-
-        <ParliamentSection />
 
         <DashboardSection
           id="geography"
@@ -254,67 +226,6 @@ export const DashboardCards: FC = () => {
             articleTopic="financing"
           >
             <TopFinancingTile parties={data.parties} />
-          </DashboardSection>
-        ) : null}
-
-        <DashboardSection
-          id="declarations"
-          title={t("dashboard_section_declarations")}
-          subtitle={<MpDeclarationsProvenance />}
-          icon={Briefcase}
-          articleTopic="declarations"
-        >
-          <div className="grid gap-3 grid-cols-1 lg:grid-cols-2">
-            <MpConnectionsTile hideProvenance />
-            <CarMakesTile hideProvenance />
-          </div>
-          <MpAssetsTile />
-        </DashboardSection>
-
-        {procurementByNs && procurementByNs.topMps.length > 0 ? (
-          <DashboardSection
-            id="procurement"
-            title={t("dashboard_section_procurement")}
-            subtitle={
-              <span className="flex flex-wrap items-center gap-x-3 gap-y-1">
-                <span>{t("dashboard_section_procurement_subtitle")}</span>
-                <Link
-                  to="/procurement"
-                  className="text-primary hover:underline whitespace-nowrap"
-                >
-                  {t("dashboard_section_procurement_link")}
-                </Link>
-              </span>
-            }
-            icon={Landmark}
-            articleTopic="procurement"
-          >
-            <div className="grid gap-3 grid-cols-1 xl:grid-cols-2">
-              <TopMpsTile data={procurementByNs} />
-              <TopContractorsTile byNs={procurementByNs} />
-            </div>
-          </DashboardSection>
-        ) : null}
-
-        {budgetTerm.yearsWithData.length > 0 ? (
-          <DashboardSection
-            id="budget"
-            title={t("dashboard_section_budget")}
-            subtitle={
-              <span className="flex flex-wrap items-center gap-x-3 gap-y-1">
-                <span>{t("dashboard_section_budget_subtitle")}</span>
-                <Link
-                  to="/budget"
-                  className="text-primary hover:underline whitespace-nowrap"
-                >
-                  {t("dashboard_section_budget_link")}
-                </Link>
-              </span>
-            }
-            icon={Wallet}
-            articleTopic="budget"
-          >
-            <BudgetSummaryTile />
           </DashboardSection>
         ) : null}
 

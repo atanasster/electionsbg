@@ -1,5 +1,6 @@
 import { FC, useContext, useLayoutEffect, useRef } from "react";
 import { Moon, SunMedium, Menu, Check, ChevronDown } from "lucide-react";
+import { useLocation } from "react-router-dom";
 
 import {
   DropdownMenu,
@@ -16,13 +17,37 @@ import {
 import { themeDark, themeLight } from "@/theme/utils";
 import { ThemeContext } from "@/theme/ThemeContext";
 import { useTranslation } from "react-i18next";
+import { cn } from "@/lib/utils";
 import { Link } from "@/ux/Link";
-import { MenuItem, reportsMenu } from "./reportMenus";
+import { MenuItem, electionsMenu, governanceMenu } from "./reportMenus";
 import { Search } from "../search/Search";
 import { ElectionsSelect } from "./ElectionsSelect";
 import { Logo } from "./Logo";
 import { useElectionContext } from "@/data/ElectionContext";
 import { useArticles } from "@/data/articles/useArticles";
+
+// Pathname prefixes that mark a page as "in" the Governance world for the
+// active-dropdown underline. Everything else is treated as elections —
+// including /reports/* and /risk-score, which are election-cycle anomaly
+// analyses folded into the Elections dropdown.
+const GOVERNANCE_PREFIXES = [
+  "/governance",
+  "/parliament",
+  "/votes",
+  "/budget",
+  "/procurement",
+  "/connections",
+  "/mp",
+  "/mp-",
+  "/company",
+  "/awarder",
+  "/governments",
+  "/demographics",
+  "/observations",
+];
+
+const isInSection = (pathname: string, prefixes: string[]): boolean =>
+  prefixes.some((p) => pathname === p || pathname.startsWith(`${p}/`));
 
 export const Header = () => {
   const { setTheme, theme } = useContext(ThemeContext);
@@ -30,6 +55,17 @@ export const Header = () => {
   const { electionStats, selected } = useElectionContext();
   const { data: articles } = useArticles();
   const navRef = useRef<HTMLElement>(null);
+  const location = useLocation();
+  const inGovernance = isInSection(location.pathname, GOVERNANCE_PREFIXES);
+  const inElections = !inGovernance;
+
+  const dropdownClass = (active: boolean) =>
+    cn(
+      "text-sm font-medium hidden lg:flex items-center gap-1 lowercase whitespace-nowrap focus:outline-none transition-colors",
+      active
+        ? "text-primary border-b-2 border-primary pb-0.5"
+        : "text-secondary-foreground hover:text-primary",
+    );
   // The nav is `position: fixed`, so the page content is offset by its
   // height via the `--header-height` CSS variable (see Layout.tsx). On
   // very narrow viewports (~<340px) the inner left group wraps to a
@@ -122,9 +158,23 @@ export const Header = () => {
       </div>
       <div className="flex flex-1 justify-end gap-3 items-center px-4 min-w-0">
         <Search />
-        {reportsMenu.map((topMenu, idx) => (
-          <DropdownMenu key={`${topMenu.title}=${idx}`}>
-            <DropdownMenuTrigger className="text-sm font-medium hidden lg:flex items-center gap-1 lowercase whitespace-nowrap text-secondary-foreground hover:text-primary focus:outline-none">
+        {electionsMenu.map((topMenu, idx) => (
+          <DropdownMenu key={`elec-${topMenu.title}-${idx}`}>
+            <DropdownMenuTrigger className={dropdownClass(inElections)}>
+              {t(topMenu.title)}
+              <ChevronDown className="h-3.5 w-3.5 opacity-70" aria-hidden />
+            </DropdownMenuTrigger>
+
+            <DropdownMenuContent className="w-56">
+              {topMenu.subMenu?.map((menu, idx) => (
+                <RenderMenuItem key={`${menu.title}-${idx}`} item={menu} />
+              ))}
+            </DropdownMenuContent>
+          </DropdownMenu>
+        ))}
+        {governanceMenu.map((topMenu, idx) => (
+          <DropdownMenu key={`gov-${topMenu.title}-${idx}`}>
+            <DropdownMenuTrigger className={dropdownClass(inGovernance)}>
               {t(topMenu.title)}
               <ChevronDown className="h-3.5 w-3.5 opacity-70" aria-hidden />
             </DropdownMenuTrigger>
@@ -187,7 +237,10 @@ export const Header = () => {
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-56">
             <DropdownMenuItem>
-              <Link to="/simulator">{t("coalition_simulator")}</Link>
+              <Link to="/">{t("nav_elections")}</Link>
+            </DropdownMenuItem>
+            <DropdownMenuItem>
+              <Link to="/governance">{t("nav_governance")}</Link>
             </DropdownMenuItem>
             {articles && articles.length > 0 && (
               <DropdownMenuItem>
@@ -195,18 +248,24 @@ export const Header = () => {
               </DropdownMenuItem>
             )}
             <DropdownMenuItem>
-              <Link to="/mp/companies">{t("all_companies")}</Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem>
               <Link to="/timeline">{t("timeline_title")}</Link>
             </DropdownMenuItem>
-            <DropdownMenuItem>
-              <Link to="/governments">{t("governments_title")}</Link>
-            </DropdownMenuItem>
             <DropdownMenuSeparator />
-            {reportsMenu.map((main) =>
+            {electionsMenu.map((main) =>
               main.subMenu?.map((menu, idx) => (
-                <RenderMenuItem key={`${menu.title}-${idx}`} item={menu} />
+                <RenderMenuItem
+                  key={`m-elec-${menu.title}-${idx}`}
+                  item={menu}
+                />
+              )),
+            )}
+            <DropdownMenuSeparator />
+            {governanceMenu.map((main) =>
+              main.subMenu?.map((menu, idx) => (
+                <RenderMenuItem
+                  key={`m-gov-${menu.title}-${idx}`}
+                  item={menu}
+                />
               )),
             )}
             <DropdownMenuSeparator />

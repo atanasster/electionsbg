@@ -1,3 +1,17 @@
+// Header dropdowns match the two-dashboard architecture (Elections home +
+// Governance home):
+//
+//   electionsMenu   — risk analysis, comparisons, polls, simulator, the
+//                     election-cycle financing dossier, plus the anomaly
+//                     reports (municipalities / settlements / sections)
+//                     since they're all scoped to individual elections.
+//   governanceMenu  — parliament, MP declarations, budget, procurement,
+//                     governments, demographics; the long-running pillars
+//                     that span parliament terms.
+//
+// Both trees share the same MenuItem shape so Header.tsx's recursive
+// RenderMenuItem walks them with identical logic — only the data differs.
+
 export type MenuItem = {
   title: string;
   link?: string;
@@ -5,9 +19,9 @@ export type MenuItem = {
   category?: "financials" | "recount" | "preferences" | "suemg";
 };
 
-export const reportsMenu: MenuItem[] = [
+export const electionsMenu: MenuItem[] = [
   {
-    title: "explore_title",
+    title: "nav_elections",
     subMenu: [
       { title: "risk_analysis_title", link: "/risk-analysis" },
       { title: "compare_title", link: "/compare" },
@@ -15,8 +29,17 @@ export const reportsMenu: MenuItem[] = [
       { title: "persistence_title", link: "/persistence" },
       { title: "benford_title", link: "/benford" },
       { title: "-" },
-      { title: "anomaly_reports" },
+      { title: "polls_title", link: "/polls" },
+      { title: "coalition_simulator", link: "/simulator" },
       { title: "-" },
+      {
+        title: "campaign_financing",
+        link: "/financing",
+        category: "financials",
+      },
+      { title: "-" },
+      { title: "anomaly_reports_menu" },
+      { title: "risk_score_title", link: "/risk-score" },
       {
         title: "municipalities",
         subMenu: [
@@ -28,18 +51,9 @@ export const reportsMenu: MenuItem[] = [
             title: "concentrated_party_votes",
             link: "/reports/municipality/concentrated",
           },
-          {
-            title: "top_gainers",
-            link: "/reports/municipality/top_gainers",
-          },
-          {
-            title: "top_losers",
-            link: "/reports/municipality/top_losers",
-          },
-          {
-            title: "voter_turnout",
-            link: "/reports/municipality/turnout",
-          },
+          { title: "top_gainers", link: "/reports/municipality/top_gainers" },
+          { title: "top_losers", link: "/reports/municipality/top_losers" },
+          { title: "voter_turnout", link: "/reports/municipality/turnout" },
           {
             title: "invalid_ballots",
             link: "/reports/municipality/invalid_ballots",
@@ -94,18 +108,9 @@ export const reportsMenu: MenuItem[] = [
             title: "concentrated_party_votes",
             link: "/reports/settlement/concentrated",
           },
-          {
-            title: "top_gainers",
-            link: "/reports/settlement/top_gainers",
-          },
-          {
-            title: "top_losers",
-            link: "/reports/settlement/top_losers",
-          },
-          {
-            title: "voter_turnout",
-            link: "/reports/settlement/turnout",
-          },
+          { title: "top_gainers", link: "/reports/settlement/top_gainers" },
+          { title: "top_losers", link: "/reports/settlement/top_losers" },
+          { title: "voter_turnout", link: "/reports/settlement/turnout" },
           {
             title: "invalid_ballots",
             link: "/reports/settlement/invalid_ballots",
@@ -153,10 +158,6 @@ export const reportsMenu: MenuItem[] = [
         title: "sections",
         subMenu: [
           {
-            title: "risk_score_title",
-            link: "/risk-score",
-          },
-          {
             title: "wasted_votes_title",
             link: "/reports/section/wasted-votes",
           },
@@ -164,18 +165,9 @@ export const reportsMenu: MenuItem[] = [
             title: "concentrated_party_votes",
             link: "/reports/section/concentrated",
           },
-          {
-            title: "top_gainers",
-            link: "/reports/section/top_gainers",
-          },
-          {
-            title: "top_losers",
-            link: "/reports/section/top_losers",
-          },
-          {
-            title: "voter_turnout",
-            link: "/reports/section/turnout",
-          },
+          { title: "top_gainers", link: "/reports/section/top_gainers" },
+          { title: "top_losers", link: "/reports/section/top_losers" },
+          { title: "voter_turnout", link: "/reports/section/turnout" },
           {
             title: "invalid_ballots",
             link: "/reports/section/invalid_ballots",
@@ -228,41 +220,31 @@ export const reportsMenu: MenuItem[] = [
           },
         ],
       },
+    ],
+  },
+];
+
+export const governanceMenu: MenuItem[] = [
+  {
+    title: "nav_governance",
+    subMenu: [
+      { title: "governance_title", link: "/governance" },
       { title: "-" },
-      {
-        title: "polls_title",
-        link: "/polls",
-      },
-      {
-        title: "governments_title",
-        link: "/governments",
-      },
-      {
-        title: "dashboard_section_parliament",
-        link: "/parliament",
-      },
-      {
-        title: "connections_link_label",
-        link: "/connections",
-      },
-      {
-        title: "procurement_link_label",
-        link: "/procurement",
-      },
-      {
-        title: "budget_link_label",
-        link: "/budget",
-      },
-      {
-        title: "demographics_title",
-        link: "/demographics",
-      },
+      { title: "dashboard_section_parliament", link: "/parliament" },
+      { title: "parliament_cohesion_title", link: "/parliament/cohesion" },
+      { title: "parliament_embedding_title", link: "/parliament/embedding" },
+      { title: "sessions_index_title", link: "/votes" },
       { title: "-" },
-      {
-        title: "campaign_financing",
-        link: "/financing",
-        category: "financials",
-      },
+      { title: "connections_link_label", link: "/connections" },
+      { title: "all_companies", link: "/mp/companies" },
+      { title: "mp_assets_link_label", link: "/mp-assets" },
+      { title: "mp_cars_link_label", link: "/mp-cars" },
+      { title: "-" },
+      { title: "budget_link_label", link: "/budget" },
+      { title: "procurement_link_label", link: "/procurement" },
+      { title: "-" },
+      { title: "governments_title", link: "/governments" },
+      { title: "demographics_title", link: "/demographics" },
     ],
   },
 ];
