@@ -57,11 +57,14 @@ const IndicatorTile: FC<IndicatorProps> = ({
 }) => {
   const inner = (
     <div className="flex h-full flex-col gap-2 rounded-xl border bg-card p-4 shadow-sm">
-      <div className="flex items-center gap-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">
-        <Icon className="h-4 w-4 shrink-0" />
-        <span className="truncate">{label}</span>
+      <div className="flex items-start gap-2 text-xs font-medium uppercase tracking-wide text-muted-foreground">
+        <Icon className="mt-[1px] h-4 w-4 shrink-0" />
+        <span className="line-clamp-2 break-words leading-tight">{label}</span>
         {href ? (
-          <ArrowRight className="ml-auto h-3 w-3 opacity-60" aria-hidden />
+          <ArrowRight
+            className="ml-auto mt-[2px] h-3 w-3 shrink-0 opacity-60"
+            aria-hidden
+          />
         ) : null}
       </div>
       <div className="text-2xl font-bold tabular-nums leading-tight">
@@ -122,13 +125,18 @@ export const HeadlineIndicatorStrip: FC = () => {
       ? mps.filter((m) => m.nsFolders.includes(selectedFolder)).length
       : (mps?.length ?? null);
 
-  // Budget: most recent fiscal-year summary that has data. The summary has
-  // `asOf` (last КФП period observed).
+  // Budget: most recent fiscal-year summary with both planned and actual
+  // expenditure (the in-progress FY can have actuals but no `planned` yet, so
+  // skip it — otherwise the percentage is meaningless and the tile reads "—").
   const latestFy =
     budgetIndex?.fiscalYears && budgetIndex.fiscalYears.length > 0
-      ? [...budgetIndex.fiscalYears].sort(
-          (a, b) => b.fiscalYear - a.fiscalYear,
-        )[0]
+      ? ([...budgetIndex.fiscalYears]
+          .sort((a, b) => b.fiscalYear - a.fiscalYear)
+          .find(
+            (fy) =>
+              fy.planned?.expenditure?.amountEur &&
+              fy.actual?.expenditure?.amountEur,
+          ) ?? null)
       : null;
   const executedPct =
     latestFy &&
