@@ -1,9 +1,9 @@
-// Opening band of the Governance dashboard. Every tile is scoped to the
-// selected election's parliamentary term — when that term spans multiple
-// years/quarters, each tile picks the latest observation that falls inside
-// the term window. The "as of" chip still names the actual observation
-// period so users can tell whether the figure is from early or late in the
-// term.
+// Opening band of the Governance dashboard. Each tile shows the latest
+// observation at or before the end of the selected election's term. For the
+// current (open-ended) term that's simply the most recent point globally;
+// for older terms it's the most recent point inside the term window. The
+// "as of" chip names the actual observation period so users can tell what
+// the figure refers to.
 
 import { FC, ReactNode } from "react";
 import { useTranslation } from "react-i18next";
@@ -101,35 +101,30 @@ const asOfChip = (t: (k: string) => string, iso?: string | null): string => {
 const fmtPctOne = (n: number | undefined): string =>
   n == null || !Number.isFinite(n) ? "—" : `${n.toFixed(1)}%`;
 
-// Inclusive "is this ISO date inside the term window?" check. termEnd is
+// "Is this ISO date at or before the end of the term?" check. termEnd is
 // exclusive (the day of the next election opens the next term) and null for
-// the still-open current term.
+// the still-open current term. We deliberately drop the lower bound — the
+// "as of" chip tells the user what period the figure refers to, and for the
+// current term recent macro/budget data may not yet exist inside the window.
 const isInTerm = (
   iso: string,
-  termStart: Date | null,
+  _termStart: Date | null,
   termEnd: Date | null,
 ): boolean => {
-  if (!termStart) return true;
   const d = new Date(iso.slice(0, 10));
   if (Number.isNaN(d.getTime())) return false;
-  if (d < termStart) return false;
   if (termEnd && d >= termEnd) return false;
   return true;
 };
 
-// Latest macro point that falls inside the term. Quarterly points are
-// positioned at their quarter start; annual points at their year start. We
-// take the rightmost point still within the window — when the term spans
-// multiple years we surface the most recent observation.
+// Latest macro point at or before the term's end. Quarterly points are
+// positioned at their quarter start; annual points at their year start.
 const pickLatestInTerm = (
   points: MacroPoint[],
-  termStart: Date | null,
+  _termStart: Date | null,
   termEnd: Date | null,
 ): MacroPoint | null => {
   if (!points.length) return null;
-  const startKey = termStart
-    ? termStart.getFullYear() * 4 + Math.floor(termStart.getMonth() / 3)
-    : -Infinity;
   const endKey = termEnd
     ? termEnd.getFullYear() * 4 + Math.floor(termEnd.getMonth() / 3)
     : Infinity;
@@ -138,7 +133,6 @@ const pickLatestInTerm = (
   for (const p of points) {
     const q = p.quarter ?? 1;
     const key = p.year * 4 + (q - 1);
-    if (key < startKey) continue;
     if (key >= endKey) continue;
     if (key > bestKey) {
       bestKey = key;
@@ -175,21 +169,17 @@ export const HeadlineIndicatorStrip: FC = () => {
       ? mps.filter((m) => m.nsFolders.includes(selectedFolder)).length
       : (mps?.length ?? null);
 
-  // Budget: latest fiscal year overlapping the term that has both planned and
-  // actual expenditure. A term can span several fiscal years; we prefer the
-  // most recent one with a complete plan-vs-actual picture.
-  const termStartYear = termStart?.getFullYear() ?? null;
+  // Budget: latest fiscal year at or before the term's end that has both
+  // planned and actual expenditure. For the open current term that's the most
+  // recent completed FY globally; for older terms it's the latest FY that fits
+  // inside the term window.
   const termEndYear = termEnd
     ? termEnd.getFullYear()
     : new Date().getFullYear();
   const latestFy =
     budgetIndex?.fiscalYears && budgetIndex.fiscalYears.length > 0
       ? ([...budgetIndex.fiscalYears]
-          .filter((fy) =>
-            termStartYear != null
-              ? fy.fiscalYear >= termStartYear && fy.fiscalYear <= termEndYear
-              : true,
-          )
+          .filter((fy) => fy.fiscalYear <= termEndYear)
           .sort((a, b) => b.fiscalYear - a.fiscalYear)
           .find(
             (fy) =>
@@ -223,9 +213,12 @@ export const HeadlineIndicatorStrip: FC = () => {
     termEnd,
   );
   const macroAsOf = macro?.fetchedAt ?? null;
-  const inflationPeriod = latestInflation?.period ?? `${latestInflation?.year}`;
-  const unemploymentPeriod =
-    latestUnemployment?.period ?? `${latestUnemployment?.year}`;
+  const inflationPeriod = latestInflation
+    ? (latestInflation.period ?? `${latestInflation.year}`)
+    : "";
+  const unemploymentPeriod = latestUnemployment
+    ? (latestUnemployment.period ?? `${latestUnemployment.year}`)
+    : "";
 
   return (
     <section
