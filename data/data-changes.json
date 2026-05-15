@@ -1,6 +1,49 @@
 {
-  "updatedAt": "2026-05-14T13:05:33.252Z",
+  "updatedAt": "2026-05-15T08:46:22.507Z",
   "entries": [
+    {
+      "timestamp": "2026-05-15T08:46:22.507Z",
+      "date": "2026-05-15",
+      "skill": "update-connections",
+      "summary": "TR bulk refresh: 562,677 companies / 226,953 persons replayed (496 days). 950/1176 companies enriched (604 name-only). 2862 nodes (1179 companies), 3057 edges.",
+      "source": "data.egov.bg Commerce Registry",
+      "links": [
+        {
+          "to": "/connections",
+          "labelKey": "data_changes_link_connections"
+        },
+        {
+          "to": "/mp-assets",
+          "labelKey": "data_changes_link_assets"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-15T08:26:07.499Z",
+      "date": "2026-05-15",
+      "skill": "parliament-scrape",
+      "summary": "4281 raw -> 2121 deduped MPs; 4 new/updated photos (5061, 5062, 5257, 5331); 1052 empty ids; 0 failures",
+      "source": "Parliament MPs (parliament.bg)",
+      "links": [
+        {
+          "to": "/connections",
+          "labelKey": "data_changes_link_parliament"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-15T08:25:02.559Z",
+      "date": "2026-05-15",
+      "skill": "update-rollcall",
+      "summary": "1 new session 2026-05-14 (id 11125, 10 items, 2400 rows, 36 unresolved ids)",
+      "source": "Parliament roll-call votes",
+      "links": [
+        {
+          "to": "/connections",
+          "labelKey": "data_changes_link_parliament"
+        }
+      ]
+    },
     {
       "timestamp": "2026-05-14T13:05:33.252Z",
       "date": "2026-05-14",
