@@ -10,17 +10,20 @@ allowed-tools:
 
 # Update Macro skill
 
-Refreshes `data/macro.json` — the per-Bulgarian-cabinet macro/governance backdrop rendered on `/governments`. Pulls quarterly Eurostat series (GDP growth, HICP inflation, unemployment, gov debt, budget balance, current account), annual Eurostat GDP per capita, World Bank WGI, plus curated CPI / Eurobarometer trust / EU funds.
+Refreshes `data/macro.json` — the per-Bulgarian-cabinet macro/governance backdrop rendered on `/governments`. Pulls quarterly Eurostat series (GDP growth, HICP inflation, unemployment, gov debt, budget balance, current account; same fiscal/external triple plus government revenue + expenditure in nominal EUR), annual Eurostat GDP per capita, annual nominal GDP and net inward FDI, World Bank WGI, plus curated CPI / Eurobarometer trust / EU funds.
 
 ## When to run
 
 | Trigger | Action |
 |---|---|
 | Daily watcher reports `Eurostat macro (BG): new release · namq_10_gdp <date>, ...` | Run `npx tsx scripts/macro/fetch_eurostat.ts` |
+| Daily watcher reports `BNB domestic ДЦК auctions: N new auction(s)` | Run `npx tsx scripts/macro/fetch_bnb_auctions.ts` to re-scrape `data/debt-emissions-domestic.json` |
 | Daily watcher reports `EC EU budget per-MS spreadsheet ... new EC edition · year range 2000-XXXX → 2000-YYYY` | Refresh `EU_FUNDS` / `EU_CONTRIBUTION` from the new XLSX (see [EU funds / contribution series](#eu-funds--contribution-series-ec-per-ms-xlsx) below), then run `npx tsx scripts/macro/fetch_eurostat.ts` |
 | User asks to "refresh macro" or "update macro data" | Same |
 | Adding a new Eurostat indicator to the chart | Add an entry to `EUROSTAT_INDICATORS` in `scripts/macro/fetch_eurostat.ts`, then run |
 | Annual TI CPI / Eurobarometer figure published | Paste the new `{ year, value }` into the curated arrays at the top of `fetch_eurostat.ts`, then run |
+| Refresh the BNB domestic debt-emissions table on `/indicators` | Run `npx tsx scripts/macro/fetch_bnb_auctions.ts` — re-scrapes `https://www.bnb.bg/FiscalAgent/FAGSAuctions/FAAuctionResults/...` and writes `data/debt-emissions-domestic.json`. Idempotent; run after the watcher flags a new BNB auction. |
+| New international Eurobond announced | Hand-edit `data/debt-emissions.json` (curated international list) — add the entry, sort by `issueDate` desc. |
 
 ## Step 1 — Fetch
 

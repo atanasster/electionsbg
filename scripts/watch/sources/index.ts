@@ -12,6 +12,7 @@ import { ministryExecutionReports } from "./ministry_execution_reports";
 import { eurostat } from "./eurostat";
 import { eurostatRegional } from "./eurostat_regional";
 import { ecBudgetPerMs } from "./ec_budget_per_ms";
+import { bnbAuctions } from "./bnb_auctions";
 import { indicatorsAz } from "./indicators_az";
 import { indicatorsMonDzi } from "./indicators_mon_dzi";
 import { indicatorsNsiPop } from "./indicators_nsi_pop";
@@ -36,6 +37,7 @@ export const SOURCES: WatchSource[] = [
   eurostat,
   eurostatRegional,
   ecBudgetPerMs,
+  bnbAuctions,
   indicatorsAz,
   indicatorsMonDzi,
   indicatorsNsiPop,

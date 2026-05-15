@@ -287,6 +287,141 @@ const EUROSTAT_INDICATORS: EurostatIndicator[] = [
     titleBg: "Текуща сметка",
   },
 
+  // ---- Nominal-EUR variants of the fiscal/external series. Same datasets
+  // as the % of GDP triple above, but with unit MIO_EUR — answers "how many
+  // euros of debt, deficit, current-account surplus did this cabinet add",
+  // not just "what share of GDP". Net new debt issued per quarter is derived
+  // client-side as the quarter-on-quarter Δ of govDebtNominal.
+  {
+    source: "eurostat",
+    key: "govDebtNominal",
+    dataset: "gov_10q_ggdebt",
+    query: {
+      geo: "BG",
+      unit: "MIO_EUR",
+      sector: "S13",
+      na_item: "GD",
+      freq: "Q",
+    },
+    cadence: "quarterly",
+    sourceUrl:
+      "https://ec.europa.eu/eurostat/databrowser/view/gov_10q_ggdebt/default/table",
+    unitLabelEn: "EUR million (gross debt stock, end of period)",
+    unitLabelBg: "млн. евро (брутен дълг, край на периода)",
+    titleEn: "Government gross debt (nominal)",
+    titleBg: "Брутен държавен дълг (номинален)",
+  },
+  {
+    source: "eurostat",
+    key: "budgetBalanceNominal",
+    dataset: "gov_10q_ggnfa",
+    query: {
+      geo: "BG",
+      unit: "MIO_EUR",
+      sector: "S13",
+      na_item: "B9",
+      s_adj: "SCA",
+      freq: "Q",
+    },
+    cadence: "quarterly",
+    sourceUrl:
+      "https://ec.europa.eu/eurostat/databrowser/view/gov_10q_ggnfa/default/table",
+    unitLabelEn: "EUR million (net lending/borrowing, SCA)",
+    unitLabelBg: "млн. евро (нето кредит/заем, SCA)",
+    titleEn: "Budget balance (nominal)",
+    titleBg: "Бюджетен баланс (номинален)",
+  },
+  {
+    source: "eurostat",
+    key: "currentAccountNominal",
+    dataset: "ei_bpm6ca_q",
+    query: {
+      geo: "BG",
+      unit: "MIO_EUR",
+      s_adj: "NSA",
+      sector10: "S1",
+      sectpart: "S1",
+      partner: "WRL_REST",
+      stk_flow: "BAL",
+      bop_item: "CA",
+      freq: "Q",
+    },
+    cadence: "quarterly",
+    sourceUrl:
+      "https://ec.europa.eu/eurostat/databrowser/view/ei_bpm6ca_q/default/table",
+    unitLabelEn: "EUR million (current account balance)",
+    unitLabelBg: "млн. евро (текуща сметка)",
+    titleEn: "Current account balance (nominal)",
+    titleBg: "Текуща сметка (номинална)",
+  },
+  // Government revenue + expenditure — the two sides of the budget. Plotted
+  // overlaid on one chart; the vertical gap between them equals the deficit.
+  {
+    source: "eurostat",
+    key: "govRevenue",
+    dataset: "gov_10q_ggnfa",
+    query: {
+      geo: "BG",
+      unit: "MIO_EUR",
+      sector: "S13",
+      na_item: "TR",
+      s_adj: "SCA",
+      freq: "Q",
+    },
+    cadence: "quarterly",
+    sourceUrl:
+      "https://ec.europa.eu/eurostat/databrowser/view/gov_10q_ggnfa/default/table",
+    unitLabelEn: "EUR million (total general gov revenue, SCA)",
+    unitLabelBg: "млн. евро (общи държавни приходи, SCA)",
+    titleEn: "Government revenue",
+    titleBg: "Държавни приходи",
+  },
+  {
+    source: "eurostat",
+    key: "govExpenditure",
+    dataset: "gov_10q_ggnfa",
+    query: {
+      geo: "BG",
+      unit: "MIO_EUR",
+      sector: "S13",
+      na_item: "TE",
+      s_adj: "SCA",
+      freq: "Q",
+    },
+    cadence: "quarterly",
+    sourceUrl:
+      "https://ec.europa.eu/eurostat/databrowser/view/gov_10q_ggnfa/default/table",
+    unitLabelEn: "EUR million (total general gov expenditure, SCA)",
+    unitLabelBg: "млн. евро (общи държавни разходи, SCA)",
+    titleEn: "Government expenditure",
+    titleBg: "Държавни разходи",
+  },
+  // Net inward FDI flows, BPM6, annual. Series begins 2013 — set a relaxed
+  // floor (Eurostat only published BG flows starting that year).
+  {
+    source: "eurostat",
+    key: "fdiInward",
+    dataset: "bop_fdi6_flow",
+    query: {
+      geo: "BG",
+      partner: "WRL_REST",
+      entity: "TOTAL",
+      nace_r2: "FDI",
+      fdi_item: "DI__D__F",
+      stk_flow: "NI",
+      currency: "MIO_EUR",
+      freq: "A",
+    },
+    cadence: "annual",
+    minPoints: 10,
+    sourceUrl:
+      "https://ec.europa.eu/eurostat/databrowser/view/bop_fdi6_flow/default/table",
+    unitLabelEn: "EUR million (net FDI inward, annual)",
+    unitLabelBg: "млн. евро (нетни входящи ПЧИ, годишно)",
+    titleEn: "Foreign direct investment (net inward)",
+    titleBg: "Преки чуждестранни инвестиции (нетно входящи)",
+  },
+
   // ---- HICP breakdown (Phase 2). Same prc_hicp_minr fetcher as the headline
   // inflation series; only the coicop18 sub-component filter differs. Each
   // emits the monthly-aggregated quarterly mean of YoY rates.

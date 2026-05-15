@@ -241,6 +241,23 @@ export const AboutScreen = () => {
               </ul>
             </DataGroup>
 
+            <DataGroup title={t("sovereign_debt_section")}>
+              <ul className="space-y-2">
+                <SourceItem
+                  href="https://www.bnb.bg/FiscalAgent/FAGSAuctions/FAAuctionResults/index.htm"
+                  label={t("sovereign_debt_bnb_source")}
+                />
+                <SourceItem
+                  href="https://www.luxse.com/issuer/Bulgaria"
+                  label={t("sovereign_debt_luxse_source")}
+                />
+                <SourceItem
+                  href="https://www.minfin.bg/bg/statistics/20"
+                  label={t("sovereign_debt_minfin_source")}
+                />
+              </ul>
+            </DataGroup>
+
             <DataGroup title={t("governance_section")}>
               <ul className="space-y-2">
                 <SourceItem

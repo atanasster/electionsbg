@@ -132,6 +132,14 @@ const SERIES_COLORS: Record<MacroIndicatorKey, string> = {
   govDebt: "#0891b2",
   budgetBalance: "#e11d48",
   currentAccount: "#7c3aed",
+  // nominal fiscal / external
+  govDebtNominal: "#0891b2",
+  debtIssuance: "#0d9488",
+  budgetBalanceNominal: "#e11d48",
+  currentAccountNominal: "#7c3aed",
+  govRevenue: "#15803d",
+  govExpenditure: "#c2410c",
+  fdiInward: "#c026d3",
   // HICP breakdown (stacked area uses these directly)
   inflationFood: "#f59e0b",
   inflationEnergy: "#dc2626",

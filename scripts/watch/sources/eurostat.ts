@@ -67,6 +67,23 @@ const DATASETS: { code: string; query: string }[] = [
     code: "namq_10_a10",
     query: "geo=BG&na_item=D1&unit=CP_MEUR&s_adj=SCA&nace_r2=TOTAL&freq=Q",
   },
+  // Annual nominal series feeding /indicators nominal-fiscal section. The
+  // quarterly fiscal triple (gov_10q_ggdebt / ggnfa / ei_bpm6ca_q) is already
+  // tracked above and answers for both PC_GDP and MIO_EUR units — the
+  // dataset-level `updated` timestamp is the same regardless of unit filter,
+  // so one fingerprint covers both. Only the FDI annual dataset is new here.
+  {
+    code: "bop_fdi6_flow",
+    query:
+      "geo=BG&partner=WRL_REST&entity=TOTAL&nace_r2=FDI&fdi_item=DI__D__F&stk_flow=NI&currency=MIO_EUR&freq=A",
+  },
+  // Nominal GDP (annual) — already used by the nominal-fiscal tile + the
+  // /budget % of GDP denominators. Quarterly nominal GDP could share an
+  // entry, but annual is the one consumed today.
+  {
+    code: "nama_10_gdp",
+    query: "geo=BG&unit=CP_MEUR&na_item=B1GQ&freq=A",
+  },
 ];
 
 const buildUrl = (code: string, query: string): string =>
@@ -83,7 +100,7 @@ const fetchUpdated = async (code: string, query: string): Promise<string> => {
 
 export const eurostat: WatchSource = {
   id: "eurostat",
-  label: "Eurostat macro (BG): 13 datasets",
+  label: "Eurostat macro (BG): 15 datasets",
   // Best representative URL for the report's link column — the rest live in
   // meta.
   url: "https://ec.europa.eu/eurostat/databrowser/",

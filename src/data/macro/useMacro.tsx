@@ -10,6 +10,16 @@ export type MacroIndicatorKey =
   | "govDebt"
   | "budgetBalance"
   | "currentAccount"
+  // Eurostat — fiscal / external in nominal EUR (quarterly)
+  | "govDebtNominal"
+  | "budgetBalanceNominal"
+  | "currentAccountNominal"
+  | "govRevenue"
+  | "govExpenditure"
+  // Derived client-side from govDebtNominal — net new debt issued per quarter
+  | "debtIssuance"
+  // Eurostat — FDI (annual, BPM6)
+  | "fdiInward"
   // Eurostat — HICP breakdown (quarterly)
   | "inflationFood"
   | "inflationEnergy"
