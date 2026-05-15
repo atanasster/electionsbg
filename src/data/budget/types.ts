@@ -39,11 +39,22 @@ export interface KfpObservation {
   sourceRef: { documentId: string; sheet?: string; rowLabel?: string };
 }
 
+// Hierarchy fields are reconstructed offline (the КФП source table flattens a
+// 2-3 level tree into one column). `depth` 0 = top-level group, 1 = child leaf,
+// 2 = sub-leaf where the source has 3 levels. `isSubtotal` marks rows whose
+// children sum to them (running-sum match within tolerance) so the breakdown
+// + flow tiles can render leaf → group → total without double-counting.
+// `groupLabelBg/En` carry the nearest top-level group's label so a leaf can be
+// drawn under its parent without walking the array.
 export interface KfpSnapshotLine {
   labelBg: string;
   labelEn: string;
   planned: Money | null;
   executed: Money | null;
+  depth: number;
+  isSubtotal: boolean;
+  groupLabelBg: string | null;
+  groupLabelEn: string | null;
 }
 
 export interface KfpSnapshotSection {

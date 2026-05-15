@@ -53,6 +53,34 @@ export const useMinistryProcurement = () =>
     staleTime: Infinity,
   });
 
+// Aggregated admin-grain spending — input for the admin view of the budget
+// flow графика. Per-fiscal-year ministry-level totals from the State Budget
+// Law, plus executed where ingested. ~30 KB at current data volumes.
+export interface AdminFlowMinistry {
+  nodeId: string;
+  nameBg: string;
+  nameEn: string;
+  plannedEur: number;
+  executedEur: number | null;
+}
+export interface AdminFlowYear {
+  fiscalYear: number;
+  plannedTotalEur: number;
+  executedTotalEur: number | null;
+  ministries: AdminFlowMinistry[];
+}
+export interface AdminFlowFile {
+  generatedAt: string;
+  fiscalYears: Record<string, AdminFlowYear>;
+}
+
+export const useBudgetAdminFlow = () =>
+  useQuery({
+    queryKey: ["budget", "admin-flow"] as const,
+    queryFn: () => fetchJson<AdminFlowFile>("/budget/derived/admin_flow.json"),
+    staleTime: Infinity,
+  });
+
 // One spending unit's self-contained rollup — the single small file the
 // ministry detail screen fetches (years of figures + programs + procurement),
 // instead of every year's whole-corpus reconciliation. 404 → null.

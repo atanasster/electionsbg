@@ -68,15 +68,23 @@ export type KfpSeries =
   | "balance"
   | "financing";
 
-// One line within a section of the latest detailed snapshot. Best-effort
-// display data — the source table has no machine-readable nesting, so Phase 1
-// keeps the lines flat under their section. Phase 2 introduces the economic
-// classification crosswalk that gives this real structure.
+// One line within a section of the latest detailed snapshot. The source table
+// has no machine-readable nesting, so kfp.ts reconstructs a 2-3 level tree
+// after parsing via running-sum matching: a row whose value equals the sum of
+// the rows that immediately follow it (within rounding tolerance) is marked as
+// a subtotal and those rows become its children. `depth` 0 = top-level group,
+// 1 = child leaf under a group, 2 = sub-leaf where the source has 3 levels.
+// `groupLabelBg/En` carry the nearest top-level group's label so the breakdown
+// + flow tiles can render leaf → group → total without walking the array.
 export interface KfpSnapshotLine {
   labelBg: string;
   labelEn: string;
   planned: Money | null;
   executed: Money | null;
+  depth: number;
+  isSubtotal: boolean;
+  groupLabelBg: string | null;
+  groupLabelEn: string | null;
 }
 
 export interface KfpSnapshotSection {

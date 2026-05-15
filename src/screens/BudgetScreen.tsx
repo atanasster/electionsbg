@@ -30,7 +30,7 @@ import { useBudgetTerm } from "@/data/budget/useBudgetTerm";
 import type { FiscalYearSummary } from "@/data/budget/types";
 import { seriesView, type FySeries } from "@/data/budget/fiscalYear";
 import { BudgetTrendTile } from "./components/budget/BudgetTrendTile";
-import { BudgetBreakdownTile } from "./components/budget/BudgetBreakdownTile";
+import { BudgetFlowTile } from "./components/budget/BudgetFlowTile";
 import { BudgetJourneyTile } from "./components/budget/BudgetJourneyTile";
 import { BudgetMinistriesTile } from "./components/budget/BudgetMinistriesTile";
 import { BudgetVarianceTile } from "./components/budget/BudgetVarianceTile";
@@ -301,15 +301,14 @@ export const BudgetScreen: FC = () => {
           <BudgetTrendTile observations={scopedObservations} />
         ) : null}
 
+        {snapshot ? <BudgetFlowTile snapshot={snapshot} /> : null}
+
         <div className="grid gap-4 grid-cols-1 xl:grid-cols-2">
           <BudgetVarianceTile fiscalYear={term.selectedFy} />
           <BudgetMinistriesTile fiscalYear={term.selectedFy} />
         </div>
 
-        <div className="grid gap-4 grid-cols-1 xl:grid-cols-2">
-          {snapshot ? <BudgetBreakdownTile snapshot={snapshot} /> : null}
-          <BudgetJourneyTile documents={scopedDocuments} index={index} />
-        </div>
+        <BudgetJourneyTile documents={scopedDocuments} index={index} />
 
         <p className="text-[11px] text-muted-foreground/80 mt-4">
           {t("budget_index_source_hint") ||

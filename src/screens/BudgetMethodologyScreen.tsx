@@ -101,11 +101,27 @@ export const BudgetMethodologyScreen: FC = () => {
       </ArticleP>
 
       <ArticleH2>
+        {t("budget_meth_flow_h") || "The budget-flow графика"}
+      </ArticleH2>
+      <ArticleP>
+        {t("budget_meth_flow_p") ||
+          "The flow графика on /budget composes two side-by-side Sankey diagrams — revenue on the left, spending on the right — meeting at a balance bridge. Both columns of the bridge are drawn at the same full height, so the gap between revenue and spending is visually filled by a hatched wedge: the financing that closes the accounting identity (revenue = spending + balance, with balance covered by financing). The metaphor is borrowed from the usafacts.org US-budget visual."}
+      </ArticleP>
+      <ArticleP>
+        {t("budget_meth_flow_hierarchy_p") ||
+          "The Sankey columns need a leaf-→-group hierarchy, but the КФП source publishes one flat label column with no indentation or code. The ingest reconstructs the hierarchy by running-sum matching: a row whose value equals the sum of the rows that immediately follow it (within rounding tolerance) is marked as a subtotal and those rows become its children. Signed-net subtotals — like “Transfers (net) = Предоставени − Получени”, where one child is conceptually subtracted — are detected by a fallback rule that flips the sign of one consumed child and re-checks the match. A canary on every snapshot asserts that top-level rows sum back to the section total."}
+      </ArticleP>
+      <ArticleP>
+        {t("budget_meth_flow_grain_p") ||
+          "Two decompositions are available via a toggle. The default — by category — uses the КФП execution snapshot (Personnel / Operations / Capital / Transfers / etc.). The alternative — by spending unit — uses the State Budget Law plan, with one leaf per ministry. The two views have different totals: КФП execution covers all expenditure including transfers; admin grain covers each unit's direct appropriation only. The bridge math stays based on the КФП snapshot to keep the deficit/surplus number honest; the admin Sankey is a different way to slice the right-hand side."}
+      </ArticleP>
+
+      <ArticleH2>
         {t("budget_meth_scope_h") || "Scope and what comes next"}
       </ArticleH2>
       <ArticleP>
         {t("budget_meth_scope_p") ||
-          "This is the first phase: the top-level consolidated execution series for the state budget, plus an index of the related documents (the budget law, amendments, the year-end execution report, and the National Audit Office report). Planned next: a ministry-by-ministry breakdown with plan-versus-actual variance, then a program and line-item drill-down reconciled against the budget law and its amendments, and finally a cross-link to the public-procurement data so each ministry's spending can be followed through to the contracts it awarded."}
+          "Built so far: the top-level consolidated execution series for the state budget, the budget-flow графика with both economic and ministry-grain decompositions, plan-versus-actual variance at ministry and program grain, an index of the underlying documents (the budget law, amendments, the year-end execution report, and the National Audit Office report), and a cross-link from each spending unit to the contracts it awarded under public-procurement law. Planned next: continued backfill of per-ministry execution reports for prior fiscal years, and a program-by-program Sankey one column deeper than the current ministry view."}
       </ArticleP>
     </ArticleLayout>
   );

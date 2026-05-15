@@ -57,32 +57,270 @@ const SECTIONS: Record<
 };
 
 // English labels for the common line items. Anything unmapped falls back to
-// the Bulgarian label on the frontend — Phase 2's economic crosswalk will give
-// these proper structure.
+// the Bulgarian label on the frontend.
 const LINE_LABELS_EN: Record<string, string> = {
   "Данъчни приходи": "Tax revenue",
   "Корпоративен данък": "Corporate income tax",
   "Данъци в/у доходите на физически лица": "Personal income tax",
+  "Данъци върху  дивидентите, ликвидац. дялове и доходите на местни и чужд. юрид. лица":
+    "Taxes on dividends, liquidation shares and income of resident and foreign legal entities",
   "Данък върху добавената стойност": "Value added tax",
   Акцизи: "Excise duties",
+  "Данък върху застрахователните премии": "Insurance premium tax",
   "Мита и митнически такси": "Customs duties",
   "Други данъци": "Other taxes",
   "Неданъчни приходи": "Non-tax revenue",
   "Приходи от такси": "Fees",
+  "Приходи и доходи  от собственост": "Property income",
+  "Приходи и доходи от собственост": "Property income",
+  "Превишение на приходите над разходите на БНБ":
+    "Surplus of BNB revenue over expenditure",
   "Глоби, санкции и наказателни лихви": "Fines and penalties",
+  "Други неданъчни приходи": "Other non-tax revenue",
   Помощи: "Grants",
   Разходи: "Expenditure",
   Персонал: "Personnel",
   Издръжка: "Operations and maintenance",
   "Лихви - общо": "Interest — total",
+  "Лихви по външни заеми": "Interest on external debt",
+  "Лихви по вътрешни заеми": "Interest on domestic debt",
+  "Лихви по вътрешни заеми и др. лихви": "Interest on domestic debt and other",
   "Социални разходи, стипендии": "Social spending and scholarships",
   Субсидии: "Subsidies",
+  "Субсидии за нефинансови предприятия":
+    "Subsidies to non-financial enterprises",
+  "Предоставени текущи и капиталови трансфери за чужбина":
+    "Current and capital transfers provided abroad",
   "Капиталови разходи": "Capital expenditure",
+  "Придобиване на дълготрайни активи и основен ремонт":
+    "Acquisition of fixed assets and major repairs",
+  "Капиталови трансфери": "Capital transfers",
+  "Прираст на държавния резерв": "Increase in state reserves",
+  "Прираст на държавния резерв - нето":
+    "Increase in state reserves (net)",
+  "Резерв за непредвидени и/или неотложни разходи:":
+    "Reserve for unforeseen and/or urgent expenditure",
   "Трансфери (нето)": "Transfers (net)",
+  "Предоставени трансфери": "Provided transfers",
+  "Получени трансфери": "Received transfers",
+  "Текущи трансфери, обезщетения и помощи за домакинствата":
+    "Current transfers, indemnities and household benefits",
+  "Текущи и капиталови трансфери, предоставени в страната":
+    "Current and capital transfers within the country",
   Общини: "Municipalities",
   "Социалноосигурителни фондове": "Social security funds",
+  "ДВУ, БАН, ССА, БНТ, БНР и БТА":
+    "State universities, BAS, SSA, BNT, BNR and BTA",
+  "Бюджети по чл.13 (4) от ЗПФ - нето":
+    "Art. 13(4) Public Finance Act budgets (net)",
+  "Други трансфери - нето": "Other transfers (net)",
+  "Държавни висши училища и БАН": "State universities and BAS",
+  "Други бюджетни организации": "Other budget organisations",
+  "Сметка за средствата от ЕС": "EU funds account",
+  "Резерв за непредвидени и неотложни разходи":
+    "Reserve for unforeseen and urgent expenditure",
   "Външно финансиране  (нето)": "External financing (net)",
+  "Получени дългосрочни заеми от чужбина":
+    "Long-term loans received from abroad",
+  "Погашения по дългосрочни заеми от чужбина":
+    "Repayments on long-term loans from abroad",
   "Вътрешно финансиране  (нето)": "Domestic financing (net)",
+  "Заеми от банки и други лица в страната":
+    "Loans from domestic banks and other parties",
+  "Депозити и средства по сметки – нето": "Deposits and account balances (net)",
+  "Покупко-продажба на държавни ценни книжа":
+    "Sale and purchase of government securities",
+  Приватизация: "Privatisation",
+  "Други операции по финансирането": "Other financing operations",
+};
+
+// Hierarchy reconstruction. The КФП source table is a single label column with
+// no indentation or code signal — a 2-3 level tree flattened by row order.
+// "Tax revenue" (24.6B) is followed by 8 rows that sum exactly to it; those
+// are its children. Same for "Non-tax revenue", "Expenditure", "Transfers
+// (net)", and a 3rd level under "Interest — total" / "Capital expenditure".
+//
+// Algorithm: walk lines once with a stack of open subtotals. For each row,
+// look ahead and accumulate following rows; if a prefix of the lookahead sums
+// (within tolerance) to this row's value, mark it a subtotal and recurse into
+// the prefix. Otherwise it's a leaf at the current depth. `pick` selects the
+// signal — `executed` for in-progress years, `planned` for plan-only years.
+//
+// Plan figures sum EXACTLY; executed figures have small source-publication
+// noise (a few tens of thousands of native units on a 30B subtotal). 100K is
+// loose enough to accept that, tight enough to reject coincidental sums (the
+// closest false positive in the data is ~33M off).
+const SUM_TOLERANCE_ABS = 100_000;
+
+type SignalPick = "executed" | "planned";
+const MAX_DEPTH = 2;
+
+// Pick ONE signal per section before reconstructing — mixing planned and
+// executed values in the same accumulation would never sum back to the parent
+// when the source publishes one but not the other for some rows.
+const sectionSignal = (section: KfpSnapshotSection): SignalPick =>
+  section.executed != null ? "executed" : "planned";
+
+const lineValue = (line: KfpSnapshotLine, pick: SignalPick): number | null => {
+  const m = pick === "executed" ? line.executed : line.planned;
+  return m ? m.amount : null;
+};
+
+const sumWithin = (a: number, b: number): boolean =>
+  Math.abs(a - b) <= SUM_TOLERANCE_ABS;
+
+interface HierarchyAnnotation {
+  depth: number;
+  isSubtotal: boolean;
+  groupLabelBg: string | null;
+  groupLabelEn: string | null;
+}
+
+// Find a prefix of lines[start..end) that consumed at the given depth (with
+// nested subtotals eating their children) sums to `target`. Best-fit, not
+// first-fit: walks the whole lookahead and picks the position with the
+// smallest absolute residual within tolerance. This lets the algorithm prefer
+// "include the small ± row" over "stop early at a near-match" when both are
+// within noise tolerance — important for the FY2026-style cases where the
+// natural prefix-sum is off by only 15K but the row-just-after closes the
+// gap exactly.
+//
+// Also handles signed-net subtotals (the "Transfers (net)" pattern in section
+// II, where Net = Предоставени − Получени): if no natural prefix matches but
+// flipping the sign of a single consumed child would, accept the match and
+// extend through the end of the walked range.
+const findMatchEnd = (
+  lines: KfpSnapshotLine[],
+  start: number,
+  end: number,
+  target: number,
+  depth: number,
+  pick: SignalPick,
+): number => {
+  let i = start;
+  let acc = 0;
+  const consumedValues: number[] = [];
+  let bestPos = -1;
+  let bestResidual = Infinity;
+  while (i < end) {
+    const head = lines[i];
+    const headValue = lineValue(head, pick);
+    if (headValue == null || headValue === 0) {
+      i++;
+    } else {
+      let advanced = i + 1;
+      if (depth < MAX_DEPTH) {
+        const nested = findMatchEnd(
+          lines,
+          i + 1,
+          end,
+          headValue,
+          depth + 1,
+          pick,
+        );
+        if (nested > i + 1) advanced = nested;
+      }
+      acc += headValue;
+      consumedValues.push(headValue);
+      i = advanced;
+    }
+    const residual = Math.abs(acc - target);
+    if (residual <= SUM_TOLERANCE_ABS && residual < bestResidual) {
+      bestResidual = residual;
+      bestPos = i;
+    }
+  }
+  if (bestPos !== -1) return bestPos;
+  if (depth === 1) {
+    const overshoot = acc - target;
+    if (Math.abs(overshoot) >= SUM_TOLERANCE_ABS) {
+      const half = overshoot / 2;
+      for (const v of consumedValues) {
+        if (sumWithin(v, half)) return i;
+      }
+    }
+  }
+  return -1;
+};
+
+// Walk lines[start..end) at `depth`, marking each row as leaf or subtotal and
+// recursing into the children of every detected subtotal.
+const annotateRange = (
+  lines: KfpSnapshotLine[],
+  annotations: HierarchyAnnotation[],
+  start: number,
+  end: number,
+  depth: number,
+  groupBg: string | null,
+  groupEn: string | null,
+  pick: SignalPick,
+): void => {
+  let i = start;
+  while (i < end) {
+    const head = lines[i];
+    const headValue = lineValue(head, pick);
+    annotations[i] = {
+      depth,
+      isSubtotal: false,
+      groupLabelBg: depth === 0 ? null : groupBg,
+      groupLabelEn: depth === 0 ? null : groupEn,
+    };
+    let consumed = 1;
+    if (
+      headValue != null &&
+      headValue !== 0 &&
+      depth < MAX_DEPTH &&
+      i + 1 < end
+    ) {
+      const matchEnd = findMatchEnd(
+        lines,
+        i + 1,
+        end,
+        headValue,
+        depth + 1,
+        pick,
+      );
+      if (matchEnd > i + 1) {
+        annotations[i].isSubtotal = true;
+        const childGroupBg = depth === 0 ? head.labelBg : groupBg;
+        const childGroupEn = depth === 0 ? head.labelEn || null : groupEn;
+        annotateRange(
+          lines,
+          annotations,
+          i + 1,
+          matchEnd,
+          depth + 1,
+          childGroupBg,
+          childGroupEn,
+          pick,
+        );
+        consumed = matchEnd - i;
+      }
+    }
+    i += consumed;
+  }
+};
+
+const reconstructHierarchy = (section: KfpSnapshotSection): void => {
+  const n = section.lines.length;
+  if (n === 0) return;
+  const annotations: HierarchyAnnotation[] = new Array(n);
+  const pick = sectionSignal(section);
+  annotateRange(section.lines, annotations, 0, n, 0, null, null, pick);
+  for (let i = 0; i < n; i++) {
+    const a = annotations[i];
+    if (a) {
+      section.lines[i] = { ...section.lines[i], ...a };
+    } else {
+      section.lines[i] = {
+        ...section.lines[i],
+        depth: 0,
+        isSubtotal: false,
+        groupLabelBg: null,
+        groupLabelEn: null,
+      };
+    }
+  }
 };
 
 const SECTION_RE = /^(I{1,3}|IV|V)\.\s+/;
@@ -193,6 +431,10 @@ export const parseEgovResource = (
       labelEn: LINE_LABELS_EN[label] ?? "",
       planned,
       executed,
+      depth: 0,
+      isSubtotal: false,
+      groupLabelBg: null,
+      groupLabelEn: null,
     };
     current.lines.push(line);
   }
@@ -205,6 +447,7 @@ export const parseEgovResource = (
       );
     }
   }
+  for (const section of sections) reconstructHierarchy(section);
   return { header, uuid, sections };
 };
 

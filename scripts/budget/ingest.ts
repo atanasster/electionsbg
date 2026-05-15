@@ -47,6 +47,7 @@ import { buildExecutionFacts } from "./execution_facts";
 import type { BudgetFact } from "./types";
 import { crossReferenceProcurement } from "./cross_reference";
 import { buildMinistryRollups } from "./ministries";
+import { buildAdminFlow, writeAdminFlow } from "./derived_admin_flow";
 import { buildEconomicFacts } from "./normalize_egov";
 import {
   buildAdminReconciliation,
@@ -61,6 +62,7 @@ import {
   countDomainFiles,
   pruneDir,
   runCanary,
+  validateSnapshotHierarchy,
   writeIfChanged,
 } from "./validate";
 import { uploadTextTree } from "../lib/upload";
@@ -260,6 +262,9 @@ const main = async (args: {
   console.log(
     `  kfp.json: ${kfp.observations.length} observation(s), ${kfp.snapshots.length} snapshot(s)`,
   );
+  // Hierarchy sanity — each snapshot's reconstructed groups must sum back to
+  // their parents and to the section total within rounding tolerance.
+  for (const snapshot of kfp.snapshots) validateSnapshotHierarchy(snapshot);
 
   // 3b. State Budget Laws — parse the Държавен вестник HTML for each year into
   // per-spending-unit appropriations (the `admin` grain).
@@ -646,6 +651,11 @@ const main = async (args: {
     const file = path.join(MINISTRIES_DIR, `${rollup.nodeId}.json`);
     if (writeIfChanged(file, canonicalJson(rollup))) touched++;
   }
+  // Aggregated admin-grain spending flow — input for the admin view of the
+  // budget-flow графика. Read from the just-written ministry rollup files so
+  // it stays a one-shot derivation (no need to thread the rollups through).
+  const adminFlow = buildAdminFlow();
+  if (writeAdminFlow(adminFlow)) touched++;
 
   // 4b. Prune orphan files from the regenerable shard dirs (a renamed node or
   // a parser change can leave stale files behind — e.g. the old facts/law.json).

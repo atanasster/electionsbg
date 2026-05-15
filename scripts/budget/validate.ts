@@ -4,6 +4,7 @@
 import fs from "fs";
 import path from "path";
 import { createHash } from "crypto";
+import type { KfpSnapshot } from "./types";
 
 // Byte-stable JSON. Keys are sorted recursively so a hand-edited registry (or
 // a re-parse that happens to construct objects in a different order) produces
@@ -52,6 +53,84 @@ export const runCanary = (fixtureFile: string, produced: unknown): void => {
     );
   }
   console.log(`  canary OK (sha256=${hash.slice(0, 16)})`);
+};
+
+// Snapshot hierarchy sanity. Top-level rows must sum to the section total
+// tightly; individual subtotal children get a slightly looser tolerance
+// because the КФП source has signed-net subtotals (e.g. "Transfers (net)" =
+// Предоставени − Получени), where naive children-sum doesn't equal the
+// parent. The reconstructor handles those, the validator just allows the gap.
+const HIERARCHY_TOLERANCE_ABS = 100_000;
+const SUBTOTAL_CHILDREN_TOL_FRAC = 0.01;
+
+export const validateSnapshotHierarchy = (snapshot: KfpSnapshot): void => {
+  const fail = (msg: string): never => {
+    throw new Error(
+      `kfp snapshot ${snapshot.fiscalYear}/${snapshot.period}: ${msg}`,
+    );
+  };
+  for (const section of snapshot.sections) {
+    if (section.lines.length === 0) continue;
+    // Pick the same signal the reconstructor used for this section: executed
+    // when published, otherwise planned. Mixing across rows would be invalid.
+    const pick: "executed" | "planned" =
+      section.executed != null ? "executed" : "planned";
+    const valueOf = (m: { amount: number } | null): number =>
+      m == null ? 0 : m.amount;
+    const lineValue = (l: {
+      executed: { amount: number } | null;
+      planned: { amount: number } | null;
+    }): number =>
+      pick === "executed" ? valueOf(l.executed) : valueOf(l.planned);
+
+    const top = section.lines.filter((l) => l.depth === 0);
+    if (top.length === 0) continue;
+    const sigOfSection =
+      pick === "executed" ? section.executed?.amount : section.planned?.amount;
+    if (sigOfSection != null) {
+      const topSum = top.reduce((a, l) => a + lineValue(l), 0);
+      const tol = HIERARCHY_TOLERANCE_ABS;
+      if (Math.abs(topSum - sigOfSection) > tol) {
+        fail(
+          `section ${section.code} top-level rows sum to ${topSum} but section reports ${sigOfSection}`,
+        );
+      }
+    }
+    // Each subtotal's children at depth+1 should sum back to the subtotal.
+    // Signed-net subtotals (e.g. Net = Предоставени − Получени) won't match
+    // the natural sum; accept them when (children_sum − headValue) / 2 equals
+    // exactly one child's value (i.e. that child should be subtracted).
+    for (let i = 0; i < section.lines.length; i++) {
+      const head = section.lines[i];
+      if (!head.isSubtotal) continue;
+      const headValue = lineValue(head);
+      if (headValue === 0) continue;
+      let acc = 0;
+      const childValues: number[] = [];
+      for (let j = i + 1; j < section.lines.length; j++) {
+        if (section.lines[j].depth <= head.depth) break;
+        if (section.lines[j].depth === head.depth + 1) {
+          const v = lineValue(section.lines[j]);
+          acc += v;
+          childValues.push(v);
+        }
+      }
+      if (childValues.length === 0) continue;
+      const childTol = Math.max(
+        HIERARCHY_TOLERANCE_ABS,
+        Math.abs(headValue) * SUBTOTAL_CHILDREN_TOL_FRAC,
+      );
+      if (Math.abs(acc - headValue) <= childTol) continue;
+      const half = (acc - headValue) / 2;
+      const isSignedNet = childValues.some(
+        (v) => Math.abs(v - half) <= HIERARCHY_TOLERANCE_ABS,
+      );
+      if (isSignedNet) continue;
+      fail(
+        `section ${section.code} subtotal "${head.labelBg}" children sum to ${acc} but row reports ${headValue}`,
+      );
+    }
+  }
 };
 
 // Diff size guard. Blocks if a single ingest substantively touches an
