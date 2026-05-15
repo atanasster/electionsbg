@@ -130,13 +130,16 @@ export const CompositeIndexHero: FC = () => {
       className="rounded-2xl border bg-card p-5 shadow-sm"
     >
       <div className="flex flex-col md:flex-row md:items-center gap-4">
-        <Hint text={t("composite_index_hint")} underline={false}>
-          <div className="flex items-baseline gap-3 shrink-0">
+        <div className="flex items-center gap-2 shrink-0">
+          <Hint text={t("composite_index_hint")} underline={false}>
             <span className="text-[10px] uppercase tracking-[0.16em] text-muted-foreground">
               {t("composite_index_label")}
             </span>
-          </div>
-        </Hint>
+          </Hint>
+          <span className="inline-flex items-center rounded-full border border-amber-500/40 bg-amber-100 px-1.5 py-0.5 text-[9px] font-medium uppercase tracking-wide text-amber-800 dark:bg-amber-950/40 dark:text-amber-300">
+            {t("composite_index_experimental")}
+          </span>
+        </div>
         <div className="flex items-center gap-3 shrink-0">
           <span className="text-5xl font-bold tabular-nums leading-none">
             {score}

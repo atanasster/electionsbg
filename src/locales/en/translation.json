@@ -1461,6 +1461,7 @@
   "risk_analysis_link_additional_voters_title": "Additional voters",
   "risk_analysis_link_additional_voters_desc": "Sections with unusually many voters added to the electoral list on election day.",
   "composite_index_label": "Election risk index",
+  "composite_index_experimental": "Experimental",
   "composite_index_hint": "0–100 composite score from five process-integrity signals (section screening, machine integrity, missing flash, concentration, procedural). Equally weighted, averaged only across components that have data. Context signals (Benford, neighborhood swing, electoral volatility, polling error) are shown alongside but do NOT feed the headline — they can light up in perfectly clean elections.",
   "composite_index_caption": "Average across {{available}} of {{total}} process-integrity components. Click any component for detail.",
   "composite_track_integrity": "Process integrity (headline index)",
