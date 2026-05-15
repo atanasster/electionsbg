@@ -265,10 +265,10 @@ const mirrorX = (
   });
   const links = layout.links.map((l) => ({
     ...l,
-    source: oldToNew.get(l.source as SankeyNode<NodeDatum, LinkDatum>) ??
-      l.source,
-    target: oldToNew.get(l.target as SankeyNode<NodeDatum, LinkDatum>) ??
-      l.target,
+    source:
+      oldToNew.get(l.source as SankeyNode<NodeDatum, LinkDatum>) ?? l.source,
+    target:
+      oldToNew.get(l.target as SankeyNode<NodeDatum, LinkDatum>) ?? l.target,
   }));
   return { nodes, links };
 };
@@ -280,9 +280,7 @@ const mirrorX = (
 // we want source's LEFT edge (x0) and target's RIGHT edge (x1) — the inner
 // edges that face the gap between them. Otherwise the curve overshoots both
 // rects and gets drawn in the wrong column.
-const mirroredLinkPath = (
-  link: SankeyLink<NodeDatum, LinkDatum>,
-): string => {
+const mirroredLinkPath = (link: SankeyLink<NodeDatum, LinkDatum>): string => {
   const s = link.source as SankeyNode<NodeDatum, LinkDatum>;
   const t = link.target as SankeyNode<NodeDatum, LinkDatum>;
   const sx = s.x0 ?? 0;
