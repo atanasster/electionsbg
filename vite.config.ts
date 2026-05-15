@@ -91,6 +91,19 @@ export default defineConfig(({ mode }) => {
       "process.env.API_KEY": JSON.stringify(env.GEMINI_API_KEY),
     },
     plugins: [react(), tsconfigPaths(), serveDataDir(), stripLazyCss()],
+    server: {
+      // dist/ and dist.old-* are build artifacts. The dev server never serves
+      // from them, but chokidar (Vite's file watcher) sees them by default
+      // and every file event there falls through to Vite's "unknown file
+      // change → full page reload" fallback. The prebuild script renames
+      // dist/ → dist.old-<ts>/ and forks a detached rm -rf, so a single
+      // `npm run build` triggers thousands of delete events that storm the
+      // dev server with full reloads for minutes. Exclude both from the
+      // watcher so dev is unaffected by parallel builds.
+      watch: {
+        ignored: ["**/dist/**", "**/dist.old-*/**"],
+      },
+    },
     build: {
       // Lift the warning threshold a bit since we still have some larger
       // domain-specific chunks (maps + jspdf) that are loaded on demand.

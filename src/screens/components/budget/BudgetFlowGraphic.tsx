@@ -32,12 +32,13 @@ import type { BudgetFlowModel, FlowGraph, FlowNode } from "./budgetFlowModel";
 type NodeDatum = SankeyExtraProperties & FlowNode;
 type LinkDatum = SankeyExtraProperties & { value: number };
 
-const NODE_WIDTH = 12;
+const NODE_WIDTH = 14;
 // The two TOTAL nodes sit at the inner edges of each Sankey and act as the
-// balance bridge themselves. Render them wider than other nodes so they read
-// as the focal point — revenue solid on top + (in a deficit year) phantom
-// hatched at the bottom = same pixel height as the spending total.
-const TOTAL_NODE_WIDTH = 28;
+// balance bridge themselves. Render them WIDE — they carry the embedded
+// "Revenue / Spending / Deficit / Surplus · €value" labels (rotated 90°),
+// matching the USAFacts balance-bridge metaphor where the two totals are
+// the focal columns of the chart.
+const TOTAL_NODE_WIDTH = 68;
 // Tight padding so totals from both sides occupy nearly the full SVG height —
 // padding between siblings eats vertical space, and the two sides have
 // different node counts, so a generous padding leaves the two totals at
@@ -46,13 +47,14 @@ const NODE_PADDING = 2;
 // Gap between the two side Sankeys. The wider total nodes extend into this
 // gap from both sides — TOTAL_NODE_WIDTH-NODE_WIDTH per side — leaving a
 // small visual breathing space in the middle.
-const SIDES_GAP = 36;
+const SIDES_GAP = 120;
 const TOTAL_INWARD = TOTAL_NODE_WIDTH - NODE_WIDTH;
 // Outer label gutter. Leaves sit on the outer edges of each side; their
-// labels extend OUTWARD past the sankey extent. We reserve this much pixel
-// space on each end of the SVG so the longest labels stay visible.
-const LABEL_MARGIN = 180;
-const LABEL_MAX_CHARS = 26;
+// labels extend OUTWARD past the sankey extent. The spending side now has a
+// depth-2 outer column (subcategories like "Социалноосигурителни фондове")
+// with longer labels, so the gutter is generous on both sides for symmetry.
+const LABEL_MARGIN = 220;
+const LABEL_MAX_CHARS = 30;
 const HATCH_PATTERN_ID = "budget-flow-hatch";
 
 const COLOR_REVENUE = "#10b981"; // emerald-500
@@ -66,10 +68,153 @@ const colorFor = (node: FlowNode): string => {
   return node.side === "revenue" ? COLOR_REVENUE : COLOR_SPENDING;
 };
 
-// Balance phantoms (deficit/surplus padding) get hatched links; layout
-// phantoms (invisible source for the EU group, etc.) get nothing rendered.
-const isBalancePhantomId = (id: string): boolean =>
-  id === "revenue-phantom-deficit" || id === "spending-phantom-surplus";
+// Compact Euro formatter for the embedded wall captions only: "€5.46 B",
+// "€397 M", "€80 K". Wall captions are rotated 90° so the available width is
+// the wall's height; even at 480 px tall, a full formatEur() like
+// "€1 918 355 713" plus a label like "Бюджетен дефицит" doesn't fit when the
+// hatched portion shrinks below ~150 px. The full euro figure remains in the
+// tooltip on hover.
+const compactEur = (value: number): string => {
+  const abs = Math.abs(value);
+  const sign = value < 0 ? "-" : "";
+  if (abs >= 1e9) return `${sign}€${(abs / 1e9).toFixed(2)} B`;
+  if (abs >= 1e6) return `${sign}€${Math.round(abs / 1e6)} M`;
+  if (abs >= 1e3) return `${sign}€${Math.round(abs / 1e3)} K`;
+  return `${sign}€${Math.round(abs)}`;
+};
+
+// Render one of the two total walls (revenue or spending). The wall is split
+// vertically into a SOLID portion (top, sized to the side's real value) and,
+// if this side absorbs the deficit/surplus padding, a HATCHED portion below
+// (sized to the balance gap). Each portion carries an embedded "Label · €N"
+// caption rotated 90° so it reads from bottom to top inside the column.
+const renderTotalWall = ({
+  node,
+  renderX0,
+  renderX1,
+  renderWidth,
+  y0,
+  y1,
+  baseOpacity,
+  balance,
+  deficitLabel,
+  surplusLabel,
+}: {
+  node: FlowNode;
+  renderX0: number;
+  renderX1: number;
+  renderWidth: number;
+  y0: number;
+  y1: number;
+  baseOpacity: number;
+  balance: BudgetFlowModel["balance"];
+  deficitLabel: string;
+  surplusLabel: string;
+}): React.ReactNode => {
+  const wallHeight = y1 - y0;
+  const isDeficitWall = node.side === "revenue" && balance.isDeficit;
+  const isSurplusWall =
+    node.side === "spending" && !balance.isDeficit && balance.balanceEur > 0;
+  const showHatch = isDeficitWall || isSurplusWall;
+  const solidEur =
+    node.side === "revenue" ? balance.revenueEur : balance.spendingEur;
+  const totalForRatio = node.valueEur > 0 ? node.valueEur : 1;
+  const solidRatio = Math.max(0, Math.min(1, solidEur / totalForRatio));
+  const solidHeight = wallHeight * solidRatio;
+  const solidY0 = y0;
+  const solidY1 = y0 + solidHeight;
+  const hatchY0 = solidY1;
+  const hatchY1 = y1;
+  const hatchHeight = Math.max(0, hatchY1 - hatchY0);
+  const phantomEur = Math.abs(balance.balanceEur);
+  const cx = (renderX0 + renderX1) / 2;
+  const solidColor = colorFor(node);
+  const balanceLabel = balance.isDeficit ? deficitLabel : surplusLabel;
+  const balanceFill = balance.isDeficit
+    ? "#9f1239" // rose-800 — sits readably over the hatched rose-400 stripes
+    : "#065f46"; // emerald-800 — same idea on the surplus side
+  // Minimum height (in px) at which a vertical caption fits with margin.
+  const MIN_LABEL_H = 26;
+  const renderCaption = (
+    sy0: number,
+    sy1: number,
+    label: string,
+    valueEur: number,
+    fill: string,
+  ): React.ReactNode => {
+    const cy = (sy0 + sy1) / 2;
+    // Rotated text's available width == the portion's vertical height. Pick
+    // a font size that keeps "{label} · €X.XX B" inside the portion: 13 px
+    // for tall portions, scaling down for short ones (deficit/surplus
+    // segments are often only ~100-150 px tall).
+    const portionH = sy1 - sy0;
+    const fontSize = portionH < 130 ? 11 : 13;
+    return (
+      <text
+        x={cx}
+        y={cy}
+        textAnchor="middle"
+        dominantBaseline="middle"
+        fontSize={fontSize}
+        fontWeight={600}
+        fill={fill}
+        transform={`rotate(-90 ${cx} ${cy})`}
+        style={{ pointerEvents: "none" }}
+      >
+        {label} · {compactEur(valueEur)}
+      </text>
+    );
+  };
+  return (
+    <>
+      {/* Solid portion — the side's real value (revenue or spending). */}
+      <rect
+        x={renderX0}
+        y={solidY0}
+        width={renderWidth}
+        height={solidHeight}
+        fill={solidColor}
+        fillOpacity={baseOpacity}
+      />
+      {solidHeight >= MIN_LABEL_H
+        ? renderCaption(solidY0, solidY1, node.label, solidEur, "white")
+        : null}
+      {/* Hatched portion — the deficit (on revenue) or surplus (on spending)
+          that closes the gap between the two sides. Rendered as a hatched
+          OVERLAY on top of a faint base fill so the stripes read cleanly
+          against the chart background. */}
+      {showHatch && hatchHeight > 0 ? (
+        <>
+          <rect
+            x={renderX0}
+            y={hatchY0}
+            width={renderWidth}
+            height={hatchHeight}
+            fill={solidColor}
+            fillOpacity={baseOpacity * 0.18}
+          />
+          <rect
+            x={renderX0}
+            y={hatchY0}
+            width={renderWidth}
+            height={hatchHeight}
+            fill={`url(#${HATCH_PATTERN_ID})`}
+            fillOpacity={baseOpacity}
+          />
+          {hatchHeight >= MIN_LABEL_H
+            ? renderCaption(
+                hatchY0,
+                hatchY1,
+                balanceLabel,
+                phantomEur,
+                balanceFill,
+              )
+            : null}
+        </>
+      ) : null}
+    </>
+  );
+};
 
 interface SankeyLayoutResult {
   nodes: Array<SankeyNode<NodeDatum, LinkDatum>>;
@@ -104,6 +249,14 @@ const layoutGraph = (
     // side — total then groups then leaves left-to-right). sankeyLeft does
     // the opposite for the revenue side, which we'll then mirror.
     .nodeAlign(align === "right" ? sankeyRight : sankeyLeft)
+    // null = preserve input order within each column. The default heuristic
+    // (minimum-overlap) interleaves outer leaves whose targets are different
+    // depth-0 groups — a Трансфери child can end up between two Разходи
+    // children, creating visual crossings. The model emits leaves grouped by
+    // their depth-0 parent (all Разходи children, then all Трансфери children,
+    // then EU), so input order is exactly the grouping we want vertically.
+    .nodeSort(null)
+    .linkSort(null)
     .extent([
       [1, 1],
       [width - 1, height - 1],
@@ -112,7 +265,130 @@ const layoutGraph = (
     nodes: graph.nodes.map((n) => ({ ...n })),
     links: sankeyLinks.map((l) => ({ ...l })),
   };
-  return generator(cloned);
+  const result = generator(cloned);
+
+  // Post-layout: align outer-column leaves with their depth-0 parent's y
+  // band. d3-sankey distributes free vertical space as padding between
+  // siblings *per column*, so depth-0 (3 nodes → 2 gaps of ~13-18 px) and
+  // the outer column (~16 leaves → ~1 px between siblings) end up with
+  // wildly different gap sizes. Leaves from different parents get jammed
+  // against each other at the boundary even though their parent blocks have
+  // a visible gap between them — and a leaf can even spill above/below its
+  // parent's block. We re-stack each parent's children tightly inside the
+  // parent's y range and update the leaf→parent links so they render as
+  // near-horizontal stripes.
+  const parentToChildren = new Map<
+    string,
+    Array<SankeyNode<NodeDatum, LinkDatum>>
+  >();
+  for (const node of result.nodes) {
+    const outgoing = result.links.filter(
+      (l) => (l.source as SankeyNode<NodeDatum, LinkDatum>).id === node.id,
+    );
+    if (outgoing.length !== 1) continue;
+    const target = outgoing[0].target as SankeyNode<NodeDatum, LinkDatum>;
+    if (target.type !== "group") continue;
+    const list = parentToChildren.get(target.id) ?? [];
+    list.push(node);
+    parentToChildren.set(target.id, list);
+  }
+  // Gap between sibling leaves inside the same parent (in px). USAFacts
+  // separates every child block with a thin gap so the eye can resolve each
+  // value as a distinct rectangle. Children are scaled to fit (parent.height
+  // − total_gap_height) so the stack still aligns with the parent's y range.
+  const CHILD_GAP = 4;
+  for (const [parentId, children] of parentToChildren) {
+    const parent = result.nodes.find((n) => n.id === parentId);
+    if (!parent) continue;
+    const parentY0 = parent.y0 ?? 0;
+    const parentY1 = parent.y1 ?? 0;
+    const parentH = parentY1 - parentY0;
+    // Preserve d3-sankey's input-order placement (linkSort/nodeSort are
+    // null so this matches the model's parent-grouped emission order).
+    children.sort((a, b) => (a.y0 ?? 0) - (b.y0 ?? 0));
+    const totalChildH = children.reduce(
+      (sum, c) => sum + Math.max(0, (c.y1 ?? 0) - (c.y0 ?? 0)),
+      0,
+    );
+    // Reserve CHILD_GAP between each pair of siblings. If the parent is too
+    // short for that many gaps, fall back to no gap (children stack tightly).
+    const totalGapH = Math.max(0, children.length - 1) * CHILD_GAP;
+    const usableH = Math.max(1, parentH - totalGapH);
+    const scale = totalChildH > 0 && usableH > 0 ? usableH / totalChildH : 1;
+    let cursor = parentY0;
+    for (let i = 0; i < children.length; i++) {
+      const child = children[i];
+      const origH = Math.max(0, (child.y1 ?? 0) - (child.y0 ?? 0));
+      const newH = origH * scale;
+      child.y0 = cursor;
+      child.y1 = cursor + newH;
+      cursor += newH;
+      if (i < children.length - 1) cursor += CHILD_GAP;
+      const link = result.links.find(
+        (l) => (l.source as SankeyNode<NodeDatum, LinkDatum>).id === child.id,
+      );
+      if (link) {
+        link.y0 = (child.y0 + child.y1) / 2;
+        link.width = newH;
+      }
+    }
+    // Recompute each link's target-side y position (its center within the
+    // parent's incoming stack). Target stack has NO gap — children's link
+    // widths still pack tightly within parent's height — so the link curves
+    // from the gapped outer leaf to the tightly-packed parent slice.
+    let incoming = parentY0;
+    for (const child of children) {
+      const newH = (child.y1 ?? 0) - (child.y0 ?? 0);
+      const link = result.links.find(
+        (l) => (l.source as SankeyNode<NodeDatum, LinkDatum>).id === child.id,
+      );
+      if (link) link.y1 = incoming + newH / 2;
+      incoming += newH;
+    }
+  }
+  return result;
+};
+
+// Rescale & translate each side's nodes and links so both total walls have
+// the same pixel height AND occupy the same y range. d3-sankey runs per-side,
+// and the side with more leaves (spending) has a smaller value-to-pixel scale
+// because its outer column needs more space for padding between siblings.
+// Without this, the two walls land at different heights even though they
+// represent the same euro total (the deficit phantom equalises the values).
+const alignSideWalls = (
+  left: SankeyLayoutResult,
+  right: SankeyLayoutResult,
+): void => {
+  const leftWall = left.nodes.find((n) => n.type === "total");
+  const rightWall = right.nodes.find((n) => n.type === "total");
+  if (!leftWall || !rightWall) return;
+  const leftH = (leftWall.y1 ?? 0) - (leftWall.y0 ?? 0);
+  const rightH = (rightWall.y1 ?? 0) - (rightWall.y0 ?? 0);
+  // Use the shorter wall as the target so neither side overflows its column.
+  const targetH = Math.min(leftH, rightH);
+  // Use the lower y0 (the wall that starts furthest from the top) so both
+  // walls top-align at the same y after the rescale.
+  const targetY0 = Math.max(leftWall.y0 ?? 0, rightWall.y0 ?? 0);
+  const apply = (
+    layout: SankeyLayoutResult,
+    wall: SankeyNode<NodeDatum, LinkDatum>,
+  ): void => {
+    const wallH = (wall.y1 ?? 0) - (wall.y0 ?? 0);
+    if (wallH <= 0) return;
+    const scale = targetH / wallH;
+    const translate = targetY0 - (wall.y0 ?? 0) * scale;
+    for (const n of layout.nodes) {
+      n.y0 = (n.y0 ?? 0) * scale + translate;
+      n.y1 = (n.y1 ?? 0) * scale + translate;
+    }
+    for (const l of layout.links) {
+      l.y0 = (l.y0 ?? 0) * scale + translate;
+      l.y1 = (l.y1 ?? 0) * scale + translate;
+      l.width = (l.width ?? 0) * scale;
+    }
+  };
+  apply(left, leftWall);
+  apply(right, rightWall);
 };
 
 // Mirror x-coordinates of all nodes/links inside a layout so the flow visually
@@ -235,6 +511,16 @@ const FlowSvg: FC<{
     const left = layoutGraph(model.revenue, sideWidth, height, "right");
     const right = layoutGraph(model.spending, sideWidth, height, "right");
     if (!left || !right) return null;
+    // Each side ran its own d3-sankey, which scales values to pixels using
+    // that side's column constraints. Because the two sides have different
+    // node counts (more leaves on spending), they end up with different
+    // value-to-pixel scales and the two total walls have different pixel
+    // heights — even though the totals represent the same euros (the deficit
+    // phantom makes revenue+deficit == spending). Re-scale each side so both
+    // walls land at the same y range, matching the USAFacts balance-bridge
+    // metaphor: both columns are the same height; the hatched wedge inside
+    // the revenue wall is the gap closed by financing.
+    alignSideWalls(left, right);
     return {
       left,
       right: mirrorX(right, sideWidth),
@@ -352,33 +638,25 @@ const FlowSvg: FC<{
           {layout.links.map((link, i) => {
             const s = link.source as SankeyNode<NodeDatum, LinkDatum>;
             const tgt = link.target as SankeyNode<NodeDatum, LinkDatum>;
-            // Layout phantoms (e.g. invisible source forcing the EU group to
-            // depth-1) skip rendering entirely; the link exists only to give
-            // d3-sankey the depth ranking.
-            const sIsLayoutPhantom = s.isPhantom && !isBalancePhantomId(s.id);
-            const tIsLayoutPhantom =
-              tgt.isPhantom && !isBalancePhantomId(tgt.id);
-            if (sIsLayoutPhantom || tIsLayoutPhantom) return null;
-            const isHatchedLink =
-              isBalancePhantomId(s.id) || isBalancePhantomId(tgt.id);
-            // Three states under focus: direct link of the focus (carries
-            // exactly the focus's value — full bright); indirect path link
-            // (broader category, carries more than the focus contributes —
-            // half dim, the slice overlay in the next node shows the focus's
-            // actual share); off-path (very dim).
-            const onTracedPath =
-              focus.id != null &&
-              highlightedIds.has(s.id) &&
-              highlightedIds.has(tgt.id);
+            // Phantoms — neither layout phantoms (invisible source forcing
+            // the EU group to depth-1) NOR balance phantoms (deficit/surplus
+            // padding leaves) render their links. The deficit/surplus value
+            // is now drawn as a hatched portion EMBEDDED inside the total
+            // wall itself (see the total-node branch below), so the hatched
+            // ribbon flowing from a phantom-leaf-on-the-side is gone.
+            if (s.isPhantom || tgt.isPhantom) return null;
+            // Two states under focus: the direct link of the focused node
+            // (bright at its full natural width) vs everything else (uniformly
+            // dim). Previously we drew on-traced-path links at 0.32 opacity
+            // to show "where the focus's value goes," but those links carry
+            // the PARENT's full value, not the focus's — so the wide
+            // depth-0 → wall link rendered as a fat pink stripe that looked
+            // like a duplicate of the focused leaf. The bright direct link
+            // already enters the next node at exactly the focus's slice
+            // position, which is enough to read the trace.
             const isFocusDirectLink =
               focus.id != null && (s.id === focus.id || tgt.id === focus.id);
-            const opacity = !focus.id
-              ? 0.45
-              : isFocusDirectLink
-                ? 0.78
-                : onTracedPath
-                  ? 0.32
-                  : 0.07;
+            const opacity = !focus.id ? 0.45 : isFocusDirectLink ? 0.78 : 0.07;
             // Link tooltip — single line of "from → to · value" so it
             // doesn't read as a separate node label being introduced near
             // wherever the cursor lands.
@@ -397,11 +675,7 @@ const FlowSvg: FC<{
                 key={`${sidePrefix}-link-${i}`}
                 d={linkPath(link) ?? ""}
                 fill="none"
-                stroke={
-                  isHatchedLink
-                    ? `url(#${HATCH_PATTERN_ID})`
-                    : `url(#${sidePrefix}-grad-${i})`
-                }
+                stroke={`url(#${sidePrefix}-grad-${i})`}
                 strokeOpacity={opacity}
                 strokeWidth={Math.max(1, link.width ?? 1)}
                 onMouseEnter={(e) => {
@@ -457,6 +731,21 @@ const FlowSvg: FC<{
             const minH = 11;
             const showLabel =
               node.type !== "total" && (nodeHeight >= minH || isOnPath);
+            const sideTotalEur =
+              node.side === "revenue"
+                ? model.balance.revenueEur
+                : model.balance.spendingEur;
+            // Skip the %-of-side line on the total node itself (always 100%)
+            // and on balance phantoms (they're the gap, not a budget item).
+            const showShare =
+              node.type !== "total" &&
+              !node.isPhantom &&
+              sideTotalEur > 0 &&
+              node.valueEur > 0;
+            const shareLabel =
+              node.side === "revenue"
+                ? t("budget_flow_of_revenue") || "of revenue"
+                : t("budget_flow_of_spending") || "of spending";
             const tipContent = (
               <div className="flex flex-col gap-1 max-w-[260px]">
                 <div className="font-medium">{node.label}</div>
@@ -468,6 +757,12 @@ const FlowSvg: FC<{
                 <div className="border-t border-border pt-1 font-semibold tabular-nums">
                   {formatEur(node.valueEur)}
                 </div>
+                {showShare ? (
+                  <div className="text-[11px] text-muted-foreground tabular-nums">
+                    {((node.valueEur / sideTotalEur) * 100).toFixed(1)}%{" "}
+                    {shareLabel}
+                  </div>
+                ) : null}
                 {node.plannedEur != null && node.plannedEur !== 0 ? (
                   <div className="text-[11px] text-muted-foreground tabular-nums">
                     {((node.valueEur / node.plannedEur) * 100).toFixed(1)}%{" "}
@@ -511,14 +806,29 @@ const FlowSvg: FC<{
                 }}
                 style={{ cursor: isLinked ? "pointer" : "default" }}
               >
-                <rect
-                  x={renderX0}
-                  y={node.y0}
-                  width={renderWidth}
-                  height={nodeHeight}
-                  fill={colorFor(node)}
-                  fillOpacity={baseOpacity}
-                />
+                {isTotal ? (
+                  renderTotalWall({
+                    node,
+                    renderX0,
+                    renderX1,
+                    renderWidth,
+                    y0,
+                    y1,
+                    baseOpacity,
+                    balance: model.balance,
+                    deficitLabel: t("budget_flow_wall_deficit") || "Deficit",
+                    surplusLabel: t("budget_flow_wall_surplus") || "Surplus",
+                  })
+                ) : (
+                  <rect
+                    x={renderX0}
+                    y={node.y0}
+                    width={renderWidth}
+                    height={nodeHeight}
+                    fill={colorFor(node)}
+                    fillOpacity={baseOpacity}
+                  />
+                )}
                 {/* Slice overlay was confusing — the bright same-colour rect
                     inside a dim parent reads as a SECOND node (a duplicate
                     "Subsidies" inside "Expenditure"). The bright link that

@@ -23,10 +23,15 @@ import type { FlowGrain } from "./budgetFlowModel";
 import { BudgetFlowGraphic } from "./BudgetFlowGraphic";
 import { BudgetFlowMobile } from "./BudgetFlowMobile";
 
-const HEIGHT = 520;
+// Generous canvas height so the outer leaf column has room for visible gaps
+// between siblings (post-processed in BudgetFlowGraphic). The central total
+// walls scale up proportionally, the leaves stay readable.
+const HEIGHT = 720;
 // Below this width labels overlap; the SVG falls back to horizontal scroll
-// inside the card, mirroring the procurement Sankey's mobile policy.
-const MIN_GRAPHIC_WIDTH = 880;
+// inside the card, mirroring the procurement Sankey's mobile policy. The
+// spending side now has a depth-2 outer subcategory column, so the minimum
+// is larger than before — four columns plus a wider label gutter.
+const MIN_GRAPHIC_WIDTH = 1100;
 
 const Legend: FC = () => {
   const { t } = useTranslation();

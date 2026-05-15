@@ -85,18 +85,33 @@ const sectionLabel = (s: KfpSnapshotSection, lang: "bg" | "en"): string =>
 const lineLabel = (l: KfpSnapshotLine, lang: "bg" | "en"): string =>
   labelOf(l.labelBg, l.labelEn, lang);
 
-// Depth-1 children of the subtotal at `subtotalIdx`. Walks forward until it
-// hits another depth-0 row. Every Sankey side renders as exactly three
-// columns: leaves (depth-1 here) → groups (depth-0 subtotals) → total. Same
-// structure on revenue and spending so the two sides mirror each other.
-const childrenOf = (
+// Depth-1 children of the subtotal at `subtotalIdx`, with their absolute line
+// indices preserved so the caller can walk further down (depth-2 sub-leaves of
+// a depth-1 subtotal). Walks forward until it hits another depth-0 row.
+const childrenOfWithIdx = (
   lines: KfpSnapshotLine[],
   subtotalIdx: number,
-): KfpSnapshotLine[] => {
-  const out: KfpSnapshotLine[] = [];
+): Array<{ row: KfpSnapshotLine; idx: number }> => {
+  const out: Array<{ row: KfpSnapshotLine; idx: number }> = [];
   for (let j = subtotalIdx + 1; j < lines.length; j++) {
     if (lines[j].depth === 0) break;
-    if (lines[j].depth === 1) out.push(lines[j]);
+    if (lines[j].depth === 1) out.push({ row: lines[j], idx: j });
+  }
+  return out;
+};
+
+// Depth-2 sub-leaves of the depth-1 subtotal at `depth1Idx`. Used on the
+// spending side to render an outer column (e.g. "Лихви по външни заеми" /
+// "Общини" / "Социалноосигурителни фондове") that flows into the depth-1 row.
+// Stops at the next depth-0 or depth-1 row.
+const depth2ChildrenOf = (
+  lines: KfpSnapshotLine[],
+  depth1Idx: number,
+): KfpSnapshotLine[] => {
+  const out: KfpSnapshotLine[] = [];
+  for (let j = depth1Idx + 1; j < lines.length; j++) {
+    if (lines[j].depth <= 1) break;
+    if (lines[j].depth === 2) out.push(lines[j]);
   }
   return out;
 };
@@ -147,26 +162,68 @@ const buildGraph = (
         target: totalNodeId,
         valueEur: Math.abs(valueEur),
       });
-      const leafChildren = childrenOf(lines, i);
-      for (const child of leafChildren) {
+      const leafChildren = childrenOfWithIdx(lines, i);
+      for (const { row: child, idx: childIdx } of leafChildren) {
         const cVal = (child.executed ?? child.planned)?.amountEur ?? 0;
         if (cVal === 0) continue;
-        const leafId = `${side}-leaf-${i}-${nodes.length}`;
-        addNode({
-          id: leafId,
-          label: lineLabel(child, lang),
-          type: "leaf",
-          side,
-          valueEur: cVal,
-          plannedEur: child.planned?.amountEur ?? null,
-          groupLabel: lineLabel(row, lang),
-          ministryNodeId: null,
-        });
-        links.push({
-          source: leafId,
-          target: groupId,
-          valueEur: Math.abs(cVal),
-        });
+        // Spending side: if the depth-1 row is itself a subtotal (Interest —
+        // total / Provided transfers / Received transfers), we SKIP emitting
+        // the depth-1 node and route its depth-2 children straight into the
+        // depth-0 group. The chart then reads as a clean 3-column cascade —
+        // terminal leaves → depth-0 categories (Expenditure / Transfers (net)
+        // / EU) → total — with depth-1 aggregations folded away. If a depth-1
+        // subtotal has no renderable depth-2 children (zero / missing values
+        // across all of them), we fall back to emitting it as a terminal leaf
+        // so the value still flows.
+        const renderableSubs =
+          side === "spending" && child.isSubtotal
+            ? depth2ChildrenOf(lines, childIdx).filter((s) => {
+                const v = (s.executed ?? s.planned)?.amountEur ?? 0;
+                return v !== 0;
+              })
+            : [];
+        if (renderableSubs.length > 0) {
+          for (const sub of renderableSubs) {
+            const sVal = (sub.executed ?? sub.planned)?.amountEur ?? 0;
+            const subId = `${side}-subleaf-${childIdx}-${nodes.length}`;
+            addNode({
+              id: subId,
+              label: lineLabel(sub, lang),
+              type: "leaf",
+              side,
+              valueEur: sVal,
+              plannedEur: sub.planned?.amountEur ?? null,
+              // Tooltip context: show both the skipped depth-1 parent and the
+              // depth-0 grandparent so the user can still see e.g. that
+              // "Municipalities" sits under "Provided transfers · Transfers
+              // (net)" even though Provided transfers isn't drawn as a node.
+              groupLabel: `${lineLabel(child, lang)} · ${lineLabel(row, lang)}`,
+              ministryNodeId: null,
+            });
+            links.push({
+              source: subId,
+              target: groupId,
+              valueEur: Math.abs(sVal),
+            });
+          }
+        } else {
+          const leafId = `${side}-leaf-${i}-${childIdx}`;
+          addNode({
+            id: leafId,
+            label: lineLabel(child, lang),
+            type: "leaf",
+            side,
+            valueEur: cVal,
+            plannedEur: child.planned?.amountEur ?? null,
+            groupLabel: lineLabel(row, lang),
+            ministryNodeId: null,
+          });
+          links.push({
+            source: leafId,
+            target: groupId,
+            valueEur: Math.abs(cVal),
+          });
+        }
       }
       totalEur += valueEur;
     } else {
