@@ -1,9 +1,9 @@
-// Opening band of the Governance dashboard. Each tile is independently
-// timestamped — Eurostat-style — so users see "as of YYYY-MM-DD" per metric
-// rather than a misleading global cycle picker. Governance data runs on
-// multiple cadences (roll-call sessions, fiscal years, monthly procurement
-// ingest, quarterly Eurostat) and a single time selector would lie about
-// any tile that doesn't match it.
+// Opening band of the Governance dashboard. Every tile is scoped to the
+// selected election's parliamentary term — when that term spans multiple
+// years/quarters, each tile picks the latest observation that falls inside
+// the term window. The "as of" chip still names the actual observation
+// period so users can tell whether the figure is from early or late in the
+// term.
 
 import { FC, ReactNode } from "react";
 import { useTranslation } from "react-i18next";
@@ -22,9 +22,10 @@ import { LucideIcon } from "lucide-react";
 import { useRollcallIndex } from "@/data/parliament/votes/useRollcallIndex";
 import { useMps } from "@/data/parliament/useMps";
 import { useBudgetIndex } from "@/data/budget/useBudget";
-import { useProcurementIndex } from "@/data/procurement/useProcurementIndex";
-import { useMacro } from "@/data/macro/useMacro";
+import { useProcurementByNs } from "@/data/procurement/useProcurementByNs";
+import { useMacro, MacroPoint } from "@/data/macro/useMacro";
 import { useElectionContext } from "@/data/ElectionContext";
+import { useParliamentTerm } from "@/data/parliament/useParliamentTerm";
 import { electionToNsFolder } from "@/data/parliament/nsFolders";
 import { localDate } from "@/data/utils";
 
@@ -100,20 +101,69 @@ const asOfChip = (t: (k: string) => string, iso?: string | null): string => {
 const fmtPctOne = (n: number | undefined): string =>
   n == null || !Number.isFinite(n) ? "—" : `${n.toFixed(1)}%`;
 
+// Inclusive "is this ISO date inside the term window?" check. termEnd is
+// exclusive (the day of the next election opens the next term) and null for
+// the still-open current term.
+const isInTerm = (
+  iso: string,
+  termStart: Date | null,
+  termEnd: Date | null,
+): boolean => {
+  if (!termStart) return true;
+  const d = new Date(iso.slice(0, 10));
+  if (Number.isNaN(d.getTime())) return false;
+  if (d < termStart) return false;
+  if (termEnd && d >= termEnd) return false;
+  return true;
+};
+
+// Latest macro point that falls inside the term. Quarterly points are
+// positioned at their quarter start; annual points at their year start. We
+// take the rightmost point still within the window — when the term spans
+// multiple years we surface the most recent observation.
+const pickLatestInTerm = (
+  points: MacroPoint[],
+  termStart: Date | null,
+  termEnd: Date | null,
+): MacroPoint | null => {
+  if (!points.length) return null;
+  const startKey = termStart
+    ? termStart.getFullYear() * 4 + Math.floor(termStart.getMonth() / 3)
+    : -Infinity;
+  const endKey = termEnd
+    ? termEnd.getFullYear() * 4 + Math.floor(termEnd.getMonth() / 3)
+    : Infinity;
+  let best: MacroPoint | null = null;
+  let bestKey = -Infinity;
+  for (const p of points) {
+    const q = p.quarter ?? 1;
+    const key = p.year * 4 + (q - 1);
+    if (key < startKey) continue;
+    if (key >= endKey) continue;
+    if (key > bestKey) {
+      bestKey = key;
+      best = p;
+    }
+  }
+  return best;
+};
+
 export const HeadlineIndicatorStrip: FC = () => {
   const { t } = useTranslation();
   const { sessions } = useRollcallIndex();
   const { mps, currentNs } = useMps();
   const { data: budgetIndex } = useBudgetIndex();
-  const { data: procurementIndex } = useProcurementIndex();
+  const { data: procurementByNs } = useProcurementByNs();
   const { data: macro } = useMacro();
   const { selected } = useElectionContext();
+  const { termStart, termEnd } = useParliamentTerm();
 
-  // Roll-call: pick the newest session by date (sessions are listed newest-
-  // first by convention but we sort defensively).
+  // Roll-call: latest session whose date falls inside the selected term.
   const latestSession =
     sessions && sessions.length > 0
-      ? [...sessions].sort((a, b) => (a.date < b.date ? 1 : -1))[0]
+      ? ([...sessions]
+          .filter((s) => isInTerm(s.date, termStart, termEnd))
+          .sort((a, b) => (a.date < b.date ? 1 : -1))[0] ?? null)
       : null;
 
   // Active MPs in the selected term's parliament. `currentNs` from useMps is
@@ -125,12 +175,21 @@ export const HeadlineIndicatorStrip: FC = () => {
       ? mps.filter((m) => m.nsFolders.includes(selectedFolder)).length
       : (mps?.length ?? null);
 
-  // Budget: most recent fiscal-year summary with both planned and actual
-  // expenditure (the in-progress FY can have actuals but no `planned` yet, so
-  // skip it — otherwise the percentage is meaningless and the tile reads "—").
+  // Budget: latest fiscal year overlapping the term that has both planned and
+  // actual expenditure. A term can span several fiscal years; we prefer the
+  // most recent one with a complete plan-vs-actual picture.
+  const termStartYear = termStart?.getFullYear() ?? null;
+  const termEndYear = termEnd
+    ? termEnd.getFullYear()
+    : new Date().getFullYear();
   const latestFy =
     budgetIndex?.fiscalYears && budgetIndex.fiscalYears.length > 0
       ? ([...budgetIndex.fiscalYears]
+          .filter((fy) =>
+            termStartYear != null
+              ? fy.fiscalYear >= termStartYear && fy.fiscalYear <= termEndYear
+              : true,
+          )
           .sort((a, b) => b.fiscalYear - a.fiscalYear)
           .find(
             (fy) =>
@@ -147,15 +206,22 @@ export const HeadlineIndicatorStrip: FC = () => {
         100
       : null;
 
-  // Macro tail values.
+  // Procurement: per-NS slice pre-aggregates contract counts inside the
+  // term's procurement window. The slice's `end` (or today, for the open
+  // term) makes a more honest "as of" than the global lastIngest.
+  const procurementContracts = procurementByNs?.totals.contracts ?? null;
+  const procurementAsOf =
+    procurementByNs?.end ?? procurementByNs?.generatedAt ?? null;
+
+  // Macro tail values, scoped to the term window.
   const inflationSeries = macro?.series.inflation ?? [];
-  const latestInflation = inflationSeries.length
-    ? inflationSeries[inflationSeries.length - 1]
-    : null;
+  const latestInflation = pickLatestInTerm(inflationSeries, termStart, termEnd);
   const unemploymentSeries = macro?.series.unemployment ?? [];
-  const latestUnemployment = unemploymentSeries.length
-    ? unemploymentSeries[unemploymentSeries.length - 1]
-    : null;
+  const latestUnemployment = pickLatestInTerm(
+    unemploymentSeries,
+    termStart,
+    termEnd,
+  );
   const macroAsOf = macro?.fetchedAt ?? null;
   const inflationPeriod = latestInflation?.period ?? `${latestInflation?.year}`;
   const unemploymentPeriod =
@@ -205,13 +271,11 @@ export const HeadlineIndicatorStrip: FC = () => {
           icon={Landmark}
           label={t("governance_kpi_procurement") || "Procurement contracts"}
           value={
-            procurementIndex?.totals.contracts != null
-              ? new Intl.NumberFormat("en-GB").format(
-                  procurementIndex.totals.contracts,
-                )
+            procurementContracts != null
+              ? new Intl.NumberFormat("en-GB").format(procurementContracts)
               : "—"
           }
-          asOf={asOfChip(t, procurementIndex?.lastIngest)}
+          asOf={asOfChip(t, procurementAsOf)}
           href="/procurement"
         />
         <IndicatorTile
