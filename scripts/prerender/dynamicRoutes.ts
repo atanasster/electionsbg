@@ -2207,6 +2207,80 @@ export const buildVotesRoutes = (projectRoot: string): PrerenderRoute[] => {
   return result;
 };
 
+export const buildBudgetMinistryRoutes = (
+  projectRoot: string,
+): PrerenderRoute[] => {
+  const dir = path.join(projectRoot, "data/budget/ministries");
+  if (!fs.existsSync(dir)) return [];
+  type MinistryRollup = {
+    nameBg?: string;
+    nameEn?: string;
+    nodeId?: string;
+  };
+  const out: PrerenderRoute[] = [];
+  for (const f of fs.readdirSync(dir)) {
+    if (!f.endsWith(".json")) continue;
+    let m: MinistryRollup;
+    try {
+      m = JSON.parse(fs.readFileSync(path.join(dir, f), "utf-8"));
+    } catch {
+      continue;
+    }
+    const slug = m.nodeId ?? f.replace(/\.json$/, "");
+    const nameBg = m.nameBg ?? slug;
+    const nameEn = m.nameEn ?? nameBg;
+    const path_ = `budget/ministry/${slug}`;
+    const url = `${SITE_URL}/${path_}`;
+    const enUrl = `${SITE_URL}/en/${path_}`;
+    const title = `${nameBg} — държавен бюджет | electionsbg.com`;
+    const description = `Годишен план срещу изпълнение на ${nameBg} от Закона за държавния бюджет и програмния отчет, плюс обществените поръчки на ведомството.`;
+    const titleEn = `${nameEn} — Bulgarian state budget | electionsbg.com`;
+    const descriptionEn = `Annual planned-versus-actual figures for ${nameEn} from the State Budget Law and program-execution report, plus the ministry's public-procurement footprint.`;
+    out.push({
+      path: path_,
+      title,
+      description,
+      bodyHtml: `
+<h1>${escapeHtmlMinimal(nameBg)} — държавен бюджет</h1>
+<p>Първостепенен разпоредител в Закона за държавния бюджет. На страницата се виждат планираните и изпълнените приходи, разходи и баланс по години, програмният бюджет в по-голяма дълбочина и обществените поръчки на ведомството и неговите второстепенни разпоредители.</p>
+<p>Виж и <a href="${SITE_URL}/budget">обобщеното табло на държавния бюджет</a> и <a href="${SITE_URL}/budget/methodology">методологията</a>.</p>`.trim(),
+      jsonLd: [
+        buildWebPageLd({ title, description, url }),
+        buildBreadcrumbLd([
+          { name: "Начало", url: `${SITE_URL}/` },
+          { name: "Държавен бюджет", url: `${SITE_URL}/budget` },
+          { name: nameBg, url },
+        ]),
+      ],
+      english: {
+        title: titleEn,
+        description: descriptionEn,
+        bodyHtml: `
+<h1>${escapeHtmlMinimal(nameEn)} — Bulgarian state budget</h1>
+<p>This first-level spending unit appears in the State Budget Law. The page shows planned versus actual revenue, expenditure and balance per year, the program-level budget one column deeper, and the public-procurement footprint of the ministry and its secondary spending units.</p>
+<p>See also the <a href="${SITE_URL}/en/budget">state-budget dashboard</a> and the <a href="${SITE_URL}/en/budget/methodology">methodology</a>.</p>`.trim(),
+        jsonLd: [
+          buildWebPageLd({
+            title: titleEn,
+            description: descriptionEn,
+            url: enUrl,
+            inLanguage: "en",
+          }),
+          buildBreadcrumbLd([
+            { name: "Home", url: `${SITE_URL}/en/` },
+            { name: "State budget", url: `${SITE_URL}/en/budget` },
+            { name: nameEn, url: enUrl },
+          ]),
+        ],
+      },
+    });
+  }
+  return out;
+};
+
+const escapeHtmlMinimal = (s: string): string =>
+  s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
+
 export const buildDynamicRoutes = async (
   projectRoot: string,
 ): Promise<PrerenderRoute[]> => {
@@ -2264,5 +2338,6 @@ export const buildDynamicRoutes = async (
     // Articles are site content (human-authored markdown + same-origin
     // images), not data — they live under /public/ rather than /data/.
     ...(await buildArticleRoutes(path.join(projectRoot, "public"))),
+    ...buildBudgetMinistryRoutes(projectRoot),
   ];
 };

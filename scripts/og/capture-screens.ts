@@ -170,6 +170,36 @@ const captures: Capture[] = [
     centerOnAnchor: true,
     settleMs: 2500,
   },
+  {
+    slug: "budget",
+    routePath: "budget",
+    // BudgetFlowTile carries the most visual weight on the page — Sankey-like
+    // flow + balance bridge — and lives below the headline stat cards.
+    waitFor: '[data-og="budget-flow"]',
+    anchor: '[data-og="budget-flow"]',
+    centerOnAnchor: true,
+    settleMs: 3000,
+  },
+  {
+    slug: "indicators",
+    routePath: "indicators",
+    // Long stack of multi-line charts overlaid on a cabinet timeline strip.
+    // First Recharts surface is the economy chart (GDP / inflation / unemployment).
+    waitFor: ".recharts-surface",
+    anchor: ".recharts-wrapper",
+    centerOnAnchor: true,
+    settleMs: 2500,
+  },
+  {
+    slug: "governance",
+    routePath: "governance",
+    // The budget-summary tile is the largest data-driven visual on the
+    // governance dashboard (the rest are mostly stat cards + small SVGs).
+    waitFor: '[data-og="budget-summary"]',
+    anchor: '[data-og="budget-summary"]',
+    centerOnAnchor: true,
+    settleMs: 2500,
+  },
 ];
 
 const HIDE_CHROME_CSS = `

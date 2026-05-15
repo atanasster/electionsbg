@@ -87,6 +87,7 @@ const bucketFor = (urlPath: string): string => {
   if (p.startsWith("/parliament/")) return "votes";
   if (p.startsWith("/elections/")) return "static";
   if (p.startsWith("/articles")) return "static";
+  if (p.startsWith("/budget/ministry/")) return "budget";
   return "static";
 };
 
@@ -197,6 +198,24 @@ const enumerateCandidates = (
       route.subTabs,
       latestElectionDate,
     );
+  }
+};
+
+const enumerateBudgetMinistries = (
+  route: RouteDef,
+  rootUrl: string,
+  routes: string[],
+) => {
+  const dir = `${projectPath}/data/budget/ministries`;
+  if (!fs.existsSync(dir)) return;
+  const files = fs.readdirSync(dir).filter((f) => f.endsWith(".json"));
+  const idxFile = `${projectPath}/data/budget/index.json`;
+  const lastmod = fs.existsSync(idxFile) ? safeFileMod(idxFile) : today;
+  for (const f of files) {
+    const slug = f.replace(/\.json$/, "");
+    pushUrl(`${rootUrl}/${routes[0]}${slug}`, lastmod);
+    pushUrl(`/en${rootUrl}/${routes[0]}${slug}`, lastmod);
+    void route; // route currently has no sub-tabs; reserved for symmetry.
   }
 };
 
@@ -313,6 +332,8 @@ const getRoute = (route: RouteDef, rootUrl: string) => {
       return enumerateElections(rootUrl, routes);
     if (route.file === "articles-list")
       return enumerateArticles(rootUrl, routes);
+    if (route.file === "budget-ministries-list")
+      return enumerateBudgetMinistries(route, rootUrl, routes);
     // Generic ":id" expansion against a folder of files (e.g. municipalities/by/{id}).
     const folders = route.file?.split(":id");
     if (!folders) throw new Error("Must assign file property: " + route.path);

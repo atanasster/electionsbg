@@ -494,6 +494,191 @@ export const prerenderRoutes: PrerenderRoute[] = [
     },
   }),
   staticPage({
+    path: "indicators",
+    title:
+      "Индикатори за България от 2005 г. — макроикономика, фискални и социални | electionsbg.com",
+    description:
+      "Макроикономически, фискални, управленски и социални индикатори на България от 2005 г., разположени по мандати на правителствата — БВП, инфлация, безработица, дълг, бюджетен баланс, доверие и индекси за управление.",
+    breadcrumbName: "Индикатори",
+    ogImage: "/og/indicators.png",
+    bodyHtml: `
+<h1>Индикатори за България от 2005 г.</h1>
+<p>Макроикономически, фискални, управленски и социални показатели на България от 2005 г. насам, поставени паралелно с мандатите на правителствата. Всеки кабинет е отбелязан с цветна ивица, за да може трендът да се проследи спрямо съответното управление.</p>
+<h2>Какво ще намерите тук</h2>
+<ul>
+<li><strong>Икономика</strong> — реален БВП, ХИПЦ инфлация, безработица, трудови доходи, индустриално производство и оборот в търговията (Евростат).</li>
+<li><strong>Разбивка на инфлацията</strong> — приноси по ECOICOP подгрупи към общия ръст на ХИПЦ.</li>
+<li><strong>Фискални</strong> — държавен дълг, бюджетен баланс и текуща сметка като % от БВП.</li>
+<li><strong>Икономически сентимент</strong> — потребителско доверие и Economic Sentiment Indicator.</li>
+<li><strong>Индекс за възприятие на корупцията</strong> — Transparency International (0–100).</li>
+<li><strong>Worldwide Governance Indicators</strong> — върховенство на закона, контрол върху корупцията и ефективност на управлението (Световна банка).</li>
+<li><strong>Доверие в институциите</strong> — Евробарометър (Народно събрание, правителство, ЕС).</li>
+<li><strong>Европейски средства</strong> — годишни постъпления и вноски в бюджета на ЕС.</li>
+<li><strong>Социални</strong> — младежка безработица, цени на жилищата (YoY), Gini, риск от бедност.</li>
+</ul>
+<p>Виж и <a href="${SITE_URL}/governments">правителствата</a> за визуализация на същите данни по кабинети.</p>
+<p>Източници: <a href="https://ec.europa.eu/eurostat/databrowser/" rel="nofollow noopener">Евростат</a>, <a href="https://databank.worldbank.org/source/worldwide-governance-indicators" rel="nofollow noopener">World Bank WGI</a>, <a href="https://www.transparency.org/en/cpi" rel="nofollow noopener">Transparency International CPI</a>, <a href="https://europa.eu/eurobarometer/" rel="nofollow noopener">Евробарометър</a>.</p>`.trim(),
+    english: {
+      title:
+        "Bulgaria Indicators Since 2005 — Macro, Fiscal and Social | electionsbg.com",
+      description:
+        "Bulgaria's macroeconomic, fiscal, governance and social indicators since 2005, set against each cabinet's term — GDP, inflation, unemployment, debt, budget balance, trust and governance indices.",
+      breadcrumbName: "Indicators",
+      bodyHtml: `
+<h1>Bulgaria indicators since 2005</h1>
+<p>Bulgaria's macroeconomic, fiscal, governance and social indicators since 2005, shown alongside the cabinet timeline. Each cabinet's tenure is rendered as a coloured band so trends can be read against who was in power.</p>
+<h2>What you'll find</h2>
+<ul>
+<li><strong>Economy</strong> — real GDP growth, HICP inflation, unemployment, labour income, industrial production and retail volume (Eurostat).</li>
+<li><strong>Inflation breakdown</strong> — contributions of ECOICOP sub-groups to headline HICP.</li>
+<li><strong>Fiscal</strong> — government debt, budget balance and current account, % of GDP.</li>
+<li><strong>Economic sentiment</strong> — consumer confidence and the Economic Sentiment Indicator.</li>
+<li><strong>Corruption Perceptions Index</strong> — Transparency International (0–100).</li>
+<li><strong>Worldwide Governance Indicators</strong> — rule of law, control of corruption and government effectiveness (World Bank).</li>
+<li><strong>Trust in institutions</strong> — Eurobarometer (National Assembly, government, EU).</li>
+<li><strong>EU funds</strong> — annual inflows and contributions to the EU budget.</li>
+<li><strong>Social</strong> — youth unemployment, house prices YoY, Gini coefficient, at-risk-of-poverty rate.</li>
+</ul>
+<p>See also <a href="${SITE_URL}/en/governments">governments</a> for the same data overlaid with each cabinet's term.</p>
+<p>Sources: <a href="https://ec.europa.eu/eurostat/databrowser/" rel="nofollow noopener">Eurostat</a>, <a href="https://databank.worldbank.org/source/worldwide-governance-indicators" rel="nofollow noopener">World Bank WGI</a>, <a href="https://www.transparency.org/en/cpi" rel="nofollow noopener">Transparency International CPI</a>, <a href="https://europa.eu/eurobarometer/" rel="nofollow noopener">Eurobarometer</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "governance",
+    title:
+      "Управление на държавата — парламент, бюджет, обществени поръчки | electionsbg.com",
+    description:
+      "Управленско табло за България: поименни гласувания в Народното събрание, имуществени декларации на депутатите, изпълнение на държавния бюджет, обществени поръчки, финансиране на партии и макроикономически контекст.",
+    breadcrumbName: "Управление",
+    ogImage: "/og/governance.png",
+    bodyHtml: `
+<h1>Управление на държавата — обобщено табло</h1>
+<p>Управленското табло обединява инструментите за следене на изпълнителната и законодателната власт в България: какво гласува парламентът, какво декларират депутатите, как се харчат публичните пари и какъв е макроикономическият контекст. Срещуположното табло — <a href="${SITE_URL}/">Изборите</a> — следи самите парламентарни вотове.</p>
+<h2>Какво ще намерите тук</h2>
+<ul>
+<li><a href="${SITE_URL}/parliament">Парламент</a> — поименни гласувания, кохезия на групите и UMAP проекция на гласовото пространство.</li>
+<li><a href="${SITE_URL}/connections">Декларации на депутатите</a> — имущество, доходи, бизнес роли (Сметна палата + Търговски регистър).</li>
+<li><a href="${SITE_URL}/budget">Държавен бюджет</a> — изпълнение по КФП и програмни отчети по министерства.</li>
+<li><a href="${SITE_URL}/procurement">Обществени поръчки</a> — възложители, изпълнители и потоци от АОП (data.egov.bg).</li>
+<li><a href="${SITE_URL}/financing">Финансиране на партии</a> — годишни финансови отчети от Сметната палата.</li>
+<li><a href="${SITE_URL}/governments">Правителства</a> и <a href="${SITE_URL}/indicators">индикатори</a> — макроикономически и управленски контекст по мандати.</li>
+</ul>`.trim(),
+    english: {
+      title:
+        "Governance Dashboard — Parliament, Budget, Procurement | electionsbg.com",
+      description:
+        "Bulgaria governance dashboard: roll-call votes, MP property declarations, state budget execution, public procurement, party financing, and macroeconomic context — alongside the elections dashboard.",
+      breadcrumbName: "Governance",
+      bodyHtml: `
+<h1>Governance dashboard</h1>
+<p>The governance dashboard ties together the tools for tracking Bulgaria's executive and legislative branches: what parliament votes on, what MPs declare, how public money is spent, and the macroeconomic context. Its companion — the <a href="${SITE_URL}/en/">elections dashboard</a> — covers the parliamentary votes themselves.</p>
+<h2>What you'll find</h2>
+<ul>
+<li><a href="${SITE_URL}/en/parliament">Parliament</a> — roll-call votes, group cohesion, and a UMAP voting-space projection.</li>
+<li><a href="${SITE_URL}/en/connections">MP declarations</a> — property, income and business roles (Court of Audit + Commerce Registry).</li>
+<li><a href="${SITE_URL}/en/budget">State budget</a> — KFP execution and per-ministry program reports.</li>
+<li><a href="${SITE_URL}/en/procurement">Public procurement</a> — awarders, contractors and contract flows from AOP (data.egov.bg).</li>
+<li><a href="${SITE_URL}/en/financing">Party financing</a> — annual financial reports from the Court of Audit.</li>
+<li><a href="${SITE_URL}/en/governments">Governments</a> and <a href="${SITE_URL}/en/indicators">indicators</a> — macroeconomic and governance context per cabinet.</li>
+</ul>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "budget",
+    title:
+      "Държавен бюджет на България — изпълнение, разпоредители, поръчки | electionsbg.com",
+    description:
+      "Изпълнение на държавния бюджет на България — приходи, разходи, дефицит и финансиране, разпоредители по министерства и програмен бюджет, по данни от data.egov.bg и Държавен вестник.",
+    breadcrumbName: "Държавен бюджет",
+    ogImage: "/og/budget.png",
+    bodyHtml: `
+<h1>Държавен бюджет на България</h1>
+<p>Изпълнението на държавния бюджет на България — приходи, разходи, дефицит и финансиране — обобщено за всяка фискална година от Консолидираната фискална програма (КФП) на Министерство на финансите и Закона за държавния бюджет, обнародван в Държавен вестник.</p>
+<h2>Какво ще намерите тук</h2>
+<ul>
+<li><strong>Изпълнение по месеци</strong> — кумулативни приходи, разходи, дефицит и вноска в бюджета на ЕС, нанесени върху линията на закона за съответната година.</li>
+<li><strong>Сравнение в същата точка от годината</strong> — изпълнение към края на месец X в две избрани години, един до друг.</li>
+<li><strong>USAFacts-style баланс</strong> — графика на потока на парите от приходи към разходи с дефицита като „стена".</li>
+<li><strong>Първостепенни разпоредители</strong> — план срещу изпълнение по министерства, агенции и независими органи.</li>
+<li><strong>Програмен бюджет</strong> — на ниво програма за всяко министерство (Отчет за изпълнението на програмния бюджет).</li>
+<li><strong>Обществени поръчки</strong> — кръстосана връзка към АОП за всяко министерство и неговите второстепенни разпоредители.</li>
+</ul>
+<p>Виж и <a href="${SITE_URL}/budget/methodology">методологията</a> за пълно описание на източниците, обработката и обхвата.</p>
+<p>Източници: <a href="https://data.egov.bg/" rel="nofollow noopener">data.egov.bg</a> (Министерство на финансите — КФП), <a href="https://dv.parliament.bg/" rel="nofollow noopener">Държавен вестник</a> (Закон за държавния бюджет), индивидуални „Отчет за изпълнението на програмния бюджет" на всеки първостепенен разпоредител.</p>`.trim(),
+    english: {
+      title:
+        "Bulgarian State Budget — Execution, Ministries, Procurement | electionsbg.com",
+      description:
+        "Bulgarian state budget execution — revenue, expenditure, deficit and financing, broken down by ministry and program, with cross-links into public procurement. Sourced from data.egov.bg and Държавен вестник.",
+      breadcrumbName: "State budget",
+      bodyHtml: `
+<h1>Bulgarian state budget</h1>
+<p>Execution of Bulgaria's state budget — revenue, expenditure, deficit and financing — summarised per fiscal year from the Ministry of Finance Consolidated Fiscal Programme (KFP) feed and the State Budget Law as promulgated in Държавен вестник.</p>
+<h2>What you'll find</h2>
+<ul>
+<li><strong>Execution by month</strong> — cumulative revenue, expenditure, deficit and EU contribution, plotted against the budget-law line for that year.</li>
+<li><strong>Same-point year-over-year comparison</strong> — execution at the end of month X in two chosen years, side by side.</li>
+<li><strong>USAFacts-style balance bridge</strong> — money flow from revenue into expenditure with the deficit as a wall.</li>
+<li><strong>Top-level spending units</strong> — planned versus actual for each ministry, agency and independent body.</li>
+<li><strong>Program budget</strong> — program-level drill-down per ministry, from each ministry's annual report.</li>
+<li><strong>Public procurement</strong> — cross-link into AOP for each ministry and its secondary spending units.</li>
+</ul>
+<p>See also the <a href="${SITE_URL}/en/budget/methodology">methodology</a> for a full description of sources, processing and scope.</p>
+<p>Sources: <a href="https://data.egov.bg/" rel="nofollow noopener">data.egov.bg</a> (Ministry of Finance — KFP), <a href="https://dv.parliament.bg/" rel="nofollow noopener">Държавен вестник</a> (State Budget Law), individual annual "Отчет за изпълнението на програмния бюджет" reports from each first-level spending unit.</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "budget/methodology",
+    title: "Методология — Държавен бюджет на България | electionsbg.com",
+    description:
+      "Откъде идват данните за държавния бюджет на electionsbg.com и как се обработват — КФП на Министерство на финансите, Закон за държавния бюджет и годишните отчети на първостепенните разпоредители.",
+    breadcrumbName: "Методология — Бюджет",
+    bodyHtml: `
+<h1>Методология — държавен бюджет</h1>
+<p>Описание на източниците, обработката и обхвата на бюджетните данни на electionsbg.com.</p>
+<h2>Източник на данните</h2>
+<p>Стойностите идват от набора „Изпълнение на държавния бюджет по основни бюджетни показатели" на Министерство на финансите, публикуван в националния портал за отворени данни <a href="https://data.egov.bg/" rel="nofollow noopener">data.egov.bg</a> под публичен лиценз CC0. Министерството публикува отделен ресурс за всяка месечна снимка на касовото изпълнение, в който са описани петте основни раздела на държавния бюджет — план по закона и изпълнено към момента в съответната фискална година.</p>
+<h2>Какво се показва</h2>
+<ul>
+<li><strong>Приходи</strong> — данъчни и неданъчни приходи, дарения.</li>
+<li><strong>Разходи</strong> — текущи, капиталови, социални, субсидии и лихви.</li>
+<li><strong>Вноска в бюджета на ЕС</strong> — приносът на България в общия бюджет на ЕС.</li>
+<li><strong>Баланс</strong> — приходи минус разходи минус вноската в ЕС; отрицателно означава дефицит.</li>
+<li><strong>Финансиране</strong> — как се финансира балансът: външен и вътрешен дълг, депозити, приватизация.</li>
+</ul>
+<h2>Валута и преминаването към еврото</h2>
+<p>България прие еврото на 1 януари 2026 г. Месечните снимки до и включително декември 2025 г. са публикувани в лева; от януари 2026 г. — в евро. Всички стойности на сайта се показват в евро.</p>
+<h2>Изпълнение по министерства</h2>
+<p>Всеки първостепенен разпоредител публикува свой годишен „Отчет за изпълнението на програмния бюджет". Скриптът ги парсва в единен административен формат и ги съпоставя със Закона за държавния бюджет — така за всяко министерство се вижда план срещу изпълнение на ниво министерство и една стъпка по-надолу — програмен бюджет.</p>
+<h2>Кръстосана връзка с обществените поръчки</h2>
+<p>Всяко министерство е свързано с агрегата си от обществени поръчки в АОП, така че от страницата на ведомството може директно да се преглежда какво то поръчва и на кого.</p>`.trim(),
+    english: {
+      title: "Methodology — Bulgarian State Budget | electionsbg.com",
+      description:
+        "Where electionsbg.com's state-budget data comes from and how it is processed — the Ministry of Finance KFP feed, the State Budget Law, and per-ministry program-execution reports.",
+      breadcrumbName: "Methodology — Budget",
+      bodyHtml: `
+<h1>Methodology — state budget</h1>
+<p>This page describes the sources, processing and scope of the state-budget data on electionsbg.com.</p>
+<h2>Data source</h2>
+<p>The figures come from the Ministry of Finance dataset "state budget execution by major budget indicators", published on the national open-data portal <a href="https://data.egov.bg/" rel="nofollow noopener">data.egov.bg</a> under a public-domain (CC0) licence. The Ministry publishes one resource per monthly cash-execution snapshot; each lists, for the five top-level sections of the state budget, the amount set by the budget law and the amount executed so far that fiscal year.</p>
+<h2>What is shown</h2>
+<ul>
+<li><strong>Revenue</strong> — tax and non-tax revenue, grants and donations.</li>
+<li><strong>Expenditure</strong> — personnel, operations, capital, social spending, subsidies and interest.</li>
+<li><strong>EU budget contribution</strong> — Bulgaria's contribution to the common EU budget.</li>
+<li><strong>Balance</strong> — revenue minus expenditure minus the EU contribution; negative means a deficit.</li>
+<li><strong>Financing</strong> — how the balance is financed: external and domestic borrowing, deposits, privatisation.</li>
+</ul>
+<h2>Currency and the euro changeover</h2>
+<p>Bulgaria adopted the euro on 1 January 2026. Monthly snapshots up to and including December 2025 are published in leva; from January 2026 they are in euro. Every figure on the dashboard is shown in euro.</p>
+<h2>Per-ministry execution</h2>
+<p>Each first-level spending unit publishes its own annual "Report on the execution of the programme budget". The ingest parses these into a uniform admin-grain table and reconciles them against the State Budget Law, so each ministry page shows planned versus actual at the ministry level and one column deeper at the program level.</p>
+<h2>Procurement cross-link</h2>
+<p>Each ministry is linked to its aggregate of public procurement in AOP, so a ministry's page also surfaces what it is buying and from whom.</p>`.trim(),
+    },
+  }),
+  staticPage({
     path: "observations",
     title:
       "Доклади на ОССЕ/ОДИХР за парламентарните избори в България | electionsbg.com",
