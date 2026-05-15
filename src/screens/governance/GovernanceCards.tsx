@@ -19,10 +19,11 @@ import {
   Wallet,
 } from "lucide-react";
 import { useProcurementByNs } from "@/data/procurement/useProcurementByNs";
-import { useBudgetIndex } from "@/data/budget/useBudget";
+import { useBudgetIndex, useKfp } from "@/data/budget/useBudget";
 import { useBudgetTerm } from "@/data/budget/useBudgetTerm";
 import { useElectionContext } from "@/data/ElectionContext";
 import { BudgetSummaryTile } from "@/screens/components/budget/BudgetSummaryTile";
+import { BudgetSamePointTile } from "@/screens/components/budget/BudgetSamePointTile";
 import { TopMpsTile } from "@/screens/components/procurement/TopMpsTile";
 import { TopContractorsTile } from "@/screens/components/procurement/TopContractorsTile";
 import { DashboardSection } from "@/screens/dashboard/DashboardSection";
@@ -57,7 +58,11 @@ export const GovernanceCards: FC = () => {
   const { data: nationalSummary } = useNationalSummary();
   const { data: procurementByNs } = useProcurementByNs();
   const { data: budgetIndex } = useBudgetIndex();
+  const { data: kfp } = useKfp();
   const budgetTerm = useBudgetTerm(budgetIndex);
+  const budgetSummary =
+    budgetTerm.years.find((y) => y.fiscalYear === budgetTerm.selectedFy)
+      ?.summary ?? null;
 
   const hasFinancials = !!electionStats?.hasFinancials;
 
@@ -104,6 +109,16 @@ export const GovernanceCards: FC = () => {
             articleTopic="budget"
           >
             <BudgetSummaryTile />
+            {kfp &&
+            budgetSummary &&
+            !budgetSummary.complete &&
+            budgetTerm.selectedFy != null ? (
+              <BudgetSamePointTile
+                observations={kfp.observations}
+                fiscalYear={budgetTerm.selectedFy}
+                monthsAvailable={budgetSummary.monthsAvailable}
+              />
+            ) : null}
           </DashboardSection>
         ) : null}
 
