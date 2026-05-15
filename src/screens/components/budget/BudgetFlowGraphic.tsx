@@ -603,7 +603,9 @@ const FlowSvg: FC<{
                     {shareLabel}
                   </div>
                 ) : null}
-                {node.plannedEur != null && node.plannedEur !== 0 ? (
+                {node.plannedEur != null &&
+                node.plannedEur !== 0 &&
+                node.valueEur !== node.plannedEur ? (
                   <div className="text-[11px] text-muted-foreground tabular-nums">
                     {((node.valueEur / node.plannedEur) * 100).toFixed(1)}%{" "}
                     {t("budget_of_plan") || "of plan"}

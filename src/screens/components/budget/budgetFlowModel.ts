@@ -13,7 +13,11 @@ import type {
   KfpSnapshotLine,
   KfpSnapshotSection,
 } from "@/data/budget/types";
-import type { AdminFlowYear } from "@/data/budget/useBudget";
+import type {
+  AdminFlowYear,
+  PlannedTree,
+  PlannedTreeLine,
+} from "@/data/budget/useBudget";
 
 export type FlowSide = "revenue" | "spending";
 export type FlowNodeType = "leaf" | "group" | "total";
@@ -306,15 +310,110 @@ const buildGraph = (
   return { nodes, links, totalEur, totalNodeId };
 };
 
+// Translation map for the planned-revenue tree headings. The pipeline only
+// emits the Bulgarian label, so the EN side maps from a curated table —
+// keys are the trimmed Bulgarian labels from ЗДБРБ Чл. 1.
+const PLANNED_REVENUE_EN: Record<string, string> = {
+  "ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ": "Revenue, grants and donations",
+  "Данъчни приходи": "Tax revenue",
+  "Корпоративен данък": "Corporate income tax",
+  "Данъци върху дивидентите, ликвидационните дялове и доходите на юридически лица":
+    "Taxes on dividends, liquidation shares and other income of legal entities",
+  "Данъци върху доходите на физически лица": "Personal income tax",
+  "Данък върху добавената стойност": "Value added tax",
+  Акцизи: "Excise duties",
+  "Данък върху застрахователните премии": "Insurance premium tax",
+  "Мита и митнически такси": "Customs duties",
+  "Други данъци": "Other taxes",
+  "Неданъчни приходи": "Non-tax revenue",
+  "Помощи и дарения": "Grants and donations",
+};
+
+const PLANNED_TRANSFERS_EN: Record<string, string> = {
+  "БЮДЖЕТНИ ВЗАИМООТНОШЕНИЯ (ТРАНСФЕРИ) - НЕТО": "Transfers (net)",
+  "БЮДЖЕТНИ ВЗАИМООТНОШЕНИЯ (ТРАНСФЕРИ) – НЕТО": "Transfers (net)",
+  "Предоставени трансфери за:": "Provided transfers",
+  "Получени трансфери от:": "Received transfers",
+  Общините: "Municipalities",
+  "Държавното обществено осигуряване": "State social security (NSSI)",
+  "Националната здравноосигурителна каса": "National Health Insurance Fund",
+  "Сметката за средствата от Европейския съюз на Националния фонд":
+    "EU funds at the National Fund",
+  "Сметката за средствата от Европейския съюз на Държавния фонд „Земеделие“":
+    "EU funds at the State Agriculture Fund",
+};
+
+const lookupEn = (bg: string, table: Record<string, string>): string | null => {
+  const key = bg.replace(/\s+/g, " ").trim();
+  return table[key] ?? null;
+};
+
+// Lift a PlannedTree (planned revenue from SBL Чл. 1) into the same
+// KfpSnapshotSection shape buildGraph consumes — the Sankey doesn't care that
+// the source is the SBL plan rather than the КФП execution feed, only that
+// the depth/isSubtotal hierarchy matches. Drops depth ≥ 2 sub-rows; they're
+// fine-print details that would clutter the графика.
+const plannedRevenueToSection = (
+  tree: PlannedTree,
+  enTable: Record<string, string>,
+): KfpSnapshotSection => {
+  const lines: KfpSnapshotLine[] = tree.lines
+    .filter((l) => l.depth <= 1)
+    .map((l) => ({
+      labelBg: l.labelBg,
+      labelEn: lookupEn(l.labelBg, enTable) ?? l.labelBg,
+      planned: {
+        amount: l.plannedEur,
+        amountEur: l.plannedEur,
+        currency: "EUR",
+      },
+      executed: null,
+      depth: l.depth,
+      isSubtotal: l.isSubtotal,
+      groupLabelBg: null,
+      groupLabelEn: null,
+    }));
+  return {
+    code: "I",
+    series: "revenue",
+    kind: "revenue",
+    labelBg: "ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ",
+    labelEn: "Revenue, grants and donations",
+    planned: {
+      amount: tree.totalEur,
+      amountEur: tree.totalEur,
+      currency: "EUR",
+    },
+    executed: null,
+    lines,
+  };
+};
+
 // Admin-grain spending — one leaf per ministry, sized by the State Budget Law
 // plan. Top N ministries shown explicitly; the long tail folded into a single
 // "Other spending units" leaf so the графика stays readable.
 const TOP_MINISTRIES = 14;
 
+// Admin-grain spending — three depth-0 groups feed the total:
+//   • Section II "Direct" → per-ministry leaves + "Central budget" gap leaf
+//     (Section II is wider than the sum of direct ministry appropriations
+//     because of central reserves and общи разходи that don't pin to a unit).
+//   • Section III "Transfers (net)" → per-recipient leaves (Общини, ДОО, НЗОК,
+//     EU funds, …).
+//   • Section IV "EU contribution" → single leaf (no internal decomposition).
+// Total = II + III + IV, which reconciles to the law's framework spending.
+// Falls back to the legacy "one group per ministry" layout when the framework
+// data isn't available (older fiscal years).
 const buildAdminSpendingGraph = (
   year: AdminFlowYear,
-  totalLabel: string,
-  otherLabel: string,
+  labels: {
+    totalLabel: string;
+    otherLabel: string;
+    directGroupLabel: string;
+    centralBudgetLabel: string;
+    transfersGroupLabel: string;
+    euContributionLabel: string;
+  },
   lang: "bg" | "en",
 ): FlowGraph => {
   const nodes: FlowNode[] = [];
@@ -323,6 +422,85 @@ const buildAdminSpendingGraph = (
   const ministries = year.ministries;
   const top = ministries.slice(0, TOP_MINISTRIES);
   const rest = ministries.slice(TOP_MINISTRIES);
+
+  const hasFramework =
+    year.plannedSectionIIEur != null &&
+    year.plannedTransfers != null &&
+    year.plannedEuContributionEur != null;
+  if (!hasFramework) {
+    // Legacy path — direct appropriations only, single group → total.
+    for (const m of top) {
+      const id = `spending-ministry-${m.nodeId}`;
+      nodes.push({
+        id,
+        label: lang === "en" && m.nameEn ? m.nameEn : m.nameBg,
+        type: "leaf",
+        side: "spending",
+        valueEur: m.plannedEur,
+        plannedEur: m.plannedEur,
+        groupLabel: null,
+        ministryNodeId: m.nodeId,
+      });
+      links.push({
+        source: id,
+        target: totalNodeId,
+        valueEur: m.plannedEur,
+      });
+    }
+    if (rest.length > 0) {
+      const restSum = rest.reduce((a, m) => a + m.plannedEur, 0);
+      if (restSum > 0) {
+        const id = "spending-ministry-other";
+        nodes.push({
+          id,
+          label: `${labels.otherLabel} (${rest.length})`,
+          type: "leaf",
+          side: "spending",
+          valueEur: restSum,
+          plannedEur: restSum,
+          groupLabel: null,
+          ministryNodeId: null,
+        });
+        links.push({ source: id, target: totalNodeId, valueEur: restSum });
+      }
+    }
+    nodes.push({
+      id: totalNodeId,
+      label: labels.totalLabel,
+      type: "total",
+      side: "spending",
+      valueEur: year.plannedTotalEur,
+      plannedEur: year.plannedTotalEur,
+      groupLabel: null,
+      ministryNodeId: null,
+    });
+    return { nodes, links, totalEur: year.plannedTotalEur, totalNodeId };
+  }
+
+  // Framework-aware path. Build the three depth-0 groups in order.
+  const sectionIIEur = year.plannedSectionIIEur ?? 0;
+  const ministrySum =
+    top.reduce((a, m) => a + m.plannedEur, 0) +
+    rest.reduce((a, m) => a + m.plannedEur, 0);
+  const centralBudgetEur = Math.max(0, sectionIIEur - ministrySum);
+
+  // II. Direct (per ministry) ----------------------------------------------
+  const directGroupId = "spending-section-ii";
+  nodes.push({
+    id: directGroupId,
+    label: labels.directGroupLabel,
+    type: "group",
+    side: "spending",
+    valueEur: sectionIIEur,
+    plannedEur: sectionIIEur,
+    groupLabel: null,
+    ministryNodeId: null,
+  });
+  links.push({
+    source: directGroupId,
+    target: totalNodeId,
+    valueEur: sectionIIEur,
+  });
   for (const m of top) {
     const id = `spending-ministry-${m.nodeId}`;
     nodes.push({
@@ -332,14 +510,10 @@ const buildAdminSpendingGraph = (
       side: "spending",
       valueEur: m.plannedEur,
       plannedEur: m.plannedEur,
-      groupLabel: null,
+      groupLabel: labels.directGroupLabel,
       ministryNodeId: m.nodeId,
     });
-    links.push({
-      source: id,
-      target: totalNodeId,
-      valueEur: m.plannedEur,
-    });
+    links.push({ source: id, target: directGroupId, valueEur: m.plannedEur });
   }
   if (rest.length > 0) {
     const restSum = rest.reduce((a, m) => a + m.plannedEur, 0);
@@ -347,37 +521,144 @@ const buildAdminSpendingGraph = (
       const id = "spending-ministry-other";
       nodes.push({
         id,
-        label: `${otherLabel} (${rest.length})`,
+        label: `${labels.otherLabel} (${rest.length})`,
         type: "leaf",
         side: "spending",
         valueEur: restSum,
         plannedEur: restSum,
-        groupLabel: null,
+        groupLabel: labels.directGroupLabel,
         ministryNodeId: null,
       });
-      links.push({
-        source: id,
-        target: totalNodeId,
-        valueEur: restSum,
-      });
+      links.push({ source: id, target: directGroupId, valueEur: restSum });
     }
   }
+  if (centralBudgetEur > 0) {
+    const id = "spending-central-budget";
+    nodes.push({
+      id,
+      label: labels.centralBudgetLabel,
+      type: "leaf",
+      side: "spending",
+      valueEur: centralBudgetEur,
+      plannedEur: centralBudgetEur,
+      groupLabel: labels.directGroupLabel,
+      ministryNodeId: null,
+    });
+    links.push({
+      source: id,
+      target: directGroupId,
+      valueEur: centralBudgetEur,
+    });
+  }
+
+  // III. Transfers (net) ----------------------------------------------------
+  const transfersGroupId = "spending-section-iii";
+  const transfersTotalEur = year.plannedTransfers!.totalEur;
   nodes.push({
-    id: totalNodeId,
-    label: totalLabel,
-    type: "total",
+    id: transfersGroupId,
+    label: labels.transfersGroupLabel,
+    type: "group",
     side: "spending",
-    valueEur: year.plannedTotalEur,
-    plannedEur: year.plannedTotalEur,
+    valueEur: transfersTotalEur,
+    plannedEur: transfersTotalEur,
     groupLabel: null,
     ministryNodeId: null,
   });
-  return {
-    nodes,
-    links,
-    totalEur: year.plannedTotalEur,
-    totalNodeId,
-  };
+  links.push({
+    source: transfersGroupId,
+    target: totalNodeId,
+    valueEur: transfersTotalEur,
+  });
+  // Pick depth-1 leaves under the "Предоставени" depth-0 subtotal. These are
+  // the headline recipient buckets (Общини, ДОО, НЗОК, EU at NF, EU at ДФЗ).
+  // Drop the small "Получени" branch — it's a sub-percent adjustment that
+  // already nets into the framework's transfers total and would clutter the
+  // visualization.
+  const transferLeaves = pickProvidedTransferLeaves(year.plannedTransfers!);
+  for (const leaf of transferLeaves) {
+    const id = `spending-transfer-${leaf.code}`;
+    nodes.push({
+      id,
+      label:
+        lang === "en"
+          ? (lookupEn(leaf.labelBg, PLANNED_TRANSFERS_EN) ?? leaf.labelBg)
+          : leaf.labelBg,
+      type: "leaf",
+      side: "spending",
+      valueEur: leaf.plannedEur,
+      plannedEur: leaf.plannedEur,
+      groupLabel: labels.transfersGroupLabel,
+      ministryNodeId: null,
+    });
+    links.push({
+      source: id,
+      target: transfersGroupId,
+      valueEur: leaf.plannedEur,
+    });
+  }
+
+  // IV. EU contribution -----------------------------------------------------
+  const euId = "spending-section-iv";
+  const euEur = year.plannedEuContributionEur ?? 0;
+  if (euEur > 0) {
+    nodes.push({
+      id: euId,
+      label: labels.euContributionLabel,
+      type: "group",
+      side: "spending",
+      valueEur: euEur,
+      plannedEur: euEur,
+      groupLabel: null,
+      ministryNodeId: null,
+    });
+    links.push({ source: euId, target: totalNodeId, valueEur: euEur });
+    // d3-sankey routes leaves into the depth-1 (group) column; we want EU to
+    // sit there alongside the other section groups, not in the leaf column
+    // with the ministry leaves. The same trick as the economic-grain EU
+    // section: a phantom source feeds the group from the leaf column.
+    const phantomId = `${euId}-layout-src`;
+    nodes.push({
+      id: phantomId,
+      label: "",
+      type: "leaf",
+      side: "spending",
+      valueEur: euEur,
+      plannedEur: null,
+      groupLabel: null,
+      ministryNodeId: null,
+      isPhantom: true,
+    });
+    links.push({ source: phantomId, target: euId, valueEur: euEur });
+  }
+
+  const totalEur = sectionIIEur + transfersTotalEur + euEur;
+  nodes.push({
+    id: totalNodeId,
+    label: labels.totalLabel,
+    type: "total",
+    side: "spending",
+    valueEur: totalEur,
+    plannedEur: totalEur,
+    groupLabel: null,
+    ministryNodeId: null,
+  });
+  return { nodes, links, totalEur, totalNodeId };
+};
+
+// Extract depth-1 leaves under the "Предоставени трансфери" depth-0 subtotal.
+// Walks until the next depth-0 row.
+const pickProvidedTransferLeaves = (tree: PlannedTree): PlannedTreeLine[] => {
+  const out: PlannedTreeLine[] = [];
+  let inProvided = false;
+  for (const line of tree.lines) {
+    if (line.depth === 0) {
+      inProvided = /Предоставени/i.test(line.labelBg);
+      continue;
+    }
+    if (!inProvided) continue;
+    if (line.depth === 1 && line.plannedEur > 0) out.push(line);
+  }
+  return out;
 };
 
 export const snapshotToFlowModel = (
@@ -434,9 +715,14 @@ export const snapshotToFlowModel = (
   };
 };
 
-// Admin-grain model: the spending side decomposes by ministry (planned, from
-// the State Budget Law). The revenue side stays from КФП — the toggle is
-// strictly about how to slice expenditure, the inflow story is unchanged.
+// Admin-grain model: both sides come from the State Budget Law plan when the
+// Чл. 1 framework is ingested for this year. The revenue side renders the
+// planned revenue tree (tax breakdown + non-tax + grants); the spending side
+// renders all three SBL spending sections (II direct + III transfers + IV EU);
+// the balance bridge is the law's own planned deficit/surplus (V = I-II-III-IV).
+// When the framework is missing (older years), falls back to the legacy mix:
+// КФП-executed revenue vs SBL-planned direct appropriations — known to be
+// grain-mismatched but the best we can do without the framework data.
 export const snapshotToAdminFlowModel = (
   snapshot: KfpSnapshot,
   adminYear: AdminFlowYear,
@@ -445,28 +731,56 @@ export const snapshotToAdminFlowModel = (
     revenueLabel: string;
     spendingLabel: string;
     otherLabel: string;
+    directGroupLabel: string;
+    centralBudgetLabel: string;
+    transfersGroupLabel: string;
+    euContributionLabel: string;
   },
 ): BudgetFlowModel => {
-  const revenueSection = snapshot.sections.find((s) => s.series === "revenue");
-  if (!revenueSection) {
-    throw new Error(
-      "snapshotToAdminFlowModel: missing revenue section in snapshot",
+  let revenue: FlowGraph;
+  if (adminYear.plannedRevenue) {
+    revenue = buildGraph(
+      "revenue",
+      plannedRevenueToSection(adminYear.plannedRevenue, PLANNED_REVENUE_EN),
+      [],
+      totals.revenueLabel,
+      lang,
+    );
+  } else {
+    const revenueSection = snapshot.sections.find(
+      (s) => s.series === "revenue",
+    );
+    if (!revenueSection) {
+      throw new Error(
+        "snapshotToAdminFlowModel: missing revenue section in snapshot",
+      );
+    }
+    revenue = buildGraph(
+      "revenue",
+      revenueSection,
+      [],
+      totals.revenueLabel,
+      lang,
     );
   }
-  const revenue = buildGraph(
-    "revenue",
-    revenueSection,
-    [],
-    totals.revenueLabel,
-    lang,
-  );
   const spending = buildAdminSpendingGraph(
     adminYear,
-    totals.spendingLabel,
-    totals.otherLabel,
+    {
+      totalLabel: totals.spendingLabel,
+      otherLabel: totals.otherLabel,
+      directGroupLabel: totals.directGroupLabel,
+      centralBudgetLabel: totals.centralBudgetLabel,
+      transfersGroupLabel: totals.transfersGroupLabel,
+      euContributionLabel: totals.euContributionLabel,
+    },
     lang,
   );
-  const balanceEur = revenue.totalEur - spending.totalEur;
+  // Planned balance from the law (V. БЮДЖЕТНО САЛДО) when available; the law
+  // defines it as I-II-III-IV which equals revenue.totalEur - spending.totalEur
+  // by construction once both sides come from the framework. The arithmetic
+  // fallback is for legacy years where the framework is missing.
+  const balanceEur =
+    adminYear.plannedBalanceEur ?? revenue.totalEur - spending.totalEur;
   return {
     fiscalYear: snapshot.fiscalYear,
     asOf: snapshot.asOf,

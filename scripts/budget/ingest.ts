@@ -40,7 +40,7 @@ import {
 } from "./kfp";
 import type { ParsedResource } from "./kfp";
 import { parseLawHtml } from "./law_html";
-import type { ParsedLawUnit } from "./law_html";
+import type { ParsedLawUnit, ParsedLawFramework } from "./law_html";
 import { buildAdminRegistry, buildLawFacts, buildProgramData } from "./facts";
 import { parseExecutionPdf } from "./execution_pdf";
 import { parseBorderlessExecutionPdf } from "./execution_borderless_pdf";
@@ -307,20 +307,35 @@ const main = async (args: {
   // per-spending-unit appropriations (the `admin` grain).
   console.log("→ parsing state budget laws");
   const unitsByYear = new Map<number, ParsedLawUnit[]>();
+  const frameworkByYear = new Map<number, ParsedLawFramework>();
   for (const [yearStr, idMat] of Object.entries(LAW_DV_MATERIALS)) {
     const year = parseInt(yearStr, 10);
     const html = await fetchLawHtml(year, idMat, {
       refresh: args.refreshCache,
     });
-    const units = parseLawHtml(html, year);
+    const { units, framework } = parseLawHtml(html, year);
     unitsByYear.set(year, units);
-    console.log(`  • ${year}: ${units.length} spending unit(s)`);
+    if (framework) frameworkByYear.set(year, framework);
+    console.log(
+      `  • ${year}: ${units.length} spending unit(s)` +
+        (framework ? `, framework parsed` : `, framework MISSING`),
+    );
   }
   // Law-parser canary — re-parse the pinned year and byte-compare.
   if (unitsByYear.has(LAW_CANARY_YEAR)) {
     console.log(`→ canary on budget law ${LAW_CANARY_YEAR}`);
     runCanary(LAW_CANARY_FIXTURE, unitsByYear.get(LAW_CANARY_YEAR));
   }
+  // Persist the parsed Чл. 1 framework so derived_admin_flow.ts (which runs
+  // standalone too) can include the planned revenue + transfers + EU + balance
+  // headlines into admin_flow.json without re-parsing the law HTML. The write
+  // is independent of the final `touched` counter — this file is a build
+  // intermediate consumed downstream within the same ingest run.
+  const frameworkPath = path.join(BUDGET_DIR, "derived", "law_framework.json");
+  const frameworkObj: Record<string, ParsedLawFramework> = {};
+  for (const [year, fw] of frameworkByYear) frameworkObj[String(year)] = fw;
+  fs.mkdirSync(path.dirname(frameworkPath), { recursive: true });
+  writeIfChanged(frameworkPath, canonicalJson(frameworkObj));
   const adminRegistry = buildAdminRegistry(unitsByYear);
   // Phase 4 — match spending units to procurement awarders (stamps `eik` onto
   // the admin registry nodes). Non-fatal when data/procurement/ is absent.

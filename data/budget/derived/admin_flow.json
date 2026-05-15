@@ -299,7 +299,181 @@
           "plannedEur": 809989
         }
       ],
-      "plannedTotalEur": 5111630765
+      "plannedBalanceEur": 31896739,
+      "plannedEuContributionEur": 714470225,
+      "plannedRevenue": {
+        "lines": [
+          {
+            "code": "1",
+            "depth": 0,
+            "isSubtotal": true,
+            "labelBg": "Данъчни приходи",
+            "plannedEur": 12802682237
+          },
+          {
+            "code": "1.1",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Корпоративен данък",
+            "plannedEur": 1396389257
+          },
+          {
+            "code": "1.2",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Данъци върху дивидентите, ликвидационните дялове и доходите на юридически лица",
+            "plannedEur": 42948518
+          },
+          {
+            "code": "1.3",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Данъци върху доходите на физически лица",
+            "plannedEur": 2228450325
+          },
+          {
+            "code": "1.4",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Данък върху добавената стойност",
+            "plannedEur": 5997453766
+          },
+          {
+            "code": "1.5",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Акцизи",
+            "plannedEur": 2911909522
+          },
+          {
+            "code": "1.6",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Данък върху застрахователните премии",
+            "plannedEur": 22905876
+          },
+          {
+            "code": "1.7",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Мита и митнически такси",
+            "plannedEur": 121278434
+          },
+          {
+            "code": "1.8",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Други данъци",
+            "plannedEur": 81346538
+          },
+          {
+            "code": "2",
+            "depth": 0,
+            "isSubtotal": false,
+            "labelBg": "Неданъчни приходи",
+            "plannedEur": 1541449257
+          }
+        ],
+        "totalEur": 14344131494
+      },
+      "plannedSectionIIEur": 7340297623,
+      "plannedTotalEur": 5111630765,
+      "plannedTransfers": {
+        "lines": [
+          {
+            "code": "1",
+            "depth": 0,
+            "isSubtotal": true,
+            "labelBg": "Предоставени трансфери за:",
+            "plannedEur": 6267146787
+          },
+          {
+            "code": "1.1",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Общините",
+            "plannedEur": 2148727395
+          },
+          {
+            "code": "1.2",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Държавното обществено осигуряване",
+            "plannedEur": 2204962292
+          },
+          {
+            "code": "1.3",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Националната здравноосигурителна каса",
+            "plannedEur": 826758716
+          },
+          {
+            "code": "1.3.1",
+            "depth": 2,
+            "isSubtotal": false,
+            "labelBg": "– от Министерството на здравеопазването",
+            "plannedEur": 42641743
+          },
+          {
+            "code": "1.4",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Сметката за средствата от Европейския съюз на Националния фонд",
+            "plannedEur": 450662532
+          },
+          {
+            "code": "1.5",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Сметката за средствата от Европейския съюз на Държавния фонд „Земеделие“",
+            "plannedEur": 135825148
+          },
+          {
+            "code": "2",
+            "depth": 0,
+            "isSubtotal": true,
+            "labelBg": "Получени трансфери от:",
+            "plannedEur": 9679880
+          },
+          {
+            "code": "2.1",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Държавното обществено осигуряване",
+            "plannedEur": 3783560
+          },
+          {
+            "code": "2.1.1",
+            "depth": 2,
+            "isSubtotal": false,
+            "labelBg": "– за Министерството на труда и социалната политика",
+            "plannedEur": 2045168
+          },
+          {
+            "code": "2.1.2",
+            "depth": 2,
+            "isSubtotal": false,
+            "labelBg": "– за Министерството на транспорта, информационните технологии и съобщенията",
+            "plannedEur": 127823
+          },
+          {
+            "code": "2.1.3",
+            "depth": 2,
+            "isSubtotal": false,
+            "labelBg": "– за Министерството на здравеопазването",
+            "plannedEur": 1610569
+          },
+          {
+            "code": "2.2",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Националната здравноосигурителна каса за Министерството на финансите",
+            "plannedEur": 2828569
+          }
+        ],
+        "totalEur": 6257466907
+      }
     },
     "2022": {
       "executedTotalEur": null,
@@ -621,7 +795,174 @@
           "plannedEur": 915877
         }
       ],
-      "plannedTotalEur": 8098510656
+      "plannedBalanceEur": -3197224503,
+      "plannedEuContributionEur": 860678484,
+      "plannedRevenue": {
+        "lines": [
+          {
+            "code": "1",
+            "depth": 0,
+            "isSubtotal": true,
+            "labelBg": "Данъчни приходи",
+            "plannedEur": 15519027216
+          },
+          {
+            "code": "1.1",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Корпоративен данък",
+            "plannedEur": 1967885757
+          },
+          {
+            "code": "1.2",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Данъци върху дивидентите, ликвидационните дялове и доходите на юридически лица",
+            "plannedEur": 41133432
+          },
+          {
+            "code": "1.3",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Данъци върху доходите на физически лица",
+            "plannedEur": 2681725917
+          },
+          {
+            "code": "1.4",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Данък върху добавената стойност",
+            "plannedEur": 7556894004
+          },
+          {
+            "code": "1.5",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Акцизи",
+            "plannedEur": 3024291477
+          },
+          {
+            "code": "1.6",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Данък върху застрахователните премии",
+            "plannedEur": 26587178
+          },
+          {
+            "code": "1.7",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Мита и митнически такси",
+            "plannedEur": 154972569
+          },
+          {
+            "code": "1.8",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Други данъци",
+            "plannedEur": 65536882
+          },
+          {
+            "code": "2",
+            "depth": 0,
+            "isSubtotal": false,
+            "labelBg": "Неданъчни приходи",
+            "plannedEur": 1233338225
+          }
+        ],
+        "totalEur": 16752365441
+      },
+      "plannedSectionIIEur": 10257448705,
+      "plannedTotalEur": 8098510656,
+      "plannedTransfers": {
+        "lines": [
+          {
+            "code": "1",
+            "depth": 0,
+            "isSubtotal": true,
+            "labelBg": "Предоставени трансфери за:",
+            "plannedEur": 8838314066
+          },
+          {
+            "code": "1.1",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Общините",
+            "plannedEur": 2869791444
+          },
+          {
+            "code": "1.2",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Държавното обществено осигуряване",
+            "plannedEur": 3672684794
+          },
+          {
+            "code": "1.3",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Националната здравноосигурителна каса",
+            "plannedEur": 1159811998
+          },
+          {
+            "code": "1.3.1",
+            "depth": 2,
+            "isSubtotal": false,
+            "labelBg": "– от Министерството на здравеопазването",
+            "plannedEur": 54488683
+          },
+          {
+            "code": "1.4",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Сметката за средствата от Европейския съюз на Националния фонд",
+            "plannedEur": 348767173
+          },
+          {
+            "code": "1.5",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Сметката за средствата от Европейския съюз на Държавния фонд „Земеделие“",
+            "plannedEur": 119845488
+          },
+          {
+            "code": "2",
+            "depth": 0,
+            "isSubtotal": true,
+            "labelBg": "Получени трансфери от:",
+            "plannedEur": 6851311
+          },
+          {
+            "code": "2.1",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Държавното обществено осигуряване",
+            "plannedEur": 3783560
+          },
+          {
+            "code": "2.1.1",
+            "depth": 2,
+            "isSubtotal": false,
+            "labelBg": "– за Министерството на труда и социалната политика",
+            "plannedEur": 2045168
+          },
+          {
+            "code": "2.1.2",
+            "depth": 2,
+            "isSubtotal": false,
+            "labelBg": "– за Министерския съвет",
+            "plannedEur": 127823
+          },
+          {
+            "code": "2.1.3",
+            "depth": 2,
+            "isSubtotal": false,
+            "labelBg": "– за Министерството на здравеопазването",
+            "plannedEur": 1610569
+          }
+        ],
+        "totalEur": 8831462755
+      }
     },
     "2023": {
       "executedTotalEur": 1507332018,
@@ -943,7 +1284,181 @@
           "plannedEur": 982243
         }
       ],
-      "plannedTotalEur": 9075512184
+      "plannedBalanceEur": -3075941468,
+      "plannedEuContributionEur": 1044266731,
+      "plannedRevenue": {
+        "lines": [
+          {
+            "code": "1",
+            "depth": 0,
+            "isSubtotal": true,
+            "labelBg": "Данъчни приходи",
+            "plannedEur": 18181232520
+          },
+          {
+            "code": "1.1",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Корпоративен данък",
+            "plannedEur": 2763190052
+          },
+          {
+            "code": "1.2",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Данъци върху дивидентите, ликвидационните дялове и доходите на юридически лица",
+            "plannedEur": 54028213
+          },
+          {
+            "code": "1.3",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Данъци върху доходите на физически лица",
+            "plannedEur": 3118880475
+          },
+          {
+            "code": "1.4",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Данък върху добавената стойност",
+            "plannedEur": 8694518440
+          },
+          {
+            "code": "1.5",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Акцизи",
+            "plannedEur": 3036562482
+          },
+          {
+            "code": "1.6",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Данък върху застрахователните премии",
+            "plannedEur": 29399283
+          },
+          {
+            "code": "1.7",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Мита и митнически такси",
+            "plannedEur": 207073212
+          },
+          {
+            "code": "1.8",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Други данъци",
+            "plannedEur": 277580362
+          },
+          {
+            "code": "2",
+            "depth": 0,
+            "isSubtotal": false,
+            "labelBg": "Неданъчни приходи",
+            "plannedEur": 2684622181
+          },
+          {
+            "code": "3",
+            "depth": 0,
+            "isSubtotal": false,
+            "labelBg": "Помощи и дарения",
+            "plannedEur": 255646
+          }
+        ],
+        "totalEur": 20866110347
+      },
+      "plannedSectionIIEur": 11377411892,
+      "plannedTotalEur": 9075512184,
+      "plannedTransfers": {
+        "lines": [
+          {
+            "code": "1",
+            "depth": 0,
+            "isSubtotal": true,
+            "labelBg": "Предоставени трансфери за:",
+            "plannedEur": 11527224503
+          },
+          {
+            "code": "1.1",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Общините",
+            "plannedEur": 3587371704
+          },
+          {
+            "code": "1.2",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Държавното обществено осигуряване",
+            "plannedEur": 5405861706
+          },
+          {
+            "code": "1.3",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Националната здравноосигурителна каса",
+            "plannedEur": 1387807632
+          },
+          {
+            "code": "1.3.1",
+            "depth": 2,
+            "isSubtotal": false,
+            "labelBg": "– от Министерството на здравеопазването",
+            "plannedEur": 78372149
+          },
+          {
+            "code": "1.4",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Сметката за средствата от Европейския съюз на Националния фонд",
+            "plannedEur": 267281614
+          },
+          {
+            "code": "1.5",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Сметката за средствата от Европейския съюз на Държавния фонд „Земеделие“",
+            "plannedEur": 171444451
+          },
+          {
+            "code": "2",
+            "depth": 0,
+            "isSubtotal": true,
+            "labelBg": "Получени трансфери от:",
+            "plannedEur": 6851311
+          },
+          {
+            "code": "2.1",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Държавното обществено осигуряване",
+            "plannedEur": 3783560
+          },
+          {
+            "code": "2.1.1",
+            "depth": 2,
+            "isSubtotal": false,
+            "labelBg": "– за Министерството на труда и социалната политика",
+            "plannedEur": 2045168
+          },
+          {
+            "code": "2.1.2",
+            "depth": 2,
+            "isSubtotal": false,
+            "labelBg": "– за Министерството на транспорта и съобщенията",
+            "plannedEur": 127823
+          },
+          {
+            "code": "2.1.3",
+            "depth": 2,
+            "isSubtotal": false,
+            "labelBg": "– за Министерството на здравеопазването",
+            "plannedEur": 1610569
+          }
+        ],
+        "totalEur": 11520373192
+      }
     },
     "2024": {
       "executedTotalEur": 3870857550,
@@ -1279,7 +1794,181 @@
           "plannedEur": 1095392
         }
       ],
-      "plannedTotalEur": 8779473011
+      "plannedBalanceEur": -4106916961,
+      "plannedEuContributionEur": 1161180522,
+      "plannedRevenue": {
+        "lines": [
+          {
+            "code": "1",
+            "depth": 0,
+            "isSubtotal": true,
+            "labelBg": "Данъчни приходи",
+            "plannedEur": 19744048307
+          },
+          {
+            "code": "1.1",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Корпоративен данък",
+            "plannedEur": 2973673581
+          },
+          {
+            "code": "1.2",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Данъци върху дивидентите, ликвидационните дялове и доходите на юридически лица",
+            "plannedEur": 58287274
+          },
+          {
+            "code": "1.3",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Данъци върху доходите на физически лица",
+            "plannedEur": 3530470440
+          },
+          {
+            "code": "1.4",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Данък върху добавената стойност",
+            "plannedEur": 9523374731
+          },
+          {
+            "code": "1.5",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Акцизи",
+            "plannedEur": 3295276174
+          },
+          {
+            "code": "1.6",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Данък върху застрахователните премии",
+            "plannedEur": 32211389
+          },
+          {
+            "code": "1.7",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Мита и митнически такси",
+            "plannedEur": 189177996
+          },
+          {
+            "code": "1.8",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Други данъци",
+            "plannedEur": 141576722
+          },
+          {
+            "code": "2",
+            "depth": 0,
+            "isSubtotal": false,
+            "labelBg": "Неданъчни приходи",
+            "plannedEur": 2449097161
+          },
+          {
+            "code": "3",
+            "depth": 0,
+            "isSubtotal": false,
+            "labelBg": "Помощи и дарения",
+            "plannedEur": 255646
+          }
+        ],
+        "totalEur": 22193401114
+      },
+      "plannedSectionIIEur": 12097031388,
+      "plannedTotalEur": 8779473011,
+      "plannedTransfers": {
+        "lines": [
+          {
+            "code": "1",
+            "depth": 0,
+            "isSubtotal": true,
+            "labelBg": "Предоставени трансфери за:",
+            "plannedEur": 13048957476
+          },
+          {
+            "code": "1.1",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Общините",
+            "plannedEur": 4025144005
+          },
+          {
+            "code": "1.2",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Държавното обществено осигуряване",
+            "plannedEur": 5859191136
+          },
+          {
+            "code": "1.3",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Националната здравноосигурителна каса",
+            "plannedEur": 1665521697
+          },
+          {
+            "code": "1.3.1",
+            "depth": 2,
+            "isSubtotal": false,
+            "labelBg": "– от Министерството на здравеопазването",
+            "plannedEur": 91402065
+          },
+          {
+            "code": "1.4",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Сметката за средствата от Европейския съюз на Националния фонд",
+            "plannedEur": 515410133
+          },
+          {
+            "code": "1.5",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Сметката за средствата от Европейския съюз на Държавния фонд „Земеделие“",
+            "plannedEur": 233303355
+          },
+          {
+            "code": "2",
+            "depth": 0,
+            "isSubtotal": true,
+            "labelBg": "Получени трансфери от:",
+            "plannedEur": 6851311
+          },
+          {
+            "code": "2.1",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Държавното обществено осигуряване",
+            "plannedEur": 3783560
+          },
+          {
+            "code": "2.1.1",
+            "depth": 2,
+            "isSubtotal": false,
+            "labelBg": "– за Министерството на труда и социалната политика",
+            "plannedEur": 2045168
+          },
+          {
+            "code": "2.1.2",
+            "depth": 2,
+            "isSubtotal": false,
+            "labelBg": "– за Министерството на транспорта и съобщенията",
+            "plannedEur": 127823
+          },
+          {
+            "code": "2.1.3",
+            "depth": 2,
+            "isSubtotal": false,
+            "labelBg": "– за Министерството на здравеопазването",
+            "plannedEur": 1610569
+          }
+        ],
+        "totalEur": 13042106165
+      }
     },
     "2025": {
       "executedTotalEur": null,
@@ -1615,8 +2304,182 @@
           "plannedEur": 1319491
         }
       ],
-      "plannedTotalEur": 12436771399
+      "plannedBalanceEur": -3646864707,
+      "plannedEuContributionEur": 1033086874,
+      "plannedRevenue": {
+        "lines": [
+          {
+            "code": "1",
+            "depth": 0,
+            "isSubtotal": true,
+            "labelBg": "Данъчни приходи",
+            "plannedEur": 24637724138
+          },
+          {
+            "code": "1.1",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Корпоративен данък",
+            "plannedEur": 3295290490
+          },
+          {
+            "code": "1.2",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Данъци върху дивидентите, ликвидационните дялове и доходите на юридически лица",
+            "plannedEur": 89170327
+          },
+          {
+            "code": "1.3",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Данъци върху доходите на физически лица",
+            "plannedEur": 4076070006
+          },
+          {
+            "code": "1.4",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Данък върху добавената стойност",
+            "plannedEur": 12697218061
+          },
+          {
+            "code": "1.5",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Акцизи",
+            "plannedEur": 3933368442
+          },
+          {
+            "code": "1.6",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Данък върху застрахователните премии",
+            "plannedEur": 38142374
+          },
+          {
+            "code": "1.7",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Мита и митнически такси",
+            "plannedEur": 187618556
+          },
+          {
+            "code": "1.8",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Други данъци",
+            "plannedEur": 320845881
+          },
+          {
+            "code": "2",
+            "depth": 0,
+            "isSubtotal": false,
+            "labelBg": "Неданъчни приходи",
+            "plannedEur": 3569165469
+          },
+          {
+            "code": "3",
+            "depth": 0,
+            "isSubtotal": false,
+            "labelBg": "Помощи и дарения",
+            "plannedEur": 255646
+          }
+        ],
+        "totalEur": 28207145253
+      },
+      "plannedSectionIIEur": 15749794358,
+      "plannedTotalEur": 12436771399,
+      "plannedTransfers": {
+        "lines": [
+          {
+            "code": "1",
+            "depth": 0,
+            "isSubtotal": true,
+            "labelBg": "Предоставени трансфери за:",
+            "plannedEur": 15077980039
+          },
+          {
+            "code": "1.1",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Общините",
+            "plannedEur": 4563744855
+          },
+          {
+            "code": "1.2",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Държавното обществено осигуряване",
+            "plannedEur": 6224212074
+          },
+          {
+            "code": "1.3",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Националната здравноосигурителна каса",
+            "plannedEur": 1892207912
+          },
+          {
+            "code": "1.3.1",
+            "depth": 2,
+            "isSubtotal": false,
+            "labelBg": "– от Министерството на здравеопазването",
+            "plannedEur": 97724393
+          },
+          {
+            "code": "1.4",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Сметката за средствата от Европейския съюз на Националния фонд",
+            "plannedEur": 547128022
+          },
+          {
+            "code": "1.5",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Сметката за средствата от Европейския съюз на Държавния фонд „Земеделие“",
+            "plannedEur": 442619042
+          },
+          {
+            "code": "2",
+            "depth": 0,
+            "isSubtotal": true,
+            "labelBg": "Получени трансфери от:",
+            "plannedEur": 6851311
+          },
+          {
+            "code": "2.1",
+            "depth": 1,
+            "isSubtotal": false,
+            "labelBg": "Държавното обществено осигуряване",
+            "plannedEur": 3783560
+          },
+          {
+            "code": "2.1.1",
+            "depth": 2,
+            "isSubtotal": false,
+            "labelBg": "– за Министерството на труда и социалната политика",
+            "plannedEur": 2045168
+          },
+          {
+            "code": "2.1.2",
+            "depth": 2,
+            "isSubtotal": false,
+            "labelBg": "– за Министерството на транспорта и съобщенията",
+            "plannedEur": 127823
+          },
+          {
+            "code": "2.1.3",
+            "depth": 2,
+            "isSubtotal": false,
+            "labelBg": "– за Министерството на здравеопазването",
+            "plannedEur": 1610569
+          }
+        ],
+        "totalEur": 15071128728
+      }
     }
   },
-  "generatedAt": "2026-05-15T06:51:26.880Z"
+  "generatedAt": "2026-05-15T17:41:48.974Z"
 }

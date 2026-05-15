@@ -15,6 +15,7 @@ import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
 import { formatEur } from "@/lib/currency";
 import type { KfpSnapshot } from "@/data/budget/types";
 import { useBudgetAdminFlow } from "@/data/budget/useBudget";
+import type { AdminFlowFile, AdminFlowYear } from "@/data/budget/useBudget";
 import {
   snapshotToFlowModel,
   snapshotToAdminFlowModel,
@@ -32,6 +33,24 @@ const HEIGHT = 720;
 // spending side now has a depth-2 outer subcategory column, so the minimum
 // is larger than before — four columns plus a wider label gutter.
 const MIN_GRAPHIC_WIDTH = 1100;
+
+// Under Bulgarian budget law, when a new State Budget Law isn't adopted before
+// fiscal-year start, the prior year's law remains in force ("продължаваме на
+// старо"). So if the snapshot's fiscal year has no admin-flow entry, fall back
+// to the most recent year ≤ it that does — that's the plan still in effect.
+const resolveAdminYear = (
+  file: AdminFlowFile | undefined,
+  fiscalYear: number,
+): { year: AdminFlowYear; isFallback: boolean } | null => {
+  if (!file) return null;
+  const exact = file.fiscalYears[String(fiscalYear)];
+  if (exact) return { year: exact, isFallback: false };
+  const candidates = Object.values(file.fiscalYears)
+    .filter((y) => y.fiscalYear <= fiscalYear)
+    .sort((a, b) => b.fiscalYear - a.fiscalYear);
+  const latest = candidates[0];
+  return latest ? { year: latest, isFallback: true } : null;
+};
 
 const Legend: FC = () => {
   const { t } = useTranslation();
@@ -126,6 +145,9 @@ export const BudgetFlowTile: FC<{ snapshot: KfpSnapshot }> = ({ snapshot }) => {
   const [size, setSize] = useState({ width: 0, height: 0 });
   const [grain, setGrain] = useState<FlowGrain>("economic");
   const { data: adminFlow } = useBudgetAdminFlow();
+  const adminLookup = resolveAdminYear(adminFlow, snapshot.fiscalYear);
+  const adminYear = adminLookup?.year ?? null;
+  const isAdminFallback = adminLookup?.isFallback ?? false;
   const containerRef = useCallback((el: HTMLDivElement | null) => {
     if (!el) return;
     setSize({ width: el.clientWidth, height: el.clientHeight });
@@ -141,7 +163,6 @@ export const BudgetFlowTile: FC<{ snapshot: KfpSnapshot }> = ({ snapshot }) => {
     return () => ro.disconnect();
   }, []);
 
-  const adminYear = adminFlow?.fiscalYears[String(snapshot.fiscalYear)] ?? null;
   // Admin grain is only available when the State Budget Law has been ingested
   // for this fiscal year. Fall back to economic grain if not.
   const effectiveGrain: FlowGrain =
@@ -153,6 +174,14 @@ export const BudgetFlowTile: FC<{ snapshot: KfpSnapshot }> = ({ snapshot }) => {
   const revenueLabel = t("budget_flow_total_revenue") || "Revenue";
   const spendingLabel = t("budget_flow_total_spending") || "Spending";
   const otherLabel = t("budget_flow_admin_other") || "Other spending units";
+  const directGroupLabel =
+    t("budget_flow_admin_direct_group") || "Direct (per ministry)";
+  const centralBudgetLabel =
+    t("budget_flow_admin_central_budget") || "Central budget reserves";
+  const transfersGroupLabel =
+    t("budget_flow_admin_transfers_group") || "Transfers (net)";
+  const euContributionLabel =
+    t("budget_flow_admin_eu_contribution") || "EU contribution";
 
   const model = useMemo(() => {
     if (effectiveGrain === "admin" && adminYear) {
@@ -160,6 +189,10 @@ export const BudgetFlowTile: FC<{ snapshot: KfpSnapshot }> = ({ snapshot }) => {
         revenueLabel,
         spendingLabel,
         otherLabel,
+        directGroupLabel,
+        centralBudgetLabel,
+        transfersGroupLabel,
+        euContributionLabel,
       });
     }
     return snapshotToFlowModel(snapshot, lang, {
@@ -174,6 +207,10 @@ export const BudgetFlowTile: FC<{ snapshot: KfpSnapshot }> = ({ snapshot }) => {
     revenueLabel,
     spendingLabel,
     otherLabel,
+    directGroupLabel,
+    centralBudgetLabel,
+    transfersGroupLabel,
+    euContributionLabel,
   ]);
 
   const { revenueEur, spendingEur, balanceEur, isDeficit } = model.balance;
@@ -199,6 +236,15 @@ export const BudgetFlowTile: FC<{ snapshot: KfpSnapshot }> = ({ snapshot }) => {
             <Legend />
             {adminYear ? (
               <GrainToggle grain={effectiveGrain} onChange={setGrain} />
+            ) : null}
+            {adminYear && isAdminFallback && effectiveGrain === "admin" ? (
+              <span className="text-[11px] text-amber-700 dark:text-amber-400">
+                {t("budget_flow_admin_fallback_badge", {
+                  fromYear: adminYear.fiscalYear,
+                  toYear: snapshot.fiscalYear,
+                }) ||
+                  `Showing ${adminYear.fiscalYear} plan — ${snapshot.fiscalYear} budget not yet adopted`}
+              </span>
             ) : null}
           </div>
           <div className="text-xs text-muted-foreground tabular-nums">
@@ -250,8 +296,17 @@ export const BudgetFlowTile: FC<{ snapshot: KfpSnapshot }> = ({ snapshot }) => {
         )}
         <p className="text-[11px] text-muted-foreground/80">
           {effectiveGrain === "admin"
-            ? t("budget_flow_admin_source_hint") ||
-              "Spending decomposition: by spending unit (planned, from the State Budget Law). Direct unit appropriations only — total differs from the КФП execution figure shown on the revenue side. Click a ministry to drill down."
+            ? isAdminFallback && adminYear
+              ? t("budget_flow_admin_fallback_hint", {
+                  fromYear: adminYear.fiscalYear,
+                  toYear: snapshot.fiscalYear,
+                }) ||
+                `Both sides are the ${adminYear.fiscalYear} State Budget Law plan — the ${snapshot.fiscalYear} budget has not yet been adopted, so under continuing-appropriations rules the prior year's plan remains in force. The bridge shows the law-mandated deficit (V. БЮДЖЕТНО САЛДО). Click a ministry to drill down.`
+              : adminYear?.plannedRevenue
+                ? t("budget_flow_admin_law_source_hint") ||
+                  "Both sides come from the State Budget Law plan — revenue tree on the left (Чл. 1, ал. 1), spending sections on the right (Чл. 1, ал. 2: direct appropriations + transfers + EU contribution). The bridge equals the law-mandated deficit. Click a ministry to drill down."
+                : t("budget_flow_admin_source_hint") ||
+                  "Spending decomposition: by spending unit (planned, from the State Budget Law). Direct unit appropriations only — total differs from the КФП execution figure shown on the revenue side. Click a ministry to drill down."
             : t("budget_flow_source_hint") ||
               "Built from the КФП monthly snapshot. Subtotal hierarchy is reconstructed from the source's flat label column."}
         </p>

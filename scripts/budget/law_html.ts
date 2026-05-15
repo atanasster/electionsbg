@@ -59,8 +59,29 @@ export interface ParsedLawUnit {
   programs: ParsedLawProgram[];
 }
 
+// The "Чл. 1" budget framework — the headline state-budget plan (whole-country
+// totals), parsed from the two tables under "Приема държавния бюджет за YYYY г.
+// по приходите …" and "… по разходите …". Carries the planned revenue tree
+// (which mirrors КФП's revenue structure), planned spending headline, planned
+// transfers tree, EU contribution, and the law-mandated deficit/surplus.
+export interface ParsedLawFramework {
+  fiscalYear: number;
+  revenue: ParsedLawSection; // I.   ПРИХОДИ, ПОМОЩИ И ДАРЕНИЯ
+  expenditure: ParsedLawSection; // II.  РАЗХОДИ
+  transfers: ParsedLawSection; // III. БЮДЖЕТНИ ВЗАИМООТНОШЕНИЯ (ТРАНСФЕРИ) - НЕТО
+  euContribution: ParsedLawSection; // IV.  ВНОСКА В ОБЩИЯ БЮДЖЕТ НА ЕС
+  balance: ParsedLawSection | null; // V.   БЮДЖЕТНО САЛДО (signed; negative = deficit)
+}
+
 // "Приема бюджета на X за YYYY г." — one per first-level spending unit.
-const MARKER_RE = /Приема бюджета на\s+([^,;]{4,90}?)\s+за\s+(20\d\d)\s*г/g;
+// The HTML occasionally renders the space after "Приема" as `&nbsp;`; match
+// any whitespace including non-breaking space (U+00A0).
+const MARKER_RE =
+  /Приема[\s\u00A0]+бюджета на\s+([^,;]{4,90}?)\s+за\s+(20\d\d)\s*г/g;
+// "Приема държавния бюджет за YYYY г. по приходите …" / "… по разходите …".
+// Two markers; framework tables follow each. Same NBSP tolerance.
+const FRAMEWORK_MARKER_RE =
+  /Приема[\s\u00A0]+държавния бюджет за\s+(20\d\d)\s*г\.\s+по\s+(приходите|разходите)/g;
 
 // Roman-numeral section codes I…VI.
 const SECTION_RE = /^(I|II|III|IV|V|VI)\.?$/;
@@ -183,25 +204,50 @@ const parseUnitTable = (rows: string[][]): ParsedLawSection[] => {
 };
 
 // Depth-first walk: collect, in document order, every "Приема бюджета на X"
-// marker and every <table> node. Pairing happens afterwards.
+// marker, every "Приема държавния бюджет за YYYY г. по …" framework marker,
+// and every <table> node. Pairing happens afterwards.
 const walkInOrder = (
   root: DomNode,
 ): {
   markers: Array<{ unit: string; year: number; order: number }>;
+  frameworkMarkers: Array<{
+    year: number;
+    half: "revenue" | "spending";
+    order: number;
+  }>;
   tables: Array<{ node: DomNode; order: number }>;
 } => {
   const markers: Array<{ unit: string; year: number; order: number }> = [];
+  const frameworkMarkers: Array<{
+    year: number;
+    half: "revenue" | "spending";
+    order: number;
+  }> = [];
   const tables: Array<{ node: DomNode; order: number }> = [];
   let order = 0;
   const visit = (node: DomNode): void => {
     order++;
     if (node.type === "text" && node.data) {
+      // The HTML uses NBSP between words; collapse to a regular space so the
+      // markers match. Doing the replace on the text-node level (rather than
+      // in the regex) keeps the regex readable and works the same for both
+      // marker families.
+      const text = node.data.replace(/\u00A0/g, " ");
       MARKER_RE.lastIndex = 0;
       let m: RegExpExecArray | null;
-      while ((m = MARKER_RE.exec(node.data)) !== null) {
+      while ((m = MARKER_RE.exec(text)) !== null) {
         markers.push({
           unit: m[1].replace(/\s+/g, " ").trim(),
           year: parseInt(m[2], 10),
+          order,
+        });
+      }
+      FRAMEWORK_MARKER_RE.lastIndex = 0;
+      let fm: RegExpExecArray | null;
+      while ((fm = FRAMEWORK_MARKER_RE.exec(text)) !== null) {
+        frameworkMarkers.push({
+          year: parseInt(fm[1], 10),
+          half: fm[2] === "приходите" ? "revenue" : "spending",
           order,
         });
       }
@@ -212,19 +258,75 @@ const walkInOrder = (
     for (const child of node.children ?? []) visit(child);
   };
   visit(root);
-  return { markers, tables };
+  return { markers, frameworkMarkers, tables };
+};
+
+// Combine the two framework tables (revenue + spending) into a single
+// `ParsedLawFramework`. The spending table carries sections II, III, IV, and
+// optionally V (БЮДЖЕТНО САЛДО) — each appears as a separate I…IV-style row
+// in the source, and parseUnitTable already splits them.
+const buildFramework = (
+  fiscalYear: number,
+  revenueRows: string[][],
+  spendingRows: string[][],
+): ParsedLawFramework | null => {
+  const revenueSections = parseUnitTable(revenueRows);
+  const spendingSections = parseUnitTable(spendingRows);
+  const revenue = revenueSections.find((s) => s.code === "I");
+  const expenditure = spendingSections.find((s) => s.code === "II");
+  const transfers = spendingSections.find((s) => s.code === "III");
+  const euContribution = spendingSections.find((s) => s.code === "IV");
+  const balance = spendingSections.find((s) => s.code === "V") ?? null;
+  if (!revenue || !expenditure || !transfers || !euContribution) return null;
+  return {
+    fiscalYear,
+    revenue,
+    expenditure,
+    transfers,
+    euContribution,
+    balance,
+  };
 };
 
 // Parse a Държавен вестник budget-law HTML page into per-spending-unit
-// appropriations. Throws if the document yields no spending units — the
-// upstream structure changed.
+// appropriations plus the Чл. 1 framework totals. Throws if the document
+// yields no spending units — the upstream structure changed. `framework` may
+// still be null for older law layouts that lack the framework markers.
 export const parseLawHtml = (
   html: string,
   fiscalYear: number,
-): ParsedLawUnit[] => {
+): { units: ParsedLawUnit[]; framework: ParsedLawFramework | null } => {
   const $ = load(html);
   const root = $.root()[0] as unknown as DomNode;
-  const { markers, tables } = walkInOrder(root);
+  const { markers, frameworkMarkers, tables } = walkInOrder(root);
+  // Pair each framework marker with the first unused table after it. Both
+  // halves needed to build the framework — fall through with null if either
+  // is missing (older layouts).
+  const yearFrameworkMarkers = frameworkMarkers
+    .filter((m) => m.year === fiscalYear)
+    .sort((a, b) => a.order - b.order);
+  const usedFrameworkTableOrders = new Set<number>();
+  const frameworkRows: Partial<Record<"revenue" | "spending", string[][]>> = {};
+  for (const fm of yearFrameworkMarkers) {
+    for (const tbl of tables) {
+      if (tbl.order <= fm.order || usedFrameworkTableOrders.has(tbl.order)) {
+        continue;
+      }
+      const rows = tableRows(tbl.node, $);
+      if (!isUnitTable(rows)) continue;
+      frameworkRows[fm.half] = rows;
+      usedFrameworkTableOrders.add(tbl.order);
+      break;
+    }
+  }
+  const framework =
+    frameworkRows.revenue && frameworkRows.spending
+      ? buildFramework(
+          fiscalYear,
+          frameworkRows.revenue,
+          frameworkRows.spending,
+        )
+      : null;
   // Only markers for the year we expect — guards against stray references.
   const yearMarkers = markers.filter((m) => m.year === fiscalYear);
   if (yearMarkers.length === 0) {
@@ -235,7 +337,9 @@ export const parseLawHtml = (
   }
 
   const units: ParsedLawUnit[] = [];
-  const usedTableOrders = new Set<number>();
+  // Pre-claim the framework tables so they can't accidentally be matched as
+  // unit appropriation tables (the framework tables also pass `isUnitTable`).
+  const usedTableOrders = new Set<number>(usedFrameworkTableOrders);
   for (const marker of yearMarkers) {
     // Scan the tables in this unit's block — from its marker to the next.
     // The first unit-table (I…IV) is the appropriations; the first program
@@ -272,5 +376,5 @@ export const parseLawHtml = (
         `but none had a parseable appropriation table`,
     );
   }
-  return units;
+  return { units, framework };
 };

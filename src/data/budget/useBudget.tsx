@@ -63,11 +63,36 @@ export interface AdminFlowMinistry {
   plannedEur: number;
   executedEur: number | null;
 }
+// One row of the planned revenue / planned transfers tree from the SBL's Чл. 1
+// framework. `depth` mirrors the КФП snapshot's flat-with-depth representation.
+// Subtotals wrap a sibling group of leaves at one greater depth.
+export interface PlannedTreeLine {
+  code: string;
+  labelBg: string;
+  depth: number;
+  isSubtotal: boolean;
+  plannedEur: number;
+}
+export interface PlannedTree {
+  totalEur: number;
+  lines: PlannedTreeLine[];
+}
 export interface AdminFlowYear {
   fiscalYear: number;
+  // Sum of per-ministry direct appropriations — strictly ≤ plannedSectionIIEur.
   plannedTotalEur: number;
   executedTotalEur: number | null;
   ministries: AdminFlowMinistry[];
+  // Чл. 1 framework headlines from the State Budget Law. Null when the law
+  // HTML for this year predates the framework-table layout (no current years).
+  plannedRevenue: PlannedTree | null;
+  // Section II РАЗХОДИ total from the framework. The frontend renders the gap
+  // (plannedSectionIIEur - plannedTotalEur) as a synthetic "Central budget"
+  // leaf so the spending side reconciles to the law's own total.
+  plannedSectionIIEur: number | null;
+  plannedTransfers: PlannedTree | null;
+  plannedEuContributionEur: number | null;
+  plannedBalanceEur: number | null; // V. БЮДЖЕТНО САЛДО, signed (negative = deficit)
 }
 export interface AdminFlowFile {
   generatedAt: string;
