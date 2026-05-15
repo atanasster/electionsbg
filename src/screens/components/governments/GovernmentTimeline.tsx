@@ -420,6 +420,19 @@ export type IndicatorGroup = {
 };
 export type IndicatorSpec = MacroIndicatorKey[] | IndicatorGroup[];
 
+// Vertical reference line + label, used to flag a one-off event on the
+// chart (e.g. the 2008 EU funds suspension). Drawn on top of the cabinet
+// bands and election ticks. Keep markers sparse — they compete visually
+// with the election lines.
+export type EventMarker = {
+  /** Fractional year position (e.g. 2008.55 ≈ late July). */
+  x: number;
+  /** Short label shown next to the line. */
+  label: string;
+  /** Line/label colour. Defaults to a muted amber. */
+  color?: string;
+};
+
 const flattenSpec = (spec: IndicatorSpec): MacroIndicatorKey[] =>
   Array.isArray(spec) && spec.length > 0 && typeof spec[0] === "string"
     ? (spec as MacroIndicatorKey[])
@@ -451,6 +464,9 @@ export const GovernmentTimeline: FC<{
   /** Hide the per-series toggle pills above the chart. Used by the dashboard
       tile where a glanceable view matters more than per-series interaction. */
   hideToggles?: boolean;
+  /** Optional one-off event markers (vertical line + label) layered on top
+      of the cabinet bands and election ticks. Use sparingly. */
+  eventMarkers?: EventMarker[];
 }> = ({
   governments,
   macro,
@@ -462,6 +478,7 @@ export const GovernmentTimeline: FC<{
   height = 360,
   showZeroLine,
   hideToggles,
+  eventMarkers,
 }) => {
   const { t, i18n } = useTranslation();
   const lang: "en" | "bg" = i18n.language === "bg" ? "bg" : "en";
@@ -652,6 +669,26 @@ export const GovernmentTimeline: FC<{
                   stroke="#64748b"
                   strokeDasharray="3 3"
                   strokeOpacity={0.5}
+                />
+              );
+            })}
+
+            {eventMarkers?.map((m, i) => {
+              const color = m.color ?? "#b45309";
+              return (
+                <ReferenceLine
+                  key={`evt-${i}`}
+                  x={m.x}
+                  stroke={color}
+                  strokeWidth={1.5}
+                  strokeOpacity={0.8}
+                  label={{
+                    value: m.label,
+                    position: "insideTopRight",
+                    fill: color,
+                    fontSize: 11,
+                    fontWeight: 600,
+                  }}
                 />
               );
             })}

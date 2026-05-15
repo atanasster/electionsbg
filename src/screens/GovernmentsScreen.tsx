@@ -324,6 +324,12 @@ export const GovernmentsScreen = () => {
           unitFormatter={(_k, v) => `€${v.toFixed(2)}B`}
           yDomain={[0, 4]}
           height={280}
+          eventMarkers={[
+            {
+              x: 2008.55,
+              label: t("governments_chart_eu_funds_2008_marker"),
+            },
+          ]}
         />
       </section>
 

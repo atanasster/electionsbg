@@ -37,6 +37,7 @@ The "Changed" section of the report contains a bulleted list. Each bullet's labe
 | `Per-ministry execution reports` (програмен бюджет) | `update-budget` |
 | `Сметна палата party financing` | `update-financing` |
 | `Eurostat macro` (BG) | `update-macro` |
+| `EC EU budget per-MS spreadsheet` (BG receipts/contributions) | `update-macro` |
 | `Eurostat regional` (BG) | `update-regional` |
 | `AZ (Агенция по заетостта)` | `update-indicators` |
 | `МОН: ДЗИ резултати` | `update-indicators` |
@@ -61,6 +62,7 @@ Each watcher source maps to one downstream skill. Multiple sources can map to th
 | `ministry_execution_reports` | `update-budget` |
 | `smetna_palata` | `update-financing` |
 | `eurostat` | `update-macro` |
+| `ec_budget_per_ms` | `update-macro` |
 | `eurostat_regional` | `update-regional` |
 | `indicators_az` | `update-indicators` |
 | `indicators_mon_dzi` | `update-indicators` |

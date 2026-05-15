@@ -635,56 +635,68 @@ const EB_TRUST_EU: MacroPoint[] = [
   { year: 2024, value: 55 },
 ];
 
-// Annual EU budget flows for Bulgaria, both directions (EUR billions). Compiled
-// from the European Commission's annual EU budget Financial Report.
-// Programming periods shown for reference: 2007–13 was Bulgaria's first as a
-// member; 2014–20 saw the largest absorption push; 2021–27 is the current
-// cycle (with the NextGenerationEU envelope on top of the regular budget).
+// Annual EU budget flows for Bulgaria, both directions (EUR billions).
+// Sourced from the European Commission's per-Member-State spreadsheet
+// "EU spending and revenue — data 2000-2023" (XLSX, updated yearly under the
+// 2021-27 long-term-budget portal). One sheet per calendar year; we read the
+// BG column's TOTAL EXPENDITURE and TOTAL National contributions rows.
 //
-// EU_FUNDS = "operating expenditure" / total EU spending in Bulgaria (gross)
-// EU_CONTRIBUTION = Bulgaria's contributions to the EU budget (GNI-based,
-//   VAT-based, customs duties — gross outflow)
+// Values are in EUR billions, two decimals. Bulgaria joined 2007.
+// Programming periods: 2007-13 (first cycle), 2014-20 (largest absorption
+// push), 2021-27 (current; NGEU envelope rolled into the headline since 2021).
+//
+// EU_FUNDS = TOTAL EXPENDITURE row for BG — gross EU spending in Bulgaria.
+// EU_CONTRIBUTION = TOTAL National contributions row for BG — gross outflow
+//   (VAT, GNI, plastic-packaging waste, balances/adjustments; excludes
+//   traditional own resources / customs duties which are EU revenue, not a
+//   Member-State contribution).
 // The visual gap between the two lines on the chart equals the net benefit.
+//
+// Note on 2008: the EU froze ~€825M of pre-accession funds (PHARE/ISPA) and
+// withdrew accreditation from two Bulgarian managing agencies in July 2008,
+// permanently losing ~€220M of PHARE. The gross-disbursement figure still
+// rose YoY because CAP direct payments and structural-fund pre-financing
+// continued — the freeze hit future commitments, not 2008 cash out.
 const EU_FUNDS: MacroPoint[] = [
-  { year: 2007, value: 0.5 },
-  { year: 2008, value: 0.7 },
-  { year: 2009, value: 0.9 },
-  { year: 2010, value: 1.1 },
-  { year: 2011, value: 1.3 },
-  { year: 2012, value: 1.7 },
-  { year: 2013, value: 2.0 },
-  { year: 2014, value: 2.3 },
-  { year: 2015, value: 2.6 },
-  { year: 2016, value: 1.6 },
-  { year: 2017, value: 2.2 },
-  { year: 2018, value: 2.4 },
-  { year: 2019, value: 2.5 },
-  { year: 2020, value: 2.5 },
-  { year: 2021, value: 2.6 },
-  { year: 2022, value: 2.7 },
-  { year: 2023, value: 2.8 },
-  { year: 2024, value: 2.9 },
+  { year: 2007, value: 0.59 },
+  { year: 2008, value: 0.97 },
+  { year: 2009, value: 0.98 },
+  { year: 2010, value: 1.22 },
+  { year: 2011, value: 1.11 },
+  { year: 2012, value: 1.73 },
+  { year: 2013, value: 1.98 },
+  { year: 2014, value: 2.26 },
+  { year: 2015, value: 2.73 },
+  { year: 2016, value: 2.35 },
+  { year: 2017, value: 1.9 },
+  { year: 2018, value: 2.17 },
+  { year: 2019, value: 2.2 },
+  { year: 2020, value: 2.23 },
+  { year: 2021, value: 2.56 },
+  { year: 2022, value: 2.34 },
+  { year: 2023, value: 2.81 },
+  { year: 2024, value: 2.07 },
 ];
 
 const EU_CONTRIBUTION: MacroPoint[] = [
-  { year: 2007, value: 0.34 },
-  { year: 2008, value: 0.39 },
+  { year: 2007, value: 0.23 },
+  { year: 2008, value: 0.28 },
   { year: 2009, value: 0.34 },
-  { year: 2010, value: 0.36 },
-  { year: 2011, value: 0.37 },
-  { year: 2012, value: 0.42 },
-  { year: 2013, value: 0.43 },
-  { year: 2014, value: 0.44 },
-  { year: 2015, value: 0.46 },
-  { year: 2016, value: 0.43 },
-  { year: 2017, value: 0.47 },
-  { year: 2018, value: 0.5 },
-  { year: 2019, value: 0.51 },
-  { year: 2020, value: 0.53 },
-  { year: 2021, value: 0.71 },
-  { year: 2022, value: 0.78 },
-  { year: 2023, value: 0.81 },
-  { year: 2024, value: 0.86 },
+  { year: 2010, value: 0.31 },
+  { year: 2011, value: 0.35 },
+  { year: 2012, value: 0.37 },
+  { year: 2013, value: 0.42 },
+  { year: 2014, value: 0.4 },
+  { year: 2015, value: 0.42 },
+  { year: 2016, value: 0.39 },
+  { year: 2017, value: 0.38 },
+  { year: 2018, value: 0.49 },
+  { year: 2019, value: 0.49 },
+  { year: 2020, value: 0.59 },
+  { year: 2021, value: 0.69 },
+  { year: 2022, value: 0.69 },
+  { year: 2023, value: 0.78 },
+  { year: 2024, value: 0.75 },
 ];
 
 const CURATED_INDICATORS: CuratedIndicator[] = [

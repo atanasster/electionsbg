@@ -17,9 +17,10 @@ Refreshes `data/macro.json` — the per-Bulgarian-cabinet macro/governance backd
 | Trigger | Action |
 |---|---|
 | Daily watcher reports `Eurostat macro (BG): new release · namq_10_gdp <date>, ...` | Run `npx tsx scripts/macro/fetch_eurostat.ts` |
+| Daily watcher reports `EC EU budget per-MS spreadsheet ... new EC edition · year range 2000-XXXX → 2000-YYYY` | Refresh `EU_FUNDS` / `EU_CONTRIBUTION` from the new XLSX (see [EU funds / contribution series](#eu-funds--contribution-series-ec-per-ms-xlsx) below), then run `npx tsx scripts/macro/fetch_eurostat.ts` |
 | User asks to "refresh macro" or "update macro data" | Same |
 | Adding a new Eurostat indicator to the chart | Add an entry to `EUROSTAT_INDICATORS` in `scripts/macro/fetch_eurostat.ts`, then run |
-| Annual TI CPI / Eurobarometer / EU funds figure published | Paste the new `{ year, value }` into the curated arrays at the top of `fetch_eurostat.ts`, then run |
+| Annual TI CPI / Eurobarometer figure published | Paste the new `{ year, value }` into the curated arrays at the top of `fetch_eurostat.ts`, then run |
 
 ## Step 1 — Fetch
 
@@ -133,6 +134,78 @@ for k, v in d.get('dimension', {}).items():
 
 A 413 `EXTRACTION_TOO_BIG` means a dimension wasn't narrowed enough — add a filter.
 
+## EU funds / contribution series (EC per-MS XLSX)
+
+Unlike the other curated tables (TI CPI, Eurobarometer), `EU_FUNDS` and `EU_CONTRIBUTION` are **sourced from a known upstream spreadsheet** — the European Commission's "EU spending and revenue" per-Member-State XLSX. The daily watcher (`scripts/watch/sources/ec_budget_per_ms.ts`) fingerprints the listing page's XLSX link; when the EC publishes a new edition (typically the July following the reference year), the watcher flips and this skill should re-pull.
+
+### Listing page
+
+```
+https://commission.europa.eu/strategy-and-policy/eu-budget/long-term-eu-budget/2021-2027/spending-and-revenue_en
+```
+
+The current XLSX link can be read directly from `state/watch/ec_budget_per_ms.json`'s `meta.href` field; prepend `https://commission.europa.eu` if it starts with `/`.
+
+### Refresh procedure
+
+1. Read the latest XLSX URL out of the watcher state:
+
+   ```bash
+   HREF=$(jq -r '.meta.href' state/watch/ec_budget_per_ms.json)
+   URL="https://commission.europa.eu${HREF}"
+   curl -sL "$URL" -o /tmp/ec_budget.xlsx
+   ```
+
+2. Extract Bulgaria's `TOTAL EXPENDITURE` and `TOTAL National contributions` rows from every per-year sheet. The column header for Bulgaria is `"BG"` and lives somewhere in rows 1–5 (varies by year). Pre-2014 sheets use `TOTAL national contribution` (lowercase, no NGEU breakout); 2014+ use the same label; 2021+ also include a `TOTAL NGEU` row which the per-year `TOTAL EXPENDITURE` already rolls up — do not double-count.
+
+   ```bash
+   python3 <<'PY'
+   from openpyxl import load_workbook
+   import warnings; warnings.filterwarnings('ignore')
+   wb = load_workbook('/tmp/ec_budget.xlsx', data_only=True)
+   for sheet in wb.sheetnames:
+     try:
+       year = int(sheet)
+     except ValueError:
+       continue
+     if year < 2007: continue
+     ws = wb[sheet]
+     bg = next(
+       (c for hr in range(1, 6) for c in range(1, ws.max_column + 1)
+        if ws.cell(hr, c).value == 'BG'),
+       None,
+     )
+     if not bg: continue
+     exp = nat = None
+     for r in range(1, ws.max_row + 1):
+       label = ' | '.join(str(ws.cell(r, c).value) for c in range(1, 6) if ws.cell(r, c).value)
+       if 'TOTAL EXPENDITURE' in label.upper(): exp = ws.cell(r, bg).value
+       elif 'TOTAL national contribution' in label or 'TOTAL National contribution' in label: nat = ws.cell(r, bg).value
+     if exp is not None and nat is not None:
+       print(f"{year}\t{round(exp/1000, 2)}\t{round(nat/1000, 2)}")
+   PY
+   ```
+
+   Columns are `year`, `EU_FUNDS (€B)`, `EU_CONTRIBUTION (€B)` — both rounded to two decimals.
+
+3. Patch `EU_FUNDS` and `EU_CONTRIBUTION` in `scripts/macro/fetch_eurostat.ts` with the new figures. Diff carefully — only new years should be additions; pre-existing years should generally match (the EC occasionally restates older sheets when an own-resources reconciliation closes, so small revisions are normal).
+
+4. Run the fetcher to regenerate `data/macro.json`:
+
+   ```bash
+   npx tsx scripts/macro/fetch_eurostat.ts
+   ```
+
+5. Eyeball the chart on `/governments` (EU funds section) — the new year should appear at the right edge with the same units (€B).
+
+### Why this isn't fully automated
+
+The per-year sheet schema has shifted twice since 2007 (2014 layout overhaul, 2021 NGEU rollup) and the BG column position drifts. A scripted ingest would need defensive parsing that's brittle in its own way. Hand-patching keeps the curated arrays auditable in `git blame` and lets the operator catch silent restatements of prior years.
+
+### Note on the 2008 funds suspension
+
+`EU_FUNDS` for 2008 is €0.97B — gross EU disbursements rose YoY despite the mid-year freeze of ~€825M in pre-accession funds (PHARE/ISPA/SAPARD) after OLAF investigations. The freeze hit *future commitments*; CAP direct payments and structural-fund pre-financing kept flowing in calendar 2008. The chart shows this with a dedicated reference-line marker — see `governments_chart_eu_funds_2008_marker` in translations and the `eventMarkers` prop on `GovernmentTimeline`.
+
 ## Data-integrity contract
 
 The fetcher is designed to **fail loud rather than write a partial `data/macro.json`** when an indicator's upstream API returns errors or unexpected data.
@@ -166,7 +239,7 @@ After every run, eyeball the per-indicator `N points (latest …)` lines. If a s
 ## What this skill does NOT do
 
 - **Does not change the chart UI.** Adding a new indicator key requires hand-editing `useMacro.tsx`, `GovernmentTimeline.tsx`, and `GovernmentsScreen.tsx` (see above). The skill only refreshes data.
-- **Does not redownload curated tables automatically.** TI CPI, Eurobarometer trust, and EU funds figures are inline constants in `fetch_eurostat.ts` and must be updated by hand when the publishing body releases a new year.
+- **Does not redownload curated tables automatically.** TI CPI and Eurobarometer trust are inline constants in `fetch_eurostat.ts` and must be updated by hand when the publishing body releases a new year. `EU_FUNDS` / `EU_CONTRIBUTION` are also inline but have a known upstream (EC per-MS XLSX) — the daily watcher detects new editions and this skill includes a refresh procedure (see "EU funds / contribution series" above).
 - **Does not auto-fire on its own.** The watcher reports new Eurostat releases; the user (or a GitHub Action) decides when to refresh.
 
 ## File map
@@ -175,6 +248,7 @@ After every run, eyeball the per-indicator `N points (latest …)` lines. If a s
 |---|---|
 | `scripts/macro/fetch_eurostat.ts` | CLI entry — fetch all macro series + curated tables, write `data/macro.json` |
 | `scripts/watch/sources/eurostat.ts` | Daily watcher — fingerprints all 6 quarterly Eurostat datasets |
+| `scripts/watch/sources/ec_budget_per_ms.ts` | Daily watcher — fingerprints the EC per-MS XLSX link (EU funds / contribution source) |
 | `data/macro.json` | Generated payload (~40 KB, minified) — committed |
 | `src/data/macro/useMacro.tsx` | React Query hook + types |
 | `src/screens/components/governments/GovernmentTimeline.tsx` | Chart |
