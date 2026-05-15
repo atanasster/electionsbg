@@ -42,6 +42,7 @@ const GOVERNANCE_PREFIXES = [
   "/company",
   "/awarder",
   "/governments",
+  "/indicators",
   "/demographics",
   "/observations",
 ];

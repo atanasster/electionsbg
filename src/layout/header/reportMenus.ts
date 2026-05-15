@@ -244,6 +244,7 @@ export const governanceMenu: MenuItem[] = [
       { title: "procurement_link_label", link: "/procurement" },
       { title: "-" },
       { title: "governments_title", link: "/governments" },
+      { title: "indicators_page_title", link: "/indicators" },
       { title: "demographics_title", link: "/demographics" },
     ],
   },

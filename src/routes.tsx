@@ -378,6 +378,11 @@ const GovernmentsScreen = lazy(() =>
     default: m.GovernmentsScreen,
   })),
 );
+const IndicatorsScreen = lazy(() =>
+  import("./screens/IndicatorsScreen").then((m) => ({
+    default: m.IndicatorsScreen,
+  })),
+);
 const ObservationsScreen = lazy(() =>
   import("./screens/ObservationsScreen").then((m) => ({
     default: m.ObservationsScreen,
@@ -1585,6 +1590,14 @@ export const AuthRoutes = () => {
           element={
             <LayoutScreen>
               <GovernmentsScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="indicators"
+          element={
+            <LayoutScreen>
+              <IndicatorsScreen />
             </LayoutScreen>
           }
         />
