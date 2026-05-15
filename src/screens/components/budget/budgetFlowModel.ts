@@ -380,87 +380,12 @@ const buildAdminSpendingGraph = (
   };
 };
 
-// Add a phantom "deficit" or "surplus" leaf to whichever side has the smaller
-// total so both sides layout to the SAME pixel height. The phantom flows into
-// that side's total node — d3-sankey then draws the total at full height with
-// the bottom slice fed by the phantom (rendered hatched in the graphic).
-//
-// For a deficit (revenue < spending): phantom goes on the revenue side, label
-// "Deficit (financing)". For a surplus: phantom goes on the spending side,
-// label "Surplus" — visually shows that the spending column is shorter than
-// revenue and the gap is the unspent surplus.
-const addPhantomBalance = (
-  revenue: FlowGraph,
-  spending: FlowGraph,
-  deficitLabel: string,
-  surplusLabel: string,
-): void => {
-  const balance = revenue.totalEur - spending.totalEur;
-  if (balance === 0) return;
-  const phantomEur = Math.abs(balance);
-  if (balance < 0) {
-    // Deficit — phantom flows into the revenue total. Pushed LAST so d3-sankey
-    // ranks it at the bottom of the leaf column and its link enters the
-    // bottom of the total node (revenue solid on top, phantom hatched below).
-    const id = "revenue-phantom-deficit";
-    const totalIdx = revenue.nodes.findIndex(
-      (n) => n.id === revenue.totalNodeId,
-    );
-    const total = revenue.nodes[totalIdx];
-    const phantomNode: FlowNode = {
-      id,
-      label: deficitLabel,
-      type: "leaf",
-      side: "revenue",
-      valueEur: phantomEur,
-      plannedEur: null,
-      groupLabel: null,
-      ministryNodeId: null,
-      isPhantom: true,
-    };
-    // Insert phantom right before the total so it sits as the last leaf.
-    revenue.nodes.splice(totalIdx, 0, phantomNode);
-    revenue.links.push({
-      source: id,
-      target: revenue.totalNodeId,
-      valueEur: phantomEur,
-    });
-    if (total) total.valueEur += phantomEur;
-  } else {
-    const id = "spending-phantom-surplus";
-    const totalIdx = spending.nodes.findIndex(
-      (n) => n.id === spending.totalNodeId,
-    );
-    const total = spending.nodes[totalIdx];
-    const phantomNode: FlowNode = {
-      id,
-      label: surplusLabel,
-      type: "leaf",
-      side: "spending",
-      valueEur: phantomEur,
-      plannedEur: null,
-      groupLabel: null,
-      ministryNodeId: null,
-      isPhantom: true,
-    };
-    spending.nodes.splice(totalIdx, 0, phantomNode);
-    spending.links.push({
-      source: id,
-      target: spending.totalNodeId,
-      valueEur: phantomEur,
-    });
-    if (total) total.valueEur += phantomEur;
-  }
-};
-
 export const snapshotToFlowModel = (
   snapshot: KfpSnapshot,
   lang: "bg" | "en",
   totals: {
     revenueLabel: string;
     spendingLabel: string;
-    deficitLabel: string;
-    surplusLabel: string;
   },
 ): BudgetFlowModel => {
   const revenueSection = snapshot.sections.find((s) => s.series === "revenue");
@@ -470,8 +395,6 @@ export const snapshotToFlowModel = (
   const euSection = snapshot.sections.find(
     (s) => s.series === "euContribution",
   );
-  // The five sections are required — kfp.ts throws if any is missing — so
-  // these casts are safe at runtime.
   if (!revenueSection || !expenditureSection) {
     throw new Error(
       "snapshotToFlowModel: missing revenue or expenditure section",
@@ -493,16 +416,6 @@ export const snapshotToFlowModel = (
     lang,
   );
   const balanceEur = revenue.totalEur - spending.totalEur;
-  // Capture totals BEFORE the phantom mutates the layout values, so the
-  // headline strip and balance bridge keep showing the real numbers.
-  const realRevenue = revenue.totalEur;
-  const realSpending = spending.totalEur;
-  addPhantomBalance(
-    revenue,
-    spending,
-    totals.deficitLabel,
-    totals.surplusLabel,
-  );
 
   return {
     fiscalYear: snapshot.fiscalYear,
@@ -513,8 +426,8 @@ export const snapshotToFlowModel = (
     revenue,
     spending,
     balance: {
-      revenueEur: realRevenue,
-      spendingEur: realSpending,
+      revenueEur: revenue.totalEur,
+      spendingEur: spending.totalEur,
       balanceEur,
       isDeficit: balanceEur < 0,
     },
@@ -524,9 +437,6 @@ export const snapshotToFlowModel = (
 // Admin-grain model: the spending side decomposes by ministry (planned, from
 // the State Budget Law). The revenue side stays from КФП — the toggle is
 // strictly about how to slice expenditure, the inflow story is unchanged.
-// The balance bridge reflects the SAME revenue (КФП) against the SAME КФП
-// spending total, so the bridge math stays honest; the admin Sankey on the
-// right is a different decomposition of the same outflow.
 export const snapshotToAdminFlowModel = (
   snapshot: KfpSnapshot,
   adminYear: AdminFlowYear,
@@ -535,8 +445,6 @@ export const snapshotToAdminFlowModel = (
     revenueLabel: string;
     spendingLabel: string;
     otherLabel: string;
-    deficitLabel: string;
-    surplusLabel: string;
   },
 ): BudgetFlowModel => {
   const revenueSection = snapshot.sections.find((s) => s.series === "revenue");
@@ -559,14 +467,6 @@ export const snapshotToAdminFlowModel = (
     lang,
   );
   const balanceEur = revenue.totalEur - spending.totalEur;
-  const realRevenue = revenue.totalEur;
-  const realSpending = spending.totalEur;
-  addPhantomBalance(
-    revenue,
-    spending,
-    totals.deficitLabel,
-    totals.surplusLabel,
-  );
   return {
     fiscalYear: snapshot.fiscalYear,
     asOf: snapshot.asOf,
@@ -576,8 +476,8 @@ export const snapshotToAdminFlowModel = (
     revenue,
     spending,
     balance: {
-      revenueEur: realRevenue,
-      spendingEur: realSpending,
+      revenueEur: revenue.totalEur,
+      spendingEur: spending.totalEur,
       balanceEur,
       isDeficit: balanceEur < 0,
     },

@@ -30,10 +30,10 @@ const groupedNodes = (graph: FlowGraph): GroupRow[] => {
   const out: GroupRow[] = [];
   for (const n of graph.nodes) {
     if (n.type === "total") continue;
+    if (n.isPhantom) continue;
     if (n.type === "group") {
-      // Each group's children are the leaves whose groupLabel matches it.
       const children = graph.nodes.filter(
-        (c) => c.type === "leaf" && c.groupLabel === n.label,
+        (c) => c.type === "leaf" && !c.isPhantom && c.groupLabel === n.label,
       );
       out.push({ group: n, children });
     } else if (n.type === "leaf" && n.groupLabel == null) {

@@ -153,8 +153,6 @@ export const BudgetFlowTile: FC<{ snapshot: KfpSnapshot }> = ({ snapshot }) => {
   const revenueLabel = t("budget_flow_total_revenue") || "Revenue";
   const spendingLabel = t("budget_flow_total_spending") || "Spending";
   const otherLabel = t("budget_flow_admin_other") || "Other spending units";
-  const deficitLabel = t("budget_flow_legend_deficit") || "Deficit (financing)";
-  const surplusLabel = t("budget_flow_legend_surplus") || "Surplus";
 
   const model = useMemo(() => {
     if (effectiveGrain === "admin" && adminYear) {
@@ -162,15 +160,11 @@ export const BudgetFlowTile: FC<{ snapshot: KfpSnapshot }> = ({ snapshot }) => {
         revenueLabel,
         spendingLabel,
         otherLabel,
-        deficitLabel,
-        surplusLabel,
       });
     }
     return snapshotToFlowModel(snapshot, lang, {
       revenueLabel,
       spendingLabel,
-      deficitLabel,
-      surplusLabel,
     });
   }, [
     snapshot,
@@ -180,8 +174,6 @@ export const BudgetFlowTile: FC<{ snapshot: KfpSnapshot }> = ({ snapshot }) => {
     revenueLabel,
     spendingLabel,
     otherLabel,
-    deficitLabel,
-    surplusLabel,
   ]);
 
   const { revenueEur, spendingEur, balanceEur, isDeficit } = model.balance;
