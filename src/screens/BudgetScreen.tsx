@@ -95,7 +95,10 @@ const FigureCard: FC<{
             {t("budget_mode_projected") || "projected"}
           </span>{" "}
           <span className="tabular-nums">
-            {t("budget_executed_sofar") || "so far"}{" "}
+            {t("budget_executed_sofar", {
+              year: fy.fiscalYear,
+              defaultValue: "so far",
+            })}{" "}
             {formatEur(
               absolute ? Math.abs(v.actualSoFar ?? 0) : (v.actualSoFar ?? 0),
             )}
