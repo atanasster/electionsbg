@@ -276,6 +276,27 @@ export const AboutScreen = () => {
               </ul>
             </DataGroup>
 
+            <DataGroup title={t("budget_section")}>
+              <ul className="space-y-2">
+                <SourceItem
+                  href="https://data.egov.bg/"
+                  label={t("budget_kfp_source")}
+                />
+                <SourceItem
+                  href="https://dv.parliament.bg/"
+                  label={t("budget_law_dv_source")}
+                />
+                <SourceItem
+                  href="https://www.minfin.bg/"
+                  label={t("budget_ministry_execution_source")}
+                />
+                <SourceItem
+                  href="https://commission.europa.eu/strategy-and-policy/eu-budget/long-term-eu-budget/2021-2027/spending-and-revenue_en"
+                  label={t("budget_ec_eu_funds_source")}
+                />
+              </ul>
+            </DataGroup>
+
             <DataGroup title={t("election_results")}>
               <div className="flex flex-wrap gap-2">
                 {electionResults.map((e) => (
