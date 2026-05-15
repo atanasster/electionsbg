@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Vote, ArrowRight } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { Link } from "@/ux/Link";
+import { Tooltip } from "@/ux/Tooltip";
 import { usePartyCorrelation } from "@/data/parliament/votes/usePartyCorrelation";
 import { useParliamentGroups } from "@/data/parliament/useParliamentGroups";
 
@@ -118,11 +119,9 @@ export const ParliamentVotingTile: FC = () => {
               </div>
               {view.parties.map((colParty, j) => {
                 const score = view.matrix[i][j];
-                return (
+                const cell = (
                   <div
-                    key={`${rowParty}-${colParty}`}
-                    title={`${labelOf(rowParty)} ↔ ${labelOf(colParty)}: ${(score * 100).toFixed(0)}%`}
-                    className="flex items-center justify-center tabular-nums rounded"
+                    className="flex items-center justify-center tabular-nums rounded h-full w-full"
                     style={{
                       backgroundColor: cellColor(score),
                       color:
@@ -133,6 +132,59 @@ export const ParliamentVotingTile: FC = () => {
                   >
                     {i === j ? "" : score === 0 ? "–" : Math.round(score * 100)}
                   </div>
+                );
+                if (i === j) {
+                  return (
+                    <div key={`${rowParty}-${colParty}`} className="contents">
+                      {cell}
+                    </div>
+                  );
+                }
+                const verdict =
+                  score >= 0.55
+                    ? t("dashboard_parliament_legend_together")
+                    : score <= -0.2
+                      ? t("dashboard_parliament_legend_against")
+                      : t("dashboard_parliament_legend_neutral");
+                return (
+                  <Tooltip
+                    key={`${rowParty}-${colParty}`}
+                    className="max-w-64 p-2.5"
+                    content={
+                      <div className="flex flex-col gap-2">
+                        <div className="flex items-center justify-between gap-3">
+                          <span
+                            className="font-semibold truncate"
+                            style={{ color: colorOf(rowParty) }}
+                          >
+                            {labelOf(rowParty)}
+                          </span>
+                          <span className="text-muted-foreground shrink-0">
+                            ↔
+                          </span>
+                          <span
+                            className="font-semibold truncate text-right"
+                            style={{ color: colorOf(colParty) }}
+                          >
+                            {labelOf(colParty)}
+                          </span>
+                        </div>
+                        <div className="border-t border-border pt-2 flex items-center justify-between gap-3">
+                          <span className="text-muted-foreground">
+                            {t("similarity_score") || "similarity"}
+                          </span>
+                          <span className="font-semibold tabular-nums text-sm">
+                            {(score * 100).toFixed(0)}%
+                          </span>
+                        </div>
+                        <div className="text-muted-foreground text-[11px]">
+                          {verdict}
+                        </div>
+                      </div>
+                    }
+                  >
+                    {cell}
+                  </Tooltip>
                 );
               })}
             </Fragment>
