@@ -199,6 +199,29 @@ const EUROSTAT_INDICATORS: EurostatIndicator[] = [
     titleBg: "БВП на човек от населението",
   },
   {
+    // Nominal GDP at market prices (current EUR, millions). The /budget
+    // dashboard expresses each headline figure as a % of GDP — the direct
+    // nama_10_gdp value is preferred over gdpPerCapita × population because
+    // both factors are rounded upstream and the product accumulates the
+    // rounding error.
+    source: "eurostat",
+    key: "nominalGdp",
+    dataset: "nama_10_gdp",
+    query: {
+      geo: "BG",
+      unit: "CP_MEUR",
+      na_item: "B1GQ",
+      freq: "A",
+    },
+    cadence: "annual",
+    sourceUrl:
+      "https://ec.europa.eu/eurostat/databrowser/view/nama_10_gdp/default/table",
+    unitLabelEn: "EUR million (current prices)",
+    unitLabelBg: "млн. евро (текущи цени)",
+    titleEn: "Nominal GDP",
+    titleBg: "Номинален БВП",
+  },
+  {
     source: "eurostat",
     key: "govDebt",
     dataset: "gov_10q_ggdebt",

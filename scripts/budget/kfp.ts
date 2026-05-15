@@ -583,9 +583,12 @@ const projectFigures = (
 
 // Per-fiscal-year roll-up: full-year figures (December cumulative for a
 // complete year), the budget-law plan, and a seasonal projection for the
-// current incomplete year.
+// current incomplete year. `gdpByYear` is an optional lookup the caller
+// builds from data/macro.json — populates `gdpEur` on each summary so the
+// /budget SPA doesn't have to fetch macro.json just to compute % of GDP.
 export const buildFiscalYearSummaries = (
   parsed: ParsedResource[],
+  gdpByYear?: Map<number, number>,
 ): FiscalYearSummary[] => {
   const byFy = groupByFiscalYear(parsed);
   const fiscalYears = [...byFy.keys()].sort((a, b) => a - b);
@@ -637,9 +640,58 @@ export const buildFiscalYearSummaries = (
       actual,
       projected,
       projectionBasis,
+      gdpEur: gdpByYear?.get(fy) ?? null,
     });
   }
   return summaries;
+};
+
+// Read `data/macro.json`'s nominalGdp series (Eurostat nama_10_gdp, current
+// prices, MEUR) and build a {fiscalYear → gdpEur} lookup spanning the given
+// fiscal years. Eurostat publishes year Y by mid-Y+1, so the in-progress
+// fiscal year is projected forward up to 2 years using the geometric mean
+// of the last 3 YoY growth rates. Returns an empty map when macro.json is
+// missing — callers fall back to `gdpEur: null` per summary.
+export const buildGdpByYear = (
+  fiscalYears: number[],
+  macro: { series?: { nominalGdp?: { year: number; value: number }[] } },
+): Map<number, number> => {
+  const out = new Map<number, number>();
+  const raw = macro?.series?.nominalGdp;
+  if (!raw || raw.length === 0) return out;
+  const sorted = [...raw].sort((a, b) => a.year - b.year);
+  const window = sorted.slice(-4);
+  const yoy: number[] = [];
+  for (let i = 1; i < window.length; i++) {
+    if (window[i - 1].value > 0) {
+      yoy.push(window[i].value / window[i - 1].value);
+    }
+  }
+  const geoMean =
+    yoy.length > 0
+      ? Math.pow(
+          yoy.reduce((a, b) => a * b, 1),
+          1 / yoy.length,
+        )
+      : null;
+  const last = sorted[sorted.length - 1];
+  for (const fy of fiscalYears) {
+    const exact = sorted.find((p) => p.year === fy);
+    if (exact) {
+      out.set(fy, Math.round(exact.value * 1_000_000));
+      continue;
+    }
+    if (geoMean != null && fy > last.year) {
+      const steps = fy - last.year;
+      if (steps <= 2) {
+        out.set(
+          fy,
+          Math.round(last.value * Math.pow(geoMean, steps) * 1_000_000),
+        );
+      }
+    }
+  }
+  return out;
 };
 
 // Build the committed kfp.json from every parsed egov resource.

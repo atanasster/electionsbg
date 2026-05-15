@@ -30,6 +30,7 @@ export type MacroIndicatorKey =
   | "povertyRate"
   // Eurostat — annual
   | "gdpPerCapita"
+  | "nominalGdp"
   // World Bank — governance (WGI, -2.5 to +2.5, annual)
   | "wgiRuleOfLaw"
   | "wgiControlOfCorruption"

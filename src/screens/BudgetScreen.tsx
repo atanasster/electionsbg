@@ -30,6 +30,7 @@ import { useBudgetTerm } from "@/data/budget/useBudgetTerm";
 import type { FiscalYearSummary } from "@/data/budget/types";
 import { seriesView, type FySeries } from "@/data/budget/fiscalYear";
 import { BudgetTrendTile } from "./components/budget/BudgetTrendTile";
+import { BudgetSamePointTile } from "./components/budget/BudgetSamePointTile";
 import { BudgetFlowTile } from "./components/budget/BudgetFlowTile";
 import { BudgetJourneyTile } from "./components/budget/BudgetJourneyTile";
 import { BudgetMinistriesTile } from "./components/budget/BudgetMinistriesTile";
@@ -52,13 +53,27 @@ const FigureCard: FC<{
   ringTone?: string;
   // balance is shown as an absolute value with a deficit/surplus label
   absolute?: boolean;
-}> = ({ label, icon: Icon, iconTone, fy, series, ringTone, absolute }) => {
+  gdpEur?: number | null;
+}> = ({
+  label,
+  icon: Icon,
+  iconTone,
+  fy,
+  series,
+  ringTone,
+  absolute,
+  gdpEur,
+}) => {
   const { t } = useTranslation();
   const v = seriesView(fy, series);
   const headline = absolute ? Math.abs(v.value) : v.value;
   const pct =
     v.planValue && v.planValue !== 0
       ? `${((v.value / v.planValue) * 100).toFixed(1)}%`
+      : null;
+  const gdpShare =
+    gdpEur && gdpEur > 0
+      ? `${((Math.abs(v.value) / gdpEur) * 100).toFixed(1)}%`
       : null;
 
   return (
@@ -69,6 +84,11 @@ const FigureCard: FC<{
           {formatEur(headline)}
         </span>
       </div>
+      {gdpShare ? (
+        <div className="text-xs text-muted-foreground tabular-nums">
+          {gdpShare} {t("budget_of_gdp") || "of GDP"}
+        </div>
+      ) : null}
       {v.mode === "projected" ? (
         <div className="text-xs text-muted-foreground">
           <span className="inline-block rounded bg-amber-100 px-1 text-amber-700 dark:bg-amber-900/40 dark:text-amber-300">
@@ -222,6 +242,8 @@ export const BudgetScreen: FC = () => {
 
   const deficit = (summary?.actual.balance?.amountEur ?? 0) < 0;
 
+  const gdpEur = summary?.gdpEur ?? null;
+
   return (
     <>
       <Title description={description}>{title}</Title>
@@ -260,6 +282,7 @@ export const BudgetScreen: FC = () => {
               iconTone="text-emerald-600"
               fy={summary}
               series="revenue"
+              gdpEur={gdpEur}
             />
             <FigureCard
               label={t("budget_series_expenditure") || "Expenditure"}
@@ -267,6 +290,7 @@ export const BudgetScreen: FC = () => {
               iconTone="text-rose-600"
               fy={summary}
               series="expenditure"
+              gdpEur={gdpEur}
             />
             <FigureCard
               label={
@@ -276,6 +300,7 @@ export const BudgetScreen: FC = () => {
               iconTone="text-blue-600"
               fy={summary}
               series="euContribution"
+              gdpEur={gdpEur}
             />
             <FigureCard
               label={
@@ -288,6 +313,7 @@ export const BudgetScreen: FC = () => {
               fy={summary}
               series="balance"
               absolute
+              gdpEur={gdpEur}
               ringTone={
                 deficit
                   ? "ring-1 ring-rose-200/60 dark:ring-rose-800/40"
@@ -301,6 +327,14 @@ export const BudgetScreen: FC = () => {
           <BudgetTrendTile
             observations={scopedObservations}
             allObservations={kfp.observations}
+          />
+        ) : null}
+
+        {summary && !summary.complete ? (
+          <BudgetSamePointTile
+            observations={kfp.observations}
+            fiscalYear={term.selectedFy}
+            monthsAvailable={summary.monthsAvailable}
           />
         ) : null}
 

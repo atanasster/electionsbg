@@ -111,6 +111,11 @@ export interface FiscalYearSummary {
   actual: FiscalYearSeriesFigures;
   projected: FiscalYearSeriesFigures | null;
   projectionBasis: number | null;
+  // Nominal BG GDP for the fiscal year, in EUR (whole units). Sourced from
+  // data/macro.json's `nominalGdp` at pipeline-build time; the in-progress
+  // year is projected forward via recent YoY growth. null when no value
+  // can be sourced or projected.
+  gdpEur: number | null;
 }
 
 export type BudgetDocKind =

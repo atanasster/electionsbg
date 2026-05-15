@@ -35,6 +35,7 @@ import {
   parseEgovResource,
   buildKfpFile,
   buildFiscalYearSummaries,
+  buildGdpByYear,
   UnparseableHeaderError,
 } from "./kfp";
 import type { ParsedResource } from "./kfp";
@@ -153,6 +154,22 @@ const readPreviousDocuments = (): BudgetDocumentsFile["documents"] => {
   }
 };
 
+const MACRO_FILE = path.resolve(__dirname, "../../data/macro.json");
+
+// Read data/macro.json (committed by the macro pipeline) so `gdpEur` can be
+// embedded directly on each FiscalYearSummary. Returns null when macro.json
+// isn't present — callers degrade to `gdpEur: null` per summary.
+const readMacro = (): {
+  series?: { nominalGdp?: { year: number; value: number }[] };
+} | null => {
+  if (!fs.existsSync(MACRO_FILE)) return null;
+  try {
+    return JSON.parse(fs.readFileSync(MACRO_FILE, "utf8"));
+  } catch {
+    return null;
+  }
+};
+
 const buildIndex = (
   kfp: KfpFile,
   documents: BudgetDocumentsFile,
@@ -219,7 +236,14 @@ const buildIndex = (
       observationCount: kfp.observations.length,
     },
     years: [...byYear.values()].sort((a, b) => a.fiscalYear - b.fiscalYear),
-    fiscalYears: buildFiscalYearSummaries(parsed),
+    fiscalYears: (() => {
+      const macro = readMacro();
+      const fyList = [...byYear.keys()].sort((a, b) => a - b);
+      const gdpByYear = macro
+        ? buildGdpByYear(fyList, macro)
+        : new Map<number, number>();
+      return buildFiscalYearSummaries(parsed, gdpByYear);
+    })(),
     documentCount: documents.documents.length,
   };
 };

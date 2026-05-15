@@ -145,6 +145,13 @@ export interface FiscalYearSummary {
   // matching month to anchor the share.
   projected: FiscalYearSeriesFigures | null;
   projectionBasis: number | null; // the prior fiscalYear used as the anchor
+  // Nominal BG GDP for this fiscal year, in EUR (whole units). Lifted from
+  // data/macro.json's `nominalGdp` series (Eurostat nama_10_gdp, current
+  // prices) at pipeline-build time; the in-progress fiscal year is
+  // projected forward up to 2 years from the last published value via the
+  // geometric mean of the last 3 YoY growth rates. null when no value can
+  // be sourced or projected (e.g. fiscal year too far from latest macro data).
+  gdpEur: number | null;
 }
 
 // data/budget/kfp.json — committed. Small even with full monthly history.
