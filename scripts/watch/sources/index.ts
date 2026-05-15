@@ -3,8 +3,10 @@ import { parliamentMps } from "./parliament_mps";
 import { parliamentVotes } from "./parliament_votes";
 import { wikiPolls } from "./wiki_polls";
 import { cacbgDeclarations } from "./cacbg_declarations";
+import { cacbgOfficials } from "./cacbg_officials";
 import { egovCommerce } from "./egov_commerce";
 import { egovProcurement } from "./egov_procurement";
+import { aopDebarred } from "./aop_debarred";
 import { egovBudgetExecution } from "./egov_budget_execution";
 import { ministryExecutionReports } from "./ministry_execution_reports";
 import { eurostat } from "./eurostat";
@@ -24,9 +26,11 @@ export const SOURCES: WatchSource[] = [
   parliamentMps,
   wikiPolls,
   cacbgDeclarations,
+  cacbgOfficials,
   smetnaPalata,
   egovCommerce,
   egovProcurement,
+  aopDebarred,
   egovBudgetExecution,
   ministryExecutionReports,
   eurostat,

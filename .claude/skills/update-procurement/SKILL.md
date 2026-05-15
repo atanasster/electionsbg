@@ -1,6 +1,6 @@
 ---
 name: update-procurement
-description: Ingest new public-procurement (АОП) data from data.egov.bg into data/procurement/. Use when the daily watch report flags "data.egov.bg АОП" as changed, when the user asks to refresh procurement data, backfill prior periods, or investigate flagged contracts (huge amounts, canary mismatch). Also use after a fresh clone if data/procurement/ is empty.
+description: Ingest new public-procurement (АОП) data from data.egov.bg into data/procurement/. Use when the daily watch report flags "data.egov.bg АОП" or "АОП debarred-suppliers register" as changed, when the user asks to refresh procurement data, backfill prior periods, or investigate flagged contracts (huge amounts, canary mismatch). Also use after a fresh clone if data/procurement/ is empty.
 allowed-tools:
   - Read
   - Bash
@@ -17,6 +17,7 @@ Pulls АОП (Агенция за обществени поръчки) fortnight
 | Trigger | Action |
 |---|---|
 | Daily watcher reports `data.egov.bg АОП: N new fortnight bundle(s) on top` | Incremental ingest (`npm run procurement:ingest`) |
+| Daily watcher reports `АОП debarred-suppliers register: N entries` changed | Re-scrape the debarred list (`npx tsx scripts/procurement/debarred.ts`) — see Step 5 below |
 | User asks to "refresh procurement" / "ingest new contracts" | Same — incremental |
 | `data/procurement/` empty (fresh clone) | Cold-start ingest of every visible bundle (~24 fortnights ≈ 1 year) |
 | Canary mismatch warning surfaced | Investigate `scripts/procurement/normalize.ts` BEFORE re-running |
@@ -94,6 +95,34 @@ git commit -m "procurement: ingest fortnight YYYY-MM-DD…YYYY-MM-DD"
 ```
 
 The canary fixture is committed.
+
+## Step 5 — Refresh АОП debarred-suppliers list (optional, gated on watcher)
+
+The "Регистър на стопанските субекти с нарушения" on www2.aop.bg is a tiny upstream — typically 1-5 active entries — that AOП publishes when a КЗК ruling becomes final. The processed JSON is at `data/procurement/debarred.json` and drives the "В черен списък" red-flag chip on contract tables.
+
+Run this step ONLY when the daily watcher reports the `aop_debarred` source as changed, or when explicitly asked to refresh the debarred list:
+
+```bash
+npx tsx scripts/procurement/debarred.ts
+```
+
+Expected output on a normal run:
+
+```
+→ fetching https://www2.aop.bg/stopanski-subekti/stopanski-subekti-s-narusheniya/
+  parsed 2 row(s)
+  0 new row(s); 2 total in snapshot (includes 0 historical entries no longer on the live page)
+  wrote data/procurement/debarred.json
+```
+
+The scraper is merge-on-write: it preserves historical entries even after the upstream page purges them (the срок field expires automatically), so the file accumulates rather than overwrites. Commit alongside the procurement ingest:
+
+```bash
+git add data/procurement/debarred.json
+git commit -m "procurement: refresh АОП debarred-suppliers list"
+```
+
+If the watcher flips and the scraper writes no changes (typical when the page is recompiled but the row set is the same), skip the commit. Use `git diff data/procurement/debarred.json` to verify.
 
 ## Backfill
 

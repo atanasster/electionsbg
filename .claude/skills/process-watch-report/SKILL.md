@@ -31,8 +31,10 @@ The "Changed" section of the report contains a bulleted list. Each bullet's labe
 | `Parliament MPs` (active roster) | `parliament-scrape` |
 | `BG Wikipedia polls` | `update-polls` |
 | `Сметна палата declarations registry` | `update-connections` |
+| `Сметна палата declarations — executive (officials)` | `update-officials` |
 | `data.egov.bg Commerce Registry` | `update-connections` |
 | `data.egov.bg АОП` (procurement) | `update-procurement` |
+| `АОП debarred-suppliers register` | `update-procurement` (Step 5 — debarred-list refresh) |
 | `data.egov.bg бюджет` (budget execution) | `update-budget` |
 | `Per-ministry execution reports` (програмен бюджет) | `update-budget` |
 | `Сметна палата party financing` | `update-financing` |
@@ -70,8 +72,10 @@ Each watcher source maps to one downstream skill. Multiple sources can map to th
 | `parliament_mps` | `parliament-scrape` |
 | `wiki_polls` | `update-polls` |
 | `cacbg_declarations` | `update-connections` |
+| `cacbg_officials` | `update-officials` |
 | `egov_commerce` | `update-connections` |
 | `egov_procurement` | `update-procurement` |
+| `aop_debarred` | `update-procurement` (Step 5 — debarred-list refresh) |
 | `egov_budget_execution` | `update-budget` |
 | `ministry_execution_reports` | `update-budget` |
 | `smetna_palata` | `update-financing` |
