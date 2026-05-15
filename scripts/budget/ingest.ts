@@ -35,6 +35,7 @@ import {
   parseEgovResource,
   buildKfpFile,
   buildFiscalYearSummaries,
+  UnparseableHeaderError,
 } from "./kfp";
 import type { ParsedResource } from "./kfp";
 import { parseLawHtml } from "./law_html";
@@ -239,7 +240,19 @@ const main = async (args: {
   const parsed: ParsedResource[] = [];
   for (const uuid of uuids) {
     const rows = await fetchEgovResource(uuid, { refresh: args.refreshCache });
-    const p = parseEgovResource(rows, uuid);
+    let p: ParsedResource;
+    try {
+      p = parseEgovResource(rows, uuid);
+    } catch (e) {
+      // Orphan resource with a date-less header (e.g. 2021 batch duplicate).
+      // Log and skip — its period would be ambiguous, and a properly-dated
+      // copy of the same month is in the dataset.
+      if (e instanceof UnparseableHeaderError) {
+        console.log(`  • SKIP ${uuid} — ${e.message}`);
+        continue;
+      }
+      throw e;
+    }
     console.log(
       `  • ${p.header.period} (${p.header.currency}) — ${p.sections.length} section(s), ${uuid}`,
     );

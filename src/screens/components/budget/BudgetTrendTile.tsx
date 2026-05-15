@@ -2,12 +2,22 @@
 // bars, one point per published monthly snapshot. The egov feed publishes
 // cumulative year-to-date execution, so the series ramps up within each
 // fiscal year and resets each January — the caption says so.
+//
+// For the in-progress fiscal year, dashed projection lines extend past the
+// last actual month through December, scaled by the prior complete year's
+// monthly cumulative shape: ratio = actualAtLatestMonth / priorAtLatestMonth,
+// then projectedAtMonth = priorAtMonth × ratio. Same formula as the headline
+// projection in scripts/budget/kfp.ts so the December endpoint matches the
+// in-progress card. Requires the prior FY to be complete AND to have a
+// snapshot at the same calendar month as the current latest — falls back
+// silently to actuals-only otherwise.
 
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
 import {
   Bar,
   CartesianGrid,
+  Cell,
   ComposedChart,
   Line,
   ReferenceLine,
@@ -31,26 +41,159 @@ const compactEur = (v: number): string => {
 
 interface ChartDatum {
   period: string;
-  revenue: number;
-  expenditure: number;
-  balance: number;
+  revenue: number | null;
+  expenditure: number | null;
+  // Combined balance for the single bar series — actual on past months,
+  // projected on future months, distinguished by `isProjected` so the cell
+  // can dim the projected slice.
+  balanceBar: number | null;
+  // Line projection series — null on actual months, populated for projected
+  // months PLUS the join month (so the dashed line connects to the last
+  // solid line point without a visible gap).
+  revenueProj: number | null;
+  expenditureProj: number | null;
+  isProjected: boolean;
 }
 
-const buildData = (observations: KfpObservation[]): ChartDatum[] => {
+const fyOf = (period: string): number => parseInt(period.slice(0, 4), 10);
+const monthOf = (period: string): number => parseInt(period.slice(5, 7), 10);
+
+interface MonthlyValues {
+  revenue: number | null;
+  expenditure: number | null;
+  euContribution: number | null;
+  balance: number | null;
+}
+
+// Index a flat observation list by [fy, month] → series values. Projection
+// reads from this on prior-year months the in-progress year hasn't reached.
+const indexByFyMonth = (
+  observations: KfpObservation[],
+): Map<string, MonthlyValues> => {
+  const out = new Map<string, MonthlyValues>();
+  const key = (fy: number, m: number): string => `${fy}-${m}`;
+  for (const o of observations) {
+    const k = key(o.fiscalYear, monthOf(o.period));
+    let v = out.get(k);
+    if (!v) {
+      v = {
+        revenue: null,
+        expenditure: null,
+        euContribution: null,
+        balance: null,
+      };
+      out.set(k, v);
+    }
+    const amt = o.executed.amountEur;
+    if (o.series === "revenue") v.revenue = amt;
+    else if (o.series === "expenditure") v.expenditure = amt;
+    else if (o.series === "euContribution") v.euContribution = amt;
+    else if (o.series === "balance") v.balance = amt;
+  }
+  return out;
+};
+
+const emptyDatum = (period: string, isProjected: boolean): ChartDatum => ({
+  period,
+  revenue: null,
+  expenditure: null,
+  balanceBar: null,
+  revenueProj: null,
+  expenditureProj: null,
+  isProjected,
+});
+
+const buildData = (
+  observations: KfpObservation[],
+  allObservations: KfpObservation[],
+): ChartDatum[] => {
   const byPeriod = new Map<string, ChartDatum>();
   for (const o of observations) {
     let d = byPeriod.get(o.period);
     if (!d) {
-      d = { period: o.period, revenue: 0, expenditure: 0, balance: 0 };
+      d = emptyDatum(o.period, false);
       byPeriod.set(o.period, d);
     }
-    if (o.series === "revenue") d.revenue = o.executed.amountEur;
-    if (o.series === "expenditure") d.expenditure = o.executed.amountEur;
-    if (o.series === "balance") d.balance = o.executed.amountEur;
+    const amt = o.executed.amountEur;
+    if (o.series === "revenue") d.revenue = amt;
+    else if (o.series === "expenditure") d.expenditure = amt;
+    else if (o.series === "balance") d.balanceBar = amt;
   }
-  return [...byPeriod.values()].sort((a, b) =>
+  const sorted = [...byPeriod.values()].sort((a, b) =>
     a.period.localeCompare(b.period),
   );
+  if (sorted.length === 0) return sorted;
+
+  // Determine in-progress FY from the latest displayed point. If it's already
+  // at month 12, the year is complete — nothing to project.
+  const last = sorted[sorted.length - 1];
+  const currentFy = fyOf(last.period);
+  const currentLatestMonth = monthOf(last.period);
+  if (currentLatestMonth >= 12) return sorted;
+
+  // Anchor: prior FY at the same calendar month + at December. Without both
+  // we have no seasonal scale (same constraint the headline projection uses).
+  const idx = indexByFyMonth(allObservations);
+  const priorFy = currentFy - 1;
+  const priorAtLatest = idx.get(`${priorFy}-${currentLatestMonth}`);
+  const priorAtDec = idx.get(`${priorFy}-12`);
+  if (!priorAtLatest || !priorAtDec) return sorted;
+
+  // Per-series ratio. Each scales independently — revenue and expenditure
+  // have different seasonal shapes (revenue is corporate-tax-backloaded;
+  // expenditure runs more linearly). Balance is the residual: project rev,
+  // exp, and EU contribution separately, then balance = rev − exp − EU.
+  const ratio = (
+    actual: number | null,
+    prior: number | null,
+  ): number | null => {
+    if (actual == null || prior == null || prior === 0) return null;
+    return actual / prior;
+  };
+  const ratioRev = ratio(last.revenue, priorAtLatest.revenue);
+  const ratioExp = ratio(last.expenditure, priorAtLatest.expenditure);
+  // EU contribution isn't displayed but feeds the balance projection. Use
+  // ratio=1 if either side is missing, since EU contribution is small enough
+  // that a stale prior estimate barely moves the balance bar.
+  const currentEu = idx.get(
+    `${currentFy}-${currentLatestMonth}`,
+  )?.euContribution;
+  const ratioEu = ratio(currentEu ?? null, priorAtLatest.euContribution) ?? 1;
+
+  // Connect the dashed line at the last actual point: copy line actuals into
+  // the projection keys for that single month so Recharts draws an unbroken
+  // path from solid → dashed. NOT for the balance bar — a bar is per-month
+  // discrete, so painting both `balance` and `balanceProj` here would render
+  // two stacked rects at the join (visible as a doubled, darker bar).
+  last.revenueProj = last.revenue;
+  last.expenditureProj = last.expenditure;
+
+  for (let m = currentLatestMonth + 1; m <= 12; m++) {
+    const priorMonth = idx.get(`${priorFy}-${m}`);
+    if (!priorMonth) continue;
+    const period = `${currentFy}-${String(m).padStart(2, "0")}`;
+    const projRev =
+      ratioRev != null && priorMonth.revenue != null
+        ? Math.round(priorMonth.revenue * ratioRev)
+        : null;
+    const projExp =
+      ratioExp != null && priorMonth.expenditure != null
+        ? Math.round(priorMonth.expenditure * ratioExp)
+        : null;
+    const projEu =
+      priorMonth.euContribution != null
+        ? Math.round(priorMonth.euContribution * ratioEu)
+        : 0;
+    const projBal =
+      projRev != null && projExp != null ? projRev - projExp - projEu : null;
+    const datum = emptyDatum(period, true);
+    datum.revenueProj = projRev;
+    datum.expenditureProj = projExp;
+    datum.balanceBar = projBal;
+    sorted.push(datum);
+  }
+
+  return sorted;
 };
 
 const ChartTooltip: FC<{
@@ -60,29 +203,44 @@ const ChartTooltip: FC<{
   const { t } = useTranslation();
   if (!active || !payload?.[0]) return null;
   const d = payload[0].payload;
+  const projTag = d.isProjected ? (
+    <span className="ml-1 text-[10px] uppercase tracking-wide text-amber-600">
+      {t("budget_mode_projected") || "projected"}
+    </span>
+  ) : null;
+  const rev = d.isProjected ? d.revenueProj : d.revenue;
+  const exp = d.isProjected ? d.expenditureProj : d.expenditure;
+  const bal = d.balanceBar;
   return (
     <div className="rounded-md border bg-popover px-2 py-1.5 text-popover-foreground shadow-sm text-xs space-y-0.5">
-      <div className="font-semibold">{d.period}</div>
+      <div className="font-semibold">
+        {d.period}
+        {projTag}
+      </div>
       <div className="tabular-nums text-emerald-600">
-        {t("budget_series_revenue") || "Revenue"}: {formatEur(d.revenue)}
+        {t("budget_series_revenue") || "Revenue"}:{" "}
+        {rev != null ? formatEur(rev) : "—"}
       </div>
       <div className="tabular-nums text-rose-600">
         {t("budget_series_expenditure") || "Expenditure"}:{" "}
-        {formatEur(d.expenditure)}
+        {exp != null ? formatEur(exp) : "—"}
       </div>
       <div className="tabular-nums text-muted-foreground">
-        {t("budget_series_balance") || "Balance"}: {formatEur(d.balance)}
+        {t("budget_series_balance") || "Balance"}:{" "}
+        {bal != null ? formatEur(bal) : "—"}
       </div>
     </div>
   );
 };
 
-export const BudgetTrendTile: FC<{ observations: KfpObservation[] }> = ({
-  observations,
-}) => {
+export const BudgetTrendTile: FC<{
+  observations: KfpObservation[];
+  allObservations: KfpObservation[];
+}> = ({ observations, allObservations }) => {
   const { t } = useTranslation();
-  const data = buildData(observations);
+  const data = buildData(observations, allObservations);
   if (data.length === 0) return null;
+  const hasProjection = data.some((d) => d.isProjected);
 
   return (
     <Card className="my-4" data-og="budget-trend">
@@ -124,7 +282,24 @@ export const BudgetTrendTile: FC<{ observations: KfpObservation[] }> = ({
                 cursor={{ fill: "var(--muted)", opacity: 0.3 }}
               />
               <ReferenceLine y={0} className="stroke-border" />
-              <Bar dataKey="balance" fill="#94a3b8" radius={[2, 2, 0, 0]} />
+              {/* Balance bars: deficit (negative) in rose, surplus in
+                  emerald. Same hues as the budget-flow графика's
+                  COLOR_DEFICIT / COLOR_SURPLUS so the metaphor stays
+                  consistent across tiles. ONE Bar series so Recharts
+                  centers each rect on its X tick — two parallel Bar series
+                  would group them side-by-side and shift the actuals off
+                  the line dots. The combined `balanceBar` carries actual
+                  values for past months and projected values for future
+                  months; per-cell opacity dims the projected slice. */}
+              <Bar dataKey="balanceBar" radius={[2, 2, 0, 0]}>
+                {data.map((d, i) => (
+                  <Cell
+                    key={`bal-${i}`}
+                    fill={(d.balanceBar ?? 0) < 0 ? "#fb7185" : "#34d399"}
+                    fillOpacity={d.isProjected ? 0.4 : 1}
+                  />
+                ))}
+              </Bar>
               <Line
                 type="monotone"
                 dataKey="revenue"
@@ -141,12 +316,41 @@ export const BudgetTrendTile: FC<{ observations: KfpObservation[] }> = ({
                 dot={{ r: 2.5, fill: "#e11d48" }}
                 activeDot={{ r: 5 }}
               />
+              <Line
+                type="monotone"
+                dataKey="revenueProj"
+                stroke="#059669"
+                strokeWidth={2}
+                strokeDasharray="5 4"
+                dot={{ r: 2, fill: "#059669", fillOpacity: 0.6 }}
+                activeDot={{ r: 5 }}
+                isAnimationActive={false}
+                legendType="none"
+              />
+              <Line
+                type="monotone"
+                dataKey="expenditureProj"
+                stroke="#e11d48"
+                strokeWidth={2}
+                strokeDasharray="5 4"
+                dot={{ r: 2, fill: "#e11d48", fillOpacity: 0.6 }}
+                activeDot={{ r: 5 }}
+                isAnimationActive={false}
+                legendType="none"
+              />
             </ComposedChart>
           </ResponsiveContainer>
         </div>
         <p className="text-[11px] text-muted-foreground/80 mt-2">
-          {t("budget_trend_caption") ||
-            "Cumulative execution within each fiscal year — figures reset each January. Pre-2026 leva converted to euro at the locked 1.95583 parity."}
+          {hasProjection ? (
+            <>
+              {t("budget_trend_caption_projected") ||
+                "Cumulative execution within each fiscal year — figures reset each January. Dashed lines extend the in-progress year through December using the prior year's seasonal pattern."}
+            </>
+          ) : (
+            t("budget_trend_caption") ||
+            "Cumulative execution within each fiscal year — figures reset each January. Pre-2026 leva converted to euro at the locked 1.95583 parity."
+          )}
         </p>
       </CardContent>
     </Card>

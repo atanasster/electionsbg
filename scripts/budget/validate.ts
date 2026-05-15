@@ -89,7 +89,15 @@ export const validateSnapshotHierarchy = (snapshot: KfpSnapshot): void => {
       pick === "executed" ? section.executed?.amount : section.planned?.amount;
     if (sigOfSection != null) {
       const topSum = top.reduce((a, l) => a + lineValue(l), 0);
-      const tol = HIERARCHY_TOLERANCE_ABS;
+      // Older snapshots (2021-2023) accumulated more float-rounding noise
+      // upstream — the egov source publishes millions with up to 7 decimals,
+      // and small per-line truncations sum to non-trivial drift across many
+      // rows. Mirror the subtotal tolerance: fractional floor with the flat
+      // absolute as the lower bound for small sections.
+      const tol = Math.max(
+        HIERARCHY_TOLERANCE_ABS,
+        Math.abs(sigOfSection) * SUBTOTAL_CHILDREN_TOL_FRAC,
+      );
       if (Math.abs(topSum - sigOfSection) > tol) {
         fail(
           `section ${section.code} top-level rows sum to ${topSum} but section reports ${sigOfSection}`,

@@ -298,7 +298,10 @@ export const BudgetScreen: FC = () => {
         ) : null}
 
         {scopedObservations.length > 0 ? (
-          <BudgetTrendTile observations={scopedObservations} />
+          <BudgetTrendTile
+            observations={scopedObservations}
+            allObservations={kfp.observations}
+          />
         ) : null}
 
         {snapshot ? <BudgetFlowTile snapshot={snapshot} /> : null}

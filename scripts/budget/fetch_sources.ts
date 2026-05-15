@@ -300,21 +300,35 @@ const fetchText = async (
 
 // Walk the dataset page and pull every resource UUID. The CKAN-style /api
 // endpoints on data.egov.bg are broken (return success:false), so — same as
-// the procurement watcher — we parse the HTML.
+// the procurement watcher — we parse the HTML. The dataset is paginated
+// (`?rpage=N`); we read the page-1 pagination strip to get the max page, then
+// walk pages 2…N. Without this the ingest only sees the most recent ~10
+// monthly resources, which silently truncates the КФП history to a few months
+// (and breaks the seasonal projection — no same-month prior-year anchor).
 export const fetchEgovResourceUuids = async (): Promise<string[]> => {
-  const html = await fetchText(EGOV_DATASET_URL);
-  if (!html) throw new Error("empty egov budget dataset page");
-  const uuids = Array.from(
-    html.matchAll(/resourceView\/([0-9a-f-]{36})/gi),
-  ).map((m) => m[1]);
-  const unique = [...new Set(uuids)];
-  if (unique.length === 0) {
+  const firstHtml = await fetchText(EGOV_DATASET_URL);
+  if (!firstHtml) throw new Error("empty egov budget dataset page");
+  const collect = (html: string): string[] =>
+    Array.from(html.matchAll(/resourceView\/([0-9a-f-]{36})/gi)).map(
+      (m) => m[1],
+    );
+  const all = new Set<string>(collect(firstHtml));
+  const pageNums = Array.from(firstHtml.matchAll(/[?&]rpage=(\d+)/g))
+    .map((m) => parseInt(m[1], 10))
+    .filter((n) => Number.isFinite(n) && n > 1);
+  const maxPage = pageNums.length > 0 ? Math.max(...pageNums) : 1;
+  for (let p = 2; p <= maxPage; p++) {
+    const html = await fetchText(`${EGOV_DATASET_URL}?rpage=${p}`);
+    if (!html) continue;
+    for (const uuid of collect(html)) all.add(uuid);
+  }
+  if (all.size === 0) {
     throw new Error(
       `egov budget dataset ${EGOV_DATASET_UUID} yielded zero resource UUIDs — ` +
         `the page structure likely changed`,
     );
   }
-  return unique;
+  return [...all];
 };
 
 const cachePath = (uuid: string): string =>

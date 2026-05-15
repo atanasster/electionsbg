@@ -17,6 +17,16 @@
       "title": "Закон за държавния бюджет на Република България за 2020 г."
     },
     {
+      "discovery": "auto",
+      "fiscalYear": 2021,
+      "id": "law-2021",
+      "kind": "law",
+      "notes": "Placeholder — resolve the Държавен вестник idMat and add it to LAW_DV_MATERIALS in scripts/budget/fetch_sources.ts.",
+      "seq": 0,
+      "sources": [],
+      "title": "Закон за държавния бюджет на Република България за 2021 г."
+    },
+    {
       "discovery": "auto-confirmed",
       "fiscalYear": 2022,
       "id": "amendment-2022-1",
@@ -327,6 +337,288 @@
         },
         {
           "format": "json",
+          "label": "Execution as of 2021-06-30",
+          "role": "resource",
+          "url": "https://data.egov.bg/resource/download/032e1083-a2a3-4ff6-9c76-3ba7dc115f35/json"
+        },
+        {
+          "format": "json",
+          "label": "Execution as of 2021-07-31",
+          "role": "resource",
+          "url": "https://data.egov.bg/resource/download/22bded01-71bb-4f0a-9651-be4a32c093b8/json"
+        },
+        {
+          "format": "json",
+          "label": "Execution as of 2021-08-31",
+          "role": "resource",
+          "url": "https://data.egov.bg/resource/download/823498e2-39f3-4abd-8600-1d70d9db56cc/json"
+        },
+        {
+          "format": "json",
+          "label": "Execution as of 2021-10-31",
+          "role": "resource",
+          "url": "https://data.egov.bg/resource/download/cf9c1aae-6be3-44a8-a5b6-f90c4129a9d7/json"
+        },
+        {
+          "format": "json",
+          "label": "Execution as of 2021-11-30",
+          "role": "resource",
+          "url": "https://data.egov.bg/resource/download/760c3033-d606-4984-ad85-3c4de0c95962/json"
+        },
+        {
+          "format": "json",
+          "label": "Execution as of 2021-12-31",
+          "role": "resource",
+          "url": "https://data.egov.bg/resource/download/939b453e-7b7c-414a-b789-7106359c65bb/json"
+        },
+        {
+          "format": "json",
+          "label": "Execution as of 2022-01-31",
+          "role": "resource",
+          "url": "https://data.egov.bg/resource/download/2ff36b19-b039-4d86-9d67-1dd54dea7e72/json"
+        },
+        {
+          "format": "json",
+          "label": "Execution as of 2022-02-28",
+          "role": "resource",
+          "url": "https://data.egov.bg/resource/download/9dab8690-3f90-4e5b-8afa-f69b34f9bf73/json"
+        },
+        {
+          "format": "json",
+          "label": "Execution as of 2022-03-31",
+          "role": "resource",
+          "url": "https://data.egov.bg/resource/download/11cc9cc0-b8b5-4e33-ad64-b2aabd75efb3/json"
+        },
+        {
+          "format": "json",
+          "label": "Execution as of 2022-04-30",
+          "role": "resource",
+          "url": "https://data.egov.bg/resource/download/fd2783a8-8e4f-4f9a-9b9a-3f7bd8fbfddd/json"
+        },
+        {
+          "format": "json",
+          "label": "Execution as of 2022-05-31",
+          "role": "resource",
+          "url": "https://data.egov.bg/resource/download/1b70a457-9654-412f-9c1f-b8e26903860c/json"
+        },
+        {
+          "format": "json",
+          "label": "Execution as of 2022-06-30",
+          "role": "resource",
+          "url": "https://data.egov.bg/resource/download/85721c2d-b0c6-4c71-b904-af4e7c892bef/json"
+        },
+        {
+          "format": "json",
+          "label": "Execution as of 2022-07-31",
+          "role": "resource",
+          "url": "https://data.egov.bg/resource/download/b93e660e-f6a7-493f-aa18-c853a204e622/json"
+        },
+        {
+          "format": "json",
+          "label": "Execution as of 2022-08-31",
+          "role": "resource",
+          "url": "https://data.egov.bg/resource/download/434ed070-57ef-4131-9824-581709100e51/json"
+        },
+        {
+          "format": "json",
+          "label": "Execution as of 2022-09-30",
+          "role": "resource",
+          "url": "https://data.egov.bg/resource/download/ed94fb05-d79d-41c3-9551-0de818e49fa6/json"
+        },
+        {
+          "format": "json",
+          "label": "Execution as of 2022-10-31",
+          "role": "resource",
+          "url": "https://data.egov.bg/resource/download/027bef0a-9534-419b-95ad-380861d65987/json"
+        },
+        {
+          "format": "json",
+          "label": "Execution as of 2022-11-30",
+          "role": "resource",
+          "url": "https://data.egov.bg/resource/download/d166506b-ca0a-4b02-9be8-efcfa11c148f/json"
+        },
+        {
+          "format": "json",
+          "label": "Execution as of 2022-12-31",
+          "role": "resource",
+          "url": "https://data.egov.bg/resource/download/f68cab57-5367-4337-be76-5144e74cb7de/json"
+        },
+        {
+          "format": "json",
+          "label": "Execution as of 2023-01-31",
+          "role": "resource",
+          "url": "https://data.egov.bg/resource/download/411815a5-aa20-4bbc-a03e-672f625d57e4/json"
+        },
+        {
+          "format": "json",
+          "label": "Execution as of 2023-02-28",
+          "role": "resource",
+          "url": "https://data.egov.bg/resource/download/217c078f-b790-4e6e-8d4b-708aa39cffaf/json"
+        },
+        {
+          "format": "json",
+          "label": "Execution as of 2023-03-31",
+          "role": "resource",
+          "url": "https://data.egov.bg/resource/download/922bff41-0f9e-479f-97f2-3e8f63cff21e/json"
+        },
+        {
+          "format": "json",
+          "label": "Execution as of 2023-04-30",
+          "role": "resource",
+          "url": "https://data.egov.bg/resource/download/60e263d6-b0a3-46dc-a93d-758a3989c7e3/json"
+        },
+        {
+          "format": "json",
+          "label": "Execution as of 2023-05-31",
+          "role": "resource",
+          "url": "https://data.egov.bg/resource/download/ae0a85bb-494d-4bce-b96a-e0c159a33e39/json"
+        },
+        {
+          "format": "json",
+          "label": "Execution as of 2023-06-30",
+          "role": "resource",
+          "url": "https://data.egov.bg/resource/download/86645c9a-6f76-45be-a1da-d0eff92dc87b/json"
+        },
+        {
+          "format": "json",
+          "label": "Execution as of 2023-07-31",
+          "role": "resource",
+          "url": "https://data.egov.bg/resource/download/478424d3-ce13-44ba-b0cb-b611725d234e/json"
+        },
+        {
+          "format": "json",
+          "label": "Execution as of 2023-08-31",
+          "role": "resource",
+          "url": "https://data.egov.bg/resource/download/5023c2ed-1be3-43c8-bead-c16503c48636/json"
+        },
+        {
+          "format": "json",
+          "label": "Execution as of 2023-09-30",
+          "role": "resource",
+          "url": "https://data.egov.bg/resource/download/2f1771cf-af2c-4881-98e3-b4f7d75f0b94/json"
+        },
+        {
+          "format": "json",
+          "label": "Execution as of 2023-10-31",
+          "role": "resource",
+          "url": "https://data.egov.bg/resource/download/30b4ad77-4bff-4e5a-9d79-e6f1b58ca16f/json"
+        },
+        {
+          "format": "json",
+          "label": "Execution as of 2023-11-30",
+          "role": "resource",
+          "url": "https://data.egov.bg/resource/download/05155e9f-51e9-49bc-ac98-b7a7f1b30391/json"
+        },
+        {
+          "format": "json",
+          "label": "Execution as of 2023-12-31",
+          "role": "resource",
+          "url": "https://data.egov.bg/resource/download/cb7c825c-ac75-4931-bc8e-7ff2a1de0594/json"
+        },
+        {
+          "format": "json",
+          "label": "Execution as of 2024-01-31",
+          "role": "resource",
+          "url": "https://data.egov.bg/resource/download/01d3ddd4-6637-4dca-a9f6-998d5b50fb49/json"
+        },
+        {
+          "format": "json",
+          "label": "Execution as of 2024-02-29",
+          "role": "resource",
+          "url": "https://data.egov.bg/resource/download/27e02a51-49f4-4b69-b1f2-f436a688a1b8/json"
+        },
+        {
+          "format": "json",
+          "label": "Execution as of 2024-03-31",
+          "role": "resource",
+          "url": "https://data.egov.bg/resource/download/87cd16f6-37b4-43e2-97e6-595c49cb2331/json"
+        },
+        {
+          "format": "json",
+          "label": "Execution as of 2024-04-30",
+          "role": "resource",
+          "url": "https://data.egov.bg/resource/download/a8628648-58c8-42bf-866f-fae16ef55f3f/json"
+        },
+        {
+          "format": "json",
+          "label": "Execution as of 2024-05-31",
+          "role": "resource",
+          "url": "https://data.egov.bg/resource/download/91eb49f8-e569-4735-9499-e132634ca7bd/json"
+        },
+        {
+          "format": "json",
+          "label": "Execution as of 2024-06-30",
+          "role": "resource",
+          "url": "https://data.egov.bg/resource/download/97217aa5-0f7e-4688-8926-071331e638c1/json"
+        },
+        {
+          "format": "json",
+          "label": "Execution as of 2024-07-31",
+          "role": "resource",
+          "url": "https://data.egov.bg/resource/download/c3e0856d-3222-4ed3-90e1-44c1b1fd4519/json"
+        },
+        {
+          "format": "json",
+          "label": "Execution as of 2024-08-31",
+          "role": "resource",
+          "url": "https://data.egov.bg/resource/download/967d61d3-3603-4bf0-a914-7c6081c5b47b/json"
+        },
+        {
+          "format": "json",
+          "label": "Execution as of 2024-09-30",
+          "role": "resource",
+          "url": "https://data.egov.bg/resource/download/69a26329-5645-4c7e-bb70-a277eb6304e2/json"
+        },
+        {
+          "format": "json",
+          "label": "Execution as of 2024-10-31",
+          "role": "resource",
+          "url": "https://data.egov.bg/resource/download/8c14c787-de14-4fbd-a369-503c13ebcbe2/json"
+        },
+        {
+          "format": "json",
+          "label": "Execution as of 2024-11-30",
+          "role": "resource",
+          "url": "https://data.egov.bg/resource/download/2b4de7fb-1f2a-4222-a589-a3474ca22f14/json"
+        },
+        {
+          "format": "json",
+          "label": "Execution as of 2024-12-31",
+          "role": "resource",
+          "url": "https://data.egov.bg/resource/download/4b1680cb-d3df-4c53-b82a-cb475d051432/json"
+        },
+        {
+          "format": "json",
+          "label": "Execution as of 2025-01-31",
+          "role": "resource",
+          "url": "https://data.egov.bg/resource/download/0ce25cbb-cd7f-4235-a0a4-3dd73315cb1f/json"
+        },
+        {
+          "format": "json",
+          "label": "Execution as of 2025-02-28",
+          "role": "resource",
+          "url": "https://data.egov.bg/resource/download/e70a91ef-6b51-4294-ba13-202d23d3ec58/json"
+        },
+        {
+          "format": "json",
+          "label": "Execution as of 2025-03-31",
+          "role": "resource",
+          "url": "https://data.egov.bg/resource/download/535b31aa-497d-4046-bc46-95e9fd254d70/json"
+        },
+        {
+          "format": "json",
+          "label": "Execution as of 2025-04-30",
+          "role": "resource",
+          "url": "https://data.egov.bg/resource/download/f1acdbcd-2615-4be1-9765-e555a87dc2d0/json"
+        },
+        {
+          "format": "json",
+          "label": "Execution as of 2025-05-31",
+          "role": "resource",
+          "url": "https://data.egov.bg/resource/download/6c298eca-3b92-4045-86b0-9365c3710e3f/json"
+        },
+        {
+          "format": "json",
           "label": "Execution as of 2025-06-30",
           "role": "resource",
           "url": "https://data.egov.bg/resource/download/5e1788dd-ca69-45cd-9648-a1bda2f9426c/json"
@@ -389,5 +681,5 @@
       "title": "КФП — state budget execution by major budget indicators"
     }
   ],
-  "generatedAt": "2026-05-15T05:45:45.507Z"
+  "generatedAt": "2026-05-15T11:21:44.126Z"
 }

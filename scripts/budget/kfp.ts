@@ -96,8 +96,7 @@ const LINE_LABELS_EN: Record<string, string> = {
     "Acquisition of fixed assets and major repairs",
   "Капиталови трансфери": "Capital transfers",
   "Прираст на държавния резерв": "Increase in state reserves",
-  "Прираст на държавния резерв - нето":
-    "Increase in state reserves (net)",
+  "Прираст на държавния резерв - нето": "Increase in state reserves (net)",
   "Резерв за непредвидени и/или неотложни разходи:":
     "Reserve for unforeseen and/or urgent expenditure",
   "Трансфери (нето)": "Transfers (net)",
@@ -328,6 +327,13 @@ const SECTION_RE = /^(I{1,3}|IV|V)\.\s+/;
 // "31.12.2025" anywhere in the execution-column header.
 const DATE_RE = /(\d{2})\.(\d{2})\.(\d{4})/;
 
+export class UnparseableHeaderError extends Error {
+  constructor(message: string) {
+    super(message);
+    this.name = "UnparseableHeaderError";
+  }
+}
+
 interface ParsedHeader {
   asOf: string; // YYYY-MM-DD
   period: string; // YYYY-MM
@@ -345,9 +351,13 @@ const parseHeader = (header: string[], uuid: string): ParsedHeader => {
       `egov resource ${uuid}: no "Изпълнение" column in header ${JSON.stringify(header)}`,
     );
   }
+  // Some legacy resources (e.g. one of the 2021 batch) carry just "Изпълнение"
+  // with no date in the header — they're orphan duplicates of properly-dated
+  // ones. Signal with a sentinel so the caller can skip them without aborting
+  // the whole ingest; the date is the only field we cannot infer.
   const dateMatch = (header[execCol] ?? "").match(DATE_RE);
   if (!dateMatch) {
-    throw new Error(
+    throw new UnparseableHeaderError(
       `egov resource ${uuid}: could not parse execution date from "${header[execCol]}"`,
     );
   }
