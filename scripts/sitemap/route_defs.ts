@@ -50,6 +50,7 @@ export const ENGLISH_STATIC_PAGES = [
   "mp/companies",
   "mp-assets",
   "mp-cars",
+  "officials/assets",
   "procurement",
   "procurement/contractors",
   "procurement/awarders",
@@ -111,6 +112,17 @@ export const routeDefs = (year: string): RouteDefs => [
   { path: "mp/companies", file: `src/screens/AllMpCompaniesScreen.tsx` },
   { path: "mp-assets", file: `src/screens/AllMpAssetsScreen.tsx` },
   { path: "mp-cars", file: `src/screens/MpCarsScreen.tsx` },
+
+  // Non-MP officials (cabinet, state-agency heads, regional governors).
+  // Sourced from the same register.cacbg.bg pipeline as MPs.
+  {
+    path: "officials/assets",
+    file: `data/officials/assets-rankings.json`,
+  },
+  {
+    path: "officials/:id",
+    file: `officials-list`,
+  },
 
   // Public procurement.
   { path: "procurement", file: `src/screens/ProcurementScreen.tsx` },

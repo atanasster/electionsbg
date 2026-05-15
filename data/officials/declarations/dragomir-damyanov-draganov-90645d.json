@@ -1,0 +1,122 @@
+[
+  {
+    "slug": "dragomir-damyanov-draganov-90645d",
+    "declarantName": "Драгомир Дамянов Драганов",
+    "institution": "Област - Русе",
+    "positionTitle": null,
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-08",
+    "entryNumber": "Г13393",
+    "controlHash": "5DAACF59",
+    "sourceUrl": "https://register.cacbg.bg/2025/F51A22B4-4F8B-4CDC-8DB2-41AA5A666DE7216601.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 48557.38995720487,
+        "amountEurSpouse": 21090.790099344013
+      },
+      {
+        "parent": null,
+        "category": "Пенсия",
+        "amountEurDeclarant": 14903.135753107377,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 5000,
+        "valueEur": 5000.4345980990165,
+        "holderName": "Драгомир Дамянов Драганов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 40000,
+        "valueEur": 20451.67524784874,
+        "holderName": "Драгомир Дамянов Драганов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "receivable",
+        "description": "Заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 169801,
+        "valueEur": 86817.87271899909,
+        "holderName": "Драгомир Дамянов Драганов",
+        "isSpouse": false,
+        "legalBasis": "кредит",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Банков кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "Драгомир Дамянов Драганов",
+        "isSpouse": false,
+        "legalBasis": "договор за заем",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Банков кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 6455,
+        "valueEur": 3300.3890931215906,
+        "holderName": "Драгомир Дамянов Драганов",
+        "isSpouse": false,
+        "legalBasis": "овърдрафт",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

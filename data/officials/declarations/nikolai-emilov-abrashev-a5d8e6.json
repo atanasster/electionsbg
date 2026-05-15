@@ -1,0 +1,80 @@
+[
+  {
+    "slug": "nikolai-emilov-abrashev-a5d8e6",
+    "declarantName": "Николай Емилов Абрашев",
+    "institution": "Област - Плевен",
+    "positionTitle": null,
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-08",
+    "entryNumber": "Г12765",
+    "controlHash": "D9595799",
+    "sourceUrl": "https://register.cacbg.bg/2025/780950FA-D257-4D92-BC40-C3EF6382FD6D215940.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 28318.412131933757,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Радишево",
+        "municipality": "Плевен",
+        "areaSqm": 521,
+        "builtAreaSqm": 50,
+        "acquiredYear": 2016,
+        "share": "1",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Николай Емилов Абрашев",
+        "isSpouse": false,
+        "legalBasis": "дарение",
+        "fundsOrigin": "безвъзмездно"
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10500,
+        "valueEur": 5368.564752560294,
+        "holderName": "Николай Емилов Абрашев",
+        "isSpouse": false,
+        "legalBasis": "Договор",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 35900,
+        "valueEur": 18355.378534944244,
+        "holderName": "Михаела Велиславова Абрашева",
+        "isSpouse": true,
+        "legalBasis": "Договор",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

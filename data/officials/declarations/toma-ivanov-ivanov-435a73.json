@@ -1,0 +1,104 @@
+[
+  {
+    "slug": "toma-ivanov-ivanov-435a73",
+    "declarantName": "Тома Иванов Иванов",
+    "institution": "Информационен център на МО",
+    "positionTitle": null,
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-29",
+    "entryNumber": "Г5080",
+    "controlHash": "C8470FDD",
+    "sourceUrl": "https://register.cacbg.bg/2025/99BA4092-3C77-4FEF-8725-CC83B76B0247207969.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 33859.28224845717,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 16717.19934759156,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 75000,
+        "valueEur": 38346.89108971639,
+        "holderName": "Тома Иванов Иванов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 65000,
+        "valueEur": 33233.972277754205,
+        "holderName": "Тома Иванов Иванов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 15000,
+        "valueEur": 12240.327635837471,
+        "holderName": "тома Иванов Иванов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Лизинг на автомобил",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 34579,
+        "valueEur": 17679.96195988404,
+        "holderName": "Тома Иванов Иванов",
+        "isSpouse": false,
+        "legalBasis": "Договор за финансов лизинг,РЛП в лева на ОББ плюс надбавка от 1.99%",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

@@ -1,0 +1,134 @@
+[
+  {
+    "slug": "dora-angelova-stoyanova-40a58c",
+    "declarantName": "ДОРА АНГЕЛОВА СТОЯНОВА",
+    "institution": "Област - Ловеч",
+    "positionTitle": null,
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-13",
+    "entryNumber": "Г13282",
+    "controlHash": "3DDB7F0C",
+    "sourceUrl": "https://register.cacbg.bg/2025/5598D1DC-BAB9-48BD-93D6-1C13313F2EB6216485.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 24888.666192869525,
+        "amountEurSpouse": 3878.6602107545136
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 337.4526415895042
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 26111.67637269088
+      },
+      {
+        "parent": null,
+        "category": "ПЕНСИЯ",
+        "amountEurDeclarant": 4564.813915319839,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "МОСКВИЧ 412",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 380,
+        "valueEur": 194.29091485456303,
+        "holderName": "ДОРА АНГЕЛОВА СТОЯНОВА",
+        "isSpouse": false,
+        "legalBasis": "ДОГОВОР",
+        "fundsOrigin": "ЗАПЛАТА"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 2500,
+        "valueEur": 1278.2297029905462,
+        "holderName": "ДОРА АНГЕЛОВА СТОЯНОВА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 22304,
+        "valueEur": 11403.854118200457,
+        "holderName": "ДОРА АНГЕЛОВА СТОЯНОВА",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит 3,73 %",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 18191,
+        "valueEur": 9300.91061084041,
+        "holderName": "Дора Ангелова Стоянова и Горан Димитров Стоянов",
+        "isSpouse": true,
+        "legalBasis": "договор",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит 4,55 %",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 21446,
+        "valueEur": 10965.165684134101,
+        "holderName": "Дора Ангелова Стоянова",
+        "isSpouse": false,
+        "legalBasis": "ДОГОВОР",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

@@ -1,0 +1,86 @@
+[
+  {
+    "slug": "petya-ivanova-balulova-2c901d",
+    "declarantName": "Петя Иванова Балулова",
+    "institution": "ЦКОДУХЗ",
+    "positionTitle": null,
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-30",
+    "entryNumber": "Г5973",
+    "controlHash": "CF56AE9E",
+    "sourceUrl": "https://register.cacbg.bg/2025/0977FA14-8C00-48D4-87B1-D5BEBF689B90208919.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 28748.919895900974,
+        "amountEurSpouse": 16408.379051349042
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 2147.4259010241176
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "БМВ 320 ДХ ДРАЙВ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "СИО",
+        "currency": "BGN",
+        "amount": 13500,
+        "valueEur": 6902.44039614895,
+        "holderName": "Пламен Георгиев Балулов",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 63276,
+        "valueEur": 32352.50507457192,
+        "holderName": "Петя Иванова Балулова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 184833,
+        "valueEur": 94503.61227714065,
+        "holderName": "Пламен Георгиев Балулов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ]
+  }
+]

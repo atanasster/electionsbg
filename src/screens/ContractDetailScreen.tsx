@@ -7,14 +7,17 @@ import { useParams, Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Receipt, ExternalLink } from "lucide-react";
 import { useContract } from "@/data/procurement/useContract";
+import { useContractRiskFlags } from "@/data/procurement/useContractRiskFlags";
 import { formatAmountEur } from "@/lib/currency";
 import { resolveContractSource } from "./components/candidates/procurement/sourceUrl";
 import { ErrorSection } from "./components/ErrorSection";
+import { RiskBadges } from "./components/procurement/RiskBadges";
 
 export const ContractDetailScreen: FC = () => {
   const { id } = useParams<{ id: string }>();
   const { t, i18n } = useTranslation();
   const { data: c, isLoading } = useContract(id);
+  const { result: riskResult } = useContractRiskFlags(c);
 
   if (isLoading) {
     return (
@@ -79,6 +82,11 @@ export const ContractDetailScreen: FC = () => {
               );
             })()
           : null}
+        {riskResult && riskResult.hasFlag ? (
+          <div className="pt-2">
+            <RiskBadges result={riskResult} />
+          </div>
+        ) : null}
       </header>
 
       <section className="rounded-xl border bg-card p-4 shadow-sm space-y-2 text-sm">

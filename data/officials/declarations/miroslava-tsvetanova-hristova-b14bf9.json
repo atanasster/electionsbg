@@ -1,0 +1,80 @@
+[
+  {
+    "slug": "miroslava-tsvetanova-hristova-b14bf9",
+    "declarantName": "Мирослава Цветанова Христова",
+    "institution": "ЦСМП",
+    "positionTitle": null,
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2024-03-12",
+    "entryNumber": "Г531",
+    "controlHash": "67D83FAC",
+    "sourceUrl": "https://register.cacbg.bg/2025/1D017447-DC57-44E6-991C-AD67C8B51E71202601.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 42365.13398403747,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 2344.784567165858,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": 0,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 99.7019168332626,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 38000,
+        "valueEur": 19429.0914854563,
+        "holderName": "Мирослава Цветанова Христова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 9000,
+        "valueEur": 4601.626930765967,
+        "holderName": "Мирослава Цветанова Христова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ]
+  }
+]

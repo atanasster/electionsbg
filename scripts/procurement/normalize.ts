@@ -56,6 +56,10 @@ interface OcdsRelease {
     description?: string;
     mainProcurementCategory?: string;
     procurementMethod?: string;
+    procurementMethodRationale?: string;
+    numberOfTenderers?: number;
+    numberOfBids?: number;
+    tenderPeriod?: { startDate?: string; endDate?: string };
     items?: Array<{
       classification?: { id?: string; scheme?: string };
       relatedLot?: string;
@@ -216,6 +220,19 @@ export const normalizeBundle = (
     const date = truncateDate(release.date);
     const cpv = firstCpv(release);
     const procurementMethod = release.tender?.procurementMethod;
+    const procurementMethodRationale =
+      release.tender?.procurementMethodRationale;
+    // Prefer numberOfTenderers (publishers most often set this); fall back to
+    // numberOfBids when the publisher used that field instead. Both refer to
+    // the bid count in OCDS spec.
+    const numberOfTenderers =
+      release.tender?.numberOfTenderers ?? release.tender?.numberOfBids;
+    const tenderPeriodStartDate = release.tender?.tenderPeriod?.startDate
+      ? truncateDate(release.tender.tenderPeriod.startDate)
+      : undefined;
+    const tenderPeriodEndDate = release.tender?.tenderPeriod?.endDate
+      ? truncateDate(release.tender.tenderPeriod.endDate)
+      : undefined;
     const category = release.tender?.mainProcurementCategory;
     const sourceUrl = releaseSourceUrl(release, datasetUuid);
 
@@ -267,6 +284,10 @@ export const normalizeBundle = (
             title: contract.title ?? release.tender?.title ?? "",
             cpv,
             procurementMethod,
+            procurementMethodRationale,
+            numberOfTenderers,
+            tenderPeriodStartDate,
+            tenderPeriodEndDate,
             category,
             bundleUuid: datasetUuid,
             sourceUrl,
@@ -304,6 +325,10 @@ export const normalizeBundle = (
             title: award.title ?? release.tender?.title ?? "",
             cpv,
             procurementMethod,
+            procurementMethodRationale,
+            numberOfTenderers,
+            tenderPeriodStartDate,
+            tenderPeriodEndDate,
             category,
             bundleUuid: datasetUuid,
             sourceUrl,

@@ -1,0 +1,104 @@
+[
+  {
+    "slug": "dimitr-georgiev-iliev-826ec2",
+    "declarantName": "Димитър Георгиев Илиев",
+    "institution": "Изпълнителна агенция \"Медицински надзор\"",
+    "positionTitle": null,
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-02",
+    "entryNumber": "Г2861",
+    "controlHash": "07A61323",
+    "sourceUrl": "https://register.cacbg.bg/2025/EAD0B468-77A6-4D2C-9155-A998E6A54E26205571.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 49097.31418374808,
+        "amountEurSpouse": 12454.04764217749
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": 80272.8253478063,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 58,
+        "builtAreaSqm": 58,
+        "acquiredYear": 2024,
+        "share": null,
+        "currency": "BGN",
+        "amount": 150000,
+        "valueEur": 76693.78217943278,
+        "holderName": "Димитър Георгиев Илиев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 157000,
+        "valueEur": 80272.8253478063,
+        "holderName": "Димитър Георгиев Илиев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 47000,
+        "valueEur": 24030.71841622227,
+        "holderName": "Димитър Георгиев Илиев",
+        "isSpouse": false,
+        "legalBasis": "6%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "investment",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 29000,
+        "valueEur": 29143.637228184452,
+        "holderName": "Димитър Георгиев Илиев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      }
+    ]
+  }
+]

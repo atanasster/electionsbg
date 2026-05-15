@@ -1,0 +1,92 @@
+[
+  {
+    "slug": "georgi-hristov-georgiev-093ff0",
+    "declarantName": "Георги Христов Георгиев",
+    "institution": "Информационен център на МО",
+    "positionTitle": null,
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г5871",
+    "controlHash": "9D06EAC5",
+    "sourceUrl": "https://register.cacbg.bg/2025/759FD699-50D9-409D-BFB0-4A1956A109A0208816.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 22228.925826886796,
+        "amountEurSpouse": 8157.661964485666
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 7113.603943082988,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 769.4942812003088,
+        "amountEurSpouse": 9490.088606883011
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 80,
+        "builtAreaSqm": 80,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 348138,
+        "valueEur": 178000.13293588912,
+        "holderName": "Георги Христов Георгиев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заем и спестявания"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 80,
+        "builtAreaSqm": 80,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 348138,
+        "valueEur": 178000.13293588912,
+        "holderName": "Александра Бисерова Георгиева",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заем и спестявания"
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 315000,
+        "valueEur": 161056.94257680883,
+        "holderName": "Георги Христов Георгиев",
+        "isSpouse": false,
+        "legalBasis": "Ипотечен кредит 2,6% лихва",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

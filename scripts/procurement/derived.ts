@@ -5,6 +5,8 @@
 import fs from "fs";
 import path from "path";
 import type {
+  AwarderConcentrationEntry,
+  AwarderConcentrationFile,
   AwarderRollup,
   ContractorRollup,
   FlowFile,
@@ -15,6 +17,17 @@ import type {
 import { canonicalJson } from "./validate";
 
 const TOP_LIMIT = 1000;
+
+// Thresholds for the awarder→contractor concentration flag. Tuned so the
+// emitted file stays small (only "interesting" pairs) without dropping
+// legitimate red flags.
+//   sharePct: 30% of one awarder's lifetime spending going to a single
+//             contractor is the conventional red-flag bar in CEE procurement
+//             oversight (Transparency International methodology).
+//   minAwarderTotalEur: small awarders with < €100k lifetime spend produce
+//             noisy 100%-share rows that aren't meaningful — exclude.
+const CONCENTRATION_THRESHOLD = 0.3;
+const CONCENTRATION_MIN_AWARDER_EUR = 100_000;
 
 // Top contractors across the corpus, sorted by euro total. The per-MP-tied
 // subset is identified by intersecting with the MP-connected EIK set — same
@@ -144,10 +157,57 @@ export const buildFlow = (
   };
 };
 
+// Awarder→contractor concentration. For each awarder, what share of its
+// lifetime euro spending goes to its top contractors? Emits only pairs at or
+// above CONCENTRATION_THRESHOLD where the awarder's lifetime spend exceeds
+// CONCENTRATION_MIN_AWARDER_EUR — the long tail (one-shot small awarders,
+// negligible shares) would dwarf the file without adding signal.
+//
+// The risk read here is "this buyer's procurement is concentrated on one
+// supplier". Used as one input to the per-contract risk score in the SPA.
+export const buildAwarderConcentration = (
+  awardersDir: string,
+): AwarderConcentrationFile => {
+  const entries: AwarderConcentrationEntry[] = [];
+  if (fs.existsSync(awardersDir)) {
+    for (const file of fs.readdirSync(awardersDir)) {
+      if (!file.endsWith(".json")) continue;
+      const a = JSON.parse(
+        fs.readFileSync(path.join(awardersDir, file), "utf8"),
+      ) as AwarderRollup;
+      if (a.totalEur < CONCENTRATION_MIN_AWARDER_EUR) continue;
+      for (const bc of a.byContractor) {
+        if (bc.totalEur <= 0) continue;
+        const sharePct = bc.totalEur / a.totalEur;
+        if (sharePct < CONCENTRATION_THRESHOLD) continue;
+        entries.push({
+          awarderEik: a.eik,
+          awarderName: a.name,
+          contractorEik: bc.eik,
+          contractorName: bc.name,
+          sharePct,
+          awarderTotalEur: a.totalEur,
+          pairTotalEur: bc.totalEur,
+          contractCount: bc.contractCount,
+        });
+      }
+    }
+  }
+  entries.sort((a, b) => b.sharePct - a.sharePct);
+  return {
+    generatedAt: new Date().toISOString(),
+    thresholdPct: CONCENTRATION_THRESHOLD,
+    minAwarderTotalEur: CONCENTRATION_MIN_AWARDER_EUR,
+    total: entries.length,
+    entries,
+  };
+};
+
 export const writeDerived = (
   outDir: string,
   top: TopContractorsFile,
   flow: FlowFile,
+  awarderConcentration: AwarderConcentrationFile,
 ): void => {
   fs.mkdirSync(outDir, { recursive: true });
   fs.writeFileSync(
@@ -155,4 +215,8 @@ export const writeDerived = (
     canonicalJson(top),
   );
   fs.writeFileSync(path.join(outDir, "flow.json"), canonicalJson(flow));
+  fs.writeFileSync(
+    path.join(outDir, "awarder_concentration.json"),
+    canonicalJson(awarderConcentration),
+  );
 };

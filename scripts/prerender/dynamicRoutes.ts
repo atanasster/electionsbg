@@ -2281,6 +2281,117 @@ export const buildBudgetMinistryRoutes = (
 const escapeHtmlMinimal = (s: string): string =>
   s.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;");
 
+// One prerendered HTML page per non-MP official (cabinet, deputy minister,
+// state-agency head, regional governor). Body carries enough text for SEO +
+// AI crawlers to summarise: name, role, institution, latest net worth, and a
+// pointer to the source register. Mirrors buildBudgetMinistryRoutes shape.
+const OFFICIAL_CATEGORY_BG: Record<string, string> = {
+  cabinet: "Министър / заместник-министър",
+  deputy_minister: "Заместник-министър",
+  agency_head: "Ръководител на държавна или изпълнителна агенция",
+  regional_governor: "Областен управител",
+};
+
+const OFFICIAL_CATEGORY_EN: Record<string, string> = {
+  cabinet: "Minister or deputy minister",
+  deputy_minister: "Deputy minister",
+  agency_head: "Head of a state or executive agency",
+  regional_governor: "Regional governor",
+};
+
+const formatEurForPrerender = (n: number): string =>
+  `€${Math.round(n).toLocaleString("en-GB").replace(/,/g, " ")}`;
+
+export const buildOfficialRoutes = (projectRoot: string): PrerenderRoute[] => {
+  const rankingsFile = path.join(
+    projectRoot,
+    "data/officials/assets-rankings.json",
+  );
+  if (!fs.existsSync(rankingsFile)) return [];
+  type RankingEntry = {
+    slug: string;
+    name: string;
+    category: string;
+    institution: string;
+    positionTitle: string | null;
+    latestDeclarationYear: number;
+    netWorthEur: number;
+  };
+  type Rankings = { topOfficials: RankingEntry[] };
+  let rankings: Rankings;
+  try {
+    rankings = JSON.parse(fs.readFileSync(rankingsFile, "utf-8")) as Rankings;
+  } catch {
+    return [];
+  }
+  const out: PrerenderRoute[] = [];
+  for (const o of rankings.topOfficials) {
+    const slug = o.slug;
+    const path_ = `officials/${slug}`;
+    const url = `${SITE_URL}/${path_}`;
+    const enUrl = `${SITE_URL}/en/${path_}`;
+    const name = escapeHtmlMinimal(o.name);
+    const institution = escapeHtmlMinimal(o.institution);
+    const position = o.positionTitle
+      ? escapeHtmlMinimal(o.positionTitle)
+      : null;
+    const categoryBg = OFFICIAL_CATEGORY_BG[o.category] ?? "Длъжностно лице";
+    const categoryEn = OFFICIAL_CATEGORY_EN[o.category] ?? "Public official";
+    const netWorth = formatEurForPrerender(o.netWorthEur);
+    const title = `${o.name} — декларирано имущество | electionsbg.com`;
+    const titleEn = `${o.name} — declared assets | electionsbg.com`;
+    const description = `Декларирано нетно имущество ${netWorth} (${o.latestDeclarationYear}) на ${o.name}, ${categoryBg} в ${o.institution}. Източник: Сметна палата.`;
+    const descriptionEn = `Declared net worth ${netWorth} (${o.latestDeclarationYear}) for ${o.name}, ${categoryEn} at ${o.institution}. Source: Bulgarian Court of Audit.`;
+    out.push({
+      path: path_,
+      title,
+      description,
+      bodyHtml: `
+<h1>${name}</h1>
+<p>${categoryBg} в ${institution}${position ? `. Длъжност: ${position}` : ""}.</p>
+<p>Декларирано нетно имущество ${netWorth} от подадената за ${o.latestDeclarationYear} г. декларация за имущество и интереси пред Сметната палата (декларант + съпруг/а, минус задължения).</p>
+<p>Виж и <a href="${SITE_URL}/officials/assets">класирането на длъжностните лица по активи</a>. Източник: <a href="https://register.cacbg.bg" rel="nofollow noopener">register.cacbg.bg</a>.</p>`.trim(),
+      jsonLd: [
+        buildWebPageLd({ title, description, url }),
+        buildBreadcrumbLd([
+          { name: "Начало", url: `${SITE_URL}/` },
+          {
+            name: "Длъжностни лица",
+            url: `${SITE_URL}/officials/assets`,
+          },
+          { name: o.name, url },
+        ]),
+      ],
+      english: {
+        title: titleEn,
+        description: descriptionEn,
+        bodyHtml: `
+<h1>${name}</h1>
+<p>${categoryEn} at ${institution}${position ? `. Position: ${position}` : ""}.</p>
+<p>Declared net worth ${netWorth} from the ${o.latestDeclarationYear} property/interest declaration filed with the Court of Audit (declarant + spouse, minus debts).</p>
+<p>See also the <a href="${SITE_URL}/en/officials/assets">ranking of officials by declared assets</a>. Source: <a href="https://register.cacbg.bg" rel="nofollow noopener">register.cacbg.bg</a>.</p>`.trim(),
+        jsonLd: [
+          buildWebPageLd({
+            title: titleEn,
+            description: descriptionEn,
+            url: enUrl,
+            inLanguage: "en",
+          }),
+          buildBreadcrumbLd([
+            { name: "Home", url: `${SITE_URL}/en/` },
+            {
+              name: "Officials",
+              url: `${SITE_URL}/en/officials/assets`,
+            },
+            { name: o.name, url: enUrl },
+          ]),
+        ],
+      },
+    });
+  }
+  return out;
+};
+
 export const buildDynamicRoutes = async (
   projectRoot: string,
 ): Promise<PrerenderRoute[]> => {
@@ -2339,5 +2450,6 @@ export const buildDynamicRoutes = async (
     // images), not data — they live under /public/ rather than /data/.
     ...(await buildArticleRoutes(path.join(projectRoot, "public"))),
     ...buildBudgetMinistryRoutes(projectRoot),
+    ...buildOfficialRoutes(projectRoot),
   ];
 };

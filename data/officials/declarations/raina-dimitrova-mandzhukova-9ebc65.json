@@ -1,0 +1,86 @@
+[
+  {
+    "slug": "raina-dimitrova-mandzhukova-9ebc65",
+    "declarantName": "Райна Димитрова Манджукова",
+    "institution": "Държавна агенция за българите в чужбина",
+    "positionTitle": null,
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-08",
+    "entryNumber": "Г8888",
+    "controlHash": "55D07038",
+    "sourceUrl": "https://register.cacbg.bg/2025/07DBD2DC-5233-4F62-AEB1-1C8E11EA92B9211915.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 30069.586825030805,
+        "amountEurSpouse": 26383.17236160607
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 230.08134653829833,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 55920,
+        "valueEur": 28591.441996492536,
+        "holderName": "Райна Димитрова Манджукова",
+        "isSpouse": false,
+        "legalBasis": "договор",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "кредитна карта",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 9885,
+        "valueEur": 5054.12024562462,
+        "holderName": "Райна Димитрова Манджукова",
+        "isSpouse": false,
+        "legalBasis": "договор",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 22540,
+        "valueEur": 11524.519002162764,
+        "holderName": "Петко Божидаров Манджуков",
+        "isSpouse": true,
+        "legalBasis": "договор",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

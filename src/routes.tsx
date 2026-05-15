@@ -303,6 +303,16 @@ const AllMpAssetsScreen = lazy(() =>
     default: m.AllMpAssetsScreen,
   })),
 );
+const OfficialsAssetsScreen = lazy(() =>
+  import("./screens/OfficialsAssetsScreen").then((m) => ({
+    default: m.OfficialsAssetsScreen,
+  })),
+);
+const OfficialProfileScreen = lazy(() =>
+  import("./screens/OfficialProfileScreen").then((m) => ({
+    default: m.OfficialProfileScreen,
+  })),
+);
 const MpCarsScreen = lazy(() =>
   import("./screens/MpCarsScreen").then((m) => ({
     default: m.MpCarsScreen,
@@ -1470,6 +1480,22 @@ export const AuthRoutes = () => {
           element={
             <LayoutScreen>
               <AllMpAssetsScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="officials/assets"
+          element={
+            <LayoutScreen>
+              <OfficialsAssetsScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="officials/:slug"
+          element={
+            <LayoutScreen>
+              <OfficialProfileScreen />
             </LayoutScreen>
           }
         />

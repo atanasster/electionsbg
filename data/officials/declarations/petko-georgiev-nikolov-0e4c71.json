@@ -1,0 +1,121 @@
+[
+  {
+    "slug": "petko-georgiev-nikolov-0e4c71",
+    "declarantName": "Петко Георгиев Николов",
+    "institution": "Министерство на икономиката и индустрията",
+    "positionTitle": null,
+    "declarationYear": 2025,
+    "fiscalYear": 2025,
+    "declarationType": "Vacate",
+    "filedAt": "2025-01-22",
+    "entryNumber": "Ф28",
+    "controlHash": "3D5C8B50",
+    "sourceUrl": "https://register.cacbg.bg/2025/0DA10D0F-FC14-45F3-9D28-3980CB550509201678.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 144058,
+        "valueEur": 73655.68582136484,
+        "holderName": "Петко Георгиев Николов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 34951,
+        "valueEur": 34950.8904148111,
+        "holderName": "Петко Георгиев Николов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ]
+  },
+  {
+    "slug": "petko-georgiev-nikolov-0e4c71",
+    "declarantName": "Петко Георгиев Николов",
+    "institution": "Министерство на икономиката и индустрията",
+    "positionTitle": null,
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-09",
+    "entryNumber": "Г7086",
+    "controlHash": "B3B308A4",
+    "sourceUrl": "https://register.cacbg.bg/2025/0DA10D0F-FC14-45F3-9D28-3980CB550509210074.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 54439.803050367365,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Доходи от пенсии за периода 01.01.2024 - 31.12.2024",
+        "amountEurDeclarant": 17124.698976904947,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 141132,
+        "valueEur": 72159.6457769847,
+        "holderName": "Петко Георгиев Николов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата, пенсия"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 34951,
+        "valueEur": 34950.8904148111,
+        "holderName": "Петко Георгиев Николов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата, пенсия"
+      }
+    ]
+  }
+]

@@ -1,0 +1,86 @@
+[
+  {
+    "slug": "andriyan-georgiev-petrov-cf8831",
+    "declarantName": "АНДРИЯН ГЕОРГИЕВ ПЕТРОВ",
+    "institution": "Област - Смолян",
+    "positionTitle": null,
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г13463",
+    "controlHash": "6298692A",
+    "sourceUrl": "https://register.cacbg.bg/2025/8C6DE2AC-0258-414B-A995-6210D2EA3072216676.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 13166.277232683822,
+        "amountEurSpouse": 12990.90411743352
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 6479.602010399677,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "ДЖИП ЧЕРОКИ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 9500,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 2024,
+        "valueEur": 1034.8547675411462,
+        "holderName": "АНДРИЯН ГЕОРГИЕВ ПЕТРОВ",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "ИПОТЕЧЕН КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 4000,
+        "valueEur": 2045.1675247848739,
+        "holderName": "АНДРИЯН ГЕОРГИЕН ПЕТРОВ",
+        "isSpouse": true,
+        "legalBasis": "КРЕДИТ",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "ПОТРЕБИТЕЛСКИ КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 4500,
+        "valueEur": 2300.8134653829834,
+        "holderName": "АНДРИЯН ГЕОРГИЕН ПЕТРОВ",
+        "isSpouse": true,
+        "legalBasis": "КРЕДИТ",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

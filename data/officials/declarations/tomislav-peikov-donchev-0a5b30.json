@@ -1,0 +1,122 @@
+[
+  {
+    "slug": "tomislav-peikov-donchev-0a5b30",
+    "declarantName": "Томислав Пейков Дончев",
+    "institution": "Министерски съвет",
+    "positionTitle": null,
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г9153",
+    "controlHash": "B630DE58",
+    "sourceUrl": "https://register.cacbg.bg/2025/6F07F2A9-DA68-442E-B344-E8DB67BE6621212185.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 62265.125292075485,
+        "amountEurSpouse": 23801.148361565167
+      },
+      {
+        "parent": null,
+        "category": "Парични средства по чл.11 от финансовите правила на ПОДНС",
+        "amountEurDeclarant": 26141.842593681456,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 230000,
+        "valueEur": 117597.13267513025,
+        "holderName": "Томислав Пейков Дончев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 15300,
+        "valueEur": 7822.765782302143,
+        "holderName": "Светлана Антонова Дончева",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 48000,
+        "valueEur": 48000.08180670099,
+        "holderName": "Томислав Пейков Дончев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "финансов лизинг (остатък, лп.-плаваща лихва+фиксирана 1.95%)",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 13580,
+        "valueEur": 6943.343746644647,
+        "holderName": "Томислав Пейков Дончев",
+        "isSpouse": false,
+        "legalBasis": "Договор за лизинг",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 16100,
+        "valueEur": 8231.799287259119,
+        "holderName": "Светлана Антонова Дончева",
+        "isSpouse": true,
+        "legalBasis": "Договор за кредите, 5.14%",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

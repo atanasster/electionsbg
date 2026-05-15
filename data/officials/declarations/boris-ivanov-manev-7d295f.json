@@ -1,0 +1,68 @@
+[
+  {
+    "slug": "boris-ivanov-manev-7d295f",
+    "declarantName": "Борис Иванов Манев",
+    "institution": "ЦСМП",
+    "positionTitle": null,
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-12",
+    "entryNumber": "Г10351",
+    "controlHash": "EED376C4",
+    "sourceUrl": "https://register.cacbg.bg/2025/EA683E4D-9DA7-40D9-A1BE-12A235F0C44B213432.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 38943.568715072375,
+        "amountEurSpouse": 1533.8756435886555
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 1457.1818614092226
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "право на ползване",
+        "detail": null,
+        "location": "гр.София /офис/",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 94,
+        "builtAreaSqm": 94,
+        "acquiredYear": 2024,
+        "share": null,
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Бистра Иванова Манева, Иван Борисов Манев",
+        "isSpouse": true,
+        "legalBasis": "други",
+        "fundsOrigin": "безвъзмездно"
+      },
+      {
+        "category": "real_estate",
+        "description": "право на ползване",
+        "detail": null,
+        "location": "гр.София /парцел/",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 1012,
+        "builtAreaSqm": 1012,
+        "acquiredYear": 2024,
+        "share": "1.55%",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Бистра Иванова Манева, Иван Борисов Манев",
+        "isSpouse": true,
+        "legalBasis": "други",
+        "fundsOrigin": "безвъзмездно"
+      }
+    ]
+  }
+]

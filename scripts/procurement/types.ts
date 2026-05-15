@@ -59,6 +59,21 @@ export interface Contract {
   cpv?: string; // First CPV code on the related lot's item
   procurementMethod?: string; // open / limited / selective
   category?: string; // works / goods / services
+  /** OCDS `tender.procurementMethodRationale` — the buyer's stated reason for
+   *  using a non-open procedure (often "договаряне без обявление" / "single
+   *  source"). When present, used by the risk-score to flag negotiated
+   *  procedures explicitly. */
+  procurementMethodRationale?: string;
+  /** OCDS `tender.numberOfTenderers` — count of operators who submitted a bid
+   *  (some publishers populate `numberOfBids` instead; we prefer tenderers
+   *  when both are present). 1 = single-bidder red flag. */
+  numberOfTenderers?: number;
+  /** Tender open window. Both ISO YYYY-MM-DD when present. Used to derive a
+   *  "short deadline" signal: if `tenderPeriodEndDate - tenderPeriodStartDate`
+   *  is below a configurable threshold (default 14 days for open procedures
+   *  per EU 2014/24/EU Art. 27), the contract is flagged. */
+  tenderPeriodStartDate?: string;
+  tenderPeriodEndDate?: string;
 
   // Source. bundleUuid traces back to which fortnight bundle this came from;
   // sourceUrl is the data.egov.bg release link (best we have — there's no
@@ -295,6 +310,65 @@ export interface TopContractorsFile {
   total: number;
   // Top N by euro total. The SPA's /procurement page reads this directly.
   entries: TopContractorEntry[];
+}
+
+// Snapshot of the АОП "Стопански субекти с нарушения" (debarred-suppliers)
+// register, scraped from https://www2.aop.bg. The source removes expired rows
+// automatically, so this file is *merge-on-write*: every entry we have ever
+// seen is preserved, with the latest scrape's `seenAt` so the SPA can show
+// "still on the active list" vs. "past entry".
+export interface DebarredEntry {
+  /** Entity name as published, untouched whitespace-trimmed. */
+  name: string;
+  /** Folded form for cross-referencing against contractor names: upper-cased
+   * Bulgarian, suffixes (ООД/ЕООД/АД/…) stripped, multi-space collapsed. */
+  nameNormalized: string;
+  /** ISO date the listing was published (YYYY-MM-DD). */
+  publishedAt: string;
+  /** ISO date until which the debarment applies (YYYY-MM-DD). Parsed from the
+   * "Срок" column on the source page. */
+  debarredUntil: string;
+  /** PDF link to the КЗК decision summary on www2.aop.bg, when present. */
+  detailsUrl: string | null;
+  /** First date this entry was observed by our scraper (so historical rows
+   * persist even after the upstream registry purges them). */
+  firstSeenAt: string;
+  /** Last date this entry was confirmed on the live page. When less than
+   * `debarredUntil`, the SPA treats the row as historical. */
+  lastSeenAt: string;
+}
+
+export interface DebarredFile {
+  generatedAt: string;
+  source: string;
+  total: number;
+  entries: DebarredEntry[];
+}
+
+// Awarder→contractor concentration: high share of a buyer's lifetime spending
+// concentrated on one contractor. Only pairs above the threshold are emitted;
+// the long tail is irrelevant for risk scoring and would inflate the file.
+export interface AwarderConcentrationEntry {
+  awarderEik: string;
+  awarderName: string;
+  contractorEik: string;
+  contractorName: string;
+  /** 0..1. Share of awarder's total spending going to this contractor. */
+  sharePct: number;
+  awarderTotalEur: number;
+  pairTotalEur: number;
+  contractCount: number;
+}
+
+export interface AwarderConcentrationFile {
+  generatedAt: string;
+  /** Minimum share (0..1) for a pair to be emitted. */
+  thresholdPct: number;
+  /** Minimum awarder spending (€) for a pair to be considered; below this any
+   * share is statistically noise. */
+  minAwarderTotalEur: number;
+  total: number;
+  entries: AwarderConcentrationEntry[];
 }
 
 // Sankey-shaped MP-tied flow. Only includes nodes/edges that participate in

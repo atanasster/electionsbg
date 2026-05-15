@@ -219,6 +219,30 @@ const enumerateBudgetMinistries = (
   }
 };
 
+// Per-official profile page URLs (cabinet, agency heads, regional governors).
+// One per file under data/officials/declarations/{slug}.json; the slug is the
+// SPA route parameter. The rankings file's mtime is the canonical "lastmod"
+// for the whole set since the per-official files are regenerated together.
+const enumerateOfficials = (
+  route: RouteDef,
+  rootUrl: string,
+  routes: string[],
+) => {
+  const dir = `${projectPath}/data/officials/declarations`;
+  if (!fs.existsSync(dir)) return;
+  const files = fs.readdirSync(dir).filter((f) => f.endsWith(".json"));
+  const rankingsFile = `${projectPath}/data/officials/assets-rankings.json`;
+  const lastmod = fs.existsSync(rankingsFile)
+    ? safeFileMod(rankingsFile)
+    : today;
+  for (const f of files) {
+    const slug = f.replace(/\.json$/, "");
+    pushUrl(`${rootUrl}/${routes[0]}${slug}`, lastmod);
+    pushUrl(`/en${rootUrl}/${routes[0]}${slug}`, lastmod);
+    void route;
+  }
+};
+
 const enumerateElections = (rootUrl: string, routes: string[]) => {
   // electionsFile is loaded at module init.
   const lastmod = safeFileMod(electionsFile);
@@ -334,6 +358,8 @@ const getRoute = (route: RouteDef, rootUrl: string) => {
       return enumerateArticles(rootUrl, routes);
     if (route.file === "budget-ministries-list")
       return enumerateBudgetMinistries(route, rootUrl, routes);
+    if (route.file === "officials-list")
+      return enumerateOfficials(route, rootUrl, routes);
     // Generic ":id" expansion against a folder of files (e.g. municipalities/by/{id}).
     const folders = route.file?.split(":id");
     if (!folders) throw new Error("Must assign file property: " + route.path);

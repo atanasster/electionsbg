@@ -1,0 +1,80 @@
+[
+  {
+    "slug": "nikolai-petrov-pavlov-76229c",
+    "declarantName": "Николай Петров Павлов",
+    "institution": "Министерство на икономиката и индустрията",
+    "positionTitle": null,
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-03-19",
+    "entryNumber": "Г628",
+    "controlHash": "E22A8C57",
+    "sourceUrl": "https://register.cacbg.bg/2025/AE923DDB-F604-412E-9F20-907DF54F3E82202768.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 64358.35425369281,
+        "amountEurSpouse": 18458.148203064684
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 156000,
+        "valueEur": 79761.53346661008,
+        "holderName": "Николай Петров Павлов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 490,
+        "valueEur": 250.53302178614706,
+        "holderName": "Николай Петров Павлов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 22888,
+        "valueEur": 11702.448576819048,
+        "holderName": "Николай Петров Павлов",
+        "isSpouse": false,
+        "legalBasis": "Ип. кредит, 4,603%",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

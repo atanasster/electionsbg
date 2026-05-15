@@ -400,6 +400,18 @@ const main = async () => {
     "mp-assets.png",
   );
 
+  renderStaticPageCard(
+    "Длъжностни лица по активи",
+    "Министри, агенции, областни управители",
+    [
+      { label: "източник", value: "Сметна палата" },
+      { label: "категории", value: "3 групи" },
+      { label: "метрика", value: "нетно имущество" },
+      { label: "обхват", value: "декларант + съпруг" },
+    ],
+    "officials-assets.png",
+  );
+
   // /observations — OSCE/ODIHR election observation reports landing page.
   renderStaticPageCard(
     "Доклади ОССЕ/ОДИХР",

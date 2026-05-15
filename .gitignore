@@ -34,6 +34,12 @@ dist.old-*
 # public/parliament/declarations/ are committed; this raw cache is not.
 /raw_data/declarations/
 
+# Cached XML downloads from register.cacbg.bg for non-MP officials (cabinet,
+# agency heads, regional governors). Re-fetch with
+# `npx tsx scripts/officials/index.ts`. Processed outputs under data/officials/
+# are committed; this raw cache is not.
+/raw_data/officials/
+
 # Cached XLSX downloads from external publishers (AZ годишен обзор etc.).
 # Re-fetched on demand by `/update-indicators`. The merged data/indicators.json
 # is committed; this raw cache is not.

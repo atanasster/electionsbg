@@ -1,0 +1,68 @@
+[
+  {
+    "slug": "yanita-koleva-manolova-34204f",
+    "declarantName": "Янита Колева Манолова",
+    "institution": "Държавна агенция за бежанците",
+    "positionTitle": null,
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-29",
+    "entryNumber": "Г4894",
+    "controlHash": "8431DC27",
+    "sourceUrl": "https://register.cacbg.bg/2025/B0537A94-1F8A-4980-96F7-9A1118ADE509207774.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 50335.663120005316,
+        "amountEurSpouse": 10474.325478185732
+      },
+      {
+        "parent": null,
+        "category": "Рента",
+        "amountEurDeclarant": 1687.263207947521,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 42000,
+        "valueEur": 21474.259010241178,
+        "holderName": "Янита Колева Манолова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "investment",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 27651,
+        "valueEur": 13.804880792297899,
+        "holderName": "27651",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ]
+  }
+]

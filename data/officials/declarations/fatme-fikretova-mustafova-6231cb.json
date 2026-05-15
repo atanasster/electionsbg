@@ -1,0 +1,128 @@
+[
+  {
+    "slug": "fatme-fikretova-mustafova-6231cb",
+    "declarantName": "Фатме Фикретова Мустафова",
+    "institution": "Област - Сливен",
+    "positionTitle": null,
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-04",
+    "entryNumber": "Г2192",
+    "controlHash": "1DC377A5",
+    "sourceUrl": "https://register.cacbg.bg/2025/78DC7739-CADB-4312-82B5-A9DCA8526FE5204801.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 12790.988991885797,
+        "amountEurSpouse": 5712.664188605349
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 3768.7324562973263,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 576.7372419893345,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "товарен автомобил",
+        "detail": "Нисан",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "СИО",
+        "currency": "BGN",
+        "amount": 5100,
+        "valueEur": 2607.588594100714,
+        "holderName": "Джевдет Сюлейманов Мустафов",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 25000,
+        "valueEur": 12782.297029905461,
+        "holderName": "Фатме Фикретова Мустафова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 40000,
+        "valueEur": 20451.67524784874,
+        "holderName": "Джевдет Сюлейманов Мустафов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 5000,
+        "valueEur": 2556.4594059810925,
+        "holderName": "Фатме Фикретова Мустафова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 5000,
+        "valueEur": 2556.4594059810925,
+        "holderName": "Джевдет Сюлейманов Мустафов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ]
+  }
+]

@@ -14,6 +14,7 @@ import { MpConnectionsMini } from "./MpConnectionsMini";
 import { MpConnectedContractsTile } from "./MpConnectedContractsTile";
 import { MpVotingTile } from "./MpVotingTile";
 import { MpTwinsTile } from "./MpTwinsTile";
+import { MpScorecardTile } from "./MpScorecardTile";
 import { CandidateNamesakeChooser } from "./CandidateNamesakeChooser";
 import { CandidateDashboardCards } from "@/screens/dashboard/CandidateDashboardCards";
 import { useMpManagement } from "@/data/parliament/useMpManagement";
@@ -115,6 +116,8 @@ export const Candidate: FC<{ name: string }> = ({ name }) => {
       />
 
       {canonical.mpId != null && <MpProfileHeader name={lookupName} />}
+
+      {canonical.mpId != null && <MpScorecardTile name={lookupName} />}
 
       <CandidateDashboardCards name={lookupName} linkSlug={linkSlug} />
 

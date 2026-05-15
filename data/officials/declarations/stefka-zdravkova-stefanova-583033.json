@@ -1,0 +1,120 @@
+[
+  {
+    "slug": "stefka-zdravkova-stefanova-583033",
+    "declarantName": "(unknown)",
+    "institution": "Област - Хасково",
+    "positionTitle": null,
+    "declarationYear": 2026,
+    "fiscalYear": null,
+    "declarationType": "Other",
+    "filedAt": "2025-03-21",
+    "entryNumber": "Г12805",
+    "controlHash": "8E3B079F",
+    "sourceUrl": "https://register.cacbg.bg/2025/8CD12817-126C-4ACD-83B4-D624004819AD215980.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": []
+  },
+  {
+    "slug": "stefka-zdravkova-stefanova-583033",
+    "declarantName": "Стефка Здравкова Стефанова",
+    "institution": "Област - Хасково",
+    "positionTitle": null,
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-13",
+    "entryNumber": "Г12803",
+    "controlHash": "11B46D24",
+    "sourceUrl": "https://register.cacbg.bg/2025/8CD12817-126C-4ACD-83B4-D624004819AD215978.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 5639.54944959429,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "доходи като общински съветник",
+        "amountEurDeclarant": 7282.841555758936,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 6000,
+        "valueEur": 3067.751287177311,
+        "holderName": "Стефка Здравкова Стефанова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплати"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 120000,
+        "valueEur": 61355.02574354622,
+        "holderName": "Милко Събев Георгиев",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "разпределен дивидент от 2023г."
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 17700,
+        "valueEur": 9049.866297173066,
+        "holderName": "Стефка Здравкова Стефанова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата,облекчения за деца и помощи за деца"
+      },
+      {
+        "category": "debt",
+        "description": "ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 70691,
+        "valueEur": 36143.734373641884,
+        "holderName": "Милко Събев Георгиев",
+        "isSpouse": true,
+        "legalBasis": "договор",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

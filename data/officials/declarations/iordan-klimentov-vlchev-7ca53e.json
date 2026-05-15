@@ -1,0 +1,68 @@
+[
+  {
+    "slug": "iordan-klimentov-vlchev-7ca53e",
+    "declarantName": "Йордан Климентов Вълчев",
+    "institution": "Агенция \"Пътна инфраструктура\"",
+    "positionTitle": null,
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г9514",
+    "controlHash": "2222F3D1",
+    "sourceUrl": "https://register.cacbg.bg/2025/67077177-9DF2-4BBE-93AC-EFF252C81FE3212558.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 55730.81505038781,
+        "amountEurSpouse": 12782.297029905461
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 4601.626930765967
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 75000,
+        "valueEur": 38346.89108971639,
+        "holderName": "Йордан Климентов Вълчев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Банков кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 119000,
+        "valueEur": 60843.73386235,
+        "holderName": "Йордан Климентов Вълчев",
+        "isSpouse": false,
+        "legalBasis": "ипотечен, 2.9%",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

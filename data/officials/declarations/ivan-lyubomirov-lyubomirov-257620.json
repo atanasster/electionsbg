@@ -1,0 +1,80 @@
+[
+  {
+    "slug": "ivan-lyubomirov-lyubomirov-257620",
+    "declarantName": "Иван Любомиров Любомиров",
+    "institution": "Област - Габрово",
+    "positionTitle": null,
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-14",
+    "entryNumber": "Г13296",
+    "controlHash": "4DB23D15",
+    "sourceUrl": "https://register.cacbg.bg/2025/6D5049E9-B0B4-4A41-8E34-3F7CC991897A216499.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 16536.713313529293,
+        "amountEurSpouse": 29594.596667399517
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "мерцедес",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 2000,
+        "valueEur": 1022.5837623924369,
+        "holderName": "Иван Любомиров Любомиров",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 50000,
+        "valueEur": 25564.594059810923,
+        "holderName": "Ваня Иванова Любомирова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 41674,
+        "valueEur": 8691.961980335715,
+        "holderName": "Иван Любомиров Любомиров",
+        "isSpouse": false,
+        "legalBasis": "договор",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

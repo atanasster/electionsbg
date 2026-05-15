@@ -1,0 +1,86 @@
+[
+  {
+    "slug": "ana-dimitrova-ananieva-95b347",
+    "declarantName": "Ана Димитрова Ананиева",
+    "institution": "Агенция за социално подпомагане",
+    "positionTitle": null,
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-02-25",
+    "entryNumber": "Г185",
+    "controlHash": "4D0A079F",
+    "sourceUrl": "https://register.cacbg.bg/2025/9CAB7CF1-A60A-4B48-A1BF-C5636F3C0E77201905.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 28813.342672931696,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": 2765.0664935091495,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 117,
+        "builtAreaSqm": 117,
+        "acquiredYear": 2008,
+        "share": null,
+        "currency": "BGN",
+        "amount": 188876,
+        "valueEur": 96570.76535281696,
+        "holderName": "Ана Димитрова Ананиева",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 18000,
+        "valueEur": 9203.253861531934,
+        "holderName": "Ана Димитрова Ананиева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 250000,
+        "valueEur": 127822.97029905462,
+        "holderName": "Ана Димитрова Ананиева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "наследяване/заплата"
+      }
+    ]
+  }
+]

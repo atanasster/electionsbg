@@ -394,6 +394,87 @@ export type MpIncomeRecord = {
   amountEurSpouse: number | null;
 };
 
+/** Asset/interest declaration for a non-MP public official (minister, deputy
+ * minister, state-agency head, regional governor). Same XML source and
+ * tables as MpDeclaration — only the subject's key differs. `slug` is a
+ * stable, name-derived identifier (since these officials have no
+ * parliament.bg id). */
+export type OfficialCategoryKind =
+  | "cabinet"
+  | "deputy_minister"
+  | "agency_head"
+  | "regional_governor";
+
+export type OfficialDeclaration = {
+  slug: string;
+  declarantName: string;
+  institution: string;
+  /** Position/title verbatim from the registry's `Person/Position/Position`
+   *  field — e.g. "Министър", "Заместник-министър", "Главен секретар". */
+  positionTitle: string | null;
+  declarationYear: number;
+  fiscalYear: number | null;
+  declarationType: string;
+  filedAt: string | null;
+  entryNumber: string | null;
+  controlHash: string | null;
+  sourceUrl: string;
+  ownershipStakes: MpOwnershipStake[];
+  income: MpIncomeRecord[];
+  assets?: MpAsset[];
+};
+
+export type OfficialIndexEntry = {
+  slug: string;
+  name: string;
+  /** Normalised form used for fuzzy matching against the parliament index. */
+  normalizedName: string;
+  /** Mapped category bucket — drives the filter on the /officials page. */
+  category: OfficialCategoryKind;
+  /** Verbatim category name from list.xml (kept for transparency / source
+   *  traceability). */
+  categoryRaw: string;
+  institution: string;
+  positionTitle: string | null;
+  /** Latest declaration year on file (e.g. 2025). */
+  latestDeclarationYear: number;
+};
+
+export type OfficialIndexFile = {
+  generatedAt: string;
+  /** Year(s) of declarations included in this snapshot. */
+  years: number[];
+  total: number;
+  entries: OfficialIndexEntry[];
+};
+
+export type OfficialAssetsRankingEntry = {
+  slug: string;
+  name: string;
+  category: OfficialCategoryKind;
+  institution: string;
+  positionTitle: string | null;
+  latestDeclarationYear: number;
+  totalAssetsEur: number;
+  totalDebtsEur: number;
+  netWorthEur: number;
+  realEstateCount: number;
+  realEstateUnvalued: number;
+  delta: {
+    previousYear: number;
+    absoluteEur: number;
+    pct: number | null;
+  } | null;
+};
+
+export type OfficialAssetsRankings = {
+  generatedAt: string;
+  years: number[];
+  total: number;
+  topOfficials: OfficialAssetsRankingEntry[];
+  byCategory: Record<OfficialCategoryKind, OfficialAssetsRankingEntry[]>;
+};
+
 export type MpDeclaration = {
   mpId: number;
   declarantName: string;
@@ -987,6 +1068,44 @@ export type ProcurementMpConnectedFile = {
   entries: ProcurementMpConnectedContractor[];
 };
 
+/** Snapshot of the АОП debarred-suppliers register. Mirrors
+ *  scripts/procurement/types.DebarredFile. */
+export type DebarredEntry = {
+  name: string;
+  nameNormalized: string;
+  publishedAt: string;
+  debarredUntil: string;
+  detailsUrl: string | null;
+  firstSeenAt: string;
+  lastSeenAt: string;
+};
+export type DebarredFile = {
+  generatedAt: string;
+  source: string;
+  total: number;
+  entries: DebarredEntry[];
+};
+
+/** Awarder→contractor concentration pairs above the red-flag threshold.
+ *  Mirrors scripts/procurement/types.AwarderConcentrationFile. */
+export type AwarderConcentrationEntry = {
+  awarderEik: string;
+  awarderName: string;
+  contractorEik: string;
+  contractorName: string;
+  sharePct: number;
+  awarderTotalEur: number;
+  pairTotalEur: number;
+  contractCount: number;
+};
+export type AwarderConcentrationFile = {
+  generatedAt: string;
+  thresholdPct: number;
+  minAwarderTotalEur: number;
+  total: number;
+  entries: AwarderConcentrationEntry[];
+};
+
 export type ProcurementContractTag = "award" | "contract" | "contractAmendment";
 
 /** One contract / award / amendment row. Mirrors scripts/procurement/types.Contract. */
@@ -1012,6 +1131,16 @@ export type ProcurementContract = {
   title: string;
   cpv?: string;
   procurementMethod?: string;
+  /** OCDS `tender.procurementMethodRationale` — buyer's stated reason for a
+   *  non-open procedure (e.g. "договаряне без обявление"). */
+  procurementMethodRationale?: string;
+  /** Number of operators who submitted a bid (`numberOfTenderers` / fallback
+   *  `numberOfBids`). 1 = single-bidder red flag. */
+  numberOfTenderers?: number;
+  /** Tender open window (both ISO YYYY-MM-DD). Used to derive a short-deadline
+   *  signal. */
+  tenderPeriodStartDate?: string;
+  tenderPeriodEndDate?: string;
   category?: string;
   bundleUuid: string;
   sourceUrl: string;

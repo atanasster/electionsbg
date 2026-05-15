@@ -1280,6 +1280,30 @@ export const prerenderRoutes: PrerenderRoute[] = [
     },
   }),
   staticPage({
+    path: "officials/assets",
+    title: "Длъжностни лица по декларирано имущество | electionsbg.com",
+    description:
+      "Министри, ръководители на държавни агенции и областни управители, подредени по нетен имот според най-новата декларация пред Сметната палата.",
+    breadcrumbName: "Активи на длъжностните лица",
+    ogImage: "/og/officials-assets.png",
+    bodyHtml: `
+<h1>Длъжностни лица по декларирано имущество</h1>
+<p>Класиране на министри, заместник-министри, ръководители на държавни и изпълнителни агенции и областни управители по нетен имот според най-новата декларация за имущество и интереси, подадена пред Сметната палата. Нетният имот се изчислява като сума на декларирани имоти, превозни средства, парични средства, банкови депозити, вземания, инвестиции, ценни книжа и дялове във фирми (декларант + съпруг/а), намалена с декларирани задължения.</p>
+<p>Кметове и магистрати са в отделни регистри и не са включени тук.</p>
+<p>Виж и <a href="${SITE_URL}/mp-assets">депутатите по декларирано имущество</a>. Източник: <a href="https://register.cacbg.bg" rel="nofollow noopener">register.cacbg.bg</a> (Сметна палата).</p>`.trim(),
+    english: {
+      title: "Officials by Declared Assets — Bulgaria | electionsbg.com",
+      description:
+        "Bulgarian cabinet members, state-agency heads, and regional governors ranked by net worth from their most recent property/interest declaration with the Court of Audit.",
+      breadcrumbName: "Officials by assets",
+      bodyHtml: `
+<h1>Officials by declared assets</h1>
+<p>Bulgarian cabinet members, deputy ministers, state-agency heads, and regional governors ranked by net worth from their most recent property/interest declaration filed with the Court of Audit. Net worth is the sum of declared real estate, vehicles, cash, bank deposits, receivables, investments, securities and company shares (declarant + spouse) minus declared debts.</p>
+<p>Mayors and judiciary are tracked in separate registers and are not included here.</p>
+<p>See also <a href="${SITE_URL}/en/mp-assets">MPs by declared assets</a>. Source: <a href="https://register.cacbg.bg" rel="nofollow noopener">register.cacbg.bg</a> (Bulgarian Court of Audit).</p>`.trim(),
+    },
+  }),
+  staticPage({
     path: "mp-cars",
     title: "Коли, декларирани от народните представители | electionsbg.com",
     description:

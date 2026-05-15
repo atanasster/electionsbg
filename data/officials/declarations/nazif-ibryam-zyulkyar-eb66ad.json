@@ -1,0 +1,158 @@
+[
+  {
+    "slug": "nazif-ibryam-zyulkyar-eb66ad",
+    "declarantName": "Назиф  Ибрям Зюлкяр",
+    "institution": "Област - Разград",
+    "positionTitle": null,
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-02",
+    "entryNumber": "Г6760",
+    "controlHash": "3A4E9F7B",
+    "sourceUrl": "https://register.cacbg.bg/2025/BFDAC320-3D2E-40AD-82E3-300D613BF287209731.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 13307.905083775175,
+        "amountEurSpouse": 8805.980069842471
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 4577.084920468548,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "инвалидна пенсия",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 3147.512820643921
+      },
+      {
+        "parent": null,
+        "category": "интеграционни добавки по ЗХУ",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 225.47971960753236
+      },
+      {
+        "parent": null,
+        "category": "пенсия",
+        "amountEurDeclarant": 9381.694728069413,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 3000,
+        "valueEur": 1533.8756435886555,
+        "holderName": "Назиф Ибрям Зюлкяр",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплати"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 44749,
+        "valueEur": 22879.80039164958,
+        "holderName": "Назиф Ибрям Зюлкяр",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата и пенсия"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20416,
+        "valueEur": 10438.535046501996,
+        "holderName": "Нейгюл Махмуд Зюлкяр",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата и пенсия"
+      },
+      {
+        "category": "debt",
+        "description": "потр.кредит,лихва-5.43%",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 26320,
+        "valueEur": 13457.20231308447,
+        "holderName": "Назиф Ибрям Зюлкяр",
+        "isSpouse": false,
+        "legalBasis": "договор за кредит",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "потр.кредит,лихва-5.43%",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 3873,
+        "valueEur": 1980.2334558729542,
+        "holderName": "Нейгюл Махмуд Зюлкяр",
+        "isSpouse": true,
+        "legalBasis": "договор за кредит",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "кредитна карта,лихва-17.95%",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 1617,
+        "valueEur": 826.7589718942853,
+        "holderName": "Назиф Ибрям Зюлкяр",
+        "isSpouse": false,
+        "legalBasis": "договор",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

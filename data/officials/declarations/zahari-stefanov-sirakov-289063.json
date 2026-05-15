@@ -1,0 +1,92 @@
+[
+  {
+    "slug": "zahari-stefanov-sirakov-289063",
+    "declarantName": "Захари Стефанов Сираков",
+    "institution": "Област - Смолян",
+    "positionTitle": null,
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-11",
+    "entryNumber": "Г13458",
+    "controlHash": "2EA69EE2",
+    "sourceUrl": "https://register.cacbg.bg/2025/BF91A10F-FEF0-4621-A9F2-4F41F018ABD3216671.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 32163.838370410518,
+        "amountEurSpouse": 25144.82342534883
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 15834.198268765691,
+        "amountEurSpouse": 15834.198268765691
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 4141.46423768937
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 124014,
+        "valueEur": 63407.35135466784,
+        "holderName": "Захари Стефанов Сираков",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 21504,
+        "valueEur": 10994.820613243483,
+        "holderName": "Невина Изединова Агушева",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 8294,
+        "valueEur": 4240.654862641436,
+        "holderName": "Невина Изединова Агушева",
+        "isSpouse": true,
+        "legalBasis": "договор",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

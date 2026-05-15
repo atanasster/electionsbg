@@ -30,6 +30,7 @@ import { DashboardSection } from "@/screens/dashboard/DashboardSection";
 import { MpConnectionsTile } from "@/screens/dashboard/MpConnectionsTile";
 import { CarMakesTile } from "@/screens/dashboard/CarMakesTile";
 import { MpAssetsTile } from "@/screens/dashboard/MpAssetsTile";
+import { OfficialsAssetsTile } from "@/screens/dashboard/OfficialsAssetsTile";
 import { MpDeclarationsProvenance } from "@/screens/dashboard/MpDeclarationsProvenance";
 import { ParliamentSection } from "@/screens/dashboard/ParliamentSection";
 import { GovernmentsTile } from "@/screens/dashboard/GovernmentsTile";
@@ -87,7 +88,10 @@ export const GovernanceCards: FC = () => {
             <MpConnectionsTile hideProvenance />
             <CarMakesTile hideProvenance />
           </div>
-          <MpAssetsTile />
+          <div className="grid gap-3 grid-cols-1 lg:grid-cols-2">
+            <MpAssetsTile />
+            <OfficialsAssetsTile />
+          </div>
         </DashboardSection>
 
         {budgetTerm.yearsWithData.length > 0 ? (

@@ -1,0 +1,86 @@
+[
+  {
+    "slug": "ivelin-ventsislavov-zanev-31bf44",
+    "declarantName": "ИВЕЛИН ВЕНЦИСЛАВОВ ЗАНЕВ",
+    "institution": "ИА \"Проучване и подържане на р. Дунав\"",
+    "positionTitle": null,
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-05",
+    "entryNumber": "Г6274",
+    "controlHash": "52FB5AF5",
+    "sourceUrl": "https://register.cacbg.bg/2025/65C6F479-98FE-40F3-8FC5-330D176E54AE209229.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 40128.743295685206,
+        "amountEurSpouse": 6333.883824258754
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 3234.432440447278,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр. Русе, ул. Кремиковци",
+        "municipality": "Русе",
+        "areaSqm": 814,
+        "builtAreaSqm": 221,
+        "acquiredYear": 2024,
+        "share": "СИО",
+        "currency": "BGN",
+        "amount": 220000,
+        "valueEur": 112484.21386316807,
+        "holderName": "ИВЕЛИН ВЕНЦИСЛАВОВ ЗАНЕВ/ДИЛЯНА ВАЛЕНТИНОВА ЗАНЕВА",
+        "isSpouse": true,
+        "legalBasis": "СТРОИТЕЛСТВО",
+        "fundsOrigin": "ПРОДАЖБА НА ДРУГ ИМОТ"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "ИВЕЛИН ВЕНЦИСЛАВОВ ЗАНЕВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "ЖИЛИЩЕН ИПОТЕЧЕН КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 88000,
+        "valueEur": 44993.685545267224,
+        "holderName": "ИВЕЛИН ВЕНЦИСЛАВОВ ЗАНЕВ/ДИЛЯНА ВАЛЕНТИНОВА ЗАНЕВА, СИО",
+        "isSpouse": true,
+        "legalBasis": "ИПОТЕКА, 2.84%",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

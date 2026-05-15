@@ -1,0 +1,74 @@
+[
+  {
+    "slug": "elena-stefanova-kundurdzhieva-8edd76",
+    "declarantName": "Елена Стефанова Кундурджиева",
+    "institution": "ЦКОДУХЗ",
+    "positionTitle": null,
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-13",
+    "entryNumber": "Г8269",
+    "controlHash": "3E9B82EF",
+    "sourceUrl": "https://register.cacbg.bg/2025/B3801569-4620-49F7-AB64-EC36729B733A211285.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 29361.958861455238,
+        "amountEurSpouse": 144395.98533614885
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 26947.1273065655
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 127.82297029905462
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 34200,
+        "valueEur": 17486.18233691067,
+        "holderName": "Елена Стефанова Кундурджиева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 361000,
+        "valueEur": 184576.36911183488,
+        "holderName": "Атанас Иванов Кундурджиев",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ]
+  }
+]

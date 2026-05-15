@@ -1,0 +1,80 @@
+[
+  {
+    "slug": "vladimir-ivanov-ivanov-efec9e",
+    "declarantName": "Владимир Иванов Иванов",
+    "institution": " Държавна комисия по стоковите борси и тържища",
+    "positionTitle": null,
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-02-19",
+    "entryNumber": "Г173",
+    "controlHash": "C5881088",
+    "sourceUrl": "https://register.cacbg.bg/2025/266C359A-41DA-46DD-B54C-11111CC8DE1D201888.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 35294.47855897496,
+        "amountEurSpouse": 19684.737426054413
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "право на строеж",
+        "detail": null,
+        "location": "гр.София, жк.Манастирски ливади",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 142,
+        "builtAreaSqm": 142,
+        "acquiredYear": 2024,
+        "share": "50%",
+        "currency": "BGN",
+        "amount": 146687,
+        "valueEur": 74999.8721770297,
+        "holderName": "Владимир Иванов Иванов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "real_estate",
+        "description": "право на строеж",
+        "detail": null,
+        "location": "гр.София, жк.Манастирски ливади",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 142,
+        "builtAreaSqm": 142,
+        "acquiredYear": 2024,
+        "share": "50%",
+        "currency": "BGN",
+        "amount": 146687,
+        "valueEur": 74999.8721770297,
+        "holderName": "Росица Стоянова Иванова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 40487,
+        "valueEur": 40487.158904403754,
+        "holderName": "Владимир Иванов Иванов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "наследяване"
+      }
+    ]
+  }
+]

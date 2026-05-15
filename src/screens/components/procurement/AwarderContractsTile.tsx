@@ -10,9 +10,11 @@ import type { ColumnDef } from "@tanstack/react-table";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { DataTable } from "@/ux/data_table/DataTable";
 import { useAwarderContracts } from "@/data/procurement/useAwarder";
+import { useContractRiskScorer } from "@/data/procurement/useContractRiskFlags";
 import { resolveContractSource } from "../candidates/procurement/sourceUrl";
 import type { ProcurementContract } from "@/data/dataTypes";
 import { ContractAmount } from "./ContractAmount";
+import { RiskBadges } from "./RiskBadges";
 
 const tagBadgeClasses = (tag: ProcurementContract["tag"]): string => {
   if (tag === "contractAmendment")
@@ -25,6 +27,7 @@ const tagBadgeClasses = (tag: ProcurementContract["tag"]): string => {
 export const AwarderContractsTile: FC<{ eik: string }> = ({ eik }) => {
   const { t } = useTranslation();
   const { data, isLoading } = useAwarderContracts(eik);
+  const { scoreRow } = useContractRiskScorer();
 
   const columns = useMemo<ColumnDef<ProcurementContract>[]>(
     () => [
@@ -96,6 +99,17 @@ export const AwarderContractsTile: FC<{ eik: string }> = ({ eik }) => {
           (b.original.amountEur ?? b.original.amount ?? 0),
       },
       {
+        id: "risk",
+        header: t("company_contract_risk") || "Risk",
+        accessorFn: (row) => scoreRow(row).score,
+        cell: ({ row }) => (
+          <RiskBadges result={scoreRow(row.original)} showScore />
+        ),
+        sortingFn: (a, b) =>
+          scoreRow(a.original).score - scoreRow(b.original).score,
+        meta: { align: "left" },
+      },
+      {
         id: "source",
         header: t("company_contract_source") || "Source",
         cell: ({ row }) => {
@@ -131,7 +145,7 @@ export const AwarderContractsTile: FC<{ eik: string }> = ({ eik }) => {
         meta: { exportable: false },
       },
     ],
-    [t],
+    [t, scoreRow],
   );
 
   if (isLoading) {
