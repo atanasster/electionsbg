@@ -16,6 +16,9 @@ import { MpVotingTile } from "./MpVotingTile";
 import { MpTwinsTile } from "./MpTwinsTile";
 import { CandidateNamesakeChooser } from "./CandidateNamesakeChooser";
 import { CandidateDashboardCards } from "@/screens/dashboard/CandidateDashboardCards";
+import { useMpManagement } from "@/data/parliament/useMpManagement";
+import { useMpConnections } from "@/data/parliament/useMpConnections";
+import { useMpConnectedContracts } from "@/data/parliament/useMpConnectedContracts";
 
 /** Render the dashboard for a single candidate.
  *
@@ -33,6 +36,19 @@ export const Candidate: FC<{ name: string }> = ({ name }) => {
   const { t } = useTranslation();
   const { isLoading, matches, canonical } = useResolvedCandidate(name);
   const { isEn, nameForBg } = useCandidateName();
+
+  // Hoist tile data hooks so the parent can omit the section wrapper
+  // entirely when every tile inside it would return null. DashboardSection's
+  // internal isRenderable check sees React elements as renderable even when
+  // they ultimately render nothing.
+  const canonicalMpName =
+    canonical && canonical.mpId != null ? canonical.name : null;
+  const { management, isLoading: mgmtLoading } =
+    useMpManagement(canonicalMpName);
+  const { subgraph, isLoading: connectionsLoading } =
+    useMpConnections(canonicalMpName);
+  const { entries: connectedContracts, isLoading: contractsLoading } =
+    useMpConnectedContracts(canonicalMpName);
 
   if (isLoading) {
     // Reserve roughly the height of a typical candidate page so the layout
@@ -80,6 +96,15 @@ export const Candidate: FC<{ name: string }> = ({ name }) => {
   const headerName = isEn ? canonical.name_en : canonical.name;
   const linkSlug = canonical.slug;
 
+  const hasManagementRoles = (management?.roles?.length ?? 0) > 0;
+  const hasConnections = subgraph != null && subgraph.nodes.length > 1;
+  const hasContracts = connectedContracts.length > 0;
+  // Keep the section visible while data is in flight so the tile's loading
+  // skeleton can reserve space; hide it once we know there's nothing to show.
+  const showBusiness =
+    mgmtLoading || connectionsLoading || hasManagementRoles || hasConnections;
+  const showProcurement = contractsLoading || hasContracts;
+
   return (
     <div className="w-full">
       <CandidateHeader
@@ -113,22 +138,26 @@ export const Candidate: FC<{ name: string }> = ({ name }) => {
             <MpFinancialDeclarations name={lookupName} />
           </DashboardSection>
 
-          <DashboardSection
-            id="declarations"
-            title={t("mp_section_business") || "Business & management"}
-            icon={Briefcase}
-          >
-            <MpManagementRoles name={lookupName} />
-            <MpConnectionsMini name={lookupName} linkSlug={linkSlug} />
-          </DashboardSection>
+          {showBusiness && (
+            <DashboardSection
+              id="declarations"
+              title={t("mp_section_business") || "Business & management"}
+              icon={Briefcase}
+            >
+              <MpManagementRoles name={lookupName} />
+              <MpConnectionsMini name={lookupName} linkSlug={linkSlug} />
+            </DashboardSection>
+          )}
 
-          <DashboardSection
-            id="procurement"
-            title={t("mp_section_procurement") || "Public procurement"}
-            icon={Landmark}
-          >
-            <MpConnectedContractsTile name={lookupName} linkSlug={linkSlug} />
-          </DashboardSection>
+          {showProcurement && (
+            <DashboardSection
+              id="procurement"
+              title={t("mp_section_procurement") || "Public procurement"}
+              icon={Landmark}
+            >
+              <MpConnectedContractsTile name={lookupName} linkSlug={linkSlug} />
+            </DashboardSection>
+          )}
 
           <div className="mt-6 flex flex-wrap items-center gap-2 text-xs text-muted-foreground">
             <span>{t("mp_section_explore_more") || "Explore further"}:</span>
