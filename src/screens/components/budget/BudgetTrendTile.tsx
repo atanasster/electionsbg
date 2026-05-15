@@ -349,7 +349,7 @@ export const BudgetTrendTile: FC<{
             </>
           ) : (
             t("budget_trend_caption") ||
-            "Cumulative execution within each fiscal year — figures reset each January. Pre-2026 leva converted to euro at the locked 1.95583 parity."
+            "Cumulative execution within each fiscal year — figures reset each January."
           )}
         </p>
       </CardContent>

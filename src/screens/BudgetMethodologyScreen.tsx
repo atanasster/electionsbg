@@ -83,7 +83,7 @@ export const BudgetMethodologyScreen: FC = () => {
       </ArticleH2>
       <ArticleP>
         {t("budget_meth_currency_p") ||
-          "Bulgaria adopted the euro on 1 January 2026. Monthly snapshots up to and including December 2025 are published in leva; from January 2026 they are in euro. Every figure on the dashboard is shown in euro: leva amounts are converted at the legally locked parity of 1.95583 leva per euro, with the original amount kept alongside in the data."}
+          "Bulgaria adopted the euro on 1 January 2026. Monthly snapshots up to and including December 2025 are published in leva; from January 2026 they are in euro. Every figure on the dashboard is shown in euro."}
       </ArticleP>
 
       <ArticleH2>

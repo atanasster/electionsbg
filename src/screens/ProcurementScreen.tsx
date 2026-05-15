@@ -130,10 +130,7 @@ export const ProcurementScreen: FC = () => {
 
           <StatCard
             label={t("procurement_index_total_awarded") || "Total awarded"}
-            hint={
-              t("procurement_index_total_hint") ||
-              "In euro. Pre-2026 contracts in leva are converted at the locked 1.95583 parity; the rare USD/GBP/CHF contracts are kept in their own currency."
-            }
+            hint={t("procurement_index_total_hint") || ""}
           >
             <div className="flex items-baseline gap-2">
               <Coins className="h-5 w-5 text-muted-foreground shrink-0" />
