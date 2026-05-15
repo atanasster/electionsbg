@@ -241,6 +241,19 @@ export const AboutScreen = () => {
               </ul>
             </DataGroup>
 
+            <DataGroup title={t("governance_section")}>
+              <ul className="space-y-2">
+                <SourceItem
+                  href="https://www.transparency.org/en/countries/bulgaria"
+                  label={t("governance_ti_cpi_source")}
+                />
+                <SourceItem
+                  href="https://databank.worldbank.org/source/worldwide-governance-indicators"
+                  label={t("governance_wb_wgi_source")}
+                />
+              </ul>
+            </DataGroup>
+
             <DataGroup title={t("indicators_section")}>
               <ul className="space-y-2">
                 <SourceItem

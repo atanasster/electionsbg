@@ -14,6 +14,8 @@ import { indicatorsAz } from "./indicators_az";
 import { indicatorsMonDzi } from "./indicators_mon_dzi";
 import { indicatorsNsiPop } from "./indicators_nsi_pop";
 import { smetnaPalata } from "./smetna_palata";
+import { transparencyCpi } from "./transparency_cpi";
+import { worldbankWgi } from "./worldbank_wgi";
 
 // cik is intentionally omitted — see ./cik.ts header. Re-add to this array
 // once a Playwright-based fetch (or alternate endpoint) bypasses Cloudflare.
@@ -33,4 +35,6 @@ export const SOURCES: WatchSource[] = [
   indicatorsAz,
   indicatorsMonDzi,
   indicatorsNsiPop,
+  transparencyCpi,
+  worldbankWgi,
 ];

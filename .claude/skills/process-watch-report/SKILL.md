@@ -38,6 +38,8 @@ The "Changed" section of the report contains a bulleted list. Each bullet's labe
 | `Сметна палата party financing` | `update-financing` |
 | `Eurostat macro` (BG) | `update-macro` |
 | `EC EU budget per-MS spreadsheet` (BG receipts/contributions) | `update-macro` |
+| `World Bank WGI` (BG) | `update-macro` |
+| `Transparency International CPI` (BG) | `update-macro` (manual paste required first — see below) |
 | `Eurostat regional` (BG) | `update-regional` |
 | `AZ (Агенция по заетостта)` | `update-indicators` |
 | `МОН: ДЗИ резултати` | `update-indicators` |
@@ -45,6 +47,18 @@ The "Changed" section of the report contains a bulleted list. Each bullet's labe
 | `CIK news` (if re-enabled) | _no skill yet — surface as TODO_ |
 
 Some sources map to the same skill (`update-connections` handles both declarations and Commerce Registry); dedupe so it only runs once.
+
+### TI CPI: manual paste first
+
+`transparency_cpi` is special. The CPI values live in a hand-curated `TI_CPI` array at `scripts/macro/fetch_eurostat.ts:572`; the watcher detects when TI publishes a new annual score, but `update-macro` itself does not re-scrape the country page. So when this source flips:
+
+1. **Do not auto-queue `update-macro` for it yet.** Instead, surface it under a dedicated "Manual action required" block in the plan with the new score from `state/watch/transparency_cpi.json` (the `meta.year` and `meta.score` fields):
+
+   > Manual action required: `transparency_cpi` flipped to `{year} CPI = {score}/100`. Paste `{ year: {year}, value: {score} }` into the `TI_CPI` array at `scripts/macro/fetch_eurostat.ts:572`, then re-run `/update-macro`.
+
+2. **If the user confirms they've pasted (or invokes the orchestrator again after the paste),** treat `transparency_cpi` like any other `update-macro` source and queue it. The skill will re-run, write the new point into `data/macro.json`, and the marker stamps as usual.
+
+3. If the user says "skip CPI for this run", drop it from the queue without stamping — the next orchestrator run will surface it again.
 
 ## Source → skill mapping (canonical)
 
@@ -63,6 +77,8 @@ Each watcher source maps to one downstream skill. Multiple sources can map to th
 | `smetna_palata` | `update-financing` |
 | `eurostat` | `update-macro` |
 | `ec_budget_per_ms` | `update-macro` |
+| `worldbank_wgi` | `update-macro` |
+| `transparency_cpi` | `update-macro` (gated — see "TI CPI: manual paste first" below) |
 | `eurostat_regional` | `update-regional` |
 | `indicators_az` | `update-indicators` |
 | `indicators_mon_dzi` | `update-indicators` |

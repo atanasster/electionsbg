@@ -256,9 +256,11 @@ These can also be run by hand via the npm scripts and the `scripts/` CLI flags l
 
 Two-tier model.
 
-**Tier 1 — daily watcher.** `npm run watch` (`scripts/watch/index.ts`) fingerprint-diffs 15 upstream sources (parliament.bg MPs + votes, BG Wikipedia polls, register.cacbg.bg declarations, Сметна палата party financing, data.egov.bg Commerce Registry, data.egov.bg АОП procurement, data.egov.bg КФП state-budget execution, per-ministry "Отчет за изпълнението на програмния бюджет", Eurostat macro, Eurostat regional NUTS 3, EC "EU spending and revenue" per-Member-State XLSX, Агенция по заетостта годишен обзор, МОН ДЗИ via data.egov.bg, НСИ population timeseries) and writes:
+**Tier 1 — daily watcher.** `npm run watch` (`scripts/watch/index.ts`) fingerprint-diffs 17 upstream sources (parliament.bg MPs + votes, BG Wikipedia polls, register.cacbg.bg declarations, Сметна палата party financing, data.egov.bg Commerce Registry, data.egov.bg АОП procurement, data.egov.bg КФП state-budget execution, per-ministry "Отчет за изпълнението на програмния бюджет", Eurostat macro, Eurostat regional NUTS 3, EC "EU spending and revenue" per-Member-State XLSX, Агенция по заетостта годишен обзор, МОН ДЗИ via data.egov.bg, НСИ population timeseries, Transparency International CPI, World Bank WGI) and writes:
 - `data-reports/<YYYY-MM-DD>.md` + `data-reports/latest.md` — human-readable daily snapshot
 - `state/watch/<source>.json` — per-source `lastChanged` + `lastChecked`
+
+Each source declares a `cadence` (`daily` / `weekly` / `monthly`); the runner honours it by skipping a source whose `lastChecked` is younger than the cadence window. The watcher itself still runs daily, but a "monthly" source like Transparency International CPI is only actually fingerprinted once every ~29 days — handy for annual-release upstreams that don't move often.
 
 Scheduled via a local Claude Desktop routine — runs from the contributor's machine so source-blocking on cloud-runner IPs (data.egov.bg in particular) doesn't apply. CIK is omitted in v1; its endpoint sits behind Cloudflare and needs a Playwright-based fetch.
 

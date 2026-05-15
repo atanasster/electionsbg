@@ -33,7 +33,12 @@ export interface WatchSource {
   describe?(prev: WatchState | null, curr: Fingerprint): string;
 }
 
-export type ReportStatus = "unchanged" | "changed" | "first-run" | "error";
+export type ReportStatus =
+  | "unchanged"
+  | "changed"
+  | "first-run"
+  | "skipped"
+  | "error";
 
 export interface ReportEntry {
   source: WatchSource;

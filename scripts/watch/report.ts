@@ -8,6 +8,7 @@ export const renderReport = (entries: ReportEntry[], runAt: string): string => {
     (e) => e.status === "changed" || e.status === "first-run",
   );
   const unchanged = entries.filter((e) => e.status === "unchanged");
+  const skipped = entries.filter((e) => e.status === "skipped");
   const errors = entries.filter((e) => e.status === "error");
 
   const sections: string[] = [];
@@ -29,6 +30,13 @@ export const renderReport = (entries: ReportEntry[], runAt: string): string => {
   } else {
     for (const e of unchanged) {
       sections.push(`- ${e.source.label}: ${e.line}`);
+    }
+  }
+
+  if (skipped.length > 0) {
+    sections.push("\n## Skipped (off-cadence)");
+    for (const e of skipped) {
+      sections.push(`- ${e.source.label} (${e.source.cadence}): ${e.line}`);
     }
   }
 
