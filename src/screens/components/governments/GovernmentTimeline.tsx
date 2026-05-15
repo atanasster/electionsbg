@@ -127,6 +127,7 @@ const SERIES_COLORS: Record<MacroIndicatorKey, string> = {
   inflation: "#ef4444",
   unemployment: "#3b82f6",
   gdpPerCapita: "#a855f7",
+  nominalGdp: "#d946ef",
   // fiscal / external
   govDebt: "#0891b2",
   budgetBalance: "#e11d48",
