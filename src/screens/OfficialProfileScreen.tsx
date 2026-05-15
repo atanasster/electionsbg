@@ -24,6 +24,7 @@ import {
   useOfficial,
   useOfficialDeclarations,
 } from "@/data/officials/useOfficial";
+import { useCandidateName } from "@/data/candidates/useCandidateName";
 import { ErrorSection } from "./components/ErrorSection";
 import type { MpAssetCategory, OfficialCategoryKind } from "@/data/dataTypes";
 
@@ -69,6 +70,7 @@ export const OfficialProfileScreen: FC = () => {
   const { official, isLoading: officialLoading } = useOfficial(slug);
   const { declarations, isLoading: declsLoading } =
     useOfficialDeclarations(slug);
+  const { nameForBg } = useCandidateName();
 
   const latest = declarations[0] ?? null;
 
@@ -153,7 +155,7 @@ export const OfficialProfileScreen: FC = () => {
   return (
     <div className="w-full max-w-3xl mx-auto px-4 pb-12 space-y-6">
       <Title description={official.positionTitle ?? official.institution}>
-        {official.name}
+        {nameForBg(official.name)}
       </Title>
 
       <section className="rounded-xl border bg-card p-4 shadow-sm space-y-3">

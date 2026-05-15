@@ -9,6 +9,7 @@ import { useTranslation } from "react-i18next";
 import { ArrowDown, ArrowRight, ArrowUp, Briefcase } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useOfficialsRankings } from "@/data/officials/useOfficialsRankings";
+import { useCandidateName } from "@/data/candidates/useCandidateName";
 import { formatThousands } from "@/data/utils";
 import { StatCard } from "./StatCard";
 
@@ -31,6 +32,7 @@ export const OfficialsAssetsTile: FC<{ className?: string }> = ({
 }) => {
   const { t, i18n } = useTranslation();
   const { rankings } = useOfficialsRankings();
+  const { nameForBg } = useCandidateName();
 
   const topOfficials = useMemo(() => {
     if (!rankings) return [];
@@ -76,7 +78,7 @@ export const OfficialsAssetsTile: FC<{ className?: string }> = ({
                 to={`/officials/${row.slug}`}
                 className="truncate flex-1 min-w-0 hover:underline"
               >
-                <span className="block truncate">{row.name}</span>
+                <span className="block truncate">{nameForBg(row.name)}</span>
                 <span className="block text-[10px] text-muted-foreground truncate">
                   {row.positionTitle ?? row.institution}
                 </span>

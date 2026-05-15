@@ -9,6 +9,7 @@ import { useElectionContext } from "@/data/ElectionContext";
 import { electionToNsFolder, oblastToMir } from "@/data/parliament/nsFolders";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 import { candidateUrlForMp } from "@/data/candidates/candidateSlug";
+import { useCandidateName } from "@/data/candidates/useCandidateName";
 import { Hint } from "@/ux/Hint";
 import { StatCard } from "./StatCard";
 import { provenanceText, provenanceTooltip } from "./provenanceUtils";
@@ -40,7 +41,8 @@ export const MpConnectionsTile: FC<Props> = ({
   const { rankings } = useConnectionsRankings();
   const { provenance } = useDataProvenance();
   const { selected } = useElectionContext();
-  const { findMpsByRegion } = useMps();
+  const { findMpsByRegion, findMpById } = useMps();
+  const { mpName } = useCandidateName();
 
   const selectedFolder = useMemo(
     () => electionToNsFolder(selected),
@@ -135,6 +137,8 @@ export const MpConnectionsTile: FC<Props> = ({
             { ties: row.highConfDegree, direct: row.mpMpDirectDegree },
           );
           const tiesZero = row.highConfDegree === 0;
+          const mp = findMpById(row.mpId);
+          const display = mp ? mpName(mp) : row.label;
           return (
             <div
               key={row.mpId}
@@ -143,12 +147,12 @@ export const MpConnectionsTile: FC<Props> = ({
               <span className="text-muted-foreground w-4 shrink-0 text-right tabular-nums">
                 {i + 1}.
               </span>
-              <MpAvatar mpId={row.mpId} name={row.label} />
+              <MpAvatar mpId={row.mpId} name={display} />
               <Link
                 to={candidateUrlForMp(row.mpId)}
                 className="hover:underline truncate flex-1"
               >
-                {row.label}
+                {display}
               </Link>
               {row.partyGroupShort && (
                 <span className="text-muted-foreground text-[10px] truncate max-w-[110px] shrink-0">

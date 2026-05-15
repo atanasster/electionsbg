@@ -13,6 +13,7 @@ import { useTranslation } from "react-i18next";
 import { ArrowUp, ArrowDown, Briefcase, Landmark, MapPin } from "lucide-react";
 import { Title } from "@/ux/Title";
 import { useOfficialsRankings } from "@/data/officials/useOfficialsRankings";
+import { useCandidateName } from "@/data/candidates/useCandidateName";
 import { formatThousands } from "@/data/utils";
 import type {
   OfficialAssetsRankingEntry,
@@ -52,6 +53,7 @@ const CATEGORY_ICONS: Record<OfficialCategoryKind, typeof Briefcase> = {
 export const OfficialsAssetsScreen: FC = () => {
   const { t, i18n } = useTranslation();
   const { rankings } = useOfficialsRankings();
+  const { nameForBg } = useCandidateName();
   const [filter, setFilter] = useState<CategoryFilter>("all");
 
   const categoryLabel = useCallback(
@@ -87,7 +89,9 @@ export const OfficialsAssetsScreen: FC = () => {
               to={`/officials/${row.original.slug}`}
               className="block min-w-0 hover:underline"
             >
-              <div className="font-medium truncate">{row.original.name}</div>
+              <div className="font-medium truncate">
+                {nameForBg(row.original.name)}
+              </div>
               <div className="text-xs text-muted-foreground truncate">
                 {row.original.positionTitle ?? row.original.institution}
               </div>
@@ -220,7 +224,7 @@ export const OfficialsAssetsScreen: FC = () => {
           },
         },
       ],
-      [t, i18n.language, categoryLabel],
+      [t, i18n.language, categoryLabel, nameForBg],
     );
 
   if (!rankings) return null;

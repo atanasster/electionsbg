@@ -8,6 +8,7 @@ import { useElectionContext } from "@/data/ElectionContext";
 import { electionToNsFolder, oblastToMir } from "@/data/parliament/nsFolders";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 import { candidateUrlForMp } from "@/data/candidates/candidateSlug";
+import { useCandidateName } from "@/data/candidates/useCandidateName";
 import { formatThousands } from "@/data/utils";
 import { StatCard } from "./StatCard";
 
@@ -45,7 +46,8 @@ export const MpAssetsTile: FC<Props> = ({
   const { t, i18n } = useTranslation();
   const { rankings } = useAssetsRankings();
   const { selected } = useElectionContext();
-  const { findMpsByRegion } = useMps();
+  const { findMpsByRegion, findMpById } = useMps();
+  const { mpName } = useCandidateName();
 
   // Default to MPs of the currently selected parliament. Fall back to the
   // lifetime list when the selected election doesn't map to an NS we have
@@ -127,6 +129,8 @@ export const MpAssetsTile: FC<Props> = ({
       <div className="mt-1">
         {topMps.map((row, i) => {
           const delta = row.delta;
+          const mp = findMpById(row.mpId);
+          const display = mp ? mpName(mp) : row.label;
           return (
             <div
               key={row.mpId}
@@ -135,12 +139,12 @@ export const MpAssetsTile: FC<Props> = ({
               <span className="text-muted-foreground w-4 shrink-0 text-right tabular-nums">
                 {i + 1}.
               </span>
-              <MpAvatar mpId={row.mpId} name={row.label} />
+              <MpAvatar mpId={row.mpId} name={display} />
               <Link
                 to={candidateUrlForMp(row.mpId)}
                 className="hover:underline truncate flex-1"
               >
-                {row.label}
+                {display}
               </Link>
               {row.partyGroupShort && (
                 <span className="text-muted-foreground text-[10px] truncate max-w-[110px] shrink-0">
