@@ -1,6 +1,6 @@
 {
   "country": "BG",
-  "documentCount": 5,
+  "documentCount": 20,
   "fiscalYears": [
     {
       "actual": {
@@ -107,7 +107,7 @@
       "projectionBasis": null
     }
   ],
-  "generatedAt": "2026-05-14T16:47:18.032Z",
+  "generatedAt": "2026-05-15T05:45:45.507Z",
   "kfp": {
     "cadences": [
       "monthly"
@@ -116,8 +116,44 @@
     "lastPeriod": "2026-03",
     "observationCount": 50
   },
-  "lastIngest": "2026-05-14T16:47:18.032Z",
+  "lastIngest": "2026-05-15T05:45:45.507Z",
   "years": [
+    {
+      "dimensions": {
+        "admin": true,
+        "program": true
+      },
+      "fiscalYear": 2020,
+      "kfpPeriods": [],
+      "stages": [
+        "law"
+      ]
+    },
+    {
+      "dimensions": {
+        "admin": true,
+        "program": true
+      },
+      "fiscalYear": 2022,
+      "kfpPeriods": [],
+      "stages": [
+        "amendment",
+        "law"
+      ]
+    },
+    {
+      "dimensions": {
+        "admin": true,
+        "program": true
+      },
+      "fiscalYear": 2023,
+      "kfpPeriods": [],
+      "stages": [
+        "amendment",
+        "execution",
+        "law"
+      ]
+    },
     {
       "dimensions": {
         "admin": true,
@@ -126,6 +162,8 @@
       "fiscalYear": 2024,
       "kfpPeriods": [],
       "stages": [
+        "amendment",
+        "execution",
         "law"
       ]
     },

@@ -24,7 +24,12 @@ import {
   fetchEgovResource,
   fetchBulnaoAuditHtml,
   fetchLawHtml,
+  fetchExecutionPdf,
+  fetchExecutionZipXlsx,
+  readManualExecutionPdf,
+  ManualFetchMissing,
   LAW_DV_MATERIALS,
+  EXECUTION_REPORTS,
 } from "./fetch_sources";
 import {
   parseEgovResource,
@@ -35,6 +40,11 @@ import type { ParsedResource } from "./kfp";
 import { parseLawHtml } from "./law_html";
 import type { ParsedLawUnit } from "./law_html";
 import { buildAdminRegistry, buildLawFacts, buildProgramData } from "./facts";
+import { parseExecutionPdf } from "./execution_pdf";
+import { parseBorderlessExecutionPdf } from "./execution_borderless_pdf";
+import { parseExecutionXlsx } from "./execution_xlsx";
+import { buildExecutionFacts } from "./execution_facts";
+import type { BudgetFact } from "./types";
 import { crossReferenceProcurement } from "./cross_reference";
 import { buildMinistryRollups } from "./ministries";
 import { buildEconomicFacts } from "./normalize_egov";
@@ -92,6 +102,20 @@ const ECONOMIC_CANARY_FIXTURE = path.resolve(
   __dirname,
   "../../tests/fixtures/budget/economic-canary.json",
 );
+const EXECUTION_CANARY_FIXTURE = path.resolve(
+  __dirname,
+  "../../tests/fixtures/budget/execution-canary.json",
+);
+// Per-format execution canaries. Each pins one (ministry, year, format) so a
+// regression in any of the three parser paths surfaces as a byte mismatch.
+const EXECUTION_BORDERLESS_CANARY_FIXTURE = path.resolve(
+  __dirname,
+  "../../tests/fixtures/budget/execution-borderless-canary.json",
+);
+const EXECUTION_XLSX_CANARY_FIXTURE = path.resolve(
+  __dirname,
+  "../../tests/fixtures/budget/execution-xlsx-canary.json",
+);
 
 // Pinned resource for the canary — the 2025-12 (full-year) snapshot. Re-parsed
 // every run; byte drift in the parser or currency conversion throws.
@@ -99,6 +123,15 @@ const CANARY_RESOURCE_UUID = "817cf3fb-7e59-4cf7-9f50-8cbccd11bb60";
 // Pinned fiscal years for the law- and economic-parser canaries.
 const LAW_CANARY_YEAR = 2024;
 const ECONOMIC_CANARY_YEAR = 2025;
+// Pinned (ministry, year) for the execution-parser canaries — one per source
+// format. Re-parsing each every run must produce byte-identical output
+// against its fixture; drift in any parser path surfaces here.
+const EXECUTION_CANARY_ADMIN_ID = "admin-ministerstvoto-na-zdraveopazvaneto";
+const EXECUTION_CANARY_YEAR = 2024;
+const EXECUTION_BORDERLESS_CANARY_ADMIN_ID =
+  "admin-ministerstvoto-na-otbranata";
+const EXECUTION_XLSX_CANARY_ADMIN_ID =
+  "admin-ministerstvoto-na-truda-i-sotsialnata-politika";
 
 const SOURCES: Record<string, string> = {
   egov: "https://data.egov.bg/data/view/79ce7de2-0150-4ba7-a96c-dbacb76c95b6",
@@ -154,6 +187,17 @@ const buildIndex = (
       admin: true,
       ...(hasPrograms ? { program: true } : {}),
     };
+  }
+  // Document-derived stages: amendment laws → "amendment"; execution reports →
+  // "amendment" + "execution" (the report carries both уточнен план and отчет).
+  for (const doc of documents.documents) {
+    if (doc.fiscalYear == null) continue;
+    if (doc.kind !== "amendment" && doc.kind !== "execution-report") continue;
+    const cov = coverageFor(doc.fiscalYear);
+    const stages = new Set<BudgetStage>(cov.stages);
+    stages.add("amendment");
+    if (doc.kind === "execution-report") stages.add("execution");
+    cov.stages = [...stages].sort();
   }
   // Years with economic-grain reconciliation (egov plan + execution columns).
   for (const fiscalYear of economicYears) {
@@ -249,10 +293,141 @@ const main = async (args: {
       buildLawFacts(year, units),
     ]),
   );
+
+  // Build the program registry up-front (instead of after the execution
+  // reports) so buildExecutionFacts can name-match отчет programmes against
+  // the law's policy-area nodes. The registry only depends on the parsed law
+  // units, so the ordering is safe.
+  const { registry: programRegistry, factsByYear: programFactsByYear } =
+    buildProgramData(unitsByYear);
+
+  // 3b-i. Per-ministry program-budget execution reports — pulls the уточнен
+  // план + отчет per first-level spending unit out of each ministry's own
+  // published PDF (minfin.bg's consolidated отчет is WAF-blocked). One curated
+  // URL per (ministry, year) in EXECUTION_REPORTS; fatal on a broken URL —
+  // same model as LAW_DV_MATERIALS. Emits admin-grain amendment + execution
+  // facts that the reconciler joins to the law facts as planned → amended →
+  // executed, plus program-grain facts for отчет programmes that name-match
+  // a law program-registry node.
+  console.log("→ parsing ministry execution reports");
+  const executionFactsByYear = new Map<number, BudgetFact[]>();
+  let canaryUnit: Awaited<ReturnType<typeof parseExecutionPdf>> | null = null;
+  let canaryBorderlessUnit: Awaited<
+    ReturnType<typeof parseExecutionPdf>
+  > | null = null;
+  let canaryXlsxUnit: Awaited<ReturnType<typeof parseExecutionPdf>> | null =
+    null;
+  for (const r of EXECUTION_REPORTS) {
+    // dispatch by source format — bordered PDF, borderless PDF, XLSX-in-ZIP,
+    // or manual-fetch PDF (operator-saved in raw_data/budget/)
+    const fetchOpts = { refresh: args.refreshCache };
+    let unit: Awaited<ReturnType<typeof parseExecutionPdf>>;
+    try {
+      if (r.format === "pdf") {
+        unit = await parseExecutionPdf(
+          await fetchExecutionPdf(r.adminId, r.fiscalYear, r.url, fetchOpts),
+          r.fiscalYear,
+        );
+      } else if (r.format === "pdf-borderless") {
+        unit = await parseBorderlessExecutionPdf(
+          await fetchExecutionPdf(r.adminId, r.fiscalYear, r.url, fetchOpts),
+          r.fiscalYear,
+          { trailingValueCount: r.trailingValueCount },
+        );
+      } else if (r.format === "xlsx-in-zip") {
+        unit = await parseExecutionXlsx(
+          await fetchExecutionZipXlsx(
+            r.adminId,
+            r.fiscalYear,
+            r.url,
+            r.entryName,
+            fetchOpts,
+          ),
+          r.fiscalYear,
+        );
+      } else {
+        // manual-pdf — read from cache; missing file is non-fatal
+        const bytes = readManualExecutionPdf(r.adminId, r.fiscalYear, r.url);
+        unit =
+          r.trailingValueCount != null
+            ? await parseBorderlessExecutionPdf(bytes, r.fiscalYear, {
+                trailingValueCount: r.trailingValueCount,
+              })
+            : await parseExecutionPdf(bytes, r.fiscalYear);
+      }
+    } catch (e) {
+      if (e instanceof ManualFetchMissing) {
+        console.warn(
+          `  ⚠ ${r.adminId} ${r.fiscalYear} [manual-pdf]: skipped — ${e.message}`,
+        );
+        continue;
+      }
+      throw e;
+    }
+    if (
+      r.adminId === EXECUTION_CANARY_ADMIN_ID &&
+      r.fiscalYear === EXECUTION_CANARY_YEAR
+    ) {
+      canaryUnit = unit;
+    }
+    if (
+      r.adminId === EXECUTION_BORDERLESS_CANARY_ADMIN_ID &&
+      r.fiscalYear === EXECUTION_CANARY_YEAR
+    ) {
+      canaryBorderlessUnit = unit;
+    }
+    if (
+      r.adminId === EXECUTION_XLSX_CANARY_ADMIN_ID &&
+      r.fiscalYear === EXECUTION_CANARY_YEAR
+    ) {
+      canaryXlsxUnit = unit;
+    }
+    const facts = buildExecutionFacts(r.adminId, unit, programRegistry);
+    const bucket = executionFactsByYear.get(r.fiscalYear) ?? [];
+    bucket.push(...facts);
+    executionFactsByYear.set(r.fiscalYear, bucket);
+    const e = unit.expenditure;
+    const pct =
+      e.amended && e.executed
+        ? ` (${((e.executed.amount / e.amended.amount) * 100).toFixed(1)}% of amended)`
+        : "";
+    console.log(
+      `  • ${r.adminId} ${r.fiscalYear} [${r.format}]: ` +
+        `executed ${e.executed?.amount.toLocaleString("en-US") ?? "—"}${pct}`,
+    );
+  }
+  // Per-format execution-parser canaries — one fixture per parser path so
+  // drift in any of pdf / pdf-borderless / xlsx-in-zip surfaces immediately.
+  if (canaryUnit) {
+    console.log(
+      `→ canary on execution report [pdf] ${EXECUTION_CANARY_ADMIN_ID} ${EXECUTION_CANARY_YEAR}`,
+    );
+    runCanary(EXECUTION_CANARY_FIXTURE, canaryUnit);
+  }
+  if (canaryBorderlessUnit) {
+    console.log(
+      `→ canary on execution report [pdf-borderless] ${EXECUTION_BORDERLESS_CANARY_ADMIN_ID} ${EXECUTION_CANARY_YEAR}`,
+    );
+    runCanary(EXECUTION_BORDERLESS_CANARY_FIXTURE, canaryBorderlessUnit);
+  }
+  if (canaryXlsxUnit) {
+    console.log(
+      `→ canary on execution report [xlsx-in-zip] ${EXECUTION_XLSX_CANARY_ADMIN_ID} ${EXECUTION_CANARY_YEAR}`,
+    );
+    runCanary(EXECUTION_XLSX_CANARY_FIXTURE, canaryXlsxUnit);
+  }
+
   const adminReconByYear = new Map(
-    [...lawFactsByYear.entries()].map(([year, facts]) => [
+    [
+      ...new Set([...lawFactsByYear.keys(), ...executionFactsByYear.keys()]),
+    ].map((year) => [
       year,
-      buildAdminReconciliation(year, facts, adminRegistry),
+      buildAdminReconciliation(
+        year,
+        lawFactsByYear.get(year) ?? [],
+        executionFactsByYear.get(year) ?? [],
+        adminRegistry,
+      ),
     ]),
   );
   console.log(
@@ -260,18 +435,80 @@ const main = async (args: {
       `facts: ${[...lawFactsByYear.values()].reduce((n, f) => n + f.length, 0)} row(s)`,
   );
 
-  // 3b-ii. Program grain — the policy-area / budget-program tables in the law.
-  const { registry: programRegistry, factsByYear: programFactsByYear } =
-    buildProgramData(unitsByYear);
+  // Sanity check on admin-grain reconciliation — surfaces silent scope or
+  // parser drift. Each ratio's bounds are tuned to the observed range across
+  // the 7 ministries currently ingested; anything outside likely means a
+  // scope-mismatch survived or a parser column shifted.
+  let sanityWarnings = 0;
+  for (const [year, rows] of adminReconByYear) {
+    for (const row of rows) {
+      if (row.kind !== "expenditure") continue;
+      if (!row.planned || !row.executed) continue;
+      const p = row.planned.amountEur;
+      const a = row.amended?.amountEur ?? null;
+      const e = row.executed.amountEur;
+      const flag = (msg: string): void => {
+        sanityWarnings++;
+        console.warn(
+          `  ⚠ admin-grain sanity (${year} ${row.nodeId.slice(6)}): ${msg}`,
+        );
+      };
+      // amended/planned outside [0.4, 3.5] → likely scope-mismatch survivor
+      if (a != null && p > 0) {
+        const r = a / p;
+        if (r < 0.4 || r > 3.5)
+          flag(
+            `amended/planned = ${r.toFixed(2)}× (planned €${p}, amended €${a})`,
+          );
+      }
+      // executed/amended outside [0.5, 1.6] → likely parser column shift
+      if (a != null && a > 0) {
+        const r = e / a;
+        if (r < 0.5 || r > 1.6)
+          flag(
+            `executed/amended = ${(r * 100).toFixed(0)}% (amended €${a}, executed €${e})`,
+          );
+      }
+      // executed/planned outside [0.4, 4.0] → catches both
+      if (p > 0) {
+        const r = e / p;
+        if (r < 0.4 || r > 4.0)
+          flag(
+            `executed/planned = ${r.toFixed(2)}× (planned €${p}, executed €${e})`,
+          );
+      }
+    }
+  }
+  if (sanityWarnings > 0) {
+    console.warn(
+      `  ⚠ ${sanityWarnings} admin-grain sanity warning(s) — eyeball before committing`,
+    );
+  }
+
+  // 3b-ii. Program grain — join the law's program-area facts with execution
+  // facts at the program grain (admin reports' policy areas, name-matched).
   const programReconByYear = new Map(
-    [...programFactsByYear.entries()].map(([year, facts]) => [
+    [
+      ...new Set([
+        ...programFactsByYear.keys(),
+        ...executionFactsByYear.keys(),
+      ]),
+    ].map((year) => [
       year,
-      buildProgramReconciliation(year, facts, programRegistry),
+      buildProgramReconciliation(
+        year,
+        programFactsByYear.get(year) ?? [],
+        (executionFactsByYear.get(year) ?? []).filter((f) =>
+          f.grain.includes("program"),
+        ),
+        programRegistry,
+      ),
     ]),
   );
   console.log(
     `  program registry: ${programRegistry.nodes.length} node(s); ` +
-      `facts: ${[...programFactsByYear.values()].reduce((n, f) => n + f.length, 0)} row(s)`,
+      `facts: ${[...programFactsByYear.values()].reduce((n, f) => n + f.length, 0)} row(s) law + ` +
+      `${[...executionFactsByYear.values()].reduce((n, f) => n + f.filter((x) => x.grain.includes("program")).length, 0)} row(s) execution`,
   );
 
   // 3d. Per-ministry rollups — one self-contained slice per spending unit so
@@ -363,9 +600,20 @@ const main = async (args: {
   ) {
     touched++;
   }
-  for (const [year, facts] of lawFactsByYear) {
+  // admin facts shard mixes law + execution stages — same pattern as
+  // economic.json. Iterate the union of years so a ministry-only execution
+  // year (no parsed law) still gets written.
+  const adminYears = new Set([
+    ...lawFactsByYear.keys(),
+    ...executionFactsByYear.keys(),
+  ]);
+  for (const year of adminYears) {
+    const merged = [
+      ...(lawFactsByYear.get(year) ?? []),
+      ...(executionFactsByYear.get(year) ?? []),
+    ];
     const file = path.join(FACTS_DIR, String(year), "admin.json");
-    if (writeIfChanged(file, canonicalJson(facts))) touched++;
+    if (writeIfChanged(file, canonicalJson(merged))) touched++;
   }
   for (const [year, facts] of economicFactsByYear) {
     const file = path.join(FACTS_DIR, String(year), "economic.json");

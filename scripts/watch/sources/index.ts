@@ -6,6 +6,7 @@ import { cacbgDeclarations } from "./cacbg_declarations";
 import { egovCommerce } from "./egov_commerce";
 import { egovProcurement } from "./egov_procurement";
 import { egovBudgetExecution } from "./egov_budget_execution";
+import { ministryExecutionReports } from "./ministry_execution_reports";
 import { eurostat } from "./eurostat";
 import { eurostatRegional } from "./eurostat_regional";
 import { indicatorsAz } from "./indicators_az";
@@ -24,6 +25,7 @@ export const SOURCES: WatchSource[] = [
   egovCommerce,
   egovProcurement,
   egovBudgetExecution,
+  ministryExecutionReports,
   eurostat,
   eurostatRegional,
   indicatorsAz,

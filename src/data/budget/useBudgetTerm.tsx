@@ -61,21 +61,28 @@ export const useBudgetTerm = (
     const byYear = new Map(
       (index?.fiscalYears ?? []).map((f) => [f.fiscalYear, f]),
     );
+    // A year is "ingested" — and so worth listing — when it carries either a
+    // KFP-derived summary OR any law/amendment/execution stage from the
+    // document index. Years with only law/execution data (no КФП yet) still
+    // back the ministries + journey tiles, so the FY chip should be live.
+    const withStages = new Set(
+      (index?.years ?? [])
+        .filter((y) => y.stages.length > 0)
+        .map((y) => y.fiscalYear),
+    );
     const out: BudgetTermYear[] = [];
     for (let y = startYear; y <= endYear; y++) {
-      out.push({ fiscalYear: y, summary: byYear.get(y) ?? null });
+      const summary = byYear.get(y) ?? null;
+      if (summary || withStages.has(y)) {
+        out.push({ fiscalYear: y, summary });
+      }
     }
     return out;
   }, [termStart, termEnd, index]);
 
-  const yearsWithData = useMemo(
-    () =>
-      years.filter(
-        (y): y is BudgetTermYear & { summary: FiscalYearSummary } =>
-          y.summary != null,
-      ),
-    [years],
-  );
+  // Years with any ingested data — summary OR a stage. The chip is enabled for
+  // these; consumers that need a KFP summary specifically must check `summary`.
+  const yearsWithData = useMemo(() => years, [years]);
 
   const selectedFy = useMemo<number | null>(() => {
     const requested = fyParam ? parseInt(fyParam, 10) : NaN;
@@ -90,7 +97,7 @@ export const useBudgetTerm = (
     // picture), falling back to the most recent year with any data.
     const lastComplete = [...yearsWithData]
       .reverse()
-      .find((y) => y.summary.complete);
+      .find((y) => y.summary?.complete);
     return (lastComplete ?? yearsWithData[yearsWithData.length - 1]).fiscalYear;
   }, [fyParam, yearsWithData]);
 

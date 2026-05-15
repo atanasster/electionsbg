@@ -1,16 +1,18 @@
 // Reconciliation builder — joins the budget journey (law → amendments →
 // execution) into one row per classification node, per kind, per fiscal year.
 //
-// This increment covers the `admin` dimension from the State Budget Law only:
-// `planned` comes from the law facts; `executed` is null because the КФП
-// execution feed carries no ministry breakdown (ministry-level execution lives
-// in the year-end execution report — a later increment). `completeness` is
-// "missing" accordingly — the frontend renders these as plan-only rows rather
-// than implying a variance that the data can't support.
+// `admin` dimension: `planned` comes from the State Budget Law (law_html.ts);
+// `amended` (уточнен план) and `executed` (отчет) come from per-ministry
+// program-budget execution reports (execution_pdf.ts), where available. For a
+// ministry without an ingested execution report yet, the row keeps planned
+// only — `completeness: "missing"` — so the frontend renders it as plan-only
+// rather than implying a variance the data cannot support.
 
 import type {
   BudgetFact,
   ClassificationRegistry,
+  FactKind,
+  Money,
   ReconciliationRow,
 } from "./types";
 
@@ -25,33 +27,102 @@ const nodeName = (
   };
 };
 
-// Build the admin-dimension reconciliation rows for one fiscal year from its
-// law facts. One row per (admin node, kind).
+// Build the admin-dimension reconciliation rows for one fiscal year. Joins
+// law facts (planned) with execution-report facts (amended + executed) by
+// (admin node, kind). A ministry with no execution report yet still appears,
+// plan-only.
 export const buildAdminReconciliation = (
   fiscalYear: number,
   lawFacts: BudgetFact[],
+  executionFacts: BudgetFact[],
   registry: ClassificationRegistry,
 ): ReconciliationRow[] => {
-  const rows: ReconciliationRow[] = [];
+  interface Group {
+    nodeId: string;
+    kind: FactKind;
+    planned: Money | null;
+    amended: Money | null;
+    executed: Money | null;
+    amendmentTrail: Array<{ seq: number; effectiveDate: string; money: Money }>;
+  }
+  const groups = new Map<string, Group>();
+  const groupOf = (fact: BudgetFact): Group | null => {
+    const adminId = fact.classification.admin;
+    if (!adminId || !fact.grain.includes("admin")) return null;
+    const key = `${adminId}|${fact.kind}`;
+    let g = groups.get(key);
+    if (!g) {
+      g = {
+        nodeId: adminId,
+        kind: fact.kind,
+        planned: null,
+        amended: null,
+        executed: null,
+        amendmentTrail: [],
+      };
+      groups.set(key, g);
+    }
+    return g;
+  };
+
   for (const fact of lawFacts) {
-    const nodeId = fact.classification.admin;
-    if (!nodeId || !fact.grain.includes("admin")) continue;
-    const { nameBg, nameEn } = nodeName(registry, nodeId);
+    if (fact.version.stage !== "law") continue;
+    const g = groupOf(fact);
+    if (g) g.planned = fact.money;
+  }
+  for (const fact of executionFacts) {
+    const g = groupOf(fact);
+    if (!g) continue;
+    if (fact.version.stage === "law") {
+      // The отчет's own "Закон" column restates the appropriation at the
+      // отчет's (often consolidated) scope, matching amended + executed. We
+      // prefer it over law_html.ts's State-Budget-Law value when present so
+      // the law→amended→executed trail is like-with-like (see the comment in
+      // execution_facts.ts for the rationale + the МОСВ example).
+      g.planned = fact.money;
+    } else if (fact.version.stage === "amendment") {
+      g.amendmentTrail.push({
+        seq: fact.version.seq,
+        effectiveDate: fact.version.effectiveDate,
+        money: fact.money,
+      });
+    } else if (fact.version.stage === "execution") {
+      g.executed = fact.money;
+    }
+  }
+  // After collecting amendments, `amended` is the highest-seq entry's money
+  // (the cumulative уточнен план). The trail itself preserves any sub-steps.
+  for (const g of groups.values()) {
+    g.amendmentTrail.sort((a, b) => a.seq - b.seq);
+    const last = g.amendmentTrail[g.amendmentTrail.length - 1];
+    if (last) g.amended = last.money;
+  }
+
+  const rows: ReconciliationRow[] = [];
+  for (const g of groups.values()) {
+    const { nameBg, nameEn } = nodeName(registry, g.nodeId);
+    const varianceEur =
+      g.planned && g.executed
+        ? g.executed.amountEur - g.planned.amountEur
+        : null;
+    const variancePct =
+      varianceEur != null && g.planned && g.planned.amountEur !== 0
+        ? (varianceEur / Math.abs(g.planned.amountEur)) * 100
+        : null;
     rows.push({
       fiscalYear,
       dimension: "admin",
-      nodeId,
+      nodeId: g.nodeId,
       nodeNameBg: nameBg,
       nodeNameEn: nameEn,
-      kind: fact.kind,
-      planned: fact.money,
-      amendmentTrail: [],
-      amended: null,
-      executed: null,
-      varianceEur: null,
-      variancePct: null,
-      // The law sets the plan; ministry-grain execution is not yet available.
-      completeness: "missing",
+      kind: g.kind,
+      planned: g.planned,
+      amendmentTrail: g.amendmentTrail,
+      amended: g.amended,
+      executed: g.executed,
+      varianceEur,
+      variancePct,
+      completeness: g.planned && g.executed ? "exact" : "missing",
     });
   }
   return rows.sort((a, b) =>
@@ -61,34 +132,98 @@ export const buildAdminReconciliation = (
   );
 };
 
-// Build the program-dimension reconciliation for one fiscal year from its
-// program-grain law facts. Like the admin dimension, this is plan-only —
-// program-level execution is not published in a machine-readable form — so
-// every row is `completeness: "missing"` on the executed side.
+// Build the program-dimension reconciliation for one fiscal year. Joins
+// law program-grain facts (planned) with execution-report program-grain
+// facts (amended + executed) by (program node, kind). Matches the admin
+// reconciliation pattern: planned from the law, amended/executed from the
+// отчет via the name-based crosswalk in buildExecutionFacts.
 export const buildProgramReconciliation = (
   fiscalYear: number,
-  programFacts: BudgetFact[],
+  lawFacts: BudgetFact[],
+  executionFacts: BudgetFact[],
   registry: ClassificationRegistry,
 ): ReconciliationRow[] => {
-  const rows: ReconciliationRow[] = [];
-  for (const fact of programFacts) {
+  interface Group {
+    nodeId: string;
+    kind: FactKind;
+    planned: Money | null;
+    amended: Money | null;
+    executed: Money | null;
+    amendmentTrail: Array<{ seq: number; effectiveDate: string; money: Money }>;
+  }
+  const groups = new Map<string, Group>();
+  const groupOf = (fact: BudgetFact): Group | null => {
     const nodeId = fact.classification.program;
-    if (!nodeId || !fact.grain.includes("program")) continue;
-    const { nameBg, nameEn } = nodeName(registry, nodeId);
+    if (!nodeId || !fact.grain.includes("program")) return null;
+    const key = `${nodeId}|${fact.kind}`;
+    let g = groups.get(key);
+    if (!g) {
+      g = {
+        nodeId,
+        kind: fact.kind,
+        planned: null,
+        amended: null,
+        executed: null,
+        amendmentTrail: [],
+      };
+      groups.set(key, g);
+    }
+    return g;
+  };
+
+  for (const fact of lawFacts) {
+    if (fact.version.stage !== "law") continue;
+    const g = groupOf(fact);
+    if (g) g.planned = fact.money;
+  }
+  for (const fact of executionFacts) {
+    const g = groupOf(fact);
+    if (!g) continue;
+    if (fact.version.stage === "law") {
+      // Prefer the отчет's restated law for like-with-like scope, same as the
+      // admin reconciler.
+      g.planned = fact.money;
+    } else if (fact.version.stage === "amendment") {
+      g.amendmentTrail.push({
+        seq: fact.version.seq,
+        effectiveDate: fact.version.effectiveDate,
+        money: fact.money,
+      });
+    } else if (fact.version.stage === "execution") {
+      g.executed = fact.money;
+    }
+  }
+  for (const g of groups.values()) {
+    g.amendmentTrail.sort((a, b) => a.seq - b.seq);
+    const last = g.amendmentTrail[g.amendmentTrail.length - 1];
+    if (last) g.amended = last.money;
+  }
+
+  const rows: ReconciliationRow[] = [];
+  for (const g of groups.values()) {
+    const { nameBg, nameEn } = nodeName(registry, g.nodeId);
+    const varianceEur =
+      g.planned && g.executed
+        ? g.executed.amountEur - g.planned.amountEur
+        : null;
+    const variancePct =
+      varianceEur != null && g.planned && g.planned.amountEur !== 0
+        ? (varianceEur / Math.abs(g.planned.amountEur)) * 100
+        : null;
     rows.push({
       fiscalYear,
       dimension: "program",
-      nodeId,
+      nodeId: g.nodeId,
       nodeNameBg: nameBg,
       nodeNameEn: nameEn,
-      kind: fact.kind,
-      planned: fact.money,
-      amendmentTrail: [],
-      amended: null,
-      executed: null,
-      varianceEur: null,
-      variancePct: null,
-      completeness: "missing",
+      kind: g.kind,
+      planned: g.planned,
+      amendmentTrail: g.amendmentTrail,
+      amended: g.amended,
+      executed: g.executed,
+      varianceEur,
+      variancePct,
+      completeness: g.planned && g.executed ? "exact" : "missing",
     });
   }
   return rows.sort((a, b) => a.nodeId.localeCompare(b.nodeId));

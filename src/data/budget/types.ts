@@ -197,16 +197,31 @@ export interface MinistryProcurementFile {
 
 // Per-ministry rollup — the self-contained slice the ministry detail screen
 // fetches (one small file instead of every year's whole-corpus reconciliation).
+// `revenue`/`expenditure`/`balance` are the law-planned figures; `execution`,
+// when present, adds the уточнен план + отчет from the year-end execution
+// report — null for units/years without an ingested execution report.
+export interface MinistrySeriesExecution {
+  amended: Money | null;
+  executed: Money | null;
+  varianceEur: number | null;
+  variancePct: number | null;
+}
+
 export interface MinistryRollupYear {
   fiscalYear: number;
   revenue: Money | null;
   expenditure: Money | null;
   balance: Money | null;
+  execution: {
+    revenue: MinistrySeriesExecution | null;
+    expenditure: MinistrySeriesExecution | null;
+  } | null;
   programs: Array<{
     nodeId: string;
     nameBg: string;
     nameEn: string;
     planned: Money | null;
+    execution: MinistrySeriesExecution | null;
   }>;
 }
 

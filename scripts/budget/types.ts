@@ -341,16 +341,33 @@ export interface MinistryProcurementFile {
 // A self-contained slice for the ministry detail screen: everything that
 // screen renders for one spending unit, so it fetches ONE small file instead
 // of every year's whole-corpus reconciliation + the program registry.
+//
+// `revenue`/`expenditure`/`balance` carry the State Budget Law's appropriation
+// (planned). `execution`, when present, adds the уточнен план (amended) and
+// the отчет (executed) from the year-end execution report; null for any
+// unit/year without an ingested execution report.
+export interface MinistrySeriesExecution {
+  amended: Money | null;
+  executed: Money | null;
+  varianceEur: number | null;
+  variancePct: number | null;
+}
+
 export interface MinistryRollupYear {
   fiscalYear: number;
   revenue: Money | null;
   expenditure: Money | null;
   balance: Money | null;
+  execution: {
+    revenue: MinistrySeriesExecution | null;
+    expenditure: MinistrySeriesExecution | null;
+  } | null;
   programs: Array<{
     nodeId: string;
     nameBg: string;
     nameEn: string;
     planned: Money | null;
+    execution: MinistrySeriesExecution | null; // null when only law data exists
   }>;
 }
 

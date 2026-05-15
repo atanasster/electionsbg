@@ -1802,6 +1802,7 @@
   "budget_ministries_subtitle": "Разходи, утвърдени със Закона за държавния бюджет за бюджетна година",
   "budget_ministry_not_found": "Няма данни от закона за бюджета за този разпоредител.",
   "budget_ministry_intro": "Средства, утвърдени със Закона за държавния бюджет. Изпълнението на ниво министерство (реалните разходи) се публикува в годишния отчет за изпълнението и още не е заредено.",
+  "budget_ministry_intro_with_execution": "Средства, утвърдени със Закона за държавния бюджет, плюс реалното изпълнение от Отчета за изпълнението на програмния бюджет.",
   "budget_variance_title": "План спрямо изпълнение",
   "budget_variance_subtitle": "Отклонение на изпълнението от закона за бюджета, бюджетна година",
   "budget_variance_top_lines": "Най-големи отклонения — разходи",
@@ -1813,5 +1814,12 @@
   "budget_ministry_procurement_link": "Виж договорите за обществени поръчки",
   "budget_ministry_programs_title": "Бюджет по програми",
   "budget_ministries_procurement": "обществени поръчки",
-  "budget_ministries_mp_flag": "свързани с депутати"
+  "budget_ministries_mp_flag": "свързани с депутати",
+  "budget_ministries_executed": "отчет",
+  "budget_ministries_unspent": "неизразходвани",
+  "budget_ministries_over": "над плана",
+  "budget_ministries_of_amended": "от уточнен план",
+  "budget_ministries_asof": "изпълнение към",
+  "budget_fy_status_law_only": "закон",
+  "budget_fy_status_law_only_long": "само законов план — все още няма месечна графика на изпълнение за тази година"
 }

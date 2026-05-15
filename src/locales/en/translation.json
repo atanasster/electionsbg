@@ -1806,6 +1806,7 @@
   "budget_ministries_subtitle": "Expenditure appropriated by the State Budget Law for fiscal year",
   "budget_ministry_not_found": "No budget-law data found for this spending unit.",
   "budget_ministry_intro": "Appropriations set by the State Budget Law. Ministry-level execution (actual spending) is published in the year-end execution report and is not yet ingested.",
+  "budget_ministry_intro_with_execution": "Appropriations from the State Budget Law plus actual execution from the year-end program-budget report (Отчет за изпълнението на програмния бюджет).",
   "budget_variance_title": "Plan vs. actual",
   "budget_variance_subtitle": "How execution diverged from the budget law, fiscal year",
   "budget_variance_top_lines": "Largest deviations — spending",
@@ -1817,5 +1818,12 @@
   "budget_ministry_procurement_link": "View this unit’s procurement contracts",
   "budget_ministry_programs_title": "Budget by program",
   "budget_ministries_procurement": "procurement",
-  "budget_ministries_mp_flag": "MP-connected"
+  "budget_ministries_mp_flag": "MP-connected",
+  "budget_ministries_executed": "executed",
+  "budget_ministries_unspent": "unspent",
+  "budget_ministries_over": "over",
+  "budget_ministries_of_amended": "of amended",
+  "budget_ministries_asof": "execution as of",
+  "budget_fy_status_law_only": "law plan",
+  "budget_fy_status_law_only_long": "law plan only — no monthly execution feed for this year yet"
 }

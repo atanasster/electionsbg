@@ -22,6 +22,9 @@ import type {
 // Държавен вестник promulgation dates, keyed by fiscal year — the
 // FactVersion.effectiveDate. Hand-curated alongside LAW_DV_MATERIALS.
 export const LAW_PROMULGATION: Record<number, string> = {
+  2020: "2019-12-20", // ДВ бр. 100
+  2022: "2022-03-04", // ДВ бр. 18
+  2023: "2023-08-01", // ДВ бр. 66
   2024: "2023-12-30", // ДВ бр. 108
   2025: "2025-03-27", // ДВ бр. 26
 };

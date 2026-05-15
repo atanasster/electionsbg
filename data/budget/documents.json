@@ -1,6 +1,141 @@
 {
   "documents": [
     {
+      "discovery": "auto-confirmed",
+      "fiscalYear": 2020,
+      "id": "law-2020",
+      "kind": "law",
+      "seq": 0,
+      "sources": [
+        {
+          "format": "html",
+          "label": "Държавен вестник — promulgated text + appropriation tables",
+          "role": "promulgated",
+          "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=143562"
+        }
+      ],
+      "title": "Закон за държавния бюджет на Република България за 2020 г."
+    },
+    {
+      "discovery": "auto-confirmed",
+      "fiscalYear": 2022,
+      "id": "amendment-2022-1",
+      "kind": "amendment",
+      "notes": "Mid-year amendment to the State Budget Law — catalogued for provenance. The DV HTML carries no per-spending-unit appropriation tables; the amended per-ministry appropriation comes from the year-end execution report.",
+      "promulgationDate": "2022-07-05",
+      "seq": 1,
+      "sources": [
+        {
+          "format": "html",
+          "label": "Държавен вестник — ДВ бр. 52 от 2022 г.",
+          "role": "promulgated",
+          "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=174605"
+        }
+      ],
+      "title": "Закон за изменение и допълнение на Закона за държавния бюджет на Република България за 2022 г."
+    },
+    {
+      "discovery": "auto-confirmed",
+      "fiscalYear": 2022,
+      "id": "law-2022",
+      "kind": "law",
+      "seq": 0,
+      "sources": [
+        {
+          "format": "html",
+          "label": "Държавен вестник — promulgated text + appropriation tables",
+          "role": "promulgated",
+          "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=170229"
+        }
+      ],
+      "title": "Закон за държавния бюджет на Република България за 2022 г."
+    },
+    {
+      "discovery": "auto-confirmed",
+      "fiscalYear": 2023,
+      "id": "exec-admin-ministerstvoto-na-ikonomikata-i-industriyata-2023",
+      "kind": "execution-report",
+      "reportDate": "2023-12-31",
+      "seq": 0,
+      "sources": [
+        {
+          "format": "pdf",
+          "label": "Министерството на икономиката и индустрията — програмен отчет",
+          "role": "report",
+          "url": "https://www.mi.government.bg/files/useruploads/files/budget/2000_Otchet programi 31.12.2023 MII.pdf"
+        }
+      ],
+      "title": "Отчет за изпълнението на програмния бюджет на Министерството на икономиката и индустрията за 2023 г."
+    },
+    {
+      "discovery": "auto-confirmed",
+      "fiscalYear": 2023,
+      "id": "exec-admin-ministerstvoto-na-zdraveopazvaneto-2023",
+      "kind": "execution-report",
+      "reportDate": "2023-12-31",
+      "seq": 0,
+      "sources": [
+        {
+          "format": "pdf",
+          "label": "Министерството на здравеопазването — програмен отчет",
+          "role": "report",
+          "url": "https://www.mh.government.bg/upload/11890/otchet_mz_programen_31122023.pdf"
+        }
+      ],
+      "title": "Отчет за изпълнението на програмния бюджет на Министерството на здравеопазването за 2023 г."
+    },
+    {
+      "discovery": "auto-confirmed",
+      "fiscalYear": 2023,
+      "id": "exec-admin-ministerstvoto-na-truda-i-sotsialnata-politika-2023",
+      "kind": "execution-report",
+      "reportDate": "2023-12-31",
+      "seq": 0,
+      "sources": [
+        {
+          "format": "xlsx",
+          "label": "Министерството на труда и социалната политика — програмен отчет (XLSX в ZIP архив)",
+          "role": "report",
+          "url": "https://www.mlsp.government.bg/uploads/11/finansi-1/na-mtsp-za-2023-g.zip"
+        }
+      ],
+      "title": "Отчет за изпълнението на програмния бюджет на Министерството на труда и социалната политика за 2023 г."
+    },
+    {
+      "discovery": "auto-confirmed",
+      "fiscalYear": 2023,
+      "id": "law-2023",
+      "kind": "law",
+      "seq": 0,
+      "sources": [
+        {
+          "format": "html",
+          "label": "Държавен вестник — promulgated text + appropriation tables",
+          "role": "promulgated",
+          "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=198020"
+        }
+      ],
+      "title": "Закон за държавния бюджет на Република България за 2023 г."
+    },
+    {
+      "discovery": "auto-confirmed",
+      "fiscalYear": 2024,
+      "id": "amendment-2024-1",
+      "kind": "amendment",
+      "notes": "Mid-year amendment to the State Budget Law — catalogued for provenance. The DV HTML carries no per-spending-unit appropriation tables; the amended per-ministry appropriation comes from the year-end execution report.",
+      "promulgationDate": "2024-04-30",
+      "seq": 1,
+      "sources": [
+        {
+          "format": "html",
+          "label": "Държавен вестник — ДВ бр. 38 от 2024 г.",
+          "role": "promulgated",
+          "url": "https://dv.parliament.bg/DVWeb/showMaterialDV.jsp?idMat=213420"
+        }
+      ],
+      "title": "Закон за изменение на Закона за държавния бюджет на Република България за 2024 г."
+    },
+    {
       "discovery": "auto",
       "fiscalYear": 2024,
       "id": "audit-2024",
@@ -14,6 +149,125 @@
         }
       ],
       "title": "Одитен доклад за извършен одит на отчета за изпълнението на държавния бюджет на Република България за 2024 г."
+    },
+    {
+      "discovery": "auto-confirmed",
+      "fiscalYear": 2024,
+      "id": "exec-admin-ministerstvoto-na-ikonomikata-i-industriyata-2024",
+      "kind": "execution-report",
+      "reportDate": "2024-12-31",
+      "seq": 0,
+      "sources": [
+        {
+          "format": "pdf",
+          "label": "Министерството на икономиката и индустрията — програмен отчет",
+          "role": "report",
+          "url": "https://www.mi.government.bg/files/useruploads/files/budget/2000_Otchet programi 31.12.2024 MII.pdf"
+        }
+      ],
+      "title": "Отчет за изпълнението на програмния бюджет на Министерството на икономиката и индустрията за 2024 г."
+    },
+    {
+      "discovery": "auto-confirmed",
+      "fiscalYear": 2024,
+      "id": "exec-admin-ministerstvoto-na-zdraveopazvaneto-2024",
+      "kind": "execution-report",
+      "reportDate": "2024-12-31",
+      "seq": 0,
+      "sources": [
+        {
+          "format": "pdf",
+          "label": "Министерството на здравеопазването — програмен отчет",
+          "role": "report",
+          "url": "https://www.mh.government.bg/upload/13778/OTCHET_MZ_PROGRAMEN_31.12.2024 - публикуване.pdf"
+        }
+      ],
+      "title": "Отчет за изпълнението на програмния бюджет на Министерството на здравеопазването за 2024 г."
+    },
+    {
+      "discovery": "auto-confirmed",
+      "fiscalYear": 2024,
+      "id": "exec-admin-ministerstvoto-na-inovatsiite-i-rastezha-2024",
+      "kind": "execution-report",
+      "reportDate": "2024-12-31",
+      "seq": 0,
+      "sources": [
+        {
+          "format": "pdf",
+          "label": "Министерството на иновациите и растежа — програмен отчет",
+          "role": "report",
+          "url": "https://www.mig.government.bg/wp-content/uploads/2025/02/otchet-za-izpalnenieto-na-programniya-byudzhet-na-mir-kam-31.12.2024-g.pdf"
+        }
+      ],
+      "title": "Отчет за изпълнението на програмния бюджет на Министерството на иновациите и растежа за 2024 г."
+    },
+    {
+      "discovery": "auto-confirmed",
+      "fiscalYear": 2024,
+      "id": "exec-admin-ministerstvoto-na-okolnata-sreda-i-vodite-2024",
+      "kind": "execution-report",
+      "reportDate": "2024-12-31",
+      "seq": 0,
+      "sources": [
+        {
+          "format": "pdf",
+          "label": "Министерството на околната среда и водите — програмен отчет",
+          "role": "report",
+          "url": "https://www.moew.government.bg/static/media/ups/articles/attachments/1900_MOEW_Doklad_Otchet 202498ff9b70b3e3a3a3dc7d122afbc379df.pdf"
+        }
+      ],
+      "title": "Отчет за изпълнението на програмния бюджет на Министерството на околната среда и водите за 2024 г."
+    },
+    {
+      "discovery": "auto-confirmed",
+      "fiscalYear": 2024,
+      "id": "exec-admin-ministerstvoto-na-turizma-2024",
+      "kind": "execution-report",
+      "reportDate": "2024-12-31",
+      "seq": 0,
+      "sources": [
+        {
+          "format": "pdf",
+          "label": "Министерството на туризма — програмен отчет",
+          "role": "report",
+          "url": "https://www.tourism.government.bg/sites/tourism.government.bg/files/uploads/Budjet/2024/otchet_-_mt_31.12.2024_finale.pdf"
+        }
+      ],
+      "title": "Отчет за изпълнението на програмния бюджет на Министерството на туризма за 2024 г."
+    },
+    {
+      "discovery": "auto-confirmed",
+      "fiscalYear": 2024,
+      "id": "exec-admin-ministerstvoto-na-truda-i-sotsialnata-politika-2024",
+      "kind": "execution-report",
+      "reportDate": "2024-12-31",
+      "seq": 0,
+      "sources": [
+        {
+          "format": "xlsx",
+          "label": "Министерството на труда и социалната политика — програмен отчет (XLSX в ZIP архив)",
+          "role": "report",
+          "url": "https://www.mlsp.government.bg/uploads/11/finansi-1/na-mtsp-za-2024-g.zip"
+        }
+      ],
+      "title": "Отчет за изпълнението на програмния бюджет на Министерството на труда и социалната политика за 2024 г."
+    },
+    {
+      "discovery": "auto-confirmed",
+      "fiscalYear": 2024,
+      "id": "exec-admin-ministerstvoto-na-otbranata-2024",
+      "kind": "execution-report",
+      "reportDate": "2024-12-31",
+      "seq": 0,
+      "sources": [
+        {
+          "format": "pdf",
+          "label": "Министерството на отбраната — програмен отчет",
+          "role": "report",
+          "url": "https://www.mod.bg/documents/6810b54553c8a_20251504_Otchet_programi-31.12.2024.pdf"
+        }
+      ],
+      "title": "Отчет за изпълнението на програмния бюджет на Министерството на отбраната за 2024 г."
     },
     {
       "discovery": "auto-confirmed",
@@ -135,5 +389,5 @@
       "title": "КФП — state budget execution by major budget indicators"
     }
   ],
-  "generatedAt": "2026-05-14T16:47:18.031Z"
+  "generatedAt": "2026-05-15T05:45:45.507Z"
 }

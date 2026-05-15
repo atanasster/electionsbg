@@ -18,8 +18,11 @@ import {
   EGOV_DATASET_UUID,
   BULNAO_AUDIT_URL,
   LAW_DV_MATERIALS,
+  AMENDMENT_DV_MATERIALS,
+  EXECUTION_REPORTS,
   lawDvUrl,
 } from "./fetch_sources";
+import { executionDocumentId } from "./execution_facts";
 import type {
   BudgetDocument,
   BudgetDocumentsFile,
@@ -111,6 +114,61 @@ const buildLawDocuments = (parsed: ParsedResource[]): BudgetDocument[] => {
     });
 };
 
+// One "amendment" entry per curated mid-year State Budget Law amendment. These
+// are catalogued for provenance — the budget-journey UI links the promulgated
+// text — but carry no parseable per-ministry tables (see AMENDMENT_DV_MATERIALS).
+const buildAmendmentDocuments = (): BudgetDocument[] =>
+  AMENDMENT_DV_MATERIALS.map((a) => ({
+    id: `amendment-${a.fiscalYear}-${a.seq}`,
+    kind: "amendment" as const,
+    fiscalYear: a.fiscalYear,
+    seq: a.seq,
+    title: a.title,
+    sources: [
+      {
+        role: "promulgated" as const,
+        url: lawDvUrl(a.idMat),
+        format: "html" as const,
+        label: `Държавен вестник — ${a.dvIssue}`,
+      },
+    ],
+    promulgationDate: a.promulgationDate,
+    discovery: "auto-confirmed" as const,
+    notes:
+      "Mid-year amendment to the State Budget Law — catalogued for provenance. " +
+      "The DV HTML carries no per-spending-unit appropriation tables; the " +
+      "amended per-ministry appropriation comes from the year-end execution report.",
+  }));
+
+// One "execution-report" entry per curated ministry program-budget execution
+// report. The pipeline parses the figures out of these; the entry exists so
+// the budget-journey UI can link the source document. The link is a direct
+// PDF for most ministries; some publish an XLSX inside a ZIP, in which case
+// the link is the ZIP (a viewer downloads and extracts).
+const buildExecutionDocuments = (): BudgetDocument[] =>
+  EXECUTION_REPORTS.map((r) => ({
+    id: executionDocumentId(r.adminId, r.fiscalYear),
+    kind: "execution-report" as const,
+    fiscalYear: r.fiscalYear,
+    seq: 0,
+    title:
+      `Отчет за изпълнението на програмния бюджет на ` +
+      `${r.unitNameBg} за ${r.fiscalYear} г.`,
+    sources: [
+      {
+        role: "report" as const,
+        url: r.url,
+        format:
+          r.format === "xlsx-in-zip" ? ("xlsx" as const) : ("pdf" as const),
+        label:
+          `${r.unitNameBg} — програмен отчет` +
+          (r.format === "xlsx-in-zip" ? " (XLSX в ZIP архив)" : ""),
+      },
+    ],
+    reportDate: `${r.fiscalYear}-12-31`,
+    discovery: "auto-confirmed" as const,
+  }));
+
 // Best-effort scrape of the Сметна палата audit-report listing. The page lists
 // every kind of audit; we keep only the ones whose anchor text mentions the
 // state budget. Non-fatal — returns [] on any structural surprise.
@@ -190,6 +248,8 @@ export const buildDocuments = (
   const fresh: BudgetDocument[] = [
     buildKfpDocument(parsed),
     ...buildLawDocuments(parsed),
+    ...buildAmendmentDocuments(),
+    ...buildExecutionDocuments(),
   ];
   if (bulnaoHtml) {
     try {

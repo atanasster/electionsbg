@@ -115,26 +115,25 @@ const FiscalYearSelector: FC<{
         {t("budget_year_select_label") || "Fiscal year"}
       </span>
       {years.map((y) => {
-        const hasData = !!y.summary;
+        // useBudgetTerm only lists years with ingested data (KFP summary OR a
+        // law/amendment/execution stage), so every chip is selectable. The
+        // status text distinguishes the depth of data behind it.
         const active = y.fiscalYear === selectedFy;
-        const status = !hasData
-          ? t("budget_fy_status_nodata") || "no data"
-          : y.summary!.complete
+        const status = y.summary
+          ? y.summary.complete
             ? t("budget_fy_status_complete") || "executed"
-            : t("budget_fy_status_inprogress") || "in progress";
+            : t("budget_fy_status_inprogress") || "in progress"
+          : t("budget_fy_status_law_only") || "law plan";
         return (
           <button
             key={y.fiscalYear}
             type="button"
-            disabled={!hasData}
-            onClick={() => hasData && onSelect(y.fiscalYear)}
+            onClick={() => onSelect(y.fiscalYear)}
             className={cn(
               "rounded-lg border px-3 py-1.5 text-sm tabular-nums transition-colors",
               active
                 ? "border-primary bg-primary/10 text-primary font-semibold"
-                : hasData
-                  ? "border-border hover:border-primary/60 hover:bg-accent/10"
-                  : "border-dashed border-border/60 text-muted-foreground/50 cursor-not-allowed",
+                : "border-border hover:border-primary/60 hover:bg-accent/10",
             )}
           >
             <span>{y.fiscalYear}</span>
@@ -180,7 +179,7 @@ export const BudgetScreen: FC = () => {
   const summary = selectedYear?.summary ?? null;
 
   // No budget data anywhere in this parliament's term.
-  if (!index || !kfp || !summary || term.selectedFy == null) {
+  if (!index || !kfp || term.selectedFy == null) {
     return (
       <>
         <Title description={description}>{title}</Title>
@@ -211,11 +210,17 @@ export const BudgetScreen: FC = () => {
   const snapshot =
     kfp.snapshots.find((s) => s.fiscalYear === term.selectedFy) ?? null;
 
-  const statusText = summary.complete
-    ? `${t("budget_fy_status_complete") || "executed"} · ${t("budget_breakdown_asof") || "as of"} ${summary.asOf}`
-    : `${t("budget_fy_status_inprogress") || "in progress"} · ${t("budget_breakdown_asof") || "as of"} ${summary.asOf} (${summary.monthsAvailable} ${t("budget_months_short") || "mo"})`;
+  // Status line + headline cards key off `summary` (KFP-driven). When the year
+  // has only law/execution stages (no КФП yet), we render a lighter heading and
+  // skip the headline cards; the ministries / journey tiles still render below.
+  const statusText = summary
+    ? summary.complete
+      ? `${t("budget_fy_status_complete") || "executed"} · ${t("budget_breakdown_asof") || "as of"} ${summary.asOf}`
+      : `${t("budget_fy_status_inprogress") || "in progress"} · ${t("budget_breakdown_asof") || "as of"} ${summary.asOf} (${summary.monthsAvailable} ${t("budget_months_short") || "mo"})`
+    : t("budget_fy_status_law_only_long") ||
+      "law plan only — no monthly execution feed for this year yet";
 
-  const deficit = (summary.actual.balance?.amountEur ?? 0) < 0;
+  const deficit = (summary?.actual.balance?.amountEur ?? 0) < 0;
 
   return (
     <>
@@ -238,63 +243,67 @@ export const BudgetScreen: FC = () => {
           </div>
           <div className="text-sm text-muted-foreground">
             <strong className="text-foreground">
-              {t("budget_fy_heading") || "Fiscal year"} {summary.fiscalYear}
+              {t("budget_fy_heading") || "Fiscal year"} {term.selectedFy}
             </strong>{" "}
             — {statusText}
           </div>
         </div>
 
-        <div
-          className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 mt-4"
-          data-og="budget-stats"
-        >
-          <FigureCard
-            label={t("budget_series_revenue") || "Revenue"}
-            icon={Coins}
-            iconTone="text-emerald-600"
-            fy={summary}
-            series="revenue"
-          />
-          <FigureCard
-            label={t("budget_series_expenditure") || "Expenditure"}
-            icon={Landmark}
-            iconTone="text-rose-600"
-            fy={summary}
-            series="expenditure"
-          />
-          <FigureCard
-            label={
-              t("budget_series_euContribution") || "EU budget contribution"
-            }
-            icon={Flag}
-            iconTone="text-blue-600"
-            fy={summary}
-            series="euContribution"
-          />
-          <FigureCard
-            label={
-              deficit
-                ? t("budget_deficit") || "Budget deficit"
-                : t("budget_surplus") || "Budget surplus"
-            }
-            icon={Scale}
-            iconTone={deficit ? "text-rose-600" : "text-emerald-600"}
-            fy={summary}
-            series="balance"
-            absolute
-            ringTone={
-              deficit
-                ? "ring-1 ring-rose-200/60 dark:ring-rose-800/40"
-                : "ring-1 ring-emerald-200/60 dark:ring-emerald-800/40"
-            }
-          />
-        </div>
+        {summary ? (
+          <div
+            className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 mt-4"
+            data-og="budget-stats"
+          >
+            <FigureCard
+              label={t("budget_series_revenue") || "Revenue"}
+              icon={Coins}
+              iconTone="text-emerald-600"
+              fy={summary}
+              series="revenue"
+            />
+            <FigureCard
+              label={t("budget_series_expenditure") || "Expenditure"}
+              icon={Landmark}
+              iconTone="text-rose-600"
+              fy={summary}
+              series="expenditure"
+            />
+            <FigureCard
+              label={
+                t("budget_series_euContribution") || "EU budget contribution"
+              }
+              icon={Flag}
+              iconTone="text-blue-600"
+              fy={summary}
+              series="euContribution"
+            />
+            <FigureCard
+              label={
+                deficit
+                  ? t("budget_deficit") || "Budget deficit"
+                  : t("budget_surplus") || "Budget surplus"
+              }
+              icon={Scale}
+              iconTone={deficit ? "text-rose-600" : "text-emerald-600"}
+              fy={summary}
+              series="balance"
+              absolute
+              ringTone={
+                deficit
+                  ? "ring-1 ring-rose-200/60 dark:ring-rose-800/40"
+                  : "ring-1 ring-emerald-200/60 dark:ring-emerald-800/40"
+              }
+            />
+          </div>
+        ) : null}
 
-        <BudgetTrendTile observations={scopedObservations} />
+        {scopedObservations.length > 0 ? (
+          <BudgetTrendTile observations={scopedObservations} />
+        ) : null}
 
         <div className="grid gap-4 grid-cols-1 xl:grid-cols-2">
-          <BudgetVarianceTile fiscalYear={summary.fiscalYear} />
-          <BudgetMinistriesTile fiscalYear={summary.fiscalYear} />
+          <BudgetVarianceTile fiscalYear={term.selectedFy} />
+          <BudgetMinistriesTile fiscalYear={term.selectedFy} />
         </div>
 
         <div className="grid gap-4 grid-cols-1 xl:grid-cols-2">

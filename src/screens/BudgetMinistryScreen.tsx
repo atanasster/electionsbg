@@ -1,11 +1,13 @@
 // /budget/ministry/:id — one first-level spending unit's appropriations from
 // the State Budget Law: per-year revenue / expenditure / balance, its program
-// budget, and its public-procurement footprint.
+// budget, and its public-procurement footprint. When the unit's annual
+// program-budget execution report has been ingested, the year's stat cards
+// also surface the уточнен план (amended) and the отчет (executed) below the
+// law-planned figure.
 //
 // Performance: the screen makes ONE fetch — the pre-sliced
 // ministries/<nodeId>.json rollup — instead of pulling every year's
-// whole-corpus reconciliation files. Plan figures only; ministry-level
-// execution is not published machine-readably.
+// whole-corpus reconciliation files.
 
 import { FC } from "react";
 import { Link, useParams } from "react-router-dom";
@@ -27,9 +29,61 @@ import { useBudgetMinistryRollup } from "@/data/budget/useBudget";
 import type {
   MinistryProcurement,
   MinistryRollupYear,
+  MinistrySeriesExecution,
 } from "@/data/budget/types";
 
 const numFmt = new Intl.NumberFormat("bg-BG");
+
+const compactEur = (v: number): string => {
+  if (Math.abs(v) >= 1_000_000_000)
+    return `€${(v / 1_000_000_000).toFixed(1)}B`;
+  if (Math.abs(v) >= 1_000_000) return `€${(v / 1_000_000).toFixed(0)}M`;
+  return formatEur(v);
+};
+
+// Small footnote under a stat card's headline: "отчет €X (Y%) · неизразходвани €Z"
+// when an execution report carries the executed-vs-amended pair for this series.
+const ExecutionNote: FC<{ series: MinistrySeriesExecution | null }> = ({
+  series,
+}) => {
+  const { t } = useTranslation();
+  if (!series || !series.executed || !series.amended) return null;
+  const pct =
+    series.amended.amountEur !== 0
+      ? (series.executed.amountEur / series.amended.amountEur) * 100
+      : null;
+  const unspent = series.amended.amountEur - series.executed.amountEur;
+  return (
+    <div className="mt-1 text-xs text-muted-foreground tabular-nums">
+      <span>
+        {t("budget_ministries_executed") || "executed"}{" "}
+        {formatEur(series.executed.amountEur)}
+        {pct != null ? (
+          <>
+            {" "}
+            ({pct.toFixed(1)}%{" "}
+            <span className="opacity-70">
+              {t("budget_ministries_of_amended") || "of amended"}
+            </span>
+            )
+          </>
+        ) : null}
+      </span>
+      {unspent !== 0 ? (
+        <span
+          className={
+            unspent < 0 ? "ml-2 text-rose-600 dark:text-rose-400" : "ml-2"
+          }
+        >
+          ·{" "}
+          {unspent > 0
+            ? `${t("budget_ministries_unspent") || "unspent"} ${compactEur(unspent)}`
+            : `${t("budget_ministries_over") || "over"} ${compactEur(-unspent)}`}
+        </span>
+      ) : null}
+    </div>
+  );
+};
 
 const SkeletonCard: FC = () => (
   <div className="rounded-xl border bg-card p-4 shadow-sm animate-pulse h-[110px]">
@@ -54,6 +108,7 @@ const YearBlock: FC<{ year: MinistryRollupYear }> = ({ year }) => {
               {year.revenue ? formatEur(year.revenue.amountEur) : "—"}
             </span>
           </div>
+          <ExecutionNote series={year.execution?.revenue ?? null} />
         </StatCard>
         <StatCard label={t("budget_series_expenditure") || "Expenditure"}>
           <div className="flex items-baseline gap-2">
@@ -62,6 +117,7 @@ const YearBlock: FC<{ year: MinistryRollupYear }> = ({ year }) => {
               {year.expenditure ? formatEur(year.expenditure.amountEur) : "—"}
             </span>
           </div>
+          <ExecutionNote series={year.execution?.expenditure ?? null} />
         </StatCard>
         <StatCard
           label={
@@ -120,6 +176,14 @@ const ProgramBlock: FC<{ years: MinistryRollupYear[]; lang: "bg" | "en" }> = ({
               <ul className="space-y-1.5">
                 {py.programs.map((p) => {
                   const v = p.planned?.amountEur ?? 0;
+                  const ex = p.execution;
+                  const execShare =
+                    ex && ex.executed && ex.amended && ex.amended.amountEur > 0
+                      ? Math.min(
+                          100,
+                          (ex.executed.amountEur / ex.amended.amountEur) * 100,
+                        )
+                      : 0;
                   return (
                     <li key={p.nodeId} className="text-xs">
                       <div className="flex items-baseline justify-between gap-2">
@@ -132,10 +196,44 @@ const ProgramBlock: FC<{ years: MinistryRollupYear[]; lang: "bg" | "en" }> = ({
                       </div>
                       <div className="mt-0.5 h-1 rounded bg-muted overflow-hidden">
                         <div
-                          className="h-full rounded bg-primary/60"
-                          style={{ width: `${(v / max) * 100}%` }}
-                        />
+                          className="h-full bg-primary/25"
+                          style={{ width: "100%" }}
+                        >
+                          {ex && ex.executed ? (
+                            <div
+                              className="h-full rounded bg-primary/80"
+                              style={{ width: `${execShare}%` }}
+                            />
+                          ) : (
+                            <div
+                              className="h-full rounded bg-primary/60"
+                              style={{ width: `${(v / max) * 100}%` }}
+                            />
+                          )}
+                        </div>
                       </div>
+                      {ex && ex.executed && ex.variancePct != null ? (
+                        <div className="mt-0.5 text-[11px] text-muted-foreground tabular-nums">
+                          {t("budget_ministries_executed") || "executed"}{" "}
+                          {formatEur(ex.executed.amountEur)}
+                          {ex.amended && ex.amended.amountEur > 0 ? (
+                            <>
+                              {" "}
+                              (
+                              {(
+                                (ex.executed.amountEur / ex.amended.amountEur) *
+                                100
+                              ).toFixed(1)}
+                              %{" "}
+                              <span className="opacity-70">
+                                {t("budget_ministries_of_amended") ||
+                                  "of amended"}
+                              </span>
+                              )
+                            </>
+                          ) : null}
+                        </div>
+                      ) : null}
                     </li>
                   );
                 })}
@@ -247,11 +345,16 @@ export const BudgetMinistryScreen: FC = () => {
       <Title description={`${name} — state budget appropriations`}>
         {name}
       </Title>
+      {/* If any year carries execution data, replace the "not yet ingested"
+          note with the version that acknowledges the integrated отчет. */}
       <section aria-label={name} className="my-4">
         {backLink}
         <p className="mt-3 text-sm text-muted-foreground">
-          {t("budget_ministry_intro") ||
-            "Appropriations set by the State Budget Law. Ministry-level execution (actual spending) is published in the year-end execution report and is not yet ingested."}
+          {data.years.some((y) => y.execution)
+            ? t("budget_ministry_intro_with_execution") ||
+              "Appropriations from the State Budget Law plus actual execution from the year-end program-budget report (Отчет за изпълнението на програмния бюджет)."
+            : t("budget_ministry_intro") ||
+              "Appropriations set by the State Budget Law. Ministry-level execution (actual spending) is published in the year-end execution report and is not yet ingested."}
         </p>
         {data.years.map((year) => (
           <YearBlock key={year.fiscalYear} year={year} />

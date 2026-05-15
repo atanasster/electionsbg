@@ -54,13 +54,16 @@ export const runCanary = (fixtureFile: string, produced: unknown): void => {
   console.log(`  canary OK (sha256=${hash.slice(0, 16)})`);
 };
 
-// Diff size guard. If an ingest touches >5% of existing files in data/budget/,
-// block — something went wrong. Skipped during bootstrap (<20 baseline files).
+// Diff size guard. Blocks if a single ingest substantively touches an
+// implausible fraction of the existing tree — the canary for a runaway parser
+// or registry change. With writeIfChanged now ignoring `generatedAt`-only
+// edits, "touched" is true substantive change; a healthy run that adds a new
+// data source legitimately writes a handful of files. Skipped during bootstrap.
 const BOOTSTRAP_THRESHOLD = 20;
 export const checkDiffSize = (
   baselineCount: number,
   touchedFiles: number,
-  maxFraction = 0.05,
+  maxFraction = 0.15,
 ): void => {
   if (baselineCount < BOOTSTRAP_THRESHOLD) return;
   const frac = touchedFiles / baselineCount;
@@ -73,6 +76,19 @@ export const checkDiffSize = (
   }
 };
 
+// Gitignored shard subtrees under data/budget/ — large, fully regenerable, not
+// part of the committed tree. The diff cap is about catching unexpected change
+// in what would actually land in a commit, so these are excluded from both the
+// baseline count and the touched count.
+const GITIGNORED_SHARDS = [
+  `${path.sep}facts${path.sep}`,
+  `${path.sep}reconciliation${path.sep}`,
+  `${path.sep}ministries${path.sep}`,
+];
+
+export const isCommittedTreePath = (p: string): boolean =>
+  !GITIGNORED_SHARDS.some((s) => p.includes(s));
+
 export const countDomainFiles = (domainDir: string): number => {
   if (!fs.existsSync(domainDir)) return 0;
   const out: string[] = [];
@@ -80,22 +96,56 @@ export const countDomainFiles = (domainDir: string): number => {
     for (const entry of fs.readdirSync(d, { withFileTypes: true })) {
       const p = path.join(d, entry.name);
       if (entry.isDirectory()) walk(p);
-      else out.push(p);
+      else if (isCommittedTreePath(p)) out.push(p);
     }
   };
   walk(domainDir);
   return out.length;
 };
 
-// Write `text` to `file` only when the bytes actually change. Returns true
-// when a write happened. Keeps `git diff` quiet on no-op re-runs and lets the
-// caller count genuinely-touched files for the diff cap.
+// Generation timestamps the ingest stamps onto its output files every run.
+// A file whose only diff is one of these carries no new data.
+const VOLATILE_KEYS = ["generatedAt", "lastIngest"];
+
+// Re-serialise a canonical-JSON payload with the volatile generation
+// timestamps dropped, so two runs that produced identical data compare equal
+// even though their `generatedAt` differs. Non-JSON / non-object payloads
+// (or ones that fail to parse) fall back to a raw comparison.
+const withoutVolatileKeys = (text: string): string => {
+  try {
+    const obj = JSON.parse(text) as unknown;
+    if (obj && typeof obj === "object" && !Array.isArray(obj)) {
+      const rec = obj as Record<string, unknown>;
+      for (const k of VOLATILE_KEYS) delete rec[k];
+      return JSON.stringify(rec);
+    }
+  } catch {
+    // not JSON — fall through to the raw-text comparison below
+  }
+  return text;
+};
+
+// Write `text` to `file` only when the data actually changes. Returns true
+// when a substantive write happened *to a committed-tree file* — that is the
+// signal the caller adds to `touched` for the diff cap. Specifically:
+//   - A diff confined to the generation timestamps (`generatedAt` /
+//     `lastIngest`) is a no-op: nothing is written, returns false.
+//   - A write to a gitignored shard (data/budget/{facts,reconciliation,
+//     ministries}/) still happens but returns false — those files are bulky
+//     and regenerable, not part of the commit, and shouldn't gate the cap.
+//   - Otherwise: write the file and return true.
 export const writeIfChanged = (file: string, text: string): boolean => {
   const prev = fs.existsSync(file) ? fs.readFileSync(file, "utf8") : null;
   if (prev === text) return false;
+  if (
+    prev !== null &&
+    withoutVolatileKeys(prev) === withoutVolatileKeys(text)
+  ) {
+    return false;
+  }
   fs.mkdirSync(path.dirname(file), { recursive: true });
   fs.writeFileSync(file, text);
-  return true;
+  return isCommittedTreePath(file);
 };
 
 // Delete *.json files directly in `dir` whose basename is not in `keep` — for
