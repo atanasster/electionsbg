@@ -75,24 +75,15 @@ export const GovernanceCards: FC = () => {
       >
         <HeadlineIndicatorStrip />
 
-        <ParliamentSection />
-
         <DashboardSection
-          id="declarations"
-          title={t("dashboard_section_declarations")}
-          subtitle={<MpDeclarationsProvenance />}
-          icon={Briefcase}
-          articleTopic="declarations"
+          id="governments"
+          title={t("governments_title")}
+          icon={Vote}
         >
-          <div className="grid gap-3 grid-cols-1 lg:grid-cols-2">
-            <MpConnectionsTile hideProvenance />
-            <CarMakesTile hideProvenance />
-          </div>
-          <div className="grid gap-3 grid-cols-1 lg:grid-cols-2">
-            <MpAssetsTile />
-            <OfficialsAssetsTile />
-          </div>
+          <GovernmentsTile />
         </DashboardSection>
+
+        <ParliamentSection />
 
         {budgetTerm.yearsWithData.length > 0 ? (
           <DashboardSection
@@ -125,6 +116,31 @@ export const GovernanceCards: FC = () => {
             ) : null}
           </DashboardSection>
         ) : null}
+
+        <DashboardSection
+          id="macro"
+          title={t("governance_section_macro") || "Macro & regional context"}
+          icon={Globe2}
+        >
+          <GovernanceMacroTile />
+        </DashboardSection>
+
+        <DashboardSection
+          id="declarations"
+          title={t("dashboard_section_declarations")}
+          subtitle={<MpDeclarationsProvenance />}
+          icon={Briefcase}
+          articleTopic="declarations"
+        >
+          <div className="grid gap-3 grid-cols-1 lg:grid-cols-2">
+            <MpConnectionsTile hideProvenance />
+            <CarMakesTile hideProvenance />
+          </div>
+          <div className="grid gap-3 grid-cols-1 lg:grid-cols-2">
+            <MpAssetsTile />
+            <OfficialsAssetsTile />
+          </div>
+        </DashboardSection>
 
         {procurementByNs && procurementByNs.topMps.length > 0 ? (
           <DashboardSection
@@ -173,22 +189,6 @@ export const GovernanceCards: FC = () => {
             <TopFinancingTile parties={nationalSummary.parties} />
           </DashboardSection>
         ) : null}
-
-        <DashboardSection
-          id="macro"
-          title={t("governance_section_macro") || "Macro & regional context"}
-          icon={Globe2}
-        >
-          <GovernanceMacroTile />
-        </DashboardSection>
-
-        <DashboardSection
-          id="governments"
-          title={t("governments_title")}
-          icon={Vote}
-        >
-          <GovernmentsTile />
-        </DashboardSection>
 
         <DashboardSection
           id="articles"

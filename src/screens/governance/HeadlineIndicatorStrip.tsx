@@ -12,21 +12,20 @@ import {
   ArrowRight,
   Briefcase,
   Landmark,
+  Scale,
+  ShieldAlert,
   TrendingDown,
   TrendingUp,
   Users,
-  Vote,
   Wallet,
 } from "lucide-react";
 import { LucideIcon } from "lucide-react";
-import { useRollcallIndex } from "@/data/parliament/votes/useRollcallIndex";
-import { useMps } from "@/data/parliament/useMps";
 import { useBudgetIndex } from "@/data/budget/useBudget";
 import { useProcurementByNs } from "@/data/procurement/useProcurementByNs";
 import { useMacro, MacroPoint } from "@/data/macro/useMacro";
+import { useGovernments, Government } from "@/data/governments/useGovernments";
 import { useElectionContext } from "@/data/ElectionContext";
 import { useParliamentTerm } from "@/data/parliament/useParliamentTerm";
-import { electionToNsFolder } from "@/data/parliament/nsFolders";
 import { localDate } from "@/data/utils";
 
 // Format ISO date (YYYY-MM-DD or full ISO timestamp) to a human-readable
@@ -101,20 +100,14 @@ const asOfChip = (t: (k: string) => string, iso?: string | null): string => {
 const fmtPctOne = (n: number | undefined): string =>
   n == null || !Number.isFinite(n) ? "—" : `${n.toFixed(1)}%`;
 
-// "Is this ISO date at or before the end of the term?" check. termEnd is
-// exclusive (the day of the next election opens the next term) and null for
-// the still-open current term. We deliberately drop the lower bound — the
-// "as of" chip tells the user what period the figure refers to, and for the
-// current term recent macro/budget data may not yet exist inside the window.
-const isInTerm = (
-  iso: string,
-  _termStart: Date | null,
-  termEnd: Date | null,
-): boolean => {
-  const d = new Date(iso.slice(0, 10));
-  if (Number.isNaN(d.getTime())) return false;
-  if (termEnd && d >= termEnd) return false;
-  return true;
+// Compact EUR formatter for the procurement tile — "€1.2B", "€340M",
+// "€85K". Keeps the headline figure readable at glance.
+const fmtCompactEur = (n: number | undefined | null): string => {
+  if (n == null || !Number.isFinite(n)) return "—";
+  if (n >= 1_000_000_000) return `€${(n / 1_000_000_000).toFixed(1)}B`;
+  if (n >= 1_000_000) return `€${(n / 1_000_000).toFixed(0)}M`;
+  if (n >= 1_000) return `€${(n / 1_000).toFixed(0)}K`;
+  return `€${Math.round(n)}`;
 };
 
 // Latest macro point at or before the term's end. Quarterly points are
@@ -142,32 +135,77 @@ const pickLatestInTerm = (
   return best;
 };
 
+// Pick the cabinet associated with the selected term. Preference order:
+// (1) the government whose `precedingElection` matches the selected
+// election — this is the cabinet the term was meant to produce; (2) the
+// latest regular cabinet whose start date falls inside [termStart, termEnd);
+// (3) the latest cabinet of any type inside the window. Falls back to null.
+const pickCabinet = (
+  governments: Government[] | undefined,
+  selected: string,
+  termStart: Date | null,
+  termEnd: Date | null,
+): Government | null => {
+  if (!governments || governments.length === 0) return null;
+  const direct = governments.find((g) => g.precedingElection === selected);
+  if (direct) return direct;
+  const inWindow = governments.filter((g) => {
+    const start = new Date(g.startDate);
+    if (Number.isNaN(start.getTime())) return false;
+    if (termStart && start < termStart) return false;
+    if (termEnd && start >= termEnd) return false;
+    return true;
+  });
+  if (inWindow.length === 0) return null;
+  const regular = inWindow.filter((g) => g.type === "regular");
+  const pool = regular.length > 0 ? regular : inWindow;
+  return [...pool].sort((a, b) => (a.startDate < b.startDate ? 1 : -1))[0];
+};
+
+// PM display name — "Росен Желязков" rather than the long three-part form.
+// The strip is dense so we keep the first + last name. Caretaker cabinets
+// get a "(служебно)" qualifier on the hint line.
+const pmShortName = (fullName: string): string => {
+  const parts = fullName.split(/\s+/);
+  if (parts.length <= 1) return fullName;
+  return `${parts[0]} ${parts[parts.length - 1]}`;
+};
+
+// Days between two ISO dates, inclusive of the start day. Returns null on
+// parse failure.
+const daysBetween = (startIso: string, end: Date): number | null => {
+  const start = new Date(startIso);
+  if (Number.isNaN(start.getTime())) return null;
+  const ms = end.getTime() - start.getTime();
+  return Math.max(0, Math.floor(ms / 86_400_000));
+};
+
 export const HeadlineIndicatorStrip: FC = () => {
-  const { t } = useTranslation();
-  const { sessions } = useRollcallIndex();
-  const { mps, currentNs } = useMps();
+  const { t, i18n } = useTranslation();
+  const isBg = i18n.language?.startsWith("bg");
   const { data: budgetIndex } = useBudgetIndex();
   const { data: procurementByNs } = useProcurementByNs();
   const { data: macro } = useMacro();
+  const { data: governments } = useGovernments();
   const { selected } = useElectionContext();
   const { termStart, termEnd } = useParliamentTerm();
 
-  // Roll-call: latest session whose date falls inside the selected term.
-  const latestSession =
-    sessions && sessions.length > 0
-      ? ([...sessions]
-          .filter((s) => isInTerm(s.date, termStart, termEnd))
-          .sort((a, b) => (a.date < b.date ? 1 : -1))[0] ?? null)
-      : null;
-
-  // Active MPs in the selected term's parliament. `currentNs` from useMps is
-  // the long display label ("52-ро Народно събрание") — for filtering we need
-  // the short folder form ("52") which electionToNsFolder() provides.
-  const selectedFolder = electionToNsFolder(selected);
-  const currentMpCount =
-    mps && selectedFolder
-      ? mps.filter((m) => m.nsFolders.includes(selectedFolder)).length
-      : (mps?.length ?? null);
+  // Cabinet for the selected term. Days-in-office is measured to the term
+  // end for closed terms, or to today for the open current term.
+  const cabinet = pickCabinet(governments, selected, termStart, termEnd);
+  const cabinetEnd = cabinet?.endDate ? new Date(cabinet.endDate) : new Date();
+  const cabinetDays = cabinet
+    ? daysBetween(cabinet.startDate, cabinetEnd)
+    : null;
+  const cabinetPmName = cabinet
+    ? pmShortName(isBg ? cabinet.pmBg : cabinet.pmEn)
+    : null;
+  const cabinetParties = cabinet
+    ? (isBg ? cabinet.parties : cabinet.partiesEn).join(", ") ||
+      (isBg ? cabinet.pmPartyBg : cabinet.pmPartyEn) ||
+      ""
+    : "";
+  const cabinetCaretaker = cabinet?.type === "caretaker";
 
   // Budget: latest fiscal year at or before the term's end that has both
   // planned and actual expenditure. For the open current term that's the most
@@ -196,9 +234,10 @@ export const HeadlineIndicatorStrip: FC = () => {
         100
       : null;
 
-  // Procurement: per-NS slice pre-aggregates contract counts inside the
-  // term's procurement window. The slice's `end` (or today, for the open
-  // term) makes a more honest "as of" than the global lastIngest.
+  // Procurement: switch from raw contract count to total awarded value —
+  // the citizen-meaningful figure is "how much money moved through the state
+  // procurement pipe", not "how many tenders were signed".
+  const procurementEur = procurementByNs?.totals.totalEur ?? null;
   const procurementContracts = procurementByNs?.totals.contracts ?? null;
   const procurementAsOf =
     procurementByNs?.end ?? procurementByNs?.generatedAt ?? null;
@@ -212,12 +251,29 @@ export const HeadlineIndicatorStrip: FC = () => {
     termStart,
     termEnd,
   );
+  const govDebtSeries = macro?.series.govDebt ?? [];
+  const latestGovDebt = pickLatestInTerm(govDebtSeries, termStart, termEnd);
   const macroAsOf = macro?.fetchedAt ?? null;
   const inflationPeriod = latestInflation
     ? (latestInflation.period ?? `${latestInflation.year}`)
     : "";
   const unemploymentPeriod = latestUnemployment
     ? (latestUnemployment.period ?? `${latestUnemployment.year}`)
+    : "";
+  const govDebtPeriod = latestGovDebt
+    ? (latestGovDebt.period ?? `${latestGovDebt.year}`)
+    : "";
+
+  const cabinetHint = cabinet
+    ? `${cabinetParties}${
+        cabinetCaretaker
+          ? ` · ${t("governance_kpi_cabinet_caretaker") || "caretaker"}`
+          : ""
+      }${
+        cabinetDays != null
+          ? ` · ${cabinetDays} ${t("governance_kpi_cabinet_days") || "days"}`
+          : ""
+      }`
     : "";
 
   return (
@@ -227,49 +283,12 @@ export const HeadlineIndicatorStrip: FC = () => {
     >
       <div className="grid gap-3 grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-6">
         <IndicatorTile
-          icon={Vote}
-          label={t("governance_kpi_last_session") || "Last roll-call"}
-          value={latestSession ? fmtIsoDate(latestSession.date) || "—" : "—"}
-          asOf={
-            latestSession
-              ? `${latestSession.items ?? ""} ${t("governance_kpi_last_session_unit") || "items"}`.trim()
-              : ""
-          }
-          href="/votes"
-        />
-        <IndicatorTile
           icon={Users}
-          label={t("governance_kpi_active_mps") || "Active MPs"}
-          value={
-            currentMpCount != null && currentMpCount > 0
-              ? currentMpCount.toString()
-              : "—"
-          }
-          asOf={currentNs ?? ""}
-          href="/parliament"
-        />
-        <IndicatorTile
-          icon={Wallet}
-          label={t("governance_kpi_budget_execution") || "Budget execution"}
-          value={fmtPctOne(executedPct ?? undefined)}
-          hint={
-            latestFy
-              ? `${t("governance_kpi_fy") || "FY"} ${latestFy.fiscalYear}`
-              : ""
-          }
-          asOf={asOfChip(t, latestFy?.asOf)}
-          href="/budget"
-        />
-        <IndicatorTile
-          icon={Landmark}
-          label={t("governance_kpi_procurement") || "Procurement contracts"}
-          value={
-            procurementContracts != null
-              ? new Intl.NumberFormat("en-GB").format(procurementContracts)
-              : "—"
-          }
-          asOf={asOfChip(t, procurementAsOf)}
-          href="/procurement"
+          label={t("governance_kpi_cabinet") || "Cabinet"}
+          value={cabinetPmName ?? "—"}
+          hint={cabinetHint}
+          asOf={cabinet ? asOfChip(t, cabinet.startDate) : ""}
+          href="/governments"
         />
         <IndicatorTile
           icon={
@@ -290,6 +309,43 @@ export const HeadlineIndicatorStrip: FC = () => {
           }
           hint={unemploymentPeriod}
           asOf={asOfChip(t, macroAsOf)}
+        />
+        <IndicatorTile
+          icon={Scale}
+          label={t("governance_kpi_gov_debt") || "Government debt"}
+          value={fmtPctOne(latestGovDebt?.value)}
+          hint={
+            govDebtPeriod
+              ? `${govDebtPeriod} · ${t("governance_kpi_gov_debt_unit") || "% GDP"}`
+              : t("governance_kpi_gov_debt_unit") || "% GDP"
+          }
+          asOf={asOfChip(t, macroAsOf)}
+        />
+        <IndicatorTile
+          icon={Wallet}
+          label={t("governance_kpi_budget_execution") || "Budget execution"}
+          value={fmtPctOne(executedPct ?? undefined)}
+          hint={
+            latestFy
+              ? `${t("governance_kpi_fy") || "FY"} ${latestFy.fiscalYear}`
+              : ""
+          }
+          asOf={asOfChip(t, latestFy?.asOf)}
+          href="/budget"
+        />
+        <IndicatorTile
+          icon={procurementByNs?.totals.totalEur ? ShieldAlert : Landmark}
+          label={t("governance_kpi_procurement_value") || "Procurement value"}
+          value={fmtCompactEur(procurementEur)}
+          hint={
+            procurementContracts != null
+              ? `${new Intl.NumberFormat("en-GB").format(procurementContracts)} ${
+                  t("governance_kpi_procurement_contracts_unit") || "contracts"
+                }`
+              : ""
+          }
+          asOf={asOfChip(t, procurementAsOf)}
+          href="/procurement"
         />
       </div>
     </section>
