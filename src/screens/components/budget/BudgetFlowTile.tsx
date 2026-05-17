@@ -39,7 +39,7 @@ const MIN_GRAPHIC_WIDTH = 1100;
 // старо"). So if the snapshot's fiscal year has no admin-flow entry, fall back
 // to the most recent year ≤ it that does — that's the plan still in effect.
 const resolveAdminYear = (
-  file: AdminFlowFile | undefined,
+  file: AdminFlowFile | null | undefined,
   fiscalYear: number,
 ): { year: AdminFlowYear; isFallback: boolean } | null => {
   if (!file) return null;

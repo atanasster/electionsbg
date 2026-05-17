@@ -15,6 +15,7 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import * as cheerio from "cheerio";
+import type { Element } from "domhandler";
 import { command, run, flag, boolean } from "cmd-ts";
 import { canonicalJson } from "./validate";
 import type { DebarredEntry, DebarredFile } from "./types";
@@ -80,7 +81,7 @@ const parsePage = (
   // — pick the first table whose header row mentions "стопански" or "субект"
   // so a future template change with multiple tables on the page still works.
   const tables = $("table").toArray();
-  let table: cheerio.Cheerio<cheerio.Element> | null = null;
+  let table: cheerio.Cheerio<Element> | null = null;
   for (const t of tables) {
     const headerText = $(t).find("th, thead").first().text().toLowerCase();
     if (

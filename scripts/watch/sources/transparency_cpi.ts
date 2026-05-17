@@ -80,7 +80,7 @@ export const transparencyCpi: WatchSource = {
     return {
       value: `${snapshot.year}:${snapshot.score}`,
       detail: `${snapshot.year} CPI = ${snapshot.score}/100, rank ${snapshot.rank}/${snapshot.totalCountries} (${sign}${snapshot.change} y/y)`,
-      meta: snapshot,
+      meta: { ...snapshot },
     };
   },
 

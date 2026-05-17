@@ -19,7 +19,12 @@ import {
   buildMpConnected,
   writeMpConnected,
 } from "./cross_reference";
-import { buildFlow, buildTopContractors, writeDerived } from "./derived";
+import {
+  buildAwarderConcentration,
+  buildFlow,
+  buildTopContractors,
+  writeDerived,
+} from "./derived";
 import { writeByIdContracts } from "./by_id";
 import { writeContractorContracts } from "./contractor_contracts";
 import { writeAwarderContracts } from "./awarder_contracts";
@@ -110,7 +115,8 @@ const main = (): void => {
 
     const top = buildTopContractors(CONTRACTORS_DIR, mpConnected);
     const flow = buildFlow(AWARDERS_DIR, mpConnected);
-    writeDerived(DERIVED_DIR, top, flow);
+    const concentration = buildAwarderConcentration(AWARDERS_DIR);
+    writeDerived(DERIVED_DIR, top, flow, concentration);
     console.log(
       `  top_contractors.json: ${top.entries.length} entries; flow.json: ${flow.links.length} link(s)`,
     );
