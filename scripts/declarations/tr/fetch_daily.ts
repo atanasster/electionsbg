@@ -43,9 +43,21 @@ export const fetchDailyResource = async (
   const url = `${BASE}/resource/download/${entry.uuid}/json`;
   // Atomic write: stream to .tmp, rename on success.
   const tmpPath = `${outPath}.tmp`;
-  const res = await fetch(url, {
-    headers: { "User-Agent": UA, Accept: "application/json" },
-  });
+  // Hard timeout for both the request and the body stream. Without this a
+  // half-open TCP connection (server accepts, then never sends body bytes)
+  // wedges the whole loop forever — fetch() has no implicit timeout.
+  const ac = new AbortController();
+  const timer = setTimeout(() => ac.abort(), 60_000);
+  let res: Response;
+  try {
+    res = await fetch(url, {
+      headers: { "User-Agent": UA, Accept: "application/json" },
+      signal: ac.signal,
+    });
+  } catch (e) {
+    clearTimeout(timer);
+    throw e;
+  }
   if (!res.ok) {
     throw new Error(`GET ${url} → ${res.status} ${res.statusText}`);
   }
@@ -56,10 +68,21 @@ export const fetchDailyResource = async (
   const nodeStream = Readable.fromWeb(
     res.body as unknown as import("stream/web").ReadableStream,
   );
-  await pipeline(nodeStream, fileStream);
+  try {
+    await pipeline(nodeStream, fileStream);
+  } finally {
+    clearTimeout(timer);
+  }
   fs.renameSync(tmpPath, outPath);
 
   const bytes = fs.statSync(outPath).size;
+  // Sanity guard: data.egov.bg occasionally serves an empty/near-empty body
+  // with 200 OK instead of a real JSON payload. Treat tiny files as failures
+  // so the retry/skip logic can re-fetch them on a later run.
+  if (bytes < 32) {
+    fs.unlinkSync(outPath);
+    throw new Error(`GET ${url} returned only ${bytes} bytes`);
+  }
   return { outPath, bytes, skipped: false };
 };
 
