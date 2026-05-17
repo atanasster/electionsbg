@@ -270,6 +270,27 @@ export const buildAssetsRankings = ({
     "utf-8",
   );
 
+  // Dashboard slim — top 50 by net worth. The home + governance dashboards
+  // only render top 5; PartyMpAssetsTile and useMpScorecard still consume
+  // the full file. Cuts ~115 KB gzipped off every cold load that mounts
+  // MpAssetsTile.
+  const SLIM_TOP_N = 50;
+  const rankingsTop: MpAssetsRankings = {
+    generatedAt: rankings.generatedAt,
+    topMps: rankings.topMps.slice(0, SLIM_TOP_N),
+    byNs: Object.fromEntries(
+      Object.entries(rankings.byNs).map(([ns, slice]) => [
+        ns,
+        { topMps: slice.topMps.slice(0, SLIM_TOP_N) },
+      ]),
+    ),
+  };
+  fs.writeFileSync(
+    path.join(publicFolder, "parliament", "assets-rankings-top.json"),
+    stringify(rankingsTop),
+    "utf-8",
+  );
+
   console.log(
     `[assets] wrote ${written} per-MP rollup(s) and ${entries.length} ranking entries`,
   );

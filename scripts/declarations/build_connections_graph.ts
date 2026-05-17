@@ -1541,6 +1541,28 @@ export const buildConnectionsGraph = ({
   fs.writeFileSync(fullPath, stringify(graph), "utf-8");
   fs.writeFileSync(rankingsPath, stringify(rankings), "utf-8");
 
+  // Dashboard slim — first 50 MPs of each top list, no topCompanies. The
+  // /governance and home dashboards only render the top 5 of these, with
+  // regional/party filters that scan a few dozen rows at most. The full
+  // file (1+ MB) is only needed by the /connections explorer, which is
+  // already a deep-link route. Cuts ~140 KB gzipped off every cold load.
+  const SLIM_TOP_N = 50;
+  const rankingsTop = {
+    generatedAt: rankings.generatedAt,
+    topMps: rankings.topMps.slice(0, SLIM_TOP_N),
+    byNs: Object.fromEntries(
+      Object.entries(rankings.byNs).map(([ns, slice]) => [
+        ns,
+        { topMps: slice.topMps.slice(0, SLIM_TOP_N) },
+      ]),
+    ),
+  };
+  const rankingsTopPath = path.join(
+    parliamentDir,
+    "connections-rankings-top.json",
+  );
+  fs.writeFileSync(rankingsTopPath, stringify(rankingsTop), "utf-8");
+
   // Compact search index — drives the filter rail's entity autocomplete on
   // the Connections page. Persons (non-MP) are intentionally excluded to
   // keep suggestions defensible.

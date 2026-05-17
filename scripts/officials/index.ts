@@ -464,6 +464,20 @@ const cmd = command({
       byCategory,
     };
     writeJson(path.join(OUT_DIR, "assets-rankings.json"), rankings);
+
+    // Dashboard slim — top 50 from topOfficials, no byCategory. The
+    // /governance OfficialsAssetsTile only renders top 5; the explorer at
+    // /officials/assets and the /officials/:slug detail page keep using
+    // the full file. Cuts ~60 KB gzipped off every cold load.
+    const SLIM_TOP_N = 50;
+    const rankingsTop = {
+      generatedAt: rankings.generatedAt,
+      years: rankings.years,
+      total: rankings.total,
+      topOfficials: rankings.topOfficials.slice(0, SLIM_TOP_N),
+    };
+    writeJson(path.join(OUT_DIR, "assets-rankings-top.json"), rankingsTop);
+
     console.log(
       `  wrote assets-rankings.json (top: ${rankingEntries
         .slice(0, 5)

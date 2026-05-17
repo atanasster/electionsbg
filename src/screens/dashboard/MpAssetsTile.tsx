@@ -2,7 +2,7 @@ import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Wallet, ArrowRight, ArrowUp, ArrowDown } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useAssetsRankings } from "@/data/parliament/useAssetsRankings";
+import { useAssetsRankingsTop } from "@/data/parliament/useAssetsRankings";
 import { useMps } from "@/data/parliament/useMps";
 import { useElectionContext } from "@/data/ElectionContext";
 import { electionToNsFolder, oblastToMir } from "@/data/parliament/nsFolders";
@@ -44,7 +44,7 @@ export const MpAssetsTile: FC<Props> = ({
   className,
 }) => {
   const { t, i18n } = useTranslation();
-  const { rankings } = useAssetsRankings();
+  const { rankings } = useAssetsRankingsTop();
   const { selected } = useElectionContext();
   const { findMpsByRegion, findMpById } = useMps();
   const { mpName } = useCandidateName();

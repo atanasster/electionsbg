@@ -2,7 +2,7 @@ import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Network, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useConnectionsRankings } from "@/data/parliament/useConnectionsRankings";
+import { useConnectionsRankingsTop } from "@/data/parliament/useConnectionsRankings";
 import { useDataProvenance } from "@/data/parliament/useDataProvenance";
 import { useMps } from "@/data/parliament/useMps";
 import { useElectionContext } from "@/data/ElectionContext";
@@ -38,7 +38,7 @@ export const MpConnectionsTile: FC<Props> = ({
   className,
 }) => {
   const { t, i18n } = useTranslation();
-  const { rankings } = useConnectionsRankings();
+  const { rankings } = useConnectionsRankingsTop();
   const { provenance } = useDataProvenance();
   const { selected } = useElectionContext();
   const { findMpsByRegion, findMpById } = useMps();

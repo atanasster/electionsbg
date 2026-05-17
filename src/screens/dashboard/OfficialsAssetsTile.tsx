@@ -8,7 +8,7 @@ import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { ArrowDown, ArrowRight, ArrowUp, Briefcase } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useOfficialsRankings } from "@/data/officials/useOfficialsRankings";
+import { useOfficialsRankingsTop } from "@/data/officials/useOfficialsRankings";
 import { useCandidateName } from "@/data/candidates/useCandidateName";
 import { formatThousands } from "@/data/utils";
 import { StatCard } from "./StatCard";
@@ -31,7 +31,7 @@ export const OfficialsAssetsTile: FC<{ className?: string }> = ({
   className,
 }) => {
   const { t, i18n } = useTranslation();
-  const { rankings } = useOfficialsRankings();
+  const { rankings } = useOfficialsRankingsTop();
   const { nameForBg } = useCandidateName();
 
   const topOfficials = useMemo(() => {

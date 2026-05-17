@@ -24,6 +24,10 @@ import { useBudgetTerm } from "@/data/budget/useBudgetTerm";
 import { useElectionContext } from "@/data/ElectionContext";
 import { BudgetSummaryTile } from "@/screens/components/budget/BudgetSummaryTile";
 import { BudgetSamePointTile } from "@/screens/components/budget/BudgetSamePointTile";
+import { BudgetMinistriesTile } from "@/screens/components/budget/BudgetMinistriesTile";
+import { BudgetRevenueCompositionTile } from "@/screens/components/budget/BudgetRevenueCompositionTile";
+import { BudgetExpenditureCompositionTile } from "@/screens/components/budget/BudgetExpenditureCompositionTile";
+import { BudgetMultiYearTrendTile } from "@/screens/components/budget/BudgetMultiYearTrendTile";
 import { TopMpsTile } from "@/screens/components/procurement/TopMpsTile";
 import { TopContractorsTile } from "@/screens/components/procurement/TopContractorsTile";
 import { DashboardSection } from "@/screens/dashboard/DashboardSection";
@@ -41,6 +45,7 @@ import { useNationalSummary } from "@/data/dashboard/useNationalSummary";
 import { DashboardSectionId } from "@/data/articles/useArticles";
 import { HeadlineIndicatorStrip } from "./HeadlineIndicatorStrip";
 import { GovernanceMacroTile } from "./GovernanceMacroTile";
+import { GovernmentStabilityTile } from "./GovernmentStabilityTile";
 
 // Governance topics that map onto article tags. We reuse the existing
 // DashboardSectionId enum where the topic overlaps; for the macro and
@@ -67,6 +72,20 @@ export const GovernanceCards: FC = () => {
 
   const hasFinancials = !!electionStats?.hasFinancials;
 
+  // Most recent FY whose admin dimension is ingested — needed because the
+  // current parliament's selectedFy is often the in-progress year, which has
+  // only the КФП feed (economic dimension) and no per-ministry law file. The
+  // composition tiles handle their own fallback against the КФП snapshots;
+  // BudgetMinistriesTile reads the admin reconciliation, so we pick the year
+  // explicitly here. Falls back to selectedFy when budgetIndex hasn't loaded.
+  const adminFy =
+    budgetIndex?.years
+      .filter((y) => y.dimensions?.admin)
+      .reduce<
+        number | null
+      >((latest, y) => (latest == null ? y.fiscalYear : Math.max(latest, y.fiscalYear)), null) ??
+    budgetTerm.selectedFy;
+
   return (
     <SectionArticlesProvider order={GOVERNANCE_TOPICS}>
       <section
@@ -80,6 +99,7 @@ export const GovernanceCards: FC = () => {
           title={t("governments_title")}
           icon={Vote}
         >
+          <GovernmentStabilityTile />
           <GovernmentsTile />
         </DashboardSection>
 
@@ -104,6 +124,7 @@ export const GovernanceCards: FC = () => {
             articleTopic="budget"
           >
             <BudgetSummaryTile />
+            <BudgetMultiYearTrendTile />
             {kfp &&
             budgetSummary &&
             !budgetSummary.complete &&
@@ -113,6 +134,21 @@ export const GovernanceCards: FC = () => {
                 fiscalYear={budgetTerm.selectedFy}
                 monthsAvailable={budgetSummary.monthsAvailable}
               />
+            ) : null}
+            {budgetTerm.selectedFy != null ? (
+              <>
+                <div className="grid gap-3 grid-cols-1 lg:grid-cols-2">
+                  <BudgetRevenueCompositionTile
+                    fiscalYear={budgetTerm.selectedFy}
+                  />
+                  <BudgetExpenditureCompositionTile
+                    fiscalYear={budgetTerm.selectedFy}
+                  />
+                </div>
+                {adminFy != null ? (
+                  <BudgetMinistriesTile fiscalYear={adminFy} />
+                ) : null}
+              </>
             ) : null}
           </DashboardSection>
         ) : null}

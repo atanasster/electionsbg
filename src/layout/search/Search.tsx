@@ -38,6 +38,7 @@ const SearchInternal: FC = () => {
     setSelected,
     setSearchTerm,
     searchTerm,
+    activate,
   } = useContext(SearchContext);
   const inputRef = useRef<HTMLInputElement>(null);
   const buttonRef = useRef<HTMLButtonElement>(null);
@@ -150,7 +151,14 @@ const SearchInternal: FC = () => {
           value={value}
           onValueChange={handleValueChange}
           onBlur={isMedium ? handleBlur : undefined}
-          onFocus={() => setOpen(true)}
+          onFocus={() => {
+            // Mount the heavy SearchContextProvider on first focus so the
+            // ~2.7 MB search index starts loading while the user is still
+            // composing their query. The context is a stub until activate()
+            // is called.
+            activate();
+            setOpen(true);
+          }}
           placeholder={`${t("search")}...`}
         />
       </div>
@@ -174,7 +182,16 @@ const SearchInternal: FC = () => {
   return isMedium ? (
     command
   ) : (
-    <Popover open={open} onOpenChange={setOpen}>
+    <Popover
+      open={open}
+      onOpenChange={(v) => {
+        // Mobile: activate the heavy search context as soon as the popover
+        // opens, so the index begins loading while the user is moving to
+        // the input. See the desktop onFocus handler above.
+        if (v) activate();
+        setOpen(v);
+      }}
+    >
       <PopoverTrigger asChild>
         <Button
           ref={buttonRef}

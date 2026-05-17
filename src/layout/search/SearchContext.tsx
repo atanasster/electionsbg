@@ -19,6 +19,12 @@ type SearchContextType = {
   setSelected: (index: number) => void;
   searchTerm?: string;
   setSearchTerm: (searchTerm: string) => void;
+  // Call this when the user interacts with the search bar (focus, popover
+  // open, keystroke) to mount the data-loading branch. Until then, the
+  // search index (~2.7 MB of sections/settlements/candidates JSON) is
+  // never fetched — the header search appears on every page, and most
+  // pages don't need it.
+  activate: () => void;
 };
 // eslint-disable-next-line react-refresh/only-export-components
 export const SearchContext = createContext<SearchContextType>({
@@ -27,8 +33,13 @@ export const SearchContext = createContext<SearchContextType>({
   items: [],
   setSearchTerm: () => {},
   setSelected: () => {},
+  activate: () => {},
 });
-export const SearchContextProvider: FC<PropsWithChildren> = ({ children }) => {
+
+// Heavy implementation — calls useSearchItems which pulls the search index.
+// Only mounted after the user activates the bar, so direct-entry pages like
+// /governance pay zero cost when search isn't used.
+const ActivatedSearchProvider: FC<PropsWithChildren> = ({ children }) => {
   const { search } = useSearchItems();
   const [term, setTerm] = useState("");
   const [searchItems, setSearchItems] = useState<SearchItemType[]>([]);
@@ -109,9 +120,45 @@ export const SearchContextProvider: FC<PropsWithChildren> = ({ children }) => {
         selected: getSelectedItem(),
         setSelected,
         searchTerm: term,
+        activate: () => {},
       }}
     >
       {children}
     </SearchContext.Provider>
   );
+};
+
+// Lightweight stub — no data hooks, no fetches. setSearchTerm and activate
+// both flip the activation flag and the parent mounts the heavy provider on
+// the next render. Until then this is what every page in the app sees.
+const InactiveSearchProvider: FC<
+  PropsWithChildren<{ onActivate: () => void }>
+> = ({ children, onActivate }) => (
+  <SearchContext.Provider
+    value={{
+      arrowDown: () => {},
+      arrowUp: () => {},
+      items: [],
+      setSelected: () => {},
+      setSearchTerm: (term) => {
+        if (term && term.length > 0) onActivate();
+      },
+      activate: onActivate,
+    }}
+  >
+    {children}
+  </SearchContext.Provider>
+);
+
+export const SearchContextProvider: FC<PropsWithChildren> = ({ children }) => {
+  const [activated, setActivated] = useState(false);
+  const activate = useCallback(() => setActivated(true), []);
+  if (!activated) {
+    return (
+      <InactiveSearchProvider onActivate={activate}>
+        {children}
+      </InactiveSearchProvider>
+    );
+  }
+  return <ActivatedSearchProvider>{children}</ActivatedSearchProvider>;
 };

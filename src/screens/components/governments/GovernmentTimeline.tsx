@@ -140,6 +140,7 @@ const SERIES_COLORS: Record<MacroIndicatorKey, string> = {
   govRevenue: "#15803d",
   govExpenditure: "#c2410c",
   fdiInward: "#c026d3",
+  fiscalReserve: "#0f766e",
   // HICP breakdown (stacked area uses these directly)
   inflationFood: "#f59e0b",
   inflationEnergy: "#dc2626",
@@ -276,6 +277,12 @@ const TooltipContent: FC<{
 const PILL_HORIZONTAL_THRESHOLD_DESKTOP = 5; // pct width
 const PILL_HORIZONTAL_THRESHOLD_MOBILE = Infinity; // never horizontal
 const PILL_LABEL_THRESHOLD = 1; // pct width
+// Mobile: drop labels for cabinets shorter than ~7 months (3% of a 20-year
+// span). Without this, the 2021–2024 cluster of short caretakers (two Янев,
+// two Главчев, Близнашки, Герджиков) crowds into adjacent vertical labels
+// that read as one merged block. The colour band and tooltip still
+// identify each cabinet — only the inline label drops.
+const PILL_LABEL_THRESHOLD_MOBILE = 3; // pct width
 
 const formatDateLocal = (iso: string | null, lang: "en" | "bg"): string => {
   if (!iso) return "—";
@@ -363,6 +370,9 @@ export const CabinetStrip: FC<{
   const horizontalThreshold = isSmall
     ? PILL_HORIZONTAL_THRESHOLD_MOBILE
     : PILL_HORIZONTAL_THRESHOLD_DESKTOP;
+  const labelThreshold = isSmall
+    ? PILL_LABEL_THRESHOLD_MOBILE
+    : PILL_LABEL_THRESHOLD;
   return (
     <div
       className={cn(
@@ -381,7 +391,7 @@ export const CabinetStrip: FC<{
         const surname =
           (lang === "bg" ? g.pmBg : g.pmEn).split(" ").pop() ?? "";
         const horizontal = widthPct >= horizontalThreshold;
-        const showLabel = widthPct >= PILL_LABEL_THRESHOLD;
+        const showLabel = widthPct >= labelThreshold;
         return (
           <UxTooltip
             key={`pill-${g.id}`}
@@ -442,6 +452,17 @@ export type EventMarker = {
   color?: string;
 };
 
+export type HorizontalReferenceLine = {
+  /** Y-axis value to draw the line at. */
+  y: number;
+  /** Short label rendered next to the line. */
+  label?: string;
+  /** Line/label colour. Defaults to a muted amber. */
+  color?: string;
+  /** Recharts dash pattern; defaults to "4 4". */
+  strokeDasharray?: string;
+};
+
 const flattenSpec = (spec: IndicatorSpec): MacroIndicatorKey[] =>
   Array.isArray(spec) && spec.length > 0 && typeof spec[0] === "string"
     ? (spec as MacroIndicatorKey[])
@@ -476,6 +497,9 @@ export const GovernmentTimeline: FC<{
   /** Optional one-off event markers (vertical line + label) layered on top
       of the cabinet bands and election ticks. Use sparingly. */
   eventMarkers?: EventMarker[];
+  /** Optional horizontal reference lines (constants on the y-axis), e.g. a
+      legal floor or policy threshold the series should stay above/below. */
+  horizontalReferences?: HorizontalReferenceLine[];
 }> = ({
   governments,
   macro,
@@ -488,6 +512,7 @@ export const GovernmentTimeline: FC<{
   showZeroLine,
   hideToggles,
   eventMarkers,
+  horizontalReferences,
 }) => {
   const { t, i18n } = useTranslation();
   const lang: "en" | "bg" = i18n.language === "bg" ? "bg" : "en";
@@ -705,6 +730,31 @@ export const GovernmentTimeline: FC<{
             {showZeroLine && (
               <ReferenceLine y={0} stroke="#64748b" strokeOpacity={0.3} />
             )}
+
+            {horizontalReferences?.map((r, i) => {
+              const color = r.color ?? "#b45309";
+              return (
+                <ReferenceLine
+                  key={`href-${i}`}
+                  y={r.y}
+                  stroke={color}
+                  strokeDasharray={r.strokeDasharray ?? "4 4"}
+                  strokeOpacity={0.85}
+                  ifOverflow="extendDomain"
+                  label={
+                    r.label
+                      ? {
+                          value: r.label,
+                          position: "insideTopRight",
+                          fill: color,
+                          fontSize: 11,
+                          fontWeight: 600,
+                        }
+                      : undefined
+                  }
+                />
+              );
+            })}
 
             {flatKeys.map((k) => {
               if (!enabled[k]) return null;
