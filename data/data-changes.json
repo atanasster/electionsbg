@@ -1,6 +1,45 @@
 {
-  "updatedAt": "2026-05-15T08:46:22.507Z",
+  "updatedAt": "2026-05-17T21:18:59.287Z",
   "entries": [
+    {
+      "timestamp": "2026-05-17T21:18:59.287Z",
+      "date": "2026-05-17",
+      "skill": "update-rollcall",
+      "summary": "rollcall: 1 new session 2026-05-15 (id 11126), 5 items, 1200 rows, 36 unresolved ids; 217 sessions total",
+      "source": "parliament.bg roll-call votes",
+      "links": [
+        {
+          "to": "/connections",
+          "labelKey": "data_changes_link_parliament"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-17T21:15:57.661Z",
+      "date": "2026-05-17",
+      "skill": "parliament-scrape",
+      "summary": "parliament refresh: 2121 deduped MPs, 239 current (52-ро NS), 12 profiles enriched",
+      "source": "parliament.bg MP roster",
+      "links": [
+        {
+          "to": "/connections",
+          "labelKey": "data_changes_link_parliament"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-17T21:13:12.052Z",
+      "date": "2026-05-17",
+      "skill": "update-macro",
+      "summary": "macro: cpi 2025=40 (TI CPI new release); bnb_auctions + EC XLSX no value changes",
+      "source": "Transparency International CPI (BG)",
+      "links": [
+        {
+          "to": "/demographics",
+          "labelKey": "data_changes_link_demographics"
+        }
+      ]
+    },
     {
       "timestamp": "2026-05-15T08:46:22.507Z",
       "date": "2026-05-15",

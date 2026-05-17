@@ -718,6 +718,7 @@ const TI_CPI: MacroPoint[] = [
   { year: 2022, value: 43 },
   { year: 2023, value: 45 },
   { year: 2024, value: 43 },
+  { year: 2025, value: 40 },
 ];
 
 // Eurobarometer "tend to trust" — Bulgaria results, annual averages of the
