@@ -1,15 +1,22 @@
 // Budget-journey timeline. Per fiscal year: the budget law, the КФП execution
 // snapshots published so far, and the Сметна палата audit report once it
-// lands. Phase 1's law entries are placeholders (no annex URLs yet) — the tile
-// shows them greyed with a "pending" note so the journey is visible from the
-// start. Newest fiscal year first.
+// lands. Documents with no resolved source URL (placeholders the pipeline
+// seeds before the DV idMat is known) are hidden — we only list rows that
+// link to a real source. Newest fiscal year first.
 
-import { FC } from "react";
+import { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ExternalLink, GitCommitVertical, FileText } from "lucide-react";
+import {
+  ChevronDown,
+  ChevronRight,
+  ExternalLink,
+  GitCommitVertical,
+  FileText,
+} from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import type {
   BudgetDocument,
+  BudgetDocumentSource,
   BudgetIndex,
   BudgetYearCoverage,
 } from "@/data/budget/types";
@@ -22,45 +29,91 @@ const STAGE_ORDER: Record<BudgetDocument["kind"], number> = {
   "kfp-feed": 4,
 };
 
+const ROLE_PRIORITY: BudgetDocumentSource["role"][] = [
+  "promulgated",
+  "report",
+  "bill",
+  "dataset",
+  "annex",
+  "resource",
+];
+
+const pickPrimary = (
+  sources: BudgetDocumentSource[],
+): BudgetDocumentSource | undefined => {
+  for (const role of ROLE_PRIORITY) {
+    const hit = sources.find((s) => s.role === role);
+    if (hit) return hit;
+  }
+  return sources[0];
+};
+
 const DocRow: FC<{ doc: BudgetDocument }> = ({ doc }) => {
   const { t } = useTranslation();
-  const primary = doc.sources.find(
-    (s) => s.role === "promulgated" || s.role === "report" || s.role === "bill",
-  );
-  const isPlaceholder = doc.sources.length === 0;
+  const [expanded, setExpanded] = useState(false);
+  const primary = pickPrimary(doc.sources);
+  const extras = primary ? doc.sources.filter((s) => s !== primary) : [];
   const kindLabel =
     t(`budget_doc_kind_${doc.kind.replace("-", "_")}`) || doc.kind;
+  if (!primary) return null;
   return (
     <li className="flex items-start gap-2 py-1.5">
-      <GitCommitVertical
-        className={`h-4 w-4 mt-0.5 shrink-0 ${
-          isPlaceholder ? "text-muted-foreground/40" : "text-primary"
-        }`}
-      />
-      <div className="min-w-0">
+      <GitCommitVertical className="h-4 w-4 mt-0.5 shrink-0 text-primary" />
+      <div className="min-w-0 flex-1">
         <div className="text-[11px] uppercase tracking-wide text-muted-foreground">
           {kindLabel}
         </div>
         <div className="text-sm leading-snug">
-          {primary ? (
-            <a
-              href={primary.url}
-              target="_blank"
-              rel="noreferrer"
-              className="text-primary hover:underline inline-flex items-baseline gap-1"
-            >
-              <span>{doc.title}</span>
-              <ExternalLink className="h-3 w-3 shrink-0 self-center" />
-            </a>
-          ) : (
-            <span className="text-muted-foreground">{doc.title}</span>
-          )}
+          <a
+            href={primary.url}
+            target="_blank"
+            rel="noreferrer"
+            className="text-primary hover:underline inline-flex items-baseline gap-1"
+          >
+            <span>{doc.title}</span>
+            <ExternalLink className="h-3 w-3 shrink-0 self-center" />
+          </a>
         </div>
-        {isPlaceholder ? (
-          <div className="text-[11px] text-muted-foreground/70 italic">
-            {t("budget_doc_pending") ||
-              "Source documents attached in a later phase."}
-          </div>
+        {extras.length > 0 ? (
+          <>
+            <button
+              type="button"
+              onClick={() => setExpanded((v) => !v)}
+              className="mt-1 inline-flex items-center gap-1 text-[11px] text-muted-foreground hover:text-foreground"
+            >
+              {expanded ? (
+                <ChevronDown className="h-3 w-3" />
+              ) : (
+                <ChevronRight className="h-3 w-3" />
+              )}
+              <span>
+                {t("budget_doc_extra_sources", {
+                  count: extras.length,
+                  defaultValue:
+                    extras.length === 1
+                      ? `${extras.length} more source`
+                      : `${extras.length} more sources`,
+                })}
+              </span>
+            </button>
+            {expanded ? (
+              <ul className="mt-1 ml-4 space-y-0.5">
+                {extras.map((src, idx) => (
+                  <li key={`${src.url}-${idx}`} className="text-[12px]">
+                    <a
+                      href={src.url}
+                      target="_blank"
+                      rel="noreferrer"
+                      className="text-primary hover:underline inline-flex items-baseline gap-1"
+                    >
+                      <span>{src.label || src.url}</span>
+                      <ExternalLink className="h-3 w-3 shrink-0 self-center" />
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            ) : null}
+          </>
         ) : null}
       </div>
     </li>
@@ -104,8 +157,9 @@ export const BudgetJourneyTile: FC<{
   index: BudgetIndex | null;
 }> = ({ documents, index }) => {
   const { t } = useTranslation();
-  const yearDocs = documents.filter((d) => d.fiscalYear != null);
-  const feedDocs = documents.filter((d) => d.fiscalYear == null);
+  const published = documents.filter((d) => d.sources.length > 0);
+  const yearDocs = published.filter((d) => d.fiscalYear != null);
+  const feedDocs = published.filter((d) => d.fiscalYear == null);
   const years = [...new Set(yearDocs.map((d) => d.fiscalYear as number))].sort(
     (a, b) => b - a,
   );
