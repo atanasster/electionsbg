@@ -20,6 +20,8 @@ import { CandidateDashboardCards } from "@/screens/dashboard/CandidateDashboardC
 import { useMpManagement } from "@/data/parliament/useMpManagement";
 import { useMpConnections } from "@/data/parliament/useMpConnections";
 import { useMpConnectedContracts } from "@/data/parliament/useMpConnectedContracts";
+import { useMpAssets } from "@/data/parliament/useMpAssets";
+import { useMpDeclarations } from "@/data/parliament/useMpDeclarations";
 
 /** Render the dashboard for a single candidate.
  *
@@ -50,6 +52,10 @@ export const Candidate: FC<{ name: string }> = ({ name }) => {
     useMpConnections(canonicalMpName);
   const { entries: connectedContracts, isLoading: contractsLoading } =
     useMpConnectedContracts(canonicalMpName);
+  const { rollup: assetsRollup, isLoading: assetsLoading } =
+    useMpAssets(canonicalMpName);
+  const { declarations, isLoading: declsLoading } =
+    useMpDeclarations(canonicalMpName);
 
   if (isLoading) {
     // Reserve roughly the height of a typical candidate page so the layout
@@ -100,11 +106,17 @@ export const Candidate: FC<{ name: string }> = ({ name }) => {
   const hasManagementRoles = (management?.roles?.length ?? 0) > 0;
   const hasConnections = subgraph != null && subgraph.nodes.length > 1;
   const hasContracts = connectedContracts.length > 0;
+  const hasAssets = assetsRollup != null;
+  const hasFinancialDecls = declarations.some(
+    (d) => d.ownershipStakes.length > 0,
+  );
   // Keep the section visible while data is in flight so the tile's loading
   // skeleton can reserve space; hide it once we know there's nothing to show.
   const showBusiness =
     mgmtLoading || connectionsLoading || hasManagementRoles || hasConnections;
   const showProcurement = contractsLoading || hasContracts;
+  const showDeclarations =
+    assetsLoading || declsLoading || hasAssets || hasFinancialDecls;
 
   return (
     <div className="w-full">
@@ -132,14 +144,16 @@ export const Candidate: FC<{ name: string }> = ({ name }) => {
             <MpTwinsTile name={lookupName} />
           </DashboardSection>
 
-          <DashboardSection
-            id="declarations"
-            title={t("mp_section_assets") || "Assets & declarations"}
-            icon={Wallet}
-          >
-            <MpAssetsSummary name={lookupName} linkSlug={linkSlug} />
-            <MpFinancialDeclarations name={lookupName} />
-          </DashboardSection>
+          {showDeclarations && (
+            <DashboardSection
+              id="declarations"
+              title={t("mp_section_assets") || "Assets & declarations"}
+              icon={Wallet}
+            >
+              <MpAssetsSummary name={lookupName} linkSlug={linkSlug} />
+              <MpFinancialDeclarations name={lookupName} />
+            </DashboardSection>
+          )}
 
           {showBusiness && (
             <DashboardSection
