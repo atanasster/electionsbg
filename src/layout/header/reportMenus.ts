@@ -11,6 +11,9 @@
 //
 // Both trees share the same MenuItem shape so Header.tsx's recursive
 // RenderMenuItem walks them with identical logic — only the data differs.
+// The same shape is reused on mobile (Header.tsx renders each top-level
+// entry as a collapsible DropdownMenuSub), so any subgrouping added here
+// shortens the mobile menu automatically.
 
 export type MenuItem = {
   title: string;
@@ -19,10 +22,77 @@ export type MenuItem = {
   category?: "financials" | "recount" | "preferences" | "suemg";
 };
 
+const buildLocationReportSubMenu = (
+  scope: "municipality" | "settlement" | "section",
+): MenuItem[] => {
+  const items: MenuItem[] = [
+    { title: "wasted_votes_title", link: `/reports/${scope}/wasted-votes` },
+    {
+      title: "concentrated_party_votes",
+      link: `/reports/${scope}/concentrated`,
+    },
+    { title: "top_gainers", link: `/reports/${scope}/top_gainers` },
+    { title: "top_losers", link: `/reports/${scope}/top_losers` },
+    { title: "voter_turnout", link: `/reports/${scope}/turnout` },
+    { title: "invalid_ballots", link: `/reports/${scope}/invalid_ballots` },
+    { title: "additional_voters", link: `/reports/${scope}/additional_voters` },
+    { title: "support_no_one", link: `/reports/${scope}/supports_no_one` },
+  ];
+  if (scope === "section") {
+    items.push({
+      title: "problem_sections",
+      link: `/reports/section/problem_sections`,
+    });
+  }
+  items.push(
+    { title: "-", category: "recount" },
+    { title: "voting_recount", category: "recount" },
+    {
+      title: "votes_recount",
+      link: `/reports/${scope}/recount`,
+      category: "recount",
+    },
+  );
+  if (scope === "section") {
+    items.push({
+      title: "zero_votes",
+      link: `/reports/section/recount_zero_votes`,
+      category: "recount",
+    });
+  }
+  items.push(
+    { title: "-", category: "suemg" },
+    { title: "flash_memory", category: "suemg" },
+    {
+      title: "missing_flash_memory",
+      link: `/reports/${scope}/missing_flash_memory`,
+      category: "suemg",
+    },
+    {
+      title: "flash_memory_removed",
+      link: `/reports/${scope}/flash_memory_removed`,
+      category: "suemg",
+    },
+    {
+      title: "flash_memory_added",
+      link: `/reports/${scope}/flash_memory_added`,
+      category: "suemg",
+    },
+    {
+      title: "flash_memory_moved",
+      link: `/reports/${scope}/flash_memory`,
+      category: "suemg",
+    },
+  );
+  return items;
+};
+
 export const electionsMenu: MenuItem[] = [
   {
     title: "nav_elections",
     subMenu: [
+      { title: "timeline_title", link: "/timeline" },
+      { title: "-" },
       { title: "risk_analysis_title", link: "/risk-analysis" },
       { title: "compare_title", link: "/compare" },
       { title: "wasted_votes_title", link: "/wasted-vote" },
@@ -38,186 +108,19 @@ export const electionsMenu: MenuItem[] = [
         category: "financials",
       },
       { title: "-" },
-      { title: "anomaly_reports_menu" },
-      { title: "risk_score_title", link: "/risk-score" },
       {
-        title: "municipalities",
+        title: "anomaly_reports_menu",
         subMenu: [
+          { title: "risk_score_title", link: "/risk-score" },
           {
-            title: "wasted_votes_title",
-            link: "/reports/municipality/wasted-votes",
+            title: "municipalities",
+            subMenu: buildLocationReportSubMenu("municipality"),
           },
           {
-            title: "concentrated_party_votes",
-            link: "/reports/municipality/concentrated",
+            title: "settlements",
+            subMenu: buildLocationReportSubMenu("settlement"),
           },
-          { title: "top_gainers", link: "/reports/municipality/top_gainers" },
-          { title: "top_losers", link: "/reports/municipality/top_losers" },
-          { title: "voter_turnout", link: "/reports/municipality/turnout" },
-          {
-            title: "invalid_ballots",
-            link: "/reports/municipality/invalid_ballots",
-          },
-          {
-            title: "additional_voters",
-            link: "/reports/municipality/additional_voters",
-          },
-          {
-            title: "support_no_one",
-            link: "/reports/municipality/supports_no_one",
-          },
-          { title: "-", category: "recount" },
-          { title: "voting_recount", category: "recount" },
-          {
-            title: "votes_recount",
-            link: "/reports/municipality/recount",
-            category: "recount",
-          },
-          { title: "-", category: "suemg" },
-          { title: "flash_memory", category: "suemg" },
-          {
-            title: "missing_flash_memory",
-            link: "/reports/municipality/missing_flash_memory",
-            category: "suemg",
-          },
-          {
-            title: "flash_memory_removed",
-            link: "/reports/municipality/flash_memory_removed",
-            category: "suemg",
-          },
-          {
-            title: "flash_memory_added",
-            link: "/reports/municipality/flash_memory_added",
-            category: "suemg",
-          },
-          {
-            title: "flash_memory_moved",
-            link: "/reports/municipality/flash_memory",
-            category: "suemg",
-          },
-        ],
-      },
-      {
-        title: "settlements",
-        subMenu: [
-          {
-            title: "wasted_votes_title",
-            link: "/reports/settlement/wasted-votes",
-          },
-          {
-            title: "concentrated_party_votes",
-            link: "/reports/settlement/concentrated",
-          },
-          { title: "top_gainers", link: "/reports/settlement/top_gainers" },
-          { title: "top_losers", link: "/reports/settlement/top_losers" },
-          { title: "voter_turnout", link: "/reports/settlement/turnout" },
-          {
-            title: "invalid_ballots",
-            link: "/reports/settlement/invalid_ballots",
-          },
-          {
-            title: "additional_voters",
-            link: "/reports/settlement/additional_voters",
-          },
-          {
-            title: "support_no_one",
-            link: "/reports/settlement/supports_no_one",
-          },
-          { title: "-", category: "recount" },
-          { title: "voting_recount", category: "recount" },
-          {
-            title: "votes_recount",
-            link: "/reports/settlement/recount",
-            category: "recount",
-          },
-          { title: "-", category: "suemg" },
-          { title: "flash_memory", category: "suemg" },
-          {
-            title: "missing_flash_memory",
-            link: "/reports/settlement/missing_flash_memory",
-            category: "suemg",
-          },
-          {
-            title: "flash_memory_removed",
-            link: "/reports/settlement/flash_memory_removed",
-            category: "suemg",
-          },
-          {
-            title: "flash_memory_added",
-            link: "/reports/settlement/flash_memory_added",
-            category: "suemg",
-          },
-          {
-            title: "flash_memory_moved",
-            link: "/reports/settlement/flash_memory",
-            category: "suemg",
-          },
-        ],
-      },
-      {
-        title: "sections",
-        subMenu: [
-          {
-            title: "wasted_votes_title",
-            link: "/reports/section/wasted-votes",
-          },
-          {
-            title: "concentrated_party_votes",
-            link: "/reports/section/concentrated",
-          },
-          { title: "top_gainers", link: "/reports/section/top_gainers" },
-          { title: "top_losers", link: "/reports/section/top_losers" },
-          { title: "voter_turnout", link: "/reports/section/turnout" },
-          {
-            title: "invalid_ballots",
-            link: "/reports/section/invalid_ballots",
-          },
-          {
-            title: "additional_voters",
-            link: "/reports/section/additional_voters",
-          },
-          {
-            title: "support_no_one",
-            link: "/reports/section/supports_no_one",
-          },
-          {
-            title: "problem_sections",
-            link: "/reports/section/problem_sections",
-          },
-          { title: "-", category: "recount" },
-          { title: "voting_recount", category: "recount" },
-          {
-            title: "votes_recount",
-            link: "/reports/section/recount",
-            category: "recount",
-          },
-          {
-            title: "zero_votes",
-            link: "/reports/section/recount_zero_votes",
-            category: "recount",
-          },
-          { title: "-", category: "suemg" },
-          { title: "flash_memory", category: "suemg" },
-          {
-            title: "missing_flash_memory",
-            link: "/reports/section/missing_flash_memory",
-            category: "suemg",
-          },
-          {
-            title: "flash_memory_removed",
-            link: "/reports/section/flash_memory_removed",
-            category: "suemg",
-          },
-          {
-            title: "flash_memory_added",
-            link: "/reports/section/flash_memory_added",
-            category: "suemg",
-          },
-          {
-            title: "flash_memory_moved",
-            link: "/reports/section/flash_memory",
-            category: "suemg",
-          },
+          { title: "sections", subMenu: buildLocationReportSubMenu("section") },
         ],
       },
     ],
@@ -228,24 +131,39 @@ export const governanceMenu: MenuItem[] = [
   {
     title: "nav_governance",
     subMenu: [
-      { title: "governance_title", link: "/governance" },
+      { title: "governance_overview", link: "/governance" },
       { title: "-" },
-      { title: "dashboard_section_parliament", link: "/parliament" },
-      { title: "parliament_cohesion_title", link: "/parliament/cohesion" },
-      { title: "parliament_embedding_title", link: "/parliament/embedding" },
-      { title: "sessions_index_title", link: "/votes" },
-      { title: "-" },
-      { title: "connections_link_label", link: "/connections" },
-      { title: "all_companies", link: "/mp/companies" },
-      { title: "mp_assets_link_label", link: "/mp-assets" },
-      { title: "mp_cars_link_label", link: "/mp-cars" },
-      { title: "-" },
-      { title: "budget_link_label", link: "/budget" },
-      { title: "procurement_link_label", link: "/procurement" },
-      { title: "-" },
-      { title: "governments_title", link: "/governments" },
-      { title: "indicators_page_title", link: "/indicators" },
-      { title: "demographics_title", link: "/demographics" },
+      {
+        title: "menu_group_parliament",
+        subMenu: [
+          { title: "dashboard_section_parliament", link: "/parliament" },
+          { title: "parliament_cohesion_title", link: "/parliament/cohesion" },
+          {
+            title: "parliament_embedding_title",
+            link: "/parliament/embedding",
+          },
+          { title: "sessions_index_title", link: "/votes" },
+        ],
+      },
+      {
+        title: "menu_group_declarations",
+        subMenu: [
+          { title: "connections_link_label", link: "/connections" },
+          { title: "all_companies", link: "/mp/companies" },
+          { title: "mp_assets_link_label", link: "/mp-assets" },
+          { title: "mp_cars_link_label", link: "/mp-cars" },
+        ],
+      },
+      {
+        title: "menu_group_state",
+        subMenu: [
+          { title: "budget_link_label", link: "/budget" },
+          { title: "procurement_link_label", link: "/procurement" },
+          { title: "governments_title", link: "/governments" },
+          { title: "indicators_page_title", link: "/indicators" },
+          { title: "demographics_title", link: "/demographics" },
+        ],
+      },
     ],
   },
 ];

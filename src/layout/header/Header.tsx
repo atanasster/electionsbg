@@ -237,37 +237,16 @@ export const Header = () => {
             </button>
           </DropdownMenuTrigger>
           <DropdownMenuContent className="w-56">
-            <DropdownMenuItem>
-              <Link to="/">{t("nav_elections")}</Link>
-            </DropdownMenuItem>
-            <DropdownMenuItem>
-              <Link to="/governance">{t("nav_governance")}</Link>
-            </DropdownMenuItem>
+            {electionsMenu.map((main, idx) => (
+              <RenderMenuItem key={`m-elec-${main.title}-${idx}`} item={main} />
+            ))}
+            {governanceMenu.map((main, idx) => (
+              <RenderMenuItem key={`m-gov-${main.title}-${idx}`} item={main} />
+            ))}
             {articles && articles.length > 0 && (
-              <DropdownMenuItem>
+              <DropdownMenuItem asChild>
                 <Link to={analysisHref}>{t("analysis_title")}</Link>
               </DropdownMenuItem>
-            )}
-            <DropdownMenuItem>
-              <Link to="/timeline">{t("timeline_title")}</Link>
-            </DropdownMenuItem>
-            <DropdownMenuSeparator />
-            {electionsMenu.map((main) =>
-              main.subMenu?.map((menu, idx) => (
-                <RenderMenuItem
-                  key={`m-elec-${menu.title}-${idx}`}
-                  item={menu}
-                />
-              )),
-            )}
-            <DropdownMenuSeparator />
-            {governanceMenu.map((main) =>
-              main.subMenu?.map((menu, idx) => (
-                <RenderMenuItem
-                  key={`m-gov-${menu.title}-${idx}`}
-                  item={menu}
-                />
-              )),
             )}
             <DropdownMenuSeparator />
             <DropdownMenuSub>
