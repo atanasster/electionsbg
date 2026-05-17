@@ -35,6 +35,11 @@ import { BudgetFlowTile } from "./components/budget/BudgetFlowTile";
 import { BudgetJourneyTile } from "./components/budget/BudgetJourneyTile";
 import { BudgetMinistriesTile } from "./components/budget/BudgetMinistriesTile";
 import { BudgetVarianceTile } from "./components/budget/BudgetVarianceTile";
+import { BudgetRevenueCompositionTile } from "./components/budget/BudgetRevenueCompositionTile";
+import { BudgetExpenditureCompositionTile } from "./components/budget/BudgetExpenditureCompositionTile";
+import { BudgetMultiYearTrendTile } from "./components/budget/BudgetMultiYearTrendTile";
+import { BudgetPeerComparisonTile } from "./components/budget/BudgetPeerComparisonTile";
+import { BudgetCitizenViewTile } from "./components/budget/BudgetCitizenViewTile";
 
 const SkeletonCard: FC = () => (
   <div className="rounded-xl border bg-card p-4 shadow-sm animate-pulse h-[120px]">
@@ -54,6 +59,8 @@ const FigureCard: FC<{
   // balance is shown as an absolute value with a deficit/surplus label
   absolute?: boolean;
   gdpEur?: number | null;
+  asOf?: string | null;
+  maastrichtThreshold?: boolean;
 }> = ({
   label,
   icon: Icon,
@@ -63,6 +70,8 @@ const FigureCard: FC<{
   ringTone,
   absolute,
   gdpEur,
+  asOf,
+  maastrichtThreshold,
 }) => {
   const { t } = useTranslation();
   const v = seriesView(fy, series);
@@ -71,13 +80,30 @@ const FigureCard: FC<{
     v.planValue && v.planValue !== 0
       ? `${((v.value / v.planValue) * 100).toFixed(1)}%`
       : null;
+  const gdpShareRatio =
+    gdpEur && gdpEur > 0 ? Math.abs(v.value) / gdpEur : null;
   const gdpShare =
-    gdpEur && gdpEur > 0
-      ? `${((Math.abs(v.value) / gdpEur) * 100).toFixed(1)}%`
-      : null;
+    gdpShareRatio != null ? `${(gdpShareRatio * 100).toFixed(1)}%` : null;
+  const showMaastricht =
+    maastrichtThreshold &&
+    gdpShareRatio != null &&
+    v.value < 0 &&
+    (v.mode === "actual" || v.mode === "projected");
+  const overMaastricht = showMaastricht && (gdpShareRatio as number) > 0.03;
+
+  const labelEl = asOf ? (
+    <div className="flex items-baseline justify-between gap-2">
+      <span>{label}</span>
+      <span className="normal-case font-normal text-[10px] opacity-70 tabular-nums tracking-normal">
+        {asOf}
+      </span>
+    </div>
+  ) : (
+    label
+  );
 
   return (
-    <StatCard label={label} className={ringTone}>
+    <StatCard label={labelEl} className={ringTone}>
       <div className="flex items-baseline gap-2">
         <Icon className={`h-5 w-5 shrink-0 ${iconTone}`} />
         <span className="text-xl md:text-2xl font-bold tabular-nums break-words">
@@ -87,6 +113,24 @@ const FigureCard: FC<{
       {gdpShare ? (
         <div className="text-xs text-muted-foreground tabular-nums">
           {gdpShare} {t("budget_of_gdp") || "of GDP"}
+        </div>
+      ) : null}
+      {showMaastricht ? (
+        <div className="text-[11px]">
+          <span
+            className={cn(
+              "inline-block rounded px-1.5 py-0.5",
+              overMaastricht
+                ? "bg-rose-100 text-rose-700 dark:bg-rose-900/40 dark:text-rose-300"
+                : "bg-emerald-100 text-emerald-700 dark:bg-emerald-900/40 dark:text-emerald-300",
+            )}
+          >
+            {overMaastricht
+              ? t("budget_maastricht_over") ||
+                "above the Maastricht ceiling (3% of GDP)"
+              : t("budget_maastricht_under") ||
+                "within the Maastricht ceiling (3% of GDP)"}
+          </span>
         </div>
       ) : null}
       {v.mode === "projected" ? (
@@ -286,6 +330,7 @@ export const BudgetScreen: FC = () => {
               fy={summary}
               series="revenue"
               gdpEur={gdpEur}
+              asOf={summary.asOf}
             />
             <FigureCard
               label={t("budget_series_expenditure") || "Expenditure"}
@@ -294,6 +339,7 @@ export const BudgetScreen: FC = () => {
               fy={summary}
               series="expenditure"
               gdpEur={gdpEur}
+              asOf={summary.asOf}
             />
             <FigureCard
               label={
@@ -304,6 +350,7 @@ export const BudgetScreen: FC = () => {
               fy={summary}
               series="euContribution"
               gdpEur={gdpEur}
+              asOf={summary.asOf}
             />
             <FigureCard
               label={
@@ -317,6 +364,8 @@ export const BudgetScreen: FC = () => {
               series="balance"
               absolute
               gdpEur={gdpEur}
+              asOf={summary.asOf}
+              maastrichtThreshold
               ringTone={
                 deficit
                   ? "ring-1 ring-rose-200/60 dark:ring-rose-800/40"
@@ -343,10 +392,21 @@ export const BudgetScreen: FC = () => {
 
         {snapshot ? <BudgetFlowTile snapshot={snapshot} /> : null}
 
+        <BudgetCitizenViewTile fiscalYear={term.selectedFy} />
+
+        <div className="grid gap-4 grid-cols-1 xl:grid-cols-2 mt-4">
+          <BudgetRevenueCompositionTile fiscalYear={term.selectedFy} />
+          <BudgetExpenditureCompositionTile fiscalYear={term.selectedFy} />
+        </div>
+
         <div className="grid gap-4 grid-cols-1 xl:grid-cols-2">
           <BudgetVarianceTile fiscalYear={term.selectedFy} />
           <BudgetMinistriesTile fiscalYear={term.selectedFy} />
         </div>
+
+        <BudgetMultiYearTrendTile />
+
+        <BudgetPeerComparisonTile />
 
         <BudgetJourneyTile documents={scopedDocuments} index={index} />
 

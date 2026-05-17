@@ -12,7 +12,7 @@
 // snapshot at the same calendar month as the current latest — falls back
 // silently to actuals-only otherwise.
 
-import { FC } from "react";
+import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import {
   Bar,
@@ -30,6 +30,23 @@ import { LineChart } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { formatEur } from "@/lib/currency";
 import type { KfpObservation } from "@/data/budget/types";
+
+// Curated lifetime markers — events with a clear, dateable fiscal-execution
+// implication. Keep the list tight (≤ 10 entries lifetime) so the chart stays
+// a chart, not a timeline. Periods must match the chart's "YYYY-MM" tick
+// strings exactly or the ReferenceLine renders off-axis.
+const BUDGET_EVENTS: Array<{
+  period: string;
+  labelBg: string;
+  labelEn: string;
+}> = [
+  { period: "2020-03", labelBg: "COVID", labelEn: "COVID" },
+  { period: "2022-02", labelBg: "Война", labelEn: "Ukraine war" },
+  { period: "2024-06", labelBg: "Избори", labelEn: "Election" },
+  { period: "2024-10", labelBg: "Избори", labelEn: "Election" },
+  { period: "2026-01", labelBg: "Еврозона", labelEn: "Eurozone" },
+  { period: "2026-04", labelBg: "Избори", labelEn: "Election" },
+];
 
 const compactEur = (v: number): string => {
   const abs = Math.abs(v);
@@ -237,8 +254,13 @@ export const BudgetTrendTile: FC<{
   observations: KfpObservation[];
   allObservations: KfpObservation[];
 }> = ({ observations, allObservations }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const lang: "bg" | "en" = i18n.language === "bg" ? "bg" : "en";
   const data = buildData(observations, allObservations);
+  const visibleEvents = useMemo(() => {
+    const periods = new Set(data.map((d) => d.period));
+    return BUDGET_EVENTS.filter((e) => periods.has(e.period));
+  }, [data]);
   if (data.length === 0) return null;
   const hasProjection = data.some((d) => d.isProjected);
 
@@ -255,7 +277,12 @@ export const BudgetTrendTile: FC<{
           <ResponsiveContainer width="100%" height="100%">
             <ComposedChart
               data={data}
-              margin={{ top: 8, right: 16, bottom: 0, left: 0 }}
+              margin={{
+                top: visibleEvents.length > 0 ? 24 : 8,
+                right: 16,
+                bottom: 0,
+                left: 0,
+              }}
             >
               <CartesianGrid
                 strokeDasharray="3 3"
@@ -282,6 +309,26 @@ export const BudgetTrendTile: FC<{
                 cursor={{ fill: "var(--muted)", opacity: 0.3 }}
               />
               <ReferenceLine y={0} className="stroke-border" />
+              {/* Narrative markers — vertical dashed line + a top label.
+                  Labels stagger between two heights so adjacent events (e.g.
+                  back-to-back snap elections in 2024) don't collide on
+                  narrow viewports. Lines stay subtle so the data series
+                  remain primary. */}
+              {visibleEvents.map((e, i) => (
+                <ReferenceLine
+                  key={e.period}
+                  x={e.period}
+                  stroke="#94a3b8"
+                  strokeDasharray="2 3"
+                  ifOverflow="extendDomain"
+                  label={{
+                    value: lang === "bg" ? e.labelBg : e.labelEn,
+                    position: i % 2 === 0 ? "top" : "insideTop",
+                    fontSize: 9,
+                    fill: "#64748b",
+                  }}
+                />
+              ))}
               {/* Balance bars: deficit (negative) in rose, surplus in
                   emerald. Same hues as the budget-flow графика's
                   COLOR_DEFICIT / COLOR_SURPLUS so the metaphor stays

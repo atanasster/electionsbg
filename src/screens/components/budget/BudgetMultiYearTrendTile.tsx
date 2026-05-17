@@ -35,6 +35,17 @@ const compactEur = (v: number): string => {
   return `€${v}`;
 };
 
+// Mobile drops the € prefix and decimal to keep Y-axis labels inside the
+// chart's narrow left gutter. The currency is already established by the
+// chart title — repeating it on every tick wastes pixels.
+const compactEurMobile = (v: number): string => {
+  const abs = Math.abs(v);
+  if (abs >= 1_000_000_000) return `${(v / 1_000_000_000).toFixed(0)}B`;
+  if (abs >= 1_000_000) return `${(v / 1_000_000).toFixed(0)}M`;
+  if (abs >= 1_000) return `${(v / 1_000).toFixed(0)}k`;
+  return `${v}`;
+};
+
 interface ChartDatum {
   fiscalYear: number;
   revenue: number;
@@ -129,12 +140,12 @@ export const BudgetMultiYearTrendTile: FC = () => {
               />
               <YAxis
                 yAxisId="flow"
-                tickFormatter={compactEur}
+                tickFormatter={isMobile ? compactEurMobile : compactEur}
                 tickLine={false}
                 axisLine={false}
                 fontSize={11}
                 className="fill-muted-foreground"
-                width={isMobile ? 40 : 56}
+                width={isMobile ? 32 : 56}
               />
               {/* Secondary axis for the balance bars. Revenue/expenditure
                   approach €40B+ in recent years while balance stays in the
@@ -146,12 +157,12 @@ export const BudgetMultiYearTrendTile: FC = () => {
               <YAxis
                 yAxisId="balance"
                 orientation="right"
-                tickFormatter={compactEur}
+                tickFormatter={isMobile ? compactEurMobile : compactEur}
                 tickLine={false}
                 axisLine={false}
                 fontSize={11}
                 className="fill-muted-foreground"
-                width={isMobile ? 40 : 56}
+                width={isMobile ? 32 : 56}
                 domain={[
                   (dataMin: number) => Math.min(0, dataMin) * 1.1,
                   (dataMax: number) => Math.max(0, dataMax) * 1.1,

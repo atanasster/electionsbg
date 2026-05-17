@@ -6,19 +6,129 @@
 // cross-link) and an MP-connected flag, and links to the ministry detail
 // screen. Renders nothing when the selected year has no law-dimension data.
 
-import { FC } from "react";
+import { FC, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Landmark, Receipt, Users } from "lucide-react";
+import { Landmark, Receipt, Users, ChevronRight } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
+import { cn } from "@/lib/utils";
 import { formatEur } from "@/lib/currency";
-import { useBudgetAdminReconciliation } from "@/data/budget/useBudgetReconciliation";
+import {
+  useBudgetAdminReconciliation,
+  useBudgetProgramReconciliation,
+  useBudgetProgramFacts,
+} from "@/data/budget/useBudgetReconciliation";
 import { useMinistryProcurement } from "@/data/budget/useBudget";
+import type { ReconciliationRow } from "@/data/budget/types";
 
 const compactEur = (v: number): string => {
   if (v >= 1_000_000_000) return `€${(v / 1_000_000_000).toFixed(1)}B`;
   if (v >= 1_000_000) return `€${(v / 1_000_000).toFixed(0)}M`;
   return formatEur(v);
+};
+
+// Program rows nested under a ministry row when expanded. Joins the raw
+// facts (which carry the admin → program edge) with the program reconciliation
+// (which carries amended + executed). Renders nothing when no programs exist
+// for this admin id.
+const ProgramSublist: FC<{
+  adminNodeId: string;
+  lang: "bg" | "en";
+  programFacts: ReturnType<typeof useBudgetProgramFacts>["data"];
+  programRecon: ReconciliationRow[] | null | undefined;
+}> = ({ adminNodeId, lang, programFacts, programRecon }) => {
+  const { t } = useTranslation();
+  const reconById = useMemo(() => {
+    const m = new Map<string, ReconciliationRow>();
+    for (const r of programRecon ?? []) m.set(r.nodeId, r);
+    return m;
+  }, [programRecon]);
+
+  const programs = useMemo(() => {
+    if (!programFacts) return [];
+    return programFacts
+      .filter(
+        (f) =>
+          f.classification.admin === adminNodeId &&
+          f.classification.program &&
+          f.kind === "expenditure",
+      )
+      .map((f) => {
+        const programId = f.classification.program as string;
+        const recon = reconById.get(programId);
+        const planned = f.money.amountEur;
+        return {
+          nodeId: programId,
+          label:
+            (lang === "bg"
+              ? recon?.nodeNameBg
+              : recon?.nodeNameEn || recon?.nodeNameBg) || f.sourceRef.rowLabel,
+          planned,
+          amended: recon?.amended?.amountEur ?? null,
+          executed: recon?.executed?.amountEur ?? null,
+        };
+      })
+      .sort((a, b) => b.planned - a.planned);
+  }, [programFacts, adminNodeId, reconById, lang]);
+
+  if (programs.length === 0) {
+    return (
+      <p className="mt-2 text-[11px] text-muted-foreground italic">
+        {t("budget_ministries_no_programs") ||
+          "Program breakdown not published for this unit."}
+      </p>
+    );
+  }
+
+  const maxProg = Math.max(...programs.map((p) => p.planned), 1);
+
+  return (
+    <ul className="mt-2 space-y-1 border-l-2 border-primary/20 pl-3">
+      {programs.map((p) => {
+        const baseline = p.amended ?? p.planned;
+        const baseWidth = (baseline / maxProg) * 100;
+        const execShare =
+          p.executed != null && baseline > 0
+            ? Math.min(100, (p.executed / baseline) * 100)
+            : 0;
+        const execPct =
+          p.executed != null && p.amended && p.amended > 0
+            ? (p.executed / p.amended) * 100
+            : null;
+        return (
+          <li key={p.nodeId} className="text-[11px]">
+            <div className="flex items-baseline justify-between gap-2">
+              <span className="truncate text-muted-foreground" title={p.label}>
+                {p.label}
+              </span>
+              <span className="tabular-nums shrink-0 font-medium">
+                {formatEur(p.planned)}
+              </span>
+            </div>
+            <div className="mt-0.5 h-1 rounded bg-muted overflow-hidden">
+              <div
+                className="h-full rounded bg-primary/20"
+                style={{ width: `${baseWidth}%` }}
+              >
+                {p.executed != null ? (
+                  <div
+                    className="h-full rounded bg-primary/70"
+                    style={{ width: `${execShare}%` }}
+                  />
+                ) : null}
+              </div>
+            </div>
+            {p.executed != null && execPct != null ? (
+              <div className="mt-0.5 text-[10px] text-muted-foreground tabular-nums">
+                {t("budget_ministries_executed") || "executed"}{" "}
+                {formatEur(p.executed)} ({execPct.toFixed(1)}%)
+              </div>
+            ) : null}
+          </li>
+        );
+      })}
+    </ul>
+  );
 };
 
 export const BudgetMinistriesTile: FC<{ fiscalYear: number }> = ({
@@ -28,6 +138,26 @@ export const BudgetMinistriesTile: FC<{ fiscalYear: number }> = ({
   const lang = i18n.language === "bg" ? "bg" : "en";
   const { data: rows } = useBudgetAdminReconciliation(fiscalYear);
   const { data: procFile } = useMinistryProcurement();
+  const { data: programFacts } = useBudgetProgramFacts(fiscalYear);
+  const { data: programRecon } = useBudgetProgramReconciliation(fiscalYear);
+  const [expanded, setExpanded] = useState<Set<string>>(new Set());
+  const toggle = (id: string) =>
+    setExpanded((prev) => {
+      const next = new Set(prev);
+      if (next.has(id)) next.delete(id);
+      else next.add(id);
+      return next;
+    });
+
+  const adminsWithPrograms = useMemo(() => {
+    const set = new Set<string>();
+    for (const f of programFacts ?? []) {
+      if (f.classification.admin && f.kind === "expenditure")
+        set.add(f.classification.admin);
+    }
+    return set;
+  }, [programFacts]);
+
   if (!rows || rows.length === 0) return null;
 
   const procByNode = new Map(
@@ -102,15 +232,41 @@ export const BudgetMinistriesTile: FC<{ fiscalYear: number }> = ({
               m.executed != null && m.amended != null
                 ? m.amended - m.executed
                 : null;
+            const hasPrograms = adminsWithPrograms.has(m.nodeId);
+            const isOpen = expanded.has(m.nodeId);
             return (
               <li key={m.nodeId} className="text-xs">
                 <div className="flex items-baseline justify-between gap-2">
-                  <Link
-                    to={`/budget/ministry/${m.nodeId}`}
-                    className="truncate text-primary hover:underline"
-                  >
-                    {m.name}
-                  </Link>
+                  <span className="flex min-w-0 items-center gap-1">
+                    {hasPrograms ? (
+                      <button
+                        type="button"
+                        onClick={() => toggle(m.nodeId)}
+                        aria-expanded={isOpen}
+                        aria-label={
+                          isOpen
+                            ? t("budget_ministries_collapse") || "Hide programs"
+                            : t("budget_ministries_expand") || "Show programs"
+                        }
+                        className="shrink-0 inline-flex h-4 w-4 items-center justify-center rounded text-muted-foreground hover:bg-accent/40 hover:text-foreground"
+                      >
+                        <ChevronRight
+                          className={cn(
+                            "h-3 w-3 transition-transform",
+                            isOpen && "rotate-90",
+                          )}
+                        />
+                      </button>
+                    ) : (
+                      <span className="inline-block h-4 w-4 shrink-0" />
+                    )}
+                    <Link
+                      to={`/budget/ministry/${m.nodeId}`}
+                      className="truncate text-primary hover:underline"
+                    >
+                      {m.name}
+                    </Link>
+                  </span>
                   <span className="tabular-nums shrink-0 font-medium">
                     {formatEur(m.planned)}
                   </span>
@@ -168,6 +324,14 @@ export const BudgetMinistriesTile: FC<{ fiscalYear: number }> = ({
                       </span>
                     ) : null}
                   </div>
+                ) : null}
+                {isOpen && hasPrograms ? (
+                  <ProgramSublist
+                    adminNodeId={m.nodeId}
+                    lang={lang}
+                    programFacts={programFacts}
+                    programRecon={programRecon}
+                  />
                 ) : null}
               </li>
             );

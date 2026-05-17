@@ -86,6 +86,9 @@ const SearchInternal: FC = () => {
         case "a":
           navigate({ pathname: `/candidate/${selectedOption.item.key}` });
           break;
+        case "b":
+          navigate({ pathname: `/budget/ministry/${selectedOption.item.key}` });
+          break;
       }
       setOpen(false);
       inputRef?.current?.blur();

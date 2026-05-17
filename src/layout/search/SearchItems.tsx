@@ -5,18 +5,19 @@ import { FuseResult, FuseResultMatch } from "fuse.js";
 import { FC, ReactNode, useContext } from "react";
 import { useTranslation } from "react-i18next";
 import { SearchContext } from "./SearchContext";
-import { Building2, MapPin, Map, Vote } from "lucide-react";
+import { Building2, MapPin, Map, Vote, Landmark } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 type ItemType = SearchIndexType["type"];
 
-const TYPE_ORDER: ItemType[] = ["s", "m", "r", "c", "a"];
+const TYPE_ORDER: ItemType[] = ["s", "m", "r", "c", "a", "b"];
 
 const TYPE_ICON: Record<Exclude<ItemType, "a">, FC<{ className?: string }>> = {
   s: MapPin,
   m: Building2,
   r: Map,
   c: Vote,
+  b: Landmark,
 };
 
 const Highlight: FC<{
@@ -62,6 +63,8 @@ export const SearchItems: FC<{
         return t("settlement");
       case "a":
         return t("candidate");
+      case "b":
+        return t("budget_search_ministries") || "Ministries";
     }
   };
 

@@ -45,3 +45,48 @@ export const useBudgetEconomicReconciliation = (fiscalYear: number | null) =>
     enabled: fiscalYear != null,
     staleTime: Infinity,
   });
+
+// Program-dimension reconciliation for one fiscal year — one row per program
+// nodeId. The row carries the plan and (where execution has been ingested)
+// amended + executed values. Programs link back to their parent ministry via
+// the raw facts file (useBudgetProgramFacts), since the reconciliation row
+// doesn't carry the admin parent itself.
+export const useBudgetProgramReconciliation = (fiscalYear: number | null) =>
+  useQuery({
+    queryKey: ["budget", "reconciliation", "program", fiscalYear] as const,
+    queryFn: () => fetchReconciliation(fiscalYear as number, "program"),
+    enabled: fiscalYear != null,
+    staleTime: Infinity,
+  });
+
+// Raw program facts for one fiscal year — provides the (admin, program)
+// classification pair so the dashboard can render program rows nested under
+// their parent ministry. Returns null when the year has no program data.
+type ProgramFact = {
+  classification: {
+    admin: string | null;
+    program: string | null;
+  };
+  fiscalYear: number;
+  kind: string;
+  key: string;
+  money: { amount: number; amountEur: number; currency: string };
+  sourceRef: { documentId: string; rowLabel: string };
+};
+
+const fetchProgramFacts = async (
+  fiscalYear: number,
+): Promise<ProgramFact[] | null> => {
+  const r = await fetch(dataUrl(`/budget/facts/${fiscalYear}/program.json`));
+  if (r.status === 404) return null;
+  if (!r.ok) throw new Error(`fetch failed: ${r.status} ${r.url}`);
+  return (await r.json()) as ProgramFact[];
+};
+
+export const useBudgetProgramFacts = (fiscalYear: number | null) =>
+  useQuery({
+    queryKey: ["budget", "facts", "program", fiscalYear] as const,
+    queryFn: () => fetchProgramFacts(fiscalYear as number),
+    enabled: fiscalYear != null,
+    staleTime: Infinity,
+  });

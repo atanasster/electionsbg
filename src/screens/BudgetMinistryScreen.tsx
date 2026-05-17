@@ -247,11 +247,33 @@ const ProgramBlock: FC<{ years: MinistryRollupYear[]; lang: "bg" | "en" }> = ({
 };
 
 // Phase 4 — the spending unit's public-procurement footprint, linking the
-// budget pillar through to the contracts it actually awarded.
-const ProcurementBlock: FC<{ procurement: MinistryProcurement }> = ({
-  procurement,
-}) => {
+// budget pillar through to the contracts it actually awarded. The "X% of
+// cumulative appropriations" line puts the procurement number in context:
+// reading €1.2B in contracts is meaningful only against the €5B in
+// expenditure the same unit moved over the same window.
+const ProcurementBlock: FC<{
+  procurement: MinistryProcurement;
+  years: MinistryRollupYear[];
+}> = ({ procurement, years }) => {
   const { t } = useTranslation();
+
+  // Cumulative expenditure across the years we have data for. Prefer the
+  // executed figure when ingested; fall back to the law-planned figure so
+  // we still get a denominator for years pre-execution-report. Years with
+  // no expenditure (revenue-only units, in-progress no-law years) drop out.
+  const expenditureSum = years.reduce((sum, y) => {
+    const exec = y.execution?.expenditure?.executed?.amountEur;
+    const planned = y.expenditure?.amountEur;
+    return sum + (exec ?? planned ?? 0);
+  }, 0);
+  const sharePct =
+    expenditureSum > 0 ? (procurement.totalEur / expenditureSum) * 100 : null;
+  const yearsWithFigures = years.filter(
+    (y) => y.execution?.expenditure?.executed || y.expenditure,
+  );
+  const firstYear = yearsWithFigures[0]?.fiscalYear;
+  const lastYear = yearsWithFigures[yearsWithFigures.length - 1]?.fiscalYear;
+
   return (
     <Card className="my-4" data-og="ministry-procurement">
       <CardHeader className="pb-2">
@@ -272,6 +294,17 @@ const ProcurementBlock: FC<{ procurement: MinistryProcurement }> = ({
             {t("budget_ministry_procurement_contracts") || "contracts"}
           </span>
         </div>
+        {sharePct != null && firstYear && lastYear ? (
+          <div className="text-xs text-muted-foreground tabular-nums">
+            {(
+              t("budget_ministry_procurement_share") ||
+              "≈ {{pct}}% of this unit's cumulative expenditure ({{first}}–{{last}})"
+            )
+              .replace("{{pct}}", sharePct.toFixed(1))
+              .replace("{{first}}", String(firstYear))
+              .replace("{{last}}", String(lastYear))}
+          </div>
+        ) : null}
         {procurement.mpConnectedContractorCount > 0 ? (
           <div className="flex items-baseline gap-1.5 text-sm">
             <Users className="h-4 w-4 text-amber-600 shrink-0" />
@@ -361,7 +394,7 @@ export const BudgetMinistryScreen: FC = () => {
         ))}
         <ProgramBlock years={data.years} lang={lang} />
         {data.procurement ? (
-          <ProcurementBlock procurement={data.procurement} />
+          <ProcurementBlock procurement={data.procurement} years={data.years} />
         ) : null}
       </section>
     </>
