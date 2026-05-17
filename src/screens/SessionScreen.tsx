@@ -148,6 +148,23 @@ export const SessionScreen: FC = () => {
     focusedMpId != null ? session?.mpNames?.[String(focusedMpId)] : undefined;
   const focusedName = focusedRosterMp?.name ?? focusedSessionName ?? null;
 
+  // The URL `mp` param is a roster id, but session vote rows are keyed by the
+  // per-NS parliament.bg id (different number for the same person). Bridge
+  // through `mpNames`: if the roster id isn't already a session key, find the
+  // session key whose name matches the roster name.
+  const sessionMpId = useMemo<number | null>(() => {
+    if (focusedMpId == null || !session) return null;
+    if (session.mpNames?.[String(focusedMpId)]) return focusedMpId;
+    if (!focusedName) return null;
+    const target = focusedName.toUpperCase().replace(/\s+/g, " ").trim();
+    for (const [id, name] of Object.entries(session.mpNames ?? {})) {
+      if (name.toUpperCase().replace(/\s+/g, " ").trim() === target) {
+        return Number(id);
+      }
+    }
+    return null;
+  }, [focusedMpId, focusedName, session]);
+
   const lang = i18n.language;
   const headingDate = date ? formatDate(date, lang) : "";
   const pageTitle = `${t("votes_session_title") || "Voting session"} · ${headingDate}`;
@@ -268,12 +285,12 @@ export const SessionScreen: FC = () => {
               {items.map((item) => {
                 const isOpen = expanded.has(item.item);
                 const focusedVote =
-                  focusedMpId != null
-                    ? item.votes.find((v) => v.mpId === focusedMpId)?.vote
+                  sessionMpId != null
+                    ? item.votes.find((v) => v.mpId === sessionMpId)?.vote
                     : null;
                 const focusedParty =
-                  focusedMpId != null
-                    ? session.mpParty?.[String(focusedMpId)]
+                  sessionMpId != null
+                    ? session.mpParty?.[String(sessionMpId)]
                     : null;
                 const focusedMajority =
                   focusedParty && session.mpParty
