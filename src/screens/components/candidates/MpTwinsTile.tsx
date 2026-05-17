@@ -78,7 +78,7 @@ export const MpTwinsTile: FC<Props> = ({ name }) => {
     return (
       <Card className="my-4" aria-hidden>
         <CardContent>
-          <div className="min-h-[260px]" />
+          <div className="min-h-[80px] sm:min-h-[260px]" />
         </CardContent>
       </Card>
     );

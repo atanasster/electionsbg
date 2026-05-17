@@ -159,7 +159,7 @@ export const MpManagementRoles: FC<{ name: string }> = ({ name }) => {
       return (
         <Card className="my-4" aria-hidden>
           <CardContent>
-            <div className="min-h-[160px]" />
+            <div className="min-h-[80px] sm:min-h-[160px]" />
           </CardContent>
         </Card>
       );

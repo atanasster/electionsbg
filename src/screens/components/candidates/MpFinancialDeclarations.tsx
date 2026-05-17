@@ -246,7 +246,7 @@ export const MpFinancialDeclarations: FC<{ name: string }> = ({ name }) => {
       return (
         <Card className="my-4" aria-hidden>
           <CardContent>
-            <div className="min-h-[180px]" />
+            <div className="min-h-[80px] sm:min-h-[180px]" />
           </CardContent>
         </Card>
       );

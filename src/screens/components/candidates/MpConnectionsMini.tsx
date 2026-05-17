@@ -292,7 +292,7 @@ export const MpConnectionsMini: FC<{ name: string; linkSlug?: string }> = ({
       return (
         <Card className="my-4" aria-hidden>
           <CardContent>
-            <div className="min-h-[420px]" />
+            <div className="min-h-[120px] sm:min-h-[420px]" />
           </CardContent>
         </Card>
       );

@@ -49,7 +49,7 @@ export const MpConnectedContractsTile: FC<{
     return (
       <Card className="my-4" aria-hidden>
         <CardContent>
-          <div className="min-h-[140px]" />
+          <div className="min-h-[80px] sm:min-h-[140px]" />
         </CardContent>
       </Card>
     );
