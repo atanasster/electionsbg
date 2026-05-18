@@ -328,6 +328,10 @@ export const AboutScreen = () => {
                   href="https://commission.europa.eu/strategy-and-policy/eu-budget/long-term-eu-budget/2021-2027/spending-and-revenue_en"
                   label={t("budget_ec_eu_funds_source")}
                 />
+                <SourceItem
+                  href="https://ec.europa.eu/eurostat/databrowser/view/gov_10a_exp/default/table"
+                  label={t("budget_cofog_source")}
+                />
               </ul>
             </DataGroup>
 

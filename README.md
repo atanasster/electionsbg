@@ -115,6 +115,8 @@ npm run bucket:sync:dry    # same, but -n (preview only)
 #   npx tsx scripts/financing/scrape_index.ts          # Сметна палата annual-reports index
 #   npx tsx scripts/parliament/scrape_mps.ts --all     # parliament.bg MP roster
 #   npx tsx scripts/macro/fetch_eurostat.ts            # Eurostat + WGI + curated tables
+#   npx tsx scripts/macro/fetch_cofog.ts               # Eurostat COFOG (gov_10a_exp) general-gov spend by function → data/cofog.json
+#   npx tsx scripts/macro/fetch_eu_peers.ts            # Eurostat gov_10a_main (BG + EU + CEE peers, % of GDP) → data/macro_peers.json
 #   npx tsx scripts/macro/fetch_bnb_auctions.ts        # BNB domestic ДЦК auctions → debt-emissions-domestic.json
 #   npx tsx scripts/macro/fetch_fiscal_reserve.ts      # minfin.bg fiscal-reserve mreport/BULETIN/FRA XLSX → data/_cache/fiscal-reserve.json
 #   npx tsx scripts/regional/fetch_eurostat.ts         # Eurostat NUTS 3 (per oblast) indicators
@@ -164,6 +166,8 @@ Files and directories the SPA fetches at runtime — all under `/data/` locally 
 | `governments.json` | Government coalitions and ministers by parliamentary term |
 | `parliament_groups.json` | Parliamentary group (faction) memberships |
 | `macro.json` | Macroeconomic + governance indicators for the cabinet timeline (Eurostat GDP/HICP/unemployment, fiscal triple as % of GDP + nominal EUR, FDI inward, government revenue/expenditure, World Bank WGI, Transparency International CPI, Eurobarometer trust, EU funds, plus the **fiscal-reserve** end-of-quarter stock series derived from minfin.bg monthly bulletins) |
+| `cofog.json` | General-government expenditure by COFOG-99 function from Eurostat `gov_10a_exp` (S13, annual, MIO_NAC converted at the 1.95583 BGN/EUR parity). Top-level functions GF01..GF10 + TOTAL — drives the **functional-classification** tile on `/budget` |
+| `macro_peers.json` | BG + EU27 + CEE peer fiscal totals (revenue / expenditure / balance as % of GDP) from Eurostat `gov_10a_main` — drives the EU peer-comparison tile on `/governance` |
 | `debt-emissions.json` + `debt-emissions-domestic.json` | Sovereign debt emissions list. International Eurobonds since 2002 are hand-curated (`debt-emissions.json`); domestic ДЦК auctions 2019+ are scraped from BNB Fiscal Agent pages (`debt-emissions-domestic.json`). Merged client-side on `/indicators` into one sortable table |
 | `regional.json` | Per-oblast Eurostat NUTS 3 indicators (GDP per capita, population, net migration) — drives the drilldown tile and the `/demographics` choropleth |
 | `indicators.json` | Per-municipality annual indicators (registered unemployment from Агенция по заетостта, DZI matura scores from МОН via data.egov.bg) — drives the municipality drilldown tile and the muni-granularity `/demographics` choropleth, with Sofia city aggregate fallback for the 24 districts |

@@ -84,6 +84,14 @@ const DATASETS: { code: string; query: string }[] = [
     code: "nama_10_gdp",
     query: "geo=BG&unit=CP_MEUR&na_item=B1GQ&freq=A",
   },
+  // General-government expenditure by COFOG function (annual). Feeds the
+  // /budget functional-classification tile via scripts/macro/fetch_cofog.ts.
+  // Dataset-level `updated` is shared across all unit/cofog filters, so this
+  // single fingerprint covers the whole COFOG-99 cross-tab we consume.
+  {
+    code: "gov_10a_exp",
+    query: "geo=BG&sector=S13&na_item=TE&unit=MIO_NAC&cofog99=TOTAL&freq=A",
+  },
 ];
 
 const buildUrl = (code: string, query: string): string =>
@@ -100,7 +108,7 @@ const fetchUpdated = async (code: string, query: string): Promise<string> => {
 
 export const eurostat: WatchSource = {
   id: "eurostat",
-  label: "Eurostat macro (BG): 15 datasets",
+  label: "Eurostat macro (BG): 16 datasets",
   // Best representative URL for the report's link column — the rest live in
   // meta.
   url: "https://ec.europa.eu/eurostat/databrowser/",

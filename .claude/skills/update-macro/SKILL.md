@@ -1,6 +1,6 @@
 ---
 name: update-macro
-description: Refresh the macro indicators data (data/macro.json) — re-fetch Eurostat quarterly/annual series, World Bank WGI, and curated tables. Use when the daily watch report flags new Eurostat releases ("Eurostat macro (BG): new release"), when the user asks to refresh macro data, when adding a new indicator, or after the curated CPI / Eurobarometer tables get a new year's value pasted in.
+description: Refresh the macro indicators data (data/macro.json) plus the budget functional-classification artifact (data/cofog.json) — re-fetch Eurostat quarterly/annual series, World Bank WGI, COFOG (gov_10a_exp), and curated tables. Use when the daily watch report flags new Eurostat releases ("Eurostat macro (BG): new release"), when the user asks to refresh macro data, when adding a new indicator, or after the curated CPI / Eurobarometer tables get a new year's value pasted in.
 allowed-tools:
   - Read
   - Bash
@@ -17,6 +17,7 @@ Refreshes `data/macro.json` — the per-Bulgarian-cabinet macro/governance backd
 | Trigger | Action |
 |---|---|
 | Daily watcher reports `Eurostat macro (BG): new release · namq_10_gdp <date>, ...` | Run `npx tsx scripts/macro/fetch_eurostat.ts` |
+| Daily watcher reports `Eurostat macro (BG): new release · gov_10a_exp <date>` | Run `npx tsx scripts/macro/fetch_cofog.ts` to refresh `data/cofog.json` (general-government expenditure by COFOG function, consumed by the /budget functional-classification tile) |
 | Daily watcher reports `BNB domestic ДЦК auctions: N new auction(s)` | Run `npx tsx scripts/macro/fetch_bnb_auctions.ts` to re-scrape `data/debt-emissions-domestic.json` |
 | Daily watcher reports `Minfin КФП monthly bulletins: N new bulletin(s) cached` | Run `npx tsx scripts/macro/fetch_fiscal_reserve.ts` to re-scrape the fiscal-reserve series via Wayback (mreport PDFs + BULETIN PDFs + FRA XLSX). The script caches files under `data/_cache/minfin_mreports/` and writes `data/_cache/fiscal-reserve.json` (median across sources). Then re-run `npx tsx scripts/macro/fetch_eurostat.ts` so the new quarterly stock is baked into `data/macro.json` under `fiscalReserve`. |
 | User asks to extend fiscal-reserve past the Wayback cutoff (~April 2025) | Open <https://www.minfin.bg/bg/statistics/4> in a browser and "Save link as" each `Фискален резерв по месеци към DD.MM.YYYY г.` link directly into `data/_cache/minfin_fr_xlsx/` (keep the upstream filename `FRA-MM-YYYY-BG.xlsx`). Then run the two scripts as above. See `data/_cache/minfin_fr_xlsx/README.md` for the full workflow. |
@@ -252,9 +253,11 @@ After every run, eyeball the per-indicator `N points (latest …)` lines. If a s
 | Path | Purpose |
 |---|---|
 | `scripts/macro/fetch_eurostat.ts` | CLI entry — fetch all macro series + curated tables, write `data/macro.json` |
-| `scripts/watch/sources/eurostat.ts` | Daily watcher — fingerprints all 6 quarterly Eurostat datasets |
+| `scripts/macro/fetch_cofog.ts` | CLI entry — fetch general-government expenditure by COFOG function (gov_10a_exp), write `data/cofog.json` |
+| `scripts/watch/sources/eurostat.ts` | Daily watcher — fingerprints every tracked Eurostat dataset (quarterly macro triple, annual GDP, COFOG, …) |
 | `scripts/watch/sources/ec_budget_per_ms.ts` | Daily watcher — fingerprints the EC per-MS XLSX link (EU funds / contribution source) |
 | `data/macro.json` | Generated payload (~40 KB, minified) — committed |
+| `data/cofog.json` | Generated payload — Eurostat COFOG annual series, top-level functions GF01..GF10 + TOTAL, ~15 years — committed |
 | `src/data/macro/useMacro.tsx` | React Query hook + types |
 | `src/screens/components/governments/GovernmentTimeline.tsx` | Chart |
 | `src/screens/GovernmentsScreen.tsx` | Page that hosts the chart sections |

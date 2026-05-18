@@ -1502,6 +1502,7 @@
   "budget_law_dv_source": "Държавен вестник — annual Закон за държавния бюджет (HTML), per-spending-unit appropriations at admin + program grain",
   "budget_ministry_execution_source": "Per-ministry annual \"Отчет за изпълнението на програмния бюджет\" (PDF or XLSX-in-ZIP), published by each first-level spending unit",
   "budget_ec_eu_funds_source": "European Commission — \"EU spending and revenue\" per-Member-State XLSX (Bulgaria totals of EU expenditure and national contribution)",
+  "budget_cofog_source": "Eurostat gov_10a_exp — general-government expenditure by COFOG-99 function (sector S13, annual). Covers state budget plus social-security funds (NOI / NHIF), municipal budgets and EU funds — broader than the state-budget execution feed.",
   "fiscal_reserve_section": "Fiscal reserve",
   "fiscal_reserve_minfin_xlsx_source": "Министерство на финансите — Фискален резерв (monthly FRA-MM-YYYY-BG.xlsx). Authoritative end-of-month stock; unit switched from BGN to EUR with the 2026-01-01 euro adoption. Fetched via Wayback Machine where cached, manual drop otherwise.",
   "fiscal_reserve_minfin_mreport_source": "Министерство на финансите — Месечен бюлетин (mreport PDF). КФП summary table carrying the фискален резерв row across ~12 rolling months. Secondary cross-validation source.",
