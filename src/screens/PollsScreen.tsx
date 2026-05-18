@@ -90,7 +90,7 @@ export const PollsScreen: FC = () => {
 
   // Top stats
   const totalPolls = polls.length;
-  const realAgencies = agencies.filter((a) => a.id !== "NA").length;
+  const realAgencies = agencies.length;
   const electionsCovered = accuracy.elections.length;
   const best = agencyProfiles[0]; // sorted by overallMAE asc
 

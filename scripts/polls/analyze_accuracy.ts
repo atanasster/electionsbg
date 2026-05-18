@@ -807,10 +807,8 @@ const main = async (opts: { pollsDir: string }) => {
   }
   elections.sort((a, b) => (a.electionDate < b.electionDate ? 1 : -1));
 
-  // Drop the "NA" pseudo-agency (general-consensus placeholder, not a real pollster)
-  const realAgencies = agencies.filter((a) => a.id !== "NA");
   const profilesRaw = buildAgencyProfiles(
-    realAgencies,
+    agencies,
     polls,
     details,
     elections,
