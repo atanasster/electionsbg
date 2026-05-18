@@ -411,6 +411,7 @@ export const BudgetScreen: FC = () => {
           title={t("budget_section_execution") || "Execution"}
           subtitle={t("budget_section_execution_subtitle") || undefined}
           icon={Activity}
+          articleTopic="budget"
         >
           {scopedObservations.length > 0 ? (
             <BudgetTrendTile
