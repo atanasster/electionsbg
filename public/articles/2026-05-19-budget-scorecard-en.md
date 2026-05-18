@@ -31,6 +31,8 @@ Every item carries three elements: a **finding** (the concrete budget data point
 
 Sources are entirely public and integrated into a single base: the Finance Ministry's monthly fiscal bulletin (КФП), Държавен вестник (the State Budget Law and amendments), the per-ministry program-budget execution reports, Eurostat's functional classification dataset (gov_10a_exp), the fiscal-aggregate-as-%-of-GDP dataset (gov_10a_main), and the Court of Audit register. Each series updates on its own cadence — КФП monthly, ministry execution reports yearly in the spring after a fiscal year closes, and Eurostat with the usual 12–18 month lag.
 
+!["Budget flow" Sankey: revenue inputs on the left (VAT, PIT, excise…) meeting spending categories on the right (transfers, personnel, capital…), with the deficit rendered as a hatched extension below the shorter side.](/articles/images/budget/03-flow-sankey.png)
+
 ---
 
 ## Risks
@@ -139,7 +141,7 @@ This is Bulgaria's first tool that takes a specific salary and answers concretel
 
 **Analytic opportunity.** The calculator lets you directly compare the two МОД proposals (€2,300 vs €2,352) — just type in each value to see which is more burdensome on middle-high earners. Tools like this narrow the information asymmetry between public institutions and citizens.
 
-!["Budget flow" Sankey: revenue inputs on the left (VAT, PIT, excise…) meeting spending categories on the right (transfers, personnel, capital…), with the deficit rendered as a hatched extension below the shorter side.](/articles/images/budget/03-flow-sankey.png)
+!["What did your taxes buy?" calculator: gross-salary slider, editable МОД field defaulting to the 2026 cap (€2,112), employee SSC + income-tax breakdown, then the result routed through general-government spending shares.](/articles/images/budget/04-tax-bill.png)
 
 **Where to look:** The [What did your taxes buy?](/budget#budget-tax-bill) calculator in the Composition section. The МОД default tracks the selected election term.
 
