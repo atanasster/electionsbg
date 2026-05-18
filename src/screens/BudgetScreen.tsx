@@ -191,11 +191,13 @@ const FiscalYearSelector: FC<{
         // law/amendment/execution stage), so every chip is selectable. The
         // status text distinguishes the depth of data behind it.
         const active = y.fiscalYear === selectedFy;
-        const status = y.summary
-          ? y.summary.complete
-            ? t("budget_fy_status_complete") || "executed"
-            : t("budget_fy_status_inprogress") || "in progress"
-          : t("budget_fy_status_law_only") || "law plan";
+        const status = y.carryover
+          ? t("budget_fy_status_carryover") || "in effect"
+          : y.summary
+            ? y.summary.complete
+              ? t("budget_fy_status_complete") || "executed"
+              : t("budget_fy_status_inprogress") || "in progress"
+            : t("budget_fy_status_law_only") || "law plan";
         return (
           <button
             key={y.fiscalYear}

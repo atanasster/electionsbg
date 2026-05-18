@@ -9,7 +9,7 @@
 import { FC, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Landmark, Receipt, Users, ChevronRight } from "lucide-react";
+import { Landmark, Receipt, Users, ChevronRight, ChevronDown } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { cn } from "@/lib/utils";
 import { formatEur } from "@/lib/currency";
@@ -141,6 +141,8 @@ export const BudgetMinistriesTile: FC<{ fiscalYear: number }> = ({
   const { data: programFacts } = useBudgetProgramFacts(fiscalYear);
   const { data: programRecon } = useBudgetProgramReconciliation(fiscalYear);
   const [expanded, setExpanded] = useState<Set<string>>(new Set());
+  const [expandedAll, setExpandedAll] = useState(false);
+  const TOP_N = 5;
   const toggle = (id: string) =>
     setExpanded((prev) => {
       const next = new Set(prev);
@@ -192,7 +194,7 @@ export const BudgetMinistriesTile: FC<{ fiscalYear: number }> = ({
   const execAsOf = `${fiscalYear}-12-31`;
 
   return (
-    <Card className="my-4" data-og="budget-ministries">
+    <Card className="my-4" id="budget-ministries" data-og="budget-ministries">
       <CardHeader className="pb-2">
         <CardTitle className="text-base flex items-center gap-2">
           <Landmark className="h-4 w-4" />
@@ -213,7 +215,7 @@ export const BudgetMinistriesTile: FC<{ fiscalYear: number }> = ({
       </CardHeader>
       <CardContent className="pt-0">
         <ul className="space-y-1.5">
-          {expenditure.map((m) => {
+          {(expandedAll ? expenditure : expenditure.slice(0, TOP_N)).map((m) => {
             // Bar baseline is the amended appropriation when present, else the
             // law-planned figure; the foreground bar is the executed share of
             // that baseline. Falls back to the original plan-only bar when no
@@ -337,6 +339,27 @@ export const BudgetMinistriesTile: FC<{ fiscalYear: number }> = ({
             );
           })}
         </ul>
+        {expenditure.length > TOP_N ? (
+          <button
+            type="button"
+            onClick={() => setExpandedAll((v) => !v)}
+            aria-expanded={expandedAll}
+            className="mt-3 inline-flex items-center gap-1 text-xs text-primary hover:underline"
+          >
+            {expandedAll
+              ? t("budget_top_ministries_collapse") || "Show less"
+              : t("budget_top_ministries_see_all", {
+                  count: expenditure.length - TOP_N,
+                  defaultValue: `See all ${expenditure.length - TOP_N} other units`,
+                })}
+            <ChevronDown
+              className={cn(
+                "h-3 w-3 transition-transform",
+                expandedAll && "rotate-180",
+              )}
+            />
+          </button>
+        ) : null}
       </CardContent>
     </Card>
   );

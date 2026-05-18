@@ -24,7 +24,7 @@ import { useBudgetTerm } from "@/data/budget/useBudgetTerm";
 import { useElectionContext } from "@/data/ElectionContext";
 import { BudgetSummaryTile } from "@/screens/components/budget/BudgetSummaryTile";
 import { BudgetSamePointTile } from "@/screens/components/budget/BudgetSamePointTile";
-import { BudgetMinistriesTile } from "@/screens/components/budget/BudgetMinistriesTile";
+import { BudgetTopMinistriesTile } from "@/screens/components/budget/BudgetTopMinistriesTile";
 import { BudgetRevenueCompositionTile } from "@/screens/components/budget/BudgetRevenueCompositionTile";
 import { BudgetExpenditureCompositionTile } from "@/screens/components/budget/BudgetExpenditureCompositionTile";
 import { BudgetMultiYearTrendTile } from "@/screens/components/budget/BudgetMultiYearTrendTile";
@@ -136,19 +136,19 @@ export const GovernanceCards: FC = () => {
               />
             ) : null}
             {budgetTerm.selectedFy != null ? (
-              <>
-                <div className="grid gap-3 grid-cols-1 lg:grid-cols-2">
+              <div className="grid gap-3 grid-cols-1 lg:grid-cols-2 lg:items-start">
+                <div className="flex flex-col gap-3">
                   <BudgetRevenueCompositionTile
                     fiscalYear={budgetTerm.selectedFy}
                   />
-                  <BudgetExpenditureCompositionTile
-                    fiscalYear={budgetTerm.selectedFy}
-                  />
+                  {adminFy != null ? (
+                    <BudgetTopMinistriesTile fiscalYear={adminFy} />
+                  ) : null}
                 </div>
-                {adminFy != null ? (
-                  <BudgetMinistriesTile fiscalYear={adminFy} />
-                ) : null}
-              </>
+                <BudgetExpenditureCompositionTile
+                  fiscalYear={budgetTerm.selectedFy}
+                />
+              </div>
             ) : null}
           </DashboardSection>
         ) : null}
