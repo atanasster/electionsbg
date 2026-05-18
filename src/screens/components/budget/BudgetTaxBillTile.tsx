@@ -110,15 +110,46 @@ export const BudgetTaxBillTile: FC<{ fiscalYear?: number | null }> = ({
   // each election term shows the cap that was actually in force then. The
   // user can override (number input) — useful to model proposed changes
   // (e.g. May 2026 budget proposal raises the cap toward €2,300).
+  //
+  // Two parallel states keep typing painless:
+  //   `mod`      — the committed numeric value used in tax math.
+  //   `modDraft` — the literal string in the input box (incl. transient
+  //                empty / partial values like "" or "2" while typing).
+  // We commit (parse + clamp into [MIN_MOD, MAX_MOD]) on blur and Enter,
+  // not on every keystroke. Clamping mid-keystroke broke common UX:
+  // typing "2" while showing "2112" produced "22112" → clamped to 4000.
   const defaultMod = resolveDefaultMod(fiscalYear);
   const [mod, setMod] = useState<number>(defaultMod);
+  const [modDraft, setModDraft] = useState<string>(String(defaultMod));
   const [modTouched, setModTouched] = useState(false);
   // When the selected election year changes, reset the editable МОД to the
   // year's authoritative value — unless the user is actively experimenting
   // with a custom override (modTouched).
   useEffect(() => {
-    if (!modTouched) setMod(defaultMod);
+    if (!modTouched) {
+      setMod(defaultMod);
+      setModDraft(String(defaultMod));
+    }
   }, [defaultMod, modTouched]);
+
+  const commitMod = (): void => {
+    const parsed = Number(modDraft);
+    if (!Number.isFinite(parsed)) {
+      // Empty or garbage → snap back to the committed value.
+      setModDraft(String(mod));
+      return;
+    }
+    const clamped = Math.max(MIN_MOD, Math.min(MAX_MOD, Math.round(parsed)));
+    setMod(clamped);
+    setModDraft(String(clamped));
+    setModTouched(true);
+  };
+
+  const resetMod = (): void => {
+    setMod(defaultMod);
+    setModDraft(String(defaultMod));
+    setModTouched(false);
+  };
 
   // Monthly tax burden — SSC first (capped at the МОД ceiling), then 10% PIT
   // on (gross − SSC). For high earners the cap means SSC stops growing but
@@ -212,12 +243,18 @@ export const BudgetTaxBillTile: FC<{ fiscalYear?: number | null }> = ({
               min={MIN_MOD}
               max={MAX_MOD}
               step={1}
-              value={mod}
-              onChange={(e) => {
-                const v = Number(e.target.value);
-                if (!Number.isFinite(v)) return;
-                setMod(Math.max(MIN_MOD, Math.min(MAX_MOD, Math.round(v))));
-                setModTouched(true);
+              value={modDraft}
+              onChange={(e) => setModDraft(e.target.value)}
+              onBlur={commitMod}
+              onKeyDown={(e) => {
+                if (e.key === "Enter") {
+                  commitMod();
+                  e.currentTarget.blur();
+                }
+                if (e.key === "Escape") {
+                  setModDraft(String(mod));
+                  e.currentTarget.blur();
+                }
               }}
               className="w-20 rounded border border-input bg-background px-2 py-0.5 text-sm tabular-nums focus:outline-none focus:ring-1 focus:ring-ring"
               aria-label={
@@ -229,10 +266,7 @@ export const BudgetTaxBillTile: FC<{ fiscalYear?: number | null }> = ({
           {isModCustom ? (
             <button
               type="button"
-              onClick={() => {
-                setMod(defaultMod);
-                setModTouched(false);
-              }}
+              onClick={resetMod}
               className="text-[11px] text-primary hover:underline"
             >
               {(
