@@ -21,7 +21,7 @@ keywords:
 
 Bulgaria runs one of the smaller state budgets in the EU as a share of its economy — general-government expenditure is **41.7% of GDP** against the EU-27 average of **49.5%**. Public debt sits at **29.9% of GDP**, well under the 60% Maastricht ceiling, and the 2025 cash deficit stayed within the 3% Maastricht limit. At the same time, every closed fiscal year shows material gaps between the original State Budget Law (ЗДБРБ) and actual execution — for 2024, the Ministry of Environment ended up at **+214.4%** over plan, the Ministry of Defence at **+68.0%**, while the Ministry of Labour and Social Policy fell **-29.9%** short of plan.
 
-This piece is a structured scorecard of the state budget — five risks and five opportunities, each pinned to specific modules of the [/budget dashboard](/budget) and the data behind it. The current focus is the **new 2026 budget proposal**, in which the government wants to lift the maximum insurable income (МОД) from the current **€2,111.64** to **€2,300** per month — the second attempt, after the original **€2,352** proposal triggered protests and was withdrawn.
+This piece is a structured scorecard of the state budget — five risks and five opportunities, each pinned to specific modules of the [/budget dashboard](/budget) and the data behind it. The current focus is the **new 2026 budget proposal**, which lifts the maximum insurable income (МОД) from the current **€2,111.64** to **€2,300** per month. This is the government's second attempt — the original proposal to take the ceiling to €2,352 met substantial public pushback.[^mod-sources]
 
 ![Budget dashboard headline strip: revenue €26.3B, expenditure €28.4B, EU contribution €1.0B, deficit €3.1B — each card with Bulgaria's position against the EU-27.](/articles/images/budget/01-headline-strip.png)
 
@@ -41,13 +41,13 @@ Sources are entirely public and integrated into a single base: the Finance Minis
 
 [^mod-sources]: Timeline: GERB's first 2026 budget, voted on second reading in the parliamentary Budget Committee on 26 November 2025, raised МОД from BGN 4,130 to **BGN 4,600 (€2,352)**; the vote went through during a citizen protest in front of Parliament — see [Boulevard Bulgaria, 26.11.2025](https://boulevardbulgaria.bg/articles/napuk-na-protesta-gerb-dps-i-kompaniya-prieha-po-visokite-vnoski-za-pensiya). That budget was subsequently rejected. The new proposal (May 2026) drops the step to **€2,300** — see [Sega.bg, 18.05.2026](https://www.segabg.com/hot/category-bulgaria/maksimalniyat-osiguritelen-dohod-se-vdiga-na-2300-evro) and [Forbes Bulgaria, 18.05.2026](https://forbesbulgaria.com/2026/05/18/darzhavata-otvarya-byudzhetnata-protsedura-za-2026-g-s-nov-opit-za-uvelichenie-na-mod/).
 
-The maximum insurable income sets the ceiling against which employee and employer social-security contributions accrue. From 2018 to today, МОД rose from **€1,329** to **€2,112** — close to a doubling in real terms even after inflation. The new proposal continues the trend at roughly **€189 per year** through 2028.
+The maximum insurable income sets the ceiling against which employee and employer social-security contributions accrue. From 2018 to today, МОД rose from **€1,329** to **€2,112** — close to a doubling in nominal terms. The new proposal continues the trend at a forecast pace of roughly **€189 per year** through 2028.
 
 **Economic impact.** For an employee on €2,300/mo gross instead of the current €2,112, employee SSC (13.78%) goes up by **€25.93/mo**, and employer SSC (around 19.8%) by another **€37.26/mo**. The total social-security burden rises by close to **€63 per month** per affected worker. The Finance Ministry estimates roughly 100,000 affected employees — implying additional annual budget revenue in the range of **€75–90M**.
 
 **Distributional effect.** The real burden falls on middle-to-upper income earners — those already above the current cap. For them the effective marginal rate jumps from 10% (PIT only) to about 23% (PIT + full SSC) over the new bracket. Above €2,300 the marginal rate drops back to 10% — the signature pattern of a flat-tax regime with a contribution ceiling.
 
-**Tie to the deficit.** The 2025 cash deficit closed at **€6.09B**, and Q1 2026 alone has already accumulated **€1.92B**. The additional €75–90M from raising МОД covers only **1.2–1.5%** of the annual deficit — not nearly enough as a stand-alone fiscal lever. The real driver of the change is the rising pension obligation (7.8% pension hike effective 1 July 2026), not budget balancing.
+**Tie to the deficit.** The 2025 cash deficit closed at **€6.09B**, and Q1 2026 alone has already accumulated **€1.92B**. The additional €75–90M from raising МОД covers only **1.2–1.5%** of the annual deficit — not nearly enough as a stand-alone fiscal lever. The real driver of the change is the rising pension obligation (a planned 7.8% indexation from 1 July 2026 under the Swiss-rule formula), not budget balancing.
 
 !["What did your taxes buy?" calculator: gross-salary slider, editable МОД field defaulting to the 2026 cap (€2,112), employee SSC + income-tax breakdown, then the result routed through general-government spending shares.](/articles/images/budget/04-tax-bill.png)
 
@@ -67,7 +67,7 @@ The 2024 gaps at the largest ministries are systematic and large. Environment ra
 
 **Where to look:** The [Largest deviations from plan](/budget#budget-composition) tile and the full [Spending units](/budget#budget-composition) table below it in the Composition section. Both refresh annually in the spring once ministries publish their reports.
 
-### R3 · Concentration of spending in social functions — **MEDIUM**
+### R3 · Concentration of spending in social functions — **HIGH**
 
 > By COFOG (Eurostat, 2024): social protection **36.8%** of total spending (€7.7B), health **13.7%** (€2.9B), education **10.9%** (€2.3B). General public services at only **7.5%** — among the lowest shares in the EU.
 
@@ -169,7 +169,7 @@ The technical transition to the euro was relatively smooth, but it created a "re
 
 | Category | High | Medium | Low | Total |
 | :--- | :--- | :--- | :--- | :--- |
-| **Risks** | R1 | R2, R3, R4 | R5 | **5** |
+| **Risks** | R1, R3 | R2, R4 | R5 | **5** |
 | **Opportunities** | O1, O5 | O2, O3, O4 | — | **5** |
 
 The current situation around budget 2026 shows that **risks and opportunities are deeply linked**. Raising МОД (R1) is a direct response to demographic pressure and the rising pension obligation that flow from the structural concentration in social functions (R3). At the same time, fiscal headroom (O1) and the post-eurozone window (O5) open a path for broader reforms that would address the imbalances behind R3 and R4 without relying solely on tax and contribution hikes.
