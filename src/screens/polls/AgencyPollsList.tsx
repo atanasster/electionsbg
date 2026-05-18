@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import { ExternalLink, ListOrdered } from "lucide-react";
 import { StatCard } from "@/screens/dashboard/StatCard";
 import { ElectionAccuracy, Poll, PollDetail } from "@/data/polls/pollsTypes";
+import { resolveActualKey } from "@/data/polls/aliases";
 import { localDate } from "@/data/utils";
 
 type Props = {
@@ -25,60 +26,8 @@ const localizeFieldwork = (fw: string, isBg: boolean): string => {
   return fw.replace(/^through\s+/i, "до ");
 };
 
-// Mirror analyze_accuracy.ts so the actual % we display matches the value used
-// in the MAE computation. Polled labels ("Прогресивна България", "ГЕРБ – СДС")
-// differ from the canonical actual-result keys ("ПрБ", "ГЕРБ-СДС").
-const normKey = (s: string) =>
-  s
-    .normalize("NFC")
-    .replace(/\s*[–—-]\s*/g, "-")
-    .replace(/\s+/g, " ")
-    .trim();
-
-const POLL_TO_ACTUAL: Record<string, string> = {
-  "Прогресивна България": "ПрБ",
-  "БСП за България": "БСП",
-  "Коалиция за България (БСП)": "БСП",
-  "Демократична България": "ДБ",
-  "Алианс за права и свободи": "АПС",
-  "Български възход": "БВ",
-  "Обединени патриоти": "ОП",
-  "Изправи се БГ! Ние идваме": "ИСМВ",
-  "Изправи се! Мутри вън!": "ИСМВ",
-  "Изправи се.БГ": "ИСМВ",
-  "Реформаторски блок-Глас народен": "РБ",
-  "Реформаторски блок": "РБ",
-  "Патриотичен фронт": "ПФ",
-  "България без цензура": "ББЦ",
-  Воля: "Воля",
-};
-
-// Mirror analyze_accuracy.ts: strip "Коалиция " prefix that some agencies
-// prepend to alliance labels (ML 2024+ xlsx).
-const stripCoalitionPrefix = (s: string): string =>
-  s.replace(/^\s*Коалиция\s+/i, "").trim();
-
-const resolveActualKey = (
-  polledBg: string,
-  actualKeys: Set<string>,
-): string | null => {
-  const tryOne = (label: string): string | null => {
-    const direct = POLL_TO_ACTUAL[label.trim()];
-    if (direct && actualKeys.has(direct)) return direct;
-    const norm = normKey(label);
-    if (actualKeys.has(norm)) return norm;
-    if (norm === "ДПС-НН" && actualKeys.has("ДПС")) return "ДПС";
-    if (norm === "ДПС" && actualKeys.has("ДПС-НН")) return "ДПС-НН";
-    if (norm === "БСП" && actualKeys.has("БСП-ОЛ")) return "БСП-ОЛ";
-    if (norm === "БСП-ОЛ" && actualKeys.has("БСП")) return "БСП";
-    return null;
-  };
-  const first = tryOne(polledBg);
-  if (first) return first;
-  const stripped = stripCoalitionPrefix(polledBg);
-  if (stripped !== polledBg) return tryOne(stripped);
-  return null;
-};
+// normKey / POLL_TO_ACTUAL / stripCoalitionPrefix / resolveActualKey live in
+// @/data/polls/aliases so the analyzer script and this view can't drift.
 
 // Try to extract the fieldwork END date from the free-text "fieldwork" field
 // so polls can be sorted reliably newest-first and used to derive the next

@@ -14,12 +14,13 @@ import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
 import { command, run, option, string } from "cmd-ts";
+import { normKey, resolveActualKey } from "@/data/polls/aliases";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 const POLLS_DIR = path.resolve(__dirname, "../../data/polls");
-const PUBLIC_DIR = path.resolve(__dirname, "../../public");
+const DATA_DIR = path.resolve(__dirname, "../../data");
 
 type Lang = { en: string; bg: string };
 
@@ -76,37 +77,8 @@ type NationalSummary = {
   parties: ActualParty[];
 };
 
-// Normalize a party label so polled-name and actual-name converge.
-// "ГЕРБ – СДС" / "ГЕРБ-СДС" / "ГЕРБ - СДС" → "ГЕРБ-СДС"
-const normKey = (s: string) =>
-  s
-    .normalize("NFC")
-    .replace(/\s*[–—-]\s*/g, "-")
-    .replace(/\s+/g, " ")
-    .trim();
-
-// Manual aliases for polled labels that don't normalize to the same key as the actual
-// election-summary nickName. Keep tight — only entries we've confirmed are the same party.
-const POLL_TO_ACTUAL: Record<string, string> = {
-  "Прогресивна България": "ПрБ",
-  "БСП за България": "БСП",
-  "Коалиция за България (БСП)": "БСП",
-  "Демократична България": "ДБ",
-  "Алианс за права и свободи": "АПС",
-  "Български възход": "БВ",
-  "Обединени патриоти": "ОП",
-  "Изправи се БГ! Ние идваме": "ИСМВ",
-  "Изправи се! Мутри вън!": "ИСМВ",
-  "Изправи се.БГ": "ИСМВ",
-  "Реформаторски блок-Глас народен": "РБ",
-  "Реформаторски блок": "РБ",
-  "Патриотичен фронт": "ПФ",
-  "България без цензура": "ББЦ",
-  Воля: "Воля",
-  // Поляризация: polls call it "ДПС" pre-2024, "ДПС-НН" after the split. The actual
-  // 2024-10-27 result has "ДПС-НН"; the actual 2024-06 has "ДПС". We let the year resolve it
-  // — see resolveActualKey below.
-};
+// normKey / POLL_TO_ACTUAL / stripCoalitionPrefix / resolveActualKey live in
+// src/data/polls/aliases.ts so the frontend and this script can't drift.
 
 // Ideological blocs for "lean" computation. Keys are normalized actual-result nicknames.
 type BlocId =
@@ -124,9 +96,10 @@ const BLOC_OF: Record<string, BlocId> = {
   СК: "right_govt",
   ОДС: "right_govt",
   ДСБ: "right_govt",
+  СБ: "right_govt",
+  ДБ: "right_govt",
   ПП: "reformist",
   "ПП-ДБ": "reformist",
-  ДБ: "reformist",
   ПрБ: "reformist",
   РБ: "reformist",
   Възраждане: "nationalist",
@@ -152,37 +125,16 @@ const BLOC_OF: Record<string, BlocId> = {
 
 const blocOf = (key: string): BlocId => BLOC_OF[key] ?? "other";
 
-// Resolve a poll's party label to the matching actual-results nickName for that election.
-// Returns null if no match — those parties are excluded from MAE (the agency didn't poll
-// or the actual result doesn't list it; either way it's noise for the metric).
-// Strip a "Коалиция " ("Coalition ") prefix that some agencies — notably ML in
-// their 2024+ xlsx — prepend to alliance labels. Without this, "Коалиция
-// Прогресивна България" silently fails to match the actual-result key "ПрБ".
-const stripCoalitionPrefix = (s: string): string =>
-  s.replace(/^\s*Коалиция\s+/i, "").trim();
-
-const resolveActualKey = (
-  polledBg: string,
-  actualKeys: Set<string>,
-): string | null => {
-  const tryOne = (label: string): string | null => {
-    const direct = POLL_TO_ACTUAL[label.trim()];
-    if (direct && actualKeys.has(direct)) return direct;
-    const norm = normKey(label);
-    if (actualKeys.has(norm)) return norm;
-    // ДПС / ДПС-НН ambiguity — try both.
-    if (norm === "ДПС-НН" && actualKeys.has("ДПС")) return "ДПС";
-    if (norm === "ДПС" && actualKeys.has("ДПС-НН")) return "ДПС-НН";
-    if (norm === "БСП" && actualKeys.has("БСП-ОЛ")) return "БСП-ОЛ";
-    if (norm === "БСП-ОЛ" && actualKeys.has("БСП")) return "БСП";
-    return null;
-  };
-  const first = tryOne(polledBg);
-  if (first) return first;
-  const stripped = stripCoalitionPrefix(polledBg);
-  if (stripped !== polledBg) return tryOne(stripped);
-  return null;
+// Same party, different ballot abbreviation across cycles. Used to consolidate
+// per-party bias/house-effect aggregations so e.g. ГЕРБ (2017) and ГЕРБ-СДС (2021+)
+// show as one row rather than splitting samples between two near-identical labels.
+const CANONICAL_KEY: Record<string, string> = {
+  ГЕРБ: "ГЕРБ-СДС",
+  ДПС: "ДПС-НН",
+  БСП: "БСП-ОЛ",
+  ВОЛЯ: "Воля",
 };
+const canonicalKey = (key: string): string => CANONICAL_KEY[key] ?? key;
 
 const isoToFolder = (iso: string) => iso.replace(/-/g, "_");
 
@@ -401,7 +353,7 @@ const computeElectionAccuracy = (
   details: PollDetail[],
 ): ElectionAccuracy | null => {
   const summary = readJson<NationalSummary>(
-    path.join(PUBLIC_DIR, isoToFolder(electionDate), "national_summary.json"),
+    path.join(DATA_DIR, isoToFolder(electionDate), "national_summary.json"),
   );
   if (!summary) {
     console.warn(`  ! no national_summary for ${electionDate}`);
@@ -525,7 +477,7 @@ const computeHouseEffects = (
     const ck = cycleKey(p);
     const polledRows = detailsByPoll.get(p.id) ?? [];
     for (const r of polledRows) {
-      const party = normKey(r.nickName_bg);
+      const party = canonicalKey(normKey(r.nickName_bg));
       records.push({
         agencyId: p.agencyId,
         party,
@@ -607,12 +559,14 @@ const buildAgencyProfiles = (
       Math.sqrt(mean(allErrors.map((e) => e.abs * e.abs))),
     );
 
-    // Party bias = mean signed error per party (positive = agency overestimates that party)
+    // Party bias = mean signed error per party (positive = agency overestimates that party).
+    // Consolidate cross-cycle renames (e.g. ГЕРБ → ГЕРБ-СДС, ДПС → ДПС-НН) under the canonical key.
     const byParty = new Map<string, number[]>();
     for (const e of allErrors) {
-      const arr = byParty.get(e.key) ?? [];
+      const key = canonicalKey(e.key);
+      const arr = byParty.get(key) ?? [];
       arr.push(e.error);
-      byParty.set(e.key, arr);
+      byParty.set(key, arr);
     }
     const partyBias = [...byParty.entries()]
       .map(([key, errs]) => ({

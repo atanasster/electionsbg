@@ -11,7 +11,7 @@ export const BLOC_COLORS: Record<BlocId, string> = {
 };
 
 export const BLOC_LABELS: Record<BlocId, { en: string; bg: string }> = {
-  right_govt: { en: "Right (GERB)", bg: "Десни (ГЕРБ)" },
+  right_govt: { en: "Right", bg: "Десни" },
   reformist: { en: "Reformist", bg: "Реформистки" },
   nationalist: { en: "Nationalist", bg: "Националистически" },
   left: { en: "Left (BSP)", bg: "Леви (БСП)" },
