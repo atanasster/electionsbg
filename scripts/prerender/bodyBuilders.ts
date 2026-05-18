@@ -819,7 +819,6 @@ export const buildSettlementBody = (input: SettlementBodyInput): string => {
     `<a href="${SITE_URL}/sections/${ekatte}/parties">Партии</a>`,
     `<a href="${SITE_URL}/sections/${ekatte}/preferences">Преференции</a>`,
     `<a href="${SITE_URL}/sections/${ekatte}/recount">Повторно преброяване</a>`,
-    `<a href="${SITE_URL}/sections/${ekatte}/timeline">Времева линия</a>`,
   ];
   if (oblastCode && oblastName) {
     navLinks.unshift(
@@ -843,7 +842,7 @@ export const buildOblastBody = (region: RegionInfo): string => {
   );
   const code = region.oblast;
   parts.push(
-    `<p><a href="${SITE_URL}/municipality/${code}/parties">Партии</a> · <a href="${SITE_URL}/municipality/${code}/preferences">Преференции</a> · <a href="${SITE_URL}/municipality/${code}/municipalities">Общини</a> · <a href="${SITE_URL}/municipality/${code}/recount">Повторно преброяване</a> · <a href="${SITE_URL}/municipality/${code}/timeline">Времева линия</a></p>`,
+    `<p><a href="${SITE_URL}/municipality/${code}/parties">Партии</a> · <a href="${SITE_URL}/municipality/${code}/preferences">Преференции</a> · <a href="${SITE_URL}/municipality/${code}/municipalities">Общини</a> · <a href="${SITE_URL}/municipality/${code}/recount">Повторно преброяване</a></p>`,
   );
   return parts.join("\n");
 };

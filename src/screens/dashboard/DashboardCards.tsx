@@ -210,10 +210,7 @@ export const DashboardCards: FC = () => {
           <ProblemVotesByPartyTile />
           {problemSectionsStats?.length ? (
             <Suspense fallback={null}>
-              <HistoricalTrendsTile
-                stats={problemSectionsStats}
-                seeDetailsTo="/reports/section/problem_sections"
-              />
+              <HistoricalTrendsTile stats={problemSectionsStats} />
             </Suspense>
           ) : null}
         </DashboardSection>

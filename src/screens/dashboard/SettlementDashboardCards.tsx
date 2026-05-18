@@ -107,7 +107,7 @@ export const SettlementDashboardCards: FC<Props> = ({ ekatte }) => {
               basePath={basePath}
             />
           ) : null}
-          <HistoricalTrendsTile stats={stats} basePath={basePath} />
+          <HistoricalTrendsTile stats={stats} />
         </DashboardSection>
 
         <DashboardSection
@@ -146,10 +146,7 @@ export const SettlementDashboardCards: FC<Props> = ({ ekatte }) => {
           <ProblemSectionsTile parties={data.parties} ekatte={ekatte} />
           <ProblemVotesByPartyTile ekatte={ekatte} />
           {problemSectionsStats?.length ? (
-            <HistoricalTrendsTile
-              stats={problemSectionsStats}
-              seeDetailsTo="/reports/section/problem_sections"
-            />
+            <HistoricalTrendsTile stats={problemSectionsStats} />
           ) : null}
         </DashboardSection>
       </section>

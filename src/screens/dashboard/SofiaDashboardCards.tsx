@@ -104,7 +104,7 @@ export const SofiaDashboardCards: FC = () => {
         ) : null}
         <SofiaMpsTile parties={data.parties} />
         <VoteFlowTile regionCodes={SOFIA_REGIONS} />
-        <HistoricalTrendsTile stats={sofiaStats} basePath={SOFIA_BASE_PATH} />
+        <HistoricalTrendsTile stats={sofiaStats} />
       </DashboardSection>
 
       <DashboardSection
@@ -150,10 +150,7 @@ export const SofiaDashboardCards: FC = () => {
         />
         <ProblemVotesByPartyTile regionCodes={SOFIA_REGIONS} />
         {problemSectionsStats?.length ? (
-          <HistoricalTrendsTile
-            stats={problemSectionsStats}
-            seeDetailsTo="/reports/section/problem_sections"
-          />
+          <HistoricalTrendsTile stats={problemSectionsStats} />
         ) : null}
       </DashboardSection>
 

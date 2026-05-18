@@ -81,7 +81,7 @@ export const SectionDashboardCards: FC<Props> = ({ sectionCode }) => {
           icon={Gauge}
         >
           <PartyResultsTile parties={data.parties} basePath={basePath} />
-          <HistoricalTrendsTile stats={stats} basePath={basePath} />
+          <HistoricalTrendsTile stats={stats} />
         </DashboardSection>
 
         <DashboardSection

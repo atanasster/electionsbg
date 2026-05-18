@@ -110,7 +110,7 @@ export const MunicipalityDashboardCards: FC<Props> = ({ municipalityCode }) => {
               basePath={basePath}
             />
           ) : null}
-          <HistoricalTrendsTile stats={stats} basePath={basePath} />
+          <HistoricalTrendsTile stats={stats} />
         </DashboardSection>
 
         <DashboardSection
@@ -162,10 +162,7 @@ export const MunicipalityDashboardCards: FC<Props> = ({ municipalityCode }) => {
           />
           <ProblemVotesByPartyTile municipalityCode={municipalityCode} />
           {problemSectionsStats?.length ? (
-            <HistoricalTrendsTile
-              stats={problemSectionsStats}
-              seeDetailsTo="/reports/section/problem_sections"
-            />
+            <HistoricalTrendsTile stats={problemSectionsStats} />
           ) : null}
         </DashboardSection>
       </section>

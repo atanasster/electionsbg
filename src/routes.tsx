@@ -54,11 +54,6 @@ const SectionRecountScreen = lazy(() =>
     default: m.SectionRecountScreen,
   })),
 );
-const SectionTimelineScreen = lazy(() =>
-  import("./screens/SectionTimelineScreen").then((m) => ({
-    default: m.SectionTimelineScreen,
-  })),
-);
 const AboutScreen = lazy(() =>
   import("./screens/AboutScreen").then((m) => ({ default: m.AboutScreen })),
 );
@@ -88,11 +83,6 @@ const SofiaFlashMemoryScreen = lazy(() =>
 const SofiaRecountScreen = lazy(() =>
   import("./screens/SofiaRecountScreen").then((m) => ({
     default: m.SofiaRecountScreen,
-  })),
-);
-const SofiaTimelineScreen = lazy(() =>
-  import("./screens/SofiaTimelineScreen").then((m) => ({
-    default: m.SofiaTimelineScreen,
   })),
 );
 const PartiesFinancing = lazy(() =>
@@ -428,11 +418,6 @@ const BenfordMethodologyScreen = lazy(() =>
     default: m.BenfordMethodologyScreen,
   })),
 );
-const PartyTimelineScreen = lazy(() =>
-  import("./screens/PartyTimelineScreen").then((m) => ({
-    default: m.PartyTimelineScreen,
-  })),
-);
 const AllPartiesScreen = lazy(() =>
   import("./screens/AllPartiesScreen").then((m) => ({
     default: m.AllPartiesScreen,
@@ -508,11 +493,6 @@ const RegionRecountScreen = lazy(() =>
     default: m.RegionRecountScreen,
   })),
 );
-const RegionTimelineScreen = lazy(() =>
-  import("./screens/RegionTimelineScreen").then((m) => ({
-    default: m.RegionTimelineScreen,
-  })),
-);
 const MunicipalityPartiesScreen = lazy(() =>
   import("./screens/MunicipalityPartiesScreen").then((m) => ({
     default: m.MunicipalityPartiesScreen,
@@ -538,11 +518,6 @@ const MunicipalitySettlementsScreen = lazy(() =>
     default: m.MunicipalitySettlementsScreen,
   })),
 );
-const MunicipalityTimelineScreen = lazy(() =>
-  import("./screens/MunicipalityTimelineScreen").then((m) => ({
-    default: m.MunicipalityTimelineScreen,
-  })),
-);
 const SettlementPartiesScreen = lazy(() =>
   import("./screens/SettlementPartiesScreen").then((m) => ({
     default: m.SettlementPartiesScreen,
@@ -561,11 +536,6 @@ const SettlementFlashMemoryScreen = lazy(() =>
 const SettlementRecountScreen = lazy(() =>
   import("./screens/SettlementRecountScreen").then((m) => ({
     default: m.SettlementRecountScreen,
-  })),
-);
-const SettlementTimelineScreen = lazy(() =>
-  import("./screens/SettlementTimelineScreen").then((m) => ({
-    default: m.SettlementTimelineScreen,
   })),
 );
 const SettlementSectionsListScreen = lazy(() =>
@@ -794,11 +764,6 @@ const ProblemSectionRecountScreen = lazy(() =>
     (m) => ({ default: m.ProblemSectionRecountScreen }),
   ),
 );
-const ProblemSectionTimelineScreen = lazy(() =>
-  import("./screens/reports/sections/ProblemSectionTimelineScreen").then(
-    (m) => ({ default: m.ProblemSectionTimelineScreen }),
-  ),
-);
 
 const RouteFallback: FC = () => (
   <div className="flex items-center justify-center min-h-[40vh] w-full" />
@@ -924,14 +889,6 @@ export const AuthRoutes = () => {
           }
         />
         <Route
-          path="sofia/timeline"
-          element={
-            <LayoutScreen>
-              <SofiaTimelineScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
           path="about"
           element={
             <LayoutScreen>
@@ -996,14 +953,6 @@ export const AuthRoutes = () => {
           }
         />
         <Route
-          path="municipality/:id/timeline"
-          element={
-            <LayoutScreen>
-              <RegionTimelineScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
           path="settlement/:id"
           element={
             <LayoutScreen>
@@ -1052,14 +1001,6 @@ export const AuthRoutes = () => {
           }
         />
         <Route
-          path="settlement/:id/timeline"
-          element={
-            <LayoutScreen>
-              <MunicipalityTimelineScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
           path="sections/:id"
           element={
             <LayoutScreen>
@@ -1096,14 +1037,6 @@ export const AuthRoutes = () => {
           element={
             <LayoutScreen>
               <SettlementRecountScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="sections/:id/timeline"
-          element={
-            <LayoutScreen>
-              <SettlementTimelineScreen />
             </LayoutScreen>
           }
         />
@@ -1152,14 +1085,6 @@ export const AuthRoutes = () => {
           element={
             <LayoutScreen>
               <SectionRecountScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
-          path="section/:id/timeline"
-          element={
-            <LayoutScreen>
-              <SectionTimelineScreen />
             </LayoutScreen>
           }
         />
@@ -1676,14 +1601,6 @@ export const AuthRoutes = () => {
           }
         />
         <Route
-          path="timeline"
-          element={
-            <LayoutScreen>
-              <PartyTimelineScreen />
-            </LayoutScreen>
-          }
-        />
-        <Route
           path="parties"
           element={
             <LayoutScreen>
@@ -2135,14 +2052,6 @@ export const AuthRoutes = () => {
               element={
                 <LayoutScreen>
                   <ProblemSectionRecountScreen />
-                </LayoutScreen>
-              }
-            />
-            <Route
-              path="problem_sections/:id/timeline"
-              element={
-                <LayoutScreen>
-                  <ProblemSectionTimelineScreen />
                 </LayoutScreen>
               }
             />

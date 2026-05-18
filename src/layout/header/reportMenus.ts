@@ -91,8 +91,6 @@ export const electionsMenu: MenuItem[] = [
   {
     title: "nav_elections",
     subMenu: [
-      { title: "timeline_title", link: "/timeline" },
-      { title: "-" },
       { title: "risk_analysis_title", link: "/risk-analysis" },
       { title: "compare_title", link: "/compare" },
       { title: "wasted_votes_title", link: "/wasted-vote" },

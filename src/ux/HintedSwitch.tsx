@@ -17,13 +17,7 @@ export const HintedSwitch: FC<{
         <Switch
           id={label}
           checked={value}
-          onCheckedChange={(value) => {
-            localStorage.setItem(
-              "consolidated_history",
-              value ? "true" : "false",
-            );
-            setValue(value);
-          }}
+          onCheckedChange={(value) => setValue(value)}
         />
         <Label
           className="text-secondary-foreground"

@@ -90,7 +90,6 @@ const SOFIA_BODY_BG = `
 <li><a href="${SITE_URL}/sofia/preferences">Преференции</a> — водещи кандидати с преференциален вот.</li>
 <li><a href="${SITE_URL}/sofia/flash-memory">Машинно гласуване</a> — секции с/без флашка и хартиен заместител.</li>
 <li><a href="${SITE_URL}/sofia/recount">Повторно преброяване</a> — отклонения между първо и второ броене.</li>
-<li><a href="${SITE_URL}/sofia/timeline">Времева линия</a> — резултати в София от 2005 г. насам.</li>
 </ul>`.trim();
 
 const SOFIA_BODY_EN = `
@@ -102,7 +101,6 @@ const SOFIA_BODY_EN = `
 <li><a href="${SITE_URL}/en/sofia/preferences">Preference votes</a> — top candidates by within-list preference.</li>
 <li><a href="${SITE_URL}/en/sofia/flash-memory">Machine voting</a> — sections with and without flash-memory machines.</li>
 <li><a href="${SITE_URL}/en/sofia/recount">Recount</a> — discrepancies between first and second tallies.</li>
-<li><a href="${SITE_URL}/en/sofia/timeline">Timeline</a> — Sofia results since 2005.</li>
 </ul>`.trim();
 
 type StaticPageOpts = {
@@ -371,41 +369,6 @@ export const prerenderRoutes: PrerenderRoute[] = [
     },
   }),
   staticPage({
-    path: "timeline",
-    title:
-      "Възход и падение на политическите партии в България | electionsbg.com",
-    description:
-      "Балонна времева линия на всичките 13 парламентарни вота от 2005 г. насам — размерът на балона показва получените гласове, цветът — партията.",
-    breadcrumbName: "Времева линия",
-    ogImage: "/og/timeline.png",
-    bodyHtml: `
-<h1>Възход и падение на политическите партии в България</h1>
-<p>Балонна времева линия на всичките парламентарни вота от 2005 г. насам. Всеки балон е една партия в един изборен ден — размерът показва получените гласове, цветът — партията. Хронологията позволява бърз поглед върху появата, разрастването, разпада и сливанията на основните политически сили.</p>
-<h2>Кой период обхваща</h2>
-<ul>
-<li>40-то Народно събрание (2005) — НДСВ, ДПС, БСП, СДС, ВМРО, „Атака“.</li>
-<li>41-во и 42-ро НС (2009 и 2013) — възход на ГЕРБ, спад на тройната коалиция.</li>
-<li>43-то — 49-то НС (2014–2024) — фрагментация, нови партии, повторни вотове.</li>
-<li>50-то — 51-во НС (2024–2026) — последните вотове и преходните мнозинства.</li>
-</ul>`.trim(),
-    english: {
-      title: "Rise and Fall of Bulgarian Political Parties | electionsbg.com",
-      description:
-        "Bubble timeline of all 13 parliamentary votes since 2005 — bubble size shows votes won, colour shows party.",
-      breadcrumbName: "Timeline",
-      bodyHtml: `
-<h1>Rise and fall of Bulgarian political parties</h1>
-<p>Bubble timeline of every parliamentary vote since 2005. Each bubble is one party at one election — size shows votes received, colour shows the party. The chronology gives a quick read on the emergence, growth, collapse, and mergers of the main political forces.</p>
-<h2>Period covered</h2>
-<ul>
-<li>40th National Assembly (2005) — NDSV, DPS, BSP, SDS, VMRO, Ataka.</li>
-<li>41st and 42nd NA (2009 and 2013) — rise of GERB, decline of the tripartite coalition.</li>
-<li>43rd — 49th NA (2014–2024) — fragmentation, new parties, repeat votes.</li>
-<li>50th — 51st NA (2024–2026) — the most recent votes and transitional majorities.</li>
-</ul>`.trim(),
-    },
-  }),
-  staticPage({
     path: "parties",
     title:
       "Всички партии — резултати на парламентарните избори | electionsbg.com",
@@ -415,7 +378,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
     bodyHtml: `
 <h1>Всички партии на парламентарните избори</h1>
 <p>Пълен списък на партиите и коалициите, участвали в последния парламентарен вот в България. За всяка партия са показани общите гласове, процентен дял и брой мандати, ако е преминала избирателния праг от 4%.</p>
-<p>Кликнете името на партия, за да видите профила ѝ — резултати по области, общини и населени места, преференции, дарители и разходи за кампанията. Виж също <a href="${SITE_URL}/timeline">времевата линия</a> за съпоставка по години.</p>`.trim(),
+<p>Кликнете името на партия, за да видите профила ѝ — резултати по области, общини и населени места, преференции, дарители и разходи за кампанията.</p>`.trim(),
     english: {
       title:
         "All Parties — Bulgarian Parliamentary Election Results | electionsbg.com",
@@ -425,7 +388,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
       bodyHtml: `
 <h1>All parties in the parliamentary election</h1>
 <p>Full list of parties and coalitions that ran in Bulgaria's latest parliamentary vote. For each party we show total votes, vote share, and seat count when the 4% electoral threshold was met.</p>
-<p>Click a party name for its full profile — results by region, municipality and settlement, preference votes, donors, and campaign spending. See also the <a href="${SITE_URL}/en/timeline">timeline</a> for cross-year comparisons.</p>`.trim(),
+<p>Click a party name for its full profile — results by region, municipality and settlement, preference votes, donors, and campaign spending.</p>`.trim(),
     },
   }),
   staticPage({
@@ -1594,14 +1557,6 @@ const sofiaSubTabs: Array<{
       "Отклонения между първо и второ броене на бюлетините в столичните секции.",
     enDesc:
       "Discrepancies between first and second tally counts in Sofia's polling sections.",
-  },
-  {
-    slug: "timeline",
-    bgLabel: "времева линия",
-    enLabel: "timeline",
-    bgDesc:
-      "Резултати в София от 2005 г. насам — партии и активност по години.",
-    enDesc: "Sofia results since 2005 — parties and turnout by year.",
   },
 ];
 

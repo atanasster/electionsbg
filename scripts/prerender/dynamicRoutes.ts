@@ -1630,7 +1630,6 @@ const OBLAST_SUB_TABS: Array<{ slug: string; bg: string }> = [
   { slug: "flash-memory", bg: "машинно гласуване" },
   { slug: "municipalities", bg: "по общини" },
   { slug: "recount", bg: "повторно преброяване" },
-  { slug: "timeline", bg: "времева линия" },
 ];
 
 const buildPartySubTabRoutes = (

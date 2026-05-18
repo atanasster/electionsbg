@@ -112,7 +112,7 @@ export const ProblemSectionDashboardCards: FC<Props> = ({ neighborhood }) => {
       </div>
       {stats?.length ? (
         <div className="grid gap-3 grid-cols-1 mt-3">
-          <HistoricalTrendsTile stats={stats} basePath={basePath} />
+          <HistoricalTrendsTile stats={stats} />
         </div>
       ) : null}
     </section>

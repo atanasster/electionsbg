@@ -138,10 +138,7 @@ export const RegionDashboardCards: FC<Props> = ({ regionCode }) => {
         <ProblemSectionsTile parties={data.parties} regionCode={regionCode} />
         <ProblemVotesByPartyTile regionCode={regionCode} />
         {problemSectionsStats?.length ? (
-          <HistoricalTrendsTile
-            stats={problemSectionsStats}
-            seeDetailsTo="/reports/section/problem_sections"
-          />
+          <HistoricalTrendsTile stats={problemSectionsStats} />
         ) : null}
       </DashboardSection>
 

@@ -146,10 +146,7 @@ export const RiskAnalysisScreen = () => {
           icon={LineChart}
         >
           <Suspense fallback={null}>
-            <HistoricalTrendsTile
-              stats={problemSectionsStats}
-              seeDetailsTo="/reports/section/problem_sections"
-            />
+            <HistoricalTrendsTile stats={problemSectionsStats} />
           </Suspense>
         </DashboardSection>
       ) : null}
