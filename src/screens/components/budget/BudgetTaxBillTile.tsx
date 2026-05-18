@@ -211,7 +211,7 @@ export const BudgetTaxBillTile: FC<{ fiscalYear?: number | null }> = ({
   const maxShare = slices[0]?.share ?? 0;
 
   return (
-    <Card className="my-4" data-og="budget-tax-bill">
+    <Card id="budget-tax-bill" className="my-4 scroll-mt-20" data-og="budget-tax-bill">
       <CardHeader className="pb-2">
         <CardTitle className="text-base flex items-center gap-2">
           <Receipt className="h-4 w-4" />

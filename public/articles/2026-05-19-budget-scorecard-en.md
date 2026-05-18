@@ -51,7 +51,7 @@ The maximum insurable income sets the ceiling against which employee and employe
 
 !["What did your taxes buy?" calculator: gross-salary slider, editable МОД field defaulting to the 2026 cap (€2,112), employee SSC + income-tax breakdown, then the result routed through general-government spending shares.](/articles/images/budget/04-tax-bill.png)
 
-**Where to look:** The [tax-bill calculator](/budget) in the "Composition" section accepts custom МОД values (try €2,300 for the new proposal or €2,352 for the withdrawn one) and shows the live effect on your personal tax + SSC bill. Real-time scenario testing is the foundation of objective citizen analysis.
+**Where to look:** The [tax-bill calculator](/budget#budget-tax-bill) in the "Composition" section accepts custom МОД values (try €2,300 for the new proposal or €2,352 for the withdrawn one) and shows the live effect on your personal tax + SSC bill. Real-time scenario testing is the foundation of objective citizen analysis.
 
 ### R2 · Material gaps between the State Budget Law and actual execution — **MEDIUM-HIGH**
 
@@ -65,7 +65,7 @@ The 2024 gaps at the largest ministries are systematic and large. Environment ra
 
 !["Largest deviations from plan" tile: the five ministries whose execution diverged most from the original ЗДБРБ in fiscal 2024.](/articles/images/budget/06-top-deviations.png)
 
-**Where to look:** The [Largest deviations from plan](/budget#budget-composition) tile and the full [Spending units](/budget#budget-composition) table below it in the Composition section. Both refresh annually in the spring once ministries publish their reports.
+**Where to look:** The [Largest deviations from plan](/budget#budget-top-deviations) tile and the full [Spending units](/budget#budget-composition) table below it in the Composition section. Both refresh annually in the spring once ministries publish their reports.
 
 ### R3 · Concentration of spending in social functions — **HIGH**
 
@@ -79,7 +79,7 @@ Against the EU-27, Bulgaria ranks **near the bottom** for general public service
 
 !["Where money goes by function" tile: 10 COFOG functions ranked by share of total spend, each with the EU-27 average and Bulgaria's rank among 26 reporting member states.](/articles/images/budget/05-functional-cofog.png)
 
-**Where to look:** The [Where money goes by function](/budget#budget-composition) tile shows the full COFOG breakdown with peer-band chips for every function (BG rank + EU-27 average).
+**Where to look:** The [Where money goes by function](/budget#budget-functional) tile shows the full COFOG breakdown with peer-band chips for every function (BG rank + EU-27 average).
 
 ### R4 · Under-investment in education and environment — **MEDIUM**
 
@@ -91,7 +91,7 @@ On environment, the direction looks reversed — fiscal 2024 actuals ran **214% 
 
 **Strategic effect.** These two sectors are the foundation of long-term convergence with Western Europe. Under-investment locks the country into a perpetual catch-up mode.
 
-**Where to look:** The [Where money goes by function](/budget#budget-composition) tile — Bulgaria's position on each function is rendered as a small horizontal bar with a text rank within the EU-27.
+**Where to look:** The [Where money goes by function](/budget#budget-functional) tile — Bulgaria's position on each function is rendered as a small horizontal bar with a text rank within the EU-27.
 
 ### R5 · Cash deficit accumulating ahead of plan — **LOW-MEDIUM**
 
@@ -103,7 +103,7 @@ Cash execution is seasonally volatile — corporate-tax inflows arrive mostly in
 
 !["Execution trend" tile: monthly revenue and expenditure paths for fiscal 2025 with a forward-projection line through 31-Dec-2026.](/articles/images/budget/02-execution-trend.png)
 
-**Where to look:** The [budget dashboard](/budget) headline cards show live execution against plan, with peer-band chips for Bulgaria's position in the EU-27. The [execution trend](/budget#budget-execution) tile visualises the monthly path of revenue and expenditure with a forward-projection line through year-end.
+**Where to look:** The [budget dashboard](/budget) headline cards show live execution against plan, with peer-band chips for Bulgaria's position in the EU-27. The [execution trend](/budget#budget-trend) tile visualises the monthly path of revenue and expenditure with a forward-projection line through year-end.
 
 ---
 
@@ -129,11 +129,11 @@ Bulgaria spends heavily on police, prosecutors, courts and prisons. That doesn't
 
 **Rebalancing opportunity.** Reviewing the cost basis of this function (productivity gains, organisational restructuring, process digitalisation) would free up real resources to redirect into sectors with bigger long-run returns — education (R4), infrastructure investment, healthcare. Even a partial optimisation (converging to the EU-27 average while preserving functional quality) would free **€800–900M annually**.
 
-**Where to look:** The [Where money goes by function](/budget#budget-composition) tile — "Public order and safety" is rendered with a high peer-band position in the EU.
+**Where to look:** The [Where money goes by function](/budget#budget-functional) tile — "Public order and safety" is rendered with a high peer-band position in the EU.
 
 ### O3 · Personal tax-bill calculator — citizen transparency — **MEDIUM**
 
-> The new [What did your taxes buy?](/budget) calculator turns a monthly gross salary into a personalised breakdown of which government functions your taxes funded. Lets you test МОД scenarios (including the proposed €2,300 for 2026).
+> The new [What did your taxes buy?](/budget#budget-tax-bill) calculator turns a monthly gross salary into a personalised breakdown of which government functions your taxes funded. Lets you test МОД scenarios (including the proposed €2,300 for 2026).
 
 This is Bulgaria's first tool that takes a specific salary and answers concretely "where did your tax money go?" — function by function. Comparable tools in other countries (the NZ Treasury Income Explorer, the UK "Where Does My Money Go") consistently show this format has high civic value. Citizens engage much more with budget data when they see how it lands on their own paycheck.
 
@@ -141,7 +141,7 @@ This is Bulgaria's first tool that takes a specific salary and answers concretel
 
 !["Budget flow" Sankey: revenue inputs on the left (VAT, PIT, excise…) meeting spending categories on the right (transfers, personnel, capital…), with the deficit rendered as a hatched extension below the shorter side.](/articles/images/budget/03-flow-sankey.png)
 
-**Where to look:** The [What did your taxes buy?](/budget) calculator in the Composition section. The МОД default tracks the selected election term.
+**Where to look:** The [What did your taxes buy?](/budget#budget-tax-bill) calculator in the Composition section. The МОД default tracks the selected election term.
 
 ### O4 · Monthly public fiscal bulletin (КФП) — **MEDIUM**
 
@@ -149,7 +149,7 @@ This is Bulgaria's first tool that takes a specific salary and answers concretel
 
 Regular monthly publication of budget data is a powerful executive-control tool. It allows systematic comparisons of plan against actual on a monthly and quarterly basis. Few European countries have this operational transparency at monthly granularity (most publish yearly or quarterly).
 
-**Opportunity.** Tools like the [Execution trend](/budget#budget-execution) and the [Same-point-last-year comparison](/budget#budget-execution) turn the raw bulletin into indicators that anyone can track in real time without specialised knowledge.
+**Opportunity.** Tools like the [Execution trend](/budget#budget-trend) and the [Same-point-last-year comparison](/budget#budget-execution) turn the raw bulletin into indicators that anyone can track in real time without specialised knowledge.
 
 **Where to look:** The [Execution section](/budget#budget-execution) — monthly trend, projection line, and prior-year same-period comparison.
 

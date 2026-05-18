@@ -108,7 +108,7 @@ export const BudgetFunctionalTile: FC<{ fiscalYear?: number | null }> = ({
   if (rows.length === 0 || year == null) return null;
 
   return (
-    <Card className="my-4" data-og="budget-functional">
+    <Card id="budget-functional" className="my-4 scroll-mt-20" data-og="budget-functional">
       <CardHeader className="pb-2">
         <CardTitle className="text-base flex items-center gap-2">
           <Layers className="h-4 w-4" />

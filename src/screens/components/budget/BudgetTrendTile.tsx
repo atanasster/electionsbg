@@ -265,7 +265,7 @@ export const BudgetTrendTile: FC<{
   const hasProjection = data.some((d) => d.isProjected);
 
   return (
-    <Card className="my-4" data-og="budget-trend">
+    <Card id="budget-trend" className="my-4 scroll-mt-20" data-og="budget-trend">
       <CardHeader className="pb-2">
         <CardTitle className="text-base flex items-center gap-2">
           <LineChart className="h-4 w-4" />
