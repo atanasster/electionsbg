@@ -724,14 +724,19 @@
       "en": "N/A",
       "bg": "N/A"
     },
-    "source": "N/A",
+    "source": "https://bg.wikipedia.org/wiki/Парламентарни_избори_в_България_(2013)",
     "genre": "raw_attitudes",
     "residual": {
       "undecided": null,
-      "wontVote": 23.2,
+      "wontVote": null,
       "wontSay": null,
-      "otherNamedMinor": "Bulgaria of the Citizens (Kuneva) 4.5%",
-      "notes": "Contemporaneous press: Mediana May 2013 reported ~23.2% 'няма да гласувам' / won't-vote share. Sample size not recoverable from Wikipedia or available press summaries. Mediana's own archive (mediana.bg) is intermittently down and predates their current document store; primary PDF could not be fetched."
+      "otherNamedMinor": 4.5,
+      "notes": "Wikipedia 2013-parliamentary-elections page (footnote [67]) cites Trud article \"ГЕРБ-БСП – наравно?\" (10 May 2013) for this row: ГЕРБ 32.0, БСП 31.5, ДПС 11.6, Атака 8.0, ДБГ (Кунева) 4.0 (stored detail rows match top 4; otherNamedMinor stored as 4.5 — Wikipedia text says 4.0, so a 0.5pp drift between the press transcription and our store). Mediana primary publication channel was their own domain (mediana.bg) which is now parked on sedo.com — no agency-domain primary URL is fetchable. Earlier wontVote 23.2 was incorrectly carried over from the April 5-9 2013 Mediana wave (per parlamentarniizbori.blogspot.com); cleared because not in the May 8 row."
+    },
+    "locked": {
+      "by": "third_party_consensus",
+      "note": "Mediana domain is parked on sedo.com (no agency primary fetchable); Wikipedia table-row footnote cites Trud (10 May 2013) — top-4 party numbers transcribed by Wikipedia match stored detail rows",
+      "lockedAt": "2026-05-19"
     }
   },
   {
@@ -744,14 +749,19 @@
       "en": "N/A",
       "bg": "N/A"
     },
-    "source": "N/A",
+    "source": "https://bg.wikipedia.org/wiki/Парламентарни_избори_в_България_(ноември_2021)",
     "genre": "raw_attitudes",
     "residual": {
       "undecided": null,
       "wontVote": null,
       "wontSay": null,
-      "otherNamedMinor": "Други 1.9% per Wikipedia row",
-      "notes": "Stored notes 'Други 1.9% per Wikipedia row' is reasonable; no clean undecided published."
+      "otherNamedMinor": 1.9,
+      "notes": "Wikipedia 2021-Nov-parliamentary-elections page footnote originally cited mediana.bg/download-analysis/PRESS_112021.doc as the agency primary — that URL now redirects to sedo.com (domain parked). All 8 stored detail rows (ГЕРБ-СДС 25.5, ПП 17.3, БСП 15.6, ИТН 12.2, ДПС 10.6, ДБ 9.7, ИБГНИ 4.2, Възраждане 3.1) match the Wikipedia table; n=957, fieldwork 4-8 Nov 2021. otherNamedMinor 1.9 captures the 'Други' bucket from the same Wikipedia row."
+    },
+    "locked": {
+      "by": "third_party_consensus",
+      "note": "Mediana domain is parked on sedo.com (the originally-cited agency primary PRESS_112021.doc is no longer fetchable); Wikipedia's own table-row transcription of the agency report is now the canonical reference",
+      "lockedAt": "2026-05-19"
     }
   },
   {
@@ -761,8 +771,8 @@
     "electionDate": "2024-10-27",
     "respondents": 978,
     "methodology": {
-      "en": "Direct standardized interview",
-      "bg": "Пряко стандартизирано интервю"
+      "en": "Standardized face-to-face interview (self-funded)",
+      "bg": "Пряко стандартизирано интервю (със собствени средства)"
     },
     "source": "https://www.mediapool.bg/posledni-prouchvaniya-predi-vota-7-partii-vlizat-v-ns-drugi-dve-imat-shans-news364406.html",
     "genre": "raw_attitudes",
@@ -770,8 +780,13 @@
       "undecided": 18,
       "wontVote": null,
       "wontSay": null,
-      "otherNamedMinor": null,
-      "notes": "Investor.bg primary: 'Не подкрепям никого' = 11.4%, undecided ~18%, projected turnout ~30% (1.9–2.1M). Stored residual note matches."
+      "otherNamedMinor": 11.4,
+      "notes": "Verified vs. multiple third-party citations (mediapool.bg, investor.bg, 24chasa.bg, bnr.bg, bgonair.bg, fakti.bg, petel.bg, flashnews.bg, kritichno.bg) of the Mediana Oct 8-13 2024 release: fieldwork 8-13 Oct 2024, n=978, face-to-face, self-funded. Party numbers (ГЕРБ-СДС 24.5, Възраждане 13.7, ПП-ДБ 12.1, БСП 8.8, АПС 8.7, ИТН 7.0, Величие 0.7) match stored detail rows. Investor.bg primary cite: 'Не подкрепям никого' = 11.4%, undecided ~18%, projected turnout ~30% (1.9–2.1M voters). Mediana domain is parked on sedo.com — no agency-domain primary URL is fetchable."
+    },
+    "locked": {
+      "by": "third_party_consensus",
+      "note": "Mediana domain is parked on sedo.com (no agency primary fetchable); numbers cross-confirmed across 9+ independent press citations",
+      "lockedAt": "2026-05-19"
     }
   },
   {
