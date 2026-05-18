@@ -5,6 +5,10 @@
 // "Other tax" so the donut stays at ~7 slices. Renders nothing when the
 // selected FY has no snapshot, or when executed totals are all zero (the
 // snapshot exists but the period is too early to populate revenue).
+//
+// `expanded` mode (used on the /budget deep-dive screen) keeps all tax leaves
+// as their own slices and adds a ranked YoY table below the donut so the same
+// data reads as a drill-down rather than a summary.
 
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
@@ -25,9 +29,12 @@ const SLICE_COLORS = [
   "#a7f3d0", // emerald-200
   "#fbbf24", // amber-400 (non-tax)
   "#f59e0b", // amber-500 (grants)
+  "#d97706", // amber-600 (overflow)
+  "#92400e", // amber-800 (overflow)
 ];
 
 // Top N tax types to keep as their own slice; the rest collapse into one.
+// `expanded` mode skips the collapse and shows every leaf.
 const TAX_TOP_N = 4;
 
 interface Slice {
@@ -68,14 +75,29 @@ const pickSnapshot = (
   );
 };
 
-const buildSlices = (snapshot: KfpSnapshot): Slice[] => {
-  const revenueSection = snapshot.sections.find((s) => s.code === "I");
-  if (!revenueSection) return [];
+// Same-period snapshot one fiscal year earlier than `baselineFy` so the deep
+// dive can show YoY deltas per line. Falls back to null when there's no prior
+// December snapshot to compare against (early years of the series).
+const pickPriorSnapshot = (
+  snapshots: KfpSnapshot[],
+  baselineFy: number,
+): KfpSnapshot | null =>
+  snapshots.find(
+    (s) => s.fiscalYear === baselineFy - 1 && s.period.endsWith("-12"),
+  ) ?? null;
 
-  // Depth-1 leaves under "Данъчни приходи" (label may vary slightly across
-  // years — match by the depth-0 subtotal that immediately precedes them).
-  // We walk the flat array tracking the current depth-0 group; depth-1
-  // non-subtotal lines belong to that group.
+const amount = (ln: KfpSnapshotLine | null | undefined): number =>
+  ln?.executed?.amountEur ?? ln?.planned?.amountEur ?? 0;
+
+interface RevenueBreakout {
+  taxLeaves: KfpSnapshotLine[];
+  nonTax: KfpSnapshotLine | null;
+  grants: KfpSnapshotLine | null;
+}
+
+const collectRevenue = (snapshot: KfpSnapshot): RevenueBreakout | null => {
+  const revenueSection = snapshot.sections.find((s) => s.code === "I");
+  if (!revenueSection) return null;
   let currentGroup: KfpSnapshotLine | null = null;
   const taxLeaves: KfpSnapshotLine[] = [];
   let nonTax: KfpSnapshotLine | null = null;
@@ -83,8 +105,6 @@ const buildSlices = (snapshot: KfpSnapshot): Slice[] => {
   for (const ln of revenueSection.lines) {
     if (ln.depth === 0) {
       currentGroup = ln;
-      // "Данъчни приходи" is the tax subtotal; "Неданъчни приходи" is non-tax;
-      // "Помощи" is grants (a leaf at depth 0, not a subtotal).
       if (ln.isSubtotal && ln.labelBg.startsWith("Неданъчни")) nonTax = ln;
       else if (!ln.isSubtotal && ln.labelBg.startsWith("Помощи")) grants = ln;
       continue;
@@ -97,13 +117,18 @@ const buildSlices = (snapshot: KfpSnapshot): Slice[] => {
       taxLeaves.push(ln);
     }
   }
+  return { taxLeaves, nonTax, grants };
+};
 
-  const amount = (ln: KfpSnapshotLine): number =>
-    ln.executed?.amountEur ?? ln.planned?.amountEur ?? 0;
+const buildSlices = (snapshot: KfpSnapshot, expanded: boolean): Slice[] => {
+  const breakout = collectRevenue(snapshot);
+  if (!breakout) return [];
+  const { taxLeaves, nonTax, grants } = breakout;
 
   const taxRanked = [...taxLeaves].sort((a, b) => amount(b) - amount(a));
-  const top = taxRanked.slice(0, TAX_TOP_N);
-  const tail = taxRanked.slice(TAX_TOP_N);
+  const keep = expanded ? taxRanked.length : TAX_TOP_N;
+  const top = taxRanked.slice(0, keep);
+  const tail = taxRanked.slice(keep);
   const tailSum = tail.reduce((s, ln) => s + amount(ln), 0);
 
   const slices: Slice[] = top.map((ln, i) => ({
@@ -111,7 +136,7 @@ const buildSlices = (snapshot: KfpSnapshot): Slice[] => {
     labelBg: ln.labelBg,
     labelEn: ln.labelEn,
     value: amount(ln),
-    color: SLICE_COLORS[i],
+    color: SLICE_COLORS[i % SLICE_COLORS.length],
   }));
   if (tailSum > 0) {
     slices.push({
@@ -119,7 +144,7 @@ const buildSlices = (snapshot: KfpSnapshot): Slice[] => {
       labelBg: "Други данъци",
       labelEn: "Other taxes",
       value: tailSum,
-      color: SLICE_COLORS[TAX_TOP_N],
+      color: SLICE_COLORS[Math.min(top.length, SLICE_COLORS.length - 1)],
     });
   }
   if (nonTax) {
@@ -143,11 +168,40 @@ const buildSlices = (snapshot: KfpSnapshot): Slice[] => {
   return slices.filter((s) => s.value > 0);
 };
 
+// Look up the same revenue line in a prior snapshot — match on Bulgarian
+// label (stable across years for КФП). Returns null when the line didn't
+// exist (or was renamed) one year earlier.
+const priorAmountFor = (
+  prior: KfpSnapshot | null,
+  labelBg: string,
+): number | null => {
+  if (!prior) return null;
+  const breakout = collectRevenue(prior);
+  if (!breakout) return null;
+  const match =
+    breakout.taxLeaves.find((l) => l.labelBg === labelBg) ??
+    (breakout.nonTax?.labelBg === labelBg ? breakout.nonTax : null) ??
+    (breakout.grants?.labelBg === labelBg ? breakout.grants : null);
+  if (!match) return null;
+  const v = amount(match);
+  return v > 0 ? v : null;
+};
+
 const compactEur = (v: number): string => {
   if (v >= 1_000_000_000) return `€${(v / 1_000_000_000).toFixed(1)}B`;
   if (v >= 1_000_000) return `€${(v / 1_000_000).toFixed(0)}M`;
   return formatEur(v);
 };
+
+const fmtYoy = (pct: number): string =>
+  `${pct > 0 ? "+" : ""}${pct.toFixed(1)}%`;
+
+const yoyClass = (pct: number): string =>
+  pct > 0
+    ? "text-emerald-600 dark:text-emerald-400"
+    : pct < 0
+      ? "text-rose-600 dark:text-rose-400"
+      : "text-muted-foreground";
 
 const SliceTooltip: FC<{
   active?: boolean;
@@ -167,27 +221,36 @@ const SliceTooltip: FC<{
   );
 };
 
-export const BudgetRevenueCompositionTile: FC<{ fiscalYear: number }> = ({
-  fiscalYear,
-}) => {
+export const BudgetRevenueCompositionTile: FC<{
+  fiscalYear: number;
+  expanded?: boolean;
+}> = ({ fiscalYear, expanded = false }) => {
   const { t, i18n } = useTranslation();
   const lang: "bg" | "en" = i18n.language === "bg" ? "bg" : "en";
   const { data: kfp } = useKfp();
 
-  const { slices, total, asOf, snapFy } = useMemo(() => {
+  const { slices, total, asOf, snapFy, prior } = useMemo(() => {
     if (!kfp)
       return {
         slices: [] as Slice[],
         total: 0,
         asOf: null as string | null,
         snapFy: null as number | null,
+        prior: null as KfpSnapshot | null,
       };
     const snap = pickSnapshot(kfp.snapshots, fiscalYear);
-    if (!snap) return { slices: [], total: 0, asOf: null, snapFy: null };
-    const sl = buildSlices(snap);
+    if (!snap)
+      return { slices: [], total: 0, asOf: null, snapFy: null, prior: null };
+    const sl = buildSlices(snap, expanded);
     const tot = sl.reduce((s, x) => s + x.value, 0);
-    return { slices: sl, total: tot, asOf: snap.asOf, snapFy: snap.fiscalYear };
-  }, [kfp, fiscalYear]);
+    return {
+      slices: sl,
+      total: tot,
+      asOf: snap.asOf,
+      snapFy: snap.fiscalYear,
+      prior: pickPriorSnapshot(kfp.snapshots, snap.fiscalYear),
+    };
+  }, [kfp, fiscalYear, expanded]);
 
   if (slices.length === 0 || total <= 0) return null;
 
@@ -232,6 +295,13 @@ export const BudgetRevenueCompositionTile: FC<{ fiscalYear: number }> = ({
           <ul className="space-y-1 text-xs">
             {data.map((d) => {
               const label = lang === "bg" ? d.labelBg : d.labelEn || d.labelBg;
+              const priorVal = expanded
+                ? priorAmountFor(prior, d.labelBg)
+                : null;
+              const yoy =
+                priorVal != null && priorVal > 0
+                  ? ((d.value - priorVal) / priorVal) * 100
+                  : null;
               return (
                 <li key={d.key} className="flex items-baseline gap-2">
                   <span
@@ -248,6 +318,20 @@ export const BudgetRevenueCompositionTile: FC<{ fiscalYear: number }> = ({
                   <span className="tabular-nums shrink-0 text-muted-foreground w-10 text-right">
                     {d.share.toFixed(1)}%
                   </span>
+                  {expanded ? (
+                    <span
+                      className={`tabular-nums shrink-0 w-14 text-right ${
+                        yoy != null ? yoyClass(yoy) : "text-muted-foreground/60"
+                      }`}
+                      title={
+                        prior
+                          ? `${t("budget_yoy_vs") || "vs"} ${prior.fiscalYear}`
+                          : undefined
+                      }
+                    >
+                      {yoy != null ? fmtYoy(yoy) : "—"}
+                    </span>
+                  ) : null}
                 </li>
               );
             })}
@@ -256,6 +340,9 @@ export const BudgetRevenueCompositionTile: FC<{ fiscalYear: number }> = ({
         <p className="text-[11px] text-muted-foreground/80 mt-2">
           {t("budget_revenue_composition_caption") ||
             "Tax revenue broken down by major type, plus non-tax revenue and grants. Source: Ministry of Finance via data.egov.bg (КФП)."}
+          {expanded && prior
+            ? ` · ${t("budget_yoy_note", { year: prior.fiscalYear }) || `YoY vs fiscal year ${prior.fiscalYear}`}`
+            : null}
         </p>
       </CardContent>
     </Card>

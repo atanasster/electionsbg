@@ -11,6 +11,10 @@
 // "Получени от:" lines and the "Резерв" placeholder are skipped — they net
 // negative or carry no execution. Renders nothing when the FY has no
 // snapshot or no executed totals yet.
+//
+// `expanded` mode (used on the /budget deep-dive screen) appends a YoY %
+// column against the prior December snapshot so the same data reads as a
+// drill-down rather than a summary.
 
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
@@ -29,6 +33,19 @@ const compactEur = (v: number): string => {
   if (v >= 1_000_000) return `€${(v / 1_000_000).toFixed(0)}M`;
   return formatEur(v);
 };
+
+const fmtYoy = (pct: number): string =>
+  `${pct > 0 ? "+" : ""}${pct.toFixed(1)}%`;
+
+// On the spending side a positive YoY means spending grew — neutral framing,
+// neither inherently good nor bad. Pick muted colours to avoid implying a
+// value judgement.
+const yoyClass = (pct: number): string =>
+  pct > 0
+    ? "text-rose-600 dark:text-rose-400"
+    : pct < 0
+      ? "text-emerald-600 dark:text-emerald-400"
+      : "text-muted-foreground";
 
 // Same rule as the revenue tile: prefer the December snapshot at the
 // selected FY; fall back to the latest prior December snapshot when the
@@ -57,6 +74,14 @@ const pickSnapshot = (
     s.period > latest.period ? s : latest,
   );
 };
+
+const pickPriorSnapshot = (
+  snapshots: KfpSnapshot[],
+  baselineFy: number,
+): KfpSnapshot | null =>
+  snapshots.find(
+    (s) => s.fiscalYear === baselineFy - 1 && s.period.endsWith("-12"),
+  ) ?? null;
 
 interface Row {
   key: string;
@@ -113,30 +138,66 @@ const buildRows = (snapshot: KfpSnapshot): Row[] => {
     );
 };
 
-export const BudgetExpenditureCompositionTile: FC<{ fiscalYear: number }> = ({
-  fiscalYear,
-}) => {
+// Lookup table from labelBg → headline amount for YoY joins. Built from the
+// prior snapshot's same set of rows so we don't have to re-walk the tree per
+// row at render time.
+const buildPriorIndex = (
+  snapshot: KfpSnapshot | null,
+): Map<string, number> | null => {
+  if (!snapshot) return null;
+  const m = new Map<string, number>();
+  for (const r of buildRows(snapshot)) {
+    const v = r.executed ?? r.planned ?? 0;
+    if (v > 0) m.set(r.labelBg, v);
+  }
+  return m;
+};
+
+export const BudgetExpenditureCompositionTile: FC<{
+  fiscalYear: number;
+  expanded?: boolean;
+}> = ({ fiscalYear, expanded = false }) => {
   const { t, i18n } = useTranslation();
   const lang: "bg" | "en" = i18n.language === "bg" ? "bg" : "en";
   const { data: kfp } = useKfp();
 
-  const { rows, asOf, max, snapFy } = useMemo(() => {
+  const { rows, asOf, max, snapFy, priorIndex, priorFy } = useMemo(() => {
     if (!kfp)
       return {
         rows: [] as Row[],
         asOf: null as string | null,
         max: 0,
         snapFy: null as number | null,
+        priorIndex: null as Map<string, number> | null,
+        priorFy: null as number | null,
       };
     const snap = pickSnapshot(kfp.snapshots, fiscalYear);
-    if (!snap) return { rows: [], asOf: null, max: 0, snapFy: null };
+    if (!snap)
+      return {
+        rows: [],
+        asOf: null,
+        max: 0,
+        snapFy: null,
+        priorIndex: null,
+        priorFy: null,
+      };
     const r = buildRows(snap);
     const m = r.reduce(
       (acc, x) => Math.max(acc, x.executed ?? 0, x.planned ?? 0),
       0,
     );
-    return { rows: r, asOf: snap.asOf, max: m, snapFy: snap.fiscalYear };
-  }, [kfp, fiscalYear]);
+    const prior = expanded
+      ? pickPriorSnapshot(kfp.snapshots, snap.fiscalYear)
+      : null;
+    return {
+      rows: r,
+      asOf: snap.asOf,
+      max: m,
+      snapFy: snap.fiscalYear,
+      priorIndex: buildPriorIndex(prior),
+      priorFy: prior?.fiscalYear ?? null,
+    };
+  }, [kfp, fiscalYear, expanded]);
 
   if (rows.length === 0) return null;
 
@@ -152,10 +213,14 @@ export const BudgetExpenditureCompositionTile: FC<{ fiscalYear: number }> = ({
             " " +
             (snapFy ?? fiscalYear)}
           {asOf ? ` · ${t("budget_ministries_asof") || "as of"} ${asOf}` : null}
-          {" · "}
-          <Link to="/budget" className="text-primary hover:underline">
-            {t("dashboard_section_budget_link") || "see details"}
-          </Link>
+          {!expanded ? (
+            <>
+              {" · "}
+              <Link to="/budget" className="text-primary hover:underline">
+                {t("dashboard_section_budget_link") || "see details"}
+              </Link>
+            </>
+          ) : null}
         </p>
       </CardHeader>
       <CardContent className="pt-0">
@@ -173,6 +238,11 @@ export const BudgetExpenditureCompositionTile: FC<{ fiscalYear: number }> = ({
                 : null;
             const label = lang === "bg" ? r.labelBg : r.labelEn || r.labelBg;
             const headline = r.executed ?? r.planned ?? 0;
+            const priorVal = priorIndex?.get(r.labelBg) ?? null;
+            const yoy =
+              expanded && priorVal != null && priorVal > 0
+                ? ((headline - priorVal) / priorVal) * 100
+                : null;
             return (
               <li key={r.key} className="text-xs">
                 <div className="flex items-baseline justify-between gap-2">
@@ -196,18 +266,42 @@ export const BudgetExpenditureCompositionTile: FC<{ fiscalYear: number }> = ({
                     ) : null}
                   </div>
                 </div>
-                {execPct != null ? (
-                  <div className="mt-0.5 text-[11px] text-muted-foreground tabular-nums">
-                    {execPct.toFixed(1)}%{" "}
-                    <span className="opacity-70">
-                      {t("budget_ministries_of_amended") || "of plan"}
+                <div className="mt-0.5 flex items-baseline justify-between gap-2 text-[11px] text-muted-foreground tabular-nums">
+                  <span>
+                    {execPct != null ? (
+                      <>
+                        {execPct.toFixed(1)}%{" "}
+                        <span className="opacity-70">
+                          {t("budget_ministries_of_amended") || "of plan"}
+                        </span>
+                      </>
+                    ) : null}
+                  </span>
+                  {expanded ? (
+                    <span
+                      className={
+                        yoy != null ? yoyClass(yoy) : "text-muted-foreground/60"
+                      }
+                      title={
+                        priorFy
+                          ? `${t("budget_yoy_vs") || "vs"} ${priorFy}`
+                          : undefined
+                      }
+                    >
+                      {yoy != null ? fmtYoy(yoy) : "—"}
                     </span>
-                  </div>
-                ) : null}
+                  ) : null}
+                </div>
               </li>
             );
           })}
         </ul>
+        {expanded && priorFy ? (
+          <p className="text-[11px] text-muted-foreground/80 mt-2">
+            {t("budget_yoy_note", { year: priorFy }) ||
+              `YoY vs fiscal year ${priorFy}`}
+          </p>
+        ) : null}
       </CardContent>
     </Card>
   );

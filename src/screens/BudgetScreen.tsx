@@ -18,7 +18,6 @@ import {
   ArrowRight,
   Activity,
   PieChart,
-  Globe2,
   Scroll,
 } from "lucide-react";
 import { Title } from "@/ux/Title";
@@ -39,11 +38,8 @@ import { BudgetSamePointTile } from "./components/budget/BudgetSamePointTile";
 import { BudgetFlowTile } from "./components/budget/BudgetFlowTile";
 import { BudgetJourneyTile } from "./components/budget/BudgetJourneyTile";
 import { BudgetMinistriesTile } from "./components/budget/BudgetMinistriesTile";
-import { BudgetVarianceTile } from "./components/budget/BudgetVarianceTile";
 import { BudgetRevenueCompositionTile } from "./components/budget/BudgetRevenueCompositionTile";
 import { BudgetExpenditureCompositionTile } from "./components/budget/BudgetExpenditureCompositionTile";
-import { BudgetMultiYearTrendTile } from "./components/budget/BudgetMultiYearTrendTile";
-import { BudgetPeerComparisonTile } from "./components/budget/BudgetPeerComparisonTile";
 import { BudgetCitizenViewTile } from "./components/budget/BudgetCitizenViewTile";
 
 const SkeletonCard: FC = () => (
@@ -412,23 +408,16 @@ export const BudgetScreen: FC = () => {
         >
           <BudgetCitizenViewTile fiscalYear={term.selectedFy} />
           <div className="grid gap-4 grid-cols-1 xl:grid-cols-2">
-            <BudgetRevenueCompositionTile fiscalYear={term.selectedFy} />
-            <BudgetExpenditureCompositionTile fiscalYear={term.selectedFy} />
+            <BudgetRevenueCompositionTile
+              fiscalYear={term.selectedFy}
+              expanded
+            />
+            <BudgetExpenditureCompositionTile
+              fiscalYear={term.selectedFy}
+              expanded
+            />
           </div>
-          <div className="grid gap-4 grid-cols-1 xl:grid-cols-2">
-            <BudgetVarianceTile fiscalYear={term.selectedFy} />
-            <BudgetMinistriesTile fiscalYear={term.selectedFy} />
-          </div>
-        </DashboardSection>
-
-        <DashboardSection
-          id="budget-context"
-          title={t("budget_section_context") || "Context"}
-          subtitle={t("budget_section_context_subtitle") || undefined}
-          icon={Globe2}
-        >
-          <BudgetMultiYearTrendTile />
-          <BudgetPeerComparisonTile />
+          <BudgetMinistriesTile fiscalYear={term.selectedFy} />
         </DashboardSection>
 
         <DashboardSection

@@ -14,7 +14,6 @@
 //     spending wall + surplus hatch = revenue wall      (surplus case)
 
 import { FC, useEffect, useMemo, useRef, useState } from "react";
-import { useNavigate } from "react-router-dom";
 import {
   sankey,
   sankeyLeft,
@@ -374,7 +373,6 @@ const FlowSvg: FC<{
   height: number;
 }> = ({ model, width, height }) => {
   const { t } = useTranslation();
-  const navigate = useNavigate();
   const { tooltip, onMouseEnter, onMouseMove, onMouseLeave } = useTooltip();
   const [focus, setFocus] = useState<FocusState>({ id: null, side: null });
 
@@ -407,11 +405,11 @@ const FlowSvg: FC<{
     modelKey: string;
   }>({
     layouts: targetLayouts,
-    modelKey: `${model.fiscalYear}-${model.grain}`,
+    modelKey: `${model.fiscalYear}`,
   });
   useEffect(() => {
     if (!targetLayouts) return;
-    const modelKey = `${model.fiscalYear}-${model.grain}`;
+    const modelKey = `${model.fiscalYear}`;
     const sameModel = previousRef.current.modelKey === modelKey;
     if (sameModel || !previousRef.current.layouts) {
       setDisplayed(targetLayouts);
@@ -431,7 +429,7 @@ const FlowSvg: FC<{
     };
     raf = requestAnimationFrame(tick);
     return () => cancelAnimationFrame(raf);
-  }, [targetLayouts, model.fiscalYear, model.grain]);
+  }, [targetLayouts, model.fiscalYear]);
 
   const layouts = displayed;
 
@@ -613,8 +611,6 @@ const FlowSvg: FC<{
                 ) : null}
               </div>
             );
-            const isLinked = node.ministryNodeId != null;
-
             return (
               <g
                 key={`${sidePrefix}-node-${node.id}`}
@@ -629,12 +625,6 @@ const FlowSvg: FC<{
                   setFocus({ id: null, side: null });
                   onMouseLeave();
                 }}
-                onClick={() => {
-                  if (node.ministryNodeId) {
-                    navigate(`/budget/ministry/${node.ministryNodeId}`);
-                  }
-                }}
-                style={{ cursor: isLinked ? "pointer" : "default" }}
               >
                 <rect
                   x={renderX0}
