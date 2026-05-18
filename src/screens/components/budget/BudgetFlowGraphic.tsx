@@ -46,7 +46,12 @@ const SIDES_GAP = 80;
 // Outer label gutter. Leaves sit on the outer edges of each side; their
 // labels — and inline values — extend OUTWARD past the sankey extent.
 const LABEL_MARGIN = 220;
-const LABEL_MAX_CHARS = 30;
+// Outer leaves render in the LABEL_MARGIN gutter — plenty of horizontal room.
+// Group / inner-column labels live in the link space between leaf and total,
+// so they need a tighter cap to avoid horizontally bleeding into the leaf
+// column at narrower chart widths.
+const LABEL_MAX_CHARS_LEAF = 30;
+const LABEL_MAX_CHARS_INNER = 20;
 const HATCH_PATTERN_ID = "budget-flow-hatch";
 
 const COLOR_REVENUE = "#10b981"; // emerald-500
@@ -290,6 +295,111 @@ const mirroredLinkPath = (link: SankeyLink<NodeDatum, LinkDatum>): string => {
   return `M${sx},${sy}C${mid},${sy} ${mid},${ty} ${tx},${ty}`;
 };
 
+interface LabelPlacement {
+  // Resolved vertical center of the label after collision avoidance.
+  y: number;
+  // True if this label survived dropping (collision pass keeps the highest-
+  // value labels first when the column can't fit them all).
+  show: boolean;
+  // True if the label was pushed far enough from the node's midpoint that a
+  // thin leader line should connect rect → label so the association reads.
+  hasLeader: boolean;
+}
+
+// Empirical text bbox heights for the rendered labels. Both label and value
+// share the same dy ("0.35em") and font baseline math, so two stacked labels
+// occupy LABEL_BBOX_H + VALUE_BBOX_H plus a small gap between adjacent slots.
+const LABEL_BBOX_H = 13;
+const VALUE_BBOX_H = 11;
+const LABEL_PAIR_GAP = 2;
+// Vertical offset between label baseline and value baseline. Keeps the value
+// line directly under the label without re-shifting the label itself.
+const VALUE_OFFSET_Y = 13;
+
+// Greedy collision avoidance for a single column of stacked labels. Labels
+// start centered on their node's midpoint, then a two-pass (forward+backward)
+// sweep enforces a minimum vertical gap that reserves room for label + value
+// rendered as a pair. If the column doesn't have enough pixel height for every
+// label, drop the smallest-value labels first so the largest flows always read.
+const placeColumnLabels = (
+  items: Array<{
+    id: string;
+    nodeY0: number;
+    nodeY1: number;
+    valueEur: number;
+  }>,
+  chartHeight: number,
+): Map<string, LabelPlacement> => {
+  const result = new Map<string, LabelPlacement>();
+  if (items.length === 0) return result;
+
+  const enriched = items.map((it) => ({
+    ...it,
+    nodeMid: (it.nodeY0 + it.nodeY1) / 2,
+  }));
+
+  // minStep must clear the label + value pair so adjacent labels never overlap
+  // even when the upper one shows its inline value.
+  const minStep = LABEL_BBOX_H + VALUE_BBOX_H + LABEL_PAIR_GAP;
+  const maxLabels = Math.max(
+    1,
+    Math.floor((chartHeight + LABEL_PAIR_GAP) / minStep),
+  );
+
+  let hidden = new Set<string>();
+  if (enriched.length > maxLabels) {
+    const sortedByVal = [...enriched].sort((a, b) => a.valueEur - b.valueEur);
+    hidden = new Set(
+      sortedByVal.slice(0, enriched.length - maxLabels).map((it) => it.id),
+    );
+  }
+
+  const visible = enriched
+    .filter((it) => !hidden.has(it.id))
+    .sort((a, b) => a.nodeMid - b.nodeMid);
+
+  const ys = visible.map((it) => it.nodeMid);
+
+  for (let i = 1; i < ys.length; i++) {
+    const min = ys[i - 1] + minStep;
+    if (ys[i] < min) ys[i] = min;
+  }
+  for (let i = ys.length - 1; i > 0; i--) {
+    const max = ys[i] - minStep;
+    if (ys[i - 1] > max) ys[i - 1] = max;
+  }
+  if (ys.length > 0) {
+    const topInset = LABEL_BBOX_H / 2 + 1;
+    // Bottom inset accounts for the value line that renders below the last
+    // label center, so neither label nor value bleeds past the chart edge.
+    const bottomInset = VALUE_OFFSET_Y + VALUE_BBOX_H / 2 + 1;
+    ys[0] = Math.max(topInset, ys[0]);
+    ys[ys.length - 1] = Math.min(chartHeight - bottomInset, ys[ys.length - 1]);
+    for (let i = 1; i < ys.length; i++) {
+      const min = ys[i - 1] + minStep;
+      if (ys[i] < min) ys[i] = min;
+    }
+  }
+
+  for (let i = 0; i < visible.length; i++) {
+    const it = visible[i];
+    const y = ys[i];
+    const nodeH = it.nodeY1 - it.nodeY0;
+    const hasLeader = Math.abs(y - it.nodeMid) > Math.max(2, nodeH / 2 + 1);
+    result.set(it.id, { y, show: true, hasLeader });
+  }
+  for (const it of enriched) {
+    if (!result.has(it.id)) {
+      result.set(it.id, {
+        y: it.nodeMid,
+        show: false,
+        hasLeader: false,
+      });
+    }
+  }
+  return result;
+};
+
 interface FocusState {
   id: string | null;
   side: "revenue" | "spending" | "bridge" | null;
@@ -471,6 +581,39 @@ const FlowSvg: FC<{
     const sidePrefix = side === "revenue" ? "rev" : "spend";
     const mirrored = side === "spending";
     const pathOf = mirrored ? mirroredLinkPath : linkPath;
+    // Per-column label placement: leaves and groups live at different x
+    // columns, so collision avoidance runs once per column. Total walls have
+    // their own rotated caption and are excluded here.
+    const placements = new Map<string, LabelPlacement>();
+    const columns = new Map<number, Array<SankeyNode<NodeDatum, LinkDatum>>>();
+    for (const node of layout.nodes) {
+      if (node.isPhantom || node.type === "total") continue;
+      const key = Math.round(node.x0 ?? 0);
+      const list = columns.get(key) ?? [];
+      list.push(node);
+      columns.set(key, list);
+    }
+    for (const [, columnNodes] of columns) {
+      const colPlacements = placeColumnLabels(
+        columnNodes.map((n) => ({
+          id: n.id,
+          nodeY0: n.y0 ?? 0,
+          nodeY1: n.y1 ?? 0,
+          valueEur: n.valueEur,
+        })),
+        height,
+      );
+      for (const [id, p] of colPlacements) placements.set(id, p);
+    }
+    // Identify the OUTER column (the one in the LABEL_MARGIN gutter): on
+    // revenue side that's the lowest x0; on spending (mirrored) it's the
+    // highest x0. Labels in the outer column get the full truncation budget;
+    // labels in any inner column (groups + direct-to-total leaves) get the
+    // tighter cap to keep them from bleeding into the leaf column.
+    const columnXs = [...columns.keys()].sort((a, b) => a - b);
+    const outerColumnX = mirrored
+      ? (columnXs[columnXs.length - 1] ?? -Infinity)
+      : (columnXs[0] ?? Infinity);
     return (
       <g transform={`translate(${offsetX}, 0)`} key={side}>
         <defs>
@@ -570,10 +713,21 @@ const FlowSvg: FC<{
             const labelOnRight = side === "spending";
             const labelX = labelOnRight ? renderX1 + 6 : renderX0 - 6;
             const anchor = labelOnRight ? "start" : "end";
-            const showLabel = !isTotal && (nodeHeight >= 11 || isOnPath);
-            const showInlineValue = !isTotal && nodeHeight >= 22;
+            const placement = placements.get(node.id);
+            const placedShow = placement?.show ?? false;
+            const showLabel = !isTotal && (placedShow || isOnPath);
+            // Placed labels get their resolved Y from the collision pass;
+            // hover-only labels (dropped by collision) fall back to the
+            // node's natural midpoint.
+            const labelY = placedShow ? (placement?.y ?? yMid) : yMid;
+            // Inline €-value sits one line below the label. The collision
+            // step already reserves room for both, so the value renders
+            // whenever the label does.
+            const showInlineValue = !isTotal && showLabel;
+            const hasLeader = placedShow && (placement?.hasLeader ?? false);
             const labelOpacity = isOnPath || !focus.id ? 1 : 0.4;
             const valueOpacity = isOnPath || !focus.id ? 0.7 : 0.3;
+            const leaderOpacity = !focus.id || isOnPath ? 0.35 : 0.1;
 
             const sideTotalEur =
               node.side === "revenue"
@@ -649,31 +803,49 @@ const FlowSvg: FC<{
                     {node.label} · {compactEur(node.valueEur)}
                   </text>
                 ) : null}
+                {hasLeader && showLabel ? (
+                  <line
+                    x1={labelOnRight ? renderX1 : renderX0}
+                    y1={yMid}
+                    x2={labelOnRight ? labelX - 1 : labelX + 1}
+                    y2={labelY}
+                    stroke="currentColor"
+                    strokeOpacity={leaderOpacity}
+                    strokeWidth={0.75}
+                    className="text-muted-foreground"
+                    style={{ pointerEvents: "none" }}
+                  />
+                ) : null}
                 {showLabel ? (
                   <text
                     x={labelX}
-                    y={showInlineValue ? yMid - 1 : yMid}
-                    dy={showInlineValue ? "-0.05em" : "0.35em"}
+                    y={labelY}
+                    dy="0.35em"
                     textAnchor={anchor}
                     fontSize={11}
                     fillOpacity={labelOpacity}
                     className="fill-foreground"
-                    style={{ pointerEvents: "none" }}
+                    style={{ cursor: "pointer" }}
                   >
-                    {truncate(node.label, LABEL_MAX_CHARS)}
+                    {truncate(
+                      node.label,
+                      Math.round(node.x0 ?? 0) === outerColumnX
+                        ? LABEL_MAX_CHARS_LEAF
+                        : LABEL_MAX_CHARS_INNER,
+                    )}
                   </text>
                 ) : null}
                 {showInlineValue ? (
                   <text
                     x={labelX}
-                    y={yMid}
-                    dy="1.05em"
+                    y={labelY + VALUE_OFFSET_Y}
+                    dy="0.35em"
                     textAnchor={anchor}
                     fontSize={10}
                     fontWeight={600}
                     fillOpacity={valueOpacity}
                     className="fill-foreground"
-                    style={{ pointerEvents: "none" }}
+                    style={{ cursor: "pointer" }}
                   >
                     {compactEur(node.valueEur)}
                   </text>

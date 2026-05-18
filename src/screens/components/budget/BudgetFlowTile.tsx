@@ -17,15 +17,24 @@ import { snapshotToFlowModel } from "./budgetFlowModel";
 import { BudgetFlowGraphic } from "./BudgetFlowGraphic";
 import { BudgetFlowMobile } from "./BudgetFlowMobile";
 
-// Generous canvas height so the outer leaf column has room for visible gaps
-// between siblings (post-processed in BudgetFlowGraphic). The central total
-// walls scale up proportionally, the leaves stay readable.
-const HEIGHT = 720;
 // Below this width labels overlap; the SVG falls back to horizontal scroll
 // inside the card, mirroring the procurement Sankey's mobile policy. The
 // spending side now has a depth-2 outer subcategory column, so the minimum
 // is larger than before — four columns plus a wider label gutter.
 const MIN_GRAPHIC_WIDTH = 1100;
+// Min / max graphic height. Within the range, height scales linearly with
+// width (~0.5x) so wider canvases get more vertical room for labels without
+// stretching to an awkward portrait shape on very wide screens.
+const MIN_GRAPHIC_HEIGHT = 520;
+const MAX_GRAPHIC_HEIGHT = 820;
+const HEIGHT_FROM_WIDTH_RATIO = 0.5;
+const heightForWidth = (width: number): number =>
+  Math.round(
+    Math.min(
+      MAX_GRAPHIC_HEIGHT,
+      Math.max(MIN_GRAPHIC_HEIGHT, width * HEIGHT_FROM_WIDTH_RATIO),
+    ),
+  );
 
 const Legend: FC = () => {
   const { t } = useTranslation();
@@ -156,26 +165,32 @@ export const BudgetFlowTile: FC<{ snapshot: KfpSnapshot }> = ({ snapshot }) => {
           </div>
         </div>
         {isMd ? (
-          <div
-            ref={containerRef}
-            className="rounded-md border bg-card overflow-x-auto"
-            style={{ height: HEIGHT }}
-          >
-            <div
-              style={{
-                minWidth: MIN_GRAPHIC_WIDTH,
-                height: size.height || HEIGHT,
-              }}
-            >
-              {size.width > 0 ? (
-                <BudgetFlowGraphic
-                  model={model}
-                  width={Math.max(size.width, MIN_GRAPHIC_WIDTH)}
-                  height={size.height || HEIGHT}
-                />
-              ) : null}
-            </div>
-          </div>
+          (() => {
+            const graphicWidth = Math.max(size.width, MIN_GRAPHIC_WIDTH);
+            const graphicHeight = heightForWidth(graphicWidth);
+            return (
+              <div
+                ref={containerRef}
+                className="rounded-md border bg-card overflow-x-auto"
+                style={{ height: graphicHeight }}
+              >
+                <div
+                  style={{
+                    minWidth: MIN_GRAPHIC_WIDTH,
+                    height: graphicHeight,
+                  }}
+                >
+                  {size.width > 0 ? (
+                    <BudgetFlowGraphic
+                      model={model}
+                      width={graphicWidth}
+                      height={graphicHeight}
+                    />
+                  ) : null}
+                </div>
+              </div>
+            );
+          })()
         ) : (
           <BudgetFlowMobile model={model} />
         )}
