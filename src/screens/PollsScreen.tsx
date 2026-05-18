@@ -144,7 +144,7 @@ export const PollsScreen: FC = () => {
               </div>
             </div>
             <div className="text-xs text-muted-foreground tabular-nums">
-              MAE {best?.shrunkMAE.toFixed(2)}
+              MAE {best?.shrunkMAEAdjusted.toFixed(2)}
             </div>
           </div>
         </div>

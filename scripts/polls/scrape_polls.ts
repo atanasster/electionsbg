@@ -2,6 +2,24 @@
  * Scrape Bulgarian parliamentary polling data from BG Wikipedia and merge with
  * any existing data in public/polls/.
  *
+ * ⚠️  WIKIPEDIA IS NOT A SOURCE OF TRUTH ⚠️
+ *
+ * BG Wikipedia polling tables have been observed with:
+ *  - Renormalized values (Market Links and others publish raw + decided-voters
+ *    tables; Wikipedia editors transcribe the renormalized one, dropping ~1.3x
+ *    over the agency's actual raw publication).
+ *  - Small parties (Сияние, Синя България, ВМРО etc.) systematically omitted.
+ *  - Outright mislabels (e.g. sh-2024-06-01 had "МЕЧ 5.1" when the agency
+ *    actually published "ИТН 5.1" — МЕЧ wasn't in that poll at all).
+ *  - Date drift (publication dates listed as if fieldwork end dates).
+ *
+ * This scraper exists for one purpose: surfacing NEW polls that have been
+ * added to Wikipedia so we know to verify them. Every scraped row must be
+ * cross-checked against the agency's primary publication before being trusted
+ * for ranking. The `genre` field on each curated poll record marks it as
+ * "verified" — the defensive guard in `mergePolls` below refuses to overwrite
+ * any record with a genre set.
+ *
  * Wikipedia's "Парламентарни избори в България (YYYY)" pages embed a wikitable
  * with: agency, fieldwork period, sample size, then one column per party. The
  * first data row is the actual CEC result (skipped — we use national_summary.json

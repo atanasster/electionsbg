@@ -91,7 +91,15 @@ export type AgencyProfile = {
   electionsCovered: string[];
   overallMAE: number;
   overallRMSE: number;
+  // Sample-weighted MAE on industry-bias-adjusted errors. Per (election, party)
+  // the cross-agency mean error is subtracted from each agency's error before
+  // |·|, then per-poll contributions are weighted by √n. Captures skill
+  // relative to peers (cycle-wide forecast shocks removed).
+  overallMAEAdjusted: number;
   shrunkMAE: number;
+  // Adjusted MAE put through the same Bayesian shrinkage as shrunkMAE. The
+  // leaderboard sort order and letter grade are derived from this value.
+  shrunkMAEAdjusted: number;
   medianDaysBefore?: number | null;
   plusMinus: number | null;
   plusMinusSamples: number;

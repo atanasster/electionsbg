@@ -103,7 +103,7 @@ export const AgencyProfileCard: FC<Props> = ({
             {t("polls_shrunk_mae")}
           </div>
           <div className="tabular-nums text-lg font-semibold">
-            {profile.shrunkMAE.toFixed(2)}
+            {profile.shrunkMAEAdjusted.toFixed(2)}
           </div>
           <div className="text-[10px] text-muted-foreground tabular-nums">
             {t("polls_raw")} {profile.overallMAE.toFixed(2)}

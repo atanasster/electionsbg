@@ -24,7 +24,7 @@ export const PollsLeaderboardTile: FC<Props> = ({ profiles, agencies }) => {
   const isBg = i18n.language === "bg";
   const agencyById = new Map(agencies.map((a) => [a.id, a]));
 
-  const maxMae = Math.max(0.01, ...profiles.map((p) => p.shrunkMAE));
+  const maxMae = Math.max(0.01, ...profiles.map((p) => p.shrunkMAEAdjusted));
 
   return (
     <StatCard
@@ -88,8 +88,10 @@ export const PollsLeaderboardTile: FC<Props> = ({ profiles, agencies }) => {
         {profiles.map((p, idx) => {
           const a = agencyById.get(p.agencyId);
           const name = a ? (isBg ? a.name_bg : a.name_en) : p.agencyId;
-          const widthPct = Math.max(2, (p.shrunkMAE / maxMae) * 100);
-          const hue = Math.max(0, 140 - p.shrunkMAE * 30);
+          const widthPct = Math.max(2, (p.shrunkMAEAdjusted / maxMae) * 100);
+          // Adjusted-MAE colour scale: green at the cross-agency mean (~1.0),
+          // amber near the C+/D boundary (~1.5), red past F (~2.0).
+          const hue = Math.max(0, 140 - (p.shrunkMAEAdjusted - 0.5) * 80);
           const pmColor =
             p.plusMinus === null
               ? "text-muted-foreground"
@@ -131,7 +133,7 @@ export const PollsLeaderboardTile: FC<Props> = ({ profiles, agencies }) => {
                 />
               </div>
               <span className="tabular-nums text-xs font-semibold text-right">
-                {p.shrunkMAE.toFixed(2)}
+                {p.shrunkMAEAdjusted.toFixed(2)}
               </span>
               <span
                 className={`tabular-nums text-xs font-semibold text-right ${pmColor}`}

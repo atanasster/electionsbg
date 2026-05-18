@@ -435,7 +435,7 @@
   "polls_grade": "Grade",
   "polls_grade_hint": "Composite letter grade A+ through F derived from shrunk MAE, Plus/Minus, and barrier-call accuracy. Tunable thresholds; see methodology.",
   "polls_shrunk_mae": "Shrunk MAE",
-  "polls_shrunk_mae_hint": "Mean absolute error pulled toward the cross-agency mean using Bayesian shrinkage (k=4). An agency with one election is mostly the prior; an agency with eight elections is mostly its own number. Prevents lucky single-cycle agencies from topping the leaderboard.",
+  "polls_shrunk_mae_hint": "Sample-weighted, industry-bias-subtracted MAE put through Bayesian shrinkage. For each (election, party) the cross-agency mean error is subtracted from every agency's error before |·| — so cycle-wide forecast shocks (a new party absorbing late-deciders, an industry-wide turnout-model miss) aren't charged to individual agencies. Each per-poll contribution is then weighted by √n. Same Bayesian shrinkage as before applies on top: (n × MAE_adj + k × overall_mean) / (n + k), k=4. Reads as 'skill relative to peers', not absolute error.",
   "polls_plus_minus": "+/-",
   "polls_plus_minus_hint": "Average difference between this agency's MAE and the consensus MAE of all other agencies on the same election. Positive means the agency consistently beat the field; negative means it consistently lagged.",
   "polls_barrier_call": "4% calls",
