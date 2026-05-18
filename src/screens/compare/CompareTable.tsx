@@ -5,6 +5,7 @@ import { NationalSummary } from "@/data/dashboard/dashboardTypes";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { formatPct, localDate } from "@/data/utils";
 import { Link } from "@/ux/Link";
+import { partyHref } from "@/lib/utils";
 
 type Props = {
   left: NationalSummary;
@@ -206,7 +207,7 @@ export const CompareTable: FC<Props> = ({ left, right }) => {
                       style={{ backgroundColor: r.color || "#888" }}
                     />
                     <Link
-                      to={`/party/${r.nickName}`}
+                      to={partyHref(r.nickName)}
                       className="hover:underline truncate"
                       underline={false}
                     >

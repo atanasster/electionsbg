@@ -6,6 +6,7 @@
 import { FC } from "react";
 import { Link } from "@/ux/Link";
 import { useParliamentGroups } from "@/data/parliament/useParliamentGroups";
+import { partyHref } from "@/lib/utils";
 
 export const PartyTag: FC<{ partyShort?: string | null }> = ({
   partyShort,
@@ -34,7 +35,7 @@ export const PartyTag: FC<{ partyShort?: string | null }> = ({
   );
   if (!nickName) return tag;
   return (
-    <Link to={`/party/${nickName}`} underline={false}>
+    <Link to={partyHref(nickName)} underline={false}>
       {tag}
     </Link>
   );

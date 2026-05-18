@@ -4,6 +4,7 @@ import { ArrowDown, ArrowUp, Minus } from "lucide-react";
 import { formatPct } from "@/data/utils";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { Link } from "@/ux/Link";
+import { partyHref } from "@/lib/utils";
 import { RegionSummary } from "./regionSummary";
 
 type Props = {
@@ -176,7 +177,7 @@ export const CompareRegionsTable: FC<Props> = ({ left, right }) => {
                       style={{ backgroundColor: r.color || "#888" }}
                     />
                     <Link
-                      to={`/party/${r.nickName}`}
+                      to={partyHref(r.nickName)}
                       className="hover:underline truncate"
                       underline={false}
                     >

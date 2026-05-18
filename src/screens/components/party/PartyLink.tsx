@@ -2,7 +2,7 @@ import { PartyInfo } from "@/data/dataTypes";
 import { Link } from "@/ux/Link";
 import { FC } from "react";
 import { PartyLabel } from "./PartyLabel";
-import { cn } from "@/lib/utils";
+import { cn, partyHref } from "@/lib/utils";
 
 export const PartyLink: FC<{
   party?: PartyInfo;
@@ -22,7 +22,7 @@ export const PartyLink: FC<{
     </div>
   );
   return party && link ? (
-    <Link to={`/party/${party.nickName}`} underline={false}>
+    <Link to={partyHref(party.nickName)} underline={false}>
       {content}{" "}
     </Link>
   ) : (

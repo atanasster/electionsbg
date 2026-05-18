@@ -1,7 +1,7 @@
 import { Bar, BarChart, Cell, CartesianGrid, XAxis, LabelList } from "recharts";
 import { ChartContainer, ChartTooltip } from "@/components/ui/chart";
 import { tooltipSurfaceCompactClass } from "@/components/ui/tooltipSurface";
-import { cn } from "@/lib/utils";
+import { cn, partyHref } from "@/lib/utils";
 import { PartyVotes } from "@/data/dataTypes";
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
@@ -86,7 +86,7 @@ export const VotesChart: FC<{ votes?: PartyVotes[]; maxRows?: number }> = ({
               key={`cell-${p.partyNum}`}
               fill={p.color}
               cursor="pointer"
-              onClick={() => navigate({ pathname: `/party/${p.nickName}` })}
+              onClick={() => navigate({ pathname: partyHref(p.nickName) })}
             />
           ))}
           <LabelList

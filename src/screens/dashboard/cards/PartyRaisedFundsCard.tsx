@@ -10,6 +10,7 @@ import {
 } from "@/data/utils";
 import { localDate } from "@/data/utils";
 import { Link } from "@/ux/Link";
+import { partyHref } from "@/lib/utils";
 import { StatCard } from "../StatCard";
 
 type Props = {
@@ -79,7 +80,7 @@ export const PartyRaisedFundsCard: FC<Props> = ({
       )}
       {partyNickName && total > 0 && (
         <Link
-          to={`/party/${partyNickName}/income`}
+          to={partyHref(partyNickName, "/income")}
           className="text-[10px] text-primary hover:underline mt-1"
           underline={false}
         >

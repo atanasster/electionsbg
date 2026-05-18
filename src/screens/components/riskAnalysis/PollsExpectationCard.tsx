@@ -6,6 +6,7 @@ import { useAgencies, usePollsAccuracy } from "@/data/polls/usePolls";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { Hint } from "@/ux/Hint";
 import { Link } from "@/ux/Link";
+import { partyHref } from "@/lib/utils";
 import { StatCard } from "@/screens/dashboard/StatCard";
 
 // Polls-vs-result panel for /risk-analysis. Surfaces the same agency
@@ -184,7 +185,7 @@ export const PollsExpectationCard: FC = () => {
               </span>
               <span className="text-xs truncate flex items-center gap-1.5 min-w-0">
                 <Link
-                  to={`/party/${a.biggestMiss.key}`}
+                  to={partyHref(a.biggestMiss.key)}
                   className="inline-flex items-center gap-1 font-medium hover:underline min-w-0"
                   underline={false}
                 >

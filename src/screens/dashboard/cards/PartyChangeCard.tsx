@@ -5,6 +5,7 @@ import { PartyChange } from "@/data/dashboard/dashboardTypes";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { formatPct } from "@/data/utils";
 import { Link } from "@/ux/Link";
+import { partyHref } from "@/lib/utils";
 import { StatCard } from "../StatCard";
 
 type Props = {
@@ -46,7 +47,7 @@ export const PartyChangeCard: FC<Props> = ({ variant, change }) => {
           style={{ backgroundColor: change.color || "#888" }}
         />
         <Link
-          to={`/party/${change.nickName}`}
+          to={partyHref(change.nickName)}
           className="text-lg font-semibold truncate hover:underline"
           underline={false}
         >
