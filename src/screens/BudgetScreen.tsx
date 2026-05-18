@@ -435,7 +435,7 @@ export const BudgetScreen: FC = () => {
           icon={PieChart}
         >
           <BudgetCitizenViewTile fiscalYear={term.selectedFy} />
-          <BudgetTaxBillTile />
+          <BudgetTaxBillTile fiscalYear={term.selectedFy} />
           <div className="grid gap-4 grid-cols-1 xl:grid-cols-2">
             <BudgetRevenueCompositionTile
               fiscalYear={term.selectedFy}

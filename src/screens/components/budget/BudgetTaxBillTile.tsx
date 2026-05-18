@@ -9,7 +9,7 @@
 // general-government composition to the total bill is the framing the public
 // reaches for first.
 
-import { FC, useMemo, useState } from "react";
+import { FC, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Receipt } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
@@ -27,11 +27,38 @@ import {
 // gross and the monthly insurable-income cap (МОД).
 const SSC_EMPLOYEE_RATE = 0.1378;
 const PIT_RATE = 0.1;
-// Максимален осигурителен доход for 2026 (Bulgaria, post-euro adoption).
-// BGN 4,600 / month converted at the locked 1.95583 parity ≈ €2,352. Above
-// this, SSC contributions stop; PIT keeps applying on the full gross less
-// the (capped) SSC.
-const MAX_INSURABLE_INCOME_EUR = 2352;
+
+// Максимален осигурителен доход by fiscal year — Bulgaria's monthly cap on
+// insurable income. Stored in EUR (converted from BGN at the locked 1.95583
+// parity through 2025; native EUR from 2026 after euro adoption). Where the
+// cap changed mid-year (2022, 2025), the higher value is used since it was
+// in effect for ≥9 months. The 2026 figure is the transitional value rolled
+// over from 2025; a budget proposal (May 2026) would raise it to ~€2,300.
+const MOD_BY_YEAR: Record<number, number> = {
+  2018: 1329,
+  2019: 1534,
+  2020: 1534,
+  2021: 1534,
+  2022: 1738,
+  2023: 1738,
+  2024: 1917,
+  2025: 2112,
+  2026: 2112,
+};
+const LATEST_KNOWN_MOD_YEAR = 2026;
+
+const resolveDefaultMod = (year: number | null | undefined): number => {
+  if (year == null) return MOD_BY_YEAR[LATEST_KNOWN_MOD_YEAR];
+  if (MOD_BY_YEAR[year] != null) return MOD_BY_YEAR[year];
+  // Year outside the table → snap to the nearest known year. Older queries
+  // get the oldest cap; newer queries (e.g. a future-year election) get the
+  // latest one.
+  const known = Object.keys(MOD_BY_YEAR)
+    .map(Number)
+    .sort((a, b) => a - b);
+  if (year < known[0]) return MOD_BY_YEAR[known[0]];
+  return MOD_BY_YEAR[known[known.length - 1]];
+};
 
 // Slider range. Defaults to ~average gross monthly wage in Bulgaria (€1,100
 // in 2024 NSI terms). The top runs well above the МОД cap so IT / finance
@@ -41,6 +68,12 @@ const MIN_GROSS = 500;
 const MAX_GROSS = 8000;
 const STEP_GROSS = 100;
 const DEFAULT_GROSS = 1100;
+
+// МОД input bounds. Below €1,000 the cap stops being meaningful; above
+// €4,000 it dwarfs the slider range. Step €1 — user might paste a precise
+// value (e.g. €2,111.64 transitional rate).
+const MIN_MOD = 1000;
+const MAX_MOD = 4000;
 
 const compactEur = (v: number): string => {
   if (v >= 100) return `€${Math.round(v).toLocaleString()}`;
@@ -66,22 +99,43 @@ interface Slice {
   eur: number;
 }
 
-export const BudgetTaxBillTile: FC = () => {
+export const BudgetTaxBillTile: FC<{ fiscalYear?: number | null }> = ({
+  fiscalYear,
+}) => {
   const { t } = useTranslation();
   const { data: cofog } = useCofog();
   const [gross, setGross] = useState(DEFAULT_GROSS);
+
+  // МОД default is election-scoped: it tracks the selected fiscal year so
+  // each election term shows the cap that was actually in force then. The
+  // user can override (number input) — useful to model proposed changes
+  // (e.g. May 2026 budget proposal raises the cap toward €2,300).
+  const defaultMod = resolveDefaultMod(fiscalYear);
+  const [mod, setMod] = useState<number>(defaultMod);
+  const [modTouched, setModTouched] = useState(false);
+  // When the selected election year changes, reset the editable МОД to the
+  // year's authoritative value — unless the user is actively experimenting
+  // with a custom override (modTouched).
+  useEffect(() => {
+    if (!modTouched) setMod(defaultMod);
+  }, [defaultMod, modTouched]);
 
   // Monthly tax burden — SSC first (capped at the МОД ceiling), then 10% PIT
   // on (gross − SSC). For high earners the cap means SSC stops growing but
   // PIT keeps scaling, so the marginal rate flips from ~23% to ~10% above the
   // cap. The hint near the SSC card explains this when the slider crosses.
-  const isAboveCap = gross > MAX_INSURABLE_INCOME_EUR;
-  const insurableBase = Math.min(gross, MAX_INSURABLE_INCOME_EUR);
+  const isAboveCap = gross > mod;
+  const insurableBase = Math.min(gross, mod);
   const ssc = insurableBase * SSC_EMPLOYEE_RATE;
   const taxable = gross - ssc;
   const pit = taxable * PIT_RATE;
   const totalTax = ssc + pit;
   const net = gross - totalTax;
+  const isModCustom = modTouched && mod !== defaultMod;
+  const modYear =
+    fiscalYear != null && MOD_BY_YEAR[fiscalYear] != null
+      ? fiscalYear
+      : LATEST_KNOWN_MOD_YEAR;
 
   const { slices, year } = useMemo(() => {
     if (!cofog) return { slices: [] as Slice[], year: null as number | null };
@@ -112,7 +166,7 @@ export const BudgetTaxBillTile: FC = () => {
         </CardTitle>
         <p className="text-xs text-muted-foreground">
           {t("budget_tax_bill_subtitle") ||
-            "Approximate estimate. Pick a monthly gross salary; we apply Bulgaria's 10% income tax + 13.78% employee social-security contribution (capped at the 2026 МОД of €2,352), then route the result through general-government spending shares."}
+            "Approximate estimate. Pick a monthly gross salary; we apply Bulgaria's 10% income tax + 13.78% employee social-security contribution (capped at the maximum insurable income, МОД, for the selected fiscal year), then route the result through general-government spending shares. The МОД default tracks the selected election term — you can override it to model a proposed change."}
         </p>
       </CardHeader>
       <CardContent className="pt-0">
@@ -143,6 +197,60 @@ export const BudgetTaxBillTile: FC = () => {
           </div>
         </div>
 
+        <div className="mt-3 flex items-baseline gap-3 flex-wrap">
+          <label
+            htmlFor="budget-tax-bill-mod"
+            className="text-xs text-muted-foreground"
+          >
+            {t("budget_tax_bill_mod_label") || "Maximum insurable income (МОД)"}
+          </label>
+          <div className="flex items-baseline gap-1">
+            <span className="text-xs">€</span>
+            <input
+              id="budget-tax-bill-mod"
+              type="number"
+              min={MIN_MOD}
+              max={MAX_MOD}
+              step={1}
+              value={mod}
+              onChange={(e) => {
+                const v = Number(e.target.value);
+                if (!Number.isFinite(v)) return;
+                setMod(Math.max(MIN_MOD, Math.min(MAX_MOD, Math.round(v))));
+                setModTouched(true);
+              }}
+              className="w-20 rounded border border-input bg-background px-2 py-0.5 text-sm tabular-nums focus:outline-none focus:ring-1 focus:ring-ring"
+              aria-label={
+                t("budget_tax_bill_mod_label") ||
+                "Maximum insurable income (МОД)"
+              }
+            />
+          </div>
+          {isModCustom ? (
+            <button
+              type="button"
+              onClick={() => {
+                setMod(defaultMod);
+                setModTouched(false);
+              }}
+              className="text-[11px] text-primary hover:underline"
+            >
+              {(
+                t("budget_tax_bill_mod_reset") ||
+                "reset to {{year}} default (€{{eur}})"
+              )
+                .replace("{{year}}", String(modYear))
+                .replace("{{eur}}", String(defaultMod))}
+            </button>
+          ) : (
+            <span className="text-[11px] text-muted-foreground">
+              {(
+                t("budget_tax_bill_mod_default") || "default for {{year}}"
+              ).replace("{{year}}", String(modYear))}
+            </span>
+          )}
+        </div>
+
         <div className="mt-3 grid grid-cols-3 gap-2 text-xs">
           <div className="rounded-md bg-muted/40 px-2 py-1.5">
             <div className="text-muted-foreground">
@@ -153,7 +261,7 @@ export const BudgetTaxBillTile: FC = () => {
               <div className="text-[10px] text-amber-700 dark:text-amber-400 mt-0.5">
                 {(
                   t("budget_tax_bill_ssc_capped") || "capped at МОД €{{cap}}"
-                ).replace("{{cap}}", String(MAX_INSURABLE_INCOME_EUR))}
+                ).replace("{{cap}}", String(mod))}
               </div>
             ) : null}
           </div>
@@ -209,7 +317,7 @@ export const BudgetTaxBillTile: FC = () => {
 
         <p className="text-[11px] text-muted-foreground/80 mt-3">
           {t("budget_tax_bill_caption") ||
-            "Approximate estimate. Assumes a default-case taxpayer (no second-pillar opt-out, no income-tax reliefs). SSC is capped at the 2026 МОД (€2,352); above the cap only the 10% income tax keeps scaling. Real social-security contributions are earmarked (pension + health + unemployment), not freely allocable to every function — the chart applies general-government spending shares to the total tax bill purely for illustration."}{" "}
+            "Approximate estimate. Assumes a default-case taxpayer (no second-pillar opt-out, no income-tax reliefs). SSC stops accruing above the МОД; above the cap only the 10% income tax keeps scaling. Real social-security contributions are earmarked (pension + health + unemployment), not freely allocable to every function — the chart applies general-government spending shares to the total tax bill purely for illustration."}{" "}
           {(
             t("budget_tax_bill_net", { eur: "{{eur}}" }) ||
             "Net take-home after tax: {{eur}}/mo."

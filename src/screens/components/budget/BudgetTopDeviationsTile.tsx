@@ -116,7 +116,7 @@ const RowItem: FC<{ row: Row; lang: "bg" | "en" }> = ({ row, lang }) => {
         {compactEur(row.planned)} → {compactEur(row.executed)}
       </span>
       <span
-        className={`tabular-nums font-semibold shrink-0 w-16 text-right ${tone}`}
+        className={`tabular-nums font-semibold shrink-0 w-20 text-right whitespace-nowrap ${tone}`}
       >
         <Arrow className="inline h-3 w-3 -mt-0.5" /> {fmtPct(row.variancePct)}
       </span>
