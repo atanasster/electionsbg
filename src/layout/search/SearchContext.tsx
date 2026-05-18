@@ -5,6 +5,8 @@ import {
   FC,
   PropsWithChildren,
   useCallback,
+  useEffect,
+  useRef,
   useState,
 } from "react";
 import { trackSearch } from "@/lib/analytics";
@@ -36,73 +38,125 @@ export const SearchContext = createContext<SearchContextType>({
   activate: () => {},
 });
 
-// Heavy implementation — calls useSearchItems which pulls the search index.
-// Only mounted after the user activates the bar, so direct-entry pages like
-// /governance pay zero cost when search isn't used.
-const ActivatedSearchProvider: FC<PropsWithChildren> = ({ children }) => {
+type SearchFn = (q: string) => FuseResult<SearchIndexType>[] | undefined;
+
+// Side-effect-only child that runs the heavy useSearchItems hook chain and
+// reports the resulting search function back to the parent. Mounted only
+// after activation — keeping the children of SearchContextProvider stable
+// across the activation flip, so the input field and its focus/open state
+// survive (previous design swapped two different wrapper component types
+// here, which unmounted SearchInternal on first click and dropped focus).
+const SearchDataLoader: FC<{ onSearchReady: (search: SearchFn) => void }> = ({
+  onSearchReady,
+}) => {
   const { search } = useSearchItems();
+  useEffect(() => {
+    onSearchReady(search);
+  }, [search, onSearchReady]);
+  return null;
+};
+
+export const SearchContextProvider: FC<PropsWithChildren> = ({ children }) => {
+  const [activated, setActivated] = useState(false);
+  const activate = useCallback(() => setActivated(true), []);
+
+  const searchRef = useRef<SearchFn | undefined>(undefined);
+  const [searchReady, setSearchReady] = useState(false);
+  const onSearchReady = useCallback((search: SearchFn) => {
+    searchRef.current = search;
+    setSearchReady(true);
+  }, []);
+
   const [term, setTerm] = useState("");
   const [searchItems, setSearchItems] = useState<SearchItemType[]>([]);
   const [selected, setSelected] = useState<number>(-1);
+
+  const runSearch = useCallback(
+    (searchTerm: string) => {
+      const search = searchRef.current;
+      if (!search) {
+        // Index not loaded yet — keep the term, leave results empty so the
+        // dropdown shows "no results" until the data lands. We'll re-run
+        // automatically once the loader reports the search function.
+        setSearchItems([]);
+        return;
+      }
+      const selectedItem =
+        selected >= 0 && selected < searchItems.length
+          ? searchItems[selected]
+          : undefined;
+      const groupOrder: Record<SearchIndexType["type"], number> = {
+        s: 0,
+        m: 1,
+        r: 2,
+        c: 3,
+        a: 4,
+        b: 5,
+      };
+      const PER_TYPE_LIMIT = 5;
+      const counts: Partial<Record<SearchIndexType["type"], number>> = {};
+      const filtered =
+        search(searchTerm)?.filter((r) => {
+          // Per-type fuzziness budget. Candidate names and ministry names
+          // are typically searched by a partial keyword ("отбран" → Defence
+          // ministry, "Радев" → Radev) so they get a looser threshold than
+          // settlements/sections where the user usually types an exact name.
+          const limit = r.item.type === "a" || r.item.type === "b" ? 0.4 : 0.1;
+          return (r.score || 1) <= limit;
+        }) || [];
+      const limited: typeof filtered = [];
+      for (const r of filtered) {
+        const c = counts[r.item.type] || 0;
+        if (c >= PER_TYPE_LIMIT) continue;
+        counts[r.item.type] = c + 1;
+        limited.push(r);
+      }
+      const newItems = limited
+        .map((r, i) => ({ r, i }))
+        .sort((a, b) => {
+          const g = groupOrder[a.r.item.type] - groupOrder[b.r.item.type];
+          return g !== 0 ? g : a.i - b.i;
+        })
+        .map(({ r }) => r);
+      setSearchItems(newItems);
+      trackSearch(searchTerm, newItems.length);
+      if (selectedItem) {
+        const newIndex = newItems.findIndex(
+          (n) =>
+            n.item.key === selectedItem.item.key &&
+            n.item.type === selectedItem.item.type,
+        );
+        setSelected(newIndex);
+      } else setSelected(-1);
+    },
+    [searchItems, selected],
+  );
+
   const setSearchTerm = useCallback(
     (searchTerm: string) => {
       if (searchTerm && searchTerm.length > 0) {
-        const selectedItem =
-          selected >= 0 && selected < searchItems.length
-            ? searchItems[selected]
-            : undefined;
-        const groupOrder: Record<SearchIndexType["type"], number> = {
-          s: 0,
-          m: 1,
-          r: 2,
-          c: 3,
-          a: 4,
-          b: 5,
-        };
-        const PER_TYPE_LIMIT = 5;
-        const counts: Partial<Record<SearchIndexType["type"], number>> = {};
-        const filtered =
-          search(searchTerm)?.filter((r) => {
-            // Per-type fuzziness budget. Candidate names and ministry names
-            // are typically searched by a partial keyword ("отбран" → Defence
-            // ministry, "Радев" → Radev) so they get a looser threshold than
-            // settlements/sections where the user usually types an exact name.
-            const limit =
-              r.item.type === "a" || r.item.type === "b" ? 0.4 : 0.1;
-            return (r.score || 1) <= limit;
-          }) || [];
-        const limited: typeof filtered = [];
-        for (const r of filtered) {
-          const c = counts[r.item.type] || 0;
-          if (c >= PER_TYPE_LIMIT) continue;
-          counts[r.item.type] = c + 1;
-          limited.push(r);
-        }
-        const newItems = limited
-          .map((r, i) => ({ r, i }))
-          .sort((a, b) => {
-            const g = groupOrder[a.r.item.type] - groupOrder[b.r.item.type];
-            return g !== 0 ? g : a.i - b.i;
-          })
-          .map(({ r }) => r);
-        setSearchItems(newItems);
-        // Track search in Google Analytics
-        trackSearch(searchTerm, newItems.length);
-        if (selectedItem) {
-          const newIndex = newItems.findIndex(
-            (n) =>
-              n.item.key === selectedItem.item.key &&
-              n.item.type === selectedItem.item.type,
-          );
-          setSelected(newIndex);
-        } else setSelected(-1);
+        if (!activated) setActivated(true);
+        runSearch(searchTerm);
       } else {
         setSearchItems([]);
       }
       setTerm(searchTerm);
     },
-    [search, searchItems, selected],
+    [activated, runSearch],
   );
+
+  // When the search function arrives after the user has already typed,
+  // re-run the search so the dropdown populates without requiring another
+  // keystroke.
+  useEffect(() => {
+    if (searchReady && term && term.length > 0 && searchItems.length === 0) {
+      runSearch(term);
+    }
+    // Intentionally run only when searchReady flips — re-running on every
+    // term change would double-fire alongside setSearchTerm.
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchReady]);
+
   const arrowDown = () => {
     const newIndex = selected < searchItems.length - 1 ? selected + 1 : 0;
     setSelected(newIndex);
@@ -117,6 +171,7 @@ const ActivatedSearchProvider: FC<PropsWithChildren> = ({ children }) => {
       ? searchItems[selected]
       : undefined;
   }, [searchItems, selected]);
+
   return (
     <SearchContext.Provider
       value={{
@@ -127,45 +182,11 @@ const ActivatedSearchProvider: FC<PropsWithChildren> = ({ children }) => {
         selected: getSelectedItem(),
         setSelected,
         searchTerm: term,
-        activate: () => {},
+        activate,
       }}
     >
       {children}
+      {activated && <SearchDataLoader onSearchReady={onSearchReady} />}
     </SearchContext.Provider>
   );
-};
-
-// Lightweight stub — no data hooks, no fetches. setSearchTerm and activate
-// both flip the activation flag and the parent mounts the heavy provider on
-// the next render. Until then this is what every page in the app sees.
-const InactiveSearchProvider: FC<
-  PropsWithChildren<{ onActivate: () => void }>
-> = ({ children, onActivate }) => (
-  <SearchContext.Provider
-    value={{
-      arrowDown: () => {},
-      arrowUp: () => {},
-      items: [],
-      setSelected: () => {},
-      setSearchTerm: (term) => {
-        if (term && term.length > 0) onActivate();
-      },
-      activate: onActivate,
-    }}
-  >
-    {children}
-  </SearchContext.Provider>
-);
-
-export const SearchContextProvider: FC<PropsWithChildren> = ({ children }) => {
-  const [activated, setActivated] = useState(false);
-  const activate = useCallback(() => setActivated(true), []);
-  if (!activated) {
-    return (
-      <InactiveSearchProvider onActivate={activate}>
-        {children}
-      </InactiveSearchProvider>
-    );
-  }
-  return <ActivatedSearchProvider>{children}</ActivatedSearchProvider>;
 };
