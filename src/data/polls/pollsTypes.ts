@@ -26,12 +26,19 @@ export type PollResidual = {
 /**
  * Provenance for a confirmed poll that the scraper must never overwrite.
  * Tiered by source authority:
- *   - agency_spreadsheet: agency-provided summary file (e.g. ML/Galya xlsx)
- *   - agency_pdf:         agency-published PDF report supplied manually
- *   - agency_website:     citation hosted on the agency's own primary domain
+ *   - agency_spreadsheet:    agency-provided summary file (e.g. ML/Galya xlsx)
+ *   - agency_pdf:            agency-published PDF report supplied manually
+ *   - agency_website:        citation hosted on the agency's own primary domain
+ *   - third_party_consensus: agency did not archive a primary; numbers
+ *                            verified across multiple independent press
+ *                            citations that all agree on the same figures
  */
 export type PollLock = {
-  by: "agency_spreadsheet" | "agency_pdf" | "agency_website";
+  by:
+    | "agency_spreadsheet"
+    | "agency_pdf"
+    | "agency_website"
+    | "third_party_consensus";
   note?: string;
   lockedAt: string;
 };

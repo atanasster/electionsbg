@@ -18,7 +18,7 @@
  * cross-checked against the agency's primary publication before being trusted
  * for ranking. Two signals mark a poll as protected from scraper overwrite:
  *   - `genre` set (legacy hand-validation marker)
- *   - `locked` set (explicit provenance: agency_spreadsheet | agency_pdf | agency_website)
+ *   - `locked` set (explicit provenance: agency_spreadsheet | agency_pdf | agency_website | third_party_consensus)
  * The defensive guard in `mergePolls` below refuses to overwrite any record
  * carrying either signal.
  *
@@ -74,7 +74,11 @@ type PollResidual = {
 };
 
 type PollLock = {
-  by: "agency_spreadsheet" | "agency_pdf" | "agency_website";
+  by:
+    | "agency_spreadsheet"
+    | "agency_pdf"
+    | "agency_website"
+    | "third_party_consensus";
   note?: string;
   lockedAt: string;
 };
@@ -700,8 +704,11 @@ const isWikiSource = (url: string | null | undefined): boolean =>
 // immutable to the scraper — Wikipedia is not authoritative for them.
 //
 // A poll is "locked" when it carries an explicit `locked` provenance flag
-// (agency_spreadsheet | agency_pdf | agency_website) confirming the values
-// came from the agency itself. Locked polls are also immutable to the scraper.
+// (agency_spreadsheet | agency_pdf | agency_website | third_party_consensus)
+// confirming the values either came from the agency itself, or were
+// cross-confirmed across multiple independent press citations when the
+// agency never archived a primary release. Locked polls are also immutable to
+// the scraper.
 //
 // Both signals lead to the same protection: the scraper will not overwrite
 // the poll's per-party shares or its metadata. We keep both because (a) some

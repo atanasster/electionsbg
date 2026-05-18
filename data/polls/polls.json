@@ -1224,17 +1224,22 @@
     "electionDate": "2021-07-11",
     "respondents": 1000,
     "methodology": {
-      "en": "N/A",
-      "bg": "N/A"
+      "en": "Standardized face-to-face interview at respondent's home",
+      "bg": "Стандартизирано интервю \"лице в лице\" в дома на респондента"
     },
-    "source": "N/A",
+    "source": "https://sovaharris.com/електорални-и-политически-нагласи-в-б-2/",
     "genre": "forecast",
     "residual": {
       "undecided": null,
       "wontVote": null,
       "wontSay": null,
       "otherNamedMinor": 8,
-      "notes": "Stored otherNamedMinor 8 (Wikipedia table reference) plausible for combined sub-4% parties."
+      "notes": "SH primary release (\"Електорални и политически нагласи в България, Юли 2021\") confirms fieldwork 2-6 Jul 2021, n=1000, face-to-face at home. Epicenter.bg/Glasove citations of the same release confirm top-line: ГЕРБ-СДС 22.6, ИТН 22.1, БСП 16.0, ДПС 10.9, ДБ 10.6, Изправи се! 5.3 — all match stored detail rows. Stored otherNamedMinor 8 represents combined sub-4% parties (Wikipedia summary)."
+    },
+    "locked": {
+      "by": "agency_website",
+      "note": "Source URL is on SH's own domain (sovaharris.com)",
+      "lockedAt": "2026-05-19"
     }
   },
   {
@@ -1244,17 +1249,22 @@
     "electionDate": "2023-04-02",
     "respondents": 1000,
     "methodology": {
-      "en": "Standardized face-to-face interview",
-      "bg": "Стандартизирано интервю \"лице в лице\""
+      "en": "Standardized face-to-face interview at respondent's home",
+      "bg": "Стандартизирано интервю \"лице в лице\" в дома на респондента"
     },
-    "source": "https://bnr.bg/post/101787766/sova-haris-pet-partii-v-parlamenta-parvi-sa-gerb-sds-s-274-sledvani-ot-pp-db-s-257",
+    "source": "https://sovaharris.com/2023/",
     "genre": "raw_attitudes",
     "residual": {
       "undecided": 8.6,
       "wontVote": 22.8,
       "wontSay": null,
       "otherNamedMinor": 2,
-      "notes": "Primary confirms ГЕРБ 27.4, ПП-ДБ 25.7, ДПС 11.7, Възраждане 10.6, БСП 9.7, Левицата! 3.9, БВ 3.7, ИТН 3.1. Stored matches exactly. Method: face-to-face, sample 1000, n+/- 3.1pp."
+      "notes": "SH primary release (\"Електорални нагласи в България, Февруари 2023\", published 02.03.2023) confirms fieldwork 20-27 Feb 2023, n=1000, face-to-face at home, max error 3.1pp. Commissioned by ПИК Броудкастинг. Tribune.bg / trud.bg / segabg.com citations confirm: ГЕРБ-СДС 27.4, ПП-ДБ 25.7, ДПС 11.7, Възраждане 10.6, БСП 9.7, Левицата! 3.9, БВ 3.7, ИТН 3.1 — match stored detail rows."
+    },
+    "locked": {
+      "by": "agency_website",
+      "note": "Source URL is on SH's own domain (sovaharris.com)",
+      "lockedAt": "2026-05-19"
     }
   },
   {
@@ -1264,17 +1274,22 @@
     "electionDate": "2024-06-09",
     "respondents": 1000,
     "methodology": {
-      "en": "Standardized face-to-face interview",
-      "bg": "Стандартизирано интервю \"лице в лице\""
+      "en": "Standardized face-to-face interview at respondent's home",
+      "bg": "Стандартизирано интервю \"лице в лице\" в дома на респондента"
     },
-    "source": "https://www.marica.bg/tema-v-razvitie/izbori-2024/sova-haris-gerb-darpa-s-10-avans-fotofinish-za-vtoroto-mqsto-radev-shampion-po-reyting",
+    "source": "https://sovaharris.com/електорални-нагласи-в-българия-май-юн/",
     "genre": "raw_attitudes",
     "residual": {
       "undecided": null,
       "wontVote": null,
       "wontSay": null,
       "otherNamedMinor": 14.4,
-      "notes": "Primary reports 'over 400,000' voters going to non-parliamentary parties. 'Other parties': 3.3% bucket."
+      "notes": "SH primary release (\"Електорални нагласи в България, Май-Юни 2024\", published 05.06.2024) confirms fieldwork 29 May - 3 Jun 2024, n=1000, face-to-face at home, max error 3.1pp, commissioned by ПИК Броудкастинг. Epicenter.bg / dnes.dir.bg citations confirm top-line: ГЕРБ-СДС 25.5, Възраждане 15.3, ПП-ДБ 15.1, ДПС 14.2, БСП 8.4 — all match stored detail rows. Stored otherNamedMinor 14.4 still flagged: the named sub-5% bucket (Солидарна 3.4 + Синя 3.2 + Левицата 2.5 + ВМРО 1.7 + БВ 1.2 + Център 1.1 = 13.1) plus a ~1.3pp 'друга' residual roughly explains 14.4; an alternative reading of the agency table puts the 'other parties' bucket at ~3.3pp."
+    },
+    "locked": {
+      "by": "agency_website",
+      "note": "Source URL is on SH's own domain (sovaharris.com)",
+      "lockedAt": "2026-05-19"
     }
   },
   {
@@ -1284,17 +1299,22 @@
     "electionDate": "2024-10-27",
     "respondents": 800,
     "methodology": {
-      "en": "Standardized face-to-face interview",
-      "bg": "Стандартизирано интервю \"лице в лице\""
+      "en": "Standardized face-to-face interview at respondent's home",
+      "bg": "Стандартизирано интервю \"лице в лице\" в дома на респондента"
     },
-    "source": "https://tvn.bg/sova-haris-povtarya-se-rezultatat-ot-izborite-prez-yuni/",
+    "source": "https://boulevardbulgaria.bg/articles/sova-haris-8-partii-v-parlamenta-bsp-vdiga-podkrepata-si",
     "genre": "raw_attitudes",
     "residual": {
       "undecided": null,
       "wontVote": null,
       "wontSay": null,
       "otherNamedMinor": 1.8,
-      "notes": "Primary mentions 42.3% completely-sure-to-vote, 57% understand high turnout importance. Synia Bulgaria 1.8% explicitly listed by agency."
+      "notes": "Verified vs. multiple third-party citations (boulevardbulgaria.bg, tvn.bg, pogled.info, dnes.dir.bg, epicenter.bg) of the Oct 11-17 2024 SH release: fieldwork 11-17 Oct 2024, n=800, face-to-face at home. Party numbers: ГЕРБ-СДС 25.0, ПП-ДБ 14.4, Възраждане 14.1, БСП-ОЛ 9.6, АПС 8.5, ИТН 6.6, ДПС-НН 6.3, Величие 4.1, МЕЧ 3.0, Синя България 1.8 — all match stored detail rows. SH never archived this October 2024 release on their own domain; all citations agree, so locked at consensus tier."
+    },
+    "locked": {
+      "by": "third_party_consensus",
+      "note": "SH did not archive an Oct 2024 release on sovaharris.com; numbers fully cross-confirmed across 5+ independent press citations (boulevardbulgaria.bg used as primary anchor)",
+      "lockedAt": "2026-05-19"
     }
   },
   {
@@ -1304,17 +1324,22 @@
     "electionDate": "2026-04-19",
     "respondents": 1000,
     "methodology": {
-      "en": "Standardized face-to-face interview",
-      "bg": "Стандартизирано интервю \"лице в лице\""
+      "en": "Standardized telephone interview (self-financed)",
+      "bg": "Стандартизирано телефонно интервю (самофинансирано)"
     },
-    "source": "https://www.bta.bg/bg/news/bulgaria/909924-prouchvane-na-sova-haris-sochi-che-informatsionnata-kampaniya-na-upravlyavash",
+    "source": "https://sovaharris.com/2025/06/",
     "genre": "raw_attitudes",
     "residual": {
       "undecided": null,
       "wontVote": null,
       "wontSay": null,
-      "otherNamedMinor": 10,
-      "notes": "BTA reports ~10% for 'other parties'."
+      "otherNamedMinor": 9.7,
+      "notes": "SH primary bulletin \"Нагласи на пълнолетните български граждани относно влизането на България в Еврозоната и приемането на Еврото от 01.01.2026 г., Юни 2025 г.\" (self-financed). Fieldwork 9-11 Jun 2025, n=1000, телефонно интервю (NOT face-to-face like other SH releases). Party-vote table is Question 7, denominator 'сред гласуващите за конкретна партия/коалиция': ГЕРБ-СДС 25.0, Възраждане 14.4, ПП-ДБ 13.9, ДПС-НН 8.7, БСП-ОЛ 7.0, АПС 5.9, МЕЧ 5.7, Величие 5.2, ИТН 4.5, Друга партия/коалиция 9.7 — all match stored detail rows."
+    },
+    "locked": {
+      "by": "agency_website",
+      "note": "Source URL is on SH's own domain (sovaharris.com); Question 7 of the Eurozone bulletin contains the full party-vote table",
+      "lockedAt": "2026-05-19"
     }
   },
   {
