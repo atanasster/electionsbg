@@ -845,13 +845,22 @@
     "electionDate": "2021-11-14",
     "respondents": 1076,
     "methodology": {
-      "en": "Direct personal interview & online survey",
-      "bg": "Пряко-лично интервю и онлайн анкета"
+      "en": "Direct personal interview & online survey (commissioned jointly by bTV + Market LINKS)",
+      "bg": "Пряко-лично интервю и онлайн анкета (финансирано и реализирано съвместно от БТВ и Маркет ЛИНКС)"
     },
-    "source": "https://btvnovinite.bg/predavania/tazi-sutrin/market-links-pod-1-razlika-mezhdu-gerb-i-itn.html",
+    "source": "https://btvnovinite.bg/bulgaria/market-links-gerb-sds-sa-parvi-potencial-za-vtoroto-mjasto-imat-bsp-itn-i-db.html",
     "genre": "raw_attitudes",
     "residual": {
-      "notes": "Primary source: 77% sure-vote, 14% won't-vote, 9% undecided. Stored has no residual structure — could be enriched."
+      "undecided": 9,
+      "wontVote": 14,
+      "wontSay": null,
+      "otherNamedMinor": null,
+      "notes": "Stored source URL previously pointed to a different ML release (\"под 1% разлика между ГЕРБ и ИТН\", Jun 18-25 2021 wave) — fixed to the actual Sep 14-20 article on bTV. All 7 stored detail rows match (ГЕРБ-СДС 22.5, БСП 14.5, ИТН 13.5, ДБ 11.9, ПП 11.0, ДПС 9.8, Изправи 4.0). Turnout split: 77% сигурно ще гласува / 14% няма да гласува / 9% колебаят се. ML's own /bg/news/ archive starts at Apr 2025; no agency-domain page exists for this 2021 mid-cycle wave."
+    },
+    "locked": {
+      "by": "third_party_consensus",
+      "note": "ML's website news archive doesn't include the 2021 cycle (earliest /bg/news/ ML poll post is March 2025); confirmed via btvnovinite.bg, segabg.com, glasove.com, fakti.bg, webcafe.bg, news.bg, flagman.bg",
+      "lockedAt": "2026-05-19"
     }
   },
   {
@@ -1033,11 +1042,23 @@
     "electionDate": "2026-04-19",
     "respondents": 1019,
     "methodology": {
-      "en": "N/A",
-      "bg": "N/A"
+      "en": "Direct personal interview & online survey (commissioned jointly by bTV + Market LINKS)",
+      "bg": "Пряко-лично интервю и онлайн анкета (финансирано и реализирано съвместно от БТВ и Маркет ЛИНКС)"
     },
-    "source": "https://bg.wikipedia.org/wiki/Парламентарни_избори_в_България_(2026)",
-    "genre": "raw_attitudes"
+    "source": "https://www.marketlinks.bg/storage/MarketLINKS%20Public%20Opinion%20Poll%20Report%2001.2026.pdf",
+    "genre": "raw_attitudes",
+    "residual": {
+      "undecided": 18.4,
+      "wontVote": 0,
+      "wontSay": null,
+      "otherNamedMinor": 3.1,
+      "notes": "Confirmed against Market LINKS' \"Обществено-политически нагласи, Февруари 2026\" report (storage/MarketLINKS Public Opinion Poll Report 01.2026.pdf, page 15 \"Партийна подкрепа при предсрочен вот\", \"Гласуващи\" column over n=566 declaring firm intent to vote). Detail rows now store the agency raw \"Гласуващи\" values directly: ПрБ 25.6, ГЕРБ-СДС 15.4, ПП-ДБ 12.5, ДПС-НН 10.5, Възраждане 4.5, МЕЧ 2.5, БСП-ОЛ 2.3, Величие 1.7, ИТН 1.5, АПС 0.4, Друга 3.1 — analyzer will rescale via residual.undecided 18.4. Earlier stored normalized values (ПрБ 32.0 / ГЕРБ-СДС 19.3 etc.) came from Wikipedia table's pre-normalized transcription; replaced with raw to match ml-2025-* convention. Agency news permalink: marketlinks.bg/bg/news/...-fevruari-2026-111.html."
+    },
+    "locked": {
+      "by": "agency_pdf",
+      "note": "MarketLINKS Public Opinion Poll Report 01.2026.pdf (fw Feb 7-13 2026, n=1019, jointly with bTV)",
+      "lockedAt": "2026-05-19"
+    }
   },
   {
     "id": "ml-2026-03-15",
@@ -1046,15 +1067,22 @@
     "electionDate": "2026-04-19",
     "respondents": 1006,
     "methodology": {
-      "en": "N/A",
-      "bg": "N/A"
+      "en": "Direct personal interview & online survey (commissioned jointly by bTV + Market LINKS)",
+      "bg": "Пряко-лично интервю и онлайн анкета (финансирано и реализирано съвместно от БТВ и Маркет ЛИНКС)"
     },
-    "source": "https://www.investor.bg/a/516-politika/427956-market-links-progresivna-balgariya-na-radev-vodi-s-malko-pred-gerb-sds",
+    "source": "https://www.marketlinks.bg/storage/MarketLINKS%20Public%20Opinion%20Poll%20Report%2002.2026.pdf",
     "genre": "raw_attitudes",
     "residual": {
       "undecided": 19.1,
+      "wontVote": 0,
+      "wontSay": null,
       "otherNamedMinor": 3.1,
-      "notes": "Primary news.bg also reports 19.1% undecided, 1.8% support no one, 3.1% would vote for another formation. Not in stored residual."
+      "notes": "Confirmed against Market LINKS' \"Обществено-политически нагласи, Март 2026\" report (storage/MarketLINKS Public Opinion Poll Report 02.2026.pdf, page 15 \"Партийна подкрепа при предсрочен вот\", \"Гласуващи\" column over n=564 declaring firm intent to vote). All 12 stored detail rows match the agency raw values exactly (ПрБ 21.1, ГЕРБ-СДС 18.6, ПП-ДБ 12.0, ДПС-НН 7.2, Възраждане 4.9, БСП-ОЛ 3.0, МЕЧ 2.8, Величие 2.7, АПС 1.3, Синя България 1.2, Сияние 1.0, ИТН 0.2). Residual on the same denominator: Не съм решил 19.1, Друга 3.1, Не подкрепям никого 1.8. Agency news permalink: marketlinks.bg/bg/news/obshtestvenopoliticheski-naglasi-mart-2026-112.html."
+    },
+    "locked": {
+      "by": "agency_pdf",
+      "note": "MarketLINKS Public Opinion Poll Report 02.2026.pdf (fw Mar 7-15 2026, n=1006, jointly with bTV)",
+      "lockedAt": "2026-05-19"
     }
   },
   {
@@ -1064,11 +1092,23 @@
     "electionDate": "2026-04-19",
     "respondents": 1008,
     "methodology": {
-      "en": "N/A",
-      "bg": "N/A"
+      "en": "Direct personal interview & online survey (commissioned jointly by bTV + Market LINKS for the \"Избори 2026. България решава\" special)",
+      "bg": "Пряко-лично интервю и онлайн анкета (за специалното студио \"Избори 2026. България решава\")"
     },
     "source": "https://btvnovinite.bg/novite-izbori/alfa-risarch-i-market-links-ako-izborite-bjaha-dnes-pet-partii-vlizat-v-narodnoto-sabranie.html",
-    "genre": "raw_attitudes"
+    "genre": "raw_attitudes",
+    "residual": {
+      "undecided": null,
+      "wontVote": null,
+      "wontSay": null,
+      "otherNamedMinor": null,
+      "notes": "Quick mid-campaign wave broadcast on bTV's \"Избори 2026. България решава\" — Market LINKS did NOT publish a standalone PDF for this 17-21 March wave (the next ML report on the agency site is the Apr 2026 election-week edition). All 8 stored detail rows confirmed against btvnovinite.bg and classa.bg/faktor.bg: ПрБ 24.4, ГЕРБ-СДС 18.6, ПП-ДБ 11.1, ДПС-НН 8.8, Възраждане 4.6, БСП-ОЛ 3.1, МЕЧ 2.7, Величие 2.0. Synia Bulgaria, Сияние, АПС and ИТН all under 2%."
+    },
+    "locked": {
+      "by": "third_party_consensus",
+      "note": "ML did not publish a standalone PDF on its own domain for this quick mid-campaign wave (it ran live on bTV's election special); numbers cross-confirmed via btvnovinite.bg + classa.bg + faktor.bg",
+      "lockedAt": "2026-05-19"
+    }
   },
   {
     "id": "ml-2026-04-14",
