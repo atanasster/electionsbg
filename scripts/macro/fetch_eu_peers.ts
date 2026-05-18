@@ -30,6 +30,40 @@ const START_YEAR = 2010;
 const GEOS = ["BG", "EU27_2020", "RO", "HU", "PL"] as const;
 const NA_ITEMS = ["TR", "TE", "B9"] as const;
 
+// All 27 member states for the peer-band distribution that powers the
+// budget-screen headline-card chips. Larger query than the 5-country series
+// view; we fetch only the most recent year via `lastTimePeriod=2` to keep
+// the payload bounded.
+const EU27_MEMBERS = [
+  "AT",
+  "BE",
+  "BG",
+  "HR",
+  "CY",
+  "CZ",
+  "DK",
+  "EE",
+  "FI",
+  "FR",
+  "DE",
+  "GR",
+  "HU",
+  "IE",
+  "IT",
+  "LV",
+  "LT",
+  "LU",
+  "MT",
+  "NL",
+  "PL",
+  "PT",
+  "RO",
+  "SK",
+  "SI",
+  "ES",
+  "SE",
+] as const;
+
 type Geo = (typeof GEOS)[number];
 type NaItem = (typeof NA_ITEMS)[number];
 
@@ -62,6 +96,27 @@ const fetchPeers = async (): Promise<EurostatResponse> => {
   const res = await fetch(`${EUROSTAT_BASE}/${url}`);
   if (!res.ok) {
     throw new Error(`Eurostat ${url} returned ${res.status}`);
+  }
+  return (await res.json()) as EurostatResponse;
+};
+
+// Same dataset, all 27 member states + EU27 aggregate, latest few years only.
+// Powers the peer-band chip on each /budget headline card (BG vs EU27 average
+// + rank within the 27). The 5-country `series` above stays the source of
+// the multi-year sparklines on the governance peer-comparison tile.
+const fetchDistribution = async (): Promise<EurostatResponse> => {
+  const params = new URLSearchParams({ format: "JSON", lang: "EN" });
+  for (const g of EU27_MEMBERS) params.append("geo", g);
+  params.append("geo", "EU27_2020");
+  for (const n of NA_ITEMS) params.append("na_item", n);
+  params.append("unit", "PC_GDP");
+  params.append("sector", "S13");
+  params.append("freq", "A");
+  params.append("lastTimePeriod", "3");
+  const url = `${DATASET}?${params.toString()}`;
+  const res = await fetch(`${EUROSTAT_BASE}/${url}`);
+  if (!res.ok) {
+    throw new Error(`Eurostat distribution ${url} returned ${res.status}`);
   }
   return (await res.json()) as EurostatResponse;
 };
@@ -128,6 +183,60 @@ const decode = (
   return out;
 };
 
+// Per-naItem peer band built from the 27-member distribution. `rank=1` is the
+// highest value (highest revenue / highest expenditure / highest balance); a
+// surplus country ranks 1 for B9. The chip turns this into "above/below EU
+// average · rank N/27" copy on the headline cards.
+interface PeerBand {
+  year: number;
+  bgPctGdp: number;
+  euAvgPctGdp: number | null;
+  rank: number;
+  total: number;
+}
+
+const buildDistribution = (
+  rows: { geo: string; naItem: string; year: number; value: number }[],
+): Partial<Record<NaItem, PeerBand>> => {
+  type ByYear = Map<string, number>;
+  const byNaYear = new Map<NaItem, Map<number, ByYear>>();
+  for (const r of rows) {
+    if (!(NA_ITEMS as readonly string[]).includes(r.naItem)) continue;
+    const key = r.naItem as NaItem;
+    if (!byNaYear.has(key)) byNaYear.set(key, new Map());
+    const years = byNaYear.get(key)!;
+    if (!years.has(r.year)) years.set(r.year, new Map());
+    years.get(r.year)!.set(r.geo, r.value);
+  }
+  const out: Partial<Record<NaItem, PeerBand>> = {};
+  for (const [naItem, years] of byNaYear) {
+    const candidates = [...years.keys()].sort((a, b) => b - a);
+    for (const y of candidates) {
+      const byGeo = years.get(y)!;
+      const bg = byGeo.get("BG");
+      if (bg == null) continue;
+      const memberValues: number[] = [];
+      for (const g of EU27_MEMBERS) {
+        const v = byGeo.get(g);
+        if (v != null) memberValues.push(v);
+      }
+      if (memberValues.length < 20) continue;
+      const higher = memberValues.filter((v) => v > bg).length;
+      const rank = higher + 1;
+      const euAvg = byGeo.get("EU27_2020") ?? null;
+      out[naItem] = {
+        year: y,
+        bgPctGdp: round(bg, 2),
+        euAvgPctGdp: euAvg != null ? round(euAvg, 2) : null,
+        rank,
+        total: memberValues.length,
+      };
+      break;
+    }
+  }
+  return out;
+};
+
 const main = async () => {
   console.log(
     `Fetching ${DATASET} for geos=[${GEOS.join(",")}], na_item=[${NA_ITEMS.join(",")}]…`,
@@ -171,6 +280,11 @@ const main = async () => {
     ),
   );
 
+  console.log("Fetching distribution (27 member states, latest year)…");
+  const distJson = await fetchDistribution();
+  const distRows = decode(distJson);
+  const distribution = buildDistribution(distRows);
+
   const payload = {
     fetchedAt: new Date().toISOString(),
     source: {
@@ -185,11 +299,15 @@ const main = async () => {
     naItems: NA_ITEMS,
     latestYear,
     series,
+    // Peer-band per naItem from the full 27-member distribution — used by the
+    // headline-card chips on /budget. Latest year only (the chip surfaces "BG
+    // vs EU27 today", not a trend).
+    distribution,
   };
 
   fs.writeFileSync(OUT_FILE, JSON.stringify(payload, null, 2));
   console.log(
-    `Wrote ${OUT_FILE} — ${GEOS.length} geos × ${NA_ITEMS.length} metrics, latest year ${latestYear}`,
+    `Wrote ${OUT_FILE} — ${GEOS.length} geos × ${NA_ITEMS.length} metrics, latest year ${latestYear}, distribution for ${Object.keys(distribution).length} metrics`,
   );
 };
 

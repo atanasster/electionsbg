@@ -41,7 +41,11 @@ import { BudgetMinistriesTile } from "./components/budget/BudgetMinistriesTile";
 import { BudgetRevenueCompositionTile } from "./components/budget/BudgetRevenueCompositionTile";
 import { BudgetExpenditureCompositionTile } from "./components/budget/BudgetExpenditureCompositionTile";
 import { BudgetFunctionalTile } from "./components/budget/BudgetFunctionalTile";
+import { BudgetTopDeviationsTile } from "./components/budget/BudgetTopDeviationsTile";
+import { BudgetTaxBillTile } from "./components/budget/BudgetTaxBillTile";
 import { BudgetCitizenViewTile } from "./components/budget/BudgetCitizenViewTile";
+import { PeerBandChip } from "./components/budget/PeerBandChip";
+import { useMacroPeers, type PeerBand } from "@/data/macro/useMacroPeers";
 
 const SkeletonCard: FC = () => (
   <div className="rounded-xl border bg-card p-4 shadow-sm animate-pulse h-[120px]">
@@ -63,6 +67,10 @@ const FigureCard: FC<{
   gdpEur?: number | null;
   asOf?: string | null;
   maastrichtThreshold?: boolean;
+  // Optional peer band from Eurostat gov_10a_main distribution. Renders a
+  // small chip under the GDP-share line on revenue / expenditure / balance
+  // cards. EU contribution is BG-specific КФП — no Eurostat counterpart.
+  peerBand?: PeerBand | null;
 }> = ({
   label,
   icon: Icon,
@@ -74,6 +82,7 @@ const FigureCard: FC<{
   gdpEur,
   asOf,
   maastrichtThreshold,
+  peerBand,
 }) => {
   const { t } = useTranslation();
   const v = seriesView(fy, series);
@@ -113,8 +122,19 @@ const FigureCard: FC<{
         </span>
       </div>
       {gdpShare ? (
-        <div className="text-xs text-muted-foreground tabular-nums">
-          {gdpShare} {t("budget_of_gdp") || "of GDP"}
+        <div className="text-xs text-muted-foreground tabular-nums flex items-baseline gap-2 flex-wrap">
+          <span>
+            {gdpShare} {t("budget_of_gdp") || "of GDP"}
+          </span>
+          {peerBand ? (
+            <PeerBandChip
+              bgValue={peerBand.bgPctGdp}
+              euAvg={peerBand.euAvgPctGdp}
+              rank={peerBand.rank}
+              total={peerBand.total}
+              year={peerBand.year}
+            />
+          ) : null}
         </div>
       ) : null}
       {showMaastricht ? (
@@ -223,7 +243,11 @@ export const BudgetScreen: FC = () => {
   const { data: index, isLoading: indexLoading } = useBudgetIndex();
   const { data: kfp, isLoading: kfpLoading } = useKfp();
   const { data: documents } = useBudgetDocuments();
+  const { data: peers } = useMacroPeers();
   const term = useBudgetTerm(index);
+  const peerTR = peers?.distribution?.TR ?? null;
+  const peerTE = peers?.distribution?.TE ?? null;
+  const peerB9 = peers?.distribution?.B9 ?? null;
 
   const title = t("budget_index_title") || "State budget";
   const description =
@@ -335,6 +359,7 @@ export const BudgetScreen: FC = () => {
               series="revenue"
               gdpEur={gdpEur}
               asOf={summary.asOf}
+              peerBand={peerTR}
             />
             <FigureCard
               label={t("budget_series_expenditure") || "Expenditure"}
@@ -344,6 +369,7 @@ export const BudgetScreen: FC = () => {
               series="expenditure"
               gdpEur={gdpEur}
               asOf={summary.asOf}
+              peerBand={peerTE}
             />
             <FigureCard
               label={
@@ -370,6 +396,7 @@ export const BudgetScreen: FC = () => {
               gdpEur={gdpEur}
               asOf={summary.asOf}
               maastrichtThreshold
+              peerBand={peerB9}
               ringTone={
                 deficit
                   ? "ring-1 ring-rose-200/60 dark:ring-rose-800/40"
@@ -408,6 +435,7 @@ export const BudgetScreen: FC = () => {
           icon={PieChart}
         >
           <BudgetCitizenViewTile fiscalYear={term.selectedFy} />
+          <BudgetTaxBillTile />
           <div className="grid gap-4 grid-cols-1 xl:grid-cols-2">
             <BudgetRevenueCompositionTile
               fiscalYear={term.selectedFy}
@@ -419,6 +447,7 @@ export const BudgetScreen: FC = () => {
             />
           </div>
           <BudgetFunctionalTile />
+          <BudgetTopDeviationsTile />
           <BudgetMinistriesTile fiscalYear={term.selectedFy} />
         </DashboardSection>
 

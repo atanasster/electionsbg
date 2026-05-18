@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-05-17T23:10:50.364Z",
+  "fetchedAt": "2026-05-18T14:48:11.216Z",
   "source": {
     "name": "Eurostat",
     "dataset": "gov_10a_main",
@@ -1025,6 +1025,29 @@
           "value": -7.3
         }
       ]
+    }
+  },
+  "distribution": {
+    "B9": {
+      "year": 2025,
+      "bgPctGdp": -3.5,
+      "euAvgPctGdp": -3.1,
+      "rank": 19,
+      "total": 26
+    },
+    "TE": {
+      "year": 2025,
+      "bgPctGdp": 41.7,
+      "euAvgPctGdp": 49.5,
+      "rank": 22,
+      "total": 26
+    },
+    "TR": {
+      "year": 2025,
+      "bgPctGdp": 38.1,
+      "euAvgPctGdp": 46.4,
+      "rank": 23,
+      "total": 26
     }
   }
 }

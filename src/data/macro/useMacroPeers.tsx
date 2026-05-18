@@ -6,6 +6,17 @@ export type PeerMetric = "TR" | "TE" | "B9";
 
 export type PeerPoint = { year: number; value: number };
 
+// Peer-band per naItem built from the full 27-member EU distribution. Pinned
+// to the latest year where BG and ≥20 peers report. Lives alongside the
+// 5-country `series` — they answer different questions.
+export type PeerBand = {
+  year: number;
+  bgPctGdp: number;
+  euAvgPctGdp: number | null;
+  rank: number;
+  total: number;
+};
+
 export type MacroPeersPayload = {
   fetchedAt: string;
   source: {
@@ -20,6 +31,7 @@ export type MacroPeersPayload = {
   naItems: PeerMetric[];
   latestYear: number;
   series: Record<PeerGeo, Record<PeerMetric, PeerPoint[]>>;
+  distribution?: Partial<Record<PeerMetric, PeerBand>>;
 };
 
 export const useMacroPeers = () =>

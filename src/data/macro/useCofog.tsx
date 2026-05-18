@@ -35,6 +35,18 @@ export const COFOG_FUNCTIONS: ReadonlyArray<Exclude<CofogCode, "TOTAL">> = [
 
 export type CofogPoint = { year: number; valueEur: number };
 
+// Peer-band summary per top-level function. Built by the fetcher from
+// Eurostat's PC_GDP grain across the 27 EU member states + the EU27 aggregate.
+// `rank` is 1-indexed where 1 = highest spender as % of GDP; `total` is the
+// count of member states that reported a value at `year`.
+export type CofogPeerBand = {
+  year: number;
+  bgPctGdp: number;
+  euAvgPctGdp: number | null;
+  rank: number;
+  total: number;
+};
+
 export type CofogPayload = {
   fetchedAt: string;
   source: {
@@ -44,10 +56,12 @@ export type CofogPayload = {
     unit: string;
     sector: string;
     filters: Record<string, string>;
+    peerFilters?: Record<string, string | string[]>;
   };
   cofogTopLevel: CofogCode[];
   latestYear: number;
   series: Record<CofogCode, CofogPoint[]>;
+  peers?: Partial<Record<CofogCode, CofogPeerBand>>;
 };
 
 export const useCofog = () =>

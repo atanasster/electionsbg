@@ -18,6 +18,7 @@ import {
   useCofog,
   type CofogCode,
 } from "@/data/macro/useCofog";
+import { PeerBandChip } from "./PeerBandChip";
 
 const compactEur = (v: number): string => {
   const abs = Math.abs(v);
@@ -133,8 +134,19 @@ export const BudgetFunctionalTile: FC = () => {
                   />
                 </div>
                 <div className="mt-0.5 flex items-baseline justify-between gap-2 text-[11px] text-muted-foreground tabular-nums">
-                  <span>
-                    {r.share.toFixed(1)}% {t("budget_of_total") || "of total"}
+                  <span className="flex items-baseline gap-2 flex-wrap">
+                    <span>
+                      {r.share.toFixed(1)}% {t("budget_of_total") || "of total"}
+                    </span>
+                    {cofog?.peers?.[r.code] ? (
+                      <PeerBandChip
+                        bgValue={cofog.peers[r.code]!.bgPctGdp}
+                        euAvg={cofog.peers[r.code]!.euAvgPctGdp}
+                        rank={cofog.peers[r.code]!.rank}
+                        total={cofog.peers[r.code]!.total}
+                        year={cofog.peers[r.code]!.year}
+                      />
+                    ) : null}
                   </span>
                   {r.yoyPct != null && priorYear != null ? (
                     <span
