@@ -26,6 +26,8 @@ This piece is a scorecard. Seven risks and six opportunities, each pinned to a s
 
 Each entry has three parts: the **finding** (the numbers from the data), the **severity** or **impact** rating (high / medium / low), and the **dashboard tile** to inspect for live values. All numbers in this article were valid as of 17–18 May 2026. They will move; the dashboard does not — load it any time to see the current state.
 
+Release cadences differ across the series cited here. Eurostat macro indicators refresh quarterly — the latest values are **2025-Q4** or **2026-Q1** depending on the series. The World Bank's WGI scores and Eurobarometer trust surveys are annual, currently at the **2024** vintage, with the next update expected in autumn 2026. That means R2 and R3 should be read with the caveat that election-year movements are not yet in the data.
+
 The underlying sources, all published openly: the Court of Audit (Сметна палата) declarations registry, the Commerce Registry, the Public Procurement Agency (АОП), the Ministry of Finance's monthly fiscal bulletin (КФП), parliament.bg roll-call records, Eurostat (macroeconomic, fiscal and peer-country aggregates), the World Bank's Worldwide Governance Indicators, Eurobarometer trust surveys, OSCE/ODIHR mission reports, and the BNB government-securities auction feed for sovereign debt. The dashboard consolidates them; this scorecard reads across them.
 
 ---
@@ -140,6 +142,8 @@ For most of the 2010s and early 2020s, Bulgarian governments faced reform propos
 
 The cabinet that grasps this window has cover to push hard items — judicial reform, energy-price unwinding from state utilities, demographic-adjustment of pensions and labour migration — without the public hearing "and we are doing this during a crisis." The headline strip at the top of the dashboard summarises the window in six numbers.
 
+**One caveat from the Q1 2026 composition.** The 2.4% headline is composition-driven: **services** still print **3.1%** and **food 4.1%**, with **core inflation at 1.9%**. Energy disinflation (**-0.3%**) does the rest of the work to keep the index inside the ECB band. The macro reading is benign on net, not uniformly so — what a household feels depends on how much of its basket is food and services.
+
 **Where to look:** the [*headline indicator strip*](/governance) at the top of the governance dashboard.
 
 ### O3 · Strategic EU integrations are in reach — **HIGH**
@@ -185,6 +189,8 @@ This is the quiet structural strength. Despite the cabinet churn, the apparatus 
 ![Budget section: FY 2025 summary tile (revenue, expenditure, deficit), multi-year trend, revenue and expenditure composition.](/articles/images/governance/04-budget-section.png)
 
 The KФП summary tile and the general-government trend tile use different scopes (cash basis vs accrual, state-only vs whole public sector); both now carry explicit scope labels so the numbers do not look like they contradict each other. The **revenue composition** tile underneath shows where the money comes from (VAT > personal income tax > excise duties > corporate income tax), and the **expenditure composition** mirrors it.
+
+**First 2026 print.** The КФП snapshot for **31 March 2026** shows **€5.46bn in cumulative cash revenue against €7.38bn in expenditure**, or a **€1.92bn cash deficit** at the quarter mark. Cash budgets run seasonally (corporate-tax receipts cluster later in the year, EU transfers are uneven), so a Q1 deficit on its own is not a signal. The relevant frame is comparative: full-year 2025 closed at a €6.09bn cash deficit, so roughly a third of that has already been booked in the first three months — a pace the dashboard will track month over month to see whether it normalises in H2.
 
 **Where to look:** the [*State budget* section](/governance#budget).
 
