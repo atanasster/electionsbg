@@ -37,7 +37,9 @@ Sources are entirely public and integrated into a single base: the Finance Minis
 
 ### R1 · МОД raise — structural growth of the social-security burden — **HIGH**
 
-> The 2026 budget proposal raises the maximum insurable income (МОД) from **€2,111.64** to **€2,300** per month (+€188.36, or 8.9%). The forecast extends to €2,505 in 2027 and €2,659 in 2028. The original €2,352 proposal was withdrawn after public protests.
+> The 2026 budget proposal raises the maximum insurable income (МОД) from **€2,111.64** to **€2,300** per month (+€188.36, or 8.9%). The forecast extends to €2,505 in 2027 and €2,659 in 2028. The original €2,352 proposal was withdrawn after public protests.[^mod-sources]
+
+[^mod-sources]: Timeline: GERB's first 2026 budget, voted on second reading in the parliamentary Budget Committee on 26 November 2025, raised МОД from BGN 4,130 to **BGN 4,600 (€2,352)**; the vote went through during a citizen protest in front of Parliament — see [Boulevard Bulgaria, 26.11.2025](https://boulevardbulgaria.bg/articles/napuk-na-protesta-gerb-dps-i-kompaniya-prieha-po-visokite-vnoski-za-pensiya). That budget was subsequently rejected. The new proposal (May 2026) drops the step to **€2,300** — see [Sega.bg, 18.05.2026](https://www.segabg.com/hot/category-bulgaria/maksimalniyat-osiguritelen-dohod-se-vdiga-na-2300-evro) and [Forbes Bulgaria, 18.05.2026](https://forbesbulgaria.com/2026/05/18/darzhavata-otvarya-byudzhetnata-protsedura-za-2026-g-s-nov-opit-za-uvelichenie-na-mod/).
 
 The maximum insurable income sets the ceiling against which employee and employer social-security contributions accrue. From 2018 to today, МОД rose from **€1,329** to **€2,112** — close to a doubling in real terms even after inflation. The new proposal continues the trend at roughly **€189 per year** through 2028.
 
