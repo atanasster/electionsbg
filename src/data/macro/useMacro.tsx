@@ -18,6 +18,8 @@ export type MacroIndicatorKey =
   | "govExpenditure"
   // Derived client-side from govDebtNominal — net new debt issued per quarter
   | "debtIssuance"
+  // Minfin КФП — fiscal reserve (stock of cash, quarter-end, EUR million)
+  | "fiscalReserve"
   // Eurostat — FDI (annual, BPM6)
   | "fdiInward"
   // Eurostat — HICP breakdown (quarterly)

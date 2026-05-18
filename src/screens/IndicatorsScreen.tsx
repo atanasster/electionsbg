@@ -280,6 +280,44 @@ export const IndicatorsScreen = () => {
 
       <section className="mb-10">
         <h2 className="text-lg font-semibold mb-3">
+          {t("governments_chart_fiscal_reserve")}
+        </h2>
+        <p className="text-xs text-muted-foreground mb-3 max-w-3xl">
+          {t("governments_chart_fiscal_reserve_explainer")}
+        </p>
+        <ChartSources
+          prefix={t("governments_chart_sources_prefix")}
+          sources={[
+            {
+              href: "https://www.minfin.bg/bg/statistics/5",
+              label:
+                "Министерство на финансите — месечни бюлетини по КФП (ред „Фискален резерв“; архивирани чрез Wayback Machine)",
+            },
+          ]}
+        />
+        <GovernmentTimeline
+          governments={governments}
+          macro={enrichedMacro}
+          indicatorKeys={["fiscalReserve"]}
+          yAxisFormatter={(v) => `€${(v / 1000).toFixed(1)}B`}
+          unitFormatter={(_k, v) => `€${(v / 1000).toFixed(2)}B`}
+          height={280}
+          horizontalReferences={[
+            {
+              // Legal floor for 2025 is 4.5 BGN bn ≈ €2,300 M (Law on Public
+              // Finance + each year's State Budget Law). The floor has hovered
+              // 4.5-7.5 BGN bn across post-2014 reforms; we draw a single
+              // line at the most-recent (smallest) statutory floor.
+              y: 2300,
+              label: t("governments_chart_fiscal_reserve_floor"),
+              color: "#b45309",
+            },
+          ]}
+        />
+      </section>
+
+      <section className="mb-10">
+        <h2 className="text-lg font-semibold mb-3">
           {t("governments_chart_government_size")}
         </h2>
         <p className="text-xs text-muted-foreground mb-3 max-w-3xl">

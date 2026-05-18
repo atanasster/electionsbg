@@ -66,6 +66,15 @@ dist.old-*
 # under data/budget/ are committed; this raw cache is not.
 /raw_data/budget/
 
+# Cached fiscal-reserve source artifacts (minfin.bg mreport / BULETIN PDFs +
+# FRA-MM-YYYY-BG.xlsx). Re-fetched on demand by
+# scripts/macro/fetch_fiscal_reserve.ts. The parsed quarterly aggregate
+# (fiscal-reserve.json) is committed; the raw cache + user-drop XLSX files
+# are not. The README in minfin_fr_xlsx/ stays committed so future operators
+# know what to drop there.
+/data/_cache/minfin_mreports/
+/data/_cache/minfin_fr_xlsx/*.xlsx
+
 # Bulky regenerable budget files — same convention as procurement above. The
 # small metadata (index.json, kfp.json, documents.json, classification/,
 # crosswalk-overrides.json) is committed; the per-year fact / reconciliation /

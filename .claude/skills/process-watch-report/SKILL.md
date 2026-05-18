@@ -43,6 +43,7 @@ The "Changed" section of the report contains a bulleted list. Each bullet's labe
 | `World Bank WGI` (BG) | `update-macro` |
 | `Transparency International CPI` (BG) | `update-macro` (manual paste required first — see below) |
 | `BNB domestic ДЦК auctions` | `update-macro` (re-scrapes debt-emissions list) |
+| `Minfin КФП monthly bulletins` | `update-macro` (re-scrapes fiscal-reserve via Wayback) |
 | `Eurostat regional` (BG) | `update-regional` |
 | `AZ (Агенция по заетостта)` | `update-indicators` |
 | `МОН: ДЗИ резултати` | `update-indicators` |
@@ -85,6 +86,7 @@ Each watcher source maps to one downstream skill. Multiple sources can map to th
 | `worldbank_wgi` | `update-macro` |
 | `transparency_cpi` | `update-macro` (gated — see "TI CPI: manual paste first" below) |
 | `bnb_auctions` | `update-macro` (debt-emissions sub-step — re-runs `fetch_bnb_auctions.ts`) |
+| `minfin_mreports` | `update-macro` (fiscal-reserve sub-step — re-runs `fetch_fiscal_reserve.ts`) |
 | `eurostat_regional` | `update-regional` |
 | `indicators_az` | `update-indicators` |
 | `indicators_mon_dzi` | `update-indicators` |

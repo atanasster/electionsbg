@@ -331,6 +331,23 @@ export const AboutScreen = () => {
               </ul>
             </DataGroup>
 
+            <DataGroup title={t("fiscal_reserve_section")}>
+              <ul className="space-y-2">
+                <SourceItem
+                  href="https://www.minfin.bg/bg/statistics/4"
+                  label={t("fiscal_reserve_minfin_xlsx_source")}
+                />
+                <SourceItem
+                  href="https://www.minfin.bg/bg/statistics/5"
+                  label={t("fiscal_reserve_minfin_mreport_source")}
+                />
+                <SourceItem
+                  href="https://www.minfin.bg/bg/statistics/4"
+                  label={t("fiscal_reserve_minfin_buletin_source")}
+                />
+              </ul>
+            </DataGroup>
+
             <DataGroup title={t("election_results")}>
               <div className="flex flex-wrap gap-2">
                 {electionResults.map((e) => (
