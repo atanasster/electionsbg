@@ -23,18 +23,23 @@ import {
 // Bulgarian PIT is a 10% flat rate on the post-SSC base. Employee SSC share
 // for the default case (no second-pillar opt-out, average insurable income)
 // nets out to ~13.78% of gross: pension 8.78% + health 3.20% + unemployment
-// 0.40% + sickness/maternity 1.40%. The actual cap on insurable income
-// (~€2,110/mo in 2026 terms) is ignored for simplicity; the slider tops out
-// near the cap so the bias on absolute numbers is small.
+// 0.40% + sickness/maternity 1.40%. SSC is calculated on the smaller of
+// gross and the monthly insurable-income cap (МОД).
 const SSC_EMPLOYEE_RATE = 0.1378;
 const PIT_RATE = 0.1;
+// Максимален осигурителен доход for 2026 (Bulgaria, post-euro adoption).
+// BGN 4,600 / month converted at the locked 1.95583 parity ≈ €2,352. Above
+// this, SSC contributions stop; PIT keeps applying on the full gross less
+// the (capped) SSC.
+const MAX_INSURABLE_INCOME_EUR = 2352;
 
 // Slider range. Defaults to ~average gross monthly wage in Bulgaria (€1,100
-// in 2024 NSI terms). The bottom end is the legal minimum wage; the top is
-// roughly the cap on the insurable-income base.
+// in 2024 NSI terms). The top runs well above the МОД cap so IT / finance
+// salaries are visible; the calculator shows the cap explicitly when the
+// slider crosses it.
 const MIN_GROSS = 500;
-const MAX_GROSS = 3000;
-const STEP_GROSS = 50;
+const MAX_GROSS = 8000;
+const STEP_GROSS = 100;
 const DEFAULT_GROSS = 1100;
 
 const compactEur = (v: number): string => {
@@ -66,8 +71,13 @@ export const BudgetTaxBillTile: FC = () => {
   const { data: cofog } = useCofog();
   const [gross, setGross] = useState(DEFAULT_GROSS);
 
-  // Monthly tax burden — SSC first, then 10% PIT on the residual.
-  const ssc = gross * SSC_EMPLOYEE_RATE;
+  // Monthly tax burden — SSC first (capped at the МОД ceiling), then 10% PIT
+  // on (gross − SSC). For high earners the cap means SSC stops growing but
+  // PIT keeps scaling, so the marginal rate flips from ~23% to ~10% above the
+  // cap. The hint near the SSC card explains this when the slider crosses.
+  const isAboveCap = gross > MAX_INSURABLE_INCOME_EUR;
+  const insurableBase = Math.min(gross, MAX_INSURABLE_INCOME_EUR);
+  const ssc = insurableBase * SSC_EMPLOYEE_RATE;
   const taxable = gross - ssc;
   const pit = taxable * PIT_RATE;
   const totalTax = ssc + pit;
@@ -102,7 +112,7 @@ export const BudgetTaxBillTile: FC = () => {
         </CardTitle>
         <p className="text-xs text-muted-foreground">
           {t("budget_tax_bill_subtitle") ||
-            "Pick a monthly gross salary. We apply Bulgaria's 10% income tax + 13.78% employee social-security contribution, then route the result through general-government spending shares."}
+            "Approximate estimate. Pick a monthly gross salary; we apply Bulgaria's 10% income tax + 13.78% employee social-security contribution (capped at the 2026 МОД of €2,352), then route the result through general-government spending shares."}
         </p>
       </CardHeader>
       <CardContent className="pt-0">
@@ -139,6 +149,13 @@ export const BudgetTaxBillTile: FC = () => {
               {t("budget_tax_bill_ssc") || "Social security (13.78%)"}
             </div>
             <div className="font-semibold tabular-nums">{formatEur(ssc)}</div>
+            {isAboveCap ? (
+              <div className="text-[10px] text-amber-700 dark:text-amber-400 mt-0.5">
+                {(
+                  t("budget_tax_bill_ssc_capped") || "capped at МОД €{{cap}}"
+                ).replace("{{cap}}", String(MAX_INSURABLE_INCOME_EUR))}
+              </div>
+            ) : null}
           </div>
           <div className="rounded-md bg-muted/40 px-2 py-1.5">
             <div className="text-muted-foreground">
@@ -192,7 +209,7 @@ export const BudgetTaxBillTile: FC = () => {
 
         <p className="text-[11px] text-muted-foreground/80 mt-3">
           {t("budget_tax_bill_caption") ||
-            "Illustrative: applies current general-government spending shares to your monthly tax bill. Real social-security contributions are earmarked (pension + health + unemployment), not freely allocable to every function."}{" "}
+            "Approximate estimate. Assumes a default-case taxpayer (no second-pillar opt-out, no income-tax reliefs). SSC is capped at the 2026 МОД (€2,352); above the cap only the 10% income tax keeps scaling. Real social-security contributions are earmarked (pension + health + unemployment), not freely allocable to every function — the chart applies general-government spending shares to the total tax bill purely for illustration."}{" "}
           {(
             t("budget_tax_bill_net", { eur: "{{eur}}" }) ||
             "Net take-home after tax: {{eur}}/mo."
