@@ -163,7 +163,7 @@ export const PartyPollingDeltaTile: FC<Props> = ({ data }) => {
         <ResponsiveContainer width="100%" height="100%">
           <BarChart
             data={rows}
-            margin={{ top: 10, right: 8, left: -16, bottom: 0 }}
+            margin={{ top: 10, right: 8, left: 0, bottom: 0 }}
           >
             <CartesianGrid
               strokeDasharray="3 3"
@@ -184,7 +184,7 @@ export const PartyPollingDeltaTile: FC<Props> = ({ data }) => {
               tick={{ fontSize: 10 }}
               tickLine={false}
               axisLine={false}
-              width={32}
+              width={36}
               tickFormatter={(v) => `${v > 0 ? "+" : ""}${v}`}
               domain={[-absMax - 0.5, absMax + 0.5]}
             />

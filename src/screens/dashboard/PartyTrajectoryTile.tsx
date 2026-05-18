@@ -201,7 +201,7 @@ export const PartyTrajectoryTile: FC<Props> = ({ data }) => {
         <ResponsiveContainer width="100%" height="100%">
           <LineChart
             data={rows}
-            margin={{ top: 14, right: 18, left: -16, bottom: 0 }}
+            margin={{ top: 14, right: 18, left: 0, bottom: 0 }}
           >
             <CartesianGrid
               strokeDasharray="3 3"
@@ -222,7 +222,7 @@ export const PartyTrajectoryTile: FC<Props> = ({ data }) => {
               tick={{ fontSize: 10 }}
               tickLine={false}
               axisLine={false}
-              width={32}
+              width={44}
               tickFormatter={(v) => `${v}%`}
               domain={[0, yDomainMax]}
             />
