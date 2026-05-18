@@ -1,20 +1,7 @@
-import {
-  FC,
-  ReactNode,
-  createContext,
-  useCallback,
-  useContext,
-  useState,
-} from "react";
-
-type Ctx = {
-  isConsolidated: boolean;
-  setIsConsolidated: (value: boolean) => void;
-};
+import { FC, ReactNode, useCallback, useState } from "react";
+import { ConsolidatedContext } from "./useConsolidated";
 
 const STORAGE_KEY = "consolidated_history";
-
-const ConsolidatedContext = createContext<Ctx | null>(null);
 
 export const ConsolidatedProvider: FC<{ children: ReactNode }> = ({
   children,
@@ -34,14 +21,4 @@ export const ConsolidatedProvider: FC<{ children: ReactNode }> = ({
       {children}
     </ConsolidatedContext.Provider>
   );
-};
-
-export const useConsolidated = (): Ctx => {
-  const ctx = useContext(ConsolidatedContext);
-  if (!ctx) {
-    throw new Error(
-      "useConsolidated must be used inside <ConsolidatedProvider>",
-    );
-  }
-  return ctx;
 };

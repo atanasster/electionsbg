@@ -159,7 +159,11 @@ export const BudgetTopDeviationsTile: FC<{ fiscalYear?: number | null }> = ({
   const isFallback = fiscalYear != null && year !== fiscalYear;
 
   return (
-    <Card id="budget-top-deviations" className="my-4 scroll-mt-20" data-og="budget-top-deviations">
+    <Card
+      id="budget-top-deviations"
+      className="my-4 scroll-mt-20"
+      data-og="budget-top-deviations"
+    >
       <CardHeader className="pb-2">
         <CardTitle className="text-base flex items-center gap-2">
           <TrendingUp className="h-4 w-4" />

@@ -5,7 +5,7 @@ import { useElectionContext } from "@/data/ElectionContext";
 import { ElectionInfo } from "@/data/dataTypes";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { useRegionStats } from "@/data/regions/useRegionStats";
-import { useConsolidated } from "@/data/ConsolidatedContext";
+import { useConsolidated } from "@/data/useConsolidated";
 import { BubbleTimeline } from "@/screens/timeline/BubbleTimeline";
 import { Hint } from "@/ux/Hint";
 import { Switch } from "@/components/ui/switch";

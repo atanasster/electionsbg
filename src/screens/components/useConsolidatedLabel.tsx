@@ -1,6 +1,6 @@
 import { HintedSwitch } from "@/ux/HintedSwitch";
 import { useTranslation } from "react-i18next";
-import { useConsolidated } from "@/data/ConsolidatedContext";
+import { useConsolidated } from "@/data/useConsolidated";
 
 export const useConsolidatedLabel = () => {
   const { isConsolidated, setIsConsolidated } = useConsolidated();
