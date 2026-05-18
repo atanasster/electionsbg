@@ -24,11 +24,10 @@ const fmtIsoDate = (iso: string): string => {
 // straight from useMacro.
 const KEYS: MacroIndicatorKey[] = [
   "gdpGrowth",
-  "govDebt",
   "budgetBalance",
   "wgiRuleOfLaw",
   "wgiControlOfCorruption",
-  "gini",
+  "wgiGovEffectiveness",
 ];
 
 const fmt = (value: number, decimals = 1): string =>
@@ -89,11 +88,11 @@ export const GovernanceMacroTile: FC = () => {
             : ""}
         </span>
         <Link
-          to="/governments"
+          to="/indicators"
           underline={false}
           className="text-primary hover:underline inline-flex items-center gap-1"
         >
-          {t("governance_macro_link") || "Cabinet timeline"}
+          {t("governance_macro_link") || "Macro indicators"}
           <ArrowRight className="h-3 w-3" />
         </Link>
       </div>

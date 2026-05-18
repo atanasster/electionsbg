@@ -66,6 +66,10 @@ export const BudgetSummaryTile: FC = () => {
           </strong>{" "}
           — {statusText}
         </p>
+        <p className="text-[11px] text-muted-foreground">
+          {t("budget_summary_scope") ||
+            "Consolidated fiscal programme (cash basis, MoF)"}
+        </p>
       </CardHeader>
       <CardContent className="pt-0">
         <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">

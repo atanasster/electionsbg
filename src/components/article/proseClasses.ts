@@ -24,7 +24,10 @@ export const proseClasses = {
   th: "border-b border-border px-3 py-2 text-left text-xs font-semibold uppercase tracking-wide text-muted-foreground",
   td: "border-b border-border/40 px-3 py-2 align-top text-[14px] text-foreground/90",
   tr: "even:bg-muted/30",
-  // Reserve aspect ratio so images don't reflow the article body as they
-  // load. object-contain letterboxes non-16:9 images instead of cropping.
-  img: "my-6 w-full rounded-lg border border-border/40 [aspect-ratio:16/9] object-contain bg-muted/30",
+  // Let images use their intrinsic aspect ratio. Modern browsers
+  // (img-element-loading sizing) reserve space from the image's natural
+  // width/height once layout runs, so we no longer need a forced 16:9 box
+  // — that previously letterboxed wide-but-short dashboard screenshots
+  // with empty bars top and bottom.
+  img: "my-6 w-full h-auto rounded-lg border border-border/40 bg-muted/30",
 } as const;

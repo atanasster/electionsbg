@@ -1,6 +1,7 @@
 import { useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Title } from "@/ux/Title";
+import { useHashScroll } from "@/ux/useHashScroll";
 import { useGovernments } from "@/data/governments/useGovernments";
 import { MacroPayload, MacroPoint, useMacro } from "@/data/macro/useMacro";
 import { Link } from "react-router-dom";
@@ -44,6 +45,11 @@ export const IndicatorsScreen = () => {
   const { data: governments } = useGovernments();
   const { data: macro } = useMacro();
   const lang: "en" | "bg" = i18n.language === "bg" ? "bg" : "en";
+
+  // Hash anchor scroll for deep links like /indicators#debt-emissions. Run
+  // on every data change so the scroll re-fires once the macro/governments
+  // payloads arrive and the section heights settle.
+  useHashScroll([macro, governments]);
 
   const xDomain = useMemo<[number, number] | null>(
     () => (governments ? xDomainFor(governments) : null),
@@ -389,7 +395,7 @@ export const IndicatorsScreen = () => {
         </div>
       </section>
 
-      <section className="mb-10">
+      <section id="debt-emissions" className="mb-10 scroll-mt-20">
         <h2 className="text-lg font-semibold mb-3">
           {t("debt_emissions_heading")}
         </h2>

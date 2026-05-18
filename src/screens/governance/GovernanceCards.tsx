@@ -28,11 +28,11 @@ import { BudgetTopMinistriesTile } from "@/screens/components/budget/BudgetTopMi
 import { BudgetRevenueCompositionTile } from "@/screens/components/budget/BudgetRevenueCompositionTile";
 import { BudgetExpenditureCompositionTile } from "@/screens/components/budget/BudgetExpenditureCompositionTile";
 import { BudgetMultiYearTrendTile } from "@/screens/components/budget/BudgetMultiYearTrendTile";
+import { BudgetPeerComparisonTile } from "@/screens/components/budget/BudgetPeerComparisonTile";
 import { TopMpsTile } from "@/screens/components/procurement/TopMpsTile";
 import { TopContractorsTile } from "@/screens/components/procurement/TopContractorsTile";
 import { DashboardSection } from "@/screens/dashboard/DashboardSection";
 import { MpConnectionsTile } from "@/screens/dashboard/MpConnectionsTile";
-import { CarMakesTile } from "@/screens/dashboard/CarMakesTile";
 import { MpAssetsTile } from "@/screens/dashboard/MpAssetsTile";
 import { OfficialsAssetsTile } from "@/screens/dashboard/OfficialsAssetsTile";
 import { MpDeclarationsProvenance } from "@/screens/dashboard/MpDeclarationsProvenance";
@@ -46,10 +46,16 @@ import { DashboardSectionId } from "@/data/articles/useArticles";
 import { HeadlineIndicatorStrip } from "./HeadlineIndicatorStrip";
 import { GovernanceMacroTile } from "./GovernanceMacroTile";
 import { GovernmentStabilityTile } from "./GovernmentStabilityTile";
+import { GovernanceObservationsTile } from "./GovernanceObservationsTile";
+import { GovernanceDebtTile } from "./GovernanceDebtTile";
 
 // Governance topics that map onto article tags. We reuse the existing
 // DashboardSectionId enum where the topic overlaps; for the macro and
 // articles sections we just don't gate on a topic.
+// Topics already covered by per-section article strips on this page. The
+// "governance" topic is intentionally NOT in this list — it has no per-
+// section strip of its own, so governance-tagged articles surface in the
+// bottom ArticlesTile instead.
 const GOVERNANCE_TOPICS: readonly DashboardSectionId[] = [
   "parliament",
   "declarations",
@@ -159,6 +165,13 @@ export const GovernanceCards: FC = () => {
           icon={Globe2}
         >
           <GovernanceMacroTile />
+          <div className="grid gap-3 grid-cols-1 lg:grid-cols-2 mt-3">
+            <GovernanceObservationsTile />
+            <GovernanceDebtTile />
+          </div>
+          <div className="mt-3">
+            <BudgetPeerComparisonTile />
+          </div>
         </DashboardSection>
 
         <DashboardSection
@@ -168,11 +181,8 @@ export const GovernanceCards: FC = () => {
           icon={Briefcase}
           articleTopic="declarations"
         >
-          <div className="grid gap-3 grid-cols-1 lg:grid-cols-2">
+          <div className="grid gap-3 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
             <MpConnectionsTile hideProvenance />
-            <CarMakesTile hideProvenance />
-          </div>
-          <div className="grid gap-3 grid-cols-1 lg:grid-cols-2">
             <MpAssetsTile />
             <OfficialsAssetsTile />
           </div>

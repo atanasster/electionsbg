@@ -46,23 +46,16 @@ export const GovernmentsTile: FC = () => {
       }
       className="overflow-hidden"
     >
-      <Link
-        to="/observations"
-        className="text-[10px] normal-case text-muted-foreground hover:text-primary hover:underline self-start -mt-1"
-        underline={false}
-      >
-        {t("observations_nav_link")}
-      </Link>
       {xDomain ? (
         <CabinetStrip governments={governments} xDomain={xDomain} lang={lang} />
       ) : null}
       <GovernmentTimeline
         governments={governments}
         macro={macro}
-        indicatorKeys={["gdpGrowth", "inflation", "unemployment"]}
+        indicatorKeys={["trustGovernment", "trustParliament", "trustEu"]}
         yAxisFormatter={(v) => `${v}%`}
-        unitFormatter={(_k, v) => `${v.toFixed(1)}%`}
-        showZeroLine
+        unitFormatter={(_k, v) => `${v.toFixed(0)}%`}
+        yDomain={[0, 100]}
         height={240}
         hideToggles
       />

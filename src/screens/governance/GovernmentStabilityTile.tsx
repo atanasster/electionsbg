@@ -6,12 +6,7 @@
 
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import {
-  AlertTriangle,
-  CalendarCheck2,
-  CalendarClock,
-  Users,
-} from "lucide-react";
+import { AlertTriangle, CalendarCheck2 } from "lucide-react";
 import {
   useGovernments,
   type Government,
@@ -81,7 +76,7 @@ const formatMonths = (days: number): string => {
 };
 
 interface StatProps {
-  icon: typeof Users;
+  icon: typeof AlertTriangle;
   label: string;
   value: string;
   sub?: string;
@@ -124,41 +119,29 @@ export const GovernmentStabilityTile: FC = () => {
         : `${formatMonths(stats.avgRegularDurationDays)} ${t("stability_unit_months") || "months"}`
       : "—";
 
+  const earlyShare =
+    stats.total > 0 ? Math.round((stats.earlyEnds / stats.total) * 100) : 0;
+
   return (
     <div
-      className="grid grid-cols-2 md:grid-cols-4 gap-2 mb-3"
+      className="grid grid-cols-1 md:grid-cols-2 gap-2 mb-3"
       aria-label={t("stability_aria_label") || "Cabinet stability since 2005"}
     >
-      <Stat
-        icon={Users}
-        label={t("stability_total_label") || "Cabinets since 2005"}
-        value={String(stats.total)}
-        sub={`${stats.regular} ${t("stability_regular") || "regular"} · ${stats.caretaker} ${t("stability_caretaker") || "caretaker"}`}
-      />
       <Stat
         icon={CalendarCheck2}
         label={t("stability_avg_label") || "Average regular cabinet"}
         value={avgLabel}
-        sub={t("stability_avg_sub") || "completed regular cabinets only"}
+        sub={`${t("stability_since_2005") || "since 2005"} · ${stats.total} ${t("stability_cabinets_total") || "cabinets"} (${stats.regular} ${t("stability_regular") || "regular"} · ${stats.caretaker} ${t("stability_caretaker") || "caretaker"})`}
       />
       <Stat
         icon={AlertTriangle}
         label={t("stability_early_label") || "Ended early"}
-        value={String(stats.earlyEnds)}
+        value={`${stats.earlyEnds} / ${stats.total} (${earlyShare}%)`}
         sub={
           t("stability_early_sub") ||
           "snap election, no-confidence, resignation, failed rotation"
         }
         tone="text-amber-700 dark:text-amber-400"
-      />
-      <Stat
-        icon={CalendarClock}
-        label={t("stability_caretaker_label") || "Caretaker cabinets"}
-        value={String(stats.caretaker)}
-        sub={
-          t("stability_caretaker_sub") ||
-          "appointed by the President between elections"
-        }
       />
     </div>
   );

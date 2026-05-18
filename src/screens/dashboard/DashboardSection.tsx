@@ -81,7 +81,10 @@ export const DashboardSection: FC<PropsWithChildren<Props>> = ({
     <section
       id={id}
       data-dashboard-section={id}
-      className={cn("mt-8 first:mt-2", className)}
+      // scroll-mt-20 keeps the heading clear of the sticky page header when
+      // the section is scrolled into view via a `#anchor` deep link (see
+      // useHashScroll). Without it the section title sits behind the header.
+      className={cn("mt-8 scroll-mt-20 first:mt-2", className)}
     >
       {headerEl ? (
         hint && titleRow ? (
