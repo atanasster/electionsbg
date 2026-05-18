@@ -34,7 +34,7 @@ import { command, run, option, string, optional } from "cmd-ts";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const PUBLIC_DIR = path.resolve(__dirname, "../../public");
+const DATA_DIR = path.resolve(__dirname, "../../data");
 const ELECTIONS_INDEX = path.resolve(
   __dirname,
   "../../src/data/json/elections.json",
@@ -105,7 +105,7 @@ const getEnglishShortName = (
   if (!canonicalEnByNick) {
     canonicalEnByNick = new Map();
     const cp = readJson<CanonicalPartiesFile>(
-      path.join(PUBLIC_DIR, "canonical_parties.json"),
+      path.join(DATA_DIR, "canonical_parties.json"),
     );
     for (const p of cp?.parties ?? []) {
       if (!p.displayNameEn) continue;
@@ -481,7 +481,7 @@ const buildPreferences = (
 ): PrefBlock | null => {
   const stats = readJson<PreferencesStats>(
     path.join(
-      PUBLIC_DIR,
+      DATA_DIR,
       election,
       "parties",
       "preferences",
@@ -491,7 +491,7 @@ const buildPreferences = (
   );
   const regionsRows = readJson<PreferenceRow[]>(
     path.join(
-      PUBLIC_DIR,
+      DATA_DIR,
       election,
       "parties",
       "preferences",
@@ -611,7 +611,7 @@ const buildCompetitive = (
   // Load rival's by_region file
   const rivalByRegion = readJson<PartyResultsRow[]>(
     path.join(
-      PUBLIC_DIR,
+      DATA_DIR,
       election,
       "parties",
       "by_region",
@@ -662,7 +662,7 @@ const buildBundle = (election: string, partyNum: number) => {
   const prior = findPriorElection(election, electionsIndex);
 
   const partyInfos = readJson<PartyInfo[]>(
-    path.join(PUBLIC_DIR, election, "cik_parties.json"),
+    path.join(DATA_DIR, election, "cik_parties.json"),
   );
   if (!partyInfos) throw new Error(`missing cik_parties.json for ${election}`);
   const party = partyInfos.find((p) => p.number === partyNum);
@@ -714,7 +714,7 @@ const buildBundle = (election: string, partyNum: number) => {
 
   // Per-region for this party (pre-aggregated file)
   const byRegion = readJson<PartyResultsRow[]>(
-    path.join(PUBLIC_DIR, election, "parties", "by_region", `${partyNum}.json`),
+    path.join(DATA_DIR, election, "parties", "by_region", `${partyNum}.json`),
   );
   const enrichedRegions: RegionRow[] = (byRegion ?? [])
     .map((r) => {
@@ -754,7 +754,7 @@ const buildBundle = (election: string, partyNum: number) => {
   // Per-municipality and per-settlement (top 25 each is enough for an LLM)
   const byMunicipality = readJson<PartyResultsRow[]>(
     path.join(
-      PUBLIC_DIR,
+      DATA_DIR,
       election,
       "parties",
       "by_municipality",
@@ -779,7 +779,7 @@ const buildBundle = (election: string, partyNum: number) => {
 
   const bySettlement = readJson<PartyResultsRow[]>(
     path.join(
-      PUBLIC_DIR,
+      DATA_DIR,
       election,
       "parties",
       "by_settlement",
@@ -818,7 +818,7 @@ const buildBundle = (election: string, partyNum: number) => {
   if (electionInfo.hasFinancials) {
     financing = readJson(
       path.join(
-        PUBLIC_DIR,
+        DATA_DIR,
         election,
         "parties",
         "financing",
@@ -851,7 +851,7 @@ const buildBundle = (election: string, partyNum: number) => {
     }[];
   };
   const accuracy = readJson<Accuracy>(
-    path.join(PUBLIC_DIR, "polls", "accuracy.json"),
+    path.join(DATA_DIR, "polls", "accuracy.json"),
   );
   const electionIso = election.replace(/_/g, "-");
   let pollingForParty:
@@ -950,7 +950,7 @@ const buildBundle = (election: string, partyNum: number) => {
   // ---------- Risk-neighborhood (problem-section) attribution ----------
 
   const problemFile = readJson<ProblemSectionsFile>(
-    path.join(PUBLIC_DIR, election, "problem_sections.json"),
+    path.join(DATA_DIR, election, "problem_sections.json"),
   );
   let problemBlock: object | null = null;
   if (problemFile?.neighborhoods?.length) {
@@ -959,10 +959,10 @@ const buildBundle = (election: string, partyNum: number) => {
     let priorPartyVotes: number | undefined;
     if (prior?.name) {
       const priorProblemFile = readJson<ProblemSectionsFile>(
-        path.join(PUBLIC_DIR, prior.name, "problem_sections.json"),
+        path.join(DATA_DIR, prior.name, "problem_sections.json"),
       );
       const priorPartyInfos = readJson<PartyInfo[]>(
-        path.join(PUBLIC_DIR, prior.name, "cik_parties.json"),
+        path.join(DATA_DIR, prior.name, "cik_parties.json"),
       );
       if (priorProblemFile && priorPartyInfos) {
         const priorNums = matchPriorPartyNums(
@@ -1002,13 +1002,13 @@ const buildBundle = (election: string, partyNum: number) => {
   // ---------- Section-level anomaly attribution ----------
 
   const suemg = readJson<SuemgRow[]>(
-    path.join(PUBLIC_DIR, election, "reports", "section", "suemg.json"),
+    path.join(DATA_DIR, election, "reports", "section", "suemg.json"),
   );
   const recount = readJson<RecountRow[]>(
-    path.join(PUBLIC_DIR, election, "reports", "section", "recount.json"),
+    path.join(DATA_DIR, election, "reports", "section", "recount.json"),
   );
   const concentrated = readJson<ConcentratedRow[]>(
-    path.join(PUBLIC_DIR, election, "reports", "section", "concentrated.json"),
+    path.join(DATA_DIR, election, "reports", "section", "concentrated.json"),
   );
   const suemgAttr = countAnomalyAttribution(suemg, partyNum);
   const recountAttr = countAnomalyAttribution(recount, partyNum);
@@ -1028,7 +1028,7 @@ const buildBundle = (election: string, partyNum: number) => {
   // ---------- Preferences (candidate-level) ----------
 
   const candidates = electionInfo.hasPreferences
-    ? readJson<Candidate[]>(path.join(PUBLIC_DIR, election, "candidates.json"))
+    ? readJson<Candidate[]>(path.join(DATA_DIR, election, "candidates.json"))
     : undefined;
   const preferences = electionInfo.hasPreferences
     ? buildPreferences(election, partyNum, partyTotal, regions, candidates)
@@ -1037,7 +1037,7 @@ const buildBundle = (election: string, partyNum: number) => {
   // ---------- Head-to-head with closest national rival ----------
 
   const national = readJson<NationalSummary>(
-    path.join(PUBLIC_DIR, election, "national_summary.json"),
+    path.join(DATA_DIR, election, "national_summary.json"),
   );
   const competitive = buildCompetitive(
     election,

@@ -26,6 +26,7 @@ import { PartyExpenseBreakdownTile } from "./PartyExpenseBreakdownTile";
 import { PartyTopDonorsTile } from "./PartyTopDonorsTile";
 import { PartyTrajectoryTile } from "./PartyTrajectoryTile";
 import { PartyPollingDeltaTile } from "./PartyPollingDeltaTile";
+import { PartyAgencyForecastsTile } from "./PartyAgencyForecastsTile";
 import { PartyCohesionTile } from "./PartyCohesionTile";
 import { useFinancing } from "@/screens/components/party/campaign_financing/useFinancing";
 import { DashboardSection } from "./DashboardSection";
@@ -267,6 +268,7 @@ export const PartyDashboardCards: FC<Props> = ({ party }) => {
           articleTopic="polling"
         >
           <PartyPollingDeltaTile data={data} />
+          <PartyAgencyForecastsTile data={data} />
         </DashboardSection>
       </section>
     </SectionArticlesProvider>

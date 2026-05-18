@@ -53,7 +53,7 @@ These describe the environment but do not contribute to the systemic risk score:
 - **Benford 2nd digit (8/100):** one of twelve qualifying parties shows strong deviation (MAD ≥ 0.08). The test is a prompt to look closer, not a verdict.
 - **Neighborhood swing (39/100):** [ПрБ](/party/%D0%9F%D1%80%D0%91?elections=2026_04_19) shows +5.8 pp excess swing inside the tracked communities versus its national performance.
 - **Electoral volatility (100/100):** Pedersen index 49.7 — the cycle is *hyper-volatile* (>30% of the vote redistributed). Typically marks a new entrant.
-- **Polling error (40/100):** 2.91 pp mean MAE, reflecting methodology issues and late deciders.
+- **Polling error (40/100):** 2.67 pp mean MAE across the seven agencies' final pre-vote polls, reflecting methodology issues and late deciders.
 
 ---
 
