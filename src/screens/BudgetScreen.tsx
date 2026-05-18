@@ -40,6 +40,7 @@ import { BudgetJourneyTile } from "./components/budget/BudgetJourneyTile";
 import { BudgetMinistriesTile } from "./components/budget/BudgetMinistriesTile";
 import { BudgetRevenueCompositionTile } from "./components/budget/BudgetRevenueCompositionTile";
 import { BudgetExpenditureCompositionTile } from "./components/budget/BudgetExpenditureCompositionTile";
+import { BudgetFunctionalTile } from "./components/budget/BudgetFunctionalTile";
 import { BudgetCitizenViewTile } from "./components/budget/BudgetCitizenViewTile";
 
 const SkeletonCard: FC = () => (
@@ -417,6 +418,7 @@ export const BudgetScreen: FC = () => {
               expanded
             />
           </div>
+          <BudgetFunctionalTile />
           <BudgetMinistriesTile fiscalYear={term.selectedFy} />
         </DashboardSection>
 
