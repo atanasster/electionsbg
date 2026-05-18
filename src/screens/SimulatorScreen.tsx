@@ -6,7 +6,7 @@ import { usePartyInfo } from "@/data/parties/usePartyInfo";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { localDate, formatPct, formatThousands } from "@/data/utils";
 import { Link } from "@/ux/Link";
-import { cn } from "@/lib/utils";
+import { cn, partyHref } from "@/lib/utils";
 import {
   allocateSeats,
   buildOfficialRows,
@@ -106,7 +106,7 @@ const SeatTable: FC<{
                       style={{ backgroundColor: party?.color || "#888" }}
                     />
                     <Link
-                      to={`/party/${party?.nickName || r.nickName}`}
+                      to={partyHref(party?.nickName || r.nickName)}
                       className="hover:underline"
                     >
                       {displayNameFor(party?.nickName ?? r.nickName ?? "") ??

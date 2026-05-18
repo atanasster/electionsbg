@@ -12,6 +12,7 @@ import {
 } from "@/data/utils";
 import { Link } from "@/ux/Link";
 import { StatCard } from "../StatCard";
+import { partyHref } from "@/lib/utils";
 
 type Props = {
   filing?: PartyFiling;
@@ -83,7 +84,7 @@ export const PartyCampaignCostCard: FC<Props> = ({
       )}
       {partyNickName && total > 0 && (
         <Link
-          to={`/party/${partyNickName}/expenses`}
+          to={partyHref(partyNickName, "/expenses")}
           className="text-[10px] text-primary hover:underline mt-1"
           underline={false}
         >

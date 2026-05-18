@@ -5,6 +5,14 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
+// Build a URL path to a party page, encoding the nickName so coalition names
+// containing a slash (e.g. "ВОЛЯ/НФСБ", ballot 24 in April 2021) don't get
+// chopped by React Router's path-segment matching.
+export const partyHref = (
+  nickName: string | number | null | undefined,
+  suffix = "",
+): string => `/party/${encodeURIComponent(String(nickName ?? ""))}${suffix}`;
+
 export const initials = (name?: string | null): string => {
   if (!name) return "?";
   const parts = name.trim().split(/\s+/);

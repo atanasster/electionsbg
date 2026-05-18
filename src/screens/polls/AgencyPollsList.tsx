@@ -6,6 +6,7 @@ import { StatCard } from "@/screens/dashboard/StatCard";
 import { ElectionAccuracy, Poll, PollDetail } from "@/data/polls/pollsTypes";
 import { resolveActualKey } from "@/data/polls/aliases";
 import { localDate } from "@/data/utils";
+import { partyHref } from "@/lib/utils";
 
 type Props = {
   polls: Poll[];
@@ -299,8 +300,11 @@ export const AgencyPollsList: FC<Props> = ({ polls, details, elections }) => {
                           <Link
                             to={
                               linkElection
-                                ? `/party/${key ?? d.nickName_bg}?elections=${linkElection.replace(/-/g, "_")}`
-                                : `/party/${key ?? d.nickName_bg}`
+                                ? partyHref(
+                                    key ?? d.nickName_bg,
+                                    `?elections=${linkElection.replace(/-/g, "_")}`,
+                                  )
+                                : partyHref(key ?? d.nickName_bg)
                             }
                             className="text-xs truncate text-primary hover:underline"
                             title={isBg ? d.nickName_bg : d.nickName_en}

@@ -13,6 +13,7 @@ import { Link } from "@/ux/Link";
 import { useNavigateParams } from "@/ux/useNavigateParams";
 import { useTooltip } from "@/ux/useTooltip";
 import { StatCard } from "./StatCard";
+import { partyHref } from "@/lib/utils";
 
 // Local row type — same shape as NationalPartyResult for the fields we render,
 // plus an `isSplitChild` flag so the tooltip can hide vote totals for child
@@ -255,9 +256,7 @@ export const MandatesTile: FC<Props> = ({ parties }) => {
                       )
                     }
                     onMouseLeave={onMouseLeave}
-                    onClick={() =>
-                      navigate({ pathname: `/party/${partyPath}` })
-                    }
+                    onClick={() => navigate({ pathname: partyHref(partyPath) })}
                   />
                 );
               })}
@@ -286,7 +285,7 @@ export const MandatesTile: FC<Props> = ({ parties }) => {
                   className="min-w-0"
                 >
                   <Link
-                    to={`/party/${partyPath}`}
+                    to={partyHref(partyPath)}
                     underline={false}
                     className="flex items-center gap-2 text-sm hover:underline"
                   >

@@ -7,6 +7,7 @@ import { formatPct, formatThousands } from "@/data/utils";
 import { Link } from "@/ux/Link";
 import { Hint } from "@/ux/Hint";
 import { StatCard } from "./StatCard";
+import { partyHref } from "@/lib/utils";
 
 const TOP_N = 10;
 
@@ -78,7 +79,7 @@ export const PartyTopRegionsTile: FC<Props> = ({ data }) => {
           </Hint>
           {totalCount > TOP_N ? (
             <Link
-              to={`/party/${data.nickName}/regions`}
+              to={partyHref(data.nickName, "/regions")}
               className="text-[10px] normal-case text-primary hover:underline"
               underline={false}
             >

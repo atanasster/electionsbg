@@ -9,6 +9,7 @@ import { formatThousands, pctChange } from "@/data/utils";
 import { Link } from "@/ux/Link";
 import { Hint } from "@/ux/Hint";
 import { StatCard } from "./StatCard";
+import { partyHref } from "@/lib/utils";
 
 type Props = {
   parties: NationalPartyResult[];
@@ -143,7 +144,7 @@ export const RecountTile: FC<Props> = ({
           return (
             <Link
               key={r.partyNum}
-              to={`/party/${r.nickName}`}
+              to={partyHref(r.nickName)}
               underline={false}
               className="grid grid-cols-[minmax(0,1fr)_auto_auto_minmax(80px,1fr)_auto_auto] gap-x-3 items-center text-sm hover:bg-muted/40 rounded-md px-1 py-1 -mx-1 transition-colors"
             >

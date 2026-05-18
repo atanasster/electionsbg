@@ -23,6 +23,19 @@ export type PollResidual = {
   notes?: string;
 };
 
+/**
+ * Provenance for a confirmed poll that the scraper must never overwrite.
+ * Tiered by source authority:
+ *   - agency_spreadsheet: agency-provided summary file (e.g. ML/Galya xlsx)
+ *   - agency_pdf:         agency-published PDF report supplied manually
+ *   - agency_website:     citation hosted on the agency's own primary domain
+ */
+export type PollLock = {
+  by: "agency_spreadsheet" | "agency_pdf" | "agency_website";
+  note?: string;
+  lockedAt: string;
+};
+
 export type Poll = {
   id: string;
   agencyId: string;
@@ -33,6 +46,7 @@ export type Poll = {
   source: string;
   genre?: PollGenre;
   residual?: PollResidual | null;
+  locked?: PollLock;
 };
 
 export type PollDetail = {

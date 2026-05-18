@@ -17,6 +17,7 @@ import { Link } from "@/ux/Link";
 import { Hint } from "@/ux/Hint";
 import { StatCard } from "./StatCard";
 import { dataUrl } from "@/data/dataUrl";
+import { partyHref } from "@/lib/utils";
 
 const queryFn = async ({
   queryKey,
@@ -154,7 +155,7 @@ export const TopFinancingTile: FC<Props> = ({ parties }) => {
           }) => (
             <Link
               key={partyNum}
-              to={`/party/${nickName}`}
+              to={partyHref(nickName)}
               underline={false}
               className="contents"
             >

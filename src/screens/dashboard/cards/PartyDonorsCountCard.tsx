@@ -5,6 +5,7 @@ import { PartyFinancing } from "@/data/dataTypes";
 import { formatThousands } from "@/data/utils";
 import { Link } from "@/ux/Link";
 import { StatCard } from "../StatCard";
+import { partyHref } from "@/lib/utils";
 
 type Props = {
   financing?: PartyFinancing | null;
@@ -40,7 +41,7 @@ export const PartyDonorsCountCard: FC<Props> = ({
         <Users className="h-5 w-5 text-muted-foreground shrink-0" />
         {partyNickName && donorCount > 0 ? (
           <Link
-            to={`/party/${partyNickName}/donors`}
+            to={partyHref(partyNickName, "/donors")}
             className="text-2xl font-bold tabular-nums hover:underline"
             underline={false}
           >
@@ -65,7 +66,7 @@ export const PartyDonorsCountCard: FC<Props> = ({
       )}
       {partyNickName && donorCount > 0 && (
         <Link
-          to={`/party/${partyNickName}/donors`}
+          to={partyHref(partyNickName, "/donors")}
           className="text-[10px] text-primary hover:underline mt-1"
           underline={false}
         >

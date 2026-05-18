@@ -7,6 +7,7 @@ import { useTooltip } from "@/ux/useTooltip";
 import { Hint } from "@/ux/Hint";
 import { METRIC_BY_KEY } from "@/screens/components/demographics/censusMetrics";
 import { StatCard } from "./StatCard";
+import { partyHref } from "@/lib/utils";
 
 const MAX_ROWS = 8;
 const SPREAD_THRESHOLD = 0.6;
@@ -64,7 +65,7 @@ export const DemographicCleavagesTile: FC = () => {
         {payload.parties.map((p) => (
           <Link
             key={p.partyNum}
-            to={`/party/${encodeURIComponent(p.nickName)}`}
+            to={partyHref(p.nickName)}
             className="flex items-center gap-1 hover:underline"
           >
             <span

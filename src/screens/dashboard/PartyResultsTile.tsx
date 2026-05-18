@@ -7,6 +7,7 @@ import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { Link } from "@/ux/Link";
 import { Hint } from "@/ux/Hint";
 import { StatCard } from "./StatCard";
+import { partyHref } from "@/lib/utils";
 
 const DeltaBadge: FC<{ delta: number }> = ({ delta }) => {
   const sign = delta > 0 ? "+" : "";
@@ -88,7 +89,7 @@ export const PartyResultsTile: FC<Props> = ({
         {rows.map(({ party, barPct, color }) => (
           <Link
             key={party.partyNum}
-            to={`/party/${party.nickName}`}
+            to={partyHref(party.nickName)}
             underline={false}
             className="grid grid-cols-[minmax(0,1fr)_auto_minmax(80px,1.4fr)_auto_auto] gap-x-3 items-center text-sm hover:bg-muted/40 rounded-md px-1 py-1 -mx-1 transition-colors"
           >

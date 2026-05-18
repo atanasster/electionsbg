@@ -15,7 +15,7 @@ import { candidateUrlFor } from "@/data/candidates/candidateSlug";
 import { Tooltip } from "@/ux/Tooltip";
 import { Hint } from "@/ux/Hint";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { initials } from "@/lib/utils";
+import { initials, partyHref } from "@/lib/utils";
 import { useCandidateName } from "@/data/candidates/useCandidateName";
 import { StatCard } from "./StatCard";
 import { dataUrl } from "@/data/dataUrl";
@@ -138,7 +138,7 @@ export const PartyTopCandidatesTile: FC<Props> = ({ data }) => {
             </div>
           </Hint>
           <Link
-            to={`/party/${data.nickName}/preferences`}
+            to={partyHref(data.nickName, "/preferences")}
             className="text-[10px] normal-case text-primary hover:underline"
             underline={false}
           >

@@ -16,9 +16,11 @@
  * This scraper exists for one purpose: surfacing NEW polls that have been
  * added to Wikipedia so we know to verify them. Every scraped row must be
  * cross-checked against the agency's primary publication before being trusted
- * for ranking. The `genre` field on each curated poll record marks it as
- * "verified" — the defensive guard in `mergePolls` below refuses to overwrite
- * any record with a genre set.
+ * for ranking. Two signals mark a poll as protected from scraper overwrite:
+ *   - `genre` set (legacy hand-validation marker)
+ *   - `locked` set (explicit provenance: agency_spreadsheet | agency_pdf | agency_website)
+ * The defensive guard in `mergePolls` below refuses to overwrite any record
+ * carrying either signal.
  *
  * Wikipedia's "Парламентарни избори в България (YYYY)" pages embed a wikitable
  * with: agency, fieldwork period, sample size, then one column per party. The
@@ -71,6 +73,12 @@ type PollResidual = {
   notes?: string;
 };
 
+type PollLock = {
+  by: "agency_spreadsheet" | "agency_pdf" | "agency_website";
+  note?: string;
+  lockedAt: string;
+};
+
 type Poll = {
   id: string;
   agencyId: string;
@@ -81,6 +89,7 @@ type Poll = {
   source: string;
   genre?: PollGenre;
   residual?: PollResidual | null;
+  locked?: PollLock;
 };
 
 type PollDetail = {
@@ -689,7 +698,17 @@ const isWikiSource = (url: string | null | undefined): boolean =>
 // A poll is considered "curated" once it has been hand-validated against the
 // agency's primary publication and tagged with a genre. Curated polls are
 // immutable to the scraper — Wikipedia is not authoritative for them.
-const isCurated = (p: Poll): boolean => p.genre !== undefined;
+//
+// A poll is "locked" when it carries an explicit `locked` provenance flag
+// (agency_spreadsheet | agency_pdf | agency_website) confirming the values
+// came from the agency itself. Locked polls are also immutable to the scraper.
+//
+// Both signals lead to the same protection: the scraper will not overwrite
+// the poll's per-party shares or its metadata. We keep both because (a) some
+// older curated polls have a `genre` but no `locked` flag, and (b) the `locked`
+// field carries richer provenance metadata for downstream consumers.
+const isLocked = (p: Poll): boolean =>
+  p.locked !== undefined || p.genre !== undefined;
 
 const mergePolls = (existing: Poll[], incoming: Poll[]): Poll[] => {
   const byId = new Map<string, Poll>();
@@ -700,7 +719,7 @@ const mergePolls = (existing: Poll[], incoming: Poll[]): Poll[] => {
       byId.set(p.id, p);
       continue;
     }
-    if (isCurated(cur)) continue; // never overwrite a curated record
+    if (isLocked(cur)) continue; // never overwrite a locked/curated record
     // Source merge: prefer the richer of the two. A non-wiki article/agency URL
     // beats a wiki URL beats null/N/A. This lets the scraper upgrade old polls
     // that were saved with just the cycle URL once Wikipedia adds a citation.
@@ -723,17 +742,15 @@ const mergePolls = (existing: Poll[], incoming: Poll[]): Poll[] => {
 const mergeDetails = (
   existing: PollDetail[],
   incoming: PollDetail[],
-  curatedPollIds: Set<string>,
+  lockedPollIds: Set<string>,
 ): PollDetail[] => {
-  // For curated polls, keep existing details and ignore incoming.
-  // For non-curated polls, treat the scrape as authoritative for per-party numbers.
+  // For locked polls, keep existing details and ignore incoming.
+  // For non-locked polls, treat the scrape as authoritative for per-party numbers.
   const incomingPollIds = new Set(
-    incoming.filter((d) => !curatedPollIds.has(d.pollId)).map((d) => d.pollId),
+    incoming.filter((d) => !lockedPollIds.has(d.pollId)).map((d) => d.pollId),
   );
   const kept = existing.filter((d) => !incomingPollIds.has(d.pollId));
-  const incomingFiltered = incoming.filter(
-    (d) => !curatedPollIds.has(d.pollId),
-  );
+  const incomingFiltered = incoming.filter((d) => !lockedPollIds.has(d.pollId));
   return [...kept, ...incomingFiltered];
 };
 
@@ -770,15 +787,15 @@ const main = async (opts: { seedIzboriai: boolean; outDir: string }) => {
 
   for (const cycle of CYCLES) {
     const r = await scrapeCycle(cycle);
-    const curatedIds = new Set(polls.filter(isCurated).map((p) => p.id));
+    const lockedIds = new Set(polls.filter(isLocked).map((p) => p.id));
     polls = mergePolls(polls, r.polls);
-    details = mergeDetails(details, r.details, curatedIds);
+    details = mergeDetails(details, r.details, lockedIds);
     agencies = mergeAgencies(agencies, r.agencies);
-    if (curatedIds.size) {
-      const skipped = r.polls.filter((p) => curatedIds.has(p.id)).length;
+    if (lockedIds.size) {
+      const skipped = r.polls.filter((p) => lockedIds.has(p.id)).length;
       if (skipped)
         console.log(
-          `  ↪ ${skipped} curated polls left untouched (genre tag preserves them)`,
+          `  ↪ ${skipped} locked polls left untouched (agency-confirmed values preserved)`,
         );
     }
   }

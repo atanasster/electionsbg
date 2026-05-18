@@ -18,6 +18,7 @@ import { formatPct, formatThousands } from "@/data/utils";
 import { StatCard } from "@/screens/dashboard/StatCard";
 import { WastedVoteRegionsMap } from "./components/wastedVote/WastedVoteRegionsMap";
 import regionsJson from "@/data/json/regions.json";
+import { partyHref } from "@/lib/utils";
 
 type RegionMeta = {
   oblast: string;
@@ -345,7 +346,7 @@ export const WastedVoteScreen = () => {
               return (
                 <Link
                   key={p.partyNum}
-                  to={`/party/${party?.nickName ?? p.partyNum}`}
+                  to={partyHref(party?.nickName ?? p.partyNum)}
                   underline={false}
                   className="grid grid-cols-[minmax(0,1fr)_minmax(60px,1.2fr)_auto] items-center gap-x-3 hover:bg-muted/40 rounded-md px-1 py-1 -mx-1 transition-colors"
                 >

@@ -6,6 +6,7 @@ import { formatPct, formatThousands } from "@/data/utils";
 import { Hint } from "@/ux/Hint";
 import { Link } from "@/ux/Link";
 import { StatCard } from "./StatCard";
+import { partyHref } from "@/lib/utils";
 
 const TOP_N = 10;
 
@@ -64,7 +65,7 @@ export const PartyTopDonorsTile: FC<Props> = ({
             </span>
             {partyNickName && totalDonors > TOP_N ? (
               <Link
-                to={`/party/${partyNickName}/donors/list`}
+                to={partyHref(partyNickName, "/donors/list")}
                 className="text-[10px] normal-case text-primary hover:underline"
                 underline={false}
               >
