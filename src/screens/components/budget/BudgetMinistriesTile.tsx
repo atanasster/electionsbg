@@ -9,7 +9,13 @@
 import { FC, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Landmark, Receipt, Users, ChevronRight, ChevronDown } from "lucide-react";
+import {
+  Landmark,
+  Receipt,
+  Users,
+  ChevronRight,
+  ChevronDown,
+} from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { cn } from "@/lib/utils";
 import { formatEur } from "@/lib/currency";
@@ -215,129 +221,132 @@ export const BudgetMinistriesTile: FC<{ fiscalYear: number }> = ({
       </CardHeader>
       <CardContent className="pt-0">
         <ul className="space-y-1.5">
-          {(expandedAll ? expenditure : expenditure.slice(0, TOP_N)).map((m) => {
-            // Bar baseline is the amended appropriation when present, else the
-            // law-planned figure; the foreground bar is the executed share of
-            // that baseline. Falls back to the original plan-only bar when no
-            // execution report has been ingested for this unit yet.
-            const baseline = m.amended ?? m.planned;
-            const baseWidth = (baseline / max) * 100;
-            const execShare =
-              m.executed != null && baseline > 0
-                ? Math.min(100, (m.executed / baseline) * 100)
-                : 0;
-            const execPct =
-              m.executed != null && m.amended && m.amended > 0
-                ? (m.executed / m.amended) * 100
-                : null;
-            const unspentEur =
-              m.executed != null && m.amended != null
-                ? m.amended - m.executed
-                : null;
-            const hasPrograms = adminsWithPrograms.has(m.nodeId);
-            const isOpen = expanded.has(m.nodeId);
-            return (
-              <li key={m.nodeId} className="text-xs">
-                <div className="flex items-baseline justify-between gap-2">
-                  <span className="flex min-w-0 items-center gap-1">
-                    {hasPrograms ? (
-                      <button
-                        type="button"
-                        onClick={() => toggle(m.nodeId)}
-                        aria-expanded={isOpen}
-                        aria-label={
-                          isOpen
-                            ? t("budget_ministries_collapse") || "Hide programs"
-                            : t("budget_ministries_expand") || "Show programs"
-                        }
-                        className="shrink-0 inline-flex h-4 w-4 items-center justify-center rounded text-muted-foreground hover:bg-accent/40 hover:text-foreground"
+          {(expandedAll ? expenditure : expenditure.slice(0, TOP_N)).map(
+            (m) => {
+              // Bar baseline is the amended appropriation when present, else the
+              // law-planned figure; the foreground bar is the executed share of
+              // that baseline. Falls back to the original plan-only bar when no
+              // execution report has been ingested for this unit yet.
+              const baseline = m.amended ?? m.planned;
+              const baseWidth = (baseline / max) * 100;
+              const execShare =
+                m.executed != null && baseline > 0
+                  ? Math.min(100, (m.executed / baseline) * 100)
+                  : 0;
+              const execPct =
+                m.executed != null && m.amended && m.amended > 0
+                  ? (m.executed / m.amended) * 100
+                  : null;
+              const unspentEur =
+                m.executed != null && m.amended != null
+                  ? m.amended - m.executed
+                  : null;
+              const hasPrograms = adminsWithPrograms.has(m.nodeId);
+              const isOpen = expanded.has(m.nodeId);
+              return (
+                <li key={m.nodeId} className="text-xs">
+                  <div className="flex items-baseline justify-between gap-2">
+                    <span className="flex min-w-0 items-center gap-1">
+                      {hasPrograms ? (
+                        <button
+                          type="button"
+                          onClick={() => toggle(m.nodeId)}
+                          aria-expanded={isOpen}
+                          aria-label={
+                            isOpen
+                              ? t("budget_ministries_collapse") ||
+                                "Hide programs"
+                              : t("budget_ministries_expand") || "Show programs"
+                          }
+                          className="shrink-0 inline-flex h-4 w-4 items-center justify-center rounded text-muted-foreground hover:bg-accent/40 hover:text-foreground"
+                        >
+                          <ChevronRight
+                            className={cn(
+                              "h-3 w-3 transition-transform",
+                              isOpen && "rotate-90",
+                            )}
+                          />
+                        </button>
+                      ) : (
+                        <span className="inline-block h-4 w-4 shrink-0" />
+                      )}
+                      <Link
+                        to={`/budget/ministry/${m.nodeId}`}
+                        className="truncate text-primary hover:underline"
                       >
-                        <ChevronRight
-                          className={cn(
-                            "h-3 w-3 transition-transform",
-                            isOpen && "rotate-90",
-                          )}
-                        />
-                      </button>
-                    ) : (
-                      <span className="inline-block h-4 w-4 shrink-0" />
-                    )}
-                    <Link
-                      to={`/budget/ministry/${m.nodeId}`}
-                      className="truncate text-primary hover:underline"
+                        {m.name}
+                      </Link>
+                    </span>
+                    <span className="tabular-nums shrink-0 font-medium">
+                      {formatEur(m.planned)}
+                    </span>
+                  </div>
+                  <div className="mt-0.5 h-1.5 rounded bg-muted overflow-hidden">
+                    <div
+                      className="h-full rounded bg-primary/25"
+                      style={{ width: `${baseWidth}%` }}
                     >
-                      {m.name}
-                    </Link>
-                  </span>
-                  <span className="tabular-nums shrink-0 font-medium">
-                    {formatEur(m.planned)}
-                  </span>
-                </div>
-                <div className="mt-0.5 h-1.5 rounded bg-muted overflow-hidden">
-                  <div
-                    className="h-full rounded bg-primary/25"
-                    style={{ width: `${baseWidth}%` }}
-                  >
-                    {m.executed != null ? (
-                      <div
-                        className="h-full rounded bg-primary/80"
-                        style={{ width: `${execShare}%` }}
-                      />
-                    ) : null}
+                      {m.executed != null ? (
+                        <div
+                          className="h-full rounded bg-primary/80"
+                          style={{ width: `${execShare}%` }}
+                        />
+                      ) : null}
+                    </div>
                   </div>
-                </div>
-                {m.executed != null && execPct != null ? (
-                  <div className="mt-0.5 flex items-center justify-between gap-2 text-[11px] text-muted-foreground tabular-nums">
-                    <span>
-                      {t("budget_ministries_executed") || "executed"}{" "}
-                      {formatEur(m.executed)} ({execPct.toFixed(1)}%{" "}
-                      <span className="opacity-70">
-                        {t("budget_ministries_of_amended") || "of amended"}
+                  {m.executed != null && execPct != null ? (
+                    <div className="mt-0.5 flex items-center justify-between gap-2 text-[11px] text-muted-foreground tabular-nums">
+                      <span>
+                        {t("budget_ministries_executed") || "executed"}{" "}
+                        {formatEur(m.executed)} ({execPct.toFixed(1)}%{" "}
+                        <span className="opacity-70">
+                          {t("budget_ministries_of_amended") || "of amended"}
+                        </span>
+                        )
                       </span>
-                      )
-                    </span>
-                    {unspentEur != null && unspentEur !== 0 ? (
-                      <span
-                        className={
-                          unspentEur < 0
-                            ? "text-rose-600 dark:text-rose-400"
-                            : ""
-                        }
-                      >
-                        {unspentEur > 0
-                          ? `${t("budget_ministries_unspent") || "unspent"} ${compactEur(unspentEur)}`
-                          : `${t("budget_ministries_over") || "over"} ${compactEur(-unspentEur)}`}
+                      {unspentEur != null && unspentEur !== 0 ? (
+                        <span
+                          className={
+                            unspentEur < 0
+                              ? "text-rose-600 dark:text-rose-400"
+                              : ""
+                          }
+                        >
+                          {unspentEur > 0
+                            ? `${t("budget_ministries_unspent") || "unspent"} ${compactEur(unspentEur)}`
+                            : `${t("budget_ministries_over") || "over"} ${compactEur(-unspentEur)}`}
+                        </span>
+                      ) : null}
+                    </div>
+                  ) : null}
+                  {m.procurement ? (
+                    <div className="mt-0.5 flex items-center gap-2 text-[11px] text-muted-foreground">
+                      <span className="inline-flex items-center gap-1 tabular-nums">
+                        <Receipt className="h-3 w-3" />
+                        {compactEur(m.procurement.totalEur)}{" "}
+                        {t("budget_ministries_procurement") || "procurement"}
                       </span>
-                    ) : null}
-                  </div>
-                ) : null}
-                {m.procurement ? (
-                  <div className="mt-0.5 flex items-center gap-2 text-[11px] text-muted-foreground">
-                    <span className="inline-flex items-center gap-1 tabular-nums">
-                      <Receipt className="h-3 w-3" />
-                      {compactEur(m.procurement.totalEur)}{" "}
-                      {t("budget_ministries_procurement") || "procurement"}
-                    </span>
-                    {m.procurement.mpConnectedContractorCount > 0 ? (
-                      <span className="inline-flex items-center gap-1 text-amber-700 dark:text-amber-400">
-                        <Users className="h-3 w-3" />
-                        {m.procurement.mpConnectedContractorCount}{" "}
-                        {t("budget_ministries_mp_flag") || "MP-connected"}
-                      </span>
-                    ) : null}
-                  </div>
-                ) : null}
-                {isOpen && hasPrograms ? (
-                  <ProgramSublist
-                    adminNodeId={m.nodeId}
-                    lang={lang}
-                    programFacts={programFacts}
-                    programRecon={programRecon}
-                  />
-                ) : null}
-              </li>
-            );
-          })}
+                      {m.procurement.mpConnectedContractorCount > 0 ? (
+                        <span className="inline-flex items-center gap-1 text-amber-700 dark:text-amber-400">
+                          <Users className="h-3 w-3" />
+                          {m.procurement.mpConnectedContractorCount}{" "}
+                          {t("budget_ministries_mp_flag") || "MP-connected"}
+                        </span>
+                      ) : null}
+                    </div>
+                  ) : null}
+                  {isOpen && hasPrograms ? (
+                    <ProgramSublist
+                      adminNodeId={m.nodeId}
+                      lang={lang}
+                      programFacts={programFacts}
+                      programRecon={programRecon}
+                    />
+                  ) : null}
+                </li>
+              );
+            },
+          )}
         </ul>
         {expenditure.length > TOP_N ? (
           <button
