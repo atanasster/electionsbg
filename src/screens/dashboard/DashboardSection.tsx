@@ -12,7 +12,16 @@ import { DashboardSectionId } from "@/data/articles/useArticles";
 import { SectionArticlesStrip } from "./SectionArticlesStrip";
 
 type Props = {
-  id: DashboardSectionId | "headline" | "articles" | "macro" | "governments";
+  id:
+    | DashboardSectionId
+    | "headline"
+    | "articles"
+    | "macro"
+    | "governments"
+    | "budget-execution"
+    | "budget-composition"
+    | "budget-context"
+    | "budget-journey";
   title?: ReactNode;
   subtitle?: ReactNode;
   icon?: LucideIcon;

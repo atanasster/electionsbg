@@ -16,9 +16,14 @@ import {
   Flag,
   ExternalLink,
   ArrowRight,
+  Activity,
+  PieChart,
+  Globe2,
+  Scroll,
 } from "lucide-react";
 import { Title } from "@/ux/Title";
 import { StatCard } from "./dashboard/StatCard";
+import { DashboardSection } from "./dashboard/DashboardSection";
 import { cn } from "@/lib/utils";
 import { formatEur } from "@/lib/currency";
 import {
@@ -375,40 +380,63 @@ export const BudgetScreen: FC = () => {
           </div>
         ) : null}
 
-        {scopedObservations.length > 0 ? (
-          <BudgetTrendTile
-            observations={scopedObservations}
-            allObservations={kfp.observations}
-          />
-        ) : null}
+        <DashboardSection
+          id="budget-execution"
+          title={t("budget_section_execution") || "Execution"}
+          subtitle={t("budget_section_execution_subtitle") || undefined}
+          icon={Activity}
+        >
+          {scopedObservations.length > 0 ? (
+            <BudgetTrendTile
+              observations={scopedObservations}
+              allObservations={kfp.observations}
+            />
+          ) : null}
+          {summary && !summary.complete ? (
+            <BudgetSamePointTile
+              observations={kfp.observations}
+              fiscalYear={term.selectedFy}
+              monthsAvailable={summary.monthsAvailable}
+            />
+          ) : null}
+          {snapshot ? <BudgetFlowTile snapshot={snapshot} /> : null}
+        </DashboardSection>
 
-        {summary && !summary.complete ? (
-          <BudgetSamePointTile
-            observations={kfp.observations}
-            fiscalYear={term.selectedFy}
-            monthsAvailable={summary.monthsAvailable}
-          />
-        ) : null}
+        <DashboardSection
+          id="budget-composition"
+          title={t("budget_section_composition") || "Composition"}
+          subtitle={t("budget_section_composition_subtitle") || undefined}
+          icon={PieChart}
+        >
+          <BudgetCitizenViewTile fiscalYear={term.selectedFy} />
+          <div className="grid gap-4 grid-cols-1 xl:grid-cols-2">
+            <BudgetRevenueCompositionTile fiscalYear={term.selectedFy} />
+            <BudgetExpenditureCompositionTile fiscalYear={term.selectedFy} />
+          </div>
+          <div className="grid gap-4 grid-cols-1 xl:grid-cols-2">
+            <BudgetVarianceTile fiscalYear={term.selectedFy} />
+            <BudgetMinistriesTile fiscalYear={term.selectedFy} />
+          </div>
+        </DashboardSection>
 
-        {snapshot ? <BudgetFlowTile snapshot={snapshot} /> : null}
+        <DashboardSection
+          id="budget-context"
+          title={t("budget_section_context") || "Context"}
+          subtitle={t("budget_section_context_subtitle") || undefined}
+          icon={Globe2}
+        >
+          <BudgetMultiYearTrendTile />
+          <BudgetPeerComparisonTile />
+        </DashboardSection>
 
-        <BudgetCitizenViewTile fiscalYear={term.selectedFy} />
-
-        <div className="grid gap-4 grid-cols-1 xl:grid-cols-2 mt-4">
-          <BudgetRevenueCompositionTile fiscalYear={term.selectedFy} />
-          <BudgetExpenditureCompositionTile fiscalYear={term.selectedFy} />
-        </div>
-
-        <div className="grid gap-4 grid-cols-1 xl:grid-cols-2">
-          <BudgetVarianceTile fiscalYear={term.selectedFy} />
-          <BudgetMinistriesTile fiscalYear={term.selectedFy} />
-        </div>
-
-        <BudgetMultiYearTrendTile />
-
-        <BudgetPeerComparisonTile />
-
-        <BudgetJourneyTile documents={scopedDocuments} index={index} />
+        <DashboardSection
+          id="budget-journey"
+          title={t("budget_section_journey") || "Legislative path"}
+          subtitle={t("budget_section_journey_subtitle") || undefined}
+          icon={Scroll}
+        >
+          <BudgetJourneyTile documents={scopedDocuments} index={index} />
+        </DashboardSection>
 
         <p className="text-[11px] text-muted-foreground/80 mt-4">
           {t("budget_index_source_hint") ||
