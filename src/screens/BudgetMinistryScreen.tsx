@@ -66,6 +66,13 @@ const revenueOf = (y: MinistryRollupYear): number | null =>
   y.revenue?.amountEur ?? null;
 const executedExpOf = (y: MinistryRollupYear): number | null =>
   y.execution?.expenditure?.executed?.amountEur ?? null;
+// Planned balance is published as 0 for years where the budget law set no
+// separate self-financing target; without an ingested execution report a 0
+// here means "unknown", not "balanced". Treat it as missing.
+const balanceOf = (y: MinistryRollupYear): number | null => {
+  const v = y.balance?.amountEur;
+  return v == null || v === 0 ? null : v;
+};
 const executionPctOf = (
   series: MinistrySeriesExecution | null | undefined,
 ): number | null => {
@@ -147,7 +154,9 @@ const HeroStrip: FC<{ years: MinistryRollupYear[] }> = ({ years }) => {
     .map(expenditureOf)
     .filter((v): v is number => v != null);
 
-  const deficit = (latest.balance?.amountEur ?? 0) < 0;
+  const latestBal = balanceOf(latest);
+  const priorBal = prior ? balanceOf(prior) : null;
+  const deficit = latestBal != null && latestBal < 0;
   const expExec = latest.execution?.expenditure ?? null;
   const expExecPct = executionPctOf(expExec);
 
@@ -226,26 +235,30 @@ const HeroStrip: FC<{ years: MinistryRollupYear[] }> = ({ years }) => {
       ) : (
         <StatCard
           label={`${
-            deficit
-              ? t("budget_deficit") || "Budget deficit"
-              : t("budget_surplus") || "Budget surplus"
+            latestBal == null
+              ? t("budget_balance") || "Budget balance"
+              : deficit
+                ? t("budget_deficit") || "Budget deficit"
+                : t("budget_surplus") || "Budget surplus"
           } · ${latest.fiscalYear}`}
         >
           <div className="flex items-baseline gap-2">
             <Scale
               className={`h-5 w-5 shrink-0 ${
-                deficit ? "text-rose-600" : "text-emerald-600"
+                latestBal == null
+                  ? "text-muted-foreground"
+                  : deficit
+                    ? "text-rose-600"
+                    : "text-emerald-600"
               }`}
             />
             <span className="text-xl font-bold tabular-nums break-words">
-              {latest.balance
-                ? formatEur(Math.abs(latest.balance.amountEur))
-                : "—"}
+              {latestBal != null ? formatEur(Math.abs(latestBal)) : "—"}
             </span>
           </div>
           <YoyDelta
-            current={latest.balance?.amountEur ?? null}
-            prior={prior?.balance?.amountEur ?? null}
+            current={latestBal}
+            prior={priorBal}
             priorYear={prior?.fiscalYear ?? null}
             omitPct
           />
@@ -449,7 +462,7 @@ const HistoryTable: FC<{ years: MinistryRollupYear[] }> = ({ years }) => {
             {[...years].reverse().map((y) => {
               const expExec = y.execution?.expenditure ?? null;
               const pct = executionPctOf(expExec);
-              const bal = y.balance?.amountEur ?? null;
+              const bal = balanceOf(y);
               const balDeficit = bal != null && bal < 0;
               return (
                 <tr
@@ -490,6 +503,196 @@ const HistoryTable: FC<{ years: MinistryRollupYear[] }> = ({ years }) => {
   );
 };
 
+// Categorical palette for program lines. Eight hues, all with enough contrast
+// against the cream/dark page backgrounds; cycles if a ministry runs more than
+// eight programs (rare — most cap at four).
+const PROGRAM_COLORS = [
+  "#059669", // emerald-600
+  "#e11d48", // rose-600
+  "#0284c7", // sky-600
+  "#d97706", // amber-600
+  "#7c3aed", // violet-600
+  "#0d9488", // teal-600
+  "#db2777", // pink-600
+  "#ea580c", // orange-600
+];
+
+// Multi-line trend chart for the unit's programs. Groups programs by stable
+// nodeId so a program with a slightly tweaked label across years still
+// resolves to one line. Programs beyond the top eight (by max amount in any
+// year) collapse into "Other" so the chart stays legible.
+const ProgramTrendChart: FC<{
+  years: MinistryRollupYear[];
+  lang: "bg" | "en";
+}> = ({ years, lang }) => {
+  const { t } = useTranslation();
+  const { data, programs } = useMemo(() => {
+    const meta = new Map<
+      string,
+      { nodeId: string; name: string; max: number }
+    >();
+    years.forEach((y) =>
+      y.programs.forEach((p) => {
+        const name = lang === "en" && p.nameEn ? p.nameEn : p.nameBg;
+        const v = p.planned?.amountEur ?? 0;
+        const prev = meta.get(p.nodeId);
+        if (!prev) meta.set(p.nodeId, { nodeId: p.nodeId, name, max: v });
+        else if (v > prev.max) prev.max = v;
+      }),
+    );
+    const ordered = [...meta.values()].sort((a, b) => b.max - a.max);
+    const TOP = 8;
+    const top = ordered.slice(0, TOP);
+    const rest = ordered.slice(TOP).map((p) => p.nodeId);
+    const restKey = "__other__";
+    const programs = [
+      ...top.map((p, i) => ({
+        key: p.nodeId,
+        name: p.name,
+        color: PROGRAM_COLORS[i % PROGRAM_COLORS.length],
+      })),
+      ...(rest.length > 0
+        ? [
+            {
+              key: restKey,
+              name: t("budget_ministry_program_other") || "Other",
+              color: "#94a3b8",
+            },
+          ]
+        : []),
+    ];
+    const data = years.map((y) => {
+      const row: Record<string, number | null> & { fiscalYear: number } = {
+        fiscalYear: y.fiscalYear,
+      };
+      programs.forEach((p) => (row[p.key] = null));
+      let other = 0;
+      let otherHas = false;
+      y.programs.forEach((p) => {
+        const v = p.planned?.amountEur ?? null;
+        if (v == null) return;
+        if (rest.includes(p.nodeId)) {
+          other += v;
+          otherHas = true;
+        } else {
+          row[p.nodeId] = v;
+        }
+      });
+      if (rest.length > 0 && otherHas) row[restKey] = other;
+      return row;
+    });
+    return { data, programs };
+  }, [years, lang, t]);
+
+  if (data.length < 2 || programs.length === 0) return null;
+  const firstYear = data[0].fiscalYear;
+  const lastYear = data[data.length - 1].fiscalYear;
+  const xTicks: number[] = [];
+  for (let y = firstYear; y <= lastYear; y++) xTicks.push(y);
+
+  return (
+    <div className="pb-3 mb-3 border-b border-border/40">
+      <div style={{ height: 240, width: "100%" }}>
+        <ResponsiveContainer width="100%" height="100%">
+          <LineChart
+            data={data}
+            margin={{ top: 8, right: 16, bottom: 0, left: 0 }}
+          >
+            <CartesianGrid
+              strokeDasharray="3 3"
+              vertical={false}
+              className="stroke-border"
+            />
+            <XAxis
+              type="number"
+              dataKey="fiscalYear"
+              domain={[firstYear, lastYear]}
+              ticks={xTicks}
+              tickLine={false}
+              axisLine={false}
+              fontSize={11}
+              className="fill-muted-foreground"
+              allowDecimals={false}
+            />
+            <YAxis
+              tickFormatter={compactEur}
+              tickLine={false}
+              axisLine={false}
+              fontSize={11}
+              className="fill-muted-foreground"
+              width={56}
+            />
+            <Tooltip
+              cursor={{ stroke: "var(--muted)", strokeWidth: 1 }}
+              content={({ active, payload, label }) => {
+                if (!active || !payload || payload.length === 0) return null;
+                const rows = programs
+                  .map((p) => {
+                    const v = payload.find((pl) => pl.dataKey === p.key)
+                      ?.value as number | null | undefined;
+                    return { p, v };
+                  })
+                  .filter((r) => r.v != null);
+                if (rows.length === 0) return null;
+                return (
+                  <div className="rounded-md border bg-popover px-2 py-1.5 text-popover-foreground shadow-sm text-xs space-y-0.5 max-w-xs">
+                    <div className="font-semibold">{label}</div>
+                    {rows.map(({ p, v }) => (
+                      <div
+                        key={p.key}
+                        className="flex items-baseline gap-1.5 tabular-nums"
+                      >
+                        <span
+                          className="inline-block h-2 w-2 rounded-sm shrink-0"
+                          style={{ background: p.color }}
+                        />
+                        <span className="truncate text-muted-foreground">
+                          {p.name}
+                        </span>
+                        <span className="ml-auto pl-2 shrink-0">
+                          {formatEur(v as number)}
+                        </span>
+                      </div>
+                    ))}
+                  </div>
+                );
+              }}
+            />
+            {programs.map((p) => (
+              <Line
+                key={p.key}
+                type="monotone"
+                dataKey={p.key}
+                stroke={p.color}
+                strokeWidth={2}
+                dot={{ r: 2.5, fill: p.color }}
+                activeDot={{ r: 5 }}
+                connectNulls={false}
+                name={p.name}
+              />
+            ))}
+          </LineChart>
+        </ResponsiveContainer>
+      </div>
+      <div className="mt-2 flex flex-wrap gap-x-3 gap-y-1 text-[11px] text-muted-foreground">
+        {programs.map((p) => (
+          <span
+            key={p.key}
+            className="inline-flex items-baseline gap-1.5 max-w-full"
+            title={p.name}
+          >
+            <span
+              className="inline-block h-0.5 w-3 shrink-0"
+              style={{ background: p.color }}
+            />
+            <span className="truncate">{p.name}</span>
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+};
+
 // The unit's program budget — the policy-area / program appropriations the
 // State Budget Law sets, per fiscal year, as a proportional bar list.
 const ProgramBlock: FC<{ years: MinistryRollupYear[]; lang: "bg" | "en" }> = ({
@@ -508,6 +711,7 @@ const ProgramBlock: FC<{ years: MinistryRollupYear[]; lang: "bg" | "en" }> = ({
         </CardTitle>
       </CardHeader>
       <CardContent className="pt-0">
+        <ProgramTrendChart years={withPrograms} lang={lang} />
         {withPrograms.map((py) => {
           const max = Math.max(
             1,
