@@ -100,10 +100,11 @@ interface IndexFile {
   ns: string;
   lastStenogramId: number;
   lastDate: string;
-  // Per-NS MP roster snapshot taken from the latest session of each parliament.
-  // Lets every tile that just needs party / name lookups (embedding scatter,
-  // bridge MPs, twins, loyalty fallbacks) avoid fetching the full ~100 KB
-  // session JSON — the index is already loaded by all of them.
+  // Per-NS MP roster, unioned across every session of each parliament so MPs
+  // that were replaced mid-term still resolve to a name + party. Lets every
+  // tile that just needs party / name lookups (embedding scatter, bridge MPs,
+  // twins, loyalty fallbacks) avoid fetching the full ~100 KB session JSON —
+  // the index is already loaded by all of them.
   mpProfileByNs?: Record<
     string,
     {
@@ -426,14 +427,16 @@ const deriveNsFromSession = (filePath: string): string => {
   return data.ns ?? "";
 };
 
-// Walk session files newest-first per NS and snapshot the latest mpNames +
-// mpParty maps. Embedded in the index so every tile that just needs party /
-// name lookup can skip the ~100 KB session JSON.
+// Walk every session per NS oldest-first and union the per-session mpNames +
+// mpParty maps. Newer entries overwrite older ones, so MPs who changed party
+// mid-term carry their latest affiliation, and MPs who were replaced before
+// the latest session still have a lookup (without this, the embedding and
+// similarity tiles would render them as unattributed dots — they voted, but
+// the index forgot they existed).
 const buildMpProfileByNs = (
   sessions: IndexFile["sessions"],
 ): IndexFile["mpProfileByNs"] => {
   const out: NonNullable<IndexFile["mpProfileByNs"]> = {};
-  // Sort newest-first within each NS so the first read wins.
   const byNs = new Map<string, IndexFile["sessions"]>();
   for (const s of sessions) {
     const ns = s.ns ?? "";
@@ -443,7 +446,9 @@ const buildMpProfileByNs = (
     byNs.set(ns, arr);
   }
   for (const [ns, arr] of byNs) {
-    arr.sort((a, b) => b.date.localeCompare(a.date));
+    arr.sort((a, b) => a.date.localeCompare(b.date));
+    const mpNames: Record<string, string> = {};
+    const mpParty: Record<string, string> = {};
     for (const entry of arr) {
       const sessionPath = path.join(VOTES_DIR, entry.file);
       if (!fs.existsSync(sessionPath)) continue;
@@ -452,13 +457,14 @@ const buildMpProfileByNs = (
           mpNames?: Record<string, string>;
           mpParty?: Record<string, string>;
         };
-        if (sf.mpNames && sf.mpParty) {
-          out[ns] = { mpNames: sf.mpNames, mpParty: sf.mpParty };
-          break;
-        }
+        if (sf.mpNames) Object.assign(mpNames, sf.mpNames);
+        if (sf.mpParty) Object.assign(mpParty, sf.mpParty);
       } catch {
         // skip and try next
       }
+    }
+    if (Object.keys(mpParty).length > 0) {
+      out[ns] = { mpNames, mpParty };
     }
   }
   return out;
