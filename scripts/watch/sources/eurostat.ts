@@ -92,6 +92,15 @@ const DATASETS: { code: string; query: string }[] = [
     code: "gov_10a_exp",
     query: "geo=BG&sector=S13&na_item=TE&unit=MIO_NAC&cofog99=TOTAL&freq=A",
   },
+  // Annual general-government revenue / expenditure / balance as % of GDP for
+  // BG, EU27, and the CEE peers. Feeds the /governance EU peer-comparison
+  // tile + /budget headline-card peer chips via scripts/macro/fetch_eu_peers.
+  // One fingerprint covers both naturally — the dataset-level `updated`
+  // timestamp moves whenever Eurostat republishes BG or the EU aggregate.
+  {
+    code: "gov_10a_main",
+    query: "geo=BG&sector=S13&na_item=TR&unit=PC_GDP&freq=A",
+  },
 ];
 
 const buildUrl = (code: string, query: string): string =>
@@ -108,7 +117,7 @@ const fetchUpdated = async (code: string, query: string): Promise<string> => {
 
 export const eurostat: WatchSource = {
   id: "eurostat",
-  label: "Eurostat macro (BG): 16 datasets",
+  label: "Eurostat macro (BG): 17 datasets",
   // Best representative URL for the report's link column — the rest live in
   // meta.
   url: "https://ec.europa.eu/eurostat/databrowser/",
