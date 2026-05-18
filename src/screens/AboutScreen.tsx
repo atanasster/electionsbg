@@ -332,6 +332,10 @@ export const AboutScreen = () => {
                   href="https://ec.europa.eu/eurostat/databrowser/view/gov_10a_exp/default/table"
                   label={t("budget_cofog_source")}
                 />
+                <SourceItem
+                  href="https://ec.europa.eu/eurostat/databrowser/view/gov_10a_main/default/table"
+                  label={t("budget_eu_peers_source")}
+                />
               </ul>
             </DataGroup>
 
