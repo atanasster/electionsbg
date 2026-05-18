@@ -446,8 +446,8 @@ export const BudgetScreen: FC = () => {
               expanded
             />
           </div>
-          <BudgetFunctionalTile />
-          <BudgetTopDeviationsTile />
+          <BudgetFunctionalTile fiscalYear={term.selectedFy} />
+          <BudgetTopDeviationsTile fiscalYear={term.selectedFy} />
           <BudgetMinistriesTile fiscalYear={term.selectedFy} />
         </DashboardSection>
 

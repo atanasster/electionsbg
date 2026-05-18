@@ -168,11 +168,29 @@ export const BudgetTaxBillTile: FC<{ fiscalYear?: number | null }> = ({
       ? fiscalYear
       : LATEST_KNOWN_MOD_YEAR;
 
-  const { slices, year } = useMemo(() => {
-    if (!cofog) return { slices: [] as Slice[], year: null as number | null };
-    const yr = cofog.latestYear;
+  const { slices, year, isFallback } = useMemo(() => {
+    if (!cofog)
+      return {
+        slices: [] as Slice[],
+        year: null as number | null,
+        isFallback: false,
+      };
+    // Prefer the selected election year if cofog has it; fall back to the
+    // latest available year and flag the fallback so the user understands
+    // why the breakdown might lag the election by a year or two.
+    const requested =
+      fiscalYear != null &&
+      cofog.series.TOTAL.some((p) => p.year === fiscalYear && p.valueEur > 0)
+        ? fiscalYear
+        : null;
+    const yr = requested ?? cofog.latestYear;
     const tot = cofog.series.TOTAL.find((p) => p.year === yr)?.valueEur ?? 0;
-    if (tot <= 0) return { slices: [], year: yr };
+    if (tot <= 0)
+      return {
+        slices: [],
+        year: yr,
+        isFallback: false,
+      };
     const rows: Slice[] = [];
     for (const code of COFOG_FUNCTIONS) {
       const v = cofog.series[code].find((p) => p.year === yr)?.valueEur ?? 0;
@@ -181,8 +199,12 @@ export const BudgetTaxBillTile: FC<{ fiscalYear?: number | null }> = ({
       rows.push({ code, share, eur: totalTax * share });
     }
     rows.sort((a, b) => b.eur - a.eur);
-    return { slices: rows, year: yr };
-  }, [cofog, totalTax]);
+    return {
+      slices: rows,
+      year: yr,
+      isFallback: fiscalYear != null && yr !== fiscalYear,
+    };
+  }, [cofog, totalTax, fiscalYear]);
 
   if (slices.length === 0) return null;
 
@@ -322,6 +344,14 @@ export const BudgetTaxBillTile: FC<{ fiscalYear?: number | null }> = ({
           )
             .replace("{{amount}}", Math.round(totalTax).toString())
             .replace("{{year}}", year ? String(year) : "")}
+          {isFallback ? (
+            <span className="ml-1 text-amber-700 dark:text-amber-400">
+              {(
+                t("budget_functional_fallback") ||
+                "(Eurostat hasn't published {{requested}} yet)"
+              ).replace("{{requested}}", String(fiscalYear))}
+            </span>
+          ) : null}
         </div>
 
         <ul className="mt-1 space-y-1">

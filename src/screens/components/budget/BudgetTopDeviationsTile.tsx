@@ -70,19 +70,23 @@ const pickRows = (rows: ReconciliationRow[] | null | undefined): Row[] => {
   return out.slice(0, TOP_N);
 };
 
-// Pick the latest fiscal year whose admin reconciliation actually carries
-// completeness:exact rows. The index doesn't carry per-dimension flags, so we
-// query the three most-recent candidate years in parallel and let React Query
-// cache the lookups. Per-ministry Отчет PDFs land in spring after FY close,
-// so "current" year is usually too early — we typically land on FY-1.
+// Election-scoped year resolver. Try the selected fiscal year first (so the
+// tile follows the dashboard's selectedFy chip), then walk back one and two
+// years if the selected year doesn't have completeness:exact data yet —
+// per-ministry Отчет PDFs land in spring after FY close, so the most
+// recent year is usually too early. The render path tells the user when
+// they're looking at a fallback year instead of the one they picked.
 const FALLBACK_LATEST_YEAR = 2025;
-const candidateYearsFromIndex = (
+const candidateYears = (
+  selected: number | null | undefined,
   fiscalYears: { fiscalYear: number }[] | undefined,
 ): [number, number, number] => {
-  const latest = fiscalYears?.length
-    ? Math.max(...fiscalYears.map((y) => y.fiscalYear))
-    : FALLBACK_LATEST_YEAR;
-  return [latest, latest - 1, latest - 2];
+  const seed =
+    selected ??
+    (fiscalYears?.length
+      ? Math.max(...fiscalYears.map((y) => y.fiscalYear))
+      : FALLBACK_LATEST_YEAR);
+  return [seed, seed - 1, seed - 2];
 };
 
 const exactRowCount = (rows: ReconciliationRow[] | null | undefined): number =>
@@ -124,14 +128,17 @@ const RowItem: FC<{ row: Row; lang: "bg" | "en" }> = ({ row, lang }) => {
   );
 };
 
-export const BudgetTopDeviationsTile: FC = () => {
+export const BudgetTopDeviationsTile: FC<{ fiscalYear?: number | null }> = ({
+  fiscalYear,
+}) => {
   const { t, i18n } = useTranslation();
   const lang: "bg" | "en" = i18n.language === "bg" ? "bg" : "en";
   const { data: index } = useBudgetIndex();
-  const [yearA, yearB, yearC] = candidateYearsFromIndex(index?.fiscalYears);
-  // Fan out across the latest three candidate years; React Query caches each
-  // independently so flipping between them is free. Pick the latest one that
-  // has at least 3 exact rows — anything less doesn't make a credible "top 5".
+  const [yearA, yearB, yearC] = candidateYears(fiscalYear, index?.fiscalYears);
+  // Fan out across the selected year + the two prior years; React Query
+  // caches each independently so flipping between them is free. Prefer the
+  // selected year if it has ≥3 exact rows; otherwise walk back. The user
+  // sees a "(latest available: X)" hint when we fall back.
   const a = useBudgetAdminReconciliation(yearA);
   const b = useBudgetAdminReconciliation(yearB);
   const c = useBudgetAdminReconciliation(yearC);
@@ -149,6 +156,8 @@ export const BudgetTopDeviationsTile: FC = () => {
 
   if (top.length === 0 || year == null) return null;
 
+  const isFallback = fiscalYear != null && year !== fiscalYear;
+
   return (
     <Card className="my-4" data-og="budget-top-deviations">
       <CardHeader className="pb-2">
@@ -161,6 +170,14 @@ export const BudgetTopDeviationsTile: FC = () => {
             "Spending units whose execution diverged most from the original budget law, fiscal year") +
             " " +
             year}
+          {isFallback ? (
+            <span className="ml-1 text-amber-700 dark:text-amber-400">
+              {(
+                t("budget_top_deviations_fallback") ||
+                "(execution report not yet published for {{requested}})"
+              ).replace("{{requested}}", String(fiscalYear))}
+            </span>
+          ) : null}
         </p>
       </CardHeader>
       <CardContent className="pt-0">

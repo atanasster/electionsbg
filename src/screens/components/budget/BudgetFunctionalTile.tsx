@@ -47,11 +47,13 @@ interface Row {
   yoyPct: number | null;
 }
 
-export const BudgetFunctionalTile: FC = () => {
+export const BudgetFunctionalTile: FC<{ fiscalYear?: number | null }> = ({
+  fiscalYear,
+}) => {
   const { t } = useTranslation();
   const { data: cofog } = useCofog();
 
-  const { rows, max, year, priorYear, totalEur } = useMemo(() => {
+  const { rows, max, year, priorYear, totalEur, isFallback } = useMemo(() => {
     if (!cofog)
       return {
         rows: [] as Row[],
@@ -59,19 +61,28 @@ export const BudgetFunctionalTile: FC = () => {
         year: null as number | null,
         priorYear: null as number | null,
         totalEur: 0,
+        isFallback: false,
       };
-    const latestYear = cofog.latestYear;
-    const totalPoint = cofog.series.TOTAL.find((p) => p.year === latestYear);
+    // Prefer the selected election year if cofog has data for it. Eurostat
+    // typically lags the live year by 12-18 months, so for current-cycle
+    // elections we'll usually fall back to the latest available year — show
+    // a note when that happens so the user isn't surprised.
+    const totalSeries = cofog.series.TOTAL;
+    const requested =
+      fiscalYear != null &&
+      totalSeries.some((p) => p.year === fiscalYear && p.valueEur > 0)
+        ? fiscalYear
+        : null;
+    const renderYear = requested ?? cofog.latestYear;
+    const totalPoint = totalSeries.find((p) => p.year === renderYear);
     const total = totalPoint?.valueEur ?? 0;
-    const priorTotalPoint = cofog.series.TOTAL.find(
-      (p) => p.year === latestYear - 1,
-    );
+    const priorTotalPoint = totalSeries.find((p) => p.year === renderYear - 1);
 
     const rs: Row[] = [];
     for (const code of COFOG_FUNCTIONS) {
-      const latest = cofog.series[code].find((p) => p.year === latestYear);
+      const latest = cofog.series[code].find((p) => p.year === renderYear);
       if (!latest || latest.valueEur <= 0) continue;
-      const prior = cofog.series[code].find((p) => p.year === latestYear - 1);
+      const prior = cofog.series[code].find((p) => p.year === renderYear - 1);
       const yoy =
         prior && prior.valueEur > 0
           ? ((latest.valueEur - prior.valueEur) / prior.valueEur) * 100
@@ -87,11 +98,12 @@ export const BudgetFunctionalTile: FC = () => {
     return {
       rows: rs,
       max: rs[0]?.valueEur ?? 0,
-      year: latestYear,
-      priorYear: priorTotalPoint ? latestYear - 1 : null,
+      year: renderYear,
+      priorYear: priorTotalPoint ? renderYear - 1 : null,
       totalEur: total,
+      isFallback: fiscalYear != null && renderYear !== fiscalYear,
     };
-  }, [cofog]);
+  }, [cofog, fiscalYear]);
 
   if (rows.length === 0 || year == null) return null;
 
@@ -110,6 +122,14 @@ export const BudgetFunctionalTile: FC = () => {
           {totalEur > 0
             ? ` · ${t("budget_total") || "total"} ${compactEur(totalEur)}`
             : null}
+          {isFallback ? (
+            <span className="ml-1 text-amber-700 dark:text-amber-400">
+              {(
+                t("budget_functional_fallback") ||
+                "(Eurostat hasn't published {{requested}} yet)"
+              ).replace("{{requested}}", String(fiscalYear))}
+            </span>
+          ) : null}
         </p>
       </CardHeader>
       <CardContent className="pt-0">
