@@ -8,6 +8,7 @@ import {
   regionVotesQueryFn,
 } from "@/data/regions/useRegionVotes";
 import { useRegions } from "@/data/regions/useRegions";
+import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { NationalPartyResult } from "@/data/dashboard/dashboardTypes";
 import { useElectionContext } from "@/data/ElectionContext";
 import { useQuery } from "@tanstack/react-query";
@@ -42,6 +43,7 @@ export const TopRegionsTile: FC<Props> = ({ parties }) => {
   const { countryRegions } = useRegionVotes();
   const { findRegion } = useRegions();
   const { priorElections } = useElectionContext();
+  const { displayNameFor } = useCanonicalParties();
 
   const partyColorMap = useMemo(
     () => new Map(parties.map((p) => [p.partyNum, p.color ?? "#888"])),
@@ -216,7 +218,9 @@ export const TopRegionsTile: FC<Props> = ({ parties }) => {
                       className="inline-block h-2 w-2 rounded-full shrink-0"
                       style={{ backgroundColor: topPartyColor }}
                     />
-                    <span className="truncate">{topPartyName}</span>
+                    <span className="truncate">
+                      {displayNameFor(topPartyName) ?? topPartyName}
+                    </span>
                   </>
                 ) : (
                   <span className="text-muted-foreground">—</span>

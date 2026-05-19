@@ -5,6 +5,7 @@ import { Link, useParams } from "react-router-dom";
 import { SEO } from "@/ux/SEO";
 import { H1 } from "@/ux/H1";
 import { useBenford, type BenfordPartyEntry } from "@/data/benford/useBenford";
+import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { useElectionContext } from "@/data/ElectionContext";
 import { formatThousands } from "@/data/utils";
 import { StatCard } from "@/screens/dashboard/StatCard";
@@ -20,10 +21,9 @@ import { BenfordChart } from "@/screens/components/benford/BenfordChart";
 const PARTIES_PER_ROW = "grid-cols-2 md:grid-cols-3 lg:grid-cols-4";
 
 const partyLabel = (
-  p: Pick<BenfordPartyEntry, "nickName" | "name" | "name_en">,
-  isBg: boolean,
-) =>
-  isBg ? p.nickName || p.name || "?" : p.nickName || p.name_en || p.name || "?";
+  p: Pick<BenfordPartyEntry, "nickName" | "name">,
+  displayNameFor: (nickName: string) => string | undefined,
+) => displayNameFor(p.nickName) ?? (p.nickName || p.name || "?");
 
 // Plain-language read of the MAD score, calibrated to actual BG section-vote
 // distributions (not Nigrini's accounting thresholds, which are too strict
@@ -47,8 +47,8 @@ const bucketColor = (b: MadBucket): string =>
 // 2BL because that's the Mebane-recommended applicable test for vote
 // counts; the user can switch to 1BL.
 export const BenfordScreen = () => {
-  const { t, i18n } = useTranslation();
-  const isBg = i18n.language === "bg";
+  const { t } = useTranslation();
+  const { displayNameFor } = useCanonicalParties();
   const { selected } = useElectionContext();
   const { data } = useBenford();
   const [mode, setMode] = useState<"first" | "second">("second");
@@ -150,7 +150,7 @@ export const BenfordScreen = () => {
                       style={{ backgroundColor: p.color || "#888" }}
                     />
                     <span className="truncate text-xs font-semibold">
-                      {partyLabel(p, isBg)}
+                      {partyLabel(p, displayNameFor)}
                     </span>
                   </div>
                   <span className="text-[10px] text-muted-foreground tabular-nums">
@@ -196,8 +196,8 @@ export const BenfordScreen = () => {
 // Per-party detail — full-size chart, both 1BL and 2BL toggle, and a
 // plain-language interpretation paragraph.
 export const BenfordDetailScreen = () => {
-  const { t, i18n } = useTranslation();
-  const isBg = i18n.language === "bg";
+  const { t } = useTranslation();
+  const { displayNameFor } = useCanonicalParties();
   const { data } = useBenford();
   const { partyNum } = useParams<{ partyNum: string }>();
   const entry = useMemo(() => {
@@ -215,7 +215,7 @@ export const BenfordDetailScreen = () => {
       <SEO
         title={
           entry
-            ? `${t("benford_title")} — ${partyLabel(entry, isBg)}`
+            ? `${t("benford_title")} — ${partyLabel(entry, displayNameFor)}`
             : t("benford_title")
         }
         description={t("benford_description")}
@@ -234,7 +234,7 @@ export const BenfordDetailScreen = () => {
             style={{ backgroundColor: entry.color || "#888" }}
           />
           <H1 className="text-xl md:text-2xl font-bold text-foreground">
-            {partyLabel(entry, isBg)}
+            {partyLabel(entry, displayNameFor)}
           </H1>
         </div>
       )}

@@ -2,6 +2,7 @@ import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Globe2, MapPin } from "lucide-react";
 import { TopLocation } from "@/data/dashboard/dashboardTypes";
+import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { Link } from "@/ux/Link";
 import { Hint } from "@/ux/Hint";
 import { formatThousands } from "@/data/utils";
@@ -14,6 +15,7 @@ type Props = {
 
 export const TopLocationsTile: FC<Props> = ({ variant, items }) => {
   const { t, i18n } = useTranslation();
+  const { displayNameFor } = useCanonicalParties();
 
   const rows = useMemo(() => {
     if (!items.length) return [];
@@ -89,7 +91,9 @@ export const TopLocationsTile: FC<Props> = ({ variant, items }) => {
                     className="inline-block h-2 w-2 rounded-full shrink-0"
                     style={{ backgroundColor: r.winnerColor ?? "#888" }}
                   />
-                  <span className="truncate">{r.winnerNickName}</span>
+                  <span className="truncate">
+                    {displayNameFor(r.winnerNickName) ?? r.winnerNickName}
+                  </span>
                 </>
               ) : (
                 <span className="text-muted-foreground">—</span>

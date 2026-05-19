@@ -16,6 +16,7 @@ import { RegionScopeChip } from "@/screens/utils/RegionScopeChip";
 import { usePartyScope } from "@/screens/utils/usePartyScope";
 import { PartyScopeChip } from "@/screens/utils/PartyScopeChip";
 import { PartyHeader } from "@/screens/components/party/PartyHeader";
+import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 
 type Scope = "ns" | "all";
 
@@ -30,6 +31,7 @@ export const AllMpAssetsScreen: FC = () => {
   const { t, i18n } = useTranslation();
   const { rankings } = useAssetsRankings();
   const { selected } = useElectionContext();
+  const { partyGroupShortLabel } = useCanonicalParties();
   const [scope, setScope] = useState<Scope>("ns");
   const {
     regionMpIds,
@@ -86,7 +88,9 @@ export const AllMpAssetsScreen: FC = () => {
         enableSorting: false,
         cell: ({ row }) => (
           <span className="text-xs text-muted-foreground truncate max-w-[160px] block">
-            {row.original.partyGroupShort ?? "—"}
+            {partyGroupShortLabel(row.original.partyGroupShort) ??
+              row.original.partyGroupShort ??
+              "—"}
           </span>
         ),
       },
@@ -194,7 +198,7 @@ export const AllMpAssetsScreen: FC = () => {
         ),
       },
     ],
-    [t, i18n.language],
+    [t, i18n.language, partyGroupShortLabel],
   );
 
   if (!rankings) return null;

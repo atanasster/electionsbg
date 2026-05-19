@@ -11,6 +11,7 @@ import {
 } from "@/data/polls/pollsTypes";
 import { BLOC_COLORS, BLOC_LABELS } from "./blocColors";
 import { AgencyMaeHistory } from "./AgencyMaeHistory";
+import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 
 const GRADE_STYLE: Record<AgencyGrade, string> = {
   "A+": "bg-emerald-600 text-white",
@@ -38,6 +39,7 @@ export const AgencyProfileCard: FC<Props> = ({
 }) => {
   const { t, i18n } = useTranslation();
   const isBg = i18n.language === "bg";
+  const { displayNameFor } = useCanonicalParties();
   const name = agency
     ? isBg
       ? agency.name_bg
@@ -222,7 +224,7 @@ export const AgencyProfileCard: FC<Props> = ({
                   className="grid grid-cols-[minmax(0,1fr)_minmax(0,2fr)_auto] gap-2 items-center text-xs"
                 >
                   <span className="truncate">
-                    {b.key}{" "}
+                    {displayNameFor(b.key) ?? b.key}{" "}
                     <span className="text-muted-foreground">
                       (n={b.samples})
                     </span>

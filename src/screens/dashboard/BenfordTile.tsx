@@ -2,16 +2,16 @@ import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Sigma } from "lucide-react";
 import { useBenford, type BenfordPartyEntry } from "@/data/benford/useBenford";
+import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { formatThousands } from "@/data/utils";
 import { Link } from "@/ux/Link";
 import { Hint } from "@/ux/Hint";
 import { StatCard } from "./StatCard";
 
 const partyLabel = (
-  p: Pick<BenfordPartyEntry, "nickName" | "name" | "name_en">,
-  isBg: boolean,
-) =>
-  isBg ? p.nickName || p.name || "?" : p.nickName || p.name_en || p.name || "?";
+  p: Pick<BenfordPartyEntry, "nickName" | "name">,
+  displayNameFor: (nickName: string) => string | undefined,
+) => displayNameFor(p.nickName) ?? (p.nickName || p.name || "?");
 
 type Bucket = "close" | "moderate" | "strong";
 const madBucket = (mad: number): Bucket =>
@@ -29,8 +29,8 @@ const bucketColor = (b: Bucket): string =>
 // and surfaces the three biggest deviations. Falls back to first-digit
 // only for elections too small for 2BL.
 export const BenfordTile: FC = () => {
-  const { t, i18n } = useTranslation();
-  const isBg = i18n.language === "bg";
+  const { t } = useTranslation();
+  const { displayNameFor } = useCanonicalParties();
   const { data } = useBenford();
 
   const { top, moderate, strong } = useMemo(() => {
@@ -105,7 +105,7 @@ export const BenfordTile: FC = () => {
                   className="truncate font-medium"
                   underline={false}
                 >
-                  {partyLabel(p, isBg)}
+                  {partyLabel(p, displayNameFor)}
                 </Link>
                 <span
                   className={`inline-block w-1.5 h-1.5 rounded-full shrink-0 ${bucketColor(b)}`}

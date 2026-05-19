@@ -12,6 +12,7 @@ import { useCensus, censusMetricValue } from "@/data/census/useCensus";
 import { NUTS3_TO_OBLAST } from "@/data/census/oblastJoin";
 import { useRegionVotes } from "@/data/regions/useRegionVotes";
 import { usePartyInfo } from "@/data/parties/usePartyInfo";
+import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { useElectionContext } from "@/data/ElectionContext";
 import { useTooltip } from "@/ux/useTooltip";
 import { useSearchParam } from "@/screens/utils/useSearchParam";
@@ -31,6 +32,7 @@ export const VoteDemographicScatter: React.FC = () => {
   const { data: census } = useCensus();
   const { countryRegions } = useRegionVotes();
   const { parties, findParty } = usePartyInfo();
+  const { displayNameFor } = useCanonicalParties();
   const { selected } = useElectionContext();
   const containerRef = useRef<HTMLDivElement>(null);
   const [hoveredOblast, setHoveredOblast] = useState<string | undefined>();
@@ -80,6 +82,11 @@ export const VoteDemographicScatter: React.FC = () => {
 
   const lang = i18n.language;
   const isBg = lang === "bg";
+
+  // English UI shows the canonical English short label; Bulgarian keeps the
+  // election-specific ballot nickname verbatim.
+  const partyLabel = (nickName: string) =>
+    isBg ? nickName : (displayNameFor(nickName) ?? nickName);
 
   const eligibleParties = useMemo(() => {
     if (!parties) return [];
@@ -228,17 +235,13 @@ export const VoteDemographicScatter: React.FC = () => {
           >
             <SelectTrigger className="w-[260px]">
               <SelectValue>
-                {partyInfo
-                  ? isBg
-                    ? partyInfo.nickName
-                    : partyInfo.nickName_en || partyInfo.nickName
-                  : ""}
+                {partyInfo ? partyLabel(partyInfo.nickName) : ""}
               </SelectValue>
             </SelectTrigger>
             <SelectContent>
               {eligibleParties.map((p) => (
                 <SelectItem key={p.number} value={String(p.number)}>
-                  {isBg ? p.nickName : p.nickName_en || p.nickName}
+                  {partyLabel(p.nickName)}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -335,15 +338,11 @@ export const VoteDemographicScatter: React.FC = () => {
             textAnchor="middle"
             className="fill-foreground text-xs font-medium"
           >
-            {partyInfo
-              ? `${isBg ? partyInfo.nickName : partyInfo.nickName_en || partyInfo.nickName} %`
-              : ""}
+            {partyInfo ? `${partyLabel(partyInfo.nickName)} %` : ""}
           </text>
           {dataPoints.map((p) => {
             const partyName = partyInfo
-              ? isBg
-                ? partyInfo.nickName
-                : partyInfo.nickName_en || partyInfo.nickName
+              ? partyLabel(partyInfo.nickName)
               : t("party");
             const isHovered = hoveredOblast === p.oblast;
             return (
@@ -437,11 +436,7 @@ export const VoteDemographicScatter: React.FC = () => {
               ? "census_correlation_positive"
               : "census_correlation_negative",
             {
-              party: partyInfo
-                ? isBg
-                  ? partyInfo.nickName
-                  : partyInfo.nickName_en || partyInfo.nickName
-                : "",
+              party: partyInfo ? partyLabel(partyInfo.nickName) : "",
               metric: metricLabel,
               r: correlation.toFixed(2),
             },

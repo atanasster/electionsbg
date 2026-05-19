@@ -13,11 +13,15 @@ const queryFn = async (): Promise<CanonicalPartiesIndex | undefined> => {
   return response.json();
 };
 
-// parliament.bg sometimes abbreviates a party differently from CEC's
-// canonical nickname. Mapping is applied after dash/whitespace
-// normalization in `partyGroupShortLabel`.
+// parliament.bg labels a party group differently from CEC's canonical
+// nickname — either a different abbreviation ("ПБ" vs "ПрБ") or the full
+// party name spelled out ("Демократична България" vs "ДБ"). Mapping is
+// applied after dash/whitespace normalization in `partyGroupShortLabel`.
 const PARLIAMENT_GROUP_ALIASES: Record<string, string> = {
   ПБ: "ПрБ",
+  "Демократична България": "ДБ",
+  "Прогресивна България": "ПрБ",
+  "Продължаваме Промяната": "ПП",
 };
 
 // Replaces useAllPartyColors with a single fetch (one canonical_parties.json

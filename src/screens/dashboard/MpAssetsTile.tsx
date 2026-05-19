@@ -9,6 +9,7 @@ import { electionToNsFolder, oblastToMir } from "@/data/parliament/nsFolders";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 import { candidateUrlForMp } from "@/data/candidates/candidateSlug";
 import { useCandidateName } from "@/data/candidates/useCandidateName";
+import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { formatThousands } from "@/data/utils";
 import { StatCard } from "./StatCard";
 
@@ -48,6 +49,7 @@ export const MpAssetsTile: FC<Props> = ({
   const { selected } = useElectionContext();
   const { findMpsByRegion, findMpById } = useMps();
   const { mpName } = useCandidateName();
+  const { partyGroupShortLabel } = useCanonicalParties();
 
   // Default to MPs of the currently selected parliament. Fall back to the
   // lifetime list when the selected election doesn't map to an NS we have
@@ -148,7 +150,8 @@ export const MpAssetsTile: FC<Props> = ({
               </Link>
               {row.partyGroupShort && (
                 <span className="text-muted-foreground text-[10px] truncate max-w-[110px] shrink-0">
-                  {row.partyGroupShort}
+                  {partyGroupShortLabel(row.partyGroupShort) ??
+                    row.partyGroupShort}
                 </span>
               )}
               <span className="text-muted-foreground text-[10px] tabular-nums shrink-0 hidden sm:inline">

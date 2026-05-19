@@ -34,7 +34,7 @@ export const PollsExpectationCard: FC = () => {
   const { selected } = useElectionContext();
   const { data: accuracy } = usePollsAccuracy();
   const { data: agencies } = useAgencies();
-  const { colorFor } = useCanonicalParties();
+  const { colorFor, displayNameFor } = useCanonicalParties();
 
   const electionIso = selected?.replace(/_/g, "-");
 
@@ -195,7 +195,9 @@ export const PollsExpectationCard: FC = () => {
                       backgroundColor: colorFor(a.biggestMiss.key) || "#888",
                     }}
                   />
-                  <span className="truncate">{a.biggestMiss.key}</span>
+                  <span className="truncate">
+                    {displayNameFor(a.biggestMiss.key) ?? a.biggestMiss.key}
+                  </span>
                 </Link>
                 <span
                   className={`tabular-nums font-semibold shrink-0 ${missColor}`}

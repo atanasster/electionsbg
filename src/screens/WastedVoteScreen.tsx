@@ -13,6 +13,7 @@ import {
   type WastedVoteTopRow,
 } from "@/data/wastedVote/useWastedVote";
 import { usePartyInfo } from "@/data/parties/usePartyInfo";
+import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { SOFIA_REGIONS } from "@/data/dataTypes";
 import { formatPct, formatThousands } from "@/data/utils";
 import { StatCard } from "@/screens/dashboard/StatCard";
@@ -115,6 +116,7 @@ export const WastedVoteScreen = () => {
   const { data: regions } = useRegionWastedVotes();
   const { data: dashboard } = useWastedVoteDashboard();
   const { findParty } = usePartyInfo();
+  const { displayNameFor } = useCanonicalParties();
 
   const [selectedKey, setSelectedKey] = useState<string | undefined>(undefined);
 
@@ -294,7 +296,10 @@ export const WastedVoteScreen = () => {
                             style={{ backgroundColor: party?.color || "#888" }}
                           />
                           <span className="truncate font-medium">
-                            {party?.nickName || party?.name || `#${p.partyNum}`}
+                            {party?.nickName
+                              ? (displayNameFor(party.nickName) ??
+                                party.nickName)
+                              : party?.name || `#${p.partyNum}`}
                           </span>
                         </div>
                         <span className="tabular-nums font-mono">
@@ -356,7 +361,9 @@ export const WastedVoteScreen = () => {
                       style={{ backgroundColor: party?.color || "#888" }}
                     />
                     <span className="truncate text-xs font-medium">
-                      {party?.nickName || party?.name || `#${p.partyNum}`}
+                      {party?.nickName
+                        ? (displayNameFor(party.nickName) ?? party.nickName)
+                        : party?.name || `#${p.partyNum}`}
                     </span>
                   </div>
                   <div className="h-1.5 rounded-full bg-muted overflow-hidden">

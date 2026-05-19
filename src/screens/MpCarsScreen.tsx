@@ -16,6 +16,7 @@ import { RegionScopeChip } from "@/screens/utils/RegionScopeChip";
 import { usePartyScope } from "@/screens/utils/usePartyScope";
 import { PartyScopeChip } from "@/screens/utils/PartyScopeChip";
 import { PartyHeader } from "@/screens/components/party/PartyHeader";
+import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 
 type Scope = "ns" | "all";
 
@@ -23,6 +24,7 @@ export const MpCarsScreen: FC = () => {
   const { t, i18n } = useTranslation();
   const { mpCars } = useMpCars();
   const { selected } = useElectionContext();
+  const { partyGroupShortLabel } = useCanonicalParties();
   const [scope, setScope] = useState<Scope>("ns");
   const {
     regionMpIds,
@@ -82,7 +84,9 @@ export const MpCarsScreen: FC = () => {
         enableSorting: false,
         cell: ({ row }) => (
           <span className="text-xs text-muted-foreground truncate max-w-[160px] block">
-            {row.original.partyGroupShort ?? "—"}
+            {partyGroupShortLabel(row.original.partyGroupShort) ??
+              row.original.partyGroupShort ??
+              "—"}
           </span>
         ),
       },
@@ -174,7 +178,7 @@ export const MpCarsScreen: FC = () => {
         ),
       },
     ],
-    [t, i18n.language],
+    [t, i18n.language, partyGroupShortLabel],
   );
 
   if (!mpCars) return null;

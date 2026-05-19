@@ -10,6 +10,7 @@ import { electionToNsFolder, oblastToMir } from "@/data/parliament/nsFolders";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 import { candidateUrlForMp } from "@/data/candidates/candidateSlug";
 import { useCandidateName } from "@/data/candidates/useCandidateName";
+import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { Hint } from "@/ux/Hint";
 import { StatCard } from "./StatCard";
 import { provenanceText, provenanceTooltip } from "./provenanceUtils";
@@ -43,6 +44,7 @@ export const MpConnectionsTile: FC<Props> = ({
   const { selected } = useElectionContext();
   const { findMpsByRegion, findMpById } = useMps();
   const { mpName } = useCandidateName();
+  const { partyGroupShortLabel } = useCanonicalParties();
 
   const selectedFolder = useMemo(
     () => electionToNsFolder(selected),
@@ -156,7 +158,8 @@ export const MpConnectionsTile: FC<Props> = ({
               </Link>
               {row.partyGroupShort && (
                 <span className="text-muted-foreground text-[10px] truncate max-w-[110px] shrink-0">
-                  {row.partyGroupShort}
+                  {partyGroupShortLabel(row.partyGroupShort) ??
+                    row.partyGroupShort}
                 </span>
               )}
               <Hint text={tieTooltip} underline={false}>

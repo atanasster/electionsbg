@@ -3,6 +3,7 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { Users } from "lucide-react";
 import { useDemographicCleavages } from "@/data/dashboard/useDemographicCleavages";
+import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { useTooltip } from "@/ux/useTooltip";
 import { Hint } from "@/ux/Hint";
 import { METRIC_BY_KEY } from "@/screens/components/demographics/censusMetrics";
@@ -18,6 +19,7 @@ export const DemographicCleavagesTile: FC = () => {
   const { t, i18n } = useTranslation();
   const { data: payload } = useDemographicCleavages();
   const { tooltip, ...tooltipEvents } = useTooltip();
+  const { displayNameFor } = useCanonicalParties();
   const isBg = i18n.language === "bg";
 
   const rows = useMemo(() => {
@@ -33,7 +35,7 @@ export const DemographicCleavagesTile: FC = () => {
   if (!payload || rows.length === 0) return null;
 
   const partyName = (p: (typeof payload.parties)[number]) =>
-    isBg ? p.nickName : p.nickName_en || p.nickName;
+    isBg ? p.nickName : (displayNameFor(p.nickName) ?? p.nickName);
 
   // Maps r in [-1, 1] to a 0..100 horizontal position in the row track.
   const xPct = (r: number) => 50 + Math.max(-1, Math.min(1, r)) * 50;

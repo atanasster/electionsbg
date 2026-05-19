@@ -5,6 +5,7 @@ import { Target, Scale } from "lucide-react";
 import { StatCard } from "@/screens/dashboard/StatCard";
 import { Hint } from "@/ux/Hint";
 import { Agency, ElectionAccuracy } from "@/data/polls/pollsTypes";
+import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { localDate } from "@/data/utils";
 
 type Props = {
@@ -15,6 +16,7 @@ type Props = {
 export const PollsLatestElectionTile: FC<Props> = ({ election, agencies }) => {
   const { t, i18n } = useTranslation();
   const isBg = i18n.language === "bg";
+  const { displayNameFor } = useCanonicalParties();
   const agencyById = new Map(agencies.map((a) => [a.id, a]));
 
   const sorted = useMemo(
@@ -100,7 +102,9 @@ export const PollsLatestElectionTile: FC<Props> = ({ election, agencies }) => {
                 {a.daysBefore}d
               </span>
               <span className="hidden sm:block text-xs truncate">
-                <span className="font-medium">{a.biggestMiss.key}</span>{" "}
+                <span className="font-medium">
+                  {displayNameFor(a.biggestMiss.key) ?? a.biggestMiss.key}
+                </span>{" "}
                 <span className={`tabular-nums font-semibold ${missColor}`}>
                   {sign}
                   {a.biggestMiss.error.toFixed(1)}pp

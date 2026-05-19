@@ -29,6 +29,7 @@ import { Caption } from "@/ux/Caption";
 import { useConsolidatedLabel } from "./useConsolidatedLabel";
 import { PartyLink } from "./party/PartyLink";
 import { useElectionContext } from "@/data/ElectionContext";
+import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 
 export const PartyVotesTable: FC<{
   results?: VoteResults;
@@ -37,6 +38,7 @@ export const PartyVotesTable: FC<{
   title: string;
 }> = ({ results, prevElection, stats, title }) => {
   const { t } = useTranslation();
+  const { displayNameFor } = useCanonicalParties();
   const { isConsolidated, consolidated } = useConsolidatedLabel();
   const { priorElections } = useElectionContext();
   const isXSmall = useMediaQueryMatch("xs");
@@ -171,7 +173,7 @@ export const PartyVotesTable: FC<{
                 <Button
                   variant="ghost"
                   className="h-auto py-0"
-                  aria-label={`${party.nickName} ${t("all_elections")}`}
+                  aria-label={`${displayNameFor(party.nickName) ?? party.nickName} ${t("all_elections")}`}
                 >
                   {isLarge ? (
                     <Sparkline
@@ -187,7 +189,8 @@ export const PartyVotesTable: FC<{
               <DialogContent className="md:max-w-lg text-primary">
                 <DialogHeader>
                   <DialogTitle>
-                    {(row.original as PartyInfo).nickName}
+                    {displayNameFor((row.original as PartyInfo).nickName) ??
+                      (row.original as PartyInfo).nickName}
                   </DialogTitle>
                   <DialogDescription>
                     {t("all_elections_explainer")}
@@ -218,6 +221,7 @@ export const PartyVotesTable: FC<{
     ],
     [
       t,
+      displayNameFor,
       isSmall,
       hasPaperVotes,
       hasMachineVotes,
