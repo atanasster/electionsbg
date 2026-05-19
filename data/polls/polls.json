@@ -175,6 +175,156 @@
     }
   },
   {
+    "id": "ml-2017-10-16",
+    "agencyId": "ML",
+    "fieldwork": "Oct 6-16 2017",
+    "electionDate": "2021-04-04",
+    "respondents": 1017,
+    "methodology": {
+      "en": "National representative survey (financed and conducted by Market LINKS)",
+      "bg": "Национално-представително проучване (финансирано и проведено от Маркет ЛИНКС)"
+    },
+    "source": "https://www.marketlinks.bg/modules/downloadResource.php?resource=218&hash=949d4357b74fc232224d2452fdf00bbf",
+    "genre": "raw_attitudes",
+    "residual": {
+      "undecided": 23.7,
+      "wontVote": 18.6,
+      "wontSay": null,
+      "otherNamedMinor": 2.3,
+      "notes": "INFOGRAPHIC ML 10.2017 (downloadResource.php?resource=218) — full-sample 'Нагласи за парламентарен вот' column only (no separate Гласуващи breakdown). Values stored as published (% of full sample); residual.wontVote 18.6 captures 'Няма да гласувам' and residual.undecided 23.7 captures 'Не съм решил'."
+    },
+    "locked": {
+      "by": "agency_pdf",
+      "note": "INFOGRAPHIC ML 10.2017 (downloadResource.php?resource=218) — ML-only mid-cycle wave, 3.5 years before Apr 2021 election",
+      "lockedAt": "2026-05-19"
+    }
+  },
+  {
+    "id": "ml-2017-12-04",
+    "agencyId": "ML",
+    "fieldwork": "Nov 24 - Dec 4 2017",
+    "electionDate": "2021-04-04",
+    "respondents": 1058,
+    "methodology": {
+      "en": "National representative survey (financed and conducted by Market LINKS)",
+      "bg": "Национално-представително проучване (финансирано и проведено от Маркет ЛИНКС)"
+    },
+    "source": "https://www.marketlinks.bg/modules/downloadResource.php?resource=222&hash=7ebd28784ba86731317da4ebf3d14fef",
+    "genre": "raw_attitudes",
+    "residual": {
+      "undecided": 27.5,
+      "wontVote": 13.9,
+      "wontSay": null,
+      "otherNamedMinor": 5.3,
+      "notes": "INFOGRAPHIC ML 12.2017 (downloadResource.php?resource=222) — full-sample 'Нагласи за парламентарен вот' only (no Гласуващи breakdown). Values stored as published; residual.wontVote 13.9 ('Няма да гласувам'), residual.undecided 27.5 ('Не съм решил')."
+    },
+    "locked": {
+      "by": "agency_pdf",
+      "note": "INFOGRAPHIC ML 12.2017 (downloadResource.php?resource=222) — ML-only mid-cycle wave, 3.3 years before Apr 2021 election",
+      "lockedAt": "2026-05-19"
+    }
+  },
+  {
+    "id": "ml-2018-10-24",
+    "agencyId": "ML",
+    "fieldwork": "Oct 15-24 2018",
+    "electionDate": "2021-04-04",
+    "respondents": 1032,
+    "methodology": {
+      "en": "National representative survey (financed and conducted by Market LINKS)",
+      "bg": "Национално-представително проучване (финансирано и проведено от Маркет ЛИНКС)"
+    },
+    "source": "https://www.marketlinks.bg/modules/downloadResource.php?resource=265&hash=3a280dfa04e9720a3cd069bde81543c6",
+    "genre": "raw_attitudes",
+    "residual": {
+      "undecided": 30.6,
+      "wontVote": 12.6,
+      "wontSay": null,
+      "otherNamedMinor": 7.5,
+      "notes": "INFOGRAPHIC ML 10.2018 (downloadResource.php?resource=265) — full-sample 'Нагласи за парламентарен вот' only. Values stored as published; residual.wontVote 12.6 ('Няма да гласувам'), residual.undecided 30.6 ('Не съм решил'). PDF rendered as PNG (single-page image-only PDF)."
+    },
+    "locked": {
+      "by": "agency_pdf",
+      "note": "INFOGRAPHIC ML 10.2018 (downloadResource.php?resource=265) — ML-only mid-cycle wave, 2.4 years before Apr 2021 election",
+      "lockedAt": "2026-05-19"
+    }
+  },
+  {
+    "id": "ml-2018-11-25",
+    "agencyId": "ML",
+    "fieldwork": "Nov 16-25 2018",
+    "electionDate": "2021-04-04",
+    "respondents": 1005,
+    "methodology": {
+      "en": "National representative survey (financed and conducted by Market LINKS)",
+      "bg": "Национално-представително проучване (финансирано и проведено от Маркет ЛИНКС)"
+    },
+    "source": "https://www.marketlinks.bg/modules/downloadResource.php?resource=270&hash=775f45ee6b123a7025f1c28faa4208bf",
+    "genre": "raw_attitudes",
+    "residual": {
+      "undecided": 19.3,
+      "wontVote": null,
+      "wontSay": null,
+      "otherNamedMinor": 11.1,
+      "notes": "INFOGRAPHIC ML 11.2018 (downloadResource.php?resource=270) — agency-published 'Гласуващи' column values stored (sum 80.7). Residual undecided 19.3 = 100 - 80.7 within voting cohort. PDF rendered as PNG (single-page image-only PDF)."
+    },
+    "locked": {
+      "by": "agency_pdf",
+      "note": "INFOGRAPHIC ML 11.2018 (downloadResource.php?resource=270) — ML-only mid-cycle wave, 2.4 years before Apr 2021 election",
+      "lockedAt": "2026-05-19"
+    }
+  },
+  {
+    "id": "ml-2019-06-19",
+    "agencyId": "ML",
+    "fieldwork": "Jun 11-19 2019",
+    "electionDate": "2021-04-04",
+    "respondents": 1001,
+    "methodology": {
+      "en": "Direct personal interview (commissioned jointly by bTV + Market LINKS)",
+      "bg": "Пряко-лично интервю (съвместно от БТВ и Маркет ЛИНКС)"
+    },
+    "source": "https://www.marketlinks.bg/modules/downloadResource.php?resource=310&hash=52fcd2d101a0b56da4f45c4faa51537e",
+    "genre": "raw_attitudes",
+    "residual": {
+      "undecided": 12.3,
+      "wontVote": null,
+      "wontSay": null,
+      "otherNamedMinor": 5.6,
+      "notes": "INFOGRAPHIC NRS Politics 06.2019 (downloadResource.php?resource=310) — agency-published 'Гласуващи' column values (sum 87.7). Residual undecided 12.3 = 'Не съм решил' within voting cohort. База гласуващи: 429 of 1001 full sample."
+    },
+    "locked": {
+      "by": "agency_pdf",
+      "note": "INFOGRAPHIC NRS Politics 06.2019 (downloadResource.php?resource=310) — mid-cycle bTV + ML wave, 1.8 years before Apr 2021 election",
+      "lockedAt": "2026-05-19"
+    }
+  },
+  {
+    "id": "ml-2019-11-28",
+    "agencyId": "ML",
+    "fieldwork": "Nov 21-28 2019",
+    "electionDate": "2021-04-04",
+    "respondents": 980,
+    "methodology": {
+      "en": "Direct personal interview (commissioned jointly by bTV + Market LINKS)",
+      "bg": "Пряко-лично интервю (съвместно от БТВ и Маркет ЛИНКС)"
+    },
+    "source": "https://www.marketlinks.bg/modules/downloadResource.php?resource=326&hash=f99eb8bc6a2c329d864ccbdc1b176d0a",
+    "genre": "raw_attitudes",
+    "residual": {
+      "undecided": 24,
+      "wontVote": null,
+      "wontSay": null,
+      "otherNamedMinor": 4,
+      "notes": "INFOGRAPHIC NRS Politics 11.2019 (downloadResource.php?resource=326) — agency-published 'Гласуващи' column (whole-percent rounding, sum 86 named + 24 undecided = 110; rounding overshoot). Includes new actor 'Няма такава държава' (Slavi Trifonov's NTD project, ITN precursor). База гласуващи: 448 of 980 full sample."
+    },
+    "locked": {
+      "by": "agency_pdf",
+      "note": "INFOGRAPHIC NRS Politics 11.2019 (downloadResource.php?resource=326) — mid-cycle bTV + ML wave, 1.4 years before Apr 2021 election; first ML wave to measure Slavi Trifonov's pre-ITN 'Няма такава държава' project",
+      "lockedAt": "2026-05-19"
+    }
+  },
+  {
     "id": "ml-2020-08-03",
     "agencyId": "ML",
     "fieldwork": "Jul 28 - Aug 3 2020",
@@ -261,7 +411,7 @@
     "source": "https://sovaharris.com/социални-и-политически-нагласи-в-българия-март-2021/",
     "genre": "raw_attitudes",
     "residual": {
-      "undecided": 16.0,
+      "undecided": 16,
       "wontVote": 14.6,
       "wontSay": null,
       "otherNamedMinor": 0.4,
@@ -589,7 +739,7 @@
       "undecided": 9.6,
       "wontVote": 0,
       "wontSay": null,
-      "otherNamedMinor": 1.0,
+      "otherNamedMinor": 1,
       "notes": "INFOGRAPHIC NRS Politics 06.2021.pdf — Гласуващи (n=626), 'Не съм решил' 9.6%, 'Друга' 1.0%. This is the ML wave cited in bTV's 'под 1% разлика' article (GERB 19.7 vs ITN 18.8)."
     },
     "locked": {
@@ -764,7 +914,7 @@
       "undecided": 8.7,
       "wontVote": 0,
       "wontSay": null,
-      "otherNamedMinor": 2.0,
+      "otherNamedMinor": 2,
       "notes": "INFOGRAPHIC NRS Politics 08.2021.pdf — Гласуващи (n=544), 'Не съм решил' 8.7%, 'Друга' 2.0%."
     },
     "locked": {
@@ -1064,7 +1214,7 @@
       "undecided": null,
       "wontVote": null,
       "wontSay": null,
-      "otherNamedMinor": 5.0,
+      "otherNamedMinor": 5,
       "notes": "Hypothetical \"при нови избори\" survey ~7 months before October 2 2022 (Petkov govt in early months; ПП still leading at 22.9% vs ГЕРБ 21.9%). 9 named parties + Drugi 5.0% + \"Не подкрепям никого\" 2.8% = 100% (не подкрепям in distribution per agency). 40% report negative attitude shift on Russia after war start."
     },
     "locked": {
@@ -1189,7 +1339,7 @@
       "undecided": null,
       "wontVote": null,
       "wontSay": null,
-      "otherNamedMinor": 4.0,
+      "otherNamedMinor": 4,
       "notes": "Final pre-election wave for October 2 2022. Shares are \"сред заявилите, че ще гласуват на предстоящите избори\". 10 named parties + Drugi 4.0% = 100%. Of decided voters: 72% firmly chosen, 28% still hesitating. 49% expected turnout (~2.5-2.7M voters)."
     },
     "locked": {
@@ -1955,8 +2105,8 @@
     "electionDate": "2026-04-19",
     "respondents": 1010,
     "methodology": {
-      "en": "N/A",
-      "bg": "N/A"
+      "en": "Two-stage stratified sample, MOE ±3.1% at 50% proportions; n=1010 adult citizens",
+      "bg": "Двустепенна стратифицирана извадка, максимална стохастична грешка ±3.1% при 50% дялове; n=1010 пълнолетни граждани"
     },
     "source": "https://banker.bg/2026/02/26/czentar-analizi-marketing-5-partien-parlament/",
     "genre": "both_published",
@@ -1965,7 +2115,12 @@
       "wontVote": 17.5,
       "wontSay": null,
       "otherNamedMinor": null,
-      "notes": "Per banker.bg / dnes.dir.bg coverage of the CAM release: 35% decided voters, 33% undecided about party, 14% haven't decided whether to vote, 17.5% won't vote. CAM director Yuli Pavlov is the spokesperson. Stored shares match the 'raw electoral attitudes' figures — CAM ALSO publishes a forecast among decided voters (slightly different — leader 32.1% rather than the stored 33.7%) — see notes below."
+      "notes": "Per banker.bg / dnes.dir.bg / novinionline.com / ekipnews.com / eurocom.bg coverage of the CAM release: 35% decided voters, 33% undecided about party, 14% haven't decided whether to vote, 17.5% won't vote. CAM director Yuli Pavlov is the spokesperson. Stored shares match the 'raw electoral attitudes' figures — CAM ALSO publishes a forecast among decided voters (slightly different — leader 32.1% rather than the stored 33.7%). CAM has no agency-domain website; all citations are third-party press."
+    },
+    "locked": {
+      "by": "third_party_consensus",
+      "note": "CAM has no agency-domain website (cam.bg etc. unresolved); banker.bg article confirms exact stored values for all 10 parties (ПрБ 33.7, ГЕРБ-СДС 18.9, ПП-ДБ 13.2, ДПС-НН 10.3, Възраждане 8.1, БСП-ОЛ 3.6, МЕЧ 3.5, Величие 1.2, ИТН 1.2, АПС 0.5); cross-confirmed by dnes.dir.bg, novinionline.com, ekipnews.com, eurocom.bg, bnrnews.bg, epicenter.bg",
+      "lockedAt": "2026-05-19"
     }
   },
   {
@@ -1975,8 +2130,8 @@
     "electionDate": "2026-04-19",
     "respondents": 1011,
     "methodology": {
-      "en": "N/A",
-      "bg": "N/A"
+      "en": "Two-stage cluster sample with probability proportional to size, MOE ±3.1% at 50% proportions; n=1011 adult citizens",
+      "bg": "Двустепенна гнездова извадка с вероятност, пропорционална на размера, максимална стохастична грешка ±3.1% при 50% дялове; n=1011 пълнолетни граждани"
     },
     "source": "https://www.actualno.com/society/pp-db-i-dps-shte-se-borjat-do-posledno-za-tretoto-mjasto-novo-prouchvane-dni-predi-izborite-news_2581616.html",
     "genre": "both_published",
@@ -1985,7 +2140,12 @@
       "wontVote": 15.6,
       "wontSay": 1.8,
       "otherNamedMinor": 11.3,
-      "notes": "Per actualno.com / trud.bg coverage: 54.1% decided to vote, 17.3% will vote but undecided on party, 11.3% likely to vote but uncertain about participation, 15.6% will not vote, 1.8% no answer. Methodology: two-stage stratified sampling, MOE ±3.1% at 50%. Commissioned for use by various Bulgarian press."
+      "notes": "Per actualno.com / trud.bg / epicenter.bg / eurocom.bg coverage: 54.1% decided to vote, 17.3% will vote but undecided on party, 11.3% likely to vote but uncertain about participation, 15.6% will not vote, 1.8% no answer. Methodology: two-stage stratified sampling, MOE ±3.1% at 50%. Commissioned for use by various Bulgarian press. CAM has no agency-domain website; all citations are third-party press."
+    },
+    "locked": {
+      "by": "third_party_consensus",
+      "note": "CAM has no agency-domain website; actualno.com article confirms exact stored values for all 12 parties (ПрБ 32.1, ГЕРБ-СДС 19.4, ПП-ДБ 12.0, ДПС-НН 11.2, Възраждане 7.0, БСП-ОЛ 4.2, МЕЧ 2.8, Сияние 2.1, Величие 2.0, Синя България 1.1, АПС 0.9, ИТН 0.9); cross-confirmed by epicenter.bg, eurocom.bg, bnrnews.bg",
+      "lockedAt": "2026-05-19"
     }
   },
   {
