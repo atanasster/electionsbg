@@ -26,7 +26,7 @@ export type PollResidual = {
 /**
  * Provenance for a confirmed poll that the scraper must never overwrite.
  * Tiered by source authority:
- *   - agency_spreadsheet:    agency-provided summary file (e.g. ML/Galya xlsx)
+ *   - agency_spreadsheet:    agency-provided cross-poll summary spreadsheet
  *   - agency_pdf:            agency-published PDF report supplied manually
  *   - agency_website:        citation hosted on the agency's own primary domain
  *   - third_party_consensus: agency did not archive a primary; numbers
