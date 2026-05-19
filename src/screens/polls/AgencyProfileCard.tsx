@@ -255,17 +255,33 @@ export const AgencyProfileCard: FC<Props> = ({
         <div className="mt-3 pt-3 border-t flex flex-col gap-2 text-xs leading-relaxed">
           <div className="flex items-start gap-2">
             <Sparkles className="h-3.5 w-3.5 mt-0.5 shrink-0 text-primary" />
-            <span>{isBg ? take.summary.bg : take.summary.en}</span>
+            <div className="flex-1 space-y-2">
+              {(isBg ? take.summary.bg : take.summary.en)
+                .split(/\n\n+/)
+                .map((para, i) => (
+                  <p key={i}>{para}</p>
+                ))}
+            </div>
           </div>
           {(isBg ? take.lean.bg : take.lean.en) ? (
-            <div className="text-muted-foreground italic">
-              {isBg ? take.lean.bg : take.lean.en}
+            <div className="text-muted-foreground italic space-y-2">
+              {(isBg ? take.lean.bg : take.lean.en)
+                .split(/\n\n+/)
+                .map((para, i) => (
+                  <p key={i}>{para}</p>
+                ))}
             </div>
           ) : null}
           {(isBg ? take.warning.bg : take.warning.en) ? (
             <div className="flex items-start gap-2 text-amber-600">
               <AlertTriangle className="h-3.5 w-3.5 mt-0.5 shrink-0" />
-              <span>{isBg ? take.warning.bg : take.warning.en}</span>
+              <div className="flex-1 space-y-2">
+                {(isBg ? take.warning.bg : take.warning.en)
+                  .split(/\n\n+/)
+                  .map((para, i) => (
+                    <p key={i}>{para}</p>
+                  ))}
+              </div>
             </div>
           ) : null}
         </div>

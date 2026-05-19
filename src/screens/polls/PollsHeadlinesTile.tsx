@@ -55,7 +55,11 @@ export const PollsHeadlinesTile: FC<Props> = ({
           </div>
         }
       >
-        <p className="text-sm leading-relaxed mt-1">{story}</p>
+        <div className="text-sm leading-relaxed mt-1 space-y-3">
+          {story.split(/\n\n+/).map((para, i) => (
+            <p key={i}>{para}</p>
+          ))}
+        </div>
       </StatCard>
     </div>
   );

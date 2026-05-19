@@ -247,14 +247,14 @@ The neighborhoods where PB looks anomalously strong are also the neighborhoods w
 
 | party | poll mean | actual | error |
 |---|---|---|---|
-| [PB](/party/%D0%9F%D1%80%D0%91?elections=2026_04_19) | 35.51 | **44.59** | **+9.08 pp** |
-| [GERB-SDS](/party/%D0%93%D0%95%D0%A0%D0%91-%D0%A1%D0%94%D0%A1?elections=2026_04_19) | 20.37 | 13.39 | -6.98 |
-| [PP-DB](/party/%D0%9F%D0%9F-%D0%94%D0%91?elections=2026_04_19) | 12.33 | 12.62 | +0.29 |
-| [DPS](/party/%D0%94%D0%9F%D0%A1?elections=2026_04_19) | 10.06 | 7.12 | -2.94 |
-| [Vazrazhdane](/party/%D0%92%D1%8A%D0%B7%D1%80%D0%B0%D0%B6%D0%B4%D0%B0%D0%BD%D0%B5?elections=2026_04_19) | 7.00 | 4.26 | -2.74 |
-| [BSP-UL](/party/%D0%91%D0%A1%D0%9F-%D0%9E%D0%9B?elections=2026_04_19) | 4.04 | 3.02 | -1.02 |
+| [PB](/party/%D0%9F%D1%80%D0%91?elections=2026_04_19) | 35.35 | **44.59** | **+9.24 pp** |
+| [GERB-SDS](/party/%D0%93%D0%95%D0%A0%D0%91-%D0%A1%D0%94%D0%A1?elections=2026_04_19) | 19.86 | 13.39 | -6.47 |
+| [PP-DB](/party/%D0%9F%D0%9F-%D0%94%D0%91?elections=2026_04_19) | 12.15 | 12.62 | +0.47 |
+| [DPS](/party/%D0%94%D0%9F%D0%A1?elections=2026_04_19) | 9.89 | 7.12 | -2.77 |
+| [Vazrazhdane](/party/%D0%92%D1%8A%D0%B7%D1%80%D0%B0%D0%B6%D0%B4%D0%B0%D0%BD%D0%B5?elections=2026_04_19) | 7.02 | 4.26 | -2.76 |
+| [BSP-UL](/party/%D0%91%D0%A1%D0%9F-%D0%9E%D0%9B?elections=2026_04_19) | 4.09 | 3.02 | -1.07 |
 
-PB's raw published shares were lower (ML 30.8%, TR 33.2%, AR 34.2%, CAM 33.5%, MY 34.6%, SH 34.7% — mean **33.5%**), giving a raw miss of -11.1 pp. The proportional rebase above absorbs the explicit "undecided" pools (~10-15% each) from ML and CAM into the named parties, which shrinks the apparent PB miss to **-9.1 pp** but enlarges the GERB-SDS overshoot. ML's *own* published forecast for this cycle (a separate methodological artefact, not in the table above — median of four prognostic models with expert weighting) put PB at **38%**, which would have closed the miss further to -6.6 pp. The take-away is the same regardless of methodology: all six pre-election polls materially under-pegged the new entrant.
+PB's raw published shares (before rebase) were lower: ML 30.8%, TR 33.2%, AR 34.2%, CAM 32.1%, MY 34.6%, SH 33.6% — mean **33.08%**, giving a raw miss of -11.51 pp. The proportional rebase above absorbs the explicit "undecided" pools (~14-17% each) from ML and CAM into the named parties, which shrinks the apparent PB miss to **-9.24 pp** but enlarges the GERB-SDS overshoot. ML's *own* published forecast for this cycle (column G in Market LINKS's results summary — median of four prognostic models with expert weighting, used directly in the table above since ML's genre tag is `forecast`) put PB at **38%**, the closest single-agency reading; CAM's mechanically-rebased 38.51% landed nearly identical. The take-away is the same regardless of methodology: all six pre-election polls materially under-pegged the new entrant — by 6.08 pp (CAM) at the closest, by 10.99 pp (SH) at the farthest.
 
 **For comparison, [final polls for 27.10.2024](/polls):**
 
@@ -266,38 +266,38 @@ PB's raw published shares were lower (ML 30.8%, TR 33.2%, AR 34.2%, CAM 33.5%, M
 | [DPS–NB](/party/%D0%94%D0%9F%D0%A1-%D0%9D%D0%9D?elections=2024_10_27) | 11.08 | 11.51 | +0.43 |
 | [BSP](/party/%D0%91%D0%A1%D0%9F?elections=2024_10_27) | 8.42 | 7.57 | -0.85 |
 
-In [2024](/elections/2024_10_27), every party landed inside ±2.8 pp; in [2026](/elections/2026_04_19) the winner deviated -9.1 pp (after rebase) and GERB-SDS deviated +7.0 pp in the opposite direction.
+In [2024](/elections/2024_10_27), every party landed inside ±2.8 pp; in [2026](/elections/2026_04_19) the winner deviated -9.24 pp (after rebase) and GERB-SDS deviated +6.47 pp in the opposite direction.
 
 ### How does this compare to international benchmarks?
 
 The mean absolute error (MAE) across the parties shown:
 
 - **2024-10-27 BG MAE:** 1.20 pp (across 5 parliamentary parties)
-- **2026-04-19 BG MAE:** 3.84 pp (across 6 parliamentary parties, post-rebase)
+- **2026-04-19 BG MAE:** 3.80 pp (across 6 parliamentary parties, post-rebase)
 
 The largest meta-analysis of pre-election polls — Jennings & Wlezien, "[Election polling errors across time and space](https://www.nature.com/articles/s41562-018-0315-6)" (Nature Human Behaviour, 2018), 30,000+ polls in 351 elections across 45 countries (1942-2017) — finds the eve-of-election MAE at **~2 percentage points** internationally. The American Association for Public Opinion Research notes that real-world error tends to run [closer to 3.5 pp](https://www.pewresearch.org/short-reads/2016/09/08/understanding-the-margin-of-error-in-election-polls/) once non-sampling sources are included, roughly double the textbook ±3 pp sampling margin for an n=1,000 poll.
 
-So the **2024 BG aggregate MAE (1.20 pp) was unusually good** — better than the international historical average. The **2026 BG aggregate MAE (3.84 pp) is roughly at the real-world baseline** — not actually exceptional in aggregate.
+So the **2024 BG aggregate MAE (1.20 pp) was unusually good** — better than the international historical average. The **2026 BG aggregate MAE (3.80 pp) is roughly at the real-world baseline** — not actually exceptional in aggregate.
 
-What *is* exceptional is the **dispersion**: a -9.1 pp miss on PB (after rebase; -11.1 pp on raw published shares) and a +7.0 pp miss on GERB-SDS pulling in opposite directions. Comparable single-party misses in major recent elections:
+What *is* exceptional is the **dispersion**: a -9.24 pp miss on PB (after rebase; -11.5 pp on raw published shares) and a +6.47 pp miss on GERB-SDS pulling in opposite directions. Comparable single-party misses in major recent elections:
 
 | election | party | poll | actual | miss |
 |---|---|---|---|---|
-| **BG 2026-04 (post-rebase)** | **PB (new)** | **35.5%** | **44.6%** | **+9.1 pp** |
-| **BG 2026-04 (raw published)** | PB (new) | 33.5% | 44.6% | +11.1 pp |
+| **BG 2026-04 (post-rebase)** | **PB (new)** | **35.4%** | **44.6%** | **+9.2 pp** |
+| **BG 2026-04 (raw published)** | PB (new) | 33.1% | 44.6% | +11.5 pp |
 | France 2017 round 2 | Macron | +22 lead | +32 lead | +10.0 pp |
 | Italy 2013 | [Five Star Movement](https://en.wikipedia.org/wiki/Opinion_polling_for_the_2013_Italian_general_election) (new) | ~20% | 25.6% | +5.6 pp |
 | US 2016 (state polls avg) | Trump | — | — | 5.2 pp |
 | US 2016 (national polls avg) | Trump–Clinton margin | — | — | 3.1 pp |
 | UK 2010 | Lib Dems (overestimate) | ~28% | 23% | -5 pp |
 
-The PB miss (between +9.1 and +11.1 pp depending on methodology) sits in the same range as the 2017 Macron round-2 underestimate (+10 pp) and the 2013 Five Star Movement underestimate (+5.6 pp). Both of those were also new-or-movement parties peaking late, and both produced equivalent national hand-wringing about polling failure that turned out, on review, to reflect known methodological weaknesses rather than fraud.
+The PB miss (between +9.2 and +11.5 pp depending on methodology) sits in the same range as the 2017 Macron round-2 underestimate (+10 pp) and the 2013 Five Star Movement underestimate (+5.6 pp). Both of those were also new-or-movement parties peaking late, and both produced equivalent national hand-wringing about polling failure that turned out, on review, to reflect known methodological weaknesses rather than fraud.
 
 **Likely explanations for the 2026 miss:**
 
 1. **[PB](/party/%D0%9F%D1%80%D0%91?elections=2026_04_19) is brand-new** (priorPct = 0). The systematic finding in the international literature — Five Star 2013, Macron's En Marche 2017, the Pirate party in Berlin 2011 — is that movement-style new parties are routinely under-polled by 5-10 pp in their breakthrough cycle. Likely-voter screens trained on prior turnout under-weight first-time and previously-demobilised voters; party-ID weighting anchors to the previous election where the new entrant scored zero.
 2. **Turnout model error.** Pollsters likely modelled near 2024-10's 38.81% baseline; actual was 50.7% — surplus voters were under-weighted in likely-voter models. Bulgarian-specific [research on turnout-driven polling error](https://www.pure.ed.ac.uk/ws/portalfiles/portal/194763074/DaoustBJPIR2021BlameItOnTurnout.pdf) finds turnout shifts >5 pp are the single largest driver of polling failure across Europe.
-3. **Anchoring on incumbent.** GERB numbers clustered tightly between 18.5-20.3% across all agencies — unusually narrow given the volatility, suggesting agencies anchored to historical baseline.
+3. **Anchoring on incumbent.** GERB raw-published numbers clustered tightly between 18.5-19.5% across the six near-fieldwork agencies (CAM higher at 23.3% after mechanical rebase) — an unusually narrow band given the volatility, suggesting agencies anchored to historical baseline.
 
 A polling miss of this magnitude is **not evidence of fraud** — Jennings & Wlezien's headline finding (summarised by the [University of Southampton press office](https://www.southampton.ac.uk/news/2018/03/opinion-poll-errors.page): *"claims of a crisis in the accuracy of election polling are false"*) is that single-party 5-10 pp misses occur in roughly one in ten national elections studied, almost always when a new party surges. The 2026 BG miss fits the well-documented "new-movement-party" failure mode rather than indicating something irregular happened on Election Day.
 
@@ -358,7 +358,7 @@ Listed in order of **votes impacted**, with section/settlement counts as seconda
 
 ### The polling miss
 
-The ~9.1-11.1 pp miss on the winner (depending on whether one applies the proportional-redistribution rebase) is a **forecast failure, not an integrity finding**, but it is the largest in the series and warrants a methodology post-mortem from polling agencies — particularly turnout modelling, incumbent anchoring, and how to weight a brand-new entrant that polled at zero in the previous cycle.
+The ~9.2-11.5 pp miss on the winner (depending on whether one applies the proportional-redistribution rebase) is a **forecast failure, not an integrity finding**, but it is the largest in the series and warrants a methodology post-mortem from polling agencies — particularly turnout modelling, incumbent anchoring, and how to weight a brand-new entrant that polled at zero in the previous cycle.
 
 ---
 

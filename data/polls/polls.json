@@ -674,7 +674,7 @@
     }
   },
   {
-    "id": "gib-2021-07-07",
+    "id": "gib-2021-06-11",
     "agencyId": "GIB",
     "fieldwork": "Jun 3-11 2021",
     "electionDate": "2021-07-11",
@@ -690,11 +690,36 @@
       "wontVote": 14.7,
       "wontSay": null,
       "otherNamedMinor": 3.5,
-      "notes": "GIB primary release (\"Моментна снимка на електоралните нагласи: паритет на върха и непредвидимост\", published 17.06.2021) confirms fieldwork 3-11 Jun 2021, n=1012, face-to-face with tablets, max error ±3.1pp, commissioned by BNR. Primary top-3 match stored (ИТН 21.2, ГЕРБ-СДС 21.0, БСП 15.9); minor parties drift slightly vs stored — primary lists ДБ 12.1 (stored 13.2), ДПС 11.9 (stored 11.5), Изправи 5.8 (stored 6.5). Likely a denominator shift between sub-tables. Primary residual: 58.2% 'definitely vote', 16.4% 'probably vote', 7.3% 'probably not', 14.7% 'definitely not'; 'other parties' 3.5%."
+      "notes": "GIB primary release (\"Моментна снимка на електоралните нагласи: паритет на върха и непредвидимост\", published 17.06.2021) confirms fieldwork 3-11 Jun 2021, n=1012, face-to-face with tablets, max error ±3.1pp, commissioned by BNR. Primary top-3 match stored (ИТН 21.2, ГЕРБ-СДС 21.0, БСП 15.9); minor parties drift slightly vs stored — primary lists ДБ 12.1 (stored 13.2), ДПС 11.9 (stored 11.5), Изправи 5.8 (stored 6.5). Likely a denominator shift between sub-tables. Primary residual: 58.2% 'definitely vote', 16.4% 'probably vote', 7.3% 'probably not', 14.7% 'definitely not'; 'other parties' 3.5%. Note: pollId previously was gib-2021-07-07 but fieldwork is Jun 3-11; renamed to match fieldwork end date and free up the gib-2021-07-07 slot for the actual Jun 30 - Jul 7 wave."
     },
     "locked": {
       "by": "agency_website",
       "note": "Source URL is on GIB's own domain (www.gallup-international.bg); minor party percentages drift ~0.5-1.1pp vs stored — agency's published figures should win in any future reconciliation",
+      "lockedAt": "2026-05-19"
+    }
+  },
+  {
+    "id": "gib-2021-07-07",
+    "agencyId": "GIB",
+    "fieldwork": "Jun 30 - Jul 7 2021",
+    "electionDate": "2021-07-11",
+    "respondents": null,
+    "methodology": {
+      "en": "N/A",
+      "bg": "N/A"
+    },
+    "source": "https://bg.wikipedia.org/wiki/Парламентарни_избори_в_България_(юли_2021)",
+    "genre": "forecast",
+    "residual": {
+      "undecided": null,
+      "wontVote": null,
+      "wontSay": null,
+      "otherNamedMinor": 12.7,
+      "notes": "GIB final pre-election wave fieldwork Jun 30 - Jul 7, 2021 — 4 days before the July 11 vote. Confirmed via BG Wikipedia polling table for 2021-07 elections (\"Оригинални данни\" row): ГЕРБ-СДС 20.3, ИТН 21.3, БСП за България 15.9, ДБ 12.2, ДПС 11.5, ИСМВ 6.1. Other smaller-party shares from the table (4%, 3.1%, 5.6%, 1%) aggregated into otherNamedMinor=12.7. gallup-international.bg was offline during validation (server maintenance); locking as third_party_consensus until the agency-domain release can be re-fetched."
+    },
+    "locked": {
+      "by": "third_party_consensus",
+      "note": "gallup-international.bg temporarily offline; Wikipedia polling table for юли_2021 elections confirms the agency's final wave (Jun 30-Jul 7, n=?). To upgrade to agency_website tier, refetch the GIB release URL when the domain is back online.",
       "lockedAt": "2026-05-19"
     }
   },
@@ -1449,6 +1474,31 @@
     }
   },
   {
+    "id": "sh-2023-03-24",
+    "agencyId": "SH",
+    "fieldwork": "Mar 18-24 2023",
+    "electionDate": "2023-04-02",
+    "respondents": 1000,
+    "methodology": {
+      "en": "Standardized face-to-face interview at respondent's home, n=1000 adult Bulgarian citizens, max error ±3.1pp at 50% proportions (95% CI)",
+      "bg": "Стандартизирано интервю \"лице в лице\" в дома на респондента, n=1000 пълнолетни български граждани, максимална грешка ±3.1пп при 50% дял (95% доверителен интервал)"
+    },
+    "source": "https://sovaharris.com/електорални-нагласи-в-българия-март-2023/",
+    "genre": "raw_attitudes",
+    "residual": {
+      "undecided": null,
+      "wontVote": null,
+      "wontSay": null,
+      "otherNamedMinor": null,
+      "notes": "SH primary release \"Електорални нагласи в България, Март 2023\" — fieldwork 18-24 March 2023, n=1000, commissioned by ПИК Броудкастинг. Final pre-election wave (9 days before the April 2 vote). Cross-confirmed via BG Wikipedia polling table for 2023 elections: ГЕРБ-СДС 25.9, ПП-ДБ 24.6, ДПС 12.8, Възраждане 12.6, БСП за България 7.8, Левицата! 4.1, БВ 3.9, ИТН 2.9 — sum 94.6%, residual ~5.4% (likely undecided/no-one-supported)."
+    },
+    "locked": {
+      "by": "agency_website",
+      "note": "Source URL is on SH's own domain (sovaharris.com); cross-confirmed via Wikipedia table; replaces the prior Feb 27 wave as last-poll for 2023-04-02 election",
+      "lockedAt": "2026-05-19"
+    }
+  },
+  {
     "id": "tr-2022-12-08",
     "agencyId": "TR",
     "fieldwork": "Dec 1-8 2022",
@@ -1521,6 +1571,31 @@
       "by": "agency_website",
       "note": "Source URL is on AR's own domain (alpharesearch.bg)",
       "lockedAt": "2026-05-18"
+    }
+  },
+  {
+    "id": "ar-2024-06-04",
+    "agencyId": "AR",
+    "fieldwork": "Jun 1-4 2024",
+    "electionDate": "2024-06-09",
+    "respondents": 1000,
+    "methodology": {
+      "en": "Stratified two-stage sample with quota by core socio-demographic variables; standardized face-to-face interview with tablets at respondents' homes; self-financed",
+      "bg": "Стратифицирана двустепенна извадка с квота по основните социално-демографски признаци; пряко стандартизирано интервю с таблети по домовете на анкетираните лица; самофинансирано"
+    },
+    "source": "https://alpharesearch.bg/post/1022-elektoralni-naglasi-na-finala-na-predizbornata-kampania-za-nacionalen-i-evropeiski-parlament.html",
+    "genre": "forecast",
+    "residual": {
+      "undecided": null,
+      "wontVote": null,
+      "wontSay": null,
+      "otherNamedMinor": 9.5,
+      "notes": "AR's own published table is 'Електорални нагласи на финала на предизборната кампания за Национален парламент (СРЕД ТВЪРДО РЕШИЛИТЕ ДА ГЛАСУВАТ)' — already a forecast among decided voters, so scored as-is. 'Други' aggregates ~20 smaller formations at 9.5%. 'Не подкрепям никого' visible on the chart at 2.5-3% (not included in named-party shares). Declared turnout intention: 42% for National Assembly (~2.7M voters)."
+    },
+    "locked": {
+      "by": "agency_website",
+      "note": "Source URL is on AR's own domain (alpharesearch.bg) — the agency's actual final pre-election wave for 2024-06-09 (5 days before vote). Previously missing from the dataset; only the Feb 27 - Mar 3 wave was scraped from Wikipedia.",
+      "lockedAt": "2026-05-19"
     }
   },
   {
