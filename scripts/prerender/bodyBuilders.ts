@@ -156,6 +156,56 @@ export const markdownToHtml = (md: string): string => {
 };
 
 // ------------------------------------------------------------------
+// Articles strip — homepage links into the long-form analysis pieces.
+// Lives in /public/articles/index.json (checked into the repo, not GCS).
+// ------------------------------------------------------------------
+
+type ArticleIndexEntry = {
+  slug: string;
+  publishedAt: string;
+  title: { bg: string; en: string };
+  summary: { bg: string; en: string };
+};
+
+const HOME_ARTICLE_LIMIT = 6;
+
+export const buildArticlesSection = (
+  publicAssetsFolder: string,
+  lang: "bg" | "en",
+): string => {
+  const file = path.join(publicAssetsFolder, "articles", "index.json");
+  if (!fs.existsSync(file)) return "";
+  let list: ArticleIndexEntry[];
+  try {
+    list = JSON.parse(fs.readFileSync(file, "utf-8"));
+  } catch {
+    return "";
+  }
+  if (!Array.isArray(list) || !list.length) return "";
+  const sorted = [...list]
+    .filter((a) => a?.slug && a?.title?.[lang])
+    .sort((a, b) => (b.publishedAt || "").localeCompare(a.publishedAt || ""))
+    .slice(0, HOME_ARTICLE_LIMIT);
+  if (!sorted.length) return "";
+  const heading = lang === "en" ? "Recent analysis" : "Последни анализи";
+  const prefix = lang === "en" ? "/en" : "";
+  const parts: string[] = [];
+  parts.push(`<h2>${heading}</h2>`);
+  parts.push("<ul>");
+  for (const a of sorted) {
+    const title = escapeHtml(a.title[lang]);
+    const summary = a.summary?.[lang]
+      ? ` — ${escapeHtml(a.summary[lang])}`
+      : "";
+    parts.push(
+      `<li><a href="${SITE_URL}${prefix}/articles/${a.slug}">${title}</a>${summary}</li>`,
+    );
+  }
+  parts.push("</ul>");
+  return parts.join("\n");
+};
+
+// ------------------------------------------------------------------
 // Home page body — national summary table.
 // ------------------------------------------------------------------
 
@@ -252,6 +302,63 @@ export const buildHomeBody = (publicFolder: string, latest: string): string => {
   if (s.topCities && s.topCities.length) {
     parts.push(`<h2>Най-големи населени места</h2>`);
     parts.push(`<p>${s.topCities.map(renderLoc).join(" · ")}</p>`);
+  }
+  return parts.join("\n");
+};
+
+export const buildHomeBodyEn = (
+  publicFolder: string,
+  latest: string,
+): string => {
+  const file = path.join(publicFolder, latest, "national_summary.json");
+  if (!fs.existsSync(file)) return "";
+  const s: NationalSummary = JSON.parse(fs.readFileSync(file, "utf-8"));
+  const dateLabel = formatElectionDateEn(latest);
+  const parts: string[] = [];
+  parts.push(
+    `<h1>Bulgarian parliamentary elections — latest vote: ${escapeHtml(dateLabel)}</h1>`,
+  );
+  parts.push(
+    `<p>Turnout: <strong>${fmtPctEn(s.turnout.pct)}</strong> (${fmtIntEn(s.turnout.actual)} of ${fmtIntEn(s.turnout.registered)} registered voters).</p>`,
+  );
+  if (s.topGainer && s.topLoser) {
+    parts.push(
+      `<p>Biggest gain: <a href="${SITE_URL}/en/party/${encodeURIComponent(s.topGainer.nickName)}">${escapeHtml(s.topGainer.nickName)}</a> (${fmtSignedPctEn(s.topGainer.deltaPct)}). Biggest loss: <a href="${SITE_URL}/en/party/${encodeURIComponent(s.topLoser.nickName)}">${escapeHtml(s.topLoser.nickName)}</a> (${fmtSignedPctEn(s.topLoser.deltaPct)}).</p>`,
+    );
+  }
+  if (s.paperMachine) {
+    parts.push(
+      `<p>Paper / machine vote: ${fmtPctEn(s.paperMachine.paperPct)} / ${fmtPctEn(s.paperMachine.machinePct)}.</p>`,
+    );
+  }
+  parts.push(`<h2>Parties and results</h2>`);
+  parts.push(
+    `<table><thead><tr><th>Party</th><th>Votes</th><th>%</th><th>Δ</th><th>Seats</th></tr></thead><tbody>`,
+  );
+  for (const p of s.parties) {
+    const linkable = p.passedThreshold !== false;
+    const partyCell = linkable
+      ? `<a href="${SITE_URL}/en/party/${encodeURIComponent(p.nickName)}">${escapeHtml(p.nickName)}</a>`
+      : escapeHtml(p.nickName);
+    parts.push(
+      `<tr><td>${partyCell}</td><td>${fmtIntEn(p.totalVotes)}</td><td>${fmtPctEn(p.pct)}</td><td>${p.deltaPct != null ? fmtSignedPctEn(p.deltaPct) : ""}</td><td>${p.seats ?? ""}</td></tr>`,
+    );
+  }
+  parts.push(`</tbody></table>`);
+  if (s.anomalies) {
+    parts.push(
+      `<p>Section-level anomalies detected: <strong>${fmtIntEn(s.anomalies.total)}</strong>. See <a href="${SITE_URL}/en/reports/section/problem_sections">problem sections</a>.</p>`,
+    );
+  }
+  const renderLocEn = (l: TopLocation) =>
+    `<a href="${SITE_URL}/en${l.urlPath ?? `/sections/${l.ekatte}`}">${escapeHtml(l.name_en ?? l.name)}</a> (${fmtIntEn(l.voters ?? 0)} voters)`;
+  if (s.topDiaspora && s.topDiaspora.length) {
+    parts.push(`<h2>Voting abroad</h2>`);
+    parts.push(`<p>${s.topDiaspora.map(renderLocEn).join(" · ")}</p>`);
+  }
+  if (s.topCities && s.topCities.length) {
+    parts.push(`<h2>Largest cities</h2>`);
+    parts.push(`<p>${s.topCities.map(renderLocEn).join(" · ")}</p>`);
   }
   return parts.join("\n");
 };

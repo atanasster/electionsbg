@@ -51,22 +51,37 @@ import {
   buildWebPageLd,
   buildWebSiteLd,
 } from "./jsonLd";
-import { buildHomeBody } from "./bodyBuilders";
+import {
+  buildArticlesSection,
+  buildHomeBody,
+  buildHomeBodyEn,
+} from "./bodyBuilders";
 import { getLatestElection } from "./dynamicRoutes";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 const PROJECT_ROOT = path.resolve(__dirname, "../..");
-const PUBLIC_FOLDER = path.join(PROJECT_ROOT, "public");
+// Per-election JSON now lives under /data (post-GCS migration); /public only
+// holds static site assets like /og, /articles, /fonts.
+const DATA_FOLDER = path.join(PROJECT_ROOT, "data");
+const PUBLIC_ASSETS_FOLDER = path.join(PROJECT_ROOT, "public");
 const ELECTIONS_FILE = path.join(PROJECT_ROOT, "src/data/json/elections.json");
 
-const homeBody = (() => {
-  if (!fs.existsSync(ELECTIONS_FILE)) return "";
+const joinBody = (...sections: string[]): string =>
+  sections.filter(Boolean).join("\n");
+
+const homeBodies = (() => {
+  if (!fs.existsSync(ELECTIONS_FILE)) return { bg: "", en: "" };
   try {
     const latest = getLatestElection(ELECTIONS_FILE);
-    return buildHomeBody(PUBLIC_FOLDER, latest);
+    const articlesBg = buildArticlesSection(PUBLIC_ASSETS_FOLDER, "bg");
+    const articlesEn = buildArticlesSection(PUBLIC_ASSETS_FOLDER, "en");
+    return {
+      bg: joinBody(buildHomeBody(DATA_FOLDER, latest), articlesBg),
+      en: joinBody(buildHomeBodyEn(DATA_FOLDER, latest), articlesEn),
+    };
   } catch {
-    return "";
+    return { bg: "", en: "" };
   }
 })();
 
@@ -167,7 +182,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
     title: HOME_TITLE,
     description: HOME_DESCRIPTION,
     ogImage: "/og/dashboard-2026-04-19.png",
-    bodyHtml: homeBody,
+    bodyHtml: homeBodies.bg,
     jsonLd: [
       buildWebSiteLd(),
       buildOrganizationLd(),
@@ -189,6 +204,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
     english: {
       title: HOME_TITLE_EN,
       description: HOME_DESCRIPTION_EN,
+      bodyHtml: homeBodies.en,
       jsonLd: [
         buildWebSiteLd(),
         buildOrganizationLd(),
