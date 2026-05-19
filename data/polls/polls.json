@@ -2646,17 +2646,22 @@
     "electionDate": "2026-04-19",
     "respondents": 1002,
     "methodology": {
-      "en": "N/A",
-      "bg": "N/A"
+      "en": "Face-to-face interviews with tablets, n=1002 adult Bulgarian citizens; MOE ±3.1 at 50% proportions; commissioned by Bulgarian National Radio",
+      "bg": "Пряко-лично интервю с таблети, n=1002 пълнолетни български граждани; максимална стохастична грешка ±3.1 при 50% дялове; поръчано от Българското национално радио"
     },
-    "source": "https://clubz.bg/173572",
+    "source": "https://myara.bg/election-formula-5-1-2-1712/",
     "genre": "raw_attitudes",
     "residual": {
       "undecided": null,
       "wontVote": null,
       "wontSay": null,
       "otherNamedMinor": 1.7,
-      "notes": "Among those declaring they'll vote, 1.7% choose 'Не подкрепям никого'. Declared turnout intention: 50.7%. Methodology: face-to-face with tablets, MOE ±3.1 at 50%. Commissioned by Bulgarian National Radio. The clubz.bg coverage is the most direct contemporaneous press citation; agency's own post not yet found at myara.bg/en (likely behind a different slug)."
+      "notes": "Confirmed against agency's own myara.bg post \"Election formula 5+1+2\" — all 11 stored detail rows match exactly: ПрБ 34.6, ГЕРБ-СДС 18.5, ПП-ДБ 11.4, ДПС-НН 9.1, Възраждане 7.4, БСП-ОЛ 4.0, Сияние 3.6, МЕЧ 3.5, Величие 2.2, АПС 1.9, ИТН 1.4. Among those declaring they'll vote, 1.7% choose 'Не подкрепям никого'. Declared turnout intention: 50.7%. Earlier source pointed at clubz.bg/173572 (third-party press); upgraded to agency-domain post."
+    },
+    "locked": {
+      "by": "agency_website",
+      "note": "myara.bg/election-formula-5-1-2-1712/ confirms exact stored values for all 11 parties, n=1002, MOE ±3.1, face-to-face with tablets, 50.7% turnout intention, 1.7% \"Не подкрепям никого\"; cross-confirmed via clubz.bg, dnes.bg, bnrnews.bg/plovdiv, dnes.dir.bg, hroniki.bg, eurocom.bg, epicenter.bg, provaton.bg",
+      "lockedAt": "2026-05-19"
     }
   },
   {
