@@ -227,7 +227,7 @@ export const BubbleTimeline: FC<Props> = ({
   if (lineageFor) {
     const grouped = new Map<string, BubblePoint[]>();
     points.forEach((p) => {
-      const id = lineageFor(p.nickName);
+      const id = lineageFor(p.routeNickName);
       if (!id) return;
       const list = grouped.get(id) ?? [];
       list.push(p);
@@ -237,7 +237,7 @@ export const BubbleTimeline: FC<Props> = ({
       if (bubbles.length < 2) return;
       const sorted = [...bubbles].sort((a, b) => a.electionIdx - b.electionIdx);
       const color =
-        (colorFor && colorFor(sorted[sorted.length - 1].nickName)) ||
+        (colorFor && colorFor(sorted[sorted.length - 1].routeNickName)) ||
         sorted[sorted.length - 1].color ||
         "#888";
       lineages.push({
@@ -323,7 +323,7 @@ export const BubbleTimeline: FC<Props> = ({
           {points.map((p, i) => {
             const isHovered = hover === p;
             const color =
-              (colorFor && colorFor(p.nickName)) || p.color || "#888";
+              (colorFor && colorFor(p.routeNickName)) || p.color || "#888";
             return (
               <circle
                 key={`${p.electionName}-${p.partyNum}-${i}`}
