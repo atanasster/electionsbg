@@ -17,6 +17,7 @@ Pulls АОП (Агенция за обществени поръчки) fortnight
 | Trigger | Action |
 |---|---|
 | Daily watcher reports `data.egov.bg АОП: N new fortnight bundle(s) on top` | Incremental ingest (`npm run procurement:ingest`) |
+| Daily watcher reports `data.egov.bg АОП: N new annual contracts dataset(s)` | Legacy discovery (`npm run procurement:ingest-legacy -- --discover`) — picks up a newly-published year; see "Pre-OCDS backfill" |
 | Daily watcher reports `АОП debarred-suppliers register: N entries` changed | Re-scrape the debarred list (`npx tsx scripts/procurement/debarred.ts`) — see Step 5 below |
 | User asks to "refresh procurement" / "ingest new contracts" | Same — incremental |
 | `data/procurement/` empty (fresh clone) | Cold-start ingest of every visible bundle (~24 fortnights ≈ 1 year) |
@@ -26,10 +27,13 @@ Pulls АОП (Агенция за обществени поръчки) fortnight
 ## Step 1 — Incremental ingest
 
 ```bash
-npm run procurement:ingest
+npm run procurement:ingest-legacy -- --discover   # new annual-CSV years (usually a no-op)
+npm run procurement:ingest                        # new OCDS fortnights + rebuild rollups
 ```
 
-Walks the АОП org's dataset listing on data.egov.bg, downloads any bundle whose `datasetUuid` is not already in `data/procurement/bundles.json`, normalizes its OCDS releases into `Contract` rows, and writes/merges month-shards. Then rebuilds per-EIK rollups under `contractors/` and `awarders/`.
+Run both, discovery first. `procurement:ingest` walks the АОП org's dataset listing on data.egov.bg, downloads any bundle whose `datasetUuid` is not already in `data/procurement/bundles.json`, normalizes its OCDS releases into `Contract` rows, and writes/merges month-shards. Then rebuilds per-EIK rollups under `contractors/` and `awarders/`.
+
+`procurement:ingest-legacy -- --discover` exists because the OCDS ingester only consumes fortnight bundles — a newly-published *annual* CSV (e.g. when АОП posts the 2024 contracts dump) is skipped as "non-OCDS" and would otherwise sit uningested. Discovery walks the same listing, finds any `Договори и изменения на договори - YYYY` dataset whose year isn't in `LEGACY_DATASETS`, confirms its resource is a real `contracts*.csv` (not the out-of-scope `excl*` / `annexes*` dumps), and ingests it. On a normal day it finds nothing and exits in seconds; the `procurement:ingest` that follows rebuilds rollups + cross-reference over whatever it added.
 
 Expected output on a normal day (one new fortnight published):
 
@@ -143,11 +147,16 @@ The walker emits oldest-first within the new-bundle filter so partial runs progr
 АОП only started publishing OCDS-standard fortnight bundles on 2026-01-01. Earlier years are published as annual CSV dumps (with shifting schemas). The `procurement:ingest-legacy` script handles these:
 
 ```bash
-# Ingest all known legacy years (2011-2015 bundled, 2016, 2017, 2019, 2020, 2021, 2022, 2023)
+# Auto-discover + ingest any annual-CSV year not in LEGACY_DATASETS
+npm run procurement:ingest-legacy -- --discover
+
+# Ingest all known legacy years (2011-2015 bundled, 2016, 2017, 2019, 2020,
+# 2021, 2022 CE+RL, 2023 CE+RL)
 npm run procurement:ingest-legacy
 
-# Or one year at a time
+# Or one year at a time (the РОП variant uses a "-RL" token)
 npm run procurement:ingest-legacy -- --year 2023
+npm run procurement:ingest-legacy -- --year 2023-RL
 
 # Dry-run (parse + validate but don't write)
 npm run procurement:ingest-legacy -- --year 2023 --dry-run
@@ -160,7 +169,9 @@ The legacy ingester:
 - Writes Contract rows into the same `data/procurement/contracts/<YYYY>/<YYYY-MM>.json` month-shards used by the OCDS ingest.
 - Does NOT rebuild rollups + cross-reference + by-id files itself — run `npm run procurement:ingest -- --since 2020-01-01` afterward to refresh derived state from the expanded corpus.
 
-2018 contracts are not published by АОП (only the out-of-scope file `excl2018.csv` exists). 2024-2025 are missing from both sources (OCDS started 2026; the most recent legacy CSV is 2023).
+`--discover` walks the listing and ingests any `Договори и изменения на договори - YYYY` dataset whose year isn't already in `LEGACY_DATASETS`, after confirming via the detail page that its resource is a `contracts*.csv` (the 2018 dataset is titled like an annual dump but actually carries the out-of-scope `excl2018.csv` — discovery rejects it). It's idempotent: a discovered year that hasn't been pinned into `LEGACY_DATASETS` is simply re-discovered and re-merged (no double-count) on the next run. Optionally pin a confirmed new year's UUID into `LEGACY_DATASETS` afterward.
+
+2018 contracts are not published by АОП (only the out-of-scope file `excl2018.csv` exists). As of this writing 2024 and 2025 are not published in any form — the annual CSV series ends at 2023, the OCDS fortnight bundles start 2026-01-01. When АОП does post a 2024/2025 annual CSV, `--discover` (wired into Step 1) ingests it automatically.
 
 ## Single bundle (debugging)
 

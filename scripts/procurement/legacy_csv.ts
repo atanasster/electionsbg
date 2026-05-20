@@ -573,3 +573,90 @@ export const fetchLegacyCsv = async (ds: LegacyDataset): Promise<string> => {
   }
   return text;
 };
+
+// ---- Auto-discovery of new annual-CSV datasets -----------------------------
+//
+// LEGACY_DATASETS is hand-pinned, so a newly-published year (e.g. АОП posting
+// the 2024 contracts dump) would otherwise sit uningested until someone edits
+// this file. The OCDS ingester skips annual CSVs (they fail its period
+// regex), so nothing picks them up automatically. discoverLegacyDatasets
+// walks the АОП org listing, reads each dataset's <h2> title, and returns the
+// annual-contracts datasets whose year is NOT already covered by
+// LEGACY_DATASETS — the legacy ingester consumes those via `--discover`.
+
+const AOP_ORG_ID = 502;
+
+// АОП titles its annual dump "Договори и изменения на договори - YYYY", but
+// the listing title alone is NOT reliable: the 2018 dataset carries that
+// exact title yet its resource is the out-of-scope `excl2018.csv`. So a title
+// match only nominates a candidate — discovery then reads the detail page's
+// resource filename, and only a `contracts<YYYY>*.csv` resource is accepted
+// (`excl*` / `annexes*` are rejected).
+const annualYearFromTitle = (title: string): string | null => {
+  const m = title.match(
+    /договори\s+и\s+изменения\s+на\s+договори\s*[-–—]\s*(20\d{2})\b/i,
+  );
+  return m ? m[1] : null;
+};
+
+// Fetch a dataset's detail page and return its resource label — the text
+// carrying the actual .csv filename, e.g.
+// "Договори, сключени … (contracts2023_CE.csv - данни от ЦАИС ЕОП)".
+const fetchResourceLabel = async (datasetUuid: string): Promise<string> => {
+  const url = `https://data.egov.bg/data/view/${datasetUuid}`;
+  const res = await fetch(url, { headers: { "User-Agent": UA } });
+  if (!res.ok) {
+    throw new Error(`GET ${url} → ${res.status} ${res.statusText}`);
+  }
+  const html = await res.text();
+  const m = html.match(
+    /resourceView\/[0-9a-f-]{36}"[^>]*>[\s\S]*?<span[^>]*class="version"[^>]*>([\s\S]*?)<\/span>/i,
+  );
+  return m ? m[1].replace(/\s+/g, " ").trim() : "";
+};
+
+export const discoverLegacyDatasets = async (): Promise<LegacyDataset[]> => {
+  // Dedupe against the pinned list by BOTH year token and UUID: the year
+  // guard skips a year already ingested (even if АОП republished it under a
+  // fresh UUID — avoids double-counting); the UUID guard skips a pinned
+  // dataset before the (network) detail-page check.
+  const knownYears = new Set(LEGACY_DATASETS.map((d) => d.year));
+  const knownUuids = new Set(LEGACY_DATASETS.map((d) => d.datasetUuid));
+  const found = new Map<string, LegacyDataset>();
+  for (let page = 1; page <= 15; page++) {
+    const url = `https://data.egov.bg/data?org%5B0%5D=${AOP_ORG_ID}&page=${page}`;
+    const res = await fetch(url, { headers: { "User-Agent": UA } });
+    if (!res.ok) {
+      throw new Error(`GET ${url} → ${res.status} ${res.statusText}`);
+    }
+    const html = await res.text();
+    const re =
+      /<a[^>]*href="https?:\/\/data\.egov\.bg\/data\/view\/([0-9a-f-]{36})"[^>]*>\s*<h2[^>]*>([\s\S]*?)<\/h2>/gi;
+    let m: RegExpExecArray | null;
+    let rows = 0;
+    while ((m = re.exec(html))) {
+      rows++;
+      const uuid = m[1];
+      if (knownUuids.has(uuid)) continue;
+      const year = annualYearFromTitle(m[2].replace(/\s+/g, " ").trim());
+      if (!year) continue;
+      // Title nominates it; the resource filename decides.
+      const label = await fetchResourceLabel(uuid);
+      if (!/\bcontracts[_-]?\d{4}[^()\s]*\.csv/i.test(label)) {
+        console.log(
+          `  skipping ${uuid}: titled like an annual dump but its resource ` +
+            `is not contracts*.csv (${label.slice(0, 70) || "no resource label"})`,
+        );
+        continue;
+      }
+      const system: "CE" | "RL" = /_RL|_ROPL|\bРОП\b/i.test(label)
+        ? "RL"
+        : "CE";
+      const yearToken = system === "RL" ? `${year}-RL` : year;
+      if (knownYears.has(yearToken) || found.has(yearToken)) continue;
+      found.set(yearToken, { year: yearToken, datasetUuid: uuid, system });
+    }
+    if (rows === 0) break; // past the last page of the listing
+  }
+  return [...found.values()];
+};

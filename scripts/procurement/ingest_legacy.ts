@@ -13,7 +13,13 @@ import zlib from "zlib";
 import path from "path";
 import { fileURLToPath } from "url";
 import { command, run, optional, option, string, flag, boolean } from "cmd-ts";
-import { LEGACY_DATASETS, parseLegacyCsv, fetchLegacyCsv } from "./legacy_csv";
+import {
+  LEGACY_DATASETS,
+  parseLegacyCsv,
+  fetchLegacyCsv,
+  discoverLegacyDatasets,
+  type LegacyDataset,
+} from "./legacy_csv";
 import { canonicalJson, validateContract } from "./validate";
 import type { Contract } from "./types";
 
@@ -97,14 +103,34 @@ const main = async (args: {
   year?: string;
   refresh: boolean;
   dryRun: boolean;
+  discover: boolean;
 }): Promise<void> => {
-  const targets = args.year
-    ? LEGACY_DATASETS.filter((d) => d.year === args.year)
-    : LEGACY_DATASETS;
-  if (targets.length === 0) {
-    throw new Error(
-      `no legacy dataset known for year "${args.year}". Valid years: ${LEGACY_DATASETS.map((d) => d.year).join(", ")}`,
+  let targets: LegacyDataset[];
+  if (args.discover) {
+    console.log(
+      "→ discovering annual-CSV datasets from the data.egov.bg АОП listing",
     );
+    targets = await discoverLegacyDatasets();
+    if (targets.length === 0) {
+      console.log(
+        "  no un-ingested annual-CSV years found — LEGACY_DATASETS is current",
+      );
+      return;
+    }
+    console.log(
+      `  ${targets.length} new dataset(s): ${targets
+        .map((d) => `${d.year} (${d.datasetUuid})`)
+        .join(", ")}`,
+    );
+  } else {
+    targets = args.year
+      ? LEGACY_DATASETS.filter((d) => d.year === args.year)
+      : LEGACY_DATASETS;
+    if (targets.length === 0) {
+      throw new Error(
+        `no legacy dataset known for year "${args.year}". Valid years: ${LEGACY_DATASETS.map((d) => d.year).join(", ")}`,
+      );
+    }
   }
 
   console.log(`→ ingesting ${targets.length} legacy CSV dump(s)`);
@@ -168,12 +194,20 @@ const cli = command({
       description: "Parse + validate but do not write month-shards",
       defaultValue: () => false,
     }),
+    discover: flag({
+      type: optional(boolean),
+      long: "discover",
+      description:
+        "Walk the АОП listing and ingest annual-CSV years not yet in LEGACY_DATASETS (ignores --year)",
+      defaultValue: () => false,
+    }),
   },
   handler: (args) =>
     main({
       year: args.year,
       refresh: !!args.refresh,
       dryRun: !!args.dryRun,
+      discover: !!args.discover,
     }),
 });
 
