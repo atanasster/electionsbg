@@ -13,6 +13,7 @@ import { PartyResultsTile } from "./PartyResultsTile";
 import { FlashMemoryTile } from "./FlashMemoryTile";
 import { RecountTile } from "./RecountTile";
 import { SectionRiskTile } from "./SectionRiskTile";
+import { SectionRiskHistoryTile } from "./cards/SectionRiskHistoryTile";
 import { DashboardSection } from "./DashboardSection";
 import { SectionArticlesProvider } from "./SectionArticlesContext";
 
@@ -101,6 +102,7 @@ export const SectionDashboardCards: FC<Props> = ({ sectionCode }) => {
             basePath={basePath}
           />
           <SectionRiskTile sectionCode={sectionCode} />
+          <SectionRiskHistoryTile sectionCode={sectionCode} />
         </DashboardSection>
       </section>
     </SectionArticlesProvider>

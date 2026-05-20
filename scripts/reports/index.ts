@@ -19,6 +19,7 @@ import { regionWastedReport } from "./region_wasted";
 import { generateWastedVotesDashboard } from "./wasted_votes_dashboard";
 import { generateBenfordReport } from "./benford";
 import { generateRiskScoreReport } from "./risk_score";
+import { generateRiskHistory } from "./risk_history";
 
 const NATIONAL_THRESHOLD_PCT = 4;
 
@@ -178,6 +179,9 @@ export const generateReports = (
     });
   generateProblemSectionsStats({ publicFolder, stringify });
   generateRegionHistory({ publicFolder, stringify });
+  // Cross-election section rap sheet — reads every election's freshly
+  // written risk_score.json, so it must run after the per-election loop.
+  generateRiskHistory({ publicFolder, stringify });
 };
 
 // Regenerate only the dashboard-facing rollups (national_summary per election +

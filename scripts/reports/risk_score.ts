@@ -230,8 +230,9 @@ const loadProblemSectionIds = (filePath: string): Set<string> => {
 
 // Per-section turnout + winner-share, used to compute peer-outlier
 // z-scores. Loaded from the per-oblast section files (the same source
-// the SPA uses for section detail pages).
-type SectionStat = {
+// the SPA uses for section detail pages). Exported so the cross-election
+// risk-history report (risk_history.ts) can reuse the same loader.
+export type SectionStat = {
   section: string;
   ekatte?: string;
   obshtina?: string;
@@ -246,7 +247,7 @@ type SectionStat = {
   winnerShare: number;
 };
 
-const loadSectionStats = (
+export const loadSectionStats = (
   publicFolder: string,
   year: string,
 ): SectionStat[] => {
