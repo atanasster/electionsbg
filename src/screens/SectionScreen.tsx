@@ -1,20 +1,42 @@
+import { FC } from "react";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { ShieldAlert } from "lucide-react";
+import { ShieldAlert, Video, FileText, type LucideIcon } from "lucide-react";
 import { useSectionsVotes } from "@/data/sections/useSectionsVotes";
+import { countVideoUrl, protocolScanUrl } from "@/data/sections/auditLinks";
 import { useSettlementsInfo } from "@/data/settlements/useSettlements";
 import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
 import { useRegions } from "@/data/regions/useRegions";
 import { useProblemSections } from "@/data/reports/useProblemSections";
+import { useElectionContext } from "@/data/ElectionContext";
 import { SEO } from "@/ux/SEO";
 import { H1 } from "@/ux/H1";
 import { Link } from "@/ux/Link";
 import { SectionDashboardCards } from "./dashboard/SectionDashboardCards";
 import { SectionRiskBadge } from "./components/riskScore/SectionRiskBadge";
 
+const AuditChip: FC<{
+  href: string;
+  title: string;
+  icon: LucideIcon;
+  label: string;
+}> = ({ href, title, icon: Icon, label }) => (
+  <a
+    href={href}
+    target="_blank"
+    rel="noopener noreferrer"
+    title={title}
+    className="inline-flex items-center gap-1.5 rounded-full border border-border bg-muted/50 px-3 py-1 text-xs font-semibold text-foreground hover:bg-muted"
+  >
+    <Icon className="h-3.5 w-3.5" />
+    <span>{label}</span>
+  </a>
+);
+
 export const SectionScreen = () => {
   const { id: sectionCode } = useParams();
   const { t, i18n } = useTranslation();
+  const { selected } = useElectionContext();
   const section = useSectionsVotes(sectionCode);
   const { findSettlement } = useSettlementsInfo();
   const { findMunicipality } = useMunicipalities();
@@ -22,6 +44,9 @@ export const SectionScreen = () => {
   const { data: problemSections } = useProblemSections();
 
   if (!sectionCode) return null;
+
+  const videoUrl = countVideoUrl(selected, sectionCode);
+  const scanUrl = protocolScanUrl(selected, sectionCode);
 
   const problemNeighborhood = problemSections?.neighborhoods.find((n) =>
     n.sections.some((s) => s.section === sectionCode),
@@ -105,6 +130,22 @@ export const SectionScreen = () => {
           </Link>
         ) : null}
         <SectionRiskBadge sectionCode={sectionCode} />
+        {videoUrl ? (
+          <AuditChip
+            href={videoUrl}
+            title={t("count_video_badge_title")}
+            icon={Video}
+            label={t("count_video_badge")}
+          />
+        ) : null}
+        {scanUrl ? (
+          <AuditChip
+            href={scanUrl}
+            title={t("protocol_scan_badge_title")}
+            icon={FileText}
+            label={t("protocol_scan_badge")}
+          />
+        ) : null}
       </div>
       <SectionDashboardCards sectionCode={sectionCode} />
     </>
