@@ -10,6 +10,7 @@ import { localDate } from "@/data/utils";
 import { StatCard } from "@/screens/dashboard/StatCard";
 import { Hint } from "@/ux/Hint";
 import { Tooltip } from "@/ux/Tooltip";
+import { Link } from "@/ux/Link";
 import { RiskBandBadge } from "@/screens/components/riskScore/RiskBandBadge";
 
 // `/risk-analysis` section — geographic knots that clustered (screened
@@ -17,7 +18,6 @@ import { RiskBandBadge } from "@/screens/components/riskScore/RiskBandBadge";
 // VIEW over the per-election risk clusters; see useClusterPersistence /
 // scripts/reports/cluster_persistence.ts for the methodology.
 
-const TOP_N = 12;
 const HEADER_CLASS =
   "text-[10px] font-medium uppercase tracking-wide text-muted-foreground";
 const stripPrefix = (s?: string) => (s ?? "").replace(/^\d+\.\s*/, "");
@@ -33,8 +33,10 @@ export const RiskClusterPersistenceCard: FC = () => {
 
   if (!data || data.loci.length === 0) return null;
 
-  const loci = data.loci.slice(0, TOP_N);
-  const deep = data.loci.filter((l) => l.electionCount >= 3).length;
+  // Every locus is listed (not a top-N preview) — each row links to its
+  // detail page, so a cap would strand the rest.
+  const loci = data.loci;
+  const deep = loci.filter((l) => l.electionCount >= 3).length;
 
   return (
     <StatCard
@@ -85,9 +87,14 @@ export const RiskClusterPersistenceCard: FC = () => {
             "—";
           return (
             <div className="contents" key={locus.id}>
-              <span className="truncate text-xs font-medium" title={location}>
+              <Link
+                to={`/risk-analysis/cluster/${locus.id}`}
+                underline={false}
+                title={location}
+                className="truncate text-xs font-medium hover:underline"
+              >
                 {location}
-              </span>
+              </Link>
               <div className="flex flex-wrap items-center gap-1">
                 <span className="text-xs font-semibold tabular-nums mr-0.5">
                   {locus.electionCount}×

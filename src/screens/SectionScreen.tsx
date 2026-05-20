@@ -1,13 +1,20 @@
 import { FC } from "react";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { ShieldAlert, Video, FileText, type LucideIcon } from "lucide-react";
+import {
+  ShieldAlert,
+  Repeat,
+  Video,
+  FileText,
+  type LucideIcon,
+} from "lucide-react";
 import { useSectionsVotes } from "@/data/sections/useSectionsVotes";
 import { countVideoUrl, protocolScanUrl } from "@/data/sections/auditLinks";
 import { useSettlementsInfo } from "@/data/settlements/useSettlements";
 import { useMunicipalities } from "@/data/municipalities/useMunicipalities";
 import { useRegions } from "@/data/regions/useRegions";
 import { useProblemSections } from "@/data/reports/useProblemSections";
+import { useClusterPersistence } from "@/data/riskScore/useClusterPersistence";
 import { useElectionContext } from "@/data/ElectionContext";
 import { SEO } from "@/ux/SEO";
 import { H1 } from "@/ux/H1";
@@ -42,6 +49,7 @@ export const SectionScreen = () => {
   const { findMunicipality } = useMunicipalities();
   const { findRegion } = useRegions();
   const { data: problemSections } = useProblemSections();
+  const { data: clusterPersistence } = useClusterPersistence();
 
   if (!sectionCode) return null;
 
@@ -50,6 +58,11 @@ export const SectionScreen = () => {
 
   const problemNeighborhood = problemSections?.neighborhoods.find((n) =>
     n.sections.some((s) => s.section === sectionCode),
+  );
+  // The persistent locus (if any) this section is a member of — clustered
+  // with adjacent same-party sections in two or more elections.
+  const persistentLocus = clusterPersistence?.loci.find((l) =>
+    l.sections.includes(sectionCode),
   );
 
   const settlement = section ? findSettlement(section.ekatte) : undefined;
@@ -126,6 +139,19 @@ export const SectionScreen = () => {
               {i18n.language === "bg"
                 ? problemNeighborhood.name_bg
                 : problemNeighborhood.name_en}
+            </span>
+          </Link>
+        ) : null}
+        {persistentLocus ? (
+          <Link
+            to={`/risk-analysis/cluster/${persistentLocus.id}`}
+            underline={false}
+            className="inline-flex items-center gap-1.5 rounded-full border border-negative/60 bg-negative/10 px-3 py-1 text-xs font-semibold text-negative hover:bg-negative/20"
+          >
+            <Repeat className="h-3.5 w-3.5" />
+            <span>{t("risk_persistence_section_badge")}</span>
+            <span className="text-muted-foreground font-normal">
+              · {persistentLocus.electionCount}×
             </span>
           </Link>
         ) : null}

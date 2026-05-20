@@ -363,6 +363,11 @@ const RiskAnalysisMethodologyScreen = lazy(() =>
     default: m.RiskAnalysisMethodologyScreen,
   })),
 );
+const RiskClusterScreen = lazy(() =>
+  import("./screens/RiskClusterScreen").then((m) => ({
+    default: m.RiskClusterScreen,
+  })),
+);
 const SectionsWastedVote = lazy(() =>
   import("./screens/reports/sections/SectionsWastedVote").then((m) => ({
     default: m.SectionsWastedVote,
@@ -1530,6 +1535,14 @@ export const AuthRoutes = () => {
           element={
             <LayoutScreen>
               <RiskAnalysisMethodologyScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="risk-analysis/cluster/:id"
+          element={
+            <LayoutScreen>
+              <RiskClusterScreen />
             </LayoutScreen>
           }
         />
