@@ -20,6 +20,9 @@ import type { ReportRow } from "@/data/dataTypes";
 //   - concentrated vote        weight 0.15 — top party's share when ≥80%
 //   - peer outlier             weight 0.15 — z-score vs. settlement peers
 //                                            on turnout & winner-share
+//   - swing vs. prior election weight 0.15 — z-score of the UPWARD shift in
+//                                            turnout & winner-share vs. the
+//                                            same section last election
 //
 // Score = 100 × Σ(weight_i × normalized_i over signals i present) /
 //                Σ(weight_i over signals i present)
@@ -37,6 +40,7 @@ const WEIGHTS = {
   additionalVoters: 0.15,
   concentrated: 0.15,
   peerOutlier: 0.15,
+  swing: 0.15,
 } as const;
 
 // Normalization caps — any value above the cap saturates the signal at
@@ -48,6 +52,7 @@ const CAPS = {
   additionalPct: 30,
   concentratedPct: 100, // already 0–100; map 80–100 to 0–1 (below 80 = 0)
   peerZ: 4, // z-score on turnout/winner-share, cap at 4σ
+  swingZ: 4, // z-score of the cross-election shift, cap at 4σ
 } as const;
 
 export type RiskBand = "low" | "elevated" | "high" | "critical";
@@ -133,6 +138,58 @@ export type RiskScoreSummary = {
    * of the suemgMissingFlash count from national_summary. */
   missingFlashMachineVotes: number;
   topCritical: RiskScoreRow[];
+};
+
+// --- Spatial cluster detection -------------------------------------------
+// A "cluster" is a knot of physically adjacent polling sections that all
+// (a) screen elevated-or-above and (b) were won by the SAME party — the
+// geographic fingerprint of a controlled / corporate-vote operation (a
+// workforce or institution voting as a bloc across the sections that serve
+// it), as opposed to a lone outlier section. This is a VIEW over the
+// published risk scores, not an eighth signal — it does not feed back into
+// the 0–100 score. The same "screening, not a verdict" caveat applies.
+
+/** One detected cluster — a connected component of same-party, adjacent,
+ * elevated-or-above sections. */
+export type RiskCluster = {
+  id: string;
+  ekatte?: string;
+  oblast?: string;
+  obshtina?: string;
+  partyNum?: number;
+  sectionCount: number;
+  sections: string[];
+  meanScore: number;
+  maxScore: number;
+  /** Band of the highest-scoring member section — the cluster's headline
+   * read, mirroring how single sections are surfaced band-first. */
+  maxBand: RiskBand;
+  centroid: { lat: number; lng: number };
+};
+
+/** One map marker — an elevated-or-above section with coordinates.
+ * `clusterId` is set when the section belongs to a detected cluster. */
+export type RiskMapSection = {
+  section: string;
+  lat: number;
+  lng: number;
+  band: RiskBand;
+  score: number;
+  partyNum?: number;
+  ekatte?: string;
+  clusterId?: string;
+};
+
+export type RiskClustersReport = {
+  election: string;
+  generatedAt: string;
+  thresholds: {
+    minSections: number;
+    maxDistanceMeters: number;
+    minBand: RiskBand;
+  };
+  clusters: RiskCluster[];
+  mapSections: RiskMapSection[];
 };
 
 const TOP_CRITICAL_N = 10;
@@ -283,17 +340,233 @@ const computePeerOutliers = (stats: SectionStat[]): Map<string, number> => {
   return out;
 };
 
+// Cross-election swing: match each section to its counterpart in the
+// PREVIOUS election (same section ID) and z-score the shift in turnout &
+// winner-share against the national distribution of all section shifts.
+// Captures the "corporate vote" fingerprint — a section that historically
+// split its vote suddenly delivering a lopsided result at elevated
+// turnout.
+//
+// Only UPWARD shifts count: a section that became less concentrated, or
+// where turnout fell, is not a control signal, so negative z is clipped
+// to 0. Ratios (turnout, winnerShare) are used rather than absolute vote
+// counts so the signal is robust to section split/merge renumbering — a
+// split halves both the numerator and denominator of each ratio.
+//
+// Abroad sections (oblast 32) are excluded: their section IDs are
+// reassigned between elections (different host cities open each cycle),
+// so a same-ID cross-election match there is spurious — it would both
+// emit false signals and, as a wild outlier, inflate the national
+// std-dev and deflate every real domestic z-score.
+const SWING_MIN_VOTES = 50; // tiny sections: ratio deltas are rounding noise
+const ABROAD_OBLAST = "32";
+
+const computeSwing = (
+  current: SectionStat[],
+  prior: SectionStat[],
+): Map<string, number> => {
+  const priorById = new Map<string, SectionStat>();
+  for (const s of prior) priorById.set(s.section, s);
+
+  // Turnout (actual / registered) can exceed 100% in mobile / hospital /
+  // care-home sections — a near-empty registration list with many day-of
+  // additions. Clamp at 1.0 before differencing so those sections don't
+  // emit a meaningless +200pp "turnout surge"; their winner-share delta
+  // is still genuine and is kept.
+  const clampedTurnout = (s: SectionStat) => Math.min(1, s.turnout);
+
+  // First pass: signed deltas for matched, large-enough sections.
+  type Delta = { section: string; dWinner: number; dTurnout: number };
+  const deltas: Delta[] = [];
+  for (const s of current) {
+    if (s.oblast === ABROAD_OBLAST) continue;
+    if ((s.totalVotes ?? 0) < SWING_MIN_VOTES) continue;
+    const p = priorById.get(s.section);
+    if (!p || (p.totalVotes ?? 0) < SWING_MIN_VOTES) continue;
+    deltas.push({
+      section: s.section,
+      dWinner: s.winnerShare - p.winnerShare,
+      dTurnout: clampedTurnout(s) - clampedTurnout(p),
+    });
+  }
+  const out = new Map<string, number>();
+  if (deltas.length < 3) return out; // need a distribution to z-score against
+
+  const mean = (xs: number[]) => xs.reduce((a, b) => a + b, 0) / xs.length;
+  const std = (xs: number[], mu: number) =>
+    Math.sqrt(xs.reduce((a, b) => a + (b - mu) ** 2, 0) / xs.length);
+  const winnerDeltas = deltas.map((d) => d.dWinner);
+  const turnoutDeltas = deltas.map((d) => d.dTurnout);
+  const muW = mean(winnerDeltas);
+  const sdW = std(winnerDeltas, muW);
+  const muT = mean(turnoutDeltas);
+  const sdT = std(turnoutDeltas, muT);
+
+  for (const d of deltas) {
+    const zW = sdW > 0 ? (d.dWinner - muW) / sdW : 0;
+    const zT = sdT > 0 ? (d.dTurnout - muT) / sdT : 0;
+    // Upward shift only — a section moving down is not a control signal.
+    const z = Math.max(0, zW, zT);
+    if (z > 0) out.set(d.section, z);
+  }
+  return out;
+};
+
 const clip01 = (x: number): number => Math.max(0, Math.min(1, x));
+
+// Two sections are linked into the same cluster when they share a winning
+// party and sit within CLUSTER_MAX_METERS of each other; connected
+// components of at least CLUSTER_MIN_SECTIONS sections are reported.
+// Proximity (not the EKATTE settlement code) does the grouping so a dense
+// knot inside a large city is found without sweeping in that city's other
+// scattered elevated sections.
+const CLUSTER_MIN_SECTIONS = 3;
+const CLUSTER_MAX_METERS = 600;
+
+const haversineMeters = (
+  a: { lat: number; lng: number },
+  b: { lat: number; lng: number },
+): number => {
+  const R = 6371000;
+  const toRad = (d: number) => (d * Math.PI) / 180;
+  const dLat = toRad(b.lat - a.lat);
+  const dLng = toRad(b.lng - a.lng);
+  const h =
+    Math.sin(dLat / 2) ** 2 +
+    Math.cos(toRad(a.lat)) * Math.cos(toRad(b.lat)) * Math.sin(dLng / 2) ** 2;
+  return 2 * R * Math.asin(Math.sqrt(h));
+};
+
+const round6 = (x: number): number => Math.round(x * 1e6) / 1e6;
+
+// Build the map-marker list (every elevated-or-above section with known
+// coordinates) and detect clusters within it.
+const buildRiskClusters = (
+  rows: RiskScoreRow[],
+  coordsLookup: Record<string, { longitude: number; latitude: number }>,
+): { clusters: RiskCluster[]; mapSections: RiskMapSection[] } => {
+  const mapSections: RiskMapSection[] = [];
+  const rowBySection = new Map<string, RiskScoreRow>();
+  for (const r of rows) {
+    if (r.band === "low") continue;
+    // Abroad sections plot all over the globe — they would zoom the
+    // Bulgaria map out to the whole world and cannot form a meaningful
+    // geographic cluster anyway.
+    if (r.oblast === ABROAD_OBLAST) continue;
+    const c = coordsLookup[r.section];
+    if (!c) continue;
+    rowBySection.set(r.section, r);
+    mapSections.push({
+      section: r.section,
+      lat: round6(c.latitude),
+      lng: round6(c.longitude),
+      band: r.band,
+      score: r.score,
+      partyNum: r.partyNum,
+      ekatte: r.ekatte,
+    });
+  }
+
+  // Connected components, computed inside each winning-party group so the
+  // O(n²) proximity scan stays small.
+  const byParty = new Map<number, RiskMapSection[]>();
+  for (const m of mapSections) {
+    if (m.partyNum === undefined) continue;
+    const arr = byParty.get(m.partyNum) ?? [];
+    arr.push(m);
+    byParty.set(m.partyNum, arr);
+  }
+
+  const clusters: RiskCluster[] = [];
+  let clusterSeq = 0;
+  for (const [partyNum, group] of byParty) {
+    const n = group.length;
+    const seen = new Array<boolean>(n).fill(false);
+    for (let i = 0; i < n; i += 1) {
+      if (seen[i]) continue;
+      const component: number[] = [];
+      const queue = [i];
+      seen[i] = true;
+      while (queue.length) {
+        const cur = queue.pop() as number;
+        component.push(cur);
+        for (let j = 0; j < n; j += 1) {
+          if (seen[j]) continue;
+          if (haversineMeters(group[cur], group[j]) <= CLUSTER_MAX_METERS) {
+            seen[j] = true;
+            queue.push(j);
+          }
+        }
+      }
+      if (component.length < CLUSTER_MIN_SECTIONS) continue;
+      const members = component.map((idx) => group[idx]);
+      const id = `c${clusterSeq}`;
+      clusterSeq += 1;
+      for (const m of members) m.clusterId = id;
+      const scores = members.map((m) => m.score);
+      const ekatteCounts = new Map<string, number>();
+      for (const m of members) {
+        if (m.ekatte) {
+          ekatteCounts.set(m.ekatte, (ekatteCounts.get(m.ekatte) ?? 0) + 1);
+        }
+      }
+      let ekatte: string | undefined;
+      let bestEkatte = 0;
+      for (const [e, cnt] of ekatteCounts) {
+        if (cnt > bestEkatte) {
+          bestEkatte = cnt;
+          ekatte = e;
+        }
+      }
+      const sampleRow = rowBySection.get(members[0].section);
+      clusters.push({
+        id,
+        ekatte,
+        oblast: sampleRow?.oblast,
+        obshtina: sampleRow?.obshtina,
+        partyNum,
+        sectionCount: members.length,
+        sections: members.map((m) => m.section),
+        meanScore:
+          Math.round((scores.reduce((s, x) => s + x, 0) / scores.length) * 10) /
+          10,
+        maxScore: Math.max(...scores),
+        maxBand: bandOf(Math.max(...scores)),
+        centroid: {
+          lat: round6(members.reduce((s, m) => s + m.lat, 0) / members.length),
+          lng: round6(members.reduce((s, m) => s + m.lng, 0) / members.length),
+        },
+      });
+    }
+  }
+  // Strongest first: more sections, then higher mean score.
+  clusters.sort(
+    (a, b) => b.sectionCount - a.sectionCount || b.meanScore - a.meanScore,
+  );
+  // Ascending score so the frontend renders high-risk markers last (on top).
+  mapSections.sort((a, b) => a.score - b.score);
+  return { clusters, mapSections };
+};
 
 export const generateRiskScoreReport = ({
   publicFolder,
   reportsFolder,
   year,
+  prevYear,
+  coordsLookup,
   stringify,
 }: {
   publicFolder: string;
   reportsFolder: string;
   year: string;
+  /** Name of the immediately preceding election (e.g. "2024_06_09").
+   * Used to compute the cross-election swing signal. Undefined for the
+   * earliest election — the swing signal then simply never fires. */
+  prevYear?: string;
+  /** Section-id → GPS lookup (built once in index.ts). Used to place
+   * elevated sections on the cluster map; clusters are skipped for
+   * sections without coordinates. */
+  coordsLookup?: Record<string, { longitude: number; latitude: number }>;
   stringify: (o: object) => string;
 }): void => {
   const sectionDir = `${reportsFolder}/section`;
@@ -320,6 +593,8 @@ export const generateRiskScoreReport = ({
   );
   const stats = loadSectionStats(publicFolder, year);
   const peerZ = computePeerOutliers(stats);
+  const priorStats = prevYear ? loadSectionStats(publicFolder, prevYear) : [];
+  const swingZ = computeSwing(stats, priorStats);
 
   // Universe of sections: anything with stats (registered + actual voters).
   // Per-municipality percentile is computed after the score pass.
@@ -413,6 +688,14 @@ export const generateRiskScoreReport = ({
     const z = peerZ.get(s.section);
     if (z !== undefined && z > 0) {
       addSignal("peerOutlier", z, z / CAPS.peerZ);
+    }
+
+    // Cross-election swing: z-score of the upward shift vs. the same
+    // section last election. Never fires for the earliest election (no
+    // prior) or for sections with no matched prior counterpart.
+    const sw = swingZ.get(s.section);
+    if (sw !== undefined && sw > 0) {
+      addSignal("swing", sw, sw / CAPS.swingZ);
     }
 
     if (components.length === 0) continue;
@@ -571,5 +854,26 @@ export const generateRiskScoreReport = ({
     "Successfully added per-prefix files in ",
     prefixDir,
     `(${byPrefix.size} buckets, ${rows.length} rows total)`,
+  );
+
+  // Cluster detection — a separate view file (not the score table).
+  const { clusters, mapSections } = buildRiskClusters(rows, coordsLookup ?? {});
+  const clustersReport: RiskClustersReport = {
+    election: year,
+    generatedAt,
+    thresholds: {
+      minSections: CLUSTER_MIN_SECTIONS,
+      maxDistanceMeters: CLUSTER_MAX_METERS,
+      minBand: "elevated",
+    },
+    clusters,
+    mapSections,
+  };
+  const clustersFile = `${reportsFolder}/section/risk_clusters.json`;
+  fs.writeFileSync(clustersFile, stringify(clustersReport), "utf8");
+  console.log(
+    "Successfully added file ",
+    clustersFile,
+    `(${clusters.length} clusters, ${mapSections.length} map sections)`,
   );
 };

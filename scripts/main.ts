@@ -160,7 +160,10 @@ const app = command({
     if (parties) {
       runPartyStats(stringify);
     }
-    if (reports) {
+    // `--all` (npm run prod) regenerates reports too: they are derived
+    // from the freshly-parsed election data, so the full pipeline must
+    // not leave them stale (risk score, clusters, benford, summaries, …).
+    if (reports || all) {
       generateReports(inFolder, stringify, election);
     }
     if (summary) {

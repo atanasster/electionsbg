@@ -65,6 +65,9 @@ export const RiskScoreMethodologyScreen = () => {
       <LabelP label={t("risk_methodology_signal_peer_t")}>
         {t("risk_methodology_signal_peer_p")}
       </LabelP>
+      <LabelP label={t("risk_methodology_signal_swing_t")}>
+        {t("risk_methodology_signal_swing_p")}
+      </LabelP>
 
       <ArticleH2>{t("risk_methodology_h_formula")}</ArticleH2>
       <ArticleP>{t("risk_methodology_p_formula1")}</ArticleP>

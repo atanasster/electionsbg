@@ -8,6 +8,7 @@ The app started as election results visualization and has grown to cover the bro
 
 - **Elections** — results and turnout from settlement up to national level for every parliamentary election since 2005, plus drill-down to the ~13,000 polling sections and side-by-side comparison across cycles.
 - **Anomaly reports** — concentration, turnout outliers, top gainers/losers, invalid ballots, recount-flagged sections, voting-machine flash-memory corrections (SUEMG), risk neighborhoods.
+- **Election integrity & risk analysis** (`/risk-analysis`) — a composite Election Risk Index per cycle; a per-section 0–100 risk-screening score from seven independent signals (recount delta, flash-memory mismatch, invalid ballots, day-of additions, vote concentration, peer-section outlier, and cross-election swing vs. the same section last cycle); per-party Benford 2BL tests; and a geographic risk-cluster map that groups physically adjacent same-party elevated-risk sections — the spatial fingerprint of a controlled / corporate vote.
 - **Parties** — per-party regional/municipal/settlement performance, candidate preferences, vote-flow timelines, head-to-head comparisons, AI-generated campaign retrospects.
 - **Candidates** — profile pages with regional results, preference votes, donations, declared assets, and business connections.
 - **Parliament** — current and past MPs with bios, photos, declared assets, vehicles, and a graph of their business connections (companies they own or manage, plus shared officers and addresses). Each MP profile opens with a four-metric scorecard (party loyalty, attendance, declared net worth, contracts to connected firms) carrying a parliament-wide rank or median for context.
@@ -391,6 +392,10 @@ Bucket conventions:
 - [Агенция по заетостта — годишен обзор](https://www.az.government.bg/stats/4/) — registered unemployment per municipality (annual XLSX, 2016+).
 - [МОН via data.egov.bg](https://data.egov.bg/data/view/066b4b04-d81d-444e-a61c-8ca0516079e4) — state-matura (DZI) results per school, aggregated to municipality level (annual CSV, 2022+).
 - [НСИ Pop_6.1.1 timeseries](https://www.nsi.bg/bg/content/2975/) — annual population per municipality 2010+, used to derive year-over-year change rate.
+
+### Election integrity
+
+- [Anti-Corruption Fund (ACF)](https://acf.bg/) — risk-section analysis. Together with Bulgarian media reporting (Sega, Svobodna Evropa) and the [OSCE/ODIHR election-observation reports](https://www.osce.org/odihr/elections/bulgaria), it informs the curated list of risk neighborhoods (Roma-majority areas with the highest reported incidence of controlled / corporate voting) tracked by the risk-screening reports. The per-section risk score, the cross-election swing signal, and the risk-cluster map are all *derived* — computed from the CIK results above, not fetched from an external source.
 
 ## Contributing
 

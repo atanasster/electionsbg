@@ -10,6 +10,8 @@ keywords:
 ---
 # Election risk screening — new tools for the 19.04.2026 vote
 
+> **Update (2026-05-20):** The per-section risk score now combines **seven** signals — a cross-election **swing** signal has been added, flagging sections whose turnout and winning-party share rose abnormally versus the same section at the previous election. A new geographic **risk-cluster map** on [`/risk-analysis`](/risk-analysis?elections=2026_04_19) groups adjacent same-party elevated-risk sections — the spatial fingerprint of a controlled or corporate vote. The six-signal section-band counts in §4 below predate the swing signal.
+
 Composite index (47/100, High risk) from five process-integrity signals, plus four context signals (Benford, neighborhood swing, electoral volatility, polling error). Per-section risk screening (10 Critical out of 12,705) and per-party Benford 2BL.
 
 This is a follow-up to the [integrity analysis published ten days earlier](/articles/2026-04-19-integrity) covering the [19.04.2026 election](/elections/2026_04_19). Since then we have added three new aggregation layers on top of the raw metrics:

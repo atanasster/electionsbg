@@ -28,6 +28,7 @@ const SIGNAL_ORDER: RiskComponentId[] = [
   "additionalVoters",
   "concentrated",
   "peerOutlier",
+  "swing",
 ];
 
 // Overview screen — uses the standard section-report template (same

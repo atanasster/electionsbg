@@ -2,6 +2,7 @@ import { Suspense, lazy } from "react";
 import { useTranslation } from "react-i18next";
 import {
   AlertTriangle,
+  Boxes,
   Building2,
   Cpu,
   LineChart,
@@ -24,6 +25,8 @@ import { SuspiciousSectionsTile } from "@/screens/dashboard/SuspiciousSectionsTi
 import { ProblemSectionsTile } from "@/screens/dashboard/ProblemSectionsTile";
 import { ProblemVotesByPartyTile } from "@/screens/dashboard/ProblemVotesByPartyTile";
 import { RiskScoreTopCard } from "@/screens/components/riskAnalysis/RiskScoreTopCard";
+import { RiskClustersCard } from "@/screens/components/riskAnalysis/RiskClustersCard";
+import { useRiskClusters } from "@/data/riskScore/useRiskClusters";
 import { BenfordRiskCard } from "@/screens/components/riskAnalysis/BenfordRiskCard";
 import { RelatedAnalysesCard } from "@/screens/components/riskAnalysis/RelatedAnalysesCard";
 import { CompositeIndexHero } from "@/screens/components/riskAnalysis/CompositeIndexHero";
@@ -47,6 +50,7 @@ export const RiskAnalysisScreen = () => {
   const { selected, electionStats } = useElectionContext();
   const { data: national } = useNationalSummary();
   const { data: problemSectionsStats } = useProblemSectionsStats();
+  const { data: riskClusters } = useRiskClusters();
 
   const hasFlash = !!electionStats?.hasSuemg;
   const parties = national?.parties ?? [];
@@ -95,6 +99,16 @@ export const RiskAnalysisScreen = () => {
       >
         <RiskScoreTopCard />
       </DashboardSection>
+
+      {riskClusters?.mapSections?.length ? (
+        <DashboardSection
+          id="anomalies"
+          title={t("risk_analysis_section_clusters")}
+          icon={Boxes}
+        >
+          <RiskClustersCard />
+        </DashboardSection>
+      ) : null}
 
       <DashboardSection
         id="anomalies"

@@ -13,7 +13,8 @@ export type RiskComponentId =
   | "invalidBallots"
   | "additionalVoters"
   | "concentrated"
-  | "peerOutlier";
+  | "peerOutlier"
+  | "swing";
 
 export type RiskComponent = {
   id: RiskComponentId;

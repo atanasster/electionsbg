@@ -146,6 +146,8 @@ export const generateReports = (
         publicFolder,
         reportsFolder,
         year,
+        prevYear,
+        coordsLookup,
         stringify,
       });
       generateProblemSections({

@@ -356,6 +356,19 @@ export const AboutScreen = () => {
               </ul>
             </DataGroup>
 
+            <DataGroup title={t("integrity_section")}>
+              <ul className="space-y-2">
+                <SourceItem
+                  href="https://acf.bg/"
+                  label={t("integrity_acf_source")}
+                />
+                <SourceItem
+                  href="https://www.osce.org/odihr/elections/bulgaria"
+                  label={t("integrity_osce_source")}
+                />
+              </ul>
+            </DataGroup>
+
             <DataGroup title={t("election_results")}>
               <div className="flex flex-wrap gap-2">
                 {electionResults.map((e) => (

@@ -11,4 +11,5 @@ export const SIGNAL_COLORS: Record<RiskComponentId, string> = {
   additionalVoters: "#eab308", // amber — list additions
   concentrated: "#06b6d4", // cyan — single-party dominance
   peerOutlier: "#8b5cf6", // violet — settlement outlier
+  swing: "#ec4899", // pink — cross-election shift
 };

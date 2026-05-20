@@ -28,6 +28,7 @@ const formatRaw = (id: RiskComponentId, raw?: number): string => {
     case "concentrated":
       return formatPct(raw, 1);
     case "peerOutlier":
+    case "swing":
       return `${raw.toFixed(2)}σ`;
   }
 };
