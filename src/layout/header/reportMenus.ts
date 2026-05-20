@@ -156,6 +156,10 @@ export const governanceMenu: MenuItem[] = [
         title: "menu_group_state",
         subMenu: [
           { title: "budget_link_label", link: "/budget" },
+          {
+            title: "budget_tax_calculator_link_label",
+            link: "/budget/tax-calculator",
+          },
           { title: "procurement_link_label", link: "/procurement" },
           { title: "governments_title", link: "/governments" },
           { title: "indicators_page_title", link: "/indicators" },

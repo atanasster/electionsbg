@@ -181,6 +181,16 @@ const captures: Capture[] = [
     settleMs: 3000,
   },
   {
+    slug: "budget-tax-calculator",
+    routePath: "budget/tax-calculator",
+    // The calculator's two-pane layout — inputs (profile, salary slider) on
+    // the left, hero figures + tax-bill breakdown on the right. Top-aligned
+    // so the clip leads with the inputs panel and headline numbers.
+    waitFor: "#budget-tax-calculator",
+    anchor: "#budget-tax-calculator",
+    settleMs: 2500,
+  },
+  {
     slug: "indicators",
     routePath: "indicators",
     // Long stack of multi-line charts overlaid on a cabinet timeline strip.

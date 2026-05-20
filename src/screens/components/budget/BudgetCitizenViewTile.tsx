@@ -4,8 +4,9 @@
 // no charts, fixed bucket set, every row sums to €100.
 
 import { FC, useMemo } from "react";
+import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Coins, Landmark } from "lucide-react";
+import { Coins, Landmark, ArrowRight } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { cn } from "@/lib/utils";
 import { useKfp } from "@/data/budget/useBudget";
@@ -411,6 +412,16 @@ export const BudgetCitizenViewTile: FC<{ fiscalYear: number }> = ({
             tone="expense"
             icon={Landmark}
           />
+        </div>
+        <div className="mt-4 border-t pt-3">
+          <Link
+            to="/budget/tax-calculator"
+            className="text-primary hover:underline inline-flex items-center gap-1 text-xs"
+          >
+            {t("budget_citizen_tax_calc_link") ||
+              "What did your taxes buy? Open the tax calculator"}
+            <ArrowRight className="h-3.5 w-3.5" />
+          </Link>
         </div>
       </CardContent>
     </Card>

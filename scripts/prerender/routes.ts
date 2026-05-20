@@ -607,6 +607,49 @@ export const prerenderRoutes: PrerenderRoute[] = [
     },
   }),
   staticPage({
+    path: "budget/tax-calculator",
+    title:
+      "Данъчен калкулатор — какво купуват вашите данъци? | electionsbg.com",
+    description:
+      "Изчислете данъка върху доходите, осигуровките и ДДС за работник, самоосигуряващ се или собственик на фирма — и вижте кои функции на държавното управление финансира вашата данъчна сметка.",
+    breadcrumbName: "Данъчен калкулатор",
+    ogImage: "/og/budget-tax-calculator.png",
+    bodyHtml: `
+<h1>Данъчен калкулатор</h1>
+<p>Интерактивен калкулатор за българската данъчна и осигурителна тежест. Изберете вид данъкоплатец и месечен доход, за да видите месечната си данъчна сметка и как тя се разпределя по функциите на сектор „Държавно управление".</p>
+<h2>Какво изчислява</h2>
+<ul>
+<li><strong>Данък върху доходите</strong> — плосък данък 10% върху облагаемата основа.</li>
+<li><strong>Осигуровки</strong> — 13,78% за работник на трудов договор, 27,8% за самоосигуряващ се, върху максималния осигурителен доход (МОД).</li>
+<li><strong>Осигуровки за сметка на работодателя</strong> и пълна цена на труда — данъчно-осигурителната тежест.</li>
+<li><strong>Данъчно облекчение за деца</strong>, ефективна и пределна ставка.</li>
+<li><strong>ДДС</strong> — приблизителна оценка на 20% ДДС, включено в ежедневното потребление.</li>
+<li><strong>Корпоративен данък и данък дивидент</strong> — за собственик на фирма.</li>
+<li><strong>Прогноза за пенсия</strong> — въз основа на осигурителния стаж.</li>
+</ul>
+<p>Виж и <a href="${SITE_URL}/budget">държавния бюджет</a> и <a href="${SITE_URL}/budget/methodology">методологията</a>.</p>`.trim(),
+    english: {
+      title: "Tax Calculator — What Did Your Taxes Buy? | electionsbg.com",
+      description:
+        "Estimate income tax, social-security contributions and VAT for an employee, self-employed person or company owner — and see which government functions your tax bill funds.",
+      breadcrumbName: "Tax calculator",
+      bodyHtml: `
+<h1>Tax calculator</h1>
+<p>An interactive calculator for Bulgaria's tax and social-security burden. Pick a taxpayer profile and monthly income to see your monthly tax bill and how it maps onto general-government spending.</p>
+<h2>What it computes</h2>
+<ul>
+<li><strong>Income tax</strong> — the flat 10% rate on the taxable base.</li>
+<li><strong>Social-security contributions</strong> — 13.78% for an employee, 27.8% for a self-employed person, capped at the maximum insurable income (МОД).</li>
+<li><strong>Employer contributions</strong> and the full cost of employment — the tax wedge.</li>
+<li><strong>Child tax relief</strong>, plus effective and marginal rates.</li>
+<li><strong>VAT</strong> — an estimate of the 20% VAT embedded in everyday spending.</li>
+<li><strong>Corporate and dividend tax</strong> — for a company owner.</li>
+<li><strong>Pension projection</strong> — based on years of service.</li>
+</ul>
+<p>See also the <a href="${SITE_URL}/en/budget">state budget</a> and the <a href="${SITE_URL}/en/budget/methodology">methodology</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
     path: "budget/methodology",
     title: "Методология — Държавен бюджет на България | electionsbg.com",
     description:

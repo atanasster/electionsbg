@@ -42,7 +42,6 @@ import { BudgetRevenueCompositionTile } from "./components/budget/BudgetRevenueC
 import { BudgetExpenditureCompositionTile } from "./components/budget/BudgetExpenditureCompositionTile";
 import { BudgetFunctionalTile } from "./components/budget/BudgetFunctionalTile";
 import { BudgetTopDeviationsTile } from "./components/budget/BudgetTopDeviationsTile";
-import { BudgetTaxBillTile } from "./components/budget/BudgetTaxBillTile";
 import { BudgetCitizenViewTile } from "./components/budget/BudgetCitizenViewTile";
 import { PeerBandChip } from "./components/budget/PeerBandChip";
 import { useMacroPeers, type PeerBand } from "@/data/macro/useMacroPeers";
@@ -436,7 +435,6 @@ export const BudgetScreen: FC = () => {
           icon={PieChart}
         >
           <BudgetCitizenViewTile fiscalYear={term.selectedFy} />
-          <BudgetTaxBillTile fiscalYear={term.selectedFy} />
           <div className="grid gap-4 grid-cols-1 xl:grid-cols-2">
             <BudgetRevenueCompositionTile
               fiscalYear={term.selectedFy}

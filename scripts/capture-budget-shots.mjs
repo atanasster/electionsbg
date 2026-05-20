@@ -34,11 +34,6 @@ const SHOTS = [
     padding: 8,
   },
   {
-    name: "04-tax-bill",
-    selector: '[data-og="budget-tax-bill"]',
-    padding: 8,
-  },
-  {
     name: "05-functional-cofog",
     selector: '[data-og="budget-functional"]',
     padding: 8,
