@@ -1,6 +1,6 @@
-import { FC } from "react";
+import { FC, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Repeat, Home } from "lucide-react";
+import { Repeat, Home, ChevronDown, ChevronUp } from "lucide-react";
 import { useClusterPersistence } from "@/data/riskScore/useClusterPersistence";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { useRegions } from "@/data/regions/useRegions";
@@ -22,6 +22,10 @@ const HEADER_CLASS =
   "text-[10px] font-medium uppercase tracking-wide text-muted-foreground";
 const stripPrefix = (s?: string) => (s ?? "").replace(/^\d+\.\s*/, "");
 
+// The full list is 50+ rows tall — show the strongest loci first and
+// keep the long tail behind an expand toggle.
+const PREVIEW_COUNT = 12;
+
 export const RiskClusterPersistenceCard: FC = () => {
   const { t, i18n } = useTranslation();
   const isBg = i18n.language === "bg";
@@ -30,14 +34,16 @@ export const RiskClusterPersistenceCard: FC = () => {
   const { findRegion } = useRegions();
   const { findMunicipality } = useMunicipalities();
   const { findSettlement } = useSettlementsInfo();
+  const [expanded, setExpanded] = useState(false);
 
   if (!data || data.loci.length === 0) return null;
 
-  // Every locus is listed (not a top-N preview) — each row links to its
-  // detail page, so a cap would strand the rest.
+  // Headline counts cover every locus; the table renders the strongest
+  // PREVIEW_COUNT until expanded.
   const loci = data.loci;
   const deep = loci.filter((l) => l.electionCount >= 3).length;
   const problemCount = loci.filter((l) => !!l.problemNeighborhood).length;
+  const visibleLoci = expanded ? loci : loci.slice(0, PREVIEW_COUNT);
 
   return (
     <StatCard
@@ -68,7 +74,7 @@ export const RiskClusterPersistenceCard: FC = () => {
         <span className={`${HEADER_CLASS} text-right`}>
           {t("risk_col_band")}
         </span>
-        {loci.map((locus) => {
+        {visibleLoci.map((locus) => {
           const region = findRegion(locus.oblast);
           const muni = findMunicipality(locus.obshtina);
           const settlement = findSettlement((locus.ekatte || "").split("-")[0]);
@@ -153,6 +159,28 @@ export const RiskClusterPersistenceCard: FC = () => {
           );
         })}
       </div>
+
+      {loci.length > PREVIEW_COUNT ? (
+        <button
+          type="button"
+          onClick={() => setExpanded((v) => !v)}
+          className="mt-3 self-start inline-flex items-center gap-1 text-xs text-primary hover:underline"
+        >
+          {expanded ? (
+            <>
+              {t("risk_persistence_show_less")}
+              <ChevronUp className="h-3 w-3" />
+            </>
+          ) : (
+            <>
+              {t("risk_persistence_show_all", {
+                count: loci.length - PREVIEW_COUNT,
+              })}
+              <ChevronDown className="h-3 w-3" />
+            </>
+          )}
+        </button>
+      ) : null}
     </StatCard>
   );
 };
