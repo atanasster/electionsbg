@@ -117,19 +117,23 @@
   filter: brightness(0.55) saturate(0.7) hue-rotate(180deg) invert(0.92);
 }
 
+/* Mirrors tooltipSurfaceCompactClass so the Leaflet tooltip matches every
+   other floating surface in the app. */
 .leaflet-tooltip.section-tooltip {
-  background: hsl(var(--primary));
-  color: hsl(var(--primary-foreground));
-  border: none;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+  background: hsl(var(--popover));
+  color: hsl(var(--popover-foreground));
+  border: 1px solid hsl(var(--border));
+  box-shadow:
+    0 10px 15px -3px rgb(0 0 0 / 0.1),
+    0 4px 6px -4px rgb(0 0 0 / 0.1);
   border-radius: 0.375rem;
-  padding: 0.5rem 0.75rem;
+  padding: 0.375rem 0.75rem;
   white-space: normal;
   max-width: 320px;
 }
 .leaflet-tooltip.section-tooltip::before {
-  border-top-color: hsl(var(--primary));
-  border-bottom-color: hsl(var(--primary));
+  border-top-color: hsl(var(--popover));
+  border-bottom-color: hsl(var(--popover));
 }
 
 @layer components {
