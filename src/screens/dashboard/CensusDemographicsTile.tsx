@@ -40,21 +40,26 @@ export const CensusDemographicsTile: FC<Props> = ({
   const { data: oblastEntity } = useCensusOblastSlice(
     !isMunicipality && !isSettlement ? regionCode : undefined,
   );
-  const { data: muniEntity } = useCensusMunicipalitySlice(
-    isMunicipality ? regionCode : undefined,
-  );
   // Trigger lazy load of the settlement sidecar only when this tile is being
   // used at settlement granularity. Otherwise the 1.8MB sidecar would land
   // on every region/municipality page even though it's never read there.
   const findSettlement = useCensusSettlement(Boolean(isSettlement));
-
-  if (!regionCode) return null;
   // Settlement entities use `ekatte` instead of `code` and only carry the
   // population/age/sex dimensions, so they need a thin adapter to satisfy
   // CensusEntity (the shape CountryBreakdown expects).
-  const settlementEntity = isSettlement
-    ? findSettlement(regionCode)
-    : undefined;
+  const settlementEntity =
+    isSettlement && regionCode ? findSettlement(regionCode) : undefined;
+  // For a settlement the municipality slice resolves the parent obshtina — it
+  // is the baseline the settlement's age structure is compared against.
+  const { data: muniEntity } = useCensusMunicipalitySlice(
+    isMunicipality
+      ? regionCode
+      : isSettlement
+        ? settlementEntity?.obshtina
+        : undefined,
+  );
+
+  if (!regionCode) return null;
   const entity: CensusEntity | undefined = settlementEntity
     ? {
         code: settlementEntity.ekatte,
@@ -106,6 +111,57 @@ export const CensusDemographicsTile: FC<Props> = ({
         })}
       </div>
       <CountryBreakdown entity={entity} compact={!isSettlement} />
+      {isSettlement &&
+        muniEntity?.age &&
+        entity.age &&
+        entity.population > 0 &&
+        muniEntity.population > 0 && (
+          <div className="mt-3 border-t pt-2">
+            <div className="text-[11px] font-medium text-muted-foreground mb-1">
+              {t("census_settlement_compare", {
+                name: lang === "bg" ? muniEntity.nameBg : muniEntity.nameEn,
+              })}
+            </div>
+            {(
+              [
+                [
+                  "census_metric_age_65plus",
+                  entity.age.age65plus,
+                  muniEntity.age.age65plus,
+                ],
+                [
+                  "census_metric_age_under15",
+                  entity.age.age0_14,
+                  muniEntity.age.age0_14,
+                ],
+              ] as const
+            ).map(([key, sCount, mCount]) => {
+              const sShare = (sCount / entity.population) * 100;
+              const mShare = (mCount / muniEntity.population) * 100;
+              const delta = sShare - mShare;
+              const signed = `${delta >= 0 ? "+" : "−"}${Math.abs(
+                delta,
+              ).toFixed(1)}`;
+              return (
+                <div
+                  key={key}
+                  className="flex items-baseline justify-between gap-2 text-[11px]"
+                >
+                  <span className="text-muted-foreground">{t(key)}</span>
+                  <span className="tabular-nums">
+                    <span className="font-medium text-foreground">
+                      {sShare.toFixed(1)}%
+                    </span>
+                    <span className="text-muted-foreground ml-1.5">
+                      ({t("census_settlement_compare_delta", { delta: signed })}
+                      )
+                    </span>
+                  </span>
+                </div>
+              );
+            })}
+          </div>
+        )}
       {isSettlement && (
         <p className="text-[11px] text-muted-foreground mt-2 italic">
           {t("census_settlement_dimensions_note")}

@@ -1,32 +1,37 @@
 /**
- * Precompute per-party Pearson correlations between regional vote share and
+ * Precompute per-party Pearson correlations between municipal vote share and
  * each demographic indicator from Census 2021. Runs as part of the party-stats
  * step in the data pipeline.
  *
- * Output: public/{election}/parties/demographics/{partyNum}.json — a tiny
- * payload that the dashboard's Demographic profile tile reads directly,
- * skipping a full census fetch + client-side correlation pass.
+ * Correlations are computed across the ~265 municipalities (obshtini) rather
+ * than the 28 oblasts — a ~10x larger sample that turns the relationships from
+ * suggestive into statistically solid. Census 2021 publishes the ethnocultural
+ * / education / employment dimensions down to the municipality level, so the
+ * finer grain costs no demographic resolution.
  *
- *   {
- *     election: "2026_04_19",
- *     partyNum: 7,
- *     correlations: [{ metric: "ethnicTurkish", r: -0.71, n: 28 }, ...]
- *   }
+ * Outputs, per election:
+ *   - parties/demographics/{partyNum}.json — per-party correlations:
+ *       { election, partyNum, correlations: [{ metric, r, n }, ...] }
+ *   - dashboard/demographic_cleavages.json — top-N parties x metrics matrix
+ *   - dashboard/demographic_scatter.json   — per-municipality vote totals that
+ *       the /demographics scatter consumes (joined client-side to the census
+ *       municipalities payload).
  *
- * Mirrors PERCENT_METRICS, NUTS3_TO_OBLAST and the Pearson + aggregation
- * helpers used client-side, kept here in plain TS so the script can run
- * without a React/JSX toolchain.
+ * Mirrors PERCENT_METRICS and the Pearson helper used client-side, kept here
+ * in plain TS so the script can run without a React/JSX toolchain.
  */
 
 import fs from "fs";
 import path from "path";
-import type { ElectionInfo, ElectionRegion, PartyInfo } from "@/data/dataTypes";
+import { fileURLToPath } from "url";
+import type { ElectionInfo, PartyInfo } from "@/data/dataTypes";
 import type {
-  CensusOblastEntity,
+  CensusEntity,
   CensusMetric,
+  CensusMunicipalityEntity,
   CensusPayload,
 } from "@/data/census/censusTypes";
-import { cikPartiesFileName, regionsVotesFileName } from "../consts";
+import { cikPartiesFileName } from "../consts";
 
 const PERCENT_METRICS: CensusMetric[] = [
   "ethnicBulgarian",
@@ -45,47 +50,19 @@ const PERCENT_METRICS: CensusMetric[] = [
   "activityRate",
 ];
 
-// Mirrors src/data/census/oblastJoin.ts — Sofia city's three election MIRs
-// and the PDV/PDV-00 split collapse into the geographic NSI oblasts.
-const NUTS3_TO_OBLAST: Record<string, string> = {
-  BG413: "BLG",
-  BG341: "BGS",
-  BG331: "VAR",
-  BG321: "VTR",
-  BG311: "VID",
-  BG313: "VRC",
-  BG322: "GAB",
-  BG332: "DOB",
-  BG425: "KRZ",
-  BG415: "KNL",
-  BG315: "LOV",
-  BG312: "MON",
-  BG423: "PAZ",
-  BG414: "PER",
-  BG314: "PVN",
-  BG421: "PDV",
-  "BG421-1": "PDV",
-  BG324: "RAZ",
-  BG323: "RSE",
-  BG325: "SLS",
-  BG342: "SLV",
-  BG424: "SML",
-  BG416: "SOF",
-  BG417: "SOF",
-  BG418: "SOF",
-  BG412: "SFO",
-  BG344: "SZR",
-  BG334: "TGV",
-  BG422: "HKV",
-  BG333: "SHU",
-  BG343: "JAM",
-};
+// Election data splits Столична община (Sofia city) into rayon-level units
+// (S2302, S2401, S2511, ...); NSI's census keeps it as one municipality
+// (SOF46). All Sofia rayon codes therefore aggregate into that single entity.
+// Abroad continent buckets (AF, AS, EU, NA, OC, SA) have no census entity and
+// are dropped.
+const SOFIA_CITY_CENSUS_CODE = "SOF46";
+const isSofiaRayonCode = (obshtina: string) => /^S2[345]/.test(obshtina);
 
-const sumEthnic = (e?: CensusOblastEntity["ethnic"]) =>
+const sumEthnic = (e?: CensusEntity["ethnic"]) =>
   e ? e.bulgarian + e.turkish + e.roma + e.other : 0;
-const sumReligion = (r?: CensusOblastEntity["religion"]) =>
+const sumReligion = (r?: CensusEntity["religion"]) =>
   r ? r.christian + r.muslim + r.jewish + r.other + r.noReligion : 0;
-const sumEducation = (e?: CensusOblastEntity["education"]) =>
+const sumEducation = (e?: CensusEntity["education"]) =>
   e
     ? e.tertiary +
       e.upperSecondary +
@@ -97,7 +74,7 @@ const sumEducation = (e?: CensusOblastEntity["education"]) =>
 // 0..1 share for percentage-like metrics. Mirrors censusMetricValue() in
 // src/data/census/useCensus.tsx.
 const censusMetricShare = (
-  e: CensusOblastEntity,
+  e: CensusEntity,
   metric: CensusMetric,
 ): number | undefined => {
   switch (metric) {
@@ -225,11 +202,67 @@ export type DemographicCleavagesPayload = {
   rows: DemographicCleavageRow[];
 };
 
+// Per-municipality vote totals consumed by the /demographics scatter. The
+// census dimensions are joined client-side from census_2021.json, so this
+// payload carries only the obshtina code and the party vote breakdown.
+export type VoteDemographicMunicipality = {
+  obshtina: string;
+  votes: { partyNum: number; totalVotes: number }[];
+};
+
+export type VoteDemographicsScatterPayload = {
+  election: string;
+  municipalities: VoteDemographicMunicipality[];
+};
+
 // Bulgarian electoral threshold: only parties that cleared 4% of the national
 // vote get mandates. We use the same cutoff for the dashboard cleavages tile so
 // the dot plot reflects parties that actually shaped the parliament — count
 // varies naturally per election (4–7 parties is typical).
 const PARLIAMENT_THRESHOLD_PCT = 4;
+
+type MunicipalityVoteFile = {
+  obshtina?: string;
+  results?: { votes?: { partyNum: number; totalVotes: number }[] };
+};
+
+type MuniAgg = { total: number; partyTotals: Map<number, number> };
+
+// Read every per-municipality vote file in an election folder and aggregate
+// party + total votes onto the NSI census municipality codes.
+const aggregateMunicipalityVotes = (
+  municipalitiesDir: string,
+  censusCodes: Set<string>,
+): Map<string, MuniAgg> => {
+  const aggs = new Map<string, MuniAgg>();
+  if (!fs.existsSync(municipalitiesDir)) return aggs;
+  for (const file of fs.readdirSync(municipalitiesDir)) {
+    if (!file.endsWith(".json")) continue;
+    const mv: MunicipalityVoteFile = JSON.parse(
+      fs.readFileSync(path.join(municipalitiesDir, file), "utf-8"),
+    );
+    if (!mv.obshtina || !mv.results?.votes) continue;
+    const code = censusCodes.has(mv.obshtina)
+      ? mv.obshtina
+      : isSofiaRayonCode(mv.obshtina)
+        ? SOFIA_CITY_CENSUS_CODE
+        : undefined;
+    if (!code || !censusCodes.has(code)) continue;
+    let agg = aggs.get(code);
+    if (!agg) {
+      agg = { total: 0, partyTotals: new Map() };
+      aggs.set(code, agg);
+    }
+    for (const v of mv.results.votes) {
+      agg.total += v.totalVotes;
+      agg.partyTotals.set(
+        v.partyNum,
+        (agg.partyTotals.get(v.partyNum) ?? 0) + v.totalVotes,
+      );
+    }
+  }
+  return aggs;
+};
 
 export const buildPartyDemographics = ({
   publicFolder,
@@ -248,9 +281,10 @@ export const buildPartyDemographics = ({
   const census: CensusPayload = JSON.parse(
     fs.readFileSync(censusPath, "utf-8"),
   );
-  const oblastByCode = new Map<string, CensusOblastEntity>(
-    census.oblasts.map((o) => [o.code, o]),
+  const muniByCode = new Map<string, CensusMunicipalityEntity>(
+    census.municipalities.map((m) => [m.code, m]),
   );
+  const censusCodes = new Set(muniByCode.keys());
 
   const electionsFile = path.resolve(
     publicFolder,
@@ -263,50 +297,27 @@ export const buildPartyDemographics = ({
   for (const e of elections) {
     const electionFolder = path.join(publicFolder, e.name);
     const partiesFile = path.join(electionFolder, cikPartiesFileName);
-    const regionVotesFile = path.join(electionFolder, regionsVotesFileName);
-    if (!fs.existsSync(partiesFile) || !fs.existsSync(regionVotesFile)) {
+    const municipalitiesDir = path.join(electionFolder, "municipalities");
+    if (!fs.existsSync(partiesFile) || !fs.existsSync(municipalitiesDir)) {
       continue;
     }
     const parties: PartyInfo[] = JSON.parse(
       fs.readFileSync(partiesFile, "utf-8"),
     );
-    const regionVotes: ElectionRegion[] = JSON.parse(
-      fs.readFileSync(regionVotesFile, "utf-8"),
-    );
 
-    // Aggregate per-NSI-oblast turnout once; per-party aggregation is the
-    // same denominator, only the numerator changes.
-    type Agg = { total: number; partyTotals: Map<number, number> };
-    const oblastAggs = new Map<string, Agg>();
-    for (const region of regionVotes) {
-      const oblastCode = NUTS3_TO_OBLAST[region.nuts3];
-      if (!oblastCode || !oblastByCode.has(oblastCode)) continue;
-      const total = region.results.votes.reduce((s, v) => s + v.totalVotes, 0);
-      let agg = oblastAggs.get(oblastCode);
-      if (!agg) {
-        agg = { total: 0, partyTotals: new Map() };
-        oblastAggs.set(oblastCode, agg);
-      }
-      agg.total += total;
-      for (const v of region.results.votes) {
-        agg.partyTotals.set(
-          v.partyNum,
-          (agg.partyTotals.get(v.partyNum) ?? 0) + v.totalVotes,
-        );
-      }
-    }
+    const muniAggs = aggregateMunicipalityVotes(municipalitiesDir, censusCodes);
 
     // Pre-compute the demographic X arrays once per metric — they're
     // independent of party and identical across all party iterations.
-    const oblastCodesInOrder = Array.from(oblastAggs.keys()).filter(
-      (code) => (oblastAggs.get(code)?.total ?? 0) > 0,
+    const muniCodesInOrder = Array.from(muniAggs.keys()).filter(
+      (code) => (muniAggs.get(code)?.total ?? 0) > 0,
     );
     const xByMetric = new Map<CensusMetric, (number | undefined)[]>();
     for (const metric of PERCENT_METRICS) {
       xByMetric.set(
         metric,
-        oblastCodesInOrder.map((code) => {
-          const entity = oblastByCode.get(code)!;
+        muniCodesInOrder.map((code) => {
+          const entity = muniByCode.get(code)!;
           const v = censusMetricShare(entity, metric);
           return v !== undefined ? v * 100 : undefined;
         }),
@@ -326,8 +337,8 @@ export const buildPartyDemographics = ({
 
     for (const party of parties) {
       const correlations: PartyDemographicCorrelation[] = [];
-      const ys = oblastCodesInOrder.map((code) => {
-        const agg = oblastAggs.get(code)!;
+      const ys = muniCodesInOrder.map((code) => {
+        const agg = muniAggs.get(code)!;
         const partyVotes = agg.partyTotals.get(party.number) ?? 0;
         return (partyVotes / agg.total) * 100;
       });
@@ -355,7 +366,25 @@ export const buildPartyDemographics = ({
       );
     }
     console.log(
-      `[party demographics] ${e.name}: wrote ${parties.length} party files to ${outDir}`,
+      `[party demographics] ${e.name}: wrote ${parties.length} party files (n=${muniCodesInOrder.length} municipalities) to ${outDir}`,
+    );
+
+    const dashboardDir = path.join(electionFolder, "dashboard");
+    fs.mkdirSync(dashboardDir, { recursive: true });
+
+    // Per-municipality vote totals for the /demographics scatter.
+    const scatterPayload: VoteDemographicsScatterPayload = {
+      election: e.name,
+      municipalities: muniCodesInOrder.map((code) => ({
+        obshtina: code,
+        votes: Array.from(muniAggs.get(code)!.partyTotals.entries())
+          .map(([partyNum, totalVotes]) => ({ partyNum, totalVotes }))
+          .sort((a, b) => a.partyNum - b.partyNum),
+      })),
+    };
+    fs.writeFileSync(
+      path.join(dashboardDir, "demographic_scatter.json"),
+      stringify(scatterPayload),
     );
 
     // Build the home-dashboard cleavages aggregate: top-N parties by national
@@ -363,13 +392,10 @@ export const buildPartyDemographics = ({
     // can render straight from a single ~1KB fetch.
     const totalsByParty = new Map<number, number>();
     let nationalTotal = 0;
-    for (const region of regionVotes) {
-      for (const v of region.results.votes) {
-        totalsByParty.set(
-          v.partyNum,
-          (totalsByParty.get(v.partyNum) ?? 0) + v.totalVotes,
-        );
-        nationalTotal += v.totalVotes;
+    for (const agg of muniAggs.values()) {
+      nationalTotal += agg.total;
+      for (const [partyNum, votes] of agg.partyTotals) {
+        totalsByParty.set(partyNum, (totalsByParty.get(partyNum) ?? 0) + votes);
       }
     }
     const topParties = parties
@@ -412,8 +438,6 @@ export const buildPartyDemographics = ({
         parties: cleavageParties,
         rows,
       };
-      const dashboardDir = path.join(electionFolder, "dashboard");
-      fs.mkdirSync(dashboardDir, { recursive: true });
       fs.writeFileSync(
         path.join(dashboardDir, "demographic_cleavages.json"),
         stringify(cleavagesPayload),
@@ -424,3 +448,13 @@ export const buildPartyDemographics = ({
     }
   }
 };
+
+// Allow running this step standalone (regenerate only the demographics
+// artifacts) without re-running the full party-stats pipeline.
+if (process.argv[1] === fileURLToPath(import.meta.url)) {
+  const here = path.dirname(fileURLToPath(import.meta.url));
+  buildPartyDemographics({
+    publicFolder: path.resolve(here, "../../data"),
+    stringify: (o) => JSON.stringify(o),
+  });
+}

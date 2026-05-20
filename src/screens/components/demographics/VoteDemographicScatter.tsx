@@ -9,8 +9,7 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { useCensus, censusMetricValue } from "@/data/census/useCensus";
-import { NUTS3_TO_OBLAST } from "@/data/census/oblastJoin";
-import { useRegionVotes } from "@/data/regions/useRegionVotes";
+import { useVoteDemographics } from "@/data/census/useVoteDemographics";
 import { usePartyInfo } from "@/data/parties/usePartyInfo";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { useElectionContext } from "@/data/ElectionContext";
@@ -30,12 +29,12 @@ export const VoteDemographicScatter: React.FC = () => {
   const { t, i18n } = useTranslation();
   const { tooltip, ...tooltipEvents } = useTooltip();
   const { data: census } = useCensus();
-  const { countryRegions } = useRegionVotes();
+  const { data: voteDemo } = useVoteDemographics();
   const { parties, findParty } = usePartyInfo();
   const { displayNameFor } = useCanonicalParties();
   const { selected } = useElectionContext();
   const containerRef = useRef<HTMLDivElement>(null);
-  const [hoveredOblast, setHoveredOblast] = useState<string | undefined>();
+  const [hoveredCode, setHoveredCode] = useState<string | undefined>();
 
   const DEFAULT_METRIC: CensusMetric = "eduSecondary";
   const [scatterMetricParam, setScatterMetricParam] = useSearchParam(
@@ -96,11 +95,10 @@ export const VoteDemographicScatter: React.FC = () => {
   // Default to top-vote party once available
   const effectivePartyNum = useMemo(() => {
     if (partyNum !== undefined) return partyNum;
+    if (!voteDemo) return undefined;
     const totals = new Map<number, number>();
-    const votes = countryRegions();
-    if (!votes) return undefined;
-    for (const region of votes) {
-      for (const v of region.results.votes) {
+    for (const muni of voteDemo.municipalities) {
+      for (const v of muni.votes) {
         totals.set(v.partyNum, (totals.get(v.partyNum) ?? 0) + v.totalVotes);
       }
     }
@@ -113,14 +111,12 @@ export const VoteDemographicScatter: React.FC = () => {
       }
     }
     return best;
-  }, [partyNum, countryRegions]);
+  }, [partyNum, voteDemo]);
 
   const dataPoints = useMemo(() => {
-    if (!census || effectivePartyNum === undefined) return [];
-    const votes = countryRegions();
-    if (!votes) return [];
+    if (!census || !voteDemo || effectivePartyNum === undefined) return [];
     const points: {
-      oblast: string;
+      code: string;
       nameBg: string;
       nameEn: string;
       x: number; // demographic %
@@ -131,49 +127,43 @@ export const VoteDemographicScatter: React.FC = () => {
       population: number;
       groupCount?: number;
     }[] = [];
-    // Aggregate by NSI oblast (so Sofia 23/24/25 collapse into one SOF bubble
-    // and PDV/PDV-00 into PDV).
-    const oblastVotes = new Map<
-      string,
-      { partyVotes: number; totalVotes: number; nuts3List: Set<string> }
-    >();
-    for (const region of votes) {
-      const oblastCode = NUTS3_TO_OBLAST[region.nuts3];
-      if (!oblastCode) continue;
-      const partyV = region.results.votes.find(
-        (v) => v.partyNum === effectivePartyNum,
+    // One bubble per municipality. Census dimensions are joined by obshtina
+    // code; Sofia city is already aggregated into SOF46 by the data pipeline.
+    for (const muni of voteDemo.municipalities) {
+      const entity = census.municipalities.find(
+        (m) => m.code === muni.obshtina,
       );
-      const total = region.results.votes.reduce((s, v) => s + v.totalVotes, 0);
-      const entry = oblastVotes.get(oblastCode) ?? {
-        partyVotes: 0,
-        totalVotes: 0,
-        nuts3List: new Set<string>(),
-      };
-      entry.partyVotes += partyV?.totalVotes ?? 0;
-      entry.totalVotes += total;
-      entry.nuts3List.add(region.nuts3);
-      oblastVotes.set(oblastCode, entry);
-    }
-    for (const [oblastCode, agg] of oblastVotes) {
-      const entity = census.oblasts.find((o) => o.code === oblastCode);
       if (!entity) continue;
       const xRaw = censusMetricValue(entity, metric);
-      if (xRaw === undefined || agg.totalVotes <= 0) continue;
+      if (xRaw === undefined) continue;
+      let total = 0;
+      let partyVotes = 0;
+      for (const v of muni.votes) {
+        total += v.totalVotes;
+        if (v.partyNum === effectivePartyNum) partyVotes = v.totalVotes;
+      }
+      if (total <= 0) continue;
       points.push({
-        oblast: oblastCode,
+        code: muni.obshtina,
         nameBg: entity.nameBg,
         nameEn: entity.nameEn,
         x: xRaw * 100,
-        y: (agg.partyVotes / agg.totalVotes) * 100,
-        regionRoute: `/municipality/${oblastCode}`,
-        partyVotes: agg.partyVotes,
-        totalVotes: agg.totalVotes,
+        y: (partyVotes / total) * 100,
+        // Per-municipality drilldown lives at /settlement/<obshtina>. Sofia
+        // city (SOF46) has no single municipality page — the election data
+        // splits it into rayon units — so it points at its oblast page.
+        regionRoute:
+          muni.obshtina === "SOF46"
+            ? "/municipality/SOF"
+            : `/settlement/${muni.obshtina}`,
+        partyVotes,
+        totalVotes: total,
         population: entity.population,
         groupCount: censusMetricCount(entity, metric),
       });
     }
     return points;
-  }, [census, countryRegions, effectivePartyNum, metric]);
+  }, [census, voteDemo, effectivePartyNum, metric]);
 
   const correlation = useMemo(
     () =>
@@ -344,9 +334,9 @@ export const VoteDemographicScatter: React.FC = () => {
             const partyName = partyInfo
               ? partyLabel(partyInfo.nickName)
               : t("party");
-            const isHovered = hoveredOblast === p.oblast;
+            const isHovered = hoveredCode === p.code;
             return (
-              <g key={p.oblast}>
+              <g key={p.code}>
                 <Link to={p.regionRoute} role="link">
                   <circle
                     cx={xScale(p.x)}
@@ -358,7 +348,7 @@ export const VoteDemographicScatter: React.FC = () => {
                     strokeWidth={isHovered ? 2.5 : 1.2}
                     cursor="pointer"
                     onMouseEnter={(e) => {
-                      setHoveredOblast(p.oblast);
+                      setHoveredCode(p.code);
                       tooltipEvents.onMouseEnter(
                         { pageX: e.pageX, pageY: e.pageY },
                         <div className="text-left min-w-[220px]">
@@ -415,7 +405,7 @@ export const VoteDemographicScatter: React.FC = () => {
                       })
                     }
                     onMouseLeave={() => {
-                      setHoveredOblast(undefined);
+                      setHoveredCode(undefined);
                       tooltipEvents.onMouseLeave();
                     }}
                   />
