@@ -3,9 +3,11 @@
  * company, listing all MPs who declared stakes in it across years.
  *
  * Without EIKs (declarations rarely include them), companies are keyed by a
- * normalized form of their declared name. The normalizer is deliberately
- * conservative: it does NOT strip legal-form suffixes like ООД/ЕАД/ЕТ — those
- * are part of the entity's identity. We only fold whitespace and quote variants.
+ * normalized form of their declared name. The normalizer folds whitespace,
+ * quote variants, and a trailing legal-form suffix (ООД/ЕАД/ЕТ/…) — declarants
+ * write the same company inconsistently ("Отзвук" vs "Отзвук ЕООД" vs
+ * «Отзвук»ЕООД), and not folding the suffix splits one company across 2-3
+ * index entries, scattering its stakes and breaking the TR/procurement join.
  */
 
 import fs from "fs";
@@ -72,8 +74,47 @@ export type CompaniesIndexFile = {
 // variants (straight, curly, French, low-double). Preserves Cyrillic case
 // folding via toLowerCase().
 const QUOTES = /["“”„«»‟″〞〟＂']/g;
+
+// Bulgarian legal-form tokens, longest-first so a glued suffix strips the
+// right amount (ЕООД before ООД, АДСИЦ before АД). Lowercased to match the
+// normalized string.
+const LEGAL_FORM_SUFFIXES = [
+  "адсиц",
+  "еоод",
+  "дззд",
+  "кда",
+  "еад",
+  "оод",
+  "ад",
+  "ет",
+  "кд",
+  "сд",
+];
+
+// Strip a trailing legal-form suffix so "Отзвук", "Отзвук ЕООД" and the
+// glued «Отзвук»ЕООД collapse to one group. A space-separated trailing token
+// is always a clear word boundary. A glued suffix is stripped only when the
+// preceding character is a non-letter (e.g. `"МИД 2000"ООД` → digit before
+// ООД) — this avoids lopping "ЕТ" off a word like "ПОЛЕТ".
+const stripLegalFormSuffix = (lowered: string): string => {
+  for (const f of LEGAL_FORM_SUFFIXES) {
+    if (lowered.endsWith(" " + f)) {
+      return lowered.slice(0, -(f.length + 1)).trim();
+    }
+    if (lowered.endsWith(f) && lowered.length > f.length + 2) {
+      const before = lowered[lowered.length - f.length - 1];
+      if (before && !/\p{L}/u.test(before)) {
+        return lowered.slice(0, -f.length).trim();
+      }
+    }
+  }
+  return lowered;
+};
+
 export const normalizeCompanyName = (raw: string): string =>
-  raw.replace(QUOTES, "").replace(/\s+/g, " ").trim().toLowerCase();
+  stripLegalFormSuffix(
+    raw.replace(QUOTES, "").replace(/\s+/g, " ").trim().toLowerCase(),
+  );
 
 // URL-safe slug. We keep Cyrillic but strip quotes, replace spaces with -,
 // and collapse the result. Encoded at link time, decoded on the route side.

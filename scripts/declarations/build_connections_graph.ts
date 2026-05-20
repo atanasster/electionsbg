@@ -201,7 +201,9 @@ export type BuildConnectionsArgs = {
 /** Augment companies-index entries with TR-only graph companies and
  * `mpRoles` derived from MP↔company TR edges. Used at the tail of
  * `buildConnectionsGraph` to lift the All Companies page scope from
- * declared-only (~700) to the full graph (~2,000). */
+ * declared-only to every company an MP is connected to via the Commerce
+ * Registry. Entries are deduped by uic and entries with no MP link at all
+ * (graph noise reached only as 2-hop co-officer neighbours) are dropped. */
 const augmentCompaniesIndexFromGraph = ({
   existing,
   nodes,
@@ -221,6 +223,17 @@ const augmentCompaniesIndexFromGraph = ({
     byNodeId.set(`company:${c.slug}`, c);
   }
 
+  // uic → entry. The graph keeps separate ids for one legal entity
+  // (`company:{slug}`, `company:tr:{uic}`, and `-2`/`-3` slug variants when
+  // two declared names matched the same TR row). Without a uic-keyed merge
+  // each id spawns a parallel index entry, scattering one company's stakes
+  // and roles across 2-5 rows — and breaking the procurement cross-reference,
+  // which joins on `tr.uic`. Seeded from declared entries, extended below.
+  const byUic = new Map<string, CompanyIndexEntry>();
+  for (const c of existing) {
+    if (c.tr?.uic && !byUic.has(c.tr.uic)) byUic.set(c.tr.uic, c);
+  }
+
   // Slug usage map carried over from the existing index so disambiguation
   // suffixes stay consistent when a TR-only company happens to slugify to
   // the same string as an already-declared one.
@@ -234,11 +247,20 @@ const augmentCompaniesIndexFromGraph = ({
     slugUseCount.set(base, n + 1);
   }
 
-  // Add TR-only nodes as fresh CompanyIndexEntry rows.
+  // Add TR-only nodes as fresh CompanyIndexEntry rows. When a node carries a
+  // uic already represented by another entry, alias this node id onto that
+  // entry instead of spawning a duplicate — its mpRoles then merge there.
   for (const n of nodes.values()) {
     if (n.type !== "company") continue;
     if (byNodeId.has(n.id)) continue; // already in the declared index
     if (!n.label || n.label.trim() === "" || n.label === "-") continue;
+    if (n.uic) {
+      const dup = byUic.get(n.uic);
+      if (dup) {
+        byNodeId.set(n.id, dup);
+        continue;
+      }
+    }
     const baseSlug = n.slug ?? slugifyCompanyName(n.label);
     if (!baseSlug) continue;
     const used = slugUseCount.get(baseSlug) ?? 0;
@@ -263,13 +285,16 @@ const augmentCompaniesIndexFromGraph = ({
         : undefined,
     };
     byNodeId.set(n.id, entry);
+    if (n.uic) byUic.set(n.uic, entry);
   }
 
   // Walk MP↔company edges and append mpRoles. We dedupe by (mpId, role) so a
   // manager-and-partner combination shows two rows but a single TR row that
   // appears in two graph passes (e.g. role + transferred share) collapses.
   type RoleKey = string;
-  const roleSets = new Map<string, Set<RoleKey>>();
+  // Keyed by entry, not node id — multiple aliased node ids resolve to one
+  // entry, so (mpId, role) dedup must happen at the entry level.
+  const roleSets = new Map<CompanyIndexEntry, Set<RoleKey>>();
   for (const e of edges.values()) {
     const s = nodes.get(e.source);
     const t = nodes.get(e.target);
@@ -291,10 +316,10 @@ const augmentCompaniesIndexFromGraph = ({
     const mp = mpById.get(mpNode.mpId);
     if (!mp) continue;
     const key: RoleKey = `${mpNode.mpId}|${e.role ?? e.kind}`;
-    const seen = roleSets.get(companyNodeId) ?? new Set<RoleKey>();
+    const seen = roleSets.get(entry) ?? new Set<RoleKey>();
     if (seen.has(key)) continue;
     seen.add(key);
-    roleSets.set(companyNodeId, seen);
+    roleSets.set(entry, seen);
     const role: CompanyIndexEntryMpRole = {
       mpId: mpNode.mpId,
       mpName: mp.name,
@@ -309,8 +334,13 @@ const augmentCompaniesIndexFromGraph = ({
     entry.mpRoles.push(role);
   }
 
-  // Stable order: declared-by count desc, then TR-role count desc, then name.
-  const all = Array.from(byNodeId.values());
+  // Multiple node ids now alias to one entry — dedupe before returning.
+  // Drop graph noise: keep only entries with a real MP link (declared stake
+  // or TR role). Companies reached purely as 2-hop co-officer neighbours have
+  // no MP connection and only inflate the All Companies page.
+  const all = Array.from(new Set(byNodeId.values())).filter(
+    (c) => c.stakes.length > 0 || (c.mpRoles?.length ?? 0) > 0,
+  );
   all.sort((a, b) => {
     const aMps = a.stakes.length + (a.mpRoles?.length ?? 0);
     const bMps = b.stakes.length + (b.mpRoles?.length ?? 0);
@@ -1620,8 +1650,9 @@ export const buildConnectionsGraph = ({
   // stakes only. The connections graph augments it with companies an MP only
   // touches via Commerce Registry roles (manager, partner, transferred share)
   // — those companies appear as nodes here but never made it into the index.
-  // Without this pass, the All Companies page is artificially scoped to ~700
-  // declared companies while the graph reaches ~2,000.
+  // Without this pass, the All Companies page is artificially scoped to the
+  // declared-only companies. The augment dedupes by uic and keeps only
+  // companies with a real MP link (declared stake or TR role).
   //
   // For every company node in the graph we also collect the MP↔company TR
   // edges as `mpRoles`, so the page can show "Naydenov is an active manager
