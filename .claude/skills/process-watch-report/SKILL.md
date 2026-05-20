@@ -45,9 +45,11 @@ The "Changed" section of the report contains a bulleted list. Each bullet's labe
 | `BNB domestic ДЦК auctions` | `update-macro` (re-scrapes debt-emissions list) |
 | `Minfin КФП monthly bulletins` | `update-macro` (re-scrapes fiscal-reserve via Wayback) |
 | `Eurostat regional` (BG) | `update-regional` |
-| `AZ (Агенция по заетостта)` | `update-indicators` |
+| `AZ (Агенция по заетостта)` | `update-indicators` + `update-regional` |
 | `МОН: ДЗИ резултати` | `update-indicators` |
 | `НСИ: население по общини` | `update-indicators` |
+| `НСИ: раждания, умирания и миграция по общини` | `update-indicators` |
+| `ГРАО: население по постоянен и настоящ адрес` | `update-grao` |
 | `CIK news` (if re-enabled) | _no skill yet — surface as TODO_ |
 
 Some sources map to the same skill (`update-connections` handles both declarations and Commerce Registry); dedupe so it only runs once.
@@ -66,7 +68,7 @@ Some sources map to the same skill (`update-connections` handles both declaratio
 
 ## Source → skill mapping (canonical)
 
-Each watcher source maps to one downstream skill. Multiple sources can map to the same skill (deduped at queue-build time):
+Each watcher source maps to one or more downstream skills. Multiple sources can map to the same skill (deduped at queue-build time); a single source can also fan out to several skills (`indicators_az` feeds both `update-indicators` for the municipality rate and `update-regional` for the oblast long-term-unemployment series) — queue each, then dedupe:
 
 | Watcher source id (state/watch/&lt;id&gt;.json) | Mapped skill |
 |---|---|
@@ -88,9 +90,11 @@ Each watcher source maps to one downstream skill. Multiple sources can map to th
 | `bnb_auctions` | `update-macro` (debt-emissions sub-step — re-runs `fetch_bnb_auctions.ts`) |
 | `minfin_mreports` | `update-macro` (fiscal-reserve sub-step — re-runs `fetch_fiscal_reserve.ts`) |
 | `eurostat_regional` | `update-regional` |
-| `indicators_az` | `update-indicators` |
+| `indicators_az` | `update-indicators` + `update-regional` |
 | `indicators_mon_dzi` | `update-indicators` |
 | `indicators_nsi_pop` | `update-indicators` |
+| `indicators_nsi_vital` | `update-indicators` |
+| `grao` | `update-grao` |
 | `cik` (if re-enabled) | _no skill yet — surface as TODO_ |
 
 ## Procedure

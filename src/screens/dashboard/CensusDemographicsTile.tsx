@@ -7,6 +7,7 @@ import {
   useCensusMunicipalitySlice,
   useCensusSettlement,
 } from "@/data/census/useCensus";
+import { useGraoMunicipalitySlice } from "@/data/grao/useGraoPopulation";
 import type { CensusEntity } from "@/data/census/censusTypes";
 import { CountryBreakdown } from "@/screens/components/demographics/CountryBreakdown";
 import { StatCard } from "./StatCard";
@@ -57,6 +58,12 @@ export const CensusDemographicsTile: FC<Props> = ({
       : isSettlement
         ? settlementEntity?.obshtina
         : undefined,
+  );
+
+  // ГРАО quarterly registered population — fetch only this settlement's
+  // municipality slice (~1 KB), keyed off the parent obshtina.
+  const { data: graoSlice } = useGraoMunicipalitySlice(
+    isSettlement ? settlementEntity?.obshtina : undefined,
   );
 
   if (!regionCode) return null;
@@ -162,6 +169,35 @@ export const CensusDemographicsTile: FC<Props> = ({
             })}
           </div>
         )}
+      {isSettlement && graoSlice?.settlements[regionCode] && (
+        <div className="mt-3 border-t pt-2">
+          <div className="text-[11px] font-medium text-muted-foreground mb-1">
+            {t("grao_tile_heading", { date: graoSlice.asOf })}
+          </div>
+          {(
+            [
+              [
+                "grao_current_address",
+                graoSlice.settlements[regionCode].current,
+              ],
+              [
+                "grao_permanent_address",
+                graoSlice.settlements[regionCode].permanent,
+              ],
+            ] as const
+          ).map(([key, count]) => (
+            <div
+              key={key}
+              className="flex items-baseline justify-between gap-2 text-[11px]"
+            >
+              <span className="text-muted-foreground">{t(key)}</span>
+              <span className="font-medium text-foreground tabular-nums">
+                {count.toLocaleString(lang === "bg" ? "bg-BG" : "en-GB")}
+              </span>
+            </div>
+          ))}
+        </div>
+      )}
       {isSettlement && (
         <p className="text-[11px] text-muted-foreground mt-2 italic">
           {t("census_settlement_dimensions_note")}

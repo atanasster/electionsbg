@@ -8,7 +8,12 @@ import { dataUrl } from "@/data/dataUrl";
 //   3. Add an entry to DELTA_KIND below.
 //   4. Add a formatter rule in formatIndicatorValue if the default
 //      "round to two decimals" isn't right.
-export type IndicatorId = "unemployment" | "dzi" | "populationChange";
+export type IndicatorId =
+  | "unemployment"
+  | "dzi"
+  | "populationChange"
+  | "naturalIncrease"
+  | "netMigration";
 
 export type IndicatorPoint = { year: number; value: number };
 
@@ -107,6 +112,8 @@ const DELTA_KIND: Record<IndicatorId, IndicatorDeltaKind> = {
   unemployment: "absolute",
   dzi: "absolute",
   populationChange: "absolute",
+  naturalIncrease: "absolute",
+  netMigration: "absolute",
 };
 
 export const indicatorDeltaKind = (key: IndicatorId): IndicatorDeltaKind =>
@@ -120,6 +127,8 @@ const HIGHER_IS_BETTER: Record<IndicatorId, boolean> = {
   unemployment: false,
   dzi: true,
   populationChange: true,
+  naturalIncrease: true,
+  netMigration: true,
 };
 
 export const indicatorHigherIsBetter = (key: IndicatorId): boolean =>

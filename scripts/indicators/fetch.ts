@@ -26,6 +26,7 @@ import { command, run, option, optional, string, flag, boolean } from "cmd-ts";
 import { fetchAzUnemployment } from "./sources/az_unemployment";
 import { fetchMonDzi } from "./sources/mon_dzi";
 import { fetchNsiPopulation } from "./sources/nsi_population";
+import { fetchNsiVital, fetchNsiMigration } from "./sources/nsi_vital";
 import {
   normalize,
   type NormalizeInput,
@@ -157,6 +158,66 @@ const SOURCES: SourceSpec[] = [
     },
     minMunis: 260,
     minYearsPerMuni: 2,
+  },
+  {
+    id: "naturalIncrease",
+    scrape: async (opts) => {
+      const result = await fetchNsiVital(opts);
+      const rows: NormalizeInput[] = [];
+      for (const r of result.rows) {
+        // fetchNsiVital already resolved each row to an obshtina code
+        // (it joins three NSI files by code); pass it through as azCode.
+        rows.push({
+          year: r.year,
+          azCode: r.obshtinaCode,
+          muniName: r.obshtinaCode,
+          value: r.value,
+        });
+      }
+      return rows;
+    },
+    meta: {
+      labelBg: "Естествен прираст",
+      labelEn: "Natural population change",
+      unitBg: "‰",
+      unitEn: "‰",
+      cadence: "annual",
+      source: {
+        name: "Национален статистически институт",
+        url: "https://www.nsi.bg/bg/content/2987/раждания-умирания-и-естествен-прираст",
+      },
+    },
+    minMunis: 255,
+    minYearsPerMuni: 5,
+  },
+  {
+    id: "netMigration",
+    scrape: async (opts) => {
+      const result = await fetchNsiMigration(opts);
+      const rows: NormalizeInput[] = [];
+      for (const r of result.rows) {
+        rows.push({
+          year: r.year,
+          azCode: r.obshtinaCode,
+          muniName: r.obshtinaCode,
+          value: r.value,
+        });
+      }
+      return rows;
+    },
+    meta: {
+      labelBg: "Нетна миграция",
+      labelEn: "Net migration",
+      unitBg: "‰",
+      unitEn: "‰",
+      cadence: "annual",
+      source: {
+        name: "Национален статистически институт",
+        url: "https://www.nsi.bg/bg/content/3019/механично-движение-на-населението",
+      },
+    },
+    minMunis: 255,
+    minYearsPerMuni: 5,
   },
 ];
 

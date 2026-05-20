@@ -10,23 +10,27 @@ allowed-tools:
 
 # Update Regional skill
 
-Refreshes `data/regional.json` — the per-oblast indicator backdrop rendered on `/municipality/<oblast>` drilldowns and the `/demographics` regional choropleth. Pulls 3 Eurostat NUTS 3 annual series: GDP per capita (`nama_10r_3gdp`), population (`nama_10r_3popgdp`), net migration rate (`demo_r_gind3`).
+Refreshes `data/regional.json` — the per-oblast indicator backdrop rendered on `/municipality/<oblast>` drilldowns and the `/demographics` regional choropleth. Pulls 3 Eurostat NUTS 3 annual series: GDP per capita (`nama_10r_3gdp`), population (`nama_10r_3popgdp`), net migration rate (`demo_r_gind3`); then merges one АЗ oblast series — long-term unemployment share (`ltUnemployment`).
 
 ## When to run
 
 | Trigger | Action |
 |---|---|
-| Daily watcher reports `Eurostat regional (BG): new release · nama_10r_3gdp <date>, ...` | Run `npx tsx scripts/regional/fetch_eurostat.ts` |
+| Daily watcher reports `Eurostat regional (BG): new release · nama_10r_3gdp <date>, ...` | Run Step 1 (both scripts) |
+| Daily watcher reports `AZ (Агенция по заетостта): new year(s)` | Run Step 1 — refreshes the `ltUnemployment` oblast series |
 | User asks to "refresh regional indicators" or "update regional data" | Same |
 | Adding a new NUTS 3 indicator | Add an entry to `INDICATORS` in `scripts/regional/fetch_eurostat.ts`, then run |
 
-Eurostat publishes these series on an annual cadence (typically February-March for the prior year). Day-to-day there is normally nothing to do.
+Eurostat publishes these series on an annual cadence (typically February-March for the prior year); АЗ publishes its annual review in Q1. Day-to-day there is normally nothing to do.
 
 ## Step 1 — Fetch
 
 ```bash
-npx tsx scripts/regional/fetch_eurostat.ts
+npx tsx scripts/regional/fetch_eurostat.ts    # Eurostat NUTS 3 series
+npx tsx scripts/regional/fetch_az_oblast.ts   # merge АЗ ltUnemployment
 ```
+
+Run **both, in order** — `fetch_eurostat.ts` rewrites `data/regional.json` from scratch, then `fetch_az_oblast.ts` reads the cached АЗ XLSX (downloaded by `update-indicators`) and merges the `ltUnemployment` oblast series into it. Running only the first drops `ltUnemployment` until the second re-runs.
 
 Expected output on a normal day:
 

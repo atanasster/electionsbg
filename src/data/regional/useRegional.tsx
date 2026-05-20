@@ -4,7 +4,8 @@ import { dataUrl } from "@/data/dataUrl";
 export type RegionalIndicatorKey =
   | "gdpPerCapita"
   | "population"
-  | "netMigration";
+  | "netMigration"
+  | "ltUnemployment";
 
 export type RegionalPoint = { year: number; value: number };
 
@@ -51,6 +52,9 @@ export const formatRegionalValue = (
     const sign = value > 0 ? "+" : "";
     return `${sign}${value.toFixed(1)}`;
   }
+  // Long-term unemployment is an already-normalised share (%); show one
+  // decimal, unsigned.
+  if (key === "ltUnemployment") return value.toFixed(1);
   return Math.round(value).toLocaleString(locale);
 };
 
@@ -73,6 +77,7 @@ const DELTA_KIND: Record<RegionalIndicatorKey, RegionalDeltaKind> = {
   gdpPerCapita: "percent",
   population: "percent",
   netMigration: "absolute",
+  ltUnemployment: "absolute",
 };
 
 // Compute the latest value + YoY delta for each indicator at the given oblast.

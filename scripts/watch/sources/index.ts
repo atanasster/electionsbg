@@ -17,6 +17,8 @@ import { minfinMreports } from "./minfin_mreports";
 import { indicatorsAz } from "./indicators_az";
 import { indicatorsMonDzi } from "./indicators_mon_dzi";
 import { indicatorsNsiPop } from "./indicators_nsi_pop";
+import { indicatorsNsiVital } from "./indicators_nsi_vital";
+import { grao } from "./grao";
 import { smetnaPalata } from "./smetna_palata";
 import { transparencyCpi } from "./transparency_cpi";
 import { worldbankWgi } from "./worldbank_wgi";
@@ -43,6 +45,8 @@ export const SOURCES: WatchSource[] = [
   indicatorsAz,
   indicatorsMonDzi,
   indicatorsNsiPop,
+  indicatorsNsiVital,
+  grao,
   transparencyCpi,
   worldbankWgi,
 ];

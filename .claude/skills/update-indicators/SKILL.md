@@ -19,8 +19,12 @@ Source contract:
 | `unemployment` | AZ годишен обзор (`/stats/4/`) | 265 municipalities (Sofia as one city aggregate under `SOF00`) | annual |
 | `dzi` | МОН via data.egov.bg dataset `066b4b04` | ~243 municipalities (rural munis without upper-secondary schools omitted) | annual (May-June primary session) |
 | `populationChange` | НСИ `Pop_6.1.1_Pop_DR.xlsx` (one sheet per year) | 264 municipalities (Sofia as one city aggregate under `SOF00`); value is YoY % change | annual |
+| `naturalIncrease` | НСИ births `Pop_1.2.1._birth_DR.xlsx` + deaths `Pop_2.1._mortality_DR.xlsx` + population `Pop_6.1.1_Pop_DR.xlsx` | 264 municipalities (Сърница `PAZ39` is not broken out in the NSI births/deaths files); value is the crude rate of natural increase ‰ = (births − deaths) / population × 1000 | annual |
+| `netMigration` | НСИ internal migration `Pop_5.1_Migration_DR.xlsx` + population `Pop_6.1.1_Pop_DR.xlsx` | 264 municipalities; value is the net internal migration rate ‰ = net migration / population × 1000 | annual |
 
 Future indicators (EU funds, healthcare) plug in by adding a `SOURCES` entry in `scripts/indicators/fetch.ts`. Cadence is annual for everything in this pipeline.
+
+The watcher fingerprints the NSI source files via `indicators_nsi_pop` (population) and `indicators_nsi_vital` (births + deaths + migration); both map to this skill in `process-watch-report`.
 
 ## When to run
 

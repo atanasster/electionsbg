@@ -26,12 +26,15 @@ const VALID_REGIONAL_INDICATORS = new Set<RegionalIndicatorKey>([
   "gdpPerCapita",
   "population",
   "netMigration",
+  "ltUnemployment",
 ]);
 const DEFAULT_INDICATOR: IndicatorId = "unemployment";
 const VALID_INDICATORS = new Set<IndicatorId>([
   "unemployment",
   "dzi",
   "populationChange",
+  "naturalIncrease",
+  "netMigration",
 ]);
 
 export const DemographicsScreen = () => {

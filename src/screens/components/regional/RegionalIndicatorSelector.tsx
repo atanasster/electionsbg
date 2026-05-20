@@ -11,8 +11,8 @@ import {
   type RegionalIndicatorKey,
 } from "@/data/regional/useRegional";
 
-// 3 indicators today — no need for groups. We render labels from the
-// metadata in the payload (titleBg / titleEn) so adding a 4th indicator
+// A handful of indicators today — no need for groups. We render labels from
+// the metadata in the payload (titleBg / titleEn) so adding another indicator
 // only requires extending the fetcher and the type union.
 export const RegionalIndicatorSelector: React.FC<{
   value: RegionalIndicatorKey;

@@ -285,6 +285,14 @@ export const AboutScreen = () => {
                   href="https://www.nsi.bg/bg/content/2975/население-по-области-общини-местоживеене-и-пол"
                   label={t("indicators_nsi_pop_source")}
                 />
+                <SourceItem
+                  href="https://www.nsi.bg/en/content/2987"
+                  label={t("indicators_nsi_vital_source")}
+                />
+                <SourceItem
+                  href="https://www.grao.bg/tables.html"
+                  label={t("indicators_grao_source")}
+                />
               </ul>
             </DataGroup>
 
