@@ -2438,7 +2438,8 @@ export const buildDynamicRoutes = async (
     ...buildSectionsListRoutes(publicFolder, latest, oblastNames),
     ...buildSectionRoutes(publicFolder, latest, oblastNames),
     ...candidateRoutes,
-    ...buildCandidateSubTabRoutes(candidateRoutes),
+    // Candidate sub-tab prerendering disabled for now — 369k files (7 tabs x 2 langs) pushed the Firebase Hosting deploy past a reliable size.
+    // ...buildCandidateSubTabRoutes(candidateRoutes),
     ...buildPollsRoutes(publicFolder),
     ...buildVotesRoutes(projectRoot),
     ...buildElectionLandingRoutes(publicFolder, electionsFile),
