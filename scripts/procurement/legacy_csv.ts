@@ -7,8 +7,8 @@
 //
 // Coverage (one dataset per year, except 2011-2015 which is bundled):
 //
-//   2023: contracts2023_CE.csv          (CAIS EOP, current system)
-//   2022: contracts2022_CE.csv
+//   2023: contracts2023_CE.csv + contracts2023_RL.csv
+//   2022: contracts2022_CE.csv + contracts2022_RL.csv
 //   2021: contracts2021_ROPL.csv        (РОП — the older system, only one
 //                                        published for 2021)
 //   2020: caiseop_contracts2020.csv     (CAIS EOP)
@@ -17,8 +17,15 @@
 //   2016: contracts2016.csv             (older format)
 //   2011-2015: contracts_2011-2015.csv  (one file, five years)
 //
+// АОП published 2022 and 2023 as two files each — a ЦАИС ЕОП (CE) file and a
+// РОП (RL) file. They are near-disjoint (<0.5% of RL rows overlap a CE row by
+// awarder+contractor+amount): the RL files carry tail-end activity from the
+// older register, not duplicates. Both are ingested, namespaced by a "-RL"
+// year token so their releaseIds never collide with the CE files'.
+//
 // 2018 contracts are not published by АОП (only excl2018.csv = out-of-scope
-// records exists). 2024-2025 are in OCDS bundles (handled by ingest.ts).
+// records exists). 2024 and 2025 are not published in any form — the annual
+// CSV series ends at 2023 and the OCDS fortnight bundles start at 2026-01-01.
 //
 // The CSV schemas drift across years:
 //   - Newer CE files (2020-2023): include `Стойност при сключване`, `ДДС`,
@@ -37,11 +44,15 @@ import type { Contract } from "./types";
 import { toEur } from "@/lib/currency";
 
 export interface LegacyDataset {
-  year: string; // "2023" or "2011-2015"
+  // Year of the file, optionally suffixed with the source system when АОП
+  // published the same year twice ("2023", "2023-RL", "2011-2015"). The
+  // suffix keeps the two files' releaseIds in separate namespaces.
+  year: string;
   datasetUuid: string;
   // What "data source system" the file represents. CE = ЦАИС ЕОП, RL = РОП.
-  // Same physical contract may appear in both for transition years; we keep
-  // only the canonical source (CE preferred, RL fallback).
+  // For 2022/2023 АОП published both; they are near-disjoint (the RL file is
+  // tail-end old-register activity), so both are ingested rather than one
+  // shadowing the other.
   system: "CE" | "RL" | "OLDER";
   // Download format. CSV works for most years, but the 2011-2015 bundle
   // (~136 MB raw) consistently 419s through the CSV endpoint — Laravel
@@ -61,9 +72,19 @@ export const LEGACY_DATASETS: LegacyDataset[] = [
     system: "CE",
   },
   {
+    year: "2023-RL",
+    datasetUuid: "eedbb4b3-e120-4ce6-a7fb-252f59c8c491",
+    system: "RL",
+  },
+  {
     year: "2022",
     datasetUuid: "b6ec0598-8dfd-4338-8756-a679420c2cd0",
     system: "CE",
+  },
+  {
+    year: "2022-RL",
+    datasetUuid: "db3e39ba-37f9-44bf-847f-75f36acee513",
+    system: "RL",
   },
   {
     year: "2021",
@@ -120,11 +141,20 @@ const COLUMN_PATTERNS: Record<keyof LegacyRow, RegExp[]> = {
     /id.*на.*документ/i,
     /document.*number/i,
   ],
-  contractId: [/номер.*на.*договор/i, /id.*на.*договор/i, /contract.*number/i],
+  // `договор.*номер` / `договор.*дата` catch the РОП files' reversed-word
+  // headers ("ДОГОВОР НОМЕР", "ДОГОВОР ДАТА"); the `номер.*на.*договор` forms
+  // cover the ЦАИС ЕОП files. Word order disambiguates — the two never collide.
+  contractId: [
+    /номер.*на.*договор/i,
+    /id.*на.*договор/i,
+    /contract.*number/i,
+    /договор.*номер/i,
+  ],
   contractDate: [
     /дата.*на.*договор/i,
     /дата.*на.*сключване/i,
     /signed.*date/i,
+    /договор.*дата/i,
     /^дата$/i,
   ],
   publishedDate: [/публикуван/i, /дата.*на.*публикуване/i],
