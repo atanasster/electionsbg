@@ -7,6 +7,7 @@ import {
   Cpu,
   LineChart,
   MapPin,
+  Repeat,
   ShieldAlert,
   Sigma,
   Target,
@@ -26,6 +27,7 @@ import { ProblemSectionsTile } from "@/screens/dashboard/ProblemSectionsTile";
 import { ProblemVotesByPartyTile } from "@/screens/dashboard/ProblemVotesByPartyTile";
 import { RiskScoreTopCard } from "@/screens/components/riskAnalysis/RiskScoreTopCard";
 import { RiskClustersCard } from "@/screens/components/riskAnalysis/RiskClustersCard";
+import { RiskClusterPersistenceCard } from "@/screens/components/riskAnalysis/RiskClusterPersistenceCard";
 import { useRiskClusters } from "@/data/riskScore/useRiskClusters";
 import { BenfordRiskCard } from "@/screens/components/riskAnalysis/BenfordRiskCard";
 import { RelatedAnalysesCard } from "@/screens/components/riskAnalysis/RelatedAnalysesCard";
@@ -109,6 +111,16 @@ export const RiskAnalysisScreen = () => {
           <RiskClustersCard />
         </DashboardSection>
       ) : null}
+
+      {/* Cross-election view — self-hides (returns null) when no locus
+        clustered in 2+ elections. */}
+      <DashboardSection
+        id="anomalies"
+        title={t("risk_analysis_section_persistence")}
+        icon={Repeat}
+      >
+        <RiskClusterPersistenceCard />
+      </DashboardSection>
 
       <DashboardSection
         id="anomalies"

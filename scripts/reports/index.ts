@@ -20,6 +20,7 @@ import { generateWastedVotesDashboard } from "./wasted_votes_dashboard";
 import { generateBenfordReport } from "./benford";
 import { generateRiskScoreReport } from "./risk_score";
 import { generateRiskHistory } from "./risk_history";
+import { generateClusterPersistence } from "./cluster_persistence";
 
 const NATIONAL_THRESHOLD_PCT = 4;
 
@@ -182,6 +183,9 @@ export const generateReports = (
   // Cross-election section rap sheet — reads every election's freshly
   // written risk_score.json, so it must run after the per-election loop.
   generateRiskHistory({ publicFolder, stringify });
+  // Cross-election cluster persistence — reads every election's freshly
+  // written risk_clusters.json, so it must run after the loop too.
+  generateClusterPersistence({ publicFolder, stringify });
 };
 
 // Regenerate only the dashboard-facing rollups (national_summary per election +
