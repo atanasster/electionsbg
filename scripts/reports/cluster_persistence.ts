@@ -48,6 +48,14 @@ export type ClusterAppearance = {
   maxScore: number;
 };
 
+/** A flagged problem-section (Roma-махала) neighborhood that a locus's
+ * member sections overlap — see scripts/reports/problem_sections. */
+export type ProblemNeighborhoodRef = {
+  id: string;
+  nameBg: string;
+  nameEn: string;
+};
+
 /** A geographic knot that clustered in two or more elections. */
 export type PersistentLocus = {
   id: string;
@@ -60,6 +68,13 @@ export type PersistentLocus = {
   /** Union of every member section across all appearances. */
   sectionCount: number;
   sections: string[];
+  /** Member sections that also sit in a flagged problem-section
+   * (Roma-махала) neighborhood — a demographic cross-check against the
+   * problem_sections report. */
+  problemSectionCount: number;
+  /** The problem-section neighborhood the most overlapping sections
+   * belong to, when any do. */
+  problemNeighborhood?: ProblemNeighborhoodRef;
   /** Chronological — one entry per election. */
   appearances: ClusterAppearance[];
   /** Worst score / band seen across all appearances — the headline read. */
@@ -99,10 +114,43 @@ export const generateClusterPersistence = ({
     JSON.parse(fs.readFileSync(electionsFile, "utf-8")) as ElectionInfo[]
   ).sort((a, b) => a.name.localeCompare(b.name));
 
+  // Section → problem-section neighborhood, unioned across every
+  // election's problem_sections.json — used to flag which persistent
+  // loci coincide with the known Roma-махала risk neighborhoods.
+  const sectionToNeighborhood = new Map<string, string>();
+  const neighborhoodById = new Map<string, ProblemNeighborhoodRef>();
+
   // Collect every cluster across every election as a graph node.
   const nodes: ClusterNode[] = [];
   for (const e of elections) {
     const year = e.name;
+
+    const problemFile = `${publicFolder}/${year}/problem_sections.json`;
+    if (fs.existsSync(problemFile)) {
+      try {
+        const ps = JSON.parse(fs.readFileSync(problemFile, "utf-8")) as {
+          neighborhoods?: Array<{
+            id: string;
+            name_bg?: string;
+            name_en?: string;
+            sections?: Array<{ section?: string }>;
+          }>;
+        };
+        for (const nb of ps.neighborhoods ?? []) {
+          neighborhoodById.set(nb.id, {
+            id: nb.id,
+            nameBg: nb.name_bg ?? nb.id,
+            nameEn: nb.name_en ?? nb.id,
+          });
+          for (const s of nb.sections ?? []) {
+            if (s.section) sectionToNeighborhood.set(s.section, nb.id);
+          }
+        }
+      } catch {
+        // ignore — a missing/corrupt file just yields no overlap
+      }
+    }
+
     const clustersFile = `${publicFolder}/${year}/reports/section/risk_clusters.json`;
     if (!fs.existsSync(clustersFile)) continue;
 
@@ -214,6 +262,26 @@ export const generateClusterPersistence = ({
     const sectionUnion = new Set<string>();
     for (const n of group) for (const s of n.sectionSet) sectionUnion.add(s);
 
+    // Problem-section overlap — how many member sections sit in a
+    // flagged Roma-махала neighborhood, and which one dominates.
+    let problemSectionCount = 0;
+    const nbHits = new Map<string, number>();
+    for (const s of sectionUnion) {
+      const nbId = sectionToNeighborhood.get(s);
+      if (nbId) {
+        problemSectionCount += 1;
+        nbHits.set(nbId, (nbHits.get(nbId) ?? 0) + 1);
+      }
+    }
+    let problemNeighborhood: ProblemNeighborhoodRef | undefined;
+    let bestHits = 0;
+    for (const [nbId, hits] of nbHits) {
+      if (hits > bestHits) {
+        bestHits = hits;
+        problemNeighborhood = neighborhoodById.get(nbId);
+      }
+    }
+
     // Location label + centroid from the most recent appearance's lead
     // cluster — the locus's current identity.
     const latest = appearances[appearances.length - 1].election;
@@ -237,6 +305,8 @@ export const generateClusterPersistence = ({
       },
       sectionCount: sectionUnion.size,
       sections: [...sectionUnion].sort(),
+      problemSectionCount,
+      problemNeighborhood,
       appearances,
       maxScore: round1(Math.max(...group.map((n) => n.maxScore))),
       maxBand: group.reduce<RiskBand>((b, n) => worstBand(b, n.maxBand), "low"),
@@ -256,9 +326,10 @@ export const generateClusterPersistence = ({
   };
   const outFile = `${publicFolder}/cluster_persistence.json`;
   fs.writeFileSync(outFile, stringify(report), "utf8");
+  const withProblem = loci.filter((l) => l.problemSectionCount > 0).length;
   console.log(
     "Successfully added file ",
     outFile,
-    `(${loci.length} persistent loci from ${nodes.length} clusters)`,
+    `(${loci.length} persistent loci from ${nodes.length} clusters; ${withProblem} overlap a problem-section neighborhood)`,
   );
 };

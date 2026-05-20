@@ -1,7 +1,7 @@
 import { FC } from "react";
 import { useParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { Repeat } from "lucide-react";
+import { Repeat, Home } from "lucide-react";
 import { H1 } from "@/ux/H1";
 import { SEO } from "@/ux/SEO";
 import { Link } from "@/ux/Link";
@@ -84,6 +84,27 @@ export const RiskClusterScreen: FC = () => {
           })}
         </span>
       </div>
+
+      {locus.problemNeighborhood ? (
+        <div className="flex justify-center pb-3">
+          <Link
+            to={`/reports/section/problem_sections/${locus.problemNeighborhood.id}`}
+            underline={false}
+            className="inline-flex items-center gap-1.5 rounded-full border border-negative/60 bg-negative/10 px-3 py-1 text-xs font-semibold text-negative hover:bg-negative/20"
+          >
+            <Home className="h-3.5 w-3.5" />
+            <span>
+              {t("risk_persistence_problem_overlap", {
+                count: locus.problemSectionCount,
+                total: locus.sectionCount,
+                name: isBg
+                  ? locus.problemNeighborhood.nameBg
+                  : locus.problemNeighborhood.nameEn,
+              })}
+            </span>
+          </Link>
+        </div>
+      ) : null}
 
       <div className="mx-auto flex max-w-3xl flex-col gap-4">
         <StatCard

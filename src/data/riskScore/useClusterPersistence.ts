@@ -20,6 +20,13 @@ export type ClusterAppearance = {
   maxScore: number;
 };
 
+/** A flagged problem-section (Roma-махала) neighborhood a locus overlaps. */
+export type ProblemNeighborhoodRef = {
+  id: string;
+  nameBg: string;
+  nameEn: string;
+};
+
 /** A geographic knot that clustered in two or more elections. */
 export type PersistentLocus = {
   id: string;
@@ -31,6 +38,12 @@ export type PersistentLocus = {
   centroid: { lat: number; lng: number };
   sectionCount: number;
   sections: string[];
+  /** Member sections that also sit in a flagged problem-section
+   * (Roma-махала) neighborhood. */
+  problemSectionCount: number;
+  /** The problem-section neighborhood most overlapping sections belong
+   * to, when any do. */
+  problemNeighborhood?: ProblemNeighborhoodRef;
   /** Chronological — one entry per election. */
   appearances: ClusterAppearance[];
   maxScore: number;

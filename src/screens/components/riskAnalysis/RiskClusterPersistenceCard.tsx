@@ -1,6 +1,6 @@
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { Repeat } from "lucide-react";
+import { Repeat, Home } from "lucide-react";
 import { useClusterPersistence } from "@/data/riskScore/useClusterPersistence";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { useRegions } from "@/data/regions/useRegions";
@@ -37,6 +37,7 @@ export const RiskClusterPersistenceCard: FC = () => {
   // detail page, so a cap would strand the rest.
   const loci = data.loci;
   const deep = loci.filter((l) => l.electionCount >= 3).length;
+  const problemCount = loci.filter((l) => !!l.problemNeighborhood).length;
 
   return (
     <StatCard
@@ -51,6 +52,9 @@ export const RiskClusterPersistenceCard: FC = () => {
     >
       <p className="text-sm text-muted-foreground leading-relaxed mt-1">
         {t("risk_persistence_headline", { count: data.loci.length, deep })}
+        {problemCount > 0
+          ? ` ${t("risk_persistence_problem_aggregate", { count: problemCount })}`
+          : ""}
       </p>
 
       <div className="mt-2 grid grid-cols-[minmax(0,1.2fr)_minmax(0,1.5fr)_auto_auto] gap-x-3 gap-y-2 items-center text-sm">
@@ -87,14 +91,29 @@ export const RiskClusterPersistenceCard: FC = () => {
             "—";
           return (
             <div className="contents" key={locus.id}>
-              <Link
-                to={`/risk-analysis/cluster/${locus.id}`}
-                underline={false}
-                title={location}
-                className="truncate text-xs font-medium hover:underline"
-              >
-                {location}
-              </Link>
+              <div className="flex min-w-0 items-center gap-1">
+                {locus.problemNeighborhood ? (
+                  <Tooltip
+                    content={
+                      isBg
+                        ? locus.problemNeighborhood.nameBg
+                        : locus.problemNeighborhood.nameEn
+                    }
+                  >
+                    <span className="flex shrink-0">
+                      <Home className="h-3 w-3 text-negative/70" />
+                    </span>
+                  </Tooltip>
+                ) : null}
+                <Link
+                  to={`/risk-analysis/cluster/${locus.id}`}
+                  underline={false}
+                  title={location}
+                  className="truncate text-xs font-medium hover:underline"
+                >
+                  {location}
+                </Link>
+              </div>
               <div className="flex flex-wrap items-center gap-1">
                 <span className="text-xs font-semibold tabular-nums mr-0.5">
                   {locus.electionCount}×

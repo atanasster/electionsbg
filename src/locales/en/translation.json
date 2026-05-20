@@ -1577,6 +1577,8 @@
   "risk_persistence_timeline_title": "Election timeline",
   "risk_persistence_sections_title": "Sections in this cluster ({{count}})",
   "risk_persistence_sections_hint": "Every polling section that belonged to the cluster in at least one election. Open one for its full cross-election risk history.",
+  "risk_persistence_problem_aggregate": "{{count}} also coincide with a Roma neighbourhood already flagged for controlled-vote risk.",
+  "risk_persistence_problem_overlap": "{{count}} of {{total}} sections lie in {{name}} — a flagged problem neighbourhood.",
   "no_map_data": "No map data",
   "risk_analysis_section_benford": "Statistical fingerprint — Benford",
   "risk_analysis_section_flash": "Machine integrity — flash memory",

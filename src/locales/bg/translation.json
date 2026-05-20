@@ -1574,6 +1574,8 @@
   "risk_persistence_timeline_title": "Хронология по избори",
   "risk_persistence_sections_title": "Секции в това струпване ({{count}})",
   "risk_persistence_sections_hint": "Всяка избирателна секция, която е била част от струпването поне на едни избори. Отворете секция за пълната ѝ история на риска по избори.",
+  "risk_persistence_problem_aggregate": "{{count}} от тях съвпадат с ромски квартал, вече посочен като рисков за контролиран вот.",
+  "risk_persistence_problem_overlap": "{{count}} от {{total}} секции попадат в {{name}} — посочен проблемен квартал.",
   "no_map_data": "Няма данни за картата",
   "risk_analysis_section_benford": "Статистически отпечатък — Бенфорд",
   "risk_analysis_section_flash": "Машинна цялост — флаш памет",
