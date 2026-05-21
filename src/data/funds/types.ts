@@ -1,6 +1,20 @@
 // SPA-side types for the EU-funds (ИСУН) data files under /funds/.
 // Mirrors the shapes written by scripts/funds/.
 
+// One row of the sharded beneficiary corpus (funds/beneficiaries/<k>.json) —
+// an organisation that has signed at least one EU-funds contract, with
+// all-time rollup totals. Amounts are in EUR.
+export interface FundsBeneficiary {
+  eik: string | null;
+  name: string;
+  orgType: string;
+  orgKind: string;
+  orgForm: string;
+  contractCount: number;
+  contractedEur: number;
+  paidEur: number;
+}
+
 export interface FundsBreakdownRow {
   key: string;
   beneficiaries: number;
