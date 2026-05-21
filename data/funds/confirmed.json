@@ -1,0 +1,360 @@
+{
+  "generatedAt": "2026-05-21T00:00:00.000Z",
+  "description": "EU-funds beneficiaries cross-referenced against investigative journalism. Each case is a company named by Bulgarian media as a politically-connected recipient of Recovery-Plan money, whose grant is corroborated by the ИСУН 2020 public register (data/funds/). The `register` figures are this project's own data (ИСУН 'Договорени средства' — the total contracted project value: EU grant + the beneficiary's own co-financing). The `claim` figures are only what the cited journalism reported. BGN/EUR peg 1.95583.",
+  "measure": {
+    "name": "RESTORE — изграждане на нови мощности за съхранение на електрическа енергия",
+    "fund": "Национален план за възстановяване и устойчивост (НПВУ)",
+    "note": "Two rounds. RESTORE 1 ranked 82 of ~151 projects in 2024–2025; RESTORE 2 ranked in December 2025. Combined envelope ~1.149 billion BGN. The measure drew scrutiny because many approved beneficiaries trace to politicians, ex-ministers and well-known businessmen.",
+    "officialList": "https://www.me.government.bg/news/82-proekta-na-obshta-stoinost-pochti-1-150-mlrd-lv-shte-badat-finansirani-po-restore-3640.html"
+  },
+  "cases": [
+    {
+      "id": "vm-petroleum",
+      "person": "Веска Марешка — майка на бившия депутат и лидер на „Воля“ Веселин Марешки",
+      "programme": "НПВУ — RESTORE",
+      "round": "RESTORE 1",
+      "beneficiaries": [
+        {
+          "name": "ВМ ПЕТРОЛЕУМ ООД",
+          "eik": "203635576",
+          "contractedEur": 35488318.51,
+          "contractedBgn": 69409118,
+          "paidEur": 0,
+          "contractCount": 1
+        }
+      ],
+      "claim": {
+        "reportedGrantBgn": 25389855.36,
+        "reportedCoFinancingBgn": 44019262.64,
+        "reportedTotalBgn": 69409118,
+        "summary": "Фамилната компания на Марешки — исторически в горивата и аптеките — влиза в съхранението на електроенергия през списъка с одобрени проекти по RESTORE."
+      },
+      "sources": [
+        {
+          "outlet": "Mediapool",
+          "title": "Майката на Марешки и синът на Джевдет Чакъров сред одобрените 112 за батерии за ток с евросубсидии",
+          "url": "https://www.mediapool.bg/maikata-na-mareshki-i-sinat-na-dzhevdet-chakarov-sred-odobrenite-112-za-baterii-za-tok-s-evrosubsidii-news370517.html"
+        }
+      ],
+      "match": "exact",
+      "verification": "Регистърът ИСУН показва 69 409 118 лв договорени средства — точно сумата на докладваните 25 389 855,36 лв безвъзмездна помощ и 44 019 262,64 лв собствено съфинансиране.",
+      "status": "confirmed"
+    },
+    {
+      "id": "verila-solar-park-2",
+      "person": "Сами Джевдет Чакъров — син на дългогодишния депутат от ДПС Джевдет Чакъров",
+      "programme": "НПВУ — RESTORE",
+      "round": "RESTORE 1",
+      "beneficiaries": [
+        {
+          "name": "ВЕРИЛА СОЛАР ПАРК 2 ООД",
+          "eik": "206934480",
+          "contractedEur": 65701079.33,
+          "contractedBgn": 128500142,
+          "paidEur": 0,
+          "contractCount": 1
+        }
+      ],
+      "claim": {
+        "reportedGrantBgn": 41120045.44,
+        "reportedCoFinancingBgn": 87380096.56,
+        "reportedTotalBgn": 128500142,
+        "summary": "Дружество, контролирано от сина на Джевдет Чакъров, сред одобрените проекти за батерии. Името се появява в публикациите и като „Верила Солар Парк 3“ — регистърът потвърждава ЕИК 206934480."
+      },
+      "sources": [
+        {
+          "outlet": "Actualno",
+          "title": "Милионите от ЕС за батериите на ток: Познати интересни имена ги вземат",
+          "url": "https://www.actualno.com/company/milionite-ot-es-za-bateriite-na-tok-poznati-interesni-imena-gi-vzemat-news_2436764.html"
+        }
+      ],
+      "match": "exact",
+      "verification": "Регистърът ИСУН показва 128 500 142 лв договорени средства — точно сумата на докладваните 41 120 045,44 лв БФП и 87 380 096,56 лв съфинансиране.",
+      "status": "confirmed"
+    },
+    {
+      "id": "toki-storidzh",
+      "person": "Свързвано с издателя Иво Прокопиев",
+      "programme": "НПВУ — RESTORE",
+      "round": "RESTORE 1",
+      "beneficiaries": [
+        {
+          "name": "ТОКИ СТОРИДЖ ЕАД",
+          "eik": "207274721",
+          "contractedEur": 40983549.74,
+          "contractedBgn": 80156856,
+          "paidEur": 0,
+          "contractCount": 7
+        }
+      ],
+      "claim": {
+        "reportedGrantBgn": null,
+        "reportedApprox": "поредица от проекти за съоръжения за съхранение (10 MW / 40 MWh), всеки под прага за единична субсидия",
+        "summary": "Компания, свързвана с Иво Прокопиев, сред одобрените по RESTORE с няколко проекта за батерии."
+      },
+      "sources": [
+        {
+          "outlet": "Actualno",
+          "title": "Милионите от ЕС за батериите на ток: Познати интересни имена ги вземат",
+          "url": "https://www.actualno.com/company/milionite-ot-es-za-bateriite-na-tok-poznati-interesni-imena-gi-vzemat-news_2436764.html"
+        },
+        {
+          "outlet": "Blitz",
+          "title": "Скандал! Иво Прокопиев и Чакъров-младши прибрали милиони от ЕС",
+          "url": "https://blitz.bg/obshtestvo/skandal-ivo-prokopiev-i-chakrov-mladshi-pribrali-milioni-ot-es_news1080166.html"
+        }
+      ],
+      "match": "consistent",
+      "verification": "Регистърът ИСУН показва 7 договора на обща стойност 80 156 856 лв за ТОКИ СТОРИДЖ ЕАД — съответства на описанието за серия от проекти за батерии под един бенефициент.",
+      "status": "confirmed"
+    },
+    {
+      "id": "mld-bateri-park",
+      "person": "Младен Маринов-младши — син на бившия вътрешен министър и депутат от ГЕРБ Младен Маринов",
+      "programme": "НПВУ — RESTORE",
+      "round": "RESTORE 1",
+      "beneficiaries": [
+        {
+          "name": "МЛД БАТЕРИ ПАРК ООД",
+          "eik": "208031284",
+          "contractedEur": 20850349.97,
+          "contractedBgn": 40779740,
+          "paidEur": 0,
+          "contractCount": 1
+        }
+      ],
+      "claim": {
+        "reportedGrantBgn": 15496301.2,
+        "reportedCoFinancingBgn": 25283438.8,
+        "reportedTotalBgn": 40779740,
+        "summary": "Дружеството е учредено през октомври 2024 г.; младият му собственик става имотен милионер за месеци, малко след одобрението по RESTORE."
+      },
+      "sources": [
+        {
+          "outlet": "BIRD.bg",
+          "title": "Синът на бивш министър от ГЕРБ сред новите милионери от батериите",
+          "url": "https://bird.bg/gerb-marinov-millionaires/"
+        }
+      ],
+      "match": "exact",
+      "verification": "Регистърът ИСУН показва 40 779 740 лв договорени средства — точно сумата на докладваните 15 496 301,20 лв БФП и 25 283 438,80 лв съфинансиране.",
+      "status": "confirmed"
+    },
+    {
+      "id": "advance-green-energy",
+      "person": "Георги Домусчиев (управление); компанията се свързва с групата на братя Домусчиеви",
+      "programme": "НПВУ — RESTORE",
+      "round": "RESTORE 1",
+      "beneficiaries": [
+        {
+          "name": "АДВАНС ГРИЙН ЕНЕРДЖИ АД",
+          "eik": "207958783",
+          "contractedEur": 75000497.69,
+          "contractedBgn": 146688223,
+          "paidEur": 29539861.45,
+          "contractCount": 1
+        }
+      ],
+      "claim": {
+        "reportedGrantBgn": 57795160.02,
+        "reportedCoFinancingBgn": 88893063.37,
+        "reportedTotalBgn": 146688223,
+        "summary": "Изгражда най-голямото локално съоръжение за съхранение на електроенергия в ЕС (индустриален парк „Балкан“, Ловеч). Единственият случай в списъка с реално изплатени средства."
+      },
+      "sources": [
+        {
+          "outlet": "Actualno",
+          "title": "„Адванс Грийн Енерджи“ АД представя най-голямото локално съоръжение за съхранение на електроенергия в ЕС",
+          "url": "https://www.actualno.com/economy/advans-grijn-enerdji-ad-predstavja-naj-goljamoto-lokalno-syoryjenie-za-syhranenie-na-elektroenergija-v-es-news_2495911.html"
+        }
+      ],
+      "match": "exact",
+      "verification": "Регистърът ИСУН показва 146 688 223 лв договорени средства — точно сумата на докладваните 57 795 160,02 лв БФП и 88 893 063,37 лв съфинансиране. Изплатени са вече 57 774 947 лв (≈ безвъзмездната помощ).",
+      "status": "confirmed"
+    },
+    {
+      "id": "so-storidzh",
+      "person": "Чрез „АБФА Инвестмънтс“ — на бившия финансов министър Милен Велчев и брат му Георги Велчев",
+      "programme": "НПВУ — RESTORE",
+      "round": "RESTORE 2",
+      "beneficiaries": [
+        {
+          "name": "СО Сторидж ЕООД",
+          "eik": "208411297",
+          "contractedEur": 53964252.97,
+          "contractedBgn": 105544905,
+          "paidEur": 0,
+          "contractCount": 1
+        }
+      ],
+      "claim": {
+        "reportedGrantBgn": 17500000,
+        "reportedApprox": "обща стойност на проекта над 105 млн лв",
+        "summary": "Класирано по RESTORE 2 през декември 2025 г.; докладваната безвъзмездна помощ е 17,5 млн лв."
+      },
+      "sources": [
+        {
+          "outlet": "24chasa",
+          "title": "Новите бенефициенти по RESTORE 2",
+          "url": "https://www.24chasa.bg/biznes/article/22047579"
+        }
+      ],
+      "match": "consistent",
+      "verification": "Регистърът ИСУН показва 105 544 905 лв договорени средства — съответства на докладваната обща стойност на проекта „над 105 млн лв“.",
+      "status": "confirmed"
+    },
+    {
+      "id": "balkan-power-system",
+      "person": "Чрез „Грийн Солар енерджи“ — свързвано с Драгомир Танев",
+      "programme": "НПВУ — RESTORE",
+      "round": "RESTORE 2",
+      "beneficiaries": [
+        {
+          "name": "Болкан Пауър Систем ЕООД",
+          "eik": "208397285",
+          "contractedEur": 43057520.0,
+          "contractedBgn": 84213189,
+          "paidEur": 0,
+          "contractCount": 1
+        }
+      ],
+      "claim": {
+        "reportedGrantBgn": 17500000,
+        "reportedApprox": "обща стойност на проекта около 84 млн лв",
+        "summary": "Класирано по RESTORE 2; докладваната БФП е 17,5 млн лв."
+      },
+      "sources": [
+        {
+          "outlet": "Capital",
+          "title": "Нови 4000 MWh батерии за 1,1 млрд лв по RESTORE 2 — кои печелят",
+          "url": "https://www.capital.bg/biznes/energetika/2025/12/22/4866013_novi_4000_mvtch_baterii_za_11_mlrd_lv_po_restore_2_koi/"
+        }
+      ],
+      "match": "consistent",
+      "verification": "Регистърът ИСУН показва 84 213 189 лв договорени средства — съответства на докладваната обща стойност на проекта около 84 млн лв.",
+      "status": "confirmed"
+    },
+    {
+      "id": "advance-digital-power",
+      "person": "Свързвано с групата на братя Домусчиеви",
+      "programme": "НПВУ — RESTORE",
+      "round": "RESTORE 2",
+      "beneficiaries": [
+        {
+          "name": "Адванс Диджитал Пауър АД",
+          "eik": "208348135",
+          "contractedEur": 27558028.73,
+          "contractedBgn": 53898819,
+          "paidEur": 0,
+          "contractCount": 5
+        }
+      ],
+      "claim": {
+        "reportedGrantBgn": null,
+        "reportedApprox": "над 40 млн лв по няколко проекта за батерии",
+        "summary": "Втора компания от кръга на Домусчиеви в списъка — с поредица от проекти за батерии по RESTORE 2."
+      },
+      "sources": [
+        {
+          "outlet": "Capital",
+          "title": "Нови 4000 MWh батерии за 1,1 млрд лв по RESTORE 2 — кои печелят",
+          "url": "https://www.capital.bg/biznes/energetika/2025/12/22/4866013_novi_4000_mvtch_baterii_za_11_mlrd_lv_po_restore_2_koi/"
+        }
+      ],
+      "match": "consistent",
+      "verification": "Регистърът ИСУН показва 5 договора на обща стойност 53 898 819 лв — съответства на описанието за серия от проекти за батерии на дружеството.",
+      "status": "confirmed"
+    },
+    {
+      "id": "krita-energy-50",
+      "person": "Даниел Гергов и Тенчо Лилянов — хасковски бизнес партньори на депутата от ГЕРБ Делян Добрев",
+      "programme": "НПВУ — RESTORE",
+      "round": "RESTORE 1",
+      "beneficiaries": [
+        {
+          "name": "КРИТА ЕНЕРДЖИ 50 АД",
+          "eik": "207930595",
+          "contractedEur": 69494880.0,
+          "contractedBgn": 135920171,
+          "paidEur": 0,
+          "contractCount": 1
+        }
+      ],
+      "claim": {
+        "reportedGrantBgn": 58450000,
+        "reportedApprox": "около 58,45 млн лв за батерии за ток",
+        "summary": "Хасковска компания; собствениците са описани като бизнес партньори на председателя на енергийната комисия в парламента Делян Добрев."
+      },
+      "sources": [
+        {
+          "outlet": "Aferahs",
+          "title": "Хасковските партньори на Делян Добрев — Даниел Гергов и Тенчо Лилянов — се сдобиха с 58,45 милиона за батерии за ток",
+          "url": "https://aferahs.com/българия/хасковските-партньори-на-делян-добре/"
+        },
+        {
+          "outlet": "Mediapool",
+          "title": "Бивши министри с хасковска жилка в ударен бизнес с батерии за ток",
+          "url": "https://www.mediapool.bg/bivshi-ministri-s-haskovska-zhilka-v-udaren-biznes-s-baterii-za-tok-news377895.html"
+        }
+      ],
+      "match": "consistent",
+      "verification": "Регистърът ИСУН показва 135 920 171 лв договорени средства за КРИТА ЕНЕРДЖИ 50 АД — докладваната БФП от ≈58,45 млн лв плюс собствено съфинансиране е в този порядък.",
+      "status": "confirmed"
+    },
+    {
+      "id": "filipov-storage-cluster",
+      "person": "Велин Кънчев Филипов — одитор и данъчен консултант; в публикациите — „непознатият“ зад клъстер от еднотипни дружества",
+      "programme": "НПВУ — RESTORE",
+      "round": "RESTORE 2",
+      "beneficiaries": [
+        {
+          "name": "„Криводол Енерджи Парк“ ЕООД",
+          "eik": "208376227",
+          "contractedEur": 5265750.0,
+          "contractedBgn": 10298912,
+          "paidEur": 0,
+          "contractCount": 1
+        },
+        {
+          "name": "„Криводол Сторидж Парк“ ЕООД",
+          "eik": "208376273",
+          "contractedEur": 5265750.0,
+          "contractedBgn": 10298912,
+          "paidEur": 0,
+          "contractCount": 1
+        },
+        {
+          "name": "„Полски Тръмбеш Сторидж Сълюшън“ ЕООД",
+          "eik": "208336574",
+          "contractedEur": 5265250.0,
+          "contractedBgn": 10297934,
+          "paidEur": 0,
+          "contractCount": 1
+        },
+        {
+          "name": "„Полски Тръмбеш Балансинг Систем“ ЕООД",
+          "eik": "208336492",
+          "contractedEur": 5265250.0,
+          "contractedBgn": 10297934,
+          "paidEur": 0,
+          "contractCount": 1
+        }
+      ],
+      "claim": {
+        "reportedGrantPerCompanyBgn": 2840000,
+        "reportedApprox": "клъстер от ~7 еднотипни дружества с близки имена, общ бюджет на проектите ~62 млн лв",
+        "summary": "Клъстер от еднотипни дружества, всяко кандидатствало за отделна субсидия по RESTORE 2 — описано като раздробяване, за да остане всеки проект под прага. Регистърът потвърждава четири от тях."
+      },
+      "sources": [
+        {
+          "outlet": "24chasa",
+          "title": "Новите бенефициенти по RESTORE 2",
+          "url": "https://www.24chasa.bg/biznes/article/22047579"
+        }
+      ],
+      "match": "consistent",
+      "verification": "Регистърът ИСУН потвърждава четири от дружествата на клъстера — всяко с по един договор за ≈10,3 млн лв (общо 41 193 692 лв) — съответства на описанието за серия от еднотипни проекти за батерии.",
+      "status": "confirmed"
+    }
+  ]
+}
