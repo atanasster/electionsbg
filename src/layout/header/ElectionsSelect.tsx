@@ -1,17 +1,22 @@
 import { Button } from "@/components/ui/button";
 import {
-  Select,
-  SelectContent,
-  SelectTrigger,
-  SelectValue,
-} from "@/components/ui/select";
-import * as SelectPrimitive from "@radix-ui/react-select";
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { useElectionContext } from "@/data/ElectionContext";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { prefetchElection } from "@/data/prefetch";
 import { localDate, totalAllVotes } from "@/data/utils";
 import { Hint } from "@/ux/Hint";
-import { Check, ChevronLeft, ChevronRight, Users } from "lucide-react";
+import {
+  Check,
+  ChevronDown,
+  ChevronLeft,
+  ChevronRight,
+  Users,
+} from "lucide-react";
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
@@ -83,42 +88,45 @@ export const ElectionsSelect: FC = () => {
           <span className="sr-only">{t("prior_elections")}</span>
         </Button>
       </Hint>
-      <Select
-        value={selected}
-        onValueChange={(e) => {
-          setSelected(e);
-        }}
-      >
-        <SelectTrigger
-          id="select_election"
-          aria-label={t("select_election_year")}
-          className="w-[125px] md:w-[150px] text-sm text-secondary-foreground px-2"
-          onMouseEnter={() => {
-            prefetchElection(priorElection);
-            prefetchElection(nextElection);
-          }}
+      {/* A DropdownMenu with `modal={false}` rather than a Radix Select: Select
+          always locks body scroll and compensates for the removed scrollbar,
+          which flashes a ghost scrollbar and shifts the fixed header. */}
+      <DropdownMenu modal={false}>
+        <DropdownMenuTrigger asChild>
+          <button
+            id="select_election"
+            type="button"
+            aria-label={t("select_election_year")}
+            onMouseEnter={() => {
+              prefetchElection(priorElection);
+              prefetchElection(nextElection);
+            }}
+            className="flex h-9 w-[125px] md:w-[150px] items-center justify-between gap-2 whitespace-nowrap rounded-md border border-input bg-transparent px-2 text-sm text-secondary-foreground shadow-sm ring-offset-background focus:outline-none focus:ring-1 focus:ring-ring [&[data-state=open]>svg]:rotate-180"
+          >
+            <span className="line-clamp-1 tabular-nums">
+              {localDate(selected)}
+            </span>
+            <ChevronDown className="size-4 shrink-0 opacity-50 transition-transform duration-200" />
+          </button>
+        </DropdownMenuTrigger>
+        <DropdownMenuContent
+          align="start"
+          className="min-w-[260px] max-h-96 overflow-y-auto"
         >
-          <SelectValue placeholder={selected} />
-        </SelectTrigger>
-        <SelectContent className="min-w-[260px]">
           {rows.map((r) => (
-            <SelectPrimitive.Item
+            <DropdownMenuItem
               key={r.name}
-              value={r.name}
+              onSelect={() => setSelected(r.name)}
               onMouseEnter={() => prefetchElection(r.name)}
               onFocus={() => prefetchElection(r.name)}
-              className="relative flex w-full cursor-default select-none flex-col gap-0.5 rounded-sm py-2 pl-3 pr-9 outline-none focus:bg-secondary focus:text-secondary-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50"
+              className="relative flex w-full cursor-default select-none flex-col items-start gap-0.5 rounded-sm py-2 pl-3 pr-9"
             >
               <span className="absolute right-3 top-2.5 flex size-4 items-center justify-center">
-                <SelectPrimitive.ItemIndicator>
-                  <Check className="size-4" />
-                </SelectPrimitive.ItemIndicator>
+                {r.name === selected && <Check className="size-4" />}
               </span>
-              <SelectPrimitive.ItemText>
-                <span className="text-sm font-medium text-secondary-foreground tabular-nums">
-                  {r.local}
-                </span>
-              </SelectPrimitive.ItemText>
+              <span className="text-sm font-medium text-secondary-foreground tabular-nums">
+                {r.local}
+              </span>
               {(r.winnerNick || r.turnoutPct) && (
                 <span className="flex items-center gap-3 text-xs text-muted-foreground tabular-nums">
                   {r.winnerNick && (
@@ -142,10 +150,10 @@ export const ElectionsSelect: FC = () => {
                   )}
                 </span>
               )}
-            </SelectPrimitive.Item>
+            </DropdownMenuItem>
           ))}
-        </SelectContent>
-      </Select>
+        </DropdownMenuContent>
+      </DropdownMenu>
       <Hint text={t("next_elections")}>
         <Button
           variant="ghost"
