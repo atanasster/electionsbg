@@ -202,7 +202,8 @@ export const ConnectionsScreen: FC = () => {
   );
   // Human-readable relationship for one path hop: the role the person/MP/
   // official holds at the company. `declared` flags a declared-stake edge so
-  // the UI can colour it like the graph's declared-stake links.
+  // the UI can colour it like the graph's declared-stake links; `inferred`
+  // marks a medium-confidence hop (resolved only by a name match).
   const edgeRelationLabel = useCallback(
     (edge: ConnectionsEdge | undefined) => {
       if (!edge) return null;
@@ -219,7 +220,18 @@ export const ConnectionsScreen: FC = () => {
       if (!edge.isCurrent) {
         text = `${text} · ${tr("connections_edge_former", "former")}`;
       }
-      return { text, declared: edge.kind === "declared_stake" };
+      const inferred = edge.confidence === "medium";
+      return {
+        text,
+        declared: edge.kind === "declared_stake",
+        inferred,
+        inferredTitle: inferred
+          ? tr(
+              "connections_edge_inferred",
+              "Inferred from a name match — not a corroborated record",
+            )
+          : undefined,
+      };
     },
     [t],
   );
@@ -1030,13 +1042,15 @@ export const ConnectionsScreen: FC = () => {
     setPathTrail(trail);
   }, [pathFrom, pathTo, neighbors]);
 
-  // Frame the whole connection trail when a path is found, so the highlighted
-  // line is never partly off-screen. The draw loop runs the camera lerp.
+  // Frame the connection result so it is never partly off-screen — the whole
+  // trail when a path is found, or just the two endpoints when there is none
+  // (so the user still sees where the disconnected pair sits). The draw loop
+  // runs the camera lerp.
   useEffect(() => {
-    if (pathTrail && pathTrail.length > 1) {
+    if (pathNodeIds && pathNodeIds.size > 1) {
       fitRef.current = { active: true, deadline: performance.now() + 2500 };
     }
-  }, [pathTrail]);
+  }, [pathNodeIds]);
 
   // Sync canvas-click selections into the search inputs (but don't clear query
   // when pathFrom/pathTo is cleared by typing — that's handled by onChange).
@@ -1716,11 +1730,16 @@ export const ConnectionsScreen: FC = () => {
                                 <span className="text-muted-foreground">↓</span>
                                 {rel && (
                                   <span
-                                    className={
+                                    title={rel.inferredTitle}
+                                    className={`text-[10px] ${
                                       rel.declared
-                                        ? "text-[10px] text-blue-600 dark:text-blue-400"
-                                        : "text-[10px] text-amber-600 dark:text-amber-500"
-                                    }
+                                        ? "text-blue-600 dark:text-blue-400"
+                                        : "text-amber-600 dark:text-amber-500"
+                                    } ${
+                                      rel.inferred
+                                        ? "underline decoration-dotted decoration-from-font underline-offset-2"
+                                        : ""
+                                    }`}
                                   >
                                     {rel.text}
                                   </span>
