@@ -38,15 +38,29 @@ export const useOfficial = (
   return { official, isLoading };
 };
 
+// Executive and municipal officials live in separate per-slug declaration
+// trees. Slugs are name+institution hashed so they do not collide across
+// tiers — try the executive path first, then the municipal one.
+const DECLARATION_BASES = [
+  "/officials/declarations",
+  "/officials/municipal/declarations",
+];
+
 const fetchDeclarations = async (
   slug: string,
 ): Promise<OfficialDeclaration[] | null> => {
-  const response = await fetch(dataUrl(`/officials/declarations/${slug}.json`));
-  if (response.status === 404) return null;
-  if (!response.ok) {
-    throw new Error(`fetch failed: ${response.status} ${response.url}`);
+  for (const base of DECLARATION_BASES) {
+    const response = await fetch(dataUrl(`${base}/${slug}.json`));
+    if (!response.ok) continue;
+    // A missing data file 404s on the GCS bucket but falls through to the
+    // SPA's index.html (200, text/html) under the Vite dev server — treat a
+    // non-JSON response as a miss and try the next tier.
+    if (!(response.headers.get("content-type") ?? "").includes("json")) {
+      continue;
+    }
+    return (await response.json()) as OfficialDeclaration[];
   }
-  return (await response.json()) as OfficialDeclaration[];
+  return null;
 };
 
 /** Returns the declarations timeline for one official (newest first). Each

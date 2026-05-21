@@ -1,9 +1,9 @@
 // /officials/:slug — single-official profile. Lighter than the MP profile:
-// no roll-call section, no procurement-graph mini, no business-connections
-// graph (the underlying TR/connections enrichment is currently scoped to
-// MPs only). Surfaces what we *do* have: role + institution header, latest-
-// declaration headline numbers (net worth, by-category breakdown), and a
-// timeline of every filing on record with a deep link to the source XML.
+// no roll-call section. Surfaces role + institution header, latest-
+// declaration headline numbers (net worth, by-category breakdown), a
+// business-connections section (companies + connected MPs/officials, shown
+// when the official appears in the connections graph), and a timeline of
+// every filing on record with a deep link to the source XML.
 
 import { FC, useMemo } from "react";
 import { useParams, Link } from "react-router-dom";
@@ -26,7 +26,12 @@ import {
 } from "@/data/officials/useOfficial";
 import { useCandidateName } from "@/data/candidates/useCandidateName";
 import { ErrorSection } from "./components/ErrorSection";
-import type { MpAssetCategory, OfficialCategoryKind } from "@/data/dataTypes";
+import { OfficialConnectionsSection } from "./components/OfficialConnectionsSection";
+import type {
+  MpAssetCategory,
+  OfficialCategoryKind,
+  OfficialDeclaration,
+} from "@/data/dataTypes";
 
 const CATEGORY_ICONS: Record<OfficialCategoryKind, typeof Briefcase> = {
   cabinet: Landmark,
@@ -99,6 +104,45 @@ export const OfficialProfileScreen: FC = () => {
     return totals;
   }, [latest]);
 
+  // Headline net-worth numbers + YoY delta, computed from the declarations.
+  // The executive rankings file precomputes these, but municipal officials
+  // have no rankings entry — computing here makes the page work for both.
+  const summary = useMemo(() => {
+    if (!latest?.assets) return null;
+    const totalsOf = (assets: OfficialDeclaration["assets"]) => {
+      let a = 0;
+      let d = 0;
+      let reUnvalued = 0;
+      for (const x of assets ?? []) {
+        const v = x.valueEur ?? 0;
+        if (x.category === "debt") d += v;
+        else a += v;
+        if (x.category === "real_estate" && x.valueEur == null) reUnvalued += 1;
+      }
+      return { assets: a, debts: d, net: a - d, reUnvalued };
+    };
+    const cur = totalsOf(latest.assets);
+    const prevDecl = declarations[1];
+    const prev = prevDecl ? totalsOf(prevDecl.assets) : null;
+    return {
+      totalAssetsEur: cur.assets,
+      totalDebtsEur: cur.debts,
+      netWorthEur: cur.net,
+      realEstateUnvalued: cur.reUnvalued,
+      delta:
+        prev && prevDecl
+          ? {
+              previousYear: prevDecl.declarationYear,
+              absoluteEur: cur.net - prev.net,
+              pct:
+                prev.net === 0
+                  ? null
+                  : (cur.net - prev.net) / Math.abs(prev.net),
+            }
+          : null,
+    };
+  }, [latest, declarations]);
+
   if (officialLoading || declsLoading) {
     return (
       <div className="w-full max-w-3xl mx-auto px-4 py-8" aria-hidden>
@@ -107,7 +151,7 @@ export const OfficialProfileScreen: FC = () => {
     );
   }
 
-  if (!official) {
+  if (!official && !latest) {
     return (
       <ErrorSection
         title={t("official_not_found_title") || "Official not found"}
@@ -119,14 +163,27 @@ export const OfficialProfileScreen: FC = () => {
     );
   }
 
-  const Icon = CATEGORY_ICONS[official.category];
-  const categoryLabel = {
-    cabinet: t("officials_cat_cabinet") || "Cabinet",
-    deputy_minister: t("officials_cat_deputy_minister") || "Deputy minister",
-    agency_head: t("officials_cat_agency_head") || "Agency head",
-    regional_governor:
-      t("officials_cat_regional_governor") || "Regional governor",
-  }[official.category];
+  // Display fields fall back to the latest declaration — municipal officials
+  // have no executive rankings entry, so `official` is null for them.
+  const displayName = official?.name ?? latest?.declarantName ?? "";
+  const institution = official?.institution ?? latest?.institution ?? "";
+  const positionTitle =
+    official?.positionTitle ?? latest?.positionTitle ?? null;
+  const latestYear =
+    official?.latestDeclarationYear ?? latest?.declarationYear ?? null;
+  const delta = summary?.delta ?? null;
+
+  const Icon = official ? CATEGORY_ICONS[official.category] : Landmark;
+  const categoryLabel = official
+    ? {
+        cabinet: t("officials_cat_cabinet") || "Cabinet",
+        deputy_minister:
+          t("officials_cat_deputy_minister") || "Deputy minister",
+        agency_head: t("officials_cat_agency_head") || "Agency head",
+        regional_governor:
+          t("officials_cat_regional_governor") || "Regional governor",
+      }[official.category]
+    : null;
 
   const assetCategoryLabel = (cat: MpAssetCategory): string => {
     const keyMap: Record<MpAssetCategory, string> = {
@@ -154,30 +211,35 @@ export const OfficialProfileScreen: FC = () => {
 
   return (
     <div className="w-full max-w-3xl mx-auto px-4 pb-12 space-y-6">
-      <Title description={official.positionTitle ?? official.institution}>
-        {nameForBg(official.name)}
+      <Title description={positionTitle ?? institution}>
+        {nameForBg(displayName)}
       </Title>
 
       <section className="rounded-xl border bg-card p-4 shadow-sm space-y-3">
         <div className="flex flex-wrap items-center gap-2">
-          <span
-            className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-xs font-medium ${
-              CATEGORY_CHIP_CLASS[official.category]
-            }`}
-          >
-            <Icon className="h-3.5 w-3.5" />
-            {categoryLabel}
-          </span>
-          <span className="text-sm text-muted-foreground">
-            {official.institution}
-          </span>
+          {official ? (
+            <span
+              className={`inline-flex items-center gap-1 rounded-full border px-2 py-0.5 text-xs font-medium ${
+                CATEGORY_CHIP_CLASS[official.category]
+              }`}
+            >
+              <Icon className="h-3.5 w-3.5" />
+              {categoryLabel}
+            </span>
+          ) : positionTitle ? (
+            <span className="inline-flex items-center gap-1 rounded-full border border-teal-300 bg-teal-100 px-2 py-0.5 text-xs font-medium text-teal-900 dark:border-teal-900 dark:bg-teal-900/40 dark:text-teal-100">
+              <Icon className="h-3.5 w-3.5" />
+              {positionTitle}
+            </span>
+          ) : null}
+          <span className="text-sm text-muted-foreground">{institution}</span>
         </div>
-        {official.positionTitle ? (
+        {official && positionTitle ? (
           <p className="text-sm">
             <span className="text-muted-foreground">
               {t("official_position") || "Position"}:
             </span>{" "}
-            {official.positionTitle}
+            {positionTitle}
           </p>
         ) : null}
         <p className="text-xs text-muted-foreground">
@@ -191,7 +253,7 @@ export const OfficialProfileScreen: FC = () => {
           <Wallet className="h-4 w-4" />
           {t("official_assets_title") || "Latest declared assets"}
           <span className="text-xs text-muted-foreground font-normal">
-            · {official.latestDeclarationYear}
+            · {latestYear}
           </span>
         </h2>
         <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 mb-4">
@@ -200,7 +262,7 @@ export const OfficialProfileScreen: FC = () => {
               {t("officials_col_assets") || "Assets (€)"}
             </div>
             <div className="text-xl font-bold tabular-nums">
-              {fmtEur(official.totalAssetsEur, i18n.language)}
+              {fmtEur(summary?.totalAssetsEur ?? 0, i18n.language)}
             </div>
           </div>
           <div>
@@ -209,13 +271,13 @@ export const OfficialProfileScreen: FC = () => {
             </div>
             <div
               className={`text-xl font-bold tabular-nums ${
-                official.totalDebtsEur > 0
+                (summary?.totalDebtsEur ?? 0) > 0
                   ? "text-red-600"
                   : "text-muted-foreground"
               }`}
             >
-              {official.totalDebtsEur > 0
-                ? fmtEur(official.totalDebtsEur, i18n.language)
+              {(summary?.totalDebtsEur ?? 0) > 0
+                ? fmtEur(summary?.totalDebtsEur ?? 0, i18n.language)
                 : "—"}
             </div>
           </div>
@@ -224,7 +286,7 @@ export const OfficialProfileScreen: FC = () => {
               {t("officials_col_net") || "Net (€)"}
             </div>
             <div className="text-xl font-bold tabular-nums">
-              {fmtEur(official.netWorthEur, i18n.language)}
+              {fmtEur(summary?.netWorthEur ?? 0, i18n.language)}
             </div>
           </div>
           <div>
@@ -232,27 +294,24 @@ export const OfficialProfileScreen: FC = () => {
               {t("official_yoy") || "YoY change"}
             </div>
             <div className="text-xl font-bold tabular-nums">
-              {official.delta ? (
+              {delta ? (
                 <span
                   className={`inline-flex items-center gap-1 ${
-                    official.delta.absoluteEur > 0
+                    delta.absoluteEur > 0
                       ? "text-green-600"
-                      : official.delta.absoluteEur < 0
+                      : delta.absoluteEur < 0
                         ? "text-red-600"
                         : "text-muted-foreground"
                   }`}
                 >
-                  {official.delta.absoluteEur > 0 ? (
+                  {delta.absoluteEur > 0 ? (
                     <ArrowUp className="h-4 w-4" />
                   ) : (
                     <ArrowDown className="h-4 w-4" />
                   )}
-                  {official.delta.pct != null
-                    ? `${Math.abs(official.delta.pct * 100).toFixed(0)}%`
-                    : fmtEur(
-                        Math.abs(official.delta.absoluteEur),
-                        i18n.language,
-                      )}
+                  {delta.pct != null
+                    ? `${Math.abs(delta.pct * 100).toFixed(0)}%`
+                    : fmtEur(Math.abs(delta.absoluteEur), i18n.language)}
                 </span>
               ) : (
                 <span className="text-muted-foreground">—</span>
@@ -293,17 +352,19 @@ export const OfficialProfileScreen: FC = () => {
                 </div>
               );
             })}
-            {official.realEstateUnvalued > 0 ? (
+            {(summary?.realEstateUnvalued ?? 0) > 0 ? (
               <p className="text-xs text-muted-foreground pt-2 border-t mt-2">
                 {t("official_assets_unvalued_footnote", {
-                  count: official.realEstateUnvalued,
+                  count: summary?.realEstateUnvalued ?? 0,
                 }) ||
-                  `${official.realEstateUnvalued} real-estate item(s) declared without a value.`}
+                  `${summary?.realEstateUnvalued ?? 0} real-estate item(s) declared without a value.`}
               </p>
             ) : null}
           </div>
         ) : null}
       </section>
+
+      {slug ? <OfficialConnectionsSection slug={slug} /> : null}
 
       {declarations.length > 0 ? (
         <section className="rounded-xl border bg-card p-4 shadow-sm">
