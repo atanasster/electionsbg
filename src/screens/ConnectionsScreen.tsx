@@ -25,6 +25,7 @@ import {
 } from "@/screens/components/connections/exportPairsCsv";
 import { FilterRail } from "@/screens/components/connections/FilterRail";
 import { ConnectionsHero } from "@/screens/components/connections/ConnectionsHero";
+import { OfficialRankingsCard } from "@/screens/components/connections/OfficialRankingsCard";
 import { useConnectionsFilters } from "@/screens/components/connections/useConnectionsFilters";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 import { candidateUrlForMp } from "@/data/candidates/candidateSlug";
@@ -985,6 +986,8 @@ export const ConnectionsScreen: FC = () => {
           </Card>
         )}
       </div>
+
+      <OfficialRankingsCard />
 
       {/* Orbital graph — rendered as a normal card below the strongest-ties
           and rankings sections so it is always visible. */}
