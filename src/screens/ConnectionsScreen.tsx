@@ -863,7 +863,7 @@ export const ConnectionsScreen: FC = () => {
     : [];
 
   const stats = useMemo(() => {
-    const counts = { mp: 0, company: 0, person: 0 };
+    const counts = { mp: 0, company: 0, person: 0, official: 0 };
     for (const n of simNodes) counts[n.type]++;
     return { ...counts, edges: simLinks.length };
   }, [simNodes, simLinks]);
@@ -1011,6 +1011,12 @@ export const ConnectionsScreen: FC = () => {
               {t("connections_legend_person") || "Other person"}
               {": "}
               {stats.person}
+            </span>
+            <span>
+              <span className="inline-block h-2 w-2 rounded-full bg-teal-600 mr-1 align-middle" />
+              {t("connections_legend_official") || "Official"}
+              {": "}
+              {stats.official}
             </span>
             <span>
               {t("connections_legend_edges") || "Edges"}
@@ -1277,6 +1283,13 @@ export const ConnectionsScreen: FC = () => {
                           >
                             {detailDisplay}
                           </Link>
+                        ) : detail.type === "official" ? (
+                          <Link
+                            to={`/officials/${encodeURIComponent(detail.slug)}`}
+                            className="hover:underline truncate"
+                          >
+                            {detailDisplay}
+                          </Link>
                         ) : (
                           <span className="truncate">{detailDisplay}</span>
                         )}
@@ -1294,7 +1307,13 @@ export const ConnectionsScreen: FC = () => {
                       ? `${t("connections_legend_company") || "Company"}${
                           detail.legalForm ? ` · ${detail.legalForm}` : ""
                         }${detail.uic ? ` · ${detail.uic}` : ""}`
-                      : t("connections_legend_person") || "Other person"}
+                      : detail.type === "official"
+                        ? `${t("connections_legend_official") || "Official"}${
+                            detail.municipality
+                              ? ` · ${detail.municipality}`
+                              : ""
+                          }`
+                        : t("connections_legend_person") || "Other person"}
                 </div>
 
                 <div className="text-xs text-muted-foreground mt-2">
