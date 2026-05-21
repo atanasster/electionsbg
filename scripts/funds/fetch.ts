@@ -1,7 +1,11 @@
-// Download the ИСУН 2020 public "Бенефициенти" XLSX export and cache it
-// locally. The export is ~2.5 MB — too large to commit but cheap to re-fetch
-// — so it's cached under data/_cache/funds/ (gitignored, per the project's
-// _cache convention for re-fetchable upstream XLSX/PDF artifacts).
+// Download the ИСУН 2020 public "Бенефициенти" XLSX export.
+//
+// The export is a single mutable URL — Beneficiary/ExportToExcel returns the
+// current state of the register on every call — so it is always fetched
+// fresh. A path-keyed cache (as procurement uses for its immutable per-UUID
+// bundles) would silently serve stale data here. The downloaded file is still
+// written to data/_cache/funds/ (gitignored) so an operator can re-ingest
+// that exact snapshot offline via `--file`.
 
 import fs from "fs";
 import path from "path";
@@ -17,17 +21,11 @@ const __dirname = path.dirname(__filename);
 export const EXPORT_URL =
   "https://2020.eufunds.bg/bg/0/0/Beneficiary/ExportToExcel";
 
-const CACHE_DIR = path.resolve(__dirname, "../../data/_cache/funds");
-const CACHE_FILE = path.join(CACHE_DIR, "beneficiaries.xlsx");
+const SNAPSHOT_DIR = path.resolve(__dirname, "../../data/_cache/funds");
+const SNAPSHOT_FILE = path.join(SNAPSHOT_DIR, "beneficiaries.xlsx");
 const UA = "electionsbg.com data pipeline (eu-funds)";
 
-export const fetchBeneficiariesExport = async (
-  opts: { refresh?: boolean } = {},
-): Promise<Buffer> => {
-  fs.mkdirSync(CACHE_DIR, { recursive: true });
-  if (!opts.refresh && fs.existsSync(CACHE_FILE)) {
-    return fs.readFileSync(CACHE_FILE);
-  }
+export const fetchBeneficiariesExport = async (): Promise<Buffer> => {
   const res = await fetch(EXPORT_URL, {
     headers: {
       "User-Agent": UA,
@@ -39,10 +37,13 @@ export const fetchBeneficiariesExport = async (
     throw new Error(`GET ${EXPORT_URL} → ${res.status} ${res.statusText}`);
   }
   const buf = Buffer.from(await res.arrayBuffer());
+  // Persist a snapshot so this run can be reproduced offline via `--file`.
+  // Fire-and-forget — a failed write only loses that convenience.
   try {
-    fs.writeFileSync(CACHE_FILE, buf);
+    fs.mkdirSync(SNAPSHOT_DIR, { recursive: true });
+    fs.writeFileSync(SNAPSHOT_FILE, buf);
   } catch (e) {
-    console.warn(`  cache write failed: ${(e as Error).message}`);
+    console.warn(`  snapshot write failed: ${(e as Error).message}`);
   }
   return buf;
 };

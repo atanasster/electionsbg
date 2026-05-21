@@ -4,10 +4,9 @@
 // writes data/funds/.
 //
 // CLI:
-//   tsx scripts/funds/ingest.ts                 # fetch + ingest
-//   tsx scripts/funds/ingest.ts --refresh-cache # re-download the export
-//   tsx scripts/funds/ingest.ts --file PATH     # ingest a local export
-//   tsx scripts/funds/ingest.ts --dry-run       # parse + validate, no writes
+//   tsx scripts/funds/ingest.ts              # fetch fresh + ingest
+//   tsx scripts/funds/ingest.ts --file PATH  # ingest a local export instead
+//   tsx scripts/funds/ingest.ts --dry-run    # parse + validate, no writes
 
 import fs from "fs";
 import path from "path";
@@ -152,7 +151,6 @@ const eur = (n: number): string => `€${Math.round(n).toLocaleString("en-US")}`
 
 const main = async (args: {
   file?: string;
-  refreshCache: boolean;
   dryRun: boolean;
 }): Promise<void> => {
   // 1. Acquire the XLSX export.
@@ -162,7 +160,7 @@ const main = async (args: {
     buf = fs.readFileSync(path.resolve(args.file));
   } else {
     console.log(`→ fetching ${EXPORT_URL}`);
-    buf = await fetchBeneficiariesExport({ refresh: args.refreshCache });
+    buf = await fetchBeneficiariesExport();
   }
   console.log(`  ${(buf.length / 1024 / 1024).toFixed(1)} MB`);
 
@@ -299,12 +297,6 @@ const cli = command({
       description:
         "Ingest a local XLSX export instead of fetching (e.g. a date-filtered one)",
     }),
-    refreshCache: flag({
-      type: optional(boolean),
-      long: "refresh-cache",
-      description: "Re-download the export even when a cached copy exists",
-      defaultValue: () => false,
-    }),
     dryRun: flag({
       type: optional(boolean),
       long: "dry-run",
@@ -315,7 +307,6 @@ const cli = command({
   handler: (args) =>
     main({
       file: args.file,
-      refreshCache: !!args.refreshCache,
       dryRun: !!args.dryRun,
     }),
 });

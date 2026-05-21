@@ -31,10 +31,11 @@ This covers the 2014-2020 cohesion operational programmes, the 2021-2027 period,
 npm run funds:ingest
 ```
 
-This downloads the full XLSX export from
+This downloads the full XLSX export — fresh every run — from
 `https://2020.eufunds.bg/bg/0/0/Beneficiary/ExportToExcel`
-(cached under `data/_cache/funds/beneficiaries.xlsx`, gitignored), parses the
-~52k beneficiary rows, rebuilds `data/funds/` from scratch — `index.json` plus
+(a snapshot is kept at `data/_cache/funds/beneficiaries.xlsx`, gitignored, for
+offline `--file` re-runs), parses the ~52k beneficiary rows, rebuilds
+`data/funds/` from scratch — `index.json` plus
 the sharded `beneficiaries/<0-9>.json` + `beneficiaries/_x.json` files — and,
 when `data/parliament/companies-index.json` is present, cross-references the
 beneficiaries against the MP-companies graph into `derived/mp_connected.json`.
@@ -58,7 +59,6 @@ Expected output on a normal run:
 Flags:
 
 ```bash
-npm run funds:ingest -- --refresh-cache   # re-download even if cached
 npm run funds:ingest -- --dry-run         # parse + validate, no writes
 npm run funds:ingest -- --file PATH.xlsx  # ingest a manually-downloaded export
 ```
@@ -117,9 +117,12 @@ beneficiary's contracts / contracted / paid totals. `index.json` also gains a
 `crossReference` summary and an `mpTied` flag on the top-beneficiary lists.
 
 The join key is the 9-digit canonical EIK (`companies[].tr.uic` on the
-companies side). Editorial guardrail: a connection is flagged **only** when it
-is recorded in the official declarations or the Commerce Registry — no
-name-match guessing. The cross-reference **hard-fails** if `companies-index.json`
+companies side). Beneficiary rows that share an EIK — a parent organisation
+and its sub-units (райони, териториални поделения, клонове), which the register
+lists separately — are aggregated before the join, so a connected beneficiary
+is counted once with summed totals. Editorial guardrail: a connection is
+flagged **only** when it is recorded in the official declarations or the
+Commerce Registry — no name-match guessing. The cross-reference **hard-fails** if `companies-index.json`
 is present but TR-enrichment is missing on >90% of entries (the silent
 "`/update-connections` TR refresh wasn't run" failure mode).
 
@@ -164,7 +167,7 @@ Surfaces that are **intentionally non-fatal**:
 | Path | Purpose |
 |---|---|
 | `scripts/funds/ingest.ts` | CLI entry — fetch, parse, validate, write `data/funds/` |
-| `scripts/funds/fetch.ts` | XLSX export download + local cache |
+| `scripts/funds/fetch.ts` | XLSX export download (always fresh) + snapshot writer |
 | `scripts/funds/parse.ts` | XLSX → `FundsBeneficiary[]` (header-schema guard, EIK extraction) |
 | `scripts/funds/cross_reference.ts` | EIK-keyed join against `companies-index.json` → `mp_connected.json` |
 | `scripts/funds/eik.ts` | EIK/BULSTAT canonicalization (9-digit) |
@@ -173,7 +176,7 @@ Surfaces that are **intentionally non-fatal**:
 | `data/funds/index.json` | Totals, by-org-type / by-org-form breakdowns, top beneficiaries, `crossReference` summary — committed |
 | `data/funds/beneficiaries/<0-9>.json`, `_x.json` | Beneficiary rows sharded by EIK last digit — committed |
 | `data/funds/derived/mp_connected.json` | One entry per (MP, beneficiary) pair — the MP-tied journalism payload — committed |
-| `data/_cache/funds/beneficiaries.xlsx` | Local cache of the downloaded export — gitignored |
+| `data/_cache/funds/beneficiaries.xlsx` | Snapshot of the last downloaded export — gitignored |
 
 ## Quick command reference
 
@@ -186,9 +189,6 @@ npm run funds:ingest
 git add data/funds/
 git commit -m "funds: refresh ИСУН EU-funds beneficiaries"
 npm run bucket:sync
-
-# Re-download the export, ignoring the cache
-npm run funds:ingest -- --refresh-cache
 
 # Dry run (parse + validate, no writes)
 npm run funds:ingest -- --dry-run

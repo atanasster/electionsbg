@@ -3,8 +3,8 @@
 // /candidate/:id (the dashboard). Renders nothing when the MP has no
 // connected beneficiaries.
 
-import { FC, useEffect, useRef } from "react";
-import { Link, useLocation } from "react-router-dom";
+import { FC } from "react";
+import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { ArrowRight, Euro } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
@@ -14,28 +14,12 @@ import { formatEur } from "@/lib/currency";
 
 const TOP_ROWS = 5;
 
-// Anchor id for deep-links from the /funds page — landing on
-// /candidate/:id#mp-funds scrolls this tile into view.
-export const MP_CONNECTED_FUNDS_ANCHOR = "mp-funds";
-
 export const MpConnectedFundsTile: FC<{
   name: string;
   linkSlug?: string;
 }> = ({ name, linkSlug }) => {
   const { t } = useTranslation();
   const { entries, summary, isLoading } = useMpConnectedFunds(name);
-  const ref = useRef<HTMLDivElement>(null);
-  const { hash } = useLocation();
-  useEffect(() => {
-    if (isLoading) return;
-    if (hash !== `#${MP_CONNECTED_FUNDS_ANCHOR}`) return;
-    const el = ref.current;
-    if (!el) return;
-    const tm = window.setTimeout(() => {
-      el.scrollIntoView({ behavior: "smooth", block: "start" });
-    }, 50);
-    return () => window.clearTimeout(tm);
-  }, [hash, isLoading]);
 
   if (isLoading) {
     return (
@@ -54,11 +38,7 @@ export const MpConnectedFundsTile: FC<{
   const candidateSlug = linkSlug ?? encodeURIComponent(name);
 
   return (
-    <Card
-      ref={ref}
-      id={MP_CONNECTED_FUNDS_ANCHOR}
-      className="my-4 scroll-mt-20"
-    >
+    <Card className="my-4">
       <CardHeader className="pb-2">
         <CardTitle className="flex flex-wrap items-center gap-2 text-base">
           <Euro className="h-4 w-4" />

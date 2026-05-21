@@ -140,22 +140,56 @@ export const buildMpConnected = (
   beneficiaries: FundsBeneficiary[],
   linkageMap: EikLinkageMap,
 ): FundsMpConnectedFile => {
-  const entries: FundsMpConnected[] = [];
+  // The register lists sub-units (райони, териториални поделения, клонове) as
+  // separate rows sharing the parent's EIK. Aggregate by canonical EIK first
+  // so an MP-connected beneficiary is joined once, with summed totals (and a
+  // stable React key downstream).
+  interface Agg {
+    name: string;
+    orgType: string;
+    contractCount: number;
+    contractedEur: number;
+    paidEur: number;
+  }
+  const byEik = new Map<string, Agg>();
   for (const b of beneficiaries) {
     if (!b.eik) continue;
-    const linkages = linkageMap.byEik.get(b.eik);
+    const prev = byEik.get(b.eik);
+    if (!prev) {
+      byEik.set(b.eik, {
+        name: b.name,
+        orgType: b.orgType,
+        contractCount: b.contractCount,
+        contractedEur: b.contractedEur,
+        paidEur: b.paidEur,
+      });
+      continue;
+    }
+    // Keep the largest row's name + type (the parent); sum the rest.
+    if (b.contractedEur > prev.contractedEur) {
+      prev.name = b.name;
+      prev.orgType = b.orgType;
+    }
+    prev.contractCount += b.contractCount;
+    prev.contractedEur += b.contractedEur;
+    prev.paidEur += b.paidEur;
+  }
+
+  const entries: FundsMpConnected[] = [];
+  for (const [eik, b] of byEik) {
+    const linkages = linkageMap.byEik.get(eik);
     if (!linkages?.length) continue;
     for (const linkage of linkages) {
       entries.push({
         mpId: linkage.mpId,
         mpName: linkage.mpName,
-        beneficiaryEik: b.eik,
+        beneficiaryEik: eik,
         beneficiaryName: b.name,
         orgType: b.orgType,
         relations: linkage.relations,
         contractCount: b.contractCount,
-        contractedEur: b.contractedEur,
-        paidEur: b.paidEur,
+        contractedEur: round2(b.contractedEur),
+        paidEur: round2(b.paidEur),
       });
     }
   }
