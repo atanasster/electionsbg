@@ -21,6 +21,7 @@ This covers the 2014-2020 cohesion operational programmes, the 2021-2027 period,
 | Daily watcher reports `ИСУН EU funds (beneficiaries)` changed | Full re-ingest (`npm run funds:ingest`) |
 | User asks to "refresh EU funds" / "update еврофондове" / "refresh ИСУН" | Same — full re-ingest |
 | `data/funds/` empty (fresh clone) | Same — the ingest is a full rebuild every run |
+| `/update-connections` refreshed `companies-index.json` | Re-run — the ingest re-joins the MP cross-reference automatically |
 | Ingest aborts with "header row not found" | The eufunds.bg export schema changed — investigate `scripts/funds/parse.ts` BEFORE re-running |
 | Ingest aborts with "export looks truncated" | The download was partial or date-filtered — see "Why a full export" below |
 
@@ -33,8 +34,10 @@ npm run funds:ingest
 This downloads the full XLSX export from
 `https://2020.eufunds.bg/bg/0/0/Beneficiary/ExportToExcel`
 (cached under `data/_cache/funds/beneficiaries.xlsx`, gitignored), parses the
-~52k beneficiary rows, and rebuilds `data/funds/` from scratch — `index.json`
-plus the sharded `beneficiaries/<0-9>.json` + `beneficiaries/_x.json` files.
+~52k beneficiary rows, rebuilds `data/funds/` from scratch — `index.json` plus
+the sharded `beneficiaries/<0-9>.json` + `beneficiaries/_x.json` files — and,
+when `data/parliament/companies-index.json` is present, cross-references the
+beneficiaries against the MP-companies graph into `derived/mp_connected.json`.
 
 Expected output on a normal run:
 
@@ -45,6 +48,9 @@ Expected output on a normal run:
   ⚠ 4 beneficiary row(s) with a negative EUR rollup (net clawback / rounding residue — kept as-is):
       ...
 → wrote 11 beneficiary shard(s)
+→ cross-referencing beneficiaries against the MP-companies graph
+  EIK linkage map: 938 EIK(s) from 938/1110 TR-enriched companies
+  100 MP↔beneficiary pair(s) → derived/mp_connected.json (86 MP(s), 98 company(ies), €168,527,162 contracted)
 ✓ index.json written
   52779 beneficiaries · 80705 contracts · €43,500,972,226 contracted · €16,494,577,249 paid · 45887 with EIK (86.9%)
 ```
@@ -70,13 +76,16 @@ const idx = require('./data/funds/index.json');
 console.log('totals:', idx.totals);
 console.log('byOrgForm:', idx.byOrgForm.map(b => b.key + '=' + Math.round(b.contractedEur)));
 console.log('top beneficiary:', idx.topByContracted[0].name);
+console.log('cross-reference:', idx.crossReference);
 "
 git diff --stat data/funds/
 ```
 
-You should see `index.json` plus up to 11 `beneficiaries/*.json` shards
-changed. `withEik` should stay near ~87% — a sharp drop means EIK parsing
-regressed. `byOrgForm` carries the public-law vs private-law split.
+You should see `index.json`, up to 11 `beneficiaries/*.json` shards, and
+`derived/mp_connected.json` changed. `withEik` should stay near ~87% — a sharp
+drop means EIK parsing regressed. `byOrgForm` carries the public-law vs
+private-law split; `crossReference.pairCount` (the MP-tied payload) should sit
+in the low hundreds.
 
 ## Step 3 — Commit + deploy
 
@@ -96,6 +105,33 @@ tree idempotently. The `MIN_ROWS` floor (40,000) deliberately **rejects** a
 small date-filtered export from overwriting `data/funds/`. A date-filtered
 slice is fine to inspect with `--file ... --dry-run`, but never write one as
 canonical.
+
+## MP cross-reference
+
+When `data/parliament/companies-index.json` is present, the ingest joins every
+beneficiary's EIK against the MP-companies graph (built by `/update-connections`
+from Court-of-Audit declarations + Commerce Registry filings) and writes
+`data/funds/derived/mp_connected.json` — one entry per (MP, beneficiary) pair:
+the declared relations (a management role or an ownership stake) plus that
+beneficiary's contracts / contracted / paid totals. `index.json` also gains a
+`crossReference` summary and an `mpTied` flag on the top-beneficiary lists.
+
+The join key is the 9-digit canonical EIK (`companies[].tr.uic` on the
+companies side). Editorial guardrail: a connection is flagged **only** when it
+is recorded in the official declarations or the Commerce Registry — no
+name-match guessing. The cross-reference **hard-fails** if `companies-index.json`
+is present but TR-enrichment is missing on >90% of entries (the silent
+"`/update-connections` TR refresh wasn't run" failure mode).
+
+If `companies-index.json` is absent (fresh clone before `/update-connections`),
+the ingest still completes — the raw beneficiary data lands; only the MP-tied
+payload is skipped, with a logged hint.
+
+**Ordering dependency.** When the orchestrator queues both `/update-connections`
+and `/update-funds`, `/update-connections` must run first — it produces
+`companies-index.json`. The watcher source list already places
+`cacbg_declarations` and `egov_commerce` (→ `update-connections`) before
+`isun_eu_funds`, so the natural source-order traversal handles this.
 
 ## Data-integrity contract
 
@@ -120,7 +156,6 @@ Surfaces that are **intentionally non-fatal**:
 ## What this skill does NOT do
 
 - **Does not write frontend UI.** The `/funds` dashboard is a later phase; it consumes `data/funds/` via React Query once that screen exists.
-- **Does not cross-reference against MPs yet.** The beneficiary EIK is captured (~87% coverage) precisely so a future phase can join `data/funds/` against `data/parliament/companies-index.json` — the same EIK-keyed join `update-procurement` uses — but that derived layer is not built yet.
 - **Does not auto-fire.** The watcher reports when the register moves; the orchestrator or the user decides when to run.
 - **Does not ingest project-level detail.** The "Бенефициенти" report is organisation-grain. Per-project / per-programme breakdowns would need a different ИСУН report.
 
@@ -131,11 +166,13 @@ Surfaces that are **intentionally non-fatal**:
 | `scripts/funds/ingest.ts` | CLI entry — fetch, parse, validate, write `data/funds/` |
 | `scripts/funds/fetch.ts` | XLSX export download + local cache |
 | `scripts/funds/parse.ts` | XLSX → `FundsBeneficiary[]` (header-schema guard, EIK extraction) |
+| `scripts/funds/cross_reference.ts` | EIK-keyed join against `companies-index.json` → `mp_connected.json` |
 | `scripts/funds/eik.ts` | EIK/BULSTAT canonicalization (9-digit) |
 | `scripts/funds/types.ts` | Shared type definitions |
 | `scripts/watch/sources/isun_eu_funds.ts` | Watcher source — fingerprints the export corpus shape |
-| `data/funds/index.json` | Totals, by-org-type / by-org-form breakdowns, top beneficiaries — committed |
+| `data/funds/index.json` | Totals, by-org-type / by-org-form breakdowns, top beneficiaries, `crossReference` summary — committed |
 | `data/funds/beneficiaries/<0-9>.json`, `_x.json` | Beneficiary rows sharded by EIK last digit — committed |
+| `data/funds/derived/mp_connected.json` | One entry per (MP, beneficiary) pair — the MP-tied journalism payload — committed |
 | `data/_cache/funds/beneficiaries.xlsx` | Local cache of the downloaded export — gitignored |
 
 ## Quick command reference

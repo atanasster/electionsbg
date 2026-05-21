@@ -15,9 +15,15 @@ import { fileURLToPath } from "url";
 import { command, run, optional, option, string, flag, boolean } from "cmd-ts";
 import { fetchBeneficiariesExport, EXPORT_URL } from "./fetch";
 import { parseBeneficiaries } from "./parse";
+import {
+  buildEikLinkageMap,
+  buildMpConnected,
+  writeMpConnected,
+} from "./cross_reference";
 import type {
   FundsBeneficiary,
   FundsBreakdownRow,
+  FundsCrossRefSummary,
   FundsIndex,
   FundsTopRow,
 } from "./types";
@@ -27,7 +33,12 @@ const __dirname = path.dirname(__filename);
 
 const FUNDS_DIR = path.resolve(__dirname, "../../data/funds");
 const BENEFICIARIES_DIR = path.join(FUNDS_DIR, "beneficiaries");
+const DERIVED_DIR = path.join(FUNDS_DIR, "derived");
 const INDEX_FILE = path.join(FUNDS_DIR, "index.json");
+const COMPANIES_INDEX = path.resolve(
+  __dirname,
+  "../../data/parliament/companies-index.json",
+);
 
 const SOURCE_LABEL =
   "ИСУН 2020 — публичен модул, Бенефициенти (2020.eufunds.bg)";
@@ -121,6 +132,7 @@ const buildBreakdown = (
 const topRows = (
   rows: FundsBeneficiary[],
   metric: (r: FundsBeneficiary) => number,
+  mpTiedByEik: Map<string, number[]>,
 ): FundsTopRow[] =>
   [...rows]
     .sort((a, b) => metric(b) - metric(a))
@@ -132,6 +144,8 @@ const topRows = (
       contractCount: r.contractCount,
       contractedEur: r.contractedEur,
       paidEur: r.paidEur,
+      mpTied: r.eik ? mpTiedByEik.has(r.eik) : false,
+      mpIds: (r.eik && mpTiedByEik.get(r.eik)) || [],
     }));
 
 const eur = (n: number): string => `€${Math.round(n).toLocaleString("en-US")}`;
@@ -206,7 +220,48 @@ const main = async (args: {
   }
   console.log(`→ wrote ${shards.length} beneficiary shard(s)`);
 
-  // 5. Index.
+  // 5. Cross-reference beneficiaries against the MP-companies graph. Optional:
+  // if companies-index.json is absent (fresh clone before /update-connections)
+  // the raw beneficiary data still lands; only the MP-tied payload is skipped.
+  let crossReference: FundsCrossRefSummary | undefined;
+  const mpTiedByEik = new Map<string, number[]>();
+  if (fs.existsSync(COMPANIES_INDEX)) {
+    console.log(
+      `→ cross-referencing beneficiaries against the MP-companies graph`,
+    );
+    const linkageMap = buildEikLinkageMap(COMPANIES_INDEX);
+    console.log(
+      `  EIK linkage map: ${linkageMap.byEik.size} EIK(s) from ` +
+        `${linkageMap.companiesWithUic}/${linkageMap.totalCompanies} TR-enriched companies`,
+    );
+    const mpConnected = buildMpConnected(rows, linkageMap);
+    writeMpConnected(DERIVED_DIR, mpConnected);
+    for (const e of mpConnected.entries) {
+      const arr = mpTiedByEik.get(e.beneficiaryEik) ?? [];
+      if (!arr.includes(e.mpId)) arr.push(e.mpId);
+      mpTiedByEik.set(e.beneficiaryEik, arr);
+    }
+    crossReference = {
+      generatedAt: mpConnected.generatedAt,
+      mpCount: mpConnected.mpCount,
+      beneficiaryCount: mpConnected.beneficiaryCount,
+      pairCount: mpConnected.total,
+      contractedEur: mpConnected.contractedEur,
+      paidEur: mpConnected.paidEur,
+    };
+    console.log(
+      `  ${mpConnected.total} MP↔beneficiary pair(s) → derived/mp_connected.json ` +
+        `(${mpConnected.mpCount} MP(s), ${mpConnected.beneficiaryCount} company(ies), ` +
+        `${eur(mpConnected.contractedEur)} contracted)`,
+    );
+  } else {
+    console.log(
+      `  companies-index.json missing — skipping cross-reference ` +
+        `(run /update-connections to enable the MP-tied payload)`,
+    );
+  }
+
+  // 6. Index.
   const now = new Date().toISOString();
   const index: FundsIndex = {
     generatedAt: now,
@@ -221,8 +276,9 @@ const main = async (args: {
     },
     byOrgType: buildBreakdown(rows, (r) => r.orgType),
     byOrgForm: buildBreakdown(rows, (r) => r.orgForm),
-    topByContracted: topRows(rows, (r) => r.contractedEur),
-    topByPaid: topRows(rows, (r) => r.paidEur),
+    topByContracted: topRows(rows, (r) => r.contractedEur, mpTiedByEik),
+    topByPaid: topRows(rows, (r) => r.paidEur, mpTiedByEik),
+    ...(crossReference ? { crossReference } : {}),
     shards,
   };
   fs.writeFileSync(INDEX_FILE, canonicalJson(index));
