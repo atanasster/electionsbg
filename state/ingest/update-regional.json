@@ -1,5 +1,5 @@
 {
-  "lastSuccessfulIngest": "2026-05-12T09:52:18.986Z",
+  "lastSuccessfulIngest": "2026-05-21T10:04:51.558Z",
   "skill": "update-regional",
-  "summary": "first-run backfill ran; 3 indicators × 31 oblasts × 620 points re-fetched, no data changes (timestamp-only diff reverted)"
+  "summary": "ran ok — no data changes (Eurostat NUTS3 + АЗ ltUnemployment identical to prior; fetchedAt-only diff reverted)"
 }

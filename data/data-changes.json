@@ -1,6 +1,43 @@
 {
-  "updatedAt": "2026-05-20T07:40:06.176Z",
+  "updatedAt": "2026-05-21T10:09:35.790Z",
   "entries": [
+    {
+      "timestamp": "2026-05-21T10:09:35.790Z",
+      "date": "2026-05-21",
+      "skill": "update-rollcall",
+      "summary": "1 new roll-call session: 2026-05-20 (id 11127), 16 vote items, 3840 rows",
+      "source": "Parliament roll-call votes",
+      "links": [
+        {
+          "to": "/connections",
+          "labelKey": "data_changes_link_parliament"
+        }
+      ]
+    },
+    {
+      "timestamp": "2026-05-21T09:52:30.559Z",
+      "date": "2026-05-21",
+      "skill": "update-procurement",
+      "summary": "Cross-reference refreshed vs updated companies-index — MP-tied pairs 55->59, contractors 53->57, MPs 50->54",
+      "source": "data.egov.bg АОП"
+    },
+    {
+      "timestamp": "2026-05-21T09:48:53.980Z",
+      "date": "2026-05-21",
+      "skill": "update-connections",
+      "summary": "TR refresh through 2026-05-19 (3 new daily filings); connections graph 2634->2869 nodes, 2748->3006 edges",
+      "source": "data.egov.bg Commerce Registry (Търговски регистър)",
+      "links": [
+        {
+          "to": "/connections",
+          "labelKey": "data_changes_link_connections"
+        },
+        {
+          "to": "/mp-assets",
+          "labelKey": "data_changes_link_assets"
+        }
+      ]
+    },
     {
       "timestamp": "2026-05-20T07:40:06.176Z",
       "date": "2026-05-20",
