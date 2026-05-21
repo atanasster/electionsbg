@@ -184,6 +184,14 @@ export const ConnectionsScreen: FC = () => {
     },
     [findMpById, mpName],
   );
+  // Path-finder endpoints are any person-type node (MP, official, or other
+  // person) — everything except companies. MP labels go through the locale-
+  // aware accessor; officials and other persons use `label`.
+  const endpointLabel = useCallback(
+    (n: SimNode): string =>
+      n.type === "mp" ? localizedMpLabel(n.mpId, n.label) : n.label,
+    [localizedMpLabel],
+  );
   // Filter state — lifted into the URL via useConnectionsFilters so all chips
   // are shareable and back-button friendly.
   const {
@@ -323,6 +331,13 @@ export const ConnectionsScreen: FC = () => {
   // every simulation tick without restarting React. Drag-to-pan is supported
   // via mouse events on the canvas.
   const cameraRef = useRef({ x: 0, y: 0, scale: 1 });
+  // When a connection path is found, the draw loop lerps the camera to frame
+  // the whole trail. `deadline` bounds the animation if the layout never fully
+  // settles; manual pan/zoom cancels it.
+  const fitRef = useRef<{ active: boolean; deadline: number }>({
+    active: false,
+    deadline: 0,
+  });
   const draggingRef = useRef<{ kind: "pan" | "node"; nodeId?: string } | null>(
     null,
   );
@@ -348,6 +363,9 @@ export const ConnectionsScreen: FC = () => {
     top: number;
     bottom: number;
   }>({ top: 0, bottom: 0 });
+  // Ref mirror of visibleVRange so the RAF draw loop can read it without
+  // re-subscribing the loop on every scroll event.
+  const visibleVRangeRef = useRef({ top: 0, bottom: 0 });
   const [filters, setFilters] = useState<Filters>({
     hideTransferred: false,
     largestComponentOnly: false,
@@ -394,6 +412,7 @@ export const ConnectionsScreen: FC = () => {
       const r = wrapEl.getBoundingClientRect();
       const top = Math.max(0, -r.top);
       const bottom = Math.min(r.height, window.innerHeight - r.top);
+      visibleVRangeRef.current = { top, bottom };
       setVisibleVRange((prev) =>
         prev.top === top && prev.bottom === bottom ? prev : { top, bottom },
       );
@@ -518,6 +537,62 @@ export const ConnectionsScreen: FC = () => {
       ctx.clearRect(0, 0, w, h);
 
       const cam = cameraRef.current;
+      // Camera fit: ease the camera so the whole connection trail fits the
+      // visible viewport, leaving room for the result popover on the right.
+      const fit = fitRef.current;
+      if (fit.active && pathNodeIds && pathNodeIds.size > 0) {
+        let minX = Infinity,
+          maxX = -Infinity,
+          minY = Infinity,
+          maxY = -Infinity,
+          count = 0;
+        for (const node of simNodes) {
+          if (!pathNodeIds.has(node.id) || node.x == null || node.y == null) {
+            continue;
+          }
+          minX = Math.min(minX, node.x);
+          maxX = Math.max(maxX, node.x);
+          minY = Math.min(minY, node.y);
+          maxY = Math.max(maxY, node.y);
+          count++;
+        }
+        if (count > 0) {
+          const vr = visibleVRangeRef.current;
+          const visTop = vr.bottom > vr.top ? vr.top : 0;
+          const visBottom = vr.bottom > vr.top ? vr.bottom : h;
+          const padX = 70;
+          const padR = Math.min(330, w * 0.4); // clear the result popover
+          const padY = 60;
+          const availW = Math.max(w - padX - padR, 80);
+          const availH = Math.max(visBottom - visTop - 2 * padY, 80);
+          const bw = Math.max(maxX - minX, 1);
+          const bh = Math.max(maxY - minY, 1);
+          // Allow the fit to zoom out further than the manual wheel floor
+          // (0.2) so a long trail still fits a narrow viewport in full.
+          const targetScale = Math.max(
+            0.05,
+            Math.min(2, availW / bw, availH / bh),
+          );
+          const cx = (minX + maxX) / 2;
+          const cy = (minY + maxY) / 2;
+          const targetX = (padX - padR) / 2 - cx * targetScale;
+          const targetY = (visTop + visBottom) / 2 - h / 2 - cy * targetScale;
+          cam.x += (targetX - cam.x) * 0.16;
+          cam.y += (targetY - cam.y) * 0.16;
+          cam.scale += (targetScale - cam.scale) * 0.16;
+          if (
+            (Math.abs(targetX - cam.x) < 0.5 &&
+              Math.abs(targetY - cam.y) < 0.5 &&
+              Math.abs(targetScale - cam.scale) < 0.004) ||
+            performance.now() > fit.deadline
+          ) {
+            cam.x = targetX;
+            cam.y = targetY;
+            cam.scale = targetScale;
+            fit.active = false;
+          }
+        }
+      }
       ctx.save();
       ctx.translate(w / 2 + cam.x, h / 2 + cam.y);
       ctx.scale(cam.scale, cam.scale);
@@ -738,6 +813,8 @@ export const ConnectionsScreen: FC = () => {
     if (drag && last) {
       const dx = sx - last.x;
       const dy = sy - last.y;
+      // Any manual pan/node-drag cancels an in-flight fit animation.
+      if (dx !== 0 || dy !== 0) fitRef.current.active = false;
       if (drag.kind === "pan") {
         cameraRef.current.x += dx;
         cameraRef.current.y += dy;
@@ -790,7 +867,8 @@ export const ConnectionsScreen: FC = () => {
     // Detect click (no drag distance)
     if (last && Math.abs(sx - last.x) < 3 && Math.abs(sy - last.y) < 3) {
       const node = findNodeAt(sx, sy);
-      if (pathPickMode && node && node.type === "mp") {
+      const isEndpoint = !!node && node.type !== "company";
+      if (pathPickMode && node && isEndpoint) {
         if (!pathFrom) {
           setPathFrom(node);
         } else if (!pathTo && node.id !== pathFrom.id) {
@@ -801,7 +879,7 @@ export const ConnectionsScreen: FC = () => {
           setPathFrom(null);
           setPathPickMode(false);
         }
-      } else if (!pathPickMode && node && node.type === "mp") {
+      } else if (!pathPickMode && node && isEndpoint) {
         setSelected(node);
         setPathPickMode(true);
         setPathFrom(node);
@@ -819,6 +897,7 @@ export const ConnectionsScreen: FC = () => {
     // explicit Ctrl/Cmd+wheel. Otherwise let trackpad/wheel scroll the page.
     if (!e.ctrlKey && !e.metaKey) return;
     e.preventDefault();
+    fitRef.current.active = false;
     const cam = cameraRef.current;
     const rect = e.currentTarget.getBoundingClientRect();
     const sx = e.clientX - rect.left;
@@ -888,17 +967,25 @@ export const ConnectionsScreen: FC = () => {
     setPathTrail(trail);
   }, [pathFrom, pathTo, neighbors]);
 
+  // Frame the whole connection trail when a path is found, so the highlighted
+  // line is never partly off-screen. The draw loop runs the camera lerp.
+  useEffect(() => {
+    if (pathTrail && pathTrail.length > 1) {
+      fitRef.current = { active: true, deadline: performance.now() + 2500 };
+    }
+  }, [pathTrail]);
+
   // Sync canvas-click selections into the search inputs (but don't clear query
   // when pathFrom/pathTo is cleared by typing — that's handled by onChange).
   useEffect(() => {
-    if (pathFrom?.type === "mp") {
-      setFromQuery(localizedMpLabel(pathFrom.mpId, pathFrom.label));
+    if (pathFrom) {
+      setFromQuery(endpointLabel(pathFrom));
     }
   }, [pathFrom]); // eslint-disable-line react-hooks/exhaustive-deps
 
   useEffect(() => {
-    if (pathTo?.type === "mp") {
-      setToQuery(localizedMpLabel(pathTo.mpId, pathTo.label));
+    if (pathTo) {
+      setToQuery(endpointLabel(pathTo));
     }
   }, [pathTo]); // eslint-disable-line react-hooks/exhaustive-deps
 
@@ -955,37 +1042,32 @@ export const ConnectionsScreen: FC = () => {
     return { ...counts, edges: simLinks.length };
   }, [simNodes, simLinks]);
 
-  const mpNodes = useMemo(
-    () =>
-      simNodes.filter(
-        (n): n is SimNode & { type: "mp"; mpId: number } => n.type === "mp",
-      ),
+  const endpointNodes = useMemo(
+    () => simNodes.filter((n) => n.type !== "company"),
     [simNodes],
   );
 
-  const filteredFromMps = useMemo(() => {
+  const filteredFrom = useMemo(() => {
     if (!fromQuery || !fromOpen) return [];
     const q = fromQuery.toLowerCase();
-    return mpNodes
+    return endpointNodes
       .filter(
         (n) =>
-          n.id !== pathTo?.id &&
-          localizedMpLabel(n.mpId, n.label).toLowerCase().includes(q),
+          n.id !== pathTo?.id && endpointLabel(n).toLowerCase().includes(q),
       )
       .slice(0, 10);
-  }, [fromQuery, fromOpen, mpNodes, pathTo?.id, localizedMpLabel]);
+  }, [fromQuery, fromOpen, endpointNodes, pathTo?.id, endpointLabel]);
 
-  const filteredToMps = useMemo(() => {
+  const filteredTo = useMemo(() => {
     if (!toQuery || !toOpen) return [];
     const q = toQuery.toLowerCase();
-    return mpNodes
+    return endpointNodes
       .filter(
         (n) =>
-          n.id !== pathFrom?.id &&
-          localizedMpLabel(n.mpId, n.label).toLowerCase().includes(q),
+          n.id !== pathFrom?.id && endpointLabel(n).toLowerCase().includes(q),
       )
       .slice(0, 10);
-  }, [toQuery, toOpen, mpNodes, pathFrom?.id, localizedMpLabel]);
+  }, [toQuery, toOpen, endpointNodes, pathFrom?.id, endpointLabel]);
 
   return (
     <div className="w-full">
@@ -1169,7 +1251,8 @@ export const ConnectionsScreen: FC = () => {
                   : "border-border hover:bg-muted"
               }`}
             >
-              {t("connections_find_path") || "Find connection between two MPs"}
+              {t("connections_find_path") ||
+                "Find connection between two people"}
             </button>
             {(pathFrom || pathTo) && (
               <button
@@ -1195,7 +1278,7 @@ export const ConnectionsScreen: FC = () => {
                 <input
                   ref={fromInputRef}
                   type="text"
-                  placeholder={t("connections_pick_first_mp") || "From MP…"}
+                  placeholder={t("connections_pick_first_mp") || "From…"}
                   value={fromQuery}
                   onChange={(e) => {
                     setFromQuery(e.target.value);
@@ -1208,10 +1291,10 @@ export const ConnectionsScreen: FC = () => {
                   onBlur={() => setTimeout(() => setFromOpen(false), 150)}
                   className="px-2 py-1 rounded border border-border text-xs w-52 bg-background focus:outline-none focus:ring-1 focus:ring-primary"
                 />
-                {fromOpen && filteredFromMps.length > 0 && (
+                {fromOpen && filteredFrom.length > 0 && (
                   <div className="absolute top-full left-0 z-20 bg-card border border-border rounded shadow-lg max-h-52 overflow-y-auto w-64 mt-0.5">
-                    {filteredFromMps.map((n) => {
-                      const label = localizedMpLabel(n.mpId, n.label);
+                    {filteredFrom.map((n) => {
+                      const label = endpointLabel(n);
                       return (
                         <button
                           key={n.id}
@@ -1224,11 +1307,22 @@ export const ConnectionsScreen: FC = () => {
                             setFromOpen(false);
                           }}
                         >
-                          <MpAvatar
-                            mpId={n.mpId}
-                            name={label}
-                            className="h-4 w-4 shrink-0"
-                          />
+                          {n.type === "mp" ? (
+                            <MpAvatar
+                              mpId={n.mpId}
+                              name={label}
+                              className="h-4 w-4 shrink-0"
+                            />
+                          ) : (
+                            <span className="flex h-4 w-4 shrink-0 items-center justify-center">
+                              <span
+                                className="h-2.5 w-2.5 rounded-full"
+                                style={{
+                                  backgroundColor: TYPE_COLORS[n.type],
+                                }}
+                              />
+                            </span>
+                          )}
                           <span className="truncate">{label}</span>
                         </button>
                       );
@@ -1241,7 +1335,7 @@ export const ConnectionsScreen: FC = () => {
                 <input
                   ref={toInputRef}
                   type="text"
-                  placeholder={t("connections_pick_second_mp") || "To MP…"}
+                  placeholder={t("connections_pick_second_mp") || "To…"}
                   value={toQuery}
                   onChange={(e) => {
                     setToQuery(e.target.value);
@@ -1253,10 +1347,10 @@ export const ConnectionsScreen: FC = () => {
                   onBlur={() => setTimeout(() => setToOpen(false), 150)}
                   className="px-2 py-1 rounded border border-border text-xs w-52 bg-background focus:outline-none focus:ring-1 focus:ring-primary"
                 />
-                {toOpen && filteredToMps.length > 0 && (
+                {toOpen && filteredTo.length > 0 && (
                   <div className="absolute top-full left-0 z-20 bg-card border border-border rounded shadow-lg max-h-52 overflow-y-auto w-64 mt-0.5">
-                    {filteredToMps.map((n) => {
-                      const label = localizedMpLabel(n.mpId, n.label);
+                    {filteredTo.map((n) => {
+                      const label = endpointLabel(n);
                       return (
                         <button
                           key={n.id}
@@ -1270,11 +1364,22 @@ export const ConnectionsScreen: FC = () => {
                             setPathPickMode(false);
                           }}
                         >
-                          <MpAvatar
-                            mpId={n.mpId}
-                            name={label}
-                            className="h-4 w-4 shrink-0"
-                          />
+                          {n.type === "mp" ? (
+                            <MpAvatar
+                              mpId={n.mpId}
+                              name={label}
+                              className="h-4 w-4 shrink-0"
+                            />
+                          ) : (
+                            <span className="flex h-4 w-4 shrink-0 items-center justify-center">
+                              <span
+                                className="h-2.5 w-2.5 rounded-full"
+                                style={{
+                                  backgroundColor: TYPE_COLORS[n.type],
+                                }}
+                              />
+                            </span>
+                          )}
                           <span className="truncate">{label}</span>
                         </button>
                       );
@@ -1548,6 +1653,13 @@ export const ConnectionsScreen: FC = () => {
                               ) : node.type === "company" && node.slug ? (
                                 <Link
                                   to={`/mp/company/${encodeURIComponent(node.slug)}`}
+                                  className="text-muted-foreground hover:underline truncate"
+                                >
+                                  {label}
+                                </Link>
+                              ) : node.type === "official" ? (
+                                <Link
+                                  to={`/officials/${encodeURIComponent(node.slug)}`}
                                   className="text-muted-foreground hover:underline truncate"
                                 >
                                   {label}
