@@ -388,8 +388,8 @@ export const ConnectionsCanvas: FC<Props> = ({
       const n = byId.get(id);
       if (n) out.push(n);
     }
-    // MPs first, then companies, then persons; alphabetical inside.
-    const order = { mp: 0, company: 1, person: 2 } as const;
+    // MPs first, then officials, then companies, then persons; alphabetical inside.
+    const order = { mp: 0, official: 1, company: 2, person: 3 } as const;
     out.sort(
       (a, b) =>
         order[a.type] - order[b.type] || a.label.localeCompare(b.label, "bg"),

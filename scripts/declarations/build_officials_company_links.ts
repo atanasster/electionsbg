@@ -105,7 +105,7 @@ type TrRecord = { uic: string; role: string; share: number | null };
 export const buildOfficialsCompanyLinks = ({
   stringify,
 }: {
-  stringify: (o: unknown) => string;
+  stringify: (o: object) => string;
 }): void => {
   const roster = loadRoster();
   if (roster.length === 0) {

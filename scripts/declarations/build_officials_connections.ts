@@ -47,7 +47,7 @@ const PEER_FANOUT_LIMIT = 25;
 export const buildOfficialsConnections = ({
   stringify,
 }: {
-  stringify: (o: unknown) => string;
+  stringify: (o: object) => string;
 }): void => {
   if (!fs.existsSync(COMPANY_LINKS)) {
     console.log(
