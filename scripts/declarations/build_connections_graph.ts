@@ -76,8 +76,9 @@ const normalizeName = (s: string) =>
 const titleCasePersonName = (s: string): string =>
   s
     .toLowerCase()
-    .replace(/(^|[\s\-’'])(\p{L})/gu, (_m, sep: string, ch: string) =>
-      sep + ch.toUpperCase(),
+    .replace(
+      /(^|[\s\-’'])(\p{L})/gu,
+      (_m, sep: string, ch: string) => sep + ch.toUpperCase(),
     );
 
 // Bulgarian legal-entity suffix tokens. TR sometimes lists a company (rather
@@ -745,10 +746,21 @@ export const buildConnectionsGraph = ({
       "foreign_trader",
     ]);
     let officialEdgeCount = 0;
+    let droppedNamesakeLinks = 0;
     for (const entry of Object.values(officialLinks.byOfficial)) {
       let officialId: string | null = null;
       for (const link of entry.links) {
         if (!link.uic) continue; // only UIC-keyed links can join a company node
+        // A TR officer/owner record matched purely by name is unreliable when
+        // the official shares that name with other officials: every namesake
+        // is handed the identical company set, so the edge proves nothing
+        // about any one of them. Drop these collisions rather than draw an
+        // unprovable connection. Declared stakes — the official's own filing —
+        // are kept regardless.
+        if (link.source === "tr" && link.namesakeCount > 1) {
+          droppedNamesakeLinks++;
+          continue;
+        }
         if (!officialId) officialId = ensureOfficialNode(entry);
         const companyNodeId = ensureCompanyNodeFromUic(
           link.uic,
@@ -773,18 +785,20 @@ export const buildConnectionsGraph = ({
           role: link.trRole ?? "declared_share",
           isCurrent: true,
           // A declared stake is the official's own corroborated filing →
-          // "high". A TR officer/owner record is only a name match — exactly
-          // how the MP-side phase-3 expansion treats name matches — so it is
-          // "medium" regardless of the company_links namesake flag. This is
-          // what keeps the officials ranking from collapsing into a
-          // "most common Bulgarian name" list (Иван Петров Петров et al.).
+          // "high". A surviving TR officer/owner record matched a name unique
+          // among officials (namesake collisions were dropped above) — still
+          // only a name match, so "medium", exactly how the MP-side phase-3
+          // expansion treats name matches.
           confidence: link.source === "declared" ? "high" : "medium",
         });
         officialEdgeCount++;
       }
     }
     console.log(
-      `[connections]   folded ${officialEdgeCount} official↔company edge(s) from company_links.json`,
+      `[connections]   folded ${officialEdgeCount} official↔company edge(s) from company_links.json` +
+        (droppedNamesakeLinks
+          ? ` (dropped ${droppedNamesakeLinks} namesake-collision TR link(s))`
+          : ""),
     );
   } else {
     console.log(
