@@ -1,0 +1,71 @@
+{
+  "slug": "obedinenie-dostoyna-balgariya",
+  "name": "ОБЕДИНЕНИЕ ДОСТОЙНА БЪЛГАРИЯ",
+  "firstYear": 2011,
+  "lastYear": 2018,
+  "counts": {
+    "on_time": 7,
+    "late": 0,
+    "non_compliant": 0,
+    "not_filed": 1
+  },
+  "complianceRate": 0.875,
+  "filings": [
+    {
+      "year": 2018,
+      "deadline": "2019-03-31",
+      "status": "not_filed",
+      "reportDocId": null,
+      "reportUrl": null
+    },
+    {
+      "year": 2017,
+      "deadline": "2018-03-31",
+      "status": "on_time",
+      "reportDocId": "797891",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=797891"
+    },
+    {
+      "year": 2016,
+      "deadline": "2017-03-31",
+      "status": "on_time",
+      "reportDocId": "797727",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=797727"
+    },
+    {
+      "year": 2015,
+      "deadline": "2016-03-31",
+      "status": "on_time",
+      "reportDocId": "797540",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=797540"
+    },
+    {
+      "year": 2014,
+      "deadline": "2015-03-31",
+      "status": "on_time",
+      "reportDocId": "797422",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=797422"
+    },
+    {
+      "year": 2013,
+      "deadline": "2014-03-31",
+      "status": "on_time",
+      "reportDocId": "797242",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=797242"
+    },
+    {
+      "year": 2012,
+      "deadline": "2013-03-31",
+      "status": "on_time",
+      "reportDocId": "797148",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=797148"
+    },
+    {
+      "year": 2011,
+      "deadline": "2012-03-31",
+      "status": "on_time",
+      "reportDocId": "302",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=302"
+    }
+  ]
+}

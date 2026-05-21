@@ -1,0 +1,64 @@
+{
+  "slug": "mir",
+  "name": "МИР",
+  "firstYear": 2019,
+  "lastYear": 2025,
+  "counts": {
+    "on_time": 6,
+    "late": 1,
+    "non_compliant": 0,
+    "not_filed": 0
+  },
+  "complianceRate": 0.8571428571428571,
+  "filings": [
+    {
+      "year": 2025,
+      "deadline": "2026-03-31",
+      "status": "on_time",
+      "reportDocId": "798926",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=798926"
+    },
+    {
+      "year": 2024,
+      "deadline": "2025-03-31",
+      "status": "on_time",
+      "reportDocId": "798849",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=798849"
+    },
+    {
+      "year": 2023,
+      "deadline": "2024-03-31",
+      "status": "on_time",
+      "reportDocId": "798725",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=798725"
+    },
+    {
+      "year": 2022,
+      "deadline": "2023-03-31",
+      "status": "on_time",
+      "reportDocId": "798567",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=798567"
+    },
+    {
+      "year": 2021,
+      "deadline": "2022-03-31",
+      "status": "on_time",
+      "reportDocId": "798479",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=798479"
+    },
+    {
+      "year": 2020,
+      "deadline": "2021-03-31",
+      "status": "on_time",
+      "reportDocId": "798309",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=798309"
+    },
+    {
+      "year": 2019,
+      "deadline": "2020-03-31",
+      "status": "late",
+      "reportDocId": null,
+      "reportUrl": null
+    }
+  ]
+}

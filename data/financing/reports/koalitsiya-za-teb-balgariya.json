@@ -1,0 +1,71 @@
+{
+  "slug": "koalitsiya-za-teb-balgariya",
+  "name": "КОАЛИЦИЯ ЗА ТЕБ БЪЛГАРИЯ",
+  "firstYear": 2018,
+  "lastYear": 2025,
+  "counts": {
+    "on_time": 7,
+    "late": 1,
+    "non_compliant": 0,
+    "not_filed": 0
+  },
+  "complianceRate": 0.875,
+  "filings": [
+    {
+      "year": 2025,
+      "deadline": "2026-03-31",
+      "status": "on_time",
+      "reportDocId": "798927",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=798927"
+    },
+    {
+      "year": 2024,
+      "deadline": "2025-03-31",
+      "status": "on_time",
+      "reportDocId": "798852",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=798852"
+    },
+    {
+      "year": 2023,
+      "deadline": "2024-03-31",
+      "status": "on_time",
+      "reportDocId": "798630",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=798630"
+    },
+    {
+      "year": 2022,
+      "deadline": "2023-03-31",
+      "status": "late",
+      "reportDocId": null,
+      "reportUrl": null
+    },
+    {
+      "year": 2021,
+      "deadline": "2022-03-31",
+      "status": "on_time",
+      "reportDocId": "798477",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=798477"
+    },
+    {
+      "year": 2020,
+      "deadline": "2021-03-31",
+      "status": "on_time",
+      "reportDocId": "798230",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=798230"
+    },
+    {
+      "year": 2019,
+      "deadline": "2020-03-31",
+      "status": "on_time",
+      "reportDocId": "798205",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=798205"
+    },
+    {
+      "year": 2018,
+      "deadline": "2019-03-31",
+      "status": "on_time",
+      "reportDocId": "797977",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=797977"
+    }
+  ]
+}

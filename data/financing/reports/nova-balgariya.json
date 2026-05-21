@@ -1,0 +1,99 @@
+{
+  "slug": "nova-balgariya",
+  "name": "НОВА БЪЛГАРИЯ",
+  "firstYear": 2014,
+  "lastYear": 2025,
+  "counts": {
+    "on_time": 10,
+    "late": 1,
+    "non_compliant": 0,
+    "not_filed": 1
+  },
+  "complianceRate": 0.8333333333333334,
+  "filings": [
+    {
+      "year": 2025,
+      "deadline": "2026-03-31",
+      "status": "on_time",
+      "reportDocId": "799002",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=799002"
+    },
+    {
+      "year": 2024,
+      "deadline": "2025-03-31",
+      "status": "on_time",
+      "reportDocId": "798805",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=798805"
+    },
+    {
+      "year": 2023,
+      "deadline": "2024-03-31",
+      "status": "on_time",
+      "reportDocId": "798736",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=798736"
+    },
+    {
+      "year": 2022,
+      "deadline": "2023-03-31",
+      "status": "on_time",
+      "reportDocId": "798592",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=798592"
+    },
+    {
+      "year": 2021,
+      "deadline": "2022-03-31",
+      "status": "on_time",
+      "reportDocId": "798362",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=798362"
+    },
+    {
+      "year": 2020,
+      "deadline": "2021-03-31",
+      "status": "on_time",
+      "reportDocId": "798337",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=798337"
+    },
+    {
+      "year": 2019,
+      "deadline": "2020-03-31",
+      "status": "late",
+      "reportDocId": null,
+      "reportUrl": null
+    },
+    {
+      "year": 2018,
+      "deadline": "2019-03-31",
+      "status": "on_time",
+      "reportDocId": "798055",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=798055"
+    },
+    {
+      "year": 2017,
+      "deadline": "2018-03-31",
+      "status": "on_time",
+      "reportDocId": "797893",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=797893"
+    },
+    {
+      "year": 2016,
+      "deadline": "2017-03-31",
+      "status": "on_time",
+      "reportDocId": "797802",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=797802"
+    },
+    {
+      "year": 2015,
+      "deadline": "2016-03-31",
+      "status": "not_filed",
+      "reportDocId": null,
+      "reportUrl": null
+    },
+    {
+      "year": 2014,
+      "deadline": "2015-03-31",
+      "status": "on_time",
+      "reportDocId": "797472",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=797472"
+    }
+  ]
+}

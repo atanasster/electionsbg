@@ -1,0 +1,43 @@
+{
+  "slug": "liberalen-sayuz-nov-izbor",
+  "name": "ЛИБЕРАЛЕН СЪЮЗ НОВ ИЗБОР",
+  "firstYear": 2011,
+  "lastYear": 2014,
+  "counts": {
+    "on_time": 1,
+    "late": 1,
+    "non_compliant": 0,
+    "not_filed": 2
+  },
+  "complianceRate": 0.25,
+  "filings": [
+    {
+      "year": 2014,
+      "deadline": "2015-03-31",
+      "status": "not_filed",
+      "reportDocId": null,
+      "reportUrl": null
+    },
+    {
+      "year": 2013,
+      "deadline": "2014-03-31",
+      "status": "not_filed",
+      "reportDocId": null,
+      "reportUrl": null
+    },
+    {
+      "year": 2012,
+      "deadline": "2013-03-31",
+      "status": "on_time",
+      "reportDocId": "797079",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=797079"
+    },
+    {
+      "year": 2011,
+      "deadline": "2012-03-31",
+      "status": "late",
+      "reportDocId": null,
+      "reportUrl": null
+    }
+  ]
+}

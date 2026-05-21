@@ -1,0 +1,71 @@
+{
+  "slug": "sinyo-edinstvo",
+  "name": "СИНЬО ЕДИНСТВО",
+  "firstYear": 2011,
+  "lastYear": 2018,
+  "counts": {
+    "on_time": 6,
+    "late": 0,
+    "non_compliant": 0,
+    "not_filed": 2
+  },
+  "complianceRate": 0.75,
+  "filings": [
+    {
+      "year": 2018,
+      "deadline": "2019-03-31",
+      "status": "on_time",
+      "reportDocId": "798048",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=798048"
+    },
+    {
+      "year": 2017,
+      "deadline": "2018-03-31",
+      "status": "on_time",
+      "reportDocId": "797884",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=797884"
+    },
+    {
+      "year": 2016,
+      "deadline": "2017-03-31",
+      "status": "on_time",
+      "reportDocId": "797753",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=797753"
+    },
+    {
+      "year": 2015,
+      "deadline": "2016-03-31",
+      "status": "on_time",
+      "reportDocId": "797556",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=797556"
+    },
+    {
+      "year": 2014,
+      "deadline": "2015-03-31",
+      "status": "on_time",
+      "reportDocId": "797343",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=797343"
+    },
+    {
+      "year": 2013,
+      "deadline": "2014-03-31",
+      "status": "on_time",
+      "reportDocId": "797273",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=797273"
+    },
+    {
+      "year": 2012,
+      "deadline": "2013-03-31",
+      "status": "not_filed",
+      "reportDocId": null,
+      "reportUrl": null
+    },
+    {
+      "year": 2011,
+      "deadline": "2012-03-31",
+      "status": "not_filed",
+      "reportDocId": null,
+      "reportUrl": null
+    }
+  ]
+}

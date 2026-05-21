@@ -1,0 +1,71 @@
+{
+  "slug": "sayuz-balgariya",
+  "name": "СЪЮЗ БЪЛГАРИЯ",
+  "firstYear": 2011,
+  "lastYear": 2018,
+  "counts": {
+    "on_time": 6,
+    "late": 0,
+    "non_compliant": 1,
+    "not_filed": 1
+  },
+  "complianceRate": 0.75,
+  "filings": [
+    {
+      "year": 2018,
+      "deadline": "2019-03-31",
+      "status": "not_filed",
+      "reportDocId": null,
+      "reportUrl": null
+    },
+    {
+      "year": 2017,
+      "deadline": "2018-03-31",
+      "status": "on_time",
+      "reportDocId": "797850",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=797850"
+    },
+    {
+      "year": 2016,
+      "deadline": "2017-03-31",
+      "status": "non_compliant",
+      "reportDocId": null,
+      "reportUrl": null
+    },
+    {
+      "year": 2015,
+      "deadline": "2016-03-31",
+      "status": "on_time",
+      "reportDocId": "797568",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=797568"
+    },
+    {
+      "year": 2014,
+      "deadline": "2015-03-31",
+      "status": "on_time",
+      "reportDocId": "797494",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=797494"
+    },
+    {
+      "year": 2013,
+      "deadline": "2014-03-31",
+      "status": "on_time",
+      "reportDocId": "797299",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=797299"
+    },
+    {
+      "year": 2012,
+      "deadline": "2013-03-31",
+      "status": "on_time",
+      "reportDocId": "797134",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=797134"
+    },
+    {
+      "year": 2011,
+      "deadline": "2012-03-31",
+      "status": "on_time",
+      "reportDocId": "305",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=305"
+    }
+  ]
+}

@@ -1,0 +1,71 @@
+{
+  "slug": "chernomorets",
+  "name": "ЧЕРНОМОРЕЦ",
+  "firstYear": 2011,
+  "lastYear": 2018,
+  "counts": {
+    "on_time": 4,
+    "late": 0,
+    "non_compliant": 2,
+    "not_filed": 2
+  },
+  "complianceRate": 0.5,
+  "filings": [
+    {
+      "year": 2018,
+      "deadline": "2019-03-31",
+      "status": "not_filed",
+      "reportDocId": null,
+      "reportUrl": null
+    },
+    {
+      "year": 2017,
+      "deadline": "2018-03-31",
+      "status": "not_filed",
+      "reportDocId": null,
+      "reportUrl": null
+    },
+    {
+      "year": 2016,
+      "deadline": "2017-03-31",
+      "status": "non_compliant",
+      "reportDocId": null,
+      "reportUrl": null
+    },
+    {
+      "year": 2015,
+      "deadline": "2016-03-31",
+      "status": "on_time",
+      "reportDocId": "797593",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=797593"
+    },
+    {
+      "year": 2014,
+      "deadline": "2015-03-31",
+      "status": "on_time",
+      "reportDocId": "797386",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=797386"
+    },
+    {
+      "year": 2013,
+      "deadline": "2014-03-31",
+      "status": "on_time",
+      "reportDocId": "797275",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=797275"
+    },
+    {
+      "year": 2012,
+      "deadline": "2013-03-31",
+      "status": "on_time",
+      "reportDocId": "797125",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=797125"
+    },
+    {
+      "year": 2011,
+      "deadline": "2012-03-31",
+      "status": "non_compliant",
+      "reportDocId": null,
+      "reportUrl": null
+    }
+  ]
+}

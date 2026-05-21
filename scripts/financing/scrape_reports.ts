@@ -61,6 +61,9 @@ const REPORTS_FILE = path.join(OUT_DIR, "reports.json");
 // Compact per-year counts only (no party lists) — for the governance-page
 // tile, which needs the headline numbers without the ~500 KB full catalogue.
 const SUMMARY_FILE = path.join(OUT_DIR, "reports-summary.json");
+// Per-party shards — one small file per party, so the detail page and the
+// /party/:id panel can load a single party without the full catalogue.
+const REPORTS_SHARD_DIR = path.join(OUT_DIR, "reports");
 
 const BASE = "https://gfopp.bulnao.government.bg";
 const UA =
@@ -92,6 +95,9 @@ const STATUS_PAGES: ReadonlyArray<{ page: string; status: FilingStatus }> = [
 interface PartyFilingEntry {
   /** Party name verbatim from the gfopp list (upper-case Cyrillic). */
   name: string;
+  /** Stable ASCII URL slug, unique per party. Assigned in main() once the
+   *  full distinct-name set is known; "" until then. */
+  slug: string;
   status: FilingStatus;
   /** gfopp document id from `ShowWndGfoUp('id')`; null when no report is
    *  attached (always null for not_filed). */
@@ -127,6 +133,25 @@ interface ParsedRow {
   reportDocId: string | null;
 }
 
+// One per-party shard — the party-pivoted view of the same data.
+interface PartyShard {
+  slug: string;
+  name: string;
+  firstYear: number;
+  lastYear: number;
+  counts: Record<FilingStatus, number>;
+  /** on_time filings / total filings, 0..1. */
+  complianceRate: number;
+  /** Newest year first. */
+  filings: Array<{
+    year: number;
+    deadline: string;
+    status: FilingStatus;
+    reportDocId: string | null;
+    reportUrl: string | null;
+  }>;
+}
+
 const sleep = (ms: number): Promise<void> =>
   new Promise((resolve) => setTimeout(resolve, ms));
 
@@ -143,6 +168,70 @@ const cleanCell = (html: string): string =>
   decodeEntities(html.replace(/<[^>]+>/g, ""))
     .replace(/\s+/g, " ")
     .trim();
+
+// Bulgarian Cyrillic → Latin (the official transliteration, Наредба за
+// транслитерация) — used to build stable ASCII slugs that are safe as both
+// URL segments and shard filenames.
+const BG_TRANSLIT: Record<string, string> = {
+  а: "a",
+  б: "b",
+  в: "v",
+  г: "g",
+  д: "d",
+  е: "e",
+  ж: "zh",
+  з: "z",
+  и: "i",
+  й: "y",
+  к: "k",
+  л: "l",
+  м: "m",
+  н: "n",
+  о: "o",
+  п: "p",
+  р: "r",
+  с: "s",
+  т: "t",
+  у: "u",
+  ф: "f",
+  х: "h",
+  ц: "ts",
+  ч: "ch",
+  ш: "sh",
+  щ: "sht",
+  ъ: "a",
+  ь: "y",
+  ю: "yu",
+  я: "ya",
+};
+
+const slugifyName = (name: string): string => {
+  const latin = [...name.toLowerCase()]
+    .map((ch) => BG_TRANSLIT[ch] ?? ch)
+    .join("");
+  const slug = latin
+    .replace(/[^a-z0-9]+/g, "-")
+    .replace(/^-+|-+$/g, "")
+    .slice(0, 80)
+    .replace(/-+$/g, "");
+  return slug || "party";
+};
+
+// Assign a unique slug per distinct party name. Deterministic — names are
+// sorted first so re-runs are stable — with -2/-3 suffixes on collision.
+const assignSlugs = (names: string[]): Map<string, string> => {
+  const map = new Map<string, string>();
+  const used = new Set<string>();
+  for (const name of [...names].sort((a, b) => a.localeCompare(b, "bg"))) {
+    const base = slugifyName(name);
+    let slug = base;
+    let n = 2;
+    while (used.has(slug)) slug = `${base}-${n++}`;
+    used.add(slug);
+    map.set(name, slug);
+  }
+  return map;
+};
 
 // The list of years to crawl comes from data/financing/index.json (written by
 // scrape_index.ts) — it is the source of truth for which years gfopp exposes.
@@ -382,6 +471,7 @@ const scrapeYear = async (year: number): Promise<YearReports> => {
       if (byName.has(name)) continue;
       byName.set(name, {
         name,
+        slug: "", // stamped in main() once every party name is known
         status,
         reportDocId,
         reportUrl: reportDocId ? `${BASE}/GfoUp.aspx?ID=${reportDocId}` : null,
@@ -450,6 +540,13 @@ const main = async (args: { upload: boolean }): Promise<void> => {
     for (const p of y.parties) distinctParties.add(p.name);
   }
 
+  // Stamp a stable slug onto every party entry now that the full name set is
+  // known — the frontend index links each row by this slug.
+  const slugByName = assignSlugs([...distinctParties]);
+  for (const y of yearReports) {
+    for (const p of y.parties) p.slug = slugByName.get(p.name) ?? "";
+  }
+
   const out: ReportsFile = {
     scrapedAt: new Date().toISOString(),
     source: BASE,
@@ -481,6 +578,54 @@ const main = async (args: { upload: boolean }): Promise<void> => {
   };
   fs.writeFileSync(SUMMARY_FILE, JSON.stringify(summary, null, 2) + "\n");
   console.log(`✓ wrote ${SUMMARY_FILE}`);
+
+  // Per-party shards — the party-pivoted view of the same data.
+  const shardByName = new Map<string, PartyShard>();
+  for (const y of yearReports) {
+    for (const p of y.parties) {
+      let shard = shardByName.get(p.name);
+      if (!shard) {
+        shard = {
+          slug: p.slug,
+          name: p.name,
+          firstYear: y.year,
+          lastYear: y.year,
+          counts: emptyCounts(),
+          complianceRate: 0,
+          filings: [],
+        };
+        shardByName.set(p.name, shard);
+      }
+      shard.firstYear = Math.min(shard.firstYear, y.year);
+      shard.lastYear = Math.max(shard.lastYear, y.year);
+      shard.counts[p.status] += 1;
+      shard.filings.push({
+        year: y.year,
+        deadline: y.deadline,
+        status: p.status,
+        reportDocId: p.reportDocId,
+        reportUrl: p.reportUrl,
+      });
+    }
+  }
+  // Rewrite the shard directory from scratch so a party that vanished
+  // upstream does not leave a stale file behind.
+  fs.rmSync(REPORTS_SHARD_DIR, { recursive: true, force: true });
+  fs.mkdirSync(REPORTS_SHARD_DIR, { recursive: true });
+  for (const shard of shardByName.values()) {
+    shard.filings.sort((a, b) => b.year - a.year);
+    shard.complianceRate =
+      shard.filings.length > 0
+        ? shard.counts.on_time / shard.filings.length
+        : 0;
+    fs.writeFileSync(
+      path.join(REPORTS_SHARD_DIR, `${shard.slug}.json`),
+      JSON.stringify(shard, null, 2) + "\n",
+    );
+  }
+  console.log(
+    `✓ wrote ${shardByName.size} per-party shard(s) → ${REPORTS_SHARD_DIR}/`,
+  );
 
   if (args.upload) {
     await uploadText(REPORTS_FILE, "financing/reports.json");

@@ -1,0 +1,71 @@
+{
+  "slug": "otechestvena-partiya-na-truda",
+  "name": "ОТЕЧЕСТВЕНА ПАРТИЯ НА ТРУДА",
+  "firstYear": 2011,
+  "lastYear": 2018,
+  "counts": {
+    "on_time": 7,
+    "late": 0,
+    "non_compliant": 0,
+    "not_filed": 1
+  },
+  "complianceRate": 0.875,
+  "filings": [
+    {
+      "year": 2018,
+      "deadline": "2019-03-31",
+      "status": "not_filed",
+      "reportDocId": null,
+      "reportUrl": null
+    },
+    {
+      "year": 2017,
+      "deadline": "2018-03-31",
+      "status": "on_time",
+      "reportDocId": "797931",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=797931"
+    },
+    {
+      "year": 2016,
+      "deadline": "2017-03-31",
+      "status": "on_time",
+      "reportDocId": "797803",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=797803"
+    },
+    {
+      "year": 2015,
+      "deadline": "2016-03-31",
+      "status": "on_time",
+      "reportDocId": "797629",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=797629"
+    },
+    {
+      "year": 2014,
+      "deadline": "2015-03-31",
+      "status": "on_time",
+      "reportDocId": "797448",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=797448"
+    },
+    {
+      "year": 2013,
+      "deadline": "2014-03-31",
+      "status": "on_time",
+      "reportDocId": "797338",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=797338"
+    },
+    {
+      "year": 2012,
+      "deadline": "2013-03-31",
+      "status": "on_time",
+      "reportDocId": "797151",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=797151"
+    },
+    {
+      "year": 2011,
+      "deadline": "2012-03-31",
+      "status": "on_time",
+      "reportDocId": "255",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=255"
+    }
+  ]
+}

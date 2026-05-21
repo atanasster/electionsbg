@@ -1,0 +1,36 @@
+{
+  "slug": "edinenie",
+  "name": "ЕДИНЕНИЕ",
+  "firstYear": 2023,
+  "lastYear": 2025,
+  "counts": {
+    "on_time": 2,
+    "late": 1,
+    "non_compliant": 0,
+    "not_filed": 0
+  },
+  "complianceRate": 0.6666666666666666,
+  "filings": [
+    {
+      "year": 2025,
+      "deadline": "2026-03-31",
+      "status": "on_time",
+      "reportDocId": "798989",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=798989"
+    },
+    {
+      "year": 2024,
+      "deadline": "2025-03-31",
+      "status": "on_time",
+      "reportDocId": "798861",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=798861"
+    },
+    {
+      "year": 2023,
+      "deadline": "2024-03-31",
+      "status": "late",
+      "reportDocId": null,
+      "reportUrl": null
+    }
+  ]
+}

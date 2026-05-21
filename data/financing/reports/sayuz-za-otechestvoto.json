@@ -1,0 +1,78 @@
+{
+  "slug": "sayuz-za-otechestvoto",
+  "name": "СЪЮЗ ЗА ОТЕЧЕСТВОТО",
+  "firstYear": 2017,
+  "lastYear": 2025,
+  "counts": {
+    "on_time": 7,
+    "late": 2,
+    "non_compliant": 0,
+    "not_filed": 0
+  },
+  "complianceRate": 0.7777777777777778,
+  "filings": [
+    {
+      "year": 2025,
+      "deadline": "2026-03-31",
+      "status": "on_time",
+      "reportDocId": "798890",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=798890"
+    },
+    {
+      "year": 2024,
+      "deadline": "2025-03-31",
+      "status": "on_time",
+      "reportDocId": "798763",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=798763"
+    },
+    {
+      "year": 2023,
+      "deadline": "2024-03-31",
+      "status": "on_time",
+      "reportDocId": "798667",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=798667"
+    },
+    {
+      "year": 2022,
+      "deadline": "2023-03-31",
+      "status": "late",
+      "reportDocId": null,
+      "reportUrl": null
+    },
+    {
+      "year": 2021,
+      "deadline": "2022-03-31",
+      "status": "on_time",
+      "reportDocId": "798405",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=798405"
+    },
+    {
+      "year": 2020,
+      "deadline": "2021-03-31",
+      "status": "on_time",
+      "reportDocId": "798344",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=798344"
+    },
+    {
+      "year": 2019,
+      "deadline": "2020-03-31",
+      "status": "on_time",
+      "reportDocId": "798190",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=798190"
+    },
+    {
+      "year": 2018,
+      "deadline": "2019-03-31",
+      "status": "late",
+      "reportDocId": null,
+      "reportUrl": null
+    },
+    {
+      "year": 2017,
+      "deadline": "2018-03-31",
+      "status": "on_time",
+      "reportDocId": "797948",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=797948"
+    }
+  ]
+}

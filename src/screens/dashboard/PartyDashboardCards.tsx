@@ -1,6 +1,13 @@
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { Briefcase, CalendarDays, Coins, Gauge, Map } from "lucide-react";
+import {
+  Briefcase,
+  CalendarDays,
+  Coins,
+  FileCheck2,
+  Gauge,
+  Map,
+} from "lucide-react";
 import { PartyInfo } from "@/data/dataTypes";
 import { DashboardSectionId } from "@/data/articles/useArticles";
 import { useElectionContext } from "@/data/ElectionContext";
@@ -29,6 +36,9 @@ import { PartyPollingDeltaTile } from "./PartyPollingDeltaTile";
 import { PartyAgencyForecastsTile } from "./PartyAgencyForecastsTile";
 import { PartyCohesionTile } from "./PartyCohesionTile";
 import { useFinancing } from "@/screens/components/party/campaign_financing/useFinancing";
+import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
+import { GFOPP_SLUG_BY_CANONICAL_ID } from "@/data/financing/partyAliases";
+import { PartyAnnualReportPanel } from "./PartyAnnualReportPanel";
 import { DashboardSection } from "./DashboardSection";
 import { SectionArticlesProvider } from "./SectionArticlesContext";
 
@@ -81,6 +91,14 @@ export const PartyDashboardCards: FC<Props> = ({ party }) => {
   const { financing, priorFinancing } = useFinancing(
     hasFinancials ? party : undefined,
   );
+
+  // Court-of-Audit annual-report record — resolve this party to a gfopp
+  // registry slug (curated alias map). Undefined when there's no match.
+  const { canonicalIdFor } = useCanonicalParties();
+  const canonicalId = canonicalIdFor(party.nickName);
+  const annualReportSlug = canonicalId
+    ? GFOPP_SLUG_BY_CANONICAL_ID[canonicalId]
+    : undefined;
 
   if (isLoading || !data) {
     // Skeleton mirrors the live layout 1:1 (same sections, same conditional
@@ -258,6 +276,16 @@ export const PartyDashboardCards: FC<Props> = ({ party }) => {
                 color={data.color}
               />
             </div>
+          </DashboardSection>
+        ) : null}
+
+        {annualReportSlug ? (
+          <DashboardSection
+            id="annual-reports"
+            title={t("annual_reports_panel_title")}
+            icon={FileCheck2}
+          >
+            <PartyAnnualReportPanel slug={annualReportSlug} />
           </DashboardSection>
         ) : null}
 

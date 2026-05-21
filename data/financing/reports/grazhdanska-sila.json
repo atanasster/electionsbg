@@ -1,0 +1,71 @@
+{
+  "slug": "grazhdanska-sila",
+  "name": "ГРАЖДАНСКА СИЛА",
+  "firstYear": 2011,
+  "lastYear": 2025,
+  "counts": {
+    "on_time": 5,
+    "late": 0,
+    "non_compliant": 0,
+    "not_filed": 3
+  },
+  "complianceRate": 0.625,
+  "filings": [
+    {
+      "year": 2025,
+      "deadline": "2026-03-31",
+      "status": "on_time",
+      "reportDocId": "798910",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=798910"
+    },
+    {
+      "year": 2017,
+      "deadline": "2018-03-31",
+      "status": "not_filed",
+      "reportDocId": null,
+      "reportUrl": null
+    },
+    {
+      "year": 2016,
+      "deadline": "2017-03-31",
+      "status": "not_filed",
+      "reportDocId": null,
+      "reportUrl": null
+    },
+    {
+      "year": 2015,
+      "deadline": "2016-03-31",
+      "status": "not_filed",
+      "reportDocId": null,
+      "reportUrl": null
+    },
+    {
+      "year": 2014,
+      "deadline": "2015-03-31",
+      "status": "on_time",
+      "reportDocId": "797373",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=797373"
+    },
+    {
+      "year": 2013,
+      "deadline": "2014-03-31",
+      "status": "on_time",
+      "reportDocId": "797198",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=797198"
+    },
+    {
+      "year": 2012,
+      "deadline": "2013-03-31",
+      "status": "on_time",
+      "reportDocId": "797112",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=797112"
+    },
+    {
+      "year": 2011,
+      "deadline": "2012-03-31",
+      "status": "on_time",
+      "reportDocId": "344",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=344"
+    }
+  ]
+}

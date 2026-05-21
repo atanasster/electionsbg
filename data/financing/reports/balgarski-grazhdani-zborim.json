@@ -1,0 +1,64 @@
+{
+  "slug": "balgarski-grazhdani-zborim",
+  "name": "БЪЛГАРСКИ ГРАЖДАНИ ЗБОРИМ",
+  "firstYear": 2011,
+  "lastYear": 2017,
+  "counts": {
+    "on_time": 5,
+    "late": 0,
+    "non_compliant": 0,
+    "not_filed": 2
+  },
+  "complianceRate": 0.7142857142857143,
+  "filings": [
+    {
+      "year": 2017,
+      "deadline": "2018-03-31",
+      "status": "not_filed",
+      "reportDocId": null,
+      "reportUrl": null
+    },
+    {
+      "year": 2016,
+      "deadline": "2017-03-31",
+      "status": "on_time",
+      "reportDocId": "797814",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=797814"
+    },
+    {
+      "year": 2015,
+      "deadline": "2016-03-31",
+      "status": "on_time",
+      "reportDocId": "797620",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=797620"
+    },
+    {
+      "year": 2014,
+      "deadline": "2015-03-31",
+      "status": "on_time",
+      "reportDocId": "797458",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=797458"
+    },
+    {
+      "year": 2013,
+      "deadline": "2014-03-31",
+      "status": "on_time",
+      "reportDocId": "797245",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=797245"
+    },
+    {
+      "year": 2012,
+      "deadline": "2013-03-31",
+      "status": "on_time",
+      "reportDocId": "797144",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=797144"
+    },
+    {
+      "year": 2011,
+      "deadline": "2012-03-31",
+      "status": "not_filed",
+      "reportDocId": null,
+      "reportUrl": null
+    }
+  ]
+}

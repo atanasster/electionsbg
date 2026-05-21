@@ -1,0 +1,64 @@
+{
+  "slug": "dvizhenie-za-blagodenstvie-i-vazhod",
+  "name": "ДВИЖЕНИЕ ЗА БЛАГОДЕНСТВИЕ И ВЪЗХОД",
+  "firstYear": 2011,
+  "lastYear": 2017,
+  "counts": {
+    "on_time": 0,
+    "late": 2,
+    "non_compliant": 0,
+    "not_filed": 5
+  },
+  "complianceRate": 0,
+  "filings": [
+    {
+      "year": 2017,
+      "deadline": "2018-03-31",
+      "status": "not_filed",
+      "reportDocId": null,
+      "reportUrl": null
+    },
+    {
+      "year": 2016,
+      "deadline": "2017-03-31",
+      "status": "late",
+      "reportDocId": null,
+      "reportUrl": null
+    },
+    {
+      "year": 2015,
+      "deadline": "2016-03-31",
+      "status": "late",
+      "reportDocId": null,
+      "reportUrl": null
+    },
+    {
+      "year": 2014,
+      "deadline": "2015-03-31",
+      "status": "not_filed",
+      "reportDocId": null,
+      "reportUrl": null
+    },
+    {
+      "year": 2013,
+      "deadline": "2014-03-31",
+      "status": "not_filed",
+      "reportDocId": null,
+      "reportUrl": null
+    },
+    {
+      "year": 2012,
+      "deadline": "2013-03-31",
+      "status": "not_filed",
+      "reportDocId": null,
+      "reportUrl": null
+    },
+    {
+      "year": 2011,
+      "deadline": "2012-03-31",
+      "status": "not_filed",
+      "reportDocId": null,
+      "reportUrl": null
+    }
+  ]
+}

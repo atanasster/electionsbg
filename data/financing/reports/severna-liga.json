@@ -1,0 +1,71 @@
+{
+  "slug": "severna-liga",
+  "name": "СЕВЕРНА ЛИГА",
+  "firstYear": 2011,
+  "lastYear": 2018,
+  "counts": {
+    "on_time": 7,
+    "late": 0,
+    "non_compliant": 0,
+    "not_filed": 1
+  },
+  "complianceRate": 0.875,
+  "filings": [
+    {
+      "year": 2018,
+      "deadline": "2019-03-31",
+      "status": "not_filed",
+      "reportDocId": null,
+      "reportUrl": null
+    },
+    {
+      "year": 2017,
+      "deadline": "2018-03-31",
+      "status": "on_time",
+      "reportDocId": "797865",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=797865"
+    },
+    {
+      "year": 2016,
+      "deadline": "2017-03-31",
+      "status": "on_time",
+      "reportDocId": "797678",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=797678"
+    },
+    {
+      "year": 2015,
+      "deadline": "2016-03-31",
+      "status": "on_time",
+      "reportDocId": "797586",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=797586"
+    },
+    {
+      "year": 2014,
+      "deadline": "2015-03-31",
+      "status": "on_time",
+      "reportDocId": "797388",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=797388"
+    },
+    {
+      "year": 2013,
+      "deadline": "2014-03-31",
+      "status": "on_time",
+      "reportDocId": "797192",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=797192"
+    },
+    {
+      "year": 2012,
+      "deadline": "2013-03-31",
+      "status": "on_time",
+      "reportDocId": "797161",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=797161"
+    },
+    {
+      "year": 2011,
+      "deadline": "2012-03-31",
+      "status": "on_time",
+      "reportDocId": "275",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=275"
+    }
+  ]
+}

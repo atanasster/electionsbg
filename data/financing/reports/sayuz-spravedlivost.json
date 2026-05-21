@@ -1,0 +1,29 @@
+{
+  "slug": "sayuz-spravedlivost",
+  "name": "СЪЮЗ СПРАВЕДЛИВОСТ",
+  "firstYear": 2011,
+  "lastYear": 2012,
+  "counts": {
+    "on_time": 0,
+    "late": 0,
+    "non_compliant": 0,
+    "not_filed": 2
+  },
+  "complianceRate": 0,
+  "filings": [
+    {
+      "year": 2012,
+      "deadline": "2013-03-31",
+      "status": "not_filed",
+      "reportDocId": null,
+      "reportUrl": null
+    },
+    {
+      "year": 2011,
+      "deadline": "2012-03-31",
+      "status": "not_filed",
+      "reportDocId": null,
+      "reportUrl": null
+    }
+  ]
+}

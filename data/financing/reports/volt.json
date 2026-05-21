@@ -1,0 +1,71 @@
+{
+  "slug": "volt",
+  "name": "ВОЛТ",
+  "firstYear": 2018,
+  "lastYear": 2025,
+  "counts": {
+    "on_time": 8,
+    "late": 0,
+    "non_compliant": 0,
+    "not_filed": 0
+  },
+  "complianceRate": 1,
+  "filings": [
+    {
+      "year": 2025,
+      "deadline": "2026-03-31",
+      "status": "on_time",
+      "reportDocId": "798999",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=798999"
+    },
+    {
+      "year": 2024,
+      "deadline": "2025-03-31",
+      "status": "on_time",
+      "reportDocId": "798853",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=798853"
+    },
+    {
+      "year": 2023,
+      "deadline": "2024-03-31",
+      "status": "on_time",
+      "reportDocId": "798713",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=798713"
+    },
+    {
+      "year": 2022,
+      "deadline": "2023-03-31",
+      "status": "on_time",
+      "reportDocId": "798574",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=798574"
+    },
+    {
+      "year": 2021,
+      "deadline": "2022-03-31",
+      "status": "on_time",
+      "reportDocId": "798456",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=798456"
+    },
+    {
+      "year": 2020,
+      "deadline": "2021-03-31",
+      "status": "on_time",
+      "reportDocId": "798271",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=798271"
+    },
+    {
+      "year": 2019,
+      "deadline": "2020-03-31",
+      "status": "on_time",
+      "reportDocId": "798146",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=798146"
+    },
+    {
+      "year": 2018,
+      "deadline": "2019-03-31",
+      "status": "on_time",
+      "reportDocId": "798090",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=798090"
+    }
+  ]
+}

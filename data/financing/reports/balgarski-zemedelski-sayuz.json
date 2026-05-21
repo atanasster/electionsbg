@@ -1,0 +1,43 @@
+{
+  "slug": "balgarski-zemedelski-sayuz",
+  "name": "БЪЛГАРСКИ ЗЕМЕДЕЛСКИ СЪЮЗ",
+  "firstYear": 2011,
+  "lastYear": 2014,
+  "counts": {
+    "on_time": 0,
+    "late": 0,
+    "non_compliant": 0,
+    "not_filed": 4
+  },
+  "complianceRate": 0,
+  "filings": [
+    {
+      "year": 2014,
+      "deadline": "2015-03-31",
+      "status": "not_filed",
+      "reportDocId": null,
+      "reportUrl": null
+    },
+    {
+      "year": 2013,
+      "deadline": "2014-03-31",
+      "status": "not_filed",
+      "reportDocId": null,
+      "reportUrl": null
+    },
+    {
+      "year": 2012,
+      "deadline": "2013-03-31",
+      "status": "not_filed",
+      "reportDocId": null,
+      "reportUrl": null
+    },
+    {
+      "year": 2011,
+      "deadline": "2012-03-31",
+      "status": "not_filed",
+      "reportDocId": null,
+      "reportUrl": null
+    }
+  ]
+}

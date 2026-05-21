@@ -1,0 +1,78 @@
+{
+  "slug": "pp-burgas",
+  "name": "ПП БУРГАС",
+  "firstYear": 2011,
+  "lastYear": 2019,
+  "counts": {
+    "on_time": 9,
+    "late": 0,
+    "non_compliant": 0,
+    "not_filed": 0
+  },
+  "complianceRate": 1,
+  "filings": [
+    {
+      "year": 2019,
+      "deadline": "2020-03-31",
+      "status": "on_time",
+      "reportDocId": "798135",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=798135"
+    },
+    {
+      "year": 2018,
+      "deadline": "2019-03-31",
+      "status": "on_time",
+      "reportDocId": "798075",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=798075"
+    },
+    {
+      "year": 2017,
+      "deadline": "2018-03-31",
+      "status": "on_time",
+      "reportDocId": "797855",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=797855"
+    },
+    {
+      "year": 2016,
+      "deadline": "2017-03-31",
+      "status": "on_time",
+      "reportDocId": "797718",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=797718"
+    },
+    {
+      "year": 2015,
+      "deadline": "2016-03-31",
+      "status": "on_time",
+      "reportDocId": "797634",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=797634"
+    },
+    {
+      "year": 2014,
+      "deadline": "2015-03-31",
+      "status": "on_time",
+      "reportDocId": "797462",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=797462"
+    },
+    {
+      "year": 2013,
+      "deadline": "2014-03-31",
+      "status": "on_time",
+      "reportDocId": "797288",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=797288"
+    },
+    {
+      "year": 2012,
+      "deadline": "2013-03-31",
+      "status": "on_time",
+      "reportDocId": "797026",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=797026"
+    },
+    {
+      "year": 2011,
+      "deadline": "2012-03-31",
+      "status": "on_time",
+      "reportDocId": "351",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=351"
+    }
+  ]
+}

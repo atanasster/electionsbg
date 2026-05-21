@@ -1,0 +1,64 @@
+{
+  "slug": "obedinena-partiya-na-pensionerite-v-balgariya-oppb",
+  "name": "ОБЕДИНЕНА ПАРТИЯ НА ПЕНСИОНЕРИТЕ В БЪЛГАРИЯ /ОППБ/",
+  "firstYear": 2011,
+  "lastYear": 2017,
+  "counts": {
+    "on_time": 5,
+    "late": 0,
+    "non_compliant": 0,
+    "not_filed": 2
+  },
+  "complianceRate": 0.7142857142857143,
+  "filings": [
+    {
+      "year": 2017,
+      "deadline": "2018-03-31",
+      "status": "not_filed",
+      "reportDocId": null,
+      "reportUrl": null
+    },
+    {
+      "year": 2016,
+      "deadline": "2017-03-31",
+      "status": "on_time",
+      "reportDocId": "797738",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=797738"
+    },
+    {
+      "year": 2015,
+      "deadline": "2016-03-31",
+      "status": "on_time",
+      "reportDocId": "797656",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=797656"
+    },
+    {
+      "year": 2014,
+      "deadline": "2015-03-31",
+      "status": "on_time",
+      "reportDocId": "797493",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=797493"
+    },
+    {
+      "year": 2013,
+      "deadline": "2014-03-31",
+      "status": "on_time",
+      "reportDocId": "797263",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=797263"
+    },
+    {
+      "year": 2012,
+      "deadline": "2013-03-31",
+      "status": "not_filed",
+      "reportDocId": null,
+      "reportUrl": null
+    },
+    {
+      "year": 2011,
+      "deadline": "2012-03-31",
+      "status": "on_time",
+      "reportDocId": "384",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=384"
+    }
+  ]
+}

@@ -1,0 +1,43 @@
+{
+  "slug": "narodna-partiya-istinata-i-samo-istinata",
+  "name": "НАРОДНА ПАРТИЯ ИСТИНАТА И САМО ИСТИНАТА",
+  "firstYear": 2022,
+  "lastYear": 2025,
+  "counts": {
+    "on_time": 3,
+    "late": 1,
+    "non_compliant": 0,
+    "not_filed": 0
+  },
+  "complianceRate": 0.75,
+  "filings": [
+    {
+      "year": 2025,
+      "deadline": "2026-03-31",
+      "status": "on_time",
+      "reportDocId": "798895",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=798895"
+    },
+    {
+      "year": 2024,
+      "deadline": "2025-03-31",
+      "status": "on_time",
+      "reportDocId": "798865",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=798865"
+    },
+    {
+      "year": 2023,
+      "deadline": "2024-03-31",
+      "status": "on_time",
+      "reportDocId": "798738",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=798738"
+    },
+    {
+      "year": 2022,
+      "deadline": "2023-03-31",
+      "status": "late",
+      "reportDocId": null,
+      "reportUrl": null
+    }
+  ]
+}

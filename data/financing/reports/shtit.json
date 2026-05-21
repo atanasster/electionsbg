@@ -1,0 +1,99 @@
+{
+  "slug": "shtit",
+  "name": "ЩИТ",
+  "firstYear": 2011,
+  "lastYear": 2022,
+  "counts": {
+    "on_time": 9,
+    "late": 3,
+    "non_compliant": 0,
+    "not_filed": 0
+  },
+  "complianceRate": 0.75,
+  "filings": [
+    {
+      "year": 2022,
+      "deadline": "2023-03-31",
+      "status": "late",
+      "reportDocId": null,
+      "reportUrl": null
+    },
+    {
+      "year": 2021,
+      "deadline": "2022-03-31",
+      "status": "on_time",
+      "reportDocId": "798374",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=798374"
+    },
+    {
+      "year": 2020,
+      "deadline": "2021-03-31",
+      "status": "on_time",
+      "reportDocId": "798274",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=798274"
+    },
+    {
+      "year": 2019,
+      "deadline": "2020-03-31",
+      "status": "late",
+      "reportDocId": null,
+      "reportUrl": null
+    },
+    {
+      "year": 2018,
+      "deadline": "2019-03-31",
+      "status": "on_time",
+      "reportDocId": "798011",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=798011"
+    },
+    {
+      "year": 2017,
+      "deadline": "2018-03-31",
+      "status": "on_time",
+      "reportDocId": "797917",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=797917"
+    },
+    {
+      "year": 2016,
+      "deadline": "2017-03-31",
+      "status": "on_time",
+      "reportDocId": "797680",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=797680"
+    },
+    {
+      "year": 2015,
+      "deadline": "2016-03-31",
+      "status": "on_time",
+      "reportDocId": "797577",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=797577"
+    },
+    {
+      "year": 2014,
+      "deadline": "2015-03-31",
+      "status": "on_time",
+      "reportDocId": "797489",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=797489"
+    },
+    {
+      "year": 2013,
+      "deadline": "2014-03-31",
+      "status": "on_time",
+      "reportDocId": "797259",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=797259"
+    },
+    {
+      "year": 2012,
+      "deadline": "2013-03-31",
+      "status": "on_time",
+      "reportDocId": "797105",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=797105"
+    },
+    {
+      "year": 2011,
+      "deadline": "2012-03-31",
+      "status": "late",
+      "reportDocId": null,
+      "reportUrl": null
+    }
+  ]
+}

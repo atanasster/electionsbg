@@ -1,0 +1,50 @@
+{
+  "slug": "drugata-balgariya",
+  "name": "ДРУГАТА БЪЛГАРИЯ",
+  "firstYear": 2012,
+  "lastYear": 2016,
+  "counts": {
+    "on_time": 4,
+    "late": 1,
+    "non_compliant": 0,
+    "not_filed": 0
+  },
+  "complianceRate": 0.8,
+  "filings": [
+    {
+      "year": 2016,
+      "deadline": "2017-03-31",
+      "status": "on_time",
+      "reportDocId": "797673",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=797673"
+    },
+    {
+      "year": 2015,
+      "deadline": "2016-03-31",
+      "status": "on_time",
+      "reportDocId": "797561",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=797561"
+    },
+    {
+      "year": 2014,
+      "deadline": "2015-03-31",
+      "status": "late",
+      "reportDocId": null,
+      "reportUrl": null
+    },
+    {
+      "year": 2013,
+      "deadline": "2014-03-31",
+      "status": "on_time",
+      "reportDocId": "797177",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=797177"
+    },
+    {
+      "year": 2012,
+      "deadline": "2013-03-31",
+      "status": "on_time",
+      "reportDocId": "797048",
+      "reportUrl": "https://gfopp.bulnao.government.bg/GfoUp.aspx?ID=797048"
+    }
+  ]
+}
