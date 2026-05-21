@@ -149,16 +149,14 @@ const pickEurValue = (
   return toEur(amount, currency);
 };
 
-/** Hand-curated fixes for declaration entries where the declarant clearly
- * misplaced a decimal/thousand separator in the source XML, producing a
- * value 100×–1000× too high. We apply the correction silently in the
- * parser so totals on the candidate / rankings pages aren't dominated by
- * obvious data-entry errors.
+/** Hand-curated fixes for the rare separator typos the generic detector
+ * (`correctRealEstateSeparatorTypo`, below) cannot resolve on its own —
+ * chiefly /1000 typos, since the detector only corrects the dominant /100
+ * stripped-decimal-comma case. The manual table is consulted first, so an
+ * entry here always wins over the heuristic.
  *
- * Each entry matches by (sourceUrl, location, areaSqm, raw amount). This
- * is intentionally narrow — heuristic value-clamping ("any property over
- * 100k BGN/m² must be wrong") would silently rewrite legitimate luxury
- * properties. */
+ * Each entry matches by (sourceUrl, location, areaSqm, raw amount) — narrow
+ * by construction, so it never touches a row it was not written for. */
 const REAL_ESTATE_VALUE_OVERRIDES: Array<{
   sourceUrlContains: string;
   location: string;
@@ -195,11 +193,81 @@ const REAL_ESTATE_VALUE_OVERRIDES: Array<{
     correctedValue: 5887,
     note: "Corrected: declarant misplaced separator (source value 5,887,000 BGN for 73m² Ruse apartment, applied to every filing year that includes the row).",
   },
+  {
+    // Рена Енчева Стефанова 2025 — the same 73m² Ruse apartment as the
+    // entry above, declared again in her municipal-tier filing (she is a
+    // council member). Same 5,887,000 BGN figure; the 2025 filing spells
+    // the town "гр. Русе" (with a space) where her earlier MP filings wrote
+    // "гр.Русе", so it needs its own match key. Same /1000 correction.
+    // (The /1000 reading — not the generic detector's /100 — keeps her
+    // 1998 acquisition price-per-m² consistent with her 2005 and 2013
+    // purchases once the 1/4 ideal-part share is accounted for.)
+    sourceUrlContains: "AC71611D-C92E-42B2-AC71-068007E03AEB",
+    location: "гр. Русе",
+    areaSqm: 73,
+    rawValue: 5887000,
+    correctedValue: 5887,
+    note: "Corrected: declarant misplaced separator (source value 5,887,000 BGN for 73m² Ruse apartment — 2025 municipal-tier filing).",
+  },
 ];
 
-/** Same idea as REAL_ESTATE_VALUE_OVERRIDES, applied to Table 3 (vehicles).
- * Each entry matches by (sourceUrl, raw amount, acquired year) — narrow
- * enough that legitimate luxury-car declarations are not affected. */
+// Property-type tokens whose declared floor area reliably bounds the
+// price-per-m². Land parcels (нива, земеделска земя, поземлен имот, …) are
+// deliberately excluded: their declared area is unreliable (декари vs m²,
+// ideal parts) and coastal/urban land can legitimately reach extreme
+// per-m² values, so the per-m² sanity check below does not hold for them.
+const BUILDING_TYPE_TOKENS = [
+  "апартамент",
+  "къща",
+  "ателие",
+  "гараж",
+  "магазин",
+  "офис",
+  "вила",
+  "етаж",
+  "студио",
+  "мезонет",
+];
+
+// The priciest Bulgarian real estate tops out near 16,000 BGN/m² (~8,000
+// EUR/m² in central Sofia). A built property an order of magnitude past
+// that is a separator typo, not a luxury holding — no genuine row sits
+// here, so /100-correcting it cannot rewrite a real value.
+const MAX_PLAUSIBLE_BGN_PER_SQM = 100_000;
+// Below this floor the declared m² is itself unreliable (ideal parts,
+// cellars, mis-entered units), so per-m² cannot anchor the check.
+const MIN_ANCHOR_SQM = 10;
+
+/** Generic detector for the dominant separator typo: a declarant entered a
+ * value like "177309,00" and the decimal comma was dropped in digitisation,
+ * leaving a figure 100× too high. Returns the /100 correction when the row
+ * is a built property whose raw price-per-m² is implausible AND whose /100
+ * value lands back in a realistic band; otherwise null — leaving the raw
+ * value for the manual table above or the suspicious-value report. Never
+ * touches land, tiny-area rows, or values that /100 does not fully resolve
+ * (those need a human — they may be /1000 typos or a wrong area). */
+const correctRealEstateSeparatorTypo = (
+  rawValue: number | null,
+  areaSqm: number | null,
+  description: string | null,
+): number | null => {
+  if (rawValue == null || areaSqm == null || areaSqm < MIN_ANCHOR_SQM) {
+    return null;
+  }
+  const desc = description?.toLowerCase() ?? "";
+  if (!BUILDING_TYPE_TOKENS.some((tok) => desc.includes(tok))) return null;
+  if (rawValue / areaSqm <= MAX_PLAUSIBLE_BGN_PER_SQM) return null;
+  const corrected = rawValue / 100;
+  if (corrected / areaSqm > MAX_PLAUSIBLE_BGN_PER_SQM) return null;
+  return corrected;
+};
+
+/** Manual vehicle-value fixes for cases the generic old-vehicle detector
+ * (`correctOldVehicleSeparatorTypo`, below) cannot resolve. Currently empty
+ * — the detector handles every known vehicle separator typo, including the
+ * 1999 VW Golf and 1997 Fiat that used to be hand-listed here. Add an entry
+ * (set `correctedValue` to the raw value to force "leave as-is") only when
+ * the detector gets a row wrong. */
 const VEHICLE_VALUE_OVERRIDES: Array<{
   sourceUrlContains: string;
   detailContains?: string;
@@ -207,26 +275,35 @@ const VEHICLE_VALUE_OVERRIDES: Array<{
   rawValue: number;
   correctedValue: number;
   note: string;
-}> = [
-  {
-    // Ихсан Халил Хаккъ — 1999 VW Golf declared at 800,000 BGN across
-    // multiple filing years. A 1999 base-spec Golf does not retail for
-    // ~400× its private-party value; declarant typed the decimal/thousand
-    // separator three orders of magnitude off in every filing that
-    // referenced the car. Corrected to 800 BGN.
-    //
-    // Match key uses the MP's persistent URL prefix so all of his filings
-    // (2022/2023/2024 declarations sharing UUID-prefix D6FB7B43-…-05040F3EB514
-    // but differing in the trailing 6-digit per-declaration suffix) are
-    // covered with one entry.
-    sourceUrlContains: "D6FB7B43-A7B9-496A-BEA5-05040F3EB514",
-    detailContains: "голф",
-    acquiredYear: 1999,
-    rawValue: 800000,
-    correctedValue: 800,
-    note: "Corrected: declarant misplaced separator (source value 800,000 BGN for 1999 VW Golf, applied to every filing year that includes the row).",
-  },
-];
+}> = [];
+
+const CURRENT_YEAR = new Date().getFullYear();
+// Vehicle age past which a 150k+ BGN valuation is almost always a misplaced
+// separator rather than a collector price.
+const OLD_VEHICLE_AGE_YEARS = 20;
+// A vehicle older than the age gate declared above this is treated as a
+// separator typo. Genuine classics this valuable are vanishingly rare in
+// declarant filings; the few that exist can be pinned via the table above.
+const OLD_VEHICLE_TYPO_BGN = 150_000;
+
+/** Generic detector for the dominant old-vehicle separator typo: an aged
+ * car declared at ~1000× its real value (e.g. "400,000" for a value of
+ * 400). Returns the /1000 correction when the vehicle clears the age gate,
+ * the raw value is implausibly high, AND /1000 lands back under the typo
+ * threshold; otherwise null. Vehicles have no per-unit anchor, so the age
+ * gate does the discriminating — recent machinery (a 2024 combine that is
+ * genuinely worth 600k BGN) is never touched. */
+const correctOldVehicleSeparatorTypo = (
+  rawValue: number | null,
+  acquiredYear: number | null,
+): number | null => {
+  if (rawValue == null || acquiredYear == null) return null;
+  if (CURRENT_YEAR - acquiredYear < OLD_VEHICLE_AGE_YEARS) return null;
+  if (rawValue <= OLD_VEHICLE_TYPO_BGN) return null;
+  const corrected = rawValue / 1000;
+  if (corrected > OLD_VEHICLE_TYPO_BGN) return null;
+  return corrected;
+};
 
 const parseTable1Row = (
   row: ReturnType<CheerioAPI>,
@@ -237,7 +314,9 @@ const parseTable1Row = (
   const rawValue = toNumber(cellByNum(row, 11));
   const location = cellByNum(row, 3);
   const areaSqm = toLooseNumber(cellByNum(row, 5));
+  const description = cellByNum(row, 2);
   let value = rawValue;
+  let overridden = false;
   if (rawValue != null && location != null && areaSqm != null) {
     const fix = REAL_ESTATE_VALUE_OVERRIDES.find(
       (o) =>
@@ -246,11 +325,26 @@ const parseTable1Row = (
         Math.abs(o.areaSqm - areaSqm) < 0.01 &&
         o.rawValue === rawValue,
     );
-    if (fix) value = fix.correctedValue;
+    if (fix) {
+      value = fix.correctedValue;
+      overridden = true;
+    }
+  }
+  // No hand-curated override → run the generic separator-typo detector.
+  if (!overridden) {
+    const auto = correctRealEstateSeparatorTypo(rawValue, areaSqm, description);
+    if (auto != null) {
+      console.warn(
+        `[parse] auto-corrected real-estate value — ${declarantName}: ` +
+          `${description ?? "?"} ${areaSqm}m² ${rawValue} → ${auto} BGN ` +
+          `(${sourceUrl})`,
+      );
+      value = auto;
+    }
   }
   return {
     category: "real_estate",
-    description: cellByNum(row, 2),
+    description,
     detail: null,
     location,
     municipality: cellByNum(row, 4),
@@ -278,6 +372,7 @@ const parseTable3Row = (
   const detail = cellByNum(row, 3);
   const acquiredYear = toIntYear(cellByNum(row, 5));
   let value = rawValue;
+  let overridden = false;
   if (rawValue != null && acquiredYear != null) {
     const fix = VEHICLE_VALUE_OVERRIDES.find(
       (o) =>
@@ -288,7 +383,22 @@ const parseTable3Row = (
           (detail != null &&
             detail.toLowerCase().includes(o.detailContains.toLowerCase()))),
     );
-    if (fix) value = fix.correctedValue;
+    if (fix) {
+      value = fix.correctedValue;
+      overridden = true;
+    }
+  }
+  // No hand-curated override → run the generic old-vehicle typo detector.
+  if (!overridden) {
+    const auto = correctOldVehicleSeparatorTypo(rawValue, acquiredYear);
+    if (auto != null) {
+      console.warn(
+        `[parse] auto-corrected vehicle value — ${declarantName}: ` +
+          `${detail ?? "?"} (${acquiredYear}) ${rawValue} → ${auto} BGN ` +
+          `(${sourceUrl})`,
+      );
+      value = auto;
+    }
   }
   return {
     category: "vehicle",
@@ -376,6 +486,50 @@ const parseTable9Row = (
     legalBasis: cellByNum(row, 10),
     fundsOrigin: cellByNum(row, 11),
   };
+};
+
+/** Drop *built* real-estate rows byte-identical to an earlier row in the
+ * same declaration — a data-entry duplication (the same property keyed
+ * twice, or a row repeated across Tables 1 / 1.1 / 1.2).
+ *
+ * Two conditions, both deliberately strict, keep this from eating real
+ * holdings:
+ *  - Only **building** types (апартамент, къща, гараж, …) are considered.
+ *    Byte-identical *land* rows (нива, ливада, гора, …) are routinely
+ *    genuine — land restitution left owners holding many equal fragmented
+ *    parcels the form cannot tell apart — so they are always kept.
+ *  - Only **byte-identical** rows collapse. Two апартамент rows sharing a
+ *    town and floor area but differing in acquisition year, ideal-part
+ *    share or price are distinct holdings (often ideal parts of one
+ *    property bought separately) and are kept. */
+const dedupeRealEstateRows = (
+  assets: MpAsset[],
+  declarantName: string,
+): MpAsset[] => {
+  const seen = new Set<string>();
+  const out: MpAsset[] = [];
+  for (const asset of assets) {
+    const desc = asset.description?.toLowerCase() ?? "";
+    const isBuilding =
+      asset.category === "real_estate" &&
+      BUILDING_TYPE_TOKENS.some((tok) => desc.includes(tok));
+    if (!isBuilding) {
+      out.push(asset);
+      continue;
+    }
+    const sig = JSON.stringify(asset);
+    if (seen.has(sig)) {
+      console.warn(
+        `[parse] dropped duplicate real-estate row — ${declarantName}: ` +
+          `${asset.description ?? "?"} ${asset.location ?? "?"} ` +
+          `${asset.areaSqm ?? "?"}m²`,
+      );
+      continue;
+    }
+    seen.add(sig);
+    out.push(asset);
+  }
+  return out;
 };
 
 const parseAssetTables = (
@@ -523,7 +677,7 @@ const parseAssetTables = (
     });
   }
 
-  return out;
+  return dedupeRealEstateRows(out, declarantName);
 };
 
 const parseIncomeRow = (row: ReturnType<CheerioAPI>): MpIncomeRecord => ({

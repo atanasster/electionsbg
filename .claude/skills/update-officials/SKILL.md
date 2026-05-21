@@ -46,8 +46,25 @@ Expected output on a normal run (incremental, after a couple of new filings):
   processed 548 declaration(s) for 437 unique official(s)
   wrote 437 per-official file(s) to data/officials/declarations
   wrote index.json (437 official(s))
-  wrote assets-rankings.json (top: Валери Симеонов €9.5M, Радка Николова €7.7M, …)
+  wrote assets-rankings.json (top: Евтим Милошев €4.1M, Росен Карадимов €1.5M, …)
 ```
+
+A few 2025 declarations carry an obviously mistyped acquisition price (a
+decimal comma dropped at source, inflating an apartment ~100×). The shared
+parser auto-corrects these: `correctRealEstateSeparatorTypo` in
+`scripts/declarations/parse_declaration.ts` divides a built property back
+down whenever its raw price-per-m² is impossibly high — each correction
+prints a `[parse] auto-corrected real-estate value …` line in the run log.
+Rare /1000 typos it deliberately leaves alone sit in the adjacent
+`REAL_ESTATE_VALUE_OVERRIDES` table. If the ranking still looks wrong, run
+the suspicious-value scan (Step 2).
+
+The same parser also `/1000`-corrects implausibly priced 20-year-plus
+vehicles (`correctOldVehicleSeparatorTypo`) and drops byte-identical
+duplicate building rows within a declaration (`dedupeRealEstateRows`) —
+both print `[parse] …` lines in the run log. Land parcels are never
+de-duplicated: restitution leaves owners holding many genuinely-equal
+fragmented plots.
 
 Cold start takes ~90 seconds (network-bound on per-declaration fetches — 150 ms politeness sleep between requests). Re-runs are faster because raw XMLs are cached under `raw_data/officials/`.
 
@@ -108,6 +125,18 @@ Sanity:
 - `byCategory.cabinet` ≥ 80 (ministers + deputies).
 - `byCategory.regional_governor` ≈ 60 (28 oblasts × deputies).
 - Top-3 net worths within an order of magnitude of last run.
+
+Scan for mistyped declared values (officials + MPs + municipal, one shared
+report):
+
+```bash
+npx tsx scripts/declarations/check_suspicious_values.ts
+```
+
+A new `FLAG` line for an executive official means a likely separator typo is
+inflating the ranking — add a narrow entry to `REAL_ESTATE_VALUE_OVERRIDES`
+(or `VEHICLE_VALUE_OVERRIDES`) in `scripts/declarations/parse_declaration.ts`,
+then re-run Step 1. Genuinely large holdings keep flagging — that is expected.
 
 Check the diff:
 
