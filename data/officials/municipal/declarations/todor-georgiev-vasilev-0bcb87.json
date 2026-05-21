@@ -1,0 +1,152 @@
+[
+  {
+    "slug": "todor-georgiev-vasilev-0bcb87",
+    "declarantName": "Тодор Георгиев Василев",
+    "institution": "Дряново",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-13",
+    "entryNumber": "Г8471",
+    "controlHash": "22826AA7",
+    "sourceUrl": "https://register.cacbg.bg/2025/AEA32288-C043-4F43-A619-8B341C9A26FF211492.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 13776.759738832106,
+        "amountEurSpouse": 11562.865893252481
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 13087.026991098408,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": 122.71005148709244,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": 20451.67524784874,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "право на ползване",
+        "detail": null,
+        "location": "Аксаково",
+        "municipality": "Аксаково",
+        "areaSqm": 95,
+        "builtAreaSqm": 95,
+        "acquiredYear": 2024,
+        "share": null,
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Тодор Георгиев Василев",
+        "isSpouse": false,
+        "legalBasis": "други",
+        "fundsOrigin": "безвъзмездно"
+      },
+      {
+        "category": "real_estate",
+        "description": "право на ползване",
+        "detail": null,
+        "location": "Дряново",
+        "municipality": "Дряново",
+        "areaSqm": 100,
+        "builtAreaSqm": 100,
+        "acquiredYear": 2024,
+        "share": null,
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Миглена Вълчева Александрова-Василева",
+        "isSpouse": true,
+        "legalBasis": "други",
+        "fundsOrigin": "безвъзмездно"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 57,
+        "builtAreaSqm": 57,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Миглена Вълчева Александрова-Василева",
+        "isSpouse": true,
+        "legalBasis": "други",
+        "fundsOrigin": "безвъзмездно"
+      },
+      {
+        "category": "real_estate",
+        "description": "гараж",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 15,
+        "builtAreaSqm": 15,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Миглена Вълчева Александрова-Василева",
+        "isSpouse": true,
+        "legalBasis": "други",
+        "fundsOrigin": "безвъзмездно"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 15000,
+        "valueEur": 7669.378217943277,
+        "holderName": "Тодор Георгиев Василев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 28227,
+        "valueEur": 14432.23593052566,
+        "holderName": "Миглена Вълчева Александрова-Василева",
+        "isSpouse": true,
+        "legalBasis": "кредит",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

@@ -1,0 +1,144 @@
+[
+  {
+    "slug": "trifon-gatev-trifonov-56c043",
+    "declarantName": "Трифон Гатев Трифонов",
+    "institution": "Севлиево",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г10940",
+    "controlHash": "BAF78955",
+    "sourceUrl": "https://register.cacbg.bg/2025/66E3799F-21CE-466D-BDAC-7284FFD3959D214057.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Дружество с ограничена отговорност",
+        "shareSize": "76%",
+        "companyName": "Трифо 1 ООД",
+        "registeredOffice": "Севлиево",
+        "valueEur": 1942.9091485456302,
+        "holderName": "Трифон Гатев Трифонов",
+        "legalBasis": "учредяване",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "table": "10",
+        "itemType": "Дружество с ограничена отговорност",
+        "shareSize": "24%",
+        "companyName": "Трифо 1 ООД",
+        "registeredOffice": "Севлиево",
+        "valueEur": 613.5502574354622,
+        "holderName": "Ирена Димитрова Трифонова",
+        "legalBasis": "учредяване",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "table": "10",
+        "itemType": "Еднолично дружество с ограничена отговорност",
+        "shareSize": "100%",
+        "companyName": "Трифо Н-1 ЕООД",
+        "registeredOffice": "Севлиево",
+        "valueEur": 2556.4594059810925,
+        "holderName": "Ирена Димитрова Трифонова",
+        "legalBasis": "покупка",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 4641.507697499272,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 18682.094047028626,
+        "amountEurSpouse": 39181.83073170981
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 195952.61346845073,
+        "amountEurSpouse": 75415.55247644223
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 14888,
+        "valueEur": 7612.113527249301,
+        "holderName": "Трифон Гатев Трифонов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата и дивидент"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 254455,
+        "valueEur": 130100.77562978378,
+        "holderName": "Ирена Димитрова Трифонова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата и дивидент"
+      },
+      {
+        "category": "debt",
+        "description": "ипотека и солидарно задължение по банков кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 400000,
+        "valueEur": 204516.75247848738,
+        "holderName": "Трифон Гатев Трифонов",
+        "isSpouse": false,
+        "legalBasis": "оборотни средства за бизнеса 2.5% лихва",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "ипотека и солидарно задължение по банков кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 400000,
+        "valueEur": 204516.75247848738,
+        "holderName": "Ирена Димитрова Трифонова",
+        "isSpouse": true,
+        "legalBasis": "оборотни средства за бизнеса 2.5% лихва",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

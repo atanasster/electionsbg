@@ -1,0 +1,110 @@
+[
+  {
+    "slug": "lidiya-stefanova-bobcheva-9d9af8",
+    "declarantName": "Лидия Стефанова Бобчева",
+    "institution": "Бургас",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-02",
+    "entryNumber": "Г8913",
+    "controlHash": "F4019FC3",
+    "sourceUrl": "https://register.cacbg.bg/2025/B597D16B-4BB9-4DE4-A973-7AFA8F6B8DED211941.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 15900.154921440002,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 94119.1207824811,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 3681.3015446127733,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Бургас",
+        "municipality": "Бургас",
+        "areaSqm": 73,
+        "builtAreaSqm": 73,
+        "acquiredYear": 2023,
+        "share": "100",
+        "currency": "BGN",
+        "amount": 250000,
+        "valueEur": 127822.97029905462,
+        "holderName": "Лидия Стефанова Бобчева",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Пежо 308",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2023,
+        "share": "100",
+        "currency": "BGN",
+        "amount": 41340,
+        "valueEur": 21136.806368651673,
+        "holderName": "Лидия Стефанова Бобчева",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 80471,
+        "valueEur": 41144.168971740895,
+        "holderName": "Лидия Стефанова Бобчева",
+        "isSpouse": false,
+        "legalBasis": "Договор за заем",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 237595,
+        "valueEur": 121480.39451281553,
+        "holderName": "Лидия Стефанова Бобчева",
+        "isSpouse": false,
+        "legalBasis": "Договор за заем",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

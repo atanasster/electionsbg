@@ -1,0 +1,128 @@
+[
+  {
+    "slug": "tsvetanka-petkova-iotina-e59891",
+    "declarantName": "Цветанка Петкова Йотина",
+    "institution": "Мирково",
+    "positionTitle": "Кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-01",
+    "entryNumber": "Г7700",
+    "controlHash": "FB2DFEA3",
+    "sourceUrl": "https://register.cacbg.bg/2025/9C4BD600-5CA4-4DAD-9B1C-69352EA58658210700.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 66080.38530956167,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": "II. Други доходи, извън посочените в т. I.",
+        "category": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 27455.35143647454
+      },
+      {
+        "parent": null,
+        "category": "Пенсия",
+        "amountEurDeclarant": 15998.322962629676,
+        "amountEurSpouse": 3067.751287177311
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Мирково",
+        "municipality": "Мирково",
+        "areaSqm": 5000,
+        "builtAreaSqm": 150,
+        "acquiredYear": 2015,
+        "share": "1/4",
+        "currency": "BGN",
+        "amount": 2000,
+        "valueEur": 1022.5837623924369,
+        "holderName": "Цветанка Петкова Йотина",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "Мирково",
+        "municipality": "Мирково",
+        "areaSqm": 9,
+        "builtAreaSqm": null,
+        "acquiredYear": 2016,
+        "share": "1",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Емил Борисов Йотина",
+        "isSpouse": true,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Фосваген Голф",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2016,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 500,
+        "valueEur": 255.64594059810923,
+        "holderName": "Цветанка Петкова Йотина",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "банков кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 31608,
+        "valueEur": 16160.913780850075,
+        "holderName": "Цветанка Петкова Йотина",
+        "isSpouse": false,
+        "legalBasis": "заем, 4,5%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "банков кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 39894,
+        "valueEur": 20397.989600323137,
+        "holderName": "Цветанка Петкова Йотин",
+        "isSpouse": true,
+        "legalBasis": "заем, 6,4%",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

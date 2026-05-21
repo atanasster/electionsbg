@@ -1,0 +1,92 @@
+[
+  {
+    "slug": "milen-metodiev-sibinov-c0c1db",
+    "declarantName": "Милен Методиев Сибинив",
+    "institution": "Козлодуй",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-14",
+    "entryNumber": "Г9581",
+    "controlHash": "8D6FBAE0",
+    "sourceUrl": "https://register.cacbg.bg/2025/3EFCD334-6C29-4380-B279-9FE1A34AD2CA212627.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 3712.4903493657425,
+        "amountEurSpouse": 36813.015446127734
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 5380.835757709004,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 17578.21487552599,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 35000,
+        "valueEur": 17895.215841867648,
+        "holderName": "Милен Методиев Сибинов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "debt",
+        "description": "ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 200000,
+        "valueEur": 102258.37623924369,
+        "holderName": "Милен Методиев Сибинив",
+        "isSpouse": false,
+        "legalBasis": "3%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 105000,
+        "valueEur": 53685.647525602944,
+        "holderName": "Галина Петрова Сибинов",
+        "isSpouse": true,
+        "legalBasis": "3%",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

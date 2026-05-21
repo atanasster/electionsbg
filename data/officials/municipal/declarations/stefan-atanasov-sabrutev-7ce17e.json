@@ -1,0 +1,92 @@
+[
+  {
+    "slug": "stefan-atanasov-sabrutev-7ce17e",
+    "declarantName": "СТЕФАН АТАНАСОВ САБРУТЕВ",
+    "institution": "Смолян",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г7416",
+    "controlHash": "078023B7",
+    "sourceUrl": "https://register.cacbg.bg/2025/C4E0E33E-9F3D-49F6-B5A7-7DA77DE335A1210404.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 4594.980136310415,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 36351.318877407546,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": 2432.2154788504113,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 14087,
+        "valueEur": 7202.56873041113,
+        "holderName": "Стефан Атанасов Сабрутев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 17280,
+        "valueEur": 8835.123707070656,
+        "holderName": "Здравка Георгиева Сабрутева",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 59164,
+        "valueEur": 30250.07285909307,
+        "holderName": "СТЕФАН АТАНАСОВ САБРУТЕВ, ЗДРАВКА ГЕОРГИЕВА САБРУТЕВА",
+        "isSpouse": true,
+        "legalBasis": "договор за кредит, лихва 2.8 %",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

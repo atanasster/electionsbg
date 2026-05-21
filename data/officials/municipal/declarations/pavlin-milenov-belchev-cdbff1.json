@@ -1,0 +1,80 @@
+[
+  {
+    "slug": "pavlin-milenov-belchev-cdbff1",
+    "declarantName": "Павлин Миленов Белчев",
+    "institution": "Баните",
+    "positionTitle": "Кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-03-25",
+    "entryNumber": "Г967",
+    "controlHash": "BF4D44BF",
+    "sourceUrl": "https://register.cacbg.bg/2025/90826DDF-4BB8-43F9-8DA7-F822198036F6203274.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 30513.388177909124,
+        "amountEurSpouse": 23219.809492645065
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 13000,
+        "valueEur": 6646.79445555084,
+        "holderName": "Павлин Миленов Белчев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "Мария Иванова Белчева",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Кредитна карта",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "Павлин Миленов Белчев",
+        "isSpouse": false,
+        "legalBasis": "договор, 12% лихва",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

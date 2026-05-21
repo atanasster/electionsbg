@@ -1,0 +1,126 @@
+[
+  {
+    "slug": "georgi-petrov-drakaliev-664fa9",
+    "declarantName": "(unknown)",
+    "institution": "Бургас",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2026,
+    "fiscalYear": null,
+    "declarationType": "Other",
+    "filedAt": "2025-02-13",
+    "entryNumber": "Г14376",
+    "controlHash": "8677DE25",
+    "sourceUrl": "https://register.cacbg.bg/2025/FCCC4680-B952-4C55-B064-CB32334E86ED217669.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": []
+  },
+  {
+    "slug": "georgi-petrov-drakaliev-664fa9",
+    "declarantName": "Георги Петров Дракалиев",
+    "institution": "Бургас",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-07",
+    "entryNumber": "Г9984",
+    "controlHash": "69F3C995",
+    "sourceUrl": "https://register.cacbg.bg/2025/FCCC4680-B952-4C55-B064-CB32334E86ED213053.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 13731.254761405644,
+        "amountEurSpouse": 19275.703921097436
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 383.9802027783601,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 29723.953513342163,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 920,
+        "valueEur": 470.388530700521,
+        "holderName": "Георги Петров Дракалиев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 31050,
+        "valueEur": 15875.612911142583,
+        "holderName": "Георги Петров Дракалиев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 17046,
+        "valueEur": 8715.48140687074,
+        "holderName": "Георги Петров Дракалиев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 21414,
+        "valueEur": 10948.804343935823,
+        "holderName": "Георги Петров Дракалиев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      }
+    ]
+  }
+]

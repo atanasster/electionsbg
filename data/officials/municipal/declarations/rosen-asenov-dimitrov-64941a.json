@@ -1,0 +1,104 @@
+[
+  {
+    "slug": "rosen-asenov-dimitrov-64941a",
+    "declarantName": "Росен Асенов Димитров",
+    "institution": "Кюстендил",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-13",
+    "entryNumber": "Г11922",
+    "controlHash": "0187E532",
+    "sourceUrl": "https://register.cacbg.bg/2025/C8C1347A-C07C-463D-A3C4-83B793B3E6C4215076.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 5419.693940679916,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "дивидент",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 5112.918811962185
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "УПИ",
+        "detail": null,
+        "location": "Кюстендил",
+        "municipality": "Кюстендил",
+        "areaSqm": 579,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Росен Асенов Димитров",
+        "isSpouse": false,
+        "legalBasis": "давностновладение",
+        "fundsOrigin": "безвъзмездно"
+      },
+      {
+        "category": "receivable",
+        "description": "Дивидент",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 19000,
+        "valueEur": 9714.54574272815,
+        "holderName": "Евгения Евгениева Димитрова",
+        "isSpouse": true,
+        "legalBasis": "дивидент",
+        "fundsOrigin": null
+      },
+      {
+        "category": "receivable",
+        "description": "заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 26000,
+        "valueEur": 13293.58891110168,
+        "holderName": "Евгения Евгениева Димитрова",
+        "isSpouse": true,
+        "legalBasis": "договор за заем",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 44790,
+        "valueEur": 22900.763358778626,
+        "holderName": "Евгения Евгениева Димитрова",
+        "isSpouse": true,
+        "legalBasis": "договор за кредит",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

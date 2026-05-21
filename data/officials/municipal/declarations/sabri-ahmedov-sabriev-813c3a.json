@@ -1,0 +1,128 @@
+[
+  {
+    "slug": "sabri-ahmedov-sabriev-813c3a",
+    "declarantName": "Сабри Ахмедов Сабриев",
+    "institution": "Опака",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г12167",
+    "controlHash": "8D7EBF11",
+    "sourceUrl": "https://register.cacbg.bg/2025/90A234CF-876F-46CB-8345-B6F3F492404D215326.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 3500.815510550508,
+        "amountEurSpouse": 4172.653042442339
+      },
+      {
+        "parent": null,
+        "category": "ОКОНЧАТЕЛЕН ДАНЪК ЗА ДОХОДИ ОТ ДИВИДЕНТИ ПО чл.38 ал.1 от ЗДДФЛ",
+        "amountEurDeclarant": 5112.918811962185,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "МАЙЧИНСТВО И ДЕТСКИ",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 2805.458552123651
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "ВАРНА",
+        "municipality": "Варна",
+        "areaSqm": 91,
+        "builtAreaSqm": 112,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 252302,
+        "valueEur": 128999.96420956832,
+        "holderName": "Сабри Ахмедов Сабриев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "ВАРНА",
+        "municipality": "Варна",
+        "areaSqm": 91,
+        "builtAreaSqm": 112,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 252302,
+        "valueEur": 128999.96420956832,
+        "holderName": "Арзу Айдънова Сабриева",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "ДАЧИЯ ДЪСТЕР",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 45280,
+        "valueEur": 23151.296380564774,
+        "holderName": "АРЗУ АЙДЪНОВА САБРИЕВА",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "ИПОТЕЧЕН КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 290128,
+        "valueEur": 148340.0909076965,
+        "holderName": "САБРИ АХМЕДОВ САБРИЕВ",
+        "isSpouse": false,
+        "legalBasis": "2,6",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "ФИНАНСОВ ЛИЗИНГ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 31577,
+        "valueEur": 16145.063732532992,
+        "holderName": "АРЗУ АЙДЪНОВА САБРИЕВА",
+        "isSpouse": true,
+        "legalBasis": "4,09",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

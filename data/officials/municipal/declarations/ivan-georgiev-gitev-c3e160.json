@@ -1,0 +1,110 @@
+[
+  {
+    "slug": "ivan-georgiev-gitev-c3e160",
+    "declarantName": "Иван Георгиев Гитев",
+    "institution": "Казанлък",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-11",
+    "entryNumber": "Г2572",
+    "controlHash": "A80EDB39",
+    "sourceUrl": "https://register.cacbg.bg/2025/27B932EF-9D32-44B5-9600-4EF0E42EB081205243.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 8560.04867498709,
+        "amountEurSpouse": 15625.079889356437
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 19897.946140513235,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 255.64594059810923,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 2000,
+        "valueEur": 1022.5837623924369,
+        "holderName": "Иван Георгиев Гитев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "Заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 26998,
+        "valueEur": 13803.858208535506,
+        "holderName": "Иван Георгиев Гитев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "Заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 12300,
+        "valueEur": 6288.890138713487,
+        "holderName": "Драгостина Цветанова Цочева - Гитева",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "Заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит към банка",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 59636,
+        "valueEur": 30491.402627017687,
+        "holderName": "Иван Георгиев Гитев",
+        "isSpouse": false,
+        "legalBasis": "Договор  ипотека; 2.78%",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

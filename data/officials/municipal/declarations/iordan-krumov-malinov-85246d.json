@@ -1,0 +1,74 @@
+[
+  {
+    "slug": "iordan-krumov-malinov-85246d",
+    "declarantName": "Йордан Крумов Малинов",
+    "institution": "Харманли",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г2228",
+    "controlHash": "9B524588",
+    "sourceUrl": "https://register.cacbg.bg/2025/F0B37419-2A67-475B-9F1B-96A0290E7023204838.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 7902.527315768753,
+        "amountEurSpouse": 26129.571588532744
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 9668.52947342049,
+        "amountEurSpouse": 5411.00197869958
+      },
+      {
+        "parent": null,
+        "category": "Пенсия за стаж и възраст",
+        "amountEurDeclarant": 8998.737109053445,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 36360,
+        "valueEur": 18590.572800294503,
+        "holderName": "Йордан Крумов Малинов",
+        "isSpouse": false,
+        "legalBasis": "договор за потребителски кредит с лихва 5.62%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 62886,
+        "valueEur": 32153.101240905395,
+        "holderName": "Валентина Борисова Малинова",
+        "isSpouse": true,
+        "legalBasis": "договор за потребителски кредит с лихва 4.90%",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

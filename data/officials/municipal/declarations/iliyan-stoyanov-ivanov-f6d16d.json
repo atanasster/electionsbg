@@ -1,0 +1,68 @@
+[
+  {
+    "slug": "iliyan-stoyanov-ivanov-f6d16d",
+    "declarantName": "Илиян Стоянов Иванов",
+    "institution": "Сливо поле",
+    "positionTitle": "Председател на ОбС",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-08",
+    "entryNumber": "Г8483",
+    "controlHash": "6467D038",
+    "sourceUrl": "https://register.cacbg.bg/2025/CA1D7DFB-ED5C-4215-BAF3-30640ED17C08211504.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 20127.00490328914,
+        "amountEurSpouse": 13258.309771299142
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 1794.634502998727,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Стара загора",
+        "municipality": "Стара Загора",
+        "areaSqm": 72,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/6",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Виолета Василева Иванова",
+        "isSpouse": true,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 16000,
+        "valueEur": 8180.6700991394955,
+        "holderName": "Илиян Стоянов Иванов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплати, рента, спестявания"
+      }
+    ]
+  }
+]

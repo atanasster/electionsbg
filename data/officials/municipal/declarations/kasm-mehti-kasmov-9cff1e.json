@@ -1,0 +1,86 @@
+[
+  {
+    "slug": "kasm-mehti-kasmov-9cff1e",
+    "declarantName": "КАСЪМ МЕХТИ КАСЪМОВ",
+    "institution": "Бяла Слатина",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-13",
+    "entryNumber": "Г11620",
+    "controlHash": "E8958462",
+    "sourceUrl": "https://register.cacbg.bg/2025/DCD36284-0DBF-414D-AB40-1294D98DE4E7214767.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "ДЯЛОВЕ В ЕООД",
+        "shareSize": "100 %",
+        "companyName": "\"ЕКСПРЕСКОНСУЛТ 2010\" ЕООД",
+        "registeredOffice": "Бяла Слатина",
+        "valueEur": 1.022583762392437,
+        "holderName": "НАТАЛИ РУМЕНОВА ОГНЯНОВА",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 6746.496372384103,
+        "amountEurSpouse": 8698.608774791264
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 173.83923960671427
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от прехвърляне на права или имущество",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 838.5186851617983
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "БМВ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 3000,
+        "valueEur": 1533.8756435886555,
+        "holderName": "НАТАЛИ РУМЕНОВА ОГНЯНОВА",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "МЕРЦЕДЕС",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 40000,
+        "valueEur": 20451.67524784874,
+        "holderName": "НАТАЛИ РУМЕНОВА ОГНЯНОВА",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ]
+  }
+]

@@ -1,0 +1,104 @@
+[
+  {
+    "slug": "mstn-feimov-eminov-f174a3",
+    "declarantName": "Мъстън Феимов Еминов",
+    "institution": "Велико Търново",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-13",
+    "entryNumber": "Г8170",
+    "controlHash": "9A1ACFA0",
+    "sourceUrl": "https://register.cacbg.bg/2025/E307D471-0041-4676-B66C-C3735F916A4B211185.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 698.4247097140344,
+        "amountEurSpouse": 7093.152267835139
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 15637.350894505147,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Велико Търново",
+        "municipality": "Велико Търново",
+        "areaSqm": 152,
+        "builtAreaSqm": 152,
+        "acquiredYear": 2020,
+        "share": "1/6",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Мъстън Феимов Еминов",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "real_estate",
+        "description": "гараж",
+        "detail": null,
+        "location": "Велико Търново",
+        "municipality": "Велико Търново",
+        "areaSqm": 15,
+        "builtAreaSqm": 15,
+        "acquiredYear": 2020,
+        "share": "1/6",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Мъстън Феимов Еминов",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Форд Мондео",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2023,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 8200,
+        "valueEur": 4192.593425808992,
+        "holderName": "Мъстън Феимов Еминов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Форд Мондео",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2023,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 8200,
+        "valueEur": 4192.593425808992,
+        "holderName": "Силвия Илиянова Еминова",
+        "isSpouse": true,
+        "legalBasis": "делба",
+        "fundsOrigin": "няма"
+      }
+    ]
+  }
+]

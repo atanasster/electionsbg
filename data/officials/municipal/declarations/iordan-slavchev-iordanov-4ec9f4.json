@@ -1,0 +1,92 @@
+[
+  {
+    "slug": "iordan-slavchev-iordanov-4ec9f4",
+    "declarantName": "ЙОРДАН СЛАВЧЕВ ЙОРДАНОВ",
+    "institution": "Тунджа",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-08",
+    "entryNumber": "Г11296",
+    "controlHash": "C19C88F1",
+    "sourceUrl": "https://register.cacbg.bg/2025/61AACC8B-7D7B-4525-936E-6E6FA07FCF12214431.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 5598.6460990985925,
+        "amountEurSpouse": 14327.421094880434
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 1755.7763200278143,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": 1398.8945869528538,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "СОФИЯ",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 74,
+        "builtAreaSqm": 74,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 230000,
+        "valueEur": 117597.13267513025,
+        "holderName": "МИЛЕНА ПЕТРОВА ЙОРДАНОВА",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "ПОТРЕБИТЕЛСКИ КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 40000,
+        "valueEur": 204516.75247848738,
+        "holderName": "МИЛЕНА ПЕТРОВА ЙОРДАНОВА",
+        "isSpouse": true,
+        "legalBasis": "КРЕДИТ 5.2%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "ИПОТЕЧЕН КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 230000,
+        "valueEur": 117597.13267513025,
+        "holderName": "МИЛЕНА ПЕТРОВА ЙОРДАНОВА",
+        "isSpouse": true,
+        "legalBasis": "КРЕДИТ 2.9%",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

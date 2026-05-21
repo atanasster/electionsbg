@@ -1,0 +1,104 @@
+[
+  {
+    "slug": "metodi-petrov-baikushev-bb06bd",
+    "declarantName": "Методи Петров Байкушев",
+    "institution": "Благоевград",
+    "positionTitle": "Кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-08",
+    "entryNumber": "Г8299",
+    "controlHash": "ACD018FF",
+    "sourceUrl": "https://register.cacbg.bg/2025/68877531-6346-4ACD-96BA-931B75D72DE8211315.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 42959.76644186867,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа от доход по договор за управление и контрол",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 6135.502574354622
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 17500,
+        "valueEur": 8947.607920933824,
+        "holderName": "Методи Петров Байкушев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "спестявания"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 29800,
+        "valueEur": 29800.136003640397,
+        "holderName": "Методи Петров Байкушев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "спестявания"
+      },
+      {
+        "category": "debt",
+        "description": "Неплатена покупна цена по нотариален акт",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 144600,
+        "valueEur": 73932.80602097319,
+        "holderName": "Методи Петров Байкушев и Радмила Любенова Байкушева, ЕГН",
+        "isSpouse": true,
+        "legalBasis": "Договор за покупко-продажба",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Оставащи вноски по договор за лизинг на лек автомобил с договорен лихвен процент по него в размер на 2.11%",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 27395,
+        "valueEur": 14006.841085370406,
+        "holderName": "Методи Петров Байкушев и Радмила Любенова Байкушева, ЕГН",
+        "isSpouse": true,
+        "legalBasis": "Договор за лизинг",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

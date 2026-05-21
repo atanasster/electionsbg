@@ -1,0 +1,122 @@
+[
+  {
+    "slug": "veselina-georgieva-toneva-6399a4",
+    "declarantName": "Веселина Георгиева Тонева",
+    "institution": "Сливен",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-17",
+    "entryNumber": "Г2583",
+    "controlHash": "9AC506BA",
+    "sourceUrl": "https://register.cacbg.bg/2025/2CE4FFED-C9D8-4FD7-9592-250868D2EB71205255.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 24798.167529897793,
+        "amountEurSpouse": 11570.023979589228
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": 2411.763803602563,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Варна",
+        "municipality": "Варна",
+        "areaSqm": 65,
+        "builtAreaSqm": 65,
+        "acquiredYear": 2024,
+        "share": "1/4",
+        "currency": "BGN",
+        "amount": 176024,
+        "valueEur": 89999.64209568316,
+        "holderName": "Веселина Георгиева Тонева",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Варна",
+        "municipality": "Варна",
+        "areaSqm": 65,
+        "builtAreaSqm": 65,
+        "acquiredYear": 2024,
+        "share": "1/4",
+        "currency": "BGN",
+        "amount": 176024,
+        "valueEur": 89999.64209568316,
+        "holderName": "Господин Иванов Тонев",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "кредит \"Доверие\"",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "Веселина Георгиева Тонева",
+        "isSpouse": false,
+        "legalBasis": "кредит 4,6%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 147000,
+        "valueEur": 75159.90653584411,
+        "holderName": "Веселина Георгиева Тонева",
+        "isSpouse": false,
+        "legalBasis": "кредит 2,6%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 147000,
+        "valueEur": 75159.90653584411,
+        "holderName": "Господин Иванов Тонев",
+        "isSpouse": true,
+        "legalBasis": "кредит 2,6%",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

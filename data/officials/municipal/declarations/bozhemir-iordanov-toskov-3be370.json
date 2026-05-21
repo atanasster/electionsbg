@@ -1,0 +1,128 @@
+[
+  {
+    "slug": "bozhemir-iordanov-toskov-3be370",
+    "declarantName": "БОЖЕМИР ЙОРДАНОВ ТОСКОВ",
+    "institution": "Каварна",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-13",
+    "entryNumber": "Г12469",
+    "controlHash": "C84E1FB7",
+    "sourceUrl": "https://register.cacbg.bg/2025/B72FB051-C2F2-461C-9143-1CA42EDC0D9F215638.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "ЕДНОЛИЧЕН СОБСТВЕНИК",
+        "shareSize": "1",
+        "companyName": "КОМФОРТ 2016 ЕООД",
+        "registeredOffice": "КАВАРНА",
+        "valueEur": 0.5112918811962185,
+        "holderName": "БОЖЕМИР ЙОРДАНОВ ТОСКОВ",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 7669.378217943277,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 11448.847803745724,
+        "amountEurSpouse": 3579.0431683735296
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 12708.670999013208,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 4908.4020594836975,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "СГРАДА ЗА ТЪРГОВИЯ",
+        "detail": null,
+        "location": "КАВАРНА",
+        "municipality": "КАВАРНА",
+        "areaSqm": 276,
+        "builtAreaSqm": 185,
+        "acquiredYear": 2023,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 200000,
+        "valueEur": 102258.37623924369,
+        "holderName": "БОЖЕМИР ЙОРДАНОВ ТОСКОВ",
+        "isSpouse": false,
+        "legalBasis": "ПОКУПКО -ПРОДАЖБА",
+        "fundsOrigin": "ЗАЕМ"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 31274,
+        "valueEur": 15990.142292530538,
+        "holderName": "БОЖЕМИР ЙОРДАНОВ ТОСКОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "debt",
+        "description": "ИПОТЕЧЕН КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 265000,
+        "valueEur": 120798.84243518097,
+        "holderName": "БОЖЕМИР ЙОРДАНОВ ТОСКОВ",
+        "isSpouse": false,
+        "legalBasis": "КРЕДИТ",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "ЛИЗИНГ НА АВТОМОБИЛ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 7000,
+        "valueEur": 587.9856633756513,
+        "holderName": "БОЖЕМИР ЙОРДАНОВ ТОСКОВ",
+        "isSpouse": false,
+        "legalBasis": "ЛИЗИНГ",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

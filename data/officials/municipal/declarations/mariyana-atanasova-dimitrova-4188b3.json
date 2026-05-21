@@ -1,0 +1,98 @@
+[
+  {
+    "slug": "mariyana-atanasova-dimitrova-4188b3",
+    "declarantName": "Марияна Атанасова Димитрова",
+    "institution": "Стамболийски",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-09",
+    "entryNumber": "Г9626",
+    "controlHash": "FCFD0C92",
+    "sourceUrl": "https://register.cacbg.bg/2025/0E60BC6D-F71E-42D5-92C3-F8E7A0C11C68212674.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 5156.88991374506,
+        "amountEurSpouse": 520.4951350577504
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 5219.267523250998,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Ваучери за храна",
+        "amountEurDeclarant": 1227.1005148709244,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Обезщетение за безработица",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 4425.742523634467
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Стамболийски",
+        "municipality": "Стамболийски",
+        "areaSqm": 360,
+        "builtAreaSqm": 158,
+        "acquiredYear": 2024,
+        "share": "1/6",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Марияна Атанасова Димитрова",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "debt",
+        "description": "Кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 23605,
+        "valueEur": 12069.044855636737,
+        "holderName": "Марияна Атанасова Димитрова",
+        "isSpouse": false,
+        "legalBasis": "Договор за кредит",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 42763,
+        "valueEur": 21864.37471559389,
+        "holderName": "Иван Възкрасенов Димитров",
+        "isSpouse": true,
+        "legalBasis": "Договор за кредит",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

@@ -1,0 +1,68 @@
+[
+  {
+    "slug": "banko-dimitrov-bankov-2389de",
+    "declarantName": "Банко Димитров Банков",
+    "institution": "Тополовград",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-13",
+    "entryNumber": "Г13047",
+    "controlHash": "41438613",
+    "sourceUrl": "https://register.cacbg.bg/2025/3CCEC364-056D-4408-8666-723EE954F884216237.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 6646.79445555084,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 18406.507723063867,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "АТВ",
+        "detail": "сегулай",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": null,
+        "currency": "BGN",
+        "amount": 12700,
+        "valueEur": 6493.406891191975,
+        "holderName": "Банко Димитров Банков",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "заем",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 60000,
+        "valueEur": 60000,
+        "holderName": "Банко Димитров Банков",
+        "isSpouse": false,
+        "legalBasis": "5%",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

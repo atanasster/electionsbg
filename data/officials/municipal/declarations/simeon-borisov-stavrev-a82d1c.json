@@ -1,0 +1,68 @@
+[
+  {
+    "slug": "simeon-borisov-stavrev-a82d1c",
+    "declarantName": "Симеон Борисов Ставрев",
+    "institution": "Столична община",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-06",
+    "entryNumber": "Г6731",
+    "controlHash": "8A9C7349",
+    "sourceUrl": "https://register.cacbg.bg/2025/DB40DF45-689C-48B4-9C28-73F5A41F44D5209699.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 31898.989175950876,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": 35586.426223138005,
+        "amountEurSpouse": 18342.59623791434
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "бул. Васил Левски 112, ет. 3, ап. 4",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 106,
+        "builtAreaSqm": 106,
+        "acquiredYear": 2024,
+        "share": "100",
+        "currency": "BGN",
+        "amount": 586749,
+        "valueEur": 300000,
+        "holderName": "Симеон Борисов Ставрев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 94000,
+        "valueEur": 48061.43683244454,
+        "holderName": "Симеон Борисов Ставрев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

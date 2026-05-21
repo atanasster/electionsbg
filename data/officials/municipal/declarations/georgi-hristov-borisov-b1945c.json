@@ -1,0 +1,98 @@
+[
+  {
+    "slug": "georgi-hristov-borisov-b1945c",
+    "declarantName": "Георги Христов Борисов",
+    "institution": "Аксаково",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-15",
+    "entryNumber": "Г12078",
+    "controlHash": "1B8AA389",
+    "sourceUrl": "https://register.cacbg.bg/2025/A42298F3-B7AD-4182-BA93-6DCBEF839338215235.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "дялове",
+        "shareSize": "100%",
+        "companyName": "\"Агро 66\" ЕООД",
+        "registeredOffice": "с. Водица",
+        "valueEur": 102.2583762392437,
+        "holderName": "Георги Христов Борисов",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 4940.61344799906,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 17280.131708788595,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Субару Аутбек",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 12000,
+        "valueEur": 6135.502574354622,
+        "holderName": "Георги Христов Борисов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 89000,
+        "valueEur": 45504.97742646345,
+        "holderName": "Георги Христов Борисов",
+        "isSpouse": false,
+        "legalBasis": "покупка на имот, 7,6%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Заем от частно лице",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 80000,
+        "valueEur": 40903.35049569748,
+        "holderName": "Георги Христов Борисов",
+        "isSpouse": false,
+        "legalBasis": "битови нужди",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

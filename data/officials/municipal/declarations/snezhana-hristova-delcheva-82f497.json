@@ -1,0 +1,86 @@
+[
+  {
+    "slug": "snezhana-hristova-delcheva-82f497",
+    "declarantName": "Снежана Христова Делчева",
+    "institution": "Елхово",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-02",
+    "entryNumber": "Г2582",
+    "controlHash": "062CF3EB",
+    "sourceUrl": "https://register.cacbg.bg/2025/2F4BA373-54B9-41EC-B708-B391C31B6DAB205254.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 2571.286870535783,
+        "amountEurSpouse": 11606.32570315416
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 17756.65574206347,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Елхово",
+        "municipality": "Елхово",
+        "areaSqm": 68,
+        "builtAreaSqm": 135,
+        "acquiredYear": 2024,
+        "share": null,
+        "currency": "BGN",
+        "amount": 68485,
+        "valueEur": 35015.82448372302,
+        "holderName": "Снежана Христова Делчева и Марин Делчев Делчев",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 72000,
+        "valueEur": 36813.015446127734,
+        "holderName": "Снежана Христова Делчева",
+        "isSpouse": false,
+        "legalBasis": "кредит с 4.2% лихва",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "ипотека",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 60000,
+        "valueEur": 30677.51287177311,
+        "holderName": "Марин Делчев Делчев",
+        "isSpouse": true,
+        "legalBasis": "ипотечен кредит с 2.8% лихва",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

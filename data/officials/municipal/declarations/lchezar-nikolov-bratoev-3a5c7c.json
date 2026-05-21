@@ -1,0 +1,139 @@
+[
+  {
+    "slug": "lchezar-nikolov-bratoev-3a5c7c",
+    "declarantName": "Лъчезар Николов Братоев",
+    "institution": "Аврен",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г8596",
+    "controlHash": "B9DEA063",
+    "sourceUrl": "https://register.cacbg.bg/2025/4D6040C7-7E40-4DE6-B2AB-EFBF9BAAD535211618.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Дялове в ООД",
+        "shareSize": "50%",
+        "companyName": "Принцес пропъртис ООД",
+        "registeredOffice": "с.Приселци",
+        "valueEur": 0.5112918811962185,
+        "holderName": "Лъчезар Николов Братоев",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "table": "10",
+        "itemType": "Дялове в ООД",
+        "shareSize": "1 %",
+        "companyName": "ЛЗ яхт чартър ООД",
+        "registeredOffice": "Варна",
+        "valueEur": 25.564594059810926,
+        "holderName": "Лъчезар Николов Братоев",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 6609.470148223517,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 10075.517810852682,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Пенсия по инвалидност",
+        "amountEurDeclarant": 9382.206019950609,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Заплата социален асистент на дете инвалид",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 2602.475675288752
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20781,
+        "valueEur": 10625.156583138616,
+        "holderName": "Лъчезар Николов Братоев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 16420,
+        "valueEur": 8395.412689241908,
+        "holderName": "Лъчезар Николов Братоев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10022,
+        "valueEur": 5124.167233348502,
+        "holderName": "Веселина Яникова Янкова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "receivable",
+        "description": "Допълнителен капитал",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 93804,
+        "valueEur": 47961.22362373008,
+        "holderName": "Веселина Яникова Янкова",
+        "isSpouse": true,
+        "legalBasis": "заем собствено д-во",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

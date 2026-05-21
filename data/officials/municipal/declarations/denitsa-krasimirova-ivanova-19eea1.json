@@ -1,0 +1,111 @@
+[
+  {
+    "slug": "denitsa-krasimirova-ivanova-19eea1",
+    "declarantName": "Деница Красимирова Иванова",
+    "institution": "Русе",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-15",
+    "entryNumber": "Г14370",
+    "controlHash": "01B5CF6B",
+    "sourceUrl": "https://register.cacbg.bg/2025/FFC39B8A-AFD3-44D3-83C7-5883A26FD80B217661.xml",
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "съдружник",
+        "shareSize": "30",
+        "companyName": "Оказионе ООД",
+        "registeredOffice": "Русе",
+        "valueEur": 1533.8756435886555,
+        "holderName": null,
+        "transfereeName": "Денислав Руменов Антонов",
+        "legalBasis": "възмездно",
+        "fundsOrigin": null
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 6012.281230986333,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 13879.529406952548,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 9087.19060450039
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 1227.1005148709244
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "гараж",
+        "detail": null,
+        "location": "бул.България 156",
+        "municipality": "Русе",
+        "areaSqm": 18,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 14685,
+        "valueEur": 7508.321275366468,
+        "holderName": "Денислав Руменов Антонов",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "продажба но имот"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Ауди",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 36233,
+        "valueEur": 18525.638731382584,
+        "holderName": "Денислав Руменов Антонов",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "продажба на имот"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "Денислав Руменов Антонов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "продажба на парцел"
+      }
+    ]
+  }
+]

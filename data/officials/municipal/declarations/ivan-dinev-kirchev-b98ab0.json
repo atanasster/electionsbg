@@ -1,0 +1,98 @@
+[
+  {
+    "slug": "ivan-dinev-kirchev-b98ab0",
+    "declarantName": "Иван Динев Кирчев",
+    "institution": "Гълъбово",
+    "positionTitle": "Главен архитект",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-28",
+    "entryNumber": "Г8218",
+    "controlHash": "00061DF8",
+    "sourceUrl": "https://register.cacbg.bg/2025/9FB60D6F-67B9-42B0-B49D-F6EC4326781F211233.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 25468.982478027232,
+        "amountEurSpouse": 5724.423901872862
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 6559.874835747483,
+        "amountEurSpouse": 11483.615651667067
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": 1.022583762392437,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Доходи, получени от рента, аренда или от друго възмездно предоставяне за ползване на земеделска земя, по смисъла на чл.13, ал.1, т.24 от ЗДДФЛ",
+        "amountEurDeclarant": 2431.1928950880188,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 73521,
+        "valueEur": 37590.69039742718,
+        "holderName": "Иван Динев Кирчев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата и пенсия"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 89590,
+        "valueEur": 45806.63963636921,
+        "holderName": "Иван Динев Кирчев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "доходи от наем"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 39905,
+        "valueEur": 20403.1025191351,
+        "holderName": "Радосвета Иванова Кирчева",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "наследяване"
+      }
+    ]
+  }
+]

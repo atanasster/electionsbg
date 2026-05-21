@@ -1,0 +1,80 @@
+[
+  {
+    "slug": "mesru-yusein-myumyun-06b74a",
+    "declarantName": "Месру Юсеин Мюмюн",
+    "institution": "Черноочене",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-08",
+    "entryNumber": "Г7183",
+    "controlHash": "95D8CA21",
+    "sourceUrl": "https://register.cacbg.bg/2025/C66DB032-6DF1-43B3-846E-7CA55BC0DE01210171.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 34015.226272222026,
+        "amountEurSpouse": 20641.364535772536
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 13000,
+        "valueEur": 6646.79445555084,
+        "holderName": "Месру Юсеин Мюмюн",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20991,
+        "valueEur": 10732.527878189821,
+        "holderName": "Гюлшен Мустафа Мюмюн",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "банков заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 21928,
+        "valueEur": 11211.60837087068,
+        "holderName": "Месру Юсеин Мюмюн",
+        "isSpouse": false,
+        "legalBasis": "банков кредит - 4.3% лихва",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

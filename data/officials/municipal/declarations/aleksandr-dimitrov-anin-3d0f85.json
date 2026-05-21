@@ -1,0 +1,122 @@
+[
+  {
+    "slug": "aleksandr-dimitrov-anin-3d0f85",
+    "declarantName": "АЛЕКСАНДЪР ДИМИТРОВ АНИН",
+    "institution": "Дупница",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-14",
+    "entryNumber": "Г14268",
+    "controlHash": "7A9F9F2B",
+    "sourceUrl": "https://register.cacbg.bg/2025/89A77091-BE71-45CA-9E61-778B1E60198E217551.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Дружествени дялове",
+        "shareSize": "50",
+        "companyName": "НИА Строй Инвест",
+        "registeredOffice": "София",
+        "valueEur": 127.82297029905462,
+        "holderName": "Александър Димитров Анин",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "table": "11",
+        "itemType": "дружествен дял",
+        "shareSize": "250",
+        "companyName": "Ниа Строй Инвест\" ООД",
+        "registeredOffice": "София",
+        "valueEur": 33233.972277754205,
+        "holderName": null,
+        "transfereeName": "Александър Димитров Анин",
+        "legalBasis": "възмездно",
+        "fundsOrigin": null
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 7179.049303876104,
+        "amountEurSpouse": 13283.874365358952
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 207,
+        "builtAreaSqm": 144,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "Александър Димитров Анин",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 207,
+        "builtAreaSqm": 144,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "Здравка Исталиянова Анина",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Тойота Рав4",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 6210,
+        "valueEur": 3175.122582228517,
+        "holderName": "Александър Димитров Анин",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Тойота Рав4",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 6210,
+        "valueEur": 3175.122582228517,
+        "holderName": "Здравка Исталиянова Анина",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ]
+  }
+]

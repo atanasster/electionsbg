@@ -1,0 +1,62 @@
+[
+  {
+    "slug": "iliyan-kostov-yanchev-ead678",
+    "declarantName": "Илиян Костов Янчев",
+    "institution": "Малко Търново",
+    "positionTitle": "Кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-09",
+    "entryNumber": "Г10726",
+    "controlHash": "A0BA925D",
+    "sourceUrl": "https://register.cacbg.bg/2025/445651BE-605B-4664-88CE-EC074912D9A2213831.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 25063.52801623863,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Бургас",
+        "municipality": "Бургас",
+        "areaSqm": 63,
+        "builtAreaSqm": 63,
+        "acquiredYear": 2024,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 90545,
+        "valueEur": 46294.923382911606,
+        "holderName": "ИЛИЯН КОСТОВ ЯНЧЕВ",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 80000,
+        "valueEur": 40903.35049569748,
+        "holderName": "ИЛИЯН КОСТОВ ЯНЧЕВ",
+        "isSpouse": false,
+        "legalBasis": "договор за кредит",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

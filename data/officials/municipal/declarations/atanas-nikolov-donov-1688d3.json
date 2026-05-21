@@ -1,0 +1,80 @@
+[
+  {
+    "slug": "atanas-nikolov-donov-1688d3",
+    "declarantName": "АТАНАС НИКОЛОВ ДОНОВ",
+    "institution": "Брацигово",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-14",
+    "entryNumber": "Г13090",
+    "controlHash": "48D9A77B",
+    "sourceUrl": "https://register.cacbg.bg/2025/4B2FA59E-C8C0-443F-ADB0-64E2FE916C8E216283.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 3251.3050725267535,
+        "amountEurSpouse": 8950.164380339804
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща",
+        "detail": null,
+        "location": "Кавала, Гърция",
+        "municipality": "ЧУЖБИНА",
+        "areaSqm": 65,
+        "builtAreaSqm": 65,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 35000,
+        "valueEur": 17895.215841867648,
+        "holderName": "Атанас Николов Донов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "real_estate",
+        "description": "къща",
+        "detail": null,
+        "location": "Кавала, Гърция",
+        "municipality": "ЧУЖБИНА",
+        "areaSqm": 65,
+        "builtAreaSqm": 65,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 35000,
+        "valueEur": 17895.215841867648,
+        "holderName": "Цветелина Росенова Донова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "Кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 43608,
+        "valueEur": 22296.416355204696,
+        "holderName": "Цветелина Росенова Донова",
+        "isSpouse": true,
+        "legalBasis": "Кредит - 5.6%",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

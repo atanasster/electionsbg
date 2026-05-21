@@ -1,0 +1,74 @@
+[
+  {
+    "slug": "tsvetelina-kalinova-simeonova-zarkin-883915",
+    "declarantName": "Цветелина Калинова Симеонова-Заркин",
+    "institution": "Столична община",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г12745",
+    "controlHash": "53295A9F",
+    "sourceUrl": "https://register.cacbg.bg/2025/012618BC-276C-498F-BB80-D1B2F8585B27215920.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 25745.080093873188,
+        "amountEurSpouse": 8811.092988654433
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 13070.154359018934,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 2660.762949745121,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 115951,
+        "valueEur": 59284.80491658273,
+        "holderName": "Цветелина Калинова Симеонова-Заркин",
+        "isSpouse": false,
+        "legalBasis": "договор за кредит, 2%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 9816,
+        "valueEur": 5018.841105822081,
+        "holderName": "Йосиф Иванов Заркин",
+        "isSpouse": true,
+        "legalBasis": "договор за кредит,12%",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

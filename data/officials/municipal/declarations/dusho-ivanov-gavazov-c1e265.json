@@ -1,0 +1,86 @@
+[
+  {
+    "slug": "dusho-ivanov-gavazov-c1e265",
+    "declarantName": "Д-р Душо Иванов Гавазов",
+    "institution": "Мъглиж",
+    "positionTitle": "Заместник кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-13",
+    "entryNumber": "Г13781",
+    "controlHash": "B4939E51",
+    "sourceUrl": "https://register.cacbg.bg/2025/D0A4869C-3A4E-4243-9E7D-351C4D750FB7217033.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 28317.90084005256,
+        "amountEurSpouse": 26716.534668146003
+      },
+      {
+        "parent": null,
+        "category": "онлайн залагания",
+        "amountEurDeclarant": 35023.493861940966,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 43317,
+        "valueEur": 22147.630417776596,
+        "holderName": "Маргарита Тончева Гавазова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "кредитна карта",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 1000,
+        "valueEur": 511.29188119621847,
+        "holderName": "Д-р Душо Иванов Гавазов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 6856,
+        "valueEur": 3505.417137481274,
+        "holderName": "Д-р Душо Иванов Гавазов",
+        "isSpouse": false,
+        "legalBasis": "Договор за потребителски кредит, 4,97%",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

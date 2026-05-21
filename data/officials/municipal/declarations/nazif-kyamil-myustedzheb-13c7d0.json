@@ -1,0 +1,74 @@
+[
+  {
+    "slug": "nazif-kyamil-myustedzheb-13c7d0",
+    "declarantName": "НАЗИФ КЯМИЛ МЮСТЕДЖЕБ",
+    "institution": "Каолиново",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-15",
+    "entryNumber": "Г2990",
+    "controlHash": "3552A43E",
+    "sourceUrl": "https://register.cacbg.bg/2025/7CC3EE3F-46A6-4A1A-9C5F-1E0ADA3049E6205705.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 3118.8804752969327,
+        "amountEurSpouse": 52663.063763210506
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 17895.215841867648,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 434.59809901678574,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 35000,
+        "valueEur": 17895.215841867648,
+        "holderName": "НАЗИФ КЯМИЛ МЮСТЕДЖЕБ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "СУБСИДИИ"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 25000,
+        "valueEur": 12782.297029905461,
+        "holderName": "СЕЛВИЕ АХМЕД МЮСТЕДЖЕБ",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "ЗЕМЕДЕЛСКИ ПРОИЗВОДИТЕЛ"
+      }
+    ]
+  }
+]

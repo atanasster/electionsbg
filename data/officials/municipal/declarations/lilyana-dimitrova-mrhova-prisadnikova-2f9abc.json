@@ -1,0 +1,80 @@
+[
+  {
+    "slug": "lilyana-dimitrova-mrhova-prisadnikova-2f9abc",
+    "declarantName": "Лиляна Димитрова Мърхова -Присадникова",
+    "institution": "Пазарджик",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-14",
+    "entryNumber": "Г11978",
+    "controlHash": "C2C3A25B",
+    "sourceUrl": "https://register.cacbg.bg/2025/9DEB99D3-46A9-4C98-B76A-BD724D865F5F215132.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "парични средства",
+        "shareSize": "1/3",
+        "companyName": "Тера Тео Консулт ООД",
+        "registeredOffice": "Пазарджик",
+        "valueEur": 15.338756435886555,
+        "holderName": "Лиляна Димитрова Мърхова-Присадникова",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 9350.505923316443,
+        "amountEurSpouse": 11657.454891273781
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 1533.8756435886555,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 35000,
+        "valueEur": 17895.215841867648,
+        "holderName": "Лиляна Димитрова Мърхова-Присадникова",
+        "isSpouse": false,
+        "legalBasis": "кредит",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "лизинг",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "Лиляна Димитрова Мърхова-Присадникова",
+        "isSpouse": false,
+        "legalBasis": "лизинг",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

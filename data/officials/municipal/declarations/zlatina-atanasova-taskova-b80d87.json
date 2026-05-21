@@ -1,0 +1,68 @@
+[
+  {
+    "slug": "zlatina-atanasova-taskova-b80d87",
+    "declarantName": "Златина Атанасова Таскова",
+    "institution": "Нови пазар",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-24",
+    "entryNumber": "Г4250",
+    "controlHash": "5F1748FA",
+    "sourceUrl": "https://register.cacbg.bg/2025/05754BA9-E287-4A8C-B189-1898B6DC3814207093.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 4992.765219881074,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 4412.448934723366,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Варна",
+        "municipality": "Варна",
+        "areaSqm": 53,
+        "builtAreaSqm": 53,
+        "acquiredYear": 2009,
+        "share": "0.5",
+        "currency": "BGN",
+        "amount": 100000,
+        "valueEur": 51129.188119621846,
+        "holderName": "Златина Атанасова Таскова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "ипотечен кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 35000,
+        "valueEur": 35790.431683735296,
+        "holderName": "Златина Атанасова Таскова",
+        "isSpouse": false,
+        "legalBasis": "8.9 ипотечен кредит",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

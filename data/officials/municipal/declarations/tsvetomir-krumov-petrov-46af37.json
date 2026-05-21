@@ -1,0 +1,80 @@
+[
+  {
+    "slug": "tsvetomir-krumov-petrov-46af37",
+    "declarantName": "ЦВЕТОМИР КРУМОВ ПЕТРОВ",
+    "institution": "Ценово",
+    "positionTitle": "Заместник кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-14",
+    "entryNumber": "Г13089",
+    "controlHash": "216591CA",
+    "sourceUrl": "https://register.cacbg.bg/2025/80F0D2D5-7C98-4FBA-98BA-1C78639CDB66216282.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 15095.892792318351,
+        "amountEurSpouse": 19649.458286251873
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "KIA XCEED",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 52000,
+        "valueEur": 26587.17782220336,
+        "holderName": "Цветомир Крумов Петров",
+        "isSpouse": false,
+        "legalBasis": "лизинг",
+        "fundsOrigin": "продажба, лизинг, заплати"
+      },
+      {
+        "category": "debt",
+        "description": "ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 29013,
+        "valueEur": 14834.111349145887,
+        "holderName": "Юлия Василевна Петрова",
+        "isSpouse": true,
+        "legalBasis": "2,69%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "договор за лизинг",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 26000,
+        "valueEur": 13293.58891110168,
+        "holderName": "Цветомир Крумов Петров",
+        "isSpouse": false,
+        "legalBasis": "4,20%",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

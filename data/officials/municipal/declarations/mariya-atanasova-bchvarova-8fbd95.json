@@ -1,0 +1,80 @@
+[
+  {
+    "slug": "mariya-atanasova-bchvarova-8fbd95",
+    "declarantName": "Мария Атанасова Бъчварова",
+    "institution": "Стражица",
+    "positionTitle": "Заместник кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-09",
+    "entryNumber": "Г10402",
+    "controlHash": "1C0E370F",
+    "sourceUrl": "https://register.cacbg.bg/2025/0CA38DBB-FCC7-41E7-8D6C-6EC2F91013B0213485.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Дружество с ограничена отговорност",
+        "shareSize": "50%",
+        "companyName": "Конкрийт Солушънс",
+        "registeredOffice": "Стражица",
+        "valueEur": 2556.4594059810925,
+        "holderName": "Тодор Стефанов Чоранов",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 33911.945312220385
+      },
+      {
+        "parent": null,
+        "category": "Доходи от майчинство",
+        "amountEurDeclarant": 15480.384286977907,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 42000,
+        "valueEur": 21474.259010241178,
+        "holderName": "Мария Атанасова Бъчварова",
+        "isSpouse": false,
+        "legalBasis": "Кредит - 5.1% лихва",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 72000,
+        "valueEur": 36813.015446127734,
+        "holderName": "Тодор Стефанов Чоранов",
+        "isSpouse": true,
+        "legalBasis": "Кредит - 5.7% лихва",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

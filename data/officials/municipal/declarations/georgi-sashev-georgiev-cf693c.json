@@ -1,0 +1,128 @@
+[
+  {
+    "slug": "georgi-sashev-georgiev-cf693c",
+    "declarantName": "Георги Сашев Георгиев",
+    "institution": "Нови пазар",
+    "positionTitle": "Кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-06-09",
+    "entryNumber": "Г14922",
+    "controlHash": "0C0991E4",
+    "sourceUrl": "https://register.cacbg.bg/2025/B524A024-AA79-4B97-9EFD-A679E82BFA67218440.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 33575.00396251208,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 6135.502574354622,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Майчинство",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 1196.4230019991512
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "ипотечен кредит -съдлъжник",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 185437,
+        "valueEur": 94812.43257338316,
+        "holderName": "Георги Сашев Георгиев",
+        "isSpouse": false,
+        "legalBasis": "договор за кредит -2.92 %",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "ипотечен кредит -съдлъжник",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 185437,
+        "valueEur": 94812.43257338316,
+        "holderName": "Галина Иванова Георгиева",
+        "isSpouse": true,
+        "legalBasis": "договор за кредит -2.92%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "кредитна карта",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 1000,
+        "valueEur": 511.29188119621847,
+        "holderName": "Георги Сашев Георгиев",
+        "isSpouse": false,
+        "legalBasis": "договор за кредит-17.87%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "кредитна карта",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 4300,
+        "valueEur": 2198.5550891437397,
+        "holderName": "Георги Сашев Георгиев",
+        "isSpouse": false,
+        "legalBasis": "договор за кредит-17,95 %",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "кредитна карта",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "Георги Сашев Георгиев",
+        "isSpouse": false,
+        "legalBasis": "договор за кредит-15%",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

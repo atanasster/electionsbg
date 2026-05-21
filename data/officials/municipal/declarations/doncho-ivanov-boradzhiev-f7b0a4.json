@@ -1,0 +1,127 @@
+[
+  {
+    "slug": "doncho-ivanov-boradzhiev-f7b0a4",
+    "declarantName": "Дончо Иванов Бораджиев",
+    "institution": "Велико Търново",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-14",
+    "entryNumber": "Г10866",
+    "controlHash": "84142236",
+    "sourceUrl": "https://register.cacbg.bg/2025/227C9017-DD00-49FA-B7C1-9443D953D8E7213980.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "дружествен дял",
+        "shareSize": "10%",
+        "companyName": "Стаекс Фарма",
+        "registeredOffice": "Пловдив",
+        "valueEur": 10.22583762392437,
+        "holderName": "Дончо Иванов Бораджиев",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "table": "10",
+        "itemType": "дружествен дял",
+        "shareSize": "100%",
+        "companyName": "Кей Пи Инвестмънтс",
+        "registeredOffice": "Велико Търново",
+        "valueEur": 511.29188119621847,
+        "holderName": "Дончо Иванов Бораджиев",
+        "legalBasis": "учредител",
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      }
+    ],
+    "income": [
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 4385.861756901162,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": 1339.0734368528963,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Автомобил",
+        "detail": "Хонда",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": null,
+        "currency": "BGN",
+        "amount": 33250,
+        "valueEur": 17000.455049774264,
+        "holderName": "1111",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "Собствени средства и дарение"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 35000,
+        "valueEur": 17895.215841867648,
+        "holderName": "1111",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "връщане на заем"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 16500,
+        "valueEur": 16463.598574518237,
+        "holderName": "1111",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "връщане на заем"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 28000,
+        "valueEur": 14316.172673494118,
+        "holderName": "Елица Красиморва Бораджиева",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "дарения"
+      }
+    ]
+  }
+]

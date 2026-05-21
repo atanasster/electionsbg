@@ -1,0 +1,86 @@
+[
+  {
+    "slug": "vanya-angelova-lazarova-0b26d0",
+    "declarantName": "Ваня Ангелова Лазарова",
+    "institution": "Стамболийски",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-06-10",
+    "entryNumber": "Г15105",
+    "controlHash": "DD2F9008",
+    "sourceUrl": "https://register.cacbg.bg/2025/7ABF3F68-BB2A-4F15-A8EE-B3FB975A515C218714.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 24051.170091470118,
+        "amountEurSpouse": 5235.117571568081
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 5840.487158904404,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Банков кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 6047,
+        "valueEur": 3091.782005593533,
+        "holderName": "Николай Иванов Лазаров",
+        "isSpouse": true,
+        "legalBasis": "договор - УНИКРЕДИТ БУЛБАНК-3,95",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "лизинг",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 5068,
+        "valueEur": 2591.227253902435,
+        "holderName": "Николай Иванов Лазаров",
+        "isSpouse": true,
+        "legalBasis": "договор -18% год лихва",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "кредитна карта",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 1753,
+        "valueEur": 896.2946677369711,
+        "holderName": "Николай Иванов Лазаров",
+        "isSpouse": true,
+        "legalBasis": "договор -17% УНИКРЕДИТ БУЛБАНК",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

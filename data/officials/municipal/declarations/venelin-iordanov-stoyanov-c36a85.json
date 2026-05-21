@@ -1,0 +1,86 @@
+[
+  {
+    "slug": "venelin-iordanov-stoyanov-c36a85",
+    "declarantName": "ВЕНЕЛИН ЙОРДАНОВ СТОЯНОВ",
+    "institution": "Суворово",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г781",
+    "controlHash": "7FAA0A7B",
+    "sourceUrl": "https://register.cacbg.bg/2025/113A5EEF-DBBD-462B-9156-860C41BB2FCB203013.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 5502.523225433703,
+        "amountEurSpouse": 13037.431678622375
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 12581.359320595348,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Товарен автомобил",
+        "detail": "Форд Транзит",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 5183,
+        "valueEur": 2650.0258202400005,
+        "holderName": "Венелин Йорданов Стоянов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 51607,
+        "valueEur": 26386.240112893247,
+        "holderName": "Даниела Иванова Добрева",
+        "isSpouse": true,
+        "legalBasis": "кредит",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 75363,
+        "valueEur": 38532.490042590616,
+        "holderName": "Венелин Йорданов Стоянов",
+        "isSpouse": false,
+        "legalBasis": "кредит",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

@@ -1,0 +1,104 @@
+[
+  {
+    "slug": "ivo-danailov-petrov-ff0c12",
+    "declarantName": "ИВО ДАНАИЛОВ ПИТРОВ",
+    "institution": "Перник",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г14336",
+    "controlHash": "9997FFF1",
+    "sourceUrl": "https://register.cacbg.bg/2025/0B1046A6-34C6-40F1-B7A0-7F0F609AED36217624.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 36656.048838600494,
+        "amountEurSpouse": 122336.297121938
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 1384.5784142793598,
+        "amountEurSpouse": 369.66403010486596
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 11000,
+        "valueEur": 5624.210693158403,
+        "holderName": "ИВО ДАНАИЛОВ ПЕТРОВ",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "ЮРОБАНК АД",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 1280,
+        "valueEur": 654.4536079311597,
+        "holderName": "ИВО ДАНАИЛОВ ПЕТРОВ",
+        "isSpouse": true,
+        "legalBasis": "ДОГОВОР",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "УНИКРЕДИТ БУЛБАНК АД",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 54800,
+        "valueEur": 28018.795089552772,
+        "holderName": "ДИАНА ТОДОРОВА ПЕТРОВА",
+        "isSpouse": true,
+        "legalBasis": "ДОГОВОР",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "ИЛАСЕТ БАНК АД",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 31807,
+        "valueEur": 31807,
+        "holderName": "ДИАНА ТОДОРОВА ПЕТРОВА",
+        "isSpouse": true,
+        "legalBasis": "ДОГОВОР",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

@@ -1,0 +1,163 @@
+[
+  {
+    "slug": "krasimira-peneva-anastasova-013eee",
+    "declarantName": "(unknown)",
+    "institution": "Долни Чифлик",
+    "positionTitle": "Кмет",
+    "declarationYear": 2026,
+    "fiscalYear": null,
+    "declarationType": "Other",
+    "filedAt": "2025-04-15",
+    "entryNumber": "Г2401",
+    "controlHash": "A801C88E",
+    "sourceUrl": "https://register.cacbg.bg/2025/8BD97593-5502-4221-A3C3-8B937A15C947205040.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [
+      {
+        "category": "investment",
+        "description": null,
+        "detail": "Еднолично дружество с ограничена отговорност, здравеопазване",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "Еднолично дружество с ограничена отговорност, здравеопазване",
+        "amount": null,
+        "valueEur": null,
+        "holderName": null,
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ]
+  },
+  {
+    "slug": "krasimira-peneva-anastasova-013eee",
+    "declarantName": "Красимира Пенева Анастасова",
+    "institution": "Долни Чифлик",
+    "positionTitle": "Кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-28",
+    "entryNumber": "Г6964",
+    "controlHash": "B7547A4E",
+    "sourceUrl": "https://register.cacbg.bg/2025/8BD97593-5502-4221-A3C3-8B937A15C947209951.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 27898.130205590467,
+        "amountEurSpouse": 8121.360240920734
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 974.5223255599924
+      },
+      {
+        "parent": null,
+        "category": "Доходи от дивиденти по чл.38 от ЗДДФЛ",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 43715.45584227668
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 21047,
+        "valueEur": 10761.16022353681,
+        "holderName": "Красимира Пенева Анастасова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 73789,
+        "valueEur": 37727.716621587766,
+        "holderName": "Димитър Ефтимов Анастасов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "debt",
+        "description": "Кредитна карта",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 2000,
+        "valueEur": 1022.5837623924369,
+        "holderName": "Красимира Пенева Анастасова",
+        "isSpouse": false,
+        "legalBasis": "кредит",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 35317,
+        "valueEur": 18355.378534944244,
+        "holderName": "Красимира Пенева Анастасова",
+        "isSpouse": false,
+        "legalBasis": "кредит",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Кредитна карта",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 3370,
+        "valueEur": 1723.0536396312564,
+        "holderName": "Димитър Ефтимов Анастасов",
+        "isSpouse": true,
+        "legalBasis": "кредит",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

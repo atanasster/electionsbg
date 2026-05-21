@@ -1,0 +1,68 @@
+[
+  {
+    "slug": "iordan-toshkov-iordanov-daeac5",
+    "declarantName": "Йордан Тошков Йорданов",
+    "institution": "Добрич",
+    "positionTitle": "Кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-14",
+    "entryNumber": "Г11384",
+    "controlHash": "2050EBEE",
+    "sourceUrl": "https://register.cacbg.bg/2025/9B3776D9-87F1-4D7A-9343-567DC4F51852214520.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 36913.22865484219,
+        "amountEurSpouse": 2986.9671699483083
+      },
+      {
+        "parent": null,
+        "category": "рента",
+        "amountEurDeclarant": 37981.31739466109,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 28174,
+        "valueEur": 14405.13746082226,
+        "holderName": "Йордан Тошков Йорданов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата, рента"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "Йордан Тошков Йорданов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "кредитна карта"
+      }
+    ]
+  }
+]

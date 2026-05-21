@@ -1,0 +1,86 @@
+[
+  {
+    "slug": "mustadzhan-mustafa-shaban-2b29fa",
+    "declarantName": "Мустаджан Мустафа Шабан",
+    "institution": "Велики Преслав",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-08",
+    "entryNumber": "Г8895",
+    "controlHash": "843D350B",
+    "sourceUrl": "https://register.cacbg.bg/2025/7283FD0C-7644-46E9-86EC-21129B64E12C211922.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 6841.5966622866,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 10898.697739578593,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "магазин",
+        "detail": null,
+        "location": "Велики Преслав",
+        "municipality": "Велики Преслав",
+        "areaSqm": 23,
+        "builtAreaSqm": 23,
+        "acquiredYear": 2024,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 2800,
+        "valueEur": 1431.6172673494118,
+        "holderName": "Мустаджан Мустафа Шабан",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Фиат Фремонт",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 6000,
+        "valueEur": 3067.751287177311,
+        "holderName": "Мустаджан Мустфа Шабан",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 58700,
+        "valueEur": 30012.833426218025,
+        "holderName": "Мустаджан Мустафа Шабан",
+        "isSpouse": false,
+        "legalBasis": "4,450%",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

@@ -1,0 +1,122 @@
+[
+  {
+    "slug": "evgeni-ivanov-ivanov-1d0d30",
+    "declarantName": "Евгени Иванов Иванов",
+    "institution": "Ямбол",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-15",
+    "entryNumber": "Г13509",
+    "controlHash": "02400136",
+    "sourceUrl": "https://register.cacbg.bg/2025/34EFC8D3-0B35-4610-A002-F11267814388216729.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Дялове в ООД",
+        "shareSize": "100%",
+        "companyName": "Тунджа НЕТ ЕООД",
+        "registeredOffice": "Елхово",
+        "valueEur": 102.2583762392437,
+        "holderName": "Евгени Иванов Иванов",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "table": "11",
+        "itemType": "Дялове в ООД",
+        "shareSize": "50%",
+        "companyName": "Електро-ЕН ООД",
+        "registeredOffice": "Ямбол",
+        "valueEur": 51.12918811962185,
+        "holderName": null,
+        "transfereeName": "Евгени Иванов Иванов",
+        "legalBasis": "възмездно",
+        "fundsOrigin": null
+      },
+      {
+        "table": "11",
+        "itemType": "Дялове в ООД",
+        "shareSize": "50%",
+        "companyName": "Спешъл Сикюрити Груп",
+        "registeredOffice": "Ямбол",
+        "valueEur": 1533.8756435886555,
+        "holderName": null,
+        "transfereeName": "Евгени Иванов Иванов",
+        "legalBasis": "възмездно",
+        "fundsOrigin": null
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 7318.120695561475,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 19237.868321888916,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Созопол",
+        "municipality": "Созопол",
+        "areaSqm": 55,
+        "builtAreaSqm": 55,
+        "acquiredYear": 2024,
+        "share": "100%",
+        "currency": "BGN",
+        "amount": 72000,
+        "valueEur": 36813.015446127734,
+        "holderName": "Евгени Иванов Иванов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "няма"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "Евгени Иванов Иванов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 72000,
+        "valueEur": 36813.015446127734,
+        "holderName": "Евгени Иванов Иванов",
+        "isSpouse": false,
+        "legalBasis": "Ипотечен кредин",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

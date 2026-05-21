@@ -1,0 +1,104 @@
+[
+  {
+    "slug": "anastas-bonchev-anastasov-6c9f0b",
+    "declarantName": "Анастас Бончев Анастасов",
+    "institution": "Любимец",
+    "positionTitle": "Кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-07",
+    "entryNumber": "Г10596",
+    "controlHash": "0E2B4452",
+    "sourceUrl": "https://register.cacbg.bg/2025/2D1DAB22-6BFE-4165-9D1A-22846E7E6C9D213694.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 32949.6939918091,
+        "amountEurSpouse": 14110.122045372042
+      },
+      {
+        "parent": null,
+        "category": "Други от пенсии",
+        "amountEurDeclarant": 13043.56718119673,
+        "amountEurSpouse": 5725.957777516451
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Ауди",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 40775,
+        "valueEur": 20847.92645577581,
+        "holderName": "Анастас Бончев Анастасов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата и пенсии"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 3000,
+        "valueEur": 1533.8756435886555,
+        "holderName": "Анастас Бончев Анастасов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "Остатък по табл.4 по декл. От 2023г.и заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 159046,
+        "valueEur": 81318.92853673377,
+        "holderName": "Анастас Бончев Анастасов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "Остатък по табл.5 по декл. За 2023г. Заплати и пенсии"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 104078,
+        "valueEur": 53214.23641114003,
+        "holderName": "Маргарита Атанасова Анастасова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "Остатък по табл.5 по декл. За 2023г. Заплати и пенсии"
+      }
+    ]
+  }
+]

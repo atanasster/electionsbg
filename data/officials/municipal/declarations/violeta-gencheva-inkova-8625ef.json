@@ -1,0 +1,68 @@
+[
+  {
+    "slug": "violeta-gencheva-inkova-8625ef",
+    "declarantName": "Виолета Генчева Инкьова",
+    "institution": "Дупница",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-07",
+    "entryNumber": "Г7808",
+    "controlHash": "89200868",
+    "sourceUrl": "https://register.cacbg.bg/2025/0738C38B-D0D4-4E21-B777-3FF250351442210812.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 4836.30990423503,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 331.31713901514956
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща",
+        "detail": null,
+        "location": "Дупница",
+        "municipality": "Дупница",
+        "areaSqm": 130,
+        "builtAreaSqm": 164,
+        "acquiredYear": 2007,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 18930,
+        "valueEur": 9678.755311044417,
+        "holderName": "Виктор Валериев Пенчев",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "JEEP",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2022,
+        "share": "100",
+        "currency": "BGN",
+        "amount": 9950,
+        "valueEur": 5087.354217902374,
+        "holderName": "Виолета Генчева Инкьова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ]
+  }
+]

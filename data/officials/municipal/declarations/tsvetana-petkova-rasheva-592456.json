@@ -1,0 +1,163 @@
+[
+  {
+    "slug": "tsvetana-petkova-rasheva-592456",
+    "declarantName": "Цветана Петкова Рашева",
+    "institution": "Нова Загора",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г12953",
+    "controlHash": "DB7C6FF9",
+    "sourceUrl": "https://register.cacbg.bg/2025/E2CB62D3-9BA2-49F0-B8F7-7D2D4029FD98216133.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "недвижимо имущество",
+        "shareSize": "1/2",
+        "companyName": "Сити Пойнт Рент ООД",
+        "registeredOffice": "Пловдив",
+        "valueEur": 2556.4594059810925,
+        "holderName": "Цветана Петкова Рашева",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "table": "10",
+        "itemType": "недвижимо имущество",
+        "shareSize": "1/2",
+        "companyName": "Сити Пойнт Рент ООД",
+        "registeredOffice": "Пловдив",
+        "valueEur": 2556.4594059810925,
+        "holderName": "Димитър Стоянов Рашев",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 6050.116830194854,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 71598.75858331246,
+        "amountEurSpouse": 18406.507723063867
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "автомобил",
+        "detail": "Мерцедес",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 12000,
+        "valueEur": 6135.502574354622,
+        "holderName": "Димитър Стоянов Рашев",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 19000,
+        "valueEur": 9714.54574272815,
+        "holderName": "Цветана Паткова Рашева",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 339000,
+        "valueEur": 173327.94772551805,
+        "holderName": "Цветана Петкова Рашева",
+        "isSpouse": false,
+        "legalBasis": "2,31",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 110912,
+        "valueEur": 56708.91641911618,
+        "holderName": "Цветана Петкова Рашева",
+        "isSpouse": false,
+        "legalBasis": "2,5",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 22000,
+        "valueEur": 11248.421386316806,
+        "holderName": "Димитър Стоянов Рашев",
+        "isSpouse": true,
+        "legalBasis": "3,5",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 12000,
+        "valueEur": 6135.502574354622,
+        "holderName": "Димитър Стоянов Рашев",
+        "isSpouse": true,
+        "legalBasis": "3,2",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

@@ -1,0 +1,128 @@
+[
+  {
+    "slug": "boris-petkov-vrabevski-c4a79a",
+    "declarantName": "БОРИС ПЕТКОВ ВРАБЕВСКИ",
+    "institution": "Тетевен",
+    "positionTitle": "Заместник кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-07",
+    "entryNumber": "Г8877",
+    "controlHash": "9D3DF6DC",
+    "sourceUrl": "https://register.cacbg.bg/2025/AF5B44D3-DA66-493E-952A-FFAF3DFDEC0C211904.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 43511.45038167939,
+        "amountEurSpouse": 7815.0964040842
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 14751.2820643921
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 636.558392089292
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "поземлен имот",
+        "detail": null,
+        "location": "с. Рибарица",
+        "municipality": "Тетевен",
+        "areaSqm": 999,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Борис Петков Врабевски",
+        "isSpouse": false,
+        "legalBasis": "дарение",
+        "fundsOrigin": "дарения"
+      },
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 11915,
+        "valueEur": 6092.042764452944,
+        "holderName": "Борис Петков Врабевски",
+        "isSpouse": false,
+        "legalBasis": "кредит",
+        "fundsOrigin": null
+      },
+      {
+        "category": "investment",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 18490,
+        "valueEur": 9453.78688331808,
+        "holderName": "Цветелина Маринова Врабевска",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "Задължителен универсален пенсионен фонд"
+      },
+      {
+        "category": "investment",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 21594,
+        "valueEur": 11040.836882551142,
+        "holderName": "Борис Петков Врабевски",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "Задължителен универсален пенсионен фонд"
+      },
+      {
+        "category": "security",
+        "description": "Договорен фонд за управление",
+        "detail": "10",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": "492",
+        "currency": "BGN",
+        "amount": 10,
+        "valueEur": 5.112918811962185,
+        "holderName": "Борис Петков Врабевски",
+        "isSpouse": false,
+        "legalBasis": "други",
+        "fundsOrigin": "заплата"
+      }
+    ]
+  }
+]

@@ -1,0 +1,92 @@
+[
+  {
+    "slug": "martin-kirilov-grncharski-19c58c",
+    "declarantName": "Мартин Кирилов Грънчарски",
+    "institution": "Сопот",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-08",
+    "entryNumber": "Г1929",
+    "controlHash": "F032FB5E",
+    "sourceUrl": "https://register.cacbg.bg/2025/5421554D-5DA0-4ABB-B112-4EE5DE758049204500.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 3514.1090994616097,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 11106.282243344258,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "пенсия",
+        "amountEurDeclarant": 3067.751287177311,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Карлово, ул. Генерал Заимов 16",
+        "municipality": "Карлово",
+        "areaSqm": 82,
+        "builtAreaSqm": 82,
+        "acquiredYear": 2024,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 80000,
+        "valueEur": 40903.35049569748,
+        "holderName": "Мартин Кирилов Грънчарски",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 57268,
+        "valueEur": 29280.66345234504,
+        "holderName": "Мартин Кирилов Грънчарски",
+        "isSpouse": false,
+        "legalBasis": "Договор",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 175769,
+        "valueEur": 89869.26266597812,
+        "holderName": "Мартин Кирилов Грънчарски",
+        "isSpouse": false,
+        "legalBasis": "Договор",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

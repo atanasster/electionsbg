@@ -1,0 +1,152 @@
+[
+  {
+    "slug": "milena-rumenova-milosheva-andonova-8e7ecf",
+    "declarantName": "Милена Руменова Милошева-Андонова",
+    "institution": "Перник",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-13",
+    "entryNumber": "Г14185",
+    "controlHash": "578A84CA",
+    "sourceUrl": "https://register.cacbg.bg/2025/6AB7E6D4-777F-414E-84EA-5EDDB3DADD7B217457.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 6144.705828216154
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": 6264.859420297265,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Обезщетение 2-ра година майчинство",
+        "amountEurDeclarant": 4622.078606013815,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Участие в комисия по търгове в Общински съвет",
+        "amountEurDeclarant": 1414.2333433887404,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Перник",
+        "municipality": "Перник",
+        "areaSqm": 267,
+        "builtAreaSqm": 79,
+        "acquiredYear": 2021,
+        "share": null,
+        "currency": "BGN",
+        "amount": 80973,
+        "valueEur": 41400.8374961014,
+        "holderName": "Милена Руменова Милошева-Андонова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Перник",
+        "municipality": "Перник",
+        "areaSqm": 67,
+        "builtAreaSqm": 54,
+        "acquiredYear": 2014,
+        "share": null,
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Даниел Бойков Андонов",
+        "isSpouse": true,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "vehicle",
+        "description": "Автомобил",
+        "detail": "Форд",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2023,
+        "share": null,
+        "currency": "BGN",
+        "amount": 8000,
+        "valueEur": 4090.3350495697478,
+        "holderName": "Даниел Бойков Андонов",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "vehicle",
+        "description": "Автомобил",
+        "detail": "Рено",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2023,
+        "share": null,
+        "currency": "BGN",
+        "amount": 5500,
+        "valueEur": 2812.1053465792015,
+        "holderName": "Даниел Бойков Андонов",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 111700,
+        "valueEur": 57111.303129617605,
+        "holderName": "Милена Руменова Милошева-Андонова",
+        "isSpouse": false,
+        "legalBasis": "Ипотека, 2,9",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 54000,
+        "valueEur": 27609.7615845958,
+        "holderName": "Даниел Бойков Андонов",
+        "isSpouse": true,
+        "legalBasis": "Потребителски, 4,5",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

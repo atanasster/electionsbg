@@ -1,0 +1,128 @@
+[
+  {
+    "slug": "galin-dimitrov-grozdanov-776332",
+    "declarantName": "Д-р Галин Димитров Грозданов",
+    "institution": "Левски",
+    "positionTitle": "Председател на ОбС",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-04",
+    "entryNumber": "Г4996",
+    "controlHash": "6FB20E29",
+    "sourceUrl": "https://register.cacbg.bg/2025/1B14F955-7E94-4946-9D88-94F44490810F207880.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 7006.743939912978,
+        "amountEurSpouse": 8395.412689241908
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": 43876.0014929723,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 5383.903508996181,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 166000,
+        "valueEur": 84874.45227857227,
+        "holderName": "Елена Кирилова Грозданова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплати, наеми и наследство"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10300,
+        "valueEur": 5266.30637632105,
+        "holderName": "Галин Димитров Грозданов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплати"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 12000,
+        "valueEur": 11759.713267513025,
+        "holderName": "Галин Димитров Грозданов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "доходи"
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "Галин Димитров Грозданов",
+        "isSpouse": true,
+        "legalBasis": "Ипотечен кредит",
+        "fundsOrigin": null
+      },
+      {
+        "category": "investment",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 13000,
+        "valueEur": 6646.79445555084,
+        "holderName": "Галин Димитров Грозданов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ]
+  }
+]

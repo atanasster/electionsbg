@@ -1,0 +1,68 @@
+[
+  {
+    "slug": "katerina-slavchova-nikolova-41ca03",
+    "declarantName": "КАТЕРИНА СЛАВЧОВА АЛЕКСАНДРОВА",
+    "institution": "Разлог",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г11740",
+    "controlHash": "81F50999",
+    "sourceUrl": "https://register.cacbg.bg/2025/F099B3AC-FCE4-421D-AF0F-3945E34695DF214892.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 4347.003573930249,
+        "amountEurSpouse": 12273.561608115226
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 757.2232760515996,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "фолксваген",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2021,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 1380,
+        "valueEur": 705.5827960507816,
+        "holderName": "Александър Йорданов Александров",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "спестявания"
+      },
+      {
+        "category": "debt",
+        "description": "банков кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "Александър Йорданов Александров",
+        "isSpouse": true,
+        "legalBasis": "5,99%.",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

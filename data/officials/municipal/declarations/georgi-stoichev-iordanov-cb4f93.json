@@ -1,0 +1,68 @@
+[
+  {
+    "slug": "georgi-stoichev-iordanov-cb4f93",
+    "declarantName": "Георги Стойчев Йорданов",
+    "institution": "Каварна",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-17",
+    "entryNumber": "Г3564",
+    "controlHash": "C1911DFD",
+    "sourceUrl": "https://register.cacbg.bg/2025/58D444E7-F347-4E12-89F4-7F7EF3EEEEDC206357.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 6607.424980698732,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 4992.253927999877,
+        "amountEurSpouse": 16684.476667195002
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 15200,
+        "valueEur": 7771.636594182521,
+        "holderName": "Дарина Николова Йорданова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 27387,
+        "valueEur": 14002.750750320836,
+        "holderName": "Георги Стойчев Йорданов",
+        "isSpouse": false,
+        "legalBasis": "Договор за кредит-5.08%",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

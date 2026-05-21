@@ -1,0 +1,74 @@
+[
+  {
+    "slug": "kostadin-dechev-ivanov-ad76f6",
+    "declarantName": "Костадин Дечев Иванов",
+    "institution": "Раковски",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-29",
+    "entryNumber": "Г7025",
+    "controlHash": "FA46905B",
+    "sourceUrl": "https://register.cacbg.bg/2025/AC69D4CD-391A-4876-9D43-475C2CA3A66F210012.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 22153.254628469756,
+        "amountEurSpouse": 19860.110541304715
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 562.4210693158403,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 460.16269307659667,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "складови помещения",
+        "detail": null,
+        "location": "Шишманци",
+        "municipality": "Раковски",
+        "areaSqm": 300,
+        "builtAreaSqm": 300,
+        "acquiredYear": 2024,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 50000,
+        "valueEur": 25564.594059810923,
+        "holderName": "Костадин Дечев Иванов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски Кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 45000,
+        "valueEur": 23008.13465382983,
+        "holderName": "Костадин Дечев Иванов",
+        "isSpouse": false,
+        "legalBasis": "5",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

@@ -1,0 +1,68 @@
+[
+  {
+    "slug": "nedzhmi-ahmed-myumyunhodzhov-9d0e72",
+    "declarantName": "Неджми Ахмед Мюмюнходжов",
+    "institution": "Ардино",
+    "positionTitle": "Заместник кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-03-14",
+    "entryNumber": "Г703",
+    "controlHash": "17C53AE7",
+    "sourceUrl": "https://register.cacbg.bg/2025/FD04F945-E56F-4777-9C45-8C7053558DF9202904.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 36854.94138038582,
+        "amountEurSpouse": 19259.34258089916
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 204.5167524784874,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Фолксваген Голф Плюс",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2023,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 8300,
+        "valueEur": 4243.722613928613,
+        "holderName": "Мюжгян Бехчетова Ходжова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 41000,
+        "valueEur": 20962.96712904496,
+        "holderName": "Неджми Ахмед Мюмюнходжов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ]
+  }
+]

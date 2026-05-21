@@ -1,0 +1,117 @@
+[
+  {
+    "slug": "dimitr-prvanov-zagorski-ad2f87",
+    "declarantName": "Димитър Първанов Загорски",
+    "institution": "Столична община",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г8682",
+    "controlHash": "4BABD21E",
+    "sourceUrl": "https://register.cacbg.bg/2025/7DC92A05-A684-4A2D-A1D0-A8E46FAE261E211706.xml",
+    "ownershipStakes": [
+      {
+        "table": "11",
+        "itemType": "дял в ООД",
+        "shareSize": "50",
+        "companyName": "Областна компания за чиста енергия ООД",
+        "registeredOffice": "София (столица)",
+        "valueEur": 0,
+        "holderName": null,
+        "transfereeName": "Никола Николаев Кацаров",
+        "legalBasis": "безвъзмездно",
+        "fundsOrigin": null
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 2428573.0354887694,
+        "amountEurSpouse": 26996.211327160338
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 3711793.458531672,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "ул. Цанко Церковски 80, ап.8",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 90,
+        "builtAreaSqm": null,
+        "acquiredYear": 1988,
+        "share": "1",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Димитър Първанов Загорски",
+        "isSpouse": false,
+        "legalBasis": "дарение",
+        "fundsOrigin": "няма"
+      },
+      {
+        "category": "vehicle",
+        "description": "автомобил",
+        "detail": "Хюндай",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "СИО",
+        "currency": "BGN",
+        "amount": 65610,
+        "valueEur": 33545.860325283895,
+        "holderName": "Анна-Мари Лешек Виламовска и Димитър Първанов Загорски",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит за апартамент на ул. Кракра 4",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 150281,
+        "valueEur": 76837.4551980489,
+        "holderName": "Димитър Първанов Загорски",
+        "isSpouse": false,
+        "legalBasis": "2.58%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Лизинг за Хюндай",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 42647,
+        "valueEur": 21805.06485737513,
+        "holderName": "Анна-Мари Лешек Виламовска",
+        "isSpouse": true,
+        "legalBasis": "4.19%",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

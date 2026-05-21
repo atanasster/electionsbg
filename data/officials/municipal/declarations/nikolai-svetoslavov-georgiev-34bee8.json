@@ -1,0 +1,73 @@
+[
+  {
+    "slug": "nikolai-svetoslavov-georgiev-34bee8",
+    "declarantName": "Николай Светославов Георгиев",
+    "institution": "Бяла/Варна/",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-15",
+    "entryNumber": "Г13109",
+    "controlHash": "9E135CFB",
+    "sourceUrl": "https://register.cacbg.bg/2025/73B6E0C7-42C5-419B-969D-97E1CDF1457E216302.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "ПАРИЧНА ВНОСКА",
+        "shareSize": "50",
+        "companyName": "ЯНСС ООД",
+        "registeredOffice": "Бяла",
+        "valueEur": 255.64594059810923,
+        "holderName": "Николай Свтославов Георгиев",
+        "legalBasis": "учредяване",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "table": "10",
+        "itemType": "ПАРИЧНА ВНОСКА",
+        "shareSize": "100",
+        "companyName": "\"ТРАКДЕЙС БЪЛГАРИЯ\" ЕООД",
+        "registeredOffice": "Бяла",
+        "valueEur": 51.12918811962185,
+        "holderName": "Николай Свтославов Георгиев",
+        "legalBasis": "учредяване",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 3537.6285259966357,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 613.5502574354622,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Лизинг",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 24191,
+        "valueEur": 16458.996947587468,
+        "holderName": "Румен Юлиянов Варимезов",
+        "isSpouse": true,
+        "legalBasis": "Солидарен длъжник",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

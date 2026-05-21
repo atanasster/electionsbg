@@ -1,0 +1,86 @@
+[
+  {
+    "slug": "atanaska-hristova-ivanova-650e5f",
+    "declarantName": "Атанаска Христова Иванова",
+    "institution": "Димитровград",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г4948",
+    "controlHash": "0CC794D2",
+    "sourceUrl": "https://register.cacbg.bg/2025/4E9306CF-19E6-4B60-9D76-91DDADFD47A6207828.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 5860.427542271056,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 6935.1630765455075,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Димитровград",
+        "municipality": "Димитровград",
+        "areaSqm": 80,
+        "builtAreaSqm": 80,
+        "acquiredYear": 2024,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 88000,
+        "valueEur": 44993.685545267224,
+        "holderName": "Атанаска Христова Иванова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "ипотечен кредит и дарение"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Пежо 508",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 5500,
+        "valueEur": 2812.1053465792015,
+        "holderName": "Атанаска Христова Иванова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 77978,
+        "valueEur": 39869.51831191873,
+        "holderName": "Атанаска Христова Иванова",
+        "isSpouse": false,
+        "legalBasis": "договор за кредит",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

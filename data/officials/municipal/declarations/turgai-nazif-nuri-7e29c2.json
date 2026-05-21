@@ -1,0 +1,80 @@
+[
+  {
+    "slug": "turgai-nazif-nuri-7e29c2",
+    "declarantName": "ТУРГАЙ НАЗИФ НУРИ",
+    "institution": "Исперих",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-12",
+    "entryNumber": "Г14424",
+    "controlHash": "66573C33",
+    "sourceUrl": "https://register.cacbg.bg/2025/FEBD0465-733D-4FA6-90DE-141BD9A2736C217731.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 5924.85031930178,
+        "amountEurSpouse": 16249.36727629702
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 20240.5117009147,
+        "amountEurSpouse": 1185.1745806128345
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": 15115.833175685004,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 45.50497742646345,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "парцел",
+        "detail": null,
+        "location": "Исперих",
+        "municipality": "Исперих",
+        "areaSqm": 1487,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 8602,
+        "valueEur": 4398.132762049871,
+        "holderName": "Ганка Христова Стефанова, Донка Иванова Ангелова",
+        "isSpouse": true,
+        "legalBasis": "дарение",
+        "fundsOrigin": "безвъзмездно"
+      },
+      {
+        "category": "debt",
+        "description": "Заем-4,82",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 25000,
+        "valueEur": 12782.297029905461,
+        "holderName": "Тургай Назиф Нури",
+        "isSpouse": false,
+        "legalBasis": "ЗАЕМ",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

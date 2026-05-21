@@ -1,0 +1,74 @@
+[
+  {
+    "slug": "atanas-emilov-asenov-cceab8",
+    "declarantName": "Атанас Емилов Асенов",
+    "institution": "Хасково",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-24",
+    "entryNumber": "Г3693",
+    "controlHash": "B0DA17A1",
+    "sourceUrl": "https://register.cacbg.bg/2025/60964314-86F7-4E68-A6C8-BD7B5DDB08DC206493.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 6276.107841683582,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 6063.9217109871515,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 920.3253861531933,
+        "amountEurSpouse": 2454.2010297418487
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "гараж",
+        "detail": null,
+        "location": "Гр.Хасково",
+        "municipality": "Хасково",
+        "areaSqm": 21,
+        "builtAreaSqm": 21,
+        "acquiredYear": 2024,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 2000,
+        "valueEur": 1022.5837623924369,
+        "holderName": "Атанас Емилов Асенов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 60000,
+        "valueEur": 30677.51287177311,
+        "holderName": "Атанас Емилов Асенов",
+        "isSpouse": false,
+        "legalBasis": "4 процента",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

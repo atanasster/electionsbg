@@ -1,0 +1,80 @@
+[
+  {
+    "slug": "petr-andreev-kirov-bcac8a",
+    "declarantName": "Петър Андреев Киров",
+    "institution": "Елхово",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-28",
+    "entryNumber": "Г4793",
+    "controlHash": "A7E42CF5",
+    "sourceUrl": "https://register.cacbg.bg/2025/6B7DBD2B-D997-48EB-B52B-55866576838F207670.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 39217.621163393545,
+        "amountEurSpouse": 56181.26319772168
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Шкода",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 89833,
+        "valueEur": 45930.8835634999,
+        "holderName": "Петър Андреев Киров",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 19849,
+        "valueEur": 10148.632549863742,
+        "holderName": "Петър Андреев Киров",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 80000,
+        "valueEur": 40903.35049569748,
+        "holderName": "Мартина Иванова Кирова",
+        "isSpouse": true,
+        "legalBasis": "5.46 %",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

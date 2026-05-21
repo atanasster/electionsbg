@@ -1,0 +1,68 @@
+[
+  {
+    "slug": "rumen-ganchev-petkov-dd0a1b",
+    "declarantName": "Румен Ганчев Петков",
+    "institution": "Опака",
+    "positionTitle": "Заместник кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-02-11",
+    "entryNumber": "Г35",
+    "controlHash": "AC618C1B",
+    "sourceUrl": "https://register.cacbg.bg/2025/162DFFC2-689A-4D3D-851D-EB6496F541D3201547.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 16899.73054917861,
+        "amountEurSpouse": 2359.100739839352
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 10850.125010864953
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 26500,
+        "valueEur": 13549.23485169979,
+        "holderName": "Румен Ганчев Петков",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 45363,
+        "valueEur": 23193.73360670406,
+        "holderName": "Румен Ганчев Петков",
+        "isSpouse": false,
+        "legalBasis": "кредит",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

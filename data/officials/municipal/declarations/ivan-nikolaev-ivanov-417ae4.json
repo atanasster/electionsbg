@@ -1,0 +1,104 @@
+[
+  {
+    "slug": "ivan-nikolaev-ivanov-417ae4",
+    "declarantName": "Иван Николаев Иванов",
+    "institution": "Ябланица",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-05",
+    "entryNumber": "Г6563",
+    "controlHash": "A7DAA671",
+    "sourceUrl": "https://register.cacbg.bg/2025/089F1A3C-7C8C-4EDD-97E4-7EEC6B8B11B2209524.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 5785.267635735212,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "чл. 7, ал. 1 от Закона за семейни помощи за деца",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 2054.882070527602
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "Ябланица",
+        "municipality": "Ябланица",
+        "areaSqm": 1208,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 500,
+        "valueEur": 255.64594059810923,
+        "holderName": "Надежда Петрова Григорова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "други",
+        "detail": null,
+        "location": "Ябланица",
+        "municipality": "Ябланица",
+        "areaSqm": 2788,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 1495,
+        "valueEur": 764.3813623883466,
+        "holderName": "Надежда Петрова Григорова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 14082,
+        "valueEur": 7200.012271005149,
+        "holderName": "Иван Николаев Иванов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 4019,
+        "valueEur": 2054.882070527602,
+        "holderName": "Надежда Петрова Григорова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      }
+    ]
+  }
+]

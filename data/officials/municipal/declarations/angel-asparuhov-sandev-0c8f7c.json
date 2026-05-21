@@ -1,0 +1,86 @@
+[
+  {
+    "slug": "angel-asparuhov-sandev-0c8f7c",
+    "declarantName": "Ангел Аспарухов Сандев",
+    "institution": "Сатовча",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-13",
+    "entryNumber": "Г12003",
+    "controlHash": "E8A544CC",
+    "sourceUrl": "https://register.cacbg.bg/2025/46555BEC-9AF2-4342-AB4B-774F7F514699215157.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 5188.078718498029,
+        "amountEurSpouse": 3543.2527366897943
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 5354.2485798868,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 40000,
+        "valueEur": 20451.67524784874,
+        "holderName": "Ангел Аспарухов Сандев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит-необезпечен",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 53915,
+        "valueEur": 27566.30177469412,
+        "holderName": "Ангел Аспарухов Сандев",
+        "isSpouse": false,
+        "legalBasis": "потребителски кредит, договорен лихвен процент - 4,59%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит-необезпечен",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 19670,
+        "valueEur": 10057.111303129617,
+        "holderName": "Елисавета Александрова Дренчева",
+        "isSpouse": true,
+        "legalBasis": "потребителски кредит, договорен лихвен процент - 7,85%",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

@@ -1,0 +1,50 @@
+[
+  {
+    "slug": "vanya-kostova-georgieva-46b3aa",
+    "declarantName": "Ваня Костова Георгиева",
+    "institution": "Суворово",
+    "positionTitle": "Главен архитект",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-15",
+    "entryNumber": "Г2996",
+    "controlHash": "C201DCEA",
+    "sourceUrl": "https://register.cacbg.bg/2025/2B5676BE-FADB-4553-B70E-E4EDF97579BB205711.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 14181.702908739513,
+        "amountEurSpouse": 13486.857242193852
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 795.570167141316,
+        "amountEurSpouse": 546.5710209987576
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 15358,
+        "valueEur": 7852.420711411523,
+        "holderName": "Симеон Георгиев Георгиев",
+        "isSpouse": true,
+        "legalBasis": "потребителски кредит",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

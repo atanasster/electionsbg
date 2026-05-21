@@ -1,0 +1,50 @@
+[
+  {
+    "slug": "iva-nikolova-dicheva-9ef595",
+    "declarantName": "Ива Николова Дичева",
+    "institution": "Куклен",
+    "positionTitle": "Председател на ОбС",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-07",
+    "entryNumber": "Г1734",
+    "controlHash": "D134A1DA",
+    "sourceUrl": "https://register.cacbg.bg/2025/6129FADE-22CB-41CA-ACED-237E189429BC204264.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 23084.828436009266,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": "II. Други доходи, извън посочените в т. I.",
+        "category": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 17660.021576517385
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 79631,
+        "valueEur": 40714.683791536074,
+        "holderName": "Ива Николова Дичева",
+        "isSpouse": false,
+        "legalBasis": "договор на ипотека",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

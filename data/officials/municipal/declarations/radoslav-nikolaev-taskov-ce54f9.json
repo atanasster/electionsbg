@@ -1,0 +1,86 @@
+[
+  {
+    "slug": "radoslav-nikolaev-taskov-ce54f9",
+    "declarantName": "РАДОСЛАВ НИКОЛАЕВ ТАСКОВ",
+    "institution": "Благоевград",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-12",
+    "entryNumber": "Г10217",
+    "controlHash": "3F6DCA14",
+    "sourceUrl": "https://register.cacbg.bg/2025/4C775745-0F87-4987-BAA8-3AA77EB408A4213293.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 41868.15827551475,
+        "amountEurSpouse": 1233.7473093264753
+      },
+      {
+        "parent": null,
+        "category": "Дивиденти",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 185332.0585122429
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 48223,
+        "valueEur": 24656.028386925245,
+        "holderName": "Радослав Николаев Тасков",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Инвестиционен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 266716,
+        "valueEur": 136369.72538513062,
+        "holderName": "Албена Стоилова Таскова",
+        "isSpouse": true,
+        "legalBasis": "Договор за кредит - 3,4%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Инвестиционен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 266716,
+        "valueEur": 136369.72538513062,
+        "holderName": "Радослав Николаев Тасков",
+        "isSpouse": false,
+        "legalBasis": "Договор за кредит - 3,4%",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

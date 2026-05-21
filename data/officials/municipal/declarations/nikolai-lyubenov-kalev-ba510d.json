@@ -1,0 +1,74 @@
+[
+  {
+    "slug": "nikolai-lyubenov-kalev-ba510d",
+    "declarantName": "Николай Любенов Калев",
+    "institution": "Шумен",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-05",
+    "entryNumber": "Г8801",
+    "controlHash": "FE508F9A",
+    "sourceUrl": "https://register.cacbg.bg/2025/3D8B7277-6B1B-4849-8908-09AC0F8906E4211826.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 5542.915284048205,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": 177.92957465628405,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Пенсия",
+        "amountEurDeclarant": 16955.461364229,
+        "amountEurSpouse": 3447.1298630249053
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 21422,
+        "valueEur": 10952.894678985393,
+        "holderName": "Николай Любенов Калев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "спестявания от пенсия, хонорар и заплати"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 11364,
+        "valueEur": 5810.320937913827,
+        "holderName": "Валентина Иванова Калева",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "спестявания от пенсия"
+      }
+    ]
+  }
+]

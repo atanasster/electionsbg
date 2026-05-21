@@ -1,0 +1,116 @@
+[
+  {
+    "slug": "erdzhan-hyusein-eyub-69c306",
+    "declarantName": "Ерджан Хюсеин Еюб",
+    "institution": "Момчилград",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-13",
+    "entryNumber": "Г13064",
+    "controlHash": "7AB2A10F",
+    "sourceUrl": "https://register.cacbg.bg/2025/5E502880-88EA-4F0A-8B0D-8BB43D0329F6216257.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 5630.857487613955,
+        "amountEurSpouse": 11858.903892465092
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 168.7263207947521,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Пенсия",
+        "amountEurDeclarant": 2727.7421861818257,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Дивиденти",
+        "amountEurDeclarant": 6646.79445555084,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "парцел",
+        "detail": null,
+        "location": "Хасково",
+        "municipality": "Хасково",
+        "areaSqm": 719,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 16250,
+        "valueEur": 8308.493069438551,
+        "holderName": "Ерджан Хюсеин Еюб",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 56,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 63564,
+        "valueEur": 32499.75713635643,
+        "holderName": "Ерджан Хюсеин Еюб",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 88900,
+        "valueEur": 45453.848238343824,
+        "holderName": "Ерджан Хюсеин Еюб",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Съдкъжник",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 43397,
+        "valueEur": 22188.533768272293,
+        "holderName": "Айше Мюмюн Еюб",
+        "isSpouse": true,
+        "legalBasis": "2,95",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

@@ -1,0 +1,91 @@
+[
+  {
+    "slug": "miroslav-georgiev-zhelev-232d8f",
+    "declarantName": "Мирослав Георгиев Желев",
+    "institution": "Долни Чифлик",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-13",
+    "entryNumber": "Г12279",
+    "controlHash": "88964813",
+    "sourceUrl": "https://register.cacbg.bg/2025/8DBC04FC-B22F-43EB-8A3C-A48A5DC2DB82215440.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "фирма",
+        "shareSize": "50%",
+        "companyName": "\"Габи 1720\" ООД",
+        "registeredOffice": "Варна",
+        "valueEur": 25.564594059810926,
+        "holderName": "Мирослав Георгиев Желев",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "table": "10",
+        "itemType": "фирма",
+        "shareSize": "50%",
+        "companyName": "\"Габи 1720\" ООД",
+        "registeredOffice": "Варна",
+        "valueEur": 25.564594059810926,
+        "holderName": "Анна Георгиева Желева",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 5732.093280090806,
+        "amountEurSpouse": 17194.234672747632
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 7641.257164477485,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 37000,
+        "valueEur": 18917.799604260083,
+        "holderName": "Мирослав Георгиев Желев",
+        "isSpouse": false,
+        "legalBasis": "договор за кредит",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 18000,
+        "valueEur": 9203.253861531934,
+        "holderName": "Анна Георгиева Желева",
+        "isSpouse": true,
+        "legalBasis": "договор за кредит",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

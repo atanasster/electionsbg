@@ -1,0 +1,74 @@
+[
+  {
+    "slug": "svilen-ivanov-dimitrov-384011",
+    "declarantName": "Свилен Иванов Димитров",
+    "institution": "Силистра",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г582",
+    "controlHash": "1E720767",
+    "sourceUrl": "https://register.cacbg.bg/2025/0F44A51D-4DE8-446B-ACE3-87705B6A29D3202682.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 5828.7274456368905,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 7835.5480793320485,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 212.6974225776269,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Айдемир",
+        "municipality": "Силистра",
+        "areaSqm": 930,
+        "builtAreaSqm": 70,
+        "acquiredYear": 2021,
+        "share": "100%",
+        "currency": "BGN",
+        "amount": 5000,
+        "valueEur": 2556.4594059810925,
+        "holderName": "Свилен Иванов Димитров",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "трайни насаждения",
+        "detail": null,
+        "location": "Алеково",
+        "municipality": "Алфатар",
+        "areaSqm": 6,
+        "builtAreaSqm": null,
+        "acquiredYear": 2023,
+        "share": "100%",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Свилен Иванов Димитров",
+        "isSpouse": false,
+        "legalBasis": "дарение",
+        "fundsOrigin": "безвъзмездно"
+      }
+    ]
+  }
+]

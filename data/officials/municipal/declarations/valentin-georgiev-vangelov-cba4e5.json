@@ -1,0 +1,97 @@
+[
+  {
+    "slug": "valentin-georgiev-vangelov-cba4e5",
+    "declarantName": "Валентин Георгиев Вангелов",
+    "institution": "Раднево",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-08",
+    "entryNumber": "Г12157",
+    "controlHash": "40035D74",
+    "sourceUrl": "https://register.cacbg.bg/2025/C85AC878-715F-45D2-8852-B80074ED4A62215316.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "пари",
+        "shareSize": "100 %",
+        "companyName": "ТЕРА КРЕДИТ ВВ ЕООД",
+        "registeredOffice": "Раднево",
+        "valueEur": 1.022583762392437,
+        "holderName": "Валентин Георгиев Вангелов",
+        "legalBasis": "други",
+        "fundsOrigin": "спестявания"
+      },
+      {
+        "table": "10",
+        "itemType": "пари",
+        "shareSize": "100 %",
+        "companyName": "ВАЛМАР - ВАЛЕНТИН ВАНГЕЛОВ ЕООД",
+        "registeredOffice": "Раднево",
+        "valueEur": 255645.94059810924,
+        "holderName": "Валентин Георгиев Вангелов",
+        "legalBasis": "други",
+        "fundsOrigin": "разпределен дивидент"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 5941.211659500059,
+        "amountEurSpouse": 17433.519273147464
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": 2590.715962021239,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 21014.09631716458
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 37019,
+        "valueEur": 18927.51415000281,
+        "holderName": "Валентин Георгиев Вангелов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "спестявания"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 22252,
+        "valueEur": 11377.266940378255,
+        "holderName": "Мария Щерева Вангелова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "спестявания и заплата"
+      }
+    ]
+  }
+]

@@ -1,0 +1,140 @@
+[
+  {
+    "slug": "pavlin-krasimirov-ganchev-bf8a51",
+    "declarantName": "Павлин Красимиров Ганчев",
+    "institution": "Севлиево",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-10",
+    "entryNumber": "Г1950",
+    "controlHash": "876934AE",
+    "sourceUrl": "https://register.cacbg.bg/2025/36D76630-1494-43AC-9640-8FFCCECC82B6204528.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Дружество",
+        "shareSize": "1",
+        "companyName": "ЕЛ ЕМ ПИ ИНЖЕНЕРИНГ ЕООД",
+        "registeredOffice": "Габрово",
+        "valueEur": 7669.378217943277,
+        "holderName": "Павлин Красимиров Ганчев",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 4729.961192946217,
+        "amountEurSpouse": 6192.255973167402
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 5724.423901872862,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 1928.592975872136,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Севлиево",
+        "municipality": "Севлиево",
+        "areaSqm": 103,
+        "builtAreaSqm": 103,
+        "acquiredYear": 2014,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 50000,
+        "valueEur": 25564.594059810923,
+        "holderName": "Павлин Красимиров Ганчев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Душево",
+        "municipality": "Севлиево",
+        "areaSqm": 72,
+        "builtAreaSqm": 72,
+        "acquiredYear": 2022,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 2160,
+        "valueEur": 1104.390463383832,
+        "holderName": "Павлин Красимиров Ганчев",
+        "isSpouse": false,
+        "legalBasis": "Договор",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 24219,
+        "valueEur": 12382.978070691215,
+        "holderName": "Павлин Красимиров Ганчев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 12500,
+        "valueEur": 6391.148514952731,
+        "holderName": "Павлин Красимиров Ганчев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 23176,
+        "valueEur": 11849.70063860356,
+        "holderName": "Емилия Гаврилова Ганчева",
+        "isSpouse": true,
+        "legalBasis": "Договор",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

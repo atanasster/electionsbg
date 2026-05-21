@@ -1,0 +1,92 @@
+[
+  {
+    "slug": "emiliya-paunova-nikolova-9f2cd7",
+    "declarantName": "Емилия Паунова Николова",
+    "institution": "Ковачевци",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-05",
+    "entryNumber": "Г10051",
+    "controlHash": "97BDFFDC",
+    "sourceUrl": "https://register.cacbg.bg/2025/6219E877-01BF-46F8-807A-A71A024C39AF213122.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 1759.355363196188,
+        "amountEurSpouse": 5724.423901872862
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 8180.6700991394955,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": "II. Други доходи, извън посочените в т. I.",
+        "category": "Доходи от непреработена растителна и животинска продукция от регистрирани земеделски производители и тютюнопроизводители.",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 2045.1675247848739
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Пежо 206",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/1",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Емилия Паунова Николова",
+        "isSpouse": false,
+        "legalBasis": "договор покупко-продажба",
+        "fundsOrigin": "трудови доходо"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20558,
+        "valueEur": 10511.13849363186,
+        "holderName": "Емилия Паунова Николова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "трудови доходи"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 27813,
+        "valueEur": 14220.561091710424,
+        "holderName": "Николай Станков Николов",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "субсидии, пенсия"
+      }
+    ]
+  }
+]

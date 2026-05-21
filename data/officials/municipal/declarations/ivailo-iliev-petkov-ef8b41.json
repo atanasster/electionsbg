@@ -1,0 +1,86 @@
+[
+  {
+    "slug": "ivailo-iliev-petkov-ef8b41",
+    "declarantName": "ИВАЙЛО ИЛИЕВ ПЕТКОВ",
+    "institution": "Кайнарджа",
+    "positionTitle": "Председател на ОбС",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-14",
+    "entryNumber": "Г12410",
+    "controlHash": "EA425BCB",
+    "sourceUrl": "https://register.cacbg.bg/2025/01003491-E09A-42DD-8C12-8D60AF79D1A0215578.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 16487.118001053263,
+        "amountEurSpouse": 11402.831534438064
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 12002.065619200033,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "ХЮНДАЙ ТУКСОН",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 9000,
+        "valueEur": 4601.626930765967,
+        "holderName": "ИВАЙЛО ИЛИЕВ ПЕТКОВ",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "ПОТРЕБИТЕЛСКИ КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 48000,
+        "valueEur": 24542.01029741849,
+        "holderName": "ИВАЙЛО ИЛИЕВ ПЕТКОВ",
+        "isSpouse": false,
+        "legalBasis": "ДОГОВОР",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "ПОТРЕБИТЕЛСКИ КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 3115,
+        "valueEur": 1592.6742099262206,
+        "holderName": "КРАСИМИРА СТОЯНОВА ПЕТКОВА",
+        "isSpouse": true,
+        "legalBasis": "ДОГОВОР",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

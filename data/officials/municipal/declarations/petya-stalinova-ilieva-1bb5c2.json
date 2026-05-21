@@ -1,0 +1,80 @@
+[
+  {
+    "slug": "petya-stalinova-ilieva-1bb5c2",
+    "declarantName": "Петя Сталинова Илиева",
+    "institution": "Мизия",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-03-21",
+    "entryNumber": "Г1238",
+    "controlHash": "39CE3BCE",
+    "sourceUrl": "https://register.cacbg.bg/2025/6C1059BB-9289-4296-82D9-B4DB4E2E0228203643.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 3342.3150273796805,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 14878.082450928761,
+        "amountEurSpouse": 7504.230940316898
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 2454.2010297418487,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "пенсия",
+        "amountEurDeclarant": 4233.496776304689,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Тойота Ярис",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2021,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 30950,
+        "valueEur": 15824.483723022962,
+        "holderName": "Петя Сталинова Илиева",
+        "isSpouse": false,
+        "legalBasis": "договор",
+        "fundsOrigin": "лизинг"
+      },
+      {
+        "category": "debt",
+        "description": "лизинг",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 6000,
+        "valueEur": 6033.244198115378,
+        "holderName": "Петя Сталинова Илиева",
+        "isSpouse": false,
+        "legalBasis": "договор - 2,714%",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

@@ -1,0 +1,80 @@
+[
+  {
+    "slug": "velik-iliev-gogov-c3fa24",
+    "declarantName": "Велик Илиев Гогов",
+    "institution": "Петрич",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-14",
+    "entryNumber": "Г15484",
+    "controlHash": "4D7B6C4C",
+    "sourceUrl": "https://register.cacbg.bg/2025/67BE126A-0933-4231-84BE-434B9B945FB7219704.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Дялове в ООД",
+        "shareSize": "50",
+        "companyName": "БЕЛЛА БИЛД ООД",
+        "registeredOffice": "София",
+        "valueEur": 127.82297029905462,
+        "holderName": "Велик Илиев Гогов",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 6813.475608820808,
+        "amountEurSpouse": 11127.245210473304
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 3771.800207584504,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 75013,
+        "valueEur": 38353.537884171936,
+        "holderName": "Евелина Стойчева Митрева-Гогова",
+        "isSpouse": true,
+        "legalBasis": "Банков Кредит - 2.8",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 16300,
+        "valueEur": 8334.05766349836,
+        "holderName": "Велик Илиев Гогов",
+        "isSpouse": false,
+        "legalBasis": "Банков Кредит - 5.0",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

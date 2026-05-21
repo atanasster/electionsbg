@@ -1,0 +1,104 @@
+[
+  {
+    "slug": "kaloyan-stoilov-knev-f24d43",
+    "declarantName": "КАЛОЯН СТОИЛОВ КЪНЕВ",
+    "institution": "Иваново",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-10",
+    "entryNumber": "Г2550",
+    "controlHash": "A53BB670",
+    "sourceUrl": "https://register.cacbg.bg/2025/58F1E670-F13A-48F6-BBD9-481D3137F547205218.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 3681.3015446127733,
+        "amountEurSpouse": 7158.086336747059
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 715.8086336747059,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 50000,
+        "valueEur": 25564.594059810923,
+        "holderName": "КАЛОЯН СТОИЛОВ КЪНЕВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "ЗАПЛАТА И СРЕДСТВА ОТ ДЕЙНОСТ КАТО ЗП"
+      },
+      {
+        "category": "receivable",
+        "description": "ПАРИЧНИ СРЕДСТВА",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 60000,
+        "valueEur": 30677.51287177311,
+        "holderName": "КАЛОЯН СТОИЛОВ КЪНЕВ",
+        "isSpouse": false,
+        "legalBasis": "СУБСИДИИ И ДДС",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "ОВЪРДРАФТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 100000,
+        "valueEur": 51129.188119621846,
+        "holderName": "ЕТ КАЛОЯН КЪНЕВ",
+        "isSpouse": true,
+        "legalBasis": "КРЕДИТ, ПРОМЕНЛИВ",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "БАНКОВ КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 160000,
+        "valueEur": 81806.70099139496,
+        "holderName": "ЕТ КАЛОЯН КЪНЕВ",
+        "isSpouse": true,
+        "legalBasis": "КРЕДИТ, ПРОМЕНЛИВ",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

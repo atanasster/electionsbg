@@ -1,0 +1,104 @@
+[
+  {
+    "slug": "sergei-zhan-dimitrov-9b3dac",
+    "declarantName": "Сергей Жан Димитров",
+    "institution": "Район \"Приморски\" - Варна",
+    "positionTitle": "Главен архитект",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-15",
+    "entryNumber": "Г13985",
+    "controlHash": "FD1758EE",
+    "sourceUrl": "https://register.cacbg.bg/2025/B665EA3E-0D73-4718-85B7-FCB5FEA06A2F217247.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 17928.961106026596,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 2863.2345346988236,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Варна бул. Сливница 93",
+        "municipality": "Варна",
+        "areaSqm": 52,
+        "builtAreaSqm": 52,
+        "acquiredYear": 2006,
+        "share": "100%",
+        "currency": "BGN",
+        "amount": 66000,
+        "valueEur": 33745.26415895042,
+        "holderName": "Сергей Жан Димитров",
+        "isSpouse": false,
+        "legalBasis": "дарение",
+        "fundsOrigin": "дарения"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Варна ул. Илю Войвода 12 Г",
+        "municipality": "Варна",
+        "areaSqm": 60,
+        "builtAreaSqm": 60,
+        "acquiredYear": 2017,
+        "share": "50%",
+        "currency": "BGN",
+        "amount": 36000,
+        "valueEur": 18406.507723063867,
+        "holderName": "Сергей Жан Димитров",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "vehicle",
+        "description": "Автомобил",
+        "detail": "Фолксваген",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2023,
+        "share": "100%",
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "Сергей Жан Димитров",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "vehicle",
+        "description": "Автомобил",
+        "detail": "Алфа Ромео",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2006,
+        "share": "100%",
+        "currency": "BGN",
+        "amount": 5600,
+        "valueEur": 2863.2345346988236,
+        "holderName": "Сергей Жан Димитров",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      }
+    ]
+  }
+]

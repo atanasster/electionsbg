@@ -1,0 +1,92 @@
+[
+  {
+    "slug": "zdravko-kuzmanov-sirakov-20946d",
+    "declarantName": "ЗДРАВКО КУЗМАНОВ СИРАКОВ",
+    "institution": "Лъки",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-03-14",
+    "entryNumber": "Г15202",
+    "controlHash": "E8F05165",
+    "sourceUrl": "https://register.cacbg.bg/2025/510E8AD8-F1C4-44C0-8436-B6E450F6F97D218881.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 4218.1580198688025,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 8372.915846469274,
+        "amountEurSpouse": 20361.687876758206
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 56.24210693158403,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "СЕЛО ДЖУРКОВО",
+        "municipality": "ЛЪКИ",
+        "areaSqm": 730,
+        "builtAreaSqm": null,
+        "acquiredYear": 2008,
+        "share": "1/5",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "ЗДРАВКО КУЗМАНОВ СИРАКОВ",
+        "isSpouse": false,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "debt",
+        "description": "ПОТРЕБИТЕЛСКИ КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "ЗДРАВКО КУЗМАНОВ СИРАКОВ",
+        "isSpouse": false,
+        "legalBasis": "5.99%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "ИПОТЕЧЕН КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 78000,
+        "valueEur": 39880.76673330504,
+        "holderName": "ЗАХАРИНА ВЕСКОВА СИРАКОВА",
+        "isSpouse": true,
+        "legalBasis": "3.80%",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

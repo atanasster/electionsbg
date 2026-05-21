@@ -1,0 +1,128 @@
+[
+  {
+    "slug": "ivo-tenev-dimov-d82841",
+    "declarantName": "ИВО ТЕНЕВ ДИМОВ",
+    "institution": "Димитровград",
+    "positionTitle": "Кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-14",
+    "entryNumber": "Г11392",
+    "controlHash": "C35F3435",
+    "sourceUrl": "https://register.cacbg.bg/2025/D34BBB64-6B65-4CE4-8CE7-92E10E9026EE214528.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 29193.743832541684,
+        "amountEurSpouse": 5566.43471058323
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 3378.616750944612,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 15553.499025988967,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 144179,
+        "valueEur": 73717.55213898959,
+        "holderName": "ИВО ТЕНЕВ ДИМОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 6010,
+        "valueEur": 3072.864205989273,
+        "holderName": "ВЕСЕЛА ИВАНОВА ДИМОВА",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 33500,
+        "valueEur": 17128.278020073318,
+        "holderName": "ВЕСЕЛА ИВАНОВА ДИМОВА",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "наеми"
+      },
+      {
+        "category": "debt",
+        "description": "КРЕДИТНА КАРТА",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 15027,
+        "valueEur": 7683.183098735575,
+        "holderName": "ИВО ТЕНЕВ ДИМОВ",
+        "isSpouse": false,
+        "legalBasis": "КРЕДИТНА КАРТА",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "ЛИЗИНГ МПС",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 68282,
+        "valueEur": 34912.03223184019,
+        "holderName": "ИВО ТЕНЕВ ДИМОВ",
+        "isSpouse": false,
+        "legalBasis": "ДОГОВОР ЗА ЛИЗИНГ",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

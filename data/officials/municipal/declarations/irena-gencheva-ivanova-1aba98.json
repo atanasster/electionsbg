@@ -1,0 +1,104 @@
+[
+  {
+    "slug": "irena-gencheva-ivanova-1aba98",
+    "declarantName": "Ирена Генчева Иванова",
+    "institution": "Павликени",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-07",
+    "entryNumber": "Г14091",
+    "controlHash": "9C89F24C",
+    "sourceUrl": "https://register.cacbg.bg/2025/B9EA428B-D57F-4793-BCCC-8202162E9FEB217355.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 5981.092426233364,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Доходи от дивиденти и ликвидационни дялове по чл.38,ал.1 от ЗДДФЛ",
+        "amountEurDeclarant": 3579.0431683735296,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "парцел",
+        "detail": null,
+        "location": "с.Дъскот",
+        "municipality": "Павликени",
+        "areaSqm": 1000,
+        "builtAreaSqm": 0,
+        "acquiredYear": 2016,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 2200,
+        "valueEur": 1124.8421386316807,
+        "holderName": "Ирена Генчева Иванова",
+        "isSpouse": false,
+        "legalBasis": "дарение",
+        "fundsOrigin": "дарения"
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен банков кредит , РЛП + и надбавка в размер1,8%",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "Ирена Генчева Иванова",
+        "isSpouse": false,
+        "legalBasis": "ипотека",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит, променливРЛП+надбавка 4,7%",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 35000,
+        "valueEur": 17895.215841867648,
+        "holderName": "Ирена Генчева Иванова",
+        "isSpouse": false,
+        "legalBasis": "кредит",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Срочен банков кредит, КЛП + годишна надбавка 4,5%",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 25700,
+        "valueEur": 13140.201346742815,
+        "holderName": "Пекарната на Рени ЕООД",
+        "isSpouse": true,
+        "legalBasis": "кредит",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

@@ -1,0 +1,80 @@
+[
+  {
+    "slug": "kristin-krstov-krosnarov-e7c915",
+    "declarantName": "Кристин Кръстьов Кроснаров",
+    "institution": "Панагюрище",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-13",
+    "entryNumber": "Г11847",
+    "controlHash": "F65F162B",
+    "sourceUrl": "https://register.cacbg.bg/2025/CC87927E-3D3B-418E-8317-A5D5351CFAC9214999.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 27083.64223884489,
+        "amountEurSpouse": 15087.71212221921
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр. Панагюрище",
+        "municipality": "Панагюрище",
+        "areaSqm": 74,
+        "builtAreaSqm": 74,
+        "acquiredYear": 2024,
+        "share": "1/6",
+        "currency": "BGN",
+        "amount": 3950,
+        "valueEur": 2019.602930725063,
+        "holderName": "Кристин Кръстьов Кроснаров",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр. Панагюрище",
+        "municipality": "Панагюрище",
+        "areaSqm": 74,
+        "builtAreaSqm": 74,
+        "acquiredYear": 2024,
+        "share": "5/6",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Кристин Кръстьов Кроснаров",
+        "isSpouse": false,
+        "legalBasis": "дарение",
+        "fundsOrigin": "дарение"
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 11804,
+        "valueEur": 6035.289365640163,
+        "holderName": "Гергана Петьова Донова",
+        "isSpouse": true,
+        "legalBasis": "кредит, лихвен процен 4,85",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

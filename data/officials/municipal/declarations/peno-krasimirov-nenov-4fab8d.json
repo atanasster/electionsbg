@@ -1,0 +1,80 @@
+[
+  {
+    "slug": "peno-krasimirov-nenov-4fab8d",
+    "declarantName": "ПЕНЬО КРАСИМИРОВ НЕНОВ",
+    "institution": "Бяла/Варна/",
+    "positionTitle": "Кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-15",
+    "entryNumber": "Г2751",
+    "controlHash": "ED2A3DEE",
+    "sourceUrl": "https://register.cacbg.bg/2025/AEA66DC1-E227-4FC7-BDCB-80DE4D5DF4FD205445.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "НЕДВИЖИМО",
+        "shareSize": "1/9",
+        "companyName": "ИЗИДА ООД",
+        "registeredOffice": "Бяла",
+        "valueEur": 306.7751287177311,
+        "holderName": "ПЕНЬО КРАСИМИРОВ НЕНОВ",
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 25202.088116042807,
+        "amountEurSpouse": 12939.263637432701
+      },
+      {
+        "parent": null,
+        "category": "Спестявания",
+        "amountEurDeclarant": 11248.421386316806,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "БАНКОВ КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 173187,
+        "valueEur": 88549.10702872949,
+        "holderName": "ПЕНЬО КРАСИМИРОВ НЕНОВ",
+        "isSpouse": false,
+        "legalBasis": "ипотечен кредит",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "БАНКОВ КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 173187,
+        "valueEur": 88549.10702872949,
+        "holderName": "ГЕРГАНА ЖИВКОВА НЕНОВА",
+        "isSpouse": true,
+        "legalBasis": "ипотечен кредит",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

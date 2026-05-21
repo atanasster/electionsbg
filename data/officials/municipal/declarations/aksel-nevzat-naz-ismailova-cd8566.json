@@ -1,0 +1,128 @@
+[
+  {
+    "slug": "aksel-nevzat-naz-ismailova-cd8566",
+    "declarantName": "Аксел Невзат Наз-Исмаилова",
+    "institution": "Тервел",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-12",
+    "entryNumber": "Г11731",
+    "controlHash": "92C097EB",
+    "sourceUrl": "https://register.cacbg.bg/2025/54CDAD89-17C9-4195-B639-86EC8A64B527214883.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 6352.290331981819,
+        "amountEurSpouse": 9280.970227473757
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 15476.293951928337,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 12399.850702770691
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Тойота Ярис",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2022,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 42000,
+        "valueEur": 21474.259010241178,
+        "holderName": "Аксел Невзат Наз-Исмаилова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Тойота Корола",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2021,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 43000,
+        "valueEur": 21985.550891437397,
+        "holderName": "Мерткан Шенеров Исмаилов",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "лизинг",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 7245,
+        "valueEur": 7244.49466466922,
+        "holderName": "Аксел Невзат Наз-Исмаилова",
+        "isSpouse": false,
+        "legalBasis": "лизинг, 2.53%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "лизинг",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 13300,
+        "valueEur": 6966.863173179673,
+        "holderName": "Мерткан Шенеров Исмаилов",
+        "isSpouse": true,
+        "legalBasis": "лизинг, 1.99%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 22500,
+        "valueEur": 11504.067326914916,
+        "holderName": "Мерткан Шенеров Исмаилов",
+        "isSpouse": true,
+        "legalBasis": "потребителски кредит, 5.6%",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

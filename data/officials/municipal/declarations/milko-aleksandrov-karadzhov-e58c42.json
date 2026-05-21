@@ -1,0 +1,86 @@
+[
+  {
+    "slug": "milko-aleksandrov-karadzhov-e58c42",
+    "declarantName": "Милко Александров Караджов",
+    "institution": "Златоград",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-15",
+    "entryNumber": "Г13227",
+    "controlHash": "280D32BE",
+    "sourceUrl": "https://register.cacbg.bg/2025/93B450B2-BEB9-4414-8754-B03ADC11DBBF216425.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 15301.943420440426,
+        "amountEurSpouse": 66142.25162718642
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 6704.0591462448165,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 140000,
+        "valueEur": 71580.86336747059,
+        "holderName": "Милко Александров Караджов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 40000,
+        "valueEur": 20451.67524784874,
+        "holderName": "Бояна Владева Гиритлиева",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "лизингово задължение",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 45691,
+        "valueEur": 23361.43734373642,
+        "holderName": "Бояна Владева Гиритлиева",
+        "isSpouse": true,
+        "legalBasis": "договор за лизинг",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

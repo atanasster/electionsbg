@@ -1,0 +1,98 @@
+[
+  {
+    "slug": "milena-georgieva-rangelova-320f50",
+    "declarantName": "Милена Георгиева Рангелова",
+    "institution": "Симеоновград",
+    "positionTitle": "Кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-25",
+    "entryNumber": "Г4108",
+    "controlHash": "12244FCA",
+    "sourceUrl": "https://register.cacbg.bg/2025/BF850AAC-8B46-4339-9FE1-27E096B58325206940.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 25571.240854266474,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "УПИ IV",
+        "detail": null,
+        "location": "Симеоновград",
+        "municipality": "Симеоновград",
+        "areaSqm": 218,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 5200,
+        "valueEur": 2658.717782220336,
+        "holderName": "Милена Георгиева Рангелова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Ауди Кю7",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 9000,
+        "valueEur": 4601.626930765967,
+        "holderName": "Пенко Александров Рангелов",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "спестявания"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 25000,
+        "valueEur": 12782.297029905461,
+        "holderName": "Милена Георгиева Рангелова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата, спестявания"
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "Милена Георгиева Рангелова",
+        "isSpouse": false,
+        "legalBasis": "потребителски кредит 5%",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

@@ -1,0 +1,98 @@
+[
+  {
+    "slug": "sonya-ivanova-georgieva-47d9f1",
+    "declarantName": "СОНЯ ИВАНОВА ГЕОРГИЕВА",
+    "institution": "Добричка",
+    "positionTitle": "Кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-02-18",
+    "entryNumber": "Г78",
+    "controlHash": "43411FD6",
+    "sourceUrl": "https://register.cacbg.bg/2025/EAD7E42A-FB0E-4C0B-BE97-D449DE80BC4E201692.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 57348.54256249265,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "мини купър кънтримен",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 90960,
+        "valueEur": 46507.10951360803,
+        "holderName": "Соня Иванова Георгиева",
+        "isSpouse": false,
+        "legalBasis": "лизинг",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 210662,
+        "valueEur": 107709.77027655779,
+        "holderName": "Соня Иванова Георгиева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата/продажба на недвижим имот"
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 24000,
+        "valueEur": 12271.005148709244,
+        "holderName": "Соня Иванова Георгиева",
+        "isSpouse": false,
+        "legalBasis": "кредит",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Лизингово задължение/лихвен процент 2.99",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 72768,
+        "valueEur": 37205.68761088642,
+        "holderName": "Соня Иванова Георгиева",
+        "isSpouse": false,
+        "legalBasis": "лизинг",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

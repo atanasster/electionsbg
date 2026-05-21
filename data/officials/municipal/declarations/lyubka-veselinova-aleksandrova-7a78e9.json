@@ -1,0 +1,86 @@
+[
+  {
+    "slug": "lyubka-veselinova-aleksandrova-7a78e9",
+    "declarantName": "Любка Веселинова Александрова",
+    "institution": "Левски",
+    "positionTitle": "Кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-08",
+    "entryNumber": "Г14306",
+    "controlHash": "7D82B2F4",
+    "sourceUrl": "https://register.cacbg.bg/2025/C9E76D1B-FAF0-406A-96D6-3510785904DC217592.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 23911.58740790355,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 37273.17813920433,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "село Асеновци",
+        "municipality": "Левски",
+        "areaSqm": 41,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 40000,
+        "valueEur": 20451.67524784874,
+        "holderName": "Ана Бориславова Великовска",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 54758,
+        "valueEur": 27997.320830542532,
+        "holderName": "Любка Веселинова Александрова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "debt",
+        "description": "ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 96128,
+        "valueEur": 49149.46595563009,
+        "holderName": "Любка Веселинова Александрова",
+        "isSpouse": false,
+        "legalBasis": "договор от 2020г., лихва 2,70%",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

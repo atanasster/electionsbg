@@ -1,0 +1,80 @@
+[
+  {
+    "slug": "atanas-tsvetanov-atanasov-e6db17",
+    "declarantName": "Атанас Цветанов Атанасов",
+    "institution": "Червен бряг",
+    "positionTitle": "Кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-14",
+    "entryNumber": "Г13229",
+    "controlHash": "755AF8E2",
+    "sourceUrl": "https://register.cacbg.bg/2025/929F2C79-B233-4FCF-87DD-C4FD382CF2A0216428.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 25490.45673703747,
+        "amountEurSpouse": 4691.614301856501
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 97000,
+        "valueEur": 49595.31247603319,
+        "holderName": "Атанас Цветанов Атанасов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит-2,8%",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 84000,
+        "valueEur": 42948.518020482355,
+        "holderName": "Атанас Цветанов Атанасов",
+        "isSpouse": false,
+        "legalBasis": "заем",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 64500,
+        "valueEur": 32978.32633715609,
+        "holderName": "Атанас Цветанов Атанасов",
+        "isSpouse": false,
+        "legalBasis": "заем-4,99",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

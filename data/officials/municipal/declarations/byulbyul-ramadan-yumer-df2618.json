@@ -1,0 +1,74 @@
+[
+  {
+    "slug": "byulbyul-ramadan-yumer-df2618",
+    "declarantName": "БЮЛБЮЛ РАМАДАН ЮМЕР",
+    "institution": "Ардино",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-03-20",
+    "entryNumber": "Г787",
+    "controlHash": "CFA0AD5D",
+    "sourceUrl": "https://register.cacbg.bg/2025/7CD96F8C-D7EA-4CF0-89A0-A47040C6A585203019.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 18103.822929395705,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 2516.5786392477876,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 1840.6507723063867,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 4661,
+        "valueEur": 2383.131458255574,
+        "holderName": "БЮЛБЮЛ РАМАДАН ЮМЕР",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "ПОТРЕБИТЕЛСКИ КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 27521,
+        "valueEur": 14071.263862401129,
+        "holderName": "БЮЛБЮЛ РАМАДАН ЮМЕР",
+        "isSpouse": false,
+        "legalBasis": "ЛИХВЕН % - 5.02",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

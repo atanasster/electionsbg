@@ -1,0 +1,162 @@
+[
+  {
+    "slug": "nikolai-dragomirov-bukovinov-5b0884",
+    "declarantName": "(unknown)",
+    "institution": "Поморие",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2026,
+    "fiscalYear": null,
+    "declarationType": "Other",
+    "filedAt": "2025-03-14",
+    "entryNumber": "В324",
+    "controlHash": "DB4AEB8A",
+    "sourceUrl": "https://register.cacbg.bg/2025/5B4AC1F0-3471-4775-B99B-238FF9A2EDE8202432.xml",
+    "ownershipStakes": [],
+    "income": [],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "НИКИЕМ 25 ЕООД",
+        "detail": null,
+        "location": "100%",
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": null,
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": null
+      }
+    ]
+  },
+  {
+    "slug": "nikolai-dragomirov-bukovinov-5b0884",
+    "declarantName": "Николай Драгомиров Буковинов",
+    "institution": "Поморие",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-14",
+    "entryNumber": "Г11508",
+    "controlHash": "AFB43B50",
+    "sourceUrl": "https://register.cacbg.bg/2025/5B4AC1F0-3471-4775-B99B-238FF9A2EDE8214652.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Дружество с ограничена отговорност",
+        "shareSize": "100%",
+        "companyName": "БУКОВИНОВИ 2018 ЕООД",
+        "registeredOffice": "Поморие",
+        "valueEur": 1.022583762392437,
+        "holderName": "Емануела Иванова Буковинова",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "table": "10",
+        "itemType": "Дружество с ограничена отговорност",
+        "shareSize": "100%",
+        "companyName": "НИКИЕМ 25 ЕООД",
+        "registeredOffice": "Поморие",
+        "valueEur": 10.22583762392437,
+        "holderName": "Николай Драгомиров Буковинов",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 5133.370487210033,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 11347.100719387678,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Автомобил",
+        "detail": "Сеат",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 3000,
+        "valueEur": 1533.8756435886555,
+        "holderName": "Емануела Иванова Буковинова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "Автомобил",
+        "detail": "Сеат",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 3000,
+        "valueEur": 1533.8756435886555,
+        "holderName": "Николай Драгомиров Буковинов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Ипоточен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 140076,
+        "valueEur": 71619.7215504415,
+        "holderName": "Емануела Иванова Буковинова и Николай Драгомиров Буковинов",
+        "isSpouse": true,
+        "legalBasis": "Договор за кредит 2.93%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски Кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 2624,
+        "valueEur": 1341.6298962588774,
+        "holderName": "Николай Драгомиров Буковинов",
+        "isSpouse": false,
+        "legalBasis": "Договор за кредит 6.31%",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

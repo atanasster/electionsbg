@@ -1,0 +1,134 @@
+[
+  {
+    "slug": "vladimir-borislavov-lafazanski-826ce9",
+    "declarantName": "Владимир Бориславов Лафазански",
+    "institution": "Балчик",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г12082",
+    "controlHash": "0B0FB68C",
+    "sourceUrl": "https://register.cacbg.bg/2025/A458B86E-C492-4120-A26E-051303521E5C215239.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "начален капитал",
+        "shareSize": "100",
+        "companyName": "Балчик НЕТ ЕООД",
+        "registeredOffice": "Добрич",
+        "valueEur": 102.2583762392437,
+        "holderName": "Владимир Бориславов Лафазански",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 6108.404104651222,
+        "amountEurSpouse": 5610.405812366105
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 7857.5336302234855,
+        "amountEurSpouse": 3657.270826196551
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр. Балчик",
+        "municipality": "Балчик",
+        "areaSqm": 598,
+        "builtAreaSqm": 117,
+        "acquiredYear": 2015,
+        "share": "100",
+        "currency": "BGN",
+        "amount": 37000,
+        "valueEur": 18917.799604260083,
+        "holderName": "Владимир Бориславов Лафазански",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Балчик",
+        "municipality": "Балчик",
+        "areaSqm": 60,
+        "builtAreaSqm": 60,
+        "acquiredYear": 2016,
+        "share": "100",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Владимир Бориславов Лафазански",
+        "isSpouse": false,
+        "legalBasis": "дарение",
+        "fundsOrigin": "безвъзмездно"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр. Варна",
+        "municipality": "Варна",
+        "areaSqm": 58,
+        "builtAreaSqm": 58,
+        "acquiredYear": 2023,
+        "share": "100",
+        "currency": "BGN",
+        "amount": 0,
+        "valueEur": 0,
+        "holderName": "Владимир Бориславов Лафазански",
+        "isSpouse": false,
+        "legalBasis": "дарение",
+        "fundsOrigin": "безвъзмездно"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Тойота",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2016,
+        "share": "100",
+        "currency": "BGN",
+        "amount": 2900,
+        "valueEur": 1482.7464554690337,
+        "holderName": "Владимир Бориславов Лафазански",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 69000,
+        "valueEur": 35279.13980253907,
+        "holderName": "Владимир Бориславов Лафазански",
+        "isSpouse": false,
+        "legalBasis": "ипотека - 4,64%",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

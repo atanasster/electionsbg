@@ -1,0 +1,86 @@
+[
+  {
+    "slug": "blagorodna-nikolova-dosheva-zdravkova-fe415f",
+    "declarantName": "Благородна Николова Дошева-Здравкова",
+    "institution": "Столична община",
+    "positionTitle": "Заместник кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г13918",
+    "controlHash": "FA410696",
+    "sourceUrl": "https://register.cacbg.bg/2025/ACBEDE90-780E-44D6-9543-E875C015B410217179.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 40516.81383351314,
+        "amountEurSpouse": 5526.04265196873
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 1810.9958431970058,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Кредитна карта",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 2930,
+        "valueEur": 1498.0852119049202,
+        "holderName": "Благородна Николова Дошева-Здравкова",
+        "isSpouse": false,
+        "legalBasis": "18,9%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски Кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 18460,
+        "valueEur": 9438.448126882193,
+        "holderName": "Благородна Николова Дошева-Здравкова",
+        "isSpouse": false,
+        "legalBasis": "6,59%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 5712,
+        "valueEur": 5712.152896724153,
+        "holderName": "Емил Петков Здравков",
+        "isSpouse": true,
+        "legalBasis": "3,5%",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

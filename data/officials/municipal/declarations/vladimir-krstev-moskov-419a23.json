@@ -1,0 +1,128 @@
+[
+  {
+    "slug": "vladimir-krstev-moskov-419a23",
+    "declarantName": "Владимир Кръстев Москов",
+    "institution": "Гоце Делчев",
+    "positionTitle": "Кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-12",
+    "entryNumber": "Г8560",
+    "controlHash": "2E35C9FF",
+    "sourceUrl": "https://register.cacbg.bg/2025/C3B246A5-B73D-4987-A2D5-427180DCC180211582.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 34533.164947873796,
+        "amountEurSpouse": 17551.62769770379
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 1121.263095463307
+      },
+      {
+        "parent": null,
+        "category": "доходи от пенсия",
+        "amountEurDeclarant": 4820.459855917948,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 9309,
+        "valueEur": 4759.616122055598,
+        "holderName": "Владимир Кръстев Москов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 9750,
+        "valueEur": 9749.824882530691,
+        "holderName": "Владимир Кръстев Москов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "възнаглаждения и възстановени разходи от Европейския комитет неа регионите, ЕС"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 17009,
+        "valueEur": 8696.56360726648,
+        "holderName": "Мария Карамфилова москова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 57437,
+        "valueEur": 29367.0717802672,
+        "holderName": "Владимир Кръстев Москов",
+        "isSpouse": false,
+        "legalBasis": "договор, лихвен процент 4.62",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "кредитна карта",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 5000,
+        "valueEur": 4999.923306217821,
+        "holderName": "Владимир Кръстев Москов",
+        "isSpouse": false,
+        "legalBasis": "договор, лихвен процент 18,9",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

@@ -1,0 +1,80 @@
+[
+  {
+    "slug": "nevena-krasimirova-todorova-f022c6",
+    "declarantName": "Невена Красимирова Тодорова",
+    "institution": "Севлиево",
+    "positionTitle": "Заместник кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-22",
+    "entryNumber": "Г4907",
+    "controlHash": "AFA86DE8",
+    "sourceUrl": "https://register.cacbg.bg/2025/075AB689-9964-4646-BFC2-FDFC6F4D8235207787.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 40290.31153014321,
+        "amountEurSpouse": 15560.145820444517
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Тойота Корола",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 26000,
+        "valueEur": 13293.58891110168,
+        "holderName": "Евгени Стефанов Тодоров",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 25000,
+        "valueEur": 12782.297029905461,
+        "holderName": "Невена Красимирова Тодорова",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 25228,
+        "valueEur": 12898.8715788182,
+        "holderName": "Невена Красимирова Тодорова",
+        "isSpouse": false,
+        "legalBasis": "договор, 4,33 %",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

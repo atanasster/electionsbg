@@ -1,0 +1,68 @@
+[
+  {
+    "slug": "rosen-bozhanov-rusanov-3aca28",
+    "declarantName": "Росен Божанов Русанов",
+    "institution": "Полски Тръмбеш",
+    "positionTitle": "Заместник кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-08",
+    "entryNumber": "Г7637",
+    "controlHash": "48CF6618",
+    "sourceUrl": "https://register.cacbg.bg/2025/97D97737-59D3-411F-85F8-BD1864B68A7B210634.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 21290.193933010538,
+        "amountEurSpouse": 28735.115015108677
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 228.03617901351345,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "Росен Божанов Русанов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Банков кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "Росен Божанов Русанов",
+        "isSpouse": false,
+        "legalBasis": "Договор",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

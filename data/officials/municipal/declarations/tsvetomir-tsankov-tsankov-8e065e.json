@@ -1,0 +1,74 @@
+[
+  {
+    "slug": "tsvetomir-tsankov-tsankov-8e065e",
+    "declarantName": "Цветомир Цанков Цанков",
+    "institution": "Габрово",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г10053",
+    "controlHash": "E0F2B750",
+    "sourceUrl": "https://register.cacbg.bg/2025/9D34C1A6-230D-46A0-BC1D-093D876AE5B5213124.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 7578.36826309035,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 7950.077460720001,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 1366.1719065562959,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Габрово",
+        "municipality": "Габрово",
+        "areaSqm": 0,
+        "builtAreaSqm": 56,
+        "acquiredYear": 1965,
+        "share": "50%",
+        "currency": "BGN",
+        "amount": 15690,
+        "valueEur": 8022.169615968668,
+        "holderName": "Диана Цонева Цанкова",
+        "isSpouse": true,
+        "legalBasis": "собственик",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Габрово",
+        "municipality": "Габрово",
+        "areaSqm": 0,
+        "builtAreaSqm": 56,
+        "acquiredYear": 1965,
+        "share": "50%",
+        "currency": "BGN",
+        "amount": 15690,
+        "valueEur": 8022.169615968668,
+        "holderName": "Цветомир Цанков Цанков",
+        "isSpouse": false,
+        "legalBasis": "наследник",
+        "fundsOrigin": "наследяване"
+      }
+    ]
+  }
+]

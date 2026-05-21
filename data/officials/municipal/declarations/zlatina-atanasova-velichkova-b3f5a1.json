@@ -1,0 +1,92 @@
+[
+  {
+    "slug": "zlatina-atanasova-velichkova-b3f5a1",
+    "declarantName": "ЗЛАТИНА АТАНАСОВА ВЕЛИЧКОВА",
+    "institution": "Приморско",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-14",
+    "entryNumber": "Г14651",
+    "controlHash": "2220B3A7",
+    "sourceUrl": "https://register.cacbg.bg/2025/5E97AB05-EF52-42DA-8FC4-E9361B604E5C218030.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 5112.918811962185,
+        "amountEurSpouse": 5306.187143054355
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 22638.981915606164,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 1022.5837623924369,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.Бургас",
+        "municipality": "Бургас",
+        "areaSqm": 74,
+        "builtAreaSqm": 74,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 82145,
+        "valueEur": 42000.07158086337,
+        "holderName": "Златина а.Атанасова Величкова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "гр.Бургас",
+        "municipality": "Бургас",
+        "areaSqm": 74,
+        "builtAreaSqm": 74,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 82145,
+        "valueEur": 42000.07158086337,
+        "holderName": "Валери Григоров Величков",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "Банков заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 147645,
+        "valueEur": 75489.68979921567,
+        "holderName": "Златина Атанасова Величкова",
+        "isSpouse": false,
+        "legalBasis": "банков кредит",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

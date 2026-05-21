@@ -1,0 +1,97 @@
+[
+  {
+    "slug": "sonya-georgieva-budeva-ed14a2",
+    "declarantName": "Соня Георгиева Будева",
+    "institution": "Велико Търново",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-12",
+    "entryNumber": "Г9004",
+    "controlHash": "1BE0BF55",
+    "sourceUrl": "https://register.cacbg.bg/2025/6DFF0661-6088-449A-AFFE-AE4CC5A8A1F2212033.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Дялове",
+        "shareSize": "100",
+        "companyName": "\"Петров Трюфели\" ЕООД",
+        "registeredOffice": "Велико Търново",
+        "valueEur": 2556.4594059810925,
+        "holderName": "Васил Христов Петров",
+        "legalBasis": "други",
+        "fundsOrigin": "Собствени спестявания"
+      },
+      {
+        "table": "10",
+        "itemType": "Дялове",
+        "shareSize": "100",
+        "companyName": "\"Тонал-22\" ЕООД",
+        "registeredOffice": "Велико Търново",
+        "valueEur": 2556.4594059810925,
+        "holderName": "Васил Христов Петров",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "Собствени спестявания"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 7110.024899914614,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 26672.56356636313,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 154.9214400024542,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 17847,
+        "valueEur": 9125.02620370891,
+        "holderName": "Соня Георгиева Будева",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "Обезщетение за причинени вреди по \"Гражданска отговорност\""
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 36,
+        "valueEur": 18.406507723063864,
+        "holderName": "Васил Христов Петров",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "Дивиденти"
+      }
+    ]
+  }
+]

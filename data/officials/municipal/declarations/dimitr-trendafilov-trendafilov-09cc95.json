@@ -1,0 +1,128 @@
+[
+  {
+    "slug": "dimitr-trendafilov-trendafilov-09cc95",
+    "declarantName": "Димитър Трендафилов Трендафилов",
+    "institution": "Силистра",
+    "positionTitle": "Председател на ОбС",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-08",
+    "entryNumber": "Г12572",
+    "controlHash": "E2B9E020",
+    "sourceUrl": "https://register.cacbg.bg/2025/22C10DE0-6F86-45DE-8453-45B631877883215741.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 26740.565386562226,
+        "amountEurSpouse": 26893.95295092109
+      },
+      {
+        "parent": null,
+        "category": "пенсия",
+        "amountEurDeclarant": 11197.292198197185,
+        "amountEurSpouse": 5521.95231691916
+      },
+      {
+        "parent": null,
+        "category": "наследствени",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 7260.3447129863025
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Мерцедес",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "Димитър Трендафилов Трендафилов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Мерцедес",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "Росица Панева Трендафилова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 12600,
+        "valueEur": 6442.277703072353,
+        "holderName": "Димитър Трендафилов Трендафилов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 43200,
+        "valueEur": 22087.80926767664,
+        "holderName": "Росица Панева Трендафилова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата и наследяване"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10800,
+        "valueEur": 5521.95231691916,
+        "holderName": "Росица Панева Трендафилова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "пенсия"
+      }
+    ]
+  }
+]

@@ -1,0 +1,92 @@
+[
+  {
+    "slug": "danail-ivanov-adzhemov-6f0693",
+    "declarantName": "Данаил Иванов Аджемов",
+    "institution": "Аврен",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-15",
+    "entryNumber": "Г14809",
+    "controlHash": "1222CD9C",
+    "sourceUrl": "https://register.cacbg.bg/2025/2EF6B9FD-0648-41F9-90C4-6BB26D342EC9218285.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 6190.722097523813,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 14008.88625289519,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "продажба на камион - Ман",
+        "amountEurDeclarant": 5112.918811962185,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "рибарска лодка",
+        "detail": "тритон",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "Данаил Иванов Аджемов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "vehicle",
+        "description": "колесар за лодка",
+        "detail": "колесар",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 1000,
+        "valueEur": 511.29188119621847,
+        "holderName": "Данаил Иванов Аджемов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "Данаил Иванов Аджемов",
+        "isSpouse": false,
+        "legalBasis": "заем - 7,3 %",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

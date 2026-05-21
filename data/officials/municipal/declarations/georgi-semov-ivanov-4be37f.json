@@ -1,0 +1,86 @@
+[
+  {
+    "slug": "georgi-semov-ivanov-4be37f",
+    "declarantName": "Георги Семов Иванов",
+    "institution": "Полски Тръмбеш",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-12",
+    "entryNumber": "Г13363",
+    "controlHash": "23D4D2A8",
+    "sourceUrl": "https://register.cacbg.bg/2025/3496D257-CFE2-4A3B-8776-51371E80F9E3216570.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 6908.575898723304,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": 85832.61326393398,
+        "amountEurSpouse": 4373.590751752453
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "МПС",
+        "detail": "МЕРЦЕДЕНС БЕНЦ GL550",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 8200,
+        "valueEur": 4192.593425808992,
+        "holderName": "Георги Семов Иванов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "USD",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "USD",
+        "amount": 20000,
+        "valueEur": 18099.732594346133,
+        "holderName": "Георги Семов Иванов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "земеделска дейнст"
+      },
+      {
+        "category": "debt",
+        "description": "ипотечн кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 45000,
+        "valueEur": 23008.13465382983,
+        "holderName": "Георги Семов Иванов/Галя Михайлова Иванова",
+        "isSpouse": true,
+        "legalBasis": "договор",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

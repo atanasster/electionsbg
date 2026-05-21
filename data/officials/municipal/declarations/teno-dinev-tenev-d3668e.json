@@ -1,0 +1,86 @@
+[
+  {
+    "slug": "teno-dinev-tenev-d3668e",
+    "declarantName": "Теньо Динев Тенев",
+    "institution": "Гълъбово",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-24",
+    "entryNumber": "Г3539",
+    "controlHash": "26F90683",
+    "sourceUrl": "https://register.cacbg.bg/2025/8F357628-6A01-49AC-975B-4D48D683712D206330.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 510.26929743382607,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 21569.87059202487,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 25170,
+        "valueEur": 12869.21664970882,
+        "holderName": "Теньо Динев Тенев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 1565,
+        "valueEur": 800.171794072082,
+        "holderName": "Теньо Динев Тенев",
+        "isSpouse": false,
+        "legalBasis": "потребителски кредит",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 98872,
+        "valueEur": 50552.45087763252,
+        "holderName": "Теньо Динев Тенев",
+        "isSpouse": false,
+        "legalBasis": "ипотечен кредит",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

@@ -1,0 +1,92 @@
+[
+  {
+    "slug": "katerina-dimitrova-toncheva-2f2e00",
+    "declarantName": "Катерина Димитрова Тончева",
+    "institution": "Дългопол",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-08",
+    "entryNumber": "Г10663",
+    "controlHash": "D37B030F",
+    "sourceUrl": "https://register.cacbg.bg/2025/564CFFDA-C642-48B6-A802-BFD19255CEC1213762.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 2663.3194091511023,
+        "amountEurSpouse": 2634.1757719229176
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 3834.6891089716387,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 613.5502574354622
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Сава",
+        "municipality": "Дългопол",
+        "areaSqm": 1900,
+        "builtAreaSqm": 45,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 4000,
+        "valueEur": 2045.1675247848739,
+        "holderName": "Катерина Димитрова Тончева",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "с. Сава",
+        "municipality": "Дългопол",
+        "areaSqm": 1900,
+        "builtAreaSqm": 45,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 4000,
+        "valueEur": 2045.1675247848739,
+        "holderName": "Калчо Енчев Тончев",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 94847,
+        "valueEur": 4849.092201264936,
+        "holderName": "Катерина Димитрова Тончева",
+        "isSpouse": false,
+        "legalBasis": "кредит 4,81%",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

@@ -1,0 +1,98 @@
+[
+  {
+    "slug": "milko-tenev-georgiev-462734",
+    "declarantName": "Милко Тенев Георгиев",
+    "institution": "Раднево",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-11",
+    "entryNumber": "Г2719",
+    "controlHash": "ED2C6E41",
+    "sourceUrl": "https://register.cacbg.bg/2025/A30382F5-FD35-441D-B7D9-6CDC32C45B3A205411.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "пари",
+        "shareSize": "100 %",
+        "companyName": "МИЛЕ ГРУП ЕООД",
+        "registeredOffice": "Стара Загора",
+        "valueEur": 51.12918811962185,
+        "holderName": "Милко Тенев Георгиев",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 5941.211659500059,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 2650.5371121211965,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Стара Загора",
+        "municipality": "Стара Загора",
+        "areaSqm": 110,
+        "builtAreaSqm": 110,
+        "acquiredYear": 2021,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 100000,
+        "valueEur": 51129.188119621846,
+        "holderName": "Милко Тенев Георгиев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "Гледачево",
+        "municipality": "Раднево",
+        "areaSqm": 42,
+        "builtAreaSqm": null,
+        "acquiredYear": 2017,
+        "share": "1/1",
+        "currency": null,
+        "amount": null,
+        "valueEur": null,
+        "holderName": "Милко Тенев Георгиев",
+        "isSpouse": false,
+        "legalBasis": "дарение",
+        "fundsOrigin": "безвъзмездно"
+      },
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 60000,
+        "valueEur": 30677.51287177311,
+        "holderName": "Милко Тенев Георгиев",
+        "isSpouse": false,
+        "legalBasis": "заем, 2.7 % лихва",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

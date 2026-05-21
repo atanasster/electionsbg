@@ -1,0 +1,134 @@
+[
+  {
+    "slug": "ivan-mitev-ionkov-0aa6ed",
+    "declarantName": "Иван Митев Йонков",
+    "institution": "Шумен",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-07",
+    "entryNumber": "Г6517",
+    "controlHash": "9CD6E471",
+    "sourceUrl": "https://register.cacbg.bg/2025/C24D5DD1-24CE-40E0-8EE7-AD9141F8FDC7209477.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 7545.134290812596,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 2899.024966382559,
+        "amountEurSpouse": 1533.8756435886555
+      },
+      {
+        "parent": null,
+        "category": "Пенсия",
+        "amountEurDeclarant": 20247.15849537025,
+        "amountEurSpouse": 4540.2719050224205
+      },
+      {
+        "parent": null,
+        "category": "Рента",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 2044.1449410224816
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 7104,
+        "valueEur": 7103.88939734026,
+        "holderName": "Иван Митев Йонков",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "спестявания"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "Румяна Михайлова Йонкова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "спестявания"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 7995,
+        "valueEur": 4087.7785901637667,
+        "holderName": "Иван Митев Йонков",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "спестявания"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 4500,
+        "valueEur": 4499.879846407919,
+        "holderName": "Румяна Михайлова Йонкова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "спестявания"
+      },
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 70507,
+        "valueEur": 36049.656667501775,
+        "holderName": "Иван Митев Йонков",
+        "isSpouse": false,
+        "legalBasis": "потребителски",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

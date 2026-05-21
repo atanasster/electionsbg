@@ -1,0 +1,80 @@
+[
+  {
+    "slug": "dobromir-venelinov-sheveliev-348eb9",
+    "declarantName": "Добромир Венелинов Шевелиев",
+    "institution": "Рудозем",
+    "positionTitle": "Заместник кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-03-28",
+    "entryNumber": "Г1625",
+    "controlHash": "F526A9D2",
+    "sourceUrl": "https://register.cacbg.bg/2025/4D7C7D39-9C84-49AF-AB2F-D1353BD36156204139.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 18282.77508781438,
+        "amountEurSpouse": 7189.275141500028
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Рудозем",
+        "municipality": "Рудозем",
+        "areaSqm": 63,
+        "builtAreaSqm": 69,
+        "acquiredYear": 2024,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 4600,
+        "valueEur": 2351.942653502605,
+        "holderName": "Добромир Венелинов Шевелиев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заем"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Хюндай",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 6340,
+        "valueEur": 3241.5905267840253,
+        "holderName": "Добромир Венелинов Шевелиев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "банков заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10278,
+        "valueEur": 5255.057954934734,
+        "holderName": "Добромир Венелинов Шевелиев",
+        "isSpouse": false,
+        "legalBasis": "стандартен кредит за текущо потребление,лихвен процент -9,2",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

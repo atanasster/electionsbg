@@ -1,0 +1,68 @@
+[
+  {
+    "slug": "valeri-evtimov-totevski-92546e",
+    "declarantName": "Валери Евтимов Тотевски",
+    "institution": "Невестино",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-24",
+    "entryNumber": "Г4395",
+    "controlHash": "EA3D347E",
+    "sourceUrl": "https://register.cacbg.bg/2025/12CB896B-612B-48C1-A664-34FC99D94EBD207242.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 19886.18642724572,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 2236.3906883522595,
+        "amountEurSpouse": 3586.2012547102763
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "гараж",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 21,
+        "builtAreaSqm": 21,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 11454,
+        "valueEur": 5856.337207221487,
+        "holderName": "Галя Емилова Тотевска",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 15100,
+        "valueEur": 7720.5074060628995,
+        "holderName": "Валери Евтимов Тотевски",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ]
+  }
+]

@@ -1,0 +1,80 @@
+[
+  {
+    "slug": "ilhan-sali-sali-ce4bb8",
+    "declarantName": "Илхан Сали Сали",
+    "institution": "Венец",
+    "positionTitle": "Заместник кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-09",
+    "entryNumber": "Г10242",
+    "controlHash": "D0C3A192",
+    "sourceUrl": "https://register.cacbg.bg/2025/7737E8B5-43AD-4A7E-ADCE-8E7682C35E74213318.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 26047.253595660153,
+        "amountEurSpouse": 8357.06579815219
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "УПИ",
+        "detail": null,
+        "location": "с. Ясенково",
+        "municipality": "Венец",
+        "areaSqm": 220,
+        "builtAreaSqm": null,
+        "acquiredYear": 2022,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 1000,
+        "valueEur": 511.29188119621847,
+        "holderName": "Рюхшен Бедри Сали",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "Фолксваген",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 8000,
+        "valueEur": 4090.3350495697478,
+        "holderName": "Рюхшен Бедри Сали",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 40000,
+        "valueEur": 20451.67524784874,
+        "holderName": "Рюхшен Бедри Сали",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "Спестявания"
+      }
+    ]
+  }
+]

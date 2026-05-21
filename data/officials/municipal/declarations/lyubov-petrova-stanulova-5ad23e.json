@@ -1,0 +1,86 @@
+[
+  {
+    "slug": "lyubov-petrova-stanulova-5ad23e",
+    "declarantName": "Любов Петрова Станулова",
+    "institution": "Златица",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-04",
+    "entryNumber": "Г13933",
+    "controlHash": "8379FAB6",
+    "sourceUrl": "https://register.cacbg.bg/2025/4140858E-07D2-422C-800E-61D3D8FC0B14217194.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 7315.564236155494,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 6484.203637330443,
+        "amountEurSpouse": 9476.79501797191
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "Златица",
+        "municipality": "Златица",
+        "areaSqm": 106,
+        "builtAreaSqm": 106,
+        "acquiredYear": 2006,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 5300,
+        "valueEur": 2709.846970339958,
+        "holderName": "Любов Петрова Станулова",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "София",
+        "municipality": "София-град (Столична)",
+        "areaSqm": 55,
+        "builtAreaSqm": 55,
+        "acquiredYear": 2003,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 9366,
+        "valueEur": 4788.759759283782,
+        "holderName": "Цветан Огнянов Бакърджиев",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 18774,
+        "valueEur": 9598.993777577805,
+        "holderName": "Любов Петрова Станулова",
+        "isSpouse": false,
+        "legalBasis": "Потребителски кредит",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

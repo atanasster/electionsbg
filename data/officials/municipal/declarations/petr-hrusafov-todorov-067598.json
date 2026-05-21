@@ -1,0 +1,68 @@
+[
+  {
+    "slug": "petr-hrusafov-todorov-067598",
+    "declarantName": "Петър Хрусафов Тодоров",
+    "institution": "Несебър",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г14328",
+    "controlHash": "D89C3F83",
+    "sourceUrl": "https://register.cacbg.bg/2025/F4212A66-F63E-4680-9F3F-571092C3B740217616.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 5406.911643650011,
+        "amountEurSpouse": 7260.3447129863025
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 20451.67524784874,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": null,
+        "valueEur": 14571.818614092226,
+        "holderName": "Петър Хрусафов Тодоров",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "дивидент"
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 11000,
+        "valueEur": 5624.210693158403,
+        "holderName": "Катина Василева Тодорова",
+        "isSpouse": true,
+        "legalBasis": "5,22",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

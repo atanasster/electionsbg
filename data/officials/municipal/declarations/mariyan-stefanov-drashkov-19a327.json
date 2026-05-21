@@ -1,0 +1,98 @@
+[
+  {
+    "slug": "mariyan-stefanov-drashkov-19a327",
+    "declarantName": "Мариян Стефанов Драшков",
+    "institution": "Иваново",
+    "positionTitle": "Председател на ОбС",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-09",
+    "entryNumber": "Г11084",
+    "controlHash": "918A1620",
+    "sourceUrl": "https://register.cacbg.bg/2025/4265B8B8-24D4-459A-8D7F-ABA497D01886214209.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 14811.614506373253,
+        "amountEurSpouse": 15477.31653569073
+      },
+      {
+        "parent": null,
+        "category": "Дивидент",
+        "amountEurDeclarant": 13293.58891110168,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Дивидент от потребителна кооперация",
+        "amountEurDeclarant": 143.6730186161374,
+        "amountEurSpouse": 143.6730186161374
+      },
+      {
+        "parent": null,
+        "category": "Рента",
+        "amountEurDeclarant": 1227.6118067521206,
+        "amountEurSpouse": 148.78593742809957
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 2000,
+        "valueEur": 1022.5837623924369,
+        "holderName": "Мариян Стефанов Драшков",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата и рента"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20665,
+        "valueEur": 10565.846724919855,
+        "holderName": "Мариян Стефанов Драшков",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата и дивидент"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 8089,
+        "valueEur": 4135.840026996211,
+        "holderName": "Мариана Христева Драшкова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ]
+  }
+]

@@ -1,0 +1,68 @@
+[
+  {
+    "slug": "aidoan-apti-dzhelil-b615f7",
+    "declarantName": "Айдоан Апти Джелил",
+    "institution": "Русе",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-23",
+    "entryNumber": "Г7034",
+    "controlHash": "6733D6AD",
+    "sourceUrl": "https://register.cacbg.bg/2025/973C8DA0-749D-47C2-9724-09C938F4C806210021.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 20742.08903636819,
+        "amountEurSpouse": 31797.753383474024
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 1963.360823793479
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 41889,
+        "valueEur": 26215.46862457371,
+        "holderName": "Суна Ергюл Джелил",
+        "isSpouse": true,
+        "legalBasis": "кредит, 3 процента",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "лизинг автомобил",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 25585,
+        "valueEur": 25639.24267446557,
+        "holderName": "Айдоан Апти Джелил",
+        "isSpouse": false,
+        "legalBasis": "лизинг,",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

@@ -1,0 +1,86 @@
+[
+  {
+    "slug": "vladislav-dimitrov-haralampiev-ae188e",
+    "declarantName": "Владислав Димитров Харалампиев",
+    "institution": "Кюстендил",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-07",
+    "entryNumber": "Г6020",
+    "controlHash": "071B9ABD",
+    "sourceUrl": "https://register.cacbg.bg/2025/BEFA9A59-D9CC-411F-AF2E-44BD635636F3208966.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 6021.484484847865,
+        "amountEurSpouse": 5679.430216327595
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": 1942.3978566644341,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "ул. ЧАТАЛДЖА №39",
+        "municipality": "Кюстендил",
+        "areaSqm": 158,
+        "builtAreaSqm": 182,
+        "acquiredYear": 2024,
+        "share": "0.75",
+        "currency": "BGN",
+        "amount": 27226,
+        "valueEur": 13920.432757448245,
+        "holderName": "Цветелина Генчова Николова",
+        "isSpouse": true,
+        "legalBasis": "наследство",
+        "fundsOrigin": "наследяване"
+      },
+      {
+        "category": "vehicle",
+        "description": "ФОРТИНГ",
+        "detail": "Т5 ЕВО",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "100",
+        "currency": "BGN",
+        "amount": 56000,
+        "valueEur": 28632.345346988237,
+        "holderName": "Владислав Димитров Харалампиев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 58000,
+        "valueEur": 29654.92910938067,
+        "holderName": "Владислав Димитров Харалампиев",
+        "isSpouse": false,
+        "legalBasis": "Потребителски кредит - 5.5%",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

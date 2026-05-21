@@ -1,0 +1,80 @@
+[
+  {
+    "slug": "ivan-dimitrov-kostovski-e3752b",
+    "declarantName": "Иван Димитров Костовски",
+    "institution": "Борован",
+    "positionTitle": "Кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-08",
+    "entryNumber": "Г7057",
+    "controlHash": "D2E54E2F",
+    "sourceUrl": "https://register.cacbg.bg/2025/DFC87A17-8C3B-4768-BAD5-D95FE8EBFC50210045.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 22266.25013421412,
+        "amountEurSpouse": 2862.211950936431
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "град Враца",
+        "municipality": "Враца",
+        "areaSqm": 96,
+        "builtAreaSqm": 96,
+        "acquiredYear": 2005,
+        "share": "92",
+        "currency": "BGN",
+        "amount": 22000,
+        "valueEur": 11248.421386316806,
+        "holderName": "Иван Димитров Костовски",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Ауди А6",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2022,
+        "share": "Х",
+        "currency": "BGN",
+        "amount": 75000,
+        "valueEur": 38346.89108971639,
+        "holderName": "Иван Димитров Костовски",
+        "isSpouse": false,
+        "legalBasis": "дарение",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 25000,
+        "valueEur": 12782.297029905461,
+        "holderName": "Иван Димитров Костовски",
+        "isSpouse": false,
+        "legalBasis": "потребителски кредит , 6.21",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

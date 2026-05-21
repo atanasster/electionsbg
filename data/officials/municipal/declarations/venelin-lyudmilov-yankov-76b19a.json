@@ -1,0 +1,86 @@
+[
+  {
+    "slug": "venelin-lyudmilov-yankov-76b19a",
+    "declarantName": "Венелин Людмилов Янков",
+    "institution": "Враца",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-24",
+    "entryNumber": "Г10830",
+    "controlHash": "59A81508",
+    "sourceUrl": "https://register.cacbg.bg/2025/FDCD84AE-4309-4342-9F1D-18C03B8BDA38213938.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 7730.221951805627,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 4773.932294729092,
+        "amountEurSpouse": 1968.4737426054412
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр. Враца",
+        "municipality": "Враца",
+        "areaSqm": 578,
+        "builtAreaSqm": 53,
+        "acquiredYear": 2022,
+        "share": null,
+        "currency": "BGN",
+        "amount": 9800,
+        "valueEur": 5010.660435722941,
+        "holderName": "Венелин Людмилов Янков",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "real_estate",
+        "description": "къща с двор",
+        "detail": null,
+        "location": "гр. Враца",
+        "municipality": "Враца",
+        "areaSqm": 597,
+        "builtAreaSqm": 23,
+        "acquiredYear": 2022,
+        "share": null,
+        "currency": "BGN",
+        "amount": 5400,
+        "valueEur": 2760.97615845958,
+        "holderName": "Венелин Людмилов Янков",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 65000,
+        "valueEur": 33233.972277754205,
+        "holderName": "Венелин Людмилов Янков",
+        "isSpouse": false,
+        "legalBasis": "ипотечен банков кредит",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

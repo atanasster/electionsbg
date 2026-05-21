@@ -1,0 +1,80 @@
+[
+  {
+    "slug": "krasimira-iordanova-peneva-6b1e65",
+    "declarantName": "КРАСИМИРА ЙОРДАНОВА ПЕНЕВА",
+    "institution": "Бяла/Русе/",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-08",
+    "entryNumber": "Г8615",
+    "controlHash": "B5023B78",
+    "sourceUrl": "https://register.cacbg.bg/2025/BA90C8D6-4448-4859-9D50-F0C5F139CC75211637.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 8525.280827065748,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 4654.801286410373,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 2658.717782220336
+      },
+      {
+        "parent": null,
+        "category": "Пенсия",
+        "amountEurDeclarant": 132.93588911101682,
+        "amountEurSpouse": 11375.221772853469
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "овърдрафт",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 5000,
+        "valueEur": 2556.4594059810925,
+        "holderName": "Йордан Ангелов Пенев",
+        "isSpouse": true,
+        "legalBasis": "Договор",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "лизинг - лихв. - 2.95%",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 8000,
+        "valueEur": 4090.3350495697478,
+        "holderName": "Йордан Ангелов Пенев",
+        "isSpouse": true,
+        "legalBasis": "Договор",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

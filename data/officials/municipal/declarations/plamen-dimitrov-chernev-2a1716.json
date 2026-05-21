@@ -1,0 +1,80 @@
+[
+  {
+    "slug": "plamen-dimitrov-chernev-2a1716",
+    "declarantName": "Пламен Димитров Чернев",
+    "institution": "Сухиндол",
+    "positionTitle": "Кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-12",
+    "entryNumber": "Г10013",
+    "controlHash": "D5EF57E0",
+    "sourceUrl": "https://register.cacbg.bg/2025/8364F54C-AEB9-41B8-B2DE-49E9300CF546213083.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 26055.94555764049,
+        "amountEurSpouse": 27210.95391726275
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "парцел",
+        "detail": null,
+        "location": "гр.Сухиндол",
+        "municipality": "Сухиндол",
+        "areaSqm": 957,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 3600,
+        "valueEur": 1840.6507723063867,
+        "holderName": "Пламен Димитров Чернев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 26562,
+        "valueEur": 13580.934948333956,
+        "holderName": "Пламен ДИмитров Чернев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 19536,
+        "valueEur": 19527.259526645976,
+        "holderName": "Светлана Иванова Трифонова - Чернева",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "наследяване"
+      }
+    ]
+  }
+]

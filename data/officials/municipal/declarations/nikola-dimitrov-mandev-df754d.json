@@ -1,0 +1,86 @@
+[
+  {
+    "slug": "nikola-dimitrov-mandev-df754d",
+    "declarantName": "НИКОЛА ДИМИТРОВ МАНДЕВ",
+    "institution": "Садово",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г12355",
+    "controlHash": "F92FE861",
+    "sourceUrl": "https://register.cacbg.bg/2025/C4AA3792-90A9-40C2-B507-B1DA68C756F8215519.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 2484.878542613622,
+        "amountEurSpouse": 10307.133033034568
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 6214.752815940035,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "ЛЕК АВТОМОБИЛ",
+        "detail": "ХЮНДАЙ ТУКСОН",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 7000,
+        "valueEur": 3579.0431683735296,
+        "holderName": "НИКОЛА ДИМИТРОВ МАНДЕВ, СИО",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 40700,
+        "valueEur": 20809.579564686093,
+        "holderName": "ДАНИЕЛА ПЕТРОВА МАНДЕВА",
+        "isSpouse": true,
+        "legalBasis": "6 %",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "ОВЪРДРАФТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "НИКОЛА ДИМИТРОВ МАНДЕЛ",
+        "isSpouse": true,
+        "legalBasis": "5 %",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

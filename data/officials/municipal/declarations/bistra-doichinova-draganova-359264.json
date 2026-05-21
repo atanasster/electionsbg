@@ -1,0 +1,68 @@
+[
+  {
+    "slug": "bistra-doichinova-draganova-359264",
+    "declarantName": "Бистра Дойчинова Драганова",
+    "institution": "Правец",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г14478",
+    "controlHash": "EB9C5633",
+    "sourceUrl": "https://register.cacbg.bg/2025/619BD7F2-E8D4-4B75-9A92-6FDB8E774672217792.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 3781.0034614460355,
+        "amountEurSpouse": 128128.21155212876
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 6551.182873767148,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 3150,
+        "valueEur": 1610.5694257680882,
+        "holderName": "Бистра Дойчинова Драганова",
+        "isSpouse": false,
+        "legalBasis": "кредит",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 3300,
+        "valueEur": 1687.263207947521,
+        "holderName": "Симеон Асенов Атанасов",
+        "isSpouse": true,
+        "legalBasis": "кредит",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

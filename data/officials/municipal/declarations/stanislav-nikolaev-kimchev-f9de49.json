@@ -1,0 +1,80 @@
+[
+  {
+    "slug": "stanislav-nikolaev-kimchev-f9de49",
+    "declarantName": "СТАНИСЛАВ НИКОЛАЕВ КИМЧЕВ",
+    "institution": "Благоевград",
+    "positionTitle": "Заместник кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-15",
+    "entryNumber": "Г12502",
+    "controlHash": "4F79F1FB",
+    "sourceUrl": "https://register.cacbg.bg/2025/3BEE0245-AEEB-47D4-8597-505871227E7D215671.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 41129.852799067405,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 53658,
+        "valueEur": 27434.89976122669,
+        "holderName": "Станислав Николаев Кимчев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата, спестявания"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 1564,
+        "valueEur": 1564.0418645792324,
+        "holderName": "Станислав Николаев Кимчев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата, спестявания"
+      },
+      {
+        "category": "debt",
+        "description": "ипотечен кредит с договорен лихвен процент по него в размер на 4.45%",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 17191,
+        "valueEur": 17191.166921460455,
+        "holderName": "Станислав Николаев Кимчев",
+        "isSpouse": false,
+        "legalBasis": "договор за кредит",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

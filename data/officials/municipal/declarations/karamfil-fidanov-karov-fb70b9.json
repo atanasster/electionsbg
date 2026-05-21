@@ -1,0 +1,86 @@
+[
+  {
+    "slug": "karamfil-fidanov-karov-fb70b9",
+    "declarantName": "Карамфил Фиданов Каров",
+    "institution": "Девин",
+    "positionTitle": "Председател на ОбС",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-13",
+    "entryNumber": "Г11633",
+    "controlHash": "FB7E3C96",
+    "sourceUrl": "https://register.cacbg.bg/2025/91B03328-AFB4-4D84-8695-FA6CC9261E1C214781.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 10412.45916056099,
+        "amountEurSpouse": 13554.347770511753
+      },
+      {
+        "parent": null,
+        "category": "Пенсия",
+        "amountEurDeclarant": 2837.6699406390126,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Жилищен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 209837,
+        "valueEur": 107287.9544745709,
+        "holderName": "Карамфил Фиданов Каров",
+        "isSpouse": false,
+        "legalBasis": "договор за кредит с лихвен процент 2,39%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 60531,
+        "valueEur": 30949.0088606883,
+        "holderName": "Карамфил Фиданов Каров",
+        "isSpouse": false,
+        "legalBasis": "договор за кредит с лихвен процент 6,20%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Кредитна карта",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 19,
+        "valueEur": 9.714545742728152,
+        "holderName": "Карамфил Фиданов Каров",
+        "isSpouse": false,
+        "legalBasis": "договор за кредит  с лихвен процент 18,90%",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

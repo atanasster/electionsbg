@@ -1,0 +1,97 @@
+[
+  {
+    "slug": "mehtibat-niyaziev-mustafov-54cb37",
+    "declarantName": "Мехтибат Ниязиев Мустафов",
+    "institution": "Опака",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-15",
+    "entryNumber": "Г13503",
+    "controlHash": "5FEE2D67",
+    "sourceUrl": "https://register.cacbg.bg/2025/9AC33985-3FCA-45CE-8DEA-B57E8090EEDA216723.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Едноличен търговец",
+        "shareSize": "100",
+        "companyName": "ЕТ ЮСИ-81-Юсние Мустафова",
+        "registeredOffice": "Търговище",
+        "valueEur": 51.12918811962185,
+        "holderName": "Юсние Бехчет Мустафова",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "table": "10",
+        "itemType": "Еднолично дружество",
+        "shareSize": "100",
+        "companyName": "ЮМБ ПРО ЕООД",
+        "registeredOffice": "Търговище",
+        "valueEur": 51.12918811962185,
+        "holderName": "Юсние Бехчет Мустафова",
+        "legalBasis": "други",
+        "fundsOrigin": "заеми"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 5339.421115332109,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 20162.28404309168,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 5724.423901872862
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Кредити и кредитни карти",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 124100,
+        "valueEur": 63451.32245645072,
+        "holderName": "Мехтибат Ниязиев Мустафов",
+        "isSpouse": false,
+        "legalBasis": "Кредити",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Кредити",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 7000,
+        "valueEur": 3579.0431683735296,
+        "holderName": "Юсние Бехчет Мустафова",
+        "isSpouse": true,
+        "legalBasis": "Кредити",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

@@ -1,0 +1,98 @@
+[
+  {
+    "slug": "damyan-vasilev-milev-a16617",
+    "declarantName": "Дамян Василев Милев",
+    "institution": "Исперих",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-12",
+    "entryNumber": "Г11103",
+    "controlHash": "EA890805",
+    "sourceUrl": "https://register.cacbg.bg/2025/4EF8EE3C-02D4-4A1D-BC55-F6FF80538178214228.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Дялове",
+        "shareSize": "50",
+        "companyName": "Мега шанс груп-Исперих ООД",
+        "registeredOffice": "Исперих",
+        "valueEur": 63911.48514952731,
+        "holderName": "Дамян Василев Милев",
+        "legalBasis": "други",
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 12637.601427526932,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Дивиденти след облагане с данък",
+        "amountEurDeclarant": 161460.35187107263,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 60000,
+        "valueEur": 30677.51287177311,
+        "holderName": "Дамян Василев Милев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 2804,
+        "valueEur": 1433.6624348741966,
+        "holderName": "Дамян Василев Милев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "receivable",
+        "description": "паричен заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 250000,
+        "valueEur": 127822.97029905462,
+        "holderName": "Дамян Василев Милев",
+        "isSpouse": false,
+        "legalBasis": "договор",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

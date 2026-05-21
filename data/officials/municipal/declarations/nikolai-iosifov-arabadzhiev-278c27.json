@@ -1,0 +1,68 @@
+[
+  {
+    "slug": "nikolai-iosifov-arabadzhiev-278c27",
+    "declarantName": "Николай Йосифов Арабаджиев",
+    "institution": "Белене",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-11",
+    "entryNumber": "Г2044",
+    "controlHash": "E68B9260",
+    "sourceUrl": "https://register.cacbg.bg/2025/BEFE8C94-6EE6-4FB1-B69D-38920E868795204626.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 4555.09936957711,
+        "amountEurSpouse": 31673.50945634334
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 16286.180291743147,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "PEUGEOT 3008",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 51752,
+        "valueEur": 26460.377435666698,
+        "holderName": "Николай Йосифов Арабаджиев",
+        "isSpouse": false,
+        "legalBasis": "Договор за лизинг",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Договор за финансов лизинг",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 45940,
+        "valueEur": 23488.749022154276,
+        "holderName": "Николай Йосифов Арабаджиев",
+        "isSpouse": false,
+        "legalBasis": "Договор, 8,14",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

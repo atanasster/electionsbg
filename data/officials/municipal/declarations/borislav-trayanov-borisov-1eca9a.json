@@ -1,0 +1,122 @@
+[
+  {
+    "slug": "borislav-trayanov-borisov-1eca9a",
+    "declarantName": "БОРИСЛАВ ТРАЯНОВ БОРИСОВ",
+    "institution": "Силистра",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-11",
+    "entryNumber": "Г2235",
+    "controlHash": "51454ACB",
+    "sourceUrl": "https://register.cacbg.bg/2025/FC71A313-9D90-48E1-A96D-7A4D082265A6204845.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 6667.246130798689,
+        "amountEurSpouse": 18536.375860887703
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 12271.005148709244,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "СИЛИСТРА",
+        "municipality": "Силистра",
+        "areaSqm": 66,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 52000,
+        "valueEur": 26587.17782220336,
+        "holderName": "БОРИСЛАВ ТРАЯНОВ БОРИСОВ",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "СИЛИСТРА",
+        "municipality": "Силистра",
+        "areaSqm": 66,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 52000,
+        "valueEur": 26587.17782220336,
+        "holderName": "ДОНКА ИВАНОВА БОРИСОВА",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "ПОТРЕБИТЕЛСКИ КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 38000,
+        "valueEur": 19429.0914854563,
+        "holderName": "БОРИСЛАВ ТРАЯНОВ БОРИСОВ",
+        "isSpouse": false,
+        "legalBasis": "5.99",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "ЖИЛИЩЕН КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 89800,
+        "valueEur": 45914.010931420424,
+        "holderName": "БОРИСЛАВ ТРАЯНОВ БОРИСОВ",
+        "isSpouse": false,
+        "legalBasis": "2.99",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "ПОТРЕБИТЕЛСКИ КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 9000,
+        "valueEur": 4601.626930765967,
+        "holderName": "ДОНКА ИВАНОВА БОРИСОВА",
+        "isSpouse": true,
+        "legalBasis": "5",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

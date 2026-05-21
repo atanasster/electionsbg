@@ -1,0 +1,140 @@
+[
+  {
+    "slug": "mehmedali-saami-mehmedali-b84900",
+    "declarantName": "МЕХМЕДАЛИ СААМИ МЕХМЕДАЛИ",
+    "institution": "Каолиново",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-24",
+    "entryNumber": "Г3400",
+    "controlHash": "F1251C4C",
+    "sourceUrl": "https://register.cacbg.bg/2025/7C4A0A1B-00E4-4395-9FAF-29B5441675E6206168.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 2607.588594100714,
+        "amountEurSpouse": 1661.69861388771
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 10275.432936400402
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 6469.887464656948,
+        "amountEurSpouse": 1797.7022542859042
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": 2179.6372895394793,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "СПИДИ - НЕОБЛАГАЕМ ДОХОД",
+        "amountEurDeclarant": 140.09397544776385,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "ШУМЕН",
+        "municipality": "ШУМЕН",
+        "areaSqm": 56,
+        "builtAreaSqm": 56,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 80000,
+        "valueEur": 40903.35049569748,
+        "holderName": "АЙСЕЛ ХАСАН ОСМАН",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "ПРОДАЖБА НА ИМОТ"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "ШЕМЕН",
+        "municipality": "ШУМЕН",
+        "areaSqm": 56,
+        "builtAreaSqm": 56,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 80000,
+        "valueEur": 40903.35049569748,
+        "holderName": "МЕХМЕДАЛИ СААМИ МЕХМЕДАЛИ",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "ПРОДАЖБА НА ИМОТ"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "ШЕМЕН",
+        "municipality": "ШУМЕН",
+        "areaSqm": 58,
+        "builtAreaSqm": 58,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 102000,
+        "valueEur": 52151.77188201428,
+        "holderName": "АЙСЕЛ ХАСАН ОСМАН",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "ПРОДАЖБА НА ИМОТ"
+      },
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "ШУМЕН",
+        "municipality": "ШУМЕН",
+        "areaSqm": 58,
+        "builtAreaSqm": 58,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 102000,
+        "valueEur": 52151.77188201428,
+        "holderName": "МЕХМЕДАЛИ СААМИ МЕХМЕДАЛИ",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "ПРОДАЖБА НА ИМОТ"
+      },
+      {
+        "category": "debt",
+        "description": "ПОТРЕБИТЕЛСКИ КРЕДИТ",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 67700,
+        "valueEur": 34614.46035698399,
+        "holderName": "АЙСЕЛ ХАСАН ОСМАН",
+        "isSpouse": true,
+        "legalBasis": "КРЕДИТ 4,7 %",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

@@ -1,0 +1,86 @@
+[
+  {
+    "slug": "fahri-saliev-aliev-096a74",
+    "declarantName": "Фахри Салиев Алиев",
+    "institution": "Никола Козлево",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-12",
+    "entryNumber": "Г13525",
+    "controlHash": "59F8C1C7",
+    "sourceUrl": "https://register.cacbg.bg/2025/8818BCAF-9F80-4EFA-AAFA-7E1EE2AC2F1F216747.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 2116.2370962711484,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 5993.363431382073,
+        "amountEurSpouse": 6013.303814748726
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Нисан Кашкай",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 28000,
+        "valueEur": 14316.172673494118,
+        "holderName": "Фахри Салиев Алиев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "Заем и спестявания от предходни години"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Нисан Кашкай",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 28000,
+        "valueEur": 14316.172673494118,
+        "holderName": "Селвер Мехмедеминова Алиева",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "Заем и спестявания от предходни години"
+      },
+      {
+        "category": "debt",
+        "description": "Кредит за текущо потребление",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 27302,
+        "valueEur": 13959.290940419158,
+        "holderName": "Фахри Салиев Алиев",
+        "isSpouse": false,
+        "legalBasis": "Договор за кредит за текущо потребление - 8.20 % лихва",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

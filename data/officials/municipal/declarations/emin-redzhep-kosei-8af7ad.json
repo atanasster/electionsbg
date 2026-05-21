@@ -1,0 +1,86 @@
+[
+  {
+    "slug": "emin-redzhep-kosei-8af7ad",
+    "declarantName": "Емин Реджеп Кьосей",
+    "institution": "Сърница",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-08",
+    "entryNumber": "Г7786",
+    "controlHash": "0CE73C9A",
+    "sourceUrl": "https://register.cacbg.bg/2025/482C99D0-125F-46D3-ADBA-85F17364381B210788.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 1444.9108562605134,
+        "amountEurSpouse": 2976.869155294683
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 7889.75013165766,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "автомобил",
+        "detail": "Пежо 508",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 11087.86,
+        "valueEur": 5669.132797840303,
+        "holderName": "Емин Реджеп Кьосей",
+        "isSpouse": false,
+        "legalBasis": "лизинг",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "Лизинг",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 11087.86,
+        "valueEur": 5669.132797840303,
+        "holderName": "Емин Реджеп Кьосей",
+        "isSpouse": false,
+        "legalBasis": "Договор за лизинг с 30 лих.%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Заем",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 6346,
+        "valueEur": 3244.6582780712024,
+        "holderName": "Емин Реджеп Кьосей",
+        "isSpouse": false,
+        "legalBasis": "Договор за банков кредит с 6.7 лих. %",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

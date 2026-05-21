@@ -1,0 +1,128 @@
+[
+  {
+    "slug": "ventsislav-asenov-todorov-e23fd1",
+    "declarantName": "Венцислав Асенов Тодоров",
+    "institution": "Ковачевци",
+    "positionTitle": "Председател на ОбС",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-08",
+    "entryNumber": "Г11363",
+    "controlHash": "55F785AB",
+    "sourceUrl": "https://register.cacbg.bg/2025/2DF6E592-8537-49F5-A218-4D592F1F0A48214499.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 13407.607000608437,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 3217.048516486607,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 10549.485384721576
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 15000,
+        "valueEur": 7669.378217943277,
+        "holderName": "Венцислав Асенов Тодоров",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "кредитна карта"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10022,
+        "valueEur": 5124.167233348502,
+        "holderName": "Николинка Йорданова Тодорова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "debt",
+        "description": "кредитна карта",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 15000,
+        "valueEur": 7669.378217943277,
+        "holderName": "Венцислав Асенов Тодоров",
+        "isSpouse": false,
+        "legalBasis": "Договор, 12 % лихва",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 48407,
+        "valueEur": 24750.106093065348,
+        "holderName": "Венцислав Асенов Тодоров",
+        "isSpouse": false,
+        "legalBasis": "Договор, 5,3% лихва",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10732,
+        "valueEur": 5487.184468997817,
+        "holderName": "Николинка Йорданова Тодорова",
+        "isSpouse": true,
+        "legalBasis": "Договор 7,15 % лихва",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

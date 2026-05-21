@@ -1,0 +1,98 @@
+[
+  {
+    "slug": "vladimir-ivanov-mladenov-64f006",
+    "declarantName": "Владимир Иванов Младенов",
+    "institution": "Ружинци",
+    "positionTitle": "Главен архитект",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-12",
+    "entryNumber": "Г11521",
+    "controlHash": "4D187FFF",
+    "sourceUrl": "https://register.cacbg.bg/2025/5D27609C-5D19-48DB-9613-6A582212CD6A214665.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 17020.906725022112,
+        "amountEurSpouse": 15405.224380442063
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": 2247.6391097385763,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Необлагаеми доходи от продажба на движимо имущество",
+        "amountEurDeclarant": 291.4363722818445,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Необлагаеми доходи от парични обещетения от НОИ",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 3715.0468087717236
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "парцел",
+        "detail": null,
+        "location": "гр.Видин, ул.Гладстон\" №53",
+        "municipality": "Видин",
+        "areaSqm": 238,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "Владимир Иванов Младенов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 60172,
+        "valueEur": 30765.455075338858,
+        "holderName": "Владимир Иванов Младенов",
+        "isSpouse": false,
+        "legalBasis": "кредит ОББ АД/лихвен процент 3,40%",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 94652,
+        "valueEur": 48394.799138984476,
+        "holderName": "Владимир Иванов Младенов",
+        "isSpouse": false,
+        "legalBasis": "кредит Алианц Банк Б-я АД/лихвен процент 4,55%",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

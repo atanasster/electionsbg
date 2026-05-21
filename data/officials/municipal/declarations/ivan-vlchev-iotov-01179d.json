@@ -1,0 +1,104 @@
+[
+  {
+    "slug": "ivan-vlchev-iotov-01179d",
+    "declarantName": "Иван Вълчев Йотов",
+    "institution": "Видин",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-24",
+    "entryNumber": "Г3493",
+    "controlHash": "46407281",
+    "sourceUrl": "https://register.cacbg.bg/2025/36481F49-0D0F-4D5F-ACF3-06B86B04C4FD206276.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 5935.5874488069,
+        "amountEurSpouse": 6995.495518526662
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": 19525.725651002387,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Джип",
+        "detail": "Hyundai Tucson",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 77980,
+        "valueEur": 39870.540895681115,
+        "holderName": "Иван Вълчев Йотов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 1194,
+        "valueEur": 216179.83158045434,
+        "holderName": "Иван Вълчев Йотов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 7280,
+        "valueEur": 3722.2048951084707,
+        "holderName": "Иван Вълчев Йотов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Лизинг за автомобил",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 77980,
+        "valueEur": 39870.540895681115,
+        "holderName": "Иван Вълчев Йотов",
+        "isSpouse": false,
+        "legalBasis": "Договор, 4,19%",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

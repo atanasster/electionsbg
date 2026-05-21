@@ -1,0 +1,68 @@
+[
+  {
+    "slug": "tsvetomir-tihomirov-milovski-6b1dc6",
+    "declarantName": "ЦВЕТОМИР ТИХОМИРОВ МИЛОВСКИ",
+    "institution": "Кнежа",
+    "positionTitle": "Заместник кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-02-13",
+    "entryNumber": "Г183",
+    "controlHash": "8027DAF7",
+    "sourceUrl": "https://register.cacbg.bg/2025/35A14668-E496-4B03-9D75-D34ACEA0DA73201903.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 26049.29876318494,
+        "amountEurSpouse": 16666.581451353133
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 3126.549853514876
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "ШКОДА СУПЕРБ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 59837,
+        "valueEur": 30594.172295138127,
+        "holderName": "Цветомир Тихомир Миловски",
+        "isSpouse": true,
+        "legalBasis": "лизинг",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Лизинг - 3.29%",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 59837,
+        "valueEur": 30594.172295138127,
+        "holderName": "Цветомир Тихомиров Миловски",
+        "isSpouse": false,
+        "legalBasis": "лизинг",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

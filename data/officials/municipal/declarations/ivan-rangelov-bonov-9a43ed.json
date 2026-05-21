@@ -1,0 +1,104 @@
+[
+  {
+    "slug": "ivan-rangelov-bonov-9a43ed",
+    "declarantName": "Иван Рангелов Бонов",
+    "institution": "Вълчедръм",
+    "positionTitle": "Заместник кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-15",
+    "entryNumber": "Г2439",
+    "controlHash": "1CF8FEAD",
+    "sourceUrl": "https://register.cacbg.bg/2025/30A096EA-1E7A-4CEF-B7E2-8FF204AD6B05205088.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 21482.439680340318,
+        "amountEurSpouse": 12299.637494056233
+      },
+      {
+        "parent": null,
+        "category": "пенсия",
+        "amountEurDeclarant": 7566.608549822838,
+        "amountEurSpouse": 12602.833579605589
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 56743,
+        "valueEur": 29012.235214717024,
+        "holderName": "Иван Рангелов Бонов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 44069,
+        "valueEur": 22532.121912436152,
+        "holderName": "Камелия Благоева Риджолска",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 82943,
+        "valueEur": 42408.08250205795,
+        "holderName": "Иван Рангелов Бонов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 170000,
+        "valueEur": 86919.61980335714,
+        "holderName": "Камелия Благоева Риджолска",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ]
+  }
+]

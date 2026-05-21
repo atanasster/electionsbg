@@ -1,0 +1,74 @@
+[
+  {
+    "slug": "borislav-nikolaev-tsankovski-35c05a",
+    "declarantName": "БОРИСЛАВ НИКОЛАЕВ ЦАНКОВСКИ",
+    "institution": "Кнежа",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-12",
+    "entryNumber": "Г9563",
+    "controlHash": "E626402F",
+    "sourceUrl": "https://register.cacbg.bg/2025/7E613007-D724-4C70-A7F8-CE707D640BCF212608.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "КНЕЖА ТАКСИ ООД",
+        "shareSize": "50%",
+        "companyName": "КНЕЖА ТАКСИ ООД",
+        "registeredOffice": "КНЕЖА",
+        "valueEur": 5.112918811962185,
+        "holderName": "БОРИСЛАВ НИКОЛАЕВ ЦАНКОВСКИ",
+        "legalBasis": "други",
+        "fundsOrigin": "СОБСТВЕНИ СРЕДСТВА"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 6172.31558980075,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "АПАРТАМЕНТ",
+        "detail": null,
+        "location": "ЧЕРВЕН БРЯГ",
+        "municipality": "ЧЕРВЕН БРЯГ",
+        "areaSqm": 84,
+        "builtAreaSqm": 84,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 6500,
+        "valueEur": 3323.39722777542,
+        "holderName": "ФЮЧЪР ТРАВЕЛ ООД",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "КАПИТАЛ НА ТД"
+      },
+      {
+        "category": "debt",
+        "description": "ИПОТЕЧЕН КРЕДИТ",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 17000,
+        "valueEur": 17036.245481458,
+        "holderName": "БОРИСЛАВ НИКОЛАЕВ ЦАНКОВСКИ",
+        "isSpouse": false,
+        "legalBasis": "ИПОТЕКА",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

@@ -1,0 +1,92 @@
+[
+  {
+    "slug": "dzhevdet-ahmed-azis-02d407",
+    "declarantName": "Джевдет Ахмед Азис",
+    "institution": "Самуил",
+    "positionTitle": "Кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-12",
+    "entryNumber": "Г13305",
+    "controlHash": "767303E0",
+    "sourceUrl": "https://register.cacbg.bg/2025/B2F7320D-C254-48F5-B017-D27B4BDDCFE2216508.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 31945.005445258535,
+        "amountEurSpouse": 19000.117597132674
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 2457.7800729102223
+      },
+      {
+        "parent": null,
+        "category": "рента от земи",
+        "amountEurDeclarant": 766.9378217943278,
+        "amountEurSpouse": 1124.8421386316807
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "трактор",
+        "detail": "кубота",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 2500,
+        "valueEur": 1278.2297029905462,
+        "holderName": "Айсел Ахмед Мехмед-Азис",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 85000,
+        "valueEur": 43459.80990167857,
+        "holderName": "Джевдет Ахмед Азис",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 36000,
+        "valueEur": 18406.507723063867,
+        "holderName": "Джевдет Ахмед Азис",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ]
+  }
+]

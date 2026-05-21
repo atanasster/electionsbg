@@ -1,0 +1,80 @@
+[
+  {
+    "slug": "elis-byurhan-talyat-c10b22",
+    "declarantName": "Елис Бюрхан Талят - Мустафа",
+    "institution": "Алфатар",
+    "positionTitle": "Председател на ОбС",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-08",
+    "entryNumber": "Г8558",
+    "controlHash": "C71D3DC5",
+    "sourceUrl": "https://register.cacbg.bg/2025/B7468EFE-A5BC-4398-A4D8-C2E6521136B2211580.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 21462.499296973663,
+        "amountEurSpouse": 13164.743357040234
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "апартамент",
+        "detail": null,
+        "location": "Силистра",
+        "municipality": "Силистра",
+        "areaSqm": 62,
+        "builtAreaSqm": null,
+        "acquiredYear": 2019,
+        "share": "сио",
+        "currency": "BGN",
+        "amount": 46600,
+        "valueEur": 23826.20166374378,
+        "holderName": "Елис Бюрхан Талят - Мустафа",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Ситроен Ц3",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2021,
+        "share": "сио",
+        "currency": "BGN",
+        "amount": 2400,
+        "valueEur": 1227.1005148709244,
+        "holderName": "Елис Бюрхан Талят - Мустафа",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 42793,
+        "valueEur": 21879.713472029776,
+        "holderName": "Елис Бюрхан Талят - Мустафа",
+        "isSpouse": false,
+        "legalBasis": "договор, 3%",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

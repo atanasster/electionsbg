@@ -1,0 +1,92 @@
+[
+  {
+    "slug": "valentin-staikov-vlchev-8a4182",
+    "declarantName": "ВАЛЕНТИН СТАЙКОВ ВЪЛЧЕВ",
+    "institution": "Угърчин",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г736",
+    "controlHash": "185AB3EE",
+    "sourceUrl": "https://register.cacbg.bg/2025/269EF317-7F48-42E2-B198-1A32DB6DD247202945.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 7486.335724475031,
+        "amountEurSpouse": 7956.724255175553
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 15884.30487312292,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "РЕНТА ЗЕМЕДЕЛСКА ЗЕМЯ",
+        "amountEurDeclarant": 2798.8117576681,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "трайни насаждения",
+        "detail": null,
+        "location": "УГЪРЧИН",
+        "municipality": "Угърчин",
+        "areaSqm": 5,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 1100,
+        "valueEur": 562.4210693158403,
+        "holderName": "ВАЛЕНТИН СТАЙКОВ ВЪЛЧЕВ",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 17484,
+        "valueEur": 8939.427250834684,
+        "holderName": "ВАЛЕНТИН СТАЙКОВ ВЪЛЧЕВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 365,
+        "valueEur": 186.62153663661974,
+        "holderName": "ПЕНКА ВЪЛЧЕВА ВЪЛЧЕВА",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ]
+  }
+]

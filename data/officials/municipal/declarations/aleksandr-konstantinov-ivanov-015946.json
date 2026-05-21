@@ -1,0 +1,86 @@
+[
+  {
+    "slug": "aleksandr-konstantinov-ivanov-015946",
+    "declarantName": "Александър Константинов Иванов",
+    "institution": "Район Нови Искър",
+    "positionTitle": "Главен архитект",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-12",
+    "entryNumber": "Г10135",
+    "controlHash": "D419E29D",
+    "sourceUrl": "https://register.cacbg.bg/2025/9F3E2610-D366-4F80-A505-8008824CD9A6213208.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 19085.503341292442,
+        "amountEurSpouse": 15433.345433907854
+      },
+      {
+        "parent": null,
+        "category": "Дивидент преди продажба на търговско предприятие",
+        "amountEurDeclarant": 43459.80990167857,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Лек автомобил",
+        "detail": "БМВ Х5",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 21500,
+        "valueEur": 10992.775445718698,
+        "holderName": "Александър Константинов Иванов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 150000,
+        "valueEur": 76693.78217943278,
+        "holderName": "Александър Константинов Иванов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата; дивидент"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 82411,
+        "valueEur": 10992.775445718698,
+        "holderName": "Александър Константинов Иванов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата; дивидент"
+      }
+    ]
+  }
+]

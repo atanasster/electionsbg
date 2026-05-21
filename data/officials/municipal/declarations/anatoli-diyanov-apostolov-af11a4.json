@@ -1,0 +1,68 @@
+[
+  {
+    "slug": "anatoli-diyanov-apostolov-af11a4",
+    "declarantName": "Анатоли Диянов Апостолов",
+    "institution": "Белослав",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-13",
+    "entryNumber": "Г13880",
+    "controlHash": "AD16F328",
+    "sourceUrl": "https://register.cacbg.bg/2025/5220DC67-9DD7-44C4-BFF0-C4B9DEF2569E217138.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 23025.00728590931,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Доходи от нетрудови правоотношения (граждански договор)",
+        "amountEurDeclarant": 5450.371453551689,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "Мотоциклет",
+        "detail": "Сузуки",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "част",
+        "currency": "BGN",
+        "amount": 1200,
+        "valueEur": 613.5502574354622,
+        "holderName": "Анатоли Диянов Апостолов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "Анатоли Диянов Апостолов",
+        "isSpouse": false,
+        "legalBasis": "4,25",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

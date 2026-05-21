@@ -1,0 +1,68 @@
+[
+  {
+    "slug": "elis-salieva-feizieva-b29958",
+    "declarantName": "Елис Салиева Фейзиева",
+    "institution": "Разград",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-12",
+    "entryNumber": "Г13366",
+    "controlHash": "B8545C97",
+    "sourceUrl": "https://register.cacbg.bg/2025/484A06EE-9AFE-4A9F-954C-6F26AFDBAD7A216573.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 8368.825511419704,
+        "amountEurSpouse": 1642.78081428345
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от стопанска дейност като едноличен търговец",
+        "amountEurDeclarant": 1081.3823287300022,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "МПС",
+        "detail": "БМВ",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2023,
+        "share": "1/1",
+        "currency": "BGN",
+        "amount": 16000,
+        "valueEur": 8180.6700991394955,
+        "holderName": "Елис Салиева Фейзиева",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 21878,
+        "valueEur": 11186.043776810868,
+        "holderName": "Елис Салиева Фейзиева",
+        "isSpouse": false,
+        "legalBasis": "банков кредит -4,44%",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

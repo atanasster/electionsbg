@@ -1,0 +1,134 @@
+[
+  {
+    "slug": "plamen-radev-ivanov-6bfe39",
+    "declarantName": "Пламен Радев Иванов",
+    "institution": "Вълчидол",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-11",
+    "entryNumber": "Г2283",
+    "controlHash": "BE5B39DD",
+    "sourceUrl": "https://register.cacbg.bg/2025/052C17EF-6347-4332-A5D3-807584FC96CA204901.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 3717.0919762965086,
+        "amountEurSpouse": 7822.765782302143
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 1007.2450059565505,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Пенсии",
+        "amountEurDeclarant": 6953.569584268572,
+        "amountEurSpouse": 3579.0431683735296
+      },
+      {
+        "parent": null,
+        "category": "Рента",
+        "amountEurDeclarant": 2198.5550891437397,
+        "amountEurSpouse": 1073.7129505120588
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Тойота RAV 4",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 5000,
+        "valueEur": 2556.4594059810925,
+        "holderName": "Пламен Радев Иванов",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Тойота RAV 4",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 5000,
+        "valueEur": 2556.4594059810925,
+        "holderName": "Снежина Христова Иванова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 15000,
+        "valueEur": 7669.378217943277,
+        "holderName": "Пламен Радев Иванов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "спестявания от заплати, пенсия, рента"
+      },
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 30000,
+        "valueEur": 15338.756435886555,
+        "holderName": "Снежина Христова Иванова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "спестявания от заплати, пенсия, рента"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 35000,
+        "valueEur": 17895.215841867648,
+        "holderName": "Снежина Христова Иванова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "спестявания вкл. от период преди заемане на длъжността"
+      }
+    ]
+  }
+]

@@ -1,0 +1,86 @@
+[
+  {
+    "slug": "svetomir-georgiev-mndev-1c68b5",
+    "declarantName": "Светомир Георгиев Мъндев",
+    "institution": "Сливен",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-29",
+    "entryNumber": "Г4403",
+    "controlHash": "097C5375",
+    "sourceUrl": "https://register.cacbg.bg/2025/D4353977-58B7-426C-91CD-ADB7B16AF807207251.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 11321.536125327866,
+        "amountEurSpouse": 9660.348803321353
+      },
+      {
+        "parent": null,
+        "category": "Пенсия",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 3625.059437681189
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "трайни насаждения",
+        "detail": null,
+        "location": "Сливенски кър",
+        "municipality": "Сливен",
+        "areaSqm": 20,
+        "builtAreaSqm": 20000,
+        "acquiredYear": 2024,
+        "share": "100 %",
+        "currency": "BGN",
+        "amount": 5000,
+        "valueEur": 2556.4594059810925,
+        "holderName": "Даниела Димитрова Томова",
+        "isSpouse": true,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "vehicle",
+        "description": "Товарен",
+        "detail": "Ивеко 35,10",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "100 %",
+        "currency": "BGN",
+        "amount": 1000,
+        "valueEur": 511.29188119621847,
+        "holderName": "Светомир Георгиев Мъндев",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 22000,
+        "valueEur": 11248.421386316806,
+        "holderName": "Даниела Димитрова Томова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "заплата и продажба на земеделска земя"
+      }
+    ]
+  }
+]

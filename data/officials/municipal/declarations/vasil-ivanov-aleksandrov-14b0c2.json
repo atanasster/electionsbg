@@ -1,0 +1,68 @@
+[
+  {
+    "slug": "vasil-ivanov-aleksandrov-14b0c2",
+    "declarantName": "Васил Иванов Александров",
+    "institution": "Ямбол",
+    "positionTitle": "Заместник кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-03-20",
+    "entryNumber": "Г722",
+    "controlHash": "D5F70B7D",
+    "sourceUrl": "https://register.cacbg.bg/2025/4FE0767B-8F94-4A57-9D6A-5E89FAC3C300202926.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 23411.543948093647,
+        "amountEurSpouse": 13149.915892485544
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 383.4689108971639,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "АВТОМОБИЛ",
+        "detail": "ТОЙОТА КОРОЛА",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1/2",
+        "currency": "BGN",
+        "amount": 9032,
+        "valueEur": 4617.988270964245,
+        "holderName": "ВАСИЛ ИВАНОВ АЛЕКСАНДРОВ",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заеми"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10000,
+        "valueEur": 5112.918811962185,
+        "holderName": "ВАСИЛ ИВАНОВ АЛЕКСАНДРОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ]
+  }
+]

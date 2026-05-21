@@ -1,0 +1,86 @@
+[
+  {
+    "slug": "mariya-asenova-dobrevska-f294b0",
+    "declarantName": "Мария Асенова Добревска",
+    "institution": "Брезник",
+    "positionTitle": "Заместник кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-02",
+    "entryNumber": "Г7815",
+    "controlHash": "AE911AE3",
+    "sourceUrl": "https://register.cacbg.bg/2025/83BD6CF9-4C38-4306-9F32-9A87A0E2EB4E210819.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 15207.865714300322,
+        "amountEurSpouse": 15276.890118261812
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 6626.342780302992,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Видрица",
+        "municipality": "Брезник",
+        "areaSqm": 4399,
+        "builtAreaSqm": null,
+        "acquiredYear": 2023,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 55,
+        "valueEur": 28.121053465792016,
+        "holderName": "Димо Йорданов Добревски",
+        "isSpouse": true,
+        "legalBasis": "наем",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "real_estate",
+        "description": "нива",
+        "detail": null,
+        "location": "с. Видрица",
+        "municipality": "Брезник",
+        "areaSqm": 4765,
+        "builtAreaSqm": null,
+        "acquiredYear": 2023,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 56,
+        "valueEur": 28.632345346988235,
+        "holderName": "Димо Йорданов Добревски",
+        "isSpouse": true,
+        "legalBasis": "наем",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 20000,
+        "valueEur": 10225.83762392437,
+        "holderName": "Мария Асенова Добревска",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ]
+  }
+]

@@ -1,0 +1,74 @@
+[
+  {
+    "slug": "vladimir-nikolov-dzhambazov-e84d8e",
+    "declarantName": "Владимир Николов Джамбазов",
+    "institution": "Долна баня",
+    "positionTitle": "Кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-15",
+    "entryNumber": "Г14016",
+    "controlHash": "C2530854",
+    "sourceUrl": "https://register.cacbg.bg/2025/533DD197-0109-4034-83EF-2B134BDEF4B5217278.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 20069.740212595163,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": null,
+        "amountEurSpouse": 61457.284119785465
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 12271.005148709244,
+        "amountEurSpouse": 12271.005148709244
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 540285,
+        "valueEur": 276243.3340320989,
+        "holderName": "Йорданка Николова Джамбазова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "по Таблица 12 - ръчно"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 41954,
+        "valueEur": 41953.54401967451,
+        "holderName": "Йорданка Николова Джамбазова",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "депозит от предходни години"
+      }
+    ]
+  }
+]

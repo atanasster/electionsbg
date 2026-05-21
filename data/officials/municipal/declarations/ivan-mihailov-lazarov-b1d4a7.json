@@ -1,0 +1,104 @@
+[
+  {
+    "slug": "ivan-mihailov-lazarov-b1d4a7",
+    "declarantName": "Иван Михайлов Лазаров",
+    "institution": "Вършец",
+    "positionTitle": "Кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г12567",
+    "controlHash": "6A0673DC",
+    "sourceUrl": "https://register.cacbg.bg/2025/D1FAD41F-8343-49BC-9E29-B6D2594BE73A215736.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 26123.947377839588,
+        "amountEurSpouse": 14622.94780221185
+      },
+      {
+        "parent": null,
+        "category": "Пенсия по инвалидност",
+        "amountEurDeclarant": 4601.626930765967,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "real_estate",
+        "description": "Поземлен имот",
+        "detail": null,
+        "location": "гр. Вършец",
+        "municipality": "Вършец",
+        "areaSqm": 939,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": null,
+        "currency": "BGN",
+        "amount": 10900,
+        "valueEur": 5573.081505038782,
+        "holderName": "Иван Михайлов Лазаров",
+        "isSpouse": false,
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Ипотечен кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 92362,
+        "valueEur": 47223.940731045135,
+        "holderName": "Иван Михайлов Лазаров",
+        "isSpouse": false,
+        "legalBasis": "банков кредит",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 4611,
+        "valueEur": 2357.5668641957636,
+        "holderName": "Иван Михайлов Лазаров",
+        "isSpouse": false,
+        "legalBasis": "банков кредит",
+        "fundsOrigin": null
+      },
+      {
+        "category": "investment",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 25870,
+        "valueEur": 13227.120966546172,
+        "holderName": "Иван Михайлов Лазаров",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      }
+    ]
+  }
+]

@@ -1,0 +1,68 @@
+[
+  {
+    "slug": "ivan-dimov-peichev-9a0a07",
+    "declarantName": "Иван Димов Пейчев",
+    "institution": "Добричка",
+    "positionTitle": "Заместник кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": null,
+    "entryNumber": "Г14163",
+    "controlHash": "06C15D28",
+    "sourceUrl": "https://register.cacbg.bg/2025/00C79ABD-276D-4176-85DE-7A9DC88403BE217431.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 27129.147216271354,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "рента от земеделска земя",
+        "amountEurDeclarant": 3323.39722777542,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 25000,
+        "valueEur": 12782.297029905461,
+        "holderName": "Иван Димов Пейчев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 22800,
+        "valueEur": 23008.13465382983,
+        "holderName": "Иван Димов Пейчев",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "спестявания"
+      }
+    ]
+  }
+]

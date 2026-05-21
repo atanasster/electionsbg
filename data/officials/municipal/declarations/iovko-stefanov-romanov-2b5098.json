@@ -1,0 +1,80 @@
+[
+  {
+    "slug": "iovko-stefanov-romanov-2b5098",
+    "declarantName": "Йовко Стефанов Романов",
+    "institution": "Раковски",
+    "positionTitle": "Заместник кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-08",
+    "entryNumber": "Г14064",
+    "controlHash": "78CA8409",
+    "sourceUrl": "https://register.cacbg.bg/2025/D99CC699-2126-4766-89B8-1B689A2CBEDE217328.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 50974.77797150059,
+        "amountEurSpouse": 26587.17782220336
+      }
+    ],
+    "assets": [
+      {
+        "category": "cash",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 62400,
+        "valueEur": 31904.613386644032,
+        "holderName": "Йовко Стефанов Романов",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "Силвия Красимирова Романова",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 14700,
+        "valueEur": 7515.990653584412,
+        "holderName": "Силвия Красимирова Романова",
+        "isSpouse": true,
+        "legalBasis": "ипотека срещу собствен недвижим имот",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "Силвия Красимирова Романова",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 27950,
+        "valueEur": 14290.608079434307,
+        "holderName": "Силвия Красимирова Романова",
+        "isSpouse": true,
+        "legalBasis": "ипотека срещу собствен недвижим имот",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

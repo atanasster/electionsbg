@@ -1,0 +1,122 @@
+[
+  {
+    "slug": "pavel-andreev-gudzherov-9a77a0",
+    "declarantName": "Павел Андреев Гуджеров",
+    "institution": "Раковски",
+    "positionTitle": "Кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-08",
+    "entryNumber": "Г6445",
+    "controlHash": "A8B52529",
+    "sourceUrl": "https://register.cacbg.bg/2025/79FD874D-B22B-49E8-A8E8-6B8903F64085209403.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Дялов капитал",
+        "shareSize": "3000",
+        "companyName": "Бендида Умай ЕООД",
+        "registeredOffice": "Пловдив",
+        "valueEur": 1533.8756435886555,
+        "holderName": "Анелия Васкова Гуджерова",
+        "legalBasis": "други",
+        "fundsOrigin": "заплата"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 43291.08358088382,
+        "amountEurSpouse": 3562.6818281752503
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 1755.265028146618,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от наем или друго възмездно предоставяне за ползване на права или имущество",
+        "amountEurDeclarant": 6135.502574354622,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "vehicle",
+        "description": "лек автомобил",
+        "detail": "Шкода",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": 2024,
+        "share": "1",
+        "currency": "BGN",
+        "amount": 91709,
+        "valueEur": 46890.067132624004,
+        "holderName": "Павел Андреев Гуджеров",
+        "isSpouse": false,
+        "legalBasis": "Договор за лизинг",
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 50245,
+        "valueEur": 25689.860570703997,
+        "holderName": "Павел Андреев Гуджеров",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "debt",
+        "description": "потребителски кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 15183,
+        "valueEur": 7762.944632202185,
+        "holderName": "Павел Андреев Гуджеров",
+        "isSpouse": false,
+        "legalBasis": "договор за кредит",
+        "fundsOrigin": null
+      },
+      {
+        "category": "debt",
+        "description": "лизинг",
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 27928,
+        "valueEur": 27844.955849946058,
+        "holderName": "Павел Андреев Гуджеров",
+        "isSpouse": false,
+        "legalBasis": "Договор за лизинг",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

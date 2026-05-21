@@ -1,0 +1,68 @@
+[
+  {
+    "slug": "mihail-asenov-chilikov-929267",
+    "declarantName": "Михаил Асенов Чиликов",
+    "institution": "Сливо поле",
+    "positionTitle": "Заместник кмет",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-05-05",
+    "entryNumber": "Г7907",
+    "controlHash": "C3285AEF",
+    "sourceUrl": "https://register.cacbg.bg/2025/193FD98E-9891-4054-A67E-73235A09CBC3210912.xml",
+    "ownershipStakes": [
+      {
+        "table": "10",
+        "itemType": "Пари",
+        "shareSize": "100",
+        "companyName": "ЕМБО ЕЛЕКТРИСИТИ ЕООД",
+        "registeredOffice": "Сливо поле",
+        "valueEur": 51.12918811962185,
+        "holderName": "Фиданка Емилова Чиликова",
+        "legalBasis": "покупко-продажба",
+        "fundsOrigin": "заплата, заеми"
+      }
+    ],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 18360.491453756207,
+        "amountEurSpouse": 13648.425476651857
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 8797.288107862136,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от други източници по чл. 35 от ЗДДФЛ",
+        "amountEurDeclarant": 1776.7392871568593,
+        "amountEurSpouse": null
+      }
+    ],
+    "assets": [
+      {
+        "category": "debt",
+        "description": "Банков кредит",
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 26115,
+        "valueEur": 13352.387477439246,
+        "holderName": "Фиданка Емилова Чиликова",
+        "isSpouse": true,
+        "legalBasis": "Кредит",
+        "fundsOrigin": null
+      }
+    ]
+  }
+]

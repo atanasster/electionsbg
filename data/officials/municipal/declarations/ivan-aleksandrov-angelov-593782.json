@@ -1,0 +1,98 @@
+[
+  {
+    "slug": "ivan-aleksandrov-angelov-593782",
+    "declarantName": "ИВАН АЛЕКСАНДРОВ АНГЕЛОВ",
+    "institution": "Велико Търново",
+    "positionTitle": "Общински съветник",
+    "declarationYear": 2025,
+    "fiscalYear": 2024,
+    "declarationType": "Annualy",
+    "filedAt": "2025-04-27",
+    "entryNumber": "Г4122",
+    "controlHash": "DDB7F9F0",
+    "sourceUrl": "https://register.cacbg.bg/2025/7CD7AAA1-8FBF-4B03-964B-E8216013965B206954.xml",
+    "ownershipStakes": [],
+    "income": [
+      {
+        "parent": "I. Облагаем доход от",
+        "category": "Годишна данъчна основа от трудови доходи",
+        "amountEurDeclarant": 23708.093239187456,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от трудови правоотношения, извън тези за заеманата длъжност",
+        "amountEurDeclarant": 7175.981552588926,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Годишна данъчна основа за доходи от друга стопанска дейност",
+        "amountEurDeclarant": 2115.214512508756,
+        "amountEurSpouse": null
+      },
+      {
+        "parent": null,
+        "category": "Доходи от пенсия",
+        "amountEurDeclarant": 12373.263524948488,
+        "amountEurSpouse": 5276.5322139449745
+      }
+    ],
+    "assets": [
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 60000,
+        "valueEur": 30677.51287177311,
+        "holderName": "ИВАН АЛЕКСАНДРОВ АНГЕЛОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "пенсия"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "EUR",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "EUR",
+        "amount": 19000,
+        "valueEur": 18999.60630525148,
+        "holderName": "ИВАН АЛЕКСАНДРОВ АНГЕЛОВ",
+        "isSpouse": false,
+        "legalBasis": null,
+        "fundsOrigin": "заплата"
+      },
+      {
+        "category": "bank",
+        "description": null,
+        "detail": "BGN",
+        "location": null,
+        "municipality": null,
+        "areaSqm": null,
+        "builtAreaSqm": null,
+        "acquiredYear": null,
+        "share": null,
+        "currency": "BGN",
+        "amount": 27000,
+        "valueEur": 13804.8807922979,
+        "holderName": "РОЗКА ЙОРДАНОВА АНГЕЛОВА",
+        "isSpouse": true,
+        "legalBasis": null,
+        "fundsOrigin": "пенсия"
+      }
+    ]
+  }
+]
