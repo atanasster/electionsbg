@@ -1,23 +1,22 @@
 // SPA hook: look up one EU-funds (ИСУН) beneficiary by EIK.
 //
-// The beneficiary corpus is sharded by EIK last digit
-// (funds/beneficiaries/<k>.json) so the dashboard never has to load all
-// ~46k rows. This hook fetches only the single shard the EIK lives in and
-// finds the matching row. A missing shard/file (404) yields `null` rather
-// than an error — the company simply has no EU-funds record.
+// Reads the per-EIK file funds/beneficiaries-by-eik/{eik}.json — one small
+// JSON per company — so the /company/{EIK} page fetches ~300 bytes instead of
+// a ~1.5 MB beneficiary shard. A missing file (404) yields `null`: the
+// company simply has no ИСУН record.
 
 import { useMemo } from "react";
 import { useQuery } from "@tanstack/react-query";
 import { dataUrl } from "@/data/dataUrl";
 import type { FundsBeneficiary } from "./types";
 
-const fetchShard = async (
-  shard: string,
-): Promise<FundsBeneficiary[] | null> => {
-  const r = await fetch(dataUrl(`/funds/beneficiaries/${shard}.json`));
+const fetchBeneficiary = async (
+  eik: string,
+): Promise<FundsBeneficiary | null> => {
+  const r = await fetch(dataUrl(`/funds/beneficiaries-by-eik/${eik}.json`));
   if (r.status === 404) return null;
   if (!r.ok) throw new Error(`fetch failed: ${r.status} ${r.url}`);
-  return (await r.json()) as FundsBeneficiary[];
+  return (await r.json()) as FundsBeneficiary;
 };
 
 /** EU-funds beneficiary record for one EIK, or `null` when the company is
@@ -25,22 +24,15 @@ const fetchShard = async (
 export const useFundsBeneficiary = (
   eik?: string | null,
 ): { beneficiary: FundsBeneficiary | null; isLoading: boolean } => {
-  // Shard key is the EIK's last digit; only well-formed numeric EIKs resolve.
-  const shard = eik && /^\d+$/.test(eik) ? eik[eik.length - 1] : null;
+  const valid = !!eik && /^\d+$/.test(eik);
   const q = useQuery({
-    queryKey: ["funds", "beneficiaries", shard] as const,
-    queryFn: () => fetchShard(shard as string),
-    enabled: shard != null,
+    queryKey: ["funds", "beneficiary", eik] as const,
+    queryFn: () => fetchBeneficiary(eik as string),
+    enabled: valid,
     staleTime: Infinity,
   });
-
-  return useMemo(() => {
-    if (!eik || !q.data) {
-      return { beneficiary: null, isLoading: shard != null && q.isLoading };
-    }
-    return {
-      beneficiary: q.data.find((b) => b.eik === eik) ?? null,
-      isLoading: false,
-    };
-  }, [eik, shard, q.data, q.isLoading]);
+  return useMemo(
+    () => ({ beneficiary: q.data ?? null, isLoading: valid && q.isLoading }),
+    [q.data, q.isLoading, valid],
+  );
 };

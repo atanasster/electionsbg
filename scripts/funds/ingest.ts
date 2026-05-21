@@ -32,6 +32,7 @@ const __dirname = path.dirname(__filename);
 
 const FUNDS_DIR = path.resolve(__dirname, "../../data/funds");
 const BENEFICIARIES_DIR = path.join(FUNDS_DIR, "beneficiaries");
+const BENEFICIARIES_BY_EIK_DIR = path.join(FUNDS_DIR, "beneficiaries-by-eik");
 const DERIVED_DIR = path.join(FUNDS_DIR, "derived");
 const INDEX_FILE = path.join(FUNDS_DIR, "index.json");
 const COMPANIES_INDEX = path.resolve(
@@ -219,6 +220,23 @@ const main = async (args: {
     }
   }
   console.log(`→ wrote ${shards.length} beneficiary shard(s)`);
+
+  // 4b. Per-EIK files — one small JSON per beneficiary for O(1) single-company
+  // lookup on the /company/{EIK} page (so it does not pull a ~1.5 MB shard to
+  // read one row). Gitignored and uploaded to the bucket, same convention as
+  // the procurement per-contractor files.
+  fs.rmSync(BENEFICIARIES_BY_EIK_DIR, { recursive: true, force: true });
+  fs.mkdirSync(BENEFICIARIES_BY_EIK_DIR, { recursive: true });
+  let byEikCount = 0;
+  for (const r of rows) {
+    if (!r.eik) continue;
+    fs.writeFileSync(
+      path.join(BENEFICIARIES_BY_EIK_DIR, `${r.eik}.json`),
+      canonicalJson(r),
+    );
+    byEikCount += 1;
+  }
+  console.log(`→ wrote ${byEikCount} per-EIK beneficiary file(s)`);
 
   // 5. Cross-reference beneficiaries against the MP-companies graph. Optional:
   // if companies-index.json is absent (fresh clone before /update-connections)

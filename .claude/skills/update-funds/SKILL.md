@@ -49,6 +49,7 @@ Expected output on a normal run:
   ⚠ 4 beneficiary row(s) with a negative EUR rollup (net clawback / rounding residue — kept as-is):
       ...
 → wrote 11 beneficiary shard(s)
+→ wrote 45887 per-EIK beneficiary file(s)
 → cross-referencing beneficiaries against the MP-companies graph
   EIK linkage map: 938 EIK(s) from 938/1110 TR-enriched companies
   100 MP↔beneficiary pair(s) → derived/mp_connected.json (86 MP(s), 98 company(ies), €168,527,162 contracted)
@@ -175,6 +176,7 @@ Surfaces that are **intentionally non-fatal**:
 | `scripts/watch/sources/isun_eu_funds.ts` | Watcher source — fingerprints the export corpus shape |
 | `data/funds/index.json` | Totals, by-org-type / by-org-form breakdowns, top beneficiaries, `crossReference` summary — committed |
 | `data/funds/beneficiaries/<0-9>.json`, `_x.json` | Beneficiary rows sharded by EIK last digit — committed |
+| `data/funds/beneficiaries-by-eik/<EIK>.json` | One small file per beneficiary for O(1) `/company/{EIK}` lookup — bulky (~46k files), uploaded to the bucket, gitignored |
 | `data/funds/derived/mp_connected.json` | One entry per (MP, beneficiary) pair — the MP-tied journalism payload — committed |
 | `data/_cache/funds/beneficiaries.xlsx` | Snapshot of the last downloaded export — gitignored |
 
