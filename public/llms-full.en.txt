@@ -1373,7 +1373,7 @@ keywords:
 ---
 # Election risk screening — new tools for the 19.04.2026 vote
 
-> **Update (2026-05-20):** The per-section risk score now combines **seven** signals — a cross-election **swing** signal has been added, flagging sections whose turnout and winning-party share rose abnormally versus the same section at the previous election. A new geographic **risk-cluster map** on [`/risk-analysis`](/risk-analysis?elections=2026_04_19) groups adjacent same-party elevated-risk sections — the spatial fingerprint of a controlled or corporate vote. The six-signal section-band counts in §4 below predate the swing signal.
+> **Update (2026-05-20):** The per-section risk score now combines **seven** signals — a cross-election **swing** signal has been added, flagging sections whose turnout and winning-party share rose abnormally versus the same section at the previous election. A new geographic **risk-cluster map** on [`/risk-analysis`](/risk-analysis?elections=2026_04_19) groups adjacent same-party elevated-risk sections — the spatial fingerprint of a controlled or corporate vote.
 
 > **Update (2026-05-21):** Geographic risk clusters are now the composite index's **fifth context signal** (39/100) — see §3. Like the other context signals it is shown beside the headline but never averaged into it.
 
@@ -1382,7 +1382,7 @@ Composite index (47/100, High risk) from five process-integrity signals, plus fi
 This is a follow-up to the [integrity analysis published ten days earlier](/articles/2026-04-19-integrity) covering the [19.04.2026 election](/elections/2026_04_19). Since then we have added three new aggregation layers on top of the raw metrics:
 
 - **National composite index** — five process-integrity signals (the headline) and five context signals (shown separately).
-- **[Per-section risk score](/risk-score?elections=2026_04_19)** — 12,705 sections each given a 0–100 score from six signals.
+- **[Per-section risk score](/risk-score?elections=2026_04_19)** — 12,705 sections each given a 0–100 score from seven signals.
 - **[Per-party Benford test](/benford?elections=2026_04_19)** — statistical distribution of digits in per-section vote counts.
 
 The 19.04.2026 election reads **47 / 100 (High risk)** under the new methodology. These are screening tools, not fraud determinations. The original integrity article's bottom-line read — "genuine but historically unusual surge rather than a manipulated outcome" — is unchanged.
@@ -1403,7 +1403,7 @@ A survey of the leading electoral-integrity composites (Norris PEI, V-Dem EQI, K
 
 These measure disagreements between votes cast and the recorded result:
 
-- **Section screening (38/100):** weighted share (1.92%) of national turnout in risk-flagged sections.
+- **Section screening (39/100):** weighted share (1.95%) of national turnout in risk-flagged sections.
 - **Machine integrity (90/100):** 0.18% drift between flash memory and protocol. The strongest signal this cycle.
 - **Missing flash memory (59/100):** 0.59% of machine votes outside the end-to-end audit chain.
 - **Concentration (29/100):** 0.59% of turnout in settlements where one party took ≥80%.
@@ -1427,14 +1427,14 @@ These describe the environment but do not contribute to the systemic risk score:
 
 ## 4. Per-section risk screening
 
-Combines six signals including recount adjustments and peer-outlier z-scores.
+Combines seven signals including recount adjustments, peer-outlier z-scores and a cross-election swing signal.
 
 | Band | Sections | Share |
 |---|---|---|
 | Critical (≥80) | 10 | 0.08% |
-| High (60–80) | 230 | 1.81% |
-| Elevated (30–60) | 1,696 | 13.35% |
-| Low (<30) | 10,769 | 84.76% |
+| High (60–80) | 210 | 1.65% |
+| Elevated (30–60) | 1,744 | 13.73% |
+| Low (<30) | 10,741 | 84.54% |
 
 The 10 Critical sections (3–24 votes each) are mostly driven by invalid ballots and additional voters. The full ranked table is on [`/risk-score`](/risk-score?elections=2026_04_19).
 
@@ -1504,16 +1504,18 @@ keywords:
 
 Bulgarian voters can already see how an MP votes, where they were elected, and how their party fared in any given polling station. What has been much harder to see — without manually downloading an XML declaration and cross-checking it against the Commerce Registry — is what *companies* sit behind those people, how those companies link MPs to one another, and how much wealth each MP actually declared in the first place.
 
-That is the gap these features fill. As of this writing, the graph contains **5,302 nodes** (581 MPs, 1,957 companies, 2,764 other named persons) joined by **6,355 edges** drawn from two open Bulgarian datasets; the wealth aggregator covers **744 MPs across 1,802 cacbg filings** spanning fiscal years 2020 through the first 2026 batch; and a derived [cars page](/mp-cars) lists every passenger car (572 lifetime, 69 for the 52nd parliament) extracted from those same declarations, sorted by declared BGN value. This article walks through where to find the new pages, what they show, and ends with a worked example: a pair of brothers, one currently seated and one former, both MPs of different parties and co-owners of the same company.
+That is the gap these features fill. As of this writing, the graph contains **11,614 nodes** (491 MPs, 1,233 public officials, 4,077 companies, 5,813 other named persons) joined by **15,806 edges** drawn from two open Bulgarian datasets; the wealth aggregator covers **744 MPs across 1,802 cacbg filings** spanning fiscal years 2020 through the first 2026 batch; and a derived [cars page](/mp-cars) lists every passenger car (572 lifetime, 69 for the 52nd parliament) extracted from those same declarations, sorted by declared BGN value. This article walks through where to find the new pages, what they show, and ends with a worked example: a pair of brothers, one currently seated and one former, both MPs of different parties and co-owners of the same company.
 
 ---
 
 ## 1. What this is, and what it is not
 
-This is a **graph of declared and registered business ties** between sitting and former MPs.
+This is a **graph of declared and registered business ties** between sitting and former MPs — and, since 2026, non-MP public officials (cabinet ministers, regional governors, mayors and municipal councillors).
 
 - **Declared ties**: ownership stakes that an MP filed with the [Court of Audit](https://register.cacbg.bg/) on their annual property/interest declaration.
 - **Registered ties**: management roles, partnerships and beneficial-ownership entries pulled from the [Commerce Registry](https://portal.registryagency.bg/CR/) (Търговски регистър) for those same companies, plus other companies the same individuals appear on.
+
+Since 2026 the graph also covers **non-MP public officials** — cabinet ministers, regional governors, and municipal mayors and councillors — drawn from the same Court of Audit register. An official is tied to a company with high confidence only when they declared the stake themselves; a name-only Commerce Registry match is a weaker signal. Officials carry no parliamentary party, so they are excluded from the party heatmap, which stays MP-only.
 
 It is **not** a list of accusations. Bulgarian law forbids sitting MPs from holding *active* management roles in commercial companies (ЗПК Art. 35), but it does not forbid ownership stakes — and historical management roles linger in the Commerce Registry as part of the public record. Most of what you see here is perfectly legal. The point of the graph is to make that legal-but-public record easy to read.
 
