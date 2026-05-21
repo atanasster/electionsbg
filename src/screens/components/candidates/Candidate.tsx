@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   ArrowRight,
@@ -10,7 +10,9 @@ import {
 } from "lucide-react";
 import { Link } from "@/ux/Link";
 import { useResolvedCandidate } from "@/data/candidates/useResolvedCandidate";
+import { useCandidateElectionFallback } from "@/data/candidates/useCandidateElectionFallback";
 import { useCandidateName } from "@/data/candidates/useCandidateName";
+import { useElectionContext } from "@/data/ElectionContext";
 import { DashboardSection } from "@/screens/dashboard/DashboardSection";
 import { CandidateHeader } from "./CandidateHeader";
 import { MpProfileHeader } from "./MpProfileHeader";
@@ -46,8 +48,31 @@ import { useMpDeclarations } from "@/data/parliament/useMpDeclarations";
  * parties no longer leaks across people. */
 export const Candidate: FC<{ name: string }> = ({ name }) => {
   const { t } = useTranslation();
-  const { isLoading, matches, canonical } = useResolvedCandidate(name);
+  const { isLoading, matches, canonical, parsed } = useResolvedCandidate(name);
   const { isEn, nameForBg } = useCandidateName();
+  const { selected, setSelected } = useElectionContext();
+
+  // A bare-name /candidate/:id URL (search-engine results, old shared links)
+  // resolves against whatever election is currently selected. When the person
+  // ran in an earlier cycle they match no one in the latest election and the
+  // page renders blank — so probe the other elections and switch context to
+  // the most recent one that has them.
+  const [switchedElection, setSwitchedElection] = useState(false);
+  const needsElectionFallback =
+    !isLoading &&
+    matches.length === 0 &&
+    parsed?.kind === "name" &&
+    !switchedElection;
+  const { isProbing, fallbackElection } = useCandidateElectionFallback(
+    name,
+    needsElectionFallback,
+  );
+  useEffect(() => {
+    if (fallbackElection && fallbackElection !== selected) {
+      setSwitchedElection(true);
+      setSelected(fallbackElection);
+    }
+  }, [fallbackElection, selected, setSelected]);
 
   // Hoist tile data hooks so the parent can omit the section wrapper
   // entirely when every tile inside it would return null. DashboardSection's
@@ -68,11 +93,16 @@ export const Candidate: FC<{ name: string }> = ({ name }) => {
   const { declarations, isLoading: declsLoading } =
     useMpDeclarations(canonicalMpName);
 
-  if (isLoading) {
+  if (
+    isLoading ||
+    (needsElectionFallback && (isProbing || !!fallbackElection))
+  ) {
     // Reserve roughly the height of a typical candidate page so the layout
     // doesn't jump from a one-line "Loading…" to a multi-card screen once
     // the candidate index resolves. This was the dominant CLS source on
     // /candidate/* pages because the swap inserts ~1500px above the fold.
+    // The election-fallback probe reuses the same skeleton so a search-engine
+    // visitor sees "Loading…" instead of a blank page while we switch cycles.
     return (
       <div className="w-full py-6">
         <div className="text-sm text-muted-foreground text-center">
