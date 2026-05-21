@@ -69,6 +69,17 @@ type ParliamentIndex = { mps: MpIndexEntry[] };
 const normalizeName = (s: string) =>
   s.toUpperCase().replace(/\s+/g, " ").trim();
 
+// Commerce-Registry person names arrive ALL-CAPS. Render them in proper case
+// for display — capitalise the first letter of each whitespace/hyphen/quote-
+// separated token. Applied to person names only (no acronyms to mangle);
+// company names are left as the registry spells them.
+const titleCasePersonName = (s: string): string =>
+  s
+    .toLowerCase()
+    .replace(/(^|[\s\-’'])(\p{L})/gu, (_m, sep: string, ch: string) =>
+      sep + ch.toUpperCase(),
+    );
+
 // Bulgarian legal-entity suffix tokens. TR sometimes lists a company (rather
 // than a natural person) as an owner of another company — e.g. `"ДИТЕКС" ЕООД`
 // owns `ДИТЕКС ПРОПЪРТИ ЕООД`. Detecting the suffix lets us route those names
@@ -557,7 +568,7 @@ export const buildConnectionsGraph = ({
       const node: ConnectionsPersonNode = {
         id,
         type: "person",
-        label: rawName,
+        label: titleCasePersonName(rawName),
       };
       nodes.set(id, node);
     }
@@ -855,6 +866,87 @@ export const buildConnectionsGraph = ({
         `[connections]   no TR SQLite at ${sqlitePath} — skipping officer expansion`,
       );
     }
+  }
+
+  // ---- 3.5) Fold duplicate person nodes into matching official/MP nodes --
+  //
+  // A name-collapsed `person` node (from the TR officer expansion) is often
+  // the same human as a slug-keyed `official` node or an `mp` node — e.g. a
+  // municipal council chair who is also a registered company officer. Left
+  // alone they render as two nodes stacked on the same spot, one all-caps
+  // from raw TR data, and the path-finder can route through either copy.
+  //
+  // We fold the person into the canonical node ONLY when the person's company
+  // set is a subset of the canonical node's — i.e. the person node is a purely
+  // redundant view, never a namesake bringing in extra companies. Re-pointed
+  // TR edges are capped at medium confidence, since attributing a name-
+  // collapsed record to one identity is an inference.
+  {
+    const companiesOf = new Map<string, Set<string>>();
+    const addCompanyLink = (a: string, b: string): void => {
+      if (nodes.get(b)?.type !== "company") return;
+      let s = companiesOf.get(a);
+      if (!s) {
+        s = new Set<string>();
+        companiesOf.set(a, s);
+      }
+      s.add(b);
+    };
+    for (const e of edges.values()) {
+      addCompanyLink(e.source, e.target);
+      addCompanyLink(e.target, e.source);
+    }
+
+    // normalized name → canonical node id; null marks a name shared by 2+
+    // officials/MPs, which we refuse to merge into (ambiguous).
+    const canonicalByName = new Map<string, string | null>();
+    for (const n of nodes.values()) {
+      if (n.type !== "official" && n.type !== "mp") continue;
+      const k = normalizeName(n.label);
+      canonicalByName.set(k, canonicalByName.has(k) ? null : n.id);
+    }
+
+    let foldedNodes = 0;
+    let foldedEdges = 0;
+    for (const person of [...nodes.values()]) {
+      if (person.type !== "person") continue;
+      const canonicalId = canonicalByName.get(
+        person.id.slice("person:".length),
+      );
+      if (!canonicalId || canonicalId === person.id) continue;
+      const personCos = companiesOf.get(person.id);
+      if (!personCos || personCos.size === 0) continue;
+      const canonCos = companiesOf.get(canonicalId) ?? new Set<string>();
+      let isSubset = true;
+      for (const c of personCos) {
+        if (!canonCos.has(c)) {
+          isSubset = false;
+          break;
+        }
+      }
+      if (!isSubset) continue;
+      // Re-point every edge touching the person onto the canonical node.
+      for (const [k, e] of [...edges.entries()]) {
+        if (e.source !== person.id && e.target !== person.id) continue;
+        edges.delete(k);
+        const source = e.source === person.id ? canonicalId : e.source;
+        const target = e.target === person.id ? canonicalId : e.target;
+        if (source === target) continue; // collapsed self-loop — drop
+        addEdge({
+          ...e,
+          source,
+          target,
+          confidence: e.kind === "declared_stake" ? e.confidence : "medium",
+        });
+        foldedEdges++;
+      }
+      nodes.delete(person.id);
+      foldedNodes++;
+    }
+    console.log(
+      `[connections]   folded ${foldedNodes} duplicate person node(s) into ` +
+        `officials/MPs (${foldedEdges} edges re-pointed)`,
+    );
   }
 
   // ---- 4) Build per-MP subgraphs (1-hop + 2-hop + MP→MP shortest paths) --
