@@ -307,31 +307,120 @@ export const ConnectionsCanvas: FC<Props> = ({
         }
       }
 
-      // Labels — hub, hovered, selected, MPs, and any high-degree node.
+      // Labels — hub, hovered, selected, MPs, and any high-degree node, drawn
+      // highest-priority first. Each label takes the first of three slots
+      // (right / left / below the node) that sits fully inside the canvas and
+      // clears every label already placed; a label with no free slot is
+      // skipped, so labels never overlap each other nor trail off the edge.
       ctx.fillStyle = "#222";
       ctx.font = `${11 / cam.scale}px system-ui, sans-serif`;
       ctx.textBaseline = "middle";
-      for (const n of simNodes) {
-        if (n.x == null || n.y == null) continue;
-        const isHub = n.id === pinNodeId;
-        const isImportant =
-          isHub ||
-          n.id === hoveredId ||
-          n.id === selected?.id ||
-          n.type === "mp" ||
-          n.radius > 6 / cam.scale + 2;
-        if (!isImportant) continue;
-        if (isHub) {
-          // Hub sits at the canvas center; placing its label to the right
-          // clips off-canvas on narrow viewports. Center it below the avatar
-          // instead so it stays inside the bitmap regardless of width.
-          ctx.textAlign = "center";
-          ctx.fillText(n.label, n.x, n.y + n.radius + 8 / cam.scale);
-          ctx.textAlign = "left";
-        } else {
-          ctx.fillText(n.label, n.x + n.radius + 2, n.y);
-        }
+      const labelGap = 2;
+      const viewL = (-w / 2 - cam.x) / cam.scale;
+      const viewR = (w / 2 - cam.x) / cam.scale;
+      const viewT = (-h / 2 - cam.y) / cam.scale;
+      const viewB = (h / 2 - cam.y) / cam.scale;
+      const labelRank = (n: ConnectionsSimNode): number =>
+        n.id === pinNodeId
+          ? 4
+          : n.id === hoveredId
+            ? 3
+            : n.id === selected?.id
+              ? 2
+              : n.type === "mp"
+                ? 1
+                : 0;
+      const placedLabels: {
+        x0: number;
+        y0: number;
+        x1: number;
+        y1: number;
+      }[] = [];
+      const labelNodes = simNodes
+        .filter(
+          (n) =>
+            n.x != null &&
+            n.y != null &&
+            n.x >= viewL &&
+            n.x <= viewR &&
+            n.y >= viewT &&
+            n.y <= viewB &&
+            (n.id === pinNodeId ||
+              n.id === hoveredId ||
+              n.id === selected?.id ||
+              n.type === "mp" ||
+              n.radius > 6 / cam.scale + 2),
+        )
+        .sort((a, b) => labelRank(b) - labelRank(a) || b.radius - a.radius);
+      for (const n of labelNodes) {
+        const nx = n.x as number;
+        const ny = n.y as number;
+        const tw = ctx.measureText(n.label).width;
+        // The slot box is padded past the glyph extent so two labels keep a
+        // little breathing room — without it, near-duplicate nodes (same
+        // person as both an MP and a TR officer) print twin labels a few
+        // pixels apart that read as one smudged line.
+        const rowHalfH = 9 / cam.scale;
+        const padX = 3 / cam.scale;
+        const rightX = nx + n.radius + labelGap;
+        const leftX = nx - n.radius - labelGap;
+        const belowTop = ny + n.radius + labelGap;
+        const slots = {
+          right: {
+            align: "left" as CanvasTextAlign,
+            tx: rightX,
+            ty: ny,
+            x0: rightX - padX,
+            x1: rightX + tw + padX,
+            y0: ny - rowHalfH,
+            y1: ny + rowHalfH,
+          },
+          left: {
+            align: "right" as CanvasTextAlign,
+            tx: leftX,
+            ty: ny,
+            x0: leftX - tw - padX,
+            x1: leftX + padX,
+            y0: ny - rowHalfH,
+            y1: ny + rowHalfH,
+          },
+          below: {
+            align: "center" as CanvasTextAlign,
+            tx: nx,
+            ty: belowTop + rowHalfH,
+            x0: nx - tw / 2 - padX,
+            x1: nx + tw / 2 + padX,
+            y0: belowTop,
+            y1: belowTop + 2 * rowHalfH,
+          },
+        };
+        // The hub sits dead-centre — a side label clips on a narrow canvas, so
+        // try the below slot first.
+        const ordered =
+          n.id === pinNodeId
+            ? [slots.below, slots.right, slots.left]
+            : [slots.right, slots.left, slots.below];
+        const inView = (s: (typeof ordered)[number]): boolean =>
+          s.x0 >= viewL && s.x1 <= viewR && s.y0 >= viewT && s.y1 <= viewB;
+        const clear = (s: (typeof ordered)[number]): boolean =>
+          !placedLabels.some(
+            (p) => s.x0 < p.x1 && s.x1 > p.x0 && s.y0 < p.y1 && s.y1 > p.y0,
+          );
+        const forced =
+          n.id === pinNodeId || n.id === hoveredId || n.id === selected?.id;
+        let slot = ordered.find((s) => inView(s) && clear(s));
+        if (!slot && forced) slot = ordered.find(inView) ?? ordered[0];
+        if (!slot) continue;
+        ctx.textAlign = slot.align;
+        ctx.fillText(n.label, slot.tx, slot.ty);
+        placedLabels.push({
+          x0: slot.x0,
+          y0: slot.y0,
+          x1: slot.x1,
+          y1: slot.y1,
+        });
       }
+      ctx.textAlign = "left";
 
       ctx.restore();
       raf = requestAnimationFrame(draw);

@@ -41,7 +41,7 @@ export const OfficialRankingsCard: FC = () => {
                 {o.label}
               </Link>
               <span className="truncate text-xs text-muted-foreground">
-                {o.municipality ?? o.role}
+                {o.municipality ?? t(`officials_cat_${o.role}`, o.role)}
               </span>
               <span className="ml-auto shrink-0 text-xs font-medium tabular-nums">
                 {o.highConfDegree}
