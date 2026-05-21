@@ -7,11 +7,29 @@ import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { useTooltip } from "@/ux/useTooltip";
 import { Hint } from "@/ux/Hint";
 import { METRIC_BY_KEY } from "@/screens/components/demographics/censusMetrics";
+import type { CensusMetric } from "@/data/census/censusTypes";
 import { StatCard } from "./StatCard";
 import { partyHref } from "@/lib/utils";
 
 const MAX_ROWS = 8;
 const SPREAD_THRESHOLD = 0.6;
+
+// Age and sex are much weaker electoral cleavages than ethnicity / religion /
+// education, so the spread ranking alone never surfaces them. Sex and the
+// single strongest voting-age band are pinned in below the headline rows; the
+// under-15 band (non-voting) and the near-flat middle bands are left to the
+// /demographics explorer.
+const VOTING_AGE_METRICS: CensusMetric[] = [
+  "age15_29",
+  "age30_44",
+  "age45_64",
+  "age65plus",
+];
+const PINNED_OR_HIDDEN = new Set<CensusMetric>([
+  ...VOTING_AGE_METRICS,
+  "ageUnder15",
+  "genderFemale",
+]);
 
 const fmtR = (r: number) => `${r > 0 ? "+" : ""}${r.toFixed(2)}`;
 
@@ -24,12 +42,25 @@ export const DemographicCleavagesTile: FC = () => {
 
   const rows = useMemo(() => {
     if (!payload) return [];
-    // Only surface rows with a meaningful spread — sub-0.6 spreads are noise
-    // visually and would make the tile look more cluttered than it is
-    // informative.
-    return payload.rows
-      .filter((r) => r.spread >= SPREAD_THRESHOLD)
+    // Headline cleavages: the sharpest dividing lines, ranked by spread.
+    // Sub-0.6 spreads are visual noise here; age and sex are excluded from
+    // this pass and pinned in separately below.
+    const headline = payload.rows
+      .filter(
+        (r) => !PINNED_OR_HIDDEN.has(r.metric) && r.spread >= SPREAD_THRESHOLD,
+      )
       .slice(0, MAX_ROWS);
+    // Always surface sex and the single strongest voting-age band so those
+    // dimensions are represented even though their spread is far lower.
+    const sex = payload.rows.find((r) => r.metric === "genderFemale");
+    const strongestAgeBand = payload.rows
+      .filter((r) => VOTING_AGE_METRICS.includes(r.metric))
+      .sort((a, b) => b.spread - a.spread)[0];
+    return [
+      ...headline,
+      ...(sex ? [sex] : []),
+      ...(strongestAgeBand ? [strongestAgeBand] : []),
+    ];
   }, [payload]);
 
   if (!payload || rows.length === 0) return null;

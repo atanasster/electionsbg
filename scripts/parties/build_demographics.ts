@@ -44,7 +44,11 @@ const PERCENT_METRICS: CensusMetric[] = [
   "eduSecondary",
   "eduPrimaryOrLower",
   "ageUnder15",
+  "age15_29",
+  "age30_44",
+  "age45_64",
   "age65plus",
+  "genderFemale",
   "employmentRate",
   "unemploymentRate",
   "activityRate",
@@ -120,10 +124,26 @@ const censusMetricShare = (
       return e.age && e.population > 0
         ? e.age.age0_14 / e.population
         : undefined;
+    case "age15_29":
+      return e.age && e.population > 0
+        ? e.age.age15_29 / e.population
+        : undefined;
+    case "age30_44":
+      return e.age && e.population > 0
+        ? e.age.age30_44 / e.population
+        : undefined;
+    case "age45_64":
+      return e.age && e.population > 0
+        ? e.age.age45_64 / e.population
+        : undefined;
     case "age65plus":
       return e.age && e.population > 0
         ? e.age.age65plus / e.population
         : undefined;
+    case "genderFemale": {
+      const d = e.gender ? e.gender.male + e.gender.female : 0;
+      return d > 0 && e.gender ? e.gender.female / d : undefined;
+    }
     case "employmentRate":
       return e.employment ? e.employment.employmentRate / 100 : undefined;
     case "unemploymentRate":

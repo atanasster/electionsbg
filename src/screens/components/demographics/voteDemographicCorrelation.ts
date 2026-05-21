@@ -11,7 +11,11 @@ export const PERCENT_METRICS: CensusMetric[] = [
   "eduSecondary",
   "eduPrimaryOrLower",
   "ageUnder15",
+  "age15_29",
+  "age30_44",
+  "age45_64",
   "age65plus",
+  "genderFemale",
   "employmentRate",
   "unemploymentRate",
   "activityRate",
@@ -74,8 +78,16 @@ export const censusMetricCount = (
       return e.education?.primaryOrLower;
     case "ageUnder15":
       return e.age?.age0_14;
+    case "age15_29":
+      return e.age?.age15_29;
+    case "age30_44":
+      return e.age?.age30_44;
+    case "age45_64":
+      return e.age?.age45_64;
     case "age65plus":
       return e.age?.age65plus;
+    case "genderFemale":
+      return e.gender?.female;
     default:
       return undefined;
   }

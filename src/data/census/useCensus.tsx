@@ -110,10 +110,26 @@ export const censusMetricValue = (
       return e.age && e.population > 0
         ? e.age.age0_14 / e.population
         : undefined;
+    case "age15_29":
+      return e.age && e.population > 0
+        ? e.age.age15_29 / e.population
+        : undefined;
+    case "age30_44":
+      return e.age && e.population > 0
+        ? e.age.age30_44 / e.population
+        : undefined;
+    case "age45_64":
+      return e.age && e.population > 0
+        ? e.age.age45_64 / e.population
+        : undefined;
     case "age65plus":
       return e.age && e.population > 0
         ? e.age.age65plus / e.population
         : undefined;
+    case "genderFemale": {
+      const denom = e.gender ? e.gender.male + e.gender.female : 0;
+      return denom > 0 && e.gender ? e.gender.female / denom : undefined;
+    }
     case "employmentRate":
       return e.employment ? e.employment.employmentRate / 100 : undefined;
     case "unemploymentRate":

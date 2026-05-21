@@ -109,7 +109,11 @@ export type CensusMetric =
   | "eduSecondary"
   | "eduPrimaryOrLower"
   | "ageUnder15"
+  | "age15_29"
+  | "age30_44"
+  | "age45_64"
   | "age65plus"
+  | "genderFemale"
   | "employmentRate"
   | "unemploymentRate"
   | "activityRate";
