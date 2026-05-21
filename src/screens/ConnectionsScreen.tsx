@@ -1,4 +1,12 @@
-import { FC, useCallback, useEffect, useMemo, useRef, useState } from "react";
+import {
+  FC,
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useMemo,
+  useRef,
+  useState,
+} from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import {
@@ -343,19 +351,20 @@ export const ConnectionsScreen: FC = () => {
   );
   const lastMouseRef = useRef<{ x: number; y: number } | null>(null);
   const hoveredIdRef = useRef<string | null>(null);
-  // Last cursor position over the canvas (in canvas-local px), used to pick
-  // a popover corner that won't sit under the cursor.
-  const cursorOnCanvasRef = useRef<{ x: number; y: number } | null>(null);
+  // The detail popover is positioned imperatively next to its node by the
+  // draw loop. `popoverDataRef` mirrors the render-state the placement logic
+  // needs so it can run from a stable callback.
+  const popoverRef = useRef<HTMLDivElement>(null);
+  const popoverDataRef = useRef<{
+    simNodes: SimNode[];
+    selectedId: string | null;
+    w: number;
+    h: number;
+  }>({ simNodes: [], selectedId: null, w: 0, h: 0 });
 
   const [size, setSize] = useState({ w: 800, h: 600 });
   const [hovered, setHovered] = useState<SimNode | null>(null);
   const [selected, setSelected] = useState<SimNode | null>(null);
-  // Popover position over the canvas. We pick the corner farthest from the
-  // cursor on the popover's first appearance and hold it until the popover
-  // disappears, so it doesn't dance between corners while users hover nodes.
-  const [popoverCorner, setPopoverCorner] = useState<"tl" | "tr" | "bl" | "br">(
-    "br",
-  );
   // Vertical bounds of the canvas that are currently inside the viewport, in
   // canvas-local px. The popover anchors to these instead of the canvas's own
   // top/bottom so it stays on-screen when the graph extends beyond the fold.
@@ -515,6 +524,36 @@ export const ConnectionsScreen: FC = () => {
       simRef.current = null;
     };
   }, [simNodes, simLinks, clusterByParty, partyAngleByGroup]);
+
+  // Pin the detail popover next to its node: prefer the right side, flip left
+  // when it would overflow, and clamp vertically into the visible slice. Run
+  // every frame by the draw loop (tracks camera/layout) and once on detail
+  // change via useLayoutEffect (places it before the first paint, no flash).
+  const positionDetailPopover = useCallback(() => {
+    const pop = popoverRef.current;
+    if (!pop) return;
+    const { simNodes: sn, selectedId, w, h } = popoverDataRef.current;
+    const id = selectedId ?? hoveredIdRef.current;
+    const node = id ? sn.find((n) => n.id === id) : null;
+    if (!node || node.x == null || node.y == null || w === 0) return;
+    const cam = cameraRef.current;
+    const nx = w / 2 + cam.x + node.x * cam.scale;
+    const ny = h / 2 + cam.y + node.y * cam.scale;
+    const nr = node.radius * cam.scale;
+    const pw = pop.offsetWidth;
+    const ph = pop.offsetHeight;
+    const gap = 14;
+    const vr = visibleVRangeRef.current;
+    const visTop = vr.bottom > vr.top ? vr.top : 0;
+    const visBottom = vr.bottom > vr.top ? vr.bottom : h;
+    let px = nx + nr + gap;
+    if (px + pw > w - 8) px = nx - nr - gap - pw;
+    px = Math.max(8, Math.min(px, w - pw - 8));
+    let py = ny - ph / 2;
+    py = Math.max(visTop + 8, Math.min(py, visBottom - ph - 8));
+    pop.style.left = `${Math.round(px)}px`;
+    pop.style.top = `${Math.round(py)}px`;
+  }, []);
 
   // Render loop driven by RAF — reads simulation state, draws to canvas.
   useEffect(() => {
@@ -765,6 +804,7 @@ export const ConnectionsScreen: FC = () => {
       ctx.textAlign = "left";
 
       ctx.restore();
+      positionDetailPopover();
       raf = requestAnimationFrame(draw);
     };
     raf = requestAnimationFrame(draw);
@@ -780,6 +820,7 @@ export const ConnectionsScreen: FC = () => {
     pathFrom?.id,
     pathTo?.id,
     localizedMpLabel,
+    positionDetailPopover,
   ]);
 
   // ---- Mouse interactions: hover, click, pan, drag node, zoom ----
@@ -829,7 +870,6 @@ export const ConnectionsScreen: FC = () => {
       lastMouseRef.current = { x: sx, y: sy };
       return;
     }
-    cursorOnCanvasRef.current = { x: sx, y: sy };
     const node = findNodeAt(sx, sy);
     hoveredIdRef.current = node?.id ?? null;
     setHovered(node);
@@ -1004,31 +1044,29 @@ export const ConnectionsScreen: FC = () => {
 
   // ---- Detail panel content ----
   const detail = selected ?? hovered;
-  const detailVisible = !!detail;
+  // While a path result is on screen its own popover owns the right side —
+  // suppress the per-node detail popover so the two don't overlap.
+  const pathResultVisible = !!(
+    pathFrom &&
+    pathTo &&
+    pathNodeIds &&
+    pathEdgeKeys
+  );
 
-  // Recompute the popover's anchor corner only when the popover transitions
-  // from hidden to visible. While the popover is up we keep the same corner
-  // so it doesn't jump as the user hovers different nodes.
-  const wasDetailVisibleRef = useRef(false);
-  useEffect(() => {
-    if (!detailVisible) {
-      wasDetailVisibleRef.current = false;
-      return;
-    }
-    if (wasDetailVisibleRef.current) return;
-    wasDetailVisibleRef.current = true;
-    const c = cursorOnCanvasRef.current;
-    if (!c || size.w === 0 || size.h === 0) return;
-    const left = c.x < size.w / 2;
-    // Compare against the midpoint of the *visible* slice — picking
-    // top/bottom based on the full canvas can put the popover offscreen.
-    const visMidY =
-      visibleVRange.bottom > visibleVRange.top
-        ? (visibleVRange.top + visibleVRange.bottom) / 2
-        : size.h / 2;
-    const top = c.y < visMidY;
-    setPopoverCorner(top ? (left ? "br" : "bl") : left ? "tr" : "tl");
-  }, [detailVisible, size.w, size.h, visibleVRange.top, visibleVRange.bottom]);
+  // Mirror the render-state the popover placement needs into a ref so the
+  // stable positioning callback (and the draw loop) can read it.
+  popoverDataRef.current = {
+    simNodes,
+    selectedId: selected?.id ?? null,
+    w: size.w,
+    h: size.h,
+  };
+
+  // Place the popover before the first paint so it never flashes at (0,0);
+  // the draw loop then keeps it pinned as the camera/layout move.
+  useLayoutEffect(() => {
+    positionDetailPopover();
+  }, [detail, size.w, size.h, positionDetailPopover]);
 
   const detailNeighbors = detail
     ? Array.from(neighbors.get(detail.id) ?? [])
@@ -1419,19 +1457,16 @@ export const ConnectionsScreen: FC = () => {
                 }}
               />
             )}
-            {detail && !isLoading && graph && (
+            {detail && !isLoading && graph && !pathResultVisible && (
               <div
-                className="absolute z-10 bg-card/95 backdrop-blur-sm border rounded-md shadow-lg p-3 overflow-y-auto"
+                ref={popoverRef}
+                className={`absolute z-10 bg-card/95 backdrop-blur-sm border rounded-md shadow-lg p-3 overflow-y-auto ${
+                  selected ? "" : "pointer-events-none"
+                }`}
                 style={{
-                  ...(popoverCorner === "tl" || popoverCorner === "tr"
-                    ? { top: visibleVRange.top + 8 }
-                    : {
-                        bottom: Math.max(0, size.h - visibleVRange.bottom) + 8,
-                      }),
-                  ...(popoverCorner === "tl" || popoverCorner === "bl"
-                    ? { left: 8 }
-                    : { right: 8 }),
-                  maxWidth: Math.min(360, Math.max(220, size.w - 16)),
+                  left: 0,
+                  top: 0,
+                  maxWidth: Math.min(320, Math.max(220, size.w - 16)),
                   maxHeight: Math.max(
                     160,
                     Math.floor(
