@@ -475,6 +475,44 @@ export type OfficialAssetsRankings = {
   byCategory: Record<OfficialCategoryKind, OfficialAssetsRankingEntry[]>;
 };
 
+/* --- Municipal officials --------------------------------------------------
+ * The register.cacbg.bg "Кметове…" category covers the whole local-government
+ * tier. Kept as a separate scope from the executive officials above — its own
+ * files under data/officials/municipal/, no assets-ranking page — because the
+ * volume (~6,400/year) is an order of magnitude larger and the declarations
+ * carry no party affiliation (that needs the ЦИК local-election roster). */
+export type MunicipalOfficialRole =
+  | "mayor"
+  | "deputy_mayor"
+  | "council_chair"
+  | "councillor"
+  | "chief_architect"
+  | "other";
+
+export type MunicipalIndexEntry = {
+  slug: string;
+  name: string;
+  /** Normalised form used for fuzzy matching (e.g. against the MP/TR indexes). */
+  normalizedName: string;
+  /** Mapped role bucket. */
+  role: MunicipalOfficialRole;
+  /** Verbatim role label from list.xml's `Person/Position/Name`. */
+  roleRaw: string;
+  /** Municipality / district — the registry's `Institution` name. */
+  municipality: string;
+  latestDeclarationYear: number;
+};
+
+export type MunicipalIndexFile = {
+  generatedAt: string;
+  /** Year(s) of declarations included in this snapshot. */
+  years: number[];
+  total: number;
+  /** Count per role bucket. */
+  byRole: Record<MunicipalOfficialRole, number>;
+  entries: MunicipalIndexEntry[];
+};
+
 export type MpDeclaration = {
   mpId: number;
   declarantName: string;

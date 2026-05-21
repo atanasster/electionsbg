@@ -32,6 +32,7 @@ The "Changed" section of the report contains a bulleted list. Each bullet's labe
 | `BG Wikipedia polls` | `update-polls` |
 | `Сметна палата declarations registry` | `update-connections` |
 | `Сметна палата declarations — executive (officials)` | `update-officials` |
+| `Сметна палата declarations — municipal (mayors & councillors)` | `update-officials` (Step 1b — municipal ingest) |
 | `data.egov.bg Commerce Registry` | `update-connections` |
 | `data.egov.bg АОП` (procurement) | `update-procurement` |
 | `АОП debarred-suppliers register` | `update-procurement` (Step 5 — debarred-list refresh) |
@@ -79,6 +80,7 @@ Each watcher source maps to one or more downstream skills. Multiple sources can 
 | `wiki_polls` | `update-polls` |
 | `cacbg_declarations` | `update-connections` |
 | `cacbg_officials` | `update-officials` |
+| `cacbg_local` | `update-officials` (Step 1b — municipal ingest) |
 | `egov_commerce` | `update-connections` |
 | `egov_procurement` | `update-procurement` |
 | `aop_debarred` | `update-procurement` (Step 5 — debarred-list refresh) |

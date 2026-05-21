@@ -4,6 +4,7 @@ import { parliamentVotes } from "./parliament_votes";
 import { wikiPolls } from "./wiki_polls";
 import { cacbgDeclarations } from "./cacbg_declarations";
 import { cacbgOfficials } from "./cacbg_officials";
+import { cacbgLocal } from "./cacbg_local";
 import { egovCommerce } from "./egov_commerce";
 import { egovProcurement } from "./egov_procurement";
 import { aopDebarred } from "./aop_debarred";
@@ -33,6 +34,7 @@ export const SOURCES: WatchSource[] = [
   wikiPolls,
   cacbgDeclarations,
   cacbgOfficials,
+  cacbgLocal,
   smetnaPalata,
   financingReports,
   egovCommerce,

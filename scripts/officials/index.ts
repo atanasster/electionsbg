@@ -14,11 +14,8 @@
 // Mayors and judiciary are intentionally NOT included — they balloon the
 // dataset (6.4k/year for mayors alone) and need their own UI scope.
 
-import fs from "fs";
 import path from "path";
-import { fileURLToPath } from "url";
 import { load } from "cheerio";
-import { Agent } from "undici";
 import {
   command,
   run,
@@ -38,23 +35,19 @@ import type {
   OfficialIndexFile,
 } from "../../src/data/dataTypes";
 import { parseDeclarationXml } from "../declarations/parse_declaration";
+import {
+  ROOT,
+  REGISTER_BASE,
+  sleep,
+  normalize,
+  slugify,
+  fetchText,
+  fetchDeclaration,
+  writeJson,
+} from "./shared";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
-
-const ROOT = path.resolve(__dirname, "../..");
-const REGISTER_BASE = "https://register.cacbg.bg";
-const RAW_DIR = path.join(ROOT, "raw_data", "officials");
 const OUT_DIR = path.join(ROOT, "data", "officials");
 const DECL_DIR = path.join(OUT_DIR, "declarations");
-
-const UA = "electionsbg.com officials pipeline";
-
-const insecureDispatcher = new Agent({
-  connect: { rejectUnauthorized: false },
-});
-
-const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 // Substring match against the verbatim `Category Name` in list.xml — every
 // declaration's category is one of ~80 long names from ЗПК. We bucket on
@@ -100,69 +93,6 @@ const categoriseRaw = (raw: string): OfficialCategoryKind | null => {
   return null;
 };
 
-// Match parliament.bg's canonical form so the SPA can later cross-reference
-// "is this minister also a sitting MP?" without a second normalization.
-const normalize = (s: string): string =>
-  s
-    .toUpperCase()
-    .replace(/\s*-\s*/g, "-")
-    .replace(/\s+/g, " ")
-    .trim();
-
-// "Бойко Методиев Борисов" → "boyko-metodiev-borisov-2641". Stable across runs.
-// We append a short hash of the normalised name + institution so two officials
-// with the same legal name in different agencies don't collide.
-const slugify = (name: string, institution: string): string => {
-  const base = name
-    .normalize("NFKD")
-    .replace(/[̀-ͯ]/g, "")
-    .toLowerCase()
-    .replace(/[ьъ]/g, "")
-    .replace(/[а-яё]/g, (ch) => {
-      const map: Record<string, string> = {
-        а: "a",
-        б: "b",
-        в: "v",
-        г: "g",
-        д: "d",
-        е: "e",
-        ж: "zh",
-        з: "z",
-        и: "i",
-        й: "y",
-        к: "k",
-        л: "l",
-        м: "m",
-        н: "n",
-        о: "o",
-        п: "p",
-        р: "r",
-        с: "s",
-        т: "t",
-        у: "u",
-        ф: "f",
-        х: "h",
-        ц: "ts",
-        ч: "ch",
-        ш: "sh",
-        щ: "sht",
-        ю: "yu",
-        я: "ya",
-      };
-      return map[ch] ?? ch;
-    })
-    .replace(/[^a-z0-9]+/g, "-")
-    .replace(/^-|-$/g, "");
-  // Short stable suffix: first 6 hex chars of a 32-bit FNV-1a over name+inst.
-  let h = 2166136261;
-  for (const ch of `${name}|${institution}`) {
-    h = (h ^ ch.charCodeAt(0)) >>> 0;
-    h = (h + ((h << 1) + (h << 4) + (h << 7) + (h << 8) + (h << 24))) >>> 0;
-  }
-  const suffix = h.toString(16).padStart(8, "0").slice(0, 6);
-  return `${base}-${suffix}`;
-};
-
 type DirectoryEntry = {
   declarantName: string;
   institution: string;
@@ -172,18 +102,6 @@ type DirectoryEntry = {
   xmlFile: string;
   year: number;
   sourceUrl: string;
-};
-
-const fetchText = async (url: string): Promise<string> => {
-  const res = await fetch(url, {
-    headers: { "User-Agent": UA, Accept: "application/xml, text/xml, */*" },
-    // @ts-expect-error: dispatcher is undici-only, not in fetch's standard typings
-    dispatcher: url.startsWith(REGISTER_BASE) ? insecureDispatcher : undefined,
-  });
-  if (!res.ok) {
-    throw new Error(`GET ${url} → ${res.status} ${res.statusText}`);
-  }
-  return res.text();
 };
 
 const fetchYearListing = async (year: number): Promise<DirectoryEntry[]> => {
@@ -232,18 +150,6 @@ const fetchYearListing = async (year: number): Promise<DirectoryEntry[]> => {
   return out;
 };
 
-const cachePath = (year: number, xmlFile: string): string =>
-  path.join(RAW_DIR, String(year), xmlFile);
-
-const fetchDeclaration = async (entry: DirectoryEntry): Promise<string> => {
-  const out = cachePath(entry.year, entry.xmlFile);
-  if (fs.existsSync(out)) return fs.readFileSync(out, "utf-8");
-  fs.mkdirSync(path.dirname(out), { recursive: true });
-  const xml = await fetchText(entry.sourceUrl);
-  fs.writeFileSync(out, xml, "utf-8");
-  return xml;
-};
-
 // Map an MpAsset rollup-friendly category total. Mirrors the MP-side
 // build_assets_rankings math: net worth = sum of asset categories minus debt.
 const aggregateAssets = (
@@ -275,11 +181,6 @@ const aggregateAssets = (
     realEstateCount,
     realEstateUnvalued,
   };
-};
-
-const writeJson = (file: string, obj: unknown): void => {
-  fs.mkdirSync(path.dirname(file), { recursive: true });
-  fs.writeFileSync(file, JSON.stringify(obj, null, 2) + "\n", "utf-8");
 };
 
 const cmd = command({
@@ -327,7 +228,11 @@ const cmd = command({
       if (processed >= cap) break;
       const norm = normalize(entry.declarantName);
       if (filter && !norm.includes(filter)) continue;
-      const xml = await fetchDeclaration(entry);
+      const xml = await fetchDeclaration(
+        entry.year,
+        entry.xmlFile,
+        entry.sourceUrl,
+      );
       // Existing parser keys on mpId — pass 0 as a sentinel and strip it.
       const parsed = parseDeclarationXml({
         xml,
@@ -489,10 +394,4 @@ const cmd = command({
 
 run(cmd, process.argv.slice(2));
 
-export {
-  fetchYearListing,
-  categoriseRaw,
-  slugify,
-  aggregateAssets,
-  CATEGORY_MAP,
-};
+export { fetchYearListing, categoriseRaw, aggregateAssets, CATEGORY_MAP };

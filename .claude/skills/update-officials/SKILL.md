@@ -1,6 +1,6 @@
 ---
 name: update-officials
-description: Refresh the non-MP officials declarations data — pulls property/interest declarations from register.cacbg.bg (Сметна палата) for cabinet members, deputy ministers, state-agency heads, and regional governors. Use when the daily watch report flags "Сметна палата declarations — executive (officials)" as changed, when the user asks to refresh officials data, when adding a new declaration year (e.g. 2026 filings appear in spring), or after a fresh git clone if `data/officials/assets-rankings.json` is missing.
+description: Refresh the non-MP officials declarations data — pulls property/interest declarations from register.cacbg.bg (Сметна палата) for cabinet members, deputy ministers, state-agency heads, regional governors, and the municipal tier (mayors, deputy-mayors, council chairs, councillors, chief architects). Use when the daily watch report flags "Сметна палата declarations — executive (officials)" or "Сметна палата declarations — municipal (mayors & councillors)" as changed, when the user asks to refresh officials data, when adding a new declaration year (e.g. 2026 filings appear in spring), or after a fresh git clone if `data/officials/assets-rankings.json` or `data/officials/municipal/index.json` is missing.
 allowed-tools:
   - Read
   - Bash
@@ -12,16 +12,18 @@ allowed-tools:
 
 Scrapes `register.cacbg.bg/{year}/list.xml` for non-MP categories (cabinet, deputy ministers, state-agency heads, regional governors) and writes per-official declaration JSON to `data/officials/declarations/{slug}.json`, plus the `index.json` and `assets-rankings.json` rollups consumed by the `/officials/assets` page, `/officials/{slug}` profile pages, and the dashboard `OfficialsAssetsTile`.
 
-Mayors (6,400/year) and the judiciary live in the same source register but are intentionally out of scope here — they need their own UI scope (paginated table, role-specific filters) and the per-municipality politics is a separate editorial concern.
+The municipal tier (mayors, deputy-mayors, municipal-council chairs, councillors and chief architects — ~6,400/year) lives in the same register and is ingested by a separate script, `scripts/officials/municipal.ts`, into its own scope under `data/officials/municipal/` (per-official declarations + a roster `index.json`). It is kept separate because the volume is ~15× the executive set and the declarations carry no party affiliation — there is no `/officials/assets`-style ranking page for it; the output is staged for the cross-MP connections graph. The judiciary (ВКС/ВАС/прокурори/съдии) lives in the same register but remains out of scope.
 
 ## When to run
 
 | Trigger | Action |
 |---|---|
-| Daily watcher reports `Сметна палата declarations — executive (officials): N declarations in scope` changed | Re-run for the current year (`npx tsx scripts/officials/index.ts`) |
-| User asks to "refresh officials" / "update cabinet declarations" | Same |
-| `data/officials/assets-rankings.json` missing (fresh clone) | Cold-start ingest |
-| Adding a new year of filings | Re-run with `--year <YYYY>` after the upstream publishes that year's list.xml |
+| Daily watcher reports `Сметна палата declarations — executive (officials): N declarations in scope` changed | Re-run the executive ingest for the current year (`npx tsx scripts/officials/index.ts`) |
+| Daily watcher reports `Сметна палата declarations — municipal (mayors & councillors): N declarations in scope` changed | Re-run the municipal ingest (`npx tsx scripts/officials/municipal.ts`) |
+| User asks to "refresh officials" / "update cabinet declarations" | Run the executive ingest; run the municipal ingest too if the municipal watcher also flipped |
+| `data/officials/assets-rankings.json` missing (fresh clone) | Cold-start executive ingest |
+| `data/officials/municipal/index.json` missing (fresh clone) | Cold-start municipal ingest (Step 1b — ~30–50 min) |
+| Adding a new year of filings | Re-run the relevant ingest with `--year <YYYY>` after the upstream publishes that year's list.xml |
 
 ## Step 1 — Ingest
 
@@ -48,6 +50,31 @@ Expected output on a normal run (incremental, after a couple of new filings):
 ```
 
 Cold start takes ~90 seconds (network-bound on per-declaration fetches — 150 ms politeness sleep between requests). Re-runs are faster because raw XMLs are cached under `raw_data/officials/`.
+
+## Step 1b — Municipal tier
+
+```bash
+npx tsx scripts/officials/municipal.ts
+```
+
+Separate ingest for the local-government tier. The script:
+
+1. Fetches the same `register.cacbg.bg/{year}/list.xml`.
+2. Filters Category nodes to the `Кметове…` family (mayors, deputy-mayors, council chairs, municipal councillors, chief architects).
+3. Maps each declarant's `Position/Name` role label to a role bucket, fetches + parses the per-person XML (same shared parser and `raw_data/officials/` cache as the executive ingest), and writes one JSON per slug under `data/officials/municipal/declarations/`.
+4. Builds `data/officials/municipal/index.json` — a roster with `byRole` counts and one entry per official (slug, name, role, municipality).
+
+Expected output:
+
+```
+→ municipal: fetching 2025 list…
+  6521 declaration(s) in the municipal tier
+  processed 6521 declaration(s) for ~6400 unique official(s)
+  wrote ~6400 per-official file(s) to data/officials/municipal/declarations
+  wrote index.json (~6400 official(s): ~290 mayors, ~700 dep. mayors, ~260 chairs, ~4800 councillors, ~310 architects, 0 other)
+```
+
+Cold start takes ~30–50 minutes (~6,500 per-declaration fetches at a 150 ms politeness sleep). Re-runs are far faster — raw XMLs are cached. Sanity: `byRole.councillor` should dominate (~75%), `byRole.mayor` ≈ 290, `byRole.other` should be 0 (a non-zero `other` count means an unmapped role label — inspect `mapRole` in `scripts/officials/municipal.ts`).
 
 ## Step 2 — Verify
 
@@ -113,6 +140,8 @@ npx tsx scripts/officials/index.ts --name "Желязков"
 npx tsx scripts/officials/index.ts --dry-run
 ```
 
+`scripts/officials/municipal.ts` (Step 1b) accepts the identical `--year` / `--limit` / `--name` / `--dry-run` flags.
+
 ## Backfill earlier years
 
 The upstream registry publishes year-keyed directories back to 2015 (see `register.cacbg.bg/`). To add an earlier year:
@@ -135,10 +164,12 @@ Fails loud rather than write partial data:
 | Per-declaration fetch fails | Network error fetching one official's XML | Throws (no partial writes) |
 | Zero declarations match the category filter | Upstream renamed categories or shifted XML schema | Throws — investigate `CATEGORY_MAP` in `scripts/officials/index.ts` |
 | `assets-rankings.json` total drops > 20% | Likely a regression in category filtering | Inspect diff; do NOT commit until cause is identified |
+| Zero entries in the `Кметове…` category | Upstream renamed the municipal category | `municipal.ts` throws |
+| > 2% (or > 20) of municipal declarations fail to parse | Upstream schema drift, not isolated bad records | `municipal.ts` throws; failures below that bar are skipped + logged, not fatal |
 
 ## What this skill does NOT do
 
-- Does NOT scrape mayors / municipal councillors. Volume (6,400/year) needs paginated UI design first.
+- Does NOT build any UI for the municipal tier. `municipal.ts` writes data only (`data/officials/municipal/`), staged for the connections graph — there is no `/officials/assets`-style screen or ranking for mayors / councillors.
 - Does NOT scrape the judiciary (ВКС/ВАС/прокурори/съдии). Same register, different editorial scope.
 - Does NOT cross-reference officials to MP-connected companies. That join lives in `data/procurement/derived/mp_connected.json` and is keyed on MP ids, not official slugs. A follow-up could add an "officials connected contractors" rollup if/when the editorial use case justifies it.
 - Does NOT update the `cacbg_declarations` watcher source (that one is mapped to `/update-connections` and tracks the MP scope). The two watchers fingerprint independent slices of the same register.
