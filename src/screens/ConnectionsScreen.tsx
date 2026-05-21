@@ -9,6 +9,7 @@ import {
 } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
+import { Crosshair } from "lucide-react";
 import {
   forceCenter,
   forceLink,
@@ -66,6 +67,23 @@ const TYPE_COLORS: Record<ConnectionsNode["type"], string> = {
 
 const radiusForDegree = (degree: number): number =>
   3 + Math.min(7, Math.sqrt(degree) * 1.5);
+
+/** Icon button shown on each popover row — pans/zooms the graph to that node
+ * without stealing the row's navigation link. */
+const LocateButton: FC<{ title: string; onClick: () => void }> = ({
+  title,
+  onClick,
+}) => (
+  <button
+    type="button"
+    title={title}
+    aria-label={title}
+    onClick={onClick}
+    className="ml-auto shrink-0 rounded p-0.5 text-muted-foreground hover:bg-muted hover:text-foreground"
+  >
+    <Crosshair className="h-3 w-3" />
+  </button>
+);
 
 type Filters = {
   hideTransferred: boolean;
@@ -385,12 +403,18 @@ export const ConnectionsScreen: FC = () => {
   // every simulation tick without restarting React. Drag-to-pan is supported
   // via mouse events on the canvas.
   const cameraRef = useRef({ x: 0, y: 0, scale: 1 });
-  // When a connection path is found, the draw loop lerps the camera to frame
-  // the whole trail. `deadline` bounds the animation if the layout never fully
+  // The draw loop lerps the camera to frame `targetIds` — the whole trail when
+  // a path is found, or a single node when the user clicks "locate" in a
+  // popover. `deadline` bounds the animation if the layout never fully
   // settles; manual pan/zoom cancels it.
-  const fitRef = useRef<{ active: boolean; deadline: number }>({
+  const fitRef = useRef<{
+    active: boolean;
+    deadline: number;
+    targetIds: Set<string> | null;
+  }>({
     active: false,
     deadline: 0,
+    targetIds: null,
   });
   const draggingRef = useRef<{ kind: "pan" | "node"; nodeId?: string } | null>(
     null,
@@ -640,17 +664,18 @@ export const ConnectionsScreen: FC = () => {
       ctx.clearRect(0, 0, w, h);
 
       const cam = cameraRef.current;
-      // Camera fit: ease the camera so the whole connection trail fits the
-      // visible viewport, leaving room for the result popover on the right.
+      // Camera fit: ease the camera so the target node set fits the visible
+      // viewport, leaving room for the result popover on the right.
       const fit = fitRef.current;
-      if (fit.active && pathNodeIds && pathNodeIds.size > 0) {
+      if (fit.active && fit.targetIds && fit.targetIds.size > 0) {
+        const targetIds = fit.targetIds;
         let minX = Infinity,
           maxX = -Infinity,
           minY = Infinity,
           maxY = -Infinity,
           count = 0;
         for (const node of simNodes) {
-          if (!pathNodeIds.has(node.id) || node.x == null || node.y == null) {
+          if (!targetIds.has(node.id) || node.x == null || node.y == null) {
             continue;
           }
           minX = Math.min(minX, node.x);
@@ -1077,9 +1102,22 @@ export const ConnectionsScreen: FC = () => {
   // runs the camera lerp.
   useEffect(() => {
     if (pathNodeIds && pathNodeIds.size > 1) {
-      fitRef.current = { active: true, deadline: performance.now() + 2500 };
+      fitRef.current = {
+        active: true,
+        deadline: performance.now() + 2500,
+        targetIds: pathNodeIds,
+      };
     }
   }, [pathNodeIds]);
+
+  // "Locate" action from a popover row: ease the camera to centre one node.
+  const focusNode = useCallback((nodeId: string) => {
+    fitRef.current = {
+      active: true,
+      deadline: performance.now() + 2000,
+      targetIds: new Set([nodeId]),
+    };
+  }, []);
 
   // Sync canvas-click selections into the search inputs (but don't clear query
   // when pathFrom/pathTo is cleared by typing — that's handled by onChange).
@@ -1709,6 +1747,10 @@ export const ConnectionsScreen: FC = () => {
                         ) : (
                           <span className="truncate">{nDisplay}</span>
                         )}
+                        <LocateButton
+                          title={t("connections_locate") || "Show on graph"}
+                          onClick={() => focusNode(n.id)}
+                        />
                       </div>
                     );
                   })}
@@ -1844,6 +1886,12 @@ export const ConnectionsScreen: FC = () => {
                                   {label}
                                 </span>
                               )}
+                              <LocateButton
+                                title={
+                                  t("connections_locate") || "Show on graph"
+                                }
+                                onClick={() => focusNode(nodeId)}
+                              />
                             </div>
                           </div>
                         );
