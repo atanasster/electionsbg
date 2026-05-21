@@ -23,6 +23,7 @@ import {
   Users,
   FileText,
   Euro,
+  Newspaper,
 } from "lucide-react";
 import { useQuery } from "@tanstack/react-query";
 import { Title } from "@/ux/Title";
@@ -31,12 +32,19 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/ux/Card";
 import { useContractor } from "@/data/procurement/useContractor";
 import { useMpConnectedContracts } from "@/data/parliament/useMpConnectedContracts";
 import { useFundsBeneficiary } from "@/data/funds/useFundsBeneficiary";
+import { useFundsConnectedForEik } from "@/data/funds/useMpConnectedFunds";
+import { useFundsConfirmedCase } from "@/data/funds/useFundsConfirmed";
 import { dataUrl } from "@/data/dataUrl";
 import type { ProcurementMpConnectedFile } from "@/data/dataTypes";
-import type { FundsBeneficiary } from "@/data/funds/types";
+import type {
+  FundsBeneficiary,
+  FundsMpConnected,
+  FundsConfirmedCase,
+} from "@/data/funds/types";
 import { formatEur, formatEurWithOther } from "@/lib/currency";
 import { orgTypeLabel } from "@/data/funds/orgLabels";
 import { summarizeRelations } from "./components/candidates/procurement/relationLabel";
+import { summarizeFundsRelations } from "@/data/funds/relationLabel";
 import { MpAvatar } from "./components/candidates/MpAvatar";
 import { CompanyTopContractsTile } from "./components/procurement/CompanyTopContractsTile";
 import { CompanyTopAwardersTile } from "./components/procurement/CompanyTopAwardersTile";
@@ -77,10 +85,11 @@ const SkeletonCard: FC = () => (
 // ИСУН register — both as a section alongside the procurement view and, for
 // a funds-only company, as the substantive content of the page. `standalone`
 // adds the explanatory note for the latter case.
-const EuFundsCard: FC<{ funds: FundsBeneficiary; standalone: boolean }> = ({
-  funds,
-  standalone,
-}) => {
+const EuFundsCard: FC<{
+  funds: FundsBeneficiary;
+  standalone: boolean;
+  mpLinks: FundsMpConnected[];
+}> = ({ funds, standalone, mpLinks }) => {
   const { t, i18n } = useTranslation();
   return (
     <Card className="my-4">
@@ -133,6 +142,32 @@ const EuFundsCard: FC<{ funds: FundsBeneficiary; standalone: boolean }> = ({
             </div>
           ) : null}
         </div>
+        {mpLinks.length > 0 ? (
+          <div className="space-y-1.5 rounded-md bg-amber-100/50 dark:bg-amber-900/20 p-2.5">
+            <div className="text-xs font-medium uppercase tracking-wide text-amber-700 dark:text-amber-500">
+              {t("company_funds_mp_linked") || "Connected to an MP"}
+            </div>
+            <ul className="space-y-1.5">
+              {mpLinks.map((e) => (
+                <li
+                  key={e.mpId}
+                  className="flex items-center gap-2 flex-wrap text-sm"
+                >
+                  <Link
+                    to={`/candidate/mp-${e.mpId}`}
+                    className="font-medium hover:underline inline-flex items-center gap-2"
+                  >
+                    <MpAvatar mpId={e.mpId} name={e.mpName} />
+                    {e.mpName}
+                  </Link>
+                  <span className="text-xs text-muted-foreground">
+                    — {summarizeFundsRelations(t, e.relations)}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        ) : null}
         <p className="text-[11px] text-muted-foreground/80">
           {t("funds_contracted_note") ||
             '"Contracted funds" is the total contracted project value per ИСУН — for some programmes it includes the beneficiary’s own co-financing, not only the EU grant.'}
@@ -148,6 +183,59 @@ const EuFundsCard: FC<{ funds: FundsBeneficiary; standalone: boolean }> = ({
   );
 };
 
+// Journalism cross-reference card. Shown when this company is one of the
+// hand-curated cases in funds/confirmed.json — an investigation named it and
+// the ИСУН register corroborates the grant. Narrative text is sourced
+// verbatim from the (Bulgarian) journalism; the labels are translated.
+const JournalismCard: FC<{ data: FundsConfirmedCase }> = ({ data }) => {
+  const { t } = useTranslation();
+  return (
+    <Card className="my-4">
+      <CardHeader className="pb-2">
+        <CardTitle className="text-base flex items-center gap-2">
+          <Newspaper className="h-4 w-4 text-muted-foreground" />
+          {t("company_journalism_title") || "In investigative journalism"}
+        </CardTitle>
+      </CardHeader>
+      <CardContent className="p-3 md:p-4 space-y-3 text-sm">
+        <p>
+          <span className="font-medium">
+            {t("company_journalism_connection") || "Reported connection"}:
+          </span>{" "}
+          {data.person}
+        </p>
+        <p className="text-muted-foreground">{data.claim.summary}</p>
+        <p className="text-xs text-muted-foreground">
+          <span className="font-medium">
+            {t("company_journalism_check") || "Our cross-check"}:
+          </span>{" "}
+          {data.verification}
+        </p>
+        <div>
+          <div className="text-xs font-medium text-muted-foreground mb-1">
+            {t("company_journalism_sources") || "Sources"}
+          </div>
+          <ul className="space-y-1">
+            {data.sources.map((s) => (
+              <li key={s.url}>
+                <a
+                  href={s.url}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="text-primary hover:underline inline-flex items-center gap-1"
+                >
+                  {s.outlet} — {s.title}
+                  <ExternalLink className="h-3 w-3 shrink-0" />
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      </CardContent>
+    </Card>
+  );
+};
+
 export const CompanyByEikScreen: FC = () => {
   const { eik } = useParams<{ eik: string }>();
   const { t, i18n } = useTranslation();
@@ -155,6 +243,8 @@ export const CompanyByEikScreen: FC = () => {
   const { beneficiary: funds, isLoading: fundsLoading } =
     useFundsBeneficiary(eik);
   const { entries: mpLinks } = useMpConnectedForEik(eik);
+  const { entries: fundsMpLinks } = useFundsConnectedForEik(eik);
+  const { caseData: confirmedCase } = useFundsConfirmedCase(eik);
   const isLoading = procLoading || fundsLoading;
 
   if (isLoading) {
@@ -197,7 +287,7 @@ export const CompanyByEikScreen: FC = () => {
         <div className="flex items-center gap-2 mb-4 text-sm text-muted-foreground">
           <Receipt className="h-4 w-4" />
           EIK {eik}
-          {mpLinks.length > 0 ? (
+          {mpLinks.length > 0 || fundsMpLinks.length > 0 ? (
             <span className="inline-block rounded bg-amber-200/60 dark:bg-amber-800/40 px-1.5 py-0.5 text-[10px] uppercase tracking-wide">
               {t("company_mp_tag") || "MP-tied"}
             </span>
@@ -330,7 +420,11 @@ export const CompanyByEikScreen: FC = () => {
           </>
         ) : null}
 
-        {funds ? <EuFundsCard funds={funds} standalone={!c} /> : null}
+        {funds ? (
+          <EuFundsCard funds={funds} standalone={!c} mpLinks={fundsMpLinks} />
+        ) : null}
+
+        {confirmedCase ? <JournalismCard data={confirmedCase} /> : null}
       </section>
     </>
   );

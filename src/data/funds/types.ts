@@ -94,3 +94,52 @@ export interface FundsMpConnectedFile {
   paidEur: number;
   entries: FundsMpConnected[];
 }
+
+// Curated journalism cross-reference (funds/confirmed.json) — beneficiaries a
+// published investigation named, whose grant the ИСУН register corroborates.
+export interface FundsConfirmedSource {
+  outlet: string;
+  title: string;
+  url: string;
+}
+
+export interface FundsConfirmedBeneficiary {
+  name: string;
+  eik: string;
+  contractedEur: number;
+  contractedBgn: number;
+  paidEur: number;
+  contractCount: number;
+}
+
+export interface FundsConfirmedCase {
+  id: string;
+  person: string;
+  programme: string;
+  round?: string;
+  beneficiaries: FundsConfirmedBeneficiary[];
+  claim: {
+    reportedGrantBgn?: number | null;
+    reportedCoFinancingBgn?: number | null;
+    reportedTotalBgn?: number | null;
+    reportedApprox?: string;
+    reportedGrantPerCompanyBgn?: number;
+    summary: string;
+  };
+  sources: FundsConfirmedSource[];
+  match: string;
+  verification: string;
+  status: string;
+}
+
+export interface FundsConfirmedFile {
+  generatedAt: string;
+  description: string;
+  measure: {
+    name: string;
+    fund: string;
+    note: string;
+    officialList: string;
+  };
+  cases: FundsConfirmedCase[];
+}

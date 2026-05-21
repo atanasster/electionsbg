@@ -32,6 +32,25 @@ export interface FundsMpConnectedSummary {
   paidEur: number;
 }
 
+/** EU-funds MP cross-reference for one beneficiary EIK — which MP(s) are
+ * linked to this company, and through what declared/registered relation.
+ * The mirror of `useMpConnectedFunds`, keyed by the company instead of the
+ * MP, for the per-company page. */
+export const useFundsConnectedForEik = (
+  eik?: string | null,
+): { entries: FundsMpConnected[]; isLoading: boolean } => {
+  const q = useFundsMpConnectedFile();
+  return useMemo(() => {
+    if (!eik || !q.data) {
+      return { entries: [], isLoading: !!eik && q.isLoading };
+    }
+    return {
+      entries: q.data.entries.filter((e) => e.beneficiaryEik === eik),
+      isLoading: false,
+    };
+  }, [eik, q.data, q.isLoading]);
+};
+
 /** EU-funds beneficiaries connected to one candidate (resolved by name) plus
  * a summary rollup. Returns `entries: []` when the file is missing or the MP
  * has no connected beneficiaries. */
