@@ -621,9 +621,12 @@ export const ConnectionsScreen: FC = () => {
     const pop = popoverRef.current;
     if (!pop) return;
     const { simNodes: sn, selectedId, w, h } = popoverDataRef.current;
+    // Narrow canvas: the popover is a bottom-docked sheet placed by CSS — skip
+    // imperative node-anchoring. (`w < 640` also covers the uninitialised w=0.)
+    if (w < 640) return;
     const id = selectedId ?? hoveredIdRef.current;
     const node = id ? sn.find((n) => n.id === id) : null;
-    if (!node || node.x == null || node.y == null || w === 0) return;
+    if (!node || node.x == null || node.y == null) return;
     const cam = cameraRef.current;
     const nx = w / 2 + cam.x + node.x * cam.scale;
     const ny = h / 2 + cam.y + node.y * cam.scale;
@@ -1157,6 +1160,19 @@ export const ConnectionsScreen: FC = () => {
     pathEdgeKeys
   );
 
+  // On a narrow canvas a floating/node-anchored popover would cover the whole
+  // graph, so detail and path popovers dock to the bottom of the visible
+  // canvas slice as a fixed-height sheet instead.
+  const isNarrow = size.w < 640;
+  const mobileSheetStyle = {
+    left: 8,
+    right: 8,
+    bottom: Math.max(0, size.h - visibleVRange.bottom) + 8,
+    maxHeight: Math.round(
+      (visibleVRange.bottom - visibleVRange.top || size.h) * 0.45,
+    ),
+  };
+
   // Mirror the render-state the popover placement needs into a ref so the
   // stable positioning callback (and the draw loop) can read it.
   popoverDataRef.current = {
@@ -1619,18 +1635,22 @@ export const ConnectionsScreen: FC = () => {
                 className={`absolute z-10 bg-card/85 backdrop-blur-sm border rounded-md shadow-lg p-3 overflow-y-auto ${
                   selected ? "" : "pointer-events-none"
                 }`}
-                style={{
-                  left: 0,
-                  top: 0,
-                  maxWidth: Math.min(320, Math.max(220, size.w - 16)),
-                  maxHeight: Math.max(
-                    160,
-                    Math.floor(
-                      (visibleVRange.bottom - visibleVRange.top || size.h) *
-                        0.6,
-                    ),
-                  ),
-                }}
+                style={
+                  isNarrow
+                    ? mobileSheetStyle
+                    : {
+                        left: 0,
+                        top: 0,
+                        maxWidth: Math.min(320, Math.max(220, size.w - 16)),
+                        maxHeight: Math.max(
+                          160,
+                          Math.floor(
+                            (visibleVRange.bottom - visibleVRange.top ||
+                              size.h) * 0.6,
+                          ),
+                        ),
+                      }
+                }
               >
                 <div className="text-sm font-semibold flex items-center gap-2">
                   {(() => {
@@ -1770,18 +1790,22 @@ export const ConnectionsScreen: FC = () => {
               graph && (
                 <div
                   className="absolute z-10 bg-card/85 backdrop-blur-sm border rounded-md shadow-lg p-3 overflow-y-auto"
-                  style={{
-                    top: visibleVRange.top + 8,
-                    right: 8,
-                    maxWidth: Math.min(300, Math.max(200, size.w - 16)),
-                    maxHeight: Math.max(
-                      160,
-                      Math.floor(
-                        (visibleVRange.bottom - visibleVRange.top || size.h) *
-                          0.6,
-                      ),
-                    ),
-                  }}
+                  style={
+                    isNarrow
+                      ? mobileSheetStyle
+                      : {
+                          top: visibleVRange.top + 8,
+                          right: 8,
+                          maxWidth: Math.min(300, Math.max(200, size.w - 16)),
+                          maxHeight: Math.max(
+                            160,
+                            Math.floor(
+                              (visibleVRange.bottom - visibleVRange.top ||
+                                size.h) * 0.6,
+                            ),
+                          ),
+                        }
+                  }
                 >
                   <div className="flex items-center justify-between gap-2 mb-2">
                     <span className="text-xs font-semibold">
