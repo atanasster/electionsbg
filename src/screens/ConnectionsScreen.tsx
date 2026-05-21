@@ -52,6 +52,7 @@ const TYPE_COLORS: Record<ConnectionsNode["type"], string> = {
   mp: "#2563eb", // blue
   company: "#d97706", // amber/gold
   person: "#737373", // gray
+  official: "#0d9488", // teal
 };
 
 const radiusForDegree = (degree: number): number =>

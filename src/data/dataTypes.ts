@@ -563,6 +563,56 @@ export type OfficialCompanyLinksFile = {
   byOfficial: Record<string, OfficialCompanyLinksEntry>;
 };
 
+/* --- Officials ↔ MP / peer bridge -----------------------------------------
+ * Additive artifact (`data/officials/derived/connections.json`) joining the
+ * officials→company cross-reference against the MP companies-index: which MPs
+ * (and which other officials) each official shares a company with. Built on
+ * top of company_links.json; does NOT touch the MP connections graph. */
+export type OfficialBridgeCompany = {
+  uic: string;
+  companyName: string | null;
+};
+
+export type OfficialMpConnection = {
+  mpId: number;
+  mpName: string;
+  sharedCompanies: OfficialBridgeCompany[];
+  /** "high" if the official reaches ≥1 shared company via a high-confidence
+   *  link; "low" if every bridging link is a namesake-ambiguous TR match. */
+  confidence: "high" | "low";
+};
+
+export type OfficialPeerConnection = {
+  slug: string;
+  name: string;
+  tier: "executive" | "municipal";
+  role: string;
+  sharedCompanies: OfficialBridgeCompany[];
+  /** Confidence in the subject official's own bridging link (see above). */
+  confidence: "high" | "low";
+};
+
+export type OfficialConnectionsEntry = {
+  slug: string;
+  name: string;
+  tier: "executive" | "municipal";
+  role: string;
+  municipality: string | null;
+  mpConnections: OfficialMpConnection[];
+  peerConnections: OfficialPeerConnection[];
+};
+
+export type OfficialConnectionsFile = {
+  generatedAt: string;
+  /** Officials with at least one MP or peer connection. */
+  total: number;
+  /** Sum of MP connections across all officials. */
+  officialMpEdges: number;
+  /** Sum of peer connections (A↔B counted under both A and B). */
+  officialPeerEdges: number;
+  byOfficial: Record<string, OfficialConnectionsEntry>;
+};
+
 export type MpDeclaration = {
   mpId: number;
   declarantName: string;
@@ -801,10 +851,27 @@ export type ConnectionsPersonNode = {
   type: "person";
   label: string; // raw display name
 };
+/** A non-MP official (cabinet, governor, mayor, councillor, …) folded into the
+ * graph as a first-class node. Keyed by official slug — NOT by name — so each
+ * official stays distinct from the name-collapsed `person` nodes. Official
+ * edges come from data/officials/derived/company_links.json. */
+export type ConnectionsOfficialNode = {
+  id: string; // "official:{slug}"
+  type: "official";
+  slug: string;
+  label: string; // official name
+  /** "executive" (cabinet / governors / agency heads) or "municipal". */
+  tier: "executive" | "municipal";
+  /** OfficialCategoryKind (executive) or MunicipalOfficialRole (municipal). */
+  role: string;
+  /** Municipality — municipal tier only; null for the executive tier. */
+  municipality: string | null;
+};
 export type ConnectionsNode =
   | ConnectionsMpNode
   | ConnectionsCompanyNode
-  | ConnectionsPersonNode;
+  | ConnectionsPersonNode
+  | ConnectionsOfficialNode;
 
 export type ConnectionsEdgeKind =
   | "declared_stake" // MP declared this company in their property declaration
@@ -939,6 +1006,14 @@ export type ConnectionsSearchEntry =
       uic: string | null;
       label: string;
       seat: string | null;
+    }
+  | {
+      type: "official";
+      slug: string;
+      label: string;
+      tier: "executive" | "municipal";
+      role: string;
+      municipality: string | null;
     };
 export type ConnectionsSearchFile = {
   generatedAt: string;
@@ -985,6 +1060,18 @@ export type ConnectionsPartyMatrixFile = {
   all: ConnectionsPartyMatrixScope;
 };
 
+/** A non-MP official ranked by connections-graph degree. Officials have no
+ * per-parliament (`nsFolders`) scope, so they appear only in the lifetime
+ * `topOfficials` list, never in `byNs`. */
+export type ConnectionsTopOfficial = {
+  slug: string;
+  label: string;
+  tier: "executive" | "municipal";
+  role: string;
+  municipality: string | null;
+  totalDegree: number;
+  highConfDegree: number;
+};
 export type ConnectionsRankings = {
   generatedAt: string;
   /** Lifetime rankings — every MP/company with any degree, regardless of
@@ -993,10 +1080,22 @@ export type ConnectionsRankings = {
    * full picture. */
   topMps: ConnectionsTopMp[];
   topCompanies: ConnectionsTopCompany[];
+  /** Lifetime ranking of officials with at least one high-confidence link. */
+  topOfficials?: ConnectionsTopOfficial[];
   /** Per-parliament slices keyed by NS folder ("52", "51", ...). Each scope
    * filters MPs to those whose `nsFolders` contains that NS, and recomputes
    * the company rankings to count only the MPs in that NS. */
   byNs: Record<string, ConnectionsRankingsScope>;
+};
+
+/** Per-official subgraph file: official-connections/{slug}.json — the
+ * official's 1-hop companies + 2-hop co-officers. No precomputed paths
+ * (BFS path enumeration stays MP-only). */
+export type OfficialConnectionsSubgraph = {
+  generatedAt: string;
+  officialNodeId: string;
+  nodes: ConnectionsNode[];
+  edges: ConnectionsEdge[];
 };
 
 /** Distinct car-make rollup driving the "Top car makes" dashboard column.

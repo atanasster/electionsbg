@@ -32,6 +32,7 @@ const TYPE_COLORS: Record<ConnectionsNode["type"], string> = {
   mp: "#2563eb",
   company: "#d97706",
   person: "#737373",
+  official: "#0d9488",
 };
 
 /** Tile shown on the candidate dashboard. Surfaces the MP's pre-computed

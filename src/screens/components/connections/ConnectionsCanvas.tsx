@@ -29,6 +29,7 @@ const TYPE_COLORS: Record<ConnectionsNode["type"], string> = {
   mp: "#2563eb",
   company: "#d97706",
   person: "#737373",
+  official: "#0d9488",
 };
 
 type Props = {

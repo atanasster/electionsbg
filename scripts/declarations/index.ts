@@ -27,6 +27,7 @@ import {
 import { integrateTr } from "./tr/integrate";
 import { buildConnectionsGraph } from "./build_connections_graph";
 import { buildOfficialsCompanyLinks } from "./build_officials_company_links";
+import { buildOfficialsConnections } from "./build_officials_connections";
 import { buildAssetsRankings } from "./build_assets_rankings";
 import { buildCarMakes } from "./build_car_makes";
 import { buildDataProvenance } from "./build_data_provenance";
@@ -261,10 +262,17 @@ export const parseFinancialDeclarations = async ({
   // (the user has not yet run `tr/cli.ts --bulk --reconstruct`).
   integrateTr({ publicFolder, rawFolder: dataFolder, stringify });
 
+  // Officials → company cross-reference. Joins executive + municipal officials
+  // to companies (declared stakes + TR officer/owner name match). Runs before
+  // the connections graph so the graph's phase 2.5 can fold officials in as
+  // first-class nodes. No-ops if data/officials/ has not been ingested.
+  buildOfficialsCompanyLinks({ stringify });
+
   // Slice 4: assemble the cross-MP/company/person connections graph from the
   // augmented companies-index + mp-management files. When raw_data/tr/state.sqlite
   // exists, also pull every current officer/owner for the touched UICs so the
-  // graph surfaces non-MP co-officers (the "spatial" payoff).
+  // graph surfaces non-MP co-officers (the "spatial" payoff). Phase 2.5 folds
+  // officials in as first-class nodes from the cross-reference above.
   buildConnectionsGraph({ publicFolder, rawFolder: dataFolder, stringify });
 
   // Phase 7: per-MP wealth rollups + cross-MP rankings file consumed by the
@@ -281,8 +289,8 @@ export const parseFinancialDeclarations = async ({
   // Drives the staleness disclaimer on the connections tile.
   buildDataProvenance({ publicFolder, stringify });
 
-  // Officials → company cross-reference. Additive artifact joining executive +
-  // municipal officials to companies (declared stakes + TR officer/owner name
-  // match). No-ops with a log line if data/officials/ has not been ingested.
-  buildOfficialsCompanyLinks({ stringify });
+  // Officials ↔ MP / peer bridge — joins the cross-reference above against the
+  // MP companies-index to surface shared-company connections. Depends on the
+  // company_links.json the previous step just wrote.
+  buildOfficialsConnections({ stringify });
 };

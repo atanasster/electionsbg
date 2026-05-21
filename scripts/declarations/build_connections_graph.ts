@@ -32,6 +32,7 @@ import type {
   ConnectionsGraph,
   ConnectionsMpNode,
   ConnectionsNode,
+  ConnectionsOfficialNode,
   ConnectionsPath,
   ConnectionsPersonNode,
   ConnectionsPartyMatrixCell,
@@ -42,6 +43,7 @@ import type {
   ConnectionsTopPair,
   ConnectionsTopPairEndpoint,
   MpManagementFile,
+  OfficialCompanyLinksFile,
   TrCompanyEnrichment,
   TrCompanyOfficer,
 } from "../../src/data/dataTypes";
@@ -93,6 +95,7 @@ const companySlugNodeId = (slug: string) => `company:${slug}`;
 const companyUicNodeId = (uic: string) => `company:tr:${uic}`;
 const companyNameNodeId = (norm: string) => `company:name:${norm}`;
 const personNodeId = (norm: string) => `person:${norm}`;
+const officialNodeId = (slug: string) => `official:${slug}`;
 
 const edgeKey = (
   e: Pick<ConnectionsEdge, "source" | "target" | "kind" | "role">,
@@ -561,6 +564,31 @@ export const buildConnectionsGraph = ({
     return id;
   };
 
+  // Officials are keyed by slug (not name) so each stays distinct from the
+  // name-collapsed `person` nodes — see phase 2.5.
+  const ensureOfficialNode = (entry: {
+    slug: string;
+    name: string;
+    tier: "executive" | "municipal";
+    role: string;
+    municipality: string | null;
+  }): string => {
+    const id = officialNodeId(entry.slug);
+    if (!nodes.has(id)) {
+      const node: ConnectionsOfficialNode = {
+        id,
+        type: "official",
+        slug: entry.slug,
+        label: entry.name,
+        tier: entry.tier,
+        role: entry.role,
+        municipality: entry.municipality,
+      };
+      nodes.set(id, node);
+    }
+    return id;
+  };
+
   // Routes a TR-listed name to either a company node (when the name carries a
   // Bulgarian legal-entity suffix like ЕООД/ООД/АД) or a person node. The
   // legal-entity branch prevents companies-as-owners from being fabricated as
@@ -671,6 +699,80 @@ export const buildConnectionsGraph = ({
         });
       }
     }
+  }
+
+  // ---- 2.5) Officials from the cross-reference --------------------------
+  //
+  // Folds executive + municipal officials into the graph as first-class
+  // `official:{slug}` nodes. Their company links come from the committed
+  // cross-reference (data/officials/derived/company_links.json), which already
+  // resolved officials→companies with namesake-confidence flags — so names are
+  // never re-matched here. Runs BEFORE the TR officer expansion below, so
+  // officials' own companies also get their co-officers pulled in (the real
+  // cross-political-class web). Officials with no UIC-bearing link get no node.
+
+  const officialLinksPath = path.join(
+    publicFolder,
+    "officials",
+    "derived",
+    "company_links.json",
+  );
+  if (fs.existsSync(officialLinksPath)) {
+    const officialLinks: OfficialCompanyLinksFile = JSON.parse(
+      fs.readFileSync(officialLinksPath, "utf-8"),
+    );
+    const ownerTrRoles = new Set([
+      "partner",
+      "sole_owner",
+      "actual_owner",
+      "foreign_trader",
+    ]);
+    let officialEdgeCount = 0;
+    for (const entry of Object.values(officialLinks.byOfficial)) {
+      let officialId: string | null = null;
+      for (const link of entry.links) {
+        if (!link.uic) continue; // only UIC-keyed links can join a company node
+        if (!officialId) officialId = ensureOfficialNode(entry);
+        const companyNodeId = ensureCompanyNodeFromUic(
+          link.uic,
+          link.companyName,
+          null,
+          null,
+          null,
+        );
+        const isOwner =
+          link.source === "tr" &&
+          link.trRole != null &&
+          ownerTrRoles.has(link.trRole);
+        addEdge({
+          source: officialId,
+          target: companyNodeId,
+          kind:
+            link.source === "declared"
+              ? "declared_stake"
+              : isOwner
+                ? "tr_owner"
+                : "tr_role",
+          role: link.trRole ?? "declared_share",
+          isCurrent: true,
+          // A declared stake is the official's own corroborated filing →
+          // "high". A TR officer/owner record is only a name match — exactly
+          // how the MP-side phase-3 expansion treats name matches — so it is
+          // "medium" regardless of the company_links namesake flag. This is
+          // what keeps the officials ranking from collapsing into a
+          // "most common Bulgarian name" list (Иван Петров Петров et al.).
+          confidence: link.source === "declared" ? "high" : "medium",
+        });
+        officialEdgeCount++;
+      }
+    }
+    console.log(
+      `[connections]   folded ${officialEdgeCount} official↔company edge(s) from company_links.json`,
+    );
+  } else {
+    console.log(
+      `[connections]   no officials company_links.json — skipping officials`,
+    );
   }
 
   // ---- 3) Expand: pull all current officers/owners for every TR-touched UIC
@@ -983,6 +1085,64 @@ export const buildConnectionsGraph = ({
     );
     mpFileCount++;
     totalPaths += paths.length;
+  }
+
+  // ---- 4-officials) Per-official subgraphs ------------------------------
+  //
+  // Mirrors the per-MP subgraph files for officials: the official's 1-hop
+  // companies + 2-hop co-officers. No precomputed `paths[]` — BFS path
+  // enumeration stays MP-only (officials are slug-keyed and enumerating
+  // official↔official paths would multiply the output ~1,400×).
+
+  const officialConnectionsDir = path.join(
+    parliamentDir,
+    "official-connections",
+  );
+  fs.rmSync(officialConnectionsDir, { recursive: true, force: true });
+  fs.mkdirSync(officialConnectionsDir, { recursive: true });
+
+  let officialFileCount = 0;
+  for (const node of nodes.values()) {
+    if (node.type !== "official") continue;
+    const ownId = node.id;
+    const neighborCompanies = (adjacency.get(ownId) ?? []).map(
+      (x) => x.neighbor,
+    );
+    const second = new Set<string>();
+    for (const c of neighborCompanies) {
+      for (const { neighbor: n } of adjacency.get(c) ?? []) {
+        if (n !== ownId) second.add(n);
+      }
+    }
+    const idSet = new Set<string>([ownId, ...neighborCompanies, ...second]);
+    if (idSet.size <= 1) continue;
+    const subNodes: ConnectionsNode[] = [];
+    for (const id of idSet) {
+      const n = nodes.get(id);
+      if (n) subNodes.push(n);
+    }
+    const seenEdges = new Set<string>();
+    const subEdges: ConnectionsEdge[] = [];
+    for (const id of idSet) {
+      for (const e of edgesByNode.get(id) ?? []) {
+        if (!idSet.has(e.source) || !idSet.has(e.target)) continue;
+        const k = `${e.source}${e.target}${e.kind}${e.role ?? ""}`;
+        if (seenEdges.has(k)) continue;
+        seenEdges.add(k);
+        subEdges.push(e);
+      }
+    }
+    fs.writeFileSync(
+      path.join(officialConnectionsDir, `${node.slug}.json`),
+      stringify({
+        generatedAt,
+        officialNodeId: ownId,
+        nodes: subNodes,
+        edges: subEdges,
+      }),
+      "utf-8",
+    );
+    officialFileCount++;
   }
 
   // ---- 4b) Score and emit global top MP↔MP pairs -------------------------
@@ -1329,8 +1489,19 @@ export const buildConnectionsGraph = ({
     totalDegree: number;
   };
 
+  type TopOfficial = {
+    slug: string;
+    label: string;
+    tier: "executive" | "municipal";
+    role: string;
+    municipality: string | null;
+    totalDegree: number;
+    highConfDegree: number;
+  };
+
   const topMpsAll: TopMp[] = [];
   const topCompaniesAll: TopCompany[] = [];
+  const topOfficialsAll: TopOfficial[] = [];
 
   // For company → MP count we walk edges directly so we can apply the
   // confidence gate (avoids the common-name false-positive flooding the list).
@@ -1407,6 +1578,16 @@ export const buildConnectionsGraph = ({
         mpCount: mpsByCompany.get(node.id)?.size ?? 0,
         totalDegree: row.totalDegree,
       });
+    } else if (node.type === "official") {
+      topOfficialsAll.push({
+        slug: node.slug,
+        label: node.label,
+        tier: node.tier,
+        role: node.role,
+        municipality: node.municipality,
+        totalDegree: row.totalDegree,
+        highConfDegree: row.highConfDegree,
+      });
     }
   }
 
@@ -1436,6 +1617,13 @@ export const buildConnectionsGraph = ({
       b.totalDegree - a.totalDegree ||
       a.label.localeCompare(b.label, "bg"),
   );
+  // Officials rank by high-confidence neighbourhood size, same as MPs.
+  topOfficialsAll.sort(
+    (a, b) =>
+      b.highConfDegree - a.highConfDegree ||
+      b.totalDegree - a.totalDegree ||
+      a.label.localeCompare(b.label, "bg"),
+  );
 
   // Persist *every* MP/company with any degree (not just top 30). The home
   // page uses the head, the regional dashboards filter by region, and a
@@ -1449,6 +1637,11 @@ export const buildConnectionsGraph = ({
   // ambiguous Commerce Registry hits in).
   const lifetimeTopMps = topMpsAll.filter((r) => r.highConfDegree > 0);
   const lifetimeTopCompanies = topCompaniesAll.filter((r) => r.totalDegree > 0);
+  // Officials with at least one high-confidence (declared or unique-name TR)
+  // link — same noise gate as the MP list.
+  const lifetimeTopOfficials = topOfficialsAll.filter(
+    (r) => r.highConfDegree > 0,
+  );
 
   // Per-parliament slices. For each NS folder we filter MPs to those whose
   // nsFolders include it, then recompute the company rankings against just
@@ -1555,6 +1748,7 @@ export const buildConnectionsGraph = ({
     generatedAt: new Date().toISOString(),
     topMps: lifetimeTopMps,
     topCompanies: lifetimeTopCompanies,
+    topOfficials: lifetimeTopOfficials,
     byNs,
   };
 
@@ -1580,6 +1774,7 @@ export const buildConnectionsGraph = ({
   const rankingsTop = {
     generatedAt: rankings.generatedAt,
     topMps: rankings.topMps.slice(0, SLIM_TOP_N),
+    topOfficials: rankings.topOfficials.slice(0, SLIM_TOP_N),
     byNs: Object.fromEntries(
       Object.entries(rankings.byNs).map(([ns, slice]) => [
         ns,
@@ -1630,6 +1825,23 @@ export const buildConnectionsGraph = ({
         <T extends { label: string | null }>(x: T | null): x is T =>
           x !== null && !!x.label && x.label.trim() !== "" && x.label !== "-",
       ),
+    // Officials are identified entities (slug-keyed), so — unlike the
+    // name-collapsed `person` nodes — they are safe to surface in search.
+    ...Array.from(nodes.values())
+      .filter((n) => n.type === "official")
+      .map((n) =>
+        n.type === "official"
+          ? {
+              type: "official" as const,
+              slug: n.slug,
+              label: n.label,
+              tier: n.tier,
+              role: n.role,
+              municipality: n.municipality,
+            }
+          : null,
+      )
+      .filter(<T>(x: T | null): x is T => x !== null),
   ];
   const searchPath = path.join(parliamentDir, "connections-search.json");
   fs.writeFileSync(
@@ -1673,19 +1885,24 @@ export const buildConnectionsGraph = ({
     "utf-8",
   );
 
-  const counts = { mp: 0, company: 0, person: 0 };
+  const counts = { mp: 0, company: 0, person: 0, official: 0 };
   for (const n of graph.nodes) counts[n.type]++;
   console.log(
     `[connections] wrote ${graph.nodes.length} nodes ` +
-      `(${counts.mp} MP, ${counts.company} company, ${counts.person} person), ` +
+      `(${counts.mp} MP, ${counts.company} company, ${counts.person} person, ` +
+      `${counts.official} official), ` +
       `${graph.edges.length} edges → ${fullPath}`,
   );
   console.log(
     `[connections]   per-MP subgraphs → ${mpFileCount} files (${totalPaths} MP→MP paths total) in ${mpConnectionsDir}`,
   );
   console.log(
+    `[connections]   per-official subgraphs → ${officialFileCount} files in ${officialConnectionsDir}`,
+  );
+  console.log(
     `[connections]   rankings → ${rankings.topMps.length} top MPs, ` +
       `${rankings.topCompanies.length} top companies, ` +
+      `${rankings.topOfficials.length} top officials, ` +
       `${Object.keys(rankings.byNs).length} NS scopes`,
   );
   console.log(
