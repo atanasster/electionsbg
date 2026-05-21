@@ -200,6 +200,29 @@ export const ConnectionsScreen: FC = () => {
       n.type === "mp" ? localizedMpLabel(n.mpId, n.label) : n.label,
     [localizedMpLabel],
   );
+  // Human-readable relationship for one path hop: the role the person/MP/
+  // official holds at the company. `declared` flags a declared-stake edge so
+  // the UI can colour it like the graph's declared-stake links.
+  const edgeRelationLabel = useCallback(
+    (edge: ConnectionsEdge | undefined) => {
+      if (!edge) return null;
+      // i18next returns the key itself when a key is missing — treat that as
+      // "untranslated" and fall back to a plain-English literal.
+      const tr = (key: string, fallback: string): string => {
+        const v = t(key);
+        return v && v !== key ? v : fallback;
+      };
+      let text =
+        edge.kind === "declared_stake"
+          ? tr("connections_edge_declared_stake", "declared stake")
+          : tr(`tr_role_${edge.role}`, edge.role);
+      if (!edge.isCurrent) {
+        text = `${text} · ${tr("connections_edge_former", "former")}`;
+      }
+      return { text, declared: edge.kind === "declared_stake" };
+    },
+    [t],
+  );
   // Filter state — lifted into the URL via useConnectionsFilters so all chips
   // are shareable and back-button friendly.
   const {
@@ -1085,6 +1108,30 @@ export const ConnectionsScreen: FC = () => {
     [simNodes],
   );
 
+  // Best edge between each node pair (both orderings), so the path popover can
+  // label every hop. "Best" = currently-active and high-confidence preferred,
+  // matching how the canvas picks which parallel edge to draw.
+  const edgeByPair = useMemo(() => {
+    const m = new Map<string, SimLink>();
+    const score = (e: SimLink) =>
+      (e.isCurrent ? 2 : 0) + (e.confidence === "high" ? 1 : 0);
+    for (const link of simLinks) {
+      const s =
+        typeof link.source === "object"
+          ? (link.source as SimNode).id
+          : String(link.source);
+      const tg =
+        typeof link.target === "object"
+          ? (link.target as SimNode).id
+          : String(link.target);
+      for (const k of [`${s}|${tg}`, `${tg}|${s}`]) {
+        const prev = m.get(k);
+        if (!prev || score(link) > score(prev)) m.set(k, link);
+      }
+    }
+    return m;
+  }, [simLinks]);
+
   const filteredFrom = useMemo(() => {
     if (!fromQuery || !fromOpen) return [];
     const q = fromQuery.toLowerCase();
@@ -1460,7 +1507,7 @@ export const ConnectionsScreen: FC = () => {
             {detail && !isLoading && graph && !pathResultVisible && (
               <div
                 ref={popoverRef}
-                className={`absolute z-10 bg-card/95 backdrop-blur-sm border rounded-md shadow-lg p-3 overflow-y-auto ${
+                className={`absolute z-10 bg-card/85 backdrop-blur-sm border rounded-md shadow-lg p-3 overflow-y-auto ${
                   selected ? "" : "pointer-events-none"
                 }`}
                 style={{
@@ -1609,7 +1656,7 @@ export const ConnectionsScreen: FC = () => {
               !isLoading &&
               graph && (
                 <div
-                  className="absolute z-10 bg-card/95 backdrop-blur-sm border rounded-md shadow-lg p-3 overflow-y-auto"
+                  className="absolute z-10 bg-card/85 backdrop-blur-sm border rounded-md shadow-lg p-3 overflow-y-auto"
                   style={{
                     top: visibleVRange.top + 8,
                     right: 8,
@@ -1649,18 +1696,35 @@ export const ConnectionsScreen: FC = () => {
                     </p>
                   ) : (
                     <div className="flex flex-col text-xs">
-                      {(pathTrail ?? []).map((nodeId, i) => {
+                      {(pathTrail ?? []).map((nodeId, i, trail) => {
                         const node = simNodes.find((n) => n.id === nodeId);
                         if (!node) return null;
                         const label =
                           node.type === "mp"
                             ? localizedMpLabel(node.mpId, node.label)
                             : node.label;
+                        const rel =
+                          i > 0
+                            ? edgeRelationLabel(
+                                edgeByPair.get(`${trail[i - 1]}|${nodeId}`),
+                              )
+                            : null;
                         return (
                           <div key={nodeId}>
                             {i > 0 && (
-                              <div className="pl-3 text-muted-foreground leading-none py-0.5">
-                                ↓
+                              <div className="flex items-center gap-1 pl-2 leading-none py-0.5">
+                                <span className="text-muted-foreground">↓</span>
+                                {rel && (
+                                  <span
+                                    className={
+                                      rel.declared
+                                        ? "text-[10px] text-blue-600 dark:text-blue-400"
+                                        : "text-[10px] text-amber-600 dark:text-amber-500"
+                                    }
+                                  >
+                                    {rel.text}
+                                  </span>
+                                )}
                               </div>
                             )}
                             <div className="flex items-center gap-1.5">
