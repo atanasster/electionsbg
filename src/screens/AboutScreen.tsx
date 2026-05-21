@@ -318,6 +318,15 @@ export const AboutScreen = () => {
               </ul>
             </DataGroup>
 
+            <DataGroup title={t("eu_funds_section")}>
+              <ul className="space-y-2">
+                <SourceItem
+                  href="https://2020.eufunds.bg/bg/0/0/Beneficiary"
+                  label={t("eu_funds_isun_source")}
+                />
+              </ul>
+            </DataGroup>
+
             <DataGroup title={t("budget_section")}>
               <ul className="space-y-2">
                 <SourceItem

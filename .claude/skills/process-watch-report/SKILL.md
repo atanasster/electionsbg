@@ -35,6 +35,7 @@ The "Changed" section of the report contains a bulleted list. Each bullet's labe
 | `data.egov.bg Commerce Registry` | `update-connections` |
 | `data.egov.bg АОП` (procurement) | `update-procurement` |
 | `АОП debarred-suppliers register` | `update-procurement` (Step 5 — debarred-list refresh) |
+| `ИСУН EU funds` (beneficiaries) | `update-funds` |
 | `data.egov.bg бюджет` (budget execution) | `update-budget` |
 | `Per-ministry execution reports` (програмен бюджет) | `update-budget` |
 | `Сметна палата party financing` | `update-financing` |
@@ -81,6 +82,7 @@ Each watcher source maps to one or more downstream skills. Multiple sources can 
 | `egov_commerce` | `update-connections` |
 | `egov_procurement` | `update-procurement` |
 | `aop_debarred` | `update-procurement` (Step 5 — debarred-list refresh) |
+| `isun_eu_funds` | `update-funds` |
 | `egov_budget_execution` | `update-budget` |
 | `ministry_execution_reports` | `update-budget` |
 | `smetna_palata` | `update-financing` |

@@ -84,6 +84,10 @@ dist.old-*
 /data/_cache/minfin_mreports/
 /data/_cache/minfin_fr_xlsx/*.xlsx
 
+# ИСУН EU-funds XLSX export — re-fetchable upstream cache. The parsed JSON
+# (data/funds/) is committed; this raw download is not.
+/data/_cache/funds/
+
 # Bulky regenerable budget files — same convention as procurement above. The
 # small metadata (index.json, kfp.json, documents.json, classification/,
 # crosswalk-overrides.json) is committed; the per-year fact / reconciliation /
