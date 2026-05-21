@@ -2,7 +2,7 @@
   "electionDate": "2024_10_27",
   "start": "2024-10-27",
   "end": "2026-04-19",
-  "generatedAt": "2026-05-20T23:00:24.259Z",
+  "generatedAt": "2026-05-21T09:51:41.789Z",
   "totals": {
     "contracts": 11081,
     "amendments": 2385,
@@ -10,9 +10,9 @@
     "contractorCount": 3710,
     "awarderCount": 1385,
     "totalEur": 17296529586.729706,
-    "mpCount": 13,
-    "mpConnectedContractorCount": 13,
-    "mpConnectedTotalEur": 249750284.74999994
+    "mpCount": 14,
+    "mpConnectedContractorCount": 14,
+    "mpConnectedTotalEur": 265534745.14910963
   },
   "topContractors": [
     {
@@ -729,6 +729,17 @@
       "contractorCount": 1,
       "topContractorNames": [
         "АВТОМАГИСТРАЛИ ЕАД"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 938,
+      "mpName": "Дарин Величков Матов",
+      "totalEur": 15784460.399109686,
+      "contractCount": 42,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "БЪЛГАРСКИ ПОЩИ ЕАД"
       ],
       "confidence": "medium"
     },

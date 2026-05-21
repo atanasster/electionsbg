@@ -2,7 +2,7 @@
   "electionDate": "2021_11_14",
   "start": "2021-11-14",
   "end": "2022-10-02",
-  "generatedAt": "2026-05-20T23:00:24.266Z",
+  "generatedAt": "2026-05-21T09:51:41.796Z",
   "totals": {
     "contracts": 22133,
     "amendments": 0,
@@ -10,9 +10,9 @@
     "contractorCount": 4522,
     "awarderCount": 1469,
     "totalEur": 4018554182.839356,
-    "mpCount": 19,
-    "mpConnectedContractorCount": 19,
-    "mpConnectedTotalEur": 17415175.644099943
+    "mpCount": 21,
+    "mpConnectedContractorCount": 21,
+    "mpConnectedTotalEur": 21869004.647643186
   },
   "topContractors": [
     {
@@ -734,6 +734,17 @@
       "confidence": "medium"
     },
     {
+      "mpId": 938,
+      "mpName": "Дарин Величков Матов",
+      "totalEur": 4275031.255272698,
+      "contractCount": 42,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "БЪЛГАРСКИ ПОЩИ ЕАД"
+      ],
+      "confidence": "medium"
+    },
+    {
       "mpId": 5094,
       "mpName": "Николай Иванов Косев",
       "totalEur": 807716.3659418253,
@@ -807,6 +818,17 @@
       "contractorCount": 1,
       "topContractorNames": [
         "МИНИ МАРИЦА - ИЗТОК ЕАД"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 3160,
+      "mpName": "Рушен Мехмед Риза",
+      "totalEur": 178797.74827055522,
+      "contractCount": 6,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "ХИГИЯМЕД ООД"
       ],
       "confidence": "medium"
     },

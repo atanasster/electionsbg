@@ -2,7 +2,7 @@
   "electionDate": "2013_05_12",
   "start": "2013-05-12",
   "end": "2014-10-05",
-  "generatedAt": "2026-05-20T23:00:24.277Z",
+  "generatedAt": "2026-05-21T09:51:41.807Z",
   "totals": {
     "contracts": 23366,
     "amendments": 0,
@@ -10,9 +10,9 @@
     "contractorCount": 6582,
     "awarderCount": 1286,
     "totalEur": 4960771103.148951,
-    "mpCount": 25,
-    "mpConnectedContractorCount": 27,
-    "mpConnectedTotalEur": 27281827.919604454
+    "mpCount": 27,
+    "mpConnectedContractorCount": 29,
+    "mpConnectedTotalEur": 29152668.232924122
   },
   "topContractors": [
     {
@@ -776,6 +776,17 @@
       "confidence": "medium"
     },
     {
+      "mpId": 938,
+      "mpName": "Дарин Величков Матов",
+      "totalEur": 1735476.8103567285,
+      "contractCount": 9,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Български пощи ЕАД - РУ „Западен регион”  - (Териториално поделение  Софийски пощенски съобщения  /ТП \"СПС\"/ ЕАД)"
+      ],
+      "confidence": "medium"
+    },
+    {
       "mpId": 4745,
       "mpName": "Ваня Иванова Василева",
       "totalEur": 1340812.1002336603,
@@ -872,6 +883,17 @@
       "contractorCount": 1,
       "topContractorNames": [
         "Еврохим-Груп ООД - Габрово"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 233,
+      "mpName": "Николай Петров Кънчев",
+      "totalEur": 135363.50296293644,
+      "contractCount": 2,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Драгажен флот - Истър АД - Свищов"
       ],
       "confidence": "medium"
     },

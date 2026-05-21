@@ -2,7 +2,7 @@
   "electionDate": "2026_04_19",
   "start": "2026-04-19",
   "end": null,
-  "generatedAt": "2026-05-20T23:00:24.257Z",
+  "generatedAt": "2026-05-21T09:51:41.787Z",
   "totals": {
     "contracts": 1924,
     "amendments": 364,
@@ -10,9 +10,9 @@
     "contractorCount": 1006,
     "awarderCount": 544,
     "totalEur": 902508699.3800005,
-    "mpCount": 5,
-    "mpConnectedContractorCount": 4,
-    "mpConnectedTotalEur": 1304794.6
+    "mpCount": 6,
+    "mpConnectedContractorCount": 5,
+    "mpConnectedTotalEur": 1326765.9099999997
   },
   "topContractors": [
     {
@@ -771,6 +771,17 @@
       "contractorCount": 1,
       "topContractorNames": [
         "НАПОИТЕЛНИ СИСТЕМИ ЕАД"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 938,
+      "mpName": "Дарин Величков Матов",
+      "totalEur": 21971.31,
+      "contractCount": 3,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "БЪЛГАРСКИ ПОЩИ ЕАД"
       ],
       "confidence": "medium"
     }

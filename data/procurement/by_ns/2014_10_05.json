@@ -2,7 +2,7 @@
   "electionDate": "2014_10_05",
   "start": "2014-10-05",
   "end": "2017-03-26",
-  "generatedAt": "2026-05-20T23:00:24.274Z",
+  "generatedAt": "2026-05-21T09:51:41.804Z",
   "totals": {
     "contracts": 50453,
     "amendments": 0,
@@ -10,9 +10,9 @@
     "contractorCount": 8592,
     "awarderCount": 1438,
     "totalEur": 10488018082.191435,
-    "mpCount": 25,
-    "mpConnectedContractorCount": 25,
-    "mpConnectedTotalEur": 40850264.02090162
+    "mpCount": 27,
+    "mpConnectedContractorCount": 27,
+    "mpConnectedTotalEur": 76754127.9354545
   },
   "topContractors": [
     {
@@ -324,8 +324,10 @@
       "name": "Български пощи /БП/ ЕАД - София",
       "totalEur": 35898239.70385972,
       "contractCount": 91,
-      "mpTied": false,
-      "mpIds": []
+      "mpTied": true,
+      "mpIds": [
+        938
+      ]
     },
     {
       "eik": "131107072",
@@ -720,6 +722,17 @@
   ],
   "topMps": [
     {
+      "mpId": 938,
+      "mpName": "Дарин Величков Матов",
+      "totalEur": 35898239.70385972,
+      "contractCount": 91,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Български пощи /БП/ ЕАД - София"
+      ],
+      "confidence": "medium"
+    },
+    {
       "mpId": 1689,
       "mpName": "Андон Петров Андонов",
       "totalEur": 16842609.02021137,
@@ -993,6 +1006,17 @@
       "contractorCount": 1,
       "topContractorNames": [
         "Раломекс АД - Завет"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 233,
+      "mpName": "Николай Петров Кънчев",
+      "totalEur": 5624.210693158403,
+      "contractCount": 2,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Драгажен флот - Истър АД - Свищов"
       ],
       "confidence": "medium"
     }

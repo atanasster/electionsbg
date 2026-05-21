@@ -2,7 +2,7 @@
   "electionDate": "2017_03_26",
   "start": "2017-03-26",
   "end": "2021-04-04",
-  "generatedAt": "2026-05-20T23:00:24.271Z",
+  "generatedAt": "2026-05-21T09:51:41.801Z",
   "totals": {
     "contracts": 58157,
     "amendments": 0,
@@ -10,9 +10,9 @@
     "contractorCount": 8134,
     "awarderCount": 1369,
     "totalEur": 18541328708.254032,
-    "mpCount": 28,
-    "mpConnectedContractorCount": 29,
-    "mpConnectedTotalEur": 163642346.6763471
+    "mpCount": 30,
+    "mpConnectedContractorCount": 31,
+    "mpConnectedTotalEur": 187353100.49953216
   },
   "topContractors": [
     {
@@ -744,6 +744,17 @@
       "confidence": "medium"
     },
     {
+      "mpId": 938,
+      "mpName": "Дарин Величков Матов",
+      "totalEur": 23700630.243937347,
+      "contractCount": 97,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Български пощи /БП/ ЕАД - София"
+      ],
+      "confidence": "medium"
+    },
+    {
       "mpId": 805,
       "mpName": "Йордан Петков Йорданов",
       "totalEur": 19503826.810101077,
@@ -1007,6 +1018,17 @@
       "contractorCount": 1,
       "topContractorNames": [
         "Осъм инженеринг АД - Ловеч"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 233,
+      "mpName": "Николай Петров Кънчев",
+      "totalEur": 10123.579247685126,
+      "contractCount": 2,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Драгажен флот - Истър АД - Свищов"
       ],
       "confidence": "medium"
     },

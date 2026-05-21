@@ -2,7 +2,7 @@
   "electionDate": "2023_04_02",
   "start": "2023-04-02",
   "end": "2024-06-09",
-  "generatedAt": "2026-05-20T23:00:24.263Z",
+  "generatedAt": "2026-05-21T09:51:41.793Z",
   "totals": {
     "contracts": 26909,
     "amendments": 0,
@@ -10,9 +10,9 @@
     "contractorCount": 5328,
     "awarderCount": 1750,
     "totalEur": 5015600937.144092,
-    "mpCount": 23,
-    "mpConnectedContractorCount": 24,
-    "mpConnectedTotalEur": 19090145.436975606
+    "mpCount": 25,
+    "mpConnectedContractorCount": 26,
+    "mpConnectedTotalEur": 30826254.27056543
   },
   "topContractors": [
     {
@@ -733,6 +733,17 @@
       "confidence": "medium"
     },
     {
+      "mpId": 938,
+      "mpName": "Дарин Величков Матов",
+      "totalEur": 11604191.437906157,
+      "contractCount": 81,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "БЪЛГАРСКИ ПОЩИ ЕАД"
+      ],
+      "confidence": "medium"
+    },
+    {
       "mpId": 237,
       "mpName": "Светослав Иванов Спасов",
       "totalEur": 2758996.436295588,
@@ -806,6 +817,17 @@
       "contractorCount": 1,
       "topContractorNames": [
         "НАЦИОНАЛЕН ПЕРИЛЕН КОМБИНАТ ООД"
+      ],
+      "confidence": "medium"
+    },
+    {
+      "mpId": 3160,
+      "mpName": "Рушен Мехмед Риза",
+      "totalEur": 131917.39568367394,
+      "contractCount": 4,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "ХИГИЯМЕД ООД"
       ],
       "confidence": "medium"
     },

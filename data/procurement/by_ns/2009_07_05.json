@@ -2,7 +2,7 @@
   "electionDate": "2009_07_05",
   "start": "2009-07-05",
   "end": "2013-05-12",
-  "generatedAt": "2026-05-20T23:00:24.281Z",
+  "generatedAt": "2026-05-21T09:51:41.810Z",
   "totals": {
     "contracts": 29613,
     "amendments": 0,
@@ -10,9 +10,9 @@
     "contractorCount": 7349,
     "awarderCount": 1414,
     "totalEur": 6362092009.124456,
-    "mpCount": 20,
-    "mpConnectedContractorCount": 20,
-    "mpConnectedTotalEur": 12724643.376469327
+    "mpCount": 23,
+    "mpConnectedContractorCount": 23,
+    "mpConnectedTotalEur": 15515908.772746101
   },
   "topContractors": [
     {
@@ -732,6 +732,17 @@
       "confidence": "medium"
     },
     {
+      "mpId": 938,
+      "mpName": "Дарин Величков Матов",
+      "totalEur": 2742232.5048700557,
+      "contractCount": 30,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Български пощи /БП/ ЕАД - София"
+      ],
+      "confidence": "medium"
+    },
+    {
       "mpId": 2647,
       "mpName": "ДИМИТЪР КРУМОВ АЛЕКСАНДРОВ",
       "totalEur": 1676189.0246084782,
@@ -875,6 +886,17 @@
       "confidence": "high"
     },
     {
+      "mpId": 1475,
+      "mpName": "Тодор Борисов Радулов",
+      "totalEur": 44738.03960466912,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "СГРАДОСТРОИТЕЛ - АД, гр. Гоце Делчев"
+      ],
+      "confidence": "medium"
+    },
+    {
       "mpId": 50,
       "mpName": "Енчо Вълков Малев",
       "totalEur": 25963.401727143973,
@@ -928,6 +950,17 @@
         "Радио СОТ ООД"
       ],
       "confidence": "high"
+    },
+    {
+      "mpId": 233,
+      "mpName": "Николай Петров Кънчев",
+      "totalEur": 4294.851802048235,
+      "contractCount": 1,
+      "contractorCount": 1,
+      "topContractorNames": [
+        "Драгажен флот - Истър АД - Свищов"
+      ],
+      "confidence": "medium"
     },
     {
       "mpId": 3782,
