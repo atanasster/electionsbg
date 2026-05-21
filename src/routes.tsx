@@ -90,6 +90,11 @@ const PartiesFinancing = lazy(() =>
     default: m.PartiesFinancing,
   })),
 );
+const PartyAnnualReportsScreen = lazy(() =>
+  import("./screens/PartyAnnualReportsScreen").then((m) => ({
+    default: m.PartyAnnualReportsScreen,
+  })),
+);
 const PartyScreen = lazy(() =>
   import("./screens/PartyScreen").then((m) => ({ default: m.PartyScreen })),
 );
@@ -1103,6 +1108,14 @@ export const AuthRoutes = () => {
           element={
             <LayoutScreen>
               <PartiesFinancing />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="financing/annual-reports"
+          element={
+            <LayoutScreen>
+              <PartyAnnualReportsScreen />
             </LayoutScreen>
           }
         />

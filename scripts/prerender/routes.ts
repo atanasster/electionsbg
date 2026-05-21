@@ -319,6 +319,43 @@ export const prerenderRoutes: PrerenderRoute[] = [
     },
   }),
   staticPage({
+    path: "financing/annual-reports",
+    title: "Годишни финансови отчети на партиите | electionsbg.com",
+    description:
+      "Кои политически партии са подали годишните си финансови отчети в Сметната палата в срок, със закъснение, с нередности или изобщо — по години от 2011 г.",
+    breadcrumbName: "Годишни отчети",
+    ogImage: "/og/financing.png",
+    bodyHtml: `
+<h1>Годишни финансови отчети на партиите</h1>
+<p>Политическите партии са длъжни да подават годишен финансов отчет в Сметната палата до 31 март всяка година (чл. 34 от Закона за политическите партии). Този каталог проследява по години статуса на подаване на всяка партия.</p>
+<h2>Какво се вижда тук</h2>
+<ul>
+<li>Партии, подали отчета <strong>в срок</strong> и отговарящи на изискванията.</li>
+<li>Партии, подали <strong>със закъснение</strong> след 31 март.</li>
+<li>Партии, подали в срок, но <strong>с нередности</strong> във формата или съдържанието.</li>
+<li>Партии, <strong>неподали</strong> годишен финансов отчет.</li>
+</ul>
+<p>Източник: <a href="https://gfopp.bulnao.government.bg" rel="nofollow noopener">регистър на Сметната палата</a>.</p>`.trim(),
+    english: {
+      title:
+        "Party Annual Financial Reports — Court of Audit Filing Status | electionsbg.com",
+      description:
+        "Which Bulgarian political parties filed their statutory annual financial reports on time, late, with deficiencies, or not at all — by year since 2011.",
+      breadcrumbName: "Annual reports",
+      bodyHtml: `
+<h1>Party annual financial reports</h1>
+<p>Political parties must file an annual financial report with the Court of Audit by 31 March each year (Political Parties Act, art. 34). This catalogue tracks each party's filing status, year by year.</p>
+<h2>What you'll find</h2>
+<ul>
+<li>Parties that filed <strong>on time</strong> and met the requirements.</li>
+<li>Parties that filed <strong>late</strong>, after the 31 March deadline.</li>
+<li>Parties that filed on time but were <strong>non-compliant</strong> on form or content.</li>
+<li>Parties that <strong>did not file</strong> an annual financial report.</li>
+</ul>
+<p>Source: <a href="https://gfopp.bulnao.government.bg" rel="nofollow noopener">Court of Audit register</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
     path: "simulator",
     title: "Симулатор на коалиции и разпределение на мандати | electionsbg.com",
     description:

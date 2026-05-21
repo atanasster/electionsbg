@@ -1,0 +1,167 @@
+{
+  "scrapedAt": "2026-05-21T09:45:09.851Z",
+  "source": "https://gfopp.bulnao.government.bg",
+  "statusKeys": [
+    "on_time",
+    "late",
+    "non_compliant",
+    "not_filed"
+  ],
+  "totals": {
+    "years": 15,
+    "filings": 2232,
+    "distinctParties": 236
+  },
+  "years": [
+    {
+      "year": 2025,
+      "deadline": "2026-03-31",
+      "counts": {
+        "on_time": 130,
+        "late": 2,
+        "non_compliant": 0,
+        "not_filed": 0
+      }
+    },
+    {
+      "year": 2024,
+      "deadline": "2025-03-31",
+      "counts": {
+        "on_time": 126,
+        "late": 1,
+        "non_compliant": 0,
+        "not_filed": 1
+      }
+    },
+    {
+      "year": 2023,
+      "deadline": "2024-03-31",
+      "counts": {
+        "on_time": 122,
+        "late": 4,
+        "non_compliant": 0,
+        "not_filed": 0
+      }
+    },
+    {
+      "year": 2022,
+      "deadline": "2023-03-31",
+      "counts": {
+        "on_time": 112,
+        "late": 17,
+        "non_compliant": 0,
+        "not_filed": 1
+      }
+    },
+    {
+      "year": 2021,
+      "deadline": "2022-03-31",
+      "counts": {
+        "on_time": 124,
+        "late": 2,
+        "non_compliant": 0,
+        "not_filed": 1
+      }
+    },
+    {
+      "year": 2020,
+      "deadline": "2021-03-31",
+      "counts": {
+        "on_time": 121,
+        "late": 5,
+        "non_compliant": 0,
+        "not_filed": 2
+      }
+    },
+    {
+      "year": 2019,
+      "deadline": "2020-03-31",
+      "counts": {
+        "on_time": 112,
+        "late": 11,
+        "non_compliant": 0,
+        "not_filed": 2
+      }
+    },
+    {
+      "year": 2018,
+      "deadline": "2019-03-31",
+      "counts": {
+        "on_time": 128,
+        "late": 4,
+        "non_compliant": 0,
+        "not_filed": 13
+      }
+    },
+    {
+      "year": 2017,
+      "deadline": "2018-03-31",
+      "counts": {
+        "on_time": 137,
+        "late": 3,
+        "non_compliant": 2,
+        "not_filed": 17
+      }
+    },
+    {
+      "year": 2016,
+      "deadline": "2017-03-31",
+      "counts": {
+        "on_time": 149,
+        "late": 3,
+        "non_compliant": 4,
+        "not_filed": 4
+      }
+    },
+    {
+      "year": 2015,
+      "deadline": "2016-03-31",
+      "counts": {
+        "on_time": 155,
+        "late": 1,
+        "non_compliant": 1,
+        "not_filed": 5
+      }
+    },
+    {
+      "year": 2014,
+      "deadline": "2015-03-31",
+      "counts": {
+        "on_time": 160,
+        "late": 2,
+        "non_compliant": 0,
+        "not_filed": 15
+      }
+    },
+    {
+      "year": 2013,
+      "deadline": "2014-03-31",
+      "counts": {
+        "on_time": 163,
+        "late": 0,
+        "non_compliant": 0,
+        "not_filed": 10
+      }
+    },
+    {
+      "year": 2012,
+      "deadline": "2013-03-31",
+      "counts": {
+        "on_time": 158,
+        "late": 0,
+        "non_compliant": 0,
+        "not_filed": 22
+      }
+    },
+    {
+      "year": 2011,
+      "deadline": "2012-03-31",
+      "counts": {
+        "on_time": 146,
+        "late": 4,
+        "non_compliant": 4,
+        "not_filed": 26
+      }
+    }
+  ]
+}

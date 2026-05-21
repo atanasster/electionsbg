@@ -39,9 +39,11 @@ import { MpDeclarationsProvenance } from "@/screens/dashboard/MpDeclarationsProv
 import { ParliamentSection } from "@/screens/dashboard/ParliamentSection";
 import { GovernmentsTile } from "@/screens/dashboard/GovernmentsTile";
 import { TopFinancingTile } from "@/screens/dashboard/TopFinancingTile";
+import { PartyAnnualReportsTile } from "@/screens/dashboard/PartyAnnualReportsTile";
 import { ArticlesTile } from "@/screens/dashboard/ArticlesTile";
 import { SectionArticlesProvider } from "@/screens/dashboard/SectionArticlesContext";
 import { useNationalSummary } from "@/data/dashboard/useNationalSummary";
+import { useFinancingReportsSummary } from "@/data/financing/useFinancingReports";
 import { DashboardSectionId } from "@/data/articles/useArticles";
 import { HeadlineIndicatorStrip } from "./HeadlineIndicatorStrip";
 import { GovernanceMacroTile } from "./GovernanceMacroTile";
@@ -68,6 +70,7 @@ export const GovernanceCards: FC = () => {
   const { t } = useTranslation();
   const { electionStats } = useElectionContext();
   const { data: nationalSummary } = useNationalSummary();
+  const { data: reportsSummary } = useFinancingReportsSummary();
   const { data: procurementByNs } = useProcurementByNs();
   const { data: budgetIndex } = useBudgetIndex();
   const { data: kfp } = useKfp();
@@ -213,7 +216,7 @@ export const GovernanceCards: FC = () => {
           </DashboardSection>
         ) : null}
 
-        {hasFinancials && nationalSummary?.parties ? (
+        {(hasFinancials && nationalSummary?.parties) || reportsSummary ? (
           <DashboardSection
             id="financing"
             title={t("dashboard_section_financing")}
@@ -232,7 +235,14 @@ export const GovernanceCards: FC = () => {
             icon={Coins}
             articleTopic="financing"
           >
-            <TopFinancingTile parties={nationalSummary.parties} />
+            {hasFinancials && nationalSummary?.parties ? (
+              <TopFinancingTile parties={nationalSummary.parties} />
+            ) : null}
+            {reportsSummary ? (
+              <div className="grid gap-3 sm:grid-cols-2 lg:grid-cols-3">
+                <PartyAnnualReportsTile summary={reportsSummary} />
+              </div>
+            ) : null}
           </DashboardSection>
         ) : null}
 

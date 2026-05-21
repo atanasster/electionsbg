@@ -24,6 +24,7 @@ export const ENGLISH_STATIC_PAGES = [
   "simulator",
   "compare",
   "financing",
+  "financing/annual-reports",
   "parties",
   "regions",
   "articles",
@@ -149,6 +150,12 @@ export const routeDefs = (year: string): RouteDefs => [
   {
     path: "parliament/embedding",
     file: `src/screens/ParliamentEmbeddingScreen.tsx`,
+  },
+
+  // Party annual financial-report filing-status catalogue (Court of Audit).
+  {
+    path: "financing/annual-reports",
+    file: `src/screens/PartyAnnualReportsScreen.tsx`,
   },
 
   // English mirrors of the top static pages (one URL each).
