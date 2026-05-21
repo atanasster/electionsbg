@@ -38,6 +38,7 @@ The "Changed" section of the report contains a bulleted list. Each bullet's labe
 | `data.egov.bg бюджет` (budget execution) | `update-budget` |
 | `Per-ministry execution reports` (програмен бюджет) | `update-budget` |
 | `Сметна палата party financing` | `update-financing` |
+| `Сметна палата annual-report index` | `update-financing` (annual-report year added — runs `scrape_reports.ts`) |
 | `Eurostat macro` (BG) | `update-macro` |
 | `EC EU budget per-MS spreadsheet` (BG receipts/contributions) | `update-macro` |
 | `World Bank WGI` (BG) | `update-macro` |
@@ -83,6 +84,7 @@ Each watcher source maps to one or more downstream skills. Multiple sources can 
 | `egov_budget_execution` | `update-budget` |
 | `ministry_execution_reports` | `update-budget` |
 | `smetna_palata` | `update-financing` |
+| `financing_reports` | `update-financing` |
 | `eurostat` | `update-macro` |
 | `ec_budget_per_ms` | `update-macro` |
 | `worldbank_wgi` | `update-macro` |

@@ -23,7 +23,7 @@ Tier-2 ingest for Сметна палата (Court of Audit) party-financing dis
 | Daily watcher flags `Сметна палата party financing: index hash <new>` | Re-run `scrape_index.ts`, inspect the diff |
 | User asks "what changed in party financing?" | Run `scrape_index.ts` + diff against the prior `data/financing/index.json` |
 | Fresh clone (no `data/financing/index.json`) | Cold-start `scrape_index.ts` to populate the catalog |
-| A new annual-report year appears (spring, after the 31 March deadline) | Run `scrape_index.ts`, then `scrape_reports.ts` to pull the new year's filings |
+| Watcher flags `Сметна палата annual-report index` (a new year appeared — typically spring, after the 31 March deadline) | Run `scrape_index.ts`, then `scrape_reports.ts` to pull the new year's filings |
 | Fresh clone (no `data/financing/reports.json`) | Run `scrape_index.ts` first, then `scrape_reports.ts` |
 
 ## Step 1 — Scrape

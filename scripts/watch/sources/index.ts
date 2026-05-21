@@ -20,6 +20,7 @@ import { indicatorsNsiPop } from "./indicators_nsi_pop";
 import { indicatorsNsiVital } from "./indicators_nsi_vital";
 import { grao } from "./grao";
 import { smetnaPalata } from "./smetna_palata";
+import { financingReports } from "./financing_reports";
 import { transparencyCpi } from "./transparency_cpi";
 import { worldbankWgi } from "./worldbank_wgi";
 
@@ -32,6 +33,7 @@ export const SOURCES: WatchSource[] = [
   cacbgDeclarations,
   cacbgOfficials,
   smetnaPalata,
+  financingReports,
   egovCommerce,
   egovProcurement,
   aopDebarred,
