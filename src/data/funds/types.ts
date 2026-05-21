@@ -43,7 +43,6 @@ export interface FundsIndexFile {
   byOrgType: FundsBreakdownRow[];
   byOrgForm: FundsBreakdownRow[];
   topByContracted: FundsTopRow[];
-  topByPaid: FundsTopRow[];
   crossReference?: FundsCrossRefSummary;
   shards: string[];
 }

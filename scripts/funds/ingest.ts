@@ -45,7 +45,9 @@ const SOURCE_URL = "https://2020.eufunds.bg/bg/0/0/Beneficiary";
 // Floor guard: the full export carries ~52k rows. Anything well below this is
 // a truncated / filtered download and must not overwrite the canonical tree.
 const MIN_ROWS = 40_000;
-const TOP_N = 100;
+// Size of the top-beneficiary list embedded in index.json. Kept small — the
+// dashboard renders ~15; the full corpus lives in the beneficiaries shards.
+const TOP_N = 25;
 
 const canonicalJson = (data: unknown): string =>
   JSON.stringify(data, null, 2) + "\n";
@@ -275,7 +277,6 @@ const main = async (args: {
     byOrgType: buildBreakdown(rows, (r) => r.orgType),
     byOrgForm: buildBreakdown(rows, (r) => r.orgForm),
     topByContracted: topRows(rows, (r) => r.contractedEur, mpTiedByEik),
-    topByPaid: topRows(rows, (r) => r.paidEur, mpTiedByEik),
     ...(crossReference ? { crossReference } : {}),
     shards,
   };

@@ -107,9 +107,8 @@ export interface FundsIndex {
   // Aggregates by organisation type and by public-/private-law form.
   byOrgType: FundsBreakdownRow[];
   byOrgForm: FundsBreakdownRow[];
-  // Top beneficiaries by contracted / actually-paid funds.
+  // Top beneficiaries by funds contracted.
   topByContracted: FundsTopRow[];
-  topByPaid: FundsTopRow[];
   // MP cross-reference summary — present only when companies-index.json was
   // available at ingest time. The full payload is derived/mp_connected.json.
   crossReference?: FundsCrossRefSummary;
