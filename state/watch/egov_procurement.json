@@ -1,16 +1,42 @@
 {
-  "detail": "6 datasets on page 1, hash d56d1df188ec3738",
-  "fingerprint": "d56d1df188ec3738",
-  "lastChanged": "2026-05-13T15:35:22.539Z",
-  "lastChecked": "2026-05-15T06:08:36.016Z",
+  "detail": "6 datasets on page 1, hash 3ad97ff4eeafddaf",
+  "fingerprint": "3ad97ff4eeafddaf",
+  "lastChanged": "2026-05-21T06:12:38.832Z",
+  "lastChecked": "2026-05-21T06:12:38.832Z",
   "meta": {
     "topUuids": [
+      "76d32733-5ad2-4cfb-8f91-69b0a7cd5564",
       "7230ac85-bd64-48cc-a188-2121d58abccb",
       "6768e043-d3ae-4d00-8e6f-33605d6efbb2",
       "3edde0c3-80da-468c-8536-53db74680863",
-      "3c796970-b0b3-4486-b354-ef593e5a4a5e",
-      "646a5c63-e62f-41d6-9055-72d9baa28324"
+      "3c796970-b0b3-4486-b354-ef593e5a4a5e"
     ],
-    "count": 6
+    "count": 6,
+    "datasets": [
+      {
+        "uuid": "76d32733-5ad2-4cfb-8f91-69b0a7cd5564",
+        "kind": "ocds"
+      },
+      {
+        "uuid": "7230ac85-bd64-48cc-a188-2121d58abccb",
+        "kind": "ocds"
+      },
+      {
+        "uuid": "6768e043-d3ae-4d00-8e6f-33605d6efbb2",
+        "kind": "ocds"
+      },
+      {
+        "uuid": "3edde0c3-80da-468c-8536-53db74680863",
+        "kind": "ocds"
+      },
+      {
+        "uuid": "3c796970-b0b3-4486-b354-ef593e5a4a5e",
+        "kind": "ocds"
+      },
+      {
+        "uuid": "646a5c63-e62f-41d6-9055-72d9baa28324",
+        "kind": "ocds"
+      }
+    ]
   }
 }
