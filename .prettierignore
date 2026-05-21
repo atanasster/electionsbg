@@ -23,3 +23,6 @@ package-lock.json
 
 # OS / editor
 .DS_Store
+
+# Hand-formatted briefing template (rendered to PDF by render-pdf.mjs)
+scripts/stats-briefing/doc.html

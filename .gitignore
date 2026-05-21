@@ -25,6 +25,10 @@ dist.old-*
 /blob-report/
 /playwright/.cache/
 
+# Rendered output of scripts/stats-briefing/render-pdf.mjs. The source
+# (doc.html + images/) is committed; the generated PDF is not.
+/scripts/stats-briefing/electionsbg-stats.pdf
+
 # Commerce Registry (TR) raw dump — ~540 MB zip + ~12 GB extracted JSON.
 # Re-fetch with `npx tsx scripts/declarations/tr/cli.ts --bulk` (or `--incremental`).
 /raw_data/tr/

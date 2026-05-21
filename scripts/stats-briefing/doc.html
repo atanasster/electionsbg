@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>electionsbg.com — Statistical Methods</title>
+<style>
+  @page { size: A4; margin: 14mm 15mm 13mm 15mm; }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: "Helvetica Neue", Arial, sans-serif;
+    color: #2b2a27;
+    font-size: 9.8pt;
+    line-height: 1.44;
+    -webkit-print-color-adjust: exact;
+    print-color-adjust: exact;
+  }
+  h1, h2, h3, h4 { font-family: Georgia, "Times New Roman", serif; color: #1f1e1b; }
+  p { margin: 0 0 5pt; }
+  strong { color: #1f1e1b; }
+
+  /* ---- cover: cream panel inset by the page margin ---- */
+  .cover {
+    height: 268mm;
+    background: #f1ece2;
+    padding: 52mm 20mm 0 20mm;
+    page-break-after: always;
+  }
+  .cover .brand { font-size: 12pt; letter-spacing: .14em; text-transform: uppercase; color: #2f6b4f; font-weight: 700; }
+  .cover h1 { font-size: 32pt; line-height: 1.16; margin: 15mm 0 0; }
+  .cover .sub { font-size: 12.5pt; color: #55534d; margin-top: 8mm; font-family: Georgia, serif; font-style: italic; }
+  .cover .rule { width: 46mm; height: 3pt; background: #2f6b4f; margin: 11mm 0; }
+  .cover .meta { font-size: 9.6pt; color: #6a675f; line-height: 1.7; }
+  .cover .foot { margin-top: 74mm; font-size: 9pt; color: #8a8678; }
+
+  /* ---- generic page ---- */
+  .page { page-break-before: always; }
+  .kicker { font-size: 8.6pt; letter-spacing: .15em; text-transform: uppercase; color: #2f6b4f; font-weight: 700; margin-bottom: 3pt; }
+  h2.title { font-size: 17pt; margin: 0 0 3pt; }
+  .lede { font-size: 10pt; color: #46443e; margin-bottom: 7pt; }
+
+  h3 { font-size: 10.8pt; margin: 9pt 0 4pt; padding-bottom: 2pt; border-bottom: 1px solid #ddd8cc; }
+
+  figure { margin: 7pt 0 3pt; }
+  figure img { width: auto; max-width: 100%; max-height: 58mm; display: block; margin: 0 auto; border: 1px solid #d8d3c6; border-radius: 3pt; }
+  figcaption { font-size: 8.2pt; color: #8a8678; margin-top: 3pt; font-style: italic; }
+
+  ol, ul { margin: 3pt 0 6pt; padding-left: 15pt; }
+  li { margin-bottom: 2.6pt; }
+  .term { font-weight: 700; color: #1f1e1b; }
+
+  .box { border-radius: 4pt; padding: 6pt 9pt; margin: 6pt 0; font-size: 9.3pt; }
+  .box .h { display: block; font-weight: 700; font-size: 8.4pt; letter-spacing: .08em; text-transform: uppercase; margin-bottom: 3pt; }
+  .box.why { background: #f1ece2; border-left: 3pt solid #b9b29c; }
+  .box.why .h { color: #7a7457; }
+  .box.caveat { background: #fbf1da; border-left: 3pt solid #d99a2b; }
+  .box.caveat .h { color: #b67d18; }
+  .box.calc { background: #ffffff; border: 1px solid #e3ddcd; border-left: 3pt solid #2f6b4f; }
+  .box.calc .h { color: #2f6b4f; }
+  .box.calc p { margin: 0; }
+
+  .formula {
+    font-family: "Courier New", monospace; background: #f4f1e8;
+    border: 1px solid #e3ddcd; border-radius: 3pt; white-space: pre-wrap;
+    padding: 5pt 9pt; font-size: 8.7pt; line-height: 1.4; margin: 5pt 0; color: #3a3833;
+  }
+
+  table.glance { width: 100%; border-collapse: collapse; margin-top: 9pt; font-size: 9.5pt; }
+  table.glance th { text-align: left; background: #2f6b4f; color: #fff; padding: 6pt 8pt; font-size: 8.5pt; letter-spacing: .04em; text-transform: uppercase; }
+  table.glance td { padding: 6pt 8pt; border-bottom: 1px solid #e3ddcd; vertical-align: top; }
+  table.glance tr:nth-child(even) td { background: #f6f3ea; }
+
+  .scorecard { display: flex; flex-wrap: wrap; gap: 6pt; margin: 8pt 0; }
+  .stat { flex: 1 1 30%; background: #f1ece2; border-radius: 4pt; padding: 7pt 9pt; }
+  .stat .v { font-size: 16pt; font-family: Georgia, serif; color: #1f1e1b; }
+  .stat .l { font-size: 7.8pt; letter-spacing: .06em; text-transform: uppercase; color: #7a7768; }
+  .stat .n { font-size: 8pt; color: #8a8678; }
+
+  .footer-note { font-size: 8pt; color: #9c988a; border-top: 1px solid #e3ddcd; margin-top: 14pt; padding-top: 5pt; }
+</style>
+</head>
+<body>
+
+<!-- ===================== COVER ===================== -->
+<div class="cover">
+  <div class="brand">electionsbg.com</div>
+  <h1>Statistical Methods<br/>Behind the Site</h1>
+  <div class="sub">How the site's published election figures are computed</div>
+  <div class="rule"></div>
+  <div class="meta">
+    May 2026<br/>
+    Covers: polling-accuracy scoring, Benford digit screens, section &amp; composite risk indices,<br/>
+    spatial risk-cluster persistence, demographic-correlation analysis, and ecological vote-flow estimation.
+  </div>
+  <div class="foot">electionsbg.com &nbsp;&middot;&nbsp; Bulgarian parliamentary elections since 2005</div>
+</div>
+
+<!-- ===================== INTRO ===================== -->
+<div class="page">
+  <div class="kicker">How to read this</div>
+  <h2 class="title">Seven methods, one principle</h2>
+  <p class="lede">Every figure on electionsbg.com is a published, reproducible computation over official Central Election Commission (CIK) data &mdash; no black boxes, no editorial scoring. This briefing documents the seven statistical methods that are distinctive to the site, and how each one is built.</p>
+
+  <p>Each section states what a method <strong>measures</strong>, <strong>how it works</strong> in full detail, and ends with a <strong>worked example using real figures</strong> from the April 2026 election. None of these methods is a fraud determination &mdash; they are screening and description tools, and the site is explicit about that on every page.</p>
+
+  <table class="glance">
+    <tr><th style="width:34%">Method</th><th style="width:66%">What it produces</th></tr>
+    <tr><td><strong>1. Polling-accuracy analyzer</strong></td><td>A shrinkage-corrected, industry-bias-adjusted accuracy leaderboard for every polling agency</td></tr>
+    <tr><td><strong>2. Benford digit screen</strong></td><td>First- and second-digit distribution tests on per-section vote counts</td></tr>
+    <tr><td><strong>3. Section risk screening</strong></td><td>A 0&ndash;100 statistical-anomaly score for every polling section</td></tr>
+    <tr><td><strong>4. Composite risk index</strong></td><td>One election-level process-integrity headline (0&ndash;100), in two tracks</td></tr>
+    <tr><td><strong>5. Demographics-by-party</strong></td><td>Per-party correlations between regional vote share and census indicators</td></tr>
+    <tr><td><strong>6. Vote-flow estimation</strong></td><td>An estimated voter-transition matrix between two consecutive elections</td></tr>
+    <tr><td><strong>7. Risk-cluster persistence</strong></td><td>Geographic clusters of flagged sections, and the same knots tracked across every election since 2005</td></tr>
+  </table>
+</div>
+
+<!-- ===================== METHOD 1 ===================== -->
+<div class="page">
+  <div class="kicker">Method 1</div>
+  <h2 class="title">Polling-Accuracy Analyzer</h2>
+  <p class="lede">How close each agency's final pre-election poll came to the official result &mdash; measured across every parliamentary cycle since 2021, and corrected so a single lucky or unlucky cycle cannot distort the ranking.</p>
+
+  <figure>
+    <img src="images/polls.png" alt="Polls accuracy leaderboard" />
+    <figcaption>/polls &mdash; the agency leaderboard, with the &ldquo;How accuracy is calculated&rdquo; methodology rendered inline on the same page.</figcaption>
+  </figure>
+
+  <h3>How it works</h3>
+  <ol>
+    <li><span class="term">Matching.</span> For each election, the agency's <em>last</em> poll before election day (its &ldquo;final wave&rdquo;) is selected. Each polled party share is matched to its official CIK result through a name-alias table that absorbs coalition renames and splits.</li>
+    <li><span class="term">MAE &mdash; Mean Absolute Error.</span> The average of |polled &minus; actual| across all named parties, in percentage points. This is the base accuracy number; lower is better.</li>
+    <li><span class="term">Residual redistribution (genre-gated).</span> Many Bulgarian agencies publish &ldquo;raw attitudes&rdquo; that still contain an undecided / won't-say share. Before scoring, that residual is redistributed proportionally across the named parties so the poll sums to 100% like the official result. Agencies that already publish a finished forecast are scored <em>as-is</em>, so the undecided share is never double-counted.</li>
+    <li><span class="term">Industry-bias-adjusted MAE.</span> For every party the cross-agency mean error is computed and subtracted, so an agency is not penalised for a miss the whole industry shared &mdash; e.g. all seven agencies underestimated the 2026 winner by roughly 10&nbsp;pp. This isolates agency-specific skill from a sector-wide blind spot.</li>
+    <li><span class="term">Bayesian shrinkage.</span> A single cycle is statistically noisy, so each agency's MAE is pulled toward the cross-agency average using <span class="term">k = 4</span> &ldquo;pseudo-elections&rdquo; &mdash; the exact formula is below. An agency with 4 tracked cycles sits halfway between its own number and the field average; with only 1 cycle it is 80% pulled to the mean.</li>
+    <li><span class="term">Plus / minus vs. consensus.</span> Whether the agency lands closer to the result than the cross-agency consensus.</li>
+    <li><span class="term">4% barrier-call rate.</span> How reliably it places each party on the correct side of the 4% parliamentary threshold.</li>
+    <li><span class="term">House effect.</span> A per-party and per-bloc signed bias &mdash; the agency's systematic lean toward or against each party.</li>
+    <li><span class="term">Composite grade (A+&hellip;).</span> Shrunk adjusted MAE, plus/minus and barrier calls combined into one letter grade.</li>
+  </ol>
+
+  <div class="box calc"><span class="h">The exact formula</span>
+    <p style="margin-bottom:4pt;">The leaderboard score is built in three steps:</p>
+    <div class="formula">MAE          = mean of | poll &minus; result |  over the named parties
+adjusted MAE = the same average, on errors with the cross-agency
+               mean error per party removed
+score        = ( n &middot; adjusted MAE  +  k &middot; field mean ) / ( n + k ),  k = 4</div>
+    <p style="margin-top:4pt;">The <strong>shrunk adjusted MAE</strong> is the number that ranks the leaderboard &mdash; lower is better. <em>n</em> is the agency's count of tracked elections; the next page plugs in Market&nbsp;Links' numbers.</p>
+  </div>
+</div>
+
+<!-- ===================== WORKED EXAMPLE: ML SCORECARD ===================== -->
+<div class="page">
+  <div class="kicker">Method 1 &mdash; a worked example</div>
+  <h2 class="title">An agency scorecard: Market Links</h2>
+  <p class="lede">Method&nbsp;1 applied to a single agency &mdash; the Market&nbsp;Links page on the site, from the May 2026 data refresh, covering eight elections (April 2021 &rarr; April 2026).</p>
+
+  <figure>
+    <img src="images/ml-page.png" alt="Market Links agency page" />
+    <figcaption>/polls/ML &mdash; an agency page: headline scores, MAE-per-election trend, signed bloc lean, and per-party bias.</figcaption>
+  </figure>
+
+  <div class="scorecard">
+    <div class="stat"><div class="l">Grade</div><div class="v">A+</div><div class="n">composite</div></div>
+    <div class="stat"><div class="l">Shrunk MAE</div><div class="v">0.97</div><div class="n">raw 1.67</div></div>
+    <div class="stat"><div class="l">Plus / minus</div><div class="v">+0.15</div><div class="n">vs. consensus</div></div>
+    <div class="stat"><div class="l">4% calls</div><div class="v">90%</div><div class="n">n = 68</div></div>
+    <div class="stat"><div class="l">Elections</div><div class="v">8</div><div class="n">31 total polls</div></div>
+    <div class="stat"><div class="l">2026 cycle MAE</div><div class="v">1.76</div><div class="n">lowest in the field</div></div>
+  </div>
+
+  <div class="box calc"><span class="h">The formula, with Market Links' numbers</span>
+    <div class="formula">shrunk adjusted MAE = ( n &middot; adjusted MAE  +  k &middot; field mean ) / ( n + k )
+                    = ( 8 &times; 1.06  +  4 &times; 0.78 ) / ( 8 + 4 )
+                    = 11.60 / 12   &approx;   0.97</div>
+    <p style="margin-top:4pt;">Across its 8 tracked elections Market&nbsp;Links' <strong>raw MAE is 1.67</strong>. Removing the error the whole industry shared brings the <strong>adjusted MAE to 1.06</strong>; shrinking that toward the <strong>0.78</strong> cross-agency field mean (k = 4) yields the <strong>0.97</strong> leaderboard score in the tile above.</p>
+  </div>
+
+  <h3>Reading the numbers</h3>
+  <ul>
+    <li><span class="term">3rd-lowest raw MAE all-time (1.67)</span> &mdash; behind only Alpha&nbsp;Research and Trend, across the second-deepest track record on the site (8 cycles).</li>
+    <li><span class="term">Lowest cycle error in 2026</span> &mdash; cycle MAE 1.76, ahead of every competitor; on the decisive winner axis, one of only two agencies within 7&nbsp;pp while the rest were 10&nbsp;pp+ short.</li>
+    <li><span class="term">Bloc lean</span> &mdash; a mild left tilt: Left/BSP +2.1&nbsp;pp, Right +1.5&nbsp;pp, Populist &minus;1.3&nbsp;pp, Reformist &minus;1.2&nbsp;pp. No single bloc lean exceeds 2.1&nbsp;pp.</li>
+    <li><span class="term">A scoring nuance</span> &mdash; shrunk-adjusted MAE 0.97 ranks last among the A+ agencies. This is an artefact of the redistribution step, not a quality verdict: the agency publishes raw attitudes with an explicit undecided share, so the mechanical redistribution does not fully neutralise its house style. Raw accuracy is the cleaner read.</li>
+  </ul>
+</div>
+
+<!-- ===================== METHOD 2: BENFORD ===================== -->
+<div class="page">
+  <div class="kicker">Method 2</div>
+  <h2 class="title">Benford's Law Digit Screen</h2>
+  <p class="lede">A forensic-statistics screen that checks whether the leading digits of per-section vote counts follow the Benford-expected curve &mdash; presented with the caveat built into the method itself.</p>
+
+  <figure>
+    <img src="images/benford.png" alt="Benford's law screen" />
+    <figcaption>/benford &mdash; per-party small multiples; the page defaults to the 2nd-digit test and leads with a &ldquo;not evidence of fraud&rdquo; banner.</figcaption>
+  </figure>
+
+  <h3>How it works</h3>
+  <ol>
+    <li><span class="term">Per-party digit collection.</span> For each party, the vote count from every polling section is collected into one array.</li>
+    <li><span class="term">First-digit test (1BL).</span> The observed share of counts beginning with digit <em>d</em> is compared to the Benford expectation <span style="font-family:'Courier New',monospace">log&#8321;&#8320;(1 + 1/d)</span> for d = 1&hellip;9.</li>
+    <li><span class="term">Second-digit test (2BL).</span> Mebane's preferred election-forensics variant: the expected probability that the <em>second</em> digit equals <em>d</em> is <span style="font-family:'Courier New',monospace">&Sigma;<sub>k=1..9</sub> log&#8321;&#8320;(1 + 1/(10k+d))</span>. The site defaults to 2BL because it is the more applicable test for electoral data.</li>
+    <li><span class="term">Chi-squared statistic.</span> Total deviation of observed from expected; an approximate p-value is derived through the Wilson&ndash;Hilferty cube-root transformation (no heavyweight stats dependency needed).</li>
+    <li><span class="term">Mean Absolute Deviation (MAD).</span> Nigrini's intuitive &ldquo;how far off&rdquo; metric is reported alongside chi-squared, because chi-squared grows with sample size while MAD does not &mdash; so MAD is the figure that can be compared fairly across parties of very different sizes.</li>
+  </ol>
+
+  <div class="box calc"><span class="h">Worked example &mdash; ПрБ, April 2026</span>
+    <p style="margin-bottom:4pt;">ПрБ's vote count was read in <strong>11,930</strong> sections. Its second digits sit very close to the Benford curve &mdash; digit 0 appears 12.5% of the time (expected 12.0%); digit 9, 7.0% (expected 8.5%):</p>
+    <div class="formula">chi-squared = 68.0    &rarr;  p &lt; 0.001   ( would &ldquo;reject&rdquo; Benford )
+MAD         = 0.0055  &rarr;  average deviation of 0.55 pp per digit</div>
+    <p style="margin-top:4pt;">The p-value looks alarming &mdash; but chi-squared <em>grows with sample size</em>, and 11,930 sections is a very large sample. The tiny <strong>MAD of 0.0055</strong> shows the distribution actually tracks Benford almost exactly. This is precisely why MAD is read alongside chi-squared.</p>
+  </div>
+
+  <div class="box caveat"><span class="h">The honesty built into the method</span>
+    Section-level vote counts are <strong>range-bounded</strong> &mdash; they do not span multiple orders of magnitude &mdash; which violates one of Benford's preconditions. Perfectly clean electoral data routinely &ldquo;fails&rdquo; the first-digit test. The page therefore leads with a caveat banner, defaults to the more-appropriate 2BL test, and lists parties in fixed ballot order &mdash; never sorted by deviation &mdash; so no party is implicitly branded &ldquo;most suspicious.&rdquo; A deviation is a <em>look-closer</em> cue, never a verdict.</div>
+</div>
+
+<!-- ===================== METHOD 3: RISK SCORE ===================== -->
+<div class="page">
+  <div class="kicker">Method 3</div>
+  <h2 class="title">Section-Level Risk Screening Score</h2>
+  <p class="lede">A single 0&ndash;100 score per polling section that flags sections statistically unusual along several independent dimensions at once &mdash; a prioritisation tool for &ldquo;where to look first,&rdquo; not a fraud claim.</p>
+
+  <figure>
+    <img src="images/risk-score.png" alt="Section risk screening table" style="max-height:31mm" />
+    <figcaption>/risk-score &mdash; every section scored and banded; the coloured dots decompose the score into its component signals.</figcaption>
+  </figure>
+
+  <h3>How it works &mdash; seven weighted signals</h3>
+  <p>Each signal is normalised to a 0&ndash;1 scale (with a saturation cap) and assigned a weight: <span class="term">recount delta</span> (0.20) &mdash; vote churn when a section was recounted; <span class="term">flash-memory / SUEMG mismatch</span> (0.20) &mdash; disagreement between the voting machine's flash-drive file and the paper protocol; <span class="term">invalid-ballot share</span> (0.15); <span class="term">additional-voters share</span> (0.15) &mdash; voters added to the roll on election day; <span class="term">vote concentration</span> (0.15) &mdash; fires when the top party took 80%+; the <span class="term">peer-outlier z-score</span> (0.15); and the <span class="term">cross-election swing z-score</span> (0.15) &mdash; the two comparison signals, detailed below.</p>
+
+  <h3>The two comparison signals, in detail</h3>
+  <p>This signal asks a deliberately local question: <em>did this section behave differently from its immediate neighbours?</em> Sections are grouped by <span class="term">settlement</span> (the EKATTE code &mdash; the same village or town). Within each settlement, the <span class="term">mean</span> and <span class="term">standard deviation</span> of two metrics are computed &mdash; voter <em>turnout</em> and the <em>winner's vote share</em> &mdash; and for every section a <span class="term">z-score</span> is calculated:</p>
+  <div class="formula">z = ( section value &minus; settlement mean ) / settlement standard deviation</div>
+  <p>A z-score of 2 means the section sits two standard deviations from its neighbours; the signal takes the <em>larger</em> of the turnout-z and the winner-share-z. A settlement needs at least 3 sections for a baseline, and the z-score is capped at 4&sigma;. Comparing against <em>immediate neighbours</em> rather than a national average isolates genuine local oddities instead of re-flagging the rural&ndash;urban gap.</p>
+
+  <p><span class="term">The cross-election swing signal</span> applies the same logic across <em>time</em>: each section is matched to its prior-election counterpart by ID, and the <em>upward</em> shift in turnout and winner-share is z-scored nationally (capped at 4&sigma;). Ratios are compared, not raw counts, so it survives section renumbering; only an upward move is flagged. It is the &ldquo;corporate vote&rdquo; fingerprint &mdash; a section that once split its vote now delivering a lopsided result at high turnout.</p>
+
+  <h3>Combining the signals &mdash; a worked example</h3>
+  <div class="formula">score = 100 &times; &Sigma;( weight &times; normalised ) / &Sigma;( weight present )</div>
+  <div class="box calc"><span class="h">A high-risk section &mdash; 061000115, Vratsa region</span>
+    <p style="margin-bottom:4pt;">A small 24-vote section. Only three of the seven signals had data &mdash; and all three fired near their caps:</p>
+    <div class="formula">additional voters   46.6% of the roll      &rarr; normalised 1.00 (capped)
+invalid ballots     27.6% of paper ballots  &rarr; normalised 0.92
+peer-outlier        z = 3.6 vs neighbours   &rarr; normalised 0.90
+
+score = 100 &times; ( 1.00 + 0.92 + 0.90 ) / 3   &approx;   94   ( critical band )</div>
+    <p style="margin-top:4pt;"><span class="term">Partial-data masking</span> at work: the denominator counts only the three signals present, so the section is never deflated for missing machine data. It scores <strong>94.1</strong> on the site. Bands: low &lt;30, elevated &lt;60, high &lt;80, critical &ge;80.</p>
+  </div>
+</div>
+
+<!-- ===================== METHOD 4: COMPOSITE INDEX ===================== -->
+<div class="page">
+  <div class="kicker">Method 4</div>
+  <h2 class="title">Composite Election Risk Index</h2>
+  <p class="lede">One election-level 0&ndash;100 headline that summarises process-integrity signals &mdash; deliberately built in two separated tracks so that statistical or forecast noise can never inflate the integrity number.</p>
+
+  <figure>
+    <img src="images/risk-index.png" alt="Election risk analysis composite index" />
+    <figcaption>/risk-analysis &mdash; the five-component integrity headline, with the four context signals shown separately beneath it.</figcaption>
+  </figure>
+
+  <h3>How it works &mdash; two tracks</h3>
+  <p><span class="term">Integrity track (the headline).</span> Five signals, each <em>vote-weighted</em> onto a common denominator (national turnout, or total machine votes) so they are directly comparable, then averaged into the 0&ndash;100 score:</p>
+  <ol>
+    <li><span class="term">Section screening</span> &mdash; share of the national vote sitting in flagged sections, with band weights (critical &times;1.0, high &times;0.5, elevated &times;0.2).</li>
+    <li><span class="term">Machine integrity</span> &mdash; total |flash-drive &minus; protocol| disagreement as a percent of machine votes.</li>
+    <li><span class="term">Missing flash memory</span> &mdash; machine votes in sections that ran machines but submitted no flash drive, and so cannot be audited end-to-end.</li>
+    <li><span class="term">Geographic concentration</span> &mdash; top-party votes inside settlements where one party took 80%+.</li>
+    <li><span class="term">Procedural anomalies</span> &mdash; invalid plus additional voters in flagged settlements.</li>
+  </ol>
+  <p><span class="term">Context track (shown, never folded into the headline).</span> Four signals that can legitimately light up in a perfectly clean election:</p>
+  <ul>
+    <li><span class="term">Benford 2BL deviation rate</span> &mdash; from Method&nbsp;2; fails by construction on range-bounded data.</li>
+    <li><span class="term">Risk-neighbourhood excess swing</span> &mdash; the top party's vote-share swing inside eight tracked communities <em>minus</em> that same party's national swing over the same two cycles. Subtracting the national swing isolates the part specific to those communities (the broker-managed-turnout fingerprint of Stokes et al., 2013) rather than a country-wide trend.</li>
+    <li><span class="term">Pedersen electoral volatility</span> &mdash; <span style="font-family:'Courier New',monospace">0.5 &times; &Sigma;|&Delta; party vote share|</span> between consecutive elections; the standard comparative-politics measure of how much the vote moved between parties (~5&nbsp;pp = stable; Bulgaria's 2021&ndash;22 cycles hit ~40+).</li>
+    <li><span class="term">Polling error</span> &mdash; the mean agency MAE for the election (Method&nbsp;1).</li>
+  </ul>
+
+  <div class="box calc"><span class="h">The exact formula</span>
+    <div class="formula">integrity score = mean of the five vote-weighted integrity components
+
+April 2026:  ( 38 + 90 + 59 + 29 + 18 ) / 5  =  46.8  &approx;  47   ( band: High )</div>
+    <p style="margin-top:4pt;">Each component is itself a vote-weighted percentage capped onto a 0&ndash;100 scale. The four context-track signals are displayed beside the headline but are <strong>never</strong> averaged into it &mdash; so a Benford &ldquo;failure&rdquo; or a bad polling year cannot inflate the integrity number.</p>
+  </div>
+</div>
+
+<!-- ===================== METHOD 5: DEMOGRAPHICS ===================== -->
+<div class="page">
+  <div class="kicker">Method 5</div>
+  <h2 class="title">Demographics-by-Party Correlations</h2>
+  <p class="lede">A measure of how strongly each party's regional vote tracks each demographic group &mdash; computed directly off the official 2021 National Census.</p>
+
+  <figure>
+    <img src="images/demographics.png" alt="Demographics page" />
+    <figcaption>Home dashboard, the &ldquo;Demographic cleavages&rdquo; tile &mdash; each dot is one party's correlation (r) with a demographic; the spread column ranks the sharpest divides.</figcaption>
+  </figure>
+
+  <h3>How it works</h3>
+  <ol>
+    <li><span class="term">Inputs.</span> The official 2021 census supplies 14 indicators for each of ~28 oblasts: ethnicity (Bulgarian / Turkish / Roma), religion, education levels, age bands, and employment / activity / unemployment rates.</li>
+    <li><span class="term">Pearson correlation (r).</span> For each party, the correlation coefficient is computed between two arrays measured across the oblasts: the party's vote share in the oblast, and the demographic indicator's value there.</li>
+    <li><span class="term">Reading r.</span> The coefficient runs from &minus;1 to +1. <em>+1</em> &mdash; the party scores higher exactly where the group is larger; <em>&minus;1</em> &mdash; the exact opposite; <em>0</em> &mdash; no linear relationship.</li>
+    <li><span class="term">Cleavage aggregate.</span> Demographic indicators are ranked by <em>spread</em> = max(r) &minus; min(r) across the major parties &mdash; surfacing which demographic divides the electorate most sharply.</li>
+  </ol>
+
+  <p>The same Pearson correlation is now also published at <span class="term">municipality grain</span> &mdash; roughly 265 municipalities rather than 28 oblasts &mdash; on /demographics/municipalities, alongside settlement-level comparisons. The finer grain trades a larger, noisier sample for sharper local resolution.</p>
+
+  <div class="box calc"><span class="h">Worked example &mdash; ДПС, April 2026</span>
+    <p style="margin-bottom:4pt;">Across the 28 oblasts, ДПС's vote share tracks the ethnic map almost perfectly:</p>
+    <div class="formula">r = +0.86   with the ethnic-Turkish population share
+r = +0.85   with the Muslim share
+r = &minus;0.85   with the ethnic-Bulgarian share</div>
+    <p style="margin-top:4pt;"><strong>The ecological-fallacy caveat.</strong> r = +0.86 means ДПС polls strongly <em>in Turkish-heavy oblasts</em> &mdash; it is <em>not</em> a claim that 86% of Turkish voters chose ДПС. The correlation describes places, not individuals; that is the boundary at which it must hand off to individual-level survey data.</p>
+  </div>
+</div>
+
+<!-- ===================== METHOD 6: VOTE FLOW ===================== -->
+<div class="page">
+  <div class="kicker">Method 6</div>
+  <h2 class="title">Vote-Flow (Voter-Transition) Estimation</h2>
+  <p class="lede">An estimate of how voters moved between two consecutive elections &mdash; a party-to-party transition matrix, produced by a constrained ecological-inference pipeline rather than an eyeballed &ldquo;swing.&rdquo;</p>
+
+  <figure>
+    <img src="images/voteflow.png" alt="Voter persistence and vote-flow page" />
+    <figcaption>Home dashboard, the &ldquo;Vote flow&rdquo; tile &mdash; the estimated voter-transition Sankey between the two most recent elections.</figcaption>
+  </figure>
+
+  <h3>How it works</h3>
+  <ol>
+    <li><span class="term">Goodman ecological regression, per oblast.</span> For each section the from-cycle and to-cycle vote shares are known. For each destination party <em>j</em>, a coefficient vector <span style="font-family:'Courier New',monospace">&beta;<sub>j</sub></span> is fit so that the to-cycle share &asymp; (from-cycle shares) &middot; &beta;<sub>j</sub> across all sections. <span style="font-family:'Courier New',monospace">&beta;<sub>j</sub>[i]</span> estimates the fraction of party-<em>i</em> voters who moved to party <em>j</em>.</li>
+    <li><span class="term">Non-negative least squares (NNLS).</span> The fit is constrained so transfer fractions cannot go negative &mdash; a voter fraction below zero is meaningless.</li>
+    <li><span class="term">Section weighting.</span> Sections are weighted by &radic;(registered voters), so larger sections &mdash; which carry less sampling noise &mdash; dominate the fit. This is weighted least squares.</li>
+    <li><span class="term">RAS / biproportional scaling.</span> The raw coefficient matrix will not exactly reproduce the published totals, so it is iteratively rescaled &mdash; rows then columns, repeatedly &mdash; until its row sums equal the from-cycle party totals and its column sums equal the to-cycle totals <em>exactly</em>. The estimate is thereby forced to be consistent with the official results.</li>
+  </ol>
+
+  <div class="box calc"><span class="h">Worked example &mdash; ГЕРБ-СДС, Oct 2024 &rarr; Apr 2026</span>
+    <p style="margin-bottom:4pt;">ГЕРБ-СДС won <strong>628,190</strong> votes in October 2024. The estimated transition matrix splits that row of voters as:</p>
+    <div class="formula">stayed with ГЕРБ-СДС    374,412   ( 59.6% )
+moved to ПрБ            147,934   ( 23.5% )
+did not vote             28,706   (  4.6% )
+other parties            77,138   ( 12.3% )</div>
+    <p style="margin-top:4pt;">The row sums back to 628,190 exactly &mdash; RAS scaling forces it. The headline finding: nearly a quarter of ГЕРБ-СДС's 2024 voters, about 148,000 people, moved to the brand-new winner ПрБ.</p>
+  </div>
+</div>
+
+<!-- ===================== METHOD 7: RISK CLUSTERS ===================== -->
+<div class="page">
+  <div class="kicker">Method 7</div>
+  <h2 class="title">Spatial Risk Clusters &amp; Cross-Election Persistence</h2>
+  <p class="lede">Sections flagged by the risk score (Method&nbsp;3) rarely stand alone &mdash; they cluster geographically. This method groups them, then tracks the same knots across every election since 2005 to see which ones recur.</p>
+
+  <figure>
+    <img src="images/clusters.png" alt="Recurring risk clusters" />
+    <figcaption>/risk-analysis &mdash; the &ldquo;recurring risk clusters&rdquo; card; each row is a persistent locus, the coloured dots its winning party in each election.</figcaption>
+  </figure>
+
+  <h3>How it works</h3>
+  <ol>
+    <li><span class="term">Per-election clustering.</span> Within one election, sections that screened <em>elevated-or-above</em> are grouped into clusters: same winning party, centroids within <strong>600&nbsp;m</strong> of each other, joined as connected components, minimum three sections. Sections abroad (oblast&nbsp;32) are excluded &mdash; their IDs are reassigned each cycle.</li>
+    <li><span class="term">Persistent loci.</span> Per-election clusters are then linked <em>across</em> elections: any two that share at least two section IDs are joined, again as connected components. The result is a <span class="term">persistent locus</span> &mdash; a geographic knot that has clustered in two or more elections.</li>
+    <li><span class="term">Section rap sheet.</span> Each individual section also carries its own cross-election history &mdash; its risk score and band in every election it appears in &mdash; shown on the section page.</li>
+    <li><span class="term">Views, not scores.</span> Clusters and loci <em>describe</em> already-published screening output; neither feeds back into the 0&ndash;100 score, so there is no circularity.</li>
+  </ol>
+
+  <div class="box calc"><span class="h">Worked example &mdash; Stolipinovo, Plovdiv</span>
+    <p style="margin-bottom:4pt;">The single largest risk cluster in April&nbsp;2026 is <strong>22 adjacent sections</strong> in the Stolipinovo neighbourhood of Plovdiv, all won by ПрБ (high band, peak score&nbsp;76). It is not new &mdash; the same locus has clustered in <strong>13 of the elections on record</strong>, across 37 distinct sections over time, peaking at a critical-band 80.9 in November&nbsp;2021. The winner, however, keeps changing hands:</p>
+    <div class="formula">2005&ndash;2014   ДПС &mdash; four consecutive cycles
+2017        ДОСТ
+2021        ГЕРБ-СДС (Apr), then ДПС (Jul, Nov)
+2022&ndash;2023   ДПС
+2024        ГЕРБ-СДС &mdash; both cycles
+2026        ПрБ &mdash; the brand-new winner</div>
+    <p style="margin-top:4pt;">The bloc result is constant &mdash; a lopsided cluster every cycle &mdash; but the beneficiary rotates. That is the broker-managed-turnout fingerprint: the cluster behaves as a transferable bloc, not a loyal electorate.</p>
+  </div>
+
+  <div class="box caveat"><span class="h">The same screening discipline</span>
+    A recurring cluster is a &ldquo;look here every cycle&rdquo; cue, never a verdict. 34 of this locus's 37 sections also fall inside a documented neighbourhood with distinctive turnout dynamics &mdash; so the recurrence reflects a real, mapped community, not a finding of wrongdoing. Each locus links straight to its member sections so the reader can inspect the protocols.</div>
+</div>
+
+<!-- ===================== CLOSING ===================== -->
+<div class="page">
+  <div class="kicker">In summary</div>
+  <h2 class="title">Common principles</h2>
+  <p class="lede">The seven methods differ in subject &mdash; pollsters, digits, sections, whole elections, demographics, voter flows, recurring geographic clusters &mdash; but share a common discipline.</p>
+
+  <h3>Screening, not verdicts</h3>
+  <p>Every anomaly method is explicitly framed as a prompt to look closer, never as proof of wrongdoing. Risk pages carry a banner saying so; the Benford page leads with one.</p>
+
+  <h3>Vote-weighted for comparability</h3>
+  <p>Composite signals are expressed on a shared denominator &mdash; national turnout, or total machine votes &mdash; so that signals of different kinds can be averaged honestly into one number.</p>
+
+  <h3>Honest about uncertainty</h3>
+  <p>The caveat is built into the method, not bolted on: range-bounding in Benford, the ecological fallacy in the demographic and vote-flow correlations, partial-data masking in the risk score, Bayesian shrinkage in the polling leaderboard.</p>
+
+  <h3>Reproducible</h3>
+  <p>Every figure is computed from official CIK data by open-source code, and the methodology is printed on each page of the site itself &mdash; the reader can always trace a number back to its inputs.</p>
+
+  <div class="footer-note">
+    electionsbg.com &mdash; statistical methods briefing &middot; May 2026 &middot; figures from the May 2026 data refresh.
+    Pages referenced: /polls, /polls/ML, /benford, /risk-score, /risk-analysis, /risk-analysis/cluster, /demographics, /demographics/municipalities, /persistence.
+  </div>
+</div>
+
+</body>
+</html>
