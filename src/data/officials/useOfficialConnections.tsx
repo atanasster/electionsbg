@@ -8,10 +8,12 @@ const fetchSubgraph = async (
   const response = await fetch(
     dataUrl(`/parliament/official-connections/${slug}.json`),
   );
-  // 404 = this official has no company connections (no subgraph file emitted).
-  if (response.status === 404) return null;
-  if (!response.ok) {
-    throw new Error(`fetch failed: ${response.status} ${response.url}`);
+  // An official with no company connections has no subgraph file: the GCS
+  // bucket 404s, but the Vite dev server falls through to the SPA's
+  // index.html (200, text/html). Treat either as "no subgraph".
+  if (!response.ok) return null;
+  if (!(response.headers.get("content-type") ?? "").includes("json")) {
+    return null;
   }
   return (await response.json()) as OfficialConnectionsSubgraph;
 };

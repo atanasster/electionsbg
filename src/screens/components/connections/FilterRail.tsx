@@ -205,6 +205,8 @@ const SmartEntitySearch: FC = () => {
   const onPick = (entry: ConnectionsSearchEntry) => {
     if (entry.type === "mp") {
       navigate(candidateUrlForMp(entry.mpId));
+    } else if (entry.type === "official") {
+      navigate(`/officials/${encodeURIComponent(entry.slug)}`);
     } else if (entry.slug) {
       navigate(`/mp/company/${encodeURIComponent(entry.slug)}`);
     }
@@ -238,7 +240,9 @@ const SmartEntitySearch: FC = () => {
               key={
                 entry.type === "mp"
                   ? `mp-${entry.mpId}`
-                  : `co-${entry.slug ?? entry.uic ?? i}`
+                  : entry.type === "official"
+                    ? `official-${entry.slug}`
+                    : `co-${entry.slug ?? entry.uic ?? i}`
               }
               type="button"
               onMouseDown={(e) => {
@@ -251,7 +255,11 @@ const SmartEntitySearch: FC = () => {
               <span
                 className={cn(
                   "inline-block h-1.5 w-1.5 rounded-full mr-1.5",
-                  entry.type === "mp" ? "bg-blue-500" : "bg-amber-500",
+                  entry.type === "mp"
+                    ? "bg-blue-500"
+                    : entry.type === "official"
+                      ? "bg-teal-500"
+                      : "bg-amber-500",
                 )}
               />
               <span className="truncate">{entry.label}</span>
@@ -263,6 +271,11 @@ const SmartEntitySearch: FC = () => {
               {entry.type === "company" && entry.seat && (
                 <span className="ml-2 text-[10px] text-muted-foreground">
                   {entry.seat}
+                </span>
+              )}
+              {entry.type === "official" && entry.municipality && (
+                <span className="ml-2 text-[10px] text-muted-foreground">
+                  {entry.municipality}
                 </span>
               )}
             </button>

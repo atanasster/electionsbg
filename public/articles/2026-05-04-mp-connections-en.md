@@ -15,16 +15,18 @@ keywords:
 
 Bulgarian voters can already see how an MP votes, where they were elected, and how their party fared in any given polling station. What has been much harder to see — without manually downloading an XML declaration and cross-checking it against the Commerce Registry — is what *companies* sit behind those people, how those companies link MPs to one another, and how much wealth each MP actually declared in the first place.
 
-That is the gap these features fill. As of this writing, the graph contains **5,302 nodes** (581 MPs, 1,957 companies, 2,764 other named persons) joined by **6,355 edges** drawn from two open Bulgarian datasets; the wealth aggregator covers **744 MPs across 1,802 cacbg filings** spanning fiscal years 2020 through the first 2026 batch; and a derived [cars page](/mp-cars) lists every passenger car (572 lifetime, 69 for the 52nd parliament) extracted from those same declarations, sorted by declared BGN value. This article walks through where to find the new pages, what they show, and ends with a worked example: a pair of brothers, one currently seated and one former, both MPs of different parties and co-owners of the same company.
+That is the gap these features fill. As of this writing, the graph contains **11,614 nodes** (491 MPs, 1,233 public officials, 4,077 companies, 5,813 other named persons) joined by **15,806 edges** drawn from two open Bulgarian datasets; the wealth aggregator covers **744 MPs across 1,802 cacbg filings** spanning fiscal years 2020 through the first 2026 batch; and a derived [cars page](/mp-cars) lists every passenger car (572 lifetime, 69 for the 52nd parliament) extracted from those same declarations, sorted by declared BGN value. This article walks through where to find the new pages, what they show, and ends with a worked example: a pair of brothers, one currently seated and one former, both MPs of different parties and co-owners of the same company.
 
 ---
 
 ## 1. What this is, and what it is not
 
-This is a **graph of declared and registered business ties** between sitting and former MPs.
+This is a **graph of declared and registered business ties** between sitting and former MPs — and, since 2026, non-MP public officials (cabinet ministers, regional governors, mayors and municipal councillors).
 
 - **Declared ties**: ownership stakes that an MP filed with the [Court of Audit](https://register.cacbg.bg/) on their annual property/interest declaration.
 - **Registered ties**: management roles, partnerships and beneficial-ownership entries pulled from the [Commerce Registry](https://portal.registryagency.bg/CR/) (Търговски регистър) for those same companies, plus other companies the same individuals appear on.
+
+Since 2026 the graph also covers **non-MP public officials** — cabinet ministers, regional governors, and municipal mayors and councillors — drawn from the same Court of Audit register. An official is tied to a company with high confidence only when they declared the stake themselves; a name-only Commerce Registry match is a weaker signal. Officials carry no parliamentary party, so they are excluded from the party heatmap, which stays MP-only.
 
 It is **not** a list of accusations. Bulgarian law forbids sitting MPs from holding *active* management roles in commercial companies (ЗПК Art. 35), but it does not forbid ownership stakes — and historical management roles linger in the Commerce Registry as part of the public record. Most of what you see here is perfectly legal. The point of the graph is to make that legal-but-public record easy to read.
 

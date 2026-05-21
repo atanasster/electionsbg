@@ -710,6 +710,12 @@ export const buildConnectionsGraph = ({
   // never re-matched here. Runs BEFORE the TR officer expansion below, so
   // officials' own companies also get their co-officers pulled in (the real
   // cross-political-class web). Officials with no UIC-bearing link get no node.
+  //
+  // Behaviour note: because officials are first-class nodes, the per-MP BFS
+  // subgraphs and the MP↔MP top-pairs now traverse them — an MP↔MP tie can
+  // route through an official, exactly as it can through a non-MP person. The
+  // MP-only surfaces (top-pairs, the "X MPs connected" stat) are therefore
+  // computed over a graph that contains officials.
 
   const officialLinksPath = path.join(
     publicFolder,

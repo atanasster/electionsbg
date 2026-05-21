@@ -1,7 +1,13 @@
 import { FC, ReactNode, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useTranslation } from "react-i18next";
-import { ArrowRight, Building2, ExternalLink, UserSquare2 } from "lucide-react";
+import {
+  ArrowRight,
+  Building2,
+  ExternalLink,
+  Landmark,
+  UserSquare2,
+} from "lucide-react";
 import type {
   ConnectionsCompanyNode,
   ConnectionsEdge,
@@ -26,14 +32,21 @@ type Props = {
   edgeBetween: (a: string, b: string) => ConnectionsEdge | undefined;
 };
 
-const NON_MP_ICON: Record<"company" | "person", FC<{ className?: string }>> = {
+// Keyed by every non-MP node type — officials can appear as path nodes once
+// they are first-class graph nodes, so the records must cover "official".
+const NON_MP_ICON: Record<
+  "company" | "person" | "official",
+  FC<{ className?: string }>
+> = {
   company: Building2,
   person: UserSquare2,
+  official: Landmark,
 };
 
-const NON_MP_DOT: Record<"company" | "person", string> = {
+const NON_MP_DOT: Record<"company" | "person" | "official", string> = {
   company: "bg-amber-500",
   person: "bg-neutral-400",
+  official: "bg-teal-500",
 };
 
 const linkForNode = (n: ConnectionsNode): { to: string } | null => {
