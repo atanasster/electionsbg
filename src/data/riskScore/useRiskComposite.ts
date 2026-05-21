@@ -7,13 +7,14 @@ import { useNationalSummary } from "@/data/dashboard/useNationalSummary";
 import { useProblemSections } from "@/data/reports/useProblemSections";
 import { useProblemSectionsStats } from "@/data/reports/useProblemSectionsStats";
 import { usePollsAccuracy } from "@/data/polls/usePolls";
+import { useRiskClusters } from "./useRiskClusters";
 import { useElectionContext } from "@/data/ElectionContext";
 
 // Composite "Индекс на изборния риск" — split into two tracks:
 //   • Integrity (headline): five process-integrity signals averaged into
 //     the 0–100 score shown on the hero / home ribbon. Each measures a
 //     way the recorded result could diverge from the cast votes.
-//   • Context (informational): four statistical / structural / forecast
+//   • Context (informational): five statistical / structural / forecast
 //     signals shown alongside but NOT averaged into the headline. They
 //     can light up in perfectly clean elections (Benford failures by
 //     range-bounding, неполучаваеми demographic-baseline махала share,
@@ -41,7 +42,8 @@ export type RiskCompositeComponentId =
   | "benford"
   | "neighborhoodsSwing"
   | "voteSwitching"
-  | "polls";
+  | "polls"
+  | "clusters";
 
 export type RiskCompositeComponent = {
   id: RiskCompositeComponentId;
@@ -113,6 +115,14 @@ const VOTE_SWITCHING_CAP_PP = 30;
 // election irregularity.
 const POLLS_FLOOR_PP = 1.5;
 const POLLS_CAP_PP = 5;
+// Spatial risk clusters — share of geolocatable elevated+ sections that
+// fall into a same-party geographic cluster (scripts/reports/risk_score.ts
+// buildRiskClusters). The 2005–2026 backtest sits in a narrow 8–17% band;
+// floor at 5% (irreducible structural clustering reads calm cycles low),
+// cap at 20% (a fifth of all flagged sections clustering is a strong
+// spatial-concentration signal — above the 16.7% historical peak).
+const CLUSTER_SHARE_FLOOR_PCT = 5;
+const CLUSTER_SHARE_CAP_PCT = 20;
 
 // Match a party across cycles by canonical-name overlap, falling back to
 // nickname equality. commonName arrays carry the rename/coalition history
@@ -141,6 +151,7 @@ export const useRiskComposite = (): RiskComposite | null => {
   const { data: problemSections } = useProblemSections();
   const { data: problemSectionsStats } = useProblemSectionsStats();
   const { data: pollsAccuracy } = usePollsAccuracy();
+  const { data: clusters } = useRiskClusters();
   const { selected, electionStats, priorElections } = useElectionContext();
 
   // Sticky cache: keep the last coherent composite around so that during
@@ -618,6 +629,48 @@ export const useRiskComposite = (): RiskComposite | null => {
       });
     }
 
+    // 10. Spatial risk clusters — share of the geolocatable elevated+
+    // sections that fall into a same-party geographic cluster (a knot of
+    // adjacent flagged sections, the controlled/corporate-vote
+    // fingerprint). CONTEXT track: it re-describes sections already
+    // counted by the integrity-track section-screening signal, so it must
+    // never feed the headline; and clustering is partly structural
+    // (risk factors are geographically correlated). Floor 5%, cap 20%.
+    if (
+      clusters &&
+      clusters.election === selected &&
+      clusters.mapSections.length > 0
+    ) {
+      const clustered = new Set<string>();
+      for (const cl of clusters.clusters)
+        for (const s of cl.sections) clustered.add(s);
+      const flagged = clusters.mapSections.length;
+      const sharePct = (100 * clustered.size) / flagged;
+      const value = Math.min(
+        100,
+        Math.max(
+          0,
+          ((sharePct - CLUSTER_SHARE_FLOOR_PCT) /
+            (CLUSTER_SHARE_CAP_PCT - CLUSTER_SHARE_FLOOR_PCT)) *
+            100,
+        ),
+      );
+      components.push({
+        id: "clusters",
+        track: "context",
+        value,
+        available: true,
+        detail: `${clustered.size.toLocaleString("bg-BG")} / ${flagged.toLocaleString("bg-BG")} (${sharePct.toFixed(1)}%)`,
+      });
+    } else {
+      components.push({
+        id: "clusters",
+        track: "context",
+        value: 0,
+        available: false,
+      });
+    }
+
     const integrity = components.filter((c) => c.track === "integrity");
     const context = components.filter((c) => c.track === "context");
     const integrityAvail = integrity.filter((c) => c.available);
@@ -649,6 +702,7 @@ export const useRiskComposite = (): RiskComposite | null => {
     problemSections,
     problemSectionsStats,
     pollsAccuracy,
+    clusters,
     selected,
     electionStats,
     priorElections,

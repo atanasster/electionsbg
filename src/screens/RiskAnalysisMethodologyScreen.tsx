@@ -21,7 +21,7 @@ const LabelP: FC<PropsWithChildren<{ label: string }>> = ({
 
 // Methodology page for the Composite Election Risk Index. The index has
 // two tracks (rendered as two sections on this page): five integrity-track
-// components averaged into the headline, plus four context-track signals
+// components averaged into the headline, plus five context-track signals
 // shown alongside but excluded from the headline.
 export const RiskAnalysisMethodologyScreen = () => {
   const { t } = useTranslation();
@@ -78,6 +78,9 @@ export const RiskAnalysisMethodologyScreen = () => {
       </LabelP>
       <LabelP label={t("composite_methodology_c_polls_t")}>
         {t("composite_methodology_c_polls_p")}
+      </LabelP>
+      <LabelP label={t("composite_methodology_c_clusters_t")}>
+        {t("composite_methodology_c_clusters_p")}
       </LabelP>
 
       <ArticleH2>{t("composite_methodology_h_bands")}</ArticleH2>

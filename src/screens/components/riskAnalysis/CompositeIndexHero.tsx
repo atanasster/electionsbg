@@ -52,6 +52,7 @@ const CONTEXT_ORDER: RiskCompositeComponent["id"][] = [
   "neighborhoodsSwing",
   "voteSwitching",
   "polls",
+  "clusters",
 ];
 
 const componentBarColor = (value: number): string =>
