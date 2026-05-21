@@ -1,0 +1,5678 @@
+{
+  "generatedAt": "2026-05-21T15:16:36.952Z",
+  "total": 157,
+  "officialMpEdges": 35,
+  "officialPeerEdges": 278,
+  "byOfficial": {
+    "angel-borisov-zaburtov-fd5ef9": {
+      "slug": "angel-borisov-zaburtov-fd5ef9",
+      "name": "Ангел Борисов Забуртов",
+      "tier": "executive",
+      "role": "cabinet",
+      "municipality": null,
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "stoyan-borisov-hristov-a391df",
+          "name": "Стоян Борисов Христов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "130316140",
+              "companyName": "ПРИСТАНИЩНА ИНФРАСТРУКТУРА"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "atanas-georgiev-atanasov-926cfd": {
+      "slug": "atanas-georgiev-atanasov-926cfd",
+      "name": "Атанас Георгиев Атанасов",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null,
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "georgi-atanasov-georgiev-3d1e0b",
+          "name": "Георги Атанасов Георгиев",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "206477252",
+              "companyName": "АТАНАСОВ АГРО 56"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "valeri-petrov-borisov-4cdc5f": {
+      "slug": "valeri-petrov-borisov-4cdc5f",
+      "name": "Валери Петров Борисов",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null,
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "valentina-stefanova-nedyalkova-f07289",
+          "name": "Валентина Стефанова Недялкова",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "831641791",
+              "companyName": "ИНФОРМАЦИОННО ОБСЛУЖВАНЕ"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "georgi-valentinov-georgiev-f8a190": {
+      "slug": "georgi-valentinov-georgiev-f8a190",
+      "name": "Георги Валентинов Георгиев",
+      "tier": "executive",
+      "role": "cabinet",
+      "municipality": null,
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "nikolai-ivanov-ivanov-6576f1",
+          "name": "Николай Иванов Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "206643539",
+              "companyName": "ГН моторс"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "georgi-hristov-georgiev-093ff0": {
+      "slug": "georgi-hristov-georgiev-093ff0",
+      "name": "Георги Христов Георгиев",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null,
+      "mpConnections": [
+        {
+          "mpId": 3922,
+          "mpName": "Десислава Илиева Георгиева",
+          "sharedCompanies": [
+            {
+              "uic": "206382929",
+              "companyName": "МОУШЪНСПОРТС"
+            }
+          ],
+          "confidence": "high"
+        }
+      ],
+      "peerConnections": [
+        {
+          "slug": "desislava-ilieva-georgieva-8bace5",
+          "name": "Десислава Илиева Георгиева",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "206382929",
+              "companyName": "МОУШЪНСПОРТС"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "dora-ilieva-yankova-082790": {
+      "slug": "dora-ilieva-yankova-082790",
+      "name": "Дора Илиева Янкова",
+      "tier": "executive",
+      "role": "cabinet",
+      "municipality": null,
+      "mpConnections": [
+        {
+          "mpId": 2621,
+          "mpName": "Евгени Димитров Стоев",
+          "sharedCompanies": [
+            {
+              "uic": "175331015",
+              "companyName": "Фонд ФЛАГ"
+            }
+          ],
+          "confidence": "high"
+        }
+      ],
+      "peerConnections": []
+    },
+    "ivan-vasilev-ivanov-45bbe3": {
+      "slug": "ivan-vasilev-ivanov-45bbe3",
+      "name": "Иван Василев Иванов",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null,
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "svetoslav-ivanov-ivanov-445a62",
+          "name": "Светослав Иванов Иванов",
+          "tier": "municipal",
+          "role": "chief_architect",
+          "sharedCompanies": [
+            {
+              "uic": "202981340",
+              "companyName": "В2М България"
+            }
+          ],
+          "confidence": "low"
+        }
+      ]
+    },
+    "petko-georgiev-nikolov-0e4c71": {
+      "slug": "petko-georgiev-nikolov-0e4c71",
+      "name": "Петко Георгиев Николов",
+      "tier": "executive",
+      "role": "cabinet",
+      "municipality": null,
+      "mpConnections": [
+        {
+          "mpId": 3167,
+          "mpName": "Илия Димитров Лазаров",
+          "sharedCompanies": [
+            {
+              "uic": "121706255",
+              "companyName": "НАЦИОНАЛНА КОМПАНИЯ ИНДУСТРИАЛНИ ЗОНИ"
+            }
+          ],
+          "confidence": "high"
+        }
+      ],
+      "peerConnections": []
+    },
+    "petr-dimitrov-todorov-2ed3b6": {
+      "slug": "petr-dimitrov-todorov-2ed3b6",
+      "name": "Петър Димитров Тодоров",
+      "tier": "executive",
+      "role": "agency_head",
+      "municipality": null,
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "todor-dimitrov-todorov-985258",
+          "name": "Тодор Димитров Тодоров",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "104684229",
+              "companyName": "СЕТ - 5"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "yavor-slavyanov-penchev-1cf389": {
+      "slug": "yavor-slavyanov-penchev-1cf389",
+      "name": "Явор Славянов Пенчев",
+      "tier": "executive",
+      "role": "cabinet",
+      "municipality": null,
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "borislav-ognyanov-beshirov-2d12a9",
+          "name": "Борислав Огнянов Беширов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "206459884",
+              "companyName": "ХИЛС РЕЗИДЕНС"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "aleksandr-georgiev-daskalov-095998": {
+      "slug": "aleksandr-georgiev-daskalov-095998",
+      "name": "Александър Георгиев Даскалов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Велинград",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "nadezhda-borisova-klyuchkova-683b12",
+          "name": "Надежда Борисова Ключкова",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "112008155",
+              "companyName": "ВЕЛИ - 91"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "angel-dimitrov-geraksiev-b0bbf4": {
+      "slug": "angel-dimitrov-geraksiev-b0bbf4",
+      "name": "Ангел Димитров Гераксиев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Гоце Делчев",
+      "mpConnections": [
+        {
+          "mpId": 4706,
+          "mpName": "Кирил Николаев Добрев",
+          "sharedCompanies": [
+            {
+              "uic": "130922953",
+              "companyName": "ПИРИН ВАТ"
+            }
+          ],
+          "confidence": "high"
+        }
+      ],
+      "peerConnections": []
+    },
+    "angel-ivanov-petrov-006f88": {
+      "slug": "angel-ivanov-petrov-006f88",
+      "name": "Ангел Иванов Петров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Монтана",
+      "mpConnections": [
+        {
+          "mpId": 2760,
+          "mpName": "Иван Димов Иванов",
+          "sharedCompanies": [
+            {
+              "uic": "121433881",
+              "companyName": "КАРГО ЕР"
+            }
+          ],
+          "confidence": "high"
+        }
+      ],
+      "peerConnections": []
+    },
+    "angel-petrov-angelov-181b82": {
+      "slug": "angel-petrov-angelov-181b82",
+      "name": "Ангел Петров Ангелов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Велики Преслав",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "dimitr-georgiev-dimitrov-402467",
+          "name": "Димитър Георгиев Димитров",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "117035117",
+              "companyName": "УСТРЕМ"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "ivan-hristov-ivanov-e944f6",
+          "name": "Иван Христов Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "117035117",
+              "companyName": "УСТРЕМ"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "angel-hristov-tanev-e89412": {
+      "slug": "angel-hristov-tanev-e89412",
+      "name": "Ангел Христов Танев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Петрич",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "georgi-ivanov-ivanov-f7c5fb",
+          "name": "Георги Иванов Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "205126115",
+              "companyName": "НГ РИК"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "georgi-ivanov-ivanov-736d9d",
+          "name": "Георги Иванов Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "205126115",
+              "companyName": "НГ РИК"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "georgi-ivanov-ivanov-5070c4",
+          "name": "Георги Иванов Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "205126115",
+              "companyName": "НГ РИК"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "atanas-iliev-atanasov-6e3c18": {
+      "slug": "atanas-iliev-atanasov-6e3c18",
+      "name": "Атанас Илиев Атанасов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Балчик",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "iliya-atanasov-iliev-93677c",
+          "name": "Илия Атанасов Илиев",
+          "tier": "municipal",
+          "role": "deputy_mayor",
+          "sharedCompanies": [
+            {
+              "uic": "206613567",
+              "companyName": "БАЙКС УЪРЛД"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "atanas-ilchev-ilchev-72c6be": {
+      "slug": "atanas-ilchev-ilchev-72c6be",
+      "name": "Атанас Илчев Илчев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Ямбол",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "evgeni-ivanov-ivanov-1d0d30",
+          "name": "Евгени Иванов Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "205767690",
+              "companyName": "Спешъл сикюрити груп ООД"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "atanas-petrov-drakov-399450": {
+      "slug": "atanas-petrov-drakov-399450",
+      "name": "Атанас Петров Драков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Варна",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "dimitr-petkov-kolev-16d113",
+          "name": "Димитър Петков Колев",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "206990970",
+              "companyName": "К и Д 2022"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "atanas-yanchev-atanasov-2e8e0b": {
+      "slug": "atanas-yanchev-atanasov-2e8e0b",
+      "name": "Атанас Янчев Атанасов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Котел",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "rumen-hristov-hristov-6a588e",
+          "name": "Румен Христов Христов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "119048540",
+              "companyName": "ПАЗАР ЗА ПЛОДОВЕ, ЗЕЛЕНЧУЦИ И ЦВЕТЯ"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "borislav-ognyanov-beshirov-2d12a9": {
+      "slug": "borislav-ognyanov-beshirov-2d12a9",
+      "name": "Борислав Огнянов Беширов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Неделино",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "yavor-slavyanov-penchev-1cf389",
+          "name": "Явор Славянов Пенчев",
+          "tier": "executive",
+          "role": "cabinet",
+          "sharedCompanies": [
+            {
+              "uic": "206459884",
+              "companyName": "Хилс Резиденс ООД"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "valentina-stefanova-nedyalkova-f07289": {
+      "slug": "valentina-stefanova-nedyalkova-f07289",
+      "name": "Валентина Стефанова Недялкова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Ловеч",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "valeri-petrov-borisov-4cdc5f",
+          "name": "Валери Петров Борисов",
+          "tier": "executive",
+          "role": "agency_head",
+          "sharedCompanies": [
+            {
+              "uic": "831641791",
+              "companyName": "ИНФОРМАЦИОННО ОБСЛУЖВАНЕ"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "vasil-georgiev-vasilev-ba9f3d": {
+      "slug": "vasil-georgiev-vasilev-ba9f3d",
+      "name": "Васил Георгиев Василев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Етрополе",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "georgi-vasilev-dimitrov-2f5615",
+          "name": "Георги Василев Димитров",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "206889836",
+              "companyName": "Бранко Метал Груп"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "vasil-hristov-miladinov-52e80e": {
+      "slug": "vasil-hristov-miladinov-52e80e",
+      "name": "Васил Христов Миладинов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Благоевград",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "dimitr-lazarov-urdev-404e30",
+          "name": "Димитър Лазаров Урдев",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "101744540",
+              "companyName": "СМАРТ КОНСУЛТ"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "velislav-georgiev-daskalov-2bb719": {
+      "slug": "velislav-georgiev-daskalov-2bb719",
+      "name": "Велислав Георгиев Даскалов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Добрич",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "ivailo-mitkov-ivanov-3f0c41",
+          "name": "Ивайло Митков Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "207009729",
+              "companyName": "Даскалов Иванов"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "vladislav-zlatkov-bakalov-47a692": {
+      "slug": "vladislav-zlatkov-bakalov-47a692",
+      "name": "Владислав Златков Бакалов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Варна",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "ivan-todorov-ivanov-aecae9",
+          "name": "Иван Тодоров Иванов",
+          "tier": "municipal",
+          "role": "mayor",
+          "sharedCompanies": [
+            {
+              "uic": "206589194",
+              "companyName": "Слънце Бутово АД"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "ivan-hristov-ivanov-e944f6",
+          "name": "Иван Христов Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "206589194",
+              "companyName": "Слънце Бутово АД"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "georgi-atanasov-georgiev-3d1e0b": {
+      "slug": "georgi-atanasov-georgiev-3d1e0b",
+      "name": "Георги Атанасов Георгиев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Кричим",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "atanas-georgiev-atanasov-926cfd",
+          "name": "Атанас Георгиев Атанасов",
+          "tier": "executive",
+          "role": "agency_head",
+          "sharedCompanies": [
+            {
+              "uic": "206477252",
+              "companyName": "АТАНАСОВ АГРО 56"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "dimitr-georgiev-dimitrov-402467",
+          "name": "Димитър Георгиев Димитров",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "205007402",
+              "companyName": "ДЕНТ ВИЖЪН ТИЙМ"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "nikolai-dimitrov-nikolov-6f0767",
+          "name": "Николай Димитров Николов",
+          "tier": "municipal",
+          "role": "chief_architect",
+          "sharedCompanies": [
+            {
+              "uic": "205007402",
+              "companyName": "ДЕНТ ВИЖЪН ТИЙМ"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "nikolai-dimitrov-nikolov-2cb7ac",
+          "name": "Николай Димитров Николов",
+          "tier": "municipal",
+          "role": "council_chair",
+          "sharedCompanies": [
+            {
+              "uic": "205007402",
+              "companyName": "ДЕНТ ВИЖЪН ТИЙМ"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "nikolai-dimitrov-nikolov-fadf74",
+          "name": "Николай Димитров Николов",
+          "tier": "municipal",
+          "role": "council_chair",
+          "sharedCompanies": [
+            {
+              "uic": "205007402",
+              "companyName": "ДЕНТ ВИЖЪН ТИЙМ"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "petr-dimitrov-petrov-9c5512",
+          "name": "Петър Димитров Петров",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "205007402",
+              "companyName": "ДЕНТ ВИЖЪН ТИЙМ"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "georgi-vasilev-dimitrov-2f5615": {
+      "slug": "georgi-vasilev-dimitrov-2f5615",
+      "name": "Георги Василев Димитров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Ветово",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "vasil-georgiev-vasilev-ba9f3d",
+          "name": "Васил Георгиев Василев",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "206889836",
+              "companyName": "Бранко Метал Груп"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "georgi-dimitrov-georgiev-bc608a": {
+      "slug": "georgi-dimitrov-georgiev-bc608a",
+      "name": "Георги Димитров Георгиев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Несебър",
+      "mpConnections": [
+        {
+          "mpId": 5247,
+          "mpName": "Петър Николаев Петров",
+          "sharedCompanies": [
+            {
+              "uic": "205911226",
+              "companyName": "ПИ ВИ БИЛД"
+            }
+          ],
+          "confidence": "low"
+        }
+      ],
+      "peerConnections": [
+        {
+          "slug": "ivan-kostadinov-ivanov-69758d",
+          "name": "Иван Костадинов Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "825266835",
+              "companyName": "ПРОСЛАВ 1"
+            }
+          ],
+          "confidence": "low"
+        },
+        {
+          "slug": "iliyan-georgiev-iliev-c83e58",
+          "name": "Илиян Георгиев Илиев",
+          "tier": "municipal",
+          "role": "deputy_mayor",
+          "sharedCompanies": [
+            {
+              "uic": "200291636",
+              "companyName": "ТОМЕКО БУРГАС"
+            }
+          ],
+          "confidence": "low"
+        }
+      ]
+    },
+    "georgi-dimitrov-georgiev-42dfbc": {
+      "slug": "georgi-dimitrov-georgiev-42dfbc",
+      "name": "Георги Димитров Георгиев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Севлиево",
+      "mpConnections": [
+        {
+          "mpId": 5247,
+          "mpName": "Петър Николаев Петров",
+          "sharedCompanies": [
+            {
+              "uic": "205911226",
+              "companyName": "ПИ ВИ БИЛД"
+            }
+          ],
+          "confidence": "low"
+        }
+      ],
+      "peerConnections": [
+        {
+          "slug": "ivan-kostadinov-ivanov-69758d",
+          "name": "Иван Костадинов Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "825266835",
+              "companyName": "ПРОСЛАВ 1"
+            }
+          ],
+          "confidence": "low"
+        },
+        {
+          "slug": "iliyan-georgiev-iliev-c83e58",
+          "name": "Илиян Георгиев Илиев",
+          "tier": "municipal",
+          "role": "deputy_mayor",
+          "sharedCompanies": [
+            {
+              "uic": "200291636",
+              "companyName": "ТОМЕКО БУРГАС"
+            }
+          ],
+          "confidence": "low"
+        }
+      ]
+    },
+    "georgi-dimitrov-georgiev-dfb15b": {
+      "slug": "georgi-dimitrov-georgiev-dfb15b",
+      "name": "Георги Димитров Георгиев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Средец",
+      "mpConnections": [
+        {
+          "mpId": 5247,
+          "mpName": "Петър Николаев Петров",
+          "sharedCompanies": [
+            {
+              "uic": "205911226",
+              "companyName": "ПИ ВИ БИЛД"
+            }
+          ],
+          "confidence": "low"
+        }
+      ],
+      "peerConnections": [
+        {
+          "slug": "ivan-kostadinov-ivanov-69758d",
+          "name": "Иван Костадинов Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "825266835",
+              "companyName": "ПРОСЛАВ 1"
+            }
+          ],
+          "confidence": "low"
+        },
+        {
+          "slug": "iliyan-georgiev-iliev-c83e58",
+          "name": "Илиян Георгиев Илиев",
+          "tier": "municipal",
+          "role": "deputy_mayor",
+          "sharedCompanies": [
+            {
+              "uic": "200291636",
+              "companyName": "ТОМЕКО БУРГАС"
+            }
+          ],
+          "confidence": "low"
+        }
+      ]
+    },
+    "georgi-dimitrov-dimitrov-3a7727": {
+      "slug": "georgi-dimitrov-dimitrov-3a7727",
+      "name": "Георги Димитров Димитров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Суворово",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "georgi-iordanov-georgiev-445c79",
+          "name": "Георги Йорданов Георгиев",
+          "tier": "municipal",
+          "role": "deputy_mayor",
+          "sharedCompanies": [
+            {
+              "uic": "202886084",
+              "companyName": "СЕНЧЪРИБРЕЙК ФЪНДС"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "georgi-iordanov-georgiev-5270a7",
+          "name": "Георги Йорданов Георгиев",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "202886084",
+              "companyName": "СЕНЧЪРИБРЕЙК ФЪНДС"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "ivan-zhelyazkov-ivanov-02f38d",
+          "name": "Иван Желязков Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "202886084",
+              "companyName": "СЕНЧЪРИБРЕЙК ФЪНДС"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "georgi-ivanov-georgiev-c46138": {
+      "slug": "georgi-ivanov-georgiev-c46138",
+      "name": "Георги Иванов Георгиев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Варна",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "dimitr-georgiev-dimitrov-402467",
+          "name": "Димитър Георгиев Димитров",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "108563610",
+              "companyName": "КРУМКООП - 1"
+            }
+          ],
+          "confidence": "low"
+        },
+        {
+          "slug": "petko-kolev-petkov-ed57fe",
+          "name": "Петко Колев Петков",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "124048666",
+              "companyName": "ПЛУТОН АГРО"
+            }
+          ],
+          "confidence": "low"
+        },
+        {
+          "slug": "hristo-ivanov-ivanov-9b4a29",
+          "name": "Христо Иванов Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "202679281",
+              "companyName": "КАНАРИНИ"
+            }
+          ],
+          "confidence": "low"
+        },
+        {
+          "slug": "hristo-ivanov-ivanov-25b7f0",
+          "name": "Христо Иванов Иванов",
+          "tier": "municipal",
+          "role": "deputy_mayor",
+          "sharedCompanies": [
+            {
+              "uic": "202679281",
+              "companyName": "КАНАРИНИ"
+            }
+          ],
+          "confidence": "low"
+        }
+      ]
+    },
+    "georgi-ivanov-georgiev-2e9e4c": {
+      "slug": "georgi-ivanov-georgiev-2e9e4c",
+      "name": "Георги Иванов Георгиев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Сливен",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "dimitr-georgiev-dimitrov-402467",
+          "name": "Димитър Георгиев Димитров",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "108563610",
+              "companyName": "КРУМКООП - 1"
+            }
+          ],
+          "confidence": "low"
+        },
+        {
+          "slug": "petko-kolev-petkov-ed57fe",
+          "name": "Петко Колев Петков",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "124048666",
+              "companyName": "ПЛУТОН АГРО"
+            }
+          ],
+          "confidence": "low"
+        },
+        {
+          "slug": "hristo-ivanov-ivanov-9b4a29",
+          "name": "Христо Иванов Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "202679281",
+              "companyName": "КАНАРИНИ"
+            }
+          ],
+          "confidence": "low"
+        },
+        {
+          "slug": "hristo-ivanov-ivanov-25b7f0",
+          "name": "Христо Иванов Иванов",
+          "tier": "municipal",
+          "role": "deputy_mayor",
+          "sharedCompanies": [
+            {
+              "uic": "202679281",
+              "companyName": "КАНАРИНИ"
+            }
+          ],
+          "confidence": "low"
+        }
+      ]
+    },
+    "georgi-ivanov-georgiev-44d140": {
+      "slug": "georgi-ivanov-georgiev-44d140",
+      "name": "Георги Иванов Георгиев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Тутракан",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "dimitr-georgiev-dimitrov-402467",
+          "name": "Димитър Георгиев Димитров",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "108563610",
+              "companyName": "КРУМКООП - 1"
+            }
+          ],
+          "confidence": "low"
+        },
+        {
+          "slug": "petko-kolev-petkov-ed57fe",
+          "name": "Петко Колев Петков",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "124048666",
+              "companyName": "ПЛУТОН АГРО"
+            }
+          ],
+          "confidence": "low"
+        },
+        {
+          "slug": "hristo-ivanov-ivanov-9b4a29",
+          "name": "Христо Иванов Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "202679281",
+              "companyName": "КАНАРИНИ"
+            }
+          ],
+          "confidence": "low"
+        },
+        {
+          "slug": "hristo-ivanov-ivanov-25b7f0",
+          "name": "Христо Иванов Иванов",
+          "tier": "municipal",
+          "role": "deputy_mayor",
+          "sharedCompanies": [
+            {
+              "uic": "202679281",
+              "companyName": "КАНАРИНИ"
+            }
+          ],
+          "confidence": "low"
+        }
+      ]
+    },
+    "georgi-ivanov-dimitrov-9b37b3": {
+      "slug": "georgi-ivanov-dimitrov-9b37b3",
+      "name": "Георги Иванов Димитров",
+      "tier": "municipal",
+      "role": "mayor",
+      "municipality": "Карнобат",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "ivan-georgiev-dimitrov-11a643",
+          "name": "Иван Георгиев Димитров",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "147097950",
+              "companyName": "ДЖЙ ИЙ АЙ ВЙ ГРУП"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "ivan-petrov-ivanov-168e1c",
+          "name": "Иван Петров Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "105047492",
+              "companyName": "АВТОТРАНС ВИДИН"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "ivan-petrov-ivanov-37340d",
+          "name": "Иван Петров Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "105047492",
+              "companyName": "АВТОТРАНС ВИДИН"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "ivan-petrov-ivanov-ef8494",
+          "name": "Иван Петров Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "105047492",
+              "companyName": "АВТОТРАНС ВИДИН"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "ivan-todorov-ivanov-aecae9",
+          "name": "Иван Тодоров Иванов",
+          "tier": "municipal",
+          "role": "mayor",
+          "sharedCompanies": [
+            {
+              "uic": "105047492",
+              "companyName": "АВТОТРАНС ВИДИН"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "georgi-ivanov-ivanov-f7c5fb": {
+      "slug": "georgi-ivanov-ivanov-f7c5fb",
+      "name": "Георги Иванов Иванов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Бяла/Варна/",
+      "mpConnections": [
+        {
+          "mpId": 4452,
+          "mpName": "Кирил Тодоров Тодоров",
+          "sharedCompanies": [
+            {
+              "uic": "205912359",
+              "companyName": "ГКС Инженеринг"
+            }
+          ],
+          "confidence": "low"
+        }
+      ],
+      "peerConnections": [
+        {
+          "slug": "angel-hristov-tanev-e89412",
+          "name": "Ангел Христов Танев",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "205126115",
+              "companyName": "НГ РИК"
+            }
+          ],
+          "confidence": "low"
+        },
+        {
+          "slug": "dimitr-petrov-kostov-37e1f8",
+          "name": "Димитър Петров Костов",
+          "tier": "municipal",
+          "role": "deputy_mayor",
+          "sharedCompanies": [
+            {
+              "uic": "207058855",
+              "companyName": "Ф И Ф 22"
+            }
+          ],
+          "confidence": "low"
+        },
+        {
+          "slug": "ivan-georgiev-ivanov-da8081",
+          "name": "Иван Георгиев Иванов",
+          "tier": "municipal",
+          "role": "council_chair",
+          "sharedCompanies": [
+            {
+              "uic": "040089262",
+              "companyName": "ЕР СОФИЯ"
+            }
+          ],
+          "confidence": "low"
+        },
+        {
+          "slug": "ivan-georgiev-ivanov-fb571f",
+          "name": "Иван Георгиев Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "040089262",
+              "companyName": "ЕР СОФИЯ"
+            }
+          ],
+          "confidence": "low"
+        }
+      ]
+    },
+    "georgi-ivanov-ivanov-736d9d": {
+      "slug": "georgi-ivanov-ivanov-736d9d",
+      "name": "Георги Иванов Иванов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Хасково",
+      "mpConnections": [
+        {
+          "mpId": 4452,
+          "mpName": "Кирил Тодоров Тодоров",
+          "sharedCompanies": [
+            {
+              "uic": "205912359",
+              "companyName": "ГКС Инженеринг"
+            }
+          ],
+          "confidence": "low"
+        }
+      ],
+      "peerConnections": [
+        {
+          "slug": "angel-hristov-tanev-e89412",
+          "name": "Ангел Христов Танев",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "205126115",
+              "companyName": "НГ РИК"
+            }
+          ],
+          "confidence": "low"
+        },
+        {
+          "slug": "dimitr-petrov-kostov-37e1f8",
+          "name": "Димитър Петров Костов",
+          "tier": "municipal",
+          "role": "deputy_mayor",
+          "sharedCompanies": [
+            {
+              "uic": "207058855",
+              "companyName": "Ф И Ф 22"
+            }
+          ],
+          "confidence": "low"
+        },
+        {
+          "slug": "ivan-georgiev-ivanov-da8081",
+          "name": "Иван Георгиев Иванов",
+          "tier": "municipal",
+          "role": "council_chair",
+          "sharedCompanies": [
+            {
+              "uic": "040089262",
+              "companyName": "ЕР СОФИЯ"
+            }
+          ],
+          "confidence": "low"
+        },
+        {
+          "slug": "ivan-georgiev-ivanov-fb571f",
+          "name": "Иван Георгиев Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "040089262",
+              "companyName": "ЕР СОФИЯ"
+            }
+          ],
+          "confidence": "low"
+        }
+      ]
+    },
+    "georgi-ivanov-ivanov-5070c4": {
+      "slug": "georgi-ivanov-ivanov-5070c4",
+      "name": "Георги Иванов Иванов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Чирпан",
+      "mpConnections": [
+        {
+          "mpId": 4452,
+          "mpName": "Кирил Тодоров Тодоров",
+          "sharedCompanies": [
+            {
+              "uic": "205912359",
+              "companyName": "ГКС Инженеринг"
+            }
+          ],
+          "confidence": "low"
+        }
+      ],
+      "peerConnections": [
+        {
+          "slug": "angel-hristov-tanev-e89412",
+          "name": "Ангел Христов Танев",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "205126115",
+              "companyName": "НГ РИК"
+            }
+          ],
+          "confidence": "low"
+        },
+        {
+          "slug": "dimitr-petrov-kostov-37e1f8",
+          "name": "Димитър Петров Костов",
+          "tier": "municipal",
+          "role": "deputy_mayor",
+          "sharedCompanies": [
+            {
+              "uic": "207058855",
+              "companyName": "Ф И Ф 22"
+            }
+          ],
+          "confidence": "low"
+        },
+        {
+          "slug": "ivan-georgiev-ivanov-da8081",
+          "name": "Иван Георгиев Иванов",
+          "tier": "municipal",
+          "role": "council_chair",
+          "sharedCompanies": [
+            {
+              "uic": "040089262",
+              "companyName": "ЕР СОФИЯ"
+            }
+          ],
+          "confidence": "low"
+        },
+        {
+          "slug": "ivan-georgiev-ivanov-fb571f",
+          "name": "Иван Георгиев Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "040089262",
+              "companyName": "ЕР СОФИЯ"
+            }
+          ],
+          "confidence": "low"
+        }
+      ]
+    },
+    "georgi-ivanov-kolev-830360": {
+      "slug": "georgi-ivanov-kolev-830360",
+      "name": "Георги Иванов Колев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Пловдив",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "kiril-atanasov-trev-d5aa0f",
+          "name": "Кирил Атанасов Търев",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "206038629",
+              "companyName": "Уейст Солюшънс"
+            },
+            {
+              "uic": "200890842",
+              "companyName": "ХЕЛИОДОРО"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "georgi-iordanov-georgiev-445c79": {
+      "slug": "georgi-iordanov-georgiev-445c79",
+      "name": "Георги Йорданов Георгиев",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Луковит",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "georgi-dimitrov-dimitrov-3a7727",
+          "name": "Георги Димитров Димитров",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "202886084",
+              "companyName": "СЕНЧЪРИБРЕЙК ФЪНДС"
+            }
+          ],
+          "confidence": "low"
+        },
+        {
+          "slug": "ivan-zhelyazkov-ivanov-02f38d",
+          "name": "Иван Желязков Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "202886084",
+              "companyName": "СЕНЧЪРИБРЕЙК ФЪНДС"
+            }
+          ],
+          "confidence": "low"
+        }
+      ]
+    },
+    "georgi-iordanov-georgiev-5270a7": {
+      "slug": "georgi-iordanov-georgiev-5270a7",
+      "name": "Георги Йорданов Георгиев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Сливо поле",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "georgi-dimitrov-dimitrov-3a7727",
+          "name": "Георги Димитров Димитров",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "202886084",
+              "companyName": "СЕНЧЪРИБРЕЙК ФЪНДС"
+            }
+          ],
+          "confidence": "low"
+        },
+        {
+          "slug": "ivan-zhelyazkov-ivanov-02f38d",
+          "name": "Иван Желязков Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "202886084",
+              "companyName": "СЕНЧЪРИБРЕЙК ФЪНДС"
+            }
+          ],
+          "confidence": "low"
+        }
+      ]
+    },
+    "georgi-petrov-georgiev-ba7fd2": {
+      "slug": "georgi-petrov-georgiev-ba7fd2",
+      "name": "Георги Петров Георгиев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Генерал Тошево",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "ivan-georgiev-ivanov-da8081",
+          "name": "Иван Георгиев Иванов",
+          "tier": "municipal",
+          "role": "council_chair",
+          "sharedCompanies": [
+            {
+              "uic": "202825850",
+              "companyName": "Бългериан Органик Фуудс"
+            }
+          ],
+          "confidence": "low"
+        },
+        {
+          "slug": "ivan-georgiev-ivanov-fb571f",
+          "name": "Иван Георгиев Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "202825850",
+              "companyName": "Бългериан Органик Фуудс"
+            }
+          ],
+          "confidence": "low"
+        }
+      ]
+    },
+    "georgi-petrov-georgiev-c60397": {
+      "slug": "georgi-petrov-georgiev-c60397",
+      "name": "Георги Петров Георгиев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Димитровград",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "ivan-georgiev-ivanov-da8081",
+          "name": "Иван Георгиев Иванов",
+          "tier": "municipal",
+          "role": "council_chair",
+          "sharedCompanies": [
+            {
+              "uic": "202825850",
+              "companyName": "Бългериан Органик Фуудс"
+            }
+          ],
+          "confidence": "low"
+        },
+        {
+          "slug": "ivan-georgiev-ivanov-fb571f",
+          "name": "Иван Георгиев Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "202825850",
+              "companyName": "Бългериан Органик Фуудс"
+            }
+          ],
+          "confidence": "low"
+        }
+      ]
+    },
+    "georgi-petrov-georgiev-8027f4": {
+      "slug": "georgi-petrov-georgiev-8027f4",
+      "name": "Георги Петров Георгиев",
+      "tier": "municipal",
+      "role": "council_chair",
+      "municipality": "Попово",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "ivan-georgiev-ivanov-da8081",
+          "name": "Иван Георгиев Иванов",
+          "tier": "municipal",
+          "role": "council_chair",
+          "sharedCompanies": [
+            {
+              "uic": "202825850",
+              "companyName": "Бългериан Органик Фуудс"
+            }
+          ],
+          "confidence": "low"
+        },
+        {
+          "slug": "ivan-georgiev-ivanov-fb571f",
+          "name": "Иван Георгиев Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "202825850",
+              "companyName": "Бългериан Органик Фуудс"
+            }
+          ],
+          "confidence": "low"
+        }
+      ]
+    },
+    "georgi-petrov-stoyanov-ae5b9f": {
+      "slug": "georgi-petrov-stoyanov-ae5b9f",
+      "name": "Георги Петров Стоянов",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Царево",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "kiril-angelov-atanasov-3fa700",
+          "name": "Кирил Ангелов Атанасов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "203568412",
+              "companyName": "ТРАКИЙСКА ЗОРА 2015"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "georgi-stoyanov-georgiev-8146fe": {
+      "slug": "georgi-stoyanov-georgiev-8146fe",
+      "name": "Георги Стоянов Георгиев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Тунджа",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "stoyan-georgiev-stoyanov-0f9834",
+          "name": "Стоян Георгиев Стоянов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "813196172",
+              "companyName": "ТРАВЕЛ ЕКСПРЕС"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "stoyan-georgiev-stoyanov-36b0e5",
+          "name": "Стоян Георгиев Стоянов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "813196172",
+              "companyName": "ТРАВЕЛ ЕКСПРЕС"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "daniel-rumenov-gargov-c309b6": {
+      "slug": "daniel-rumenov-gargov-c309b6",
+      "name": "Даниел Руменов Гаргов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Хасково",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "dimitr-stefanov-dimitrov-98714b",
+          "name": "Димитър Стефанов Димитров",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "126665054",
+              "companyName": "ЕВРОФИН"
+            },
+            {
+              "uic": "126739227",
+              "companyName": "ПАЗАРИ"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "petr-evgeniev-nikolov-3b09db",
+          "name": "Петър Евгениев Николов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "206729073",
+              "companyName": "ГЛОБЪЛ ЕС ЕНЕРДЖИ"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "denitsa-todorova-todorova-2e75f0": {
+      "slug": "denitsa-todorova-todorova-2e75f0",
+      "name": "Деница Тодорова Тодорова",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Белослав",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "todor-iordanov-todorov-96bf84",
+          "name": "Тодор Йорданов Тодоров",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "206825399",
+              "companyName": "РЕКА ДУНАВ"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "desislava-ilieva-georgieva-8bace5": {
+      "slug": "desislava-ilieva-georgieva-8bace5",
+      "name": "Десислава Илиева Георгиева",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Пазарджик",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "georgi-hristov-georgiev-093ff0",
+          "name": "Георги Христов Георгиев",
+          "tier": "executive",
+          "role": "agency_head",
+          "sharedCompanies": [
+            {
+              "uic": "206382929",
+              "companyName": "МОУШЪНСПОРТС"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "dimitr-vasilev-mihailov-03a60b": {
+      "slug": "dimitr-vasilev-mihailov-03a60b",
+      "name": "Димитър Василев Михайлов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Габрово",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "dobromir-prodanov-prodanov-070ebb",
+          "name": "Добромир Проданов Проданов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "200373318",
+              "companyName": "ВАВИ-М ЕООД"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "dimitr-georgiev-dimitrov-402467": {
+      "slug": "dimitr-georgiev-dimitrov-402467",
+      "name": "Димитър Георгиев Димитров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Горна Малина",
+      "mpConnections": [
+        {
+          "mpId": 5205,
+          "mpName": "Рашид Мехмедов Узунов",
+          "sharedCompanies": [
+            {
+              "uic": "204909172",
+              "companyName": "АПИС МЕЛИФЕРА БЪЛГАРИЯ"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "mpId": 5333,
+          "mpName": "Таня Петрова Гюрюшева-Николова",
+          "sharedCompanies": [
+            {
+              "uic": "204909172",
+              "companyName": "АПИС МЕЛИФЕРА БЪЛГАРИЯ"
+            }
+          ],
+          "confidence": "high"
+        }
+      ],
+      "peerConnections": [
+        {
+          "slug": "angel-petrov-angelov-181b82",
+          "name": "Ангел Петров Ангелов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "117035117",
+              "companyName": "УСТРЕМ"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "georgi-atanasov-georgiev-3d1e0b",
+          "name": "Георги Атанасов Георгиев",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "205007402",
+              "companyName": "ДЕНТ ВИЖЪН ТИЙМ"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "georgi-ivanov-georgiev-c46138",
+          "name": "Георги Иванов Георгиев",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "108563610",
+              "companyName": "КРУМКООП - 1"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "georgi-ivanov-georgiev-2e9e4c",
+          "name": "Георги Иванов Георгиев",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "108563610",
+              "companyName": "КРУМКООП - 1"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "georgi-ivanov-georgiev-44d140",
+          "name": "Георги Иванов Георгиев",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "108563610",
+              "companyName": "КРУМКООП - 1"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "ivan-hristov-ivanov-e944f6",
+          "name": "Иван Христов Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "117035117",
+              "companyName": "УСТРЕМ"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "nikolai-dimitrov-nikolov-6f0767",
+          "name": "Николай Димитров Николов",
+          "tier": "municipal",
+          "role": "chief_architect",
+          "sharedCompanies": [
+            {
+              "uic": "205007402",
+              "companyName": "ДЕНТ ВИЖЪН ТИЙМ"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "nikolai-dimitrov-nikolov-2cb7ac",
+          "name": "Николай Димитров Николов",
+          "tier": "municipal",
+          "role": "council_chair",
+          "sharedCompanies": [
+            {
+              "uic": "205007402",
+              "companyName": "ДЕНТ ВИЖЪН ТИЙМ"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "nikolai-dimitrov-nikolov-fadf74",
+          "name": "Николай Димитров Николов",
+          "tier": "municipal",
+          "role": "council_chair",
+          "sharedCompanies": [
+            {
+              "uic": "205007402",
+              "companyName": "ДЕНТ ВИЖЪН ТИЙМ"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "petr-dimitrov-petrov-9c5512",
+          "name": "Петър Димитров Петров",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "205007402",
+              "companyName": "ДЕНТ ВИЖЪН ТИЙМ"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "dimitr-georgiev-petrov-41e750": {
+      "slug": "dimitr-georgiev-petrov-41e750",
+      "name": "Димитър Георгиев Петров",
+      "tier": "municipal",
+      "role": "mayor",
+      "municipality": "Район Красна поляна",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "ivan-romanov-tsvetkov-dcb299",
+          "name": "Иван Романов Цветков",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "206879920",
+              "companyName": "ЛИГЪЛ КОНСУЛТИНГ СОЛЮШЪНС"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "dimitr-ivanov-dimitrov-dcea9d": {
+      "slug": "dimitr-ivanov-dimitrov-dcea9d",
+      "name": "Димитър Иванов Димитров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Ямбол",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "petr-georgiev-petrov-c24538",
+          "name": "Петър Георгиев Петров",
+          "tier": "municipal",
+          "role": "mayor",
+          "sharedCompanies": [
+            {
+              "uic": "103768650",
+              "companyName": "АВТО-СТОП"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "hristo-dimitrov-hristov-a59ac1",
+          "name": "Христо Димитров Христов",
+          "tier": "municipal",
+          "role": "mayor",
+          "sharedCompanies": [
+            {
+              "uic": "204332614",
+              "companyName": "БЛИТЦ ЕР"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "dimitr-ivanov-ivanov-478d76": {
+      "slug": "dimitr-ivanov-ivanov-478d76",
+      "name": "Димитър Иванов Иванов",
+      "tier": "municipal",
+      "role": "mayor",
+      "municipality": "Марица",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "ivan-dimitrov-ivanov-a4aa14",
+          "name": "Иван Димитров Иванов",
+          "tier": "municipal",
+          "role": "deputy_mayor",
+          "sharedCompanies": [
+            {
+              "uic": "131145952",
+              "companyName": "БРИЗ-04"
+            }
+          ],
+          "confidence": "low"
+        },
+        {
+          "slug": "ivan-dimitrov-ivanov-bae42f",
+          "name": "Иван Димитров Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "131145952",
+              "companyName": "БРИЗ-04"
+            }
+          ],
+          "confidence": "low"
+        },
+        {
+          "slug": "ivan-kostadinov-ivanov-69758d",
+          "name": "Иван Костадинов Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "813141126",
+              "companyName": "ПРОМАР"
+            }
+          ],
+          "confidence": "low"
+        }
+      ]
+    },
+    "dimitr-ivanov-ivanov-e50fad": {
+      "slug": "dimitr-ivanov-ivanov-e50fad",
+      "name": "Димитър Иванов Иванов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Първомай",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "ivan-dimitrov-ivanov-a4aa14",
+          "name": "Иван Димитров Иванов",
+          "tier": "municipal",
+          "role": "deputy_mayor",
+          "sharedCompanies": [
+            {
+              "uic": "131145952",
+              "companyName": "БРИЗ-04"
+            }
+          ],
+          "confidence": "low"
+        },
+        {
+          "slug": "ivan-dimitrov-ivanov-bae42f",
+          "name": "Иван Димитров Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "131145952",
+              "companyName": "БРИЗ-04"
+            }
+          ],
+          "confidence": "low"
+        },
+        {
+          "slug": "ivan-kostadinov-ivanov-69758d",
+          "name": "Иван Костадинов Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "813141126",
+              "companyName": "ПРОМАР"
+            }
+          ],
+          "confidence": "low"
+        }
+      ]
+    },
+    "dimitr-lazarov-urdev-404e30": {
+      "slug": "dimitr-lazarov-urdev-404e30",
+      "name": "Димитър Лазаров Урдев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Благоевград",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "vasil-hristov-miladinov-52e80e",
+          "name": "Васил Христов Миладинов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "101744540",
+              "companyName": "СМАРТ КОНСУЛТ"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "dimitr-petkov-kolev-16d113": {
+      "slug": "dimitr-petkov-kolev-16d113",
+      "name": "Димитър Петков Колев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Пловдив",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "atanas-petrov-drakov-399450",
+          "name": "Атанас Петров Драков",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "206990970",
+              "companyName": "К и Д 2022"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "dimitr-petrov-kostov-37e1f8": {
+      "slug": "dimitr-petrov-kostov-37e1f8",
+      "name": "Димитър Петров Костов",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Стамболийски",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "georgi-ivanov-ivanov-f7c5fb",
+          "name": "Георги Иванов Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "207058855",
+              "companyName": "Ф И Ф 22"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "georgi-ivanov-ivanov-736d9d",
+          "name": "Георги Иванов Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "207058855",
+              "companyName": "Ф И Ф 22"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "georgi-ivanov-ivanov-5070c4",
+          "name": "Георги Иванов Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "207058855",
+              "companyName": "Ф И Ф 22"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "dimitr-stefanov-dimitrov-98714b": {
+      "slug": "dimitr-stefanov-dimitrov-98714b",
+      "name": "Димитър Стефанов Димитров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Земен",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "daniel-rumenov-gargov-c309b6",
+          "name": "Даниел Руменов Гаргов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "126665054",
+              "companyName": "ЕВРОФИН"
+            },
+            {
+              "uic": "126739227",
+              "companyName": "ПАЗАРИ"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "dimitr-todorov-dimitrov-825d75": {
+      "slug": "dimitr-todorov-dimitrov-825d75",
+      "name": "Димитър Тодоров Димитров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Летница",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "nikolai-ivanov-nikolov-4c42a0",
+          "name": "Николай Иванов Николов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "203556036",
+              "companyName": "ДЖИ ЕМ АГРОС"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "nikolai-ivanov-nikolov-8872c2",
+          "name": "Николай Иванов Николов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "203556036",
+              "companyName": "ДЖИ ЕМ АГРОС"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "nikolai-ivanov-nikolov-669110",
+          "name": "Николай Иванов Николов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "203556036",
+              "companyName": "ДЖИ ЕМ АГРОС"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "petr-rangelov-karadamyanov-210cdb",
+          "name": "Петър Рангелов Карадамянов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "206761352",
+              "companyName": "ТРИМА КОМЕРС"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "dimo-ivanov-dimov-c818c3": {
+      "slug": "dimo-ivanov-dimov-c818c3",
+      "name": "Димо Иванов Димов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Варна",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "ivan-dobrev-ivanov-61a0e2",
+          "name": "Иван Добрев Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "205886919",
+              "companyName": "ПРОВАДСТРОЙ"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "nikolai-georgiev-nikolaev-05d6cf",
+          "name": "Николай Георгиев Николаев",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "205886919",
+              "companyName": "ПРОВАДСТРОЙ"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "dobromir-prodanov-prodanov-070ebb": {
+      "slug": "dobromir-prodanov-prodanov-070ebb",
+      "name": "Добромир Проданов Проданов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Габрово",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "dimitr-vasilev-mihailov-03a60b",
+          "name": "Димитър Василев Михайлов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "200373318",
+              "companyName": "\"ВАВИ-М\" ЕООД"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "evgeni-ivanov-ivanov-1d0d30": {
+      "slug": "evgeni-ivanov-ivanov-1d0d30",
+      "name": "Евгени Иванов Иванов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Ямбол",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "atanas-ilchev-ilchev-72c6be",
+          "name": "Атанас Илчев Илчев",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "205767690",
+              "companyName": "Спешъл Сикюрити Груп"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "emil-ivanov-ivanov-4b0fc9": {
+      "slug": "emil-ivanov-ivanov-4b0fc9",
+      "name": "Емил Иванов Иванов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Родопи",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "ivan-todorov-ivanov-aecae9",
+          "name": "Иван Тодоров Иванов",
+          "tier": "municipal",
+          "role": "mayor",
+          "sharedCompanies": [
+            {
+              "uic": "202420859",
+              "companyName": "ТЕРИ 2013"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "zhelyazko-ivanov-ivanov-d447b0": {
+      "slug": "zhelyazko-ivanov-ivanov-d447b0",
+      "name": "Желязко Иванов Иванов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Созопол",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "hristo-ivanov-ivanov-9b4a29",
+          "name": "Христо Иванов Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "202879022",
+              "companyName": "ГРИЙН ПЛЕЙ ООД"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "hristo-ivanov-ivanov-25b7f0",
+          "name": "Христо Иванов Иванов",
+          "tier": "municipal",
+          "role": "deputy_mayor",
+          "sharedCompanies": [
+            {
+              "uic": "202879022",
+              "companyName": "ГРИЙН ПЛЕЙ ООД"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "zhivko-kirilov-ivanov-942e2f": {
+      "slug": "zhivko-kirilov-ivanov-942e2f",
+      "name": "Живко Кирилов Иванов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Сандански",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "yanko-dimitrov-angelov-616352",
+          "name": "Янко Димитров Ангелов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "202134205",
+              "companyName": "Санфотопарк"
+            },
+            {
+              "uic": "202106560",
+              "companyName": "Санпарк"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "zhivko-mitkov-zahov-58667b": {
+      "slug": "zhivko-mitkov-zahov-58667b",
+      "name": "Живко Митков Захов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Петрич",
+      "mpConnections": [
+        {
+          "mpId": 1618,
+          "mpName": "Митко Живков Захов",
+          "sharedCompanies": [
+            {
+              "uic": "206427534",
+              "companyName": "Търговски център Сандански"
+            }
+          ],
+          "confidence": "high"
+        }
+      ],
+      "peerConnections": [
+        {
+          "slug": "stanimir-zhivkov-zlatkov-2543ec",
+          "name": "Станимир Живков Златков",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "204975343",
+              "companyName": "Ван Пропърти Инвест"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "zdravko-kostov-kostov-1e9225": {
+      "slug": "zdravko-kostov-kostov-1e9225",
+      "name": "Здравко Костов Костов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Айтос",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "petr-valentinov-haralambov-2efba0",
+          "name": "Петър Валентинов Хараламбов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "206674253",
+              "companyName": "АЕТОС ИНВЕСТ"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "ivailo-mitkov-ivanov-3f0c41": {
+      "slug": "ivailo-mitkov-ivanov-3f0c41",
+      "name": "Ивайло Митков Иванов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Оряхово",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "velislav-georgiev-daskalov-2bb719",
+          "name": "Велислав Георгиев Даскалов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "207009729",
+              "companyName": "Даскалов Иванов"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "ivan-vasilev-ivanov-3c81a7": {
+      "slug": "ivan-vasilev-ivanov-3c81a7",
+      "name": "Иван Василев Иванов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Кюстендил",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "svetoslav-ivanov-ivanov-445a62",
+          "name": "Светослав Иванов Иванов",
+          "tier": "municipal",
+          "role": "chief_architect",
+          "sharedCompanies": [
+            {
+              "uic": "202981340",
+              "companyName": "В2М България"
+            }
+          ],
+          "confidence": "low"
+        }
+      ]
+    },
+    "ivan-georgiev-dimitrov-11a643": {
+      "slug": "ivan-georgiev-dimitrov-11a643",
+      "name": "Иван Георгиев Димитров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Камено",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "georgi-ivanov-dimitrov-9b37b3",
+          "name": "Георги Иванов Димитров",
+          "tier": "municipal",
+          "role": "mayor",
+          "sharedCompanies": [
+            {
+              "uic": "147097950",
+              "companyName": "ДЖЙ ИЙ АЙ ВЙ ГРУП"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "ivan-georgiev-ivanov-da8081": {
+      "slug": "ivan-georgiev-ivanov-da8081",
+      "name": "Иван Георгиев Иванов",
+      "tier": "municipal",
+      "role": "council_chair",
+      "municipality": "Асеновград",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "georgi-ivanov-ivanov-f7c5fb",
+          "name": "Георги Иванов Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "040089262",
+              "companyName": "ЕР СОФИЯ"
+            }
+          ],
+          "confidence": "low"
+        },
+        {
+          "slug": "georgi-ivanov-ivanov-736d9d",
+          "name": "Георги Иванов Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "040089262",
+              "companyName": "ЕР СОФИЯ"
+            }
+          ],
+          "confidence": "low"
+        },
+        {
+          "slug": "georgi-ivanov-ivanov-5070c4",
+          "name": "Георги Иванов Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "040089262",
+              "companyName": "ЕР СОФИЯ"
+            }
+          ],
+          "confidence": "low"
+        },
+        {
+          "slug": "georgi-petrov-georgiev-ba7fd2",
+          "name": "Георги Петров Георгиев",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "202825850",
+              "companyName": "Бългериан Органик Фуудс"
+            }
+          ],
+          "confidence": "low"
+        },
+        {
+          "slug": "georgi-petrov-georgiev-c60397",
+          "name": "Георги Петров Георгиев",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "202825850",
+              "companyName": "Бългериан Органик Фуудс"
+            }
+          ],
+          "confidence": "low"
+        },
+        {
+          "slug": "georgi-petrov-georgiev-8027f4",
+          "name": "Георги Петров Георгиев",
+          "tier": "municipal",
+          "role": "council_chair",
+          "sharedCompanies": [
+            {
+              "uic": "202825850",
+              "companyName": "Бългериан Органик Фуудс"
+            }
+          ],
+          "confidence": "low"
+        }
+      ]
+    },
+    "ivan-georgiev-ivanov-fb571f": {
+      "slug": "ivan-georgiev-ivanov-fb571f",
+      "name": "Иван Георгиев Иванов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Враца",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "georgi-ivanov-ivanov-f7c5fb",
+          "name": "Георги Иванов Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "040089262",
+              "companyName": "ЕР СОФИЯ"
+            }
+          ],
+          "confidence": "low"
+        },
+        {
+          "slug": "georgi-ivanov-ivanov-736d9d",
+          "name": "Георги Иванов Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "040089262",
+              "companyName": "ЕР СОФИЯ"
+            }
+          ],
+          "confidence": "low"
+        },
+        {
+          "slug": "georgi-ivanov-ivanov-5070c4",
+          "name": "Георги Иванов Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "040089262",
+              "companyName": "ЕР СОФИЯ"
+            }
+          ],
+          "confidence": "low"
+        },
+        {
+          "slug": "georgi-petrov-georgiev-ba7fd2",
+          "name": "Георги Петров Георгиев",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "202825850",
+              "companyName": "Бългериан Органик Фуудс"
+            }
+          ],
+          "confidence": "low"
+        },
+        {
+          "slug": "georgi-petrov-georgiev-c60397",
+          "name": "Георги Петров Георгиев",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "202825850",
+              "companyName": "Бългериан Органик Фуудс"
+            }
+          ],
+          "confidence": "low"
+        },
+        {
+          "slug": "georgi-petrov-georgiev-8027f4",
+          "name": "Георги Петров Георгиев",
+          "tier": "municipal",
+          "role": "council_chair",
+          "sharedCompanies": [
+            {
+              "uic": "202825850",
+              "companyName": "Бългериан Органик Фуудс"
+            }
+          ],
+          "confidence": "low"
+        }
+      ]
+    },
+    "ivan-dimitrov-ivanov-a4aa14": {
+      "slug": "ivan-dimitrov-ivanov-a4aa14",
+      "name": "Иван Димитров Иванов",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Летница",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "dimitr-ivanov-ivanov-478d76",
+          "name": "Димитър Иванов Иванов",
+          "tier": "municipal",
+          "role": "mayor",
+          "sharedCompanies": [
+            {
+              "uic": "131145952",
+              "companyName": "БРИЗ-04"
+            }
+          ],
+          "confidence": "low"
+        },
+        {
+          "slug": "dimitr-ivanov-ivanov-e50fad",
+          "name": "Димитър Иванов Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "131145952",
+              "companyName": "БРИЗ-04"
+            }
+          ],
+          "confidence": "low"
+        }
+      ]
+    },
+    "ivan-dimitrov-ivanov-bae42f": {
+      "slug": "ivan-dimitrov-ivanov-bae42f",
+      "name": "Иван Димитров Иванов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Николаево",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "dimitr-ivanov-ivanov-478d76",
+          "name": "Димитър Иванов Иванов",
+          "tier": "municipal",
+          "role": "mayor",
+          "sharedCompanies": [
+            {
+              "uic": "131145952",
+              "companyName": "БРИЗ-04"
+            }
+          ],
+          "confidence": "low"
+        },
+        {
+          "slug": "dimitr-ivanov-ivanov-e50fad",
+          "name": "Димитър Иванов Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "131145952",
+              "companyName": "БРИЗ-04"
+            }
+          ],
+          "confidence": "low"
+        }
+      ]
+    },
+    "ivan-dobrev-ivanov-61a0e2": {
+      "slug": "ivan-dobrev-ivanov-61a0e2",
+      "name": "Иван Добрев Иванов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Провадия",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "dimo-ivanov-dimov-c818c3",
+          "name": "Димо Иванов Димов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "205886919",
+              "companyName": "ПРОВАДСТРОЙ"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "nikolai-georgiev-nikolaev-05d6cf",
+          "name": "Николай Георгиев Николаев",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "205886919",
+              "companyName": "ПРОВАДСТРОЙ"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "ivan-dochev-ivanov-ba8abb": {
+      "slug": "ivan-dochev-ivanov-ba8abb",
+      "name": "Иван Дочев Иванов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Айтос",
+      "mpConnections": [
+        {
+          "mpId": 805,
+          "mpName": "Йордан Петков Йорданов",
+          "sharedCompanies": [
+            {
+              "uic": "102151443",
+              "companyName": "КОМНЕТ БЪЛГАРИЯ ХОЛДИНГ"
+            }
+          ],
+          "confidence": "high"
+        }
+      ],
+      "peerConnections": [
+        {
+          "slug": "ivan-zhelyazkov-ivanov-02f38d",
+          "name": "Иван Желязков Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "102151443",
+              "companyName": "КОМНЕТ БЪЛГАРИЯ ХОЛДИНГ"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "petr-valentinov-haralambov-2efba0",
+          "name": "Петър Валентинов Хараламбов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "102151443",
+              "companyName": "КОМНЕТ БЪЛГАРИЯ ХОЛДИНГ"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "ivan-zhelyazkov-ivanov-02f38d": {
+      "slug": "ivan-zhelyazkov-ivanov-02f38d",
+      "name": "Иван Желязков Иванов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Гълъбово",
+      "mpConnections": [
+        {
+          "mpId": 805,
+          "mpName": "Йордан Петков Йорданов",
+          "sharedCompanies": [
+            {
+              "uic": "102151443",
+              "companyName": "КОМНЕТ БЪЛГАРИЯ ХОЛДИНГ"
+            }
+          ],
+          "confidence": "high"
+        }
+      ],
+      "peerConnections": [
+        {
+          "slug": "georgi-dimitrov-dimitrov-3a7727",
+          "name": "Георги Димитров Димитров",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "202886084",
+              "companyName": "СЕНЧЪРИБРЕЙК ФЪНДС"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "georgi-iordanov-georgiev-445c79",
+          "name": "Георги Йорданов Георгиев",
+          "tier": "municipal",
+          "role": "deputy_mayor",
+          "sharedCompanies": [
+            {
+              "uic": "202886084",
+              "companyName": "СЕНЧЪРИБРЕЙК ФЪНДС"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "georgi-iordanov-georgiev-5270a7",
+          "name": "Георги Йорданов Георгиев",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "202886084",
+              "companyName": "СЕНЧЪРИБРЕЙК ФЪНДС"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "ivan-dochev-ivanov-ba8abb",
+          "name": "Иван Дочев Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "102151443",
+              "companyName": "КОМНЕТ БЪЛГАРИЯ ХОЛДИНГ"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "petr-valentinov-haralambov-2efba0",
+          "name": "Петър Валентинов Хараламбов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "102151443",
+              "companyName": "КОМНЕТ БЪЛГАРИЯ ХОЛДИНГ"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "ivan-kostadinov-ivanov-69758d": {
+      "slug": "ivan-kostadinov-ivanov-69758d",
+      "name": "Иван Костадинов Иванов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Русе",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "georgi-dimitrov-georgiev-bc608a",
+          "name": "Георги Димитров Георгиев",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "825266835",
+              "companyName": "ПРОСЛАВ 1"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "georgi-dimitrov-georgiev-42dfbc",
+          "name": "Георги Димитров Георгиев",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "825266835",
+              "companyName": "ПРОСЛАВ 1"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "georgi-dimitrov-georgiev-dfb15b",
+          "name": "Георги Димитров Георгиев",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "825266835",
+              "companyName": "ПРОСЛАВ 1"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "dimitr-ivanov-ivanov-478d76",
+          "name": "Димитър Иванов Иванов",
+          "tier": "municipal",
+          "role": "mayor",
+          "sharedCompanies": [
+            {
+              "uic": "813141126",
+              "companyName": "ПРОМАР"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "dimitr-ivanov-ivanov-e50fad",
+          "name": "Димитър Иванов Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "813141126",
+              "companyName": "ПРОМАР"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "simeon-ivanov-ivanov-ca5e36",
+          "name": "Симеон Иванов Иванов",
+          "tier": "municipal",
+          "role": "council_chair",
+          "sharedCompanies": [
+            {
+              "uic": "121081992",
+              "companyName": "КЛАСМАН ЕНТЪРПРАЙСИЗ"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "ivan-nikolov-ivanov-752d0f": {
+      "slug": "ivan-nikolov-ivanov-752d0f",
+      "name": "Иван Николов Иванов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Берковица",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "nikolai-ivanov-ivanov-6576f1",
+          "name": "Николай Иванов Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "202803761",
+              "companyName": "ДЖЕЙ ЕЛ ИНВЕСТМЪНТ"
+            },
+            {
+              "uic": "202787296",
+              "companyName": "ДЖЕЙ ЕЛ КЕПИТЪЛ"
+            }
+          ],
+          "confidence": "low"
+        }
+      ]
+    },
+    "ivan-nikolov-ivanov-d1391d": {
+      "slug": "ivan-nikolov-ivanov-d1391d",
+      "name": "Иван Николов Иванов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Карлово",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "nikolai-ivanov-ivanov-6576f1",
+          "name": "Николай Иванов Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "202803761",
+              "companyName": "ДЖЕЙ ЕЛ ИНВЕСТМЪНТ"
+            },
+            {
+              "uic": "202787296",
+              "companyName": "ДЖЕЙ ЕЛ КЕПИТЪЛ"
+            }
+          ],
+          "confidence": "low"
+        }
+      ]
+    },
+    "ivan-nikolov-ivanov-22c7d3": {
+      "slug": "ivan-nikolov-ivanov-22c7d3",
+      "name": "Иван Николов Иванов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Ябланица",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "nikolai-ivanov-ivanov-6576f1",
+          "name": "Николай Иванов Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "202803761",
+              "companyName": "ДЖЕЙ ЕЛ ИНВЕСТМЪНТ"
+            },
+            {
+              "uic": "202787296",
+              "companyName": "ДЖЕЙ ЕЛ КЕПИТЪЛ"
+            }
+          ],
+          "confidence": "low"
+        }
+      ]
+    },
+    "ivan-petrov-ivanov-168e1c": {
+      "slug": "ivan-petrov-ivanov-168e1c",
+      "name": "Иван Петров Иванов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Алфатар",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "georgi-ivanov-dimitrov-9b37b3",
+          "name": "Георги Иванов Димитров",
+          "tier": "municipal",
+          "role": "mayor",
+          "sharedCompanies": [
+            {
+              "uic": "105047492",
+              "companyName": "АВТОТРАНС ВИДИН"
+            }
+          ],
+          "confidence": "low"
+        },
+        {
+          "slug": "ivan-todorov-ivanov-aecae9",
+          "name": "Иван Тодоров Иванов",
+          "tier": "municipal",
+          "role": "mayor",
+          "sharedCompanies": [
+            {
+              "uic": "105047492",
+              "companyName": "АВТОТРАНС ВИДИН"
+            }
+          ],
+          "confidence": "low"
+        }
+      ]
+    },
+    "ivan-petrov-ivanov-37340d": {
+      "slug": "ivan-petrov-ivanov-37340d",
+      "name": "Иван Петров Иванов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Полски Тръмбеш",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "georgi-ivanov-dimitrov-9b37b3",
+          "name": "Георги Иванов Димитров",
+          "tier": "municipal",
+          "role": "mayor",
+          "sharedCompanies": [
+            {
+              "uic": "105047492",
+              "companyName": "АВТОТРАНС ВИДИН"
+            }
+          ],
+          "confidence": "low"
+        },
+        {
+          "slug": "ivan-todorov-ivanov-aecae9",
+          "name": "Иван Тодоров Иванов",
+          "tier": "municipal",
+          "role": "mayor",
+          "sharedCompanies": [
+            {
+              "uic": "105047492",
+              "companyName": "АВТОТРАНС ВИДИН"
+            }
+          ],
+          "confidence": "low"
+        }
+      ]
+    },
+    "ivan-petrov-ivanov-ef8494": {
+      "slug": "ivan-petrov-ivanov-ef8494",
+      "name": "Иван Петров Иванов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Русе",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "georgi-ivanov-dimitrov-9b37b3",
+          "name": "Георги Иванов Димитров",
+          "tier": "municipal",
+          "role": "mayor",
+          "sharedCompanies": [
+            {
+              "uic": "105047492",
+              "companyName": "АВТОТРАНС ВИДИН"
+            }
+          ],
+          "confidence": "low"
+        },
+        {
+          "slug": "ivan-todorov-ivanov-aecae9",
+          "name": "Иван Тодоров Иванов",
+          "tier": "municipal",
+          "role": "mayor",
+          "sharedCompanies": [
+            {
+              "uic": "105047492",
+              "companyName": "АВТОТРАНС ВИДИН"
+            }
+          ],
+          "confidence": "low"
+        }
+      ]
+    },
+    "ivan-romanov-tsvetkov-dcb299": {
+      "slug": "ivan-romanov-tsvetkov-dcb299",
+      "name": "Иван Романов Цветков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Тетевен",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "dimitr-georgiev-petrov-41e750",
+          "name": "Димитър Георгиев Петров",
+          "tier": "municipal",
+          "role": "mayor",
+          "sharedCompanies": [
+            {
+              "uic": "206879920",
+              "companyName": "ЛИГЪЛ КОНСУЛТИНГ СОЛЮШЪНС"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "ivan-stanchev-stanchev-006ded": {
+      "slug": "ivan-stanchev-stanchev-006ded",
+      "name": "Иван Станчев Станчев",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Чирпан",
+      "mpConnections": [
+        {
+          "mpId": 3271,
+          "mpName": "Георги Захаринин Попов",
+          "sharedCompanies": [
+            {
+              "uic": "831646048",
+              "companyName": "АВТОМАГИСТРАЛИ"
+            }
+          ],
+          "confidence": "high"
+        }
+      ],
+      "peerConnections": []
+    },
+    "ivan-todorov-ivanov-aecae9": {
+      "slug": "ivan-todorov-ivanov-aecae9",
+      "name": "Иван Тодоров Иванов",
+      "tier": "municipal",
+      "role": "mayor",
+      "municipality": "Севлиево",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "ivan-hristov-ivanov-e944f6",
+          "name": "Иван Христов Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "206029338",
+              "companyName": "МЕГАСТРОЙ ПРО ИНВЕСТ"
+            },
+            {
+              "uic": "206148584",
+              "companyName": "ЕКО СОЛАР СЪРВИС"
+            },
+            {
+              "uic": "206589194",
+              "companyName": "СЛЪНЦЕ БУТОВО"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "vladislav-zlatkov-bakalov-47a692",
+          "name": "Владислав Златков Бакалов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "206589194",
+              "companyName": "СЛЪНЦЕ БУТОВО"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "georgi-ivanov-dimitrov-9b37b3",
+          "name": "Георги Иванов Димитров",
+          "tier": "municipal",
+          "role": "mayor",
+          "sharedCompanies": [
+            {
+              "uic": "105047492",
+              "companyName": "АВТОТРАНС ВИДИН"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "emil-ivanov-ivanov-4b0fc9",
+          "name": "Емил Иванов Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "202420859",
+              "companyName": "ТЕРИ 2013"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "ivan-petrov-ivanov-168e1c",
+          "name": "Иван Петров Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "105047492",
+              "companyName": "АВТОТРАНС ВИДИН"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "ivan-petrov-ivanov-37340d",
+          "name": "Иван Петров Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "105047492",
+              "companyName": "АВТОТРАНС ВИДИН"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "ivan-petrov-ivanov-ef8494",
+          "name": "Иван Петров Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "105047492",
+              "companyName": "АВТОТРАНС ВИДИН"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "ivan-hristov-ivanov-e944f6": {
+      "slug": "ivan-hristov-ivanov-e944f6",
+      "name": "Иван Христов Иванов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Ракитово",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "ivan-todorov-ivanov-aecae9",
+          "name": "Иван Тодоров Иванов",
+          "tier": "municipal",
+          "role": "mayor",
+          "sharedCompanies": [
+            {
+              "uic": "206029338",
+              "companyName": "МЕГАСТРОЙ ПРО ИНВЕСТ"
+            },
+            {
+              "uic": "206148584",
+              "companyName": "ЕКО СОЛАР СЪРВИС"
+            },
+            {
+              "uic": "206589194",
+              "companyName": "СЛЪНЦЕ БУТОВО"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "angel-petrov-angelov-181b82",
+          "name": "Ангел Петров Ангелов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "117035117",
+              "companyName": "УСТРЕМ"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "vladislav-zlatkov-bakalov-47a692",
+          "name": "Владислав Златков Бакалов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "206589194",
+              "companyName": "СЛЪНЦЕ БУТОВО"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "dimitr-georgiev-dimitrov-402467",
+          "name": "Димитър Георгиев Димитров",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "117035117",
+              "companyName": "УСТРЕМ"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "hristo-ivanov-ivanov-9b4a29",
+          "name": "Христо Иванов Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "110533204",
+              "companyName": "БИЗНЕС АДВАЙЗЪРИ ГРУП"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "hristo-ivanov-ivanov-25b7f0",
+          "name": "Христо Иванов Иванов",
+          "tier": "municipal",
+          "role": "deputy_mayor",
+          "sharedCompanies": [
+            {
+              "uic": "110533204",
+              "companyName": "БИЗНЕС АДВАЙЗЪРИ ГРУП"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "hristo-ivanov-hristov-4ca62b",
+          "name": "Христо Иванов Христов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "107593458",
+              "companyName": "ДАЛИЯ"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "ivan-tsokov-danovski-43495f": {
+      "slug": "ivan-tsokov-danovski-43495f",
+      "name": "Иван Цоков Дановски",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Кнежа",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "tsvetelin-lyubenov-getov-3c0e4c",
+          "name": "Цветелин Любенов Гетов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "205982351",
+              "companyName": "ПЛЕВЕНСКО МЛЯКО - 2020"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "iliya-atanasov-iliev-93677c": {
+      "slug": "iliya-atanasov-iliev-93677c",
+      "name": "Илия Атанасов Илиев",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Любимец",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "atanas-iliev-atanasov-6e3c18",
+          "name": "Атанас Илиев Атанасов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "206613567",
+              "companyName": "БАЙКС УЪРЛД"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "iliyan-vlchev-ivanov-6d6d7b": {
+      "slug": "iliyan-vlchev-ivanov-6d6d7b",
+      "name": "Илиян Вълчев Иванов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Видин",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "plamen-angelov-petrov-05b1df",
+          "name": "Пламен Ангелов Петров",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "105585384",
+              "companyName": "ВИДА НЕТУЪРК"
+            },
+            {
+              "uic": "206944535",
+              "companyName": "ВИДА ЕНЕРДЖИ"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "martin-nikolov-donchev-6a4df5",
+          "name": "Мартин Николов Дончев",
+          "tier": "municipal",
+          "role": "deputy_mayor",
+          "sharedCompanies": [
+            {
+              "uic": "105585384",
+              "companyName": "ВИДА НЕТУЪРК"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "iliyan-georgiev-iliev-c83e58": {
+      "slug": "iliyan-georgiev-iliev-c83e58",
+      "name": "Илиян Георгиев Илиев",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Мъглиж",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "georgi-dimitrov-georgiev-bc608a",
+          "name": "Георги Димитров Георгиев",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "200291636",
+              "companyName": "ТОМЕКО БУРГАС"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "georgi-dimitrov-georgiev-42dfbc",
+          "name": "Георги Димитров Георгиев",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "200291636",
+              "companyName": "ТОМЕКО БУРГАС"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "georgi-dimitrov-georgiev-dfb15b",
+          "name": "Георги Димитров Георгиев",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "200291636",
+              "companyName": "ТОМЕКО БУРГАС"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "irina-ivanova-velichkova-922d75": {
+      "slug": "irina-ivanova-velichkova-922d75",
+      "name": "Ирина Иванова Величкова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Аксаково",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "svetlana-draganova-dobreva-e933dd",
+          "name": "Светлана Драганова Добрева",
+          "tier": "municipal",
+          "role": "council_chair",
+          "sharedCompanies": [
+            {
+              "uic": "103753627",
+              "companyName": "ЕТЕРИЧНИ МАСЛА И АРОМАТИЧНИ РАСТЕНИЯ-ЕМАР"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "kiril-angelov-atanasov-3fa700": {
+      "slug": "kiril-angelov-atanasov-3fa700",
+      "name": "Кирил Ангелов Атанасов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Хайредин",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "georgi-petrov-stoyanov-ae5b9f",
+          "name": "Георги Петров Стоянов",
+          "tier": "municipal",
+          "role": "deputy_mayor",
+          "sharedCompanies": [
+            {
+              "uic": "203568412",
+              "companyName": "ТРАКИЙСКА ЗОРА 2015"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "kiril-atanasov-trev-d5aa0f": {
+      "slug": "kiril-atanasov-trev-d5aa0f",
+      "name": "Кирил Атанасов Търев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Пловдив",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "georgi-ivanov-kolev-830360",
+          "name": "Георги Иванов Колев",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "206038629",
+              "companyName": "Уейст Солюшънс"
+            },
+            {
+              "uic": "200890842",
+              "companyName": "ХЕЛИОДОРО"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "konstantin-tihomirov-brnekov-337c16": {
+      "slug": "konstantin-tihomirov-brnekov-337c16",
+      "name": "Константин Тихомиров Брънеков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Трявна",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "mariya-lyubomirova-gadzheva-e15549",
+          "name": "Мария Любомирова Гаджева",
+          "tier": "municipal",
+          "role": "chief_architect",
+          "sharedCompanies": [
+            {
+              "uic": "203414994",
+              "companyName": "ЛОНО ПРОЕКТ ЕООД"
+            },
+            {
+              "uic": "204945873",
+              "companyName": "ЛОНОАРХ ЕООД"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "krasimira-marinova-drencheva-7f2e82": {
+      "slug": "krasimira-marinova-drencheva-7f2e82",
+      "name": "Красимира Маринова Дренчева",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Ловеч",
+      "mpConnections": [
+        {
+          "mpId": 5159,
+          "mpName": "Димо Георгиев Дренчев",
+          "sharedCompanies": [
+            {
+              "uic": "131293456",
+              "companyName": "Братя Градеви ООД"
+            },
+            {
+              "uic": "201894174",
+              "companyName": "Душ кабини бг  ЕООД"
+            }
+          ],
+          "confidence": "high"
+        }
+      ],
+      "peerConnections": []
+    },
+    "lyubisha-blazhevski-blazhevski-28d32e": {
+      "slug": "lyubisha-blazhevski-blazhevski-28d32e",
+      "name": "Любиша Блажевски Блажевски",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Бяла/Варна/",
+      "mpConnections": [
+        {
+          "mpId": 5009,
+          "mpName": "Любиша   Блажевски",
+          "sharedCompanies": [
+            {
+              "uic": "206946066",
+              "companyName": "\"АМБУЛАТОРИЯ ЗА СПЕЦИАЛИЗИРАНА МЕДИЦИНСКА ПОМОЩ-МЕДИЦИНСКИ ЦЕНТЪР МЕДЕКСПРЕС 2022\" ООД"
+            }
+          ],
+          "confidence": "high"
+        }
+      ],
+      "peerConnections": []
+    },
+    "mariya-lyubomirova-gadzheva-e15549": {
+      "slug": "mariya-lyubomirova-gadzheva-e15549",
+      "name": "Мария Любомирова Гаджева",
+      "tier": "municipal",
+      "role": "chief_architect",
+      "municipality": "Трявна",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "konstantin-tihomirov-brnekov-337c16",
+          "name": "Константин Тихомиров Брънеков",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "203414994",
+              "companyName": "ЛОНО ПРОЕКТ ЕООД"
+            },
+            {
+              "uic": "204945873",
+              "companyName": "ЛОНОАРХ ЕООД"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "martin-nikolov-donchev-6a4df5": {
+      "slug": "martin-nikolov-donchev-6a4df5",
+      "name": "Мартин Николов Дончев",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Видин",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "iliyan-vlchev-ivanov-6d6d7b",
+          "name": "Илиян Вълчев Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "105585384",
+              "companyName": "ВИДА НЕТУЪРК"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "plamen-angelov-petrov-05b1df",
+          "name": "Пламен Ангелов Петров",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "105585384",
+              "companyName": "ВИДА НЕТУЪРК"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "metodi-genadiev-metodiev-f86fda": {
+      "slug": "metodi-genadiev-metodiev-f86fda",
+      "name": "Методи Генадиев Методиев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Ковачевци",
+      "mpConnections": [
+        {
+          "mpId": 80,
+          "mpName": "Ненко Викторов Темелков",
+          "sharedCompanies": [
+            {
+              "uic": "113015334",
+              "companyName": "АМАТИЦА"
+            }
+          ],
+          "confidence": "high"
+        }
+      ],
+      "peerConnections": []
+    },
+    "mincho-stoikov-kazandzhiev-51c218": {
+      "slug": "mincho-stoikov-kazandzhiev-51c218",
+      "name": "Минчо Стойков Казанджиев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Ловеч",
+      "mpConnections": [
+        {
+          "mpId": 4649,
+          "mpName": "Генади Събков Събков",
+          "sharedCompanies": [
+            {
+              "uic": "831160078",
+              "companyName": "НАПОИТЕЛНИ СИСТЕМИ"
+            }
+          ],
+          "confidence": "high"
+        }
+      ],
+      "peerConnections": [
+        {
+          "slug": "stefan-shtiliyanov-shtiliyanov-9d11f7",
+          "name": "Стефан Щилиянов Щилиянов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "831160078",
+              "companyName": "НАПОИТЕЛНИ СИСТЕМИ"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "mladen-dimitrov-zhelev-ff5df0": {
+      "slug": "mladen-dimitrov-zhelev-ff5df0",
+      "name": "Младен Димитров Желев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Казанлък",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "stoyanka-miteva-bonova-a789db",
+          "name": "Стоянка Митева Бонова",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "206650569",
+              "companyName": "ДиМи  СааС"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "nadezhda-borisova-klyuchkova-683b12": {
+      "slug": "nadezhda-borisova-klyuchkova-683b12",
+      "name": "Надежда Борисова Ключкова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Велинград",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "aleksandr-georgiev-daskalov-095998",
+          "name": "Александър Георгиев Даскалов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "112008155",
+              "companyName": "ВЕЛИ - 91"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "nikolai-georgiev-nikolaev-05d6cf": {
+      "slug": "nikolai-georgiev-nikolaev-05d6cf",
+      "name": "Николай Георгиев Николаев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Никопол",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "dimo-ivanov-dimov-c818c3",
+          "name": "Димо Иванов Димов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "205886919",
+              "companyName": "ПРОВАДСТРОЙ"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "ivan-dobrev-ivanov-61a0e2",
+          "name": "Иван Добрев Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "205886919",
+              "companyName": "ПРОВАДСТРОЙ"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "nikolai-dimitrov-nikolov-6f0767": {
+      "slug": "nikolai-dimitrov-nikolov-6f0767",
+      "name": "Николай Димитров Николов",
+      "tier": "municipal",
+      "role": "chief_architect",
+      "municipality": "Банско",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "georgi-atanasov-georgiev-3d1e0b",
+          "name": "Георги Атанасов Георгиев",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "205007402",
+              "companyName": "ДЕНТ ВИЖЪН ТИЙМ"
+            }
+          ],
+          "confidence": "low"
+        },
+        {
+          "slug": "dimitr-georgiev-dimitrov-402467",
+          "name": "Димитър Георгиев Димитров",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "205007402",
+              "companyName": "ДЕНТ ВИЖЪН ТИЙМ"
+            }
+          ],
+          "confidence": "low"
+        },
+        {
+          "slug": "petr-dimitrov-petrov-9c5512",
+          "name": "Петър Димитров Петров",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "205007402",
+              "companyName": "ДЕНТ ВИЖЪН ТИЙМ"
+            }
+          ],
+          "confidence": "low"
+        }
+      ]
+    },
+    "nikolai-dimitrov-nikolov-2cb7ac": {
+      "slug": "nikolai-dimitrov-nikolov-2cb7ac",
+      "name": "Николай Димитров Николов",
+      "tier": "municipal",
+      "role": "council_chair",
+      "municipality": "Долни Чифлик",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "georgi-atanasov-georgiev-3d1e0b",
+          "name": "Георги Атанасов Георгиев",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "205007402",
+              "companyName": "ДЕНТ ВИЖЪН ТИЙМ"
+            }
+          ],
+          "confidence": "low"
+        },
+        {
+          "slug": "dimitr-georgiev-dimitrov-402467",
+          "name": "Димитър Георгиев Димитров",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "205007402",
+              "companyName": "ДЕНТ ВИЖЪН ТИЙМ"
+            }
+          ],
+          "confidence": "low"
+        },
+        {
+          "slug": "petr-dimitrov-petrov-9c5512",
+          "name": "Петър Димитров Петров",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "205007402",
+              "companyName": "ДЕНТ ВИЖЪН ТИЙМ"
+            }
+          ],
+          "confidence": "low"
+        }
+      ]
+    },
+    "nikolai-dimitrov-nikolov-fadf74": {
+      "slug": "nikolai-dimitrov-nikolov-fadf74",
+      "name": "Николай Димитров Николов",
+      "tier": "municipal",
+      "role": "council_chair",
+      "municipality": "Червен бряг",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "georgi-atanasov-georgiev-3d1e0b",
+          "name": "Георги Атанасов Георгиев",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "205007402",
+              "companyName": "ДЕНТ ВИЖЪН ТИЙМ"
+            }
+          ],
+          "confidence": "low"
+        },
+        {
+          "slug": "dimitr-georgiev-dimitrov-402467",
+          "name": "Димитър Георгиев Димитров",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "205007402",
+              "companyName": "ДЕНТ ВИЖЪН ТИЙМ"
+            }
+          ],
+          "confidence": "low"
+        },
+        {
+          "slug": "petr-dimitrov-petrov-9c5512",
+          "name": "Петър Димитров Петров",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "205007402",
+              "companyName": "ДЕНТ ВИЖЪН ТИЙМ"
+            }
+          ],
+          "confidence": "low"
+        }
+      ]
+    },
+    "nikolai-ivanov-ivanov-6576f1": {
+      "slug": "nikolai-ivanov-ivanov-6576f1",
+      "name": "Николай Иванов Иванов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Стамболийски",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "ivan-nikolov-ivanov-752d0f",
+          "name": "Иван Николов Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "202803761",
+              "companyName": "ДЖЕЙ ЕЛ ИНВЕСТМЪНТ"
+            },
+            {
+              "uic": "202787296",
+              "companyName": "ДЖЕЙ ЕЛ КЕПИТЪЛ"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "ivan-nikolov-ivanov-d1391d",
+          "name": "Иван Николов Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "202803761",
+              "companyName": "ДЖЕЙ ЕЛ ИНВЕСТМЪНТ"
+            },
+            {
+              "uic": "202787296",
+              "companyName": "ДЖЕЙ ЕЛ КЕПИТЪЛ"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "ivan-nikolov-ivanov-22c7d3",
+          "name": "Иван Николов Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "202803761",
+              "companyName": "ДЖЕЙ ЕЛ ИНВЕСТМЪНТ"
+            },
+            {
+              "uic": "202787296",
+              "companyName": "ДЖЕЙ ЕЛ КЕПИТЪЛ"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "georgi-valentinov-georgiev-f8a190",
+          "name": "Георги Валентинов Георгиев",
+          "tier": "executive",
+          "role": "cabinet",
+          "sharedCompanies": [
+            {
+              "uic": "206643539",
+              "companyName": "ГН моторс"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "nikolai-ivanov-nikolov-4c42a0": {
+      "slug": "nikolai-ivanov-nikolov-4c42a0",
+      "name": "Николай Иванов Николов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Антон",
+      "mpConnections": [
+        {
+          "mpId": 2984,
+          "mpName": "Георги Александров Александров",
+          "sharedCompanies": [
+            {
+              "uic": "204133950",
+              "companyName": "ШИЙП ГРУП – 2016"
+            }
+          ],
+          "confidence": "low"
+        }
+      ],
+      "peerConnections": [
+        {
+          "slug": "dimitr-todorov-dimitrov-825d75",
+          "name": "Димитър Тодоров Димитров",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "203556036",
+              "companyName": "ДЖИ ЕМ АГРОС"
+            }
+          ],
+          "confidence": "low"
+        }
+      ]
+    },
+    "nikolai-ivanov-nikolov-8872c2": {
+      "slug": "nikolai-ivanov-nikolov-8872c2",
+      "name": "Николай Иванов Николов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Бяла Слатина",
+      "mpConnections": [
+        {
+          "mpId": 2984,
+          "mpName": "Георги Александров Александров",
+          "sharedCompanies": [
+            {
+              "uic": "204133950",
+              "companyName": "ШИЙП ГРУП – 2016"
+            }
+          ],
+          "confidence": "low"
+        }
+      ],
+      "peerConnections": [
+        {
+          "slug": "dimitr-todorov-dimitrov-825d75",
+          "name": "Димитър Тодоров Димитров",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "203556036",
+              "companyName": "ДЖИ ЕМ АГРОС"
+            }
+          ],
+          "confidence": "low"
+        }
+      ]
+    },
+    "nikolai-ivanov-nikolov-669110": {
+      "slug": "nikolai-ivanov-nikolov-669110",
+      "name": "Николай Иванов Николов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Стрелча",
+      "mpConnections": [
+        {
+          "mpId": 2984,
+          "mpName": "Георги Александров Александров",
+          "sharedCompanies": [
+            {
+              "uic": "204133950",
+              "companyName": "ШИЙП ГРУП – 2016"
+            }
+          ],
+          "confidence": "low"
+        }
+      ],
+      "peerConnections": [
+        {
+          "slug": "dimitr-todorov-dimitrov-825d75",
+          "name": "Димитър Тодоров Димитров",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "203556036",
+              "companyName": "ДЖИ ЕМ АГРОС"
+            }
+          ],
+          "confidence": "low"
+        }
+      ]
+    },
+    "petko-kolev-petkov-ed57fe": {
+      "slug": "petko-kolev-petkov-ed57fe",
+      "name": "Петко Колев Петков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Свищов",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "georgi-ivanov-georgiev-c46138",
+          "name": "Георги Иванов Георгиев",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "124048666",
+              "companyName": "ПЛУТОН АГРО"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "georgi-ivanov-georgiev-2e9e4c",
+          "name": "Георги Иванов Георгиев",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "124048666",
+              "companyName": "ПЛУТОН АГРО"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "georgi-ivanov-georgiev-44d140",
+          "name": "Георги Иванов Георгиев",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "124048666",
+              "companyName": "ПЛУТОН АГРО"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "petr-valentinov-haralambov-2efba0": {
+      "slug": "petr-valentinov-haralambov-2efba0",
+      "name": "Петър Валентинов Хараламбов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Айтос",
+      "mpConnections": [
+        {
+          "mpId": 805,
+          "mpName": "Йордан Петков Йорданов",
+          "sharedCompanies": [
+            {
+              "uic": "102151443",
+              "companyName": "КОМНЕТ БЪЛГАРИЯ ХОЛДИНГ"
+            }
+          ],
+          "confidence": "high"
+        }
+      ],
+      "peerConnections": [
+        {
+          "slug": "zdravko-kostov-kostov-1e9225",
+          "name": "Здравко Костов Костов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "206674253",
+              "companyName": "АЕТОС ИНВЕСТ"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "ivan-dochev-ivanov-ba8abb",
+          "name": "Иван Дочев Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "102151443",
+              "companyName": "КОМНЕТ БЪЛГАРИЯ ХОЛДИНГ"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "ivan-zhelyazkov-ivanov-02f38d",
+          "name": "Иван Желязков Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "102151443",
+              "companyName": "КОМНЕТ БЪЛГАРИЯ ХОЛДИНГ"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "petr-georgiev-petrov-c24538": {
+      "slug": "petr-georgiev-petrov-c24538",
+      "name": "Петър Георгиев Петров",
+      "tier": "municipal",
+      "role": "mayor",
+      "municipality": "Ценово",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "dimitr-ivanov-dimitrov-dcea9d",
+          "name": "Димитър Иванов Димитров",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "103768650",
+              "companyName": "АВТО-СТОП"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "petr-dimitrov-petrov-9c5512": {
+      "slug": "petr-dimitrov-petrov-9c5512",
+      "name": "Петър Димитров Петров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Девня",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "georgi-atanasov-georgiev-3d1e0b",
+          "name": "Георги Атанасов Георгиев",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "205007402",
+              "companyName": "ДЕНТ ВИЖЪН ТИЙМ"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "dimitr-georgiev-dimitrov-402467",
+          "name": "Димитър Георгиев Димитров",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "205007402",
+              "companyName": "ДЕНТ ВИЖЪН ТИЙМ"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "nikolai-dimitrov-nikolov-6f0767",
+          "name": "Николай Димитров Николов",
+          "tier": "municipal",
+          "role": "chief_architect",
+          "sharedCompanies": [
+            {
+              "uic": "205007402",
+              "companyName": "ДЕНТ ВИЖЪН ТИЙМ"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "nikolai-dimitrov-nikolov-2cb7ac",
+          "name": "Николай Димитров Николов",
+          "tier": "municipal",
+          "role": "council_chair",
+          "sharedCompanies": [
+            {
+              "uic": "205007402",
+              "companyName": "ДЕНТ ВИЖЪН ТИЙМ"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "nikolai-dimitrov-nikolov-fadf74",
+          "name": "Николай Димитров Николов",
+          "tier": "municipal",
+          "role": "council_chair",
+          "sharedCompanies": [
+            {
+              "uic": "205007402",
+              "companyName": "ДЕНТ ВИЖЪН ТИЙМ"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "petr-evgeniev-nikolov-3b09db": {
+      "slug": "petr-evgeniev-nikolov-3b09db",
+      "name": "Петър Евгениев Николов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Хасково",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "daniel-rumenov-gargov-c309b6",
+          "name": "Даниел Руменов Гаргов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "206729073",
+              "companyName": "ГЛОБЪЛ ЕС ЕНЕРДЖИ"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "tsveti-iliev-lalov-e06712",
+          "name": "Цвети Илиев Лалов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "206754144",
+              "companyName": "ИНТ СТОУН ГРУП"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "petr-rangelov-karadamyanov-210cdb": {
+      "slug": "petr-rangelov-karadamyanov-210cdb",
+      "name": "Петър Рангелов Карадамянов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Калояново",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "dimitr-todorov-dimitrov-825d75",
+          "name": "Димитър Тодоров Димитров",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "206761352",
+              "companyName": "ТРИМА КОМЕРС"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "todor-dimitrov-dimitrov-771c78",
+          "name": "Тодор Димитров Димитров",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "205236586",
+              "companyName": "РИВЪР МИЛК"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "plamen-angelov-petrov-05b1df": {
+      "slug": "plamen-angelov-petrov-05b1df",
+      "name": "Пламен Ангелов Петров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Смядово",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "iliyan-vlchev-ivanov-6d6d7b",
+          "name": "Илиян Вълчев Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "105585384",
+              "companyName": "ВИДА НЕТУЪРК"
+            },
+            {
+              "uic": "206944535",
+              "companyName": "ВИДА ЕНЕРДЖИ"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "martin-nikolov-donchev-6a4df5",
+          "name": "Мартин Николов Дончев",
+          "tier": "municipal",
+          "role": "deputy_mayor",
+          "sharedCompanies": [
+            {
+              "uic": "105585384",
+              "companyName": "ВИДА НЕТУЪРК"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "plamen-dimitrov-spasov-5e0162": {
+      "slug": "plamen-dimitrov-spasov-5e0162",
+      "name": "Пламен Димитров Спасов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Родопи",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "spas-atanasov-shumanov-98e38e",
+          "name": "Спас Атанасов Шуманов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "115007069",
+              "companyName": "ЛЕТИЩЕ ПЛОВДИВ"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "rosen-zhekov-dobrev-ab4dd8": {
+      "slug": "rosen-zhekov-dobrev-ab4dd8",
+      "name": "Росен Жеков Добрев",
+      "tier": "municipal",
+      "role": "mayor",
+      "municipality": "Оряхово",
+      "mpConnections": [
+        {
+          "mpId": 2920,
+          "mpName": "Ралица Трилкова Добрева",
+          "sharedCompanies": [
+            {
+              "uic": "106617269",
+              "companyName": "Росагро ООД"
+            }
+          ],
+          "confidence": "high"
+        }
+      ],
+      "peerConnections": []
+    },
+    "ruzhdi-hikmet-hadzhen-453b47": {
+      "slug": "ruzhdi-hikmet-hadzhen-453b47",
+      "name": "Ружди Хикмет Хаджен",
+      "tier": "municipal",
+      "role": "council_chair",
+      "municipality": "Сунгурларе",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "yuzdzhan-faik-yumer-bbe9c0",
+          "name": "Юзджан Фаик Юмер",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "206806954",
+              "companyName": "Сън Енерджи АА ООД"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "rumen-hristov-hristov-6a588e": {
+      "slug": "rumen-hristov-hristov-6a588e",
+      "name": "Румен Христов Христов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Нова Загора",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "atanas-yanchev-atanasov-2e8e0b",
+          "name": "Атанас Янчев Атанасов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "119048540",
+              "companyName": "ПАЗАР ЗА ПЛОДОВЕ, ЗЕЛЕНЧУЦИ И ЦВЕТЯ"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "svetlana-draganova-dobreva-e933dd": {
+      "slug": "svetlana-draganova-dobreva-e933dd",
+      "name": "Светлана Драганова Добрева",
+      "tier": "municipal",
+      "role": "council_chair",
+      "municipality": "Аксаково",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "irina-ivanova-velichkova-922d75",
+          "name": "Ирина Иванова Величкова",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "103753627",
+              "companyName": "ЕТЕРИЧНИ МАСЛА И АРОМАТИЧНИ РАСТЕНИЯ-ЕМАР"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "svetoslav-aleksandrov-dokov-2265ae": {
+      "slug": "svetoslav-aleksandrov-dokov-2265ae",
+      "name": "Светослав Александров Доков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Плевен",
+      "mpConnections": [
+        {
+          "mpId": 5182,
+          "mpName": "Борислав Пламенов Георгиев",
+          "sharedCompanies": [
+            {
+              "uic": "206013217",
+              "companyName": "Вемереа ООД"
+            }
+          ],
+          "confidence": "high"
+        }
+      ],
+      "peerConnections": []
+    },
+    "svetoslav-ivanov-ivanov-445a62": {
+      "slug": "svetoslav-ivanov-ivanov-445a62",
+      "name": "Светослав Иванов Иванов",
+      "tier": "municipal",
+      "role": "chief_architect",
+      "municipality": "Перущица",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "ivan-vasilev-ivanov-45bbe3",
+          "name": "Иван Василев Иванов",
+          "tier": "executive",
+          "role": "agency_head",
+          "sharedCompanies": [
+            {
+              "uic": "202981340",
+              "companyName": "В2М България"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "ivan-vasilev-ivanov-3c81a7",
+          "name": "Иван Василев Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "202981340",
+              "companyName": "В2М България"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "svetoslav-hristov-zagorov-ee162f": {
+      "slug": "svetoslav-hristov-zagorov-ee162f",
+      "name": "Светослав Христов Загоров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Търговище",
+      "mpConnections": [
+        {
+          "mpId": 1051,
+          "mpName": "Ердоан Мустафов Ахмедов",
+          "sharedCompanies": [
+            {
+              "uic": "206833887",
+              "companyName": "Омуртаг Енерджи"
+            }
+          ],
+          "confidence": "high"
+        }
+      ],
+      "peerConnections": []
+    },
+    "simeon-ivanov-ivanov-ca5e36": {
+      "slug": "simeon-ivanov-ivanov-ca5e36",
+      "name": "Симеон Иванов Иванов",
+      "tier": "municipal",
+      "role": "council_chair",
+      "municipality": "Белослав",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "ivan-kostadinov-ivanov-69758d",
+          "name": "Иван Костадинов Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "121081992",
+              "companyName": "КЛАСМАН ЕНТЪРПРАЙСИЗ"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "spas-atanasov-shumanov-98e38e": {
+      "slug": "spas-atanasov-shumanov-98e38e",
+      "name": "Спас Атанасов Шуманов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Пловдив",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "plamen-dimitrov-spasov-5e0162",
+          "name": "Пламен Димитров Спасов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "115007069",
+              "companyName": "ЛЕТИЩЕ ПЛОВДИВ"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "stanimir-zhivkov-zlatkov-2543ec": {
+      "slug": "stanimir-zhivkov-zlatkov-2543ec",
+      "name": "Станимир Живков Златков",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Петрич",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "zhivko-mitkov-zahov-58667b",
+          "name": "Живко Митков Захов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "204975343",
+              "companyName": "ВАН ПРОПЪРТИ ИНВЕСТ"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "stanislav-mihailov-stamatov-4381de": {
+      "slug": "stanislav-mihailov-stamatov-4381de",
+      "name": "Станислав Михайлов Стаматов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Созопол",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "hristo-dyankov-mihov-43569a",
+          "name": "Христо Дянков Михов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "206735724",
+              "companyName": "АДМИРАЛ 2021"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "stanislav-chavdarov-mladenov-0b1bfc": {
+      "slug": "stanislav-chavdarov-mladenov-0b1bfc",
+      "name": "Станислав Чавдаров Младенов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Столична община",
+      "mpConnections": [
+        {
+          "mpId": 2862,
+          "mpName": "Георги Георгиев Стоилов",
+          "sharedCompanies": [
+            {
+              "uic": "117001983",
+              "companyName": "СВОБОДНА ЗОНА-РУСЕ"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "mpId": 2724,
+          "mpName": "Таско Михайлов Ерменков",
+          "sharedCompanies": [
+            {
+              "uic": "117001983",
+              "companyName": "СВОБОДНА ЗОНА-РУСЕ"
+            }
+          ],
+          "confidence": "high"
+        }
+      ],
+      "peerConnections": []
+    },
+    "stefan-shtiliyanov-shtiliyanov-9d11f7": {
+      "slug": "stefan-shtiliyanov-shtiliyanov-9d11f7",
+      "name": "Стефан Щилиянов Щилиянов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Сливен",
+      "mpConnections": [
+        {
+          "mpId": 4649,
+          "mpName": "Генади Събков Събков",
+          "sharedCompanies": [
+            {
+              "uic": "831160078",
+              "companyName": "НАПОИТЕЛНИ СИСТЕМИ"
+            }
+          ],
+          "confidence": "high"
+        }
+      ],
+      "peerConnections": [
+        {
+          "slug": "mincho-stoikov-kazandzhiev-51c218",
+          "name": "Минчо Стойков Казанджиев",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "831160078",
+              "companyName": "НАПОИТЕЛНИ СИСТЕМИ"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "stefka-georgieva-aleksandrova-dbb8ad": {
+      "slug": "stefka-georgieva-aleksandrova-dbb8ad",
+      "name": "Стефка Георгиева Александрова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Монтана",
+      "mpConnections": [
+        {
+          "mpId": 2984,
+          "mpName": "Георги Александров Александров",
+          "sharedCompanies": [
+            {
+              "uic": "206529934",
+              "companyName": "Фаворит Секюрити 4 ООД"
+            }
+          ],
+          "confidence": "high"
+        }
+      ],
+      "peerConnections": []
+    },
+    "stoyan-borisov-hristov-a391df": {
+      "slug": "stoyan-borisov-hristov-a391df",
+      "name": "Стоян Борисов Христов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Русе",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "angel-borisov-zaburtov-fd5ef9",
+          "name": "Ангел Борисов Забуртов",
+          "tier": "executive",
+          "role": "cabinet",
+          "sharedCompanies": [
+            {
+              "uic": "130316140",
+              "companyName": "ПРИСТАНИЩНА ИНФРАСТРУКТУРА"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "stoyan-georgiev-stoyanov-0f9834": {
+      "slug": "stoyan-georgiev-stoyanov-0f9834",
+      "name": "Стоян Георгиев Стоянов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Кърджали",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "georgi-stoyanov-georgiev-8146fe",
+          "name": "Георги Стоянов Георгиев",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "813196172",
+              "companyName": "ТРАВЕЛ ЕКСПРЕС"
+            }
+          ],
+          "confidence": "low"
+        }
+      ]
+    },
+    "stoyan-georgiev-stoyanov-36b0e5": {
+      "slug": "stoyan-georgiev-stoyanov-36b0e5",
+      "name": "Стоян Георгиев Стоянов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Монтана",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "georgi-stoyanov-georgiev-8146fe",
+          "name": "Георги Стоянов Георгиев",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "813196172",
+              "companyName": "ТРАВЕЛ ЕКСПРЕС"
+            }
+          ],
+          "confidence": "low"
+        }
+      ]
+    },
+    "stoyanka-miteva-bonova-a789db": {
+      "slug": "stoyanka-miteva-bonova-a789db",
+      "name": "Стоянка Митева Бонова",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Нова Загора",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "mladen-dimitrov-zhelev-ff5df0",
+          "name": "Младен Димитров Желев",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "206650569",
+              "companyName": "ДиМи  СааС"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "todor-dimitrov-dimitrov-771c78": {
+      "slug": "todor-dimitrov-dimitrov-771c78",
+      "name": "Тодор Димитров Димитров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Калояново",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "petr-rangelov-karadamyanov-210cdb",
+          "name": "Петър Рангелов Карадамянов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "205236586",
+              "companyName": "РИВЪР МИЛК"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "todor-dimitrov-popov-6034e1": {
+      "slug": "todor-dimitrov-popov-6034e1",
+      "name": "Тодор Димитров Попов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Пазарджик",
+      "mpConnections": [
+        {
+          "mpId": 5006,
+          "mpName": "Ивелин Людмилов Михайлов",
+          "sharedCompanies": [
+            {
+              "uic": "202785815",
+              "companyName": "ИСТОРИЧЕСКИ ПАРК"
+            }
+          ],
+          "confidence": "high"
+        }
+      ],
+      "peerConnections": []
+    },
+    "todor-dimitrov-todorov-985258": {
+      "slug": "todor-dimitrov-todorov-985258",
+      "name": "Тодор Димитров Тодоров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Лясковец",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "petr-dimitrov-todorov-2ed3b6",
+          "name": "Петър Димитров Тодоров",
+          "tier": "executive",
+          "role": "agency_head",
+          "sharedCompanies": [
+            {
+              "uic": "104684229",
+              "companyName": "СЕТ - 5"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "todor-iordanov-todorov-96bf84": {
+      "slug": "todor-iordanov-todorov-96bf84",
+      "name": "Тодор Йорданов Тодоров",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Каспичан",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "denitsa-todorova-todorova-2e75f0",
+          "name": "Деница Тодорова Тодорова",
+          "tier": "municipal",
+          "role": "deputy_mayor",
+          "sharedCompanies": [
+            {
+              "uic": "206825399",
+              "companyName": "РЕКА ДУНАВ"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "hairi-nedzhmiev-imamov-47b787": {
+      "slug": "hairi-nedzhmiev-imamov-47b787",
+      "name": "Хайри Неджмиев Имамов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Мадан",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "sheban-hilmiev-bilyanov-81f773",
+          "name": "Шебан Хилмиев Билянов",
+          "tier": "municipal",
+          "role": "chief_architect",
+          "sharedCompanies": [
+            {
+              "uic": "206380604",
+              "companyName": "РОДОПИ - МЕС"
+            }
+          ],
+          "confidence": "high"
+        },
+        {
+          "slug": "sheban-hilmiev-bilyanov-96ba46",
+          "name": "Шебан Хилмиев Билянов",
+          "tier": "municipal",
+          "role": "chief_architect",
+          "sharedCompanies": [
+            {
+              "uic": "206380604",
+              "companyName": "РОДОПИ - МЕС"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "hristo-veselinov-gadev-d42447": {
+      "slug": "hristo-veselinov-gadev-d42447",
+      "name": "Христо Веселинов Гадев",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Столична община",
+      "mpConnections": [
+        {
+          "mpId": 4385,
+          "mpName": "Вениамин Иванов Воденичаров",
+          "sharedCompanies": [
+            {
+              "uic": "131351354",
+              "companyName": "ГРИЙН АГРО ГРУП"
+            }
+          ],
+          "confidence": "high"
+        }
+      ],
+      "peerConnections": []
+    },
+    "hristo-dimitrov-hristov-a59ac1": {
+      "slug": "hristo-dimitrov-hristov-a59ac1",
+      "name": "Христо Димитров Христов",
+      "tier": "municipal",
+      "role": "mayor",
+      "municipality": "Болярово",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "dimitr-ivanov-dimitrov-dcea9d",
+          "name": "Димитър Иванов Димитров",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "204332614",
+              "companyName": "БЛИТЦ ЕР"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "hristo-dyankov-mihov-43569a": {
+      "slug": "hristo-dyankov-mihov-43569a",
+      "name": "Христо Дянков Михов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Тунджа",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "stanislav-mihailov-stamatov-4381de",
+          "name": "Станислав Михайлов Стаматов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "206735724",
+              "companyName": "АДМИРАЛ 2021"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "hristo-ivanov-ivanov-9b4a29": {
+      "slug": "hristo-ivanov-ivanov-9b4a29",
+      "name": "Христо Иванов Иванов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Мездра",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "georgi-ivanov-georgiev-c46138",
+          "name": "Георги Иванов Георгиев",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "202679281",
+              "companyName": "КАНАРИНИ"
+            }
+          ],
+          "confidence": "low"
+        },
+        {
+          "slug": "georgi-ivanov-georgiev-2e9e4c",
+          "name": "Георги Иванов Георгиев",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "202679281",
+              "companyName": "КАНАРИНИ"
+            }
+          ],
+          "confidence": "low"
+        },
+        {
+          "slug": "georgi-ivanov-georgiev-44d140",
+          "name": "Георги Иванов Георгиев",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "202679281",
+              "companyName": "КАНАРИНИ"
+            }
+          ],
+          "confidence": "low"
+        },
+        {
+          "slug": "zhelyazko-ivanov-ivanov-d447b0",
+          "name": "Желязко Иванов Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "202879022",
+              "companyName": "ГРИЙН ПЛЕЙ"
+            }
+          ],
+          "confidence": "low"
+        },
+        {
+          "slug": "ivan-hristov-ivanov-e944f6",
+          "name": "Иван Христов Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "110533204",
+              "companyName": "БИЗНЕС АДВАЙЗЪРИ ГРУП"
+            }
+          ],
+          "confidence": "low"
+        }
+      ]
+    },
+    "hristo-ivanov-ivanov-25b7f0": {
+      "slug": "hristo-ivanov-ivanov-25b7f0",
+      "name": "Христо Иванов Иванов",
+      "tier": "municipal",
+      "role": "deputy_mayor",
+      "municipality": "Опан",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "georgi-ivanov-georgiev-c46138",
+          "name": "Георги Иванов Георгиев",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "202679281",
+              "companyName": "КАНАРИНИ"
+            }
+          ],
+          "confidence": "low"
+        },
+        {
+          "slug": "georgi-ivanov-georgiev-2e9e4c",
+          "name": "Георги Иванов Георгиев",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "202679281",
+              "companyName": "КАНАРИНИ"
+            }
+          ],
+          "confidence": "low"
+        },
+        {
+          "slug": "georgi-ivanov-georgiev-44d140",
+          "name": "Георги Иванов Георгиев",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "202679281",
+              "companyName": "КАНАРИНИ"
+            }
+          ],
+          "confidence": "low"
+        },
+        {
+          "slug": "zhelyazko-ivanov-ivanov-d447b0",
+          "name": "Желязко Иванов Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "202879022",
+              "companyName": "ГРИЙН ПЛЕЙ"
+            }
+          ],
+          "confidence": "low"
+        },
+        {
+          "slug": "ivan-hristov-ivanov-e944f6",
+          "name": "Иван Христов Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "110533204",
+              "companyName": "БИЗНЕС АДВАЙЗЪРИ ГРУП"
+            }
+          ],
+          "confidence": "low"
+        }
+      ]
+    },
+    "hristo-ivanov-hristov-4ca62b": {
+      "slug": "hristo-ivanov-hristov-4ca62b",
+      "name": "Христо Иванов Христов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Кюстендил",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "ivan-hristov-ivanov-e944f6",
+          "name": "Иван Христов Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "107593458",
+              "companyName": "ДАЛИЯ"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "tsvetelin-lyubenov-getov-3c0e4c": {
+      "slug": "tsvetelin-lyubenov-getov-3c0e4c",
+      "name": "Цветелин Любенов Гетов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Искър",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "ivan-tsokov-danovski-43495f",
+          "name": "Иван Цоков Дановски",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "205982351",
+              "companyName": "ПЛЕВЕНСКО МЛЯКО - 2020"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "tsveti-iliev-lalov-e06712": {
+      "slug": "tsveti-iliev-lalov-e06712",
+      "name": "Цвети Илиев Лалов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Хасково",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "petr-evgeniev-nikolov-3b09db",
+          "name": "Петър Евгениев Николов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "206754144",
+              "companyName": "ИНТ СТОУН ГРУП"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "sheban-hilmiev-bilyanov-81f773": {
+      "slug": "sheban-hilmiev-bilyanov-81f773",
+      "name": "Шебан Хилмиев Билянов",
+      "tier": "municipal",
+      "role": "chief_architect",
+      "municipality": "Борино",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "hairi-nedzhmiev-imamov-47b787",
+          "name": "Хайри Неджмиев Имамов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "206380604",
+              "companyName": "РОДОПИ - МЕС"
+            }
+          ],
+          "confidence": "low"
+        }
+      ]
+    },
+    "sheban-hilmiev-bilyanov-96ba46": {
+      "slug": "sheban-hilmiev-bilyanov-96ba46",
+      "name": "Шебан Хилмиев Билянов",
+      "tier": "municipal",
+      "role": "chief_architect",
+      "municipality": "Рудозем",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "hairi-nedzhmiev-imamov-47b787",
+          "name": "Хайри Неджмиев Имамов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "206380604",
+              "companyName": "РОДОПИ - МЕС"
+            }
+          ],
+          "confidence": "low"
+        }
+      ]
+    },
+    "yuzdzhan-faik-yumer-bbe9c0": {
+      "slug": "yuzdzhan-faik-yumer-bbe9c0",
+      "name": "Юзджан Фаик Юмер",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Айтос",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "ruzhdi-hikmet-hadzhen-453b47",
+          "name": "Ружди Хикмет Хаджен",
+          "tier": "municipal",
+          "role": "council_chair",
+          "sharedCompanies": [
+            {
+              "uic": "206806954",
+              "companyName": "Сън енерджи АА ООД"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    },
+    "yaman-gyunai-hyusmen-d772a3": {
+      "slug": "yaman-gyunai-hyusmen-d772a3",
+      "name": "Яман Гюнай Хюсмен",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Исперих",
+      "mpConnections": [
+        {
+          "mpId": 4812,
+          "mpName": "Гюнай Хюсмен Хюсмен",
+          "sharedCompanies": [
+            {
+              "uic": "826018141",
+              "companyName": "КАРАДЖА - ФАГ"
+            }
+          ],
+          "confidence": "high"
+        }
+      ],
+      "peerConnections": []
+    },
+    "yanko-dimitrov-angelov-616352": {
+      "slug": "yanko-dimitrov-angelov-616352",
+      "name": "Янко Димитров Ангелов",
+      "tier": "municipal",
+      "role": "councillor",
+      "municipality": "Сандански",
+      "mpConnections": [],
+      "peerConnections": [
+        {
+          "slug": "zhivko-kirilov-ivanov-942e2f",
+          "name": "Живко Кирилов Иванов",
+          "tier": "municipal",
+          "role": "councillor",
+          "sharedCompanies": [
+            {
+              "uic": "202134205",
+              "companyName": "Санфотопарк"
+            },
+            {
+              "uic": "202106560",
+              "companyName": "Санпарк"
+            }
+          ],
+          "confidence": "high"
+        }
+      ]
+    }
+  }
+}
