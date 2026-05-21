@@ -1,6 +1,13 @@
 import { FC } from "react";
 import { useTranslation } from "react-i18next";
-import { ArrowRight, Briefcase, Landmark, Vote, Wallet } from "lucide-react";
+import {
+  ArrowRight,
+  Briefcase,
+  Euro,
+  Landmark,
+  Vote,
+  Wallet,
+} from "lucide-react";
 import { Link } from "@/ux/Link";
 import { useResolvedCandidate } from "@/data/candidates/useResolvedCandidate";
 import { useCandidateName } from "@/data/candidates/useCandidateName";
@@ -12,6 +19,7 @@ import { MpAssetsSummary } from "./MpAssetsSummary";
 import { MpManagementRoles } from "./MpManagementRoles";
 import { MpConnectionsMini } from "./MpConnectionsMini";
 import { MpConnectedContractsTile } from "./MpConnectedContractsTile";
+import { MpConnectedFundsTile } from "./MpConnectedFundsTile";
 import { MpVotingTile } from "./MpVotingTile";
 import { MpTwinsTile } from "./MpTwinsTile";
 import { MpScorecardTile } from "./MpScorecardTile";
@@ -20,6 +28,7 @@ import { CandidateDashboardCards } from "@/screens/dashboard/CandidateDashboardC
 import { useMpManagement } from "@/data/parliament/useMpManagement";
 import { useMpConnections } from "@/data/parliament/useMpConnections";
 import { useMpConnectedContracts } from "@/data/parliament/useMpConnectedContracts";
+import { useMpConnectedFunds } from "@/data/funds/useMpConnectedFunds";
 import { useMpAssets } from "@/data/parliament/useMpAssets";
 import { useMpDeclarations } from "@/data/parliament/useMpDeclarations";
 
@@ -52,6 +61,8 @@ export const Candidate: FC<{ name: string }> = ({ name }) => {
     useMpConnections(canonicalMpName);
   const { entries: connectedContracts, isLoading: contractsLoading } =
     useMpConnectedContracts(canonicalMpName);
+  const { entries: connectedFunds, isLoading: fundsLoading } =
+    useMpConnectedFunds(canonicalMpName);
   const { rollup: assetsRollup, isLoading: assetsLoading } =
     useMpAssets(canonicalMpName);
   const { declarations, isLoading: declsLoading } =
@@ -106,6 +117,7 @@ export const Candidate: FC<{ name: string }> = ({ name }) => {
   const hasManagementRoles = (management?.roles?.length ?? 0) > 0;
   const hasConnections = subgraph != null && subgraph.nodes.length > 1;
   const hasContracts = connectedContracts.length > 0;
+  const hasFunds = connectedFunds.length > 0;
   const hasAssets = assetsRollup != null;
   const hasFinancialDecls = declarations.some(
     (d) => d.ownershipStakes.length > 0,
@@ -115,6 +127,7 @@ export const Candidate: FC<{ name: string }> = ({ name }) => {
   const showBusiness =
     mgmtLoading || connectionsLoading || hasManagementRoles || hasConnections;
   const showProcurement = contractsLoading || hasContracts;
+  const showFunds = fundsLoading || hasFunds;
   const showDeclarations =
     assetsLoading || declsLoading || hasAssets || hasFinancialDecls;
 
@@ -173,6 +186,16 @@ export const Candidate: FC<{ name: string }> = ({ name }) => {
               icon={Landmark}
             >
               <MpConnectedContractsTile name={lookupName} linkSlug={linkSlug} />
+            </DashboardSection>
+          )}
+
+          {showFunds && (
+            <DashboardSection
+              id="funds"
+              title={t("mp_section_funds") || "EU funds"}
+              icon={Euro}
+            >
+              <MpConnectedFundsTile name={lookupName} linkSlug={linkSlug} />
             </DashboardSection>
           )}
 

@@ -193,6 +193,16 @@ const ProcurementScreen = lazy(() =>
     default: m.ProcurementScreen,
   })),
 );
+const CandidateFundsScreen = lazy(() =>
+  import("./screens/CandidateFundsScreen").then((m) => ({
+    default: m.CandidateFundsScreen,
+  })),
+);
+const FundsScreen = lazy(() =>
+  import("./screens/FundsScreen").then((m) => ({
+    default: m.FundsScreen,
+  })),
+);
 const TopContractorsScreen = lazy(() =>
   import("./screens/TopContractorsScreen").then((m) => ({
     default: m.TopContractorsScreen,
@@ -1281,6 +1291,22 @@ export const AuthRoutes = () => {
           element={
             <LayoutScreen>
               <ProcurementScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="candidate/:id/funds"
+          element={
+            <LayoutScreen>
+              <CandidateFundsScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="funds"
+          element={
+            <LayoutScreen>
+              <FundsScreen />
             </LayoutScreen>
           }
         />
