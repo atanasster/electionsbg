@@ -161,6 +161,7 @@ export const governanceMenu: MenuItem[] = [
             link: "/budget/tax-calculator",
           },
           { title: "procurement_link_label", link: "/procurement" },
+          { title: "funds_index_title", link: "/funds" },
           { title: "governments_title", link: "/governments" },
           { title: "indicators_page_title", link: "/indicators" },
           { title: "demographics_title", link: "/demographics" },
