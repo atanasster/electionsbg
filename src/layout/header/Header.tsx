@@ -60,13 +60,6 @@ export const Header = () => {
   const inGovernance = isInSection(location.pathname, GOVERNANCE_PREFIXES);
   const inElections = !inGovernance;
 
-  const dropdownClass = (active: boolean) =>
-    cn(
-      "text-sm font-medium hidden lg:flex items-center gap-1 lowercase whitespace-nowrap focus:outline-none transition-colors",
-      active
-        ? "text-primary border-b-2 border-primary pb-0.5"
-        : "text-secondary-foreground hover:text-primary",
-    );
   // The nav is `position: fixed`, so the page content is offset by its
   // height via the `--header-height` CSS variable (see Layout.tsx). On
   // very narrow viewports (~<340px) the inner left group wraps to a
@@ -134,6 +127,65 @@ export const Header = () => {
     }
     return <DropdownMenuLabel>{t(item.title)}</DropdownMenuLabel>;
   };
+  // Desktop top-level nav as a "split control": the title text links to the
+  // section dashboard, a hairline divider separates it from a chevron that
+  // toggles the menu of sub-pages. Each half lights up independently on hover
+  // so the two targets read as distinct; the active section is tinted
+  // rather than underlined.
+  const RenderTopMenu: FC<{ topMenu: MenuItem; active: boolean }> = ({
+    topMenu,
+    active,
+  }) => (
+    // `modal={false}` keeps the page scrollable while the menu is open — the
+    // default modal mode locks body scroll and compensates for the removed
+    // scrollbar, which visibly shifts the fixed header and page content.
+    <DropdownMenu modal={false}>
+      <div
+        className={cn(
+          "hidden lg:inline-flex items-stretch overflow-hidden rounded-md border text-sm font-medium transition-colors",
+          active
+            ? "border-primary/50 bg-primary/[0.07]"
+            : "border-border/70 hover:border-border",
+        )}
+      >
+        <Link
+          to={topMenu.link ?? "/"}
+          underline={false}
+          className={cn(
+            "flex items-center whitespace-nowrap px-2.5 py-1 lowercase transition-colors focus:outline-none focus-visible:bg-foreground/[0.08]",
+            active
+              ? "text-primary hover:bg-primary/10"
+              : "text-secondary-foreground hover:bg-foreground/[0.05] hover:text-primary",
+          )}
+        >
+          {t(topMenu.title)}
+        </Link>
+        <span
+          aria-hidden
+          className={cn("w-px", active ? "bg-primary/30" : "bg-border/70")}
+        />
+        <DropdownMenuTrigger
+          aria-label={t(topMenu.title)}
+          className={cn(
+            "group flex items-center px-1.5 transition-colors focus:outline-none focus-visible:bg-foreground/[0.08]",
+            active
+              ? "text-primary hover:bg-primary/10 data-[state=open]:bg-primary/10"
+              : "text-secondary-foreground hover:bg-foreground/[0.05] hover:text-primary data-[state=open]:bg-foreground/[0.05]",
+          )}
+        >
+          <ChevronDown
+            className="h-3.5 w-3.5 transition-transform duration-200 group-data-[state=open]:rotate-180"
+            aria-hidden
+          />
+        </DropdownMenuTrigger>
+      </div>
+      <DropdownMenuContent align="end" sideOffset={8} className="w-56">
+        {topMenu.subMenu?.map((menu, idx) => (
+          <RenderMenuItem key={`${menu.title}-${idx}`} item={menu} />
+        ))}
+      </DropdownMenuContent>
+    </DropdownMenu>
+  );
   const changeLanguage = (language: "en" | "bg") => {
     i18n.changeLanguage(language);
     localStorage.setItem("language", language);
@@ -160,32 +212,18 @@ export const Header = () => {
       <div className="flex flex-1 justify-end gap-3 items-center px-4 min-w-0">
         <Search />
         {electionsMenu.map((topMenu, idx) => (
-          <DropdownMenu key={`elec-${topMenu.title}-${idx}`}>
-            <DropdownMenuTrigger className={dropdownClass(inElections)}>
-              {t(topMenu.title)}
-              <ChevronDown className="h-3.5 w-3.5 opacity-70" aria-hidden />
-            </DropdownMenuTrigger>
-
-            <DropdownMenuContent className="w-56">
-              {topMenu.subMenu?.map((menu, idx) => (
-                <RenderMenuItem key={`${menu.title}-${idx}`} item={menu} />
-              ))}
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <RenderTopMenu
+            key={`elec-${topMenu.title}-${idx}`}
+            topMenu={topMenu}
+            active={inElections}
+          />
         ))}
         {governanceMenu.map((topMenu, idx) => (
-          <DropdownMenu key={`gov-${topMenu.title}-${idx}`}>
-            <DropdownMenuTrigger className={dropdownClass(inGovernance)}>
-              {t(topMenu.title)}
-              <ChevronDown className="h-3.5 w-3.5 opacity-70" aria-hidden />
-            </DropdownMenuTrigger>
-
-            <DropdownMenuContent className="w-56">
-              {topMenu.subMenu?.map((menu, idx) => (
-                <RenderMenuItem key={`${menu.title}-${idx}`} item={menu} />
-              ))}
-            </DropdownMenuContent>
-          </DropdownMenu>
+          <RenderTopMenu
+            key={`gov-${topMenu.title}-${idx}`}
+            topMenu={topMenu}
+            active={inGovernance}
+          />
         ))}
         {articles && articles.length > 0 && (
           <Link
@@ -223,7 +261,7 @@ export const Header = () => {
             <Moon className="size-4" />
           )}
         </button>
-        <DropdownMenu>
+        <DropdownMenu modal={false}>
           <DropdownMenuTrigger asChild>
             <button
               data-collapse-toggle="navbar-default"

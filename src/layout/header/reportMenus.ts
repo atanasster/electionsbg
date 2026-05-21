@@ -90,6 +90,7 @@ const buildLocationReportSubMenu = (
 export const electionsMenu: MenuItem[] = [
   {
     title: "nav_elections",
+    link: "/",
     subMenu: [
       { title: "risk_analysis_title", link: "/risk-analysis" },
       { title: "compare_title", link: "/compare" },
@@ -128,6 +129,7 @@ export const electionsMenu: MenuItem[] = [
 export const governanceMenu: MenuItem[] = [
   {
     title: "nav_governance",
+    link: "/governance",
     subMenu: [
       { title: "governance_overview", link: "/governance" },
       { title: "-" },
