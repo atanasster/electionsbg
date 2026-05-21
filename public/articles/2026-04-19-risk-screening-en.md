@@ -10,14 +10,16 @@ keywords:
 ---
 # Election risk screening — new tools for the 19.04.2026 vote
 
-> **Update (2026-05-20):** The per-section risk score now combines **seven** signals — a cross-election **swing** signal has been added, flagging sections whose turnout and winning-party share rose abnormally versus the same section at the previous election. A new geographic **risk-cluster map** on [`/risk-analysis`](/risk-analysis?elections=2026_04_19) groups adjacent same-party elevated-risk sections — the spatial fingerprint of a controlled or corporate vote. The six-signal section-band counts in §4 below predate the swing signal.
+> **Update (2026-05-20):** The per-section risk score now combines **seven** signals — a cross-election **swing** signal has been added, flagging sections whose turnout and winning-party share rose abnormally versus the same section at the previous election. A new geographic **risk-cluster map** on [`/risk-analysis`](/risk-analysis?elections=2026_04_19) groups adjacent same-party elevated-risk sections — the spatial fingerprint of a controlled or corporate vote.
 
-Composite index (47/100, High risk) from five process-integrity signals, plus four context signals (Benford, neighborhood swing, electoral volatility, polling error). Per-section risk screening (10 Critical out of 12,705) and per-party Benford 2BL.
+> **Update (2026-05-21):** Geographic risk clusters are now the composite index's **fifth context signal** (39/100) — see §3. Like the other context signals it is shown beside the headline but never averaged into it.
+
+Composite index (47/100, High risk) from five process-integrity signals, plus five context signals (Benford, neighborhood swing, electoral volatility, polling error, risk clusters). Per-section risk screening (10 Critical out of 12,705) and per-party Benford 2BL.
 
 This is a follow-up to the [integrity analysis published ten days earlier](/articles/2026-04-19-integrity) covering the [19.04.2026 election](/elections/2026_04_19). Since then we have added three new aggregation layers on top of the raw metrics:
 
-- **National composite index** — five process-integrity signals (the headline) and four context signals (shown separately).
-- **[Per-section risk score](/risk-score?elections=2026_04_19)** — 12,705 sections each given a 0–100 score from six signals.
+- **National composite index** — five process-integrity signals (the headline) and five context signals (shown separately).
+- **[Per-section risk score](/risk-score?elections=2026_04_19)** — 12,705 sections each given a 0–100 score from seven signals.
 - **[Per-party Benford test](/benford?elections=2026_04_19)** — statistical distribution of digits in per-section vote counts.
 
 The 19.04.2026 election reads **47 / 100 (High risk)** under the new methodology. These are screening tools, not fraud determinations. The original integrity article's bottom-line read — "genuine but historically unusual surge rather than a manipulated outcome" — is unchanged.
@@ -38,7 +40,7 @@ A survey of the leading electoral-integrity composites (Norris PEI, V-Dem EQI, K
 
 These measure disagreements between votes cast and the recorded result:
 
-- **Section screening (38/100):** weighted share (1.92%) of national turnout in risk-flagged sections.
+- **Section screening (39/100):** weighted share (1.95%) of national turnout in risk-flagged sections.
 - **Machine integrity (90/100):** 0.18% drift between flash memory and protocol. The strongest signal this cycle.
 - **Missing flash memory (59/100):** 0.59% of machine votes outside the end-to-end audit chain.
 - **Concentration (29/100):** 0.59% of turnout in settlements where one party took ≥80%.
@@ -48,27 +50,28 @@ Headline: **47 / 100 (High risk)** on the scale <20 Calm, 20–40 Elevated, 40�
 
 ---
 
-## 3. The four context signals
+## 3. The five context signals
 
 These describe the environment but do not contribute to the systemic risk score:
 
 - **Benford 2nd digit (8/100):** one of twelve qualifying parties shows strong deviation (MAD ≥ 0.08). The test is a prompt to look closer, not a verdict.
-- **Neighborhood swing (39/100):** [ПрБ](/party/%D0%9F%D1%80%D0%91?elections=2026_04_19) shows +5.8 pp excess swing inside the tracked communities versus its national performance.
+- **Neighborhood swing (39/100):** [ПрБ](/party/%D0%9F%D1%80%D0%91?elections=2026_04_19) shows +5.9 pp excess swing inside the tracked communities versus its national performance.
 - **Electoral volatility (100/100):** Pedersen index 49.7 — the cycle is *hyper-volatile* (>30% of the vote redistributed). Typically marks a new entrant.
 - **Polling error (29/100):** 2.51 pp mean MAE across the seven agencies' final pre-vote polls. The miss was directionally identical across all seven houses — every one underestimated ПрБ by 6.08–14.71 pp (ML and CAM in single digits; the other five all 10+ pp short) — pointing to a late surge that broke after fieldwork closed, not a methodology failure.
+- **Risk clusters (39/100):** 146 of the 1,341 mapped elevated-risk sections (10.9%) sit in a same-party geographic cluster — the largest is 22 adjacent sections in Stolipinovo, Plovdiv. A spatial-concentration measure calibrated on the 2005–2026 backtest (a stable 8–17% band); like the other context signals it never feeds the headline, since those sections are already counted by section screening.
 
 ---
 
 ## 4. Per-section risk screening
 
-Combines six signals including recount adjustments and peer-outlier z-scores.
+Combines seven signals including recount adjustments, peer-outlier z-scores and a cross-election swing signal.
 
 | Band | Sections | Share |
 |---|---|---|
 | Critical (≥80) | 10 | 0.08% |
-| High (60–80) | 230 | 1.81% |
-| Elevated (30–60) | 1,696 | 13.35% |
-| Low (<30) | 10,769 | 84.76% |
+| High (60–80) | 210 | 1.65% |
+| Elevated (30–60) | 1,744 | 13.73% |
+| Low (<30) | 10,741 | 84.54% |
 
 The 10 Critical sections (3–24 votes each) are mostly driven by invalid ballots and additional voters. The full ranked table is on [`/risk-score`](/risk-score?elections=2026_04_19).
 
@@ -89,7 +92,7 @@ We test the second-digit (2BL) distribution. Four parties show MAD ≥ 0.04, but
 
 ## 6. Bottom line for 19.04.2026
 
-The most serious issue is the audit-chain weakness (machine integrity 90 and missing flash 59). The enormous political realignment (Pedersen 49.7) is the context for all other anomalies. The neighborhood excess swing for ПрБ (+5.8 pp) is noticeable but moderate.
+The most serious issue is the audit-chain weakness (machine integrity 90 and missing flash 59). The enormous political realignment (Pedersen 49.7) is the context for all other anomalies. The neighborhood excess swing for ПрБ (+5.9 pp) is noticeable but moderate.
 
 Takeaway: signals of a compromised audit chain are real and warrant attention; the neighborhood realignment is noticeable but moderate; the political reshuffle is enormous but not by itself anomalous.
 
