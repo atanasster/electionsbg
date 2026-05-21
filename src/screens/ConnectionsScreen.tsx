@@ -7,7 +7,7 @@ import {
   useRef,
   useState,
 } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import { useTranslation } from "react-i18next";
 import { Crosshair } from "lucide-react";
 import {
@@ -476,6 +476,11 @@ export const ConnectionsScreen: FC = () => {
   const [toOpen, setToOpen] = useState(false);
   const fromInputRef = useRef<HTMLInputElement>(null);
   const toInputRef = useRef<HTMLInputElement>(null);
+  // The picked endpoints are mirrored into ?from=&to= URL params (node ids)
+  // so a found connection is shareable. `pathHydratedRef` guards the one-shot
+  // URL→state restore so the write-back effect can't wipe the params first.
+  const [searchParams, setSearchParams] = useSearchParams();
+  const pathHydratedRef = useRef(false);
 
   // Resize observer keeps the canvas full-width within its card. Keyed off
   // wrapEl so it re-attaches whenever the wrapper mounts — Radix only mounts
@@ -1122,6 +1127,39 @@ export const ConnectionsScreen: FC = () => {
     };
   }, []);
 
+  // Restore picked endpoints from ?from=&to= once the graph is loaded. One
+  // shot — guarded so a later filter change can't re-trigger it.
+  useEffect(() => {
+    if (pathHydratedRef.current || simNodes.length === 0) return;
+    pathHydratedRef.current = true;
+    const fromId = searchParams.get("from");
+    const toId = searchParams.get("to");
+    const fromNode = fromId
+      ? (simNodes.find((n) => n.id === fromId) ?? null)
+      : null;
+    const toNode = toId ? (simNodes.find((n) => n.id === toId) ?? null) : null;
+    if (fromNode) setPathFrom(fromNode);
+    if (toNode) setPathTo(toNode);
+    if ((fromNode ? 1 : 0) + (toNode ? 1 : 0) === 1) setPathPickMode(true);
+  }, [simNodes, searchParams]);
+
+  // Mirror the picked endpoints into the URL so the connection is shareable.
+  // Held back until the one-shot hydrate above has run.
+  useEffect(() => {
+    if (!pathHydratedRef.current) return;
+    setSearchParams(
+      (prev) => {
+        const next = new URLSearchParams(prev);
+        if (pathFrom) next.set("from", pathFrom.id);
+        else next.delete("from");
+        if (pathTo) next.set("to", pathTo.id);
+        else next.delete("to");
+        return next;
+      },
+      { replace: true },
+    );
+  }, [pathFrom, pathTo, setSearchParams]);
+
   // Sync canvas-click selections into the search inputs (but don't clear query
   // when pathFrom/pathTo is cleared by typing — that's handled by onChange).
   useEffect(() => {
@@ -1499,8 +1537,29 @@ export const ConnectionsScreen: FC = () => {
                   }}
                   onFocus={() => setFromOpen(true)}
                   onBlur={() => setTimeout(() => setFromOpen(false), 150)}
-                  className="px-2 py-1 rounded border border-border text-xs w-52 bg-background focus:outline-none focus:ring-1 focus:ring-primary"
+                  className={`py-1 pl-2 ${
+                    pathFrom ? "pr-7" : "pr-2"
+                  } rounded border border-border text-xs w-52 bg-background focus:outline-none focus:ring-1 focus:ring-primary`}
                 />
+                {pathFrom && (
+                  <button
+                    type="button"
+                    aria-label={
+                      t("connections_remove_endpoint") || "Remove this person"
+                    }
+                    title={
+                      t("connections_remove_endpoint") || "Remove this person"
+                    }
+                    onClick={() => {
+                      setPathFrom(null);
+                      setFromQuery("");
+                      setPathPickMode(true);
+                    }}
+                    className="absolute right-1.5 top-1/2 -translate-y-1/2 text-sm leading-none text-muted-foreground hover:text-foreground"
+                  >
+                    ×
+                  </button>
+                )}
                 {fromOpen && filteredFrom.length > 0 && (
                   <div className="absolute top-full left-0 z-20 bg-card border border-border rounded shadow-lg max-h-52 overflow-y-auto w-64 mt-0.5">
                     {filteredFrom.map((n) => {
@@ -1555,8 +1614,29 @@ export const ConnectionsScreen: FC = () => {
                   }}
                   onFocus={() => setToOpen(true)}
                   onBlur={() => setTimeout(() => setToOpen(false), 150)}
-                  className="px-2 py-1 rounded border border-border text-xs w-52 bg-background focus:outline-none focus:ring-1 focus:ring-primary"
+                  className={`py-1 pl-2 ${
+                    pathTo ? "pr-7" : "pr-2"
+                  } rounded border border-border text-xs w-52 bg-background focus:outline-none focus:ring-1 focus:ring-primary`}
                 />
+                {pathTo && (
+                  <button
+                    type="button"
+                    aria-label={
+                      t("connections_remove_endpoint") || "Remove this person"
+                    }
+                    title={
+                      t("connections_remove_endpoint") || "Remove this person"
+                    }
+                    onClick={() => {
+                      setPathTo(null);
+                      setToQuery("");
+                      setPathPickMode(true);
+                    }}
+                    className="absolute right-1.5 top-1/2 -translate-y-1/2 text-sm leading-none text-muted-foreground hover:text-foreground"
+                  >
+                    ×
+                  </button>
+                )}
                 {toOpen && filteredTo.length > 0 && (
                   <div className="absolute top-full left-0 z-20 bg-card border border-border rounded shadow-lg max-h-52 overflow-y-auto w-64 mt-0.5">
                     {filteredTo.map((n) => {
