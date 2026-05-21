@@ -108,10 +108,10 @@
     <tr><td><strong>1. Polling-accuracy analyzer</strong></td><td>A shrinkage-corrected, industry-bias-adjusted accuracy leaderboard for every polling agency</td></tr>
     <tr><td><strong>2. Benford digit screen</strong></td><td>First- and second-digit distribution tests on per-section vote counts</td></tr>
     <tr><td><strong>3. Section risk screening</strong></td><td>A 0&ndash;100 statistical-anomaly score for every polling section</td></tr>
-    <tr><td><strong>4. Composite risk index</strong></td><td>One election-level process-integrity headline (0&ndash;100), in two tracks</td></tr>
-    <tr><td><strong>5. Demographics-by-party</strong></td><td>Per-party correlations between regional vote share and census indicators</td></tr>
-    <tr><td><strong>6. Vote-flow estimation</strong></td><td>An estimated voter-transition matrix between two consecutive elections</td></tr>
-    <tr><td><strong>7. Risk-cluster persistence</strong></td><td>Geographic clusters of flagged sections, and the same knots tracked across every election since 2005</td></tr>
+    <tr><td><strong>4. Risk-cluster persistence</strong></td><td>Geographic clusters of flagged sections, and the same knots tracked across every election since 2005</td></tr>
+    <tr><td><strong>5. Composite risk index</strong></td><td>One election-level process-integrity headline (0&ndash;100), in two tracks</td></tr>
+    <tr><td><strong>6. Demographics-by-party</strong></td><td>Per-party correlations between municipal vote share and census indicators</td></tr>
+    <tr><td><strong>7. Vote-flow estimation</strong></td><td>An estimated voter-transition matrix between two consecutive elections</td></tr>
   </table>
 </div>
 
@@ -250,15 +250,49 @@ score = 100 &times; ( 1.00 + 0.92 + 0.90 ) / 3   &approx;   94   ( critical band
   </div>
 </div>
 
-<!-- ===================== METHOD 4: COMPOSITE INDEX ===================== -->
+<!-- ===================== METHOD 4: RISK CLUSTERS ===================== -->
 <div class="page">
   <div class="kicker">Method 4</div>
+  <h2 class="title">Spatial Risk Clusters &amp; Cross-Election Persistence</h2>
+  <p class="lede">Sections flagged by the risk score (Method&nbsp;3) rarely stand alone &mdash; they cluster geographically. This method groups them, then tracks the same knots across every election since 2005 to see which ones recur.</p>
+
+  <figure>
+    <img src="images/clusters.png" alt="Recurring risk clusters" />
+    <figcaption>/risk-analysis &mdash; the &ldquo;recurring risk clusters&rdquo; card; each row is a persistent locus, the coloured dots its winning party in each election.</figcaption>
+  </figure>
+
+  <h3>How it works</h3>
+  <ol>
+    <li><span class="term">Per-election clustering.</span> Within one election, sections that screened <em>elevated-or-above</em> are grouped into clusters: same winning party, centroids within <strong>600&nbsp;m</strong> of each other, joined as connected components, minimum three sections. Sections abroad (oblast&nbsp;32) are excluded &mdash; their IDs are reassigned each cycle.</li>
+    <li><span class="term">Persistent loci.</span> Per-election clusters are then linked <em>across</em> elections: any two that share at least two section IDs are joined, again as connected components. The result is a <span class="term">persistent locus</span> &mdash; a geographic knot that has clustered in two or more elections.</li>
+    <li><span class="term">Section rap sheet.</span> Each individual section also carries its own cross-election history &mdash; its risk score and band in every election it appears in &mdash; shown on the section page.</li>
+    <li><span class="term">Views, not scores.</span> Clusters and loci <em>describe</em> already-published screening output; neither feeds back into the 0&ndash;100 score, so there is no circularity. The composite index (Method&nbsp;5) carries them only as a context signal.</li>
+  </ol>
+
+  <div class="box calc"><span class="h">Worked example &mdash; Stolipinovo, Plovdiv</span>
+    <p style="margin-bottom:4pt;">The single largest risk cluster in April&nbsp;2026 is <strong>22 adjacent sections</strong> in the Stolipinovo neighbourhood of Plovdiv, all won by ПрБ (high band, peak score&nbsp;76). It is not new &mdash; the same locus has clustered in <strong>13 of the elections on record</strong>, across 37 distinct sections over time, peaking at a critical-band 80.9 in November&nbsp;2021. The winner, however, keeps changing hands:</p>
+    <div class="formula">2005&ndash;2014   ДПС &mdash; four consecutive cycles
+2017        ДОСТ
+2021        ГЕРБ-СДС (Apr), then ДПС (Jul, Nov)
+2022&ndash;2023   ДПС
+2024        ГЕРБ-СДС &mdash; both cycles
+2026        ПрБ &mdash; the brand-new winner</div>
+    <p style="margin-top:4pt;">The bloc result is constant &mdash; a lopsided cluster every cycle &mdash; but the beneficiary rotates. That is the broker-managed-turnout fingerprint: the cluster behaves as a transferable bloc, not a loyal electorate.</p>
+  </div>
+
+  <div class="box caveat"><span class="h">The same screening discipline</span>
+    A recurring cluster is a &ldquo;look here every cycle&rdquo; cue, never a verdict. 34 of this locus's 37 sections also fall inside a documented neighbourhood with distinctive turnout dynamics &mdash; so the recurrence reflects a real, mapped community, not a finding of wrongdoing. Each locus links straight to its member sections so the reader can inspect the protocols.</div>
+</div>
+
+<!-- ===================== METHOD 5: COMPOSITE INDEX ===================== -->
+<div class="page">
+  <div class="kicker">Method 5</div>
   <h2 class="title">Composite Election Risk Index</h2>
   <p class="lede">One election-level 0&ndash;100 headline that summarises process-integrity signals &mdash; deliberately built in two separated tracks so that statistical or forecast noise can never inflate the integrity number.</p>
 
   <figure>
-    <img src="images/risk-index.png" alt="Election risk analysis composite index" />
-    <figcaption>/risk-analysis &mdash; the five-component integrity headline, with the four context signals shown separately beneath it.</figcaption>
+    <img src="images/risk-index.png" alt="Election risk analysis composite index" style="max-height:40mm" />
+    <figcaption>/risk-analysis &mdash; the five-component integrity headline, with the context signals shown separately beneath it.</figcaption>
   </figure>
 
   <h3>How it works &mdash; two tracks</h3>
@@ -270,27 +304,28 @@ score = 100 &times; ( 1.00 + 0.92 + 0.90 ) / 3   &approx;   94   ( critical band
     <li><span class="term">Geographic concentration</span> &mdash; top-party votes inside settlements where one party took 80%+.</li>
     <li><span class="term">Procedural anomalies</span> &mdash; invalid plus additional voters in flagged settlements.</li>
   </ol>
-  <p><span class="term">Context track (shown, never folded into the headline).</span> Four signals that can legitimately light up in a perfectly clean election:</p>
+  <p><span class="term">Context track (shown, never folded into the headline).</span> Five signals that can legitimately light up in a perfectly clean election:</p>
   <ul>
     <li><span class="term">Benford 2BL deviation rate</span> &mdash; from Method&nbsp;2; fails by construction on range-bounded data.</li>
-    <li><span class="term">Risk-neighbourhood excess swing</span> &mdash; the top party's vote-share swing inside eight tracked communities <em>minus</em> that same party's national swing over the same two cycles. Subtracting the national swing isolates the part specific to those communities (the broker-managed-turnout fingerprint of Stokes et al., 2013) rather than a country-wide trend.</li>
+    <li><span class="term">Risk-neighbourhood excess swing</span> &mdash; the top party's swing inside eight tracked communities <em>minus</em> its national swing over the same cycles. The subtraction isolates the community-specific part (the broker-managed-turnout fingerprint of Stokes et al., 2013) from a country-wide trend.</li>
     <li><span class="term">Pedersen electoral volatility</span> &mdash; <span style="font-family:'Courier New',monospace">0.5 &times; &Sigma;|&Delta; party vote share|</span> between consecutive elections; the standard comparative-politics measure of how much the vote moved between parties (~5&nbsp;pp = stable; Bulgaria's 2021&ndash;22 cycles hit ~40+).</li>
     <li><span class="term">Polling error</span> &mdash; the mean agency MAE for the election (Method&nbsp;1).</li>
+    <li><span class="term">Spatial risk clusters</span> &mdash; from Method&nbsp;4; the share of mapped flagged sections that fall into a geographic cluster. In the context track because those sections are already counted by integrity component&nbsp;1.</li>
   </ul>
 
   <div class="box calc"><span class="h">The exact formula</span>
     <div class="formula">integrity score = mean of the five vote-weighted integrity components
 
-April 2026:  ( 38 + 90 + 59 + 29 + 18 ) / 5  =  46.8  &approx;  47   ( band: High )</div>
-    <p style="margin-top:4pt;">Each component is itself a vote-weighted percentage capped onto a 0&ndash;100 scale. The four context-track signals are displayed beside the headline but are <strong>never</strong> averaged into it &mdash; so a Benford &ldquo;failure&rdquo; or a bad polling year cannot inflate the integrity number.</p>
+April 2026:  ( 39 + 90 + 59 + 29 + 18 ) / 5  =  47   ( band: High )</div>
+    <p style="margin-top:4pt;">Each component is itself a vote-weighted percentage capped onto a 0&ndash;100 scale. The five context-track signals are displayed beside the headline but are <strong>never</strong> averaged into it &mdash; so a Benford &ldquo;failure&rdquo; or a bad polling year cannot inflate the integrity number.</p>
   </div>
 </div>
 
-<!-- ===================== METHOD 5: DEMOGRAPHICS ===================== -->
+<!-- ===================== METHOD 6: DEMOGRAPHICS ===================== -->
 <div class="page">
-  <div class="kicker">Method 5</div>
+  <div class="kicker">Method 6</div>
   <h2 class="title">Demographics-by-Party Correlations</h2>
-  <p class="lede">A measure of how strongly each party's regional vote tracks each demographic group &mdash; computed directly off the official 2021 National Census.</p>
+  <p class="lede">A measure of how strongly each party's municipal vote share tracks each demographic group &mdash; computed directly off the official 2021 National Census.</p>
 
   <figure>
     <img src="images/demographics.png" alt="Demographics page" />
@@ -299,26 +334,26 @@ April 2026:  ( 38 + 90 + 59 + 29 + 18 ) / 5  =  46.8  &approx;  47   ( band: Hig
 
   <h3>How it works</h3>
   <ol>
-    <li><span class="term">Inputs.</span> The official 2021 census supplies 14 indicators for each of ~28 oblasts: ethnicity (Bulgarian / Turkish / Roma), religion, education levels, age bands, and employment / activity / unemployment rates.</li>
-    <li><span class="term">Pearson correlation (r).</span> For each party, the correlation coefficient is computed between two arrays measured across the oblasts: the party's vote share in the oblast, and the demographic indicator's value there.</li>
+    <li><span class="term">Inputs.</span> The official 2021 census supplies 14 indicators for each of Bulgaria's ~265 municipalities (<em>obshtini</em>): ethnicity (Bulgarian / Turkish / Roma), religion, education levels, age bands, and employment / activity / unemployment rates.</li>
+    <li><span class="term">Pearson correlation (r).</span> For each party, the correlation coefficient is computed between two arrays measured across the ~265 municipalities: the party's vote share in the municipality, and the demographic indicator's value there.</li>
     <li><span class="term">Reading r.</span> The coefficient runs from &minus;1 to +1. <em>+1</em> &mdash; the party scores higher exactly where the group is larger; <em>&minus;1</em> &mdash; the exact opposite; <em>0</em> &mdash; no linear relationship.</li>
     <li><span class="term">Cleavage aggregate.</span> Demographic indicators are ranked by <em>spread</em> = max(r) &minus; min(r) across the major parties &mdash; surfacing which demographic divides the electorate most sharply.</li>
   </ol>
 
-  <p>The same Pearson correlation is now also published at <span class="term">municipality grain</span> &mdash; roughly 265 municipalities rather than 28 oblasts &mdash; on /demographics/municipalities, alongside settlement-level comparisons. The finer grain trades a larger, noisier sample for sharper local resolution.</p>
+  <p>The correlation runs at <span class="term">municipality grain</span>, not the 28 oblasts, by design: Census 2021 publishes the ethnocultural, education and employment dimensions down to the municipality, so the finer grain costs no demographic resolution &mdash; while a ~10&times; larger sample (<em>n</em> = 265) turns suggestive relationships into statistically solid ones.</p>
 
   <div class="box calc"><span class="h">Worked example &mdash; ДПС, April 2026</span>
-    <p style="margin-bottom:4pt;">Across the 28 oblasts, ДПС's vote share tracks the ethnic map almost perfectly:</p>
-    <div class="formula">r = +0.86   with the ethnic-Turkish population share
-r = +0.85   with the Muslim share
-r = &minus;0.85   with the ethnic-Bulgarian share</div>
-    <p style="margin-top:4pt;"><strong>The ecological-fallacy caveat.</strong> r = +0.86 means ДПС polls strongly <em>in Turkish-heavy oblasts</em> &mdash; it is <em>not</em> a claim that 86% of Turkish voters chose ДПС. The correlation describes places, not individuals; that is the boundary at which it must hand off to individual-level survey data.</p>
+    <p style="margin-bottom:4pt;">Across the 265 municipalities, ДПС's vote share tracks the ethnoreligious map closely:</p>
+    <div class="formula">r = +0.77   with the Muslim population share
+r = +0.69   with the ethnic-Turkish share
+r = &minus;0.73   with the ethnic-Bulgarian share</div>
+    <p style="margin-top:4pt;"><strong>The ecological-fallacy caveat.</strong> r = +0.77 means ДПС polls strongly <em>in Muslim-heavy municipalities</em> &mdash; it is <em>not</em> a claim that 77% of Muslim voters chose ДПС. The correlation describes places, not individuals; that is the boundary at which it must hand off to individual-level survey data.</p>
   </div>
 </div>
 
-<!-- ===================== METHOD 6: VOTE FLOW ===================== -->
+<!-- ===================== METHOD 7: VOTE FLOW ===================== -->
 <div class="page">
-  <div class="kicker">Method 6</div>
+  <div class="kicker">Method 7</div>
   <h2 class="title">Vote-Flow (Voter-Transition) Estimation</h2>
   <p class="lede">An estimate of how voters moved between two consecutive elections &mdash; a party-to-party transition matrix, produced by a constrained ecological-inference pipeline rather than an eyeballed &ldquo;swing.&rdquo;</p>
 
@@ -345,45 +380,11 @@ other parties            77,138   ( 12.3% )</div>
   </div>
 </div>
 
-<!-- ===================== METHOD 7: RISK CLUSTERS ===================== -->
-<div class="page">
-  <div class="kicker">Method 7</div>
-  <h2 class="title">Spatial Risk Clusters &amp; Cross-Election Persistence</h2>
-  <p class="lede">Sections flagged by the risk score (Method&nbsp;3) rarely stand alone &mdash; they cluster geographically. This method groups them, then tracks the same knots across every election since 2005 to see which ones recur.</p>
-
-  <figure>
-    <img src="images/clusters.png" alt="Recurring risk clusters" />
-    <figcaption>/risk-analysis &mdash; the &ldquo;recurring risk clusters&rdquo; card; each row is a persistent locus, the coloured dots its winning party in each election.</figcaption>
-  </figure>
-
-  <h3>How it works</h3>
-  <ol>
-    <li><span class="term">Per-election clustering.</span> Within one election, sections that screened <em>elevated-or-above</em> are grouped into clusters: same winning party, centroids within <strong>600&nbsp;m</strong> of each other, joined as connected components, minimum three sections. Sections abroad (oblast&nbsp;32) are excluded &mdash; their IDs are reassigned each cycle.</li>
-    <li><span class="term">Persistent loci.</span> Per-election clusters are then linked <em>across</em> elections: any two that share at least two section IDs are joined, again as connected components. The result is a <span class="term">persistent locus</span> &mdash; a geographic knot that has clustered in two or more elections.</li>
-    <li><span class="term">Section rap sheet.</span> Each individual section also carries its own cross-election history &mdash; its risk score and band in every election it appears in &mdash; shown on the section page.</li>
-    <li><span class="term">Views, not scores.</span> Clusters and loci <em>describe</em> already-published screening output; neither feeds back into the 0&ndash;100 score, so there is no circularity.</li>
-  </ol>
-
-  <div class="box calc"><span class="h">Worked example &mdash; Stolipinovo, Plovdiv</span>
-    <p style="margin-bottom:4pt;">The single largest risk cluster in April&nbsp;2026 is <strong>22 adjacent sections</strong> in the Stolipinovo neighbourhood of Plovdiv, all won by ПрБ (high band, peak score&nbsp;76). It is not new &mdash; the same locus has clustered in <strong>13 of the elections on record</strong>, across 37 distinct sections over time, peaking at a critical-band 80.9 in November&nbsp;2021. The winner, however, keeps changing hands:</p>
-    <div class="formula">2005&ndash;2014   ДПС &mdash; four consecutive cycles
-2017        ДОСТ
-2021        ГЕРБ-СДС (Apr), then ДПС (Jul, Nov)
-2022&ndash;2023   ДПС
-2024        ГЕРБ-СДС &mdash; both cycles
-2026        ПрБ &mdash; the brand-new winner</div>
-    <p style="margin-top:4pt;">The bloc result is constant &mdash; a lopsided cluster every cycle &mdash; but the beneficiary rotates. That is the broker-managed-turnout fingerprint: the cluster behaves as a transferable bloc, not a loyal electorate.</p>
-  </div>
-
-  <div class="box caveat"><span class="h">The same screening discipline</span>
-    A recurring cluster is a &ldquo;look here every cycle&rdquo; cue, never a verdict. 34 of this locus's 37 sections also fall inside a documented neighbourhood with distinctive turnout dynamics &mdash; so the recurrence reflects a real, mapped community, not a finding of wrongdoing. Each locus links straight to its member sections so the reader can inspect the protocols.</div>
-</div>
-
 <!-- ===================== CLOSING ===================== -->
 <div class="page">
   <div class="kicker">In summary</div>
   <h2 class="title">Common principles</h2>
-  <p class="lede">The seven methods differ in subject &mdash; pollsters, digits, sections, whole elections, demographics, voter flows, recurring geographic clusters &mdash; but share a common discipline.</p>
+  <p class="lede">The seven methods differ in subject &mdash; pollsters, digits, sections, recurring geographic clusters, whole elections, demographics, voter flows &mdash; but share a common discipline.</p>
 
   <h3>Screening, not verdicts</h3>
   <p>Every anomaly method is explicitly framed as a prompt to look closer, never as proof of wrongdoing. Risk pages carry a banner saying so; the Benford page leads with one.</p>
@@ -399,7 +400,7 @@ other parties            77,138   ( 12.3% )</div>
 
   <div class="footer-note">
     electionsbg.com &mdash; statistical methods briefing &middot; May 2026 &middot; figures from the May 2026 data refresh.
-    Pages referenced: /polls, /polls/ML, /benford, /risk-score, /risk-analysis, /risk-analysis/cluster, /demographics, /demographics/municipalities, /persistence.
+    Pages referenced: /polls, /polls/ML, /benford, /risk-score, /risk-analysis, /demographics.
   </div>
 </div>
 
