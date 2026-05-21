@@ -110,6 +110,7 @@ const buildSimNodes = (
   filters: Filters,
   currentOnly: boolean,
   highConfidenceOnly: boolean,
+  hiddenTypes: Set<ConnectionsNode["type"]>,
 ): {
   simNodes: SimNode[];
   simLinks: SimLink[];
@@ -118,11 +119,20 @@ const buildSimNodes = (
   // Filter edges first so we can drop orphan nodes. `currentOnly` and
   // `highConfidenceOnly` come from the page-level FilterRail (shared with the
   // strongest-connections list); `filters.hideTransferred` and
-  // `filters.largestComponentOnly` are graph-only layout knobs.
+  // `filters.largestComponentOnly` are graph-only layout knobs; `hiddenTypes`
+  // are node kinds toggled off via the legend.
+  const typeById = new Map(graph.nodes.map((n) => [n.id, n.type]));
   const filteredEdges = graph.edges.filter((e) => {
     if (currentOnly && !e.isCurrent) return false;
     if (filters.hideTransferred && e.role === "transferred_share") return false;
     if (highConfidenceOnly && e.confidence !== "high") return false;
+    if (hiddenTypes.size > 0) {
+      const st = typeById.get(e.source);
+      const tt = typeById.get(e.target);
+      if ((st && hiddenTypes.has(st)) || (tt && hiddenTypes.has(tt))) {
+        return false;
+      }
+    }
     return true;
   });
 
@@ -134,6 +144,7 @@ const buildSimNodes = (
 
   let simNodes: SimNode[] = [];
   for (const n of graph.nodes) {
+    if (hiddenTypes.has(n.type)) continue; // legend-toggled off
     const d = degree.get(n.id) ?? 0;
     if (d === 0) continue; // drop orphans after filtering
     simNodes.push({
@@ -415,6 +426,17 @@ export const ConnectionsScreen: FC = () => {
     largestComponentOnly: false,
   });
   const [clusterByParty, setClusterByParty] = useState(false);
+  // Node kinds toggled off via the legend chips.
+  const [hiddenTypes, setHiddenTypes] = useState<Set<ConnectionsNode["type"]>>(
+    new Set(),
+  );
+  const toggleType = (type: ConnectionsNode["type"]) =>
+    setHiddenTypes((prev) => {
+      const next = new Set(prev);
+      if (next.has(type)) next.delete(type);
+      else next.add(type);
+      return next;
+    });
 
   // Path-finding: when two MPs are picked, BFS the unfiltered graph to find
   // the shortest path between them, then highlight it.
@@ -483,6 +505,7 @@ export const ConnectionsScreen: FC = () => {
       filters,
       connFilters.currentOnly,
       connFilters.highConfidenceOnly,
+      hiddenTypes,
     );
     const neighbors = new Map<string, Set<string>>();
     for (const e of simLinks) {
@@ -494,7 +517,13 @@ export const ConnectionsScreen: FC = () => {
       neighbors.get(t)!.add(s);
     }
     return { simNodes, simLinks, neighbors };
-  }, [graph, filters, connFilters.currentOnly, connFilters.highConfidenceOnly]);
+  }, [
+    graph,
+    filters,
+    connFilters.currentOnly,
+    connFilters.highConfidenceOnly,
+    hiddenTypes,
+  ]);
 
   // Map party group → angular target (radians) for clustering. Computed once
   // per simulation rebuild so partyAngle stays stable across ticks.
@@ -1264,30 +1293,58 @@ export const ConnectionsScreen: FC = () => {
             {t("connections_tab_graph") || "Explore graph"}
           </h3>
           <div className="flex flex-wrap gap-3 items-center text-xs text-muted-foreground mb-3">
-            <span>
-              <span className="inline-block h-2 w-2 rounded-full bg-blue-600 mr-1 align-middle" />
-              {t("connections_legend_mp") || "MP"}
-              {": "}
-              {stats.mp}
-            </span>
-            <span>
-              <span className="inline-block h-2 w-2 rounded-full bg-amber-600 mr-1 align-middle" />
-              {t("connections_legend_company") || "Company"}
-              {": "}
-              {stats.company}
-            </span>
-            <span>
-              <span className="inline-block h-2 w-2 rounded-full bg-neutral-500 mr-1 align-middle" />
-              {t("connections_legend_person") || "Other person"}
-              {": "}
-              {stats.person}
-            </span>
-            <span>
-              <span className="inline-block h-2 w-2 rounded-full bg-teal-600 mr-1 align-middle" />
-              {t("connections_legend_official") || "Official"}
-              {": "}
-              {stats.official}
-            </span>
+            {(
+              [
+                {
+                  type: "mp",
+                  dot: "bg-blue-600",
+                  labelKey: "connections_legend_mp",
+                  fallback: "MP",
+                  count: stats.mp,
+                },
+                {
+                  type: "company",
+                  dot: "bg-amber-600",
+                  labelKey: "connections_legend_company",
+                  fallback: "Company",
+                  count: stats.company,
+                },
+                {
+                  type: "person",
+                  dot: "bg-neutral-500",
+                  labelKey: "connections_legend_person",
+                  fallback: "Other person",
+                  count: stats.person,
+                },
+                {
+                  type: "official",
+                  dot: "bg-teal-600",
+                  labelKey: "connections_legend_official",
+                  fallback: "Official",
+                  count: stats.official,
+                },
+              ] as const
+            ).map((row) => {
+              const hidden = hiddenTypes.has(row.type);
+              return (
+                <button
+                  key={row.type}
+                  type="button"
+                  onClick={() => toggleType(row.type)}
+                  aria-pressed={!hidden}
+                  className={`-mx-1 inline-flex items-center rounded px-1 hover:bg-muted ${
+                    hidden ? "line-through opacity-40" : ""
+                  }`}
+                >
+                  <span
+                    className={`mr-1 inline-block h-2 w-2 rounded-full align-middle ${row.dot}`}
+                  />
+                  {t(row.labelKey) || row.fallback}
+                  {": "}
+                  {row.count}
+                </button>
+              );
+            })}
             <span>
               {t("connections_legend_edges") || "Edges"}
               {": "}
