@@ -513,6 +513,56 @@ export type MunicipalIndexFile = {
   entries: MunicipalIndexEntry[];
 };
 
+/* --- Officials → company cross-reference ----------------------------------
+ * Additive artifact (`data/officials/derived/company_links.json`) linking
+ * executive + municipal officials to companies — via their own declared
+ * ownership stakes and via a Commerce Registry (TR) officer/owner name join.
+ * A stepping stone toward folding officials into the connections graph. */
+export type OfficialCompanyLink = {
+  /** Commerce Registry UIC (ЕИК). Null for a declared stake whose company
+   *  name did not resolve to exactly one TR entity. */
+  uic: string | null;
+  companyName: string | null;
+  /** "declared" — from the official's own ownership-stake declaration;
+   *  "tr" — from a Commerce Registry officer/owner record matched by name. */
+  source: "declared" | "tr";
+  /** TR role token (partner, sole_owner, manager, …) — `source: "tr"` only. */
+  trRole: string | null;
+  /** Raw declared share text, or the TR share_percent rendered as text. */
+  shareSize: string | null;
+  /** Declared stake value in EUR — `source: "declared"` only. */
+  valueEur: number | null;
+  /** "high" — self-declared, or a TR match on a name unique among officials.
+   *  "low" — a TR match on a name shared by 2+ officials (namesake risk). */
+  confidence: "high" | "low";
+  /** Normalised name used for the TR join. */
+  nameNorm: string;
+  /** How many distinct officials share this normalised name (>1 ⇒ ambiguous). */
+  namesakeCount: number;
+};
+
+export type OfficialCompanyLinksEntry = {
+  slug: string;
+  name: string;
+  tier: "executive" | "municipal";
+  /** OfficialCategoryKind (executive) or MunicipalOfficialRole (municipal). */
+  role: string;
+  /** Municipality — municipal tier only; null for the executive tier. */
+  municipality: string | null;
+  links: OfficialCompanyLink[];
+};
+
+export type OfficialCompanyLinksFile = {
+  generatedAt: string;
+  /** Total links across all officials. */
+  total: number;
+  officialsWithLinks: number;
+  declaredLinks: number;
+  trLinks: number;
+  lowConfidenceLinks: number;
+  byOfficial: Record<string, OfficialCompanyLinksEntry>;
+};
+
 export type MpDeclaration = {
   mpId: number;
   declarantName: string;

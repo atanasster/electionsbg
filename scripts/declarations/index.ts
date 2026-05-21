@@ -26,6 +26,7 @@ import {
 } from "./build_company_index";
 import { integrateTr } from "./tr/integrate";
 import { buildConnectionsGraph } from "./build_connections_graph";
+import { buildOfficialsCompanyLinks } from "./build_officials_company_links";
 import { buildAssetsRankings } from "./build_assets_rankings";
 import { buildCarMakes } from "./build_car_makes";
 import { buildDataProvenance } from "./build_data_provenance";
@@ -279,4 +280,9 @@ export const parseFinancialDeclarations = async ({
   // Per-NS provenance footnote (declaration year window + filing rate).
   // Drives the staleness disclaimer on the connections tile.
   buildDataProvenance({ publicFolder, stringify });
+
+  // Officials → company cross-reference. Additive artifact joining executive +
+  // municipal officials to companies (declared stakes + TR officer/owner name
+  // match). No-ops with a log line if data/officials/ has not been ingested.
+  buildOfficialsCompanyLinks({ stringify });
 };

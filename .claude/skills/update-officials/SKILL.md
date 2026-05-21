@@ -76,6 +76,16 @@ Expected output:
 
 Cold start takes ~30–50 minutes (~6,500 per-declaration fetches at a 150 ms politeness sleep). Re-runs are far faster — raw XMLs are cached. Sanity: `byRole.councillor` should dominate (~75%), `byRole.mayor` ≈ 290, `byRole.other` should be 0 (a non-zero `other` count means an unmapped role label — inspect `mapRole` in `scripts/officials/municipal.ts`).
 
+## Step 1c — Company cross-reference
+
+```bash
+npx tsx scripts/run-officials-links-only.ts
+```
+
+Joins every executive + municipal official to companies — via their own declared ownership stakes and via a Commerce Registry (TR) officer/owner name match against `raw_data/tr/state.sqlite` — and writes `data/officials/derived/company_links.json`. Re-run after Step 1 / Step 1b so the cross-reference reflects the fresh roster (it also runs automatically inside the main declarations pipeline, `scripts/declarations/index.ts`).
+
+Each link carries a `confidence` flag: a TR match on a name shared by two or more officials is flagged `low` — Bulgarian namesakes are common, so the match is ambiguous. Expect ~5,000+ links with a substantial low-confidence share; a zero TR-link count means the SQLite is missing (run `/update-connections` first to build it).
+
 ## Step 2 — Verify
 
 ```bash
