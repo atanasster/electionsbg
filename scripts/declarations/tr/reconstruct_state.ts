@@ -44,11 +44,11 @@ export type ReconstructResult = {
   totalEvents: number;
   companies: number;
   persons: number;
-  source: "zip" | "folder";
+  source: "zip" | "folder" | "merged";
 };
 
 type Source = {
-  kind: "zip" | "folder";
+  kind: "zip" | "folder" | "merged";
   /** isoDate, sorted ascending (oldest → newest). */
   ordered: Array<{ isoDate: string; read: () => Promise<unknown> }>;
 };
@@ -121,15 +121,41 @@ const collectFromFolder = (folder: string): Source => {
   };
 };
 
+// Merge every available source — the bulk zip AND the daily/ folder — into one
+// chronological stream. data.egov.bg prunes old daily resources from its
+// listing, so the cached daily/ folder is the only surviving copy of
+// pre-2022-09 filings, while a fresh bulk zip covers 2022-09 onward; replaying
+// both yields the widest possible window. A day present in both sources is the
+// same immutable filing — dedupe by isoDate, first-seen (zip) wins.
 const resolveSource = async (rawFolder: string): Promise<Source> => {
   const zipJson = path.join(rawFolder, "tr", "all-resources.json.zip");
-  if (fs.existsSync(zipJson)) return collectFromZip(zipJson);
   const dailyFolder = path.join(rawFolder, "tr", "daily");
-  if (fs.existsSync(dailyFolder)) return collectFromFolder(dailyFolder);
-  throw new Error(
-    `[tr/reconstruct] no source found. Run \`npx tsx scripts/declarations/tr/cli.ts --bulk\` ` +
-      `(preferred) or \`--incremental\` to populate ${rawFolder}/tr/.`,
+
+  const parts: Source[] = [];
+  if (fs.existsSync(zipJson)) parts.push(await collectFromZip(zipJson));
+  if (fs.existsSync(dailyFolder)) parts.push(collectFromFolder(dailyFolder));
+
+  if (parts.length === 0) {
+    throw new Error(
+      `[tr/reconstruct] no source found. Run \`npx tsx scripts/declarations/tr/cli.ts --bulk\` ` +
+        `(preferred) or \`--incremental\` to populate ${rawFolder}/tr/.`,
+    );
+  }
+  if (parts.length === 1) return parts[0];
+
+  const byDate = new Map<string, Source["ordered"][number]>();
+  for (const part of parts) {
+    for (const entry of part.ordered) {
+      if (!byDate.has(entry.isoDate)) byDate.set(entry.isoDate, entry);
+    }
+  }
+  const ordered = Array.from(byDate.values()).sort((a, b) =>
+    a.isoDate < b.isoDate ? -1 : 1,
   );
+  console.log(
+    `[tr/reconstruct] merged ${parts.length} sources → ${ordered.length} distinct day(s)`,
+  );
+  return { kind: "merged", ordered };
 };
 
 export const reconstructState = async (
