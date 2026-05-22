@@ -34,6 +34,7 @@ import { useMpConnectedContracts } from "@/data/parliament/useMpConnectedContrac
 import { useFundsBeneficiary } from "@/data/funds/useFundsBeneficiary";
 import { useFundsConnectedForEik } from "@/data/funds/useMpConnectedFunds";
 import { useFundsConfirmedCase } from "@/data/funds/useFundsConfirmed";
+import { useCompanyConnections } from "@/data/parliament/useCompanyConnections";
 import { dataUrl } from "@/data/dataUrl";
 import type { ProcurementMpConnectedFile } from "@/data/dataTypes";
 import type {
@@ -50,6 +51,7 @@ import { CompanyTopContractsTile } from "./components/procurement/CompanyTopCont
 import { CompanyTopAwardersTile } from "./components/procurement/CompanyTopAwardersTile";
 import { CompanyByYearChart } from "./components/procurement/CompanyByYearChart";
 import { ErrorSection } from "./components/ErrorSection";
+import { CompanyConnectionsSection } from "./components/connections/CompanyConnectionsSection";
 
 const numFmt = new Intl.NumberFormat("bg-BG");
 
@@ -245,7 +247,8 @@ export const CompanyByEikScreen: FC = () => {
   const { entries: mpLinks } = useMpConnectedForEik(eik);
   const { entries: fundsMpLinks } = useFundsConnectedForEik(eik);
   const { caseData: confirmedCase } = useFundsConfirmedCase(eik);
-  const isLoading = procLoading || fundsLoading;
+  const { connections, isLoading: connLoading } = useCompanyConnections(eik);
+  const isLoading = procLoading || fundsLoading || connLoading;
 
   if (isLoading) {
     return (
@@ -264,7 +267,7 @@ export const CompanyByEikScreen: FC = () => {
       </>
     );
   }
-  if (!c && !funds) {
+  if (!c && !funds && !connections) {
     return (
       <ErrorSection
         title={t("company_not_found_title") || "Company not found"}
@@ -276,7 +279,8 @@ export const CompanyByEikScreen: FC = () => {
     );
   }
 
-  const displayName = c?.name ?? funds?.name ?? `ЕИК ${eik ?? ""}`;
+  const displayName =
+    c?.name ?? funds?.name ?? connections?.name ?? `ЕИК ${eik ?? ""}`;
 
   return (
     <>
@@ -419,6 +423,8 @@ export const CompanyByEikScreen: FC = () => {
             </p>
           </>
         ) : null}
+
+        <CompanyConnectionsSection eik={eik} />
 
         {funds ? (
           <EuFundsCard funds={funds} standalone={!c} mpLinks={fundsMpLinks} />
