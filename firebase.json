@@ -9,6 +9,12 @@
   },
   "hosting": {
     "public": "dist",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**",
+      "**/.DS_Store"
+    ],
     "redirects": [
       { "source": "/index", "destination": "/", "type": 301 },
       { "source": "/en/index", "destination": "/en", "type": 301 }
