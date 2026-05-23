@@ -408,9 +408,34 @@ const GovernmentsScreen = lazy(() =>
     default: m.GovernmentsScreen,
   })),
 );
-const IndicatorsScreen = lazy(() =>
-  import("./screens/IndicatorsScreen").then((m) => ({
-    default: m.IndicatorsScreen,
+const IndicatorsLandingScreen = lazy(() =>
+  import("./screens/indicators/IndicatorsLandingScreen").then((m) => ({
+    default: m.IndicatorsLandingScreen,
+  })),
+);
+const IndicatorsEconomyScreen = lazy(() =>
+  import("./screens/indicators/IndicatorsEconomyScreen").then((m) => ({
+    default: m.IndicatorsEconomyScreen,
+  })),
+);
+const IndicatorsFiscalScreen = lazy(() =>
+  import("./screens/indicators/IndicatorsFiscalScreen").then((m) => ({
+    default: m.IndicatorsFiscalScreen,
+  })),
+);
+const IndicatorsGovernanceScreen = lazy(() =>
+  import("./screens/indicators/IndicatorsGovernanceScreen").then((m) => ({
+    default: m.IndicatorsGovernanceScreen,
+  })),
+);
+const IndicatorsSocietyScreen = lazy(() =>
+  import("./screens/indicators/IndicatorsSocietyScreen").then((m) => ({
+    default: m.IndicatorsSocietyScreen,
+  })),
+);
+const IndicatorsCompareScreen = lazy(() =>
+  import("./screens/indicators/IndicatorsCompareScreen").then((m) => ({
+    default: m.IndicatorsCompareScreen,
   })),
 );
 const ObservationsScreen = lazy(() =>
@@ -1626,7 +1651,47 @@ export const AuthRoutes = () => {
           path="indicators"
           element={
             <LayoutScreen>
-              <IndicatorsScreen />
+              <IndicatorsLandingScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="indicators/economy"
+          element={
+            <LayoutScreen>
+              <IndicatorsEconomyScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="indicators/fiscal"
+          element={
+            <LayoutScreen>
+              <IndicatorsFiscalScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="indicators/governance"
+          element={
+            <LayoutScreen>
+              <IndicatorsGovernanceScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="indicators/society"
+          element={
+            <LayoutScreen>
+              <IndicatorsSocietyScreen />
+            </LayoutScreen>
+          }
+        />
+        <Route
+          path="indicators/compare"
+          element={
+            <LayoutScreen>
+              <IndicatorsCompareScreen />
             </LayoutScreen>
           }
         />

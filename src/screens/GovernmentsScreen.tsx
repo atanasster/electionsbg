@@ -10,6 +10,7 @@ import {
 } from "./components/governments/GovernmentTimeline";
 import { xDomainFor } from "./components/governments/governmentTimelineUtils";
 import { GovernmentTable } from "./components/governments/GovernmentTable";
+import { CabinetScoreRow } from "./components/macro/CabinetScoreCard";
 
 export const GovernmentsScreen = () => {
   const { t, i18n } = useTranslation();
@@ -42,6 +43,12 @@ export const GovernmentsScreen = () => {
 
       {xDomain ? (
         <CabinetStrip governments={governments} xDomain={xDomain} lang={lang} />
+      ) : null}
+
+      {macro ? (
+        <section className="mb-8 mt-3">
+          <CabinetScoreRow governments={governments} macro={macro} />
+        </section>
       ) : null}
 
       <section className="mb-10">

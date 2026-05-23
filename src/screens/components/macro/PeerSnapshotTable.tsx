@@ -26,8 +26,16 @@ import {
   type MacroIndicatorMeta,
 } from "@/data/macro/useMacro";
 import { cn } from "@/lib/utils";
+import { RankBadge } from "./RankBadge";
 
-const STRIP_ORDER: PeerGeo[] = ["BG", "EU27_2020", "RO", "GR", "HU", "HR"];
+const DEFAULT_STRIP_ORDER: PeerGeo[] = [
+  "BG",
+  "EU27_2020",
+  "RO",
+  "GR",
+  "HU",
+  "HR",
+];
 
 const GEO_LABEL_EN: Record<PeerGeo, string> = {
   BG: "BG",
@@ -52,6 +60,7 @@ const GEO_LABEL_BG: Record<PeerGeo, string> = {
 // point. Returns null when BG itself has no data.
 const pickLatestSnapshot = (
   series: Partial<Record<PeerGeo, PeerQuarterlyPoint[]>>,
+  geos: PeerGeo[],
 ): {
   period: string;
   values: Partial<Record<PeerGeo, { value: number; periodLag: number }>>;
@@ -61,7 +70,7 @@ const pickLatestSnapshot = (
   const bgLatest = bg[bg.length - 1];
   const result: Partial<Record<PeerGeo, { value: number; periodLag: number }>> =
     {};
-  for (const geo of STRIP_ORDER) {
+  for (const geo of geos) {
     const arr = series[geo] ?? [];
     if (arr.length === 0) continue;
     let bestIdx = -1;
@@ -98,12 +107,13 @@ const PeerRow: FC<{
   row: PeerSnapshotTableRow;
   defaultFormat: (value: number) => string;
   lang: "bg" | "en";
-}> = ({ row, defaultFormat, lang }) => {
+  geos: PeerGeo[];
+}> = ({ row, defaultFormat, lang, geos }) => {
   const block = usePeerIndicator(row.indicatorKey);
   const { data: macro } = useMacro();
   const fmt = row.format ?? defaultFormat;
   if (!block) return null;
-  const snapshot = pickLatestSnapshot(block.series);
+  const snapshot = pickLatestSnapshot(block.series, geos);
   if (!snapshot) return null;
 
   // The peer indicator key set is a superset of MacroIndicatorKey at the
@@ -151,7 +161,7 @@ const PeerRow: FC<{
         {title}
       </div>
       <div className="text-muted-foreground/80 tabular-nums">{periodLabel}</div>
-      {STRIP_ORDER.map((geo) => {
+      {geos.map((geo) => {
         const v = snapshot.values[geo];
         const isBg = geo === "BG";
         const color = v ? colorClassFor(geo, v.value) : "";
@@ -181,22 +191,13 @@ const PeerRow: FC<{
       })}
       <div className="text-right">
         {distAligned && dist ? (
-          <span
-            className="inline-flex items-center px-1.5 py-0.5 rounded-full bg-muted/40 text-foreground tabular-nums"
-            title={
-              lang === "bg"
-                ? dist.direction === "lower"
-                  ? "позиция 1 = най-ниската стойност (по-ниско е по-добре)"
-                  : "позиция 1 = най-високата стойност (по-високо е по-добре)"
-                : dist.direction === "lower"
-                  ? "rank 1 = lowest value (lower is better)"
-                  : "rank 1 = highest value (higher is better)"
-            }
-          >
-            <span className="font-semibold">
-              {dist.rank}/{dist.total}
-            </span>
-          </span>
+          <RankBadge
+            rank={dist.rank}
+            total={dist.total}
+            direction={dist.direction}
+            label=""
+            className="tabular-nums"
+          />
         ) : null}
       </div>
     </>
@@ -207,31 +208,43 @@ export const PeerSnapshotTable: FC<{
   rows: PeerSnapshotTableRow[];
   /** Default per-cell formatter. Defaults to one-decimal percent. */
   formatValue?: (value: number) => string;
+  /** Which geo columns to render. Defaults to BG + EU27 + four CEE peers. */
+  geos?: PeerGeo[];
   className?: string;
-}> = ({ rows, formatValue, className }) => {
+}> = ({ rows, formatValue, geos, className }) => {
   const { i18n } = useTranslation();
   const lang: "bg" | "en" = i18n.language === "bg" ? "bg" : "en";
   const defaultFormat = formatValue ?? ((v: number) => `${v.toFixed(1)}%`);
   const geoLabel = lang === "bg" ? GEO_LABEL_BG : GEO_LABEL_EN;
+  const resolvedGeos =
+    geos && geos.length > 0
+      ? // BG must always lead — it anchors the snapshot period.
+        ["BG", ...geos.filter((g) => g !== "BG")]
+      : DEFAULT_STRIP_ORDER;
 
   return (
-    <div
-      className={cn(
-        // 9 columns: title | period | BG | EU | RO | GR | HU | HR | position
-        // First two columns are auto-sized (longest title + period wins),
-        // then 6 equal-width numeric columns, then the position pill.
-        "grid gap-x-3 gap-y-0.5 text-[11px] mb-3 items-baseline",
-        className,
-      )}
-      style={{
-        gridTemplateColumns:
-          "minmax(0, max-content) minmax(0, max-content) repeat(6, minmax(48px, 1fr)) minmax(0, max-content)",
-      }}
-    >
+    // Outer scroll container — on mobile the grid (8 columns at minimum
+    // ~440px) overflows the 375px viewport. Without overflow-x-auto, the
+    // browser collapses the `minmax(0, ...)` columns (indicator title +
+    // period) to 0 to fit, hiding labels. With it, the table keeps natural
+    // column widths and the user can swipe horizontally.
+    <div className={cn("overflow-x-auto mb-3", className)}>
+      <div
+        className={cn(
+          // Columns: title | period | (1 per geo) | position pill.
+          "grid gap-x-3 gap-y-0.5 text-[11px] items-baseline",
+          // Force the grid to its intrinsic min-width so columns don't
+          // collapse inside the scroll container.
+          "w-max min-w-full",
+        )}
+        style={{
+          gridTemplateColumns: `minmax(120px, max-content) minmax(64px, max-content) repeat(${resolvedGeos.length}, minmax(48px, 1fr)) minmax(0, max-content)`,
+        }}
+      >
       {/* Header row */}
       <div className="text-[10px] uppercase tracking-wide text-muted-foreground/70" />
       <div className="text-[10px] uppercase tracking-wide text-muted-foreground/70" />
-      {STRIP_ORDER.map((geo) => (
+      {resolvedGeos.map((geo) => (
         <div
           key={`h-${geo}`}
           className={cn(
@@ -254,8 +267,10 @@ export const PeerSnapshotTable: FC<{
           row={row}
           defaultFormat={defaultFormat}
           lang={lang}
+          geos={resolvedGeos}
         />
       ))}
+      </div>
     </div>
   );
 };

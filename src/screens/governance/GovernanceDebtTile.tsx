@@ -146,7 +146,7 @@ export const GovernanceDebtTile: FC<{ className?: string }> = ({
             </span>
           </div>
           <Link
-            to="/indicators#debt-emissions"
+            to="/indicators/fiscal#debt-emissions"
             className="inline-flex items-center gap-1 text-[11px] text-primary hover:underline normal-case shrink-0"
           >
             {t("dashboard_see_details") || "See details"}

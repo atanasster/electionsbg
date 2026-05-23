@@ -36,6 +36,10 @@ import {
   toFractionalYear,
   xDomainFor,
 } from "@/screens/components/governments/governmentTimelineUtils";
+import {
+  colorForGovernment,
+  colorForGovernmentSolid,
+} from "@/screens/components/governments/governmentColors";
 import { useChartInsets } from "@/screens/components/governments/governmentChartInsets";
 import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
 
@@ -56,71 +60,6 @@ const ELECTION_DATES = [
 ];
 
 const isoFromElectionKey = (key: string) => key.replace(/_/g, "-");
-
-type ColorResolver = (nickName: string) => string | undefined;
-
-const FALLBACK_PARTY_COLOR = "#475569";
-
-// Caretaker fallbacks for the historical predecessor labels we still ship in
-// public/governments.json — these aren't current CEC nicknames, so the
-// canonical resolver doesn't know them.
-const LEGACY_PARTY_COLORS: Record<string, string> = {
-  "Реформаторски блок": "#9b59b6",
-  "Патриотичен фронт": "#7f8c8d",
-  "Обединени патриоти": "#7f8c8d",
-};
-
-const resolvePartyColor = (
-  nickName: string | undefined,
-  colorFor: ColorResolver,
-): string => {
-  if (!nickName) return FALLBACK_PARTY_COLOR;
-  return (
-    colorFor(nickName) ?? LEGACY_PARTY_COLORS[nickName] ?? FALLBACK_PARTY_COLOR
-  );
-};
-
-// Recharts/inline-style consumers need a string colour, so normalise rgb()/
-// rgba()/hex inputs into the same rgba() representation with a chosen alpha.
-const withAlpha = (color: string, alpha: number): string => {
-  const trimmed = color.trim();
-  const rgbMatch = trimmed.match(/^rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)/i);
-  if (rgbMatch) {
-    return `rgba(${rgbMatch[1]}, ${rgbMatch[2]}, ${rgbMatch[3]}, ${alpha})`;
-  }
-  if (trimmed.startsWith("#")) {
-    const h = trimmed.slice(1);
-    const expand =
-      h.length === 3
-        ? h
-            .split("")
-            .map((c) => c + c)
-            .join("")
-        : h;
-    const r = parseInt(expand.slice(0, 2), 16);
-    const g = parseInt(expand.slice(2, 4), 16);
-    const b = parseInt(expand.slice(4, 6), 16);
-    return `rgba(${r}, ${g}, ${b}, ${alpha})`;
-  }
-  return trimmed;
-};
-
-const colorForGovernment = (
-  g: Government,
-  colorFor: ColorResolver,
-  alpha = 0.18,
-): string => {
-  if (g.type === "caretaker") return `rgba(120, 120, 120, ${alpha})`;
-  return withAlpha(resolvePartyColor(g.parties[0], colorFor), alpha);
-};
-
-const colorForGovernmentSolid = (
-  g: Government,
-  colorFor: ColorResolver,
-): string => {
-  if (g.type === "caretaker") return "#94a3b8";
-  return resolvePartyColor(g.parties[0], colorFor);
-};
 
 // Reused per chart so the line palette stays consistent across the page.
 // Colours may repeat across charts (gdpGrowth and inflationCore both green,

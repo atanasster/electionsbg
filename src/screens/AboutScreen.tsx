@@ -268,6 +268,10 @@ export const AboutScreen = () => {
                   href="https://databank.worldbank.org/source/worldwide-governance-indicators"
                   label={t("governance_wb_wgi_source")}
                 />
+                <SourceItem
+                  href="https://europa.eu/eurobarometer/surveys/browse/all/series/4961"
+                  label={t("governance_eurobarometer_source")}
+                />
               </ul>
             </DataGroup>
 

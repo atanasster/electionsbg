@@ -14,6 +14,7 @@ import {
   type PeerQuarterlyPoint,
 } from "@/data/macro/useMacroPeers";
 import { cn } from "@/lib/utils";
+import { RankBadge } from "./RankBadge";
 
 // Display order on the strip. BG anchors; EU27 next as the headline
 // benchmark; then the four peers grouped (RO + GR neighbors, HU + HR CEE).
@@ -147,23 +148,11 @@ export const PeerSnapshotStrip: FC<{
       {distAligned && dist && (
         <>
           <span className="opacity-50">·</span>
-          <span
-            className="inline-flex items-center px-1.5 py-0.5 rounded-full bg-muted/40 text-foreground"
-            title={
-              lang === "bg"
-                ? dist.direction === "lower"
-                  ? "позиция 1 = най-ниската стойност (по-ниско е по-добре)"
-                  : "позиция 1 = най-високата стойност (по-високо е по-добре)"
-                : dist.direction === "lower"
-                  ? "rank 1 = lowest value (lower is better)"
-                  : "rank 1 = highest value (higher is better)"
-            }
-          >
-            {lang === "bg" ? "позиция" : "rank"}{" "}
-            <span className="font-semibold tabular-nums ml-0.5">
-              {dist.rank}/{dist.total}
-            </span>
-          </span>
+          <RankBadge
+            rank={dist.rank}
+            total={dist.total}
+            direction={dist.direction}
+          />
         </>
       )}
     </div>
