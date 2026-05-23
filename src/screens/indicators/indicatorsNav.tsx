@@ -15,7 +15,6 @@ const DOMAINS = [
   { path: "/indicators/fiscal", labelKey: "indicators_nav_fiscal" },
   { path: "/indicators/governance", labelKey: "indicators_nav_governance" },
   { path: "/indicators/society", labelKey: "indicators_nav_society" },
-  { path: "/indicators/compare", labelKey: "indicators_nav_compare" },
 ] as const;
 
 export const IndicatorsNav: FC<{ className?: string }> = ({ className }) => {

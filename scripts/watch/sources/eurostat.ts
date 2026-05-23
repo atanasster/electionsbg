@@ -63,6 +63,30 @@ const DATASETS: { code: string; query: string }[] = [
     code: "ilc_li02",
     query: "geo=BG&indic_il=LI_R_MD60&sex=T&age=TOTAL&unit=PC",
   },
+  // EU peer-comparison dashboard (/indicators/compare) — three SILC tables
+  // and demographic life expectancy. All pulled per-peer by
+  // scripts/macro/fetch_eu_peers.ts (annual pass), so any upstream release
+  // should trigger update-macro to re-fetch the per-peer + 27-member rank.
+  // Dataset-level `updated` is geo-independent, so fingerprinting on BG
+  // catches releases that also move the peer values.
+  {
+    // S80/S20 income quintile share ratio — ilc_di11 IS the ratio table,
+    // not a "distribution of income" table (the label is misleading). No
+    // indic_il dim; restrict to overall-population totals.
+    code: "ilc_di11",
+    query: "geo=BG&age=TOTAL&sex=T&freq=A",
+  },
+  {
+    // AROPE — at-risk-of-poverty-or-social-exclusion rate, all ages.
+    code: "ilc_peps01n",
+    query: "geo=BG&age=TOTAL&sex=T&unit=PC&freq=A",
+  },
+  {
+    // Life expectancy at birth, both sexes. Feeds the spend-vs-outcome
+    // scatter on /indicators/compare (health % GDP vs life expectancy).
+    code: "demo_mlexpec",
+    query: "geo=BG&sex=T&age=Y_LT1&unit=YR&freq=A",
+  },
   {
     code: "namq_10_a10",
     query: "geo=BG&na_item=D1&unit=CP_MEUR&s_adj=SCA&nace_r2=TOTAL&freq=Q",
@@ -126,7 +150,7 @@ const fetchUpdated = async (code: string, query: string): Promise<string> => {
 
 export const eurostat: WatchSource = {
   id: "eurostat",
-  label: "Eurostat macro (BG): 17 datasets",
+  label: "Eurostat macro (BG): 20 datasets",
   // Best representative URL for the report's link column — the rest live in
   // meta.
   url: "https://ec.europa.eu/eurostat/databrowser/",

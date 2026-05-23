@@ -101,6 +101,13 @@ type QuarterlyPoint = {
   period: string;
   value: number;
 };
+// Annual point for the new SILC + demographics pass. `period` is "YYYY" so
+// consumers can read it symmetrically with QuarterlyPoint.period ("YYYY-QN").
+type AnnualSeriesPoint = {
+  year: number;
+  period: string;
+  value: number;
+};
 
 type EurostatResponse = {
   value: Record<string, number> | number[];
@@ -608,6 +615,419 @@ const fetchIndicatorDistribution = async (
   return null;
 };
 
+// ---- Pass 3: annual per-indicator peer series (SILC + demographics) ------
+
+interface AnnualPeerIndicatorConfig {
+  key: string;
+  dataset: string;
+  // Eurostat dimension filters other than `geo` and `freq` (which the caller
+  // sets). Each kept as a literal string for the URL query.
+  query: Record<string, string>;
+  direction: Direction;
+  sourceUrl: string;
+  // Minimum number of annual points required from BG before the pipeline
+  // considers the fetch successful. SILC has full coverage from 2007 →
+  // expect ~17 points by 2024.
+  minYears?: number;
+}
+
+const PEER_INDICATORS_ANNUAL: AnnualPeerIndicatorConfig[] = [
+  {
+    key: "gini",
+    dataset: "ilc_di12",
+    // ilc_di12 has dimensions: freq, age (TOTAL / Y_LT18), statinfo (GINI_HND
+    // is the only value), geo, time. Restrict to the overall-population Gini
+    // — without this filter Eurostat ships both rows and the consumer sees
+    // duplicate years.
+    query: { age: "TOTAL" },
+    direction: "lower",
+    sourceUrl:
+      "https://ec.europa.eu/eurostat/databrowser/view/ilc_di12/default/table",
+    minYears: 8,
+  },
+  {
+    key: "incomeQuintileRatio",
+    dataset: "ilc_di11",
+    // ilc_di11 IS the S80/S20 ratio dataset (the label is "Income quintile
+    // share ratio S80/S20"). Dimensions: freq, age, sex, unit, geo, time —
+    // no indic_il. Restrict to the all-ages totals row.
+    query: { age: "TOTAL", sex: "T" },
+    direction: "lower",
+    sourceUrl:
+      "https://ec.europa.eu/eurostat/databrowser/view/ilc_di11/default/table",
+    minYears: 8,
+  },
+  {
+    key: "arope",
+    dataset: "ilc_peps01n",
+    query: { age: "TOTAL", sex: "T", unit: "PC" },
+    direction: "lower",
+    sourceUrl:
+      "https://ec.europa.eu/eurostat/databrowser/view/ilc_peps01n/default/table",
+    minYears: 8,
+  },
+  {
+    key: "lifeExpectancy",
+    dataset: "demo_mlexpec",
+    query: { sex: "T", age: "Y_LT1", unit: "YR" },
+    direction: "higher",
+    sourceUrl:
+      "https://ec.europa.eu/eurostat/databrowser/view/demo_mlexpec/default/table",
+    minYears: 8,
+  },
+];
+
+const fetchAnnualIndicatorPeers = async (
+  ind: AnnualPeerIndicatorConfig,
+  geos: readonly Geo[],
+): Promise<Record<string, AnnualSeriesPoint[]>> => {
+  const params = new URLSearchParams({ format: "JSON", lang: "EN" });
+  for (const g of geos) params.append("geo", EUROSTAT_GEO_FOR(g));
+  for (const [k, v] of Object.entries(ind.query)) params.append(k, v);
+  params.append("freq", "A");
+  const url = `${ind.dataset}?${params.toString()}`;
+  const res = await fetch(`${EUROSTAT_BASE}/${url}`);
+  if (!res.ok) {
+    throw new Error(`Eurostat ${ind.key} ${url} returned ${res.status}`);
+  }
+  const json = (await res.json()) as EurostatResponse;
+  const rows = decode(json);
+
+  const out: Record<string, AnnualSeriesPoint[]> = {};
+  for (const geo of geos) out[geo] = [];
+  for (const r of rows) {
+    const geo = REWRITE_GEO_FROM_EUROSTAT(String(r.geo)) as Geo;
+    if (!(geos as readonly string[]).includes(geo)) continue;
+    const t = String(r.time);
+    const m = /^(\d{4})$/.exec(t);
+    if (!m) continue;
+    const year = +m[1];
+    if (year < START_YEAR_ANNUAL) continue;
+    const v = Number(r.value);
+    if (!Number.isFinite(v)) continue;
+    out[geo].push({ year, period: String(year), value: round(v, 2) });
+  }
+  for (const g of geos) out[g].sort((a, b) => a.year - b.year);
+  return out;
+};
+
+interface IndicatorDistributionAnnual {
+  period: string;
+  year: number;
+  bgValue: number;
+  euAverage: number | null;
+  rank: number;
+  total: number;
+  direction: "lower" | "higher";
+}
+
+const fetchAnnualIndicatorDistribution = async (
+  ind: AnnualPeerIndicatorConfig,
+): Promise<IndicatorDistributionAnnual | null> => {
+  if (ind.direction === "none") return null;
+  const geos = [...EU27_MEMBERS, "EU27_2020"];
+  const params = new URLSearchParams({ format: "JSON", lang: "EN" });
+  for (const g of geos) params.append("geo", g);
+  for (const [k, v] of Object.entries(ind.query)) params.append(k, v);
+  params.append("freq", "A");
+  // Pull the trailing 4 years — SILC publishes annually with a 1-2y lag, and
+  // some member states report later than others. Four years comfortably
+  // covers the search window for the latest year where BG + ≥20 peers report.
+  params.append("lastTimePeriod", "4");
+  const url = `${ind.dataset}?${params.toString()}`;
+  const res = await fetch(`${EUROSTAT_BASE}/${url}`);
+  if (!res.ok) {
+    throw new Error(
+      `Eurostat annual distribution ${ind.key} ${url} returned ${res.status}`,
+    );
+  }
+  const json = (await res.json()) as EurostatResponse;
+  const rows = decode(json);
+
+  type ByGeo = Map<string, number>;
+  const byYear = new Map<number, ByGeo>();
+  for (const r of rows) {
+    const geo = REWRITE_GEO_FROM_EUROSTAT(String(r.geo));
+    const t = String(r.time);
+    const m = /^(\d{4})$/.exec(t);
+    if (!m) continue;
+    const year = +m[1];
+    const v = Number(r.value);
+    if (!Number.isFinite(v)) continue;
+    if (!byYear.has(year)) byYear.set(year, new Map());
+    byYear.get(year)!.set(geo, v);
+  }
+  const candidates = [...byYear.keys()].sort((a, b) => b - a);
+  for (const y of candidates) {
+    const byGeo = byYear.get(y)!;
+    const bg = byGeo.get("BG");
+    if (bg == null) continue;
+    const memberValues: number[] = [];
+    for (const g of EU27_MEMBERS) {
+      const publicCode = REWRITE_GEO_FROM_EUROSTAT(g);
+      const v = byGeo.get(publicCode);
+      if (v != null) memberValues.push(v);
+    }
+    if (memberValues.length < 20) continue;
+    const euAvg = byGeo.get("EU27_2020") ?? null;
+    let rank: number;
+    if (ind.direction === "lower") {
+      rank = memberValues.filter((v) => v < bg).length + 1;
+    } else {
+      rank = memberValues.filter((v) => v > bg).length + 1;
+    }
+    return {
+      period: String(y),
+      year: y,
+      bgValue: round(bg, 2),
+      euAverage: euAvg != null ? round(euAvg, 2) : null,
+      rank,
+      total: memberValues.length,
+      direction: ind.direction as "lower" | "higher",
+    };
+  }
+  return null;
+};
+
+// ---- Pass 4: World Bank Worldwide Governance Indicators (WGI) ------------
+
+const WGI_DIMENSIONS = ["VA", "PV", "GE", "RQ", "RL", "CC"] as const;
+type WgiDim = (typeof WGI_DIMENSIONS)[number];
+
+// All 27 EU member states by ISO-3. The full set is used to compute the
+// EU27 mean (the World Bank does not publish a WGI regional aggregate);
+// the dashboard peers are picked out via PEER_ISO3_TO_GEO below.
+const EU27_ISO3 = [
+  "AUT",
+  "BEL",
+  "BGR",
+  "HRV",
+  "CYP",
+  "CZE",
+  "DNK",
+  "EST",
+  "FIN",
+  "FRA",
+  "DEU",
+  "GRC",
+  "HUN",
+  "IRL",
+  "ITA",
+  "LVA",
+  "LTU",
+  "LUX",
+  "MLT",
+  "NLD",
+  "POL",
+  "PRT",
+  "ROU",
+  "SVK",
+  "SVN",
+  "ESP",
+  "SWE",
+] as const;
+type Iso3 = (typeof EU27_ISO3)[number];
+
+const PEER_ISO3_TO_GEO: Partial<Record<Iso3, Geo>> = {
+  BGR: "BG",
+  ROU: "RO",
+  GRC: "GR",
+  HUN: "HU",
+  HRV: "HR",
+};
+
+interface WgiSnapshot {
+  year: number;
+  value: number;
+  percentile: number;
+}
+
+type WbApiPoint = {
+  countryiso3code: string;
+  date: string;
+  value: number | null;
+};
+
+// World Bank WGI indicator codes live under source 3 (Worldwide Governance
+// Indicators). The classic dotted codes (VA.EST, PV.PER.RNK, …) belong to
+// the archived WDI mirror and are no longer queryable via the standard
+// `country/{iso3}/indicator/{code}` endpoint. Source 3 codes are prefixed
+// with `GOV_WGI_` and use `.EST` for the estimate (-2.5..+2.5) plus `.SC`
+// for the 0-100 governance score (the modern percentile-equivalent).
+const WGI_INDICATOR_CODE = (dim: WgiDim, kind: "EST" | "SC"): string =>
+  `GOV_WGI_${dim}.${kind}`;
+
+const fetchWgiSeriesForDim = async (
+  dim: WgiDim,
+): Promise<{
+  byGeoYear: Map<string, Map<number, { value: number; percentile: number }>>;
+}> => {
+  const countries = EU27_ISO3.join(";");
+  // Pull from 2005 (first Bulgarian parliamentary election in the dataset)
+  // so the EU compare dashboard can match data to any selected election
+  // cycle. World Bank publishes WGI annually with a ~1y lag, so the
+  // forward bound just needs to be a few years out.
+  const date = "2005:2030";
+  const fetchKind = async (kind: "EST" | "SC"): Promise<WbApiPoint[]> => {
+    const code = WGI_INDICATOR_CODE(dim, kind);
+    const url = `https://api.worldbank.org/v2/country/${countries}/indicator/${code}?format=json&date=${date}&source=3&per_page=2000`;
+    const res = await fetch(url);
+    if (!res.ok) {
+      throw new Error(`World Bank ${code} returned ${res.status}`);
+    }
+    const json = (await res.json()) as [unknown, WbApiPoint[] | null];
+    return (json[1] ?? []) as WbApiPoint[];
+  };
+  const [estRows, prnRows] = await Promise.all([
+    fetchKind("EST"),
+    fetchKind("SC"),
+  ]);
+  type Cell = { value?: number; percentile?: number };
+  const byGeoYear = new Map<string, Map<number, Cell>>();
+  for (const r of estRows) {
+    if (r.value == null) continue;
+    const y = Number(r.date);
+    if (!Number.isFinite(y)) continue;
+    if (!byGeoYear.has(r.countryiso3code))
+      byGeoYear.set(r.countryiso3code, new Map());
+    const yMap = byGeoYear.get(r.countryiso3code)!;
+    const cell = yMap.get(y) ?? {};
+    cell.value = r.value;
+    yMap.set(y, cell);
+  }
+  for (const r of prnRows) {
+    if (r.value == null) continue;
+    const y = Number(r.date);
+    if (!Number.isFinite(y)) continue;
+    if (!byGeoYear.has(r.countryiso3code))
+      byGeoYear.set(r.countryiso3code, new Map());
+    const yMap = byGeoYear.get(r.countryiso3code)!;
+    const cell = yMap.get(y) ?? {};
+    cell.percentile = r.value;
+    yMap.set(y, cell);
+  }
+  // Drop cells missing either half — only complete pairs are usable for the
+  // radar tile (Estimate as primary scale, PercentileRank as alt).
+  const cleaned = new Map<
+    string,
+    Map<number, { value: number; percentile: number }>
+  >();
+  for (const [iso3, yMap] of byGeoYear) {
+    const out = new Map<number, { value: number; percentile: number }>();
+    for (const [y, cell] of yMap) {
+      if (cell.value == null || cell.percentile == null) continue;
+      out.set(y, { value: cell.value, percentile: cell.percentile });
+    }
+    cleaned.set(iso3, out);
+  }
+  return { byGeoYear: cleaned };
+};
+
+interface WgiPayload {
+  fetchedAt: string;
+  latestYear: number;
+  source: { name: string; url: string };
+  // Multi-year series per (dimension, geo). Sorted ascending by year so the
+  // consumer can binary-search or use last-≤-year selection. EU27 is the
+  // computed unweighted mean across the 27 members for each year that has
+  // ≥20 reporters.
+  series: Partial<
+    Record<WgiDim, Partial<Record<Geo | "EU27_2020", WgiSnapshot[]>>>
+  >;
+}
+
+const fetchWgi = async (): Promise<WgiPayload> => {
+  const series: Partial<
+    Record<WgiDim, Partial<Record<Geo | "EU27_2020", WgiSnapshot[]>>>
+  > = {};
+  // Track the latest year that has ≥20 EU members reporting across each
+  // dimension; the conservative min across dimensions is the dashboard's
+  // notional "latest available" year.
+  const latestYearByDim = new Map<WgiDim, number>();
+
+  for (const dim of WGI_DIMENSIONS) {
+    process.stdout.write(`Loading WGI ${dim}… `);
+    const { byGeoYear } = await fetchWgiSeriesForDim(dim);
+
+    // Collect every year where ≥20 EU members report. Years with thinner
+    // coverage are dropped — the EU27 mean would otherwise lurch as members
+    // join/leave the available set.
+    const yearMembers = new Map<number, number>();
+    for (const yMap of byGeoYear.values()) {
+      for (const y of yMap.keys())
+        yearMembers.set(y, (yearMembers.get(y) ?? 0) + 1);
+    }
+    const usableYears = [...yearMembers.entries()]
+      .filter(([, n]) => n >= 20)
+      .map(([y]) => y)
+      .sort((a, b) => a - b);
+    if (usableYears.length === 0) {
+      throw new Error(`No usable WGI years for ${dim}`);
+    }
+    latestYearByDim.set(dim, usableYears[usableYears.length - 1]);
+
+    const perDim: Partial<Record<Geo | "EU27_2020", WgiSnapshot[]>> = {};
+    // Per-peer time series
+    for (const iso3 of EU27_ISO3) {
+      const peerGeo = PEER_ISO3_TO_GEO[iso3 as Iso3];
+      if (!peerGeo) continue;
+      const arr: WgiSnapshot[] = [];
+      for (const y of usableYears) {
+        const cell = byGeoYear.get(iso3)?.get(y);
+        if (!cell) continue;
+        arr.push({
+          year: y,
+          value: round(cell.value, 3),
+          percentile: round(cell.percentile, 1),
+        });
+      }
+      if (arr.length > 0) perDim[peerGeo] = arr;
+    }
+    // Computed EU27 mean per year — unweighted average across the 27
+    // members for that year. Surfaced under the "EU27_2020" geo so the
+    // consumer interface is symmetric with the Eurostat aggregate.
+    const euArr: WgiSnapshot[] = [];
+    for (const y of usableYears) {
+      const values: number[] = [];
+      const percentiles: number[] = [];
+      for (const iso3 of EU27_ISO3) {
+        const cell = byGeoYear.get(iso3)?.get(y);
+        if (!cell) continue;
+        values.push(cell.value);
+        percentiles.push(cell.percentile);
+      }
+      if (values.length < 20) continue;
+      const mean = (xs: number[]) => xs.reduce((a, b) => a + b, 0) / xs.length;
+      euArr.push({
+        year: y,
+        value: round(mean(values), 3),
+        percentile: round(mean(percentiles), 1),
+      });
+    }
+    if (euArr.length > 0) perDim["EU27_2020"] = euArr;
+
+    series[dim] = perDim;
+    const peerCount = Object.keys(perDim).filter(
+      (k) => k !== "EU27_2020",
+    ).length;
+    console.log(
+      `years=${usableYears[0]}-${usableYears[usableYears.length - 1]} (${usableYears.length}y), peers=${peerCount}`,
+    );
+  }
+
+  const latestYear = Math.min(...latestYearByDim.values());
+
+  return {
+    fetchedAt: new Date().toISOString(),
+    latestYear,
+    source: {
+      name: "World Bank — Worldwide Governance Indicators",
+      url: "https://databank.worldbank.org/source/worldwide-governance-indicators",
+    },
+    series,
+  };
+};
+
 const main = async () => {
   // ----- Pass 1: legacy gov_10a_main annual TR/TE/B9 ------------------------
   console.log(
@@ -716,6 +1136,55 @@ const main = async () => {
     console.log(`${peerCounts}${distNote}`);
   }
 
+  // ----- Pass 3: annual per-indicator peer series (SILC + demographics) ----
+  const indicatorsAnnual: Record<
+    string,
+    {
+      cadence: "annual";
+      sourceUrl: string;
+      dataset: string;
+      direction: Direction;
+      series: Record<string, AnnualSeriesPoint[]>;
+      latestDistribution: IndicatorDistributionAnnual | null;
+    }
+  > = {};
+
+  for (const ind of PEER_INDICATORS_ANNUAL) {
+    process.stdout.write(`Loading annual peer indicator ${ind.key}… `);
+    const series = await fetchAnnualIndicatorPeers(ind, GEOS);
+
+    const bgLen = series["BG"]?.length ?? 0;
+    const floor = ind.minYears ?? 8;
+    if (bgLen < floor) {
+      throw new Error(
+        `safety check: annual peer ${ind.key} BG returned ${bgLen} points, below floor ${floor}.`,
+      );
+    }
+
+    const latestDistribution = await fetchAnnualIndicatorDistribution(ind);
+
+    indicatorsAnnual[ind.key] = {
+      cadence: "annual",
+      sourceUrl: ind.sourceUrl,
+      dataset: ind.dataset,
+      direction: ind.direction,
+      series,
+      latestDistribution,
+    };
+
+    const peerCounts = GEOS.map((g) => `${g}:${series[g]?.length ?? 0}`).join(
+      " ",
+    );
+    const distNote = latestDistribution
+      ? ` · rank ${latestDistribution.rank}/${latestDistribution.total} @${latestDistribution.period}`
+      : "";
+    console.log(`${peerCounts}${distNote}`);
+  }
+
+  // ----- Pass 4: World Bank WGI per-peer ------------------------------------
+  console.log("Fetching World Bank WGI (6 dimensions × 27 members)…");
+  const wgi = await fetchWgi();
+
   // ----- Combined payload ---------------------------------------------------
   const payload = {
     fetchedAt: new Date().toISOString(),
@@ -733,11 +1202,13 @@ const main = async () => {
     series: legacySeries,
     distribution: legacyDistribution,
     indicators,
+    indicatorsAnnual,
+    wgi,
   };
 
   fs.writeFileSync(OUT_FILE, JSON.stringify(payload, null, 2));
   console.log(
-    `\nWrote ${OUT_FILE} — ${GEOS.length} geos × ${NA_ITEMS.length} legacy metrics + ${Object.keys(indicators).length} new indicators, latest legacy year ${legacyLatestYear}`,
+    `\nWrote ${OUT_FILE} — ${GEOS.length} geos × ${NA_ITEMS.length} legacy metrics + ${Object.keys(indicators).length} quarterly + ${Object.keys(indicatorsAnnual).length} annual + WGI(${Object.keys(wgi.series).length}d × ${Object.values(wgi.series)[0] ? Object.keys(Object.values(wgi.series)[0]!).length : 0}g @${wgi.latestYear}), latest legacy year ${legacyLatestYear}`,
   );
 };
 

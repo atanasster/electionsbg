@@ -139,7 +139,10 @@ const fetchCofogPeers = async (): Promise<EurostatResponse> => {
   params.append("na_item", "TE");
   params.append("freq", "A");
   params.append("unit", "PC_GDP");
-  params.append("lastTimePeriod", "3");
+  // Full time series (no lastTimePeriod clamp) so the EU compare dashboard
+  // can pick a year matching the selected election cycle. Eurostat's
+  // gov_10a_exp goes back to 2010 for most member states — ~14 years × 27
+  // geos × 11 functions = ~4k data points, still negligible payload.
   const url = `${DATASET}?${params.toString()}`;
   const res = await fetch(`${EUROSTAT_BASE}/${url}`);
   if (!res.ok) {
@@ -278,6 +281,64 @@ interface PeerBand {
   total: number;
 }
 
+// Per-peer composition at the latest year where BG and ≥20 EU members both
+// report. Keyed first by peer geo (from the EU compare dashboard roster),
+// then by COFOG code → % of GDP. Reuses the peer fetch payload — the same
+// rows already carry the data for all 27 members, we just pick out the
+// dashboard's six and pin to a single year.
+type EuComparePeerGeo = "BG" | "EU27_2020" | "RO" | "GR" | "HU" | "HR";
+const EU_COMPARE_GEOS: EuComparePeerGeo[] = [
+  "BG",
+  "EU27_2020",
+  "RO",
+  "GR",
+  "HU",
+  "HR",
+];
+const COFOG_FUNCTIONS_ONLY = [
+  "GF01",
+  "GF02",
+  "GF03",
+  "GF04",
+  "GF05",
+  "GF06",
+  "GF07",
+  "GF08",
+  "GF09",
+  "GF10",
+] as const;
+type CofogFunctionCode = (typeof COFOG_FUNCTIONS_ONLY)[number];
+
+// Build per-year, per-peer COFOG composition for the EU compare dashboard.
+// Output shape: { [year]: { [geo]: { [code]: pctGdp } } }. Keeps every year
+// the peer fetch returned so the dashboard can pick the year matching the
+// selected election (or fall back to the latest year ≤ election year).
+const buildPeerSeriesByYear = (
+  rows: { geo: string; cofog: string; year: number; value: number }[],
+): Record<
+  string,
+  Partial<Record<EuComparePeerGeo, Partial<Record<CofogFunctionCode, number>>>>
+> => {
+  const out: Record<
+    string,
+    Partial<
+      Record<EuComparePeerGeo, Partial<Record<CofogFunctionCode, number>>>
+    >
+  > = {};
+  for (const r of rows) {
+    if (!(COFOG_FUNCTIONS_ONLY as readonly string[]).includes(r.cofog))
+      continue;
+    if (!(EU_COMPARE_GEOS as readonly string[]).includes(r.geo)) continue;
+    const ykey = String(r.year);
+    if (!out[ykey]) out[ykey] = {};
+    const geo = r.geo as EuComparePeerGeo;
+    const code = r.cofog as CofogFunctionCode;
+    if (!out[ykey][geo]) out[ykey][geo] = {};
+    out[ykey][geo]![code] = Math.round(r.value * 100) / 100;
+  }
+  return out;
+};
+
 const buildPeerBands = (
   rows: { geo: string; cofog: string; year: number; value: number }[],
 ): Record<string, PeerBand> => {
@@ -395,6 +456,17 @@ const main = async (): Promise<void> => {
     );
   }
 
+  // Per-peer composition for the EU compare dashboard — full multi-year
+  // map so the dashboard can pick a year matching the selected election
+  // cycle (or the latest year ≤ election year). `peerSeriesLatestYear`
+  // remains a convenience for consumers that want the headline year
+  // without picking a specific election.
+  const peerSeriesByYear = buildPeerSeriesByYear(peerRows);
+  const peerSeriesLatestYear = Math.max(
+    ...Object.keys(peerSeriesByYear).map((y) => Number(y)),
+    0,
+  );
+
   const payload = {
     fetchedAt: new Date().toISOString(),
     source: {
@@ -424,11 +496,18 @@ const main = async (): Promise<void> => {
     // member states. Pinned to the latest year where BG and ≥20 peers both
     // report. Empty object if Eurostat hasn't refreshed in time.
     peers,
+    // Per-peer composition (BG + EU27 + 4 CEE peers) across all available
+    // years, for the EU compare dashboard side-by-side stacked bars. Keyed
+    // by year-as-string so JSON serialisation is stable. Each year holds a
+    // per-geo map of the 10 top-level COFOG functions as % of GDP.
+    peerSeriesByYear,
+    peerSeriesLatestYear,
   };
 
   fs.writeFileSync(OUT_FILE, JSON.stringify(payload, null, 2));
+  const peerYearCount = Object.keys(peerSeriesByYear).length;
   console.log(
-    `Wrote ${OUT_FILE} — ${COFOG_TOP_LEVEL.length} codes, latest year ${latestYear}, peer bands for ${peerCount} codes`,
+    `Wrote ${OUT_FILE} — ${COFOG_TOP_LEVEL.length} codes, latest year ${latestYear}, peer bands for ${peerCount} codes, peerSeriesByYear: ${peerYearCount} years (latest ${peerSeriesLatestYear})`,
   );
 };
 

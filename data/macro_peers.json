@@ -1,5 +1,5 @@
 {
-  "fetchedAt": "2026-05-23T07:30:28.449Z",
+  "fetchedAt": "2026-05-23T21:45:19.368Z",
   "source": {
     "name": "Eurostat",
     "dataset": "gov_10a_main",
@@ -23226,6 +23226,5438 @@
         "rank": 9,
         "total": 27,
         "direction": "lower"
+      }
+    }
+  },
+  "indicatorsAnnual": {
+    "gini": {
+      "cadence": "annual",
+      "sourceUrl": "https://ec.europa.eu/eurostat/databrowser/view/ilc_di12/default/table",
+      "dataset": "ilc_di12",
+      "direction": "lower",
+      "series": {
+        "BG": [
+          {
+            "year": 2014,
+            "period": "2014",
+            "value": 35.4
+          },
+          {
+            "year": 2015,
+            "period": "2015",
+            "value": 37
+          },
+          {
+            "year": 2016,
+            "period": "2016",
+            "value": 37.7
+          },
+          {
+            "year": 2017,
+            "period": "2017",
+            "value": 40.2
+          },
+          {
+            "year": 2018,
+            "period": "2018",
+            "value": 39.6
+          },
+          {
+            "year": 2019,
+            "period": "2019",
+            "value": 40.8
+          },
+          {
+            "year": 2020,
+            "period": "2020",
+            "value": 40
+          },
+          {
+            "year": 2021,
+            "period": "2021",
+            "value": 39.7
+          },
+          {
+            "year": 2022,
+            "period": "2022",
+            "value": 38.4
+          },
+          {
+            "year": 2023,
+            "period": "2023",
+            "value": 37.2
+          },
+          {
+            "year": 2024,
+            "period": "2024",
+            "value": 38.4
+          },
+          {
+            "year": 2025,
+            "period": "2025",
+            "value": 37.7
+          }
+        ],
+        "EU27_2020": [
+          {
+            "year": 2014,
+            "period": "2014",
+            "value": 30.9
+          },
+          {
+            "year": 2015,
+            "period": "2015",
+            "value": 30.8
+          },
+          {
+            "year": 2016,
+            "period": "2016",
+            "value": 30.6
+          },
+          {
+            "year": 2017,
+            "period": "2017",
+            "value": 30.3
+          },
+          {
+            "year": 2018,
+            "period": "2018",
+            "value": 30.4
+          },
+          {
+            "year": 2019,
+            "period": "2019",
+            "value": 30.1
+          },
+          {
+            "year": 2020,
+            "period": "2020",
+            "value": 30
+          },
+          {
+            "year": 2021,
+            "period": "2021",
+            "value": 30.2
+          },
+          {
+            "year": 2022,
+            "period": "2022",
+            "value": 29.6
+          },
+          {
+            "year": 2023,
+            "period": "2023",
+            "value": 29.6
+          },
+          {
+            "year": 2024,
+            "period": "2024",
+            "value": 29.4
+          },
+          {
+            "year": 2025,
+            "period": "2025",
+            "value": 29.2
+          }
+        ],
+        "RO": [
+          {
+            "year": 2014,
+            "period": "2014",
+            "value": 35
+          },
+          {
+            "year": 2015,
+            "period": "2015",
+            "value": 37.4
+          },
+          {
+            "year": 2016,
+            "period": "2016",
+            "value": 34.7
+          },
+          {
+            "year": 2017,
+            "period": "2017",
+            "value": 33.1
+          },
+          {
+            "year": 2018,
+            "period": "2018",
+            "value": 35.1
+          },
+          {
+            "year": 2019,
+            "period": "2019",
+            "value": 34.8
+          },
+          {
+            "year": 2020,
+            "period": "2020",
+            "value": 33.8
+          },
+          {
+            "year": 2021,
+            "period": "2021",
+            "value": 34.3
+          },
+          {
+            "year": 2022,
+            "period": "2022",
+            "value": 32
+          },
+          {
+            "year": 2023,
+            "period": "2023",
+            "value": 31
+          },
+          {
+            "year": 2024,
+            "period": "2024",
+            "value": 28
+          },
+          {
+            "year": 2025,
+            "period": "2025",
+            "value": 27.3
+          }
+        ],
+        "GR": [
+          {
+            "year": 2014,
+            "period": "2014",
+            "value": 34.5
+          },
+          {
+            "year": 2015,
+            "period": "2015",
+            "value": 34.2
+          },
+          {
+            "year": 2016,
+            "period": "2016",
+            "value": 34.3
+          },
+          {
+            "year": 2017,
+            "period": "2017",
+            "value": 33.4
+          },
+          {
+            "year": 2018,
+            "period": "2018",
+            "value": 32.3
+          },
+          {
+            "year": 2019,
+            "period": "2019",
+            "value": 31
+          },
+          {
+            "year": 2020,
+            "period": "2020",
+            "value": 31.4
+          },
+          {
+            "year": 2021,
+            "period": "2021",
+            "value": 32.4
+          },
+          {
+            "year": 2022,
+            "period": "2022",
+            "value": 31.4
+          },
+          {
+            "year": 2023,
+            "period": "2023",
+            "value": 31.8
+          },
+          {
+            "year": 2024,
+            "period": "2024",
+            "value": 31.8
+          },
+          {
+            "year": 2025,
+            "period": "2025",
+            "value": 31.6
+          }
+        ],
+        "HU": [
+          {
+            "year": 2014,
+            "period": "2014",
+            "value": 28.6
+          },
+          {
+            "year": 2015,
+            "period": "2015",
+            "value": 28.2
+          },
+          {
+            "year": 2016,
+            "period": "2016",
+            "value": 28.2
+          },
+          {
+            "year": 2017,
+            "period": "2017",
+            "value": 28.1
+          },
+          {
+            "year": 2018,
+            "period": "2018",
+            "value": 28.7
+          },
+          {
+            "year": 2019,
+            "period": "2019",
+            "value": 26.8
+          },
+          {
+            "year": 2020,
+            "period": "2020",
+            "value": 28.2
+          },
+          {
+            "year": 2021,
+            "period": "2021",
+            "value": 27.4
+          },
+          {
+            "year": 2022,
+            "period": "2022",
+            "value": 26.9
+          },
+          {
+            "year": 2023,
+            "period": "2023",
+            "value": 28.6
+          },
+          {
+            "year": 2024,
+            "period": "2024",
+            "value": 28
+          },
+          {
+            "year": 2025,
+            "period": "2025",
+            "value": 29.5
+          }
+        ],
+        "HR": [
+          {
+            "year": 2014,
+            "period": "2014",
+            "value": 30.2
+          },
+          {
+            "year": 2015,
+            "period": "2015",
+            "value": 30.4
+          },
+          {
+            "year": 2016,
+            "period": "2016",
+            "value": 29.8
+          },
+          {
+            "year": 2017,
+            "period": "2017",
+            "value": 29.9
+          },
+          {
+            "year": 2018,
+            "period": "2018",
+            "value": 29.7
+          },
+          {
+            "year": 2019,
+            "period": "2019",
+            "value": 29.2
+          },
+          {
+            "year": 2020,
+            "period": "2020",
+            "value": 28.3
+          },
+          {
+            "year": 2021,
+            "period": "2021",
+            "value": 29.2
+          },
+          {
+            "year": 2022,
+            "period": "2022",
+            "value": 28.5
+          },
+          {
+            "year": 2023,
+            "period": "2023",
+            "value": 29.7
+          },
+          {
+            "year": 2024,
+            "period": "2024",
+            "value": 29.8
+          },
+          {
+            "year": 2025,
+            "period": "2025",
+            "value": 28.5
+          }
+        ]
+      },
+      "latestDistribution": {
+        "period": "2025",
+        "year": 2025,
+        "bgValue": 37.7,
+        "euAverage": 29.2,
+        "rank": 27,
+        "total": 27,
+        "direction": "lower"
+      }
+    },
+    "incomeQuintileRatio": {
+      "cadence": "annual",
+      "sourceUrl": "https://ec.europa.eu/eurostat/databrowser/view/ilc_di11/default/table",
+      "dataset": "ilc_di11",
+      "direction": "lower",
+      "series": {
+        "BG": [
+          {
+            "year": 2010,
+            "period": "2010",
+            "value": 5.86
+          },
+          {
+            "year": 2011,
+            "period": "2011",
+            "value": 6.46
+          },
+          {
+            "year": 2012,
+            "period": "2012",
+            "value": 6.12
+          },
+          {
+            "year": 2013,
+            "period": "2013",
+            "value": 6.59
+          },
+          {
+            "year": 2014,
+            "period": "2014",
+            "value": 6.81
+          },
+          {
+            "year": 2015,
+            "period": "2015",
+            "value": 7.11
+          },
+          {
+            "year": 2016,
+            "period": "2016",
+            "value": 7.69
+          },
+          {
+            "year": 2017,
+            "period": "2017",
+            "value": 8.23
+          },
+          {
+            "year": 2018,
+            "period": "2018",
+            "value": 7.66
+          },
+          {
+            "year": 2019,
+            "period": "2019",
+            "value": 8.1
+          },
+          {
+            "year": 2020,
+            "period": "2020",
+            "value": 8.01
+          },
+          {
+            "year": 2021,
+            "period": "2021",
+            "value": 7.45
+          },
+          {
+            "year": 2022,
+            "period": "2022",
+            "value": 7.3
+          },
+          {
+            "year": 2023,
+            "period": "2023",
+            "value": 6.61
+          },
+          {
+            "year": 2024,
+            "period": "2024",
+            "value": 6.96
+          },
+          {
+            "year": 2025,
+            "period": "2025",
+            "value": 6.94
+          }
+        ],
+        "EU27_2020": [
+          {
+            "year": 2010,
+            "period": "2010",
+            "value": 4.89
+          },
+          {
+            "year": 2011,
+            "period": "2011",
+            "value": 4.99
+          },
+          {
+            "year": 2012,
+            "period": "2012",
+            "value": 4.98
+          },
+          {
+            "year": 2013,
+            "period": "2013",
+            "value": 5.05
+          },
+          {
+            "year": 2014,
+            "period": "2014",
+            "value": 5.22
+          },
+          {
+            "year": 2015,
+            "period": "2015",
+            "value": 5.22
+          },
+          {
+            "year": 2016,
+            "period": "2016",
+            "value": 5.16
+          },
+          {
+            "year": 2017,
+            "period": "2017",
+            "value": 5.03
+          },
+          {
+            "year": 2018,
+            "period": "2018",
+            "value": 5.05
+          },
+          {
+            "year": 2019,
+            "period": "2019",
+            "value": 4.99
+          },
+          {
+            "year": 2020,
+            "period": "2020",
+            "value": 4.89
+          },
+          {
+            "year": 2021,
+            "period": "2021",
+            "value": 4.98
+          },
+          {
+            "year": 2022,
+            "period": "2022",
+            "value": 4.74
+          },
+          {
+            "year": 2023,
+            "period": "2023",
+            "value": 4.72
+          },
+          {
+            "year": 2024,
+            "period": "2024",
+            "value": 4.66
+          },
+          {
+            "year": 2025,
+            "period": "2025",
+            "value": 4.62
+          }
+        ],
+        "RO": [
+          {
+            "year": 2010,
+            "period": "2010",
+            "value": 6.11
+          },
+          {
+            "year": 2011,
+            "period": "2011",
+            "value": 6.24
+          },
+          {
+            "year": 2012,
+            "period": "2012",
+            "value": 6.6
+          },
+          {
+            "year": 2013,
+            "period": "2013",
+            "value": 6.83
+          },
+          {
+            "year": 2014,
+            "period": "2014",
+            "value": 7.24
+          },
+          {
+            "year": 2015,
+            "period": "2015",
+            "value": 8.32
+          },
+          {
+            "year": 2016,
+            "period": "2016",
+            "value": 7.2
+          },
+          {
+            "year": 2017,
+            "period": "2017",
+            "value": 6.45
+          },
+          {
+            "year": 2018,
+            "period": "2018",
+            "value": 7.21
+          },
+          {
+            "year": 2019,
+            "period": "2019",
+            "value": 7.08
+          },
+          {
+            "year": 2020,
+            "period": "2020",
+            "value": 6.62
+          },
+          {
+            "year": 2021,
+            "period": "2021",
+            "value": 7.1
+          },
+          {
+            "year": 2022,
+            "period": "2022",
+            "value": 6
+          },
+          {
+            "year": 2023,
+            "period": "2023",
+            "value": 5.83
+          },
+          {
+            "year": 2024,
+            "period": "2024",
+            "value": 4.62
+          },
+          {
+            "year": 2025,
+            "period": "2025",
+            "value": 4.37
+          }
+        ],
+        "GR": [
+          {
+            "year": 2010,
+            "period": "2010",
+            "value": 5.61
+          },
+          {
+            "year": 2011,
+            "period": "2011",
+            "value": 5.96
+          },
+          {
+            "year": 2012,
+            "period": "2012",
+            "value": 6.63
+          },
+          {
+            "year": 2013,
+            "period": "2013",
+            "value": 6.6
+          },
+          {
+            "year": 2014,
+            "period": "2014",
+            "value": 6.46
+          },
+          {
+            "year": 2015,
+            "period": "2015",
+            "value": 6.51
+          },
+          {
+            "year": 2016,
+            "period": "2016",
+            "value": 6.55
+          },
+          {
+            "year": 2017,
+            "period": "2017",
+            "value": 6.11
+          },
+          {
+            "year": 2018,
+            "period": "2018",
+            "value": 5.51
+          },
+          {
+            "year": 2019,
+            "period": "2019",
+            "value": 5.11
+          },
+          {
+            "year": 2020,
+            "period": "2020",
+            "value": 5.23
+          },
+          {
+            "year": 2021,
+            "period": "2021",
+            "value": 5.79
+          },
+          {
+            "year": 2022,
+            "period": "2022",
+            "value": 5.2
+          },
+          {
+            "year": 2023,
+            "period": "2023",
+            "value": 5.28
+          },
+          {
+            "year": 2024,
+            "period": "2024",
+            "value": 5.27
+          },
+          {
+            "year": 2025,
+            "period": "2025",
+            "value": 5.17
+          }
+        ],
+        "HU": [
+          {
+            "year": 2010,
+            "period": "2010",
+            "value": 3.41
+          },
+          {
+            "year": 2011,
+            "period": "2011",
+            "value": 3.94
+          },
+          {
+            "year": 2012,
+            "period": "2012",
+            "value": 4
+          },
+          {
+            "year": 2013,
+            "period": "2013",
+            "value": 4.29
+          },
+          {
+            "year": 2014,
+            "period": "2014",
+            "value": 4.33
+          },
+          {
+            "year": 2015,
+            "period": "2015",
+            "value": 4.3
+          },
+          {
+            "year": 2016,
+            "period": "2016",
+            "value": 4.26
+          },
+          {
+            "year": 2017,
+            "period": "2017",
+            "value": 4.27
+          },
+          {
+            "year": 2018,
+            "period": "2018",
+            "value": 4.35
+          },
+          {
+            "year": 2019,
+            "period": "2019",
+            "value": 4.23
+          },
+          {
+            "year": 2020,
+            "period": "2020",
+            "value": 4.24
+          },
+          {
+            "year": 2021,
+            "period": "2021",
+            "value": 4.16
+          },
+          {
+            "year": 2022,
+            "period": "2022",
+            "value": 4.16
+          },
+          {
+            "year": 2023,
+            "period": "2023",
+            "value": 4.43
+          },
+          {
+            "year": 2024,
+            "period": "2024",
+            "value": 4.39
+          },
+          {
+            "year": 2025,
+            "period": "2025",
+            "value": 4.68
+          }
+        ],
+        "HR": [
+          {
+            "year": 2010,
+            "period": "2010",
+            "value": 5.54
+          },
+          {
+            "year": 2011,
+            "period": "2011",
+            "value": 5.58
+          },
+          {
+            "year": 2012,
+            "period": "2012",
+            "value": 5.36
+          },
+          {
+            "year": 2013,
+            "period": "2013",
+            "value": 5.34
+          },
+          {
+            "year": 2014,
+            "period": "2014",
+            "value": 4.91
+          },
+          {
+            "year": 2015,
+            "period": "2015",
+            "value": 5.14
+          },
+          {
+            "year": 2016,
+            "period": "2016",
+            "value": 4.9
+          },
+          {
+            "year": 2017,
+            "period": "2017",
+            "value": 4.97
+          },
+          {
+            "year": 2018,
+            "period": "2018",
+            "value": 5
+          },
+          {
+            "year": 2019,
+            "period": "2019",
+            "value": 4.74
+          },
+          {
+            "year": 2020,
+            "period": "2020",
+            "value": 4.59
+          },
+          {
+            "year": 2021,
+            "period": "2021",
+            "value": 4.77
+          },
+          {
+            "year": 2022,
+            "period": "2022",
+            "value": 4.57
+          },
+          {
+            "year": 2023,
+            "period": "2023",
+            "value": 4.91
+          },
+          {
+            "year": 2024,
+            "period": "2024",
+            "value": 4.97
+          },
+          {
+            "year": 2025,
+            "period": "2025",
+            "value": 4.78
+          }
+        ]
+      },
+      "latestDistribution": {
+        "period": "2025",
+        "year": 2025,
+        "bgValue": 6.94,
+        "euAverage": 4.62,
+        "rank": 27,
+        "total": 27,
+        "direction": "lower"
+      }
+    },
+    "arope": {
+      "cadence": "annual",
+      "sourceUrl": "https://ec.europa.eu/eurostat/databrowser/view/ilc_peps01n/default/table",
+      "dataset": "ilc_peps01n",
+      "direction": "lower",
+      "series": {
+        "BG": [
+          {
+            "year": 2015,
+            "period": "2015",
+            "value": 43.3
+          },
+          {
+            "year": 2016,
+            "period": "2016",
+            "value": 41
+          },
+          {
+            "year": 2017,
+            "period": "2017",
+            "value": 38
+          },
+          {
+            "year": 2018,
+            "period": "2018",
+            "value": 33
+          },
+          {
+            "year": 2019,
+            "period": "2019",
+            "value": 33.2
+          },
+          {
+            "year": 2020,
+            "period": "2020",
+            "value": 33.5
+          },
+          {
+            "year": 2021,
+            "period": "2021",
+            "value": 31.7
+          },
+          {
+            "year": 2022,
+            "period": "2022",
+            "value": 32.2
+          },
+          {
+            "year": 2023,
+            "period": "2023",
+            "value": 30
+          },
+          {
+            "year": 2024,
+            "period": "2024",
+            "value": 30.3
+          },
+          {
+            "year": 2025,
+            "period": "2025",
+            "value": 29
+          }
+        ],
+        "EU27_2020": [
+          {
+            "year": 2015,
+            "period": "2015",
+            "value": 24
+          },
+          {
+            "year": 2016,
+            "period": "2016",
+            "value": 23.7
+          },
+          {
+            "year": 2017,
+            "period": "2017",
+            "value": 22.4
+          },
+          {
+            "year": 2018,
+            "period": "2018",
+            "value": 21.7
+          },
+          {
+            "year": 2019,
+            "period": "2019",
+            "value": 21.1
+          },
+          {
+            "year": 2020,
+            "period": "2020",
+            "value": 21.5
+          },
+          {
+            "year": 2021,
+            "period": "2021",
+            "value": 21.7
+          },
+          {
+            "year": 2022,
+            "period": "2022",
+            "value": 21.6
+          },
+          {
+            "year": 2023,
+            "period": "2023",
+            "value": 21.3
+          },
+          {
+            "year": 2024,
+            "period": "2024",
+            "value": 21
+          },
+          {
+            "year": 2025,
+            "period": "2025",
+            "value": 20.9
+          }
+        ],
+        "RO": [
+          {
+            "year": 2015,
+            "period": "2015",
+            "value": 44.5
+          },
+          {
+            "year": 2016,
+            "period": "2016",
+            "value": 46
+          },
+          {
+            "year": 2017,
+            "period": "2017",
+            "value": 42.5
+          },
+          {
+            "year": 2018,
+            "period": "2018",
+            "value": 38.7
+          },
+          {
+            "year": 2019,
+            "period": "2019",
+            "value": 36.1
+          },
+          {
+            "year": 2020,
+            "period": "2020",
+            "value": 35.6
+          },
+          {
+            "year": 2021,
+            "period": "2021",
+            "value": 34.4
+          },
+          {
+            "year": 2022,
+            "period": "2022",
+            "value": 34.4
+          },
+          {
+            "year": 2023,
+            "period": "2023",
+            "value": 32
+          },
+          {
+            "year": 2024,
+            "period": "2024",
+            "value": 27.9
+          },
+          {
+            "year": 2025,
+            "period": "2025",
+            "value": 27.4
+          }
+        ],
+        "GR": [
+          {
+            "year": 2015,
+            "period": "2015",
+            "value": 32.4
+          },
+          {
+            "year": 2016,
+            "period": "2016",
+            "value": 32.6
+          },
+          {
+            "year": 2017,
+            "period": "2017",
+            "value": 32.2
+          },
+          {
+            "year": 2018,
+            "period": "2018",
+            "value": 30.3
+          },
+          {
+            "year": 2019,
+            "period": "2019",
+            "value": 29
+          },
+          {
+            "year": 2020,
+            "period": "2020",
+            "value": 27.4
+          },
+          {
+            "year": 2021,
+            "period": "2021",
+            "value": 28.3
+          },
+          {
+            "year": 2022,
+            "period": "2022",
+            "value": 26.3
+          },
+          {
+            "year": 2023,
+            "period": "2023",
+            "value": 26.1
+          },
+          {
+            "year": 2024,
+            "period": "2024",
+            "value": 26.9
+          },
+          {
+            "year": 2025,
+            "period": "2025",
+            "value": 27.5
+          }
+        ],
+        "HU": [
+          {
+            "year": 2015,
+            "period": "2015",
+            "value": 30.6
+          },
+          {
+            "year": 2016,
+            "period": "2016",
+            "value": 28.6
+          },
+          {
+            "year": 2017,
+            "period": "2017",
+            "value": 25.9
+          },
+          {
+            "year": 2018,
+            "period": "2018",
+            "value": 20.6
+          },
+          {
+            "year": 2019,
+            "period": "2019",
+            "value": 21.1
+          },
+          {
+            "year": 2020,
+            "period": "2020",
+            "value": 19.4
+          },
+          {
+            "year": 2021,
+            "period": "2021",
+            "value": 19.6
+          },
+          {
+            "year": 2022,
+            "period": "2022",
+            "value": 18.8
+          },
+          {
+            "year": 2023,
+            "period": "2023",
+            "value": 19.7
+          },
+          {
+            "year": 2024,
+            "period": "2024",
+            "value": 19.3
+          },
+          {
+            "year": 2025,
+            "period": "2025",
+            "value": 19.5
+          }
+        ],
+        "HR": [
+          {
+            "year": 2015,
+            "period": "2015",
+            "value": 24.4
+          },
+          {
+            "year": 2016,
+            "period": "2016",
+            "value": 23.5
+          },
+          {
+            "year": 2017,
+            "period": "2017",
+            "value": 23.7
+          },
+          {
+            "year": 2018,
+            "period": "2018",
+            "value": 22.1
+          },
+          {
+            "year": 2019,
+            "period": "2019",
+            "value": 20.8
+          },
+          {
+            "year": 2020,
+            "period": "2020",
+            "value": 20.5
+          },
+          {
+            "year": 2021,
+            "period": "2021",
+            "value": 20.9
+          },
+          {
+            "year": 2022,
+            "period": "2022",
+            "value": 19.9
+          },
+          {
+            "year": 2023,
+            "period": "2023",
+            "value": 20.7
+          },
+          {
+            "year": 2024,
+            "period": "2024",
+            "value": 21.7
+          },
+          {
+            "year": 2025,
+            "period": "2025",
+            "value": 20.7
+          }
+        ]
+      },
+      "latestDistribution": {
+        "period": "2025",
+        "year": 2025,
+        "bgValue": 29,
+        "euAverage": 20.9,
+        "rank": 27,
+        "total": 27,
+        "direction": "lower"
+      }
+    },
+    "lifeExpectancy": {
+      "cadence": "annual",
+      "sourceUrl": "https://ec.europa.eu/eurostat/databrowser/view/demo_mlexpec/default/table",
+      "dataset": "demo_mlexpec",
+      "direction": "higher",
+      "series": {
+        "BG": [
+          {
+            "year": 2010,
+            "period": "2010",
+            "value": 73.8
+          },
+          {
+            "year": 2011,
+            "period": "2011",
+            "value": 74.2
+          },
+          {
+            "year": 2012,
+            "period": "2012",
+            "value": 74.4
+          },
+          {
+            "year": 2013,
+            "period": "2013",
+            "value": 74.9
+          },
+          {
+            "year": 2014,
+            "period": "2014",
+            "value": 74.5
+          },
+          {
+            "year": 2015,
+            "period": "2015",
+            "value": 74.7
+          },
+          {
+            "year": 2016,
+            "period": "2016",
+            "value": 74.9
+          },
+          {
+            "year": 2017,
+            "period": "2017",
+            "value": 74.8
+          },
+          {
+            "year": 2018,
+            "period": "2018",
+            "value": 75
+          },
+          {
+            "year": 2019,
+            "period": "2019",
+            "value": 75.1
+          },
+          {
+            "year": 2020,
+            "period": "2020",
+            "value": 73.3
+          },
+          {
+            "year": 2021,
+            "period": "2021",
+            "value": 71.2
+          },
+          {
+            "year": 2022,
+            "period": "2022",
+            "value": 74.2
+          },
+          {
+            "year": 2023,
+            "period": "2023",
+            "value": 75.8
+          },
+          {
+            "year": 2024,
+            "period": "2024",
+            "value": 75.8
+          }
+        ],
+        "EU27_2020": [
+          {
+            "year": 2010,
+            "period": "2010",
+            "value": 79.8
+          },
+          {
+            "year": 2011,
+            "period": "2011",
+            "value": 80.1
+          },
+          {
+            "year": 2012,
+            "period": "2012",
+            "value": 80.2
+          },
+          {
+            "year": 2013,
+            "period": "2013",
+            "value": 80.5
+          },
+          {
+            "year": 2014,
+            "period": "2014",
+            "value": 80.8
+          },
+          {
+            "year": 2015,
+            "period": "2015",
+            "value": 80.5
+          },
+          {
+            "year": 2016,
+            "period": "2016",
+            "value": 80.9
+          },
+          {
+            "year": 2017,
+            "period": "2017",
+            "value": 80.9
+          },
+          {
+            "year": 2018,
+            "period": "2018",
+            "value": 81
+          },
+          {
+            "year": 2019,
+            "period": "2019",
+            "value": 81.3
+          },
+          {
+            "year": 2020,
+            "period": "2020",
+            "value": 80.4
+          },
+          {
+            "year": 2021,
+            "period": "2021",
+            "value": 80.1
+          },
+          {
+            "year": 2022,
+            "period": "2022",
+            "value": 80.6
+          },
+          {
+            "year": 2023,
+            "period": "2023",
+            "value": 81.4
+          },
+          {
+            "year": 2024,
+            "period": "2024",
+            "value": 81.5
+          }
+        ],
+        "RO": [
+          {
+            "year": 2010,
+            "period": "2010",
+            "value": 73.7
+          },
+          {
+            "year": 2011,
+            "period": "2011",
+            "value": 74.4
+          },
+          {
+            "year": 2012,
+            "period": "2012",
+            "value": 74.4
+          },
+          {
+            "year": 2013,
+            "period": "2013",
+            "value": 75.1
+          },
+          {
+            "year": 2014,
+            "period": "2014",
+            "value": 75
+          },
+          {
+            "year": 2015,
+            "period": "2015",
+            "value": 74.9
+          },
+          {
+            "year": 2016,
+            "period": "2016",
+            "value": 75.2
+          },
+          {
+            "year": 2017,
+            "period": "2017",
+            "value": 75.2
+          },
+          {
+            "year": 2018,
+            "period": "2018",
+            "value": 75.3
+          },
+          {
+            "year": 2019,
+            "period": "2019",
+            "value": 75.6
+          },
+          {
+            "year": 2020,
+            "period": "2020",
+            "value": 74.2
+          },
+          {
+            "year": 2021,
+            "period": "2021",
+            "value": 72.8
+          },
+          {
+            "year": 2022,
+            "period": "2022",
+            "value": 75.1
+          },
+          {
+            "year": 2023,
+            "period": "2023",
+            "value": 76.4
+          },
+          {
+            "year": 2024,
+            "period": "2024",
+            "value": 76.5
+          }
+        ],
+        "GR": [
+          {
+            "year": 2010,
+            "period": "2010",
+            "value": 80.6
+          },
+          {
+            "year": 2011,
+            "period": "2011",
+            "value": 80.8
+          },
+          {
+            "year": 2012,
+            "period": "2012",
+            "value": 80.7
+          },
+          {
+            "year": 2013,
+            "period": "2013",
+            "value": 81.4
+          },
+          {
+            "year": 2014,
+            "period": "2014",
+            "value": 81.5
+          },
+          {
+            "year": 2015,
+            "period": "2015",
+            "value": 81.1
+          },
+          {
+            "year": 2016,
+            "period": "2016",
+            "value": 81.5
+          },
+          {
+            "year": 2017,
+            "period": "2017",
+            "value": 81.4
+          },
+          {
+            "year": 2018,
+            "period": "2018",
+            "value": 81.9
+          },
+          {
+            "year": 2019,
+            "period": "2019",
+            "value": 81.7
+          },
+          {
+            "year": 2020,
+            "period": "2020",
+            "value": 81.4
+          },
+          {
+            "year": 2021,
+            "period": "2021",
+            "value": 80.2
+          },
+          {
+            "year": 2022,
+            "period": "2022",
+            "value": 80.8
+          },
+          {
+            "year": 2023,
+            "period": "2023",
+            "value": 81.8
+          },
+          {
+            "year": 2024,
+            "period": "2024",
+            "value": 81.9
+          }
+        ],
+        "HU": [
+          {
+            "year": 2010,
+            "period": "2010",
+            "value": 74.7
+          },
+          {
+            "year": 2011,
+            "period": "2011",
+            "value": 75.1
+          },
+          {
+            "year": 2012,
+            "period": "2012",
+            "value": 75.3
+          },
+          {
+            "year": 2013,
+            "period": "2013",
+            "value": 75.8
+          },
+          {
+            "year": 2014,
+            "period": "2014",
+            "value": 76
+          },
+          {
+            "year": 2015,
+            "period": "2015",
+            "value": 75.7
+          },
+          {
+            "year": 2016,
+            "period": "2016",
+            "value": 76.2
+          },
+          {
+            "year": 2017,
+            "period": "2017",
+            "value": 76
+          },
+          {
+            "year": 2018,
+            "period": "2018",
+            "value": 76.2
+          },
+          {
+            "year": 2019,
+            "period": "2019",
+            "value": 76.5
+          },
+          {
+            "year": 2020,
+            "period": "2020",
+            "value": 75.5
+          },
+          {
+            "year": 2021,
+            "period": "2021",
+            "value": 74.1
+          },
+          {
+            "year": 2022,
+            "period": "2022",
+            "value": 76
+          },
+          {
+            "year": 2023,
+            "period": "2023",
+            "value": 76.7
+          },
+          {
+            "year": 2024,
+            "period": "2024",
+            "value": 76.8
+          }
+        ],
+        "HR": [
+          {
+            "year": 2010,
+            "period": "2010",
+            "value": 76.7
+          },
+          {
+            "year": 2011,
+            "period": "2011",
+            "value": 77.2
+          },
+          {
+            "year": 2012,
+            "period": "2012",
+            "value": 77.3
+          },
+          {
+            "year": 2013,
+            "period": "2013",
+            "value": 77.8
+          },
+          {
+            "year": 2014,
+            "period": "2014",
+            "value": 77.9
+          },
+          {
+            "year": 2015,
+            "period": "2015",
+            "value": 77.5
+          },
+          {
+            "year": 2016,
+            "period": "2016",
+            "value": 78.2
+          },
+          {
+            "year": 2017,
+            "period": "2017",
+            "value": 78
+          },
+          {
+            "year": 2018,
+            "period": "2018",
+            "value": 78.2
+          },
+          {
+            "year": 2019,
+            "period": "2019",
+            "value": 78.6
+          },
+          {
+            "year": 2020,
+            "period": "2020",
+            "value": 77.6
+          },
+          {
+            "year": 2021,
+            "period": "2021",
+            "value": 76.6
+          },
+          {
+            "year": 2022,
+            "period": "2022",
+            "value": 77.7
+          },
+          {
+            "year": 2023,
+            "period": "2023",
+            "value": 78.6
+          },
+          {
+            "year": 2024,
+            "period": "2024",
+            "value": 78.9
+          }
+        ]
+      },
+      "latestDistribution": {
+        "period": "2024",
+        "year": 2024,
+        "bgValue": 75.8,
+        "euAverage": 81.5,
+        "rank": 27,
+        "total": 27,
+        "direction": "higher"
+      }
+    }
+  },
+  "wgi": {
+    "fetchedAt": "2026-05-23T21:45:19.367Z",
+    "latestYear": 2024,
+    "source": {
+      "name": "World Bank — Worldwide Governance Indicators",
+      "url": "https://databank.worldbank.org/source/worldwide-governance-indicators"
+    },
+    "series": {
+      "VA": {
+        "BG": [
+          {
+            "year": 2005,
+            "value": 0.595,
+            "percentile": 67.3
+          },
+          {
+            "year": 2006,
+            "value": 0.685,
+            "percentile": 68.8
+          },
+          {
+            "year": 2007,
+            "value": 0.701,
+            "percentile": 69.1
+          },
+          {
+            "year": 2008,
+            "value": 0.618,
+            "percentile": 67.7
+          },
+          {
+            "year": 2009,
+            "value": 0.594,
+            "percentile": 67.2
+          },
+          {
+            "year": 2010,
+            "value": 0.523,
+            "percentile": 66
+          },
+          {
+            "year": 2011,
+            "value": 0.325,
+            "percentile": 62.5
+          },
+          {
+            "year": 2012,
+            "value": 0.353,
+            "percentile": 63
+          },
+          {
+            "year": 2013,
+            "value": 0.201,
+            "percentile": 60.4
+          },
+          {
+            "year": 2014,
+            "value": 0.22,
+            "percentile": 60.7
+          },
+          {
+            "year": 2015,
+            "value": 0.242,
+            "percentile": 61.1
+          },
+          {
+            "year": 2016,
+            "value": 0.233,
+            "percentile": 60.9
+          },
+          {
+            "year": 2017,
+            "value": 0.126,
+            "percentile": 59.1
+          },
+          {
+            "year": 2018,
+            "value": 0.073,
+            "percentile": 58.1
+          },
+          {
+            "year": 2019,
+            "value": 0.139,
+            "percentile": 59.3
+          },
+          {
+            "year": 2020,
+            "value": 0.193,
+            "percentile": 60.2
+          },
+          {
+            "year": 2021,
+            "value": 0.19,
+            "percentile": 60.2
+          },
+          {
+            "year": 2022,
+            "value": 0.198,
+            "percentile": 60.3
+          },
+          {
+            "year": 2023,
+            "value": 0.26,
+            "percentile": 61.4
+          },
+          {
+            "year": 2024,
+            "value": 0.213,
+            "percentile": 60.6
+          }
+        ],
+        "HR": [
+          {
+            "year": 2005,
+            "value": 0.649,
+            "percentile": 68.2
+          },
+          {
+            "year": 2006,
+            "value": 0.647,
+            "percentile": 68.2
+          },
+          {
+            "year": 2007,
+            "value": 0.657,
+            "percentile": 68.4
+          },
+          {
+            "year": 2008,
+            "value": 0.576,
+            "percentile": 66.9
+          },
+          {
+            "year": 2009,
+            "value": 0.613,
+            "percentile": 67.6
+          },
+          {
+            "year": 2010,
+            "value": 0.587,
+            "percentile": 67.1
+          },
+          {
+            "year": 2011,
+            "value": 0.507,
+            "percentile": 65.7
+          },
+          {
+            "year": 2012,
+            "value": 0.574,
+            "percentile": 66.9
+          },
+          {
+            "year": 2013,
+            "value": 0.513,
+            "percentile": 65.8
+          },
+          {
+            "year": 2014,
+            "value": 0.536,
+            "percentile": 66.2
+          },
+          {
+            "year": 2015,
+            "value": 0.584,
+            "percentile": 67.1
+          },
+          {
+            "year": 2016,
+            "value": 0.526,
+            "percentile": 66.1
+          },
+          {
+            "year": 2017,
+            "value": 0.456,
+            "percentile": 64.8
+          },
+          {
+            "year": 2018,
+            "value": 0.388,
+            "percentile": 63.6
+          },
+          {
+            "year": 2019,
+            "value": 0.438,
+            "percentile": 64.5
+          },
+          {
+            "year": 2020,
+            "value": 0.571,
+            "percentile": 66.8
+          },
+          {
+            "year": 2021,
+            "value": 0.591,
+            "percentile": 67.2
+          },
+          {
+            "year": 2022,
+            "value": 0.594,
+            "percentile": 67.2
+          },
+          {
+            "year": 2023,
+            "value": 0.629,
+            "percentile": 67.9
+          },
+          {
+            "year": 2024,
+            "value": 0.649,
+            "percentile": 68.2
+          }
+        ],
+        "GR": [
+          {
+            "year": 2005,
+            "value": 1.154,
+            "percentile": 77
+          },
+          {
+            "year": 2006,
+            "value": 1.191,
+            "percentile": 77.7
+          },
+          {
+            "year": 2007,
+            "value": 1.224,
+            "percentile": 78.3
+          },
+          {
+            "year": 2008,
+            "value": 1.099,
+            "percentile": 76.1
+          },
+          {
+            "year": 2009,
+            "value": 1.148,
+            "percentile": 76.9
+          },
+          {
+            "year": 2010,
+            "value": 1.01,
+            "percentile": 74.5
+          },
+          {
+            "year": 2011,
+            "value": 0.938,
+            "percentile": 73.3
+          },
+          {
+            "year": 2012,
+            "value": 0.707,
+            "percentile": 69.2
+          },
+          {
+            "year": 2013,
+            "value": 0.676,
+            "percentile": 68.7
+          },
+          {
+            "year": 2014,
+            "value": 0.69,
+            "percentile": 68.9
+          },
+          {
+            "year": 2015,
+            "value": 0.667,
+            "percentile": 68.5
+          },
+          {
+            "year": 2016,
+            "value": 0.678,
+            "percentile": 68.7
+          },
+          {
+            "year": 2017,
+            "value": 0.663,
+            "percentile": 68.5
+          },
+          {
+            "year": 2018,
+            "value": 0.7,
+            "percentile": 69.1
+          },
+          {
+            "year": 2019,
+            "value": 0.734,
+            "percentile": 69.7
+          },
+          {
+            "year": 2020,
+            "value": 0.855,
+            "percentile": 71.8
+          },
+          {
+            "year": 2021,
+            "value": 0.798,
+            "percentile": 70.8
+          },
+          {
+            "year": 2022,
+            "value": 0.792,
+            "percentile": 70.7
+          },
+          {
+            "year": 2023,
+            "value": 0.83,
+            "percentile": 71.4
+          },
+          {
+            "year": 2024,
+            "value": 0.782,
+            "percentile": 70.5
+          }
+        ],
+        "HU": [
+          {
+            "year": 2005,
+            "value": 1.147,
+            "percentile": 76.9
+          },
+          {
+            "year": 2006,
+            "value": 1.084,
+            "percentile": 75.8
+          },
+          {
+            "year": 2007,
+            "value": 1.058,
+            "percentile": 75.4
+          },
+          {
+            "year": 2008,
+            "value": 0.971,
+            "percentile": 73.8
+          },
+          {
+            "year": 2009,
+            "value": 0.974,
+            "percentile": 73.9
+          },
+          {
+            "year": 2010,
+            "value": 0.949,
+            "percentile": 73.5
+          },
+          {
+            "year": 2011,
+            "value": 0.886,
+            "percentile": 72.4
+          },
+          {
+            "year": 2012,
+            "value": 0.724,
+            "percentile": 69.5
+          },
+          {
+            "year": 2013,
+            "value": 0.672,
+            "percentile": 68.6
+          },
+          {
+            "year": 2014,
+            "value": 0.513,
+            "percentile": 65.8
+          },
+          {
+            "year": 2015,
+            "value": 0.46,
+            "percentile": 64.9
+          },
+          {
+            "year": 2016,
+            "value": 0.373,
+            "percentile": 63.4
+          },
+          {
+            "year": 2017,
+            "value": 0.334,
+            "percentile": 62.7
+          },
+          {
+            "year": 2018,
+            "value": 0.136,
+            "percentile": 59.2
+          },
+          {
+            "year": 2019,
+            "value": 0.134,
+            "percentile": 59.2
+          },
+          {
+            "year": 2020,
+            "value": 0.167,
+            "percentile": 59.8
+          },
+          {
+            "year": 2021,
+            "value": 0.08,
+            "percentile": 58.3
+          },
+          {
+            "year": 2022,
+            "value": 0.045,
+            "percentile": 57.6
+          },
+          {
+            "year": 2023,
+            "value": -0.047,
+            "percentile": 56
+          },
+          {
+            "year": 2024,
+            "value": -0.028,
+            "percentile": 56.4
+          }
+        ],
+        "RO": [
+          {
+            "year": 2005,
+            "value": 0.438,
+            "percentile": 64.5
+          },
+          {
+            "year": 2006,
+            "value": 0.535,
+            "percentile": 66.2
+          },
+          {
+            "year": 2007,
+            "value": 0.476,
+            "percentile": 65.2
+          },
+          {
+            "year": 2008,
+            "value": 0.515,
+            "percentile": 65.9
+          },
+          {
+            "year": 2009,
+            "value": 0.479,
+            "percentile": 65.2
+          },
+          {
+            "year": 2010,
+            "value": 0.444,
+            "percentile": 64.6
+          },
+          {
+            "year": 2011,
+            "value": 0.323,
+            "percentile": 62.5
+          },
+          {
+            "year": 2012,
+            "value": 0.328,
+            "percentile": 62.6
+          },
+          {
+            "year": 2013,
+            "value": 0.283,
+            "percentile": 61.8
+          },
+          {
+            "year": 2014,
+            "value": 0.43,
+            "percentile": 64.4
+          },
+          {
+            "year": 2015,
+            "value": 0.533,
+            "percentile": 66.2
+          },
+          {
+            "year": 2016,
+            "value": 0.537,
+            "percentile": 66.3
+          },
+          {
+            "year": 2017,
+            "value": 0.498,
+            "percentile": 65.6
+          },
+          {
+            "year": 2018,
+            "value": 0.439,
+            "percentile": 64.5
+          },
+          {
+            "year": 2019,
+            "value": 0.492,
+            "percentile": 65.5
+          },
+          {
+            "year": 2020,
+            "value": 0.546,
+            "percentile": 66.4
+          },
+          {
+            "year": 2021,
+            "value": 0.543,
+            "percentile": 66.4
+          },
+          {
+            "year": 2022,
+            "value": 0.521,
+            "percentile": 66
+          },
+          {
+            "year": 2023,
+            "value": 0.498,
+            "percentile": 65.6
+          },
+          {
+            "year": 2024,
+            "value": 0.387,
+            "percentile": 63.6
+          }
+        ],
+        "EU27_2020": [
+          {
+            "year": 2005,
+            "value": 1.192,
+            "percentile": 77.7
+          },
+          {
+            "year": 2006,
+            "value": 1.233,
+            "percentile": 78.4
+          },
+          {
+            "year": 2007,
+            "value": 1.238,
+            "percentile": 78.5
+          },
+          {
+            "year": 2008,
+            "value": 1.23,
+            "percentile": 78.4
+          },
+          {
+            "year": 2009,
+            "value": 1.231,
+            "percentile": 78.4
+          },
+          {
+            "year": 2010,
+            "value": 1.195,
+            "percentile": 77.8
+          },
+          {
+            "year": 2011,
+            "value": 1.156,
+            "percentile": 77.1
+          },
+          {
+            "year": 2012,
+            "value": 1.148,
+            "percentile": 76.9
+          },
+          {
+            "year": 2013,
+            "value": 1.111,
+            "percentile": 76.3
+          },
+          {
+            "year": 2014,
+            "value": 1.118,
+            "percentile": 76.4
+          },
+          {
+            "year": 2015,
+            "value": 1.144,
+            "percentile": 76.9
+          },
+          {
+            "year": 2016,
+            "value": 1.125,
+            "percentile": 76.5
+          },
+          {
+            "year": 2017,
+            "value": 1.089,
+            "percentile": 75.9
+          },
+          {
+            "year": 2018,
+            "value": 1.061,
+            "percentile": 75.4
+          },
+          {
+            "year": 2019,
+            "value": 1.101,
+            "percentile": 76.1
+          },
+          {
+            "year": 2020,
+            "value": 1.164,
+            "percentile": 77.2
+          },
+          {
+            "year": 2021,
+            "value": 1.143,
+            "percentile": 76.8
+          },
+          {
+            "year": 2022,
+            "value": 1.147,
+            "percentile": 76.9
+          },
+          {
+            "year": 2023,
+            "value": 1.149,
+            "percentile": 77
+          },
+          {
+            "year": 2024,
+            "value": 1.153,
+            "percentile": 77
+          }
+        ]
+      },
+      "PV": {
+        "BG": [
+          {
+            "year": 2005,
+            "value": 0.305,
+            "percentile": 71.1
+          },
+          {
+            "year": 2006,
+            "value": 0.321,
+            "percentile": 71.4
+          },
+          {
+            "year": 2007,
+            "value": 0.358,
+            "percentile": 72
+          },
+          {
+            "year": 2008,
+            "value": 0.407,
+            "percentile": 72.8
+          },
+          {
+            "year": 2009,
+            "value": 0.383,
+            "percentile": 72.4
+          },
+          {
+            "year": 2010,
+            "value": 0.374,
+            "percentile": 72.3
+          },
+          {
+            "year": 2011,
+            "value": 0.309,
+            "percentile": 71.2
+          },
+          {
+            "year": 2012,
+            "value": 0.391,
+            "percentile": 72.6
+          },
+          {
+            "year": 2013,
+            "value": 0.17,
+            "percentile": 68.8
+          },
+          {
+            "year": 2014,
+            "value": 0.242,
+            "percentile": 70
+          },
+          {
+            "year": 2015,
+            "value": 0.182,
+            "percentile": 69
+          },
+          {
+            "year": 2016,
+            "value": 0.207,
+            "percentile": 69.4
+          },
+          {
+            "year": 2017,
+            "value": 0.406,
+            "percentile": 72.8
+          },
+          {
+            "year": 2018,
+            "value": 0.593,
+            "percentile": 76
+          },
+          {
+            "year": 2019,
+            "value": 0.579,
+            "percentile": 75.8
+          },
+          {
+            "year": 2020,
+            "value": 0.421,
+            "percentile": 73.1
+          },
+          {
+            "year": 2021,
+            "value": 0.406,
+            "percentile": 72.8
+          },
+          {
+            "year": 2022,
+            "value": 0.327,
+            "percentile": 71.5
+          },
+          {
+            "year": 2023,
+            "value": 0.314,
+            "percentile": 71.3
+          },
+          {
+            "year": 2024,
+            "value": 0.04,
+            "percentile": 66.6
+          }
+        ],
+        "HR": [
+          {
+            "year": 2005,
+            "value": 0.554,
+            "percentile": 75.4
+          },
+          {
+            "year": 2006,
+            "value": 0.719,
+            "percentile": 78.2
+          },
+          {
+            "year": 2007,
+            "value": 0.778,
+            "percentile": 79.2
+          },
+          {
+            "year": 2008,
+            "value": 0.741,
+            "percentile": 78.6
+          },
+          {
+            "year": 2009,
+            "value": 0.743,
+            "percentile": 78.6
+          },
+          {
+            "year": 2010,
+            "value": 0.699,
+            "percentile": 77.8
+          },
+          {
+            "year": 2011,
+            "value": 0.683,
+            "percentile": 77.6
+          },
+          {
+            "year": 2012,
+            "value": 0.665,
+            "percentile": 77.3
+          },
+          {
+            "year": 2013,
+            "value": 0.698,
+            "percentile": 77.8
+          },
+          {
+            "year": 2014,
+            "value": 0.633,
+            "percentile": 76.7
+          },
+          {
+            "year": 2015,
+            "value": 0.611,
+            "percentile": 76.3
+          },
+          {
+            "year": 2016,
+            "value": 0.635,
+            "percentile": 76.7
+          },
+          {
+            "year": 2017,
+            "value": 0.625,
+            "percentile": 76.6
+          },
+          {
+            "year": 2018,
+            "value": 0.769,
+            "percentile": 79
+          },
+          {
+            "year": 2019,
+            "value": 0.748,
+            "percentile": 78.7
+          },
+          {
+            "year": 2020,
+            "value": 0.648,
+            "percentile": 77
+          },
+          {
+            "year": 2021,
+            "value": 0.636,
+            "percentile": 76.8
+          },
+          {
+            "year": 2022,
+            "value": 0.732,
+            "percentile": 78.4
+          },
+          {
+            "year": 2023,
+            "value": 0.683,
+            "percentile": 77.6
+          },
+          {
+            "year": 2024,
+            "value": 0.581,
+            "percentile": 75.8
+          }
+        ],
+        "GR": [
+          {
+            "year": 2005,
+            "value": 0.561,
+            "percentile": 75.5
+          },
+          {
+            "year": 2006,
+            "value": 0.512,
+            "percentile": 74.6
+          },
+          {
+            "year": 2007,
+            "value": 0.526,
+            "percentile": 74.9
+          },
+          {
+            "year": 2008,
+            "value": 0.292,
+            "percentile": 70.9
+          },
+          {
+            "year": 2009,
+            "value": -0.001,
+            "percentile": 65.9
+          },
+          {
+            "year": 2010,
+            "value": -0.011,
+            "percentile": 65.7
+          },
+          {
+            "year": 2011,
+            "value": -0.078,
+            "percentile": 64.6
+          },
+          {
+            "year": 2012,
+            "value": -0.163,
+            "percentile": 63.1
+          },
+          {
+            "year": 2013,
+            "value": -0.152,
+            "percentile": 63.3
+          },
+          {
+            "year": 2014,
+            "value": -0.07,
+            "percentile": 64.7
+          },
+          {
+            "year": 2015,
+            "value": -0.12,
+            "percentile": 63.8
+          },
+          {
+            "year": 2016,
+            "value": -0.154,
+            "percentile": 63.3
+          },
+          {
+            "year": 2017,
+            "value": 0.007,
+            "percentile": 66
+          },
+          {
+            "year": 2018,
+            "value": 0.351,
+            "percentile": 71.9
+          },
+          {
+            "year": 2019,
+            "value": 0.279,
+            "percentile": 70.7
+          },
+          {
+            "year": 2020,
+            "value": 0.3,
+            "percentile": 71
+          },
+          {
+            "year": 2021,
+            "value": 0.227,
+            "percentile": 69.8
+          },
+          {
+            "year": 2022,
+            "value": 0.237,
+            "percentile": 69.9
+          },
+          {
+            "year": 2023,
+            "value": 0.385,
+            "percentile": 72.5
+          },
+          {
+            "year": 2024,
+            "value": 0.139,
+            "percentile": 68.3
+          }
+        ],
+        "HU": [
+          {
+            "year": 2005,
+            "value": 1.059,
+            "percentile": 84
+          },
+          {
+            "year": 2006,
+            "value": 0.967,
+            "percentile": 82.4
+          },
+          {
+            "year": 2007,
+            "value": 0.783,
+            "percentile": 79.3
+          },
+          {
+            "year": 2008,
+            "value": 0.766,
+            "percentile": 79
+          },
+          {
+            "year": 2009,
+            "value": 0.739,
+            "percentile": 78.5
+          },
+          {
+            "year": 2010,
+            "value": 0.777,
+            "percentile": 79.2
+          },
+          {
+            "year": 2011,
+            "value": 0.716,
+            "percentile": 78.1
+          },
+          {
+            "year": 2012,
+            "value": 0.712,
+            "percentile": 78.1
+          },
+          {
+            "year": 2013,
+            "value": 0.813,
+            "percentile": 79.8
+          },
+          {
+            "year": 2014,
+            "value": 0.806,
+            "percentile": 79.7
+          },
+          {
+            "year": 2015,
+            "value": 0.844,
+            "percentile": 80.3
+          },
+          {
+            "year": 2016,
+            "value": 0.628,
+            "percentile": 76.6
+          },
+          {
+            "year": 2017,
+            "value": 0.732,
+            "percentile": 78.4
+          },
+          {
+            "year": 2018,
+            "value": 0.662,
+            "percentile": 77.2
+          },
+          {
+            "year": 2019,
+            "value": 0.733,
+            "percentile": 78.4
+          },
+          {
+            "year": 2020,
+            "value": 0.794,
+            "percentile": 79.5
+          },
+          {
+            "year": 2021,
+            "value": 0.734,
+            "percentile": 78.4
+          },
+          {
+            "year": 2022,
+            "value": 0.67,
+            "percentile": 77.3
+          },
+          {
+            "year": 2023,
+            "value": 0.584,
+            "percentile": 75.9
+          },
+          {
+            "year": 2024,
+            "value": 0.436,
+            "percentile": 73.3
+          }
+        ],
+        "RO": [
+          {
+            "year": 2005,
+            "value": 0.143,
+            "percentile": 68.3
+          },
+          {
+            "year": 2006,
+            "value": 0.15,
+            "percentile": 68.5
+          },
+          {
+            "year": 2007,
+            "value": 0.199,
+            "percentile": 69.3
+          },
+          {
+            "year": 2008,
+            "value": 0.242,
+            "percentile": 70
+          },
+          {
+            "year": 2009,
+            "value": 0.39,
+            "percentile": 72.6
+          },
+          {
+            "year": 2010,
+            "value": 0.193,
+            "percentile": 69.2
+          },
+          {
+            "year": 2011,
+            "value": 0.121,
+            "percentile": 68
+          },
+          {
+            "year": 2012,
+            "value": 0.048,
+            "percentile": 66.7
+          },
+          {
+            "year": 2013,
+            "value": 0.144,
+            "percentile": 68.4
+          },
+          {
+            "year": 2014,
+            "value": 0.206,
+            "percentile": 69.4
+          },
+          {
+            "year": 2015,
+            "value": 0.347,
+            "percentile": 71.8
+          },
+          {
+            "year": 2016,
+            "value": 0.325,
+            "percentile": 71.4
+          },
+          {
+            "year": 2017,
+            "value": 0.138,
+            "percentile": 68.3
+          },
+          {
+            "year": 2018,
+            "value": 0.144,
+            "percentile": 68.3
+          },
+          {
+            "year": 2019,
+            "value": 0.645,
+            "percentile": 76.9
+          },
+          {
+            "year": 2020,
+            "value": 0.618,
+            "percentile": 76.5
+          },
+          {
+            "year": 2021,
+            "value": 0.667,
+            "percentile": 77.3
+          },
+          {
+            "year": 2022,
+            "value": 0.55,
+            "percentile": 75.3
+          },
+          {
+            "year": 2023,
+            "value": 0.498,
+            "percentile": 74.4
+          },
+          {
+            "year": 2024,
+            "value": 0.159,
+            "percentile": 68.6
+          }
+        ],
+        "EU27_2020": [
+          {
+            "year": 2005,
+            "value": 0.853,
+            "percentile": 80.5
+          },
+          {
+            "year": 2006,
+            "value": 0.846,
+            "percentile": 80.4
+          },
+          {
+            "year": 2007,
+            "value": 0.893,
+            "percentile": 81.1
+          },
+          {
+            "year": 2008,
+            "value": 0.878,
+            "percentile": 80.9
+          },
+          {
+            "year": 2009,
+            "value": 0.852,
+            "percentile": 80.4
+          },
+          {
+            "year": 2010,
+            "value": 0.851,
+            "percentile": 80.4
+          },
+          {
+            "year": 2011,
+            "value": 0.803,
+            "percentile": 79.6
+          },
+          {
+            "year": 2012,
+            "value": 0.809,
+            "percentile": 79.7
+          },
+          {
+            "year": 2013,
+            "value": 0.793,
+            "percentile": 79.4
+          },
+          {
+            "year": 2014,
+            "value": 0.861,
+            "percentile": 80.6
+          },
+          {
+            "year": 2015,
+            "value": 0.784,
+            "percentile": 79.3
+          },
+          {
+            "year": 2016,
+            "value": 0.707,
+            "percentile": 78
+          },
+          {
+            "year": 2017,
+            "value": 0.712,
+            "percentile": 78.1
+          },
+          {
+            "year": 2018,
+            "value": 0.744,
+            "percentile": 78.6
+          },
+          {
+            "year": 2019,
+            "value": 0.738,
+            "percentile": 78.5
+          },
+          {
+            "year": 2020,
+            "value": 0.712,
+            "percentile": 78.1
+          },
+          {
+            "year": 2021,
+            "value": 0.703,
+            "percentile": 77.9
+          },
+          {
+            "year": 2022,
+            "value": 0.647,
+            "percentile": 76.9
+          },
+          {
+            "year": 2023,
+            "value": 0.637,
+            "percentile": 76.8
+          },
+          {
+            "year": 2024,
+            "value": 0.496,
+            "percentile": 74.4
+          }
+        ]
+      },
+      "GE": {
+        "BG": [
+          {
+            "year": 2005,
+            "value": -0.061,
+            "percentile": 50.1
+          },
+          {
+            "year": 2006,
+            "value": -0.166,
+            "percentile": 48.1
+          },
+          {
+            "year": 2007,
+            "value": -0.158,
+            "percentile": 48.3
+          },
+          {
+            "year": 2008,
+            "value": -0.25,
+            "percentile": 46.5
+          },
+          {
+            "year": 2009,
+            "value": -0.059,
+            "percentile": 50.2
+          },
+          {
+            "year": 2010,
+            "value": -0.296,
+            "percentile": 45.6
+          },
+          {
+            "year": 2011,
+            "value": -0.281,
+            "percentile": 45.9
+          },
+          {
+            "year": 2012,
+            "value": -0.202,
+            "percentile": 47.4
+          },
+          {
+            "year": 2013,
+            "value": -0.153,
+            "percentile": 48.4
+          },
+          {
+            "year": 2014,
+            "value": -0.154,
+            "percentile": 48.3
+          },
+          {
+            "year": 2015,
+            "value": -0.11,
+            "percentile": 49.2
+          },
+          {
+            "year": 2016,
+            "value": -0.069,
+            "percentile": 50
+          },
+          {
+            "year": 2017,
+            "value": -0.049,
+            "percentile": 50.4
+          },
+          {
+            "year": 2018,
+            "value": -0.024,
+            "percentile": 50.9
+          },
+          {
+            "year": 2019,
+            "value": 0.036,
+            "percentile": 52
+          },
+          {
+            "year": 2020,
+            "value": -0.058,
+            "percentile": 50.2
+          },
+          {
+            "year": 2021,
+            "value": -0.015,
+            "percentile": 51.1
+          },
+          {
+            "year": 2022,
+            "value": -0.074,
+            "percentile": 49.9
+          },
+          {
+            "year": 2023,
+            "value": 0.106,
+            "percentile": 53.4
+          },
+          {
+            "year": 2024,
+            "value": 0.043,
+            "percentile": 52.2
+          }
+        ],
+        "HR": [
+          {
+            "year": 2005,
+            "value": 0.355,
+            "percentile": 58.2
+          },
+          {
+            "year": 2006,
+            "value": 0.303,
+            "percentile": 57.2
+          },
+          {
+            "year": 2007,
+            "value": 0.375,
+            "percentile": 58.6
+          },
+          {
+            "year": 2008,
+            "value": 0.396,
+            "percentile": 59
+          },
+          {
+            "year": 2009,
+            "value": 0.421,
+            "percentile": 59.5
+          },
+          {
+            "year": 2010,
+            "value": 0.287,
+            "percentile": 56.9
+          },
+          {
+            "year": 2011,
+            "value": 0.241,
+            "percentile": 56
+          },
+          {
+            "year": 2012,
+            "value": 0.401,
+            "percentile": 59.1
+          },
+          {
+            "year": 2013,
+            "value": 0.416,
+            "percentile": 59.4
+          },
+          {
+            "year": 2014,
+            "value": 0.426,
+            "percentile": 59.6
+          },
+          {
+            "year": 2015,
+            "value": 0.257,
+            "percentile": 56.3
+          },
+          {
+            "year": 2016,
+            "value": 0.265,
+            "percentile": 56.5
+          },
+          {
+            "year": 2017,
+            "value": 0.404,
+            "percentile": 59.2
+          },
+          {
+            "year": 2018,
+            "value": 0.493,
+            "percentile": 60.9
+          },
+          {
+            "year": 2019,
+            "value": 0.419,
+            "percentile": 59.5
+          },
+          {
+            "year": 2020,
+            "value": 0.506,
+            "percentile": 61.2
+          },
+          {
+            "year": 2021,
+            "value": 0.756,
+            "percentile": 66
+          },
+          {
+            "year": 2022,
+            "value": 0.716,
+            "percentile": 65.3
+          },
+          {
+            "year": 2023,
+            "value": 0.749,
+            "percentile": 65.9
+          },
+          {
+            "year": 2024,
+            "value": 0.71,
+            "percentile": 65.1
+          }
+        ],
+        "GR": [
+          {
+            "year": 2005,
+            "value": 0.498,
+            "percentile": 61
+          },
+          {
+            "year": 2006,
+            "value": 0.546,
+            "percentile": 62
+          },
+          {
+            "year": 2007,
+            "value": 0.496,
+            "percentile": 61
+          },
+          {
+            "year": 2008,
+            "value": 0.458,
+            "percentile": 60.2
+          },
+          {
+            "year": 2009,
+            "value": 0.495,
+            "percentile": 61
+          },
+          {
+            "year": 2010,
+            "value": 0.304,
+            "percentile": 57.3
+          },
+          {
+            "year": 2011,
+            "value": 0.256,
+            "percentile": 56.3
+          },
+          {
+            "year": 2012,
+            "value": 0.227,
+            "percentile": 55.8
+          },
+          {
+            "year": 2013,
+            "value": 0.397,
+            "percentile": 59.1
+          },
+          {
+            "year": 2014,
+            "value": 0.245,
+            "percentile": 56.1
+          },
+          {
+            "year": 2015,
+            "value": 0.182,
+            "percentile": 54.9
+          },
+          {
+            "year": 2016,
+            "value": 0.084,
+            "percentile": 53
+          },
+          {
+            "year": 2017,
+            "value": 0.262,
+            "percentile": 56.4
+          },
+          {
+            "year": 2018,
+            "value": 0.34,
+            "percentile": 57.9
+          },
+          {
+            "year": 2019,
+            "value": 0.459,
+            "percentile": 60.3
+          },
+          {
+            "year": 2020,
+            "value": 0.587,
+            "percentile": 62.7
+          },
+          {
+            "year": 2021,
+            "value": 0.573,
+            "percentile": 62.5
+          },
+          {
+            "year": 2022,
+            "value": 0.564,
+            "percentile": 62.3
+          },
+          {
+            "year": 2023,
+            "value": 0.258,
+            "percentile": 56.4
+          },
+          {
+            "year": 2024,
+            "value": 0.191,
+            "percentile": 55.1
+          }
+        ],
+        "HU": [
+          {
+            "year": 2005,
+            "value": 0.753,
+            "percentile": 66
+          },
+          {
+            "year": 2006,
+            "value": 0.719,
+            "percentile": 65.3
+          },
+          {
+            "year": 2007,
+            "value": 0.494,
+            "percentile": 60.9
+          },
+          {
+            "year": 2008,
+            "value": 0.495,
+            "percentile": 61
+          },
+          {
+            "year": 2009,
+            "value": 0.542,
+            "percentile": 61.9
+          },
+          {
+            "year": 2010,
+            "value": 0.45,
+            "percentile": 60.1
+          },
+          {
+            "year": 2011,
+            "value": 0.469,
+            "percentile": 60.5
+          },
+          {
+            "year": 2012,
+            "value": 0.432,
+            "percentile": 59.7
+          },
+          {
+            "year": 2013,
+            "value": 0.571,
+            "percentile": 62.4
+          },
+          {
+            "year": 2014,
+            "value": 0.666,
+            "percentile": 64.3
+          },
+          {
+            "year": 2015,
+            "value": 0.58,
+            "percentile": 62.6
+          },
+          {
+            "year": 2016,
+            "value": 0.555,
+            "percentile": 62.1
+          },
+          {
+            "year": 2017,
+            "value": 0.608,
+            "percentile": 63.2
+          },
+          {
+            "year": 2018,
+            "value": 0.626,
+            "percentile": 63.5
+          },
+          {
+            "year": 2019,
+            "value": 0.524,
+            "percentile": 61.5
+          },
+          {
+            "year": 2020,
+            "value": 0.721,
+            "percentile": 65.4
+          },
+          {
+            "year": 2021,
+            "value": 0.784,
+            "percentile": 66.6
+          },
+          {
+            "year": 2022,
+            "value": 0.658,
+            "percentile": 64.1
+          },
+          {
+            "year": 2023,
+            "value": 0.546,
+            "percentile": 62
+          },
+          {
+            "year": 2024,
+            "value": 0.502,
+            "percentile": 61.1
+          }
+        ],
+        "RO": [
+          {
+            "year": 2005,
+            "value": -0.516,
+            "percentile": 41.3
+          },
+          {
+            "year": 2006,
+            "value": -0.453,
+            "percentile": 42.5
+          },
+          {
+            "year": 2007,
+            "value": -0.48,
+            "percentile": 42
+          },
+          {
+            "year": 2008,
+            "value": -0.506,
+            "percentile": 41.5
+          },
+          {
+            "year": 2009,
+            "value": -0.5,
+            "percentile": 41.6
+          },
+          {
+            "year": 2010,
+            "value": -0.226,
+            "percentile": 46.9
+          },
+          {
+            "year": 2011,
+            "value": -0.179,
+            "percentile": 47.9
+          },
+          {
+            "year": 2012,
+            "value": -0.19,
+            "percentile": 47.6
+          },
+          {
+            "year": 2013,
+            "value": -0.046,
+            "percentile": 50.4
+          },
+          {
+            "year": 2014,
+            "value": -0.05,
+            "percentile": 50.4
+          },
+          {
+            "year": 2015,
+            "value": -0.012,
+            "percentile": 51.1
+          },
+          {
+            "year": 2016,
+            "value": -0.119,
+            "percentile": 49
+          },
+          {
+            "year": 2017,
+            "value": -0.12,
+            "percentile": 49
+          },
+          {
+            "year": 2018,
+            "value": -0.102,
+            "percentile": 49.4
+          },
+          {
+            "year": 2019,
+            "value": -0.145,
+            "percentile": 48.5
+          },
+          {
+            "year": 2020,
+            "value": -0.25,
+            "percentile": 46.5
+          },
+          {
+            "year": 2021,
+            "value": -0.078,
+            "percentile": 49.8
+          },
+          {
+            "year": 2022,
+            "value": 0.199,
+            "percentile": 55.2
+          },
+          {
+            "year": 2023,
+            "value": 0.132,
+            "percentile": 53.9
+          },
+          {
+            "year": 2024,
+            "value": 0.418,
+            "percentile": 59.5
+          }
+        ],
+        "EU27_2020": [
+          {
+            "year": 2005,
+            "value": 1.071,
+            "percentile": 72.2
+          },
+          {
+            "year": 2006,
+            "value": 1.014,
+            "percentile": 71.1
+          },
+          {
+            "year": 2007,
+            "value": 0.987,
+            "percentile": 70.5
+          },
+          {
+            "year": 2008,
+            "value": 1.019,
+            "percentile": 71.2
+          },
+          {
+            "year": 2009,
+            "value": 1.048,
+            "percentile": 71.7
+          },
+          {
+            "year": 2010,
+            "value": 0.984,
+            "percentile": 70.5
+          },
+          {
+            "year": 2011,
+            "value": 1.023,
+            "percentile": 71.2
+          },
+          {
+            "year": 2012,
+            "value": 1.058,
+            "percentile": 71.9
+          },
+          {
+            "year": 2013,
+            "value": 1.083,
+            "percentile": 72.4
+          },
+          {
+            "year": 2014,
+            "value": 1.1,
+            "percentile": 72.7
+          },
+          {
+            "year": 2015,
+            "value": 1.075,
+            "percentile": 72.2
+          },
+          {
+            "year": 2016,
+            "value": 1.072,
+            "percentile": 72.2
+          },
+          {
+            "year": 2017,
+            "value": 1.075,
+            "percentile": 72.2
+          },
+          {
+            "year": 2018,
+            "value": 1.105,
+            "percentile": 72.8
+          },
+          {
+            "year": 2019,
+            "value": 1.099,
+            "percentile": 72.7
+          },
+          {
+            "year": 2020,
+            "value": 1.155,
+            "percentile": 73.8
+          },
+          {
+            "year": 2021,
+            "value": 1.182,
+            "percentile": 74.3
+          },
+          {
+            "year": 2022,
+            "value": 1.157,
+            "percentile": 73.8
+          },
+          {
+            "year": 2023,
+            "value": 1.093,
+            "percentile": 72.6
+          },
+          {
+            "year": 2024,
+            "value": 1.089,
+            "percentile": 72.5
+          }
+        ]
+      },
+      "RQ": {
+        "BG": [
+          {
+            "year": 2005,
+            "value": 0.635,
+            "percentile": 64.9
+          },
+          {
+            "year": 2006,
+            "value": 0.552,
+            "percentile": 63.6
+          },
+          {
+            "year": 2007,
+            "value": 0.597,
+            "percentile": 64.3
+          },
+          {
+            "year": 2008,
+            "value": 0.629,
+            "percentile": 64.8
+          },
+          {
+            "year": 2009,
+            "value": 0.501,
+            "percentile": 62.8
+          },
+          {
+            "year": 2010,
+            "value": 0.483,
+            "percentile": 62.5
+          },
+          {
+            "year": 2011,
+            "value": 0.329,
+            "percentile": 60.1
+          },
+          {
+            "year": 2012,
+            "value": 0.331,
+            "percentile": 60.1
+          },
+          {
+            "year": 2013,
+            "value": 0.296,
+            "percentile": 59.5
+          },
+          {
+            "year": 2014,
+            "value": 0.308,
+            "percentile": 59.7
+          },
+          {
+            "year": 2015,
+            "value": 0.418,
+            "percentile": 61.5
+          },
+          {
+            "year": 2016,
+            "value": 0.556,
+            "percentile": 63.6
+          },
+          {
+            "year": 2017,
+            "value": 0.538,
+            "percentile": 63.3
+          },
+          {
+            "year": 2018,
+            "value": 0.482,
+            "percentile": 62.5
+          },
+          {
+            "year": 2019,
+            "value": 0.458,
+            "percentile": 62.1
+          },
+          {
+            "year": 2020,
+            "value": 0.308,
+            "percentile": 59.7
+          },
+          {
+            "year": 2021,
+            "value": 0.323,
+            "percentile": 60
+          },
+          {
+            "year": 2022,
+            "value": 0.248,
+            "percentile": 58.8
+          },
+          {
+            "year": 2023,
+            "value": 0.352,
+            "percentile": 60.4
+          },
+          {
+            "year": 2024,
+            "value": 0.288,
+            "percentile": 59.4
+          }
+        ],
+        "HR": [
+          {
+            "year": 2005,
+            "value": 0.41,
+            "percentile": 61.3
+          },
+          {
+            "year": 2006,
+            "value": 0.321,
+            "percentile": 59.9
+          },
+          {
+            "year": 2007,
+            "value": 0.373,
+            "percentile": 60.8
+          },
+          {
+            "year": 2008,
+            "value": 0.354,
+            "percentile": 60.4
+          },
+          {
+            "year": 2009,
+            "value": 0.377,
+            "percentile": 60.8
+          },
+          {
+            "year": 2010,
+            "value": 0.313,
+            "percentile": 59.8
+          },
+          {
+            "year": 2011,
+            "value": 0.275,
+            "percentile": 59.2
+          },
+          {
+            "year": 2012,
+            "value": 0.206,
+            "percentile": 58.1
+          },
+          {
+            "year": 2013,
+            "value": 0.226,
+            "percentile": 58.4
+          },
+          {
+            "year": 2014,
+            "value": 0.119,
+            "percentile": 56.7
+          },
+          {
+            "year": 2015,
+            "value": 0.146,
+            "percentile": 57.2
+          },
+          {
+            "year": 2016,
+            "value": 0.18,
+            "percentile": 57.7
+          },
+          {
+            "year": 2017,
+            "value": 0.296,
+            "percentile": 59.5
+          },
+          {
+            "year": 2018,
+            "value": 0.396,
+            "percentile": 61.1
+          },
+          {
+            "year": 2019,
+            "value": 0.385,
+            "percentile": 60.9
+          },
+          {
+            "year": 2020,
+            "value": 0.202,
+            "percentile": 58
+          },
+          {
+            "year": 2021,
+            "value": 0.332,
+            "percentile": 60.1
+          },
+          {
+            "year": 2022,
+            "value": 0.299,
+            "percentile": 59.6
+          },
+          {
+            "year": 2023,
+            "value": 0.444,
+            "percentile": 61.9
+          },
+          {
+            "year": 2024,
+            "value": 0.286,
+            "percentile": 59.4
+          }
+        ],
+        "GR": [
+          {
+            "year": 2005,
+            "value": 0.838,
+            "percentile": 68.1
+          },
+          {
+            "year": 2006,
+            "value": 0.821,
+            "percentile": 67.8
+          },
+          {
+            "year": 2007,
+            "value": 0.831,
+            "percentile": 68
+          },
+          {
+            "year": 2008,
+            "value": 0.765,
+            "percentile": 66.9
+          },
+          {
+            "year": 2009,
+            "value": 0.647,
+            "percentile": 65.1
+          },
+          {
+            "year": 2010,
+            "value": 0.435,
+            "percentile": 61.7
+          },
+          {
+            "year": 2011,
+            "value": 0.274,
+            "percentile": 59.2
+          },
+          {
+            "year": 2012,
+            "value": 0.145,
+            "percentile": 57.1
+          },
+          {
+            "year": 2013,
+            "value": 0.275,
+            "percentile": 59.2
+          },
+          {
+            "year": 2014,
+            "value": 0.154,
+            "percentile": 57.3
+          },
+          {
+            "year": 2015,
+            "value": 0.236,
+            "percentile": 58.6
+          },
+          {
+            "year": 2016,
+            "value": 0.15,
+            "percentile": 57.2
+          },
+          {
+            "year": 2017,
+            "value": 0.157,
+            "percentile": 57.3
+          },
+          {
+            "year": 2018,
+            "value": 0.287,
+            "percentile": 59.4
+          },
+          {
+            "year": 2019,
+            "value": 0.419,
+            "percentile": 61.5
+          },
+          {
+            "year": 2020,
+            "value": 0.442,
+            "percentile": 61.8
+          },
+          {
+            "year": 2021,
+            "value": 0.396,
+            "percentile": 61.1
+          },
+          {
+            "year": 2022,
+            "value": 0.421,
+            "percentile": 61.5
+          },
+          {
+            "year": 2023,
+            "value": 0.515,
+            "percentile": 63
+          },
+          {
+            "year": 2024,
+            "value": 0.48,
+            "percentile": 62.4
+          }
+        ],
+        "HU": [
+          {
+            "year": 2005,
+            "value": 1.252,
+            "percentile": 74.6
+          },
+          {
+            "year": 2006,
+            "value": 1.277,
+            "percentile": 75
+          },
+          {
+            "year": 2007,
+            "value": 1.291,
+            "percentile": 75.2
+          },
+          {
+            "year": 2008,
+            "value": 1.196,
+            "percentile": 73.7
+          },
+          {
+            "year": 2009,
+            "value": 1.128,
+            "percentile": 72.6
+          },
+          {
+            "year": 2010,
+            "value": 0.93,
+            "percentile": 69.5
+          },
+          {
+            "year": 2011,
+            "value": 0.895,
+            "percentile": 69
+          },
+          {
+            "year": 2012,
+            "value": 0.768,
+            "percentile": 67
+          },
+          {
+            "year": 2013,
+            "value": 0.7,
+            "percentile": 65.9
+          },
+          {
+            "year": 2014,
+            "value": 0.435,
+            "percentile": 61.7
+          },
+          {
+            "year": 2015,
+            "value": 0.52,
+            "percentile": 63.1
+          },
+          {
+            "year": 2016,
+            "value": 0.496,
+            "percentile": 62.7
+          },
+          {
+            "year": 2017,
+            "value": 0.515,
+            "percentile": 63
+          },
+          {
+            "year": 2018,
+            "value": 0.442,
+            "percentile": 61.8
+          },
+          {
+            "year": 2019,
+            "value": 0.46,
+            "percentile": 62.1
+          },
+          {
+            "year": 2020,
+            "value": 0.438,
+            "percentile": 61.8
+          },
+          {
+            "year": 2021,
+            "value": 0.4,
+            "percentile": 61.2
+          },
+          {
+            "year": 2022,
+            "value": 0.288,
+            "percentile": 59.4
+          },
+          {
+            "year": 2023,
+            "value": 0.238,
+            "percentile": 58.6
+          },
+          {
+            "year": 2024,
+            "value": 0.335,
+            "percentile": 60.1
+          }
+        ],
+        "RO": [
+          {
+            "year": 2005,
+            "value": -0.01,
+            "percentile": 54.7
+          },
+          {
+            "year": 2006,
+            "value": 0.323,
+            "percentile": 60
+          },
+          {
+            "year": 2007,
+            "value": 0.393,
+            "percentile": 61.1
+          },
+          {
+            "year": 2008,
+            "value": 0.399,
+            "percentile": 61.2
+          },
+          {
+            "year": 2009,
+            "value": 0.339,
+            "percentile": 60.2
+          },
+          {
+            "year": 2010,
+            "value": 0.422,
+            "percentile": 61.5
+          },
+          {
+            "year": 2011,
+            "value": 0.375,
+            "percentile": 60.8
+          },
+          {
+            "year": 2012,
+            "value": 0.308,
+            "percentile": 59.7
+          },
+          {
+            "year": 2013,
+            "value": 0.39,
+            "percentile": 61
+          },
+          {
+            "year": 2014,
+            "value": 0.388,
+            "percentile": 61
+          },
+          {
+            "year": 2015,
+            "value": 0.453,
+            "percentile": 62
+          },
+          {
+            "year": 2016,
+            "value": 0.448,
+            "percentile": 61.9
+          },
+          {
+            "year": 2017,
+            "value": 0.419,
+            "percentile": 61.5
+          },
+          {
+            "year": 2018,
+            "value": 0.385,
+            "percentile": 60.9
+          },
+          {
+            "year": 2019,
+            "value": 0.357,
+            "percentile": 60.5
+          },
+          {
+            "year": 2020,
+            "value": 0.303,
+            "percentile": 59.6
+          },
+          {
+            "year": 2021,
+            "value": 0.315,
+            "percentile": 59.8
+          },
+          {
+            "year": 2022,
+            "value": 0.394,
+            "percentile": 61.1
+          },
+          {
+            "year": 2023,
+            "value": 0.345,
+            "percentile": 60.3
+          },
+          {
+            "year": 2024,
+            "value": 0.383,
+            "percentile": 60.9
+          }
+        ],
+        "EU27_2020": [
+          {
+            "year": 2005,
+            "value": 1.264,
+            "percentile": 74.8
+          },
+          {
+            "year": 2006,
+            "value": 1.269,
+            "percentile": 74.9
+          },
+          {
+            "year": 2007,
+            "value": 1.28,
+            "percentile": 75.1
+          },
+          {
+            "year": 2008,
+            "value": 1.238,
+            "percentile": 74.4
+          },
+          {
+            "year": 2009,
+            "value": 1.195,
+            "percentile": 73.7
+          },
+          {
+            "year": 2010,
+            "value": 1.161,
+            "percentile": 73.2
+          },
+          {
+            "year": 2011,
+            "value": 1.11,
+            "percentile": 72.4
+          },
+          {
+            "year": 2012,
+            "value": 1.075,
+            "percentile": 71.8
+          },
+          {
+            "year": 2013,
+            "value": 1.066,
+            "percentile": 71.7
+          },
+          {
+            "year": 2014,
+            "value": 0.979,
+            "percentile": 70.3
+          },
+          {
+            "year": 2015,
+            "value": 1.062,
+            "percentile": 71.6
+          },
+          {
+            "year": 2016,
+            "value": 1.092,
+            "percentile": 72.1
+          },
+          {
+            "year": 2017,
+            "value": 1.096,
+            "percentile": 72.1
+          },
+          {
+            "year": 2018,
+            "value": 1.105,
+            "percentile": 72.3
+          },
+          {
+            "year": 2019,
+            "value": 1.131,
+            "percentile": 72.7
+          },
+          {
+            "year": 2020,
+            "value": 1.062,
+            "percentile": 71.6
+          },
+          {
+            "year": 2021,
+            "value": 1.097,
+            "percentile": 72.2
+          },
+          {
+            "year": 2022,
+            "value": 1.071,
+            "percentile": 71.8
+          },
+          {
+            "year": 2023,
+            "value": 1.059,
+            "percentile": 71.6
+          },
+          {
+            "year": 2024,
+            "value": 1.04,
+            "percentile": 71.3
+          }
+        ]
+      },
+      "RL": {
+        "BG": [
+          {
+            "year": 2005,
+            "value": -0.116,
+            "percentile": 55
+          },
+          {
+            "year": 2006,
+            "value": -0.07,
+            "percentile": 55.8
+          },
+          {
+            "year": 2007,
+            "value": -0.033,
+            "percentile": 56.4
+          },
+          {
+            "year": 2008,
+            "value": -0.147,
+            "percentile": 54.4
+          },
+          {
+            "year": 2009,
+            "value": -0.139,
+            "percentile": 54.6
+          },
+          {
+            "year": 2010,
+            "value": -0.3,
+            "percentile": 51.8
+          },
+          {
+            "year": 2011,
+            "value": -0.337,
+            "percentile": 51.2
+          },
+          {
+            "year": 2012,
+            "value": -0.218,
+            "percentile": 53.2
+          },
+          {
+            "year": 2013,
+            "value": -0.231,
+            "percentile": 53
+          },
+          {
+            "year": 2014,
+            "value": -0.215,
+            "percentile": 53.3
+          },
+          {
+            "year": 2015,
+            "value": -0.208,
+            "percentile": 53.4
+          },
+          {
+            "year": 2016,
+            "value": -0.198,
+            "percentile": 53.6
+          },
+          {
+            "year": 2017,
+            "value": -0.233,
+            "percentile": 52.9
+          },
+          {
+            "year": 2018,
+            "value": -0.141,
+            "percentile": 54.5
+          },
+          {
+            "year": 2019,
+            "value": -0.141,
+            "percentile": 54.5
+          },
+          {
+            "year": 2020,
+            "value": -0.151,
+            "percentile": 54.4
+          },
+          {
+            "year": 2021,
+            "value": -0.038,
+            "percentile": 56.3
+          },
+          {
+            "year": 2022,
+            "value": -0.1,
+            "percentile": 55.2
+          },
+          {
+            "year": 2023,
+            "value": -0.027,
+            "percentile": 56.5
+          },
+          {
+            "year": 2024,
+            "value": -0.033,
+            "percentile": 56.4
+          }
+        ],
+        "HR": [
+          {
+            "year": 2005,
+            "value": 0.134,
+            "percentile": 59.3
+          },
+          {
+            "year": 2006,
+            "value": 0.034,
+            "percentile": 57.5
+          },
+          {
+            "year": 2007,
+            "value": 0.152,
+            "percentile": 59.6
+          },
+          {
+            "year": 2008,
+            "value": 0.086,
+            "percentile": 58.4
+          },
+          {
+            "year": 2009,
+            "value": 0.108,
+            "percentile": 58.8
+          },
+          {
+            "year": 2010,
+            "value": 0.214,
+            "percentile": 60.6
+          },
+          {
+            "year": 2011,
+            "value": 0.24,
+            "percentile": 61.1
+          },
+          {
+            "year": 2012,
+            "value": 0.268,
+            "percentile": 61.6
+          },
+          {
+            "year": 2013,
+            "value": 0.262,
+            "percentile": 61.5
+          },
+          {
+            "year": 2014,
+            "value": 0.359,
+            "percentile": 63.1
+          },
+          {
+            "year": 2015,
+            "value": 0.334,
+            "percentile": 62.7
+          },
+          {
+            "year": 2016,
+            "value": 0.305,
+            "percentile": 62.2
+          },
+          {
+            "year": 2017,
+            "value": 0.343,
+            "percentile": 62.9
+          },
+          {
+            "year": 2018,
+            "value": 0.255,
+            "percentile": 61.4
+          },
+          {
+            "year": 2019,
+            "value": 0.31,
+            "percentile": 62.3
+          },
+          {
+            "year": 2020,
+            "value": 0.349,
+            "percentile": 63
+          },
+          {
+            "year": 2021,
+            "value": 0.413,
+            "percentile": 64.1
+          },
+          {
+            "year": 2022,
+            "value": 0.435,
+            "percentile": 64.4
+          },
+          {
+            "year": 2023,
+            "value": 0.426,
+            "percentile": 64.3
+          },
+          {
+            "year": 2024,
+            "value": 0.377,
+            "percentile": 63.5
+          }
+        ],
+        "GR": [
+          {
+            "year": 2005,
+            "value": 0.806,
+            "percentile": 70.8
+          },
+          {
+            "year": 2006,
+            "value": 0.812,
+            "percentile": 70.9
+          },
+          {
+            "year": 2007,
+            "value": 0.809,
+            "percentile": 70.9
+          },
+          {
+            "year": 2008,
+            "value": 0.701,
+            "percentile": 69
+          },
+          {
+            "year": 2009,
+            "value": 0.623,
+            "percentile": 67.7
+          },
+          {
+            "year": 2010,
+            "value": 0.479,
+            "percentile": 65.2
+          },
+          {
+            "year": 2011,
+            "value": 0.479,
+            "percentile": 65.2
+          },
+          {
+            "year": 2012,
+            "value": 0.346,
+            "percentile": 62.9
+          },
+          {
+            "year": 2013,
+            "value": 0.395,
+            "percentile": 63.8
+          },
+          {
+            "year": 2014,
+            "value": 0.361,
+            "percentile": 63.2
+          },
+          {
+            "year": 2015,
+            "value": 0.34,
+            "percentile": 62.8
+          },
+          {
+            "year": 2016,
+            "value": 0.265,
+            "percentile": 61.5
+          },
+          {
+            "year": 2017,
+            "value": 0.278,
+            "percentile": 61.7
+          },
+          {
+            "year": 2018,
+            "value": 0.28,
+            "percentile": 61.8
+          },
+          {
+            "year": 2019,
+            "value": 0.384,
+            "percentile": 63.6
+          },
+          {
+            "year": 2020,
+            "value": 0.473,
+            "percentile": 65.1
+          },
+          {
+            "year": 2021,
+            "value": 0.444,
+            "percentile": 64.6
+          },
+          {
+            "year": 2022,
+            "value": 0.489,
+            "percentile": 65.4
+          },
+          {
+            "year": 2023,
+            "value": 0.396,
+            "percentile": 63.8
+          },
+          {
+            "year": 2024,
+            "value": 0.298,
+            "percentile": 62.1
+          }
+        ],
+        "HU": [
+          {
+            "year": 2005,
+            "value": 0.916,
+            "percentile": 72.7
+          },
+          {
+            "year": 2006,
+            "value": 0.962,
+            "percentile": 73.5
+          },
+          {
+            "year": 2007,
+            "value": 0.894,
+            "percentile": 72.3
+          },
+          {
+            "year": 2008,
+            "value": 0.777,
+            "percentile": 70.3
+          },
+          {
+            "year": 2009,
+            "value": 0.612,
+            "percentile": 67.5
+          },
+          {
+            "year": 2010,
+            "value": 0.582,
+            "percentile": 67
+          },
+          {
+            "year": 2011,
+            "value": 0.632,
+            "percentile": 67.8
+          },
+          {
+            "year": 2012,
+            "value": 0.566,
+            "percentile": 66.7
+          },
+          {
+            "year": 2013,
+            "value": 0.499,
+            "percentile": 65.5
+          },
+          {
+            "year": 2014,
+            "value": 0.351,
+            "percentile": 63
+          },
+          {
+            "year": 2015,
+            "value": 0.355,
+            "percentile": 63.1
+          },
+          {
+            "year": 2016,
+            "value": 0.41,
+            "percentile": 64
+          },
+          {
+            "year": 2017,
+            "value": 0.401,
+            "percentile": 63.9
+          },
+          {
+            "year": 2018,
+            "value": 0.34,
+            "percentile": 62.8
+          },
+          {
+            "year": 2019,
+            "value": 0.308,
+            "percentile": 62.3
+          },
+          {
+            "year": 2020,
+            "value": 0.329,
+            "percentile": 62.6
+          },
+          {
+            "year": 2021,
+            "value": 0.297,
+            "percentile": 62.1
+          },
+          {
+            "year": 2022,
+            "value": 0.243,
+            "percentile": 61.1
+          },
+          {
+            "year": 2023,
+            "value": 0.189,
+            "percentile": 60.2
+          },
+          {
+            "year": 2024,
+            "value": 0.192,
+            "percentile": 60.3
+          }
+        ],
+        "RO": [
+          {
+            "year": 2005,
+            "value": -0.091,
+            "percentile": 55.4
+          },
+          {
+            "year": 2006,
+            "value": 0.02,
+            "percentile": 57.3
+          },
+          {
+            "year": 2007,
+            "value": 0.045,
+            "percentile": 57.7
+          },
+          {
+            "year": 2008,
+            "value": 0.093,
+            "percentile": 58.6
+          },
+          {
+            "year": 2009,
+            "value": 0.119,
+            "percentile": 59
+          },
+          {
+            "year": 2010,
+            "value": 0.104,
+            "percentile": 58.7
+          },
+          {
+            "year": 2011,
+            "value": 0.152,
+            "percentile": 59.6
+          },
+          {
+            "year": 2012,
+            "value": 0.147,
+            "percentile": 59.5
+          },
+          {
+            "year": 2013,
+            "value": 0.205,
+            "percentile": 60.5
+          },
+          {
+            "year": 2014,
+            "value": 0.365,
+            "percentile": 63.3
+          },
+          {
+            "year": 2015,
+            "value": 0.386,
+            "percentile": 63.6
+          },
+          {
+            "year": 2016,
+            "value": 0.37,
+            "percentile": 63.3
+          },
+          {
+            "year": 2017,
+            "value": 0.396,
+            "percentile": 63.8
+          },
+          {
+            "year": 2018,
+            "value": 0.307,
+            "percentile": 62.2
+          },
+          {
+            "year": 2019,
+            "value": 0.367,
+            "percentile": 63.3
+          },
+          {
+            "year": 2020,
+            "value": 0.459,
+            "percentile": 64.9
+          },
+          {
+            "year": 2021,
+            "value": 0.462,
+            "percentile": 64.9
+          },
+          {
+            "year": 2022,
+            "value": 0.435,
+            "percentile": 64.5
+          },
+          {
+            "year": 2023,
+            "value": 0.412,
+            "percentile": 64.1
+          },
+          {
+            "year": 2024,
+            "value": 0.371,
+            "percentile": 63.4
+          }
+        ],
+        "EU27_2020": [
+          {
+            "year": 2005,
+            "value": 1.043,
+            "percentile": 74.9
+          },
+          {
+            "year": 2006,
+            "value": 1.06,
+            "percentile": 75.2
+          },
+          {
+            "year": 2007,
+            "value": 1.102,
+            "percentile": 75.9
+          },
+          {
+            "year": 2008,
+            "value": 1.078,
+            "percentile": 75.5
+          },
+          {
+            "year": 2009,
+            "value": 1.013,
+            "percentile": 74.4
+          },
+          {
+            "year": 2010,
+            "value": 1.01,
+            "percentile": 74.4
+          },
+          {
+            "year": 2011,
+            "value": 1.007,
+            "percentile": 74.3
+          },
+          {
+            "year": 2012,
+            "value": 1.031,
+            "percentile": 74.7
+          },
+          {
+            "year": 2013,
+            "value": 1.012,
+            "percentile": 74.4
+          },
+          {
+            "year": 2014,
+            "value": 1.045,
+            "percentile": 75
+          },
+          {
+            "year": 2015,
+            "value": 1.073,
+            "percentile": 75.4
+          },
+          {
+            "year": 2016,
+            "value": 1.068,
+            "percentile": 75.4
+          },
+          {
+            "year": 2017,
+            "value": 1.063,
+            "percentile": 75.3
+          },
+          {
+            "year": 2018,
+            "value": 1.039,
+            "percentile": 74.8
+          },
+          {
+            "year": 2019,
+            "value": 1.094,
+            "percentile": 75.8
+          },
+          {
+            "year": 2020,
+            "value": 1.092,
+            "percentile": 75.8
+          },
+          {
+            "year": 2021,
+            "value": 1.095,
+            "percentile": 75.8
+          },
+          {
+            "year": 2022,
+            "value": 1.068,
+            "percentile": 75.4
+          },
+          {
+            "year": 2023,
+            "value": 1.067,
+            "percentile": 75.3
+          },
+          {
+            "year": 2024,
+            "value": 1.07,
+            "percentile": 75.4
+          }
+        ]
+      },
+      "CC": {
+        "BG": [
+          {
+            "year": 2005,
+            "value": 0.024,
+            "percentile": 48.3
+          },
+          {
+            "year": 2006,
+            "value": 0.107,
+            "percentile": 50
+          },
+          {
+            "year": 2007,
+            "value": -0.061,
+            "percentile": 46.6
+          },
+          {
+            "year": 2008,
+            "value": -0.112,
+            "percentile": 45.6
+          },
+          {
+            "year": 2009,
+            "value": -0.249,
+            "percentile": 42.8
+          },
+          {
+            "year": 2010,
+            "value": -0.321,
+            "percentile": 41.4
+          },
+          {
+            "year": 2011,
+            "value": -0.356,
+            "percentile": 40.7
+          },
+          {
+            "year": 2012,
+            "value": -0.357,
+            "percentile": 40.6
+          },
+          {
+            "year": 2013,
+            "value": -0.348,
+            "percentile": 40.8
+          },
+          {
+            "year": 2014,
+            "value": -0.39,
+            "percentile": 40
+          },
+          {
+            "year": 2015,
+            "value": -0.439,
+            "percentile": 39
+          },
+          {
+            "year": 2016,
+            "value": -0.344,
+            "percentile": 40.9
+          },
+          {
+            "year": 2017,
+            "value": -0.308,
+            "percentile": 41.6
+          },
+          {
+            "year": 2018,
+            "value": -0.189,
+            "percentile": 44
+          },
+          {
+            "year": 2019,
+            "value": -0.125,
+            "percentile": 45.3
+          },
+          {
+            "year": 2020,
+            "value": -0.258,
+            "percentile": 42.6
+          },
+          {
+            "year": 2021,
+            "value": -0.226,
+            "percentile": 43.3
+          },
+          {
+            "year": 2022,
+            "value": -0.137,
+            "percentile": 45.1
+          },
+          {
+            "year": 2023,
+            "value": -0.15,
+            "percentile": 44.8
+          },
+          {
+            "year": 2024,
+            "value": -0.24,
+            "percentile": 43
+          }
+        ],
+        "HR": [
+          {
+            "year": 2005,
+            "value": 0.197,
+            "percentile": 51.8
+          },
+          {
+            "year": 2006,
+            "value": 0.137,
+            "percentile": 50.6
+          },
+          {
+            "year": 2007,
+            "value": 0.1,
+            "percentile": 49.9
+          },
+          {
+            "year": 2008,
+            "value": 0.066,
+            "percentile": 49.2
+          },
+          {
+            "year": 2009,
+            "value": 0.05,
+            "percentile": 48.9
+          },
+          {
+            "year": 2010,
+            "value": 0.114,
+            "percentile": 50.2
+          },
+          {
+            "year": 2011,
+            "value": 0.109,
+            "percentile": 50.1
+          },
+          {
+            "year": 2012,
+            "value": 0.094,
+            "percentile": 49.8
+          },
+          {
+            "year": 2013,
+            "value": 0.114,
+            "percentile": 50.2
+          },
+          {
+            "year": 2014,
+            "value": 0.115,
+            "percentile": 50.2
+          },
+          {
+            "year": 2015,
+            "value": 0.172,
+            "percentile": 51.3
+          },
+          {
+            "year": 2016,
+            "value": 0.109,
+            "percentile": 50.1
+          },
+          {
+            "year": 2017,
+            "value": 0.046,
+            "percentile": 48.8
+          },
+          {
+            "year": 2018,
+            "value": 0.025,
+            "percentile": 48.4
+          },
+          {
+            "year": 2019,
+            "value": 0.025,
+            "percentile": 48.4
+          },
+          {
+            "year": 2020,
+            "value": 0.136,
+            "percentile": 50.6
+          },
+          {
+            "year": 2021,
+            "value": 0.095,
+            "percentile": 49.8
+          },
+          {
+            "year": 2022,
+            "value": 0.107,
+            "percentile": 50
+          },
+          {
+            "year": 2023,
+            "value": 0.114,
+            "percentile": 50.2
+          },
+          {
+            "year": 2024,
+            "value": 0.149,
+            "percentile": 50.9
+          }
+        ],
+        "GR": [
+          {
+            "year": 2005,
+            "value": 0.397,
+            "percentile": 55.9
+          },
+          {
+            "year": 2006,
+            "value": 0.475,
+            "percentile": 57.5
+          },
+          {
+            "year": 2007,
+            "value": 0.285,
+            "percentile": 53.6
+          },
+          {
+            "year": 2008,
+            "value": 0.175,
+            "percentile": 51.4
+          },
+          {
+            "year": 2009,
+            "value": 0.097,
+            "percentile": 49.8
+          },
+          {
+            "year": 2010,
+            "value": -0.031,
+            "percentile": 47.2
+          },
+          {
+            "year": 2011,
+            "value": -0.076,
+            "percentile": 46.3
+          },
+          {
+            "year": 2012,
+            "value": -0.023,
+            "percentile": 47.4
+          },
+          {
+            "year": 2013,
+            "value": 0.11,
+            "percentile": 50.1
+          },
+          {
+            "year": 2014,
+            "value": 0.002,
+            "percentile": 47.9
+          },
+          {
+            "year": 2015,
+            "value": 0.022,
+            "percentile": 48.3
+          },
+          {
+            "year": 2016,
+            "value": 0.089,
+            "percentile": 49.6
+          },
+          {
+            "year": 2017,
+            "value": 0.147,
+            "percentile": 50.8
+          },
+          {
+            "year": 2018,
+            "value": 0.241,
+            "percentile": 52.7
+          },
+          {
+            "year": 2019,
+            "value": 0.304,
+            "percentile": 54
+          },
+          {
+            "year": 2020,
+            "value": 0.281,
+            "percentile": 53.5
+          },
+          {
+            "year": 2021,
+            "value": 0.391,
+            "percentile": 55.8
+          },
+          {
+            "year": 2022,
+            "value": 0.322,
+            "percentile": 54.4
+          },
+          {
+            "year": 2023,
+            "value": 0.329,
+            "percentile": 54.5
+          },
+          {
+            "year": 2024,
+            "value": 0.3,
+            "percentile": 53.9
+          }
+        ],
+        "HU": [
+          {
+            "year": 2005,
+            "value": 0.605,
+            "percentile": 60.1
+          },
+          {
+            "year": 2006,
+            "value": 0.606,
+            "percentile": 60.1
+          },
+          {
+            "year": 2007,
+            "value": 0.533,
+            "percentile": 58.6
+          },
+          {
+            "year": 2008,
+            "value": 0.427,
+            "percentile": 56.5
+          },
+          {
+            "year": 2009,
+            "value": 0.385,
+            "percentile": 55.6
+          },
+          {
+            "year": 2010,
+            "value": 0.247,
+            "percentile": 52.9
+          },
+          {
+            "year": 2011,
+            "value": 0.298,
+            "percentile": 53.9
+          },
+          {
+            "year": 2012,
+            "value": 0.383,
+            "percentile": 55.6
+          },
+          {
+            "year": 2013,
+            "value": 0.354,
+            "percentile": 55
+          },
+          {
+            "year": 2014,
+            "value": 0.173,
+            "percentile": 51.3
+          },
+          {
+            "year": 2015,
+            "value": 0.172,
+            "percentile": 51.3
+          },
+          {
+            "year": 2016,
+            "value": 0.157,
+            "percentile": 51
+          },
+          {
+            "year": 2017,
+            "value": 0.161,
+            "percentile": 51.1
+          },
+          {
+            "year": 2018,
+            "value": 0.139,
+            "percentile": 50.7
+          },
+          {
+            "year": 2019,
+            "value": 0.085,
+            "percentile": 49.6
+          },
+          {
+            "year": 2020,
+            "value": 0.142,
+            "percentile": 50.7
+          },
+          {
+            "year": 2021,
+            "value": 0.131,
+            "percentile": 50.5
+          },
+          {
+            "year": 2022,
+            "value": 0.04,
+            "percentile": 48.7
+          },
+          {
+            "year": 2023,
+            "value": 0.083,
+            "percentile": 49.5
+          },
+          {
+            "year": 2024,
+            "value": 0.039,
+            "percentile": 48.7
+          }
+        ],
+        "RO": [
+          {
+            "year": 2005,
+            "value": -0.354,
+            "percentile": 40.7
+          },
+          {
+            "year": 2006,
+            "value": -0.255,
+            "percentile": 42.7
+          },
+          {
+            "year": 2007,
+            "value": -0.335,
+            "percentile": 41.1
+          },
+          {
+            "year": 2008,
+            "value": -0.294,
+            "percentile": 41.9
+          },
+          {
+            "year": 2009,
+            "value": -0.325,
+            "percentile": 41.3
+          },
+          {
+            "year": 2010,
+            "value": -0.293,
+            "percentile": 41.9
+          },
+          {
+            "year": 2011,
+            "value": -0.178,
+            "percentile": 44.3
+          },
+          {
+            "year": 2012,
+            "value": -0.359,
+            "percentile": 40.6
+          },
+          {
+            "year": 2013,
+            "value": -0.282,
+            "percentile": 42.1
+          },
+          {
+            "year": 2014,
+            "value": -0.231,
+            "percentile": 43.2
+          },
+          {
+            "year": 2015,
+            "value": -0.098,
+            "percentile": 45.9
+          },
+          {
+            "year": 2016,
+            "value": -0.07,
+            "percentile": 46.4
+          },
+          {
+            "year": 2017,
+            "value": -0.049,
+            "percentile": 46.9
+          },
+          {
+            "year": 2018,
+            "value": -0.169,
+            "percentile": 44.4
+          },
+          {
+            "year": 2019,
+            "value": -0.12,
+            "percentile": 45.4
+          },
+          {
+            "year": 2020,
+            "value": -0.05,
+            "percentile": 46.8
+          },
+          {
+            "year": 2021,
+            "value": 0.01,
+            "percentile": 48
+          },
+          {
+            "year": 2022,
+            "value": 0.066,
+            "percentile": 49.2
+          },
+          {
+            "year": 2023,
+            "value": 0.031,
+            "percentile": 48.5
+          },
+          {
+            "year": 2024,
+            "value": 0.026,
+            "percentile": 48.4
+          }
+        ],
+        "EU27_2020": [
+          {
+            "year": 2005,
+            "value": 1.051,
+            "percentile": 69.1
+          },
+          {
+            "year": 2006,
+            "value": 1.073,
+            "percentile": 69.6
+          },
+          {
+            "year": 2007,
+            "value": 1.018,
+            "percentile": 68.5
+          },
+          {
+            "year": 2008,
+            "value": 1.004,
+            "percentile": 68.2
+          },
+          {
+            "year": 2009,
+            "value": 0.976,
+            "percentile": 67.6
+          },
+          {
+            "year": 2010,
+            "value": 0.953,
+            "percentile": 67.1
+          },
+          {
+            "year": 2011,
+            "value": 0.985,
+            "percentile": 67.8
+          },
+          {
+            "year": 2012,
+            "value": 0.963,
+            "percentile": 67.3
+          },
+          {
+            "year": 2013,
+            "value": 0.941,
+            "percentile": 66.9
+          },
+          {
+            "year": 2014,
+            "value": 0.92,
+            "percentile": 66.5
+          },
+          {
+            "year": 2015,
+            "value": 0.955,
+            "percentile": 67.2
+          },
+          {
+            "year": 2016,
+            "value": 0.979,
+            "percentile": 67.7
+          },
+          {
+            "year": 2017,
+            "value": 0.985,
+            "percentile": 67.8
+          },
+          {
+            "year": 2018,
+            "value": 0.993,
+            "percentile": 67.9
+          },
+          {
+            "year": 2019,
+            "value": 1.004,
+            "percentile": 68.2
+          },
+          {
+            "year": 2020,
+            "value": 1.042,
+            "percentile": 68.9
+          },
+          {
+            "year": 2021,
+            "value": 1.025,
+            "percentile": 68.6
+          },
+          {
+            "year": 2022,
+            "value": 1.023,
+            "percentile": 68.6
+          },
+          {
+            "year": 2023,
+            "value": 1.002,
+            "percentile": 68.1
+          },
+          {
+            "year": 2024,
+            "value": 0.995,
+            "percentile": 68
+          }
+        ]
       }
     }
   }

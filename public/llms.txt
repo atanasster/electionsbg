@@ -38,7 +38,7 @@ Site language: primary Bulgarian, with full English UI translation. Every page i
 - [State budget](https://electionsbg.com/budget): consolidated execution, ministry-by-ministry plan vs actual, COFOG breakdown, EU peer comparison.
 - [Public procurement](https://electionsbg.com/procurement): all АОП contracts since the dataset starts, debarred-supplier flags, MP-connection cross-reference.
 - [Party financing](https://electionsbg.com/financing): declared campaign income and expenditures from Сметна палата.
-- [Macro & governance indicators](https://electionsbg.com/indicators): KPI dashboard of Bulgaria's macro/fiscal/governance/social indicators since 2005, with EU27 rank, YoY arrows and cabinet-shaded sparklines; domain sub-pages at /indicators/economy, /indicators/fiscal, /indicators/governance, /indicators/society; peer explorer at /indicators/compare.
+- [Macro & governance indicators](https://electionsbg.com/indicators): KPI dashboard of Bulgaria's macro/fiscal/governance/social indicators since 2005, with EU27 rank, YoY arrows and cabinet-shaded sparklines; domain sub-pages at /indicators/economy, /indicators/fiscal, /indicators/governance, /indicators/society; multi-panel EU peer comparison dashboard at /indicators/compare (WGI radar, COFOG budget composition, SILC inequality, spend-vs-outcome scatters).
 - [Risk analysis](https://electionsbg.com/risk-analysis): composite electoral-risk index across 5 process signals + 4 context signals.
 - [Sitemap index](https://electionsbg.com/sitemap_index.xml): index of per-bucket sitemaps (~78,000 URLs total).
 - [Full corpus (BG)](https://electionsbg.com/llms-full.txt): national summary, per-party retrospect, polling analysis, and full article texts — Bulgarian.

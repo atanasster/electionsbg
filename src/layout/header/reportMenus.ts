@@ -166,6 +166,7 @@ export const governanceMenu: MenuItem[] = [
           { title: "funds_index_title", link: "/funds" },
           { title: "governments_title", link: "/governments" },
           { title: "indicators_page_title", link: "/indicators" },
+          { title: "eu_compare_menu_label", link: "/indicators/compare" },
           { title: "demographics_title", link: "/demographics" },
         ],
       },

@@ -243,12 +243,14 @@ const captures: Capture[] = [
   {
     slug: "indicators-compare",
     routePath: "indicators/compare",
-    // Peer snapshot table — no Recharts. Wait for the table grid to populate
-    // with rows, then top-align on the table section so all eight indicators
-    // and country columns land in the clip.
-    waitFor: '[data-og="indicators-compare-table"] .tabular-nums',
-    anchor: '[data-og="indicators-compare-table"]',
-    settleMs: 2000,
+    // EU compare dashboard hero — the WGI radar. Recharts polygons settle
+    // after the data hook resolves; we wait for an SVG polygon (a Radar
+    // shape) to appear inside the WGI section, then anchor on the section
+    // itself so the radar + legend land in the clip.
+    waitFor: '[data-og="eu-compare-wgi"] svg path',
+    anchor: '[data-og="eu-compare-wgi"]',
+    centerOnAnchor: true,
+    settleMs: 2500,
   },
   {
     slug: "governance",

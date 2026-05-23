@@ -526,7 +526,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <li><a href="${SITE_URL}/indicators/fiscal"><strong>Фискални</strong></a> — държавен дълг, бюджетен баланс и текуща сметка като % от БВП и в номинални евро; фискален резерв със законов праг; държавни приходи/разходи; FDI; таблица с всички емисии държавен дълг (еврооблигации + ДЦК); средства от ЕС vs вноска.</li>
 <li><a href="${SITE_URL}/indicators/governance"><strong>Управление</strong></a> — Индекс за възприятие на корупцията (CPI, Transparency International); Worldwide Governance Indicators (Световна банка); доверие в Народното събрание, правителството и ЕС (Евробарометър).</li>
 <li><a href="${SITE_URL}/indicators/society"><strong>Общество</strong></a> — младежка безработица, годишна промяна на жилищните цени, коефициент на Джини и риск от бедност.</li>
-<li><a href="${SITE_URL}/indicators/compare"><strong>Сравнение със страните от ЕС</strong></a> — осем показателя един до друг за България, ЕС-27 и съседите (Румъния, Гърция, Унгария, Хърватия) с избор на държави, който се запазва в URL.</li>
+<li><a href="${SITE_URL}/indicators/compare"><strong>Сравнение със страните от ЕС</strong></a> — многослойно табло срещу ЕС-27 и четирите съседа: радиограма на WGI, бюджетна композиция (COFOG), неравенство (SILC), разход срещу резултат (здравеопазване, социална закрила).</li>
 </ul>
 <p>Виж и <a href="${SITE_URL}/governments">правителствата</a> за визуализация на същите данни по кабинети.</p>
 <p>Източници: <a href="https://ec.europa.eu/eurostat/databrowser/" rel="nofollow noopener">Евростат</a>, <a href="https://databank.worldbank.org/source/worldwide-governance-indicators" rel="nofollow noopener">World Bank WGI</a>, <a href="https://www.transparency.org/en/cpi" rel="nofollow noopener">Transparency International CPI</a>, <a href="https://europa.eu/eurobarometer/" rel="nofollow noopener">Евробарометър</a>, <a href="https://commission.europa.eu/strategy-and-policy/eu-budget/performance-and-reporting_en" rel="nofollow noopener">Европейска комисия</a>.</p>`.trim(),
@@ -545,7 +545,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 <li><a href="${SITE_URL}/en/indicators/fiscal"><strong>Fiscal</strong></a> — government debt, budget balance and current account as % of GDP and in nominal EUR; fiscal reserve with statutory floor; revenue/expenditure; FDI; full table of Bulgarian sovereign debt emissions (Eurobonds + domestic ДЦК); EU funds vs contribution.</li>
 <li><a href="${SITE_URL}/en/indicators/governance"><strong>Governance</strong></a> — Corruption Perceptions Index (Transparency International); Worldwide Governance Indicators (World Bank); trust in the National Assembly, government and EU (Eurobarometer).</li>
 <li><a href="${SITE_URL}/en/indicators/society"><strong>Society</strong></a> — youth unemployment, house-price YoY, Gini coefficient and at-risk-of-poverty rate.</li>
-<li><a href="${SITE_URL}/en/indicators/compare"><strong>Compare with EU peers</strong></a> — eight indicators side-by-side for Bulgaria, EU27 and four CEE peers (Romania, Greece, Hungary, Croatia) with a country multi-select that persists in the URL.</li>
+<li><a href="${SITE_URL}/en/indicators/compare"><strong>Compare with EU peers</strong></a> — multi-panel dashboard against EU27 + the four CEE/southern peers: WGI radar, COFOG budget composition, SILC inequality, spend-vs-outcome scatters (health, social).</li>
 </ul>
 <p>See also <a href="${SITE_URL}/en/governments">governments</a> for the same data overlaid with each cabinet's term.</p>
 <p>Sources: <a href="https://ec.europa.eu/eurostat/databrowser/" rel="nofollow noopener">Eurostat</a>, <a href="https://databank.worldbank.org/source/worldwide-governance-indicators" rel="nofollow noopener">World Bank WGI</a>, <a href="https://www.transparency.org/en/cpi" rel="nofollow noopener">Transparency International CPI</a>, <a href="https://europa.eu/eurobarometer/" rel="nofollow noopener">Eurobarometer</a>, <a href="https://commission.europa.eu/strategy-and-policy/eu-budget/performance-and-reporting_en" rel="nofollow noopener">European Commission</a>.</p>`.trim(),
@@ -709,38 +709,43 @@ export const prerenderRoutes: PrerenderRoute[] = [
   staticPage({
     path: "indicators/compare",
     title:
-      "Сравнение на България със страните от ЕС — Евростат | electionsbg.com",
+      "Сравнение на България със страните от ЕС — управление, бюджет, доходи | electionsbg.com",
     description:
-      "Осем макроиндикатора един до друг за България, ЕС-27 и четири съседа (Румъния, Гърция, Унгария, Хърватия), с избор на държави, който се запазва в URL.",
+      "Многослойно сравнение на България с ЕС-27 и четири съседа (Румъния, Гърция, Унгария, Хърватия): радиограма на WGI, бюджетна композиция (COFOG), неравенство (SILC), разход срещу резултат — с избор на държави в URL.",
     breadcrumbName: "Сравни",
     ogImage: "/og/indicators-compare.png",
     bodyHtml: `
-<h1>Сравнение на България с ЕС</h1>
-<p>Стандартна снимка на най-новите стойности за осем основни показателя за България спрямо ЕС-27 и четири съседни държави от Централна и Източна Европа: Румъния, Гърция, Унгария и Хърватия.</p>
+<h1>Сравнение на България с ЕС — табло</h1>
+<p>Многослойно сравнение, фокусирано върху България спрямо ЕС-27 и четири съседни/ЦИЕ страни (Румъния, Гърция, Унгария, Хърватия). Целта не е суров достъп до данни (за това има Евростат и Световна банка), а редакторски подреден разказ: къде България изостава, къде харчи под средното за ЕС и къде разходите не носят резултат.</p>
 <h2>Какво показва страницата</h2>
 <ul>
-<li><strong>Включени показатели</strong> — инфлация (ХИПЦ), реален БВП, безработица, държавен дълг, бюджетен баланс, текуща сметка, годишна промяна на жилищните цени и младежка безработица.</li>
-<li><strong>Държави</strong> — България и ЕС-27 винаги се показват; четирите съседа могат да се включват и изключват с чипове.</li>
-<li><strong>Позиция в ЕС-27</strong> — за всеки показател, където посоката е недвусмислена, се показва ранг 1/27 (например ранг 1 при безработица означава най-ниската стойност в ЕС).</li>
+<li><strong>Радиограма за качеството на управлението (WGI)</strong> — шестте измерения на Световната банка (гласност, стабилност, ефективност, регулации, върховенство на правото, антикорупция) за всички шест страни на една ос. Полигонът на България обикновено е най-малък.</li>
+<li><strong>Последни стойности</strong> — таблица с осем тримесечни макро/фискални показателя, оцветена спрямо средното за ЕС-27, с ранг 1/27 за показателите с недвусмислена посока.</li>
+<li><strong>Бюджетна композиция (COFOG)</strong> — наслагани колони на разходите на разширения сектор по функция, като дял от БВП. Под графиката — трите най-големи разлики между България и средното за ЕС-27 (типично: социална закрила, общи служби, здравеопазване).</li>
+<li><strong>Доходи и риск от бедност (SILC)</strong> — коефициент на Джини, S80/S20 и AROPE. България е на 27-о място в ЕС по всички три.</li>
+<li><strong>Разход срещу резултат</strong> — разход за здравеопазване (% от БВП) срещу очаквана продължителност на живота; социална закрила срещу AROPE. Тук става очевидно дали парите дават резултат.</li>
 <li><strong>Поделим URL</strong> — изборът на държави се запазва в параметър <code>?peers=</code>, така че текущият изглед е споделим.</li>
 </ul>
-<p>Източник: <a href="https://ec.europa.eu/eurostat/databrowser/" rel="nofollow noopener">Евростат</a> (същите редове, които захранват тримесечните графики в <a href="${SITE_URL}/indicators/economy">икономика</a> и <a href="${SITE_URL}/indicators/fiscal">фискални</a>).</p>`.trim(),
+<p>Източници: <a href="https://ec.europa.eu/eurostat/databrowser/" rel="nofollow noopener">Евростат</a> (макро, COFOG, SILC, демография) и <a href="https://databank.worldbank.org/source/worldwide-governance-indicators" rel="nofollow noopener">Световна банка WGI</a>. Средното за ЕС-27 в радиограмата за WGI е невзвешена средна стойност на 27-те държави членки.</p>`.trim(),
     english: {
-      title: "Bulgaria vs EU Peers — Eurostat Snapshot | electionsbg.com",
+      title:
+        "Bulgaria vs EU Peers — Governance, Budget, Income Dashboard | electionsbg.com",
       description:
-        "Eight macro indicators side-by-side for Bulgaria, EU27 and four CEE peers (Romania, Greece, Hungary, Croatia), with a country multi-select that persists in the URL.",
+        "Multi-panel comparison of Bulgaria against EU27 and four CEE peers (Romania, Greece, Hungary, Croatia): WGI radar, COFOG budget composition, SILC inequality, spend-vs-outcome scatters — with country selection persisted in the URL.",
       breadcrumbName: "Compare",
       bodyHtml: `
-<h1>Bulgaria compared with EU peers</h1>
-<p>Latest-snapshot view of eight headline indicators for Bulgaria against the EU27 aggregate and four CEE peers: Romania, Greece, Hungary and Croatia.</p>
+<h1>Bulgaria compared with EU peers — dashboard</h1>
+<p>Multi-panel comparison anchored on Bulgaria against the EU27 aggregate and four CEE/southern peers (Romania, Greece, Hungary, Croatia). Goal is not raw data access (Eurostat and the World Bank own that) but editorial framing: where Bulgaria lags, where it underspends relative to the EU mean, and where spending fails to deliver results.</p>
 <h2>What's on this page</h2>
 <ul>
-<li><strong>Indicators</strong> — HICP inflation, real GDP growth, unemployment, government debt, budget balance, current account, house-price YoY and youth unemployment.</li>
-<li><strong>Countries</strong> — Bulgaria and the EU27 are always shown; the four CEE peers toggle on and off via chips.</li>
-<li><strong>EU27 rank</strong> — for indicators with an unambiguous direction, a 1/27 rank badge shows where Bulgaria sits in the full EU distribution (rank 1 = lowest value for unemployment, highest for GDP growth, etc.).</li>
-<li><strong>Shareable URL</strong> — the country selection persists in the <code>?peers=</code> parameter, so the current view is shareable.</li>
+<li><strong>WGI radar</strong> — World Bank Worldwide Governance Indicators on six axes (voice & accountability, political stability, government effectiveness, regulatory quality, rule of law, control of corruption) overlaid for all six geos. Bulgaria's polygon is typically the smallest.</li>
+<li><strong>Latest values</strong> — eight quarterly macro/fiscal indicators in a table coloured against the EU27 average, with a 1/27 rank badge for indicators with an unambiguous direction.</li>
+<li><strong>Budget composition (COFOG)</strong> — stacked bars of general-government expenditure by function as % of GDP. Below the chart: the three largest BG-vs-EU27 deltas (typically: social protection, general services, health).</li>
+<li><strong>Income & poverty risk (SILC)</strong> — Gini coefficient, S80/S20 ratio and AROPE. Bulgaria ranks 27/27 in the EU on all three.</li>
+<li><strong>Spend vs outcome</strong> — health spend (% GDP) vs life expectancy; social-protection spend vs AROPE. This is where it becomes visible whether the money produces results.</li>
+<li><strong>Shareable URL</strong> — country selection persists in the <code>?peers=</code> parameter, so the current view is shareable.</li>
 </ul>
-<p>Source: <a href="https://ec.europa.eu/eurostat/databrowser/" rel="nofollow noopener">Eurostat</a> (same series that power the quarterly charts on <a href="${SITE_URL}/en/indicators/economy">economy</a> and <a href="${SITE_URL}/en/indicators/fiscal">fiscal</a>).</p>`.trim(),
+<p>Sources: <a href="https://ec.europa.eu/eurostat/databrowser/" rel="nofollow noopener">Eurostat</a> (macro, COFOG, SILC, demographics) and <a href="https://databank.worldbank.org/source/worldwide-governance-indicators" rel="nofollow noopener">World Bank WGI</a>. The EU27 average on the WGI radar is an unweighted mean across the 27 member states.</p>`.trim(),
     },
   }),
   staticPage({

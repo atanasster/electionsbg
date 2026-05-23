@@ -153,7 +153,7 @@ const KEY_URLS: Array<{ url: string; label: string; description: string }> = [
     url: "/indicators",
     label: "Macro & governance indicators",
     description:
-      "KPI dashboard of Bulgaria's macro/fiscal/governance/social indicators since 2005, with EU27 rank, YoY arrows and cabinet-shaded sparklines; domain sub-pages at /indicators/economy, /indicators/fiscal, /indicators/governance, /indicators/society; peer explorer at /indicators/compare",
+      "KPI dashboard of Bulgaria's macro/fiscal/governance/social indicators since 2005, with EU27 rank, YoY arrows and cabinet-shaded sparklines; domain sub-pages at /indicators/economy, /indicators/fiscal, /indicators/governance, /indicators/society; multi-panel EU peer comparison dashboard at /indicators/compare (WGI radar, COFOG budget composition, SILC inequality, spend-vs-outcome scatters)",
   },
 
   // Anomalies + integrity

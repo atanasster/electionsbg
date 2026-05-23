@@ -238,6 +238,18 @@ export const AboutScreen = () => {
                   href="https://ec.europa.eu/eurostat/databrowser/view/nama_10r_3gdp/default/table"
                   label={t("eurostat_regional_source")}
                 />
+                <SourceItem
+                  href="https://ec.europa.eu/eurostat/databrowser/view/gov_10a_exp/default/table"
+                  label={t("eurostat_cofog_source")}
+                />
+                <SourceItem
+                  href="https://ec.europa.eu/eurostat/web/income-and-living-conditions/database"
+                  label={t("eurostat_silc_source")}
+                />
+                <SourceItem
+                  href="https://ec.europa.eu/eurostat/databrowser/view/demo_mlexpec/default/table"
+                  label={t("eurostat_life_expectancy_source")}
+                />
               </ul>
             </DataGroup>
 

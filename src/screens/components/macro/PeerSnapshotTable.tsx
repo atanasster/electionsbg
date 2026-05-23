@@ -227,8 +227,15 @@ export const PeerSnapshotTable: FC<{
     // ~440px) overflows the 375px viewport. Without overflow-x-auto, the
     // browser collapses the `minmax(0, ...)` columns (indicator title +
     // period) to 0 to fit, hiding labels. With it, the table keeps natural
-    // column widths and the user can swipe horizontally.
-    <div className={cn("overflow-x-auto mb-3", className)}>
+    // column widths and the user can swipe horizontally. A right-edge
+    // fade gives the affordance that there's content off-screen — without
+    // it the rightmost visible value looks cut off rather than scrollable.
+    <div
+      className={cn(
+        "overflow-x-auto mb-3 [mask-image:linear-gradient(to_right,black_0,black_calc(100%-24px),transparent_100%)] md:[mask-image:none]",
+        className,
+      )}
+    >
       <div
         className={cn(
           // Columns: title | period | (1 per geo) | position pill.
