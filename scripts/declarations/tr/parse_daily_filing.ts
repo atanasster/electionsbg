@@ -149,9 +149,14 @@ const eventsFromPersonGroup = (
   }
 
   const out: TrChangeEvent[] = [];
+  // Most sections nest a per-record wrapper (Manager[], ActualOwner[], …) that
+  // carries `$.RecordID` itself. A few sections — notably SoleCapitalOwner —
+  // are flatter: the group's child is Subject[] with no per-record RecordID,
+  // and the RecordID/GroupID live on the group's `$`. Fall back to those when
+  // the record-level attrs are missing.
   for (const record of records) {
     const recordAttrs = record.$ ?? {};
-    const recordId = recordAttrs.RecordID ?? "";
+    const recordId = recordAttrs.RecordID || groupAttrs?.RecordID || "";
     if (!recordId) continue;
 
     // The "subject-like" child node is one of Subject (most sections),
@@ -177,7 +182,7 @@ const eventsFromPersonGroup = (
       sharePercent,
       filingDate,
       recordId,
-      groupId: recordAttrs.GroupID ?? null,
+      groupId: recordAttrs.GroupID ?? groupAttrs?.GroupID ?? null,
       fieldIdent,
     };
     out.push(ev);
