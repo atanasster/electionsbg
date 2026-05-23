@@ -1,7 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 import React, { createContext, useMemo, useState } from "react";
 import { useCustomEffect } from "./useCustomEffect";
-import { getTheme } from "./utils";
+import { getStoredTheme, getSystemTheme, themeDark } from "./utils";
 
 export interface ThemeContextProps {
   theme: string;
@@ -13,6 +13,15 @@ export const ThemeContext = createContext<ThemeContextProps>({
   setTheme: () => {},
 });
 
+const applyThemeToDom = (theme: string) => {
+  document.getElementsByTagName("html")[0].setAttribute("data-theme", theme);
+  if (theme === themeDark) {
+    document.documentElement.classList.add("dark");
+  } else {
+    document.documentElement.classList.remove("dark");
+  }
+};
+
 /**
  * Theme Context Provider.
  *
@@ -21,36 +30,38 @@ export const ThemeContext = createContext<ThemeContextProps>({
  * @returns ReactNode
  */
 export const ThemeContextProvider = ({
-  value = "default",
+  value,
   children,
 }: {
   value?: string;
   children: React.ReactNode;
 }) => {
-  const [theme, setTheme] = useState(value);
+  const [theme, setTheme] = useState(value ?? getSystemTheme());
 
   useCustomEffect(() => {
-    const storeTheme = getTheme();
-    applyTheme(storeTheme || theme);
+    const stored = getStoredTheme();
+    const next = stored ?? getSystemTheme();
+    applyThemeToDom(next);
+    setTheme(next);
+
+    // While the user hasn't explicitly picked a theme, follow OS changes live.
+    if (!stored && typeof window.matchMedia === "function") {
+      const mql = window.matchMedia("(prefers-color-scheme: dark)");
+      const onChange = () => {
+        if (getStoredTheme()) return;
+        const sys = getSystemTheme();
+        applyThemeToDom(sys);
+        setTheme(sys);
+      };
+      mql.addEventListener("change", onChange);
+      return () => mql.removeEventListener("change", onChange);
+    }
   }, []);
 
-  /**
-   * Apply theme to 'html' tag on DOM.
-   */
-  const applyTheme = (theme: string) => {
-    localStorage.setItem("theme", theme);
-    document.getElementsByTagName("html")[0].setAttribute("data-theme", theme);
-    if (theme === "sunset") {
-      document.documentElement.classList.add("dark");
-    } else {
-      document.documentElement.classList.remove("dark");
-    }
-    setTheme(theme);
-  };
-
-  const handleThemeChange = (theme: string) => {
-    setTheme(theme);
-    applyTheme(theme);
+  const handleThemeChange = (next: string) => {
+    localStorage.setItem("theme", next);
+    applyThemeToDom(next);
+    setTheme(next);
   };
 
   /**
@@ -61,7 +72,7 @@ export const ThemeContextProvider = ({
       theme,
       setTheme: handleThemeChange,
     }),
-    // eslint-disable-next-line react-hooks/exhaustive-deps
+
     [theme],
   );
   return <ThemeContext.Provider value={val}>{children}</ThemeContext.Provider>;
