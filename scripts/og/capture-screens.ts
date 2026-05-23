@@ -193,12 +193,62 @@ const captures: Capture[] = [
   {
     slug: "indicators",
     routePath: "indicators",
-    // Long stack of multi-line charts overlaid on a cabinet timeline strip.
-    // First Recharts surface is the economy chart (GDP / inflation / unemployment).
+    // KPI dashboard front door — 12 tiles in a responsive grid with sparklines
+    // and rank badges. Top-aligned so the headline tiles (GDP, inflation,
+    // unemployment, sentiment) land in frame; bottom rows clip off naturally.
+    waitFor: '[data-og="indicators-kpi-grid"]',
+    anchor: '[data-og="indicators-kpi-grid"]',
+    settleMs: 2000,
+  },
+  {
+    slug: "indicators-economy",
+    routePath: "indicators/economy",
+    // Economy headline multi-line chart (GDP / inflation / unemployment /
+    // labour income), centered for the cleanest read of the cabinet bands.
     waitFor: ".recharts-surface",
     anchor: ".recharts-wrapper",
     centerOnAnchor: true,
     settleMs: 2500,
+  },
+  {
+    slug: "indicators-fiscal",
+    routePath: "indicators/fiscal",
+    // Fiscal %-of-GDP multi-line chart leads the page (debt / balance /
+    // current account).
+    waitFor: ".recharts-surface",
+    anchor: ".recharts-wrapper",
+    centerOnAnchor: true,
+    settleMs: 2500,
+  },
+  {
+    slug: "indicators-governance",
+    routePath: "indicators/governance",
+    // CPI line chart leads the page; small Y-range means the chart fills the
+    // frame well when centered.
+    waitFor: ".recharts-surface",
+    anchor: ".recharts-wrapper",
+    centerOnAnchor: true,
+    settleMs: 2500,
+  },
+  {
+    slug: "indicators-society",
+    routePath: "indicators/society",
+    // 4-tile grid of small charts (youth unemployment / house prices / Gini /
+    // poverty). Center on the grid container so all four land in frame.
+    waitFor: ".recharts-surface",
+    anchor: ".grid",
+    centerOnAnchor: true,
+    settleMs: 2500,
+  },
+  {
+    slug: "indicators-compare",
+    routePath: "indicators/compare",
+    // Peer snapshot table — no Recharts. Wait for the table grid to populate
+    // with rows, then top-align on the table section so all eight indicators
+    // and country columns land in the clip.
+    waitFor: '[data-og="indicators-compare-table"] .tabular-nums',
+    anchor: '[data-og="indicators-compare-table"]',
+    settleMs: 2000,
   },
   {
     slug: "governance",

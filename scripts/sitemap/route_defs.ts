@@ -31,6 +31,11 @@ export const ENGLISH_STATIC_PAGES = [
   "governance",
   "governments",
   "indicators",
+  "indicators/economy",
+  "indicators/fiscal",
+  "indicators/governance",
+  "indicators/society",
+  "indicators/compare",
   "budget",
   "budget/methodology",
   "budget/tax-calculator",
@@ -69,7 +74,30 @@ export const routeDefs = (year: string): RouteDefs => [
   { path: "compare", file: `src/screens/CompareScreen.tsx` },
   { path: "governance", file: `src/screens/GovernanceScreen.tsx` },
   { path: "governments", file: `src/screens/GovernmentsScreen.tsx` },
-  { path: "indicators", file: `src/screens/IndicatorsScreen.tsx` },
+  {
+    path: "indicators",
+    file: `src/screens/indicators/IndicatorsLandingScreen.tsx`,
+  },
+  {
+    path: "indicators/economy",
+    file: `src/screens/indicators/IndicatorsEconomyScreen.tsx`,
+  },
+  {
+    path: "indicators/fiscal",
+    file: `src/screens/indicators/IndicatorsFiscalScreen.tsx`,
+  },
+  {
+    path: "indicators/governance",
+    file: `src/screens/indicators/IndicatorsGovernanceScreen.tsx`,
+  },
+  {
+    path: "indicators/society",
+    file: `src/screens/indicators/IndicatorsSocietyScreen.tsx`,
+  },
+  {
+    path: "indicators/compare",
+    file: `src/screens/indicators/IndicatorsCompareScreen.tsx`,
+  },
   { path: "budget", file: `data/budget/index.json` },
   {
     path: "budget/methodology",

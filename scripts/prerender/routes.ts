@@ -512,51 +512,237 @@ export const prerenderRoutes: PrerenderRoute[] = [
   staticPage({
     path: "indicators",
     title:
-      "Индикатори за България от 2005 г. — макроикономика, фискални и социални | electionsbg.com",
+      "Индикатори за България — KPI табло, фискални, управление, общество | electionsbg.com",
     description:
-      "Макроикономически, фискални, управленски и социални индикатори на България от 2005 г., разположени по мандати на правителствата — БВП, инфлация, безработица, дълг, бюджетен баланс, доверие и индекси за управление.",
+      "KPI табло с 12 основни макроикономически, фискални, управленски и социални индикатора за България от 2005 г., с YoY стрелки, позиция в ЕС-27, спарклайн с цветна ивица за всеки кабинет и обобщени средни стойности по правителства.",
     breadcrumbName: "Индикатори",
     ogImage: "/og/indicators.png",
     bodyHtml: `
-<h1>Индикатори за България от 2005 г.</h1>
-<p>Макроикономически, фискални, управленски и социални показатели на България от 2005 г. насам, поставени паралелно с мандатите на правителствата. Всеки кабинет е отбелязан с цветна ивица, за да може трендът да се проследи спрямо съответното управление.</p>
-<h2>Какво ще намерите тук</h2>
+<h1>Индикатори за България от 2005 г. — основно табло</h1>
+<p>KPI таблото на /indicators събира 12 основни показатели — БВП, ХИПЦ инфлация, безработица, потребителско доверие, държавен дълг, бюджетен баланс, фискален резерв, средства от ЕС, контрол върху корупцията (WGI), доверие в правителството, младежка безработица и риск от бедност. За всеки индикатор се показват най-новата стойност, годишна промяна (със семантичен цвят), позиция в ЕС-27 (където е приложимо), и спарклайн с цветна ивица по кабинети. Под таблото — обобщени средни стойности за всеки кабинет (БВП, инфлация, безработица, изменение на дълга, бюджетен баланс, нетни ЕС средства).</p>
+<h2>Тематични под-страници</h2>
 <ul>
-<li><strong>Икономика</strong> — реален БВП, ХИПЦ инфлация, безработица, трудови доходи, индустриално производство и оборот в търговията (Евростат).</li>
-<li><strong>Разбивка на инфлацията</strong> — приноси по ECOICOP подгрупи към общия ръст на ХИПЦ.</li>
-<li><strong>Фискални</strong> — държавен дълг, бюджетен баланс и текуща сметка като % от БВП.</li>
-<li><strong>Икономически сентимент</strong> — потребителско доверие и Economic Sentiment Indicator.</li>
-<li><strong>Индекс за възприятие на корупцията</strong> — Transparency International (0–100).</li>
-<li><strong>Worldwide Governance Indicators</strong> — върховенство на закона, контрол върху корупцията и ефективност на управлението (Световна банка).</li>
-<li><strong>Доверие в институциите</strong> — Евробарометър (Народно събрание, правителство, ЕС).</li>
-<li><strong>Европейски средства</strong> — годишни постъпления и вноски в бюджета на ЕС.</li>
-<li><strong>Социални</strong> — младежка безработица, цени на жилищата (YoY), Gini, риск от бедност.</li>
+<li><a href="${SITE_URL}/indicators/economy"><strong>Икономика</strong></a> — реален БВП, ХИПЦ инфлация, безработица, трудови доходи, индустриално производство и оборот в търговията; разбивка на инфлацията по ECOICOP; потребителско доверие и Economic Sentiment Indicator (Евростат).</li>
+<li><a href="${SITE_URL}/indicators/fiscal"><strong>Фискални</strong></a> — държавен дълг, бюджетен баланс и текуща сметка като % от БВП и в номинални евро; фискален резерв със законов праг; държавни приходи/разходи; FDI; таблица с всички емисии държавен дълг (еврооблигации + ДЦК); средства от ЕС vs вноска.</li>
+<li><a href="${SITE_URL}/indicators/governance"><strong>Управление</strong></a> — Индекс за възприятие на корупцията (CPI, Transparency International); Worldwide Governance Indicators (Световна банка); доверие в Народното събрание, правителството и ЕС (Евробарометър).</li>
+<li><a href="${SITE_URL}/indicators/society"><strong>Общество</strong></a> — младежка безработица, годишна промяна на жилищните цени, коефициент на Джини и риск от бедност.</li>
+<li><a href="${SITE_URL}/indicators/compare"><strong>Сравнение със страните от ЕС</strong></a> — осем показателя един до друг за България, ЕС-27 и съседите (Румъния, Гърция, Унгария, Хърватия) с избор на държави, който се запазва в URL.</li>
 </ul>
 <p>Виж и <a href="${SITE_URL}/governments">правителствата</a> за визуализация на същите данни по кабинети.</p>
-<p>Източници: <a href="https://ec.europa.eu/eurostat/databrowser/" rel="nofollow noopener">Евростат</a>, <a href="https://databank.worldbank.org/source/worldwide-governance-indicators" rel="nofollow noopener">World Bank WGI</a>, <a href="https://www.transparency.org/en/cpi" rel="nofollow noopener">Transparency International CPI</a>, <a href="https://europa.eu/eurobarometer/" rel="nofollow noopener">Евробарометър</a>.</p>`.trim(),
+<p>Източници: <a href="https://ec.europa.eu/eurostat/databrowser/" rel="nofollow noopener">Евростат</a>, <a href="https://databank.worldbank.org/source/worldwide-governance-indicators" rel="nofollow noopener">World Bank WGI</a>, <a href="https://www.transparency.org/en/cpi" rel="nofollow noopener">Transparency International CPI</a>, <a href="https://europa.eu/eurobarometer/" rel="nofollow noopener">Евробарометър</a>, <a href="https://commission.europa.eu/strategy-and-policy/eu-budget/performance-and-reporting_en" rel="nofollow noopener">Европейска комисия</a>.</p>`.trim(),
     english: {
       title:
-        "Bulgaria Indicators Since 2005 — Macro, Fiscal and Social | electionsbg.com",
+        "Bulgaria Indicators — KPI Dashboard, Fiscal, Governance, Society | electionsbg.com",
       description:
-        "Bulgaria's macroeconomic, fiscal, governance and social indicators since 2005, set against each cabinet's term — GDP, inflation, unemployment, debt, budget balance, trust and governance indices.",
+        "12-tile KPI dashboard of Bulgaria's macroeconomic, fiscal, governance and social indicators since 2005, with YoY arrows, EU27 rank badges, cabinet-shaded sparklines and per-cabinet averaged summaries.",
       breadcrumbName: "Indicators",
       bodyHtml: `
-<h1>Bulgaria indicators since 2005</h1>
-<p>Bulgaria's macroeconomic, fiscal, governance and social indicators since 2005, shown alongside the cabinet timeline. Each cabinet's tenure is rendered as a coloured band so trends can be read against who was in power.</p>
-<h2>What you'll find</h2>
+<h1>Bulgaria indicators since 2005 — KPI dashboard</h1>
+<p>The /indicators dashboard surfaces 12 headline indicators — GDP growth, HICP inflation, unemployment, consumer sentiment, government debt, budget balance, fiscal reserve, EU funds, WGI control of corruption, trust in government, youth unemployment and at-risk-of-poverty rate. Each tile shows the latest value, year-on-year change (coloured by semantic direction), an EU27 rank badge where available, and a sparkline with cabinet-colour bands. Below the dashboard, per-cabinet summary cards average each government's tenure across GDP, inflation, unemployment, debt change, budget balance and net EU funds.</p>
+<h2>Domain sub-pages</h2>
 <ul>
-<li><strong>Economy</strong> — real GDP growth, HICP inflation, unemployment, labour income, industrial production and retail volume (Eurostat).</li>
-<li><strong>Inflation breakdown</strong> — contributions of ECOICOP sub-groups to headline HICP.</li>
-<li><strong>Fiscal</strong> — government debt, budget balance and current account, % of GDP.</li>
-<li><strong>Economic sentiment</strong> — consumer confidence and the Economic Sentiment Indicator.</li>
-<li><strong>Corruption Perceptions Index</strong> — Transparency International (0–100).</li>
-<li><strong>Worldwide Governance Indicators</strong> — rule of law, control of corruption and government effectiveness (World Bank).</li>
-<li><strong>Trust in institutions</strong> — Eurobarometer (National Assembly, government, EU).</li>
-<li><strong>EU funds</strong> — annual inflows and contributions to the EU budget.</li>
-<li><strong>Social</strong> — youth unemployment, house prices YoY, Gini coefficient, at-risk-of-poverty rate.</li>
+<li><a href="${SITE_URL}/en/indicators/economy"><strong>Economy</strong></a> — real GDP growth, HICP inflation, unemployment, labour income, industrial production and retail volume; HICP breakdown by ECOICOP sub-groups; consumer confidence and the Economic Sentiment Indicator (Eurostat).</li>
+<li><a href="${SITE_URL}/en/indicators/fiscal"><strong>Fiscal</strong></a> — government debt, budget balance and current account as % of GDP and in nominal EUR; fiscal reserve with statutory floor; revenue/expenditure; FDI; full table of Bulgarian sovereign debt emissions (Eurobonds + domestic ДЦК); EU funds vs contribution.</li>
+<li><a href="${SITE_URL}/en/indicators/governance"><strong>Governance</strong></a> — Corruption Perceptions Index (Transparency International); Worldwide Governance Indicators (World Bank); trust in the National Assembly, government and EU (Eurobarometer).</li>
+<li><a href="${SITE_URL}/en/indicators/society"><strong>Society</strong></a> — youth unemployment, house-price YoY, Gini coefficient and at-risk-of-poverty rate.</li>
+<li><a href="${SITE_URL}/en/indicators/compare"><strong>Compare with EU peers</strong></a> — eight indicators side-by-side for Bulgaria, EU27 and four CEE peers (Romania, Greece, Hungary, Croatia) with a country multi-select that persists in the URL.</li>
 </ul>
 <p>See also <a href="${SITE_URL}/en/governments">governments</a> for the same data overlaid with each cabinet's term.</p>
-<p>Sources: <a href="https://ec.europa.eu/eurostat/databrowser/" rel="nofollow noopener">Eurostat</a>, <a href="https://databank.worldbank.org/source/worldwide-governance-indicators" rel="nofollow noopener">World Bank WGI</a>, <a href="https://www.transparency.org/en/cpi" rel="nofollow noopener">Transparency International CPI</a>, <a href="https://europa.eu/eurobarometer/" rel="nofollow noopener">Eurobarometer</a>.</p>`.trim(),
+<p>Sources: <a href="https://ec.europa.eu/eurostat/databrowser/" rel="nofollow noopener">Eurostat</a>, <a href="https://databank.worldbank.org/source/worldwide-governance-indicators" rel="nofollow noopener">World Bank WGI</a>, <a href="https://www.transparency.org/en/cpi" rel="nofollow noopener">Transparency International CPI</a>, <a href="https://europa.eu/eurobarometer/" rel="nofollow noopener">Eurobarometer</a>, <a href="https://commission.europa.eu/strategy-and-policy/eu-budget/performance-and-reporting_en" rel="nofollow noopener">European Commission</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "indicators/economy",
+    title:
+      "Икономика — БВП, инфлация, безработица, нагласи | electionsbg.com",
+    description:
+      "Реален БВП, ХИПЦ инфлация, безработица, трудови доходи, индустриално производство, потребителско доверие и Economic Sentiment Indicator за България от 2005 г., разположени по мандати на правителствата.",
+    breadcrumbName: "Икономика",
+    ogImage: "/og/indicators-economy.png",
+    bodyHtml: `
+<h1>Индикатори за икономиката на България</h1>
+<p>Тримесечни макроикономически показатели от Евростат, поставени паралелно с мандатите на правителствата. Включват реален БВП (растеж YoY), ХИПЦ инфлация и нейната разбивка по ECOICOP подгрупи (храна, енергия, услуги, базова), безработица, трудови доходи, индустриално производство и оборот в търговията на дребно.</p>
+<h2>Какво показва страницата</h2>
+<ul>
+<li><strong>Основни</strong> — реален БВП, ХИПЦ инфлация, безработица и трудови доходи на едно платно.</li>
+<li><strong>Активност</strong> — индустриално производство и оборот в търговията на дребно (индекс 2021 = 100).</li>
+<li><strong>Разбивка на инфлацията</strong> — приноси на ECOICOP подгрупите към общия ХИПЦ.</li>
+<li><strong>Икономически нагласи</strong> — потребителско доверие и Economic Sentiment Indicator (ESI).</li>
+</ul>
+<p>Бутонът „Сравни със страните от ЕС“ добавя референция за ЕС-27 и линии за Румъния, Гърция, Унгария и Хърватия, заедно с моментна снимка на последните стойности и позиция на България в ЕС-27.</p>
+<p>Виж и <a href="${SITE_URL}/indicators/fiscal">фискалните показатели</a>, <a href="${SITE_URL}/indicators/governance">индикаторите за управление</a> и <a href="${SITE_URL}/indicators/society">социалните индикатори</a>. Източник: <a href="https://ec.europa.eu/eurostat/databrowser/" rel="nofollow noopener">Евростат</a>.</p>`.trim(),
+    english: {
+      title:
+        "Economy — GDP, Inflation, Unemployment, Sentiment | electionsbg.com",
+      description:
+        "Real GDP growth, HICP inflation, unemployment, labour income, industrial production, consumer confidence and the Economic Sentiment Indicator for Bulgaria since 2005, set against each cabinet's term.",
+      breadcrumbName: "Economy",
+      bodyHtml: `
+<h1>Bulgaria — economy indicators</h1>
+<p>Quarterly Eurostat macroeconomic series aligned to each cabinet's term. Covers real GDP growth (YoY), HICP inflation with the ECOICOP breakdown (food, energy, services, core), unemployment, labour income, industrial production and retail volume.</p>
+<h2>What's on this page</h2>
+<ul>
+<li><strong>Headline</strong> — real GDP growth, HICP inflation, unemployment and labour income on a single chart.</li>
+<li><strong>Activity</strong> — industrial production and retail volume (index 2021 = 100).</li>
+<li><strong>Inflation breakdown</strong> — ECOICOP sub-group contributions to headline HICP.</li>
+<li><strong>Sentiment</strong> — consumer confidence and the Economic Sentiment Indicator (ESI).</li>
+</ul>
+<p>The "Compare with EU peers" button layers an EU27 reference and four CEE peer lines (Romania, Greece, Hungary, Croatia) onto every chart, with a snapshot table of latest values and Bulgaria's rank within the EU27.</p>
+<p>See also <a href="${SITE_URL}/en/indicators/fiscal">fiscal indicators</a>, <a href="${SITE_URL}/en/indicators/governance">governance indicators</a> and <a href="${SITE_URL}/en/indicators/society">society indicators</a>. Source: <a href="https://ec.europa.eu/eurostat/databrowser/" rel="nofollow noopener">Eurostat</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "indicators/fiscal",
+    title:
+      "Фискални индикатори на България — дълг, бюджет, резерв, ЕС средства | electionsbg.com",
+    description:
+      "Държавен дълг, бюджетен баланс, текуща сметка, фискален резерв, държавни приходи и разходи, FDI, емисии държавен дълг и потоци със средства от ЕС за България от 2005 г., разположени по мандати на правителствата.",
+    breadcrumbName: "Фискални",
+    ogImage: "/og/indicators-fiscal.png",
+    bodyHtml: `
+<h1>Фискални индикатори на България</h1>
+<p>Тримесечни и годишни фискални показатели от Евростат, БНБ и Министерството на финансите, поставени паралелно с мандатите на правителствата. Включват както относителни показатели (като % от БВП), така и номинални нива в евро.</p>
+<h2>Какво показва страницата</h2>
+<ul>
+<li><strong>Като % от БВП</strong> — държавен дълг (Маастрихт), бюджетен баланс (нетно кредитиране/заемане) и текуща сметка.</li>
+<li><strong>Номинални нива и потоци</strong> — натрупан дълг (сток), нов дълг емитиран за тримесечие (Δ), бюджетен баланс и текуща сметка в евро.</li>
+<li><strong>Фискален резерв</strong> — паричен ресурс в края на тримесечието със законовия праг като референтна линия (Министерство на финансите, КФП).</li>
+<li><strong>Размер на държавата</strong> — държавни приходи и разходи, номинален БВП и нетни преки чуждестранни инвестиции (BPM6).</li>
+<li><strong>Емисии държавен дълг</strong> — пълна сортируема таблица с всяка значима емисия: международни еврооблигации от 2002 г. и вътрешни ДЦК от 2019 г. (БНБ).</li>
+<li><strong>Средства от ЕС</strong> — годишни постъпления спрямо вноска на България в бюджета на ЕС.</li>
+</ul>
+<p>Виж и <a href="${SITE_URL}/budget">държавния бюджет</a> за изпълнението по КФП и министерства. Източници: <a href="https://ec.europa.eu/eurostat/databrowser/" rel="nofollow noopener">Евростат</a>, <a href="https://www.bnb.bg/" rel="nofollow noopener">БНБ</a>, <a href="https://www.minfin.bg/" rel="nofollow noopener">МФ</a>, <a href="https://commission.europa.eu/strategy-and-policy/eu-budget/performance-and-reporting_en" rel="nofollow noopener">Европейска комисия</a>.</p>`.trim(),
+    english: {
+      title:
+        "Bulgaria Fiscal Indicators — Debt, Balance, Reserve, EU Funds | electionsbg.com",
+      description:
+        "Government debt, budget balance, current account, fiscal reserve, revenue and expenditure, FDI, sovereign debt emissions and EU-funds flows for Bulgaria since 2005, set against each cabinet's term.",
+      breadcrumbName: "Fiscal",
+      bodyHtml: `
+<h1>Bulgaria — fiscal indicators</h1>
+<p>Quarterly and annual fiscal series from Eurostat, the Bulgarian National Bank and the Ministry of Finance, aligned to each cabinet's term. Covers both relative metrics (% of GDP) and nominal levels in euro.</p>
+<h2>What's on this page</h2>
+<ul>
+<li><strong>As % of GDP</strong> — government gross debt (Maastricht), budget balance (net lending/borrowing) and current account.</li>
+<li><strong>Nominal levels and flows</strong> — gross debt stock, net new debt issued per quarter, budget balance and current account in EUR.</li>
+<li><strong>Fiscal reserve</strong> — end-of-quarter cash stock with the statutory floor as a reference line (Ministry of Finance КФП bulletins).</li>
+<li><strong>Government size</strong> — general government revenue, expenditure, nominal GDP and net inward FDI (BPM6).</li>
+<li><strong>Debt emissions</strong> — full sortable table of every meaningful sovereign debt instrument: international Eurobonds since 2002 and domestic ДЦК auctioned by the BNB since 2019.</li>
+<li><strong>EU funds</strong> — annual receipts vs Bulgaria's contribution to the EU budget.</li>
+</ul>
+<p>See also <a href="${SITE_URL}/en/budget">state budget</a> for KFP and ministry-level execution. Sources: <a href="https://ec.europa.eu/eurostat/databrowser/" rel="nofollow noopener">Eurostat</a>, <a href="https://www.bnb.bg/" rel="nofollow noopener">BNB</a>, <a href="https://www.minfin.bg/" rel="nofollow noopener">MoF</a>, <a href="https://commission.europa.eu/strategy-and-policy/eu-budget/performance-and-reporting_en" rel="nofollow noopener">European Commission</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "indicators/governance",
+    title:
+      "Индикатори за управление — CPI, WGI, доверие в институциите | electionsbg.com",
+    description:
+      "Индекс за възприятие на корупцията (Transparency International), Worldwide Governance Indicators (Световна банка) и доверие в Народното събрание, правителството и ЕС (Евробарометър) за България от 2005 г.",
+    breadcrumbName: "Управление",
+    ogImage: "/og/indicators-governance.png",
+    bodyHtml: `
+<h1>Индикатори за управление в България</h1>
+<p>Годишни индикатори за качеството на управлението и доверието на гражданите в институциите, разположени по мандати на правителствата.</p>
+<h2>Какво показва страницата</h2>
+<ul>
+<li><strong>Индекс за възприятие на корупцията (CPI)</strong> — Transparency International, 0–100 (0 = силно корумпирано, 100 = много чисто).</li>
+<li><strong>Worldwide Governance Indicators (WGI)</strong> — върховенство на правото, контрол върху корупцията и ефективност на управлението; скала от −2,5 до +2,5 (по-високо е по-добро).</li>
+<li><strong>Доверие в институциите</strong> — Стандартен Евробарометър, дял на отговорилите „по-скоро се доверявам“ за Народното събрание, правителството и ЕС (средногодишна стойност от пролетната и есенната вълна).</li>
+</ul>
+<p>Виж и <a href="${SITE_URL}/governance">управленското табло</a> за обобщено представяне на същите теми. Източници: <a href="https://www.transparency.org/en/countries/bulgaria" rel="nofollow noopener">Transparency International</a>, <a href="https://databank.worldbank.org/source/worldwide-governance-indicators" rel="nofollow noopener">World Bank WGI</a>, <a href="https://europa.eu/eurobarometer/" rel="nofollow noopener">Евробарометър</a>.</p>`.trim(),
+    english: {
+      title:
+        "Bulgaria Governance — CPI, WGI, Trust in Institutions | electionsbg.com",
+      description:
+        "Corruption Perceptions Index (Transparency International), Worldwide Governance Indicators (World Bank) and Eurobarometer trust in parliament, government and the EU for Bulgaria since 2005.",
+      breadcrumbName: "Governance",
+      bodyHtml: `
+<h1>Bulgaria — governance indicators</h1>
+<p>Annual indicators of governance quality and public trust in institutions, aligned to each cabinet's term.</p>
+<h2>What's on this page</h2>
+<ul>
+<li><strong>Corruption Perceptions Index (CPI)</strong> — Transparency International, 0–100 scale (0 = highly corrupt, 100 = very clean).</li>
+<li><strong>Worldwide Governance Indicators (WGI)</strong> — rule of law, control of corruption and government effectiveness; −2.5 to +2.5 scale (higher = better).</li>
+<li><strong>Trust in institutions</strong> — Standard Eurobarometer "tend to trust" share for the National Assembly, government and the EU (annual mean of spring + autumn waves).</li>
+</ul>
+<p>See also the <a href="${SITE_URL}/en/governance">governance dashboard</a> for a consolidated view of the same themes. Sources: <a href="https://www.transparency.org/en/countries/bulgaria" rel="nofollow noopener">Transparency International</a>, <a href="https://databank.worldbank.org/source/worldwide-governance-indicators" rel="nofollow noopener">World Bank WGI</a>, <a href="https://europa.eu/eurobarometer/" rel="nofollow noopener">Eurobarometer</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "indicators/society",
+    title:
+      "Социални индикатори за България — младежка безработица, неравенство, бедност | electionsbg.com",
+    description:
+      "Младежка безработица (15-24), годишна промяна на индекса на жилищните цени, коефициент на Джини и риск от бедност за България от 2005 г., разположени по мандати на правителствата.",
+    breadcrumbName: "Общество",
+    ogImage: "/og/indicators-society.png",
+    bodyHtml: `
+<h1>Социални индикатори за България</h1>
+<p>Четири показателя, които измерват как макросредата се отразява върху домакинствата, разположени паралелно с мандатите на правителствата.</p>
+<h2>Какво показва страницата</h2>
+<ul>
+<li><strong>Младежка безработица (15-24)</strong> — тримесечна безработица за младежката кохорта (Евростат).</li>
+<li><strong>Жилищни цени (YoY)</strong> — годишно изменение на индекса на жилищните цени (Евростат).</li>
+<li><strong>Коефициент на Джини</strong> — неравенство в разполагаемия доход; по-висока стойност означава по-голямо неравенство.</li>
+<li><strong>Риск от бедност</strong> — дял на населението с доход под 60% от медианния (Евростат).</li>
+</ul>
+<p>Бутонът „Сравни със страните от ЕС“ показва как България се позиционира спрямо ЕС-27 и съседите. Източник: <a href="https://ec.europa.eu/eurostat/databrowser/" rel="nofollow noopener">Евростат</a>.</p>`.trim(),
+    english: {
+      title:
+        "Bulgaria Society — Youth Unemployment, Inequality, Poverty | electionsbg.com",
+      description:
+        "Youth unemployment (15-24), house-price index YoY, Gini coefficient and at-risk-of-poverty rate for Bulgaria since 2005, set against each cabinet's term.",
+      breadcrumbName: "Society",
+      bodyHtml: `
+<h1>Bulgaria — society indicators</h1>
+<p>Four indicators of how the macro environment lands on households, aligned to each cabinet's term.</p>
+<h2>What's on this page</h2>
+<ul>
+<li><strong>Youth unemployment (15-24)</strong> — quarterly unemployment rate for the youth cohort (Eurostat).</li>
+<li><strong>House prices (YoY)</strong> — year-on-year change in the house price index (Eurostat).</li>
+<li><strong>Gini coefficient</strong> — disposable-income inequality; higher = more unequal.</li>
+<li><strong>At-risk-of-poverty rate</strong> — share of the population below 60% of median income (Eurostat).</li>
+</ul>
+<p>The "Compare with EU peers" button shows where Bulgaria sits against the EU27 and four CEE peers. Source: <a href="https://ec.europa.eu/eurostat/databrowser/" rel="nofollow noopener">Eurostat</a>.</p>`.trim(),
+    },
+  }),
+  staticPage({
+    path: "indicators/compare",
+    title:
+      "Сравнение на България със страните от ЕС — Евростат | electionsbg.com",
+    description:
+      "Осем макроиндикатора един до друг за България, ЕС-27 и четири съседа (Румъния, Гърция, Унгария, Хърватия), с избор на държави, който се запазва в URL.",
+    breadcrumbName: "Сравни",
+    ogImage: "/og/indicators-compare.png",
+    bodyHtml: `
+<h1>Сравнение на България с ЕС</h1>
+<p>Стандартна снимка на най-новите стойности за осем основни показателя за България спрямо ЕС-27 и четири съседни държави от Централна и Източна Европа: Румъния, Гърция, Унгария и Хърватия.</p>
+<h2>Какво показва страницата</h2>
+<ul>
+<li><strong>Включени показатели</strong> — инфлация (ХИПЦ), реален БВП, безработица, държавен дълг, бюджетен баланс, текуща сметка, годишна промяна на жилищните цени и младежка безработица.</li>
+<li><strong>Държави</strong> — България и ЕС-27 винаги се показват; четирите съседа могат да се включват и изключват с чипове.</li>
+<li><strong>Позиция в ЕС-27</strong> — за всеки показател, където посоката е недвусмислена, се показва ранг 1/27 (например ранг 1 при безработица означава най-ниската стойност в ЕС).</li>
+<li><strong>Поделим URL</strong> — изборът на държави се запазва в параметър <code>?peers=</code>, така че текущият изглед е споделим.</li>
+</ul>
+<p>Източник: <a href="https://ec.europa.eu/eurostat/databrowser/" rel="nofollow noopener">Евростат</a> (същите редове, които захранват тримесечните графики в <a href="${SITE_URL}/indicators/economy">икономика</a> и <a href="${SITE_URL}/indicators/fiscal">фискални</a>).</p>`.trim(),
+    english: {
+      title:
+        "Bulgaria vs EU Peers — Eurostat Snapshot | electionsbg.com",
+      description:
+        "Eight macro indicators side-by-side for Bulgaria, EU27 and four CEE peers (Romania, Greece, Hungary, Croatia), with a country multi-select that persists in the URL.",
+      breadcrumbName: "Compare",
+      bodyHtml: `
+<h1>Bulgaria compared with EU peers</h1>
+<p>Latest-snapshot view of eight headline indicators for Bulgaria against the EU27 aggregate and four CEE peers: Romania, Greece, Hungary and Croatia.</p>
+<h2>What's on this page</h2>
+<ul>
+<li><strong>Indicators</strong> — HICP inflation, real GDP growth, unemployment, government debt, budget balance, current account, house-price YoY and youth unemployment.</li>
+<li><strong>Countries</strong> — Bulgaria and the EU27 are always shown; the four CEE peers toggle on and off via chips.</li>
+<li><strong>EU27 rank</strong> — for indicators with an unambiguous direction, a 1/27 rank badge shows where Bulgaria sits in the full EU distribution (rank 1 = lowest value for unemployment, highest for GDP growth, etc.).</li>
+<li><strong>Shareable URL</strong> — the country selection persists in the <code>?peers=</code> parameter, so the current view is shareable.</li>
+</ul>
+<p>Source: <a href="https://ec.europa.eu/eurostat/databrowser/" rel="nofollow noopener">Eurostat</a> (same series that power the quarterly charts on <a href="${SITE_URL}/en/indicators/economy">economy</a> and <a href="${SITE_URL}/en/indicators/fiscal">fiscal</a>).</p>`.trim(),
     },
   }),
   staticPage({
