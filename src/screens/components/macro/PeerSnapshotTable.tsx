@@ -216,7 +216,7 @@ export const PeerSnapshotTable: FC<{
   const lang: "bg" | "en" = i18n.language === "bg" ? "bg" : "en";
   const defaultFormat = formatValue ?? ((v: number) => `${v.toFixed(1)}%`);
   const geoLabel = lang === "bg" ? GEO_LABEL_BG : GEO_LABEL_EN;
-  const resolvedGeos =
+  const resolvedGeos: PeerGeo[] =
     geos && geos.length > 0
       ? // BG must always lead — it anchors the snapshot period.
         ["BG", ...geos.filter((g) => g !== "BG")]
