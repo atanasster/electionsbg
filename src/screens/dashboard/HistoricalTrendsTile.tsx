@@ -57,21 +57,30 @@ export const HistoricalTrendsTile: FC<Props> = ({
               <span>{t("dashboard_historical_trends")}</span>
             </div>
           </Hint>
-          <Hint text={t("consolidated_data_explainer")} underline={false}>
-            <div className="flex items-center gap-2">
-              <Switch
-                id={switchId}
-                checked={isConsolidated}
-                onCheckedChange={setIsConsolidated}
-              />
-              <Label
-                className="text-[10px] normal-case text-muted-foreground font-normal"
-                htmlFor={isTouch ? undefined : switchId}
-              >
-                {t("consolidated_data")}
-              </Label>
-            </div>
-          </Hint>
+          {(() => {
+            const row = (
+              <div className="flex items-center gap-2">
+                <Switch
+                  id={switchId}
+                  checked={isConsolidated}
+                  onCheckedChange={setIsConsolidated}
+                />
+                <Label
+                  className="text-[10px] normal-case text-muted-foreground font-normal"
+                  htmlFor={isTouch ? undefined : switchId}
+                >
+                  {t("consolidated_data")}
+                </Label>
+              </div>
+            );
+            return isTouch ? (
+              row
+            ) : (
+              <Hint text={t("consolidated_data_explainer")} underline={false}>
+                {row}
+              </Hint>
+            );
+          })()}
         </div>
       }
       className="overflow-hidden"

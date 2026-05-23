@@ -10,6 +10,7 @@ import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { prefetchElection } from "@/data/prefetch";
 import { localDate, totalAllVotes } from "@/data/utils";
 import { Hint } from "@/ux/Hint";
+import { useTouch } from "@/ux/TouchProvider";
 import {
   Check,
   ChevronDown,
@@ -17,7 +18,7 @@ import {
   ChevronRight,
   Users,
 } from "lucide-react";
-import { FC, useMemo } from "react";
+import { FC, ReactNode, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 
 type ElectionRow = {
@@ -33,6 +34,9 @@ export const ElectionsSelect: FC = () => {
   const { elections, selected, setSelected, stats } = useElectionContext();
   const { colorFor } = useCanonicalParties();
   const { t } = useTranslation();
+  const isTouch = useTouch();
+  const maybeHint = (text: string, node: ReactNode) =>
+    isTouch ? node : <Hint text={text}>{node}</Hint>;
 
   const rows: ElectionRow[] = useMemo(() => {
     return elections.map((name) => {
@@ -70,7 +74,8 @@ export const ElectionsSelect: FC = () => {
 
   return (
     <div className="flex gap-1 items-center">
-      <Hint text={t("prior_elections")}>
+      {maybeHint(
+        t("prior_elections"),
         <Button
           variant="ghost"
           size="icon"
@@ -86,8 +91,8 @@ export const ElectionsSelect: FC = () => {
         >
           <ChevronLeft className="size-5" />
           <span className="sr-only">{t("prior_elections")}</span>
-        </Button>
-      </Hint>
+        </Button>,
+      )}
       {/* A DropdownMenu with `modal={false}` rather than a Radix Select: Select
           always locks body scroll and compensates for the removed scrollbar,
           which flashes a ghost scrollbar and shifts the fixed header. */}
@@ -154,7 +159,8 @@ export const ElectionsSelect: FC = () => {
           ))}
         </DropdownMenuContent>
       </DropdownMenu>
-      <Hint text={t("next_elections")}>
+      {maybeHint(
+        t("next_elections"),
         <Button
           variant="ghost"
           size="icon"
@@ -170,8 +176,8 @@ export const ElectionsSelect: FC = () => {
         >
           <ChevronRight className="size-5" />
           <span className="sr-only">{t("next_elections")}</span>
-        </Button>
-      </Hint>
+        </Button>,
+      )}
     </div>
   );
 };
