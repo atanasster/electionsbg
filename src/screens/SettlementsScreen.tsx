@@ -7,6 +7,7 @@ import { SEO } from "@/ux/SEO";
 import { H1 } from "@/ux/H1";
 import { Link } from "@/ux/Link";
 import { MunicipalityDashboardCards } from "./dashboard/MunicipalityDashboardCards";
+import { SectionsScreen } from "./SectionsScreen";
 
 export const SettlementsScreen = () => {
   const { id: muniCode } = useParams();
@@ -16,6 +17,12 @@ export const SettlementsScreen = () => {
   const { i18n, t } = useTranslation();
   if (!muniCode) {
     return null;
+  }
+  // EKATTE codes are purely numeric (e.g. 69599); obshtina codes are letters+digits
+  // (e.g. TGV35). /settlement/{ekatte} URLs are prerendered + indexed by Google,
+  // so render the settlement view here instead of breaking the page.
+  if (/^\d+$/.test(muniCode)) {
+    return <SectionsScreen />;
   }
   const info = findMunicipality(muniCode);
   const region = findRegion(municipality?.oblast ?? info?.oblast);
