@@ -30,6 +30,7 @@ The "Changed" section of the report contains a bulleted list. Each bullet's labe
 | `Parliament roll-call votes` | `update-rollcall` |
 | `Parliament MPs` (active roster) | `parliament-scrape` |
 | `BG Wikipedia polls` | `update-polls` |
+| `BG Wikipedia governments list` | _manual edit required — see "Governments: manual edit first" below_ |
 | `Сметна палата declarations registry` | `update-connections` |
 | `Сметна палата declarations — executive (officials)` | `update-officials` |
 | `Сметна палата declarations — municipal (mayors & councillors)` | `update-officials` (Step 1b — municipal ingest) |
@@ -57,6 +58,18 @@ The "Changed" section of the report contains a bulleted list. Each bullet's labe
 
 Some sources map to the same skill (`update-connections` handles both declarations and Commerce Registry); dedupe so it only runs once.
 
+### Governments: manual edit first
+
+`wiki_governments` is special — `data/governments.json` is hand-maintained from the BG Wikipedia governments-list page, and no ingest script exists. The watcher detects when the page is edited (new cabinet row added, end-date filled on the incumbent, coalition footnote updated) but cannot itself update the JSON.
+
+When this source flips, surface it under a dedicated "Manual action required" block in the plan with the change signal from `state/watch/wiki_governments.json` (`detail` field and the `describe()` line, which distinguishes "+N cabinet row(s)" from "tail of page edited"):
+
+> Manual action required: `wiki_governments` flipped — `{describe-line}`. Check the BG Wikipedia governments-list page (https://bg.wikipedia.org/wiki/Списък_на_правителствата_на_България) and edit `data/governments.json` to add the new cabinet, update the previous incumbent's `endDate` + `endReason`, or fix the coalition footnote. Then re-run the orchestrator.
+
+The user must edit the file by hand. There is no marker to stamp; the next orchestrator run will re-surface the change until the fingerprint matches a future state (i.e. the watcher won't auto-resolve — once the user has done the edit, they can run `npx tsx scripts/stamp-ingest.ts wiki_governments --summary "manually edited data/governments.json"` to stamp).
+
+If the user says "skip governments for this run", drop it from the plan without stamping.
+
 ### TI CPI: manual paste first
 
 `transparency_cpi` is special. The CPI values live in a hand-curated `TI_CPI` array at `scripts/macro/fetch_eurostat.ts:572`; the watcher detects when TI publishes a new annual score, but `update-macro` itself does not re-scrape the country page. So when this source flips:
@@ -78,6 +91,7 @@ Each watcher source maps to one or more downstream skills. Multiple sources can 
 | `parliament_votes` | `update-rollcall` |
 | `parliament_mps` | `parliament-scrape` |
 | `wiki_polls` | `update-polls` |
+| `wiki_governments` | _no skill — manual edit of `data/governments.json` required; see "Governments: manual edit first" below_ |
 | `cacbg_declarations` | `update-connections` |
 | `cacbg_officials` | `update-officials` |
 | `cacbg_local` | `update-officials` (Step 1b — municipal ingest) |

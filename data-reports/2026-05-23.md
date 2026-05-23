@@ -1,17 +1,15 @@
-# Watch report — 2026-05-23 (23.05.2026 г., 09:08 Europe/Sofia)
+# Watch report — 2026-05-23 (23.05.2026 г., 16:26 Europe/Sofia)
 
 ## Changed
-- **Parliament roll-call votes**: 1 new roll-call session(s) since 2026-05-22 (latest: 2026-05-22)
+- **BG Wikipedia governments list** · first run: 111 cabinets · tail 84dce31615ac232c
 
 ## Unchanged
-- Parliament MPs (active roster): unchanged (52-ро Народно събрание — 240 MPs)
-- BG Wikipedia polls (2026 cycle): unchanged (113 poll table rows)
-- AZ (Агенция по заетостта): annual unemployment reviews: unchanged (18 annual reviews · latest 2025)
-- НСИ: население по общини (timeseries XLSX): unchanged (351945 bytes)
-- НСИ: раждания, умирания и миграция по общини (timeseries XLSX): unchanged (568355 bytes)
-- ГРАО: население по постоянен и настоящ адрес (по населени места): unchanged (2026-03-15 · 505573 bytes)
+_(none)_
 
 ## Skipped (off-cadence)
+- Parliament roll-call votes (daily): 1 new session(s), 1 with roll-call CSV (latest id 11129, 2026-05-22) · next check 2026-05-24
+- Parliament MPs (active roster) (daily): 52-ро Народно събрание — 240 MPs · next check 2026-05-24
+- BG Wikipedia polls (2026 cycle) (daily): 113 poll table rows · next check 2026-05-24
 - Сметна палата declarations registry (weekly): index hash f74f6ec3cebb3123 · next check 2026-05-27
 - Сметна палата declarations — executive (officials) (weekly): 489 declarations in scope, hash 7979da34e4e69db2 · next check 2026-05-28
 - Сметна палата declarations — municipal (mayors & councillors) (weekly): 6671 declarations in scope, hash 99dbfff1e68233b0 · next check 2026-05-28
@@ -28,6 +26,10 @@
 - EC EU budget per-MS spreadsheet (BG receipts/contributions) (weekly): BG receipts/contributions XLSX · years 2000-2023 · next check 2026-05-28
 - BNB domestic ДЦК auctions (weekly): 22 auction(s) in 2025-2026 · latest 2026-05-11 · next check 2026-05-28
 - Minfin КФП monthly bulletins (via Wayback) (monthly): 370 bulletins cached · latest 2025-02 · next check 2026-06-16
+- AZ (Агенция по заетостта): annual unemployment reviews (daily): 18 annual reviews · latest 2025 · next check 2026-05-24
+- НСИ: население по общини (timeseries XLSX) (daily): 351945 bytes · next check 2026-05-24
+- НСИ: раждания, умирания и миграция по общини (timeseries XLSX) (daily): 568355 bytes · next check 2026-05-24
+- ГРАО: население по постоянен и настоящ адрес (по населени места) (daily): 2026-03-15 · 505573 bytes · next check 2026-05-24
 - Transparency International CPI (Bulgaria) (monthly): 2025 CPI = 40/100, rank 84/182 (-3 y/y) · next check 2026-06-13
 - World Bank WGI (Bulgaria, Rule of Law canary) (monthly): 20 year(s) · latest 2024 = -0.033 (Rule of Law) · next check 2026-06-13
 
@@ -35,4 +37,4 @@
 - **МОН: ДЗИ резултати (data.egov.bg)**: HTTP 403 Forbidden
 
 ---
-_Watcher run at 2026-05-23T06:08:52.806Z UTC._
+_Watcher run at 2026-05-23T13:26:43.573Z UTC._

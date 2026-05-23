@@ -2,6 +2,7 @@ import type { WatchSource } from "../types";
 import { parliamentMps } from "./parliament_mps";
 import { parliamentVotes } from "./parliament_votes";
 import { wikiPolls } from "./wiki_polls";
+import { wikiGovernments } from "./wiki_governments";
 import { cacbgDeclarations } from "./cacbg_declarations";
 import { cacbgOfficials } from "./cacbg_officials";
 import { cacbgLocal } from "./cacbg_local";
@@ -32,6 +33,7 @@ export const SOURCES: WatchSource[] = [
   parliamentVotes, // listed first — primary deliverable per PRD
   parliamentMps,
   wikiPolls,
+  wikiGovernments,
   cacbgDeclarations,
   cacbgOfficials,
   cacbgLocal,
