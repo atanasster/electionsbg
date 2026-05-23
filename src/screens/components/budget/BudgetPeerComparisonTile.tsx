@@ -14,14 +14,18 @@ import {
   type PeerPoint,
 } from "@/data/macro/useMacroPeers";
 
-const PEER_ORDER: PeerGeo[] = ["BG", "EU27_2020", "RO", "HU", "PL"];
+// Peer roster matches macro_peers.json v2: BG anchors, EU27 as benchmark,
+// RO + GR as geographic neighbors, HU + HR as CEE peers. PL was dropped in
+// the v2 dataset in favor of HR.
+const PEER_ORDER: PeerGeo[] = ["BG", "EU27_2020", "RO", "GR", "HU", "HR"];
 
 const GEO_LABELS: Record<PeerGeo, { bg: string; en: string; code: string }> = {
   BG: { bg: "България", en: "Bulgaria", code: "BG" },
   EU27_2020: { bg: "ЕС-27", en: "EU-27", code: "EU" },
   RO: { bg: "Румъния", en: "Romania", code: "RO" },
+  GR: { bg: "Гърция", en: "Greece", code: "GR" },
   HU: { bg: "Унгария", en: "Hungary", code: "HU" },
-  PL: { bg: "Полша", en: "Poland", code: "PL" },
+  HR: { bg: "Хърватия", en: "Croatia", code: "HR" },
 };
 
 const METRIC_INFO: Record<

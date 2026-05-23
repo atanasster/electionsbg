@@ -1,17 +1,59 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Title } from "@/ux/Title";
 import { useHashScroll } from "@/ux/useHashScroll";
 import { useGovernments } from "@/data/governments/useGovernments";
 import { MacroPayload, MacroPoint, useMacro } from "@/data/macro/useMacro";
+import { useMacroPeers } from "@/data/macro/useMacroPeers";
+import { useCompareToggle } from "@/data/macro/useCompareToggle";
 import { Link } from "react-router-dom";
 import {
   CabinetStrip,
   GovernmentTimeline,
+  initialIndicatorToggle,
+  type IndicatorSpec,
+  type IndicatorToggle,
+  type PeerOverlay,
 } from "./components/governments/GovernmentTimeline";
+import type { MacroIndicatorKey } from "@/data/macro/useMacro";
 import { InflationBreakdownChart } from "./components/governments/InflationBreakdownChart";
 import { DebtEmissionsTable } from "./components/governments/DebtEmissionsTable";
 import { xDomainFor } from "./components/governments/governmentTimelineUtils";
+import { PeerSnapshotStrip } from "./components/macro/PeerSnapshotStrip";
+import { PeerSnapshotTable } from "./components/macro/PeerSnapshotTable";
+import { CompareToggleButton } from "./components/macro/CompareToggleButton";
+
+// Indicator specs hoisted to module scope so the toggle state initializers
+// (which read them in `useState`'s lazy initializer) and the chart `<Government
+// Timeline indicatorKeys={...}>` props see the same reference. Constant
+// across renders → no reseeding the toggle state on i18n changes etc.
+const ECONOMY_INDICATOR_SPEC: IndicatorSpec = [
+  {
+    labelKey: "governments_chart_group_headline",
+    keys: [
+      "gdpGrowth",
+      "inflation",
+      "unemployment",
+      "labourIncome",
+    ] as MacroIndicatorKey[],
+  },
+  {
+    labelKey: "governments_chart_group_activity",
+    keys: ["industrialProd", "retailVolume"] as MacroIndicatorKey[],
+  },
+];
+
+const ECONOMY_DEFAULT_ENABLED: MacroIndicatorKey[] = [
+  "gdpGrowth",
+  "inflation",
+  "unemployment",
+];
+
+const FISCAL_INDICATOR_KEYS: MacroIndicatorKey[] = [
+  "govDebt",
+  "budgetBalance",
+  "currentAccount",
+];
 
 type ChartSource = { href: string; label: string };
 
@@ -44,12 +86,34 @@ export const IndicatorsScreen = () => {
   const { t, i18n } = useTranslation();
   const { data: governments } = useGovernments();
   const { data: macro } = useMacro();
+  const { data: peers } = useMacroPeers();
+  const [compare, toggleCompare] = useCompareToggle();
   const lang: "en" | "bg" = i18n.language === "bg" ? "bg" : "en";
 
   // Hash anchor scroll for deep links like /indicators#debt-emissions. Run
   // on every data change so the scroll re-fires once the macro/governments
   // payloads arrive and the section heights settle.
   useHashScroll([macro, governments]);
+
+  // Build the per-section peer overlay once and share across sections that
+  // surface the same indicator. `peerOverlay[indicatorKey]` gives the per-geo
+  // quarterly series block (or undefined when the indicator has no peer data
+  // — the chart silently skips the EU27/peer lines in that case).
+  const peerOverlay = useMemo<PeerOverlay | undefined>(() => {
+    if (!peers?.indicators) return undefined;
+    return peers.indicators as PeerOverlay;
+  }, [peers]);
+
+  // Lifted toggle state for the two peer-aware multi-indicator sections.
+  // Lives in the parent so the PeerSnapshotTable above the chart can mirror
+  // the chart's pill selection (the user toggles inflation off → the table
+  // row for inflation disappears too).
+  const [economyEnabled, setEconomyEnabled] = useState<IndicatorToggle>(() =>
+    initialIndicatorToggle(ECONOMY_INDICATOR_SPEC, ECONOMY_DEFAULT_ENABLED),
+  );
+  const [fiscalEnabled, setFiscalEnabled] = useState<IndicatorToggle>(() =>
+    initialIndicatorToggle(FISCAL_INDICATOR_KEYS),
+  );
 
   const xDomain = useMemo<[number, number] | null>(
     () => (governments ? xDomainFor(governments) : null),
@@ -109,13 +173,19 @@ export const IndicatorsScreen = () => {
         {t("indicators_page_explainer")}
       </p>
 
-      <div className="mb-6 text-center">
+      <div className="mb-6 flex items-center justify-between gap-3 flex-wrap">
+        {/* Spacer keeps the back-link visually centered when the toggle is
+            wider/narrower than the link. */}
+        <div className="flex-1" />
         <Link
           to="/governments"
           className="text-sm text-primary hover:underline"
         >
           {t("indicators_to_governments_link")}
         </Link>
+        <div className="flex-1 flex justify-end">
+          <CompareToggleButton enabled={compare} onToggle={toggleCompare} />
+        </div>
       </div>
 
       {xDomain ? (
@@ -144,20 +214,23 @@ export const IndicatorsScreen = () => {
             },
           ]}
         />
+        {compare && (
+          <PeerSnapshotTable
+            rows={[
+              { indicatorKey: "gdpGrowth" },
+              { indicatorKey: "inflation" },
+              { indicatorKey: "unemployment" },
+            ].filter(
+              (r) => economyEnabled[r.indicatorKey as MacroIndicatorKey],
+            )}
+          />
+        )}
         <GovernmentTimeline
           governments={governments}
           macro={macro}
-          indicatorKeys={[
-            {
-              labelKey: "governments_chart_group_headline",
-              keys: ["gdpGrowth", "inflation", "unemployment", "labourIncome"],
-            },
-            {
-              labelKey: "governments_chart_group_activity",
-              keys: ["industrialProd", "retailVolume"],
-            },
-          ]}
-          defaultEnabled={["gdpGrowth", "inflation", "unemployment"]}
+          indicatorKeys={ECONOMY_INDICATOR_SPEC}
+          enabled={economyEnabled}
+          onEnabledChange={setEconomyEnabled}
           yAxisFormatter={(v) => `${v}`}
           unitFormatter={(k, v) =>
             k === "industrialProd" || k === "retailVolume"
@@ -166,6 +239,8 @@ export const IndicatorsScreen = () => {
           }
           showZeroLine
           height={360}
+          peerOverlay={peerOverlay}
+          peerCompareEnabled={compare}
         />
       </section>
 
@@ -218,14 +293,27 @@ export const IndicatorsScreen = () => {
             },
           ]}
         />
+        {compare && (
+          <PeerSnapshotTable
+            rows={[
+              { indicatorKey: "govDebt" },
+              { indicatorKey: "budgetBalance" },
+              { indicatorKey: "currentAccount" },
+            ].filter((r) => fiscalEnabled[r.indicatorKey as MacroIndicatorKey])}
+          />
+        )}
         <GovernmentTimeline
           governments={governments}
           macro={macro}
-          indicatorKeys={["govDebt", "budgetBalance", "currentAccount"]}
+          indicatorKeys={FISCAL_INDICATOR_KEYS}
+          enabled={fiscalEnabled}
+          onEnabledChange={setFiscalEnabled}
           yAxisFormatter={(v) => `${v}%`}
           unitFormatter={(_k, v) => `${v.toFixed(1)}%`}
           showZeroLine
           height={320}
+          peerOverlay={peerOverlay}
+          peerCompareEnabled={compare}
         />
       </section>
 
@@ -613,6 +701,7 @@ export const IndicatorsScreen = () => {
                   ? macro.indicators.youthUnemployment.titleBg
                   : macro.indicators.youthUnemployment.titleEn)}
             </div>
+            {compare && <PeerSnapshotStrip indicatorKey="youthUnemployment" />}
             <GovernmentTimeline
               governments={governments}
               macro={macro}
@@ -621,6 +710,8 @@ export const IndicatorsScreen = () => {
               unitFormatter={(_k, v) => `${v.toFixed(1)}%`}
               hideToggles
               height={200}
+              peerOverlay={peerOverlay}
+              peerCompareEnabled={compare}
             />
           </div>
           <div>
@@ -630,6 +721,7 @@ export const IndicatorsScreen = () => {
                   ? macro.indicators.housePricesYoY.titleBg
                   : macro.indicators.housePricesYoY.titleEn)}
             </div>
+            {compare && <PeerSnapshotStrip indicatorKey="housePricesYoY" />}
             <GovernmentTimeline
               governments={governments}
               macro={macro}
@@ -639,6 +731,8 @@ export const IndicatorsScreen = () => {
               showZeroLine
               hideToggles
               height={200}
+              peerOverlay={peerOverlay}
+              peerCompareEnabled={compare}
             />
           </div>
           <div>

@@ -93,10 +93,19 @@ const DATASETS: { code: string; query: string }[] = [
     query: "geo=BG&sector=S13&na_item=TE&unit=MIO_NAC&cofog99=TOTAL&freq=A",
   },
   // Annual general-government revenue / expenditure / balance as % of GDP for
-  // BG, EU27, and the CEE peers. Feeds the /governance EU peer-comparison
-  // tile + /budget headline-card peer chips via scripts/macro/fetch_eu_peers.
-  // One fingerprint covers both naturally — the dataset-level `updated`
-  // timestamp moves whenever Eurostat republishes BG or the EU aggregate.
+  // BG, EU27, and the four EU peers (RO + GR neighbors, HU + HR CEE). Feeds
+  // the /governance + /budget peer-comparison tiles via scripts/macro/
+  // fetch_eu_peers.ts. The dataset-level `updated` timestamp is geo-
+  // independent, so fingerprinting with `geo=BG` here correctly catches
+  // releases that also affect the EU aggregate or any peer.
+  //
+  // Note: scripts/macro/fetch_eu_peers.ts ALSO reads many of the other
+  // datasets listed above (prc_hicp_minr, namq_10_gdp, une_rt_q,
+  // gov_10q_ggdebt, gov_10q_ggnfa, ei_bpm6ca_q, prc_hpi_q) to populate the
+  // /indicators peer overlay (Compare with EU peers toggle). Those are
+  // already fingerprinted, so no extra entries are needed — but the
+  // update-macro skill must re-run fetch_eu_peers.ts whenever any of them
+  // flips, not only when gov_10a_main moves.
   {
     code: "gov_10a_main",
     query: "geo=BG&sector=S13&na_item=TR&unit=PC_GDP&freq=A",

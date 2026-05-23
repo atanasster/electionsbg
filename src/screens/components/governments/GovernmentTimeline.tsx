@@ -1,4 +1,4 @@
-import { FC, useMemo, useState } from "react";
+import { FC, ReactElement, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   CartesianGrid,
@@ -21,6 +21,11 @@ import {
   labelForFractionalX,
   pointToFractionalX,
 } from "@/data/macro/useMacro";
+import type {
+  PeerGeo,
+  PeerIndicatorBlock,
+  PeerQuarterlyPoint,
+} from "@/data/macro/useMacroPeers";
 import { Tooltip as UxTooltip } from "@/ux/Tooltip";
 import { tooltipSurfaceClass } from "@/components/ui/tooltipSurface";
 import { cn } from "@/lib/utils";
@@ -170,29 +175,100 @@ const SERIES_COLORS: Record<MacroIndicatorKey, string> = {
   euContribution: "#f97316",
 };
 
+// Per-indicator peer block. Threading this through makes the chart render
+// muted peer lines underneath the BG line; the EU27 dashed reference is
+// always shown when present, the four peer-country lines (RO/GR/HU/HR) only
+// when the parent flips `peerCompareEnabled` (the IndicatorsScreen-wide
+// "Compare" toggle). Optional everywhere — existing callers on Governments
+// and dashboard tiles pass nothing and render identically to before.
+export type PeerOverlay = Partial<
+  Record<MacroIndicatorKey, PeerIndicatorBlock>
+>;
+
+// Per-geo stroke colors for peer lines. EU27 is the headline reference and
+// uses a neutral slate; the four peers use desaturated flag-tinged hues so
+// each country is identifiable at a glance, but always at lower opacity +
+// thinner stroke than the BG line.
+const PEER_STROKES: Record<
+  Exclude<PeerGeo, "BG">,
+  { stroke: string; dash?: string; width: number }
+> = {
+  EU27_2020: { stroke: "#475569", dash: "6 3", width: 1.6 },
+  RO: { stroke: "#f59e0b", width: 1.2 },
+  GR: { stroke: "#2563eb", width: 1.2 },
+  HU: { stroke: "#16a34a", width: 1.2 },
+  HR: { stroke: "#be123c", width: 1.2 },
+};
+
+const PEER_COUNTRIES_BEYOND_EU: Exclude<PeerGeo, "BG" | "EU27_2020">[] = [
+  "RO",
+  "GR",
+  "HU",
+  "HR",
+];
+
+// Compose the dataKey we use inside Recharts rows for a peer point. Kept as
+// a helper so the render and the row-builder can't drift apart.
+const peerDataKey = (indicator: MacroIndicatorKey, geo: PeerGeo): string =>
+  `${indicator}__${geo}`;
+
 // Rows are keyed by fractional year (mid-year for annual, mid-quarter for
 // quarterly). Sparse — most cells are undefined when cadences are mixed,
 // which is fine because `<Line connectNulls>` handles it.
-type ChartRow = { x: number } & Partial<Record<MacroIndicatorKey, number>>;
+//
+// `MacroIndicatorKey` covers the BG columns; peer columns use the
+// `indicator__geo` composite key (string) so we widen the type.
+type ChartRow = {
+  x: number;
+} & Partial<Record<MacroIndicatorKey, number>> &
+  Record<string, number | undefined>;
 
 const buildChartData = (
   macro: MacroPayload | undefined,
   keys: MacroIndicatorKey[],
+  peerOverlay?: PeerOverlay,
 ): ChartRow[] => {
   if (!macro) return [];
   const rows = new Map<number, ChartRow>();
   for (const k of keys) {
     for (const p of macro.series[k] ?? []) {
       const x = pointToFractionalX(p);
-      const row = rows.get(x) ?? { x };
+      const row = rows.get(x) ?? ({ x } as ChartRow);
       row[k] = p.value;
       rows.set(x, row);
+    }
+    const overlay = peerOverlay?.[k];
+    if (overlay) {
+      const entries = Object.entries(overlay.series) as [
+        PeerGeo,
+        PeerQuarterlyPoint[] | undefined,
+      ][];
+      for (const [geo, points] of entries) {
+        if (geo === "BG" || !points) continue;
+        for (const p of points) {
+          const x = pointToFractionalX(p);
+          const row = rows.get(x) ?? ({ x } as ChartRow);
+          row[peerDataKey(k, geo)] = p.value;
+          rows.set(x, row);
+        }
+      }
     }
   }
   return [...rows.values()].sort((a, b) => a.x - b.x);
 };
 
 type Toggle = Partial<Record<MacroIndicatorKey, boolean>>;
+
+const PEER_TOOLTIP_LABEL: Record<
+  Exclude<PeerGeo, "BG">,
+  { bg: string; en: string }
+> = {
+  EU27_2020: { bg: "ЕС", en: "EU" },
+  RO: { bg: "РО", en: "RO" },
+  GR: { bg: "ГР", en: "GR" },
+  HU: { bg: "УН", en: "HU" },
+  HR: { bg: "ХР", en: "HR" },
+};
 
 const TooltipContent: FC<{
   active?: boolean;
@@ -226,6 +302,33 @@ const TooltipContent: FC<{
     const e = g.endDate ? toFractionalYear(g.endDate) : 9999;
     return s <= t && e >= t;
   });
+
+  // Split the recharts payload into BG (bare indicator key) vs peer (composite
+  // `indicator__geo` key) entries. We group peers by indicator below so each
+  // BG row gets its own peer summary line.
+  const bgEntries: { value: number; dataKey: string; color: string }[] = [];
+  const peerByIndicator: Record<
+    string,
+    { geo: Exclude<PeerGeo, "BG">; value: number; color: string }[]
+  > = {};
+  for (const p of payload ?? []) {
+    if (typeof p.value !== "number") continue;
+    const dk = p.dataKey;
+    const split = dk.indexOf("__");
+    if (split < 0) {
+      bgEntries.push(p);
+      continue;
+    }
+    const indicator = dk.slice(0, split) as MacroIndicatorKey;
+    const geo = dk.slice(split + 2) as Exclude<PeerGeo, "BG">;
+    if (!enabled[indicator]) continue;
+    (peerByIndicator[indicator] ??= []).push({
+      geo,
+      value: p.value,
+      color: p.color,
+    });
+  }
+
   return (
     <div className={cn(tooltipSurfaceClass, "px-3 py-2 text-xs max-w-xs")}>
       <div className="font-semibold mb-1">{labelForFractionalX(label)}</div>
@@ -240,20 +343,34 @@ const TooltipContent: FC<{
         </div>
       ))}
       <div className="mt-1 border-t border-border pt-1 flex flex-col gap-0.5">
-        {payload
-          ?.filter((p) => enabled[p.dataKey as MacroIndicatorKey])
+        {bgEntries
+          .filter((p) => enabled[p.dataKey as MacroIndicatorKey])
           .map((p) => {
-            const meta = indicatorTitles[p.dataKey as MacroIndicatorKey];
+            const indicator = p.dataKey as MacroIndicatorKey;
+            const meta = indicatorTitles[indicator];
+            const peers = peerByIndicator[indicator];
             return (
-              <div key={p.dataKey} className="flex justify-between gap-2">
-                <span style={{ color: p.color }}>
-                  {lang === "bg" ? meta.titleBg : meta.titleEn}
-                </span>
-                <span className="font-semibold tabular-nums">
-                  {typeof p.value === "number"
-                    ? unitFormatter(p.dataKey as MacroIndicatorKey, p.value)
-                    : "—"}
-                </span>
+              <div key={p.dataKey} className="flex flex-col">
+                <div className="flex justify-between gap-2">
+                  <span style={{ color: p.color }}>
+                    {lang === "bg" ? meta.titleBg : meta.titleEn}
+                  </span>
+                  <span className="font-semibold tabular-nums">
+                    {unitFormatter(indicator, p.value)}
+                  </span>
+                </div>
+                {peers && peers.length > 0 ? (
+                  <div className="flex flex-wrap gap-x-2 gap-y-0.5 text-[10px] text-muted-foreground tabular-nums pl-1">
+                    {peers.map((pp) => (
+                      <span key={pp.geo} className="inline-flex gap-0.5">
+                        <span style={{ color: pp.color }}>
+                          {PEER_TOOLTIP_LABEL[pp.geo][lang]}
+                        </span>
+                        <span>{unitFormatter(indicator, pp.value)}</span>
+                      </span>
+                    ))}
+                  </div>
+                ) : null}
               </div>
             );
           })}
@@ -439,6 +556,28 @@ export type IndicatorGroup = {
 };
 export type IndicatorSpec = MacroIndicatorKey[] | IndicatorGroup[];
 
+// Public alias for the per-indicator on/off map. Exported so screens that
+// lift toggle state (e.g., IndicatorsScreen filtering the snapshot table by
+// what the chart shows) can type their state.
+export type IndicatorToggle = Partial<Record<MacroIndicatorKey, boolean>>;
+
+// Helper for callers that lift `enabled` state out: produces the same
+// initial Toggle the chart would build internally given the same args. Use
+// in a `useState` initializer to seed lifted state with the chart's defaults.
+export const initialIndicatorToggle = (
+  spec: IndicatorSpec,
+  defaultEnabled?: MacroIndicatorKey[],
+): IndicatorToggle => {
+  const keys =
+    Array.isArray(spec) && typeof spec[0] === "string"
+      ? (spec as MacroIndicatorKey[])
+      : (spec as IndicatorGroup[]).flatMap((g) => g.keys);
+  const on = new Set<MacroIndicatorKey>(defaultEnabled ?? keys);
+  const out: IndicatorToggle = {};
+  for (const k of keys) out[k] = on.has(k);
+  return out;
+};
+
 // Vertical reference line + label, used to flag a one-off event on the
 // chart (e.g. the 2008 EU funds suspension). Drawn on top of the cabinet
 // bands and election ticks. Keep markers sparse — they compete visually
@@ -500,6 +639,21 @@ export const GovernmentTimeline: FC<{
   /** Optional horizontal reference lines (constants on the y-axis), e.g. a
       legal floor or policy threshold the series should stay above/below. */
   horizontalReferences?: HorizontalReferenceLine[];
+  /** Per-indicator peer data. When present, the chart draws an EU27 dashed
+      reference line for each enabled BG indicator that has peer data, and
+      (when `peerCompareEnabled` is true) RO/GR/HU/HR ghost lines as well. */
+  peerOverlay?: PeerOverlay;
+  /** Master "Compare" toggle from the IndicatorsScreen — when true, RO/GR/HU/HR
+      peer lines render alongside the EU27 dashed reference. When false, only
+      EU27 shows. Has no effect if `peerOverlay` is unset. */
+  peerCompareEnabled?: boolean;
+  /** Controlled toggle state. Pass alongside `onEnabledChange` to lift the
+      per-indicator on/off state out of the chart (used by IndicatorsScreen
+      so the peer-snapshot table only renders the rows the chart shows).
+      When omitted, the chart manages its own state. */
+  enabled?: IndicatorToggle;
+  /** Companion setter for the controlled `enabled` prop. */
+  onEnabledChange?: (next: IndicatorToggle) => void;
 }> = ({
   governments,
   macro,
@@ -513,6 +667,10 @@ export const GovernmentTimeline: FC<{
   hideToggles,
   eventMarkers,
   horizontalReferences,
+  peerOverlay,
+  peerCompareEnabled,
+  enabled: controlledEnabled,
+  onEnabledChange,
 }) => {
   const { t, i18n } = useTranslation();
   const lang: "en" | "bg" = i18n.language === "bg" ? "bg" : "en";
@@ -528,11 +686,25 @@ export const GovernmentTimeline: FC<{
     return out;
   }, [flatKeys, defaultEnabled]);
 
-  const [enabled, setEnabled] = useState<Toggle>(initial);
+  // Dual-mode toggle state. If the parent passes both `enabled` and
+  // `onEnabledChange` we run controlled; otherwise we own the state. Mixing
+  // the two by passing only one would silently drop changes, so we require
+  // both at the type level via the union check below.
+  const [internalEnabled, setInternalEnabled] = useState<Toggle>(initial);
+  const isControlled =
+    controlledEnabled !== undefined && onEnabledChange !== undefined;
+  const enabled: Toggle = isControlled ? controlledEnabled : internalEnabled;
+  const setEnabled = isControlled
+    ? (updater: Toggle | ((prev: Toggle) => Toggle)) => {
+        const next =
+          typeof updater === "function" ? updater(controlledEnabled) : updater;
+        onEnabledChange(next);
+      }
+    : setInternalEnabled;
 
   const chartData = useMemo(
-    () => buildChartData(macro, flatKeys),
-    [macro, flatKeys],
+    () => buildChartData(macro, flatKeys, peerOverlay),
+    [macro, flatKeys, peerOverlay],
   );
 
   const xDomain = useMemo<[number, number]>(
@@ -681,12 +853,16 @@ export const GovernmentTimeline: FC<{
               const x2 = toFractionalYear(
                 g.endDate ?? new Date().toISOString(),
               );
+              // When the Compare toggle is on, dial the cabinet-band alpha
+              // down so the four peer-country ghost lines stay legible
+              // against the patchwork background.
+              const bandAlpha = peerCompareEnabled ? 0.07 : 0.18;
               return (
                 <ReferenceArea
                   key={`band-${g.id}`}
                   x1={x1}
                   x2={x2}
-                  fill={colorForGovernment(g, colorFor)}
+                  fill={colorForGovernment(g, colorFor, bandAlpha)}
                   fillOpacity={1}
                   stroke="none"
                   ifOverflow="visible"
@@ -755,6 +931,60 @@ export const GovernmentTimeline: FC<{
                 />
               );
             })}
+
+            {/* Peer lines render BEFORE the BG lines so BG paints on top.
+                Entire peer overlay (EU27 dashed reference + the four peer
+                countries) is gated behind `peerCompareEnabled` — when off,
+                the chart shows pure BG so a first-time reader is not
+                distracted by ghost lines they did not ask for. */}
+            {peerCompareEnabled
+              ? flatKeys.flatMap((k) => {
+                  if (!enabled[k]) return [];
+                  const overlay = peerOverlay?.[k];
+                  if (!overlay) return [];
+                  const out: ReactElement[] = [];
+                  // EU27 dashed reference.
+                  if ((overlay.series.EU27_2020?.length ?? 0) > 0) {
+                    const s = PEER_STROKES.EU27_2020;
+                    out.push(
+                      <Line
+                        key={`peer-${k}-EU27_2020`}
+                        type="monotone"
+                        dataKey={peerDataKey(k, "EU27_2020")}
+                        stroke={s.stroke}
+                        strokeWidth={s.width}
+                        strokeDasharray={s.dash}
+                        strokeOpacity={0.85}
+                        dot={false}
+                        activeDot={false}
+                        isAnimationActive={false}
+                        connectNulls
+                      />,
+                    );
+                  }
+                  // Four peer countries.
+                  for (const geo of PEER_COUNTRIES_BEYOND_EU) {
+                    if ((overlay.series[geo]?.length ?? 0) === 0) continue;
+                    const s = PEER_STROKES[geo];
+                    out.push(
+                      <Line
+                        key={`peer-${k}-${geo}`}
+                        type="monotone"
+                        dataKey={peerDataKey(k, geo)}
+                        stroke={s.stroke}
+                        strokeWidth={s.width}
+                        strokeDasharray={s.dash}
+                        strokeOpacity={0.65}
+                        dot={false}
+                        activeDot={false}
+                        isAnimationActive={false}
+                        connectNulls
+                      />,
+                    );
+                  }
+                  return out;
+                })
+              : null}
 
             {flatKeys.map((k) => {
               if (!enabled[k]) return null;
