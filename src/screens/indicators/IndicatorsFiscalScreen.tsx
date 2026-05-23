@@ -13,10 +13,12 @@ import { useCompareToggle } from "@/data/macro/useCompareToggle";
 import {
   CabinetStrip,
   GovernmentTimeline,
-  initialIndicatorToggle,
-  type IndicatorToggle,
   type PeerOverlay,
 } from "@/screens/components/governments/GovernmentTimeline";
+import {
+  initialIndicatorToggle,
+  type IndicatorToggle,
+} from "@/screens/components/governments/indicatorToggle";
 import type { MacroIndicatorKey } from "@/data/macro/useMacro";
 import { DebtEmissionsTable } from "@/screens/components/governments/DebtEmissionsTable";
 import { xDomainFor } from "@/screens/components/governments/governmentTimelineUtils";

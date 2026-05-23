@@ -23,7 +23,9 @@ const PAGE =
 // република); summing across tables means a new modern cabinet bumps the
 // count by 1 regardless of where the editor inserts the row.
 const countCabinetRows = (html: string): number => {
-  const tables = html.match(/<table[^>]*class="[^"]*wikitable[^"]*"[\s\S]*?<\/table>/g);
+  const tables = html.match(
+    /<table[^>]*class="[^"]*wikitable[^"]*"[\s\S]*?<\/table>/g,
+  );
   if (!tables) return 0;
   let total = 0;
   for (const t of tables) {
@@ -65,10 +67,8 @@ export const wikiGovernments: WatchSource = {
 
   describe(prev: WatchState | null, curr: Fingerprint): string {
     if (!prev) return curr.detail;
-    const prevRows =
-      typeof prev.meta?.rows === "number" ? prev.meta.rows : NaN;
-    const currRows =
-      typeof curr.meta?.rows === "number" ? curr.meta.rows : NaN;
+    const prevRows = typeof prev.meta?.rows === "number" ? prev.meta.rows : NaN;
+    const currRows = typeof curr.meta?.rows === "number" ? curr.meta.rows : NaN;
     const rowDelta = currRows - prevRows;
     const since = prev.lastChanged.slice(0, 10);
     if (Number.isFinite(rowDelta) && rowDelta !== 0) {

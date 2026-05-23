@@ -553,8 +553,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
   }),
   staticPage({
     path: "indicators/economy",
-    title:
-      "Икономика — БВП, инфлация, безработица, нагласи | electionsbg.com",
+    title: "Икономика — БВП, инфлация, безработица, нагласи | electionsbg.com",
     description:
       "Реален БВП, ХИПЦ инфлация, безработица, трудови доходи, индустриално производство, потребителско доверие и Economic Sentiment Indicator за България от 2005 г., разположени по мандати на правителствата.",
     breadcrumbName: "Икономика",
@@ -727,8 +726,7 @@ export const prerenderRoutes: PrerenderRoute[] = [
 </ul>
 <p>Източник: <a href="https://ec.europa.eu/eurostat/databrowser/" rel="nofollow noopener">Евростат</a> (същите редове, които захранват тримесечните графики в <a href="${SITE_URL}/indicators/economy">икономика</a> и <a href="${SITE_URL}/indicators/fiscal">фискални</a>).</p>`.trim(),
     english: {
-      title:
-        "Bulgaria vs EU Peers — Eurostat Snapshot | electionsbg.com",
+      title: "Bulgaria vs EU Peers — Eurostat Snapshot | electionsbg.com",
       description:
         "Eight macro indicators side-by-side for Bulgaria, EU27 and four CEE peers (Romania, Greece, Hungary, Croatia), with a country multi-select that persists in the URL.",
       breadcrumbName: "Compare",

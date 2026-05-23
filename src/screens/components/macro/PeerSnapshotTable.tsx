@@ -241,35 +241,35 @@ export const PeerSnapshotTable: FC<{
           gridTemplateColumns: `minmax(120px, max-content) minmax(64px, max-content) repeat(${resolvedGeos.length}, minmax(48px, 1fr)) minmax(0, max-content)`,
         }}
       >
-      {/* Header row */}
-      <div className="text-[10px] uppercase tracking-wide text-muted-foreground/70" />
-      <div className="text-[10px] uppercase tracking-wide text-muted-foreground/70" />
-      {resolvedGeos.map((geo) => (
-        <div
-          key={`h-${geo}`}
-          className={cn(
-            "text-[10px] uppercase tracking-wide text-right",
-            geo === "BG"
-              ? "text-foreground/70 font-semibold"
-              : "text-muted-foreground/70",
-          )}
-        >
-          {geoLabel[geo]}
+        {/* Header row */}
+        <div className="text-[10px] uppercase tracking-wide text-muted-foreground/70" />
+        <div className="text-[10px] uppercase tracking-wide text-muted-foreground/70" />
+        {resolvedGeos.map((geo) => (
+          <div
+            key={`h-${geo}`}
+            className={cn(
+              "text-[10px] uppercase tracking-wide text-right",
+              geo === "BG"
+                ? "text-foreground/70 font-semibold"
+                : "text-muted-foreground/70",
+            )}
+          >
+            {geoLabel[geo]}
+          </div>
+        ))}
+        <div className="text-[10px] uppercase tracking-wide text-muted-foreground/70 text-right">
+          {lang === "bg" ? "позиция" : "rank"}
         </div>
-      ))}
-      <div className="text-[10px] uppercase tracking-wide text-muted-foreground/70 text-right">
-        {lang === "bg" ? "позиция" : "rank"}
-      </div>
 
-      {rows.map((row) => (
-        <PeerRow
-          key={row.indicatorKey}
-          row={row}
-          defaultFormat={defaultFormat}
-          lang={lang}
-          geos={resolvedGeos}
-        />
-      ))}
+        {rows.map((row) => (
+          <PeerRow
+            key={row.indicatorKey}
+            row={row}
+            defaultFormat={defaultFormat}
+            lang={lang}
+            geos={resolvedGeos}
+          />
+        ))}
       </div>
     </div>
   );
