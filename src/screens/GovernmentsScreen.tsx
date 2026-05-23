@@ -42,7 +42,12 @@ export const GovernmentsScreen = () => {
       </p>
 
       {xDomain ? (
-        <CabinetStrip governments={governments} xDomain={xDomain} lang={lang} />
+        <CabinetStrip
+          governments={governments}
+          xDomain={xDomain}
+          lang={lang}
+          mobileScrollable
+        />
       ) : null}
 
       {macro ? (

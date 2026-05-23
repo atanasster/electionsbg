@@ -345,6 +345,16 @@ const PILL_LABEL_THRESHOLD = 1; // pct width
 // identify each cabinet — only the inline label drops.
 const PILL_LABEL_THRESHOLD_MOBILE = 3; // pct width
 
+// Mobile-scrollable layout (standalone strip, no chart x-axis alignment).
+// Pills get a min-width floor so every cabinet — including short caretakers —
+// fits a vertical Cyrillic surname. Above the floor, widths stay proportional
+// to tenure so the timeline metaphor survives. The whole strip overflows the
+// viewport and scrolls horizontally; pills wider than HORIZONTAL_PX show
+// horizontal text instead of rotated.
+const MOBILE_SCROLL_MIN_PILL_PX = 32;
+const MOBILE_SCROLL_TARGET_TOTAL_PX = 800;
+const MOBILE_SCROLL_HORIZONTAL_PX = 64;
+
 const formatDateLocal = (iso: string | null, lang: "en" | "bg"): string => {
   if (!iso) return "—";
   const d = new Date(iso);
@@ -424,10 +434,74 @@ export const CabinetStrip: FC<{
   governments: Government[];
   xDomain: [number, number];
   lang: "en" | "bg";
-}> = ({ governments, xDomain, lang }) => {
+  // When true on phone-width viewports, render the strip as a horizontally
+  // scrolling row with a per-pill min-width floor so every cabinet — including
+  // short caretakers — gets a readable label. Only pass this where the strip
+  // is standalone; chart-aligned pages must keep the default (false) layout.
+  mobileScrollable?: boolean;
+}> = ({ governments, xDomain, lang, mobileScrollable = false }) => {
   const { colorFor } = useCanonicalParties();
   const insets = useChartInsets();
   const isSmall = useMediaQueryMatch("sm");
+
+  if (isSmall && mobileScrollable) {
+    const span = xDomain[1] - xDomain[0];
+    const pillWidthsPx = governments.map((g) => {
+      const start = toFractionalYear(g.startDate);
+      const end = toFractionalYear(g.endDate ?? new Date().toISOString());
+      const pct = (end - start) / span;
+      return Math.max(
+        MOBILE_SCROLL_MIN_PILL_PX,
+        Math.round(pct * MOBILE_SCROLL_TARGET_TOTAL_PX),
+      );
+    });
+    return (
+      <div className="overflow-x-auto pb-1">
+        <div className="flex mb-1 rounded overflow-hidden h-24 w-max">
+          {governments.map((g, i) => {
+            const surname =
+              (lang === "bg" ? g.pmBg : g.pmEn).split(" ").pop() ?? "";
+            const widthPx = pillWidthsPx[i];
+            const horizontal = widthPx >= MOBILE_SCROLL_HORIZONTAL_PX;
+            return (
+              <UxTooltip
+                key={`pill-${g.id}`}
+                content={<PillTooltip g={g} lang={lang} />}
+              >
+                <div
+                  className="h-full flex items-center justify-center text-[11px] font-medium overflow-hidden border-r border-background/40 last:border-r-0 cursor-help"
+                  style={{
+                    width: `${widthPx}px`,
+                    backgroundColor: colorForGovernmentSolid(g, colorFor),
+                    color:
+                      g.type === "caretaker"
+                        ? "rgba(255,255,255,0.95)"
+                        : "#fff",
+                    opacity: g.type === "caretaker" ? 0.6 : 0.95,
+                  }}
+                >
+                  {horizontal ? (
+                    <span className="truncate px-1">{surname}</span>
+                  ) : (
+                    <span
+                      className="px-0.5 leading-none whitespace-nowrap"
+                      style={{
+                        writingMode: "vertical-rl",
+                        transform: "rotate(180deg)",
+                      }}
+                    >
+                      {surname}
+                    </span>
+                  )}
+                </div>
+              </UxTooltip>
+            );
+          })}
+        </div>
+      </div>
+    );
+  }
+
   const horizontalThreshold = isSmall
     ? PILL_HORIZONTAL_THRESHOLD_MOBILE
     : PILL_HORIZONTAL_THRESHOLD_DESKTOP;

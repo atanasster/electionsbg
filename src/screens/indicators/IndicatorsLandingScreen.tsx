@@ -124,6 +124,7 @@ export const IndicatorsLandingScreen: FC = () => {
             governments={governments}
             xDomain={xDomain}
             lang={lang}
+            mobileScrollable
           />
           {macro ? (
             <CabinetScoreRow
