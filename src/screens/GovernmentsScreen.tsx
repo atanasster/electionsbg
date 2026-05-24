@@ -3,16 +3,17 @@ import { useTranslation } from "react-i18next";
 import { Title } from "@/ux/Title";
 import { useGovernments } from "@/data/governments/useGovernments";
 import { useMacro } from "@/data/macro/useMacro";
+import {
+  useCabinetAnchor,
+  useSetCabinetAnchor,
+} from "@/data/macro/cabinetAnchorContext";
 import { Link, useLocation } from "react-router-dom";
 import {
   CabinetStrip,
-  EventMarker,
   GovernmentTimeline,
 } from "./components/governments/GovernmentTimeline";
-import {
-  toFractionalYear,
-  xDomainFor,
-} from "./components/governments/governmentTimelineUtils";
+import { xDomainFor } from "./components/governments/governmentTimelineUtils";
+import { useEuMilestones } from "./components/governments/euMilestones";
 import { GovernmentTable } from "./components/governments/GovernmentTable";
 import { CabinetScoreDetail } from "./components/macro/CabinetScoreCard";
 
@@ -20,6 +21,8 @@ export const GovernmentsScreen = () => {
   const { t, i18n } = useTranslation();
   const { data: governments } = useGovernments();
   const { data: macro } = useMacro();
+  const anchor = useCabinetAnchor();
+  const setAnchor = useSetCabinetAnchor();
   const lang: "en" | "bg" = i18n.language === "bg" ? "bg" : "en";
   const { hash } = useLocation();
   // Multi-select via toggle-on-click — see IndicatorsLandingScreen for the
@@ -33,45 +36,8 @@ export const GovernmentsScreen = () => {
     [governments],
   );
 
-  // Major EU-integration milestones overlaid on the macro chart so the reader
-  // can see them against the cabinet bands. Labels alternate top/bottom in the
-  // dense 2024–2026 stretch to stop them piling on top of each other. Labels
-  // are centered on each line (position "top"/"bottom") so they extend both
-  // ways from the marker — that's the most space-efficient layout for a tight
-  // cluster of 4 events spanning under 2 years.
-  const eventMarkers = useMemo<EventMarker[]>(
-    () => [
-      {
-        x: toFractionalYear("2007-01-01"),
-        label: t("governments_event_eu_accession"),
-      },
-      {
-        x: toFractionalYear("2020-07-10"),
-        label: t("governments_event_erm2"),
-      },
-      {
-        x: toFractionalYear("2024-03-31"),
-        label: t("governments_event_schengen_air"),
-        labelPosition: "bottom",
-      },
-      {
-        x: toFractionalYear("2025-01-01"),
-        label: t("governments_event_schengen_land"),
-      },
-      {
-        x: toFractionalYear("2025-06-04"),
-        label: t("governments_event_convergence_report"),
-        labelPosition: "bottom",
-        labelOffset: 20,
-      },
-      {
-        x: toFractionalYear("2026-01-01"),
-        label: t("governments_event_eurozone"),
-        labelOffset: 20,
-      },
-    ],
-    [t],
-  );
+  // Shared EU milestone list — see euMilestones.ts for placement rationale.
+  const eventMarkers = useEuMilestones();
 
   // Default selection on this page = the current (incumbent) cabinet — its
   // endReason is "incumbent". Falls back to the last entry if none is so
@@ -139,8 +105,11 @@ export const GovernmentsScreen = () => {
           xDomain={xDomain}
           lang={lang}
           mobileScrollable
+          fullWidth
           selectedIds={selectedCabinetIds}
           onToggle={toggleCabinet}
+          onAnchor={setAnchor}
+          anchoredId={anchor?.cabinet.id ?? null}
         />
       ) : null}
 
@@ -177,6 +146,8 @@ export const GovernmentsScreen = () => {
           hideToggles
           height={280}
           eventMarkers={eventMarkers}
+          onCabinetClick={setAnchor}
+          highlightedCabinetId={anchor?.cabinet.id ?? null}
         />
       </section>
 

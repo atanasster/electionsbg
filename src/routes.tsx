@@ -1,6 +1,7 @@
 import { FC, lazy, PropsWithChildren, Suspense, useEffect } from "react";
 import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import { Layout } from "./layout/Layout";
+import { CabinetAnchorProvider } from "@/data/macro/cabinetAnchorContext";
 
 // Eagerly load the home screen so the landing page has no Suspense flash.
 import { DashboardScreen } from "@/screens/DashboardScreen";
@@ -406,6 +407,11 @@ const MunicipalitiesWastedVote = lazy(() =>
 const GovernmentsScreen = lazy(() =>
   import("./screens/GovernmentsScreen").then((m) => ({
     default: m.GovernmentsScreen,
+  })),
+);
+const GovernmentDetailScreen = lazy(() =>
+  import("./screens/GovernmentDetailScreen").then((m) => ({
+    default: m.GovernmentDetailScreen,
   })),
 );
 const IndicatorsLandingScreen = lazy(() =>
@@ -829,6 +835,23 @@ const LayoutScreen: FC<PropsWithChildren> = ({ children }) => {
     <Layout>
       <Suspense fallback={<RouteFallback />}>{children}</Suspense>
     </Layout>
+  );
+};
+
+// Layout variant for the governments + indicators route group. Wraps the page
+// in CabinetAnchorProvider so the ?cabinet=<id> URL param re-anchors every
+// quarterly/annual snapshot via useElectionAsOf / useElectionYear without
+// each screen having to opt in. The provider sits ABOVE Layout so the
+// persistent header anchor pill (rendered by Header) can read the active
+// anchor too — outside this route group useCabinetAnchor() returns null and
+// the pill stays hidden.
+const CabinetAnchoredLayoutScreen: FC<PropsWithChildren> = ({ children }) => {
+  return (
+    <CabinetAnchorProvider>
+      <Layout>
+        <Suspense fallback={<RouteFallback />}>{children}</Suspense>
+      </Layout>
+    </CabinetAnchorProvider>
   );
 };
 
@@ -1642,57 +1665,65 @@ export const AuthRoutes = () => {
         <Route
           path="governments"
           element={
-            <LayoutScreen>
+            <CabinetAnchoredLayoutScreen>
               <GovernmentsScreen />
-            </LayoutScreen>
+            </CabinetAnchoredLayoutScreen>
+          }
+        />
+        <Route
+          path="governments/:slug"
+          element={
+            <CabinetAnchoredLayoutScreen>
+              <GovernmentDetailScreen />
+            </CabinetAnchoredLayoutScreen>
           }
         />
         <Route
           path="indicators"
           element={
-            <LayoutScreen>
+            <CabinetAnchoredLayoutScreen>
               <IndicatorsLandingScreen />
-            </LayoutScreen>
+            </CabinetAnchoredLayoutScreen>
           }
         />
         <Route
           path="indicators/economy"
           element={
-            <LayoutScreen>
+            <CabinetAnchoredLayoutScreen>
               <IndicatorsEconomyScreen />
-            </LayoutScreen>
+            </CabinetAnchoredLayoutScreen>
           }
         />
         <Route
           path="indicators/fiscal"
           element={
-            <LayoutScreen>
+            <CabinetAnchoredLayoutScreen>
               <IndicatorsFiscalScreen />
-            </LayoutScreen>
+            </CabinetAnchoredLayoutScreen>
           }
         />
         <Route
           path="indicators/governance"
           element={
-            <LayoutScreen>
+            <CabinetAnchoredLayoutScreen>
               <IndicatorsGovernanceScreen />
-            </LayoutScreen>
+            </CabinetAnchoredLayoutScreen>
           }
         />
         <Route
           path="indicators/society"
           element={
-            <LayoutScreen>
+            <CabinetAnchoredLayoutScreen>
               <IndicatorsSocietyScreen />
-            </LayoutScreen>
+            </CabinetAnchoredLayoutScreen>
           }
         />
         <Route
           path="indicators/compare"
           element={
-            <LayoutScreen>
+            <CabinetAnchoredLayoutScreen>
               <IndicatorsCompareScreen />
-            </LayoutScreen>
+            </CabinetAnchoredLayoutScreen>
           }
         />
         <Route

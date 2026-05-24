@@ -23,6 +23,7 @@ import { MenuItem, electionsMenu, governanceMenu } from "./reportMenus";
 import { Search } from "../search/Search";
 import { ElectionsSelect } from "./ElectionsSelect";
 import { Logo } from "./Logo";
+import { CabinetAnchorPill } from "./CabinetAnchorPill";
 import { useElectionContext } from "@/data/ElectionContext";
 import { useArticles } from "@/data/articles/useArticles";
 
@@ -208,6 +209,7 @@ export const Header = () => {
         </Link>
         <div aria-hidden className="hidden sm:block h-6 w-px bg-border/70" />
         <ElectionsSelect />
+        <CabinetAnchorPill />
       </div>
       <div className="flex flex-1 justify-end gap-3 items-center px-4 min-w-0">
         <Search />

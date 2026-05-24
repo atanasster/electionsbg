@@ -1863,3 +1863,83 @@ for (const tab of sofiaSubTabs) {
     }),
   );
 }
+
+// Per-cabinet detail pages /governments/<slug>. Read the cabinets file at
+// build time so adding a future cabinet to data/governments.json
+// automatically generates a new prerendered page (no script edit needed).
+// Crawlers without JS see PM name, tenure, coalition, and end reason as
+// indexable content; the React SPA still owns the live rendering.
+type CabinetEntry = {
+  id: string;
+  pmBg: string;
+  pmEn: string;
+  startDate: string;
+  endDate: string | null;
+  type: "regular" | "caretaker";
+  parties: string[];
+  partiesEn?: string[];
+  endReasonBg?: string;
+  endReasonEn?: string;
+};
+
+const GOVERNMENTS_FILE = path.join(PROJECT_ROOT, "data/governments.json");
+if (fs.existsSync(GOVERNMENTS_FILE)) {
+  try {
+    const payload = JSON.parse(fs.readFileSync(GOVERNMENTS_FILE, "utf8")) as {
+      governments: CabinetEntry[];
+    };
+    const fmtDateBg = (iso: string | null): string => {
+      if (!iso) return "—";
+      const d = new Date(iso);
+      return d.toLocaleDateString("bg-BG", {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      });
+    };
+    const fmtDateEn = (iso: string | null): string => {
+      if (!iso) return "—";
+      const d = new Date(iso);
+      return d.toLocaleDateString("en-GB", {
+        day: "numeric",
+        month: "long",
+        year: "numeric",
+      });
+    };
+    for (const c of payload.governments) {
+      const typeBg = c.type === "caretaker" ? "служебен" : "редовен";
+      const typeEn = c.type === "caretaker" ? "caretaker" : "regular";
+      const partiesBg = (c.parties ?? []).join(", ") || "—";
+      const partiesEn = (c.partiesEn ?? c.parties ?? []).join(", ") || "—";
+      const tenureBg = `${fmtDateBg(c.startDate)} – ${fmtDateBg(c.endDate)}`;
+      const tenureEn = `${fmtDateEn(c.startDate)} – ${fmtDateEn(c.endDate)}`;
+      const endBg = c.endReasonBg ?? "";
+      const endEn = c.endReasonEn ?? "";
+      prerenderRoutes.push(
+        staticPage({
+          path: `governments/${c.id}`,
+          title: `Кабинет ${c.pmBg} — макро профил | electionsbg.com`,
+          description: `Профил на мандата на ${c.pmBg} (${typeBg}, ${tenureBg}): основни макроикономически и управленски показатели, средни стойности за периода и графика.`,
+          breadcrumbName: c.pmBg,
+          bodyHtml: `
+<h1>Кабинет ${c.pmBg}</h1>
+<p><strong>${typeBg}</strong> · ${tenureBg}${partiesBg !== "—" ? ` · ${partiesBg}` : ""}${endBg ? ` · ${endBg}` : ""}</p>
+<p>Профил на мандата с показатели в началото и края, средни стойности за периода и графика на БВП, инфлация и безработица в рамките на мандата ±1 година.</p>
+<p>Виж и <a href="${SITE_URL}/governments">всички кабинети</a> или <a href="${SITE_URL}/indicators/compare?cabinet=${encodeURIComponent(c.id)}">сравнението с ЕС</a> към края на този мандат.</p>`.trim(),
+          english: {
+            title: `${c.pmEn} cabinet — macro profile | electionsbg.com`,
+            description: `Profile of ${c.pmEn}'s cabinet (${typeEn}, ${tenureEn}): headline macroeconomic and governance indicators, tenure averages and macro chart.`,
+            breadcrumbName: c.pmEn,
+            bodyHtml: `
+<h1>${c.pmEn} cabinet</h1>
+<p><strong>${typeEn}</strong> · ${tenureEn}${partiesEn !== "—" ? ` · ${partiesEn}` : ""}${endEn ? ` · ${endEn}` : ""}</p>
+<p>Term profile with start vs. end indicator values, time-weighted averages across the tenure, and a macro chart for GDP growth, inflation and unemployment zoomed to the term ±1 year.</p>
+<p>See also <a href="${SITE_URL}/en/governments">all cabinets</a> or <a href="${SITE_URL}/en/indicators/compare?cabinet=${encodeURIComponent(c.id)}">peer comparison</a> at the end of this term.</p>`.trim(),
+          },
+        }),
+      );
+    }
+  } catch (err) {
+    console.warn("prerender: failed to enumerate cabinet detail pages", err);
+  }
+}

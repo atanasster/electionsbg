@@ -8,6 +8,8 @@
 
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
+import { ArrowUpRight } from "lucide-react";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import type { Government } from "@/data/governments/useGovernments";
 import type { MacroPayload } from "@/data/macro/useMacro";
@@ -119,7 +121,16 @@ export const CabinetScoreDetail: FC<{
         />
         <div className="flex-1 p-3 flex flex-col gap-3">
           <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
-            <span className="text-sm font-semibold">{fullName}</span>
+            <Link
+              to={`/governments/${encodeURIComponent(g.id)}`}
+              className="text-sm font-semibold hover:underline inline-flex items-center gap-1 group"
+            >
+              {fullName}
+              <ArrowUpRight
+                className="h-3 w-3 opacity-50 group-hover:opacity-100"
+                aria-hidden
+              />
+            </Link>
             <span className="text-[11px] uppercase tracking-wide text-muted-foreground">
               {caretaker ? t("gov_type_caretaker") : t("gov_type_regular")}
             </span>

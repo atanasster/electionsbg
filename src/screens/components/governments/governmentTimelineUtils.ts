@@ -21,5 +21,10 @@ export const xDomainFor = (governments: Government[]): [number, number] => {
         ),
       )
     : new Date().getFullYear();
-  return [Math.floor(earliest), Math.ceil(latestEnd) + 0.1];
+  // Snug right edge — use latestEnd exactly. Earlier versions padded out to
+  // ceil(latestEnd) + 0.1 to leave breathing room past the rightmost tick,
+  // but that pushed the CabinetStrip's last pill in by ~0.7 years' worth of
+  // width, which read as wasted whitespace at the right of every page that
+  // hosts the strip.
+  return [Math.floor(earliest), latestEnd];
 };

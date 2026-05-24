@@ -90,7 +90,12 @@ export const IndicatorsEconomyScreen = () => {
       </div>
 
       {xDomain ? (
-        <CabinetStrip governments={governments} xDomain={xDomain} lang={lang} />
+        <CabinetStrip
+          governments={governments}
+          xDomain={xDomain}
+          lang={lang}
+          mobileScrollable
+        />
       ) : null}
 
       <section className="mb-10">
