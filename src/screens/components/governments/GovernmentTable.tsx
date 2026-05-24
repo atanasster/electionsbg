@@ -1,13 +1,17 @@
-import { FC, useMemo } from "react";
+import { FC, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { ArrowDown, ArrowUp, ArrowUpDown } from "lucide-react";
 import {
   Government,
   GovernmentEndReason,
 } from "@/data/governments/useGovernments";
 import { MacroPayload, MacroPoint } from "@/data/macro/useMacro";
 import { useMps } from "@/data/parliament/useMps";
+import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 import { CandidateLink } from "@/screens/components/candidates/CandidateLink";
+import { colorForGovernmentSolid } from "@/screens/components/governments/governmentColors";
+import { cn } from "@/lib/utils";
 
 const formatDate = (iso: string | null, lang: string): string => {
   if (!iso) return "—";
@@ -118,13 +122,41 @@ const periodTotal = (
   return anyOverlap ? total : null;
 };
 
+type SortKey =
+  | "order"
+  | "gdpGrowth"
+  | "inflation"
+  | "unemployment"
+  | "euFunds"
+  | "debtChange";
+
+type SortDir = "asc" | "desc";
+
+const SortIcon: FC<{ active: boolean; dir: SortDir }> = ({ active, dir }) => {
+  if (!active) return <ArrowUpDown className="h-3 w-3 opacity-50" />;
+  return dir === "asc" ? (
+    <ArrowUp className="h-3 w-3" />
+  ) : (
+    <ArrowDown className="h-3 w-3" />
+  );
+};
+
 export const GovernmentTable: FC<{
   governments: Government[];
   macro: MacroPayload | undefined;
-}> = ({ governments, macro }) => {
+  // Optional: ids currently selected via CabinetStrip. Matching rows get a
+  // subtle highlight + a heavier color ribbon so the strip's selection state
+  // stays visible all the way down to the table.
+  selectedIds?: string[] | null;
+}> = ({ governments, macro, selectedIds }) => {
   const { t, i18n } = useTranslation();
   const lang = i18n.language;
   const { findMpByName } = useMps();
+  const { colorFor } = useCanonicalParties();
+  const [sortKey, setSortKey] = useState<SortKey>("order");
+  const [sortDir, setSortDir] = useState<SortDir>("asc");
+
+  const selectedSet = useMemo(() => new Set(selectedIds ?? []), [selectedIds]);
 
   const endReasonLabel = (reason: GovernmentEndReason): string => {
     const map: Record<GovernmentEndReason, string> = {
@@ -140,7 +172,7 @@ export const GovernmentTable: FC<{
   };
 
   const rows = useMemo(() => {
-    return governments.map((g) => {
+    return governments.map((g, order) => {
       const gdpGrowth = periodAverage(
         macro?.series.gdpGrowth,
         g.startDate,
@@ -168,10 +200,73 @@ export const GovernmentTable: FC<{
       );
       return {
         g,
+        order,
         indicators: { gdpGrowth, inflation, unemployment, euFunds, debtChange },
       };
     });
   }, [governments, macro]);
+
+  const sortedRows = useMemo(() => {
+    if (sortKey === "order") {
+      const out = [...rows].sort((a, b) => a.order - b.order);
+      return sortDir === "asc" ? out : out.reverse();
+    }
+    return [...rows].sort((a, b) => {
+      const av = a.indicators[sortKey];
+      const bv = b.indicators[sortKey];
+      if (av == null && bv == null) return 0;
+      if (av == null) return 1;
+      if (bv == null) return -1;
+      return sortDir === "asc" ? av - bv : bv - av;
+    });
+  }, [rows, sortKey, sortDir]);
+
+  const toggleSort = (key: SortKey, defaultDir: SortDir = "desc") => {
+    if (sortKey === key) {
+      setSortDir((d) => (d === "asc" ? "desc" : "asc"));
+    } else {
+      setSortKey(key);
+      setSortDir(defaultDir);
+    }
+  };
+
+  type HeaderProps = {
+    label: string;
+    sortKey: SortKey;
+    defaultDir?: SortDir;
+    align?: "left" | "right";
+  };
+
+  const SortHeader: FC<HeaderProps> = ({
+    label,
+    sortKey: key,
+    defaultDir = "desc",
+    align = "right",
+  }) => {
+    const active = sortKey === key;
+    return (
+      <th
+        className={cn(
+          "py-2 pr-3 cursor-pointer select-none",
+          align === "right" ? "text-right" : "text-left",
+        )}
+        onClick={() => toggleSort(key, defaultDir)}
+        aria-sort={
+          active ? (sortDir === "asc" ? "ascending" : "descending") : "none"
+        }
+      >
+        <span
+          className={cn(
+            "inline-flex items-center gap-1",
+            align === "right" ? "justify-end" : "justify-start",
+          )}
+        >
+          {label}
+          <SortIcon active={active} dir={sortDir} />
+        </span>
+      </th>
+    );
+  };
 
   const fmtPct = (v: number | null) => (v === null ? "—" : `${v.toFixed(1)}%`);
 
@@ -180,22 +275,38 @@ export const GovernmentTable: FC<{
       <table className="w-full text-sm">
         <thead className="text-xs uppercase text-muted-foreground border-b">
           <tr>
-            <th className="text-left py-2 pr-3">{t("gov_pm")}</th>
+            <th className="w-1 p-0" aria-hidden />
+            <SortHeader
+              label={t("gov_pm")}
+              sortKey="order"
+              defaultDir="asc"
+              align="left"
+            />
             <th className="text-left py-2 pr-3">{t("gov_type")}</th>
             <th className="text-left py-2 pr-3">{t("gov_period")}</th>
             <th className="text-left py-2 pr-3">{t("gov_parties")}</th>
-            <th className="text-right py-2 pr-3">{t("gov_avg_gdp_growth")}</th>
-            <th className="text-right py-2 pr-3">{t("gov_avg_inflation")}</th>
-            <th className="text-right py-2 pr-3">
-              {t("gov_avg_unemployment")}
-            </th>
-            <th className="text-right py-2 pr-3">{t("gov_eu_funds")}</th>
-            <th className="text-right py-2 pr-3">{t("gov_debt_change")}</th>
+            <SortHeader label={t("gov_avg_gdp_growth")} sortKey="gdpGrowth" />
+            <SortHeader
+              label={t("gov_avg_inflation")}
+              sortKey="inflation"
+              defaultDir="asc"
+            />
+            <SortHeader
+              label={t("gov_avg_unemployment")}
+              sortKey="unemployment"
+              defaultDir="asc"
+            />
+            <SortHeader label={t("gov_eu_funds")} sortKey="euFunds" />
+            <SortHeader
+              label={t("gov_debt_change")}
+              sortKey="debtChange"
+              defaultDir="asc"
+            />
             <th className="text-left py-2">{t("gov_end_reason")}</th>
           </tr>
         </thead>
         <tbody>
-          {rows.map(({ g, indicators }) => {
+          {sortedRows.map(({ g, indicators }) => {
             const pm = lang === "bg" ? g.pmBg : g.pmEn;
             const parties =
               lang === "bg" ? g.parties : (g.partiesEn ?? g.parties);
@@ -233,12 +344,27 @@ export const GovernmentTable: FC<{
             const partyTitle = isCaretaker
               ? t("gov_pm_prior_party")
               : t("gov_pm_party");
+            const ribbon = colorForGovernmentSolid(g, colorFor);
+            const isSelected = selectedSet.has(g.id);
             return (
               <tr
                 key={g.id}
-                className="border-b last:border-b-0 hover:bg-accent/5"
+                className={cn(
+                  "border-b last:border-b-0 hover:bg-accent/5",
+                  isSelected && "bg-accent/10",
+                )}
               >
-                <td className="py-2 pr-3 font-medium">
+                <td className="w-1 p-0">
+                  <div
+                    className={cn(
+                      "h-full mx-auto rounded-sm",
+                      isSelected ? "w-1.5" : "w-1",
+                    )}
+                    style={{ backgroundColor: ribbon, minHeight: "2.5rem" }}
+                    aria-hidden
+                  />
+                </td>
+                <td className="py-2 pl-2 pr-3 font-medium">
                   <div className="flex items-center gap-2">
                     <MpAvatar
                       name={g.pmBg}

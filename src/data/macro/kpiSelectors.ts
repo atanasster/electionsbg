@@ -132,9 +132,10 @@ const mean = (xs: number[]): number | null => {
 };
 
 // Below this many data points within the cabinet window, the average is more
-// misleading than useful — caretaker cabinets that ran <3 months would
-// otherwise have a 1-quarter "average" that swings wildly.
-const MIN_POINTS_FOR_AVG = 4;
+// misleading than useful — a single-quarter "average" swings wildly and
+// invites overinterpretation. Two quarters is the minimum we'll smooth, which
+// covers most 6+ month caretakers; sub-quarter cabinets stay "—".
+const MIN_POINTS_FOR_AVG = 2;
 
 // Net EU funds during the tenure, in EUR billions. macro.json `euFunds` and
 // `euContribution` are annual EUR-billion series; we prorate the first and

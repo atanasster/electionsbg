@@ -1,10 +1,10 @@
-// Per-cabinet score card — 6 averaged metrics summarising what happened on a
-// government's watch. Rendered in a horizontally-scrolling row that mirrors
-// the CabinetStrip order: hover a strip pill, the matching card highlights
-// (and vice versa) via a shared hover-id lifted into the parent screen.
+// Per-cabinet score panel — 6 averaged metrics summarising what happened on a
+// government's watch. Driven by a single selectedId lifted into the parent
+// screen; the host CabinetStrip acts as the selector (click a pill → this
+// panel swaps). Default selection is chosen by the host (typically the
+// cabinet in office at the user's selected election).
 //
-// Used on /indicators landing and /governments. The companion CabinetScoreRow
-// owns the loop + lifted hover state.
+// Used on /indicators landing.
 
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
@@ -12,7 +12,7 @@ import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import type { Government } from "@/data/governments/useGovernments";
 import type { MacroPayload } from "@/data/macro/useMacro";
 import {
-  cabinetMetricsForAll,
+  cabinetMetricsFor,
   type CabinetMetrics,
 } from "@/data/macro/kpiSelectors";
 import { colorForGovernmentSolid } from "@/screens/components/governments/governmentColors";
@@ -61,172 +61,107 @@ const MetricCell: FC<MetricCellProps> = ({
         : "text-foreground";
   return (
     <div className="flex flex-col leading-tight">
-      <span className="text-[9px] uppercase tracking-wide text-muted-foreground">
+      <span className="text-[10px] uppercase tracking-wide text-muted-foreground">
         {label}
       </span>
-      <span className={cn("text-xs font-semibold tabular-nums", toneClass)}>
+      <span className={cn("text-base font-semibold tabular-nums", toneClass)}>
         {value}
       </span>
     </div>
   );
 };
 
-type CardProps = {
-  government: Government;
-  metrics: CabinetMetrics;
-  highlighted?: boolean;
-  onHoverChange?: (id: string | null) => void;
-  lang: "bg" | "en";
+const toneFromSignedDelta = (
+  v: number | null,
+  goodWhenNegative: boolean,
+): "positive" | "negative" | "neutral" => {
+  if (v == null || v === 0) return "neutral";
+  const negativeIsGood = goodWhenNegative;
+  if (v < 0) return negativeIsGood ? "positive" : "negative";
+  return negativeIsGood ? "negative" : "positive";
 };
 
-const Card: FC<CardProps> = ({
-  government: g,
-  metrics,
-  highlighted,
-  onHoverChange,
-  lang,
-}) => {
-  const { t } = useTranslation();
+export const CabinetScoreDetail: FC<{
+  government: Government;
+  macro: MacroPayload;
+  className?: string;
+}> = ({ government: g, macro, className }) => {
+  const { t, i18n } = useTranslation();
+  const lang: "bg" | "en" = i18n.language === "bg" ? "bg" : "en";
   const { colorFor } = useCanonicalParties();
-  const surname = (lang === "bg" ? g.pmBg : g.pmEn).split(" ").pop() ?? "";
+  const metrics: CabinetMetrics = useMemo(
+    () => cabinetMetricsFor(g, macro),
+    [g, macro],
+  );
+
+  const fullName = lang === "bg" ? g.pmBg : g.pmEn;
+  const parties = lang === "bg" ? g.parties : (g.partiesEn ?? g.parties);
   const tenure = `${formatDateShort(g.startDate, lang)} – ${formatDateShort(g.endDate, lang)}`;
   const ribbon = colorForGovernmentSolid(g, colorFor);
   const caretaker = g.type === "caretaker";
 
-  const debtTone: "positive" | "negative" | "neutral" =
-    metrics.debtChangePpGdp == null
-      ? "neutral"
-      : metrics.debtChangePpGdp > 0
-        ? "negative"
-        : metrics.debtChangePpGdp < 0
-          ? "positive"
-          : "neutral";
-
-  const balanceTone: "positive" | "negative" | "neutral" =
-    metrics.avgBudgetBalancePpGdp == null
-      ? "neutral"
-      : metrics.avgBudgetBalancePpGdp >= 0
-        ? "positive"
-        : "negative";
-
-  const netFundsTone: "positive" | "negative" | "neutral" =
-    metrics.netEuFundsEurBn == null
-      ? "neutral"
-      : metrics.netEuFundsEurBn >= 0
-        ? "positive"
-        : "negative";
+  const debtTone = toneFromSignedDelta(metrics.debtChangePpGdp, true);
+  const balanceTone = toneFromSignedDelta(metrics.avgBudgetBalancePpGdp, false);
+  const netFundsTone = toneFromSignedDelta(metrics.netEuFundsEurBn, false);
 
   return (
     <div
       className={cn(
-        "shrink-0 w-[200px] rounded-lg border bg-card p-2 shadow-sm transition-colors",
-        highlighted ? "border-primary ring-1 ring-primary/40" : "border-border",
-        caretaker ? "opacity-80" : "",
+        "rounded-lg border bg-card shadow-sm overflow-hidden",
+        className,
       )}
-      onMouseEnter={() => onHoverChange?.(g.id)}
-      onMouseLeave={() => onHoverChange?.(null)}
-      onFocus={() => onHoverChange?.(g.id)}
-      onBlur={() => onHoverChange?.(null)}
-      tabIndex={0}
     >
-      <div className="flex items-center gap-1.5 mb-1.5">
-        <span
-          className="inline-block h-3 w-1 rounded-sm"
+      <div className="flex">
+        <div
+          className="w-1.5 shrink-0"
           style={{ backgroundColor: ribbon }}
           aria-hidden
         />
-        <span
-          className="text-xs font-semibold truncate"
-          title={lang === "bg" ? g.pmBg : g.pmEn}
-        >
-          {surname}
-        </span>
-        {caretaker && (
-          <span className="text-[9px] uppercase tracking-wide text-muted-foreground">
-            {t("gov_type_caretaker")}
-          </span>
-        )}
-      </div>
-      <div className="text-[10px] text-muted-foreground tabular-nums mb-2">
-        {tenure}
-      </div>
-      <div className="grid grid-cols-3 gap-x-2 gap-y-1.5">
-        <MetricCell
-          label={t("cabinet_card_gdp")}
-          value={fmtPct(metrics.avgGdpGrowth)}
-        />
-        <MetricCell
-          label={t("cabinet_card_inflation")}
-          value={fmtPct(metrics.avgInflation)}
-        />
-        <MetricCell
-          label={t("cabinet_card_unemployment")}
-          value={fmtPct(metrics.avgUnemployment)}
-        />
-        <MetricCell
-          label={t("cabinet_card_debt_change")}
-          value={fmtSignedPp(metrics.debtChangePpGdp)}
-          tone={debtTone}
-        />
-        <MetricCell
-          label={t("cabinet_card_balance")}
-          value={fmtPct(metrics.avgBudgetBalancePpGdp)}
-          tone={balanceTone}
-        />
-        <MetricCell
-          label={t("cabinet_card_eu_net")}
-          value={fmtEurBn(metrics.netEuFundsEurBn)}
-          tone={netFundsTone}
-        />
-      </div>
-    </div>
-  );
-};
-
-export const CabinetScoreRow: FC<{
-  governments: Government[];
-  macro: MacroPayload;
-  hoveredId?: string | null;
-  onHoverChange?: (id: string | null) => void;
-  className?: string;
-}> = ({ governments, macro, hoveredId, onHoverChange, className }) => {
-  const { t, i18n } = useTranslation();
-  const lang: "bg" | "en" = i18n.language === "bg" ? "bg" : "en";
-  const metricsList = useMemo(
-    () => cabinetMetricsForAll(governments, macro),
-    [governments, macro],
-  );
-  const byId = useMemo(() => {
-    const m = new Map<string, CabinetMetrics>();
-    for (const x of metricsList) m.set(x.govId, x);
-    return m;
-  }, [metricsList]);
-
-  return (
-    <div className={cn("flex flex-col gap-2", className)}>
-      <div className="text-[10px] uppercase tracking-wide text-muted-foreground">
-        {t("cabinet_score_row_heading")}
-      </div>
-      <div
-        className="flex gap-2 overflow-x-auto pb-2"
-        role="list"
-        aria-label={t("cabinet_score_row_heading")}
-      >
-        {governments.map((g) => {
-          const metrics = byId.get(g.id);
-          if (!metrics) return null;
-          return (
-            <div role="listitem" key={g.id}>
-              <Card
-                government={g}
-                metrics={metrics}
-                highlighted={hoveredId === g.id}
-                onHoverChange={onHoverChange}
-                lang={lang}
-              />
-            </div>
-          );
-        })}
+        <div className="flex-1 p-3 flex flex-col gap-3">
+          <div className="flex flex-wrap items-baseline gap-x-3 gap-y-1">
+            <span className="text-sm font-semibold">{fullName}</span>
+            <span className="text-[11px] uppercase tracking-wide text-muted-foreground">
+              {caretaker ? t("gov_type_caretaker") : t("gov_type_regular")}
+            </span>
+            <span className="text-[11px] text-muted-foreground tabular-nums">
+              {tenure}
+            </span>
+            {parties.length > 0 && (
+              <span className="text-[11px] text-muted-foreground truncate">
+                {parties.join(", ")}
+              </span>
+            )}
+          </div>
+          <div className="grid grid-cols-3 sm:grid-cols-6 gap-x-4 gap-y-3">
+            <MetricCell
+              label={t("cabinet_card_gdp")}
+              value={fmtPct(metrics.avgGdpGrowth)}
+            />
+            <MetricCell
+              label={t("cabinet_card_inflation")}
+              value={fmtPct(metrics.avgInflation)}
+            />
+            <MetricCell
+              label={t("cabinet_card_unemployment")}
+              value={fmtPct(metrics.avgUnemployment)}
+            />
+            <MetricCell
+              label={t("cabinet_card_debt_change")}
+              value={fmtSignedPp(metrics.debtChangePpGdp)}
+              tone={debtTone}
+            />
+            <MetricCell
+              label={t("cabinet_card_balance")}
+              value={fmtPct(metrics.avgBudgetBalancePpGdp)}
+              tone={balanceTone}
+            />
+            <MetricCell
+              label={t("cabinet_card_eu_net")}
+              value={fmtEurBn(metrics.netEuFundsEurBn)}
+              tone={netFundsTone}
+            />
+          </div>
+        </div>
       </div>
     </div>
   );

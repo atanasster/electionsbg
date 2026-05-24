@@ -1,20 +1,31 @@
 // /indicators — the new KPI dashboard front door. 12 KpiTile cards above the
-// CabinetStrip ribbon and a CabinetScoreRow below it. Each tile links to its
-// domain page; the cards under the ribbon mirror the strip's left-to-right
-// pill order so a sweep across both reads the same.
+// CabinetStrip ribbon. The ribbon doubles as a multi-select picker: click
+// pills to toggle them into the stacked CabinetScoreDetail panels below.
+// Default selection = the cabinet in office at the user's selected election.
+// "Compare all cabinets" is a cross-page link to /governments#cabinet-table
+// where the full sortable table lives — keeps this landing page focused.
 
-import { FC, useMemo, useState } from "react";
+import { FC, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { Title } from "@/ux/Title";
+import { useElectionContext } from "@/data/ElectionContext";
 import { useGovernments } from "@/data/governments/useGovernments";
 import { useMacro } from "@/data/macro/useMacro";
 import { xDomainFor } from "@/screens/components/governments/governmentTimelineUtils";
 import { CabinetStrip } from "@/screens/components/governments/GovernmentTimeline";
 import { KpiTile } from "@/screens/components/macro/KpiTile";
-import { CabinetScoreRow } from "@/screens/components/macro/CabinetScoreCard";
+import { CabinetScoreDetail } from "@/screens/components/macro/CabinetScoreCard";
 import { LANDING_KPI_ORDER } from "./indicatorsRegistry";
+
+// Election-name "YYYY_MM_DD" → ISO date; falls back to today if unparsable.
+const electionNameToIso = (name: string | undefined): string => {
+  if (!name) return new Date().toISOString();
+  const parts = name.split("_");
+  if (parts.length !== 3) return new Date().toISOString();
+  return `${parts[0]}-${parts[1]}-${parts[2]}T00:00:00.000Z`;
+};
 
 const localDateFromIso = (
   iso: string | undefined,
@@ -46,14 +57,70 @@ const DomainLink: FC<{ to: string; labelKey: string }> = ({ to, labelKey }) => {
 export const IndicatorsLandingScreen: FC = () => {
   const { t, i18n } = useTranslation();
   const lang: "bg" | "en" = i18n.language === "bg" ? "bg" : "en";
+  const { selected } = useElectionContext();
   const { data: governments } = useGovernments();
   const { data: macro } = useMacro();
-  const [hoveredId, setHoveredId] = useState<string | null>(null);
+  // Multi-select: clicking a strip pill toggles its membership here, so two
+  // or more cabinets can be compared side-by-side via stacked detail panels.
+  // userTouched flips on first click so the auto-default (cabinet in office
+  // at the selected election) doesn't keep re-overwriting the user's choice
+  // when they change election; default only re-applies if they've cleared
+  // selection entirely.
+  const [selectedCabinetIds, setSelectedCabinetIds] = useState<string[]>([]);
+  const [userTouched, setUserTouched] = useState(false);
 
   const xDomain = useMemo<[number, number] | null>(
     () => (governments ? xDomainFor(governments) : null),
     [governments],
   );
+
+  // Default selection follows the chosen election: the cabinet that was in
+  // office on (or, if mid-campaign, immediately before) the election date.
+  // If the user has already clicked a pill, keep their choice.
+  const defaultCabinetId = useMemo<string | null>(() => {
+    if (!governments || governments.length === 0) return null;
+    const electionIso = electionNameToIso(selected);
+    const electionMs = new Date(electionIso).getTime();
+    const match = governments.find((g) => {
+      const startMs = new Date(g.startDate).getTime();
+      const endMs = g.endDate ? new Date(g.endDate).getTime() : Infinity;
+      return startMs <= electionMs && electionMs <= endMs;
+    });
+    if (match) return match.id;
+    // Fallback: nearest cabinet whose tenure ended before the election (or
+    // the very first cabinet if everything is after it).
+    let nearest: string | null = null;
+    let nearestDelta = Infinity;
+    for (const g of governments) {
+      const startMs = new Date(g.startDate).getTime();
+      const delta = Math.abs(startMs - electionMs);
+      if (delta < nearestDelta) {
+        nearestDelta = delta;
+        nearest = g.id;
+      }
+    }
+    return nearest;
+  }, [governments, selected]);
+
+  useEffect(() => {
+    if (userTouched) return;
+    setSelectedCabinetIds(defaultCabinetId ? [defaultCabinetId] : []);
+  }, [defaultCabinetId, userTouched]);
+
+  const toggleCabinet = (id: string) => {
+    setUserTouched(true);
+    setSelectedCabinetIds((prev) =>
+      prev.includes(id) ? prev.filter((x) => x !== id) : [...prev, id],
+    );
+  };
+
+  // Render cards in the strip's left-to-right order (chronological) regardless
+  // of the click order, so the stack always reads the same way as the ribbon.
+  const selectedCabinets = useMemo(() => {
+    if (!governments || selectedCabinetIds.length === 0) return [];
+    const set = new Set(selectedCabinetIds);
+    return governments.filter((g) => set.has(g.id));
+  }, [governments, selectedCabinetIds]);
 
   const fetchedDate = localDateFromIso(macro?.fetchedAt, lang);
 
@@ -120,20 +187,38 @@ export const IndicatorsLandingScreen: FC = () => {
 
       {xDomain ? (
         <section className="mb-6">
+          <div className="text-[10px] uppercase tracking-wide text-muted-foreground mb-1">
+            {t("cabinet_score_row_heading")}
+          </div>
           <CabinetStrip
             governments={governments}
             xDomain={xDomain}
             lang={lang}
             mobileScrollable
+            selectedIds={selectedCabinetIds}
+            onToggle={toggleCabinet}
           />
+          {macro && selectedCabinets.length > 0 ? (
+            <div className="mt-3 flex flex-col gap-2">
+              {selectedCabinets.map((g) => (
+                <CabinetScoreDetail key={g.id} government={g} macro={macro} />
+              ))}
+            </div>
+          ) : (
+            <p className="text-[11px] text-muted-foreground mt-3">
+              {t("cabinet_selector_hint")}
+            </p>
+          )}
           {macro ? (
-            <CabinetScoreRow
-              governments={governments}
-              macro={macro}
-              hoveredId={hoveredId}
-              onHoverChange={setHoveredId}
-              className="mt-3"
-            />
+            <div className="mt-2 flex justify-end">
+              <Link
+                to="/governments#cabinet-table"
+                className="text-xs text-primary hover:underline inline-flex items-center gap-1"
+              >
+                {t("cabinet_compare_all")}
+                <ArrowRight className="h-3 w-3" />
+              </Link>
+            </div>
           ) : null}
         </section>
       ) : null}

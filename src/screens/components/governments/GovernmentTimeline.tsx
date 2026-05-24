@@ -439,10 +439,27 @@ export const CabinetStrip: FC<{
   // short caretakers — gets a readable label. Only pass this where the strip
   // is standalone; chart-aligned pages must keep the default (false) layout.
   mobileScrollable?: boolean;
-}> = ({ governments, xDomain, lang, mobileScrollable = false }) => {
+  // When passed, pills become toggle-selectable. Click adds, click again
+  // removes — pair with a downstream detail panel on the host screen that
+  // renders one card per selected id so two or more cabinets can be compared
+  // side by side. Selected pills get a thick high-contrast inset border;
+  // non-selected dim so the selection reads at a glance.
+  selectedIds?: string[] | null;
+  onToggle?: (id: string) => void;
+}> = ({
+  governments,
+  xDomain,
+  lang,
+  mobileScrollable = false,
+  selectedIds,
+  onToggle,
+}) => {
   const { colorFor } = useCanonicalParties();
   const insets = useChartInsets();
   const isSmall = useMediaQueryMatch("sm");
+  const selectable = typeof onToggle === "function";
+  const selectedSet = useMemo(() => new Set(selectedIds ?? []), [selectedIds]);
+  const anySelected = selectedSet.size > 0;
 
   if (isSmall && mobileScrollable) {
     const span = xDomain[1] - xDomain[0];
@@ -463,13 +480,36 @@ export const CabinetStrip: FC<{
               (lang === "bg" ? g.pmBg : g.pmEn).split(" ").pop() ?? "";
             const widthPx = pillWidthsPx[i];
             const horizontal = widthPx >= MOBILE_SCROLL_HORIZONTAL_PX;
+            const isSelected = selectable && selectedSet.has(g.id);
+            const dim = selectable && anySelected && !isSelected;
             return (
               <UxTooltip
                 key={`pill-${g.id}`}
                 content={<PillTooltip g={g} lang={lang} />}
               >
                 <div
-                  className="h-full flex items-center justify-center text-[11px] font-medium overflow-hidden border-r border-background/40 last:border-r-0 cursor-help"
+                  role={selectable ? "button" : undefined}
+                  tabIndex={selectable ? 0 : undefined}
+                  aria-pressed={selectable ? isSelected : undefined}
+                  onClick={selectable ? () => onToggle?.(g.id) : undefined}
+                  onKeyDown={
+                    selectable
+                      ? (e) => {
+                          if (e.key === "Enter" || e.key === " ") {
+                            e.preventDefault();
+                            onToggle?.(g.id);
+                          }
+                        }
+                      : undefined
+                  }
+                  className={cn(
+                    "h-full flex items-center justify-center text-[11px] font-medium overflow-hidden border-r border-background/40 last:border-r-0",
+                    selectable
+                      ? "cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground/60"
+                      : "cursor-help",
+                    isSelected &&
+                      "shadow-[inset_0_0_0_2px_#fff,inset_0_0_0_4px_#000] dark:shadow-[inset_0_0_0_2px_#000,inset_0_0_0_4px_#fff]",
+                  )}
                   style={{
                     width: `${widthPx}px`,
                     backgroundColor: colorForGovernmentSolid(g, colorFor),
@@ -477,7 +517,18 @@ export const CabinetStrip: FC<{
                       g.type === "caretaker"
                         ? "rgba(255,255,255,0.95)"
                         : "#fff",
-                    opacity: g.type === "caretaker" ? 0.6 : 0.95,
+                    opacity:
+                      g.type === "caretaker"
+                        ? isSelected
+                          ? 1
+                          : dim
+                            ? 0.3
+                            : 0.6
+                        : isSelected
+                          ? 1
+                          : dim
+                            ? 0.45
+                            : 0.95,
                   }}
                 >
                   {horizontal ? (
@@ -527,19 +578,53 @@ export const CabinetStrip: FC<{
           (lang === "bg" ? g.pmBg : g.pmEn).split(" ").pop() ?? "";
         const horizontal = widthPct >= horizontalThreshold;
         const showLabel = widthPct >= labelThreshold;
+        const isSelected = selectable && selectedSet.has(g.id);
+        const dim = selectable && anySelected && !isSelected;
         return (
           <UxTooltip
             key={`pill-${g.id}`}
             content={<PillTooltip g={g} lang={lang} />}
           >
             <div
-              className="h-full flex items-center justify-center text-[10px] font-medium overflow-hidden border-r border-background/40 last:border-r-0 cursor-help"
+              role={selectable ? "button" : undefined}
+              tabIndex={selectable ? 0 : undefined}
+              aria-pressed={selectable ? isSelected : undefined}
+              onClick={selectable ? () => onToggle?.(g.id) : undefined}
+              onKeyDown={
+                selectable
+                  ? (e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        onToggle?.(g.id);
+                      }
+                    }
+                  : undefined
+              }
+              className={cn(
+                "h-full flex items-center justify-center text-[10px] font-medium overflow-hidden border-r border-background/40 last:border-r-0",
+                selectable
+                  ? "cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground/60"
+                  : "cursor-help",
+                isSelected &&
+                  "shadow-[inset_0_0_0_2px_#fff,inset_0_0_0_4px_#000] dark:shadow-[inset_0_0_0_2px_#000,inset_0_0_0_4px_#fff]",
+              )}
               style={{
                 width: `${widthPct}%`,
                 backgroundColor: colorForGovernmentSolid(g, colorFor),
                 color:
                   g.type === "caretaker" ? "rgba(255,255,255,0.95)" : "#fff",
-                opacity: g.type === "caretaker" ? 0.6 : 0.95,
+                opacity:
+                  g.type === "caretaker"
+                    ? isSelected
+                      ? 1
+                      : dim
+                        ? 0.3
+                        : 0.6
+                    : isSelected
+                      ? 1
+                      : dim
+                        ? 0.45
+                        : 0.95,
               }}
             >
               {showLabel && horizontal && (
