@@ -10,12 +10,18 @@
 import { useMemo } from "react";
 import { useElectionContext } from "@/data/ElectionContext";
 import type { AsOf } from "./kpiSelectors";
+import { useCompareAnchorOverride } from "./compareAnchorContext";
 
 export type ElectionAsOf = AsOf;
 
 export const useElectionAsOf = (): ElectionAsOf | null => {
   const { selected } = useElectionContext();
+  // /indicators/compare wraps its sections in CompareAnchorProvider so the
+  // user-selected cabinet re-anchors every panel to that cabinet's tenure.
+  // Other pages don't provide an override → election behavior preserved.
+  const override = useCompareAnchorOverride();
   return useMemo(() => {
+    if (override) return override.asOf;
     if (!selected) return null;
     const m = /^(\d{4})_(\d{2})_(\d{2})$/.exec(selected);
     if (!m) return null;
@@ -23,5 +29,5 @@ export const useElectionAsOf = (): ElectionAsOf | null => {
     const month0 = Number(m[2]) - 1;
     const quarter = (Math.floor(month0 / 3) + 1) as 1 | 2 | 3 | 4;
     return { year, quarter };
-  }, [selected]);
+  }, [selected, override]);
 };

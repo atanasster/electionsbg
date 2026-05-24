@@ -6,13 +6,18 @@
 
 import { useMemo } from "react";
 import { useElectionContext } from "@/data/ElectionContext";
+import { useCompareAnchorOverride } from "@/data/macro/compareAnchorContext";
 
 export const useElectionYear = (): number => {
   const { selected } = useElectionContext();
+  // See compareAnchorContext for why this falls through to election when
+  // no provider is mounted.
+  const override = useCompareAnchorOverride();
   return useMemo(() => {
+    if (override) return override.year;
     const m = /^(\d{4})/.exec(selected ?? "");
     return m ? Number(m[1]) : new Date().getFullYear();
-  }, [selected]);
+  }, [selected, override]);
 };
 
 // Pick the latest point in `series` with year ≤ `targetYear`. Falls back to
