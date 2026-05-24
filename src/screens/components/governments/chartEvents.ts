@@ -11,13 +11,18 @@
 //   - pandemic   — public-health emergencies that drove fiscal + economic
 //                  policy
 //
+// Rendering note: ChartEventsStrip packs categories into two visual lanes
+// (economic = crisis + pandemic, civic = protest) rather than three rows.
+// Crisis and pandemic events don't overlap in BG history since 2005 (GFC
+// 2008-09, KTB 2014, COVID 2020-22), so co-locating them saves a row of
+// vertical chrome below the chart.
+//
 // Each event has either a point-in-time `start` only (rendered as a
 // vertical marker) OR a `start` + `end` window (rendered as a translucent
 // band). All dates are ISO; ChartEventsStrip converts them to fractional
 // years on the chart's x-axis.
 
 import { useMemo } from "react";
-import { useTranslation } from "react-i18next";
 
 export type ChartEventCategory = "protest" | "crisis" | "pandemic";
 
@@ -28,8 +33,13 @@ export type ChartEvent = {
   start: string;
   /** ISO date — end of the event window. Omit for point events. */
   end?: string;
-  /** Short label for the strip + tooltip header. */
+  /** Full label for the tooltip header. */
   labelKey: string;
+  /** 3–6 character abbreviation rendered inline on the band when the
+   *  width allows. Designed so wide bands don't waste their space — even
+   *  a 30px-wide band can read "КТБ" or "2020". The full label is still
+   *  available via the tooltip. */
+  shortLabelKey: string;
   /** One-line description for the tooltip body. */
   descriptionKey: string;
 };
@@ -43,18 +53,14 @@ export const EVENT_CATEGORY_COLOR: Record<ChartEventCategory, string> = {
   pandemic: "#7c3aed", // violet-600 — public-health emergency
 };
 
-// Categorical localised labels for the chart legend.
-export const useChartEventCategoryLabels = (): Record<
-  ChartEventCategory,
-  string
-> => {
-  const { t } = useTranslation();
-  return {
-    protest: t("chart_event_category_protest"),
-    crisis: t("chart_event_category_crisis"),
-    pandemic: t("chart_event_category_pandemic"),
-  };
-};
+// Two visual lanes — pack the three categories into two rows since crisis
+// and pandemic events have never overlapped in the BG 2005+ window.
+// Each event still keeps its category-specific color, so the lane sharing
+// doesn't merge the visual distinction.
+export const EVENT_LANES: ChartEventCategory[][] = [
+  ["crisis", "pandemic"], // lane 0 — economic shocks (amber + violet)
+  ["protest"], // lane 1 — civic mobilisations (rose)
+];
 
 // The curated set. Keep the list deliberately small — the strip starts to
 // read as noise past ~8 events on a 21-year axis. Each entry has to clear
@@ -70,6 +76,7 @@ const EVENTS: ChartEvent[] = [
     start: "2008-09-15", // Lehman collapse
     end: "2009-12-31",
     labelKey: "chart_event_gfc_label",
+    shortLabelKey: "chart_event_gfc_short",
     descriptionKey: "chart_event_gfc_desc",
   },
   // February 2013 — anti-monopoly / electricity-bill protests that took
@@ -80,6 +87,7 @@ const EVENTS: ChartEvent[] = [
     start: "2013-02-17",
     end: "2013-03-20",
     labelKey: "chart_event_borisov1_protests_label",
+    shortLabelKey: "chart_event_borisov1_protests_short",
     descriptionKey: "chart_event_borisov1_protests_desc",
   },
   // ДАНСwithMe — year-long mobilisation against the Oresharski cabinet
@@ -90,6 +98,7 @@ const EVENTS: ChartEvent[] = [
     start: "2013-06-14",
     end: "2014-07-23",
     labelKey: "chart_event_dans_label",
+    shortLabelKey: "chart_event_dans_short",
     descriptionKey: "chart_event_dans_desc",
   },
   // June 2014 — KTB (Corporate Commercial Bank) run + collapse. Largest
@@ -101,6 +110,7 @@ const EVENTS: ChartEvent[] = [
     start: "2014-06-20",
     end: "2014-11-06", // license withdrawn
     labelKey: "chart_event_ktb_label",
+    shortLabelKey: "chart_event_ktb_short",
     descriptionKey: "chart_event_ktb_desc",
   },
   // COVID-19 — first WHO emergency declaration to the lifting of the
@@ -112,22 +122,37 @@ const EVENTS: ChartEvent[] = [
     start: "2020-03-11",
     end: "2022-04-01",
     labelKey: "chart_event_covid_label",
+    shortLabelKey: "chart_event_covid_short",
     descriptionKey: "chart_event_covid_desc",
   },
-  // Summer 2020 — anti-government / anti-Borisov-III protests over
-  // alleged corruption + Geshev's prosecution practices. Did not topple
-  // the cabinet but reshaped the 2021 election cycle.
+  // Summer–late 2020 — anti-government / anti-Borisov-III mobilisation.
+  // Peak street occupations July–September; sporadic rallies continued
+  // through November–December 2020. Did not topple the cabinet but
+  // reshaped the 2021 election cycle.
   {
     id: "borisov-3-protests",
     category: "protest",
     start: "2020-07-09",
-    end: "2020-09-02",
+    end: "2020-12-31",
     labelKey: "chart_event_borisov3_protests_label",
+    shortLabelKey: "chart_event_borisov3_protests_short",
     descriptionKey: "chart_event_borisov3_protests_desc",
+  },
+  // Autumn 2025 — civic protests during the Zhelyazkov cabinet's first
+  // year. Placeholder window pending refinement; tooltip stays neutral
+  // about specific demands.
+  {
+    id: "autumn-2025-protests",
+    category: "protest",
+    start: "2025-11-01",
+    end: "2025-12-15",
+    labelKey: "chart_event_autumn_2025_protests_label",
+    shortLabelKey: "chart_event_autumn_2025_protests_short",
+    descriptionKey: "chart_event_autumn_2025_protests_desc",
   },
 ];
 
-/** Memoised event list. Stable identity unless `t` changes, so chart
+/** Memoised event list. Stable identity across renders so chart
  *  components downstream don't re-render when navigating between cabinets. */
 export const useChartEvents = (): ChartEvent[] => useMemo(() => EVENTS, []);
 
