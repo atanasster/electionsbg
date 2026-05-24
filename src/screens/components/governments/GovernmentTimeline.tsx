@@ -662,6 +662,20 @@ export type EventMarker = {
   label: string;
   /** Line/label colour. Defaults to a muted amber. */
   color?: string;
+  /** Where the label sits relative to the line. Defaults to "top" (centered
+      above the line). Use "bottom" to stagger labels when markers cluster. */
+  labelPosition?:
+    | "top"
+    | "bottom"
+    | "insideTopRight"
+    | "insideBottomRight"
+    | "insideTopLeft"
+    | "insideBottomLeft";
+  /** Extra pixels to push the label away from the chart edge along the
+      labelPosition axis. Combine with `labelPosition` to give clustered
+      markers four distinct visual rows (e.g. two on "top" with offsets 5 and
+      22, two on "bottom" with offsets 5 and 22). */
+  labelOffset?: number;
 };
 
 export type HorizontalReferenceLine = {
@@ -958,6 +972,12 @@ export const GovernmentTimeline: FC<{
 
             {eventMarkers?.map((m, i) => {
               const color = m.color ?? "#b45309";
+              // Rotated vertical label along the reference line. Vertical
+              // labels along thin vertical lines don't overlap each other
+              // (they're spread along X), so the horizontal-label stagger
+              // via top/bottom labelPosition is unnecessary here — we
+              // always anchor at insideBottomLeft and let the rotation read
+              // bottom-to-top alongside the line.
               return (
                 <ReferenceLine
                   key={`evt-${i}`}
@@ -967,10 +987,18 @@ export const GovernmentTimeline: FC<{
                   strokeOpacity={0.8}
                   label={{
                     value: m.label,
-                    position: "insideTopRight",
+                    // insideBottomLeft anchors at the chart's bottom; the
+                    // -90° rotation makes the text run upward into the plot
+                    // area (reads bottom-to-top, European axis-label style).
+                    // insideTopLeft would put the anchor at the top edge and
+                    // the rotated text would extend ABOVE the plot area and
+                    // get clipped, leaving only the first 2–3 letters visible.
+                    position: "insideBottomLeft",
+                    offset: m.labelOffset ?? 6,
                     fill: color,
                     fontSize: 11,
                     fontWeight: 600,
+                    angle: -90,
                   }}
                 />
               );
