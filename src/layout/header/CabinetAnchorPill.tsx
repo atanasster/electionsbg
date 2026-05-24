@@ -17,6 +17,8 @@ import {
   useCabinetAnchor,
   useSetCabinetAnchor,
 } from "@/data/macro/cabinetAnchorContext";
+import { useGovernments } from "@/data/governments/useGovernments";
+import { cabinetShortLabel } from "@/data/governments/cabinetLabel";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { colorForGovernmentSolid } from "@/screens/components/governments/governmentColors";
 import { Tooltip as UxTooltip } from "@/ux/Tooltip";
@@ -28,11 +30,18 @@ export const CabinetAnchorPill: FC = () => {
   const setAnchor = useSetCabinetAnchor();
   const navigate = useNavigate();
   const { colorFor } = useCanonicalParties();
+  const { data: governments } = useGovernments();
 
   if (!anchor) return null;
 
   const g = anchor.cabinet;
-  const surname = (lang === "bg" ? g.pmBg : g.pmEn).split(" ").pop() ?? "";
+  // Use disambiguated short label ("Борисов III") when the same PM has
+  // multiple cabinets; plain surname otherwise. governments is undefined
+  // briefly on first render before the React Query cache resolves —
+  // fall back to plain surname so the pill renders something readable.
+  const surname = governments
+    ? cabinetShortLabel(g, governments, lang)
+    : ((lang === "bg" ? g.pmBg : g.pmEn).split(" ").pop() ?? "");
   const color = colorForGovernmentSolid(g, colorFor);
   const labelPrefix = t("cabinet_anchor_pill_label");
   const tooltipText = t("cabinet_anchor_pill_tooltip");
@@ -64,7 +73,7 @@ export const CabinetAnchorPill: FC = () => {
           <span className="text-[10px] uppercase tracking-wide text-muted-foreground">
             {labelPrefix}
           </span>
-          <span className="truncate max-w-[10ch]">{surname}</span>
+          <span className="truncate max-w-[14ch]">{surname}</span>
         </button>
       </UxTooltip>
       <span aria-hidden className="w-px bg-amber-500/30" />

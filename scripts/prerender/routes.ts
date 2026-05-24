@@ -1882,6 +1882,23 @@ type CabinetEntry = {
   endReasonEn?: string;
 };
 
+// Roman numeral disambiguation, mirrors src/data/governments/cabinetLabel.ts.
+// Keeps SEO titles + body copy consistent with what users see in-app
+// ("Кабинет Бойко Методиев Борисов III" instead of just "...Борисов").
+const PRERENDER_ROMAN: Record<number, string> = {
+  1: "I",
+  2: "II",
+  3: "III",
+  4: "IV",
+  5: "V",
+};
+const cabinetNumeral = (c: CabinetEntry, siblings: CabinetEntry[]): string => {
+  if (siblings.length <= 1) return "";
+  const idx = siblings.findIndex((s) => s.id === c.id);
+  if (idx < 0) return "";
+  return PRERENDER_ROMAN[idx + 1] ?? String(idx + 1);
+};
+
 const GOVERNMENTS_FILE = path.join(PROJECT_ROOT, "data/governments.json");
 if (fs.existsSync(GOVERNMENTS_FILE)) {
   try {
@@ -1906,6 +1923,20 @@ if (fs.existsSync(GOVERNMENTS_FILE)) {
         year: "numeric",
       });
     };
+    // Pre-group cabinets by PM surname so we can compute the Roman numeral
+    // for each. Sort by start date so the chronological order maps to the
+    // numeral correctly (Borisov-1 = I, Borisov-2 = II, etc.).
+    const lastBgToken = (s: string): string => s.split(" ").pop() ?? "";
+    const sortedAll = [...payload.governments].sort((a, b) =>
+      a.startDate.localeCompare(b.startDate),
+    );
+    const siblingsByPm = new Map<string, CabinetEntry[]>();
+    for (const c of sortedAll) {
+      const key = lastBgToken(c.pmBg);
+      const arr = siblingsByPm.get(key) ?? [];
+      arr.push(c);
+      siblingsByPm.set(key, arr);
+    }
     for (const c of payload.governments) {
       const typeBg = c.type === "caretaker" ? "служебен" : "редовен";
       const typeEn = c.type === "caretaker" ? "caretaker" : "regular";
@@ -1915,23 +1946,30 @@ if (fs.existsSync(GOVERNMENTS_FILE)) {
       const tenureEn = `${fmtDateEn(c.startDate)} – ${fmtDateEn(c.endDate)}`;
       const endBg = c.endReasonBg ?? "";
       const endEn = c.endReasonEn ?? "";
+      const numeral = cabinetNumeral(
+        c,
+        siblingsByPm.get(lastBgToken(c.pmBg)) ?? [],
+      );
+      const suffix = numeral ? ` ${numeral}` : "";
+      const pmBgLabel = `${c.pmBg}${suffix}`;
+      const pmEnLabel = `${c.pmEn}${suffix}`;
       prerenderRoutes.push(
         staticPage({
           path: `governments/${c.id}`,
-          title: `Кабинет ${c.pmBg} — макро профил | electionsbg.com`,
-          description: `Профил на мандата на ${c.pmBg} (${typeBg}, ${tenureBg}): основни макроикономически и управленски показатели, средни стойности за периода и графика.`,
-          breadcrumbName: c.pmBg,
+          title: `Кабинет ${pmBgLabel} — макро профил | electionsbg.com`,
+          description: `Профил на мандата на ${pmBgLabel} (${typeBg}, ${tenureBg}): основни макроикономически и управленски показатели, средни стойности за периода и графика.`,
+          breadcrumbName: pmBgLabel,
           bodyHtml: `
-<h1>Кабинет ${c.pmBg}</h1>
+<h1>Кабинет ${pmBgLabel}</h1>
 <p><strong>${typeBg}</strong> · ${tenureBg}${partiesBg !== "—" ? ` · ${partiesBg}` : ""}${endBg ? ` · ${endBg}` : ""}</p>
 <p>Профил на мандата с показатели в началото и края, средни стойности за периода и графика на БВП, инфлация и безработица в рамките на мандата ±1 година.</p>
 <p>Виж и <a href="${SITE_URL}/governments">всички кабинети</a> или <a href="${SITE_URL}/indicators/compare?cabinet=${encodeURIComponent(c.id)}">сравнението с ЕС</a> към края на този мандат.</p>`.trim(),
           english: {
-            title: `${c.pmEn} cabinet — macro profile | electionsbg.com`,
-            description: `Profile of ${c.pmEn}'s cabinet (${typeEn}, ${tenureEn}): headline macroeconomic and governance indicators, tenure averages and macro chart.`,
-            breadcrumbName: c.pmEn,
+            title: `${pmEnLabel} cabinet — macro profile | electionsbg.com`,
+            description: `Profile of ${pmEnLabel}'s cabinet (${typeEn}, ${tenureEn}): headline macroeconomic and governance indicators, tenure averages and macro chart.`,
+            breadcrumbName: pmEnLabel,
             bodyHtml: `
-<h1>${c.pmEn} cabinet</h1>
+<h1>${pmEnLabel} cabinet</h1>
 <p><strong>${typeEn}</strong> · ${tenureEn}${partiesEn !== "—" ? ` · ${partiesEn}` : ""}${endEn ? ` · ${endEn}` : ""}</p>
 <p>Term profile with start vs. end indicator values, time-weighted averages across the tenure, and a macro chart for GDP growth, inflation and unemployment zoomed to the term ±1 year.</p>
 <p>See also <a href="${SITE_URL}/en/governments">all cabinets</a> or <a href="${SITE_URL}/en/indicators/compare?cabinet=${encodeURIComponent(c.id)}">peer comparison</a> at the end of this term.</p>`.trim(),

@@ -20,6 +20,7 @@ import {
   useGovernments,
   type Government,
 } from "@/data/governments/useGovernments";
+import { cabinetFullLabel } from "@/data/governments/cabinetLabel";
 import { useMacro } from "@/data/macro/useMacro";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { useMps } from "@/data/parliament/useMps";
@@ -67,10 +68,11 @@ const termDomain = (g: Government): [number, number] => {
   return [Math.max(2005, start - pad), end + pad];
 };
 
-const Breadcrumb: FC<{ government: Government; lang: "bg" | "en" }> = ({
-  government,
-  lang,
-}) => {
+const Breadcrumb: FC<{
+  government: Government;
+  allGovernments: Government[];
+  lang: "bg" | "en";
+}> = ({ government, allGovernments, lang }) => {
   const { t } = useTranslation();
   return (
     <nav
@@ -82,22 +84,23 @@ const Breadcrumb: FC<{ government: Government; lang: "bg" | "en" }> = ({
       </Link>
       <ChevronRight className="h-3 w-3 opacity-60" aria-hidden />
       <span className="text-foreground truncate">
-        {lang === "bg" ? government.pmBg : government.pmEn}
+        {cabinetFullLabel(government, allGovernments, lang)}
       </span>
     </nav>
   );
 };
 
-const Hero: FC<{ government: Government; lang: "bg" | "en" }> = ({
-  government: g,
-  lang,
-}) => {
+const Hero: FC<{
+  government: Government;
+  allGovernments: Government[];
+  lang: "bg" | "en";
+}> = ({ government: g, allGovernments, lang }) => {
   const { t } = useTranslation();
   const { colorFor } = useCanonicalParties();
   const { findMpByName } = useMps();
   const ribbon = colorForGovernmentSolid(g, colorFor);
   const mp = findMpByName(g.pmBg);
-  const fullName = lang === "bg" ? g.pmBg : g.pmEn;
+  const fullName = cabinetFullLabel(g, allGovernments, lang);
   const parties = lang === "bg" ? g.parties : (g.partiesEn ?? g.parties);
   const tenure = `${formatDateLong(g.startDate, lang)} – ${formatDateLong(
     g.endDate,
@@ -260,11 +263,15 @@ export const GovernmentDetailScreen: FC = () => {
     );
   }
 
-  const fullName = lang === "bg" ? government.pmBg : government.pmEn;
+  const fullName = cabinetFullLabel(government, governments, lang);
 
   return (
     <div className="pb-12">
-      <Breadcrumb government={government} lang={lang} />
+      <Breadcrumb
+        government={government}
+        allGovernments={governments}
+        lang={lang}
+      />
 
       {fullXDomain ? (
         <section className="mb-4">
@@ -289,7 +296,7 @@ export const GovernmentDetailScreen: FC = () => {
         {t("cabinet_detail_title", { name: fullName })}
       </Title>
 
-      <Hero government={government} lang={lang} />
+      <Hero government={government} allGovernments={governments} lang={lang} />
 
       <section className="mb-8">
         <h2 className="text-lg font-semibold mb-1">

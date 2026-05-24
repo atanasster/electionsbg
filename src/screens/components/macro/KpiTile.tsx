@@ -16,6 +16,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useGovernments } from "@/data/governments/useGovernments";
+import { cabinetShortLabel } from "@/data/governments/cabinetLabel";
 import { useMacro, type MacroIndicatorKey } from "@/data/macro/useMacro";
 import { useMacroPeers } from "@/data/macro/useMacroPeers";
 import {
@@ -158,10 +159,14 @@ export const KpiTile: FC<Props> = ({ indicatorKey, className }) => {
         : `${delta >= 0 ? "+" : ""}${delta.toFixed(
             entry.deltaDecimals ?? 1,
           )}${entry.deltaSuffix}`;
-    const surname =
-      (lang === "bg" ? anchor.cabinet.pmBg : anchor.cabinet.pmEn)
-        .split(" ")
-        .pop() ?? "";
+    // Disambiguated short label ("Борисов III") so the same Borisov
+    // doesn't appear three times across tiles anchored to different
+    // cabinets with identical footer captions.
+    const surname = governments
+      ? cabinetShortLabel(anchor.cabinet, governments, lang)
+      : ((lang === "bg" ? anchor.cabinet.pmBg : anchor.cabinet.pmEn)
+          .split(" ")
+          .pop() ?? "");
     const detailHref = `/governments/${encodeURIComponent(anchor.cabinet.id)}#kpi-${indicatorKey}`;
     return (
       <button

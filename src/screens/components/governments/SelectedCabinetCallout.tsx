@@ -15,9 +15,11 @@ import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import {
+  useGovernments,
   type Government,
   type GovernmentEndReason,
 } from "@/data/governments/useGovernments";
+import { cabinetFullLabel } from "@/data/governments/cabinetLabel";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
 import { useMps } from "@/data/parliament/useMps";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
@@ -45,10 +47,18 @@ export const SelectedCabinetCallout: FC<{
   const { t } = useTranslation();
   const { colorFor } = useCanonicalParties();
   const { findMpByName } = useMps();
+  const { data: allGovernments } = useGovernments();
   const ribbon = colorForGovernmentSolid(g, colorFor);
   const mp = findMpByName(g.pmBg);
 
-  const fullName = lang === "bg" ? g.pmBg : g.pmEn;
+  // Disambiguated full label: appends " III" / " II" when the same PM has
+  // multiple cabinets. Falls back to plain full name while governments is
+  // loading.
+  const fullName = allGovernments
+    ? cabinetFullLabel(g, allGovernments, lang)
+    : lang === "bg"
+      ? g.pmBg
+      : g.pmEn;
   const parties = lang === "bg" ? g.parties : (g.partiesEn ?? g.parties);
   const tenure = `${formatDateShort(g.startDate, lang)} – ${formatDateShort(
     g.endDate,
