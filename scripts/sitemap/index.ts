@@ -243,6 +243,33 @@ const enumerateOfficials = (
   }
 };
 
+// Per-cabinet detail pages — one URL per cabinet in data/governments.json.
+// The prerender step (scripts/prerender/routes.ts) ships indexable HTML for
+// each /governments/<id> and /en/governments/<id>; this enumerator just
+// makes sure those URLs are in sitemap.xml so crawlers don't have to
+// discover them via internal links alone.
+const enumerateCabinets = (
+  _route: RouteDef,
+  rootUrl: string,
+  routes: string[],
+) => {
+  const file = `${projectPath}/data/governments.json`;
+  if (!fs.existsSync(file)) return;
+  let payload: { governments?: Array<{ id: string }> };
+  try {
+    payload = JSON.parse(fs.readFileSync(file, "utf-8"));
+  } catch {
+    return;
+  }
+  const cabinets = payload.governments ?? [];
+  const lastmod = safeFileMod(file);
+  for (const c of cabinets) {
+    if (!c.id) continue;
+    pushUrl(`${rootUrl}/${routes[0]}${c.id}`, lastmod);
+    pushUrl(`/en${rootUrl}/${routes[0]}${c.id}`, lastmod);
+  }
+};
+
 const enumerateElections = (rootUrl: string, routes: string[]) => {
   // electionsFile is loaded at module init.
   const lastmod = safeFileMod(electionsFile);
@@ -360,6 +387,8 @@ const getRoute = (route: RouteDef, rootUrl: string) => {
       return enumerateBudgetMinistries(route, rootUrl, routes);
     if (route.file === "officials-list")
       return enumerateOfficials(route, rootUrl, routes);
+    if (route.file === "cabinets-list")
+      return enumerateCabinets(route, rootUrl, routes);
     // Generic ":id" expansion against a folder of files (e.g. municipalities/by/{id}).
     const folders = route.file?.split(":id");
     if (!folders) throw new Error("Must assign file property: " + route.path);

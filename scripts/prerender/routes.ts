@@ -1959,6 +1959,11 @@ if (fs.existsSync(GOVERNMENTS_FILE)) {
           title: `Кабинет ${pmBgLabel} — макро профил | electionsbg.com`,
           description: `Профил на мандата на ${pmBgLabel} (${typeBg}, ${tenureBg}): основни макроикономически и управленски показатели, средни стойности за периода и графика.`,
           breadcrumbName: pmBgLabel,
+          // Per-cabinet OG card emitted by scripts/og/generate.ts from the
+          // same data/governments.json entry — social shares of
+          // /governments/<id> get a cabinet-specific card instead of
+          // falling back to the generic site default.
+          ogImage: `/og/cabinet/${c.id}.png`,
           bodyHtml: `
 <h1>Кабинет ${pmBgLabel}</h1>
 <p><strong>${typeBg}</strong> · ${tenureBg}${partiesBg !== "—" ? ` · ${partiesBg}` : ""}${endBg ? ` · ${endBg}` : ""}</p>
