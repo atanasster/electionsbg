@@ -480,9 +480,9 @@ const main = async () => {
   const governmentsFile = path.join(PROJECT_ROOT, "data/governments.json");
   if (fs.existsSync(governmentsFile)) {
     try {
-      const payload = JSON.parse(
-        fs.readFileSync(governmentsFile, "utf-8"),
-      ) as { governments: CabinetEntry[] };
+      const payload = JSON.parse(fs.readFileSync(governmentsFile, "utf-8")) as {
+        governments: CabinetEntry[];
+      };
       const lastBgToken = (s: string): string => s.split(" ").pop() ?? "";
       const sortedAll = [...payload.governments].sort((a, b) =>
         a.startDate.localeCompare(b.startDate),
@@ -502,14 +502,12 @@ const main = async () => {
           siblings.length > 1
             ? siblings.findIndex((s) => s.id === c.id) + 1
             : 0;
-        const numeral = idx > 0 ? OG_ROMAN[idx] ?? String(idx) : "";
+        const numeral = idx > 0 ? (OG_ROMAN[idx] ?? String(idx)) : "";
         const titleName = numeral ? `${c.pmBg} ${numeral}` : c.pmBg;
         const typeBg = c.type === "caretaker" ? "служебен" : "редовен";
         const tenure = `${yearOf(c.startDate)} – ${yearOf(c.endDate)}`;
         const partyLabel =
-          c.type === "caretaker"
-            ? c.pmPartyBg ?? "—"
-            : c.parties[0] ?? "—";
+          c.type === "caretaker" ? (c.pmPartyBg ?? "—") : (c.parties[0] ?? "—");
         // 4-tile composition kept identity-focused (no live macro
         // numbers): cabinet type, term years, coalition lead/PM party,
         // and how the term ended. Stable across data refreshes.

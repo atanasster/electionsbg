@@ -26,6 +26,8 @@ import {
   cabinetFullLabel,
   cabinetShortLabel,
 } from "@/data/governments/cabinetLabel";
+import { ChartEventsStrip } from "./ChartEventsStrip";
+import type { ChartEvent } from "./chartEvents";
 import type {
   PeerGeo,
   PeerIndicatorBlock,
@@ -847,6 +849,11 @@ export const GovernmentTimeline: FC<{
    *  derived from the governments array. Use to zoom the chart to a single
    *  cabinet's tenure (with padding) on the cabinet-detail page. */
   xDomainOverride?: [number, number];
+  /** Optional list of contextual events (protests, crises, pandemic) to
+   *  render as a strip directly below the chart. See ChartEventsStrip for
+   *  the visual treatment. Pass nothing on screens that don't want the
+   *  extra row of historical context (e.g. embedded thumbnails). */
+  chartEvents?: ChartEvent[];
 }> = ({
   governments,
   macro,
@@ -867,6 +874,7 @@ export const GovernmentTimeline: FC<{
   onCabinetClick,
   highlightedCabinetId,
   xDomainOverride,
+  chartEvents,
 }) => {
   const { t, i18n } = useTranslation();
   const lang: "en" | "bg" = i18n.language === "bg" ? "bg" : "en";
@@ -1254,6 +1262,17 @@ export const GovernmentTimeline: FC<{
           </LineChart>
         </ResponsiveContainer>
       </div>
+      {chartEvents && chartEvents.length > 0 ? (
+        <ChartEventsStrip
+          events={chartEvents}
+          xDomain={xDomain}
+          className="mt-1"
+        />
+      ) : null}
     </div>
   );
 };
+
+// Re-export so screens can pull the type from the chart module without
+// reaching into the events file directly.
+export type { ChartEvent };

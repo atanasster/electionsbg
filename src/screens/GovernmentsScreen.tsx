@@ -14,6 +14,7 @@ import {
 } from "./components/governments/GovernmentTimeline";
 import { xDomainFor } from "./components/governments/governmentTimelineUtils";
 import { useEuMilestones } from "./components/governments/euMilestones";
+import { useChartEvents } from "./components/governments/chartEvents";
 import { GovernmentTable } from "./components/governments/GovernmentTable";
 import { CabinetScoreDetail } from "./components/macro/CabinetScoreCard";
 
@@ -38,6 +39,9 @@ export const GovernmentsScreen = () => {
 
   // Shared EU milestone list — see euMilestones.ts for placement rationale.
   const eventMarkers = useEuMilestones();
+  // Societal-events strip below the chart (protests, crises, pandemic) —
+  // distinct color rows from the EU milestone markers above the strip.
+  const chartEvents = useChartEvents();
 
   // Default selection on this page = the current (incumbent) cabinet — its
   // endReason is "incumbent". Falls back to the last entry if none is so
@@ -148,6 +152,7 @@ export const GovernmentsScreen = () => {
           eventMarkers={eventMarkers}
           onCabinetClick={setAnchor}
           highlightedCabinetId={anchor?.cabinet.id ?? null}
+          chartEvents={chartEvents}
         />
       </section>
 
