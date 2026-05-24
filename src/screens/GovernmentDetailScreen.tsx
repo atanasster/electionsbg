@@ -1,13 +1,15 @@
 // /governments/:slug — one cabinet, in detail. Hero (PM portrait + ribbon +
-// dates + end reason), term-bounded KPI grid (start → end with signed
-// deltas), term-zoomed macro chart, in-term EU milestones, and exit links
-// back to the all-cabinets table + sideways to the EU-peers comparison
-// anchored on this cabinet.
+// dates + end reason), in-page CabinetStrip for one-click switching to
+// another cabinet, term-bounded KPI grid (start → end with signed deltas),
+// term-zoomed macro chart, in-term EU milestones, and exit links back to
+// the all-cabinets table + sideways to the EU-peers comparison anchored on
+// this cabinet.
 //
 // The page mounts under CabinetAnchorProvider (route wrapper), so visiting
-// /governments/borisov-3 sets ?cabinet=borisov-3 automatically — the header
-// pill, the KPI snapshots elsewhere, and the /indicators/compare panels all
-// re-anchor without further effort.
+// /governments/borisov-3 sets ?cabinet=borisov-3 automatically. Side effect:
+// the anchor persists when the user navigates away to /indicators,
+// /indicators/compare, or any other governance route — clearing requires
+// the header pill ×.
 
 import { FC, useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
@@ -27,13 +29,20 @@ import {
 } from "@/data/macro/cabinetAnchorContext";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 import {
+  CabinetStrip,
   GovernmentTimeline,
-  EventMarker,
 } from "@/screens/components/governments/GovernmentTimeline";
+import {
+  useEuMilestones,
+  milestonesInWindow,
+} from "@/screens/components/governments/euMilestones";
 import { CabinetKpiTile } from "@/screens/components/macro/CabinetKpiTile";
 import { CabinetScoreDetail } from "@/screens/components/macro/CabinetScoreCard";
 import { colorForGovernmentSolid } from "@/screens/components/governments/governmentColors";
-import { toFractionalYear } from "@/screens/components/governments/governmentTimelineUtils";
+import {
+  toFractionalYear,
+  xDomainFor,
+} from "@/screens/components/governments/governmentTimelineUtils";
 import type { MacroIndicatorKey } from "@/data/macro/useMacro";
 import { LANDING_KPI_ORDER } from "./indicators/indicatorsRegistry";
 import { cn } from "@/lib/utils";
@@ -48,60 +57,14 @@ const formatDateLong = (iso: string | null, lang: "bg" | "en"): string => {
   });
 };
 
-// Term-zoomed chart x-domain: cabinet tenure ± buffer (1 year on each side
-// when the tenure is short so the line has context; capped at the global
-// timeline edges so we don't show empty space past 2005 or beyond now).
+// Term-zoomed chart x-domain: cabinet tenure ± buffer (proportional to the
+// tenure length, capped at the timeline edges so we don't show empty space
+// past 2005 or beyond now).
 const termDomain = (g: Government): [number, number] => {
   const start = toFractionalYear(g.startDate);
   const end = toFractionalYear(g.endDate ?? new Date().toISOString());
   const pad = Math.max(0.5, Math.min(1.5, (end - start) * 0.25));
   return [Math.max(2005, start - pad), end + pad];
-};
-
-const inTermMilestones = (
-  g: Government,
-  milestones: EventMarker[],
-): EventMarker[] => {
-  const start = toFractionalYear(g.startDate);
-  const end = toFractionalYear(g.endDate ?? new Date().toISOString());
-  return milestones.filter((m) => m.x >= start && m.x <= end);
-};
-
-// EU integration milestones the cabinet timeline highlights. Filtered to the
-// term on the detail page so the marker labels don't crowd a narrow window.
-const useEuMilestones = (): EventMarker[] => {
-  const { t } = useTranslation();
-  return useMemo(
-    () => [
-      {
-        x: toFractionalYear("2007-01-01"),
-        label: t("governments_event_eu_accession"),
-      },
-      {
-        x: toFractionalYear("2020-07-10"),
-        label: t("governments_event_erm2"),
-      },
-      {
-        x: toFractionalYear("2024-03-31"),
-        label: t("governments_event_schengen_air"),
-        labelPosition: "bottom",
-      },
-      {
-        x: toFractionalYear("2025-01-01"),
-        label: t("governments_event_schengen_land"),
-      },
-      {
-        x: toFractionalYear("2025-06-04"),
-        label: t("governments_event_convergence_report"),
-        labelPosition: "bottom",
-      },
-      {
-        x: toFractionalYear("2026-01-01"),
-        label: t("governments_event_eurozone"),
-      },
-    ],
-    [t],
-  );
 };
 
 const Breadcrumb: FC<{ government: Government; lang: "bg" | "en" }> = ({
@@ -220,33 +183,40 @@ export const GovernmentDetailScreen: FC = () => {
 
   // Visiting /governments/:slug should auto-set the URL anchor so the header
   // pill and every downstream snapshot tile re-anchor consistently. Skip if
-  // the URL already carries ?cabinet=<slug> (avoids a redundant URL update
-  // when arriving via a link that already includes the param).
+  // the URL already carries ?cabinet=<slug>. Side effect (intentional): the
+  // anchor persists across navigation to /indicators, /compare, etc. —
+  // clearing requires the header pill ×.
   useEffect(() => {
     if (!government) return;
     if (anchor?.cabinet.id === government.id) return;
     setAnchor(government.id);
   }, [government, anchor, setAnchor]);
 
-  // Bounce to the all-cabinets index for an unknown slug. Wait until the
-  // data has loaded so a slow fetch doesn't bounce us mid-flight.
-  useEffect(() => {
-    if (!governments || governments.length === 0) return;
-    if (!slug) return;
-    const exists = governments.some((g) => g.id === slug);
-    if (!exists) navigate("/governments", { replace: true });
-  }, [governments, slug, navigate]);
-
   // Memoised derived values — must be declared above the early return so
   // hook order stays stable across the loading-skeleton ↔ data-loaded
-  // transitions. Guard with non-null assertions only after the !government
-  // bail-out below.
+  // transitions. Guard with null checks; defaults are safe.
   const termEvents = useMemo(
-    () => (government ? inTermMilestones(government, milestones) : []),
+    () =>
+      government
+        ? milestonesInWindow(
+            milestones,
+            toFractionalYear(government.startDate),
+            toFractionalYear(government.endDate ?? new Date().toISOString()),
+          )
+        : [],
     [government, milestones],
   );
+  const termXDomain = useMemo<[number, number] | null>(
+    () => (government ? termDomain(government) : null),
+    [government],
+  );
+  const fullXDomain = useMemo<[number, number] | null>(
+    () => (governments ? xDomainFor(governments) : null),
+    [governments],
+  );
 
-  if (!governments || !government) {
+  // Skeleton while data is loading.
+  if (!governments || !macro) {
     return (
       <div className="pb-12">
         <Title>{t("governments_title")}</Title>
@@ -254,12 +224,66 @@ export const GovernmentDetailScreen: FC = () => {
     );
   }
 
+  // Bad slug — data has loaded but no matching cabinet. Show a small 404
+  // message instead of a blank Title flash, then auto-redirect after a beat
+  // so a hand-edited typo still bounces back to the index.
+  if (!government) {
+    return (
+      <div className="pb-12">
+        <nav
+          aria-label="breadcrumb"
+          className="mb-3 flex flex-wrap items-center gap-1.5 text-xs text-muted-foreground"
+        >
+          <Link
+            to="/governments"
+            className="hover:text-foreground hover:underline"
+          >
+            {t("governments_title")}
+          </Link>
+          <ChevronRight className="h-3 w-3 opacity-60" aria-hidden />
+          <span className="text-foreground">
+            {t("cabinet_detail_not_found_title")}
+          </span>
+        </nav>
+        <Title>{t("cabinet_detail_not_found_title")}</Title>
+        <p className="text-sm text-muted-foreground mb-4">
+          {t("cabinet_detail_not_found_explainer", { slug: slug ?? "" })}
+        </p>
+        <Link
+          to="/governments"
+          className="text-sm text-primary hover:underline"
+        >
+          ← {t("cabinet_detail_back_to_all")}
+        </Link>
+        <NotFoundRedirect />
+      </div>
+    );
+  }
+
   const fullName = lang === "bg" ? government.pmBg : government.pmEn;
-  const xDomain = termDomain(government);
 
   return (
     <div className="pb-12">
       <Breadcrumb government={government} lang={lang} />
+
+      {fullXDomain ? (
+        <section className="mb-4">
+          <div className="text-[10px] uppercase tracking-wide text-muted-foreground mb-1">
+            {t("cabinet_detail_quick_switch")}
+          </div>
+          <CabinetStrip
+            governments={governments}
+            xDomain={fullXDomain}
+            lang={lang}
+            mobileScrollable
+            fullWidth
+            anchoredId={government.id}
+            onAnchor={(id) =>
+              navigate(`/governments/${encodeURIComponent(id)}`)
+            }
+          />
+        </section>
+      ) : null}
 
       <Title description={t("cabinet_detail_description", { name: fullName })}>
         {t("cabinet_detail_title", { name: fullName })}
@@ -267,37 +291,33 @@ export const GovernmentDetailScreen: FC = () => {
 
       <Hero government={government} lang={lang} />
 
-      {macro ? (
-        <section className="mb-8">
-          <h2 className="text-lg font-semibold mb-1">
-            {t("cabinet_detail_term_metrics_heading")}
-          </h2>
-          <p className="text-xs text-muted-foreground mb-3">
-            {t("cabinet_detail_term_metrics_explainer")}
-          </p>
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
-            {LANDING_KPI_ORDER.map((key: MacroIndicatorKey) => (
-              <CabinetKpiTile
-                key={key}
-                indicatorKey={key}
-                government={government}
-              />
-            ))}
-          </div>
-        </section>
-      ) : null}
+      <section className="mb-8">
+        <h2 className="text-lg font-semibold mb-1">
+          {t("cabinet_detail_term_metrics_heading")}
+        </h2>
+        <p className="text-xs text-muted-foreground mb-3">
+          {t("cabinet_detail_term_metrics_explainer")}
+        </p>
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-3">
+          {LANDING_KPI_ORDER.map((key: MacroIndicatorKey) => (
+            <CabinetKpiTile
+              key={key}
+              indicatorKey={key}
+              government={government}
+            />
+          ))}
+        </div>
+      </section>
 
-      {macro ? (
-        <section className="mb-8">
-          <h2 className="text-lg font-semibold mb-1">
-            {t("cabinet_detail_term_averages_heading")}
-          </h2>
-          <p className="text-xs text-muted-foreground mb-3">
-            {t("cabinet_detail_term_averages_explainer")}
-          </p>
-          <CabinetScoreDetail government={government} macro={macro} />
-        </section>
-      ) : null}
+      <section className="mb-8">
+        <h2 className="text-lg font-semibold mb-1">
+          {t("cabinet_detail_term_averages_heading")}
+        </h2>
+        <p className="text-xs text-muted-foreground mb-3">
+          {t("cabinet_detail_term_averages_explainer")}
+        </p>
+        <CabinetScoreDetail government={government} macro={macro} />
+      </section>
 
       <section className="mb-8">
         <h2 className="text-lg font-semibold mb-1">
@@ -316,6 +336,8 @@ export const GovernmentDetailScreen: FC = () => {
           hideToggles
           height={300}
           eventMarkers={termEvents}
+          xDomainOverride={termXDomain ?? undefined}
+          highlightedCabinetId={government.id}
         />
         <p className="mt-2 text-[10px] text-muted-foreground">
           {t("cabinet_detail_chart_window", {
@@ -323,9 +345,6 @@ export const GovernmentDetailScreen: FC = () => {
             to: formatDateLong(government.endDate, lang),
           })}
         </p>
-        {/* xDomain is consumed by future zoom enhancement; calculated for
-            forward compat. */}
-        <span className="sr-only">{xDomain.join(",")}</span>
       </section>
 
       <section className="mb-2 flex flex-wrap gap-4 items-center justify-between border-t pt-6">
@@ -355,4 +374,19 @@ export const GovernmentDetailScreen: FC = () => {
       </section>
     </div>
   );
+};
+
+// Auto-bounce to /governments after showing the 404 message for ~1.5s. Gives
+// the user a chance to read the message before the redirect; replace:true so
+// the bad URL doesn't end up in history.
+const NotFoundRedirect: FC = () => {
+  const navigate = useNavigate();
+  useEffect(() => {
+    const t = setTimeout(
+      () => navigate("/governments", { replace: true }),
+      1500,
+    );
+    return () => clearTimeout(t);
+  }, [navigate]);
+  return null;
 };

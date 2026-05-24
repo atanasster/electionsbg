@@ -21,12 +21,12 @@ import { FC, useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { ArrowLeft, ChevronRight } from "lucide-react";
-import { useElectionContext } from "@/data/ElectionContext";
 import { useGovernments } from "@/data/governments/useGovernments";
 import {
   useCabinetAnchor,
   useSetCabinetAnchor,
 } from "@/data/macro/cabinetAnchorContext";
+import { useDefaultCabinetForElection } from "@/data/macro/useDefaultCabinetForElection";
 import { useMacroPeers, type PeerGeo } from "@/data/macro/useMacroPeers";
 import { PeerSnapshotTable } from "@/screens/components/macro/PeerSnapshotTable";
 import { Title } from "@/ux/Title";
@@ -40,25 +40,19 @@ import { usePeerSelection } from "@/screens/components/euCompare/usePeerSelectio
 import { CabinetStrip } from "@/screens/components/governments/GovernmentTimeline";
 import { xDomainFor } from "@/screens/components/governments/governmentTimelineUtils";
 
-// "YYYY_MM_DD" → ms epoch (UTC start of day). Used to match a cabinet to the
-// selected election by tenure-window containment. Returns NaN on bad input;
-// the caller already guards against missing/invalid keys.
-const electionNameToMs = (name: string | undefined): number => {
-  if (!name) return Number.NaN;
-  const parts = name.split("_");
-  if (parts.length !== 3) return Number.NaN;
-  return Date.UTC(Number(parts[0]), Number(parts[1]) - 1, Number(parts[2]));
-};
-
 export const IndicatorsCompareScreen: FC = () => {
   const { t, i18n } = useTranslation();
   const lang: "bg" | "en" = i18n.language === "bg" ? "bg" : "en";
-  const { selected } = useElectionContext();
   const { data: peers } = useMacroPeers();
   const { data: governments } = useGovernments();
   const { geos } = usePeerSelection();
   const anchor = useCabinetAnchor();
   const setAnchor = useSetCabinetAnchor();
+  // Default cabinet = the one whose tenure contains the selected election
+  // date — matches /indicators landing so the two screens read consistently.
+  // When the URL already carries ?cabinet=, the provider exposes it via
+  // `anchor` and we skip the auto-default below.
+  const defaultCabinetId = useDefaultCabinetForElection();
 
   const indicatorKeys = peers?.indicators ? Object.keys(peers.indicators) : [];
   const tableGeos: PeerGeo[] = geos;
@@ -67,23 +61,6 @@ export const IndicatorsCompareScreen: FC = () => {
     () => (governments ? xDomainFor(governments) : null),
     [governments],
   );
-
-  // Default cabinet = the one whose tenure contains the selected election
-  // date. Matches /indicators landing so the two screens read consistently.
-  // When the URL already carries ?cabinet=, the provider exposes it via
-  // `anchor` and we skip the auto-default. When the user clears the anchor
-  // via the header pill, we leave it cleared (don't keep reapplying).
-  const defaultCabinetId = useMemo<string | null>(() => {
-    if (!governments || governments.length === 0) return null;
-    const electionMs = electionNameToMs(selected);
-    if (Number.isNaN(electionMs)) return governments[governments.length - 1].id;
-    const match = governments.find((g) => {
-      const startMs = new Date(g.startDate).getTime();
-      const endMs = g.endDate ? new Date(g.endDate).getTime() : Infinity;
-      return startMs <= electionMs && electionMs <= endMs;
-    });
-    return match?.id ?? governments[governments.length - 1].id;
-  }, [governments, selected]);
 
   // Auto-set the URL anchor on first mount so the snapshot panels have a
   // cabinet to render against — every panel below assumes one. Guard rails:

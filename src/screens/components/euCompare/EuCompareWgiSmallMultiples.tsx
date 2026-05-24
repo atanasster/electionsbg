@@ -18,6 +18,7 @@ import {
   Radar,
   RadarChart,
   ResponsiveContainer,
+  Tooltip,
 } from "recharts";
 import {
   useMacroPeers,
@@ -35,6 +36,57 @@ import {
   usePeerSelection,
 } from "./usePeerSelection";
 import { pickByYear, useElectionYear } from "./useElectionYear";
+
+// Per-panel tooltip — shows the three series in scope (BG, the assigned peer,
+// EU27) for whichever axis the cursor is over, sorted descending so the
+// reader can spot the rank at a glance. Same shape as the legacy
+// EuCompareWgiRadar tooltip but narrower (3 rows instead of all 6 peers).
+type PanelTooltipProps = {
+  active?: boolean;
+  payload?: Array<{ dataKey?: string | number; value?: unknown }>;
+  label?: string | number;
+  shortLabel: Record<PeerGeo, string>;
+};
+
+const PanelTooltip = ({
+  active,
+  payload,
+  label,
+  shortLabel,
+}: PanelTooltipProps) => {
+  if (!active || !payload || payload.length === 0) return null;
+  const rows = payload
+    .filter((p) => typeof p.value === "number")
+    .map((p) => ({
+      geo: p.dataKey as PeerGeo,
+      value: p.value as number,
+    }))
+    .sort((a, b) => b.value - a.value);
+  if (rows.length === 0) return null;
+  return (
+    <div className="rounded-md border border-border bg-background/95 px-2.5 py-2 text-[11px] shadow-sm backdrop-blur">
+      <div className="mb-1.5 font-semibold text-foreground">{label}</div>
+      <div className="flex flex-col gap-0.5">
+        {rows.map(({ geo, value }) => {
+          const isBg = geo === "BG";
+          return (
+            <div
+              key={geo}
+              className={cn(
+                "flex items-center gap-2",
+                isBg ? "font-semibold text-foreground" : "text-foreground/85",
+              )}
+            >
+              <Flag geo={geo} size={10} title={shortLabel[geo]} />
+              <span className="w-6">{shortLabel[geo]}</span>
+              <span className="ml-auto tabular-nums">{value.toFixed(2)}</span>
+            </div>
+          );
+        })}
+      </div>
+    </div>
+  );
+};
 
 const DIM_LABEL_KEYS: Record<WgiDimension, string> = {
   VA: "eu_compare_wgi_dim_va",
@@ -114,6 +166,16 @@ const PeerPanel: FC<{
               fill={GEO_COLOR.BG}
               fillOpacity={0.28}
               isAnimationActive={false}
+            />
+            <Tooltip
+              cursor={{
+                stroke: "hsl(var(--muted-foreground))",
+                strokeWidth: 0.5,
+                strokeDasharray: "2 3",
+              }}
+              content={(props) => (
+                <PanelTooltip {...props} shortLabel={shortLabel} />
+              )}
             />
           </RadarChart>
         </ResponsiveContainer>

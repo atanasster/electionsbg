@@ -511,9 +511,20 @@ export const CabinetStrip: FC<{
     typeof onToggle === "function" || typeof onAnchor === "function";
   const selectedSet = useMemo(() => new Set(selectedIds ?? []), [selectedIds]);
   const anySelected = selectedSet.size > 0 || anchoredId != null;
+  // Click rule: always toggle multi-select; set anchor ONLY when the pill is
+  // being added to the selection (or when there's no multi-select at all, as
+  // on /compare). De-selecting a pill doesn't promote it to anchor — that
+  // would feel like a contradiction ("I un-picked it, why is it focused?").
   const handleClick = (id: string) => {
+    const wasSelected = selectedSet.has(id);
     onToggle?.(id);
-    onAnchor?.(id);
+    if (!onAnchor) return;
+    if (!onToggle) {
+      // Anchor-only mode (e.g. /compare): every click sets anchor.
+      onAnchor(id);
+      return;
+    }
+    if (!wasSelected) onAnchor(id);
   };
   // Distinct visual treatments:
   //   - anchored: amber inset ring (the "this drives the page" indicator)
@@ -825,6 +836,10 @@ export const GovernmentTimeline: FC<{
    *  anchored cabinet visually distinct even when the chart isn't being
    *  interacted with. */
   highlightedCabinetId?: string | null;
+  /** Optional override for the x-axis numeric domain. Default = full span
+   *  derived from the governments array. Use to zoom the chart to a single
+   *  cabinet's tenure (with padding) on the cabinet-detail page. */
+  xDomainOverride?: [number, number];
 }> = ({
   governments,
   macro,
@@ -844,6 +859,7 @@ export const GovernmentTimeline: FC<{
   onEnabledChange,
   onCabinetClick,
   highlightedCabinetId,
+  xDomainOverride,
 }) => {
   const { t, i18n } = useTranslation();
   const lang: "en" | "bg" = i18n.language === "bg" ? "bg" : "en";
@@ -887,8 +903,8 @@ export const GovernmentTimeline: FC<{
   );
 
   const xDomain = useMemo<[number, number]>(
-    () => xDomainFor(governments),
-    [governments],
+    () => xDomainOverride ?? xDomainFor(governments),
+    [governments, xDomainOverride],
   );
 
   const toggle = (key: MacroIndicatorKey) =>

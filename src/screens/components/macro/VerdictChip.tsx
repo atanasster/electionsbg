@@ -43,13 +43,17 @@ export const deriveVerdict = ({
   if (rank) {
     const percentile = rank.rank / rank.total;
     // Rank 1 = best position (the RankBadge convention). Top third = good,
-    // bottom third = concern, middle = neutral.
+    // bottom third = concern, middle = neutral. "neutral" with rank evidence
+    // is a legitimate verdict — the indicator IS sitting near the EU median.
     if (percentile <= 1 / 3) return "good";
     if (percentile >= 2 / 3) return "concern";
     return "neutral";
   }
 
-  if (yoyDelta == null) return "neutral";
+  // No rank → fall back to YoY direction, but only when we actually have a
+  // YoY value. Without rank AND without YoY we have zero evidence — return
+  // "none" rather than the misleading "near average" chip.
+  if (yoyDelta == null) return "none";
   if (Math.abs(yoyDelta) < significantDelta) return "neutral";
   const improving = yoyDelta < 0 === (direction === "lower");
   return improving ? "good" : "concern";

@@ -1,12 +1,18 @@
 // One KPI tile for the /indicators landing dashboard. Drops into a grid cell;
 // renders the indicator's name, the latest value (formatted from the registry
-// entry), an EU27 rank badge when available, a YoY arrow, a cabinet-shaded
-// sparkline, and a source/period footer. The whole tile is a <Link> to the
-// indicator's domain page.
+// entry), an EU27 rank badge + verdict chip (good / neutral / concern) when
+// available, a YoY arrow, a cabinet-shaded sparkline, and a source/period
+// footer. The whole tile is a <Link> to the indicator's domain page.
+//
+// When a cabinet anchor is active (URL `?cabinet=<id>`), the tile also shows
+// a small "Под [Cabinet]: term-start → term-end (delta)" footer rendered as
+// a <button> (NOT a nested <Link>, which would be invalid HTML inside the
+// outer tile-link) that calls navigate() to drill into the cabinet detail
+// page scrolled to the matching indicator section.
 
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useGovernments } from "@/data/governments/useGovernments";
@@ -57,6 +63,7 @@ type Props = {
 export const KpiTile: FC<Props> = ({ indicatorKey, className }) => {
   const { i18n, t } = useTranslation();
   const lang: "bg" | "en" = i18n.language === "bg" ? "bg" : "en";
+  const navigate = useNavigate();
   const { data: macro } = useMacro();
   const { data: peers } = useMacroPeers();
   const { data: governments } = useGovernments();
@@ -133,8 +140,14 @@ export const KpiTile: FC<Props> = ({ indicatorKey, className }) => {
     : DOMAIN_PATHS[entry.domain];
 
   // Anchor-aware footer. When a cabinet is anchored AND we resolved both
-  // term-start and term-end values, render an extra row linking to the
-  // detail page with the indicator anchor pre-scrolled.
+  // term-start and term-end values, render an extra row that drills into
+  // the detail page with the indicator anchor pre-scrolled.
+  //
+  // Rendered as a <button> with imperative navigate() rather than a <Link>
+  // because the whole tile is already wrapped in an outer <Link> — nested
+  // <a> elements are invalid HTML and browsers silently drop the inner
+  // href, breaking the drill-in. preventDefault + stopPropagation block the
+  // outer tile's click from also firing on top of the footer click.
   const anchorFooter = (() => {
     if (!anchor || !termSpan) return null;
     const delta = termSpan.end.value - termSpan.start.value;
@@ -149,11 +162,16 @@ export const KpiTile: FC<Props> = ({ indicatorKey, className }) => {
       (lang === "bg" ? anchor.cabinet.pmBg : anchor.cabinet.pmEn)
         .split(" ")
         .pop() ?? "";
+    const detailHref = `/governments/${encodeURIComponent(anchor.cabinet.id)}#kpi-${indicatorKey}`;
     return (
-      <Link
-        to={`/governments/${encodeURIComponent(anchor.cabinet.id)}#kpi-${indicatorKey}`}
-        onClick={(e) => e.stopPropagation()}
-        className="block text-[10px] tabular-nums text-muted-foreground hover:text-foreground hover:underline"
+      <button
+        type="button"
+        onClick={(e) => {
+          e.preventDefault();
+          e.stopPropagation();
+          navigate(detailHref);
+        }}
+        className="block w-full text-left text-[10px] tabular-nums text-muted-foreground hover:text-foreground hover:underline focus:outline-none focus-visible:text-foreground"
       >
         {t("kpi_under_cabinet", {
           name: surname,
@@ -161,7 +179,7 @@ export const KpiTile: FC<Props> = ({ indicatorKey, className }) => {
           end: entry.format(termSpan.end.value),
           delta: deltaText,
         })}
-      </Link>
+      </button>
     );
   })();
 

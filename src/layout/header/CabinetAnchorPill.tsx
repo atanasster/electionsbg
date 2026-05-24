@@ -48,6 +48,7 @@ export const CabinetAnchorPill: FC = () => {
       <UxTooltip content={<span>{tooltipText}</span>}>
         <button
           type="button"
+          aria-label={t("cabinet_anchor_pill_aria", { name: surname })}
           onClick={() => navigate(`/governments/${encodeURIComponent(g.id)}`)}
           className={cn(
             "flex items-center gap-1.5 px-2 py-1 whitespace-nowrap transition-colors",

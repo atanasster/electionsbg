@@ -158,7 +158,7 @@ export const CabinetKpiTile: FC<Props> = ({
         ) : null}
       </div>
 
-      {windowPoints.length >= 2 ? (
+      {windowPoints.length >= 3 ? (
         <div className="mt-auto pt-1" style={{ color: "var(--foreground)" }}>
           <KpiSparkline
             points={windowPoints}

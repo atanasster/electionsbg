@@ -54,12 +54,19 @@ There are no tests configured.
 
 - `src/routes.tsx` — All route definitions
 - `src/data/ElectionContext.tsx` — Central state: selected election date, aggregate stats. All data hooks read the selected date from this context.
+- `src/data/macro/cabinetAnchorContext.tsx` — Global cabinet anchor mounted on the `/governments*` and `/indicators*` route group. URL-encoded via `?cabinet=<id>`; every quarterly/annual snapshot hook (`useElectionAsOf`, `useElectionYear`) consults the override and re-anchors to the cabinet's tenure end. Cleared via the header pill ×.
 - `src/data/` subdirectories (`regions/`, `municipalities/`, `settlements/`, `sections/`, `parties/`, etc.) — React Query hooks per domain; each exports typed `useXxx()` hooks
 - `src/screens/` — Page-level components matching the route structure
 - `src/screens/components/` — Reusable components shared across screens
 - `src/components/ui/` — Low-level UI primitives (22 components)
 - `src/ux/` — UX utilities: data tables, tooltips, touch handling, media queries
 - `src/locales/` — i18n strings; `public/locales/` — runtime-loaded translations
+
+### URL contract (cross-page state)
+
+- `?elections=YYYY_MM_DD` — selected election (read by `ElectionContext`)
+- `?cabinet=<id>` — global cabinet anchor on `/governments*` and `/indicators*` (read by `cabinetAnchorContext`)
+- `?peers=RO,GR,HU,HR` — peer-country selection on `/indicators/compare` (read by `usePeerSelection`)
 
 ### Data Hook Pattern
 
