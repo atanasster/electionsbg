@@ -107,10 +107,13 @@ export const PeerSnapshotStrip: FC<{
   formatValue?: (value: number) => string;
   /** Optional className for the wrapping element. */
   className?: string;
-}> = ({ indicatorKey, formatValue, className }) => {
+  /** Snapshot anchor override — same semantics as PeerSnapshotTable. */
+  asOf?: ElectionAsOf | null;
+}> = ({ indicatorKey, formatValue, className, asOf: asOfOverride }) => {
   const { i18n } = useTranslation();
   const lang: "bg" | "en" = i18n.language === "bg" ? "bg" : "en";
-  const asOf = useElectionAsOf();
+  const electionAsOf = useElectionAsOf();
+  const asOf = asOfOverride !== undefined ? asOfOverride : electionAsOf;
   const block = usePeerIndicator(indicatorKey);
 
   if (!block) return null;

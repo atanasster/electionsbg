@@ -10,14 +10,19 @@
 // (?peers=RO,GR …) so the view is shareable.
 //
 // Cabinet anchor: the CabinetStrip at the top doubles as a temporal anchor
-// for every panel. Pick a cabinet → ?cabinet=<id> goes into the URL, the
-// global CabinetAnchorProvider (mounted by the route wrapper) re-resolves
-// the anchor, and every panel re-renders as values at the end of that
-// cabinet's tenure (annual + quarterly snapshots). Default selection is
-// the cabinet in office at the chosen election — applied via URL on first
-// mount if no ?cabinet= was supplied.
+// for the snapshot panels (WGI radar, COFOG multiples, inequality panel,
+// spend-outcome scatters, peer snapshot table). Pick a cabinet → ?cabinet=
+// <id> goes into the URL, and those panels re-render as values at the end
+// of that cabinet's tenure. With no cabinet picked, the panels default to
+// the election quarter — matching the rest of /indicators so the user's
+// mental model stays consistent.
+//
+// The opt-in is explicit: each panel calls useCompareSnapshotYear or
+// receives an `asOf` prop from useCompareSnapshotAsOf. KpiTile, the domain
+// pages, and the cabinet detail screen do NOT consult the anchor for their
+// headline values — only the small "При [Cabinet]" footers do.
 
-import { FC, useEffect, useMemo } from "react";
+import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { ArrowLeft, ChevronRight } from "lucide-react";
@@ -26,7 +31,7 @@ import {
   useCabinetAnchor,
   useSetCabinetAnchor,
 } from "@/data/macro/cabinetAnchorContext";
-import { useDefaultCabinetForElection } from "@/data/macro/useDefaultCabinetForElection";
+import { useCompareSnapshotAsOf } from "@/data/macro/useElectionAsOf";
 import { useMacroPeers, type PeerGeo } from "@/data/macro/useMacroPeers";
 import { PeerSnapshotTable } from "@/screens/components/macro/PeerSnapshotTable";
 import { Title } from "@/ux/Title";
@@ -48,11 +53,11 @@ export const IndicatorsCompareScreen: FC = () => {
   const { geos } = usePeerSelection();
   const anchor = useCabinetAnchor();
   const setAnchor = useSetCabinetAnchor();
-  // Default cabinet = the one whose tenure contains the selected election
-  // date — matches /indicators landing so the two screens read consistently.
-  // When the URL already carries ?cabinet=, the provider exposes it via
-  // `anchor` and we skip the auto-default below.
-  const defaultCabinetId = useDefaultCabinetForElection();
+  // Snapshot anchor for /compare panels: cabinet's tenure-end when set,
+  // election quarter otherwise. Threaded explicitly to PeerSnapshotTable so
+  // other call sites of the table (on /economy + /fiscal) stay
+  // election-only.
+  const compareAsOf = useCompareSnapshotAsOf();
 
   const indicatorKeys = peers?.indicators ? Object.keys(peers.indicators) : [];
   const tableGeos: PeerGeo[] = geos;
@@ -61,20 +66,6 @@ export const IndicatorsCompareScreen: FC = () => {
     () => (governments ? xDomainFor(governments) : null),
     [governments],
   );
-
-  // Auto-set the URL anchor on first mount so the snapshot panels have a
-  // cabinet to render against — every panel below assumes one. Guard rails:
-  // (1) wait for governments to load, (2) skip if user already has ?cabinet=,
-  // (3) skip if defaulting somehow returned null. Runs at most once per mount
-  // because once we set the param, `anchor` becomes non-null and the effect
-  // short-circuits forever (clearing via the header pill is a deliberate
-  // user action and should stick).
-  useEffect(() => {
-    if (!governments || governments.length === 0) return;
-    if (anchor) return;
-    if (!defaultCabinetId) return;
-    setAnchor(defaultCabinetId);
-  }, [anchor, defaultCabinetId, governments, setAnchor]);
 
   const selectedCabinet = anchor?.cabinet ?? null;
 
@@ -183,6 +174,7 @@ export const IndicatorsCompareScreen: FC = () => {
           <PeerSnapshotTable
             rows={indicatorKeys.map((k) => ({ indicatorKey: k }))}
             geos={tableGeos}
+            asOf={compareAsOf}
           />
         ) : (
           <p className="text-sm text-muted-foreground">

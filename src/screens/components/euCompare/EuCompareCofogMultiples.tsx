@@ -27,7 +27,7 @@ import {
   GEO_SHORT_EN,
   usePeerSelection,
 } from "./usePeerSelection";
-import { useElectionYear } from "./useElectionYear";
+import { useCompareSnapshotYear } from "./useElectionYear";
 import { COFOG_FUNCTION_COLOR, COFOG_STACK_ORDER } from "./cofogPalette";
 
 type FunctionCode = Exclude<CofogCode, "TOTAL">;
@@ -47,7 +47,7 @@ export const EuCompareCofogMultiples: FC = () => {
   const lang: "bg" | "en" = i18n.language === "bg" ? "bg" : "en";
   const { data: cofog } = useCofog();
   const { geos: allGeos } = usePeerSelection();
-  const electionYear = useElectionYear();
+  const electionYear = useCompareSnapshotYear();
   const shortLabel = lang === "bg" ? GEO_SHORT_BG : GEO_SHORT_EN;
   const [hoveredGeo, setHoveredGeo] = useState<PeerGeo | null>(null);
 

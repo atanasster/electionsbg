@@ -38,7 +38,7 @@ import {
   GEO_SHORT_EN,
   usePeerSelection,
 } from "./usePeerSelection";
-import { pickByYear, useElectionYear } from "./useElectionYear";
+import { pickByYear, useCompareSnapshotYear } from "./useElectionYear";
 
 type FunctionCode = Exclude<CofogCode, "TOTAL">;
 
@@ -185,7 +185,7 @@ const MiniScatter: FC<{
   const { t, i18n } = useTranslation();
   const lang: "bg" | "en" = i18n.language === "bg" ? "bg" : "en";
   const { geos } = usePeerSelection();
-  const electionYear = useElectionYear();
+  const electionYear = useCompareSnapshotYear();
   const shortLabel = lang === "bg" ? GEO_SHORT_BG : GEO_SHORT_EN;
   const { points, euX, euY } = useScatterData(
     spendCode,

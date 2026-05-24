@@ -22,7 +22,7 @@ import {
   GEO_SHORT_EN,
   usePeerSelection,
 } from "./usePeerSelection";
-import { pickByYear, useElectionYear } from "./useElectionYear";
+import { pickByYear, useCompareSnapshotYear } from "./useElectionYear";
 
 type Metric = {
   key: string; // matches indicatorsAnnual key in macro_peers.json
@@ -153,7 +153,7 @@ export const EuCompareInequalityPanel: FC = () => {
   const { i18n } = useTranslation();
   const lang: "bg" | "en" = i18n.language === "bg" ? "bg" : "en";
   const { geos } = usePeerSelection();
-  const electionYear = useElectionYear();
+  const electionYear = useCompareSnapshotYear();
   const geoLabel = lang === "bg" ? GEO_SHORT_BG : GEO_SHORT_EN;
 
   return (

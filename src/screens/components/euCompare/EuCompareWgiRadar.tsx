@@ -32,7 +32,7 @@ import {
   GEO_COLOR,
   usePeerSelection,
 } from "./usePeerSelection";
-import { pickByYear, useElectionYear } from "./useElectionYear";
+import { pickByYear, useCompareSnapshotYear } from "./useElectionYear";
 
 // Short, localized labels for the six axes. Full names live in the
 // explanatory copy below the chart.
@@ -107,7 +107,7 @@ export const EuCompareWgiRadar: FC = () => {
   const lang: "bg" | "en" = i18n.language === "bg" ? "bg" : "en";
   const { data: peers } = useMacroPeers();
   const { geos } = usePeerSelection();
-  const electionYear = useElectionYear();
+  const electionYear = useCompareSnapshotYear();
   const wgi = peers?.wgi;
   const shortLabel = lang === "bg" ? GEO_SHORT_BG : GEO_SHORT_EN;
 

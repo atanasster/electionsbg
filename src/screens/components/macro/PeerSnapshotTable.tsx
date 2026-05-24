@@ -234,10 +234,16 @@ export const PeerSnapshotTable: FC<{
   /** Which geo columns to render. Defaults to BG + EU27 + four CEE peers. */
   geos?: PeerGeo[];
   className?: string;
-}> = ({ rows, formatValue, geos, className }) => {
+  /** Snapshot anchor override. Pass from useCompareSnapshotAsOf() on
+   *  /compare so the table re-anchors to the picked cabinet's tenure end.
+   *  Omit on /economy and /fiscal so the table stays election-anchored
+   *  regardless of any URL `?cabinet=` the user carried over. */
+  asOf?: ElectionAsOf | null;
+}> = ({ rows, formatValue, geos, className, asOf: asOfOverride }) => {
   const { i18n } = useTranslation();
   const lang: "bg" | "en" = i18n.language === "bg" ? "bg" : "en";
-  const asOf = useElectionAsOf();
+  const electionAsOf = useElectionAsOf();
+  const asOf = asOfOverride !== undefined ? asOfOverride : electionAsOf;
   const defaultFormat = formatValue ?? ((v: number) => `${v.toFixed(1)}%`);
   const geoLabel = lang === "bg" ? GEO_LABEL_BG : GEO_LABEL_EN;
   const resolvedGeos: PeerGeo[] =
