@@ -11,7 +11,11 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { ArrowUpRight } from "lucide-react";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
-import type { Government } from "@/data/governments/useGovernments";
+import {
+  useGovernments,
+  type Government,
+} from "@/data/governments/useGovernments";
+import { cabinetFullLabel } from "@/data/governments/cabinetLabel";
 import type { MacroPayload } from "@/data/macro/useMacro";
 import {
   cabinetMetricsFor,
@@ -91,12 +95,17 @@ export const CabinetScoreDetail: FC<{
   const { t, i18n } = useTranslation();
   const lang: "bg" | "en" = i18n.language === "bg" ? "bg" : "en";
   const { colorFor } = useCanonicalParties();
+  const { data: allGovernments } = useGovernments();
   const metrics: CabinetMetrics = useMemo(
     () => cabinetMetricsFor(g, macro),
     [g, macro],
   );
 
-  const fullName = lang === "bg" ? g.pmBg : g.pmEn;
+  const fullName = allGovernments
+    ? cabinetFullLabel(g, allGovernments, lang)
+    : lang === "bg"
+      ? g.pmBg
+      : g.pmEn;
   const parties = lang === "bg" ? g.parties : (g.partiesEn ?? g.parties);
   const tenure = `${formatDateShort(g.startDate, lang)} – ${formatDateShort(g.endDate, lang)}`;
   const ribbon = colorForGovernmentSolid(g, colorFor);

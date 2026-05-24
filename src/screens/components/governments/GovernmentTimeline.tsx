@@ -22,6 +22,10 @@ import {
   pointToFractionalX,
 } from "@/data/macro/useMacro";
 import { cabinetMetricsFor } from "@/data/macro/kpiSelectors";
+import {
+  cabinetFullLabel,
+  cabinetShortLabel,
+} from "@/data/governments/cabinetLabel";
 import type {
   PeerGeo,
   PeerIndicatorBlock,
@@ -396,8 +400,9 @@ const formatDateLocal = (iso: string | null, lang: "en" | "bg"): string => {
 
 const PillTooltip: FC<{
   g: Government;
+  allGovernments: Government[];
   lang: "en" | "bg";
-}> = ({ g, lang }) => {
+}> = ({ g, allGovernments, lang }) => {
   const { t } = useTranslation();
   const { findMpByName } = useMps();
   const endReasonMap: Record<GovernmentEndReason, string> = {
@@ -409,7 +414,7 @@ const PillTooltip: FC<{
     rotation_failed: t("gov_end_rotation_failed"),
     incumbent: t("gov_end_incumbent"),
   };
-  const fullName = lang === "bg" ? g.pmBg : g.pmEn;
+  const fullName = cabinetFullLabel(g, allGovernments, lang);
   const parties = lang === "bg" ? g.parties : (g.partiesEn ?? g.parties);
   const endReasonText = lang === "bg" ? g.endReasonBg : g.endReasonEn;
   const mp = findMpByName(g.pmBg);
@@ -552,8 +557,7 @@ export const CabinetStrip: FC<{
       <div className="overflow-x-auto pb-1">
         <div className="flex mb-1 rounded overflow-hidden h-24 w-max">
           {governments.map((g, i) => {
-            const surname =
-              (lang === "bg" ? g.pmBg : g.pmEn).split(" ").pop() ?? "";
+            const surname = cabinetShortLabel(g, governments, lang);
             const widthPx = pillWidthsPx[i];
             const horizontal = widthPx >= MOBILE_SCROLL_HORIZONTAL_PX;
             const isSelected = selectable && selectedSet.has(g.id);
@@ -563,7 +567,9 @@ export const CabinetStrip: FC<{
             return (
               <UxTooltip
                 key={`pill-${g.id}`}
-                content={<PillTooltip g={g} lang={lang} />}
+                content={
+                  <PillTooltip g={g} allGovernments={governments} lang={lang} />
+                }
               >
                 <div
                   role={selectable ? "button" : undefined}
@@ -655,8 +661,7 @@ export const CabinetStrip: FC<{
         const start = toFractionalYear(g.startDate);
         const end = toFractionalYear(g.endDate ?? new Date().toISOString());
         const widthPct = ((end - start) / (xDomain[1] - xDomain[0])) * 100;
-        const surname =
-          (lang === "bg" ? g.pmBg : g.pmEn).split(" ").pop() ?? "";
+        const surname = cabinetShortLabel(g, governments, lang);
         const horizontal = widthPct >= horizontalThreshold;
         const showLabel = widthPct >= labelThreshold;
         const isSelected = selectable && selectedSet.has(g.id);
@@ -666,7 +671,9 @@ export const CabinetStrip: FC<{
         return (
           <UxTooltip
             key={`pill-${g.id}`}
-            content={<PillTooltip g={g} lang={lang} />}
+            content={
+              <PillTooltip g={g} allGovernments={governments} lang={lang} />
+            }
           >
             <div
               role={selectable ? "button" : undefined}

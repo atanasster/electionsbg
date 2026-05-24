@@ -27,6 +27,7 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { ArrowLeft, ChevronRight } from "lucide-react";
 import { useGovernments } from "@/data/governments/useGovernments";
+import { cabinetFullLabel } from "@/data/governments/cabinetLabel";
 import {
   useCabinetAnchor,
   useSetCabinetAnchor,
@@ -93,14 +94,14 @@ export const IndicatorsCompareScreen: FC = () => {
       <Link to="/indicators" className="hover:text-foreground hover:underline">
         {t("eu_compare_breadcrumb_bg")}
       </Link>
-      {selectedCabinet ? (
+      {selectedCabinet && governments ? (
         <>
           <ChevronRight className="h-3 w-3 opacity-60" aria-hidden />
           <Link
             to={`/governments/${encodeURIComponent(selectedCabinet.id)}`}
             className="hover:text-foreground hover:underline"
           >
-            {lang === "bg" ? selectedCabinet.pmBg : selectedCabinet.pmEn}
+            {cabinetFullLabel(selectedCabinet, governments, lang)}
           </Link>
         </>
       ) : null}
@@ -219,7 +220,7 @@ export const IndicatorsCompareScreen: FC = () => {
         <EuCompareSourcesStrip />
       </section>
 
-      {selectedCabinet ? (
+      {selectedCabinet && governments ? (
         <div className="mt-6 flex flex-wrap justify-end">
           <Link
             to={`/governments/${encodeURIComponent(selectedCabinet.id)}`}
@@ -227,7 +228,7 @@ export const IndicatorsCompareScreen: FC = () => {
           >
             <ArrowLeft className="h-3 w-3" />
             {t("eu_compare_back_to_cabinet", {
-              name: lang === "bg" ? selectedCabinet.pmBg : selectedCabinet.pmEn,
+              name: cabinetFullLabel(selectedCabinet, governments, lang),
             })}
           </Link>
         </div>

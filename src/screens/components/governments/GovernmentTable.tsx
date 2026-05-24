@@ -6,6 +6,7 @@ import {
   Government,
   GovernmentEndReason,
 } from "@/data/governments/useGovernments";
+import { cabinetFullLabel } from "@/data/governments/cabinetLabel";
 import { MacroPayload, MacroPoint } from "@/data/macro/useMacro";
 import { useMps } from "@/data/parliament/useMps";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";
@@ -309,7 +310,7 @@ export const GovernmentTable: FC<{
         </thead>
         <tbody>
           {sortedRows.map(({ g, indicators }) => {
-            const pm = lang === "bg" ? g.pmBg : g.pmEn;
+            const pm = cabinetFullLabel(g, governments, lang as "bg" | "en");
             const parties =
               lang === "bg" ? g.parties : (g.partiesEn ?? g.parties);
             const endReason =
