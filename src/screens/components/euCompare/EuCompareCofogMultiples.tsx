@@ -21,6 +21,7 @@ import {
   type CofogCode,
 } from "@/data/macro/useCofog";
 import { cn } from "@/lib/utils";
+import type { PeerGeo } from "@/data/macro/useMacroPeers";
 import {
   GEO_SHORT_BG,
   GEO_SHORT_EN,
@@ -48,7 +49,7 @@ export const EuCompareCofogMultiples: FC = () => {
   const { geos: allGeos } = usePeerSelection();
   const electionYear = useElectionYear();
   const shortLabel = lang === "bg" ? GEO_SHORT_BG : GEO_SHORT_EN;
-  const [hoveredGeo, setHoveredGeo] = useState<string | null>(null);
+  const [hoveredGeo, setHoveredGeo] = useState<PeerGeo | null>(null);
 
   // Greece does not report a COFOG functional breakdown to Eurostat at
   // all — every year is blank — so we drop GR from this chart entirely
