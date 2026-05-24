@@ -1,14 +1,17 @@
-// Global cabinet anchor — a single selected cabinet whose tenure-end snapshot
-// drives every quarterly/annual macro selector across the governments +
-// indicators route group. Sourced from `?cabinet=<id>` so the choice is
-// shareable, lifted from /indicators/compare to a route-group provider so the
-// same anchor flows through /governments, /indicators (and its four domain
-// pages), /governments/:slug, and back into /compare.
+// Global cabinet anchor — a single selected cabinet, URL-encoded as
+// `?cabinet=<id>` and surfaced via context across the governments +
+// indicators route group. Used by the header pill, the per-tile "При
+// [Cabinet]" footer, the cabinet-detail page, and (opt-in) the /compare
+// snapshot panels.
 //
-// Screens that don't mount the provider retain election-driven behavior via
-// the existing useElectionAsOf / useElectionYear fallthrough — both hooks
-// consult useCompareAnchorOverride() first, which returns null outside the
-// provider.
+// The anchor is **additive** for most consumers: KpiTile headlines,
+// PeerSnapshotTable on /economy / /fiscal, etc. read the *election*-driven
+// snapshot via useElectionAsOf, so the period label on each tile always
+// matches the election the user picked in the header. Components that
+// genuinely want to re-anchor (the /compare WGI radar, COFOG multiples,
+// inequality panel, spend-outcome scatters, the /compare PeerSnapshotTable)
+// opt in explicitly via useCompareSnapshotAsOf / useCompareSnapshotYear,
+// which fall back from cabinet anchor → election.
 
 import {
   createContext,
@@ -113,13 +116,28 @@ export const useSetCabinetAnchor = (): ((id: string | null) => void) => {
   return setter ?? (() => undefined);
 };
 
-/** Narrowed view used by useElectionAsOf / useElectionYear. Kept as its own
- *  hook so the snapshot-reading layer doesn't reach into the cabinet record. */
-export const useCompareAnchorOverride = (): {
-  asOf: AsOf | null;
-  year: number;
-} | null => {
+/** Three-state return:
+ *   - `undefined` → no anchor set; caller should fall back to election asOf
+ *   - `null`      → anchor IS set but the cabinet is incumbent (= "use the
+ *                   literal latest available point", a meaningful asOf
+ *                   value that pickAtOrBefore interprets specifically)
+ *   - `{year, quarter}` → anchored to cabinet's tenure-end quarter
+ *
+ *  The three-state semantic lets useCompareSnapshotAsOf distinguish "no
+ *  override" from "override that means latest data" without conflating
+ *  them.
+ */
+export type CabinetAnchorAsOf = AsOf | null | undefined;
+
+export const useCabinetAnchorAsOf = (): CabinetAnchorAsOf => {
   const anchor = useContext(CabinetAnchorContext);
-  if (!anchor) return null;
-  return { asOf: anchor.asOf, year: anchor.year };
+  if (!anchor) return undefined;
+  return anchor.asOf;
+};
+
+/** Annual anchor — cabinet's tenure-end year when an anchor is set, else
+ *  `null` (caller falls back to election year). */
+export const useCabinetAnchorYear = (): number | null => {
+  const anchor = useContext(CabinetAnchorContext);
+  return anchor?.year ?? null;
 };

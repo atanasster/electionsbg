@@ -3,21 +3,34 @@
 // data point from every multi-year series — WGI, COFOG composition, SILC,
 // life expectancy — so the panels render as of the election cycle the user
 // is looking at, not the latest available data.
+//
+// Pure election-driven. The /compare-specific panels that should re-anchor
+// when the user picks a cabinet from the strip use `useCompareSnapshotYear`
+// below — it returns the cabinet anchor year when set, else falls back to
+// the election year. Keeps the cabinet anchor scoped to the panels that
+// genuinely want it instead of leaking through useElectionYear into every
+// other consumer (KpiTile, PeerSnapshotTable on /economy / /fiscal).
 
 import { useMemo } from "react";
 import { useElectionContext } from "@/data/ElectionContext";
-import { useCompareAnchorOverride } from "@/data/macro/cabinetAnchorContext";
+import { useCabinetAnchorYear } from "@/data/macro/cabinetAnchorContext";
 
 export const useElectionYear = (): number => {
   const { selected } = useElectionContext();
-  // See cabinetAnchorContext for why this falls through to election when
-  // no provider is mounted.
-  const override = useCompareAnchorOverride();
   return useMemo(() => {
-    if (override) return override.year;
     const m = /^(\d{4})/.exec(selected ?? "");
     return m ? Number(m[1]) : new Date().getFullYear();
-  }, [selected, override]);
+  }, [selected]);
+};
+
+/** Compare-screen annual snapshot year — cabinet anchor year when set, else
+ *  election year. Use in /compare's annual panels (WGI radar, COFOG
+ *  multiples, inequality panel, spend-outcome scatters) so they re-anchor
+ *  when the user picks a cabinet from the strip. */
+export const useCompareSnapshotYear = (): number => {
+  const anchorYear = useCabinetAnchorYear();
+  const electionYear = useElectionYear();
+  return anchorYear ?? electionYear;
 };
 
 // Pick the latest point in `series` with year ≤ `targetYear`. Falls back to

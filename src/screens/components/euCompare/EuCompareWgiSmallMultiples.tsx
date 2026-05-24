@@ -35,7 +35,7 @@ import {
   GEO_COLOR,
   usePeerSelection,
 } from "./usePeerSelection";
-import { pickByYear, useElectionYear } from "./useElectionYear";
+import { pickByYear, useCompareSnapshotYear } from "./useElectionYear";
 
 // Per-panel tooltip — shows the three series in scope (BG, the assigned peer,
 // EU27) for whichever axis the cursor is over, sorted descending so the
@@ -189,7 +189,7 @@ export const EuCompareWgiSmallMultiples: FC = () => {
   const lang: "bg" | "en" = i18n.language === "bg" ? "bg" : "en";
   const { data: peers } = useMacroPeers();
   const { geos } = usePeerSelection();
-  const electionYear = useElectionYear();
+  const electionYear = useCompareSnapshotYear();
   const wgi = peers?.wgi;
   const shortLabel = lang === "bg" ? GEO_SHORT_BG : GEO_SHORT_EN;
   // "small" (default) — 2×3 grid of bilateral radars
