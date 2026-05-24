@@ -25,7 +25,7 @@
 import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
-import { ArrowLeft, ChevronRight } from "lucide-react";
+import { ArrowLeft } from "lucide-react";
 import { useGovernments } from "@/data/governments/useGovernments";
 import { cabinetFullLabel } from "@/data/governments/cabinetLabel";
 import {
@@ -71,60 +71,27 @@ export const IndicatorsCompareScreen: FC = () => {
 
   const selectedCabinet = anchor?.cabinet ?? null;
 
-  // Header text rendered above the SelectedCabinetCallout — separate from
-  // the callout itself because the framing changes depending on whether
-  // the picked cabinet is the still-in-office incumbent (latest data
-  // anyway) or a finished one (snapshot to its tenure-end).
-  const calloutHeader = useMemo(() => {
-    if (!selectedCabinet) return null;
+  // Single piece of strip-context copy. Without a cabinet picked it reads
+  // as a call-to-action; with one picked it describes what the choice
+  // means for the panels below. Either way we render it ONCE — earlier
+  // versions had both a label above the strip AND a header on the callout
+  // card, which said the same thing twice.
+  const stripCaption = useMemo(() => {
+    if (!selectedCabinet) return t("eu_compare_cabinet_anchor_label");
     if (selectedCabinet.endReason === "incumbent" || !selectedCabinet.endDate) {
       return t("eu_compare_callout_header_incumbent");
     }
     return t("eu_compare_callout_header_finished");
   }, [selectedCabinet, t]);
 
-  // Breadcrumb: Bulgaria → [Cabinet] → vs peers. Each crumb is a deeper
-  // route. The cabinet crumb links to the cabinet-detail page; the peer
-  // crumb is the current page (non-link, slightly muted).
-  const renderBreadcrumb = () => (
-    <nav
-      aria-label="breadcrumb"
-      className="mb-3 flex flex-wrap items-center gap-1.5 text-xs text-muted-foreground"
-    >
-      <Link to="/indicators" className="hover:text-foreground hover:underline">
-        {t("eu_compare_breadcrumb_bg")}
-      </Link>
-      {selectedCabinet && governments ? (
-        <>
-          <ChevronRight className="h-3 w-3 opacity-60" aria-hidden />
-          <Link
-            to={`/governments/${encodeURIComponent(selectedCabinet.id)}`}
-            className="hover:text-foreground hover:underline"
-          >
-            {cabinetFullLabel(selectedCabinet, governments, lang)}
-          </Link>
-        </>
-      ) : null}
-      <ChevronRight className="h-3 w-3 opacity-60" aria-hidden />
-      <span className="text-foreground">
-        {t("eu_compare_breadcrumb_vs_peers")}
-      </span>
-    </nav>
-  );
-
   return (
     <div className="pb-12">
-      {renderBreadcrumb()}
-
       <Title description={t("eu_compare_page_description")}>
         {t("eu_compare_page_title")}
       </Title>
 
       {xDomain && governments ? (
         <section className="mb-5">
-          <div className="text-[10px] uppercase tracking-wide text-muted-foreground mb-1">
-            {t("eu_compare_cabinet_anchor_label")}
-          </div>
           <CabinetStrip
             governments={governments}
             xDomain={xDomain}
@@ -134,18 +101,16 @@ export const IndicatorsCompareScreen: FC = () => {
             anchoredId={anchor?.cabinet.id ?? null}
             onAnchor={setAnchor}
           />
+          <div className="mt-2 text-[11px] text-muted-foreground">
+            {stripCaption}
+          </div>
           {selectedCabinet ? (
             <SelectedCabinetCallout
               government={selectedCabinet}
               lang={lang}
-              headerText={calloutHeader ?? undefined}
-              className="mt-3"
+              className="mt-2"
             />
-          ) : (
-            <p className="text-[11px] text-muted-foreground mt-2">
-              {t("eu_compare_callout_no_selection")}
-            </p>
-          )}
+          ) : null}
         </section>
       ) : null}
 
