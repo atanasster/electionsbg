@@ -2,6 +2,12 @@
 export default {
   content: ["./index.html", "./src/**/*.{js,ts,jsx,tsx}"],
   darkMode: ["class"],
+  future: {
+    // Scope every `hover:` variant behind `@media (hover: hover)` so taps on
+    // touch devices don't leave the pressed element in a sticky hover state
+    // (which makes pill nav and toggles feel like they need a second tap).
+    hoverOnlyWhenSupported: true,
+  },
   theme: {
     container: {
       center: true,
