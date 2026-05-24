@@ -986,7 +986,9 @@ export const GovernmentTimeline: FC<{
                   stroke={color}
                   strokeWidth={1.5}
                   strokeOpacity={0.8}
-                  label={(p: { viewBox: { x: number; y: number; height: number } }) => {
+                  label={(p: {
+                    viewBox: { x: number; y: number; height: number };
+                  }) => {
                     const cx = p.viewBox.x + 4;
                     const cy = p.viewBox.y + p.viewBox.height - offset;
                     return (
