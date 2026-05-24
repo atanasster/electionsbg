@@ -972,12 +972,13 @@ export const GovernmentTimeline: FC<{
 
             {eventMarkers?.map((m, i) => {
               const color = m.color ?? "#b45309";
-              // Rotated vertical label along the reference line. Vertical
-              // labels along thin vertical lines don't overlap each other
-              // (they're spread along X), so the horizontal-label stagger
-              // via top/bottom labelPosition is unnecessary here — we
-              // always anchor at insideBottomLeft and let the rotation read
-              // bottom-to-top alongside the line.
+              // The line keeps the amber accent so it reads as a "marker".
+              // The label uses foreground + a background-colored stroke halo
+              // so it stays readable against any cabinet-band colour
+              // (Stanishev red, caretaker purple, Borisov grey) and in both
+              // light and dark modes. Plain amber fill blended into the red
+              // and purple bands and was effectively invisible there.
+              const offset = m.labelOffset ?? 6;
               return (
                 <ReferenceLine
                   key={`evt-${i}`}
@@ -985,20 +986,28 @@ export const GovernmentTimeline: FC<{
                   stroke={color}
                   strokeWidth={1.5}
                   strokeOpacity={0.8}
-                  label={{
-                    value: m.label,
-                    // insideBottomLeft anchors at the chart's bottom; the
-                    // -90° rotation makes the text run upward into the plot
-                    // area (reads bottom-to-top, European axis-label style).
-                    // insideTopLeft would put the anchor at the top edge and
-                    // the rotated text would extend ABOVE the plot area and
-                    // get clipped, leaving only the first 2–3 letters visible.
-                    position: "insideBottomLeft",
-                    offset: m.labelOffset ?? 6,
-                    fill: color,
-                    fontSize: 11,
-                    fontWeight: 600,
-                    angle: -90,
+                  label={(p: { viewBox: { x: number; y: number; height: number } }) => {
+                    const cx = p.viewBox.x + 4;
+                    const cy = p.viewBox.y + p.viewBox.height - offset;
+                    return (
+                      <text
+                        x={cx}
+                        y={cy}
+                        transform={`rotate(-90, ${cx}, ${cy})`}
+                        textAnchor="start"
+                        className="fill-foreground"
+                        style={{
+                          fontSize: 11,
+                          fontWeight: 600,
+                          paintOrder: "stroke",
+                          stroke: "hsl(var(--background))",
+                          strokeWidth: 3,
+                          strokeLinejoin: "round",
+                        }}
+                      >
+                        {m.label}
+                      </text>
+                    );
                   }}
                 />
               );

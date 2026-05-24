@@ -386,6 +386,7 @@ export const IndicatorsFiscalScreen = () => {
             {
               x: 2008.55,
               label: t("governments_chart_eu_funds_2008_marker"),
+              labelPosition: "insideTopRight",
             },
           ]}
         />

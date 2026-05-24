@@ -6,9 +6,13 @@ import { useMacro } from "@/data/macro/useMacro";
 import { Link, useLocation } from "react-router-dom";
 import {
   CabinetStrip,
+  EventMarker,
   GovernmentTimeline,
 } from "./components/governments/GovernmentTimeline";
-import { xDomainFor } from "./components/governments/governmentTimelineUtils";
+import {
+  toFractionalYear,
+  xDomainFor,
+} from "./components/governments/governmentTimelineUtils";
 import { GovernmentTable } from "./components/governments/GovernmentTable";
 import { CabinetScoreDetail } from "./components/macro/CabinetScoreCard";
 
@@ -27,6 +31,46 @@ export const GovernmentsScreen = () => {
   const xDomain = useMemo<[number, number] | null>(
     () => (governments ? xDomainFor(governments) : null),
     [governments],
+  );
+
+  // Major EU-integration milestones overlaid on the macro chart so the reader
+  // can see them against the cabinet bands. Labels alternate top/bottom in the
+  // dense 2024–2026 stretch to stop them piling on top of each other. Labels
+  // are centered on each line (position "top"/"bottom") so they extend both
+  // ways from the marker — that's the most space-efficient layout for a tight
+  // cluster of 4 events spanning under 2 years.
+  const eventMarkers = useMemo<EventMarker[]>(
+    () => [
+      {
+        x: toFractionalYear("2007-01-01"),
+        label: t("governments_event_eu_accession"),
+      },
+      {
+        x: toFractionalYear("2020-07-10"),
+        label: t("governments_event_erm2"),
+      },
+      {
+        x: toFractionalYear("2024-03-31"),
+        label: t("governments_event_schengen_air"),
+        labelPosition: "bottom",
+      },
+      {
+        x: toFractionalYear("2025-01-01"),
+        label: t("governments_event_schengen_land"),
+      },
+      {
+        x: toFractionalYear("2025-06-04"),
+        label: t("governments_event_convergence_report"),
+        labelPosition: "bottom",
+        labelOffset: 20,
+      },
+      {
+        x: toFractionalYear("2026-01-01"),
+        label: t("governments_event_eurozone"),
+        labelOffset: 20,
+      },
+    ],
+    [t],
   );
 
   // Default selection on this page = the current (incumbent) cabinet — its
@@ -132,6 +176,7 @@ export const GovernmentsScreen = () => {
           showZeroLine
           hideToggles
           height={280}
+          eventMarkers={eventMarkers}
         />
       </section>
 
