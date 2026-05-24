@@ -13,7 +13,7 @@
 // labelled gaps) is awkward in Recharts, and skipping the wrapper saves
 // a meaningful chunk of layout JS for this tile.
 
-import { FC, useMemo } from "react";
+import { FC, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
 import {
   COFOG_FUNCTIONS,
@@ -45,14 +45,21 @@ export const EuCompareCofogMultiples: FC = () => {
   const { t, i18n } = useTranslation();
   const lang: "bg" | "en" = i18n.language === "bg" ? "bg" : "en";
   const { data: cofog } = useCofog();
-  const { geos } = usePeerSelection();
+  const { geos: allGeos } = usePeerSelection();
   const electionYear = useElectionYear();
   const shortLabel = lang === "bg" ? GEO_SHORT_BG : GEO_SHORT_EN;
+  const [hoveredGeo, setHoveredGeo] = useState<string | null>(null);
+
+  // Greece does not report a COFOG functional breakdown to Eurostat at
+  // all — every year is blank — so we drop GR from this chart entirely
+  // and explain it in the footnote. Other tiles on the dashboard still
+  // use GR via the shared peer selection.
+  const geos = useMemo(() => allGeos.filter((g) => g !== "GR"), [allGeos]);
 
   // Pick the COFOG composition year closest to (≤) the selected election.
-  // Eurostat sometimes leaves a peer (notably GR) blank for the most
-  // recent year — we render the gap explicitly rather than skipping the
-  // slot, so the chart layout stays stable as the user toggles peers.
+  // Eurostat sometimes leaves a peer blank for the most recent year — we
+  // render the gap explicitly rather than skipping the slot, so the chart
+  // layout stays stable as the user toggles peers.
   const peerSeriesByYear = useMemo(
     () => cofog?.peerSeriesByYear ?? {},
     [cofog],
@@ -206,7 +213,13 @@ export const EuCompareCofogMultiples: FC = () => {
               return { code, v, yTop, yBot };
             });
             return (
-              <g key={g}>
+              <g
+                key={g}
+                onMouseEnter={() => setHoveredGeo(g)}
+                onMouseLeave={() =>
+                  setHoveredGeo((cur) => (cur === g ? null : cur))
+                }
+              >
                 {segs.map(({ code, v, yTop, yBot }) =>
                   v <= 0 ? null : (
                     <rect
@@ -218,11 +231,17 @@ export const EuCompareCofogMultiples: FC = () => {
                       fill={COFOG_FUNCTION_COLOR[code as FunctionCode]}
                       stroke="hsl(var(--background))"
                       strokeWidth={0.5}
-                    >
-                      <title>{`${t(`cofog_${code}`)} · ${v.toFixed(1)}%`}</title>
-                    </rect>
+                    />
                   ),
                 )}
+                {/* Transparent overlay catches hover across gaps + above the bar */}
+                <rect
+                  x={x}
+                  y={padTop}
+                  width={barWidth}
+                  height={plotH}
+                  fill="transparent"
+                />
                 <text
                   x={xCenter}
                   y={yFor(total) - 4}
@@ -230,6 +249,7 @@ export const EuCompareCofogMultiples: FC = () => {
                   fontSize={10}
                   fill="hsl(var(--foreground))"
                   fontWeight={g === "BG" ? 600 : 400}
+                  pointerEvents="none"
                 >
                   {total.toFixed(1)}%
                 </text>
@@ -244,12 +264,78 @@ export const EuCompareCofogMultiples: FC = () => {
                       : "hsl(var(--muted-foreground))"
                   }
                   fontWeight={g === "BG" ? 600 : 400}
+                  pointerEvents="none"
                 >
                   {shortLabel[g]}
                 </text>
               </g>
             );
           })}
+          {/* Full-composition tooltip — rendered last so it sits above bars */}
+          {hoveredGeo &&
+            (() => {
+              const composition = peerSeries[hoveredGeo];
+              if (!composition) return null;
+              const total = sumPct(composition);
+              if (total === 0) return null;
+              const rows = COFOG_FUNCTIONS.map((code) => ({
+                code: code as FunctionCode,
+                v: composition[code as FunctionCode] ?? 0,
+              }))
+                .filter((r) => r.v > 0)
+                .sort((a, b) => b.v - a.v);
+              const gi = geos.indexOf(hoveredGeo);
+              const xCenter = gi * barSlot + barSlot / 2;
+              const tipW = 220;
+              const tipH = 28 + rows.length * 16 + 8;
+              const wantLeft = xCenter + barWidth / 2 + 8;
+              const flip = wantLeft + tipW > chartW;
+              const tipX = flip ? xCenter - barWidth / 2 - tipW - 8 : wantLeft;
+              const tipY = Math.max(
+                padTop,
+                Math.min(padTop + plotH - tipH, padTop + plotH / 2 - tipH / 2),
+              );
+              return (
+                <foreignObject
+                  x={tipX}
+                  y={tipY}
+                  width={tipW}
+                  height={tipH}
+                  pointerEvents="none"
+                >
+                  <div className="pointer-events-none rounded-md border bg-popover px-2 py-1.5 text-[11px] text-popover-foreground shadow-md">
+                    <div className="mb-1 flex items-center justify-between gap-2 font-semibold">
+                      <span>{shortLabel[hoveredGeo]}</span>
+                      <span className="tabular-nums">{total.toFixed(1)}%</span>
+                    </div>
+                    <ul className="space-y-0.5">
+                      {rows.map((r) => (
+                        <li
+                          key={r.code}
+                          className="flex items-center justify-between gap-2"
+                        >
+                          <span className="flex min-w-0 items-center gap-1">
+                            <span
+                              aria-hidden
+                              className="inline-block h-2 w-2 shrink-0 rounded-sm"
+                              style={{
+                                background: COFOG_FUNCTION_COLOR[r.code],
+                              }}
+                            />
+                            <span className="truncate">
+                              {t(`cofog_${r.code}`)}
+                            </span>
+                          </span>
+                          <span className="shrink-0 tabular-nums text-muted-foreground">
+                            {r.v.toFixed(1)}%
+                          </span>
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                </foreignObject>
+              );
+            })()}
         </svg>
       </div>
 
