@@ -162,6 +162,7 @@ export const IndicatorsCompareScreen: FC = () => {
               xDomain={xDomain}
               lang={lang}
               mobileScrollable
+              fullWidth
               selectedIds={selectedCabinetId ? [selectedCabinetId] : []}
               onToggle={toggleCabinet}
             />

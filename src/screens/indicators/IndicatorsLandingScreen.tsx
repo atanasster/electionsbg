@@ -195,6 +195,7 @@ export const IndicatorsLandingScreen: FC = () => {
             xDomain={xDomain}
             lang={lang}
             mobileScrollable
+            fullWidth
             selectedIds={selectedCabinetIds}
             onToggle={toggleCabinet}
           />

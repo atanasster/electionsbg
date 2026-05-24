@@ -139,6 +139,7 @@ export const GovernmentsScreen = () => {
           xDomain={xDomain}
           lang={lang}
           mobileScrollable
+          fullWidth
           selectedIds={selectedCabinetIds}
           onToggle={toggleCabinet}
         />

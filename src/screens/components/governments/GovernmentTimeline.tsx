@@ -436,9 +436,19 @@ export const CabinetStrip: FC<{
   lang: "en" | "bg";
   // When true on phone-width viewports, render the strip as a horizontally
   // scrolling row with a per-pill min-width floor so every cabinet — including
-  // short caretakers — gets a readable label. Only pass this where the strip
-  // is standalone; chart-aligned pages must keep the default (false) layout.
+  // short caretakers — gets a readable label. On chart-aligned pages this
+  // breaks strict x-axis alignment with the chart below on mobile, but every
+  // GovernmentTimeline chart already paints its own cabinet bands, so the
+  // readability win outweighs the lost alignment. Default off to preserve
+  // alignment on desktop (the scrolling layout only kicks in at sm-width).
   mobileScrollable?: boolean;
+  // When true, drop the chart x-axis padding from the default (non-scrolling)
+  // layout so the strip extends to the full container width. Use on screens
+  // where the strip is standalone (no GovernmentTimeline chart directly
+  // below to align with) — Landing, Compare, Governments. On chart-aligned
+  // screens leave this off so the strip's pills line up with the chart's
+  // cabinet bands on tablet/desktop.
+  fullWidth?: boolean;
   // When passed, pills become toggle-selectable. Click adds, click again
   // removes — pair with a downstream detail panel on the host screen that
   // renders one card per selected id so two or more cabinets can be compared
@@ -451,6 +461,7 @@ export const CabinetStrip: FC<{
   xDomain,
   lang,
   mobileScrollable = false,
+  fullWidth = false,
   selectedIds,
   onToggle,
 }) => {
@@ -566,8 +577,8 @@ export const CabinetStrip: FC<{
         isSmall ? "h-24" : "h-14",
       )}
       style={{
-        paddingLeft: insets.paddingLeft,
-        paddingRight: insets.paddingRight,
+        paddingLeft: fullWidth ? 0 : insets.paddingLeft,
+        paddingRight: fullWidth ? 0 : insets.paddingRight,
       }}
     >
       {governments.map((g) => {
