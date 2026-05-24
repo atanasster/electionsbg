@@ -450,6 +450,86 @@ const main = async () => {
     "mp-cars.png",
   );
 
+  // Per-cabinet OG cards — one card per entry in data/governments.json,
+  // emitted as public/og/cabinet/{id}.png. Used by the prerender step
+  // (scripts/prerender/routes.ts) as the per-cabinet ogImage so social
+  // shares of /governments/<id> show a cabinet-specific card instead of
+  // falling back to the generic site OG image.
+  //
+  // Roman-numeral disambiguation mirrors the runtime cabinetLabel.ts and
+  // the prerender script — the same Бойко Методиев Борисов has three
+  // cabinets, and the OG card title needs to identify which one.
+  type CabinetEntry = {
+    id: string;
+    pmBg: string;
+    pmEn: string;
+    startDate: string;
+    endDate: string | null;
+    type: "regular" | "caretaker";
+    parties: string[];
+    pmPartyBg?: string;
+    endReasonBg?: string;
+  };
+  const OG_ROMAN: Record<number, string> = {
+    1: "I",
+    2: "II",
+    3: "III",
+    4: "IV",
+    5: "V",
+  };
+  const governmentsFile = path.join(PROJECT_ROOT, "data/governments.json");
+  if (fs.existsSync(governmentsFile)) {
+    try {
+      const payload = JSON.parse(
+        fs.readFileSync(governmentsFile, "utf-8"),
+      ) as { governments: CabinetEntry[] };
+      const lastBgToken = (s: string): string => s.split(" ").pop() ?? "";
+      const sortedAll = [...payload.governments].sort((a, b) =>
+        a.startDate.localeCompare(b.startDate),
+      );
+      const siblingsByPm = new Map<string, CabinetEntry[]>();
+      for (const c of sortedAll) {
+        const key = lastBgToken(c.pmBg);
+        const arr = siblingsByPm.get(key) ?? [];
+        arr.push(c);
+        siblingsByPm.set(key, arr);
+      }
+      const yearOf = (iso: string | null): string =>
+        iso ? iso.slice(0, 4) : "—";
+      for (const c of payload.governments) {
+        const siblings = siblingsByPm.get(lastBgToken(c.pmBg)) ?? [];
+        const idx =
+          siblings.length > 1
+            ? siblings.findIndex((s) => s.id === c.id) + 1
+            : 0;
+        const numeral = idx > 0 ? OG_ROMAN[idx] ?? String(idx) : "";
+        const titleName = numeral ? `${c.pmBg} ${numeral}` : c.pmBg;
+        const typeBg = c.type === "caretaker" ? "служебен" : "редовен";
+        const tenure = `${yearOf(c.startDate)} – ${yearOf(c.endDate)}`;
+        const partyLabel =
+          c.type === "caretaker"
+            ? c.pmPartyBg ?? "—"
+            : c.parties[0] ?? "—";
+        // 4-tile composition kept identity-focused (no live macro
+        // numbers): cabinet type, term years, coalition lead/PM party,
+        // and how the term ended. Stable across data refreshes.
+        renderStaticPageCard(
+          `Кабинет ${titleName}`,
+          tenure,
+          [
+            { label: "тип", value: typeBg },
+            { label: "период", value: tenure },
+            { label: "коалиция", value: partyLabel },
+            { label: "край", value: c.endReasonBg ?? "—" },
+          ],
+          `cabinet/${c.id}.png`,
+        );
+      }
+    } catch (err) {
+      console.warn("OG cabinet cards: enumeration failed", err);
+    }
+  }
+
   // Party cards.
   const partiesFile = path.join(publicFolder, latest, cikPartiesFileName);
   const parties: PartyInfo[] = fs.existsSync(partiesFile)

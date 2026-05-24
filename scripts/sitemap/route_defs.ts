@@ -74,6 +74,12 @@ export const routeDefs = (year: string): RouteDefs => [
   { path: "compare", file: `src/screens/CompareScreen.tsx` },
   { path: "governance", file: `src/screens/GovernanceScreen.tsx` },
   { path: "governments", file: `src/screens/GovernmentsScreen.tsx` },
+  // Per-cabinet detail pages — one URL per entry in data/governments.json.
+  // The sitemap entry is needed even though the pages are prerendered
+  // (scripts/prerender/routes.ts already enumerates them); without it
+  // Google has to discover the per-cabinet URLs via crawl of internal
+  // links rather than from the sitemap directly.
+  { path: "governments/:id", file: `cabinets-list` },
   {
     path: "indicators",
     file: `src/screens/indicators/IndicatorsLandingScreen.tsx`,
