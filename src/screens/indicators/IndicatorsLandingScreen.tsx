@@ -7,12 +7,13 @@
 
 import { FC, useEffect, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { Link } from "react-router-dom";
-import { ArrowRight } from "lucide-react";
+import { Link, useLocation } from "react-router-dom";
+import { ArrowRight, ArrowUpRight, ChevronDown, ChevronUp } from "lucide-react";
 import { Title } from "@/ux/Title";
-import { ChevronDown, ChevronUp } from "lucide-react";
+import { useElectionContext } from "@/data/ElectionContext";
 import { useGovernments } from "@/data/governments/useGovernments";
 import { useMacro } from "@/data/macro/useMacro";
+import { useElectionAsOf } from "@/data/macro/useElectionAsOf";
 import {
   useCabinetAnchor,
   useSetCabinetAnchor,
@@ -26,6 +27,7 @@ import {
 import { useEuMilestones } from "@/screens/components/governments/euMilestones";
 import { KpiTile } from "@/screens/components/macro/KpiTile";
 import { CabinetScoreDetail } from "@/screens/components/macro/CabinetScoreCard";
+import { IndicatorsNav } from "./indicatorsNav";
 import { LANDING_KPI_ORDER } from "./indicatorsRegistry";
 
 const localDateFromIso = (
@@ -42,27 +44,53 @@ const localDateFromIso = (
   });
 };
 
-const DomainLink: FC<{ to: string; labelKey: string }> = ({ to, labelKey }) => {
-  const { t } = useTranslation();
-  return (
-    <Link
-      to={to}
-      className="inline-flex items-center gap-1 text-sm text-primary hover:underline"
-    >
-      {t(labelKey)}
-      <ArrowRight className="h-3 w-3" />
-    </Link>
+// "YYYY_MM_DD" → long localized date ("19 април 2026 г."). Returns null for
+// missing/malformed input so the calling banner can collapse cleanly.
+const electionNameToLongDate = (
+  name: string | undefined,
+  lang: "bg" | "en",
+): string | null => {
+  if (!name) return null;
+  const parts = name.split("_");
+  if (parts.length !== 3) return null;
+  const d = new Date(
+    Date.UTC(Number(parts[0]), Number(parts[1]) - 1, Number(parts[2])),
   );
+  if (Number.isNaN(d.getTime())) return null;
+  return d.toLocaleDateString(lang === "bg" ? "bg-BG" : "en-GB", {
+    day: "numeric",
+    month: "long",
+    year: "numeric",
+  });
+};
+
+// Short quarter label ("2 тр. 2026" / "Q2 2026") for the as-of banner.
+const formatQuarter = (
+  q: { year: number; quarter: 1 | 2 | 3 | 4 } | null,
+  lang: "bg" | "en",
+): string | null => {
+  if (!q) return null;
+  return lang === "bg"
+    ? `${q.quarter} тр. ${q.year}`
+    : `Q${q.quarter} ${q.year}`;
 };
 
 export const IndicatorsLandingScreen: FC = () => {
   const { t, i18n } = useTranslation();
   const lang: "bg" | "en" = i18n.language === "bg" ? "bg" : "en";
+  const { selected } = useElectionContext();
   const { data: governments } = useGovernments();
   const { data: macro } = useMacro();
   const anchor = useCabinetAnchor();
   const setAnchor = useSetCabinetAnchor();
   const defaultCabinetId = useDefaultCabinetForElection();
+  const electionAsOf = useElectionAsOf();
+  // URL search string — preserved when navigating to /governments so the
+  // cabinet anchor (?cabinet=) and election (?elections=) survive the
+  // section change.
+  const { search } = useLocation();
+  const electionLongDate = electionNameToLongDate(selected, lang);
+  const asOfQuarter = formatQuarter(electionAsOf, lang);
   // Hero chart is collapsed by default — the tile grid is what the user came
   // for. The reveal toggle gives the strategic-context "big picture" without
   // pushing the tiles below the fold on first paint.
@@ -132,38 +160,38 @@ export const IndicatorsLandingScreen: FC = () => {
         {t("indicators_page_title")}
       </Title>
 
-      <p className="text-sm text-muted-foreground mb-6 max-w-3xl mx-auto text-center">
+      <p className="text-sm text-muted-foreground mb-3 max-w-3xl mx-auto text-center">
         {t("indicators_page_explainer")}
       </p>
 
-      <div className="mb-4 flex items-center justify-between gap-3 flex-wrap">
-        <div className="flex flex-wrap items-center gap-3">
-          <DomainLink
-            to="/indicators/economy"
-            labelKey="indicators_nav_economy"
-          />
-          <DomainLink
-            to="/indicators/fiscal"
-            labelKey="indicators_nav_fiscal"
-          />
-          <DomainLink
-            to="/indicators/governance"
-            labelKey="indicators_nav_governance"
-          />
-          <DomainLink
-            to="/indicators/society"
-            labelKey="indicators_nav_society"
-          />
-          <DomainLink
-            to="/indicators/compare"
-            labelKey="indicators_nav_compare"
-          />
-        </div>
+      {/* "Values as of" banner — answers "what point in time am I looking
+          at?" before the user scans 12 tiles with varying period labels.
+          Uses the election date (user-picked) and the resolved quarter
+          (what KpiTile's pickAtOrBefore actually compares against). */}
+      {electionLongDate ? (
+        <p className="text-[11px] text-center text-muted-foreground mb-5">
+          {t("indicators_landing_values_as_of", {
+            date: electionLongDate,
+            quarter: asOfQuarter ?? "",
+          })}
+        </p>
+      ) : null}
+
+      <IndicatorsNav variant="landing" />
+
+      {/* Sibling-section link — distinct from the sub-nav pills above so
+          it reads as "leave for a related section" rather than another
+          tab. Outlined chip with an external-link icon makes the
+          affordance explicit. Preserves the URL search (election +
+          cabinet anchor) so the user lands on /governments with the same
+          context they had here. */}
+      <div className="mb-6 flex justify-center">
         <Link
-          to="/governments"
-          className="text-sm text-primary hover:underline"
+          to={{ pathname: "/governments", search }}
+          className="inline-flex items-center gap-1.5 rounded-full border border-border bg-background px-3 py-1 text-xs text-foreground hover:bg-accent/10 hover:border-foreground/30 transition-colors"
         >
           {t("indicators_to_governments_link")}
+          <ArrowUpRight className="h-3 w-3" />
         </Link>
       </div>
 
@@ -248,7 +276,11 @@ export const IndicatorsLandingScreen: FC = () => {
           {macro ? (
             <div className="mt-2 flex justify-end">
               <Link
-                to="/governments#cabinet-table"
+                to={{
+                  pathname: "/governments",
+                  search,
+                  hash: "#cabinet-table",
+                }}
                 className="text-xs text-primary hover:underline inline-flex items-center gap-1"
               >
                 {t("cabinet_compare_all")}
