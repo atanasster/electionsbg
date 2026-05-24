@@ -27,57 +27,68 @@ export type YoyChange = {
 const periodLabel = (p: MacroPoint): string =>
   p.period ?? (p.quarter ? `${p.year} Q${p.quarter}` : `${p.year}`);
 
-// Pulls the value 1 year before the latest point. For quarterly series this
-// is the same-quarter prior-year value (4 points back when consecutive, else
-// found by year+quarter match). For annual series it's the prior year. Returns
-// null if no prior-year point exists.
-export const yoyChange = (
+export type AsOf = { year: number; quarter: 1 | 2 | 3 | 4 };
+
+// Latest MacroPoint with year/quarter ≤ asOf. Annual points (no .quarter)
+// compare on year only. Returns null only if the series has no point at or
+// before the cutoff. `asOf=null` falls back to the literal latest point so
+// callers can use a single code path whether or not an election is selected.
+export const pickAtOrBefore = (
   series: MacroPoint[] | undefined,
-): YoyChange | null => {
-  if (!series || series.length < 2) return null;
-  const latest = series[series.length - 1];
-  // Try the indexed fast path first — works whenever the series has no gaps.
-  const lookback = latest.quarter ? 4 : 1;
-  const fast = series[series.length - 1 - lookback];
-  if (
-    fast &&
-    fast.year === latest.year - 1 &&
-    (latest.quarter ? fast.quarter === latest.quarter : true)
-  ) {
-    return {
-      latest: latest.value,
-      prior: fast.value,
-      delta: latest.value - fast.value,
-      comparedTo: periodLabel(fast),
-    };
+  asOf: AsOf | null,
+): MacroPoint | null => {
+  if (!series || series.length === 0) return null;
+  if (!asOf) return series[series.length - 1];
+  for (let i = series.length - 1; i >= 0; i--) {
+    const p = series[i];
+    if (p.year < asOf.year) return p;
+    if (p.year === asOf.year) {
+      if (!p.quarter) return p; // annual: same year is always ≤
+      if (p.quarter <= asOf.quarter) return p;
+    }
   }
-  // Fallback: scan for the matching prior-year point. Handles series with
-  // missing quarters or annual data joined to quarterly.
+  return null;
+};
+
+// Same-period prior-year value relative to an arbitrary anchor point — used
+// by KpiTile to compute YoY against the as-of value rather than the series
+// tail. Returns null if no prior-year same-quarter point exists.
+export const yoyChangeFor = (
+  series: MacroPoint[] | undefined,
+  point: MacroPoint | null,
+): YoyChange | null => {
+  if (!series || !point) return null;
   const target = series.find(
     (p) =>
-      p.year === latest.year - 1 &&
-      (latest.quarter ? p.quarter === latest.quarter : true),
+      p.year === point.year - 1 &&
+      (point.quarter ? p.quarter === point.quarter : !p.quarter),
   );
   if (!target) return null;
   return {
-    latest: latest.value,
+    latest: point.value,
     prior: target.value,
-    delta: latest.value - target.value,
+    delta: point.value - target.value,
     comparedTo: periodLabel(target),
   };
 };
 
-// Trailing-N-year slice of a series. The bound is inclusive of `years` full
-// calendar years before the latest point (so years=10 on a Q1 2026 series
-// keeps everything from 2016 onward).
-export const lastNYears = (
+// Sliding trailing-N-year window ending at `endPoint`. The right edge moves
+// with the as-of anchor so the sparkline visually ends at the value shown in
+// the KPI tile.
+export const lastNYearsEnding = (
   series: MacroPoint[] | undefined,
   years: number,
+  endPoint: MacroPoint | null,
 ): MacroPoint[] => {
-  if (!series || series.length === 0) return [];
-  const latest = series[series.length - 1];
-  const cutoff = latest.year - years;
-  return series.filter((p) => p.year >= cutoff);
+  if (!series || series.length === 0 || !endPoint) return [];
+  const cutoff = endPoint.year - years;
+  return series.filter((p) => {
+    if (p.year < cutoff || p.year > endPoint.year) return false;
+    if (p.year === endPoint.year && endPoint.quarter && p.quarter) {
+      return p.quarter <= endPoint.quarter;
+    }
+    return true;
+  });
 };
 
 export type CabinetMetrics = {

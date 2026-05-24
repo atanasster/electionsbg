@@ -12,7 +12,12 @@ import { cn } from "@/lib/utils";
 import { useGovernments } from "@/data/governments/useGovernments";
 import { useMacro, type MacroIndicatorKey } from "@/data/macro/useMacro";
 import { useMacroPeers } from "@/data/macro/useMacroPeers";
-import { lastNYears, yoyChange } from "@/data/macro/kpiSelectors";
+import {
+  lastNYearsEnding,
+  pickAtOrBefore,
+  yoyChangeFor,
+} from "@/data/macro/kpiSelectors";
+import { useElectionAsOf } from "@/data/macro/useElectionAsOf";
 import {
   DOMAIN_PATHS,
   KPI_REGISTRY,
@@ -52,14 +57,16 @@ export const KpiTile: FC<Props> = ({ indicatorKey, className }) => {
   const { data: macro } = useMacro();
   const { data: peers } = useMacroPeers();
   const { data: governments } = useGovernments();
+  const asOf = useElectionAsOf();
   const entry = KPI_REGISTRY[indicatorKey];
 
   const series = macro?.series[indicatorKey];
+  const latest = useMemo(() => pickAtOrBefore(series, asOf), [series, asOf]);
   const sparklinePoints = useMemo(
-    () => (series && entry ? lastNYears(series, entry.sparklineYears) : []),
-    [series, entry],
+    () => (entry ? lastNYearsEnding(series, entry.sparklineYears, latest) : []),
+    [series, entry, latest],
   );
-  const yoy = useMemo(() => yoyChange(series), [series]);
+  const yoy = useMemo(() => yoyChangeFor(series, latest), [series, latest]);
 
   if (!entry || !macro) {
     return (
@@ -72,7 +79,6 @@ export const KpiTile: FC<Props> = ({ indicatorKey, className }) => {
     );
   }
   const meta = macro.indicators[indicatorKey];
-  const latest = series && series.length > 0 ? series[series.length - 1] : null;
   if (!meta || !latest) {
     return null;
   }

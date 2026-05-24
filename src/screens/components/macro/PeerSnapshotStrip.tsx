@@ -13,6 +13,10 @@ import {
   type PeerGeo,
   type PeerQuarterlyPoint,
 } from "@/data/macro/useMacroPeers";
+import {
+  useElectionAsOf,
+  type ElectionAsOf,
+} from "@/data/macro/useElectionAsOf";
 import { cn } from "@/lib/utils";
 import { RankBadge } from "./RankBadge";
 
@@ -38,19 +42,37 @@ const GEO_LABEL_BG: Record<PeerGeo, string> = {
   HR: "ХР",
 };
 
-// Pick the most recent period where BG has a value, then read each peer's
-// matching point. Peers that don't report at that exact quarter fall back to
-// their most recent prior point (≤4 quarters back) — keeps the strip
-// populated for series with patchy peer coverage (e.g. house prices in GR).
-const pickLatestSnapshot = (
+// Pick the BG anchor period (latest available at or before the selected
+// election, or the literal latest when no election is in scope), then read
+// each peer's matching point. Peers that don't report at that exact quarter
+// fall back to their most recent prior point (≤4 quarters back) — keeps the
+// strip populated for series with patchy peer coverage (e.g. house prices in
+// GR).
+const pickAsOfSnapshot = (
   series: Partial<Record<PeerGeo, PeerQuarterlyPoint[]>>,
+  asOf: ElectionAsOf | null,
 ): {
   period: string;
   values: Partial<Record<PeerGeo, { value: number; periodLag: number }>>;
 } | null => {
   const bg = series.BG ?? [];
   if (bg.length === 0) return null;
-  const bgLatest = bg[bg.length - 1];
+  let bgLatest: PeerQuarterlyPoint | undefined;
+  if (!asOf) {
+    bgLatest = bg[bg.length - 1];
+  } else {
+    for (let i = bg.length - 1; i >= 0; i--) {
+      const p = bg[i];
+      if (
+        p.year < asOf.year ||
+        (p.year === asOf.year && p.quarter <= asOf.quarter)
+      ) {
+        bgLatest = p;
+        break;
+      }
+    }
+  }
+  if (!bgLatest) return null;
   const result: Partial<Record<PeerGeo, { value: number; periodLag: number }>> =
     {};
   for (const geo of STRIP_ORDER) {
@@ -88,10 +110,11 @@ export const PeerSnapshotStrip: FC<{
 }> = ({ indicatorKey, formatValue, className }) => {
   const { i18n } = useTranslation();
   const lang: "bg" | "en" = i18n.language === "bg" ? "bg" : "en";
+  const asOf = useElectionAsOf();
   const block = usePeerIndicator(indicatorKey);
 
   if (!block) return null;
-  const snapshot = pickLatestSnapshot(block.series);
+  const snapshot = pickAsOfSnapshot(block.series, asOf);
   if (!snapshot) return null;
 
   const fmt = formatValue ?? ((v: number) => `${v.toFixed(1)}%`);

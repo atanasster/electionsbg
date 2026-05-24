@@ -25,6 +25,10 @@ import {
   type MacroIndicatorKey,
   type MacroIndicatorMeta,
 } from "@/data/macro/useMacro";
+import {
+  useElectionAsOf,
+  type ElectionAsOf,
+} from "@/data/macro/useElectionAsOf";
 import { cn } from "@/lib/utils";
 import { RankBadge } from "./RankBadge";
 
@@ -55,19 +59,37 @@ const GEO_LABEL_BG: Record<PeerGeo, string> = {
   HR: "ХР",
 };
 
-// Same snapshot-picking logic as PeerSnapshotStrip — find the latest BG
-// period and read each peer's matching (or nearest-prior, ≤4 quarters)
-// point. Returns null when BG itself has no data.
-const pickLatestSnapshot = (
+// Same snapshot-picking logic as PeerSnapshotStrip — find the BG anchor
+// period (latest available at or before the selected election, or the
+// literal latest when no election is in scope) and read each peer's matching
+// (or nearest-prior, ≤4 quarters) point. Returns null when BG has no data
+// at or before the anchor.
+const pickAsOfSnapshot = (
   series: Partial<Record<PeerGeo, PeerQuarterlyPoint[]>>,
   geos: PeerGeo[],
+  asOf: ElectionAsOf | null,
 ): {
   period: string;
   values: Partial<Record<PeerGeo, { value: number; periodLag: number }>>;
 } | null => {
   const bg = series.BG ?? [];
   if (bg.length === 0) return null;
-  const bgLatest = bg[bg.length - 1];
+  let bgLatest: PeerQuarterlyPoint | undefined;
+  if (!asOf) {
+    bgLatest = bg[bg.length - 1];
+  } else {
+    for (let i = bg.length - 1; i >= 0; i--) {
+      const p = bg[i];
+      if (
+        p.year < asOf.year ||
+        (p.year === asOf.year && p.quarter <= asOf.quarter)
+      ) {
+        bgLatest = p;
+        break;
+      }
+    }
+  }
+  if (!bgLatest) return null;
   const result: Partial<Record<PeerGeo, { value: number; periodLag: number }>> =
     {};
   for (const geo of geos) {
@@ -108,12 +130,13 @@ const PeerRow: FC<{
   defaultFormat: (value: number) => string;
   lang: "bg" | "en";
   geos: PeerGeo[];
-}> = ({ row, defaultFormat, lang, geos }) => {
+  asOf: ElectionAsOf | null;
+}> = ({ row, defaultFormat, lang, geos, asOf }) => {
   const block = usePeerIndicator(row.indicatorKey);
   const { data: macro } = useMacro();
   const fmt = row.format ?? defaultFormat;
   if (!block) return null;
-  const snapshot = pickLatestSnapshot(block.series, geos);
+  const snapshot = pickAsOfSnapshot(block.series, geos, asOf);
   if (!snapshot) return null;
 
   // The peer indicator key set is a superset of MacroIndicatorKey at the
@@ -214,6 +237,7 @@ export const PeerSnapshotTable: FC<{
 }> = ({ rows, formatValue, geos, className }) => {
   const { i18n } = useTranslation();
   const lang: "bg" | "en" = i18n.language === "bg" ? "bg" : "en";
+  const asOf = useElectionAsOf();
   const defaultFormat = formatValue ?? ((v: number) => `${v.toFixed(1)}%`);
   const geoLabel = lang === "bg" ? GEO_LABEL_BG : GEO_LABEL_EN;
   const resolvedGeos: PeerGeo[] =
@@ -275,6 +299,7 @@ export const PeerSnapshotTable: FC<{
             defaultFormat={defaultFormat}
             lang={lang}
             geos={resolvedGeos}
+            asOf={asOf}
           />
         ))}
       </div>
