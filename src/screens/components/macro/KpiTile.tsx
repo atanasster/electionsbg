@@ -26,7 +26,7 @@ import {
   type AsOf,
 } from "@/data/macro/kpiSelectors";
 import { useElectionAsOf } from "@/data/macro/useElectionAsOf";
-import { useCabinetAnchor } from "@/data/macro/cabinetAnchorContext";
+import { useCabinetAnchor } from "@/data/macro/cabinetAnchor";
 import {
   DOMAIN_PATHS,
   KPI_REGISTRY,
@@ -34,7 +34,8 @@ import {
 import { KpiSparkline } from "./KpiSparkline";
 import { RankBadge } from "./RankBadge";
 import { YoyArrow } from "./YoyArrow";
-import { VerdictChip, deriveVerdict } from "./VerdictChip";
+import { VerdictChip } from "./VerdictChip";
+import { deriveVerdict } from "./verdict";
 
 const SPARKLINE_MIN_POINTS = 4;
 

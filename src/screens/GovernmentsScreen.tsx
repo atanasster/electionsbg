@@ -6,7 +6,7 @@ import { useMacro } from "@/data/macro/useMacro";
 import {
   useCabinetAnchor,
   useSetCabinetAnchor,
-} from "@/data/macro/cabinetAnchorContext";
+} from "@/data/macro/cabinetAnchor";
 import { Link, useLocation } from "react-router-dom";
 import {
   CabinetStrip,

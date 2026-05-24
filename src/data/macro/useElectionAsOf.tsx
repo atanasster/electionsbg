@@ -17,10 +17,7 @@
 
 import { useMemo } from "react";
 import { useElectionContext } from "@/data/ElectionContext";
-import {
-  useCabinetAnchorAsOf,
-  type CabinetAnchorAsOf,
-} from "./cabinetAnchorContext";
+import { useCabinetAnchorAsOf, type CabinetAnchorAsOf } from "./cabinetAnchor";
 import type { AsOf } from "./kpiSelectors";
 
 export type ElectionAsOf = AsOf;

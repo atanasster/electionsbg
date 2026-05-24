@@ -23,7 +23,6 @@ import { FC, useMemo } from "react";
 import { useTranslation } from "react-i18next";
 import { cn } from "@/lib/utils";
 import { Tooltip as UxTooltip } from "@/ux/Tooltip";
-import { tooltipSurfaceClass } from "@/components/ui/tooltipSurface";
 import { useMediaQueryMatch } from "@/ux/useMediaQueryMatch";
 import { useChartInsets } from "./governmentChartInsets";
 import {
@@ -215,7 +214,3 @@ export const ChartEventsStrip: FC<{
     </div>
   );
 };
-
-// Re-export the surface class to avoid an unused-import warning when the
-// rich tooltip surface is needed externally.
-export { tooltipSurfaceClass };

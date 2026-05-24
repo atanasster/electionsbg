@@ -16,7 +16,7 @@ import { cn } from "@/lib/utils";
 import {
   useCabinetAnchor,
   useSetCabinetAnchor,
-} from "@/data/macro/cabinetAnchorContext";
+} from "@/data/macro/cabinetAnchor";
 import { useGovernments } from "@/data/governments/useGovernments";
 import { cabinetShortLabel } from "@/data/governments/cabinetLabel";
 import { useCanonicalParties } from "@/data/parties/useCanonicalParties";

@@ -13,7 +13,7 @@
 
 import { useMemo } from "react";
 import { useElectionContext } from "@/data/ElectionContext";
-import { useCabinetAnchorYear } from "@/data/macro/cabinetAnchorContext";
+import { useCabinetAnchorYear } from "@/data/macro/cabinetAnchor";
 
 export const useElectionYear = (): number => {
   const { selected } = useElectionContext();

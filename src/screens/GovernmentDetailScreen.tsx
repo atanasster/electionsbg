@@ -27,7 +27,7 @@ import { useMps } from "@/data/parliament/useMps";
 import {
   useCabinetAnchor,
   useSetCabinetAnchor,
-} from "@/data/macro/cabinetAnchorContext";
+} from "@/data/macro/cabinetAnchor";
 import { MpAvatar } from "@/screens/components/candidates/MpAvatar";
 import {
   CabinetStrip,

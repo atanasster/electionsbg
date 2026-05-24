@@ -17,7 +17,7 @@ import { useElectionAsOf } from "@/data/macro/useElectionAsOf";
 import {
   useCabinetAnchor,
   useSetCabinetAnchor,
-} from "@/data/macro/cabinetAnchorContext";
+} from "@/data/macro/cabinetAnchor";
 import { useDefaultCabinetForElection } from "@/data/macro/useDefaultCabinetForElection";
 import { xDomainFor } from "@/screens/components/governments/governmentTimelineUtils";
 import {

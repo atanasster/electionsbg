@@ -31,7 +31,7 @@ import { cabinetFullLabel } from "@/data/governments/cabinetLabel";
 import {
   useCabinetAnchor,
   useSetCabinetAnchor,
-} from "@/data/macro/cabinetAnchorContext";
+} from "@/data/macro/cabinetAnchor";
 import { useCompareSnapshotAsOf } from "@/data/macro/useElectionAsOf";
 import { useMacroPeers, type PeerGeo } from "@/data/macro/useMacroPeers";
 import { PeerSnapshotTable } from "@/screens/components/macro/PeerSnapshotTable";
