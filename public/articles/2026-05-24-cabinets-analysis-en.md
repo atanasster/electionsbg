@@ -53,7 +53,7 @@ One regular term of **3 years and 11 months** — the fourth longest in the tabl
 - **Avg inflation: 8.2%** — the highest for any non-summer-caretaker regular cabinet
 - **Debt Δ: −14.7 pp of GDP** — **the largest deleveraging in the table**
 
-This cabinet inherits a **65.4% debt/GDP** (2005) and hands over a **15.5%** (2009). The numbers look stunning until you read their second context: most of the fall is **accounting** — GDP growth in the denominator plus privatisation receipts and surpluses. The real nominal debt reduction is modest. And **8.2% inflation** is a symptom of overheating — credit boom, current-account deficit above 25% of GDP (record), capital inflows pouring into real estate.
+This cabinet starts on a downward debt trend inherited from the Saxe-Coburg-Gotha era reductions (which brought it down from a peak of 65.4% debt/GDP at the start of the decade in 2001–2002) – gross government debt starts at roughly 30.2% of GDP in 2005 and is handed over at a record-low 15.5% in 2009. The numbers look stunning until you read their second context: most of the fall is **accounting** — GDP growth in the denominator plus privatisation receipts and surpluses. The real nominal debt reduction is modest. And **8.2% inflation** is a symptom of overheating — credit boom, current-account deficit above 25% of GDP (record), capital inflows pouring into real estate.
 
 The lag: **the Global Financial Crisis hits at the very end of his term** (Sep 2008 → Lehman), but the first effects on GDP come only at end-2008 and fully in 2009 — i.e. under the next cabinet.
 
@@ -84,7 +84,7 @@ Two of the most consequential events of 2013–2014 happen here:
 1. **DANSwithMe** — year-long civic mobilisation after Delyan Peevski's appointment as head of DANS (June 2013). A red band across all of 2013–2014 in the [event strip](/governments).
 2. **The KTB collapse** — bank run and licence withdrawal of Corporate Commercial Bank (June–November 2014). The **largest banking crisis in Bulgaria since the 1990s**.
 
-The KTB lag is significant: the BGN 4 bn sovereign issuance for the Bank Deposit Guarantee Fund (2014) **continues servicing debt for the next 10 years** — visible in the [debt issuance table](/indicators/fiscal#debt-emissions) under the Borisov II–III cabinets.
+The KTB lag is significant: the BGN 3.7 bn sovereign debt issuance (approx. 2.0% of GDP on a cash basis, 2014) to cover the shortfall in the Bank Deposit Guarantee Fund **continues servicing debt for the next 10 years** — visible in the [debt issuance table](/indicators/fiscal#debt-emissions) under the Borisov II–III cabinets.
 
 ### [Borisov II](/governments/borisov-2) — GERB·RB·PF · Nov 2014 – Jan 2017
 
@@ -252,4 +252,4 @@ You can track the data in real time through [indicators](/indicators) and explor
 
 ---
 
-*Sources: Eurostat (gov_10a_main, gov_10q_ggdebt, namq_10_gdp, prc_hicp_minr, une_rt_q), World Bank WGI (source 3), Ministry of Finance (CFB), Court of Audit, parliament.bg. The analysis is based on time-weighted averages of quarterly series within each cabinet's window (see [`cabinetMetricsFor`](/governments) for the methodology). Data updates automatically; values in this text are valid as of 24 May 2026.*
+*Sources: Eurostat (gov_10a_main, gov_10q_ggdebt, namq_10_gdp, prc_hicp_minr, une_rt_q), World Bank WGI (source 3), Ministry of Finance (CFB), Court of Audit, parliament.bg. The analysis is based on time-weighted averages of quarterly series within each cabinet's window (see [`cabinetMetricsFor`](/governments) for the methodology). Data updates automatically; values in this text are valid as of 24 May 2026. Compatibility note: Inflation indicators utilize the Harmonised Index of Consumer Prices (HICP) for EU comparability, and the budget balance is computed under ESA 2010 accrual standards (which may vary slightly from the cash-based reports of the Ministry of Finance).*
