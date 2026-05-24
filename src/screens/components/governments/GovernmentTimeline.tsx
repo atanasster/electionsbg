@@ -1015,7 +1015,13 @@ export const GovernmentTimeline: FC<{
               top: 8,
               right: insets.marginRight,
               left: insets.marginLeft,
-              bottom: 24,
+              // Tight bottom margin — x-axis label height (~14px at fontSize
+              // 11) + a 4px breathing strip. The rotated event-marker labels
+              // render inside the chart's plot area, not in this margin, so
+              // we don't need to leave room for them here. ChartEventsStrip
+              // then sits flush against the year labels (via negative top
+              // margin on the strip) for a compact composition.
+              bottom: 18,
             }}
           >
             <CartesianGrid
@@ -1263,10 +1269,14 @@ export const GovernmentTimeline: FC<{
         </ResponsiveContainer>
       </div>
       {chartEvents && chartEvents.length > 0 ? (
+        // Negative top margin pulls the strip up into the chart's bottom
+        // margin so the event lanes sit immediately below the year axis
+        // labels — earlier mt-1 left a visible ~30px gap that read as
+        // "the strip is unrelated to the chart above".
         <ChartEventsStrip
           events={chartEvents}
           xDomain={xDomain}
-          className="mt-1"
+          className="-mt-2"
         />
       ) : null}
     </div>
