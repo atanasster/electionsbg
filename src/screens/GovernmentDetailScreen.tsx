@@ -37,6 +37,10 @@ import {
   useEuMilestones,
   milestonesInWindow,
 } from "@/screens/components/governments/euMilestones";
+import {
+  useChartEvents,
+  filterEventsToWindow,
+} from "@/screens/components/governments/chartEvents";
 import { CabinetKpiTile } from "@/screens/components/macro/CabinetKpiTile";
 import { CabinetScoreDetail } from "@/screens/components/macro/CabinetScoreCard";
 import { colorForGovernmentSolid } from "@/screens/components/governments/governmentColors";
@@ -178,6 +182,7 @@ export const GovernmentDetailScreen: FC = () => {
   const anchor = useCabinetAnchor();
   const setAnchor = useSetCabinetAnchor();
   const milestones = useEuMilestones();
+  const allChartEvents = useChartEvents();
 
   const government = useMemo(() => {
     if (!governments || !slug) return null;
@@ -208,6 +213,20 @@ export const GovernmentDetailScreen: FC = () => {
           )
         : [],
     [government, milestones],
+  );
+  // Filter the societal-events strip to events overlapping the cabinet's
+  // term so a short caretaker doesn't get a strip full of out-of-window
+  // bands.
+  const termChartEvents = useMemo(
+    () =>
+      government
+        ? filterEventsToWindow(
+            allChartEvents,
+            toFractionalYear(government.startDate),
+            toFractionalYear(government.endDate ?? new Date().toISOString()),
+          )
+        : [],
+    [government, allChartEvents],
   );
   const termXDomain = useMemo<[number, number] | null>(
     () => (government ? termDomain(government) : null),
@@ -345,6 +364,7 @@ export const GovernmentDetailScreen: FC = () => {
           eventMarkers={termEvents}
           xDomainOverride={termXDomain ?? undefined}
           highlightedCabinetId={government.id}
+          chartEvents={termChartEvents}
         />
         <p className="mt-2 text-[10px] text-muted-foreground">
           {t("cabinet_detail_chart_window", {

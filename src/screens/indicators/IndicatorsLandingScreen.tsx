@@ -25,6 +25,7 @@ import {
   GovernmentTimeline,
 } from "@/screens/components/governments/GovernmentTimeline";
 import { useEuMilestones } from "@/screens/components/governments/euMilestones";
+import { useChartEvents } from "@/screens/components/governments/chartEvents";
 import { KpiTile } from "@/screens/components/macro/KpiTile";
 import { CabinetScoreDetail } from "@/screens/components/macro/CabinetScoreCard";
 import { IndicatorsNav } from "./indicatorsNav";
@@ -97,6 +98,9 @@ export const IndicatorsLandingScreen: FC = () => {
   const [heroExpanded, setHeroExpanded] = useState(false);
   // Shared EU integration milestones — see euMilestones.ts.
   const heroEvents = useEuMilestones();
+  // Societal-events strip (protests, crises, pandemic) below the hero
+  // chart — same set as /governments so the picture reads consistently.
+  const chartEvents = useChartEvents();
   // Multi-select: clicking a strip pill toggles its membership here, so two
   // or more cabinets can be compared side-by-side via stacked detail panels.
   // Independent of the URL cabinet anchor — clicking a pill ALSO sets the
@@ -228,6 +232,7 @@ export const IndicatorsLandingScreen: FC = () => {
                 eventMarkers={heroEvents}
                 onCabinetClick={setAnchor}
                 highlightedCabinetId={anchor?.cabinet.id ?? null}
+                chartEvents={chartEvents}
               />
             </div>
           ) : null}
