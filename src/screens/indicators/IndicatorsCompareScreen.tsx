@@ -43,6 +43,7 @@ import { EuCompareSpendOutcomeScatters } from "@/screens/components/euCompare/Eu
 import { EuCompareSourcesStrip } from "@/screens/components/euCompare/EuCompareSourcesStrip";
 import { usePeerSelection } from "@/screens/components/euCompare/usePeerSelection";
 import { CabinetStrip } from "@/screens/components/governments/GovernmentTimeline";
+import { SelectedCabinetCallout } from "@/screens/components/governments/SelectedCabinetCallout";
 import { xDomainFor } from "@/screens/components/governments/governmentTimelineUtils";
 
 export const IndicatorsCompareScreen: FC = () => {
@@ -69,26 +70,17 @@ export const IndicatorsCompareScreen: FC = () => {
 
   const selectedCabinet = anchor?.cabinet ?? null;
 
-  const anchorLabel = useMemo(() => {
+  // Header text rendered above the SelectedCabinetCallout — separate from
+  // the callout itself because the framing changes depending on whether
+  // the picked cabinet is the still-in-office incumbent (latest data
+  // anyway) or a finished one (snapshot to its tenure-end).
+  const calloutHeader = useMemo(() => {
     if (!selectedCabinet) return null;
-    const surname =
-      (lang === "bg" ? selectedCabinet.pmBg : selectedCabinet.pmEn)
-        .split(" ")
-        .pop() ?? "";
     if (selectedCabinet.endReason === "incumbent" || !selectedCabinet.endDate) {
-      return lang === "bg"
-        ? `текущи стойности (кабинет ${surname})`
-        : `latest values (cabinet ${surname})`;
+      return t("eu_compare_callout_header_incumbent");
     }
-    const end = new Date(selectedCabinet.endDate);
-    const periodLabel = end.toLocaleDateString(
-      lang === "bg" ? "bg-BG" : "en-GB",
-      { month: "short", year: "numeric" },
-    );
-    return lang === "bg"
-      ? `към края на мандата на ${surname} (${periodLabel})`
-      : `at end of ${surname} cabinet (${periodLabel})`;
-  }, [selectedCabinet, lang]);
+    return t("eu_compare_callout_header_finished");
+  }, [selectedCabinet, t]);
 
   // Breadcrumb: Bulgaria → [Cabinet] → vs peers. Each crumb is a deeper
   // route. The cabinet crumb links to the cabinet-detail page; the peer
@@ -128,7 +120,7 @@ export const IndicatorsCompareScreen: FC = () => {
       </Title>
 
       {xDomain && governments ? (
-        <section className="mb-4">
+        <section className="mb-5">
           <div className="text-[10px] uppercase tracking-wide text-muted-foreground mb-1">
             {t("eu_compare_cabinet_anchor_label")}
           </div>
@@ -141,11 +133,18 @@ export const IndicatorsCompareScreen: FC = () => {
             anchoredId={anchor?.cabinet.id ?? null}
             onAnchor={setAnchor}
           />
-          {anchorLabel ? (
-            <p className="text-[11px] text-muted-foreground mt-1">
-              {anchorLabel}
+          {selectedCabinet ? (
+            <SelectedCabinetCallout
+              government={selectedCabinet}
+              lang={lang}
+              headerText={calloutHeader ?? undefined}
+              className="mt-3"
+            />
+          ) : (
+            <p className="text-[11px] text-muted-foreground mt-2">
+              {t("eu_compare_callout_no_selection")}
             </p>
-          ) : null}
+          )}
         </section>
       ) : null}
 
