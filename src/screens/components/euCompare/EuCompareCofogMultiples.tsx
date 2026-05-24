@@ -55,7 +55,10 @@ export const EuCompareCofogMultiples: FC = () => {
   // all — every year is blank — so we drop GR from this chart entirely
   // and explain it in the footnote. Other tiles on the dashboard still
   // use GR via the shared peer selection.
-  const geos = useMemo(() => allGeos.filter((g) => g !== "GR"), [allGeos]);
+  const geos = useMemo<PeerGeo[]>(
+    () => allGeos.filter((g) => g !== "GR"),
+    [allGeos],
+  );
 
   // Pick the COFOG composition year closest to (≤) the selected election.
   // Eurostat sometimes leaves a peer blank for the most recent year — we
