@@ -241,7 +241,7 @@ Focus on 5 cabinets: **Petkov → Donev → Denkov → Glavchev I+II → Zhelyaz
 A short summary of the inheritance any new cabinet sworn in from autumn 2026 receives:
 
 1. **Eurozone**: already inside. Maastricht criteria must be maintained — but the deficit is 3.6%, above the threshold.
-2. **RRF**: tranche pause from 2024. Restoring the flow requires implementing the agreed reforms (anti-corruption bodies, judiciary).
+2. **RRF**: payments have been partially frozen and delayed since 2024 (despite a partial second tranche disbursement in late 2025). Restoring the full flow requires implementing the agreed reforms (anti-corruption bodies, judiciary).
 3. **Debt**: a 6.2-pp build-up under one mandate — a record. Without consolidation we face Maastricht-arbitration procedure for excessive deficit.
 4. **WGI**: control of corruption still below the 2007 level. This is the area with the largest deficit vs. the EU.
 5. **Social cohesion**: highest AROPE among peers. Without redistributive policy, economic growth produces no social return.
