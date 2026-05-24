@@ -152,7 +152,7 @@ Under Denkov **the serious eurozone-accession negotiations** begin, alongside RR
 
 - **Avg budget balance under Glavchev I: −4.8%** — **the worst mandate average**
 
-This is a signal of fiscal indiscipline in **caretaker** cabinets without legislative sanction — they run on extended budgets without update. EU pauses an RRF tranche over unfulfilled reforms; the effect of this shows as **lost €2.1 bn net** in EU funds under Zhelyazkov, vs. €6.8 bn under Borisov III.
+This is a signal of fiscal indiscipline in **caretaker** cabinets without legislative sanction — they run on extended budgets without update. EU pauses an RRF tranche over unfulfilled reforms; the effect of this shows as **a drop to just €2.1 bn net** in EU funds under Zhelyazkov, vs. €6.8 bn under Borisov III.
 
 ### [Zhelyazkov](/governments/zhelyazkov) — GERB-SDS·BSP-OL·ITN · Jan 2025 – Feb 2026
 
@@ -185,7 +185,7 @@ One of the most important principles when analysing governments: **causes and ef
 
 3. **COVID stimulus (2020–2021)** is decided under Borisov III — but its repayment shows in deficits above 3% under Petkov, Donev and Denkov.
 
-4. **Eurozone reforms** are largely completed under Denkov (texts, translations, ESMA notification) — but the mandate that gets to mint "we adopt the euro" is Zhelyazkov's. The same dynamic runs in reverse: the RRF pause arrives under Glavchev I/II and explains the **€2.1 bn lost net EU funds** under Zhelyazkov, vs. €6.8 bn under Borisov III.
+4. **Eurozone reforms** are largely completed under Denkov (texts, translations, ESMA notification) — but the mandate that gets to mint "we adopt the euro" is Zhelyazkov's. The same dynamic runs in reverse: the RRF pause arrives under Glavchev I/II and explains the **drop to just €2.1 bn net in EU funds** under Zhelyazkov, vs. €6.8 bn under Borisov III.
 
 5. **The inflation drop from 13% (Donev) to 3.3% (Zhelyazkov)** is a result of the global energy-price decline none of the four intervening cabinets had any control over.
 
@@ -200,7 +200,7 @@ Focus on 5 cabinets: **Petkov → Donev → Denkov → Glavchev I+II → Zhelyaz
 | Denkov | 6.2023 – 4.2024 | +1.8% | +5.4% | 4.4% | −2.3% | +1.4 pp |
 | Glavchev I (CT) | 4.2024 – 8.2024 | +3.3% | +2.5% | 4.0% | **−4.8%** | +2.3 pp |
 | Glavchev II (CT) | 8.2024 – 1.2025 | — | — | — | — | — |
-| Zhelyazkov | 1.2025 – 2.2026 | +3.1% | +3.3% | **3.5%** | −3.6% | **+6.2** |
+| Zhelyazkov | 1.2025 – 2.2026 | +3.1% | +3.3% | **3.5%** | −3.6% | **+6.2 pp** |
 
 **What reads out of this table:**
 
@@ -242,7 +242,7 @@ A short summary of the inheritance any new cabinet sworn in from autumn 2026 rec
 
 1. **Eurozone**: already inside. Maastricht criteria must be maintained — but the deficit is 3.6%, above the threshold.
 2. **RRF**: payments have been partially frozen and delayed since 2024 (despite a partial second tranche disbursement in late 2025). Restoring the full flow requires implementing the agreed reforms (anti-corruption bodies, judiciary).
-3. **Debt**: a 6.2-pp build-up under one mandate — a record. Without consolidation we face Maastricht-arbitration procedure for excessive deficit.
+3. **Debt**: a 6.2-pp build-up under one mandate — a record. Without consolidation we face the EU's Excessive Deficit Procedure (EDP).
 4. **WGI**: control of corruption still below the 2007 level. This is the area with the largest deficit vs. the EU.
 5. **Social cohesion**: highest AROPE among peers. Without redistributive policy, economic growth produces no social return.
 
