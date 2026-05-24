@@ -6,11 +6,11 @@
 
 import { useMemo } from "react";
 import { useElectionContext } from "@/data/ElectionContext";
-import { useCompareAnchorOverride } from "@/data/macro/compareAnchorContext";
+import { useCompareAnchorOverride } from "@/data/macro/cabinetAnchorContext";
 
 export const useElectionYear = (): number => {
   const { selected } = useElectionContext();
-  // See compareAnchorContext for why this falls through to election when
+  // See cabinetAnchorContext for why this falls through to election when
   // no provider is mounted.
   const override = useCompareAnchorOverride();
   return useMemo(() => {

@@ -10,24 +10,28 @@
 // (?peers=RO,GR …) so the view is shareable.
 //
 // Cabinet anchor: the CabinetStrip at the top doubles as a temporal anchor
-// for every panel. Pick a cabinet → the whole page re-renders as values at
-// the end of that cabinet's tenure (annual + quarterly snapshots). Implemented
-// via CompareAnchorProvider so the panels need no API changes; default
-// selection is the cabinet in office at the chosen election.
+// for every panel. Pick a cabinet → ?cabinet=<id> goes into the URL, the
+// global CabinetAnchorProvider (mounted by the route wrapper) re-resolves
+// the anchor, and every panel re-renders as values at the end of that
+// cabinet's tenure (annual + quarterly snapshots). Default selection is
+// the cabinet in office at the chosen election — applied via URL on first
+// mount if no ?cabinet= was supplied.
 
-import { FC, useEffect, useMemo, useState } from "react";
+import { FC, useEffect, useMemo } from "react";
 import { useTranslation } from "react-i18next";
+import { Link } from "react-router-dom";
+import { ArrowLeft, ChevronRight } from "lucide-react";
 import { useElectionContext } from "@/data/ElectionContext";
 import { useGovernments } from "@/data/governments/useGovernments";
 import {
-  CompareAnchorContext,
-  type CompareAnchorOverride,
-} from "@/data/macro/compareAnchorContext";
+  useCabinetAnchor,
+  useSetCabinetAnchor,
+} from "@/data/macro/cabinetAnchorContext";
 import { useMacroPeers, type PeerGeo } from "@/data/macro/useMacroPeers";
 import { PeerSnapshotTable } from "@/screens/components/macro/PeerSnapshotTable";
 import { Title } from "@/ux/Title";
 import { EuComparePeerStrip } from "@/screens/components/euCompare/EuComparePeerStrip";
-import { EuCompareWgiRadar } from "@/screens/components/euCompare/EuCompareWgiRadar";
+import { EuCompareWgiSmallMultiples } from "@/screens/components/euCompare/EuCompareWgiSmallMultiples";
 import { EuCompareCofogMultiples } from "@/screens/components/euCompare/EuCompareCofogMultiples";
 import { EuCompareInequalityPanel } from "@/screens/components/euCompare/EuCompareInequalityPanel";
 import { EuCompareSpendOutcomeScatters } from "@/screens/components/euCompare/EuCompareSpendOutcomeScatters";
@@ -46,24 +50,6 @@ const electionNameToMs = (name: string | undefined): number => {
   return Date.UTC(Number(parts[0]), Number(parts[1]) - 1, Number(parts[2]));
 };
 
-// Translate a cabinet's tenure into the snapshot anchor consumed by the
-// override hooks. Incumbent → "use latest data" (null asOf + current year).
-// Finished cabinet → end-of-tenure quarter and year so the page reads as
-// "indicators at the moment this cabinet left office".
-const anchorFor = (
-  cabinet: { endDate: string | null; endReason: string } | null,
-): CompareAnchorOverride | null => {
-  if (!cabinet) return null;
-  if (cabinet.endReason === "incumbent" || !cabinet.endDate) {
-    return { asOf: null, year: new Date().getFullYear() };
-  }
-  const end = new Date(cabinet.endDate);
-  const year = end.getUTCFullYear();
-  const month0 = end.getUTCMonth();
-  const quarter = (Math.floor(month0 / 3) + 1) as 1 | 2 | 3 | 4;
-  return { asOf: { year, quarter }, year };
-};
-
 export const IndicatorsCompareScreen: FC = () => {
   const { t, i18n } = useTranslation();
   const lang: "bg" | "en" = i18n.language === "bg" ? "bg" : "en";
@@ -71,10 +57,8 @@ export const IndicatorsCompareScreen: FC = () => {
   const { data: peers } = useMacroPeers();
   const { data: governments } = useGovernments();
   const { geos } = usePeerSelection();
-  const [selectedCabinetId, setSelectedCabinetId] = useState<string | null>(
-    null,
-  );
-  const [userTouched, setUserTouched] = useState(false);
+  const anchor = useCabinetAnchor();
+  const setAnchor = useSetCabinetAnchor();
 
   const indicatorKeys = peers?.indicators ? Object.keys(peers.indicators) : [];
   const tableGeos: PeerGeo[] = geos;
@@ -86,6 +70,9 @@ export const IndicatorsCompareScreen: FC = () => {
 
   // Default cabinet = the one whose tenure contains the selected election
   // date. Matches /indicators landing so the two screens read consistently.
+  // When the URL already carries ?cabinet=, the provider exposes it via
+  // `anchor` and we skip the auto-default. When the user clears the anchor
+  // via the header pill, we leave it cleared (don't keep reapplying).
   const defaultCabinetId = useMemo<string | null>(() => {
     if (!governments || governments.length === 0) return null;
     const electionMs = electionNameToMs(selected);
@@ -98,31 +85,21 @@ export const IndicatorsCompareScreen: FC = () => {
     return match?.id ?? governments[governments.length - 1].id;
   }, [governments, selected]);
 
+  // Auto-set the URL anchor on first mount so the snapshot panels have a
+  // cabinet to render against — every panel below assumes one. Guard rails:
+  // (1) wait for governments to load, (2) skip if user already has ?cabinet=,
+  // (3) skip if defaulting somehow returned null. Runs at most once per mount
+  // because once we set the param, `anchor` becomes non-null and the effect
+  // short-circuits forever (clearing via the header pill is a deliberate
+  // user action and should stick).
   useEffect(() => {
-    if (userTouched) return;
-    setSelectedCabinetId(defaultCabinetId);
-  }, [defaultCabinetId, userTouched]);
+    if (!governments || governments.length === 0) return;
+    if (anchor) return;
+    if (!defaultCabinetId) return;
+    setAnchor(defaultCabinetId);
+  }, [anchor, defaultCabinetId, governments, setAnchor]);
 
-  const selectedCabinet = useMemo(() => {
-    if (!governments || !selectedCabinetId) return null;
-    return governments.find((g) => g.id === selectedCabinetId) ?? null;
-  }, [governments, selectedCabinetId]);
-
-  const anchorOverride = useMemo(
-    () => anchorFor(selectedCabinet),
-    [selectedCabinet],
-  );
-
-  // Single-select switch: clicking a different pill swaps the anchor; the
-  // active pill is a no-op. Avoids the awkward "no cabinet selected" state
-  // where the strip shows nothing highlighted but the page silently falls
-  // back to the election anchor. The page is always cabinet-anchored once
-  // data loads — multi-select is reserved for the /indicators landing where
-  // multiple stacked detail panels make sense.
-  const toggleCabinet = (id: string) => {
-    setUserTouched(true);
-    setSelectedCabinetId((prev) => (prev === id ? prev : id));
-  };
+  const selectedCabinet = anchor?.cabinet ?? null;
 
   const anchorLabel = useMemo(() => {
     if (!selectedCabinet) return null;
@@ -145,105 +122,148 @@ export const IndicatorsCompareScreen: FC = () => {
       : `at end of ${surname} cabinet (${periodLabel})`;
   }, [selectedCabinet, lang]);
 
+  // Breadcrumb: Bulgaria → [Cabinet] → vs peers. Each crumb is a deeper
+  // route. The cabinet crumb links to the cabinet-detail page; the peer
+  // crumb is the current page (non-link, slightly muted).
+  const renderBreadcrumb = () => (
+    <nav
+      aria-label="breadcrumb"
+      className="mb-3 flex flex-wrap items-center gap-1.5 text-xs text-muted-foreground"
+    >
+      <Link to="/indicators" className="hover:text-foreground hover:underline">
+        {t("eu_compare_breadcrumb_bg")}
+      </Link>
+      {selectedCabinet ? (
+        <>
+          <ChevronRight className="h-3 w-3 opacity-60" aria-hidden />
+          <Link
+            to={`/governments/${encodeURIComponent(selectedCabinet.id)}`}
+            className="hover:text-foreground hover:underline"
+          >
+            {lang === "bg" ? selectedCabinet.pmBg : selectedCabinet.pmEn}
+          </Link>
+        </>
+      ) : null}
+      <ChevronRight className="h-3 w-3 opacity-60" aria-hidden />
+      <span className="text-foreground">
+        {t("eu_compare_breadcrumb_vs_peers")}
+      </span>
+    </nav>
+  );
+
   return (
-    <CompareAnchorContext.Provider value={anchorOverride}>
-      <div className="pb-12">
-        <Title description={t("eu_compare_page_description")}>
-          {t("eu_compare_page_title")}
-        </Title>
+    <div className="pb-12">
+      {renderBreadcrumb()}
 
-        {xDomain && governments ? (
-          <section className="mb-4">
-            <div className="text-[10px] uppercase tracking-wide text-muted-foreground mb-1">
-              {t("eu_compare_cabinet_anchor_label")}
-            </div>
-            <CabinetStrip
-              governments={governments}
-              xDomain={xDomain}
-              lang={lang}
-              mobileScrollable
-              fullWidth
-              selectedIds={selectedCabinetId ? [selectedCabinetId] : []}
-              onToggle={toggleCabinet}
-            />
-            {anchorLabel ? (
-              <p className="text-[11px] text-muted-foreground mt-1">
-                {anchorLabel}
-              </p>
-            ) : null}
-          </section>
-        ) : null}
+      <Title description={t("eu_compare_page_description")}>
+        {t("eu_compare_page_title")}
+      </Title>
 
-        <section className="mb-6">
-          <EuComparePeerStrip />
-        </section>
-
-        <section className="mb-8" data-og="eu-compare-wgi">
-          <h2 className="text-lg font-semibold mb-1">
-            {t("eu_compare_section_wgi_title")}
-          </h2>
-          <p className="text-xs text-muted-foreground mb-3 max-w-3xl">
-            {t("eu_compare_section_wgi_explainer")}
-          </p>
-          <EuCompareWgiRadar />
-        </section>
-
-        <section className="mb-8" data-og="eu-compare-snapshot">
-          <h2 className="text-lg font-semibold mb-1">
-            {t("eu_compare_section_snapshot_title")}
-          </h2>
-          <p className="text-xs text-muted-foreground mb-3 max-w-3xl">
-            {t("eu_compare_section_snapshot_explainer")}
-          </p>
-          {indicatorKeys.length > 0 ? (
-            <PeerSnapshotTable
-              rows={indicatorKeys.map((k) => ({ indicatorKey: k }))}
-              geos={tableGeos}
-            />
-          ) : (
-            <p className="text-sm text-muted-foreground">
-              {t("gov_macro_unavailable")}
+      {xDomain && governments ? (
+        <section className="mb-4">
+          <div className="text-[10px] uppercase tracking-wide text-muted-foreground mb-1">
+            {t("eu_compare_cabinet_anchor_label")}
+          </div>
+          <CabinetStrip
+            governments={governments}
+            xDomain={xDomain}
+            lang={lang}
+            mobileScrollable
+            fullWidth
+            anchoredId={anchor?.cabinet.id ?? null}
+            onAnchor={setAnchor}
+          />
+          {anchorLabel ? (
+            <p className="text-[11px] text-muted-foreground mt-1">
+              {anchorLabel}
             </p>
-          )}
-          <p className="text-[11px] text-muted-foreground mt-3">
-            {t("eu_compare_section_snapshot_footnote")}
-          </p>
+          ) : null}
         </section>
+      ) : null}
 
-        <section className="mb-8" data-og="eu-compare-cofog">
-          <h2 className="text-lg font-semibold mb-1">
-            {t("eu_compare_section_cofog_title")}
-          </h2>
-          <p className="text-xs text-muted-foreground mb-3 max-w-3xl">
-            {t("eu_compare_section_cofog_explainer")}
-          </p>
-          <EuCompareCofogMultiples />
-        </section>
+      <section className="mb-6">
+        <EuComparePeerStrip />
+      </section>
 
-        <section className="mb-8" data-og="eu-compare-inequality">
-          <h2 className="text-lg font-semibold mb-1">
-            {t("eu_compare_section_inequality_title")}
-          </h2>
-          <p className="text-xs text-muted-foreground mb-3 max-w-3xl">
-            {t("eu_compare_section_inequality_explainer")}
-          </p>
-          <EuCompareInequalityPanel />
-        </section>
+      <section className="mb-8" data-og="eu-compare-wgi">
+        <h2 className="text-lg font-semibold mb-1">
+          {t("eu_compare_section_wgi_title")}
+        </h2>
+        <p className="text-xs text-muted-foreground mb-3 max-w-3xl">
+          {t("eu_compare_section_wgi_explainer")}
+        </p>
+        <EuCompareWgiSmallMultiples />
+      </section>
 
-        <section className="mb-8" data-og="eu-compare-scatters">
-          <h2 className="text-lg font-semibold mb-1">
-            {t("eu_compare_section_scatters_title")}
-          </h2>
-          <p className="text-xs text-muted-foreground mb-3 max-w-3xl">
-            {t("eu_compare_section_scatters_explainer")}
+      <section className="mb-8" data-og="eu-compare-snapshot">
+        <h2 className="text-lg font-semibold mb-1">
+          {t("eu_compare_section_snapshot_title")}
+        </h2>
+        <p className="text-xs text-muted-foreground mb-3 max-w-3xl">
+          {t("eu_compare_section_snapshot_explainer")}
+        </p>
+        {indicatorKeys.length > 0 ? (
+          <PeerSnapshotTable
+            rows={indicatorKeys.map((k) => ({ indicatorKey: k }))}
+            geos={tableGeos}
+          />
+        ) : (
+          <p className="text-sm text-muted-foreground">
+            {t("gov_macro_unavailable")}
           </p>
-          <EuCompareSpendOutcomeScatters />
-        </section>
+        )}
+        <p className="text-[11px] text-muted-foreground mt-3">
+          {t("eu_compare_section_snapshot_footnote")}
+        </p>
+      </section>
 
-        <section className="mb-2">
-          <EuCompareSourcesStrip />
-        </section>
-      </div>
-    </CompareAnchorContext.Provider>
+      <section className="mb-8" data-og="eu-compare-cofog">
+        <h2 className="text-lg font-semibold mb-1">
+          {t("eu_compare_section_cofog_title")}
+        </h2>
+        <p className="text-xs text-muted-foreground mb-3 max-w-3xl">
+          {t("eu_compare_section_cofog_explainer")}
+        </p>
+        <EuCompareCofogMultiples />
+      </section>
+
+      <section className="mb-8" data-og="eu-compare-inequality">
+        <h2 className="text-lg font-semibold mb-1">
+          {t("eu_compare_section_inequality_title")}
+        </h2>
+        <p className="text-xs text-muted-foreground mb-3 max-w-3xl">
+          {t("eu_compare_section_inequality_explainer")}
+        </p>
+        <EuCompareInequalityPanel />
+      </section>
+
+      <section className="mb-8" data-og="eu-compare-scatters">
+        <h2 className="text-lg font-semibold mb-1">
+          {t("eu_compare_section_scatters_title")}
+        </h2>
+        <p className="text-xs text-muted-foreground mb-3 max-w-3xl">
+          {t("eu_compare_section_scatters_explainer")}
+        </p>
+        <EuCompareSpendOutcomeScatters />
+      </section>
+
+      <section className="mb-2">
+        <EuCompareSourcesStrip />
+      </section>
+
+      {selectedCabinet ? (
+        <div className="mt-6 flex flex-wrap justify-end">
+          <Link
+            to={`/governments/${encodeURIComponent(selectedCabinet.id)}`}
+            className="inline-flex items-center gap-1 text-sm text-primary hover:underline"
+          >
+            <ArrowLeft className="h-3 w-3" />
+            {t("eu_compare_back_to_cabinet", {
+              name: lang === "bg" ? selectedCabinet.pmBg : selectedCabinet.pmEn,
+            })}
+          </Link>
+        </div>
+      ) : null}
+    </div>
   );
 };

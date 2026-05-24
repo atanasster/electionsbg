@@ -21,6 +21,7 @@ import {
   labelForFractionalX,
   pointToFractionalX,
 } from "@/data/macro/useMacro";
+import { cabinetMetricsFor } from "@/data/macro/kpiSelectors";
 import type {
   PeerGeo,
   PeerIndicatorBlock,
@@ -225,6 +226,8 @@ const TooltipContent: FC<{
   caretakerLabel: string;
   regularLabel: string;
   unitFormatter: (key: MacroIndicatorKey, value: number) => string;
+  macro?: MacroPayload;
+  cabinetAvgLabel: string;
 }> = ({
   active,
   payload,
@@ -236,6 +239,8 @@ const TooltipContent: FC<{
   caretakerLabel,
   regularLabel,
   unitFormatter,
+  macro,
+  cabinetAvgLabel,
 }) => {
   if (!active || label === undefined) return null;
   // label is the fractional x of the hovered row — match cabinets in office
@@ -273,19 +278,43 @@ const TooltipContent: FC<{
     });
   }
 
+  // Enriched cabinet block: for every cabinet in office at this x, show the
+  // tenure-average for the three headline rate metrics (gdp/inflation/unemp).
+  // Tells the reader "this cabinet's overall record on these series" without
+  // needing to leave the chart. Skipped when macro is unavailable so the
+  // tooltip still renders during a partial load.
+  const cabinetAverages = matching.map((g) =>
+    macro ? cabinetMetricsFor(g, macro) : null,
+  );
+
   return (
     <div className={cn(tooltipSurfaceClass, "px-3 py-2 text-xs max-w-xs")}>
       <div className="font-semibold mb-1">{labelForFractionalX(label)}</div>
-      {matching.map((g) => (
-        <div key={g.id} className="mb-0.5">
-          <span className="font-semibold">
-            {lang === "bg" ? g.pmBg : g.pmEn}
-          </span>
-          <span className="ml-1 text-muted-foreground">
-            ({g.type === "caretaker" ? caretakerLabel : regularLabel})
-          </span>
-        </div>
-      ))}
+      {matching.map((g, i) => {
+        const avg = cabinetAverages[i];
+        const fmt = (v: number | null) =>
+          v == null ? "—" : `${v.toFixed(1)}%`;
+        return (
+          <div key={g.id} className="mb-1">
+            <div>
+              <span className="font-semibold">
+                {lang === "bg" ? g.pmBg : g.pmEn}
+              </span>
+              <span className="ml-1 text-muted-foreground">
+                ({g.type === "caretaker" ? caretakerLabel : regularLabel})
+              </span>
+            </div>
+            {avg ? (
+              <div className="text-[10px] text-muted-foreground tabular-nums mt-0.5">
+                {cabinetAvgLabel}
+                {": "}
+                ВВП {fmt(avg.avgGdpGrowth)} · инфл. {fmt(avg.avgInflation)} ·
+                безр. {fmt(avg.avgUnemployment)}
+              </div>
+            ) : null}
+          </div>
+        );
+      })}
       <div className="mt-1 border-t border-border pt-1 flex flex-col gap-0.5">
         {bgEntries
           .filter((p) => enabled[p.dataKey as MacroIndicatorKey])
@@ -456,6 +485,14 @@ export const CabinetStrip: FC<{
   // non-selected dim so the selection reads at a glance.
   selectedIds?: string[] | null;
   onToggle?: (id: string) => void;
+  // Optional anchor handler — when set, every pill click also calls onAnchor
+  // so the URL-encoded cabinet anchor follows the most-recently-clicked
+  // cabinet. Independent of onToggle: a strip can be anchor-only (no
+  // multi-select) by passing onAnchor without onToggle.
+  onAnchor?: (id: string) => void;
+  // Id of the currently anchored cabinet — gets an amber inset border on top
+  // of the selected-pill treatment so anchor and selection read as distinct.
+  anchoredId?: string | null;
 }> = ({
   governments,
   xDomain,
@@ -464,13 +501,30 @@ export const CabinetStrip: FC<{
   fullWidth = false,
   selectedIds,
   onToggle,
+  onAnchor,
+  anchoredId,
 }) => {
   const { colorFor } = useCanonicalParties();
   const insets = useChartInsets();
   const isSmall = useMediaQueryMatch("sm");
-  const selectable = typeof onToggle === "function";
+  const selectable =
+    typeof onToggle === "function" || typeof onAnchor === "function";
   const selectedSet = useMemo(() => new Set(selectedIds ?? []), [selectedIds]);
-  const anySelected = selectedSet.size > 0;
+  const anySelected = selectedSet.size > 0 || anchoredId != null;
+  const handleClick = (id: string) => {
+    onToggle?.(id);
+    onAnchor?.(id);
+  };
+  // Distinct visual treatments:
+  //   - anchored: amber inset ring (the "this drives the page" indicator)
+  //   - selected (multi): white/black inset ring (the "appears in the card
+  //     stack below" indicator)
+  // Both can apply; amber outranks the selected ring so the user can tell
+  // which selected cabinet is the active focus.
+  const ANCHOR_SHADOW =
+    "shadow-[inset_0_0_0_2px_rgba(0,0,0,0.45),inset_0_0_0_4px_#f59e0b] dark:shadow-[inset_0_0_0_2px_rgba(255,255,255,0.45),inset_0_0_0_4px_#f59e0b]";
+  const SELECTED_SHADOW =
+    "shadow-[inset_0_0_0_2px_#fff,inset_0_0_0_4px_#000] dark:shadow-[inset_0_0_0_2px_#000,inset_0_0_0_4px_#fff]";
 
   if (isSmall && mobileScrollable) {
     const span = xDomain[1] - xDomain[0];
@@ -492,7 +546,9 @@ export const CabinetStrip: FC<{
             const widthPx = pillWidthsPx[i];
             const horizontal = widthPx >= MOBILE_SCROLL_HORIZONTAL_PX;
             const isSelected = selectable && selectedSet.has(g.id);
-            const dim = selectable && anySelected && !isSelected;
+            const isAnchored = selectable && anchoredId === g.id;
+            const highlighted = isSelected || isAnchored;
+            const dim = selectable && anySelected && !highlighted;
             return (
               <UxTooltip
                 key={`pill-${g.id}`}
@@ -502,13 +558,13 @@ export const CabinetStrip: FC<{
                   role={selectable ? "button" : undefined}
                   tabIndex={selectable ? 0 : undefined}
                   aria-pressed={selectable ? isSelected : undefined}
-                  onClick={selectable ? () => onToggle?.(g.id) : undefined}
+                  onClick={selectable ? () => handleClick(g.id) : undefined}
                   onKeyDown={
                     selectable
                       ? (e) => {
                           if (e.key === "Enter" || e.key === " ") {
                             e.preventDefault();
-                            onToggle?.(g.id);
+                            handleClick(g.id);
                           }
                         }
                       : undefined
@@ -518,8 +574,11 @@ export const CabinetStrip: FC<{
                     selectable
                       ? "cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground/60"
                       : "cursor-help",
-                    isSelected &&
-                      "shadow-[inset_0_0_0_2px_#fff,inset_0_0_0_4px_#000] dark:shadow-[inset_0_0_0_2px_#000,inset_0_0_0_4px_#fff]",
+                    isAnchored
+                      ? ANCHOR_SHADOW
+                      : isSelected
+                        ? SELECTED_SHADOW
+                        : null,
                   )}
                   style={{
                     width: `${widthPx}px`,
@@ -530,12 +589,12 @@ export const CabinetStrip: FC<{
                         : "#fff",
                     opacity:
                       g.type === "caretaker"
-                        ? isSelected
+                        ? highlighted
                           ? 1
                           : dim
                             ? 0.3
                             : 0.6
-                        : isSelected
+                        : highlighted
                           ? 1
                           : dim
                             ? 0.45
@@ -590,7 +649,9 @@ export const CabinetStrip: FC<{
         const horizontal = widthPct >= horizontalThreshold;
         const showLabel = widthPct >= labelThreshold;
         const isSelected = selectable && selectedSet.has(g.id);
-        const dim = selectable && anySelected && !isSelected;
+        const isAnchored = selectable && anchoredId === g.id;
+        const highlighted = isSelected || isAnchored;
+        const dim = selectable && anySelected && !highlighted;
         return (
           <UxTooltip
             key={`pill-${g.id}`}
@@ -600,13 +661,13 @@ export const CabinetStrip: FC<{
               role={selectable ? "button" : undefined}
               tabIndex={selectable ? 0 : undefined}
               aria-pressed={selectable ? isSelected : undefined}
-              onClick={selectable ? () => onToggle?.(g.id) : undefined}
+              onClick={selectable ? () => handleClick(g.id) : undefined}
               onKeyDown={
                 selectable
                   ? (e) => {
                       if (e.key === "Enter" || e.key === " ") {
                         e.preventDefault();
-                        onToggle?.(g.id);
+                        handleClick(g.id);
                       }
                     }
                   : undefined
@@ -616,8 +677,11 @@ export const CabinetStrip: FC<{
                 selectable
                   ? "cursor-pointer focus:outline-none focus-visible:ring-2 focus-visible:ring-foreground/60"
                   : "cursor-help",
-                isSelected &&
-                  "shadow-[inset_0_0_0_2px_#fff,inset_0_0_0_4px_#000] dark:shadow-[inset_0_0_0_2px_#000,inset_0_0_0_4px_#fff]",
+                isAnchored
+                  ? ANCHOR_SHADOW
+                  : isSelected
+                    ? SELECTED_SHADOW
+                    : null,
               )}
               style={{
                 width: `${widthPct}%`,
@@ -626,12 +690,12 @@ export const CabinetStrip: FC<{
                   g.type === "caretaker" ? "rgba(255,255,255,0.95)" : "#fff",
                 opacity:
                   g.type === "caretaker"
-                    ? isSelected
+                    ? highlighted
                       ? 1
                       : dim
                         ? 0.3
                         : 0.6
-                    : isSelected
+                    : highlighted
                       ? 1
                       : dim
                         ? 0.45
@@ -752,6 +816,15 @@ export const GovernmentTimeline: FC<{
   enabled?: IndicatorToggle;
   /** Companion setter for the controlled `enabled` prop. */
   onEnabledChange?: (next: IndicatorToggle) => void;
+  /** Optional handler called when the user clicks a cabinet band in the
+   *  chart. Use to anchor the URL ?cabinet= param so band-click matches
+   *  pill-click semantics. */
+  onCabinetClick?: (id: string) => void;
+  /** Id of the cabinet whose band should render highlighted (brighter) when
+   *  no hover is active. Used by /governments and /indicators to keep the
+   *  anchored cabinet visually distinct even when the chart isn't being
+   *  interacted with. */
+  highlightedCabinetId?: string | null;
 }> = ({
   governments,
   macro,
@@ -769,11 +842,19 @@ export const GovernmentTimeline: FC<{
   peerCompareEnabled,
   enabled: controlledEnabled,
   onEnabledChange,
+  onCabinetClick,
+  highlightedCabinetId,
 }) => {
   const { t, i18n } = useTranslation();
   const lang: "en" | "bg" = i18n.language === "bg" ? "bg" : "en";
   const { colorFor } = useCanonicalParties();
   const insets = useChartInsets();
+  // Cabinet-band hover. Hovering a band brightens it and dims the others —
+  // a low-cost "drill into this term" affordance that doesn't need a new
+  // tooltip. Click commits the focus by calling onCabinetClick (typically
+  // the URL anchor setter). highlightedCabinetId is a persistent fallback
+  // so the anchored band stays brighter even when no hover is active.
+  const [hoveredBandId, setHoveredBandId] = useState<string | null>(null);
 
   const flatKeys = useMemo(() => flattenSpec(indicatorKeys), [indicatorKeys]);
 
@@ -942,6 +1023,8 @@ export const GovernmentTimeline: FC<{
                   caretakerLabel={t("gov_type_caretaker")}
                   regularLabel={t("gov_type_regular")}
                   unitFormatter={tooltipFormatter}
+                  macro={macro}
+                  cabinetAvgLabel={t("gov_chart_tenure_avg_label")}
                 />
               }
             />
@@ -953,8 +1036,21 @@ export const GovernmentTimeline: FC<{
               );
               // When the Compare toggle is on, dial the cabinet-band alpha
               // down so the four peer-country ghost lines stay legible
-              // against the patchwork background.
-              const bandAlpha = peerCompareEnabled ? 0.07 : 0.18;
+              // against the patchwork background. Hover/anchor amplifies
+              // the alpha for the focused band; the others dim further so
+              // the contrast reads at a glance.
+              const baseAlpha = peerCompareEnabled ? 0.07 : 0.18;
+              const isFocused =
+                hoveredBandId === g.id ||
+                (hoveredBandId == null && highlightedCabinetId === g.id);
+              const anyFocused =
+                hoveredBandId != null || highlightedCabinetId != null;
+              const bandAlpha = isFocused
+                ? Math.min(0.4, baseAlpha * 2.4)
+                : anyFocused
+                  ? baseAlpha * 0.35
+                  : baseAlpha;
+              const clickable = typeof onCabinetClick === "function";
               return (
                 <ReferenceArea
                   key={`band-${g.id}`}
@@ -964,6 +1060,10 @@ export const GovernmentTimeline: FC<{
                   fillOpacity={1}
                   stroke="none"
                   ifOverflow="visible"
+                  onMouseEnter={() => setHoveredBandId(g.id)}
+                  onMouseLeave={() => setHoveredBandId(null)}
+                  onClick={clickable ? () => onCabinetClick?.(g.id) : undefined}
+                  style={clickable ? { cursor: "pointer" } : undefined}
                 />
               );
             })}

@@ -16,8 +16,10 @@ import {
   lastNYearsEnding,
   pickAtOrBefore,
   yoyChangeFor,
+  type AsOf,
 } from "@/data/macro/kpiSelectors";
 import { useElectionAsOf } from "@/data/macro/useElectionAsOf";
+import { useCabinetAnchor } from "@/data/macro/cabinetAnchorContext";
 import {
   DOMAIN_PATHS,
   KPI_REGISTRY,
@@ -25,6 +27,7 @@ import {
 import { KpiSparkline } from "./KpiSparkline";
 import { RankBadge } from "./RankBadge";
 import { YoyArrow } from "./YoyArrow";
+import { VerdictChip, deriveVerdict } from "./VerdictChip";
 
 const SPARKLINE_MIN_POINTS = 4;
 
@@ -52,12 +55,13 @@ type Props = {
 };
 
 export const KpiTile: FC<Props> = ({ indicatorKey, className }) => {
-  const { i18n } = useTranslation();
+  const { i18n, t } = useTranslation();
   const lang: "bg" | "en" = i18n.language === "bg" ? "bg" : "en";
   const { data: macro } = useMacro();
   const { data: peers } = useMacroPeers();
   const { data: governments } = useGovernments();
   const asOf = useElectionAsOf();
+  const anchor = useCabinetAnchor();
   const entry = KPI_REGISTRY[indicatorKey];
 
   const series = macro?.series[indicatorKey];
@@ -67,6 +71,23 @@ export const KpiTile: FC<Props> = ({ indicatorKey, className }) => {
     [series, entry, latest],
   );
   const yoy = useMemo(() => yoyChangeFor(series, latest), [series, latest]);
+
+  // Term-bounded snapshot. When a cabinet anchor is active, also compute
+  // term-start vs term-end for the indicator so the footer can show "under
+  // [Cabinet]: X → Y (delta)". Cabinet-end value mirrors what `latest` already
+  // resolves to (asOf == anchor's tenure-end), so we only need term-start.
+  const termSpan = useMemo(() => {
+    if (!anchor || !series) return null;
+    const g = anchor.cabinet;
+    const start = new Date(g.startDate);
+    const startAnchor: AsOf = {
+      year: start.getUTCFullYear(),
+      quarter: (Math.floor(start.getUTCMonth() / 3) + 1) as 1 | 2 | 3 | 4,
+    };
+    const startPoint = pickAtOrBefore(series, startAnchor);
+    if (!startPoint || !latest) return null;
+    return { start: startPoint, end: latest };
+  }, [anchor, series, latest]);
 
   if (!entry || !macro) {
     return (
@@ -101,9 +122,48 @@ export const KpiTile: FC<Props> = ({ indicatorKey, className }) => {
     ((latest.period && dist.period === latest.period) ||
       (dist.year === latest.year && dist.quarter === latest.quarter));
 
+  const verdict = deriveVerdict({
+    direction: entry.direction,
+    rank: distAligned && dist ? { rank: dist.rank, total: dist.total } : null,
+    yoyDelta: yoy?.delta ?? null,
+  });
+
   const href = entry.anchor
     ? `${DOMAIN_PATHS[entry.domain]}#${entry.anchor}`
     : DOMAIN_PATHS[entry.domain];
+
+  // Anchor-aware footer. When a cabinet is anchored AND we resolved both
+  // term-start and term-end values, render an extra row linking to the
+  // detail page with the indicator anchor pre-scrolled.
+  const anchorFooter = (() => {
+    if (!anchor || !termSpan) return null;
+    const delta = termSpan.end.value - termSpan.start.value;
+    const deltaText = entry.formatDelta
+      ? `${delta >= 0 ? "+" : ""}${entry.formatDelta(delta)}`
+      : entry.deltaSuffix === "pp"
+        ? `${delta >= 0 ? "+" : ""}${delta.toFixed(1)} pp`
+        : `${delta >= 0 ? "+" : ""}${delta.toFixed(
+            entry.deltaDecimals ?? 1,
+          )}${entry.deltaSuffix}`;
+    const surname =
+      (lang === "bg" ? anchor.cabinet.pmBg : anchor.cabinet.pmEn)
+        .split(" ")
+        .pop() ?? "";
+    return (
+      <Link
+        to={`/governments/${encodeURIComponent(anchor.cabinet.id)}#kpi-${indicatorKey}`}
+        onClick={(e) => e.stopPropagation()}
+        className="block text-[10px] tabular-nums text-muted-foreground hover:text-foreground hover:underline"
+      >
+        {t("kpi_under_cabinet", {
+          name: surname,
+          start: entry.format(termSpan.start.value),
+          end: entry.format(termSpan.end.value),
+          delta: deltaText,
+        })}
+      </Link>
+    );
+  })();
 
   const showSparkline = sparklinePoints.length >= SPARKLINE_MIN_POINTS;
 
@@ -144,15 +204,16 @@ export const KpiTile: FC<Props> = ({ indicatorKey, className }) => {
         />
       </div>
 
-      {distAligned && dist ? (
-        <div className="text-[11px]">
+      <div className="flex flex-wrap items-center gap-1.5 text-[11px]">
+        {distAligned && dist ? (
           <RankBadge
             rank={dist.rank}
             total={dist.total}
             direction={dist.direction}
           />
-        </div>
-      ) : null}
+        ) : null}
+        <VerdictChip verdict={verdict} />
+      </div>
 
       {showSparkline ? (
         <div className="mt-auto pt-1" style={{ color: lineColor }}>
@@ -166,8 +227,11 @@ export const KpiTile: FC<Props> = ({ indicatorKey, className }) => {
         <div className="mt-auto h-7" />
       )}
 
-      <div className="text-[10px] text-muted-foreground tabular-nums">
-        {periodLabel}
+      <div className="flex flex-col gap-0.5">
+        {anchorFooter}
+        <div className="text-[10px] text-muted-foreground tabular-nums">
+          {periodLabel}
+        </div>
       </div>
     </Link>
   );

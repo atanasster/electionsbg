@@ -3,6 +3,10 @@ import { useTranslation } from "react-i18next";
 import { Title } from "@/ux/Title";
 import { useGovernments } from "@/data/governments/useGovernments";
 import { useMacro } from "@/data/macro/useMacro";
+import {
+  useCabinetAnchor,
+  useSetCabinetAnchor,
+} from "@/data/macro/cabinetAnchorContext";
 import { Link, useLocation } from "react-router-dom";
 import {
   CabinetStrip,
@@ -20,6 +24,8 @@ export const GovernmentsScreen = () => {
   const { t, i18n } = useTranslation();
   const { data: governments } = useGovernments();
   const { data: macro } = useMacro();
+  const anchor = useCabinetAnchor();
+  const setAnchor = useSetCabinetAnchor();
   const lang: "en" | "bg" = i18n.language === "bg" ? "bg" : "en";
   const { hash } = useLocation();
   // Multi-select via toggle-on-click — see IndicatorsLandingScreen for the
@@ -142,6 +148,8 @@ export const GovernmentsScreen = () => {
           fullWidth
           selectedIds={selectedCabinetIds}
           onToggle={toggleCabinet}
+          onAnchor={setAnchor}
+          anchoredId={anchor?.cabinet.id ?? null}
         />
       ) : null}
 
@@ -178,6 +186,8 @@ export const GovernmentsScreen = () => {
           hideToggles
           height={280}
           eventMarkers={eventMarkers}
+          onCabinetClick={setAnchor}
+          highlightedCabinetId={anchor?.cabinet.id ?? null}
         />
       </section>
 

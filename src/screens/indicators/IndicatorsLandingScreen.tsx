@@ -10,11 +10,23 @@ import { useTranslation } from "react-i18next";
 import { Link } from "react-router-dom";
 import { ArrowRight } from "lucide-react";
 import { Title } from "@/ux/Title";
+import { ChevronDown, ChevronUp } from "lucide-react";
 import { useElectionContext } from "@/data/ElectionContext";
 import { useGovernments } from "@/data/governments/useGovernments";
 import { useMacro } from "@/data/macro/useMacro";
-import { xDomainFor } from "@/screens/components/governments/governmentTimelineUtils";
-import { CabinetStrip } from "@/screens/components/governments/GovernmentTimeline";
+import {
+  useCabinetAnchor,
+  useSetCabinetAnchor,
+} from "@/data/macro/cabinetAnchorContext";
+import {
+  toFractionalYear,
+  xDomainFor,
+} from "@/screens/components/governments/governmentTimelineUtils";
+import {
+  CabinetStrip,
+  GovernmentTimeline,
+  type EventMarker,
+} from "@/screens/components/governments/GovernmentTimeline";
 import { KpiTile } from "@/screens/components/macro/KpiTile";
 import { CabinetScoreDetail } from "@/screens/components/macro/CabinetScoreCard";
 import { LANDING_KPI_ORDER } from "./indicatorsRegistry";
@@ -60,8 +72,50 @@ export const IndicatorsLandingScreen: FC = () => {
   const { selected } = useElectionContext();
   const { data: governments } = useGovernments();
   const { data: macro } = useMacro();
+  const anchor = useCabinetAnchor();
+  const setAnchor = useSetCabinetAnchor();
+  // Hero chart is collapsed by default — the tile grid is what the user came
+  // for. The reveal toggle gives the strategic-context "big picture" without
+  // pushing the tiles below the fold on first paint.
+  const [heroExpanded, setHeroExpanded] = useState(false);
+  // EU integration milestones — same six events as GovernmentsScreen so the
+  // hero chart reads as the same artifact rebranded for this page.
+  const heroEvents = useMemo<EventMarker[]>(
+    () => [
+      {
+        x: toFractionalYear("2007-01-01"),
+        label: t("governments_event_eu_accession"),
+      },
+      {
+        x: toFractionalYear("2020-07-10"),
+        label: t("governments_event_erm2"),
+      },
+      {
+        x: toFractionalYear("2024-03-31"),
+        label: t("governments_event_schengen_air"),
+        labelPosition: "bottom",
+      },
+      {
+        x: toFractionalYear("2025-01-01"),
+        label: t("governments_event_schengen_land"),
+      },
+      {
+        x: toFractionalYear("2025-06-04"),
+        label: t("governments_event_convergence_report"),
+        labelPosition: "bottom",
+      },
+      {
+        x: toFractionalYear("2026-01-01"),
+        label: t("governments_event_eurozone"),
+      },
+    ],
+    [t],
+  );
   // Multi-select: clicking a strip pill toggles its membership here, so two
   // or more cabinets can be compared side-by-side via stacked detail panels.
+  // Independent of the URL cabinet anchor — clicking a pill ALSO sets the
+  // anchor (most-recently-clicked wins) but the multi-select state lives
+  // page-local so navigating away doesn't carry the comparison set with you.
   // userTouched flips on first click so the auto-default (cabinet in office
   // at the selected election) doesn't keep re-overwriting the user's choice
   // when they change election; default only re-applies if they've cleared
@@ -173,6 +227,45 @@ export const IndicatorsLandingScreen: FC = () => {
         </Link>
       </div>
 
+      {macro ? (
+        <section className="mb-6">
+          <button
+            type="button"
+            onClick={() => setHeroExpanded((v) => !v)}
+            aria-expanded={heroExpanded}
+            className="inline-flex items-center gap-1 text-xs text-muted-foreground hover:text-foreground transition-colors"
+          >
+            {heroExpanded ? (
+              <ChevronUp className="h-3 w-3" />
+            ) : (
+              <ChevronDown className="h-3 w-3" />
+            )}
+            {t(
+              heroExpanded
+                ? "indicators_hero_chart_collapse"
+                : "indicators_hero_chart_expand",
+            )}
+          </button>
+          {heroExpanded ? (
+            <div className="mt-2">
+              <GovernmentTimeline
+                governments={governments}
+                macro={macro}
+                indicatorKeys={["gdpGrowth", "inflation", "unemployment"]}
+                yAxisFormatter={(v) => `${v}`}
+                unitFormatter={(_k, v) => `${v.toFixed(1)}%`}
+                showZeroLine
+                hideToggles
+                height={240}
+                eventMarkers={heroEvents}
+                onCabinetClick={setAnchor}
+                highlightedCabinetId={anchor?.cabinet.id ?? null}
+              />
+            </div>
+          ) : null}
+        </section>
+      ) : null}
+
       <section
         aria-label={t("indicators_landing_kpi_grid_aria")}
         className="mb-8"
@@ -198,6 +291,8 @@ export const IndicatorsLandingScreen: FC = () => {
             fullWidth
             selectedIds={selectedCabinetIds}
             onToggle={toggleCabinet}
+            onAnchor={setAnchor}
+            anchoredId={anchor?.cabinet.id ?? null}
           />
           {macro && selectedCabinets.length > 0 ? (
             <div className="mt-3 flex flex-col gap-2">

@@ -1,6 +1,7 @@
 import { FC, useMemo, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ArrowDown, ArrowUp, ArrowUpDown } from "lucide-react";
+import { Link } from "react-router-dom";
+import { ArrowDown, ArrowUp, ArrowUpDown, ChevronRight } from "lucide-react";
 import {
   Government,
   GovernmentEndReason,
@@ -303,6 +304,7 @@ export const GovernmentTable: FC<{
               defaultDir="asc"
             />
             <th className="text-left py-2">{t("gov_end_reason")}</th>
+            <th className="w-6" aria-hidden />
           </tr>
         </thead>
         <tbody>
@@ -440,6 +442,15 @@ export const GovernmentTable: FC<{
                 </td>
                 <td className="py-2 text-muted-foreground text-xs">
                   {endReason}
+                </td>
+                <td className="py-2 pl-1 pr-2 text-right">
+                  <Link
+                    to={`/governments/${encodeURIComponent(g.id)}`}
+                    aria-label={t("cabinet_detail_open_link", { name: pm })}
+                    className="inline-flex items-center text-muted-foreground/60 hover:text-primary"
+                  >
+                    <ChevronRight className="h-4 w-4" />
+                  </Link>
                 </td>
               </tr>
             );

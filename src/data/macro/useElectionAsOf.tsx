@@ -10,15 +10,15 @@
 import { useMemo } from "react";
 import { useElectionContext } from "@/data/ElectionContext";
 import type { AsOf } from "./kpiSelectors";
-import { useCompareAnchorOverride } from "./compareAnchorContext";
+import { useCompareAnchorOverride } from "./cabinetAnchorContext";
 
 export type ElectionAsOf = AsOf;
 
 export const useElectionAsOf = (): ElectionAsOf | null => {
   const { selected } = useElectionContext();
-  // /indicators/compare wraps its sections in CompareAnchorProvider so the
-  // user-selected cabinet re-anchors every panel to that cabinet's tenure.
-  // Other pages don't provide an override → election behavior preserved.
+  // CabinetAnchorProvider (mounted on /governments and /indicators routes)
+  // re-anchors every panel to the URL-selected cabinet's tenure. Pages
+  // outside that provider get null → election behavior preserved.
   const override = useCompareAnchorOverride();
   return useMemo(() => {
     if (override) return override.asOf;
