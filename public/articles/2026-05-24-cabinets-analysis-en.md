@@ -22,7 +22,7 @@ keywords:
 
 Between August 2005 and May 2026 Bulgaria had **18 cabinets**: 10 regular and 8 caretaker. The average regular cabinet ran for under two years. Only one — [Borisov III](/governments/borisov-3) — completed the full four-year term. Over the same period the four headline macro indicators — GDP, inflation, unemployment and government debt — passed through three clearly distinct cycles: **catch-up growth and pre-crisis overheating (2005–2008)**, **crisis and stagnation (2009–2014)**, and **best-in-region positioning (2017–2025)** — the last achieved against the backdrop of the most politically unstable stretch in post-1990 Bulgarian history.
 
-This article is not a policy evaluation. It is an **analysis of the numbers** from [indicators](/indicators) and [governments](/governments) on electionsbg.com. We walk each cabinet through its macro footprint — what the data shows on its watch, and what lags forward into the next mandate. A larger weight is given to the last two years — the Petkov → Donev → Denkov → Glavchev → Zhelyazkov → Gyurov chain, six elections in three years that ended with the country joining the eurozone.
+This article is not a policy evaluation. It is an **analysis of the numbers** from [indicators](/indicators) and [governments](/governments) on electionsbg.com. We walk each cabinet through its macro footprint — what the data shows on its watch, and what lags forward into the next mandate. A larger weight is given to the last ~4.5 years — the Petkov → Donev → Denkov → Glavchev → Zhelyazkov → Gyurov chain, six parliamentary elections (Nov 2021 → Apr 2026) that culminated in the country joining the eurozone.
 
 ![Timeline of Bulgaria's cabinets since 2005 against the macro backdrop.](/og/governments.png)
 
@@ -47,13 +47,13 @@ The picture is a country with a **strong macro frame and weak social outcomes**.
 
 ### [Sergey Stanishev](/governments/stanishev) — BSP·NDSV·DPS · Aug 2005 – Jul 2009
 
-One regular term of **3 years and 11 months** — the fourth longest in the table. Time-weighted averages over Eurostat quarterly data:
+One regular term of **3 years and 11 months** — the second longest in the table after Borisov III. Time-weighted averages over Eurostat quarterly data:
 
 - **Avg GDP growth: +5.5%** — the highest in our data range
 - **Avg inflation: 8.2%** — the highest for any non-summer-caretaker regular cabinet
-- **Debt Δ: −14.7 pp of GDP** — **the largest deleveraging in the table**
+- **Debt Δ: −13.4 pp of GDP** — **the largest deleveraging in the table**
 
-This cabinet starts on a downward debt trend inherited from the Saxe-Coburg-Gotha era reductions (which brought it down from a peak of 65.4% debt/GDP at the start of the decade in 2001–2002) – gross government debt starts at roughly 30.2% of GDP in 2005 and is handed over at a record-low 15.5% in 2009. The numbers look stunning until you read their second context: most of the fall is **accounting** — GDP growth in the denominator plus privatisation receipts and surpluses. The real nominal debt reduction is modest. And **8.2% inflation** is a symptom of overheating — credit boom, current-account deficit above 25% of GDP (record), capital inflows pouring into real estate.
+This cabinet starts on a downward debt trend inherited from the Saxe-Coburg-Gotha era reductions (which brought it down from a peak above 65% debt/GDP in 2001–2002). Over the cabinet's window, gross government debt (per Eurostat ESA quarterly data) falls from 26.6% of GDP at end-2005 to 13.2% by mid-2009. The numbers look stunning until you read their second context: most of the fall is **accounting** — GDP growth in the denominator plus privatisation receipts and surpluses. The real nominal debt reduction is modest. And **8.2% inflation** is a symptom of overheating — credit boom, current-account deficit above 25% of GDP (record), capital inflows pouring into real estate.
 
 The lag: **the Global Financial Crisis hits at the very end of his term** (Sep 2008 → Lehman), but the first effects on GDP come only at end-2008 and fully in 2009 — i.e. under the next cabinet.
 
@@ -63,7 +63,7 @@ Achievement: **EU membership** (1 January 2007). On the dashboard you see this a
 
 ### [Borisov I](/governments/borisov-1) — GERB · Jul 2009 – Mar 2013
 
-GERB's first term is *elected* on 5 July 2009 — two days before GDP starts its free fall into a −5.4% year-on-year contraction. The cabinet inherits an overheated economy *and* absorbs the global financial crisis:
+GERB's first cabinet is sworn in on 27 July 2009 — months into a global recession that had already pulled Bulgarian Q2 2009 GDP down −2.8% YoY (per Eurostat), deepening to −6.4% by Q4 2009. The cabinet inherits an overheated economy *and* absorbs the full weight of the global financial crisis:
 
 - **Avg GDP growth: +0.45%** — crisis period
 - **Avg unemployment: 12.0%** — **the highest for any cabinet** in the table (see [Economy](/indicators/economy))
@@ -91,7 +91,7 @@ The KTB lag is significant: the BGN 3.7 bn sovereign debt issuance (approx. 2.0%
 The deflationary recovery:
 
 - **Avg GDP growth: +3.0%** — full restoration of growth
-- **Avg inflation: −1.3%** — still deflation (energy prices down)
+- **Avg inflation: −1.1%** — still deflation (energy prices down)
 - **Avg unemployment: 9.6%** — back to single digits
 - **Net EU funds: €4.7 bn** — large inflow under the first full 2014–2020 programming period
 
@@ -103,7 +103,7 @@ Ends **after GERB's loss in the November 2016 presidential vote** (Tsacheva vs. 
 
 The longest cabinet in the table — **1,469 days (4 years)**. Also the only regular cabinet in our data range whose tenure covers **both the pandemic and the recovery** from it in the same window:
 
-- **Avg GDP growth: +1.4%** — depressed by 2020 (Q2 2020 GDP: −9.4% YoY)
+- **Avg GDP growth: +1.4%** — depressed by the 2020 recession (GDP contracted in all four quarters of 2020, deepest at Q4: −6.4% YoY)
 - **Debt Δ: −3.6 pp** — **the largest debt reduction by a regular cabinet** in the last 15 years
 - **Net EU funds: €6.8 bn** — **the highest in the table**
 
@@ -156,7 +156,7 @@ Under Denkov **the serious eurozone-accession negotiations** begin, alongside RR
 
 - **Avg budget balance under Glavchev I: −4.8%** — **the worst mandate average**
 
-This is a signal of fiscal indiscipline in **caretaker** cabinets without legislative sanction — they run on extended budgets without update. In November 2025, the EU officially paid out the second RRF tranche after nearly two years of delays, but froze (withheld) €214.5 million of it due to the unfulfilled Anti-Corruption Commission reform. The long-term effect of this delay and partial freeze shows as **a drop to just €2.1 bn net** in EU funds under Zhelyazkov, vs. €6.8 bn under Borisov III.
+This is a signal of fiscal indiscipline in **caretaker** cabinets without legislative sanction — they run on extended budgets without update. In November 2025, the EU officially paid out the second RRF tranche after nearly two years of delays, but froze (withheld) €214.5 million of it due to the unfulfilled Anti-Corruption Commission reform. The long-term effect of this delay and partial freeze shows as **a sharp drop in net EU funds under Zhelyazkov relative to the €6.8 bn record under Borisov III** (per preliminary 2025 figures not yet reflected in the dashboard's annual series).
 
 ### [Zhelyazkov](/governments/zhelyazkov) — GERB-SDS·BSP-OL·ITN · Jan 2025 – Feb 2026
 
@@ -189,13 +189,13 @@ One of the most important principles when analysing governments: **causes and ef
 
 3. **Social spending and automatic indexation (2020–2023)**: temporary BGN 50 COVID pension supplements introduced under Borisov III in 2020 were made permanent in late 2021 (under Petkov). The subsequent tie of the minimum wage to 50% of the average gross salary (initiated by BSP in February 2023) triggered an automatic wage-wage spiral. This social-budgetary lag stripped subsequent budgets of flexibility, caused three consecutive years of deficits around 3.5%, and forced a record debt accumulation of +6.2 pp under Zhelyazkov in 2025 to cover the cash shortfalls of the social security system and the state.
 
-4. **Eurozone reforms** are largely completed under Denkov (texts, translations, ESMA notification) — but the mandate that gets to mint "we adopt the euro" is Zhelyazkov's. The same dynamic runs in reverse: the RRF pause arrives under Glavchev I/II and explains the **drop to just €2.1 bn net in EU funds** under Zhelyazkov, vs. €6.8 bn under Borisov III.
+4. **Eurozone reforms** are largely completed under Denkov (texts, translations, ESMA notification) — but the mandate that gets to mint "we adopt the euro" is Zhelyazkov's. The same dynamic runs in reverse: the RRF pause arrives under Glavchev I/II and explains the **visible compression of net EU funds under Zhelyazkov** relative to the €6.8 bn record under Borisov III.
 
 5. **The inflation drop from 13% (Donev) to 3.3% (Zhelyazkov)** is a result of the global energy-price decline none of the four intervening cabinets had any control over.
 
-## The last two years — deformation across 6 indicators
+## The last ~5 years — deformation across 6 indicators
 
-Focus on 5 cabinets: **Petkov → Donev → Denkov → Glavchev I+II → Zhelyazkov**. This is 1,500 days — nearly 4 years in which the country had **more snap elections (6) than normal mandates (3)**.
+Focus on 5 cabinets: **Petkov → Donev → Denkov → Glavchev I+II → Zhelyazkov**. This is roughly 1,500 days — nearly 4.5 years if we include the November 2021 vote that produced the Petkov cabinet — in which the country had **more snap elections (6) than regular mandates (3)**.
 
 | Cabinet | Period | Avg GDP | Avg Infl | Avg Unemp | Avg Bal | Debt Δ |
 |---|---|---:|---:|---:|---:|---:|
@@ -250,7 +250,7 @@ A short summary of the inheritance any new cabinet sworn in from autumn 2026 rec
 4. **WGI**: control of corruption still below the 2007 level. This is the area with the largest deficit vs. the EU.
 5. **Social cohesion**: highest AROPE among peers. Without redistributive policy, economic growth produces no social return.
 
-As a closing line: **Bulgaria is a stable economy on top of an unstable government**. Six snap elections and eight different cabinets over four years, yet the macroeconomy works at its best levels since EU accession. This is a paradox none of the 5 regional peers + EU27 in our comparison table exhibits. Time will tell whether this resilience is a credit to the administration (which has [improved WGI Government Effectiveness](/indicators/governance) continuously since 2007), to the abundance of EU funds (see the [fiscal pages](/indicators/fiscal)), or to inertia from the old regime.
+As a closing line: **Bulgaria is a stable economy on top of an unstable government**. Six snap elections and eight different cabinets over the past ~5 years, yet the macroeconomy works at its best levels since EU accession. Time will tell whether this resilience is a credit to the administration (which has [improved WGI Government Effectiveness](/indicators/governance) continuously since 2007), to the long-running discipline imposed by the currency board and strict Maastricht-criteria compliance ahead of eurozone entry, to the abundance of EU funds (see the [fiscal pages](/indicators/fiscal)), or to inertia. One important caveat: a meaningful share of the record-low unemployment is the **denominator effect of emigration** — the working-age population has shrunk by roughly 15% since 2007.
 
 You can track the data in real time through [indicators](/indicators) and explore each individual cabinet through the [governments page](/governments).
 
