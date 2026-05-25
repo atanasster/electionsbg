@@ -71,3 +71,26 @@ export const extractItemTitles = (csvText: string): Record<string, string> => {
   }
   return titles;
 };
+
+// Older sessions (pre-47th NA) ship the groups file as XLSX only. The header
+// text we want is column 0 of each "Номер (N) ГЛАСУВАНЕ ... по тема <title>"
+// row — same regex, different source.
+export const extractItemTitlesFromXlsxRows = (
+  rows: ReadonlyArray<ReadonlyArray<unknown>>,
+): Record<string, string> => {
+  const titles: Record<string, string> = {};
+  for (const row of rows) {
+    if (!row || row.length === 0) continue;
+    const cell = row[0];
+    if (cell === null || cell === undefined) continue;
+    const text = String(cell);
+    const m = TITLE_LINE_RE.exec(text);
+    if (!m) continue;
+    const itemKey = m[1];
+    if (titles[itemKey]) continue;
+    const title = cleanTitle(m[2] ?? "");
+    if (title.length < 4) continue;
+    titles[itemKey] = title;
+  }
+  return titles;
+};

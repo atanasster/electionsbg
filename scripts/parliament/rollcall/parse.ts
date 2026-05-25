@@ -49,6 +49,11 @@ const VOTE_MAP: Record<string, Vote> = {
   О: "absent",
   П: "absent",
   Р: "absent",
+  // COVID-era "+online" sessions annotate online voters with the literal
+  // string "онлайн" in some cells instead of a single-character code. Treat
+  // as absent (the online voting tally was published separately and isn't
+  // surfaced per item).
+  онлайн: "absent",
   // Empty cells appear in some sessions for MPs who were never registered
   // that day. Parliament.bg treats them as absent in the published tallies.
   "": "absent",
@@ -65,7 +70,7 @@ const splitCsvLine = (line: string): string[] => {
   return line.split(",").map((s) => s.trim());
 };
 
-export const parseCsv = (raw: string): RawCsvRow[] => {
+export const parseCsv = (raw: string, fallbackNs = ""): RawCsvRow[] => {
   const text = stripBom(raw).replace(/\r\n?/g, "\n");
   const lines = text.split("\n").filter((l) => l.trim() !== "");
   if (lines.length < 2) return [];
@@ -74,11 +79,14 @@ export const parseCsv = (raw: string): RawCsvRow[] => {
     name: header.indexOf("NAME"),
     mpId: header.indexOf("textbox7"),
     party: header.indexOf("textbox8"),
+    // textbox800 (NS folder) was added to the CSV with the 50th NA. Earlier
+    // sessions (47th-49th NA) omit it; fall back to ns passed by the caller.
     ns: header.indexOf("textbox800"),
     item: header.indexOf("ITEM"),
     vote: header.indexOf("textbox2"),
   };
   for (const [k, v] of Object.entries(idx)) {
+    if (k === "ns") continue;
     if (v < 0)
       throw new Error(
         `CSV missing column for ${k} (header: ${header.join("|")})`,
@@ -95,7 +103,7 @@ export const parseCsv = (raw: string): RawCsvRow[] => {
       mpName: cols[idx.name],
       mpId,
       partyShort: cols[idx.party],
-      nsFolder: cols[idx.ns],
+      nsFolder: idx.ns >= 0 ? cols[idx.ns] : fallbackNs,
       item,
       voteCode: cols[idx.vote],
     });
@@ -105,8 +113,11 @@ export const parseCsv = (raw: string): RawCsvRow[] => {
 
 const codeToVote = (code: string): Vote => {
   const v = VOTE_MAP[code];
-  if (!v) throw new Error(`unknown vote code: "${code}"`);
-  return v;
+  if (v) return v;
+  // Pre-47th XLSX files occasionally have stray annotation text in vote
+  // cells. Treat anything we don't recognize as absent rather than fail the
+  // whole session — the missing signal is worth less than the rest of the day.
+  return "absent";
 };
 
 export const groupByItem = (rows: RawCsvRow[]): SessionItem[] => {

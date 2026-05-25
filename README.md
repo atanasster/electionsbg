@@ -307,6 +307,33 @@ Scheduled via a local Claude Desktop routine — runs from the contributor's mac
 
 See `docs/plans/data-watch-ingest-pipeline.md` for the full spec.
 
+### One-off historical backfills
+
+The Tier-1 watcher and `/update-rollcall` skill both run *incrementally* — they pick up where the last successful ingest left off. They do **not** sweep historical id ranges. If you need to backfill old parliaments (or recover from a wiped `data/parliament/votes/`), use the explicit backfill mode of `scrape_rollcall.ts`:
+
+```bash
+# Historical roll-call backfill: 45th-49th NA (Oct 2020 – Jun 2024).
+# Walks every pl-sten id in the range, tries CSV → falls back to XLSX
+# (incl. the COVID-era "+online" layout), skips misuploaded sessions.
+npx tsx scripts/parliament/scrape_rollcall.ts \
+  --from-id 10500 --to-id 10900 \
+  --backfill --skip-canary --seated-tolerance 50
+
+# Then regenerate per-MP loyalty / similarity / cohesion across all NAs.
+npm run derived:rebuild
+```
+
+Notes:
+
+- `--backfill` bypasses the 5% diff-size guard (which exists to protect the daily watcher from a runaway re-ingest). Use it only when you mean to materially grow the session set.
+- `--from-id`/`--to-id` walk an arbitrary range; the script auto-detects the format per session (modern CSV, modern XLSX, or COVID-era `+online` XLSX) and infers the NS folder from the stenogram subject or the date-range table in `scripts/parliament/rollcall/ns.ts`.
+- `--skip-canary` is required for backfill — the canary stenogram (id 11120, Apr 2026) is outside the historical range and re-fetching it on every batch is wasted work.
+- `--seated-tolerance 50` relaxes the per-item seated-count check; older sessions occasionally publish fewer than the standard 240 rows.
+- COVID-era "+online" XLSX files (Oct 2020 – Apr 2021) omit the mp_id column. The backfill resolves ids by name against `data/parliament/profiles/`, so the parliament-scrape skill must have run first.
+- The backfill is a **one-off developer action**. It is intentionally not wired into the daily watcher, `npm run watch`, or any CI workflow.
+
+Expected runtime: ~6-10 minutes over network for the full 10500-10900 range (~250 sessions). Re-runs are safe — existing session files are overwritten with the deterministic canonical JSON.
+
 ## Environment variables
 
 `.env.local` (gitignored — secrets):

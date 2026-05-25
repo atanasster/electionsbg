@@ -24,13 +24,26 @@ import {
   fetchStenogram,
   findRollcallCsv,
   findGroupsCsv,
+  findGroupsXlsx,
   findRollcallPdf,
+  findRollcallXlsx,
   fetchCsv,
+  fetchBinary,
   publicUrl,
   walkStenogramsForward,
+  walkStenogramsRange,
   type PlSten,
 } from "./rollcall/api";
-import { parseCsv, groupByItem, type SessionItem } from "./rollcall/parse";
+import {
+  parseCsv,
+  groupByItem,
+  type RawCsvRow,
+  type SessionItem,
+} from "./rollcall/parse";
+import { parseXlsx, readXlsxRows } from "./rollcall/parse_xlsx";
+import { inferNs } from "./rollcall/ns";
+import { buildNameToIdMap, resolveByName } from "./rollcall/roster";
+import { extractItemTitlesFromXlsxRows } from "./rollcall/titles";
 import { extractItemTitles } from "./rollcall/titles";
 import {
   canonicalJson,
@@ -149,6 +162,7 @@ const ingestSession = async (
     knownMpIds: Set<number>;
     seatedCount: number;
     seatedTolerance: number;
+    nameToId?: Map<string, number>;
   },
   opts: { dryRun: boolean; runCanaryCheck: boolean },
 ): Promise<{
@@ -159,17 +173,84 @@ const ingestSession = async (
   isNew: boolean;
   ns: string;
 } | null> => {
+  // NS is needed at parse time so the CSV/XLSX rows carry the right folder
+  // tag (pre-50th NA the file itself doesn't say). Subject parsing wins when
+  // it succeeds; the date-range table is the backstop.
+  const inferredNs = inferNs(sten.Pl_Sten_sub, sten.Pl_Sten_date);
   const csvRef = findRollcallCsv(sten);
-  if (!csvRef) {
+  const xlsxRef = csvRef ? null : findRollcallXlsx(sten);
+  if (!csvRef && !xlsxRef) {
     console.log(
-      `  · ${sten.Pl_Sten_date} (id ${sten.Pl_Sten_id}): no roll-call CSV — skipped`,
+      `  · ${sten.Pl_Sten_date} (id ${sten.Pl_Sten_id}): no roll-call CSV or XLSX — skipped`,
     );
     return null;
   }
 
-  const csvText = await fetchCsv(csvRef.Pl_StenDfile);
-  const rows = parseCsv(csvText);
+  let rows: RawCsvRow[] | null = null;
+  let sourceKind: "csv" | "xlsx" | "" = "";
+  if (csvRef) {
+    try {
+      const csvText = await fetchCsv(csvRef.Pl_StenDfile);
+      rows = parseCsv(csvText, inferredNs);
+      sourceKind = "csv";
+    } catch (e) {
+      // Parliament.bg has a handful of sessions where the file labeled
+      // "Поименно гласуване" was misuploaded as a registrations/groups CSV
+      // (e.g. id 10772). Fall back to the XLSX.
+      console.log(
+        `  · ${sten.Pl_Sten_date} (id ${sten.Pl_Sten_id}): CSV malformed (${(e as Error).message.slice(0, 80)}…); trying XLSX`,
+      );
+      const xlsxFallback = findRollcallXlsx(sten);
+      if (xlsxFallback) {
+        const xlsxBuf = await fetchBinary(xlsxFallback.Pl_StenDfile);
+        rows = parseXlsx(xlsxBuf, inferredNs);
+        if (rows) sourceKind = "xlsx";
+      }
+    }
+  } else if (xlsxRef) {
+    const xlsxBuf = await fetchBinary(xlsxRef.Pl_StenDfile);
+    rows = parseXlsx(xlsxBuf, inferredNs);
+    if (rows) sourceKind = "xlsx";
+  }
+  if (!rows || sourceKind === "") {
+    console.log(
+      `  · ${sten.Pl_Sten_date} (id ${sten.Pl_Sten_id}): no parseable per-MP file — skipped`,
+    );
+    return null;
+  }
+  // +online XLSX files (44th NA COVID era) have no mp_id column. Resolve by
+  // name against the profiles roster so downstream metrics line up.
+  if (rows.some((r) => r.mpId === 0) && ctx.nameToId) {
+    let resolved = 0;
+    let dropped = 0;
+    rows = rows
+      .map((r) => {
+        if (r.mpId !== 0) return r;
+        const id = resolveByName(ctx.nameToId!, r.mpName);
+        if (id > 0) {
+          resolved++;
+          return { ...r, mpId: id };
+        }
+        dropped++;
+        return null;
+      })
+      .filter((r): r is RawCsvRow => r !== null);
+    if (resolved > 0 || dropped > 0) {
+      console.log(
+        `  · ${sten.Pl_Sten_date} (id ${sten.Pl_Sten_id}): name-resolved ${resolved} mp(s), dropped ${dropped} unresolved`,
+      );
+    }
+  }
   const items = groupByItem(rows);
+  if (items.length === 0) {
+    // Empty XLSX with the right sheet name but no data rows — happens on a
+    // few historical sessions where the file was published but never filled.
+    // Skip rather than fail the whole batch.
+    console.log(
+      `  · ${sten.Pl_Sten_date} (id ${sten.Pl_Sten_id}, ${sourceKind}): no vote items in file — skipped`,
+    );
+    return null;
+  }
   const result = validateSessionItems(items, ctx);
 
   // Canary: validates the parser hasn't drifted from the pinned fixture.
@@ -203,27 +284,38 @@ const ingestSession = async (
 
   if (opts.dryRun) {
     console.log(
-      `  · ${sten.Pl_Sten_date} (id ${sten.Pl_Sten_id}): ${items.length} item(s), ${rows.length} rows${unresolvedHint} — DRY RUN, not written`,
+      `  · ${sten.Pl_Sten_date} (id ${sten.Pl_Sten_id}, ${sourceKind}): ${items.length} item(s), ${rows.length} rows${unresolvedHint} — DRY RUN, not written`,
     );
     return null;
   }
 
   let itemTitles: Record<string, string> = {};
-  const groupsRef = findGroupsCsv(sten);
-  if (groupsRef) {
+  const groupsCsvRef = findGroupsCsv(sten);
+  const groupsXlsxRef = groupsCsvRef ? null : findGroupsXlsx(sten);
+  if (groupsCsvRef) {
     try {
-      const groupsCsv = await fetchCsv(groupsRef.Pl_StenDfile);
+      const groupsCsv = await fetchCsv(groupsCsvRef.Pl_StenDfile);
       itemTitles = extractItemTitles(groupsCsv);
     } catch (e) {
       console.log(
         `  · ${sten.Pl_Sten_date}: groups CSV fetch failed — titles will fall back (${(e as Error).message})`,
       );
     }
+  } else if (groupsXlsxRef) {
+    try {
+      const groupsBuf = await fetchBinary(groupsXlsxRef.Pl_StenDfile);
+      const groupsRows = readXlsxRows(groupsBuf);
+      itemTitles = extractItemTitlesFromXlsxRows(groupsRows);
+    } catch (e) {
+      console.log(
+        `  · ${sten.Pl_Sten_date}: groups XLSX parse failed — titles will fall back (${(e as Error).message})`,
+      );
+    }
   }
   const pdfRef = findRollcallPdf(sten);
   const pdfUrl = pdfRef ? publicUrl(pdfRef.Pl_StenDfile) : undefined;
   const sessionFile: SessionFile = {
-    ns: rows[0]?.nsFolder ? `${rows[0].nsFolder}` : "",
+    ns: rows[0]?.nsFolder ? `${rows[0].nsFolder}` : inferredNs,
     date: sten.Pl_Sten_date,
     stenogramId: sten.Pl_Sten_id,
     scrapedAt: new Date().toISOString(),
@@ -236,7 +328,7 @@ const ingestSession = async (
   };
   const { path: relPath, isNew } = writeSession(sessionFile);
   console.log(
-    `  ${isNew ? "+" : "~"} ${sten.Pl_Sten_date} (id ${sten.Pl_Sten_id}): ${items.length} item(s), ${rows.length} rows${unresolvedHint} → ${relPath}`,
+    `  ${isNew ? "+" : "~"} ${sten.Pl_Sten_date} (id ${sten.Pl_Sten_id}, ${sourceKind}): ${items.length} item(s), ${rows.length} rows${unresolvedHint} → ${relPath}`,
   );
   return {
     date: sten.Pl_Sten_date,
@@ -251,6 +343,9 @@ const ingestSession = async (
 const main = async (args: {
   since?: string;
   sessionId?: string;
+  fromId?: string;
+  toId?: string;
+  backfill: boolean;
   upload: boolean;
   dryRun: boolean;
   skipCanary: boolean;
@@ -264,6 +359,19 @@ const main = async (args: {
   const baselineFileCount = countDomainFiles(VOTES_DIR);
 
   const knownMpIds = loadMpIndex();
+  // Build a name → id roster scoped to NS 44 (the only NA where the COVID-era
+  // "+online" XLSX layout omits the mp_id column). Sourced from already-
+  // ingested 44th-NA sessions, which carry the authoritative id space.
+  // Means: ingest the non-online 44th-NA sessions first, then re-run the
+  // backfill so the resolver has ground truth to draw from.
+  const nameToId = args.backfill
+    ? buildNameToIdMap(SESSIONS_DIR, "44")
+    : undefined;
+  if (args.backfill && nameToId) {
+    console.log(
+      `→ name→id roster for NS 44: ${nameToId.size} entries (from existing sessions)`,
+    );
+  }
   const ctx = {
     knownMpIds,
     seatedCount: args.seatedCount ? parseInt(args.seatedCount, 10) : 240,
@@ -272,6 +380,7 @@ const main = async (args: {
     seatedTolerance: args.seatedTolerance
       ? parseInt(args.seatedTolerance, 10)
       : 5,
+    nameToId,
   };
 
   let stenograms: PlSten[] = [];
@@ -282,6 +391,19 @@ const main = async (args: {
     const sten = await fetchStenogram(id);
     if (!sten) throw new Error(`stenogram id ${id} not found`);
     stenograms = [sten];
+  } else if (args.fromId && args.toId) {
+    const from = parseInt(args.fromId, 10);
+    const to = parseInt(args.toId, 10);
+    if (!Number.isFinite(from) || !Number.isFinite(to) || to < from) {
+      throw new Error(`bad --from-id/--to-id range: ${from}..${to}`);
+    }
+    console.log(`→ walking pl-sten range [${from}, ${to}] (backfill mode)`);
+    stenograms = await walkStenogramsRange(from, to, {
+      onProgress: (id, found) => {
+        if (id % 25 === 0) console.log(`  scanned id=${id}, found=${found}`);
+      },
+    });
+    console.log(`  found ${stenograms.length} stenogram(s) in range`);
   } else {
     const existing = readIndex();
     const startAfter = args.since
@@ -345,11 +467,22 @@ const main = async (args: {
     ns: string;
   }> = [];
   for (const sten of stenograms) {
-    const result = await ingestSession(sten, ctx, {
-      dryRun: args.dryRun,
-      runCanaryCheck: !args.skipCanary,
-    });
-    if (result) ingested.push(result);
+    try {
+      const result = await ingestSession(sten, ctx, {
+        dryRun: args.dryRun,
+        runCanaryCheck: !args.skipCanary,
+      });
+      if (result) ingested.push(result);
+    } catch (e) {
+      // Per-session ingest failures (malformed upstream files, validation
+      // anomalies, etc.) must not abort the whole run during --backfill.
+      // For normal runs (single newest session each day), let it crash so
+      // the watcher escalates.
+      if (!args.backfill) throw e;
+      console.log(
+        `  · ${sten.Pl_Sten_date} (id ${sten.Pl_Sten_id}): ingest failed (${(e as Error).message.slice(0, 100)}…) — skipped`,
+      );
+    }
   }
 
   if (args.dryRun) {
@@ -357,10 +490,18 @@ const main = async (args: {
     return;
   }
 
-  // Diff size guard (PRD guardrail).
+  // Diff size guard (PRD guardrail). Bypassed in --backfill mode where we're
+  // explicitly ingesting a historical id range and expect to multiply the
+  // session count.
   const newCount = ingested.filter((r) => r.isNew).length;
   const modCount = ingested.filter((r) => !r.isNew).length;
-  checkDiffSize(baselineFileCount, newCount, modCount);
+  if (args.backfill) {
+    console.log(
+      `  · diff cap bypassed (--backfill): ${newCount} new, ${modCount} modified`,
+    );
+  } else {
+    checkDiffSize(baselineFileCount, newCount, modCount);
+  }
 
   // Update index. Backfill `ns` on any pre-existing entries by reading the
   // session file from disk — the index didn't carry it before this commit.
@@ -483,6 +624,25 @@ const cli = command({
       long: "session-id",
       description: "Ingest exactly one stenogram by Pl_Sten_id",
     }),
+    fromId: option({
+      type: optional(string),
+      long: "from-id",
+      description:
+        "Backfill: lower bound of Pl_Sten_id range to scan (use with --to-id, --backfill)",
+    }),
+    toId: option({
+      type: optional(string),
+      long: "to-id",
+      description:
+        "Backfill: upper bound of Pl_Sten_id range to scan (use with --from-id, --backfill)",
+    }),
+    backfill: flag({
+      type: optional(boolean),
+      long: "backfill",
+      description:
+        "Backfill mode: bypass the 5% diff cap (use only with --from-id/--to-id or --since)",
+      defaultValue: () => false,
+    }),
     upload: flag({
       type: optional(boolean),
       long: "upload",
@@ -517,6 +677,9 @@ const cli = command({
     main({
       since: args.since,
       sessionId: args.sessionId,
+      fromId: args.fromId,
+      toId: args.toId,
+      backfill: !!args.backfill,
       upload: !!args.upload,
       dryRun: !!args.dryRun,
       skipCanary: !!args.skipCanary,

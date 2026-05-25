@@ -104,6 +104,29 @@ export const findGroupsCsv = (sten: PlSten): StenFile | null => {
   );
 };
 
+// XLSX fallback for the groups file. Pre-47th NA sessions ship this format
+// only; without it the SPA falls back to outcome-derived labels.
+export const findGroupsXlsx = (sten: PlSten): StenFile | null => {
+  return (
+    (sten.files ?? []).find(
+      (f) =>
+        f.Pl_StenDname.includes("парламентарни групи") &&
+        f.Pl_StenDfile.endsWith(".xlsx"),
+    ) ?? null
+  );
+};
+
+// Per-MP XLSX for the day. Used as a fallback when the CSV variant isn't
+// published (45th-46th NA, and occasional gaps in 47th NA).
+export const findRollcallXlsx = (sten: PlSten): StenFile | null => {
+  return (
+    (sten.files ?? []).find(
+      (f) =>
+        f.Pl_StenDname.includes("Поименно") && f.Pl_StenDfile.endsWith(".xlsx"),
+    ) ?? null
+  );
+};
+
 // Per-MP PDF for the day — useful as a "see source document" deep-link from
 // the frontend.
 export const findRollcallPdf = (sten: PlSten): StenFile | null => {
@@ -127,6 +150,24 @@ export const fetchCsv = async (relativeUrl: string): Promise<string> => {
     try {
       const res = await fetch(url, { headers: TEXT_HEADERS });
       if (res.ok) return await res.text();
+      if (res.status < 500) throw new Error(`HTTP ${res.status} for ${url}`);
+      await sleep(500 * (attempt + 1));
+    } catch (e) {
+      if (attempt >= 2) throw e;
+      await sleep(500 * (attempt + 1));
+    }
+  }
+  throw new Error(`failed to fetch ${url}`);
+};
+
+export const fetchBinary = async (relativeUrl: string): Promise<Buffer> => {
+  const url = relativeUrl.startsWith("http")
+    ? relativeUrl
+    : `${PUB}${relativeUrl}`;
+  for (let attempt = 0; attempt < 3; attempt++) {
+    try {
+      const res = await fetch(url, { headers: TEXT_HEADERS });
+      if (res.ok) return Buffer.from(await res.arrayBuffer());
       if (res.status < 500) throw new Error(`HTTP ${res.status} for ${url}`);
       await sleep(500 * (attempt + 1));
     } catch (e) {
@@ -163,6 +204,26 @@ export const walkStenogramsForward = async (
     }
     gap = 0;
     out.push(sten);
+  }
+  return out;
+};
+
+// Fetch every existing stenogram in [fromId, toId] inclusive. Unlike the
+// forward walker, this doesn't stop on gaps — historical id ranges have lots
+// of non-existent ids interleaved with valid ones. Use for backfill where the
+// range is known and bounded.
+export const walkStenogramsRange = async (
+  fromId: number,
+  toId: number,
+  opts: {
+    onProgress?: (id: number, found: number) => void;
+  } = {},
+): Promise<PlSten[]> => {
+  const out: PlSten[] = [];
+  for (let id = fromId; id <= toId; id++) {
+    const sten = await fetchStenogram(id);
+    opts.onProgress?.(id, out.length);
+    if (sten) out.push(sten);
   }
   return out;
 };
