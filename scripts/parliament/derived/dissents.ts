@@ -99,7 +99,10 @@ export const computeDissents = (sessions: SessionFile[]): DissentOutput => {
         const p = partyOf(file, v.mpId);
         if (p) partiesInItem.add(p);
       }
-      const partyMajority = new Map<string, VoteValue | null>();
+      const partyMajority = new Map<
+        string,
+        Exclude<VoteValue, "absent"> | null
+      >();
       for (const p of partiesInItem) {
         partyMajority.set(p, majorityFor(item, p, file.mpParty));
       }
