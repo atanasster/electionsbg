@@ -210,7 +210,7 @@ Focus on 5 cabinets: **Petkov → Donev → Denkov → Glavchev I+II → Zhelyaz
 - **Debt accumulation accelerated dramatically**: 6.2 pp of GDP in the Zhelyazkov term alone (larger than any other single-cabinet accumulation in the table).
 - Unemployment is phenomenally low (3.5%), but combined with **AROPE 29%** it means **many employed people live in poverty risk** — the "working poor" phenomenon.
 
-**The lag that has not yet arrived**: the 2024–2025 fiscal loosening has to be consolidated to meet the extended Maastricht rules the country has just agreed to. That burden will fall on cabinet [Radev](/governments/radev) or the next regular one — who **will have to clean up someone else's bill**.
+**The lag that has not yet arrived**: the 2024–2025 fiscal loosening has to be consolidated to meet the extended Maastricht rules the country has just agreed to. That burden will fall on the incumbent regular [Radev](/governments/radev) cabinet or whichever government succeeds it — who **will have to clean up someone else's bill**.
 
 ## What works and what doesn't — summary
 
