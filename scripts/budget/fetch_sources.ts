@@ -348,14 +348,35 @@ export const EXECUTION_REPORTS: ExecutionReportSource[] = [
   //   • МК Culture             — €0.21B  Playwright discovery (see below)
   //                                       found the canonical pattern:
   //                                       mc.government.bg/files/<id>_1800_
-  //                                       Otchet_31.12.<YYYY>.doc. FY2023
-  //                                       reachable (10079_…); FY2024 annual
-  //                                       not published; FY2025 surfaced as
-  //                                       XLSX. BLOCKER: files are binary
-  //                                       Word 97-2003 (.doc), not OOXML
-  //                                       .docx — needs a binary-doc parser
-  //                                       path beyond the current
-  //                                       headcount_docx.ts
+  //                                       Otchet_31.12.<YYYY>.doc. THREE
+  //                                       independent blockers, in priority
+  //                                       order if anyone wants to invest:
+  //                                       (a) FY2022 / FY2023 are binary
+  //                                       Word 97-2003 (.doc), not OOXML —
+  //                                       unzipper can't open them; needs a
+  //                                       binary-doc parser path (libreoffice
+  //                                       --headless --convert-to docx, OR
+  //                                       npm word-extractor / textract)
+  //                                       beyond the current
+  //                                       headcount_docx.ts.
+  //                                       (b) The newer 30.06.2025.docx
+  //                                       (H1 programmatic) IS OOXML but
+  //                                       uses one table block per programme
+  //                                       with quarterly columns
+  //                                       (Закон / Уточнен / Q1 / Q2 / Q3 /
+  //                                       Q4), unlike MZh's single shared
+  //                                       table with 3 trailing cells. Needs
+  //                                       a separate MK-shaped parser, OR
+  //                                       headcount_docx.ts grown to a
+  //                                       per-table programme-detection mode.
+  //                                       (c) The 31.12.2025.xlsx file IS
+  //                                       fetchable but is a cash-flow
+  //                                       execution report (sheets KSF /
+  //                                       DES / DMP / 33), not the
+  //                                       programme-budget report; no
+  //                                       per-programme headcount in it.
+  //                                       МК FY2024 annual programmatic is
+  //                                       not yet published as of 2026-05-26.
   //   • МВнР Foreign Affairs   — €0.09B  Wayback only has FY2017 H1; the
   //                                       FY24 file isn't archived
   //   • МС Council of Ministers — €0.08B  government.bg returns 0 candidate
