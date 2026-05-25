@@ -324,6 +324,7 @@ Pre-existing condition the slice fixed: `writeIfChanged` now ignores `generatedA
 | `scripts/watch/sources/egov_budget_execution.ts` | Watcher — КФП dataset resource-UUID list |
 | `scripts/watch/sources/ministry_execution_reports.ts` | Watcher — HEAD-probes every fetchable URL in `EXECUTION_REPORTS` (skips manual-pdf) |
 | `scripts/watch/sources/minfin_program_otchet.ts` | Watcher — Wayback CDX of `1000_Pril-1-MoF_*ProgOtchet*.pdf`, the МФ programme-budget execution reports (covers the WAF-blocked manual-pdf gap) |
+| `scripts/watch/sources/mfa_program_otchet.ts` | Watcher — Wayback CDX of `mfa.bg/upload/<id>/*програмен отчет*.zip`, the МВнР programmatic execution reports. Complements `ministry_execution_reports` by surfacing NEW fiscal years (the existing watcher HEAD-probes already-listed URLs) |
 | `scripts/budget/discover_execution_reports.ts` | One-off Playwright discovery aid — sweeps JS-rendered ministry budget sections and writes scored candidate URLs to `data-reports/budget-discovery-<DATE>.md`. Not wired into the watcher or CI. |
 | `data/budget/index.json` | Year/period coverage summary — committed |
 | `data/budget/kfp.json` | КФП observation series + snapshots — committed |

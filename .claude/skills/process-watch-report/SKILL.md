@@ -52,6 +52,7 @@ The "Changed" section of the report contains a bulleted list. Each bullet's labe
 | `BNB domestic ДЦК auctions` | `update-macro` (re-scrapes debt-emissions list) |
 | `Minfin КФП monthly bulletins` | `update-macro` (re-scrapes fiscal-reserve via Wayback) |
 | `Minfin programme-budget execution reports` (МФ via Wayback) | `update-budget` (operator backfills `raw_data/budget/exec-admin-ministerstvoto-na-finansite-<fy>.pdf` from the Wayback URL in the watcher's describe-line, then activates the manual-pdf entry in `EXECUTION_REPORTS`) |
+| `МВнР programmatic execution reports` (via Wayback) | `update-budget` (when a new fiscal-year ZIP lands at `mfa.bg/upload/<id>/...програмен отчет МВнР <date>.zip`, add an `xlsx-in-zip` entry to `EXECUTION_REPORTS` with `entryName: "1100-Otchet programi <YYYY>12_MVnR.xlsx"` — the existing FY2023 entry is the template) |
 | `Eurostat regional` (BG) | `update-regional` |
 | `AZ (Агенция по заетостта)` | `update-indicators` + `update-regional` |
 | `МОН: ДЗИ резултати` | `update-indicators` |
@@ -133,6 +134,7 @@ Each watcher source maps to one or more downstream skills. Multiple sources can 
 | `bnb_auctions` | `update-macro` (debt-emissions sub-step — re-runs `fetch_bnb_auctions.ts`) |
 | `minfin_mreports` | `update-macro` (fiscal-reserve sub-step — re-runs `fetch_fiscal_reserve.ts`) |
 | `minfin_program_otchet` | `update-budget` (operator backfills the new MoF ProgOtchet PDF from Wayback into `raw_data/budget/exec-admin-ministerstvoto-na-finansite-<fy>.pdf` and activates the matching `manual-pdf` entry in `EXECUTION_REPORTS`) |
+| `mfa_program_otchet` | `update-budget` (when a new MVnR fiscal year lands in Wayback, add an `xlsx-in-zip` entry to `EXECUTION_REPORTS`. The describe-line shows the latest period; the FY2023 entry in `fetch_sources.ts` is the template) |
 | `eurostat_regional` | `update-regional` |
 | `indicators_az` | `update-indicators` + `update-regional` |
 | `indicators_mon_dzi` | `update-indicators` |

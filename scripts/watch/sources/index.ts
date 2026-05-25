@@ -19,6 +19,7 @@ import { ecBudgetPerMs } from "./ec_budget_per_ms";
 import { bnbAuctions } from "./bnb_auctions";
 import { minfinMreports } from "./minfin_mreports";
 import { minfinProgramOtchet } from "./minfin_program_otchet";
+import { mfaProgramOtchet } from "./mfa_program_otchet";
 import { indicatorsAz } from "./indicators_az";
 import { indicatorsMonDzi } from "./indicators_mon_dzi";
 import { indicatorsNsiPop } from "./indicators_nsi_pop";
@@ -58,6 +59,7 @@ export const SOURCES: WatchSource[] = [
   bnbAuctions,
   minfinMreports,
   minfinProgramOtchet,
+  mfaProgramOtchet,
   indicatorsAz,
   indicatorsMonDzi,
   indicatorsNsiPop,
