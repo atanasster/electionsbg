@@ -18,6 +18,7 @@ import { eurostatRegional } from "./eurostat_regional";
 import { ecBudgetPerMs } from "./ec_budget_per_ms";
 import { bnbAuctions } from "./bnb_auctions";
 import { minfinMreports } from "./minfin_mreports";
+import { minfinProgramOtchet } from "./minfin_program_otchet";
 import { indicatorsAz } from "./indicators_az";
 import { indicatorsMonDzi } from "./indicators_mon_dzi";
 import { indicatorsNsiPop } from "./indicators_nsi_pop";
@@ -56,6 +57,7 @@ export const SOURCES: WatchSource[] = [
   ecBudgetPerMs,
   bnbAuctions,
   minfinMreports,
+  minfinProgramOtchet,
   indicatorsAz,
   indicatorsMonDzi,
   indicatorsNsiPop,

@@ -225,6 +225,17 @@ Some ministry sites (minfin.bg, mvr.bg) WAF-block automated clients on every end
 4. **Uncomment** the entry in `EXECUTION_REPORTS` (manual-pdf entries default to commented-out so they don't fire the missing-file warning until activated).
 5. **Run** `npm run budget:ingest`. If the file isn't found, the run logs `⚠ <adminId> <year> [manual-pdf]: skipped — …` and continues (non-fatal); the rest of the pipeline still completes.
 
+### Wayback fallback for МФ ProgOtchet
+
+When the live minfin.bg is Cloudflare-challenged but the file already exists, the Internet Archive usually has a usable capture. The `minfin_program_otchet` watcher (`scripts/watch/sources/minfin_program_otchet.ts`) polls Wayback CDX for `1000_Pril-1-MoF_*ProgOtchet*.pdf` and surfaces the latest annual capture. When it flips, the operator can pull the file via the `id_` raw-flavor:
+
+```bash
+curl -sL "https://web.archive.org/web/<timestamp>id_/<original-url>" \
+  -o raw_data/budget/exec-admin-ministerstvoto-na-finansite-<fy>.pdf
+```
+
+…then activate the matching manual-pdf entry in `EXECUTION_REPORTS` and re-ingest. The МФ FY2023 entry was seeded this way; FY2024 awaits a Wayback capture.
+
 ## Canaries — what each one guards
 
 Six canaries fire every run. Any mismatch throws; the run halts before any write. To investigate, read the named parser; to deliberately re-seed (after a confirmed upstream format change), delete the fixture file and re-run.
@@ -295,7 +306,8 @@ Pre-existing condition the slice fixed: `writeIfChanged` now ignores `generatedA
 | `scripts/budget/validate.ts` | canonicalJson, canary, diff-cap (with gitignored-shard exclusion + volatile-key filter on writeIfChanged) |
 | `scripts/budget/types.ts` | Shared type definitions (all phases) |
 | `scripts/watch/sources/egov_budget_execution.ts` | Watcher — КФП dataset resource-UUID list |
-| `scripts/watch/sources/ministry_execution_reports.ts` | Watcher — HEAD-probes every fetchable URL in `EXECUTION_REPORTS` |
+| `scripts/watch/sources/ministry_execution_reports.ts` | Watcher — HEAD-probes every fetchable URL in `EXECUTION_REPORTS` (skips manual-pdf) |
+| `scripts/watch/sources/minfin_program_otchet.ts` | Watcher — Wayback CDX of `1000_Pril-1-MoF_*ProgOtchet*.pdf`, the МФ programme-budget execution reports (covers the WAF-blocked manual-pdf gap) |
 | `data/budget/index.json` | Year/period coverage summary — committed |
 | `data/budget/kfp.json` | КФП observation series + snapshots — committed |
 | `data/budget/documents.json` | Budget-journey document index — committed |
