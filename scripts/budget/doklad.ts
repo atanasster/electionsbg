@@ -220,7 +220,10 @@ const parseStructureCounts = (text: string): DokladStructureCounts => {
       .replace(/^(Централна|Териториална)\s*/i, "")
       .replace(/^администрация\s*/i, "")
       .trim();
-    if (!label || label.length < 3) continue;
+    // Require ≥3 Cyrillic letters (rejects stray numbers, dashes, year
+    // headers like "Брой 2024") while letting genuine short labels through.
+    const cyrillicLetters = (label.match(/[А-Яа-я]/g) ?? []).length;
+    if (cyrillicLetters < 3) continue;
     const thisYearCount = Number(m[3]);
     if (thisYearCount === 0 || thisYearCount > 500) continue;
     (region === "central" ? central : territorial)[label] = thisYearCount;

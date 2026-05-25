@@ -45,7 +45,7 @@ export const BudgetFlowPersonnelDrilldown: FC<{
   snapshot: KfpSnapshot;
   onClose: () => void;
 }> = ({ fiscalYear, snapshot, onClose }) => {
-  const { i18n } = useTranslation();
+  const { t, i18n } = useTranslation();
   const lang = i18n.language.startsWith("bg") ? "bg" : "en";
   const { data } = usePersonnel();
 
@@ -97,16 +97,17 @@ export const BudgetFlowPersonnelDrilldown: FC<{
       <div className="flex items-center justify-between gap-2 mb-2">
         <div className="flex items-center gap-2 text-sm font-medium">
           <Users className="h-4 w-4" />
-          {lang === "bg" ? "Персонал → министерства" : "Personnel → ministries"}
+          {t("personnel_drilldown_title")}
           <span className="text-xs text-muted-foreground font-normal">
-            · {ministryYear} г.
+            · {ministryYear}
+            {lang === "bg" ? " г." : ""}
           </span>
         </div>
         <button
           type="button"
           onClick={onClose}
           className="rounded p-1 hover:bg-muted"
-          aria-label={lang === "bg" ? "Затвори" : "Close"}
+          aria-label={t("personnel_drilldown_close")}
         >
           <X className="h-4 w-4" />
         </button>
@@ -117,9 +118,11 @@ export const BudgetFlowPersonnelDrilldown: FC<{
           (WAF-blocked), and other ministries not yet wired in. */}
       {sankeyPersonnelEur != null && (
         <div className="mb-2 text-xs text-muted-foreground">
-          {lang === "bg"
-            ? `Покритие: ${compactEur(coveredEur)} от ${compactEur(totalEur)} (${coveragePct.toFixed(1)}%) от линията „Персонал" в КФП. Останалата част — МО (класифицирано), МВР, МФ и министерства, които още не са ингестирани.`
-            : `Coverage: ${compactEur(coveredEur)} of ${compactEur(totalEur)} (${coveragePct.toFixed(1)}%) of the КФП Personnel line. Remainder = MOD (classified), MoI, MoF, and ministries not yet ingested.`}
+          {t("personnel_drilldown_coverage", {
+            covered: compactEur(coveredEur),
+            total: compactEur(totalEur),
+            pct: coveragePct.toFixed(1),
+          })}
         </div>
       )}
       <div className="space-y-1">
@@ -146,9 +149,7 @@ export const BudgetFlowPersonnelDrilldown: FC<{
         })}
       </div>
       <p className="mt-2 text-[11px] text-muted-foreground">
-        {lang === "bg"
-          ? "Само министерства, които публикуват „Численост на щатния персонал“ в програмния отчет. МО не публикува (класифицирано)."
-          : "Only ministries that publish staffing data in their program-budget execution report. MOD does not (classified)."}
+        {t("personnel_ministries_caveat")}
       </p>
     </div>
   );
@@ -161,8 +162,7 @@ export const BudgetFlowPersonnelTrigger: FC<{
   open: boolean;
   onClick: () => void;
 }> = ({ open, onClick }) => {
-  const { i18n } = useTranslation();
-  const lang = i18n.language.startsWith("bg") ? "bg" : "en";
+  const { t } = useTranslation();
   return (
     <button
       type="button"
@@ -170,9 +170,7 @@ export const BudgetFlowPersonnelTrigger: FC<{
       className="inline-flex items-center gap-1 rounded border px-2 py-0.5 text-xs hover:bg-muted/50"
     >
       <Users className="h-3 w-3" />
-      {lang === "bg"
-        ? "Разпредели „Персонал“ по министерства"
-        : "Drill into Personnel by ministry"}
+      {t("personnel_flow_trigger")}
       <ChevronDown
         className={`h-3 w-3 transition-transform ${open ? "rotate-180" : ""}`}
       />

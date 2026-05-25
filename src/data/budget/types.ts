@@ -259,6 +259,17 @@ export interface BudgetYearCoverage {
   >;
 }
 
+// Personnel coverage summary — tells the frontend which years have national
+// Доклад aggregates and which have per-ministry headcount, without forcing
+// it to fetch the full personnel.json before deciding whether to render the
+// tile.
+export interface PersonnelCoverage {
+  nationalYears: number[];
+  ministryYears: number[];
+  ministryCountByYear: Record<string, number>;
+  programmeCountByYear: Record<string, number>;
+}
+
 export interface BudgetIndex {
   generatedAt: string;
   lastIngest: string;
@@ -272,6 +283,7 @@ export interface BudgetIndex {
   years: BudgetYearCoverage[];
   fiscalYears: FiscalYearSummary[];
   documentCount: number;
+  personnel?: PersonnelCoverage;
 }
 
 // --------------------------------------------------------------------------

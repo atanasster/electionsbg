@@ -5,6 +5,21 @@
 //   npx tsx scripts/budget/__smoke_personnel.ts
 //
 // Validates wiring in isolation from upstream rate limits.
+//
+// Convention: scripts prefixed with `__` are dev-only validators. They are
+// intentionally not invoked from `npm run budget:ingest` or any production
+// path; they exist to give a fast (~5 s) feedback loop on the personnel
+// pillar specifically, while the full ingest needs network access to
+// data.egov.bg + dv.parliament.bg + every ministry site.
+//
+// What this script does:
+//   1. Walks `EXECUTION_REPORTS` and reads each entry's already-cached bytes
+//      from `raw_data/budget/exec-<adminId>-<fy>.<ext>` (skips when missing).
+//   2. Calls `buildPersonnel` with those bytes + every curated Доклад year.
+//   3. Writes `data/budget/personnel.json` and prints per-year per-ministry
+//      summary rows.
+//   4. Runs the four canaries (PDF/XLSX/DOCX headcount + Доклад aggregates)
+//      to catch parser drift before the full ingest does.
 
 import fs from "fs";
 import path from "path";
@@ -107,6 +122,13 @@ const main = async (): Promise<void> => {
   if (xlsxCanary) {
     console.log("→ canary on headcount [xlsx-in-zip]");
     runCanary(path.join(fixturesDir, "headcount-xlsx-canary.json"), xlsxCanary);
+  }
+  const docxCanary = summaries.find(
+    (s) => s.adminId === "admin-ministerstvoto-na-zemedelieto",
+  );
+  if (docxCanary) {
+    console.log("→ canary on headcount [docx-in-zip]");
+    runCanary(path.join(fixturesDir, "headcount-docx-canary.json"), docxCanary);
   }
   const doklad = result.file.national[CANARY_YEAR];
   if (doklad) {

@@ -46,6 +46,7 @@ import { buildAdminRegistry, buildLawFacts, buildProgramData } from "./facts";
 import { parseExecutionPdf } from "./execution_pdf";
 import { parseBorderlessExecutionPdf } from "./execution_borderless_pdf";
 import { parseExecutionXlsx } from "./execution_xlsx";
+import { parseExecutionDocx } from "./execution_docx";
 import { buildExecutionFacts } from "./execution_facts";
 import {
   buildPersonnel,
@@ -127,9 +128,10 @@ const EXECUTION_XLSX_CANARY_FIXTURE = path.resolve(
   __dirname,
   "../../tests/fixtures/budget/execution-xlsx-canary.json",
 );
-// Personnel canaries — one per parser path. headcount-pdf (MZ 2024) and
-// headcount-xlsx (МТСП 2024) pin the per-programme headcount parser; doklad
-// (2024) pins the annual-report aggregate parser.
+// Personnel canaries — one per parser path. headcount-pdf (MZ 2024),
+// headcount-xlsx (МТСП 2024), headcount-docx (МЗХ 2024) pin the per-programme
+// headcount parser across the three formats; doklad (2024) pins the
+// annual-report aggregate parser.
 const HEADCOUNT_PDF_CANARY_FIXTURE = path.resolve(
   __dirname,
   "../../tests/fixtures/budget/headcount-pdf-canary.json",
@@ -138,11 +140,16 @@ const HEADCOUNT_XLSX_CANARY_FIXTURE = path.resolve(
   __dirname,
   "../../tests/fixtures/budget/headcount-xlsx-canary.json",
 );
+const HEADCOUNT_DOCX_CANARY_FIXTURE = path.resolve(
+  __dirname,
+  "../../tests/fixtures/budget/headcount-docx-canary.json",
+);
 const DOKLAD_CANARY_FIXTURE = path.resolve(
   __dirname,
   "../../tests/fixtures/budget/doklad-canary.json",
 );
 const PERSONNEL_CANARY_YEAR = 2024;
+const HEADCOUNT_DOCX_CANARY_ADMIN_ID = "admin-ministerstvoto-na-zemedelieto";
 
 // Pinned resource for the canary — the 2025-12 (full-year) snapshot. Re-parsed
 // every run; byte drift in the parser or currency conversion throws.
@@ -199,6 +206,7 @@ const buildIndex = (
   parsed: ParsedResource[],
   unitsByYear: Map<number, ParsedLawUnit[]>,
   economicYears: Set<number>,
+  personnelFile: import("./personnel_facts").PersonnelFile,
 ): BudgetIndex => {
   const periods = [...new Set(kfp.observations.map((o) => o.period))].sort();
   const byYear = new Map<number, BudgetYearCoverage>();
@@ -268,6 +276,29 @@ const buildIndex = (
       return buildFiscalYearSummaries(parsed, gdpByYear);
     })(),
     documentCount: documents.documents.length,
+    personnel: (() => {
+      const nationalYears = Object.keys(personnelFile.national)
+        .map(Number)
+        .sort((a, b) => a - b);
+      const ministryYears = Object.keys(personnelFile.byMinistry)
+        .map(Number)
+        .sort((a, b) => a - b);
+      const ministryCountByYear: Record<string, number> = {};
+      const programmeCountByYear: Record<string, number> = {};
+      for (const [year, arr] of Object.entries(personnelFile.byMinistry)) {
+        ministryCountByYear[year] = arr.length;
+        programmeCountByYear[year] = arr.reduce(
+          (n, m) => n + m.programmes.length,
+          0,
+        );
+      }
+      return {
+        nationalYears,
+        ministryYears,
+        ministryCountByYear,
+        programmeCountByYear,
+      };
+    })(),
   };
 };
 
@@ -436,18 +467,15 @@ const main = async (args: {
         unit = await parseExecutionXlsx(sourceBytes, r.fiscalYear);
       } else if (r.format === "docx" || r.format === "docx-in-zip") {
         // DOCX-format reports — used by ministries that publish in MS Word
-        // (МЗХ). Financial-grain parsing is not yet implemented for DOCX, so
-        // we fetch the bytes purely for the headcount/Персонал extractor
-        // downstream. The admin/program facts for these ministries are
-        // populated only from the law side (planned), not amended/executed.
+        // (МЗХ). Same financial-grain extraction as the PDF/XLSX paths plus
+        // the bytes flow on to the headcount/Персонал extractor downstream.
         sourceBytes = await fetchExecutionDocx(
           r.adminId,
           r.fiscalYear,
           r.url,
           fetchOpts,
         );
-        // No financial unit — skip the reconciliation steps but still
-        // capture bytes for the personnel orchestrator.
+        unit = await parseExecutionDocx(sourceBytes, r.fiscalYear);
       } else {
         // manual-pdf — read from cache; missing file is non-fatal
         sourceBytes = readManualExecutionPdf(r.adminId, r.fiscalYear, r.url);
@@ -479,11 +507,10 @@ const main = async (args: {
       });
     }
     if (!unit) {
-      // DOCX-format reports contribute headcount only — no financial facts
-      // until a DOCX financial parser is added. Log and continue.
+      // Unreachable now that every format has a parser, but kept as a guard
+      // for future additions (e.g. manual-pdf with no parser dispatch).
       console.log(
-        `  • ${r.adminId} ${r.fiscalYear} [${r.format}]: headcount-only ` +
-          `(no financial-grain parser for ${r.format} yet)`,
+        `  • ${r.adminId} ${r.fiscalYear} [${r.format}]: skipped — no parser`,
       );
       continue;
     }
@@ -551,6 +578,18 @@ const main = async (args: {
       { nameBg: n.nameBg, nameEn: n.nameEn },
     ]),
   );
+  // Surface ministries that have execution-report entries but no admin
+  // classification node — they'd otherwise appear with a slugged ID as a
+  // display name on the frontend.
+  for (const src of personnelSources) {
+    if (!adminNameByIdForPersonnel.has(src.adminId)) {
+      console.warn(
+        `  ⚠ personnel: no admin classification node for ${src.adminId} — ` +
+          `frontend will show the slug as the display name. Add the ministry ` +
+          `to the State Budget Law parse so it gets a node.`,
+      );
+    }
+  }
   const personnel = await buildPersonnel({
     sources: personnelSources,
     dokladYears: Object.keys(DOKLAD_FILE_IDS).map(Number),
@@ -602,6 +641,15 @@ const main = async (args: {
         `→ canary on headcount [xlsx-in-zip] ${EXECUTION_XLSX_CANARY_ADMIN_ID} ${PERSONNEL_CANARY_YEAR}`,
       );
       runCanary(HEADCOUNT_XLSX_CANARY_FIXTURE, xlsxCanary);
+    }
+    const docxCanary = summaries.find(
+      (s) => s.adminId === HEADCOUNT_DOCX_CANARY_ADMIN_ID,
+    );
+    if (docxCanary) {
+      console.log(
+        `→ canary on headcount [docx] ${HEADCOUNT_DOCX_CANARY_ADMIN_ID} ${PERSONNEL_CANARY_YEAR}`,
+      );
+      runCanary(HEADCOUNT_DOCX_CANARY_FIXTURE, docxCanary);
     }
     const doklad = personnel.file.national[yearKey];
     if (doklad) {
@@ -752,6 +800,7 @@ const main = async (args: {
     parsed,
     unitsByYear,
     new Set(economicFactsByYear.keys()),
+    personnel.file,
   );
   const projectable = index.fiscalYears.filter((f) => f.projected).length;
   console.log(

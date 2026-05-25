@@ -418,6 +418,17 @@ export interface BudgetYearCoverage {
   >;
 }
 
+// Per-year coverage summary for the personnel pillar — surfaces which years
+// have national-level Доклад aggregates and which have per-ministry headcount.
+// The frontend uses this to decide whether to render the Personnel tile /
+// Sankey drill-down without fetching the full personnel.json.
+export interface PersonnelCoverage {
+  nationalYears: number[]; // years with annual Доклад data
+  ministryYears: number[]; // years with per-ministry execution-report data
+  ministryCountByYear: Record<string, number>;
+  programmeCountByYear: Record<string, number>;
+}
+
 export interface BudgetIndex {
   generatedAt: string;
   lastIngest: string;
@@ -434,4 +445,5 @@ export interface BudgetIndex {
   // these directly instead of re-deriving from the observation series.
   fiscalYears: FiscalYearSummary[];
   documentCount: number;
+  personnel: PersonnelCoverage;
 }

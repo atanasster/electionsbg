@@ -4,6 +4,12 @@
 //
 // This module sits alongside the existing financial-facts builders. It uses
 // the same fetched bytes the budget pipeline already has (no extra HTTP).
+//
+// NOTE on type duplication: `MinistryHeadcountSummary`, `PersonnelFile` and
+// related shapes are defined here AND mirrored in `src/data/budget/types.ts`
+// for the SPA. Same convention as `BudgetFact` and the other budget shapes —
+// src/ can't import from scripts/, so adding a field requires updating both
+// files. The frontend types file carries the documenting header.
 
 import path from "path";
 import { fileURLToPath } from "url";

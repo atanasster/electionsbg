@@ -32,8 +32,7 @@ interface Props {
 }
 
 export const MinistryPersonnelBlock: FC<Props> = ({ adminId }) => {
-  const { t, i18n } = useTranslation();
-  const lang = i18n.language.startsWith("bg") ? "bg" : "en";
+  const { t } = useTranslation();
   const { data } = usePersonnel();
 
   // All summary entries for this ministry, newest year first.
@@ -59,19 +58,18 @@ export const MinistryPersonnelBlock: FC<Props> = ({ adminId }) => {
       <CardHeader>
         <CardTitle className="flex items-center gap-2 text-lg">
           <Users className="h-5 w-5" />
-          {t("budget_ministry_personnel_title") ||
-            (lang === "bg" ? "Численост на персонала" : "Personnel")}
+          {t("personnel_ministry_title")}
         </CardTitle>
         <p className="text-sm text-muted-foreground">
-          {lang === "bg"
-            ? `${latest.totalHeadcount.executed?.toLocaleString("en-US") ?? "—"} щатни бройки заети към 31.12.${latest.fiscalYear} г.`
-            : `${latest.totalHeadcount.executed?.toLocaleString("en-US") ?? "—"} positions filled as of 31.12.${latest.fiscalYear}`}
+          {t("personnel_ministry_subtitle", {
+            count:
+              latest.totalHeadcount.executed?.toLocaleString("en-US") ?? "—",
+            year: latest.fiscalYear,
+          })}
           {latest.avgAnnualCostPerFte && (
             <span>
               {" · "}
-              {lang === "bg"
-                ? "Средно възнаграждение"
-                : "Average annual cost"}{" "}
+              {t("personnel_ministry_avg_label")}{" "}
               {compactEur(latest.avgAnnualCostPerFte.amountEur)}/yr
             </span>
           )}
@@ -84,23 +82,21 @@ export const MinistryPersonnelBlock: FC<Props> = ({ adminId }) => {
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b text-left text-muted-foreground">
-                  <th className="py-1 pr-3">
-                    {lang === "bg" ? "Година" : "Year"}
+                  <th className="py-1 pr-3">{t("personnel_table_year")}</th>
+                  <th className="py-1 pr-3 text-right">
+                    {t("personnel_table_plan")}
                   </th>
                   <th className="py-1 pr-3 text-right">
-                    {lang === "bg" ? "Закон" : "Plan"}
+                    {t("personnel_table_amended")}
                   </th>
                   <th className="py-1 pr-3 text-right">
-                    {lang === "bg" ? "Уточнен" : "Amended"}
+                    {t("personnel_table_actual")}
                   </th>
                   <th className="py-1 pr-3 text-right">
-                    {lang === "bg" ? "Отчет" : "Actual"}
+                    {t("personnel_table_personnel")}
                   </th>
                   <th className="py-1 pr-3 text-right">
-                    {lang === "bg" ? "Персонал" : "Personnel"}
-                  </th>
-                  <th className="py-1 pr-3 text-right">
-                    {lang === "bg" ? "Ср. / год." : "Avg / yr"}
+                    {t("personnel_table_avg_per_year")}
                   </th>
                 </tr>
               </thead>
@@ -130,28 +126,70 @@ export const MinistryPersonnelBlock: FC<Props> = ({ adminId }) => {
           </div>
         )}
 
-        {/* Per-programme breakdown for the latest year */}
+        {/* Per-programme breakdown for the latest year.
+            Layout strategy: Закон/Уточнен (planning history) are auxiliary
+            context — they're hidden on narrow viewports (≤lg breakpoint)
+            and revealed on wider screens. Mobile sees the four essentials:
+            code, name, executed headcount, executed personnel, avg/yr. */}
         <div className="mb-2 text-sm font-medium">
-          {lang === "bg"
-            ? `По програми — ${latest.fiscalYear} г.`
-            : `By programme — ${latest.fiscalYear}`}
+          {t("personnel_table_by_programme", { year: latest.fiscalYear })}
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b text-left text-muted-foreground">
-                <th className="py-1 pr-3">{lang === "bg" ? "Код" : "Code"}</th>
-                <th className="py-1 pr-3">
-                  {lang === "bg" ? "Програма" : "Programme"}
+                <th rowSpan={2} className="py-1 pr-3 align-bottom">
+                  {t("personnel_table_code")}
                 </th>
-                <th className="py-1 pr-3 text-right">
-                  {lang === "bg" ? "Заети" : "Filled"}
+                <th rowSpan={2} className="py-1 pr-3 align-bottom">
+                  {t("personnel_table_programme")}
                 </th>
-                <th className="py-1 pr-3 text-right">
-                  {lang === "bg" ? "Персонал" : "Personnel"}
+                <th
+                  colSpan={3}
+                  className="py-1 pr-3 text-right border-b hidden lg:table-cell"
+                >
+                  {t("personnel_table_headcount_group")}
                 </th>
-                <th className="py-1 pr-3 text-right">
-                  {lang === "bg" ? "Ср. / год." : "Avg / yr"}
+                <th
+                  rowSpan={2}
+                  className="py-1 pr-3 text-right align-bottom lg:hidden"
+                >
+                  {t("personnel_table_filled")}
+                </th>
+                <th
+                  colSpan={3}
+                  className="py-1 pr-3 text-right border-b hidden lg:table-cell"
+                >
+                  {t("personnel_table_personnel_group")}
+                </th>
+                <th
+                  rowSpan={2}
+                  className="py-1 pr-3 text-right align-bottom lg:hidden"
+                >
+                  {t("personnel_table_personnel")}
+                </th>
+                <th rowSpan={2} className="py-1 pr-3 text-right align-bottom">
+                  {t("personnel_table_avg_per_year")}
+                </th>
+              </tr>
+              <tr className="border-b text-left text-muted-foreground text-xs hidden lg:table-row">
+                <th className="py-1 pr-3 text-right font-normal">
+                  {t("personnel_table_plan")}
+                </th>
+                <th className="py-1 pr-3 text-right font-normal">
+                  {t("personnel_table_amended_short")}
+                </th>
+                <th className="py-1 pr-3 text-right font-medium">
+                  {t("personnel_table_actual")}
+                </th>
+                <th className="py-1 pr-3 text-right font-normal">
+                  {t("personnel_table_plan")}
+                </th>
+                <th className="py-1 pr-3 text-right font-normal">
+                  {t("personnel_table_amended_short")}
+                </th>
+                <th className="py-1 pr-3 text-right font-medium">
+                  {t("personnel_table_actual")}
                 </th>
               </tr>
             </thead>
@@ -169,10 +207,22 @@ export const MinistryPersonnelBlock: FC<Props> = ({ adminId }) => {
                       {p.code}
                     </td>
                     <td className="py-1 pr-3">{p.nameBg}</td>
-                    <td className="py-1 pr-3 text-right tabular-nums">
+                    <td className="py-1 pr-3 text-right tabular-nums text-muted-foreground hidden lg:table-cell">
+                      {fmtN(p.headcount.law)}
+                    </td>
+                    <td className="py-1 pr-3 text-right tabular-nums text-muted-foreground hidden lg:table-cell">
+                      {fmtN(p.headcount.amended)}
+                    </td>
+                    <td className="py-1 pr-3 text-right tabular-nums font-medium">
                       {fmtN(p.headcount.executed)}
                     </td>
-                    <td className="py-1 pr-3 text-right tabular-nums">
+                    <td className="py-1 pr-3 text-right tabular-nums text-muted-foreground hidden lg:table-cell">
+                      {compactEur(p.personnel.law?.amountEur ?? null)}
+                    </td>
+                    <td className="py-1 pr-3 text-right tabular-nums text-muted-foreground hidden lg:table-cell">
+                      {compactEur(p.personnel.amended?.amountEur ?? null)}
+                    </td>
+                    <td className="py-1 pr-3 text-right tabular-nums font-medium">
                       {compactEur(p.personnel.executed?.amountEur ?? null)}
                     </td>
                     <td className="py-1 pr-3 text-right tabular-nums text-muted-foreground">
@@ -184,9 +234,7 @@ export const MinistryPersonnelBlock: FC<Props> = ({ adminId }) => {
           </table>
         </div>
         <p className="mt-3 text-xs text-muted-foreground">
-          {lang === "bg"
-            ? "Източник: Отчет за изпълнението на програмния бюджет — секция „Персонал“ и ред „Численост на щатния персонал“. Средното възнаграждение включва осигуровки за сметка на работодателя."
-            : "Source: Program Budget Execution Report — Personnel line and Staffing row. Average cost includes employer social-security contributions."}
+          {t("personnel_ministry_source_caveat")}
         </p>
       </CardContent>
     </Card>

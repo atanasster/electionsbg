@@ -25,11 +25,26 @@ export const extractDocxBytesFromZip = async (
     return bytes;
   }
   // Otherwise look for a wrapped *.docx entry.
-  const docxEntry = dir.files.find((f) =>
+  const docxEntries = dir.files.filter((f) =>
     f.path.toLowerCase().endsWith(".docx"),
   );
-  if (!docxEntry) {
+  if (docxEntries.length === 0) {
     throw new Error("docx extractor: no .docx inside the archive");
   }
-  return new Uint8Array(await docxEntry.buffer());
+  if (docxEntries.length > 1) {
+    // Multiple .docx files inside one archive — surface a warning so the
+    // operator can verify we're picking the right one. Sort the candidates
+    // by uncompressed size; the largest is almost always the main report.
+    const candidates = docxEntries
+      .map((e) => `${e.path} (${e.uncompressedSize ?? "?"} bytes)`)
+      .join(", ");
+    console.warn(
+      `  ⚠ docx extractor: ${docxEntries.length} .docx entries in archive ` +
+        `— picking the largest. Candidates: ${candidates}`,
+    );
+    docxEntries.sort(
+      (a, b) => (b.uncompressedSize ?? 0) - (a.uncompressedSize ?? 0),
+    );
+  }
+  return new Uint8Array(await docxEntries[0].buffer());
 };
