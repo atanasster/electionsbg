@@ -11,7 +11,6 @@
 
 import fs from "fs";
 import path from "path";
-import type { CohesionSlice } from "./types";
 import type { LoyaltyOutput, LoyaltyEntry } from "./loyalty";
 import type { SimilarityOutput, SimilarityEntry } from "./similarity";
 import type { DissentOutput, DissentEntry } from "./dissents";
@@ -108,10 +107,6 @@ export interface ShardRunInput {
   loyalty: LoyaltyOutput;
   similarity: SimilarityOutput;
   dissents: DissentOutput;
-  // Unused today but pass-through in case a future revision wants to embed
-  // the MP's party-cohesion context (e.g. "this MP's group has 0.92
-  // cohesion" in the loyalty tile).
-  cohesion?: CohesionSlice;
 }
 
 export interface ShardRunResult {
