@@ -289,19 +289,41 @@ export const EXECUTION_REPORTS: ExecutionReportSource[] = [
   // To activate any of these: uncomment the entry, manually download the
   // file, save it at the cache path above, then `npm run budget:ingest`.
   // ──────────────────────────────────────────────────────────────────────
-  // {
-  //   fiscalYear: 2024,
-  //   adminId: "admin-ministerstvoto-na-vatreshnite-raboti",
-  //   unitNameBg: "Министерството на вътрешните работи",
-  //   format: "manual-pdf",
-  //   url: "https://www.mvr.bg/upload/279894/1300_bu_3_122024-rezume.pdf",
-  // },
+  // МФ FY2023 — cached via Wayback Machine (the live site is Cloudflare-
+  // challenged). The MoF report is bordered-table PDF; the headcount parser
+  // emits 8 "programmes" of which the first (code 1000.06.00, executed
+  // 11,527) is a ministry rollup whose value equals the sum of the other 7.
+  // personnel_facts.ts:dropRollupRows() filters that out.
+  {
+    fiscalYear: 2023,
+    adminId: "admin-ministerstvoto-na-finansite",
+    unitNameBg: "Министерството на финансите",
+    format: "manual-pdf",
+    url: "https://www.minfin.bg/upload/57898/1000_Pril-1-MoF_draft+ProgOtchet_31.12.2023_Official.pdf",
+  },
+  // МФ FY2024 — site is Cloudflare-challenged and Wayback has not archived
+  // the annual report yet (only 30.06.2024 H1 is mirrored). Operator must
+  // download `1000_Pril-1-MoF_draft+ProgOtchet_31.12.2024_Official.pdf`
+  // manually once available and save to the cache path noted above.
   // {
   //   fiscalYear: 2024,
   //   adminId: "admin-ministerstvoto-na-finansite",
   //   unitNameBg: "Министерството на финансите",
   //   format: "manual-pdf",
   //   url: "https://www.minfin.bg/bg/725",
+  // },
+  // МВР — the only PDF reachable via Wayback for FY2024 is the 9-page
+  // "rezume" (summary), which carries no programme-level Численост tables.
+  // The full "Доклад за дейността на МВР" exists but is a different document
+  // format that the existing parsers don't recognize. Skip until either the
+  // operator downloads the full programme-budget execution report manually
+  // or we add a dedicated doklad parser.
+  // {
+  //   fiscalYear: 2024,
+  //   adminId: "admin-ministerstvoto-na-vatreshnite-raboti",
+  //   unitNameBg: "Министерството на вътрешните работи",
+  //   format: "manual-pdf",
+  //   url: "https://www.mvr.bg/upload/279894/1300_bu_3_122024-rezume.pdf",
   // },
 ];
 

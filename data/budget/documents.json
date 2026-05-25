@@ -47,6 +47,23 @@
     {
       "discovery": "auto-confirmed",
       "fiscalYear": 2022,
+      "id": "exec-admin-ministerstvoto-na-ikonomikata-i-industriyata-2022",
+      "kind": "execution-report",
+      "reportDate": "2022-12-31",
+      "seq": 0,
+      "sources": [
+        {
+          "format": "pdf",
+          "label": "Министерството на икономиката и индустрията — програмен отчет",
+          "role": "report",
+          "url": "https://www.mi.government.bg/files/useruploads/files/budget/2000_Otchet programi 31.12.2022 MII.pdf"
+        }
+      ],
+      "title": "Отчет за изпълнението на програмния бюджет на Министерството на икономиката и индустрията за 2022 г."
+    },
+    {
+      "discovery": "auto-confirmed",
+      "fiscalYear": 2022,
       "id": "law-2022",
       "kind": "law",
       "seq": 0,
@@ -110,6 +127,40 @@
         }
       ],
       "title": "Отчет за изпълнението на програмния бюджет на Министерството на труда и социалната политика за 2023 г."
+    },
+    {
+      "discovery": "auto-confirmed",
+      "fiscalYear": 2023,
+      "id": "exec-admin-ministerstvoto-na-zemedelieto-2023",
+      "kind": "execution-report",
+      "reportDate": "2023-12-31",
+      "seq": 0,
+      "sources": [
+        {
+          "format": "pdf",
+          "label": "Министерството на земеделието — програмен отчет",
+          "role": "report",
+          "url": "https://www.mzh.government.bg/media/filer_public/2024/03/13/2200_otchet_31-12-2023_.docx"
+        }
+      ],
+      "title": "Отчет за изпълнението на програмния бюджет на Министерството на земеделието за 2023 г."
+    },
+    {
+      "discovery": "auto-confirmed",
+      "fiscalYear": 2023,
+      "id": "exec-admin-ministerstvoto-na-finansite-2023",
+      "kind": "execution-report",
+      "reportDate": "2023-12-31",
+      "seq": 0,
+      "sources": [
+        {
+          "format": "pdf",
+          "label": "Министерството на финансите — програмен отчет",
+          "role": "report",
+          "url": "https://www.minfin.bg/upload/57898/1000_Pril-1-MoF_draft+ProgOtchet_31.12.2023_Official.pdf"
+        }
+      ],
+      "title": "Отчет за изпълнението на програмния бюджет на Министерството на финансите за 2023 г."
     },
     {
       "discovery": "auto-confirmed",
@@ -278,6 +329,23 @@
         }
       ],
       "title": "Отчет за изпълнението на програмния бюджет на Министерството на отбраната за 2024 г."
+    },
+    {
+      "discovery": "auto-confirmed",
+      "fiscalYear": 2024,
+      "id": "exec-admin-ministerstvoto-na-zemedelieto-2024",
+      "kind": "execution-report",
+      "reportDate": "2024-12-31",
+      "seq": 0,
+      "sources": [
+        {
+          "format": "pdf",
+          "label": "Министерството на земеделието — програмен отчет",
+          "role": "report",
+          "url": "https://www.mzh.government.bg/media/filer_public/2025/03/25/2200_otchet_31-12-2024.zip"
+        }
+      ],
+      "title": "Отчет за изпълнението на програмния бюджет на Министерството на земеделието за 2024 г."
     },
     {
       "discovery": "auto-confirmed",
@@ -681,5 +749,5 @@
       "title": "КФП — state budget execution by major budget indicators"
     }
   ],
-  "generatedAt": "2026-05-15T11:21:44.126Z"
+  "generatedAt": "2026-05-25T20:26:23.575Z"
 }

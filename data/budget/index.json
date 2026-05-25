@@ -1,6 +1,6 @@
 {
   "country": "BG",
-  "documentCount": 21,
+  "documentCount": 25,
   "fiscalYears": [
     {
       "actual": {
@@ -399,7 +399,7 @@
       "projectionBasis": 2025
     }
   ],
-  "generatedAt": "2026-05-15T17:40:19.129Z",
+  "generatedAt": "2026-05-25T20:26:23.575Z",
   "kfp": {
     "cadences": [
       "monthly"
@@ -408,7 +408,35 @@
     "lastPeriod": "2026-03",
     "observationCount": 285
   },
-  "lastIngest": "2026-05-15T17:40:19.129Z",
+  "lastIngest": "2026-05-25T20:26:23.575Z",
+  "personnel": {
+    "ministryCountByYear": {
+      "2022": 1,
+      "2023": 5,
+      "2024": 7
+    },
+    "ministryYears": [
+      2022,
+      2023,
+      2024
+    ],
+    "nationalYears": [
+      2017,
+      2018,
+      2019,
+      2020,
+      2021,
+      2022,
+      2023,
+      2024,
+      2025
+    ],
+    "programmeCountByYear": {
+      "2022": 7,
+      "2023": 50,
+      "2024": 60
+    }
+  },
   "years": [
     {
       "dimensions": {

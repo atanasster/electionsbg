@@ -103,29 +103,49 @@ export interface AdminNameLookup {
   (adminId: string): { nameBg: string; nameEn: string };
 }
 
+// Some ministry reports include a consolidated "Общо за министерството" line
+// that lands in the parsed-programme list because it carries the same
+// "Бюджетна програма ..." prefix as a real programme (МФ 2023 does this for
+// code 1000.06.00 — the rollup row's executed headcount = 11,527, which is
+// exactly the sum of the other 7 programmes). Detect by self-consistency:
+// if a row's executed headcount equals the sum of every OTHER programme's
+// executed headcount, treat it as a rollup and drop it from the sum.
+const dropRollupRows = (
+  programmes: ParsedHeadcountProgramme[],
+): ParsedHeadcountProgramme[] => {
+  if (programmes.length < 3) return programmes;
+  const exec = programmes.map((p) => p.headcount.executed ?? 0);
+  const total = exec.reduce((s, v) => s + v, 0);
+  return programmes.filter((_, i) => {
+    const others = total - exec[i];
+    return !(exec[i] > 0 && exec[i] === others);
+  });
+};
+
 const summarize = (
   adminId: string,
   unit: ParsedHeadcountUnit,
   lookupName: AdminNameLookup,
 ): MinistryHeadcountSummary | null => {
   if (unit.programmes.length === 0) return null;
+  const programmes = dropRollupRows(unit.programmes);
 
   const totalHeadcount = {
-    law: sumCount(unit.programmes.map((p) => p.headcount.law)),
-    amended: sumCount(unit.programmes.map((p) => p.headcount.amended)),
-    executed: sumCount(unit.programmes.map((p) => p.headcount.executed)),
+    law: sumCount(programmes.map((p) => p.headcount.law)),
+    amended: sumCount(programmes.map((p) => p.headcount.amended)),
+    executed: sumCount(programmes.map((p) => p.headcount.executed)),
   };
   const totalPersonnel = {
     law: sumMoney(
-      unit.programmes.map((p) => p.personnel.law),
+      programmes.map((p) => p.personnel.law),
       unit.currency,
     ),
     amended: sumMoney(
-      unit.programmes.map((p) => p.personnel.amended),
+      programmes.map((p) => p.personnel.amended),
       unit.currency,
     ),
     executed: sumMoney(
-      unit.programmes.map((p) => p.personnel.executed),
+      programmes.map((p) => p.personnel.executed),
       unit.currency,
     ),
   };
@@ -142,7 +162,7 @@ const summarize = (
       totalHeadcount.executed,
       unit.currency,
     ),
-    programmes: unit.programmes,
+    programmes,
   };
 };
 

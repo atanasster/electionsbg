@@ -292,8 +292,12 @@ const isTextItem = (it: PdfTextItem | { type: string }): it is PdfTextItem =>
 export const extractTables = async (
   pdfBytes: Uint8Array,
 ): Promise<ExtractedTable[]> => {
+  // pdfjs takes ownership of the buffer and detaches it once getDocument
+  // runs, so a second parse pass on the same Uint8Array (e.g. financial →
+  // headcount in the budget ingest) blows up with "Cannot transfer object
+  // of unsupported type". Clone the bytes so each call owns its own buffer.
   const doc = await pdfjs.getDocument({
-    data: pdfBytes,
+    data: new Uint8Array(pdfBytes),
     isEvalSupported: false,
   }).promise;
   const out: ExtractedTable[] = [];
